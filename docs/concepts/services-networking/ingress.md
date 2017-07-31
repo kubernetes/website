@@ -24,7 +24,7 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 
 __术语__
 
-在本篇文章中你将会看到一些在其他地方被交叉使用的术语，为了防止产生歧义，我们首先来澄清下。
+在本篇文章中您将会看到一些在其他地方被交叉使用的术语，为了防止产生歧义，我们首先来澄清下。
 
 - 节点：Kubernetes 集群中的一台物理机或者虚拟机。
 - 集群：位于 Internet 防火墙后的节点，这是 kubernetes 管理的主要计算资源。
@@ -78,7 +78,7 @@ Ingress 是授权入站连接到达集群服务的规则集合。
    [ Services ]
 ```
 
-你可以给Ingress配置提供外部可访问的 URL、负载均衡、SSL、基于名称的虚拟主机等。用户通过 POST Ingress 资源到API server的方式来请求ingress。 [Ingress controller](/docs/concepts/services-networking/ingress/#ingress-controllers) 负责实现 Ingress，通常使用负载平衡器，它还可以配置边界路由和其他前端，这有助于以 HA 方式处理流量。
+您可以给Ingress配置提供外部可访问的 URL、负载均衡、SSL、基于名称的虚拟主机等。用户通过 POST Ingress 资源到API server的方式来请求ingress。 [Ingress controller](/docs/concepts/services-networking/ingress/#ingress-controllers) 负责实现 Ingress，通常使用负载平衡器，它还可以配置边界路由和其他前端，这有助于以 HA 方式处理流量。
 <!--
 
 
@@ -93,11 +93,11 @@ Make sure you review the [beta limitations](https://git.k8s.io/ingress/controlle
 
 ## 先决条件
 
-在使用 Ingress resource 之前，有必要先了解下面几件事情。Ingress 是 beta 版本的 resource，在 kubernetes1.1之前还没有。你需要一个`Ingress Controller`来实现`Ingress`，单纯的创建一个`Ingress`没有任何意义。
+在使用 Ingress resource 之前，有必要先了解下面几件事情。Ingress 是 beta 版本的 resource，在 kubernetes1.1之前还没有。您需要一个`Ingress Controller`来实现`Ingress`，单纯的创建一个`Ingress`没有任何意义。
 
-GCE/GKE 会在 master 节点上部署一个 ingress controller。你可以在一个 pod 中部署任意个自定义的 ingress controller。你必须正确地给每个 ingress 作出注释，比如 [运行多个ingress controller](https://github.com/kubernetes/ingress/tree/master/controllers/nginx#running-multiple-ingress-controllers) 和 [关闭glbc](https://github.com/kubernetes/ingress/blob/master/controllers/gce/BETA_LIMITATIONS.md#disabling-glbc).
+GCE/GKE 会在 master 节点上部署一个 ingress controller。您可以在一个 pod 中部署任意个自定义的 ingress controller。您必须正确地给每个 ingress 作出注释，比如 [运行多个ingress controller](https://github.com/kubernetes/ingress/tree/master/controllers/nginx#running-multiple-ingress-controllers) 和 [关闭glbc](https://github.com/kubernetes/ingress/blob/master/controllers/gce/BETA_LIMITATIONS.md#disabling-glbc).
 
-确定你已经阅读了 Ingress controller 的 [beta版本限制](https://github.com/kubernetes/ingress/blob/master/controllers/gce/BETA_LIMITATIONS.md)。在非 GCE/GKE 的环境中，你需要在 pod 中 [部署一个controller](https://github.com/kubernetes/ingress/tree/master/controllers)。
+确定您已经阅读了 Ingress controller 的 [beta版本限制](https://github.com/kubernetes/ingress/blob/master/controllers/gce/BETA_LIMITATIONS.md)。在非 GCE/GKE 的环境中，您需要在 pod 中 [部署一个controller](https://github.com/kubernetes/ingress/tree/master/controllers)。
 <!--
 
 
@@ -154,7 +154,7 @@ __Global Parameters__: For the sake of simplicity the example Ingress has no glo
 12:           servicePort: 80
 ```
 
-*如果你没有配置 Ingress controller 就将其 POST 到 API server 不会有任何用处*
+*如果您没有配置 Ingress controller 就将其 POST 到 API server 不会有任何用处*
 
 **配置说明**
 
@@ -177,7 +177,7 @@ In order for the Ingress resource to work, the cluster must have an Ingress cont
 
 ## Ingress controller
 
-为了使 Ingress 正常工作，集群中必须运行 Ingress controller。 这与其他类型的控制器不同，其他类型的控制器通常作为`kube-controller-manager`二进制文件的一部分运行，在集群启动时自动启动。 你需要选择最适合自己集群的 Ingress controller 或者自己实现一个。 示例和说明可以在 [这里](https://github.com/kubernetes/ingress/tree/master/controllers) 找到。
+为了使 Ingress 正常工作，集群中必须运行 Ingress controller。 这与其他类型的控制器不同，其他类型的控制器通常作为`kube-controller-manager`二进制文件的一部分运行，在集群启动时自动启动。 您需要选择最适合自己集群的 Ingress controller 或者自己实现一个。 示例和说明可以在 [这里](https://github.com/kubernetes/ingress/tree/master/controllers) 找到。
 <!--
 
 
@@ -186,7 +186,7 @@ In order for the Ingress resource to work, the cluster must have an Ingress cont
 The following document describes a set of cross platform features exposed through the Ingress resource. Ideally, all Ingress controllers should fulfill this specification, but we're not there yet. The docs for the GCE and nginx controllers are [here](https://git.k8s.io/ingress/controllers/gce/README.md) and [here](https://git.k8s.io/ingress/controllers/nginx/README.md) respectively. **Make sure you review controller specific docs so you understand the caveats of each one**.
 -->
 
-## 在你开始前
+## 在您开始前
 
 以下文档描述了 Ingress 资源中公开的一组跨平台功能。 理想情况下，所有的 Ingress controller 都应该符合这个规范，但是我们还没有实现。 GCE 和 nginx 控制器的文档分别在 [这里](https://github.com/kubernetes/ingress/blob/master/controllers/gce/README.md) 和 [这里](https://github.com/kubernetes/ingress/blob/master/controllers/nginx/README.md)。**确保您查看控制器特定的文档，以便您了解每个文档的注意事项。**
 <!--
@@ -215,7 +215,7 @@ Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy
 
 ### 单Service Ingress
 
-Kubernetes 中已经存在一些概念可以暴露单个 service（查看 [替代方案](/docs/concepts/services-networking/ingress/#alternatives)），但是你仍然可以通过 Ingress来实现，通过指定一个没有 rule 的默认 backend 的方式。
+Kubernetes 中已经存在一些概念可以暴露单个 service（查看 [替代方案](/docs/concepts/services-networking/ingress/#alternatives)），但是您仍然可以通过 Ingress来实现，通过指定一个没有 rule 的默认 backend 的方式。
 
 ingress.yaml 定义文件：
 
@@ -290,14 +290,14 @@ The Ingress controller will provision an implementation specific loadbalancer th
 
 ### 简单展开
 
-如前面描述的那样，kubernete pod 中的 IP 只在集群网络内部可见，我们需要在边界设置一个东西，让它能够接收 ingress 的流量并将它们转发到正确的端点上。这个东西一般是高可用的 loadbalancer。使用 Ingress 能够允许你将 loadbalancer 的个数降低到最少，例如，假如你想要创建这样的一个设置：
+如前面描述的那样，kubernete pod 中的 IP 只在集群网络内部可见，我们需要在边界设置一个东西，让它能够接收 ingress 的流量并将它们转发到正确的端点上。这个东西一般是高可用的 loadbalancer。使用 Ingress 能够允许您将 loadbalancer 的个数降低到最少，例如，假如您想要创建这样的一个设置：
 
 ```
 foo.bar.com -> 178.91.123.132 -> / foo    s1:80
                                  / bar    s2:80
 ```
 
-你需要一个这样的 ingress：
+您需要一个这样的 ingress：
 
 ```yaml
 apiVersion: extensions/v1beta1
@@ -403,7 +403,7 @@ spec:
           servicePort: 80
 ```
 
-**默认 backend**：一个没有 rule 的 ingress，如前面章节中所示，所有流量都将发送到一个默认 backend。你可以用该技巧通知 loadbalancer 如何找到你网站的404页面，通过制定一些列 rule 和一个默认 backend 的方式。如果请求 header 中的 host 不能跟 ingress 中的 host 匹配，并且/或请求的 URL 不能与任何一个  path 匹配，则流量将路由到你的默认 backend。
+**默认 backend**：一个没有 rule 的 ingress，如前面章节中所示，所有流量都将发送到一个默认 backend。您可以用该技巧通知 loadbalancer 如何找到您网站的404页面，通过制定一些列 rule 和一个默认 backend 的方式。如果请求 header 中的 host 不能跟 ingress 中的 host 匹配，并且/或请求的 URL 不能与任何一个  path 匹配，则流量将路由到您的默认 backend。
 <!--
 
 
@@ -443,7 +443,7 @@ Note that there is a gap between TLS features supported by various Ingress contr
 
 ### TLS
 
-你可以通过指定包含 TLS 私钥和证书的 [secret](/docs/user-guide/secrets) 来加密Ingress。 目前，Ingress 仅支持单个 TLS 端口443，并假定 TLS termination。 如果 Ingress 中的 TLS 配置部分指定了不同的主机，则它们将根据通过 SNI TLS 扩展指定的主机名（假如 Ingress controller 支持 SNI ）在多个相同端口上进行复用。 TLS secret 中必须包含名为`tls.crt`和`tls.key`的密钥，这里面包含了用于 TLS 的证书和私钥，例如：
+您可以通过指定包含 TLS 私钥和证书的 [secret](/docs/user-guide/secrets) 来加密Ingress。 目前，Ingress 仅支持单个 TLS 端口443，并假定 TLS termination。 如果 Ingress 中的 TLS 配置部分指定了不同的主机，则它们将根据通过 SNI TLS 扩展指定的主机名（假如 Ingress controller 支持 SNI ）在多个相同端口上进行复用。 TLS secret 中必须包含名为`tls.crt`和`tls.key`的密钥，这里面包含了用于 TLS 的证书和私钥，例如：
 
 ```Yaml
 apiVersion: v1
@@ -472,11 +472,11 @@ spec:
     servicePort: 80
 ```
 
-请注意，各种 Ingress controller 支持的 TLS 功能之间存在差距。 请参阅有关 [nginx](https://github.com/kubernetes/ingress/blob/master/controllers/nginx/README.md#https)，[GCE ](https://github.com/kubernetes/ingress/blob/master/controllers/gce/README.md#tls)或任何其他平台特定 Ingress controller 的文档，以了解 TLS 在你的环境中的工作原理。
+请注意，各种 Ingress controller 支持的 TLS 功能之间存在差距。 请参阅有关 [nginx](https://github.com/kubernetes/ingress/blob/master/controllers/nginx/README.md#https)，[GCE ](https://github.com/kubernetes/ingress/blob/master/controllers/gce/README.md#tls)或任何其他平台特定 Ingress controller 的文档，以了解 TLS 在您的环境中的工作原理。
 
-Ingress controller 启动时附带一些适用于所有 Ingress 的负载平衡策略设置，例如负载均衡算法，后端权重方案等。更高级的负载平衡概念（例如持久会话，动态权重）尚未在 Ingress 中公开。 你仍然可以通过 [service loadbalancer ](https://github.com/kubernetes/contrib/tree/master/service-loadbalancer)获取这些功能。 随着时间的推移，我们计划将适用于跨平台的负载平衡模式加入到Ingress资源中。
+Ingress controller 启动时附带一些适用于所有 Ingress 的负载平衡策略设置，例如负载均衡算法，后端权重方案等。更高级的负载平衡概念（例如持久会话，动态权重）尚未在 Ingress 中公开。 您仍然可以通过 [service loadbalancer ](https://github.com/kubernetes/contrib/tree/master/service-loadbalancer)获取这些功能。 随着时间的推移，我们计划将适用于跨平台的负载平衡模式加入到Ingress资源中。
 
-还值得注意的是，尽管健康检查不直接通过 Ingress 公开，但 Kubernetes 中已经存在该概念，例如 [准备探查](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)，可以使你达成相同的最终结果。 请查看特定控制器的文档，以了解他们如何处理健康检查（[nginx](https://github.com/kubernetes/ingress/blob/master/controllers/nginx/README.md)，[GCE](https://github.com/kubernetes/ingress/blob/master/controllers/gce/README.md#health-checks)）。
+还值得注意的是，尽管健康检查不直接通过 Ingress 公开，但 Kubernetes 中已经存在该概念，例如 [准备探查](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)，可以使您达成相同的最终结果。 请查看特定控制器的文档，以了解他们如何处理健康检查（[nginx](https://github.com/kubernetes/ingress/blob/master/controllers/nginx/README.md)，[GCE](https://github.com/kubernetes/ingress/blob/master/controllers/gce/README.md#health-checks)）。
 <!--
 ### Loadbalancing
 
@@ -488,9 +488,9 @@ It's also worth noting that even though health checks are not exposed directly t
 
 ### 负载均衡
 
-Ingress controller 中已经在所有的 ingress 中预加载了负载均衡配置，例如负载均衡算法、backend weight schema等。更多高级的负载均衡策略（如持久化 session、动态权重等）尚未在 ingress 中支持。你依然可以通过 [service loadbalancer](https://git.k8s.io/contrib/service-loadbalancer) 来获取这些功能。假以时日，我们计划提取适用于跨平台的负载均衡模式到 ingress resource 中。
+Ingress controller 中已经在所有的 ingress 中预加载了负载均衡配置，例如负载均衡算法、backend weight schema等。更多高级的负载均衡策略（如持久化 session、动态权重等）尚未在 ingress 中支持。您依然可以通过 [service loadbalancer](https://git.k8s.io/contrib/service-loadbalancer) 来获取这些功能。假以时日，我们计划提取适用于跨平台的负载均衡模式到 ingress resource 中。
 
-直接在 ingress 中做健康状态检查是没有意义的，kubernetes 中已经有了等同的概念，如 [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) ，使用它就可以到达你想要的结果。请查看相应的 controller 的文档中关于健康检查的部分（ [nginx](https://git.k8s.io/ingress/controllers/nginx/README.md), [GCE](https://git.k8s.io/ingress/controllers/gce/README.md#health-checks)）。
+直接在 ingress 中做健康状态检查是没有意义的，kubernetes 中已经有了等同的概念，如 [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) ，使用它就可以到达您想要的结果。请查看相应的 controller 的文档中关于健康检查的部分（ [nginx](https://git.k8s.io/ingress/controllers/nginx/README.md), [GCE](https://git.k8s.io/ingress/controllers/gce/README.md#health-checks)）。
 <!--
 
 
@@ -546,7 +546,7 @@ You can achieve the same by invoking `kubectl replace -f` on a modified Ingress 
 
 ## 更新 Ingress
 
-假如你想要向已有的 ingress 中增加一个新的 Host，你可以编辑和更新该 ingress：
+假如您想要向已有的 ingress 中增加一个新的 Host，您可以编辑和更新该 ingress：
 
 ```Bash
 $ kubectl get ing
@@ -634,9 +634,9 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 
 ## 替代选择
 
-你可以通过很多种方式暴露 service 而不必直接使用 ingress：
+您可以通过很多种方式暴露 service 而不必直接使用 ingress：
 
 - 使用 [Service.Type=LoadBalancer](/docs/user-guide/services/#type-loadbalancer)
 - 使用 [Service.Type=NodePort](/docs/user-guide/services/#type-nodeport)
 - 使用 [Port Proxy](https://github.com/kubernetes/contrib/tree/master/for-demos/proxy-to-service)
-- 部署一个 [Service loadbalancer](https://github.com/kubernetes/contrib/tree/master/service-loadbalancer) 这允许你在多个 service 之间共享单个 IP，并通过 Service Annotations 实现更高级的负载平衡。
+- 部署一个 [Service loadbalancer](https://github.com/kubernetes/contrib/tree/master/service-loadbalancer) 这允许您在多个 service 之间共享单个 IP，并通过 Service Annotations 实现更高级的负载平衡。
