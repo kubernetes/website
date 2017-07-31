@@ -3,11 +3,6 @@ assignees:
 - caesarxuchao
 - dchen1107
 title: Nodes
-redirect_from:
-- "/docs/admin/node/"
-- "/docs/admin/node.html"
-- "/docs/concepts/nodes/node/"
-- "/docs/concepts/nodes/node.html"
 ---
 
 * TOC
@@ -68,9 +63,9 @@ The node condition is represented as a JSON object. For example, the following r
 ]
 ```
 
-If the Status of the Ready condition is "Unknown" or "False" for longer than the `pod-eviction-timeout`, an argument passed to the [kube-controller-manager](/docs/admin/kube-controller-manager/), all of the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on it. The decision to delete the pods cannot be communicated to the kubelet until it re-establishes communication with the apiserver. In the meantime, the pods which are scheduled for deletion may continue to run on the partitioned node. 
+If the Status of the Ready condition is "Unknown" or "False" for longer than the `pod-eviction-timeout`, an argument passed to the [kube-controller-manager](/docs/admin/kube-controller-manager/), all of the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on it. The decision to delete the pods cannot be communicated to the kubelet until it re-establishes communication with the apiserver. In the meantime, the pods which are scheduled for deletion may continue to run on the partitioned node.
 
-In versions of Kubernetes prior to 1.5, the node controller would [force delete](/docs/user-guide/pods/#force-deletion-of-pods) these unreachable pods from the apiserver. However, in 1.5 and higher, the node controller does not force delete pods until it is confirmed that they have stopped running in the cluster. One can see these pods which may be running on an unreachable node as being in the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce from the underlying infrastructure if a node has permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
+In versions of Kubernetes prior to 1.5, the node controller would [force delete](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods) these unreachable pods from the apiserver. However, in 1.5 and higher, the node controller does not force delete pods until it is confirmed that they have stopped running in the cluster. One can see these pods which may be running on an unreachable node as being in the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce from the underlying infrastructure if a node has permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
 
 ### Capacity
 
@@ -141,7 +136,7 @@ ConditionUnknown and 5m after that to start evicting pods.) The node controller
 checks the state of each node every `--node-monitor-period` seconds.
 
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
-cases when a big number of nodes have problems with reaching the master
+cases when a large number of nodes have problems with reaching the master
 (e.g. because the master has networking problem). Starting with 1.4, the node
 controller will look at the state of all nodes in the cluster when making a
 decision about pod eviction.
@@ -232,7 +227,7 @@ you are doing [manual node administration](#manual-node-administration), then yo
 capacity when adding a node.
 
 The Kubernetes scheduler ensures that there are enough resources for all the pods on a node.  It
-checks that the sum of the limits of containers on the node is no greater than the node capacity.  It
+checks that the sum of the requests of containers on the node is no greater than the node capacity.  It
 includes all containers started by the kubelet, but not containers started directly by Docker nor
 processes not in containers.
 
@@ -249,7 +244,7 @@ spec:
   - name: sleep-forever
     image: gcr.io/google_containers/pause:0.8.0
     resources:
-      limits:
+      requests:
         cpu: 100m
         memory: 100Mi
 ```
@@ -263,4 +258,4 @@ on each kubelet where you want to reserve resources.
 
 Node is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [Node API
-object](/docs/api-reference/v1.6/#node-v1-core).
+object](/docs/api-reference/{{page.version}}/#node-v1-core).

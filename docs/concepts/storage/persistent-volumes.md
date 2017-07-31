@@ -5,9 +5,6 @@ assignees:
 - saad-ali
 - thockin
 title: Persistent Volumes
-redirect_from:
-- "/docs/user-guide/persistent-volumes/"
-- "/docs/user-guide/persistent-volumes/index.html"
 ---
 
 This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
@@ -67,13 +64,17 @@ Pods use claims as volumes. The cluster inspects the claim to find the bound vol
 
 Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a persistentVolumeClaim in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
 
-### Releasing
-
-When a user is done with their volume, they can delete the PVC objects from the API which allows reclamation of the resource.  The volume is considered "released" when the claim is deleted, but it is not yet available for another claim.  The previous claimant's data remains on the volume which must be handled according to policy.
-
 ### Reclaiming
 
-The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released of its claim.  Currently, volumes can either be Retained, Recycled or Deleted.  Retention allows for manual reclamation of the resource.  For those volume plugins that support it, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume).  Volumes that were dynamically provisioned are always deleted.
+When a user is done with their volume, they can delete the PVC objects from the API which allows reclamation of the resource. The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released of its claim. Currently, volumes can either be Retained, Recycled or Deleted.
+
+#### Retaining
+
+The Retain reclaim policy allows for manual reclamation of the resource. When the `PersistentVolumeClaim` is deleted, the `PersistentVolume` still exists and the volume is considered "released". But it is not yet available for another claim because the previous claimant's data remains on the volume. An administrator can manually reclaim the volume with the following steps.
+
+1. Delete the `PersistentVolume`. The associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume) still exists after the PV is deleted.
+1. Manually clean up the data on the associated storage asset accordingly.
+1. Manually delete the associated storage asset, or if you want to reuse the same storage asset, create a new `PersistentVolume` with the storage asset definition.
 
 #### Recycling
 
@@ -103,6 +104,10 @@ spec:
 ```
 
 However, the particular path specified in the custom recycler pod template in the `volumes` part is replaced with the particular path of the volume that is being recycled.
+
+#### Deleting
+
+For volume plugins that support the Delete reclaim policy, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in the external infrastructure, such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume. Volumes that were dynamically provisioned are always deleted. If that is not desired, currently, the only option is to edit or patch the PV after it is created. See [Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
 
 ## Types of Persistent Volumes
 
@@ -257,7 +262,7 @@ spec:
     pdName: "gce-disk-1"
 ```
 
-A mount option is a string which will be cumulatively joined and used while mounting volume to the disk. 
+A mount option is a string which will be cumulatively joined and used while mounting volume to the disk.
 
 Note that not all Persistent volume types support mount options. In Kubernetes version 1.6, the following
 volume types support mount options.
@@ -416,7 +421,7 @@ for provisioning PVs. This field must be specified.
 | Volume Plugin        | Internal Provisioner| Config Example                       |
 | :---                 |     :---:           |    :---:                             |
 | AWSElasticBlockStore | &#x2713;            | [AWS](#aws)                          |
-| AzureFile            | &#x2713;            | -                                    |
+| AzureFile            | &#x2713;            | [Azure File](#azure-file)            |
 | AzureDisk            | &#x2713;            | [Azure Disk](#azure-disk)            |
 | CephFS               | -                   | -                                    |
 | Cinder               | &#x2713;            | [OpenStack Cinder](#openstack-cinder)|
@@ -563,7 +568,7 @@ parameters:
   availability: nova
 ```
 
-* `type`: [VolumeType](http://docs.openstack.org/admin-guide/dashboard-manage-volumes.html) created in Cinder. Default is empty.
+* `type`: [VolumeType](https://docs.openstack.org/user-guide/dashboard-manage-volumes.html) created in Cinder. Default is empty.
 * `availability`: Availability Zone. If not specified, volumes are generally round-robin-ed across all active zones where Kubernetes cluster has a node.
 
 #### vSphere
@@ -706,6 +711,27 @@ parameters:
 * `location`: Azure storage account location. Default is empty.
 * `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
 
+#### Azure File
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: azurefile
+provisioner: kubernetes.io/azure-file
+parameters:
+  skuName: Standard_LRS
+  location: eastus
+  storageAccount: azure_storage_account_name
+```
+
+* `skuName`: Azure storage account Sku tier. Default is empty.
+* `location`: Azure storage account location. Default is empty.
+* `storageAccount`: Azure storage account name.  Default is empty.
+If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
+
+During provision, a secret will be created for mounting credentials. If the cluster has enabled both [RBAC](/docs/admin/authorization/rbac/) and [Controller Roles](/docs/admin/authorization/rbac/#controller-roles), you will first need to add `create` permission of resource `secret` for clusterrole `system:controller:persistent-volume-binder`.
+
 #### Portworx Volume
 
 ```yaml
@@ -757,7 +783,7 @@ parameters:
 * `readOnly`: specifies the access mode to the mounted volume
 * `fsType`: the file system to use for the volume
 
-The ScaleIO Kubernetes volume plugin requires a configured Secret object. 
+The ScaleIO Kubernetes volume plugin requires a configured Secret object.
 The secret must be created with type `kubernetes.io/scaleio` and use the same namespace value as that of the PVC where it is referenced
 as shown in the following command:
 

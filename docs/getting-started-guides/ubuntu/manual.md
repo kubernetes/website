@@ -123,7 +123,7 @@ through `FLANNEL_BACKEND` and `FLANNEL_OTHER_NET_CONFIG`, as explained in `clust
 The default setting for `ADMISSION_CONTROL` is right for the latest
 release of Kubernetes, but if you choose an earlier release then you
 might want a different setting.  See
-[the admission control doc](http://kubernetes.io/docs/admin/admission-controllers/#is-there-a-recommended-set-of-plug-ins-to-use)
+[the admission control doc](/docs/admin/admission-controllers/#is-there-a-recommended-set-of-plug-ins-to-use)
 for the recommended settings for various releases.
 
 **Note:** When deploying, master needs to be connected to the Internet to download the necessary files.

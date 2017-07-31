@@ -3,10 +3,8 @@ assignees:
 - bgrant0607
 - mikedanese
 title: What is Kubernetes?
-redirect_from:
-- "/docs/whatisk8s/"
-- "/docs/whatisk8s.html"
 ---
+
 {% capture overview %}
 This page is an overview of Kubernetes.
 {% endcapture %}
@@ -19,11 +17,11 @@ With Kubernetes, you are able to quickly and efficiently respond to customer dem
  - Deploy your applications quickly and predictably.
  - Scale your applications on the fly.
  - Roll out new features seamlessly.
- - Limit hardware usage to required resources only. 
+ - Limit hardware usage to required resources only.
 
 Our goal is to foster an ecosystem of components and tools that relieve the burden of running applications in public and private clouds.
 
-#### Kubernetes is:
+#### Kubernetes is
 
 * **Portable**: public, private, hybrid, multi-cloud
 * **Extensible**: modular, pluggable, hookable, composable

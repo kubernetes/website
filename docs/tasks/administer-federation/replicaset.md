@@ -1,8 +1,5 @@
 ---
 title: Federated ReplicaSets
-redirect_from:
-- "/docs/user-guide/federation/replicasets/"
-- "/docs/user-guide/federation/replicasets.html"
 ---
 
 {% capture overview %}

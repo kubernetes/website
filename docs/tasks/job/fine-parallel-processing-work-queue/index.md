@@ -1,8 +1,5 @@
 ---
 title: Fine Parallel Processing Using a Work Queue
-redirect_from:
-- "/docs/user-guide/jobs/work-queue-2/"
-- "/docs/user-guide/jobs/work-queue-2/index.html"
 ---
 
 * TOC
@@ -146,7 +143,7 @@ your app image with your project ID, and push to GCR. Replace
 
 ```shell
 docker tag job-wq-2 gcr.io/<project>/job-wq-2
-gcloud docker push gcr.io/<project>/job-wq-2
+gcloud docker -- push gcr.io/<project>/job-wq-2
 ```
 
 ## Defining a Job

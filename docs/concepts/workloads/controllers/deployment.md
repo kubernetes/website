@@ -3,9 +3,6 @@ assignees:
 - bgrant0607
 - janetkuo
 title: Deployments
-redirect_from:
-- "/docs/user-guide/deployments/"
-- "/docs/user-guide/deployments.html"
 ---
 
 {:toc}
@@ -394,7 +391,7 @@ $ kubectl rollout undo deployment/nginx-deployment --to-revision=2
 deployment "nginx-deployment" rolled back
 ```
 
-For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/v1.6/#rollout).
+For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/{{page.version}}/#rollout).
 
 The Deployment is now rolled back to a previous stable revision. As you can see, a `DeploymentRollback` event
 for rolling back to revision 2 is generated from Deployment controller.
@@ -503,7 +500,7 @@ nginx-deployment-1989198191   7         7         0         7m
 nginx-deployment-618515232    11        11        11        7m
 ```
 
-## Pausing and Resuming a Deployment 
+## Pausing and Resuming a Deployment
 
 You can pause a Deployment before triggering one or more updates and then resume it. This will allow you to
 apply multiple fixes in between pausing and resuming without triggering unnecesarry rollouts.
@@ -549,7 +546,7 @@ deployment "nginx" resource requirements updated
 ```
 
 The initial state of the Deployment prior to pausing it will continue its function, but new updates to
-the Deployment will not have any effect as long as the Deployment is paused. 
+the Deployment will not have any effect as long as the Deployment is paused.
 
 Eventually, resume the Deployment and observe a new ReplicaSet coming up with all the new updates:
 ```shell
@@ -754,13 +751,13 @@ to a previous revision, or even pause it if you need to apply multiple tweaks in
 
 You can set `.spec.revisionHistoryLimit` field in a Deployment to specify how many old ReplicaSets for
 this Deployment you want to retain. The rest will be garbage-collected in the background. By default,
-all revision history will be kept. In a future version, it will default to switch to 2. 
+all revision history will be kept. In a future version, it will default to switch to 2.
 
 **Note:** Explicitly setting this field to 0, will result in cleaning up all the history of your Deployment
 thus that Deployment will not be able to roll back.
 
 
-## Use Cases 
+## Use Cases
 
 ### Canary Deployment
 
@@ -900,7 +897,7 @@ ReplicaSets will be kept by default, consuming resources in `etcd` and crowding 
 if this field is not set. The configuration of each Deployment revision is stored in its ReplicaSets;
 therefore, once an old ReplicaSet is deleted, you lose the ability to rollback to that revision of Deployment.
 
-More specifically, setting this field to zero means that all old ReplicaSets with 0 replica will be cleaned up. 
+More specifically, setting this field to zero means that all old ReplicaSets with 0 replica will be cleaned up.
 In this case, a new Deployment rollout cannot be undone, since its revision history is cleaned up.
 
 ### Paused
@@ -914,6 +911,6 @@ it is created.
 
 ### kubectl rolling update
 
-[Kubectl rolling update](/docs/user-guide/kubectl/v1.6/#rolling-update) updates Pods and ReplicationControllers
+[Kubectl rolling update](/docs/user-guide/kubectl/{{page.version}}/#rolling-update) updates Pods and ReplicationControllers
 in a similar fashion. But Deployments are recommended, since they are declarative, server side, and have
 additional features, such as rolling back to any previous revision even after the rolling update is done.

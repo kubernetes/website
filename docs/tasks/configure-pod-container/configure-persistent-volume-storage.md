@@ -1,8 +1,5 @@
 ---
 title: Configure a Pod to Use a PersistentVolume for Storage
-redirect_from:
-- "/docs/user-guide/persistent-volumes/walkthrough/"
-- "/docs/user-guide/persistent-volumes/walkthrough.html"
 ---
 
 {% capture overview %}
@@ -57,7 +54,7 @@ PersistentVolume uses a file or directory on the Node to emulate network-attache
 In a production cluster, you would not use hostPath. Instead a cluster administrator
 would provision a network resource like a Google Compute Engine persistent disk,
 an NFS share, or an Amazon Elastic Block Store volume. Cluster administrators can also
-use [StorageClasses](/docs/resources-reference/v1.6/#storageclass-v1-storage)
+use [StorageClasses](/docs/resources-reference/{{page.version}}/#storageclass-v1-storage)
 to set up
 [dynamic provisioning](http://blog.kubernetes.io/2016/10/dynamic-provisioning-and-storage-in-kubernetes.html).
 
@@ -68,7 +65,7 @@ Here is the configuration file for the hostPath PersistentVolume:
 The configuration file specifies that the volume is at `/tmp/data` on the
 the cluster's Node. The configuration also specifies a size of 10 gibibytes and
 an access mode of `ReadWriteOnce`, which means the volume can be mounted as
-read-write by a single Node. It defines the [StorageClass name](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#class)
+read-write by a single Node. It defines the [StorageClass name](/docs/concepts/storage/persistent-volumes/#class)
 `manual` for the PersistentVolume, which will be used to bind
 PersistentVolumeClaim requests to this PersistentVolume.
 
@@ -202,10 +199,10 @@ PersistentVolume are not present on the Pod resource itself.
 
 ### Reference
 
-* [PersistentVolume](/docs/resources-reference/v1.6/#persistentvolume-v1-core)
-* [PersistentVolumeSpec](/docs/resources-reference/v1.6/#persistentvolumespec-v1-core)
-* [PersistentVolumeClaim](/docs/resources-reference/v1.6/#persistentvolumeclaim-v1-core)
-* [PersistentVolumeClaimSpec](/docs/resources-reference/v1.6/#persistentvolumeclaimspec-v1-core)
+* [PersistentVolume](/docs/resources-reference/{{page.version}}/#persistentvolume-v1-core)
+* [PersistentVolumeSpec](/docs/resources-reference/{{page.version}}/#persistentvolumespec-v1-core)
+* [PersistentVolumeClaim](/docs/resources-reference/{{page.version}}/#persistentvolumeclaim-v1-core)
+* [PersistentVolumeClaimSpec](/docs/resources-reference/{{page.version}}/#persistentvolumeclaimspec-v1-core)
 
 {% endcapture %}
 

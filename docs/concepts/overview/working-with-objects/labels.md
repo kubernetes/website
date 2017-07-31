@@ -2,9 +2,6 @@
 assignees:
 - mikedanese
 title: Labels and Selectors
-redirect_from:
-- "/docs/user-guide/labels/"
-- "/docs/user-guide/labels.html"
 ---
 
 _Labels_ are key/value pairs that are attached to objects, such as pods.
@@ -60,7 +57,7 @@ An empty label selector (that is, one with zero requirements) selects every obje
 
 A null label selector (which is only possible for optional selector fields) selects no objects.
 
-**Note**: the label selectors of two controllers must not overlap within a namespace, otherwise they will fight with each other. 
+**Note**: the label selectors of two controllers must not overlap within a namespace, otherwise they will fight with each other.
 
 ### _Equality-based_ requirement
 

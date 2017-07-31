@@ -3,9 +3,6 @@ assignees:
 - bprashanth
 - janetkuo
 title: Replication Controller
-redirect_from:
-- "/docs/user-guide/replication-controller/"
-- "/docs/user-guide/replication-controller/index.html"
 ---
 
 * TOC
@@ -149,7 +146,7 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 ### Deleting a ReplicationController and its Pods
 
 To delete a ReplicationController and all its pods, use [`kubectl
-delete`](/docs/user-guide/kubectl/v1.6/#delete).  Kubectl will scale the ReplicationController to zero and wait
+delete`](/docs/user-guide/kubectl/{{page.version}}/#delete).  Kubectl will scale the ReplicationController to zero and wait
 for it to delete each pod before deleting the ReplicationController itself.  If this kubectl
 command is interrupted, it can be restarted.
 
@@ -160,7 +157,7 @@ When using the REST API or go client library, you need to do the steps explicitl
 
 You can delete a ReplicationController without affecting any of its pods.
 
-Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/user-guide/kubectl/v1.6/#delete).
+Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/user-guide/kubectl/{{page.version}}/#delete).
 
 When using the REST API or go client library, simply delete the ReplicationController object.
 
@@ -194,7 +191,7 @@ Ideally, the rolling update controller would take application readiness into acc
 The two ReplicationControllers would need to create pods with at least one differentiating label, such as the image tag of the primary container of the pod, since it is typically image updates that motivate rolling updates.
 
 Rolling update is implemented in the client tool
-[`kubectl rolling-update`](/docs/user-guide/kubectl/v1.6/#rolling-update). Visit [`kubectl rolling-update` task](/docs/tasks/run-application/rolling-update-replication-controller/) for more concrete examples. 
+[`kubectl rolling-update`](/docs/user-guide/kubectl/{{page.version}}/#rolling-update). Visit [`kubectl rolling-update` task](/docs/tasks/run-application/rolling-update-replication-controller/) for more concrete examples.
 
 ### Multiple release tracks
 
@@ -226,7 +223,7 @@ The ReplicationController is intended to be a composable building-block primitiv
 
 Replication controller is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [ReplicationController API
-object](/docs/api-reference/v1.6/#replicationcontroller-v1-core).
+object](/docs/api-reference/{{page.version}}/#replicationcontroller-v1-core).
 
 ## Alternatives to ReplicationController
 
@@ -240,7 +237,7 @@ Note that we recommend using Deployments instead of directly using Replica Sets,
 ### Deployment (Recommended)
 
 [`Deployment`](/docs/concepts/workloads/controllers/deployment/) is a higher-level API object that updates its underlying Replica Sets and their Pods
-in a similar fashion as `kubectl rolling-update`. Deployments are recommended if you want this rolling update functionality, 
+in a similar fashion as `kubectl rolling-update`. Deployments are recommended if you want this rolling update functionality,
 because unlike `kubectl rolling-update`, they are declarative, server-side, and have additional features.
 
 ### Bare Pods

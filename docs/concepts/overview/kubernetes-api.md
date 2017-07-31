@@ -2,9 +2,6 @@
 assignees:
 - chenopis
 title: The Kubernetes API
-redirect_from:
-- "/docs/api/"
-- "/docs/api.html"
 ---
 
 Overall API conventions are described in the [API conventions doc](https://git.k8s.io/community/contributors/devel/api-conventions.md).
