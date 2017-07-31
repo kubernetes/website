@@ -210,8 +210,8 @@ to 512MB of memory.  The cluster operator creates a separate namespace for each 
 each namespace.
 3. Users may create a pod which consumes resources just below the capacity of a machine.  The left over space
 may be too small to be useful, but big enough for the waste to be costly over the entire cluster.  As a result,
-the cluster operator may want to set limits that a pod must consume at least 20% of the memory and CPU of their
-average node size in order to provide for more uniform scheduling and limit waste.
+the cluster operator may want to set limits that a pod must consume no more than 20% of the memory and CPU of
+their average node size in order to provide for more uniform scheduling and limit waste.
 
 ## Summary
 
