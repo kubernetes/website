@@ -171,6 +171,9 @@ $ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spe
 
 # Disable a deployment livenessProbe using a json patch with positional arrays
 $ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
+
+# Add a new element to a positional array 
+$ kubectl patch dc my_deployment_config --type='json' -p='[{"op": "add", "path": "/spec/template/spec/containers/1", "value": {"image": "my_new_image", "name": "my_new_image"} }]'
 ```
 
 ## Editing Resources
