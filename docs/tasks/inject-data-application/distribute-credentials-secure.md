@@ -1,10 +1,5 @@
 ---
 title: Distribute Credentials Securely Using Secrets
-redirect_from:
-- "/docs/user-guide/secrets/walkthrough/"
-- "/docs/user-guide/secrets/walkthrough.html"
-- "/docs/tasks/configure-pod-container/distribute-credentials-secure/"
-- "/docs/tasks/configure-pod-container/distribute-credentials-secure.html"
 ---
 
 {% capture overview %}
@@ -167,9 +162,9 @@ Here is a configuration file you can use to create a Pod:
 
 ### Reference
 
-* [Secret](/docs/api-reference/v1.6/#secret-v1-core)
-* [Volume](/docs/api-reference/v1.6/#volume-v1-core)
-* [Pod](/docs/api-reference/v1.6/#pod-v1-core)
+* [Secret](/docs/api-reference/{{page.version}}/#secret-v1-core)
+* [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core)
+* [Pod](/docs/api-reference/{{page.version}}/#pod-v1-core)
 
 {% endcapture %}
 

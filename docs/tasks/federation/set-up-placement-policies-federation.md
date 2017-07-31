@@ -1,8 +1,5 @@
 ---
 title: Set up placement policies in Federation
-redirect_from:
-- "/docs/tutorials/federation/set-up-placement-policies-federation/"
-- "/docs/tutorials/federation/set-up-placement-policies-federation.html"
 ---
 
 {% capture overview %}
