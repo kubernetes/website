@@ -135,7 +135,7 @@ ReplicationController thinks that it created the other pods.  Kubernetes does no
 from doing this.
 
 If you do end up with multiple controllers that have overlapping selectors, you
-will have to manage the deletion yourself (see [below](#updating-a-replication-controller)).
+will have to manage the deletion yourself (see [below](#working-with-replicationcontrollers)).
 
 ### Multiple Replicas
 
