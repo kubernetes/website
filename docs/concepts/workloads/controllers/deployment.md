@@ -120,7 +120,7 @@ and in any existing Pods that the ReplicaSet may have.
 ## Updating a Deployment
 
 **Note:** A Deployment's rollout is triggered if and only if the Deployment's pod template (that is, `.spec.template`)
-is changed, for example if the labels or container images of the templaet are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
+is changed, for example if the labels or container images of the template are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
 
 Suppose that we now want to update the nginx Pods to use the `nginx:1.9.1` image
 instead of the `nginx:1.7.9` image.
@@ -780,8 +780,7 @@ A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contrib
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](/docs/user-guide/replication-controller/#pod-template).  It has exactly
-the same schema as a [Pod](/docs/user-guide/pods), except it is nested and does not have an
+The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [Pod](docs/concepts/workloads/pods/pod/), except it is nested and does not have an
 `apiVersion` or `kind`.
 
 In addition to required fields for a Pod, a pod template in a Deployment must specify appropriate

@@ -37,7 +37,7 @@ or the custom metrics API (for all other metrics).
   Then, if a target utilization value is set, the controller calculates the utilization
   value as a percentage of the equivalent resource request on the containers in
   each pod.  If a target raw value is set, the raw metric values are used directly.
-  the controller then takes the mean of the utilization or the raw value (depending on the type
+  The controller then takes the mean of the utilization or the raw value (depending on the type
   of target specified) across all targeted pods, and produces a ratio used to scale
   the number of desired replicas.
 
@@ -59,7 +59,7 @@ When using direct Heapster access, the HorizontalPodAutoscaler queries Heapster 
 through the API server's service proxy subresource.  Heapster needs to be deployed on the
 cluster and running in the kube-system namespace.
 
-See [Support for custom metrics](#prerequisites) for more details on REST client access.
+See [Support for custom metrics](#support-for-custom-metrics) for more details on REST client access.
 
 The autoscaler accesses corresponding replication controller, deployment or replica set by scale sub-resource.
 Scale is an interface that allows you to dynamically set the number of replicas and examine each of their current states.

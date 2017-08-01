@@ -77,9 +77,7 @@ In your shell, list the running processes:
 ps aux
 ```
 
-The output shows that the processes are running as user 1000, which isithub.io
-   68dc8932..69f5ba31  qos-experiment -> qos-experi
-the value of `runAsUser`:
+The output shows that the processes are running as user 1000, which is the value of `runAsUser`:
 
 ```shell
 USER   PID %CPU %MEM    VSZ   RSS TTY   STAT START   TIME COMMAND
