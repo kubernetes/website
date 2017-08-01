@@ -132,7 +132,7 @@ These solutions provide integration with third-party schedulers, resource manage
   * Instructions specify GCE, but are generic enough to be adapted to most existing Mesos clusters
 * [DCOS](/docs/getting-started-guides/dcos)
   * Community Edition DCOS uses AWS
-  * Enterprise Edition DCOS supports cloud hosting, on-premise VMs, and bare metal
+  * Enterprise Edition DCOS supports cloud hosting, on-premises VMs, and bare metal
 
 # Table of Solutions
 
