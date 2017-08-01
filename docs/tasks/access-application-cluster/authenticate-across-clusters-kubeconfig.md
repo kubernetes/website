@@ -178,7 +178,7 @@ mister-red,mister-red,2
 
 The sample kubeconfig file provides client credentials for the user `green-user`. Because the user for `current-context` is `green-user`, any client of the API server using the sample kubeconfig file could log in successfully. Similarly, we can operate as  `blue-user` by changing the value of `current-context`.
 
-In the example provided, `green-user` logs in by providing certificates, and blue-user  provides a token. Login information is specified with the `kubectl config set-credentials` command. For more information, see "[Commands for the example file](commands-for-the-example-file)".
+In the example provided, `green-user` logs in by providing certificates, and `blue-user`  provides a token. Login information is specified with the `kubectl config set-credentials` command. For more information, see "[Commands for the example file](#commands-for-the-example-file)".
 
 ## Loading and merging rules
 
@@ -194,7 +194,7 @@ The rules for loading and merging the kubeconfig files are straightforward, but 
       Merge files together based on the following rules.
       Empty filenames are ignored.  Files with non-deserializable content produced errors.
       The first file to set a particular value or map key wins and the value or map key is never changed.
-      This means that the first file to set `CurrentContext` will have its context preserved.  It also means that if two files specify a "red-user", only values from the first file's red-user are used.  Even non-conflicting entries from the second file's "red-user" are discarded.
+      This means that the first file to set `CurrentContext` will have its context preserved.  It also means that if two files specify a `red-user`, only values from the first file's `red-user` are used.  Even non-conflicting entries from the second file's `red-user` are discarded.
 
 
       Otherwise, use HomeDirectoryLocation (`~/.kube/config`) with no merging.
@@ -307,6 +307,6 @@ So, tying this all together, a quick start to create your own kubeconfig file:
 
 - Replace the snippet above with information for your cluster's api-server endpoint.
 
-- Make sure your api-server is launched in such a way that at least one user (for example, green-user) credentials are provided to it.  You will of course have to look at api-server documentation in order to determine the current state-of-the-art in terms of providing authentication details.
+- Make sure your api-server is launched in such a way that at least one user (for example, `green-user`) credentials are provided to it.  You will of course have to look at api-server documentation in order to determine the current state-of-the-art in terms of providing authentication details.
 
 {% include templates/task.md %}
