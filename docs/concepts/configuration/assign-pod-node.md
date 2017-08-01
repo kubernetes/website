@@ -168,7 +168,7 @@ and an example `preferredDuringSchedulingIgnoredDuringExecution` anti-affinity w
 Inter-pod affinity is specified as field `podAffinity` of field `affinity` in the PodSpec.
 And inter-pod anti-affinity is specified as field `podAntiAffinity` of field `affinity` in the PodSpec.
 
-Here's an example of a pod that uses pod affinity:
+#### An example of a pod that uses pod affinity:
 
 {% include code.html language="yaml" file="pod-with-pod-affinity.yaml" ghlink="/docs/concepts/configuration/pod-with-pod-affinity.yaml" %}
 
@@ -205,6 +205,31 @@ If defined but empty, it means "all namespaces."
 
 All `matchExpressions` associated with `requiredDuringSchedulingIgnoredDuringExecution` affinity and anti-affinity
 must be satisfied for the pod to schedule onto a node.
+
+#### More Practical Usage
+
+Than directly using with pods Interpod Affinity and AnitAffinity will be more useful when they are used with higher
+level objects such as Statefulset, Deployments, etc.  One can easily configure and prefer if two workloads should
+always be co-located in the same node or never be co-located in the same node.
+
+##### Always co-located in the same node
+
+A web application has an in-memory cache such as redis, one may prefer to co-locate their web server along with the cache as much as possible so that they have minimum latency like below.
+
+|       node-1         |       node-2        |       node-3       |
+|:--------------------:|:-------------------:|:------------------:|
+| *webserver-1*        | *webserver-2*       | *webserver-3*      |
+|  *cache-1*           |   *cache-2*         |   *cache-3*        |
+
+##### Never co-located in the same node
+
+Highly Available database statefulset has one master and three replicas, one may prefer none of the database instances to be co-located in the same node.
+
+|       node-1         |       node-2        |       node-3       |       node-4       |
+|:--------------------:|:-------------------:|:------------------:|:------------------:|
+| *DB-MASTER*          | *DB-REPLICA-1*      | *DB-REPLICA-2*     | *DB-REPLICA-3*     |
+
+[Here](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) is an example of zookeper statefulset configued with anti-affinity for high availablity.
 
 For more information on inter-pod affinity/anti-affinity, see the design doc
 [here](https://git.k8s.io/community/contributors/design-proposals/podaffinity.md).
