@@ -445,12 +445,19 @@ because of how this is used later.
 
   1. Set `--configure-cbr0=false` on kubelet and restart.
   1. Create a bridge.
+
         ip link add name cbr0 type bridge
+
   1. Set appropriate MTU. NOTE: the actual value of MTU will depend on your network environment
+
         ip link set dev cbr0 mtu 1460
+
   1. Add the node's network to the bridge (docker will go on other side of bridge).
+
         ip addr add $NODE_X_BRIDGE_ADDR dev cbr0
+
   1. Turn it on
+
         ip link set dev cbr0 up
 
 If you have turned off Docker's IP masquerading to allow pods to talk to each
