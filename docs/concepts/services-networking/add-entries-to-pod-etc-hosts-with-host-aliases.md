@@ -3,9 +3,6 @@ assignees:
 - rickypai
 - thockin
 title: Adding entries to Pod /etc/hosts with HostAliases
-redirect_from:
-- "/docs/user-guide/add-entries-to-pod-etc-hosts-with-host-aliases/"
-- "/docs/user-guide/add-entries-to-pod-etc-hosts-with-host-aliases.md"
 ---
 
 * TOC

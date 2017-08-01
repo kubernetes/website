@@ -2,9 +2,6 @@
 assignees:
 - mikedanese
 title: Secrets
-redirect_from:
-- "/docs/user-guide/secrets/index/"
-- "/docs/user-guide/secrets/index.html"
 ---
 
 Objects of type `secret` are intended to hold sensitive information, such as
