@@ -36,7 +36,7 @@ an application.  Examples are:
 - eviction of a pod due to the node being [out-of-resources](/docs/tasks/administer-cluster/out-of-resource.md).
 
 Except for the out-of-resources condition, all these conditions
-should be familiar to most users; they are are not specific
+should be familiar to most users; they are not specific
 to Kubernetes.
 
 We call other cases *voluntary disruptions*.  These include both
