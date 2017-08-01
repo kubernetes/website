@@ -2,11 +2,6 @@
 assignees:
 - jessfraz
 title: Inject Information into Pods Using a PodPreset
-redirect_from:
-- "/docs/user-guide/pod-preset/index/"
-- "/docs/user-guide/pod-preset/index.html"
-- "/docs/tasks/run-application/podpreset/"
-- "/docs/tasks/run-application/podpreset.html"
 ---
 
 You can use a `podpreset` object to inject certain information into pods at creation
@@ -23,7 +18,7 @@ See [PodPreset proposal](https://git.k8s.io/community/contributors/design-propos
 A _Pod Preset_ is an API resource that you can use to inject additional runtime
 requirements into a Pod at creation time. You use label selectors to specify
 the Pods to which a given Pod Preset applies. Check out more information on [label
-selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors).
+selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors).
 
 Using a Pod Preset allows pod template authors to not have to explicitly set
 information for every pod. This way, authors of pod templates consuming a
@@ -148,7 +143,7 @@ spec:
 
 ### Pod Spec with `ConfigMap` Example
 
-This is an example to show how a Pod spec is modified by the Pod Preset 
+This is an example to show how a Pod spec is modified by the Pod Preset
 that defines a `ConfigMap` for Environment Variables.
 
 **User submitted pod spec:**
@@ -219,7 +214,8 @@ spec:
     - name: cache-volume
       emptyDir: {}
     - name: secret-volume
-      secretName: config-details
+      secret:
+         secretName: config-details
 ```
 
 **Pod spec after admission controller:**
@@ -260,7 +256,8 @@ spec:
     - name: cache-volume
       emptyDir: {}
     - name: secret-volume
-      secretName: config-details
+      secret:
+         secretName: config-details
 ```
 
 ### ReplicaSet with Pod Spec Example
@@ -460,7 +457,7 @@ spec:
 
 ### Conflict Example
 
-This is an example to show how a Pod spec is not modified by the Pod Preset 
+This is an example to show how a Pod spec is not modified by the Pod Preset
 when there is a conflict.
 
 **User submitted pod spec:**

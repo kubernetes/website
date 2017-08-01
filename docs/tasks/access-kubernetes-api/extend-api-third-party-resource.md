@@ -3,11 +3,6 @@ assignees:
 - enisoc
 - IanLewis
 title: Extend the Kubernetes API with ThirdPartyResources
-redirect_from:
-- "/docs/user-guide/thirdpartyresources/"
-- "/docs/user-guide/thirdpartyresources.html"
-- "/docs/concepts/ecosystem/thirdpartyresource/"
-- "/docs/concepts/ecosystem/thirdpartyresource.html"
 ---
 
 {% assign for_k8s_version="1.7" %}{% include feature-state-deprecated.md %}

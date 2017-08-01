@@ -1,9 +1,7 @@
 ---
 title: Federated Ingress
-redirect_from:
-- "/docs/user-guide/federation/federated-ingress/"
-- "/docs/user-guide/federation/federated-ingress.html"
 ---
+
 {% capture overview %}
 This page explains how to use Kubernetes Federated Ingress to deploy
 a common HTTP(S) virtual IP load balancer across a federated service running in
@@ -25,7 +23,7 @@ Federated Ingress is released as an alpha feature, and supports Google Cloud Pla
 GCE and hybrid scenarios involving both) in Kubernetes v1.4.  Work is under way to support other cloud
 providers such as AWS, and other hybrid cloud scenarios (e.g. services
 spanning private on-premise as well as public cloud Kubernetes
-clusters).  
+clusters).
 
 You create Federated Ingresses in much that same way as traditional
 [Kubernetes Ingresses](/docs/concepts/services-networking/ingress/): by making an API
@@ -151,7 +149,7 @@ may take up to a few minutes).
 the network traffic directed to this ingress (that is, 'Service
 Endpoints' behind the service backing the Ingress), so the Federated Ingress does not yet consider these to
 be healthy shards and will not direct traffic to any of these clusters.
-*  The federation control system 
+*  The federation control system
 automatically reconfigures the load balancer controllers in all of the
 clusters in your federation to make them consistent, and allows
 them to share global load balancers.  But this reconfiguration can
@@ -202,7 +200,7 @@ nginx     10.63.250.98   104.199.136.89   80/TCP    9m
 Federations of Kubernetes Clusters can include clusters running in
 different cloud providers (for example, Google Cloud, AWS), and on-premises
 (for example, on OpenStack).  However, in Kubernetes v1.4, Federated Ingress is only
-supported across Google Cloud clusters.  
+supported across Google Cloud clusters.
 
 ## Discovering a federated ingress
 
@@ -300,12 +298,12 @@ Check that:
 {% endcapture %}
 
 {% capture whatsnext %}
-*  If you need assistance, use one of the [support channels](http://kubernetes.io/docs/troubleshooting/) to seek assistance.
- *  For details about use cases that motivated this work, see 
+*  If you need assistance, use one of the [support channels](/docs/tasks/debug-application-cluster/troubleshooting/) to seek assistance.
+ *  For details about use cases that motivated this work, see
  [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation.md).
 {% endcapture %}
 {% include templates/task.md %}
- 
- 
- 
- 
+
+
+
+

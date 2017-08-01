@@ -2,9 +2,6 @@
 assignees:
 - pipejakob
 title: Upgrading kubeadm clusters from 1.6 to 1.7
-redirect_from:
-- "/docs/admin/kubeadm-upgrade-1-7/"
-- "/docs/admin/kubeadm-upgrade-1-7.html"
 ---
 
 {% capture overview %}
@@ -56,6 +53,10 @@ You need to have a Kubernetes cluster running version 1.6.x.
        sudo KUBECONFIG=/etc/kubernetes/admin.conf kubectl delete daemonset kube-proxy -n kube-system
 
 4. Perform kubeadm upgrade.
+
+    **WARNING**: All parameters you passed to the first `kubeadm init` when you bootstrapped your
+    cluster **MUST** be specified here in the upgrade-`kubeadm init`-command. This is a limitation
+    we plan to address in v1.8.
 
        sudo kubeadm init --skip-preflight-checks --kubernetes-version <DESIRED_VERSION>
 

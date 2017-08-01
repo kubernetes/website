@@ -4,9 +4,6 @@ assignees:
 - caseydavenport
 - danwinship
 title: Network Policies
-redirect_from:
-- "/docs/user-guide/networkpolicies/"
-- "/docs/user-guide/networkpolicies.html"
 ---
 
 * TOC
@@ -28,7 +25,7 @@ Pods become isolated by having a NetworkPolicy that selects them. Once there is 
 
 ## The `NetworkPolicy` Resource
 
-See the [api-reference](/docs/api-reference/networking/v1/definitions/#_v1_networkpolicy) for a full definition of the resource.
+See the [api-reference](/docs/api-reference/{{page.version}}/#networkpolicy-v1-networking) for a full definition of the resource.
 
 An example `NetworkPolicy` might look like this:
 
@@ -51,7 +48,7 @@ spec:
         matchLabels:
           role: frontend
     ports:
-    - protocol: tcp
+    - protocol: TCP
       port: 6379
 ```
 
@@ -100,3 +97,8 @@ spec:
   ingress:
   - {}
 ```
+
+## What's next?
+
+- See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
+  walkthrough for further examples.

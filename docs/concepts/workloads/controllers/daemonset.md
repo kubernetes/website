@@ -2,9 +2,6 @@
 assignees:
 - erictune
 title: Daemon Sets
-redirect_from:
-- "/docs/admin/daemons/"
-- "/docs/admin/daemons.html"
 ---
 
 * TOC
@@ -21,7 +18,7 @@ Some typical uses of a DaemonSet are:
 - running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
 - running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
-  https://github.com/prometheus/node_exporter), `collectd`, New Relic agent, or Ganglia `gmond`.
+  https://github.com/prometheus/node_exporter), `collectd`, Datadog agent, New Relic agent, or Ganglia `gmond`.
 
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
@@ -41,9 +38,7 @@ A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/dev
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](/docs/user-guide/replication-controller/#pod-template).
-It has exactly the same schema as a [pod](/docs/user-guide/pods), except
-it is nested and does not have an `apiVersion` or `kind`.
+The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [pod](docs/concepts/workloads/pods/pod/), except it is nested and does not have an `apiVersion` or `kind`.
 
 In addition to required fields for a pod, a pod template in a DaemonSet has to specify appropriate
 labels (see [pod selector](#pod-selector)).
@@ -77,7 +72,7 @@ a node for testing.
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on nodes which match that [node
-selector](/docs/concepts/configuration/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity` 
+selector](/docs/concepts/configuration/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity`
 then DaemonSet controller will create pods on nodes which match that [node affinity](/docs/concepts/configuration/assign-pod-node/).
 If you do not specify either, then the DaemonSet controller will create pods on all nodes.
 
@@ -91,7 +86,7 @@ when the pod is created, so it is ignored by the scheduler).  Therefore:
    by the DaemonSet controller.
  - DaemonSet controller can make pods even when the scheduler has not been started, which can help cluster
    bootstrap.
-   
+
 Daemon pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature), but they are
 created with `NoExecute` tolerations for the `node.alpha.kubernetes.io/notReady` and `node.alpha.kubernetes.io/unreachable`
 taints with no `tolerationSeconds`. This ensures that when the `TaintBasedEvictions` alpha feature is enabled,
@@ -106,7 +101,7 @@ Some possible patterns for communicating with pods in a DaemonSet are:
 
 - **Push**: Pods in the DaemonSet are configured to send updates to another service, such
   as a stats database.  They do not have clients.
-- **NodeIP and Known Port**: Pods in the DaemonSet use a `hostPort`, so that the pods are reachable via the node IPs.  Clients know the list of nodes ips somehow, and know the port by convention.
+- **NodeIP and Known Port**: Pods in the DaemonSet can use a `hostPort`, so that the pods are reachable via the node IPs.  Clients know the list of nodes ips somehow, and know the port by convention.
 - **DNS**: Create a [headless service](/docs/user-guide/services/#headless-services) with the same pod selector,
   and then discover DaemonSets using the `endpoints` resource or retrieve multiple A records from
   DNS.

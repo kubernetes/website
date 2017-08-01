@@ -5,9 +5,6 @@ assignees:
 - saad-ali
 - thockin
 title: Volumes
-redirect_from:
-- "/docs/user-guide/volumes/"
-- "/docs/user-guide/volumes.html"
 ---
 
 {% capture overview %}
@@ -42,7 +39,7 @@ A Kubernetes volume, on the other hand, has an explicit lifetime - the same as
 the pod that encloses it.  Consequently, a volume outlives any containers that run
 within the Pod, and data is preserved across Container restarts. Of course, when a
 Pod ceases to exist, the volume will cease to exist, too.  Perhaps more
-importantly than this, Kubernetes supports many type of volumes, and a Pod can
+importantly than this, Kubernetes supports many types of volumes, and a Pod can
 use any number of them simultaneously.
 
 At its core, a volume is just a directory, possibly with some data in it, which
@@ -575,7 +572,7 @@ More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{
 ### vsphereVolume
 
 __Prerequisite: Kubernetes with vSphere Cloud Provider configured.
-For cloudprovider configuration please refer [vSphere getting started guide](http://kubernetes.io/docs/getting-started-guides/vsphere/).__
+For cloudprovider configuration please refer [vSphere getting started guide](/docs/getting-started-guides/vsphere/).__
 
 A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
 of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
@@ -785,7 +782,10 @@ spec:
       path: /mnt/disks/ssd1
 ```
 
-For details on the `local` volume type, see the [Local Persistent Storage 
+Note that local PersistentVolume cleanup and deletion requires manual
+intervention without the external provisioner.
+
+For details on the `local` volume type, see the [Local Persistent Storage
 user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume)
 
 ## Using subPath

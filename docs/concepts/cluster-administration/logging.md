@@ -3,12 +3,6 @@ assignees:
 - crassirostris
 - piosz
 title: Logging Architecture
-redirect_from:
-- "/docs/concepts/clusters/logging/"
-- "/docs/concepts/clusters/logging.html"
-redirect_from:
-- "/docs/user-guide/logging/overview/"
-- "/docs/user-guide/logging/overview.html"
 ---
 
 Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
@@ -49,7 +43,7 @@ $ kubectl logs counter
 ...
 ```
 
-You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/user-guide/kubectl/v1.6/#logs) for more details.
+You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/user-guide/kubectl/{{page.version}}/#logs) for more details.
 
 ## Logging at the node level
 
@@ -77,7 +71,7 @@ As an example, you can find detailed information about how `kube-up.sh` sets
 up logging for COS image on GCP in the corresponding [script]
 [cosConfigureHelper].
 
-When you run [`kubectl logs`](/docs/user-guide/kubectl/v1.6/#logs) as in
+When you run [`kubectl logs`](/docs/user-guide/kubectl/{{page.version}}/#logs) as in
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file, returning the contents in the response.
 **Note:** currently, if some external system has performed the rotation,

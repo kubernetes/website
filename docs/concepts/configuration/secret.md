@@ -2,9 +2,6 @@
 assignees:
 - mikedanese
 title: Secrets
-redirect_from:
-- "/docs/user-guide/secrets/index/"
-- "/docs/user-guide/secrets/index.html"
 ---
 
 Objects of type `secret` are intended to hold sensitive information, such as
@@ -124,7 +121,7 @@ The data field is a map.  Its keys must match
 [`DNS_SUBDOMAIN`](https://git.k8s.io/community/contributors/design-proposals/identifiers.md), except that leading dots are also
 allowed.  The values are arbitrary data, encoded using base64.
 
-Create the secret using [`kubectl create`](/docs/user-guide/kubectl/v1.6/#create):
+Create the secret using [`kubectl create`](/docs/user-guide/kubectl/v1.7/#create):
 
 ```shell
 $ kubectl create -f ./secret.yaml

@@ -1,15 +1,12 @@
 ---
 title: Federated Cluster
-redirect_from:
-- "/docs/user-guide/federation/cluster/"
-- "/docs/user-guide/federation/cluster.html"
 ---
 
 {% capture overview %}
 
 This guide explains how to use Clusters API resource in a Federation control plane.
 
-Different than other Kuberentes resources, such as Deployments, Services and ConfigMaps,
+Different than other Kubernetes resources, such as Deployments, Services and ConfigMaps,
 clusters only exist in the federation context, i.e. those requests must be submitted to the
 federation api-server.
 
@@ -106,7 +103,7 @@ Currently, only integers are supported with `Gt` or `Lt`.
 ## Clusters API reference
 
 The full clusters API reference is currently in `federation/v1beta1` and more details can be found in details in the
-[Federation API reference page](https://kubernetes.io/docs/reference/federation/).
+[Federation API reference page](/docs/reference/federation/).
 
 {% endcapture %}
 

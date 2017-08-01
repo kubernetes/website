@@ -63,7 +63,7 @@ It creates a [Headless Service](/docs/user-guide/services/#headless-services),
 Download the example above, and save it to a file named `web.yaml`
 
 You will need to use two terminal windows. In the first terminal, use 
-[`kubectl get`](/docs/user-guide/kubectl/v1.6/#get) to watch the creation 
+[`kubectl get`](/docs/user-guide/kubectl/{{page.version}}/#get) to watch the creation 
 of the StatefulSet's Pods.
 
 ```shell
@@ -71,7 +71,7 @@ kubectl get pods -w -l app=nginx
 ```
 
 In the second terminal, use 
-[`kubectl create`](/docs/user-guide/kubectl/v1.6/#create) to create the 
+[`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create) to create the 
 Headless Service and StatefulSet defined in `web.yaml`.
 
 ```shell
@@ -143,7 +143,7 @@ replicas, it creates two Pods, `web-0` and `web-1`.
 ### Using Stable Network Identities
 
 Each Pod has a stable hostname based on its ordinal index. Use
-[`kubectl exec`](/docs/user-guide/kubectl/v1.6/#exec) to execute the 
+[`kubectl exec`](/docs/user-guide/kubectl/{{page.version}}/#exec) to execute the 
 `hostname` command in each Pod. 
 
 ```shell
@@ -152,7 +152,7 @@ web-0
 web-1
 ```
 
-Use [`kubectl run`](/docs/user-guide/kubectl/v1.6/#run) to execute 
+Use [`kubectl run`](/docs/user-guide/kubectl/{{page.version}}/#run) to execute 
 a container that provides the `nslookup` command from the `dnsutils` package. 
 Using `nslookup` on the Pods' hostnames, you can examine their in-cluster DNS 
 addresses.
@@ -184,7 +184,7 @@ In one terminal, watch the StatefulSet's Pods.
 kubectl get pod -w -l app=nginx
 ```
 In a second terminal, use
-[`kubectl delete`](/docs/user-guide/kubectl/v1.6/#delete) to delete all 
+[`kubectl delete`](/docs/user-guide/kubectl/{{page.version}}/#delete) to delete all 
 the Pods in the StatefulSet.
 
 ```shell
@@ -337,8 +337,8 @@ mounted to the appropriate mount points.
 ## Scaling a StatefulSet
 Scaling a StatefulSet refers to increasing or decreasing the number of replicas. 
 This is accomplished by updating the `replicas` field. You can use either
-[`kubectl scale`](/docs/user-guide/kubectl/v1.6/#scale) or
-[`kubectl patch`](/docs/user-guide/kubectl/v1.6/#patch) to scale a Stateful 
+[`kubectl scale`](/docs/user-guide/kubectl/{{page.version}}/#scale) or
+[`kubectl patch`](/docs/user-guide/kubectl/{{page.version}}/#patch) to scale a Stateful 
 Set.
 
 ### Scaling Up
@@ -812,7 +812,7 @@ In one terminal window, watch the Pods in the StatefulSet.
 kubectl get pods -w -l app=nginx
 ```
 
-Use [`kubectl delete`](/docs/user-guide/kubectl/v1.6/#delete) to delete the 
+Use [`kubectl delete`](/docs/user-guide/kubectl/{{page.version}}/#delete) to delete the 
 StatefulSet. Make sure to supply the `--cascade=false` parameter to the 
 command. This parameter tells Kubernetes to only delete the StatefulSet, and to 
 not delete any of its Pods.
@@ -1014,8 +1014,7 @@ Pod.
 
 Download the example above, and save it to a file named `webp.yaml`
 
-This manifest is identical to the one you 
-[downloaded above](creating-a-statefulset) except that the `.spec.podManagementPolicy` 
+This manifest is identical to the one you downloaded above except that the `.spec.podManagementPolicy` 
 of the `web` StatefulSet is set to `Parallel`.
 
 In one terminal, watch the Pods in the StatefulSet.

@@ -128,9 +128,11 @@ toc:
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
   - docs/tasks/administer-cluster/safely-drain-node.md
   - docs/tasks/administer-cluster/declare-network-policy.md
-  - docs/tasks/administer-cluster/calico-network-policy.md
-  - docs/tasks/administer-cluster/romana-network-policy.md
-  - docs/tasks/administer-cluster/weave-network-policy.md
+  - title: Install Network Policy Provider
+    section:
+    - docs/tasks/administer-cluster/calico-network-policy.md
+    - docs/tasks/administer-cluster/romana-network-policy.md
+    - docs/tasks/administer-cluster/weave-network-policy.md
   - docs/tasks/administer-cluster/change-pv-reclaim-policy.md
   - docs/tasks/administer-cluster/configure-pod-disruption-budget.md
   - docs/tasks/administer-cluster/limit-storage-consumption.md

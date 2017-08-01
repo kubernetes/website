@@ -5,9 +5,6 @@ assignees:
 - justinsb
 - directxman12
 title: Horizontal Pod Autoscaling Walkthrough
-redirect_from:
-- "/docs/user-guide/horizontal-pod-autoscaling/walkthrough/"
-- "/docs/user-guide/horizontal-pod-autoscaling/walkthrough.html"
 ---
 
 Horizontal Pod Autoscaling automatically scales the number of pods
