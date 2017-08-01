@@ -2,7 +2,7 @@
 assignees:
 - davidopp
 - thockin
-title: DNS Pods and Services
+title: DNS Pod 与 Service
 redirect_from:
 - "/docs/admin/dns/"
 - "/docs/admin/dns.html"
