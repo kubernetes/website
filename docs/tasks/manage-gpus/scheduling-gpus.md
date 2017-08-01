@@ -2,9 +2,6 @@
 assignees:
 - vishh
 title: Schedule GPUs
-redirect_from:
-- "/docs/user-guide/gpus/"
-- "/docs/user-guide/gpus.html"
 ---
 
 {% capture overview %}
@@ -43,7 +40,7 @@ spec:
       resources: 
         limits: 
           alpha.kubernetes.io/nvidia-gpu: 2 # requesting 2 GPUs
-    - 
+    -
       name: gpu-container-2
       image: gcr.io/google_containers/pause:2.0
       resources: 
@@ -94,12 +91,12 @@ metadata:
           }
         }
       }
-spec: 
-  containers: 
-    - 
+spec:
+  containers:
+    -
       name: gpu-container-1
-      resources: 
-        limits: 
+      resources:
+        limits:
           alpha.kubernetes.io/nvidia-gpu: 2
 ```
 
@@ -139,7 +136,7 @@ spec:
   - hostPath:
       path: /usr/lib/nvidia-375/bin
     name: bin
-  - hostPath: 
+  - hostPath:
       path: /usr/lib/nvidia-375
     name: lib
 ```

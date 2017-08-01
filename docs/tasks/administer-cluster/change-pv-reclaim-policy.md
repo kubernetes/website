@@ -18,7 +18,7 @@ PersistentVolume.
 ## Why change reclaim policy of a PersistentVolume
 
 `PersistentVolumes` can have various reclaim policies, including "Retain",
-"Recycle", and "Delete". For dynamically provisioned `PersistentVolumes`, 
+"Recycle", and "Delete". For dynamically provisioned `PersistentVolumes`,
 the default reclaim policy is "Delete". This means that a dynamically provisioned
 volume is automatically deleted when a user deletes the corresponding
 `PeristentVolumeClaim`. This automatic behavior might be inappropriate if the volume
@@ -72,9 +72,9 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 
 ### Reference
 
-* [PersistentVolume](/docs/api-reference/v1.6/#persistentvolume-v1-core)
-* [PersistentVolumeClaim](/docs/api-reference/v1.6/#persistentvolumeclaim-v1-core)
-* See the `persistentVolumeReclaimPolicy` field of [PersistentVolumeSpec](/docs/api-reference/v1.6/#persistentvolumeclaim-v1-core).
+* [PersistentVolume](/docs/api-reference/{{page.version}}/#persistentvolume-v1-core)
+* [PersistentVolumeClaim](/docs/api-reference/{{page.version}}/#persistentvolumeclaim-v1-core)
+* See the `persistentVolumeReclaimPolicy` field of [PersistentVolumeSpec](/docs/api-reference/{{page.version}}/#persistentvolumeclaim-v1-core).
 {% endcapture %}
 
 {% include templates/task.md %}
