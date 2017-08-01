@@ -350,7 +350,7 @@ You should see:
 
 -->
 
-你会看到如下内容：
+可以看到如下内容：
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -402,7 +402,7 @@ Take a look inside the resolv.conf file. (See "Inheriting DNS from the node" and
 
 -->
 
-如果你看到了，说明 DNS 已经可以正确工作了。
+如果看到了，说明 DNS 已经可以正确工作了。
 
 ### 问题排查技巧
 
@@ -601,7 +601,7 @@ details on Cluster Federation and multi-site support.
 
 -->
 
-如果你没有看到 Endpoint，查看 [调试 Service 文档](/docs/tasks/debug-application-cluster/debug-service/) 中的 Endpoint 段内容。
+如果没有看到 Endpoint，查看 [调试 Service 文档](/docs/tasks/debug-application-cluster/debug-service/) 中的 Endpoint 段内容。
 
 关于更多 Kubernetes DNS 的示例，参考 Kubernetes GitHub 仓库中 [集群 DNS 示例](https://git.k8s.io/kubernetes/examples/cluster-dns)。
 
