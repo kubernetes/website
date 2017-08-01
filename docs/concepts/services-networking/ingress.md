@@ -79,7 +79,7 @@ __Lines 10-11__: Each http rule contains the following information: A host (e.g.
 
 __Lines 12-14__: A backend is a service:port combination as described in the [services doc](/docs/concepts/services-networking/service/). Ingress traffic is typically sent directly to the endpoints matching a backend.
 
-__Global Parameters__: For the sake of simplicity the example Ingress has no global parameters, see the [api-reference](/docs/reference/api-overview/) for a full definition of the resource. One can specify a global default backend in the absence of which requests that don't match a path in the spec are sent to the default backend of the Ingress controller.
+__Global Parameters__: For the sake of simplicity the example Ingress has no global parameters, see the [API reference](/docs/reference/api-overview/) for a full definition of the resource. One can specify a global default backend in the absence of which requests that don't match a path in the spec are sent to the default backend of the Ingress controller.
 
 ## Ingress controllers
 
