@@ -4,11 +4,6 @@ assignees:
 - foxish
 - davidopp
 title: Disruptions
-redirect_from:
-- "/docs/admin/disruptions/"
-- "/docs/admin/disruptions.html"
-- "/docs/tasks/configure-pod-container/configure-pod-disruption-budget/"
-- "/docs/tasks/administer-cluster/configure-pod-disruption-budget/"
 ---
 
 {% capture overview %}
@@ -41,7 +36,7 @@ an application.  Examples are:
 - eviction of a pod due to the node being [out-of-resources](/docs/tasks/administer-cluster/out-of-resource.md).
 
 Except for the out-of-resources condition, all these conditions
-should be familiar to most users; they are are not specific
+should be familiar to most users; they are not specific
 to Kubernetes.
 
 We call other cases *voluntary disruptions*.  These include both
@@ -102,7 +97,7 @@ voluntary disruptions.  For example, a quorum-based application would
 like to ensure that the number of replicas running is never brought below the
 number needed for a quorum. A web front end might want to
 ensure that the number of replicas serving load never falls below a certain
-percentage of the total.  
+percentage of the total.
 
 Cluster managers and hosting providers should use tools which
 respect Pod Disruption Budgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)
@@ -136,7 +131,7 @@ during application updates is configured in the controller spec.
 (Learn about [updating a deployment](/docs/concepts/cluster-administration/manage-deployment/#updating-your-application-without-a-service-outage).)
 
 When a pod is evicted using the eviction API, it is gracefully terminated (see
-`terminationGracePeriodSeconds` in [PodSpec](/docs/resources-reference/v1.6/#podspec-v1-core).)
+`terminationGracePeriodSeconds` in [PodSpec](/docs/resources-reference/{{page.version}}/#podspec-v1-core).)
 
 ## PDB Example
 
@@ -188,9 +183,7 @@ At some point, the pods terminate, and the cluster look like this:
 
 At this point, if an impatient cluster administrator tries to drain `node-2` or
 `node-3`, the drain command will block, because there are only 2 available
-pods for the deployment, and its PDB requires at least 2.  After some time
-
-asses, `pod-d` becomes available.
+pods for the deployment, and its PDB requires at least 2.  After some time passes, `pod-d` becomes available.
 
 The cluster state now looks like this:
 
@@ -200,14 +193,14 @@ The cluster state now looks like this:
 |                      | pod-d *available*   | pod-y              |
 
 Now, the cluster admin tries to drain `node-2`.
-The drain command will try to evict the two pods in some order, say 
+The drain command will try to evict the two pods in some order, say
 `pod-b` first and then `pod-d`.  It will succeed at evicting `pod-b`.
 But, when it tries to evict `pod-d`, it will be refused because that would leave only
 one pod available for the deployment.
 
 The deployment creates a replacement for `pod-b` called `pod-e`.
 However, not there are not enough resources in the cluster to schedule
-`pod-e`.  So, the drain  then the drain will block.  The cluster may end up in this
+`pod-e`.  So, the drain will again block.  The cluster may end up in this
 state:
 
 |    node-1 *drained*  |       node-2        |       node-3       | *no node*          |
@@ -234,7 +227,7 @@ and Application Owner as separate roles with limited knowledge
 of each other.   This separation of responsibilities
 may make sense in these scenarios:
 
-- when there are many application teams sharing a Kubernetes cluster, and 
+- when there are many application teams sharing a Kubernetes cluster, and
   there is natural specialization of roles
 - when third-party tools or services are used to automate cluster management
 
@@ -244,12 +237,12 @@ interface between the roles.
 If you do not have such a separation of responsibilities in your organization,
 you may not need to use Pod Disruption Budgets.
 
-## How to perform Distruptive Actions your Cluster
+## How to perform Disruptive Actions on your Cluster
 
 If you are a Cluster Administrator, and you need to perform a disruptive action on all
 the nodes in your cluster, such as a node or system software upgrade, here are some options:
 
-- Accept downtime during the upgrade. 
+- Accept downtime during the upgrade.
 - Fail over to another complete replica cluster.
    -  No downtime, but may be costly both for the duplicated nodes,
      and for human effort to orchestrate the switchover.
@@ -270,7 +263,7 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 
 * Learn more about [draining nodes](/docs/tasks/administer-cluster//safely-drain-node.md)
 
-{% endcapture %} 
+{% endcapture %}
 
 
 {% include templates/concept.md %}

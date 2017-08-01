@@ -1,8 +1,5 @@
 ---
 title: Set up CoreDNS as DNS provider for Cluster Federation
-redirect_from:
-- "/docs/tutorials/federation/set-up-coredns-provider-federation/"
-- "/docs/tutorials/federation/set-up-coredns-provider-federation.html"
 ---
 
 {% capture overview %}

@@ -4,9 +4,6 @@ assignees:
 - kevin-wangzefeng
 - bsalamat
 title: Assigning Pods to Nodes
-redirect_from:
-- "/docs/user-guide/node-selection/"
-- "/docs/user-guide/node-selection/index.html"
 ---
 
 You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/nodes/node/) or to prefer to
@@ -142,6 +139,8 @@ If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types
 
 If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` can be satisfied.
 
+If you remove or change the label of the node where the pod is scheduled, the pod won't be removed. In other words, the affinity selection works only at the time of scheduling the pod.
+
 For more information on node affinity, see the design doc
 [here](https://git.k8s.io/community/contributors/design-proposals/nodeaffinity.md).
 
@@ -205,7 +204,7 @@ If omitted, it defaults to the namespace of the pod where the affinity/anti-affi
 If defined but empty, it means "all namespaces."
 
 All `matchExpressions` associated with `requiredDuringSchedulingIgnoredDuringExecution` affinity and anti-affinity
-must be satisfied for the pod to schedule onto a node. 
+must be satisfied for the pod to schedule onto a node.
 
 For more information on inter-pod affinity/anti-affinity, see the design doc
 [here](https://git.k8s.io/community/contributors/design-proposals/podaffinity.md).
@@ -236,7 +235,7 @@ taint created by the `kubectl taint` line above, and thus a pod with either tole
 to schedule onto `node1`:
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "key"
   operator: "Equal"
   value: "value"
@@ -244,7 +243,7 @@ tolerations:
 ```
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "key"
   operator: "Exists"
   effect: "NoSchedule"
@@ -304,7 +303,7 @@ kubectl taint nodes node1 key2=value2:NoSchedule
 And a pod has two tolerations:
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "key1"
   operator: "Equal"
   value: "value1"
@@ -327,7 +326,7 @@ an optional `tolerationSeconds` field that dictates how long the pod will stay b
 to the node after the taint is added. For example,
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "key1"
   operator: "Equal"
   value: "value1"
@@ -345,7 +344,7 @@ Taints and tolerations are a flexible way to steer pods away from nodes or evict
 pods that shouldn't be running. A few of the use cases are
 
 * **dedicated nodes**: If you want to dedicate a set of nodes for exclusive use by
-a particular set of users, you can add a taint to those nodes (say, 
+a particular set of users, you can add a taint to those nodes (say,
 `kubectl taint nodes nodename dedicated=groupName:NoSchedule`) and then add a corresponding
 toleration to their pods (this would be done most easily by writing a custom
 [admission controller](/docs/admin/admission-controllers/)).
@@ -410,7 +409,7 @@ that the partition will recover and thus the pod eviction can be avoided.
 The toleration the pod would use in that case would look like
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "node.alpha.kubernetes.io/unreachable"
   operator: "Exists"
   effect: "NoExecute"

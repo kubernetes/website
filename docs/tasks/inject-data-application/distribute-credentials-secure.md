@@ -1,10 +1,5 @@
 ---
 title: Distribute Credentials Securely Using Secrets
-redirect_from:
-- "/docs/user-guide/secrets/walkthrough/"
-- "/docs/user-guide/secrets/walkthrough.html"
-- "/docs/tasks/configure-pod-container/distribute-credentials-secure/"
-- "/docs/tasks/configure-pod-container/distribute-credentials-secure.html"
 ---
 
 {% capture overview %}
@@ -47,7 +42,7 @@ username and password:
     **Note:** If you want to skip the Base64 encoding step, you can create a Secret
     by using the `kubectl create secret` command:
 
-        kubectl create secret generic test-secret --from-literal=username='my-app',password='39528$vdg7Jb'
+        kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
 
 1. View information about the Secret:
 
@@ -167,9 +162,9 @@ Here is a configuration file you can use to create a Pod:
 
 ### Reference
 
-* [Secret](/docs/api-reference/v1.6/#secret-v1-core)
-* [Volume](/docs/api-reference/v1.6/#volume-v1-core)
-* [Pod](/docs/api-reference/v1.6/#pod-v1-core)
+* [Secret](/docs/api-reference/{{page.version}}/#secret-v1-core)
+* [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core)
+* [Pod](/docs/api-reference/{{page.version}}/#pod-v1-core)
 
 {% endcapture %}
 

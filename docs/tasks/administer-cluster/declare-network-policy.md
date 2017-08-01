@@ -3,14 +3,9 @@ assignees:
 - caseydavenport
 - danwinship
 title: Declare Network Policy
-redirect_from:
-- "/docs/getting-started-guides/network-policy/walkthrough/"
-- "/docs/getting-started-guides/network-policy/walkthrough.html"
-- "/docs/tasks/configure-pod-container/declare-network-policy/"
-- "/docs/tasks/configure-pod-container/declare-network-policy.html"
 ---
 {% capture overview %}
-This document helps you get started using using the Kubernetes [NetworkPolicy API](/docs/user-guide/network-policies) to declare network policies that govern how pods communicate with each other. 
+This document helps you get started using using the Kubernetes [NetworkPolicy API](/docs/concepts/services-networking/network-policies/) to declare network policies that govern how pods communicate with each other.
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -28,16 +23,16 @@ You'll need to have a Kubernetes cluster in place, with network policy support. 
 
 ## Create an `nginx` deployment and expose it via a service
 
-To see how Kubernetes network policy works, start off by creating an `nginx` deployment and exposing it via a service. 
+To see how Kubernetes network policy works, start off by creating an `nginx` deployment and exposing it via a service.
 
 ```console
 $ kubectl run nginx --image=nginx --replicas=2
 deployment "nginx" created
-$ kubectl expose deployment nginx --port=80 
+$ kubectl expose deployment nginx --port=80
 service "nginx" exposed
 ```
 
-This runs two `nginx` pods in the default namespace, and exposes them through a service called `nginx`. 
+This runs two `nginx` pods in the default namespace, and exposes them through a service called `nginx`.
 
 ```console
 $ kubectl get svc,pod
@@ -104,7 +99,7 @@ Waiting for pod default/busybox-472357175-y0m47 to be running, status is Pending
 
 Hit enter for command prompt
 
-/ # wget --spider --timeout=1 nginx 
+/ # wget --spider --timeout=1 nginx
 Connecting to nginx (10.100.0.16:80)
 wget: download timed out
 / #
