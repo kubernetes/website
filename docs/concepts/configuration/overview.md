@@ -2,9 +2,6 @@
 assignees:
 - mikedanese
 title: Configuration Best Practices
-redirect_from:
-- "/docs/user-guide/config-best-practices/"
-- "/docs/user-guide/config-best-practices.html"
 ---
 
 {% capture overview %}
@@ -69,7 +66,7 @@ This is a living document. If you think of something that is not on this list bu
 
   Note that the [Deployment](/docs/concepts/workloads/controllers/deployment/) object obviates the need to manage replication controller 'version names'. A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate. (Deployment objects are currently part of the [`extensions` API Group](/docs/concepts/overview/kubernetes-api/#api-groups).)
 
-- You can manipulate labels for debugging. Because Kubernetes replication controllers and services match to pods using labels, this allows you to remove a pod from being considereby a controller, or served traffic by a service, by removing the relevant selectolabels. If you remove the labels of an existing pod, its controller will create a new pod to takits place. This is a useful way to debug a previously "live" pod in a quarantine environmentSee the [`kubectl label`](/docs/concepts/overview/working-with-objects/labels/) command.
+- You can manipulate labels for debugging. Because Kubernetes replication controllers and services match to pods using labels, this allows you to remove a pod from being considered by a controller, or served traffic by a service, by removing the relevant selector labels. If you remove the labels of an existing pod, its controller will create a new pod to take its place. This is a useful way to debug a previously "live" pod in a quarantine environment. See the [`kubectl label`](/docs/concepts/overview/working-with-objects/labels/) command.
 
 ## Container Images
 
@@ -77,7 +74,9 @@ This is a living document. If you think of something that is not on this list bu
 
   That is, if you're specifying an image with other than the `:latest` tag, for example `myimage:v1`, and there is an image update to that same tag, the Kubelet won't pull the updated image. You can address this by ensuring that any updates to an image bump the image tag as well (for example, `myimage:v2`), and ensuring that your configs point to the correct version.
 
-  **Note:** you should avoid using `:latest` tag when deploying containers in production, because this makes it hard to track which version of the image is running and hard to roll back.
+  **Note:** You should avoid using `:latest` tag when deploying containers in production, because this makes it hard to track which version of the image is running and hard to roll back.
+
+- To work only with a specific version of an image, you can specify an image with its digest (SHA256). This approach guarantees that the image will never update. For detailed information about working with image digests, see [the Docker documentation](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier).
 
 ## Using kubectl
 

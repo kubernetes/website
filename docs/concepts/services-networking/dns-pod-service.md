@@ -3,9 +3,6 @@ assignees:
 - davidopp
 - thockin
 title: DNS Pods and Services
-redirect_from:
-- "/docs/admin/dns/"
-- "/docs/admin/dns.html"
 ---
 
 ## Introduction
@@ -51,7 +48,7 @@ selection from the set.
 #### SRV records
 
 SRV Records are created for named ports that are part of normal or [Headless
-Services](https://kubernetes.io/docs/user-guide/services/#headless-services).
+Services](/docs/concepts/services-networking/service/#headless-services).
 For each named port, the SRV record would have the form
 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`.
 For a regular service, this resolves to the port number and the CNAME:
@@ -105,7 +102,7 @@ spec:
   clusterIP: None
   ports:
     - name: foo # Actually, no port is needed.
-      port: 1234 
+      port: 1234
       targetPort: 1234
 ---
 apiVersion: v1
@@ -142,7 +139,7 @@ spec:
 ```
 
 If there exists a headless service in the same namespace as the pod and with the same name as the subdomain, the cluster's KubeDNS Server also returns an A record for the Pod's fully qualified hostname.
-Given a Pod with the hostname set to "busybox-1" and the subdomain set to "default-subdomain", and a headless Service named "default-subdomain" in the same namespace, the pod will see it's own FQDN as "busybox-1.default-subdomain.my-namespace.svc.cluster.local". DNS serves an A record at that name, pointing to the Pod's IP. Both pods "busybox1" and "busybox2" can have their distinct A records. 
+Given a Pod with the hostname set to "busybox-1" and the subdomain set to "default-subdomain", and a headless Service named "default-subdomain" in the same namespace, the pod will see it's own FQDN as "busybox-1.default-subdomain.my-namespace.svc.cluster.local". DNS serves an A record at that name, pointing to the Pod's IP. Both pods "busybox1" and "busybox2" can have their distinct A records.
 
 As of Kubernetes v1.2, the Endpoints object also has the annotation `endpoints.beta.kubernetes.io/hostnames-map`. Its value is the json representation of map[string(IP)][endpoints.HostRecord], for example: '{"10.245.1.6":{HostName: "my-webserver"}}'.
 If the Endpoints are for a headless service, an A record is created with the format <hostname>.<service name>.<pod namespace>.svc.<cluster domain>
@@ -237,6 +234,29 @@ nameserver 10.0.0.10
 options ndots:5
 ```
 
+### DNS Policy
+
+By default, DNS policy for a pod is 'ClusterFirst'. So pods running with hostNetwork cannot resolve DNS names. To have DNS options set along with hostNetwork, you should specify DNS policy explicitly to 'ClusterFirstWithHostNet'. Update the busybox.yaml as following:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  namespace: default
+spec:
+  containers:
+  - image: busybox
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+    name: busybox
+  restartPolicy: Always
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+```
+
 #### Quick diagnosis
 
 Errors such as the following indicate a problem with the kube-dns add-on or associated Services:
@@ -285,7 +305,7 @@ Use `kubectl logs` command to see logs for the DNS daemons.
 ```
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kubedns
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c dnsmasq
-kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c healthz
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c sidecar
 ```
 
 See if there is any suspicious log. W, E, F letter at the beginning represent Warning, Error and Failure. Please search for entries that have these as the logging level and use [kubernetes issues](https://github.com/kubernetes/kubernetes/issues) to report unexpected errors.
@@ -325,7 +345,7 @@ kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 
 If you do not see the endpoints, see endpoints section in the [debugging services documentation](/docs/tasks/debug-application-cluster/debug-service/).
 
-For additional Kubernetes DNS examples, see the [cluster-dns examples](https://github.com/kubernetes/kubernetes/tree/master/examples/cluster-dns) in the Kubernetes GitHub repository.
+For additional Kubernetes DNS examples, see the [cluster-dns examples](https://git.k8s.io/kubernetes/examples/cluster-dns) in the Kubernetes GitHub repository.
 
 ## Kubernetes Federation (Multiple Zone support)
 

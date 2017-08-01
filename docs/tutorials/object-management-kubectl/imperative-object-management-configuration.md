@@ -1,8 +1,5 @@
 ---
 title: Imperative Management of Kubernetes Objects Using Configuration Files
-redirect_from:
-- "/docs/concepts/tools/kubectl/object-management-using-imperative-config/"
-- "/docs/concepts/tools/kubectl/object-management-using-imperative-config.html"
 ---
 
 {% capture overview %}
@@ -27,7 +24,7 @@ for a discussion of the advantages and disadvantage of each kind of object manag
 ## How to create objects
 
 You can use `kubectl create -f` to create an object from a configuration file.
-Refer to the [kubernetes object schema reference](/docs/resources-reference/v1.6/)
+Refer to the [kubernetes object schema reference](/docs/resources-reference/{{page.version}}/)
 for details.
 
 - `kubectl create -f <filename|url>`
@@ -61,7 +58,7 @@ described in a configuration file.
 
 - `kubectl get -f <filename|url> -o yaml`
 
-The `-o yaml` flag specifies that the full object configuration is printed. 
+The `-o yaml` flag specifies that the full object configuration is printed.
 Use `kubectl get -h` to see a list of options.
 
 ## Limitations
@@ -71,7 +68,7 @@ configuration is fully defined and recorded in its configuration
 file. However when a live object is updated, and the updates are not merged
 into its configuration file, the updates will be lost the next time a `replace`
 is executed. This can happen if a controller, such as
-a HorizontalPodAutoscaler, makes updates directly to a live object. Here's 
+a HorizontalPodAutoscaler, makes updates directly to a live object. Here's
 an example:
 
 1. You create an object from a configuration file.
@@ -133,8 +130,8 @@ template:
 {% capture whatsnext %}
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/)
-- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.6/)
-- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.6/)
+- [Kubectl Command Reference](/docs/user-guide/kubectl/{{page.version}}/)
+- [Kubernetes Object Schema Reference](/docs/resources-reference/{{page.version}}/)
 {% endcapture %}
 
 {% include templates/concept.md %}

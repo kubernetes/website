@@ -4,11 +4,6 @@ assignees:
 - soltysh
 - janetkuo
 title: Cron Jobs
-redirect_from:
-- "/docs/concepts/jobs/cron-jobs/"
-- "/docs/concepts/jobs/cron-jobs.html"
-- "/docs/user-guide/cron-jobs/"
-- "/docs/user-guide/cron-jobs.html"
 ---
 
 * TOC
@@ -152,7 +147,7 @@ information about working with config files, see [deploying applications](/docs/
 [configuring containers](/docs/user-guide/configuring-containers), and
 [using kubectl to manage resources](/docs/user-guide/working-with-resources) documents.
 
-A cron job also needs a [`.spec` section](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).
+A cron job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
 **Note:** All modifications to a cron job, especially its `.spec`, will be applied only to the next run.
 

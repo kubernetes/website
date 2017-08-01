@@ -1,12 +1,5 @@
 ---
 title: Federation
-redirect_from:
-- "/docs/user-guide/federation/"
-- "/docs/user-guide/federation/index.html"
-- "/docs/concepts/cluster-administration/multiple-clusters/"
-- "/docs/concepts/cluster-administration/multiple-clusters.html"
-- "/docs/admin/multi-cluster/"
-- "/docs/admin/multi-cluster.html"
 ---
 
 {% capture overview %}
@@ -44,11 +37,11 @@ why you might want multiple clusters are:
   See [Multi cluster guide](/docs/admin/multi-cluster) for details.
 * Scalability: There are scalability limits to a single kubernetes cluster (this
   should not be the case for most users. For more details:
-  [Kubernetes Scaling and Performance Goals](https://github.com/kubernetes/community/blob/master/sig-scalability/goals.md)).
+  [Kubernetes Scaling and Performance Goals](https://git.k8s.io/community/sig-scalability/goals.md)).
 * [Hybrid cloud](###hybrid-cloud-capabilities): You can have multiple clusters on different cloud providers or
   on-premises data centers.
 
-### Caveats 
+### Caveats
 
 While there are a lot of attractive use cases for federation, there are also
 some caveats:

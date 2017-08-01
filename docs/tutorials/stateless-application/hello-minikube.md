@@ -1,9 +1,5 @@
 ---
-
 title: Hello Minikube
-redirect_from:
-- "/docs/hellonode/"
-- "/docs/hellonode.html"
 ---
 
 {% capture overview %}
@@ -77,10 +73,10 @@ brew install kubectl
 Determine whether you can access sites like [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/) directly without a proxy, by opening a new terminal and using
 
 ```shell
-curl --proxy "" https://cloud.google.com/container-registry/ 
+curl --proxy "" https://cloud.google.com/container-registry/
 ```
 
-If NO proxy is required, start the Minikube cluster: 
+If NO proxy is required, start the Minikube cluster:
 
 ```shell
 minikube start --vm-driver=xhyve
@@ -137,7 +133,7 @@ existing image. The image in this tutorial extends an existing Node.js image.
 
 This recipe for the Docker image starts from the official Node.js LTS image
 found in the Docker registry, exposes port 8080, copies your `server.js` file
-to the image and start the Node.js server.
+to the image and starts the Node.js server.
 
 Because this tutorial uses Minikube, instead of pushing your Docker image to a
 registry, you can simply build the image using the same Docker host as

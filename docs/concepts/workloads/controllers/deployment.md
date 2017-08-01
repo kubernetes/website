@@ -3,30 +3,31 @@ assignees:
 - bgrant0607
 - janetkuo
 title: Deployments
-redirect_from:
-- "/docs/user-guide/deployments/"
-- "/docs/user-guide/deployments.html"
 ---
 
-{:toc}
-
-## What is a Deployment?
+{% capture overview %}
 
 A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) (the next-generation ReplicationController).
-You only need to describe the desired state in a Deployment object, and the Deployment controller will
-change the actual state to the desired state at a controlled rate for you. You can define Deployments to
-create new ReplicaSets, or remove existing Deployments and adopt all of their resources with new Deployments.
+You describe the desired state in a Deployment object, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to
+create new ReplicaSets, or remove existing Deployments and adopt all their resources with new Deployments.
 
-**Note:** You should not manage ReplicaSets owned by a Deployment, otherwise you are racing with the Deployment
-controller! All of the use cases should be covered just by manipulating the Deployment object. Consider opening
-an issue in the main Kubernetes repository, if your use case is not covered below.
+**Note:** You should not manage ReplicaSets owned by a Deployment. If you do so, you are racing with the Deployment
+controller! All the use cases should be covered by manipulating the Deployment object. Consider opening
+an issue in the main Kubernetes repository if your use case is not covered below.
+
+{% endcapture %}
+
+
+{% capture body %}
+
+## Use Case
 
 A typical use case is:
 
 * [Create a Deployment to rollout a ReplicaSet](#creating-a-deployment). The ReplicaSet creates Pods in the background. Check the status of the rollout to see if it succeeds or not.
-* Later, [declare the new state of the Pods](#updating-a-deployment) you want to run by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created and the Deployment manages moving the Pods from the old to the new ReplicaSet in a controlled rate. Each new ReplicaSet that is created, updates the revision of the Deployment.
-* [Rollback to an earlier Deployment revision](#rolling-back-a-deployment) if the current state of the Deployment will not be stable. Each rollback updates the revision of the Deployment.
+* [Declare the new state of the Pods](#updating-a-deployment) by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created and the Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
+* [Rollback to an earlier Deployment revision](#rolling-back-a-deployment) if the current state of the Deployment is not stable. Each rollback updates the revision of the Deployment.
 * [Scale up the Deployment to facilitate more load.](#scaling-a-deployment)
 * [Pause the Deployment](#pausing-and-resuming-a-deployment) to apply multiple fixes to its PodTemplateSpec and then resume it to start a new rollout.
 * [Use the status of the Deployment](#deployment-status) as an indicator that a rollout has stuck
@@ -35,7 +36,7 @@ A typical use case is:
 
 ## Creating a Deployment
 
-Here is an example Deployment. It creates a ReplicaSet to bring up 3 nginx Pods.
+Here is an example Deployment. It creates a ReplicaSet to bring up three nginx Pods.
 
 {% include code.html language="yaml" file="nginx-deployment.yaml" ghlink="/docs/concepts/workloads/controllers/nginx-deployment.yaml" %}
 
@@ -47,7 +48,7 @@ deployment "nginx-deployment" created
 ```
 
 Setting the kubectl flag `--record` to `true` allows you to record current command in the annotations of
-the resources being created or updated. It will be useful for future introspection; for example, to see the
+the resources being created or updated. It is useful for future introspection: for example, to see the
 commands executed in each Deployment revision.
 
 Then running `get` immediately will give:
@@ -62,7 +63,7 @@ This indicates that the Deployment's number of desired replicas is 3 (according 
 the number of current replicas (`.status.replicas`) is 0, the number of up-to-date replicas (`.status.updatedReplicas`)
 is 0, and the number of available replicas (`.status.availableReplicas`) is also 0.
 
-To see the Deployment rollout status, simply run:
+To see the Deployment rollout status, run:
 
 ```shell
 $ kubectl rollout status deployment/nginx-deployment
@@ -70,7 +71,7 @@ Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 deployment "nginx-deployment" successfully rolled out
 ```
 
-Running the `get` again a few seconds later, should give:
+Running the `get` again a few seconds later should give:
 
 ```shell
 $ kubectl get deployments
@@ -98,31 +99,30 @@ nginx-deployment-2035384211-kzszj   1/1       Running   0          18s       app
 nginx-deployment-2035384211-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=2035384211
 ```
 
-The created ReplicaSet will ensure that there are three nginx Pods at all times.
+The created ReplicaSet ensures that there are three nginx Pods at all times.
 
 **Note:** You must specify an appropriate selector and pod template labels in a Deployment (in this case,
-`app = nginx`), i.e. don't overlap with other controllers (including other Deployments, ReplicaSets,
-StatefulSets, etc.). Kubernetes won't stop you from doing that, and if you end up with multiple
-controllers that have overlapping selectors, those controllers may fight with each other and won't behave
+`app = nginx`). That is, don't overlap with other controllers (including other Deployments, ReplicaSets,
+StatefulSets, etc.). Kubernetes doesn't stop you from overlapping, and if multiple
+controllers have overlapping selectors, those controllers may fight with each other and won't behave
 correctly.
 
 ### Pod-template-hash label
 
-**Note:** This label is not meant to be mutated by users!
+**Note:** This label is not meant to be changed by users!
 
-Note the pod-template-hash label in the example output in the pod labels above. pod-template-hash is added by the
-Deployment controller in every ReplicaSet that a Deployment creates or adopts. Its purpose is so that children
-ReplicaSets of a Deployment will not overlap among them. It is computed by hashing the PodTemplate of the ReplicaSet
+Note the pod-template-hash label in the example output in the pod labels above. This label is added by the
+Deployment controller to every ReplicaSet that a Deployment creates or adopts. Its purpose is to make sure that child
+ReplicaSets of a Deployment do not overlap. It is computed by hashing the PodTemplate of the ReplicaSet
 and using the resulting hash as the label value that will be added in the ReplicaSet selector, pod template labels,
 and in any existing Pods that the ReplicaSet may have.
 
 ## Updating a Deployment
 
-**Note:** a Deployment's rollout is triggered if and only if the Deployment's pod template (i.e. `.spec.template`)
-is changed, e.g. updating labels or container images of the template. Other updates, such as scaling the Deployment,
-will not trigger a rollout.
+**Note:** A Deployment's rollout is triggered if and only if the Deployment's pod template (that is, `.spec.template`)
+is changed, for example if the labels or container images of the template are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
 
-Suppose that we now want to update the nginx Pods to start using the `nginx:1.9.1` image
+Suppose that we now want to update the nginx Pods to use the `nginx:1.9.1` image
 instead of the `nginx:1.7.9` image.
 
 ```shell
@@ -137,7 +137,7 @@ $ kubectl edit deployment/nginx-deployment
 deployment "nginx-deployment" edited
 ```
 
-To see its rollout status, simply run:
+To see the rollout status, run:
 
 ```shell
 $ kubectl rollout status deployment/nginx-deployment
@@ -247,14 +247,14 @@ It is generally discouraged to make label selector updates and it is suggested t
 In any case, if you need to perform a label selector update, exercise great caution and make sure you have grasped
 all of the implications.
 
-* Selector additions require the pod template labels in the Deployment spec to be updated with the new label, too,
+* Selector additions require the pod template labels in the Deployment spec to be updated with the new label too,
 otherwise a validation error is returned. This change is a non-overlapping one, meaning that the new selector does
 not select ReplicaSets and Pods created with the old selector, resulting in orphaning all old ReplicaSets and
 creating a new ReplicaSet.
-* Selector updates, i.e., changing the existing value in a selector key, result in the same behavior as additions.
-* Selector removals, i.e., removing an existing key from the Deployment selector, do not require any changes in the
-pod template labels, no existing ReplicaSet is orphaned, and a new ReplicaSet will not be created, but note that the
-removed label will still exist in any existing Pods and ReplicaSets.
+* Selector updates -- that is, changing the existing value in a selector key -- result in the same behavior as additions.
+* Selector removals -- that is, removing an existing key from the Deployment selector -- do not require any changes in the
+pod template labels. No existing ReplicaSet is orphaned, and a new ReplicaSet is not created, but note that the
+removed label still exists in any existing Pods and ReplicaSets.
 
 ## Rolling Back a Deployment
 
@@ -263,11 +263,11 @@ By default, all of the Deployment's rollout history is kept in the system so tha
 (you can change that by modifyingrevision history limit]).
 
 **Note:** a Deployment's revision is created when a Deployment's rollout is triggered. This means that the
-new revision is created if and only if the Deployment's pod template (i.e. `.spec.template`) is changed,
-e.g. updating labels or container images of the template. Other updates, such as scaling the Deployment,
-will not create a Deployment revision -- so that we can facilitate simultaneous manual- or auto-scaling.
-This implies that when you rollback to an earlier revision, only the Deployment's pod template part will
-be rolled back.
+new revision is created if and only if the Deployment's pod template (`.spec.template`) is changed,
+for example if you update the labels or container images of the template. Other updates, such as scaling the Deployment,
+do not create a Deployment revision, so that we can facilitate simultaneous manual- or auto-scaling.
+This means that when you roll back to an earlier revision, only the Deployment's pod template part is
+rolled back.
 
 Suppose that we made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
 
@@ -394,7 +394,7 @@ $ kubectl rollout undo deployment/nginx-deployment --to-revision=2
 deployment "nginx-deployment" rolled back
 ```
 
-For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/v1.6/#rollout).
+For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/{{page.version}}/#rollout).
 
 The Deployment is now rolled back to a previous stable revision. As you can see, a `DeploymentRollback` event
 for rolling back to revision 2 is generated from Deployment controller.
@@ -503,7 +503,7 @@ nginx-deployment-1989198191   7         7         0         7m
 nginx-deployment-618515232    11        11        11        7m
 ```
 
-## Pausing and Resuming a Deployment 
+## Pausing and Resuming a Deployment
 
 You can pause a Deployment before triggering one or more updates and then resume it. This will allow you to
 apply multiple fixes in between pausing and resuming without triggering unnecesarry rollouts.
@@ -526,13 +526,13 @@ deployment "nginx-deployment" paused
 
 Then update the image of the Deployment:
 ```shell
-$ kubectl set image deploy/nginx nginx=nginx:1.9.1
+$ kubectl set image deploy/nginx-deployment nginx=nginx:1.9.1
 deployment "nginx-deployment" image updated
 ```
 
 Notice that no new rollout started:
 ```shell
-$ kubectl rollout history deploy/nginx
+$ kubectl rollout history deploy/nginx-deployment
 deployments "nginx"
 REVISION  CHANGE-CAUSE
 1   <none>
@@ -549,11 +549,11 @@ deployment "nginx" resource requirements updated
 ```
 
 The initial state of the Deployment prior to pausing it will continue its function, but new updates to
-the Deployment will not have any effect as long as the Deployment is paused. 
+the Deployment will not have any effect as long as the Deployment is paused.
 
 Eventually, resume the Deployment and observe a new ReplicaSet coming up with all the new updates:
 ```shell
-$ kubectl rollout resume deploy nginx
+$ kubectl rollout resume deploy/nginx-deployment
 deployment "nginx" resumed
 $ kubectl get rs -w
 NAME               DESIRED   CURRENT   READY     AGE
@@ -589,10 +589,10 @@ rolling out a new ReplicaSet, it can be [complete](#complete-deployment), or it 
 
 Kubernetes marks a Deployment as _progressing_ when one of the following tasks is performed:
 
-* The Deployment is in the process of creating a new ReplicaSet.
-* The Deployment is scaling up an existing ReplicaSet.
-* The Deployment is scaling down an existing ReplicaSet.
-* New pods become available.
+* The Deployment creates a new ReplicaSet.
+* The Deployment is scaling up its newest ReplicaSet.
+* The Deployment is scaling down its older ReplicaSet(s).
+* New Pods become ready or available (ready for at least [MinReadySeconds](#min-ready-seconds)).
 
 You can monitor the progress for a Deployment by using `kubectl rollout status`.
 
@@ -600,17 +600,16 @@ You can monitor the progress for a Deployment by using `kubectl rollout status`.
 
 Kubernetes marks a Deployment as _complete_ when it has the following characteristics:
 
-* The Deployment has minimum availability. Minimum availability means that the Deployment's number of available replicas
-equals or exceeds the number required by the Deployment strategy.
 * All of the replicas associated with the Deployment have been updated to the latest version you've specified, meaning any
 updates you've requested have been completed.
-* No old pods for the Deployment are running.
+* All of the replicas associated with the Deployment are available.
+* No old replicas for the Deployment are running.
 
 You can check if a Deployment has completed by using `kubectl rollout status`. If the rollout completed
 successfully, `kubectl rollout status` returns a zero exit code.
 
 ```shell
-$ kubectl rollout status deploy/nginx
+$ kubectl rollout status deploy/nginx-deployment
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
 deployment "nginx" successfully rolled out
 $ echo $?
@@ -631,7 +630,7 @@ due to some of the following factors:
 
 One way you can detect this condition is to specify a deadline parameter in your Deployment spec:
 ([`spec.progressDeadlineSeconds`](#progress-deadline-seconds)). `spec.progressDeadlineSeconds` denotes the
-number of seconds the Deployment controller waits before indicating (via the Deployment status) that the
+number of seconds the Deployment controller waits before indicating (in the Deployment status) that the
 Deployment progress has stalled.
 
 The following `kubectl` command sets the spec with `progressDeadlineSeconds` to make the controller report
@@ -648,7 +647,7 @@ attributes to the Deployment's `status.conditions`:
 * Status=False
 * Reason=ProgressDeadlineExceeded
 
-See the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
+See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
 
 **Note:** Kubernetes will take no action on a stalled Deployment other than to report a status condition with
 `Reason=ProgressDeadlineExceeded`. Higher level orchestrators can take advantage of it and act accordingly, for
@@ -739,7 +738,7 @@ You can check if a Deployment has failed to progress by using `kubectl rollout s
 returns a non-zero exit code if the Deployment has exceeded the progression deadline.
 
 ```shell
-$ kubectl rollout status deploy/nginx
+$ kubectl rollout status deploy/nginx-deployment
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 error: deployment "nginx" exceeded its progress deadline
 $ echo $?
@@ -755,13 +754,13 @@ to a previous revision, or even pause it if you need to apply multiple tweaks in
 
 You can set `.spec.revisionHistoryLimit` field in a Deployment to specify how many old ReplicaSets for
 this Deployment you want to retain. The rest will be garbage-collected in the background. By default,
-all revision history will be kept. In a future version, it will default to switch to 2. 
+all revision history will be kept. In a future version, it will default to switch to 2.
 
 **Note:** Explicitly setting this field to 0, will result in cleaning up all the history of your Deployment
 thus that Deployment will not be able to roll back.
 
 
-## Use Cases 
+## Use Cases
 
 ### Canary Deployment
 
@@ -775,18 +774,17 @@ As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, a
 For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
 configuring containers, and [using kubectl to manage resources](/docs/tutorials/object-management-kubectl/object-management/) documents.
 
-A Deployment also needs a [`.spec` section](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#spec-and-status).
+A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
 ### Pod Template
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](/docs/user-guide/replication-controller/#pod-template).  It has exactly
-the same schema as a [Pod](/docs/user-guide/pods), except it is nested and does not have an
+The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [Pod](docs/concepts/workloads/pods/pod/), except it is nested and does not have an
 `apiVersion` or `kind`.
 
 In addition to required fields for a Pod, a pod template in a Deployment must specify appropriate
-labels (i.e. don't overlap with other controllers, see [selector](#selector)) and an appropriate restart policy.
+labels and an appropriate restart policy. For labels, make sure not to overlap with other controllers. See [selector](#selector)).
 
 Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/) equal to `Always` is
 allowed, which is the default if not specified.
@@ -801,19 +799,19 @@ allowed, which is the default if not specified.
 for the Pods targeted by this deployment.
 
 If specified, `.spec.selector` must match `.spec.template.metadata.labels`, or it will be rejected by
-the API.  If `.spec.selector` is unspecified, `.spec.selector.matchLabels` will be defaulted to
+the API.  If `.spec.selector` is unspecified, `.spec.selector.matchLabels` defaults to
 `.spec.template.metadata.labels`.
 
-Deployment may kill Pods whose labels match the selector, in the case that their template is different
-than `.spec.template` or if the total number of such Pods exceeds `.spec.replicas`. It will bring up new
-Pods with `.spec.template` if number of Pods are less than the desired number.
+A Deployment may terminate Pods whose labels match the selector if their template is different
+tfrom `.spec.template` or if the total number of such Pods exceeds `.spec.replicas`. It brings up new
+Pods with `.spec.template` if the number of Pods is less than the desired number.
 
-**Note:** You should not create other pods whose labels match this selector, either directly, via
-another Deployment or via another controller such as ReplicaSets or ReplicationControllers. Otherwise,
-the Deployment will think that those pods were created by it. Kubernetes will not stop you from doing this.
+**Note:** You should not create other pods whose labels match this selector, either directly, by creating
+another Deployment, or by creating another controller such as a ReplicaSet or a ReplicationController. If you
+do so, the first Deployment thinks that it created these other pods. Kubernetes does not stop you from doing this.
 
 If you have multiple controllers that have overlapping selectors, the controllers will fight with each
-other's and won't behave correctly.
+other and won't behave correctly.
 
 ### Strategy
 
@@ -834,10 +832,9 @@ the rolling update process.
 ##### Max Unavailable
 
 `.spec.strategy.rollingUpdate.maxUnavailable` is an optional field that specifies the maximum number
-of Pods that can be unavailable during the update process. The value can be an absolute number (e.g. 5)
-or a percentage of desired Pods (e.g. 10%). The absolute number is calculated from percentage by
-rounding down. This can not be 0 if `.spec.strategy.rollingUpdate.maxSurge` is 0. By default, a
-value of 25% is used.
+of Pods that can be unavailable during the update process. The value can be an absolute number (for example, 5)
+or a percentage of desired Pods (for example, 10%). The absolute number is calculated from percentage by
+rounding down. The value cannot be 0 if `.spec.strategy.rollingUpdate.maxSurge` is 0. The default value is 25%.
 
 For example, when this value is set to 30%, the old ReplicaSet can be scaled down to 70% of desired
 Pods immediately when the rolling update starts. Once new Pods are ready, old ReplicaSet can be scaled
@@ -847,12 +844,12 @@ at all times during the update is at least 70% of the desired Pods.
 ##### Max Surge
 
 `.spec.strategy.rollingUpdate.maxSurge` is an optional field that specifies the maximum number of Pods
-that can be created above the desired number of Pods. Value can be an absolute number (e.g. 5) or a
-percentage of desired Pods (e.g. 10%). This can not be 0 if `MaxUnavailable` is 0. The absolute number
-is calculated from percentage by rounding up. By default, a value of 25% is used.
+that can be created over the desired number of Pods. The value can be an absolute number (for example, 5) or a
+percentage of desired Pods (for example, 10%). The value cannot be 0 if `MaxUnavailable` is 0. The absolute number
+is calculated from the percentage by rounding up. The default value is 25%.
 
 For example, when this value is set to 30%, the new ReplicaSet can be scaled up immediately when the
-rolling update starts, such that the total number of old and new Pods do not exceed 130% of desired
+rolling update starts, such that the total number of old and new Pods does not exceed 130% of desired
 Pods. Once old Pods have been killed, the new ReplicaSet can be scaled up further, ensuring that the
 total number of Pods running at any time during the update is at most 130% of desired Pods.
 
@@ -901,7 +898,7 @@ ReplicaSets will be kept by default, consuming resources in `etcd` and crowding 
 if this field is not set. The configuration of each Deployment revision is stored in its ReplicaSets;
 therefore, once an old ReplicaSet is deleted, you lose the ability to rollback to that revision of Deployment.
 
-More specifically, setting this field to zero means that all old ReplicaSets with 0 replica will be cleaned up. 
+More specifically, setting this field to zero means that all old ReplicaSets with 0 replica will be cleaned up.
 In this case, a new Deployment rollout cannot be undone, since its revision history is cleaned up.
 
 ### Paused
@@ -915,6 +912,10 @@ it is created.
 
 ### kubectl rolling update
 
-[Kubectl rolling update](/docs/user-guide/kubectl/v1.6/#rolling-update) updates Pods and ReplicationControllers
+[Kubectl rolling update](/docs/user-guide/kubectl/{{page.version}}/#rolling-update) updates Pods and ReplicationControllers
 in a similar fashion. But Deployments are recommended, since they are declarative, server side, and have
 additional features, such as rolling back to any previous revision even after the rolling update is done.
+
+{% endcapture %}
+
+{% include templates/concept.md %}

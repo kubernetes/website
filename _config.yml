@@ -18,8 +18,8 @@ defaults:
     scope:
       path: ""
     values:
-      fullversion: "v1.6.3"
-      version: "v1.6"
+      fullversion: "v1.7.0"
+      version: "v1.7"
       githubbranch: "master"
       docsbranch: "master"
   -
@@ -32,11 +32,14 @@ defaults:
 permalink: pretty
 
 gems:
-  - jekyll-redirect-from
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-include-cache
+# disabled gems
+#  - jekyll-redirect-from
+
+include: [_redirects]
 
 # SEO
 logo: /images/favicon.png

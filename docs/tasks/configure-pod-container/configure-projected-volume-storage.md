@@ -3,10 +3,6 @@ assignees:
 - jpeeler
 - pmorie
 title: Configure a Pod to Use a Projected Volume for Storage
-redirect_from:
-- "/docs/tasks/configure-pod-container/projected-volume/"
-- "/docs/user-guide/projected-volume/"
-- "/docs/user-guide/projected-volume/index.html"
 ---
 
 {% capture overview %}
@@ -54,9 +50,9 @@ the Pod:
 
         kubectl exec -it test-projected-volume -- /bin/sh
 
-1. In your shell, verify that the `projected-volumes` directory contains your projected sources:
+1. In your shell, verify that the `projected-volume` directory contains your projected sources:
 
-        / # ls projected-volumes/
+        / # ls /projected-volume/
 {% endcapture %}
 
 {% capture whatsnext %}

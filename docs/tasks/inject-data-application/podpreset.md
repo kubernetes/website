@@ -2,18 +2,13 @@
 assignees:
 - jessfraz
 title: Inject Information into Pods Using a PodPreset
-redirect_from:
-- "/docs/user-guide/pod-preset/index/"
-- "/docs/user-guide/pod-preset/index.html"
-- "/docs/tasks/run-application/podpreset/"
-- "/docs/tasks/run-application/podpreset.html"
 ---
 
 You can use a `podpreset` object to inject certain information into pods at creation
 time. This information can include secrets, volumes, volume mounts, and environment
 variables.
 
-See [PodPreset proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/pod-preset.md) for more information.
+See [PodPreset proposal](https://git.k8s.io/community/contributors/design-proposals/pod-preset.md) for more information.
 
 * TOC
 {:toc}
@@ -23,7 +18,7 @@ See [PodPreset proposal](https://github.com/kubernetes/community/blob/master/con
 A _Pod Preset_ is an API resource that you can use to inject additional runtime
 requirements into a Pod at creation time. You use label selectors to specify
 the Pods to which a given Pod Preset applies. Check out more information on [label
-selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors).
+selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors).
 
 Using a Pod Preset allows pod template authors to not have to explicitly set
 information for every pod. This way, authors of pod templates consuming a
@@ -51,7 +46,7 @@ Kubernetes modifies the Pod Spec.
 
 Kubernetes annotates the resulting modified pod spec to show that it was
 modified by a `PodPreset`. The annotation is of the form
-`podpreset.admission.kubernetes.io/<pod-preset name>": "<resource version>"`.
+`podpreset.admission.kubernetes.io/podpreset-<pod-preset name>": "<resource version>"`.
 
 
 ## Enable Pod Preset
@@ -62,6 +57,12 @@ following
 1.  You have enabled the api type `settings.k8s.io/v1alpha1/podpreset`
 1.  You have enabled the admission controller `PodPreset`
 1.  You have defined your pod presets
+
+## Disable Pod Preset for a pod
+
+There may be instances where you wish for a pod to not be altered by any pod
+preset mutations. For these events, one can add an annotation in the pod spec
+of the form: `podpreset.admission.kubernetes.io/exclude: "true"`.
 
 ## Create a Pod Preset
 
@@ -142,7 +143,7 @@ spec:
 
 ### Pod Spec with `ConfigMap` Example
 
-This is an example to show how a Pod spec is modified by the Pod Preset 
+This is an example to show how a Pod spec is modified by the Pod Preset
 that defines a `ConfigMap` for Environment Variables.
 
 **User submitted pod spec:**
@@ -213,7 +214,8 @@ spec:
     - name: cache-volume
       emptyDir: {}
     - name: secret-volume
-      secretName: config-details
+      secret:
+         secretName: config-details
 ```
 
 **Pod spec after admission controller:**
@@ -254,7 +256,8 @@ spec:
     - name: cache-volume
       emptyDir: {}
     - name: secret-volume
-      secretName: config-details
+      secret:
+         secretName: config-details
 ```
 
 ### ReplicaSet with Pod Spec Example
@@ -454,7 +457,7 @@ spec:
 
 ### Conflict Example
 
-This is an example to show how a Pod spec is not modified by the Pod Preset 
+This is an example to show how a Pod spec is not modified by the Pod Preset
 when there is a conflict.
 
 **User submitted pod spec:**

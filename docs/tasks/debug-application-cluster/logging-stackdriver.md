@@ -3,9 +3,6 @@ assignees:
 - crassirostris
 - piosz
 title: Logging Using Stackdriver
-redirect_from:
-- "/docs/user-guide/logging/stackdriver/"
-- "/docs/user-guide/logging/stackdriver.html"
 ---
 
 Before reading this page, it's highly recommended to familiarize yourself
@@ -304,7 +301,7 @@ Get the current version of the Stackdriver Logging `ConfigMap` in your cluster
 by running the following command:
 
 ```shell
-kubectl get ds fluentd-gcp-v2.0 --namespace kube-system -o yaml > fluentd-gcp-ds.yaml
+kubectl get cm fluentd-gcp-config --namespace kube-system -o yaml > fluentd-gcp-configmap.yaml
 ```
 
 Then in the value for the key `containers.input.conf` insert a new filter right after
@@ -321,7 +318,7 @@ Fluentd is written in Ruby and allows to extend its capabilities using
 [plugins](http://www.fluentd.org/plugins). If you want to use a plugin, which is not included
 in the default Stackdriver Logging container image, you have to build a custom image. Imagine
 you want to add Kafka sink for messages from a particular container for additional processing.
-You can re-use the default [container image sources](https://github.com/kubernetes/contrib/tree/master/fluentd/fluentd-gcp-image)
+You can re-use the default [container image sources](https://git.k8s.io/contrib/fluentd/fluentd-gcp-image)
 with minor changes:
 
 * Change Makefile to point to your container repository, e.g. `PREFIX=gcr.io/<your-project-id>`.

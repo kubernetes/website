@@ -4,9 +4,6 @@ assignees:
 - kevin-wangzefeng
 - bsalamat
 title: Assigning Pods to Nodes
-redirect_from:
-- "/docs/user-guide/node-selection/"
-- "/docs/user-guide/node-selection/index.html"
 ---
 
 You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/nodes/node/) or to prefer to
@@ -43,7 +40,7 @@ Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the o
 
 If this fails with an "invalid command" error, you're likely using an older version of kubectl that doesn't have the `label` command. In that case, see the [previous version](https://github.com/kubernetes/kubernetes/blob/a053dbc313572ed60d89dae9821ecab8bfd676dc/examples/node-selection/README.md) of this guide for instructions on how to manually set labels on a node.
 
-Also, note that label keys must be in the form of DNS labels (as described in the [identifiers doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/identifiers.md)), meaning that they are not allowed to contain any upper-case letters.
+Also, note that label keys must be in the form of DNS labels (as described in the [identifiers doc](https://git.k8s.io/community/contributors/design-proposals/identifiers.md)), meaning that they are not allowed to contain any upper-case letters.
 
 You can verify that it worked by re-running `kubectl get nodes --show-labels` and checking that the node now has a label.
 
@@ -142,8 +139,10 @@ If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types
 
 If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` can be satisfied.
 
+If you remove or change the label of the node where the pod is scheduled, the pod won't be removed. In other words, the affinity selection works only at the time of scheduling the pod.
+
 For more information on node affinity, see the design doc
-[here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/nodeaffinity.md).
+[here](https://git.k8s.io/community/contributors/design-proposals/nodeaffinity.md).
 
 ### Inter-pod affinity and anti-affinity (beta feature)
 
@@ -184,11 +183,11 @@ value V that is running a pod that has a label with key "security" and value "S1
 rule says that the pod prefers to not schedule onto a node if that node is already running a pod with label
 having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
 it would mean that the pod cannot schedule onto a node if that node is in the same zone as a pod with
-label having key "security" and value "S2".) See the [design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/podaffinity.md).
+label having key "security" and value "S2".) See the [design doc](https://git.k8s.io/community/contributors/design-proposals/podaffinity.md).
 for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
 flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 
-As with node affinity, the legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
+The legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`.
 
 In principle, the `topologyKey` can be any legal label-key. However,
 for performance and security reasons, there are some constraints on topologyKey:
@@ -205,10 +204,10 @@ If omitted, it defaults to the namespace of the pod where the affinity/anti-affi
 If defined but empty, it means "all namespaces."
 
 All `matchExpressions` associated with `requiredDuringSchedulingIgnoredDuringExecution` affinity and anti-affinity
-must be satisfied for the pod to schedule onto a node. 
+must be satisfied for the pod to schedule onto a node.
 
 For more information on inter-pod affinity/anti-affinity, see the design doc
-[here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/podaffinity.md).
+[here](https://git.k8s.io/community/contributors/design-proposals/podaffinity.md).
 
 ## Taints and tolerations (beta feature)
 
@@ -222,7 +221,7 @@ marks that the node should not accept any pods that do not tolerate the taints.
 Tolerations are applied to pods, and allow (but do not require) the pods to schedule
 onto nodes with matching taints.
 
-You add a taint to a node using [kubectl taint](/docs/user-guide/kubectl/v1.6/#taint).
+You add a taint to a node using [kubectl taint](/docs/user-guide/kubectl/v1.7/#taint).
 For example,
 
 ```shell
@@ -236,7 +235,7 @@ taint created by the `kubectl taint` line above, and thus a pod with either tole
 to schedule onto `node1`:
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "key"
   operator: "Equal"
   value: "value"
@@ -244,7 +243,7 @@ tolerations:
 ```
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "key"
   operator: "Exists"
   effect: "NoSchedule"
@@ -304,7 +303,7 @@ kubectl taint nodes node1 key2=value2:NoSchedule
 And a pod has two tolerations:
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "key1"
   operator: "Equal"
   value: "value1"
@@ -327,7 +326,7 @@ an optional `tolerationSeconds` field that dictates how long the pod will stay b
 to the node after the taint is added. For example,
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "key1"
   operator: "Equal"
   value: "value1"
@@ -345,10 +344,10 @@ Taints and tolerations are a flexible way to steer pods away from nodes or evict
 pods that shouldn't be running. A few of the use cases are
 
 * **dedicated nodes**: If you want to dedicate a set of nodes for exclusive use by
-a particular set of users, you can add a taint to those nodes (say, 
+a particular set of users, you can add a taint to those nodes (say,
 `kubectl taint nodes nodename dedicated=groupName:NoSchedule`) and then add a corresponding
 toleration to their pods (this would be done most easily by writing a custom
-[admission controller](https://kubernetes.io/docs/admin/admission-controllers/)).
+[admission controller](/docs/admin/admission-controllers/)).
 The pods with the tolerations will then be allowed to use the tainted (dedicated) nodes as
 well as any other nodes in the cluster. If you want to dedicate the nodes to them *and*
 ensure they *only* use the dedicated nodes, then you should additionally add a label similar
@@ -364,14 +363,14 @@ hardware (e.g. `kubectl taint nodes nodename special=true:NoSchedule` or
 `kubectl taint nodes nodename special=true:PreferNoSchedule`) and adding a corresponding
 toleration to pods that use the special hardware. As in the dedicated nodes use case,
 it is probably easiest to apply the tolerations using a custom
-[admission controller](https://kubernetes.io/docs/admin/admission-controllers/)).
+[admission controller](/docs/admin/admission-controllers/)).
 For example, the admission controller could use
 some characteristic(s) of the pod to determine that the pod should be allowed to use
 the special nodes and hence the admission controller should add the toleration.
 To ensure that the pods that need
 the special hardware *only* schedule onto the nodes that have the special hardware, you will need some
 additional mechanism, e.g. you could represent the special resource using
-[opaque integer resources](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#opaque-integer-resources-alpha-feature)
+[opaque integer resources](/docs/concepts/configuration/manage-compute-resources-container/#opaque-integer-resources-alpha-feature)
 and request it as a resource in the PodSpec, or you could label the nodes that have
 the special hardware and use node affinity on the pods that need the hardware.
 
@@ -397,7 +396,7 @@ is enabled (you can do this by including `TaintBasedEvictions=true` in `--featur
 `--feature-gates=FooBar=true,TaintBasedEvictions=true`), the taints are automatically
 added by the NodeController and the normal logic for evicting pods from nodes
 based on the Ready NodeCondition is disabled.
-(Note: To maintain the existing [rate limiting](https://kubernetes.io/docs/admin/node/#node-controller)
+(Note: To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
 behavior of pod evictions due to node problems, the system actually adds the taints
 in a rate-limited way. This prevents massive pod evictions in scenarios such
 as the master becoming partitioned from the nodes.)
@@ -410,7 +409,7 @@ that the partition will recover and thus the pod eviction can be avoided.
 The toleration the pod would use in that case would look like
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "node.alpha.kubernetes.io/unreachable"
   operator: "Exists"
   effect: "NoExecute"
@@ -432,9 +431,9 @@ These automatically-added tolerations ensure that
 the default pod behavior of remaining bound for 5 minutes after one of these
 problems is detected is maintained.
 The two default tolerations are added by the [DefaultTolerationSeconds
-admission controller](https://github.com/kubernetes/kubernetes/tree/master/plugin/pkg/admission/defaulttolerationseconds).
+admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/defaulttolerationseconds).
 
-[DaemonSet](https://kubernetes.io/docs/admin/daemons/) pods are created with
+[DaemonSet](/docs/concepts/workloads/controllers/daemonset/) pods are created with
 `NoExecute` tolerations for `node.alpha.kubernetes.io/unreachable` and `node.alpha.kubernetes.io/notReady`
 with no `tolerationSeconds`. This ensures that DaemonSet pods are never evicted due
 to these problems, which matches the behavior when this feature is disabled.

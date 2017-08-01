@@ -2,9 +2,6 @@
 assignees:
 - derekwaynecarr
 title: Resource Quotas
-redirect_from:
-- "/docs/admin/resourcequota/"
-- "/docs/admin/resourcequota/index.html"
 ---
 
 When several users or teams share a cluster with a fixed number of nodes,
@@ -56,7 +53,7 @@ Resource Quota is enforced in a particular namespace when there is a
 ## Compute Resource Quota
 
 You can limit the total sum of [compute resources](/docs/user-guide/compute-resources) that can be requested in a given namespace.
- 
+
 The following resource types are supported:
 
 | Resource Name | Description |
@@ -70,7 +67,7 @@ The following resource types are supported:
 
 ## Storage Resource Quota
 
-You can limit the total sum of [storage resources](/docs/user-guide/persistent-volumes) that can be requested in a given namespace. 
+You can limit the total sum of [storage resources](/docs/user-guide/persistent-volumes) that can be requested in a given namespace.
 
 In addition, you can limit consumption of storage resources based on associated storage-class.
 
@@ -240,4 +237,4 @@ See a [detailed example for how to use resource quota](/docs/tasks/configure-pod
 
 ## Read More
 
-See [ResourceQuota design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/admission_control_resource_quota.md) for more information.
+See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md) for more information.

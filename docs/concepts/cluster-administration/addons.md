@@ -1,8 +1,5 @@
 ---
 title: Installing Addons
-redirect_from:
-- "/docs/admin/addons/"
-- "/docs/admin/addons.html"
 ---
 
 ## Overview
@@ -31,6 +28,6 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 
 ## Legacy Add-ons
 
-There are several other add-ons documented in the deprecated [cluster/addons](https://github.com/kubernetes/kubernetes/tree/master/cluster/addons) directory.
+There are several other add-ons documented in the deprecated [cluster/addons](https://git.k8s.io/kubernetes/cluster/addons) directory.
 
 Well-maintained ones should be linked to here. PRs welcome!

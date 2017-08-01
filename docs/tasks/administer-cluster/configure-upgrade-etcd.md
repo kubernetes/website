@@ -3,17 +3,6 @@ assignees:
 - mml
 - wojtek-t
 title: Operating etcd clusters for Kubernetes
-redirect_from:
-- "/docs/concepts/storage/etcd-store-api-object/"
-- "/docs/concepts/storage/etcd-store-api-object.html"
-- "/docs/admin/etcd/"
-- "/docs/admin/etcd.html"
-- "/docs/admin/etcd_upgrade/"
-- "/docs/admin/etcd_upgrade.html"
-- "/docs/concepts/cluster-administration/configure-etcd/"
-- "/docs/concepts/cluster-administration/configure-etcd.html"
-- "/docs/concepts/cluster-administration/etcd-upgrade/"
-- "/docs/concepts/cluster-administration/etcd-upgrade.html"
 ---
 
 etcd is a strong, consistent, and highly-available key value store which Kubernetes uses for persistent storage of all of its API objects. This documentation provides specific instruction on operating, upgrading, and rolling back etcd clusters for Kubernetes. For in-depth information on etcd, see [etcd documentation](https://github.com/coreos/etcd/blob/master/Documentation/docs.md).
@@ -35,7 +24,7 @@ see _some doc_.
 
   Performance and stability of the cluster is sensitive to network and disk IO. Any resource starvation can lead to heartbeat timeout, causing instability of the cluster. An unstable etcd indicates that no leader is elected. Under such circumstances, a cluster cannot make any changes to its current state, which implies no new pods can be scheduled.
 
-* Keeping stable etcd clusters is critical to the stability of Kubernetes clusters. Therefore, run etcd clusters on dedicated machines or isolated environments for [guaranteed resource requirements](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#hardware-recommendations). 
+* Keeping stable etcd clusters is critical to the stability of Kubernetes clusters. Therefore, run etcd clusters on dedicated machines or isolated environments for [guaranteed resource requirements](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#hardware-recommendations).
 
 ## Resource requirements
 
@@ -105,7 +94,7 @@ For example, consider key pairs `k8sclient.key` and `k8sclient.cert` that are tr
 
 Once etcd is configured correctly, only clients with valid certificates can access it. To give Kubernetes API server the access, configure it with the flags `--etcd-certfile=k8sclient.cert` and `--etcd-keyfile=k8sclient.key`.
 
-**Note**: etcd authentication is not currently supported by Kubernetes. For more information, see see the related issue [Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398).
+**Note**: etcd authentication is not currently supported by Kubernetes. For more information, see the related issue [Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398).
 
 ## Replacing a failed etcd member
 
@@ -247,7 +236,7 @@ it is enough to start etcd in 2.2.z version, wait until it is healthy, stop it, 
 
 Versions 3.0+ of etcd do not support general rollback. That is,
 after migrating from M.N to M.N+1, there is no way to go back to M.N.
-The etcd team has provided a [custom rollback tool](https://github.com/kubernetes/kubernetes/tree/master/cluster/images/etcd/rollback)
+The etcd team has provided a [custom rollback tool](https://git.k8s.io/kubernetes/cluster/images/etcd/rollback)
 but the rollback tool has these limitations:
 
 * This custom rollback tool is not part of the etcd repo and does not receive the same
@@ -403,5 +392,5 @@ test key. On your master VM (or somewhere with firewalls configured such that
 you can talk to your cluster's etcd), try:
 
 ```shell
-curl -fs -X PUT "http://${host}:${port}/v2/keys/_test"
+curl -X PUT "http://${host}:${port}/v2/keys/_test"
 ```

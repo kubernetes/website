@@ -3,9 +3,6 @@ assignees:
 - erictune
 - thockin
 title: Images
-redirect_from:
-- "/docs/user-guide/images/"
-- "/docs/user-guide/images.html"
 ---
 
 {% capture overview %}
@@ -83,7 +80,7 @@ images in the ECR registry.
 
 The kubelet will fetch and periodically refresh ECR credentials.  It needs the following permissions to do this:
 
-- `ecr:GetAuthorizationToken` 
+- `ecr:GetAuthorizationToken`
 - `ecr:BatchCheckLayerAvailability`
 - `ecr:GetDownloadUrlForLayer`
 - `ecr:GetRepositoryPolicy`
