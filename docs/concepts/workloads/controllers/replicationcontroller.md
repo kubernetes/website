@@ -100,9 +100,7 @@ A ReplicationController also needs a [`.spec` section](https://git.k8s.io/commun
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a pod template.  It has exactly
-the same schema as a [pod](/docs/concepts/workloads/pods/pod/), except it is nested and does not have an `apiVersion` or
-`kind`.
+The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [pod](/docs/concepts/workloads/pods/pod/), except it is nested and does not have an `apiVersion` or `kind`.
 
 In addition to required fields for a Pod, a pod template in a ReplicationController must specify appropriate
 labels and an appropriate restart policy. For labels, make sure not to overlap with other controllers. See [pod selector](#pod-selector).
@@ -137,7 +135,7 @@ ReplicationController thinks that it created the other pods.  Kubernetes does no
 from doing this.
 
 If you do end up with multiple controllers that have overlapping selectors, you
-will have to manage the deletion yourself (see [below](#updating-a-replication-controller)).
+will have to manage the deletion yourself (see [below](#working-with-replicationcontrollers)).
 
 ### Multiple Replicas
 
