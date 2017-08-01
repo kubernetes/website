@@ -27,6 +27,7 @@ Kubernetes 从 1.3 版本起， DNS 是内置的服务，通过插件管理器 [
 Kubernetes DNS 在集群中调度 DNS Pod 和 Service ，配置 kubelet 以通知个别容器使用 DNS Service 的 IP 解析 DNS 名字。
 
 
+<!--
 
 ## What things get DNS names?
 
@@ -40,7 +41,7 @@ in namespace `bar` can look up this service by simply doing a DNS query for
 `foo`.  A Pod running in namespace `quux` can look up this service by doing a
 DNS query for `foo.bar`.
 
-—>
+-->
 
 ## 谁需要获取 DNS 名字?
 
@@ -473,7 +474,7 @@ Use the kubectl get pods command to verify that the DNS pod is running.
 
 -->
 
-#### 检查是否 DNS Pod正在运行
+#### 检查是否 DNS Pod 正在运行
 
 使用 `kubectl get pods` 命令验证 DNS Pod 正在运行：
 
@@ -715,4 +716,4 @@ Linux libc 在限制为3个 DNS `nameserver` 记录和3个 DNS `search` 记录�
 
 ## 下一步
 
-- [集群中 DNS Service 自动伸缩](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)。
+- [集群中 DNS Service 自动伸缩](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)

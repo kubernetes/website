@@ -21,7 +21,7 @@ in that set?
 
 Kubernetes [`Pod`](/docs/user-guide/pods) 是有生命周期的，它们可以被创建，也可以被销毁，然而一旦被销毁生命就永远结束。 
 通过 [`ReplicationController`](/docs/user-guide/replication-controller) 能够动态地创建和销毁 `Pod`（例如，需要进行扩缩容，或者执行 [滚动升级](/docs/user-guide/kubectl/v1.7/#rolling-update)）。 
-每个 `Pod` 都会获取它自己的 IP 地址，即使这些IP地址不总是稳定可依赖的。
+每个 `Pod` 都会获取它自己的 IP 地址，即使这些 IP 地址不总是稳定可依赖的。
 这会导致一个问题：在 Kubernetes 集群中，如果一组 `Pod`（称为 backend）为其它 `Pod` （称为 frontend）提供服务，那么那些 frontend 该如何发现，并连接到这组 `Pod` 中的哪些 backend 呢？
 
 <!-- 
@@ -39,7 +39,7 @@ Selector`](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 -->
 
 Kubernetes `Service` 定义了这样一种抽象：一个 `Pod` 的逻辑分组，一种可以访问它们的策略 —— 通常称为微服务。
-这一组 `Pod` 能够被 `Service` 访问到，通常是通过 [`Label Selector`](/docs/concepts/overview/working-with-objects/labels/#label-selectors)（查看下面了解，为什么可能需要没有selector 的 `Service`）实现的。
+这一组 `Pod` 能够被 `Service` 访问到，通常是通过 [`Label Selector`](/docs/concepts/overview/working-with-objects/labels/#label-selectors)（查看下面了解，为什么可能需要没有 selector 的 `Service`）实现的。
 
 <!--
 As an example, consider an image-processing backend which is running with 3
@@ -290,7 +290,7 @@ and redirects that traffic to the proxy port which proxies the backend `Pod`.
 对每个 `Service`，它会在本地 Node 上打开一个端口（随机选择）。
 任何连接到“代理端口”的请求，都会被代理到 `Service` 的backend `Pods` 中的某个上面（如 `Endpoints` 所报告的一样）。
 使用哪个 backend `Pod`，是基于 `Service` 的 `SessionAffinity` 来确定的。
-最后，它安装 iptables 规则，捕获到达该 `Service` 的 `clusterIP`（是虚拟IP）和 `Port` 的请求，并重定向到代理端口，代理端口再代理请求到 backend `Pod`。
+最后，它安装 iptables 规则，捕获到达该 `Service` 的 `clusterIP`（是虚拟 IP）和 `Port` 的请求，并重定向到代理端口，代理端口再代理请求到 backend `Pod`。
 
 <!--
 The net result is that any traffic bound for the `Service`'s IP:Port is proxied
@@ -514,8 +514,7 @@ DNS records for each.  If DNS has been enabled throughout the cluster then all
 `Pods` should be able to do name resolution of `Services` automatically.
 -->
 
-一个可选（尽管强烈推荐）[集群
-add-on](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md) 是 DNS 服务器。
+一个可选（尽管强烈推荐）[集群插件](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md) 是 DNS 服务器。
 DNS 服务器监视着创建新 `Service` 的 Kubernetes API，从而为每一个 `Service` 创建一组 DNS 记录。
 如果整个集群的 DNS 一直被启用，那么所有的 `Pod` 应该能够自动对 `Service` 进行名称解析。
 
