@@ -501,13 +501,13 @@ all configured and managed *by Kubernetes*:
 
 You will need to run one or more instances of etcd.
 
-  - (Highly available and easy to restore) Run 3 or 5 etcd instances with, their logs written to a directory backed
+  - Highly available and easy to restore - Run 3 or 5 etcd instances with, their logs written to a directory backed
     by durable storage (RAID, GCE PD)
-  - (Not highly available, but easy to restore) Run one etcd instance, with its log written to a directory backed
+  - Not highly available, but easy to restore - Run one etcd instance, with its log written to a directory backed
     by durable storage (RAID, GCE PD)
-    - May result in operations outages in case of instance outage
-  - (Highly available) Run 3 or 5 etcd instances with non durable storage.
-    - Log can be written to non-durable storage because storage is replicated.
+    **Note:** May result in operations outages in case of instance outage
+  - Highly available - Run 3 or 5 etcd instances with non durable storage.
+    **Note:** Log can be written to non-durable storage because storage is replicated.
 
 See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting) for more discussion on factors affecting cluster
 availability.
