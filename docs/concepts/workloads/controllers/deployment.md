@@ -120,7 +120,7 @@ and in any existing Pods that the ReplicaSet may have.
 ## Updating a Deployment
 
 **Note:** A Deployment's rollout is triggered if and only if the Deployment's pod template (that is, `.spec.template`)
-is changed, for example if the labels or container images of the templaet are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
+is changed, for example if the labels or container images of the template are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
 
 Suppose that we now want to update the nginx Pods to use the `nginx:1.9.1` image
 instead of the `nginx:1.7.9` image.
