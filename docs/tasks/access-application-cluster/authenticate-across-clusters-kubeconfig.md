@@ -1,8 +1,5 @@
 ---
-assignees:
-- mikedanese
-- thockin
-title: Authenticate Across Clusters with kubeconfig
+title: Authenticate across clusters with kubeconfig
 ---
 
 Authentication in Kubernetes can differ for different individuals.
@@ -311,3 +308,5 @@ So, tying this all together, a quick start to create your own kubeconfig file:
 - Replace the snippet above with information for your cluster's api-server endpoint.
 
 - Make sure your api-server is launched in such a way that at least one user (for example, green-user) credentials are provided to it.  You will of course have to look at api-server documentation in order to determine the current state-of-the-art in terms of providing authentication details.
+
+{% include templates/task.md %}
