@@ -3,6 +3,7 @@ apiVersion: v1
 metadata:
   name: task-pv-claim
 spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:

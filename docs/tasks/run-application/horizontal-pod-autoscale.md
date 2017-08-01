@@ -4,9 +4,6 @@ assignees:
 - jszczepkowski
 - directxman12
 title: Horizontal Pod Autoscaling
-redirect_from:
-- "/docs/user-guide/horizontal-pod-autoscaling/"
-- "/docs/user-guide/horizontal-pod-autoscaling/index.html"
 ---
 
 This document describes the current state of Horizontal Pod Autoscaling in Kubernetes.
@@ -40,13 +37,13 @@ or the custom metrics API (for all other metrics).
   Then, if a target utilization value is set, the controller calculates the utilization
   value as a percentage of the equivalent resource request on the containers in
   each pod.  If a target raw value is set, the raw metric values are used directly.
-  the controller then takes the mean of the utilization or the raw value (depending on the type
+  The controller then takes the mean of the utilization or the raw value (depending on the type
   of target specified) across all targeted pods, and produces a ratio used to scale
   the number of desired replicas.
 
   Please note that if some of the pod's containers do not have the relevant resource request set,
   CPU utilization for the pod will not be defined and the autoscaler will not take any action
-  for that metric. See the [autoscaling algorithm design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm) for further
+  for that metric. See the [autoscaling algorithm design document](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md#autoscaling-algorithm) for further
   details about how the autoscaling algorithm works.
 
 * For per-pod custom metrics, the controller functions similarly to per-pod resource metrics,
@@ -62,11 +59,11 @@ When using direct Heapster access, the HorizontalPodAutoscaler queries Heapster 
 through the API server's service proxy subresource.  Heapster needs to be deployed on the
 cluster and running in the kube-system namespace.
 
-See [Support for custom metrics](#prerequisites) for more details on REST client access.
+See [Support for custom metrics](#support-for-custom-metrics) for more details on REST client access.
 
 The autoscaler accesses corresponding replication controller, deployment or replica set by scale sub-resource.
 Scale is an interface that allows you to dynamically set the number of replicas and examine each of their current states.
-More details on scale sub-resource can be found [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#scale-subresource).
+More details on scale sub-resource can be found [here](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md#scale-subresource).
 
 
 ## API Object
@@ -80,7 +77,7 @@ can be found in `autoscaling/v2alpha1`. The new fields introduced in `autoscalin
 are preserved as annotations when working with `autoscaling/v1`.
 
 More details about the API object can be found at
-[HorizontalPodAutoscaler Object](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
+[HorizontalPodAutoscaler Object](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
 
 ## Support for Horizontal Pod Autoscaler in kubectl
 
@@ -141,6 +138,6 @@ available at [the k8s.io/metrics repository](https://github.com/kubernetes/metri
 
 ## Further reading
 
-* Design documentation: [Horizontal Pod Autoscaling](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md).
+* Design documentation: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md).
 * kubectl autoscale command: [kubectl autoscale](/docs/user-guide/kubectl/v1.6/#autoscale).
 * Usage example of [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).

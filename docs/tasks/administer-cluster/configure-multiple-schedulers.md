@@ -2,12 +2,7 @@
 assignees:
 - davidopp
 - madhusudancs
-title: Configuring Multiple Schedulers
-redirect_from:
-- "/docs/admin/multiple-schedulers/"
-- "/docs/admin/multiple-schedulers.html"
-- "/docs/tutorials/clusters/multiple-schedulers/"
-- "/docs/tutorials/clusters/multiple-schedulers.html"
+title: Configure Multiple Schedulers
 ---
 
 Kubernetes ships with a default scheduler that is described [here](/docs/admin/kube-scheduler/).

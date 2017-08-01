@@ -2,11 +2,6 @@
 assignees:
 - erictune
 title: Init Containers
-redirect_from:
-- "/docs/concepts/abstractions/init-containers/"
-- "/docs/concepts/abstractions/init-containers.html"
-- "/docs/user-guide/pods/init-container/"
-- "/docs/user-guide/pods/init-container.html"
 ---
 
 {% capture overview %}
@@ -17,10 +12,9 @@ scripts not present in an app image.
 
 {:toc}
 
-{% assign for_k8s_version="v1.5" %}{% include feature-state-beta.md %}
-
-Once the feature exits beta, Init Containers will be specified in the PodSpec
-alongside the app `containers` array.
+This feature has exited beta in 1.6. Init Containers can be specified in the PodSpec
+alongside the app `containers` array. The beta annotation value will still be respected
+and overrides the PodSpec field value.
 
 {% capture body %}
 ## Understanding Init Containers
@@ -37,7 +31,7 @@ Init Containers are exactly like regular Containers, except:
 If an Init Container fails for a Pod, Kubernetes restarts the Pod repeatedly until the Init
 Container succeeds. However, if the Pod has a `restartPolicy` of Never, it is not restarted.
 
-To specify a Container as an Init Container, add the `initContainers` field on the PodSpec as a JSON array of objects of type [v1.Container](/docs/api-reference/v1.6/#container-v1-core) alongside the app `containers` array.
+To specify a Container as an Init Container, add the `initContainers` field on the PodSpec as a JSON array of objects of type [v1.Container](/docs/api-reference/{{page.version}}/#container-v1-core) alongside the app `containers` array.
 The status of the init containers is returned in `status.initContainerStatuses`
 field as an array of the container statuses (similar to the `status.containerStatuses`
 field).
@@ -186,7 +180,7 @@ pod "myapp-pod" created
 $ kubectl get -f myapp.yaml
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
-$ kubectl describe -f myapp.yaml 
+$ kubectl describe -f myapp.yaml
 Name:          myapp-pod
 Namespace:     default
 [...]
@@ -200,7 +194,9 @@ Init Containers:
 [...]
   init-mydb:
 [...]
-    State:         Running
+    State:         Waiting
+      Reason:      PodInitializing
+    Ready:         False
 [...]
 Containers:
   myapp-container:
@@ -210,13 +206,13 @@ Containers:
     Ready:         False
 [...]
 Events:
-  FirstSeen    LastSeen    Count    From                     SubObjectPath                Type        Reason        Message
-  ---------    --------    -----    ----                     -------------                --------    ------        -------
+  FirstSeen    LastSeen    Count    From                      SubObjectPath                           Type          Reason        Message
+  ---------    --------    -----    ----                      -------------                           --------      ------        -------
   16s          16s         1        {default-scheduler }                                              Normal        Scheduled     Successfully assigned myapp-pod to 172.17.4.201
-  16s          16s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Pulling        pulling image "busybox"
+  16s          16s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Pulling       pulling image "busybox"
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Pulled        Successfully pulled image "busybox"
-  13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Created        Created container with docker id 5ced34a04634; Security:[seccomp=unconfined]
-  13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started        Started container with docker id 5ced34a04634
+  13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Created       Created container with docker id 5ced34a04634; Security:[seccomp=unconfined]
+  13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started       Started container with docker id 5ced34a04634
 $ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
 $ kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 ```

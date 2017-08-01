@@ -17,6 +17,8 @@ each of which has a sequence of steps.
 
 * [Running a Stateless Application Using a Deployment](/docs/tutorials/stateless-application/run-stateless-application-deployment/)
 
+* [Example: PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
+
 * [Using a Service to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address-service/)
 
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
@@ -29,6 +31,10 @@ each of which has a sequence of steps.
 
 * [Running a Replicated Stateful Application](/docs/tutorials/stateful-application/run-replicated-stateful-application/)
 
+* [Example: WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+
+* [Example: Deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/)
+
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 
 #### Connecting Applications
@@ -37,7 +43,7 @@ each of which has a sequence of steps.
 
 #### Services
 
-* [Using SourceIP](/docs/tutorials/services/source-ip/)
+* [Using Source IP](/docs/tutorials/services/source-ip/)
 
 ### What's next
 

@@ -2,12 +2,7 @@
 assignees:
 - derekwaynecarr
 - janetkuo
-title: Applying Resource Quotas and Limits
-redirect_from:
-- "/docs/admin/resourcequota/walkthrough/"
-- "/docs/admin/resourcequota/walkthrough.html"
-- "/docs/tasks/configure-pod-container/apply-resource-quota-limit/"
-- "/docs/tasks/configure-pod-container/apply-resource-quota-limit.html"
+title: Apply Resource Quotas and Limits
 ---
 
 {% capture overview %}
@@ -359,7 +354,7 @@ the 2 pods we created in the `not-best-effort-nginx` quota.
 
 Scopes provide a mechanism to subdivide the set of resources that are tracked by
 any quota document to allow greater flexibility in how operators deploy and track resource
-consumption.  
+consumption.
 
 In addition to `BestEffort` and `NotBestEffort` scopes, there are scopes to restrict
 long-running versus time-bound pods.  The `Terminating` scope will match any pod

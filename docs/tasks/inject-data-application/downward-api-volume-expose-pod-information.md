@@ -1,12 +1,5 @@
 ---
-title: Exposing Pod Information to Containers Through Files
-redirect_from:
-- "/docs/user-guide/downward-api/"
-- "/docs/user-guide/downward-api/index.html"
-- "/docs/user-guide/downward-api/volume/"
-- "/docs/user-guide/downward-api/volume/index.html"
-- "/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/"
-- "/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information.html"
+title: Expose Pod Information to Containers Through Files
 ---
 
 {% capture overview %}
@@ -36,7 +29,7 @@ There are two ways to expose Pod and Container fields to a running Container:
 Together, these two ways of exposing Pod and Container fields are called the
 *Downward API*.
 
-## Storing Pod fields
+## Store Pod fields
 
 In this exercise, you create a Pod that has one Container.
 Here is the configuration file for the Pod:
@@ -47,10 +40,10 @@ In the configuration file, you can see that the Pod has a `downwardAPI` Volume,
 and the Container mounts the Volume at `/etc`.
 
 Look at the `items` array under `downwardAPI`. Each element of the array is a
-[DownwardAPIVolumeFile](/docs/resources-reference/v1.6/#downwardapivolumefile-v1-core).
+[DownwardAPIVolumeFile](/docs/resources-reference/{{page.version}}/#downwardapivolumefile-v1-core).
 The first element specifies that the value of the Pod's
 `metadata.labels` field should be stored in a file named `labels`.
-The second element specifies that the value of the Pod's `annotations` 
+The second element specifies that the value of the Pod's `annotations`
 field should be stored in a file named `annotations`.
 
 **Note**: The fields in this example are Pod fields. They are not
@@ -147,9 +140,9 @@ Exit the shell:
 /# exit
 ```
 
-## Storing Container fields
+## Store Container fields
 
-The preceding exercise, you stored Pod fields in a DownwardAPIVolumeFile. 
+The preceding exercise, you stored Pod fields in a DownwardAPIVolumeFile.
 In this next exercise, you store Container fields. Here is the configuration
 file for a Pod that has one Container:
 
@@ -162,7 +155,7 @@ Look at the `items` array under `downwardAPI`. Each element of the array is a
 DownwardAPIVolumeFile.
 
 The first element specifies that in the Container named `client-container`,
-the value of the `limits.cpu` field 
+the value of the `limits.cpu` field
 should be stored in a file named `cpu_limit`.
 
 Create the Pod:
@@ -199,6 +192,7 @@ variables and DownwardAPIVolumeFiles:
 * The Pod’s namespace
 * The Pod’s IP address
 * The Pod’s service account name
+* The Pod’s UID
 * A Container’s CPU limit
 * A container’s CPU request
 * A Container’s memory limit
@@ -213,7 +207,7 @@ DownwardAPIVolumeFiles.
 **Note**: If CPU and memory limits are not specified for a Container, the
 Downward API defaults to the node allocatable value for CPU and memory.
 
-## Projecting keys to specific paths and file permissions
+## Project keys to specific paths and file permissions
 
 You can project keys to specific paths and specific permissions on a per-file
 basis. For more information, see
@@ -237,11 +231,11 @@ inject the Pod's name into the well-known environment variable.
 
 {% capture whatsnext %}
 
-* [PodSpec](/docs/resources-reference/v1.6/#podspec-v1-core)
-* [Volume](/docs/resources-reference/v1.6/#volume-v1-core)
-* [DownwardAPIVolumeSource](/docs/resources-reference/v1.6/#downwardapivolumesource-v1-core)
-* [DownwardAPIVolumeFile](/docs/resources-reference/v1.6/#downwardapivolumefile-v1-core)
-* [ResourceFieldSelector](/docs/resources-reference/v1.6/#resourcefieldselector-v1-core)
+* [PodSpec](/docs/resources-reference/{{page.version}}/#podspec-v1-core)
+* [Volume](/docs/resources-reference/{{page.version}}/#volume-v1-core)
+* [DownwardAPIVolumeSource](/docs/resources-reference/{{page.version}}/#downwardapivolumesource-v1-core)
+* [DownwardAPIVolumeFile](/docs/resources-reference/{{page.version}}/#downwardapivolumefile-v1-core)
+* [ResourceFieldSelector](/docs/resources-reference/{{page.version}}/#resourcefieldselector-v1-core)
 
 {% endcapture %}
 

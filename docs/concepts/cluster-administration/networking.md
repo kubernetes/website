@@ -2,9 +2,6 @@
 assignees:
 - thockin
 title: Cluster Networking
-redirect_from:
-- "/docs/admin/networking/"
-- "/docs/admin/networking.html"
 ---
 
 Kubernetes approaches networking somewhat differently than Docker does by
@@ -85,7 +82,7 @@ talk to other VMs in your project.  This is the same basic model.
 Until now this document has talked about containers.  In reality, Kubernetes
 applies IP addresses at the `Pod` scope - containers within a `Pod` share their
 network namespaces - including their IP address.  This means that containers
-within a `Pod` can all reach each other's ports on `localhost`. This does imply 
+within a `Pod` can all reach each other's ports on `localhost`. This does imply
 that containers within a `Pod` must coordinate port usage, but this is no
 different than processes in a VM.  We call this the "IP-per-pod" model.  This
 is implemented in Docker as a "pod container" which holds the network namespace
@@ -105,6 +102,14 @@ as an introduction to various technologies and serves as a jumping-off point.
 
 The following networking options are sorted alphabetically - the order does not
 imply any preferential status.
+
+### Cilium
+
+[Cilium](https://github.com/cilium/cilium) is open source software for
+providing and transparently securing network connectivity between application
+containers. Cilium is L7/HTTP aware and can enforce network policies on L3-L7
+using an identity based security model that is decoupled from network
+addressing.
 
 ### Contiv
 
@@ -205,18 +210,24 @@ Calico can also be run in policy enforcement mode in conjunction with other netw
 
 ### Romana
 
-[Romana](http://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/networkpolicies/) to provide isolation across network namespaces.
+[Romana](http://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
 
 ### Weave Net from Weaveworks
 
-[Weave Net](https://www.weave.works/products/weave-net/) is a 
-resilient and simple to use network for Kubernetes and its hosted applications.  
-Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)  
+[Weave Net](https://www.weave.works/products/weave-net/) is a
+resilient and simple to use network for Kubernetes and its hosted applications.
+Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)
 or stand-alone.  In either version, it doesn't require any configuration or extra code
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
+
+### CNI-Genie from Huawei
+
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultanously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](https://git.k8s.io/kubernetes.github.io/docs/concepts/cluster-administration/networking.md#kubernetes-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+
+CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
 
 ## Other reading
 
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the [networking design
-document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/networking.md).
+document](https://git.k8s.io/community/contributors/design-proposals/networking.md).

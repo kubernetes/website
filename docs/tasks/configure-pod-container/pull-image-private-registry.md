@@ -1,5 +1,5 @@
 ---
-title: Pulling an Image from a Private Registry
+title: Pull an Image from a Private Registry
 ---
 
 {% capture overview %}
@@ -20,7 +20,7 @@ private Docker registry or repository.
 
 {% capture steps %}
 
-## Logging in to Docker
+## Log in to Docker
 
     docker login
 
@@ -42,10 +42,10 @@ The output contains a section similar to this:
             }
         }
     }
-    
+
 NOTE: If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
 
-## Creating a Secret that holds your authorization token
+## Create a Secret that holds your authorization token
 
 Create a Secret named `regsecret`:
 
@@ -95,7 +95,7 @@ The output is similar to this:
 Notice that the secret data contains the authorization token from your
 `config.json` file.
 
-## Creating a Pod that uses your Secret
+## Create a Pod that uses your Secret
 
 Here is a configuration file for a Pod that needs access to your secret data:
 
@@ -127,9 +127,9 @@ Create a Pod that uses your Secret, and verify that the Pod is running:
 * Learn more about
 [using a private registry](/docs/concepts/containers/images/#using-a-private-registry).
 * See [kubectl create secret docker-registry](/docs/user-guide/kubectl/v1.6/#-em-secret-docker-registry-em-).
-* See [Secret](/docs/api-reference/v1.6/#secret-v1-core)
+* See [Secret](/docs/api-reference/{{page.version}}/#secret-v1-core)
 * See the `imagePullSecrets` field of
-[PodSpec](/docs/api-reference/v1.6/#podspec-v1-core).
+[PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core).
 
 {% endcapture %}
 

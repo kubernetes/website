@@ -1,12 +1,9 @@
 ---
-title: Accessing Services Running on Clusters
-redirect_from:
-- "/docs/user-guide/accessing-the-cluster/"
-- "/docs/user-guide/accessing-the-cluster.html"
+title: Access Services Running on Clusters
 ---
 
 {% capture overview %}
-This page shows how to connect to services running on the Kubernetes cluster. 
+This page shows how to connect to services running on the Kubernetes cluster.
 {% endcapture %}
 
 {% capture prerequisites %}

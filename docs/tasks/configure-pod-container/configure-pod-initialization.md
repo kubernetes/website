@@ -1,5 +1,5 @@
 ---
-title: Configuring Pod Initialization
+title: Configure Pod Initialization
 ---
 
 {% capture overview %}
@@ -16,7 +16,7 @@ application Container runs.
 
 {% capture steps %}
 
-## Creating a Pod that has an Init Container
+## Create a Pod that has an Init Container
 
 In this exercise you create a Pod that has one application Container and one
 Init Container. The init container runs to completion before the application
@@ -84,6 +84,7 @@ The output shows that nginx is serving the web page that was written by the init
 [communicating between Containers running in the same Pod](/docs/tasks/configure-pod-container/communicate-containers-same-pod/).
 * Learn more about [Init Containers](/docs/concepts/workloads/pods/init-containers/).
 * Learn more about [Volumes](/docs/concepts/storage/volumes/).
+* Learn more about [Debugging Init Containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
 
 {% endcapture %}
 

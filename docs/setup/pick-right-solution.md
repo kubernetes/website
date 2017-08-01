@@ -4,9 +4,6 @@ assignees:
 - erictune
 - mikedanese
 title: Picking the Right Solution
-redirect_from:
-- "/docs/getting-started-guides/index/"
-- "/docs/getting-started-guides/index.html"
 ---
 
 Kubernetes can run on various platforms: from your laptop, to VMs on a cloud provider, to rack of
@@ -34,7 +31,7 @@ a Kubernetes cluster from scratch.
 
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local) supports a nine-instance deployment on localhost.
 
-* [IBM Spectrum Conductor for Containers](https://www.ibm.com/support/knowledgecenter/SS8TQM/product_welcome_containers.html) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs. Scales to full multi-node cluster. Free distribution.
+* [IBM Cloud private-ce (Community Edition)](https://www.ibm.com/support/knowledgecenter/en/SSBS6K/product_welcome_cloud_private.html) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for dev and test scenarios. Scales to full multi-node cluster. Free version of the enterprise solution.
 
 # Hosted Solutions
 
@@ -58,7 +55,7 @@ a Kubernetes cluster from scratch.
 
 * [OpenShift Online](https://www.openshift.com/features/) provides free hosted access for Kubernetes applications.
 
-* [IBM Bluemix Container Service](https://console.ng.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters.
+* [IBM Bluemix Container Service](https://console.ng.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
 
 * [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
 
@@ -88,7 +85,7 @@ have special requirements, or just because you want to understand what is undern
 cluster, try the [Getting Started from Scratch](/docs/getting-started-guides/scratch) guide.
 
 If you are interested in supporting Kubernetes on a new platform, see
-[Writing a Getting Started Guide](https://github.com/kubernetes/community/blob/master/contributors/devel/writing-a-getting-started-guide.md).
+[Writing a Getting Started Guide](https://git.k8s.io/community/contributors/devel/writing-a-getting-started-guide.md).
 
 ## Universal
 
@@ -102,7 +99,6 @@ These solutions are combinations of cloud providers and operating systems not co
 
 * [CoreOS on AWS or GCE](/docs/getting-started-guides/coreos)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
-* [CoreOS on Rackspace](/docs/getting-started-guides/rackspace)
 
 ## On-Premises VMs
 
@@ -144,7 +140,7 @@ Below is a table of all of the solutions listed above.
 
 IaaS Provider        | Config. Mgmt. | OS     | Networking  | Docs                                              | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ----------------------------
-any                  | any          | multi-support | any CNI | [docs](https://kubernetes.io/docs/getting-started-guides/kubeadm/) | Project ([SIG-cluster-lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle))
+any                  | any          | multi-support | any CNI | [docs](/docs/setup/independent/create-cluster-kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
 GKE                  |              |        | GCE         | [docs](https://cloud.google.com/container-engine) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
@@ -183,7 +179,6 @@ Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/gettin
 libvirt/KVM          | CoreOS       | CoreOS | libvirt/KVM | [docs](/docs/getting-started-guides/libvirt-coreos)                         |  Community ([@lhuard1A](https://github.com/lhuard1A))
 oVirt                |              |        |             | [docs](/docs/getting-started-guides/ovirt)                                  |  Community ([@simon3z](https://github.com/simon3z))
 OpenStack Heat       | Saltstack    | CentOS | Neutron + flannel hostgw | [docs](/docs/getting-started-guides/openstack-heat)            |  Community ([@FujitsuEnablingSoftwareTechnologyGmbH](https://github.com/FujitsuEnablingSoftwareTechnologyGmbH))
-Rackspace            | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/rackspace)                              |  Community ([@doublerr](https://github.com/doublerr))
 any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch)                                |  Community ([@erictune](https://github.com/erictune))
 any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
 

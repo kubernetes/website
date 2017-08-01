@@ -1,12 +1,9 @@
 ---
 title: Kubernetes on Ubuntu
-redirect_from:
-- "/docs/getting-started-guides/ubuntu/calico/"
-- "/docs/getting-started-guides/ubuntu/calico.html"
 ---
 
 {% capture overview %}
-There are multiple ways to run a Kubernetes cluster with Ubuntu. These pages explain how to deploy Kubernetes on Ubuntu on multiple public and private clouds, as well as bare metal. 
+There are multiple ways to run a Kubernetes cluster with Ubuntu. These pages explain how to deploy Kubernetes on Ubuntu on multiple public and private clouds, as well as bare metal.
 {% endcapture %}
 
 {% capture body %}
@@ -20,10 +17,11 @@ Supports AWS, GCE, Azure, Joyent, OpenStack, VMWare, Bare Metal and localhost de
 
 [conjure-up](http://conjure-up.io/) provides the quickest way to deploy Kubernetes on Ubuntu for multiple clouds and bare metal. It provides a user-friendly UI that prompts you for cloud credentials and configuration options
 
-Available for Ubuntu 16.04 and newer: 
+Available for Ubuntu 16.04 and newer:
 
 ```
 sudo snap install conjure-up --classic
+# re-login may be required at that point if you just installed snap utility
 conjure-up kubernetes
 ```
 
@@ -36,7 +34,7 @@ conjure-up kubernetes
 
 ### Operational Guides
 
-These are more in-depth guides for users choosing to run Kubernetes in production: 
+These are more in-depth guides for users choosing to run Kubernetes in production:
 
   - [Installation](/docs/getting-started-guides/ubuntu/installation)
   - [Validation](/docs/getting-started-guides/ubuntu/validation)

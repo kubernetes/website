@@ -7,10 +7,7 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
-title: Running a Replicated Stateful Application
-redirect_from:
-- "/docs/tutorials/stateful-application/run-replicated-stateful-application/"
-- "/docs/tutorials/stateful-application/run-replicated-stateful-application.html"
+title: Run a Replicated Stateful Application
 ---
 
 {% capture overview %}
@@ -52,7 +49,7 @@ on general patterns for running stateful applications in Kubernetes.
 
 {% capture lessoncontent %}
 
-## Deploying MySQL
+## Deploy MySQL
 
 The example MySQL deployment consists of a ConfigMap, two Services,
 and a StatefulSet.

@@ -1,10 +1,5 @@
 ---
-title: Distributing Credentials Securely Using Secrets
-redirect_from:
-- "/docs/user-guide/secrets/walkthrough/"
-- "/docs/user-guide/secrets/walkthrough.html"
-- "/docs/tasks/configure-pod-container/distribute-credentials-secure/"
-- "/docs/tasks/configure-pod-container/distribute-credentials-secure.html"
+title: Distribute Credentials Securely Using Secrets
 ---
 
 {% capture overview %}
@@ -20,7 +15,7 @@ encryption keys, into Pods.
 
 {% capture steps %}
 
-## Converting your secret data to a base-64 representation
+## Convert your secret data to a base-64 representation
 
 Suppose you want to have two pieces of secret data: a username `my-app` and a password
 `39528$vdg7Jb`. First, use [Base64 encoding](https://www.base64encode.org/) to
@@ -33,7 +28,7 @@ example:
 The output shows that the base-64 representation of your username is `bXktYXBw`,
 and the base-64 representation of your password is `Mzk1MjgkdmRnN0pi`.
 
-## Creating a Secret
+## Create a Secret
 
 Here is a configuration file you can use to create a Secret that holds your
 username and password:
@@ -47,7 +42,7 @@ username and password:
     **Note:** If you want to skip the Base64 encoding step, you can create a Secret
     by using the `kubectl create secret` command:
 
-        kubectl create secret generic test-secret --from-literal=username='my-app',password='39528$vdg7Jb'
+        kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
 
 1. View information about the Secret:
 
@@ -77,7 +72,7 @@ username and password:
         password:   13 bytes
         username:   7 bytes
 
-## Creating a Pod that has access to the secret data through a Volume
+## Create a Pod that has access to the secret data through a Volume
 
 Here is a configuration file you can use to create a Pod:
 
@@ -124,7 +119,7 @@ is exposed:
         my-app
         39528$vdg7Jb
 
-## Creating a Pod that has access to the secret data through environment variables
+## Create a Pod that has access to the secret data through environment variables
 
 Here is a configuration file you can use to create a Pod:
 
@@ -167,9 +162,9 @@ Here is a configuration file you can use to create a Pod:
 
 ### Reference
 
-* [Secret](/docs/api-reference/v1.6/#secret-v1-core)
-* [Volume](/docs/api-reference/v1.6/#volume-v1-core)
-* [Pod](/docs/api-reference/v1.6/#pod-v1-core)
+* [Secret](/docs/api-reference/{{page.version}}/#secret-v1-core)
+* [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core)
+* [Pod](/docs/api-reference/{{page.version}}/#pod-v1-core)
 
 {% endcapture %}
 

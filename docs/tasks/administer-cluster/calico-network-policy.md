@@ -1,12 +1,7 @@
 ---
 assignees:
 - caseydavenport
-title: Using Calico for NetworkPolicy
-redirect_from:
-- "/docs/getting-started-guides/network-policy/calico/"
-- "/docs/getting-started-guides/network-policy/calico.html"
-- "/docs/tasks/configure-pod-container/calico-network-policy/"
-- "/docs/tasks/configure-pod-container/calico-network-policy.html"
+title: Use Calico for NetworkPolicy
 ---
 
 {% capture overview %}
@@ -14,7 +9,7 @@ This page shows how to use Calico for NetworkPolicy.
 {% endcapture %}
 
 {% capture prerequisites %}
-* Install Calico for Kubernetes. 
+* Install Calico for Kubernetes.
 {% endcapture %}
 
 {% capture steps %}
@@ -34,7 +29,7 @@ See the [Calico documentation](http://docs.projectcalico.org/) for more options 
 {% capture discussion %}
 ##  Understanding Calico components
 
-Deploying a cluster with Calico adds Pods that support Kubernetes NetworkPolicy.  These Pods run in the `kube-system` Namespace. 
+Deploying a cluster with Calico adds Pods that support Kubernetes NetworkPolicy.  These Pods run in the `kube-system` Namespace.
 
 To see this list of Pods run:
 

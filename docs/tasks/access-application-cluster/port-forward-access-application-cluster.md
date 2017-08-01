@@ -1,8 +1,5 @@
 ---
-title: Using Port Forwarding to Access Applications in a Cluster
-redirect_from:
-- "/docs/user-guide/connecting-to-applications-port-forward/"
-- "/docs/user-guide/connecting-to-applications-port-forward.html"
+title: Use Port Forwarding to Access Applications in a Cluster
 ---
 
 {% capture overview %}

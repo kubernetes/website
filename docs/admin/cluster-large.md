@@ -81,7 +81,7 @@ Note that these master node sizes are currently only set at cluster startup time
 
 To prevent memory leaks or other resource issues in [cluster addons](https://releases.k8s.io/{{page.githubbranch}}/cluster/addons) from consuming all the resources available on a node, Kubernetes sets resource limits on addon containers to limit the CPU and Memory resources they can consume (See PR [#10653](http://pr.k8s.io/10653/files) and [#10778](http://pr.k8s.io/10778/files)).
 
-For [example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml):
+For example:
 
 ```yaml
   containers:

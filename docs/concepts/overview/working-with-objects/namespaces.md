@@ -4,9 +4,6 @@ assignees:
 - mikedanese
 - thockin
 title: Namespaces
-redirect_from:
-- "/docs/user-guide/namespaces/"
-- "/docs/user-guide/namespaces.html"
 ---
 
 Kubernetes supports multiple virtual clusters backed by the same physical cluster.

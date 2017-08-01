@@ -1,5 +1,5 @@
 ---
-title: Determining the Reason for Pod Failure
+title: Determine the Reason for Pod Failure
 ---
 
 {% capture overview %}
@@ -100,7 +100,7 @@ Set `terminationMessagePath` as shown here:
 {% capture whatsnext %}
 
 * See the `terminationMessagePath` field in
-  [Container](/docs/api-reference/v1.6/#container-v1-core).
+  [Container](/docs/api-reference/{{page.version}}/#container-v1-core).
 * Learn about [retrieving logs](/docs/concepts/cluster-administration/logging/).
 * Learn about [Go templates](https://golang.org/pkg/text/template/).
 

@@ -2,10 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-title: Sharing Cluster Access with kubeconfig
-redirect_from:
-- "/docs/user-guide/sharing-clusters/"
-- "/docs/user-guide/sharing-clusters.html"
+title: Share Cluster Access with kubeconfig
 ---
 
 Client access to a running Kubernetes cluster can be shared by copying

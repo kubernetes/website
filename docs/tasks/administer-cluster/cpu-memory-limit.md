@@ -2,12 +2,7 @@
 assignees:
 - derekwaynecarr
 - janetkuo
-title: Setting Pod CPU and Memory Limits
-redirect_from:
-- "/docs/admin/limitrange/"
-- "/docs/admin/limitrange/index.html"
-- "/docs/tasks/configure-pod-container/limit-range/"
-- "/docs/tasks/configure-pod-container/limit-range.html"
+title: Set Pod CPU and Memory Limits
 ---
 
 {% capture overview %}
@@ -39,7 +34,7 @@ $ kubectl create namespace limit-example
 namespace "limit-example" created
 ```
 
-Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands: 
+Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands:
 
 ```shell
 $ kubectl get namespaces
@@ -103,7 +98,7 @@ deployment "nginx" created
 ```
 
 Note that `kubectl run` creates a Deployment named "nginx" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/v1.6/#run) for more details. 
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/{{page.version}}/#run) for more details. 
 The Deployment manages 1 replica of single container Pod. Let's take a look at the Pod it manages. First, find the name of the Pod:
 
 ```shell
@@ -112,7 +107,7 @@ NAME                     READY     STATUS    RESTARTS   AGE
 nginx-2040093540-s8vzu   1/1       Running   0          11s
 ```
 
-Let's print this Pod with yaml output format (using `-o yaml` flag), and then `grep` the `resources` field. Note that your pod name will be different. 
+Let's print this Pod with yaml output format (using `-o yaml` flag), and then `grep` the `resources` field. Note that your pod name will be different.
 
 ```shell
 $ kubectl get pods nginx-2040093540-s8vzu --namespace=limit-example -o yaml | grep resources -C 8
@@ -151,7 +146,7 @@ $ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/valid-pod.
 pod "valid-pod" created
 ```
 
-Now look at the Pod's resources field: 
+Now look at the Pod's resources field:
 
 ```shell
 $ kubectl get pods valid-pod --namespace=limit-example -o yaml | grep -C 6 resources
@@ -215,8 +210,8 @@ to 512MB of memory.  The cluster operator creates a separate namespace for each 
 each namespace.
 3. Users may create a pod which consumes resources just below the capacity of a machine.  The left over space
 may be too small to be useful, but big enough for the waste to be costly over the entire cluster.  As a result,
-the cluster operator may want to set limits that a pod must consume at least 20% of the memory and CPU of their
-average node size in order to provide for more uniform scheduling and limit waste.
+the cluster operator may want to set limits that a pod must consume no more than 20% of the memory and CPU of
+their average node size in order to provide for more uniform scheduling and limit waste.
 
 ## Summary
 
@@ -227,7 +222,7 @@ constrain the amount of resource a pod consumes on a node.
 {% endcapture %}
 
 {% capture whatsnext %}
-* See [LimitRange design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/admission_control_limit_range.md) for more information.
+* See [LimitRange design doc](https://git.k8s.io/community/contributors/design-proposals/admission_control_limit_range.md) for more information.
 * See [Resources](/docs/concepts/configuration/manage-compute-resources-container/) for a detailed description of the Kubernetes resource model.
 {% endcapture %}
 

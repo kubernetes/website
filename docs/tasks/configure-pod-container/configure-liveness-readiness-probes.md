@@ -1,8 +1,5 @@
 ---
-redirect_from:
-- "/docs/user-guide/liveness/"
-- "/docs/user-guide.liveness.html"
-title: Configuring Liveness and Readiness Probes
+title: Configure Liveness and Readiness Probes
 ---
 
 {% capture overview %}
@@ -30,7 +27,7 @@ When a Pod is not ready, it is removed from Service load balancers.
 
 {% capture steps %}
 
-## Defining a liveness command
+## Define a liveness command
 
 Many applications running for long periods of time eventually transition to
 broken states, and cannot recover except by being restarted. Kubernetes provides
@@ -117,7 +114,7 @@ NAME            READY     STATUS    RESTARTS   AGE
 liveness-exec   1/1       Running   1          1m
 ```
 
-## Defining a liveness HTTP request
+## Define a liveness HTTP request
 
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
 file for a Pod that runs a container based on the `gcr.io/google_containers/liveness`
@@ -174,7 +171,7 @@ the Container has been restarted:
 kubectl describe pod liveness-http
 ```
 
-## Defining a TCP liveness probe
+## Define a TCP liveness probe
 
 A third type of liveness probe uses a TCP Socket. With this configuration, the
 kubelet will attempt to open a socket to your container on the specified port.
@@ -196,10 +193,10 @@ starts. Just like the readiness probe, this will attempt to connect to the
 `goproxy` container on port 8080. If the liveness probe fails, the container
 will be restarted.
 
-## Using a named port
+## Use a named port
 
 You can use a named
-[ContainerPort](/docs/api-reference/v1.6/#containerport-v1-core)
+[ContainerPort](/docs/api-reference/{{page.version}}/#containerport-v1-core)
 for HTTP or TCP liveness checks:
 
 ```yaml
@@ -214,7 +211,7 @@ livenessProbe:
   port: liveness-port
 ```
 
-## Defining readiness probes
+## Define readiness probes
 
 Sometimes, applications are temporarily unable to serve traffic.
 For example, an application might need to load large data or configuration
@@ -244,13 +241,13 @@ Readiness and liveness probes can be used in parallel for the same container.
 Using both can ensure that traffic does not reach a container that is not ready
 for it, and that containers are restarted when they fail.
 
-## Configuring Probes
+## Configure Probes
 
 {% comment %}
 Eventually, some of this section could be moved to a concept topic.
 {% endcomment %}
 
-[Probes](/docs/api-reference/v1.6/#probe-v1-core) have a number of fields that
+[Probes](/docs/api-reference/{{page.version}}/#probe-v1-core) have a number of fields that
 you can use to more precisely control the behavior of liveness and readiness
 checks:
 
@@ -266,7 +263,7 @@ liveness. Minimum value is 1.
 * `failureThreshold`: Minimum consecutive failures for the probe to be
 considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 
-[HTTP probes](/docs/api-reference/v1.6/#httpgetaction-v1-core)
+[HTTP probes](/docs/api-reference/{{page.version}}/#httpgetaction-v1-core)
 have additional fields that can be set on `httpGet`:
 
 * `host`: Host name to connect to, defaults to the pod IP. You probably want to
@@ -295,9 +292,9 @@ you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
 ### Reference
 
-* [Pod](/docs/api-reference/v1.6/#pod-v1-core)
-* [Container](/docs/api-reference/v1.6/#container-v1-core)
-* [Probe](/docs/api-reference/v1.6/#probe-v1-core)
+* [Pod](/docs/api-reference/{{page.version}}/#pod-v1-core)
+* [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
+* [Probe](/docs/api-reference/{{page.version}}/#probe-v1-core)
 
 {% endcapture %}
 

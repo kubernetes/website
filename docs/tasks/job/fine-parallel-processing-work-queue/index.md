@@ -1,8 +1,5 @@
 ---
 title: Fine Parallel Processing Using a Work Queue
-redirect_from:
-- "/docs/user-guide/jobs/work-queue-2/"
-- "/docs/user-guide/jobs/work-queue-2/index.html"
 ---
 
 * TOC
@@ -34,7 +31,7 @@ Here is an overview of the steps in this example:
 ## Starting Redis
 
 For this example, for simplicitly, we will start a single instance of Redis.
-See the [Redis Example](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook) for an example
+See the [Redis Example](https://git.k8s.io/kubernetes/examples/guestbook) for an example
 of deploying Redis scalably and redundantly.
 
 Start a temporary Pod running Redis and a service so we can find it.
@@ -146,7 +143,7 @@ your app image with your project ID, and push to GCR. Replace
 
 ```shell
 docker tag job-wq-2 gcr.io/<project>/job-wq-2
-gcloud docker push gcr.io/<project>/job-wq-2
+gcloud docker -- push gcr.io/<project>/job-wq-2
 ```
 
 ## Defining a Job

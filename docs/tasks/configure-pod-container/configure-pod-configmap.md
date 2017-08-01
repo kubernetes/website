@@ -1,5 +1,5 @@
 ---
-title: Using ConfigMap Data in Pods 
+title: Use ConfigMap Data in Pods 
 ---
 
 {% capture overview %}
@@ -8,13 +8,13 @@ This page provides a series of usage examples demonstrating how to configure Pod
 
 {% capture prerequisites %}
 * {% include task-tutorial-prereqs.md %}
-* [Create a ConfigMap](/docs/tasks/configure-pod-container/configmap.html)
+* [Create a ConfigMap](/docs/tasks/configure-pod-container/configmap/)
 {% endcapture %}
 
 {% capture steps %}
 
 
-## Defining Pod environment variables using ConfigMap data
+## Define Pod environment variables using ConfigMap data
 
 ### Define a Pod environment variable with data from a single ConfigMap
 
@@ -119,8 +119,8 @@ Note: This functionality is available to users running Kubernetes v1.6 and later
      name: special-config
      namespace: default
    data:
-     special_level: very
-     special_type: charm
+     SPECIAL_LEVEL: very
+     SPECIAL_TYPE: charm
    ```
 
 1. Use `env-from` to define all of the ConfigMap's data as Pod environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
@@ -138,13 +138,13 @@ Note: This functionality is available to users running Kubernetes v1.6 and later
          envFrom:
          - configMapRef:
              name: special-config
-      restartPolicy: Never
+     restartPolicy: Never
    ```
 
 1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`. 
 
 
-## Using ConfigMap-defined environment variables in Pod commands  
+## Use ConfigMap-defined environment variables in Pod commands  
 
 You can use ConfigMap-defined environment variables in the `command` section of the Pod specification using the `$(VAR_NAME)` Kubernetes substitution syntax.
 
@@ -167,12 +167,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: special-config
-              key: special.how
+              key: special_level
         - name: SPECIAL_TYPE_KEY
           valueFrom:
             configMapKeyRef:
               name: special-config
-              key: special.type
+              key: special_type
   restartPolicy: Never
 ```
 
@@ -182,7 +182,7 @@ produces the following output in the `test-container` container:
 very charm
 ```
 
-## Adding ConfigMap data to a Volume 
+## Add ConfigMap data to a Volume 
 
 As explained in [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap.html), when you create a ConfigMap using ``--from-file``, the filename becomes a key stored in the `data` section of the ConfigMap. The file contents become the key's value. 
 
@@ -202,7 +202,7 @@ data:
 ### Populate a Volume with data stored in a ConfigMap
 
 Add the ConfigMap name under the `volumes` section of the Pod specification. 
-This adds the ConfigMap data to the directory specified as `volumeMount.mountPath` (in this case, `/etc/config`).
+This adds the ConfigMap data to the directory specified as `volumeMounts.mountPath` (in this case, `/etc/config`).
 The `command` section references the `special.level` item stored in the ConfigMap.
 
 ```yaml
@@ -237,7 +237,7 @@ special.type
 ### Add ConfigMap data to a specific path in the Volume:
 
 Use the `path` field to specify the desired file path for specific ConfigMap items. 
-In this case, the `special.key` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
+In this case, the `special.level` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
 
 ```yaml
 apiVersion: v1
@@ -248,7 +248,7 @@ spec:
   containers:
     - name: test-container
       image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh","-c","cat /etc/config/keys/special.level" ]
+      command: [ "/bin/sh","-c","cat /etc/config/keys" ]
       volumeMounts:
       - name: config-volume
         mountPath: /etc/config
@@ -258,20 +258,24 @@ spec:
         name: special-config
         items:
         - key: special.level
-          path: /keys
+          path: keys
   restartPolicy: Never
 ```
 
-When the pod runs, the command (`"cat /etc/config/keys/special.level"`) produces the output below:
+When the pod runs, the command (`"cat /etc/config/keys"`) produces the output below:
 
 ```shell
 very
 ```
 
-### Projecting keys to specific paths and file permissions
+### Project keys to specific paths and file permissions
 
 You can project keys to specific paths and specific permissions on a per-file
 basis. The [Secrets](/docs/concepts/configuration/secret#using-secrets-as-files-from-a-pod) user guide explains the syntax.
+
+### Mounted ConfigMaps are updated automatically
+
+When a ConfigMap already being consumed in a volume is updated, projected keys are eventually updated as well. Kubelet is checking whether the mounted ConfigMap is fresh on every periodic sync. However, it is using its local ttl-based cache for getting the current value of the ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as kubelet sync period + ttl of ConfigMaps cache in kubelet.
 
 {% endcapture %}
 

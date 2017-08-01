@@ -2,10 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-title: Troubleshooting Applications
-redirect_from:
-- "/docs/user-guide/application-troubleshooting/"
-- "/docs/user-guide/application-troubleshooting.html"
+title: Troubleshoot Applications
 ---
 
 This guide is to help users debug applications that are deployed into Kubernetes and not behaving correctly.

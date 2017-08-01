@@ -3,10 +3,7 @@ assignees:
 - bprashanth
 - liggitt
 - thockin
-title: Configuring Service Accounts for Pods
-redirect_from:
-- "/docs/user-guide/service-accounts/"
-- "/docs/user-guide/service-accounts.html"
+title: Configure Service Accounts for Pods
 ---
 
 A service account provides an identity for processes that run in a Pod.
@@ -26,7 +23,7 @@ cluster).  Processes in containers inside pods can also contact the apiserver.
 When they do, they are authenticated as a particular Service Account (e.g.
 `default`).
 
-## Using the Default Service Account to access the API server.
+## Use the Default Service Account to access the API server.
 
 When you create a pod, if you do not specify a service account, it is
 automatically assigned the `default` service account in the same namespace.
@@ -65,7 +62,7 @@ spec:
 
 The pod spec takes precedence over the service account if both specify a `automountServiceAccountToken` value.
 
-## Using Multiple Service Accounts.
+## Use Multiple Service Accounts.
 
 Every namespace has a default service account resource called `default`.
 You can list this and any other serviceAccount resources in the namespace with this command:
@@ -134,7 +131,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: build-robot-secret
-  annotations: 
+  annotations:
     kubernetes.io/service-account.name: build-robot
 type: kubernetes.io/service-account-token
 EOF
@@ -147,7 +144,7 @@ Now you can confirm that the newly built secret is populated with an API token f
 Any tokens for non-existent service accounts will be cleaned up by the token controller.
 
 ```shell
-$ kubectl describe secrets/build-robot-secret 
+$ kubectl describe secrets/build-robot-secret
 Name:   build-robot-secret
 Namespace:  default
 Labels:   <none>
@@ -164,7 +161,7 @@ namespace: 7 bytes
 
 > Note that the content of `token` is elided here.
 
-## Adding ImagePullSecrets to a service account
+## Add ImagePullSecrets to a service account
 
 First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
 Next, verify it has been created.  For example:
@@ -175,14 +172,10 @@ NAME             TYPE                              DATA    AGE
 myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
 ```
 
-Next, read/modify/write the service account for the namespace to use this secret as an imagePullSecret.
+Next, modify the default service account for the namespace to use this secret as an imagePullSecret.
 
-Automated version using json and the jq utility:
 ```shell
-kubectl get serviceaccounts default -o json |
-     jq  'del(.metadata.resourceVersion)'|
-     jq 'setpath(["imagePullSecrets"];[{"name":"myregistrykey"}])' |
-     kubectl replace serviceaccount default -f -
+kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
 
 ```
 
