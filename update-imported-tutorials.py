@@ -27,22 +27,26 @@ import urllib.request
 SRC_TREE = 'master'  # Revision for kubernetes/examples used
 
 # mapping of tutorials in kubernetes/examples to their
-# equivalent files here: (examples-path, docs-path, new-title)
+# equivalent files here: (examples-path, docs-path, new-title, imports-map)
 TUTORIALS = [
     ('guestbook/README.md',
         './docs/tutorials/stateless-application/guestbook.md',
-        "Example: Deploying PHP Guestbook application with Redis"),
+        "Example: Deploying PHP Guestbook application with Redis", {}),
     ('mysql-wordpress-pd/README.md',
         './docs/tutorials/stateful-application/mysql-wordpress-persistent-volume.md',
-        "Example: WordPress and MySQL with Persistent Volumes"),
+        "Example: WordPress and MySQL with Persistent Volumes", {}),
     ('cassandra/README.md',
         './docs/tutorials/stateful-application/cassandra.md',
-        "Example: Deploying Cassandra with Stateful Sets"),
+        "Example: Deploying Cassandra with Stateful Sets",
+        {
+            "cassandra/cassandra-service.yaml": "./docs/tutorials/stateful-application/cassandra-service.yaml",
+            "cassandra/cassandra-statefulset.yaml": "./docs/tutorials/stateful-application/cassandra-statefulset.yaml",
+        }),
 ]
 
 
 def main():
-    for (src_path, dst_path, new_title) in TUTORIALS:
+    for (src_path, dst_path, new_title, imports) in TUTORIALS:
         print('Processing {0}'.format(src_path))
         dst_dir = os.path.dirname(dst_path)
         if not os.path.exists(dst_dir):
@@ -50,17 +54,20 @@ def main():
             os.makedirs(dst_dir)
         if os.path.exists(dst_path):
             os.remove(dst_path)
-        src_url = 'https://github.com/kubernetes/examples/raw/{0}/{1}'.format(SRC_TREE, src_path)
-        print('Downloading {0}'.format(src_url))
-        with urllib.request.urlopen(src_url) as resp, \
-                open(dst_path, 'wb') as out_file:
-            shutil.copyfileobj(resp, out_file)
-        print('Saved to {0}'.format(dst_path))
+
+        imports[src_path] = dst_path # add source itself as import file
+        for src_path, dst_path in imports.items():
+            src_url = 'https://github.com/kubernetes/examples/raw/{0}/{1}'.format(SRC_TREE, src_path)
+            print('Downloading {0}'.format(src_url))
+            with urllib.request.urlopen(src_url) as resp, \
+                    open(dst_path, 'wb') as out_file:
+                shutil.copyfileobj(resp, out_file)
+            print('Saved to {0}'.format(dst_path))
 
         print('Processing {0}'.format(dst_path))
         remove_excluded_snippets(dst_path)
-        insert_title(dst_path, new_title)
         insert_do_not_update(dst_path)
+        insert_title(dst_path, new_title)
         print('Processed {0}'.format(dst_path))
 
 

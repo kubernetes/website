@@ -3,11 +3,6 @@ assignees:
 - bgrant0607
 - thockin
 title: Kubernetes Documentation
-redirect_from:
-- "/docs/"
-- "/docs/index.html"
-- "/docs/user-guide/"
-- "/docs/user-guide/index.html"
 ---
 
 Kubernetes documentation can help you set up Kubernetes, learn about the system, or get your applications and workloads running on Kubernetes. To learn the basics of what Kubernetes is and how it works, read "[What is Kubernetes](/docs/concepts/overview/what-is-kubernetes/)".

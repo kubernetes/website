@@ -1,8 +1,5 @@
 ---
 title: Run a Single-Instance Stateful Application
-redirect_from:
-- "/docs/tutorials/stateful-application/run-stateful-application/"
-- "/docs/tutorials/stateful-application/run-stateful-application.html"
 ---
 
 {% capture overview %}
@@ -115,7 +112,7 @@ for a secure solution.
 
         NAME                   READY     STATUS    RESTARTS   AGE
         mysql-63082529-2z3ki   1/1       Running   0          3m
-        
+
 1. Inspect the Persistent Volume:
 
         kubectl describe pv mysql-pv
@@ -127,7 +124,7 @@ for a secure solution.
         Reclaim Policy:  Retain
         Access Modes:    RWO
         Capacity:        20Gi
-        Message:    
+        Message:
         Source:
             Type:        GCEPersistentDisk (a Persistent Disk resource in Google Compute Engine)
             PDName:      mysql-disk
@@ -171,7 +168,7 @@ know your stateful MySQL database is up and running.
 Waiting for pod default/mysql-client-274442439-zyp6i to be running, status is Pending, pod ready: false
 If you don't see a command prompt, try pressing enter.
 
-mysql> 
+mysql>
 ```
 
 ## Updating

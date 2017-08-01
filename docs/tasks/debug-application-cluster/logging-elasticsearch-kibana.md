@@ -3,9 +3,6 @@ assignees:
 - crassirostris
 - piosz
 title: Logging Using Elasticsearch and Kibana
-redirect_from:
-- "/docs/user-guide/logging/elasticsearch/"
-- "/docs/user-guide/logging/elasticsearch.html"
 ---
 
 On the Google Compute Engine (GCE) platform, the default logging support targets
