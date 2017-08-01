@@ -35,13 +35,13 @@ annotations["federation.kubernetes.io/replica-set-preferences"] = preferences {
 #
 # In English, the policy asserts that resources in the "production" namespace
 # that are not annotated with "criticality=low" MUST be placed on clusters
-# labelled with "on-premise=true".
+# labelled with "on-premises=true".
 annotations["federation.alpha.kubernetes.io/cluster-selector"] = selector {
     input.metadata.namespace = "production"
     not input.metadata.annotations.criticality = "low"
     json.marshal([{
         "operator": "=",
-        "key": "on-premise",
+        "key": "on-premises",
         "values": "[true]",
     }], selector)
 }
