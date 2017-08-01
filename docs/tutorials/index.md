@@ -37,7 +37,7 @@ each of which has a sequence of steps.
 
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 
-#### CD/CI Pipeline
+#### CI/CD Pipeline
 
 * [Set Up a CI/CD Pipeline with Kubernetes Part 1: Overview](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/5/set-cicd-pipeline-kubernetes-part-1-overview)
 
