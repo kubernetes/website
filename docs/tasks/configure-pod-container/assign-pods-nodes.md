@@ -1,8 +1,5 @@
 ---
 title: Assign Pods to Nodes
-redirect_from:
-- "/docs/tasks/administer-cluster/assign-pods-nodes/"
-- "/docs/tasks/administer-cluster/assign-pods-nodes.html"
 ---
 
 {% capture overview %}

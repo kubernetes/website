@@ -4,9 +4,6 @@ assignees:
 - erictune
 - mikedanese
 title: Picking the Right Solution
-redirect_from:
-- "/docs/getting-started-guides/index/"
-- "/docs/getting-started-guides/index.html"
 ---
 
 Kubernetes can run on various platforms: from your laptop, to VMs on a cloud provider, to rack of
@@ -34,7 +31,7 @@ a Kubernetes cluster from scratch.
 
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local) supports a nine-instance deployment on localhost.
 
-* [IBM Cloud local-ce (Community Edition)](https://www.ibm.com/support/knowledgecenter/en/SSBS6K/product_welcome_cloud_private.html) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for dev and test scenarios. Scales to full multi-node cluster. Free version of the enterprise solution.
+* [IBM Cloud private-ce (Community Edition)](https://www.ibm.com/support/knowledgecenter/en/SSBS6K/product_welcome_cloud_private.html) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for dev and test scenarios. Scales to full multi-node cluster. Free version of the enterprise solution.
 
 # Hosted Solutions
 

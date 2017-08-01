@@ -277,7 +277,7 @@ solution for authentication.  It does offer a few challenges:
 
 1.  Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
 2.  The `id_token` can't be revoked, its like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes
-3.  There's no easy way to authenticate to the Kubernetes dashboard without using the `kubectl -proxy` command or a reverse proxy that injects the `id_token`
+3.  There's no easy way to authenticate to the Kubernetes dashboard without using the `kubectl proxy` command or a reverse proxy that injects the `id_token`
 
 
 #### Configuring the API Server
@@ -447,8 +447,8 @@ The request body will be of the following format:
 }
 ```
 
-The remote service is expected to fill the `TokenAccessReviewStatus` field of
-the request to indicate the success of the login. The response body's "spec"
+The remote service is expected to fill the `status` field of
+the request to indicate the success of the login. The response body's `spec`
 field is ignored and may be omitted. A successful validation of the bearer
 token would return:
 

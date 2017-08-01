@@ -138,7 +138,7 @@ Note: This functionality is available to users running Kubernetes v1.6 and later
          envFrom:
          - configMapRef:
              name: special-config
-      restartPolicy: Never
+     restartPolicy: Never
    ```
 
 1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`. 
@@ -167,12 +167,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: special-config
-              key: special.how
+              key: special_level
         - name: SPECIAL_TYPE_KEY
           valueFrom:
             configMapKeyRef:
               name: special-config
-              key: special.type
+              key: special_type
   restartPolicy: Never
 ```
 

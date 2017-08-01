@@ -1,8 +1,5 @@
 ---
 title: Coarse Parallel Processing Using a Work Queue
-redirect_from:
-- "/docs/user-guide/jobs/work-queue-1/"
-- "/docs/user-guide/jobs/work-queue-1/index.html"
 ---
 
 * TOC
@@ -77,7 +74,7 @@ Later, we will make a docker image that includes these packages.
 Next, we will check that we can discover the rabbitmq service:
 
 ```
-# Note the rabitmq-service has a DNS name, provided by Kubernetes:
+# Note the rabbitmq-service has a DNS name, provided by Kubernetes:
 
 root@temp-loe07:/# nslookup rabbitmq-service
 Server:        10.0.0.10
@@ -199,7 +196,7 @@ your app image with your project ID, and push to GCR. Replace
 
 ```shell
 docker tag job-wq-1 gcr.io/<project>/job-wq-1
-gcloud docker push gcr.io/<project>/job-wq-1
+gcloud docker -- push gcr.io/<project>/job-wq-1
 ```
 
 ## Defining a Job

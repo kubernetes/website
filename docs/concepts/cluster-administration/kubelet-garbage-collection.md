@@ -2,9 +2,6 @@
 assignees:
 - mikedanese
 title: Configuring kubelet Garbage Collection
-redirect_from:
-- "/docs/admin/garbage-collection/"
-- "/docs/admin/garbage-collection.html"
 ---
 
 * TOC

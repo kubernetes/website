@@ -4,9 +4,6 @@ assignees:
 - jszczepkowski
 - directxman12
 title: Horizontal Pod Autoscaling
-redirect_from:
-- "/docs/user-guide/horizontal-pod-autoscaling/"
-- "/docs/user-guide/horizontal-pod-autoscaling/index.html"
 ---
 
 This document describes the current state of Horizontal Pod Autoscaling in Kubernetes.
@@ -62,7 +59,7 @@ When using direct Heapster access, the HorizontalPodAutoscaler queries Heapster 
 through the API server's service proxy subresource.  Heapster needs to be deployed on the
 cluster and running in the kube-system namespace.
 
-See [Support for custom metrics](#prerequisites) for more details on REST client access.
+See [Support for custom metrics](#support-for-custom-metrics) for more details on REST client access.
 
 The autoscaler accesses corresponding replication controller, deployment or replica set by scale sub-resource.
 Scale is an interface that allows you to dynamically set the number of replicas and examine each of their current states.
