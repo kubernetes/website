@@ -31,9 +31,9 @@ to match the observed average CPU utilization to the target specified by user.
 
 ## 什么是 Horizontal Pod Autoscaling？
 
-利用 Horizontal Pod Autoscaling，kubernetes 能够根据监测到的 CPU 利用率（或者在 alpha 版本中支持的应用提供的 metric）自动的扩容 replication controller，deployment 和 replica set。
+利用 Horizontal Pod Autoscaling，kubernetes 能够根据监测到的 CPU 利用率（或者在 alpha 版本中支持的应用提供的 metric）自动的扩缩容 replication controller，deployment 和 replica set 中 pod 的数量。
 
-Horizontal Pod Autoscaler 作为 kubernetes API resource 和 controller 的实现。Resource 确定 controller 的行为。Controller 会根据监测到用户指定的目标的 CPU 利用率周期性得调整 replication controller 或 deployment 的 replica 数量。
+Horizontal Pod Autoscaler 作为 kubernetes API resource 和 controller 的实现。Resource 确定 controller 的行为。Controller 会根据监测到用户指定的目标的 CPU 利用率周期性地调整 replication controller 或 deployment 的 replica 数量。
 
 <!--
 
@@ -86,9 +86,9 @@ Horizontal Pod Autoscaler 由一个控制循环实现，循环周期由 controll
 -->
 
 - 每个 Pod 的 resource metric（例如 CPU），controller 通过 resource metric API 获取 HorizontalPodAutoscaler 中定义的每个 Pod 中的 metric。然后，如果设置了目标利用率，controller 计算利用的值与每个 Pod 的容器里的 resource request 值的百分比。如果设置了目标原始值，将直接使用该原始 metric 值。然后 controller 计算所有目标 Pod 的利用率或原始值（取决于所指定的目标类型）的平均值，产生一个用于缩放所需 replica 数量的比率。
-   请注意，如果某些 Pod 的容器没有设置相关的 resource request ，则不会定义 Pod 的 CPU 利用率，并且 Aucoscaler 也不会对该 metric 采取任何操作。 有关自动缩放算法如何工作的更多细节，请参阅 [自动缩放算法设计文档](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md#autoscaling-algorithm)。
+   请注意，如果某些 Pod 的容器没有设置相关的 resource request ，则不会定义 Pod 的 CPU 利用率，并且 Autoscaler 也不会对该 metric 采取任何操作。 有关自动缩放算法如何工作的更多细节，请参阅 [自动缩放算法设计文档](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md#autoscaling-algorithm)。
 - 对于每个 Pod 自定义的 metric，controller 功能类似于每个 Pod 的 resource metric，只是它使用原始值而不是利用率值。
-- 对于 object metric，获取单个度量（描述有问题的对象），并与目标值进行比较，以产生如上所述的比率。
+- 对于 object metric，获取单个度量（该问题描述中 object的 metric），并与目标值进行比较，以产生如上所述的比率。
 
 <!--
 
@@ -138,9 +138,9 @@ More details about the API object can be found at
 
 ## API Object
 
-Horizontal Pod Autoscaler 是 kubernetes 的 `autoscaling` API 组中的 API 资源。当前的稳定版本中，只支持 CPU 自动扩缩容，可以在`autoscaling/v1` API 版本中找到。
+Horizontal Pod Autoscaler 是 kubernetes 的  `autoscaling` API 组中的 API 资源。当前的稳定版本中，只支持 CPU 自动扩缩容，可以在 `autoscaling/v1` API 版本中找到。
 
-在 alpha 版本中支持根据内存和自定义 metric 扩缩容，可以在`autoscaling/v2alpha1` 中找到。`autoscaling/v2alpha1` 中引入的新字段在`autoscaling/v1` 中是做为 annotation 而保存的。
+在 alpha 版本中支持根据内存和自定义 metric 扩缩容，可以在 `autoscaling/v2alpha1` 中找到。`autoscaling/v2alpha1` 中引入的新字段在 `autoscaling/v1` 中是做为 annotation 而保存的。
 
 关于该 API 对象的更多信息，请参阅 [HorizontalPodAutoscaler Object](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object)。
 
@@ -165,17 +165,17 @@ The detailed documentation of `kubectl autoscale` can be found [here](/docs/user
 
 Horizontal Pod Autoscaler 和其他的所有 API 资源一样，通过 `kubectl` 以标准的方式支持。
 
-我们可以使用`kubectl create`命令创建一个新的 autoscaler。
+我们可以使用 `kubectl create` 命令创建一个新的 autoscaler。
 
-我们可以使用`kubectl get hpa`列出所有的 autoscaler，使用`kubectl describe hpa`获取其详细信息。
+我们可以使用 `kubectl get hpa` 列出所有的 autoscaler，使用 `kubectl describe hpa` 获取其详细信息。
 
-最后我们可以使用`kubectl delete hpa`删除 autoscaler。
+最后我们可以使用 `kubectl delete hpa` 删除 autoscaler。
 
-另外，可以使用`kubectl autoscale`命令，很轻易的就可以创建一个 Horizontal Pod Autoscaler。
+另外，可以使用 `kubectl autoscale` 命令，很轻易的就可以创建一个 Horizontal Pod Autoscaler。
 
-例如，执行`kubectl autoscale rc foo —min=2 —max=5 —cpu-percent=80`命令将为 replication controller _foo_ 创建一个 autoscaler，目标的 CPU 利用率是`80%`，replica 的数量介于 2 和 5 之间。
+例如，执行 `kubectl autoscale rc foo —min=2 —max=5 —cpu-percent=80` 命令将为 replication controller _foo_ 创建一个 autoscaler，目标的 CPU 利用率是`80%`，replica 的数量介于 2 和 5 之间。
 
-关于`kubectl autoscale`的更多信息请参阅 [这里](/docs/user-guide/kubectl/v1.6/#autoscale)。
+关于 `kubectl autoscale` 的更多信息请参阅 [这里](/docs/user-guide/kubectl/v1.6/#autoscale)。
 
 <!--
 
@@ -199,7 +199,7 @@ the Horizontal Pod Autoscaler will not be bound to the new replication controlle
 
 Horizontal Pod Autoscaler 仅支持后一种方法：Horizontal Pod Autoscaler 被绑定到 deployment 对象，它设置 deployment 对象的大小，deployment 负责设置底层 replication controller 的大小。
 
-Horizontal Pod Autoscaler 不能使用直接操作 replication controller 进行滚动更新，即不能将 Horizontal Pod Autoscaler 绑定到 replication controller，并进行滚动更新（例如使用`kubectl rolling-update`）。
+Horizontal Pod Autoscaler 不能使用直接操作 replication controller 进行滚动更新，即不能将 Horizontal Pod Autoscaler 绑定到 replication controller，并进行滚动更新（例如使用 `kubectl rolling-update`）。
 
 这不行的原因是，当滚动更新创建一个新的 replication controller 时，Horizontal Pod Autoscaler 将不会绑定到新的 replication controller 上。
 
@@ -217,7 +217,7 @@ proposed scales will be used as the new scale.
 
 ## 支持多个 metric
 
-Kubernetes 1.6 中增加了支持基于多个 metric 的扩缩容。您可以使用`autoscaling/v2alpha1` API 版本来为 Horizontal Pod Autoscaler 指定多个 metric。然后 Horizontal Pod Autoscaler controller 将权衡每一个 metric，并根据该 metric 提议一个新的 scale。在所有提议里最大的那个 scale 将作为最终的 scale。
+Kubernetes 1.6 中增加了支持基于多个 metric 的扩缩容。您可以使用 `autoscaling/v2alpha1` API 版本来为 Horizontal Pod Autoscaler 指定多个 metric。然后 Horizontal Pod Autoscaler controller 将权衡每一个 metric，并根据该 metric 提议一个新的 scale。在所有提议里最大的那个 scale 将作为最终的 scale。
 
 <!--
 
@@ -238,11 +238,11 @@ Kubernetes then queries the new custom metrics API to fetch the values of the ap
 
 **注意：** Kubernetes 1.2 根据特定于应用程序的 metric ，通过使用特殊注释的方式，增加了对缩放的 alpha 支持。
 
-在 Kubernetes 1.6中删除了对这些注释的支持，有利于`autoscaling/v2alpha1` API。 虽然旧的收集自定义 metric 的旧方法仍然可用，但是这些 metric 将不可供 Horizontal Pod Autoscaler 使用，并且用于指定要缩放的自定义 metric 的以前的注释也不在受 Horizontal Pod Autoscaler 认可。
+在 Kubernetes 1.6中删除了对这些注释的支持，有利于 `autoscaling/v2alpha1` API。 虽然旧的收集自定义 metric 的旧方法仍然可用，但是这些 metric 将不可供 Horizontal Pod Autoscaler 使用，并且用于指定要缩放的自定义 metric 的以前的注释也不在受 Horizontal Pod Autoscaler 认可。
 
-Kubernetes 1.6增加了在 Horizontal Pod Autoscale r中使用自定义 metric 的支持。
+Kubernetes 1.6增加了在 Horizontal Pod Autoscaler 中使用自定义 metric 的支持。
 
-您可以为`autoscaling/v2alpha1` API 中使用的 Horizontal Pod Autoscaler 添加自定义 metric 。
+您可以为 `autoscaling/v2alpha1` API 中使用的 Horizontal Pod Autoscaler 添加自定义 metric 。
 
 Kubernetes 然后查询新的自定义 metric API 来获取相应自定义 metric 的值。
 
@@ -264,11 +264,11 @@ available at [the k8s.io/metrics repository](https://github.com/kubernetes/metri
 
 -->
 
-## 前提条件
+### 前提条件
 
-为了在 Horizontal Pod Autoscaler 中使用自定义 metric，您必须在您集群的 controller manager 中将 `--horizontal-pod-autoscaler-use-rest-clients` 标志设置为 true。然后，您必须通过将 controller manager 的目标 API server 设置为 API server aggregator（使用`--apiserver`标志），配置您的 controller manager 通过 API server aggregator 与API server 通信。 Resource metric API和自定义 metric API 也必须向 API server aggregator 注册，并且必须由集群上运行的 API server 提供。
+为了在 Horizontal Pod Autoscaler 中使用自定义 metric，您必须在您集群的 controller manager 中将  `--horizontal-pod-autoscaler-use-rest-clients` 标志设置为 true。然后，您必须通过将 controller manager 的目标 API server 设置为 API server aggregator（使用 `--apiserver` 标志），配置您的 controller manager 通过 API server aggregator 与API server 通信。 Resource metric API和自定义 metric API 也必须向 API server aggregator 注册，并且必须由集群上运行的 API server 提供。
 
-您可以使用 Heapster 实现 resource metric API，方法是将 `--api-server`标志设置为 true 并运行 Heapster。 单独的组件必须提供自定义 metric API（有关自定义metric API的更多信息，可从 [k8s.io/metrics repository](https://github.com/kubernetes/metrics) 获得）。
+您可以使用 Heapster 实现 resource metric API，方法是将  `--api-server` 标志设置为 true 并运行 Heapster。 单独的组件必须提供自定义 metric API（有关自定义metric API的更多信息，可从 [k8s.io/metrics repository](https://github.com/kubernetes/metrics) 获得）。
 
 <!--
 
@@ -285,4 +285,4 @@ available at [the k8s.io/metrics repository](https://github.com/kubernetes/metri
 
 - 设计文档：[Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md)
 - kubectl autoscale 命令：[kubectl autoscale](/docs/user-guide/kubectl/v1.6/#autoscale)
-- 使用例子： [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+- 用法举例： [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
