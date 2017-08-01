@@ -281,7 +281,7 @@ $ minikube start --docker-env HTTP_PROXY=http://$YOURPROXY:PORT \
                  --docker-env HTTPS_PROXY=https://$YOURPROXY:PORT
 ```
 
-If the operation above doesn't work on your computer,try restarting Docker daemon with the proxy settings directly in Virtual Machine to fix this.
+If the operation above doesn't work on your computer, try restarting Docker daemon with the proxy settings directly in Virtual Machine to fix this.
 
 For example:
 
