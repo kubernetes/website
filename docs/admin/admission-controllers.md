@@ -232,7 +232,8 @@ See the [InitialResouces proposal](https://git.k8s.io/community/contributors/des
 ### NamespaceLifecycle
 
 This plug-in enforces that a `Namespace` that is undergoing termination cannot have new objects created in it,
-and ensures that requests in a non-existent `Namespace` are rejected.
+and ensures that requests in a non-existent `Namespace` are rejected. This plug-in also prevents deletion of
+three system reserved namespaces `default`, `kube-system`, `kube-public`.
 
 A `Namespace` deletion kicks off a sequence of operations that remove all objects (pods, services, etc.) in that
 namespace.  In order to enforce integrity of that process, we strongly recommend running this plug-in.

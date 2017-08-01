@@ -1,16 +1,5 @@
 ---
 title: Run a Stateless Application Using a Deployment
-redirect_from:
-- "/docs/user-guide/simple-nginx/"
-- "/docs/user-guide/simple-nginx.html"
-- "/docs/user-guide/pods/single-container/"
-- "/docs/user-guide/pods/single-container.html"
-- "/docs/user-guide/deploying-applications/"
-- "/docs/user-guide/deploying-applications.html"
-- "/docs/tutorials/stateless-application/run-stateless-application-deployment/"
-- "/docs/tutorials/stateless-application/run-stateless-application-deployment.html"
-- "/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/"
-- "/docs/tutorials/stateless-application/run-stateless-ap-replication-controller.html"
 ---
 
 {% capture overview %}

@@ -1,8 +1,5 @@
 ---
 title: Define a Command and Arguments for a Container
-redirect_from:
-- "/docs/concepts/configuration/container-command-args/"
-- "/docs/concepts/configuration/container-command-arg.html"
 ---
 
 {% capture overview %}
@@ -134,7 +131,7 @@ Here are some examples:
 * Learn more about [containers and commands](/docs/user-guide/containers/).
 * Learn more about [configuring containers](/docs/user-guide/configuring-containers/).
 * Learn more about [running commands in a container](/docs/tasks/kubectl/get-shell-running-container/).
-* See [Container](/docs/api-reference/v1.6/#container-v1-core).
+* See [Container](/docs/api-reference/{{page.version}}/#container-v1-core).
 
 {% endcapture %}
 
