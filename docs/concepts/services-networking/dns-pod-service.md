@@ -234,6 +234,29 @@ nameserver 10.0.0.10
 options ndots:5
 ```
 
+### DNS Policy
+
+By default, DNS policy for a pod is 'ClusterFirst'. So pods running with hostNetwork cannot resolve DNS names. To have DNS options set along with hostNetwork, you should specify DNS policy explicitly to 'ClusterFirstWithHostNet'. Update the busybox.yaml as following:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  namespace: default
+spec:
+  containers:
+  - image: busybox
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+    name: busybox
+  restartPolicy: Always
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+```
+
 #### Quick diagnosis
 
 Errors such as the following indicate a problem with the kube-dns add-on or associated Services:
@@ -282,7 +305,7 @@ Use `kubectl logs` command to see logs for the DNS daemons.
 ```
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kubedns
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c dnsmasq
-kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c healthz
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c sidecar
 ```
 
 See if there is any suspicious log. W, E, F letter at the beginning represent Warning, Error and Failure. Please search for entries that have these as the logging level and use [kubernetes issues](https://github.com/kubernetes/kubernetes/issues) to report unexpected errors.
