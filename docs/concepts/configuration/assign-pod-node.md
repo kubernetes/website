@@ -208,9 +208,9 @@ must be satisfied for the pod to schedule onto a node.
 
 #### More Practical Usage
 
-Than directly using with pods Interpod Affinity and AnitAffinity will be more useful when they are used with higher
-level objects such as Statefulset, Deployments, etc.  One can easily configure and prefer if two workloads should
-always be co-located in the same node or never be co-located in the same node.
+Interpod Affinity and AnitAffinity can be even more useful when they are used with higher
+level collections such as ReplicaSets, Statefulset, Deployments, etc.  One can easily configure that a set of workloads should
+be co-located in the same defined topology, eg., the same node. 
 
 ##### Always co-located in the same node
 
@@ -229,7 +229,7 @@ Highly Available database statefulset has one master and three replicas, one may
 |:--------------------:|:-------------------:|:------------------:|:------------------:|
 | *DB-MASTER*          | *DB-REPLICA-1*      | *DB-REPLICA-2*     | *DB-REPLICA-3*     |
 
-[Here](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) is an example of zookeper statefulset configued with anti-affinity for high availablity.
+[Here](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) is an example of zookeper statefulset configured with anti-affinity for high availablity.
 
 For more information on inter-pod affinity/anti-affinity, see the design doc
 [here](https://git.k8s.io/community/contributors/design-proposals/podaffinity.md).
