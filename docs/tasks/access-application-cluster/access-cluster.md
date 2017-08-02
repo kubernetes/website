@@ -436,7 +436,7 @@ If you haven't specified a name for your port, you don't have to specify *port_n
 
 如上所述，您可以使用 `kubectl cluster-info` 命令来检索服务的代理 URL。要创建包含服务端点、后缀和参数的代理 URL，您只需附加到服务的代理URL：
 
-``http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
+`http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
 如果您没有指定 port 的名字，那么您不必在 URL 里指定 port_name。
 
