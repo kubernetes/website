@@ -304,7 +304,7 @@ $ kubectl config use-context federal-context
 {% endcapture %}
 
 {% capture discussion %}
-### Final notes for tying it all together
+## Final notes for tying it all together
 
 So, tying this all together, a quick start to create your own kubeconfig file:
 
