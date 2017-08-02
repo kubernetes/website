@@ -1,5 +1,6 @@
 ---
 title: Kubernetes on Ubuntu
+redirect_from: /docs/getting-started-guides/ubuntu-calico/
 ---
 
 {% capture overview %}
@@ -54,12 +55,6 @@ These are more in-depth guides for users choosing to run Kubernetes in productio
 ## Developer Guides
 
   - [Localhost using LXD](/docs/getting-started-guides/ubuntu/local)
-
-## Community Ubuntu Guides
-
-  - [Calico Configuration](/docs/getting-started-guides/ubuntu/calico)
-
-Please feel free to submit guides to this section.
 
 ## Where to find us
 
