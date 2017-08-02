@@ -2,9 +2,6 @@
 assignees:
 - vishh
 title: Schedule GPUs
-redirect_from:
-- "/docs/user-guide/gpus/"
-- "/docs/user-guide/gpus.html"
 ---
 
 {% capture overview %}
@@ -32,16 +29,20 @@ Nvidia GPUs can be consumed via container level resource requirements using the 
 
 ```yaml
 apiVersion: v1
-kind: pod
+kind: Pod 
+metadata:
+  name: gpu-pod
 spec: 
   containers: 
     - 
       name: gpu-container-1
+      image: gcr.io/google_containers/pause:2.0
       resources: 
         limits: 
           alpha.kubernetes.io/nvidia-gpu: 2 # requesting 2 GPUs
-    - 
+    -
       name: gpu-container-2
+      image: gcr.io/google_containers/pause:2.0
       resources: 
         limits: 
           alpha.kubernetes.io/nvidia-gpu: 3 # requesting 3 GPUs
@@ -90,12 +91,12 @@ metadata:
           }
         }
       }
-spec: 
-  containers: 
-    - 
+spec:
+  containers:
+    -
       name: gpu-container-1
-      resources: 
-        limits: 
+      resources:
+        limits:
           alpha.kubernetes.io/nvidia-gpu: 2
 ```
 
@@ -135,7 +136,7 @@ spec:
   - hostPath:
       path: /usr/lib/nvidia-375/bin
     name: bin
-  - hostPath: 
+  - hostPath:
       path: /usr/lib/nvidia-375
     name: lib
 ```

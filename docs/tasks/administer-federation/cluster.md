@@ -1,15 +1,12 @@
 ---
 title: Federated Cluster
-redirect_from:
-- "/docs/user-guide/federation/cluster/"
-- "/docs/user-guide/federation/cluster.html"
 ---
 
 {% capture overview %}
 
 This guide explains how to use Clusters API resource in a Federation control plane.
 
-Different than other Kuberentes resources, such as Deployments, Services and ConfigMaps,
+Different than other Kubernetes resources, such as Deployments, Services and ConfigMaps,
 clusters only exist in the federation context, i.e. those requests must be submitted to the
 federation api-server.
 
