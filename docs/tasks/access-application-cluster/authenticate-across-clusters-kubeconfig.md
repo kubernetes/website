@@ -2,6 +2,7 @@
 title: Authenticate across clusters with kubeconfig
 ---
 
+{% capture overview %}
 Authentication in Kubernetes can differ for different individuals.
 
 - A running kubelet might have one way of authenticating (i.e. certificates).
@@ -14,11 +15,13 @@ So in order to easily switch between multiple clusters, for multiple users, a ku
 This file contains a series of authentication mechanisms and cluster connection information associated with nicknames.  It also introduces the concept of a tuple of authentication information (user) and cluster connection information called a context that is also associated with a nickname.
 
 Multiple kubeconfig files are allowed, if specified explicitly.  At runtime they are loaded and merged along with override options specified from the command line (see [rules](#loading-and-merging-rules) below).
+{% endcapture %}
 
-## Related discussion
+{% capture prerequisites %}
+* {% include task-tutorial-prereqs.md %}
+{% endcapture %}
 
-[http://issue.k8s.io/1755](http://issue.k8s.io/1755)
-
+{% capture steps %}
 ## Components of a kubeconfig file
 
 ### Example kubeconfig file
@@ -298,7 +301,9 @@ $ kubectl config set-context queen-anne-context --cluster=pig-cluster --user=bla
 $ kubectl config set-context federal-context --cluster=horse-cluster --user=green-user --namespace=chisel-ns
 $ kubectl config use-context federal-context
 ```
+{% endcapture %}
 
+{% capture discussion %}
 ### Final notes for tying it all together
 
 So, tying this all together, a quick start to create your own kubeconfig file:
@@ -308,5 +313,9 @@ So, tying this all together, a quick start to create your own kubeconfig file:
 - Replace the snippet above with information for your cluster's api-server endpoint.
 
 - Make sure your api-server provides at least one set of credentials (for example, `green-user`) when launched.  You will of course have to look at api-server documentation in order to determine the current state-of-the-art in terms of providing authentication details.
+
+## Related discussion
+[http://issue.k8s.io/1755](http://issue.k8s.io/1755)
+{% endcapture %}
 
 {% include templates/task.md %}
