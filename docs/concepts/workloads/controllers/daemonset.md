@@ -30,44 +30,7 @@ different flags and/or different memory and cpu requests for different hardware 
 
 You can describe a DeamonSet in a YAML file. For example, this  file [deamonset.yaml](/docs/concepts/workloads/controllers/deamonset.yaml) describes a DeamonSet that runs the fluentd-elasticsearch Docker image:
 
-```yaml
-apiVersion: extensions/v1beta1
-kind: DaemonSet
-metadata:
-  name: fluentd-elasticsearch
-  namespace: kube-system
-  labels:
-    k8s-app: fluentd-logging
-spec:
-  template:
-    metadata:
-      labels:
-        name: fluentd-elasticsearch
-    spec:
-      containers:
-      - name: fluentd-elasticsearch
-        image: gcr.io/google-containers/fluentd-elasticsearch:1.20
-        resources:
-          limits:
-            memory: 200Mi
-          requests:
-            cpu: 100m
-            memory: 200Mi
-        volumeMounts:
-        - name: varlog
-          mountPath: /var/log
-        - name: varlibdockercontainers
-          mountPath: /var/lib/docker/containers
-          readOnly: true
-      terminationGracePeriodSeconds: 30
-      volumes:
-      - name: varlog
-        hostPath:
-          path: /var/log
-      - name: varlibdockercontainers
-        hostPath:
-          path: /var/lib/docker/containers
-```
+{% include code.html language="yaml" file="deamonset.yaml" ghlink="/docs/concepts/workloads/controllers/deamonset.yaml" %}
 
 * Create a DeamonSet based on the YAML file:
 ```
