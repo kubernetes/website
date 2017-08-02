@@ -1,6 +1,5 @@
 ---
 title: Kubernetes on Ubuntu
-redirect_from: /docs/getting-started-guides/ubuntu-calico/
 ---
 
 {% capture overview %}
