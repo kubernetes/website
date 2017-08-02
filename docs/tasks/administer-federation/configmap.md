@@ -1,5 +1,5 @@
 ---
-title: Federated ConfigMap
+title: Use a ConfigMap in a Federated Cluster
 ---
 
 {% capture overview %}
