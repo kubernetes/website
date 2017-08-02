@@ -43,7 +43,7 @@ DNS query for `foo.bar`.
 
 -->
 
-## 谁需要获取 DNS 名字?
+## 怎样获取 DNS 名字?
 
 在集群中定义的每个 Service（包括 DNS 服务器自身）都会被指派一个 DNS 名称。默认，一个客户端 Pod 的 DNS 搜索列表将包含该 Pod 自己的 Namespace 和集群默认域。可以通过如下示例进行说明：
 
@@ -61,7 +61,7 @@ considered implementation details and are subject to change without warning.
 
 ## 支持的 DNS 模式
 
-下面个段落详细说明支持的记录类型和布局。任何能够使用的布局、名称或查询都考虑了实现细节，并且进行修改不应该提示警告信息。
+下面各段详细说明支持的记录类型和布局。如果任何其它的布局、名称或查询，碰巧也能够使用，这就需要研究下它们的实现细节，以免后续修改它们又不能使用了。
 
 <!--
 
