@@ -1,5 +1,5 @@
 ---
-title: Accessing Clusters
+title: 访问集群
 redirect_from:
 - "/docs/user-guide/accessing-the-cluster/"
 - "/docs/user-guide/accessing-the-cluster.html"
