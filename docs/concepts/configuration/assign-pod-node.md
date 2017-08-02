@@ -206,20 +206,83 @@ If defined but empty, it means "all namespaces."
 All `matchExpressions` associated with `requiredDuringSchedulingIgnoredDuringExecution` affinity and anti-affinity
 must be satisfied for the pod to schedule onto a node.
 
-#### More Practical Usage
+#### More Practical Use-cases 
 
 Interpod Affinity and AnitAffinity can be even more useful when they are used with higher
-level collections such as ReplicaSets, Statefulset, Deployments, etc.  One can easily configure that a set of workloads should
+level collections such as ReplicaSets, Statefulsets, Deployments, etc.  One can easily configure that a set of workloads should
 be co-located in the same defined topology, eg., the same node. 
 
 ##### Always co-located in the same node
 
-A web application has an in-memory cache such as redis, one may prefer to co-locate their web server along with the cache as much as possible so that they have minimum latency like below.
+In a three node cluster, a web application has in-memory cache such as redis, we want the web-servers to be co-located with the cache as much as possible. 
+Here is the yaml snippet of a simple redis deployment with two replicas and selector label `app=store`
+
+```yaml
+apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis-cache
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: store
+    spec:
+      containers:
+      - name: redis-server
+        image: redis:3.2-alpine
+```
+
+Below yaml snippet of the webserver deployment has `podAffinity` configured, this informs the scheduler that all its replicas are to be 
+co-located with pods that has selector label `app=store` 
+
+```yaml
+apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: web-server
+spec:
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: web-store
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - store
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: web-app
+```
+
+if we create the above two deployments, our three node cluster could look like below.
 
 |       node-1         |       node-2        |       node-3       |
 |:--------------------:|:-------------------:|:------------------:|
-| *webserver-1*        | *webserver-2*       | *webserver-3*      |
-|  *cache-1*           |   *cache-2*         |   *cache-3*        |
+| *webserver-1*        |                     |    *webserver-2*   |
+| *webserver-3*        |                     |    *webserver-4*   |
+|  *cache-1*           |                     |     *cache-2*      |
+
+As you can see, all the 4 replicas of the `web-server` are automatically co-located with the cache as expected. 
+
+```
+$kubectl get pods -o wide
+NAME                           READY     STATUS    RESTARTS   AGE       IP            NODE
+redis-cache-1450370735-8p4p7   1/1       Running   0          1h        10.192.2.5    kube-node-1
+redis-cache-1450370735-krxjj   1/1       Running   0          1h        10.192.4.6    kube-node-3
+web-server-1287567482-0ltmc    1/1       Running   0          38s       10.192.2.11   kube-node-1
+web-server-1287567482-6c91m    1/1       Running   0          38s       10.192.2.12   kube-node-1
+web-server-1287567482-wm2tl    1/1       Running   0          38s       10.192.4.9    kube-node-3
+web-server-1287567482-xqfxk    1/1       Running   0          38s       10.192.4.10   kube-node-3
+```
 
 ##### Never co-located in the same node
 
