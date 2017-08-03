@@ -461,12 +461,13 @@ The permissions required by individual control loops are contained in the <a hre
 </tr>
 <tr>
 <td><b>system:node</b></td>
-<td><b>system:nodes</b> group (deprecated in 1.7)</td>
+<td><b>system:nodes</b> group (deprecated in 1.7, removed in 1.8)</td>
 <td>Allows access to resources required by the kubelet component, <b>including read access to all secrets, and write access to all pods</b>.
 As of 1.7, use of the [Node authorizer](/docs/admin/authorization/node/) 
 and [NodeRestriction admission plugin](/docs/admin/admission-controllers#NodeRestriction) 
 is recommended instead of this role, and allow granting API access to kubelets based on the pods scheduled to run on them.
 As of 1.7, when the `Node` authorization mode is enabled, the automatic binding to the `system:nodes` group is not created.
+As of 1.8, the automatic binding to the `system:nodes` group is not created.
 </td>
 </tr>
 <tr>
