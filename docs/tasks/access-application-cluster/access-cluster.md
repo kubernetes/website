@@ -34,7 +34,7 @@ kubectl and complete documentation is found in the [kubectl manual](/docs/user-g
 
 ## 访问集群 API
 
-### 第一次访问时使用 kubectl
+### 第一次使用 kubectl 访问
 
 如果您是第一次访问 Kubernetes API 的话，我们建议您使用 Kubernetes 命令行工具：`kubectl`。
 
@@ -75,13 +75,13 @@ Kubectl 处理对 apiserver 的定位和认证。如果您想直接访问 REST A
 - 以 proxy 模式运行 kubectl。
   - 推荐方法。
   - 使用已保存的 apiserver 位置信息。
-  - 使用自签名证书验证 apiserver 的身份。 没有MITM（中间人攻击）的可能。
+  - 使用自签名证书验证 apiserver 的身份。 没有 MITM（中间人攻击）的可能。
   - 认证到 apiserver。
   - 将来，可能会做智能的客户端负载均衡和故障转移。
 - 直接向 http 客户端提供位置和凭据。
   - 替代方法。
   - 适用于通过使用代理而混淆的某些类型的客户端代码。
-  - 需要将根证书导入浏览器以防止MITM。
+  - 需要将根证书导入浏览器以防止 MITM。
 
 <!--
 
@@ -368,9 +368,9 @@ You have several options for connecting to nodes, pods and services from outside
 您可以选择以下几种方式从集群外部连接到 node、pod 和 service：
 
 - 通过 public IP 访问 service。
-  - 使用 `NodePort`  和 `LoadBalancer` 类型的 service，以使 service 能够在集群外部被访问到。请查看 [service](/docs/user-guide/services) 和 [kubectl expose](/docs/user-guide/kubectl/v1.6/#expose) 文档。
+  - 使用 `NodePort` 和 `LoadBalancer` 类型的 service，以使 service 能够在集群外部被访问到。请查看 [service](/docs/user-guide/services) 和 [kubectl expose](/docs/user-guide/kubectl/v1.6/#expose) 文档。
   - 根据您的群集环境，这可能会将服务暴露给您的公司网络，或者可能会将其暴露在互联网上。想想暴露的服务是否安全。它是否自己进行身份验证？
-  - 将 pod 放在服务后面。 要从一组副本（例如为了调试）访问一个特定的 pod，请在pod上放置一个唯一的 label，并创建一个选择该 label 的新服务。
+  - 将 pod 放在服务后面。 要从一组副本（例如为了调试）访问一个特定的 pod，请在 pod 上放置一个唯一的 label，并创建一个选择该 label 的新服务。
   - 在大多数情况下，应用程序开发人员不需要通过 node IP 直接访问节点。
 - 通过 Proxy  规则访问 service、node、pod。
   - 在访问远程服务之前，请执行 apiserver 认证和授权。
@@ -418,7 +418,7 @@ at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-l
 
 这显示了访问每个服务的代理 URL。
 
-例如，此集群启用了集群级日志记录（使用Elasticsearch），如果传入合适的凭据，可以在在该地址 `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`  访问到，或通过 kubectl 代理，例如：`http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`。
+例如，此集群启用了集群级日志记录（使用Elasticsearch），如果传入合适的凭据，可以在该地址 `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`  访问到，或通过 kubectl 代理，例如：`http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`。
 
 （有关如何传递凭据和使用 kubectl 代理，请 [参阅上文](#accessing-the-cluster-api)）
 
