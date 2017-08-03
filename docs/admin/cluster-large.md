@@ -12,7 +12,7 @@ At {{page.version}}, Kubernetes supports clusters with up to 5000 nodes. More sp
 * No more than 5000 nodes
 * No more than 150000 total pods
 * No more than 120000 total containers (UPDATE?)
-* No more than 100 pods per node (UPDATE?)
+* No more than 100 pods per node
 
 <br>
 
