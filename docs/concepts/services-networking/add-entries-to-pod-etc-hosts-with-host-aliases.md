@@ -2,7 +2,7 @@
 assignees:
 - rickypai
 - thockin
-title: Adding entries to Pod /etc/hosts with HostAliases
+title: 使用 HostAliases 向 Pod /etc/hosts 文件添加条目
 redirect_from:
 - "/docs/user-guide/add-entries-to-pod-etc-hosts-with-host-aliases/"
 - "/docs/user-guide/add-entries-to-pod-etc-hosts-with-host-aliases.md"
@@ -19,7 +19,7 @@ Modification not using HostAliases is not suggested because the file is managed 
 
 当 DNS 配置以及其它选项不合理的时候，通过向 Pod 的 /etc/hosts 文件中添加条目，可以在 Pod 级别覆盖对主机名的解析。在 1.7 版本，用户可以通过 PodSpec 的 HostAliases 字段来添加这些自定义的条目。
 
-建议通过使用 HostAliases 来进行修改，因为该文件由 Kubelet 管理，并且可以在 Pod 创建/重启 过程中进行重写。 
+建议通过使用 HostAliases 来进行修改，因为该文件由 Kubelet 管理，并且可以在 Pod 创建/重启过程中进行重写。 
 
 <!--
 ## Default Hosts File Content
@@ -29,7 +29,7 @@ Lets start an Nginx Pod which is assigned an Pod IP:
 
 ## 默认 hosts 文件内容
 
-让我们从一个 Nginx Pod开始，给该 Pod 分配一个 IP：
+让我们从一个 Nginx Pod 开始，给该 Pod 分配一个 IP：
 
 ```
 $ kubectl get pods --output=wide
@@ -63,7 +63,7 @@ by default, the hosts file only includes ipv4 and ipv6 boilerplates like `localh
 
 默认，hosts 文件只包含 ipv4 和 ipv6 的样板内容，像 `localhost` 和主机名称。
 
-## 通过 HostAliases 增加额外的条件
+## 通过 HostAliases 增加额外的条目
 
 <!--
 In addition the the default boilerplate, we can add additional entries to the hosts file to resolve `foo.local`, `bar.local` to `127.0.0.1` and `foo.remote`, `bar.remote` to `10.1.2.3`, we can by adding HostAliases to the Pod under `.spec.hostAliases`:
@@ -107,7 +107,7 @@ As of 1.7, Pods with hostNetwork enabled will not be able to use this feature. T
 
 ## 限制
 
-在 1.7 版本，如果 Pod 启用 hostNetwork，那么僵不能使用这个特性，因为 kubelet 只管理非 hostNetwork 类型 Pod 的 hosts 文件。目前正在讨论要改变这个问题。
+在 1.7 版本，如果 Pod 启用 hostNetwork，那么将不能使用这个特性，因为 kubelet 只管理非 hostNetwork 类型 Pod 的 hosts 文件。目前正在讨论要改变这个情况。
 
 <!--
 ## Why Does Kubelet Manage the Hosts File?
@@ -119,6 +119,6 @@ Because of the managed-nature of the file, any user-written content will be over
 
 ## 为什么 Kubelet 管理 hosts文件？
 
-kubelet [管理](https://github.com/kubernetes/kubernetes/issues/14633) Pod 中每个容器的 hosts 文件，避免容器已经启动之后 Docker [修改](https://github.com/moby/moby/issues/17190) 该文件。
+kubelet [管理](https://github.com/kubernetes/kubernetes/issues/14633) Pod 中每个容器的 hosts 文件，避免 Docker 在容器已经启动之后去 [修改](https://github.com/moby/moby/issues/17190) 该文件。
 
-因为任何用户修改托管性质的文件，无论容器重启或 Pod 重新调度，这时该 hosts 文件都会被 Kubelet 重新安装，修改内容都将会被覆盖。因此，不建议修改该文件的内容。
+因为该文件是托管性质的文件，无论容器重启或 Pod 重新调度，用户修改该 hosts 文件的任何内容，都会在 Kubelet 重新安装后被覆盖。因此，不建议修改该文件的内容。
