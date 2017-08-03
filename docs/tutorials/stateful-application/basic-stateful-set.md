@@ -1006,7 +1006,7 @@ above.
 ### Parallel Pod Management
 
 `Parallel` pod management tells the StatefulSet controller to launch or 
-terminate all Pods in parallel, and to not wait for Pods to becoming Running 
+terminate all Pods in parallel, and not to wait for Pods to become Running 
 and Ready or completely terminated prior to launching or terminating another 
 Pod.
 
