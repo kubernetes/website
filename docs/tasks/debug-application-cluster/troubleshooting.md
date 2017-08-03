@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - brendandburns
 - davidopp
 title: Troubleshooting

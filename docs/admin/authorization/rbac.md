@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 - deads2k
 - liggitt
