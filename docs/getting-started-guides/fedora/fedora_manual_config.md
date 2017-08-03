@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - aveshagarwal
 - eparis
 - thockin

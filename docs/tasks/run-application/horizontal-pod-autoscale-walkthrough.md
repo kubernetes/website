@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - fgrzadkowski
 - jszczepkowski
 - justinsb

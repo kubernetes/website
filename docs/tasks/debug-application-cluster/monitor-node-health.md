@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - Random-Liu
 - dchen1107
 title: Monitor Node Health

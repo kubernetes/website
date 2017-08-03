@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - smarterclayton
 title: Encrypting data at rest
 ---

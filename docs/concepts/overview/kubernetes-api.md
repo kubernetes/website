@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - chenopis
 title: The Kubernetes API
 ---

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - smarterclayton
 title: Securing a Cluster
 ---

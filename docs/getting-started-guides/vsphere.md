@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 - jbeda
 title: VMware vSphere

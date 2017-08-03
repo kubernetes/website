@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - davidopp
 - lavalamp
 title: Cluster Administration Overview
