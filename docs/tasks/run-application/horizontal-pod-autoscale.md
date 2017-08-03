@@ -123,18 +123,28 @@ Kubernetes 1.6 adds support for making use of custom metrics in the Horizontal P
 You can add custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2alpha1` API.
 Kubernetes then queries the new custom metrics API to fetch the values of the appropriate custom metrics.
 
-### Prerequisites
+### Requirements
 
-In order to use custom metrics in the Horizontal Pod Autoscaler, you must deploy your cluster with the
-`--horizontal-pod-autoscaler-use-rest-clients` flag on the controller manager set to true.  You must then configure
-your controller manager to speak to the API server through the API server aggregator, by setting the controller
-manager's target API server to the API server aggregator (using the `--apiserver` flag). The resource metrics API and
-custom metrics API must also be registered with the API server aggregator, and must be served by API servers running
-on the cluster.
+To use custom metrics with your Horizontal Pod Autoscaler, you must set the necessary configurations when deploying your cluster:
 
-You can use Heapster's implementation of the resource metrics API by running Heapster with the`--api-server` flag set
-to true. A separate component must provide the custom metrics API (more information on the custom metrics API is
-available at [the k8s.io/metrics repository](https://github.com/kubernetes/metrics)).
+* [Enable the API aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) if you have not already done so.
+
+* Register your resource metrics API and your
+custom metrics API with the API aggregation layer. Both of these API servers must be running *on* your cluster.
+
+  * *Resource Metrics API*: You can use Heapster's implementation of the resource metrics API, by running Heapster with its `--api-server` flag set to true.
+
+  * *Custom Metrics API*: This must be provided by a separate component. To get started with boilerplate code, see the [kubernetes-incubator/custom-metrics-apiserver](https://github.com/kubernetes-incubator/custom-metrics-apiserver) and the [k8s.io/metrics](https://github.com/kubernetes/metrics) repositories.
+
+* Set the appropriate flags for kube-controller-manager:
+
+  * `--horizontal-pod-autoscaler-use-rest-clients` should be true.
+
+  * `--kubeconfig <path-to-kubeconfig>` OR `--master <ip-address-of-apiserver>`
+
+     Note that either the `--master` or `--kubeconfig` flag can be used; `--master` will override `--kubeconfig` if both are specified. These flags specify the location of the API aggregation layer, allowing the controller manager to communicate to the API server.
+
+     In Kubernetes 1.7, the standard aggregation layer that Kubernetes provides runs in-process with the kube-apiserver, so the target IP address can be found with `kubectl get pods --selector k8s-app=kube-apiserver --namespace kube-system -o jsonpath='{.items[0].status.podIP}'`.
 
 ## Further reading
 
