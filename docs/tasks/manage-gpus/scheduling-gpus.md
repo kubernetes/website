@@ -122,6 +122,7 @@ metadata:
 spec:
   containers:
   - name: gpu-container-1
+    image: gcr.io/google_containers/pause:2.0
     securityContext:
       privileged: true
     resources:
