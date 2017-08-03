@@ -1,6 +1,6 @@
 ---
 title: Custom Resources
-assignees:
+approvers:
 - enisoc
 - deads2k
 ---

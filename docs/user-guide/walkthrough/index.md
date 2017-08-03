@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - eparis
 - mikedanese
 title: Kubernetes 101

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - Kashomon
 - bprashanth
 - madhusudancs

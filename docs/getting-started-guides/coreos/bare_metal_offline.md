@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 - thockin
 title: Offline

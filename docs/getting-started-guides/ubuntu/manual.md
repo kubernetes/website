@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - thockin
 title: Manually Deploying Kubernetes on Ubuntu Nodes
 ---
