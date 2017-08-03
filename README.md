@@ -147,6 +147,8 @@ Kubernetes 文档由若干 `md` 和 `html` 文档构成,翻译即是将原始 `m
 - 删除旧版本日期文件 `object-management-2017-7-15.md`
 - 提交新的PR文件，格式`object-management-pr-2017-8-15`
 
+简单而言就是如果有两个带日期字样的 `md` 或 `html` 文件，就需要译者同步更新中文内容，同时把旧日期的版本删除。
+
 向上游提PR [参考此文件](https://docs.google.com/document/d/1xz7BhW8Qkh6reYU7S7RDzSov5e101Vz_fHjq-fEX-W4/edit#heading=h.gjdgxs)。
 
 ## 谢谢您!
