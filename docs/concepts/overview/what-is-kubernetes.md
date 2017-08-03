@@ -10,7 +10,7 @@ This page is an overview of Kubernetes.
 {% endcapture %}
 
 {% capture body %}
-Kubernetes is an [open-source platform for automating deployment, scaling, and operations of application containers](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations) across clusters of hosts, providing container-centric infrastructure.
+Kubernetes is an [open-source platform designed to automate deploying, scaling, and operating application containers](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations).
 
 With Kubernetes, you are able to quickly and efficiently respond to customer demand:
 

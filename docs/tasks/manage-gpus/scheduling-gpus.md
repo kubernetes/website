@@ -29,18 +29,22 @@ Nvidia GPUs can be consumed via container level resource requirements using the 
 
 ```yaml
 apiVersion: v1
-kind: pod
-spec:
-  containers:
-    -
+kind: Pod 
+metadata:
+  name: gpu-pod
+spec: 
+  containers: 
+    - 
       name: gpu-container-1
-      resources:
-        limits:
+      image: gcr.io/google_containers/pause:2.0
+      resources: 
+        limits: 
           alpha.kubernetes.io/nvidia-gpu: 2 # requesting 2 GPUs
     -
       name: gpu-container-2
-      resources:
-        limits:
+      image: gcr.io/google_containers/pause:2.0
+      resources: 
+        limits: 
           alpha.kubernetes.io/nvidia-gpu: 3 # requesting 3 GPUs
 ```
 
@@ -139,7 +143,7 @@ spec:
 
 ## Future
 
-- Support for hardware accelerators is in it's early stages in Kubernetes.
+- Support for hardware accelerators is in its early stages in Kubernetes.
 - GPUs and other accelerators will soon be a native compute resource across the system.
 - Better APIs will be introduced to provision and consume accelerators in a scalable manner.
 - Kubernetes will automatically ensure that applications consuming GPUs gets the best possible performance.
