@@ -102,5 +102,5 @@ to pick up the `--runtime-config` changes.
 
 DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
 Other extensions resources can be enabled by setting `--runtime-config` on
-apiserver. `--runtime-config` accepts comma separated values. For ex: to disable deployments and jobs, set
+apiserver. `--runtime-config` accepts comma separated values. For ex: to disable deployments and ingress, set
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`
