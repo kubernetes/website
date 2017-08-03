@@ -61,6 +61,15 @@ sudo cp kubernetes/client/bin/kubectl /usr/local/bin
 sudo chmod +x /usr/local/bin/kubectl
 ```
 
+### Install with snap on Ubuntu
+
+kubefed is available as a [snap](https://snapcraft.io/) application.
+
+1. If you are on Ubuntu or one of other Linux distributions that support [snap](https://snapcraft.io/docs/core/install) package manager, you can install with:
+
+        sudo snap install kubefed --classic
+
+2. Run `kubefed version` to verify that the verison you've installed is sufficiently up-to-date.
 
 ## Choosing a host cluster.
 
