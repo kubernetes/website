@@ -136,7 +136,7 @@ A list of Kubernetes-specific terms and words to be used consistently across the
   <tr><th>Term</th><th>Useage</th></tr>
   <tr><td>TBD</td><td>TBD</td></tr>
 </table>{% endcomment %}
-`
+
 ## Callout Formatting
 Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: **Note:** {: .note}, **Caution:** {: .caution}, and **Warning:** {: .warning}. 
 
