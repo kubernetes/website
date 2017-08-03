@@ -13,7 +13,7 @@ redirect_from:
 _pods_ are the smallest deployable units of computing that can be created and
 managed in Kubernetes.
 -->
-_pods_ 是 Kubernetes 用于创建和管理的最小单元。
+_pods_ 是 Kubernetes 可以创建和管理的最小单元。
 <!--
 ## What is a Pod?
 
@@ -39,7 +39,7 @@ further sub-isolations applied.
 -->
 虽然 Kubernetes 也支持除了 Docker 以外的其他容器运行环境，但是 Docker 是最为人们所认可的容器运行环境，所以使用 Docker 术语来描述 pod 有助于用户理解。
 
-pod 所共享的上下文其实是一系列 Linux namespaces, cgroups, 和其他底层的隔离设施 - 这些技术同样是 Docker 容器隔离的基础。在一个 pod 上下文，一个独立的应用可能会运用到深层次的次级隔离技术。
+pod 所共享的上下文其实是一系列 Linux namespaces, cgroups, 和其他底层的隔离设施 - 这些技术同样是 Docker 容器隔离的基础。在一个 pod 上下文，一个独立的应用可能会进一步运用到次级隔离技术。
 <!--
 Containers within a pod share an IP address and port space, and
 can find each other via `localhost`. They can also communicate with each
@@ -51,9 +51,9 @@ Applications within a pod also have access to shared volumes, which are defined
 as part of a pod and are made available to be mounted into each application's
 filesystem.
 -->
-pod 里的所有容器共享一个 IP 地址和端口，通过 `localhost` 这些容器可以很容易地发现彼此。 它们也可以使用标准的进程间通信，比如说 SystemV semaphores 或者 POSIX 共享内存相互通信。容器不一样， pods 有自己单独的 IP 地址，而且相互之间不能通过 IPC 进行通信。
+pod 里的所有容器共享一个 IP 地址和端口，通过 `localhost` 这些容器可以很容易地发现彼此。 它们也可以使用标准的进程间通信，比如说 SystemV semaphores 或者 POSIX 共享内存相互通信。不同 pod 中的容器有自己单独的 IP 地址。
 
-作为 pod 的组成部分，共享卷可以被 pod 内的所有应用访问，可以挂载到所有应用文件系统中。
+作为 pod 的组成部分，共享卷可以被 pod 内的所有应用访问，可以挂载到所有应用的文件系统中。
 <!--
 In terms of [Docker](https://www.docker.com/) constructs, a pod is modelled as
 a group of Docker containers with shared namespaces and shared
@@ -73,7 +73,7 @@ higher-level API may support pod migration.)
 在 [Docker](https://www.docker.com/) 的术语里， pod 是一组被模块化的拥有共享命名空间和共享 [卷](/docs/concepts/storage/volumes/) 的容器。 到现在为止Docker并没有实现 PID 命名空间共享。
 
 就像独立的应用容器， pod 也是相对短暂（非持久）的实体。 就像在 [life of a
-pod](/docs/concepts/workloads/pods/pod-lifecycle/) 里描述的， pod 被创建后会分配一个唯一的 ID (UID),然后 pod 会被调度到一个节点上直到被终止（ 通过重启策略）或者被删除。如果一个节点停止运行， 其上的 pod 在一段时间后后将被删除。 指定的 pod (由 UID 来标识)不会被重新调度到新节点上，而是会被另外一个等价 pod 取代。 这个 pod 名字可以与原来的相同，但是 UID 会重新生成（详细内容请参见 [replication
+pod](/docs/concepts/workloads/pods/pod-lifecycle/) 里描述的， pod 被创建后会分配一个唯一的 ID (UID),然后 pod 会被调度到一个节点上直到被终止（ 通过重启策略）或者被删除。如果一个节点停止运行， 其上的 pod 在一段时间后将被删除。 指定的 pod (由 UID 来标识)不会被重新调度到新节点上，而是会被另外一个等价 pod 取代。 这个 pod 名字可以与原来的相同，但是 UID 会重新生成（详细内容请参见 [replication
 controller](/docs/concepts/workloads/controllers/replicationcontroller/)）。（在后续版本中，一个高级别的 API 将能实现 pod 迁移。）
 <!--
 When something is said to have the same lifetime as a pod, such as a volume,
@@ -86,11 +86,11 @@ related thing (e.g. volume) is also destroyed and created anew.
 *A multi-container pod that contains a file puller and a
 web server that uses a persistent volume for shared storage between the containers.*
 -->
-当我们说某一事物（例如卷）与pod生命周期相同，这意味着只要pod（由UID标识）存在该事物就存在。如果pod被删除，不管出于什么原因，哪怕有等价pod被创建，这个 pod 上同周期的资源都会被销毁然后重新创建。
+当我们说某一事物（例如卷）与 pod 生命周期相同，这意味着只要 pod（由 UID 标识）存在该事物就存在。如果pod被删除，不管出于什么原因，哪怕有等价 pod 被创建，这个 pod 上同周期的资源都会被销毁然后重新创建。
 
 ![pod diagram](/images/docs/pod.svg){: style="max-width: 50%" }
 
-*一个包含了多个容器的pod，包含了一个文件下拉器和web服务器，其中web服务器使用持久卷作为容器间的共享存储。
+*一个包含了多个容器的 pod，包含了一个文件下拉器和 web 服务器，其中 web 服务器使用持久卷作为容器间的共享存储。
 <!--
 ## Motivation for pods
 
@@ -129,13 +129,13 @@ container restarts and to be shared among the applications within the pod.
 -->
 ###资源共享和通信
 
-Pods 之间的资源能够共享数据和相互通信。
+Pod 内部实现了数据共享和相互通信。
 
-在 pod 里的所有应用使用同一个网络空间(相同的 IP 和端口)， 由此资源之间可以通过 `localhost` 相互通信。因此在同一个 pod 里的应用必须相互之间协调端口的使用。每一个 pod 都拥有一个平面网络空间的 IP 地址，使用这个地址可以与网络中其他物理机器和 pods 进行通信。
+在 pod 里的所有应用使用同一个网络空间(相同的 IP 和端口)， 彼此之间可以通过 `localhost` 相互通信。因此在同一个 pod 里的应用必须相互之间协调好端口的使用。每一个 pod 都拥有一个平面网络空间的 IP 地址，使用这个地址可以与网络中其他物理机器和 pods 进行通信。
 
 pod 里的应用容器的主机名被设置成 pod 名字[更多的网络细节](/docs/concepts/cluster-administration/networking/)。
 
-除了定义运行在pod中的应用容器，pod还可以指定一系列共享存储卷。有了卷，数据就不会在容器重启后丢失，数据还还可以在pod内的容器之间共享。
+除了定义运行在pod中的应用容器，pod还可以指定一系列共享存储卷。有了卷，数据就不会在容器重启后丢失，数据还可以在pod内的容器之间共享。
 <!--
 ## Uses of pods
 
@@ -192,7 +192,7 @@ _Why not just run multiple programs in a single (Docker) container?_
 _为什么不在一个容器 (Docker) 里运行多个程序？
 
 1.透明度。让 pod 里的容器可见于框架，框架则可以很容易的给这些容器提供服务，比如说：进程管理，资源监控。 这种机制给用户带来了很大的便利。
-2.解耦软件。每一个独立的容器都可以单独管理版本，也可以单独重构和重新部署。 Kubernetes 甚至有一天可以实现为单独容器的在线升级。
+2.解耦软件依赖。每一个独立的容器都可以单独管理版本，也可以单独重构和重新部署。 Kubernetes 甚至有一天可以实现为单独容器的在线升级。
 3.易用性。用户们不需要运行自己的进程管理，也不需要担心信号和退出处理等等。
 4.效率。由于基础设施承担了更多的职责，容器从而变得更加轻量级。
 <!--
@@ -204,7 +204,7 @@ simplified management.
 -->
 _为什么不使用支持相似协同调度的容器组？_
 
-这个方法可以提供协同寻址，但是不能将提供大多数 pods 优势，比如说资源共享， IPC, 生命周期共享以及最简化的管理。
+这个方法可以提供协同寻址，但是不能提供大多数 pods 优势，比如说资源共享， IPC, 生命周期共享以及最简化的管理。
 <!--
 ## Durability of pods (or lack thereof)
 
@@ -218,7 +218,7 @@ The use of collective APIs as the primary user-facing primitive is relatively co
 
 Pod 从一开始就没有被设计成一个持续性的实体。一旦遇到下面这些场景时 Pod 就会死亡：调度失败，节点宕机、Pod驱逐（比如由于资源不足）、节点维护。
 
-通常情况下，用户不应该需要直接创建 pod， 而是应该总是使用 controller(比如说：[Deployment](/docs/concepts/workloads/controllers/deployment/))，哪怕是用户只需要一个pod。 Controller 提供了集群内部 Pod 自我修复、Pod 复制和回滚管理。
+通常情况下，用户不必直接创建 pod， 而是应该总是使用 controller(比如说：[Deployment](/docs/concepts/workloads/controllers/deployment/))，哪怕是用户只需要一个pod。 Controller 提供了集群内部 Pod 自我修复、Pod 复制和回滚管理。
 
 使用集群 API 作为面向用户的主要原语言的方法在集群调度系统里很常见，包含了[Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), and [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997)
 
@@ -290,7 +290,7 @@ Force deletions can be potentially dangerous for some pods and should be perform
 -->
 ###强制删除 pods
 
-强制删除一个 pod 是从集群状态还有 etcd 里立刻删除这个 pod. 当一个强制删除被执行是， apiserver 不会等待 kubelet 的确认信息，pod 已经在其运行的节点上被终止 。在 API 里 pod 会被立刻删除这样一个新的 pod 就能被创建并且使用完全一样的名字。在节点上， pods 被立刻设置成终止后，在强行杀掉前还会有一个很小的时间窗口。
+强制删除一个 pod 是从集群状态还有 etcd 里立刻删除这个 pod. 当 Pod 被强制删除时， api 服务器不会等待来自 Pod 所在节点上的 kubelet 的确认信息：pod 已经被终止。在 API 里 pod 会被立刻删除，这样新的 pod 就能被创建并且使用完全一样的名字。在节点上， pods 被设置成立刻终止后，在强行杀掉前还会有一个很小的宽限期。
 
 <!--
 ## Privileged mode for pod containers
