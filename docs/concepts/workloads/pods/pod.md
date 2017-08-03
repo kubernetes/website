@@ -51,7 +51,7 @@ Applications within a pod also have access to shared volumes, which are defined
 as part of a pod and are made available to be mounted into each application's
 filesystem.
 -->
-pod 里的所有容器共享一个 IP 地址和端口，通过 `localhost` 这些容器可以很容易地发现彼此。 它们也可以使用标准的进程间通信，比如说 SystemV semaphores 或者 POSIX 共享内存相互通信。不同 pod 中的容器有自己单独的 IP 地址。
+pod 里的所有容器共享一个 IP 地址和端口，通过 `localhost` 这些容器可以很容易地发现彼此。 它们也可以使用标准的进程间通信，比如说 SystemV semaphores 或者 POSIX 共享内存相互通信。不同 pod 中的容器有自己单独的 IP 地址, 而且相互之间不能通过 IPC 进行通信。
 
 作为 pod 的组成部分，共享卷可以被 pod 内的所有应用访问，可以挂载到所有应用的文件系统中。
 <!--
