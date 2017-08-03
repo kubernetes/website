@@ -75,7 +75,7 @@ StatefulSets 旨在与有状态的应用及分布式系统一起使用。然而�
 
 * 如何创建 StatefulSet
 * StatefulSet 怎样管理它的 Pods
-* 如何删除StatefulSet
+* 如何删除 StatefulSet
 * 如何对 StatefulSet 进行扩容/缩容
 * 如何更新一个 StatefulSet 的 Pods
   {% endcapture %}
