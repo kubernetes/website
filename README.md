@@ -16,7 +16,7 @@ K8SMeetup 维护两个仓库：
 
 ## 一、k8s 翻译流程讲解
 
-![](./images/k8s.io.svg)
+![](./images/k8s.io.png)
 
 ### Step 1. 领取翻译任务
 
