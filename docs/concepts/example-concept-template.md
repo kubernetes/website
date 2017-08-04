@@ -1,6 +1,6 @@
 ---
 title: Example Concept Template
-assignees:
+approvers:
 - chenopis
 ---
 

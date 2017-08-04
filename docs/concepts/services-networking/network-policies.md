@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - thockin
 - caseydavenport
 - danwinship

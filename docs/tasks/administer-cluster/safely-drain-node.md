@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - davidopp
 - mml
 - foxish

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - dchen1107
 - erictune
 - thockin

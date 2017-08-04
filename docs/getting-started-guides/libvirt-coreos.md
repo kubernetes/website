@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 - idvoretskyi
 title: CoreOS on libvirt

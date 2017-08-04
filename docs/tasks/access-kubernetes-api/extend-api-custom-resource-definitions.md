@@ -1,6 +1,6 @@
 ---
 title: Extend the Kubernetes API with CustomResourceDefinitions
-assignees:
+approvers:
 - deads2k
 - enisoc
 ---

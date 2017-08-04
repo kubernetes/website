@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - thockin
 title: Kubernetes Documentation

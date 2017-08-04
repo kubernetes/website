@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - thockin
 title: Build and Run cloud-controller-manager
 ---

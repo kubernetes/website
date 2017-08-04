@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - erictune
 - foxish

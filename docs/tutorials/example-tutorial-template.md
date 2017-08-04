@@ -1,6 +1,6 @@
 ---
 title: Example Tutorial Template
-assignees:
+approvers:
 - chenopis
 ---
 
