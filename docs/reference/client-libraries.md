@@ -1,6 +1,6 @@
 ---
 title: Client Libraries
-assignees:
+approvers:
 - ahmetb
 ---
 

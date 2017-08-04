@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - jdef
 - karlkfi
 title: Kubernetes on Mesos on Docker

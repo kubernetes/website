@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - vishh
 title: Schedule GPUs
 ---
