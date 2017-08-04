@@ -1,3 +1,4 @@
+/* Callouts */
 .caution, .note, .warning {
     padding: 20px;
     margin: 20px 0;
@@ -16,4 +17,54 @@
 
 .warning {
     border-left-color: #d9534f;
+}
+
+/* Feature States */
+
+.beta, .stable, .alpha, .deprecated {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fafafa;
+    border: 1px solid transparent;
+    border-radius:4px;
+}
+
+.beta::before, .stable::before, .alpha::before, .deprecated::before {
+    font-weight: bold;
+}  
+
+.beta {    
+    color: #31708f;
+    border-color: #bce8f1;
+}
+
+.beta::before { 
+    content: "Feature State: Beta";
+}
+
+.stable {    
+    color: #3c763d;
+    border-color: #d6e9c6;
+}
+
+.stable::before { 
+    content: "Feature State: Stable";
+}
+
+.alpha {    
+    color: #8a6d3b;
+    border-color: #faebcc;
+}
+
+.alpha::before { 
+    content: "Feature State: Alpha";
+}
+
+.deprecated {    
+    color: #a94442;
+    border-color: #ebccd1;
+}
+
+.deprecated::before { 
+    content: "⛔ Feature State: Deprecated";
 }
