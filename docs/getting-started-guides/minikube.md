@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - dlorenc
 - r2d4
 - aaron-prindle

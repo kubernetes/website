@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - dchen1107
 - yifan-gu
 title: Known Issues when Using rkt

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - mikedanese
 title: Configuring kubelet Garbage Collection
 ---

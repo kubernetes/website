@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - janetkuo
 title: Performing a Rollback on a DaemonSet
 ---
