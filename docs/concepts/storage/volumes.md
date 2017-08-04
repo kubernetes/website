@@ -289,10 +289,10 @@ spec:
 
 ### nfs
 
-A `nfs` volume allows an existing NFS (Network File System) share to be
+An `nfs` volume allows an existing NFS (Network File System) share to be
 mounted into your pod. Unlike `emptyDir`, which is erased when a Pod is
 removed, the contents of an `nfs` volume are preserved and the volume is merely
-unmounted.  This means that a NFS volume can be pre-populated with data, and
+unmounted.  This means that an NFS volume can be pre-populated with data, and
 that data can be "handed off" between pods.  NFS can be mounted by multiple
 writers simultaneously.
 
@@ -322,7 +322,7 @@ See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.git
 
 ### fc (fibre channel)
 
-A `fc` volume allows an existing fibre channel volume to be mounted into your pod.
+An `fc` volume allows an existing fibre channel volume to be mounted into your pod.
 You can specify single or multiple target World Wide Names to the parameter
 targetWWNs in your volume configuration. If multiple WWNs are specified,
 targetWWNs expects that those WWNs form multipath connection.
@@ -365,7 +365,7 @@ See the [GlusterFS example](https://github.com/kubernetes/kubernetes/tree/{{page
 
 ### rbd
 
-A `rbd` volume allows a [Rados Block
+An `rbd` volume allows a [Rados Block
 Device](http://ceph.com/docs/master/rbd/rbd/) volume to be mounted into your
 pod.  Unlike `emptyDir`, which is erased when a Pod is removed, the contents of
 a `rbd` volume are preserved and the volume is merely unmounted.  This
