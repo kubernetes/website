@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 - soltysh
 title: Jobs - Run to Completion

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - caseydavenport
 - danwinship
 title: Declare Network Policy

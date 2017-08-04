@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - derekwaynecarr
 - vishh
 - timstclair

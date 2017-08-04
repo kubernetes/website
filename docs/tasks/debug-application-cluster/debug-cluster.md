@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - davidopp
 title: Troubleshoot Clusters
 ---
