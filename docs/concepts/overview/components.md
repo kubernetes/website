@@ -19,6 +19,7 @@ Master components can be run on any node in the cluster. However,
 for simplicity, set up scripts typically start all master components on
 the same VM, and do not run user containers on this VM. See
 [Building High-Availability Clusters](/docs/admin/high-availability) for an example multi-master-VM setup.
+
 ### kube-apiserver
 
 [kube-apiserver](/docs/admin/kube-apiserver) exposes the Kubernetes API. It is the front-end for the
