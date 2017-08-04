@@ -31,7 +31,7 @@ title: Running Kubernetes on AWS EC2
 3. Install and configure the [AWS Command Line Interface](http://aws.amazon.com/cli)
 4. We recommend installing using an account which has full access to the AWS APIs.
 
-NOTE: This script use the 'default' AWS profile by default.
+NOTE: This script uses the 'default' AWS profile by default.
 You may explicitly set the AWS profile to use using the `AWS_DEFAULT_PROFILE` environment variable:
 
 ```shell
