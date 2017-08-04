@@ -39,7 +39,7 @@ gems:
 # disabled gems
 #  - jekyll-redirect-from
 
-include: [_redirects]
+include: [_redirects,_headers]
 
 # SEO
 logo: /images/favicon.png
