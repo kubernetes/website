@@ -215,7 +215,7 @@ be co-located in the same defined topology, eg., the same node.
 ##### Always co-located in the same node
 
 In a three node cluster, a web application has in-memory cache such as redis, we want the web-servers to be co-located with the cache as much as possible. 
-Here is the yaml snippet of a simple redis deployment with two replicas and selector label `app=store`
+Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`
 
 ```yaml
 apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
@@ -223,7 +223,7 @@ kind: Deployment
 metadata:
   name: redis-cache
 spec:
-  replicas: 2
+  replicas: 3
   template:
     metadata:
       labels:
@@ -243,7 +243,7 @@ kind: Deployment
 metadata:
   name: web-server
 spec:
-  replicas: 4
+  replicas: 3
   template:
     metadata:
       labels:
@@ -267,22 +267,23 @@ if we create the above two deployments, our three node cluster could look like b
 
 |       node-1         |       node-2        |       node-3       |
 |:--------------------:|:-------------------:|:------------------:|
-| *webserver-1*        |                     |    *webserver-2*   |
-| *webserver-3*        |                     |    *webserver-4*   |
-|  *cache-1*           |                     |     *cache-2*      |
+| *webserver-1*        |   *webserver-2*     |    *webserver-3*   |
+|  *cache-1*           |     *cache-2*       |     *cache-3*      |
 
-As you can see, all the 4 replicas of the `web-server` are automatically co-located with the cache as expected. 
+As you can see, all the 3 replicas of the `web-server` are automatically co-located with the cache as expected. 
 
 ```
 $kubectl get pods -o wide
-NAME                           READY     STATUS    RESTARTS   AGE       IP            NODE
-redis-cache-1450370735-8p4p7   1/1       Running   0          1h        10.192.2.5    kube-node-1
-redis-cache-1450370735-krxjj   1/1       Running   0          1h        10.192.4.6    kube-node-3
-web-server-1287567482-0ltmc    1/1       Running   0          38s       10.192.2.11   kube-node-1
-web-server-1287567482-6c91m    1/1       Running   0          38s       10.192.2.12   kube-node-1
-web-server-1287567482-wm2tl    1/1       Running   0          38s       10.192.4.9    kube-node-3
-web-server-1287567482-xqfxk    1/1       Running   0          38s       10.192.4.10   kube-node-3
+NAME                           READY     STATUS    RESTARTS   AGE       IP           NODE
+redis-cache-1450370735-6dzlj   1/1       Running   0          8m        10.192.4.2   kube-node-3
+redis-cache-1450370735-j2j96   1/1       Running   0          8m        10.192.2.2   kube-node-1
+redis-cache-1450370735-z73mh   1/1       Running   0          8m        10.192.3.1   kube-node-2
+web-server-1287567482-5d4dz    1/1       Running   0          7m        10.192.2.3   kube-node-1
+web-server-1287567482-6f7v5    1/1       Running   0          7m        10.192.4.3   kube-node-3
+web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3.2   kube-node-2
 ```
+
+Best practise is to configure these highly available stateful workloads such as redis with antiAffinity rules for more guaranteed spread, which we will see in the next section.
 
 ##### Never co-located in the same node
 
