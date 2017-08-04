@@ -435,6 +435,16 @@ In a split-horizon DNS environment you would need two services to be able to rou
 
 This can be achieved by adding the following annotations to the service based on cloud provider.
 
+For GCP ([docs](https://cloud.google.com/container-engine/docs/internal-load-balancing)):
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        cloud.google.com/load-balancer-type: "internal"
+[...]
+```
+
 For AWS:
 ```yaml
 [...]
