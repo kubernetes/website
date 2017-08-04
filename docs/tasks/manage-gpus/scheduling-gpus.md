@@ -122,8 +122,6 @@ metadata:
 spec:
   containers:
   - name: gpu-container-1
-    securityContext:
-      privileged: true
     resources:
       limits:
         alpha.kubernetes.io/nvidia-gpu: 1
