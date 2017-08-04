@@ -74,7 +74,7 @@ located in a single zone.  Users that want a highly available control
 plane should follow the [high availability](/docs/admin/high-availability) instructions.
 
 
-## Walkthough
+## Walkthrough
 
 We're now going to walk through setting up and using a multi-zone
 cluster on both GCE & AWS.  To do so, you bring up a full cluster
