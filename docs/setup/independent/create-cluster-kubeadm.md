@@ -31,7 +31,7 @@ If you are not constrained, there are other higher-level tools built to give you
 complete clusters:
 
 * On GCE, [Google Container Engine](https://cloud.google.com/container-engine/)
-  gives you one-click Kubernetes clusters
+  gives you one-click Kubernetes clusters.
 * On AWS, [kops](https://github.com/kubernetes/kops) makes cluster installation
   and management easy.  kops supports building high availability clusters (a
   feature that kubeadm is currently lacking but is building toward).
@@ -357,7 +357,7 @@ kubectl --kubeconfig ./admin.conf get nodes
 **Note:** If you are using GCE, instances disable ssh access for root by default.
 If that's the case you can log in to the machine, copy the file someplace that
 can be accessed and then use
-[`gcloud compute copy-files`](https://cloud.google.com/sdk/gcloud/reference/compute/copy-files)
+[`gcloud compute copy-files`](https://cloud.google.com/sdk/gcloud/reference/compute/copy-files).
 
 ### (Optional) Proxying API Server to localhost
 
@@ -450,7 +450,7 @@ control of your Kubernetes cluster.
 ## What's next
 
 * Learn about kubeadm's advanced usage on the [advanced reference
-  doc](/docs/admin/kubeadm/)
+  doc](/docs/admin/kubeadm/).
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
 
 ## Feedback
@@ -507,7 +507,7 @@ addressed in due course.
 You may have trouble in the configuration if you see Pod statuses like `RunContainerError`,
 `CrashLoopBackOff` or `Error`.
 
-1. **There are Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state**
+1. **There are Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state**.
     Right after `kubeadm init` there should not be any such Pods. If there are Pods in
     such a state _right after_ `kubeadm init`, please open an issue in the kubeadm repo.
     `kube-dns` should be in the `Pending` state until you have deployed the network solution.
@@ -517,13 +517,13 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
     might have to grant it more RBAC privileges or use a newer version. Please file
     an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 
-1. **The `kube-dns` Pod is stuck in the `Pending` state forever**
+1. **The `kube-dns` Pod is stuck in the `Pending` state forever**.
     This is expected and part of the design. kubeadm is network provider-agnostic, so the admin
     should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
     of choice. You have to install a Pod Network
     before `kube-dns` may deployed fully. Hence the `Pending` state before the network is set up.
 
-1. **I tried to set `HostPort` on one workload, but it didn't have any effect**
+1. **I tried to set `HostPort` on one workload, but it didn't have any effect**.
     The `HostPort` and `HostIP` functionality is available depending on your Pod Network
     provider. Please contact the author of the Pod Network solution to find out whether
     `HostPort` and `HostIP` functionality are available.
