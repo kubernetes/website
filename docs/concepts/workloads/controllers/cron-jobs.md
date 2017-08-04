@@ -33,7 +33,7 @@ _Cron Job_ 管理基于时间的 [Job](/docs/concepts/jobs/run-to-completion-fin
 * 在给定时间点只运行一次
 * 周期性地在给定时间点运行
 
-一个CronJob 对象类似于 _crontab_ （cron table）文件中的一行。它根据指定的预定计划周期性地运行一个 Job，格式可以参考 [Cron](https://en.wikipedia.org/wiki/Cron) 。
+一个 CronJob 对象类似于 _crontab_ （cron table）文件中的一行。它根据指定的预定计划周期性地运行一个 Job，格式可以参考 [Cron](https://en.wikipedia.org/wiki/Cron) 。
 
 <!--
 **Note:** The question mark (`?`) in the schedule has the same meaning as an asterisk `*`,
@@ -79,7 +79,7 @@ hello.
 Run the example cron job by downloading the example file and then running this command:
 -->
 
-如果需要使用一个 Kubernetes 集群，版本 >= 1.4（对 ScheduledJob），>= 1.5（对 CronJob），当启动 API Server（参考 [为集群开启或关闭 API 版本](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster) 获取更多信息）时，通过传递选项 `--runtime-config=batch/v2alpha1=true`  可以开启 batch/v2alpha1 API。
+当使用的 Kubernetes 集群，版本 >= 1.4（对 ScheduledJob），>= 1.5（对 CronJob），当启动 API Server（参考 [为集群开启或关闭 API 版本](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster) 获取更多信息）时，通过传递选项 `--runtime-config=batch/v2alpha1=true`  可以开启 batch/v2alpha1 API。
 
 ## 创建 Cron Job
 
@@ -123,7 +123,7 @@ As you can see above, there's no active job yet, and no job has been scheduled, 
 Watch for the job to be created in around one minute:
 -->
 
-如上所示，没有 active 的 Job，也没有被调度的 Job。
+如上所示，既没有 active 的 Job，也没有被调度的 Job。
 
 等待并观察创建的 Job，大约一分钟时间：
 
@@ -240,7 +240,7 @@ A cron job also needs a [`.spec` section](https://git.k8s.io/community/contribut
 **Note:** All modifications to a cron job, especially its `.spec`, will be applied only to the next run.
 -->
 
-## 写 Cron Job 的规格
+## 编写 Cron Job Spec
 
 和其它 Kubernetes 配置一样，Cron Job 需要 `apiVersion`、 `kind`、和 `metadata` 这三个字段。关于更多如何实现一个配置文件，参考文档 [部署应用](/docs/user-guide/deploying-applications)、
 [配置容器](/docs/user-guide/configuring-containers) 和 
