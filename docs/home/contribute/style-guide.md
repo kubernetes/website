@@ -144,10 +144,8 @@ Callouts help create different rhetorical appeal levels. Our documentation suppo
 
 2. Use the following syntax to apply a style:
 
-```console
-**Note:** The prefix you use is the same text you use in the tag. 
-{: .note} <!-- This tag must appear on a new line. -->
-```
+       **Note:** The prefix you use is the same text you use in the tag. 
+       {: .note} <!-- This tag must appear on a new line. -->
 
 The output is:
 
@@ -160,10 +158,8 @@ Use {: .note} to highlight a tip or a piece of information that may be helpful t
 
 For example:
 
-```console
-**Note:** You can _still_ use Markdown inside these callouts. 
-{: .note}
-```
+    **Note:** You can _still_ use Markdown inside these callouts. 
+    {: .note}
 
 The output is:
 
@@ -176,10 +172,8 @@ Use {: .caution} to call attention to an important piece of information to avoid
 
 For example:
 
-```console
-**Caution:** The callout style only applies to the line directly above the tag. 
-{: .caution}
-```
+    **Caution:** The callout style only applies to the line directly above the tag. 
+    {: .caution}
 
 The output is:
 
@@ -192,10 +186,8 @@ Use {: .warning} to indicate danger or a piece of information that is crucial to
 
 For example:
 
-```console
-**Warning:** Beware. 
-{: .warning}
-```
+    **Warning:** Beware. 
+    {: .warning}
 
 The output is:
 
@@ -208,21 +200,17 @@ The output is:
 
 Callout tags must be on a new line to apply the style. Github's Preview Changes feature further obfuscates this fact by rendering the tag on the same line, but your code must match the following syntax:
 
-```console
-**Note:** Your text goes here.
-{: .note} <!-- This tag must appear on a new line. -->
-```
+    **Note:** Your text goes here.
+    {: .note} <!-- This tag must appear on a new line. -->
 
 ### Multiple Lines
 
-Callouts should generally be single sentences and automatically span multiple lines. However, you can use `<br/>` tags if you need to create multiple lines.
+Callouts automatically span multiple lines. However, you can use `<br/>` tags if you need to create multiple lines.
 
 For example:
 
-```console
-**Note:"** This is my note. Use `<br/>` to create multiple lines. <br/> <br/> You can still use _Markdown_ to **format** text!
-{: .note}
-```
+    **Note:"** This is my note. Use `<br/>` to create multiple lines. <br/> <br/> You can still use _Markdown_ to **format** text!
+    {: .note}
 
 The output is:
 
@@ -231,17 +219,42 @@ The output is:
 
 Typing multiple lines does **not** work. The callout style only applies to the line directly above the tag. 
 
-```console
-**Note:** This is my note. 
+    **Note:** This is my note. 
 
-I didn't read the stlye guide.
-{: .note}
-```
+    I didn't read the stlye guide.
+    {: .note}
 
 **Note:** This is my note. 
 
 I didn't read the stlye guide.
 {: .note}
+
+### Ordered Lists
+
+Callouts will interupt numbered lists unless you indent three spaces before the notice and the tag.
+
+For example:
+
+    1. Preheat oven to 350˚F
+       
+    1. Prepare the batter, and pour into springform pan.
+          
+       **Note:** Grease the pan for best results. 
+       {: .note}
+          
+    1. Bake for 20-25 minutes or until set.
+       
+The output is:
+
+1. Preheat oven to 350˚F
+       
+1. Prepare the batter, and pour into springform pan.
+          
+   **Note:** Grease the pan for best results. 
+   {: .note}
+          
+1. Bake for 20-25 minutes or until set.
+
 
 ## Content best practices
 
