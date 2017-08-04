@@ -6,4 +6,4 @@
   command = "make build-preview"
 
 [context.vnext-staging]
-  command = "cp netlify_noindex_headers.txt _headers && make build"
+  command = "make build && cp netlify_noindex_headers.txt _site/_headers"
