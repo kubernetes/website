@@ -31,7 +31,7 @@ Datadog is a SaaS offering which includes support for a range of integrations, i
 {% capture steps %}
 ## 对接 Datadog
 
-Datadog是一个可支持集成包括Kubernetes和ETCD的应用服务，这个解决方案在提供商业版本的同时也支持用如下方式免费试用，在box之外创建一个部署一个完整的Kubernetes stack：`juju deploy canonical-kubernetes-datadog`
+Datadog是一个可集成多种应用包括Kubernetes和ETCD的监控应用服务，其提供商业版本的同时也支持用如下方式免费试用，在box之外创建一个部署一个完整的Kubernetes stack：`juju deploy canonical-kubernetes-datadog`
 
 <!--
 ### Installation of Datadog
@@ -94,7 +94,7 @@ juju deploy beats-core
 <!--
 However, if you wish to customize the deployment, or proceed manually, the following commands can be issued:
 -->
-然而, 如果你要定制化部署或手工安装，如下命令可解决：
+如果你要定制化部署或手工安装，如下命令可解决：
 
 ```
 juju deploy elasticsearch
@@ -136,7 +136,7 @@ juju deploy topbeat
 <!--
 Configure both filebeat and topbeat to connect to your ElasticSearch cluster, replacing `255.255.255.255` with the IP address in your setup.
 -->
-如下配置filebeat和topbeat对接ElasticSearch集群，将`255.255.255.255`替换成自己配置的IP。
+按照如下方式可配置filebeat和topbeat对接ElasticSearch集群，根据实际情况可将`255.255.255.255`替换成自己配置的IP。
 ```
 juju configure filebeat elasticsearch=255.255.255.255
 juju configure topbeat elasticsearch=255.255.255.255
@@ -203,7 +203,7 @@ If you already have an existing Nagios installation, the `nrpe-external-master` 
 -->
 ### 扩展安装原有的Nagios
 
-如果Nagios已经存在, 可以使用`nrpe-external-master`用做Nagios扩展. 它支持将原有的Nagios和NRPE对接.  如下可将`255.255.255.255` 替换成nagois实例IP。
+如果Nagios已经存在, 可以使用`nrpe-external-master`用做Nagios扩展. 它支持将原有的Nagios和NRPE对接.  根据实际情况可将`255.255.255.255` 替换成nagois实例IP。
 
 ```
 juju deploy nrpe-external-master
