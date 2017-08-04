@@ -39,7 +39,7 @@ further sub-isolations applied.
 -->
 虽然 Kubernetes 也支持除了 Docker 以外的其他容器运行环境，但是 Docker 是最为人们所认可的容器运行环境，所以使用 Docker 术语来描述 pod 有助于用户理解。
 
-pod 所共享的上下文其实是一系列 Linux namespaces, cgroups, 和其他底层的隔离设施 - 这些技术同样是 Docker 容器隔离的基础。在一个 pod 上下文，一个独立的应用可能会进一步运用到次级隔离技术。
+pod 所共享的上下文其实是一系列 Linux namespaces, cgroups, 和其他底层的隔离设施 - 这些技术同样是 Docker 容器隔离的基础。在 Pod的上下文中，各个应用可能具有进一步的子隔离。
 <!--
 Containers within a pod share an IP address and port space, and
 can find each other via `localhost`. They can also communicate with each
