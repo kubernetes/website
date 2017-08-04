@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - soltysh
 - sttts
 - ericchiang

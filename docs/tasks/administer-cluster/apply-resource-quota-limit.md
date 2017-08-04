@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - derekwaynecarr
 - janetkuo
 title: Apply Resource Quotas and Limits
