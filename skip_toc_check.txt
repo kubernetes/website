@@ -151,3 +151,5 @@ docs/user-guide/ui/index.md
 docs/user-guide/liveness/image/README.md
 docs/user-guide/update-demo/images/kitten/README.md
 docs/user-guide/update-demo/images/nautilus/README.md
+docs/journey/new.md
+docs/journey/on-prem-vms.md
