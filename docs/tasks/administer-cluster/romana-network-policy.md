@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - chrismarino
 title: Romana for NetworkPolicy
 ---

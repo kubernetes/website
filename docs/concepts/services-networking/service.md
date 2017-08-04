@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 title: Services
 ---
@@ -338,9 +338,9 @@ For headless services that do not define selectors, the endpoints controller doe
 not create `Endpoints` records. However, the DNS system looks for and configures
 either:
 
-  * CNAME records for `ExternalName`-type services
+  * CNAME records for `ExternalName`-type services.
   * A records for any `Endpoints` that share a name with the service, for all
-    other types
+    other types.
 
 ## Publishing services - service types
 

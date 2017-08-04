@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 title: Daemon Sets
 ---
@@ -25,6 +25,17 @@ A more complex setup might use multiple DaemonSets for a single type of daemon, 
 different flags and/or different memory and cpu requests for different hardware types.
 
 ## Writing a DaemonSet Spec
+
+### Create a DeamonSet
+
+You can describe a DeamonSet in a YAML file. For example, the deamonset.yaml file below describes a DeamonSet that runs the fluentd-elasticsearch Docker image:
+
+{% include code.html language="yaml" file="deamonset.yaml" ghlink="/docs/concepts/workloads/controllers/deamonset.yaml" %}
+
+* Create a DeamonSet based on the YAML file:
+```
+kubectl create -f deamonset.yaml
+```
 
 ### Required Fields
 

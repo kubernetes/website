@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 - deads2k
 - liggitt
@@ -754,7 +754,7 @@ Here are two approaches for managing this transition:
 Run both the RBAC and ABAC authorizers, and include the legacy ABAC policy:
 
 ```
---authorization-mode=RBAC,ABAC --authorization-policy-file=mypolicy.jsonl
+--authorization-mode=RBAC,ABAC --authorization-policy-file=mypolicy.json
 ```
 
 The RBAC authorizer will attempt to authorize requests first. If it denies an API request,
