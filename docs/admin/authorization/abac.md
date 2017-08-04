@@ -45,7 +45,7 @@ properties:
         - Wildcard: 
           - `*` matches all non-resource requests.
           - `/foo/*` matches all subpaths of `/foo/`.
-    - `readonly`, type boolean, when true, means that the policy only applies to get, list, and watch operations.
+    - `readonly`, type boolean, when true, means that the Resource-matching policy only applies to get, list, and watch operations, Non-resource-matching policy only applies to get operation.
 
 **NOTES:** An unset property is the same as a property set to the zero value for its type
 (e.g. empty string, 0, false). However, unset should be preferred for
