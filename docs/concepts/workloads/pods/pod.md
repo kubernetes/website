@@ -202,7 +202,7 @@ That approach would provide co-location, but would not provide most of the
 benefits of pods, such as resource sharing, IPC, guaranteed fate sharing, and
 simplified management.
 -->
-_为什么不使用支持相似协同调度的容器组？_
+_为什么不支持基于亲和性的容器协同调度？_
 
 这个方法可以提供协同寻址，但是不能提供大多数 pods 优势，比如说资源共享， IPC, 生命周期共享以及最简化的管理。
 <!--
