@@ -12,3 +12,4 @@ This feature is currently in a *beta* state, meaning:
 {% endcapture %}
 
 **FEATURE STATE:** `Kubernetes {{ for_k8s_version | default: page.version }}` {% include feature-dialog.md %}
+{: .beta}
