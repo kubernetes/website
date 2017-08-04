@@ -46,7 +46,7 @@ If a Kubernetes cluster has not been deployed using Kubernetes-Anywhere, follow 
   Node VM names constraints:
 
   * VM names can not begin with numbers.
-  * VM names can not have capital letters, any special charaters except `.` and `-`.
+  * VM names can not have capital letters, any special characters except `.` and `-`.
   * VM names can not be shorter than 3 chars and longer than 63
 
 **Step-3** Enable disk UUID on Node virtual machines
