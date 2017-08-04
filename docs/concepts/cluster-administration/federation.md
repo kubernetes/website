@@ -54,10 +54,10 @@ some caveats:
   impact all clusters. This is mitigated by keeping the logic in federation
   control plane to a minimum. It mostly delegates to the control plane in
   kubernetes clusters whenever it can. The design and implementation also errs
-  on the side of safety and avoiding multicluster outage.
+  on the side of safety and avoiding multi-cluster outage.
 * Maturity: The federation project is relatively new and is not very mature.
   Not all resources are available and many are still alpha. [Issue
-  38893](https://github.com/kubernetes/kubernetes/issues/38893) ennumerates
+  38893](https://github.com/kubernetes/kubernetes/issues/38893) enumerates
   known issues with the system that the team is busy solving.
 
 ### Hybrid cloud capabilities
