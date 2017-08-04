@@ -283,7 +283,7 @@ web-server-1287567482-6f7v5    1/1       Running   0          7m        10.192.4
 web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3.2   kube-node-2
 ```
 
-Best practise is to configure these highly available stateful workloads such as redis with antiAffinity rules for more guaranteed spread, which we will see in the next section.
+Best practice is to configure these highly available stateful workloads such as redis with AntiAffinity rules for more guaranteed spreading, which we will see in the next section.
 
 ##### Never co-located in the same node
 
