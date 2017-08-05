@@ -1,19 +1,8 @@
 ---
-assignees:
+approvers:
 - mml
 - wojtek-t
 title: Operating etcd clusters for Kubernetes
-redirect_from:
-- "/docs/concepts/storage/etcd-store-api-object/"
-- "/docs/concepts/storage/etcd-store-api-object.html"
-- "/docs/admin/etcd/"
-- "/docs/admin/etcd.html"
-- "/docs/admin/etcd_upgrade/"
-- "/docs/admin/etcd_upgrade.html"
-- "/docs/concepts/cluster-administration/configure-etcd/"
-- "/docs/concepts/cluster-administration/configure-etcd.html"
-- "/docs/concepts/cluster-administration/etcd-upgrade/"
-- "/docs/concepts/cluster-administration/etcd-upgrade.html"
 ---
 
 etcd is a strong, consistent, and highly-available key value store which Kubernetes uses for persistent storage of all of its API objects. This documentation provides specific instruction on operating, upgrading, and rolling back etcd clusters for Kubernetes. For in-depth information on etcd, see [etcd documentation](https://github.com/coreos/etcd/blob/master/Documentation/docs.md).
@@ -105,7 +94,7 @@ For example, consider key pairs `k8sclient.key` and `k8sclient.cert` that are tr
 
 Once etcd is configured correctly, only clients with valid certificates can access it. To give Kubernetes API server the access, configure it with the flags `--etcd-certfile=k8sclient.cert` and `--etcd-keyfile=k8sclient.key`.
 
-**Note**: etcd authentication is not currently supported by Kubernetes. For more information, see see the related issue [Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398).
+**Note**: etcd authentication is not currently supported by Kubernetes. For more information, see the related issue [Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398).
 
 ## Replacing a failed etcd member
 

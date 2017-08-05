@@ -1,12 +1,7 @@
 ---
-assignees:
+approvers:
 - bboreham
 title: Weave Net for NetworkPolicy
-redirect_from:
-- "/docs/getting-started-guides/network-policy/weave/"
-- "/docs/getting-started-guides/network-policy/weave.html"
-- "/docs/tasks/configure-pod-container/weave-network-policy/"
-- "/docs/tasks/configure-pod-container/weave-network-policy.html"
 ---
 
 {% capture overview %}
@@ -17,13 +12,13 @@ This page shows how to use Weave Net for NetworkPolicy.
 
 {% capture prerequisites %}
 
-Complete steps 1, 2, and 3 of the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/). 
+Complete steps 1, 2, and 3 of the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/).
 
 {% endcapture %}
 
 {% capture steps %}
 
-## Installing Weave Net addon 
+## Installing Weave Net addon
 
 Follow the [Integrating Kubernetes via the Addon](https://www.weave.works/docs/net/latest/kube-addon/) guide.
 

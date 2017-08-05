@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - jlowdermilk
 - justinsb
 - quinton-hoole
@@ -14,7 +14,7 @@ This is a lightweight version of a broader Cluster Federation feature (previousl
 nickname ["Ubernetes"](https://git.k8s.io/community/contributors/design-proposals/federation.md)).
 Full Cluster Federation allows combining separate
 Kubernetes clusters running in different regions or cloud providers
-(or on-premise data centers).  However, many
+(or on-premises data centers).  However, many
 users simply want to run a more available Kubernetes cluster in multiple zones
 of their single cloud provider, and this is what the multizone support in 1.2 allows
 (this previously went by the nickname "Ubernetes Lite").
@@ -74,7 +74,7 @@ located in a single zone.  Users that want a highly available control
 plane should follow the [high availability](/docs/admin/high-availability) instructions.
 
 
-## Walkthough
+## Walkthrough
 
 We're now going to walk through setting up and using a multi-zone
 cluster on both GCE & AWS.  To do so, you bring up a full cluster

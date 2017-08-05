@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - erictune
 title: Daemon Sets
-redirect_from:
-- "/docs/admin/daemons/"
-- "/docs/admin/daemons.html"
 ---
 
 * TOC
@@ -29,6 +26,17 @@ different flags and/or different memory and cpu requests for different hardware 
 
 ## Writing a DaemonSet Spec
 
+### Create a DeamonSet
+
+You can describe a DeamonSet in a YAML file. For example, the deamonset.yaml file below describes a DeamonSet that runs the fluentd-elasticsearch Docker image:
+
+{% include code.html language="yaml" file="deamonset.yaml" ghlink="/docs/concepts/workloads/controllers/deamonset.yaml" %}
+
+* Create a DeamonSet based on the YAML file:
+```
+kubectl create -f deamonset.yaml
+```
+
 ### Required Fields
 
 As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and `metadata` fields.  For
@@ -41,9 +49,7 @@ A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/dev
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](/docs/user-guide/replication-controller/#pod-template).
-It has exactly the same schema as a [pod](/docs/user-guide/pods), except
-it is nested and does not have an `apiVersion` or `kind`.
+The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [pod](docs/concepts/workloads/pods/pod/), except it is nested and does not have an `apiVersion` or `kind`.
 
 In addition to required fields for a pod, a pod template in a DaemonSet has to specify appropriate
 labels (see [pod selector](#pod-selector)).
@@ -77,7 +83,7 @@ a node for testing.
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on nodes which match that [node
-selector](/docs/concepts/configuration/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity` 
+selector](/docs/concepts/configuration/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity`
 then DaemonSet controller will create pods on nodes which match that [node affinity](/docs/concepts/configuration/assign-pod-node/).
 If you do not specify either, then the DaemonSet controller will create pods on all nodes.
 
@@ -91,7 +97,7 @@ when the pod is created, so it is ignored by the scheduler).  Therefore:
    by the DaemonSet controller.
  - DaemonSet controller can make pods even when the scheduler has not been started, which can help cluster
    bootstrap.
-   
+
 Daemon pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature), but they are
 created with `NoExecute` tolerations for the `node.alpha.kubernetes.io/notReady` and `node.alpha.kubernetes.io/unreachable`
 taints with no `tolerationSeconds`. This ensures that when the `TaintBasedEvictions` alpha feature is enabled,

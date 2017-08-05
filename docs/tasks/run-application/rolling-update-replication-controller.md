@@ -1,12 +1,7 @@
 ---
-assignees:
+approvers:
 - janetkuo
 title: Perform Rolling Update Using a Replication Controller
-redirect_from:
-- "/docs/user-guide/rolling-updates/"
-- "/docs/user-guide/rolling-updates.html"
-- "/docs/user-guide/update-demo/index/"
-- "/docs/user-guide/update-demo/index.html"
 ---
 
 * TOC
@@ -15,9 +10,9 @@ redirect_from:
 ## Overview
 
 **Note**: The preferred way to create a replicated application is to use a
-[Deployment](/docs/api-reference/v1.6/#deployment-v1beta1-apps),
+[Deployment](/docs/api-reference/{{page.version}}/#deployment-v1beta1-apps),
 which in turn uses a
-[ReplicaSet](/docs/api-reference/v1.6/#replicaset-v1beta1-extensions).
+[ReplicaSet](/docs/api-reference/{{page.version}}/#replicaset-v1beta1-extensions).
 For more information, see
 [Running a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
 

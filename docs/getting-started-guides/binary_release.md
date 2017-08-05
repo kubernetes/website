@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - david-mcmahon
 - jbeda
 title: Downloading or Building Kubernetes

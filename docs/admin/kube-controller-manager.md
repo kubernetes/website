@@ -45,7 +45,7 @@ kube-controller-manager
       --concurrent-service-syncs int32                                    The number of services that are allowed to sync concurrently. Larger number = more responsive service management, but more CPU (and network) load (default 1)
       --concurrent-serviceaccount-token-syncs int32                       The number of service account token objects that are allowed to sync concurrently. Larger number = more responsive token generation, but more CPU (and network) load (default 5)
       --concurrent_rc_syncs int32                                         The number of replication controllers that are allowed to sync concurrently. Larger number = more responsive replica management, but more CPU (and network) load (default 5)
-      --configure-cloud-routes                                            Should CIDRs allocated by allocate-node-cidrs be configured on the cloud provider. (default true)
+      --configure-cloud-routes                                            Should CIDRs allocated by allocate-node-cidrs be configured on the cloud provider. If using a network overlay which will handle routing independent of the cloud provider, set this to false. (default true)
       --contention-profiling                                              Enable lock contention profiling, if profiling is enabled
       --controller-start-interval duration                                Interval between starting controller managers.
       --controllers stringSlice                                           A list of controllers to enable.  '*' enables all on-by-default controllers, 'foo' enables the controller named 'foo', '-foo' disables the controller named 'foo'.

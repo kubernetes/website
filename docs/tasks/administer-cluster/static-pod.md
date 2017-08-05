@@ -1,12 +1,7 @@
 ---
-assignees:
+approvers:
 - jsafrane
 title: Static Pods
-redirect_from:
-- "/docs/admin/static-pods/"
-- "/docs/admin/static-pods.html"
-- "/docs/concepts/cluster-administration/static-pod/"
-- "/docs/concepts/cluster-administration/static-pod.html"
 ---
 
 **If you are running clustered Kubernetes and are using static pods to run a pod on every node, you should probably be using a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)!**

@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - mikedanese
 title: Labels and Selectors
-redirect_from:
-- "/docs/user-guide/labels/"
-- "/docs/user-guide/labels.html"
 ---
 
 _Labels_ are key/value pairs that are attached to objects, such as pods.
@@ -60,7 +57,7 @@ An empty label selector (that is, one with zero requirements) selects every obje
 
 A null label selector (which is only possible for optional selector fields) selects no objects.
 
-**Note**: the label selectors of two controllers must not overlap within a namespace, otherwise they will fight with each other. 
+**Note**: the label selectors of two controllers must not overlap within a namespace, otherwise they will fight with each other.
 
 ### _Equality-based_ requirement
 
@@ -79,7 +76,7 @@ One could filter for resources in `production` excluding `frontend` using the co
 
 ### _Set-based_ requirement
 
-_Set-based_ label requirements allow filtering keys according to a set of values. Three kinds of operators are supported: `in`,`notin` and exists (only the key identifier). For example:
+_Set-based_ label requirements allow filtering keys according to a set of values. Three kinds of operators are supported: `in`,`notin` and `exists` (only the key identifier). For example:
 
 ```
 environment in (production, qa)

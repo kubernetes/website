@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - davidopp
 - mml
 - foxish
@@ -83,7 +83,7 @@ For example, if you have a StatefulSet with three replicas and have
 set a `PodDisruptionBudget` for that set specifying `minAvailable:
 2`. `kubectl drain` will only evict a pod from the StatefulSet if all
 three pods are ready, and if you issue multiple drain commands in
-parallel, Kubernetes will respect the PodDisruptionBudget an ensure
+parallel, Kubernetes will respect the PodDisruptionBudget and ensure
 that only one pod is unavailable at any given time. Any drains that
 would cause the number of ready replicas to fall below the specified
 budget are blocked.
@@ -91,7 +91,7 @@ budget are blocked.
 ## The Eviction API
 
 If you prefer not to use [kubectl drain](/docs/user-guide/kubectl/{{page.version}}/#drain) (such as
-to avoid calling to an external command, or to get finer control over over the pod
+to avoid calling to an external command, or to get finer control over the pod
 eviction process), you can also programmatically cause evictions using the eviction API.
 
 You should first be familiar with using [Kubernetes language clients](/docs/tasks/administer-cluster/access-cluster-api/#programmatic-access-to-the-api).

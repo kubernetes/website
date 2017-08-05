@@ -1,6 +1,6 @@
 ---
 title: Reference Documentation
-assignees:
+approvers:
 - chenopis
 ---
 
@@ -25,7 +25,8 @@ client libraries:
 
 * [kubectl](/docs/user-guide/kubectl-overview) - Main CLI tool for running commands and managing Kubernetes clusters.
     * [JSONPath](/docs/user-guide/jsonpath/) - Syntax guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
-* [kubeadm](/docs/admin/kubeadm/) - CLI tool to easily provision a secure Kubernetes cluster 
+* [kubeadm](/docs/admin/kubeadm/) - CLI tool to easily provision a secure Kubernetes cluster. 
+* [kubefed](/docs/admin/kubefed/) - CLI tool to help you administrate your federated clusters.
 
 ## Config Reference
 

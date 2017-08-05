@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - enisoc
 - erictune
@@ -8,9 +8,6 @@ assignees:
 - kow3ns
 - smarterclayton
 title: Run a Replicated Stateful Application
-redirect_from:
-- "/docs/tutorials/stateful-application/run-replicated-stateful-application/"
-- "/docs/tutorials/stateful-application/run-replicated-stateful-application.html"
 ---
 
 {% capture overview %}

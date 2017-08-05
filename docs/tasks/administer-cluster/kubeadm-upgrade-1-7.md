@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - pipejakob
 title: Upgrading kubeadm clusters from 1.6 to 1.7
-redirect_from:
-- "/docs/admin/kubeadm-upgrade-1-7/"
-- "/docs/admin/kubeadm-upgrade-1-7.html"
 ---
 
 {% capture overview %}

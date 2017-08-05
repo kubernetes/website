@@ -1,12 +1,8 @@
 ---
-assignees:
+approvers:
 - jpeeler
 - pmorie
 title: Configure a Pod to Use a Projected Volume for Storage
-redirect_from:
-- "/docs/tasks/configure-pod-container/projected-volume/"
-- "/docs/user-guide/projected-volume/"
-- "/docs/user-guide/projected-volume/index.html"
 ---
 
 {% capture overview %}

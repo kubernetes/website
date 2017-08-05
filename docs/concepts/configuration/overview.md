@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - mikedanese
 title: Configuration Best Practices
-redirect_from:
-- "/docs/user-guide/config-best-practices/"
-- "/docs/user-guide/config-best-practices.html"
 ---
 
 {% capture overview %}
