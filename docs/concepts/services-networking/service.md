@@ -435,7 +435,11 @@ In a split-horizon DNS environment you would need two services to be able to rou
 
 This can be achieved by adding the following annotations to the service based on cloud provider.
 
-For GCP ([docs](https://cloud.google.com/container-engine/docs/internal-load-balancing)):
+{% capture default_tab %}
+Select one of the tabs.
+{% endcapture %}
+
+{% capture gcp %}
 ```yaml
 [...]
 metadata:
@@ -445,7 +449,10 @@ metadata:
 [...]
 ```
 
-For AWS:
+For more information, see [docs](https://cloud.google.com/container-engine/docs/internal-load-balancing).
+{% endcapture %}
+
+{% capture aws %}
 ```yaml
 [...]
 metadata:
@@ -454,8 +461,9 @@ metadata:
         service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 [...]
 ```
+{% endcapture %}
 
-For Azure:
+{% capture azure %}
 ```yaml
 [...]
 metadata: 
@@ -464,7 +472,11 @@ metadata:
         service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 [...]
 ```
+{% endcapture %}
 
+{% assign tab_names = 'Default,GCP,AWS,Azure' | split: ',' | compact %}
+{% assign tab_contents = site.emptyArray | push: default_tab | push: gcp | push: aws | push: azure %}
+{% include tabs.md %}
 
 #### SSL support on AWS
 For partial SSL support on clusters running on AWS, starting with 1.3 two
