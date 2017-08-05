@@ -203,7 +203,7 @@ If you already have an existing Nagios installation, the `nrpe-external-master` 
 -->
 ### 扩展已有的Nagios
 
-如果Nagios已有存在, 可以使用`nrpe-external-master`用做Nagios扩展. 它支持将原有的Nagios和NRPE对接.  根据实际情况可将`255.255.255.255` 替换成nagois实例IP。
+如果Nagios已有存在, 可以使用`nrpe-external-master`用做Nagios扩展。它支持将原有的Nagios和NRPE对接.  根据实际情况可将`255.255.255.255` 替换成nagois实例IP。
 
 ```
 juju deploy nrpe-external-master
