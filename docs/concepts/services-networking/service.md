@@ -449,7 +449,7 @@ metadata:
 [...]
 ```
 
-For more information, see [docs](https://cloud.google.com/container-engine/docs/internal-load-balancing).
+For more information, see the [docs](https://cloud.google.com/container-engine/docs/internal-load-balancing).
 {% endcapture %}
 
 {% capture aws %}
