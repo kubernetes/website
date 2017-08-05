@@ -126,7 +126,7 @@ In the event an ElasticSearch cluster already exists, the following can be used 
 -->
 ### 扩展原有ElasticSearch集群
 
-如果ElasticSearch集群在项目中已经存在, 如下方式可实现集成监控的filebeat，topbeat等其他组件，而不是创建另外一个的新的集群. 首先部署两个组件, filebeat and topbeat：
+如果ElasticSearch集群在项目中已经原有存在, 如下方式可实现集成监控的filebeat，topbeat等其他组件，而不是创建另外一个的新的集群. 首先部署两个组件, filebeat and topbeat：
 
 ```
 juju deploy filebeat
@@ -203,7 +203,7 @@ If you already have an existing Nagios installation, the `nrpe-external-master` 
 -->
 ### 扩展安装原有的Nagios
 
-如果Nagios已经存在, 可以使用`nrpe-external-master`用做Nagios扩展. 它支持将原有的Nagios和NRPE对接.  根据实际情况可将`255.255.255.255` 替换成nagois实例IP。
+如果Nagios已经原有存在, 可以使用`nrpe-external-master`用做Nagios扩展. 它支持将原有的Nagios和NRPE对接.  根据实际情况可将`255.255.255.255` 替换成nagois实例IP。
 
 ```
 juju deploy nrpe-external-master
