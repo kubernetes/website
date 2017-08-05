@@ -124,9 +124,9 @@ juju add-relation kubernetes-worker filebeat
 
 In the event an ElasticSearch cluster already exists, the following can be used to connect and leverage it instead of creating a new, separate, cluster. First deploy the two beats, filebeat and topbeat
 -->
-### 扩展原有ElasticSearch集群
+### 扩展已有ElasticSearch集群
 
-如果ElasticSearch集群在项目中已经原有存在, 如下方式可实现集成监控的filebeat，topbeat等其他组件，而不是创建另外一个的新的集群. 首先部署两个组件, filebeat and topbeat：
+如果ElasticSearch集群在项目中已有存在, 如下方式可实现集成监控的filebeat，topbeat等其他组件，而不是创建另外一个的新的集群. 首先部署两个组件, filebeat and topbeat：
 
 ```
 juju deploy filebeat
@@ -201,9 +201,9 @@ juju add-relation nrpe kubeapi-load-balancer
 
 If you already have an existing Nagios installation, the `nrpe-external-master` charm can be used instead. This will allow you to supply configuration options that map your existing external Nagios installation to NRPE. Replace `255.255.255.255` with the IP address of the nagios instance.
 -->
-### 扩展原有的Nagios
+### 扩展已有的Nagios
 
-如果Nagios已经原有存在, 可以使用`nrpe-external-master`用做Nagios扩展. 它支持将原有的Nagios和NRPE对接.  根据实际情况可将`255.255.255.255` 替换成nagois实例IP。
+如果Nagios已有存在, 可以使用`nrpe-external-master`用做Nagios扩展. 它支持将原有的Nagios和NRPE对接.  根据实际情况可将`255.255.255.255` 替换成nagois实例IP。
 
 ```
 juju deploy nrpe-external-master
