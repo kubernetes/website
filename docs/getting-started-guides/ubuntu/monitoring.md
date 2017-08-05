@@ -201,7 +201,7 @@ juju add-relation nrpe kubeapi-load-balancer
 
 If you already have an existing Nagios installation, the `nrpe-external-master` charm can be used instead. This will allow you to supply configuration options that map your existing external Nagios installation to NRPE. Replace `255.255.255.255` with the IP address of the nagios instance.
 -->
-### 扩展安装原有的Nagios
+### 扩展原有的Nagios
 
 如果Nagios已经原有存在, 可以使用`nrpe-external-master`用做Nagios扩展. 它支持将原有的Nagios和NRPE对接.  根据实际情况可将`255.255.255.255` 替换成nagois实例IP。
 
