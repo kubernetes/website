@@ -73,7 +73,7 @@ It acts synchronously to modify pods as they are created or updated. When this p
 -->
 
 对于 pods 的操作是通过一个叫做 [准入控制器](/docs/admin/admission-controllers) 的插件实现的。它是 apiserver 的一部分。
-当准入控制器被创建或更新时，他会对 pod 同步进行操作。当这个插件时激活状态时（大部分版本默认是激活状态），并在 pod 被创建或者更改时，
+当准入控制器被创建或更新时，他会对 pod 同步进行操作。当这个插件时活动状态时（大部分版本默认是活动状态），并在 pod 被创建或者更改时，
 它会做如下操作：
 
  1. 如果 pod 没有配置 `ServiceAccount`，它会将 `ServiceAccount` 设置为  `default`。
