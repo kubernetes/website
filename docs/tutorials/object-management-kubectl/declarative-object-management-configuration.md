@@ -894,7 +894,7 @@ configuration involves several manual steps:
 
 1. Export the live object to a local configuration file:
 
-        kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+       kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
 
 1. Manually remove the `status` field from the configuration file.
 
@@ -903,7 +903,7 @@ configuration involves several manual steps:
 
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
-        kubectl replace --save-config -f <kind>_<name>.yaml
+       kubectl replace --save-config -f <kind>_<name>.yaml
 
 1. Change processes to use `kubectl apply` for managing the object exclusively.
 
@@ -915,7 +915,7 @@ TODO(pwittrock): Why doesn't export remove the status field?  Seems like it shou
 
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
-        kubectl replace --save-config -f <kind>_<name>.yaml
+       kubectl replace --save-config -f <kind>_<name>.yaml
 
 1. Change processes to use `kubectl apply` for managing the object exclusively.
 

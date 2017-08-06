@@ -45,11 +45,11 @@ for the `Pod`:
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/cpu-ram.yaml
+       kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/cpu-ram.yaml
 
 1. Display information about the pod:
 
-        kubectl describe pod cpu-ram-demo
+       kubectl describe pod cpu-ram-demo
 
     The output is similar to this:
 

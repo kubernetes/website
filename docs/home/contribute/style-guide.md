@@ -46,7 +46,7 @@ represents.
 
 1. Display information about a pod:
 
-        kubectl describe pod <pod-name>
+       kubectl describe pod <pod-name>
 
     where `<pod-name>` is the name of one of your pods.
 
