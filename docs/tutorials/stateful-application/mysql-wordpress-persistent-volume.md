@@ -31,8 +31,8 @@ Demonstrated Kubernetes Concepts:
   stay up and running.
 * [Secrets](http://kubernetes.io/docs/user-guide/secrets/) to store sensitive
   passwords.
-  -->
-  展示的 Kubernetes 概念：
+-->
+展示的 Kubernetes 概念：
 
 * [Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) 定义持久化磁盘（磁盘生命周期不和 Pods 绑定）。
 * [Services](https://kubernetes.io/docs/concepts/services-networking/service/) 使得 Pods 能够找到其它 Pods。
@@ -88,7 +88,7 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes/examples/master/m
   - [Take down and restart your blog](#take-down-and-restart-your-blog)
   - [Next Steps](#next-steps)
     -->
-    [在 Kubernetes 上持久化安装 MySQL 和 WordPress](#persistent-installation-of-mysql-and-wordpress-on-kubernetes)
+[在 Kubernetes 上持久化安装 MySQL 和 WordPress](#persistent-installation-of-mysql-and-wordpress-on-kubernetes)
   - [快速入门](#quickstart)
   - [目录](#table-of-contents)
   - [集群要求](#cluster-requirements)
@@ -125,8 +125,8 @@ this example.
   are used. You must create Persistent Volumes in your cluster to be
   claimed. This example demonstrates how to create two types of
   volumes, but any volume is sufficient.
-  -->
-  Kubernetes本质是模块化的，可以在各种环境中运行。但并不是所有集群都相同。此处是本示例的一些要求：
+-->
+Kubernetes本质是模块化的，可以在各种环境中运行。但并不是所有集群都相同。此处是本示例的一些要求：
 * 需要 1.2 版本以上的 Kubernetes，以使用更新的特性，例如 PV Claims 和 Deployments。运行 `kubectl version` 来查看你的集群版本。
 * [Cluster DNS](https://github.com/kubernetes/dns) 将被用于服务发现。
 * 一个 [external load balancer](https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer) 将被用于接入 WordPress。
