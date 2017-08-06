@@ -136,7 +136,7 @@ juju deploy topbeat
 <!--
 Configure both filebeat and topbeat to connect to your ElasticSearch cluster, replacing `255.255.255.255` with the IP address in your setup.
 -->
-按照如下方式可配置 filebeat 和 topbeat 对接 ElasticSearch 集群，将 `255.255.255.255` 替换成自己配置的IP。
+按照如下方式可配置 filebeat 和 topbeat 对接 ElasticSearch 集群，实际可将 `255.255.255.255` 替换成自己配置的IP。
 ```
 juju configure filebeat elasticsearch=255.255.255.255
 juju configure topbeat elasticsearch=255.255.255.255
@@ -199,7 +199,7 @@ If you already have an existing Nagios installation, the `nrpe-external-master` 
 -->
 ### Nagios存在
 
-如果已经安装好的 Nagios ,可以使用 `nrpe-external-master` charm。这样支持将外部安装好的 Nagios 和 NRPE 对接的配置选项。将 `255.255.255.255` 替换成nagois实例的IP。
+如果已经安装好的 Nagios ,可以使用 `nrpe-external-master` charm。这样支持配置将外部安装好的相应 Nagios 对接到 NRPE 。实际可将 `255.255.255.255` 替换成nagois实例的IP。
 
 ```
 juju deploy nrpe-external-master
