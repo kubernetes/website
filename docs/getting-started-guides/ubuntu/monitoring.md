@@ -199,7 +199,7 @@ If you already have an existing Nagios installation, the `nrpe-external-master` 
 -->
 ### Nagios存在
 
-如果已经存在安装好的 Nagios ,可以使用 `nrpe-external-master` charm。这样支持将外部存在安装好的 Nagios 和 NRPE 对接的配置选项。将 `255.255.255.255` 替换成nagois实例的IP。
+如果已经安装好的 Nagios ,可以使用 `nrpe-external-master` charm。这样支持将外部安装好的 Nagios 和 NRPE 对接的配置选项。将 `255.255.255.255` 替换成nagois实例的IP。
 
 ```
 juju deploy nrpe-external-master
