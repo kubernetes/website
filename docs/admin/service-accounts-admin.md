@@ -80,8 +80,7 @@ It acts synchronously to modify pods as they are created or updated. When this p
  2. 它会确保被 pod 关联的 `ServiceAccount` 是存在的，否则就拒绝请求。
  <!-- 这里为什么没有3，直接跳到4了 -->
  4. 如果 pod 没有包含任何的 `ImagePullSecrets`，那么 `ServiceAccount` 的 `ImagePullSecrets` 就会被添加到 pod。
- <!-- 5的翻译待确认 -->
- 5. 它会把一个包含token，能够通过API访问的 `volume` 添加给 pod。
+ 5. 它会把一个 `volume` 添加给 pod， 该 pod 包含有一个用于 API 访问的 token。
  6. 它会把一个 `volumeSource` 添加到 pod 的每个 container，并挂载到 `/var/run/secrets/kubernetes.io/serviceaccount`。
 
 ### Token Controller
@@ -118,7 +117,7 @@ of type `ServiceAccountToken` with an annotation referencing the service
 account, and the controller will update it with a generated token:
 -->
 
-控制器的循环会确保对于每个 service account 都存在一个带有 API token（API 令牌）的secret。
+控制器的循环运行会确保对于每个 service account 都存在一个带有 API token（API 令牌）的secret。
 如需要为一个 service account 创建一个额外的 API 令牌（API token），可以创建一个 `ServiceAccountToken`
 类型的 secret，并添加与 service account 对应的 annotation 属性，控制器会为它更新 token：
 
@@ -154,5 +153,5 @@ kubectl delete secret mysecretname
 Service Account Controller manages ServiceAccount inside namespaces, and ensures
 a ServiceAccount named "default" exists in every active namespace.
 -->
-Service Account Controller 在 namespaces 内管理 ServiceAccount，需要确保名为 "default" 的
+Service Account Controller 在 namespaces 内管理 ServiceAccount，需要保证名为 "default" 的
 ServiceAccount在每个命名空间中存在。
