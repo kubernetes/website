@@ -6,15 +6,22 @@ assignees:
 - liggitt
 title: Managing Service Accounts
 ---
-
+<!--
 *This is a Cluster Administrator guide to service accounts.  It assumes knowledge of
 the [User Guide to Service Accounts](/docs/user-guide/service-accounts).*
 
 *Support for authorization and user accounts is planned but incomplete.  Sometimes
 incomplete features are referred to in order to better describe service accounts.*
+-->
+
+*本文是service accounts管理员手册。需要的
+[Service Accounts用户手册](/docs/user-guide/service-accounts)的知识背景。*
+
+*对于authorization和user accounts支持已经在计划中，但是还未完成。为了更好地解释service
+accounts，有时会提到一些未完成的功能特性。
 
 ## User accounts vs service accounts
-
+<!--
 Kubernetes distinguished between the concept of a user account and a service accounts
 for a number of reasons:
 
@@ -32,17 +39,27 @@ for a number of reasons:
   - A config bundle for a complex system may include definition of various service
     accounts for components of that system.  Because service accounts can be created
     ad-hoc and have namespaced names, such config is portable.
+-->
+
+Kubernetes将user account和service account的概念区分开，主要基于以下几个原因：
 
 ## Service account automation
-
+<!--
 Three separate components cooperate to implement the automation around service accounts:
 
   - A Service account admission controller
   - A Token controller
   - A Service account controller
+-->
+
+service accounts的自动化由三个独立的组建共同配合实现：
+
+  - Service account准入控制器
+  - 令牌控制器
+  - Service account控制器
 
 ### Service Account Admission Controller
-
+<!--
 The modification of pods is implemented via a plugin
 called an [Admission Controller](/docs/admin/admission-controllers). It is part of the apiserver.
 It acts synchronously to modify pods as they are created or updated. When this plugin is active
