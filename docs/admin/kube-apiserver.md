@@ -21,7 +21,7 @@ kube-apiserver
 ### 概要
 
 
-Kubernetes API server为api对象验证并配置数据，包括pods, services, replicationcontrollers和其它api对象。API Server提供REST操作和到集群共享状态的前端，所有其他组件通过它进行交互。
+Kubernetes API server 为 api 对象验证并配置数据，包括 pods、 services、 replicationcontrollers和其它 api 对象。API Server 提供 REST 操作和到集群共享状态的前端，所有其他组件通过它进行交互。
 
 ```
 kube-apiserver
@@ -275,11 +275,11 @@ TaintBasedEvictions=true|false (ALPHA - default=false)
       --insecure-port int                                       The port on which to serve unsecured, unauthenticated access. It is assumed that firewall rules are set up such that this port is not reachable from outside of the cluster and that port 443 on the cluster's public address is proxied to this port. This is performed by nginx in the default setup. (default 8080)
 -->
       --insecure-port int                                       用于监听不安全和为认证访问的端口。这个配置假设你已经设置了防火墙规则，使得这个端口不能从集群外访问。对集群的公共地址的443端口的访问将被代理到这个端口。默认设置中使用nginx实现。（默认值8080）
-<--
+<!--
       --kubelet-certificate-authority string                    Path to a cert file for the certificate authority.
 -->
       --kubelet-certificate-authority string                    证书authority的文件路径。
-<--
+<!--
       --kubelet-client-certificate string                       Path to a client cert file for TLS.
 -->
       --kubelet-client-certificate string                       用于TLS的客户端证书文件路径。
@@ -402,7 +402,7 @@ TaintBasedEvictions=true|false (ALPHA - default=false)
 <!--      
       --service-cluster-ip-range ipNet                          A CIDR notation IP range from which to assign service cluster IPs. This must not overlap with any IP ranges assigned to nodes for pods.
  -->      
-      --service-cluster-ip-range ipNet                         CIDR表示的IP范围，服务的cluster ip将从中分配。 一定不要和分配给nodes和pods的IP范围产生重叠。
+      --service-cluster-ip-range ipNet                          CIDR表示的IP范围，服务的cluster ip将从中分配。 一定不要和分配给nodes和pods的IP范围产生重叠。
 <!--      
       --service-node-port-range portRange                       A port range to reserve for services with NodePort visibility. Example: '30000-32767'. Inclusive at both ends of the range. (default 30000-32767)
       --service-node-port-range portRange                       为使用NodePort模式访问服务而保留的端口范围。例如：'30000-32767'。包括范围的两端。（默认值30000-32767）
@@ -448,7 +448,7 @@ TaintBasedEvictions=true|false (ALPHA - default=false)
 <!--      
       --token-auth-file string                                  If set, the file that will be used to secure the secure port of the API server via token authentication.
 -->      
-      --token-auth-file string                                 如果设置该值，这个文件将被用于通过令牌认证来保护API服务的安全端口。
+      --token-auth-file string                                  如果设置该值，这个文件将被用于通过令牌认证来保护API服务的安全端口。
 <!--      
       --version version[=true]                                  Print version information and quit
 -->      
