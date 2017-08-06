@@ -208,7 +208,7 @@ juju configure nrpe-external-master nagios_master=255.255.255.255
 <!--
 Once configured, connect nrpe-external-master as outlined above.
 -->
-配置完后，就像上面概述一样添加 nrpe-external-master 到所有需要部署的应用。
+配置完后，如上述一样添加 nrpe-external-master 到所有需要部署的应用。
 {% endcapture %}
 
 {% include templates/task.md %}
