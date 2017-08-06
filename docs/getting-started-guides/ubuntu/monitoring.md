@@ -40,7 +40,7 @@ To start, deploy the latest version Datadog from the Charm Store:
 -->
 ### 安装 Datadog
 
-首先, 从 Juju 的Charm Store下载部署最新版本的 Datadog :
+首先, 从 Juju 的 Charm Store 下载部署最新版本的 Datadog :
 
 ```
 juju deploy datadog
@@ -79,7 +79,7 @@ This can be done in one command as:
 -->
 ## 对接 Elastic stack
 
-Elastic 栈,正规的说是 "ELK" 栈, 是指 Elastic Search 和日志收集，监控，界面展示的套件. 使用elastic开箱即用功能部署一个完整的 Kubernetes 栈： `juju deploy canonical-kubernetes-elastic`
+Elastic 栈,正规的说是 "ELK" 栈, 是指 Elastic Search 和日志收集，监控，界面展示的套件. 使用 elastic 开箱即用功能部署一个完整的 Kubernetes 栈： `juju deploy canonical-kubernetes-elastic`
 
 ### 初始化安装 ElasticSearch
 
@@ -173,7 +173,7 @@ juju deploy nrpe
 <!--
 Connect Nagios to NRPE
 -->
-将Nagois和NRPE对接
+将 Nagois 和 NRPE 对接
 
 ```
 juju add-relation nagios nrpe
@@ -208,7 +208,7 @@ juju configure nrpe-external-master nagios_master=255.255.255.255
 <!--
 Once configured, connect nrpe-external-master as outlined above.
 -->
-配置完后，就像上面概述一样添加nrpe-external-master到所有需要部署的应用。
+配置完后，就像上面概述一样添加 nrpe-external-master 到所有需要部署的应用。
 {% endcapture %}
 
 {% include templates/task.md %}
