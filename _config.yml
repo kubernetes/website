@@ -18,9 +18,9 @@ defaults:
     scope:
       path: ""
     values:
-      fullversion: "v1.6.3"
+      fullversion: "v1.6.8"
       version: "v1.6"
-      githubbranch: "release-1.6"
+      githubbranch: "v1.6.8"
       docsbranch: "release-1.6"
   -
     scope:
