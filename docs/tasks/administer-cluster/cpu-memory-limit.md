@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - derekwaynecarr
 - janetkuo
 title: Set Pod CPU and Memory Limits

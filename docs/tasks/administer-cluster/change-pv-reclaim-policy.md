@@ -31,7 +31,7 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 
 1. List the PersistentVolumes in your cluster:
 
-        kubectl get pv
+       kubectl get pv
 
     The output is similar to this:
 
@@ -45,13 +45,13 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 
 1. Chose one of your PersistentVolumes and change its reclaim policy:
 
-        kubectl patch pv <your-pv-name> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
+       kubectl patch pv <your-pv-name> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
 
     where `<your-pv-name>` is the name of your chosen PersistentVolume.
 
 1. Verify that your chosen PersistentVolume has the right policy:
 
-        kubectl get pv
+       kubectl get pv
 
     The output is similar to this:
 

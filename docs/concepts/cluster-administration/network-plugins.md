@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - dcbw
 - freehan
 - thockin

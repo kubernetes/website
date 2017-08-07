@@ -22,12 +22,6 @@ $( document ).ready(function() {
         "postfix":"/#<token>-v1-core"
     },
     {
-        "from":"/docs/user-guide/kubectl/kubectl_",
-        "pattern":"kubectl_(\\w+)",
-        "to":"/docs/user-guide/kubectl/v1.7",
-        "postfix":"/#<token>"
-    },
-    {
         "from":"/docs/contribute/",
         "pattern":"\/contribute\/([0-9a-zA-Z\-\_]+)",
         "to":"/docs/home/contribute",
