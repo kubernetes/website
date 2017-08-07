@@ -11,7 +11,9 @@ toc:
 
 - title: Configure Pods and Containers
   section:
-  - docs/tasks/configure-pod-container/assign-cpu-ram-container.md
+  - docs/tasks/configure-pod-container/assign-memory-resource.md
+  - docs/tasks/configure-pod-container/assign-cpu-resource.md
+  - docs/tasks/configure-pod-container/quality-service-pod.md
   - docs/tasks/configure-pod-container/configure-volume-storage.md
   - docs/tasks/configure-pod-container/configure-persistent-volume-storage.md
   - docs/tasks/configure-pod-container/configure-projected-volume-storage.md
@@ -108,17 +110,22 @@ toc:
 
 - title: Administer a Cluster
   section:
+  - title: Manage Memory, CPU, and API Resources
+    section:
+    - docs/tasks/administer-cluster/memory-default-namespace.md
+    - docs/tasks/administer-cluster/cpu-default-namespace.md
+    - docs/tasks/administer-cluster/memory-constraint-namespace.md
+    - docs/tasks/administer-cluster/cpu-constraint-namespace.md
+    - docs/tasks/administer-cluster/apply-resource-quota-limit.md
+    - docs/tasks/administer-cluster/quota-memory-cpu-namespace.md
+    - docs/tasks/administer-cluster/quota-pod-namespace.md
+    - docs/tasks/administer-cluster/quota-api-object.md
   - docs/tasks/administer-cluster/access-cluster-api.md
   - docs/tasks/administer-cluster/access-cluster-services.md
   - docs/tasks/administer-cluster/securing-a-cluster.md
   - docs/tasks/administer-cluster/encrypt-data.md
   - docs/tasks/administer-cluster/configure-upgrade-etcd.md
-  - docs/tasks/administer-cluster/apply-resource-quota-limit.md
-  - docs/tasks/administer-cluster/out-of-resource.md
-  - docs/tasks/administer-cluster/cpu-memory-limit.md
-  - docs/tasks/administer-cluster/reserve-compute-resources.md
   - docs/tasks/administer-cluster/static-pod.md
-  - docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods.md
   - docs/tasks/administer-cluster/cluster-management.md
   - docs/tasks/administer-cluster/upgrade-1-6.md
   - docs/tasks/administer-cluster/kubeadm-upgrade-1-7.md
@@ -126,6 +133,10 @@ toc:
   - docs/tasks/administer-cluster/namespaces-walkthrough.md
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
   - docs/tasks/administer-cluster/safely-drain-node.md
+  - docs/tasks/administer-cluster/cpu-memory-limit.md
+  - docs/tasks/administer-cluster/out-of-resource.md
+  - docs/tasks/administer-cluster/reserve-compute-resources.md
+  - docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods.md
   - docs/tasks/administer-cluster/declare-network-policy.md
   - title: Install Network Policy Provider
     section:
