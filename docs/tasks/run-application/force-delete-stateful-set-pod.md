@@ -5,9 +5,6 @@ approvers:
 - foxish
 - smarterclayton
 title: Force Delete StatefulSet Pods
-redirect_from:
-- "/docs/tasks/manage-stateful-set/delete-pods/"
-- "/docs/tasks/manage-stateful-set/delete-pods.html"
 ---
 
 {% capture overview %}
