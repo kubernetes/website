@@ -250,6 +250,8 @@
 
 /docs/contribute/write-new-topic		/docs/home/contribute/write-new-topic		301
 
+/docs/getting-started-guides/coreos/azure				/docs/getting-started-guides/coreos		301
+/docs/getting-started-guides/coreos/bare_metal_calico	/docs/getting-started-guides/coreos		301
 /docs/getting-started-guides/juju						/docs/getting-started-guides/ubuntu/installation		301
 /docs/getting-started-guides/kargo						/docs/getting-started-guides/kubespray		301
 /docs/getting-started-guides/logging-elasticsearch		/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana		301
@@ -320,7 +322,6 @@
 
 /docs/api-reference/v1.7/node_modules/*				/docs/api-reference/v1.7		301
 
-/docs/getting-started-guides/coreos/*				/docs/getting-started-guides/coreos		301
 /docs/getting-started-guides/docker-multinode/*		/docs/setup/independent/create-cluster-kubeadm		301
 
 /docs/admin/resourcequota/*							/docs/concepts/policy/resource-quotas		301
