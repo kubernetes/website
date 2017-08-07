@@ -43,7 +43,7 @@ All features for Bootstrap Tokens are disabled by default in Kubernetes v1.6.
 
 You can enable the Bootstrap Token authenticator with the
 `--experimental-bootstrap-token-auth` flag on the API server.  You can enable
-the Bootstrap controllers by specifying them withthe `--controllers` flag on the
+the Bootstrap controllers by specifying them with the `--controllers` flag on the
 controller manager with something like
 `--controllers=*,tokencleaner,bootstrapsigner`.  This is done automatically when
 using `kubeadm`.
@@ -127,7 +127,7 @@ commands.
 
 In addition to authentication, the tokens can be used to sign a ConfigMap.  This
 is used early in a cluster bootstrap process before the client trusts the API
-server.  The signed ConfigMap can be authenicated by the shared token.
+server.  The signed ConfigMap can be authenticated by the shared token.
 
 The ConfigMap that is signed is `cluster-info` in the `kube-public` namespace.
 The typical flow is that a client reads this ConfigMap while unauthenticated and
