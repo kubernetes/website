@@ -122,7 +122,7 @@ CIDR block to the node when it is registered (if CIDR assignment is turned on).
 
 The second is keeping the node controller's internal list of nodes up to date with
 the cloud provider's list of available machines. When running in a cloud
-environment, whenever a node is unhealthy the node controller asks the cloud
+environment, whenever a node is unhealthy, the node controller asks the cloud
 provider if the VM for that node is still available. If not, the node
 controller deletes the node from its list of nodes.
 

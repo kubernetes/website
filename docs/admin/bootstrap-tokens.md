@@ -43,7 +43,7 @@ All features for Bootstrap Tokens are disabled by default in Kubernetes v1.6.
 
 You can enable the Bootstrap Token authenticator with the
 `--experimental-bootstrap-token-auth` flag on the API server.  You can enable
-the Bootstrap controllers by specifying them withthe `--controllers` flag on the
+the Bootstrap controllers by specifying them with the `--controllers` flag on the
 controller manager with something like
 `--controllers=*,tokencleaner,bootstrapsigner`.  This is done automatically when
 using `kubeadm`.

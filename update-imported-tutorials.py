@@ -24,14 +24,22 @@ import os.path
 import shutil
 import urllib.request
 
-SRC_TREE = 'master'  # Revision for kubernetes/examples used
+SRC_REPO = 'kubernetes/examples'
+SRC_TREE = 'master'
 
 # mapping of tutorials in kubernetes/examples to their
 # equivalent files here: (examples-path, docs-path, new-title, imports-map)
 TUTORIALS = [
     ('guestbook/README.md',
         './docs/tutorials/stateless-application/guestbook.md',
-        "Example: Deploying PHP Guestbook application with Redis", {}),
+        "Example: Deploying PHP Guestbook application with Redis", {
+            "guestbook/redis-master-deployment.yaml" : "./docs/tutorials/stateless-application/guestbook/redis-master-deployment.yaml",
+            "guestbook/redis-master-service.yaml" : "./docs/tutorials/stateless-application/guestbook/redis-master-service.yaml",
+            "guestbook/redis-slave-deployment.yaml" : "./docs/tutorials/stateless-application/guestbook/redis-slave-deployment.yaml",
+            "guestbook/redis-slave-service.yaml" : "./docs/tutorials/stateless-application/guestbook/redis-slave-service.yaml",
+            "guestbook/frontend-deployment.yaml" : "./docs/tutorials/stateless-application/guestbook/frontend-deployment.yaml",
+            "guestbook/frontend-service.yaml" : "./docs/tutorials/stateless-application/guestbook/frontend-service.yaml",
+        }),
     ('mysql-wordpress-pd/README.md',
         './docs/tutorials/stateful-application/mysql-wordpress-persistent-volume.md',
         "Example: WordPress and MySQL with Persistent Volumes", {}),
@@ -48,16 +56,16 @@ TUTORIALS = [
 def main():
     for (src_path, dst_path, new_title, imports) in TUTORIALS:
         print('Processing {0}'.format(src_path))
-        dst_dir = os.path.dirname(dst_path)
-        if not os.path.exists(dst_dir):
-            print('Ensuring destination directory exists.')
-            os.makedirs(dst_dir)
-        if os.path.exists(dst_path):
-            os.remove(dst_path)
 
         imports[src_path] = dst_path # add source itself as import file
         for src_path, dst_path in imports.items():
-            src_url = 'https://github.com/kubernetes/examples/raw/{0}/{1}'.format(SRC_TREE, src_path)
+            src_url = 'https://github.com/{0}/raw/{1}/{2}'.format(SRC_REPO,
+                SRC_TREE, src_path)
+            dst_dir = os.path.dirname(dst_path)
+            if not os.path.exists(dst_dir):
+                print('Creating directory {0}.'.format(dst_dir))
+                os.makedirs(dst_dir)
+
             print('Downloading {0}'.format(src_url))
             with urllib.request.urlopen(src_url) as resp, \
                     open(dst_path, 'wb') as out_file:
