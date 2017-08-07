@@ -48,7 +48,7 @@ resources within the same namespace.
 
 在Kubernetes未来的版本中,同一个命名空间的对象将默认拥有相同的访问控制策略.
 
-没有必要使用多个命名空间仅仅是为了分开有着些许不同的资源,例如同一个软件的不同版本: 可以使用 [标签](/docs/user-guide/labels) 去区分
+没有必要使用多个命名空间仅仅是为了分开有着些许不同的资源,例如同一个软件的不同版本: 可以使用 [labels](/docs/user-guide/labels) 去区分
 同一个命名空间之内的资源.
 
 
@@ -100,8 +100,8 @@ For example:
 举个例子:
 
 ```shell
-$ kubectl --namespace=<在这里输入命名空间的名字> run nginx --image=nginx
-$ kubectl --namespace=<在这里输入命名空间的名字> get pods
+$ kubectl --namespace=<insert-namespace-name-here> run nginx --image=nginx
+$ kubectl --namespace=<insert-namespace-name-here> get pods
 ```
 <!--
 ### Setting the namespace preference
@@ -114,8 +114,8 @@ context.
 你能够永久地保存命名空间对上下文中所有随后的kubectl命令结果
 
 ```shell
-$ kubectl config set-context $(kubectl config current-context) --namespace=<在这里输入命名空间的名字>
-# 验证它 
+$ kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
+# Validate it 
 $ kubectl config view | grep namespace:
 ```
 <!--
@@ -130,7 +130,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 -->
 ## 命名空间和域名系统
 
-当你创建一个[服务](/docs/user-guide/services),服务会创建一个对应的[域名系统入口](/docs/admin/dns).
+当你创建一个[Service](/docs/user-guide/services),服务会创建一个对应的[域名系统入口](/docs/admin/dns).
 这个入口是这样一个形式 `<service-name>.<namespace-name>.svc.cluster.local`,这就意味着如果一个容器
 仅仅使用 `<service-name>`,它将去解析这个服务基于本地所在的命名空间.这是对那些使用相同配置跨越多个命名空间,例如开发，预演,生产 来讲非常有用.
 如果你想达到跨越多个命名空间,你需要去使用完全合格域名(FQDN).
@@ -147,5 +147,5 @@ have a namespace, depending on the object the event is about.
 ## 不是所有的对象在同一个命名空间里
 
 大部分的Kubernetes资源 (例如 pods, services, replication controllers, and others)是存在某一个命名空间里.
-然而在一个命名空间里 命名空间的资源并不是它们自己.低级别的资源,例如 [节点](/docs/admin/node)和持久卷并不在任何命名空间.
+然而在一个命名空间里 命名空间的资源并不是它们自己.低级别的资源,例如 [nodes](/docs/admin/node)和持久卷并不在任何命名空间.
 事件是一个例外:它们可能有也可能没有一个命名空间,这个是依据这个对象的事件是关于什么的.
