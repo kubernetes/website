@@ -222,10 +222,6 @@ Container is automatically assigned the default limit. Cluster administrators ca
 [LimitRange](https://kubernetes.io/docs/api-reference/v1.6/)
 to specify a default value for the CPU limit.
 
-## If you don't specify a CPU request
-
-TODO: Explain what happens in this case.
-
 ## Motivation for CPU requests and limits
 
 By configuring the CPU requests and limits of the Containers that run in your

@@ -152,8 +152,7 @@ resources:
 
 ## Motivation for default memory limits and requests
 
-If your namespace has a
-[resource quota](TODO),
+If your namespace has a resource quota,
 it is helpful to have a default value in place for memory limit.
 Here are two of the restrictions that a resource quota imposes on a namespace:
 
@@ -162,8 +161,6 @@ Here are two of the restrictions that a resource quota imposes on a namespace:
 
 If a Container does not specify its own memory limit, it is given the default limit, and then
 it can be allowed to run in a namespace that is restricted by a quota.
-
-TODO: What are the benefits of having a default memory request for the namespace?
 
 {% endcapture %}
 

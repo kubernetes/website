@@ -123,7 +123,7 @@ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-defaults-pod-
 ```
 
 The output shows that the Container's CPU request is set to the value specified in the
-Container's configuration file. The Container's CPU limit is set to 1 cpu, which is the
+Container's configuration file. The Container's CPU limit is set to 1 cpu, wh70cb02113b7c7cc1604d1951ef82e1c82850eef2ich is the
 default CPU limit for the namespace.
 
 ```
@@ -146,8 +146,6 @@ Here are two of the restrictions that a resource quota imposes on a namespace:
 
 If a Container does not specify its own CPU limit, it is given the default limit, and then
 it can be allowed to run in a namespace that is restricted by a quota.
-
-TODO: What are the benefits of having a default CPU request for the namespace?
 
 {% endcapture %}
 

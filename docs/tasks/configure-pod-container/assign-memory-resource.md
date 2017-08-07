@@ -319,10 +319,6 @@ Container is automatically assigned the default limit. Cluster administrators ca
 [LimitRange](https://kubernetes.io/docs/api-reference/v1.6/)
 to specify a default value for the memory limit.
 
-## If you don't specify a memory request
-
-TODO: What happens in this case.
-
 ## Motivation for memory requests and limits
 
 By configuring memory requests and limits for the Containers that run in your
