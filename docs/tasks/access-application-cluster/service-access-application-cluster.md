@@ -33,7 +33,7 @@ provides load balancing for an application that has two running instances.
 
 1. Run a Hello World application in your cluster:
 
-        kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
+       kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
 
     The preceding command creates a
     [Deployment](/docs/concepts/workloads/controllers/deployment/)
@@ -45,21 +45,21 @@ provides load balancing for an application that has two running instances.
 
 1. Display information about the Deployment:
 
-        kubectl get deployments hello-world
-        kubectl describe deployments hello-world
+       kubectl get deployments hello-world
+       kubectl describe deployments hello-world
 
 1. Display information about your ReplicaSet objects:
 
-        kubectl get replicasets
-        kubectl describe replicasets
+       kubectl get replicasets
+       kubectl describe replicasets
 
 1. Create a Service object that exposes the deployment:
 
-        kubectl expose deployment hello-world --type=NodePort --name=example-service
+       kubectl expose deployment hello-world --type=NodePort --name=example-service
 
 1. Display information about the Service:
 
-        kubectl describe services example-service
+       kubectl describe services example-service
 
     The output is similar to this:
 
@@ -80,7 +80,7 @@ provides load balancing for an application that has two running instances.
 
 1. List the pods that are running the Hello World application:
 
-        kubectl get pods --selector="run=load-balancer-example" --output=wide
+       kubectl get pods --selector="run=load-balancer-example" --output=wide
 
     The output is similar to this:
 
