@@ -20,8 +20,8 @@ defaults:
     values:
       fullversion: "v1.6.3"
       version: "v1.6"
-      githubbranch: "master"
-      docsbranch: "master"
+      githubbranch: "release-1.6"
+      docsbranch: "release-1.6"
   -
     scope:
       path: "docs"
