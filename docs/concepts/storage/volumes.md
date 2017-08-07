@@ -322,10 +322,10 @@ See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.git
 
 ### fc (fibre channel)
 
-An `fc` volume allows an existing fibre channel volume to be mounted into your pod.
-You can specify single or multiple target World Wide Names to the parameter
-targetWWNs in your volume configuration. If multiple WWNs are specified,
-targetWWNs expects that those WWNs form multipath connection.
+An `fc` volume allows an existing fibre channel volume to be mounted in a pod.
+You can specify single or multiple target World Wide Names using the parameter
+`targetWWNs` in your volume configuration. If multiple WWNs are specified,
+targetWWNs expect that those WWNs are from multi-path connections.
 
 __Important: You must configure FC SAN Zoning to allocate and mask those
 LUNs (volumes) to the target WWNs beforehand so that Kubernetes hosts
@@ -693,7 +693,7 @@ spec:
       fsType: xfs
 ```
 
-For further detail, plese the see the [ScaleIO examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/scaleio).
+For further detail, please the see the [ScaleIO examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/scaleio).
 
 ### StorageOS
 A `storageos` volume allows an existing [StorageOS](https://www.storageos.com) volume to be mounted into your pod.

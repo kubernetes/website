@@ -293,7 +293,7 @@ Highly Available database statefulset has one master and three replicas, one may
 |:--------------------:|:-------------------:|:------------------:|:------------------:|
 | *DB-MASTER*          | *DB-REPLICA-1*      | *DB-REPLICA-2*     | *DB-REPLICA-3*     |
 
-[Here](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) is an example of zookeper statefulset configured with anti-affinity for high availablity.
+[Here](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) is an example of zookeper statefulset configured with anti-affinity for high availability.
 
 For more information on inter-pod affinity/anti-affinity, see the design doc
 [here](https://git.k8s.io/community/contributors/design-proposals/podaffinity.md).
