@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-demo
+spec:
+  containers:
+  - name: memory-demo-ctr
+    image: vish/stress
+    resources:
+      limits:
+        memory: "200Mi"
+      requests:
+        memory: "100Mi"
+    args:
+    - -mem-total
+    - 150Mi
+    - -mem-alloc-size
+    - 10Mi
+    - -mem-alloc-sleep
+    - 1s

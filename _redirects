@@ -87,6 +87,7 @@
 /docs/samples													/docs/tutorials/		301
 /docs/tasks/administer-cluster/assign-pods-nodes				/docs/tasks/configure-pod-container/assign-pods-nodes		301
 /docs/tasks/administer-cluster/overview							/docs/concepts/cluster-administration/cluster-administration-overview		301
+/docs/tasks/administer-cluster/cpu-memory-limit					/docs/tasks/administer-cluster/memory-default-namespace		301
 
 /docs/tasks/configure-pod-container/apply-resource-quota-limit	/docs/tasks/administer-cluster/apply-resource-quota-limit		301
 /docs/tasks/configure-pod-container/calico-network-policy		/docs/tasks/administer-cluster/calico-network-policy		301
@@ -98,7 +99,8 @@
 /docs/tasks/configure-pod-container/environment-variable-expose-pod-information	/docs/tasks/inject-data-application/environment-variable-expose-pod-information		301
 /docs/tasks/configure-pod-container/limit-range					/docs/tasks/administer-cluster/cpu-memory-limit		301
 /docs/tasks/configure-pod-container/romana-network-policy		/docs/tasks/administer-cluster/romana-network-policy		301
-/docs/tasks/configure-pod-container/weave-network-policy		/docs/tasks/administer-cluster/weave-network-policy		301
+/docs/tasks/configure-pod-container/weave-network-policy		/docs/tasks/administer-cluster/weave-network-policy			301
+/docs/tasks/configure-pod-container/assign-cpu-ram-container	/docs/tasks/configure-pod-container/assign-memory-resource	301	
 
 /docs/tasks/kubectl/get-shell-running-container					/docs/tasks/debug-application-cluster/get-shell-running-container		301
 /docs/tasks/kubectl/install										/docs/tasks/tools/install-kubectl		301
