@@ -38,11 +38,11 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 
 1. Create a Deployment based on the YAML file:
 
-        kubectl create -f https://k8s.io/docs/tasks/run-application/deployment.yaml
+       kubectl create -f https://k8s.io/docs/tasks/run-application/deployment.yaml
 
 1. Display information about the Deployment:
 
-        kubectl describe deployment nginx-deployment
+       kubectl describe deployment nginx-deployment
 
         user@computer:~/kubernetes.github.io$ kubectl describe deployment nginx-deployment
         Name:     nginx-deployment
@@ -64,7 +64,7 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 
 1. List the pods created by the deployment:
 
-        kubectl get pods -l app=nginx
+       kubectl get pods -l app=nginx
 
         NAME                                READY     STATUS    RESTARTS   AGE
         nginx-deployment-1771418926-7o5ns   1/1       Running   0          16h
@@ -72,7 +72,7 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 
 1. Display information about a pod:
 
-        kubectl describe pod <pod-name>
+       kubectl describe pod <pod-name>
 
     where `<pod-name>` is the name of one of your pods.
 
@@ -85,11 +85,11 @@ specifies that the deployment should be updated to use nginx 1.8.
 
 1. Apply the new YAML file:
 
-        kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-update.yaml
+       kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-update.yaml
 
 1. Watch the deployment create pods with new names and delete the old pods:
 
-        kubectl get pods -l app=nginx
+       kubectl get pods -l app=nginx
 
 ## Scaling the application by increasing the replica count
 
@@ -101,11 +101,11 @@ should have four pods:
 
 1. Apply the new YAML file:
 
-        kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-scale.yaml
+       kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-scale.yaml
 
 1. Verify that the Deployment has four pods:
 
-        kubectl get pods -l app=nginx
+       kubectl get pods -l app=nginx
 
     The output is similar to this:
 

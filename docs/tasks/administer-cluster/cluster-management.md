@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - lavalamp
 - thockin
 title: Cluster Management
