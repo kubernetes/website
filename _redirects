@@ -221,6 +221,11 @@
 /docs/whatisk8s													/docs/concepts/overview/what-is-kubernetes		301
 
 #
+# pattern matching redirects
+#
+/docs/user-guide/kubectl/kubectl_*								/docs/user-guide/kubectl/v1.7/#:splat		200
+
+#
 # redirects from /js/redirects.js
 #
 /resource-quota													/docs/concepts/policy/resource-quotas		301
