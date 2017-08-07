@@ -1,9 +1,43 @@
 ---
 title: "Example: WordPress and MySQL with Persistent Volumes"
-assignees:
-- ahmetb
-- jeffmendoza
 ---
+
+<!--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DO NOT UPDATE THIS FILE!
+
+Submit a patch to https://github.com/kubernetes/examples and
+once it is merged, run ./update-imported-tutorials.sh to
+import it to the website.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
 
 This example describes how to run a persistent installation of
 [WordPress](https://wordpress.org/) and

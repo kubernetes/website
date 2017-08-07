@@ -1,11 +1,8 @@
 ---
-assignees:
+approvers:
 - janetkuo
 - thockin
 title: Application Introspection and Debugging
-redirect_from:
-- "/docs/user-guide/introspection-and-debugging/"
-- "/docs/user-guide/introspection-and-debugging.html"
 ---
 
 Once your application is running, you'll inevitably need to debug problems with it.
@@ -90,7 +87,7 @@ Containers:
     Environment Variables:
 Conditions:
   Type		Status
-  Ready 	True 
+  Ready 	True
 Volumes:
   default-token-4bcbi:
     Type:	Secret (a volume populated by a Secret)
@@ -140,7 +137,7 @@ $ kubectl describe pod nginx-deployment-1370807587-fz9sd
   Node:		/
   Labels:		app=nginx,pod-template-hash=1370807587
   Status:		Pending
-  IP:		
+  IP:
   Controllers:	ReplicaSet/nginx-deployment-1370807587
   Containers:
     nginx:
@@ -278,7 +275,7 @@ Labels:			kubernetes.io/hostname=kubernetes-node-861h
 CreationTimestamp:	Fri, 10 Jul 2015 14:32:29 -0700
 Conditions:
   Type		Status		LastHeartbeatTime			LastTransitionTime			Reason					Message
-  Ready 	Unknown 	Fri, 10 Jul 2015 14:34:32 -0700 	Fri, 10 Jul 2015 14:35:15 -0700 	Kubelet stopped posting node status. 	
+  Ready 	Unknown 	Fri, 10 Jul 2015 14:34:32 -0700 	Fri, 10 Jul 2015 14:35:15 -0700 	Kubelet stopped posting node status.
 Addresses:	10.240.115.55,104.197.0.26
 Capacity:
  cpu:		1

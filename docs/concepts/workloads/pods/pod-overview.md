@@ -1,12 +1,7 @@
 ---
-assignees:
+approvers:
 - erictune
 title: Pod Overview
-redirect_from:
-- "/docs/concepts/abstractions/pod/"
-- "/docs/concepts/abstractions/pod.html"
-- "/docs/user-guide/pod-templates/"
-- "/docs/user-guide/pod-templates.html"
 ---
 
 {% capture overview %}
@@ -64,7 +59,7 @@ Pods do not, by themselves, self-heal. If a Pod is scheduled to a Node that fail
 
 ### Pods and Controllers
 
-A Controller can create and manage multiple Pods for you, handling replication and rollout and providing self-healing capabilities at cluster scope. For example, if a Node fails, the Controller might automatically replace the Pod by scheduling an identical replacement on a different Node. 
+A Controller can create and manage multiple Pods for you, handling replication and rollout and providing self-healing capabilities at cluster scope. For example, if a Node fails, the Controller might automatically replace the Pod by scheduling an identical replacement on a different Node.
 
 Some examples of Controllers that contain one or more pods include:
 

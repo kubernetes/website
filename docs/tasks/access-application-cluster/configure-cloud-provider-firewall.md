@@ -1,11 +1,8 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - davidopp
 title: Configure Your Cloud Provider's Firewalls
-redirect_from:
-- "/docs/user-guide/services-firewalls/"
-- "/docs/user-guide/services-firewalls.html"
 ---
 
 Many cloud providers (e.g. Google Compute Engine) define firewalls that help prevent inadvertent

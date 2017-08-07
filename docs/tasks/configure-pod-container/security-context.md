@@ -1,12 +1,9 @@
 ---
-assignees:
+approvers:
 - erictune
 - mikedanese
 - thockin
 title: Configure a Security Context for a Pod or Container
-redirect_from:
-- "/docs/user-guide/security-context/"
-- "/docs/concepts/policy/container-capabilities/" 
 ---
 
 {% capture overview %}
@@ -44,7 +41,7 @@ For more information about security mechanisms in Linux, see
 
 To specify security settings for a Pod, include the `securityContext` field
 in the Pod specification. The `securityContext` field is a
-[PodSecurityContext](/docs/api-reference/v1.6/#podsecuritycontext-v1-core) object.
+[PodSecurityContext](/docs/api-reference/{{page.version}}/#podsecuritycontext-v1-core) object.
 The security settings that you specify for a Pod apply to all Containers in the Pod.
 Here is a configuration file for a Pod that has a `securityContext` and an `emptyDir` volume:
 
@@ -80,9 +77,7 @@ In your shell, list the running processes:
 ps aux
 ```
 
-The output shows that the processes are running as user 1000, which isithub.io
-   68dc8932..69f5ba31  qos-experiment -> qos-experi
-the value of `runAsUser`:
+The output shows that the processes are running as user 1000, which is the value of `runAsUser`:
 
 ```shell
 USER   PID %CPU %MEM    VSZ   RSS TTY   STAT START   TIME COMMAND
@@ -134,7 +129,7 @@ exit
 
 To specify security settings for a Container, include the `securityContext` field
 in the Container manifest. The `securityContext` field is a
-[SecurityContext](/docs/api-reference/v1.6/#securitycontext-v1-core) object.
+[SecurityContext](/docs/api-reference/{{page.version}}/#securitycontext-v1-core) object.
 Security settings that you specify for a Container apply only to
 the individual Container, and they override settings made at the Pod level when
 there is overlap. Container settings do not affect the Pod's Volumes.
@@ -291,7 +286,7 @@ Compare the capabilities of the two Containers:
 
 ```
 00000000a80425fb
-00000000aa0435fb 
+00000000aa0435fb
 ```
 
 In the capability bitmap of the first container, bits 12 and 25 are clear. In the second container,
@@ -308,7 +303,7 @@ to add `CAP_SYS_TIME`, include `SYS_TIME` in your list of capabilities.
 To assign SELinux labels to a Container, include the `seLinuxOptions` field in
 the `securityContext` section of your Pod or Container manifest. The
 `seLinuxOptions` field is an
-[SELinuxOptions](/docs/api-reference/v1.6/#selinuxoptions-v1-core)
+[SELinuxOptions](/docs/api-reference/{{page.version}}/#selinuxoptions-v1-core)
 object. Here's an example that applies an SELinux level:
 
 ```yaml
@@ -346,8 +341,8 @@ protection, you must ensure each Pod is assigned a unique MCS label.
 
 {% capture whatsnext %}
 
-* [PodSecurityContext](/docs/api-reference/v1.6/#podsecuritycontext-v1-core)
-* [SecurityContext](/docs/api-reference/v1.6/#securitycontext-v1-core)
+* [PodSecurityContext](/docs/api-reference/{{page.version}}/#podsecuritycontext-v1-core)
+* [SecurityContext](/docs/api-reference/{{page.version}}/#securitycontext-v1-core)
 * [Tuning Docker with the newest security enhancements](https://opensource.com/business/15/3/docker-security-tuning)
 * [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/security_context.md)
 * [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/volume-ownership-management.md)

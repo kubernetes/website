@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - idvoretskyi
 - xsgordon
 title: OpenStack Heat

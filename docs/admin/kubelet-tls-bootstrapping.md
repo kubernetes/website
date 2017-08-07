@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - ericchiang
 - mikedanese
 - jcbsmpsn
@@ -17,10 +17,18 @@ and progress on the feature is being tracked as [feature #43](https://github.com
 
 ## kube-apiserver configuration
 
-You must provide a token file which specifies at least one "bootstrap token" assigned to a kubelet bootstrap-specific group.
+The API server should be configured with an [authenticator](/docs/admin/authentication/) that can authenticate tokens as a user in the `system:bootstrappers` group.
+
 This group will later be used in the controller-manager configuration to scope approvals in the default approval
 controller. As this feature matures, you should ensure tokens are bound to a Role-Based Access Control (RBAC) policy which limits requests
 (using the bootstrap token) strictly to client requests related to certificate provisioning. With RBAC in place, scoping the tokens to a group allows for great flexibility (e.g. you could disable a particular bootstrap group's access when you are done provisioning the nodes).
+
+While any authentication strategy can be used for the kubelet's initial bootstrap credentials, the following two authenticators are recommended for ease of provisioning.
+
+1. [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) - __alpha__
+2. [Token authentication file](###token-authentication-file)
+
+Using bootstrap tokens is currently __alpha__ and will simplify the management of bootstrap token management especially in a HA scenario. 
 
 ### Token authentication file
 Tokens are arbitrary but should represent at least 128 bits of entropy derived from a secure random number
@@ -34,7 +42,7 @@ The token file should look like the following example, where the first three val
 name should be as depicted:
 
 ```
-02b50b05283e98dd0fd71db496ef01e8,kubelet-bootstrap,10001,"system:kubelet-bootstrap"
+02b50b05283e98dd0fd71db496ef01e8,kubelet-bootstrap,10001,"system:bootstrappers"
 ```
 
 Add the `--token-auth-file=FILENAME` flag to the kube-apiserver command (in your systemd unit file perhaps) to enable the token file.
@@ -127,20 +135,20 @@ provided by the removed auto-approval flag, of approving all CSRs by a single gr
 
 ```
 # REMOVED: This flag no longer works as of 1.7.
---insecure-experimental-approve-all-kubelet-csrs-for-group="kubelet-bootstrap-token"
+--insecure-experimental-approve-all-kubelet-csrs-for-group="system:bootstrappers"
 ```
 
 An admin would create a `ClusterRoleBinding` targeting that group.
 
 ```yml
-# Approve all CSRs for the group "kubelet-bootstrap-token"
+# Approve all CSRs for the group "system:bootstrappers"
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: auto-approve-csrs-for-group
 subjects:
 - kind: Group
-  name: kubelet-bootstrap-token
+  name: system:bootstrappers
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
@@ -179,10 +187,11 @@ kubectl config set-credentials kubelet-bootstrap --token=${BOOTSTRAP_TOKEN} --ku
 
 When starting the kubelet, if the file specified by `--kubeconfig` does not exist, the bootstrap kubeconfig is used to request a client certificate from the API server. On approval of the certificate request and receipt back by the kubelet, a kubeconfig file referencing the generated key and obtained certificate is written to the path specified by `--kubeconfig`. The certificate and key file will be placed in the directory specified by `--cert-dir`.
 
-The flag to enable this bootstrapping when starting the kubelet is:
+**Note:** The following flags are required to enable this bootstrapping when starting the kubelet:
 
 ```
---experimental-bootstrap-kubeconfig="/path/to/bootstrap/kubeconfig"
+--require-kubeconfig
+--bootstrap-kubeconfig="/path/to/bootstrap/kubeconfig"
 ```
 
 Additionally, in 1.7 the kubelet implements __alpha__ features for enabling rotation of both its client and/or serving certs.

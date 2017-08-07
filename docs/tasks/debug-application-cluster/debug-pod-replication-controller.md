@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - bprashanth
 title: Debug Pods and Replication Controllers
-redirect_from:
-- "/docs/user-guide/debugging-pods-and-replication-controllers/"
-- "/docs/user-guide/debugging-pods-and-replication-controllers.html"
 ---
 
 * TOC
@@ -48,8 +45,8 @@ case you can try several things:
     command. Here are some example command lines that extract just the necessary
     information:
 
-        kubectl get nodes -o yaml | grep '\sname\|cpu\|memory'
-        kubectl get nodes -o json | jq '.items[] | {name: .metadata.name, cap: .status.capacity}'
+       kubectl get nodes -o yaml | grep '\sname\|cpu\|memory'
+       kubectl get nodes -o json | jq '.items[] | {name: .metadata.name, cap: .status.capacity}'
 
   The [resource quota](/docs/concepts/policy/resource-quotas/)
   feature can be configured to limit the total amount of

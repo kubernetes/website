@@ -1,6 +1,6 @@
 ---
 title: Custom Resources
-assignees:
+approvers:
 - enisoc
 - deads2k
 ---
@@ -63,7 +63,7 @@ persistent storage of objects.
 The main Kubernetes API server handles built-in resources like *pods* and *services*,
 and can also handle custom resources in a generic way through [CustomResourceDefinitions](#customresourcedefinitions).
 
-The [aggregation layer](/docs/concepts/api-extension/) allows you to provide specialized
+The [aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/) allows you to provide specialized
 implementations for your custom resources by writing and deploying your own standalone API server.
 The main API server delegates requests to you for the custom resources that you handle,
 making them available to all of its clients.

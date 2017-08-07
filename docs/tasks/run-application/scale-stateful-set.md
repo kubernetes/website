@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - enisoc
 - erictune
@@ -8,9 +8,6 @@ assignees:
 - kow3ns
 - smarterclayton
 title: Scale a StatefulSet
-redirect_from:
-- "/docs/tasks/manage-stateful-set/scale-stateful-set/"
-- "/docs/tasks/manage-stateful-set/scale-stateful-set.html"
 ---
 
 {% capture overview %}
@@ -19,8 +16,8 @@ This page shows how to scale a StatefulSet.
 
 {% capture prerequisites %}
 
-* StatefulSets are only available in Kubernetes version 1.5 or later. 
-* **Not all stateful applications scale nicely.** You need to understand your StatefulSets well before continuing. If you're unsure, remember that it might not be safe to scale your StatefulSets. 
+* StatefulSets are only available in Kubernetes version 1.5 or later.
+* **Not all stateful applications scale nicely.** You need to understand your StatefulSets well before continuing. If you're unsure, remember that it might not be safe to scale your StatefulSets.
 * You should perform scaling only when you're sure that your stateful application
   cluster is completely healthy.
 
@@ -36,7 +33,7 @@ for which kubectl you're using.
 
 ### `kubectl scale`
 
-First, find the StatefulSet you want to scale. Remember, you need to first understand if you can scale it or not. 
+First, find the StatefulSet you want to scale. Remember, you need to first understand if you can scale it or not.
 
 ```shell
 kubectl get statefulsets <stateful-set-name>
@@ -50,24 +47,24 @@ kubectl scale statefulsets <stateful-set-name> --replicas=<new-replicas>
 
 ### Alternative: `kubectl apply` / `kubectl edit` / `kubectl patch`
 
-Alternatively, you can do [in-place updates](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) on your StatefulSets. 
+Alternatively, you can do [in-place updates](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) on your StatefulSets.
 
-If your StatefulSet was initially created with `kubectl apply` or `kubectl create --save-config`, 
+If your StatefulSet was initially created with `kubectl apply` or `kubectl create --save-config`,
 update `.spec.replicas` of the StatefulSet manifests, and then do a `kubectl apply`:
 
-```shell 
+```shell
 kubectl apply -f <stateful-set-file-updated>
 ```
 
 Otherwise, edit that field with `kubectl edit`:
 
-```shell 
+```shell
 kubectl edit statefulsets <stateful-set-name>
 ```
 
 Or use `kubectl patch`:
 
-```shell 
+```shell
 kubectl patch statefulsets <stateful-set-name> -p '{"spec":{"replicas":<new-replicas>}}'
 ```
 
@@ -76,9 +73,9 @@ kubectl patch statefulsets <stateful-set-name> -p '{"spec":{"replicas":<new-repl
 ### Scaling down doesn't not work right
 
 You cannot scale down a StatefulSet when any of the stateful Pods it manages is unhealthy. Scaling down only takes place
-after those stateful Pods become running and ready. 
+after those stateful Pods become running and ready.
 
-With a StatefulSet of size > 1, if there is an unhealthy Pod, there is no way 
+With a StatefulSet of size > 1, if there is an unhealthy Pod, there is no way
 for Kubernetes to know (yet) if it is due to a permanent fault or a transient
 one (upgrade/maintenance/node reboot). If the Pod is unhealthy due to a permanent fault, scaling
 without correcting the fault may lead to a state where the StatefulSet membership
@@ -90,7 +87,7 @@ the transient error may interfere with your scale-up/scale-down operation. Some 
 databases have issues when nodes join and leave at the same time. It is better
 to reason about scaling operations at the application level in these cases, and
 perform scaling only when you're sure that your stateful application cluster is
-completely healthy. 
+completely healthy.
 
 
 {% endcapture %}

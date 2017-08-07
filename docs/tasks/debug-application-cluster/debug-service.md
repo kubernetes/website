@@ -1,12 +1,9 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - janetkuo
 - thockin
 title: Debug Services
-redirect_from:
-- "/docs/user-guide/debugging-services/"
-- "/docs/user-guide/debugging-services.html"
 ---
 
 An issue that comes up rather frequently for new installations of Kubernetes is
@@ -86,7 +83,7 @@ $ kubectl run hostnames --image=gcr.io/google_containers/serve_hostname \
 deployment "hostnames" created
 ```
 
-`kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands. 
+`kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands.
 Note that this is the same as if you had started the `Deployment` with
 the following YAML:
 

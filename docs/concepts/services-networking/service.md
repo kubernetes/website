@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - bprashanth
 title: Services
-redirect_from:
-- "/docs/user-guide/services/"
-- "/docs/user-guide/services/index.html"
 ---
 
 Kubernetes [`Pods`](/docs/user-guide/pods) are mortal. They are born and when they die, they
@@ -319,9 +316,9 @@ Sometimes you don't need or want load-balancing and a single service IP.  In
 this case, you can create "headless" services by specifying `"None"` for the
 cluster IP (`spec.clusterIP`).
 
-This option allows developers to reduce coupling to the Kubernetes system by 
-allowing them freedom to do discovery their own way.  Applications can still use 
-a self-registration pattern and adapters for other discovery systems could easily 
+This option allows developers to reduce coupling to the Kubernetes system by
+allowing them freedom to do discovery their own way.  Applications can still use
+a self-registration pattern and adapters for other discovery systems could easily
 be built upon this API.
 
 For such `Services`, a cluster IP is not allocated, kube-proxy does not handle
@@ -341,9 +338,9 @@ For headless services that do not define selectors, the endpoints controller doe
 not create `Endpoints` records. However, the DNS system looks for and configures
 either:
 
-  * CNAME records for `ExternalName`-type services
+  * CNAME records for `ExternalName`-type services.
   * A records for any `Endpoints` that share a name with the service, for all
-    other types
+    other types.
 
 ## Publishing services - service types
 
@@ -356,15 +353,15 @@ The default is `ClusterIP`.
 
 `Type` values and their behaviors are:
 
-   * `ClusterIP`: Exposes the service on a cluster-internal IP. Choosing this value 
-     makes the service only reachable from within the cluster. This is the 
+   * `ClusterIP`: Exposes the service on a cluster-internal IP. Choosing this value
+     makes the service only reachable from within the cluster. This is the
      default `ServiceType`.
-   * `NodePort`: Exposes the service on each Node's IP at a static port (the `NodePort`). 
-     A `ClusterIP` service, to which the NodePort service will route, is automatically 
-     created.  You'll be able to contact the `NodePort` service, from outside the cluster, 
+   * `NodePort`: Exposes the service on each Node's IP at a static port (the `NodePort`).
+     A `ClusterIP` service, to which the NodePort service will route, is automatically
+     created.  You'll be able to contact the `NodePort` service, from outside the cluster,
      by requesting `<NodeIP>:<NodePort>`.
-   * `LoadBalancer`: Exposes the service externally using a cloud provider's load balancer. 
-     `NodePort` and `ClusterIP` services, to which the external load balancer will route, 
+   * `LoadBalancer`: Exposes the service externally using a cloud provider's load balancer.
+     `NodePort` and `ClusterIP` services, to which the external load balancer will route,
      are automatically created.
    * `ExternalName`: Maps the service to the contents of the `externalName` field
      (e.g. `foo.bar.example.com`), by returning a `CNAME` record with its value.
@@ -427,20 +424,59 @@ with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not s
 an ephemeral IP will be assigned to the loadBalancer. If the `loadBalancerIP` is specified, but the
 cloud provider does not support the feature, the field will be ignored.
 
-#### Internal load balancer on AWS
-In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC.
-This can be achieved by adding the following annotation to the service:
+Special notes for Azure: To use user-specified public type `loadBalancerIP`, a static type
+public IP address resource needs to be created first, and it should be in the same resource
+group of the cluster. Then you could specify the assigned IP address as `loadBalancerIP`.
 
+#### Internal load balancer
+In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC.
+
+In a split-horizon DNS environment you would need two services to be able to route both external and internal traffic to your endpoints.
+
+This can be achieved by adding the following annotations to the service based on cloud provider.
+
+{% capture default_tab %}
+Select one of the tabs.
+{% endcapture %}
+
+{% capture gcp %}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        cloud.google.com/load-balancer-type: "internal"
+[...]
+```
+
+For more information, see the [docs](https://cloud.google.com/container-engine/docs/internal-load-balancing).
+{% endcapture %}
+
+{% capture aws %}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+[...]
+```
+{% endcapture %}
+
+{% capture azure %}
 ```yaml
 [...]
 metadata: 
     name: my-service
     annotations: 
-        service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+        service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 [...]
 ```
-In a split-horizon DNS environment you would need two services to be able to route both external and internal traffic to your endpoints.
+{% endcapture %}
 
+{% assign tab_names = 'Default,GCP,AWS,Azure' | split: ',' | compact %}
+{% assign tab_contents = site.emptyArray | push: default_tab | push: gcp | push: aws | push: azure %}
+{% include tabs.md %}
 
 #### SSL support on AWS
 For partial SSL support on clusters running on AWS, starting with 1.3 two
@@ -499,7 +535,7 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 9376
-  externalIPs: 
+  externalIPs:
     - 80.11.12.10
 ```
 

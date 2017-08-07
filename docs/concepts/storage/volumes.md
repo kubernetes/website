@@ -1,13 +1,10 @@
 ---
-assignees:
+approvers:
 - jsafrane
 - mikedanese
 - saad-ali
 - thockin
 title: Volumes
-redirect_from:
-- "/docs/user-guide/volumes/"
-- "/docs/user-guide/volumes.html"
 ---
 
 {% capture overview %}
@@ -42,7 +39,7 @@ A Kubernetes volume, on the other hand, has an explicit lifetime - the same as
 the pod that encloses it.  Consequently, a volume outlives any containers that run
 within the Pod, and data is preserved across Container restarts. Of course, when a
 Pod ceases to exist, the volume will cease to exist, too.  Perhaps more
-importantly than this, Kubernetes supports many type of volumes, and a Pod can
+importantly than this, Kubernetes supports many types of volumes, and a Pod can
 use any number of them simultaneously.
 
 At its core, a volume is just a directory, possibly with some data in it, which
@@ -325,10 +322,10 @@ See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.git
 
 ### fc (fibre channel)
 
-An `fc` volume allows an existing fibre channel volume to be mounted into your pod.
-You can specify single or multiple target World Wide Names to the parameter
-targetWWNs in your volume configuration. If multiple WWNs are specified,
-targetWWNs expects that those WWNs form multipath connection.
+An `fc` volume allows an existing fibre channel volume to be mounted in a pod.
+You can specify single or multiple target World Wide Names using the parameter
+`targetWWNs` in your volume configuration. If multiple WWNs are specified,
+targetWWNs expect that those WWNs are from multi-path connections.
 
 __Important: You must configure FC SAN Zoning to allocate and mask those
 LUNs (volumes) to the target WWNs beforehand so that Kubernetes hosts
@@ -696,7 +693,7 @@ spec:
       fsType: xfs
 ```
 
-For further detail, plese the see the [ScaleIO examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/scaleio).
+For further detail, please the see the [ScaleIO examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/scaleio).
 
 ### StorageOS
 A `storageos` volume allows an existing [StorageOS](https://www.storageos.com) volume to be mounted into your pod.
@@ -788,7 +785,7 @@ spec:
 Note that local PersistentVolume cleanup and deletion requires manual
 intervention without the external provisioner.
 
-For details on the `local` volume type, see the [Local Persistent Storage 
+For details on the `local` volume type, see the [Local Persistent Storage
 user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume)
 
 ## Using subPath

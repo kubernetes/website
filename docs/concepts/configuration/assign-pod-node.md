@@ -1,12 +1,9 @@
 ---
-assignees:
+approvers:
 - davidopp
 - kevin-wangzefeng
 - bsalamat
 title: Assigning Pods to Nodes
-redirect_from:
-- "/docs/user-guide/node-selection/"
-- "/docs/user-guide/node-selection/index.html"
 ---
 
 You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/nodes/node/) or to prefer to
@@ -142,6 +139,8 @@ If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types
 
 If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` can be satisfied.
 
+If you remove or change the label of the node where the pod is scheduled, the pod won't be removed. In other words, the affinity selection works only at the time of scheduling the pod.
+
 For more information on node affinity, see the design doc
 [here](https://git.k8s.io/community/contributors/design-proposals/nodeaffinity.md).
 
@@ -169,7 +168,7 @@ and an example `preferredDuringSchedulingIgnoredDuringExecution` anti-affinity w
 Inter-pod affinity is specified as field `podAffinity` of field `affinity` in the PodSpec.
 And inter-pod anti-affinity is specified as field `podAntiAffinity` of field `affinity` in the PodSpec.
 
-Here's an example of a pod that uses pod affinity:
+#### An example of a pod that uses pod affinity:
 
 {% include code.html language="yaml" file="pod-with-pod-affinity.yaml" ghlink="/docs/concepts/configuration/pod-with-pod-affinity.yaml" %}
 
@@ -205,7 +204,96 @@ If omitted, it defaults to the namespace of the pod where the affinity/anti-affi
 If defined but empty, it means "all namespaces."
 
 All `matchExpressions` associated with `requiredDuringSchedulingIgnoredDuringExecution` affinity and anti-affinity
-must be satisfied for the pod to schedule onto a node. 
+must be satisfied for the pod to schedule onto a node.
+
+#### More Practical Use-cases 
+
+Interpod Affinity and AnitAffinity can be even more useful when they are used with higher
+level collections such as ReplicaSets, Statefulsets, Deployments, etc.  One can easily configure that a set of workloads should
+be co-located in the same defined topology, eg., the same node. 
+
+##### Always co-located in the same node
+
+In a three node cluster, a web application has in-memory cache such as redis, we want the web-servers to be co-located with the cache as much as possible. 
+Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`
+
+```yaml
+apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis-cache
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: store
+    spec:
+      containers:
+      - name: redis-server
+        image: redis:3.2-alpine
+```
+
+Below yaml snippet of the webserver deployment has `podAffinity` configured, this informs the scheduler that all its replicas are to be 
+co-located with pods that has selector label `app=store` 
+
+```yaml
+apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: web-server
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: web-store
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - store
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: web-app
+```
+
+if we create the above two deployments, our three node cluster could look like below.
+
+|       node-1         |       node-2        |       node-3       |
+|:--------------------:|:-------------------:|:------------------:|
+| *webserver-1*        |   *webserver-2*     |    *webserver-3*   |
+|  *cache-1*           |     *cache-2*       |     *cache-3*      |
+
+As you can see, all the 3 replicas of the `web-server` are automatically co-located with the cache as expected. 
+
+```
+$kubectl get pods -o wide
+NAME                           READY     STATUS    RESTARTS   AGE       IP           NODE
+redis-cache-1450370735-6dzlj   1/1       Running   0          8m        10.192.4.2   kube-node-3
+redis-cache-1450370735-j2j96   1/1       Running   0          8m        10.192.2.2   kube-node-1
+redis-cache-1450370735-z73mh   1/1       Running   0          8m        10.192.3.1   kube-node-2
+web-server-1287567482-5d4dz    1/1       Running   0          7m        10.192.2.3   kube-node-1
+web-server-1287567482-6f7v5    1/1       Running   0          7m        10.192.4.3   kube-node-3
+web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3.2   kube-node-2
+```
+
+Best practice is to configure these highly available stateful workloads such as redis with AntiAffinity rules for more guaranteed spreading, which we will see in the next section.
+
+##### Never co-located in the same node
+
+Highly Available database statefulset has one master and three replicas, one may prefer none of the database instances to be co-located in the same node.
+
+|       node-1         |       node-2        |       node-3       |       node-4       |
+|:--------------------:|:-------------------:|:------------------:|:------------------:|
+| *DB-MASTER*          | *DB-REPLICA-1*      | *DB-REPLICA-2*     | *DB-REPLICA-3*     |
+
+[Here](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) is an example of zookeper statefulset configured with anti-affinity for high availability.
 
 For more information on inter-pod affinity/anti-affinity, see the design doc
 [here](https://git.k8s.io/community/contributors/design-proposals/podaffinity.md).
@@ -236,7 +324,7 @@ taint created by the `kubectl taint` line above, and thus a pod with either tole
 to schedule onto `node1`:
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "key"
   operator: "Equal"
   value: "value"
@@ -244,7 +332,7 @@ tolerations:
 ```
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "key"
   operator: "Exists"
   effect: "NoSchedule"
@@ -304,7 +392,7 @@ kubectl taint nodes node1 key2=value2:NoSchedule
 And a pod has two tolerations:
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "key1"
   operator: "Equal"
   value: "value1"
@@ -327,7 +415,7 @@ an optional `tolerationSeconds` field that dictates how long the pod will stay b
 to the node after the taint is added. For example,
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "key1"
   operator: "Equal"
   value: "value1"
@@ -345,7 +433,7 @@ Taints and tolerations are a flexible way to steer pods away from nodes or evict
 pods that shouldn't be running. A few of the use cases are
 
 * **dedicated nodes**: If you want to dedicate a set of nodes for exclusive use by
-a particular set of users, you can add a taint to those nodes (say, 
+a particular set of users, you can add a taint to those nodes (say,
 `kubectl taint nodes nodename dedicated=groupName:NoSchedule`) and then add a corresponding
 toleration to their pods (this would be done most easily by writing a custom
 [admission controller](/docs/admin/admission-controllers/)).
@@ -410,7 +498,7 @@ that the partition will recover and thus the pod eviction can be avoided.
 The toleration the pod would use in that case would look like
 
 ```yaml
-tolerations: 
+tolerations:
 - key: "node.alpha.kubernetes.io/unreachable"
   operator: "Exists"
   effect: "NoExecute"

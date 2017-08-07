@@ -1,13 +1,8 @@
 ---
-assignees:
+approvers:
 - erictune
 - soltysh
 title: Jobs - Run to Completion
-redirect_from:
-- "/docs/concepts/jobs/run-to-completion-finite-workloads/"
-- "/docs/concepts/jobs/run-to-completion-finite-workloads.html"
-- "/docs/user-guide/jobs/"
-- "/docs/user-guide/jobs.html"
 ---
 
 * TOC
@@ -92,9 +87,7 @@ A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/d
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](/docs/user-guide/replication-controller/#pod-template).  It has exactly
-the same schema as a [pod](/docs/user-guide/pods), except it is nested and does not have an `apiVersion` or
-`kind`.
+The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [pod](/docs/user-guide/pods), except it is nested and does not have an `apiVersion` or `kind`.
 
 In addition to required fields for a Pod, a pod template in a job must specify appropriate
 labels (see [pod selector](#pod-selector)) and an appropriate restart policy.
@@ -115,12 +108,12 @@ There are three main types of jobs:
   - normally only one pod is started, unless the pod fails.
   - job is complete as soon as Pod terminates successfully.
 1. Parallel Jobs with a *fixed completion count*:
-  - specify a non-zero positive value for `.spec.completions`
+  - specify a non-zero positive value for `.spec.completions`.
   - the job is complete when there is one successful pod for each value in the range 1 to `.spec.completions`.
   - **not implemented yet:** each pod passed a different index in the range 1 to `.spec.completions`.
 1. Parallel Jobs with a *work queue*:
-  - do not specify `.spec.completions`, default to `.spec.Parallelism`
-  - the pods must coordinate with themselves or an external service to determine what each should work on
+  - do not specify `.spec.completions`, default to `.spec.Parallelism`.
+  - the pods must coordinate with themselves or an external service to determine what each should work on.
   - each pod is independently capable of determining whether or not all its peers are done, thus the entire Job is done.
   - when _any_ pod terminates with success, no new pods are created.
   - once at least one pod has terminated with success and all pods are terminated, then the job is completed with success.

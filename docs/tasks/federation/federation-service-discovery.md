@@ -1,13 +1,8 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - quinton-hoole
 title: Cross-cluster Service Discovery using Federated Services
-redirect_from:
-- "/docs/user-guide/federation/federated-services/"
-- "/docs/user-guide/federation/federated-services.html"
-- "/docs/concepts/cluster-administration/federation-service-discovery/"
-- "/docs/concepts/cluster-administration/federation-service-discovery.html"
 ---
 
 This guide explains how to use Kubernetes Federated Services to deploy
@@ -175,7 +170,7 @@ this. For example, if your Federation is configured to use Google
 Cloud DNS, and a managed DNS domain 'example.com':
 
 ``` shell
-$ gcloud dns managed-zones describe example-dot-com 
+$ gcloud dns managed-zones describe example-dot-com
 creationTime: '2016-06-26T18:18:39.229Z'
 description: Example domain for Kubernetes Cluster Federation
 dnsName: example.com.

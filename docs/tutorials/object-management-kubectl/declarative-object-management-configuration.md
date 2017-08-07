@@ -1,8 +1,5 @@
 ---
 title: Declarative Management of Kubernetes Objects Using Configuration Files
-redirect_from:
-- "/docs/concepts/tools/kubectl/object-management-using-declarative-config/"
-- "/docs/concepts/tools/kubectl/object-management-using-declarative-config.html"
 ---
 
 {% capture overview %}
@@ -897,7 +894,7 @@ configuration involves several manual steps:
 
 1. Export the live object to a local configuration file:
 
-        kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+       kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
 
 1. Manually remove the `status` field from the configuration file.
 
@@ -906,7 +903,7 @@ configuration involves several manual steps:
 
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
-        kubectl replace --save-config -f <kind>_<name>.yaml
+       kubectl replace --save-config -f <kind>_<name>.yaml
 
 1. Change processes to use `kubectl apply` for managing the object exclusively.
 
@@ -918,7 +915,7 @@ TODO(pwittrock): Why doesn't export remove the status field?  Seems like it shou
 
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
-        kubectl replace --save-config -f <kind>_<name>.yaml
+       kubectl replace --save-config -f <kind>_<name>.yaml
 
 1. Change processes to use `kubectl apply` for managing the object exclusively.
 
@@ -952,7 +949,7 @@ template:
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
 - [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/v1.6/)
-- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.6/)
+- [Kubernetes Object Schema Reference](/docs/resources-reference/{{page.version}}/)
 {% endcapture %}
 
 {% include templates/concept.md %}

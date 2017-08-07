@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - hw-qiaolei
 title: Overview of kubectl
@@ -81,13 +81,16 @@ The following table includes a list of all the supported resource types and thei
 
 Resource type    | Abbreviated alias
 -------------------- | --------------------
+`apiservices` |
 `certificatesigningrequests` |`csr`
 `clusters` |
 `clusterrolebindings` |
 `clusterroles` |
 `componentstatuses` |`cs`
 `configmaps` |`cm`
+`controllerrevisions` |
 `cronjobs` |
+`customresourcedefinition` |`crd`
 `daemonsets` |`ds`
 `deployments` |`deploy`
 `endpoints` |`ep`
@@ -97,11 +100,12 @@ Resource type    | Abbreviated alias
 `jobs` |
 `limitranges` |`limits`
 `namespaces` |`ns`
-`networkpolicies` |
+`networkpolicies` |`netpol`
 `nodes` |`no`
 `persistentvolumeclaims` |`pvc`
 `persistentvolumes` |`pv`
 `poddisruptionbudget` |`pdb`
+`podpreset` |
 `pods` |`po`
 `podsecuritypolicies` |`psp`
 `podtemplates` |
@@ -115,7 +119,6 @@ Resource type    | Abbreviated alias
 `services` |`svc`
 `statefulsets` |
 `storageclasses` |
-`thirdpartyresources` |
 
 ## Output options
 

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - pwittrock
 title: Deprecated Alternatives
 ---

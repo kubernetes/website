@@ -1,11 +1,8 @@
 ---
-assignees:
+approvers:
 - crassirostris
 - piosz
 title: Logging Using Stackdriver
-redirect_from:
-- "/docs/user-guide/logging/stackdriver/"
-- "/docs/user-guide/logging/stackdriver.html"
 ---
 
 Before reading this page, it's highly recommended to familiarize yourself
@@ -304,7 +301,7 @@ Get the current version of the Stackdriver Logging `ConfigMap` in your cluster
 by running the following command:
 
 ```shell
-kubectl get ds fluentd-gcp-v2.0 --namespace kube-system -o yaml > fluentd-gcp-ds.yaml
+kubectl get cm fluentd-gcp-config --namespace kube-system -o yaml > fluentd-gcp-configmap.yaml
 ```
 
 Then in the value for the key `containers.input.conf` insert a new filter right after

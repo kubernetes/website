@@ -45,11 +45,11 @@ for the `Pod`:
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/cpu-ram.yaml
+       kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/cpu-ram.yaml
 
 1. Display information about the pod:
 
-        kubectl describe pod cpu-ram-demo
+       kubectl describe pod cpu-ram-demo
 
     The output is similar to this:
 
@@ -113,7 +113,7 @@ For information about what happens if you don't specify CPU and RAM requests, se
 {% capture whatsnext %}
 
 * Learn more about [managing compute resources](/docs/concepts/configuration/manage-compute-resources-container/).
-* See [ResourceRequirements](/docs/api-reference/v1.6/#resourcerequirements-v1-core).
+* See [ResourceRequirements](/docs/api-reference/{{page.version}}/#resourcerequirements-v1-core).
 
 {% endcapture %}
 

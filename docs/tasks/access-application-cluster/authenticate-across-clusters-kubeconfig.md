@@ -1,15 +1,8 @@
 ---
-assignees:
-- mikedanese
-- thockin
-title: Authenticate Across Clusters with kubeconfig
-redirect_from:
-- "/docs/user-guide/kubeconfig-file/"
-- "/docs/user-guide/kubeconfig-file.html"
-- "/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/"
-- "/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.html"
+title: Authenticate across clusters with kubeconfig
 ---
 
+{% capture overview %}
 Authentication in Kubernetes can differ for different individuals.
 
 - A running kubelet might have one way of authenticating (i.e. certificates).
@@ -22,11 +15,13 @@ So in order to easily switch between multiple clusters, for multiple users, a ku
 This file contains a series of authentication mechanisms and cluster connection information associated with nicknames.  It also introduces the concept of a tuple of authentication information (user) and cluster connection information called a context that is also associated with a nickname.
 
 Multiple kubeconfig files are allowed, if specified explicitly.  At runtime they are loaded and merged along with override options specified from the command line (see [rules](#loading-and-merging-rules) below).
+{% endcapture %}
 
-## Related discussion
+{% capture prerequisites %}
+* {% include task-tutorial-prereqs.md %}
+{% endcapture %}
 
-[http://issue.k8s.io/1755](http://issue.k8s.io/1755)
-
+{% capture steps %}
 ## Components of a kubeconfig file
 
 ### Example kubeconfig file
@@ -169,25 +164,24 @@ the settings relevant to the `current-context` by passing `--minify`. See
 
 ## Building your own kubeconfig file
 
-NOTE, that if you are deploying k8s via kube-up.sh, you do not need to create your own kubeconfig files, the script will do it for you.
+You can use the [sample kubeconfig file](#example-kubeconfig-file) above as a template for your own kubeconfig files.
 
-In any case, you can easily use this file as a template to create your own kubeconfig files.
+**Note:** If you're deploying Kubernetes with `kube-up.sh`, you don't need to create your own kubeconfig files&mdash;the script does it for you.
+{: .note}
 
-So, lets do a quick walk through the basics of the above file so you can easily modify it as needed...
-
-The above file would likely correspond to an api-server which was launched using the `--token-auth-file=tokens.csv` option, where the tokens.csv file looked something like this:
+The sample file corresponds to an [API server](https://kubernetes.io/docs/admin/kube-apiserver/) launched using the `--token-auth-file=tokens.csv` option, where the `tokens.csv` file contains:
 
 ```conf
 blue-user,blue-user,1
 mister-red,mister-red,2
 ```
 
-Also, since we have other users who validate using **other** mechanisms, the api-server would have probably been launched with other authentication options (there are many such options, make sure you understand which ones YOU care about before crafting a kubeconfig file, as nobody needs to implement all the different permutations of possible authentication schemes).
+**Note:** There are many [options available](https://kubernetes.io/docs/admin/kube-apiserver/) for launching an API server. Make sure you understand the options you include.
+{: .note}
 
-- Since the user for the current context is "green-user", any client of the api-server using this kubeconfig file would naturally be able to log in successfully, because we are providing the green-user's client credentials.
-- Similarly, we can operate as the "blue-user" if we choose to change the value of current-context.
+The sample kubeconfig file provides client credentials for the user `green-user`. Because the user for `current-context` is `green-user`, any client of the API server using the sample kubeconfig file could log in successfully. Similarly, we can operate as  `blue-user` by changing the value of `current-context`.
 
-In the above scenario, green-user would have to log in by providing certificates, whereas blue-user would just provide the token.  All this information would be handled for us by the
+In the example provided, `green-user` logs in by providing certificates, and `blue-user`  provides a token. Login information is specified with the `kubectl config set-credentials` command. For more information, see "[Commands for the example file](#commands-for-the-example-file)".
 
 ## Loading and merging rules
 
@@ -203,7 +197,7 @@ The rules for loading and merging the kubeconfig files are straightforward, but 
       Merge files together based on the following rules.
       Empty filenames are ignored.  Files with non-deserializable content produced errors.
       The first file to set a particular value or map key wins and the value or map key is never changed.
-      This means that the first file to set `CurrentContext` will have its context preserved.  It also means that if two files specify a "red-user", only values from the first file's red-user are used.  Even non-conflicting entries from the second file's "red-user" are discarded.
+      This means that the first file to set `CurrentContext` will have its context preserved.  It also means that if two files specify a `red-user`, only values from the first file's `red-user` are used.  Even non-conflicting entries from the second file's `red-user` are discarded.
 
 
       Otherwise, use HomeDirectoryLocation (`~/.kube/config`) with no merging.
@@ -307,8 +301,10 @@ $ kubectl config set-context queen-anne-context --cluster=pig-cluster --user=bla
 $ kubectl config set-context federal-context --cluster=horse-cluster --user=green-user --namespace=chisel-ns
 $ kubectl config use-context federal-context
 ```
+{% endcapture %}
 
-### Final notes for tying it all together
+{% capture discussion %}
+## Final notes for tying it all together
 
 So, tying this all together, a quick start to create your own kubeconfig file:
 
@@ -316,4 +312,10 @@ So, tying this all together, a quick start to create your own kubeconfig file:
 
 - Replace the snippet above with information for your cluster's api-server endpoint.
 
-- Make sure your api-server is launched in such a way that at least one user (i.e. green-user) credentials are provided to it.  You will of course have to look at api-server documentation in order to determine the current state-of-the-art in terms of providing authentication details.
+- Make sure your api-server provides at least one set of credentials (for example, `green-user`) when launched.  You will of course have to look at api-server documentation in order to determine the current state-of-the-art in terms of providing authentication details.
+
+## Related discussion
+[http://issue.k8s.io/1755](http://issue.k8s.io/1755)
+{% endcapture %}
+
+{% include templates/task.md %}
