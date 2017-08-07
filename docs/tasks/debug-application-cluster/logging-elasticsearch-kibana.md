@@ -165,7 +165,7 @@ and are not directly exposed via a publicly reachable IP address. To reach them,
 follow the instructions for [Accessing services running in a cluster](/docs/concepts/cluster-administration/access-cluster/#accessing-services-running-on-the-cluster).
 -->
 
-Elasticsearch and Kibana 服务都在 `kube-system` 命名空间，并且无法通过对外可达 IP 地址进行访问。如果想访问它们，可以查看[访问集群中的服务](/docs/concepts/cluster-administration/access-cluster/#accessing-services-running-on-the-cluster) 。
+Elasticsearch 和 Kibana 服务都在 `kube-system` 命名空间，并且无法通过对外可达 IP 地址进行访问。如果想访问它们，可以查看[访问集群中的服务](/docs/concepts/cluster-administration/access-cluster/#accessing-services-running-on-the-cluster) 。
 
 <!--
 If you try accessing the `elasticsearch-logging` service in your browser, you'll
