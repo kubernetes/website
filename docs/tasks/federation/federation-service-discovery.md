@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - quinton-hoole
 title: Cross-cluster Service Discovery using Federated Services

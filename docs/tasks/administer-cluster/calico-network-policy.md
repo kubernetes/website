@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - caseydavenport
 title: Use Calico for NetworkPolicy
 ---

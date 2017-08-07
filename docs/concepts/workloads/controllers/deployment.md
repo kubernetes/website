@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - janetkuo
 title: Deployments
@@ -510,7 +510,7 @@ nginx-deployment-618515232    11        11        11        7m
 ## Pausing and Resuming a Deployment
 
 You can pause a Deployment before triggering one or more updates and then resume it. This will allow you to
-apply multiple fixes in between pausing and resuming without triggering unnecesarry rollouts.
+apply multiple fixes in between pausing and resuming without triggering unnecessary rollouts.
 
 For example, with a Deployment that was just created:
 ```shell

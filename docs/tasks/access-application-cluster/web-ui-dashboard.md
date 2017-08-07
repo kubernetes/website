@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bryk
 - mikedanese
 - rf232
