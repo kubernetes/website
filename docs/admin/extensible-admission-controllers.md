@@ -283,5 +283,5 @@ and `Fail` policies, meaning that upon a communication error with the webhook
 admission controller, the `GenericAdmissionWebhook` can admit or reject the
 operation based on the configured policy.
 
-After you create the `initializerConfiguration`, the system will take a few
+After you create the `externalAdmissionHookConfiguration`, the system will take a few
 seconds to honor the new configuration.
