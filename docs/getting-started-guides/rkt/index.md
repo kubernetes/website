@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - yifan-gu
 title: Running Kubernetes with rkt
 ---

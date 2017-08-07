@@ -1,6 +1,6 @@
 ---
 title: Reference Documentation
-assignees:
+approvers:
 - chenopis
 ---
 

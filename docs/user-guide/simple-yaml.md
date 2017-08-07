@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - mikedanese
 - thockin
 

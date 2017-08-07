@@ -34,11 +34,11 @@ Pod:
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f https://k8s.io/docs/tasks/inject-data-application/envars.yaml
+       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/envars.yaml
 
 1. List the running Pods:
 
-        kubectl get pods -l purpose=demonstrate-envars
+       kubectl get pods -l purpose=demonstrate-envars
 
     The output is similar to this:
 
@@ -47,7 +47,7 @@ Pod:
 
 1. Get a shell to the container running in your Pod:
 
-        kubectl exec -it envar-demo -- /bin/bash
+       kubectl exec -it envar-demo -- /bin/bash
 
 1. In your shell, run the `printenv` command to list the environment variables.
 

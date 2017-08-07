@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - jdef
 title: Kubernetes on Mesos
 ---

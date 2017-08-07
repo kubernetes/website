@@ -39,11 +39,11 @@ file for the Pod defines a command and two arguments:
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
+       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
 
 1. List the running Pods:
 
-        kubectl get pods
+       kubectl get pods
 
     The output shows that the container that ran in the command-demo Pod has
     completed.
@@ -51,7 +51,7 @@ file for the Pod defines a command and two arguments:
 1. To see the output of the command that ran in the container, view the logs
 from the Pod:
 
-        kubectl logs command-demo
+       kubectl logs command-demo
 
     The output shows the values of the HOSTNAME and KUBERNETES_PORT environment
     variables:

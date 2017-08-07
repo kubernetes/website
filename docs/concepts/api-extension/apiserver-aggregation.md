@@ -1,6 +1,6 @@
 ---
 title: Extending the Kubernetes API with the aggregation layer
-assignees:
+approvers:
 - lavalamp
 - cheftako
 - chenopis

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - crassirostris
 - piosz
 title: Logging Using Stackdriver
