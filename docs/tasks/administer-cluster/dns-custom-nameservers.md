@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bowei
 - zihongz
 title: Configure private DNS zones and upstream nameservers in Kubernetes

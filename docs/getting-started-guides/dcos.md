@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - karlkfi
 title: DCOS
 ---

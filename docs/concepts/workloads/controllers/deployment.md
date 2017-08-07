@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - janetkuo
 title: Deployments
@@ -510,7 +510,7 @@ nginx-deployment-618515232    11        11        11        7m
 ## Pausing and Resuming a Deployment
 
 You can pause a Deployment before triggering one or more updates and then resume it. This will allow you to
-apply multiple fixes in between pausing and resuming without triggering unnecesarry rollouts.
+apply multiple fixes in between pausing and resuming without triggering unnecessary rollouts.
 
 For example, with a Deployment that was just created:
 ```shell
@@ -787,7 +787,7 @@ A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contrib
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [Pod](docs/concepts/workloads/pods/pod/), except it is nested and does not have an
+The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [Pod](/docs/concepts/workloads/pods/pod/), except it is nested and does not have an
 `apiVersion` or `kind`.
 
 In addition to required fields for a Pod, a pod template in a Deployment must specify appropriate
@@ -810,7 +810,7 @@ the API.  If `.spec.selector` is unspecified, `.spec.selector.matchLabels` defau
 `.spec.template.metadata.labels`.
 
 A Deployment may terminate Pods whose labels match the selector if their template is different
-tfrom `.spec.template` or if the total number of such Pods exceeds `.spec.replicas`. It brings up new
+from `.spec.template` or if the total number of such Pods exceeds `.spec.replicas`. It brings up new
 Pods with `.spec.template` if the number of Pods is less than the desired number.
 
 **Note:** You should not create other pods whose labels match this selector, either directly, by creating

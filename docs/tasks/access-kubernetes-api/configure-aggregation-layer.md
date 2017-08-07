@@ -1,6 +1,6 @@
 ---
 title: Configure the aggregation layer
-assignees:
+approvers:
 - lavalamp
 - cheftako
 - chenopis
