@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - dlorenc
 - r2d4
 - aaron-prindle
@@ -195,6 +195,7 @@ or pass the context on each command like this: `kubectl get pods --context=minik
 ### Dashboard
 
 To access the [Kubernetes Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/), run this command in a shell after starting minikube to get the address:
+
 ```shell
 minikube dashboard
 ```
@@ -202,6 +203,7 @@ minikube dashboard
 ### Services
 
 To access a service exposed via a node port, run this command in a shell after starting minikube to get the address:
+
 ```shell
 minikube service [-n NAMESPACE] [--url] NAME
 ```
@@ -304,7 +306,7 @@ For more information about minikube, see the [proposal](https://git.k8s.io/commu
 * **Goals and Non-Goals**: For the goals and non-goals of the minikube project, please see our [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
 * **Development Guide**: See [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) for an overview of how to send pull requests.
 * **Building Minikube**: For instructions on how to build/test minikube from source, see the [build guide](https://git.k8s.io/minikube/docs/contributors/build_guide.md)
-* **Adding a New Dependency**: For instructions on how to add a new depeindency to minikube see the [adding dependencies guide](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)
+* **Adding a New Dependency**: For instructions on how to add a new dependency to minikube see the [adding dependencies guide](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)
 * **Adding a New Addon**: For instruction on how to add a new addon for minikube see the [adding an addon guide](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)
 * **Updating Kubernetes**: For instructions on how to update kubernetes see the [updating Kubernetes guide](https://git.k8s.io/minikube/docs/contributors/updating_kubernetes.md)
 

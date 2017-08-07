@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - eparis
 - pmorie
 title: Configure Containers Using a ConfigMap

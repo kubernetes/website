@@ -1,6 +1,6 @@
 ---
 title: Migrate a ThirdPartyResource to CustomResourceDefinition
-assignees:
+approvers:
 - enisoc
 - deads2k
 ---

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - aveshagarwal
 - erictune
 title: Fedora via Ansible

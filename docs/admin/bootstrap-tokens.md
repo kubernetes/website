@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - jbeda
 title: Authenticating with Bootstrap Tokens
 ---
@@ -127,7 +127,7 @@ commands.
 
 In addition to authentication, the tokens can be used to sign a ConfigMap.  This
 is used early in a cluster bootstrap process before the client trusts the API
-server.  The signed ConfigMap can be authenicated by the shared token.
+server.  The signed ConfigMap can be authenticated by the shared token.
 
 The ConfigMap that is signed is `cluster-info` in the `kube-public` namespace.
 The typical flow is that a client reads this ConfigMap while unauthenticated and
