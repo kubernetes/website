@@ -12,9 +12,9 @@ $( document ).ready(function() {
         $("#generalInstructions").hide();
         $("#continueEdit").show();
         $("#continueEditButton").text("Edit " + forwarding);
-        $("#continueEditButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/edit/master/" + forwarding)
+        $("#continueEditButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/edit/{{ page.docsbranch }}/" + forwarding)
         $("#viewOnGithubButton").text("View " + forwarding + " on GitHub");
-        $("#viewOnGithubButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/tree/master/" + forwarding)
+        $("#viewOnGithubButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/tree/{{ page.docsbranch }}/" + forwarding)
     } else {
         $("#generalInstructions").show();
         $("#continueEdit").hide();
