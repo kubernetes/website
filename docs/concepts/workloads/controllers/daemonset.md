@@ -26,13 +26,13 @@ different flags and/or different memory and cpu requests for different hardware 
 
 ## Writing a DaemonSet Spec
 
-### Create a DeamonSet
+### Create a DaemonSet
 
-You can describe a DeamonSet in a YAML file. For example, the deamonset.yaml file below describes a DeamonSet that runs the fluentd-elasticsearch Docker image:
+You can describe a DaemonSet in a YAML file. For example, the deamonset.yaml file below describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
 
 {% include code.html language="yaml" file="deamonset.yaml" ghlink="/docs/concepts/workloads/controllers/deamonset.yaml" %}
 
-* Create a DeamonSet based on the YAML file:
+* Create a DaemonSet based on the YAML file:
 ```
 kubectl create -f deamonset.yaml
 ```
