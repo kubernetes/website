@@ -21,7 +21,7 @@ accounts，有时会提到一些未完成的功能特性。*
 <!--
 ## User accounts vs service accounts
 -->
-## User accounts vs service accounts(用户账号 vs 服务账号)
+## 用户账号 vs 服务账号
 
 <!--
 Kubernetes distinguished between the concept of a user account and a service accounts
@@ -56,7 +56,7 @@ Kubernetes 将 user account 和 service account 的概念区分开，主要基�
 <!--
 ## Service account automation
 -->
-## Service account automation(服务账号自动化)
+## 服务账号自动化
 
 <!--
 Three separate components cooperate to implement the automation around service accounts:
@@ -74,7 +74,7 @@ service accounts 的自动化由三个独立的组建共同配合实现：
 <!--
 ### Service Account Admission Controller
 -->
-### Service Account Admission Controller(服务账号准入控制器)
+### 服务账号准入控制器
 
 <!--
 The modification of pods is implemented via a plugin
@@ -103,7 +103,7 @@ It acts synchronously to modify pods as they are created or updated. When this p
 <!--
 ### Token Controller
 -->
-### Token Controller(令牌控制器)
+### 令牌控制器
 
 <!--
 TokenController runs as part of controller-manager. It acts asynchronously. It:
@@ -132,7 +132,7 @@ option. The public key will be used to verify the tokens during authentication.
 <!--
 #### To create additional API tokens
 -->
-#### To create additional API tokens(创建额外的 API 令牌)
+#### 创建额外的 API 令牌
 
 <!--
 A controller loop ensures a secret with an API token exists for each service
@@ -168,7 +168,7 @@ kubectl describe secret mysecretname
 <!--
 #### To delete/invalidate a service account token
 -->
-#### To delete/invalidate a service account token(删除／作废服务账号令牌)
+#### 删除／作废服务账号令牌
 
 ```shell
 kubectl delete secret mysecretname
@@ -177,7 +177,7 @@ kubectl delete secret mysecretname
 <!--
 ### Service Account Controller
 -->
-### Service Account Controller(服务账号控制器)
+### 服务账号控制器
 
 <!--
 Service Account Controller manages ServiceAccount inside namespaces, and ensures
