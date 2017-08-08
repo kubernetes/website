@@ -192,7 +192,7 @@ The cluster state now looks like this:
 |                      | pod-b *available*   | pod-c *available*  |
 |                      | pod-d *available*   | pod-y              |
 
-Now, the cluster admin tries to drain `node-2`.
+Now, the cluster administrator tries to drain `node-2`.
 The drain command will try to evict the two pods in some order, say
 `pod-b` first and then `pod-d`.  It will succeed at evicting `pod-b`.
 But, when it tries to evict `pod-d`, it will be refused because that would leave only
