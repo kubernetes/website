@@ -28,9 +28,9 @@ The Weave Net Addon for Kubernetes comes with a [Network Policy Controller](http
 
 {% capture example %}
 
-## Namespace Isolation example
+## Namespace isolation example
 
-Firstly, create a namespace with `DefaultDeny`
+1. Create a namespace with `DefaultDeny`.
 
 ```yaml
 kind: Namespace
@@ -46,7 +46,7 @@ metadata:
       }
 ```
 
-Secondly, create 2 pods inside this namespace
+2. Create 2 pods inside this namespace.
 
 ```yaml
 kind: Pod
@@ -74,9 +74,15 @@ spec:
     image: nginx
 ```
 
- After finish this 2 steps,use `kubectl get po -n myns -o wide` to get the ip of to pods.And then, get inside the pods to curl each others.It's easy to find that all curl request are forbbiden.
- 
-Finally, create a networkpolicy allow pods in namespace can connect with each others.
+3. Get the IP addresses of the pods.
+
+```shell
+kubectl get po -n myns -o wide
+```
+**Note:** If your cURL requests to pods are forbidden, try making cURL requests to other pods from within a pod.
+{: .note}
+
+4. Create a Kubernetes NetworkPolicy that allows pods within the same namespace to connect with each other.
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -94,14 +100,15 @@ spec:
              matchExpressions:
                - {key: inns, operator: In, values: ["yes"]}
 ```
-After this apply,you can find that pods out sides `myns` namespace can't connect with the pods inside the namespace.
+**Caution:** After applying the network policy, pods outside the namespace you specify may be unable to connect with pods inside the namespace.
+{. :caution}
 
 {% endcapture %}
 
 
 {% capture whatsnext %}
 
-Once you have installed the Weave Net Addon you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
+Once you have installed the Weave Net addon, you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
 
 {% endcapture %}
 
