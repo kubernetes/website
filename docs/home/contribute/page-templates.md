@@ -30,7 +30,7 @@ variables:</p>
     <li>prerequisites - required</li>
     <li>steps - required</li>
     <li>discussion - optional</li>
-    <li>whatsnext - optional</li>
+    <li>what's next - optional</li>
 </ul>
 
 Then include templates/task.md like this:
@@ -100,9 +100,9 @@ variables:</p>
     <li>overview - required</li>
     <li>prerequisites - required</li>
     <li>objectives - required</li>
-    <li>lessoncontent - required</li>
+    <li>lesson content - required</li>
     <li>cleanup - optional</li>
-    <li>whatsnext - optional</li>
+    <li>what's next - optional</li>
 </ul>
 
 Then include templates/tutorial.md like this:
