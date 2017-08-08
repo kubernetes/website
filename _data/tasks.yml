@@ -14,6 +14,8 @@ toc:
   - docs/tasks/configure-pod-container/assign-memory-resource.md
   - docs/tasks/configure-pod-container/assign-cpu-resource.md
   - docs/tasks/configure-pod-container/quality-service-pod.md
+  - docs/tasks/configure-pod-container/assign-cpu-ram-container.md
+  - docs/tasks/configure-pod-container/opaque-integer-resource.md
   - docs/tasks/configure-pod-container/configure-volume-storage.md
   - docs/tasks/configure-pod-container/configure-persistent-volume-storage.md
   - docs/tasks/configure-pod-container/configure-projected-volume-storage.md
@@ -120,6 +122,7 @@ toc:
     - docs/tasks/administer-cluster/quota-memory-cpu-namespace.md
     - docs/tasks/administer-cluster/quota-pod-namespace.md
     - docs/tasks/administer-cluster/quota-api-object.md
+    - docs/tasks/administer-cluster/opaque-integer-resource-node.md
   - docs/tasks/administer-cluster/access-cluster-api.md
   - docs/tasks/administer-cluster/access-cluster-services.md
   - docs/tasks/administer-cluster/securing-a-cluster.md
