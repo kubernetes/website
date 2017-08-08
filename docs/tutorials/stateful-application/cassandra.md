@@ -81,7 +81,7 @@ To complete this tutorial, you should already have a basic familiarity with [Pod
 ### Additional Minikube Setup Instructions
 
 **Caution:** [Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU which results in an insufficient resource errors. 
-{: .Caution}
+{: .caution}
 
 To avoid these errors, run minikube with:
 
