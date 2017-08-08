@@ -214,10 +214,10 @@ Use `kubectl edit` to modify the size of of a Cassandra StatefulSet.
 
        Kubectl get statefulset cassandra
 
-  The response should be
+   The response should be
 
-      NAME        DESIRED   CURRENT   AGE
-      cassandra   4         4         36m
+       NAME        DESIRED   CURRENT   AGE
+       cassandra   4         4         36m
       
 {% endcapture %}
 
