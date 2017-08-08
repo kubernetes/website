@@ -109,7 +109,7 @@ To create a new secret perform the following steps:
 
 2. Place that value in the secret field.  
 3. Set the `--experimental-encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file 
-4. restart your API server. 
+4. Restart your API server. 
 
 **IMPORTANT:** Your config file contains keys that can decrypt content in etcd, so you must properly restrict permissions on your masters so only the user who runs the kube-apiserver can read it.
 
