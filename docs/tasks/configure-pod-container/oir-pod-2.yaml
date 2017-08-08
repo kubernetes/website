@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: oir-demo-2
+spec:
+  containers:
+  - name: oir-demo-2-ctr
+    image: nginx
+    resources:
+      requests:
+        pod.alpha.kubernetes.io/opaque-int-resource-dongle: 2
