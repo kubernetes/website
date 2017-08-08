@@ -123,7 +123,7 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 {: .note}
 
 1. Update the StatefulSet if necessary.
-2. Create the Cassandra StatefulSet from the following `cassandra-statefulset.yaml` file:
+2. Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
 
        kubectl create -f cassandra-statefulset.yaml
 
@@ -145,6 +145,9 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 2. Get the Pods to see the ordered creation status:
 
        kubectl get pods -l="app=cassandra"
+       
+   The response should be    
+       
        NAME          READY     STATUS              RESTARTS   AGE
        cassandra-0   1/1       Running             0          1m
        cassandra-1   0/1       ContainerCreating   0          8s
@@ -154,7 +157,6 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 
     Once all pods are deployed, the same command returns:
 
-       kubectl get pods -l="app=cassandra"
        NAME          READY     STATUS    RESTARTS   AGE
        cassandra-0   1/1       Running   0          10m
        cassandra-1   1/1       Running   0          9m
@@ -170,10 +172,10 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
        ======================
        Status=Up/Down
        |/ State=Normal/Leaving/Joining/Moving
-       --  Address   Load       Tokens       Owns (effective)  Host ID                               Rack
-       UN  10.4.2.4  65.26 KiB  32           63.7%             a9d27f81-6783-461d-8583-87de2589133e  Rack1-K8Demo
-       UN  10.4.0.4  102.04 KiB  32           66.7%             5559a58c-8b03-47ad-bc32-c621708dc2e4  Rack1-K8Demo
-       UN  10.4.1.4  83.06 KiB  32           69.6%             9dce943c-581d-4c0e-9543-f519969cc805  Rack1-K8Demo
+       --  Address     Load       Tokens       Owns (effective)  Host ID                               Rack
+       UN  172.17.0.5  83.57 KiB  32           74.0%             e2dd09e6-d9d3-477e-96c5-45094c08db0f  Rack1-K8Demo
+       UN  172.17.0.4  101.04 KiB  32           58.8%             f89d6835-3a42-4419-92b3-0e62cae1479c  Rack1-K8Demo
+       UN  172.17.0.6  84.74 KiB  32           67.1%             a6a1e8c2-3dc5-4417-b1a0-26507af2aaad  Rack1-K8Demo
 
 ## Modifying the Cassandra StatefulSet
 Use `kubectl edit` to modify the size of of a Cassandra StatefulSet. 
@@ -212,7 +214,7 @@ Use `kubectl edit` to modify the size of of a Cassandra StatefulSet.
 
 3. Get the Cassandra StatefulSet to verify:
 
-       Kubectl get statefulset cassandra
+       kubectl get statefulset cassandra
 
    The response should be
 
