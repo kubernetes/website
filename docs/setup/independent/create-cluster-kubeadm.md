@@ -296,7 +296,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 With output looking something like:
 
 ```
-node "test-01" tainted
+node "test-01" untainted
 taint key="dedicated" and effect="" not found.
 taint key="dedicated" and effect="" not found.
 ```
