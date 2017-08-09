@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - mikedanese
 title: Install and Set Up kubectl
@@ -186,6 +186,13 @@ kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
 ```
 
 The Homebrew project is independent from kubernetes, so the bash-completion packages are not guaranteed to work.
+
+### Using Oh-My-Zsh
+When using [Oh-My-Zsh](http://ohmyz.sh/), edit the ~/.zshrc file and update the `plugins=` line to include the kubectl plugin.
+
+```shell
+plugins=(git zsh-completions kubectl)
+```
 
 {% endcapture %}
 {% capture whatsnext %}

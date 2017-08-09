@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - davidopp
 - madhusudancs
 title: Configure Multiple Schedulers

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - enisoc
 - erictune
 - foxish
@@ -189,7 +189,7 @@ Pod.
 
 ## Update Strategies
 
-In Kuberentes 1.7 and later, StatefulSet's `.spec.updateStrategy` field allows you to configure
+In Kubernetes 1.7 and later, StatefulSet's `.spec.updateStrategy` field allows you to configure
 and disable automated rolling updates for containers, labels, resource request/limits, and
 annotations for the Pods in a StatefulSet.
 

@@ -2,7 +2,7 @@
 layout: docwithnav
 title: Kubernetes Security and Disclosure Information
 permalink: /security/
-assignees:
+approvers:
 - eparis
 - erictune
 - philips

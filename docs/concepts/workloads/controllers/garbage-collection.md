@@ -147,6 +147,13 @@ Here's an example that orphans the dependents of a ReplicaSet:
 kubectl delete replicaset my-repset --cascade=false
 ```
 
+### Addtional note on Deployments
+
+When using cascading deletes with Deployments you *must* use `propagationPolicy: Foreground`
+to delete not only the ReplicaSets created, but also their Pods. If this type of _propagationPolicy_
+is not used, only the ReplicaSets will be deleted, and the Pods will be orphaned.
+See [kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment-284766613) for more information.
+
 ## Known issues
 * As of 1.7, garbage collection does not yet support
   [custom resources](/docs/concepts/api-extension/custom-resources/),

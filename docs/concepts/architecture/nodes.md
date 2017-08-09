@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - caesarxuchao
 - dchen1107
 title: Nodes
@@ -49,8 +49,8 @@ The `conditions` field describes the status of all `Running` nodes.
 |----------------|-------------|
 | `OutOfDisk`    | `True` if there is insufficient free space on the node for adding new pods, otherwise `False` |
 | `Ready`        | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last 40 seconds |
-| `MemoryPressure`    | `True` if node has no memory pressure, otherwise `False` |
-| `DiskPressure`    | `True` if node has no disk pressure, otherwise `False` |
+| `MemoryPressure`    | `True` if pressure exists on the node memory -- that is, if the node memory is low; otherwise `False` |
+| `DiskPressure`    | `True` if pressure exists on the disk size -- that is, if the disk capacity is low; otherwise `False` |
 
 The node condition is represented as a JSON object. For example, the following response describes a healthy node.
 
@@ -122,7 +122,7 @@ CIDR block to the node when it is registered (if CIDR assignment is turned on).
 
 The second is keeping the node controller's internal list of nodes up to date with
 the cloud provider's list of available machines. When running in a cloud
-environment, whenever a node is unhealthy the node controller asks the cloud
+environment, whenever a node is unhealthy, the node controller asks the cloud
 provider if the VM for that node is still available. If not, the node
 controller deletes the node from its list of nodes.
 
@@ -185,7 +185,7 @@ For self-registration, the kubelet is started with the following options:
   - `--kubeconfig` - Path to credentials to authenticate itself to the apiserver.
   - `--cloud-provider` - How to talk to a cloud provider to read metadata about itself.
   - `--register-node` - Automatically register with the API server.
-  - `--register-with-taints` - Register the node with the given list of taints (comma seperated `<key>=<value>:<effect>`). No-op if `register-node` is false.
+  - `--register-with-taints` - Register the node with the given list of taints (comma separated `<key>=<value>:<effect>`). No-op if `register-node` is false.
   - `--node-ip`   IP address of the node.
   - `--node-labels` - Labels to add when registering the node in the cluster.
   - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.

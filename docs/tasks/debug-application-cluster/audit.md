@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - soltysh
 - sttts
 - ericchiang
@@ -73,7 +73,7 @@ the [kube-apiserver][kube-apiserver]:
 --feature-gates=AdvancedAuditing=true
 ```
 
-`AdvancedAuditing`is customizeable in two ways. Policy, which determines what's recorded,
+`AdvancedAuditing`is customizable in two ways. Policy, which determines what's recorded,
 and backends, which persist records. Backend implementations include logs files and
 webhooks.
 
