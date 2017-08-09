@@ -148,7 +148,7 @@ program to retrieve the contents of your secret.
 Since secrets are encrypted on write, performing an update on a secret will encrypt that content.
 
 ```
-kubectl get secrets -o json | kubectl replace -f -
+kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 
 The command above reads all secrets and then updates them to apply server side encryption.

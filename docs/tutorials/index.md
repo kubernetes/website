@@ -9,7 +9,9 @@ each of which has a sequence of steps.
 
 * [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) is an in-depth interactive tutorial that helps you understand the Kubernetes system and try out some basic Kubernetes features.
 
-* [Online Training Course](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
+* [Scalable Microservices with Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
+
+* [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
 * [Hello Minikube](/docs/tutorials/stateless-application/hello-minikube/)
 
