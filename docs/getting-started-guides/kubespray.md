@@ -4,94 +4,102 @@ title: Installing Kubernetes On-premises/Cloud Providers with Kubespray
 
 ## Overview
 
-This quickstart helps to install a Kubernetes cluster hosted
-on GCE, Azure, OpenStack, AWS or Baremetal with
-[`Kubespray`](https://github.com/kubernetes-incubator/kubespray) tool.
+This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, or Baremetal with [Kubespray](https://github.com/kubernetes-incubator/kubespray).
 
-Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks,
-[inventory](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/ansible.md)
-generation CLI tools and domain knowledge for generic OS/Kubernetes
-clusters configuration management tasks. It provides:
+Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
 
-* [High available cluster](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/ha-mode.md)
-* [Composable](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/vars.md)
-  (Choice of the network plugin, for instance)
-* Support most popular Linux
-  [distributions](https://github.com/kubernetes-incubator/kubespray#supported-linux-distributions)
-* Continuous integration tests
+* a highly available cluster
+* composable attributes
+* support for most popular Linux distributions
+* continuous integration tests
 
-To choose a tool which fits your use case the best, you may want to read this
-[comparison](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/comparisons.md)
-to [kubeadm](../kubeadm) and [kops](../kops).
+To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/comparisons.md) to [kubeadm](../kubeadm) and [kops](../kops).
 
 ## Creating a cluster
 
-### (1/4) Ensure the underlay [requirements](https://github.com/kubernetes-incubator/kubespray#requirements) are met
+### (1/5) Meet the underlay [requirements](https://github.com/kubernetes-incubator/kubespray#requirements)
 
-#### Checklist
+Provision servers with the following requirements:
 
-* You must have cloud instances or baremetal nodes running for your future Kubernetes cluster.
-  A way to achieve that is to use the
-  [kubespray-cli tool](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md).
-* Or provision baremetal hosts with a tool-of-your-choice or launch cloud instances,
-  then create an inventory file for Ansible with this [tool](https://github.com/kubernetes-incubator/kubespray/blob/master/contrib/inventory_builder/inventory.py).
+* `Ansible v2.3` (or newer) 
+* `Jinja 2.9` (or newer) 
+* `python-netaddr` installed on the machine that running Ansible commands
+* Target servers must have access to the Internet in order to pull docker images
+* Target servers are configured to allow IPv4 forwarding
+* Target servers have SSH connectivity ( tcp/22 ) directly to your nodes or through a bastion host/ssh jump box
+* Target servers have a privileged user
+* Your SSH key must be copied to all the servers that are part of your inventory
+* Firewall rules configured properly to allow Ansible and Kubernetes components to communicate 
+* If using a cloud provider, you must have the appropriate credentials available and exported as environment variables
 
-### (2/4) Compose the deployment
+Kubespray provides the following utilities to help provision your environment:
 
-#### Checklist
+* [Terraform](https://www.terraform.io/) scripts for the following cloud providers:
+  * [AWS](https://github.com/kubernetes-incubator/kubespray/tree/master/contrib/terraform/aws)
+  * [OpenStack](https://github.com/kubernetes-incubator/kubespray/tree/master/contrib/terraform/aws)
+* [kubespray-cli](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md)
 
-* Customize your deployment by usual Ansible meanings, which is
-  [generating inventory](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)
-  and overriding default data [variables](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/vars.md).
-  Or just stick with default values (Kubespray will choose Calico networking plugin for you
-  then). This includes steps like deciding on the:
-  * DNS [configuration options](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/dns-stack.md)
-  * [Networking plugin](https://github.com/kubernetes-incubator/kubespray#network-plugins) to use
-  * [Versions](https://github.com/kubernetes-incubator/kubespray#versions-of-supported-components)
-    of components.
-  * Additional node groups like [bastion hosts](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/ansible.md#bastion-host) or
-    [Calico BGP route reflectors](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/calico.md#optional--bgp-peering-with-border-routers).
-* Plan custom deployment steps, if any, or use the default composition layer in the
-  [cluster definition file](https://github.com/kubernetes-incubator/kubespray/blob/master/cluster.yml).
-  Taking the best from Ansible world, Kubespray allows users to execute arbitrary steps via the
-  ``ansible-playbook`` with given inventory, playbooks, data overrides and tags, limits, batches
-  of nodes to deploy and so on.
-* For large deployments (100+ nodes), you may want to
-  [tweak things](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/large-deployments.md)
-  for best results.
+**Note:** kubespray-cli is no longer actively maintained.
+{. :note}
 
-### (3/4) Run the deployment
+### (2/5) Compose an inventory file
 
-#### Checklist
+After you provision your servers, create an [inventory file for Ansible](http://docs.ansible.com/ansible/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)". 
 
-* Apply deployment with
- [kubespray-cli tool](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md)
-  or ``ansible-playbook``
- [manual commands](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
+### (3/5) Plan your cluster deployment
 
-### (4/4) (Optional) verify inter-pods connectivity and DNS resolve with [Netchecker](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/netcheck.md)
+Kubespray provides the ability to customize many aspects of the deployment:
 
-#### Checklist
+* CNI (networking) plugins
+* DNS configuration
+* Choice of control plane: native/binary or containerized with docker or rkt)
+* Component versions
+* Calico route reflectors
+* Component runtime options
+* Certificate generation methods
 
-* Ensure the netchecker-agent's pods can resolve DNS requests and ping each over within the default namespace.
-  Those pods mimic similar behavior of the rest of the workloads and serve as cluster health indicators.
+Kubespray customizations can be made to a [variable file](http://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
 
-## Explore contributed add-ons
+### (4/5) Deploy a Cluster
 
-See the [list of contributed playbooks](https://github.com/kubernetes-incubator/kubespray/tree/master/contrib)
-to explore other deployment options.
+Next, deploy your cluster with one of two methods:
+
+* [ansible-playbook](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
+* [kubespray-cli tool](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md) 
+
+**Note:** kubespray-cli is no longer actively maintained.
+{. :note}
+
+Both methods run the default [cluster definition file](https://github.com/kubernetes-incubator/kubespray/blob/master/cluster.yml).
+
+Large deployments (100+ nodes) may require [specific adjustments](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/large-deployments.md) for best results.
+
+### (5/5) Verify the deployment
+
+Kubespray provides a way to verify inter-pod connectivity and DNS resolve with [Netchecker](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/netcheck.md). Netchecker ensures the netchecker-agents pods can resolve DNS requests and ping each over within the default namespace. Those pods mimic similar behavior of the rest of the workloads and serve as cluster health indicators.
+
+## Cluster operations
+
+Kubespray provides additional playbooks to manage your cluster: _scale_ and _upgrade_.
+
+### Scale your cluster
+
+You can scale your cluster by running the scale playbook. For more information, see "[Adding nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#Adding-nodes)". 
+
+### Upgrade your cluster
+
+You can upgrade your cluster by running the upgrade-cluster playbook. For more information, see "[Upgrades](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/upgrades.md)". 
 
 ## What's next
 
-Kubespray has quite a few [marks on the radar](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/roadmap.md).
+Check out planned work on Kubespray's [roadmap](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/roadmap.md).
 
 ## Cleanup
 
-To delete your scratch cluster, you can apply the
-[reset role](https://github.com/kubernetes-incubator/kubespray/blob/master/roles/reset/tasks/main.yml)
-with the manual ``ansible-playbook`` command.
+You can reset your nodes and wipe out all components installed with Kubespray via the [reset playbook](https://github.com/kubernetes-incubator/kubespray/blob/master/reset.yml).
 
-Note, that it is highly unrecommended to delete production clusters with the reset playbook!
+**Caution:** When running the reset playbook, be sure not to accidentally target your production cluster!
+{. :caution}
 
 ## Feedback
 

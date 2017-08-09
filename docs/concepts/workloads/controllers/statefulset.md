@@ -94,10 +94,9 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: www
-      annotations:
-        volume.beta.kubernetes.io/storage-class: anything
     spec:
       accessModes: [ "ReadWriteOnce" ]
+      storageClassName: my-storage-class
       resources:
         requests:
           storage: 1Gi
@@ -143,7 +142,8 @@ Note that Cluster Domain will be set to `cluster.local` unless
 
 Kubernetes creates one [PersistentVolume](/docs/concepts/storage/volumes/) for each
 VolumeClaimTemplate. In the nginx example above, each Pod will receive a single PersistentVolume
-with a storage class of `anything` and 1 Gib of provisioned storage. When a Pod is (re)scheduled
+with a StorageClass of `my-storage-class` and 1 Gib of provisioned storage. If no StorageClass
+is specified, then the default StorageClass will be used. When a Pod is (re)scheduled
 onto a node, its `volumeMounts` mount the PersistentVolumes associated with its
 PersistentVolume Claims. Note that, the PersistentVolumes associated with the
 Pods' PersistentVolume Claims are not deleted when the Pods, or StatefulSet are deleted.
