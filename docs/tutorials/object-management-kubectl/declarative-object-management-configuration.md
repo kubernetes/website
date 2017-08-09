@@ -484,7 +484,7 @@ TODO(1.6): For 1.6, add the following bullet point to 1.
 ### How different types of fields are merged
 
 How a particular field in a configuration file is merged with
-with the live configuration depends on the
+the live configuration depends on the
 type of the field. There are several types of fields:
 
 - *primitive*: A field of type string, integer, or boolean.
