@@ -395,7 +395,7 @@ Any path in a kubeconfig file is resolved relative to the location of the kubeco
 Kubeconfig 文件中的任何路径都相对于 kubeconfig 文件本身的位置进行解析。
 
 
-<--
+<!--
 ## Manipulation of kubeconfig via `kubectl config <subcommand>`
 
 In order to more easily manipulate kubeconfig files, there are a series of subcommands to `kubectl config` to help.
