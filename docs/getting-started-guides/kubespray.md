@@ -1,9 +1,3 @@
-<!--
----
-title: Installing Kubernetes On-premise/Cloud Providers with Kubespray
----
--->
-
 ---
 title: 使用 Kubespray 在基础设施或云平台上安装 Kubernetes
 ---
@@ -35,14 +29,14 @@ to [kubeadm](../kubeadm) and [kops](../kops).
 ## 概述
 
 本文介绍了如何使用 [`Kubespray`](https://github.com/kubernetes-incubator/kubespray)
-工具在 GCE, Azure, OpenStack, AWS托管的主机或者裸机上安装Kubernetes集群。
+工具在 GCE, Azure, OpenStack, AWS 托管的主机或者裸机上安装 Kubernetes 集群。
 
 Kubespray 由一系列的 [Ansible](http://docs.ansible.com/) playbook、生成 [inventory](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/ansible.md) 的命令行工具以及生成 OS/Kubernetes 集群配置管理任务的专业知识构成。它有以下特性：
  
 * [高可用集群](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/ha-mode.md)
 * [Composable](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/vars.md)
   (例如：使用网络插件)
-* 支持[主流 Linux](https://github.com/kubernetes-incubator/kubespray#supported-linux-distributions)发行版
+* 支持[主流 Linux](https://github.com/kubernetes-incubator/kubespray#supported-linux-distributions) 发行版
 * 持续集成测试
 
 为了选择更适合项目的工具，您可以参考它跟 [kubeadm](../kubeadm) 以及 [kops](../kops) 的[对比说明](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/comparisons.md)。
@@ -127,7 +121,7 @@ Kubespray 由一系列的 [Ansible](http://docs.ansible.com/) playbook、生成 
 
 #### 清单
 
-* 使用 [kubespray-cli](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md)工具或者 ``ansible-playbook`` [命令](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment)部署应用。
+* 使用 [kubespray-cli](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md) 工具或者 ``ansible-playbook`` [命令](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment)部署应用。
 
 <!--
 ### (4/4) (Optional) verify inter-pods connectivity and DNS resolve with [Netchecker](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/netcheck.md)
@@ -163,7 +157,7 @@ Kubespray has quite a few [marks on the radar](https://github.com/kubernetes-inc
 
 ## 下一步
 
-Kubespray 有不少的[标记在雷达]上(https://github.com/kubernetes-incubator/kubespray/blob/master/docs/roadmap.md)。
+Kubespray 有不少的[标记在雷达](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/roadmap.md)上。
 
 <!--
 ## Cleanup
@@ -178,7 +172,7 @@ Note, that it is highly unrecommended to delete production clusters with the res
 
 ## 清理集群
 
-要删除临时集群，可以使用手动 ``ansible-playbook`` 命令[reset role](https://github.com/kubernetes-incubator/kubespray/blob/master/roles/reset/tasks/main.yml)。
+要删除临时集群，可以使用 ``ansible-playbook`` 命令 [reset role](https://github.com/kubernetes-incubator/kubespray/blob/master/roles/reset/tasks/main.yml)。
 
 注意，不建议使用 reset 命令删除生产环境！ 
 
@@ -191,5 +185,5 @@ Note, that it is highly unrecommended to delete production clusters with the res
 
 ## 反馈
 
-* Slack通道: [kubespray](https://kubernetes.slack.com/messages/kubespray/)
+* Slack 通道: [kubespray](https://kubernetes.slack.com/messages/kubespray/)
 * [GitHub 问题](https://github.com/kubernetes-incubator/kubespray/issues)
