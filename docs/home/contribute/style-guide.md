@@ -231,7 +231,7 @@ I didn't read the stlye guide.
 
 ### Ordered Lists
 
-Callouts will interupt numbered lists unless you indent three spaces before the notice and the tag.
+Callouts will interrupt numbered lists unless you indent three spaces before the notice and the tag.
 
 For example:
 
