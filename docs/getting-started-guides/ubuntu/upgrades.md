@@ -40,7 +40,7 @@ The Kubernetes Charms use snap channels to drive payloads. The channels are defi
 | beta                | Latest alpha or beta of Kubernetes for that minor release |
 | edge                | Nightly builds of that minor release of Kubernetes |
 
-If a release isn't available, the next highest channel is used. For example, 1.6/beta will load `/candidate` or `/stable` depending on availablility of release. Development versions of Kubernetes are available in that minor releases edge channel. There is no guarantee that edge or master will work with the current charms.
+If a release isn't available, the next highest channel is used. For example, 1.6/beta will load `/candidate` or `/stable` depending on availability of release. Development versions of Kubernetes are available in that minor releases edge channel. There is no guarantee that edge or master will work with the current charms.
 
 ## Master Upgrades
 
