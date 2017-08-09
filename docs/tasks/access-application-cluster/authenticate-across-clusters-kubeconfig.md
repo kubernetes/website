@@ -289,7 +289,7 @@ In the example provided, `green-user` logs in by providing certificates, and `bl
 
 您可以使用上文 [示例 kubeconfig 文件](#example-kubeconfig-file) 作为
 
-**注意：**如果您是通过 `kube-up.sh` 脚本部署的 kubernetes 集群，不需要自己创建 kubeconfig 文件——该脚本已经为您创建过了。
+**注意：** 如果您是通过 `kube-up.sh` 脚本部署的 kubernetes 集群，不需要自己创建 kubeconfig 文件——该脚本已经为您创建过了。
 
 {:.note}
 
