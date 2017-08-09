@@ -136,7 +136,7 @@ Any code greater than or equal to 200 and less than 400 indicates success. Any
 other code indicates failure.
 
 You can see the source code for the server in
-[server.go](http://k8s.io/docs/user-guide/liveness/image/server.go).
+[server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/liveness/server.go).
 
 For the first 10 seconds that the Container is alive, the `/healthz` handler
 returns a status of 200. After that, the handler returns a status of 500.
