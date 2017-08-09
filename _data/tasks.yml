@@ -153,6 +153,7 @@ toc:
   - docs/tasks/administer-cluster/share-configuration.md
   - docs/tasks/administer-cluster/running-cloud-controller.md
   - docs/tasks/administer-cluster/highly-available-master.md
+  - docs/tasks/administer-cluster/multiple-zones.md
   - docs/tasks/administer-cluster/configure-multiple-schedulers.md
   - docs/tasks/administer-cluster/ip-masq-agent.md
   - docs/tasks/administer-cluster/dns-custom-nameservers.md
