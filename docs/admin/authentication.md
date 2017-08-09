@@ -60,6 +60,10 @@ The API server does not guarantee the order authenticators run in.
 
 The `system:authenticated` group is included in the list of groups for all authenticated users.
 
+Integrations with other authentication protocols (LDAP, SAML, Kerberos, alternate x509 schemes, etc)
+can be accomplished using an [authenticating proxy](#authenticating-proxy) or the
+[authentication webhook](#webhook-token-authentication).
+
 ### X509 Client Certs
 
 Client certificate authentication is enabled by passing the `--client-ca-file=SOMEFILE`
@@ -684,14 +688,6 @@ rules:
   verbs: ["impersonate"]
   resourceNames: ["view", "development"]
 ```
-
-## Plugin Development
-
-We plan for the Kubernetes API server to issue tokens after the user has been
-(re)authenticated by a *bedrock* authentication provider external to Kubernetes.
-We also plan to make it easy to develop modules that interface between
-Kubernetes and a bedrock authentication provider (e.g. github.com, google.com,
-enterprise directory, kerberos, etc.)
 
 ## APPENDIX
 
