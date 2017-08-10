@@ -24,7 +24,7 @@ defaults:
       docsbranch: "master"
       deprecated: true
       stableUrl: https://kubernetes.io/docs/home/
-      developmentUrl: https://kubernetes.io/docs/home/
+      developmentUrl: http://kubernetes-io-vnext-staging.netlify.com/
   -
     scope:
       path: "docs"
