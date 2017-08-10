@@ -230,7 +230,7 @@ In particular, Federated ReplicaSets ensure that the desired number of
 pods are kept running in each cluster, even in the event of node
 failures.  In the event of entire cluster or availability zone
 failures, Federated ReplicaSets automatically place additional
-replacas in the other available clusters in the federation to accommodate the
+replicas in the other available clusters in the federation to accommodate the
 traffic which was previously being served by the now unavailable
 cluster. While the Federated ReplicaSet ensures that sufficient replicas are
 kept running, the Federated Ingress ensures that user traffic is
