@@ -6,11 +6,17 @@ redirect_from:
 - "/docs/user-guide/labels/"
 - "/docs/user-guide/labels.html"
 ---
-
+<!--
 _Labels_ are key/value pairs that are attached to objects, such as pods.
 Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system.
 Labels can be used to organize and to select subsets of objects.  Labels can be attached to objects at creation time and subsequently added and modified at any time.
 Each object can have a set of key/value labels defined.  Each Key must be unique for a given object.
+-->
+_Labels_是联结到例如像pod这样的对象的键值对.
+标签是意在被用来指定那些对象(有意义的并和用户有关的)的确认属性,但并不是直接对核心系统隐含了语义.
+标签能够被用来去组织和去选择对象的子集.标签能够当对象创建的时候附加上去 并且随后能够在任何时候增加和修改.
+每一个对象能够有一组明确的键值对标签.每一个键必须对给定的对象是独一无二的.
+
 
 ```json
 "labels": {
@@ -18,19 +24,28 @@ Each object can have a set of key/value labels defined.  Each Key must be unique
   "key2" : "value2"
 }
 ```
-
+<!--
 We'll eventually index and reverse-index labels for efficient queries and watches, use them to sort and group in UIs and CLIs, etc. We don't want to pollute labels with non-identifying, especially large and/or structured, data. Non-identifying information should be recorded using [annotations](/docs/user-guide/annotations).
+-->
+我们最终为了有效的查询和观察将把标签编入索引和反向索引,使用它们来给UI和CLI等排序和分组.我们不想让非确认的,尤其是大的或者有结构的数据破坏了标签.非确认的信息应该被声明使用[annotations](/docs/user-guide/annotations).
+
+
 
 * TOC
 {:toc}
 
 ## Motivation
 
+<!--
 Labels enable users to map their own organizational structures onto system objects in a loosely coupled fashion, without requiring clients to store these mappings.
 
 Service deployments and batch processing pipelines are often multi-dimensional entities (e.g., multiple partitions or deployments, multiple release tracks, multiple tiers, multiple micro-services per tier). Management often requires cross-cutting operations, which breaks encapsulation of strictly hierarchical representations, especially rigid hierarchies determined by the infrastructure rather than by users.
 
 Example labels:
+-->
+标签能够使用户去映射他们自己的组织结构在系统对象上以松耦合的方式并且无需客户去存储这些映射.
+服务部署和批处理管道通常是多维的实体对象(例如,多个分区或者部署,多个发布轨道,多个层,每个层多个微服务).管理它们经常需要交叉操作,
+
 
    * `"release" : "stable"`, `"release" : "canary"`
    * `"environment" : "dev"`, `"environment" : "qa"`, `"environment" : "production"`
