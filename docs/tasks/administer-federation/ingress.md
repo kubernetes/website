@@ -256,7 +256,7 @@ Check that:
 1. Your clusters are correctly registered in the Cluster Federation API (`kubectl describe clusters`)
 2. Your clusters are all 'Active'.  This means that the cluster
    Federation system was able to connect and authenticate against the
-   clusters' endpoints.  If not, consult the event logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -oname`)
+   clusters' endpoints.  If not, consult the event logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -o name`)
 3. That the login credentials provided to the Cluster Federation API
    for the clusters have the correct authorization and quota to create
    ingresses/services/replicasets in the relevant namespace in the
