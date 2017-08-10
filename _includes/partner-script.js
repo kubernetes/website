@@ -263,7 +263,7 @@
 			type: 0,
 			name: 'Tigera',
 			logo: 'tigera',
-			link: 'http://docs.projectcalico.org/v1.5/getting-started/kubernetes/',
+			link: 'http://docs.projectcalico.org/latest/getting-started/kubernetes/',
 			blurb: 'Tigera builds high performance, policy driven, cloud native networking solutions for Kubernetes.'
 		},
 		{

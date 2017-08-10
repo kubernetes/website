@@ -211,14 +211,14 @@ Please select one of the tabs to see installation instructions for the respectiv
 
 {% capture calico %}
 
-The official Calico guide is [here](http://docs.projectcalico.org/v2.3/getting-started/kubernetes/installation/hosted/kubeadm/)
+The official Calico guide is [here](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/)
 
 **Note:**
  - In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`
  - Calico works on `amd64` only.
 
 ```shell
-kubectl apply -f http://docs.projectcalico.org/v2.3/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
 ```
 {% endcapture %}
 
