@@ -93,7 +93,7 @@ Normally, the machine that a pod runs on is selected by the Kubernetes scheduler
 created by the Daemon controller have the machine already selected (`.spec.nodeName` is specified
 when the pod is created, so it is ignored by the scheduler).  Therefore:
 
- - the [`unschedulable`](/docs/admin/node/#manual-node-administration) field of a node is not respected
+ - The [`unschedulable`](/docs/admin/node/#manual-node-administration) field of a node is not respected
    by the DaemonSet controller.
  - DaemonSet controller can make pods even when the scheduler has not been started, which can help cluster
    bootstrap.
