@@ -513,6 +513,7 @@ You can pause a Deployment before triggering one or more updates and then resume
 apply multiple fixes in between pausing and resuming without triggering unnecessary rollouts.
 
 For example, with a Deployment that was just created:
+
 ```shell
 $ kubectl get deploy
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -523,18 +524,21 @@ nginx-2142116321   3         3         3         1m
 ```
 
 Pause by running the following command:
+
 ```shell
 $ kubectl rollout pause deployment/nginx-deployment
 deployment "nginx-deployment" paused
 ```
 
 Then update the image of the Deployment:
+
 ```shell
 $ kubectl set image deploy/nginx-deployment nginx=nginx:1.9.1
 deployment "nginx-deployment" image updated
 ```
 
 Notice that no new rollout started:
+
 ```shell
 $ kubectl rollout history deploy/nginx-deployment
 deployments "nginx"
@@ -547,6 +551,7 @@ nginx-2142116321   3         3         3         2m
 ```
 
 You can make as many updates as you wish, for example, update the resources that will be used:
+
 ```shell
 $ kubectl set resources deployment nginx -c=nginx --limits=cpu=200m,memory=512Mi
 deployment "nginx" resource requirements updated
@@ -556,6 +561,7 @@ The initial state of the Deployment prior to pausing it will continue its functi
 the Deployment will not have any effect as long as the Deployment is paused.
 
 Eventually, resume the Deployment and observe a new ReplicaSet coming up with all the new updates:
+
 ```shell
 $ kubectl rollout resume deploy/nginx-deployment
 deployment "nginx" resumed
