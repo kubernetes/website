@@ -233,7 +233,7 @@ restrictions around nodes: pods from several namespaces may run on the same node
 
 ## Example
 
-See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object.md).
+See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
 
 ## Read More
 
