@@ -14,7 +14,7 @@ Select one of the tabs.
 
 {% capture calico %}
 ```shell
-kubectl apply -f "http://docs.projectcalico.org/v2.0/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml"
+kubectl apply -f "http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml"
 ```
 {% endcapture %}
 
@@ -54,7 +54,7 @@ Select one of the tabs.
 
 {{ "{% capture calico " }}%}
 ```shell
-kubectl apply -f "http://docs.projectcalico.org/v2.0/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml"
+kubectl apply -f "http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml"
 ```
 {{ "{% endcapture " }}%}
 
@@ -87,7 +87,7 @@ kubectl apply -f "https://git.io/weave-kube"
 ````liquid
 {{ "{% capture calico " }}%}
 ```shell
-kubectl apply -f "http://docs.projectcalico.org/v2.0/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml"
+kubectl apply -f "http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml"
 ```
 {{ "{% endcapture " }}%}
 ````

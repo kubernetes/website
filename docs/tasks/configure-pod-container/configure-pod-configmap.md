@@ -234,7 +234,7 @@ special.level
 special.type
 ```
 
-### Add ConfigMap data to a specific path in the Volume:
+### Add ConfigMap data to a specific path in the Volume
 
 Use the `path` field to specify the desired file path for specific ConfigMap items. 
 In this case, the `special.level` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
