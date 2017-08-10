@@ -1,0 +1,13 @@
+{% comment %}{% if page.version != page.stableVersion and page.version != page.developmentVersion %}{% endcomment %}
+{% if page.deprecated %}
+<section id="deprecationWarning">
+  <main>
+    <div class="content deprecation-warning">
+      <h3>
+        Documentation for this version is no longer supported. We only maintain
+        the latest <a href="{{ page.stableUrl }}">stable</a> and <a href="{{ page.developmentUrl }}">development</a> versions.
+      </h3>
+    </div>
+  </main>
+</section>
+{% endif %}

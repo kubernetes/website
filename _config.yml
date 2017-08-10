@@ -22,6 +22,9 @@ defaults:
       version: "v1.7"
       githubbranch: "master"
       docsbranch: "master"
+      deprecated: true
+      stableUrl: https://kubernetes.io/docs/home/
+      developmentUrl: https://kubernetes.io/docs/home/
   -
     scope:
       path: "docs"
