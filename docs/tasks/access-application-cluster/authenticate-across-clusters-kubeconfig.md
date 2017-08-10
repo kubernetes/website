@@ -213,7 +213,7 @@ will use by default when loading config from this file. You can override any of 
 from the commandline, by passing `--context=CONTEXT`, `--cluster=CLUSTER`, `--user=USER`, and/or `--namespace=NAMESPACE` respectively.
 You can change the `current-context` with [`kubectl config use-context`](/docs/user-guide/kubectl/{{page.version}}/#-em-use-context-em-).
 
-`current-context` 是昵称或者说是作为 `cluster`、`user`、`namespace` 元组的 ”key“，当 kubectl  从该文件中加载配置的时候会被默认使用。您可以在 kubectl 命令行里覆盖这些值，通过分别传如 `—context=CONTEXT`、 `--cluster=CLUSTER`、`--user=USER` 和 `--namespace=NAMESPACE` 。
+`current-context` 是昵称或者说是作为 `cluster`、`user`、`namespace` 元组的 ”key“，当 kubectl  从该文件中加载配置的时候会被默认使用。您可以在 kubectl 命令行里覆盖这些值，通过分别传入 `—context=CONTEXT`、 `—cluster=CLUSTER`、`--user=USER` 和 `--namespace=NAMESPACE` 。
 
 您可以使用 [`kubectl config use-context`](/docs/user-guide/kubectl/{{page.version}}/#-em-use-context-em-) 更改 `current-context`。
 
@@ -257,7 +257,7 @@ the settings relevant to the `current-context` by passing `--minify`. See
 
 ## 查看 kubeconfig 文件
 
-`kubectl config view` 命令可以展示当前的 kubeconfig 设置。默认将为您展示所有的 kubeconfig 设置；您可以通过传入 `—minify` 参数，将视图过滤到与当前上下文有关的额设置。有关其他选项，请参阅 [`kubectl config view`](/docs/user-guide/kubectl/{{page.version}}/#-em-view-em-)。
+`kubectl config view` 命令可以展示当前的 kubeconfig 设置。默认将为您展示所有的 kubeconfig 设置；您可以通过传入 `—minify` 参数，将视图过滤到与 `current-context` 有关的配额设置。有关其他选项，请参阅 [`kubectl config view`](/docs/user-guide/kubectl/{{page.version}}/#-em-view-em-)。
 
 <!--
 
@@ -302,9 +302,9 @@ mister-red,mister-red,2
 
 **注意：** 启动 API server 时有很多 [可用选项](https://kubernetes.io/docs/admin/kube-apiserver/)。请您一定要确保理解您使用的选项。
 
-上述示例 kubeconfig 文件提供了 `green-user` 的客户端凭证。因为用户的 `current-user` 是 `green-user` ，任何该 API server 的客户端使用该示例 kubeconfig 文件时都可以成功登陆。同样，我们可以通过修改 `current-context` 的值以 `blue-user` 的身份操作。
+上述示例 kubeconfig 文件提供了 `green-user` 的客户端凭证。因为用户的 `current-user` 是 `green-user` ，任何该 API server 的客户端使用该示例 kubeconfig 文件时都可以成功登录。同样，我们可以通过修改 `current-context` 的值以 `blue-user` 的身份操作。
 
-在上面的示例中，`green-user` 通过提供凭据登陆，`blue-user` 使用的是 token。使用 `kubectl config set-credentials`  指定登陆信息。想了解更多信息，请访问 "[示例文件相关操作命令](#commands-for-the-example-file)"。
+在上面的示例中，`green-user` 通过提供凭据登录，`blue-user` 使用的是 token。使用 `kubectl config set-credentials`  指定登录信息。想了解更多信息，请访问 "[示例文件相关操作命令](#commands-for-the-example-file)"。
 
 <!--
 
@@ -409,6 +409,8 @@ See [kubectl/kubectl_config](/docs/user-guide/kubectl/{{page.version}}/#config) 
 `kubectl config` 有一些列的子命令可以帮助我们更方便的操作 kubeconfig 文件。
 
 请参阅 [kubectl/kubectl_config](/docs/user-guide/kubectl/{{page.version}}/#config)。
+
+### Example
 
 ```shell
 $ kubectl config set-credentials myself --username=admin --password=secret
