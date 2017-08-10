@@ -207,8 +207,8 @@ ports:
 
 livenessProbe:
   httpGet:
-  path: /healthz
-  port: liveness-port
+    path: /healthz
+    port: liveness-port
 ```
 
 ## Define readiness probes
