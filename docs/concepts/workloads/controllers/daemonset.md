@@ -62,7 +62,7 @@ general information about working with config files, see [deploying applications
 A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) section.
 -->
 
-和其它所有 KUbernetes 配置一样，DaemonSet 需要 `apiVersion`、`kind` 和 `metadata`字段。有关配置文件的通用信息，详见文档 [deploying applications](/docs/user-guide/deploying-applications/)、[配置容器](/docs/user-guide/configuring-containers/) 和 [资源管理](/docs/concepts/tools/kubectl/object-management-overview/) 。
+和其它所有 Kubernetes 配置一样，DaemonSet 需要 `apiVersion`、`kind` 和 `metadata`字段。有关配置文件的通用信息，详见文档 [deploying applications](/docs/user-guide/deploying-applications/)、[配置容器](/docs/user-guide/configuring-containers/) 和 [资源管理](/docs/concepts/tools/kubectl/object-management-overview/) 。
 
 DaemonSet 也需要一个 [`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) 配置段。
 
@@ -241,7 +241,7 @@ Future releases of Kubernetes will support controlled updating of nodes.
 
 在 Kubernetes 1.6 或以后版本，可以在 DaemonSet 上 [执行滚动升级](/docs/tasks/manage-daemon/update-daemon-set/)。
 
-未来发布 Kubernetes 将支持 Node 的可控更新。
+未来的 Kubernetes 版本将支持 Node 的可控更新。
 
 <!--
 ## Alternatives to DaemonSet
