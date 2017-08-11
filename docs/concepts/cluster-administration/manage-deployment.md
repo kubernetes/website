@@ -308,6 +308,27 @@ For more information, please see [kubectl scale](/docs/user-guide/kubectl/{{page
 
 Sometimes it's necessary to make narrow, non-disruptive updates to resources you've created.
 
+### kubectl apply
+
+It is suggested to maintain a set of configuration files in source control (see [configuration as code](http://martinfowler.com/bliki/InfrastructureAsCode.html)),
+so that they can be maintained and versioned along with the code for the resources they configure.
+Then, you can use [`kubectl apply`](/docs/user-guide/kubectl/{{page.version}}/#apply) to push your configuration changes to the cluster.
+
+This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
+
+```shell
+$ kubectl apply -f docs/user-guide/nginx/nginx-deployment.yaml
+deployment "my-nginx" configured
+```
+
+Note that `kubectl apply` attaches an annotation to the resource in order to determine the changes to the configuration since the previous invocation. When it's invoked, `kubectl apply` does a three-way diff between the previous configuration, the provided input and the current configuration of the resource, in order to determine how to modify the resource.
+
+Currently, resources are created without this annotation, so the first invocation of `kubectl apply` will fall back to a two-way diff between the provided input and the current configuration of the resource. During this first invocation, it cannot detect the deletion of properties set when the resource was created. For this reason, it will not remove them.
+
+All subsequent calls to `kubectl apply`, and other commands that modify the configuration, such as `kubectl replace` and `kubectl edit`, will update the annotation, allowing subsequent calls to `kubectl apply` to detect and perform deletions using a three-way diff.
+
+**Note:** To use apply, always create resource initially with either `kubectl apply` or `kubectl create --save-config`.
+
 ### kubectl edit
 
 Alternatively, you may also update resources with `kubectl edit`:
@@ -333,51 +354,11 @@ For more information, please see [kubectl edit](/docs/user-guide/kubectl/{{page.
 
 ### kubectl patch
 
-Suppose you want to fix a typo of the container's image of a Deployment. One way to do that is with `kubectl patch`:
-
-```shell
-# Suppose you have a Deployment with a container named "nginx" and its image "nignx" (typo),
-# use container name "nginx" as a key to update the image from "nignx" (typo) to "nginx"
-$ kubectl get deployment my-nginx -o yaml
-```
-
-```yaml
-apiVersion: apps/v1beta1
-kind: Deployment
-...
-spec:
-  template:
-    spec:
-      containers:
-      - image: nignx
-        name: nginx
-...
-```
-
-```shell
-$ kubectl patch deployment my-nginx -p'{"spec":{"template":{"spec":{"containers":[{"name":"nginx","image":"nginx"}]}}}}'
-"my-nginx" patched
-$ kubectl get pod my-nginx-1jgkf -o yaml
-```
-
-```yaml
-apiVersion: apps/v1beta1
-kind: Deployment
-...
-spec:
-  template:
-    spec:
-      containers:
-      - image: nginx
-        name: nginx
-...
-```
-
-The patch is specified using json.
-
-The system ensures that you don't clobber changes made by other users or components by confirming that the `resourceVersion` doesn't differ from the version you edited. If you want to update regardless of other changes, remove the `resourceVersion` field when you edit the resource. However, if you do this, don't use your original configuration file as the source since additional fields most likely were set in the live state.
-
-For more information, please see [kubectl patch](/docs/user-guide/kubectl/{{page.version}}/#patch) document.
+You can use `kubectl patch` to update API objects in place. This command supports JSON patch,
+JSON merge patch, and strategic merge patch. See
+[Update API Objects in Place Using kubectl patch](/docs/tasks/run-application/update-api-object-kubectl-patch/)
+and
+[kubectl patch](/docs/user-guide/kubectl/{{page.version}}/#patch).
 
 ## Disruptive updates
 

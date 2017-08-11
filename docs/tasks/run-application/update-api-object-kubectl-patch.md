@@ -85,7 +85,7 @@ containers:
   imagePullPolicy: Always
   name: patch-demo-ctr
   ...
-  - image: redis
+- image: redis
   imagePullPolicy: Always
   name: patch-demo-ctr-2
   ...
@@ -144,7 +144,7 @@ With a JSON merge patch, if you
 want to update a list, you have to specify the entire new list. And the new list completely
 replaces the existing list.
 
-The `kubectl patch` command has a `type` parameter that you can set to to one of these values:
+The `kubectl patch` command has a `type` parameter that you can set to one of these values:
 
 <table>
   <tr><th>Parameter value</th><th>Merge type</th></tr>
@@ -153,10 +153,13 @@ The `kubectl patch` command has a `type` parameter that you can set to to one of
   <tr><td>strategic</td><td>Strategic merge patch</td></tr>
 </table>
 
+For a comparison of JSON patch and JSON merge patch, see
+[JSON Patch and JSON Merge Patch](http://erosb.github.io/post/json-patch-vs-merge-patch/).
+
 The default value for the `type` parameter is `strategic`. So in the preceding exercise, you
 did a strategic merge patch.
 
-Next, do a JSON merge patch on your same Deployment. Create a file named patch-file-2.yaml
+Next, do a JSON merge patch on your same Deployment. Create a file named `patch-file-2.yaml`
 that has this content:
 
 ```shell
