@@ -79,7 +79,7 @@ cluster.  This is also the address used to construct the suggested `kubeadm
 join` line at the end of the init process.  If not set (or set to 0.0.0.0) then
 IP for the default interface will be used.
 
-This address is also added to the certifcate that the API Server uses.
+This address is also added to the certificate that the API Server uses.
 
 - `--apiserver-bind-port`
 
