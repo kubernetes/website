@@ -45,7 +45,7 @@ into three categories:
 - *Controlled by a boolean*: Fields of this type default to the most
 restrictive value.
 - *Controlled by an allowable set*: Fields of this type are checked
-against the set to ensure their value is allowed.
+against the set to ensure their values are allowed.
 - *Controlled by a strategy*: Items that have a strategy to provide
 a mechanism to generate the value and a mechanism to ensure that a
 specified value falls into the set of allowable values.
