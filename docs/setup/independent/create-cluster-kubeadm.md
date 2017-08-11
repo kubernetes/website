@@ -267,7 +267,8 @@ The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/l
 **Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required.
 
 ```shell
-kubectl apply -f https://git.io/weave-kube-1.6
+export kubever=$(kubectl version | base64 | tr -d '\n')
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
 ```
 {% endcapture %}
 
