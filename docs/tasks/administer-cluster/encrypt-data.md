@@ -104,7 +104,7 @@ To create a new secret perform the following steps:
 1. Generate a 32 byte random key and base64 encode it. If you're on Linux or Mac OS X, run the following command:
 
     ```
-    head -c 32 /dev/urandom | base64 -i - -o -
+    head -c 32 /dev/urandom | base64
     ```
 
 2. Place that value in the secret field.  
