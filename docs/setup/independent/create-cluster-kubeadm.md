@@ -540,6 +540,39 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
    [`Vagrantfile`][ubuntu-vagrantfile] for how this can be achieved.
 
 [ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)
+2. If you were using CentOS, while you get stuck while setup master node. you can follow this guide 
+
+```
+Verify which cgroup driver dockerd is using
+
+docker info |grep -i cgroup
+
+output
+
+Cgroup Driver: cgroupfs
+Verify kubeadm cgroup settings
+
+cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+
+Change it to match Docker's
+
+vi /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+
+update KUBELET_CGROUP_ARGS=--cgroup-driver=systemd to KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs
+
+restart it
+
+systemctl daemon-reload
+service kubelet restart
+Important NOTE
+
+you'll need to change cgroup driver also in your nodes.
+
+Versions
+
+kubeadm: v1.7.3
+docker: 17.06.0-ce
+```
 
 As with all Kubernetes troubleshooting, normal commands you can take advantage of to help diagnose
 what happened are `kubectl describe pod` or `kubectl logs`. Example usage:
