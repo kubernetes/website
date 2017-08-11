@@ -105,7 +105,7 @@ provides load balancing for an application that has two running instances.
 
 1. Use the node address and node port to access the Hello World application:
 
-        curl http://<public-node-ip>:<node-port>
+       curl http://<public-node-ip>:<node-port>
 
     where `<public-node-ip>` is the public IP address of your node,
     and `<node-port>` is the NodePort value for your service.

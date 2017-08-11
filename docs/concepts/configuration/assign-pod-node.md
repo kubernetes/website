@@ -69,7 +69,7 @@ When you then run `kubectl create -f pod.yaml`, the pod will get scheduled on th
 
 ## Interlude: built-in node labels
 
-In addition to labels you [attach yourself](#step-one-attach-label-to-the-node), nodes come pre-populated
+In addition to labels you [attach](#step-one-attach-label-to-the-node), nodes come pre-populated
 with a standard set of labels. As of Kubernetes v1.4 these labels are
 
 * `kubernetes.io/hostname`
@@ -147,7 +147,7 @@ For more information on node affinity, see the design doc
 ### Inter-pod affinity and anti-affinity (beta feature)
 
 Inter-pod affinity and anti-affinity were introduced in Kubernetes 1.4.
-Inter-pod affinity and anti-affinity allow you to constrain which nodes your pod is eligible to schedule on *based on
+Inter-pod affinity and anti-affinity allow you to constrain which nodes your pod is eligible to be scheduled *based on
 labels on pods that are already running on the node* rather than based on labels on nodes. The rules are of the form "this pod should (or, in the case of
 anti-affinity, should not) run in an X if that X is already running one or more pods that meet rule Y." Y is expressed
 as a LabelSelector with an associated list of namespaces (or "all" namespaces); unlike nodes, because pods are namespaced
@@ -214,7 +214,7 @@ be co-located in the same defined topology, eg., the same node.
 
 ##### Always co-located in the same node
 
-In a three node cluster, a web application has in-memory cache such as redis, we want the web-servers to be co-located with the cache as much as possible. 
+In a three node cluster, a web application has in-memory cache such as redis. We want the web-servers to be co-located with the cache as much as possible. 
 Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`
 
 ```yaml
