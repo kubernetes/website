@@ -44,7 +44,7 @@ Service deployments and batch processing pipelines are often multi-dimensional e
 Example labels:
 -->
 标签能够使用户去映射他们自己的组织结构在系统对象上以松耦合的方式并且无需客户去存储这些映射.
-服务部署和批处理管道通常是多维的实体对象(例如,多个分区或者部署,多个发布轨道,多个层,每个层多个微服务).管理它们经常需要交叉操作,
+服务部署和批处理管道通常是多维的实体对象(例如,多个分区或者部署,多个发布轨道,多个层,每个层多个微服务).管理它们经常需要交叉操作,这打破了严格的分层表示的封装,尤其是由基础设施而不是用户决定的严格层次结构.
 
 
    * `"release" : "stable"`, `"release" : "canary"`
@@ -53,14 +53,27 @@ Example labels:
    * `"partition" : "customerA"`, `"partition" : "customerB"`
    * `"track" : "daily"`, `"track" : "weekly"`
 
+<!--
 These are just examples of commonly used labels; you are free to develop your own conventions. Keep in mind that label Key must be unique for a given object.
+-->
 
+这些只是常用标签的例子，你可以自由地开发自己的规范。请记住，给定对象的标签键必须是唯一的。
+
+<!--
 ## Syntax and character set
 
 _Labels_ are key value pairs. Valid label keys have two segments: an optional prefix and name, separated by a slash (`/`).  The name segment is required and must be 63 characters or less, beginning and ending with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.  The prefix is optional.  If specified, the prefix must be a DNS subdomain: a series of DNS labels separated by dots (`.`), not longer than 253 characters in total, followed by a slash (`/`).
 If the prefix is omitted, the label key is presumed to be private to the user. Automated system components (e.g. `kube-scheduler`, `kube-controller-manager`, `kube-apiserver`, `kubectl`, or other third-party automation) which add labels to end-user objects must specify a prefix.  The `kubernetes.io/` prefix is reserved for Kubernetes core components.
 
 Valid label values must be 63 characters or less and must be empty or begin and end with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
+
+-->
+## 语法和字符集
+_Labels_ 是键值对.有效的标签键有两个部分:一个可选前缀和名称,由斜杠分隔(`/`).名字部分是必需的,必须是63个字符以内,从头到尾使用一个字母数字字符（` [ a-z0-9a-z ] `使用破折号(-),下划线('_'),点('.''),在字母数字之间.前缀是可选的.如果指定的话,前缀必须是DNS子域:一系列由点('.')分隔的DNS标签,总长度不超过253个字符,后面跟着一个斜线('/')
+
+
+
+
 
 ## Label selectors
 
