@@ -42,7 +42,7 @@
 	<div id="docsToc">
 				<div class="pi-accordion">
 				{% if toc.bigheader != "Kubernetes Documentation" %}
-					{% include_cached tree.html tree=toc.toc %}
+					{% include tree.html tree=toc.toc %}
 				{% endif %}
 				</div> <!-- /pi-accordion -->
 		<button class="push-menu-close-button" onclick="kub.toggleToc()"></button>
@@ -75,7 +75,7 @@
 		</div>
 </section>
 
-{% include_cached footer.html %}
+{% include footer.html %}
 {% include footer-scripts.html %}
 
 </body>
