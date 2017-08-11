@@ -64,11 +64,11 @@ for database debugging.
 
 1. Start the Redis command line interface:
 
-        redis-cli
+       redis-cli
 
 1. At the Redis command line prompt, enter the `ping` command:
 
-        127.0.0.1:6379>ping
+       127.0.0.1:6379>ping
 
     A successful ping request returns PONG.
 
