@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - pweil-
 title: Pod Security Policies
 ---

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - liggitt
 title: Kubelet authentication/authorization
 ---

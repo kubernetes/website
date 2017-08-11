@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - jlowdermilk
 - justinsb
 - quinton-hoole
@@ -73,8 +73,20 @@ available and can tolerate the loss of a zone, the control plane is
 located in a single zone.  Users that want a highly available control
 plane should follow the [high availability](/docs/admin/high-availability) instructions.
 
+* StatefulSet volume zone spreading when using dynamic provisioning is currently not compatible with
+pod affinity or anti-affinity policies.
 
-## Walkthough
+* If the name of the StatefulSet contains dashes ("-"), volume zone spreading
+may not provide a uniform distribution of storage across zones.
+
+* When specifying multiple PVCs in a Deployment or Pod spec, the StorageClass
+needs to be configured for a specific, single zone, or the PVs need to be
+statically provisioned in a specific zone. Another workaround is to use a
+StatefulSet, which will ensure that all the volumes for a replica are
+provisioned in the same zone.
+
+
+## Walkthrough
 
 We're now going to walk through setting up and using a multi-zone
 cluster on both GCE & AWS.  To do so, you bring up a full cluster

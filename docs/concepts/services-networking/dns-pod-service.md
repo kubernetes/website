@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - davidopp
 - thockin
 title: DNS Pods and Services

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - vishh
 title: Schedule GPUs
 ---
@@ -122,8 +122,7 @@ metadata:
 spec:
   containers:
   - name: gpu-container-1
-    securityContext:
-      privileged: true
+    image: gcr.io/google_containers/pause:2.0
     resources:
       limits:
         alpha.kubernetes.io/nvidia-gpu: 1

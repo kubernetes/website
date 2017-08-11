@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - madhusudancs
 title: Set up Cluster Federation with Kubefed
 ---
@@ -67,9 +67,9 @@ kubefed is available as a [snap](https://snapcraft.io/) application.
 
 1. If you are on Ubuntu or one of other Linux distributions that support [snap](https://snapcraft.io/docs/core/install) package manager, you can install with:
 
-        sudo snap install kubefed --classic
+       sudo snap install kubefed --classic
 
-2. Run `kubefed version` to verify that the verison you've installed is sufficiently up-to-date.
+2. Run `kubefed version` to verify that the version you've installed is sufficiently up-to-date.
 
 ## Choosing a host cluster.
 
@@ -422,7 +422,7 @@ in the federation don't follow
 In such cases, you can specify a cluster name that conforms to the
 [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt) label naming rules
 and specify the cluster context using the `--cluster-context` flag.
-For example, if context of the cluster your are joining is
+For example, if context of the cluster you are joining is
 `gondor_needs-no_king`, then you can join the cluster by running:
 
 ```shell

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - mikedanese
 title: What is Kubernetes?

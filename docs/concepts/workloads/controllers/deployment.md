@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - janetkuo
 title: Deployments
@@ -513,6 +513,7 @@ You can pause a Deployment before triggering one or more updates and then resume
 apply multiple fixes in between pausing and resuming without triggering unnecessary rollouts.
 
 For example, with a Deployment that was just created:
+
 ```shell
 $ kubectl get deploy
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -523,18 +524,21 @@ nginx-2142116321   3         3         3         1m
 ```
 
 Pause by running the following command:
+
 ```shell
 $ kubectl rollout pause deployment/nginx-deployment
 deployment "nginx-deployment" paused
 ```
 
 Then update the image of the Deployment:
+
 ```shell
 $ kubectl set image deploy/nginx-deployment nginx=nginx:1.9.1
 deployment "nginx-deployment" image updated
 ```
 
 Notice that no new rollout started:
+
 ```shell
 $ kubectl rollout history deploy/nginx-deployment
 deployments "nginx"
@@ -547,6 +551,7 @@ nginx-2142116321   3         3         3         2m
 ```
 
 You can make as many updates as you wish, for example, update the resources that will be used:
+
 ```shell
 $ kubectl set resources deployment nginx -c=nginx --limits=cpu=200m,memory=512Mi
 deployment "nginx" resource requirements updated
@@ -556,6 +561,7 @@ The initial state of the Deployment prior to pausing it will continue its functi
 the Deployment will not have any effect as long as the Deployment is paused.
 
 Eventually, resume the Deployment and observe a new ReplicaSet coming up with all the new updates:
+
 ```shell
 $ kubectl rollout resume deploy/nginx-deployment
 deployment "nginx" resumed
@@ -787,7 +793,7 @@ A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contrib
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [Pod](docs/concepts/workloads/pods/pod/), except it is nested and does not have an
+The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [Pod](/docs/concepts/workloads/pods/pod/), except it is nested and does not have an
 `apiVersion` or `kind`.
 
 In addition to required fields for a Pod, a pod template in a Deployment must specify appropriate
@@ -810,7 +816,7 @@ the API.  If `.spec.selector` is unspecified, `.spec.selector.matchLabels` defau
 `.spec.template.metadata.labels`.
 
 A Deployment may terminate Pods whose labels match the selector if their template is different
-tfrom `.spec.template` or if the total number of such Pods exceeds `.spec.replicas`. It brings up new
+from `.spec.template` or if the total number of such Pods exceeds `.spec.replicas`. It brings up new
 Pods with `.spec.template` if the number of Pods is less than the desired number.
 
 **Note:** You should not create other pods whose labels match this selector, either directly, by creating

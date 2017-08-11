@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - davidopp
 title: Configuring Kubernetes with Salt
 ---

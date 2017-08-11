@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - sttts
 title: Using Sysctls in a Kubernetes Cluster
 ---

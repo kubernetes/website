@@ -1,7 +1,7 @@
-#
-# set server-side redirects in this file
-# see https://www.netlify.com/docs/redirects/
-#
+###############################################
+# set server-side redirects in this file      #
+# see https://www.netlify.com/docs/redirects/ #
+###############################################
 
 /docs/admin/addons												/docs/concepts/cluster-administration/addons		301
 /docs/admin/apparmor/											/docs/tutorials/clusters/apparmor		301
@@ -32,7 +32,6 @@
 /docs/admin/node-problem										/docs/tasks/debug-application-cluster/monitor-node-health		301
 /docs/admin/out-of-resource										/docs/tasks/administer-cluster/out-of-resource		301
 /docs/admin/rescheduler											/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods		301
-/docs/admin/resourcequota/										/docs/concepts/policy/resource-quotas		301
 /docs/admin/resourcequota/limitstorageconsumption				/docs/tasks/administer-cluster/limit-storage-consumption		301
 /docs/admin/resourcequota/walkthrough							/docs/tasks/administer-cluster/apply-resource-quota-limit		301
 /docs/admin/static-pods											/docs/tasks/administer-cluster/static-pod		301
@@ -88,6 +87,7 @@
 /docs/samples													/docs/tutorials/		301
 /docs/tasks/administer-cluster/assign-pods-nodes				/docs/tasks/configure-pod-container/assign-pods-nodes		301
 /docs/tasks/administer-cluster/overview							/docs/concepts/cluster-administration/cluster-administration-overview		301
+/docs/tasks/administer-cluster/cpu-memory-limit					/docs/tasks/administer-cluster/memory-default-namespace		301
 
 /docs/tasks/configure-pod-container/apply-resource-quota-limit	/docs/tasks/administer-cluster/apply-resource-quota-limit		301
 /docs/tasks/configure-pod-container/calico-network-policy		/docs/tasks/administer-cluster/calico-network-policy		301
@@ -99,13 +99,15 @@
 /docs/tasks/configure-pod-container/environment-variable-expose-pod-information	/docs/tasks/inject-data-application/environment-variable-expose-pod-information		301
 /docs/tasks/configure-pod-container/limit-range					/docs/tasks/administer-cluster/cpu-memory-limit		301
 /docs/tasks/configure-pod-container/romana-network-policy		/docs/tasks/administer-cluster/romana-network-policy		301
-/docs/tasks/configure-pod-container/weave-network-policy		/docs/tasks/administer-cluster/weave-network-policy		301
+/docs/tasks/configure-pod-container/weave-network-policy		/docs/tasks/administer-cluster/weave-network-policy			301
+/docs/tasks/configure-pod-container/assign-cpu-ram-container	/docs/tasks/configure-pod-container/assign-memory-resource	301	
 
 /docs/tasks/kubectl/get-shell-running-container					/docs/tasks/debug-application-cluster/get-shell-running-container		301
 /docs/tasks/kubectl/install										/docs/tasks/tools/install-kubectl		301
 /docs/tasks/kubectl/list-all-running-container-images			/docs/tasks/access-application-cluster/list-all-running-container-images		301
 
 /docs/tasks/manage-stateful-set/debugging-a-statefulset			/docs/tasks/debug-application-cluster/debug-stateful-set		301
+/docs/tasks/manage-stateful-set/delete-pods                     docs/tasks/run-application/force-delete-stateful-set-pod        301     
 /docs/tasks/manage-stateful-set/deleting-a-statefulset			/docs/tasks/run-application/delete-stateful-set		301
 /docs/tasks/manage-stateful-set/scale-stateful-set				/docs/tasks/run-application/scale-stateful-set		301
 /docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set	/docs/tasks/run-application/upgrade-pet-set-to-stateful-set		301
@@ -220,7 +222,115 @@
 
 /docs/whatisk8s													/docs/concepts/overview/what-is-kubernetes		301
 
+
+##############
+# address 404s
 #
+/concepts/containers/container-lifecycle-hooks		/docs/concepts/containers/container-lifecycle-hooks		301
+
+/docs/api-reference/apps/v1alpha1/definitions					https://v1-4.docs.kubernetes.io/docs/api-reference/apps/v1alpha1/definitions		301
+/docs/api-reference/apps/v1beta1/operations						https://v1-4.docs.kubernetes.io/docs/api-reference/apps/v1beta1/operations		301
+/docs/api-reference/authorization.k8s.io/v1beta1/definitions	https://v1-4.docs.kubernetes.io/docs/api-reference/authorization.k8s.io/v1beta1/definitions		301
+/docs/api-reference/authorization.k8s.io/v1beta1/operations		https://v1-4.docs.kubernetes.io/docs/api-reference/authorization.k8s.io/v1beta1/operations		301
+/docs/api-reference/autoscaling/v1/operations					https://v1-4.docs.kubernetes.io/docs/api-reference/autoscaling/v1/operations		301
+/docs/api-reference/batch/v1/operations							https://v1-4.docs.kubernetes.io/docs/api-reference/batch/v1/operations		301
+/docs/api-reference/batch/v2alpha1/definitions					https://v1-4.docs.kubernetes.io/docs/api-reference/batch/v2alpha1/definitions		301
+/docs/api-reference/certificates.k8s.io/v1alpha1/definitions	https://v1-4.docs.kubernetes.io/docs/api-reference/certificates.k8s.io/v1alpha1/definitions		301
+/docs/api-reference/certificates/v1alpha1/operations			https://v1-4.docs.kubernetes.io/docs/api-reference/certificates/v1alpha1/operations		301
+/docs/api-reference/extensions/v1beta1/operations				https://v1-4.docs.kubernetes.io/docs/api-reference/extensions/v1beta1/operations		301
+/docs/api-reference/policy/v1alpha1/definitions					https://v1-4.docs.kubernetes.io/docs/api-reference/policy/v1alpha1/definitions		301
+/docs/api-reference/policy/v1beta1/definitions					https://v1-4.docs.kubernetes.io/docs/api-reference/policy/v1beta1/definitions		301
+/docs/api-reference/README										https://v1-4.docs.kubernetes.io/docs/api-reference/README		301
+/docs/api-reference/storage.k8s.io/v1beta1/operations			https://v1-4.docs.kubernetes.io/docs/api-reference/storage.k8s.io/v1beta1/operations		301
+
+/docs/api-reference/v1/definitions								/docs/api-reference/v1.7		301
+
+/docs/concepts/cluster											/docs/concepts/cluster-administration/cluster-administration-overview/		301
+/docs/concepts/object-metadata/annotations						/docs/concepts/overview/working-with-objects/annotations		301
+
+/docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod			/docs/concepts/workloads/pods/pod		301
+/docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod		/docs/concepts/workloads/pods/pod		301
+
+/docs/contribute/write-new-topic		/docs/home/contribute/write-new-topic		301
+
+/docs/getting-started-guides/coreos/azure				/docs/getting-started-guides/coreos		301
+/docs/getting-started-guides/coreos/bare_metal_calico	/docs/getting-started-guides/coreos		301
+/docs/getting-started-guides/juju						/docs/getting-started-guides/ubuntu/installation		301
+/docs/getting-started-guides/kargo						/docs/getting-started-guides/kubespray		301
+/docs/getting-started-guides/logging-elasticsearch		/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana		301
+/docs/getting-started-guides/logging					/docs/concepts/cluster-administration/logging		301
+/docs/getting-started-guides/rackspace					/docs/setup/pick-right-solution		301
+/docs/getting-started-guides/ubuntu-calico				/docs/getting-started-guides/ubuntu		301
+/docs/getting-started-guides/ubuntu/automated			/docs/getting-started-guides/ubuntu		301
+/docs/getting-started-guides/vagrant					/docs/getting-started-guides/alternatives		301
+/docs/getting-started-guides/windows/While				/docs/getting-started-guides/windows		301
+
+/docs/federation/api-reference/extensions/v1beta1/definitions	/docs/reference/federation/extensions/v1beta1/definitions		301
+/docs/federation/api-reference/federation/v1beta1/definitions	/docs/reference/federation/extensions/v1beta1/definitions		301
+/docs/federation/api-reference/README							/docs/reference/federation		301
+/docs/federation/api-reference/v1/definitions					/docs/reference/federation/v1/definitions		301
+/docs/reference/federation/v1beta1/definitions					/docs/reference/federation/extensions/v1beta1/definitions		301
+/docs/reference/federation/v1beta1/operations					/docs/reference/federation/extensions/v1beta1/operations		301
+
+/docs/reporting-security-issues		/security		301
+
+/docs/stable/user-guide/labels													/docs/concepts/overview/working-with-objects/labels		301
+/docs/tasks/access-application-cluster/access-cluster.md						/docs/tasks/access-application-cluster/access-cluster		301
+/docs/tasks/access-kubernetes-api/access-kubernetes-api/http-proxy-access-api	/docs/tasks/access-kubernetes-api/http-proxy-access-api		301
+/docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md		/docs/tasks/administer-cluster/out-of-resource		301
+/docs/tasks/configure-pod-container/configure-pod-disruption-budget				/docs/tasks/run-application/configure-pdb		301
+/docs/tasks/configure-pod-container/define-command-argument-container			/docs/tasks/inject-data-application/define-command-argument-container		301
+/docs/tasks/debug-application-cluster/sematext-logging-monitoring			https://sematext.com/kubernetes/		301
+/docs/tasks/job/work-queue-1													/docs/concepts/workloads/controllers/jobs-run-to-completion		301
+/docs/tasks/manage-stateful-set/delete-pods										/docs/tasks/run-application/delete-stateful-set		301
+
+/docs/tutorials/getting-started/cluster-intro			/docs/tutorials/kubernetes-basics/cluster-intro		301
+/docs/tutorials/getting-started/expose-intro			/docs/tutorials/kubernetes-basics/expose-intro		301
+/docs/tutorials/getting-started/scale-app				/docs/tutorials/kubernetes-basics/scale-interactive		301
+/docs/tutorials/getting-started/scale-intro				/docs/tutorials/kubernetes-basics/scale-intro		301
+/docs/tutorials/getting-started/update-interactive		/docs/tutorials/kubernetes-basics/update-interactive		301
+/docs/tutorials/getting-started/update-intro			/docs/tutorials/kubernetes-basics/		301
+
+/docs/user-guide/containers									/docs/tasks/inject-data-application/define-command-argument-container		301
+/docs/user-guide/horizontal-pod-autoscaling/walkthrough.md	/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough		301
+/docs/user-guide/ingress.md									/docs/concepts/services-networking/ingress		301
+/docs/user-guide/replication-controller/operations			/docs/concepts/workloads/controllers/replicationcontroller		301
+/docs/user-guide/resizing-a-replication-controller			/docs/concepts/workloads/controllers/replicationcontroller		301
+/docs/user-guide/scheduled-jobs								/docs/concepts/workloads/controllers/cron-jobs		301
+/docs/user-guide/security-context							/docs/tasks/configure-pod-container/security-context		301
+
+/kubernetes-bootcamp/2-1.html			/docs/tutorials/kubernetes-basics		301
+/kubernetes-bootcamp/2-3-2.html			/docs/tutorials/kubernetes-basics		301
+/kubernetes								/docs		301
+/kubernetes/swagger-spec			https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec		301
+/serviceaccount/token					/docs/tasks/configure-pod-container/configure-service-account		301
+
+/v1.1/docs/admin/networking.html		/docs/concepts/cluster-administration/networking		301
+
+
+############################
+# pattern matching redirects
+#
+/docs/user-guide/kubectl/kubectl_*					/docs/user-guide/kubectl/v1.7/#:splat		200
+
+/docs/user-guide/kubectl/1_5/*					https://v1-5.docs.kubernetes.io/docs/user-guide/kubectl/v1.5		301
+/docs/user-guide/kubectl/v1.5/node_modules/*	https://v1-5.docs.kubernetes.io/docs/user-guide/kubectl/v1.5		301
+/docs/resources-reference/1_5/*					https://v1-5.docs.kubernetes.io/docs/resources-reference/v1.5		301
+/docs/resources-reference/v1.5/node_modules/*	https://v1-5.docs.kubernetes.io/docs/resources-reference/v1.5		301
+/docs/api-reference/1_5/*						https://v1-5.docs.kubernetes.io/docs/api-reference/v1.5				301
+/docs/api-reference/v1.5/node_modules/*			https://v1-5.docs.kubernetes.io/docs/api-reference/v1.5				301
+
+/docs/user-guide/kubectl/v1.6/node_modules/*	https://v1-6.docs.kubernetes.io/docs/user-guide/kubectl/v1.6		301
+/docs/api-reference/v1.6/node_modules/*			https://v1-6.docs.kubernetes.io/docs/api-reference/v1.6				301
+
+/docs/api-reference/v1.7/node_modules/*				/docs/api-reference/v1.7		301
+
+/docs/getting-started-guides/docker-multinode/*		/docs/setup/independent/create-cluster-kubeadm		301
+
+/docs/admin/resourcequota/*							/docs/concepts/policy/resource-quotas		301
+
+
+#################################
 # redirects from /js/redirects.js
 #
 /resource-quota													/docs/concepts/policy/resource-quotas		301
@@ -236,7 +346,8 @@
 /v1.1															/		301
 /v1.0															/		301
 
-#
+
+########################################################
 # Redirect users with chinese language preference to /cn
 #
 #/  /cn  302  Language=zh

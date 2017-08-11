@@ -26,7 +26,7 @@ for database debugging.
 
 1. Create a pod:
 
-        kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/redis-master.yaml
+       kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/redis-master.yaml
 
     The output of a successful command verifies that the pod was created:
 
@@ -34,7 +34,7 @@ for database debugging.
 
 1. Check to see whether the pod is running and ready:
 
-        kubectl get pods
+       kubectl get pods
 
     When the pod is ready, the output displays a STATUS of Running:
 
@@ -44,7 +44,7 @@ for database debugging.
 1. Verify that the Redis server is running in the pod and listening on port 6379:
 
         {% raw %}
-        kubectl get pods redis-master --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
+       kubectl get pods redis-master --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
         {% endraw %}
 
     The output displays the port:
@@ -55,7 +55,7 @@ for database debugging.
 
 1. Forward port 6379 on the local workstation to port 6379 of redis-master pod:
 
-        kubectl port-forward redis-master 6379:6379
+       kubectl port-forward redis-master 6379:6379
 
     The output is similar to this:
 
