@@ -13,7 +13,7 @@ It assumes some familiarity with concepts in the [User Guide](/docs/user-guide/)
 {% capture body %}
 ## Planning a cluster
 
-See the guides in [Picking the Right Solution](/docs/setup/pick-right-solution/) for examples of how to plan, set up, and configure Kubernetes clusters. The solutions listed this article are called *distros*.
+See the guides in [Picking the Right Solution](/docs/setup/pick-right-solution/) for examples of how to plan, set up, and configure Kubernetes clusters. The solutions listed in this article are called *distros*.
 
 Before choosing a guide, here are some considerations:
 
@@ -28,7 +28,7 @@ Before choosing a guide, here are some considerations:
    offer a greater variety of choices.
  - Familiarize yourself with the [components](/docs/admin/cluster-components) needed to run a cluster.
 
-Note: Not all distros are actively maintained. Choose distros which have been tested a recent version of Kubernetes.
+Note: Not all distros are actively maintained. Choose distros which have been tested with recent version of Kubernetes.
 
 If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](/docs/admin/salt).
 
