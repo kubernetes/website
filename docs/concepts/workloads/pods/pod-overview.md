@@ -63,9 +63,9 @@ A Controller can create and manage multiple Pods for you, handling replication a
 
 Some examples of Controllers that contain one or more pods include:
 
-* Deployment
+* [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 * [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/)
-* DaemonSet
+* [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)
 
 In general, Controllers use a Pod Template that you provide to create the Pods for which it is responsible.
 
@@ -81,7 +81,7 @@ Rather than specifying the current desired state of all replicas, pod templates 
 
 {% capture whatsnext %}
 * Learn more about Pod behavior:
-  * Pod Termination
+  * [Pod Termination](https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * Other Pod Topics
 {% endcapture %}
 
