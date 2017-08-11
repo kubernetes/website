@@ -54,7 +54,7 @@ kubectl create namespace mem-example
 To specify a memory request for a Container, include the `resources:requests` field
 in the Container's resource manifest. To specify a memory limit, include `resources:limits`.
 
-In this exercise, you create a Pod that has one Container. The container has a memory
+In this exercise, you create a Pod that has one Container. The Container has a memory
 request of 100 MiB and a memory limit of 200 MiB. Here's the configuration file
 for the Pod:
 
@@ -127,7 +127,7 @@ kubectl delete pod memory-demo --namespace=mem-example
 ## Exceed a Container's memory limit
 
 A Container can exceed its memory request if the Node has memory available. But a Container
-is not allowed to use more than its memory limit. If a container allocates more memory than
+is not allowed to use more than its memory limit. If a Container allocates more memory than
 its limit, the Container becomes a candidate for termination. If the Container continues to
 to consume memory beyond its limit, the Container is terminated. If a terminated Container is
 restartable, the kubelet will restart it, as with any other type of runtime failure.
