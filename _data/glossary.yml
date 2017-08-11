@@ -1,0 +1,31 @@
+canonical-tags:
+- Fundamentals
+- K8s Objects
+- Metadata
+- Configuration
+- Security
+- Networking
+- Storage
+- Cluster Operation
+- Workloads
+- Architecture
+- API
+- Logging
+- Extensions
+
+# TODO: Add list of glossary terms here
+# (to avoid extra loop logic on pages that need the mapping of words to tags)
+# e.g.
+# terms:
+# - name: StatefulSets
+#   tags:
+#   - Storage
+#   - Workloads
+#   - K8s Objects
+# - name: Aggregation Layer
+#   tags:
+#   - API
+#   - Architecture
+#   - Extensions
+#
+# See https://github.com/kubernetes/kubernetes.github.io/projects/4 for details.
