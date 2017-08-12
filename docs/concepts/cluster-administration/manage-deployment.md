@@ -102,7 +102,7 @@ project/k8s/development
     └── my-pvc.yaml
 ```
 
-By default, performing a bulk operation on `project/k8s/development` will stop at the first level of the directory, not processing any subdirectories. If we try to create the resources in this directory using the following command, we'd encounter an error:
+By default, performing a bulk operation on `project/k8s/development` will stop at the first level of the directory, not processing any subdirectories. If we had tried to create the resources in this directory using the following command, we would have encountered an error:
 
 ```shell
 $ kubectl create -f project/k8s/development
