@@ -1,7 +1,4 @@
 ---
-<!--
-title: Garbage Collection
--->
 title: 垃圾回收
 redirect_from:
 - "/docs/concepts/abstractions/controllers/garbage-collection/"
