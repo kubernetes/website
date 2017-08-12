@@ -6,7 +6,7 @@ approvers:
 title: Managing Resources
 ---
 
-You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features we'll discuss in more depth are [configuration files](/docs/user-guide/configuring-containers/#configuration-in-kubernetes) and [labels](/docs/user-guide/deploying-applications/#labels).
+You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features what we'll discuss in more depth are [configuration files](/docs/concepts/configuration/overview/) and [labels](/docs/concepts/overview/working-with-objects/labels/).
 
 You can find all the files for this example [in our docs
 repo here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/).
@@ -102,7 +102,7 @@ project/k8s/development
     └── my-pvc.yaml
 ```
 
-By default, performing a bulk operation on `project/k8s/development` will stop at the first level of the directory, not processing any subdirectories. If we tried to create the resources in this directory using the following command, we'd encounter an error:
+By default, performing a bulk operation on `project/k8s/development` will stop at the first level of the directory, not processing any subdirectories. If we try to create the resources in this directory using the following command, we'd encounter an error:
 
 ```shell
 $ kubectl create -f project/k8s/development
