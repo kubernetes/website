@@ -66,9 +66,9 @@ different approach.
 Kubernetes imposes the following fundamental requirements on any networking
 implementation (barring any intentional network segmentation policies):
 
-   * all containers can communicate with all other containers without NAT
-   * all nodes can communicate with all containers (and vice-versa) without NAT
-   * the IP that a container sees itself as is the same IP that others see it as
+   * All containers can communicate with all other containers without NAT
+   * All nodes can communicate with all containers (and vice-versa) without NAT
+   * The IP that a container sees itself as is the same IP that others see it as
 
 What this means in practice is that you can not just take two computers
 running Docker and expect Kubernetes to work.  You must ensure that the
