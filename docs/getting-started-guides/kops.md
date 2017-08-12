@@ -191,19 +191,19 @@ the S3 bucket name.
 We suggest putting this in your bash profile or similar. 
 -->
 
-### (3/5) 创建一个 S3 桶来存储你的集群状态
+### (3/5) 创建一个 S3 bucket 来存储你的集群状态
 
-kops 允许你管理你的集群甚至是安装后。为做到这个，它必须跟踪你创建的集群与其配置，他们使用的密钥等等。这个信息被存储在一个 S3 桶。S3 权限被用来控制桶的访问。
+kops 允许你管理你的集群甚至是安装后。为做到这个，它必须跟踪你创建的集群与其配置，它们使用的密钥等等。这个信息被存储在一个 S3 bucket。S3 权限被用来控制 bucket 的访问。
 
-多集群可以使用同样的 S3 桶，你可以共享一个 S3 桶给你管理相同集群的同事 - 这比传递 kubecfg 文件更容易。但是任何可以访问 S3 桶的人都可以管理你所有的集群，所以你不会想在运维团队之外去共享它。
+多集群可以使用同样的 S3 bucket，你可以共享一个 S3 bucket 给你管理相同集群的同事 - 这比传递 kubecfg 文件更容易。但是任何可以访问 S3 bucket 的人都可以管理你所有的集群，所以你不会想在运维团队之外去共享它。
 
-所以通常每个 ops 团队都有有一个 S3 桶（并且经常名称将对应上托管区名称）
+所以通常每个 ops 团队都有有一个 S3 bucket（并且经常名称将对应上托管区名称）
 
-在我们的例子中，我们选择 `dev.example.com` 作为我们的托管区，因此让我们选择 `clusters.dev.example.com` 作为 S3 桶名。
+在我们的例子中，我们选择 `dev.example.com` 作为我们的托管区，因此让我们选择 `clusters.dev.example.com` 作为 S3 bucket 名。
 
 * 导出 `AWS_PROFILE` （如果你需要选择一个配置文件使 AWS CLI 工作）
 
-* 使用 `aws s3 mb s3://clusters.dev.example.com` 创建 S3 桶
+* 使用 `aws s3 mb s3://clusters.dev.example.com` 创建 S3 bucket
 
 * 你可以 `export KOPS_STATE_STORE=s3://clusters.dev.example.com` 然后 kops 将使用默认这个位置。我们建议将其放在你的 bash_profile 或者类似文件中。
 
