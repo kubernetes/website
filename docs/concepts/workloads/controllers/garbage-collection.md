@@ -20,6 +20,8 @@ Kubernetes version 1.4 and later.
 
 Kubernetes 垃圾回收器的角色是删除指定的对象，这些对象曾经有但以后不再拥有 Owner 了。
 
+**注意**：垃圾回收是 beta 特性，在 Kubernetes 1.4 及以上版本默认启用。
+
 {% endcapture %}
 
 
