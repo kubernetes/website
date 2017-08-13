@@ -649,6 +649,9 @@ You can see [vSphere example](https://git.k8s.io/kubernetes/examples/volumes/vsp
     pool: kube
     userId: kube
     userSecretName: ceph-secret-user
+    fsType: ext4
+    imageFormat: "2"
+    imageFeatures: "layering"
 ```
 
 * `monitors`: Ceph monitors, comma delimited. This parameter is required.
@@ -661,6 +664,9 @@ You can see [vSphere example](https://git.k8s.io/kubernetes/examples/volumes/vsp
   ```
   $ kubectl create secret generic ceph-secret --type="kubernetes.io/rbd" --from-literal=key='QVFEQ1pMdFhPUnQrSmhBQUFYaERWNHJsZ3BsMmNjcDR6RFZST0E9PQ==' --namespace=kube-system
   ```
+* `fsType`: fsType that are supported by kubernetes. Default: `"ext4"`.
+* `imageFormat`: Ceph RBD image format, "1" or "2". Default is "1".
+* `imageFeatures`: Ceph RBD image format 2 features, comma delimited. This parameter is optional, and only be used if you set `imageFormat` to "2". Currently supported features are `layering` only. Default is "", and no features is turned on.
 
 #### Quobyte
 
