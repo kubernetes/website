@@ -51,6 +51,19 @@ The pod network plugin you use (see below) may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
 
+## Installing ebtables ethtool
+
+if you see error warning while run ```kubeadm init```
+```
+[preflight] WARNING: ebtables not found in system path                          
+[preflight] WARNING: ethtool not found in system path                           
+
+```
+You may missing these tools on your linux , please try to installed them .
+
+For ubuntu/debian user, try ```apt install ebtables ethtool```
+
+For CentOS/Fedora user, try ```yum install ebtables ethtool```
 
 ## Installing Docker
 
