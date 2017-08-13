@@ -1,7 +1,9 @@
 # K8SMeetup 中文翻译社区每周文章贡献汇编
 
 
-### 第四周：2017-08-07~2017-08-13 - 有效合并 26 篇 + 未合并3篇 = 29篇
+### 第四周：2017-08-07~2017-08-13 - 有效合并 27 篇 + 未合并3篇 = 30篇
+
+[https://k8smeetup.github.io/docs/tasks/tls/managing-tls-in-a-cluster](https://k8smeetup.github.io/docs/tasks/tls/managing-tls-in-a-cluster) by by [rootsongjc](https://github.com/rootsongjc)
 
 [https://k8smeetup.github.io/docs/tutorials/services/source-ip](https://k8smeetup.github.io/docs/tutorials/services/source-ip) by [xiaosuiba](https://github.com/xiaosuiba)
 
