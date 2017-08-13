@@ -1,4 +1,4 @@
----
+﻿---
 title: federation-apiserver
 notitle: true
 ---
@@ -53,8 +53,7 @@ federation-apiserver
 	  --admission-control stringSlice                           用于集群资源控制管理的插件列表，以逗号隔开。(默认是 [AlwaysAdmit])
 	  --admission-control-config-file string                    用于管理控制的配置文件。
 	  --advertise-address ip                                    用于向集群成员开放API服务的IP地址。该地址必须可以被集群其他成员访问，如果为空，则 --bind-address 需要指定，如果--bind-address为空，则使用host的默认地址。
-      --anonymous-auth                                          Enables anonymous requests to the secure port of the API server. Requests that are not rejected by another authentication method are treated as anonymous requests. Anonymous requests have a username of system:anonymous, and a group name of system:unauthenticated. (default true)
-	  --anonymous-auth                                          允许API服务安全端口的匿名请求。匿名请求就是没有被其他验证机制拒绝的请求，它拥有系统用户名：anonymous和系统组：unauthenticated 。(默认是 true)
+	  --anonymous-auth                                          允许API服务安全端口的匿名请求。匿名请求就是没有被其他验证机制拒绝的请求，它拥有系统用户名：anonymous和系统组：unauthenticated 。(默认 true)
       --audit-log-maxage int                                    最大的audit日志保存天数，以文件名包含的timestamp为准。
       --audit-log-maxbackup int                                 最多的audit日志保存数量。
       --audit-log-maxsize int                                   The maximum size in megabytes of the audit log file before it gets rotated.
