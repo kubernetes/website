@@ -53,18 +53,22 @@ documentation for the plugins about what port(s) those need.
 
 ## Installing ebtables ethtool
 
-if you see error warning while run ```kubeadm init```
+If you see warning while running ```kubeadm init```
 
 ```
 [preflight] WARNING: ebtables not found in system path                          
 [preflight] WARNING: ethtool not found in system path                           
 
 ```
-You may missing these tools on your linux , please try to installed them .
+You may be missing these tools on your linux, please try to install them. 
 
-For ubuntu/debian user, try ```apt install ebtables ethtool```
+```
+# For ubuntu/debian users, try 
+apt install ebtables ethtool
 
-For CentOS/Fedora user, try ```yum install ebtables ethtool```
+# For CentOS/Fedora users, try 
+yum install ebtables ethtool
+```
 
 ## Installing Docker
 
