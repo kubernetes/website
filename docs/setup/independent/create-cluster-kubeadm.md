@@ -542,6 +542,24 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
 
 [ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)
 
+1. If you see error while run kubectl get po
+
+```
+# kubectl get po                           
+Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")       
+```
+
+There may be certs not match in your $HOME/.kube, you can run 
+
+```
+  mv  $HOME/.kube $HOME/.kube.bak
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+Then try again
+
 As with all Kubernetes troubleshooting, normal commands you can take advantage of to help diagnose
 what happened are `kubectl describe pod` or `kubectl logs`. Example usage:
 
