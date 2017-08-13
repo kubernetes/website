@@ -149,7 +149,7 @@ command=GET
 <!--
 If the client pod and server pod are in the same node, the client_address is the client pod's IP address. However, if the client pod and server pod are in different nodes, the client_address is the client pod's node flannel IP address.
 -->
-如果客户端 pod 和 服务端 pod 在相同的节点上，client\_address 就是客户端 pod 的 IP 地址。但是，如果它们在不同的节点上， client\_address 将会是客户端 pod 的节点的 flannel IP 地址。
+如果客户端 pod 和 服务端 pod 在相同的节点上，client_address 就是客户端 pod 的 IP 地址。但是，如果它们在不同的节点上， client_address 将会是客户端 pod 的节点的 flannel IP 地址。
 
 <!--
 ## Source IP for Services with Type=NodePort
