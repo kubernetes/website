@@ -1,7 +1,7 @@
 ---
 assignees:
 - chrismarino
-title: ÎªÁË NetworkPolicy Ê¹ÓÃ Romana
+title: ä¸ºäº† NetworkPolicy ä½¿ç”¨ Romana
 redirect_from:
 - "/docs/getting-started-guides/network-policy/romana/"
 - "/docs/getting-started-guides/network-policy/romana.html"
@@ -26,16 +26,16 @@ redirect_from:
 <!--
 This page shows how to use Romana for NetworkPolicy.
 -->
-±¾Ò³Õ¹Ê¾ÔõÃ´ÑùÎªÁË NetworkPolicy Ê¹ÓÃ Romana
+æœ¬é¡µå±•ç¤ºæ€ä¹ˆæ ·ä¸ºäº† NetworkPolicy ä½¿ç”¨ Romana
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
 <!--
-Complete steps 1, 2, and 3 of  the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/). 
+Complete steps 1, 2, and 3 of  the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/).
 -->
-Íê³É [kubeadm ÈëÃÅÖ¸ÄÏ](/docs/getting-started-guides/kubeadm/)ÖĞµÄ²½Öè1¡¢2ºÍ3
+å®Œæˆ [kubeadm å…¥é—¨æŒ‡å—](/docs/getting-started-guides/kubeadm/)ä¸­çš„æ­¥éª¤1ã€2å’Œ3
 
 {% endcapture %}
 
@@ -44,34 +44,34 @@ Complete steps 1, 2, and 3 of  the [kubeadm getting started guide](/docs/getting
 <!--
 ## Installing Romana with kubeadm
 -->
-## Ê¹ÓÃ kubeadm °²×° Romana
+## ä½¿ç”¨ kubeadm å®‰è£… Romana
 
 <!--
-Follow the [containerized installation guide](https://github.com/romana/romana/tree/master/containerize) for kubeadmin. 
+Follow the [containerized installation guide](https://github.com/romana/romana/tree/master/containerize) for kubeadmin.
 -->
-°´ÕÕ[ÈİÆ÷»¯°²×°Ö¸ÄÏ](https://github.com/romana/romana/tree/master/containerize)ÖĞÊ¹ÓÃ kubeadm µÄ·½Ê½°²×°
+æŒ‰ç…§[å®¹å™¨åŒ–å®‰è£…æŒ‡å—](https://github.com/romana/romana/tree/master/containerize)ä¸­ä½¿ç”¨ kubeadm çš„æ–¹å¼å®‰è£…
 
 <!--
 ## Applying network policies
 -->
-## Ó¦ÓÃÍøÂç²ßÂÔ
+## åº”ç”¨ç½‘ç»œç­–ç•¥
 
 <!--
 To apply network policies use one of the following:
 -->
-ÒªÓ¦ÓÃÍøÂç²ßÂÔ£¬ÇëÊ¹ÓÃÒÔÏÂ·½Ê½Ö®Ò»£º
+è¦åº”ç”¨ç½‘ç»œç­–ç•¥ï¼Œè¯·ä½¿ç”¨ä»¥ä¸‹æ–¹å¼ä¹‹ä¸€ï¼š
 
 <!--
-* [Romana network policies](https://github.com/romana/romana/wiki/Romana-policies). 
+* [Romana network policies](https://github.com/romana/romana/wiki/Romana-policies).
     * [Example of Romana network policy](https://github.com/romana/core/tree/master/policy).
 -->
-* [Romana ÍøÂç²ßÂÔ](https://github.com/romana/romana/wiki/Romana-policies)
-    * [Romana ÍøÂç²ßÂÔÊ¾Àı](https://github.com/romana/core/tree/master/policy)
+* [Romana ç½‘ç»œç­–ç•¥](https://github.com/romana/romana/wiki/Romana-policies)
+    * [Romana ç½‘ç»œç­–ç•¥ç¤ºä¾‹](https://github.com/romana/core/tree/master/policy)
 <!--
 * The NetworkPolicy API.
 -->
 * NetworkPolicy API
- 
+
 {% endcapture %}
 
 {% capture whatsnext %}
@@ -79,12 +79,8 @@ To apply network policies use one of the following:
 <!--
 Once your have installed Romana, you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
 -->
-Romana °²×°Íê³ÉÖ®ºó£¬Äú¿ÉÒÔÍ¨¹ı [NetworkPolicy ÈëÃÅÖ¸ÄÏ](/docs/getting-started-guides/network-policy/walkthrough)È¥³¢ÊÔÊ¹ÓÃ Kubernetes NetworkPolicy
+Romana å®‰è£…å®Œæˆä¹‹åï¼Œæ‚¨å¯ä»¥é€šè¿‡ [NetworkPolicy å…¥é—¨æŒ‡å—](/docs/getting-started-guides/network-policy/walkthrough)å»å°è¯•ä½¿ç”¨ Kubernetes NetworkPolicy
 
 {% endcapture %}
 
 {% include templates/task.md %}
-
-
-
-

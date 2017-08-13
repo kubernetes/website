@@ -1,7 +1,7 @@
 ---
 assignees:
 - bboreham
-title: ÎªÁË NetworkPolicy Ê¹ÓÃ Weave ÍøÂç
+title: ä¸ºäº† NetworkPolicy ä½¿ç”¨ Weave ç½‘ç»œ
 redirect_from:
 - "/docs/getting-started-guides/network-policy/weave/"
 - "/docs/getting-started-guides/network-policy/weave.html"
@@ -26,35 +26,35 @@ redirect_from:
 <!--
 This page shows how to use Weave Net for NetworkPolicy.
 -->
-±¾Ò³Õ¹Ê¾ÔõÃ´ÑùÎªÁË NetworkPolicy Ê¹ÓÃ Weave ÍøÂç
+æœ¬é¡µå±•ç¤ºæ€ä¹ˆæ ·ä¸ºäº† NetworkPolicy ä½¿ç”¨ Weave ç½‘ç»œ
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
 <!--
-Complete steps 1, 2, and 3 of the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/). 
+Complete steps 1, 2, and 3 of the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/).
 -->
-Íê³É [kubeadm ÈëÃÅÖ¸ÄÏ](/docs/getting-started-guides/kubeadm/)ÖĞµÄ²½Öè1¡¢2ºÍ3
+å®Œæˆ [kubeadm å…¥é—¨æŒ‡å—](/docs/getting-started-guides/kubeadm/)ä¸­çš„æ­¥éª¤1ã€2å’Œ3
 
 {% endcapture %}
 
 {% capture steps %}
 
 <!--
-## Installing Weave Net addon 
+## Installing Weave Net addon
 -->
-## °²×° Weave ÍøÂç²å¼ş
+## å®‰è£… Weave ç½‘ç»œæ’ä»¶
 
 <!--
 Follow the [Integrating Kubernetes via the Addon](https://www.weave.works/docs/net/latest/kube-addon/) guide.
 -->
-°´ÕÕ[Í¨¹ı²å¼ş·½Ê½¼¯³Éµ½ Kubernetes Ö¸ÄÏ](https://www.weave.works/docs/net/latest/kube-addon/)Íê³É°²×°
+æŒ‰ç…§[é€šè¿‡æ’ä»¶æ–¹å¼é›†æˆåˆ° Kubernetes æŒ‡å—](https://www.weave.works/docs/net/latest/kube-addon/)å®Œæˆå®‰è£…
 
 <!--
 The Weave Net Addon for Kubernetes comes with a [Network Policy Controller](https://www.weave.works/docs/net/latest/kube-addon/#npc) that automatically monitors Kubernetes for any NetworkPolicy annotations on all namespaces and configures `iptables` rules to allow or block traffic as directed by the policies.
 -->
-Kubernetes µÄ Weave ÍøÂç²å¼şÅäÓĞÒ»¸ö[ÍøÂç²ßÂÔ¿ØÖÆÆ÷](https://www.weave.works/docs/net/latest/kube-addon/#npc)£¬Ëü¼à¿ØËùÓĞÃüÃû¿Õ¼äÏÂ NetworkPolicy Ïà¹ØµÄ×¢½â£¬È»ºóÅäÖÃ iptables ¹æÔòÉú³ÉÔÊĞí»òÕß×è¶ÏÍ¨ĞÅµÄ²ßÂÔ
+Kubernetes çš„ Weave ç½‘ç»œæ’ä»¶é…æœ‰ä¸€ä¸ª[ç½‘ç»œç­–ç•¥æ§åˆ¶å™¨](https://www.weave.works/docs/net/latest/kube-addon/#npc)ï¼Œå®ƒç›‘æ§æ‰€æœ‰å‘½åç©ºé—´ä¸‹ NetworkPolicy ç›¸å…³çš„æ³¨è§£ï¼Œç„¶åé…ç½® iptables è§„åˆ™ç”Ÿæˆå…è®¸æˆ–è€…é˜»æ–­é€šä¿¡çš„ç­–ç•¥
 
 {% endcapture %}
 
@@ -63,7 +63,7 @@ Kubernetes µÄ Weave ÍøÂç²å¼şÅäÓĞÒ»¸ö[ÍøÂç²ßÂÔ¿ØÖÆÆ÷](https://www.weave.works/doc
 <!--
 Once you have installed the Weave Net Addon you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
 -->
-Weave ÍøÂç²å¼ş°²×°Íê³ÉÖ®ºó£¬Äú¿ÉÒÔÍ¨¹ı [NetworkPolicy ÈëÃÅÖ¸ÄÏ](/docs/getting-started-guides/network-policy/walkthrough)È¥³¢ÊÔÊ¹ÓÃ Kubernetes NetworkPolicy
+Weave ç½‘ç»œæ’ä»¶å®‰è£…å®Œæˆä¹‹åï¼Œæ‚¨å¯ä»¥é€šè¿‡ [NetworkPolicy å…¥é—¨æŒ‡å—](/docs/getting-started-guides/network-policy/walkthrough)å»å°è¯•ä½¿ç”¨ Kubernetes NetworkPolicy
 
 {% endcapture %}
 

@@ -1,7 +1,7 @@
 ---
 assignees:
 - vishh
-title: µ÷¶È GPU
+title: è°ƒåº¦ GPU
 redirect_from:
 - "/docs/user-guide/gpus/"
 - "/docs/user-guide/gpus.html"
@@ -23,7 +23,7 @@ redirect_from:
 Kubernetes includes **experimental** support for managing NVIDIA GPUs spread across nodes.
 This page describes how users can consume GPUs and the current limitations.
 -->
-Kubernetes Ìá¹©¶Ô·Ö²¼ÔÚ½ÚµãÉÏµÄ NVIDIA GPU ½øĞĞ¹ÜÀíµÄ**ÊµÑé**Ö§³Ö¡£±¾Ò³ÃèÊöÓÃ»§ÈçºÎÊ¹ÓÃ GPU ÒÔ¼°µ±Ç°Ê¹ÓÃµÄÒ»Ğ©ÏŞÖÆ
+Kubernetes æä¾›å¯¹åˆ†å¸ƒåœ¨èŠ‚ç‚¹ä¸Šçš„ NVIDIA GPU è¿›è¡Œç®¡ç†çš„**å®éªŒ**æ”¯æŒã€‚æœ¬é¡µæè¿°ç”¨æˆ·å¦‚ä½•ä½¿ç”¨ GPU ä»¥åŠå½“å‰ä½¿ç”¨çš„ä¸€äº›é™åˆ¶
 
 {% endcapture %}
 
@@ -32,20 +32,20 @@ Kubernetes Ìá¹©¶Ô·Ö²¼ÔÚ½ÚµãÉÏµÄ NVIDIA GPU ½øĞĞ¹ÜÀíµÄ**ÊµÑé**Ö§³Ö¡£±¾Ò³ÃèÊöÓÃ»§È
 <!--
 1. Kubernetes nodes have to be pre-installed with Nvidia drivers. Kubelet will not detect Nvidia GPUs otherwise. Try to re-install nvidia drivers if kubelet fails to expose Nvidia GPUs as part of Node Capacity.
 -->
-1. Kubernetes ½Úµã±ØĞëÔ¤ÏÈ°²×°ºÃ NVIDIA Çı¶¯£¬·ñÔò£¬Kubelet ½«¼ì²â²»µ½¿ÉÓÃµÄGPUĞÅÏ¢£»Èç¹û½ÚµãµÄ Capacity ÊôĞÔÖĞÃ»ÓĞ³öÏÖ NIVIDA GPU µÄÊıÁ¿£¬ÓĞ¿ÉÄÜÊÇÇı¶¯Ã»ÓĞ°²×°»òÕß°²×°Ê§°Ü£¬Çë³¢ÊÔÖØĞÂ°²×°
+1. Kubernetes èŠ‚ç‚¹å¿…é¡»é¢„å…ˆå®‰è£…å¥½ NVIDIA é©±åŠ¨ï¼Œå¦åˆ™ï¼ŒKubelet å°†æ£€æµ‹ä¸åˆ°å¯ç”¨çš„GPUä¿¡æ¯ï¼›å¦‚æœèŠ‚ç‚¹çš„ Capacity å±æ€§ä¸­æ²¡æœ‰å‡ºç° NIVIDA GPU çš„æ•°é‡ï¼Œæœ‰å¯èƒ½æ˜¯é©±åŠ¨æ²¡æœ‰å®‰è£…æˆ–è€…å®‰è£…å¤±è´¥ï¼Œè¯·å°è¯•é‡æ–°å®‰è£…
 <!--
 2. A special **alpha** feature gate `Accelerators` has to be set to true across the system: `--feature-gates="Accelerators=true"`.
 -->
-2. ÔÚÕû¸ö Kubernetes ÏµÍ³ÖĞ£¬feature-gates ÀïÃæÌØ¶¨µÄ **alpha** ÌØĞÔ²ÎÊı `Accelerators` ±ØĞëÉèÖÃÎª true£º`--feature-gates="Accelerators=true"`
+2. åœ¨æ•´ä¸ª Kubernetes ç³»ç»Ÿä¸­ï¼Œfeature-gates é‡Œé¢ç‰¹å®šçš„ **alpha** ç‰¹æ€§å‚æ•° `Accelerators` å¿…é¡»è®¾ç½®ä¸º trueï¼š`--feature-gates="Accelerators=true"`
 <!--
 3. Nodes must be using `docker engine` as the container runtime.
 -->
-3. Kuberntes ½Úµã±ØĞëÊ¹ÓÃ `docker` ÒıÇæ×÷ÎªÈİÆ÷µÄÔËĞĞÒıÇæ
+3. Kuberntes èŠ‚ç‚¹å¿…é¡»ä½¿ç”¨ `docker` å¼•æ“ä½œä¸ºå®¹å™¨çš„è¿è¡Œå¼•æ“
 
 <!--
 The nodes will automatically discover and expose all Nvidia GPUs as a schedulable resource.
 -->
-ÉÏÊöÔ¤±¸¹¤×÷Íê³Éºó£¬½Úµã»á×Ô¶¯·¢ÏÖËüÉÏÃæµÄ NVIDIA GPU£¬²¢½«Æä×÷Îª¿Éµ÷¶È×ÊÔ´±©Â¶
+ä¸Šè¿°é¢„å¤‡å·¥ä½œå®Œæˆåï¼ŒèŠ‚ç‚¹ä¼šè‡ªåŠ¨å‘ç°å®ƒä¸Šé¢çš„ NVIDIA GPUï¼Œå¹¶å°†å…¶ä½œä¸ºå¯è°ƒåº¦èµ„æºæš´éœ²
 
 {% endcapture %}
 
@@ -56,56 +56,56 @@ The nodes will automatically discover and expose all Nvidia GPUs as a schedulabl
 <!--
 Nvidia GPUs can be consumed via container level resource requirements using the resource name `alpha.kubernetes.io/nvidia-gpu`.
 -->
-ÈİÆ÷¿ÉÒÔÍ¨¹ıÃû³ÆÎª `alpha.kubernetes.io/nvidia-gpu` µÄ±êÊ¶À´ÉêÇëĞèÒªÊ¹ÓÃµÄ NVIDIA GPU µÄÊıÁ¿
+å®¹å™¨å¯ä»¥é€šè¿‡åç§°ä¸º `alpha.kubernetes.io/nvidia-gpu` çš„æ ‡è¯†æ¥ç”³è¯·éœ€è¦ä½¿ç”¨çš„ NVIDIA GPU çš„æ•°é‡
 
 ```yaml
 apiVersion: v1
 kind: pod
-spec: 
-  containers: 
-    - 
+spec:
+  containers:
+    -
       name: gpu-container-1
-      resources: 
-        limits: 
+      resources:
+        limits:
           alpha.kubernetes.io/nvidia-gpu: 2 # requesting 2 GPUs
-    - 
+    -
       name: gpu-container-2
-      resources: 
-        limits: 
+      resources:
+        limits:
           alpha.kubernetes.io/nvidia-gpu: 3 # requesting 3 GPUs
 ```
 
 <!--
 - GPUs can be specified in the `limits` section only.
 -->
-- GPU Ö»ÄÜÔÚÈİÆ÷×ÊÔ´µÄ `limits` ÖĞÅäÖÃ
+- GPU åªèƒ½åœ¨å®¹å™¨èµ„æºçš„ `limits` ä¸­é…ç½®
 <!--
 - Containers (and pods) do not share GPUs.
 -->
-- ÈİÆ÷ºÍ Pod ¶¼²»Ö§³Ö¹²Ïí GPU
+- å®¹å™¨å’Œ Pod éƒ½ä¸æ”¯æŒå…±äº« GPU
 <!--
 - Each container can request one or more GPUs.
 -->
-- Ã¿¸öÈİÆ÷¿ÉÒÔÉêÇëÊ¹ÓÃÒ»¸ö»òÕß¶à¸ö GPU
+- æ¯ä¸ªå®¹å™¨å¯ä»¥ç”³è¯·ä½¿ç”¨ä¸€ä¸ªæˆ–è€…å¤šä¸ª GPU
 <!--
 - It is not possible to request a portion of a GPU.
 -->
-- GPU ±ØĞëÒÔÕûÊıÎªµ¥Î»±»ÉêÇëÊ¹ÓÃ
+- GPU å¿…é¡»ä»¥æ•´æ•°ä¸ºå•ä½è¢«ç”³è¯·ä½¿ç”¨
 <!--
 - Nodes are expected to be homogenous, i.e. run the same GPU hardware.
 -->
-- ËùÓĞ½ÚµãµÄ GPU Ó²¼şÒªÇóÏàÍ¬
+- æ‰€æœ‰èŠ‚ç‚¹çš„ GPU ç¡¬ä»¶è¦æ±‚ç›¸åŒ
 
 <!--
 If your nodes are running different versions of GPUs, then use Node Labels and Node Selectors to schedule pods to appropriate GPUs.
 Following is an illustration of this workflow:
 -->
-Èç¹ûÔÚ²»Í¬µÄ½ÚµãÉÏÃæ°²×°ÁË²»Í¬°æ±¾µÄ GPU£¬¿ÉÒÔÍ¨¹ıÉèÖÃ½Úµã±êÇ©ÒÔ¼°Ê¹ÓÃ½ÚµãÑ¡ÔñÆ÷µÄ·½Ê½½« pod µ÷¶Èµ½ÆÚÍûÔËĞĞµÄ½ÚµãÉÏ¡£¹¤×÷Á÷³ÌÈçÏÂ£º
+å¦‚æœåœ¨ä¸åŒçš„èŠ‚ç‚¹ä¸Šé¢å®‰è£…äº†ä¸åŒç‰ˆæœ¬çš„ GPUï¼Œå¯ä»¥é€šè¿‡è®¾ç½®èŠ‚ç‚¹æ ‡ç­¾ä»¥åŠä½¿ç”¨èŠ‚ç‚¹é€‰æ‹©å™¨çš„æ–¹å¼å°† pod è°ƒåº¦åˆ°æœŸæœ›è¿è¡Œçš„èŠ‚ç‚¹ä¸Šã€‚å·¥ä½œæµç¨‹å¦‚ä¸‹ï¼š
 
 <!--
 As part of your Node bootstrapping, identify the GPU hardware type on your nodes and expose it as a node label.
 -->
-ÔÚ½ÚµãÉÏ£¬Ê¶±ğ³ö GPU Ó²¼şÀàĞÍ£¬È»ºó½«Æä×÷Îª½Úµã±êÇ©½øĞĞ±©Â¶
+åœ¨èŠ‚ç‚¹ä¸Šï¼Œè¯†åˆ«å‡º GPU ç¡¬ä»¶ç±»å‹ï¼Œç„¶åå°†å…¶ä½œä¸ºèŠ‚ç‚¹æ ‡ç­¾è¿›è¡Œæš´éœ²
 
 ```shell
 NVIDIA_GPU_NAME=$(nvidia-smi --query-gpu=gpu_name --format=csv,noheader --id=0)
@@ -117,7 +117,7 @@ echo "KUBELET_OPTS=$KUBELET_OPTS" > /etc/default/kubelet
 <!--
 Specify the GPU types a pod can use via [Node Affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity) rules.
 -->
-ÔÚ pod ÉÏ£¬Í¨¹ı½Úµã[Ç×ºÍĞÔ](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)¹æÔòÎªËüÖ¸¶¨¿ÉÒÔÊ¹ÓÃµÄ GPU ÀàĞÍ
+åœ¨ pod ä¸Šï¼Œé€šè¿‡èŠ‚ç‚¹[äº²å’Œæ€§](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)è§„åˆ™ä¸ºå®ƒæŒ‡å®šå¯ä»¥ä½¿ç”¨çš„ GPU ç±»å‹
 
 ```yaml
 kind: pod
@@ -142,49 +142,49 @@ metadata:
           }
         }
       }
-spec: 
-  containers: 
-    - 
+spec:
+  containers:
+    -
       name: gpu-container-1
-      resources: 
-        limits: 
+      resources:
+        limits:
           alpha.kubernetes.io/nvidia-gpu: 2
 ```
 
 <!--
 This will ensure that the pod will be scheduled to a node that has a `Tesla K80` or a `Tesla P100` Nvidia GPU.
 -->
-ÉÏÊöÉè¶¨¿ÉÒÔÈ·±£ pod »á±»µ÷¶Èµ½°üº¬Ãû³ÆÎª `alpha.kubernetes.io/nvidia-gpu-name` µÄ±êÇ©²¢ÇÒ±êÇ©µÄÖµÎª `Tesla K80` »òÕß `Tesla P100` µÄ½ÚµãÉÏ
+ä¸Šè¿°è®¾å®šå¯ä»¥ç¡®ä¿ pod ä¼šè¢«è°ƒåº¦åˆ°åŒ…å«åç§°ä¸º `alpha.kubernetes.io/nvidia-gpu-name` çš„æ ‡ç­¾å¹¶ä¸”æ ‡ç­¾çš„å€¼ä¸º `Tesla K80` æˆ–è€… `Tesla P100` çš„èŠ‚ç‚¹ä¸Š
 
 <!--
 ### Warning
 -->
-### ¾¯¸æ
+### è­¦å‘Š
 
 <!--
 The API presented here **will change** in an upcoming release to better support GPUs, and hardware accelerators in general, in Kubernetes.
 -->
-µ±Î´À´µÄ Kubernetes °æ±¾ÄÜ¹»¸üºÃµÄÖ§³ÖGPUÒÔ¼°Ò»°ãµÄÓ²¼ş¼ÓËÙÆ÷Ê±£¬ÕâÀïµÄ API ÃèÊö**½«»áËæÖ®×ö³ö±ä¸ü**
+å½“æœªæ¥çš„ Kubernetes ç‰ˆæœ¬èƒ½å¤Ÿæ›´å¥½çš„æ”¯æŒGPUä»¥åŠä¸€èˆ¬çš„ç¡¬ä»¶åŠ é€Ÿå™¨æ—¶ï¼Œè¿™é‡Œçš„ API æè¿°**å°†ä¼šéšä¹‹åšå‡ºå˜æ›´**
 
 <!--
 ## Access to CUDA libraries
 -->
-## ·ÃÎÊ CUDA ¿â
+## è®¿é—® CUDA åº“
 
 <!--
 As of now, CUDA libraries are expected to be pre-installed on the nodes.
 -->
-µ½Ä¿Ç°ÎªÖ¹£¬»¹ĞèÒªÔ¤ÏÈÔÚ½ÚµãÉÏ°²×° CUDA ¿â
+åˆ°ç›®å‰ä¸ºæ­¢ï¼Œè¿˜éœ€è¦é¢„å…ˆåœ¨èŠ‚ç‚¹ä¸Šå®‰è£… CUDA åº“
 
 <!--
 To mitigate this, you can copy the libraries to a more permissive folder in ``/var/lib/`` or change the permissions directly. (Future releases will automatically perform this operation)
 -->
-ÎªÁË±ÜÃâºóÃæÊ¹ÓÃ¿â³öÏÖÎÊÌâ£¬¿ÉÒÔ½«¿â·Åµ½ ``/var/lib/`` ÏÂµÄÄ³¸öÎÄ¼ş¼ĞÏÂ£¬»òÕßÖ±½Ó¸Ä±ä¿âÄ¿Â¼µÄÈ¨ÏŞ(ÒÔºóµÄ°æ±¾»á×Ô¶¯Íê³ÉÕâÒ»¹ı³Ì)
+ä¸ºäº†é¿å…åé¢ä½¿ç”¨åº“å‡ºç°é—®é¢˜ï¼Œå¯ä»¥å°†åº“æ”¾åˆ° ``/var/lib/`` ä¸‹çš„æŸä¸ªæ–‡ä»¶å¤¹ä¸‹ï¼Œæˆ–è€…ç›´æ¥æ”¹å˜åº“ç›®å½•çš„æƒé™(ä»¥åçš„ç‰ˆæœ¬ä¼šè‡ªåŠ¨å®Œæˆè¿™ä¸€è¿‡ç¨‹)
 
 <!--
 Pods can access the libraries using `hostPath` volumes.
 -->
-PodsÄÜ¹»Í¨¹ı `hostPath` ¾íÀ´·ÃÎÊ¿â
+Podsèƒ½å¤Ÿé€šè¿‡ `hostPath` å·æ¥è®¿é—®åº“
 
 ```yaml
 kind: Pod
@@ -208,7 +208,7 @@ spec:
   - hostPath:
       path: /usr/lib/nvidia-375/bin
     name: bin
-  - hostPath: 
+  - hostPath:
       path: /usr/lib/nvidia-375
     name: lib
 ```
@@ -216,28 +216,28 @@ spec:
 <!--
 ## Future
 -->
-## Î´À´
+## æœªæ¥
 
 <!--
 - Support for hardware accelerators is in it's early stages in Kubernetes.
 -->
-- Kubernetes ¶ÔÓ²¼ş¼ÓËÙÆ÷µÄÖ§³Ö»¹´¦ÔÚÔçÆÚ½×¶Î
+- Kubernetes å¯¹ç¡¬ä»¶åŠ é€Ÿå™¨çš„æ”¯æŒè¿˜å¤„åœ¨æ—©æœŸé˜¶æ®µ
 <!--
 - GPUs and other accelerators will soon be a native compute resource across the system.
 -->
-- GPU ºÍÆäËüµÄ¼ÓËÙÆ÷ºÜ¿ì»á³ÉÎªÏµÍ³µÄ±¾µØ¼ÆËã×ÊÔ´
+- GPU å’Œå…¶å®ƒçš„åŠ é€Ÿå™¨å¾ˆå¿«ä¼šæˆä¸ºç³»ç»Ÿçš„æœ¬åœ°è®¡ç®—èµ„æº
 <!--
 - Better APIs will be introduced to provision and consume accelerators in a scalable manner.
 -->
-- ½«ÒıÈë¸üºÃµÄ API ÒÔ¿ÉÀ©Õ¹µÄ·½Ê½Ìá¹©ºÍÊ¹ÓÃ¼ÓËÙÆ÷
+- å°†å¼•å…¥æ›´å¥½çš„ API ä»¥å¯æ‰©å±•çš„æ–¹å¼æä¾›å’Œä½¿ç”¨åŠ é€Ÿå™¨
 <!--
 - Kubernetes will automatically ensure that applications consuming GPUs gets the best possible performance.
 -->
-- Kubernets ½«»á×Ô¶¯È·±£Ó¦ÓÃÔÚÊ¹ÓÃ GPU Ê±µÃµ½×î¼ÑĞÔÄÜ
+- Kubernets å°†ä¼šè‡ªåŠ¨ç¡®ä¿åº”ç”¨åœ¨ä½¿ç”¨ GPU æ—¶å¾—åˆ°æœ€ä½³æ€§èƒ½
 <!--
 - Key usability problems like access to CUDA libraries will be addressed.
 -->
-- ÀàËÆ·ÃÎÊ CUDA ¿âÕâÖÖ¹Ø¼üµÄ¿ÉÓÃĞÔÎÊÌâ½«µÃµ½½â¾ö
+- ç±»ä¼¼è®¿é—® CUDA åº“è¿™ç§å…³é”®çš„å¯ç”¨æ€§é—®é¢˜å°†å¾—åˆ°è§£å†³
 
 {% endcapture %}
 

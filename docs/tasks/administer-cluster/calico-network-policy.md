@@ -1,7 +1,7 @@
 ---
 assignees:
 - caseydavenport
-title: ÎªÁË NetworkPolicy Ê¹ÓÃ Calico
+title: ä¸ºäº† NetworkPolicy ä½¿ç”¨ Calico
 redirect_from:
 - "/docs/getting-started-guides/network-policy/calico/"
 - "/docs/getting-started-guides/network-policy/calico.html"
@@ -25,26 +25,26 @@ redirect_from:
 This page shows how to use Calico for NetworkPolicy.
 -->
 {% capture overview %}
-±¾Ò³Õ¹Ê¾ÔõÃ´ÑùÎªÁË NetworkPolicy Ê¹ÓÃ Calico
+æœ¬é¡µå±•ç¤ºæ€ä¹ˆæ ·ä¸ºäº† NetworkPolicy ä½¿ç”¨ Calico
 {% endcapture %}
 
 <!--
-* Install Calico for Kubernetes. 
+* Install Calico for Kubernetes.
 -->
 {% capture prerequisites %}
-* Îª Kubernetes °²×° Calico
+* ä¸º Kubernetes å®‰è£… Calico
 {% endcapture %}
 
 {% capture steps %}
 <!--
 ## Deploying a cluster using Calico
 -->
-## Ê¹ÓÃ Calico ²¿ÊğÒ»¸ö¼¯Èº
+## ä½¿ç”¨ Calico éƒ¨ç½²ä¸€ä¸ªé›†ç¾¤
 
 <!--
 You can deploy a cluster using Calico for network policy in the default [GCE deployment](/docs/getting-started-guides/gce) using the following set of commands:
 -->
-Ê¹ÓÃÈçÏÂÃüÁî£¬Äú¿ÉÒÔÔÚÄ¬ÈÏµÄ [GCE](/docs/getting-started-guides/gce) ÉÏ²¿Êğ³öÒ»¸öÎªÍøÂç²ßÂÔÊ¹ÓÃ Calico µÄ¼¯Èº»·¾³£º
+ä½¿ç”¨å¦‚ä¸‹å‘½ä»¤ï¼Œæ‚¨å¯ä»¥åœ¨é»˜è®¤çš„ [GCE](/docs/getting-started-guides/gce) ä¸Šéƒ¨ç½²å‡ºä¸€ä¸ªä¸ºç½‘ç»œç­–ç•¥ä½¿ç”¨ Calico çš„é›†ç¾¤ç¯å¢ƒï¼š
 
 ```shell
 export NETWORK_POLICY_PROVIDER=calico
@@ -55,24 +55,24 @@ curl -sS https://get.k8s.io | bash
 <!--
 See the [Calico documentation](http://docs.projectcalico.org/) for more options to deploy Calico with Kubernetes.
 -->
-¸ü¶àµÄ²¿ÊğÑ¡ÏîÇë²Î¿¼ [Calico ÏîÄ¿ÎÄµµ](http://docs.projectcalico.org/)
+æ›´å¤šçš„éƒ¨ç½²é€‰é¡¹è¯·å‚è€ƒ [Calico é¡¹ç›®æ–‡æ¡£](http://docs.projectcalico.org/)
 {% endcapture %}
 
 {% capture discussion %}
 <!--
 ##  Understanding Calico components
 -->
-##  Àí½â Calico ×é¼ş
+##  ç†è§£ Calico ç»„ä»¶
 
 <!--
-Deploying a cluster with Calico adds Pods that support Kubernetes NetworkPolicy.  These Pods run in the `kube-system` Namespace. 
+Deploying a cluster with Calico adds Pods that support Kubernetes NetworkPolicy.  These Pods run in the `kube-system` Namespace.
 -->
-²¿ÊğÊ¹ÓÃ Calico µÄ¼¯ÈºÆäÊµÊÇÔö¼ÓÁËÖ§³Ö Kubernetes NetworkPolicy µÄ Pods£¬ ÕâĞ© Pods ÔËĞĞÔÚ `kube-system` ÃüÃû¿Õ¼äÏÂ¡£
+éƒ¨ç½²ä½¿ç”¨ Calico çš„é›†ç¾¤å…¶å®æ˜¯å¢åŠ äº†æ”¯æŒ Kubernetes NetworkPolicy çš„ Podsï¼Œ è¿™äº› Pods è¿è¡Œåœ¨ `kube-system` å‘½åç©ºé—´ä¸‹ã€‚
 
 <!--
 To see this list of Pods run:
 -->
-Ê¹ÓÃÈçÏÂ·½Ê½È¥²é¿´ÕâĞ©ÔËĞĞµÄ Pods£º
+ä½¿ç”¨å¦‚ä¸‹æ–¹å¼å»æŸ¥çœ‹è¿™äº›è¿è¡Œçš„ Podsï¼š
 
 ```shell
 kubectl get pods --namespace=kube-system
@@ -81,7 +81,7 @@ kubectl get pods --namespace=kube-system
 <!--
 You'll see a list of Pods similar to this:
 -->
-Äú¿ÉÒÔ¿´µ½ÀàËÆÏÂÃæÕâÑùµÄÒ»¸ö Pods ÁĞ±í£º
+æ‚¨å¯ä»¥çœ‹åˆ°ç±»ä¼¼ä¸‹é¢è¿™æ ·çš„ä¸€ä¸ª Pods åˆ—è¡¨ï¼š
 
 ```console
 NAME                                                 READY     STATUS    RESTARTS   AGE
@@ -95,23 +95,23 @@ calico-policy-controller-65rw1                       1/1       Running   0      
 <!--
 There are two main components to be aware of:
 -->
-Ö÷ÒªÓĞÁ½ÖÖ×é¼ş
+ä¸»è¦æœ‰ä¸¤ç§ç»„ä»¶
 
 <!--
 - One `calico-node` Pod runs on each node in your cluster and enforces network policy on the traffic to/from Pods on that machine by configuring iptables.
 -->
-- ÔÚ¼¯ÈºµÄÃ¿¸ö½ÚµãÉÏ¶¼»áÔËĞĞÒ»¸öÒÔ `calico-node` ¿ªÍ·ÃüÃûµÄ Pod£¬ÓÃÓÚÅäÖÃ iptables È¥ÊµÏÖÄÇĞ©»úÆ÷ÉÏ Pods µÄ³ö/ÈëÍøÂç²ßÂÔ
+- åœ¨é›†ç¾¤çš„æ¯ä¸ªèŠ‚ç‚¹ä¸Šéƒ½ä¼šè¿è¡Œä¸€ä¸ªä»¥ `calico-node` å¼€å¤´å‘½åçš„ Podï¼Œç”¨äºé…ç½® iptables å»å®ç°é‚£äº›æœºå™¨ä¸Š Pods çš„å‡º/å…¥ç½‘ç»œç­–ç•¥
 <!--
 - The `calico-policy-controller` Pod reads the policy and label information from the Kubernetes API and configures Calico appropriately.
 -->
-- Õû¸ö¼¯Èº»·¾³Ö»ÓĞÒ»¸öÒÔ `calico-policy-controller` ¿ªÍ·ÃüÃûµÄ Pod£¬ÓÃÓÚ´Ó Kubernetes API ÖĞ¶ÁÈ¡²ßÂÔºÍ±êÇ©ĞÅÏ¢£¬ÊÊµ±µÄ¶Ô Calico ½øĞĞÅäÖÃ
+- æ•´ä¸ªé›†ç¾¤ç¯å¢ƒåªæœ‰ä¸€ä¸ªä»¥ `calico-policy-controller` å¼€å¤´å‘½åçš„ Podï¼Œç”¨äºä» Kubernetes API ä¸­è¯»å–ç­–ç•¥å’Œæ ‡ç­¾ä¿¡æ¯ï¼Œé€‚å½“çš„å¯¹ Calico è¿›è¡Œé…ç½®
 {% endcapture %}
 
 <!--
 Once your cluster is running, you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
 -->
 {% capture whatsnext %}
-¼¯Èº²¿ÊğÍê³ÉÖ®ºó£¬Äú¿ÉÒÔÍ¨¹ı [NetworkPolicy ÈëÃÅÖ¸ÄÏ](/docs/getting-started-guides/network-policy/walkthrough)È¥³¢ÊÔÊ¹ÓÃ Kubernetes NetworkPolicy
+é›†ç¾¤éƒ¨ç½²å®Œæˆä¹‹åï¼Œæ‚¨å¯ä»¥é€šè¿‡ [NetworkPolicy å…¥é—¨æŒ‡å—](/docs/getting-started-guides/network-policy/walkthrough)å»å°è¯•ä½¿ç”¨ Kubernetes NetworkPolicy
 {% endcapture %}
 
 {% include templates/task.md %}
