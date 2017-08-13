@@ -56,7 +56,7 @@ federation-apiserver
 	  --anonymous-auth                                          允许API服务安全端口的匿名请求。匿名请求就是没有被其他验证机制拒绝的请求，它拥有系统用户名：anonymous和系统组：unauthenticated 。(默认 true)
       --audit-log-maxage int                                    最大的audit日志保存天数，以文件名包含的timestamp为准。
       --audit-log-maxbackup int                                 最多的audit日志保存数量。
-      --audit-log-maxsize int                                   The maximum size in megabytes of the audit log file before it gets rotated.
+      --audit-log-maxsize int                                   日志大小限制，达到这个数字将会被自动转储。
       --audit-log-path string                                   如果设置了这个参数，所有API服务收到的请求都会记录到这个文件。  '-' 表示标准输出.
       --audit-policy-file string                                定义audit策略配置的文件路径。需要AdvancedAuditing，当AdvancedAuditing为true 时，需要一个配置文件来启用auditing.
       --audit-webhook-config-file string                        定义webhook配置的kubeconfig格式的文件路径，要求'AdvancedAuditing'。
