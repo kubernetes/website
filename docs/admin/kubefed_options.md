@@ -15,7 +15,7 @@ kubefed options
 
 ```
   # Print flags inherited by all commands
-  kubectl options
+  kubefed options
 ```
 
 ### Options inherited from parent commands
