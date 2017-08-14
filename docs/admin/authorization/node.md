@@ -34,7 +34,7 @@ Read operations:
 * 后端节点
 * 服务器节点
 * 容器
-* secretes,configmaps, 
+* secretes,configmaps, pod相关的持久性存储（pv,pvc）的绑定信息，以及kubelet的节点信息
 
 Write operations:
 写入操作：
