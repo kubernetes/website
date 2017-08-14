@@ -152,7 +152,7 @@ This flag is repeated, so you can pass it several times with several different v
 This flag takes a string of the form `component.key=value`, where `component` is one of the strings from the below list, `key` is a value on the
 configuration struct and `value` is the value to set.
 
-Valid `keys` can be found by examining the documentation for the Kubernetes `componentconfigs` for each component.
+Valid keys can be found by examining the documentation for the Kubernetes `componentconfigs` for each component.
 Here is the documentation for each supported configuration:
 
 * [kubelet](https://godoc.org/k8s.io/kubernetes/pkg/apis/componentconfig#KubeletConfiguration)
