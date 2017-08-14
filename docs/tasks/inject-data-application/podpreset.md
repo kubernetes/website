@@ -30,7 +30,7 @@ _Admission control_ is how Kubernetes applies Pod Presets to incoming pod
 creation requests. When a pod creation request occurs, the system does the
 following:
 
-1. Retrieve all `PodPresets` available for use.
+1. Retrieve all `PodPresets` available for using.
 1. Match the label selector of the `PodPreset` to the pod being created.
 1. Attempt to merge the various defined resources for the `PodPreset` into the
    Pod being created.
