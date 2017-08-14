@@ -47,7 +47,7 @@ so we can find them.
 
 Deployment of the cluster is [supported on a wide variety of public clouds](#cloud-compatibility), private OpenStack clouds, or raw bare metal clusters. Bare metal deployments are supported via [MAAS](http://maas.io/).
 
-After deciding which cloud to deploy to, follow the [cloud setup page](https://jujucharms.com/docs/devel/getting-started-general#2.-choose-a-cloud) to configure deploying to that cloud.
+After deciding which cloud to deploy to, follow the [cloud setup page](https://jujucharms.com/docs/devel/getting-started) to configure deploying to that cloud.
 
 Load your [cloud credentials](https://jujucharms.com/docs/2.0/credentials) for each
 cloud provider you would like to use.
