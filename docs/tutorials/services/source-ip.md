@@ -121,7 +121,7 @@ $ NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodepo
 $ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
 ```
 
-if you're running on a cloudprovider, you may need to open up a firewall-rule
+If you're running on a cloudprovider, you may need to open up a firewall-rule
 for the `nodes:nodeport` reported above.
 Now you can try reaching the Service from outside the cluster through the node
 port allocated above.
@@ -139,7 +139,7 @@ Note that these are not the correct client IPs, they're cluster internal IPs. Th
 * `node2` replaces the source IP address (SNAT) in the packet with its own IP address
 * `node2` replaces the destination IP on the packet with the pod IP
 * packet is routed to node 1, and then to the endpoint
-* the pod's reply is routed back to node2
+* the pod's reply is routed back to node 2
 * the pod's reply is sent back to the client
 
 Visually:
@@ -181,14 +181,14 @@ client_address=104.132.1.79
 ```
 
 Note that you only got one reply, with the *right* client IP, from the one node on which the endpoint pod
-is running on.
+is running.
 
 This is what happens:
 
 * client sends packet to `node2:nodePort`, which doesn't have any endpoints
 * packet is dropped
 * client sends packet to `node1:nodePort`, which *does* have endpoints
-* node1 routes packet to endpoint with the correct source IP
+* node 1 routes packet to endpoint with the correct source IP
 
 Visually:
 
@@ -293,7 +293,7 @@ client_address=104.132.1.79
 
 __Cross platform support__
 
-As of Kubernetes 1.5 support for source IP preservation through Services
+As of Kubernetes 1.5, support for source IP preservation through Services
 with Type=LoadBalancer is only implemented in a subset of cloudproviders
 (GCP and Azure). The cloudprovider you're running on might fulfill the
 request for a loadbalancer in a few different ways:
