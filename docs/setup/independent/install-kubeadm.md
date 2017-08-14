@@ -53,14 +53,14 @@ documentation for the plugins about what port(s) those need.
 
 ## Installing ebtables ethtool
 
-If you see warning while running ```kubeadm init```
+If you see the following warnings while running `kubeadm init`
 
 ```
 [preflight] WARNING: ebtables not found in system path                          
 [preflight] WARNING: ethtool not found in system path                           
-
 ```
-You may be missing these tools on your linux, please try to install them. 
+
+Then you may be missing ebtables and ethtool on your Linux machine. You can install them with the following commands: 
 
 ```
 # For ubuntu/debian users, try 
