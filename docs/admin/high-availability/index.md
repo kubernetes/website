@@ -194,7 +194,7 @@ touch /var/log/kube-scheduler.log
 touch /var/log/kube-controller-manager.log
 ```
 
-Next, set up the descriptions of the scheduler and controller manager pods on each node.
+Next, set up the descriptions of the scheduler and controller manager pods on each node,
 by copying [kube-scheduler.yaml](/docs/admin/high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](/docs/admin/high-availability/kube-controller-manager.yaml) into the `/etc/kubernetes/manifests/` directory.
 
 ## Conclusion
