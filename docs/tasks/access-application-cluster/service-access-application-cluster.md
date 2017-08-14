@@ -36,11 +36,11 @@ provides load balancing for an application that has two running instances.
        kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
 
     The preceding command creates a
-    [Deployment](/docs/concepts/workloads/controllers/deployment/)
+    [Deployment](/docs/concepts/workloads/controllers/)
     object and an associated
-    [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
+    [ReplicaSet](/docs/concepts/workloads/controllers/)
     object. The ReplicaSet has two
-    [Pods](/docs/concepts/workloads/pods/pod/),
+    [Pods](/docs/concepts/workloads/pods/),
     each of which runs the Hello World application.
 
 1. Display information about the Deployment:
@@ -117,7 +117,7 @@ provides load balancing for an application that has two running instances.
 ## Using a service configuration file
 
 As an alternative to using `kubectl expose`, you can use a
-[service configuration file](/docs/user-guide/services/operations)
+[service configuration file](/docs/user-guide/services/)
 to create a Service.
 
 {% endcapture %}
@@ -140,7 +140,7 @@ the Hello World application, enter this command:
 {% capture whatsnext %}
 
 Learn more about
-[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
+[connecting applications with services](/docs/concepts/services-networking/).
 {% endcapture %}
 
 {% include templates/tutorial.md %}
