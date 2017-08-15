@@ -31,9 +31,9 @@ toc:
     - docs/tutorials/kubernetes-basics/update-interactive.html
 - title: Online Training Courses
   section: Scalable Microservices with Kubernetes (Udacity)
-  path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
+    - https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
   section: Introduction to Kubernetes (edX)
-  path: https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#
+    - https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#
 - docs/tutorials/stateless-application/hello-minikube.md
 - title: Configuration
   section:
