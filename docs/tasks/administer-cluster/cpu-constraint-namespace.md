@@ -18,7 +18,7 @@ in the namespace.
 
 {% include task-tutorial-prereqs.md %}
 
-Each node in your cluster must have at least 1 CPU.
+Each node in your cluster must have at least 1 cpu.
 
 {% endcapture %}
 
@@ -123,7 +123,7 @@ kubectl delete pod constraints-cpu-demo --namespace=constraints-cpu-example
 ## Attempt to create a Pod that exceeds the maximum CPU constraint
 
 Here's the configuration file for a Pod that has one Container. The Container specifies a
-CPU request of 500 millicpu and a cpu limit of 1.5 cpu.
+CPU request of 500 millicpu and a CPU limit of 1.5 cpu.
 
 {% include code.html language="yaml" file="cpu-constraints-pod-2.yaml" ghlink="/docs/tasks/administer-cluster/cpu-constraints-pod-2.yaml" %}
 
@@ -197,9 +197,9 @@ Because your Container did not specify its own CPU request and limit, it was giv
 from the LimitRange.
 * [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace)
 At this point, your Container might be running or it might not be running. Recall that a prerequisite
-for this task is that your Nodes have at least 1 CPU. If each of your Nodes has only
-1 CPU, then there might not be enough allocatable CPU on any Node to accommodate a request
-of 800 millicpu. If you happen to be using Nodes with 2 CPU, then you probably have
+for this task is that your Nodes have at least 1 cpu. If each of your Nodes has only
+1 cpu, then there might not be enough allocatable CPU on any Node to accommodate a request
+of 800 millicpu. If you happen to be using Nodes with 2 cpu, then you probably have
 enough CPU to accommodate the 800 millicpu request.
 
 Delete your Pod:
