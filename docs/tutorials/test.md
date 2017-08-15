@@ -1,12 +1,3 @@
-<!-- EXCLUDE_FROM_DOCS BEGIN -->
-
-> :warning: :warning: Follow this tutorial on the Kubernetes website:
-> https://kubernetes.io/docs/tutorials/stateful-application/cassandra/.
-> Otherwise some of the URLs will not work properly.
-
-# Cloud Native Deployments of Cassandra using Kubernetes
-<!-- EXCLUDE_FROM_DOCS END -->
-
 {% capture overview %}
 This tutorial shows you how to develop a native cloud [Cassandra](http://cassandra.apache.org/) deployment on Kubernetes. In this instance, a custom Cassandra `SeedProvider` enables Cassandra to discover new Cassandra nodes as they join the cluster.
 
@@ -221,7 +212,3 @@ Deleting or scaling a StatefulSet down does not delete the volumes associated wi
 {% endcapture %}
 
 {% include templates/tutorial.md %}
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/cassandra/README.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
