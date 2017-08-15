@@ -80,7 +80,7 @@ up example apps.
 
 You can use` gcloud` to install the `kubectl` command-line tool on your workstation:
 
-     gcloud components install kubectl
+    gcloud components install kubectl
 
 **Note:** The kubectl version bundled with `gcloud` may be older than the one
 downloaded by the get.k8s.io install script. See [Installing kubectl](/docs/tasks/kubectl/install/)
