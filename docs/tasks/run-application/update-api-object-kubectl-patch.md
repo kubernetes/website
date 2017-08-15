@@ -22,7 +22,7 @@ in this task demonstrate a strategic merge patch and a JSON merge patch.
 ## Use a strategic merge patch to update a Deployment
 
 Here's the configuration file for a Deployment that has two replicas. Each replica
-is a Pod that has one container:
+is a Pod that has one Container:
 
 {% include code.html language="yaml" file="deployment-patch-demo.yaml" ghlink="/docs/tasks/run-application/deployment-patch-demo.yaml" %}
 
@@ -39,7 +39,7 @@ kubectl get pods
 ```
 
 The output shows that the Deployment has two Pods. The `1/1` indicates that
-each Pod has one container:
+each Pod has one Container:
 
 
 ```
@@ -52,7 +52,7 @@ Make a note of the names of the running Pods. Later, you will see that these Pod
 get terminated and replaced by new ones.
 
 At this point, each Pod has one Container that runs the nginx image. Now suppose
-you want each Pod to have two containers: one that runs nginx and one that runs redis.
+you want each Pod to have two Containers: one that runs nginx and one that runs redis.
 
 Create a file named `patch-file.yaml` that has this content:
 
