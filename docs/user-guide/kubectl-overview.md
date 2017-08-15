@@ -20,10 +20,11 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-sensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
    ```shell
-    $ kubectl get pod pod1
-    $ kubectl get pods pod1
-    $ kubectl get po pod1
+   $ kubectl get pod pod1
+   $ kubectl get pods pod1
+   $ kubectl get po pod1
    ```
+   
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `$ kubectl get pods`.
 
    When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
