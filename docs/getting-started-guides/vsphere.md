@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 - jbeda
 title: VMware vSphere
@@ -46,7 +46,7 @@ If a Kubernetes cluster has not been deployed using Kubernetes-Anywhere, follow 
   Node VM names constraints:
 
   * VM names can not begin with numbers.
-  * VM names can not have capital letters, any special charaters except `.` and `-`.
+  * VM names can not have capital letters, any special characters except `.` and `-`.
   * VM names can not be shorter than 3 chars and longer than 63
 
 **Step-3** Enable disk UUID on Node virtual machines
@@ -136,7 +136,7 @@ This config file needs to be placed in the shared directory which should be acce
     scsicontrollertype = pvscsi
 ```
 
-Note: **```vm-name``` parameter is introduced in 1.6.4 release.** Both ```vm-uuid``` and ```vm-name``` are optional parameters. if ```vm-name``` is specified then ```vm-uuid``` is not used. if both are not specified then kubelet will get vm-uuid from `/sys/class/dmi/id/product_serial` and query vCenter to find the Node VM's name. 
+Note: **```vm-name``` parameter is introduced in 1.6.4 release.** Both ```vm-uuid``` and ```vm-name``` are optional parameters. If ```vm-name``` is specified then ```vm-uuid``` is not used. If both are not specified then kubelet will get vm-uuid from `/sys/class/dmi/id/product_serial` and query vCenter to find the Node VM's name. 
 
 **```vsphere.conf``` for Worker Nodes:** (Only Applicable to 1.6.4 release and above. For older releases this file should have all the parameters specified in Master node's ```vSphere.conf``` file)
  
@@ -159,7 +159,7 @@ Below is summary of supported parameters in the `vsphere.conf` file
   **Note:** ```vm-name``` is added in the release 1.6.4. Prior releases does not support this parameter. 
 
 * ```working-dir``` can be set to empty ( working-dir = ""), if Node VMs are located in the root VM folder.
-* ```vm-uuid``` is the VM Instance UUID of virtual machine. ```vm-uuid``` can be set to empty (```vm-uuid = ""```). if set to empty, this will be retrieved from /sys/class/dmi/id/product_serial file on virtual machine (requires root access).
+* ```vm-uuid``` is the VM Instance UUID of virtual machine. ```vm-uuid``` can be set to empty (```vm-uuid = ""```). If set to empty, this will be retrieved from /sys/class/dmi/id/product_serial file on virtual machine (requires root access).
 
   * ```vm-uuid``` needs to be set in this format - ```423D7ADC-F7A9-F629-8454-CE9615C810F1```
 

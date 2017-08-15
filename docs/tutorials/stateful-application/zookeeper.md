@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - enisoc
 - erictune
@@ -776,7 +776,7 @@ drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 ## Managing the ZooKeeper Process
 
 The [ZooKeeper documentation](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision) 
-documentation indicates that "You will want to have a supervisory process that 
+indicates that "You will want to have a supervisory process that 
 manages each of your ZooKeeper server processes (JVM)." Utilizing a watchdog 
 (supervisory process) to restart failed processes in a distributed system is a 
 common pattern. When deploying an application in Kubernetes, rather than using 

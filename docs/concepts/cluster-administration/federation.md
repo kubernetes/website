@@ -54,10 +54,10 @@ some caveats:
   impact all clusters. This is mitigated by keeping the logic in federation
   control plane to a minimum. It mostly delegates to the control plane in
   kubernetes clusters whenever it can. The design and implementation also errs
-  on the side of safety and avoiding multicluster outage.
+  on the side of safety and avoiding multi-cluster outage.
 * Maturity: The federation project is relatively new and is not very mature.
   Not all resources are available and many are still alpha. [Issue
-  38893](https://github.com/kubernetes/kubernetes/issues/38893) ennumerates
+  38893](https://github.com/kubernetes/kubernetes/issues/38893) enumerates
   known issues with the system that the team is busy solving.
 
 ### Hybrid cloud capabilities
@@ -123,7 +123,7 @@ On IaaS providers such as Google Compute Engine or Amazon Web Services, a VM exi
 zone](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html).
 We suggest that all the VMs in a Kubernetes cluster should be in the same availability zone, because:
 
-  - compared to having a single global Kubernetes cluster, there are fewer single-points of failure
+  - compared to having a single global Kubernetes cluster, there are fewer single-points of failure.
   - compared to a cluster that spans availability zones, it is easier to reason about the availability properties of a
     single-zone cluster.
   - when the Kubernetes developers are designing the system (e.g. making assumptions about latency, bandwidth, or
@@ -132,8 +132,8 @@ We suggest that all the VMs in a Kubernetes cluster should be in the same availa
 It is okay to have multiple clusters per availability zone, though on balance we think fewer is better.
 Reasons to prefer fewer clusters are:
 
-  - improved bin packing of Pods in some cases with more nodes in one cluster (less resource fragmentation)
-  - reduced operational overhead (though the advantage is diminished as ops tooling and processes matures)
+  - improved bin packing of Pods in some cases with more nodes in one cluster (less resource fragmentation).
+  - reduced operational overhead (though the advantage is diminished as ops tooling and processes matures).
   - reduced costs for per-cluster fixed resource costs, e.g. apiserver VMs (but small as a percentage
     of overall cluster cost for medium to large clusters).
 

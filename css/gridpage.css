@@ -56,8 +56,8 @@
     min-height: 152px;
 }
 
-.case-study:nth-child(3), .case-study:nth-child(4) {
-    margin-bottom: 0;
+.case-study:nth-child(9), .case-study:nth-child(10) {
+    margin-bottom: 0px;
 }
 
 .case-study img {

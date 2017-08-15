@@ -22,7 +22,7 @@ unresponsive clusters).
 Federated Ingress is released as an alpha feature, and supports Google Cloud Platform (GKE,
 GCE and hybrid scenarios involving both) in Kubernetes v1.4.  Work is under way to support other cloud
 providers such as AWS, and other hybrid cloud scenarios (e.g. services
-spanning private on-premise as well as public cloud Kubernetes
+spanning private on-premises as well as public cloud Kubernetes
 clusters).
 
 You create Federated Ingresses in much that same way as traditional
@@ -230,7 +230,7 @@ In particular, Federated ReplicaSets ensure that the desired number of
 pods are kept running in each cluster, even in the event of node
 failures.  In the event of entire cluster or availability zone
 failures, Federated ReplicaSets automatically place additional
-replacas in the other available clusters in the federation to accommodate the
+replicas in the other available clusters in the federation to accommodate the
 traffic which was previously being served by the now unavailable
 cluster. While the Federated ReplicaSet ensures that sufficient replicas are
 kept running, the Federated Ingress ensures that user traffic is
@@ -256,7 +256,7 @@ Check that:
 1. Your clusters are correctly registered in the Cluster Federation API (`kubectl describe clusters`)
 2. Your clusters are all 'Active'.  This means that the cluster
    Federation system was able to connect and authenticate against the
-   clusters' endpoints.  If not, consult the event logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -oname`)
+   clusters' endpoints.  If not, consult the event logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -o name`)
 3. That the login credentials provided to the Cluster Federation API
    for the clusters have the correct authorization and quota to create
    ingresses/services/replicasets in the relevant namespace in the
@@ -303,7 +303,3 @@ Check that:
  [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation.md).
 {% endcapture %}
 {% include templates/task.md %}
-
-
-
-

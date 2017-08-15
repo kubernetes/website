@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - smarterclayton
 title: Encrypting data at rest
 ---
@@ -104,12 +104,12 @@ To create a new secret perform the following steps:
 1. Generate a 32 byte random key and base64 encode it. If you're on Linux or Mac OS X, run the following command:
 
     ```
-    head -c 32 /dev/urandom | base64 -i - -o -
+    head -c 32 /dev/urandom | base64
     ```
 
 2. Place that value in the secret field.  
 3. Set the `--experimental-encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file 
-4. restart your API server. 
+4. Restart your API server. 
 
 **IMPORTANT:** Your config file contains keys that can decrypt content in etcd, so you must properly restrict permissions on your masters so only the user who runs the kube-apiserver can read it.
 
@@ -148,7 +148,7 @@ program to retrieve the contents of your secret.
 Since secrets are encrypted on write, performing an update on a secret will encrypt that content.
 
 ```
-kubectl get secrets -o json | kubectl replace -f -
+kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 
 The command above reads all secrets and then updates them to apply server side encryption.

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - stclair
 title: AppArmor
 ---

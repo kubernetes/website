@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - yifan-gu
 title: Running Kubernetes with rkt
 ---
@@ -77,7 +77,7 @@ $ cat <<EOF >/etc/rkt/net.d/k8s_flannel_example.conf
 EOF
 ```
 
-For more information on flannel configuration, see the [CNI/flannel README](https://github.com/containernetworking/cni/blob/master/Documentation/flannel.md).
+For more information on flannel configuration, see the [CNI/flannel README](https://github.com/containernetworking/plugins/blob/master/plugins/meta/flannel/README.md).
 
 #### Contained network caveats:
 

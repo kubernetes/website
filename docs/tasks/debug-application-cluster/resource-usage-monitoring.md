@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - mikedanese
 title: Tools for Monitoring Compute, Storage, and Network Resources
 ---
@@ -50,7 +50,7 @@ Here is a video showing how to setup and run a Google Cloud Monitoring backed He
 
 [![how to setup and run a Google Cloud Monitoring backed Heapster](http://img.youtube.com/vi/xSMNR2fcoLs/0.jpg)](http://www.youtube.com/watch?v=xSMNR2fcoLs)
 
-Here is a snapshot of the a Google Cloud Monitoring dashboard showing cluster-wide resource usage.
+Here is a snapshot of the Google Cloud Monitoring dashboard showing cluster-wide resource usage.
 
 ![Google Cloud Monitoring dashboard](/images/docs/gcm.png)
 

@@ -147,7 +147,7 @@ See documentation for other libraries for how they authenticate.
 ### Accessing the API from a Pod
 
 When accessing the API from a pod, locating and authenticating
-to the api server are somewhat different.
+to the apiserver are somewhat different.
 
 The recommended way to locate the apiserver within the pod is with
 the `kubernetes` DNS name, which resolves to a Service IP which in turn
@@ -174,7 +174,7 @@ From within a pod the recommended ways to connect to API are:
     in any container of the pod can access it.  See this [example of using kubectl proxy
     in a pod](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/kubectl-container/).
   - use the Go client library, and create a client using the `rest.InClusterConfig()` and `kubernetes.NewForConfig()` functions.
-    They handle locating and authenticating to the apiserver. [example](https://git.k8s.io/client-go/examples/in-cluster/main.go)
+    They handle locating and authenticating to the apiserver. [example](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)
 
 In each case, the credentials of the pod are used to communicate securely with the apiserver.
 

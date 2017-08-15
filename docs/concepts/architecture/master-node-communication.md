@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - dchen1107
 - roberthbailey
 - liggitt
@@ -74,10 +74,10 @@ which makes the connection subject to man-in-the-middle attacks, and
 **unsafe** to run over untrusted and/or public networks.
 
 To verify this connection, use the `--kubelet-certificate-authority` flag to
-provide the apiserver with a root certificates bundle to use to verify the
+provide the apiserver with a root certificate bundle to use to verify the
 kubelet's serving certificate.
 
-If that is not possible, use [SSH tunneling](/docs/admin/master-node-communication/#ssh-tunnels)
+If that is not possible, use [SSH tunneling](/docs/concepts/architecture/master-node-communication/#ssh-tunnels)
 between the apiserver and kubelet if required to avoid connecting over an
 untrusted or public network.
 

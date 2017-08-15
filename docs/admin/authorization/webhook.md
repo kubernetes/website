@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 - lavalamp
 - deads2k
@@ -86,9 +86,9 @@ An example request body:
 }
 ```
 
-The remote service is expected to fill the SubjectAccessReviewStatus field of
+The remote service is expected to fill the `status` field of
 the request and respond to either allow or disallow access. The response body's
-"spec" field is ignored and may be omitted. A permissive response would return:
+`spec` field is ignored and may be omitted. A permissive response would return:
 
 ```json
 {
@@ -141,7 +141,7 @@ Access to other non-resource paths can be disallowed without restricting access
 to the REST api.
 
 For further documentation refer to the authorization.v1beta1 API objects and
-[webhook.go](https://git.k8s.io/kubernetes/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).
+[webhook.go](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).
 
 {% endcapture %}
 

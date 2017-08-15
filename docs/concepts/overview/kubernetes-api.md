@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - chenopis
 title: The Kubernetes API
 ---
@@ -73,9 +73,9 @@ The API group is specified in a REST path and in the `apiVersion` field of a ser
 
 Currently there are several API groups in use:
 
-1. the "core" (oftentimes called "legacy", due to not having explicit group name) group, which is at
+1. The "core" (oftentimes called "legacy", due to not having explicit group name) group, which is at
    REST path `/api/v1` and is not specified as part of the `apiVersion` field, e.g. `apiVersion: v1`.
-1. the named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
+1. The named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
    (e.g. `apiVersion: batch/v1`).  Full list of supported API groups can be seen in [Kubernetes API reference](/docs/reference/).
 
 
@@ -102,5 +102,5 @@ to pick up the `--runtime-config` changes.
 
 DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
 Other extensions resources can be enabled by setting `--runtime-config` on
-apiserver. `--runtime-config` accepts comma separated values. For ex: to disable deployments and jobs, set
+apiserver. `--runtime-config` accepts comma separated values. For ex: to disable deployments and ingress, set
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`
