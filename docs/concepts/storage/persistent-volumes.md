@@ -695,7 +695,7 @@ parameters:
 
 #### Azure Disk
 
-##### Azure Unmanaged Disk (Default)
+##### Azure Unmanaged Disk Storage Class (Default)
 
 ```yaml
 kind: StorageClass
