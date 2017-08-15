@@ -26,7 +26,7 @@ We did this in a previous example, but let's do it once again and focus on the n
 {% include code.html language="yaml" file="run-my-nginx.yaml" ghlink="/docs/concepts/services-networking/run-my-nginx.yaml" %}
 
 This makes it accessible from any node in your cluster. Check the nodes the pod is running on:
-user
+
 ```shell
 $ kubectl create -f ./run-my-nginx.yaml
 $ kubectl get pods -l run=my-nginx -o wide
