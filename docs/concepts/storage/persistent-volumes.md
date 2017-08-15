@@ -695,13 +695,13 @@ parameters:
 
 #### Azure Disk
 
-##### Azure Unmanaged Disk Storage Class (Default)
+##### Azure Unmanaged Disk Storage Class (before v1.7.2)
 
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: accounthdd
+  name: slow
 provisioner: kubernetes.io/azure-disk
 parameters:
   skuName: Standard_LRS
@@ -709,9 +709,9 @@ parameters:
   storageAccount: azure_storage_account_name
 ```
 
-* `skuName`: Azure storage account Sku tier. Default is Standard_LRS, allowed values are Standard_LRS and Premium_LRS
+* `skuName`: Azure storage account Sku tier. Default is empty.
 * `location`: Azure storage account location. Default is empty.
-* `storageAccount`: Azure storage account name. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored. If storage account is not provided, a new storage account will be created.
+* `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
 
 ##### New Azure Disk Storage Class (from v1.7.2)
 
@@ -727,7 +727,7 @@ parameters:
 ```
 
 * `skuName`: Azure storage account Sku tier. Default is empty.
-* `kind`: default is shared, allowed values are shared, dedicated and managed. If kind is share or dedicated, the disk created will be unmanaged.
+* `kind`: default is shared, allowed values are shared, dedicated and managed. When kind is shared, all unmanaged disks are created in a few shared storage accounts in the same resource group as the cluster; when kind is dedicated, a new dedicated storage account will be created for the new unmanaged disk in the same resource group as the cluster.
 
 Premium VM can attach both Standard_LRS and Premium_LRS disks, while Standard VM can only attach Standard_LRS disks.
 Managed VM can only attach managed disks and unmanaged VM can only attach unmanaged disks.
