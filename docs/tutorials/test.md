@@ -59,8 +59,6 @@ The following `Service` is used for DNS lookups between Cassandra Pods and clien
 
        kubectl create -f cassandra-service.yaml
 
-{% include code.html language="yaml" file="cassandra-service.yaml" ghlink="/docs/tutorials/stateful-application/cassandra-service.yaml" %}
-
 ### Validating (optional)
 
 Get the Cassandra `Service`.
@@ -85,8 +83,6 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 2. Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
 
        kubectl create -f cassandra-statefulset.yaml
-
-{% include code.html language="yaml" file="cassandra-statefulset.yaml" ghlink="/docs/tutorials/stateful-application/cassandra-statefulset.yaml" %}
 
 ## Validating The Cassandra StatefulSet
 
