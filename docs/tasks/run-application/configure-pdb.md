@@ -26,7 +26,7 @@ nodes.
 ## Protecting an Application with a PodDisruptionBudget
 
 1. Identify what application you want to protect with a PodDisruptionBudget (PDB).
-1. Think about how your application reacts to disruptions
+1. Think about how your application reacts to disruptions.
 1. Create a PDB definition as a YAML file.
 1. Create the PDB object from the YAML file.
 
@@ -72,7 +72,7 @@ due to a voluntary disruption.
     - Possible Solution 1: set maxUnavailable to 1 (works with varying scale of application).
     - Possible Solution 2: set minAvailable to quorum-size (e.g. 3 when scale is 5).  (Allows more disruptions at once).
 - Restartable Batch Job:
-  - Concern: Job needs to complete in case of voluntary disruption
+  - Concern: Job needs to complete in case of voluntary disruption.
     - Possible solution: Do not create a PDB.  The Job controller will create a replacement pod.
 
 ## Specifying a PodDisruptionBudget
