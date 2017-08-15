@@ -71,7 +71,7 @@ EOF
 Where `172.168.0.24` is the service's cluster IP,
 `my-svc.my-namespace.svc.cluster.local` is the service's DNS name,
 `10.0.34.2` is the pod's IP and `my-pod.my-namespace.pod.cluster.local`
-is the pod's DNS name. you should see the following output:
+is the pod's DNS name. You should see the following output:
 
 ```
 2017/03/21 06:48:17 [INFO] generate received request
