@@ -122,7 +122,7 @@ Run the following in a PowerShell window. Be aware that if the node reboots or t
 `$env:CONTAINER_NETWORK = "<docker network>"`
 
 2. Run *kubelet* executable using the below command
-`kubelet.exe --hostname-override=<ip address/hostname of the windows node>  --pod-infra-container-image="apprenda/pause" --resolv-conf="" --api_servers=<api server location>`
+`kubelet.exe --hostname-override=<ip address/hostname of the windows node>  --pod-infra-container-image="apprenda/pause" --resolv-conf="" --api_servers=<apiserver location>`
 
 To start kube-proxy on your Windows node:
 
@@ -132,7 +132,7 @@ Run the following in a PowerShell window with administrative privileges. Be awar
 `$env:INTERFACE_TO_ADD_SERVICE_IP = "vEthernet (KubeProxySwitch)"`
 
 2. Run *kube-proxy* executable using the below command
-`.\proxy.exe --v=3 --proxy-mode=userspace --hostname-override=<ip address/hostname of the windows node> --master=<api server location> --bind-address=<ip address of the windows node>`
+`.\proxy.exe --v=3 --proxy-mode=userspace --hostname-override=<ip address/hostname of the windows node> --master=<apiserver location> --bind-address=<ip address of the windows node>`
 
 ## Scheduling Pods on Windows
 Because your cluster has both Linux and Windows nodes, you must explicitly set the nodeSelector constraint to be able to schedule Pods to Windows nodes. You must set nodeSelector with the label beta.kubernetes.io/os to the value windows; see the following example:
