@@ -9,7 +9,7 @@ title: ABAC 模式
 
 {% capture overview %}
 
-基于属性的访问控制（ABAC）定义了访问控制范例，其中通过使用将属性组合在一起的策略来向用户授予访问权限。
+基于属性的访问控制（Attribute-based access control - ABAC）定义了访问控制范例，其中通过使用将属性组合在一起的策略来向用户授予访问权限。
 
 {% endcapture %}
 
@@ -21,7 +21,7 @@ title: ABAC 模式
 
 此文件是 JSON 格式[每行都是一个JSON对象](http://jsonlines.org/)，不应存在封闭的列表或映射，每行只有一个映射。
 
-每一行都是一个 "策略对象",策略对象是具有以下映射的属性:
+每一行都是一个 "策略对象"，策略对象是具有以下映射的属性:
 
   - 版本控制属性:
     - `apiVersion`，字符串类型: 有效值为"abac.authorization.kubernetes.io/v1beta1"，允许版本控制和转换策略格式。
