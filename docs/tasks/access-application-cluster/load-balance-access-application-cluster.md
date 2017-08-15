@@ -57,7 +57,7 @@ load-balanced access to an application running in a cluster.
 
        kubectl expose rs <your-replica-set-name> --type="LoadBalancer" --name="example-service"
 
-    where `<your-replica-set-name>` is the name of your replica set.
+    Where `<your-replica-set-name>` is the name of your replica set.
 
 1. Display the IP addresses for your service:
 
@@ -77,7 +77,7 @@ load-balanced access to an application running in a cluster.
 
        curl <your-external-ip-address>:8080
 
-    where `<your-external-ip-address>` is the external IP address of your
+    Where `<your-external-ip-address>` is the external IP address of your
     service.
 
     The output is a hello message from the application:
@@ -95,7 +95,7 @@ load-balanced access to an application running in a cluster.
 
        curl <minikube-node-ip-address>:<service-node-port>
 
-    where `<minikube-node-ip-address>` us the IP address of your Minikube node,
+    Where `<minikube-node-ip-address>` us the IP address of your Minikube node,
     and `<service-node-port>` is the NodePort value for your service.
 
 ## Using a service configuration file
