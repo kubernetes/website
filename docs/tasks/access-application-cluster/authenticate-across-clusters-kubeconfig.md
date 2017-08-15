@@ -202,15 +202,15 @@ The rules for loading and merging the kubeconfig files are straightforward, but 
 
       Otherwise, use HomeDirectoryLocation (`~/.kube/config`) with no merging.
   1.  Determine the context to use based on the first hit in this chain
-      1.  command line argument - the value of the `context` command line option
+      1.  Command line argument - the value of the `context` command line option
       1.  `current-context` from the merged kubeconfig file
       1.  Empty is allowed at this stage
   1.  Determine the cluster info and user to use.  At this point, we may or may not have a context.  They are built based on the first hit in this chain.  (run it twice, once for user, once for cluster)
-      1.  command line argument - `user` for user name and `cluster` for cluster name
+      1.  Command line argument - `user` for user name and `cluster` for cluster name
       1.  If context is present, then use the context's value
       1.  Empty is allowed
   1.  Determine the actual cluster info to use.  At this point, we may or may not have a cluster info.  Build each piece of the cluster info based on the chain (first hit wins):
-      1.  command line arguments - `server`, `api-version`, `certificate-authority`, and `insecure-skip-tls-verify`
+      1.  Command line arguments - `server`, `api-version`, `certificate-authority`, and `insecure-skip-tls-verify`
       1.  If cluster info is present and a value for the attribute is present, use it.
       1.  If you don't have a server location, error.
   1.  Determine the actual user info to use. User is built using the same rules as cluster info, EXCEPT that you can only have one authentication technique per user.
