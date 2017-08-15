@@ -16,7 +16,7 @@ but is not allowed to use more CPU than its limit.
 
 {% include task-tutorial-prereqs.md %}
 
-Each node in your cluster must have at least 1 CPU.
+Each node in your cluster must have at least 1 cpu.
 
 A few of the steps on this page require that the
 [Heapster](https://github.com/kubernetes/heapster) service is running
@@ -55,7 +55,7 @@ kubectl create namespace cpu-example
 To specify a CPU request for a Container, include the `resources:requests` field
 in the Container's resource manifest. To specify a CPU limit, include `resources:limits`.
 
-In this exercise, you create a Pod that has one Container. The container has a CPU
+In this exercise, you create a Pod that has one Container. The Container has a CPU
 request of 0.5 cpu and a CPU limit of 1 cpu. Here's the configuration file
 for the Pod:
 
@@ -116,7 +116,7 @@ the limit of 1 cpu specified in the Pod's configuration file.
 ```
 
 Recall that by setting `-cpu "2"`, you configured the Container to attempt to use 2 cpus.
-But the container is only being allowed to use about 1 cpu. The Container's CPU use is being
+But the Container is only being allowed to use about 1 cpu. The Container's CPU use is being
 throttled, because the Container is attempting to use more CPU resources than its limit.
 
 Note: There's another possible explanation for the CPU throttling. The Node might not have
@@ -253,9 +253,9 @@ kubectl delete namespace cpu-example
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](docs/tasks/administer-cluster/default-memory-request-limit/)
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/default-memory-request-limit/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](docs/tasks/administer-cluster/default-cpu-request-limit/)
+* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/default-cpu-request-limit/)
 
 * [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 
