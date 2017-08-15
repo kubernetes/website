@@ -13,3 +13,4 @@ Since Pods represent processes running on your cluster, Kubernetes provides for 
 1. Kubernetes removes the Pod from the API server on the Kubernetes Master.
 
 > **Note:** The grace period is configurable; you can set your own grace period when interacting with the cluster to request termination, such as using the `kubectl delete` command. See the [Terminating a Pod]() tutorial for more information.
+{: .note}
