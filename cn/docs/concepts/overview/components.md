@@ -28,22 +28,22 @@ Master 组件可以在集群中的任何节点上运行。然而，为了简单�
 
 ### kube-controller-manager
 
-[kube-controller-manager](/docs/admin/kube-controller-manager)运行控制器，它们是处理集群中常规任务的后台线程。逻辑上，每个控制器是一个单独的进程，但为了降低复杂性，它们都被编译成单个二进制文件，并在单个进程中运行。
+[kube-controller-manager](/docs/admin/kube-controller-manager)运行控制器，它们是处理集群中常规任务的后台线程。逻辑上，每个控制器是一个单独的进程，但为了降低复杂性，它们都被编译成独立的可执行文件，并在单个进程中运行。
 
 这些控制器包括:
 
 * 节点控制器: 当节点移除时，负责注意和响应。
 * 副本控制器: 负责维护系统中每个副本控制器对象正确数量的 Pod。
-* 端点控制器: 填充 Endpoints 对象(即连接 Services & Pods)。
+* 端点控制器: 填充 端点(Endpoints) 对象(即连接 Services & Pods)。
 * 服务帐户和令牌控制器: 为新的命名空间创建默认帐户和 API 访问令牌.
 
-### 云控制器管理器
+### 云控制器管理器-(cloud-controller-manager)
 
-云控制器管理器是用于与底层云提供商交互的控制器。云控制器管理器二进制是 Kubernetes v1.6 版本中引入的 Alpha 功能。
+cloud-controller-manager 是用于与底层云提供商交互的控制器。云控制器管理器二进制是 Kubernetes v1.6 版本中引入的 Alpha 功能。
 
-云控制器管理器仅运行云提供商特定的控制器循环。您必须在 kube-controller-manager 中禁用这些控制器循环，您可以通过在启动 kube-controller-manager 时将 `--cloud-provider` 标志设置为`external`来禁用控制器循环。
+cloud-controller-manager 仅运行云提供商特定的控制器循环。您必须在 kube-controller-manager 中禁用这些控制器循环，您可以通过在启动 kube-controller-manager 时将 `--cloud-provider` 标志设置为`external`来禁用控制器循环。
 
-云控制器管理器允许云供应商代码和 Kubernetes 核心彼此独立发展，在以前的版本中，Kubernetes 核心代码依赖于云提供商特定的功能代码。在未来的版本中，云供应商的特定代码应由云供应商自己维护，并与运行 Kubernetes 的云控制器管理器相关联。
+cloud-controller-manager 允许云供应商代码和 Kubernetes 核心彼此独立发展，在以前的版本中，Kubernetes 核心代码依赖于云提供商特定的功能代码。在未来的版本中，云供应商的特定代码应由云供应商自己维护，并与运行 Kubernetes 的云控制器管理器相关联。
 
 以下控制器具有云提供商依赖关系:
 
@@ -52,9 +52,9 @@ Master 组件可以在集群中的任何节点上运行。然而，为了简单�
 * 服务控制器: 用于创建，更新和删除云提供商负载平衡器
 * 数据卷控制器: 用于创建，附加和装载卷，并与云提供商进行交互以协调卷
 
-### kube-scheduler
+### 调度器 - (kube-scheduler)
 
-[kube-scheduler](/docs/admin/kube-scheduler)观看没有分配节点的新创建的 Pod，选择一个节点供他们运行。
+[kube-scheduler](/docs/admin/kube-scheduler)监视没有分配节点的新创建的 Pod，选择一个节点供他们运行。
 
 ### 插件
 
