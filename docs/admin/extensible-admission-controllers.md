@@ -35,7 +35,7 @@ This page describes how to use Initializers and External Admission Webhooks.
 * A list of pending pre-initialization tasks, stored in every object's metadata
   (e.g., "AddMyCorporatePolicySidecar").
 
-* A user customized controller, which actually perform those tasks. The name of the task
+* A user customized controller, which actually performs those tasks. The name of the task
   corresponds to the controller which performs the task. For clarity, we call
   them *initializer controllers* in this page.
 
