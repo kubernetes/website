@@ -481,7 +481,7 @@ v1.7.
 
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
 following the [multi-platform
-proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/multi-platform.md).
+proposal](https://github.com/kubernetes/community/blob/09ef55a496f8928573f7f4d2a8a38d0601737ddb/contributors/design-proposals/multi-platform.md).
 
 Only some of the network providers offer solutions for all platforms. Please consult the list of
 network providers above or the documentation from each provider to figure out whether the provider
