@@ -20,7 +20,7 @@ The `kubectl` tool supports three kinds of object management:
 * Imperative object configuration
 * Declarative object configuration
 
-See [Kubernetes Object Management](/docs/concepts/tools/kubectl/object-management-overview/)
+See [Kubernetes Object Management](/docs/tutorials/object-management-kubectl/object-management/)
 for a discussion of the advantages and disadvantage of each kind of object management.
 
 ## Before you begin
@@ -29,8 +29,8 @@ Declarative object configuration requires a firm understanding of
 the Kubernetes object definitions and configuration. Read and complete
 the following documents if you have not already:
 
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-imperative-commands/)
-- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/tools/kubectl/object-management-using-imperative-config/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
 
 Following are definitions for terms used in this document:
 
