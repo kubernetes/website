@@ -135,8 +135,8 @@ When using Docker:
   [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint)
   flag in the `docker run` command.
 
-- The `spec.containers[].resources.limits.cpu` is converted to its millicore value,
-  multiplied by 100000, and then divided by 1000. This number is used as the value
+- The `spec.containers[].resources.limits.cpu` is converted to its millicore value, and
+  then multiplied by 100. This number is used as the value
   of the [`--cpu-quota`](https://docs.docker.com/engine/reference/run/#/cpu-quota-constraint)
   flag in the `docker run` command.  The [`--cpu-period`] flag is set to 100000,
    which represents the default 100ms period for measuring quota usage. The
@@ -434,4 +434,3 @@ consistency across providers and platforms.
 {% endcapture %}
 
 {% include templates/concept.md %}
-
