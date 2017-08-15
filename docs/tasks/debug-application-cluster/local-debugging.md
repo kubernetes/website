@@ -6,7 +6,7 @@ Frequently, Kubernetes applications consist of multiple, separate services, each
 
 This document will show how you can use `telepresence` to develop and debug one of your services locally, while proxying your service to a remote Kubernetes cluster. This lets you use your own local tools (debugger, IDE, etc.) for your local service, while giving the service full access to ConfigMap, secrets, and the other services running in the cluster.
 
-## Prequisites
+## Prerequisites
 
 You need to have a Kubernetes cluster, and the `kubectl` command-line tool configured to communicate with your cluster. You'll also need to [install Telepresence](https://www.telepresence.io/reference/install).
 
@@ -16,11 +16,13 @@ If you start `telepresence` with no arguments, you'll get a special shell. Unlik
 
 There are a variety of ways that the local shell can be used. For example, you could write a shell script on your laptop, and run it directly from the shell in real-time. You can do this on a remote shell as well, of course, but you may not be able to use your preferred code editor, and the script is deleted when you terminate the container.
 
+You can exit the shell by typing `exit`.
+
 ## Developing or debugging an existing service
 
 When developing an application on Kubernetes, you typically code/debug a single service, but that service may require access to other services for proper testing and debugging. One option for coding and debugging is to use your continuous deployment pipeline, but even the fastest deployment pipeline introduces a delay in the code/debug cycle.
 
-With the `--swap-deployment` option, Telepresence lets you swap an existing deployment with the Telepresence proxy. This lets you run your service locally while connecting to the remote Kubernetes cluster. To run Telepresence with `--swap-deployment`, type:
+With the `--swap-deployment` option, Telepresence lets you swap an existing deployment with the Telepresence proxy. This lets you run your service locally while connecting to the remote Kubernetes cluster -- while letting other services in the remote cluster also access your locally running instance. To run Telepresence with `--swap-deployment`, type:
 
 `telepresence --swap-deployment $DEPLOYMENT_NAME`
 
