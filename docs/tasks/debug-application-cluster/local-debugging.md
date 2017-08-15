@@ -40,8 +40,6 @@ where $DEPLOYMENT_NAME is the name of your existing deployment. This will spawn 
 
 {% capture whatsnext %}
 
-## Further reading
-
 If you're interested in a hands-on tutorial, check out [this tutorial](https://cloud.google.com/community/tutorials/developing-services-with-k8s) that walks through locally developing the Guestbook application on Google Container Engine.
 
 Telepresence has [numerous proxying options](https://www.telepresence.io/reference/methods), depending on your situation.
