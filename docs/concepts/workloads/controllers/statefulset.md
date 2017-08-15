@@ -15,8 +15,7 @@ PetSets feature from 1.4. Users of PetSets are referred to the 1.5
 [Upgrade Guide](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
 for further information on how to upgrade existing PetSets to StatefulSets.**
 
-A StatefulSet is a Controller that provides a unique identity to its Pods. It provides
-guarantees about the ordering of deployment and scaling.
+{% include templates/glossary.md term="statefulset" length="short" %}
 {% endcapture %}
 
 {% capture body %}

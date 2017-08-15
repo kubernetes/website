@@ -1,0 +1,22 @@
+name: StatefulSet
+formerly:
+- PetSet
+related:
+- Deployment
+- Pod
+tags:
+- Storage
+- Workload
+- API Object
+short-description: |
+  A Controller that provides a unique identity to its Pods. It provides guarantees about the ordering of deployment and scaling.
+long-description: |
+  StatefulSets are valuable for applications that require one or more of the following.
+
+  * Stable, unique network identifiers.
+  * Stable, persistent storage.
+  * Ordered, graceful deployment and scaling.
+  * Ordered, graceful deletion and termination.
+  * Ordered, automated rolling updates.
+
+  In the above, stable is synonymous with persistence across Pod (re)scheduling. If an application doesn't require any stable identifiers or ordered deployment, deletion, or scaling, you should deploy your application with a controller that provides a set of stateless replicas. Controllers such as [Deployment](/docs/concepts/workloads/controllers/deployment/) or [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) may be better suited to your stateless needs.
