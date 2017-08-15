@@ -18,7 +18,7 @@ The `kubectl` tool supports three kinds of object management:
 * Imperative object configuration
 * Declarative object configuration
 
-See [Kubernetes Object Management](/docs/concepts/tools/kubectl/object-management-overview/)
+See [Kubernetes Object Management](/docs/tutorials/object-management-kubectl/object-management/)
 for a discussion of the advantages and disadvantage of each kind of object management.
 
 ## How to create objects
