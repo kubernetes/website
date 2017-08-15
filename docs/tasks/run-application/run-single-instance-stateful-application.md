@@ -160,7 +160,7 @@ Run a MySQL client to connect to the server:
 kubectl run -it --rm --image=mysql:5.6 mysql-client -- mysql -h <pod-ip> -p <password>
 ```
 
-This command creates a new Pod in the cluster running a mysql client
+This command creates a new Pod in the cluster running a MySQL client
 and connects it to the server through the Service. If it connects, you
 know your stateful MySQL database is up and running.
 
