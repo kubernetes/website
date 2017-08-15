@@ -23,7 +23,7 @@ often self-signed, so `$USER/.kube/config` on the user's machine typically
 contains the root certificate for the API server's certificate, which when specified
 is used in place of the system default root certificates.  This certificate is typically
 automatically written into your `$USER/.kube/config` when you create a cluster yourself
-using `kube-up.sh`.  If the cluster has multiple users, then the creator needs to share
+using `kube-up.sh`.  If the cluster has multiple users, then the creator need to share
 the certificate with other users.
 
 ## Authentication
