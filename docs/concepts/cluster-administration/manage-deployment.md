@@ -354,51 +354,11 @@ For more information, please see [kubectl edit](/docs/user-guide/kubectl/{{page.
 
 ### kubectl patch
 
-Suppose you want to fix a typo of the container's image of a Deployment. One way to do that is with `kubectl patch`:
-
-```shell
-# Suppose you have a Deployment with a container named "nginx" and its image "nignx" (typo),
-# use container name "nginx" as a key to update the image from "nignx" (typo) to "nginx"
-$ kubectl get deployment my-nginx -o yaml
-```
-
-```yaml
-apiVersion: apps/v1beta1
-kind: Deployment
-...
-spec:
-  template:
-    spec:
-      containers:
-      - image: nignx
-        name: nginx
-...
-```
-
-```shell
-$ kubectl patch deployment my-nginx -p'{"spec":{"template":{"spec":{"containers":[{"name":"nginx","image":"nginx"}]}}}}'
-"my-nginx" patched
-$ kubectl get pod my-nginx-1jgkf -o yaml
-```
-
-```yaml
-apiVersion: apps/v1beta1
-kind: Deployment
-...
-spec:
-  template:
-    spec:
-      containers:
-      - image: nginx
-        name: nginx
-...
-```
-
-The patch is specified using json.
-
-The system ensures that you don't clobber changes made by other users or components by confirming that the `resourceVersion` doesn't differ from the version you edited. If you want to update regardless of other changes, remove the `resourceVersion` field when you edit the resource. However, if you do this, don't use your original configuration file as the source since additional fields most likely were set in the live state.
-
-For more information, please see [kubectl patch](/docs/user-guide/kubectl/{{page.version}}/#patch) document.
+You can use `kubectl patch` to update API objects in place. This command supports JSON patch,
+JSON merge patch, and strategic merge patch. See
+[Update API Objects in Place Using kubectl patch](/docs/tasks/run-application/update-api-object-kubectl-patch/)
+and
+[kubectl patch](/docs/user-guide/kubectl/{{page.version}}/#patch).
 
 ## Disruptive updates
 

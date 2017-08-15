@@ -15,7 +15,7 @@ kubefed version
 
 ```
   # Print the client and server versions for the current context
-  kubectl version
+  kubefed version
 ```
 
 ### Options
