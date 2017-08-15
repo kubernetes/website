@@ -9,7 +9,7 @@ title: Authenticating with Bootstrap Tokens
 
 ## Overview
 
-Bootstrap tokens are a simple bearer token that is meant to be used when
+Bootstrap Tokens are a simple bearer token that is meant to be used when
 creating new clusters or joining new nodes to an existing cluster.  It was built
 to support [`kubeadm`](/docs/admin/kubeadm/), but can be used in other contexts
 for users that wish to start clusters without `kubeadm`. It is also built to
