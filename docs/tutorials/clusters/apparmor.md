@@ -131,7 +131,7 @@ Where `<container_name>` is the name of the container to apply the profile to, a
 specifies the profile to apply. The `profile_ref` can be one of:
 
 * `runtime/default` to apply the runtime's default profile.
-* `localhost/<profile_name>` to apply the profile loaded on the host with the name `<profile_name>`
+* `localhost/<profile_name>` to apply the profile loaded on the host with the name `<profile_name>`.
 
 See the [API Reference](#api-reference) for the full details on the annotation and profile name formats.
 
@@ -370,7 +370,7 @@ explicitly reject the annotations for at least 2 releases after that.
 Getting AppArmor profiles specified correctly can be a tricky business. Fortunately there are some
 tools to help with that:
 
-* `aa-genprof` and `aa-logprof` generate profile rules by monitoring an application's activity and
+* `aa-genprof` and `aa-logprof` generate profile rules by monitoring an application's activities and
   logs, and admitting the actions it takes. Further instructions are provided by the
   [AppArmor documentation](http://wiki.apparmor.net/index.php/Profiling_with_tools).
 * [bane](https://github.com/jfrazelle/bane) is an AppArmor profile generator for Docker that uses a
@@ -407,7 +407,7 @@ Specifying the profile a container will run with:
     containers, and unconfined (no profile) for privileged containers.
 - `localhost/<profile_name>`: Refers to a profile loaded on the node (localhost) by name.
   - The possible profile names are detailed in the
-    [core policy reference](http://wiki.apparmor.net/index.php/AppArmor_Core_Policy_Reference#Profile_names_and_attachment_specifications)
+    [core policy reference](http://wiki.apparmor.net/index.php/AppArmor_Core_Policy_Reference#Profile_names_and_attachment_specifications).
 
 Any other profile reference format is invalid.
 
@@ -423,7 +423,7 @@ Specifying the list of profiles Pod containers is allowed to specify:
 * **key**: `apparmor.security.beta.kubernetes.io/allowedProfileNames`
 * **value**: a comma-separated list of profile references (described above)
   - Although an escaped comma is a legal character in a profile name, it cannot be explicitly
-    allowed here
+    allowed here.
 
 {% endcapture %}
 
