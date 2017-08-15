@@ -195,7 +195,7 @@ resources:
 Because your Container did not specify its own CPU request and limit, it was given the
 [default CPU request and limit](/docs/tasks/administer-cluster/default-cpu-request-limit/)
 from the LimitRange.
-* [Configure Memory and CPU Quotas for a Namespace](docs/tasks/administer-cluster/quota-memory-cpu-namespace)
+* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace)
 At this point, your Container might be running or it might not be running. Recall that a prerequisite
 for this task is that your Nodes have at least 1 CPU. If each of your Nodes has only
 1 CPU, then there might not be enough allocatable CPU on any Node to accommodate a request
@@ -241,9 +241,9 @@ kubectl delete namespace constraints-cpu-example
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](docs/tasks/administer-cluster/default-memory-request-limit/)
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/default-memory-request-limit/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](docs/tasks/administer-cluster/default-cpu-request-limit/)
+* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/default-cpu-request-limit/)
 
 * [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 
@@ -257,7 +257,7 @@ kubectl delete namespace constraints-cpu-example
 
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 
