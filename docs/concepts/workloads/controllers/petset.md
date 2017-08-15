@@ -259,7 +259,7 @@ You cannot update any field of the PetSet except `spec.replicas` and the `contai
 You can scale a PetSet by updating the "replicas" field. Note however that the controller will only:
 
 1. Create one pet at a time, in order from {0..N-1}, and wait till each one is in [Running and Ready](/docs/user-guide/pod-states) before creating the next
-2. Delete one pet at a time, in reverse order from {N-1..0}, and wait till each one is completely shutdown (past its [terminationGracePeriodSeconds](/docs/user-guide/pods/index#termination-of-pods)) before deleting the next
+2. Delete one pet at a time, in reverse order from {N-1..0}, and wait till each one is completely shutdown (past its [terminationGracePeriodSeconds](/docs/concepts/workloads/pods/pod/#termination-of-pods) before deleting the next
 
 ```shell
 $ kubectl get po
