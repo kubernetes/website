@@ -16,7 +16,7 @@ title: 使用命令式的方式管理 Kubernetes 对象
 * 命令式的对象配置
 * 声明式的对象配置
 
-参见[Kubernetes对象管理](/docs/concepts/tools/kubectl/object-management-overview/)
+参见[Kubernetes对象管理](/docs/tutorials/object-management-kubectl/object-management/)
 讨论各种对象管理的优缺点.
 
 ## 如何创建对象
