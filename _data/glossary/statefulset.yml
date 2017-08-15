@@ -1,3 +1,4 @@
+id: statefulset
 name: StatefulSet
 formerly:
 - PetSet

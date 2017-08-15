@@ -1,24 +1,12 @@
-- name: Fundamental
-  terms: []
-- name: API Object
-  terms: []
-- name: Metadata
-  terms: []
-- name: Configuration
-  terms: []
-- name: Security
-  terms: []
-- name: Networking
-  terms: []
-- name: Storage
-  terms: []
-- name: Operation
-  terms: []
-- name: Workload
-  terms: []
-- name: Component
-  terms: []
-- name: API
-  terms: []
-- name: Extension
-  terms: []
+- Fundamental
+- API Object
+- Metadata
+- Configuration
+- Security
+- Networking
+- Storage
+- Operation
+- Workload
+- Component
+- API
+- Extension

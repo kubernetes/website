@@ -1,4 +1,5 @@
-name: Some Fancy K8s Term
+id: _example
+name: Example K8s Term
 formerly:
 - Slang K8s Term
 - Misnomer
