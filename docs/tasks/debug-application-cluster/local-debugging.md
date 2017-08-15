@@ -2,13 +2,21 @@
 title: Local development and debugging
 ---
 
+{% capture overview %}
+
 Frequently, Kubernetes applications consist of multiple, separate services, each running in its own container. Developing and debugging these services on a remote Kubernetes cluster can be cumbersome, requiring you to [get a shell on a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/), and running your tools inside the remote shell.
 
 This document will show how you can use `telepresence` to develop and debug one of your services locally, while proxying your service to a remote Kubernetes cluster. This lets you use your own local tools (debugger, IDE, etc.) for your local service, while giving the service full access to ConfigMap, secrets, and the other services running in the cluster.
 
-## Prerequisites
+{% endcapture %}
+
+{% capture prerequisites %}
 
 You need to have a Kubernetes cluster, and the `kubectl` command-line tool configured to communicate with your cluster. You'll also need to [install Telepresence](https://www.telepresence.io/reference/install).
+
+{% endcapture %}
+
+{% capture steps %}
 
 ## Getting a shell on a remote cluster
 
@@ -27,6 +35,8 @@ With the `--swap-deployment` option, Telepresence lets you swap an existing depl
 `telepresence --swap-deployment $DEPLOYMENT_NAME`
 
 where $DEPLOYMENT_NAME is the name of your existing deployment. This will spawn a shell. In the shell, start up your service. You can then make edits to your source code locally, save, and see the changes take effect immediately. You can also run your service in a debugger, or any other local development tool.
+
+{% endcapture %}
 
 ## Further reading
 
