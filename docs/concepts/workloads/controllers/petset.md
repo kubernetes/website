@@ -380,7 +380,7 @@ pod "web-0" deleted
 pod "web-1" deleted
 ```
 
-Deleting the pods will *not* delete the volumes. Until we finalize the recycle policy for these volumes they will have to get cleaned up by an admin. This is to ensure that you have the chance to copy data off the volume before deleting it. Simply deleting the PVC after the pods have left the [terminating state](/docs/user-guide/pods/index#termination-of-pods) should trigger deletion of the backing Persistent Volumes.
+Deleting the pods will *not* delete the volumes. Until we finalize the recycle policy for these volumes they will have to get cleaned up by an admin. This is to ensure that you have the chance to copy data off the volume before deleting it. Simply deleting the PVC after the pods have left the [terminating state](/docs/concepts/workloads/pods/pod/#termination-of-pods) should trigger deletion of the backing Persistent Volumes.
 
 **Note: you will lose all your data once the PVC is deleted, do this with caution.**
 
