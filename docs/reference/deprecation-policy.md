@@ -68,9 +68,9 @@ might have to add an equivalent field or represent it as an annotation.
 API version at least as stable is released.**
 
 GA API versions can replace GA API versions as well as beta and alpha API
-version.  Beta API versions *may not* replace GA API versions.
+versions.  Beta API versions *may not* replace GA API versions.
 
-**Rule #4: Other than the most recent API version in each track, older API
+**Rule #4: Other than the most recent API versions in each track, older API
 versions must be supported after their announced deprecation for a duration of
 no less than:**
 
