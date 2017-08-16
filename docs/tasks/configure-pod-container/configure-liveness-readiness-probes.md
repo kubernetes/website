@@ -14,7 +14,7 @@ despite bugs.
 
 The kubelet uses readiness probes to know when a Container is ready to start
 accepting traffic. A Pod is considered ready when all of its Containers are ready.
-One use of this signal is to control which Pods are used as backends for Services.
+One use of this signal is to control Pods which are used as backends for Services.
 When a Pod is not ready, it is removed from Service load balancers.
 
 {% endcapture %}
@@ -29,7 +29,7 @@ When a Pod is not ready, it is removed from Service load balancers.
 
 ## Define a liveness command
 
-Many applications running for long periods of time eventually transition to
+Many applications running for long periods of time eventually transit to
 broken states, and cannot recover except by being restarted. Kubernetes provides
 liveness probes to detect and remedy such situations.
 
@@ -180,7 +180,7 @@ can’t it is considered a failure.
 
 {% include code.html language="yaml" file="tcp-liveness-readiness.yaml" ghlink="/docs/tasks/configure-pod-container/tcp-liveness-readiness.yaml" %}
 
-As you can see, configuration for a TCP check is quite similar to a HTTP check.
+As you can see, configuration for a TCP check is quite similar to an HTTP check.
 This example uses both readiness and liveness probes. The kubelet will send the
 first readiness probe 5 seconds after the container starts. This will attempt to
 connect to the `goproxy` container on port 8080. If the probe succeeds, the pod
