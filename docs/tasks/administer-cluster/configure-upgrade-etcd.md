@@ -220,6 +220,7 @@ Procedure](#upgrade-procedure).
 ### etcd upgrade requirements
 
 There are requirements on how an etcd cluster upgrade can be performed. The primary considerations are:
+
 - Upgrade between one minor release at a time
 - Rollback supported through additional tooling
 
