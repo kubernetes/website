@@ -1,14 +1,8 @@
 ---
-assignees:
+approvers:
 - crassirostris
 - piosz
 title: Logging Architecture
-redirect_from:
-- "/docs/concepts/clusters/logging/"
-- "/docs/concepts/clusters/logging.html"
-redirect_from:
-- "/docs/user-guide/logging/overview/"
-- "/docs/user-guide/logging/overview.html"
 ---
 
 Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.

@@ -1,8 +1,5 @@
 ---
 title: Declarative Management of Kubernetes Objects Using Configuration Files
-redirect_from:
-- "/docs/concepts/tools/kubectl/object-management-using-declarative-config/"
-- "/docs/concepts/tools/kubectl/object-management-using-declarative-config.html"
 ---
 
 {% capture overview %}
@@ -23,7 +20,7 @@ The `kubectl` tool supports three kinds of object management:
 * Imperative object configuration
 * Declarative object configuration
 
-See [Kubernetes Object Management](/docs/concepts/tools/kubectl/object-management-overview/)
+See [Kubernetes Object Management](/docs/tutorials/object-management-kubectl/object-management/)
 for a discussion of the advantages and disadvantage of each kind of object management.
 
 ## Before you begin
@@ -32,8 +29,8 @@ Declarative object configuration requires a firm understanding of
 the Kubernetes object definitions and configuration. Read and complete
 the following documents if you have not already:
 
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-imperative-commands/)
-- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/tools/kubectl/object-management-using-imperative-config/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
 
 Following are definitions for terms used in this document:
 
@@ -487,7 +484,7 @@ TODO(1.6): For 1.6, add the following bullet point to 1.
 ### How different types of fields are merged
 
 How a particular field in a configuration file is merged with
-with the live configuration depends on the
+the live configuration depends on the
 type of the field. There are several types of fields:
 
 - *primitive*: A field of type string, integer, or boolean.
@@ -897,7 +894,7 @@ configuration involves several manual steps:
 
 1. Export the live object to a local configuration file:
 
-        kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+       kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
 
 1. Manually remove the `status` field from the configuration file.
 
@@ -906,7 +903,7 @@ configuration involves several manual steps:
 
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
-        kubectl replace --save-config -f <kind>_<name>.yaml
+       kubectl replace --save-config -f <kind>_<name>.yaml
 
 1. Change processes to use `kubectl apply` for managing the object exclusively.
 
@@ -918,7 +915,7 @@ TODO(pwittrock): Why doesn't export remove the status field?  Seems like it shou
 
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
-        kubectl replace --save-config -f <kind>_<name>.yaml
+       kubectl replace --save-config -f <kind>_<name>.yaml
 
 1. Change processes to use `kubectl apply` for managing the object exclusively.
 
@@ -952,7 +949,7 @@ template:
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
 - [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/v1.6/)
-- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.6/)
+- [Kubernetes Object Schema Reference](/docs/resources-reference/{{page.version}}/)
 {% endcapture %}
 
 {% include templates/concept.md %}

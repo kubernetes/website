@@ -1,14 +1,9 @@
 ---
-assignees:
+approvers:
 - bryk
 - mikedanese
 - rf232
 title: Web UI (Dashboard)
-redirect_from:
-- "/docs/user-guide/ui/"
-- "/docs/user-guide/ui.html"
-- "/docs/tasks/web-ui-dashboard/"
-- "/docs/tasks/web-ui-dashboard.html"
 ---
 
 Dashboard is a web-based Kubernetes user interface. You can use Dashboard to deploy containerized applications to a Kubernetes cluster, troubleshoot your containerized application, and manage the cluster itself along with its attendant resources. You can use Dashboard to get an overview of applications running on your cluster, as well as for creating or modifying individual Kubernetes resources (such as Deployments, Jobs, DaemonSets, etc). For example, you can scale a Deployment, initiate a rolling update, restart a pod or deploy new applications using a deploy wizard.
@@ -161,7 +156,7 @@ Services and discovery view shows Kubernetes resources that allow for exposing s
 Storage view shows Persistent Volume Claim resources which are used by applications for storing data.
 
 #### Config
-Config view show all Kubernetes resources that are used for live configuration of applications running in clusters. This is now Config Maps and Secrets. Thie views allows for editing and managing config objects and displays secrets hidden by default.
+Config view show all Kubernetes resources that are used for live configuration of applications running in clusters. This is now Config Maps and Secrets. The view allows for editing and managing config objects and displays secrets hidden by default.
 
 ![Secret detail view](/images/docs/ui-dashboard-secret-detail.png)
 

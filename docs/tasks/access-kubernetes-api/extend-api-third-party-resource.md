@@ -1,13 +1,8 @@
 ---
-assignees:
+approvers:
 - enisoc
 - IanLewis
 title: Extend the Kubernetes API with ThirdPartyResources
-redirect_from:
-- "/docs/user-guide/thirdpartyresources/"
-- "/docs/user-guide/thirdpartyresources.html"
-- "/docs/concepts/ecosystem/thirdpartyresource/"
-- "/docs/concepts/ecosystem/thirdpartyresource.html"
 ---
 
 {% assign for_k8s_version="1.7" %}{% include feature-state-deprecated.md %}
@@ -132,7 +127,7 @@ $ kubectl get crontab -o json
                 "uid": "6f65e7a3-8601-11e6-a23e-42010af0000c"
             }
         }
-    ]
+    ],
     "kind": "List",
     "metadata": {},
     "resourceVersion": "",

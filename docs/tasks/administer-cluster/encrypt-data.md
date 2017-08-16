@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - smarterclayton
 title: Encrypting data at rest
 ---
@@ -104,12 +104,12 @@ To create a new secret perform the following steps:
 1. Generate a 32 byte random key and base64 encode it. If you're on Linux or Mac OS X, run the following command:
 
     ```
-    head -c 32 /dev/urandom | base64 -i - -o -
+    head -c 32 /dev/urandom | base64
     ```
 
 2. Place that value in the secret field.  
 3. Set the `--experimental-encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file 
-4. restart your API server. 
+4. Restart your API server. 
 
 **IMPORTANT:** Your config file contains keys that can decrypt content in etcd, so you must properly restrict permissions on your masters so only the user who runs the kube-apiserver can read it.
 
@@ -148,7 +148,7 @@ program to retrieve the contents of your secret.
 Since secrets are encrypted on write, performing an update on a secret will encrypt that content.
 
 ```
-kubectl get secrets -o json | kubectl update -f -
+kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 
 The command above reads all secrets and then updates them to apply server side encryption.
@@ -165,7 +165,7 @@ the presence of a highly available deployment where multiple `kube-apiserver` pr
 2. Restart all `kube-apiserver` processes to ensure each server can decrypt using the new key
 3. Make the new key the first entry in the `keys` array so that it is used for encryption in the config
 4. Restart all `kube-apiserver` processes to ensure each server now encrypts using the new key
-5. Run `kubectl get secrets -o json | kubectl update -f -` to update all secrets
+5. Run `kubectl get secrets -o json | kubectl replace -f -` to encrypt all existing secrets with the new key
 6. Remove the old decryption key from the config after you back up etcd with the new key in use and update all secrets
 
 With a single `kube-apiserver`, step 2 may be skipped
@@ -189,7 +189,7 @@ resources:
           secret: <BASE 64 ENCODED SECRET>
 ```
 
-and restart all `kube-apiserver` processes. Then run the command `kubectl get secrets -o json | kubectl update -f -`
+and restart all `kube-apiserver` processes. Then run the command `kubectl get secrets -o json | kubectl replace -f -`
 to force all secrets to be decrypted.
 
 {% endcapture %}

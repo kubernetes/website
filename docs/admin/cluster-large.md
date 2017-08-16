@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - davidopp
 - lavalamp
 title: Building Large Clusters
@@ -7,11 +7,11 @@ title: Building Large Clusters
 
 ## Support
 
-At {{page.version}}, Kubernetes supports clusters with up to 1000 nodes. More specifically, we support configurations that meet *all* of the following criteria:
+At {{page.version}}, Kubernetes supports clusters with up to 5000 nodes. More specifically, we support configurations that meet *all* of the following criteria:
 
-* No more than 2000 nodes
-* No more than 60000 total pods
-* No more than 120000 total containers
+* No more than 5000 nodes
+* No more than 150000 total pods
+* No more than 300000 total containers
 * No more than 100 pods per node
 
 <br>
@@ -23,7 +23,7 @@ At {{page.version}}, Kubernetes supports clusters with up to 1000 nodes. More sp
 
 A cluster is a set of nodes (physical or virtual machines) running Kubernetes agents, managed by a "master" (the cluster-level control plane).
 
-Normally the number of nodes in a cluster is controlled by the the value `NUM_NODES` in the platform-specific `config-default.sh` file (for example, see [GCE's `config-default.sh`](http://releases.k8s.io/{{page.githubbranch}}/cluster/gce/config-default.sh)).
+Normally the number of nodes in a cluster is controlled by the value `NUM_NODES` in the platform-specific `config-default.sh` file (for example, see [GCE's `config-default.sh`](http://releases.k8s.io/{{page.githubbranch}}/cluster/gce/config-default.sh)).
 
 Simply changing that value to something very large, however, may cause the setup script to fail for many cloud providers. A GCE deployment, for example, will run in to quota issues and fail to bring the cluster up.
 

@@ -37,7 +37,7 @@ the container starts.
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/termination.yaml
+       kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/termination.yaml
 
     In the YAML file, in the `cmd` and `args` fields, you can see that the
     container sleeps for 10 seconds and then writes "Sleep expired" to
@@ -46,13 +46,13 @@ the container starts.
 
 1. Display information about the Pod:
 
-        kubectl get pod termination-demo
+       kubectl get pod termination-demo
 
     Repeat the preceding command until the Pod is no longer running.
 
 1. Display detailed information about the Pod:
 
-        kubectl get pod --output=yaml
+       kubectl get pod --output=yaml
 
     The output includes the "Sleep expired" message:
 
@@ -100,7 +100,7 @@ Set `terminationMessagePath` as shown here:
 {% capture whatsnext %}
 
 * See the `terminationMessagePath` field in
-  [Container](/docs/api-reference/v1.6/#container-v1-core).
+  [Container](/docs/api-reference/{{page.version}}/#container-v1-core).
 * Learn about [retrieving logs](/docs/concepts/cluster-administration/logging/).
 * Learn about [Go templates](https://golang.org/pkg/text/template/).
 

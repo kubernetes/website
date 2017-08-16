@@ -1,13 +1,10 @@
 ---
-assignees:
+approvers:
 - mikedanese
 - luxas
 - errordeveloper
 - jbeda
 title: Using kubeadm to Create a Cluster
-redirect_from:
-- "/docs/getting-started-guides/kubeadm/"
-- "/docs/getting-started-guides/kubeadm.html"
 ---
 
 {% capture overview %}
@@ -34,7 +31,7 @@ If you are not constrained, there are other higher-level tools built to give you
 complete clusters:
 
 * On GCE, [Google Container Engine](https://cloud.google.com/container-engine/)
-  gives you one-click Kubernetes clusters
+  gives you one-click Kubernetes clusters.
 * On AWS, [kops](https://github.com/kubernetes/kops) makes cluster installation
   and management easy.  kops supports building high availability clusters (a
   feature that kubeadm is currently lacking but is building toward).
@@ -105,16 +102,15 @@ kubeadm on, and run:
 kubeadm init
 ```
 
-**Note:** this will autodetect the network interface to advertise the master on
+**Note:**
+ - You need to choose a Pod Network Plugin in the next step. Depending on what
+third-party provider you choose, you might have to set the `--pod-network-cidr` to
+something provider-specific. The tabs below will contain a notice about what flags
+on `kubeadm init` are required.
+ - This will autodetect the network interface to advertise the master on
 as the interface with the default gateway. If you want to use a different
 interface, specify `--apiserver-advertise-address=<ip-address>` argument to `kubeadm
 init`.
-
-There are pod network implementations where the master also plays a role in
-allocating a set of network address space for each node.  When using
-[flannel](https://github.com/coreos/flannel) as the [pod network](#pod-network)
-(described in step 3), specify `--pod-network-cidr=10.244.0.0/16`. _This is not
-required for any other networks besides flannel._
 
 Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to
 read more about the flags `kubeadm init` provides.
@@ -182,31 +178,9 @@ token can add authenticated nodes to your cluster.  These tokens can be listed,
 created and deleted with the `kubeadm token` command.  See the [reference
 guide](/docs/admin/kubeadm/#manage-tokens).
 
-#### Master Isolation
-
-By default, your cluster will not schedule pods on the master for security
-reasons. If you want to be able to schedule pods on the master, e.g. for a
-single-machine Kubernetes cluster for development, run:
-
-``` bash
-kubectl taint nodes --all node-role.kubernetes.io/master-
-```
-
-With output looking something like:
-
-```
-node "test-01" tainted
-taint key="dedicated" and effect="" not found.
-taint key="dedicated" and effect="" not found.
-```
-
-This will remove the `node-role.kubernetes.io/master` taint from any nodes that
-have it, including the master node, meaning that the scheduler will then be able
-to schedule pods everywhere.
-
 ### (3/4) Installing a pod network {#pod-network}
 
-You must install a pod network add-on so that your pods can communicate with
+You **must** install a pod network add-on so that your pods can communicate with
 each other.
 
 **The network must be deployed before any applications.  Also, kube-dns, a
@@ -228,13 +202,80 @@ You can install a pod network add-on with the following command:
 kubectl apply -f <add-on.yaml>
 ```
 
-Please refer to the specific add-on installation guide for exact details. 
-
 **NOTE:** You can install **only one** pod network per cluster.
 
-If you are on another architecture than amd64, you should use the
-flannel or Weave Net overlay networks as described in [the
-multi-platform section](#multi-platform)
+
+{% capture choose %}
+Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
+{% endcapture %}
+
+{% capture calico %}
+
+The official Calico guide is [here](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/)
+
+**Note:**
+ - In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`
+ - Calico works on `amd64` only.
+
+```shell
+kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+```
+{% endcapture %}
+
+{% capture canal %}
+
+The official Canal set-up guide is [here](https://github.com/projectcalico/canal/tree/master/k8s-install)
+
+**Note:**
+ - For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
+ - Canal works on `amd64` only.
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.6/rbac.yaml
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.6/canal.yaml
+```
+{% endcapture %}
+
+{% capture flannel %}
+
+**Note:**
+ - For flannel to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
+ - flannel works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on an other platform than
+`amd64` you have to manually download the manifest and replace `amd64` occurances with your chosen platform.
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel-rbac.yml
+```
+{% endcapture %}
+
+{% capture romana %}
+
+The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm)
+
+**Note:** Romana works on `amd64` only.
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containerize/specs/romana-kubeadm.yml
+```
+{% endcapture %}
+
+{% capture weave_net %}
+
+The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/)
+
+**Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required.
+
+```shell
+export kubever=$(kubectl version | base64 | tr -d '\n')
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+```
+{% endcapture %}
+
+{% assign tab_names = "Choose one...,Calico,Canal,Flannel,Romana,Weave Net" | split: ',' | compact %}
+{% assign tab_contents = site.emptyArray | push: choose | push: calico | push: canal | push: flannel | push: romana | push: weave_net %}
+
+{% include tabs.md %}
 
 Once a pod network has been installed, you can confirm that it is working by
 checking that the kube-dns pod is Running in the output of `kubectl get pods --all-namespaces`.
@@ -242,6 +283,28 @@ And once the kube-dns pod is up and running, you can continue by joining your no
 
 If your network is not working or kube-dns is not in the Running state, check
 out the [troubleshooting section](#troubleshooting) below.
+
+#### Master Isolation
+
+By default, your cluster will not schedule pods on the master for security
+reasons. If you want to be able to schedule pods on the master, e.g. for a
+single-machine Kubernetes cluster for development, run:
+
+``` bash
+kubectl taint nodes --all node-role.kubernetes.io/master-
+```
+
+With output looking something like:
+
+```
+node "test-01" tainted
+taint key="dedicated" and effect="" not found.
+taint key="dedicated" and effect="" not found.
+```
+
+This will remove the `node-role.kubernetes.io/master` taint from any nodes that
+have it, including the master node, meaning that the scheduler will then be able
+to schedule pods everywhere.
 
 ### (4/4) Joining your nodes
 
@@ -294,8 +357,8 @@ kubectl --kubeconfig ./admin.conf get nodes
 
 **Note:** If you are using GCE, instances disable ssh access for root by default.
 If that's the case you can log in to the machine, copy the file someplace that
-can be accessed and then use 
-[`gcloud compute copy-files`](https://cloud.google.com/sdk/gcloud/reference/compute/copy-files)
+can be accessed and then use
+[`gcloud compute copy-files`](https://cloud.google.com/sdk/gcloud/reference/compute/copy-files).
 
 ### (Optional) Proxying API Server to localhost
 
@@ -388,8 +451,9 @@ control of your Kubernetes cluster.
 ## What's next
 
 * Learn about kubeadm's advanced usage on the [advanced reference
-  doc](/docs/admin/kubeadm/)
+  doc](/docs/admin/kubeadm/).
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
+* Configure log rotation. You can use **logrotate** for that. When using Docker, you can specify log rotation options for Docker daemon, for example `--log-driver=json-file --log-opt=max-size=10m --log-opt=max-file=5`. See [Configure and troubleshoot the Docker daemon](https://docs.docker.com/engine/admin/) for more details.
 
 ## Feedback
 
@@ -419,7 +483,9 @@ kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, 
 following the [multi-platform
 proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/multi-platform.md).
 
-Currently, only the pod networks [flannel](https://github.com/coreos/flannel) and [Weave Net](https://www.weave.works/docs/net/latest/kube-addon/) work on multiple architectures.
+Only some of the network providers offer solutions for all platforms. Please consult the list of
+network providers above or the documentation from each provider to figure out whether the provider
+supports your chosen platform.
 
 ## Limitations
 
@@ -443,7 +509,7 @@ addressed in due course.
 You may have trouble in the configuration if you see Pod statuses like `RunContainerError`,
 `CrashLoopBackOff` or `Error`.
 
-1. **There are Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state**
+1. **There are Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state**.
     Right after `kubeadm init` there should not be any such Pods. If there are Pods in
     such a state _right after_ `kubeadm init`, please open an issue in the kubeadm repo.
     `kube-dns` should be in the `Pending` state until you have deployed the network solution.
@@ -453,13 +519,13 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
     might have to grant it more RBAC privileges or use a newer version. Please file
     an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 
-1. **The `kube-dns` Pod is stuck in the `Pending` state forever**
+1. **The `kube-dns` Pod is stuck in the `Pending` state forever**.
     This is expected and part of the design. kubeadm is network provider-agnostic, so the admin
     should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
     of choice. You have to install a Pod Network
     before `kube-dns` may deployed fully. Hence the `Pending` state before the network is set up.
 
-1. **I tried to set `HostPort` on one workload, but it didn't have any effect**
+1. **I tried to set `HostPort` on one workload, but it didn't have any effect**.
     The `HostPort` and `HostIP` functionality is available depending on your Pod Network
     provider. Please contact the author of the Pod Network solution to find out whether
     `HostPort` and `HostIP` functionality are available.

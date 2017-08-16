@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - idvoretskyi
 - xsgordon
 title: OpenStack Heat
@@ -197,7 +197,7 @@ See the [OpenStack CLI Reference](http://docs.openstack.org/cli-reference/) for 
 ### Salt
 
 The OpenStack-Heat provider uses a [standalone Salt configuration](/docs/admin/salt/#standalone-salt-configuration-on-gce-and-others).
-It only uses Salt for bootstraping the machines and creates no salt-master and does not auto-start the salt-minion service on the nodes.
+It only uses Salt for bootstrapping the machines and creates no salt-master and does not auto-start the salt-minion service on the nodes.
 
 ## SSHing to your nodes
 

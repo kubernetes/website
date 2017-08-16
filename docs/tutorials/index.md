@@ -1,8 +1,5 @@
 ---
 title: Tutorials
-redirect_from:
-- "/docs/samples/"
-- "/docs/samples.html"
 ---
 
 This section of the Kubernetes documentation contains tutorials.
@@ -12,7 +9,9 @@ each of which has a sequence of steps.
 
 * [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) is an in-depth interactive tutorial that helps you understand the Kubernetes system and try out some basic Kubernetes features.
 
-* [Online Training Course](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
+* [Scalable Microservices with Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
+
+* [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
 * [Hello Minikube](/docs/tutorials/stateless-application/hello-minikube/)
 
@@ -39,6 +38,16 @@ each of which has a sequence of steps.
 * [Example: Deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/)
 
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
+
+#### CI/CD Pipeline
+
+* [Set Up a CI/CD Pipeline with Kubernetes Part 1: Overview](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/5/set-cicd-pipeline-kubernetes-part-1-overview)
+
+* [Set Up a CI/CD Pipeline with a Jenkins Pod in Kubernetes (Part 2)](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/6/set-cicd-pipeline-jenkins-pod-kubernetes-part-2)
+
+* [Run and Scale a Distributed Crossword Puzzle App with CI/CD on Kubernetes (Part 3)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/run-and-scale-distributed-crossword-puzzle-app-cicd-kubernetes-part-3)
+
+* [Set Up CI/CD for a Distributed Crossword Puzzle App on Kubernetes (Part 4)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
 
 #### Connecting Applications
 

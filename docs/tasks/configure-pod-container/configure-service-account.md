@@ -1,12 +1,9 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - liggitt
 - thockin
 title: Configure Service Accounts for Pods
-redirect_from:
-- "/docs/user-guide/service-accounts/"
-- "/docs/user-guide/service-accounts.html"
 ---
 
 A service account provides an identity for processes that run in a Pod.
@@ -134,7 +131,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: build-robot-secret
-  annotations: 
+  annotations:
     kubernetes.io/service-account.name: build-robot
 type: kubernetes.io/service-account-token
 EOF
@@ -147,7 +144,7 @@ Now you can confirm that the newly built secret is populated with an API token f
 Any tokens for non-existent service accounts will be cleaned up by the token controller.
 
 ```shell
-$ kubectl describe secrets/build-robot-secret 
+$ kubectl describe secrets/build-robot-secret
 Name:   build-robot-secret
 Namespace:  default
 Labels:   <none>

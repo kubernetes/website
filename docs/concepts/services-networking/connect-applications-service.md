@@ -1,12 +1,9 @@
 ---
-assignees:
+approvers:
 - caesarxuchao
 - lavalamp
 - thockin
 title: Connecting Applications with Services
-redirect_from:
-- "/docs/user-guide/connecting-applications/"
-- "/docs/user-guide/connecting-applications.html"
 ---
 
 * TOC
@@ -29,7 +26,7 @@ We did this in a previous example, but let's do it once again and focus on the n
 {% include code.html language="yaml" file="run-my-nginx.yaml" ghlink="/docs/concepts/services-networking/run-my-nginx.yaml" %}
 
 This makes it accessible from any node in your cluster. Check the nodes the pod is running on:
-user
+
 ```shell
 $ kubectl create -f ./run-my-nginx.yaml
 $ kubectl get pods -l run=my-nginx -o wide
@@ -67,7 +64,7 @@ This is equivalent to `kubectl create -f` the following yaml:
 
 {% include code.html language="yaml" file="nginx-svc.yaml" ghlink="/docs/concepts/services-networking/nginx-svc.yaml" %}
 
-This specification will create a Service which targets TCP port 80 on any Pod with the `run: my-nginx` label, and expose it on an abstracted Service port (`targetPort`: is the port the container accepts traffic on, `port`: is the abstracted Service port, which can be any port other pods use to access the Service). View [service API object](/docs/api-reference/v1.6/#service-v1-core) to see the list of supported fields in service definition.
+This specification will create a Service which targets TCP port 80 on any Pod with the `run: my-nginx` label, and expose it on an abstracted Service port (`targetPort`: is the port the container accepts traffic on, `port`: is the abstracted Service port, which can be any port other pods use to access the Service). View [service API object](/docs/api-reference/{{page.version}}/#service-v1-core) to see the list of supported fields in service definition.
 Check your Service:
 
 ```shell
@@ -104,7 +101,7 @@ Kubernetes supports 2 primary modes of finding a Service - environment variables
 
 ### Environment Variables
 
-When a Pod is run on a Node, the kubelet adds a set of environment variables for each active Service. This introduces an ordering problem. To see why, inspect the environment of your running nginx pods (your pod name will be different):
+When a Pod runs on a Node, the kubelet adds a set of environment variables for each active Service. This introduces an ordering problem. To see why, inspect the environment of your running nginx pods (your pod name will be different):
 
 ```shell
 $ kubectl exec my-nginx-3800858182-jr4a2 -- printenv | grep SERVICE
@@ -181,7 +178,7 @@ secret "nginxsecret" created
 $ kubectl get secrets
 NAME                  TYPE                                  DATA      AGE
 default-token-il9rc   kubernetes.io/service-account-token   1         1d
-nginxsecret           Opaque                                2         1m     
+nginxsecret           Opaque                                2         1m
 ```
 
 Now modify your nginx replicas to start an https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):

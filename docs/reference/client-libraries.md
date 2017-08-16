@@ -1,6 +1,6 @@
 ---
 title: Client Libraries
-assignees:
+approvers:
 - ahmetb
 ---
 
@@ -36,21 +36,23 @@ Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery
 The following Kubernetes API client libraries are provided and maintained by
 their authors, not the Kubernetes team.
 
-| Language | Client Library |
-|----------|----------------|
-| Clojure  | [github.com/yanatan16/clj-kubernetes-api](https://github.com/yanatan16/clj-kubernetes-api) |
-| Go       | [github.com/ericchiang/k8s](https://github.com/ericchiang/k8s) |
-| Java (OSGi) | [bitbucket.org/amdatulabs/amdatu-kubernetes](https://bitbucket.org/amdatulabs/amdatu-kubernetes) |
+| Language             | Client Library                           |
+| -------------------- | ---------------------------------------- |
+| Clojure              | [github.com/yanatan16/clj-kubernetes-api](https://github.com/yanatan16/clj-kubernetes-api) |
+| Go                   | [github.com/ericchiang/k8s](https://github.com/ericchiang/k8s) |
+| Java (OSGi)          | [bitbucket.org/amdatulabs/amdatu-kubernetes](https://bitbucket.org/amdatulabs/amdatu-kubernetes) |
 | Java (Fabric8, OSGi) | [github.com/fabric8io/kubernetes-client](https://github.com/fabric8io/kubernetes-client) |
-| Node.js  | [github.com/tenxcloud/node-kubernetes-client](https://github.com/tenxcloud/node-kubernetes-client) |
-| Node.js  | [github.com/godaddy/kubernetes-client](https://github.com/godaddy/kubernetes-client) |
-| Perl     | [metacpan.org/pod/Net::Kubernetes](https://metacpan.org/pod/Net::Kubernetes) |
-| PHP      | [github.com/devstub/kubernetes-api-php-client](https://github.com/devstub/kubernetes-api-php-client) |
-| PHP      | [github.com/maclof/kubernetes-client](https://github.com/maclof/kubernetes-client) |
-| Python   | [github.com/eldarion-gondor/pykube](https://github.com/eldarion-gondor/pykube) |
-| Ruby     | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
-| Ruby     | [github.com/abonas/kubeclient](https://github.com/abonas/kubeclient) |
-| Scala    | [github.com/doriordan/skuber](https://github.com/doriordan/skuber) |
+| Node.js (TypeScript) | [github.com/Goyoo/node-k8s-client](https://github.com/Goyoo/node-k8s-client) |
+| Node.js              | [github.com/tenxcloud/node-kubernetes-client](https://github.com/tenxcloud/node-kubernetes-client) |
+| Node.js              | [github.com/godaddy/kubernetes-client](https://github.com/godaddy/kubernetes-client) |
+| Perl                 | [metacpan.org/pod/Net::Kubernetes](https://metacpan.org/pod/Net::Kubernetes) |
+| PHP                  | [github.com/devstub/kubernetes-api-php-client](https://github.com/devstub/kubernetes-api-php-client) |
+| PHP                  | [github.com/maclof/kubernetes-client](https://github.com/maclof/kubernetes-client) |
+| Python               | [github.com/eldarion-gondor/pykube](https://github.com/eldarion-gondor/pykube) |
+| Python               | [github.com/mnubo/kubernetes-py](https://github.com/mnubo/kubernetes-py) |
+| Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
+| Ruby                 | [github.com/abonas/kubeclient](https://github.com/abonas/kubeclient) |
+| Scala                | [github.com/doriordan/skuber](https://github.com/doriordan/skuber) |
 {% endcapture %}
 
 {% include templates/concept.md %}

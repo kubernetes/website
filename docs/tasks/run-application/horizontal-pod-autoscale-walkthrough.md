@@ -1,13 +1,10 @@
 ---
-assignees:
+approvers:
 - fgrzadkowski
 - jszczepkowski
 - justinsb
 - directxman12
 title: Horizontal Pod Autoscaling Walkthrough
-redirect_from:
-- "/docs/user-guide/horizontal-pod-autoscaling/walkthrough/"
-- "/docs/user-guide/horizontal-pod-autoscaling/walkthrough.html"
 ---
 
 Horizontal Pod Autoscaling automatically scales the number of pods
@@ -63,8 +60,8 @@ We may check the current status of autoscaler by running:
 
 ```shell
 $ kubectl get hpa
-NAME         REFERENCE                     TARGET    CURRENT   MINPODS   MAXPODS   AGE
-php-apache   Deployment/php-apache/scale   50%       0%        1         10        18s
+NAME         REFERENCE                     TARGET    MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1          18s
 
 ```
 
@@ -88,8 +85,8 @@ Within a minute or so, we should see the higher CPU load by executing:
 
 ```shell
 $ kubectl get hpa
-NAME         REFERENCE                     TARGET    CURRENT   MINPODS   MAXPODS   AGE
-php-apache   Deployment/php-apache/scale   50%       305%      1         10        3m
+NAME         REFERENCE                     TARGET      CURRENT   MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache/scale   305% / 50%  305%      1         10        1          3m
 
 ```
 
@@ -117,8 +114,8 @@ Then we will verify the result state (after a minute or so):
 
 ```shell
 $ kubectl get hpa
-NAME         REFERENCE                     TARGET    CURRENT   MINPODS   MAXPODS   AGE
-php-apache   Deployment/php-apache/scale   50%       0%        1         10        11m
+NAME         REFERENCE                     TARGET       MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1          11m
 
 $ kubectl get deployment php-apache
 NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE

@@ -1,25 +1,23 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - mikedanese
 title: What is Kubernetes?
-redirect_from:
-- "/docs/whatisk8s/"
-- "/docs/whatisk8s.html"
 ---
+
 {% capture overview %}
 This page is an overview of Kubernetes.
 {% endcapture %}
 
 {% capture body %}
-Kubernetes is an [open-source platform for automating deployment, scaling, and operations of application containers](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations) across clusters of hosts, providing container-centric infrastructure.
+Kubernetes is an [open-source platform designed to automate deploying, scaling, and operating application containers](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations).
 
 With Kubernetes, you are able to quickly and efficiently respond to customer demand:
 
  - Deploy your applications quickly and predictably.
  - Scale your applications on the fly.
  - Roll out new features seamlessly.
- - Limit hardware usage to required resources only. 
+ - Limit hardware usage to required resources only.
 
 Our goal is to foster an ecosystem of components and tools that relieve the burden of running applications in public and private clouds.
 
@@ -93,7 +91,7 @@ Even though Kubernetes provides a lot of functionality, there are always new sce
 
 [Labels](/docs/concepts/overview/working-with-objects/labels/) empower users to organize their resources however they please. [Annotations](/docs/concepts/overview/working-with-objects/annotations/) enable users to decorate resources with custom information to facilitate their workflows and provide an easy way for management tools to checkpoint state.
 
-Additionally, the [Kubernetes control plane](/docs/concepts/overview/components/) is built upon the same [APIs](/docs/reference/api-overview/) that are available to developers and users. Users can write their own controllers, such as [schedulers](https://git.k8s.io/community/contributors/devel/scheduler.md), with [their own APIs](https://git.k8s.io/community/contributors/design-proposals/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
+Additionally, the [Kubernetes control plane](/docs/concepts/overview/components/) is built upon the same [APIs](/docs/reference/api-overview/) that are available to developers and users. Users can write their own controllers, such as [schedulers](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/devel/scheduler.md), with [their own APIs](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
 
 This [design](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/principles.md) has enabled a number of other systems to build atop Kubernetes.
 

@@ -1,8 +1,5 @@
 ---
 title: Define a Command and Arguments for a Container
-redirect_from:
-- "/docs/concepts/configuration/container-command-args/"
-- "/docs/concepts/configuration/container-command-arg.html"
 ---
 
 {% capture overview %}
@@ -42,11 +39,11 @@ file for the Pod defines a command and two arguments:
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
+       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
 
 1. List the running Pods:
 
-        kubectl get pods
+       kubectl get pods
 
     The output shows that the container that ran in the command-demo Pod has
     completed.
@@ -54,7 +51,7 @@ file for the Pod defines a command and two arguments:
 1. To see the output of the command that ran in the container, view the logs
 from the Pod:
 
-        kubectl logs command-demo
+       kubectl logs command-demo
 
     The output shows the values of the HOSTNAME and KUBERNETES_PORT environment
     variables:
@@ -134,7 +131,7 @@ Here are some examples:
 * Learn more about [containers and commands](/docs/user-guide/containers/).
 * Learn more about [configuring containers](/docs/user-guide/configuring-containers/).
 * Learn more about [running commands in a container](/docs/tasks/kubectl/get-shell-running-container/).
-* See [Container](/docs/api-reference/v1.6/#container-v1-core).
+* See [Container](/docs/api-reference/{{page.version}}/#container-v1-core).
 
 {% endcapture %}
 
