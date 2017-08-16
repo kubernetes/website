@@ -193,7 +193,7 @@ include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tut
 
    ![wordpress-init](https://github.com/kubernetes/examples/blob/master/mysql-wordpress-pd/WordPress.png)
 
-   **Warning:** Do not leave your WordPress installation on this page. If another user finds it, they can set up a website on your instance and use it to serve potentially malicious content. </br> </br>You should either install Wordpress by creating a username and password or delete your instance.
+   **Warning:** Do not leave your WordPress installation on this page. If another user finds it, they can set up a website on your instance and use it to serve potentially malicious content. <br/><br/>You should either install Wordpress by creating a username and password or delete your instance.
    {: .warning}
 
 {% endcapture %}
