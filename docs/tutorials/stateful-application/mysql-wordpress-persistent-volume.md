@@ -39,15 +39,6 @@ import it to the website.
 -->
 
 
-<!-- EXCLUDE_FROM_DOCS BEGIN -->
-
-> :warning: :warning: Follow this tutorial on the Kubernetes website:
-> https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/.
-> Otherwise some of the URLs will not work properly.
-
-# Using Persistent Volumes with MySQL and WordPress
-<!-- EXCLUDE_FROM_DOCS END -->
-
 {% capture overview %}
 This tutorial shows you how to deploy a WordPress site and a MySQL database on a Kubernetes cluster in Minikube. Both applications use PersistentVolumes and PersistentVolume Claims to store data. 
 
@@ -72,8 +63,11 @@ A [PersistentVolume](https://kubernetes.io/docs/concepts/storage/persistent-volu
 {% include task-tutorial-prereqs.md %} 
 
 Download the following configuration files:
+
 1. [local-volumes.yaml](https://kubernetes.io/docs/tutorials/stateful-application/local-volumes.yaml)
+
 2. [mysql-deployment.yaml](https://kubernetes.io//docs/tutorials/stateful-application/mysql-deployment.yaml)
+
 3. [wordpress-deployment.yaml](https://kubernetes.io/docs/tutorials/stateful-application/wordpress-deployment.yaml)
 
 {% endcapture %}
@@ -182,7 +176,7 @@ include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tut
        NAME        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
        wordpress   10.0.0.89    <pending>     80:32406/TCP   4m
 
-   **Note:** If you have a cluster running on a Cloud Provider, you can use `"type": LoadBalancer` to automatically expose a Service behind an external IP Address. However, Minikube can only expose Services through `NodePort`. <br/><br/>The `EXTERNAL-IP` is always `<pending>` when in Minikube.
+   **Note:** If you have a cluster running on a Cloud Provider, you can use `"type": LoadBalancer` to automatically expose a Service behind an external IP Address. However, Minikube can only expose Services through `NodePort`. <br/><br/>The `EXTERNAL-IP` is always `<pending>` in Minikube.
    {: .note}
 
 3. Run the following command to get the IP Address for the WordPress Service:
@@ -199,7 +193,7 @@ include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tut
 
    ![wordpress-init](https://github.com/kubernetes/examples/blob/master/mysql-wordpress-pd/WordPress.png)
 
-   **Warning:** Do not leave your WordPress installation on this page. If another user finds it, they can set up a website on your instance and use it to serve potentially malicious content. </br></br>You should either install Wordpress by creating a username and password or delete your instance.
+   **Warning:** Do not leave your WordPress installation on this page. If another user finds it, they can set up a website on your instance and use it to serve potentially malicious content. </br> </br>You should either install Wordpress by creating a username and password or delete your instance.
    {: .warning}
 
 {% endcapture %}
@@ -216,6 +210,7 @@ include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tut
        kubectl delete service -l app=wordpress
 
    **Note:** Any other Type of PersistentVolume would allow you to recreate the Deployments and Services at this point without losing data, but `hostPath` loses the data as soon as the Pod stops running.
+   {: .note}   
 
 3. Run the following commands to delete the PersistentVolume Claims and the PersistentVolumes:
 
