@@ -695,7 +695,7 @@ parameters:
 
 #### Azure Disk
 
-##### Azure Unmanaged Disk Storage Class (before v1.7.2)
+Azure Unmanaged Disk Storage Class
 
 ```yaml
 kind: StorageClass
@@ -713,7 +713,7 @@ parameters:
 * `location`: Azure storage account location. Default is empty.
 * `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
 
-##### New Azure Disk Storage Class (from v1.7.2)
+New Azure Disk Storage Class (starting from v1.7.2)
 
 ```yaml
 kind: StorageClass
