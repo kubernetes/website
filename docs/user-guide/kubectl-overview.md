@@ -15,7 +15,7 @@ Use the following syntax to run `kubectl` commands from your terminal window:
 kubectl [command] [TYPE] [NAME] [flags]
 ```
 
-where `command`, `TYPE`, `NAME`, and `flags` are:
+Where `command`, `TYPE`, `NAME`, and `flags` are:
 * `command`: Specifies the operation that you want to perform on one or more resources, for example `create`, `get`, `describe`, `delete`.
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-sensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
@@ -28,9 +28,9 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
    When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
    * To specify resources by type and name:
-        * To group resources if they are all the same type: `TYPE1 name1 name2 name<#>`<br/>
+        * To group resources if they are all the same type: `TYPE1 name1 name2 name<#>`<br/>.
         Example: `$ kubectl get pod example-pod1 example-pod2`
-        * To specify multiple resource types individually: `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`<br/>
+        * To specify multiple resource types individually: `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`<br/>.
         Example: `$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
    * To specify resources with one or more files: `-f file1 -f file2 -f file<#>`
      [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-config-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
@@ -173,7 +173,7 @@ Template file:
 $ kubectl get pods <pod-name> -o=custom-columns-file=template.txt
 ```
 
-where the `template.txt` file contains:
+Where the `template.txt` file contains:
 
 ```
 NAME                    RSRC
