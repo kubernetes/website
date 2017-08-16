@@ -99,6 +99,7 @@ for `${NODE_IP}` on each machine.
 #### Validating your cluster
 
 Once you copy this into all three nodes, you should have a clustered etcd set up.  You can validate on master with
+
 ```shell
 kubectl exec < pod_name > etcdctl member list
 ```
