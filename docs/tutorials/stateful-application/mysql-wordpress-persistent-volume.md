@@ -100,7 +100,7 @@ A `hostPath` volume emulates network-attached storage.
 
        kubectl create -f local-volumes.yaml
 
-{% include code.html language="yaml" file="local-volumes.yaml" ghlink="/docs/tutorials/stateful-application/local-volumes.yaml" %}
+`{% include code.html language="yaml" file="local-volumes.yaml" ghlink="/docs/tutorials/stateful-application/local-volumes.yaml" %}`
 
 {:start="3"} 
 3. Run the following command to verify that two 20GiB PVs are created:
@@ -144,7 +144,7 @@ A [Secret](https://kubernetes.io/docs/concepts/configuration/secret/) is an obje
 
 The following manifest describes a single-instance MySQL Pod Deployment. The MySQL container mounts the PersistentVolume at /var/lib/mysql, and the MYSQL_ROOT_PASSWORD environment variable sets the database password from the Secret. 
 
-{% include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tutorials/stateful-application/mysql-deployment.yaml" %}
+`{% include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tutorials/stateful-application/mysql-deployment.yaml" %}`
 
 1. Deploy MySQL from the `mysql-deployment.yaml` file:
 
@@ -167,7 +167,7 @@ The following manifest describes a single-instance MySQL Pod Deployment. The MyS
 
 The following manifest describes a single-instance WordPress Pod Deployment. It uses many of the same features like a PVC for persistent storage and a Secret for the password. However, it also uses a different setting: `"type": NodePort`. This setting exposes WordPress to traffic from outside of the cluster.
 
-{% include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tutorials/stateful-application/wordpress-deployment.yaml" %}
+`{% include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tutorials/stateful-application/wordpress-deployment.yaml" %}`
 
 1. Deploy WordPress from the `wordpress-deployment.yaml` file:
 
