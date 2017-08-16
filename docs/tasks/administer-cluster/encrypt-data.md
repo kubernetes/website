@@ -83,7 +83,7 @@ is the first provider, the first key is used for encryption.
 
 ## Encrypting your data
 
-Create a new encryption config file
+Create a new encryption config file:
 
 ```yaml
 kind: EncryptionConfig
@@ -107,9 +107,9 @@ To create a new secret perform the following steps:
     head -c 32 /dev/urandom | base64
     ```
 
-2. Place that value in the secret field.  
-3. Set the `--experimental-encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file 
-4. Restart your API server. 
+2. Place that value in the secret field.
+3. Set the `--experimental-encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file.
+4. Restart your API server.
 
 **IMPORTANT:** Your config file contains keys that can decrypt content in etcd, so you must properly restrict permissions on your masters so only the user who runs the kube-apiserver can read it.
 
@@ -168,7 +168,7 @@ the presence of a highly available deployment where multiple `kube-apiserver` pr
 5. Run `kubectl get secrets -o json | kubectl replace -f -` to encrypt all existing secrets with the new key
 6. Remove the old decryption key from the config after you back up etcd with the new key in use and update all secrets
 
-With a single `kube-apiserver`, step 2 may be skipped
+With a single `kube-apiserver`, step 2 may be skipped.
 
 
 ## Decrypting all data
