@@ -169,7 +169,7 @@ There are [client libraries](/docs/reference/client-libraries/) for accessing th
 ### Accessing the API from a Pod
 
 When accessing the API from a pod, locating and authenticating
-to the api server are somewhat different.
+to the API server are somewhat different.
 
 The recommended way to locate the apiserver within the pod is with
 the `kubernetes` DNS name, which resolves to a Service IP which in turn
