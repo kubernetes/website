@@ -322,7 +322,7 @@ See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.git
 
 ### fc (fibre channel)
 
-An `fc` volume allows an existing fibre channel volume to be mounted in a pod.
+A `fc` volume allows an existing fibre channel volume to be mounted in a pod.
 You can specify single or multiple target World Wide Names using the parameter
 `targetWWNs` in your volume configuration. If multiple WWNs are specified,
 targetWWNs expect that those WWNs are from multi-path connections.
