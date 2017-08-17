@@ -334,7 +334,7 @@ need to set the `level` section. This sets the
 label given to all Containers in the Pod as well as the Volumes.
 
 **Warning**: After you specify an MCS label for a Pod, all Pods with the same
-label will able to access the Volume. So if you need inter-Pod
+label will be able to access the Volume. So if you need inter-Pod
 protection, you must ensure each Pod is assigned a unique MCS label.
 
 {% endcapture %}
