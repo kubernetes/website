@@ -262,7 +262,7 @@ kubefed init fellowship \
 [service](/docs/concepts/services-networking/service/) on the host cluster. By default,
 this service is exposed as a
 [load balanced service](/docs/user-guide/services/#type-loadbalancer).
-Most on-premises and bare-metal enviroments, and some cloud
+Most on-premises and bare-metal environments, and some cloud
 environments lack support for load balanced services. `kubefed init`
 allows exposing the federation API server as a
 [`NodePort` service](/docs/user-guide/services/#type-nodeport) on

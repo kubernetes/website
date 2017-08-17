@@ -92,7 +92,7 @@ kubectl can be installed as part of the Google Cloud SDK.
 
         gcloud components install kubectl
 
-3. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
+3. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
 ## Install with snap on Ubuntu
 
@@ -102,7 +102,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
         sudo snap install kubectl --classic
 
-2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
+2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
 ## Install with Homebrew on macOS
 
@@ -110,7 +110,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
         brew install kubectl
 
-2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
+2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
 ## Install with Chocolatey on Windows
 
@@ -118,7 +118,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
         choco install kubernetes-cli
 
-2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
+2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 3. Configure kubectl to use a remote Kubernetes cluster:
 
         cd C:\users\yourusername (Or wherever your %HOME% directory is)
