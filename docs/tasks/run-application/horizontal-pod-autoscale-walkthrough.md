@@ -134,7 +134,7 @@ by making use of the `autoscaling/v2alpha1` API version.
 First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2alpha1` form:
 
 ```shell
-$ kubectl get hpa.autoscaling.v2alpha1 -o yaml > /tmp/hpa-v2.yaml
+$ kubectl get hpa.v2alpha1.autoscaling -o yaml > /tmp/hpa-v2.yaml
 ```
 
 Open the `/tmp/hpa-v2.yaml` file in an editor, and you should see YAML which looks like this:
