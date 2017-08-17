@@ -85,6 +85,7 @@ spec:
 automatically assigns a memory request that matches the limit. Similarly, if a Container specifies its own
 cpu limit, but does not specify a cpu request, Kubernetes automatically assigns a cpu request that matches
 the limit.
+{: .note}
 
 Delete your Pod:
 
