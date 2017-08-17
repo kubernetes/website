@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 title: Init Containers
 ---
@@ -83,12 +83,12 @@ Here are some ideas for how to use Init Containers:
 * Wait for some time before starting the app Container with a command like `sleep 60`.
 * Clone a git repository into a volume.
 * Place values into a configuration file and run a template tool to dynamically
-  generate a configuration file for the the main app Container. For example,
+  generate a configuration file for the main app Container. For example,
   place the POD_IP value in a configuration and generate the main app
   configuration file using Jinja.
 
 More detailed usage examples can be found in the [StatefulSets documentation](/docs/concepts/abstractions/controllers/statefulsets/)
-and the [Production Pods guide](/docs/user-guide/production-pods.md#handling-initialization).
+and the [Production Pods guide](/docs/tasks/#handling-initialization).
 
 ### Init Containers in use
 

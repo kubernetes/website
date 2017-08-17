@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 - foxish
 - davidopp
@@ -33,7 +33,7 @@ an application.  Examples are:
 - cloud provider or hypervisor failure makes VM disappear
 - a kernel panic
 - if the node to disappears from the cluster due to cluster network partition
-- eviction of a pod due to the node being [out-of-resources](/docs/tasks/administer-cluster/out-of-resource.md).
+- eviction of a pod due to the node being [out-of-resources](/docs/tasks/administer-cluster/out-of-resource/).
 
 Except for the out-of-resources condition, all these conditions
 should be familiar to most users; they are not specific
@@ -49,7 +49,7 @@ Administrator.  Typical application owner actions include:
 
 Cluster Administrator actions include:
 
-- [Draining a node](/docs//tasks/administer-cluster/safely-drain-node.md) for repair or upgrade.
+- [Draining a node](/docs/tasks/administer-cluster/safely-drain-node/) for repair or upgrade.
 - Draining a node from a cluster to scale the cluster down (learn about
 [Cluster Autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaler)
 ).
@@ -68,8 +68,8 @@ Here are some ways to mitigate involuntary disruptions:
 
 - Ensure your pod [requests the resources](/docs/tasks/configure-pod-container/assign-cpu-ram-container) it needs.
 - Replicate your application if you need higher availability.  (Learn about running replicated
-[stateless](/docs/tasks/run-application/run-stateless-application-deployment.md)
-and [stateful](/docs/tasks/run-application/run-replicated-stateful-application.md) applications.)
+[stateless](/docs/tasks/run-application/run-stateless-application-deployment/)
+and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/) applications.)
 - For even higher availability when running replicated applications,
 spread applications across racks (using
 [anti-affinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature))
@@ -192,7 +192,7 @@ The cluster state now looks like this:
 |                      | pod-b *available*   | pod-c *available*  |
 |                      | pod-d *available*   | pod-y              |
 
-Now, the cluster admin tries to drain `node-2`.
+Now, the cluster administrator tries to drain `node-2`.
 The drain command will try to evict the two pods in some order, say
 `pod-b` first and then `pod-d`.  It will succeed at evicting `pod-b`.
 But, when it tries to evict `pod-d`, it will be refused because that would leave only
@@ -259,9 +259,9 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 
 {% capture whatsnext %}
 
-* Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application//configure-pdb.md).
+* Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
 
-* Learn more about [draining nodes](/docs/tasks/administer-cluster//safely-drain-node.md)
+* Learn more about [draining nodes](/docs/tasks/administer-cluster/safely-drain-node/)
 
 {% endcapture %}
 

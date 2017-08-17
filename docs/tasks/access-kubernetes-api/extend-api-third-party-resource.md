@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - enisoc
 - IanLewis
 title: Extend the Kubernetes API with ThirdPartyResources
@@ -127,7 +127,7 @@ $ kubectl get crontab -o json
                 "uid": "6f65e7a3-8601-11e6-a23e-42010af0000c"
             }
         }
-    ]
+    ],
     "kind": "List",
     "metadata": {},
     "resourceVersion": "",

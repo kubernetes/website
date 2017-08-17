@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - mikedanese
 - luxas
 - errordeveloper
@@ -54,7 +54,7 @@ steps:
    is used to authenticate.  The control plane will sign this CSR requested
    automatically.
 
-1. kubeadm configures the local kubelet to connect to the API server
+1. kubeadm configures the local kubelet to connect to the API server.
 
 ## Usage
 
@@ -79,7 +79,7 @@ cluster.  This is also the address used to construct the suggested `kubeadm
 join` line at the end of the init process.  If not set (or set to 0.0.0.0) then
 IP for the default interface will be used.
 
-This address is also added to the certifcate that the API Server uses.
+This address is also added to the certificate that the API Server uses.
 
 - `--apiserver-bind-port`
 
@@ -211,7 +211,7 @@ set up the Kubernetes master to automatically approve these signing requests.
 This token is passed in with the `--tls-bootstrap-token abcdef.1234567890abcdef`
 flag.
 
-Often times the same token is use for both parts. In this case, the `--token` flag
+Often times the same token is used for both parts. In this case, the `--token` flag
 can be used instead of specifying the each token individually.
 
 Here's an example on how to use it:

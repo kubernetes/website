@@ -1,6 +1,6 @@
 ---
 
-assignees:
+approvers:
 - cdrage
 
 title: Translate a Docker Compose File to Kubernetes Resources
@@ -30,7 +30,7 @@ file "redis-deployment.yaml" created
 
 ## Installation
 
-We have multiple ways to install Kompose. Our prefered method is downloading the binary from the latest GitHub release.
+We have multiple ways to install Kompose. Our preferred method is downloading the binary from the latest GitHub release.
 
 ### GitHub release
 

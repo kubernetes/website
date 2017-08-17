@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - smarterclayton
 title: Securing a Cluster
 ---
@@ -107,7 +107,7 @@ policy.
 
 The [network policies](/docs/tasks/administer-cluster/declare-network-policy/) for a namespace 
 allows application authors to restrict which pods in other namespaces may access pods and ports 
-within their namespace. Many of the supported [Kubernetes networking providers](/docs/concepts/cluster-administration/networking/)
+within their namespaces. Many of the supported [Kubernetes networking providers](/docs/concepts/cluster-administration/networking/)
 now respect network policy.
 
 Quota and limit ranges can also be used to control whether users may request node ports or

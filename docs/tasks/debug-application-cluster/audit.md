@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - soltysh
 - sttts
 - ericchiang
@@ -73,7 +73,7 @@ the [kube-apiserver][kube-apiserver]:
 --feature-gates=AdvancedAuditing=true
 ```
 
-`AdvancedAuditing`is customizeable in two ways. Policy, which determines what's recorded,
+`AdvancedAuditing`is customizable in two ways. Policy, which determines what's recorded,
 and backends, which persist records. Backend implementations include logs files and
 webhooks.
 
@@ -86,7 +86,7 @@ The known stages are:
 - `RequestReceived` - The stage for events generated as soon as the audit handler receives the request.
 - `ResponseStarted` - Once the response headers are sent, but before the response body is sent. This stage is only generated for long-running requests (e.g. watch).
 - `ResponseComplete` - Once the response body has been completed.
-- `Panic` - Events generated when a panic occured.
+- `Panic` - Events generated when a panic occurred.
 
 ### Audit Policy
 

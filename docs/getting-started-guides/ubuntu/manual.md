@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - thockin
 title: Manually Deploying Kubernetes on Ubuntu Nodes
 ---
@@ -130,7 +130,7 @@ for the recommended settings for various releases.
 If your machines are located in a private network that need proxy setting to connect the Internet,
 you can set the config `PROXY_SETTING` in cluster/ubuntu/config-default.sh such as:
 
-     PROXY_SETTING="http_proxy=http://server:port https_proxy=https://server:port"
+    PROXY_SETTING="http_proxy=http://server:port https_proxy=https://server:port"
 
 After all the above variables being set correctly, we can use following command in `cluster/` directory to
 bring up the whole cluster.

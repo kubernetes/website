@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - aveshagarwal
 - erictune
 title: Fedora via Ansible
@@ -111,7 +111,7 @@ source_type: packageManager
 
 **Configure the IP addresses used for services**
 
-Each Kubernetes service gets its own IP address.  These are not real IPs.  You need only select a range of IPs which are not in use elsewhere in your environment.
+Each Kubernetes service gets its own IP address.  These are not real IPs.  You need to only select a range of IPs which are not in use elsewhere in your environment.
 
 ```yaml
 kube_service_addresses: 10.254.0.0/16

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - timstclair
 - deads2k
 - liggitt

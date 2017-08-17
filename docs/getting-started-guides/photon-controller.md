@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 title: VMware Photon Controller
 ---

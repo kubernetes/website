@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - caesarxuchao
 - lavalamp
 - thockin
@@ -26,7 +26,7 @@ We did this in a previous example, but let's do it once again and focus on the n
 {% include code.html language="yaml" file="run-my-nginx.yaml" ghlink="/docs/concepts/services-networking/run-my-nginx.yaml" %}
 
 This makes it accessible from any node in your cluster. Check the nodes the pod is running on:
-user
+
 ```shell
 $ kubectl create -f ./run-my-nginx.yaml
 $ kubectl get pods -l run=my-nginx -o wide
@@ -101,7 +101,7 @@ Kubernetes supports 2 primary modes of finding a Service - environment variables
 
 ### Environment Variables
 
-When a Pod is run on a Node, the kubelet adds a set of environment variables for each active Service. This introduces an ordering problem. To see why, inspect the environment of your running nginx pods (your pod name will be different):
+When a Pod runs on a Node, the kubelet adds a set of environment variables for each active Service. This introduces an ordering problem. To see why, inspect the environment of your running nginx pods (your pod name will be different):
 
 ```shell
 $ kubectl exec my-nginx-3800858182-jr4a2 -- printenv | grep SERVICE

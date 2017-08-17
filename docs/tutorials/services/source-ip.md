@@ -121,7 +121,7 @@ $ NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodepo
 $ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
 ```
 
-if you're running on a cloudprovider, you may need to open up a firewall-rule
+If you're running on a cloudprovider, you may need to open up a firewall-rule
 for the `nodes:nodeport` reported above.
 Now you can try reaching the Service from outside the cluster through the node
 port allocated above.
@@ -181,7 +181,7 @@ client_address=104.132.1.79
 ```
 
 Note that you only got one reply, with the *right* client IP, from the one node on which the endpoint pod
-is running on.
+is running.
 
 This is what happens:
 
@@ -293,7 +293,7 @@ client_address=104.132.1.79
 
 __Cross platform support__
 
-As of Kubernetes 1.5 support for source IP preservation through Services
+As of Kubernetes 1.5, support for source IP preservation through Services
 with Type=LoadBalancer is only implemented in a subset of cloudproviders
 (GCP and Azure). The cloudprovider you're running on might fulfill the
 request for a loadbalancer in a few different ways:
@@ -311,7 +311,7 @@ protocol between the loadbalancer and backend to communicate the true client IP
 such as the HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For)
 header, or the [proxy protocol](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt).
 Loadbalancers in the second category can leverage the feature described above
-by simply creating a HTTP health check pointing at the port stored in
+by simply creating an HTTP health check pointing at the port stored in
 the `service.spec.healthCheckNodePort` field on the Service.
 
 {% endcapture %}

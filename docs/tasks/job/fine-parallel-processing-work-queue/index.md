@@ -30,7 +30,7 @@ Here is an overview of the steps in this example:
 
 ## Starting Redis
 
-For this example, for simplicitly, we will start a single instance of Redis.
+For this example, for simplicity, we will start a single instance of Redis.
 See the [Redis Example](https://git.k8s.io/kubernetes/examples/guestbook) for an example
 of deploying Redis scalably and redundantly.
 
@@ -50,7 +50,7 @@ If you're not working from the source tree, you could also download [`redis-pod.
 Now let's fill the queue with some "tasks".  In our example, our tasks are just strings to be
 printed.
 
-Start a temporary interactive pod for running the Redis CLI
+Start a temporary interactive pod for running the Redis CLI.
 
 ```shell
 $ kubectl run -i --tty temp --image redis --command "/bin/sh"

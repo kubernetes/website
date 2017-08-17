@@ -19,7 +19,7 @@ Kubernetes-friendly SDN you want. Currently this means support for Flannel.
 ## Usage
 
 The flannel charm is a
-[subordinate](https://jujucharms.com/docs/stable/authors-subordinate-services).
+[subordinate](https://jujucharms.com/docs/stable/authors-subordinate-applications).
 This charm will require a principal charm that implements the `kubernetes-cni`
 interface in order to properly deploy.
 

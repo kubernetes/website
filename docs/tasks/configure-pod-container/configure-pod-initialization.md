@@ -34,7 +34,7 @@ shared Volume at `/work-dir`, and the application container mounts the shared
 Volume at `/usr/share/nginx/html`. The init container runs the following command
 and then terminates:
 
-     wget -O /work-dir/index.html http://kubernetes.io
+    wget -O /work-dir/index.html http://kubernetes.io
 
 Notice that the init container writes the `index.html` file in the root directory
 of the nginx server.

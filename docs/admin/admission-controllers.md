@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - davidopp
 - derekwaynecarr
@@ -19,7 +19,7 @@ API server prior to persistence of the object, but after the request is authenti
 and authorized.  The plug-in code is in the API server process
 and must be compiled into the binary in order to be used at this time.
 
-Each admission control plug-in is run in sequence before a request is accepted into the cluster.  If
+Each admission control plug-in runs in sequence before a request is accepted into the cluster.  If
 any of the plug-ins in the sequence reject the request, the entire request is rejected immediately
 and an error is returned to the end-user.
 

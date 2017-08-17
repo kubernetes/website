@@ -59,13 +59,13 @@ You can alternatively create the service with the `kubectl expose` command and
 its `--type=LoadBalancer` flag:
 
 ```bash
-    kubectl expose rc example --port=8765 --target-port=9376 \
+kubectl expose rc example --port=8765 --target-port=9376 \
         --name=example-service --type=LoadBalancer
 ```
 
 This command creates a new service using the same selectors as the referenced
 resource (in the case of the example above, a replication controller named
-`example`.)
+`example`).
 
 For more information, including optional flags, refer to the
 [`kubectl expose` reference](/docs/user-guide/kubectl/v1.6/#expose).
@@ -76,7 +76,7 @@ You can find the IP address created for your service by getting the service
 information through `kubectl`:
 
 ```bash
-    kubectl describe services example-service
+kubectl describe services example-service
 ```
 
 which should produce output like this:

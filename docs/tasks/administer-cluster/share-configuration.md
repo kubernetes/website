@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - mikedanese
 - thockin
 title: Share Cluster Access with kubeconfig
@@ -94,7 +94,7 @@ $ export KUBECONFIG=/path/to/standalone/.kube/config
 
 * The ca_file, key_file, and cert_file referenced above are generated on the
 kube master at cluster turnup. They can be found on the master under
-`/srv/kubernetes`. Bearer token/basic auth are also generated on the kube master.
+`/srv/kubernetes`. Bearer token/basic auth is also generated on the kube master.
 
 For more details on `kubeconfig` see [Authenticating Across Clusters with kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/),
 and/or run `kubectl config -h`.

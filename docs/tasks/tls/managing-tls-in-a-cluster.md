@@ -1,6 +1,6 @@
 ---
 title: Manage TLS Certificates in a Cluster
-assignees:
+approvers:
 - mikedanese
 - beacham
 - liggit
@@ -71,7 +71,7 @@ EOF
 Where `172.168.0.24` is the service's cluster IP,
 `my-svc.my-namespace.svc.cluster.local` is the service's DNS name,
 `10.0.34.2` is the pod's IP and `my-pod.my-namespace.pod.cluster.local`
-is the pod's DNS name. you should see the following output:
+is the pod's DNS name. You should see the following output:
 
 ```
 2017/03/21 06:48:17 [INFO] generate received request
@@ -191,7 +191,7 @@ the CSR and otherwise should deny the CSR.
 The ability to approve CSRs decides who trusts who within the cluster. This
 includes who the Kubernetes API trusts. The ability to approve CSRs should
 not be granted broadly or lightly. The requirements of the challenge
-noted in the previous section and the reprecussions of issuing a specific
+noted in the previous section and the repercussions of issuing a specific
 certificate should be fully understood before granting this permission. See
 [here](/docs/admin/authentication#x509-client-certs) for information on how
 certificates interact with authentication.

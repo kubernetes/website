@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - janetkuo
 title: Replication Controller
