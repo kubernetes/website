@@ -173,7 +173,7 @@ Template file:
 $ kubectl get pods <pod-name> -o=custom-columns-file=template.txt
 ```
 
-Where the `template.txt` file contains:
+where the `template.txt` file contains:
 
 ```
 NAME                    RSRC
