@@ -11,10 +11,11 @@ A service account provides an identity for processes that run in a Pod.
 *This is a user introduction to Service Accounts.  See also the
 [Cluster Admin Guide to Service Accounts](/docs/admin/service-accounts-admin).*
 
-*Note: This document describes how service accounts behave in a cluster set up
+**Note:** This document describes how service accounts behave in a cluster set up
 as recommended by the Kubernetes project.  Your cluster administrator may have
 customized the behavior in your cluster, in which case this documentation may
-not apply.*
+not apply.
+{: .note}
 
 When you (a human) access the cluster (e.g. using `kubectl`), you are
 authenticated by the apiserver as a particular User Account (currently this is
@@ -159,11 +160,12 @@ token: ...
 namespace: 7 bytes
 ```
 
-> Note that the content of `token` is elided here.
+**Note:** The content of `token` is elided here.
+{: .note}
 
 ## Add ImagePullSecrets to a service account
 
-First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
+First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod). 
 Next, verify it has been created.  For example:
 
 ```shell
@@ -180,6 +182,7 @@ kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregis
 ```
 
 Interactive version requiring manual edit:
+
 ```shell
 $ kubectl get serviceaccounts default -o yaml > ./sa.yaml
 $ cat sa.yaml
