@@ -41,7 +41,7 @@ Following are definitions for terms used in this document:
   values of an object, as observed by the Kubernetes cluster. These are kept in the Kubernetes
   cluster storage, typically etcd.
 - *declarative configuration writer /  declarative writer*: A person or software component
-  that makes updates to a live object. The live writers refered to in this topic make changes
+  that makes updates to a live object. The live writers referred to in this topic make changes
   to object configuration files and run `kubectl apply` to write the changes.
 
 ## How to create objects
