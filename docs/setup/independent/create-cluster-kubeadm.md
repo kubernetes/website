@@ -211,14 +211,14 @@ Please select one of the tabs to see installation instructions for the respectiv
 
 {% capture calico %}
 
-The official Calico guide is [here](http://docs.projectcalico.org/v2.3/getting-started/kubernetes/installation/hosted/kubeadm/)
+The official Calico guide is [here](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/)
 
 **Note:**
  - In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`
  - Calico works on `amd64` only.
 
 ```shell
-kubectl apply -f http://docs.projectcalico.org/v2.3/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
 ```
 {% endcapture %}
 
@@ -267,7 +267,8 @@ The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/l
 **Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required.
 
 ```shell
-kubectl apply -f https://git.io/weave-kube-1.6
+export kubever=$(kubectl version | base64 | tr -d '\n')
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
 ```
 {% endcapture %}
 

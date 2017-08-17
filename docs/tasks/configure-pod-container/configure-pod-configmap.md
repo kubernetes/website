@@ -234,7 +234,7 @@ special.level
 special.type
 ```
 
-### Add ConfigMap data to a specific path in the Volume:
+### Add ConfigMap data to a specific path in the Volume
 
 Use the `path` field to specify the desired file path for specific ConfigMap items. 
 In this case, the `special.level` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
@@ -285,7 +285,7 @@ When a ConfigMap already being consumed in a volume is updated, projected keys a
 
 ### Restrictions
 
-1. You must create a ConfigMap before referencing it in a Pod specification (unless you mark the ConfigMap as "optional"). If you reference a ConfigMaps that doesn't exist, the Pod won't start. Likewise, references to keys that don't exist in the ConfigMap will prevent the pod from starting.
+1. You must create a ConfigMap before referencing it in a Pod specification (unless you mark the ConfigMap as "optional"). If you reference a ConfigMap that doesn't exist, the Pod won't start. Likewise, references to keys that don't exist in the ConfigMap will prevent the pod from starting.
 
 1. If you use `envFrom` to define environment variables from ConfigMaps, keys that are considered invalid will be skipped. The pod will be allowed to start, but the invalid names will be recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
 

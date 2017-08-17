@@ -291,7 +291,7 @@ unique to the pods of that job, and which matches unrelated pods, then pods of t
 job may be deleted, or this job may count other pods as completing it, or one or both
 of the jobs may refuse to create pods or run to completion.  If a non-unique selector is
 chosen, then other controllers (e.g. ReplicationController) and their pods may behave
-in unpredicatable ways too.  Kubernetes will not stop you from making a mistake when
+in unpredictable ways too.  Kubernetes will not stop you from making a mistake when
 specifying `spec.selector`.
 
 Here is an example of a case when you might want to use this feature.

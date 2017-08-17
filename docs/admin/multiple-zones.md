@@ -11,7 +11,7 @@ title: Running in Multiple Zones
 Kubernetes 1.2 adds support for running a single cluster in multiple failure zones
 (GCE calls them simply "zones", AWS calls them "availability zones", here we'll refer to them as "zones").
 This is a lightweight version of a broader Cluster Federation feature (previously referred to by the affectionate
-nickname ["Ubernetes"](https://git.k8s.io/community/contributors/design-proposals/federation.md)).
+nickname ["Ubernetes"](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/federation.md)).
 Full Cluster Federation allows combining separate
 Kubernetes clusters running in different regions or cloud providers
 (or on-premises data centers).  However, many
@@ -72,6 +72,18 @@ a single master node by default.  While services are highly
 available and can tolerate the loss of a zone, the control plane is
 located in a single zone.  Users that want a highly available control
 plane should follow the [high availability](/docs/admin/high-availability) instructions.
+
+* StatefulSet volume zone spreading when using dynamic provisioning is currently not compatible with
+pod affinity or anti-affinity policies.
+
+* If the name of the StatefulSet contains dashes ("-"), volume zone spreading
+may not provide a uniform distribution of storage across zones.
+
+* When specifying multiple PVCs in a Deployment or Pod spec, the StorageClass
+needs to be configured for a specific, single zone, or the PVs need to be
+statically provisioned in a specific zone. Another workaround is to use a
+StatefulSet, which will ensure that all the volumes for a replica are
+provisioned in the same zone.
 
 
 ## Walkthrough
