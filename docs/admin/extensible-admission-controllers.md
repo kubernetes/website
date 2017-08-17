@@ -181,8 +181,8 @@ admission request.
 
 ### Enable external admission webhooks
 
-*External Admission Webhooks* is an alpha feature, so it is disabled by default.
-To turn it on, you need to
+*External Admission Webhook* is an alpha feature, so it is disabled by default.
+To turn it on, you need to:
 
 * Include "GenericAdmissionWebhook" in the `--admission-control` flag when
   starting the apiserver. If you have multiple `kube-apiserver` replicas, all
