@@ -14,6 +14,10 @@ K8SMeetup 维护两个仓库：
 
 **注： 所有的翻译文件，都要保留原文，尽可能一段英文，一段中文。方便大家一起`review`，保证翻译质量。**
 
+
+每周的翻译[文章汇总](contribution.md)
+
+
 ## 一、k8s 翻译流程讲解
 
 ![](./images/k8s.io.png)
@@ -145,7 +149,9 @@ Kubernetes 文档由若干 `md` 和 `html` 文档构成,翻译即是将原始 `m
 - 比较`object-management-2017-7-15.md`和`object-management-2017-8-15.md`文件，找出新增的差异化英文
 - 将新的差异化英文更新至 `object-management.md` 文件
 - 删除旧版本日期文件 `object-management-2017-7-15.md`
-- 提交新的PR文件，格式`object-management-pr-2017-8-15`
+- 提交新的PR文件，格式`object-management-pr-2017-8-15`，这里的日期是文件的版本日期
+
+简单而言就是如果有两个带日期字样的 `md` 或 `html` 文件，就需要译者同步更新中文内容，同时把旧日期的版本删除。
 
 向上游提PR [参考此文件](https://docs.google.com/document/d/1xz7BhW8Qkh6reYU7S7RDzSov5e101Vz_fHjq-fEX-W4/edit#heading=h.gjdgxs)。
 

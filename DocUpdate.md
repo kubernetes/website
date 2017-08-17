@@ -1,0 +1,13 @@
+# 代码库每月同步标签
+
+## 2017-07-15 Git Hash
+
+upstream: 5827f5177967f0ecba65610f51bd17736ca8a646
+     dev: 5827f5177967f0ecba65610f51bd17736ca8a646
+
+## 2017-08-15 Git Hash
+
+upstream: 98e2c105ef29ca274a321da00538a70ee6641c85
+     dev: 98e2c105ef29ca274a321da00538a70ee6641c85
+
+
