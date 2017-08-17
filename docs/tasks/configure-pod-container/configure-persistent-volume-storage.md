@@ -188,6 +188,7 @@ each Container.
 
 **Note**: When a Pod consumes a PersistentVolume, the GIDs associated with the
 PersistentVolume are not present on the Pod resource itself.
+{: .note}
 
 {% endcapture %}
 
