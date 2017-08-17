@@ -159,7 +159,8 @@ token: ...
 namespace: 7 bytes
 ```
 
-> Note that the content of `token` is elided here.
+**Note:** The content of `token` is elided here.
+{: .note}
 
 ## Add ImagePullSecrets to a service account
 
@@ -180,6 +181,7 @@ kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregis
 ```
 
 Interactive version requiring manual edit:
+
 ```shell
 $ kubectl get serviceaccounts default -o yaml > ./sa.yaml
 $ cat sa.yaml
