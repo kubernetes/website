@@ -40,7 +40,7 @@ Add the configuration to the etcd server on fed-master.
 etcdctl set /coreos.com/network/config < flannel-config.json
 ```
 
-* Verify the key exists in the etcd server on fed-master.
+* Verify that the key exists in the etcd server on fed-master.
 
 ```shell
 etcdctl get /coreos.com/network/config

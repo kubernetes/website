@@ -78,7 +78,7 @@ You can create a federated ingress in any of the usual ways, for example, using 
 ``` shell
 kubectl --context=federation-cluster create -f myingress.yaml
 ```
-For example ingress YAML configurations, see the [Ingress User Guide](/docs/concepts/services-networking/ingress/)
+For example ingress YAML configurations, see the [Ingress User Guide](/docs/concepts/services-networking/ingress/).
 The '--context=federation-cluster' flag tells kubectl to submit the
 request to the Federation API endpoint, with the appropriate
 credentials. If you have not yet configured such a context, see the
@@ -183,7 +183,7 @@ services need to be identical.  If you're using a federated service
 this is easy to do.  Simply pick a node port that is not already
 being used in any of your clusters, and add that to the spec of your
 federated service.  If you do not specify a node port for your
-federated service, each cluster will choose it's own node port for
+federated service, each cluster will choose its own node port for
 its cluster-local shard of the service, and these will probably end
 up being different, which is not what you want.
 
@@ -253,7 +253,7 @@ how to bring up a cluster federation correctly (or have your cluster administrat
 
 Check that:
 
-1. Your clusters are correctly registered in the Cluster Federation API (`kubectl describe clusters`)
+1. Your clusters are correctly registered in the Cluster Federation API. (`kubectl describe clusters`)
 2. Your clusters are all 'Active'.  This means that the cluster
    Federation system was able to connect and authenticate against the
    clusters' endpoints.  If not, consult the event logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -o name`)
@@ -276,7 +276,7 @@ Check that:
 2. The load balancer controllers in each of your clusters are of the
    correct type ("GLBC") and have been correctly reconfigured by the
    federation control plane to share a global GCE load balancer (this
-   should happen automatically).  If they of the correct type, and
+   should happen automatically).  If they are of the correct type, and
    have been correctly reconfigured, the UID data item in the GLBC
    configmap in each cluster will be identical across all clusters.
    See
@@ -291,7 +291,7 @@ Check that:
     your GLBC will interfere with the behavior of your federated
     ingresses created after the reconfiguration (see
     [the GLBC docs](https://github.com/kubernetes/ingress/blob/7dcb4ae17d5def23d3e9c878f3146ac6df61b09d/controllers/gce/README.md)
-    for further information. To remedy this,
+    for further information). To remedy this,
     delete any ingresses created before the cluster joined the
     federation (and had its GLBC reconfigured), and recreate them if
     necessary.

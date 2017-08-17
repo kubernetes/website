@@ -51,8 +51,9 @@ The first element in the array specifies that the `MY_NODE_NAME` environment
 variable gets its value from the Pod's `spec.nodeName` field. Similarly, the
 other environment variables get their names from Pod fields.
 
-**Note**: The fields in this example are Pod fields. They are not fields of the
+**Note:** The fields in this example are Pod fields. They are not fields of the
 Container in the Pod.
+{: .note}
 
 Create the Pod:
 

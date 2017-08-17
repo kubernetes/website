@@ -38,7 +38,7 @@ With specific tokens on blockquotes and code blocks, the chunks can be placed ac
 
 Clone the repository, then add documents into documents directory. Modify the manifest.json to contain the document filenames in the order desired. The docs field is an array of objects with a filename key.
 
-As a NodeJS program, a valid installation of node is required. Once node is installed, verify it can be run from command line.
+As a NodeJS program, a valid installation of node is required. Once node is installed, verify if it can be run from command line.
 ```
 node --version
 ```
