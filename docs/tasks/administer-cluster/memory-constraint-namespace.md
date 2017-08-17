@@ -195,7 +195,7 @@ resources:
 ```
 
 Because your Container did not specify its own memory request and limit, it was given the
-[default memory request and limit](/docs/tasks/administer-cluster/default-memory-request-limit/)
+[default memory request and limit](/docs/tasks/administer-cluster/memory-default-namespace/)
 from the LimitRange.
 
 At this point, your Container might be running or it might not be running. Recall that a prerequisite
@@ -243,7 +243,7 @@ kubectl delete namespace constraints-mem-example
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/default-memory-request-limit/)
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
 
 * [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/default-cpu-request-limit/)
 

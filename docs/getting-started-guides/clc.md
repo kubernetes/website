@@ -165,7 +165,6 @@ order to access the CenturyLinkCloud API
      -h (--help)                   display this help and exit
      -c= (--clc_cluster_name=)     set the name of the cluster, as used in CLC group names
      -m= (--minion_count=)         number of kubernetes minion nodes to add
-
 ```
 
 ## Cluster Deletion
@@ -176,7 +175,6 @@ There are two ways to delete an existing cluster:
 
 ```shell
 python delete_cluster.py --cluster=clc_cluster_name --datacenter=DC1
-
 ```
 
 2) Use the CenturyLink Cloud UI. To delete a cluster, log into the CenturyLink

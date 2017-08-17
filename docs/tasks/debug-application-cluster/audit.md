@@ -86,7 +86,7 @@ The known stages are:
 - `RequestReceived` - The stage for events generated as soon as the audit handler receives the request.
 - `ResponseStarted` - Once the response headers are sent, but before the response body is sent. This stage is only generated for long-running requests (e.g. watch).
 - `ResponseComplete` - Once the response body has been completed.
-- `Panic` - Events generated when a panic occured.
+- `Panic` - Events generated when a panic occurred.
 
 ### Audit Policy
 

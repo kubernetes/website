@@ -241,7 +241,7 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8
 **Note:**
  - For flannel to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
  - flannel works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on an other platform than
-`amd64` you have to manually download the manifest and replace `amd64` occurances with your chosen platform.
+`amd64` you have to manually download the manifest and replace `amd64` occurences with your chosen platform.
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
@@ -542,8 +542,24 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
 
 [ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)
 
-As with all Kubernetes troubleshooting, normal commands you can take advantage of to help diagnose
-what happened are `kubectl describe pod` or `kubectl logs`. Example usage:
+1. The following error indicates a possible certificate mismatch.
+
+```
+# kubectl get po                           
+Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")       
+```
+
+Verify that the `$HOME/.kube/config` file contains a valid certificate, and regenerate a certificate if necessary.
+Another workaround is to overwrite the default `kubeconfig` for the "admin" user:
+
+```
+  mv  $HOME/.kube $HOME/.kube.bak
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+The `kubectl describe pod` or `kubectl logs` commands can help you diagnose errors. For example:
 
 ```bash
 kubectl -n ${NAMESPACE} describe pod ${POD_NAME}

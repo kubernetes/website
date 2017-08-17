@@ -205,7 +205,7 @@ it will begin evicting pods.
 
 The `kubelet` ranks pods for eviction as follows:
 
-* by their quality of service
+* by their quality of service.
 * by the consumption of the starved compute resource relative to the pods scheduling request.
 
 As a result, pod eviction occurs in the following order:
