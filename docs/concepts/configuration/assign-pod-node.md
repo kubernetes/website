@@ -338,7 +338,7 @@ tolerations:
   effect: "NoSchedule"
 ```
 
-A toleration "matches" a taint if the `key`s are the same and the `effect`s are the same, and:
+A toleration "matches" a taint if the keys are the same and the effects are the same, and:
 
 * the `operator` is `Exists` (in which case no `value` should be specified), or
 * the `operator` is `Equal` and the `value`s are equal
