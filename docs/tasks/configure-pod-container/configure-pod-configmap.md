@@ -108,7 +108,8 @@ This page provides a series of usage examples demonstrating how to configure Pod
 
 ## Configure all key-value pairs in a ConfigMap as Pod environment variables 
 
-Note: This functionality is available to users running Kubernetes v1.6 and later.
+   **Note:** This functionality is available to users running Kubernetes v1.6 and later.
+   {: .note}
 
 1. Create a ConfigMap containing multiple key-value pairs. 
 
@@ -299,7 +300,10 @@ When a ConfigMap already being consumed in a volume is updated, projected keys a
 
 1. Kubelet doesn't support the use of ConfigMaps for pods not found on the API server. 
    This includes every pod created using kubectl or indirectly via a replication controller. 
-   It does not include pods created via the Kubelet's `--manifest-url` flag, `--config` flag, or the Kubelet REST API. (Note: these are not commonly-used ways to create pods.)
+   It does not include pods created via the Kubelet's `--manifest-url` flag, `--config` flag, or the Kubelet REST API. 
+   
+   **Note:** These are not commonly-used ways to create pods.
+   {: .note}
    
 {% endcapture %}
 
