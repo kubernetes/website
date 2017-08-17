@@ -44,13 +44,13 @@ Here are a few methods to install kubectl.
 {% capture linux %}
 1. Download the latest release with the command:
 
-        curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+       curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 
     To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
 
     For example, to download version {{page.fullversion}} on Linux, type:
 
-        curl -LO https://storage.googleapis.com/kubernetes-release/release/{{page.fullversion}}/bin/linux/amd64/kubectl
+       curl -LO https://storage.googleapis.com/kubernetes-release/release/{{page.fullversion}}/bin/linux/amd64/kubectl
 
 2. Make the kubectl binary executable.
 
@@ -70,7 +70,7 @@ Here are a few methods to install kubectl.
 
     Or if you have `curl` installed, use this command:
 
-        curl -LO https://storage.googleapis.com/kubernetes-release/release/{{page.fullversion}}/bin/windows/amd64/kubectl.exe
+       curl -LO https://storage.googleapis.com/kubernetes-release/release/{{page.fullversion}}/bin/windows/amd64/kubectl.exe
 
     To find out the latest stable version (for example, for scripting), take a look at https://storage.googleapis.com/kubernetes-release/release/stable.txt
 
@@ -137,7 +137,7 @@ By default, kubectl configuration is located at `~/.kube/config`.
 Check that kubectl is properly configured by getting the cluster state:
 
 ```shell
-$ kubectl cluster-info
+kubectl cluster-info
 ```
 If you see a URL response, kubectl is correctly configured to access your cluster.
 
