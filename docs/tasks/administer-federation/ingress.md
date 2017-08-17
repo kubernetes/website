@@ -293,7 +293,7 @@ Check that:
     [the GLBC docs](https://github.com/kubernetes/ingress/blob/7dcb4ae17d5def23d3e9c878f3146ac6df61b09d/controllers/gce/README.md)
     for further information. To remedy this,
     delete any ingresses created before the cluster joined the
-    federation (and had it's GLBC reconfigured), and recreate them if
+    federation (and had its GLBC reconfigured), and recreate them if
     necessary.
 {% endcapture %}
 
