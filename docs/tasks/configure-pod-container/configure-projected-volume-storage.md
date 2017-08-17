@@ -43,8 +43,8 @@ the Pod:
 
     The output looks like this:
 
-        NAME                    READY     STATUS    RESTARTS   AGE
-        test-projected-volume   1/1       Running   0          14s
+       NAME                    READY     STATUS    RESTARTS   AGE
+       test-projected-volume   1/1       Running   0          14s
 
 1. In another terminal, get a shell to the running Container:
 

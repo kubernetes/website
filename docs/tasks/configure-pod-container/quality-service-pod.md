@@ -81,10 +81,11 @@ spec:
   qosClass: Guaranteed
 ```
 
-**Note**: If a Container specifies its own memory limit, but does not specify a memory request, Kubernetes
+**Note:** If a Container specifies its own memory limit, but does not specify a memory request, Kubernetes
 automatically assigns a memory request that matches the limit. Similarly, if a Container specifies its own
 cpu limit, but does not specify a cpu request, Kubernetes automatically assigns a cpu request that matches
 the limit.
+{: .note}
 
 Delete your Pod:
 
@@ -246,7 +247,7 @@ kubectl delete namespace qos-example
 
 * [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/default-cpu-request-limit/)
+* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)
 
 * [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 

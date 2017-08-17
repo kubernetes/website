@@ -133,7 +133,7 @@ It is okay to have multiple clusters per availability zone, though on balance we
 Reasons to prefer fewer clusters are:
 
   - improved bin packing of Pods in some cases with more nodes in one cluster (less resource fragmentation).
-  - reduced operational overhead (though the advantage is diminished as ops tooling and processes matures).
+  - reduced operational overhead (though the advantage is diminished as ops tooling and processes mature).
   - reduced costs for per-cluster fixed resource costs, e.g. apiserver VMs (but small as a percentage
     of overall cluster cost for medium to large clusters).
 
