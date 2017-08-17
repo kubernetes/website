@@ -719,7 +719,7 @@ parameters:
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: sharedhdd
+  name: slow
 provisioner: kubernetes.io/azure-disk
 parameters:
   skuName: Standard_LRS
