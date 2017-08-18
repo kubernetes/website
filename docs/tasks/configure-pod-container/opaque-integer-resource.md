@@ -126,7 +126,7 @@ kubectl delete pod oir-demo
 ### For application developers
 
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
-* [Assign CPU Resources to Containers and Pods](docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 ### For cluster administrators
 

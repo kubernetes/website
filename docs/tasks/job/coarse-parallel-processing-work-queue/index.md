@@ -174,7 +174,7 @@ tree, then change directory to `examples/job/work-queue-1`.
 Otherwise, make a temporary directory, change to it,
 download the [Dockerfile](Dockerfile?raw=true),
 and [worker.py](worker.py?raw=true).  In either case,
-build the image with this command: `
+build the image with this command:
 
 ```shell
 $ docker build -t job-wq-1 .

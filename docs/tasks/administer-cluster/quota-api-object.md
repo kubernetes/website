@@ -145,9 +145,9 @@ kubectl delete namespace quota-object-example
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](docs/tasks/administer-cluster/default-memory-request-limit/)
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](docs/tasks/administer-cluster/default-cpu-request-limit/)
+* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)
 
 * [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 
@@ -161,7 +161,7 @@ kubectl delete namespace quota-object-example
 
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 

@@ -23,11 +23,11 @@ If you need stable output in a script, you should:
 
 In order for `kubectl run` to satisfy infrastructure as code:
 
-* Always tag your image with a version-specific tag and don't move that tag to a new version. For example, use `:v1234`, `v1.2.3`, `r03062016-1-4`, rather than `:latest` (see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images) for more information.)
-* If the image is lightly parameterized, capture the parameters in a checked-in script, or at least use `--record`, to annotate the created objects with the command line.
+* Always tag your image with a version-specific tag and don't move that tag to a new version. For example, use `:v1234`, `v1.2.3`, `r03062016-1-4`, rather than `:latest` (see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images) for more information).
+* If the image is lightly parameterized, capture the parameters in a checked-in script, or at least use `--record`to annotate the created objects with the command line.
 * If the image is heavily parameterized, definitely check in the script.
 * If features are needed that are not expressible via `kubectl run` flags, switch to configuration files checked into source control.
-* Pin to a specific [generator](#generators) version, such as `kubectl run --generator=deployment/v1beta1`
+* Pin to a specific [generator](#generators) version, such as `kubectl run --generator=deployment/v1beta1`.
 
 #### Generators
 

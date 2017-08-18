@@ -30,7 +30,7 @@ the Kubernetes object definitions and configuration. Read and complete
 the following documents if you have not already:
 
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
-- [Imperative Management of Kubernetes Objects Using Configuration Files](docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
 
 Following are definitions for terms used in this document:
 
@@ -41,7 +41,7 @@ Following are definitions for terms used in this document:
   values of an object, as observed by the Kubernetes cluster. These are kept in the Kubernetes
   cluster storage, typically etcd.
 - *declarative configuration writer /  declarative writer*: A person or software component
-  that makes updates to a live object. The live writers refered to in this topic make changes
+  that makes updates to a live object. The live writers referred to in this topic make changes
   to object configuration files and run `kubectl apply` to write the changes.
 
 ## How to create objects

@@ -193,7 +193,7 @@ will have log names `container_1` and `container_2` respectively.
 
 System components have resource type `compute`, which is named
 `GCE VM Instance` in the interface. Log names for system components are fixed.
-For a GKE node, every log entry from a system component has one the following
+For a GKE node, every log entry from a system component has one of the following
 log names:
 
 * docker
@@ -234,9 +234,9 @@ the Stackdriver [Exporting Logs page](https://cloud.google.com/logging/docs/expo
 
 ## Configuring Stackdriver Logging Agents
 
-Sometimes the default installation of Stackdriver Logging may not suite your needs, for example:
+Sometimes the default installation of Stackdriver Logging may not suit your needs, for example:
 
-* You may want to add more resources because default performance doesn't suite your needs.
+* You may want to add more resources because default performance doesn't suit your needs.
 * You may want to introduce additional parsing to extract more metadata from your log messages,
 like severity or source code reference.
 * You may want to send logs not only to Stackdriver or send it to Stackdriver only partially.

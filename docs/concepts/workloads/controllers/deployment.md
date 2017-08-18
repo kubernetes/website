@@ -441,7 +441,7 @@ Events:
 You can scale a Deployment by using the following command:
 
 ```shell
-$ kubectl scale deployment nginx-deployment --replicas 10
+$ kubectl scale deployment nginx-deployment --replicas=10
 deployment "nginx-deployment" scaled
 ```
 
