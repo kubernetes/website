@@ -332,7 +332,7 @@ need to set the `level` section. This sets the
 [Multi-Category Security (MCS)](https://selinuxproject.org/page/NB_MLS)
 label given to all Containers in the Pod as well as the Volumes.
 
-**Warning:** After you specify an MCS label for a Pod, all Pods with the same label will be able to access the Volume. So if you need inter-Pod protection, you must ensure each Pod is assigned a unique MCS label.
+**Warning:** After you specify an MCS label for a Pod, all Pods with the same label can access the Volume. If you need inter-Pod protection, you must assign a unique MCS label to each Pod.
 {: .warning}
 
 {% endcapture %}
