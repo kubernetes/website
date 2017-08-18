@@ -117,7 +117,7 @@ external IP address.
 
 1. Use the external IP address to access the Hello World application:
 
-        curl http://<external-ip>:<port>
+       curl http://<external-ip>:<port>
 
     where `<external-ip>` is the external IP address of your Service,
     and `<port>` is the value of `Port` in your Service description.
