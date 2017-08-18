@@ -92,7 +92,7 @@ $ KUBE_GCE_ZONE=replica-zone KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-
 
 ## Best practices for replicating masters for HA clusters
 
-* Try to place masters replicas in different zones. During a zone failure, all masters placed inside the zone will fail.
+* Try to place master replicas in different zones. During a zone failure, all masters placed inside the zone will fail.
 To survive zone failure, also place nodes in multiple zones
 (see [multiple-zones](/docs/admin/multiple-zones/) for details).
 
