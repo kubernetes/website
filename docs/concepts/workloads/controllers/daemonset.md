@@ -98,9 +98,20 @@ when the pod is created, so it is ignored by the scheduler).  Therefore:
  - DaemonSet controller can make pods even when the scheduler has not been started, which can help cluster
    bootstrap.
 
-Daemon pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature), but they are
-created with `NoExecute` tolerations for the `node.alpha.kubernetes.io/notReady` and `node.alpha.kubernetes.io/unreachable`
-taints with no `tolerationSeconds`. This ensures that when the `TaintBasedEvictions` alpha feature is enabled,
+Daemon pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature),
+but they are created with `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
+
+ - `node.alpha.kubernetes.io/notReady`
+ - `node.alpha.kubernetes.io/unreachable`
+ - `node.alpha.kubernetes.io/memoryPressure`
+ - `node.alpha.kubernetes.io/diskPressure`
+
+When the support to critical pods is enabled and the pods in a DaemonSet are
+labelled as critical, the Daemon pods are created with an additional
+`NoExecute` toleration for the `node.alpha.kubernetes.io/outOfDisk` taint with
+no `tolerationSeconds`.
+
+This ensures that when the `TaintBasedEvictions` alpha feature is enabled,
 they will not be evicted when there are node problems such as a network partition. (When the
 `TaintBasedEvictions` feature is not enabled, they are also not evicted in these scenarios, but
 due to hard-coded behavior of the NodeController rather than due to tolerations).
