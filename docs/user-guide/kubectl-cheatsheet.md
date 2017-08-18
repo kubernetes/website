@@ -231,7 +231,7 @@ $ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ## Resource types
 
-The following table includes a list of all the supported resource types and their abbreviated aliases.
+The following table includes a list of all the supported resource types and their abbreviated aliases:
 
 Resource type   | Abbreviated alias
 -------------------- | --------------------

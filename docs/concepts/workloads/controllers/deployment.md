@@ -476,7 +476,7 @@ $ kubectl set image deploy/nginx-deployment nginx=nginx:sometag
 deployment "nginx-deployment" image updated
 ```
 
-The image update starts a new rollout with ReplicaSet nginx-deployment-1989198191 but it's blocked due to the
+The image update starts a new rollout with ReplicaSet nginx-deployment-1989198191, but it's blocked due to the
 maxUnavailable requirement that we mentioned above.
 
 ```shell
