@@ -22,7 +22,7 @@ The ip-masq-agent configures iptables rules to hide a pod's IP address behind th
 *   **NAT (Network Address Translation)**
     Is a method of remapping one IP address to another by modifying either the source and/or destination address information in the IP header.  Typically performed by a device doing IP routing.
 *   **Masquerading**
-    A form of NAT that is typically used to perform a many to one address translation, where multiple source IP addresses are masked behind a single address, which is typically the device doing the IP routing. In kubernetes this is the Node's IP address. 
+    A form of NAT that is typically used to perform a many to one address translation, where multiple source IP addresses are masked behind a single address, which is typically the device doing the IP routing. In Kubernetes this is the Node's IP address. 
 *   **CIDR (Classless Inter-Domain Routing)**
     Based on the variable-length subnet masking, allows specifying arbitrary-length prefixes. CIDR introduced a new method of representation for IP addresses, now commonly known as **CIDR notation**, in which an address or routing prefix is written with a suffix indicating the number of bits of the prefix, such as 192.168.2.0/24.
 *   **Link Local**
@@ -32,10 +32,10 @@ The ip-masq-agent configures iptables rules to handle masquerading node/pod IP a
 
 ![masq/non-masq example](/images/docs/ip-masq.png)
 
-The agent configuration file must be written in yaml or json syntax, and may contain three optional keys:
+The agent configuration file must be written in YAML or JSON syntax, and may contain three optional keys:
 
 *   **nonMasqueradeCIDRs:** A list of strings in [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) notation that specify the non-masquerade ranges.
-*   **masqLinkLocal:** A boolean (true / false) which indicates whether to masquerade traffic to the link local prefix 169.254.0.0/16. False by default.
+*   **masqLinkLocal:** A Boolean (true / false) which indicates whether to masquerade traffic to the link local prefix 169.254.0.0/16. False by default.
 *   **resyncInterval:** An interval at which the agent attempts to reload config from disk. e.g. '30s' where 's' is seconds, 'ms' is milliseconds etc...
 
 Traffic to 10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16) ranges will NOT be masqueraded. Any other traffic (assumed to be internet) will be masqueraded.  An example of a local destination from a pod could be its Node's IP address as well as another node's address or one of the IP addresses in Cluster's IP range.   Any other traffic will be masqueraded by default.  The below entries show the default set of rules that are applied by the ip-masq-agent:
