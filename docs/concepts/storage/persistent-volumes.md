@@ -722,11 +722,11 @@ metadata:
   name: slow
 provisioner: kubernetes.io/azure-disk
 parameters:
-  skuName: Standard_LRS
+  storageaccounttype: Standard_LRS
   kind: Shared
 ```
 
-* `skuName`: Azure storage account Sku tier. Default is empty.
+* `storageaccounttype`: Azure storage account Sku tier. Default is empty.
 * `kind`: default is shared, allowed values are shared, dedicated and managed. When kind is shared, all unmanaged disks are created in a few shared storage accounts in the same resource group as the cluster; when kind is dedicated, a new dedicated storage account will be created for the new unmanaged disk in the same resource group as the cluster.
 
 - Premium VM can attach both Standard_LRS and Premium_LRS disks, while Standard VM can only attach Standard_LRS disks.
