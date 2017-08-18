@@ -107,7 +107,7 @@ The policy file holds rules that determine the level of an event. Known audit le
 - `Request` - log event metadata and request body but not response body.
 - `RequestResponse` - log event metadata, request and response bodies.
 
-When an event is processed it's compared against the list of rules in order.
+When an event is processed, it's compared against the list of rules in order.
 The first matching rule sets the audit level of the event. The audit policy is
 defined by the [`audit.k8s.io` API group][audit-api].
 
