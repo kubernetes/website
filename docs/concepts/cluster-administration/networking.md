@@ -168,6 +168,10 @@ sysctl net.ipv4.ip_forward=1
 The result of all this is that all `Pods` can reach each other and can egress
 traffic to the internet.
 
+### Kube-router
+
+[Kube-router](https://github.com/cloudnativelabs/kube-router) is purpose built networking solution for Kubernetes which aims to provide high performance and operational simplicity. Kube-router provides Linux [LVS/IPVS](http://www.linuxvirtualserver.org/software/ipvs.html) based service proxy, Linux kernel forwarding based pod-to-pod networking solution with no overlays and iptables/ipset based network policy enforcer. 
+
 ### L2 networks and linux bridging
 
 If you have a "dumb" L2 network, such as a simple switch in a "bare-metal"
