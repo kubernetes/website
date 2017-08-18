@@ -211,7 +211,6 @@ The output shows that the Container starts and fails repeatedly:
 ```
 ... Normal  Created   Created container with id 66a3a20aa7980e61be4922780bf9d24d1a1d8b7395c09861225b0eba1b1f8511
 ... Warning BackOff   Back-off restarting failed container
-
 ```
 
 View detailed information about your cluster's Nodes:
