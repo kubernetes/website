@@ -119,10 +119,11 @@ Recall that by setting `-cpu "2"`, you configured the Container to attempt to us
 But the Container is only being allowed to use about 1 cpu. The Container's CPU use is being
 throttled, because the Container is attempting to use more CPU resources than its limit.
 
-Note: There's another possible explanation for the CPU throttling. The Node might not have
+**Note:** There's another possible explanation for the CPU throttling. The Node might not have
 enough CPU resources available. Recall that the prerequisites for this exercise require that each of
 your Nodes has at least 1 cpu. If your Container is running on a Node that has only 1 cpu, the Container
 cannot use more than 1 cpu regardless of the CPU limit specified for the Container.
+{: .note}
 
 ## CPU units
 
@@ -253,9 +254,9 @@ kubectl delete namespace cpu-example
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/default-memory-request-limit/)
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/default-cpu-request-limit/)
+* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)
 
 * [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 

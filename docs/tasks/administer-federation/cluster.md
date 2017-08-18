@@ -78,7 +78,7 @@ kubectl --context=rivendell label cluster gondor key1=value1 key2=value2
 
 Starting in Kubernetes 1.7, there is alpha support for directing objects across the federated clusters with the annotation `federation.alpha.kubernetes.io/cluster-selector`. The *ClusterSelector* is conceptually similar to `nodeSelector`, but instead of selecting against labels on nodes, it selects against labels on federated clusters.
 
-The annotation value must be json formatted and must be parsable into the [ClusterSelector API type](/docs/reference/federation/v1beta1/definitions/#_v1beta1_clusterselector). For example: `[{"key": "load", "operator": "Lt", "values": ["10"]}]`. Content that doesn't parse correctly will throw an error and prevent distribution of the object to any federated clusters. Objects of type Configmap, Secret, Daemonset, Service and Ingress are included in the alpha implementation.
+The annotation value must be JSON formatted and must be parsable into the [ClusterSelector API type](/docs/reference/federation/v1beta1/definitions/#_v1beta1_clusterselector). For example: `[{"key": "load", "operator": "Lt", "values": ["10"]}]`. Content that doesn't parse correctly will throw an error and prevent distribution of the object to any federated clusters. Objects of type ConfigMap, Secret, Daemonset, Service and Ingress are included in the alpha implementation.
 
 Here is an example ClusterSelector annotation, which will only select clusters WITH the label `pci=true` and WITHOUT the label `environment=test`:
 
@@ -102,7 +102,7 @@ Currently, only integers are supported with `Gt` or `Lt`.
 
 ## Clusters API reference
 
-The full clusters API reference is currently in `federation/v1beta1` and more details can be found in details in the
+The full clusters API reference is currently in `federation/v1beta1` and more details can be found in the
 [Federation API reference page](/docs/reference/federation/).
 
 {% endcapture %}

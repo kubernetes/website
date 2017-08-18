@@ -508,9 +508,9 @@ While the basic node services (kubelet, kube-proxy, docker) are typically starte
 traditional system administration/automation approaches, the remaining *master* components of Kubernetes are
 all configured and managed *by Kubernetes*:
 
-  - their options are specified in a Pod spec (yaml or json) rather than an /etc/init.d file or
+  - Their options are specified in a Pod spec (yaml or json) rather than an /etc/init.d file or
     systemd unit.
-  - they are kept running by Kubernetes rather than by init.
+  - They are kept running by Kubernetes rather than by init.
 
 ### etcd
 
@@ -839,7 +839,7 @@ of their purpose is in the admin guide](/docs/admin/cluster-components/#addons).
 Notes for setting up each cluster service are given below:
 
 * Cluster DNS:
-  * required for many Kubernetes examples
+  * Required for many Kubernetes examples
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
   * [Admin Guide](/docs/concepts/services-networking/dns-pod-service/)
 * Cluster-level Logging
@@ -889,7 +889,7 @@ At this point you should be able to run through one of the basic examples, such 
 
 ### Running the Conformance Test
 
-You may want to try to run the [Conformance test](http://releases.k8s.io/{{page.githubbranch}}/hack/conformance-test.sh).  Any failures may give a hint as to areas that need more attention.
+You may want to try to run the [Conformance test](http://releases.k8s.io/{{page.githubbranch}}/test/e2e_node/conformance/run_test.sh).  Any failures may give a hint as to areas that need more attention.
 
 ### Networking
 

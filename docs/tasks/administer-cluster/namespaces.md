@@ -205,7 +205,7 @@ $ kubectl config current-context
 lithe-cocoa-92103_kubernetes
 ```
 
-The next step is to define a context for the kubectl client to work in each namespace. The value of "cluster" and "user" fields are copied from the current context.
+The next step is to define a context for the kubectl client to work in each namespace. The values of "cluster" and "user" fields are copied from the current context.
 
 ```shell
 $ kubectl config set-context dev --namespace=development --cluster=lithe-cocoa-92103_kubernetes --user=lithe-cocoa-92103_kubernetes

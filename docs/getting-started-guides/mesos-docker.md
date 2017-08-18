@@ -265,7 +265,7 @@ make test_e2e
 
 ## Kubernetes CLI
 
-When compiling from source, it's simplest to use the `./cluster/kubectl.sh` script, which detects your platform &
+When compiling from source, it's simpler to use the `./cluster/kubectl.sh` script, which detects your platform &
 architecture and proxies commands to the appropriate `kubectl` binary.
 
 ex: `./cluster/kubectl.sh get pods`
