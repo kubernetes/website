@@ -19,8 +19,7 @@ This is a living document. If you think of something that is not on this list bu
 
 - Write your configuration files using YAML rather than JSON. Though these formats can be used interchangeably in almost all scenarios, YAML tends to be more user-friendly.
 
-- Group related objects into a single file whenever it makes sense. One file is often easier to manage than several. See the [guestbook-all-in-one.yaml](https://github.com"?
-/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/all-in-one/guestbook-all-in-one.yaml) file as an example of this syntax.
+- Group related objects into a single file whenever it makes sense. One file is often easier to manage than several. See the [guestbook-all-in-one.yaml](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/all-in-one/guestbook-all-in-one.yaml) file as an example of this syntax.
 
   Note also that many `kubectl` commands can be called on a directory, so you can also call `kubectl create` on a directory of config files. See below for more details.
 
