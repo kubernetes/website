@@ -178,7 +178,6 @@ Next, modify the default service account for the namespace to use this secret as
 
 ```shell
 kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
-
 ```
 
 Interactive version requiring manual edit:
