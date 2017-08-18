@@ -79,7 +79,7 @@ Containers started by Kubernetes automatically include this DNS server in their 
 
 #### User interface
 
-The kube-ui provides a read-only overview of the cluster state.  For more information, see [Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
+The `kube-ui` provides a read-only overview of the cluster state.  For more information, see [Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
 
 
 #### Container Resource Monitoring
@@ -115,20 +115,20 @@ network rules on the host and performing connection forwarding.
 
 ### docker
 
-docker is used for running containers.
+`docker` is used for running containers.
 
 ### rkt
 
-rkt is supported experimentally for running containers as an alternative to docker.
+`rkt` is supported experimentally for running containers as an alternative to docker.
 
 ### supervisord
 
-supervisord is a lightweight process monitor and control system that can be used to keep kubelet and docker
+`supervisord` is a lightweight process monitor and control system that can be used to keep kubelet and docker
 running.
 
 ### fluentd
 
-fluentd is a daemon which helps provide [cluster-level logging](#cluster-level-logging).
+`fluentd` is a daemon which helps provide [cluster-level logging](#cluster-level-logging).
 {% endcapture %}
 
 {% include templates/concept.md %}
