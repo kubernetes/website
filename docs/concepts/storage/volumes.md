@@ -586,12 +586,13 @@ __Important: You must create VMDK using one of the following method before using
    First ssh into ESX and then use following command to create vmdk,
 
 ```shell
-    vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
+vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
 ```
 
 * Create using vmware-vdiskmanager.
+
 ```shell
-  vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
+vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
 ```
 
 #### vSphere VMDK Example configuration
