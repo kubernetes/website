@@ -98,7 +98,7 @@ when the pod is created, so it is ignored by the scheduler).  Therefore:
  - DaemonSet controller can make pods even when the scheduler has not been started, which can help cluster
    bootstrap.
 
-Daemon pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature), but they are
+Daemon pods do respect [taints and tolerations](/docs/concepts/configuration/taint-and-toleration), but they are
 created with `NoExecute` tolerations for the `node.alpha.kubernetes.io/notReady` and `node.alpha.kubernetes.io/unreachable`
 taints with no `tolerationSeconds`. This ensures that when the `TaintBasedEvictions` alpha feature is enabled,
 they will not be evicted when there are node problems such as a network partition. (When the
