@@ -14,8 +14,8 @@ nodes.
 {% capture prerequisites %}
 * You are the owner of an application running on a Kubernetes cluster that requires
   high availability.
-* You should know how to deploy [Replicated Stateless Applications](/docs/tasks/run-application/run-stateless-application-deployment.md)
-  and/or [Replicated Stateful Applications](/docs/tasks/run-application/run-replicated-stateful-application.md).
+* You should know how to deploy [Replicated Stateless Applications](/docs/tasks/run-application/run-stateless-application-deployment/)
+  and/or [Replicated Stateful Applications](/docs/tasks/run-application/run-replicated-stateful-application/).
 * You should have read about [Pod Disruptions](/docs/concepts/workloads/pods/disruptions/).
 * You should confirm with your cluster owner or service provider that they respect
   Pod Disruption Budgets.
