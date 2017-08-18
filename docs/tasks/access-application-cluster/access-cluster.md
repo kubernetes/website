@@ -124,7 +124,7 @@ client libraries.
 
 #### Go client
 
-* To get the library, run the following command: `go get k8s.io/client-go/<version number>/kubernetes` See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) to see which versions are supported.
+* To get the library, run the following command: `go get k8s.io/client-go/<version number>/kubernetes`. See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) to see which versions are supported.
 * Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct.
 
 The Go client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
@@ -134,7 +134,7 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 
 #### Python client
 
-To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
+To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes`. See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/user-guide/kubeconfig-file)
 as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py).
@@ -154,7 +154,7 @@ the `kubernetes` DNS name, which resolves to a Service IP which in turn
 will be routed to an apiserver.
 
 The recommended way to authenticate to the apiserver is with a
-[service account](/docs/user-guide/service-accounts) credential.  By kube-system, a pod
+[service account](/docs/tasks/configure-pod-container/configure-service-account/) credential.  By kube-system, a pod
 is associated with a service account, and a credential (token) for that
 service account is placed into the filesystem tree of each container in that pod,
 at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
@@ -244,7 +244,7 @@ at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-l
 As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you simply append to the service's proxy URL:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
-If you haven't specified a name for your port, you don't have to specify *port_name* in the URL
+If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
 
 ##### Examples
 
