@@ -651,7 +651,7 @@ Now make the pods:
 }
 ```
 
-Both containers will have the following files present on their filesystems:
+Both containers will have the following files present on their filesystems with the values for each container's environment:
 
 ```shell
 /etc/secret-volume/username

@@ -7,14 +7,14 @@ title: Troubleshoot Applications
 
 This guide is to help users debug applications that are deployed into Kubernetes and not behaving correctly.
 This is *not* a guide for people who want to debug their cluster.  For that you should check out
-[this guide](/docs/admin/cluster-troubleshooting)
+[this guide](/docs/admin/cluster-troubleshooting).
 
 * TOC
 {:toc}
 
 ## FAQ
 
-Users are highly encouraged to check out our [FAQ](https://github.com/kubernetes/kubernetes/wiki/User-FAQ)
+Users are highly encouraged to check out our [FAQ](https://github.com/kubernetes/kubernetes/wiki/User-FAQ).
 
 ## Diagnosing the problem
 
@@ -57,7 +57,7 @@ scheduled.  In most cases, `hostPort` is unnecessary, try using a Service object
 If a Pod is stuck in the `Waiting` state, then it has been scheduled to a worker node, but it can't run on that machine.
 Again, the information from `kubectl describe ...` should be informative.  The most common cause of `Waiting` pods is a failure to pull the image.  There are three things to check:
 
-* Make sure that you have the name of the image correct
+* Make sure that you have the name of the image correct.
 * Have you pushed the image to the repository?
 * Run a manual `docker pull <image>` on your machine to see if the image can be pulled.
 
@@ -184,8 +184,8 @@ in the endpoints list, it's likely that the proxy can't contact your pods.
 There are three things to
 check:
 
-   * Are your pods working correctly?  Look for restart count, and [debug pods](#debugging-pods)
-   * Can you connect to your pods directly?  Get the IP address for the Pod, and try to connect directly to that IP
+   * Are your pods working correctly?  Look for restart count, and [debug pods](#debugging-pods).
+   * Can you connect to your pods directly?  Get the IP address for the Pod, and try to connect directly to that IP.
    * Is your application serving on the port that you configured?  Kubernetes doesn't do port remapping, so if your application serves on 8080, the `containerPort` field needs to be 8080.
 
 #### More information

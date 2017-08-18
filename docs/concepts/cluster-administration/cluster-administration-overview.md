@@ -28,7 +28,7 @@ Before choosing a guide, here are some considerations:
    offer a greater variety of choices.
  - Familiarize yourself with the [components](/docs/admin/cluster-components) needed to run a cluster.
 
-Note: Not all distros are actively maintained. Choose distros which have been tested a recent version of Kubernetes.
+Note: Not all distros are actively maintained. Choose distros which have been tested with a recent version of Kubernetes.
 
 If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](/docs/admin/salt).
 
