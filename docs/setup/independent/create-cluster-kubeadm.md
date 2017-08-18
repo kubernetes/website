@@ -542,20 +542,22 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
 
 [ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)
 
-2. If you were using CentOS, while you get stuck while setup master node. you may check if your docker cgroup driver match the kubelet config.
+1. If you are using CentOS and encounter difficulty while setting up the master node:
+
+   Verify that your Docker cgroup driver matches the kubelet config:
 
 ```
 docker info |grep -i cgroup
 cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
-If the docker cgroup driver not match kubelet, Change kubelet conf to match Docker's 
+   If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver:
 
 ```
 update KUBELET_CGROUP_ARGS=--cgroup-driver=systemd to KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs
 ```
 
-Then restart kubelet
+   Then restart kubelet:
 
 ```
 systemctl daemon-reload
