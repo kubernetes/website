@@ -889,7 +889,7 @@ At this point you should be able to run through one of the basic examples, such 
 
 ### Running the Conformance Test
 
-You may want to try to run the [Conformance test](http://releases.k8s.io/{{page.githubbranch}}/hack/conformance-test.sh).  Any failures may give a hint as to areas that need more attention.
+You may want to try to run the [Conformance test](http://releases.k8s.io/{{page.githubbranch}}/test/e2e_node/conformance/run_test.sh).  Any failures may give a hint as to areas that need more attention.
 
 ### Networking
 
