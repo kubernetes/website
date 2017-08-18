@@ -16,7 +16,7 @@ This page shows how to perform a rollback on a DaemonSet.
 * The DaemonSet rollout history and DaemonSet rollback features are only
   supported in `kubectl` in Kubernetes version 1.7 or later.
 * Make sure you know how to [perform a rolling update on a
-  DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/)
+  DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
 
 {% endcapture %}
 
