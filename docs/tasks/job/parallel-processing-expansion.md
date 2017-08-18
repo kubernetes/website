@@ -133,6 +133,7 @@ metadata:
     jobgroup: jobexample
 spec:
   template:
+    metadata:
       name: jobexample
       labels:
         jobgroup: jobexample
