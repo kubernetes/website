@@ -45,8 +45,8 @@ The above command will recursively return all fields named `image`
 for all items returned.
 
 As an alternative, it is possible to use the absolute path to the image
-field within the Pod.  This ensures the correct field is retrieved
-in the even the field name is repeated,
+field within the Pod.  This ensures the correct field is retrieved 
+even when the field name is repeated,
 e.g. many fields are called `name` within a given item:
 
 ```sh
