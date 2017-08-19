@@ -174,7 +174,6 @@ systemctl | grep -i kube
 
 ```shell
 iptables -nvL
-
 ```
 
 **Create /tmp/apache.json on the master with the following contents and deploy pod**
@@ -229,7 +228,7 @@ docker images
 curl http://localhost
 ```
 
-That's it !
+That's it!
 
 ## Support Level
 
