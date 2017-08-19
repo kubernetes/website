@@ -24,7 +24,7 @@ properties:
 
   - Versioning properties:
     - `apiVersion`, type string; valid values are "abac.authorization.kubernetes.io/v1beta1". Allows versioning and conversion of the policy format.
-    - `kind`, type string; valid values are "Policy". Allows versioning and conversion of the policy format.
+    - `kind`, type string: valid values are "Policy". Allows versioning and conversion of the policy format.
   - `spec` property set to a map with the following properties:
     - Subject-matching properties:
       - `user`, type string; the user-string from `--token-auth-file`. If you specify `user`, it must match the username of the authenticated user.
