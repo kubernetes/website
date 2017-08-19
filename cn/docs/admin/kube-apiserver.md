@@ -9,7 +9,7 @@ notitle: true
 ### 概要
 
 
-Kubernetes API server 为 api 对象验证并配置数据，包括 pods、 services、 replicationcontrollers和其它 api 对象。API Server 提供 REST 操作和到集群共享状态的前端，所有其他组件通过它进行交互。
+Kubernetes API server 为 api 对象验证并配置数据，包括 pods、 services、 replicationcontrollers和其它 api 对象。API Server 提供 REST 操作和到集群共享状态的前端，所有其他组件通过它进行交互。 
 
 ```
 kube-apiserver
