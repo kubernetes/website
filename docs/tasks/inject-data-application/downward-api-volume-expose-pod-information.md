@@ -46,8 +46,9 @@ The first element specifies that the value of the Pod's
 The second element specifies that the value of the Pod's `annotations`
 field should be stored in a file named `annotations`.
 
-**Note**: The fields in this example are Pod fields. They are not
+**Note:** The fields in this example are Pod fields. They are not
 fields of the Container in the Pod.
+{: .note}
 
 Create the Pod:
 
@@ -204,8 +205,9 @@ DownwardAPIVolumeFiles.
 * The Pod's labels
 * The Pod's annotations
 
-**Note**: If CPU and memory limits are not specified for a Container, the
+**Note:** If CPU and memory limits are not specified for a Container, the
 Downward API defaults to the node allocatable value for CPU and memory.
+{: .note}
 
 ## Project keys to specific paths and file permissions
 

@@ -247,7 +247,7 @@ sed -e "s/{{ pillar\['dns_replicas'\] }}/1/g;"\
 "s/{{ pillar\['dns_domain'\] }}/cluster.local/g" \
   cluster/addons/dns/kubedns-controller.yaml.in > kubedns-controller.yaml
 sed -e "s/{{ pillar\['dns_server'\] }}/10.10.10.10/g" \
-  cluster/addons/dns/kubedns-svc.yaml.in > kubedns-svc.yaml
+  cluster/addons/dns/kubedns-svc.yaml.in > kubedns-svc.yaml{% endraw %}
 ```
 
 Now the kube-dns pod and service are ready to be launched:

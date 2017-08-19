@@ -7,7 +7,7 @@ This page shows how to configure and enable the ip-masq-agent.
 {% endcapture %}
 
 {% capture prerequisites %}
-Kubernetes 1.7
+
 {% include task-tutorial-prereqs.md %}
 
 {% endcapture %}

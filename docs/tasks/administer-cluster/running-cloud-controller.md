@@ -16,8 +16,8 @@ In future Kubernetes releases, cloud vendors should link code that satisfies the
 
 To build cloud-controller-manager for your cloud, follow these steps:
 
-* Write a cloudprovider that satisfies the [cloudprovider.Interface](https://git.k8s.io/kubernetes/pkg/cloudprovider/cloud.go).
-* Link the cloudprovider to cloud-controller-manager
+1. Write a cloudprovider that satisfies the [cloudprovider.Interface](https://git.k8s.io/kubernetes/pkg/cloudprovider/cloud.go).
+2. Link the cloudprovider to cloud-controller-manager.
 
 The methods in [cloudprovider.Interface](https://git.k8s.io/kubernetes/pkg/cloudprovider/cloud.go) are self-explanatory. All of the
 [existing providers](https://git.k8s.io/kubernetes/pkg/cloudprovider/providers) satisfy this interface. If your cloud is already a part
