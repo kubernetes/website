@@ -20,7 +20,7 @@ kube-apiserver
 
       --admission-control stringSlice                           控制资源进入集群的准入控制插件的顺序列表。逗号分隔的NamespaceLifecycle列表。(默认值[AlwaysAdmit])
 
-      --admission-control-config-file string                    包含准入控制配置的文件。
+      --admission-control-config-file string                    包含准入控制配置的文件。 
 
       --advertise-address ip                                    向集群成员通知apiserver消息的IP地址。这个地址必须能够被集群中其他成员访问。如果IP地址为空，将会使用--bind-address，如果未指定--bind-address，将会使用主机的默认接口地址。
 
