@@ -1,21 +1,21 @@
 ---
-<!-->
+<!--
 title: Installing Addons
 -->
 title: 安装扩展（Addons）
 ---
 
-<!-->
+<!--
 ## Overview
 -->
 ## 概览
 
-<!-->
+<!--
 Add-ons extend the functionality of Kubernetes.
 -->
 Add-ons 扩展了 Kubernetes 的功能。
 
-<!-->
+<!--
 This page lists some of the available add-ons and links to their respective installation instructions.
 -->
 本文列举了一些可用的 add-ons 以及到它们各自安装说明的链接。
