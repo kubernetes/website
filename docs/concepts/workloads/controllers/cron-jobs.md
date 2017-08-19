@@ -129,7 +129,7 @@ job "hello-1202039034" deleted
 
 Once the jobs are deleted, the pods created by them are deleted as well. Note that all jobs created by cron
 job "hello" will be prefixed "hello-". You can delete them at once with `kubectl delete jobs --all`, if you want to
-delete all jobs in the current namespace (not just the ones created by "hello".)
+delete all jobs in the current namespace (not just the ones created by "hello").
 
 ## Cron Job Limitations
 
