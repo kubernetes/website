@@ -138,7 +138,7 @@ current-context: federal-context
 
 `current-context` is the nickname or 'key' for the cluster,user,namespace tuple that kubectl
 will use by default when loading config from this file. You can override any of the values in kubectl
-from the commandline, by passing `--context=CONTEXT`, `--cluster=CLUSTER`, `--user=USER`, and/or `--namespace=NAMESPACE` respectively.
+from the command line, by passing `--context=CONTEXT`, `--cluster=CLUSTER`, `--user=USER`, and/or `--namespace=NAMESPACE` respectively.
 You can change the `current-context` with [`kubectl config use-context`](/docs/user-guide/kubectl/{{page.version}}/#-em-use-context-em-).
 
 #### miscellaneous
@@ -315,7 +315,7 @@ So, tying this all together, a quick start to create your own kubeconfig file:
 - Make sure your api-server provides at least one set of credentials (for example, `green-user`) when launched.  You will of course have to look at api-server documentation in order to determine the current state-of-the-art in terms of providing authentication details.
 
 ## Related discussion
-[http://issue.k8s.io/1755](http://issue.k8s.io/1755)
+[https://github.com/kubernetes/kubernetes/issues/1755](https://github.com/kubernetes/kubernetes/issues/1755)
 {% endcapture %}
 
 {% include templates/task.md %}
