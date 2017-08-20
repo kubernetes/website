@@ -46,7 +46,7 @@ Use a single-node etcd cluster only for testing purpose.
 
 2. Start Kubernetes API server with the flag `--etcd-servers=$PRIVATE_IP:2379`.
 
-    Replace `PRIVATE_IP` with your etcd client IP.
+    Replace `$PRIVATE_IP` with your etcd client IP.
 
 ### Multi-node etcd cluster
 
@@ -63,7 +63,7 @@ For an example, consider a five-member etcd cluster running with the following c
 
 2. Start Kubernetes API servers with the flag `--etcd-servers=$IP1:2379, $IP2:2379, $IP3:2379, $IP4:2379, $IP5:2379`.
 
-    Replace `IP` with your client IP addresses.
+    Replace `$IP1`, `$IP2`, and so on with your client IP addresses.
 
 ###  Multi-node etcd cluster with load balancer
 
