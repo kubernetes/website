@@ -1,68 +1,96 @@
 ---
 assignees:
 - jbeda
-title: Authenticating with Bootstrap Tokens
+<!-- title: Authenticating with Bootstrap Tokens -->
+title: Webhook 模式
 ---
 
 * TOC
 {:toc}
 
-## Overview
+<!-- ## Overview -->
+## 概述
 
-Bootstrap tokens are a simple bearer token that is meant to be used when
-creating new clusters or joining new nodes to an existing cluster.  It was built
-to support [`kubeadm`](/docs/admin/kubeadm/), but can be used in other contexts
-for users that wish to start clusters without `kubeadm`. It is also built to
-work, via RBAC policy, with the [Kubelet TLS
-Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) system.
+<!-- Bootstrap tokens are a simple bearer token that is meant to be used when -->
+<!-- creating new clusters or joining new nodes to an existing cluster.  It was built -->
+<!-- to support [`kubeadm`](/docs/admin/kubeadm/), but can be used in other contexts -->
+<!-- for users that wish to start clusters without `kubeadm`. It is also built to -->
+<!-- work, via RBAC policy, with the [Kubelet TLS -->
+<!-- Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) system. -->
+启动引导令牌是一种简单的 bearer token ，这种令牌是在新建集群或者在现有集群中添加新加新节点时使用的。
+它被设计成能支持 [`kubeadm`](/docs/admin/kubeadm/)，但是也可以被用在其他上下文中以便用户在
+不使用 `kubeadm` 的情况下启动cluster。它也被设计成可以通过 RBAC 策略，结合[Kubelet TLS
+Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 
-Bootstrap Tokens are defined with a specific type
-(`bootstrap.kubernetes.io/token`) of secrets that lives in the `kube-system`
-namespace.  These Secrets are then read by the Bootstrap Authenticator in the
-API Server.  Expired tokens are removed with the TokenCleaner controller in the
-Controller Manager.  The tokens are also used to create a signature for a
-specific ConfigMap used in a "discovery" process through a BootstrapSigner
-controller.
+<!-- Bootstrap Tokens are defined with a specific type -->
+<!-- (`bootstrap.kubernetes.io/token`) of secrets that lives in the `kube-system` -->
+<!-- namespace.  These Secrets are then read by the Bootstrap Authenticator in the -->
+<!-- API Server.  Expired tokens are removed with the TokenCleaner controller in the -->
+<!-- Controller Manager.  The tokens are also used to create a signature for a -->
+<!-- specific ConfigMap used in a "discovery" process through a BootstrapSigner -->
+<!-- controller. -->
+启动引导令牌被定义成一个特定类型的secrets (`bootstrap.kubernetes.io/token`)，并存在于
+`kube-system` 命名空间中。然后这些 secrets 会被 API 服务器上的启动引导的认证器读取。
+过期的令牌与令牌清除控制器会被控制管理器一起清除。令牌也会被用于创建签名，签名用于
+启动引导签名控制器在 "discovery" 进程中特定的 configmap 。
 
-Currently, Bootstrap Tokens are **alpha** but there are no large breaking
-changes expected.
 
-## Token Format
+<!-- Currently, Bootstrap Tokens are **alpha** but there are no large breaking -->
+<!-- changes expected. -->
+目前，启动引导令牌处于 **alpha** 阶段，但是预期也没有大的突破性的变化。
 
-Bootstrap Tokens take the form of `abcdef.0123456789abcdef`.  More formally,
-they must match the regular expression `[a-z0-9]{6}\.[a-z0-9]{16}`.
+<!-- ## Token Format -->
+## 令牌格式
 
-The first part of the token is the "Token ID" and is considered public
-information.  It is used when referring to a token without leaking the secret
-part used for authentication. The second part is the "Token Secret" and should
-only be shared with trusted parties.
+<!-- Bootstrap Tokens take the form of `abcdef.0123456789abcdef`.  More formally, -->
+<!-- they must match the regular expression `[a-z0-9]{6}\.[a-z0-9]{16}`. -->
+启动引导令牌使用 `abcdef.0123456789abcdef` 的形式。
+更加规范地说，它们必须符合正则表达式 `[a-z0-9]{6}\.[a-z0-9]{16}`。
 
-## Enabling Bootstrap Tokens
+<!-- The first part of the token is the "Token ID" and is considered public -->
+<!-- information.  It is used when referring to a token without leaking the secret -->
+<!-- part used for authentication. The second part is the "Token Secret" and should -->
+<!-- only be shared with trusted parties. -->
+令牌的第一部分是 "Token ID" ，它是公共信息。它被用于引用一个 token 用于认证而不会泄漏保密部分。
+第二部分是 "Token Secret"，它应该只能被信任方共享。
 
-All features for Bootstrap Tokens are disabled by default in Kubernetes v1.6.
+<!-- ## Enabling Bootstrap Tokens -->
+## 启用启动引导令牌
 
-You can enable the Bootstrap Token authenticator with the
-`--experimental-bootstrap-token-auth` flag on the API server.  You can enable
-the Bootstrap controllers by specifying them withthe `--controllers` flag on the
-controller manager with something like
-`--controllers=*,tokencleaner,bootstrapsigner`.  This is done automatically when
-using `kubeadm`.
+<!-- All features for Bootstrap Tokens are disabled by default in Kubernetes v1.6. -->
+所有启动引导令牌的特新在 Kubernetes v1.6 版本中都是默认禁用的。
 
-Tokens are used in an HTTPS call as follows:
+<!-- You can enable the Bootstrap Token authenticator with the -->
+<!-- `--experimental-bootstrap-token-auth` flag on the API server.  You can enable -->
+<!-- the Bootstrap controllers by specifying them withthe `--controllers` flag on the -->
+<!-- controller manager with something like -->
+<!-- `--controllers=*,tokencleaner,bootstrapsigner`.  This is done automatically when -->
+<!-- using `kubeadm`. -->
+你可以在 API 服务器上通过 `--experimental-bootstrap-token-auth` 参数启用启动引导令牌。
+你可以在控制管理器上通过 `--controllers` 参数，比如 `--controllers=*,tokencleaner,bootstrapsigner` 来启用启动引导令牌。
+在使用 `kubeadm` 时，这个是自动完成的。
+
+<!-- Tokens are used in an HTTPS call as follows: -->
+HTTPS 调用中的令牌是这样使用的：
 
 ```http
 Authorization: Bearer 07401b.f395accd246ae52d
 ```
 
-## Bootstrap Token Secret Format
+<!-- ## Bootstrap Token Secret Format -->
+## 启动引导令牌的密文格式
 
-Each valid token is backed by a secret in the `kube-system` namespace.  You can
-find the full design doc
-[here](https://git.k8s.io/community/contributors/design-proposals/bootstrap-discovery.md).
+<!-- Each valid token is backed by a secret in the `kube-system` namespace.  You can -->
+<!-- find the full design doc -->
+<!-- [here](https://git.k8s.io/community/contributors/design-proposals/bootstrap-discovery.md). -->
+每个合法的令牌是通过一个 `kube-system` 命名空间中的 secret 隐藏的。
+你可以从[这里](https://git.k8s.io/community/contributors/design-proposals/bootstrap-discovery.md)找到完整设计文档。
 
-Here is what the secret looks like.  Note that `base64(string)` indicates the
-value should be base64 encoded.  The undecoded version is provided here for
-readability.
+<!-- Here is what the secret looks like.  Note that `base64(string)` indicates the -->
+<!-- value should be base64 encoded.  The undecoded version is provided here for -->
+<!-- readability. -->
+这是 secret 看起来的样子。注意，`base64(string)` 表示值应该是通过 base64 编码的。
+这里使用的是解码版本以便于阅读。
 
 ```yaml
 apiVersion: v1
@@ -85,6 +113,8 @@ be `bootstrap-token-<token id>`.  It must also exist in the `kube-system`
 namespace.  `description` is a human readable discription that should not be
 used for machine readable information.  The Token ID and Secret are included in
 the data dictionary.
+secret的类型必须是 `bootstrap.kubernetes.io/token` ，而名字必须是 `bootstrap-token-<token id>`。
+`description` 是人类可读的描述，
 
 The `usage-bootstrap-*` members indicate what this secret is intended to be used
 for.  A value must be set to `true` to be enabled.
