@@ -162,7 +162,7 @@ Error from server (Forbidden): error when creating "docs/tasks/administer-cluste
 pods "constraints-mem-demo-3" is forbidden: minimum memory usage per Container is 500Mi, but request is 100Mi.
 ```
 
-## Create a Pod that does not specify any CPU request or limit
+## Create a Pod that does not specify any memory request or limit
 
 
 
