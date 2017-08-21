@@ -40,7 +40,19 @@ With kubeconfig files, you can organize your clusters, users, and namespaces.
 And you can define contexts that enable users to quickly and easily switch between
 clusters and namespaces.
 
-## Loading and merging kubeconfig files
+## The KUBECONFIG environment variable
+
+The `KUBECONGIG` environment variable holds a list of kubeconfig files.
+For Linux and Mac, the list is colon-delimited. For Windows, the list
+is semicolon-delimited. The `KUBECONFIG` environment variable is not
+required. If the `KUBECONFIG` environment variable doesn't exist,
+`kubectl` uses the default kubeconfig file, `HOME/.kube/config`.
+
+If the `KUBECONFIG` environment variable does exist, `kubectl` uses
+an effective configuration that is the result of merging the files
+listed in the `KUBECONFIG` evironment variable.
+
+## Merging kubeconfig files
 
 To see your configuration, enter this command:
 
@@ -48,8 +60,9 @@ To see your configuration, enter this command:
 kubectl config view
 ```
 
-The output you see might be the information from a single kubeconfig file, or it might be
-information merged from several kubeconfig files.
+The output you see might be taken from a single kubeconfig file, `$HOME/.kube/config`,
+or it might be the result of merging several kubeconfig files that are listed
+in the `KUBECONFIG` environment variable.
 
 Here are the rules that Kubernetes uses when it merges kubeconfig files:
 
