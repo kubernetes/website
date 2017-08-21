@@ -1,56 +1,92 @@
 ---
-title: Merging kubeconfig files
+title: Organizing Cluster Connection Information Using kubeconfig Files
 ---
 
 {% capture overview %}
 
-Authentication in Kubernetes can differ for different individuals.
+Use kubeconfig files to organize information about clusters, users, namespaces, and
+authentication mechanisms. The `kubectl` command-line tool uses kubeconfig files to
+find the information it needs to choose a cluster and communicate with the API server
+of a cluster.
 
-- A running kubelet might have one way of authenticating (i.e. certificates).
-- Users might have a different way of authenticating (i.e. tokens).
-- Administrators might have a list of certificates which they provide individual users.
-- There may be multiple clusters, and we may want to define them all in one place - giving users the ability to use their own certificates and reusing the same global configuration.
+**Note:** A file that is used to configure access to clusters is called
+a *kubeconfig file*. This is a generic way of referring to configuration files.
+It does not mean that there is a file named `kubeconfig`.
+{: .note}
 
-So in order to easily switch between multiple clusters, for multiple users, a kubeconfig file was defined.
+By default, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
+You can specify additional kubeconfig files by setting the `KUBECONFIG` environment
+variable or by setting the 
+[`--kubeconfig`](/docs/user-guide/kubectl/{{page.version}}/#config) flag.
 
-This file contains a series of authentication mechanisms and cluster connection information associated with nicknames.  It also introduces the concept of a tuple of authentication information (user) and cluster connection information called a context that is also associated with a nickname.
-
-Multiple kubeconfig files are allowed, if specified explicitly.  At runtime they are loaded and merged along with override options specified from the command line (see [rules](#loading-and-merging-rules) below).
+For step-by-step instructions on creating and specifying kubeconfig files, see
+[Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters.md).
 
 {% endcapture %}
 
 
 {% capture body %}
 
-## Loading and merging rules
+## Supporting multiple clusters, users, and authentication mechanisms
 
-The rules for loading and merging the kubeconfig files are straightforward, but there are a lot of them.
-The final config is built in this order:
+Suppose you have several clusters, and your users and components authenticate
+in a variety of ways. For example:
 
-  1.  Get the kubeconfig  from disk.  This is done with the following hierarchy and merge rules:
+- A running kubelet might authenticate using certificates.
+- A user might authenticate using tokens.
+- Administrators might have sets of certificates that they provide to individual users.
 
-      If the `CommandLineLocation` (the value of the `kubeconfig` command line option) is set, use this file only.  No merging.  Only one instance of this flag is allowed.
+With kubeconfig files, you can organize your clusters, users, and namespaces.
+And you can define contexts that enable users to quickly and easily switch between
+clusters and namespaces.
 
-      Else, if `EnvVarLocation` (the value of `$KUBECONFIG`) is available, use it as a list of files that should be merged.
-      Merge files together based on the following rules.
-      Empty filenames are ignored.  Files with non-deserializable content produced errors.
-      The first file to set a particular value or map key wins and the value or map key is never changed.
-      This means that the first file to set `CurrentContext` will have its context preserved.  It also means that if two files specify a `red-user`, only values from the first file's `red-user` are used.  Even non-conflicting entries from the second file's `red-user` are discarded.
+## Loading and merging kubeconfig files
 
-      Otherwise, use HomeDirectoryLocation (`~/.kube/config`) with no merging.
+To see your configuration, enter this command:
 
-  1.  Determine the context to use based on the first hit in this chain
-      1.  Command line argument - the value of the `context` command line option
-      1.  `current-context` from the merged kubeconfig file
-      1.  Empty is allowed at this stage
+```shell
+kubectl config view
+```
 
-  1.  Determine the cluster info and user to use.  At this point, we may or may not have a context.  They are built based on the first hit in this chain.  (run it twice, once for user, once for cluster)
+The output you see might be the information from a single kubeconfig file, or it might be
+information merged from several kubeconfig files.
 
-      1.  Command line argument - `user` for user name and `cluster` for cluster name
-      1.  If context is present, then use the context's value
-      1.  Empty is allowed
+Here are the rules that Kubernetes uses when it merges kubeconfig files:
 
-  1.  Determine the actual cluster info to use.  At this point, we may or may not have a cluster info.  Build each piece of the cluster info based on the chain (first hit wins):
+1. If the `--kubeconfig` flag is set, use this file only. No merging. Only one instance of this flag is allowed.
+
+   Otherwise, if the `KUBECONFIG` environment variable is set, use it as a list of files that should be merged.
+
+   Merge files together based on the following rules.
+   Empty filenames are ignored. Files with non-deserializable content produce errors.
+   The first file to set a particular value or map key wins, and the value or map key is never changed.
+   This means that the first file to set `CurrentContext` will have its context preserved. 
+   It also means that if two files specify a `red-user`, only values from the first file's `red-user` are used.
+   Even non-conflicting entries from the second file's `red-user` are discarded.
+
+   Otherwise, use the default kubeconfig file, `~/.kube/config` with no merging.
+
+1. Determine the context to use based on the first hit in this chain:
+
+    1. The value of the `--context` command-line flag
+    1. The `current-context` from the merged kubeconfig files
+
+   An empty context is allowed at this stage.
+
+1. Determine the cluster and user. At this point, there may or may not be a context.
+   The cluster and user are determined based on the first hit in this chain,
+   which is run twice: once for user and once for cluster:
+
+   1. The `--user` or `--cluster` command-line flag.
+   1. If the context is non-empty, take the context's user or cluster.
+
+   The user and cluster can be empty at this point.
+
+
+
+
+
+1. Determine the actual cluster info to use.  At this point, we may or may not have a cluster info.  Build each piece of the cluster info based on the chain (first hit wins):
 
       1.  Command line arguments - `server`, `api-version`, `certificate-authority`, and `insecure-skip-tls-verify`
       1.  If cluster info is present and a value for the attribute is present, use it.
