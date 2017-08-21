@@ -99,6 +99,7 @@ for `${NODE_IP}` on each machine.
 #### Validating your cluster
 
 Once you copy this into all three nodes, you should have a clustered etcd set up.  You can validate on master with
+
 ```shell
 kubectl exec < pod_name > etcdctl member list
 ```
@@ -114,8 +115,8 @@ on a different node.
 
 ### Even more reliable storage
 
-Of course, if you are interested in increased data reliability, there are further options which makes the place where etcd
-installs it's data even more reliable than regular disks (belts *and* suspenders, ftw!).
+Of course, if you are interested in increased data reliability, there are further options which make the place where etcd
+installs its data even more reliable than regular disks (belts *and* suspenders, ftw!).
 
 If you use a cloud provider, then they usually provide this
 for you, for example [Persistent Disk](https://cloud.google.com/compute/docs/disks/persistent-disks) on the Google Cloud Platform.  These
@@ -126,7 +127,7 @@ Alternatively, you can run a clustered file system like Gluster or Ceph.  Finall
 
 Regardless of how you choose to implement it, if you chose to use one of these options, you should make sure that your storage is mounted
 to each machine.  If your storage is shared between the three masters in your cluster, you should create a different directory on the storage
-for each node.  Throughout these instructions, we assume that this storage is mounted to your machine in `/var/etcd/data`
+for each node.  Throughout these instructions, we assume that this storage is mounted to your machine in `/var/etcd/data`.
 
 ## Replicated API Servers
 
@@ -164,7 +165,7 @@ in the file.
 At this point, you should have 3 apiservers all working correctly.  If you set up a network load balancer, you should
 be able to access your cluster via that load balancer, and see traffic balancing between the apiserver instances.  Setting
 up a load balancer will depend on the specifics of your platform, for example instructions for the Google Cloud
-Platform can be found [here](https://cloud.google.com/compute/docs/load-balancing/)
+Platform can be found [here](https://cloud.google.com/compute/docs/load-balancing/).
 
 Note, if you are using authentication, you may need to regenerate your certificate to include the IP address of the balancer,
 in addition to the IP addresses of the individual nodes.
@@ -194,8 +195,7 @@ touch /var/log/kube-scheduler.log
 touch /var/log/kube-controller-manager.log
 ```
 
-Next, set up the descriptions of the scheduler and controller manager pods on each node.
-by copying [kube-scheduler.yaml](/docs/admin/high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](/docs/admin/high-availability/kube-controller-manager.yaml) into the `/etc/kubernetes/manifests/` directory.
+Next, set up the descriptions of the scheduler and controller manager pods on each node by copying [kube-scheduler.yaml](/docs/admin/high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](/docs/admin/high-availability/kube-controller-manager.yaml) into the `/etc/kubernetes/manifests/` directory.
 
 ## Conclusion
 

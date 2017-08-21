@@ -56,7 +56,7 @@ federation ReplicaSet.
 
 ### Spreading Replicas in Underlying Clusters
 
-By default, replicas are spread equally in all the underlying clusters. For ex:
+By default, replicas are spread equally in all the underlying clusters. For example:
 if you have 3 registered clusters and you create a federated ReplicaSet with
 `spec.replicas = 9`, then each ReplicaSet in the 3 clusters will have
 `spec.replicas=3`.

@@ -695,6 +695,8 @@ parameters:
 
 #### Azure Disk
 
+##### Azure Unmanaged Disk Storage Class
+
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -709,7 +711,26 @@ parameters:
 
 * `skuName`: Azure storage account Sku tier. Default is empty.
 * `location`: Azure storage account location. Default is empty.
-* `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
+* `storageAccount`: Azure storage account name. If a storage account is provided, it must reside in the same resource group as the cluster, and `location` is ignored. If a storage account is not provided, a new storage account will be created in the same resource group as the cluster.
+
+##### New Azure Disk Storage Class (starting from v1.7.2)
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: slow
+provisioner: kubernetes.io/azure-disk
+parameters:
+  storageaccounttype: Standard_LRS
+  kind: Shared
+```
+
+* `storageaccounttype`: Azure storage account Sku tier. Default is empty.
+* `kind`: Possible values are `shared` (default), `dedicated`, and `managed`. When `kind` is `shared`, all unmanaged disks are created in a few shared storage accounts in the same resource group as the cluster. When `kind` is `dedicated`, a new dedicated storage account will be created for the new unmanaged disk in the same resource group as the cluster.
+
+- Premium VM can attach both Standard_LRS and Premium_LRS disks, while Standard VM can only attach Standard_LRS disks.
+- Managed VM can only attach managed disks and unmanaged VM can only attach unmanaged disks.
 
 #### Azure File
 
@@ -727,10 +748,9 @@ parameters:
 
 * `skuName`: Azure storage account Sku tier. Default is empty.
 * `location`: Azure storage account location. Default is empty.
-* `storageAccount`: Azure storage account name.  Default is empty.
-If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
+* `storageAccount`: Azure storage account name.  Default is empty. If a storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If a storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
 
-During provision, a secret will be created for mounting credentials. If the cluster has enabled both [RBAC](/docs/admin/authorization/rbac/) and [Controller Roles](/docs/admin/authorization/rbac/#controller-roles), you will first need to add `create` permission of resource `secret` for clusterrole `system:controller:persistent-volume-binder`.
+During provision, a secret is created for mounting credentials. If the cluster has enabled both [RBAC](/docs/admin/authorization/rbac/) and [Controller Roles](/docs/admin/authorization/rbac/#controller-roles), add the `create` permission of resource `secret` for clusterrole `system:controller:persistent-volume-binder`.
 
 #### Portworx Volume
 

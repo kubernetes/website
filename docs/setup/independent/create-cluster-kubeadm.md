@@ -80,7 +80,7 @@ cloud providers is difficult.
 
 ### (1/4) Installing kubeadm on your hosts
 
-See [Installing kubeadm](/docs/setup/independent/install-kubeadm/)
+See [Installing kubeadm](/docs/setup/independent/install-kubeadm/).
 
 **Note:** If you already have kubeadm installed, you should do a `apt-get update &&
 apt-get upgrade` or `yum update` to get the latest version of kubeadm.
@@ -211,7 +211,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 
 {% capture calico %}
 
-The official Calico guide is [here](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/)
+The official Calico guide is [here](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/).
 
 **Note:**
  - In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`
@@ -224,7 +224,7 @@ kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/i
 
 {% capture canal %}
 
-The official Canal set-up guide is [here](https://github.com/projectcalico/canal/tree/master/k8s-install)
+The official Canal set-up guide is [here](https://github.com/projectcalico/canal/tree/master/k8s-install).
 
 **Note:**
  - For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
@@ -241,7 +241,7 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8
 **Note:**
  - For flannel to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
  - flannel works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on an other platform than
-`amd64` you have to manually download the manifest and replace `amd64` occurances with your chosen platform.
+`amd64` you have to manually download the manifest and replace `amd64` occurences with your chosen platform.
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
@@ -251,7 +251,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 
 {% capture romana %}
 
-The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm)
+The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
 
 **Note:** Romana works on `amd64` only.
 
@@ -262,7 +262,7 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 
 {% capture weave_net %}
 
-The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/)
+The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
 
 **Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required.
 
@@ -297,7 +297,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 With output looking something like:
 
 ```
-node "test-01" tainted
+node "test-01" untainted
 taint key="dedicated" and effect="" not found.
 taint key="dedicated" and effect="" not found.
 ```
@@ -481,7 +481,7 @@ v1.7.
 
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
 following the [multi-platform
-proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/multi-platform.md).
+proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md).
 
 Only some of the network providers offer solutions for all platforms. Please consult the list of
 network providers above or the documentation from each provider to figure out whether the provider
@@ -538,9 +538,7 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
    second network interface, not the first one). By default, it doesn't do this
    and kubelet ends-up using first non-loopback network interface, which is
    usually NATed. Workaround: Modify `/etc/hosts`, take a look at this
-   [`Vagrantfile`][ubuntu-vagrantfile] for how this can be achieved.
-
-[ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)
+   `Vagrantfile`[ubuntu-vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11) for how this can be achieved.
 
 1. The following error indicates a possible certificate mismatch.
 
@@ -559,6 +557,27 @@ Another workaround is to overwrite the default `kubeconfig` for the "admin" user
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
+1. If you are using CentOS and encounter difficulty while setting up the master node，
+verify that your Docker cgroup driver matches the kubelet config:
+
+```
+docker info |grep -i cgroup
+cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+```
+
+   If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver:
+
+```
+update KUBELET_CGROUP_ARGS=--cgroup-driver=systemd to KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs
+```
+
+   Then restart kubelet:
+
+```
+systemctl daemon-reload
+service kubelet restart
+```
+
 The `kubectl describe pod` or `kubectl logs` commands can help you diagnose errors. For example:
 
 ```bash
@@ -568,6 +587,5 @@ kubectl -n ${NAMESPACE} logs ${POD_NAME} -c ${CONTAINER_NAME}
 ```
 
 {% endcapture %}
-
 
 {% include templates/task.md %}
