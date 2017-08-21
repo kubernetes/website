@@ -187,6 +187,7 @@ Below is summary of supported parameters in the `vsphere.conf` file
 Manifest files for API server and controller-manager are generally located at `/etc/kubernetes`.
 
 **Step-7** Restart Kubelet on all nodes.
+
 * Reload kubelet systemd unit file using ```systemctl daemon-reload```
 * Restart kubelet service using ```systemctl restart kubelet.service```
 
