@@ -65,6 +65,7 @@ or service through the apiserver's proxy functionality.
 ### apiserver -> kubelet
 
 The connections from the apiserver to the kubelet are used for:
+
   * fetching logs for pods.
   * attaching (through kubectl) to running pods.
   * the kubelet's port-forwarding functionality. 
@@ -72,7 +73,7 @@ The connections from the apiserver to the kubelet are used for:
 These connections terminate at the kubelet's HTTPS endpoint. By default, 
 the apiserver does not verify the kubelet's serving certificate,
 which makes the connection subject to man-in-the-middle attacks, and
-**unsafe** to run over untrusted and/or public networks.
+unsafe to run over untrusted and/or public networks.
 
 To verify this connection, use the `--kubelet-certificate-authority` flag to
 provide the apiserver with a root certificate bundle to use to verify the
@@ -93,7 +94,7 @@ can be run over a secure HTTPS connection by prefixing `https:` to the node,
 pod, or service name in the API URL, but they will not validate the certificate
 provided by the HTTPS endpoint nor provide client credentials so while the
 connection will be encrypted, it will not provide any guarantees of integrity.
-These connections **are not currently safe** to run over untrusted and/or
+These connections are not currently safe to run over untrusted and/or
 public networks.
 
 ### SSH Tunnels
