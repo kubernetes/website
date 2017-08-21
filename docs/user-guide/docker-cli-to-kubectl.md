@@ -53,8 +53,8 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 
 Unlike `docker run ...`, if `--attach` is specified, we attach to `stdin`, `stdout` and `stderr`, there is no ability to control which streams are attached (`docker -a ...`).
 
-Because we start a Deployment for your container, it will be restarted if you terminate the attached process (e.g. `ctrl-c`), this is different than `docker run -it`.
-To destroy the Deployment (and its pods) you need to run `kubectl delete deployment <name>`
+Because we start a Deployment for your container, it will be restarted if you terminate the attached process (e.g. `ctrl-c`), this is different from `docker run -it`.
+To destroy the Deployment (and its pods) you need to run `kubectl delete deployment <name>`.
 
 #### docker ps
 
@@ -78,7 +78,7 @@ nginx-app-5jyvm   1/1       Running   0          1h
 
 #### docker attach
 
-How do I attach to a process that is already running in a container?  Checkout [kubectl attach](/docs/user-guide/kubectl/{{page.version}}/#attach)
+How do I attach to a process that is already running in a container?  Checkout [kubectl attach](/docs/user-guide/kubectl/{{page.version}}/#attach).
 
 With docker:
 
@@ -178,7 +178,7 @@ See [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administrat
 
 How do I stop and delete a running process? Checkout [kubectl delete](/docs/user-guide/kubectl/{{page.version}}/#delete).
 
-With docker
+With docker:
 
 ```shell
 $ docker ps
