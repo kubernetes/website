@@ -42,7 +42,12 @@ TUTORIALS = [
         }),
     ('mysql-wordpress-pd/README.md',
         './docs/tutorials/stateful-application/mysql-wordpress-persistent-volume.md',
-        "Example: WordPress and MySQL with Persistent Volumes", {}),
+        "Example: Deploying WordPress and MySQL with Persistent Volumes",
+        {
+            "mysql-wordpress-pd/local-volumes.yaml": "./docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/local-volumes.yaml",
+            "mysql-wordpress-pd/mysql-deployment.yaml": "./docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/mysql-deployment.yaml",
+            "mysql-wordpress-pd/wordpress-deployment.yaml": "./docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/wordpress-deployment.yaml",
+        }),
     ('cassandra/README.md',
         './docs/tutorials/stateful-application/cassandra.md',
         "Example: Deploying Cassandra with Stateful Sets",

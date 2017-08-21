@@ -1,11 +1,11 @@
 ---
-title: JSONpath Support
+title: JSONPath Support
 ---
 
 JSONPath template is composed of JSONPath expressions enclosed by {}.
 And we add three functions in addition to the original JSONPath syntax:
 
-1. The `$` operator is optional since the expression always start from the root object by default.
+1. The `$` operator is optional since the expression always starts from the root object by default.
 2. We can use `""` to quote text inside JSONPath expressions.
 3. We can use `range` operator to iterate lists.
 

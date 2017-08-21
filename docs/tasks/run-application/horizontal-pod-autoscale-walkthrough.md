@@ -134,7 +134,7 @@ by making use of the `autoscaling/v2alpha1` API version.
 First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2alpha1` form:
 
 ```shell
-$ kubectl get hpa.autoscaling.v2alpha1 -o yaml > /tmp/hpa-v2.yaml
+$ kubectl get hpa.v2alpha1.autoscaling -o yaml > /tmp/hpa-v2.yaml
 ```
 
 Open the `/tmp/hpa-v2.yaml` file in an editor, and you should see YAML which looks like this:
@@ -294,7 +294,7 @@ Conditions:
   ----                  ------  ------                  -------
   AbleToScale           True    ReadyForNewScale        the last scale time was sufficiently old as to warrant a new scale
   ScalingActive         True    ValidMetricFound        the HPA was able to successfully calculate a replica count from pods metric http_requests
-  ScalingLimited        False   DesiredWithinRange      the desired replica count is within the acceptible range
+  ScalingLimited        False   DesiredWithinRange      the desired replica count is within the acceptable range
 Events:
 ```
 
