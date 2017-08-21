@@ -137,7 +137,7 @@ program to retrieve the contents of your secret.
 4. Verify the secret is correctly decrypted when retrieved via the API:
 
     ```
-    kubectl describe secret generic -n default
+    kubectl describe secret secret1 -n default
     ```
 
     should match `mykey: mydata`
