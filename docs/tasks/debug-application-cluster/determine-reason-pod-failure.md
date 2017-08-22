@@ -72,7 +72,7 @@ the container starts.
 only the termination message:
 
 ```
-{% raw %}    kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"{% endraw %}
+{% raw %}  kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"{% endraw %}
 ```
 
 ## Setting the termination log file

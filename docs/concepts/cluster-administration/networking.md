@@ -37,7 +37,7 @@ review the "normal" way that networking works with Docker.  By default, Docker
 uses host-private networking.  It creates a virtual bridge, called `docker0` by
 default, and allocates a subnet from one of the private address blocks defined
 in [RFC1918](https://tools.ietf.org/html/rfc1918) for that bridge.  For each
-container that Docker creates, it allocates a virtual ethernet device (called
+container that Docker creates, it allocates a virtual Ethernet device (called
 `veth`) which is attached to the bridge. The veth is mapped to appear as `eth0`
 in the container, using Linux namespaces.  The in-container `eth0` interface is
 given an IP address from the bridge's address range.
