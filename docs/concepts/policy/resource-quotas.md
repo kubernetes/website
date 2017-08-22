@@ -30,7 +30,7 @@ Resource quotas work like this:
 
 Examples of policies that could be created using namespaces and quotas are:
 
-- In a cluster with a capacity of 32 GiB RAM, and 16 cores, let team A use 20 Gib and 10 cores,
+- In a cluster with a capacity of 32 GiB RAM, and 16 cores, let team A use 20 GiB and 10 cores,
   let B use 10GiB and 4 cores, and hold 2GiB and 2 cores in reserve for future allocation.
 - Limit the "testing" namespace to using 1 core and 1GiB RAM.  Let the "production" namespace
   use any amount.
