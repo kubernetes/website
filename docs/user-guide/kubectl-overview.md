@@ -16,7 +16,9 @@ kubectl [command] [TYPE] [NAME] [flags]
 ```
 
 where `command`, `TYPE`, `NAME`, and `flags` are:
+
 * `command`: Specifies the operation that you want to perform on one or more resources, for example `create`, `get`, `describe`, `delete`.
+
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-sensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
     $ kubectl get pod pod1

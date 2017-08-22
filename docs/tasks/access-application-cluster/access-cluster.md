@@ -200,7 +200,7 @@ You have several options for connecting to nodes, pods and services from outside
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
       Does it do its own authentication?
     - Place pods behind services.  To access one specific pod from a set of replicas, such as for debugging,
-      place a unique label on the pod it and create a new service which selects this label.
+      place a unique label on the pod and create a new service which selects this label.
     - In most cases, it should not be necessary for application developer to directly access
       nodes via their nodeIPs.
   - Access services, nodes, or pods using the Proxy Verb.
