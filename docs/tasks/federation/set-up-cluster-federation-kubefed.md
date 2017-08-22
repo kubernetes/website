@@ -367,7 +367,7 @@ kubefed init fellowship \
 ```
 
 For more information see
-[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tutorials/federation/set-up-coredns-provider-federation/)
+[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tutorials/federation/set-up-coredns-provider-federation/).
 
 ## Adding a cluster to a federation
 
@@ -464,7 +464,7 @@ commands.
 
 In all other cases, you must update `kube-dns` configuration manually
 as described in the
-[Updating KubeDNS section of the admin guide](/docs/admin/federation/)
+[Updating KubeDNS section of the admin guide](/docs/admin/federation/).
 
 ## Removing a cluster from a federation
 
