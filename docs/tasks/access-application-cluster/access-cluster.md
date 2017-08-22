@@ -235,7 +235,7 @@ $ kubectl cluster-info
 
 This shows the proxy-verb URL for accessing each service.
 For example, this cluster has cluster-level logging enabled (using Elasticsearch), which can be reached
-at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`. If suitable credentials are passed, or through a kubectl proxy at, for example:
+at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` if suitable credentials are passed.  Logging can also be reached through a kubectl proxy, for example at:
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
 (See [above](#accessing-the-cluster-api) for how to pass credentials or use kubectl proxy.)
 
