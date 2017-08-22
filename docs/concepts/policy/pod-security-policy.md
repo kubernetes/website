@@ -42,7 +42,7 @@ _Pod Security Policies_ are comprised of settings and strategies that
 control the security features a pod has access to. These settings fall
 into three categories:
 
-- *Controlled by a boolean*: Fields of this type default to the most
+- *Controlled by a Boolean*: Fields of this type default to the most
 restrictive value.
 - *Controlled by an allowable set*: Fields of this type are checked
 against the set to ensure their values are allowed.
@@ -193,7 +193,7 @@ podsecuritypolicy "permissive" deleted
 In order to use Pod Security Policies in your cluster you must ensure the
 following
 
-1.  You have enabled the api type `extensions/v1beta1/podsecuritypolicy` (only for versions prior 1.6)
+1.  You have enabled the API type `extensions/v1beta1/podsecuritypolicy` (only for versions prior 1.6)
 1.  You have enabled the admission controller `PodSecurityPolicy`
 1.  You have defined your policies
 
