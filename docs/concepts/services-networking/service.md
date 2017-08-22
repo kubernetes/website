@@ -52,9 +52,9 @@ spec:
   selector:
     app: MyApp
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
 ```
 
 This specification will create a new `Service` object named "my-service" which
@@ -97,9 +97,9 @@ metadata:
   name: my-service
 spec:
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
 ```
 
 Because this service has no selector, the corresponding `Endpoints` object will not be
@@ -216,17 +216,17 @@ apiVersion: v1
 metadata:
   name: my-service
 spec:
-    selector:
-      app: MyApp
-    ports:
-      - name: http
-        protocol: TCP
-        port: 80
-        targetPort: 9376
-      - name: https
-        protocol: TCP
-        port: 443
-        targetPort: 9377
+  selector:
+    app: MyApp
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 9376
+  - name: https
+    protocol: TCP
+    port: 443
+    targetPort: 9377
 ```
 
 ## Choosing your own IP address
@@ -404,17 +404,17 @@ spec:
   selector:
     app: MyApp
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
-      nodePort: 30061
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
+    nodePort: 30061
   clusterIP: 10.0.171.239
   loadBalancerIP: 78.11.24.19
   type: LoadBalancer
 status:
   loadBalancer:
     ingress:
-      - ip: 146.148.47.155
+    - ip: 146.148.47.155
 ```
 
 Traffic from the external load balancer will be directed at the backend `Pods`,
@@ -531,12 +531,12 @@ spec:
   selector:
     app: MyApp
   ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 9376
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 9376
   externalIPs:
-    - 80.11.12.10
+  - 80.11.12.10
 ```
 
 ## Shortcomings
