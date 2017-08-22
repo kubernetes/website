@@ -15,7 +15,7 @@ PetSet feature from 1.4. Users of PetSet should refer to the 1.5
 [Upgrade Guide](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
 for further information on how to upgrade existing PetSets to StatefulSets.**
 
-{% include templates/glossary.md term="statefulset" length="long" %}
+{% include templates/glossary/snippet.md term="statefulset" length="long" %}
 {% endcapture %}
 
 {% capture body %}
