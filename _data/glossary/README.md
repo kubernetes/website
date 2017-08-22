@@ -3,7 +3,7 @@
 To write a glossary snippet, start with a copy of the template in this directory, `_example.yml`. Make sure to provide (or omit) values for the following fields:
 
 * (Required) `name`. The name of the term.
-* (Required) `tags`. Must be one of the tags listed in kubernetes.github.io/_data/canonical-terms-tags.yml
+* (Required) `tags`. Must be one of the tags listed in kubernetes.github.io/_data/canonical-terms-tags.yml.
 * (Optional) `formerly` and `related`. If you do not provide these values, remove the fields.
 * (Required) `short description`. Make sure to replace the instructional text in the template with your content.
 * (Optional) `long description`. If you do not provide a long description, remove the field -- that is, the complete key-value pair.
