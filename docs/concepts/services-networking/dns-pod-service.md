@@ -101,9 +101,9 @@ spec:
     name: busybox
   clusterIP: None
   ports:
-    - name: foo # Actually, no port is needed.
-      port: 1234
-      targetPort: 1234
+  - name: foo # Actually, no port is needed.
+    port: 1234
+    targetPort: 1234
 ---
 apiVersion: v1
 kind: Pod
