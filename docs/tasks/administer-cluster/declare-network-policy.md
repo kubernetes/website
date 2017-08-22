@@ -86,6 +86,7 @@ spec:
 ## Assign the policy to the service
 
 Use kubectl to create a NetworkPolicy from the above nginx-policy.yaml file:
+
 ```console
 $ kubectl create -f nginx-policy.yaml
 networkpolicy "access-nginx" created
