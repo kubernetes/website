@@ -145,7 +145,7 @@ kubectl rollout status ds/<daemonset-name>
 When the rollout is complete, the output is similar to this:
 
 ```shell
-daemon set "<daemonset-name>" successfully rolled out
+daemonset "<daemonset-name>" successfully rolled out
 ```
 
 ## Troubleshooting 
