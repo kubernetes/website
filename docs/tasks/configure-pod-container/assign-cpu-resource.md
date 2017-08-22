@@ -202,7 +202,6 @@ Events:
   Reason			Message
   ------			-------
   FailedScheduling	No nodes are available that match all of the following predicates:: Insufficient cpu (3).
-
 ```
 
 Delete your Pod:
