@@ -15,7 +15,7 @@ It does not mean that there is a file named `kubeconfig`.
 {: .note}
 
 By default, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
-You can specify additional kubeconfig files by setting the `KUBECONFIG` environment
+You can specify other kubeconfig files by setting the `KUBECONFIG` environment
 variable or by setting the 
 [`--kubeconfig`](/docs/user-guide/kubectl/{{page.version}}/#config) flag.
 
@@ -40,6 +40,14 @@ With kubeconfig files, you can organize your clusters, users, and namespaces.
 And you can define contexts that enable users to quickly and easily switch between
 clusters and namespaces.
 
+## Context
+
+A kubeconfig file can have *context* elements. Each context is a triple
+(cluster, namespace, user). You can use `kubectl config use-context` to set
+the current context. The `kubectl` command-line tool communicates with the
+cluster and namespace listed in the current context. And it uses the
+credentials of the user listed in the current context.
+
 ## The KUBECONFIG environment variable
 
 The `KUBECONGIG` environment variable holds a list of kubeconfig files.
@@ -60,9 +68,8 @@ To see your configuration, enter this command:
 kubectl config view
 ```
 
-The output you see might be taken from a single kubeconfig file, `$HOME/.kube/config`,
-or it might be the result of merging several kubeconfig files that are listed
-in the `KUBECONFIG` environment variable.
+As described previously, the output might be from a single kubeconfig file,
+or it might be the result of merging several kubeconfig files.
 
 Here are the rules that Kubernetes uses when it merges kubeconfig files:
 
@@ -87,41 +94,43 @@ Here are the rules that Kubernetes uses when it merges kubeconfig files:
 
 1. Determine the context to use based on the first hit in this chain:
 
-    1. The value of the `--context` command-line flag
-    1. The `current-context` from the merged kubeconfig files
+    1. Use the `--context` command-line flag if it exits.
+    1. Use the `current-context` from the merged kubeconfig files.
 
    An empty context is allowed at this stage.
 
-1. Determine the cluster and user. At this point, there may or may not be a context.
+1. Determine the cluster and user. At this point, there might or might not be a context.
    The cluster and user are determined based on the first hit in this chain,
    which is run twice: once for user and once for cluster:
 
-   1. The `--user` or `--cluster` command-line flag.
+   1. Use a command-line flag if it exists: `--user` or `--cluster`.
    1. If the context is non-empty, take the context's user or cluster.
 
    The user and cluster can be empty at this point.
 
-1. Determine the actual cluster info to use.  At this point, we may or may not have a cluster info. 
-   Build each piece of the cluster info based on the chain (first hit wins):
+1. Determine the actual cluster information to use. At this point, there might or
+   might not be cluster information. 
+   Build each piece of the cluster information based on this chain; the first hit wins:
 
-   1. Command line arguments - `server`, `api-version`, `certificate-authority`, and `insecure-skip-tls-verify`
-   1. If cluster info is present and a value for the attribute is present, use it.
-   1. If you don't have a server location, error.
+   1. Use command line flags if they exist: `--server`, `--api-version`, `--certificate-authority`, `--insecure-skip-tls-verify`
+   1. If cluster information is present, and a value for the attribute is present, use it.
+   1. If there is no server location, fail.
 
-1. Determine the actual user info to use. User is built using the same rules as cluster info,
-   EXCEPT that you can only have one authentication technique per user.
+1. Determine the actual user informatin to use. User information is built using the same
+   rules as cluster information, except that there can be only one authentication
+   technique per user:
 
-   1. Load precedence is 1) command line flag, 2) user fields from kubeconfig
-   1. The command line flags are: `client-certificate`, `client-key`, `username`, `password`, and `token`.
+   1. Use command line flags if they exist: `--client-certificate`, `--client-key`, `--username`, `--password`, `--token`.
+   1. Use the `user` fields from the kubeconfig file.
    1. If there are two conflicting techniques, fail.
 
 1. For any information still missing, use default values and potentially
-   prompt for authentication information
+   prompt for authentication information.
 
 1. All file references inside of a kubeconfig file are resolved relative to the location
-   of the kubeconfig file itself.  When file references are presented on the command line
-   they are resolved relative to the current working directory.  When paths are saved in
-   the `$HOME/.kube/config`, relative paths are stored relatively while absolute paths
+   of the kubeconfig file itself. When file references are presented on the command line
+   they are resolved relative to the current working directory. When paths are saved in
+   `$HOME/.kube/config`, relative paths are stored relatively, and absolute paths
    are stored absolutely.
 
 Any path in a kubeconfig file is resolved relative to the location of the kubeconfig file itself.
@@ -131,7 +140,8 @@ Any path in a kubeconfig file is resolved relative to the location of the kubeco
 
 {% capture whatsnext %}
 
-* TODO
+* [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters.md)
+* [kubectl config](/docs/user-guide/kubectl/{{page.version}}/#config)
 
 {% endcapture %}
 
