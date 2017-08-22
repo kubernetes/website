@@ -122,7 +122,7 @@ The "intended" number of pods is computed from the `.spec.replicas` of the pods 
 The controller is discovered from the pods using the `.metadata.ownerReferences` of the object.
 
 PDBs cannot prevent [involuntary disruptions](#voluntary-and-involuntary-disruptions) from
-occuring, but they do count against the budget.
+occurring, but they do count against the budget.
 
 Pods which are deleted or unavailable due to a rolling upgrade to an application do count
 against the disruption budget, but controllers (like deployment and stateful-set)
