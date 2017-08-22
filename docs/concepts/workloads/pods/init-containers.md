@@ -157,9 +157,9 @@ metadata:
   name: myservice
 spec:
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
 ---
 kind: Service
 apiVersion: v1
@@ -167,9 +167,9 @@ metadata:
   name: mydb
 spec:
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9377
+  - protocol: TCP
+    port: 80
+    targetPort: 9377
 ```
 
 This Pod can be started and debugged with the following commands:
