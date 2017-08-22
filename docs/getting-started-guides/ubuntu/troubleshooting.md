@@ -199,7 +199,6 @@ CHART PATH: /home/ubuntu/.helm/<chart>
 NAME:   <chart>
 ...
 ...
-
 ```
 
 ## etcd
