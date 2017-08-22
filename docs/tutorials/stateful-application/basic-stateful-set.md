@@ -667,7 +667,7 @@ web-2     1/1       Running   0         18s
 Get the Pod's container.
 
 ```shell{% raw %}
-get po web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
+kubectl get po web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 gcr.io/google_containers/nginx-slim:0.8
 {% endraw %}
 ```
