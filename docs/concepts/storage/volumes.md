@@ -581,18 +581,27 @@ __Important: You must create VMDK using one of the following method before using
 
 #### Creating a VMDK volume
 
-* Create using vmkfstools.
+Choose one of the following methods to create a VMDK.
 
-   First ssh into ESX and then use following command to create vmdk,
+{% capture vmkfstools %}
+First ssh into ESX, then use the following command to create a VMDK:
 
 ```shell
-    vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
+vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
 ```
+{% endcapture %}
 
-* Create using vmware-vdiskmanager.
+{% capture vdiskmanager %}
+Use the following command to create a VMDK:
+
 ```shell
-  vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
+vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
 ```
+{% endcapture %}
+
+{% assign tab_names = 'Create using vmkfstools,Create using vmware-vdiskmanager' | split: ',' | compact %}
+{% assign tab_contents = site.emptyArray | push: vmkfstools | push: vdiskmanager %}
+{% include tabs.md %}
 
 #### vSphere VMDK Example configuration
 

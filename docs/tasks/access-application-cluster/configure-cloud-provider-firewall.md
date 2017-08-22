@@ -26,8 +26,8 @@ metadata:
   name: myapp
 spec:
   ports:
-    - port: 8765
-      targetPort: 9376
+  - port: 8765
+    targetPort: 9376
   selector:
     app: example
   type: LoadBalancer
@@ -44,8 +44,8 @@ metadata:
   name: myapp
 spec:
   ports:
-    - port: 8765
-      targetPort: 9376
+  - port: 8765
+    targetPort: 9376
   selector:
     app: example
   type: LoadBalancer

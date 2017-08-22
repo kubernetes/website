@@ -12,7 +12,11 @@ This page assumes you have a working Juju deployed cluster.
 {% capture steps %}
 ## Connecting Datadog
 
-Datadog is a SaaS offering which includes support for a range of integrations, including Kubernetes and ETCD. While the solution is SAAS/Commercial, they include a Free tier which is supported with the following method. To deploy a full Kubernetes stack with Datadog out of the box, do: `juju deploy canonical-kubernetes-datadog`
+Datadog is a SaaS offering which includes support for a range of integrations, including Kubernetes and ETCD. While the solution is SAAS/Commercial, they include a Free tier which is supported with the following method. To deploy a full Kubernetes stack with Datadog out of the box, do:
+
+```
+juju deploy canonical-kubernetes-datadog
+```
 
 ### Installation of Datadog
 
