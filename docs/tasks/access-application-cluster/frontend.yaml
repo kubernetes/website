@@ -7,9 +7,9 @@ spec:
     app: hello
     tier: frontend
   ports:
-    - protocol: "TCP"
-      port: 80
-      targetPort: 80
+  - protocol: "TCP"
+    port: 80
+    targetPort: 80
   type: LoadBalancer
 ---
 apiVersion: apps/v1beta1
@@ -26,9 +26,9 @@ spec:
         track: stable
     spec:
       containers:
-        - name: nginx
-          image: "gcr.io/google-samples/hello-frontend:1.0"
-          lifecycle:
-            preStop:
-              exec:
-                command: ["/usr/sbin/nginx","-s","quit"]
+      - name: nginx
+        image: "gcr.io/google-samples/hello-frontend:1.0"
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/usr/sbin/nginx","-s","quit"]
