@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - colemickens
 - brendandburns
 title: 在 Azure 上运行 Kubernetes
