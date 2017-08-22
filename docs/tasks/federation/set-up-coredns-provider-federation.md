@@ -13,7 +13,7 @@ DNS provider for Cluster Federation.
 {% capture objectives %}
 
 * Configure and deploy CoreDNS server
-* Bringup federation with CoreDNS as dns provider
+* Bring up federation with CoreDNS as dns provider
 * Setup CoreDNS server in nameserver lookup chain
 
 {% endcapture %}

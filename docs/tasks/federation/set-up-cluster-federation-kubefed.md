@@ -8,10 +8,10 @@ title: Set up Cluster Federation with Kubefed
 {:toc}
 
 Kubernetes version 1.5 and above includes a new command line tool called
-`kubefed` to help you administrate your federated clusters.
-`kubefed` helps you to deploy a new Kubernetes cluster federation
-control plane, and to add clusters to or remove clusters from an
-existing federation control plane.
+[`kubefed`](/docs/admin/kubefed/) to help you administrate your federated
+clusters. `kubefed` helps you to deploy a new Kubernetes cluster federation
+control plane, and to add clusters to or remove clusters from an existing
+federation control plane.
 
 This guide explains how to administer a Kubernetes Cluster Federation
 using `kubefed`.
@@ -69,7 +69,7 @@ kubefed is available as a [snap](https://snapcraft.io/) application.
 
        sudo snap install kubefed --classic
 
-2. Run `kubefed version` to verify that the version you've installed is sufficiently up-to-date.
+2. Run [`kubefed version`](/docs/admin/kubefed_version/) to verify that the version you've installed is sufficiently up-to-date.
 
 ## Choosing a host cluster.
 
@@ -101,8 +101,8 @@ control plane.
 ## Deploying a federation control plane
 
 To deploy a federation control plane on your host cluster, run
-`kubefed init` command. When you use `kubefed init`, you must provide
-the following:
+[`kubefed init`](/docs/admin/kubefed_init/) command. When you use
+`kubefed init`, you must provide the following:
 
 * Federation name
 * `--host-cluster-context`, the `kubeconfig` context for the host cluster
@@ -262,7 +262,7 @@ kubefed init fellowship \
 [service](/docs/concepts/services-networking/service/) on the host cluster. By default,
 this service is exposed as a
 [load balanced service](/docs/user-guide/services/#type-loadbalancer).
-Most on-premises and bare-metal enviroments, and some cloud
+Most on-premises and bare-metal environments, and some cloud
 environments lack support for load balanced services. `kubefed init`
 allows exposing the federation API server as a
 [`NodePort` service](/docs/user-guide/services/#type-nodeport) on
@@ -367,13 +367,14 @@ kubefed init fellowship \
 ```
 
 For more information see
-[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tutorials/federation/set-up-coredns-provider-federation/)
+[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tutorials/federation/set-up-coredns-provider-federation/).
 
 ## Adding a cluster to a federation
 
 Once you've deployed a federation control plane, you'll need to make
 that control plane aware of the clusters it should manage. You can add
-a cluster to your federation by using the `kubefed join` command.
+a cluster to your federation by using the [`kubefed join`](/docs/admin/kubefed_join)
+command.
 
 To use `kubefed join`, you'll need to provide the name of the cluster
 you want to add to the federation, and the `--host-cluster-context`
@@ -463,11 +464,11 @@ commands.
 
 In all other cases, you must update `kube-dns` configuration manually
 as described in the
-[Updating KubeDNS section of the admin guide](/docs/admin/federation/)
+[Updating KubeDNS section of the admin guide](/docs/admin/federation/).
 
 ## Removing a cluster from a federation
 
-To remove a cluster from a federation, run the `kubefed unjoin`
+To remove a cluster from a federation, run the [`kubefed unjoin`](/docs/admin/kubefed_unjoin)
 command with the cluster name and the federation's
 `--host-cluster-context`:
 

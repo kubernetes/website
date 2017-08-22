@@ -13,7 +13,7 @@ This page describes how users can consume GPUs and the current limitations.
 
 {% capture prerequisites %}
 
-1. Kubernetes nodes have to be pre-installed with Nvidia drivers. Kubelet will not detect Nvidia GPUs otherwise. Try to re-install nvidia drivers if kubelet fails to expose Nvidia GPUs as part of Node Capacity.
+1. Kubernetes nodes have to be pre-installed with Nvidia drivers. Kubelet will not detect Nvidia GPUs otherwise. Try to re-install Nvidia drivers if kubelet fails to expose Nvidia GPUs as part of Node Capacity. After installing the driver, run `nvidia-docker-plugin` to confirm that all drivers have been loaded.
 2. A special **alpha** feature gate `Accelerators` has to be set to true across the system: `--feature-gates="Accelerators=true"`.
 3. Nodes must be using `docker engine` as the container runtime.
 

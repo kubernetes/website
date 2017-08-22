@@ -48,7 +48,7 @@ for configuring where and how audit logs are handled:
 - `audit-log-path` - enables the audit log pointing to a file where the requests are being logged to, '-' means standard out.
 - `audit-log-maxage` - specifies maximum number of days to retain old audit log files based on the timestamp encoded in their filename.
 - `audit-log-maxbackup` - specifies maximum number of old audit log files to retain.
-- `audit-log-maxsize` - specifies maximum size in megabytes of the audit log file before it gets rotated. Defaults to 100MB
+- `audit-log-maxsize` - specifies maximum size in megabytes of the audit log file before it gets rotated. Defaults to 100MB.
 
 If an audit log file already exists, Kubernetes appends new audit logs to that file.
 Otherwise, Kubernetes creates an audit log file at the location you specified in
@@ -80,13 +80,13 @@ webhooks.
 The structure of audit events changes when enabling the `AdvancedAuditing` feature
 flag. This includes some cleanups, such as the `method` reflecting the verb evaluated
 by the [authorization layer](/docs/admin/authorization/) instead of the [HTTP verb](/docs/admin/authorization/#determine-the-request-verb).
-Also, instead of always generating two events per request, events are recorded with an associated "stage."
+Also, instead of always generating two events per request, events are recorded with an associated "stage".
 The known stages are:
 
 - `RequestReceived` - The stage for events generated as soon as the audit handler receives the request.
 - `ResponseStarted` - Once the response headers are sent, but before the response body is sent. This stage is only generated for long-running requests (e.g. watch).
 - `ResponseComplete` - Once the response body has been completed.
-- `Panic` - Events generated when a panic occured.
+- `Panic` - Events generated when a panic occurred.
 
 ### Audit Policy
 
@@ -107,7 +107,7 @@ The policy file holds rules that determine the level of an event. Known audit le
 - `Request` - log event metadata and request body but not response body.
 - `RequestResponse` - log event metadata, request and response bodies.
 
-When an event is processed it's compared against the list of rules in order.
+When an event is processed, it's compared against the list of rules in order.
 The first matching rule sets the audit level of the event. The audit policy is
 defined by the [`audit.k8s.io` API group][audit-api].
 

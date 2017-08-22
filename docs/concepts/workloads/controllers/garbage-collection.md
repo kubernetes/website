@@ -147,7 +147,7 @@ Here's an example that orphans the dependents of a ReplicaSet:
 kubectl delete replicaset my-repset --cascade=false
 ```
 
-### Addtional note on Deployments
+### Additional note on Deployments
 
 When using cascading deletes with Deployments you *must* use `propagationPolicy: Foreground`
 to delete not only the ReplicaSets created, but also their Pods. If this type of _propagationPolicy_

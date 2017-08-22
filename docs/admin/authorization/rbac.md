@@ -648,7 +648,7 @@ Grants a `ClusterRole` across the entire cluster, including all namespaces. Exam
 
     `kubectl create clusterrolebinding myapp-view-binding --clusterrole=view --serviceaccount=acme:myapp`
 
-See the CLI help for detailed usage
+See the CLI help for detailed usage.
 
 ## Service Account Permissions
 
@@ -692,6 +692,7 @@ In order from most secure to least secure, the approaches are:
 
    Many [add-ons](/docs/concepts/cluster-administration/addons/) currently run as the "default" service account in the "kube-system" namespace.
    To allow those add-ons to run with super-user access, grant cluster-admin permissions to the "default" service account in the "kube-system" namespace.
+   
    NOTE: Enabling this means the "kube-system" namespace contains secrets that grant super-user access to the API.
    
    ```shell
