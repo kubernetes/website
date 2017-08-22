@@ -1,43 +1,8 @@
 ---
 title: "Example: Deploying PHP Guestbook application with Redis"
+assignees:
+- ahmetb
 ---
-
-<!--
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-DO NOT UPDATE THIS FILE!
-
-Submit a patch to https://github.com/kubernetes/examples and
-once it is merged, run ./update-imported-tutorials.sh to
-import it to the website.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--->
-
 
 {% capture overview %}
 This tutorial shows you how to build and deploy a simple, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
@@ -61,12 +26,12 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 {% include task-tutorial-prereqs.md %}
 Download the following configuration files:
 
-1. [redis-master-deployment.yaml](https://kubernetes.io/docs/tutorials/stateless-application/guestbook/redis-master-deployment.yaml)
-1. [redis-master-service.yaml](https://kubernetes.io/docs/tutorials/stateless-application/guestbook/redis-master-service.yaml)
-1. [redis-slave-deployment.yaml](https://kubernetes.io/docs/tutorials/stateless-application/guestbook/redis-slave-deployment.yaml)
-1. [redis-slave-service.yaml](https://kubernetes.io/docs/tutorials/stateless-application/guestbook/redis-slave-service.yaml)
-1. [frontend-deployment.yaml](https://kubernetes.io/docs/tutorials/stateless-application/guestbook/frontend-deployment.yaml)
-1. [frontend-service.yaml](https://kubernetes.io/docs/tutorials/stateless-application/guestbook/frontend-service.yaml)
+1. [redis-master-deployment.yaml](/docs/tutorials/stateless-application/guestbook/redis-master-deployment.yaml)
+1. [redis-master-service.yaml](/docs/tutorials/stateless-application/guestbook/redis-master-service.yaml)
+1. [redis-slave-deployment.yaml](/docs/tutorials/stateless-application/guestbook/redis-slave-deployment.yaml)
+1. [redis-slave-service.yaml](/docs/tutorials/stateless-application/guestbook/redis-slave-service.yaml)
+1. [frontend-deployment.yaml](/docs/tutorials/stateless-application/guestbook/frontend-deployment.yaml)
+1. [frontend-service.yaml](/docs/tutorials/stateless-application/guestbook/frontend-service.yaml)
 
 {% endcapture %}
 
@@ -105,7 +70,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 
 ### Creating the Redis Master Service
 
-The guestbook applications needs to communicate to the Redis master to write its data. You need to apply a [Service](https://kubernetes.io/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
+The guestbook applications needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
 
 1. Apply the Redis Master Service from the following `redis-master-service.yaml` file: 
 
@@ -199,7 +164,7 @@ The guestbook application has a web frontend serving the HTTP requests written i
 
 ### Creating the Frontend Service
 
-The `redis-slave` and `redis-master` Services you applied are only accessible within the container cluster because the default type for a Service is [ClusterIP](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services---service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
+The `redis-slave` and `redis-master` Services you applied are only accessible within the container cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
 
 If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the container cluster. Minikube can only expose Services through `NodePort`.  
 
@@ -326,13 +291,10 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 {% endcapture %}
 
 {% capture whatsnext %}
-* Complete the [Kubernetes Basics](https://kubernetes.io//docs/tutorials/kubernetes-basics/) Interactive Tutorials
-* Use Kubernetes to create a blog using [Persistant Volumes for MySQL and Wordpress](https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog) 
-* Read more about [connecting applications](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/)
-* Read more about [Managing Resources](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
+* Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
+* Use Kubernetes to create a blog using [Persistant Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog) 
+* Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
+* Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
 {% endcapture %}
-{% include templates/tutorial.md %}
 
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/examples/guestbook/README.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
+{% include templates/tutorial.md %}
