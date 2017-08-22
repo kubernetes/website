@@ -96,6 +96,7 @@ For each machine:
   EOF
   apt-get update
   apt-get install -y kubelet kubeadm
+  systemctl enable kubelet && systemctl start kubelet
   ```
 
 * If the machine is running CentOS, run:
@@ -115,6 +116,8 @@ For each machine:
   yum install -y kubelet kubeadm
   systemctl enable kubelet && systemctl start kubelet
   ```
+
+
 
   The kubelet is now restarting every few seconds, as it waits in a crashloop for
   kubeadm to tell it what to do.
