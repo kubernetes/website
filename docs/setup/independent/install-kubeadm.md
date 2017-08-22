@@ -117,8 +117,6 @@ For each machine:
   systemctl enable kubelet && systemctl start kubelet
   ```
 
-
-
   The kubelet is now restarting every few seconds, as it waits in a crashloop for
   kubeadm to tell it what to do.
 
