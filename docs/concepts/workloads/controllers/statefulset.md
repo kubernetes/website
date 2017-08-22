@@ -15,8 +15,7 @@ PetSets feature from 1.4. Users of PetSets are referred to the 1.5
 [Upgrade Guide](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
 for further information on how to upgrade existing PetSets to StatefulSets.**
 
-A StatefulSet is a Controller that provides a unique identity to its Pods. It provides
-guarantees about the ordering of deployment and scaling.
+{% include templates/glossary.md term="statefulset" length="long" %}
 {% endcapture %}
 
 {% capture body %}
@@ -40,6 +39,7 @@ provides a set of stateless replicas. Controllers such as
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) may be better suited to your stateless needs.
 
 ## Limitations
+
 * StatefulSet is a beta resource, not available in any Kubernetes release prior to 1.5.
 * As with all alpha/beta resources, you can disable StatefulSet through the `--runtime-config` option passed to the apiserver.
 * The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
