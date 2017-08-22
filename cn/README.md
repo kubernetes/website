@@ -7,11 +7,11 @@
 关于更多的贡献信息，请参阅:
 
 * [贡献于 Kubernetes 文档](http://kubernetes.io/editdocs/)
-* [创建文档拉取请求](http://kubernetes.io/docs/contribute/create-pull-request/)
+* [创建文档拉取请求](http://kubernetes.io/docs/home/contribute/create-pull-request/)
 * [写一个新的话题](http://kubernetes.io/docs/contribute/write-new-topic/)
-* [暂停您的文档更改](http://kubernetes.io/docs/contribute/stage-documentation-changes/)
-* [更用页面模板](http://kubernetes.io/docs/contribute/page-templates/)
-* [文档样式指南](http://kubernetes.io/docs/contribute/style-guide/)
+* [暂停您的文档更改](http://kubernetes.io/docs/home/contribute/stage-documentation-changes/)
+* [更用页面模板](http://kubernetes.io/docs/home/contribute/page-templates/)
+* [文档样式指南](http://kubernetes.io/docs/home/contribute/style-guide/)
 
 ## 谢谢您!
 
