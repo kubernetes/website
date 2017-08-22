@@ -15,7 +15,7 @@ incomplete features are referred to in order to better describe service accounts
 
 ## User accounts vs service accounts
 
-Kubernetes distinguished between the concept of a user account and a service accounts
+Kubernetes distinguishes between the concept of a user account and a service account
 for a number of reasons:
 
   - User accounts are for humans.  Service accounts are for processes, which
@@ -60,9 +60,9 @@ It acts synchronously to modify pods as they are created or updated. When this p
 TokenController runs as part of controller-manager. It acts asynchronously. It:
 
 - observes serviceAccount creation and creates a corresponding Secret to allow API access.
-- observes serviceAccount deletion and deletes all corresponding ServiceAccountToken Secrets
-- observes secret addition, and ensures the referenced ServiceAccount exists, and adds a token to the secret if needed
-- observes secret deletion and removes a reference from the corresponding ServiceAccount if needed
+- observes serviceAccount deletion and deletes all corresponding ServiceAccountToken Secrets.
+- observes secret addition, and ensures the referenced ServiceAccount exists, and adds a token to the secret if needed.
+- observes secret deletion and removes a reference from the corresponding ServiceAccount if needed.
 
 You must pass a service account private key file to the token controller in the controller-manager by using
 the `--service-account-private-key-file` option. The private key will be used to sign generated service account tokens.
