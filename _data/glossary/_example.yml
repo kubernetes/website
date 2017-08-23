@@ -11,7 +11,7 @@ related:
 tags:
 - Some Tag
 short-description: |
-  Required. One or two lines that provide a minimum definition. Do not repeat the term. Prefer fragments. Model after tooltips. End with a period.
+  Required. One or two lines that provide a minimum definition. Do not repeat the term. Write about the plural of the term. Prefer fragments. Model after tooltips. End with a period.
 long-description: |
   Optional. Longer additional text to appear after (in conjunction with) short description. Provide where the short description is not sufficient as the intro paragraph to a topic. Write complete but concise sentences.
   **See /_includes/templates/glossary/README.md for the official style guide.**

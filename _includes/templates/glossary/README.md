@@ -23,7 +23,7 @@ This style guide supplements the guidance provided in the glossary template. It'
 
 ### Minimum viable snippet:
 
-Every snippet must include at least the short description. The long description is optional, but should be provided for terms that need additional clarification.
+Every snippet must include at least the short description. The long description is optional, but should be provided for terms that need additional clarification. For consistency with existing *Concept* definitions, *write your definitions as if the term is plural*.
 
 **short-description** (Required): One line (or two short lines) that provides a minimum definition. Do not repeat the term. Prefer fragments. Model after tooltips. End with a period.
 
@@ -37,8 +37,8 @@ Every snippet must include at least the short description. The long description 
   - Fundamental
   - Workload
   - API Object
-- short-description: The smallest and simplest Kubernetes object. Represents a set of running processes on your cluster.
-- long-description: A Pod most often runs only a single container, and is managed by a Deployment.
+- short-description: The smallest and simplest Kubernetes objects. Represent a set of running processes on your cluster.
+- long-description: Pods most often run only a single container, and are managed by a Deployment.
 ```
 
 ```yaml
@@ -47,8 +47,8 @@ Every snippet must include at least the short description. The long description 
   - Fundamental
   - Workload
   - API Object
-- short-description: Controller that provides declarative updates for Pods and ReplicaSets.
-- long-description: A Deployment is responsible for creating and updating instances of an application.
+- short-description: Controllers that provide declarative updates for Pods and ReplicaSets.
+- long-description: Deployments are responsible for creating and updating instances of an application.
 ```
 
 ### Thinking about definitions
