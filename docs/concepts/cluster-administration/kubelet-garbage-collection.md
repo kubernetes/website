@@ -126,7 +126,7 @@ Including:
 | `--outofdisk-transition-frequency` | `--eviction-pressure-transition-period` | eviction generalizes disk pressure transition to other resources |
 -->
 
-### 弃用
+### 新旧更迭
 
 这篇文档中介绍的一些 kubelet 垃圾收集功能未来会被 kubelet 驱逐替代。
 
