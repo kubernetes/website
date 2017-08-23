@@ -560,22 +560,30 @@ Another workaround is to overwrite the default `kubeconfig` for the "admin" user
 1. If you are using CentOS and encounter difficulty while setting up the master node，
 verify that your Docker cgroup driver matches the kubelet config:
 
-```
+```bash
 docker info |grep -i cgroup
 cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
-   If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver:
+If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver.
 
-```
-update KUBELET_CGROUP_ARGS=--cgroup-driver=systemd to KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs
+Update 
+
+```bash
+KUBELET_CGROUP_ARGS=--cgroup-driver=systemd 
 ```
 
-   Then restart kubelet:
+To 
 
+```bash
+KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs
 ```
+
+Then restart kubelet:
+
+```bash
 systemctl daemon-reload
-service kubelet restart
+systemctl restart kubelet
 ```
 
 The `kubectl describe pod` or `kubectl logs` commands can help you diagnose errors. For example:
