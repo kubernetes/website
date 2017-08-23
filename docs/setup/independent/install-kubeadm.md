@@ -96,6 +96,7 @@ For each machine:
   EOF
   apt-get update
   apt-get install -y kubelet kubeadm
+  systemctl enable kubelet && systemctl start kubelet
   ```
 
 * If the machine is running CentOS, run:
