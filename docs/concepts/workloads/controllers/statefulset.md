@@ -6,12 +6,12 @@ approvers:
 - janetkuo
 - kow3ns
 - smarterclayton
-title: StatefulSets
+title: StatefulSet
 ---
 
 {% capture overview %}
-**StatefulSets are a beta feature in 1.7. This feature replaces the
-PetSets feature from 1.4. Users of PetSets are referred to the 1.5
+**StatefulSet is a beta feature in 1.7. This feature replaces the
+PetSet feature from 1.4. Users of PetSet should refer to the 1.5
 [Upgrade Guide](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
 for further information on how to upgrade existing PetSets to StatefulSets.**
 
