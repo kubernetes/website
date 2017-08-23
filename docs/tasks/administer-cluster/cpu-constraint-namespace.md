@@ -77,7 +77,7 @@ CPU request and limit to the Container.
 
 * Verify that the Container specifies a CPU request that is greater than or equal to 200 millicpu.
 
-* Verify that the Container specifies a memory limit that is less than or equal to 800 millicpu.
+* Verify that the Container specifies a CPU limit that is less than or equal to 800 millicpu.
 
 Here's the configuration file for a Pod that has one Container. The Container manifest
 specifies a CPU request of 500 millicpu and a CPU limit of 800 millicpu. These satisfy the
