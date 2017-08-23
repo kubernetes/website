@@ -66,7 +66,7 @@ toc:
   section:
   - docs/tasks/access-application-cluster/web-ui-dashboard.md
   - docs/tasks/access-application-cluster/access-cluster.md
-  - docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig.md
+  - docs/tasks/access-application-cluster/configure-access-multiple-clusters.md
   - docs/tasks/access-application-cluster/port-forward-access-application-cluster.md
   - docs/tasks/access-application-cluster/load-balance-access-application-cluster.md
   - docs/tasks/access-application-cluster/service-access-application-cluster.md
@@ -153,7 +153,6 @@ toc:
   - docs/tasks/administer-cluster/configure-pod-disruption-budget.md
   - docs/tasks/administer-cluster/limit-storage-consumption.md
   - docs/tasks/administer-cluster/change-default-storage-class.md
-  - docs/tasks/administer-cluster/share-configuration.md
   - docs/tasks/administer-cluster/running-cloud-controller.md
   - docs/tasks/administer-cluster/highly-available-master.md
   - docs/tasks/administer-cluster/configure-multiple-schedulers.md
