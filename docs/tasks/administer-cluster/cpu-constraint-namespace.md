@@ -193,7 +193,7 @@ resources:
 ```
 
 Because your Container did not specify its own CPU request and limit, it was given the
-[default CPU request and limit](/docs/tasks/administer-cluster/default-cpu-request-limit/)
+[default CPU request and limit](/docs/tasks/administer-cluster/cpu-default-namespace/)
 from the LimitRange.
 * [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace)
 At this point, your Container might be running or it might not be running. Recall that a prerequisite

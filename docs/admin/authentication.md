@@ -276,7 +276,7 @@ Since all of the data needed to validate who you are is in the `id_token`, Kuber
 solution for authentication.  It does offer a few challenges:
 
 1.  Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
-2.  The `id_token` can't be revoked, its like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes
+2.  The `id_token` can't be revoked, it's like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes
 3.  There's no easy way to authenticate to the Kubernetes dashboard without using the `kubectl proxy` command or a reverse proxy that injects the `id_token`
 
 
@@ -742,7 +742,7 @@ Finally, add the following parameters into API server start parameters:
 
 #### openssl
 
-**openssl** can also be use to manually generate certificates for your cluster.
+**openssl** can also be used to manually generate certificates for your cluster.
 
 1.  Generate a ca.key with 2048bit:
 

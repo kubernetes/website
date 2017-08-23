@@ -215,7 +215,7 @@ unschedulable, run this command:
 kubectl cordon $NODENAME
 ```
 
-Note that pods which are created by a daemonSet controller bypass the Kubernetes scheduler,
+Note that pods which are created by a DaemonSet controller bypass the Kubernetes scheduler,
 and do not respect the unschedulable attribute on a node.  The assumption is that daemons belong on
 the machine even if it is being drained of applications in preparation for a reboot.
 

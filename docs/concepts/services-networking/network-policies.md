@@ -65,8 +65,8 @@ __ingress__: Each `NetworkPolicy` includes a list of whitelist `ingress` rules. 
 So, the example NetworkPolicy:
 
 1. isolates "role=db" pods in the "default" namespace (if they weren't already isolated)
-2. allows connections to tcp port 6379 of "role=db" pods in the "default" namespace from any pod in the "default" namespace with the label "role=frontend"
-3. allows connections to tcp port 6379 of "role=db" pods in the "default" namespace from any pod in a namespace with the label "project=myproject"
+2. allows connections to TCP port 6379 of "role=db" pods in the "default" namespace from any pod in the "default" namespace with the label "role=frontend"
+3. allows connections to TCP port 6379 of "role=db" pods in the "default" namespace from any pod in a namespace with the label "project=myproject"
 
 See the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) for further examples.
 
