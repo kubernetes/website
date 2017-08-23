@@ -111,7 +111,7 @@ Notice that the `server.csr` file created in step 1 is base64 encoded
 and stashed in the `.spec.request` field. We are also requesting a
 certificate with the "digital signature", "key encipherment", and "server
 auth" key usages. We support all key usages and extended key usages listed
-[here](https://godoc.org/k8s.io/client-go/pkg/apis/certificates/v1beta1#KeyUsage)
+[here](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage)
 so you can request client certificates and other certificates using this
 same API.
 
