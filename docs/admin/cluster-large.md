@@ -36,7 +36,7 @@ title：搭建大型集群
 通常来说，集群中的节点数是通过平台相关的 `config-default.sh` 文件(例子参考[GCE's `config-default.sh`](http://releases.k8s.io/{{page.githubbranch}}/cluster/gce/config-default.sh)中的 `NUM_NODES` 值控制的。
 
 <!-- Simpl changing that value to something very large, however, may cause the setup script to fail for many cloud providers. A GCE deployment, for example, will run in to quota issues and fail to bring the cluster up. -->
-然而，单单把这个值更改到很大会导致脚本在许多云平台上运行失败。例如 GCE 部署，会有配额问题导致集群启动失败。
+然而，单单把这个值更改到很大会导致脚本在许多云服务商平台上运行失败。例如 GCE 部署，会有配额问题导致集群启动失败。
 
 <!-- When setting up a large Kubernetes cluster, the following issues must be considered. -->
 当需要建立大规模 Kubernetes 集群时，必须考虑下列问题：
@@ -45,7 +45,7 @@ title：搭建大型集群
 ### 配额问题
 
 <!-- To avoid running into cloud provider quota issues, when creating a cluster with many nodes, consider: -->
-为了避免云服务商的配额问题，当创建一个许多节点的集群是，要考虑：
+为了避免云服务商的配额导致问题，当创建一个许多节点的集群是，要考虑：
 
 <!-- * Increase the quota for things like CPU, IPs, etc.
   * In [GCE, for example,](https://cloud.google.com/compute/docs/resource-quotas) you'll want to increase the quota for:
@@ -59,8 +59,8 @@ title：搭建大型集群
     * Target pools
 * Gating the setup script so that it brings up new node VMs in smaller batches with waits in between, because some cloud providers rate limit the creation of VMs. -->
 * 增加这些资源的配额，比如 CPU ，IP 地址等等。
-  * 在 [GCE 中，举个例子](https://cloud.google.com/compute/docs/resource-quotas) 你会想要增加：
-    * CPUs
+  * 在 [GCE 中，举个例子](https://cloud.google.com/compute/docs/resource-quotas) 你会需要增加：
+    * CPU
     * 虚拟机实例
     * 总共保留的永久磁盘
     * 在使用的 IP 地址
@@ -68,7 +68,7 @@ title：搭建大型集群
     * 转发规则
     * 路由
     * 目标池
-* 调整好安装脚本，让它能够在创建虚拟机节点的批处理间能有等待时间，因为很多云服务商对于创建虚拟机有频率的限制。
+* 调整好安装脚本，让它能够在创建虚拟机节点的批处理间能有等待时间，因为很多云服务商对于虚拟机有创建频率的限制。
 
 <!-- ### Etcd storage -->
 ### Etcd 存储
@@ -77,7 +77,7 @@ title：搭建大型集群
 为了提高大规模集群的性能，我们将 events 存储在一个独立的特定的etcd实例中。
 
 <!-- When creating a cluster, existing salt scripts: -->
-当创建一个集群时，现有的 salt 脚本：
+当创建一个集群时，现有的 salt 脚本会：
 
 <!-- * start and configure additional etcd instance -->
 <!-- * configure api-server to use it for storing events -->
@@ -85,7 +85,7 @@ title：搭建大型集群
 * 配置 api-server 使用它来储存 events
 
 <!-- ### Size of master and master components -->
-### 主服务器和主服务器组件的大小
+### 主服务器和主服务器组件的规格
 
 <!-- On GCE/GKE and AWS, `kube-up` automatically configures the proper VM size for your master depending on the number of nodes
 in your cluster. On other providers, you will need to configure it manually. For reference, the sizes we use on GCE are -->
@@ -159,24 +159,18 @@ in your cluster. On other providers, you will need to configure it manually. For
 <!-- To avoid running into cluster addon resource issues, when creating a cluster with many nodes, consider the following: -->
 为了避免集群的 addon 资源问题出现，当创建一个许多节点的集群是，考虑如下问题：
 
-<!-- * Scale memory and CPU limits for each of the following addons, if used, as you scale up the size of cluster (there is one replica of each handling the entire cluster so memory and CPU usage tends to grow proportionally with size/load on cluster):
-  * [InfluxDB and Grafana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
-  * [kubedns, dnsmasq, and sidecar](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/kubedns-controller.yaml.in)
-  * [Kibana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/kibana-controller.yaml)
-* Scale number of replicas for the following addons, if used, along with the size of cluster (there are multiple replicas of each so increasing replicas should help handle increased load, but, since load per replica also increases slightly, also consider increasing CPU/memory limits):
-  * [elasticsearch](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/es-controller.yaml)
-* Increase memory and CPU limits slightly for each of the following addons, if used, along with the size of cluster (there is one replica per node but CPU/memory usage increases slightly along with cluster load/size as well):
-  * [FluentD with ElasticSearch Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
-  * [FluentD with GCP Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml) -->
-* 对于每个 addon 都都调整内存和 CPU 限制，使用时，对你的集群扩容 (每个 addon 有一个 replica 来处理整个集群，所以内存和 CPU 使用量会随着集群的 规模/负载 按比例增加):
-  * [InfluxDB and Grafana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
-  * [kubedns, dnsmasq, and sidecar](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/kubedns-controller.yaml.in)
-  * [Kibana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/kibana-controller.yaml)
-* 为以下这些 addon 调整 replicas 数量, 使用时, 和集群规模数量一起调整 (每个 addon 会有多个 replicas, 所以增加 replicas 应该能帮助处理增加的负担，但是，由于每个 replica 的负载也稍稍增加, 同时需要考虑增加 CPU/内存 限制):
-  * [elasticsearch](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/es-controller.yaml)
-* 为以下这些 addon 稍稍增加 memory 和 CPU 限制, 使用时, 和集群规模数量一起调整 (每个节点有一个 replica，但是 CPU/内存 使用与集群的 负载/规模 会稍稍增加):
-  * [FluentD with ElasticSearch Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
-  * [FluentD with GCP Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
+ <!-- * Scale memory and CPU limits for each of the following addons, if used, as you scale up the size of cluster (there is one replica of each handling the entire cluster so memory and CPU usage tends to grow proportionally with size/load on cluster): -->
+ * 为以下每个 addon 调整内存和 CPU 限制，使用时，随着你的集群扩容 (每个 addon 有一个 replica 来处理整个集群，所以 CPU/内存 使用量会随着集群的 规模/负载 按比例增加):
+    * [InfluxDB and Grafana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
+    * [kubedns, dnsmasq, and sidecar](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/kubedns-controller.yaml.in)
+    * [Kibana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/kibana-controller.yaml)
+  <!-- * Scale number of replicas for the following addons, if used, along with the size of cluster (there are multiple replicas of each so increasing replicas should help handle increased load, but, since load per replica also increases slightly, also consider increasing CPU/memory limits): -->
+ * 为以下这些 addon 调整 replicas 数量, 使用时, 随着集群规模数量一起调整 (每个 addon 会有多个 replicas, 所以增加 replicas 应该能帮助处理增加的负载，但是，由于每个 replica 的负载也稍稍增加, 同时需要考虑增加 CPU/内存 限制):
+    * [elasticsearch](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/es-controller.yaml)
+ <!-- * Increase memory and CPU limits slightly for each of the following addons, if used, along with the size of cluster (there is one replica per node but CPU/memory usage increases slightly along with cluster load/size as well): -->
+ * 为以下这些 addon 稍稍增加 memory 和 CPU 使用限制, 使用时, 随着集群规模数量一起调整 (每个节点有一个 replica，但是 CPU/内存 使用量与集群的 负载/规模 会稍稍增加):
+    * [FluentD with ElasticSearch Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
+    * [FluentD with GCP Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
 
 <!-- Heapster's resource limits are set dynamically based on the initial size of your cluster (see [#16185](http://issue.k8s.io/16185)
 and [#22940](http://issue.k8s.io/22940)). If you find that Heapster is running
