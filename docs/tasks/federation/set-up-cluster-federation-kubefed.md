@@ -89,7 +89,7 @@ similar to the following:
 
 ```
 CURRENT   NAME                                          CLUSTER                                       AUTHINFO                                      NAMESPACE
-          gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1
+*         gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1
 ```
 
 
