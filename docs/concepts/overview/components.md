@@ -77,9 +77,9 @@ Cluster DNS is a DNS server, in addition to the other DNS server(s) in your envi
 
 Containers started by Kubernetes automatically include this DNS server in their DNS searches.
 
-#### User interface
+#### Web UI (Dashboard)
 
-The `kube-ui` provides a read-only overview of the cluster state.  For more information, see [Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
+[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications running in the cluster, as well as the cluster itself.
 
 
 #### Container Resource Monitoring
