@@ -1,6 +1,6 @@
 language: go
 go:
-  - 1.8.1
+  - 1.8.3
 
 # Don't want default ./... here:
 install:
@@ -20,7 +20,7 @@ install:
 - go get -t -v k8s.io/md-check
 
 # (3) Fetch mungedocs
-- go get -v k8s.io/kubernetes/cmd/mungedocs
+- go install k8s.io/kubernetes.github.io/mungedocs
 
 script:
 - go test -v k8s.io/kubernetes.github.io/test
