@@ -50,7 +50,7 @@ MASQUERADE  all  --  anywhere             anywhere             /* ip-masq-agent:
 
 ```
 
-By default, in GCE/GKE starting with Kubernetes version 1.7.0, the ip-masq-agent will run in your cluster.  If you are running in another environment, you can add the ip-masq-agent [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) to your cluster:
+By default, in GCE/GKE starting with Kubernetes version 1.7.0, if network policy is enabled or you are using a cluster CIDR not in the 10.0.0.0/8 range, the ip-masq-agent will run in your cluster.  If you are running in another environment, you can add the ip-masq-agent [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) to your cluster:
 
 {% endcapture %}
 
@@ -61,6 +61,12 @@ To create an ip-masq-agent, run the following kubectl command:
 
 `
 kubectl create -f https://raw.githubusercontent.com/kubernetes-incubator/ip-masq-agent/master/ip-masq-agent.yaml
+`
+
+You must also apply the appropriate node label to any nodes in your cluster that you want the agent to run on.
+
+`
+kubectl label nodes my-node beta.kubernetes.io/masq-agent-ds-ready=true
 `
 
 More information can be found in the ip-masq-agent documentation [here](https://github.com/kubernetes-incubator/ip-masq-agent)
