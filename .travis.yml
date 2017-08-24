@@ -1,6 +1,6 @@
 language: go
 go:
-  - 1.8.1
+  - 1.8.3
 
 # Don't want default ./... here:
 install:
@@ -19,8 +19,8 @@ install:
 - git clone --depth=50 --branch=master https://github.com/kubernetes/md-check $HOME/gopath/src/k8s.io/md-check
 - go get -t -v k8s.io/md-check
 
-# (3) Fetch mungedocs
-- go get -v k8s.io/kubernetes/cmd/mungedocs
+# (3) Build mungedocs
+- go install ./_tools/mungedocs
 
 script:
 - go test -v k8s.io/kubernetes.github.io/test

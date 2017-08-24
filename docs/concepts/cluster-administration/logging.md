@@ -33,7 +33,7 @@ $ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/counter-
 pod "counter" created
 ```
 
-To fetch the logs, use the `kubectl logs` command, as follows
+To fetch the logs, use the `kubectl logs` command, as follows:
 
 ```shell
 $ kubectl logs counter

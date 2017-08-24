@@ -100,7 +100,7 @@ To be able to work with the docker daemon on your mac/linux host use the `docker
 ```
 eval $(minikube docker-env)
 ```
-you should now be able to use docker on the command line on your host mac/linux machine talking to the docker daemon inside the minikube VM:
+You should now be able to use docker on the command line on your host mac/linux machine talking to the docker daemon inside the minikube VM:
 
 ```
 docker ps
@@ -191,7 +191,7 @@ Minikube sets this context to default automatically, but if you need to switch b
 
 `kubectl config use-context minikube`,
 
-or pass the context on each command like this: `kubectl get pods --context=minikube`.
+Or pass the context on each command like this: `kubectl get pods --context=minikube`.
 
 ### Dashboard
 

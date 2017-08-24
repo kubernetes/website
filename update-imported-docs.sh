@@ -136,7 +136,7 @@ done <_data/overrides.yml
 )
 
 
-BINARIES="federation-apiserver.md federation-controller-manager.md kube-apiserver.md kube-controller-manager.md kube-proxy.md kube-scheduler.md kubelet.md"
+BINARIES="federation-apiserver.md federation-controller-manager.md kube-apiserver.md kube-controller-manager.md kube-proxy.md kube-scheduler.md kubelet.md kubefed.md kubefed_init.md kubefed_join.md kubefed_options.md kubefed_unjoin.md kubefed_version.md"
 
 (
   cd docs/admin
@@ -149,6 +149,7 @@ BINARIES="federation-apiserver.md federation-controller-manager.md kube-apiserve
 ---' "$bin"
   done
 )
+
 mv -- "${APIREFDESDIR}" "${APIREFSRCDIR}"
 mv -- "${KUBECTLDESDIR}" "${KUBECTLSRCDIR}"
 rm -rf -- "${TMPDIR}" "${K8SREPO}"
