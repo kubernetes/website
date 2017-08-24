@@ -143,6 +143,23 @@ Unfortunately just setting the environment variables will not work.
 Minikube will also create a "minikube" context, and set it to default in kubectl.
 To switch back to this context later, run this command: `kubectl config use-context minikube`.
 
+#### Specifying the Kubernetes version
+
+Minikube supports running multiple different versions of Kubernetes. You can
+access a list of all available versions via
+
+```
+minikube get-k8s-versions
+```
+
+You can specify the specific version of Kubernetes for Minikube to use by
+adding the `--kubernetes-version` string to the `minikube start` command. For
+example, to run version `v1.7.3`, you would run the following:
+
+```
+minikube start --kubernetes-version v1.7.3
+```
+
 ### Configuring Kubernetes
 
 Minikube has a "configurator" feature that allows users to configure the Kubernetes components with arbitrary values.
