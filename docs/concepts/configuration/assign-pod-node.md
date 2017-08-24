@@ -505,12 +505,12 @@ tolerations:
   tolerationSeconds: 6000
 ```
 
-(For the node not ready case, change the key to `node.alpha.kubernetes.io/notReady`.)
+(For the node not ready case, change the key to `node.alpha.kubernetes.io/not-ready`.)
 
 Note that Kubernetes automatically adds a toleration for
-`node.alpha.kubernetes.io/notReady` with `tolerationSeconds=300`
+`node.alpha.kubernetes.io/not-ready` with `tolerationSeconds=300`
 unless the pod configuration provided
-by the user already has a toleration for `node.alpha.kubernetes.io/notReady`.
+by the user already has a toleration for `node.alpha.kubernetes.io/not-ready`.
 Likewise it adds a toleration for
 `node.alpha.kubernetes.io/unreachable` with `tolerationSeconds=300`
 unless the pod configuration provided
@@ -523,6 +523,6 @@ The two default tolerations are added by the [DefaultTolerationSeconds
 admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/defaulttolerationseconds).
 
 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) pods are created with
-`NoExecute` tolerations for `node.alpha.kubernetes.io/unreachable` and `node.alpha.kubernetes.io/notReady`
+`NoExecute` tolerations for `node.alpha.kubernetes.io/unreachable` and `node.alpha.kubernetes.io/not-ready`
 with no `tolerationSeconds`. This ensures that DaemonSet pods are never evicted due
 to these problems, which matches the behavior when this feature is disabled.

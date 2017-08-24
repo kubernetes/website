@@ -101,10 +101,10 @@ when the pod is created, so it is ignored by the scheduler).  Therefore:
 Daemon pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature),
 but they are created with `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
- - `node.alpha.kubernetes.io/notReady`
+ - `node.alpha.kubernetes.io/not-ready`
  - `node.alpha.kubernetes.io/unreachable`
- - `node.alpha.kubernetes.io/memoryPressure`
- - `node.alpha.kubernetes.io/diskPressure`
+ - `node.alpha.kubernetes.io/memory-pressure`
+ - `node.alpha.kubernetes.io/disk-pressure`
 
 When the support to critical pods is enabled and the pods in a DaemonSet are
 labelled as critical, the Daemon pods are created with an additional
