@@ -26,9 +26,7 @@ K8SMeetup 维护两个仓库：
 
 任务地址：[翻译任务](https://docs.google.com/spreadsheets/d/1FDFCv9RK5nSMgLXhPrJ5k7r5QvHnNEFnXbvoFiM8v20/edit#gid=1015862274)
 
-文章有四种状态：
-
-
+文章有六种状态：
 
 参考颜色代码： http://tool.oschina.net/commons?type=3
 
