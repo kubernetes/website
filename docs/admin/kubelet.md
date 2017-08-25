@@ -199,24 +199,24 @@ TaintBasedEvictions=true|false (ALPHA - default=false)
       --authorization-webhook-cache-unauthorized-ttl duration   来自webhook的未认证响应缓存时间（默认30s）
       --azure-container-registry-config string                  Azure容器注册表配置信息路径
       --bootstrap-kubeconfig string                             Path to a kubeconfig file that will be used to get client certificate for kubelet. If the file specified by --kubeconfig does not exist, the bootstrap kubeconfig is used to request a client certificate from the API server. On success, a kubeconfig file referencing the generated client certificate and key is written to the path specified by --kubeconfig. The client certificate and key file will be stored in the directory pointed by --cert-dir.
-      --cadvisor-port int32                                     The port of the localhost cAdvisor endpoint (default 4194)
-      --cert-dir string                                         The directory where the TLS certs are located. If --tls-cert-file and --tls-private-key-file are provided, this flag will be ignored. (default "/var/run/kubernetes")
-      --cgroup-driver string                                    Driver that the kubelet uses to manipulate cgroups on the host.  Possible values: 'cgroupfs', 'systemd' (default "cgroupfs")
+      --cadvisor-port int32                                     本地cAdvisor端点的端口（默认 4194）
+      --cert-dir string                                         TLS证书所在目录。如果--tls-cert-file和--tls-private-key-file指定的文件存在，当前配置将被忽略。（默认“/var/run/kubernetes”）
+      --cgroup-driver string                                    kubelet用来操作主机上的cgroups驱动，可选值有：“cgroupfs”和“systemd”（默认“cgroupfs”）
       --cgroup-root string                                      Optional root cgroup to use for pods. This is handled by the container runtime on a best effort basis. Default: '', which means use the container runtime default.
-      --cgroups-per-qos                                         Enable creation of QoS cgroup hierarchy, if true top level QoS and pod cgroups are created. (default true)
-      --chaos-chance float                                      If > 0.0, introduce random client errors and latency. Intended for testing.
+      --cgroups-per-qos                                         开启创建QoS cgroup层级，如果设置为true将创建顶级QoS和容器cgroups。（默认true）
+      --chaos-chance float                                      如果大于0.0，引入随机客户端错误及延迟，用来测试。
       --client-ca-file string                                   If set, any request presenting a client certificate signed by one of the authorities in the client-ca-file is authenticated with an identity corresponding to the CommonName of the client certificate.
-      --cloud-config string                                     The path to the cloud provider configuration file.  Empty string for no configuration file.
-      --cloud-provider string                                   The provider for cloud services. By default, kubelet will attempt to auto-detect the cloud provider. Specify empty string for running with no cloud provider. (default "auto-detect")
-      --cluster-dns stringSlice                                 Comma-separated list of DNS server IP address.  This value is used for containers DNS server in case of Pods with "dnsPolicy=ClusterFirst". Note: all DNS servers appearing in the list MUST serve the same set of records otherwise name resolution within the cluster may not work correctly. There is no guarantee as to which DNS server may be contacted for name resolution.
-      --cluster-domain string                                   Domain for this cluster.  If set, kubelet will configure all containers to search this domain in addition to the host's search domains
-      --cni-bin-dir string                                      <Warning: Alpha feature> The full path of the directory in which to search for CNI plugin binaries. Default: /opt/cni/bin
-      --cni-conf-dir string                                     <Warning: Alpha feature> The full path of the directory in which to search for CNI config files. Default: /etc/cni/net.d
-      --container-runtime string                                The container runtime to use. Possible values: 'docker', 'rkt'. (default "docker")
-      --container-runtime-endpoint string                       [Experimental] The endpoint of remote runtime service. Currently unix socket is supported on Linux, and tcp is supported on windows.  Examples:'unix:///var/run/dockershim.sock', 'tcp://localhost:3735' (default "unix:///var/run/dockershim.sock")
-      --containerized                                           Experimental support for running kubelet in a container.  Intended for testing.
-      --contention-profiling                                    Enable lock contention profiling, if profiling is enabled
-      --cpu-cfs-quota                                           Enable CPU CFS quota enforcement for containers that specify CPU limits (default true)
+      --cloud-config string                                     云提供商的配置文件路径，没有配置文件时为空字符串。
+      --cloud-provider string                                   云服务提供商。默认情况下，kubelet将尝试自动检测云提供商，如果不使用云提供商可以指定该参数为空字符串。（默认“auto-detect”）
+      --cluster-dns stringSlice                                 DNS服务器的IP地址列表，逗号分隔。这个值是用于配置指定了“dnsPolicy=ClusterFirst”的容器DNS服务器。注意：列表中所有的DNS服务器必须提供相同的记录值，否则集群中的名称解析可能无法正常工作，也就是无法确保连接DNS服务器提供正确的名称解析。
+      --cluster-domain string                                   集群域名。如果设置，kubelet将配置所有容器除了主机搜索域还将搜索当前域。
+      --cni-bin-dir string                                      <警告:Alpha特性>搜索CNI插件二进制文件的完整路径。默认值：/opt/cni/bin
+      --cni-conf-dir string                                     <警告:Alpha特性> 搜索CNI插件配置文件的完整路径。默认值：/etc/cni/net.d
+      --container-runtime string                                运行时使用的容器。可选值：‘docker’和‘rkt’。（默认‘docker’）
+      --container-runtime-endpoint string                       [实验]远程运行服务的端点。目前在Linux上支持unix套接字，在windows上支持tcp。例如：‘unix:///var/run/dockershim.sock’，‘tcp://localhost:3735’（默认‘unix:///var/run/dockershim.sock’）
+      --containerized                                           在容器中运行kubelet的实验支持。用于测试。
+      --contention-profiling                                    如果启用了分析，启用锁争用分析。
+      --cpu-cfs-quota                                           为指定CPU限制的容器强制限制CPU CFS配额(默认为true)
       --docker-disable-shared-pid                               The Container Runtime Interface (CRI) defaults to using a shared PID namespace for containers in a pod when running with Docker 1.13.1 or higher. Setting this flag reverts to the previous behavior of isolated PID namespaces. This ability will be removed in a future Kubernetes release.
       --docker-endpoint string                                  Use this for the docker endpoint to communicate with (default "unix:///var/run/docker.sock")
       --enable-controller-attach-detach                         Enables the Attach/Detach controller to manage attachment/detachment of volumes scheduled to this node, and disables kubelet from executing any attach/detach operations (default true)
