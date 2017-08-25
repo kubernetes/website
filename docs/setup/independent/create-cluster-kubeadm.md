@@ -249,6 +249,16 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 ```
 {% endcapture %}
 
+{% capture kube-router %}
+
+Kube-router relies on kube-controll-manager to allocate pod CIDR for the nodes. So you must use kubeadm init with --pod-network-cidr flag.
+
+Kube-router provides pod networking, network policy and high performing IPVS/LVS based service proxy as well.
+
+For information on setting up Kubernetes cluster with Kube-router using kubeadm please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/kubeadm.md).
+
+{% endcapture %}
+
 {% capture romana %}
 
 The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
@@ -272,8 +282,8 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
 ```
 {% endcapture %}
 
-{% assign tab_names = "Choose one...,Calico,Canal,Flannel,Romana,Weave Net" | split: ',' | compact %}
-{% assign tab_contents = site.emptyArray | push: choose | push: calico | push: canal | push: flannel | push: romana | push: weave_net %}
+{% assign tab_names = "Choose one...,Calico,Canal,Flannel,Kube-router,Romana,Weave Net" | split: ',' | compact %}
+{% assign tab_contents = site.emptyArray | push: choose | push: calico | push: canal | push: flannel | push: kube-router | push: romana | push: weave_net %}
 
 {% include tabs.md %}
 
