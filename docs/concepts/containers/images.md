@@ -113,6 +113,7 @@ You first need to create a registry and generate credentials, complete documenta
 the [Azure container registry documentation](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli).
 
 Once you have created your container registry, you will use the following credentials to login:
+
    * `DOCKER_USER` : service principal, or admin username
    * `DOCKER_PASSWORD`: service principal password, or admin user password
    * `DOCKER_REGISTRY_SERVER`: `${some-registry-name}.azurecr.io`
