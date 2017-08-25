@@ -17,7 +17,7 @@ All Kubernetes clusters have two categories of users: service accounts managed
 by Kubernetes, and normal users.
 
 Normal users are assumed to be managed by an outside, independent service. An
-admin distributing private keys, a user store like Keystone or Google Accounts,
+admin distributing private key, a user store like Keystone or Google Accounts,
 even a file with a list of usernames and passwords. In this regard, _Kubernetes
 does not have objects which represent normal user accounts._ Regular users
 cannot be added to a cluster through an API call.
@@ -30,7 +30,7 @@ to talk to the Kubernetes API.
 
 API requests are tied to either a normal user or a service account, or are treated
 as anonymous requests. This means every process inside or outside the cluster, from
-a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members
+a human user typing `kubectl` on a workstation, to `kubelet` on nodes, to members
 of the control plane, must authenticate when making requests to the API server,
 or be treated as an anonymous user.
 
