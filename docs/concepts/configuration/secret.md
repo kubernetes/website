@@ -137,7 +137,7 @@ the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
 
 #### Decoding a Secret
 
-Get back the secret created in the previous section:
+Secrets can be retrieved via the `kubectl get secret` command. For example, to retrieve the secret created in the previous section:
 
 ```shell
 $ kubectl get secret mysecret -o yaml
