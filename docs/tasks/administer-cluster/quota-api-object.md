@@ -88,8 +88,8 @@ kubectl get persistentvolumeclaims --namespace=quota-object-example
 The output shows that the PersistentVolumeClaim exists and has status Pending:
 
 ```shell
-NAME             STATUS
-pvc-quota-demo   Pending
+NAME             STATUS    VOLUME    CAPACITY   ACCESSMODES   STORAGECLASS   AGE
+pvc-quota-demo   Pending                                      manual         23h
 ```
 
 ## Attempt to create a second PersistentVolumeClaim:
