@@ -20,10 +20,12 @@ spec:
         env:
         - name: GET_HOSTS_FROM
           value: dns
-          # If your cluster config does not include a dns service, then to
-          # instead access environment variables to find service host
-          # info, comment out the 'value: dns' line above, and uncomment the
-          # line below:
+          # Using `GET_HOSTS_FROM=dns` requires your cluster configuration to
+          # provide a dns service. Minikube does provide a dns service. However,
+          # if the cluster config you are using does not, then to
+          # instead access an environment variable to find the master
+          # service's host, comment out the 'value: dns' line above, and
+          # uncomment the line below:
           # value: env
         ports:
         - containerPort: 80
