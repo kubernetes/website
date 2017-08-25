@@ -82,7 +82,7 @@ data:
 
 The type of the secret must be `bootstrap.kubernetes.io/token` and the name must
 be `bootstrap-token-<token id>`.  It must also exist in the `kube-system`
-namespace.  `description` is a human readable discription that should not be
+namespace.  `description` is a human readable description that should not be
 used for machine readable information.  The Token ID and Secret are included in
 the data dictionary.
 
