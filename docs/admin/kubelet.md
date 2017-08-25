@@ -309,23 +309,23 @@ TaintBasedEvictions=true|false (ALPHA - default=false)
       --registry-burst int32                                    Maximum size of a bursty pulls, temporarily allows pulls to burst to this number, while still not exceeding registry-qps. Only used if --registry-qps > 0 (default 10)
       --registry-qps int32                                      If > 0, limit registry pull QPS to this value.  If 0, unlimited. (default 5)
       --require-kubeconfig                                      If true the Kubelet will exit if there are configuration errors, and will ignore the value of --api-servers in favor of the server defined in the kubeconfig file.
-      --resolv-conf string                                      Resolver configuration file used as the basis for the container DNS resolution configuration. (default "/etc/resolv.conf")
-      --rkt-api-endpoint string                                 The endpoint of the rkt API service to communicate with. Only used if --container-runtime='rkt'. (default "localhost:15441")
-      --rkt-path string                                         Path of rkt binary. Leave empty to use the first rkt in $PATH.  Only used if --container-runtime='rkt'.
-      --root-dir string                                         Directory path for managing kubelet files (volume mounts,etc). (default "/var/lib/kubelet")
+      --resolv-conf string                                      用作容器DNS解析配置的解析器配置文件。 (默认 "/etc/resolv.conf")
+      --rkt-api-endpoint string                                 与rkt API 服务通信的端点，仅当设置--container-runtime='rkt'时有效 (默认 "localhost:15441")
+      --rkt-path string                                         rkt二进制文件的路径，设置为空将使用$PATH中的第一个rkt，仅当设置--container-runtime='rkt'时有效。
+      --root-dir string                                         管理kubelet文件的目录 (卷挂载等). (默认 "/var/lib/kubelet")
       --runonce                                                 If true, exit after spawning pods from local manifests or remote urls. Exclusive with --api-servers, and --enable-server
-      --runtime-cgroups string                                  Optional absolute name of cgroups to create and run the runtime in.
+      --runtime-cgroups string                                  可选的cgroups的绝对名称，创建和运行时使用。
       --runtime-request-timeout duration                        Timeout of all runtime requests except long running request - pull, logs, exec and attach. When timeout exceeded, kubelet will cancel the request, throw out an error and retry later. (default 2m0s)
-      --seccomp-profile-root string                             Directory path for seccomp profiles. (default "/var/lib/kubelet/seccomp")
+      --seccomp-profile-root string                             seccomp配置文件目录。 (默认 "/var/lib/kubelet/seccomp")
       --serialize-image-pulls                                   Pull images one at a time. We recommend *not* changing the default value on nodes that run docker daemon with version < 1.9 or an Aufs storage backend. Issue #10959 has more details. (default true)
       --streaming-connection-idle-timeout duration              Maximum time a streaming connection can be idle before the connection is automatically closed. 0 indicates no timeout. Example: '5m' (default 4h0m0s)
-      --sync-frequency duration                                 Max period between synchronizing running containers and config (default 1m0s)
+      --sync-frequency duration                                 同步运行容器和配置之间的最大时间间隔 (默认 1m0s)
       --system-cgroups /                                        Optional absolute name of cgroups in which to place all non-kernel processes that are not already inside a cgroup under /. Empty for no container. Rolling back the flag requires a reboot.
       --system-reserved mapStringString                         A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi) pairs that describe resources reserved for non-kubernetes components. Currently only cpu and memory are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none]
       --system-reserved-cgroup string                           Absolute name of the top level cgroup that is used to manage non-kubernetes components for which compute resources were reserved via '--system-reserved' flag. Ex. '/system-reserved'. [default='']
       --tls-cert-file string                                    File containing x509 Certificate used for serving HTTPS (with intermediate certs, if any, concatenated after server cert). If --tls-cert-file and --tls-private-key-file are not provided, a self-signed certificate and key are generated for the public address and saved to the directory passed to --cert-dir.
-      --tls-private-key-file string                             File containing x509 private key matching --tls-cert-file.
-      --version version[=true]                                  Print version information and quit
+      --tls-private-key-file string                             包含x509私钥匹配的文件 --tls-cert-file.
+      --version version[=true]                                  打印kubelet版本并退出。
       --volume-plugin-dir string                                <警告:Alpha特性> The full path of the directory in which to search for additional third party volume plugins (default "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/")
       --volume-stats-agg-period duration                        Specifies interval for kubelet to calculate and cache the volume disk usage for all pods and volumes.  To disable volume calculations, set to 0. (default 1m0s)
 ```
