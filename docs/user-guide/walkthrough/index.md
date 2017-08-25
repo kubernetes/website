@@ -7,7 +7,7 @@ title: Kubernetes 101
 
 ## Kubectl CLI and Pods
 
-For Kubernetes 101, we will cover kubectl, pods, volumes, and multiple containers
+For Kubernetes 101, we will cover kubectl, Pods, Volumes, and multiple containers.
 
 {% include task-tutorial-prereqs.md %}
 
@@ -27,39 +27,39 @@ If you haven't installed and configured kubectl, finish [installing kubectl](/do
 
 ## Pods
 
-In Kubernetes, a group of one or more containers is called a _pod_. Containers in a pod are deployed together, and are started, stopped, and replicated as a group.
+In Kubernetes, a group of one or more containers is called a _pod_. Containers in a Pod are deployed together, and are started, stopped, and replicated as a group.
 
 See [pods](/docs/concepts/workloads/pods/pod/) for more details.
 
 
 #### Pod Definition
 
-The simplest pod definition describes the deployment of a single container.  For example, an nginx web server pod might be defined as such:
+The simplest Pod definition describes the deployment of a single container.  For example, an nginx web server Pod might be defined as such:
 
 {% include code.html language="yaml" file="pod-nginx.yaml" ghlink="/docs/user-guide/walkthrough/pod-nginx.yaml" %}
 
-A pod definition is a declaration of a _desired state_.  Desired state is a very important concept in the Kubernetes model.  Many things present a desired state to the system, and it is Kubernetes' responsibility to make sure that the current state matches the desired state.  For example, when you create a Pod, you declare that you want the containers in it to be running.  If the containers happen to not be running (e.g. program failure, ...), Kubernetes will continue to (re-)create them for you in order to drive them to the desired state. This process continues until the Pod is deleted.
+A Pod definition is a declaration of a _desired state_.  Desired state is a very important concept in the Kubernetes model.  Many things present a desired state to the system, and it is Kubernetes' responsibility to make sure that the current state matches the desired state.  For example, when you create a Pod, you declare that you want the containers in it to be running.  If the containers happen to not be running (e.g. program failure, ...), Kubernetes will continue to (re-)create them for you in order to drive them to the desired state. This process continues until the Pod is deleted.
 
 See the [design document](https://git.k8s.io/community/contributors/design-proposals/README.md) for more details.
 
 
 #### Pod Management
 
-Create a pod containing an nginx server ([pod-nginx.yaml](/docs/user-guide/walkthrough/pod-nginx.yaml)):
+Create a Pod containing an nginx server ([pod-nginx.yaml](/docs/user-guide/walkthrough/pod-nginx.yaml)):
 
 ```shell
 $ kubectl create -f docs/user-guide/walkthrough/pod-nginx.yaml
 ```
 
-List all pods:
+List all Pods:
 
 ```shell
 $ kubectl get pods
 ```
 
-On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/tasks/kubectl/get-shell-running-container/) for details.
+On most providers, the Pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox Pod and exec commands on it remotely. See the [command execution documentation](/docs/tasks/kubectl/get-shell-running-container/) for details.
 
-Provided the pod IP is accessible, you should be able to access its http endpoint with wget on port 80:
+Provided the Pod IP is accessible, you should be able to access its http endpoint with wget on port 80:
 
 ```shell
 {% raw %}
@@ -70,7 +70,7 @@ $ kubectl delete pod busybox # Clean up the pod we created with "kubectl run"
 {% endraw %}
 ```
 
-Delete the pod by name:
+Delete the Pod by name:
 
 ```shell
 $ kubectl delete pod nginx
@@ -83,7 +83,7 @@ That's great for a simple static web server, but what about persistent storage?
 
 The container file system only lives as long as the container does. So if your app's state needs to survive relocation, reboots, and crashes, you'll need to configure some persistent storage.
 
-For this example we'll be creating a Redis pod with a named volume and volume mount that defines the path to mount the volume.
+For this example we'll be creating a Redis Pod with a named volume and volume mount that defines the path to mount the volume.
 
 1. Define a volume:
 
@@ -103,7 +103,7 @@ volumeMounts:
       mountPath: /data/redis
 ```
 
-Example Redis pod definition with a persistent storage volume ([pod-redis.yaml](/docs/user-guide/walkthrough/pod-redis.yaml)):
+Example Redis Pod definition with a persistent storage volume ([pod-redis.yaml](/docs/user-guide/walkthrough/pod-redis.yaml)):
 
 {% include code.html language="yaml" file="pod-redis.yaml" ghlink="/docs/user-guide/walkthrough/pod-redis.yaml" %}
 
@@ -162,4 +162,4 @@ Finally, we have also introduced an environment variable to the `git-monitor` co
 ## What's Next?
 
 Continue on to [Kubernetes 201](/docs/user-guide/walkthrough/k8s201) or
-for a complete application see the [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/)
+for a complete application see the [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/).
