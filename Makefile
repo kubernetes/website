@@ -15,4 +15,4 @@ serve: ## Boot the development server.
 	jekyll serve
 
 stage: ## Run the Jekyll staging container.
-	docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.1
+	docker run -ti --rm -v "${PWD}":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.1
