@@ -1,6 +1,6 @@
 # K8SMeetup 翻译流程与翻译校稿规范
 
-time：2017-07-13 update：2017-07-26 author：xiaolong@caicloud.io
+time：2017-07-13 update：2017-08-24 author：xiaolong@caicloud.io
 
 翻译背景: 分析之前很多的翻译为什么做不好，就是因为迭代太快，版本跟不上，旧的文件没翻译完，新旧文件又混一起。没有一个适合的版本管理流程，这也是我们不建议大家从官网直接提取文件的原因。
 
@@ -25,6 +25,20 @@ K8SMeetup 维护两个仓库：
 ### Step 1. 领取翻译任务
 
 任务地址：[翻译任务](https://docs.google.com/spreadsheets/d/1FDFCv9RK5nSMgLXhPrJ5k7r5QvHnNEFnXbvoFiM8v20/edit#gid=906253755)
+
+文章有四种状态：
+
+
+```
+参考颜色代码： http://tool.oschina.net/commons?type=3
+
+1. Not Started  - 未翻译(默认白色背景) 可领取任务
+2. Translating  - <font color="#FA8072">领取任务状态(默认 Salmon 背景) -  250 128 114	#FA8072</font>
+3. Pull Request Sent - <font color="#FFEC8B">已往 K8SMeetup 提交翻译PR(默认 LightGoldenrod1 背景) - 255 236 139	#FFEC8B</font>
+4. Under Internal Review - <font color="#00BFFF">内部 Review 状态(默认 DeepSkyBlue 背景) - 0 191 255	#00BFFF</font>
+5. Pull Request Merged - <font color="#90EE90">已合并 K8SMeetup 代码库(默认 LightGreen 背景) - 144 238 144	#90EE90</font>
+6. Upstream Request Merged - <font color="#32CD32">已合并到上游 (默认 LimeGreen 背景) - 50 205 50	#32CD32</font>
+```
 
 ### Step 2. 准备翻译文档
 
