@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 - lavalamp
 - thockin
@@ -444,14 +444,29 @@ because of how this is used later.
 - Alternate, manual approach:
 
   1. Set `--configure-cbr0=false` on kubelet and restart.
-  1. Create a bridge
-     - `ip link add name cbr0 type bridge`.
+  1. Create a bridge.
+
+        ```
+        ip link add name cbr0 type bridge
+        ```
+
   1. Set appropriate MTU. NOTE: the actual value of MTU will depend on your network environment
-     - `ip link set dev cbr0 mtu 1460`
+
+        ```
+        ip link set dev cbr0 mtu 1460
+        ```
+
   1. Add the node's network to the bridge (docker will go on other side of bridge).
-     - `ip addr add $NODE_X_BRIDGE_ADDR dev cbr0`
+
+        ```
+        ip addr add $NODE_X_BRIDGE_ADDR dev cbr0
+        ```
+
   1. Turn it on
-     - `ip link set dev cbr0 up`
+
+        ```
+        ip link set dev cbr0 up
+        ```
 
 If you have turned off Docker's IP masquerading to allow pods to talk to each
 other, then you may need to do masquerading just for destination IPs outside
@@ -501,11 +516,13 @@ all configured and managed *by Kubernetes*:
 
 You will need to run one or more instances of etcd.
 
-  - Recommended approach: run one etcd instance, with its log written to a directory backed
+  - Highly available and easy to restore - Run 3 or 5 etcd instances with, their logs written to a directory backed
     by durable storage (RAID, GCE PD)
-  - Alternative: run 3 or 5 etcd instances.
-    - Log can be written to non-durable storage because storage is replicated.
-    - run a single apiserver which connects to one of the etcd nodes.
+  - Not highly available, but easy to restore - Run one etcd instance, with its log written to a directory backed
+    by durable storage (RAID, GCE PD)
+    **Note:** May result in operations outages in case of instance outage
+  - Highly available - Run 3 or 5 etcd instances with non durable storage.
+    **Note:** Log can be written to non-durable storage because storage is replicated.
 
 See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting) for more discussion on factors affecting cluster
 availability.

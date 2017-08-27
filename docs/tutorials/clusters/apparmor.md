@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - stclair
 title: AppArmor
-redirect_from:
-- "/docs/admin/apparmor/index/"
-- "/docs/admin/apparmor/index.html"
 ---
 
 {% capture overview %}

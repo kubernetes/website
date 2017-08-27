@@ -1,13 +1,8 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - quinton-hoole
 title: Cross-cluster Service Discovery using Federated Services
-redirect_from:
-- "/docs/user-guide/federation/federated-services/"
-- "/docs/user-guide/federation/federated-services.html"
-- "/docs/concepts/cluster-administration/federation-service-discovery/"
-- "/docs/concepts/cluster-administration/federation-service-discovery.html"
 ---
 
 This guide explains how to use Kubernetes Federated Services to deploy
@@ -175,7 +170,7 @@ this. For example, if your Federation is configured to use Google
 Cloud DNS, and a managed DNS domain 'example.com':
 
 ``` shell
-$ gcloud dns managed-zones describe example-dot-com 
+$ gcloud dns managed-zones describe example-dot-com
 creationTime: '2016-06-26T18:18:39.229Z'
 description: Example domain for Kubernetes Cluster Federation
 dnsName: example.com.
@@ -361,7 +356,7 @@ how to bring up a cluster federation correctly (or have your cluster administrat
 Check that:
 
 1. Your clusters are correctly registered in the Cluster Federation API (`kubectl describe clusters`)
-2. Your clusters are all 'Active'.  This means that the cluster Federation system was able to connect and authenticate against the clusters' endpoints.  If not, consult the logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -oname`)
+2. Your clusters are all 'Active'.  This means that the cluster Federation system was able to connect and authenticate against the clusters' endpoints.  If not, consult the logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -o name`)
 3. That the login credentials provided to the Cluster Federation API for the clusters have the correct authorization and quota to create services in the relevant namespace in the clusters.  Again you should see associated error messages providing more detail in the above log file if this is not the case.
 4. Whether any other error is preventing the service creation operation from succeeding (look for `service-controller` errors in the output of `kubectl logs federation-controller-manager --namespace federation`).
 

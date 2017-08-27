@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - enisoc
 - erictune
@@ -8,9 +8,6 @@ assignees:
 - kow3ns
 - smarterclayton
 title: Debug Init Containers
-redirect_from:
-- "/docs/tasks/troubleshoot/debug-init-containers/"
-- "/docs/tasks/troubleshoot/debug-init-containers.html"
 ---
 
 {% capture overview %}
@@ -28,7 +25,7 @@ Init Containers. The example command lines below refer to the Pod as
 
 * You should be familiar with the basics of
   [Init Containers](/docs/concepts/abstractions/init-containers/).
-* You should have [Configured an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/).   
+* You should have [Configured an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/).
 
 {% endcapture %}
 

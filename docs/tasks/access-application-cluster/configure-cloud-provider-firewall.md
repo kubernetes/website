@@ -1,11 +1,8 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - davidopp
 title: Configure Your Cloud Provider's Firewalls
-redirect_from:
-- "/docs/user-guide/services-firewalls/"
-- "/docs/user-guide/services-firewalls.html"
 ---
 
 Many cloud providers (e.g. Google Compute Engine) define firewalls that help prevent inadvertent
@@ -88,7 +85,7 @@ Consider:
    * You open the firewall for port 80 for all nodes in your cluster, so that
      the external Service actually can deliver packets to your Service
    * You start an nginx server, running on port 80 on the host virtual machine
-     (IP Address 2.3.4.5).  This nginx is **also** exposed to the internet on
+     (IP Address 2.3.4.5).  This nginx is also exposed to the internet on
      the VM's external IP address.
 
 Consequently, please be careful when opening firewalls in Google Compute Engine

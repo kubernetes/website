@@ -1,8 +1,5 @@
 ---
 title: Create an External Load Balancer
-redirect_from:
-- "/docs/user-guide/load-balancer/"
-- "/docs/user-guide/load-balancer.html"
 ---
 
 
@@ -62,7 +59,7 @@ You can alternatively create the service with the `kubectl expose` command and
 its `--type=LoadBalancer` flag:
 
 ```bash
-    kubectl expose rc example --port=8765 --target-port=9376 \
+kubectl expose rc example --port=8765 --target-port=9376 \
         --name=example-service --type=LoadBalancer
 ```
 
@@ -79,7 +76,7 @@ You can find the IP address created for your service by getting the service
 information through `kubectl`:
 
 ```bash
-    kubectl describe services example-service
+kubectl describe services example-service
 ```
 
 which should produce output like this:

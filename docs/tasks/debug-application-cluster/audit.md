@@ -1,14 +1,9 @@
 ---
-assignees:
+approvers:
 - soltysh
 - sttts
 - ericchiang
 title: Auditing
-redirect_from:
-- "/docs/admin/audit/"
-- "/docs/admin/audit.html"
-- "/docs/concepts/cluster-administration/audit/"
-- "/docs/concepts/cluster-administration/audit.html"
 ---
 
 * TOC
@@ -78,7 +73,7 @@ the [kube-apiserver][kube-apiserver]:
 --feature-gates=AdvancedAuditing=true
 ```
 
-`AdvancedAuditing`is customizeable in two ways. Policy, which determines what's recorded,
+`AdvancedAuditing`is customizable in two ways. Policy, which determines what's recorded,
 and backends, which persist records. Backend implementations include logs files and
 webhooks.
 

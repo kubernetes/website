@@ -1,10 +1,5 @@
 ---
 title: Connect a Front End to a Back End Using a Service
-redirect_from:
-- "/docs/user-guide/services/operations/"
-- "/docs/user-guide/services/operations.html"
-- "/docs/tutorials/connecting-apps/connecting-frontend-backend/"
-- "/docs/tutorials/connecting-apps/connecting-frontend-backend.html"
 ---
 
 {% capture overview %}

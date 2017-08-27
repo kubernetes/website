@@ -1,9 +1,9 @@
 ---
-assignees:
+approvers:
 - smarterclayton
 - lavalamp
 - whitlockjc
-- caesrxuchao
+- caesarxuchao
 title: Dynamic Admission Control
 ---
 
@@ -35,13 +35,13 @@ This page describes how to use Initializers and External Admission Webhooks.
 * A list of pending pre-initialization tasks, stored in every object's metadata
   (e.g., "AddMyCorporatePolicySidecar").
 
-* A user customized controller, which actually perform those tasks. The name of the task
+* A user customized controller, which actually performs those tasks. The name of the task
   corresponds to the controller which performs the task. For clarity, we call
   them *initializer controllers* in this page.
 
 Once the controller has performed its assigned task, it removes its name from
 the list. For example, it may send a PATCH that inserts a container in a pod and
-also removes its name from `metadata.initializers`. Initializers may make
+also removes its name from `metadata.initializers.pending`. Initializers may make
 mutations to objects.
 
 Objects which have a non-empty initializer list are considered uninitialized,
@@ -64,7 +64,7 @@ external admission webhooks, as they have better performance.
 When an object is POSTed, it is checked against all existing
 `initializerConfiguration` objects (explained below). For all that it matches,
 all `spec.initializers[].name`s are appended to the new object's
-`metadata.initializers` field.
+`metadata.initializers.pending` field.
 
 An initializer controller should list and watch for uninitialized objects, by
 using the query parameter `?includeUninitialized=true`. If using client-go, just
@@ -73,7 +73,7 @@ set
 to true.
 
 For the observed uninitialized objects, an initializer controller should first
-check if its name matches `metadata.initializers[0]`. If so, it should then
+check if its name matches `metadata.initializers.pending[0]`. If so, it should then
 perform its assigned task and remove its name from the list.
 
 ### Enable initializers alpha feature
@@ -81,7 +81,7 @@ perform its assigned task and remove its name from the list.
 *Initializers* is an alpha feature, so it is disabled by default. To turn it on,
 you need to:
 
-* Include "Initializer" in the `--admission-control` flag when starting
+* Include "Initializers" in the `--admission-control` flag when starting
   `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all should
   have the same flag setting.
 
@@ -99,13 +99,13 @@ API](/docs/api-reference/{{page.version}}/#deployment-v1beta1-apps).
 ### Configure initializers on the fly
 
 You can configure what initializers are enabled and what resources are subject
-to the initializers by creating `initializerconfigurations`.
+to the initializers by creating `initializerConfiguration` resources.
 
 You should first deploy the initializer controller and make sure that it is
-working properly before creating the `initializerconfigurations`. Otherwise, any
+working properly before creating the `initializerConfiguration`. Otherwise, any
 newly created resources will be stuck in an uninitialized state.
 
-The following is an example `initiallizerConfiguration`.
+The following is an example `initializerConfiguration`:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
@@ -126,11 +126,15 @@ initializers:
           - pods
 ```
 
+After you create the `initializerConfiguration`, the system will take a few
+seconds to honor the new configuration. Then, `"podimage.example.com"` will be
+appended to the `metadata.initializers.pending` field of newly created pods. You
+should already have a ready "podimage" initializer controller that handles pods
+whose `metadata.initializers.pending[0].name="podimage.example.com"`. Otherwise
+the pods will stuck uninitialized.
+
 Make sure that all expansions of the `<apiGroup, apiVersions, resources>` tuple
 in a `rule` are valid. If they are not, separate them in different `rules`.
-
-After you create the `initializerConfiguration`, the system will take a few
-seconds to honor the new configuration.
 
 ## External Admission Webhooks
 
@@ -232,7 +236,7 @@ it is working properly before creating the externaladmissionhookconfigurations.
 Otherwise, depending whether the webhook is configured as fail open or fail
 closed, operations will be unconditionally accepted or rejected. 
 
-The following is an example externaladmissionhookconfiguration.
+The following is an example `externaladmissionhookconfiguration`:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
@@ -279,5 +283,5 @@ and `Fail` policies, meaning that upon a communication error with the webhook
 admission controller, the `GenericAdmissionWebhook` can admit or reject the
 operation based on the configured policy.
 
-After you create the `initializerConfiguration`, the system will take a few
+After you create the `externalAdmissionHookConfiguration`, the system will take a few
 seconds to honor the new configuration.

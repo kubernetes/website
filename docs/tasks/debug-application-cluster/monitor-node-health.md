@@ -1,11 +1,8 @@
 ---
-assignees:
+approvers:
 - Random-Liu
 - dchen1107
 title: Monitor Node Health
-redirect_from:
-- "/docs/admin/node-problem/"
-- "/docs/admin/node-problem.html"
 ---
 
 * TOC
@@ -16,7 +13,7 @@ redirect_from:
 *Node problem detector* is a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) monitoring the
 node health. It collects node problems from various daemons and reports them
 to the apiserver as [NodeCondition](/docs/concepts/architecture/nodes/#condition)
-and [Event](/docs/api-reference/v1.6/#event-v1-core).
+and [Event](/docs/api-reference/{{page.version}}/#event-v1-core).
 
 It supports some known kernel issue detection now, and will detect more and
 more node problems over time.
@@ -248,4 +245,4 @@ resource overhead on each node. Usually this is fine, because:
 * The kernel log is generated relatively slowly.
 * Resource limit is set for node problem detector.
 * Even under high load, the resource usage is acceptable.
-(see [benchmark result](https://github.com/kubernetes/node-problem-detector/issues/2#issuecomment-220255629)) 
+(see [benchmark result](https://github.com/kubernetes/node-problem-detector/issues/2#issuecomment-220255629))

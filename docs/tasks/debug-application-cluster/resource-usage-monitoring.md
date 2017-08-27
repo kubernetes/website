@@ -1,12 +1,7 @@
 ---
-assignees:
+approvers:
 - mikedanese
 title: Tools for Monitoring Compute, Storage, and Network Resources
-redirect_from:
-- "/docs/user-guide/monitoring/"
-- "/docs/user-guide/monitoring.html"
-- "/docs/concepts/cluster-administration/resource-usage-monitoring/"
-- "/docs/concepts/cluster-administration/resource-usage-monitoring.html"
 ---
 
 Understanding how an application behaves when deployed is crucial to scaling the application and providing a reliable service. In a Kubernetes cluster, application performance can be examined at many different levels: containers, [pods](/docs/user-guide/pods), [services](/docs/user-guide/services), and whole clusters. As part of Kubernetes we want to provide users with detailed resource usage information about their running applications at all these levels. This will give users deep insights into how their applications are performing and where possible application bottlenecks may be found. In comes [Heapster](https://github.com/kubernetes/heapster), a project meant to provide a base monitoring platform on Kubernetes.
@@ -55,7 +50,7 @@ Here is a video showing how to setup and run a Google Cloud Monitoring backed He
 
 [![how to setup and run a Google Cloud Monitoring backed Heapster](http://img.youtube.com/vi/xSMNR2fcoLs/0.jpg)](http://www.youtube.com/watch?v=xSMNR2fcoLs)
 
-Here is a snapshot of the a Google Cloud Monitoring dashboard showing cluster-wide resource usage.
+Here is a snapshot of the Google Cloud Monitoring dashboard showing cluster-wide resource usage.
 
 ![Google Cloud Monitoring dashboard](/images/docs/gcm.png)
 

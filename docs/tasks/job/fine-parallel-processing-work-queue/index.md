@@ -1,8 +1,5 @@
 ---
 title: Fine Parallel Processing Using a Work Queue
-redirect_from:
-- "/docs/user-guide/jobs/work-queue-2/"
-- "/docs/user-guide/jobs/work-queue-2/index.html"
 ---
 
 * TOC
@@ -33,7 +30,7 @@ Here is an overview of the steps in this example:
 
 ## Starting Redis
 
-For this example, for simplicitly, we will start a single instance of Redis.
+For this example, for simplicity, we will start a single instance of Redis.
 See the [Redis Example](https://git.k8s.io/kubernetes/examples/guestbook) for an example
 of deploying Redis scalably and redundantly.
 

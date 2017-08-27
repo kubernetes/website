@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - karlkfi
 title: DCOS
 ---
@@ -42,7 +42,7 @@ Explore the following resources for more information about Kubernetes, Kubernete
 ## Prerequisites
 
 - A running [DCOS cluster](https://mesosphere.com/product/)
-  - [DCOS Community Edition](https://docs.mesosphere.com/install/) is currently available on [AWS](https://mesosphere.com/amazon/).
+  - [DCOS Community Edition](https://docs.mesosphere.com/1.7/archived-dcos-enterprise-edition/installing-enterprise-edition-1-6/cloud/) is currently available on [AWS](https://mesosphere.com/amazon/).
   - [DCOS Enterprise Edition](https://mesosphere.com/product/) can be deployed on virtual or bare metal machines. Contact sales@mesosphere.com for more info and to set up an engagement.
 - [DCOS CLI](https://docs.mesosphere.com/install/cli/) installed locally
 

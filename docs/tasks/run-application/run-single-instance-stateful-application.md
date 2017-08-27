@@ -1,8 +1,5 @@
 ---
 title: Run a Single-Instance Stateful Application
-redirect_from:
-- "/docs/tutorials/stateful-application/run-stateful-application/"
-- "/docs/tutorials/stateful-application/run-stateful-application.html"
 ---
 
 {% capture overview %}
@@ -88,11 +85,11 @@ for a secure solution.
 
 1. Deploy the contents of the YAML file:
 
-        kubectl create -f https://k8s.io/docs/tasks/run-application/mysql-deployment.yaml
+       kubectl create -f https://k8s.io/docs/tasks/run-application/mysql-deployment.yaml
 
 1. Display information about the Deployment:
 
-        kubectl describe deployment mysql
+       kubectl describe deployment mysql
 
         Name:                 mysql
         Namespace:            default
@@ -111,14 +108,14 @@ for a secure solution.
 
 1. List the pods created by the Deployment:
 
-        kubectl get pods -l app=mysql
+       kubectl get pods -l app=mysql
 
         NAME                   READY     STATUS    RESTARTS   AGE
         mysql-63082529-2z3ki   1/1       Running   0          3m
-        
+
 1. Inspect the Persistent Volume:
 
-        kubectl describe pv mysql-pv
+       kubectl describe pv mysql-pv
 
         Name:            mysql-pv
         Labels:          <none>
@@ -127,7 +124,7 @@ for a secure solution.
         Reclaim Policy:  Retain
         Access Modes:    RWO
         Capacity:        20Gi
-        Message:    
+        Message:
         Source:
             Type:        GCEPersistentDisk (a Persistent Disk resource in Google Compute Engine)
             PDName:      mysql-disk
@@ -138,7 +135,7 @@ for a secure solution.
 
 1. Inspect the PersistentVolumeClaim:
 
-        kubectl describe pvc mysql-pv-claim
+       kubectl describe pvc mysql-pv-claim
 
         Name:         mysql-pv-claim
         Namespace:    default
@@ -160,7 +157,7 @@ behind a Service and you don't intend to increase the number of Pods.
 Run a MySQL client to connect to the server:
 
 ```
-kubectl run -it --rm --image=mysql:5.6 mysql-client -- mysql -h <pod-ip> -ppassword
+kubectl run -it --rm --image=mysql:5.6 mysql-client -- mysql -h <pod-ip> -p <password>
 ```
 
 This command creates a new Pod in the cluster running a mysql client
@@ -171,7 +168,7 @@ know your stateful MySQL database is up and running.
 Waiting for pod default/mysql-client-274442439-zyp6i to be running, status is Pending, pod ready: false
 If you don't see a command prompt, try pressing enter.
 
-mysql> 
+mysql>
 ```
 
 ## Updating
