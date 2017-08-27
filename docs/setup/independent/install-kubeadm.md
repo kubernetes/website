@@ -42,6 +42,7 @@ title: 安装 kubeadm
 
 {% endcapture %}
 
+{% capture steps %}
 <!--
 ## Check required ports
 
