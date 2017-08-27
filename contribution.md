@@ -2,7 +2,19 @@
 
 本文档只包含新增更新，[更新参考](contribution-update.md)。
 
-### 第六周：2017-08-21~2017-08-27 - 有效合并 9 篇
+### 第六周：2017-08-21~2017-08-27 - 有效合并 15 篇
+
+[https://k8smeetup.github.io/docs/tasks/debug-application-cluster/troubleshooting.md](https://k8smeetup.github.io/docs/tasks/debug-application-cluster/troubleshooting.md) [jl2005](https://github.com/jl2005)
+
+[https://k8smeetup.github.io/docs/concepts/workloads/pods/init-containers.md](https://k8smeetup.github.io/docs/concepts/workloads/pods/init-containers.md) [shirdrn](https://github.com/shirdrn)
+
+[https://k8smeetup.github.io/docs/admin/cluster-large.md](https://k8smeetup.github.io/docs/admin/cluster-large.md) [zhangqx2010](https://github.com/zhangqx2010)
+
+[https://k8smeetup.github.io/docs/tasks/administer-cluster/apply-resource-quota-limit.md](https://k8smeetup.github.io/docs/tasks/administer-cluster/apply-resource-quota-limit.md) [xiaosuiba](https://github.com/xiaosuiba)
+
+[https://k8smeetup.github.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md](https://k8smeetup.github.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md) [NickSu86](https://github.com/NickSu86)
+
+[https://k8smeetup.github.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage.md](https://k8smeetup.github.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage.md)s[NickSu86](https://github.com/NickSu86)
 
 [https://k8smeetup.github.io/docs/admin/bootstrap-tokens](https://k8smeetup.github.io/docs/admin/bootstrap-tokens) [zhangqx2010](https://github.com/zhangqx2010)
 

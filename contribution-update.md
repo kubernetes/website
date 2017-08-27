@@ -1,6 +1,8 @@
 # K8SMeetup 中文翻译社区每周文章更新汇编
 
-### 第六周：2017-08-21~2017-08-27 - 更新 6 篇
+### 第六周：2017-08-21~2017-08-27 - 更新 7 篇
+
+[https://k8smeetup.github.io/docs/concepts/cluster-administration/logging](https://k8smeetup.github.io/docs/concepts/cluster-administration/logging) [bjdzliu](https://github.com/bjdzliu)
 
 [https://k8smeetup.github.io/docs/getting-started-guides/azure](https://k8smeetup.github.io/docs/getting-started-guides/azure) [yufengqi](https://github.com/yufengqi)
 
