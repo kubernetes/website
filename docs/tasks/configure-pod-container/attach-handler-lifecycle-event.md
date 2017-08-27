@@ -85,7 +85,7 @@ The output shows the text written by the postStart handler:
 {% capture discussion %}
 -->
 
-## 定义预启动和预结算事件操作
+## 定义预启动和预结束事件操作
 
 本实验将会创建含有一个容器的Pod，我们将会给这个容器设置预启动和预结束操作。
 
@@ -158,9 +158,8 @@ unless the Pod's grace period expires. For more details, see
 
 ## 说明
 
-Kubernetes在容器创建之后就会马上发送postStart事件，但是这个并没法保证一定会
-这么做，它会在容器入口被调用之前调用postStart操作，因为postStart的操作跟容器的
-操作是异步的，而且Kubernetes控制台会锁住容器直至postStart完成，因此容器只有在
+Kubernetes在容器创建之后就会马上发送postStart事件，但是并没法保证一定会
+这么做，它会在容器入口被调用之前调用postStart操作，因为postStart的操作跟容器的操作是异步的，而且Kubernetes控制台会锁住容器直至postStart完成，因此容器只有在
 postStart操作完成之后才会被设置成为RUNNING状态。
 
 Kubernetes在容器结束之前发送preStop事件，并会在preStop操作完成之前一直锁住容器
