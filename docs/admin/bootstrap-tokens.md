@@ -150,24 +150,24 @@ for.  A value must be set to `true` to be enabled.
 你可以是用 `kubeadm` 工具管理正在运行集群的令牌。它会从 `kubeadm` 创建的集群(`/etc/kubernetes/admin.conf`)
 自动抓取默认管理员密码。你可以对下面命令指定一个另外的 kubeconfig 文件抓取密码，参数使用 `--kubeconfig`。
 
-<!-- * `kubeadm token list` Lists the tokens along with when they expire and what the -->
-  <!-- approved usages are. -->
+<!-- * `kubeadm token list` Lists the tokens along with when they expire and what the
+  approved usages are.
+* `kubeadm token create` Creates a new token.
+    * `--description` Set the description on the new token.
+    * `--ttl duration` Set expiration time of the token as a delta from "now".
+      Default is 0 for no expiration.
+    * `--usages` Set the ways that the token can be used.  The default is
+      `signing,authentication`.  These are the usages as described above.
+* `kubeadm token delete <token id>|<token id>.<token secret>` Delete a token.
+  The token can either be identified with just an ID or with the entire token
+  value.  Only the ID is used; the token is still deleted if the secret does not
+  match. -->
 * `kubeadm token list` 列举了令牌，同时显示了它们的过期时间和用途。
-<!-- * `kubeadm token create` Creates a new token. -->
 * `kubeadm token create` 创建一个新令牌。
-    <!-- * `--description` Set the description on the new token. -->
     * `--description` 设置新令牌的描述。
-    <!-- * `--ttl duration` Set expiration time of the token as a delta from "now". -->
-      <!-- Default is 0 for no expiration. -->
     * `--ttl duration` 设置令牌从 "现在" 算起到过期的时间增量。
       默认是 0 ，也就是不过期。
-    <!-- * `--usages` Set the ways that the token can be used.  The default is -->
-      <!-- `signing,authentication`.  These are the usages as described above. -->
     * `--usages` 设置令牌被使用的方式。默认是 `signing,authentication`。用途在上面已经描述。
-<!-- * `kubeadm token delete <token id>|<token id>.<token secret>` Delete a token. -->
-  <!-- The token can either be identified with just an ID or with the entire token -->
-  <!-- value.  Only the ID is used; the token is still deleted if the secret does not -->
-  <!-- match. -->
 * `kubeadm token delete <token id>|<token id>.<token secret>` 删除令牌。
   令牌可以只用 ID 来确认，或者用整个令牌的值。如果只用 ID，密文不符合的令牌也会被删除。
 
@@ -219,13 +219,13 @@ data:
 ConfigMap 的 `kubeconfig` 成员是一个填好了集群信息的配置文件。
 这里主要交换的信息是 `certificate-authority-data`。在将来可能会被扩展。
 
-The signature is a JWS signature using the "detached" mode.  To validate the
-signature, the user should encode the `kubeconfig` payload according to JWS
-rules (base64 encoded while discarding any trailing `=`).  That encoded payload
-is then used to form a whole JWS by inserting it between the 2 dots.  You can
-verify the JWS using the `HS256` scheme (HMAC-SHA256) with the full token (e.g.
-`07401b.f395accd246ae52d`) as the shared secret.  Users _must_ verify that HS256
-is used.
+<!-- The signature is a JWS signature using the "detached" mode.  To validate the -->
+<!-- signature, the user should encode the `kubeconfig` payload according to JWS -->
+<!-- rules (base64 encoded while discarding any trailing `=`).  That encoded payload -->
+<!-- is then used to form a whole JWS by inserting it between the 2 dots.  You can -->
+<!-- verify the JWS using the `HS256` scheme (HMAC-SHA256) with the full token (e.g. -->
+<!-- `07401b.f395accd246ae52d`) as the shared secret.  Users _must_ verify that HS256 -->
+<!-- is used. -->
 签名是一个 JWS 签名，使用了 "detached" 模式。为了检验签名，用户应该按照 JWS 规则
 (base64 编码而忽略结尾的 `=`)对 `kubeconfig` 载荷进行编码。那样编码过载荷会被通过插入 JWS 并存在于两个点的中间
 ，用于形成一个完整的 JWS。你可以使用令牌的完整信息(比如 `07401b.f395accd246ae52d`)作为共享密钥，
