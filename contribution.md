@@ -14,7 +14,7 @@
 
 [https://k8smeetup.github.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md](https://k8smeetup.github.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md) [NickSu86](https://github.com/NickSu86)
 
-[https://k8smeetup.github.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage.md](https://k8smeetup.github.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage.md)s[NickSu86](https://github.com/NickSu86)
+[https://k8smeetup.github.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage.md](https://k8smeetup.github.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage.md) [NickSu86](https://github.com/NickSu86)
 
 [https://k8smeetup.github.io/docs/admin/bootstrap-tokens](https://k8smeetup.github.io/docs/admin/bootstrap-tokens) [zhangqx2010](https://github.com/zhangqx2010)
 
