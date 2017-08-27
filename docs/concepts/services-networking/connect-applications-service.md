@@ -27,10 +27,10 @@ Coordinating ports across multiple developers is very difficult to do at scale a
 This guide uses a simple nginx server to demonstrate proof of concept. The same principles are embodied in a more complete [Jenkins CI application](http://blog.kubernetes.io/2015/07/strong-simple-ssl-for-kubernetes.html).
 -->
 
-默认情况下，Docker 使用私有主机网络，所以容器能够与仅在同一台机器上的其它容器进行通信。为了实现容器的跨节点通信，必须基于机器自己的 IP 地址进行分配端口，然后转发或代理到容器上。
-很明显这意味着容器必须协调该使用哪些端口，或者能够动态分配端口。
+默认情况下，Docker 使用私有主机网络，仅能与同在一台机器上的容器间通信。为了实现容器的跨节点通信，必须在机器自己的 IP 上为这些容器分配端口，为容器进行端口转发或者代理。
 
-在多个开发人员之间协调端口的大规模使用是非常困难的，暴露给用户的是那些他们无法控制的集群级别的问题。Kubernetes 假设 Pod 可与其它 Pod 通信，不管它们在哪个主机上。
+多个开发人员之间协调端口的使用很难做到规模化，那些难以控制的集群级别的问题，都会交由用户自己去处理。
+Kubernetes 假设 Pod 可与其它 Pod 通信，不管它们在哪个主机上。
 我们给 Pod 分配属于自己的集群私有 IP 地址，所以没必要在 Pod 或映射到的容器的端口和主机端口之间显式地创建连接。
 这表明了在 Pod 内的容器都能够连接到本地的每个端口，集群中的所有 Pod 不需要通过 NAT 转换就能够互相看到。
 文档的剩余部分将详述，如何在一个网络模型之上运行可靠的服务。
