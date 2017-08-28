@@ -1,16 +1,10 @@
+---
+approvers:
+- brendandburns
+- davidopp
 <!--
----
-approvers:
-- brendandburns
-- davidopp
 title: Troubleshooting
----
 -->
-
----
-approvers:
-- brendandburns
-- davidopp
 title: 排除故障
 ---
 
@@ -27,8 +21,8 @@ you're using.
 
 有时候会出现问题。本指南旨在使其正确。它有两个部分：
 
-* [排除应用程序的故障](/docs/tasks/debug-application-cluster/debug-application/) —— 适用于向 Kubernetes 部署代码，并想知道为什么它不工作的用户。
-* [排除集群故障](/docs/tasks/debug-application-cluster/debug-cluster/) —— 适用于集群管理员和定位 Kubernetes 集群问题的用户。
+   * [排除应用程序的故障](/docs/tasks/debug-application-cluster/debug-application/) —— 适用于向 Kubernetes 部署代码，并想知道为什么它不工作的用户。
+   * [排除集群故障](/docs/tasks/debug-application-cluster/debug-cluster/) —— 适用于集群管理员和定位 Kubernetes 集群问题的用户。
 
 你还应该检查你正在使用的[发行版](https://github.com/kubernetes/kubernetes/releases)的已知问题。
 
