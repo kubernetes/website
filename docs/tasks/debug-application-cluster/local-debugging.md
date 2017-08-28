@@ -1,18 +1,20 @@
 ---
-title: Local development and debugging
+title: Developing and debugging services locally
 ---
 
 {% capture overview %}
 
-Frequently, Kubernetes applications consist of multiple, separate services, each running in its own container. Developing and debugging these services on a remote Kubernetes cluster can be cumbersome, requiring you to [get a shell on a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/), and running your tools inside the remote shell.
+Kubernetes applications usually consist of multiple, separate services, each running in its own container. Developing and debugging these services on a remote Kubernetes cluster can be cumbersome, requiring you to [get a shell on a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/) and then running your tools inside the remote shell.
 
-This document will show how you can use `telepresence` to develop and debug one of your services locally, while proxying your service to a remote Kubernetes cluster. This lets you use your own local tools (debugger, IDE, etc.) for your local service, while giving the service full access to ConfigMap, secrets, and the other services running in the cluster.
+This document describes using `telepresence` to develop and debug a service locally, while proxying the service to a remote Kubernetes cluster. Using `telepresence` allows you to use custom tools, such as a debugger and IDE, for a local service and provides the service full access to ConfigMap, secrets, and the services running on the remote cluster.
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
-You need to have a Kubernetes cluster, and the `kubectl` command-line tool configured to communicate with your cluster. You'll also need to [install Telepresence](https://www.telepresence.io/reference/install).
+* Kubernetes cluster is installed
+* `kubectl` is configured to communicate with the cluster
+* [Telepresence](https://www.telepresence.io/reference/install) is installed
 
 {% endcapture %}
 
