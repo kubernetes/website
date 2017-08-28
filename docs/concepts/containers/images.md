@@ -314,13 +314,13 @@ common use cases and suggested solutions.
      - It will work better with cluster autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 1. Cluster with a proprietary images, a few of which require stricter access control.
-   - ensure [AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages) is active, otherwise, all Pods potentially have access to all images.
+   - Ensure [AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods potentially have access to all images.
    - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
 1. A multi-tenant cluster where each tenant needs own private registry.
-   - ensure [AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages) is active, otherwise, all Pods of all tenants potentially have access to all images.
-   - run a private registry with authorization required.
-   - generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
-   - tenant adds that secret to imagePullSecrets of each namespace.
+   - Ensure [AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods of all tenants potentially have access to all images.
+   - Run a private registry with authorization required.
+   - Generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
+   - The tenant adds that secret to imagePullSecrets of each namespace.
 
 {% endcapture %}
 
