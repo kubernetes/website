@@ -32,3 +32,22 @@ To run `cloud-controller-manager`, add it to your existing Kubernetes cluster as
 The `kube-controller-manager` should not run any cloud-specific controllers, since the `cloud-controller-manager` takes over this responsibility. To prevent the `kube-controller-manager` from running cloud-specific controllers, you must set the `--cloud-provider` flag in `kube-controller-manager` to `external`.
 
 The `kube-apiserver` should not run the Persistent Volume Label admission controller either since the `cloud-controller-manager` takes over labeling persistent volumes.  To prevent the Persistent Volume Label admission plugin from running, make sure the `kube-apiserver` has a `--admission-control` flag with a value that does not include `PersistentVolumeLabel`.
+
+In order for the `cloud-controller-manager` to label persistent volumes, initializers will need need to be enabled and an InitializerConifguration will need to be added to the system.  Follow [these instructions](/docs/admin/extensible-admission-controllers.md#enable-initializers-alpha-feature) to enable initializers.  Use the following yaml to create the InitializerConfiguration:
+
+```shell
+kind: InitializerConfiguration
+apiVersion: admissionregistration.k8s.io/v1alpha1
+metadata:
+  name: pvlabel.kubernetes.io
+initializers:
+  - name: pvlabel.kubernetes.io
+    rules:
+    - apiGroups:
+      - ""
+      apiVersions:
+      - "*"
+      resources:
+      - persistentvolumes
+```
+This can also be found in examples/cloud-controller-manager/persistent-volume-label-initializer-config.yaml
