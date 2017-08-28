@@ -21,7 +21,7 @@ Kubernetes contains a number of abstractions that represent the state of your sy
 
 The basic Kubernetes objects include:
 
-* [Pod](/docs/concepts/workload/pods/pod-overview/)
+* [Pod](/docs/concepts/workloads/pods/pod-overview/)
 * [Service](/docs/concepts/services-networking/service/)
 * [Volume](/docs/concepts/storage/volumes/)
 * [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
