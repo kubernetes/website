@@ -192,6 +192,8 @@ $ kubectl get poddisruptionbudgets zk-pdb -o yaml
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
+  creationTimestamp: 2017-08-28T02:38:26Z
+  generation: 1
   name: zk-pdb
 ...
 status:
