@@ -301,17 +301,17 @@ common use cases and suggested solutions.
 
 1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
    - Use public images on the Docker hub.
-     - no configuration required.
-     - on GCE/GKE, a local mirror is automatically used for improved speed and availability.
+     - No configuration required.
+     - On GCE/GKE, a local mirror is automatically used for improved speed and availability.
 1. Cluster running some proprietary images which should be hidden to those outside the company, but
    visible to all cluster users.
    - Use a hosted private [Docker registry](https://docs.docker.com/registry/).
-     - may be hosted on the [Docker Hub](https://hub.docker.com/account/signup/), or elsewhere.
-     - manually configure .docker/config.json on each node as described above.
+     - It may be hosted on the [Docker Hub](https://hub.docker.com/account/signup/), or elsewhere.
+     - Manually configure .docker/config.json on each node as described above.
    - Or, run an internal private registry behind your firewall with open read access.
-     - no Kubernetes configuration required.
+     - No Kubernetes configuration is required.
    - Or, when on GCE/GKE, use the project's Google Container Registry.
-     - will work better with cluster autoscaling than manual node configuration.
+     - It will work better with cluster autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 1. Cluster with a proprietary images, a few of which require stricter access control.
    - ensure [AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages) is active, otherwise, all Pods potentially have access to all images.
