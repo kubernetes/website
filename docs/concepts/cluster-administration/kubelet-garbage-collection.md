@@ -1,3 +1,9 @@
+---
+approvers:
+- mikedanese
+title: 配置 kubelet 垃圾收集
+---
+
 <!--
 ---
 approvers:
@@ -5,12 +11,6 @@ approvers:
 title: Configuring kubelet Garbage Collection
 ---
 -->
-
----
-approvers:
-- mikedanese
-title: 配置 kubelet 垃圾收集
----
 
 * TOC
 {:toc}

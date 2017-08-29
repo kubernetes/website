@@ -1,3 +1,6 @@
+---
+标题: 给容器生命周期设置操作事件
+---
 <!--
 ---
 title: Attach Handlers to Container Lifecycle Events
@@ -22,10 +25,6 @@ Container is terminated.
 
 {% capture steps %}
 -->
-
----
-标题: 给容器生命周期设置操作事件
----
 
 {% capture overview %}
 
