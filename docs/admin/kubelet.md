@@ -198,14 +198,14 @@ TaintBasedEvictions=true|false (ALPHA - default=false)
       --authorization-webhook-cache-authorized-ttl duration     来自webhook的已认证响应缓存时间（默认5m0s）
       --authorization-webhook-cache-unauthorized-ttl duration   来自webhook的未认证响应缓存时间（默认30s）
       --azure-container-registry-config string                  Azure容器注册表配置信息路径
-      --bootstrap-kubeconfig string                             Path to a kubeconfig file that will be used to get client certificate for kubelet. If the file specified by --kubeconfig does not exist, the bootstrap kubeconfig is used to request a client certificate from the API server. On success, a kubeconfig file referencing the generated client certificate and key is written to the path specified by --kubeconfig. The client certificate and key file will be stored in the directory pointed by --cert-dir.
+      --bootstrap-kubeconfig string                             用于获取kubelet客户端证书的kubeconfig文件路径，如果由--kubeconfig指定的文件不存在，将使用bootstrap kubeconfig 从API服务器请求一个客户端证书，成功后，引用生成证书文件和密钥的kubeconfig将被写入--kubeconfig指定的文件，客户端证书和密钥将被保存在--cert-dir指定的目录。
       --cadvisor-port int32                                     本地cAdvisor端点的端口（默认 4194）
       --cert-dir string                                         TLS证书所在目录。如果--tls-cert-file和--tls-private-key-file指定的文件存在，当前配置将被忽略。（默认“/var/run/kubernetes”）
       --cgroup-driver string                                    kubelet用来操作主机上的cgroups驱动，可选值有：“cgroupfs”和“systemd”（默认“cgroupfs”）
-      --cgroup-root string                                      Optional root cgroup to use for pods. This is handled by the container runtime on a best effort basis. Default: '', which means use the container runtime default.
+      --cgroup-root string                                      可选的根cgroup用于pods， 这是由容器运行时在最好的工作基础上处理的，默认：''，也就是使用容器运行时的默认值。
       --cgroups-per-qos                                         开启创建QoS cgroup层级，如果设置为true将创建顶级QoS和容器cgroups。（默认true）
       --chaos-chance float                                      如果大于0.0，引入随机客户端错误及延迟，用来测试。
-      --client-ca-file string                                   If set, any request presenting a client certificate signed by one of the authorities in the client-ca-file is authenticated with an identity corresponding to the CommonName of the client certificate.
+      --client-ca-file string                                   如果设置，任何带有client-ca-file中签名的客户端证书的请求都将通过与客户端证书CommonName对应的标识进行身份认证。
       --cloud-config string                                     云提供商的配置文件路径，没有配置文件时为空字符串。
       --cloud-provider string                                   云服务提供商。默认情况下，kubelet将尝试自动检测云提供商，如果不使用云提供商可以指定该参数为空字符串。（默认“auto-detect”）
       --cluster-dns stringSlice                                 DNS服务器的IP地址列表，逗号分隔。这个值是用于配置指定了“dnsPolicy=ClusterFirst”的容器DNS服务器。注意：列表中所有的DNS服务器必须提供相同的记录值，否则集群中的名称解析可能无法正常工作，也就是无法确保连接DNS服务器提供正确的名称解析。
@@ -223,7 +223,7 @@ TaintBasedEvictions=true|false (ALPHA - default=false)
       --enable-custom-metrics                                   支持收集自定义指标。
       --enable-debugging-handlers                               开启服务用来收集日志及本地运行的容器及命令（默认true）
       --enable-server                                           开启Kubelet服务（默认true）
-      --enforce-node-allocatable stringSlice                    A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptible options are 'pods', 'system-reserved' & 'kube-reserved'. If the latter two options are specified, '--system-reserved-cgroup' & '--kube-reserved-cgroup' must also be set respectively. See https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md for more details. (default [pods])
+      --enforce-node-allocatable stringSlice                    由kubelet执行的节点分配执行级别列表，逗号分隔。可选项有 'pods', 'system-reserved' 和 'kube-reserved' 。如果指定后两种，必须同时指定 '--system-reserved-cgroup' 和 '--kube-reserved-cgroup'。 查看 https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md 获取更多细节。 (默认 [pods])
       --event-burst int32                                       一个突发事件记录的最大值。 仅当设置--event-qps 大于0时，暂时允许该事件记录值超过设定值，但不能超过event-qps的值。（默认10）
       --event-qps int32                                         设置为大于0的值，将限制每秒创建的事件数目最大为当前值，设置为0则不限制。（默认为5）
       --eviction-hard string                                    一个清理阈值的集合（例如 memory.available<1Gi），达到该阈值将触发一次容器清理，(默认“memory.available < 100 mi,nodefs.available < 10%,nodefs.inodesFree < 10%)
@@ -260,7 +260,7 @@ StreamingProxyRedirects=true|false (BETA - default=true)
 TaintBasedEvictions=true|false (ALPHA - default=false)
       --file-check-frequency duration                           检查新数据配置文件的周期（默认20s）
       --google-json-key string                                  用于谷歌云平台服务帐户身份验证的JSON密钥。
-      --hairpin-mode string                                     How should the kubelet setup hairpin NAT. This allows endpoints of a Service to loadbalance back to themselves if they should try to access their own Service. Valid values are "promiscuous-bridge", "hairpin-veth" and "none". (default "promiscuous-bridge")
+      --hairpin-mode string                                     kubelet如何设置hairpin NAT（“发夹”转换）。 这使得当服务可以尝试访问自己时服务端点可以自动恢复，合法值由 "promiscuous-bridge", "hairpin-veth" 和 "none". (默认 "promiscuous-bridge")
       --healthz-bind-address ip                                 健康检查服务的IP地址。（设置0.0.0.0使用所有地址）（默认127.0.0.1）
       --healthz-port int32                                      本地健康检查服务的端口号（默认10248）
       --host-ipc-sources stringSlice                            Kubelet允许pod使用主机ipc名称空间列表，逗号分隔。（默认[*]）
@@ -297,36 +297,36 @@ TaintBasedEvictions=true|false (ALPHA - default=false)
       --oom-score-adj int32                                     kubelet进程的oom-score-adj值，范围[-1000, 1000] (默认 -999)
       --pod-cidr string                                         用于pod IP地址的CIDR，仅在单点模式下使用。在集群模式下，这是由master获得的。
       --pod-infra-container-image string                        每个pod中的network/ipc名称空间容器将使用的镜像。 (默认 "gcr.io/google_containers/pause-amd64:3.0")
-      --pod-manifest-path string                                Path to to the directory containing pod manifest files to run, or the path to a single pod manifest file. Files starting with dots will be ignored.
+      --pod-manifest-path string                                包含pod清单文件的目录或者单个pod清单文件的路径。从点开始的文件将被忽略。
       --pods-per-core int32                                     可以在这个kubelet上运行的容器组数目，在这个Kubelet上的容器组数目不能超过max-pods，所以如果在这个kubelet上运行更多的容器组应同时使用max-pods，设置为0将禁用这个限制。
       --port int32                                              Kubelet服务的端口 (默认 10250)
-      --protect-kernel-defaults                                 Default kubelet behaviour for kernel tuning. If set, kubelet errors if any of kernel tunables is different than kubelet defaults.
+      --protect-kernel-defaults                                 kubelet的默认内核调优行为。设置之后，kubelet将在任何可调参数与默认值不同时抛出异常。
       --provider-id string                                      在机器数据库中标识节点的唯一标识符，也就是云提供商
       --read-only-port int32                                    没有认证/授权的只读kubelet服务端口。 (设置为0以禁用) (默认 10255)
-      --really-crash-for-testing                                If true, when panics occur crash. Intended for testing.
+      --really-crash-for-testing                                设置为true，when panics occur crash. 用于测试。
       --register-node                                           用apiserver注册节点 (如果设置了--api-servers默认为true) (默认 true)
       --register-with-taints []api.Taint                        用给定的列表注册节点 (逗号分隔 "<key>=<value>:<effect>")。如果register-node为false将无操作
-      --registry-burst int32                                    Maximum size of a bursty pulls, temporarily allows pulls to burst to this number, while still not exceeding registry-qps. Only used if --registry-qps > 0 (default 10)
-      --registry-qps int32                                      If > 0, limit registry pull QPS to this value.  If 0, unlimited. (default 5)
-      --require-kubeconfig                                      If true the Kubelet will exit if there are configuration errors, and will ignore the value of --api-servers in favor of the server defined in the kubeconfig file.
+      --registry-burst int32                                    拉去镜像的最大并发数，允许同时拉取的镜像数，不能超过registry-qps，仅当--registry-qps大于0时使用。 (默认 10)
+      --registry-qps int32                                      如果大于0，将限制每秒拉去镜像个数为这个值，如果为0则不限制。 (默认 5)
+      --require-kubeconfig                                      设置为true，kubelet将在配置错误时退出并忽略--api-servers指定的值以使用在kubeconfig文件中定义的服务器。
       --resolv-conf string                                      用作容器DNS解析配置的解析器配置文件。 (默认 "/etc/resolv.conf")
       --rkt-api-endpoint string                                 与rkt API 服务通信的端点，仅当设置--container-runtime='rkt'时有效 (默认 "localhost:15441")
       --rkt-path string                                         rkt二进制文件的路径，设置为空将使用$PATH中的第一个rkt，仅当设置--container-runtime='rkt'时有效。
       --root-dir string                                         管理kubelet文件的目录 (卷挂载等). (默认 "/var/lib/kubelet")
-      --runonce                                                 If true, exit after spawning pods from local manifests or remote urls. Exclusive with --api-servers, and --enable-server
+      --runonce                                                 如果为true，将在从本地清单或者远端url生成容器组后退出，除非指定了--api-servers和--enable-server
       --runtime-cgroups string                                  可选的cgroups的绝对名称，创建和运行时使用。
-      --runtime-request-timeout duration                        Timeout of all runtime requests except long running request - pull, logs, exec and attach. When timeout exceeded, kubelet will cancel the request, throw out an error and retry later. (default 2m0s)
+      --runtime-request-timeout duration                        除了pull, logs, exec 和 attach这些长运行请求之外的所有运行时请求的超时时间。 当到达超时时间，kubelet将取消请求，抛出异常并稍后重试。 (默认 2m0s)
       --seccomp-profile-root string                             seccomp配置文件目录。 (默认 "/var/lib/kubelet/seccomp")
-      --serialize-image-pulls                                   Pull images one at a time. We recommend *not* changing the default value on nodes that run docker daemon with version < 1.9 or an Aufs storage backend. Issue #10959 has more details. (default true)
-      --streaming-connection-idle-timeout duration              Maximum time a streaming connection can be idle before the connection is automatically closed. 0 indicates no timeout. Example: '5m' (default 4h0m0s)
+      --serialize-image-pulls                                   一次拉取一个镜像。建议在安装docker版本低于1.9的节点或一个Aufs存储后端不去修改这个默认值。查看问题 #10959 获取更多细节。 (默认 true)
+      --streaming-connection-idle-timeout duration              在连接自动关闭之前，流连接的最大空闲时间，0表示永不超时。例如： '5m' (默认 4h0m0s)
       --sync-frequency duration                                 同步运行容器和配置之间的最大时间间隔 (默认 1m0s)
-      --system-cgroups /                                        Optional absolute name of cgroups in which to place all non-kernel processes that are not already inside a cgroup under /. Empty for no container. Rolling back the flag requires a reboot.
-      --system-reserved mapStringString                         A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi) pairs that describe resources reserved for non-kubernetes components. Currently only cpu and memory are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none]
-      --system-reserved-cgroup string                           Absolute name of the top level cgroup that is used to manage non-kubernetes components for which compute resources were reserved via '--system-reserved' flag. Ex. '/system-reserved'. [default='']
-      --tls-cert-file string                                    File containing x509 Certificate used for serving HTTPS (with intermediate certs, if any, concatenated after server cert). If --tls-cert-file and --tls-private-key-file are not provided, a self-signed certificate and key are generated for the public address and saved to the directory passed to --cert-dir.
+      --system-cgroups /                                        可选的cgroups的绝对名称，用于将未包含在cgroup内的所有非内核进程放置在根目录 / 中，回滚这个标识需要重启。
+      --system-reserved mapStringString                         一个 资源名称=量 的集合(例如 cpu=200m,memory=500Mi) 用来描述为非kubernetes组件保留的资源。 目前仅支持cpu和内存。 查看 http://kubernetes.io/docs/user-guide/compute-resources 或许更多细节。 [默认=none]
+      --system-reserved-cgroup string                           顶级cgroup的绝对名称，用于管理计算资源的非kubernetes组件，这些组件通过'--system-reserved'标识保留系统资源。除了'/system-reserved'。 [默认'']
+      --tls-cert-file string                                    包含用于https服务的x509证书的文件 (中间证书，如果有，在服务器认证后使用)。如果没有提供 --tls-cert-file 和 --tls-private-key-file， 将会生产一个自签名的证书及密钥给公开地址使用，并将其保存在--cert-dir指定的目录。
       --tls-private-key-file string                             包含x509私钥匹配的文件 --tls-cert-file.
       --version version[=true]                                  打印kubelet版本并退出。
-      --volume-plugin-dir string                                <警告:Alpha特性> The full path of the directory in which to search for additional third party volume plugins (default "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/")
-      --volume-stats-agg-period duration                        Specifies interval for kubelet to calculate and cache the volume disk usage for all pods and volumes.  To disable volume calculations, set to 0. (default 1m0s)
+      --volume-plugin-dir string                                <警告:Alpha特性> 第三方卷插件的完整搜索路径。 (默认 "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/")
+      --volume-stats-agg-period duration                        指定kubelet计算和缓存所有容器组及卷的磁盘使用量时间间隔。设置为0禁用卷计算。（默认1m）
 ```
-###### Auto generated by spf13/cobra on 11-Jul-2017
+<!--###### Auto generated by spf13/cobra on 11-Jul-2017-->
