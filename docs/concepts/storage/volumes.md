@@ -544,7 +544,7 @@ Each projected volume source is listed in the spec under `sources`. The
 parameters are nearly the same with two exceptions:
 
 * For secrets, the `secretName` field has been changed to `name` to be consistent
-with config maps naming.
+with ConfigMap naming.
 * The `defaultMode` can only be specified at the projected level and not for each
 volume source. However, as illustrated above, you can explicitly set the `mode`
 for each individual projection.
