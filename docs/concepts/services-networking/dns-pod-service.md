@@ -345,7 +345,7 @@ kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 
 If you do not see the endpoints, see endpoints section in the [debugging services documentation](/docs/tasks/debug-application-cluster/debug-service/).
 
-For additional Kubernetes DNS examples, see the [cluster-dns examples](https://git.k8s.io/kubernetes/examples/cluster-dns) in the Kubernetes GitHub repository.
+For additional Kubernetes DNS examples, see the [cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns) in the Kubernetes GitHub repository.
 
 ## Kubernetes Federation (Multiple Zone support)
 
