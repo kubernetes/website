@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - aveshagarwal
 - erictune
 title: Fedora via Ansible
@@ -65,11 +65,11 @@ kube-node-02.example.com
 
 ## Setting up ansible access to your nodes
 
-If you already are running on a machine which has passwordless ssh access to the kube-master and kube-node-{01,02} nodes, and 'sudo' privileges, simply set the value of `ansible_ssh_user` in `~/contrib/ansible/group_vars/all.yml` to the username which you use to ssh to the nodes (i.e. `fedora`), and proceed to the next step...
+If you already are running on a machine which has passwordless ssh access to the kube-master and kube-node-{01,02} nodes, and 'sudo' privileges, simply set the value of `ansible_ssh_user` in `~/contrib/ansible/inventory/group_vars/all.yml` to the username which you use to ssh to the nodes (i.e. `fedora`), and proceed to the next step...
 
 *Otherwise* setup ssh on the machines like so (you will need to know the root password to all machines in the cluster).
 
-edit: ~/contrib/ansible/group_vars/all.yml
+edit: ~/contrib/ansible/inventory/group_vars/all.yml
 
 ```yaml
 ansible_ssh_user: root
@@ -95,10 +95,10 @@ done
 
 ## Setting up the cluster
 
-Although the default value of variables in `~/contrib/ansible/group_vars/all.yml` should be good enough, if not, change them as needed.
+Although the default value of variables in `~/contrib/ansible/inventory/group_vars/all.yml` should be good enough, if not, change them as needed.
 
 ```conf
-edit: ~/contrib/ansible/group_vars/all.yml
+edit: ~/contrib/ansible/inventory/group_vars/all.yml
 ```
 
 **Configure access to Kubernetes packages**

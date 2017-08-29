@@ -1,25 +1,8 @@
 ---
-assignees:
+approvers:
 - chrismarino
 title: 为了 NetworkPolicy 使用 Romana
-redirect_from:
-- "/docs/getting-started-guides/network-policy/romana/"
-- "/docs/getting-started-guides/network-policy/romana.html"
-- "/docs/tasks/configure-pod-container/romana-network-policy/"
-- "/docs/tasks/configure-pod-container/romana-network-policy.html"
 ---
-<!--
----
-assignees:
-- chrismarino
-title: Romana for NetworkPolicy
-redirect_from:
-- "/docs/getting-started-guides/network-policy/romana/"
-- "/docs/getting-started-guides/network-policy/romana.html"
-- "/docs/tasks/configure-pod-container/romana-network-policy/"
-- "/docs/tasks/configure-pod-container/romana-network-policy.html"
----
--->
 
 {% capture overview %}
 

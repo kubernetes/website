@@ -71,22 +71,22 @@ guide to install the requirements and install the script.
 
 ```shell
   # system
-  apt-get update
-  apt-get install -y git python python-crypto
-  curl -O https://bootstrap.pypa.io/get-pip.py
-  python get-pip.py
+ apt-get update
+ apt-get install -y git python python-crypto
+ curl -O https://bootstrap.pypa.io/get-pip.py
+ python get-pip.py
 
   # installing this repository
-  mkdir -p ~home/k8s-on-clc
-  cd ~home/k8s-on-clc
-  git clone https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc.git
-  cd adm-kubernetes-on-clc/
-  pip install -r requirements.txt
+ mkdir -p ~home/k8s-on-clc
+ cd ~home/k8s-on-clc
+ git clone https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc.git
+ cd adm-kubernetes-on-clc/
+ pip install -r requirements.txt
 
   # getting started
-  cd ansible
-  cp credentials.sh.template credentials.sh; vi credentials.sh
-  source credentials.sh
+ cd ansible
+ cp credentials.sh.template credentials.sh; vi credentials.sh
+ source credentials.sh
 ```
 
 
@@ -252,9 +252,9 @@ kubectl cluster-info
 
 ### Accessing the cluster programmatically 
 
-It's possible to use the locally stored client certificates to access the api server. For example, you may want to use any of the [Kubernetes API client libraries](https://git.k8s.io/community/contributors/devel/client-libraries.md) to program against your Kubernetes cluster in the programming language of your choice. 
+It's possible to use the locally stored client certificates to access the apiserver. For example, you may want to use any of the [Kubernetes API client libraries](/docs/reference/client-libraries/) to program against your Kubernetes cluster in the programming language of your choice. 
 
-To demonstrate how to use these locally stored certificates, we provide the following example of using ```curl``` to communicate to the master api server via https:
+To demonstrate how to use these locally stored certificates, we provide the following example of using ```curl``` to communicate to the master apiserver via https:
 
 ```shell
 curl \

@@ -1,14 +1,10 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - mikedanese
 title: Install and Set Up kubectl
-redirect_from:
-- "/docs/tasks/kubectl/install/"
-- "/docs/tasks/kubectl/install.html"
-- "/docs/user-guide/prereqs/"
-- "/docs/user-guide/prereqs.html"
 ---
+
 {% capture overview %}
 Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; and look at your new cluster and bring up example apps.
 {% endcapture %}
@@ -123,7 +119,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
         choco install kubernetes-cli
 
 2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
-3. Configure kubectl to use a remote kubernetes cluster:
+3. Configure kubectl to use a remote Kubernetes cluster:
 
         cd C:\users\yourusername (Or wherever your %HOME% directory is)
         mkdir .kube
@@ -189,7 +185,14 @@ If you have installed kubectl manually, you need to add kubectl autocompletion t
 kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
 ```
 
-The Homebrew project is independent from kubernetes, so the bash-completion packages are not guaranteed to work.
+The Homebrew project is independent from Kubernetes, so the bash-completion packages are not guaranteed to work.
+
+### Using Oh-My-Zsh
+When using [Oh-My-Zsh](http://ohmyz.sh/), edit the ~/.zshrc file and update the `plugins=` line to include the kubectl plugin.
+
+```shell
+plugins=(git zsh-completions kubectl)
+```
 
 {% endcapture %}
 {% capture whatsnext %}

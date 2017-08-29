@@ -1,9 +1,7 @@
 ---
 title: Federated Ingress
-redirect_from:
-- "/docs/user-guide/federation/federated-ingress/"
-- "/docs/user-guide/federation/federated-ingress.html"
 ---
+
 {% capture overview %}
 This page explains how to use Kubernetes Federated Ingress to deploy
 a common HTTP(S) virtual IP load balancer across a federated service running in
@@ -24,8 +22,8 @@ unresponsive clusters).
 Federated Ingress is released as an alpha feature, and supports Google Cloud Platform (GKE,
 GCE and hybrid scenarios involving both) in Kubernetes v1.4.  Work is under way to support other cloud
 providers such as AWS, and other hybrid cloud scenarios (e.g. services
-spanning private on-premise as well as public cloud Kubernetes
-clusters).  
+spanning private on-premises as well as public cloud Kubernetes
+clusters).
 
 You create Federated Ingresses in much that same way as traditional
 [Kubernetes Ingresses](/docs/concepts/services-networking/ingress/): by making an API
@@ -151,7 +149,7 @@ may take up to a few minutes).
 the network traffic directed to this ingress (that is, 'Service
 Endpoints' behind the service backing the Ingress), so the Federated Ingress does not yet consider these to
 be healthy shards and will not direct traffic to any of these clusters.
-*  The federation control system 
+*  The federation control system
 automatically reconfigures the load balancer controllers in all of the
 clusters in your federation to make them consistent, and allows
 them to share global load balancers.  But this reconfiguration can
@@ -202,7 +200,7 @@ nginx     10.63.250.98   104.199.136.89   80/TCP    9m
 Federations of Kubernetes Clusters can include clusters running in
 different cloud providers (for example, Google Cloud, AWS), and on-premises
 (for example, on OpenStack).  However, in Kubernetes v1.4, Federated Ingress is only
-supported across Google Cloud clusters.  
+supported across Google Cloud clusters.
 
 ## Discovering a federated ingress
 
@@ -232,7 +230,7 @@ In particular, Federated ReplicaSets ensure that the desired number of
 pods are kept running in each cluster, even in the event of node
 failures.  In the event of entire cluster or availability zone
 failures, Federated ReplicaSets automatically place additional
-replacas in the other available clusters in the federation to accommodate the
+replicas in the other available clusters in the federation to accommodate the
 traffic which was previously being served by the now unavailable
 cluster. While the Federated ReplicaSet ensures that sufficient replicas are
 kept running, the Federated Ingress ensures that user traffic is
@@ -258,7 +256,7 @@ Check that:
 1. Your clusters are correctly registered in the Cluster Federation API (`kubectl describe clusters`)
 2. Your clusters are all 'Active'.  This means that the cluster
    Federation system was able to connect and authenticate against the
-   clusters' endpoints.  If not, consult the event logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -oname`)
+   clusters' endpoints.  If not, consult the event logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -o name`)
 3. That the login credentials provided to the Cluster Federation API
    for the clusters have the correct authorization and quota to create
    ingresses/services/replicasets in the relevant namespace in the
@@ -301,11 +299,7 @@ Check that:
 
 {% capture whatsnext %}
 *  If you need assistance, use one of the [support channels](/docs/tasks/debug-application-cluster/troubleshooting/) to seek assistance.
- *  For details about use cases that motivated this work, see 
+ *  For details about use cases that motivated this work, see
  [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation.md).
 {% endcapture %}
 {% include templates/task.md %}
- 
- 
- 
- 

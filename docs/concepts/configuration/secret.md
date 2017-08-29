@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - mikedanese
 title: Secrets
-redirect_from:
-- "/docs/user-guide/secrets/index/"
-- "/docs/user-guide/secrets/index.html"
 ---
 
 Objects of type `secret` are intended to hold sensitive information, such as
@@ -512,7 +509,7 @@ Create a secret containing some ssh keys:
 $ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
 
-**Security Note:** think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to have accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
+**Security Note:** think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to be accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
 
 
 Now we can create a pod which references the secret with the ssh key and
@@ -768,6 +765,40 @@ server into doing something rather arbitrary, which may be harder than getting
 it to read a file.
 
 <!-- TODO: explain how to do this while still using automation. -->
+
+## Best practices
+
+### Clients that use the secrets API
+
+When deploying applications that interact with the secrets API, access should be
+limited using [authorization policies](
+https://kubernetes.io/docs/admin/authorization/) such as [RBAC](
+https://kubernetes.io/docs/admin/authorization/rbac/).
+
+Secrets often hold values that span a spectrum of importance, many of which can
+cause escalations within Kubernetes (e.g. service account tokens) and to
+external systems. Even if an individual app can reason about the power of the
+secrets it expects to interact with, other apps within the same namespace can
+render those assumptions invalid.
+
+For these reasons `watch` and `list` requests for secrets within a namespace are
+extremely powerful capabilities and should be avoided, since listing secrets allows
+the clients to inspect the values if all secrets are in that namespace. The ability to
+`watch` and `list` all secrets in a cluster should be reserved for only the most
+privileged, system-level components.
+
+Applications that need to access the secrets API should perform `get` requests on
+the secrets they need. This lets administrators restrict access to all secrets
+while [white-listing access to individual instances](
+https://kubernetes.io/docs/admin/authorization/rbac/#referring-to-resources) that
+the app needs.
+
+For improved performance over a looping `get`, clients can design resources that
+reference a secret then `watch` the resource, re-requesting the secret when the
+reference changes. Additionally, a ["bulk watch" API](
+https://github.com/kubernetes/community/blob/master/contributors/design-proposals/bulk_watch.md)
+to let clients `watch` individual resources has also been proposed, and will likely
+be available in future releases of Kubernetes. 
 
 ## Security Properties
 

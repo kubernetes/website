@@ -1,12 +1,7 @@
 ---
-assignees:
+approvers:
 - jessfraz
 title: Inject Information into Pods Using a PodPreset
-redirect_from:
-- "/docs/user-guide/pod-preset/index/"
-- "/docs/user-guide/pod-preset/index.html"
-- "/docs/tasks/run-application/podpreset/"
-- "/docs/tasks/run-application/podpreset.html"
 ---
 
 You can use a `podpreset` object to inject certain information into pods at creation
@@ -148,7 +143,7 @@ spec:
 
 ### Pod Spec with `ConfigMap` Example
 
-This is an example to show how a Pod spec is modified by the Pod Preset 
+This is an example to show how a Pod spec is modified by the Pod Preset
 that defines a `ConfigMap` for Environment Variables.
 
 **User submitted pod spec:**
@@ -219,7 +214,8 @@ spec:
     - name: cache-volume
       emptyDir: {}
     - name: secret-volume
-      secretName: config-details
+      secret:
+         secretName: config-details
 ```
 
 **Pod spec after admission controller:**
@@ -260,7 +256,8 @@ spec:
     - name: cache-volume
       emptyDir: {}
     - name: secret-volume
-      secretName: config-details
+      secret:
+         secretName: config-details
 ```
 
 ### ReplicaSet with Pod Spec Example
@@ -460,7 +457,7 @@ spec:
 
 ### Conflict Example
 
-This is an example to show how a Pod spec is not modified by the Pod Preset 
+This is an example to show how a Pod spec is not modified by the Pod Preset
 when there is a conflict.
 
 **User submitted pod spec:**

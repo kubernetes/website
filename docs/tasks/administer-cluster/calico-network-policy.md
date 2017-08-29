@@ -1,25 +1,8 @@
 ---
-assignees:
+approvers:
 - caseydavenport
 title: 为了 NetworkPolicy 使用 Calico
-redirect_from:
-- "/docs/getting-started-guides/network-policy/calico/"
-- "/docs/getting-started-guides/network-policy/calico.html"
-- "/docs/tasks/configure-pod-container/calico-network-policy/"
-- "/docs/tasks/configure-pod-container/calico-network-policy.html"
 ---
-<!--
----
-assignees:
-- caseydavenport
-title: Use Calico for NetworkPolicy
-redirect_from:
-- "/docs/getting-started-guides/network-policy/calico/"
-- "/docs/getting-started-guides/network-policy/calico.html"
-- "/docs/tasks/configure-pod-container/calico-network-policy/"
-- "/docs/tasks/configure-pod-container/calico-network-policy.html"
----
--->
 
 <!--
 This page shows how to use Calico for NetworkPolicy.

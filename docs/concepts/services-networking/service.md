@@ -1,7 +1,7 @@
 ---
 assignees:
 - bprashanth
-title: Services
+title: Service
 redirect_from:
 - "/docs/user-guide/services/"
 - "/docs/user-guide/services/index.html"

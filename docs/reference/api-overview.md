@@ -1,6 +1,6 @@
 ---
 title: Kubernetes API Overview
-assignees:
+approvers:
 - bgrant0607
 - erictune
 - lavalamp

@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - jszczepkowski
 title: Set up High-Availability Kubernetes Masters
-redirect_from:
-- "/docs/admin/ha-master-gce/"
-- "/docs/admin/ha-master-gce.html"
 ---
 
 * TOC
@@ -65,7 +62,7 @@ You can remove a master replica from an HA cluster by using a `kube-down` script
 * `KUBE_DELETE_NODES=false` - to restrain deletion of kubelets.
 
 * `KUBE_GCE_ZONE=zone` - the zone from where master replica will be removed.
- 
+
 * `KUBE_REPLICA_NAME=replica_name` - (optional) the name of master replica to remove.
 If empty: any replica from the given zone will be removed.
 
@@ -105,7 +102,7 @@ A two-replica cluster is thus inferior, in terms of HA, to a single replica clus
 
 * When you add a master replica, cluster state (etcd) is copied to a new instance.
 If the cluster is large, it may take a long time to duplicate its state.
-This operation may be sped up by migrating etcd data directory, as described [here](https://coreos.com/etcd/docs/latest/admin_guide.html#member-migration) 
+This operation may be sped up by migrating etcd data directory, as described [here](https://coreos.com/etcd/docs/latest/admin_guide.html#member-migration)
 (we are considering adding support for etcd data dir migration in future).
 
 ## Implementation notes

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - dchen1107
 - roberthbailey
 - liggitt
@@ -7,11 +7,6 @@ assignees:
 title: Master-Node communication
 -->
 title: Master 节点通信
-redirect_from:
-- "/docs/admin/master-node-communication/"
-- "/docs/admin/master-node-communication.html"
-- "/docs/concepts/cluster-administration/master-node-communication/"
-- "/docs/concepts/cluster-administration/master-node-communication.html"
 ---
 
 * TOC
@@ -128,11 +123,11 @@ kubelet's serving certificate.
 为了对这个连接进行认证，请使用 `--kubelet-certificate-authority` 标记给 apiserver 提供一个根证书捆绑，用于 kubelet 的服务证书。
 
 <!--
-If that is not possible, use [SSH tunneling](/docs/admin/master-node-communication/#ssh-tunnels)
+If that is not possible, use [SSH tunneling](/docs/concepts/architecture/master-node-communication/#ssh-tunnels)
 between the apiserver and kubelet if required to avoid connecting over an 
 untrusted or public network.
 -->
-如果这样不可能，又要求避免在不可信的或公共的网络上进行连接，请在 apiserver 和 kubelet 之间使用 [SSH 隧道](/docs/admin/master-node-communication/#ssh-tunnels)。
+如果这样不可能，又要求避免在不可信的或公共的网络上进行连接，请在 apiserver 和 kubelet 之间使用 [SSH 隧道](/docs/concepts/architecture/master-node-communication/#ssh-tunnels)。
 
 <!--
 Finally, [Kubelet authentication and/or authorization](/docs/admin/kubelet-authentication-authorization/)

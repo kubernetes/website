@@ -1,8 +1,5 @@
 ---
 title: Set up CoreDNS as DNS provider for Cluster Federation
-redirect_from:
-- "/docs/tutorials/federation/set-up-coredns-provider-federation/"
-- "/docs/tutorials/federation/set-up-coredns-provider-federation.html"
 ---
 
 {% capture overview %}
@@ -101,7 +98,7 @@ coredns-provider.conf has below format:
 
  - `etcd-endpoints` is the endpoint to access etcd.
  - `zones` is the federation domain for which CoreDNS is authoritative and is same as --dns-zone-name flag of `kubefed init`.
- - `coredns-endpoints` is the endpoint to access coredns server. This is an optional parameter introduced from v1.7 onwards.
+ - `coredns-endpoints` is the endpoint to access CoreDNS server. This is an optional parameter introduced from v1.7 onwards.
 
 *Note: middleware.etcd.zones in CoreDNS configuration and --dns-zone-name
 flag to kubefed init should match.*
