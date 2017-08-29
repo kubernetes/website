@@ -18,11 +18,11 @@ Users must migrate each TPR one by one to preserve their data before upgrading t
 The simplest way to migrate is to stop all clients that use a given TPR, then delete the TPR and
 start from scratch with a CRD.
 This page describes an optional process that eases the transition by migrating existing TPR data for
-you **on a best-effort basis**.
+you on a best-effort basis.
 {% endcapture %}
 
 {% capture prerequisites %}
-* Make sure your Kubernetes cluster has a **master version of exactly 1.7.x** (any patch release),
+* Make sure your Kubernetes cluster has a master version of exactly 1.7.x (any patch release),
   as this is the only version that supports both TPR and CRD.
 * If you use a TPR-based custom controller, check with the author of the controller first.
   Some or all of these steps may be unnecessary if the custom controller handles the migration for
@@ -31,7 +31,7 @@ you **on a best-effort basis**.
   which were known as *third-party resources* until Kubernetes 1.7.
 * Be familiar with [CustomResourceDefinitions](/docs/concepts/api-extension/custom-resources/#customresourcedefinitions),
   which are a simple way to implement custom resources.
-* **Before performing a migration on real data, conduct a dry run by going through these steps in a test cluster.**
+* Before performing a migration on real data, conduct a dry run by going through these steps in a test cluster.
 {% endcapture %}
 
 {% capture steps %}
