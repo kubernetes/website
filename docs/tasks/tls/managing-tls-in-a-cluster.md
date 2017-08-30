@@ -1,5 +1,5 @@
 ---
-Title: 管理集群中的TLS认证
+title: 管理集群中的TLS认证
 assignees:
 - mikedanese
 - beacham
