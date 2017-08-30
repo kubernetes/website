@@ -150,6 +150,9 @@ Each PV contains a spec and status, which is the specification and status of the
       - ReadWriteOnce
     persistentVolumeReclaimPolicy: Recycle
     storageClassName: slow
+    mountOptions:
+      - hard
+      - nfsvers=4.1
     nfs:
       path: /tmp
       server: 172.17.0.2
@@ -225,46 +228,11 @@ Current reclaim policies are:
 
 Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD, Azure Disk, and Cinder volumes support deletion.
 
-### Phase
-
-A volume will be in one of the following phases:
-
-* Available -- a free resource that is not yet bound to a claim
-* Bound -- the volume is bound to a claim
-* Released -- the claim has been deleted, but the resource is not yet reclaimed by the cluster
-* Failed -- the volume has failed its automatic reclamation
-
-The CLI will show the name of the PVC bound to the PV.
-
 ### Mount Options
 
-A Kubernetes administrator can specify additional mount options for when a Persistent Volume is being mounted on a node.
+A Kubernetes administrator can specify additional mount options for when a Persistent Volume is mounted on a node.
 
-You can specify a mount option by using the annotation `volume.beta.kubernetes.io/mount-options` on
-your Persistent Volume.
-
-For example:
-
-```yaml
-apiVersion: "v1"
-kind: "PersistentVolume"
-metadata:
-  name: gce-disk-1
-  annotations:
-    volume.beta.kubernetes.io/mount-options: "discard"
-spec:
-  capacity:
-    storage: "10Gi"
-  accessModes:
-    - "ReadWriteOnce"
-  gcePersistentDisk:
-    fsType: "ext4"
-    pdName: "gce-disk-1"
-```
-
-A mount option is a string which will be cumulatively joined and used while mounting volume to the disk.
-
-Note that not all Persistent volume types support mount options. In Kubernetes version 1.6, the following
+Note that not all Persistent volume types support mount options. The following
 volume types support mount options.
 
 * GCEPersistentDisk
@@ -281,6 +249,22 @@ volume types support mount options.
 * Quobyte Volumes
 * VMware Photon
 
+Mount options are not validated, so mount will simply fail if one is invalid.
+
+In the past, the annotation `volume.beta.kubernetes.io/mount-options` was used instead
+of the `mountOptions` attribute. This annotation is still working, however
+it will become fully deprecated in a future Kubernetes release.
+
+### Phase
+
+A volume will be in one of the following phases:
+
+* Available -- a free resource that is not yet bound to a claim
+* Bound -- the volume is bound to a claim
+* Released -- the claim has been deleted, but the resource is not yet reclaimed by the cluster
+* Failed -- the volume has failed its automatic reclamation
+
+The CLI will show the name of the PVC bound to the PV.
 
 ## PersistentVolumeClaims
 
@@ -412,6 +396,8 @@ metadata:
 provisioner: kubernetes.io/aws-ebs
 parameters:
   type: gp2
+mountOptions:
+  - debug
 ```
 
 ### Provisioner
@@ -461,6 +447,14 @@ PV after it is created.
 
 Persistent Volumes that are created manually and managed via a storage class will have
 whatever reclaim policy they were assigned at creation.
+
+### Mount Options
+Persistent Volumes that are dynamically created by a storage class will have the
+mount options specified in the `mountOptions` field of the class.
+
+If the volume plugin does not support mount options but mount options are
+specified, provisioning will fail. Mount options are not validated on neither
+the class nor PV, so mount of the PV will simply fail if one is invalid.
 
 ### Parameters
 Storage classes have parameters that describe volumes belonging to the storage
