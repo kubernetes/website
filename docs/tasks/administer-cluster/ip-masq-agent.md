@@ -116,7 +116,7 @@ By default, in GCE/GKE starting with Kubernetes version 1.7.0, the ip-masq-agent
 
 -->
 
-默认情况下，在 GCE/GKE 中启动 kubernetes 1.7.0 版本，ip-masq-agent 默认在集群中运行。如果您运行其他环境，您可以将 ip-masq-agent 作为 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 在集群中运行。
+默认情况下，在 GCE/GKE 中将启动 kubernetes 1.7.0 版本，ip-masq-agent 已经在集群中运行。如果您在其他环境中运行 kubernetes，那么您可以将 ip-masq-agent 以 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 的方式在集群中运行。
 
 {% endcapture %}
 
@@ -148,7 +148,7 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes-incubator/ip-masq
 
 关于 ip-masq-agent 的更多信息请参考 [该文档](https://github.com/kubernetes-incubator/ip-masq-agent)。
 
-在大多数情况下，默认的一套规则应该是足够的；但是，如果内置的规则不适用于您的集群，您可以创建并应用 ConfigMap 来自定义受影响的 IP 范围。例如，为了仅允许 ip-masq-agent 考虑 10.0.0.0/8，您可以在名为 “config” 的文件中创建以下 [ConfigMap](/docs/tasks/configure-pod-container/configmap)。
+在大多数情况下，默认的一套规则应该是足够的；但是，如果内置的规则不适用于您的集群，您可以创建并应用 [ConfigMap](/docs/tasks/configure-pod-container/configmap/) 来自定义受影响的 IP 范围。例如，为了仅允许 ip-masq-agent 考虑 10.0.0.0/8，您可以在名为 “config” 的文件中创建以下 [ConfigMap](/docs/tasks/configure-pod-container/configmap)。
 
 ```
 nonMasqueradeCIDRs:
