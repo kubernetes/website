@@ -25,7 +25,7 @@ A StatefulSet is a Controller that provides a unique identity to its Pods. It pr
 guarantees about the ordering of deployment and scaling.
 -->
 
-** StatefulSet 是 1.7 版本中的 beta 功能，用来代替 1.4 版本中的 PetSet 的功能。使用 PetSet 用户可以参考 1.5 版本的 [升级参考文档](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)，获取更多关于如何将已存在的 PetSet 升级到 SetatefulSet。**
+**StatefulSet 是 1.7 版本中的 beta 功能，用来代替 1.4 版本中的 PetSet 的功能。使用 PetSet 用户可以参考 1.5 版本的 [升级参考文档](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)，获取更多关于如何将已存在的 PetSet 升级到 SetatefulSet。**
 
 StatefulSet 作为 Controller 为 Pod 提供唯一的标识。它可以保证部署和 scale 的顺序。
 

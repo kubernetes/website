@@ -2,7 +2,7 @@
 assignees:
 - bgrant0607
 - janetkuo
-title: Deployments
+title: Deployment
 redirect_from:
 - "/docs/user-guide/deployments/"
 - "/docs/user-guide/deployments.html"
@@ -1677,7 +1677,7 @@ Deployment也需要 [`.spec` section](https://github.com/kubernetes/community/bl
 
 #### Revision
 
-`.spec.rollbackTo.revision`是一个可选配置项，用来指定回退到的revision。默认是0，意味着回退到历史中最老的revision。
+`.spec.rollbackTo.revision`是一个可选配置项，用来指定回退到的revision。默认是0，意味着回退到最近一次的revision。
 
 ### Revision History Limit
 
