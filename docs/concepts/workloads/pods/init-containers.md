@@ -166,7 +166,7 @@ and the [Production Pods guide](/docs/user-guide/production-pods.md#handling-ini
 * 克隆 Git 仓库到数据卷。
 * 将配置值放到配置文件中，运行模板工具为主应用容器动态地生成配置文件。例如，在配置文件中存放 POD_IP 值，并使用 Jinja 生成主应用配置文件。
 
-更多详细用法示例，可以在[StatefulSet 文档](/docs/concepts/abstractions/controllers/statefulsets/) 和 [生产环境 Pod 指南](/docs/user-guide/production-pods.md#handling-initialization)  中找到。
+更多详细用法示例，可以在 [StatefulSet 文档](/docs/concepts/abstractions/controllers/statefulsets/) 和 [生产环境 Pod 指南](/docs/user-guide/production-pods.md#handling-initialization)  中找到。
 
 <!--
 ### Init Containers in use
@@ -244,9 +244,9 @@ Yaml file below outlines the `mydb` and `myservice` services:
 
 1.5 版本的语法在 1.6 版本仍然可以使用，但是我们推荐使用 1.6 版本的新语法。
 在 Kubernetes 1.6 版本中，Init 容器在 API 中新建了一个字段。
-虽然期望使用beta 版本的annotation，但在未来发行版将会被废弃掉。
+虽然期望使用 beta 版本的 annotation，但在未来发行版将会被废弃掉。
 
-下面的 yaml 文件展示了 `mydb` 和`myservice` 两个 Service：
+下面的 yaml 文件展示了 `mydb` 和 `myservice` 两个 Service：
 
 ```
 kind: Service
@@ -412,7 +412,7 @@ validation error is thrown for any Container sharing a name with another.
 
 在 Pod 中的每个 app 和 Init 容器的名称必须唯一；与任何其它容器共享同一个名称，会在验证时抛出错误。
 
-<!-->
+<!--
 ### Resources
 
 Given the ordering and execution for Init Containers, the following rules
@@ -441,7 +441,7 @@ for resource usage apply:
   * 所有应用容器对某个资源的请求/限制之和
   * 对某个资源的有效初始请求/限制
 * 基于有效请求/限制完成调度，这意味着 Init 容器能够为初始化预留资源，这些资源在 Pod 生命周期过程中并没有被使用。
-* Pod 的 *有效 QoS 层 *，是 Init 容器和应用容器相同的 QoS 层。
+* Pod 的 *有效 QoS 层*，是 Init 容器和应用容器相同的 QoS 层。
 
 <!--
 Quota and limits are applied based on the effective Pod request and

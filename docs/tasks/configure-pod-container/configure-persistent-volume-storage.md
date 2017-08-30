@@ -1,3 +1,7 @@
+---
+标题: 配置Pod使用持久卷存储
+---
+
 <!--
 ---
 title: Configure a Pod to Use a PersistentVolume for Storage
@@ -32,10 +36,6 @@ do not already have a single-node cluster, you can create one by using
 
 {% capture steps %}
 -->
-
----
-标题: 配置Pod使用持久卷存储
----
 
 {% capture overview %}
 

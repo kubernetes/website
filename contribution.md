@@ -2,7 +2,9 @@
 
 本文档只包含新增更新，[更新参考](contribution-update.md)。
 
-### 第六周：2017-08-21~2017-08-27 - 有效合并 15 篇
+### 第六周：2017-08-21~2017-08-27 - 有效合并 16 篇
+
+[https://k8smeetup.github.io/](https://k8smeetup.github.io/index) [brucehex](https://github.com/brucehex)
 
 [https://k8smeetup.github.io/docs/tasks/debug-application-cluster/troubleshooting.md](https://k8smeetup.github.io/docs/tasks/debug-application-cluster/troubleshooting.md) [jl2005](https://github.com/jl2005)
 
