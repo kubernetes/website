@@ -96,10 +96,11 @@ etcd (the cluster database) and the API server (which the kubectl CLI
 communicates with).
 
 To initialize the master, pick one of the machines you previously installed
-kubeadm on, and run:
+kubeadm on, determine your network CIDR, and run:
 
 ``` bash
-kubeadm init
+# where the CIDR for this network would be 10.244.0.0/16
+kubeadm init --pod-network-cidr=10.244.0.0/16
 ```
 
 **Note:**
