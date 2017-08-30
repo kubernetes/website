@@ -1,6 +1,6 @@
 # K8SMeetup 翻译流程与翻译校稿规范
 
-time：2017-07-13 update：2017-08-24 author：xiaolong@caicloud.io
+time：2017-07-13 update：2017-08-30 author：xiaolong@caicloud.io
 
 翻译背景: 分析之前很多的翻译为什么做不好，就是因为迭代太快，版本跟不上，旧的文件没翻译完，新旧文件又混一起。没有一个适合的版本管理流程，这也是我们不建议大家从官网直接提取文件的原因。
 
@@ -16,6 +16,8 @@ K8SMeetup 维护两个仓库：
 
 
 每周的翻译[文章汇总](contribution.md)
+
+建议翻译之前，了解一下[上游贡献流程](upstream-pr.md)。
 
 
 ## 一、k8s 翻译流程讲解
