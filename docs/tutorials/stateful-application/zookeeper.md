@@ -367,7 +367,7 @@ statefulset "zk" deleted
 Watch the termination of the Pods in the StatefulSet.
 
 ```shell
-get pods -w -l app=zk
+kubectl get pods -w -l app=zk
 ```
 
 When `zk-0` if fully terminated, use `CRTL-C` to terminate kubectl.
