@@ -102,6 +102,7 @@ Resource type    | Abbreviated alias
 `events` |`ev`
 `horizontalpodautoscalers` |`hpa`
 `ingresses` |`ing`
+`initializerconfiguration` |`ic`
 `jobs` |
 `limitranges` |`limits`
 `namespaces` |`ns`
