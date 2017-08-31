@@ -12,24 +12,23 @@ This page covers how to get started with deploying Kubernetes on vSphere and det
 
 ### Getting started with the vSphere Cloud Provider
 
-Kubernetes comes with a cloud provider for vSphere. 
-vSphere Cloud Provider for Kubernetes allows Kubernetes Pods to use enterprise grade vSphere Storage.
+Kubernetes comes with *vSphere Cloud Provider*, a cloud provider for vSphere that allows Kubernetes Pods to use enterprise grade vSphere Storage.
 
 ### Deploy Kubernetes on vSphere
 
-To start using Kubernetes on top of vSphere and use the vSphere Cloud Provider use [Kubernetes-Anywhere](https://github.com/kubernetes/kubernetes-anywhere).
+To deploy Kubernetes on vSphere and use the vSphere Cloud Provider, see [Kubernetes-Anywhere](https://github.com/kubernetes/kubernetes-anywhere). 
 
 Detailed steps can be found at the [getting started with Kubernetes-Anywhere on vSphere](https://git.k8s.io/kubernetes-anywhere/phase1/vsphere/README.md) page.
 
 ### vSphere Cloud Provider
 
-vSphere Cloud Provider allows using vSphere managed enterprise grade storage within Kubernetes. It supports:
+vSphere Cloud Provider allows Kubernetes to use vSphere managed enterprise grade storage. It supports:
 
-- Enterprise class services such as de-duplication and encryption with vSAN, QoS, high availability and data reliability
-- Policy based management at granularity of container volumes
-- Volumes, Persistent Volumes, Storage Classes,  dynamic provisioning of volumes and scalable deployment of Stateful Apps with StatefulSets
+- Enterprise class services such as de-duplication and encryption with vSAN, QoS, high availability and data reliability.
+- Policy based management at granularity of container volumes.
+- Volumes, Persistent Volumes, Storage Classes, dynamic provisioning of volumes, and scalable deployment of Stateful Apps with StatefulSets.
 
-For more detail visit [vSphere Storage for Kubernetes Documentation](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/index.html)
+For more detail visit [vSphere Storage for Kubernetes Documentation](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/index.html).
 
 Documentation for how to use vSphere managed storage can be found in the [persistent volumes user guide](/docs/concepts/storage/persistent-volumes/#vsphere) and the [volumes user guide](/docs/concepts/storage/volumes/#vspherevolume).
 
@@ -194,7 +193,7 @@ Manifest files for API server and controller-manager are generally located at `/
 Note: After enabling the vSphere Cloud Provider, Node names will be set to the VM names from the vCenter Inventory.
 
 #### Known issues
-Please visit this [link](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/known-issues.html) for the list of major known issues with Kubernetes vSphere Cloud Provider
+Please visit [known issues](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/known-issues.html) for the list of major known issues with Kubernetes vSphere Cloud Provider.
 
 ## Support Level
 
