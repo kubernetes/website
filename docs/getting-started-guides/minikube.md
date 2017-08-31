@@ -100,7 +100,7 @@ To be able to work with the docker daemon on your mac/linux host use the `docker
 ```
 eval $(minikube docker-env)
 ```
-you should now be able to use docker on the command line on your host mac/linux machine talking to the docker daemon inside the minikube VM:
+You should now be able to use docker on the command line on your host mac/linux machine talking to the docker daemon inside the minikube VM:
 
 ```
 docker ps
@@ -142,6 +142,23 @@ Unfortunately just setting the environment variables will not work.
 
 Minikube will also create a "minikube" context, and set it to default in kubectl.
 To switch back to this context later, run this command: `kubectl config use-context minikube`.
+
+#### Specifying the Kubernetes version
+
+Minikube supports running multiple different versions of Kubernetes. You can
+access a list of all available versions via
+
+```
+minikube get-k8s-versions
+```
+
+You can specify the specific version of Kubernetes for Minikube to use by
+adding the `--kubernetes-version` string to the `minikube start` command. For
+example, to run version `v1.7.3`, you would run the following:
+
+```
+minikube start --kubernetes-version v1.7.3
+```
 
 ### Configuring Kubernetes
 
@@ -191,7 +208,7 @@ Minikube sets this context to default automatically, but if you need to switch b
 
 `kubectl config use-context minikube`,
 
-or pass the context on each command like this: `kubectl get pods --context=minikube`.
+Or pass the context on each command like this: `kubectl get pods --context=minikube`.
 
 ### Dashboard
 

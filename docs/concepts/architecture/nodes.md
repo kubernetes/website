@@ -171,7 +171,7 @@ Starting in Kubernetes 1.6, the NodeController is also responsible for evicting
 pods that are running on nodes with `NoExecute` taints, when the pods do not tolerate
 the taints. Additionally, as an alpha feature that is disabled by default, the
 NodeController is responsible for adding taints corresponding to node problems like
-node unreachable or not ready. See [this documentation](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature)
+node unreachable or not ready. See [this documentation](/docs/concepts/configuration/taint-and-toleration)
 for details about `NoExecute` taints and the alpha feature.
 
 ### Self-Registration of Nodes
@@ -215,7 +215,7 @@ unschedulable, run this command:
 kubectl cordon $NODENAME
 ```
 
-Note that pods which are created by a daemonSet controller bypass the Kubernetes scheduler,
+Note that pods which are created by a DaemonSet controller bypass the Kubernetes scheduler,
 and do not respect the unschedulable attribute on a node.  The assumption is that daemons belong on
 the machine even if it is being drained of applications in preparation for a reboot.
 

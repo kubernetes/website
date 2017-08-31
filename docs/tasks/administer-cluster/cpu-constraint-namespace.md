@@ -77,7 +77,7 @@ CPU request and limit to the Container.
 
 * Verify that the Container specifies a CPU request that is greater than or equal to 200 millicpu.
 
-* Verify that the Container specifies a memory limit that is less than or equal to 800 millicpu.
+* Verify that the Container specifies a CPU limit that is less than or equal to 800 millicpu.
 
 Here's the configuration file for a Pod that has one Container. The Container manifest
 specifies a CPU request of 500 millicpu and a CPU limit of 800 millicpu. These satisfy the
@@ -193,7 +193,7 @@ resources:
 ```
 
 Because your Container did not specify its own CPU request and limit, it was given the
-[default CPU request and limit](/docs/tasks/administer-cluster/default-cpu-request-limit/)
+[default CPU request and limit](/docs/tasks/administer-cluster/cpu-default-namespace/)
 from the LimitRange.
 * [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace)
 At this point, your Container might be running or it might not be running. Recall that a prerequisite

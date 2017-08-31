@@ -262,9 +262,9 @@ removed label still exists in any existing Pods and ReplicaSets.
 
 Sometimes you may want to rollback a Deployment; for example, when the Deployment is not stable, such as crash looping.
 By default, all of the Deployment's rollout history is kept in the system so that you can rollback anytime you want
-(you can change that by modifyingrevision history limit]).
+(you can change that by modifying revision history limit).
 
-**Note:** a Deployment's revision is created when a Deployment's rollout is triggered. This means that the
+**Note:** A Deployment's revision is created when a Deployment's rollout is triggered. This means that the
 new revision is created if and only if the Deployment's pod template (`.spec.template`) is changed,
 for example if you update the labels or container images of the template. Other updates, such as scaling the Deployment,
 do not create a Deployment revision, so that we can facilitate simultaneous manual- or auto-scaling.
