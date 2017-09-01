@@ -111,9 +111,13 @@ When an event is processed, it's compared against the list of rules in order.
 The first matching rule sets the audit level of the event. The audit policy is
 defined by the [`audit.k8s.io` API group][audit-api].
 
+Audit policies now require kind and apiVersion fields to be parsed.
+
 An example audit policy file:
 
 ```yaml
+kind: Policy
+apiVersion: audit.k8s.io/v1beta1
 rules:
   # Don't log watch requests by the "system:kube-proxy" on endpoints or services
   - level: None
@@ -159,6 +163,8 @@ You can use a minimal audit policy file to log all requests at the `Metadata` le
 
 ```yaml
 # Log all requests at the Metadata level.
+kind: Policy
+apiVersion: audit.k8s.io/v1beta1
 rules:
 - level: Metadata
 ```
