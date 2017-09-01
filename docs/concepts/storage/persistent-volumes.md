@@ -232,8 +232,10 @@ Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD, Azure Disk,
 
 A Kubernetes administrator can specify additional mount options for when a Persistent Volume is mounted on a node.
 
-Note that not all Persistent volume types support mount options. The following
-volume types support mount options.
+**Note:** Not all Persistent volume types support mount options. 
+{: .note}
+
+The following volume types support mount options:
 
 * GCEPersistentDisk
 * AWSElasticBlockStore
@@ -339,8 +341,10 @@ to Kubernetes cluster by addon manager during installation.
 
 When a PVC specifies a `selector` in addition to requesting a `StorageClass`,
 the requirements are ANDed together: only a PV of the requested class and with
-the requested labels may be bound to the PVC. Note that currently, a PVC with a
-non-empty `selector` can't have a PV dynamically provisioned for it.
+the requested labels may be bound to the PVC. 
+
+**Note:** Currently, a PVC with a non-empty `selector` can't have a PV dynamically provisioned for it.
+{: .note}
 
 In the past, the annotation `volume.beta.kubernetes.io/storage-class` was used instead
 of `storageClassName` attribute. This annotation is still working, however
