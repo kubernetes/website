@@ -65,27 +65,6 @@ of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authoriz
  ..* As of 1.6 RBAC mode is in beta.
  ..* To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.
  * **Webhook** - A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen. To learn more about using the Webhook mode, see [Webhook Mode](/docs/admin/authorization/webhook/).
- * **Custom Modules** - You can create custom modules for using with Kubernetes. To learn more, see **Custom Modules** below.
- 
-### Custom Modules
-Other implementations can be developed fairly easily. The APIserver calls the Authorizer interface:
-
-```go
-type Authorizer interface {
-  Authorize(a Attributes) error
-}
-```
-
-to determine whether or not to allow each API action.
-
-An authorization plugin is a module that implements this interface.
-Authorization plugin code goes in `pkg/auth/authorizer/$MODULENAME`.
-
-An authorization module can be completely implemented in go, or can call out
-to a remote authorization service.  Authorization modules can implement
-their own caching to reduce the cost of repeated authorization calls with the
-same or similar arguments.  Developers should then consider the interaction
-between caching and revocation of permissions.
 
 #### Checking API Access
 
