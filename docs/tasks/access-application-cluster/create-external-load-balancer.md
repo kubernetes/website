@@ -125,7 +125,7 @@ Service Configuration file.
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
-        "name": "example-service",
+        "name": "example-service"
       },
       "spec": {
         "ports": [{
@@ -164,6 +164,10 @@ compared to the `service.spec.externalTrafficPolicy` field. The values match as 
 
 **Note that this feature is not currently implemented for all cloudproviders/environments.**
 
+Known issues:
+
+* AWS: [kubernetes/kubernetes#35758](https://github.com/kubernetes/kubernetes/issues/35758)
+* Weave-Net: [weaveworks/weave/#2924](https://github.com/weaveworks/weave/issues/2924)
 
 {% endcapture %}
 
