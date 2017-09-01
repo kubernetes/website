@@ -85,7 +85,7 @@ KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
 KUBE_API_ARGS=""
 ```
 
-* Edit /etc/etcd/etcd.conf to let etcd listen on all available IPs instead of 127.0.0.1; If you have not done this, you might see an error such as "connection refused".
+* Edit /etc/etcd/etcd.conf to let etcd listen on all available IPs instead of 127.0.0.1. If you have not done this, you might see an error such as "connection refused".
 
 ```shell
 ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
