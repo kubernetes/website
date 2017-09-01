@@ -333,7 +333,7 @@ Future work will add instructions to this guide to enable support for Kubernetes
 [6]: http://mesos.apache.org/
 [7]: https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/docs/issues.md
 [8]: https://github.com/mesosphere/kubernetes-mesos/issues
-[9]: https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples
+[9]: https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/
 [10]: http://open.mesosphere.com/getting-started/cloud/google/mesosphere/#vpn-setup
 [11]: https://git.k8s.io/kubernetes/cluster/addons/dns/README.md#kube-dns
 [12]: https://git.k8s.io/kubernetes/cluster/addons/dns/kubedns-controller.yaml.in
