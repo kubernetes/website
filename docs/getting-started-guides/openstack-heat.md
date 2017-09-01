@@ -167,7 +167,7 @@ Once the nginx pod is running, use the port-forward command to set up a proxy fr
 
 You should now see nginx on [http://localhost:8888]().
 
-For more complex examples please see the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).
+For more complex examples please see the [examples directory](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/).
 
 ## Administering your cluster with Openstack
 
