@@ -99,6 +99,7 @@ These solutions are combinations of cloud providers and operating systems not co
 
 * [CoreOS on AWS or GCE](/docs/getting-started-guides/coreos)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
+* [Kubespray](/docs/getting-started-guides/kubespray/)
 
 ## On-Premises VMs
 
