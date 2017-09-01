@@ -27,10 +27,10 @@ The following are typical use cases for Deployments:
 * [Create a Deployment to rollout a ReplicaSet](#creating-a-deployment). The ReplicaSet creates Pods in the background. Check the status of the rollout to see if it succeeds or not.
 * [Declare the new state of the Pods](#updating-a-deployment) by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created and the Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
 * [Rollback to an earlier Deployment revision](#rolling-back-a-deployment) if the current state of the Deployment is not stable. Each rollback updates the revision of the Deployment.
-* [Scale up the Deployment to facilitate more load.](#scaling-a-deployment)
+* [Scale up the Deployment to facilitate more load](#scaling-a-deployment).
 * [Pause the Deployment](#pausing-and-resuming-a-deployment) to apply multiple fixes to its PodTemplateSpec and then resume it to start a new rollout.
-* [Use the status of the Deployment](#deployment-status) as an indicator that a rollout has stuck
-* [Clean up older ReplicaSets](#clean-up-policy) that you don't need anymore
+* [Use the status of the Deployment](#deployment-status) as an indicator that a rollout has stuck.
+* [Clean up older ReplicaSets](#clean-up-policy) that you don't need anymore.
 
 
 ## Creating a Deployment
@@ -41,16 +41,16 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 
 In this example:
 
-* A Deployment named `nginx` is created
-* The `nginx` Deployment creates three replicated Pods
-* The Pods are created from the `template` field
+* A Deployment named `nginx` is created.
+* The `nginx` Deployment creates three replicated Pods.
+* The Pods are created from the `template` field.
 
 The `template` field contains the following instructions:
 
-* Create one container in each Pod
-* Label the container `app: nginx`
-* Run the [Docker Hub](https://hub.docker.com) image `nginx` at version `1.7.9`
-* Open port `80` so that the container can send and accept traffic
+* Create one container in each Pod.
+* Label the container `app: nginx`.
+* Run the [Docker Hub](https://hub.docker.com) image `nginx` at version `1.7.9`.
+* Open port `80` so that the container can send and accept traffic.
 
 To create this Deployment, run the following command:
 
