@@ -181,7 +181,8 @@ Options for the kube-dns `kube-system:kube-dns` ConfigMap
 kube-dns `kube-system:kube-dns` ConfigMap 的选项如下所示：
 
 | 字段 | 格式 | 描述 |
-| `stubDomains`（可选）| 使用 DNS 后缀 key 的 JSON map（例如 “acme.local”），以及 DNS IP 的 JSON 数组作为 value | 目标 nameserver 可能是一个 Kubernetes Service。例如，可以运行自己的 dnsmasq 副本，将 DNS 名字暴露到 ClusterDNS namespace 中。|
+| ----- | ------ | ----------- |
+| `stubDomains`（可选）| 使用 DNS 后缀 key 的 JSON map（例如 “acme.local”），以及 DNS IP 的 JSON 数组作为 value。 | 目标 nameserver 可能是一个 Kubernetes Service。例如，可以运行自己的 dnsmasq 副本，将 DNS 名字暴露到 ClusterDNS namespace 中。|
 | `upstreamNameservers`（可选）| DNS IP 的 JSON 数组。 | 注意：如果指定，则指定的值会替换掉被默认从节点的 `/etc/resolv.conf` 中获取到的 nameserver。限制：最多可以指定三个上游 nameserver。|
 
 <!--
