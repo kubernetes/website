@@ -791,8 +791,8 @@ provisioner: kubernetes.io/scaleio
 parameters:
   gateway: https://192.168.99.200:443/api
   system: scaleio
-  protectionDomain: default
-  storagePool: default
+  protectionDomain: pd0
+  storagePool: sp1
   storageMode: ThinProvisionned
   secretRef: sio-secret
   readOnly: false
@@ -802,12 +802,12 @@ parameters:
 * `provisioner`: attribute is set to `kubernetes.io/scaleio`
 * `gateway`: address to a ScaleIO API gateway (required)
 * `system`: the name of the ScaleIO system (required)
-* `protectionDomain`: the name of the ScaleIO protection domain
-* `storagePool`: the name of the volume storage pool
+* `protectionDomain`: the name of the ScaleIO protection domain (required)
+* `storagePool`: the name of the volume storage pool (required)
 * `storageMode`: the storage provision mode: `ThinProvisionned` (default) or `ThickProvisionned`
-* `secretRef`: reference to a configured Secret object (required, see detail below)
-* `readOnly`: specifies the access mode to the mounted volume
-* `fsType`: the file system to use for the volume
+* `secretRef`: reference to a configured Secret object (required)
+* `readOnly`: specifies the access mode to the mounted volume (default false)
+* `fsType`: the file system to use for the volume (default ext4)
 
 The ScaleIO Kubernetes volume plugin requires a configured Secret object.
 The secret must be created with type `kubernetes.io/scaleio` and use the same namespace value as that of the PVC where it is referenced
