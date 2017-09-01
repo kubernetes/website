@@ -574,8 +574,8 @@ nginx-2142116321   3         3         3         2m
 You can make as many updates as you wish, for example, update the resources that will be used:
 
 ```shell
-$ kubectl set resources deployment nginx -c=nginx --limits=cpu=200m,memory=512Mi
-deployment "nginx" resource requirements updated
+$ kubectl set resources deployment nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
+deployment "nginx-deployment" resource requirements updated
 ```
 
 The initial state of the Deployment prior to pausing it will continue its function, but new updates to
