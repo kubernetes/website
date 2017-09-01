@@ -53,7 +53,7 @@ Stackdriver Logging agents to the running cluster.
     that don't have fluentd pod allocated already. You can ensure that your node is labelled
     properly by running `kubectl describe` as follows:
 
-    ```shell
+    ```
     kubectl describe node $NODE_NAME
     ```
 
@@ -69,7 +69,7 @@ Stackdriver Logging agents to the running cluster.
     Ensure that the output contains the label `beta.kubernetes.io/fluentd-ds-ready=true`. If it
     is not present, you can add it using the `kubectl label` command as follows:
 
-    ```shell
+    ```
     kubectl label node $NODE_NAME beta.kubernetes.io/fluentd-ds-ready=true
     ```
 
@@ -79,7 +79,7 @@ Stackdriver Logging agents to the running cluster.
 
 1. Deploy a `ConfigMap` with the logging agent configuration by running the following command:
 
-    ```shell
+    ```
     kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-configmap.yaml
     ```
 
@@ -88,7 +88,7 @@ Stackdriver Logging agents to the running cluster.
 
 1. Deploy the logging agent `DaemonSet` by running the following command:
 
-    ```shell
+    ```
     kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-ds.yaml
     ```
 
