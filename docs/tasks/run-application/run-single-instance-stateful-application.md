@@ -95,10 +95,31 @@ for a secure solution.
         Namespace:            default
         CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
         Labels:               app=mysql
+        Annotations:          deployment.kubernetes.io/revision=1
         Selector:             app=mysql
-        Replicas:             1 updated | 1 total | 0 available | 1 unavailable
+        Replicas:             1 desired | 1 updated | 1 total | 0 available | 1 unavailable
         StrategyType:         Recreate
         MinReadySeconds:      0
+        Pod Template:
+          Labels:       app=mysql
+          Containers:
+           mysql:
+            Image:      mysql:5.6
+            Port:       3306/TCP
+            Environment:
+              MYSQL_ROOT_PASSWORD:      password
+            Mounts:
+              /var/lib/mysql from mysql-persistent-storage (rw)
+          Volumes:
+           mysql-persistent-storage:
+            Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+            ClaimName:  mysql-pv-claim
+            ReadOnly:   false
+        Conditions:
+          Type          Status  Reason
+          ----          ------  ------
+          Available     False   MinimumReplicasUnavailable
+          Progressing   True    ReplicaSetUpdated
         OldReplicaSets:       <none>
         NewReplicaSet:        mysql-63082529 (1/1 replicas created)
         Events:
