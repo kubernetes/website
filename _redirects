@@ -33,7 +33,7 @@
 /docs/admin/out-of-resource										/docs/tasks/administer-cluster/out-of-resource		301
 /docs/admin/rescheduler											/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods		301
 /docs/admin/resourcequota/limitstorageconsumption				/docs/tasks/administer-cluster/limit-storage-consumption		301
-/docs/admin/resourcequota/walkthrough							/docs/tasks/administer-cluster/apply-resource-quota-limit		301
+/docs/admin/resourcequota/walkthrough							/docs/tasks/administer-cluster/quota-api-object		301
 /docs/admin/static-pods											/docs/tasks/administer-cluster/static-pod		301
 /docs/admin/sysctls												/docs/concepts/cluster-administration/sysctl-cluster		301
 /docs/admin/upgrade-1-6											/docs/tasks/administer-cluster/upgrade-1-6		301
@@ -86,6 +86,7 @@
 /docs/															/docs/home/		301
 /docs/samples													/docs/tutorials/		301
 
+/docs/tasks/administer-cluster/apply-resource-quota-limit		/docs/tasks/administer-cluster/quota-api-object		301
 /docs/tasks/administer-cluster/assign-pods-nodes				/docs/tasks/configure-pod-container/assign-pods-nodes		301
 /docs/tasks/administer-cluster/overview							/docs/concepts/cluster-administration/cluster-administration-overview		301
 /docs/tasks/administer-cluster/cpu-memory-limit					/docs/tasks/administer-cluster/memory-default-namespace		301
