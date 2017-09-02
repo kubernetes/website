@@ -189,7 +189,3 @@ The following manifest describes a single-instance WordPress Deployment and Serv
 {% endcapture %}
 
 {% include templates/tutorial.md %}
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/examples/mysql-wordpress-pd/README.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
