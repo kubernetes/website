@@ -9,7 +9,7 @@ title: 集群管理
 approvers:
 - lavalamp
 - thockin
-title: Cluster Management
+  title: Cluster Management
 ---
 -->
 
@@ -22,7 +22,7 @@ upgrading your cluster's
 master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a
 running cluster.
 -->
-本文描述了和集群生命周期相关的几个主题：创建一个新集群、更新集群的 master 和 worker 节点、执行节点维护（例如升级内核）以及升级一个运行中集群的 Kubernetes API 版本。
+本文描述了和集群生命周期相关的几个主题：创建新集群、更新集群的 master 和 worker 节点、执行节点维护（例如升级内核）以及升级运行中集群的 Kubernetes API 版本。
 
 <!--
 ## Creating and configuring a Cluster
@@ -42,11 +42,11 @@ To install Kubernetes on a set of machines, consult one of the existing [Getting
 <!--
 The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://git.k8s.io/kubernetes/CHANGELOG.md), as well as the version specific upgrade notes prior to upgrading their clusters.
 -->
-集群升级当前是配套提供的，某些发布版本在升级时可能需要特殊处理。推荐管理员在升级他们的集群前，同时查阅[发行说明](https://git.k8s.io/kubernetes/CHANGELOG.md)和版本具体升级说明。
+集群升级当前是配套提供的，某些发布版本在升级时可能需要特殊处理。推荐管理员在升级他们的集群前，同时查阅 [发行说明](https://git.k8s.io/kubernetes/CHANGELOG.md) 和版本具体升级说明。
 
 <!--
 * [Upgrading to 1.6](/docs/admin/upgrade-1-6)
--->
+  -->
 * [升级到 1.6](/docs/admin/upgrade-1-6)
 
 <!--
@@ -66,7 +66,7 @@ Node upgrades for GCE use a [Managed Instance Group](https://cloud.google.com/co
 is sequentially destroyed and then recreated with new software.  Any Pods that are running on that node need to be
 controlled by a Replication Controller, or manually re-created after the roll out.
 -->
-GCE 的 Node 升级采用[管理示例组](https://cloud.google.com/compute/docs/instance-groups/)，每个节点将被顺序的删除，然后使用新软件重建。任何运行在那个节点上的 Pods 需要用 Replication Controller 控制，或者在扩容之后手动重建。
+GCE 的 Node 升级采用 [管理实例组](https://cloud.google.com/compute/docs/instance-groups/)，每个节点将被顺序的删除，然后使用新软件重建。任何运行在那个节点上的 Pos 需要用 Replication Controller 控制，或者在扩容之后手动重建。
 
 <!--
 Upgrades on open source Google Compute Engine (GCE) clusters are controlled by the `cluster/gce/upgrade.sh` script.
@@ -81,7 +81,7 @@ Get its usage by running `cluster/gce/upgrade.sh -h`.
 <!--
 For example, to upgrade just your master to a specific version (v1.0.2):
 -->
-例如，仅仅将 master 升级到一个指定的版本 (v1.0.2):
+例如，只将 master 升级到一个指定的版本 (v1.0.2):
 
 ```shell
 cluster/gce/upgrade.sh -M v1.0.2
@@ -110,7 +110,7 @@ Google Container Engine 自动升级 master 组件（例如 `kube-apiserver`、`
 <!--
 The node upgrade process is user-initiated and is described in the [GKE documentation.](https://cloud.google.com/container-engine/docs/clusters/upgrade)
 -->
-节点升级过程由用户初始化，[GKE documentation.](https://cloud.google.com/container-engine/docs/clusters/upgrade) 里有相关描述。
+节点升级过程由用户初始化，[GKE 文档](https://cloud.google.com/container-engine/docs/clusters/upgrade) 里有相关描述。
 
 <!--
 ### Upgrading clusters on other platforms
@@ -145,7 +145,7 @@ gcloud compute instance-groups managed resize kubernetes-minion-group --size 42 
 <!--
 Instance Group will take care of putting appropriate image on new machines and start them, while Kubelet will register its Node with API server to make it available for scheduling. If you scale the instance group down, system will randomly choose Nodes to kill.
 -->
-实例组将负责在新机器上放置恰当的镜像并启动它们。Kubelet 将向 API server 注册它的节点以使其可以用于调度。如果你对  instance group 进行缩容，系统将会随机选取节点来终止。
+实例组将负责在新机器上放置恰当的镜像并启动它们。Kubelet 将向 API server 注册它的节点以使其可以用于调度。如果您对  instance group 进行缩容，系统将会随机选取节点来终止。
 
 <!--
 In other environments you may need to configure the machine yourself and tell the Kubelet on which machine API server is running.
@@ -161,7 +161,7 @@ In other environments you may need to configure the machine yourself and tell th
 If you are using GCE or GKE, you can configure your cluster so that it is automatically rescaled based on
 pod needs.
 -->
-如果您正在使用  GCE 或者 GKE，你可以配置你的集群，使其能够基于 pod 需求自动重新调整大小。
+如果正在使用 GCE 或者 GKE，您可以配置您的集群，使其能够基于 pod 需求自动重新调整大小。
 
 <!--
 As described in [Compute Resource](/docs/concepts/configuration/manage-compute-resources-container/), users can reserve how much CPU and memory is allocated to pods.
@@ -169,13 +169,13 @@ This information is used by the Kubernetes scheduler to find a place to run the 
 no node that has enough free capacity (or doesn't match other pod requirements) then the pod has
 to wait until some pods are terminated or a new node is added.
 -->
-如  [Compute Resource](/docs/concepts/configuration/manage-compute-resources-container/) 所述，用户可以控制预留多少 CPU 和内存来分配给 pods。这个信息被 Kubernetes scheduler 用来寻找一个运行 pod 的地方。如果没有一个节点有足够的空闲容量（或者不能满足其他 pod 的需求），这个 pod 就需要等待某些 pods 结束，或者一个新的节点被添加。
+如  [Compute Resource](/docs/concepts/configuration/manage-compute-resources-container/) 所述，用户可以控制预留多少 CPU 和内存来分配给 pod。这个信息被 Kubernetes scheduler 用来寻找一个运行 pod 的地方。如果没有一个节点有足够的空闲容量（或者不能满足其他 pod 的需求），这个 pod 就需要等待某些 pod 结束，或者一个新的节点被添加。
 
 <!--
 Cluster autoscaler looks for the pods that cannot be scheduled and checks if adding a new node, similar
 to the other in the cluster, would help. If yes, then it resizes the cluster to accommodate the waiting pods.
 -->
-集群 autoscaler 查找不能被调度的 pods 并检查添加一个新节点（和集群中其它节点类似的）是否有帮助。如果是的话，它将调整集群的大小以容纳等待调度的 pods。
+集群 autoscaler 查找不能被调度的 pod 并检查添加一个新节点（和集群中其它节点类似的）是否有帮助。如果是的话，它将调整集群的大小以容纳等待调度的 pod。
 
 <!--
 Cluster autoscaler also scales down the cluster if it notices that some node is not needed anymore for
@@ -192,13 +192,13 @@ Cluster autoscaler is configured per instance group (GCE) or node pool (GKE).
 If you are using GCE then you can either enable it while creating a cluster with kube-up.sh script.
 To configure cluster autoscaler you have to set three environment variables:
 -->
-如果您使用 GCE，那么您可以在使用 kube-up.sh 脚本创建集群的时候启用它。要想配置集群 autoscaler，你需要设置三个环境变量：
+如果您使用 GCE，那么您可以在使用 kube-up.sh 脚本创建集群的时候启用它。要想配置集群 autoscaler，您需要设置三个环境变量：
 
 <!--
 * `KUBE_ENABLE_CLUSTER_AUTOSCALER` - it enables cluster autoscaler if set to true.
 * `KUBE_AUTOSCALER_MIN_NODES` - minimum number of nodes in the cluster.
 * `KUBE_AUTOSCALER_MAX_NODES` - maximum number of nodes in the cluster.
--->
+  -->
 * `KUBE_ENABLE_CLUSTER_AUTOSCALER` - 如果设置为 true 将启用集群 autoscaler。
 * `KUBE_AUTOSCALER_MIN_NODES` - 集群的最小节点数量。
 * `KUBE_AUTOSCALER_MAX_NODES` - 集群的最大节点数量。
@@ -217,7 +217,7 @@ On GKE you configure cluster autoscaler either on cluster creation or update or 
 (which you want to be autoscaled) by passing flags `--enable-autoscaling` `--min-nodes` and `--max-nodes`
 to the corresponding `gcloud` commands.
 -->
-在 GKE 上，你可以在创建、更新集群或创建一个特别的节点池（你希望自动伸缩的）时，通过给对应的 `gcloud` 命令传递 `--enable-autoscaling` `--min-nodes` 和 `--max-nodes` 来配置集群 autoscaler。
+在 GKE 上，您可以在创建、更新集群或创建一个特别的节点池（您希望自动伸缩的）时，通过给对应的 `gcloud` 命令传递 `--enable-autoscaling` `--min-nodes` 和 `--max-nodes` 来配置集群 autoscaler。
 
 <!--
 Examples:
@@ -250,17 +250,17 @@ then the node controller will terminate the pods that are bound to the unavailab
 replica set (or replication controller), then a new copy of the pod will be started on a different node.  So, in the case where all
 pods are replicated, upgrades can be done without special coordination, assuming that not all nodes will go down at the same time.
 -->
-如果需要重启节点（例如内核升级、libc 升级、硬件维修等），且停机时间很短时，当 Kubelet 重启后，它将尝试重启调度到节点上的 pods。如果重启花费较长时间（默认时间为 5 分钟，由 controller-manager 的 `--pod-eviction-timeout` 控制），节点控制器将会结束绑定到这个不可用节点上的 pods。如果存在对应的 replica set（或者 replication controller）时，则将在另一个节点上启动  pod 的新副本。所以，如果所有的 pods 都是复制而来，那么在不是所有节点都同时停机的前提下，升级可以在不需要特殊调整情况下完成。
+如果需要重启节点（例如内核升级、libc 升级、硬件维修等），且停机时间很短时，当 Kubelet 重启后，它将尝试重启调度到节点上的 pod。如果重启花费较长时间（默认时间为 5 分钟，由 controller-manager 的 `--pod-eviction-timeout` 控制），节点控制器将会结束绑定到这个不可用节点上的 pod。如果存在对应的 replica set（或者 replication controller）时，则将在另一个节点上启动  pod 的新副本。所以，如果所有的 pod 都是复制而来，那么在不是所有节点都同时停机的前提下，升级可以在不需要特殊调整情况下完成。
 
 <!--
 If you want more control over the upgrading process, you may use the following workflow:
 -->
-如果你希望更多的控制升级过程，可以使用下面的工作流程：
+如果您希望更多的控制升级过程，可以使用下面的工作流程：
 
 <!--
 Use `kubectl drain` to gracefully terminate all pods on the node while marking the node as unschedulable:
 -->
-使用 `kubectl drain` 优雅的结束节点上的所有 pods 并同时标记节点为不可调度：
+使用 `kubectl drain` 优雅的结束节点上的所有 pod 并同时标记节点为不可调度：
 
 ```shell
 kubectl drain $NODENAME
@@ -269,17 +269,17 @@ kubectl drain $NODENAME
 <!--
 This keeps new pods from landing on the node while you are trying to get them off.
 -->
-在你正试图使节点离线时，这将阻止新的 pods 落到它们上面。
+在您正试图使节点离线时，这将阻止新的 pod 落到它们上面。
 
 <!--
 For pods with a replica set, the pod will be replaced by a new pod which will be scheduled to a new node. Additionally, if the pod is part of a service, then clients will automatically be redirected to the new pod.
 -->
-对于有 replica set 的 pods 来说，它们将会被新的 pod 替换并且将被调度到一个新的节点。此外，如果 pod 是一个 service 的一部分，则客户端将被自动重定向到新的 pod。
+对于有 replica set 的 pod 来说，它们将会被新的 pod 替换并且将被调度到一个新的节点。此外，如果 pod 是一个 service 的一部分，则客户端将被自动重定向到新的 pod。
 
 <!--
 For pods with no replica set, you need to bring up a new copy of the pod, and assuming it is not part of a service, redirect clients to it.
 -->
-对于没有 replica set 的 pods，你需要手动启动 pod 的新副本，并且如果它不是 service 的一部分，你需要手动将客户端重定向到这个 pod。
+对于没有 replica set 的 pod，您需要手动启动 pod 的新副本，并且如果它不是 service 的一部分，您需要手动将客户端重定向到这个 pod。
 
 <!--
 Perform maintenance work on the node.
@@ -300,7 +300,7 @@ If you deleted the node's VM instance and created a new one, then a new schedula
 be created automatically (if you're using a cloud provider that supports
 node discovery; currently this is only Google Compute Engine, not including CoreOS on Google Compute Engine using kube-register). See [Node](/docs/admin/node) for more details.
 -->
-如果删除了节点的虚拟机实例并重新创建，那么一个新的可调度节点资源将被自动创建（只在你使用支持节点发现的云服务提供商时；当前只有 Google Compute Engine，不包括在 Google Compute Engine 上使用  kube-register 的 CoreOS）。相关详细信息，请查阅 [节点](/docs/admin/node)。
+如果删除了节点的虚拟机实例并重新创建，那么一个新的可调度节点资源将被自动创建（只在您使用支持节点发现的云服务提供商时；当前只有 Google Compute Engine，不包括在 Google Compute Engine 上使用  kube-register 的 CoreOS）。相关详细信息，请查阅 [节点](/docs/admin/node)。
 
 <!--
 ## Advanced Topics
@@ -315,7 +315,7 @@ node discovery; currently this is only Google Compute Engine, not including Core
 <!--
 When a new API version is released, you may need to upgrade a cluster to support the new API version (e.g. switching from 'v1' to 'v2' when 'v2' is launched).
 -->
-当新的 API 版本发布时，你可能需要升级集群支持新的 API 版本（例如当 'v2' 发布时从  'v1' 切换到 'v2'）。
+当新的 API 版本发布时，您可能需要升级集群支持新的 API 版本（例如当 'v2' 发布时从  'v1' 切换到 'v2'）。
 
 <!--
 This is an infrequent event, but it requires careful management. There is a sequence of steps to upgrade to a new API version.
@@ -330,7 +330,7 @@ This is an infrequent event, but it requires careful management. There is a sequ
 
       1. 开启新 API 版本。
       2. 升级集群存储来使用新版本。
-      3. 升级所有配置文件。识别使用旧 API 版本 endpoints 的用户。
+      3. 升级所有配置文件。识别使用旧 API 版本 endpoint 的用户。
       4. 运行 `cluster/update-storage-objects.sh` 升级存储中的现有对象为新版本。
       5. 关闭旧 API 版本。
 
@@ -345,7 +345,7 @@ runtime-config also supports 2 special keys: api/all and api/legacy to control a
 For example, for turning off all API versions except v1, pass `--runtime-config=api/all=false,api/v1=true`.
 For the purposes of these flags, _legacy_ APIs are those APIs which have been explicitly deprecated (e.g. `v1beta3`).
 -->
-可以在启动 API server 时传递 `--runtime-config=api/<version>` 标志来打开或关闭特定的 API 版本。例如：要关闭 v1 API，请传递 `--runtime-config=api/v1=false`。运行时配置还支持两个特殊键值：api/all 和 api/legacy，分别控制全部和遗留 API。例如要关闭除 v1 外全部 API 版本，请传递 `--runtime-config=api/all=false,api/v1=true`。对于这些标志来说，_legacy_ APIs 指那些被显式废弃的 API（例如  `v1beta3`）。
+可以在启动 API server 时传递 `--runtime-config=api/<version>` 标志来打开或关闭特定的 API 版本。例如：要关闭 v1 API，请传递 `--runtime-config=api/v1=false`。运行时配置还支持两个特殊键值：api/all 和 api/legacy，分别控制全部和遗留 API。例如要关闭除 v1 外全部 API 版本，请传递 `--runtime-config=api/all=false,api/v1=true`。对于这些标志来说，_legacy_ API 指那些被显式废弃的 API（例如  `v1beta3`）。
 
 <!--
 ### Switching your cluster's storage API version
@@ -363,7 +363,7 @@ by the Kubernetes API server.
 `KUBE_API_VERSIONS` environment variable for the `kube-apiserver` binary which controls the API versions that are supported in the cluster. The first version in the list is used as the cluster's storage version. Hence, to set a specific version as the storage version, bring it to the front of list of versions in the value of `KUBE_API_VERSIONS`.  You need to restart the `kube-apiserver` binary
 for changes to this variable to take effect.
 -->
-`kube-apiserver` 二进制文件的 `KUBE_API_VERSIONS` 环境变量控制了集群支持的 API 版本。列表中的第一个版本被用作集群的存储版本。因此，要设置特定的版本为存储版本，请将其放在 `KUBE_API_VERSIONS` 参数值版本列表的最前面。你需要重启 `kube-apiserver` 二进制以使这个变量的改动生效。
+`kube-apiserver` 二进制文件的 `KUBE_API_VERSIONS` 环境变量控制了集群支持的 API 版本。列表中的第一个版本被用作集群的存储版本。因此，要设置特定的版本为存储版本，请将其放在 `KUBE_API_VERSIONS` 参数值版本列表的最前面。您需要重启 `kube-apiserver` 二进制以使这个变量的改动生效。
 
 <!--
 ### Switching your config files to a new API version
@@ -373,7 +373,7 @@ for changes to this variable to take effect.
 <!--
 You can use `kubectl convert` command to convert config files between different API versions.
 -->
-你可以使用 `kubectl convert` 命令转换配置文件为不同的 API 版本。
+可以使用 `kubectl convert` 命令对不同 API 版本的配置文件进行转换。
 
 ```shell
 kubectl convert -f pod.yaml --output-version v1
