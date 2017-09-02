@@ -115,11 +115,12 @@ to determine what access an authorizer is granting.
 You must include a flag in your policy to indicate which authorization module your policies include:
 
 The following flags can be used:
-  - `--authorization-mode=ABAC` Attribute-Based Access Control (ABAC) mode allows you to configure policies using local files.
-  - `--authorization-mode=RBAC` Role-based access control (RBAC) mode allows you to create and store policies using the Kubernetes API.
-  - `--authorization-mode=Webhook` WebHook is an HTTP callback mode that allows you to manage authorization using a remote REST.
-  - `--authorization-mode=AlwaysDeny` This flag blocks all requests. Use this flag only for testing.
-  - `--authorization-mode=AlwaysAllow` This flag allows all requests. Use this flag only if you do not require authorization for your API requests.
+
+  * `--authorization-mode=ABAC` Attribute-Based Access Control (ABAC) mode allows you to configure policies using local files.
+  * `--authorization-mode=RBAC` Role-based access control (RBAC) mode allows you to create and store policies using the Kubernetes API.
+  * `--authorization-mode=Webhook` WebHook is an HTTP callback mode that allows you to manage authorization using a remote REST.
+  * `--authorization-mode=AlwaysDeny` This flag blocks all requests. Use this flag only for testing.
+  * `--authorization-mode=AlwaysAllow` This flag allows all requests. Use this flag only if you do not require authorization for your API requests.
 
 You can choose more than one authorization module. If one of the modes is `AlwaysAllow`, then it overrides the other modes and all API requests are allowed. 
 
