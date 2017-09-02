@@ -2,14 +2,14 @@
 approvers:
 - lavalamp
 - thockin
-title: Cluster Management
+title: 集群管理
 ---
 <!--
 ---
 approvers:
 - lavalamp
 - thockin
-title: 集群管理
+title: Cluster Management
 ---
 -->
 
