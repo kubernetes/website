@@ -24,7 +24,7 @@ toc:
 - title: Extending the Kubernetes API
   section:
   - docs/concepts/api-extension/custom-resources.md
-  - docs/concepts/api-extension/apiserver-aggregation.md  
+  - docs/concepts/api-extension/apiserver-aggregation.md
 
 - title: Containers
   section:
@@ -58,7 +58,9 @@ toc:
   - docs/concepts/configuration/overview.md
   - docs/concepts/configuration/manage-compute-resources-container.md
   - docs/concepts/configuration/assign-pod-node.md
+  - docs/concepts/configuration/taint-and-toleration.md
   - docs/concepts/configuration/secret.md
+  - docs/concepts/configuration/organize-cluster-access-kubeconfig.md
 
 - title: Services, Load Balancing, and Networking
   section:

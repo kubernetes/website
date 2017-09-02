@@ -60,6 +60,10 @@ The API server does not guarantee the order authenticators run in.
 
 The `system:authenticated` group is included in the list of groups for all authenticated users.
 
+Integrations with other authentication protocols (LDAP, SAML, Kerberos, alternate x509 schemes, etc)
+can be accomplished using an [authenticating proxy](#authenticating-proxy) or the
+[authentication webhook](#webhook-token-authentication).
+
 ### X509 Client Certs
 
 Client certificate authentication is enabled by passing the `--client-ca-file=SOMEFILE`
@@ -276,7 +280,7 @@ Since all of the data needed to validate who you are is in the `id_token`, Kuber
 solution for authentication.  It does offer a few challenges:
 
 1.  Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
-2.  The `id_token` can't be revoked, its like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes
+2.  The `id_token` can't be revoked, it's like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes
 3.  There's no easy way to authenticate to the Kubernetes dashboard without using the `kubectl proxy` command or a reverse proxy that injects the `id_token`
 
 
@@ -685,14 +689,6 @@ rules:
   resourceNames: ["view", "development"]
 ```
 
-## Plugin Development
-
-We plan for the Kubernetes API server to issue tokens after the user has been
-(re)authenticated by a *bedrock* authentication provider external to Kubernetes.
-We also plan to make it easy to develop modules that interface between
-Kubernetes and a bedrock authentication provider (e.g. github.com, google.com,
-enterprise directory, kerberos, etc.)
-
 ## APPENDIX
 
 ### Creating Certificates
@@ -742,7 +738,7 @@ Finally, add the following parameters into API server start parameters:
 
 #### openssl
 
-**openssl** can also be use to manually generate certificates for your cluster.
+**openssl** can also be used to manually generate certificates for your cluster.
 
 1.  Generate a ca.key with 2048bit:
 

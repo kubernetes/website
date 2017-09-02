@@ -33,7 +33,7 @@
 /docs/admin/out-of-resource										/docs/tasks/administer-cluster/out-of-resource		301
 /docs/admin/rescheduler											/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods		301
 /docs/admin/resourcequota/limitstorageconsumption				/docs/tasks/administer-cluster/limit-storage-consumption		301
-/docs/admin/resourcequota/walkthrough							/docs/tasks/administer-cluster/apply-resource-quota-limit		301
+/docs/admin/resourcequota/walkthrough							/docs/tasks/administer-cluster/quota-api-object		301
 /docs/admin/static-pods											/docs/tasks/administer-cluster/static-pod		301
 /docs/admin/sysctls												/docs/concepts/cluster-administration/sysctl-cluster		301
 /docs/admin/upgrade-1-6											/docs/tasks/administer-cluster/upgrade-1-6		301
@@ -85,9 +85,12 @@
 /docs/hellonode													/docs/tutorials/stateless-application/hello-minikube		301
 /docs/															/docs/home/		301
 /docs/samples													/docs/tutorials/		301
+
+/docs/tasks/administer-cluster/apply-resource-quota-limit		/docs/tasks/administer-cluster/quota-api-object		301
 /docs/tasks/administer-cluster/assign-pods-nodes				/docs/tasks/configure-pod-container/assign-pods-nodes		301
 /docs/tasks/administer-cluster/overview							/docs/concepts/cluster-administration/cluster-administration-overview		301
 /docs/tasks/administer-cluster/cpu-memory-limit					/docs/tasks/administer-cluster/memory-default-namespace		301
+/docs/tasks/administer-cluster/share-configuration/				/docs/tasks/access-application-cluster/configure-access-multiple-clusters	301
 
 /docs/tasks/configure-pod-container/apply-resource-quota-limit	/docs/tasks/administer-cluster/apply-resource-quota-limit		301
 /docs/tasks/configure-pod-container/calico-network-policy		/docs/tasks/administer-cluster/calico-network-policy		301
@@ -276,6 +279,7 @@
 
 /docs/stable/user-guide/labels													/docs/concepts/overview/working-with-objects/labels		301
 /docs/tasks/access-application-cluster/access-cluster.md						/docs/tasks/access-application-cluster/access-cluster		301
+/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/		/docs/tasks/access-application-cluster/configure-access-multiple-clusters	301
 /docs/tasks/access-kubernetes-api/access-kubernetes-api/http-proxy-access-api	/docs/tasks/access-kubernetes-api/http-proxy-access-api		301
 /docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md		/docs/tasks/administer-cluster/out-of-resource		301
 /docs/tasks/configure-pod-container/configure-pod-disruption-budget				/docs/tasks/run-application/configure-pdb		301

@@ -42,7 +42,11 @@ juju add-relation datadog etcd
 
 ## Connecting Elastic stack
 
-The Elastic stack, formally "ELK" stack, refers to Elastic Search and the suite of tools to facilitate log aggregation, monitoring, and dashboarding. To deploy a full Kubernetes stack with elastic out of the box, do: `juju deploy canonical-kubernetes-elastic`
+The Elastic stack, formally "ELK" stack, refers to Elastic Search and the suite of tools to facilitate log aggregation, monitoring, and dashboarding. To deploy a full Kubernetes stack with elastic out of the box, do:
+
+```
+juju deploy canonical-kubernetes-elastic
+```
 
 ### New install of ElasticSearch
 

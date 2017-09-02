@@ -31,7 +31,7 @@ Here is an overview of the steps in this example:
 ## Starting Redis
 
 For this example, for simplicity, we will start a single instance of Redis.
-See the [Redis Example](https://git.k8s.io/kubernetes/examples/guestbook) for an example
+See the [Redis Example](https://github.com/kubernetes/examples/tree/master/guestbook) for an example
 of deploying Redis scalably and redundantly.
 
 Start a temporary Pod running Redis and a service so we can find it.
@@ -210,4 +210,4 @@ want to consider one of the other [job patterns](/docs/concepts/jobs/run-to-comp
 If you have a continuous stream of background processing work to run, then
 consider running your background workers with a `replicationController` instead,
 and consider running a background processing library such as
-https://github.com/resque/resque.
+[https://github.com/resque/resque](https://github.com/resque/resque).

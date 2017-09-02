@@ -38,7 +38,7 @@ why you might want multiple clusters are:
 * Scalability: There are scalability limits to a single kubernetes cluster (this
   should not be the case for most users. For more details:
   [Kubernetes Scaling and Performance Goals](https://git.k8s.io/community/sig-scalability/goals.md)).
-* [Hybrid cloud](###hybrid-cloud-capabilities): You can have multiple clusters on different cloud providers or
+* [Hybrid cloud](#hybrid-cloud-capabilities): You can have multiple clusters on different cloud providers or
   on-premises data centers.
 
 ### Caveats
@@ -70,7 +70,7 @@ register each cluster's API endpoint and credentials with your
 Federation API Server (See the
 [federation admin guide](/docs/admin/federation/) for details).
 
-Thereafter, your [API resources](##api-resources) can span different clusters
+Thereafter, your [API resources](#api-resources) can span different clusters
 and cloud providers.
 
 ## Setting up federation

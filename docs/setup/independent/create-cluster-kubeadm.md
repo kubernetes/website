@@ -249,6 +249,16 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 ```
 {% endcapture %}
 
+{% capture kube-router %}
+
+Kube-router relies on kube-controll-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
+
+Kube-router provides pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
+
+For information on setting up Kubernetes cluster with Kube-router using kubeadm please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/kubeadm.md).
+
+{% endcapture %}
+
 {% capture romana %}
 
 The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
@@ -272,8 +282,8 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
 ```
 {% endcapture %}
 
-{% assign tab_names = "Choose one...,Calico,Canal,Flannel,Romana,Weave Net" | split: ',' | compact %}
-{% assign tab_contents = site.emptyArray | push: choose | push: calico | push: canal | push: flannel | push: romana | push: weave_net %}
+{% assign tab_names = "Choose one...,Calico,Canal,Flannel,Kube-router,Romana,Weave Net" | split: ',' | compact %}
+{% assign tab_contents = site.emptyArray | push: choose | push: calico | push: canal | push: flannel | push: kube-router | push: romana | push: weave_net %}
 
 {% include tabs.md %}
 
@@ -560,22 +570,30 @@ Another workaround is to overwrite the default `kubeconfig` for the "admin" user
 1. If you are using CentOS and encounter difficulty while setting up the master node，
 verify that your Docker cgroup driver matches the kubelet config:
 
-```
+```bash
 docker info |grep -i cgroup
 cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
-   If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver:
+If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver.
 
-```
-update KUBELET_CGROUP_ARGS=--cgroup-driver=systemd to KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs
+Update 
+
+```bash
+KUBELET_CGROUP_ARGS=--cgroup-driver=systemd 
 ```
 
-   Then restart kubelet:
+To 
 
+```bash
+KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs
 ```
+
+Then restart kubelet:
+
+```bash
 systemctl daemon-reload
-service kubelet restart
+systemctl restart kubelet
 ```
 
 The `kubectl describe pod` or `kubectl logs` commands can help you diagnose errors. For example:

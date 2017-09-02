@@ -536,7 +536,7 @@ parameters:
   ```
   $ kubectl create secret generic heketi-secret --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' --namespace=default
   ```
-  Example of a secret can be found in [glusterfs-provisioning-secret.yaml](https://git.k8s.io/kubernetes/examples/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
+  Example of a secret can be found in [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
 * `clusterid`: `630372ccdc720a92c681fb928f27b53f` is the ID of the cluster which will be used by Heketi when provisioning the volume. It can also be a list of clusterids, for ex:
   "8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397". This is an optional parameter.
 * `gidMin`, `gidMax` : The minimum and maximum value of GID range for the storage class. A unique value (GID) in this range ( gidMin-gidMax ) will be used for dynamically provisioned volumes. These are optional values. If not specified, the volume will be provisioned with a value between 2000-2147483647 which are defaults for gidMin and gidMax respectively.
@@ -631,7 +631,7 @@ parameters:
 
     vSphere Infrastructure(VI) administrator can specify storage requirements for applications in terms of storage capabilities while creating a storage class inside Kubernetes. Please note that while creating a StorageClass, administrator should specify storage capability names used in the table above as these names might differ from the ones used by VSAN. For example - Number of disk stripes per object is referred to as stripeWidth in VSAN documentation however vSphere Cloud Provider uses a friendly name diskStripes.
 
-You can see [vSphere example](https://git.k8s.io/kubernetes/examples/volumes/vsphere) for more details.
+You can see [vSphere example](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere) for more details.
 
 #### Ceph RBD
 
@@ -649,6 +649,9 @@ You can see [vSphere example](https://git.k8s.io/kubernetes/examples/volumes/vsp
     pool: kube
     userId: kube
     userSecretName: ceph-secret-user
+    fsType: ext4
+    imageFormat: "2"
+    imageFeatures: "layering"
 ```
 
 * `monitors`: Ceph monitors, comma delimited. This parameter is required.
@@ -661,6 +664,9 @@ You can see [vSphere example](https://git.k8s.io/kubernetes/examples/volumes/vsp
   ```
   $ kubectl create secret generic ceph-secret --type="kubernetes.io/rbd" --from-literal=key='QVFEQ1pMdFhPUnQrSmhBQUFYaERWNHJsZ3BsMmNjcDR6RFZST0E9PQ==' --namespace=kube-system
   ```
+* `fsType`: fsType that is supported by kubernetes. Default: `"ext4"`.
+* `imageFormat`: Ceph RBD image format, "1" or "2". Default is "1".
+* `imageFeatures`: This parameter is optional and should only be used if you set `imageFormat` to "2". Currently supported features are `layering` only. Default is "", and no features are turned on.
 
 #### Quobyte
 

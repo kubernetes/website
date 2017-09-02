@@ -6,13 +6,13 @@ help: ## Show this help.
 all: build ## Build site with production settings and put deliverables in _site.
 
 build: ## Build site with production settings and put deliverables in _site.
-	jekyll build
+	bundle exec jekyll build
 
 build-preview: ## Build site with drafts and future posts enabled.
-	jekyll build --drafts --future
+	bundle exec jekyll build --drafts --future
 
 serve: ## Boot the development server.
-	jekyll serve
+	bundle exec jekyll serve
 
 stage: ## Run the Jekyll staging container.
-	docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.1
+	docker run -ti --rm -v "${PWD}":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.1

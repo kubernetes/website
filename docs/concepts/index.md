@@ -21,18 +21,18 @@ Kubernetes contains a number of abstractions that represent the state of your sy
 
 The basic Kubernetes objects include:
 
-* [Pod](/docs/concepts/abstractions/pod/)
-* Service
-* Volume
-* Namespace
+* [Pod](/docs/concepts/workloads/pods/pod-overview/)
+* [Service](/docs/concepts/services-networking/service/)
+* [Volume](/docs/concepts/storage/volumes/)
+* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
 In addition, Kubernetes contains a number of higher-level abstractions called Controllers. Controllers build upon the basic objects, and provide additional functionality and convenience features. They include:
 
-* ReplicaSet
-* Deployment
-* [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/)
-* DaemonSet
-* Job
+* [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
+* [Deployment](/docs/concepts/workloads/controllers/deployment/)
+* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
+* [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
+* [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 ## Kubernetes Control Plane
 
