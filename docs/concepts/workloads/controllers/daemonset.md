@@ -64,7 +64,7 @@ a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) or other new re
 
 The `spec.selector` is an object consisting of two fields:
 
-* `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)
+* `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/).
 * `matchExpressions` - allows to build more sophisticated selectors by specifying key,
   list of values and an operator that relates the key and values.
 
@@ -83,7 +83,7 @@ a node for testing.
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on nodes which match that [node
-selector](/docs/concepts/configuration/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity`
+selector](/docs/concepts/configuration/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity`,
 then DaemonSet controller will create pods on nodes which match that [node affinity](/docs/concepts/configuration/assign-pod-node/).
 If you do not specify either, then the DaemonSet controller will create pods on all nodes.
 
