@@ -66,7 +66,7 @@ Node upgrades for GCE use a [Managed Instance Group](https://cloud.google.com/co
 is sequentially destroyed and then recreated with new software.  Any Pods that are running on that node need to be
 controlled by a Replication Controller, or manually re-created after the roll out.
 -->
-GCE 的 Node 升级采用 [管理实例组](https://cloud.google.com/compute/docs/instance-groups/)，每个节点将被顺序的删除，然后使用新软件重建。任何运行在那个节点上的 Pos 需要用 Replication Controller 控制，或者在扩容之后手动重建。
+GCE 的 Node 升级采用 [管理实例组](https://cloud.google.com/compute/docs/instance-groups/)，每个节点将被顺序的删除，然后使用新软件重建。任何运行在那个节点上的 Pod 需要用 Replication Controller 控制，或者在扩容之后手动重建。
 
 <!--
 Upgrades on open source Google Compute Engine (GCE) clusters are controlled by the `cluster/gce/upgrade.sh` script.
