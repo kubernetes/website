@@ -74,15 +74,7 @@ web server:
 
 1. View your staged content at `http://localhost:4000`.
 
-**Note:** If you do not want Jekyll to interfere with your other globally installed gems, you can use `bundler`: 
-
-```shell
-gem install bundler
-bundle install
-bundler exec jekyll serve
-```
-
-Regardless of whether you use `bundler` or not, your copy of the site will then be viewable at: http://localhost:4000
+**Note:** "If you do not want Jekyll to interfere with your other globally installed gems, you can use `bundler`: <br /> <br /> ```shell <br /> gem install bundler <br /> bundle install <br /> bundler exec jekyll serve <br /> ``` <br /> <br /> Regardless of whether you use `bundler` or not, your copy of the site will then be viewable at: http://localhost:4000
 {: .note}
 
 {% endcapture %}
