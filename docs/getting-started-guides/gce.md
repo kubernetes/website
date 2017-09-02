@@ -78,7 +78,7 @@ manager.  It lets you inspect your cluster resources, create, delete, and update
 components, and much more. You will use it to look at your new cluster and bring
 up example apps.
 
-You can use ` gcloud` to install the `kubectl` command-line tool on your workstation:
+You can use `gcloud` to install the `kubectl` command-line tool on your workstation:
 
     gcloud components install kubectl
 
