@@ -33,7 +33,7 @@ Explore the following resources for more information about Kubernetes, Kubernete
 
 - [DCOS Documentation](https://docs.mesosphere.com/)
 - [Managing DCOS Services](https://docs.mesosphere.com/services/kubernetes/)
-- [Kubernetes Examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/)
+- [Kubernetes Examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/)
 - [Kubernetes on Mesos Documentation](https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/README.md)
 - [Kubernetes on Mesos Release Notes](https://github.com/mesosphere/kubernetes-mesos/releases)
 - [Kubernetes on DCOS Package Source](https://github.com/mesosphere/kubernetes-mesos)
@@ -110,7 +110,7 @@ $ dcos kubectl get pods --namespace=kube-system
 Names and ages may vary.
 
 
-Now that Kubernetes is installed on DCOS, you may wish to explore the [Kubernetes Examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/README.md) or the [Kubernetes User Guide](/docs/user-guide/).
+Now that Kubernetes is installed on DCOS, you may wish to explore the [Kubernetes Examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/README.md) or the [Kubernetes User Guide](/docs/user-guide/).
 
 
 ## Uninstall

@@ -15,14 +15,6 @@ The [Kubernetes Basics interactive tutorial](/docs/tutorials/kubernetes-basics/)
 
 [Picking the Right Solution](/docs/getting-started-guides/) can help you get a Kubernetes cluster up and running, either for local development, or on your cloud provider of choice.
 
-Other/newer ways to set up a Kubernetes cluster include:
-
-* [Minikube](/docs/getting-started-guides/minikube/): Install a single-node Kubernetes cluster on your local machine for development and testing.
-* [Installing Kubernetes on AWS with kops](/docs/getting-started-guides/kops/): Bring up a complete Kubernetes cluster on Amazon Web Services, using a tool called `kops`.
-* [Installing Kubernetes on Linux with kubeadm](/docs/getting-started-guides/kubeadm/) (Beta): Install a secure Kubernetes cluster on any pre-existing machines running Linux, using the built-in `kubeadm` tool.
-* [Installing Kubernetes On-premises/Cloud Providers with Kubespray](/docs/getting-started-guides/kubespray/): Deploy a Kubernetes cluster on-premises baremetal or hosted on cloud providers, with Ansible and `kubespray` tools.
-* [Installing Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/): Deploy a Kubernetes cluster on-premises, baremetal, cloud providers, or localhost with Charms and `conjure-up`.
-
 ## Concepts, Tasks, and Tutorials
 
 The Kubernetes documentation contains a number of resources to help you understand and work with Kubernetes.

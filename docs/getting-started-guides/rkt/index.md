@@ -151,7 +151,7 @@ The `kube-up` script is not yet supported on AWS. Instead, we recommend followin
 
 ### Deploy apps to the cluster
 
-After creating the cluster, you can start deploying applications. For an introductory example, [deploy a simple nginx web server](/docs/user-guide/simple-nginx). Note that this example did not have to be modified for use with a "rktnetes" cluster. More examples can be found in the [Kubernetes examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).
+After creating the cluster, you can start deploying applications. For an introductory example, [deploy a simple nginx web server](/docs/user-guide/simple-nginx). Note that this example did not have to be modified for use with a "rktnetes" cluster. More examples can be found in the [Kubernetes examples directory](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/).
 
 ## Modular isolation with interchangeable stage1 images
 

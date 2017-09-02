@@ -170,7 +170,7 @@ NAME            STATUS   AGE   VERSION
 10.10.103.250   Ready    3d    v1.6.0+fff5156
 ```
 
-Also you can run Kubernetes [guest-example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) to build a redis backend cluster．
+Also you can run Kubernetes [guest-example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) to build a redis backend cluster．
 
 
 ### Deploy addons
