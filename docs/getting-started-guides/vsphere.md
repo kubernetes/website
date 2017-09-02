@@ -32,7 +32,7 @@ For more detail visit [vSphere Storage for Kubernetes Documentation](https://vmw
 
 Documentation for how to use vSphere managed storage can be found in the [persistent volumes user guide](/docs/concepts/storage/persistent-volumes/#vsphere) and the [volumes user guide](/docs/concepts/storage/volumes/#vspherevolume).
 
-Examples can be found [here](https://git.k8s.io/kubernetes/examples/volumes/vsphere).
+Examples can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere).
 
 #### Enable vSphere Cloud Provider
 

@@ -300,7 +300,7 @@ writers simultaneously.
 **Important:** You must have your own NFS server running with the share exported before you can use it.
 {: .caution}
 
-See the [NFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/nfs) for more details.
+See the [NFS example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/nfs) for more details.
 
 ### iscsi
 
@@ -319,7 +319,7 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/iscsi) for more details.
+See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/iscsi) for more details.
 
 ### fc (fibre channel)
 
@@ -331,7 +331,7 @@ targetWWNs expect that those WWNs are from multi-path connections.
 **Important:** You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to the target WWNs beforehand so that Kubernetes hosts can access them.
 {: .caution}
 
-See the [FC example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/fibre_channel) for more details.
+See the [FC example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/fibre_channel) for more details.
 
 ### flocker
 
@@ -347,7 +347,7 @@ can be "handed off" between pods as required.
 **Important:** You must have your own Flocker installation running before you can use it.
 {: .caution}
 
-See the [Flocker example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/flocker) for more details.
+See the [Flocker example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/flocker) for more details.
 
 ### glusterfs
 
@@ -362,7 +362,7 @@ simultaneously.
 **Important:** You must have your own GlusterFS installation running before you can use it.
 {: .caution}
 
-See the [GlusterFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/glusterfs) for more details.
+See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/glusterfs) for more details.
 
 ### rbd
 
@@ -382,7 +382,7 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [RBD example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/rbd) for more details.
+See the [RBD example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/rbd) for more details.
 
 ### cephfs
 
@@ -396,7 +396,7 @@ writers simultaneously.
 **Important:** You must have your own Ceph server running with the share exported before you can use it.
 {: .caution}
 
-See the [CephFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/cephfs/) for more details.
+See the [CephFS example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/cephfs/) for more details.
 
 ### gitRepo
 
@@ -544,7 +544,7 @@ Each projected volume source is listed in the spec under `sources`. The
 parameters are nearly the same with two exceptions:
 
 * For secrets, the `secretName` field has been changed to `name` to be consistent
-with config maps naming.
+with ConfigMap naming.
 * The `defaultMode` can only be specified at the projected level and not for each
 volume source. However, as illustrated above, you can explicitly set the `mode`
 for each individual projection.
@@ -555,20 +555,20 @@ A `FlexVolume` enables users to mount vendor volumes into a pod. It expects vend
 drivers are installed in the volume plugin path on each kubelet node. This is
 an alpha feature and may change in future.
 
-More details are in [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/flexvolume/README.md).
+More details are in [here](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/flexvolume/README.md).
 
 ### AzureFileVolume
 
 A `AzureFileVolume` is used to mount a Microsoft Azure File Volume (SMB 2.1 and 3.0)
 into a Pod.
 
-More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/azure_file/README.md).
+More details can be found [here](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/azure_file/README.md).
 
 ### AzureDiskVolume
 
 A `AzureDiskVolume` is used to mount a Microsoft Azure [Data Disk](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) into a Pod.
 
-More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/azure_disk/README.md).
+More details can be found [here](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/azure_disk/README.md).
 
 ### vsphereVolume
 
@@ -626,7 +626,7 @@ spec:
       volumePath: "[DatastoreName] volumes/myDisk"
       fsType: ext4
 ```
-More examples can be found [here](https://git.k8s.io/kubernetes/examples/volumes/vsphere).
+More examples can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere).
 
 
 ### Quobyte
@@ -636,7 +636,7 @@ A `Quobyte` volume allows an existing [Quobyte](http://www.quobyte.com) volume t
 **Important:** You must have your own Quobyte setup running with the volumes created before you can use it.
 {: .caution}
 
-See the [Quobyte example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/quobyte) for more details.
+See the [Quobyte example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/quobyte) for more details.
 
 ### PortworxVolume
 A `PortworxVolume` is an elastic block storage layer that runs hyperconverged with Kubernetes. Portworx fingerprints storage in a
@@ -669,7 +669,7 @@ spec:
 **Important:** Make sure you have an existing PortworxVolume with name `pxvol` before using it in the pod.
 {: .caution}
 
-More details and examples can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/portworx/README.md).
+More details and examples can be found [here](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/portworx/README.md).
 
 ### ScaleIO
 ScaleIO is a software-based storage platform that can use existing hardware to create clusters of scalable
@@ -707,7 +707,7 @@ spec:
       fsType: xfs
 ```
 
-For further detail, please the see the [ScaleIO examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/scaleio).
+For further detail, please the see the [ScaleIO examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/scaleio).
 
 ### StorageOS
 A `storageos` volume allows an existing [StorageOS](https://www.storageos.com) volume to be mounted into your pod.
@@ -749,7 +749,7 @@ spec:
         fsType: ext4
 ```
 
-For more information including Dynamic Provisioning and Persistent Volume Claims, please see the [StorageOS examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/storageos).
+For more information including Dynamic Provisioning and Persistent Volume Claims, please see the [StorageOS examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/storageos).
 
 ### local
 
