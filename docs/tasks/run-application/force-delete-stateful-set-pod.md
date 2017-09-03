@@ -39,7 +39,7 @@ approvers:
 在正常的StatefulSet操作中，**从不**需要强制删除StatefulSet中的Pod。StatefulSet控制器（StatefulSet Controller）负责创建、伸缩和删除StatefulSet中的所有成员。控制器将确保序号从0到N-1的Pod处于活跃健康的状态，而StatefulSet保证了在任何时候，集群中至多有一个拥有给定ID的Pod存在。这一特性被称为StatefulSet的*至多一个*原则。
 
 <!--Manual force deletion should be undertaken with caution, as it has the potential to violate the at most one semantics inherent to StatefulSet. StatefulSets may be used to run distributed and clustered applications which have a need for a stable network identity and stable storage. These applications often have configuration which relies on an ensemble of a fixed number of members with fixed identities. Having multiple members with the same identity can be disastrous and may lead to data loss (e.g. split brain scenario in quorum-based systems).-->
-手动强制删除应谨慎进行，因为这种操作导致的结果可能违背了StatefulSet所固有的至多一个原则。StatefulSet可被用于运行需要稳定网络关联关系和稳定持久化存储的集群化或分布式应用程序。通常，这些应用程序的配置需要依赖一个拥有固定成员数量的集群，而这些集群成员自己也需要拥有固定ID从而能够在集群中识别它们。如果多个集群中的成员使用相同的ID可能引发灾难性的后果并可能导致数据丢失（例如在基于法定数量的系统中出现分片等情况，split brain scenario in quorum-based systems）。
+手动强制删除应谨慎进行，因为这种操作导致的结果可能违背了StatefulSet所固有的至多一个原则。StatefulSet可被用于运行需要稳定网络关联关系和稳定持久化存储的集群化或分布式应用程序。通常，这些应用程序的配置需要依赖一个拥有固定成员数量的集群，而这些集群成员自己也需要拥有固定ID从而能够在集群中识别它们。如果多个集群中的成员使用相同的ID可能引发灾难性的后果并可能导致数据丢失（例如在基于法定数量的系统中出现分片等情况）。
 
 <!--## Delete Pods-->
 ## 删除Pod

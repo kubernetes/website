@@ -80,7 +80,7 @@ This page describes how to use Initializers and External Admission Webhooks.
   them *initializer controllers* in this page.
 -->
 
-* 用户自定义的 controller，用来执行那些初始化任务。任务的名称跟执行改任务的控制器是相关联的，
+* 用户自定义的 controller，用来执行那些初始化任务。任务的名称跟执行该任务的控制器是相关联的，
   我们在这里称之为 *initializer controllers*
 
 <!--
@@ -146,7 +146,7 @@ all `spec.initializers[].name`s are appended to the new object's
 <!--
 An initializer controller should list and watch for uninitialized objects, by
 using the query parameter `?includeUninitialized=true`. If using client-go, just
-set 
+set
 [listOptions.includeUninitialized](https://github.com/kubernetes/kubernetes/blob/v1.7.0-rc.1/staging/src/k8s.io/apimachinery/pkg/apis/meta/v1/types.go#L315)
 to true.
 -->
@@ -396,7 +396,7 @@ To turn it on, you need to
 
 * 当启动 apiserver 的时候在 `--admission-control` 选项中包含 "GenericAdmissionWebhook"。
   如果你有多个 `kube-apiserver`， 你需要在所有的上面加上这个参数。
-  
+
 <!--
 * Enable the dynamic admission controller registration API by adding
   `admissionregistration.k8s.io/v1alpha1` to the `--runtime-config` flag passed
@@ -467,7 +467,7 @@ for an example deployment.
 [caesarxuchao/example-webhook-admission-controller deployment](https://github.com/caesarxuchao/example-webhook-admission-controller/tree/master/deployment)
 是一个部署的例子
 
-<!-- 
+<!--
 The webhook admission controller should be deployed via the
 [deployment API](/docs/api-reference/{{page.version}}/#deployment-v1beta1-apps).
 You also need to create a
