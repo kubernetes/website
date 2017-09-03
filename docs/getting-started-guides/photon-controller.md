@@ -26,6 +26,7 @@ have go installed, this can be easily installed with:
 go get github.com/vmware/photon-controller-cli/photon
 ```
 
+
 3. `mkisofs` needs to be installed. The installation process creates a
 CD-ROM ISO image to bootstrap the VMs with cloud-init. If you are on a
 Mac, you can install this with [brew](http://brew.sh/):
@@ -33,6 +34,7 @@ Mac, you can install this with [brew](http://brew.sh/):
 ```shell
 brew install cdrtools
 ```
+
 
 4. Several common tools need to be installed: `ssh`, `scp`, `openssl`
 
