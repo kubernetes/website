@@ -114,6 +114,8 @@ defined by the [`audit.k8s.io` API group][audit-api].
 An example audit policy file:
 
 ```yaml
+kind: Policy
+apiVersion: audit.k8s.io/v1beta1
 rules:
   # Don't log watch requests by the "system:kube-proxy" on endpoints or services
   - level: None
@@ -158,6 +160,8 @@ rules:
 You can use a minimal audit policy file to log all requests at the `Metadata` level:
 
 ```yaml
+kind: Policy
+apiVersion: audit.k8s.io/v1beta1
 # Log all requests at the Metadata level.
 rules:
 - level: Metadata
