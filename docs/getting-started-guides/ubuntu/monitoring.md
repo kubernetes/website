@@ -5,6 +5,7 @@ title: Monitoring
 {% capture overview %}
 This page shows how to connect various logging solutions to a Juju deployed cluster.
 {% endcapture %}
+
 {% capture prerequisites %}
 This page assumes you have a working Juju deployed cluster.
 {% endcapture %}
