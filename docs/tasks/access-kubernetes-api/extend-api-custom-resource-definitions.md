@@ -112,7 +112,7 @@ Note that resource names are not case-sensitive when using kubectl,
 and you can use either the singular or plural forms defined in the CRD,
 as well as any short names.
 
-You can also view the raw JSON data:
+You can also view the raw YAML data:
 
 ```shell
 kubectl get ct -o yaml
@@ -178,7 +178,3 @@ meaning all finalizers are done.
 {% endcapture %}
 
 {% include templates/task.md %}
-
-
-
-
