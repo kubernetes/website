@@ -13,6 +13,7 @@ You'll need to have a Kubernetes cluster in place, with network policy support. 
 
 * [Calico](/docs/tasks/configure-pod-container/calico-network-policy/)
 * [Cilium](/docs/tasks/administer-cluster/cilium-network-policy/)
+* [Kube-router](/docs/tasks/administer-cluster/kube-router-network-policy/)
 * [Romana](/docs/tasks/configure-pod-container/romana-network-policy/)
 * [Weave Net](/docs/tasks/configure-pod-container/weave-network-policy/)
 

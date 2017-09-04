@@ -146,6 +146,7 @@ toc:
     section:
     - docs/tasks/administer-cluster/calico-network-policy.md
     - docs/tasks/administer-cluster/cilium-network-policy.md
+    - docs/tasks/administer-cluster/kube-router-network-policy.md
     - docs/tasks/administer-cluster/romana-network-policy.md
     - docs/tasks/administer-cluster/weave-network-policy.md
   - docs/tasks/administer-cluster/change-pv-reclaim-policy.md
