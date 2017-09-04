@@ -61,12 +61,25 @@ replicaset "frontend" created
 $ kubectl describe rs/frontend
 Name:          frontend
 Namespace:     default
-Image(s):      gcr.io/google_samples/gb-frontend:v3
 Selector:      tier=frontend,tier in (frontend)
 Labels:        app=guestbook,tier=frontend
+Annotations:   <none>
 Replicas:      3 current / 3 desired
 Pods Status:   3 Running / 0 Waiting / 0 Succeeded / 0 Failed
-No volumes.
+Pod Template:
+  Labels:       app=guestbook
+                tier=frontend
+  Containers:
+   php-redis:
+    Image:      gcr.io/google_samples/gb-frontend:v3
+    Port:       80/TCP
+    Requests:
+      cpu:      100m
+      memory:   100Mi
+    Environment:
+      GET_HOSTS_FROM:   dns
+    Mounts:             <none>
+  Volumes:              <none>
 Events:
   FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
   ---------    --------    -----    ----                -------------    --------    ------            -------
