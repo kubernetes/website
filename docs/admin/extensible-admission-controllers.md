@@ -119,14 +119,14 @@ admission controller), etc.
 Initializers 对管理员用来强加一些策略是非常有用的
 （例如，[AlwaysPullImages](/docs/admin/admission-controllers/#alwayspullimages))
 
-<--
+<!--
 **Note:** If your use case does not involve mutating objects, consider using
 external admission webhooks, as they have better performance.
 -->
 
 **注释** 如果你的使用场景并不总会突变这个资源，可以考虑使用外部的 admission webhooks, 它的性能会更好
 
-<--
+<!--
 ### How are initializers triggered?
 -->
 
