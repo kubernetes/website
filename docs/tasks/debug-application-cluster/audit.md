@@ -25,7 +25,8 @@ answer the following questions:
 ## Audit logs
 
 Kubernetes audit is part of [Kube-apiserver][kube-apiserver] logging all requests
-processed by the server. Each audit log entry contains two lines:
+processed by the server. Each audit log entry contains two lines when using the
+legacy auditing mechanism:
 
 1. The request line containing a unique ID to match the response and request metadata, such as the source IP, requesting user, impersonation information, resource being requested, etc.
 2. The response line containing a unique ID matching the request line and the response code.
@@ -46,6 +47,10 @@ later in this document.
 for configuring where and how audit logs are handled:
 
 - `audit-log-path` - enables the audit log pointing to a file where the requests are being logged to, '-' means standard out.
+- `audit-log-format` - specifies the format of saved audit records. The valid formats are `legacy` and `json` (default).
+`legacy` here indicates one-line text format for each event for backward compatibility.
+`json` indicates that structured JSON format will be used.
+This requires the `AdvancedAuditing` feature gate and it only affects the log backend instead of the webhook backend.
 - `audit-log-maxage` - specifies maximum number of days to retain old audit log files based on the timestamp encoded in their filename.
 - `audit-log-maxbackup` - specifies maximum number of old audit log files to retain.
 - `audit-log-maxsize` - specifies maximum size in megabytes of the audit log file before it gets rotated. Defaults to 100MB.
@@ -184,7 +189,7 @@ The behavior of the `--audit-log-path` flag changes when enabling the `AdvancedA
 feature flag. This includes the cleanups discussed above, such as changes to the `method`
 values and the introduction of a "stage" for each event. As before, the `id` field of
 the log line indicates which events were generated from the same request. Events are
-formatted as follows:
+formatted as follows when using the `legacy` as the log format:
 
 ```
 2017-06-15T21:50:50.259470834Z AUDIT: id="591e9fde-6a98-46f6-b7bc-ec8ef575696d" stage="RequestReceived" ip="10.2.1.3" method="update" user="system:serviceaccount:kube-system:default" groups="\"system:serviceaccounts\",\"system:serviceaccounts:kube-system\",\"system:authenticated\"" as="<self>" asgroups="<lookup>" namespace="kube-system" uri="/api/v1/namespaces/kube-system/endpoints/kube-controller-manager" response="<deferred>"
