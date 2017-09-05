@@ -80,13 +80,14 @@ $ kubectl describe svc my-nginx
 Name:                my-nginx
 Namespace:           default
 Labels:              run=my-nginx
+Annotations:         <none>
 Selector:            run=my-nginx
 Type:                ClusterIP
 IP:                  10.0.162.149
 Port:                <unset> 80/TCP
 Endpoints:           10.244.2.5:80,10.244.3.4:80
 Session Affinity:    None
-No events.
+Events:              <none>
 
 $ kubectl get ep my-nginx
 NAME       ENDPOINTS                     AGE
