@@ -327,7 +327,7 @@ Future work will add instructions to this guide to enable support for Kubernetes
 
 [1]: https://docs.mesosphere.com/latest/usage/service-guides/hdfs/
 [2]: https://docs.mesosphere.com/latest/usage/service-guides/spark/
-[3]: https://docs.mesosphere.com/latest/usage/service-guides/chronos/
+[3]: https://mesos.github.io/chronos/docs/getting-started.html
 [4]: https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md
 [5]: https://dcos.io/docs/latest/administration/installing/cloud/gce/
 [6]: http://mesos.apache.org/

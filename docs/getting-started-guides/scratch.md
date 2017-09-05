@@ -864,10 +864,10 @@ Example usage and output:
 ```shell
 KUBECTL_PATH=$(which kubectl) NUM_NODES=3 KUBERNETES_PROVIDER=local cluster/validate-cluster.sh
 Found 3 node(s).
-NAME                    STATUS    AGE
-node1.local             Ready     1h
-node2.local             Ready     1h
-node3.local             Ready     1h
+NAME                    STATUS    AGE     VERSION
+node1.local             Ready     1h      v1.6.9+a3d1dfa6f4335
+node2.local             Ready     1h      v1.6.9+a3d1dfa6f4335
+node3.local             Ready     1h      v1.6.9+a3d1dfa6f4335
 Validate output:
 NAME                 STATUS    MESSAGE              ERROR
 controller-manager   Healthy   ok

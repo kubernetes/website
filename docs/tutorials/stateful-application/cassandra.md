@@ -24,11 +24,11 @@ The docker is based on `debian:jessie` and includes OpenJDK 8. This image includ
 {% endcapture %}
 
 {% capture objectives %}
-* Create and Validate a Cassandra headless `Service`.
-* Use a `StatefulSet` to create a Cassandra ring.
-* Validate the `StatefulSet`.
-* Modify the `StatefulSet`.
-* Delete the `StatefulSet` and its `Pods`.
+* Create and Validate a Cassandra headless [Services](/docs/concepts/services-networking/service/).
+* Use a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) to create a Cassandra ring.
+* Validate the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
+* Modify the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
+* Delete the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) and its [Pods](/docs/concepts/workloads/pods/pod/).
 {% endcapture %}
 
 {% capture prerequisites %}

@@ -683,6 +683,7 @@ In order from most secure to least secure, the approaches are:
    NOTE: Permissions given to the "default" service account are available to any pod in the namespace that does not specify a `serviceAccountName`.
 
    For example, grant read-only permission within "my-namespace" to the "default" service account:
+   
    ```shell
    kubectl create rolebinding default-view \
      --clusterrole=view \

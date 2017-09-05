@@ -29,8 +29,8 @@ For example, this is how to start a simple web server as a static pod:
 2. Choose a directory, say `/etc/kubelet.d` and place a web server pod definition there, e.g. `/etc/kubelet.d/static-web.yaml`:
 
     ```
-    [root@my-node1 ~] $ mkdir /etc/kubernetes.d/
-    [root@my-node1 ~] $ cat <<EOF >/etc/kubernetes.d/static-web.yaml
+    [root@my-node1 ~] $ mkdir /etc/kubelet.d/
+    [root@my-node1 ~] $ cat <<EOF >/etc/kubelet.d/static-web.yaml
     apiVersion: v1
     kind: Pod
     metadata:
