@@ -183,6 +183,14 @@ sometimes be started twice.
 If you do specify `.spec.parallelism` and `.spec.completions` both greater than 1, then there may be
 multiple pods running at once.  Therefore, your pods must also be tolerant of concurrency.
 
+### Pod Backoff failure policy
+
+There are situations where one wants to fail a Job after some amount of retries due to a logical error in configuration etc.
+To do so `.spec.template.spec.backoffLimit` can be set to specify the number of retries before considering a Job as failed.
+`.spec.template.spec.backoffLimit` is set by default to 6. Failed Pods associated to the Job are recreated by the Job controller
+with an exponential back-off delay (10s, 20s, 40s ...) capped at six minutes, and is reset if no new failed Pods appear before
+the next Job's status synchro.
+
 ## Job Termination and Cleanup
 
 When a Job completes, no more Pods are created, but the Pods are not deleted either.  Since they are terminated,
@@ -217,6 +225,7 @@ spec:
         image: perl
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
+      backoffLimit: 5
 ```
 
 Note that both the Job Spec and the Pod Template Spec within the Job have a field with the same name.
