@@ -75,7 +75,7 @@ Shrinking of an etcd cluster after growth is not recommended.
 ## Juju controller
 
 A single node is responsible for coordinating with all the Juju agents
-on each machine that manage Kubernetes, it is called the controller node.
+on each machine that manage Kubernetes; it is called the controller node.
 For production deployments it is recommended to enable HA of the controller node:
 
     juju enable-ha

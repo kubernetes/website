@@ -3,7 +3,7 @@ title: Validation - End-to-end Testing
 ---
 
 {% capture overview %}
-This page will outline how to ensure that a Juju deployed Kubernetes
+This page will outline how to ensure that a Juju-deployed Kubernetes
 cluster has stood up correctly and is ready to accept workloads.
 {% endcapture %}
 
@@ -92,7 +92,7 @@ a deployed cluster. The following example will skip the `Flaky`, `Slow`, and
 To see the different types of tests the Kubernetes end-to-end charm has access
 to, we encourage you to see the [upstream documentation on the different types
 of tests](https://git.k8s.io/community/contributors/devel/e2e-tests.md#kinds-of-tests),
-and to strongly understand what subsets of the tests you are running.
+and to thoroughly understand what subsets of the tests you are running.
 
 ### More information on end-to-end testing
 
@@ -108,7 +108,7 @@ command, as well as a flat file on disk on the `kubernetes-e2e` unit that
 executed the test.
 
 **Note:** The results will only be available once the action has
-completed the test run. End-to-end testing can be quite time intensive. Often
+completed the test run. End-to-end testing can be quite time consuming, often
 taking more than 1 hour, depending on configuration.
 {: .note}
 
@@ -151,7 +151,7 @@ on the kubernetes-worker units.
 
 ## Upgrading the e2e tests
 
-The e2e tests are always expanding, you can see if there's an upgrade
+The e2e tests are always expanding; you can see if there's an upgrade
 available by running `juju status kubernetes-e2e`.
 
 When an upgrade is available, upgrade your deployment:

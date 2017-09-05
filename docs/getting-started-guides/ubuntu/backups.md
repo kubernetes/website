@@ -18,8 +18,8 @@ This page assumes you have a working Juju deployed cluster.
 ## Snapshot etcd data
 
 The `snapshot` action of the etcd charm allows the operator to snapshot
-a running clusters data for use in cloning,
-backing up, or migrating to new clusters deployments.
+a running cluster's data for use in cloning,
+backing up, or migrating to a new cluster.
 
     juju run-action etcd/0 snapshot target=/mnt/etcd-backups
 
@@ -52,7 +52,7 @@ is healthy, you may resume scaling the application to meet your needs.
 - **param** skip-backup: Don't backup any existing data.
 
 
-## Migrating and etcd cluster
+## Migrating an etcd cluster
 Using the above snapshot and restore operations, migrating etcd is a fairly easy task.
 
 **Step 1:** Snapshot your existing cluster. This is encapsulated in the `snapshot`
@@ -106,7 +106,7 @@ sha256sum etcd-snapshot-2016-11-09-02.41.47.tar.gz
 juju deploy etcd new-etcd --resource snapshot=./etcd-snapshot-2016-11-09-02.41.47.tar.gz
 ```
 
-**Step 4:** Re-Initialize the master with the data from the resource we just attached
+**Step 4:** Reinitialize the master with the data from the resource we just attached
 in step 3.
 
 ```

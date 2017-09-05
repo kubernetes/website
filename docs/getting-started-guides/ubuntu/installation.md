@@ -260,7 +260,7 @@ project on github.com:
  - [Canonical Kubernetes home](https://jujucharms.com/kubernetes)
  - [Main issue tracker](https://github.com/juju-solutions/bundle-canonical-kubernetes)
 
-Feature requests, bug reports, pull requests and feedback is much appreciated.
+Feature requests, bug reports, pull requests and feedback are appreciated.
 {% endcapture %}
 
 {% include templates/task.md %}

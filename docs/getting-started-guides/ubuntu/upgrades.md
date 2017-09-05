@@ -19,15 +19,16 @@ Refer to the [backup documentation](/docs/getting-started-guides/ubuntu/backups)
 {% capture steps %}
 ## Patch kubernetes upgrades eg 1.7.0 -> 1.7.1
 
-Clusters are transparently upgrated to the latest Kubernetes patch release.
+Clusters are transparently upgraded to the latest Kubernetes patch release.
 To be clear, a cluster deployed using the 1.7/stable channel
 will transparently receive unattended upgrades for the 1.7.X Kubernetes
 releases.
-There is no disruption in the operation of clusters and the administration
-should not take any action. Each patch release is evaluated by the
-Canonical Kubernetes Distribution team. Given the a patch release
-passes all internal testing and is deemed safe to upgrade to, it is packaged
-in snaps and is pushed to the respective channels.
+The upgrade causes no disruption to the operation of the cluster and requires
+no intervention from a cluster administrator.
+Each patch release is evaluated by the
+Canonical Kubernetes Distribution team.
+Once a patch release passes internal testing and is deemed safe for upgrade,
+it is packaged in snap format and pushed to the stable channel.
 
 
 ## Upgrading a minor Kubernetes release eg 1.7.1 -> 1.8.0
@@ -35,10 +36,10 @@ in snaps and is pushed to the respective channels.
 
 The Kubernetes charms follow the Kubernetes releases. Please consult
 your support plan on the upgrade frequency. Important operational considerations
-and change in behaviour will always be documented in the release notes.
+and changes in behaviour will always be documented in the release notes.
 
-You can use `juju status` to see if an upgrade is available. There will either
-be an upgrade to kubernetes or etcd, or both.
+You can use `juju status` to see if an upgrade is available.
+There may be an upgrade available for kubernetes, ectd, or both.
 
 ### Upgrade etcd
 
@@ -66,7 +67,7 @@ of Kubernetes (e.g. 1.6) and `channel` is one of the four following channels:
 
 If a release isn't available, the next highest channel is used.
 For example, 1.6/beta will load `/candidate` or `/stable` depending on availability of release.
-Development versions of Kubernetes are available in that minor releases edge channel.
+Development versions of Kubernetes are available in the edge channel for each minor release.
 There is no guarantee that edge snaps will work with the current charms.
 
 ### Master Upgrades
@@ -90,7 +91,7 @@ Where `x` is the minor version of Kubernetes. For example, `1.6/stable`. See abo
 Two methods of upgrading workers are supported.
 [Blue/Green Deployment](http://martinfowler.com/bliki/BlueGreenDeployment.html)
 and upgrade-in-place. Both methods are provided for operational flexibility and both
-are supported and tested. Blue/Green will require more hardware up front than inplace,
+are supported and tested. Blue/Green will require more hardware up front than in-place,
 but is a safer upgrade route.
 
 #### Blue/green worker upgrade

@@ -3,7 +3,7 @@ title: Security Considerations
 ---
 
 {% capture overview %}
-By default all connections between every provided node is secured via TLS by easyrsa, including the etcd cluster.
+By default all connections between every provided node are secured via TLS by easyrsa, including the etcd cluster.
 
 This page explains the security considerations of a deployed cluster and production recommendations.
 {% endcapture %}
