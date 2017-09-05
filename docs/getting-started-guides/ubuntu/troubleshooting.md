@@ -105,6 +105,7 @@ charm unit data, etc. Additional application-specific information may be
 included as well.
 
 ## Common Problems
+
 ### Load Balancer interfering with Helm
 
 This section assumes you have a working deployment of Kubernetes via Juju using a Load Balancer for the API, and that you are using Helm to deploy charts. 
