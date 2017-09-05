@@ -27,7 +27,7 @@ If you want to use custom binaries or pure open source Kubernetes, please contin
 1. Make sure you have credentials for GCloud by running `gcloud auth login`.
 1. (Optional)  In order to make API calls against GCE, you must also run `gcloud auth application-default login`.
 1. Make sure you can start up a GCE VM from the command line.  At least make sure you can do the [Create an instance](https://cloud.google.com/compute/docs/instances/#startinstancegcloud) part of the GCE Quickstart.
-1. Make sure you can ssh into the VM without interactive prompts.  See the [Log in to the instance](https://cloud.google.com/compute/docs/instances/#sshing) part of the GCE Quickstart.
+1. Make sure you can SSH into the VM without interactive prompts.  See the [Log in to the instance](https://cloud.google.com/compute/docs/instances/#sshing) part of the GCE Quickstart.
 
 ### Starting a cluster
 
@@ -78,7 +78,7 @@ manager.  It lets you inspect your cluster resources, create, delete, and update
 components, and much more. You will use it to look at your new cluster and bring
 up example apps.
 
-You can use` gcloud` to install the `kubectl` command-line tool on your workstation:
+You can use `gcloud` to install the `kubectl` command-line tool on your workstation:
 
     gcloud components install kubectl
 
