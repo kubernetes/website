@@ -221,11 +221,26 @@ Name:           nginx-deployment
 Namespace:      default
 CreationTimestamp:  Tue, 15 Mar 2016 12:01:06 -0700
 Labels:         app=nginx
+Annotations:    deployment.kubernetes.io/revision=2
 Selector:       app=nginx
-Replicas:       3 updated | 3 total | 3 available | 0 unavailable
+Replicas:       3 desired | 3 updated | 3 total | 3 available | 0 unavailable
 StrategyType:       RollingUpdate
 MinReadySeconds:    0
 RollingUpdateStrategy:  1 max unavailable, 1 max surge
+Pod Template:
+  Labels:       app=nginx
+  Containers:
+   nginx:
+    Image:              nginx:1.9.1
+    Port:               80/TCP
+    Environment:        <none>
+    Mounts:             <none>
+  Volumes:              <none>
+Conditions:
+  Type          Status  Reason
+  ----          ------  ------
+  Available     True    MinimumReplicasAvailable
+  Progressing   True    NewReplicaSetAvailable
 OldReplicaSets:     <none>
 NewReplicaSet:      nginx-deployment-1564180365 (3/3 replicas created)
 Events:
