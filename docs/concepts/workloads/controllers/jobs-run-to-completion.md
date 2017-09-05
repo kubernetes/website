@@ -41,14 +41,29 @@ Check on the status of the job using this command:
 $ kubectl describe jobs/pi
 Name:             pi
 Namespace:        default
-Image(s):         perl
 Selector:         controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
+Labels:           controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
+                  job-name=pi
+Annotations:      <none>
 Parallelism:      1
 Completions:      1
 Start Time:       Tue, 07 Jun 2016 10:56:16 +0200
-Labels:           controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495,job-name=pi
 Pods Statuses:    0 Running / 1 Succeeded / 0 Failed
-No volumes.
+Pod Template:
+  Labels:       controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
+                job-name=pi
+  Containers:
+   pi:
+    Image:      perl
+    Port:
+    Command:
+      perl
+      -Mbignum=bpi
+      -wle
+      print bpi(2000)
+    Environment:        <none>
+    Mounts:             <none>
+  Volumes:              <none>
 Events:
   FirstSeen    LastSeen    Count    From            SubobjectPath    Type        Reason            Message
   ---------    --------    -----    ----            -------------    --------    ------            -------
