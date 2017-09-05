@@ -228,6 +228,7 @@ $ kubectl get secret jenkins-token-1yvwg -o yaml
 apiVersion: v1
 data:
   ca.crt: (APISERVER'S CA BASE64 ENCODED)
+  namespace: ZGVmYXVsdA==
   token: (BEARER TOKEN BASE64 ENCODED)
 kind: Secret
 metadata:
