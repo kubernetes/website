@@ -189,6 +189,7 @@ The following information is available to Containers through environment
 variables and DownwardAPIVolumeFiles:
 
 * The node’s name
+* The node's IP
 * The Pod’s name
 * The Pod’s namespace
 * The Pod’s IP address
