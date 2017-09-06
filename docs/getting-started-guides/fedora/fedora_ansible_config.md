@@ -49,7 +49,7 @@ cd contrib/ansible
 
 **Tell ansible about each machine and its role in your cluster**
 
-Get the IP addresses from the master and nodes.  Add those to the `~/contrib/ansible/inventory` file on the host running Ansible.
+Get the IP addresses from the master and nodes.  Add those to the `~/contrib/ansible/inventory/localhost.ini` file on the host running Ansible.
 
 ```shell
 [masters]
