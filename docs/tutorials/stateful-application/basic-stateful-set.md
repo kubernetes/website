@@ -499,7 +499,7 @@ web-1   gcr.io/google_containers/nginx-slim:0.8
 web-2   gcr.io/google_containers/nginx-slim:0.8
 {% endraw %}```
 
-`web-0` has had its image updated, but `web-0` and `web-1` still have the original 
+`web-0` has had its image updated, but `web-1` and `web-2` still have the original 
 image. Complete the update by deleting the remaining Pods.
 
 ```shell
