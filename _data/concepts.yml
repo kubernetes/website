@@ -61,6 +61,7 @@ toc:
   - docs/concepts/configuration/taint-and-toleration.md
   - docs/concepts/configuration/secret.md
   - docs/concepts/configuration/organize-cluster-access-kubeconfig.md
+  - docs/concepts/configuration/pod-priority-preemption.md
 
 - title: Services, Load Balancing, and Networking
   section:
