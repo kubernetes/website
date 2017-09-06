@@ -19,6 +19,8 @@ This document describes how to run Kubernetes using [rkt](https://github.com/cor
 
 * The [rkt API service](https://coreos.com/rkt/docs/latest/subcommands/api-service.html) must be running on the node.
 
+* You will need [kubelet](/docs/getting-started-guides/scratch/#kubelet) installed on the node, and it's recommended that you run [kube-proxy](/docs/getting-started-guides/scratch/#kube-proxy) on all nodes. This document describes how to set the parameters for kubelet so that it uses rkt as the runtime. 
+
 ## Pod networking in rktnetes
 
 ### Kubernetes CNI networking
