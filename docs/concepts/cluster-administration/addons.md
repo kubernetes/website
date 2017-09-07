@@ -23,7 +23,7 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 
 ## Service Discovery
 
-* [CoreDNS](https://coredns.io) is a flexible and extensible DNS server with direct integration with Kubernetes for DNS-based service discovery. It may be [installed](https://github.com/coredns/deployment/tree/master/kubernetes) as the in-cluster DNS for Kubernetes pods.
+* [CoreDNS](https://coredns.io) is a flexible, extensible DNS server which can be [installed](https://github.com/coredns/deployment/tree/master/kubernetes) as the in-cluster DNS for pods.
 
 ## Visualization &amp; Control
 
