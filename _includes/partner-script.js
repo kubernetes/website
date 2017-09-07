@@ -1,7 +1,7 @@
 ;(function () {
 	var partners = [
 		{
-			type: 0,
+			type: 2,
 			name: 'CoreOS',
 			logo: 'core_os',
 			link: 'https://tectonic.com/',
@@ -15,7 +15,7 @@
 			blurb: 'Deis the creators of Helm, Workflow, and Steward, helps developers and operators build, deploy, manage and scale their applications on top of Kubernetes.'
 		},
 		{
-			type: 0,
+			type: 2,
 			name: 'StackPointCloud',
 			logo: 'stackpoint',
 			link: 'https://stackpoint.io',
@@ -71,7 +71,7 @@
 			blurb: 'Wercker automates your build, test and deploy pipelines for launching containers and triggering rolling updates on your Kubernetes cluster. '
 		},
 		{
-			type: 0,
+			type: 2,
 			name: 'Rancher Labs',
 			logo: 'rancher-labs',
 			link: 'http://rancher.com/kubernetes/',
@@ -99,7 +99,7 @@
 			blurb: 'Self-service container management for Kubernetes.'
 		},
 		{
-			type: 0,
+			type: 2,
 			name: 'Platform9',
 			logo: 'platform9',
 			link: 'https://platform9.com/products/kubernetes/',
@@ -134,7 +134,7 @@
 			blurb: 'Deep, automated security for your containers running on Kubernetes.'
 		},
 		{
-			type: 0,
+			type: 2,
 			name: 'Canonical',
 			logo: 'canonical',
 			link: 'https://jujucharms.com/canonical-kubernetes/',
@@ -183,14 +183,14 @@
 			blurb: 'Aporeto makes cloud-native applications secure by default without impacting developer velocity and works at any scale, on any cloud.'
 		},
 		{
-  			type: 0,
+  		type: 2,
  			name: 'Giant Swarm',
  			logo: 'giant_swarm',
  			link: 'https://giantswarm.io',
  			blurb: 'Giant Swarm provides fully-managed Kubernetes Clusters in your location of choice, so you can focus on your product.'
  		},
 		{
- 			type: 0,
+ 			type: 2,
  			name: 'Mirantis',
  			logo: 'mirantis',
  			link: 'https://content.mirantis.com/Containerizing-OpenStack-on-Kubernetes-Video-Landing-Page.html',
@@ -211,14 +211,14 @@
 			blurb: 'Apprenda offers flexible and wide range of support plans for pure play Kubernetes on your choice of infrastructure, cloud provider and operating system.'
 		},
 		{
-			type: 1,
+			type: 2,
 			name: 'Reactive Ops',
 			logo: 'reactive_ops',
 			link: 'https://www.reactiveops.com/kubernetes/',
 			blurb: 'ReactiveOps has written automation on best practices for infrastructure as code on GCP & AWS using Kubernetes, helping you build and maintain a world-class infrastructure at a fraction of the price of an internal hire.'
 		},
 		{
-			type: 1,
+			type: 2,
 			name: 'Livewyer',
 			logo: 'livewyer',
 			link: 'https://livewyer.io/services/kubernetes-experts/',
@@ -239,21 +239,21 @@
 			blurb: 'StackPointCloud offers a wide range of support plans for managed Kubernetes clusters built through its universal control plane for Kubernetes Anywhere.'
 		},
 		{
-			type: 1,
+			type: 2,
 			name: 'Samsung SDS',
 			logo: 'samsung_sds',
 			link: 'http://www.samsungsdsa.com/cloud-infrastructure_kubernetes',
 			blurb: 'Samsung SDS’s Cloud Native Computing Team offers expert consulting across the range of technical aspects involved in building services targeted at a Kubernetes cluster.'
 		},
 		{
-			type: 1,
+			type: 2,
 			name: 'Container Solutions',
 			logo: 'container_solutions',
 			link: 'http://container-solutions.com/resources/kubernetes/',
 			blurb: 'Container Solutions is a premium software consultancy that focuses on programmable infrastructure, offering our expertise in software development, strategy and operations to help you innovate at speed and scale.'
 		},
 		{
-			type: 1,
+			type: 2,
 			name: 'Jetstack',
 			logo: 'jetstack',
 			link: 'https://www.jetstack.io/',
@@ -288,7 +288,7 @@
  			blurb: 'Spotinst uses a prediction algorithm in the Amazon EC2 Spot allowing k8s clusters to increase performance and lower the infrastructure costs'
   		},
 		{
- 			type: 1,
+ 			type: 2,
  			name: 'inwinSTACK',
  			logo: 'inwinstack',
  			link: 'http://www.inwinstack.com/index.php/en/solutions-en/',
@@ -330,7 +330,7 @@
  			blurb: 'NATS is a simple, secure, and scalable cloud native messaging system.'
   		},
 		{
- 			type: 1,
+ 			type: 2,
  			name: 'RX-M',
  			logo: 'rxm',
  			link: 'http://rx-m.com/training/kubernetes-training/',
@@ -372,7 +372,7 @@
  			blurb: 'Full stack monitoring of containers and microservices orchestrated by Kubernetes. Powered by anomaly detection to find problems faster.'
   		},
 		{
- 			type: 0,
+ 			type: 2,
  			name: 'Supergiant.io',
  			logo: 'supergiant',
  			link: 'https://supergiant.io/blog/supergiant-packing-algorithm-unique-save-money',
@@ -418,7 +418,7 @@
  			name: 'Cobe',
  			logo: 'cobe',
  			link: 'https://cobe.io/product-page/',
- 			blurb: 'Manage Kubernetes clusters with a live, searchable model that captures all relationships and performance data in full visualised context.'
+ 			blurb: 'Manage Kubernetes clusters with a live, searchable model that captures all relationships and performance data in full visualised context.'
   		},
 		{
  			type: 0,
@@ -428,7 +428,7 @@
  			blurb: 'Datawires open source tools let your microservices developers be awesomely productive on Kubernetes, while letting ops sleep at night.'
   		},
 		{
- 			type: 0,
+ 			type: 2,
  			name: 'Mashape, Inc.',
  			logo: 'mashape',
  			link: 'https://getkong.org/install/kubernetes/',
@@ -463,7 +463,7 @@
  			blurb: 'Strong DevOps and Cloud talent working with couple clients on kubernetes and helm implementations. '
   		},
 		{
- 			type: 0,
+ 			type: 2,
  			name: 'Bitnami',
  			logo: 'bitnami',
  			link: 'http://bitnami.com/kubernetes',
@@ -491,7 +491,7 @@
  			blurb: 'Opcito is a software consultancy that uses Kubernetes to help organisations build, architect & deploy highly scalable applications.'
   		},
 		{
- 			type: 0,
+ 			type: 2,
  			name: 'Huawei Technologies Co., Ltd.',
  			logo: 'huawei',
  			link: 'http://developer.huawei.com/ict/en/site-paas',
@@ -533,14 +533,7 @@
 			blurb: 'Fluentd Enterprise brings smart, secure logging to Kubernetes, and brings integrations with backends such as Splunk, Kafka, or AWS S3.'
 			},
 		{
-			type: 0,
-			name: 'IBM',
-			logo: 'IBM',
-			link: 'https://www.ibm.com/cloud-computing/bluemix/containers',
-			blurb: 'IBM Container Service is a managed k8s environment with built-in cluster security and isolation while leveraging services including Watson, IoT, Weather, etc.'
-			},
-		{
-			type: 1,
+			type: 2,
 			name: 'IBM',
 			logo: 'IBM',
 			link: 'https://www.ibm.com/cloud-computing/bluemix/containers',
@@ -554,7 +547,7 @@
 			blurb: 'Kenzan is a software engineering and full-service consulting firm that provides customized, end-to-end solutions that drive change through digital transformation.'
 			},
 		{
-			type: 0,
+			type: 2,
 			name: 'Kublr',
 			logo: 'kublr',
 			link: 'http://kublr.com',
@@ -566,9 +559,52 @@
 			logo: 'endocode',
 			link: 'https://endocode.com/kubernetes/',
  			blurb: 'Endocode practices and teaches the open source way. Kernel to cluster - Dev to Ops. We offer Kubernetes trainings, services and support.'
-  		}
+			},
+		{
+			type: 2,
+			name: 'Accenture',
+			logo: 'accenture',
+			link: 'https://www.accenture.com/us-en/service-application-containers',
+	 		blurb: 'Architecture, implementation and operation of world-class Kubernetes solutions for cloud-native clients.'
+			},
+		{
+			type: 2,
+			name: 'Biarca',
+			logo: 'biarca',
+			link: 'http://biarca.io/',
+		 	blurb: 'Biarca is a cloud services provider and key focus areas Key areas of focus for Biarca include Cloud Adoption Services, Infrastructure Services, DevOps Services and Application Services. Biarca leverages Kubernetes to deliver containerized solutions.'
+			},
+		{
+			type: 2,
+			name: 'Claranet',
+			logo: 'claranet',
+			link: 'http://www.claranet.co.uk/hosting/google-cloud-platform-consulting-managed-services',
+			blurb: 'Claranet helps people migrate to the cloud and take full advantage of the new world it offers. We consult, design, build and proactively manage the right infrastructure and automation tooling for clients to achieve this.'
+			},
+		{
+			type: 2,
+			name: 'CloudKite',
+			logo: 'cloudkite',
+			link: 'https://cloudkite.io/',
+			blurb: 'CloudKite.io helps companies build and maintain highly automated, resilient, and impressively performing software on Kubernetes.'
+			},
+		{
+			type: 2,
+			name: 'CloudOps',
+			logo: 'CloudOps',
+			link: 'https://www.cloudops.com/services/docker-and-kubernetes-workshops/',
+			blurb: 'CloudOps gets you hands-on with the K8s ecosystem via workshop/lab. Get prod ready K8s in cloud(s) of your choice with our managed services.'
+			},
+		{
+			type: 2,
+			name: 'Applatix',
+			logo: 'applatix',
+			link: 'https://applatix.com/applatix-product/',
+ 			blurb: 'Applatix helps build and run containerized apps on public cloud using Docker and Kubernetes.'
+	  	}
 	]
 
+	var kcspContainer = document.getElementById('kcspContainer')
 	var isvContainer = document.getElementById('isvContainer')
 	var servContainer = document.getElementById('servContainer')
 
@@ -601,7 +637,15 @@
 		box.appendChild(img)
 		box.appendChild(div)
 
-		var container = obj.type ? servContainer : isvContainer
+		var container;
+    if (obj.type === 0) {
+      container = isvContainer;
+    } else if (obj.type === 1) {
+      container = servContainer;
+    } else if (obj.type === 2) {
+      container = kcspContainer;
+    }
+
 		container.appendChild(box)
 	})
 })();
