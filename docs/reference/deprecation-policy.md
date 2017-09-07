@@ -70,41 +70,124 @@ API version at least as stable is released.**
 GA API versions can replace GA API versions as well as beta and alpha API
 versions.  Beta API versions *may not* replace GA API versions.
 
-**Rule #4: Other than the most recent API versions in each track, older API
+**Rule #4a: Other than the most recent API versions in each track, older API
 versions must be supported after their announced deprecation for a duration of
 no less than:**
 
    * **GA: 1 year or 2 releases (whichever is longer)**
-   * **Beta: 3 months or 1 release (whichever is longer)**
+   * **Beta: 6 months or 2 releases (whichever is longer)**
    * **Alpha: 0 releases**
 
-This is best illustrated by example.  Imagine a Kubernetes release, version X,
-which supports a particular API group.  A new Kubernetes release is made every
-approximately 3 months (4 per year).  The following table describes which API
-versions are supported in a series of subsequent releases.
+NOTE: Until [#52185](https://github.com/kubernetes/kubernetes/issues/52185) is
+resolved, no API versions may be removed.
+
+**Rule #4b: The "preferred" API version and the "storage version" for a given
+group may not advance util after a release has been made that supports both the
+new version and the previous version**
+
+Users must be able to upgrade to a new version of Kubernetes and then roll back
+to a previous version, without converting anything to the new API version or
+suffering breakages (unless they explicitly used features only available in the
+newer version).  This is particularly evident in the stored representation of
+objects.
+
+All of this is best illustrated by examples.  Imagine a Kubernetes release,
+version X, which introduces a new API group.  A new Kubernetes release is made
+every approximately 3 months (4 per year).  The following table describes which
+API versions are supported in a series of subsequent releases.
 
 <table>
   <thead>
     <tr>
       <th>Release</th>
       <th>API Versions</th>
+      <th>Preferred/Storage Version</th>
       <th>Notes</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>X</td>
-      <td>v1</td>
+      <td>v1alpha1</td>
+      <td>v1alpha1</td>
       <td></td>
     </tr>
     <tr>
       <td>X+1</td>
-      <td>v1, v2alpha1</td>
-      <td></td>
+      <td>v1alpha2</td>
+      <td>v1alpha2</td>
+      <td>
+        <ul>
+           <li>v1alpha1 is removed, "action required" relnote</li>
+        </ul>
+      </td>
     </tr>
     <tr>
       <td>X+2</td>
-      <td>v1, v2alpha2</td>
+      <td>v1beta1</td>
+      <td>v1beta1</td>
+      <td>
+        <ul>
+          <li>v1alpha2 is removed, "action required" relnote</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>X+3</td>
+      <td>v1beta2, v1beta1 (deprecated)</td>
+      <td>v1beta1</td>
+      <td>
+        <ul>
+          <li>v1beta1 is deprecated, "action required" relnote</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>X+4</td>
+      <td>v1beta2, v1beta1 (deprecated)</td>
+      <td>v1beta2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>X+5</td>
+      <td>v1, v1beta2 (deprecated)</td>
+      <td>v1beta2</td>
+      <td>
+        <ul>
+          <li>v1beta1 is removed, "action required" relnote</li>
+          <li>v1beta2 is deprecated, "action required" relnote</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>X+6</td>
+      <td>v1, v1beta2 (deprecated)</td>
+      <td>v1</td>
+      <td>
+        <ul>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>X+7</td>
+      <td>v1</td>
+      <td>v1</td>
+      <td>
+        <ul>
+          <li>v1beta2 is removed, "action required" relnote</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>X+8</td>
+      <td>v2alpha1, v1</td>
+      <td>v1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>X+9</td>
+      <td>v2alpha2, v1</td>
+      <td>v1</td>
       <td>
         <ul>
            <li>v2alpha1 is removed, "action required" relnote</li>
@@ -112,8 +195,9 @@ versions are supported in a series of subsequent releases.
       </td>
     </tr>
     <tr>
-      <td>X+3</td>
-      <td>v1, v2beta1</td>
+      <td>X+10</td>
+      <td>v2beta1, v1</td>
+      <td>v1</td>
       <td>
         <ul>
           <li>v2alpha2 is removed, "action required" relnote</li>
@@ -121,8 +205,9 @@ versions are supported in a series of subsequent releases.
       </td>
     </tr>
     <tr>
-      <td>X+4</td>
-      <td>v1, v2beta1, v2beta2</td>
+      <td>X+11</td>
+      <td>v2beta2, v2beta1 (deprecated), v1</td>
+      <td>v1</td>
       <td>
         <ul>
           <li>v2beta1 is deprecated, "action required" relnote</li>
@@ -130,19 +215,30 @@ versions are supported in a series of subsequent releases.
       </td>
     </tr>
     <tr>
-      <td>X+5</td>
-      <td>v1, v2, v2beta2</td>
+      <td>X+12</td>
+      <td>v2, v2beta2 (deprecated), v2beta1 (deprecated), v1 (deprecated)</td>
+      <td>v1</td>
       <td>
         <ul>
-          <li>v2beta1 is removed, "action required" relnote</li>
           <li>v2beta2 is deprecated, "action required" relnote</li>
           <li>v1 is deprecated, "action required" relnote</li>
         </ul>
       </td>
     </tr>
     <tr>
-      <td>X+6</td>
-      <td>v1, v2</td>
+      <td>X+13</td>
+      <td>v2, v2beta2 (deprecated), v1 (deprecated)</td>
+      <td>v2</td>
+      <td>
+        <ul>
+          <li>v2beta1 is removed, "action required" relnote</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>X+14</td>
+      <td>v2, v1 (deprecated)</td>
+      <td>v2</td>
       <td>
         <ul>
           <li>v2beta2 is removed, "action required" relnote</li>
@@ -150,17 +246,20 @@ versions are supported in a series of subsequent releases.
       </td>
     </tr>
     <tr>
-      <td>X+7</td>
-      <td>v1, v2</td>
+      <td>X+15</td>
+      <td>v2, v1 (deprecated)</td>
+      <td>v2</td>
       <td></td>
     </tr>
     <tr>
-      <td>X+8</td>
-      <td>v1, v2</td>
+      <td>X+16</td>
+      <td>v2, v1 (deprecated)</td>
+      <td>v2</td>
       <td></td>
     </tr>
     <tr>
-      <td>X+9</td>
+      <td>X+17</td>
+      <td>v2</td>
       <td>v2</td>
       <td>
         <ul>
