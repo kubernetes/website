@@ -18,8 +18,8 @@ defaults:
     scope:
       path: ""
     values:
-      fullversion: "v1.7.0"
-      version: "v1.7"
+      fullversion: "v1.8.0"
+      version: "v1.8"
       githubbranch: "master"
       docsbranch: "master"
       versions:
