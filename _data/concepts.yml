@@ -93,6 +93,7 @@ toc:
   - docs/concepts/cluster-administration/master-node-communication.md
   - docs/concepts/cluster-administration/proxies.md
   - docs/concepts/cluster-administration/controller-metrics.md
+  - docs/concepts/cluster-administration/device-plugins.md
   - title: Policies
     section:
     - docs/concepts/policy/resource-quotas.md
