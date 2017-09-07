@@ -107,7 +107,7 @@ However, the particular path specified in the custom recycler pod template in th
 
 #### Deleting
 
-For volume plugins that support the Delete reclaim policy, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in the external infrastructure, such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume. Volumes that were dynamically provisioned are always deleted. If that is not desired, currently, the only option is to edit or patch the PV after it is created. See [Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
+For volume plugins that support the Delete reclaim policy, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in the external infrastructure, such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume. Volumes that were dynamically provisioned inherit the [reclaim policy of their `StorageClass`](#reclaim-policy-1), which defaults to Delete. The administrator should configure the `StorageClass` according to users' expectations, otherwise the PV must be edited or patched after it is created. See [Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
 
 ## Types of Persistent Volumes
 
@@ -378,9 +378,9 @@ spec:
 
 ## StorageClasses
 
-Each `StorageClass` contains the fields `provisioner` and `parameters`, which
-are used when a `PersistentVolume` belonging to the class needs to be
-dynamically provisioned.
+Each `StorageClass` contains the fields `provisioner`, `parameters`, and
+`reclaimPolicy`, which are used when a `PersistentVolume` belonging to the
+class needs to be dynamically provisioned.
 
 The name of a `StorageClass` object is significant, and is how users can
 request a particular class. Administrators set the name and other parameters
@@ -400,6 +400,7 @@ metadata:
 provisioner: kubernetes.io/aws-ebs
 parameters:
   type: gp2
+reclaimPolicy: Retain
 mountOptions:
   - debug
 ```
@@ -445,9 +446,10 @@ There are also cases when 3rd party storage vendors provide their own external
 provisioner.
 
 ### Reclaim Policy
-Persistent Volumes that are dynamically created by a storage class will have a reclaim
-policy of `delete`.  If that is not desired, the only current option is to edit the
-PV after it is created.
+Persistent Volumes that are dynamically created by a storage class will have the
+reclaim policy specified in the `reclaimPolicy` field of the class, which can be
+either `Delete` or `Retain`. If no `reclaimPolicy` is specified when a
+`StorageClass` object is created, it will default to `Delete`.
 
 Persistent Volumes that are created manually and managed via a storage class will have
 whatever reclaim policy they were assigned at creation.
