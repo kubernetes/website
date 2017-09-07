@@ -96,7 +96,7 @@ of its Unix socket and re-register itself upon such an event.
 A device plugin can be deployed manually or as a DaemonSet. Being deployed as a DaemonSet has
 the benefit that Kubernetes can restart the device plugin if it fails.
 Otherwise, an extra mechanism is needed to recover from device plugin failures.
-The canonical directory `/var/lib/kubelet/device-plugins` requires priveleged access,
+The canonical directory `/var/lib/kubelet/device-plugins` requires privileged access,
 so a device plugin must run in a privileged security context. 
 If a device plugin is running as a DaemonSet, `/var/lib/kubelet/device-plugins`
 must be mounted as a
