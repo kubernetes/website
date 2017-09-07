@@ -61,6 +61,10 @@ using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cg
 **Note:** System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The exclusivity only extends to other pods.
 {: .note}
 
+**Note:** The alpha version of this policy does not guarantee static
+exclusive allocations across Kubelet restarts.
+{: .note}
+
 This policy manages a shared pool of CPUs that initially contains all CPUs in the
 node. The amount of exclusively allocatable CPUs is equal to the total
 number of CPUs in the node minus any CPU reservations by the kubelet `--kube-reserved` or
