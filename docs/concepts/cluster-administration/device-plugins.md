@@ -1,6 +1,7 @@
 ---
 approvers:
 title: Device Plugins
+description: Use the Kubernetes device plugin framework to implement plugins for GPUs, NICs, FPGAs, InfiniBand, and similar resources that require vendor-specific setup.
 ---
 
 {% include feature-state-alpha.md %}
@@ -9,7 +10,7 @@ title: Device Plugins
 Starting in version 1.8, Kubernetes provides a [device plugin framework](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/device-plugin.md)
 for vendors to advertise their resources to the kubelet without changing Kubernetes core code.
 Instead of writing custom Kubernetes code, vendors can implement a device plugin that can
-be deployed as a DaemonSet or in bare metal mode. The targeted devices include GPUs,
+be deployed manually or as a DaemonSet. The targeted devices include GPUs,
 High-performance NICs, FPGAs, InfiniBand, and other similar computing resources
 that may require vendor specific initialization and setup.
 {% endcapture %}
@@ -92,10 +93,10 @@ of its Unix socket and re-register itself upon such an event.
 
 ## Device plugin deployment
 
-A device plugin can be deployed as a DaemonSet or in bare metal mode. Being deployed as a DaemonSet has
+A device plugin can be deployed manually or as a DaemonSet. Being deployed as a DaemonSet has
 the benefit that Kubernetes can restart the device plugin if it fails.
 Otherwise, an extra mechanism is needed to recover from device plugin failures.
-The canonical directory `/var/lib/kubelet/device-plugins` requires priveledge access,
+The canonical directory `/var/lib/kubelet/device-plugins` requires priveleged access,
 so a device plugin must run in a privileged security context. 
 If a device plugin is running as a DaemonSet, `/var/lib/kubelet/device-plugins`
 must be mounted as a
