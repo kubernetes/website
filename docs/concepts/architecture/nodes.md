@@ -67,6 +67,8 @@ If the Status of the Ready condition is "Unknown" or "False" for longer than the
 
 In versions of Kubernetes prior to 1.5, the node controller would [force delete](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods) these unreachable pods from the apiserver. However, in 1.5 and higher, the node controller does not force delete pods until it is confirmed that they have stopped running in the cluster. One can see these pods which may be running on an unreachable node as being in the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce from the underlying infrastructure if a node has permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
 
+In version 1.8 a possibility to automatically create [taints](/docs/concepts/configuration/taint-and-toleration) representing Conditions was added as an alpha feature. Enabling it makes scheduler ignore Conditions when considering a Node, instead it looks at the taints and Pod's tolerations. This allows users to decide whether they want to keep old behavior and don't schedule their Pods on Nodes with some Conditions, or rather corresponding taints, or if they want to add a toleration and allow it. Note that because of small delay (usually <1s) between time when Condition is observed and Taint is created it's possible that enabling this feature will slightly increase number of Pods that are successfully scheduled but rejected by the Kubelet.
+
 ### Capacity
 
 Describes the resources available on the node: CPU, memory and the maximum
@@ -173,6 +175,9 @@ the taints. Additionally, as an alpha feature that is disabled by default, the
 NodeController is responsible for adding taints corresponding to node problems like
 node unreachable or not ready. See [this documentation](/docs/concepts/configuration/taint-and-toleration)
 for details about `NoExecute` taints and the alpha feature.
+
+Since Kubernetes 1.8 NodeController may be made responsible for creating taints represeting
+Node Conditions. This is an alpha feature as of 1.8.
 
 ### Self-Registration of Nodes
 

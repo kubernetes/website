@@ -249,9 +249,18 @@ admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/default
 
   * `node.alpha.kubernetes.io/unreachable`
   * `node.alpha.kubernetes.io/notReady`
+
+This ensures that DaemonSet pods are never evicted due to these problems,
+which matches the behavior when this feature is disabled.
+
+## Taint Nodes by Condition
+
+In Kuberentes 1.8 we added an alpha feature that makes NodeController create Taints matching Node Conditions and in the same time disables Condition check in scheduler. This assures that Conditions doesn't have influence on what's scheduled on the Node and that user
+can choose to ignore some of node's problems by adding appropriate tolerations to hers Pods.
+
+To make sure that turning on this feature doesn't break Daemon sets from 1.8 DaemonSet controller will automatically add following `NoSchedule` tolerations to all deamons:
+
   * `node.kubernetes.io/memoryPressure`
   * `node.kubernetes.io/diskPressure`
   * `node.kubernetes.io/outOfDisk` (*only for critical pods*)
 
-This ensures that DaemonSet pods are never evicted due to these problems,
-which matches the behavior when this feature is disabled.

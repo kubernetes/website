@@ -103,19 +103,21 @@ but they are created with `NoExecute` tolerations for the following taints with 
 
  - `node.alpha.kubernetes.io/notReady`
  - `node.alpha.kubernetes.io/unreachable`
- - `node.alpha.kubernetes.io/memoryPressure`
- - `node.alpha.kubernetes.io/diskPressure`
-
-When the support to critical pods is enabled and the pods in a DaemonSet are
-labelled as critical, the Daemon pods are created with an additional
-`NoExecute` toleration for the `node.alpha.kubernetes.io/outOfDisk` taint with
-no `tolerationSeconds`.
 
 This ensures that when the `TaintBasedEvictions` alpha feature is enabled,
 they will not be evicted when there are node problems such as a network partition. (When the
 `TaintBasedEvictions` feature is not enabled, they are also not evicted in these scenarios, but
 due to hard-coded behavior of the NodeController rather than due to tolerations).
 
+ They also tolerate following `NoSchedule` taints:
+ - `node.kubernetes.io/memoryPressure`
+ - `node.kubernetes.io/diskPressure`
+
+When the support to critical pods is enabled and the pods in a DaemonSet are
+labelled as critical, the Daemon pods are created with an additional
+`NoSchedule` toleration for the `node.kubernetes.io/outOfDisk` taint.
+
+Note that all above `NoSchedule` taints above are created only in version 1.8 or leater if alpha feature `TaintNodesByCondition` is enabled.
 
 ## Communicating with Daemon Pods
 
