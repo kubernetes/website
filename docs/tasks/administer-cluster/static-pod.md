@@ -92,7 +92,7 @@ Notice we cannot delete the pod with the API server (e.g. via [`kubectl`](/docs/
 
 ```shell
 [joe@my-master ~] $ kubectl delete pod static-web-my-node1
-pods/static-web-my-node1
+pod "static-web-my-node1" deleted
 [joe@my-master ~] $ kubectl get pods
 NAME                       READY     STATUS    RESTARTS   AGE
 static-web-my-node1        1/1       Running   0          12s
