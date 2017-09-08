@@ -8,13 +8,6 @@
 			blurb: 'Tectonic is the enterprise-ready Kubernetes product, by CoreOS. It adds key features to allow you to manage, update, and control clusters in production.'
 		},
 		{
-			type: 0,
-			name: 'Deis',
-			logo: 'deis',
-			link: 'https://deis.com',
-			blurb: 'Deis the creators of Helm, Workflow, and Steward, helps developers and operators build, deploy, manage and scale their applications on top of Kubernetes.'
-		},
-		{
 			type: 2,
 			name: 'StackPointCloud',
 			logo: 'stackpoint',
@@ -48,13 +41,6 @@
 			logo: 'cockroach_labs',
 			link: 'https://www.cockroachlabs.com/blog/running-cockroachdb-on-kubernetes/',
 			blurb: 'CockroachDB is a distributed SQL database whose built-in replication and survivability model pair with Kubernetes to truly make data easy.'
-		},
-		{
-			type: 0,
-			name: 'Skippbox',
-			logo: 'skippbox',
-			link: 'http://www.skippbox.com/tag/products/',
-			blurb: 'Creator of Cabin the first mobile application for Kubernetes, and kompose. Skippbox’s solutions distill all the power of k8s in simple easy to use interfaces.'
 		},
 		{
 			type: 0,
@@ -230,13 +216,6 @@
 			logo: 'deis',
 			link: 'https://deis.com/services/',
 			blurb: 'Deis provides professional services and 24x7 operational support for any Kubernetes cluster managed by our global cluster operations team.'
-		},
-		{
-			type: 1,
-			name: 'StackPointCloud',
-			logo: 'stackpoint',
-			link: 'https://stackpoint.io',
-			blurb: 'StackPointCloud offers a wide range of support plans for managed Kubernetes clusters built through its universal control plane for Kubernetes Anywhere.'
 		},
 		{
 			type: 2,
@@ -615,6 +594,13 @@
 			logo: 'heptio',
 			link: 'http://heptio.com',
 			blurb: 'Heptio helps businesses of all sizes get closer to the vibrant Kubernetes community.'
+			},
+		{
+			type: 2,
+			name: 'Booz Allen Hamilton',
+			logo: 'boozallenhamilton',
+			link: 'https://www.boozallen.com/',
+			blurb: 'Booz Allen partners with public and private sector clients to solve their most difficult challenges through a combination of consulting, analytics, mission operations, technology, systems delivery, cybersecurity, engineering, and innovation expertise.'
 			},
 		{
 			type: 0,
