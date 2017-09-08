@@ -477,11 +477,7 @@ Note that in addition to file output plugin, logstash has a variety of outputs t
 let users route data where they want. For example, users can emit audit events to elasticsearch
 plugin which supports full-text search and analytics.
 
-<!---
-herf of audit-api is not right, because https://github.com/kubernetes/kubernetes/pull/49280 is not included in this tag.
-Maybe it will show up in another tag, then I will update it.
--->
-[audit-api]: https://github.com/kubernetes/kubernetes/blob/v1.8.0-beta.0/staging/src/k8s.io/apiserver/pkg/apis/audit/v1beta1/types.go
+[audit-api]: https://github.com/kubernetes/kubernetes/blob/v1.8.0-beta.1/staging/src/k8s.io/apiserver/pkg/apis/audit/v1beta1/types.go
 [kube-apiserver]: /docs/admin/kube-apiserver
 [gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/v1.8.0-beta.0/cluster/gce/gci/configure-helper.sh#L532
 [fluentd]: http://www.fluentd.org/
