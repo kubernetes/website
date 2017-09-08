@@ -71,7 +71,7 @@
 			blurb: 'Wercker automates your build, test and deploy pipelines for launching containers and triggering rolling updates on your Kubernetes cluster. '
 		},
 		{
-			type: 2,
+			type: 0,
 			name: 'Rancher Labs',
 			logo: 'rancher-labs',
 			link: 'http://rancher.com/kubernetes/',
@@ -99,7 +99,7 @@
 			blurb: 'Self-service container management for Kubernetes.'
 		},
 		{
-			type: 2,
+			type: 0,
 			name: 'Platform9',
 			logo: 'platform9',
 			link: 'https://platform9.com/products/kubernetes/',
@@ -211,7 +211,7 @@
 			blurb: 'Apprenda offers flexible and wide range of support plans for pure play Kubernetes on your choice of infrastructure, cloud provider and operating system.'
 		},
 		{
-			type: 2,
+			type: 1,
 			name: 'Reactive Ops',
 			logo: 'reactive_ops',
 			link: 'https://www.reactiveops.com/kubernetes/',
@@ -428,7 +428,7 @@
  			blurb: 'Datawires open source tools let your microservices developers be awesomely productive on Kubernetes, while letting ops sleep at night.'
   		},
 		{
- 			type: 2,
+ 			type: 0,
  			name: 'Mashape, Inc.',
  			logo: 'mashape',
  			link: 'https://getkong.org/install/kubernetes/',
@@ -547,7 +547,7 @@
 			blurb: 'Kenzan is a software engineering and full-service consulting firm that provides customized, end-to-end solutions that drive change through digital transformation.'
 			},
 		{
-			type: 2,
+			type: 0,
 			name: 'Kublr',
 			logo: 'kublr',
 			link: 'http://kublr.com',
@@ -568,7 +568,7 @@
 	 		blurb: 'Architecture, implementation and operation of world-class Kubernetes solutions for cloud-native clients.'
 			},
 		{
-			type: 2,
+			type: 1,
 			name: 'Biarca',
 			logo: 'biarca',
 			link: 'http://biarca.io/',
@@ -582,14 +582,14 @@
 			blurb: 'Claranet helps people migrate to the cloud and take full advantage of the new world it offers. We consult, design, build and proactively manage the right infrastructure and automation tooling for clients to achieve this.'
 			},
 		{
-			type: 2,
+			type: 1,
 			name: 'CloudKite',
 			logo: 'cloudkite',
 			link: 'https://cloudkite.io/',
 			blurb: 'CloudKite.io helps companies build and maintain highly automated, resilient, and impressively performing software on Kubernetes.'
 			},
 		{
-			type: 2,
+			type: 1,
 			name: 'CloudOps',
 			logo: 'CloudOps',
 			link: 'https://www.cloudops.com/services/docker-and-kubernetes-workshops/',
@@ -597,6 +597,27 @@
 			},
 		{
 			type: 2,
+			name: 'Ghostcloud',
+			logo: 'ghostcloud',
+			link: 'https://www.ghostcloud.cn/ecos-kubernetes',
+			blurb: 'EcOS is an enterprise-grade PaaS / CaaS based on Docker and Kubernetes, which makes it easier to configure, deploy and manage containerized applications.'
+			},
+		{
+			type: 2,
+			name: 'Contino',
+			logo: 'contino',
+			link: 'https://www.contino.io/',
+			blurb: 'We help enterprise organizations adopt DevOps, containers and cloud computing. Contino is a global consultancy that enables regulated organizations to accelerate innovation through the adoption of modern approaches to software delivery.'
+			},
+		{
+			type: 2,
+			name: 'Heptio',
+			logo: 'heptio',
+			link: 'http://heptio.com',
+			blurb: 'Heptio helps businesses of all sizes get closer to the vibrant Kubernetes community.'
+			},
+		{
+			type: 0,
 			name: 'Applatix',
 			logo: 'applatix',
 			link: 'https://applatix.com/applatix-product/',
