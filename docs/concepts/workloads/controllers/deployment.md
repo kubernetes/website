@@ -50,7 +50,7 @@ In this example:
 
 The `template` field contains the following instructions:
 
-* The Pod template is labelled `app: nginx`
+* The Pods are labeled `app: nginx`
 * Create one container and name it `nginx`.
 * Run the `nginx` image at version `1.7.9`.
 * Open port `80` so that the container can send and accept traffic.
