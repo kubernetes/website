@@ -41,15 +41,18 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 
 In this example:
 
-* A Deployment named `nginx` is created.
-* The `nginx` Deployment creates three replicated Pods.
-* The Pods are created from the `template` field.
+* A Deployment named `nginx` is created, indicated by the `metadata: name` field.
+* The Deployment creates three replicated Pods, indicated by the `replicas` field.
+* The Pod template's specification, or `template: spec` field, indicates that
+  the Pods run one container, `nginx`, which runs the `nginx`
+  [Docker Hub](https://hub.docker.com/) image at version 1.7.9.
+* The Deployment opens port 80 for use by the Pods.
 
 The `template` field contains the following instructions:
 
-* Create one container in each Pod.
-* Label the container `app: nginx`.
-* Run the [Docker Hub](https://hub.docker.com) image `nginx` at version `1.7.9`.
+* The Pods are labeled `app: nginx`
+* Create one container and name it `nginx`.
+* Run the `nginx` image at version `1.7.9`.
 * Open port `80` so that the container can send and accept traffic.
 
 To create this Deployment, run the following command:
