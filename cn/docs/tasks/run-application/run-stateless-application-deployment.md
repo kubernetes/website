@@ -130,7 +130,7 @@ title: 使用Deployment运行一个无状态应用
 
 ## ReplicationControllers -- 旧的方式
 
-创建一个replicated application首选方法是使用Deployment,
+创建一个多副本应用首选方法是使用Deployment,
 反过来使用ReplicaSet. 在Deployment和ReplicaSet加入到Kubernetes之前, replicated 
 applications 通过
 [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)来配置.
