@@ -211,13 +211,6 @@
 			blurb: 'Kubernetes experts that on-board applications and empower IT teams to get the most out of containerised technology.'
 		},
 		{
-			type: 1,
-			name: 'Deis',
-			logo: 'deis',
-			link: 'https://deis.com/services/',
-			blurb: 'Deis provides professional services and 24x7 operational support for any Kubernetes cluster managed by our global cluster operations team.'
-		},
-		{
 			type: 2,
 			name: 'Samsung SDS',
 			logo: 'samsung_sds',
