@@ -171,13 +171,13 @@ localhost 完成。网络接口的例子是 web 服务器带有一个协助程�
 
 
 
-* 参见[配置一个使用存储卷的 Pod](/docs/tasks/configure-pod-container/configure-volume-storage/)。
+* 参见[配置一个使用存储卷的 Pod](/cn/docs/tasks/configure-pod-container/configure-volume-storage/)。
 
 
-* 参见 [卷](/docs/api-reference/v1.6/#volume-v1-core)。
+* 参见 [卷](/cn/docs/api-reference/v1.6/#volume-v1-core)。
 
 
-* 参见 [Pod](/docs/api-reference/v1.6/#pod-v1-core).
+* 参见 [Pod](/cn/docs/api-reference/v1.6/#pod-v1-core).
 
 {% endcapture %}
 

@@ -20,7 +20,7 @@ title: Webhook 模式
 启动引导令牌是一种简单的 bearer token ，这种令牌是在新建集群或者在现有集群中添加新加新节点时使用的。
 它被设计成能支持 [`kubeadm`](/docs/admin/kubeadm/)，但是也可以被用在其他上下文中以便用户在
 不使用 `kubeadm` 的情况下启动cluster。它也被设计成可以通过 RBAC 策略，结合[Kubelet TLS
-Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
+Bootstrapping](/cn/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 
 
 
