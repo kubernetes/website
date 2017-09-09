@@ -8,7 +8,7 @@ title: Pod Priority and Preemption (Alpha)
 [Pods](/docs/user-guide/pods) in Kubernetes 1.8 and later can have priority. Priority
 indicates importance of a pod relative to other pods. When a pod cannot be scheduled, scheduler tries
 to preempt (evict) lower priority pods in order to make scheduling of the pending pod possible.
-Soon, priority will also affect out-of-resource eviction ordering on the node.
+In a future Kubernetes release, priority will also affect out-of-resource eviction ordering on the node.
 
 Note that preemption does not respect PodDisruptionBudget; see 
 [the limitations section](#poddisruptionbudget-is-not-supported) for more details.
@@ -20,9 +20,12 @@ Note that preemption does not respect PodDisruptionBudget; see
 In order to use priority and preemption in Kubernetes 1.8, you should follow these
 steps:
 
-1. Enable Priority and Preemption.
+1. Enable the feature.
 1. Add one or more PriorityClasses.
 1. Create pods with `PriorityClassName` set to one of the added PriorityClasses.
+(Of course you do not need to create the pods directly; normally you would add 
+`PriorityClassName` to the pod template of the collection object managing your 
+pods, for example a Deployment.)
 
 The following sections provide more information about these steps.
 
@@ -32,6 +35,10 @@ __alpha__ feature. It can be enabled by a command-line flag for API server and s
 
 ```
 --feature-gates=PodPriority=true
+```
+and also the following command-line flag for API server:
+```
+--runtime-config=scheduling.k8s.io/v1alpha1=true
 ```
 
 Once enabled you can add [PriorityClasses](#priorityclass) and create pods with [`PriorityClassName`](#pod-priority) set.
@@ -45,12 +52,15 @@ features are more likely to have bugs and future changes to them are not guarant
 be backward compatible.
 
 ## PriorityClass
-PriorityClass is a non-namespaced object that defines a mapping from a PriorityClassName to the integer
-value of the priority. The higher the value, the higher the priority. The value is
+PriorityClass is a non-namespaced object that defines a mapping from a priority
+class name (represented in the "name" field of the PriorityClass object's metadata)
+to the integer value of the priority. The higher the value, the higher the 
+priority. The value is
 specified in `value` field which is required. PriorityClass
 objects can have any 32-bit integer value smaller than or equal to 1 billion. Larger
 numbers are reserved for critical system pods that should not normally be preempted or
-evicted.
+evicted. A cluster admin should create one PriorityClass object for each such
+mapping that they want.
 
 PriorityClass also has two optional fields: `globalDefault` and `description`.
 `globalDefault` indicates that the value of this PriorityClass should be used for
@@ -127,14 +137,15 @@ When pods are preempted, the victims get their
 They have that much time to finish their work and exit. If they don't, they will be
 killed. This graceful termination period creates a time gap between the point that
 scheduler preempts pods until the pending pod (P) can be scheduled on the node (N).
-In the meantime, scheduler keeps scheduling other pending pods. When one or more victims
-exit or get terminated, scheduler may place other pending pods on the node if the pods are
-ahead of P in the scheduling queue. In such a case, it is likely that
+In the meantime, scheduler keeps scheduling other pending pods.
+As victims exit or get terminated, scheduler tries to schedule pods in the pending
+queue, and one or more of them may be considered and scheduled to N before the
+scheduler considers scheduling P on N. In such a case, it is likely that
 when all victims exit, pod P won't fit on node N anymore. So, scheduler will have to
 preempt other pods on node N or another node to let P schedule. This scenario may 
 be repeated again for the second and subsequent rounds of preemption and P may not
 get scheduled for a while. This scenario can cause problems in various clusters, but
-is particularly problematic in clusters where many new pods are created all the time.
+is particularly problematic in clusters with a high pod creation rate.
 
 We will address this problem in beta version of pod preemption. The solution
 we plan to implement is [provided here](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/pod-preemption.md#preemption-mechanics).
@@ -167,16 +178,16 @@ it will not try to preempt any pods on that node.
 Scheduler will try to find other nodes for preemption and could possibly find another
 one, but there is no guarantee that such a node will be found.
 
-We may address this issue in future versions, but we don't have a clear plan and cannot
-promise that it will be fixed in Beta or GA. Part
+We may address this issue in future versions, but we don't have a clear plan yet
+(i.e. we will not consider it a blocker for Beta or GA). Part
 of the reason is that finding the set of lower priority pods that satisfy all
-inter-pod affinity/anti-affinity rules is computationally expensive and adds
-substantial complexity to the preemption logic. Besides, even if preemption keeps the lower
+inter-pod affinity rules is computationally expensive and adds substantial 
+complexity to the preemption logic. Besides, even if preemption keeps the lower
 priority pods to satisfy inter-pod affinity, the lower priority pods may be preempted
 later by other pods, which removes the benefits of having the complex logic of 
 respecting inter-pod affinity to lower priority pods.
 
-Our recommended solution for this problem is to create inter-pod affinity towards
+Our recommended solution for this problem is to create inter-pod affinity only towards
 equal or higher priority pods.
 
 #### Cross Node Preemption
@@ -193,5 +204,6 @@ that is, when determining whether P can schedule onto N, it only considers preem
 pods on N.
 
 We may consider adding cross node preemption in future versions if we find an
-algorithm with reasonable performance, but we cannot promise anything at this point.
+algorithm with reasonable performance, but we cannot promise anything at this point 
+(It will not be considered a blocker for Beta and GA).
 
