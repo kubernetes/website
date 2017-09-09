@@ -7,7 +7,7 @@ assignees:
 title: Managing Service Accounts
 ---
 
-*本文是 service accounts 管理员手册。需要[Service Accounts 用户手册](/docs/user-guide/service-accounts)的知识背景。*
+*本文是 service accounts 管理员手册。需要[Service Accounts 用户手册](/cn/docs/user-guide/service-accounts)的知识背景。*
 
 *对于 authorization 和 user accounts 支持已经在计划中，但是还未完成。为了更好地解释 service
 accounts，有时会提到一些未完成的功能特性。*
@@ -41,7 +41,7 @@ service accounts 的自动化由三个独立的组建共同配合实现：
 ### 服务账号准入控制器
 
 
-对于 pods 的操作是通过一个叫做 [准入控制器](/docs/admin/admission-controllers) 的插件实现的。它是 apiserver 的一部分。
+对于 pods 的操作是通过一个叫做 [准入控制器](/cn/docs/admin/admission-controllers) 的插件实现的。它是 apiserver 的一部分。
 当准入控制器被创建或更新时，他会对 pod 同步进行操作。当这个插件时活动状态时（大部分版本默认是活动状态），并在 pod 被创建或者更改时，
 它会做如下操作：
 

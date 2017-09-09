@@ -31,8 +31,8 @@ title: 使用 Service 把前端连接到后端
 * {% include task-tutorial-prereqs.md %}
 
 
-* 本项任务使用[外部负载均衡服务](/docs/tasks/access-application-cluster/create-external-load-balancer/)，
-  所以需要对应的可支持此功能的环境。如果你的环境不能支持，你可以使用[NodePort](/docs/user-guide/services/#type-nodeport)
+* 本项任务使用[外部负载均衡服务](/cn/docs/tasks/access-application-cluster/create-external-load-balancer/)，
+  所以需要对应的可支持此功能的环境。如果你的环境不能支持，你可以使用[NodePort](/cn/docs/user-guide/services/#type-nodeport)
   的类型 Service 来代替。
 
 {% endcapture %}
@@ -159,8 +159,8 @@ service "frontend" created
 
 
 
-**注意**：这个 nginx 配置文件是被打包在[容器镜像](/docs/tasks/access-application-cluster/frontend/Dockerfile)里的。
-更好的方法是使用 [ConfigMap](/docs/tasks/configure-pod-container/configmap/)，这样的话你可以更轻易地更改配置。
+**注意**：这个 nginx 配置文件是被打包在[容器镜像](/cn/docs/tasks/access-application-cluster/frontend/Dockerfile)里的。
+更好的方法是使用 [ConfigMap](/cn/docs/tasks/configure-pod-container/configmap/)，这样的话你可以更轻易地更改配置。
 
 
 ### 与前端 Service 交互
@@ -215,8 +215,8 @@ curl http://<EXTERNAL-IP>
 
 
 
-* 了解更多 [Services](/docs/concepts/services-networking/service/)
-* 了解更多 [ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
+* 了解更多 [Services](/cn/docs/concepts/services-networking/service/)
+* 了解更多 [ConfigMaps](/cn/docs/tasks/configure-pod-container/configmap/)
 
 {% endcapture %}
 
