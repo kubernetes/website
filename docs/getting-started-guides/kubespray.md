@@ -21,15 +21,15 @@ To choose a tool which best fits your use case, read [this comparison](https://g
 
 Provision servers with the following requirements:
 
-* `Ansible v2.3` (or newer) 
-* `Jinja 2.9` (or newer) 
+* `Ansible v2.3` (or newer)
+* `Jinja 2.9` (or newer)
 * `python-netaddr` installed on the machine that running Ansible commands
 * Target servers must have access to the Internet in order to pull docker images
 * Target servers are configured to allow IPv4 forwarding
 * Target servers have SSH connectivity ( tcp/22 ) directly to your nodes or through a bastion host/ssh jump box
 * Target servers have a privileged user
 * Your SSH key must be copied to all the servers that are part of your inventory
-* Firewall rules configured properly to allow Ansible and Kubernetes components to communicate 
+* Firewall rules configured properly to allow Ansible and Kubernetes components to communicate
 * If using a cloud provider, you must have the appropriate credentials available and exported as environment variables
 
 Kubespray provides the following utilities to help provision your environment:
@@ -44,7 +44,7 @@ Kubespray provides the following utilities to help provision your environment:
 
 ### (2/5) Compose an inventory file
 
-After you provision your servers, create an [inventory file for Ansible](http://docs.ansible.com/ansible/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)". 
+After you provision your servers, create an [inventory file for Ansible](http://docs.ansible.com/ansible/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
 
 ### (3/5) Plan your cluster deployment
 
@@ -65,10 +65,10 @@ Kubespray customizations can be made to a [variable file](http://docs.ansible.co
 Next, deploy your cluster with one of two methods:
 
 * [ansible-playbook](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
-* [kubespray-cli tool](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md) 
+* [kubespray-cli tool](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md)
 
 **Note:** kubespray-cli is no longer actively maintained.
-{. :note}
+{: .note}
 
 Both methods run the default [cluster definition file](https://github.com/kubernetes-incubator/kubespray/blob/master/cluster.yml).
 
@@ -84,11 +84,11 @@ Kubespray provides additional playbooks to manage your cluster: _scale_ and _upg
 
 ### Scale your cluster
 
-You can scale your cluster by running the scale playbook. For more information, see "[Adding nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#Adding-nodes)". 
+You can scale your cluster by running the scale playbook. For more information, see "[Adding nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#Adding-nodes)".
 
 ### Upgrade your cluster
 
-You can upgrade your cluster by running the upgrade-cluster playbook. For more information, see "[Upgrades](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/upgrades.md)". 
+You can upgrade your cluster by running the upgrade-cluster playbook. For more information, see "[Upgrades](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/upgrades.md)".
 
 ## What's next
 
@@ -99,7 +99,7 @@ Check out planned work on Kubespray's [roadmap](https://github.com/kubernetes-in
 You can reset your nodes and wipe out all components installed with Kubespray via the [reset playbook](https://github.com/kubernetes-incubator/kubespray/blob/master/reset.yml).
 
 **Caution:** When running the reset playbook, be sure not to accidentally target your production cluster!
-{. :caution}
+{: .caution}
 
 ## Feedback
 
