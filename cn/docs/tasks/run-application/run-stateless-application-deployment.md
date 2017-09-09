@@ -9,7 +9,7 @@ title: 使用Deployment运行一个无状态应用
 {% endcapture %}
 
 
-{% capture 目标 %}
+{% capture objectives %}
 
 * 创建一个nginx deployment.
 * 使用kubectl列举关于deployment信息.
@@ -18,7 +18,7 @@ title: 使用Deployment运行一个无状态应用
 {% endcapture %}
 
 
-{% capture 前提条件 %}
+{% capture prerequisites %}
 
 {% include task-tutorial-prereqs.md %}
 
