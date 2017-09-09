@@ -574,6 +574,7 @@ parameters:
 #### vSphere
 
 1. Create a persistent volume with a user specified disk format.
+
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -587,6 +588,7 @@ parameters:
 -   `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
 
 2. Create a persistent volume with a disk format on a user specified datastore.
+
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1beta1
@@ -602,6 +604,7 @@ parameters:
 -   `datastore`: The user can also specify the datastore in the Storageclass. The volume will be created on the datastore specified in the storage class which in this case is `VSANDatastore`. This field is optional. If not specified as in previous YAML description, the volume will be created on the datastore specified in the vsphere config file used to initialize the vSphere Cloud Provider.
 
 3. Create a persistent volume with user specified VSAN storage capabilities.
+
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1beta1
