@@ -24,6 +24,16 @@ please see [here](https://kubernetes.io/docs/concepts/cluster-administration/net
 
 {% capture steps %}
 
+## Verify the MAC address and product_uuid are unique for every node
+
+* You can get the MAC address of the network interfaces using the command `ip link` or `ifconfig -a`
+* The product_uuid can be checked by using the command `sudo cat /sys/class/dmi/id/product_uuid`
+
+It is very likely that hardware devices will have unique addresses, although some virtual machines may have
+identical values. Kubernetes uses these values to uniquely identify the nodes in the cluster.
+If these values are not unique to each node, the installation processes
+[can fail](https://github.com/kubernetes/kubeadm/issues/31).
+
 ## Check required ports
 
 ### Master node(s)
