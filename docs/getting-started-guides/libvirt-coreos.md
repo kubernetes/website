@@ -59,7 +59,7 @@ You can test it with the following command:
 virsh -c qemu:///system pool-list
 ```
 
-If you have access error messages, please read https://libvirt.org/acl.html and https://libvirt.org/aclpolkit.html .
+If you have access error messages, please read [https://libvirt.org/acl.html](https://libvirt.org/acl.html) and [https://libvirt.org/aclpolkit.html](https://libvirt.org/aclpolkit.html).
 
 In short, if your libvirt has been compiled with Polkit support (ex: Arch, Fedora 21), you can create `/etc/polkit-1/rules.d/50-org.libvirt.unix.manage.rules` as follows to grant full access to libvirt to `$USER`
 
@@ -125,7 +125,7 @@ There is both an automated way and a manual, customizable way of setting up libv
 
 #### Automated setup
 
-There is an automated setup script on https://get.k8s.io that will download the tarball for Kubernetes and spawn a Kubernetes cluster on a local CoreOS instances that the script creates. To run this script, use wget or curl with the KUBERNETES_PROVIDER environment variable set to libvirt-coreos:
+There is an automated setup script on [https://get.k8s.io]( https://get.k8s.io ) that will download the tarball for Kubernetes and spawn a Kubernetes cluster on a local CoreOS instances that the script creates. To run this script, use wget or curl with the KUBERNETES_PROVIDER environment variable set to libvirt-coreos:
 
 ```shell
 export KUBERNETES_PROVIDER=libvirt-coreos; wget -q -O - https://get.k8s.io | bash
