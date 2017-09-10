@@ -46,7 +46,7 @@ To setup CentOS PXELINUX environment there is a complete [guide here](http://doc
 
 2. `vi /etc/xinetd.d/tftp` to enable tftp service and change disable to 'no'
 
-        go get github.com/vmware/photon-controller-cli/photon
+        -disable = no
 
 3. Copy over the syslinux images we will need.
 
