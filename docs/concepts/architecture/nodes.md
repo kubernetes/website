@@ -72,15 +72,20 @@ the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce f
 permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from
 Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
 
-In version 1.8 a possibility to automatically create [taints](/docs/concepts/configuration/taint-and-toleration) representing Conditions
-was added as an alpha feature. Enabling it makes scheduler ignore Conditions when considering a Node, instead it looks at the taints and
-Pod's tolerations. This allows users to decide whether they want to keep old behavior and don't schedule their Pods on Nodes with some
-Conditions, or rather corresponding taints, or if they want to add a toleration and allow it. To enable this behavior you need to pass
-an additional feature gate flag `--feature-gates=...,TaintNodesByCondition=true` to apiserver, controller-manager and scheduler.
+Version 1.8 introduces an aplpha feature that automatically creates
+[taints](/docs/concepts/configuration/taint-and-toleration) that represent conditions.
+To enable this behavior, pass an additional feature gate flag `--feature-gates=...,TaintNodesByCondition=true`
+the API server, controller manager, and scheduler.
+When `TaintNodesByCondition` is enabled, the scheduler ignores conditions when considering a Node; instead
+it looks at the Node's taints and a Pod's tolerations.
 
-Note that because of small delay
-(usually <1s) between time when Condition is observed and Taint is created it's possible that enabling this feature will slightly
-increase number of Pods that are successfully scheduled but rejected by the Kubelet.
+Now users can choose between the old scheduling model and a new, more flexible scheduling model.
+A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that 
+tolerates the taints of a particular Node can be scheduled on that Node.
+
+Note that because of small delay, usually less than one second, between time when condition is observed and a taint
+is created, it's possible that enabling this feature will slightly increase number of Pods that are successfully
+scheduled but rejected by the kubelet.
 
 ### Capacity
 
@@ -189,8 +194,8 @@ NodeController is responsible for adding taints corresponding to node problems l
 node unreachable or not ready. See [this documentation](/docs/concepts/configuration/taint-and-toleration)
 for details about `NoExecute` taints and the alpha feature.
 
-Since Kubernetes 1.8 NodeController may be made responsible for creating taints represeting
-Node Conditions. This is an alpha feature as of 1.8.
+Starting in version 1.8, the node controller can be made responsible for creating taints that represent
+Node conditions. This is an alpha feature of version 1.8.
 
 ### Self-Registration of Nodes
 
