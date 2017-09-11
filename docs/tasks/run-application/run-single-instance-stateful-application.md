@@ -206,7 +206,7 @@ specific to stateful apps:
 * Don't scale the app. This setup is for single-instance apps
   only. The underlying PersistentVolume can only be mounted to one
   Pod. For clustered stateful apps, see the
-  [StatefulSet documentation](/docs/concepts/workloads/controllers/petset/).
+  [StatefulSet documentation](/docs/concepts/workloads/controllers/statefulset.md).
 * Use `strategy:` `type: Recreate` in the Deployment configuration
   YAML file. This instructs Kubernetes to _not_ use rolling
   updates. Rolling updates will not work, as you cannot have more than
