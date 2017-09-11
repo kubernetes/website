@@ -94,7 +94,7 @@ When the plugin is invoked, it calls the `dracarys` binary or script, which is l
 
 It is recommended that each plugin has its own subdirectory in the filesystem, preferably with the same name as the plugin command. The directory must contain the `plugin.yaml` descriptor and any binary, script, asset, or other dependency it might require.
 
-For example, the directory structure for the `targaryen` could look like this:
+For example, the directory structure for the `targaryen` plugin could look like this:
 
 ```
 ~/.kube/plugins/
