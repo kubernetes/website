@@ -138,9 +138,9 @@ scheduler in that pod spec. Let's look at three examples.
 
   Save this file as `pod1.yaml` and submit it to the Kubernetes cluster.
 
-  ```shell
-  kubectl create -f pod1.yaml
-  ```
+```shell
+kubectl create -f pod1.yaml
+```
 
 - Pod spec with `default-scheduler`
 
@@ -151,9 +151,9 @@ scheduler in that pod spec. Let's look at three examples.
 
   Save this file as `pod2.yaml` and submit it to the Kubernetes cluster.
 
-  ```shell
-  kubectl create -f pod2.yaml
-  ```
+```shell
+kubectl create -f pod2.yaml
+```
 
 - Pod spec with `my-scheduler`
 
