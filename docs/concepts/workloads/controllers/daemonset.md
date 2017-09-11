@@ -117,7 +117,7 @@ When the support to critical pods is enabled and the pods in a DaemonSet are
 labelled as critical, the Daemon pods are created with an additional
 `NoSchedule` toleration for the `node.kubernetes.io/out-of-disk` taint.
 
-Note that all above `NoSchedule` taints above are created only in version 1.8 or leater if alpha feature `TaintNodesByCondition` is enabled.
+Note that all above `NoSchedule` taints above are created only in version 1.8 or later if the alpha feature `TaintNodesByCondition` is enabled.
 
 ## Communicating with Daemon Pods
 
