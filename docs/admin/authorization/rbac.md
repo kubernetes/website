@@ -181,7 +181,7 @@ metadata:
   name: configmap-updater
 rules:
 - apiGroups: [""]
-  resources: ["configmap"]
+  resources: ["configmaps"]
   resourceNames: ["my-configmap"]
   verbs: ["update", "get"]
 ```
