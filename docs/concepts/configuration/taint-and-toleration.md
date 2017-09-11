@@ -255,17 +255,14 @@ which matches the behavior when this feature is disabled.
 
 ## Taint Nodes by Condition
 
-In Kubernetes 1.8 we added an alpha feature that makes NodeController create taints corresponding to node conditions, and disables the
-condition check in the scheduler (instead the scheduler checks the taints). This assures that Conditions don't affect what's scheduled
-onto the node and the user can choose to ignore some of the node's problems (represented as Conditions) by adding appropriate pod
-tolerations.
+Version 1.8 introduces an alpha feature that causes the node controller to create taints corresponding to
+Node conditions. When this feature is enabled, the scheduler does not check conditions; instead the scheduler checks taints. This assures that conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as conditions) by adding appropriate Pod tolerations.
 
-To make sure that turning on this feature doesn't break Daemon sets from 1.8 DaemonSet controller will automatically add following
-`NoSchedule` tolerations to all deamons:
+To make sure that turning on this feature doesn't break DaemonSets, starting in version 1.8, the  DaemonSet controller automatically adds the following `NoSchedule` tolerations to all deamons:
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
   * `node.kubernetes.io/out-of-disk` (*only for critical pods*)
 
-Above settings are ones that keep backward compatibility, but we understand they may not fit all user's use cases, which is why cluster
-admin may choose to add arbitrary tolerations to DaemonSets.
+The above settings ensure backward compatibility, but we understand they may not fit all user's needs, which is why
+cluster admin may choose to add arbitrary tolerations to DaemonSets.
