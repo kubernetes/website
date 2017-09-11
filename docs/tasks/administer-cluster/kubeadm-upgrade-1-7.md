@@ -42,7 +42,7 @@ You need to have a Kubernetes cluster running version 1.6.x.
 
 2. Restart kubelet.
 
-       sudo systemctl restart kubelet
+       systemctl restart kubelet
 
 3. Delete the `kube-proxy` DaemonSet.
 
@@ -88,7 +88,7 @@ You need to have a Kubernetes cluster running version 1.6.x.
 
 2. Restart kubelet.
 
-       sudo systemctl restart kubelet
+       systemctl restart kubelet
 
 {% endcapture %}
 
