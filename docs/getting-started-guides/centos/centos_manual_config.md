@@ -1,11 +1,15 @@
 ---
-assignees:
+approvers:
 - thockin
 title: CentOS
 ---
 
 * TOC
 {:toc}
+
+## Warning
+
+This guide [has been deprecated](https://github.com/kubernetes/kubernetes.github.io/issues/1613). It was originally written for Kubernetes 1.1.0. Please check [the latest guide](/docs/getting-started-guides/kubeadm/).
 
 ## Prerequisites
 
@@ -52,8 +56,8 @@ yum -y install --enablerepo=virt7-docker-common-release kubernetes etcd flannel
 * Add master and node to /etc/hosts on all machines (not needed if hostnames already in DNS)
 
 ```shell
-echo "192.168.121.9	centos-master
-192.168.121.65	centos-minion-1
+echo "192.168.121.9    centos-master
+192.168.121.65    centos-minion-1
 192.168.121.66  centos-minion-2
 192.168.121.67  centos-minion-3" >> /etc/hosts
 ```
@@ -147,9 +151,9 @@ FLANNEL_ETCD_PREFIX="/kube-centos/network"
 
 ```shell
 for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler flanneld; do
-	systemctl restart $SERVICES
-	systemctl enable $SERVICES
-	systemctl status $SERVICES
+    systemctl restart $SERVICES
+    systemctl enable $SERVICES
+    systemctl status $SERVICES
 done
 ```
 
@@ -216,15 +220,13 @@ kubectl config use-context default-context
 
 ```shell
 $ kubectl get nodes
-NAME                   LABELS            STATUS
-centos-minion-1        <none>            Ready
-centos-minion-2        <none>            Ready
-centos-minion-3        <none>            Ready
+NAME                   STATUS     AGE     VERSION
+centos-minion-1        Ready      3d      v1.6.0+fff5156
+centos-minion-2        Ready      3d      v1.6.0+fff5156   
+centos-minion-3        Ready      3d      v1.6.0+fff5156
 ```
 
 **The cluster should be running! Launch a test pod.**
-
-You should have a functional cluster, check out [101](/docs/user-guide/walkthrough/)!
 
 ## Support Level
 

@@ -1,6 +1,6 @@
 ---
 
-assignees:
+approvers:
 - cdrage
 
 title: Kompose Overview

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - janetkuo
 title: kubectl Usage Conventions
@@ -23,11 +23,11 @@ If you need stable output in a script, you should:
 
 In order for `kubectl run` to satisfy infrastructure as code:
 
-* Always tag your image with a version-specific tag and don't move that tag to a new version. For example, use `:v1234`, `v1.2.3`, `r03062016-1-4`, rather than `:latest` (see [Best Practices for Configuration](/docs/user-guide/config-best-practices/#container-images) for more information.)
-* If the image is lightly parameterized, capture the parameters in a checked-in script, or at least use `--record`, to annotate the created objects with the command line.
+* Always tag your image with a version-specific tag and don't move that tag to a new version. For example, use `:v1234`, `v1.2.3`, `r03062016-1-4`, rather than `:latest` (see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images) for more information).
+* If the image is lightly parameterized, capture the parameters in a checked-in script, or at least use `--record`to annotate the created objects with the command line.
 * If the image is heavily parameterized, definitely check in the script.
 * If features are needed that are not expressible via `kubectl run` flags, switch to configuration files checked into source control.
-* Pin to a specific [generator](#generators) version, such as `kubectl run --generator=deployment/v1beta1`
+* Pin to a specific [generator](#generators) version, such as `kubectl run --generator=deployment/v1beta1`.
 
 #### Generators
 
@@ -35,10 +35,8 @@ In order for `kubectl run` to satisfy infrastructure as code:
 
 * Pod - use `run-pod/v1`.
 * Replication controller - use `run/v1`.
-* Deployment - use `deployment/v1beta1`.
-* Job (using `extension/v1beta1` endpoint) - use `job/v1beta1`. Starting from
-  version 1.5 of kuberentes this generator is deprecated, with a plan to be
-  removed in 1.6. Please use `job/v1` instead.
+* Deployment, using `extensions/v1beta1` endpoint - use `deployment/v1beta1` (default).
+* Deployment, using `apps/v1beta1` endpoint - use `deployment/apps.v1beta1` (recommended).
 * Job - use `job/v1`.
 * CronJob - use `cronjob/v2alpha1`.
 
@@ -46,13 +44,13 @@ Additionally, if you didn't specify a generator flag, other flags will suggest u
 a specific generator.  Below table shows which flags force using specific generators,
 depending on your cluster version:
 
-|   Generated Resource   | Cluster v1.4          | Cluster v1.3          | Cluster v1.2                               | Cluster v1.1 and eariler                   |
-|:----------------------:|-----------------------|-----------------------|--------------------------------------------|--------------------------------------------|
-| Pod                    | `--restart=Never`     | `--restart=Never`     | `--generator=run-pod/v1`                   | `--restart=OnFailure` OR `--restart=Never` |
-| Replication Controller | `--generator=run/v1`  | `--generator=run/v1`  | `--generator=run/v1`                       | `--restart=Always`                         |
-| Deployment             | `--restart=Always`    | `--restart=Always`    | `--restart=Always`                         | N/A                                        |
-| Job                    | `--restart=OnFailure` | `--restart=OnFailure` | `--restart=OnFailure` OR `--restart=Never` | N/A                                        |
-| Cron Job               | `--schedule=<cron>`   | N/A                   | N/A                                        | N/A                                        |
+|   Generated Resource   | Cluster v1.4 and later | Cluster v1.3          | Cluster v1.2                               | Cluster v1.1 and eariler                   |
+|:----------------------:|------------------------|-----------------------|--------------------------------------------|--------------------------------------------|
+| Pod                    | `--restart=Never`      | `--restart=Never`     | `--generator=run-pod/v1`                   | `--restart=OnFailure` OR `--restart=Never` |
+| Replication Controller | `--generator=run/v1`   | `--generator=run/v1`  | `--generator=run/v1`                       | `--restart=Always`                         |
+| Deployment             | `--restart=Always`     | `--restart=Always`    | `--restart=Always`                         | N/A                                        |
+| Job                    | `--restart=OnFailure`  | `--restart=OnFailure` | `--restart=OnFailure` OR `--restart=Never` | N/A                                        |
+| Cron Job               | `--schedule=<cron>`    | N/A                   | N/A                                        | N/A                                        |
 
 Note that these flags will use a default generator only when you have not specified
 any flag.  This also means that combining `--generator` with other flags won't
@@ -71,4 +69,4 @@ flag, which will provide the object to be submitted to the cluster.
 
 ### `kubectl apply`
 
-* To use `kubectl apply` to update resources, always create resources initially with `kubectl apply` or with `--save-config`. See [managing resources with kubectl apply](/docs/user-guide/managing-deployments/#kubectl-apply) for the reason behind it.
+* To use `kubectl apply` to update resources, always create resources initially with `kubectl apply` or with `--save-config`. See [managing resources with kubectl apply](/docs/concepts/cluster-administration/manage-deployment/#kubectl-apply) for the reason behind it.

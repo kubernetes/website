@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - jdef
 title: Kubernetes on Mesos
 ---
@@ -30,7 +30,7 @@ Further information is available in the Kubernetes on Mesos [contrib directory][
 - A running [Mesos cluster on Google Compute Engine][5]
 - A [VPN connection][10] to the cluster
 - A machine in the cluster which should become the Kubernetes *master node* with:
-  - Go (see [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/devel/development.md#go-versions) for required versions)
+  - Go (see [here](https://git.k8s.io/community/contributors/devel/development.md) for required versions)
   - make (i.e. build-essential)
   - Docker
 
@@ -159,9 +159,9 @@ NAME      READY     STATUS    RESTARTS   AGE
 ```shell
 # NOTE: your service IPs will likely differ
 $ kubectl get services
-NAME             LABELS                                    SELECTOR   IP(S)          PORT(S)
-k8sm-scheduler   component=scheduler,provider=k8sm         <none>     10.10.10.113   10251/TCP
-kubernetes       component=apiserver,provider=kubernetes   <none>     10.10.10.1     443/TCP
+NAME             CLUSTER-IP       EXTERNAL-IP     PORT(S)        AGE
+k8sm-scheduler   10.10.10.113     <none>          10251/TCP      1d
+kubernetes       10.10.10.1       <none>          443/TCP        1d
 ```
 
 Lastly, look for Kubernetes in the Mesos web GUI by pointing your browser to
@@ -194,7 +194,7 @@ Send the pod description to Kubernetes using the `kubectl` CLI:
 
 ```shell
 $ kubectl create -f ./nginx.yaml
-pods/nginx
+pod "nginx" created
 ```
 
 Wait a minute or two while `dockerd` downloads the image layers from the internet.
@@ -217,10 +217,7 @@ Kube-dns is an addon for Kubernetes which adds DNS-based service discovery to th
 The kube-dns addon runs as a pod inside the cluster. The pod consists of three co-located containers:
 
 - a local etcd instance
-- the [skydns][11] DNS server
-- the kube2sky process to glue skydns to the state of the Kubernetes cluster.
-
-The skydns container offers DNS service via port 53 to the cluster. The etcd communication works via local 127.0.0.1 communication
+- the [kube-dns][11] DNS server
 
 We assume that kube-dns will use
 
@@ -229,15 +226,18 @@ We assume that kube-dns will use
 
 Note that we have passed these two values already as parameter to the apiserver above.
 
-A template for a replication controller spinning up the pod with the 3 containers can be found at [cluster/addons/dns/skydns-rc.yaml.in][11] in the repository. The following steps are necessary in order to get a valid replication controller yaml file:
+A template for a replication controller spinning up the pod with the 3 containers can be found at [cluster/addons/dns/kubedns-controller.yaml.in][12] in the repository. The following steps are necessary in order to get a valid replication controller yaml file:
 
-- replace `{% raw %}{{ pillar['dns_replicas'] }}{% endraw %}`  with `1`
-- replace `{% raw %}{{ pillar['dns_domain'] }}{% endraw %}` with `cluster.local.`
+{% assign dns_replicas = "{{ pillar['dns_replicas'] }}" %}
+{% assign dns_domain = "{{ pillar['dns_domain'] }}" %}
+- replace `{{ dns_replicas }}`  with `1`
+- replace `{{ dns_domain }}` with `cluster.local.`
 - add `--kube_master_url=${KUBERNETES_MASTER}` parameter to the kube2sky container command.
 
-In addition the service template at [cluster/addons/dns/skydns-svc.yaml.in][12] needs the following replacement:
+In addition the service template at [cluster/addons/dns/kubedns-controller.yaml.in][12] needs the following replacement:
 
-- `{% raw %}{{ pillar['dns_server'] }}{% endraw %}` with `10.10.10.10`.
+{% assign dns_server = "{{ pillar['dns_server'] }}" %}
+- `{{ dns_server }}` with `10.10.10.10`.
 
 To do this automatically:
 
@@ -245,16 +245,16 @@ To do this automatically:
 sed -e "s/{{ pillar\['dns_replicas'\] }}/1/g;"\
 "s,\(command = \"/kube2sky\"\),\\1\\"$'\n'"        - --kube_master_url=${KUBERNETES_MASTER},;"\
 "s/{{ pillar\['dns_domain'\] }}/cluster.local/g" \
-  cluster/addons/dns/skydns-rc.yaml.in > skydns-rc.yaml
+  cluster/addons/dns/kubedns-controller.yaml.in > kubedns-controller.yaml
 sed -e "s/{{ pillar\['dns_server'\] }}/10.10.10.10/g" \
-  cluster/addons/dns/skydns-svc.yaml.in > skydns-svc.yaml{% endraw %}
+  cluster/addons/dns/kubedns-svc.yaml.in > kubedns-svc.yaml{% endraw %}
 ```
 
 Now the kube-dns pod and service are ready to be launched:
 
 ```shell
-kubectl create -f ./skydns-rc.yaml
-kubectl create -f ./skydns-svc.yaml
+kubectl create -f ./kubedns-controller.yaml
+kubectl create -f ./kubedns-svc.yaml
 ```
 
 Check with `kubectl get pods --namespace=kube-system` that 3/3 containers of the pods are eventually up and running. Note that the kube-dns pods run in the `kube-system` namespace, not in  `default`.
@@ -327,14 +327,14 @@ Future work will add instructions to this guide to enable support for Kubernetes
 
 [1]: https://docs.mesosphere.com/latest/usage/service-guides/hdfs/
 [2]: https://docs.mesosphere.com/latest/usage/service-guides/spark/
-[3]: https://docs.mesosphere.com/latest/usage/service-guides/chronos/
+[3]: https://mesos.github.io/chronos/docs/getting-started.html
 [4]: https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md
 [5]: https://dcos.io/docs/latest/administration/installing/cloud/gce/
 [6]: http://mesos.apache.org/
 [7]: https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/docs/issues.md
 [8]: https://github.com/mesosphere/kubernetes-mesos/issues
-[9]: https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples
+[9]: https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/
 [10]: http://open.mesosphere.com/getting-started/cloud/google/mesosphere/#vpn-setup
-[11]: https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/skydns-rc.yaml.in
-[12]: https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/skydns-svc.yaml.in
+[11]: https://git.k8s.io/kubernetes/cluster/addons/dns/README.md#kube-dns
+[12]: https://git.k8s.io/kubernetes/cluster/addons/dns/kubedns-controller.yaml.in
 [13]: https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/README.md

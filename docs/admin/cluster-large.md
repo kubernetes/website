@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - davidopp
 - lavalamp
 title: Building Large Clusters
@@ -7,11 +7,11 @@ title: Building Large Clusters
 
 ## Support
 
-At {{page.version}}, Kubernetes supports clusters with up to 1000 nodes. More specifically, we support configurations that meet *all* of the following criteria:
+At {{page.version}}, Kubernetes supports clusters with up to 5000 nodes. More specifically, we support configurations that meet *all* of the following criteria:
 
-* No more than 2000 nodes
-* No more than 60000 total pods
-* No more than 120000 total containers
+* No more than 5000 nodes
+* No more than 150000 total pods
+* No more than 300000 total containers
 * No more than 100 pods per node
 
 <br>
@@ -23,7 +23,7 @@ At {{page.version}}, Kubernetes supports clusters with up to 1000 nodes. More sp
 
 A cluster is a set of nodes (physical or virtual machines) running Kubernetes agents, managed by a "master" (the cluster-level control plane).
 
-Normally the number of nodes in a cluster is controlled by the the value `NUM_NODES` in the platform-specific `config-default.sh` file (for example, see [GCE's `config-default.sh`](http://releases.k8s.io/{{page.githubbranch}}/cluster/gce/config-default.sh)).
+Normally the number of nodes in a cluster is controlled by the value `NUM_NODES` in the platform-specific `config-default.sh` file (for example, see [GCE's `config-default.sh`](http://releases.k8s.io/{{page.githubbranch}}/cluster/gce/config-default.sh)).
 
 Simply changing that value to something very large, however, may cause the setup script to fail for many cloud providers. A GCE deployment, for example, will run in to quota issues and fail to bring the cluster up.
 
@@ -81,7 +81,7 @@ Note that these master node sizes are currently only set at cluster startup time
 
 To prevent memory leaks or other resource issues in [cluster addons](https://releases.k8s.io/{{page.githubbranch}}/cluster/addons) from consuming all the resources available on a node, Kubernetes sets resource limits on addon containers to limit the CPU and Memory resources they can consume (See PR [#10653](http://pr.k8s.io/10653/files) and [#10778](http://pr.k8s.io/10778/files)).
 
-For [example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml):
+For example:
 
 ```yaml
   containers:
@@ -111,7 +111,7 @@ Heapster's resource limits are set dynamically based on the initial size of your
 and [#22940](http://issue.k8s.io/22940)). If you find that Heapster is running
 out of resources, you should adjust the formulas that compute heapster memory request (see those PRs for details).
 
-For directions on how to detect if addon containers are hitting resource limits, see the [Troubleshooting section of Compute Resources](/docs/user-guide/compute-resources/#troubleshooting).
+For directions on how to detect if addon containers are hitting resource limits, see the [Troubleshooting section of Compute Resources](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting).
 
 In the [future](http://issue.k8s.io/13048), we anticipate to set all cluster addon resource limits based on cluster size, and to dynamically adjust them if you grow or shrink your cluster.
 We welcome PRs that implement those features.

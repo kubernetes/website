@@ -1,5 +1,5 @@
 ---
-title: Autoscaling the DNS Service in a Cluster
+title: Autoscale the DNS Service in a Cluster
 ---
 
 {% capture overview %}
@@ -11,7 +11,7 @@ Kubernetes cluster.
 
 * {% include task-tutorial-prereqs.md %}
 
-* Make sure the [DNS feature](/docs/admin/dns/) itself is enabled.
+* Make sure the [DNS feature](/docs/concepts/services-networking/dns-pod-service/) itself is enabled.
 
 * Kubernetes version 1.4.0 or later is recommended.
 
@@ -179,7 +179,7 @@ The output is:
 ### Option 3: Delete the kube-dns-autoscaler manifest file from the master node
 
 This option works if kube-dns-autoscaler is under control of the
-[Addon Manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/README.md)'s
+[Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md)'s
 control, and you have write access to the master node.
 
 Sign in to the master node and delete the corresponding manifest file.
@@ -225,7 +225,7 @@ a future development. The current implementation, which uses the number of nodes
 and cores in cluster, is limited.
 
 Support for custom metrics, similar to that provided by
-[Horizontal Pod Autoscaling](http://kubernetes.io/docs/user-guide/horizontal-pod-autoscaling/),
+[Horizontal Pod Autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/),
 is under consideration as a future development.
 
 {% endcapture %}

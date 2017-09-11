@@ -7,7 +7,7 @@ This page will outline how to manage and execute a Kubernetes upgrade.
 {% endcapture %}
 
 {% capture prerequisites %}
-This page assumes you have a working Juju deployed cluster.
+This page assumes you have a working deployed cluster.
 
 ## Assumptions
 
@@ -27,9 +27,20 @@ Backing up etcd requires an export and snapshot, refer to the [backup documentat
 
     juju upgrade-charm etcd
 
-This will handle upgrades between minor versions of etcd. Major upgrades from etcd 2.x to 3.x are currently unsupported. Upgrade viability will be investigated when etcd 3.0 is finalized.
+This will handle upgrades between minor versions of etcd. Major upgrades from etcd 2.x to 3.x are currently unsupported. Instead, data will be run in etcdv2 stores over the etcdv3 api.
 
 # Upgrade Kubernetes
+
+The Kubernetes Charms use snap channels to drive payloads. The channels are defined by `X.Y/channel` where `X.Y` is the `major.minor` release of Kubernetes (e.g. 1.6) and `channel` is one of the four following channels:
+
+| Channel name        | Description  |
+| ------------------- | ------------ |
+| stable              | The latest stable released patch version of Kubernetes |
+| candidate           | Release candidate releases of Kubernetes |
+| beta                | Latest alpha or beta of Kubernetes for that minor release |
+| edge                | Nightly builds of that minor release of Kubernetes |
+
+If a release isn't available, the next highest channel is used. For example, 1.6/beta will load `/candidate` or `/stable` depending on availability of release. Development versions of Kubernetes are available in that minor releases edge channel. There is no guarantee that edge or master will work with the current charms.
 
 ## Master Upgrades
 
@@ -38,6 +49,13 @@ First you need to upgrade the masters:
     juju upgrade-charm kubernetes-master
 
 NOTE: Always upgrade the masters before the workers.
+
+Once the latest charm is deployed, the channel for Kubernetes can be selected by issuing the following:
+
+    juju config kubernetes-master channel=1.x/stable
+
+Where `x` is the minor version of Kubernetes. For example, `1.6/stable`. See above for Channel definitions
+
 
 ## Worker Upgrades
 
@@ -53,11 +71,11 @@ Deploy new worker(s):
 
 Pause the old workers so your workload migrates: 
 
-    juju action kubernetes-alpha/# pause
+    juju run-action kubernetes-alpha/# pause
 
 Verify old workloads have migrated with: 
 
-    kubectl get-pod -o wide
+    kubectl get pod -o wide
 
 Tear down old workers with: 
 
@@ -66,6 +84,13 @@ Tear down old workers with:
 ## In place worker upgrade 
 
     juju upgrade-charm kubernetes-worker
+    juju config kubernetes-worker channel=1.x/stable
+
+Where `x` is the minor version of Kubernetes. For example, `1.6/stable`. See above for Channel definitions. Once you've configured kubernetes-worker with the appropriate channel, run the upgrade action on each worker:
+
+    juju run-action kubernetes-worker/0 upgrade
+    juju run-action kubernetes-worker/1 upgrade
+    ...
 
 # Verify upgrade
 

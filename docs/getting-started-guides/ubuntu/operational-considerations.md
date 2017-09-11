@@ -48,7 +48,6 @@ Model             Cloud/Region   Status     Machines  Cores  Access  Last connec
 admin/controller  lxd/localhost  available         1      -  admin   just now
 admin/default     lxd/localhost  available         0      -  admin   2017-01-23
 admin/whale*      lxd/localhost  available         6      -  admin   3 minutes ago
-
 ```
 
 The first line ```Controller: k8s``` refers to how you bootstrapped. 
@@ -70,7 +69,7 @@ At this stage, you can query the controller model as well:
 ```
 juju status
 Model       Controller  Cloud/Region   Version
-controller  k8s		   lxd/localhost  2.0.2
+controller  k8s           lxd/localhost  2.0.2
 
 App  Version  Status  Scale  Charm  Store  Rev  OS  Notes
 
@@ -116,42 +115,48 @@ juju switch default
 
 ### Running privileged containers
 
-By default juju-deployed clusters do not support running privileged containers. If you need them, you have to edit ```/etc/default/kube-apiserver``` on the master nodes, and ```/etc/default/kubelet``` on your worker nodes. 
-
-On Kubernetes Core or on small deployment, run the following commands from the Juju client: 
-
-#### Manually 
-
-1. Update the Master
+By default, juju-deployed clusters do not support running privileged containers.
+If you need them, you have to enable the ```allow-privileged``` config on both
+kubernetes-master and kubernetes-worker:
 
 ```
-juju ssh kubernetes-master/0 "sudo sed -i 's/KUBE_API_ARGS=\"/KUBE_API_ARGS=\"--allow-privileged\ /' /etc/default/kube-apiserver && sudo systemctl restart kube-apiserver.service"
+juju config kubernetes-master allow-privileged=true
+juju config kubernetes-worker allow-privileged=true
 ```
 
-2. Update the Worker(s)
+### Private registry
+
+With the registry action, you can easily create a private docker registry that
+uses TLS authentication. However, note that a registry deployed with that action
+is not HA; it uses storage tied to the kubernetes node where the pod is running.
+Consequently, if the registry pod is migrated from one node to another, you will
+need to re-publish the images.
+
+#### Example usage
+
+Create the relevant authentication files. Let's say you want user ```userA```
+to authenticate with the password ```passwordA```. Then you'll do:
 
 ```
-juju ssh kubernetes-worker/0 "sudo sed -i 's/KUBELET_ARGS=\"/KUBELET_ARGS=\"--allow-privileged\ /' /etc/default/kubelet && sudo systemctl restart kubelet.service"
+echo "userA:passwordA" > htpasswd-plain
+htpasswd -c -b -B htpasswd userA passwordA
 ```
 
-#### Programmatically
+(the `htpasswd` program comes with the ```apache2-utils``` package)
 
-If the deployment is larger the following commands will run on all units successively: 
-
-1. Update all Masters
-
-```
-juju show-status kubernetes-master --format json | \
-	jq --raw-output '.applications."kubernetes-master".units | keys[]' | \
-	xargs -I UNIT juju ssh UNIT "sudo sed -i 's/KUBE_API_ARGS=\"/KUBE_API_ARGS=\"--allow-privileged\ /' /etc/default/kube-apiserver && sudo systemctl restart kube-apiserver.service"
-```
-
-2. Update all workers
+Assuming that your registry will be reachable at ```myregistry.company.com```,
+you already have your TLS key in the ```registry.key``` file, and your TLS
+certificate (with ```myregistry.company.com``` as Common Name) in the
+```registry.crt``` file, you would then run:
 
 ```
-juju show-status kubernetes-worker --format json | \
-	jq --raw-output '.applications."kubernetes-worker".units | keys[]' | \
-	xargs -I UNIT juju ssh UNIT "sudo sed -i 's/KUBELET_ARGS=\"/KUBELET_ARGS=\"--allow-privileged\ /' /etc/default/kubelet && sudo systemctl restart kubelet.service"
+juju run-action kubernetes-worker/0 registry domain=myregistry.company.com htpasswd="$(base64 -w0 htpasswd)" htpasswd-plain="$(base64 -w0 htpasswd-plain)" tlscert="$(base64 -w0 registry.crt)" tlskey="$(base64 -w0 registry.key)" ingress=true
+```
+
+If you then decide that you want do delete the registry, just run:
+
+```
+juju run-action kubernetes-worker/0 registry delete=true ingress=true
 ```
 
 

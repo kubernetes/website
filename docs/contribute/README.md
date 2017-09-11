@@ -1,0 +1,1 @@
+This directory is deprecated and its contents have been moved to /docs/home/contribute/.

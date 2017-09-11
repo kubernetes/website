@@ -1,70 +1,68 @@
 ---
 title: Tasks
-redirect_from:
-- "/docs/user-guide/configuring-containers/"
-- "/docs/user-guide/configuring-containers.html"
-- "/docs/user-guide/production-pods/"
-- "/docs/user-guide/production-pods.html"
 ---
 
 This section of the Kubernetes documentation contains pages that
 show how to do individual tasks. A task page shows how to do a
 single thing, typically by giving a short sequence of steps.
 
-#### Using the kubectl Command Line
+#### Web UI (Dashboard)
 
-* [Listing Alll Container Images Running in a Cluster](/docs/tasks/kubectl/list-all-running-container-images/)
-* [Getting a Shell to a Running Container](/docs/tasks/kubectl/get-shell-running-container/)
+Deploy and access the Dashboard web user interface to help you manage and monitor containerized applications in a Kubernetes cluster.
+
+#### Using the kubectl Command-line
+
+Install and setup the `kubectl` command-line tool used to directly manage Kubernetes clusters.
 
 #### Configuring Pods and Containers
 
-* [Defining Environment Variables for a Container](/docs/tasks/configure-pod-container/define-environment-variable-container/)
-* [Defining a Command and Arguments for a Container](/docs/tasks/configure-pod-container/define-command-argument-container/)
-* [Assigning CPU and RAM Resources to a Container](/docs/tasks/configure-pod-container/assign-cpu-ram-container/)
-* [Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/)
-* [Configuring a Pod to Use a PersistentVolume for Storage](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)
-* [Exposing Pod Information to Containers Through Environment Variables](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/)
-* [Exposing Pod Information to Containers Using a DownwardAPIVolumeFile](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/)
-* [Distributing Credentials Securely](/docs/tasks/configure-pod-container/distribute-credentials-secure/)
-* [Pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry/)
-* [Configuring Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
-* [Communicating Between Containers Running in the Same Pod](/docs/tasks/configure-pod-container/communicate-containers-same-pod/)
-* [Configuring Pod Initialization](/docs/tasks/configure-pod-container/configure-pod-initialization/)
-* [Attaching Handlers to Container Lifecycle Events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
+Perform common configuration tasks for Pods and Containers.
+
+#### Running Applications
+
+Perform common application management tasks, such as rolling updates, injecting information into pods, and horizontal Pod autoscaling.
+
+#### Running Jobs
+
+Run Jobs using parallel processing.
 
 #### Accessing Applications in a Cluster
 
-* [Using Port Forwarding to Access Applications in a Cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-* [Providing Load-Balanced Access to an Application in a Cluster](/docs/tasks/access-application-cluster/load-balance-access-application-cluster/)
+Configure load balancing, port forwarding, or setup firewall or DNS configurations to access applications in a cluster.
 
 #### Monitoring, Logging, and Debugging
 
-* [Determining the Reason for Pod Failure](/docs/tasks/debug-application-cluster/determine-reason-pod-failure/)
-* [Debugging Init Containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
-* [Logging Using Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/)
-* [Logging Using ElasticSearch and Kibana](/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)
+Setup monitoring and logging to troubleshoot a cluster or debug a containerized application.
 
 #### Accessing the Kubernetes API
 
-* [Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api)
+Learn various methods to directly access the Kubernetes API.
+
+#### Using TLS
+
+Configure your application to trust and use the cluster root Certificate Authority (CA).
 
 #### Administering a Cluster
 
-* [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
-* [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
-* [Safely Draining a Node while Respecting Application SLOs](/docs/tasks/administer-cluster/safely-drain-node/)
-* [Changing reclaim policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
+Learn common tasks for administering a cluster.
+
+#### Administering Federation
+
+Configure components in a cluster federation.
 
 #### Managing Stateful Applications
 
-* [Upgrading from PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
-* [Scaling a StatefulSet](/docs/tasks/manage-stateful-set/scale-stateful-set/)
-* [Deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/)
-* [Debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/)
-* [Force Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/)
+Perform common tasks for managing Stateful applications, including upgrading from PetSets and scaling, deleting, and debugging StatefulSets.
+
+#### Cluster Daemons
+
+Perform common tasks for managing a DaemonSet, such as performing a rolling update.
+
+#### Managing GPUs
+
+Configure and schedule NVIDIA GPUs for use as a resource by nodes in a cluster.
 
 ### What's next
 
 If you would like to write a task page, see
-[Creating a Documentation Pull Request](/docs/contribute/create-pull-request/).
-
+[Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).

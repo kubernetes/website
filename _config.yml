@@ -1,5 +1,6 @@
 name: Kubernetes
 title: Kubernetes
+url: https://kubernetes.io
 description: Production-Grade Container Orchestration
 markdown: kramdown
 kramdown:
@@ -17,9 +18,34 @@ defaults:
     scope:
       path: ""
     values:
-      version: "v1.5.1"
+      fullversion: "v1.7.0"
+      version: "v1.7"
       githubbranch: "master"
       docsbranch: "master"
+      versions:
+        - fullversion: "v1.7.3"
+          version: "v1.7"
+          githubbranch: "v1.7.3"
+          docsbranch: "release-1.7"
+          url: https://kubernetes.io/docs/home/
+        - fullversion: "v1.6.8"
+          version: "v1.6"
+          githubbranch: "v1.6.8"
+          docsbranch: "release-1.6"
+          url: https://v1-6.docs.kubernetes.io/docs/home/
+        - fullversion: "v1.5.7"
+          version: "v1.5"
+          githubbranch: "v1.5.7"
+          docsbranch: "release-1.5"
+          url: https://v1-5.docs.kubernetes.io/docs/
+        - fullversion: "v1.4.12"
+          version: "v1.4"
+          githubbranch: "v1.4.12"
+          docsbranch: "release-1.4"
+          url: https://v1-4.docs.kubernetes.io/docs/
+      deprecated: false
+      currentUrl: https://kubernetes.io/docs/home/
+      nextUrl: http://kubernetes-io-vnext-staging.netlify.com/
   -
     scope:
       path: "docs"
@@ -30,25 +56,30 @@ defaults:
 permalink: pretty
 
 gems:
-  - jekyll-redirect-from
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-include-cache
+# disabled gems
+#  - jekyll-redirect-from
+
+include: [_redirects,_headers]
 
 # SEO
 logo: /images/favicon.png
 twitter:
   username: kubernetesio
 
+# empty array for tabs
+emptyArray: []
+
 # Tables of contents, stored in the _data folder, that control the sidebar nav
 tocs:
   - docs-home
-  - guides
-  - tutorials
+  - setup
   - tasks
+  - tutorials
   - concepts
   - reference
-  - tools
   - samples
-  - support
+  - search

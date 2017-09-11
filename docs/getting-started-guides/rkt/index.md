@@ -1,10 +1,12 @@
 ---
-assignees:
+approvers:
 - yifan-gu
 title: Running Kubernetes with rkt
 ---
 
-This document describes how to run Kubernetes using [rkt](https://github.com/coreos/rkt) as the container runtime.
+This document describes how to run Kubernetes using [rkt](https://github.com/coreos/rkt) as the container runtime. 
+
+*Note*: This document describes how to use what is known as "rktnetes". In future, Kubernetes will support the rkt runtime through the Container Runtime Interface (CRI). At present the [rkt shim for the CRI](https://github.com/kubernetes-incubator/rktlet) is considered "experimental", but if you wish to use it you will find instructions in the [kubeadm reference](/docs/admin/kubeadm/#use-kubeadm-with-other-cri-runtimes). 
 
 * TOC
 {:toc}
@@ -17,11 +19,13 @@ This document describes how to run Kubernetes using [rkt](https://github.com/cor
 
 * The [rkt API service](https://coreos.com/rkt/docs/latest/subcommands/api-service.html) must be running on the node.
 
+* You will need [kubelet](/docs/getting-started-guides/scratch/#kubelet) installed on the node, and it's recommended that you run [kube-proxy](/docs/getting-started-guides/scratch/#kube-proxy) on all nodes. This document describes how to set the parameters for kubelet so that it uses rkt as the runtime. 
+
 ## Pod networking in rktnetes
 
 ### Kubernetes CNI networking
 
-You can configure Kubernetes pod networking with the usual Container Network Interface (CNI) [network plugins](/docs/admin/network-plugins/) by setting the kubelet's `--network-plugin` and `--network-plugin-dir` options appropriately. Configured in this fashion, the rkt container engine will be unaware of network details, and expects to connect pods to the provided subnet.
+You can configure Kubernetes pod networking with the usual Container Network Interface (CNI) [network plugins](/docs/concepts/cluster-administration/network-plugins/) by setting the kubelet's `--network-plugin` and `--network-plugin-dir` options appropriately. Configured in this fashion, the rkt container engine will be unaware of network details, and expects to connect pods to the provided subnet.
 
 #### kubenet: Google Compute Engine (GCE) network
 
@@ -75,7 +79,7 @@ $ cat <<EOF >/etc/rkt/net.d/k8s_flannel_example.conf
 EOF
 ```
 
-For more information on flannel configuration, see the [CNI/flannel README](https://github.com/containernetworking/cni/blob/master/Documentation/flannel.md).
+For more information on flannel configuration, see the [CNI/flannel README](https://github.com/containernetworking/plugins/blob/master/plugins/meta/flannel/README.md).
 
 #### Contained network caveats:
 
@@ -149,7 +153,7 @@ The `kube-up` script is not yet supported on AWS. Instead, we recommend followin
 
 ### Deploy apps to the cluster
 
-After creating the cluster, you can start deploying applications. For an introductory example, [deploy a simple nginx web server](/docs/user-guide/simple-nginx). Note that this example did not have to be modified for use with a "rktnetes" cluster. More examples can be found in the [Kubernetes examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).
+After creating the cluster, you can start deploying applications. For an introductory example, [deploy a simple nginx web server](/docs/user-guide/simple-nginx). Note that this example did not have to be modified for use with a "rktnetes" cluster. More examples can be found in the [Kubernetes examples directory](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/).
 
 ## Modular isolation with interchangeable stage1 images
 
@@ -222,4 +226,4 @@ By default, the log verbosity level is 2. In order to see more log messages rela
 
 ### Check Kubernetes events and logs.
 
-Kubernetes provides various tools for troubleshooting and examination. More information can be found [in the app troubleshooting guide](/docs/user-guide/application-troubleshooting).
+Kubernetes provides various tools for troubleshooting and examination. More information can be found [in the app troubleshooting guide](/docs/tasks/debug-application-cluster/debug-application/).

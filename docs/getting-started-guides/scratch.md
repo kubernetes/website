@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 - lavalamp
 - thockin
@@ -27,10 +27,10 @@ steps that existing cluster setup scripts are making.
 
   1. You should be familiar with using Kubernetes already.  We suggest you set
     up a temporary cluster by following one of the other Getting Started Guides.
-    This will help you become familiar with the CLI ([kubectl](/docs/user-guide/kubectl/kubectl)) and concepts ([pods](/docs/user-guide/pods), [services](/docs/user-guide/services), etc.) first.
+    This will help you become familiar with the CLI ([kubectl](/docs/user-guide/kubectl/)) and concepts ([pods](/docs/user-guide/pods), [services](/docs/user-guide/services), etc.) first.
   1. You should have `kubectl` installed on your desktop.  This will happen as a side
     effect of completing one of the other Getting Started Guides.  If not, follow the instructions
-    [here](/docs/user-guide/prereqs).
+    [here](/docs/tasks/kubectl/install/).
 
 ### Cloud Provider
 
@@ -68,20 +68,20 @@ another pod using the IP of the second pod.  This connectivity can be
 accomplished in two ways:
 
 - **Using an overlay network**
-  - An overlay network obscures the underlying network architecture from the 
+  - An overlay network obscures the underlying network architecture from the
     pod network through traffic encapsulation (e.g. vxlan).
   - Encapsulation reduces performance, though exactly how much depends on your solution.
 - **Without an overlay network**
   - Configure the underlying network fabric (switches, routers, etc.) to be aware of pod IP addresses.
-  - This does not require the encapsulation provided by an overlay, and so can achieve 
+  - This does not require the encapsulation provided by an overlay, and so can achieve
     better performance.
 
-Which method you choose depends on your environment and requirements.  There are various ways 
-to implement one of the above options: 
+Which method you choose depends on your environment and requirements.  There are various ways
+to implement one of the above options:
 
 - **Use a network plugin which is called by Kubernetes**
   - Kubernetes supports the [CNI](https://github.com/containernetworking/cni) network plugin interface.
-  - There are a number of solutions which provide plugins for Kubernetes (listed alphabetically): 
+  - There are a number of solutions which provide plugins for Kubernetes (listed alphabetically):
     - [Calico](http://docs.projectcalico.org/)
     - [Flannel](https://github.com/coreos/flannel)
     - [Open vSwitch (OVS)](http://openvswitch.org/)
@@ -130,9 +130,9 @@ Also, you need to pick a static IP for master node.
 
 #### Network Policy
 
-Kubernetes enables the definition of fine-grained network policy between Pods using the [NetworkPolicy](/docs/user-guide/network-policy) resource.
+Kubernetes enables the definition of fine-grained network policy between Pods using the [NetworkPolicy](/docs/concepts/services-networking/network-policies/) resource.
 
-Not all networking providers support the Kubernetes NetworkPolicy API, see [Using Network Policy](/docs/getting-started-guides/network-policy/walkthrough/) for more information.
+Not all networking providers support the Kubernetes NetworkPolicy API, see [Using Network Policy](/docs/tasks/configure-pod-container/declare-network-policy/) for more information.
 
 ### Cluster Naming
 
@@ -164,9 +164,11 @@ You will need binaries for:
 
 A Kubernetes binary release includes all the Kubernetes binaries as well as the supported release of etcd.
 You can use a Kubernetes binary release (recommended) or build your Kubernetes binaries following the instructions in the
-[Developer Documentation](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/).  Only using a binary release is covered in this guide.
+[Developer Documentation](https://git.k8s.io/community/contributors/devel/).  Only using a binary release is covered in this guide.
 
 Download the [latest binary release](https://github.com/kubernetes/kubernetes/releases/latest) and unzip it.
+Server binary tarballs are no longer included in the Kubernetes final tarball, so you will need to locate and run
+`./kubernetes/cluster/get-kube-binaries.sh` to download the client and server binaries.
 Then locate `./kubernetes/server/kubernetes-server-linux-amd64.tar.gz` and unzip *that*.
 Then, within the second set of unzipped files, locate `./kubernetes/server/bin`, which contains
 all the necessary binaries.
@@ -264,7 +266,7 @@ to read.  This guide uses `/var/lib/kube-apiserver/known_tokens.csv`.
 The format for this file is described in the [authentication documentation](/docs/admin/authentication).
 
 For distributing credentials to clients, the convention in Kubernetes is to put the credentials
-into a [kubeconfig file](/docs/user-guide/kubeconfig-file).
+into a [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/).
 
 The kubeconfig file for the administrator can be created as follows:
 
@@ -442,14 +444,29 @@ because of how this is used later.
 - Alternate, manual approach:
 
   1. Set `--configure-cbr0=false` on kubelet and restart.
-  1. Create a bridge
-     - `ip link add name cbr0 type bridge`.
+  1. Create a bridge.
+
+        ```
+        ip link add name cbr0 type bridge
+        ```
+
   1. Set appropriate MTU. NOTE: the actual value of MTU will depend on your network environment
-     - `ip link set dev cbr0 mtu 1460`
+
+        ```
+        ip link set dev cbr0 mtu 1460
+        ```
+
   1. Add the node's network to the bridge (docker will go on other side of bridge).
-     - `ip addr add $NODE_X_BRIDGE_ADDR dev cbr0`
+
+        ```
+        ip addr add $NODE_X_BRIDGE_ADDR dev cbr0
+        ```
+
   1. Turn it on
-     - `ip link set dev cbr0 up`
+
+        ```
+        ip link set dev cbr0 up
+        ```
 
 If you have turned off Docker's IP masquerading to allow pods to talk to each
 other, then you may need to do masquerading just for destination IPs outside
@@ -491,19 +508,21 @@ While the basic node services (kubelet, kube-proxy, docker) are typically starte
 traditional system administration/automation approaches, the remaining *master* components of Kubernetes are
 all configured and managed *by Kubernetes*:
 
-  - their options are specified in a Pod spec (yaml or json) rather than an /etc/init.d file or
+  - Their options are specified in a Pod spec (yaml or json) rather than an /etc/init.d file or
     systemd unit.
-  - they are kept running by Kubernetes rather than by init.
+  - They are kept running by Kubernetes rather than by init.
 
 ### etcd
 
 You will need to run one or more instances of etcd.
 
-  - Recommended approach: run one etcd instance, with its log written to a directory backed
+  - Highly available and easy to restore - Run 3 or 5 etcd instances with, their logs written to a directory backed
     by durable storage (RAID, GCE PD)
-  - Alternative: run 3 or 5 etcd instances.
-    - Log can be written to non-durable storage because storage is replicated.
-    - run a single apiserver which connects to one of the etcd nodes.
+  - Not highly available, but easy to restore - Run one etcd instance, with its log written to a directory backed
+    by durable storage (RAID, GCE PD)
+    **Note:** May result in operations outages in case of instance outage
+  - Highly available - Run 3 or 5 etcd instances with non durable storage.
+    **Note:** Log can be written to non-durable storage because storage is replicated.
 
 See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting) for more discussion on factors affecting cluster
 availability.
@@ -609,7 +628,6 @@ Here are some apiserver flags you may need to set:
 - `--cloud-provider=` see [cloud providers](#cloud-providers)
 - `--cloud-config=` see [cloud providers](#cloud-providers)
 - `--address=${MASTER_IP}` *or* `--bind-address=127.0.0.1` and `--address=127.0.0.1` if you want to run a proxy on the master node.
-- `--cluster-name=$CLUSTER_NAME`
 - `--service-cluster-ip-range=$SERVICE_CLUSTER_IP_RANGE`
 - `--etcd-servers=http://127.0.0.1:4001`
 - `--tls-cert-file=/srv/kubernetes/server.cert`
@@ -773,7 +791,6 @@ Template for controller manager pod:
 
 Flags to consider using with controller manager:
 
- - `--cluster-name=$CLUSTER_NAME`
  - `--cluster-cidr=`, the CIDR range for pods in cluster.
  - `--allocate-node-cidrs=`, if you are using `--cloud-provider=`, allocate and set the CIDRs for pods on the cloud provider.
  - `--cloud-provider=` and `--cloud-config` as described in apiserver section.
@@ -820,9 +837,9 @@ of their purpose is in the admin guide](/docs/admin/cluster-components/#addons).
 Notes for setting up each cluster service are given below:
 
 * Cluster DNS:
-  * required for many Kubernetes examples
+  * Required for many Kubernetes examples
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
-  * [Admin Guide](/docs/admin/dns/)
+  * [Admin Guide](/docs/concepts/services-networking/dns-pod-service/)
 * Cluster-level Logging
   * [Cluster-level Logging Overview](/docs/user-guide/logging/overview)
   * [Cluster-level Logging with Elasticsearch](/docs/user-guide/logging/elasticsearch)
@@ -845,10 +862,10 @@ Example usage and output:
 ```shell
 KUBECTL_PATH=$(which kubectl) NUM_NODES=3 KUBERNETES_PROVIDER=local cluster/validate-cluster.sh
 Found 3 node(s).
-NAME                    STATUS    AGE
-node1.local             Ready     1h
-node2.local             Ready     1h
-node3.local             Ready     1h
+NAME                    STATUS    AGE     VERSION
+node1.local             Ready     1h      v1.6.9+a3d1dfa6f4335
+node2.local             Ready     1h      v1.6.9+a3d1dfa6f4335
+node3.local             Ready     1h      v1.6.9+a3d1dfa6f4335
 Validate output:
 NAME                 STATUS    MESSAGE              ERROR
 controller-manager   Healthy   ok
@@ -866,11 +883,11 @@ You should see some services.  You should also see "mirror pods" for the apiserv
 
 ### Try Examples
 
-At this point you should be able to run through one of the basic examples, such as the [nginx example](/examples/simple-nginx).
+At this point you should be able to run through one of the basic examples, such as the [nginx example](/docs/tutorials/stateless-application/deployment.yaml).
 
 ### Running the Conformance Test
 
-You may want to try to run the [Conformance test](http://releases.k8s.io/{{page.githubbranch}}/hack/conformance-test.sh).  Any failures may give a hint as to areas that need more attention.
+You may want to try to run the [Conformance test](http://releases.k8s.io/{{page.githubbranch}}/test/e2e_node/conformance/run_test.sh).  Any failures may give a hint as to areas that need more attention.
 
 ### Networking
 
