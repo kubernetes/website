@@ -187,4 +187,6 @@ toc:
   section:
   - docs/tasks/manage-gpus/scheduling-gpus.md
 
-
+- title: Extend kubectl with plugins
+  section:
+  - docs/tasks/extend-kubectl/kubectl-plugins.md
