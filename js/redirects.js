@@ -1,46 +1,36 @@
 $( document ).ready(function() {
-    var oldURLs = ["/README.md","/README.html",".html",".md","/v1.1/","/v1.0/"];
-    var fwdDirs = ["examples/","cluster/","docs/devel","docs/design"];
     var doRedirect = false;
     var notHere = false;
     var forwardingURL = window.location.href;
 
-    var redirects = [{
-        "from": "resource-quota",
-        "to": "http://kubernetes.io/docs/admin/resourcequota/"
-    },
-    {
-        "from": "horizontal-pod-autoscaler",
-        "to": "http://kubernetes.io/docs/user-guide/horizontal-pod-autoscaling/"
-    },
-    {
-        "from": "docs/roadmap",
-        "to": "https://github.com/kubernetes/kubernetes/milestones/"
-    },
-    {
-        "from": "api-ref/",
-        "to": "https://github.com/kubernetes/kubernetes/milestones/"
-    },
-    {
-        "from": "docs/user-guide/overview",
-        "to": "http://kubernetes.io/docs/whatisk8s/"
-    }];
+    var oldURLs = ["/README.md","/README.html","/index.md",".html",".md"];
 
-    for (var i = 0; i < redirects.length; i++) {
-        if (forwardingURL.indexOf(redirects[i].from) > -1){
-            notHere = true;
-            window.location.replace(redirects[i].to);
-        }
-    }
+    /* var:  forwardingRules
+     * type: array of objects
+     * example rule object:
+     * {
+     *   "from":    "/path/from/old/location", //search in incoming forwardingURL for this string
+     *   "pattern": "#([0-9a-zA-Z\-\_]+)",     //[optional] regex to parse out a token of digits, letters, hyphen, or underscore
+     *   "to":      "/path/to/new/location",   //base URL to forward to
+     *   "postfix": "/#<token>"                //[optional] append this to base URL w/ <token> found by "pattern"
+     * }
+     */
+    var forwardingRules = [];
 
-    for (var i = 0; i < fwdDirs.length; i++) {
-        if (forwardingURL.indexOf(fwdDirs[i]) > -1){
-            var urlPieces = forwardingURL.split(fwdDirs[i]);
-            var newURL = "https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/" + fwdDirs[i] + urlPieces[1];
+    forwardingRules.forEach(function(rule) {
+        if (forwardingURL.indexOf(rule.from) > -1) {
+            var newURL = rule.to;
+            var re = new RegExp(rule.pattern, 'g');
+            var matchary = re.exec(forwardingURL);
+            if (matchary !== null && rule.postfix) {
+                newURL += rule.postfix.replace("<token>", matchary[1]);
+            }
             notHere = true;
             window.location.replace(newURL);
         }
-    }
+
+    });
+
     if (!notHere) {
         for (var i = 0; i < oldURLs.length; i++) {
             if (forwardingURL.indexOf(oldURLs[i]) > -1 &&

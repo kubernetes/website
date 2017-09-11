@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - erictune
 - krousey
@@ -18,8 +18,8 @@ $ source <(kubectl completion zsh)  # setup autocomplete in zsh
 
 ## Kubectl Context and Configuration
 
-Set which Kubernetes cluster `kubectl` communicates with and modify configuration
-information. See [kubeconfig file](/docs/user-guide/kubeconfig-file/) documentation for
+Set which Kubernetes cluster `kubectl` communicates with and modifies configuration
+information. See [Authenticating Across Clusters with kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) documentation for
 detailed config file information.
 
 ```console
@@ -122,13 +122,16 @@ $ kubectl get pods --selector=app=cassandra rc -o \
 $ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
 
 # List Names of Pods that belong to Particular RC
-# "jq" command useful for transformations that are too complex for jsonpath
+# "jq" command useful for transformations that are too complex for jsonpath, it can be found at https://stedolan.github.io/jq/
 $ sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')%?}
 $ echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
 
 # Check which nodes are ready
 $ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
  && kubectl get nodes -o jsonpath=$JSONPATH | grep "Ready=True"
+
+# List all Secrets currently in use by a pod
+$ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
 ```
 
 ## Updating Resources
@@ -165,6 +168,9 @@ $ kubectl patch pod valid-pod -p '{"spec":{"containers":[{"name":"kubernetes-ser
 
 # Update a container's image using a json patch with positional arrays
 $ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/containers/0/image", "value":"new image"}]'
+
+# Disable a deployment livenessProbe using a json patch with positional arrays
+$ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
 ```
 
 ## Editing Resources
@@ -225,7 +231,7 @@ $ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ## Resource types
 
-The following table includes a list of all the supported resource types and their abbreviated aliases.
+The following table includes a list of all the supported resource types and their abbreviated aliases:
 
 Resource type   | Abbreviated alias
 -------------------- | --------------------
@@ -273,3 +279,19 @@ Output format | Description
 `-o=name`     | Print only the resource name and nothing else
 `-o=wide`     | Output in the plain-text format with any additional information, and for pods, the node name is included
 `-o=yaml`     | Output a YAML formatted API object
+
+### Kubectl output verbosity and debugging
+
+Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md).
+
+Verbosity | Description
+--------------| -----------
+`--v=0` | Generally useful for this to ALWAYS be visible to an operator.
+`--v=1` | A reasonable default log level if you don't want verbosity.
+`--v=2` | Useful steady state information about the service and important log messages that may correlate to significant changes in the system. This is the recommended default log level for most systems.
+`--v=3` | Extended information about changes.
+`--v=4` | Debug level verbosity.
+`--v=6` | Display requested resources.
+`--v=7` | Display HTTP request headers.
+`--v=8` | Display HTTP request contents.
+

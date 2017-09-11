@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - enisoc
 - erictune
@@ -7,27 +7,25 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
-title: Debugging Init Containers
-redirect_from:
-- "/docs/tasks/troubleshoot/debug-init-containers/"
-- "/docs/tasks/troubleshoot/debug-init-containers.html"
+title: Debug Init Containers
 ---
 
 {% capture overview %}
 
 This page shows how to investigate problems related to the execution of
-Init Containers.
+Init Containers. The example command lines below refer to the Pod as
+  `<pod-name>` and the Init Containers as `<init-container-1>` and
+  `<init-container-2>`.
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
+{% include task-tutorial-prereqs.md %}
+
 * You should be familiar with the basics of
-  [Init Containers](/docs/user-guide/pods/init-container/).
-* You should have a [Pod](/docs/user-guide/pods/) you want to debug that uses
-  Init Containers. The example command lines below refer to the Pod as
-  `<pod-name>` and the Init Containers as `<init-container-1>` and
-  `<init-container-2>`.
+  [Init Containers](/docs/concepts/abstractions/init-containers/).
+* You should have [Configured an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/).
 
 {% endcapture %}
 
@@ -35,7 +33,7 @@ Init Containers.
 
 ## Checking the status of Init Containers
 
-The Pod status will give you an overview of Init Container execution:
+Display the status of your pod:
 
 ```shell
 kubectl get pod <pod-name>
@@ -54,7 +52,7 @@ status values and their meanings.
 
 ## Getting details about Init Containers
 
-You can see detailed information about Init Container execution by running:
+View more detailed information about Init Container execution:
 
 ```shell
 kubectl describe pod <pod-name>
@@ -91,26 +89,26 @@ Init Containers:
 ```
 
 You can also access the Init Container statuses programmatically by reading the
-`pod.beta.kubernetes.io/init-container-status` annotation on the Pod:
+`status.initContainerStatuses` field on the Pod Spec:
 
 {% raw %}
 ```shell
-kubectl get pod <pod-name> --template '{{index .metadata.annotations "pod.beta.kubernetes.io/init-container-statuses"}}'
+kubectl get pod nginx --template '{{.status.initContainerStatuses}}'
 ```
 {% endraw %}
 
-This will return the same information as above, but in raw JSON format.
+This command will return the same information as above in raw JSON.
 
 ## Accessing logs from Init Containers
 
-You can access logs for an Init Container by passing its Container name along
-with the Pod name:
+Pass the Init Container name along with the Pod name
+to access its logs.
 
 ```shell
 kubectl logs <pod-name> -c <init-container-2>
 ```
 
-If your Init Container runs a shell script, it helps to enable printing of
+Init Containers that run a shell script print
 commands as they're executed. For example, you can do this in Bash by running
 `set -x` at the beginning of the script.
 
@@ -129,10 +127,8 @@ Status | Meaning
 `Init:N/M` | The Pod has `M` Init Containers, and `N` have completed so far.
 `Init:Error` | An Init Container has failed to execute.
 `Init:CrashLoopBackOff` | An Init Container has failed repeatedly.
-
-A Pod with status `Pending` has not yet begun executing Init Containers.
-A Pod with status `PodInitializing` or `Running` has already finished executing
-Init Containers.
+`Pending` | The Pod has not yet begun executing Init Containers.
+`PodInitializing` or `Running` | The Pod has already finished executing Init Containers.
 
 {% endcapture %}
 

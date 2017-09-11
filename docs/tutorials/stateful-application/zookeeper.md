@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - enisoc
 - erictune
@@ -14,7 +14,7 @@ title: Running ZooKeeper, A CP Distributed System
 This tutorial demonstrates [Apache Zookeeper](https://zookeeper.apache.org) on 
 Kubernetes using [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/), 
 [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget), 
-and [PodAntiAffinity](/docs/user-guide/node-selection/).
+and [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature).
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -23,14 +23,14 @@ Before starting this tutorial, you should be familiar with the following
 Kubernetes concepts.
 
 * [Pods](/docs/user-guide/pods/single-container/)
-* [Cluster DNS](/docs/admin/dns/)
-* [Headless Services](/docs/user-guide/services/#headless-services)
-* [PersistentVolumes](/docs/user-guide/volumes/)
-* [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
-* [ConfigMaps](/docs/user-guide/configmap/)
+* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
+* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
+* [PersistentVolumes](/docs/concepts/storage/volumes/)
+* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
+* [ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget)
-* [PodAntiAffinity](/docs/user-guide/node-selection/)
+* [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
 * [kubectl CLI](/docs/user-guide/kubectl)
 
 You will require a cluster with at least four nodes, and each node will require
@@ -90,18 +90,18 @@ safely discarded.
 
 The manifest below contains a 
 [Headless Service](/docs/user-guide/services/#headless-services), 
-a [ConfigMap](/docs/user-guide/configmap/), 
+a [ConfigMap](/docs/tasks/configure-pod-container/configmap/), 
 a [PodDisruptionBudget](/docs/admin/disruptions/#specifying-a-poddisruptionbudget), 
 and a [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/). 
 
 {% include code.html language="yaml" file="zookeeper.yaml" ghlink="/docs/tutorials/stateful-application/zookeeper.yaml" %}
 
 Open a command terminal, and use 
-[`kubectl create`](/docs/user-guide/kubectl/kubectl_create/) to create the 
+[`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create) to create the 
 manifest.
 
 ```shell
-kubectl create -f http://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
+kubectl create -f https://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
 ```
 
 This creates the `zk-headless` Headless Service, the `zk-config` ConfigMap, 
@@ -114,7 +114,7 @@ poddisruptionbudget "zk-budget" created
 statefulset "zk" created
 ```
 
-Use [`kubectl get`](/docs/user-guide/kubectl/kubectl_get/)  to watch the
+Use [`kubectl get`](/docs/user-guide/kubectl/{{page.version}}/#get)  to watch the
 StatefulSet controller create the StatefulSet's Pods.
 
 ```shell
@@ -153,7 +153,7 @@ leader election. Each server in the ensemble needs to have a unique
 identifier, all servers need to know the global set of identifiers, and each
 identifier needs to be associated with a network address.
 
-Use [`kubectl exec`](/docs/user-guide/kubectl/kubectl_exec/) to get the hostnames 
+Use [`kubectl exec`](/docs/user-guide/kubectl/{{page.version}}/#exec) to get the hostnames 
 of the Pods in the `zk` StatefulSet.
 
 ```shell
@@ -209,7 +209,7 @@ zk-1.zk-headless.default.svc.cluster.local
 zk-2.zk-headless.default.svc.cluster.local
 ```
 
-The A records in [Kubernetes DNS](/docs/admin/dns/) resolve the FQDNs to the Pods' IP addresses. 
+The A records in [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) resolve the FQDNs to the Pods' IP addresses. 
 If the Pods are rescheduled, the A records will be updated with the Pods' new IP 
 addresses, but the A record's names will not change.
 
@@ -356,7 +356,7 @@ in memory state, to storage media. Using WALs to provide durability is a common
 technique for applications that use consensus protocols to achieve a replicated
 state machine and for storage applications in general.
 
-Use [`kubectl delete`](/docs/user-guide/kubectl/kubectl_delete/) to delete the 
+Use [`kubectl delete`](/docs/user-guide/kubectl/{{page.version}}/#delete) to delete the 
 `zk` StatefulSet.
 
 ```shell
@@ -367,7 +367,7 @@ statefulset "zk" deleted
 Watch the termination of the Pods in the StatefulSet.
 
 ```shell
-get pods -w -l app=zk
+kubectl get pods -w -l app=zk
 ```
 
 When `zk-0` if fully terminated, use `CRTL-C` to terminate kubectl.
@@ -389,7 +389,7 @@ zk-0      0/1       Terminating   0         11m
 Reapply the manifest in `zookeeper.yaml`.
 
 ```shell
-kubectl apply -f http://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
+kubectl apply -f https://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
 ```
 
 The `zk` StatefulSet will be created, but, as they already exist, the other API 
@@ -681,7 +681,7 @@ log rotation for you. Kubernetes also implements a sane retention policy that
 ensures application logs written to standard out and standard error do not 
 exhaust local storage media.
 
-Use [`kubectl logs`](/docs/user-guide/kubectl/kubectl_logs/) to retrieve the last 
+Use [`kubectl logs`](/docs/user-guide/kubectl/{{page.version}}/#logs) to retrieve the last 
 few log lines from one of the Pods.
 
 ```shell
@@ -715,8 +715,8 @@ using `kubectl logs` and from the Kubernetes Dashboard.
 ```
 
 Kubernetes also supports more powerful, but more complex, logging integrations 
-with [Google Cloud Logging](https://github.com/kubernetes/contrib/blob/master/logging/fluentd-sidecar-gcp/README.md) 
-and [ELK](https://github.com/kubernetes/contrib/blob/master/logging/fluentd-sidecar-es/README.md).
+with [Logging Using Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/) 
+and [Logging Using Elasticsearch and Kibana](/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/).
 For cluster level log shipping and aggregation, you should consider deploying a
 [sidecar](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html) 
 container to rotate and ship your logs.
@@ -726,7 +726,7 @@ container to rotate and ship your logs.
 The best practices with respect to allowing an application to run as a privileged 
 user inside of a container are a matter of debate. If your organization requires 
 that applications be run as a non-privileged user you can use a 
-[SecurityContext](/docs/user-guide/security-context/) to control the user that 
+[SecurityContext](/docs/tasks/configure-pod-container/security-context/) to control the user that 
 the entry point runs as.
 
 The `zk` StatefulSet's Pod `template` contains a SecurityContext.
@@ -776,7 +776,7 @@ drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 ## Managing the ZooKeeper Process
 
 The [ZooKeeper documentation](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision) 
-documentation indicates that "You will want to have a supervisory process that 
+indicates that "You will want to have a supervisory process that 
 manages each of your ZooKeeper server processes (JVM)." Utilizing a watchdog 
 (supervisory process) to restart failed processes in a distributed system is a 
 common pattern. When deploying an application in Kubernetes, rather than using 
@@ -877,9 +877,9 @@ word to test the server's health.
 ZK_CLIENT_PORT=${ZK_CLIENT_PORT:-2181}
 OK=$(echo ruok | nc 127.0.0.1 $ZK_CLIENT_PORT)
 if [ "$OK" == "imok" ]; then
-	exit 0
+    exit 0
 else
-	exit 1
+    exit 1
 fi
 ```
 
@@ -969,7 +969,7 @@ You should always provision additional capacity to allow the processes of critic
 systems to be rescheduled in the event of node failures. If you do so, then the 
 outage will only last until the Kubernetes scheduler reschedules one of the ZooKeeper 
 servers. However, if you want your service to tolerate node failures with no downtime,
-you should use a `PodAntiAffinity` annotation.
+you should set `podAntiAffinity`.
 
 Get the nodes for Pods in the `zk` Stateful Set.
 
@@ -985,25 +985,19 @@ kubernetes-minion-group-a5aq
 kubernetes-minion-group-2g2d
 ```
 
-This is because the Pods in the `zk` StatefulSet contain a 
-[PodAntiAffinity](/docs/user-guide/node-selection/) annotation.
+This is because the Pods in the `zk` StatefulSet have a PodAntiAffinity specified.
 
 ```yaml
-scheduler.alpha.kubernetes.io/affinity: >
-            {
-              "podAntiAffinity": {
-                "requiredDuringSchedulingRequiredDuringExecution": [{
-                  "labelSelector": {
-                    "matchExpressions": [{
-                      "key": "app",
-                      "operator": "In",
-                      "values": ["zk-headless"]
-                    }]
-                  },
-                  "topologyKey": "kubernetes.io/hostname"
-                }]
-              }
-            }
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values: 
+                    - zk-headless
+              topologyKey: "kubernetes.io/hostname"
 ```
 
 The `requiredDuringSchedulingRequiredDuringExecution` field tells the 
@@ -1028,7 +1022,7 @@ Get the nodes in your cluster.
 kubectl get nodes
 ```
 
-Use [`kubectl cordon`](/docs/user-guide/kubectl/kubectl_cordon/) to 
+Use [`kubectl cordon`](/docs/user-guide/kubectl/{{page.version}}/#cordon) to 
 cordon all but four of the nodes in your cluster.
 
 ```shell{% raw %}
@@ -1066,7 +1060,7 @@ kubernetes-minion-group-i4c4
 {% endraw %}
 ```
 
-Use [`kubectl drain`](/docs/user-guide/kubectl/kubectl_drain/) to cordon and 
+Use [`kubectl drain`](/docs/user-guide/kubectl/{{page.version}}/#drain) to cordon and 
 drain the node on which the `zk-0` Pod is scheduled.
 
 ```shell {% raw %}
@@ -1108,7 +1102,7 @@ node "kubernetes-minion-group-ixsl" drained
 {% endraw %}```
 
 The `zk-1` Pod can not be scheduled. As the `zk` StatefulSet contains a 
-`PodAntiAffinity` annotation preventing co-location of the Pods, and  as only 
+PodAntiAffinity rule preventing co-location of the Pods, and  as only 
 two nodes are schedulable, the Pod will remain in a Pending state.
 
 ```shell
@@ -1176,7 +1170,7 @@ dataLength = 5
 numChildren = 0
 ```
 
-Use [`kubectl uncordon`](/docs/user-guide/kubectl/kubectl_uncordon/) to uncordon the first node.
+Use [`kubectl uncordon`](/docs/user-guide/kubectl/{{page.version}}/#uncordon) to uncordon the first node.
 
 ```shell
 kubectl uncordon kubernetes-minion-group-pb41

@@ -2,16 +2,9 @@
 title: kubectl
 ---
 
-## kubectl
-
-kubectl controls the Kubernetes cluster manager
-
-### Synopsis
-
-
 kubectl controls the Kubernetes cluster manager.
 
-Find more information at https://github.com/kubernetes/kubernetes.
+Find more information at [https://github.com/kubernetes/kubernetes](https://github.com/kubernetes/kubernetes).
 
 ```
 kubectl
@@ -22,7 +15,7 @@ kubectl
 ```
       --alsologtostderr                  log to standard error as well as files
       --as string                        Username to impersonate for the operation
-      --certificate-authority string     Path to a cert. file for the certificate authority
+      --certificate-authority string     Path to a cert file for the certificate authority
       --client-certificate string        Path to a client certificate file for TLS
       --client-key string                Path to a client key file for TLS
       --cluster string                   The name of the kubeconfig cluster to use
@@ -47,43 +40,43 @@ kubectl
 
 ### SEE ALSO
 
-* [kubectl annotate](kubectl_annotate.md)	 - Update the annotations on a resource
-* [kubectl api-versions](kubectl_api-versions.md)	 - Print the supported API versions on the server, in the form of "group/version"
-* [kubectl apply](kubectl_apply.md)	 - Apply a configuration to a resource by filename or stdin
-* [kubectl attach](kubectl_attach.md)	 - Attach to a running container
-* [kubectl autoscale](kubectl_autoscale.md)	 - Auto-scale a Deployment, ReplicaSet, or ReplicationController
-* [kubectl certificate](kubectl_certificate.md)	 - Modify certificate resources.
-* [kubectl cluster-info](kubectl_cluster-info.md)	 - Display cluster info
-* [kubectl completion](kubectl_completion.md)	 - Output shell completion code for the given shell (bash or zsh)
-* [kubectl config](kubectl_config.md)	 - Modify kubeconfig files
-* [kubectl convert](kubectl_convert.md)	 - Convert config files between different API versions
-* [kubectl cordon](kubectl_cordon.md)	 - Mark node as unschedulable
-* [kubectl cp](kubectl_cp.md)	 - Copy files and directories to and from containers.
-* [kubectl create](kubectl_create.md)	 - Create a resource by filename or stdin
-* [kubectl delete](kubectl_delete.md)	 - Delete resources by filenames, stdin, resources and names, or by resources and label selector
-* [kubectl describe](kubectl_describe.md)	 - Show details of a specific resource or group of resources
-* [kubectl drain](kubectl_drain.md)	 - Drain node in preparation for maintenance
-* [kubectl edit](kubectl_edit.md)	 - Edit a resource on the server
-* [kubectl exec](kubectl_exec.md)	 - Execute a command in a container
-* [kubectl explain](kubectl_explain.md)	 - Documentation of resources
-* [kubectl expose](kubectl_expose.md)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes Service
-* [kubectl get](kubectl_get.md)	 - Display one or many resources
-* [kubectl label](kubectl_label.md)	 - Update the labels on a resource
-* [kubectl logs](kubectl_logs.md)	 - Print the logs for a container in a pod
-* [kubectl options](kubectl_options.md)	 -
-* [kubectl patch](kubectl_patch.md)	 - Update field(s) of a resource using strategic merge patch
-* [kubectl port-forward](kubectl_port-forward.md)	 - Forward one or more local ports to a pod
-* [kubectl proxy](kubectl_proxy.md)	 - Run a proxy to the Kubernetes API server
-* [kubectl replace](kubectl_replace.md)	 - Replace a resource by filename or stdin
-* [kubectl rolling-update](kubectl_rolling-update.md)	 - Perform a rolling update of the given ReplicationController
-* [kubectl rollout](kubectl_rollout.md)	 - Manage a deployment rollout
-* [kubectl run](kubectl_run.md)	 - Run a particular image on the cluster
-* [kubectl scale](kubectl_scale.md)	 - Set a new size for a Deployment, ReplicaSet, Replication Controller, or Job
-* [kubectl set](kubectl_set.md)	 - Set specific features on objects
-* [kubectl taint](kubectl_taint.md)	 - Update the taints on one or more nodes
-* [kubectl top](kubectl_top.md)	 - Display Resource (CPU/Memory/Storage) usage
-* [kubectl uncordon](kubectl_uncordon.md)	 - Mark node as schedulable
-* [kubectl version](kubectl_version.md)	 - Print the client and server version information
+* [kubectl annotate](/docs/user-guide/kubectl/v1.7/#annotate)     - Update the annotations on a resource
+* [kubectl api-versions](/docs/user-guide/kubectl/v1.7/#api-versions)     - Print the supported API versions on the server, in the form of "group/version"
+* [kubectl apply](/docs/user-guide/kubectl/v1.7/#apply)     - Apply a configuration to a resource by filename or stdin
+* [kubectl attach](/docs/user-guide/kubectl/v1.7/#attach)     - Attach to a running container
+* [kubectl autoscale](/docs/user-guide/kubectl/v1.7/#autoscale)     - Auto-scale a Deployment, ReplicaSet, or ReplicationController
+* [kubectl certificate](/docs/user-guide/kubectl/v1.7/#certificate)     - Modify certificate resources.
+* [kubectl cluster-info](/docs/user-guide/kubectl/v1.7/#cluster-info)     - Display cluster info
+* [kubectl completion](/docs/user-guide/kubectl/v1.7/#completion)     - Output shell completion code for the given shell (bash or zsh)
+* [kubectl config](/docs/user-guide/kubectl/v1.7/#config)     - Modify kubeconfig files
+* [kubectl convert](/docs/user-guide/kubectl/v1.7/#convert)     - Convert config files between different API versions
+* [kubectl cordon](/docs/user-guide/kubectl/v1.7/#cordon)     - Mark node as unschedulable
+* [kubectl cp](/docs/user-guide/kubectl/v1.7/#cp)     - Copy files and directories to and from containers.
+* [kubectl create](/docs/user-guide/kubectl/v1.7/#create)     - Create a resource by filename or stdin
+* [kubectl delete](/docs/user-guide/kubectl/v1.7/#delete)     - Delete resources by filenames, stdin, resources and names, or by resources and label selector
+* [kubectl describe](/docs/user-guide/kubectl/v1.7/#describe)     - Show details of a specific resource or group of resources
+* [kubectl drain](/docs/user-guide/kubectl/v1.7/#drain)     - Drain node in preparation for maintenance
+* [kubectl edit](/docs/user-guide/kubectl/v1.7/#edit)     - Edit a resource on the server
+* [kubectl exec](/docs/user-guide/kubectl/v1.7/#exec)     - Execute a command in a container
+* [kubectl explain](/docs/user-guide/kubectl/v1.7/#explain)     - Documentation of resources
+* [kubectl expose](/docs/user-guide/kubectl/v1.7/#expose)     - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes Service
+* [kubectl get](/docs/user-guide/kubectl/v1.7/#get)     - Display one or many resources
+* [kubectl label](/docs/user-guide/kubectl/v1.7/#label)     - Update the labels on a resource
+* [kubectl logs](/docs/user-guide/kubectl/v1.7/#logs)     - Print the logs for a container in a pod
+* [kubectl options](/docs/user-guide/kubectl/v1.7/#options)     -
+* [kubectl patch](/docs/user-guide/kubectl/v1.7/#patch)     - Update field(s) of a resource using strategic merge patch
+* [kubectl port-forward](/docs/user-guide/kubectl/v1.7/#port-forward)     - Forward one or more local ports to a pod
+* [kubectl proxy](/docs/user-guide/kubectl/v1.7/#proxy)     - Run a proxy to the Kubernetes API server
+* [kubectl replace](/docs/user-guide/kubectl/v1.7/#replace)     - Replace a resource by filename or stdin
+* [kubectl rolling-update](/docs/user-guide/kubectl/v1.7/#rolling-update)     - Perform a rolling update of the given ReplicationController
+* [kubectl rollout](/docs/user-guide/kubectl/v1.7/#rollout)     - Manage a deployment rollout
+* [kubectl run](/docs/user-guide/kubectl/v1.7/#run)     - Run a particular image on the cluster
+* [kubectl scale](/docs/user-guide/kubectl/v1.7/#scale)     - Set a new size for a Deployment, ReplicaSet, Replication Controller, or Job
+* [kubectl set](/docs/user-guide/kubectl/v1.7/#set)     - Set specific features on objects
+* [kubectl taint](/docs/user-guide/kubectl/v1.7/#taint)     - Update the taints on one or more nodes
+* [kubectl top](/docs/user-guide/kubectl/v1.7/#top)     - Display Resource (CPU/Memory/Storage) usage
+* [kubectl uncordon](/docs/user-guide/kubectl/v1.7/#uncordon)     - Mark node as schedulable
+* [kubectl version](/docs/user-guide/kubectl/v1.7/#version)     - Print the client and server version information
 
 ###### Auto generated by spf13/cobra on 13-Dec-2016
 

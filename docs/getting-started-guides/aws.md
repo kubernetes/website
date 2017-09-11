@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - justinsb
 - clove
 title: Running Kubernetes on AWS EC2
@@ -9,26 +9,29 @@ title: Running Kubernetes on AWS EC2
 {:toc}
 
 
-## Supported Production Grade Tools with High Availability Options
+## Supported Production Grade Tools
 
 * [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian, Ubuntu, CentOS, and RHEL in AWS.
 
-* CoreOS maintains [a CLI tool](https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html), `kube-aws` that will create and manage a Kubernetes cluster based on [CoreOS](http://www.coreos.com), using AWS tools: EC2, CloudFormation and Autoscaling.
+* [CoreOS Tectonic](https://coreos.com/tectonic/) includes the open-source [Tectonic Installer](https://github.com/coreos/tectonic-installer) that creates Kubernetes clusters with Container Linux nodes on AWS.
+
+* CoreOS originated and the Kubernetes Incubator maintains [a CLI tool, `kube-aws`](https://github.com/kubernetes-incubator/kube-aws), that creates and manages Kubernetes clusters with [Container Linux](https://coreos.com/why/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
 
 ---
 
-## kube-up bash script
+## kube-up is no longer supported in kubernetes 1.6
 
-> `kube-up.sh` is a legacy tool that is an easy way to spin up a cluster.  This tool is being deprecated, and does not create a production ready environment.
+> `kube-up.sh` is a legacy tool for launching clusters.  It is deprecated, and removed entirely from kubernetes 1.6.
 
 
 ### Prerequisites
 
-1. You need an AWS account. Visit [http://aws.amazon.com](http://aws.amazon.com) to get started
-2. Install and configure the [AWS Command Line Interface](http://aws.amazon.com/cli)
-3. We recommend installing using an account which has full access to the AWS APIs.
+1. This is only supported for kubernetes 1.5 and earlier.  Consider switching to one of the supported options.
+2. You need an AWS account. Visit [http://aws.amazon.com](http://aws.amazon.com) to get started
+3. Install and configure the [AWS Command Line Interface](http://aws.amazon.com/cli)
+4. We recommend installing using an account which has full access to the AWS APIs.
 
-NOTE: This script use the 'default' AWS profile by default.
+NOTE: This script uses the 'default' AWS profile by default.
 You may explicitly set the AWS profile to use using the `AWS_DEFAULT_PROFILE` environment variable:
 
 ```shell
@@ -130,18 +133,18 @@ export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
 export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 ```
 
-An up-to-date documentation page for this tool is available here: [kubectl manual](/docs/user-guide/kubectl/kubectl)
+An up-to-date documentation page for this tool is available here: [kubectl manual](/docs/user-guide/kubectl)
 
 By default, `kubectl` will use the `kubeconfig` file generated during the cluster startup for authenticating against the API.
-For more information, please read [kubeconfig files](/docs/user-guide/kubeconfig-file)
+For more information, please read [kubeconfig files](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
 
 ### Examples
 
 See [a simple nginx example](/docs/user-guide/simple-nginx) to try out your new cluster.
 
-The "Guestbook" application is another popular example to get started with Kubernetes: [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/)
+The "Guestbook" application is another popular example to get started with Kubernetes: [guestbook example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/)
 
-For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/)
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/)
 
 ## Scaling the cluster
 
@@ -161,7 +164,6 @@ cluster/kube-down.sh
 
 IaaS Provider        | Config. Mgmt | OS            | Networking  | Docs                                          | Conforms | Support Level
 -------------------- | ------------ | ------------- | ----------  | --------------------------------------------- | ---------| ----------------------------
-AWS                  | Saltstack    | Debian/Ubuntu | k8s (VPC)   | [docs](/docs/getting-started-guides/aws)      |          | Community ([@justinsb](https://github.com/justinsb))
 AWS                  | kops         | Debian        | k8s (VPC)   | [docs](https://github.com/kubernetes/kops)    |          | Community ([@justinsb](https://github.com/justinsb))
 AWS                  | CoreOS       | CoreOS        | flannel     | [docs](/docs/getting-started-guides/aws)      |          | Community
 

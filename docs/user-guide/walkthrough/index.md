@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - eparis
 - mikedanese
 title: Kubernetes 101
@@ -8,6 +8,8 @@ title: Kubernetes 101
 ## Kubectl CLI and Pods
 
 For Kubernetes 101, we will cover kubectl, pods, volumes, and multiple containers
+
+{% include task-tutorial-prereqs.md %}
 
 In order for the kubectl usage examples to work, make sure you have an example directory locally, either from [a release](https://github.com/kubernetes/kubernetes/releases) or [the source](https://github.com/kubernetes/kubernetes).
 
@@ -21,13 +23,13 @@ The easiest way to interact with Kubernetes is via the [kubectl](/docs/user-guid
 
 For more info about kubectl, including its usage, commands, and parameters, see the [kubectl CLI reference](/docs/user-guide/kubectl-overview/).
 
-If you haven't installed and configured kubectl, finish the [prerequisites](/docs/user-guide/prereqs/) before continuing.
+If you haven't installed and configured kubectl, finish [installing kubectl](/docs/tasks/kubectl/install/) before continuing.
 
 ## Pods
 
 In Kubernetes, a group of one or more containers is called a _pod_. Containers in a pod are deployed together, and are started, stopped, and replicated as a group.
 
-See [pods](/docs/user-guide/pods/) for more details.
+See [pods](/docs/concepts/workloads/pods/pod/) for more details.
 
 
 #### Pod Definition
@@ -38,7 +40,7 @@ The simplest pod definition describes the deployment of a single container.  For
 
 A pod definition is a declaration of a _desired state_.  Desired state is a very important concept in the Kubernetes model.  Many things present a desired state to the system, and it is Kubernetes' responsibility to make sure that the current state matches the desired state.  For example, when you create a Pod, you declare that you want the containers in it to be running.  If the containers happen to not be running (e.g. program failure, ...), Kubernetes will continue to (re-)create them for you in order to drive them to the desired state. This process continues until the Pod is deleted.
 
-See the [design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/README.md) for more details.
+See the [design document](https://git.k8s.io/community/contributors/design-proposals/README.md) for more details.
 
 
 #### Pod Management
@@ -55,7 +57,7 @@ List all pods:
 $ kubectl get pods
 ```
 
-On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/user-guide/getting-into-containers/) for details.
+On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/tasks/kubectl/get-shell-running-container/) for details.
 
 Provided the pod IP is accessible, you should be able to access its http endpoint with wget on port 80:
 
@@ -115,7 +117,7 @@ Notes:
 - **EmptyDir**: Creates a new directory that will exist as long as the Pod is running on the node, but it can persist across container failures and restarts.
 - **HostPath**: Mounts an existing directory on the node's file system (e.g. `/var/logs`).
 
-See [volumes](/docs/user-guide/volumes/) for more details.
+See [volumes](/docs/concepts/storage/volumes/) for more details.
 
 
 #### Multiple Containers
@@ -160,4 +162,4 @@ Finally, we have also introduced an environment variable to the `git-monitor` co
 ## What's Next?
 
 Continue on to [Kubernetes 201](/docs/user-guide/walkthrough/k8s201) or
-for a complete application see the [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/)
+for a complete application see the [guestbook example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/)

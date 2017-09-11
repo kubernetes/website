@@ -32,7 +32,8 @@ The following diagram illustrates the Windows Server networking setup for Kubern
 ![Windows Setup](windows-setup.png)
 
 ## Setting up Windows Server Containers on Kubernetes
-To run Windows Server Containers on Kubernetes, you'll need to set up both your host machines and the Kubernetes node components for Windows and setup Routes for Pod communication on different nodes
+To run Windows Server Containers on Kubernetes, you'll need to set up both your host machines and the Kubernetes node components for Windows and setup Routes for Pod communication on different nodes.
+
 ### Host Setup
 **Windows Host Setup**
 
@@ -54,7 +55,7 @@ Requirements
 * Git
 * Go 1.7.1+
 * make (if using Linux or MacOS)
-* Important notes and other dependencies are listed [here](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/development.md#building-kubernetes-on-a-local-osshell-environment)
+* Important notes and other dependencies are listed [here](https://git.k8s.io/community/contributors/devel/development.md#building-kubernetes-on-a-local-osshell-environment)
 
 **kubelet**
 

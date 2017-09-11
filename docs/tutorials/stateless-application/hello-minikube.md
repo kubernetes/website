@@ -1,9 +1,5 @@
 ---
-
 title: Hello Minikube
-redirect_from:
-- "/docs/hellonode/"
-- "/docs/hellonode.html"
 ---
 
 {% capture overview %}
@@ -54,7 +50,9 @@ the [Minikube installation guide](/docs/getting-started-guides/minikube/).
 Use `curl` to download and install the latest Minikube release:
 
 ```shell
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 && \
+  chmod +x minikube && \
+  sudo mv minikube /usr/local/bin/
 ```
 
 Use Homebrew to install the xhyve driver and set its permissions:
@@ -65,21 +63,20 @@ sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docke
 sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
 ```
 
-Download the latest version of the `kubectl` command-line tool, which you can
+Use Homebrew to download the `kubectl` command-line tool, which you can
 use to interact with Kubernetes clusters:
 
 ```shell
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
-chmod +x ./kubectl
-sudo mv ./kubectl /usr/local/bin/kubectl
+brew install kubectl
 ```
+
 Determine whether you can access sites like [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/) directly without a proxy, by opening a new terminal and using
 
 ```shell
-curl --proxy "" https://cloud.google.com/container-registry/ 
+curl --proxy "" https://cloud.google.com/container-registry/
 ```
 
-If NO proxy is required, start the Minikube cluster: 
+If NO proxy is required, start the Minikube cluster:
 
 ```shell
 minikube start --vm-driver=xhyve
@@ -136,7 +133,7 @@ existing image. The image in this tutorial extends an existing Node.js image.
 
 This recipe for the Docker image starts from the official Node.js LTS image
 found in the Docker registry, exposes port 8080, copies your `server.js` file
-to the image and start the Node.js server.
+to the image and starts the Node.js server.
 
 Because this tutorial uses Minikube, instead of pushing your Docker image to a
 registry, you can simply build the image using the same Docker host as
@@ -160,10 +157,10 @@ Now the Minikube VM can run the image you built.
 
 ## Create a Deployment
 
-A Kubernetes [*Pod*](/docs/user-guide/pods/) is a group of one or more Containers,
+A Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
 tied together for the purposes of administration and networking. The Pod in this
 tutorial has only one Container. A Kubernetes
-[*Deployment*](/docs/user-guide/deployments) checks on the health of your
+[*Deployment*](/docs/concepts/workloads/controllers/deployment/) checks on the health of your
 Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 
@@ -224,7 +221,7 @@ For more information about `kubectl`commands, see the
 By default, the Pod is only accessible by its internal IP address within the
 Kubernetes cluster. To make the `hello-node` Container accessible from outside the
 Kubernetes virtual network, you have to expose the Pod as a
-Kubernetes [*Service*](/docs/user-guide/services/).
+Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 From your development machine, you can expose the Pod to the public internet
 using the `kubectl expose` command:
@@ -314,9 +311,9 @@ minikube stop
 
 {% capture whatsnext %}
 
-* Learn more about [Deployment objects](/docs/user-guide/deployments/).
+* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 * Learn more about [Deploying applications](/docs/user-guide/deploying-applications/).
-* Learn more about [Service objects](/docs/user-guide/services/).
+* Learn more about [Service objects](/docs/concepts/services-networking/service/).
 
 {% endcapture %}
 

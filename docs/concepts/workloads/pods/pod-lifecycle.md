@@ -17,7 +17,7 @@ This page describes the lifecycle of a Pod.
 ## Pod phase
 
 A Pod's `status` field is a
-[PodStatus](/docs/resources-reference/v1.5/#podstatus-v1)
+[PodStatus](/docs/resources-reference/{{page.version}}/#podstatus-v1-core)
 object, which has a `phase` field.
 
 The phase of a Pod is a simple, high-level summary of where the Pod is in its
@@ -52,7 +52,7 @@ Here are the possible values for `phase`:
 ## Pod conditions
 
 A Pod has a PodStatus, which has an array of
-[PodConditions](docs/resources-reference/v1.5/#podcondition). Each element
+[PodConditions](/docs/resources-reference/{{page.version}}/#podcondition-v1-core). Each element
 of the PodCondition array has a `type` field and a `status` field. The `type`
 field is a string, with possible values PodScheduled, Ready, Initialized, and
 Unschedulable. The `status` field is a string, with possible values True, False,
@@ -60,22 +60,22 @@ and Unknown.
 
 ## Container probes
 
-A [Probe](/docs/resources-reference/v1.5/#probe-v1) is a diagnostic
+A [Probe](/docs/resources-reference/{{page.version}}/#probe-v1-core) is a diagnostic
 performed periodically by the [kubelet](/docs/admin/kubelet/)
 on a Container. To perform a diagnostic,
-the kublet calls a
+the kubelet calls a
 [Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) implemented by
 the Container. There are three types of handlers:
 
-* [ExecAction](/docs/resources-reference/v1.5/#execaction-v1):
+* [ExecAction](/docs/resources-reference/{{page.version}}/#execaction-v1-core):
   Executes a specified command inside the Container. The diagnostic
   is considered successful if the command exits with a status code of 0.
 
-* [TCPSocketAction](/docs/resources-reference/v1.5/#tcpsocketaction-v1):
+* [TCPSocketAction](/docs/resources-reference/{{page.version}}/#tcpsocketaction-v1-core):
   Performs a TCP check against the Container's IP address on
   a specified port. The diagnostic is considered successful if the port is open.
 
-* [HTTPGetAction](/docs/resources-reference/v1.5/#httpgetaction-v1):
+* [HTTPGetAction](/docs/resources-reference/{{page.version}}/#httpgetaction-v1-core):
   Performs an HTTP Get request against the Container's IP
   address on a specified port and path. The diagnostic is considered successful
   if the response has a status code greater than or equal to 200 and less than 400.
@@ -129,11 +129,11 @@ to stop.
 ## Pod and Container status
 
 For detailed information about Pod Container status, see
-[PodStatus](/docs/resources-reference/v1.5/#podstatus-v1)
+[PodStatus](/docs/resources-reference/{{page.version}}/#podstatus-v1-core)
 and
-[ContainerStatus](/docs/resources-reference/v1.5/#containerstatus-v1).
+[ContainerStatus](/docs/resources-reference/{{page.version}}/#containerstatus-v1-core).
 Note that the information reported as Pod status depends on the current
-[ContainerState](/docs/resources-reference/v1.5/#containerstate-v1).
+[ContainerState](/docs/resources-reference/{{page.version}}/#containerstatus-v1-core).
 
 ## Restart policy
 
@@ -158,18 +158,18 @@ duration (determined by the master) will expire and be automatically destroyed.
 
 Three types of controllers are available:
 
-- Use a [Job](/docs/user-guide/jobs/) for Pods that are expected to terminate,
+- Use a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) for Pods that are expected to terminate,
   for example, batch computations. Jobs are appropriate only for Pods with
   `restartPolicy` equal to OnFailure or Never.
 
-- Use a [ReplicationController](/docs/user-guide/replication-controller/),
-  [ReplicaSet](/docs/user-guide/replicasets/), or
-  [Deployment](/docs/user-guide/deployments/)
+- Use a [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/),
+  [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/), or
+  [Deployment](/docs/concepts/workloads/controllers/deployment/)
   for Pods that are not expected to terminate, for example, web servers.
   ReplicationControllers are appropriate only for Pods with a `restartPolicy` of
   Always.
 
-- Use a [DaemonSet](/docs/admin/daemons/) for Pods that need to run one per
+- Use a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) for Pods that need to run one per
   machine, because they provide a machine-specific system service.
 
 All three types of controllers contain a PodTemplate. It
@@ -274,7 +274,7 @@ spec:
 * Get hands-on experience
   [configuring liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
-* [Container Lifecycle Hooks](/docs/user-guide/container-environment/)
+* Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 
 {% endcapture %}
 

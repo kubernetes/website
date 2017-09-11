@@ -39,7 +39,7 @@
 			type: 0,
 			name: 'Citrix',
 			logo: 'citrix',
-			link: 'http://wercker.com/workflows/partners/kubernetes/',
+			link: 'https://www.citrix.com/networking/microservices.html',
 			blurb: 'Netscaler CPX gives app developers all the features they need to load balance their microservices and containerized apps with Kubernetes.'
 		},
 		{
@@ -67,15 +67,15 @@
 			type: 0,
 			name: 'Wercker',
 			logo: 'wercker',
-			link: 'http://wercker.com/workflows/partners/kubernetes/',
+			link: 'http://www.wercker.com/integrations/kubernetes',
 			blurb: 'Wercker automates your build, test and deploy pipelines for launching containers and triggering rolling updates on your Kubernetes cluster. '
 		},
 		{
 			type: 0,
-			name: 'Rancher',
-			logo: 'rancher',
+			name: 'Rancher Labs',
+			logo: 'rancher-labs',
 			link: 'http://rancher.com/kubernetes/',
-			blurb: 'Rancher is an open-source, production-ready container management platform that makes it easy to deploy and leverage Kubernetes in the enterprise.'
+			blurb: 'Rancher is an open-source, production-ready container management platform that makes it easy to deploy and manage Kubernetes.'
 		},
 		{
 			type: 0,
@@ -183,7 +183,7 @@
 			blurb: 'Aporeto makes cloud-native applications secure by default without impacting developer velocity and works at any scale, on any cloud.'
 		},
 		{
-  		type: 0,
+  			type: 0,
  			name: 'Giant Swarm',
  			logo: 'giant_swarm',
  			link: 'https://giantswarm.io',
@@ -263,7 +263,7 @@
 			type: 0,
 			name: 'Tigera',
 			logo: 'tigera',
-			link: 'http://docs.projectcalico.org/v1.5/getting-started/kubernetes/',
+			link: 'http://docs.projectcalico.org/latest/getting-started/kubernetes/',
 			blurb: 'Tigera builds high performance, policy driven, cloud native networking solutions for Kubernetes.'
 		},
 		{
@@ -279,13 +279,6 @@
  			logo: 'harbur',
  			link: 'https://harbur.io/',
  			blurb: 'Based in Barcelona, Harbur is a consulting firm that helps companies deploy self-healing solutions empowered by Container technologies'
-  		},
-		{
- 			type: 1,
- 			name: 'Endocode',
- 			logo: 'endocode',
- 			link: 'https://endocode.com/kubernetes/',
- 			blurb: 'Endocode practices and teaches the open source way. Kernel to cluster - Dev to Ops. We offer Kubernetes trainings, services and support.'
   		},
 		{
  			type: 0,
@@ -311,9 +304,9 @@
 		{
  			type: 0,
  			name: 'ASM Technologies Limited',
- 			logo: 'asmtech',
+ 			logo: 'asm',
  			link: 'http://www.asmtech.com/',
- 			blurb: 'http://www.asmtech.com/audience-channels/software_publisher/'
+ 			blurb: 'Our technology supply chain portfolio enables your software products to be accessible, viable and available more effectively.'
   		},
 		{
  			type: 1,
@@ -391,8 +384,189 @@
  			logo: 'avinetworks',
  			link: 'https://kb.avinetworks.com/avi-vantage-openshift-installation-guide/',
  			blurb: 'Avis elastic application services fabric provides scalable, feature rich & integrated L4-7 networking for K8S environments.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'codecrux web technologies pvt ltd',
+ 			logo: 'codecrux',
+ 			link: 'http://codecrux.com/kubernetes/',
+ 			blurb: 'At CodeCrux we help your organization get the most out of Containers and Kubernetes, regardless of where you are in your journey'
+  		},
+		{
+ 			type: 0,
+ 			name: 'Greenqloud',
+ 			logo: 'qstack',
+ 			link: 'https://www.qstack.com/application-orchestration/',
+ 			blurb: 'Qstack provides self-serviceable on-site Kubernetes clusters with an intuitive User Interface for Infrastructure and Kubernetes management.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'StackOVerdrive.io',
+ 			logo: 'stackoverdrive',
+ 			link: 'http://www.stackoverdrive.net/kubernetes-consulting/',
+ 			blurb: 'We are a devops consulting firm and we do alot of work with containers and Kunbernetes is one of our go to tools.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'StackIQ, Inc.',
+ 			logo: 'stackiq',
+ 			link: 'https://www.stackiq.com/kubernetes/',
+ 			blurb: 'With Stacki and the Stacki Pallet for Kubernetes, you can go from bare metal to containers in one step very quickly and easily.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'Cobe',
+ 			logo: 'cobe',
+ 			link: 'https://cobe.io/product-page/',
+ 			blurb: 'Manage Kubernetes clusters with a live, searchable model that captures all relationships and performance data in full visualised context.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'Datawire',
+ 			logo: 'datawire',
+ 			link: 'http://www.datawire.io',
+ 			blurb: 'Datawires open source tools let your microservices developers be awesomely productive on Kubernetes, while letting ops sleep at night.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'Mashape, Inc.',
+ 			logo: 'mashape',
+ 			link: 'https://getkong.org/install/kubernetes/',
+ 			blurb: 'Kong is a scalable open source API layer that runs in front of any RESTful API and can be provisioned to a Kubernetes cluster.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'F5 Networks',
+ 			logo: 'f5networks',
+ 			link: 'http://github.com/f5networks',
+ 			blurb: 'We have a LB integration into Kubernetes.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'Lovable Tech',
+ 			logo: 'lovable',
+ 			link: 'http://lovable.tech/',
+ 			blurb: 'World class engineers, designers, and strategic consultants helping you ship Lovable web & mobile technology.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'StackState',
+ 			logo: 'stackstate',
+ 			link: 'http://stackstate.com/platform/container-monitoring',
+ 			blurb: 'Operational Analytics across teams and tools. Includes topology visualization, root cause analysis and anomaly detection for Kubernetes.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'INEXCCO INC',
+ 			logo: 'inexcco',
+ 			link: 'https://www.inexcco.com/',
+ 			blurb: 'Strong DevOps and Cloud talent working with couple clients on kubernetes and helm implementations. '
+  		},
+		{
+ 			type: 0,
+ 			name: 'Bitnami',
+ 			logo: 'bitnami',
+ 			link: 'http://bitnami.com/kubernetes',
+ 			blurb: 'Bitnami brings a catalog of trusted, up to date, and easy to use applications and application building blocks to Kubernetes.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'Nebulaworks',
+ 			logo: 'nebulaworks',
+ 			link: 'http://www.nebulaworks.com/container-platforms',
+ 			blurb: 'Nebulaworks provides services to help the enterprise adopt modern container platforms and optimized processes to enable innovation at scale.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'EASYNUBE LTD',
+ 			logo: 'easynube',
+ 			link: 'https://www.carrefour.es/supermercado/?ic_source=portal-home&ic_medium=menu-links&ic_content=section-home',
+ 			blurb: 'Provide consultancy, architecture and implementation'
+  		},
+		{
+ 			type: 1,
+ 			name: 'Opcito Technologies',
+ 			logo: 'opcito',
+ 			link: 'http://www.opcito.com/kubernetes/',
+ 			blurb: 'Opcito is a software consultancy that uses Kubernetes to help organisations build, architect & deploy highly scalable applications.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'Huawei Technologies Co., Ltd.',
+ 			logo: 'huawei',
+ 			link: 'http://developer.huawei.com/ict/en/site-paas',
+ 			blurb: 'FusionStage is an enterprise-grade PaaS, the core of which is based on open source container technology including Kubernetes and Docker.'
+  		},
+		{
+ 			type: 0,
+ 			name: '{code} by Dell EMC',
+ 			logo: 'codedellemc',
+ 			link: 'https://blog.codedellemc.com',
+ 			blurb: 'Respected as a thought leader in storage persistence for containerized applications. Contributed significant work to K8 and Ecosystem'
+			},
+		{
+ 			type: 0,
+	 		name: 'SUSE Llc.',
+	 		logo: 'suse',
+	 		link: 'https://www.suse.com/products/caas-platform/',
+	 		blurb: 'SUSE delivers Kubernetes as part of SUSE CaaS Platform and SUSE OpenStack Cloud, for enterprises that want truly open, open source solutions for cloud-native applications.'
+			},
+		{
+	 		type: 0,
+		 	name: 'Instana',
+		 	logo: 'instana',
+		 	link: 'https://www.instana.com/supported-technologies/',
+		 	blurb: 'Instana monitors the infrastructure, containers and services deployed on a Kubernetes cluster.'
+			},
+		{
+		 	type: 0,
+			name: 'Netsil',
+			logo: 'netsil',
+			link: 'https://netsil.com/kubernetes/',
+			blurb: 'Generate a real-time, auto-discovered application topology map! Monitor Kubernetes pods and namespaces without any code instrumentation.'
+			},
+		{
+			type: 0,
+			name: 'Treasure Data',
+			logo: 'treasure-data',
+			link: 'https://fluentd.treasuredata.com/kubernetes-logging/',
+			blurb: 'Fluentd Enterprise brings smart, secure logging to Kubernetes, and brings integrations with backends such as Splunk, Kafka, or AWS S3.'
+			},
+		{
+			type: 0,
+			name: 'IBM',
+			logo: 'IBM',
+			link: 'https://www.ibm.com/cloud-computing/bluemix/containers',
+			blurb: 'IBM Container Service is a managed k8s environment with built-in cluster security and isolation while leveraging services including Watson, IoT, Weather, etc.'
+			},
+		{
+			type: 1,
+			name: 'IBM',
+			logo: 'IBM',
+			link: 'https://www.ibm.com/cloud-computing/bluemix/containers',
+			blurb: 'IBM Container Service is a managed k8s environment with built-in cluster security and isolation while leveraging services including Watson, IoT, Weather, etc.'
+			},
+		{
+			type: 1,
+			name: 'Kenzan',
+			logo: 'Kenzan',
+			link: 'http://kenzan.com/?ref=kubernetes',
+			blurb: 'Kenzan is a software engineering and full-service consulting firm that provides customized, end-to-end solutions that drive change through digital transformation.'
+			},
+		{
+			type: 0,
+			name: 'Kublr',
+			logo: 'kublr',
+			link: 'http://kublr.com',
+			blurb: 'Simplify your Kubernetes experience with a fully production-ready, enterprise-grade cluster management platform.'
+			},
+		{
+			type: 0,
+			name: 'Endocode AG',
+			logo: 'endocode',
+			link: 'https://endocode.com/kubernetes/',
+ 			blurb: 'Endocode practices and teaches the open source way. Kernel to cluster - Dev to Ops. We offer Kubernetes trainings, services and support.'
   		}
-		
 	]
 
 	var isvContainer = document.getElementById('isvContainer')

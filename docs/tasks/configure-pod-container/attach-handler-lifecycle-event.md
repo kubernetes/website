@@ -1,5 +1,5 @@
 ---
-title: Attaching Handlers to Container Lifecycle Events
+title: Attach Handlers to Container Lifecycle Events
 ---
 
 {% capture overview %}
@@ -21,7 +21,7 @@ Container is terminated.
 
 {% capture steps %}
 
-## Defining postStart and preStop handlers
+## Define postStart and preStop handlers
 
 In this exercise, you create a Pod that has one Container. The Container has handlers
 for the postStart and preStop events.
@@ -36,7 +36,7 @@ nginx gracefully. This is helpful if the Container is being terminated because o
 
 Create the Pod:
 
-    kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/lifecycle-events.yaml
+    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/lifecycle-events.yaml
 
 Verify that the Container in the Pod is running:
 
@@ -79,15 +79,15 @@ unless the Pod's grace period expires. For more details, see
 
 {% capture whatsnext %}
 
-* Learn more about [Container lifecycle hooks](/docs/user-guide/container-environment/.)
-* Learn more about the [lifecycle of a Pod](https://kubernetes.io/docs/user-guide/pod-states/).
+* Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
+* Learn more about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
 
 
 ### Reference
- 
-* [Lifecycle](https://kubernetes.io/docs/resources-reference/1_5/#lifecycle-v1)
-* [Container](https://kubernetes.io/docs/resources-reference/1_5/#container-v1)
-* See `terminationGracePeriodSeconds` in [PodSpec](/docs/resources-reference/v1.5/#podspec-v1)
+
+* [Lifecycle](/docs/resources-reference/{{page.version}}/#lifecycle-v1-core)
+* [Container](/docs/resources-reference/{{page.version}}/#container-v1-core)
+* See `terminationGracePeriodSeconds` in [PodSpec](/docs/resources-reference/{{page.version}}/#podspec-v1-core)
 
 {% endcapture %}
 

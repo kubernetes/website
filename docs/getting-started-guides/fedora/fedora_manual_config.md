@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - aveshagarwal
 - eparis
 - thockin
@@ -17,7 +17,7 @@ title: Fedora (Single Node)
 
 This is a getting started guide for Fedora.  It is a manual configuration so you understand all the underlying packages / services / ports, etc...
 
-This guide will only get ONE node (previously minion) working.  Multiple nodes require a functional [networking configuration](/docs/admin/networking/) done outside of Kubernetes.  Although the additional Kubernetes configuration requirements should be obvious.
+This guide will only get ONE node (previously minion) working.  Multiple nodes require a functional [networking configuration](/docs/concepts/cluster-administration/networking/) done outside of Kubernetes.  Although the additional Kubernetes configuration requirements should be obvious.
 
 The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, kube-controller-manager, kubelet, kube-proxy.  These services are managed by systemd and the configuration resides in a central location: /etc/kubernetes.  We will break the services up between the hosts.  The first host, fed-master, will be the Kubernetes master.  This host will run the kube-apiserver, kube-controller-manager, and kube-scheduler.  In addition, the master will also run _etcd_ (not needed if _etcd_ runs on a different host but this guide assumes that _etcd_ and Kubernetes master run on the same host).  The remaining host, fed-node will be the node and run kubelet, proxy and docker.
 
@@ -33,7 +33,7 @@ fed-node = 192.168.121.65
 **Prepare the hosts:**
 
 * Install Kubernetes on all hosts - fed-{master,node}.  This will also pull in docker. Also install etcd on fed-master.  This guide has been tested with Kubernetes-0.18 and beyond.
-* Running on AWS EC2 with RHEL 7.2, you need to enable "extras" repository for yum by editing `/etc/yum.repos.d/redhat-rhui.repo` and changing the changing the `enable=0` to `enable=1` for extras.
+* Running on AWS EC2 with RHEL 7.2, you need to enable "extras" repository for yum by editing `/etc/yum.repos.d/redhat-rhui.repo` and changing the `enable=0` to `enable=1` for extras.
 
 ```shell
 dnf -y install kubernetes
@@ -48,8 +48,8 @@ dnf -y install etcd
 * Add master and node to /etc/hosts on all machines (not needed if hostnames already in DNS). Make sure that communication works between fed-master and fed-node by using a utility such as ping.
 
 ```shell
-echo "192.168.121.9	fed-master
-192.168.121.65	fed-node" >> /etc/hosts
+echo "192.168.121.9    fed-master
+192.168.121.65    fed-node" >> /etc/hosts
 ```
 
 * Edit /etc/kubernetes/config (which should be the same on all hosts) to set
@@ -85,7 +85,7 @@ KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
 KUBE_API_ARGS=""
 ```
 
-* Edit /etc/etcd/etcd.conf to let etcd listen on all available IPs instead of 127.0.0.1; If you have not done this, you might see an error such as "connection refused".
+* Edit /etc/etcd/etcd.conf to let etcd listen on all available IPs instead of 127.0.0.1. If you have not done this, you might see an error such as "connection refused".
 
 ```shell
 ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
@@ -95,9 +95,9 @@ ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
 
 ```shell
 for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler; do
-	systemctl restart $SERVICES
-	systemctl enable $SERVICES
-	systemctl status $SERVICES
+    systemctl restart $SERVICES
+    systemctl enable $SERVICES
+    systemctl status $SERVICES
 done
 ```
 
@@ -125,8 +125,8 @@ Now create a node object internally in your Kubernetes cluster by running:
 $ kubectl create -f ./node.json
 
 $ kubectl get nodes
-NAME                LABELS              STATUS
-fed-node           name=fed-node-label     Unknown
+NAME            STATUS        AGE      VERSION
+fed-node        Unknown       4h
 ```
 
 Please note that in the above, it only creates a representation for the node
@@ -172,8 +172,8 @@ done
 
 ```shell
 kubectl get nodes
-NAME                LABELS              STATUS
-fed-node          name=fed-node-label     Ready
+NAME            STATUS      AGE      VERSION
+fed-node        Ready       4h
 ```
 
 * Deletion of nodes:
@@ -187,8 +187,6 @@ kubectl delete -f ./node.json
 *You should be finished!*
 
 **The cluster should be running! Launch a test pod.**
-
-You should have a functional cluster, check out [101](/docs/user-guide/walkthrough/)!
 
 ## Support Level
 
