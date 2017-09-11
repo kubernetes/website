@@ -41,7 +41,6 @@
 /docs/api														/docs/concepts/overview/kubernetes-api		301
 
 /docs/concepts/abstractions/controllers/garbage-collection		/docs/concepts/workloads/controllers/garbage-collection		301
-/docs/concepts/abstractions/controllers/petsets					/docs/concepts/workloads/controllers/petset		301
 /docs/concepts/abstractions/controllers/statefulsets			/docs/concepts/workloads/controllers/statefulset		301
 /docs/concepts/abstractions/init-containers						/docs/concepts/workloads/pods/init-containers		301
 /docs/concepts/abstractions/overview							/docs/concepts/overview/working-with-objects/kubernetes-objects		301
@@ -192,8 +191,6 @@
 /docs/user-guide/node-selection/								/docs/concepts/configuration/assign-pod-node		301
 /docs/user-guide/persistent-volumes/							/docs/concepts/storage/persistent-volumes		301
 /docs/user-guide/persistent-volumes/walkthrough					/docs/tasks/configure-pod-container/configure-persistent-volume-storage		301
-/docs/user-guide/petset											/docs/concepts/workloads/controllers/petset		301
-/docs/user-guide/petset/bootstrapping/							/docs/concepts/workloads/controllers/petset		301
 /docs/user-guide/pod-preset/									/docs/tasks/inject-data-application/podpreset		301
 /docs/user-guide/pod-security-policy/							/docs/concepts/policy/pod-security-policy		301
 /docs/user-guide/pod-states										/docs/concepts/workloads/pods/pod-lifecycle		301

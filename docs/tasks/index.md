@@ -52,7 +52,7 @@ Configure components in a cluster federation.
 
 #### Managing Stateful Applications
 
-Perform common tasks for managing Stateful applications, including upgrading from PetSets and scaling, deleting, and debugging StatefulSets.
+Perform common tasks for managing Stateful applications, including scaling, deleting, and debugging StatefulSets.
 
 #### Cluster Daemons
 
