@@ -1,11 +1,10 @@
 Following these examples, you will create a pod with a container that consumes the pod's name,
-namespace, and resource values using the [downward API](http://kubernetes.io/docs/user-guide/downward-api/).
+namespace, and resource values using the [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/).
 
 ## Step Zero: Prerequisites
 
 This example assumes you have a Kubernetes cluster installed and running, and that you have
-installed the `kubectl` command line tool somewhere in your path. Please see the [getting
-started](http://kubernetes.io/docs/getting-started-guides/) for installation instructions for your platform.
+installed the `kubectl` command line tool somewhere in your path. Please see [pick the right solution](/docs/setup/pick-right-solution/) for installation instructions for your platform.
 
 ## Step One: Create the pod
 

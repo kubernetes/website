@@ -1,8 +1,5 @@
 ---
-title: Configuring a Pod to Use a PersistentVolume for Storage
-redirect_from:
-- "/docs/user-guide/persistent-volumes/walkthrough/"
-- "/docs/user-guide/persistent-volumes/walkthrough.html"
+title: Configure a Pod to Use a PersistentVolume for Storage
 ---
 
 {% capture overview %}
@@ -28,13 +25,13 @@ do not already have a single-node cluster, you can create one by using
 [Minikube](/docs/getting-started-guides/minikube).
 
 * Familiarize yourself with the material in
-[Persistent Volumes](/docs/user-guide/persistent-volumes/).
+[Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
 
 {% endcapture %}
 
 {% capture steps %}
 
-## Creating an index.html file on your Node
+## Create an index.html file on your Node
 
 Open a shell to the Node in your cluster. How you open a shell depends on how
 you set up your cluster. For example, if you are using Minikube, you can open a
@@ -48,7 +45,7 @@ In the `/tmp/data` directory, create an `index.html` file:
 
     echo 'Hello from Kubernetes storage' > /tmp/data/index.html
 
-## Creating a PersistentVolume
+## Create a PersistentVolume
 
 In this exercise, you create a *hostPath* PersistentVolume. Kubernetes supports
 hostPath for development and testing on a single-node cluster. A hostPath
@@ -57,7 +54,7 @@ PersistentVolume uses a file or directory on the Node to emulate network-attache
 In a production cluster, you would not use hostPath. Instead a cluster administrator
 would provision a network resource like a Google Compute Engine persistent disk,
 an NFS share, or an Amazon Elastic Block Store volume. Cluster administrators can also
-use [StorageClasses](/docs/resources-reference/v1.5/#storageclass-v1beta1)
+use [StorageClasses](/docs/resources-reference/{{page.version}}/#storageclass-v1-storage)
 to set up
 [dynamic provisioning](http://blog.kubernetes.io/2016/10/dynamic-provisioning-and-storage-in-kubernetes.html).
 
@@ -68,11 +65,13 @@ Here is the configuration file for the hostPath PersistentVolume:
 The configuration file specifies that the volume is at `/tmp/data` on the
 the cluster's Node. The configuration also specifies a size of 10 gibibytes and
 an access mode of `ReadWriteOnce`, which means the volume can be mounted as
-read-write by a single Node.
+read-write by a single Node. It defines the [StorageClass name](/docs/concepts/storage/persistent-volumes/#class)
+`manual` for the PersistentVolume, which will be used to bind
+PersistentVolumeClaim requests to this PersistentVolume.
 
 Create the PersistentVolume:
 
-    kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/task-pv-volume.yaml
+    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/task-pv-volume.yaml
 
 View information about the PersistentVolume:
 
@@ -81,11 +80,10 @@ View information about the PersistentVolume:
 The output shows that the PersistentVolume has a `STATUS` of `Available`. This
 means it has not yet been bound to a PersistentVolumeClaim.
 
-    NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS      CLAIM     REASON    AGE
-    task-pv-volume   10Gi       RWO           Retain          Available                       17s
+    NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS      CLAIM     STORAGECLASS   REASON    AGE
+    task-pv-volume   10Gi       RWO           Retain          Available             manual                   4s
 
-
-## Creating a PersistentVolumeClaim
+## Create a PersistentVolumeClaim
 
 The next step is to create a PersistentVolumeClaim. Pods use PersistentVolumeClaims
 to request physical storage. In this exercise, you create a PersistentVolumeClaim
@@ -98,11 +96,12 @@ Here is the configuration file for the PersistentVolumeClaim:
 
 Create the PersistentVolumeClaim:
 
-    kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/task-pv-claim.yaml
+    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/task-pv-claim.yaml
 
 After you create the PersistentVolumeClaim, the Kubernetes control plane looks
 for a PersistentVolume that satisfies the claim's requirements. If the control
-plane finds a suitable PersistentVolume, it binds the claim to the volume.
+plane finds a suitable PersistentVolume with the same StorageClass, it binds the
+claim to the volume.
 
 Look again at the PersistentVolume:
 
@@ -110,9 +109,8 @@ Look again at the PersistentVolume:
 
 Now the output shows a `STATUS` of `Bound`.
 
-    kubectl get pv task-pv-volume
-    NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                   REASON    AGE
-    task-pv-volume   10Gi       RWO           Retain          Bound     default/task-pv-claim             8m
+    NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                   STORAGECLASS   REASON    AGE
+    task-pv-volume   10Gi       RWO           Retain          Bound     default/task-pv-claim   manual                   2m
 
 Look at the PersistentVolumeClaim:
 
@@ -121,10 +119,10 @@ Look at the PersistentVolumeClaim:
 The output shows that the PersistentVolumeClaim is bound to your PersistentVolume,
 `task-pv-volume`.
 
-    NAME            STATUS    VOLUME           CAPACITY   ACCESSMODES   AGE
-    task-pv-claim   Bound     task-pv-volume   10Gi       RWO           5s
+    NAME            STATUS    VOLUME           CAPACITY   ACCESSMODES   STORAGECLASS   AGE
+    task-pv-claim   Bound     task-pv-volume   10Gi       RWO           manual         30s
 
-## Creating a Pod
+## Create a Pod
 
 The next step is to create a Pod that uses your PersistentVolumeClaim as a volume.
 
@@ -138,7 +136,7 @@ is a volume.
 
 Create the Pod:
 
-    kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/task-pv-pod.yaml
+    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/task-pv-pod.yaml
 
 Verify that the Container in the Pod is running;
 
@@ -190,21 +188,22 @@ each Container.
 
 **Note**: When a Pod consumes a PersistentVolume, the GIDs associated with the
 PersistentVolume are not present on the Pod resource itself.
+{: .note}
 
 {% endcapture %}
 
 
 {% capture whatsnext %}
 
-* Learn more about [PersistentVolumes](/docs/user-guide/persistent-volumes/).
-* Read the [Persistent Storage design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/persistent-storage.md).
+* Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
+* Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/persistent-storage.md).
 
 ### Reference
 
-* [PersistentVolume](/docs/resources-reference/v1.5/#persistentvolume-v1)
-* [PersistentVolumeSpec](/docs/resources-reference/v1.5/#persistentvolumespec-v1)
-* [PersistentVolumeClaim](/docs/resources-reference/v1.5/#persistentvolumeclaim-v1)
-* [PersistentVolumeClaimSpec](/docs/resources-reference/v1.5/#persistentvolumeclaimspec-v1)
+* [PersistentVolume](/docs/resources-reference/{{page.version}}/#persistentvolume-v1-core)
+* [PersistentVolumeSpec](/docs/resources-reference/{{page.version}}/#persistentvolumespec-v1-core)
+* [PersistentVolumeClaim](/docs/resources-reference/{{page.version}}/#persistentvolumeclaim-v1-core)
+* [PersistentVolumeClaimSpec](/docs/resources-reference/{{page.version}}/#persistentvolumeclaimspec-v1-core)
 
 {% endcapture %}
 

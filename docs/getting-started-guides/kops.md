@@ -2,10 +2,6 @@
 title: Installing Kubernetes on AWS with kops
 ---
 
-<style>
-li>.highlighter-rouge {position:relative; top:3px;}
-</style>
-
 ## Overview
 
 This quickstart shows you how to easily install a Kubernetes cluster on AWS.
@@ -20,7 +16,7 @@ kops is an opinionated provisioning system:
 * High-Availability support
 * Can directly provision, or generate terraform manifests
 
-If your opinions differ from these you may prefer to build your own cluster using [kubeadm](kubeadm) as
+If your opinions differ from these you may prefer to build your own cluster using [kubeadm](/docs/admin/kubeadm/) as
 a building block.  kops builds on the kubeadm work.
 
 ## Creating a cluster
@@ -29,7 +25,7 @@ a building block.  kops builds on the kubeadm work.
 
 #### Requirements
 
-You must have [kubectl](http://kubernetes.io/docs/getting-started-guides/kubectl/) installed in order for kops to work.
+You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
 
 #### Installation
 
@@ -38,15 +34,17 @@ Download kops from the [releases page](https://github.com/kubernetes/kops/releas
 On MacOS:
 
 ```
-wget https://github.com/kubernetes/kops/releases/download/v1.4.1/kops-darwin-amd64
+wget https://github.com/kubernetes/kops/releases/download/1.7.0/kops-darwin-amd64
 chmod +x kops-darwin-amd64
 mv kops-darwin-amd64 /usr/local/bin/kops
+# you can also install using Homebrew
+brew update && brew install kops
 ```
 
 On Linux:
 
 ```
-wget https://github.com/kubernetes/kops/releases/download/v1.4.1/kops-linux-amd64
+wget https://github.com/kubernetes/kops/releases/download/1.7.0/kops-linux-amd64
 chmod +x kops-linux-amd64
 mv kops-linux-amd64 /usr/local/bin/kops
 ```
@@ -149,11 +147,11 @@ for production clusters!
 
 ### Explore other add-ons
 
-See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
+See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
 
 ## What's next
 
-* Learn more about [Kubernetes concepts and kubectl in Kubernetes 101](/docs/user-guide/walkthrough/).
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
 * Learn about `kops` [advanced usage](https://github.com/kubernetes/kops)
 
 ## Cleanup

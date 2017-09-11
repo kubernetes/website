@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - crassirostris
 - piosz
 title: Logging Using Elasticsearch and Kibana
@@ -10,9 +10,11 @@ On the Google Compute Engine (GCE) platform, the default logging support targets
 in the [Logging With Stackdriver Logging](/docs/user-guide/logging/stackdriver).
 
 This article describes how to set up a cluster to ingest logs into
-[Elasticsearch](https://www.elastic.co/products/elasticsearch), and view
+[Elasticsearch](https://www.elastic.co/products/elasticsearch) and view
 them using [Kibana](https://www.elastic.co/products/kibana), as an alternative to
-Stackdriver Logging when running on GCE. Note that Elasticsearch and Kibana do not work with Kubernetes clusters hosted on Google Container Engine.
+Stackdriver Logging when running on GCE. Note that Elasticsearch and Kibana
+cannot be setup automatically in the Kubernetes cluster hosted on
+Google Container Engine, you have to deploy it manually.
 
 To use Elasticsearch and Kibana for cluster logging, you should set the
 following environment variable as shown below when creating your cluster with
@@ -53,7 +55,7 @@ life.
 
 ```shell
 $ kubectl get pods --namespace=kube-system
-NAME                                           READY     REASON    RESTARTS   AGE
+NAME                                           READY     STATUS    RESTARTS   AGE
 elasticsearch-logging-v1-78nog                 1/1       Running   0          2h
 elasticsearch-logging-v1-nj2nb                 1/1       Running   0          2h
 fluentd-elasticsearch-kubernetes-node-5oq0     1/1       Running   0          2h
@@ -68,14 +70,14 @@ monitoring-influx-grafana-v1-o79xf             2/2       Running   0          2h
 
 The `fluentd-elasticsearch` pods gather logs from each node and send them to
 the `elasticsearch-logging` pods, which are part of a
-[service](/docs/user-guide/services/) named `elasticsearch-logging`. These
+[service](/docs/concepts/services-networking/service/) named `elasticsearch-logging`. These
 Elasticsearch pods store the logs and expose them via a REST API.
 The `kibana-logging` pod provides a web UI for reading the logs stored in
 Elasticsearch, and is part of a service named `kibana-logging`.
 
 The Elasticsearch and Kibana services are both in the `kube-system` namespace
 and are not directly exposed via a publicly reachable IP address. To reach them,
-follow the instructions for [Accessing services running in a cluster](/docs/user-guide/accessing-the-cluster/#accessing-services-running-on-the-cluster).
+follow the instructions for [Accessing services running in a cluster](/docs/concepts/cluster-administration/access-cluster/#accessing-services-running-on-the-cluster).
 
 If you try accessing the `elasticsearch-logging` service in your browser, you'll
 see a status page that looks something like this:
