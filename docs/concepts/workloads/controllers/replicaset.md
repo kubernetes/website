@@ -51,7 +51,7 @@ use a Deployment instead, and define your application in the spec section.
 
 {% include code.html language="yaml" file="frontend.yaml" ghlink="/docs/concepts/workloads/controllers/frontend.yaml" %}
 
-Saving this config into `frontend.yaml` and submitting it to a Kubernetes cluster should
+Saving this manifest into `frontend.yaml` and submitting it to a Kubernetes cluster should
 create the defined ReplicaSet and the pods that it manages.
 
 ```shell
@@ -95,8 +95,8 @@ frontend-qhloh   1/1       Running   0          1m
 
 ## Writing a ReplicaSet Spec
 
-As with all other Kubernetes config, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.  For
-general information about working with config files, see [here](/docs/user-guide/simple-yaml/),
+As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.  For
+general information about working with manifests, see [here](/docs/user-guide/simple-yaml/),
 [here](/docs/user-guide/configuring-containers/), and [here](/docs/concepts/tools/kubectl/object-management-overview/).
 
 A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
@@ -124,11 +124,13 @@ manages all the pods with labels that match the selector. It does not distinguis
 between pods that it created or deleted and pods that another person or process created or
 deleted. This allows the ReplicaSet to be replaced without affecting the running pods.
 
-The `.spec.template.metadata.labels` must be equal to the `.spec.selector`, or it will
+The `.spec.template.metadata.labels` must match the `.spec.selector`, or it will
 be rejected by the API.
 
+In Kubernetes 1.8 or later, `.spec.selector` and `.metadata.labels` no longer default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation in Kubernetes 1.8 or later.
+
 Also you should not normally create any pods whose labels match this selector, either directly, with 
-another ReplicaSet, or with another controller such as Job. If you do so, the ReplicaSet thinks that it 
+another ReplicaSet, or with another controller such as Deployment. If you do so, the ReplicaSet thinks that it 
 created the other pods. Kubernetes does not stop you from doing this.
 
 If you do end up with multiple controllers that have overlapping selectors, you
@@ -192,7 +194,7 @@ the ReplicaSet we created in the previous example.
 
 {% include code.html language="yaml" file="hpa-rs.yaml" ghlink="/docs/concepts/workloads/controllers/hpa-rs.yaml" %}
 
-Saving this config into `hpa-rs.yaml` and submitting it to a Kubernetes cluster should
+Saving this manifest into `hpa-rs.yaml` and submitting it to a Kubernetes cluster should
 create the defined HPA that autoscales the target ReplicaSet depending on the CPU usage
 of the replicated pods.
 
