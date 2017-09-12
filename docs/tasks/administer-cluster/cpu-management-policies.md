@@ -37,13 +37,13 @@ option.  There are two supported policies:
 The `none` policy explicitly enables the existing default CPU
 affinity scheme, providing no affinity beyond what the OS scheduler does
 automatically.  Limits on CPU usage for
-[Guaranteed pods](/docs/tasks/configure-pod-container/quality-service-pod)
+[Guaranteed pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 are enforced using CFS quota.
 
 ### Static policy
 
 The `static` policy allows containers in `Guaranteed` pods with integer CPU
-`requests` access to exclusive CPUs on the node.  This exclusivity is enforced
+`requests` access to exclusive CPUs on the node. This exclusivity is enforced
 using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt).
 
 **Note:** System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The exclusivity only extends to other pods.
@@ -55,7 +55,7 @@ node minus any reservations by the kubelet `--kube-reserved` or
 integer quantity, from the initial shared pool in ascending order by physical
 core ID.  This shared pool is the set of CPUs on which any containers in
 `BestEffort` and `Burstable` pods run. Containers in `Guaranteed` pods with fractional
-cpu `requests` also run on CPUs in the shared pool. Only containers that are
+CPU `requests` also run on CPUs in the shared pool. Only containers that are
 both part of a `Guaranteed` pod and have integer CPU `requests` are assigned
 exclusive CPUs.
 
@@ -106,7 +106,7 @@ spec:
 
 This pod runs in the `Burstable` QoS class because resource `requests` do not
 equal `limits` and the `cpu` quantity is not specified. It is 
-evicted if shared pool is depleted.  It runs in the shared pool.
+evicted if shared pool is depleted. It runs in the shared pool.
 
 
 ```yaml
@@ -137,9 +137,48 @@ spec:
       limits:
         memory: "200Mi"
         cpu: "2"
+      requests:
+        memory: "200Mi"
+        cpu: "2"
+```
+
+This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
+And the container's resource limit for the CPU resource is an integer greater than 
+or equal to one. The `nginx` container is granted 2 exclusive CPUs.
+
+
+```yaml
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    resources:
+      limits:
+        memory: "200Mi"
+        cpu: "1.5"
+      requests:
+        memory: "200Mi"
+        cpu: "1.5"
+```
+
+This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
+But the container's resource limit for the CPU resource is a fraction. It runs in
+the shared pool.
+
+
+```yaml
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    resources:
+      limits:
+        memory: "200Mi"
+        cpu: "2"
 ```
 
 This pod runs in the `Guaranteed` QoS class because only `limits` are specified
-and `requests` are set equal to `limits` when not explicitly specified. The
-`nginx` container is granted 2 exclusive CPUs.
+and `requests` are set equal to `limits` when not explicitly specified. And the 
+container's resource limit for the CPU resource is an integer greater than or 
+equal to one.The `nginx` container is granted 2 exclusive CPUs.
 
