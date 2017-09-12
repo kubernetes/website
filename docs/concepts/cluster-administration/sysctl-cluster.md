@@ -99,7 +99,7 @@ Only _namespaced_ sysctls can be enabled this way.
 ## Setting Sysctls for a Pod
 
 The sysctl feature is an alpha API in Kubernetes 1.4. Therefore, sysctls are set
-using annotations on pods. They apply to all containers in the same pod.
+using annotations on pods. They apply to all pods in the same node.
 
 Here is an example, with different annotations for _safe_ and _unsafe_ sysctls:
 
