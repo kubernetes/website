@@ -1000,7 +1000,7 @@ This is because the Pods in the `zk` StatefulSet have a PodAntiAffinity specifie
               topologyKey: "kubernetes.io/hostname"
 ```
 
-The `requiredDuringSchedulingRequiredDuringExecution` field tells the 
+The `requiredDuringSchedulingIgnoredDuringExecution` field tells the 
 Kubernetes Scheduler that it should never co-locate two Pods from the `zk-headless`
 Service in the domain defined by the `topologyKey`. The `topologyKey`
 `kubernetes.io/hostname` indicates that the domain is an individual node. Using 
