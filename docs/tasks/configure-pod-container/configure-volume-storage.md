@@ -40,7 +40,7 @@ restarts. Here is the configuration file for the Pod:
 1. Verify that the Pod's Container is running, and then watch for changes to
 the Pod:
 
-       kubectl get --watch pod redis
+       kubectl get pod redis --watch
 
     The output looks like this:
 
