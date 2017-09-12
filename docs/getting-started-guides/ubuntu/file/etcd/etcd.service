@@ -1,0 +1,14 @@
+[Unit]
+Description=Etcd Service
+After=network.target
+[Service]
+Environment=ETCD_DATA_DIR=/var/lib/etcd/default
+EnvironmentFile=-/etc/default/etcd.conf
+Type=notify
+PermissionsStartOnly=true
+ExecStart=/usr/bin/etcd
+Restart=always
+RestartSec=10
+LimitNOFILE=65536
+[Install]
+WantedBy=multi-user.target
