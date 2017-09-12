@@ -307,13 +307,6 @@ where `OOM` stands for Out Of Memory.
 
 {% include feature-state-deprecated.md %}
 
-**Note:** Opaque Integer Resources will be removed in version 1.9.
-[Extended Resources](#extended-resources) are a replacement for Opaque Integer
-Resources. Users can use any domain name prefix outside of the `kubernetes.io/`
-domain instead of the previous `pod.alpha.kubernetes.io/opaque-int-resource-`
-prefix.
-{: .note}
-
 Kubernetes version 1.5 introduces Opaque integer resources. Opaque
 integer resources allow cluster operators to advertise new node-level
 resources that would be otherwise unknown to the system.
@@ -322,9 +315,11 @@ Users can consume these resources in Pod specs just like CPU and memory.
 The scheduler takes care of the resource accounting so that no more than the
 available amount is simultaneously allocated to Pods.
 
-**Note:** Opaque integer resources are Alpha in Kubernetes version 1.5.
-Only resource accounting is implemented; node-level isolation is still
-under active development.
+**Note:** Opaque Integer Resources will be removed in version 1.9.
+[Extended Resources](#extended-resources) are a replacement for Opaque Integer
+Resources. Users can use any domain name prefix outside of the `kubernetes.io/`
+domain instead of the previous `pod.alpha.kubernetes.io/opaque-int-resource-`
+prefix.
 {: .note}
 
 Opaque integer resources are resources that begin with the prefix
@@ -349,22 +344,9 @@ first pod that requests the resource to be scheduled on that node.
 
 **Example:**
 
-Here is an HTTP request that advertises five "foo" resources on node `k8s-node-1` whose master is `k8s-master`.
-
-```http
-PATCH /api/v1/nodes/k8s-node-1/status HTTP/1.1
-Accept: application/json
-Content-Type: application/json-patch+json
-Host: k8s-master:8080
-
-[
-  {
-    "op": "add",
-    "path": "/status/capacity/pod.alpha.kubernetes.io~1opaque-int-resource-foo",
-    "value": "5"
-  }
-]
-```
+Here is an example showing how to use `curl` to form an HTTP request that
+advertises five "foo" resources on node `k8s-node-1` whose master is
+`k8s-master`.
 
 ```shell
 curl --header "Content-Type: application/json-patch+json" \
@@ -428,7 +410,7 @@ name prefix outside of the `kubernetes.io/` domain instead of the previous
 {: .note}
 
 There are two steps required to use Extended Resources. First, the
-cluster operator must advertise a per-node opaque resource on one or more
+cluster operator must advertise a per-node Extended Resource on one or more
 nodes. Second, users must request the Extended Resource in Pods.
 
 To advertise a new Extended Resource, the cluster operator should
@@ -443,23 +425,9 @@ first pod that requests the resource to be scheduled on that node.
 
 **Example:**
 
-Here is an HTTP request that advertises five "example.com/foo" resources on
-node `k8s-node-1` whose master is `k8s-master`.
-
-```http
-PATCH /api/v1/nodes/k8s-node-1/status HTTP/1.1
-Accept: application/json
-Content-Type: application/json-patch+json
-Host: k8s-master:8080
-
-[
-  {
-    "op": "add",
-    "path": "/status/capacity/example.com~1foo",
-    "value": "5"
-  }
-]
-```
+Here is an example showing how to use `curl` to form an HTTP request that
+advertises five "example.com/foo" resources on node `k8s-node-1` whose master
+is `k8s-master`.
 
 ```shell
 curl --header "Content-Type: application/json-patch+json" \
