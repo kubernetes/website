@@ -124,6 +124,7 @@ toc:
     - docs/tasks/administer-cluster/quota-pod-namespace.md
     - docs/tasks/administer-cluster/quota-api-object.md
     - docs/tasks/administer-cluster/opaque-integer-resource-node.md
+    - docs/tasks/administer-cluster/cpu-management-policies.md
   - docs/tasks/administer-cluster/access-cluster-api.md
   - docs/tasks/administer-cluster/access-cluster-services.md
   - docs/tasks/administer-cluster/securing-a-cluster.md
@@ -140,7 +141,6 @@ toc:
   - docs/tasks/administer-cluster/cpu-memory-limit.md
   - docs/tasks/administer-cluster/out-of-resource.md
   - docs/tasks/administer-cluster/reserve-compute-resources.md
-  - docs/tasks/administer-cluster/cpu-management-policies.md
   - docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods.md
   - docs/tasks/administer-cluster/declare-network-policy.md
   - title: Install Network Policy Provider
