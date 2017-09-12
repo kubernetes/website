@@ -54,15 +54,12 @@ get terminated and replaced by new ones.
 At this point, each Pod has one Container that runs the nginx image. Now suppose
 you want each Pod to have two containers: one that runs nginx and one that runs redis.
 
-Create a file named `patch-file.yaml` that has this content:
+Create a file named `patch-file.yaml` that has `.spec.template.spec.containers` field replaced as follow:
 
 ```shell
-spec:
-  template:
-    spec:
-      containers:
-      - name: patch-demo-ctr-2
-        image: redis
+containers:
+- name: patch-demo-ctr-2
+  image: redis
 ```
 
 Patch your Deployment:
@@ -81,13 +78,13 @@ The output shows that the PodSpec in the Deployment has two Containers:
 
 ```shell
 containers:
-- image: nginx
-  imagePullPolicy: Always
-  name: patch-demo-ctr
-  ...
 - image: redis
   imagePullPolicy: Always
   name: patch-demo-ctr-2
+  ...
+- image: nginx
+  imagePullPolicy: Always
+  name: patch-demo-ctr
   ...
 ```
 
@@ -118,9 +115,9 @@ The output shows that the Pod has two Containers: one running nginx and one runn
 
 ```
 containers:
-- image: nginx
-  ...
 - image: redis
+  ...
+- image: nginx
   ...
 ```
 
@@ -160,15 +157,12 @@ The default value for the `type` parameter is `strategic`. So in the preceding e
 did a strategic merge patch.
 
 Next, do a JSON merge patch on your same Deployment. Create a file named `patch-file-2.yaml`
-that has this content:
+that has `.spec.template.spec.containers` field replaced as follow:
 
 ```shell
-spec:
-  template:
-    spec:
-      containers:
-      - name: patch-demo-ctr-3
-        image: gcr.io/google-samples/node-hello:1.0
+containers:
+- name: patch-demo-ctr-3
+  image: gcr.io/google-samples/node-hello:1.0
 ```
 
 In your patch command, set `type` to `merge`:
