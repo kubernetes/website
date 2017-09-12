@@ -188,7 +188,7 @@ running on the node as follows
 
 The above behavior is a beta feature. In addition, Kubernetes 1.6 has alpha
 support for representing node problems. In other words, the node controller
-automatically taints a node when certain condition is true. The builtin taints
+automatically taints a node when certain condition is true. The built-in taints
 currently include:
 
  * `node.alpha.kubernetes.io/notReady`: Node is not ready. This corresponds to
@@ -258,7 +258,7 @@ which matches the behavior when this feature is disabled.
 Version 1.8 introduces an alpha feature that causes the node controller to create taints corresponding to
 Node conditions. When this feature is enabled, the scheduler does not check conditions; instead the scheduler checks taints. This assures that conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as conditions) by adding appropriate Pod tolerations.
 
-To make sure that turning on this feature doesn't break DaemonSets, starting in version 1.8, the  DaemonSet controller automatically adds the following `NoSchedule` tolerations to all deamons:
+To make sure that turning on this feature doesn't break DaemonSets, starting in version 1.8, the  DaemonSet controller automatically adds the following `NoSchedule` tolerations to all daemons:
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
