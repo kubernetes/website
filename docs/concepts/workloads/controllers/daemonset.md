@@ -110,6 +110,7 @@ they will not be evicted when there are node problems such as a network partitio
 due to hard-coded behavior of the NodeController rather than due to tolerations).
 
  They also tolerate following `NoSchedule` taints:
+ 
  - `node.kubernetes.io/memory-pressure`
  - `node.kubernetes.io/disk-pressure`
 
