@@ -1,0 +1,65 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  labels:
+    component: kube-proxy-amd64
+    k8s-app: kube-proxy-amd64
+    kubernetes.io/cluster-service: "true"
+    name: kube-proxy-amd64
+    tier: node
+  name: kube-proxy-amd64
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      component: kube-proxy-amd64
+      k8s-app: kube-proxy-amd64
+      kubernetes.io/cluster-service: "true"
+      name: kube-proxy-amd64
+      tier: node
+  template:
+    metadata:
+      annotations:
+        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated","value":"master","effect":"NoSchedule"}]'
+      labels:
+        component: kube-proxy-amd64
+        k8s-app: kube-proxy-amd64
+        kubernetes.io/cluster-service: "true"
+        name: kube-proxy-amd64
+        tier: node
+    spec:
+      containers:
+      - name: "kube-proxy-amd64"
+        image: "gcr.io/google_containers/kube-proxy-amd64:v1.7.2"
+        command:
+        - /usr/local/bin/kube-proxy
+        - --v=0
+        - --master=https://192.168.16.100:6443
+        - --kubeconfig=/run/admin.conf
+        - --proxy-mode=iptables
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: true
+        terminationMessagePath: /dev/termination-log
+        volumeMounts:
+        - mountPath: /var/run/dbus
+          name: dbus
+        - mountPath: /run/admin.conf
+          name: kubeconfig
+        - mountPath: /etc/kubernetes
+          name: pki
+      dnsPolicy: ClusterFirst
+      hostNetwork: true
+      nodeSelector:
+        beta.kubernetes.io/arch: amd64
+      restartPolicy: Always
+      volumes:
+      - hostPath:
+          path: /etc/kubernetes/admin.conf
+        name: kubeconfig
+      - hostPath:
+          path: /var/run/dbus
+        name: dbus
+      - hostPath:
+          path: /etc/kubernetes
+        name: pki

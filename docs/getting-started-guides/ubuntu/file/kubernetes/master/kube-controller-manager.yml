@@ -1,0 +1,49 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: kube-controller-manager
+  namespace: kube-system
+  labels:
+    component: kube-controller-manager
+    tier: control-plane
+spec:
+  volumes:
+  - name: pki
+    hostPath:
+      path: "/etc/kubernetes"
+  containers:
+  - name: "kube-controller-manager-amd64"
+    image: "gcr.io/google_containers/kube-controller-manager-amd64:v1.7.2"
+    command:
+    - "kube-controller-manager"
+    - "--v=0"
+    - "--address=127.0.0.1"
+    - "--leader-elect=True"
+    - "--leader-elect-lease-duration=15s"
+    - "--leader-elect-renew-deadline=10s"
+    - "--leader-elect-retry-period=2s"
+    - "--pod-eviction-timeout=1m0s"
+    - "--master=https://192.168.16.100:6443"
+    - "--cluster-name=kubernetes"
+    - "--kubeconfig=/etc/kubernetes/admin.conf"
+    - "--root-ca-file=/etc/kubernetes/pki/ca.pem"
+    - "--allocate-node-cidrs=true"
+    - "--cluster-cidr=10.244.0.0/16"
+    - "--service-account-private-key-file=/etc/kubernetes/pki/apiserver-key.pem"
+    - "--cluster-signing-cert-file=/etc/kubernetes/pki/ca.pem"
+    - "--cluster-signing-key-file=/etc/kubernetes/pki/ca-key.pem"
+    resources:
+      requests:
+        cpu: 200m
+    volumeMounts:
+    - name: pki
+      readOnly: true
+      mountPath: "/etc/kubernetes/"
+    livenessProbe:
+      httpGet:
+        path: "/healthz"
+        port: 10252
+        host: 127.0.0.1
+      initialDelaySeconds: 15
+      timeoutSeconds: 15
+  hostNetwork: true

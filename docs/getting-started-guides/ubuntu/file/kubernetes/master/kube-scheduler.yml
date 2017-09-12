@@ -1,0 +1,41 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: kube-scheduler
+  namespace: kube-system
+  labels:
+    component: kube-scheduler
+    tier: control-plane
+spec:
+  volumes:
+  - name: pki
+    hostPath:
+      path: "/etc/kubernetes"
+  containers:
+  - name: "kube-scheduler-amd64"
+    image: "gcr.io/google_containers/kube-scheduler-amd64:v1.7.2"
+    command:
+    - "kube-scheduler"
+    - "--v=0"
+    - "--address=127.0.0.1"
+    - "--leader-elect=True"
+    - "--leader-elect-lease-duration=15s"
+    - "--leader-elect-renew-deadline=10s"
+    - "--leader-elect-retry-period=2s"
+    - "--kubeconfig=/etc/kubernetes/admin.conf"
+    - "--master=https://192.168.16.100:6443"
+    resources:
+      requests:
+        cpu: 100m
+    volumeMounts:
+    - name: pki
+      readOnly: true
+      mountPath: "/etc/kubernetes/"
+    livenessProbe:
+      httpGet:
+        path: "/healthz"
+        port: 10251
+        host: 127.0.0.1
+      initialDelaySeconds: 15
+      timeoutSeconds: 15
+  hostNetwork: true
