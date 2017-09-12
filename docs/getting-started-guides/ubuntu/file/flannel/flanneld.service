@@ -1,0 +1,17 @@
+[Unit]
+Description=Flanneld Service
+After=network-online.target
+Wants=network-online.target
+After=etcd.service
+Before=docker.service
+
+[Service]
+Type=notify
+EnvironmentFile=/etc/default/flanneld
+ExecStart=/usr/bin/flanneld -etcd-endpoints=${FLANNEL_ETCD_ENDPOINTS} -etcd-prefix=${FLANNEL_ETCD_PREFIX} ${FLANNEL_OPTIONS}
+ExecStartPost=/usr/bin/mk-docker-opts.sh -d /run/flannel/docker
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+RequiredBy=docker.service

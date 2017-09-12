@@ -1,0 +1,54 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: kube-apiserver
+  namespace: kube-system
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+spec:
+  volumes:
+  - name: certs
+    hostPath:
+      path: "/etc/ssl/certs"
+  - name: pki
+    hostPath:
+      path: "/etc/kubernetes"
+  containers:
+  - name: "kube-apiserver-amd64"
+    image: "gcr.io/google_containers/kube-apiserver-amd64:v1.7.2"
+    command:
+    - "kube-apiserver"
+    - "--v=0"
+    - "--insecure-bind-address=127.0.0.1"
+    - "--bind-address=0.0.0.0"
+    - "--secure-port=6443"
+    - "--storage-backend=etcd3"
+    - "--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds"
+    - "--service-cluster-ip-range=192.160.0.0/12"
+    - "--service-node-port-range=30000-32767"
+    - "--service-account-key-file=/etc/kubernetes/pki/apiserver-key.pem"
+    - "--basic-auth-file=/etc/kubernetes/user.csv"
+    - "--client-ca-file=/etc/kubernetes/pki/ca.pem"
+    - "--tls-cert-file=/etc/kubernetes/pki/apiserver.pem"
+    - "--tls-private-key-file=/etc/kubernetes/pki/apiserver-key.pem"
+    - "--allow-privileged"
+    - "--advertise-address=192.168.16.100"
+    - "--etcd-servers=http://192.168.16.100:2379"
+    resources:
+      requests:
+        cpu: 250m
+    volumeMounts:
+    - name: certs
+      mountPath: "/etc/ssl/certs"
+    - name: pki
+      readOnly: true
+      mountPath: "/etc/kubernetes/"
+    livenessProbe:
+      httpGet:
+        path: "/healthz"
+        port: 8080
+        host: 127.0.0.1
+      initialDelaySeconds: 15
+      timeoutSeconds: 15
+  hostNetwork: true
