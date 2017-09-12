@@ -600,7 +600,6 @@ In order to make piece of data 'hidden' (i.e., in a file whose name begins with 
 make that key begin with a dot.  For example, when the following secret is mounted into a volume:
 
 ```yaml
----
 kind: Secret
 apiVersion: v1
 metadata:
