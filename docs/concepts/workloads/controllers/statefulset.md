@@ -11,9 +11,7 @@ title: StatefulSets
 
 {% capture overview %}
 **StatefulSets are a beta feature in 1.7. This feature replaces the
-PetSets feature from 1.4. Users of PetSets are referred to the 1.5
-[Upgrade Guide](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
-for further information on how to upgrade existing PetSets to StatefulSets.**
+PetSets feature from 1.4.**
 
 {% include templates/glossary/snippet.md term="statefulset" length="long" %}
 {% endcapture %}
@@ -40,7 +38,7 @@ provides a set of stateless replicas. Controllers such as
 
 ## Limitations
 
-* StatefulSet is a beta resource, not available in any Kubernetes release prior to 1.5.
+* StatefulSet (previously known as PetSet) is a beta resource, not available in any Kubernetes release prior to 1.5.
 * As with all alpha/beta resources, you can disable StatefulSet through the `--runtime-config` option passed to the apiserver.
 * The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
@@ -51,8 +49,7 @@ The example below demonstrates the components of a StatefulSet.
 
 * A Headless Service, named nginx, is used to control the network domain.
 * The StatefulSet, named web, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
-* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/concepts/storage/volumes/) provisioned by a
- PersistentVolume Provisioner.
+* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/concepts/storage/volumes/) provisioned by a PersistentVolume Provisioner.
 
 ```yaml
 apiVersion: v1
@@ -69,17 +66,20 @@ spec:
   selector:
     app: nginx
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
   name: web
 spec:
+  selector:
+    matchLabels:
+      app: nginx # has to match .spec.template.metadata.labels
   serviceName: "nginx"
-  replicas: 3
+  replicas: 2 # by default is 1
   template:
     metadata:
       labels:
-        app: nginx
+        app: nginx # has to match .spec.selector.matchLabels
     spec:
       terminationGracePeriodSeconds: 10
       containers:
@@ -100,10 +100,40 @@ spec:
       resources:
         requests:
           storage: 1Gi
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+    name: www-0
+    labels:
+        type: local
+spec:
+    storageClassName: my-storage-class
+    capacity:
+        storage: 1Gi
+    accessModes:
+    - ReadWriteOnce
+    hostPath:
+        path: "/tmp/data/www-0"
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+    name: www-1
+    labels:
+        type: local
+spec:
+    storageClassName: my-storage-class
+    capacity:
+        storage: 1Gi
+    accessModes:
+    - ReadWriteOnce
+    hostPath:
+        path: "/tmp/data/www-1"
 ```
 
 ## Pod Identity
-StatefulSet Pods have a unique identity that is comprised of an ordinal, a
+StatefulSet Pods have a unique identity that comprises of an ordinal, a
 stable network identity, and stable storage. The identity sticks to the Pod,
 regardless of which node it's (re)scheduled on.
 
@@ -221,6 +251,15 @@ StatefulSet's `.spec.updateStrategy.rollingUpdate.partition` is greater than its
 updates to its `.spec.template` will not be propagated to its Pods.
 In most cases you will not need to use a partition, but they are useful if you want to stage an
 update, roll out a canary, or perform a phased roll out.
+
+## Selectors and Labels
+
+Same as other controllers, a StatefulSet utilizes selectors (`spec.selector` field) to identify pods that it should manage. For a pod to be managed by a StatefulSet, the pod needs to have labels matching the StatefulSet's selectors. However, the StatefulSet does not keep track whether a pod is created by it or another controller. The pods will persist when the StatefulSet is deleted (except when the user performs a [cascading deletion](https://kubernetes.io/docs/concepts/workloads/controllers/garbage-collection/)).
+
+In Kubernetes 1.8 and later, selector of a StatefulSet is made immutable after creation. The `.spec.selector.matchLabels` field must match `.spec.template.metadata.labels` field during creation of the StatefulSet, and cannot be changed during future updates. As the selector is now immutable, a nil `.spec.selector.matchLabels` field will not be defaulted to a non-nil `.spec.template.metadata.labels` value during creation. Instead, this is considered as user error because both fields do not match. In addition, `.metadata.labels` field will also not be defaulted to match the `.spec.template.metadata.labels` field. The user has to explicitly set the `.metadata.labels` field, but it can be different from `.spec.template.metadata.labels` value.
+
+### Overlapping Selectors
+It is possible for a pod to be created with labels matching selectors of multiple StatefulSets (or multiple controllers of different types such as both StatefulSet and ReplicaSet). Although k8s allows overlapping selectors to exist, they result in undefined behaviors. This is considered as user error, in which the user needs to manage deletion of the pod manually.
 
 {% endcapture %}
 {% capture whatsnext %}
