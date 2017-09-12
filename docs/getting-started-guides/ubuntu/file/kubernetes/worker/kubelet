@@ -1,0 +1,17 @@
+# Kubernetes kubelet config
+KUBELET_ADDRESS="--address=0.0.0.0 --port=10250"
+
+# Pod infrastructure container
+KUBELET_POD_INFRA_CONTAINER="--pod-infra-container-image=gcr.io/google_containers/pause:3.0"
+
+# Add your own!
+KUBELET_ARGS="--kubeconfig=/etc/kubernetes/kubelet-user.conf --require-kubeconfig=true --pod-manifest-path=/etc/kubernetes/manifests"
+
+# Set log
+KUBE_LOGTOSTDERR="--logtostderr=true --v=0"
+
+# Should this cluster be allowed to run privileged docker containers
+KUBE_ALLOW_PRIV="--allow-privileged=true"
+
+# Kube DNS
+KUBELET_DNS_ARGS="--cluster-dns=192.160.0.10 --cluster-domain=cluster.local"
