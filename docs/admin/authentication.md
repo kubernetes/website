@@ -168,7 +168,7 @@ with a value of `Basic BASE64ENCODED(USER:PASSWORD)`.
 
 ### Service Account Tokens
 
-Service account is an automatically enabled authenticator that uses signed
+A service account is an automatically enabled authenticator that uses signed
 bearer tokens to verify requests. The plugin takes two optional flags:
 
 * `--service-account-key-file` A file containing a PEM encoded key for signing bearer tokens.
