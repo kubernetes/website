@@ -1,15 +1,15 @@
-bigheader:   "Tasks"
-abstract:    "Step-by-step instructions for performing operations with Kubernetes."
+bigheader: "Tasks"
+abstract: "Step-by-step instructions for performing operations with Kubernetes."
 toc:
 - docs/tasks/index.md
 
-- title:     Install Tools
+- title: Install Tools
   section:
   - docs/tasks/tools/install-kubectl.md
   - docs/tasks/tools/install-minikube.md
   - docs/setup/independent/install-kubeadm.md
 
-- title:     Configure Pods and Containers
+- title: Configure Pods and Containers
   section:
   - docs/tasks/configure-pod-container/assign-cpu-ram-container.md
   - docs/tasks/configure-pod-container/configure-volume-storage.md
@@ -28,7 +28,7 @@ toc:
   - docs/tasks/configure-pod-container/configure-pod-configmap.md
   - docs/tools/kompose/user-guide.md
 
-- title:     Inject Data Into Applications
+- title: Inject Data Into Applications
   section:
   - docs/tasks/inject-data-application/define-command-argument-container.md
   - docs/tasks/inject-data-application/define-environment-variable-container.md
@@ -37,7 +37,7 @@ toc:
   - docs/tasks/inject-data-application/distribute-credentials-secure.md
   - docs/tasks/inject-data-application/podpreset.md
 
-- title:     Run Applications
+- title: Run Applications
   section:
   - docs/tasks/run-application/run-stateless-application-deployment.md
   - docs/tasks/run-application/run-single-instance-stateful-application.md
@@ -51,13 +51,13 @@ toc:
   - docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md
   - docs/tasks/run-application/configure-pdb.md
 
-- title:     Run Jobs
+- title: Run Jobs
   section:
   - docs/tasks/job/parallel-processing-expansion.md
   - docs/tasks/job/coarse-parallel-processing-work-queue/index.md
   - docs/tasks/job/fine-parallel-processing-work-queue/index.md
 
-- title:     Access Applications in a Cluster
+- title: Access Applications in a Cluster
   section:
   - docs/tasks/access-application-cluster/web-ui-dashboard.md
   - docs/tasks/access-application-cluster/access-cluster.md
@@ -70,10 +70,10 @@ toc:
   - docs/tasks/access-application-cluster/configure-cloud-provider-firewall.md
   - docs/tasks/access-application-cluster/list-all-running-container-images.md
   - docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume.md
-  - title:   Configuring DNS for a Cluster
-    path:    https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
+  - title: Configuring DNS for a Cluster
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
 
-- title:     Monitor, Log, and Debug
+- title: Monitor, Log, and Debug
   section:
   - docs/tasks/debug-application-cluster/resource-usage-monitoring.md
   - docs/tasks/debug-application-cluster/get-shell-running-container.md
@@ -90,10 +90,10 @@ toc:
   - docs/tasks/debug-application-cluster/debug-stateful-set.md
   - docs/tasks/debug-application-cluster/debug-application-introspection.md
   - docs/tasks/debug-application-cluster/audit.md
-  - title:   Use Explorer to Examine the Runtime Environment
-    path:    https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
+  - title: Use Explorer to Examine the Runtime Environment
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
 
-- title:     Access and Extend the Kubernetes API
+- title: Access and Extend the Kubernetes API
   section:
   - docs/tasks/access-kubernetes-api/http-proxy-access-api.md
   - docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions.md
@@ -102,11 +102,11 @@ toc:
   - docs/tasks/access-kubernetes-api/configure-aggregation-layer.md
   - docs/tasks/access-kubernetes-api/setup-extension-api-server.md
 
-- title:     TLS
+- title: TLS
   section:
   - docs/tasks/tls/managing-tls-in-a-cluster.md
 
-- title:     Administer a Cluster
+- title: Administer a Cluster
   section:
   - docs/tasks/administer-cluster/access-cluster-api.md
   - docs/tasks/administer-cluster/access-cluster-services.md
@@ -128,7 +128,7 @@ toc:
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
   - docs/tasks/administer-cluster/safely-drain-node.md
   - docs/tasks/administer-cluster/declare-network-policy.md
-  - title:   Install Network Policy Provider
+  - title: Install Network Policy Provider
     section:
     - docs/tasks/administer-cluster/calico-network-policy.md
     - docs/tasks/administer-cluster/romana-network-policy.md
@@ -143,10 +143,10 @@ toc:
   - docs/tasks/administer-cluster/configure-multiple-schedulers.md
   - docs/tasks/administer-cluster/ip-masq-agent.md
   - docs/tasks/administer-cluster/dns-custom-nameservers.md
-  - title:   Change Cluster Size
-    path:    https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
+  - title: Change Cluster Size
+    path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
 
-- title:     Federation - Run an App on Multiple Clusters
+- title: Federation - Run an App on Multiple Clusters
   section:
   - docs/tasks/federation/federation-service-discovery.md
   - docs/tasks/federation/set-up-cluster-federation-kubefed.md
@@ -162,11 +162,11 @@ toc:
   - docs/tasks/administer-federation/replicaset.md
   - docs/tasks/administer-federation/secret.md
 
-- title:     Manage Cluster Daemons
+- title: Manage Cluster Daemons
   section:
   - docs/tasks/manage-daemon/update-daemon-set.md
   - docs/tasks/manage-daemon/rollback-daemon-set.md
 
-- title:     Manage GPUs
+- title: Manage GPUs
   section:
   - docs/tasks/manage-gpus/scheduling-gpus.md
