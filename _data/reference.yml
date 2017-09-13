@@ -65,10 +65,8 @@ toc:
 
 - title: Setup Tools
   section:
-  - title: Kubeadm
-    path: /docs/admin/kubeadm/
+  - docs/admin/kubeadm.md
   - title: Kubefed
-    path: /docs/admin/kubefed/
     section:
     - docs/admin/kubefed.md
     - docs/admin/kubefed_options.md
