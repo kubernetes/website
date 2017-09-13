@@ -27,7 +27,7 @@ following steps:
    dropping it in the cert directory (configured via `--cert-dir`, by default
    `/etc/kubernetes/pki`), this step is skipped.
 
-1. Outputting a kubeconfig file for the kubelet to use to connect to the API
+1. kubeadm outputs a kubeconfig file for the kubelet to use to connect to the API
    server, as well as an additional kubeconfig file for administration.
 
 1. kubeadm generates Kubernetes static Pod manifests for the API server,
@@ -46,8 +46,9 @@ following steps:
 Running `kubeadm join` on each node in the cluster consists of the following
 steps:
 
-1. kubeadm downloads root CA information from the API server.  It uses the token
-   to verify the authenticity of that data.
+1. kubeadm downloads root CA information from the API server.  By default, it
+   uses the bootstrap token and the CA key hash to verify the authenticity of
+   that data. The root CA can also be discovered directly via a file or URL.
 
 1. kubeadm creates a local key pair.  It prepares a certificate signing request
    (CSR) and sends that off to the API server for signing.  The bootstrap token
@@ -185,24 +186,30 @@ managing tokens](#manage-tokens) below.
 
 This sets an expiration time for the token.  This is specified as a duration
 from the current time.  After this time the token will no longer be valid and
-will be removed. A value of 0 specifies that the token never expires.  0 is the
-default.  See the [section on managing tokens](#manage-tokens) below.
+will be removed. A value of 0 specifies that the token never expires.  The
+default is 24 hours.  See the [section on managing tokens](#manage-tokens) below.
 
-### `kubeadm join`
+### `kubeadm join` {#kubeadm-join}
 
 When joining a kubeadm initialized cluster, we need to establish bidirectional
 trust. This is split into discovery (having the Node trust the Kubernetes
 master) and TLS bootstrap (having the Kubernetes master trust the Node).
 
 There are 2 main schemes for discovery. The first is to use a shared token along
-with the IP address of the API server. The second is to provide a file (a subset
-of the standard kubeconfig file). This file can be a local file or downloaded
-via an HTTPS URL. The forms are `kubeadm join --discovery-token
-abcdef.1234567890abcdef 1.2.3.4:6443`, `kubeadm join --discovery-file
-path/to/file.conf` or `kubeadm join --discovery-file https://url/file.conf`.
+with the IP address of the API server and a hash of the root CA key. The second
+is to provide a file (a subset of the standard kubeconfig file). This file can
+be a local file or downloaded via an HTTPS URL. The forms are:
+
+ - `kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef 1.2.3.4:6443`
+
+ - `kubeadm join --discovery-file path/to/file.conf`
+
+ - `kubeadm join --discovery-file https://url/file.conf`
+
 Only one form can be used. If the discovery information is loaded from a URL,
 HTTPS must be used and the host installed CA bundle is used to verify the
-connection.
+connection. For details on the security tradeoffs of these mechanisms, see the
+[security-model](#security-model) section below.
 
 The TLS bootstrap mechanism is also driven via a shared token. This is used to
 temporarily authenticate with the Kubernetes master to submit a certificate
@@ -216,7 +223,7 @@ can be used instead of specifying the each token individually.
 
 Here's an example on how to use it:
 
-`kubeadm join --token=abcdef.1234567890abcdef 192.168.1.1:6443`
+`kubeadm join --token=abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef 192.168.1.1:6443`
 
 Specific options:
 
@@ -259,6 +266,28 @@ The discovery token is used along with the address of the API server (as an
 unnamed argument) to download and verify information about the cluster.  The
 most critical part of the cluster information is the root CA bundle used to
 verify the identity of the server during subsequent TLS connections.
+
+- `--discovery-token-ca-cert-hash`
+
+The CA key hash is used to verify the full root CA certificate discovered during
+token-based bootstrapping. It has the format `sha256:<hex_encoded_hash>`. By
+default, the hash value is returned in the `kubeadm join` command printed at the
+end of `kubeadm init`. It is in a standard format (see
+[RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) and can also be
+calculated out of band by 3rd party tools or orchestration systems. For example, in OpenSSL:
+`openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>&/dev/null | openssl dgst -sha256 -hex`
+
+Skipping this flag is allowed in Kubernetes 1.8, but makes certain spoofing
+attacks possible. See the [security model](#security-model) for details.
+Pass `--discovery-token-unsafe-skip-ca-verification` to silence warnings (which
+will become errors in Kubernetes 1.9).
+
+- `--discovery-token-unsafe-skip-ca-verification`
+
+Disable the warning/error when `--discovery-token-ca-cert-hash` is not provided.
+Passing this flag is an acknowledgement of the
+[security tradeoffs](#security-model) involved in skipping this verification
+(which may or may not be appropriate in your environment).
 
 - `--tls-bootstrap-token`
 
@@ -419,9 +448,15 @@ commands.
 * `kubeadm token create` Creates a new token.
     * `--description` Set the description on the new token.
     * `--ttl duration` Set expiration time of the token as a delta from "now".
-      Default is 0 for no expiration. The unit of the duration is seconds.
+      Default is 24 hours. A value of 0 means "never expire". The default unit
+      of the duration is seconds but other units can be specified (e.g., `15m`, `1h`).
     * `--usages` Set the ways that the token can be used.  The default is
       `signing,authentication`.  These are the usages as described above.
+    * `--groups` add extra bootstrap groups as which this token will
+      authenticate. Can be specified multiple times. Each extra group must start
+      with `system:bootstrappers:`. This is an advanced feature meant for custom
+      bootstrap scenarios where you want to change how CSR approval works for
+      different groups of nodes.
 * `kubeadm token delete <token id>|<token id>.<token secret>` Delete a token.
   The token can either be identified with just an ID or with the entire token
   value.  Only the ID is used; the token is still deleted if the secret does not
@@ -460,6 +495,49 @@ started.
 Once the cluster is up, you can grab the admin credentials from the master node
 at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
 
+Note that this style of bootstrap has some relaxed security guarantees because
+it does not allow the root CA hash to be validated with
+`--discovery-token-ca-cert-hash` (since it's not generated when the nodes are
+provisioned). For details, see the [security model](#security-model)
+
+## Security model {#security-model}
+The kubeadm discovery system has several options, each with security tradeoffs.
+The right method for your environment depends on how you provision nodes and the
+security expectations you have about your network and node lifecycles.
+
+### Token-based discovery with CA pinning
+This is the default mode in Kubernetes 1.8. It allows bootstrapping nodes to
+securely discover a root of trust for the master even if other worker nodes or
+the network are compromised. It's also convenient to execute manually since all
+of the information required fits into a single `kubeadm join` command that is
+easy to copy and paste. The downside of this method is that the CA hash is not
+normally known until the master has been provisioned, which can make it more
+difficult to build automated provisioning tools that use kubeadm.
+
+### Token-based discovery without CA pinning
+This was the default in Kubernetes 1.7 and earlier, but comes with some
+important weaknesses to consider. It's still possible in Kubernetes 1.8 and above
+using the `--discovery-token-unsafe-skip-ca-verification` flag. The main
+advantage of this mode is that the token can be generated ahead of time and
+shared with the master and worker nodes, which can then bootstrap in parallel
+without coordination. This allows it to be used in many provisioning scenarios.
+
+This mode still prevents many network-level attacks. However, if an attacker is
+able to steal a bootstrap token via some vulnerability, they can use that token
+(along with network-level access) to impersonate the master to other
+bootstrapping nodes. This may or may not be an appropriate tradeoff in your
+environment. Consider using one of the other modes if possible.
+
+### File or HTTPS-based discovery
+This provides an out-of-band way to establish a root of trust between the master
+and bootstrapping nodes. It requires that you have some way to carry the
+discovery information from the master to the bootstrapping nodes. This might be
+possible, for example, via your cloud provider or provisioning tool. The
+information in this file is not secret, but HTTPS is required to ensure its
+integrity. Consider using this mode if you are building automated provisioning
+using kubeadm. This mode is less convenient to use manually since the file is
+difficult to copy and paste between nodes.
+
 ## Use Kubeadm with other CRI runtimes
 
 Since [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1), Kubernetes container runtimes have been transferred to using CRI by default. Currently, the build-in container runtime is Docker which is enabled by build-in `dockershim` in `kubelet`.
@@ -492,17 +570,17 @@ the following images are required for the cluster works will be automatically
 pulled by the kubelet if they don't exist locally while `kubeadm init` is initializing
 your master:
 
-| Image Name | v1.6 release branch version | v1.7 release branch version
+| Image Name |  v1.7 release branch version | v1.8 release branch version
 |---|---|---|
-| gcr.io/google_containers/kube-apiserver-${ARCH} | v1.6.x | v1.7.x
-| gcr.io/google_containers/kube-controller-manager-${ARCH} | v1.6.x | v1.7.x
-| gcr.io/google_containers/kube-scheduler-${ARCH} | v1.6.x | v1.7.x
-| gcr.io/google_containers/kube-proxy-${ARCH} | v1.6.x | v1.7.x
+| gcr.io/google_containers/kube-apiserver-${ARCH} | v1.7.x | v1.8.x
+| gcr.io/google_containers/kube-controller-manager-${ARCH} | v1.7.x | v1.8.x
+| gcr.io/google_containers/kube-scheduler-${ARCH} | v1.7.x | v1.8.x
+| gcr.io/google_containers/kube-proxy-${ARCH} | v1.7.x | v1.8.x
 | gcr.io/google_containers/etcd-${ARCH} | 3.0.17 | 3.0.17
 | gcr.io/google_containers/pause-${ARCH} | 3.0 | 3.0
-| gcr.io/google_containers/k8s-dns-sidecar-${ARCH} | 1.14.1 | 1.14.4
-| gcr.io/google_containers/k8s-dns-kube-dns-${ARCH} | 1.14.1 | 1.14.4
-| gcr.io/google_containers/k8s-dns-dnsmasq-nanny-${ARCH} | 1.14.1 | 1.14.4
+| gcr.io/google_containers/k8s-dns-sidecar-${ARCH} | 1.14.4 | 1.14.4
+| gcr.io/google_containers/k8s-dns-kube-dns-${ARCH} | 1.14.4 | 1.14.4
+| gcr.io/google_containers/k8s-dns-dnsmasq-nanny-${ARCH} | 1.14.4 | 1.14.4
 
 Here `v1.7.x` means the "latest patch release of the v1.7 branch".
 
