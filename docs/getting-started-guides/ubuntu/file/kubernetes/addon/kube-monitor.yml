@@ -1,0 +1,133 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: heapster
+  namespace: kube-system
+  labels:
+    kubernetes.io/cluster-service: "true"
+    kubernetes.io/name: "Heapster"
+spec:
+  selector:
+    k8s-app: heapster
+  ports:
+  - port: 80
+    targetPort: 8082
+  clusterIP: 192.160.0.11
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+     kubernetes.io/cluster-service: 'true'
+     kubernetes.io/name: 'Grafana'
+  name: monitoring-grafana
+  namespace: kube-system
+spec:
+   ports:
+   - port: 100
+     targetPort: 3000
+   selector:
+      name: influxGrafana
+   type: LoadBalancer
+   externalIPs:
+   - 192.168.16.100
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+   labels:
+      kubernetes.io/cluster-service: "true"
+      kubernetes.io/name: "InfluxDB"
+   name: monitoring-influxdb
+   namespace: kube-system
+spec:
+   ports:
+   - name: http
+     port: 8083
+     targetPort: 8083
+   - name: api
+     port: 8086
+     targetPort: 8086
+   selector:
+      name: influxGrafana
+   type: LoadBalancer
+   externalIPs:
+   - 192.168.16.100
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: heapster-v1.2.0
+  namespace: kube-system
+  labels:
+    k8s-app: heapster
+    kubernetes.io/cluster-service: "true"
+    version: v1.2.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: heapster
+      version: v1.2.0
+  template:
+    metadata:
+      labels:
+        k8s-app: heapster
+        version: v1.2.0
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ''
+        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"CriticalAddonsOnly", "operator":"Exists"}]'
+    spec:
+      containers:
+        - image: gcr.io/google_containers/heapster:v1.2.0
+          name: heapster
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8082
+              scheme: HTTP
+            initialDelaySeconds: 180
+            timeoutSeconds: 5
+          command:
+            - /heapster
+            - --source=kubernetes.summary_api:''
+            - --sink=influxdb:http://192.168.16.100:8086
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    kubernetes.io/cluster-service: "true"
+  name: influxdb-grafana
+  namespace: kube-system
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: influxGrafana
+        kubernetes.io/cluster-service: "true"
+    spec:
+      containers:
+      - name: influxdb
+        image: kubernetes/heapster_influxdb:v0.5
+        volumeMounts:
+        - mountPath: /data
+          name: influxdb-storage
+      - name: grafana
+        image: gcr.io/google_containers/heapster_grafana:v2.6.0-2
+        env:
+          - name: INFLUXDB_SERVICE_URL
+            value: http://192.168.16.100:8086
+        volumeMounts:
+        - mountPath: /var
+          name: grafana-storage
+      volumes:
+      - name: influxdb-storage
+        emptyDir: {}
+      - name: grafana-storage
+        emptyDir: {}

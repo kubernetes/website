@@ -1,0 +1,3 @@
+FLANNEL_ETCD_ENDPOINTS="http://192.168.16.100:2379"
+FLANNEL_ETCD_PREFIX="/atomic.io/network"
+FLANNEL_OPTIONS="--iface=enp0s8"
