@@ -20,7 +20,8 @@ title: 为容器设置环境变量
 
 ## 为容器设置一个环境变量
 
-创建Pod时，可以为其下的容器设置环境变量。通过配置文件的`env`或者`envFrom`字段来设置环境变量。
+创建Pod时，可以为其下的容器设置环境变量。通过配置文件的`env`或者`envFrom`字段
+来设置环境变量。
 
 本示例中，将创建一个只包含单个容器的Pod。Pod的配置文件中设置环境变量的名称为`DEMO_GREETING`,其值为`"Hello from the environment"`。下面是Pod的配置文件内容:
 
@@ -39,11 +40,11 @@ title: 为容器设置环境变量
         NAME            READY     STATUS    RESTARTS   AGE
         envar-demo      1/1       Running   0          9s
 
-1. 进入该Pod下的容器并打开一个shell:
+1. 进入该Pod下的容器并打开一个命令终端:
 
        kubectl exec -it envar-demo -- /bin/bash
 
-1. 在shell中通过执行`printenv`打印出环境变量。
+1. 在命令终端中通过执行`printenv`打印出环境变量。
 
        root@envar-demo:/# printenv
 
@@ -55,7 +56,7 @@ title: 为容器设置环境变量
         ...
         DEMO_GREETING=Hello from the environment
 
-1. 通过键入`exit`退出shell。
+1. 通过键入`exit`退出命令终端。
 
 {% endcapture %}
 
