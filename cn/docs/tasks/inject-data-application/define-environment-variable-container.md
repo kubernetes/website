@@ -61,8 +61,8 @@ title: 为容器设置环境变量
 
 {% capture whatsnext %}
 
-* 获取更多资讯可参考 [environment variables](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/).
-* 获取更多资讯可参考 [using secrets as environment variables](/docs/user-guide/secrets/#using-secrets-as-environment-variables).
+* 有关环境变量的更多信息，请参阅这里 [environment variables](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/).
+* 有关环境变量的更多信息，请参阅这里 [using secrets as environment variables](/docs/user-guide/secrets/#using-secrets-as-environment-variables).
 * 参考 [EnvVarSource](/docs/api-reference/{{page.version}}/#envvarsource-v1-core).
 
 {% endcapture %}
