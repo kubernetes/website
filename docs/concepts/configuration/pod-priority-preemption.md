@@ -2,88 +2,103 @@
 approvers:
 - davidopp
 - wojtek-t
-title: Pod Priority and Preemption (Alpha)
+title: Pod Priority and Preemption
 ---
 
+{% capture overview %}
+
+{% include feature-state-alpha.md %}
+
 [Pods](/docs/user-guide/pods) in Kubernetes 1.8 and later can have priority. Priority
-indicates importance of a pod relative to other pods. When a pod cannot be scheduled, scheduler tries
-to preempt (evict) lower priority pods in order to make scheduling of the pending pod possible.
-In a future Kubernetes release, priority will also affect out-of-resource eviction ordering on the node.
+indicates the importance of a Pod relative to other Pods. When a Pod cannot be scheduled,
+the scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
+pending Pod possible. In a future Kubernetes release, priority will also affect
+out-of-resource eviction ordering on the Node.
 
-Note that preemption does not respect PodDisruptionBudget; see 
+**Note:** Preemption does not respect PodDisruptionBudget; see 
 [the limitations section](#poddisruptionbudget-is-not-supported) for more details.
+{: .note}
 
-* TOC
-{:toc}
+{% endcapture %}
 
-## How to use it
-In order to use priority and preemption in Kubernetes 1.8, you should follow these
-steps:
+{% capture body %}
+
+## How to use priority and preemption
+To use priority and preemption in Kubernetes 1.8, follow these steps:
 
 1. Enable the feature.
+
 1. Add one or more PriorityClasses.
-1. Create pods with `PriorityClassName` set to one of the added PriorityClasses.
-(Of course you do not need to create the pods directly; normally you would add 
-`PriorityClassName` to the pod template of the collection object managing your 
-pods, for example a Deployment.)
+
+1. Create Pods with `PriorityClassName` set to one of the added PriorityClasses.
+Of course you do not need to create the Pods directly; normally you would add 
+`PriorityClassName` to the Pod template of a collection object likea Deployment.
 
 The following sections provide more information about these steps.
 
-## Enable Priority and Preemption
-Pod priority and preemption is disabled by default in Kubernetes 1.8 as it is an
-__alpha__ feature. It can be enabled by a command-line flag for API server and scheduler:
+## Enabling priority and preemption
+
+Pod priority and preemption is disabled by default in Kubernetes 1.8.
+To enable the feature, set this command-line flag for the API server 
+and the scheduler:
 
 ```
 --feature-gates=PodPriority=true
 ```
-and also the following command-line flag for API server:
+
+Also set this flag for API server:
+
+
 ```
 --runtime-config=scheduling.k8s.io/v1alpha1=true
 ```
 
-Once enabled you can add [PriorityClasses](#priorityclass) and create pods with [`PriorityClassName`](#pod-priority) set.
-If you tried it and decided to disable it, you must remove this command-line flag or
-set it to false and restart API server and Scheduler. Once disabled, the existing
-pods will keep their priority fields, but preemption will be disabled and priority
-fields will be ignored, and you will not be able to set PriorityClassName in new pods.
+After the feature is enabled, you can create [PriorityClasses](#priorityclass)
+and create Pods with [`PriorityClassName`](#pod-priority) set.
 
-**Note:** Alpha features should not be used in production systems! Alpha 
-features are more likely to have bugs and future changes to them are not guaranteed to
-be backward compatible.
+If you try the feature and then decide to disable it, you must remove the PodPriority
+command-line flag or set it to false, and then restart the API server and
+scheduler. After the feature is disabled, the existing Pods keep their priority
+fields, but preemption is disabled, and priority fields are ignored, and you
+cannot set PriorityClassName in new Pods.
 
 ## PriorityClass
-PriorityClass is a non-namespaced object that defines a mapping from a priority
-class name (represented in the "name" field of the PriorityClass object's metadata)
-to the integer value of the priority. The higher the value, the higher the 
-priority. The value is
-specified in `value` field which is required. PriorityClass
-objects can have any 32-bit integer value smaller than or equal to 1 billion. Larger
-numbers are reserved for critical system pods that should not normally be preempted or
-evicted. A cluster admin should create one PriorityClass object for each such
-mapping that they want.
+
+A PriorityClass is a non-namespaced object that defines a mapping from a priority
+class name to the integer value of the priority. The name is specified in the `name`
+field of the PriorityClass object's metadata. The value is specified in the required
+`value` field. The higher the value, the higher the priority. 
+
+A PriorityClass object can have any 32-bit integer value smaller than or equal to
+1 billion. Larger numbers are reserved for critical system Pods that should not
+normally be preempted or evicted. A cluster admin should create one PriorityClass
+object for each such mapping that they want.
 
 PriorityClass also has two optional fields: `globalDefault` and `description`.
-`globalDefault` indicates that the value of this PriorityClass should be used for
-pods without a `PriorityClassName`. Only one PriorityClass with `globalDefault` 
-set to true can exist in the system. If there is no PriorityClass with `globalDefault`
-set, priority of pods with no `PriorityClassName` will be zero.
+The `globalDefault` field indicates that the value of this PriorityClass should
+be used for Pods without a `PriorityClassName`. Only one PriorityClass with
+`globalDefault`  set to true can exist in the system. If there is no PriorityClass
+with `globalDefault` set, the priority of Pods with no `PriorityClassName` is zero.
 
-`description` is an arbitrary string. It is meant to tell users of the cluster
-when they should use this PriorityClass.
+The `description` field is an arbitrary string. It is meant to tell users of
+the cluster when they should use this PriorityClass.
 
+**Note 1**: If you upgrade your existing cluster and enable this feature, the priority
+of your existing Pods will be considered to be zero.
+{: .note}
 
-**Note 1:** If you upgrade your existing cluster and enable this feature, the priority
-of your existing pods will be considered to be zero.
+**Note 2**: Addition of a PriorityClass with `globalDefault` set to true does not
+change the priorities of existing Pods. The value of such a PriorityClass is used only
+for Pods created after the PriorityClass is added.
+{: .note}
 
-**Note 2:** Addition of a PriorityClass with `globalDefault` set to true does not
-change priority of existing pods. The value of such PriorityClass will be used only
-for pods created after the PriorityClass is added.
+**Note 3**: If you delete a PriorityClass, existing Pods that use the name of the
+deleted priority class remain unchanged, but you are not able to create more Pods
+that use the name of the deleted PriorityClass.
+{: .note}
 
-**Note 3:** If you delete a PriorityClass, existing pods that use the name of the
-deleted priority class will remain unchanged, but you will not be able to create more pods
-that use the name of the deleted priority class.
+### Example PriorityClass
 
-#### Example PriorityClass
 ```yaml
 apiVersion: v1
 kind: PriorityClass
@@ -94,15 +109,16 @@ globalDefault: false
 description: "This priority class should be used for XYZ service pods only."
 ```
 
-## Pod Priority
-Once you have one or more PriorityClasses, you can create pods which specify one
-of those PriorityClass names in their spec. Priority admission controller uses
-`priorityClassName` field and populates the integer value of priority. If the priority
-class is not found, the pod will be rejected.
+## Pod priority
 
-The following YAML is an example of a pod configuration that uses the PriorityClass
-created above. Priority admission controller checks the spec and resolves the
-priority of the pod to 1000000.
+After you have one or more PriorityClasses, you can create Pods that specify one
+of those PriorityClass names in their specifications. The priority admission
+controller uses the `priorityClassName` field and populates the integer value
+of the priority. If the priority class is not found, the Pod is rejected.
+
+The following YAML is an example of a Pod configuration that uses the PriorityClass
+created in the preceding example. The priority admission controller checks the
+specification and resolves the priority of the Pod to 1000000.
 
 
 ```yaml
@@ -121,89 +137,126 @@ spec:
 ```
 
 ## Preemption
-When pods are created, they go to a queue and wait to be scheduled. Scheduler picks a pod
-from the queue and tries to schedule it on a node. If no node is found that satisfies
-all the specified requirements (predicates) of the pod, preemption logic is triggered 
-for the pending pod. Let's call the pending pod P.
-Preemption logic tries to find a node where removal of one or more pods with lower priority 
-than P would enable P to schedule on that node. If such a node is found, one or more lower priority pods will
-be deleted from the node. Once the pods are gone, P may be scheduled on the node. 
 
-### Limitations of Preemption (alpha version)
+When Pods are created, they go to a queue and wait to be scheduled. The scheduler
+picks a Pod from the queue and tries to schedule it on a Node. If no Node is found
+that satisfies all the specified requirements of the Pod, preemption logic is triggered 
+for the pending Pod. Let's call the pending pod P. Preemption logic tries to find a Node
+where removal of one or more Pods with lower priority than P would enable P to be scheduled
+on that Node. If such a Node is found, one or more lower priority Pods get
+deleted from the Node. After the Pods are gone, P can be scheduled on the Node. 
 
-#### Starvation of Preempting Pod
-When pods are preempted, the victims get their
+### Limitations of preemption (alpha version)
+
+#### Starvation of preempting Pod
+
+When Pods are preempted, the victims get their
 [graceful termination period](https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods).
-They have that much time to finish their work and exit. If they don't, they will be
-killed. This graceful termination period creates a time gap between the point that
-scheduler preempts pods until the pending pod (P) can be scheduled on the node (N).
-In the meantime, scheduler keeps scheduling other pending pods.
-As victims exit or get terminated, scheduler tries to schedule pods in the pending
-queue, and one or more of them may be considered and scheduled to N before the
-scheduler considers scheduling P on N. In such a case, it is likely that
-when all victims exit, pod P won't fit on node N anymore. So, scheduler will have to
-preempt other pods on node N or another node to let P schedule. This scenario may 
-be repeated again for the second and subsequent rounds of preemption and P may not
-get scheduled for a while. This scenario can cause problems in various clusters, but
-is particularly problematic in clusters with a high pod creation rate.
+They have that much time to finish their work and exit. If they don't, they are
+killed. This graceful termination period creates a time gap between the point
+that the scheduler preempts Pods and the time when the pending Pod (P) can be
+scheduled on the Node (N). In the meantime, the scheduler keeps scheduling other
+pending Pods. As victims exit or get terminated, the scheduler tries to schedule
+Pods in the pending queue, and one or more of them may be considered and
+scheduled to N before the scheduler considers scheduling P on N. In such a case,
+it is likely that when all the victims exit, Pod P won't fit on Node N anymore.
+So, scheduler will have to preempt other Pods on Node N or another Node so that
+P can be scheduled. This scenario might be repeated again for the second and
+subsequent rounds of preemption, and P might not get scheduled for a while.
+This scenario can cause problems in various clusters, but is particularly
+problematic in clusters with a high Pod creation rate.
 
-We will address this problem in beta version of pod preemption. The solution
-we plan to implement is [provided here](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/pod-preemption.md#preemption-mechanics).
+We will address this problem in the beta version of Pod preemption. The solution
+we plan to implement is
+[provided here](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/pod-preemption.md#preemption-mechanics).
 
 #### PodDisruptionBudget is not supported
-[Pod Disruption Budget (PDB)](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/)
-allows application owners to limit the number pods of a replicated application that
-are down simultaneously from voluntary disruptions. However, alpha version of
+
+A [Pod Disruption Budget (PDB)](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/)
+allows application owners to limit the number Pods of a replicated application that
+are down simultaneously from voluntary disruptions. However, the alpha version of
 preemption does not respect PDB when choosing preemption victims.
-We plan to add PDB support in beta, but even in beta respecting PDB will be best
-effort. Scheduler will try to find victims whose
-PDB won't be violated by preemption, but if no such victims are found, preemption
-will still happen and lower priority pods will be removed despite their PDBs 
-being violated.
+We plan to add PDB support in beta, but even in beta, respecting PDB will be best
+effort. The Scheduler will try to find victims whose PDB won't be violated by preemption,
+but if no such victims are found, preemption will still happen, and lower priority Pods
+will be removed despite their PDBs  being violated.
 
-#### Inter-Pod Affinity on Lower Priority Pods
-The current implementation of preemption considers a node for preemption only when
-the answer to this question is positive: "If all the pods with lower priority than
-the pending pod are removed from the node, can the pending pod be scheduled on
-the node?"
-(Note that preemption does not always remove all lower-priority pods, e.g. if the 
-pending pod can be scheduled by removing fewer than all lower-priority pods, but this
-test must always pass for preemption to be considered on a node.)
+#### Inter-Pod affinity on lower-priority Pods
 
-If the answer is no, that node will not be considered for preemption. If the pending
-pod has inter-pod affinity to one or more of those lower priority pods on the node, the
-inter-pod affinity rule cannot be satisfied in the absence of the lower priority
-pods and scheduler will find the pending pod infeasible on the node. As a result,
-it will not try to preempt any pods on that node.
-Scheduler will try to find other nodes for preemption and could possibly find another
-one, but there is no guarantee that such a node will be found.
+In version 1.8, a Node is considered for preemption only when
+the answer to this question is yes: "If all the Pods with lower priority than
+the pending Pod are removed from the Node, can the pending pod be scheduled on
+the Node?"
 
-We may address this issue in future versions, but we don't have a clear plan yet
-(i.e. we will not consider it a blocker for Beta or GA). Part
-of the reason is that finding the set of lower priority pods that satisfy all
-inter-pod affinity rules is computationally expensive and adds substantial 
-complexity to the preemption logic. Besides, even if preemption keeps the lower
-priority pods to satisfy inter-pod affinity, the lower priority pods may be preempted
-later by other pods, which removes the benefits of having the complex logic of 
-respecting inter-pod affinity to lower priority pods.
+**Note**: Preemption does not necessarily remove all lower-priority Pods. If the 
+pending pod can be scheduled by removing fewer than all lower-priority Pods, then
+only a portion of the lower-priority Pods are removed. Even so, the answer to the
+preceding question must be yes. If the answer is no, the Node is not considered
+for preemption.
+{: .note}
 
-Our recommended solution for this problem is to create inter-pod affinity only towards
+If a pending Pod has inter-pod affinity to one or more of the lower-priority Pods
+on the Node, the inter-Pod affinity rule cannot be satisfied in the absence of those
+lower-priority Pods. In this case, the scheduler does not preempt any Pods on the
+Node. Instead, it looks for another Node. The scheduler might find a suitable Node
+or it might not. There is no guarantee that the pending Pod can be scheduled.
+
+We might address this issue in future versions, but we don't have a clear plan yet.
+We will not consider it a blocker for Beta or GA. Part
+of the reason is that finding the set of lower-priority Pods that satisfy all
+inter-Pod affinity rules is computationally expensive, and adds substantial 
+complexity to the preemption logic. Besides, even if preemption keeps the lower-priority
+Pods to satisfy inter-Pod affinity, the lower priority Pods might be preempted
+later by other Pods, which removes the benefits of having the complex logic of 
+respecting inter-Pod affinity.
+
+Our recommended solution for this problem is to create inter-Pod affinity only towards
 equal or higher priority pods.
 
-#### Cross Node Preemption
-When considering a node N for preemption in order to schedule a pending pod P,
-P may become feasible on N only if pods on other nodes are preempted. For example, P may
-have zone anti-affinity with some currently-running, lower-priority pod Q. P may not be
-scheduled on Q's node even if it preempts Q, for example if P is larger than Q so
-preempting Q does not free up enough space on Q's node and P is not high-priority enough
-to preempt other pods on Q's node. But P might theoretically be able to schedule on 
-another node M by preempting Q and some pod(s) on M (preempting Q removes the
-anti-affinity violation, and preempting pod(s) on M frees up space for P to schedule
-there). The current preemption algorithm does not detect and execute such preemptions;
-that is, when determining whether P can schedule onto N, it only considers preempting
-pods on N.
+#### Cross node preemption
 
-We may consider adding cross node preemption in future versions if we find an
-algorithm with reasonable performance, but we cannot promise anything at this point 
-(It will not be considered a blocker for Beta and GA).
+Suppose a Node N is being considered for preemption so that a pending Pod P
+can be scheduled on N. P might become feasible on N only if a Pod on another
+Node is preempted. Here's an example:
 
+* Pod P is being considered for Node N.
+* Pod Q is running on another Node in the same zone as Node N.
+* Pod P has anit-affinity with Pod Q.
+* There are no other cases of anti-affinity between Pod P and other Pods in the zone.
+
+If Pod Q were removed from its Node, the anti-affinity violation would be gone,
+and Pod P could possibly be scheduled on Node N.
+
+TODO: Revise this next example.
+@bsalamat, I don't understand the example with Node M. I took a stab at it below,
+but I don't think I've gotten it right. I don't see why if we start by considerin N,
+we need a third Node M.
+
+Here's another example:
+
+* Pod P is being considered for Node N.
+* Pod Q is running on another Node in the same zone as Node N.
+* Pod P has anit-affinity with Pod Q.
+* There are no other cases of anti-affinity between Pod P and other Pods in the zone.
+* Pod Q is preempted from its Node.
+* Pod P is bigger than Pod Q, so there still isn't enough room to run Pod P on Pod Q's Node.
+* For reasons of size and priority, Pod P can't run on Node N either.
+* There is another Node M is the same zone as Node N and Q's Node.
+
+The anti-affinity violation is gone because Pod Q has been removed. If lower-priority
+Pods can be prempted from Node M, Pod P could possibly be scheduled on Node M.
+
+Version 1.8 docs not support either of these examples of cross Node preemption.
+
+We considering adding cross Node preemption in future versions if we find an
+algorithm with reasonable performance. We cannot promise anything at this point, 
+and cross Node preemption will not be considered a blocker for Beta or GA.
+
+{% endcapture %}
+
+{% capture whatsnext %}
+* Learn more about [this](...).
+* See this [related task](...).
+{% endcapture %}
+
+{% include templates/concept.md %}
