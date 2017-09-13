@@ -712,7 +712,7 @@ A breakdown of what/why:
    systemctl restart kubelet
    ```
 
-## Cloudprovider integrations (experimental)
+## Cloud provider integrations (experimental)
 
 Enabling specific cloud providers is a common request. This currently requires
 manual configuration and is therefore not yet fully supported. If you wish to do
@@ -723,7 +723,7 @@ installed on the host, for example for volume mounting/unmounting, install those
 packages.
 
 Specify the `--cloud-provider` flag for the kubelet and set it to the cloud of your
-choice. If your cloudprovider requires a configuration file, create the file
+choice. If your cloud provider requires a configuration file, create the file
 `/etc/kubernetes/cloud-config` on every node. The exact format and content of
 that file depends on the requirements imposed by your cloud provider. If you use
 the `/etc/kubernetes/cloud-config` file, you must append it to the kubelet
