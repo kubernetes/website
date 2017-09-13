@@ -550,7 +550,7 @@ reverse ordinal order, while respecting the StatefulSet guarantees.
 Patch the `web` StatefulSet to apply the `RollingUpdate` update strategy.
 
 ```shell
-kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate"}}}
+kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate"}}}'
 statefulset "web" patched
 ```
 
