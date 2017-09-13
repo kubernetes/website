@@ -553,7 +553,9 @@ that the API server certificate is valid under the root CA.
 
 ### Token-based discovery without CA pinning
 _This was the default in Kubernetes 1.7 and earlier_, but comes with some
-important caveats. It's still possible in Kubernetes 1.8 and above using the
+important caveats. This mode relies only on the symmetric token to sign
+(HMAC-SHA256) the discovery information that establishes the root of trust for
+the master. It's still possible in Kubernetes 1.8 and above using the
 `--discovery-token-unsafe-skip-ca-verification` but you should consider using
 one of the other modes if possible.
 
