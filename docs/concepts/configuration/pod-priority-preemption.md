@@ -32,7 +32,7 @@ To use priority and preemption in Kubernetes 1.8, follow these steps:
 
 1. Create Pods with `PriorityClassName` set to one of the added PriorityClasses.
 Of course you do not need to create the Pods directly; normally you would add 
-`PriorityClassName` to the Pod template of a collection object likea Deployment.
+`PriorityClassName` to the Pod template of a collection object like a Deployment.
 
 The following sections provide more information about these steps.
 
@@ -188,7 +188,7 @@ the answer to this question is yes: "If all the Pods with lower priority than
 the pending Pod are removed from the Node, can the pending pod be scheduled on
 the Node?"
 
-**Note**: Preemption does not necessarily remove all lower-priority Pods. If the 
+**Note:** Preemption does not necessarily remove all lower-priority Pods. If the 
 pending pod can be scheduled by removing fewer than all lower-priority Pods, then
 only a portion of the lower-priority Pods are removed. Even so, the answer to the
 preceding question must be yes. If the answer is no, the Node is not considered
@@ -223,32 +223,14 @@ Node is preempted. Here's an example:
 * Pod Q is running on another Node in the same zone as Node N.
 * Pod P has anit-affinity with Pod Q.
 * There are no other cases of anti-affinity between Pod P and other Pods in the zone.
+* In order to schedule Pod P on Node N, Pod Q should be preempted, but scheduler
+does not perform cross-node preemption. So, Pod P will be deemed unschedulable
+on Node N.
 
 If Pod Q were removed from its Node, the anti-affinity violation would be gone,
 and Pod P could possibly be scheduled on Node N.
 
-TODO: Revise this next example.
-@bsalamat, I don't understand the example with Node M. I took a stab at it below,
-but I don't think I've gotten it right. I don't see why if we start by considerin N,
-we need a third Node M.
-
-Here's another example:
-
-* Pod P is being considered for Node N.
-* Pod Q is running on another Node in the same zone as Node N.
-* Pod P has anit-affinity with Pod Q.
-* There are no other cases of anti-affinity between Pod P and other Pods in the zone.
-* Pod Q is preempted from its Node.
-* Pod P is bigger than Pod Q, so there still isn't enough room to run Pod P on Pod Q's Node.
-* For reasons of size and priority, Pod P can't run on Node N either.
-* There is another Node M is the same zone as Node N and Q's Node.
-
-The anti-affinity violation is gone because Pod Q has been removed. If lower-priority
-Pods can be prempted from Node M, Pod P could possibly be scheduled on Node M.
-
-Version 1.8 docs not support either of these examples of cross Node preemption.
-
-We considering adding cross Node preemption in future versions if we find an
+We may consider adding cross Node preemption in future versions if we find an
 algorithm with reasonable performance. We cannot promise anything at this point, 
 and cross Node preemption will not be considered a blocker for Beta or GA.
 
