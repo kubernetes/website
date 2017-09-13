@@ -15,7 +15,7 @@ directives.
 ## CPU Management Policies
 
 By default, the kubelet uses [CFS quota](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)
-to enforce pod CPU limits.  When the node runs many CPU bound pods,
+to enforce pod CPU limits.  When the node runs many CPU-bound pods,
 the workload can move to different CPU cores depending on
 whether the pod is throttled and which CPU cores are available at
 scheduling time.  Many workloads are not sensitive to this migration and thus
@@ -25,12 +25,24 @@ However, in workloads where CPU cache affinity and scheduling latency
 significantly affect workload performance, the kubelet allows alternative CPU
 management policies to determine some placement preferences on the node.
 
-Enable these management policies with the `--cpu-manager-policy` kubelet
-option.  There are two supported policies:
+### Configuration
 
-* `none`: the default, which represents the existing scheduling behavior
+The CPU Manager is introduced as an alpha feature in Kubernetes v1.8. It
+must be explicitly enabled in the kubelet feature gates:
+`--feature-gates=CPUManager=true`.
+
+The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
+option. There are two supported policies:
+
+* `none`: the default, which represents the existing scheduling behavior.
 * `static`: allows pods with certain resource characteristics to be
   granted increased CPU affinity and exclusivity on the node.
+
+The CPU manager periodically writes resource updates through the CRI in
+order to reconcile in-memory CPU assignments with cgroupfs. The reconcile
+frequency is set through a new Kubelet configuration value
+`--cpu-manager-reconcile-period`. If not specified, it defaults to the same
+duration as `--node-status-update-frequency`.
 
 ### None policy
 
@@ -49,8 +61,13 @@ using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cg
 **Note:** System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The exclusivity only extends to other pods.
 {: .note}
 
+**Note:** The alpha version of this policy does not guarantee static
+exclusive allocations across Kubelet restarts.
+{: .note}
+
 This policy manages a shared pool of CPUs that initially contains all CPUs in the
-node minus any reservations by the kubelet `--kube-reserved` or
+node. The amount of exclusively allocatable CPUs is equal to the total
+number of CPUs in the node minus any CPU reservations by the kubelet `--kube-reserved` or
 `--system-reserved` options. CPUs reserved by these options are taken, in
 integer quantity, from the initial shared pool in ascending order by physical
 core ID.  This shared pool is the set of CPUs on which any containers in
@@ -59,25 +76,20 @@ CPU `requests` also run on CPUs in the shared pool. Only containers that are
 both part of a `Guaranteed` pod and have integer CPU `requests` are assigned
 exclusive CPUs.
 
-**Note:** When reserving CPU with `--kube-reserved` or `--system-reserved` options, it is advised to use *integer* CPU quantities.
+**Note:** The kubelet requires a CPU reservation greater than zero be made
+using either `--kube-reserved` and/or `--system-reserved` when the static
+policy is enabled. This is because zero CPU reservation would allow the shared
+pool to become empty.
 {: .note}
 
 As `Guaranteed` pods whose containers fit the requirements for being statically
 assigned are scheduled to the node, CPUs are removed from the shared pool and
-placed in the cpuset for the container.  CFS quota is not used to bound
+placed in the cpuset for the container. CFS quota is not used to bound
 the CPU usage of these containers as their usage is bound by the scheduling domain
 itself. In others words, the number of CPUs in the container cpuset is equal to the integer
-CPU `limit` specified in the pod spec.  This static assignment increases CPU
-affinity and decreases context switches due to throttling for the CPU bound
+CPU `limit` specified in the pod spec. This static assignment increases CPU
+affinity and decreases context switches due to throttling for the CPU-bound
 workload.
-
-In the event that the shared pool is depleted the kubelet takes two actions:
-
-* Evict all pods that include a container that does not specify a `cpu`
-  quantity in `requests` as those pods now have no CPUs on which to run.
-* Set a `NodeCPUPressure` node condition to `true` in the node status. When
-  this condition is true, the scheduler will not assign any pod to the node
-  that has a container which lacks a `cpu` quantity in `requests`.
 
 Consider the containers in the following pod specs:
 
@@ -89,8 +101,7 @@ spec:
 ```
 
 This pod runs in the `BestEffort` QoS class because no resource `requests` or
-`limits` are specified. It is evicted if shared pool is depleted.  It runs
-in the shared pool.
+`limits` are specified. It runs in the shared pool.
 
 ```yaml
 spec:
@@ -105,9 +116,8 @@ spec:
 ```
 
 This pod runs in the `Burstable` QoS class because resource `requests` do not
-equal `limits` and the `cpu` quantity is not specified. It is 
-evicted if shared pool is depleted. It runs in the shared pool.
-
+equal `limits` and the `cpu` quantity is not specified. It runs in the shared
+pool.
 
 ```yaml
 spec:
@@ -124,9 +134,7 @@ spec:
 ```
 
 This pod runs in the `Burstable` QoS class because resource `requests` do not
-equal `limits`. The non-zero `cpu` quantity in `requests` prevents the
-shared pool from depleting. It runs in the shared pool.
-
+equal `limits`. It runs in the shared pool.
 
 ```yaml
 spec:
