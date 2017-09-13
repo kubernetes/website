@@ -100,7 +100,7 @@ First, update the following fields in your YAML file:
 If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` cluster role. Add you scheduler name to the resourceNames of the rule applied for endpoints resources, as in the following example:
 ```
 $ kubectl edit clusterrole system:kube-scheduler
-- apiVersion: rbac.authorization.k8s.io/v1beta1
+- apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
   metadata:
     annotations:

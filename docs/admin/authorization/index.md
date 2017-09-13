@@ -62,7 +62,6 @@ of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authoriz
  * **ABAC** - Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes etc). To learn more about using the ABAC mode, see [ABAC Mode](/docs/admin/authorization/abac/).
  * **RBAC** - Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise. In this context, access is the ability of an individual user to perform a specific task, such as view, create, or modify a file. To learn more about using the RBAC mode, see [RBAC Mode](/docs/admin/authorization/rbac/)
  ..* When specified "RBAC" (Role-Based Access Control) uses the "rbac.authorization.k8s.io" API group to drive authorization decisions, allowing admins to dynamically configure permission policies through the Kubernetes API.
- ..* As of 1.6 RBAC mode is in beta.
  ..* To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.
  * **Webhook** - A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen. To learn more about using the Webhook mode, see [Webhook Mode](/docs/admin/authorization/webhook/).
 
