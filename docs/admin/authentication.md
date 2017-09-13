@@ -638,7 +638,7 @@ authorization plugin, the following ClusterRole encompasses the rules needed to
 set user and group impersonation headers:
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: impersonator
@@ -653,7 +653,7 @@ allow a user to use impersonation headers for the extra field "scopes," a user
 should be granted the following role:
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: scopes-impersonator
@@ -667,7 +667,7 @@ The values of impersonation headers can also be restricted by limiting the set
 of `resourceNames` a resource can take.
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: limited-impersonator
