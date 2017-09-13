@@ -88,6 +88,23 @@ document, use the backtick (`).
   <tr><td>For declarative management, use <code>kubectl apply</code>.</td><td>For declarative management, use "kubectl apply".</td></tr>
 </table>
 
+### Use syntax highlighting commands for block output
+
+To represent the output of a command using the backticks in Markdown (```), specify `console` unless other specific syntax highlighting in desired.
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>
+```console<br/>
+example console output<br/>
+```</td><td>```<br/>
+example console output<br/>
+```</td>
+  </tr>
+</table>
+
+Other common extensions for syntax highlighting include `shell`, `json`, `yaml`
+
 ### Use code style for object field names
 
 <table>
@@ -138,13 +155,13 @@ A list of Kubernetes-specific terms and words to be used consistently across the
 </table>{% endcomment %}
 
 ## Callout Formatting
-Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: **Note:** {: .note}, **Caution:** {: .caution}, and **Warning:** {: .warning}. 
+Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: **Note:** {: .note}, **Caution:** {: .caution}, and **Warning:** {: .warning}.
 
 1. Start each callout with the appropriate prefix.
 
 2. Use the following syntax to apply a style:
 
-       **Note:** The prefix you use is the same text you use in the tag. 
+       **Note:** The prefix you use is the same text you use in the tag.
        {: .note} <!-- This tag must appear on a new line. -->
 
 The output is:
@@ -154,11 +171,11 @@ The output is:
 
 ### Note
 
-Use {: .note} to highlight a tip or a piece of information that may be helpful to know. 
+Use {: .note} to highlight a tip or a piece of information that may be helpful to know.
 
 For example:
 
-    **Note:** You can _still_ use Markdown inside these callouts. 
+    **Note:** You can _still_ use Markdown inside these callouts.
     {: .note}
 
 The output is:
@@ -172,12 +189,12 @@ Use {: .caution} to call attention to an important piece of information to avoid
 
 For example:
 
-    **Caution:** The callout style only applies to the line directly above the tag. 
+    **Caution:** The callout style only applies to the line directly above the tag.
     {: .caution}
 
 The output is:
 
-**Caution:** The callout style only applies to the line directly above the tag. 
+**Caution:** The callout style only applies to the line directly above the tag.
 {: .caution}
 
 ### Warning
@@ -186,12 +203,12 @@ Use {: .warning} to indicate danger or a piece of information that is crucial to
 
 For example:
 
-    **Warning:** Beware. 
+    **Warning:** Beware.
     {: .warning}
 
 The output is:
 
-**Warning:** Beware. 
+**Warning:** Beware.
 {: .warning}
 
 ## Common Callout Issues
@@ -217,14 +234,14 @@ The output is:
 **Note:** This is my note. Use `<br/>` to create multiple lines. <br/> <br/> You can still use _Markdown_ to **format** text!
 {: .note}
 
-Typing multiple lines does **not** work. The callout style only applies to the line directly above the tag. 
+Typing multiple lines does **not** work. The callout style only applies to the line directly above the tag.
 
-    **Note:** This is my note. 
+    **Note:** This is my note.
 
     I didn't read the style guide.
     {: .note}
 
-**Note:** This is my note. 
+**Note:** This is my note.
 
 I didn't read the style guide.
 {: .note}
@@ -236,23 +253,23 @@ Callouts will interrupt numbered lists unless you indent three spaces before the
 For example:
 
     1. Preheat oven to 350˚F
-       
+
     1. Prepare the batter, and pour into springform pan.
-          
-       **Note:** Grease the pan for best results. 
+
+       **Note:** Grease the pan for best results.
        {: .note}
-          
+
     1. Bake for 20-25 minutes or until set.
-       
+
 The output is:
 
 1. Preheat oven to 350˚F
-       
+
 1. Prepare the batter, and pour into springform pan.
-          
-   **Note:** Grease the pan for best results. 
+
+   **Note:** Grease the pan for best results.
    {: .note}
-          
+
 1. Bake for 20-25 minutes or until set.
 
 
