@@ -371,8 +371,9 @@ $ kubectl apply -f addon/
 ```
 
 Wait a cup of coffee time to start kubernetes components.
+### dashboard
 
-You can view kubernetes dashboard by visiting <YOUR_MASTER_IP>:80
+You can view kubernetes dashboard by visiting `<YOUR_MASTER_IP>:80`
 
 ## Support Level
 
