@@ -64,9 +64,9 @@ toc:
   - docs/user-guide/kubectl-cheatsheet.md
 
 - title: Setup Tools
+  section:
   - docs/admin/kubeadm.md
   - title: Kubefed
-    path: /docs/admin/kubefed/
     section:
     - docs/admin/kubefed.md
     - docs/admin/kubefed_options.md
