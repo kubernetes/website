@@ -15,14 +15,16 @@ Modification not using HostAliases is not suggested because the file is managed 
 ## Default Hosts File Content
 
 Lets start an Nginx Pod which is assigned an Pod IP:
-```
+
+```shell
 $ kubectl get pods --output=wide
 NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
 nginx    1/1       Running   0          13s    10.200.0.4   worker0
 ```
 
 The hosts file content would look like this:
-```
+
+```shell
 $ kubectl exec nginx -- cat /etc/hosts
 # Kubernetes-managed hosts file.
 127.0.0.1	localhost
@@ -43,7 +45,8 @@ In addition to the default boilerplate, we can add additional entries to the hos
 {% include code.html language="yaml" file="hostaliases-pod.yaml" ghlink="/docs/concepts/services-networking/hostaliases-pod.yaml" %}
 
 The hosts file content would look like this:
-```
+
+```shell
 $ kubectl logs hostaliases-pod
 # Kubernetes-managed hosts file.
 127.0.0.1	localhost
