@@ -540,13 +540,17 @@ that the API server certificate is valid under the root CA.
 
 > `kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef 1.2.3.4:6443`
 
+
 **Advantages:**
+
  - Allows bootstrapping nodes to securely discover a root of trust for the
    master even if other worker nodes or the network are compromised.
+
  - Convenient to execute manually since all of the information required fits
    into a single `kubeadm join` command that is easy to copy and paste.
 
 **Disadvantages:**
+
  - The CA hash is not normally known until the master has been provisioned,
    which can make it more difficult to build automated provisioning tools that
    use kubeadm.
@@ -563,13 +567,17 @@ one of the other modes if possible.
 
 > `kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-verification 1.2.3.4:6443`
 
+
 **Advantages:**
+
  - Still protects against many network-level attacks.
+
  - The token can be generated ahead of time and shared with the master and
    worker nodes, which can then bootstrap in parallel without coordination. This
   allows it to be used in many provisioning scenarios.
 
 **Disadvantages:**
+
  - If an attacker is able to steal a bootstrap token via some vulnerability,
    they can use that token (along with network-level access) to impersonate the
    master to other bootstrapping nodes. This may or may not be an appropriate
@@ -586,15 +594,19 @@ using kubeadm.
 
 > `kubeadm join --discovery-file https://url/file.conf` (remote HTTPS URL)
 
+
 **Advantages:**
+
  - Allows bootstrapping nodes to securely discover a root of trust for the
    master even if other worker nodes or the network are compromised.
 
 **Disadvantages:**
+
  - Requires that you have some way to carry the discovery information from
    the master to the bootstrapping nodes. This might be possible, for example,
    via your cloud provider or provisioning tool. The information in this file is
    not secret, but HTTPS or equivalent is required to ensure its integrity.
+
  - Less convenient to use manually since the file is difficult to copy and paste
    between nodes.
 
