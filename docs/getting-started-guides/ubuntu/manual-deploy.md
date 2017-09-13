@@ -342,6 +342,7 @@ $ kubectl get node
 NAME      STATUS         AGE       VERSION
 master   Ready,master     1m       v1.7.5
 node1     Ready          21m       v1.7.5
+node2     Ready          23m       v1.7.5
 ```
 
 ## Start Installing Kubernetes Addons
@@ -372,6 +373,13 @@ $ kubectl apply -f addon/
 Wait a cup of coffee time to start kubernetes components.
 
 You can view kubernetes dashboard by visiting <YOUR_MASTER_IP>:80
+
+## Support Level
+
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------| ----------------------------
+Bare-metal           | custom       | ubuntu16.04 LTS | flannel            |          | kubernetes 1.7.2
 {% endcapture %}
 
 {% include templates/task.md %}
