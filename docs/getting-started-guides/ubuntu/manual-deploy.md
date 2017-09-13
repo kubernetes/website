@@ -2,9 +2,9 @@
 title: Manually Deploying Kubernetes on Ubuntu 16.04 LTS
 ---
 
-{％ capture overview ％}
+{% capture overview %}
 This document will lead you to build a kubernetes cluster.This cluster contains three nodes those are 1 master node and 2 worker nodes.
-{％ endcapture ％}
+{% endcapture %}
 
 The Container Network Interface (CNI) for this document is Flannel, and you can modify it as you like.
 
@@ -275,9 +275,10 @@ $ sed -i 's/192.168.16.101/<YOUR_WORKER_IP>/g' /etc/kubernetes/pki/openssl.conf
 $ sed -i 's/node1/<YOUR_NODE_HOSTNAME>/g' /etc/kubernetes/pki/openssl.conf
 ```
 
-**Warning:** This step has to been done in Master Node
+**Warning:**
 
 {: .warning}
+This step has to been done in Master Node
 
 You have to pass those ca-key.pem ca.pem admin.pem admin-key.pem to **Worker Node** frome **Master Node**
 
@@ -288,9 +289,10 @@ scp ${file} <WORKER_NODE>:/etc/kubernetes/pki/
 done
 ```
 
-**Warning:** And back to Worker Node
+**Warning:**
 
 {: .warning}
+And back to Worker Node
 
 You can use the command to get CA Private Key .
 
@@ -328,9 +330,10 @@ $ systemctl daemon-reload && systemctl restart kubelet.service
 
 Wait a cup of coffee time to start kubernetes components
 
-**Warning:** This check step has to been done in Master Node
+**Warning:**
 
 {: .warning}
+This check step has to been done in Master Node
 
 Use this command you will be able to view the kubernetes node situation
 
@@ -368,7 +371,7 @@ $ kubectl apply -f addon/
 
 Wait a cup of coffee time to start kubernetes components.
 
-You can view kubernetes dashboard by visiting https://<YOUR_MASTER_IP>:80
+You can view kubernetes dashboard by visiting <YOUR_MASTER_IP>:80
 {% endcapture %}
 
 {% include templates/task.md %}
