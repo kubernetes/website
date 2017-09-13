@@ -9,7 +9,7 @@ This page shows how to specify opaque integer resources for a Node.
 Opaque integer resources allow cluster administrators to advertise node-level
 resources that would otherwise be unknown to Kubernetes.
 
-{% include feature-state-alpha.md %}
+{% include feature-state-deprecated.md %}
 
 {% endcapture %}
 
