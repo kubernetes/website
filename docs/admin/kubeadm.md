@@ -538,8 +538,7 @@ that the API server certificate is valid under the root CA.
 
 **Example `kubeadm join` command:**
 
-> `kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef 1.2.3.4:6443`
-
+ - `kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef 1.2.3.4:6443`
 
 **Advantages:**
 
@@ -565,8 +564,7 @@ one of the other modes if possible.
 
 **Example `kubeadm join` command:**
 
-> `kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-verification 1.2.3.4:6443`
-
+ - `kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-verification 1.2.3.4:6443`
 
 **Advantages:**
 
@@ -590,18 +588,15 @@ using kubeadm.
 
 **Example `kubeadm join` commands:**
 
-> `kubeadm join --discovery-file path/to/file.conf` (local file)
+ - `kubeadm join --discovery-file path/to/file.conf` (local file)
 
-> `kubeadm join --discovery-file https://url/file.conf` (remote HTTPS URL)
-
+ - `kubeadm join --discovery-file https://url/file.conf` (remote HTTPS URL)
 
 **Advantages:**
-
  - Allows bootstrapping nodes to securely discover a root of trust for the
    master even if other worker nodes or the network are compromised.
 
 **Disadvantages:**
-
  - Requires that you have some way to carry the discovery information from
    the master to the bootstrapping nodes. This might be possible, for example,
    via your cloud provider or provisioning tool. The information in this file is
@@ -684,7 +679,7 @@ A breakdown of what/why:
    tells the kubelet where the API server is. This file also has the kubelet's
    credentials.
 * `--require-kubeconfig=true` the kubelet should fail fast if the kubeconfig file
-   is not present. This makes the kubelet crashloop during the time the service is
+   is not present. This makes the kubelet crash loop during the time the service is
    started until `kubeadm init` is run.
 * `--pod-manifest-path=/etc/kubernetes/manifests` specifies from where to read
    Static Pod manifests used for spinning up the control plane
