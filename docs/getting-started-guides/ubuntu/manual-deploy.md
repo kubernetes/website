@@ -354,6 +354,7 @@ $ cp ./docs/getting-started-guides/ubuntu/file/kubernetes/addon/kube-dns.yml /et
 $ cp ./docs/getting-started-guides/ubuntu/file/kubernetes/addon/kube-dash.yml /etc/kubernetes/addon
 $ cp ./docs/getting-started-guides/ubuntu/file/kubernetes/addon/kube-monitor.yml /etc/kubernetes/addon
 
+$ sed -i 's/192.168.16.100/<YOUR_MASTER_IP>/g' /etc/kubernetes/addon/kube-dash.yml
 $ sed -i 's/192.168.16.100/<YOUR_MASTER_IP>/g' /etc/kubernetes/addon/kube-monitor.yml
 $ sed -i 's/192.168.16.100/<YOUR_MASTER_IP>/g' /etc/kubernetes/addon/kube-proxy.yml
 ```
@@ -367,7 +368,7 @@ $ kubectl apply -f addon/
 
 Wait a cup of coffee time to start kubernetes components.
 
-You can view kubernetes dashboard by visiting https://<YOUR_MASTER_IP>:6443/ui
+You can view kubernetes dashboard by visiting https://<YOUR_MASTER_IP>:80
 {% endcapture %}
 
 {% include templates/task.md %}

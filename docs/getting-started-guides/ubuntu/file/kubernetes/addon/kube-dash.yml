@@ -49,3 +49,4 @@ spec:
   - port: 80
     protocol: TCP
     targetPort: 9090
+  clusterIP: 192.168.16.100 
