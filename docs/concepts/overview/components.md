@@ -27,7 +27,7 @@ Kubernetes control plane. It is designed to scale horizontally -- that is, it sc
 
 ### etcd
 
-[etcd](/docs/admin/etcd) is used as Kubernetes' backing store. All cluster data is stored here. Always have a backup plan for etcd's data for your Kubernetes cluster.
+[etcd](/docs/tasks/administer-cluster/configure-upgrade-etcd) is used as Kubernetes' backing store. All cluster data is stored here. Always have a backup plan for etcd's data for your Kubernetes cluster.
 
 ### kube-controller-manager
 
@@ -84,12 +84,12 @@ Containers started by Kubernetes automatically include this DNS server in their 
 
 #### Container Resource Monitoring
 
-[Container Resource Monitoring](/docs/user-guide/monitoring) records generic time-series metrics
+[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring) records generic time-series metrics
 about containers in a central database, and provides a UI for browsing that data.
 
 #### Cluster-level Logging
 
-A [Cluster-level logging](/docs/user-guide/logging/overview) mechanism is responsible for
+A [Cluster-level logging](/docs/concepts/cluster-administration/logging) mechanism is responsible for
 saving container logs to a central log store with search/browsing interface.
 
 ## Node components
