@@ -1,5 +1,6 @@
 ---
 title: Writing a New Topic
+description: Contribute to the Kubernetes documentation by writing a new topic.
 ---
 
 {% capture overview %}
@@ -18,24 +19,31 @@ Create a fork of the Kubernetes documentation repository as described in
 As you prepare to write a new topic, think about which of these page types
 is the best fit for your content:
 
-<table>
+* **Task**: A task page shows how to do a single thing. The idea is to give
+readers a sequence of steps that they can actually do as they read the page.
+A task page can be short or long, provided it stays focused on one area. In a
+task page, it is OK to blend brief explanations with the steps to be performed,
+but if you need to provide a lengthy explanation, you should do that in a
+concept topic. Related task and concept topics should link to each other. For
+an example of a short task page, see
+[Configure a Pod to Use a Volume for Storage<](/docs/tasks/configure-pod-container/configure-volume-storage/">Configure a Pod to Use a Volume for Storage).
+For an example of a longer task page, see
+[Configure Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes).
 
-  <tr>
-    <td>Task</td>
-    <td>A task page shows how to do a single thing. The idea is to give readers a sequence of steps that they can actually do as they read the page. A task page can be short or long, provided it stays focused on one area. In a task page, it is OK to blend brief explanations with the steps to be performed, but if you need to provide a lengthy explanation, you should do that in a concept topic. Related task and concept topics should link to each other. For an example of a short task page, see <a href="/docs/tasks/configure-pod-container/configure-volume-storage/">Configure a Pod to Use a Volume for Storage</a>. For an example of a longer task page, see <a href="/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/">Configure Liveness and Readiness Probes</a></td>
-  </tr>
+* **Tutorial**: A tutorial page shows how to accomplish a goal that ties together
+ several Kubernetes features. A tutorial might provide several sequences of steps
+ that readers can actually do as they read the page. Or it might provide
+ explanations of related pieces of code. For example, a tutorial could provide a
+ walkthrough of a code sample. A tutorial can include brief explanations of the
+ Kubernetes features that are being tied togeter, but should link to related
+ concept topics for deep explanations of individual features.
 
-  <tr>
-    <td>Tutorial</td>
-    <td>A tutorial page shows how to accomplish a goal that ties together several Kubernetes features. A tutorial might provide several sequences of steps that readers can actually do as they read the page. Or it might provide explanations of related pieces of code. For example, a tutorial could provide a walkthrough of a code sample. A tutorial can include brief explanations of the Kubernetes features that are being tied togeter, but should link to related concept topics for deep explanations of individual features.</td>
-  </tr>
-
-  <tr>
-    <td>Concept</td>
-    <td>A concept page explains some aspect of Kubernetes. For example, a concept page might describe the Kubernetes Deployment object and explain the role it plays as an application is deployed, scaled, and updated. Typically, concept pages don't include sequences of steps, but instead provide links to tasks or tutorials. For an example of a concept topic, see <a href="/docs/concepts/architecture/nodes/">Nodes</a>.</td>
-  </tr>
-
-</table>
+* **Concept**: A concept page explains some aspect of Kubernetes. For example,
+a concept page might describe the Kubernetes Deployment object and explain the
+role it plays as an application is deployed, scaled, and updated. Typically,
+concept pages don't include sequences of steps, but instead provide links to
+tasks or tutorials. For an example of a concept topic, see
+[Nodes](/docs/concepts/architecture/nodes/).
 
 Each page type has a
 [template](/docs/home/contribute/page-templates/)
@@ -52,7 +60,16 @@ has filename `http-proxy-access-api.md`. You don't need to put
 "kubernetes" in the filename, because "kubernetes" is already in the
 URL for the topic, for example:
 
-       http://kubernetes.io/docs/tasks/access-kubernetes-api/http-proxy-access-api/
+    http://kubernetes.io/docs/tasks/access-kubernetes-api/http-proxy-access-api/
+
+Similary, your filename does not have to include other keywords that appear
+elsewhere in the URL. For example, the topic
+[Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
+has filename `security-context.md`, and the file is in a directory named
+`configure-pod-container`. The filename doesn't need to include the words
+"configure," "pod," or "container" because those words already appear in the URL:
+
+    https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 
 ## Adding the topic title to the front matter
 
@@ -64,6 +81,19 @@ triple-dashed lines at the top of the page. Here's an example:
     ---
     title: Using an HTTP Proxy to Access the Kubernetes API
     ---
+
+## Adding a description
+
+In your topic, put a `description` field in the front matter. Litmit
+your description to 160 characters. Here's an example:
+
+    ---
+    title: Update API Objects in Place Using kubectl patch
+    description: Use kubectl patch to update Kubernetes API objects in place. Do a strategic merge patch or a JSON merge patch.
+    ---
+
+The description is the text that appears in search results. A carefully
+crafted description can improve the click-through rate for your topic.
 
 ## Choosing a directory
 
@@ -130,7 +160,12 @@ For an example of a topic that uses this technique, see
 ## Adding images to a topic
 
 Put image files in the `/images` directory. The preferred
-image format is SVG.
+image format is SVG. In your document, use `![]()` to include an image:
+
+    ![Horizontal Pod Autoscaler diagram](/images/docs/horizontal-pod-autoscaler.svg)
+
+For an example of a topic that includes an image, see
+[Horizontal Pod Autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/)
 
 {% endcapture %}
 
