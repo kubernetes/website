@@ -310,12 +310,15 @@
 /serviceaccount/token					/docs/tasks/configure-pod-container/configure-service-account		301
 
 /v1.1/docs/admin/networking.html		/docs/concepts/cluster-administration/networking		301
+/v1.1/docs/getting-started-guides		/docs/tutorials/kubernetes-basics/						301
 
 
 ############################
 # pattern matching redirects
 #
 /docs/user-guide/kubectl/kubectl_*					/docs/user-guide/kubectl/v1.7/#:splat		200
+
+/v1.1/docs/*										/docs/										301
 
 /docs/user-guide/kubectl/1_5/*					https://v1-5.docs.kubernetes.io/docs/user-guide/kubectl/v1.5		301
 /docs/user-guide/kubectl/v1.5/node_modules/*	https://v1-5.docs.kubernetes.io/docs/user-guide/kubectl/v1.5		301
