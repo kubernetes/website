@@ -95,4 +95,4 @@ spec:
   ...
 ```
 
-**注意**: 包含以上规定的_不安全的_sysctls的一个Pod， 将无法启动任何不能使这两个_不安全的_sysctls明确的节点。 推荐_节点级_sysctls使用 [容点和污点特征](/docs/user-guide/kubectl/v1.6/#taint) or [节点上的污点](/docs/concepts/configuration/taint-and-toleration/)来将这些pods分配到正确的nodes上。
+**注意**: 包含以上规定的 _不安全的_ sysctls的一个Pod， 将无法启动任何不能使这两个 _不安全的_ sysctls明确的节点。 推荐 _节点级_ sysctls使用[容点和污点特征](/docs/user-guide/kubectl/v1.6/#taint)或者[节点上的污点](/docs/concepts/configuration/taint-and-toleration/)来将这些pods分配到正确的nodes上。
