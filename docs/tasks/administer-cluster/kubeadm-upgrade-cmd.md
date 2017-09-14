@@ -150,6 +150,47 @@ $ kubeadm upgrade apply --version v1.8.0
    find your CNI provider and see if there are additional upgrade steps
    necessary.
 
+## Upgrading your worker nodes
+
+For each worker node (referred to as `$WORKER` below) in your cluster, upgrade `kubelet` by executing the following commands:
+
+1. Prepare the node for maintenance, marking it unschedulable and evicting the workload:
+
+```shell
+$ kubectl cordon $WORKER
+$ kubectl drain $WORKER
+```
+
+1. Upgrade the `kubelet` version on the `$WORKER` node, either by using a Linux distribution-specific package manager such as `apt-get` or `yum` or manually as described in the following:
+
+```shell
+$ sudo systemctl stop kubelet
+$ curl -s -L -o kubelet \
+  https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubelet
+$ chmod +x kubectl && sudo mv kubelet /usr/local/bin/
+$ sudo systemctl start kubelet
+```
+
+Now, the new version of the `kubelet` should be running on the `$WORKER` node. Verify this using the following command:
+
+```shell
+$ systemctl status kubelet
+```
+
+1. Bring the `$WORKER` node back online by marking it schedulable:
+
+```shell
+$ kubectl uncordon $WORKER
+```
+
+1. After upgrading `kubelet` on each worker node in your cluster, verify that all nodes are available again by executing the following (from anywhere, for example, from outside the cluster):
+
+```shell
+$ kubectl get nodes
+```
+
+If the `STATUS` column of the above command shows `Ready` for all of your worker nodes, you are done.
+
 ## Recovering from a bad state
 
 If `kubeadm upgrade` somehow fails and fails to roll back, due to an unexpected shutdown during execution for instance,
