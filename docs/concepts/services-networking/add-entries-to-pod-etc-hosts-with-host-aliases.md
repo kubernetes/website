@@ -53,9 +53,9 @@ This Pod can be started with the following commands:
 $ kubectl apply -f hostaliases-pod.yaml
 pod "hostaliases-pod" created
 
-$ kubectl get pod -a
-NAME                           READY     STATUS      RESTARTS   AGE
-hostaliases-pod                0/1       Completed   0          8s
+$ kubectl get pod -a -o=wide
+NAME                           READY     STATUS      RESTARTS   AGE       IP              NODE
+hostaliases-pod                0/1       Completed   0          6s        10.244.135.10   node3
 ```
 
 The hosts file content would look like this:
@@ -69,7 +69,7 @@ fe00::0	ip6-localnet
 fe00::0	ip6-mcastprefix
 fe00::1	ip6-allnodes
 fe00::2	ip6-allrouters
-10.244.3.80	hostaliases-pod
+10.244.135.10	hostaliases-pod
 127.0.0.1	foo.local
 127.0.0.1	bar.local
 10.1.2.3	foo.remote
