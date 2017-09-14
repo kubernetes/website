@@ -16,8 +16,8 @@ toc:
   section:
   - editdocs.md
   - docs/home/contribute/create-pull-request.md
-  - docs/home/contribute/write-new-topic.md
   - docs/home/contribute/stage-documentation-changes.md
+  - docs/home/contribute/write-new-topic.md
   - docs/home/contribute/page-templates.md
   - docs/home/contribute/review-issues.md
   - docs/home/contribute/style-guide.md

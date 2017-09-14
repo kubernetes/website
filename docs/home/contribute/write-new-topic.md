@@ -26,7 +26,7 @@ task page, it is OK to blend brief explanations with the steps to be performed,
 but if you need to provide a lengthy explanation, you should do that in a
 concept topic. Related task and concept topics should link to each other. For
 an example of a short task page, see
-[Configure a Pod to Use a Volume for Storage<](/docs/tasks/configure-pod-container/configure-volume-storage/">Configure a Pod to Use a Volume for Storage).
+[Configure a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/">Configure a Pod to Use a Volume for Storage).
 For an example of a longer task page, see
 [Configure Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes).
 
