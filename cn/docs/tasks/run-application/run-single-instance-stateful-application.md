@@ -22,8 +22,7 @@ title: 运行一个单实例有状态应用
 
 * {% include task-tutorial-prereqs.md %}
 
-* 为了数据持久性我们将在环境上通过磁盘创建一个持久卷. 环境支持的类型见这里[here](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes). 本篇文档将介绍 `GCEPersistentDisk` . `GCEPersistentDisk`卷只能工作在Google Compute Engine
-平台上.
+* 为了数据持久性我们将在环境上通过磁盘创建一个持久卷. 环境支持的类型见这里[here](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes). 本篇文档将介绍 `GCEPersistentDisk` . `GCEPersistentDisk`卷只能工作在Google Compute Engine平台上.
 
 {% endcapture %}
 
@@ -187,7 +186,7 @@ Deployment中镜像或其他部分同往常一样可以通过 `kubectl apply` �
 特定于有状态应用的一些注意事项:
 
 * 不要弹性伸缩. 弹性伸缩仅适用于单实例应用. 下层的PersistentVolume仅只能挂载一个pod. 对于集群级有状态应用, 请参考StatefulSet文档
-  [StatefulSet documentation](/docs/concepts/workloads/controllers/petset/).
+  [StatefulSet documentation](/docs/concepts/workloads/controllers/statefulset/).
 * 在Deployment的YAML文件中使用 `strategy:` `type: Recreate` . 该选项指示Kubernetes不使用滚动升级. 滚动升级将无法工作, 由于一次不能运行多个pod. 在更新配置文件
 创建一个新的pod前 `Recreate`策略将先停止第一个pod.
 
