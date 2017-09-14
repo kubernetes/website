@@ -18,8 +18,8 @@ See also [upgrading kubeadm clusters from 1.6 to 1.7](/docs/tasks/administer-clu
 
 Before proceeding:
 
-- You need to have a `kubeadm` Kubernetes cluster running version 1.7.0 or higher in order to use the process described here.
-- Make sure you read the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v180-alpha2) carefully.
+- You need to have a functional `kubeadm` Kubernetes cluster running version 1.7.0 or higher in order to use the process described here.
+- Make sure you read the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v180-beta1) carefully.
 - As `kubeadm upgrade` does not upgrade etcd make sure to back it up. You can, for example, use `etcdctl backup` to take care of this.
 - Note that `kubeadm upgrade` will not touch any of your workloads, only Kubernetes-internal components. As a best-practice you should back up what's important to you. For example, any app-level state, such as a database an app might depend on (like MySQL or MongoDB) must be backed up beforehand.
 
@@ -31,13 +31,17 @@ Also, note that only one minor version upgrade is supported. That is, you can on
 
 ## Upgrading your control plane
 
-You have to carry out the following steps on the master:
+You have to carry out the following steps by executing these commands on your master node:
 
-1. Upgrade `kubectl` using [curl](/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl). Note: DO NOT use `apt` or `yum` or any other package manager to upgrade it.
+1. Install the most recent version of `kubeadm` using `curl` like so:
 
-2. Install the most recent version of `kubeadm` using curl.
+```shell
+$ export VERSION=v1.8.0 # or any given released Kubernetes version
+$ export ARCH=amd64 # or: arm, arm64, ppc64le, s390x
+$ curl -sSL https://dl.k8s.io/release/${VERSION}/bin/linux/${ARCH}/kubeadm > /usr/bin/kubeadm
+```
 
-3. On the master node, run the following:
+1. On the master node, run the following:
 
 ```shell
 $ kubeadm upgrade plan
@@ -52,7 +56,7 @@ $ kubeadm upgrade plan
 [upgrade/config] Reading configuration from the cluster (you can get this with 'kubectl -n kube-system get cm kubeadm-config -oyaml')
 [upgrade] Fetching available versions to upgrade to:
 [upgrade/versions] Cluster version: v1.7.1
-[upgrade/versions] kubeadm version: v1.8.0-alpha.2.789+11f48dc291fe93
+[upgrade/versions] kubeadm version: v1.8.0
 [upgrade/versions] Latest stable version: v1.7.3
 [upgrade/versions] Latest version in the v1.7 series: v1.7.3
 
@@ -76,10 +80,10 @@ You can now apply the upgrade by executing the following command:
 
 The `kubeadm upgrade plan` checks that your cluster is in an upgradeable state and fetches the versions available to upgrade to in an user-friendly way.
 
-4. Pick a version to upgrade to and run, for example, `kubeadm upgrade apply` as follows:
+1. Pick a version to upgrade to and run, for example, `kubeadm upgrade apply` as follows:
 
 ```shell
-$ kubeadm upgrade apply --version v1.7.3
+$ kubeadm upgrade apply --version v1.8.0
 [upgrade] Making sure the cluster is healthy:
 [upgrade/health] Checking API Server health: Healthy
 [upgrade/health] Checking Node health: All Nodes are healthy
@@ -89,9 +93,9 @@ $ kubeadm upgrade apply --version v1.7.3
 [upgrade/health] Checking Static Pod manifests exists on disk: All required Static Pod manifests exist on disk
 [upgrade] Making sure the configuration is correct:
 [upgrade/config] Reading configuration from the cluster (you can get this with 'kubectl -n kube-system get cm kubeadm-config -oyaml')
-[upgrade/version] You have chosen to upgrade to version "v1.7.3"
+[upgrade/version] You have chosen to upgrade to version "v1.8.0"
 [upgrade/versions] Cluster version: v1.7.1
-[upgrade/versions] kubeadm version: v1.8.0-alpha.2.789+11f48dc291fe93
+[upgrade/versions] kubeadm version: v1.8.0
 [upgrade/confirm] Are you sure you want to proceed with the upgrade? [y/N]: Y
 [upgrade/prepull] Will prepull images for components [kube-apiserver kube-controller-manager kube-scheduler]
 [upgrade/prepull] Prepulling image for component kube-scheduler.
@@ -101,7 +105,7 @@ $ kubeadm upgrade apply --version v1.7.3
 [upgrade/prepull] Prepulled image for component kube-apiserver.
 [upgrade/prepull] Prepulled image for component kube-controller-manager.
 [upgrade/prepull] Successfully prepulled the images for all the control plane components
-[upgrade/apply] Upgrading your Static Pod-hosted control plane to version "v1.7.3"...
+[upgrade/apply] Upgrading your Static Pod-hosted control plane to version "v1.8.0"...
 [upgrade/staticpods] Wrote upgraded Static Pod manifests to "/tmp/kubeadm-upgrade830923296"
 [upgrade/staticpods] Moved upgraded manifest to "/etc/kubernetes/manifests/kube-apiserver.yaml" and backuped old manifest to "/tmp/kubeadm-upgrade830923296/old-manifests/kube-apiserver.yaml"
 [upgrade/staticpods] Waiting for the kubelet to restart the component
@@ -117,29 +121,18 @@ $ kubeadm upgrade apply --version v1.7.3
 [apiclient] Found 0 Pods for label selector component=kube-scheduler
 [apiclient] Found 1 Pods for label selector component=kube-scheduler
 [upgrade/staticpods] Component "kube-scheduler" upgraded successfully!
-[self-hosted] Created TLS secret "ca" from ca.crt and ca.key
-[self-hosted] Created TLS secret "apiserver" from apiserver.crt and apiserver.key
-[self-hosted] Created TLS secret "apiserver-kubelet-client" from apiserver-kubelet-client.crt and apiserver-kubelet-client.key
-[self-hosted] Created TLS secret "sa" from sa.pub and sa.key
-[self-hosted] Created TLS secret "front-proxy-ca" from front-proxy-ca.crt and front-proxy-ca.key
-[self-hosted] Created TLS secret "front-proxy-client" from front-proxy-client.crt and front-proxy-client.key
-[self-hosted] Created secret "scheduler.conf"
-[self-hosted] Created secret "controller-manager.conf"
 [apiclient] Found 0 Pods for label selector k8s-app=self-hosted-kube-apiserver
 [apiclient] Found 1 Pods for label selector k8s-app=self-hosted-kube-apiserver
-[self-hosted] self-hosted kube-apiserver ready after 15.295571 seconds
 [apiclient] Found 0 Pods for label selector k8s-app=self-hosted-kube-controller-manager
 [apiclient] Found 1 Pods for label selector k8s-app=self-hosted-kube-controller-manager
-[self-hosted] self-hosted kube-controller-manager ready after 15.804586 seconds
 [apiclient] Found 0 Pods for label selector k8s-app=self-hosted-kube-scheduler
 [apiclient] Found 1 Pods for label selector k8s-app=self-hosted-kube-scheduler
-[self-hosted] self-hosted kube-scheduler ready after 18.958074 seconds
 [apiconfig] Created RBAC rules
 [addons] Applied essential addon: kube-proxy
 [addons] Applied essential addon: kube-dns
 ```
 
-The `kubeadm upgrade apply` does the following:
+`kubeadm upgrade apply` does the following:
 
 - It checks that your cluster is in an upgradeable state, that is:
   - The API Server is reachable,
@@ -150,7 +143,7 @@ The `kubeadm upgrade apply` does the following:
 - It upgrades the control plane components or rollbacks if any of them fails to come up.
 - It applies the new `kube-dns` and `kube-proxy` manifests and enforces that all necessary RBAC rules are created.
 
-5. Manually upgrade your Software Defined Network (SDN).
+1. Manually upgrade your Software Defined Network (SDN).
 
    Your Container Network Interface (CNI) provider might have its own upgrade instructions to follow now.
    Check the [addons](/docs/concepts/cluster-administration/addons/) page to
