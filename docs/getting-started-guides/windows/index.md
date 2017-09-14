@@ -32,7 +32,8 @@ The following diagram illustrates the Windows Server networking setup for Kubern
 ![Windows Setup](windows-setup.png)
 
 ## Setting up Windows Server Containers on Kubernetes
-To run Windows Server Containers on Kubernetes, you'll need to set up both your host machines and the Kubernetes node components for Windows and setup Routes for Pod communication on different nodes
+To run Windows Server Containers on Kubernetes, you'll need to set up both your host machines and the Kubernetes node components for Windows and setup Routes for Pod communication on different nodes.
+
 ### Host Setup
 **Windows Host Setup**
 

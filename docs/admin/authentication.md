@@ -549,7 +549,7 @@ checked.
 Keystone authentication is enabled by passing the `--experimental-keystone-url=<AuthURL>`
 option to the API server during startup. The plugin is implemented in
 `plugin/pkg/auth/authenticator/password/keystone/keystone.go` and currently uses
-basic auth to verify used by username and password.
+basic auth to verify user by username and password.
 
 If you have configured self-signed certificates for the Keystone server,
 you may need to set the `--experimental-keystone-ca-file=SOMEFILE` option when

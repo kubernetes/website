@@ -178,14 +178,24 @@ Now wait a bit, then check on the job.
 $ kubectl describe jobs/job-wq-2
 Name:             job-wq-2
 Namespace:        default
-Image(s):         gcr.io/exampleproject/job-wq-2
-Selector:         app in (job-wq-2)
+Selector:         controller-uid=b1c7e4e3-92e1-11e7-b85e-fa163ee3c11f
+Labels:           controller-uid=b1c7e4e3-92e1-11e7-b85e-fa163ee3c11f
+                  job-name=job-wq-2
+Annotations:      <none>
 Parallelism:      2
-Completions:      Unset
+Completions:      <unset>
 Start Time:       Mon, 11 Jan 2016 17:07:59 -0800
-Labels:           app=job-wq-2
 Pods Statuses:    1 Running / 0 Succeeded / 0 Failed
-No volumes.
+Pod Template:
+  Labels:       controller-uid=b1c7e4e3-92e1-11e7-b85e-fa163ee3c11f
+                job-name=job-wq-2
+  Containers:
+   c:
+    Image:              gcr.io/exampleproject/job-wq-2
+    Port:
+    Environment:        <none>
+    Mounts:             <none>
+  Volumes:              <none>
 Events:
   FirstSeen    LastSeen    Count    From            SubobjectPath    Type        Reason            Message
   ---------    --------    -----    ----            -------------    --------    ------            -------

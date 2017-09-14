@@ -479,25 +479,25 @@ metadata:
 {% include tabs.md %}
 
 #### SSL support on AWS
-For partial SSL support on clusters running on AWS, starting with 1.3 two
+For partial SSL support on clusters running on AWS, starting with 1.3 three
 annotations can be added to a `LoadBalancer` service:
 
 ```
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
+metadata:
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
 ```
 
-The first specifies which certificate to use. It can be either a
+The first specifies the ARN of the certificate to use. It can be either a
 certificate from a third party issuer that was uploaded to IAM or one created
 within AWS Certificate Manager.
 
 ```yaml
-    metadata:
-      name: my-service
-      annotations:
-         service.beta.kubernetes.io/aws-load-balancer-backend-protocol: (https|http|ssl|tcp)
+metadata:
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: (https|http|ssl|tcp)
 ```
 
 The second annotation specifies which protocol a pod speaks. For HTTPS and

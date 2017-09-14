@@ -86,7 +86,7 @@ However, an administrator can configure a custom recycler pod template using the
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pv-recycler-
+  name: pv-recycler
   namespace: default
 spec:
   restartPolicy: Never
@@ -128,7 +128,7 @@ For volume plugins that support the Delete reclaim policy, deletion removes both
 * Glusterfs
 * VsphereVolume
 * Quobyte Volumes
-* HostPath (single node testing only -- local storage is not supported in any way and WILL NOT WORK in a multi-node cluster)
+* HostPath (Single node testing only -- local storage is not supported in any way and WILL NOT WORK in a multi-node cluster)
 * VMware Photon
 * Portworx Volumes
 * ScaleIO Volumes
@@ -223,7 +223,7 @@ it will become fully deprecated in a future Kubernetes release.
 Current reclaim policies are:
 
 * Retain -- manual reclamation
-* Recycle -- basic scrub ("rm -rf /thevolume/*")
+* Recycle -- basic scrub (`rm -rf /thevolume/*`)
 * Delete -- associated storage asset such as AWS EBS, GCE PD, Azure Disk, or OpenStack Cinder volume is deleted
 
 Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD, Azure Disk, and Cinder volumes support deletion.
@@ -232,7 +232,7 @@ Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD, Azure Disk,
 
 A Kubernetes administrator can specify additional mount options for when a Persistent Volume is mounted on a node.
 
-**Note:** Not all Persistent volume types support mount options. 
+**Note:** Not all Persistent volume types support mount options.
 {: .note}
 
 The following volume types support mount options:
@@ -341,7 +341,7 @@ to Kubernetes cluster by addon manager during installation.
 
 When a PVC specifies a `selector` in addition to requesting a `StorageClass`,
 the requirements are ANDed together: only a PV of the requested class and with
-the requested labels may be bound to the PVC. 
+the requested labels may be bound to the PVC.
 
 **Note:** Currently, a PVC with a non-empty `selector` can't have a PV dynamically provisioned for it.
 {: .note}
@@ -574,6 +574,7 @@ parameters:
 #### vSphere
 
 1. Create a persistent volume with a user specified disk format.
+
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -587,9 +588,10 @@ parameters:
 -   `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
 
 2. Create a persistent volume with a disk format on a user specified datastore.
+
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: fast
 provisioner: kubernetes.io/vsphere-volume
@@ -602,9 +604,10 @@ parameters:
 -   `datastore`: The user can also specify the datastore in the Storageclass. The volume will be created on the datastore specified in the storage class which in this case is `VSANDatastore`. This field is optional. If not specified as in previous YAML description, the volume will be created on the datastore specified in the vsphere config file used to initialize the vSphere Cloud Provider.
 
 3. Create a persistent volume with user specified VSAN storage capabilities.
+
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: vsan-policy-fast
 provisioner: kubernetes.io/vsphere-volume
@@ -636,22 +639,22 @@ You can see [vSphere example](https://github.com/kubernetes/examples/tree/master
 #### Ceph RBD
 
 ```yaml
-  apiVersion: storage.k8s.io/v1
-  kind: StorageClass
-  metadata:
-    name: fast
-  provisioner: kubernetes.io/rbd
-  parameters:
-    monitors: 10.16.153.105:6789
-    adminId: kube
-    adminSecretName: ceph-secret
-    adminSecretNamespace: kube-system
-    pool: kube
-    userId: kube
-    userSecretName: ceph-secret-user
-    fsType: ext4
-    imageFormat: "2"
-    imageFeatures: "layering"
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: fast
+provisioner: kubernetes.io/rbd
+parameters:
+  monitors: 10.16.153.105:6789
+  adminId: kube
+  adminSecretName: ceph-secret
+  adminSecretNamespace: kube-system
+  pool: kube
+  userId: kube
+  userSecretName: ceph-secret-user
+  fsType: ext4
+  imageFormat: "2"
+  imageFeatures: "layering"
 ```
 
 * `monitors`: Ceph monitors, comma delimited. This parameter is required.
@@ -782,6 +785,7 @@ parameters:
 *  `ephemeral`: specifies whether the volume should be cleaned-up after unmount or should be persistent. `emptyDir` use case can set this value to true and `persistent volumes` use case such as for databases like Cassandra should set to false, [true/false] (default `false`). A string is expected here i.e. `"true"` and not `true`.
 
 #### ScaleIO
+
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -818,6 +822,7 @@ $> kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" --fro
 ```
 
 #### StorageOS
+
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1

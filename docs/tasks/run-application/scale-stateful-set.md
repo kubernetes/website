@@ -70,7 +70,7 @@ kubectl patch statefulsets <stateful-set-name> -p '{"spec":{"replicas":<new-repl
 
 ## Troubleshooting
 
-### Scaling down doesn't not work right
+### Scaling down doesn't work right
 
 You cannot scale down a StatefulSet when any of the stateful Pods it manages is unhealthy. Scaling down only takes place
 after those stateful Pods become running and ready.

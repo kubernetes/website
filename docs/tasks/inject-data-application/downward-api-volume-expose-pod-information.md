@@ -188,15 +188,15 @@ You can use similar commands to view the `cpu_request`, `mem_limit` and
 The following information is available to Containers through environment
 variables and DownwardAPIVolumeFiles:
 
-* The node’s name
-* The node's IP
+* The Node’s name
+* The Node's IP
 * The Pod’s name
 * The Pod’s namespace
 * The Pod’s IP address
 * The Pod’s service account name
 * The Pod’s UID
 * A Container’s CPU limit
-* A container’s CPU request
+* A Container’s CPU request
 * A Container’s memory limit
 * A Container’s memory request
 

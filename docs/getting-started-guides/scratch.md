@@ -68,20 +68,20 @@ another pod using the IP of the second pod.  This connectivity can be
 accomplished in two ways:
 
 - **Using an overlay network**
-  - An overlay network obscures the underlying network architecture from the 
+  - An overlay network obscures the underlying network architecture from the
     pod network through traffic encapsulation (e.g. vxlan).
   - Encapsulation reduces performance, though exactly how much depends on your solution.
 - **Without an overlay network**
   - Configure the underlying network fabric (switches, routers, etc.) to be aware of pod IP addresses.
-  - This does not require the encapsulation provided by an overlay, and so can achieve 
+  - This does not require the encapsulation provided by an overlay, and so can achieve
     better performance.
 
-Which method you choose depends on your environment and requirements.  There are various ways 
-to implement one of the above options: 
+Which method you choose depends on your environment and requirements.  There are various ways
+to implement one of the above options:
 
 - **Use a network plugin which is called by Kubernetes**
   - Kubernetes supports the [CNI](https://github.com/containernetworking/cni) network plugin interface.
-  - There are a number of solutions which provide plugins for Kubernetes (listed alphabetically): 
+  - There are a number of solutions which provide plugins for Kubernetes (listed alphabetically):
     - [Calico](http://docs.projectcalico.org/)
     - [Flannel](https://github.com/coreos/flannel)
     - [Open vSwitch (OVS)](http://openvswitch.org/)
@@ -628,7 +628,6 @@ Here are some apiserver flags you may need to set:
 - `--cloud-provider=` see [cloud providers](#cloud-providers)
 - `--cloud-config=` see [cloud providers](#cloud-providers)
 - `--address=${MASTER_IP}` *or* `--bind-address=127.0.0.1` and `--address=127.0.0.1` if you want to run a proxy on the master node.
-- `--cluster-name=$CLUSTER_NAME`
 - `--service-cluster-ip-range=$SERVICE_CLUSTER_IP_RANGE`
 - `--etcd-servers=http://127.0.0.1:4001`
 - `--tls-cert-file=/srv/kubernetes/server.cert`
@@ -792,7 +791,6 @@ Template for controller manager pod:
 
 Flags to consider using with controller manager:
 
- - `--cluster-name=$CLUSTER_NAME`
  - `--cluster-cidr=`, the CIDR range for pods in cluster.
  - `--allocate-node-cidrs=`, if you are using `--cloud-provider=`, allocate and set the CIDRs for pods on the cloud provider.
  - `--cloud-provider=` and `--cloud-config` as described in apiserver section.

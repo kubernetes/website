@@ -627,7 +627,7 @@ us know, so we can help investigate!
 
 Contact us on
 [Slack](/docs/troubleshooting/#slack) or
-[email](https://groups.google.com/forum/#!forum/google-containers) or
+[email](https://groups.google.com/forum/#!forum/kubernetes-users) or
 [GitHub](https://github.com/kubernetes/kubernetes).
 
 ## More information
