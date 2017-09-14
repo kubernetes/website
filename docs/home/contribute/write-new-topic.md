@@ -36,7 +36,9 @@ For an example of a longer task page, see
  explanations of related pieces of code. For example, a tutorial could provide a
  walkthrough of a code sample. A tutorial can include brief explanations of the
  Kubernetes features that are being tied togeter, but should link to related
- concept topics for deep explanations of individual features.
+ concept topics for deep explanations of individual features. For an example
+ of a tutorial, see
+ [Deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 
 * **Concept**: A concept page explains some aspect of Kubernetes. For example,
 a concept page might describe the Kubernetes Deployment object and explain the
