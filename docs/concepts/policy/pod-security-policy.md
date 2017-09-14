@@ -21,22 +21,24 @@ actions that a pod can perform and what it has the ability to access. The
 run with in order to be accepted into the system. They allow an
 administrator to control the following:
 
-| Control Aspect                                                | Field Name                        |
-| ------------------------------------------------------------- | --------------------------------- |
-| Running of privileged containers                              | `privileged`                      |
-| Default set of capabilities that will be added to a container | `defaultAddCapabilities`          |
-| Capabilities that will be dropped from a container            | `requiredDropCapabilities`        |
-| Capabilities a container can request to be added              | `allowedCapabilities`             |
-| Controlling the usage of volume types                         | [`volumes`](#controlling-volumes) |
-| The use of host networking                                    | [`hostNetwork`](#host-network)    |
-| The use of host ports                                         | `hostPorts`                       |
-| The use of host's PID namespace                               | `hostPID`                         |
-| The use of host's IPC namespace                               | `hostIPC`                         |
-| The SELinux context of the container                          | [`seLinux`](#selinux)             |
-| The user ID                                                   | [`runAsUser`](#runasuser)         |
-| Configuring allowable supplemental groups                     | [`supplementalGroups`](#supplementalgroups) |
-| Allocating an FSGroup that owns the pod's volumes             | [`fsGroup`](#fsgroup)             |
-| Requiring the use of a read only root file system             | `readOnlyRootFilesystem`          |
+| Control Aspect                                                         | Field Name                                  |
+| ---------------------------------------------------------------------- | ------------------------------------------- |
+| Running of privileged containers                                       | `privileged`                                |
+| Default set of capabilities that will be added to a container          | `defaultAddCapabilities`                    |
+| Capabilities that will be dropped from a container                     | `requiredDropCapabilities`                  |
+| Capabilities a container can request to be added                       | `allowedCapabilities`                       |
+| Controlling the usage of volume types                                  | [`volumes`](#controlling-volumes)           |
+| The use of host networking                                             | [`hostNetwork`](#host-network)              |
+| The use of host ports                                                  | `hostPorts`                                 |
+| The use of host's PID namespace                                        | `hostPID`                                   |
+| The use of host's IPC namespace                                        | `hostIPC`                                   |
+| The SELinux context of the container                                   | [`seLinux`](#selinux)                       |
+| The user ID                                                            | [`runAsUser`](#runasuser)                   |
+| Configuring allowable supplemental groups                              | [`supplementalGroups`](#supplementalgroups) |
+| Allocating an FSGroup that owns the pod's volumes                      | [`fsGroup`](#fsgroup)                       |
+| Requiring the use of a read only root file system                      | `readOnlyRootFilesystem`                    |
+| Running of containers that allow privilege escalation from it's parent | [`allowPrivilegeEscalation`](#allowPrivilegeEscalation) |
+| Control if a process can gain more privileges than it's parent process | [`defaultAllowPrivilegeEscalation`](#defaultAllowPrivilegeEscalation) |
 
 _Pod Security Policies_ are comprised of settings and strategies that
 control the security features a pod has access to. These settings fall
@@ -124,7 +126,21 @@ configMap, downwardAPI, emptyDir, persistentVolumeClaim, secret, and projected.
 
 ### Host Network
  - *HostPorts*, default `empty`. List of `HostPortRange`, defined by `min`(inclusive) and `max`(inclusive), which define the allowed host ports.
- 
+
+### AllowPrivilegeEscalation
+
+Gates whether or not a user is allowed to set the security context of a container
+to `allowPrivilegeEscalation=true`. This field defaults to `false`.
+
+### DefaultAllowPrivilegeEscalation
+
+Sets the default for the security context `AllowPrivilegeEscalation` of a container.
+This bool directly controls if the `no_new_privs` flag will be set on the
+container process. It defaults to `nil`. The default behavior of `nil` will
+allow privilege escalation so as to not break setuid binaries. Setting it to `false`
+will ensure that no child process of a container can gain more privileges than
+it's parent.
+
 ## Admission
 
 _Admission control_ with `PodSecurityPolicy` allows for control over the
