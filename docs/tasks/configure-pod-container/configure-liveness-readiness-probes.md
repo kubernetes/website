@@ -65,7 +65,7 @@ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/exec-livenes
 
 Within 30 seconds, view the Pod events:
 
-```
+```shell
 kubectl describe pod liveness-exec
 ```
 
