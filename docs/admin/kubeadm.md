@@ -593,10 +593,12 @@ using kubeadm.
  - `kubeadm join --discovery-file https://url/file.conf` (remote HTTPS URL)
 
 **Advantages:**
+
  - Allows bootstrapping nodes to securely discover a root of trust for the
    master even if other worker nodes or the network are compromised.
 
 **Disadvantages:**
+
  - Requires that you have some way to carry the discovery information from
    the master to the bootstrapping nodes. This might be possible, for example,
    via your cloud provider or provisioning tool. The information in this file is
