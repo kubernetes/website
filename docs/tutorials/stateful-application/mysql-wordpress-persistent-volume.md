@@ -151,7 +151,7 @@ The following manifest describes a single-instance WordPress Deployment and Serv
 
    You should see the WordPress set up page similar to the following screenshot.
 
-   ![wordpress-init](https://github.com/kubernetes/examples/blob/master/mysql-wordpress-pd/WordPress.png)
+   ![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
 
    **Warning:** Do not leave your WordPress installation on this page. If another user finds it, they can set up a website on your instance and use it to serve malicious content. <br/><br/>Either install WordPress by creating a username and password or delete your instance.
    {: .warning}

@@ -50,7 +50,7 @@ credentials of the user listed in the current context.
 
 ## The KUBECONFIG environment variable
 
-The `KUBECONGIG` environment variable holds a list of kubeconfig files.
+The `KUBECONFIG` environment variable holds a list of kubeconfig files.
 For Linux and Mac, the list is colon-delimited. For Windows, the list
 is semicolon-delimited. The `KUBECONFIG` environment variable is not
 required. If the `KUBECONFIG` environment variable doesn't exist,
