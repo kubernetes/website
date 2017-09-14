@@ -34,8 +34,11 @@ changes:
 
     [https://deploy-preview-&lt;pr-number&gt;--kubernetes-io-master-staging.netlify.com](https://www.netlify.com/)
 
+    [https://deploy-preview-&lt;pr-number&gt;--kubernetes-io-master-staging.netlify.com]()
+
 
 [https://deploy-preview-&lt;pr-number&gt;--kubernetes-io-master-staging.netlify.com](https://www.netlify.com/)
+
 [https://deploy-preview-&lt;pr-number&gt;--kubernetes-io-master-staging.netlify.com]()
 
   Here's another way to find the staging site. Scroll down to the list of automated
