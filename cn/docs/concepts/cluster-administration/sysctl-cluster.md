@@ -39,8 +39,7 @@ $ sudo sysctl -a
 
 Sysctls中非命名空间级的被称为 _节点级_ ，其必须由集群管理员手动设置，要么通过节点的底层Linux分布方式(例如，通过 `/etc/sysctls.conf`)，亦或在特权容器中使用Daemonset。
 
-**注意**: 这是很好的做法，考虑在一个集群里给有特殊sysctl的节点设置为 _污点_ ，并且给他们安排仅需要这些sysctl设置的pods。 建议采用Kubernetes [_污点和容点_
-特征](/docs/user-guide/kubectl/{{page.version}}/#taint) 来实现。
+**注意**: 这有个很好的做法，考虑在一个集群里给有特殊sysctl的节点设置为 _污点_ ，并且给他们安排仅需要这些sysctl设置的pods。 建议采用Kubernetes[污点和容点特征](/docs/user-guide/kubectl/{{page.version}}/#taint) 来实现。
 
 ## 安全的 vs. 不安全的 Sysctls
 
@@ -58,7 +57,7 @@ Sysctls被分为 _安全的_ 和 _不安全的_ sysctls。同一节点上的pods
 - `net.ipv4.ip_local_port_range`,
 - `net.ipv4.tcp_syncookies`.
 
-该列表在未来的Kubernetes版本里还会继续扩充，当kubelet提供更好的隔离机制时。
+在未来的Kubernetes版本里，当kubelet提供更好的隔离机制时，该列表还会继续扩充。
 
 所有 _安全的_ sysctls 都是默认启用的。
 
@@ -68,14 +67,14 @@ Sysctls被分为 _安全的_ 和 _不安全的_ sysctls。同一节点上的pods
 
 ## 使能不安全的Sysctls
 
-牢记上面的警告， 在非常特殊的情况下，例如高性能指标或是实时应用程序优化，集群管理员可以允许 _不安全的_
-sysctls。 _不安全的_ sysctls 会打上kubelet标识，在逐节点的基础上被启用，例如：
+牢记上面的警告，且在非常特殊的情况下，例如高性能指标或是实时应用程序优化，集群管理员可以允许 _不安全的_
+sysctls。 _不安全的_ sysctls会打上kubelet标识，在逐节点的基础上被启用，例如：
 
 ```shell
 $ kubelet --experimental-allowed-unsafe-sysctls 'kernel.msg*,net.ipv4.route.min_pmtu' ...
 ```
 
-只有 _命名空间级_ sysctls 可以使用该方法启用。
+只有 _命名空间级_ sysctls可以使用该方法启用。
 
 ## 给Pod配置Sysctls
 
@@ -95,4 +94,4 @@ spec:
   ...
 ```
 
-**注意**: 包含以上规定的 _不安全的_ sysctls的一个Pod， 将无法启动任何不能使这两个 _不安全的_ sysctls明确的节点。 推荐 _节点级_ sysctls使用[容点和污点特征](/docs/user-guide/kubectl/v1.6/#taint)或者[节点上的污点](/docs/concepts/configuration/taint-and-toleration/)来将这些pods分配到正确的nodes上。
+**注意**: 包含以上规定的 _不安全的_ sysctls的一个Pod，将无法启动任何不能使这两个 _不安全的_ sysctls明确的节点。推荐 _节点级_ sysctls使用[污点和容点特征](/docs/user-guide/kubectl/v1.6/#taint)或者[节点上的污点](/docs/concepts/configuration/taint-and-toleration/)来将这些pods分配到正确的nodes上。
