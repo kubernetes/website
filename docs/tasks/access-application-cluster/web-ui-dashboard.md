@@ -6,14 +6,24 @@ approvers:
 title: Web UI (Dashboard)
 ---
 
+{% capture overview %}
 Dashboard is a web-based Kubernetes user interface. You can use Dashboard to deploy containerized applications to a Kubernetes cluster, troubleshoot your containerized application, and manage the cluster itself along with its attendant resources. You can use Dashboard to get an overview of applications running on your cluster, as well as for creating or modifying individual Kubernetes resources (such as Deployments, Jobs, DaemonSets, etc). For example, you can scale a Deployment, initiate a rolling update, restart a pod or deploy new applications using a deploy wizard.
 
-Dashboard also provides information on the state of Kubernetes resources in your cluster, and on any errors that may have occurred.
+Dashboard also provides information on the state of Kubernetes resources in your cluster, and on any errors that may have occurred. This page shows you how to deploy and access the Dashboard UI to then deploy, configure, and manage your containerized applications.
 
 ![Kubernetes Dashboard UI](/images/docs/ui-dashboard.png)
+{% endcapture %}
 
 * TOC
 {:toc}
+
+{% capture prerequisites %}
+*TBA*
+{% endcapture %}
+
+{% capture steps %}
+*TBA*
+{% endcapture %}
 
 ## Deploying the Dashboard UI
 
@@ -169,3 +179,5 @@ Pod lists and detail pages link to logs viewer that is built into Dashboard. The
 
 For more information, see the
 [Kubernetes Dashboard project page](https://github.com/kubernetes/dashboard).
+
+{% include tempates/task.md %}
