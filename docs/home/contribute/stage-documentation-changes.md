@@ -32,14 +32,7 @@ changes:
 
     Built with commit &lt;commit-number&gt;
 
-    [https://deploy-preview-&lt;pr-number&gt;--kubernetes-io-master-staging.netlify.com](https://www.netlify.com/)
-
     [https://deploy-preview-&lt;pr-number&gt;--kubernetes-io-master-staging.netlify.com]()
-
-
-[https://deploy-preview-&lt;pr-number&gt;--kubernetes-io-master-staging.netlify.com](https://www.netlify.com/)
-
-[https://deploy-preview-&lt;pr-number&gt;--kubernetes-io-master-staging.netlify.com]()
 
   Here's another way to find the staging site. Scroll down to the list of automated
   checks. Click **Show all checks**. Wait for the **deploy/netlify** check to complete.
