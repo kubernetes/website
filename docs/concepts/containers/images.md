@@ -113,6 +113,7 @@ You first need to create a registry and generate credentials, complete documenta
 the [Azure container registry documentation](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli).
 
 Once you have created your container registry, you will use the following credentials to login:
+
    * `DOCKER_USER` : service principal, or admin username
    * `DOCKER_PASSWORD`: service principal password, or admin user password
    * `DOCKER_REGISTRY_SERVER`: `${some-registry-name}.azurecr.io`
@@ -263,7 +264,7 @@ type: kubernetes.io/dockerconfigjson
 ```
 
 If you get the error message `error: no objects passed to create`, it may mean the base64 encoded string is invalid.
-If you get an error message like `Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...` it means
+If you get an error message like `Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...`, it means
 the data was successfully un-base64 encoded, but could not be parsed as a `.docker/config.json` file.
 
 #### Referring to an imagePullSecrets on a Pod
@@ -300,26 +301,26 @@ common use cases and suggested solutions.
 
 1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
    - Use public images on the Docker hub.
-     - no configuration required
-     - on GCE/GKE, a local mirror is automatically used for improved speed and availability
+     - No configuration required.
+     - On GCE/GKE, a local mirror is automatically used for improved speed and availability.
 1. Cluster running some proprietary images which should be hidden to those outside the company, but
    visible to all cluster users.
-   - Use a hosted private [Docker registry](https://docs.docker.com/registry/)
-     - may be hosted on the [Docker Hub](https://hub.docker.com/account/signup/), or elsewhere.
-     - manually configure .docker/config.json on each node as described above
+   - Use a hosted private [Docker registry](https://docs.docker.com/registry/).
+     - It may be hosted on the [Docker Hub](https://hub.docker.com/account/signup/), or elsewhere.
+     - Manually configure .docker/config.json on each node as described above.
    - Or, run an internal private registry behind your firewall with open read access.
-     - no Kubernetes configuration required
+     - No Kubernetes configuration is required.
    - Or, when on GCE/GKE, use the project's Google Container Registry.
-     - will work better with cluster autoscaling than manual node configuration
+     - It will work better with cluster autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
-1. Cluster with a proprietary images, a few of which require stricter access control
-   - ensure [AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages) is active, otherwise, all Pods potentially have access to all images
+1. Cluster with a proprietary images, a few of which require stricter access control.
+   - Ensure [AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods potentially have access to all images.
    - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
-1. A multi-tenant cluster where each tenant needs own private registry
-   - ensure [AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages) is active, otherwise, all Pods of all tenants potentially have access to all images
-   - run a private registry with authorization required.
-   - generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
-   - tenant adds that secret to imagePullSecrets of each namespace.
+1. A multi-tenant cluster where each tenant needs own private registry.
+   - Ensure [AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods of all tenants potentially have access to all images.
+   - Run a private registry with authorization required.
+   - Generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
+   - The tenant adds that secret to imagePullSecrets of each namespace.
 
 {% endcapture %}
 

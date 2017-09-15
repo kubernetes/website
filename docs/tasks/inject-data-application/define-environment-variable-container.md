@@ -51,7 +51,7 @@ Pod:
 
 1. In your shell, run the `printenv` command to list the environment variables.
 
-        root@envar-demo:/# printenv
+       root@envar-demo:/# printenv
 
     The output is similar to this:
 

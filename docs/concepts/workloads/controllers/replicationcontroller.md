@@ -55,11 +55,20 @@ Check on the status of the ReplicationController using this command:
 $ kubectl describe replicationcontrollers/nginx
 Name:        nginx
 Namespace:   default
-Image(s):    nginx
 Selector:    app=nginx
 Labels:      app=nginx
+Annotations:    <none>
 Replicas:    3 current / 3 desired
 Pods Status: 0 Running / 3 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:       app=nginx
+  Containers:
+   nginx:
+    Image:              nginx
+    Port:               80/TCP
+    Environment:        <none>
+    Mounts:             <none>
+  Volumes:              <none>
 Events:
   FirstSeen       LastSeen     Count    From                        SubobjectPath    Type      Reason              Message
   ---------       --------     -----    ----                        -------------    ----      ------              -------
@@ -141,7 +150,7 @@ will have to manage the deletion yourself (see [below](#working-with-replication
 
 You can specify how many pods should run concurrently by setting `.spec.replicas` to the number
 of pods you would like to have running concurrently.  The number running at any time may be higher
-or lower, such as if the replicas was just increased or decreased, or if a pod is gracefully
+or lower, such as if the replicas were just increased or decreased, or if a pod is gracefully
 shutdown, and a replacement starts early.
 
 If you do not specify `.spec.replicas`, then it defaults to 1.

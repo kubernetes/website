@@ -16,7 +16,7 @@ well as any provider specific details that may be necessary.
  by using `spec.loadBalancerSourceRanges`. This field takes a list of IP CIDR ranges, which Kubernetes will use to configure firewall exceptions.
  This feature is currently supported on Google Compute Engine, Google Container Engine and AWS. This field will be ignored if the cloud provider does not support the feature.
 
- Assuming 10.0.0.0/8 is the internal subnet. In the following example, a load balancer will be created that is only accessible to cluster internal ips.
+ Assuming 10.0.0.0/8 is the internal subnet. In the following example, a load balancer will be created that is only accessible to cluster internal IPs.
  This will not allow clients from outside of your Kubernetes cluster to access the load balancer.
 
 ```yaml
@@ -26,8 +26,8 @@ metadata:
   name: myapp
 spec:
   ports:
-    - port: 8765
-      targetPort: 9376
+  - port: 8765
+    targetPort: 9376
   selector:
     app: example
   type: LoadBalancer
@@ -44,8 +44,8 @@ metadata:
   name: myapp
 spec:
   ports:
-    - port: 8765
-      targetPort: 9376
+  - port: 8765
+    targetPort: 9376
   selector:
     app: example
   type: LoadBalancer
@@ -85,7 +85,7 @@ Consider:
    * You open the firewall for port 80 for all nodes in your cluster, so that
      the external Service actually can deliver packets to your Service
    * You start an nginx server, running on port 80 on the host virtual machine
-     (IP Address 2.3.4.5).  This nginx is **also** exposed to the internet on
+     (IP Address 2.3.4.5).  This nginx is also exposed to the internet on
      the VM's external IP address.
 
 Consequently, please be careful when opening firewalls in Google Compute Engine

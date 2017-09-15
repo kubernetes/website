@@ -49,7 +49,7 @@ cd contrib/ansible
 
 **Tell ansible about each machine and its role in your cluster**
 
-Get the IP addresses from the master and nodes.  Add those to the `~/contrib/ansible/inventory` file on the host running Ansible.
+Get the IP addresses from the master and nodes.  Add those to the `~/contrib/ansible/inventory/localhost.ini` file on the host running Ansible.
 
 ```shell
 [masters]
@@ -111,7 +111,7 @@ source_type: packageManager
 
 **Configure the IP addresses used for services**
 
-Each Kubernetes service gets its own IP address.  These are not real IPs.  You need only select a range of IPs which are not in use elsewhere in your environment.
+Each Kubernetes service gets its own IP address.  These are not real IPs.  You need to only select a range of IPs which are not in use elsewhere in your environment.
 
 ```yaml
 kube_service_addresses: 10.254.0.0/16
@@ -174,7 +174,6 @@ systemctl | grep -i kube
 
 ```shell
 iptables -nvL
-
 ```
 
 **Create /tmp/apache.json on the master with the following contents and deploy pod**
@@ -229,7 +228,7 @@ docker images
 curl http://localhost
 ```
 
-That's it !
+That's it!
 
 ## Support Level
 

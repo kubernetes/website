@@ -40,9 +40,9 @@ load-balanced access to an application running in a cluster.
 
     The output is similar to this:
 
-        NAME                           READY     STATUS    RESTARTS   AGE
-        hello-world-2189936611-8fyp0   1/1       Running   0          6m
-        hello-world-2189936611-9isq8   1/1       Running   0          6m
+       NAME                           READY     STATUS    RESTARTS   AGE
+       hello-world-2189936611-8fyp0   1/1       Running   0          6m
+       hello-world-2189936611-9isq8   1/1       Running   0          6m
 
 1. List the replica set for the two Hello World pods:
 
@@ -50,8 +50,8 @@ load-balanced access to an application running in a cluster.
 
     The output is similar to this:
 
-        NAME                     DESIRED   CURRENT   AGE
-        hello-world-2189936611   2         2         12m
+       NAME                     DESIRED   CURRENT   AGE
+       hello-world-2189936611   2         2         12m
 
 1. Create a Service object that exposes the replica set:
 
@@ -75,14 +75,14 @@ load-balanced access to an application running in a cluster.
 
 1. Use your Service object to access the Hello World application:
 
-        curl <your-external-ip-address>:8080
+       curl <your-external-ip-address>:8080
 
     where `<your-external-ip-address>` is the external IP address of your
     service.
 
     The output is a hello message from the application:
 
-        Hello Kubernetes!
+       Hello Kubernetes!
 
     Note: If you are using Minikube, enter these commands:
 
@@ -93,7 +93,7 @@ load-balanced access to an application running in a cluster.
     value for your service. Then enter this command to access the Hello World
     application:
 
-        curl <minikube-node-ip-address>:<service-node-port>
+       curl <minikube-node-ip-address>:<service-node-port>
 
     where `<minikube-node-ip-address>` us the IP address of your Minikube node,
     and `<service-node-port>` is the NodePort value for your service.

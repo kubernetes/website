@@ -100,11 +100,11 @@ If you haven't specified a name for your port, you don't have to specify *port_n
 
 #### Using web browsers to access services running on the cluster
 
-You may be able to put an apiserver proxy url into the address bar of a browser. However:
+You may be able to put an apiserver proxy URL into the address bar of a browser. However:
 
   - Web browsers cannot usually pass tokens, so you may need to use basic (password) auth.  Apiserver can be configured to accept basic auth,
     but your cluster may not be configured to accept basic auth.
-  - Some web apps may not work, particularly those with client side javascript that construct urls in a
+  - Some web apps may not work, particularly those with client side javascript that construct URLs in a
     way that is unaware of the proxy path prefix.
 
 {% endcapture %}

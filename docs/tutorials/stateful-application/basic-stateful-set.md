@@ -23,7 +23,7 @@ following Kubernetes concepts.
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
-* [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
+* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [kubectl CLI](/docs/user-guide/kubectl)
 
@@ -447,100 +447,12 @@ caused by scaling the StatefulSet down.
 
 ## Updating StatefulSets
 
-In Kubernetes 1.7, the StatefulSet controller supports automated updates.  The 
+In Kubernetes 1.7 and later, the StatefulSet controller supports automated updates.  The 
 strategy used is determined by the `spec.updateStrategy` field of the 
 StatefulSet API Object. This feature can be used to upgrade the container 
 images, resource requests and/or limits, labels, and annotations of the Pods in a 
-StatefulSet. There are two valid update strategies, `OnDelete` and 
-`RollingUpdate`. 
-
-### On Delete
-The `OnDelete` update strategy implements the legacy (prior to 1.7) behavior, 
-and it is the default update strategy. When you select this update strategy, 
-the StatefulSet controller will not automatically update Pods when a 
-modification is made to the StatefulSet's `.spec.template` field.
-
-Patch the container image for the `web` StatefulSet.
-
-```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.7"}]'
-"web" patched
-```
-
-Delete the `web-0` Pod.
-
-```shell
-kubectl delete pod web-0
-pod "web-0" deleted
-```
-
-Watch the `web-0` Pod, and wait for it to transition to Running and Ready.
-
-```shell
-kubectl get pod web-0 -w
-NAME      READY     STATUS    RESTARTS   AGE
-web-0     1/1       Running   0          54s
-web-0     1/1       Terminating   0         1m
-web-0     0/1       Terminating   0         1m
-web-0     0/1       Terminating   0         1m
-web-0     0/1       Terminating   0         1m
-web-0     0/1       Pending   0         0s
-web-0     0/1       Pending   0         0s
-web-0     0/1       ContainerCreating   0         0s
-web-0     1/1       Running   0         3s
-```
-
-Get the `web` StatefulSet's Pods to view their container images.
-
-```shell{% raw %}
-kubectl get pod -l app=nginx -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
-web-0   gcr.io/google_containers/nginx-slim:0.7
-web-1   gcr.io/google_containers/nginx-slim:0.8
-web-2   gcr.io/google_containers/nginx-slim:0.8
-{% endraw %}```
-
-`web-0` has had its image updated, but `web-0` and `web-1` still have the original 
-image. Complete the update by deleting the remaining Pods.
-
-```shell
-kubectl delete pod web-1 web-2
-pod "web-1" deleted
-pod "web-2" deleted
-```
-
-Watch the StatefulSet's Pods, and wait for all of them to transition to Running and Ready.
-
-```
-kubectl get pods -w -l app=nginx
-NAME      READY     STATUS    RESTARTS   AGE
-web-0     1/1       Running   0          8m
-web-1     1/1       Running   0          4h
-web-2     1/1       Running   0          23m
-NAME      READY     STATUS        RESTARTS   AGE
-web-1     1/1       Terminating   0          4h
-web-1     1/1       Terminating   0         4h
-web-1     0/1       Pending   0         0s
-web-1     0/1       Pending   0         0s
-web-1     0/1       ContainerCreating   0         0s
-web-2     1/1       Terminating   0         23m
-web-2     1/1       Terminating   0         23m
-web-1     1/1       Running   0         4s
-web-2     0/1       Pending   0         0s
-web-2     0/1       Pending   0         0s
-web-2     0/1       ContainerCreating   0         0s
-web-2     1/1       Running   0         36s
-```
-
-Get the Pods to view their container images.
-
-```shell{% raw %}
-kubectl get pod -l app=nginx -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
-web-0   gcr.io/google_containers/nginx-slim:0.7
-web-1   gcr.io/google_containers/nginx-slim:0.7
-web-2   gcr.io/google_containers/nginx-slim:0.7
-{% endraw %}```
-
-All the Pods in the StatefulSet are now running a new container image.
+StatefulSet. There are two valid update strategies, `RollingUpdate` and 
+`OnDelete`. 
 
 ### Rolling Update
 
@@ -667,7 +579,7 @@ web-2     1/1       Running   0         18s
 Get the Pod's container.
 
 ```shell{% raw %}
-get po web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
+kubectl get po web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 gcr.io/google_containers/nginx-slim:0.8
 {% endraw %}
 ```
@@ -738,7 +650,7 @@ web-1     1/1       Running   0         18s
 Get the `web-1` Pods container.
 
 ```shell{% raw %}
-get po web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
+kubectl get po web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 gcr.io/google_containers/nginx-slim:0.8
 {% endraw %}
 ```
@@ -796,6 +708,15 @@ gcr.io/google_containers/nginx-slim:0.7
 
 By moving the `partition` to `0`, you allowed the StatefulSet controller to 
 continue the update process.
+
+### On Delete
+
+The `OnDelete` update strategy implements the legacy (1.6 and prior) behavior, 
+When you select this update strategy, the StatefulSet controller will not 
+automatically update Pods when a modification is made to the StatefulSet's 
+`.spec.template` field. This strategy can be selected by setting the 
+`.spec.template.updateStrategy.type` to `OnDelete`.
+
 
 ## Deleting StatefulSets
 

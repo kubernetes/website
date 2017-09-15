@@ -30,6 +30,7 @@ toc:
   - docs/getting-started-guides/gce.md
   - docs/getting-started-guides/aws.md
   - docs/getting-started-guides/azure.md
+  - docs/getting-started-guides/alibaba-cloud.md
   - docs/getting-started-guides/clc.md
   - title: Running Kubernetes on IBM Bluemix
     path: https://github.com/patrocinio/kubernetes-softlayer
@@ -93,7 +94,6 @@ toc:
         - docs/getting-started-guides/ubuntu/glossary.md
         - docs/getting-started-guides/ubuntu/local.md
         - docs/getting-started-guides/ubuntu/logging.md
-        - docs/getting-started-guides/ubuntu/manual.md
 
     - docs/getting-started-guides/windows/index.md
 

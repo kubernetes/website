@@ -26,7 +26,7 @@ Kubernetes concepts.
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
-* [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
+* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
 * [ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget)
@@ -367,7 +367,7 @@ statefulset "zk" deleted
 Watch the termination of the Pods in the StatefulSet.
 
 ```shell
-get pods -w -l app=zk
+kubectl get pods -w -l app=zk
 ```
 
 When `zk-0` if fully terminated, use `CRTL-C` to terminate kubectl.
@@ -776,7 +776,7 @@ drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 ## Managing the ZooKeeper Process
 
 The [ZooKeeper documentation](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision) 
-documentation indicates that "You will want to have a supervisory process that 
+indicates that "You will want to have a supervisory process that 
 manages each of your ZooKeeper server processes (JVM)." Utilizing a watchdog 
 (supervisory process) to restart failed processes in a distributed system is a 
 common pattern. When deploying an application in Kubernetes, rather than using 

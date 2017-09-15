@@ -30,7 +30,7 @@ resources within the same namespace.
 ## Working with Namespaces
 
 Creation and deletion of namespaces is described in the [Admin Guide documentation
-for namespaces](/docs/admin/namespaces)
+for namespaces](/docs/admin/namespaces).
 
 ### Viewing namespaces
 
@@ -74,7 +74,7 @@ $ kubectl config view | grep namespace:
 
 When you create a [Service](/docs/user-guide/services), it creates a corresponding [DNS entry](/docs/admin/dns).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
-that if a container just uses `<service-name>` it will resolve to the service which
+that if a container just uses `<service-name>`, it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN).
@@ -82,7 +82,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 ## Not All Objects are in a Namespace
 
 Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are
-in some namespace.  However namespace resources are not themselves in a namespace.
+in some namespaces.  However namespace resources are not themselves in a namespace.
 And low-level resources, such as [nodes](/docs/admin/node) and
 persistentVolumes, are not in any namespace. Events are an exception: they may or may not
 have a namespace, depending on the object the event is about.

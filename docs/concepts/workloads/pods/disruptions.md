@@ -32,8 +32,8 @@ an application.  Examples are:
 - cluster administrator deletes VM (instance) by mistake
 - cloud provider or hypervisor failure makes VM disappear
 - a kernel panic
-- if the node to disappears from the cluster due to cluster network partition
-- eviction of a pod due to the node being [out-of-resources](/docs/tasks/administer-cluster/out-of-resource.md).
+- the node disappears from the cluster due to cluster network partition
+- eviction of a pod due to the node being [out-of-resources](/docs/tasks/administer-cluster/out-of-resource/).
 
 Except for the out-of-resources condition, all these conditions
 should be familiar to most users; they are not specific
@@ -49,7 +49,7 @@ Administrator.  Typical application owner actions include:
 
 Cluster Administrator actions include:
 
-- [Draining a node](/docs//tasks/administer-cluster/safely-drain-node.md) for repair or upgrade.
+- [Draining a node](/docs/tasks/administer-cluster/safely-drain-node/) for repair or upgrade.
 - Draining a node from a cluster to scale the cluster down (learn about
 [Cluster Autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaler)
 ).
@@ -68,8 +68,8 @@ Here are some ways to mitigate involuntary disruptions:
 
 - Ensure your pod [requests the resources](/docs/tasks/configure-pod-container/assign-cpu-ram-container) it needs.
 - Replicate your application if you need higher availability.  (Learn about running replicated
-[stateless](/docs/tasks/run-application/run-stateless-application-deployment.md)
-and [stateful](/docs/tasks/run-application/run-replicated-stateful-application.md) applications.)
+[stateless](/docs/tasks/run-application/run-stateless-application-deployment/)
+and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/) applications.)
 - For even higher availability when running replicated applications,
 spread applications across racks (using
 [anti-affinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature))
@@ -122,13 +122,13 @@ The "intended" number of pods is computed from the `.spec.replicas` of the pods 
 The controller is discovered from the pods using the `.metadata.ownerReferences` of the object.
 
 PDBs cannot prevent [involuntary disruptions](#voluntary-and-involuntary-disruptions) from
-occuring, but they do count against the budget.
+occurring, but they do count against the budget.
 
 Pods which are deleted or unavailable due to a rolling upgrade to an application do count
 against the disruption budget, but controllers (like deployment and stateful-set)
 are not limited by PDBs when doing rolling upgrades -- the handling of failures
 during application updates is configured in the controller spec.
-(Learn about [updating a deployment](/docs/concepts/cluster-administration/manage-deployment/#updating-your-application-without-a-service-outage).)
+(Learn about [updating a deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment).)
 
 When a pod is evicted using the eviction API, it is gracefully terminated (see
 `terminationGracePeriodSeconds` in [PodSpec](/docs/resources-reference/{{page.version}}/#podspec-v1-core).)
@@ -145,7 +145,7 @@ Initially, the pods are laid out as follows:
 | pod-a  *available*   | pod-b *available*   | pod-c *available*  |
 | pod-x  *available*   |                     |                    |
 
-All 3 pods are part of an deployment, and they collectively have a PDB which requires
+All 3 pods are part of a deployment, and they collectively have a PDB which requires
 there be at least 2 of the 3 pods to be available at all times.
 
 For example, assume the cluster administrator wants to reboot into a new kernel version to fix a bug in the kernel.
@@ -174,7 +174,7 @@ Now the cluster is in this state:
 | pod-a  *terminating* | pod-b *available*   | pod-c *available*  |
 | pod-x  *terminating* | pod-d *starting*    | pod-y              |
 
-At some point, the pods terminate, and the cluster look like this:
+At some point, the pods terminate, and the cluster looks like this:
 
 |    node-1 *drained*  |       node-2        |       node-3       |
 |:--------------------:|:-------------------:|:------------------:|
@@ -192,7 +192,7 @@ The cluster state now looks like this:
 |                      | pod-b *available*   | pod-c *available*  |
 |                      | pod-d *available*   | pod-y              |
 
-Now, the cluster admin tries to drain `node-2`.
+Now, the cluster administrator tries to drain `node-2`.
 The drain command will try to evict the two pods in some order, say
 `pod-b` first and then `pod-d`.  It will succeed at evicting `pod-b`.
 But, when it tries to evict `pod-d`, it will be refused because that would leave only
@@ -259,9 +259,9 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 
 {% capture whatsnext %}
 
-* Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application//configure-pdb.md).
+* Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
 
-* Learn more about [draining nodes](/docs/tasks/administer-cluster//safely-drain-node.md)
+* Learn more about [draining nodes](/docs/tasks/administer-cluster/safely-drain-node/)
 
 {% endcapture %}
 

@@ -38,7 +38,7 @@ why you might want multiple clusters are:
 * Scalability: There are scalability limits to a single kubernetes cluster (this
   should not be the case for most users. For more details:
   [Kubernetes Scaling and Performance Goals](https://git.k8s.io/community/sig-scalability/goals.md)).
-* [Hybrid cloud](###hybrid-cloud-capabilities): You can have multiple clusters on different cloud providers or
+* [Hybrid cloud](#hybrid-cloud-capabilities): You can have multiple clusters on different cloud providers or
   on-premises data centers.
 
 ### Caveats
@@ -70,7 +70,7 @@ register each cluster's API endpoint and credentials with your
 Federation API Server (See the
 [federation admin guide](/docs/admin/federation/) for details).
 
-Thereafter, your [API resources](##api-resources) can span different clusters
+Thereafter, your [API resources](#api-resources) can span different clusters
 and cloud providers.
 
 ## Setting up federation
@@ -97,7 +97,7 @@ The following guides explain some of the resources in detail:
 * [Secrets](/docs/tasks/administer-federation/secret/)
 * [Services](/docs/concepts/cluster-administration/federation-service-discovery/)
 
-[API reference docs](/docs/federation/api-reference/) lists all the
+[API reference docs](/docs/reference/federation/) lists all the
 resources supported by federation apiserver.
 
 ## Cascading deletion
@@ -123,7 +123,7 @@ On IaaS providers such as Google Compute Engine or Amazon Web Services, a VM exi
 zone](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html).
 We suggest that all the VMs in a Kubernetes cluster should be in the same availability zone, because:
 
-  - compared to having a single global Kubernetes cluster, there are fewer single-points of failure
+  - compared to having a single global Kubernetes cluster, there are fewer single-points of failure.
   - compared to a cluster that spans availability zones, it is easier to reason about the availability properties of a
     single-zone cluster.
   - when the Kubernetes developers are designing the system (e.g. making assumptions about latency, bandwidth, or
@@ -132,8 +132,8 @@ We suggest that all the VMs in a Kubernetes cluster should be in the same availa
 It is okay to have multiple clusters per availability zone, though on balance we think fewer is better.
 Reasons to prefer fewer clusters are:
 
-  - improved bin packing of Pods in some cases with more nodes in one cluster (less resource fragmentation)
-  - reduced operational overhead (though the advantage is diminished as ops tooling and processes matures)
+  - improved bin packing of Pods in some cases with more nodes in one cluster (less resource fragmentation).
+  - reduced operational overhead (though the advantage is diminished as ops tooling and processes mature).
   - reduced costs for per-cluster fixed resource costs, e.g. apiserver VMs (but small as a percentage
     of overall cluster cost for medium to large clusters).
 

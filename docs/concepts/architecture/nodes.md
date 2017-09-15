@@ -51,6 +51,7 @@ The `conditions` field describes the status of all `Running` nodes.
 | `Ready`        | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last 40 seconds |
 | `MemoryPressure`    | `True` if pressure exists on the node memory -- that is, if the node memory is low; otherwise `False` |
 | `DiskPressure`    | `True` if pressure exists on the disk size -- that is, if the disk capacity is low; otherwise `False` |
+| `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
 
 The node condition is represented as a JSON object. For example, the following response describes a healthy node.
 
@@ -63,9 +64,29 @@ The node condition is represented as a JSON object. For example, the following r
 ]
 ```
 
-If the Status of the Ready condition is "Unknown" or "False" for longer than the `pod-eviction-timeout`, an argument passed to the [kube-controller-manager](/docs/admin/kube-controller-manager/), all of the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on it. The decision to delete the pods cannot be communicated to the kubelet until it re-establishes communication with the apiserver. In the meantime, the pods which are scheduled for deletion may continue to run on the partitioned node.
+If the Status of the Ready condition is "Unknown" or "False" for longer than the `pod-eviction-timeout`, an argument is passed to the [kube-controller-manager](/docs/admin/kube-controller-manager) and all of the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on it. The decision to delete the pods cannot be communicated to the kubelet until it re-establishes communication with the apiserver. In the meantime, the pods which are scheduled for deletion may continue to run on the partitioned node.
 
-In versions of Kubernetes prior to 1.5, the node controller would [force delete](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods) these unreachable pods from the apiserver. However, in 1.5 and higher, the node controller does not force delete pods until it is confirmed that they have stopped running in the cluster. One can see these pods which may be running on an unreachable node as being in the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce from the underlying infrastructure if a node has permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
+In versions of Kubernetes prior to 1.5, the node controller would [force delete](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)
+these unreachable pods from the apiserver. However, in 1.5 and higher, the node controller does not force delete pods until it is
+confirmed that they have stopped running in the cluster. One can see these pods which may be running on an unreachable node as being in
+the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce from the underlying infrastructure if a node has
+permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from
+Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
+
+Version 1.8 introduces an alpha feature that automatically creates
+[taints](/docs/concepts/configuration/taint-and-toleration) that represent conditions.
+To enable this behavior, pass an additional feature gate flag `--feature-gates=...,TaintNodesByCondition=true`
+to the API server, controller manager, and scheduler.
+When `TaintNodesByCondition` is enabled, the scheduler ignores conditions when considering a Node; instead
+it looks at the Node's taints and a Pod's tolerations.
+
+Now users can choose between the old scheduling model and a new, more flexible scheduling model.
+A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that 
+tolerates the taints of a particular Node can be scheduled on that Node.
+
+Note that because of small delay, usually less than one second, between time when condition is observed and a taint
+is created, it's possible that enabling this feature will slightly increase number of Pods that are successfully
+scheduled but rejected by the kubelet.
 
 ### Capacity
 
@@ -122,7 +143,7 @@ CIDR block to the node when it is registered (if CIDR assignment is turned on).
 
 The second is keeping the node controller's internal list of nodes up to date with
 the cloud provider's list of available machines. When running in a cloud
-environment, whenever a node is unhealthy the node controller asks the cloud
+environment, whenever a node is unhealthy, the node controller asks the cloud
 provider if the VM for that node is still available. If not, the node
 controller deletes the node from its list of nodes.
 
@@ -171,8 +192,11 @@ Starting in Kubernetes 1.6, the NodeController is also responsible for evicting
 pods that are running on nodes with `NoExecute` taints, when the pods do not tolerate
 the taints. Additionally, as an alpha feature that is disabled by default, the
 NodeController is responsible for adding taints corresponding to node problems like
-node unreachable or not ready. See [this documentation](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature)
+node unreachable or not ready. See [this documentation](/docs/concepts/configuration/taint-and-toleration)
 for details about `NoExecute` taints and the alpha feature.
+
+Starting in version 1.8, the node controller can be made responsible for creating taints that represent
+Node conditions. This is an alpha feature of version 1.8.
 
 ### Self-Registration of Nodes
 
@@ -215,7 +239,7 @@ unschedulable, run this command:
 kubectl cordon $NODENAME
 ```
 
-Note that pods which are created by a daemonSet controller bypass the Kubernetes scheduler,
+Note that pods which are created by a DaemonSet controller bypass the Kubernetes scheduler,
 and do not respect the unschedulable attribute on a node.  The assumption is that daemons belong on
 the machine even if it is being drained of applications in preparation for a reboot.
 

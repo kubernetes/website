@@ -221,17 +221,17 @@ Typing multiple lines does **not** work. The callout style only applies to the l
 
     **Note:** This is my note. 
 
-    I didn't read the stlye guide.
+    I didn't read the style guide.
     {: .note}
 
 **Note:** This is my note. 
 
-I didn't read the stlye guide.
+I didn't read the style guide.
 {: .note}
 
 ### Ordered Lists
 
-Callouts will interupt numbered lists unless you indent three spaces before the notice and the tag.
+Callouts will interrupt numbered lists unless you indent three spaces before the notice and the tag.
 
 For example:
 

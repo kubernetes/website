@@ -77,9 +77,9 @@ Cluster DNS is a DNS server, in addition to the other DNS server(s) in your envi
 
 Containers started by Kubernetes automatically include this DNS server in their DNS searches.
 
-#### User interface
+#### Web UI (Dashboard)
 
-The kube-ui provides a read-only overview of the cluster state.  For more information, see [Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
+[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications running in the cluster, as well as the cluster itself.
 
 
 #### Container Resource Monitoring
@@ -115,20 +115,20 @@ network rules on the host and performing connection forwarding.
 
 ### docker
 
-docker is used for running containers.
+`docker` is used for running containers.
 
 ### rkt
 
-rkt is supported experimentally for running containers as an alternative to docker.
+`rkt` is supported experimentally for running containers as an alternative to docker.
 
 ### supervisord
 
-supervisord is a lightweight process monitoring and control system that can be used to keep kubelet and docker
+`supervisord` is a lightweight process monitor and control system that can be used to keep kubelet and docker
 running.
 
 ### fluentd
 
-fluentd is a daemon which helps provide [cluster-level logging](#cluster-level-logging).
+`fluentd` is a daemon which helps provide [cluster-level logging](#cluster-level-logging).
 {% endcapture %}
 
 {% include templates/concept.md %}

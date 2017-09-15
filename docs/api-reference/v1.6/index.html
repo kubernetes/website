@@ -7868,7 +7868,7 @@ Appears In <a href="#pod-v1-core">Pod</a> <a href="#podtemplatespec-v1-core">Pod
 </tr>
 <tr>
 <td>tolerations <br /> <em><a href="#toleration-v1-core">Toleration</a> array</em></td>
-<td>If specified, the pod&#39;s tolerations.</td>
+<td>If specified, the pod&#39;s tolerations. More info: <a href="https://kubernetes.io/docs/concepts/configuration/taint-and-toleration">https://kubernetes.io/docs/concepts/configuration/taint-and-toleration</a></td>
 </tr>
 <tr>
 <td>volumes <br /> <em><a href="#volume-v1-core">Volume</a> array</em></td>
@@ -17849,10 +17849,10 @@ Appears In <a href="#ingress-v1beta1-extensions">Ingress</a> </aside>
 <span class="hljs-attr">  name:</span> service-example
 <span class="hljs-attr">spec:</span>
 <span class="hljs-attr">  ports:</span>
-    <span class="hljs-comment"># Accept traffic sent to port 80</span>
-<span class="hljs-attr">    - name:</span> http
-<span class="hljs-attr">      port:</span> <span class="hljs-number">80</span>
-<span class="hljs-attr">      targetPort:</span> <span class="hljs-number">80</span>
+  <span class="hljs-comment"># Accept traffic sent to port 80</span>
+<span class="hljs-attr">  - name:</span> http
+<span class="hljs-attr">    port:</span> <span class="hljs-number">80</span>
+<span class="hljs-attr">    targetPort:</span> <span class="hljs-number">80</span>
 <span class="hljs-attr">  selector:</span>
     <span class="hljs-comment"># Loadbalance traffic across Pods matching</span>
     <span class="hljs-comment"># this label selector</span>
@@ -17873,10 +17873,10 @@ Appears In <a href="#ingress-v1beta1-extensions">Ingress</a> </aside>
 <span class="hljs-attr">  name:</span> service-example
 <span class="hljs-attr">spec:</span>
 <span class="hljs-attr">  ports:</span>
-    <span class="hljs-comment"># Accept traffic sent to port 80</span>
-<span class="hljs-attr">    - name:</span> http
-<span class="hljs-attr">      port:</span> <span class="hljs-number">80</span>
-<span class="hljs-attr">      targetPort:</span> <span class="hljs-number">80</span>
+  <span class="hljs-comment"># Accept traffic sent to port 80</span>
+<span class="hljs-attr">  - name:</span> http
+<span class="hljs-attr">    port:</span> <span class="hljs-number">80</span>
+<span class="hljs-attr">    targetPort:</span> <span class="hljs-number">80</span>
 <span class="hljs-attr">  selector:</span>
     <span class="hljs-comment"># Loadbalance traffic across Pods matching</span>
     <span class="hljs-comment"># this label selector</span>
@@ -18048,11 +18048,11 @@ metadata:
   name: service-example
 spec:
   ports:
-    - name: http
-      port: 80
-      targetPort: 80
+  - name: http
+    port: 80
+    targetPort: 80
   selector:
-      app: nginx
+    app: nginx
   type: LoadBalancer
 '</span> | kubectl create <span class="hljs-_">-f</span> -
 </code></pre>
@@ -18068,11 +18068,11 @@ metadata:
   name: service-example
 spec:
   ports:
-    - name: http
-      port: 80
-      targetPort: 80
+  - name: http
+    port: 80
+    targetPort: 80
   selector:
-      app: nginx
+    app: nginx
   type: LoadBalancer
 '</span> <span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/127.0.0.1:8001/api</span><span class="hljs-regexp">/v1/namespaces</span><span class="hljs-regexp">/default/services</span>
 </code></pre>

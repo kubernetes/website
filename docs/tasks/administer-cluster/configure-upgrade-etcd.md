@@ -194,7 +194,7 @@ If the majority of etcd members have permanently failed, the etcd cluster is con
 
 The upgrade procedure described in this document assumes that either:
 
-1. The etcd cluster has only a single node
+1. The etcd cluster has only a single node.
 2. The etcd cluster has multiple nodes.
 
    In this case, the upgrade procedure requires shutting down the

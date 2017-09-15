@@ -23,7 +23,7 @@ Check the location and credentials that kubectl knows about with this command:
 $ kubectl config view
 ```
 
-Many of the [examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/) provide an introduction to using
+Many of the [examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/) provide an introduction to using
 kubectl and complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl/index).
 
 ### Directly accessing the REST API
@@ -124,7 +124,7 @@ client libraries.
 
 #### Go client
 
-* To get the library, run the following command: `go get k8s.io/client-go/<version number>/kubernetes` See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) to see which versions are supported.
+* To get the library, run the following command: `go get k8s.io/client-go/<version number>/kubernetes`. See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) to see which versions are supported.
 * Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct.
 
 The Go client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
@@ -134,7 +134,7 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 
 #### Python client
 
-To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
+To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes`. See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/user-guide/kubeconfig-file)
 as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py).
@@ -147,14 +147,14 @@ See documentation for other libraries for how they authenticate.
 ### Accessing the API from a Pod
 
 When accessing the API from a pod, locating and authenticating
-to the api server are somewhat different.
+to the apiserver are somewhat different.
 
 The recommended way to locate the apiserver within the pod is with
 the `kubernetes` DNS name, which resolves to a Service IP which in turn
 will be routed to an apiserver.
 
 The recommended way to authenticate to the apiserver is with a
-[service account](/docs/user-guide/service-accounts) credential.  By kube-system, a pod
+[service account](/docs/tasks/configure-pod-container/configure-service-account/) credential.  By kube-system, a pod
 is associated with a service account, and a credential (token) for that
 service account is placed into the filesystem tree of each container in that pod,
 at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
@@ -172,7 +172,7 @@ From within a pod the recommended ways to connect to API are:
     process within a container.  This proxies the
     Kubernetes API to the localhost interface of the pod, so that other processes
     in any container of the pod can access it.  See this [example of using kubectl proxy
-    in a pod](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/kubectl-container/).
+    in a pod](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/kubectl-container/).
   - use the Go client library, and create a client using the `rest.InClusterConfig()` and `kubernetes.NewForConfig()` functions.
     They handle locating and authenticating to the apiserver. [example](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)
 
@@ -200,7 +200,7 @@ You have several options for connecting to nodes, pods and services from outside
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
       Does it do its own authentication?
     - Place pods behind services.  To access one specific pod from a set of replicas, such as for debugging,
-      place a unique label on the pod it and create a new service which selects this label.
+      place a unique label on the pod and create a new service which selects this label.
     - In most cases, it should not be necessary for application developer to directly access
       nodes via their nodeIPs.
   - Access services, nodes, or pods using the Proxy Verb.
@@ -235,7 +235,7 @@ $ kubectl cluster-info
 
 This shows the proxy-verb URL for accessing each service.
 For example, this cluster has cluster-level logging enabled (using Elasticsearch), which can be reached
-at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` if suitable credentials are passed, or through a kubectl proxy at, for example:
+at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` if suitable credentials are passed.  Logging can also be reached through a kubectl proxy, for example at:
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
 (See [above](#accessing-the-cluster-api) for how to pass credentials or use kubectl proxy.)
 
@@ -244,7 +244,7 @@ at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-l
 As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you simply append to the service's proxy URL:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
-If you haven't specified a name for your port, you don't have to specify *port_name* in the URL
+If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
 
 ##### Examples
 

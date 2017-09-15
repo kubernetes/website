@@ -64,11 +64,28 @@ CreationTimestamp:              Mon, 24 Oct 2016 14:21:02 -0700
 Labels:                         app=hello
                                 tier=backend
                                 track=stable
+Annotations:                    deployment.kubernetes.io/revision=1
 Selector:                       app=hello,tier=backend,track=stable
-Replicas:                       7 updated | 7 total | 7 available | 0 unavailable
+Replicas:                       7 desired | 7 updated | 7 total | 7 available | 0 unavailable
 StrategyType:                   RollingUpdate
 MinReadySeconds:                0
 RollingUpdateStrategy:          1 max unavailable, 1 max surge
+Pod Template:
+  Labels:       app=hello
+                tier=backend
+                track=stable
+  Containers:
+   hello:
+    Image:              "gcr.io/google-samples/hello-go-gke:1.0"
+    Port:               80/TCP
+    Environment:        <none>
+    Mounts:             <none>
+  Volumes:              <none>
+Conditions:
+  Type          Status  Reason
+  ----          ------  ------
+  Available     True    MinimumReplicasAvailable
+  Progressing   True    NewReplicaSetAvailable
 OldReplicaSets:                 <none>
 NewReplicaSet:                  hello-3621623197 (7/7 replicas created)
 Events:

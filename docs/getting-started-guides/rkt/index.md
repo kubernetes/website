@@ -19,6 +19,8 @@ This document describes how to run Kubernetes using [rkt](https://github.com/cor
 
 * The [rkt API service](https://coreos.com/rkt/docs/latest/subcommands/api-service.html) must be running on the node.
 
+* You will need [kubelet](/docs/getting-started-guides/scratch/#kubelet) installed on the node, and it's recommended that you run [kube-proxy](/docs/getting-started-guides/scratch/#kube-proxy) on all nodes. This document describes how to set the parameters for kubelet so that it uses rkt as the runtime. 
+
 ## Pod networking in rktnetes
 
 ### Kubernetes CNI networking
@@ -77,7 +79,7 @@ $ cat <<EOF >/etc/rkt/net.d/k8s_flannel_example.conf
 EOF
 ```
 
-For more information on flannel configuration, see the [CNI/flannel README](https://github.com/containernetworking/cni/blob/master/Documentation/flannel.md).
+For more information on flannel configuration, see the [CNI/flannel README](https://github.com/containernetworking/plugins/blob/master/plugins/meta/flannel/README.md).
 
 #### Contained network caveats:
 
@@ -151,7 +153,7 @@ The `kube-up` script is not yet supported on AWS. Instead, we recommend followin
 
 ### Deploy apps to the cluster
 
-After creating the cluster, you can start deploying applications. For an introductory example, [deploy a simple nginx web server](/docs/user-guide/simple-nginx). Note that this example did not have to be modified for use with a "rktnetes" cluster. More examples can be found in the [Kubernetes examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).
+After creating the cluster, you can start deploying applications. For an introductory example, [deploy a simple nginx web server](/docs/user-guide/simple-nginx). Note that this example did not have to be modified for use with a "rktnetes" cluster. More examples can be found in the [Kubernetes examples directory](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/).
 
 ## Modular isolation with interchangeable stage1 images
 

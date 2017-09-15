@@ -68,20 +68,20 @@ another pod using the IP of the second pod.  This connectivity can be
 accomplished in two ways:
 
 - **Using an overlay network**
-  - An overlay network obscures the underlying network architecture from the 
+  - An overlay network obscures the underlying network architecture from the
     pod network through traffic encapsulation (e.g. vxlan).
   - Encapsulation reduces performance, though exactly how much depends on your solution.
 - **Without an overlay network**
   - Configure the underlying network fabric (switches, routers, etc.) to be aware of pod IP addresses.
-  - This does not require the encapsulation provided by an overlay, and so can achieve 
+  - This does not require the encapsulation provided by an overlay, and so can achieve
     better performance.
 
-Which method you choose depends on your environment and requirements.  There are various ways 
-to implement one of the above options: 
+Which method you choose depends on your environment and requirements.  There are various ways
+to implement one of the above options:
 
 - **Use a network plugin which is called by Kubernetes**
   - Kubernetes supports the [CNI](https://github.com/containernetworking/cni) network plugin interface.
-  - There are a number of solutions which provide plugins for Kubernetes (listed alphabetically): 
+  - There are a number of solutions which provide plugins for Kubernetes (listed alphabetically):
     - [Calico](http://docs.projectcalico.org/)
     - [Flannel](https://github.com/coreos/flannel)
     - [Open vSwitch (OVS)](http://openvswitch.org/)
@@ -508,9 +508,9 @@ While the basic node services (kubelet, kube-proxy, docker) are typically starte
 traditional system administration/automation approaches, the remaining *master* components of Kubernetes are
 all configured and managed *by Kubernetes*:
 
-  - their options are specified in a Pod spec (yaml or json) rather than an /etc/init.d file or
+  - Their options are specified in a Pod spec (yaml or json) rather than an /etc/init.d file or
     systemd unit.
-  - they are kept running by Kubernetes rather than by init.
+  - They are kept running by Kubernetes rather than by init.
 
 ### etcd
 
@@ -628,7 +628,6 @@ Here are some apiserver flags you may need to set:
 - `--cloud-provider=` see [cloud providers](#cloud-providers)
 - `--cloud-config=` see [cloud providers](#cloud-providers)
 - `--address=${MASTER_IP}` *or* `--bind-address=127.0.0.1` and `--address=127.0.0.1` if you want to run a proxy on the master node.
-- `--cluster-name=$CLUSTER_NAME`
 - `--service-cluster-ip-range=$SERVICE_CLUSTER_IP_RANGE`
 - `--etcd-servers=http://127.0.0.1:4001`
 - `--tls-cert-file=/srv/kubernetes/server.cert`
@@ -792,7 +791,6 @@ Template for controller manager pod:
 
 Flags to consider using with controller manager:
 
- - `--cluster-name=$CLUSTER_NAME`
  - `--cluster-cidr=`, the CIDR range for pods in cluster.
  - `--allocate-node-cidrs=`, if you are using `--cloud-provider=`, allocate and set the CIDRs for pods on the cloud provider.
  - `--cloud-provider=` and `--cloud-config` as described in apiserver section.
@@ -839,7 +837,7 @@ of their purpose is in the admin guide](/docs/admin/cluster-components/#addons).
 Notes for setting up each cluster service are given below:
 
 * Cluster DNS:
-  * required for many Kubernetes examples
+  * Required for many Kubernetes examples
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
   * [Admin Guide](/docs/concepts/services-networking/dns-pod-service/)
 * Cluster-level Logging
@@ -864,10 +862,10 @@ Example usage and output:
 ```shell
 KUBECTL_PATH=$(which kubectl) NUM_NODES=3 KUBERNETES_PROVIDER=local cluster/validate-cluster.sh
 Found 3 node(s).
-NAME                    STATUS    AGE
-node1.local             Ready     1h
-node2.local             Ready     1h
-node3.local             Ready     1h
+NAME                    STATUS    AGE     VERSION
+node1.local             Ready     1h      v1.6.9+a3d1dfa6f4335
+node2.local             Ready     1h      v1.6.9+a3d1dfa6f4335
+node3.local             Ready     1h      v1.6.9+a3d1dfa6f4335
 Validate output:
 NAME                 STATUS    MESSAGE              ERROR
 controller-manager   Healthy   ok
@@ -889,7 +887,7 @@ At this point you should be able to run through one of the basic examples, such 
 
 ### Running the Conformance Test
 
-You may want to try to run the [Conformance test](http://releases.k8s.io/{{page.githubbranch}}/hack/conformance-test.sh).  Any failures may give a hint as to areas that need more attention.
+You may want to try to run the [Conformance test](http://releases.k8s.io/{{page.githubbranch}}/test/e2e_node/conformance/run_test.sh).  Any failures may give a hint as to areas that need more attention.
 
 ### Networking
 

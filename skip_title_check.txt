@@ -4,12 +4,6 @@ docs/getting-started-guides/docker.md
 docs/getting-started-guides/docker-multinode.md
 docs/user-guide/configmap/README.md
 docs/user-guide/downward-api/README.md
-docs/admin/kubefed_unjoin.md
-docs/admin/kubefed_init.md
-docs/admin/kubefed.md
-docs/admin/kubefed_join.md
-docs/admin/kubefed_options.md
-docs/admin/kubefed_version.md
 docs/api-reference/extensions/v1beta1/definitions.md
 docs/api-reference/extensions/v1beta1/operations.md
 docs/api-reference/v1/definitions.md

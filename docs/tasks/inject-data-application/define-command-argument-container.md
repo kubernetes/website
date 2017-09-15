@@ -77,8 +77,9 @@ the techniques available for defining environment variables, including
 and
 [Secrets](/docs/concepts/configuration/secret/).
 
-NOTE: The environment variable appears in parentheses, `"$(VAR)"`. This is
+**Note:** The environment variable appears in parentheses, `"$(VAR)"`. This is
 required for the variable to be expanded in the `command` or `args` field.
+{: .note}
 
 ## Run a command in a shell
 
@@ -129,8 +130,8 @@ Here are some examples:
 {% capture whatsnext %}
 
 * Learn more about [containers and commands](/docs/user-guide/containers/).
-* Learn more about [configuring containers](/docs/user-guide/configuring-containers/).
-* Learn more about [running commands in a container](/docs/tasks/kubectl/get-shell-running-container/).
+* Learn more about [configuring pods and containers](/docs/tasks/).
+* Learn more about [running commands in a container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
 * See [Container](/docs/api-reference/{{page.version}}/#container-v1-core).
 
 {% endcapture %}

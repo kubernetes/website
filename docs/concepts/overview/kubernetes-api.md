@@ -26,9 +26,9 @@ What constitutes a compatible change and how to change the API are detailed by t
 
 Complete API details are documented using [Swagger v1.2](http://swagger.io/) and [OpenAPI](https://www.openapis.org/). The Kubernetes apiserver (aka "master") exposes an API that can be used to retrieve the Swagger v1.2 Kubernetes API spec located at `/swaggerapi`. You can also enable a UI to browse the API documentation at `/swagger-ui` by passing the `--enable-swagger-ui=true` flag to apiserver.
 
-Starting with kubernetes 1.4, OpenAPI spec is also available at [`/swagger.json`](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json). While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
+Starting with Kubernetes 1.4, OpenAPI spec is also available at [`/swagger.json`](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json). While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
 
-Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/proposals/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
+Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
 
 ## API versioning
 
@@ -73,9 +73,9 @@ The API group is specified in a REST path and in the `apiVersion` field of a ser
 
 Currently there are several API groups in use:
 
-1. the "core" (oftentimes called "legacy", due to not having explicit group name) group, which is at
+1. The "core" (oftentimes called "legacy", due to not having explicit group name) group, which is at
    REST path `/api/v1` and is not specified as part of the `apiVersion` field, e.g. `apiVersion: v1`.
-1. the named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
+1. The named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
    (e.g. `apiVersion: batch/v1`).  Full list of supported API groups can be seen in [Kubernetes API reference](/docs/reference/).
 
 

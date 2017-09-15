@@ -29,8 +29,8 @@ For example, this is how to start a simple web server as a static pod:
 2. Choose a directory, say `/etc/kubelet.d` and place a web server pod definition there, e.g. `/etc/kubelet.d/static-web.yaml`:
 
     ```
-    [root@my-node1 ~] $ mkdir /etc/kubernetes.d/
-    [root@my-node1 ~] $ cat <<EOF >/etc/kubernetes.d/static-web.yaml
+    [root@my-node1 ~] $ mkdir /etc/kubelet.d/
+    [root@my-node1 ~] $ cat <<EOF >/etc/kubelet.d/static-web.yaml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -84,7 +84,6 @@ If we look at our Kubernetes API server (running on host `my-master`), we see th
 [joe@my-master ~] $ kubectl get pods
 NAME                       READY     STATUS    RESTARTS   AGE
 static-web-my-node1        1/1       Running   0          2m
-
 ```
 
 Labels from the static pod are propagated into the mirror-pod and can be used as usual for filtering.
@@ -93,11 +92,10 @@ Notice we cannot delete the pod with the API server (e.g. via [`kubectl`](/docs/
 
 ```shell
 [joe@my-master ~] $ kubectl delete pod static-web-my-node1
-pods/static-web-my-node1
+pod "static-web-my-node1" deleted
 [joe@my-master ~] $ kubectl get pods
 NAME                       READY     STATUS    RESTARTS   AGE
 static-web-my-node1        1/1       Running   0          12s
-
 ```
 
 Back to our `my-node1` host, we can try to stop the container manually and see, that kubelet automatically restarts it in a while:

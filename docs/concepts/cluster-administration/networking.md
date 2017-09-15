@@ -37,7 +37,7 @@ review the "normal" way that networking works with Docker.  By default, Docker
 uses host-private networking.  It creates a virtual bridge, called `docker0` by
 default, and allocates a subnet from one of the private address blocks defined
 in [RFC1918](https://tools.ietf.org/html/rfc1918) for that bridge.  For each
-container that Docker creates, it allocates a virtual ethernet device (called
+container that Docker creates, it allocates a virtual Ethernet device (called
 `veth`) which is attached to the bridge. The veth is mapped to appear as `eth0`
 in the container, using Linux namespaces.  The in-container `eth0` interface is
 given an IP address from the bridge's address range.
@@ -167,6 +167,10 @@ sysctl net.ipv4.ip_forward=1
 
 The result of all this is that all `Pods` can reach each other and can egress
 traffic to the internet.
+
+### Kube-router
+
+[Kube-router](https://github.com/cloudnativelabs/kube-router) is a purpose-built networking solution for Kubernetes that aims to provide high performance and operational simplicity. Kube-router provides a Linux [LVS/IPVS](http://www.linuxvirtualserver.org/software/ipvs.html)-based service proxy, a Linux kernel forwarding-based pod-to-pod networking solution with no overlays, and iptables/ipset-based network policy enforcer. 
 
 ### L2 networks and linux bridging
 

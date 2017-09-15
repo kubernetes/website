@@ -100,7 +100,8 @@ To be able to work with the docker daemon on your mac/linux host use the `docker
 ```
 eval $(minikube docker-env)
 ```
-you should now be able to use docker on the command line on your host mac/linux machine talking to the docker daemon inside the minikube VM:
+You should now be able to use docker on the command line on your host mac/linux machine talking to the docker daemon inside the minikube VM:
+
 ```
 docker ps
 ```
@@ -142,6 +143,23 @@ Unfortunately just setting the environment variables will not work.
 Minikube will also create a "minikube" context, and set it to default in kubectl.
 To switch back to this context later, run this command: `kubectl config use-context minikube`.
 
+#### Specifying the Kubernetes version
+
+Minikube supports running multiple different versions of Kubernetes. You can
+access a list of all available versions via
+
+```
+minikube get-k8s-versions
+```
+
+You can specify the specific version of Kubernetes for Minikube to use by
+adding the `--kubernetes-version` string to the `minikube start` command. For
+example, to run version `v1.7.3`, you would run the following:
+
+```
+minikube start --kubernetes-version v1.7.3
+```
+
 ### Configuring Kubernetes
 
 Minikube has a "configurator" feature that allows users to configure the Kubernetes components with arbitrary values.
@@ -152,7 +170,7 @@ This flag is repeated, so you can pass it several times with several different v
 This flag takes a string of the form `component.key=value`, where `component` is one of the strings from the below list, `key` is a value on the
 configuration struct and `value` is the value to set.
 
-Valid `key`s can be found by examining the documentation for the Kubernetes `componentconfigs` for each component.
+Valid keys can be found by examining the documentation for the Kubernetes `componentconfigs` for each component.
 Here is the documentation for each supported configuration:
 
 * [kubelet](https://godoc.org/k8s.io/kubernetes/pkg/apis/componentconfig#KubeletConfiguration)
@@ -190,7 +208,7 @@ Minikube sets this context to default automatically, but if you need to switch b
 
 `kubectl config use-context minikube`,
 
-or pass the context on each command like this: `kubectl get pods --context=minikube`.
+Or pass the context on each command like this: `kubectl get pods --context=minikube`.
 
 ### Dashboard
 

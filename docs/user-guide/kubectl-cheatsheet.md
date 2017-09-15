@@ -18,7 +18,7 @@ $ source <(kubectl completion zsh)  # setup autocomplete in zsh
 
 ## Kubectl Context and Configuration
 
-Set which Kubernetes cluster `kubectl` communicates with and modify configuration
+Set which Kubernetes cluster `kubectl` communicates with and modifies configuration
 information. See [Authenticating Across Clusters with kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) documentation for
 detailed config file information.
 
@@ -128,7 +128,7 @@ $ echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.na
 
 # Check which nodes are ready
 $ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
- && kubectl get nodes -o jsonpath=$JSONPATH | grep "Ready=True"
+ && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
 
 # List all Secrets currently in use by a pod
 $ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
@@ -231,7 +231,7 @@ $ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ## Resource types
 
-The following table includes a list of all the supported resource types and their abbreviated aliases.
+The following table includes a list of all the supported resource types and their abbreviated aliases:
 
 Resource type   | Abbreviated alias
 -------------------- | --------------------

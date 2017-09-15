@@ -43,7 +43,7 @@ All features for Bootstrap Tokens are disabled by default in Kubernetes v1.6.
 
 You can enable the Bootstrap Token authenticator with the
 `--experimental-bootstrap-token-auth` flag on the API server.  You can enable
-the Bootstrap controllers by specifying them withthe `--controllers` flag on the
+the Bootstrap controllers by specifying them with the `--controllers` flag on the
 controller manager with something like
 `--controllers=*,tokencleaner,bootstrapsigner`.  This is done automatically when
 using `kubeadm`.
@@ -58,7 +58,7 @@ Authorization: Bearer 07401b.f395accd246ae52d
 
 Each valid token is backed by a secret in the `kube-system` namespace.  You can
 find the full design doc
-[here](https://git.k8s.io/community/contributors/design-proposals/bootstrap-discovery.md).
+[here](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/bootstrap-discovery.md).
 
 Here is what the secret looks like.  Note that `base64(string)` indicates the
 value should be base64 encoded.  The undecoded version is provided here for
@@ -82,7 +82,7 @@ data:
 
 The type of the secret must be `bootstrap.kubernetes.io/token` and the name must
 be `bootstrap-token-<token id>`.  It must also exist in the `kube-system`
-namespace.  `description` is a human readable discription that should not be
+namespace.  `description` is a human readable description that should not be
 used for machine readable information.  The Token ID and Secret are included in
 the data dictionary.
 

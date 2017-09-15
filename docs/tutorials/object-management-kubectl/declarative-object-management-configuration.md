@@ -20,7 +20,7 @@ The `kubectl` tool supports three kinds of object management:
 * Imperative object configuration
 * Declarative object configuration
 
-See [Kubernetes Object Management](/docs/concepts/tools/kubectl/object-management-overview/)
+See [Kubernetes Object Management](/docs/tutorials/object-management-kubectl/object-management/)
 for a discussion of the advantages and disadvantage of each kind of object management.
 
 ## Before you begin
@@ -29,8 +29,8 @@ Declarative object configuration requires a firm understanding of
 the Kubernetes object definitions and configuration. Read and complete
 the following documents if you have not already:
 
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-imperative-commands/)
-- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/tools/kubectl/object-management-using-imperative-config/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
 
 Following are definitions for terms used in this document:
 
@@ -41,7 +41,7 @@ Following are definitions for terms used in this document:
   values of an object, as observed by the Kubernetes cluster. These are kept in the Kubernetes
   cluster storage, typically etcd.
 - *declarative configuration writer /  declarative writer*: A person or software component
-  that makes updates to a live object. The live writers refered to in this topic make changes
+  that makes updates to a live object. The live writers referred to in this topic make changes
   to object configuration files and run `kubectl apply` to write the changes.
 
 ## How to create objects
@@ -72,7 +72,7 @@ kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -143,7 +143,7 @@ configuration file instead of a directory.
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -194,7 +194,7 @@ kubectl scale deployment/nginx-deployment --replicas 2
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `replicas` field has been set to 2, and the `last-applied-configuration`
@@ -248,7 +248,7 @@ kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/update_
 Print the live configuration using `kubectl get`:
 
 ```
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows the following changes to the live configuration:
@@ -484,7 +484,7 @@ TODO(1.6): For 1.6, add the following bullet point to 1.
 ### How different types of fields are merged
 
 How a particular field in a configuration file is merged with
-with the live configuration depends on the
+the live configuration depends on the
 type of the field. There are several types of fields:
 
 - *primitive*: A field of type string, integer, or boolean.
@@ -679,7 +679,7 @@ kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the API server set several fields to default values in the live

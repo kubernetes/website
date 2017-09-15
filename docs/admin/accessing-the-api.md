@@ -17,11 +17,11 @@ following diagram:
 
 ## Transport Security
 
-In a typical Kubernetes cluster, the API served on port 443.  A TLS connection is
-established.  The API server presents a certificate.  This certificate is
+In a typical Kubernetes cluster, the API serves on port 443.
+The API server presents a certificate. This certificate is
 often self-signed, so `$USER/.kube/config` on the user's machine typically
 contains the root certificate for the API server's certificate, which when specified
-is used in place of the system default root certificates.  This certificate is typically
+is used in place of the system default root certificate.  This certificate is typically
 automatically written into your `$USER/.kube/config` when you create a cluster yourself
 using `kube-up.sh`.  If the cluster has multiple users, then the creator needs to share
 the certificate with other users.

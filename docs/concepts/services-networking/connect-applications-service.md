@@ -26,7 +26,7 @@ We did this in a previous example, but let's do it once again and focus on the n
 {% include code.html language="yaml" file="run-my-nginx.yaml" ghlink="/docs/concepts/services-networking/run-my-nginx.yaml" %}
 
 This makes it accessible from any node in your cluster. Check the nodes the pod is running on:
-user
+
 ```shell
 $ kubectl create -f ./run-my-nginx.yaml
 $ kubectl get pods -l run=my-nginx -o wide
@@ -80,13 +80,14 @@ $ kubectl describe svc my-nginx
 Name:                my-nginx
 Namespace:           default
 Labels:              run=my-nginx
+Annotations:         <none>
 Selector:            run=my-nginx
 Type:                ClusterIP
 IP:                  10.0.162.149
 Port:                <unset> 80/TCP
 Endpoints:           10.244.2.5:80,10.244.3.4:80
 Session Affinity:    None
-No events.
+Events:              <none>
 
 $ kubectl get ep my-nginx
 NAME       ENDPOINTS                     AGE
@@ -101,7 +102,7 @@ Kubernetes supports 2 primary modes of finding a Service - environment variables
 
 ### Environment Variables
 
-When a Pod is run on a Node, the kubelet adds a set of environment variables for each active Service. This introduces an ordering problem. To see why, inspect the environment of your running nginx pods (your pod name will be different):
+When a Pod runs on a Node, the kubelet adds a set of environment variables for each active Service. This introduces an ordering problem. To see why, inspect the environment of your running nginx pods (your pod name will be different):
 
 ```shell
 $ kubectl exec my-nginx-3800858182-jr4a2 -- printenv | grep SERVICE
@@ -169,7 +170,7 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 * An nginx server configured to use the certificates
 * A [secret](/docs/user-guide/secrets) that makes the certificates accessible to pods
 
-You can acquire all these from the [nginx https example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/https-nginx/), in short:
+You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/https-nginx/), in short:
 
 ```shell
 $ make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
@@ -188,7 +189,7 @@ Now modify your nginx replicas to start an https server using the certificate in
 Noteworthy points about the nginx-secure-app manifest:
 
 - It contains both Deployment and Service specification in the same file.
-- The [nginx server](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/https-nginx/default.conf) serves http traffic on port 80 and https traffic on 443, and nginx Service exposes both ports.
+- The [nginx server](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/https-nginx/default.conf) serves http traffic on port 80 and https traffic on 443, and nginx Service exposes both ports.
 - Each container has access to the keys through a volume mounted at /etc/nginx/ssl. This is setup *before* the nginx server is started.
 
 ```shell

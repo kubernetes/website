@@ -66,14 +66,14 @@ provides load balancing for an application that has two running instances.
         Name:                   example-service
         Namespace:              default
         Labels:                 run=load-balancer-example
+        Annotations:            <none>
         Selector:               run=load-balancer-example
         Type:                   NodePort
         IP:                     10.32.0.16
         Port:                   <unset> 8080/TCP
-        NodePort:               <unset> 31496/TCP
         Endpoints:              10.200.1.4:8080,10.200.2.5:8080
         Session Affinity:       None
-        No events.
+        Events:                 <none>
 
     Make a note of the NodePort value for the service. For example,
     in the preceding output, the NodePort value is 31496.
@@ -105,7 +105,7 @@ provides load balancing for an application that has two running instances.
 
 1. Use the node address and node port to access the Hello World application:
 
-        curl http://<public-node-ip>:<node-port>
+       curl http://<public-node-ip>:<node-port>
 
     where `<public-node-ip>` is the public IP address of your node,
     and `<node-port>` is the NodePort value for your service.

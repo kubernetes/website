@@ -15,8 +15,7 @@ PetSets feature from 1.4. Users of PetSets are referred to the 1.5
 [Upgrade Guide](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
 for further information on how to upgrade existing PetSets to StatefulSets.**
 
-A StatefulSet is a Controller that provides a unique identity to its Pods. It provides
-guarantees about the ordering of deployment and scaling.
+{% include templates/glossary/snippet.md term="statefulset" length="long" %}
 {% endcapture %}
 
 {% capture body %}
@@ -40,9 +39,10 @@ provides a set of stateless replicas. Controllers such as
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) may be better suited to your stateless needs.
 
 ## Limitations
+
 * StatefulSet is a beta resource, not available in any Kubernetes release prior to 1.5.
 * As with all alpha/beta resources, you can disable StatefulSet through the `--runtime-config` option passed to the apiserver.
-* The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
+* The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
 * StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
 
@@ -94,10 +94,9 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: www
-      annotations:
-        volume.beta.kubernetes.io/storage-class: anything
     spec:
       accessModes: [ "ReadWriteOnce" ]
+      storageClassName: my-storage-class
       resources:
         requests:
           storage: 1Gi
@@ -143,7 +142,8 @@ Note that Cluster Domain will be set to `cluster.local` unless
 
 Kubernetes creates one [PersistentVolume](/docs/concepts/storage/volumes/) for each
 VolumeClaimTemplate. In the nginx example above, each Pod will receive a single PersistentVolume
-with a storage class of `anything` and 1 Gib of provisioned storage. When a Pod is (re)scheduled
+with a StorageClass of `my-storage-class` and 1 Gib of provisioned storage. If no StorageClass
+is specified, then the default StorageClass will be used. When a Pod is (re)scheduled
 onto a node, its `volumeMounts` mount the PersistentVolumes associated with its
 PersistentVolume Claims. Note that, the PersistentVolumes associated with the
 Pods' PersistentVolume Claims are not deleted when the Pods, or StatefulSet are deleted.
@@ -226,6 +226,7 @@ update, roll out a canary, or perform a phased roll out.
 {% capture whatsnext %}
 
 * Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set).
+* Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
 
 {% endcapture %}
 {% include templates/concept.md %}

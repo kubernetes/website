@@ -167,7 +167,7 @@ Once the nginx pod is running, use the port-forward command to set up a proxy fr
 
 You should now see nginx on [http://localhost:8888]().
 
-For more complex examples please see the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).
+For more complex examples please see the [examples directory](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/).
 
 ## Administering your cluster with Openstack
 
@@ -197,7 +197,7 @@ See the [OpenStack CLI Reference](http://docs.openstack.org/cli-reference/) for 
 ### Salt
 
 The OpenStack-Heat provider uses a [standalone Salt configuration](/docs/admin/salt/#standalone-salt-configuration-on-gce-and-others).
-It only uses Salt for bootstraping the machines and creates no salt-master and does not auto-start the salt-minion service on the nodes.
+It only uses Salt for bootstrapping the machines and creates no salt-master and does not auto-start the salt-minion service on the nodes.
 
 ## SSHing to your nodes
 

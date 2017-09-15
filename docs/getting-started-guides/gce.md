@@ -27,7 +27,7 @@ If you want to use custom binaries or pure open source Kubernetes, please contin
 1. Make sure you have credentials for GCloud by running `gcloud auth login`.
 1. (Optional)  In order to make API calls against GCE, you must also run `gcloud auth application-default login`.
 1. Make sure you can start up a GCE VM from the command line.  At least make sure you can do the [Create an instance](https://cloud.google.com/compute/docs/instances/#startinstancegcloud) part of the GCE Quickstart.
-1. Make sure you can ssh into the VM without interactive prompts.  See the [Log in to the instance](https://cloud.google.com/compute/docs/instances/#sshing) part of the GCE Quickstart.
+1. Make sure you can SSH into the VM without interactive prompts.  See the [Log in to the instance](https://cloud.google.com/compute/docs/instances/#sshing) part of the GCE Quickstart.
 
 ### Starting a cluster
 
@@ -46,7 +46,7 @@ wget -q -O - https://get.k8s.io | bash
 
 Once this command completes, you will have a master VM and four worker VMs, running as a Kubernetes cluster.
 
-By default, some containers will already be running on your cluster. Containers like `fluentd` provide [logging](/docs/user-guide/logging/overview), while `heapster` provides [monitoring](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/README.md) services.
+By default, some containers will already be running on your cluster. Containers like `fluentd` provide [logging](/docs/concepts/cluster-administration/logging/), while `heapster` provides [monitoring](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/README.md) services.
 
 The script run by the commands above creates a cluster with the name/prefix "kubernetes". It defines one specific cluster config, so you can't run it more than once.
 
@@ -78,9 +78,9 @@ manager.  It lets you inspect your cluster resources, create, delete, and update
 components, and much more. You will use it to look at your new cluster and bring
 up example apps.
 
-You can use` gcloud` to install the `kubectl` command-line tool on your workstation:
+You can use `gcloud` to install the `kubectl` command-line tool on your workstation:
 
-     gcloud components install kubectl
+    gcloud components install kubectl
 
 **Note:** The kubectl version bundled with `gcloud` may be older than the one
 downloaded by the get.k8s.io install script. See [Installing kubectl](/docs/tasks/kubectl/install/)
@@ -135,7 +135,7 @@ Some of the pods may take a few seconds to start up (during this time they'll sh
 
 Then, see [a simple nginx example](/docs/user-guide/simple-nginx) to try out your new cluster.
 
-For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).  The [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) is a good "getting started" walkthrough.
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/).  The [guestbook example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) is a good "getting started" walkthrough.
 
 ### Tearing down the cluster
 

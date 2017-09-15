@@ -53,7 +53,7 @@ Stackdriver Logging agents to the running cluster.
     that don't have fluentd pod allocated already. You can ensure that your node is labelled
     properly by running `kubectl describe` as follows:
 
-    ```shell
+    ```
     kubectl describe node $NODE_NAME
     ```
 
@@ -69,7 +69,7 @@ Stackdriver Logging agents to the running cluster.
     Ensure that the output contains the label `beta.kubernetes.io/fluentd-ds-ready=true`. If it
     is not present, you can add it using the `kubectl label` command as follows:
 
-    ```shell
+    ```
     kubectl label node $NODE_NAME beta.kubernetes.io/fluentd-ds-ready=true
     ```
 
@@ -79,7 +79,7 @@ Stackdriver Logging agents to the running cluster.
 
 1. Deploy a `ConfigMap` with the logging agent configuration by running the following command:
 
-    ```shell
+    ```
     kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-configmap.yaml
     ```
 
@@ -88,7 +88,7 @@ Stackdriver Logging agents to the running cluster.
 
 1. Deploy the logging agent `DaemonSet` by running the following command:
 
-    ```shell
+    ```
     kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-ds.yaml
     ```
 
@@ -193,7 +193,7 @@ will have log names `container_1` and `container_2` respectively.
 
 System components have resource type `compute`, which is named
 `GCE VM Instance` in the interface. Log names for system components are fixed.
-For a GKE node, every log entry from a system component has one the following
+For a GKE node, every log entry from a system component has one of the following
 log names:
 
 * docker
@@ -234,9 +234,9 @@ the Stackdriver [Exporting Logs page](https://cloud.google.com/logging/docs/expo
 
 ## Configuring Stackdriver Logging Agents
 
-Sometimes the default installation of Stackdriver Logging may not suite your needs, for example:
+Sometimes the default installation of Stackdriver Logging may not suit your needs, for example:
 
-* You may want to add more resources because default performance doesn't suite your needs.
+* You may want to add more resources because default performance doesn't suit your needs.
 * You may want to introduce additional parsing to extract more metadata from your log messages,
 like severity or source code reference.
 * You may want to send logs not only to Stackdriver or send it to Stackdriver only partially.

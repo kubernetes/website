@@ -26,11 +26,11 @@ Resource quotas work like this:
 - If quota is enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
   requests or limits for those values; otherwise, the quota system may reject pod creation.  Hint: Use
   the LimitRange admission controller to force defaults for pods that make no compute resource requirements.
-  See the [walkthrough](/docs/tasks/configure-pod-container/apply-resource-quota-limit/) for an example to avoid this problem.
+  See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example to avoid this problem.
 
 Examples of policies that could be created using namespaces and quotas are:
 
-- In a cluster with a capacity of 32 GiB RAM, and 16 cores, let team A use 20 Gib and 10 cores,
+- In a cluster with a capacity of 32 GiB RAM, and 16 cores, let team A use 20 GiB and 10 cores,
   let B use 10GiB and 4 cores, and hold 2GiB and 2 cores in reserve for future allocation.
 - Limit the "testing" namespace to using 1 core and 1GiB RAM.  Let the "production" namespace
   use any amount.
@@ -219,10 +219,10 @@ automatically give each namespace the ability to consume more resources.
 
 Sometimes more complex policies may be desired, such as:
 
-  - proportionally divide total cluster resources among several teams.
-  - allow each tenant to grow resource usage as needed, but have a generous
+  - Proportionally divide total cluster resources among several teams.
+  - Allow each tenant to grow resource usage as needed, but have a generous
     limit to prevent accidental resource exhaustion.
-  - detect demand from one namespace, add nodes, and increase quota.
+  - Detect demand from one namespace, add nodes, and increase quota.
 
 Such policies could be implemented using ResourceQuota as a building-block, by
 writing a 'controller' which watches the quota usage and adjusts the quota
@@ -233,7 +233,7 @@ restrictions around nodes: pods from several namespaces may run on the same node
 
 ## Example
 
-See a [detailed example for how to use resource quota](/docs/tasks/configure-pod-container/apply-resource-quota-limit/).
+See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
 
 ## Read More
 

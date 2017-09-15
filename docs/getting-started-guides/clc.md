@@ -71,22 +71,22 @@ guide to install the requirements and install the script.
 
 ```shell
   # system
-  apt-get update
-  apt-get install -y git python python-crypto
-  curl -O https://bootstrap.pypa.io/get-pip.py
-  python get-pip.py
+ apt-get update
+ apt-get install -y git python python-crypto
+ curl -O https://bootstrap.pypa.io/get-pip.py
+ python get-pip.py
 
   # installing this repository
-  mkdir -p ~home/k8s-on-clc
-  cd ~home/k8s-on-clc
-  git clone https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc.git
-  cd adm-kubernetes-on-clc/
-  pip install -r requirements.txt
+ mkdir -p ~home/k8s-on-clc
+ cd ~home/k8s-on-clc
+ git clone https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc.git
+ cd adm-kubernetes-on-clc/
+ pip install -r requirements.txt
 
   # getting started
-  cd ansible
-  cp credentials.sh.template credentials.sh; vi credentials.sh
-  source credentials.sh
+ cd ansible
+ cp credentials.sh.template credentials.sh; vi credentials.sh
+ source credentials.sh
 ```
 
 
@@ -165,7 +165,6 @@ order to access the CenturyLinkCloud API
      -h (--help)                   display this help and exit
      -c= (--clc_cluster_name=)     set the name of the cluster, as used in CLC group names
      -m= (--minion_count=)         number of kubernetes minion nodes to add
-
 ```
 
 ## Cluster Deletion
@@ -176,7 +175,6 @@ There are two ways to delete an existing cluster:
 
 ```shell
 python delete_cluster.py --cluster=clc_cluster_name --datacenter=DC1
-
 ```
 
 2) Use the CenturyLink Cloud UI. To delete a cluster, log into the CenturyLink
@@ -188,19 +186,19 @@ Kubernetes Cluster. We hope to add a scripted option to do this soon.
 Create a cluster with name of k8s_1, 1 master node and 3 worker minions (on physical machines), in VA1
 
 ```shell
- bash kube-up.sh --clc_cluster_name=k8s_1 --minion_type=bareMetal --minion_count=3 --datacenter=VA1
+bash kube-up.sh --clc_cluster_name=k8s_1 --minion_type=bareMetal --minion_count=3 --datacenter=VA1
 ```
 
 Create a cluster with name of k8s_2, an ha etcd cluster on 3 VMs and 6 worker minions (on VMs), in VA1
 
 ```shell
- bash kube-up.sh --clc_cluster_name=k8s_2 --minion_type=standard --minion_count=6 --datacenter=VA1 --etcd_separate_cluster=yes
+bash kube-up.sh --clc_cluster_name=k8s_2 --minion_type=standard --minion_count=6 --datacenter=VA1 --etcd_separate_cluster=yes
 ```
 
 Create a cluster with name of k8s_3, 1 master node, and 10 worker minions (on VMs) with higher mem/cpu, in UC1:
 
 ```shell
-  bash kube-up.sh --clc_cluster_name=k8s_3 --minion_type=standard --minion_count=10 --datacenter=VA1 -mem=6 -cpu=4
+bash kube-up.sh --clc_cluster_name=k8s_3 --minion_type=standard --minion_count=10 --datacenter=VA1 -mem=6 -cpu=4
 ```
 
 
@@ -252,9 +250,9 @@ kubectl cluster-info
 
 ### Accessing the cluster programmatically 
 
-It's possible to use the locally stored client certificates to access the api server. For example, you may want to use any of the [Kubernetes API client libraries](/docs/reference/client-libraries/) to program against your Kubernetes cluster in the programming language of your choice. 
+It's possible to use the locally stored client certificates to access the apiserver. For example, you may want to use any of the [Kubernetes API client libraries](/docs/reference/client-libraries/) to program against your Kubernetes cluster in the programming language of your choice. 
 
-To demonstrate how to use these locally stored certificates, we provide the following example of using ```curl``` to communicate to the master api server via https:
+To demonstrate how to use these locally stored certificates, we provide the following example of using ```curl``` to communicate to the master apiserver via https:
 
 ```shell
 curl \

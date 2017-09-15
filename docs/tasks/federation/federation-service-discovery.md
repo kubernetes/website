@@ -227,8 +227,8 @@ due to caching by intermediate DNS servers.
 
 1. Notice that there is a normal ('A') record for each service shard that has at least one healthy backend endpoint. For example, in us-central1-a, 104.197.247.191 is the external IP address of the service shard in that zone, and in asia-east1-a the address is 130.211.56.221.
 2. Similarly, there are regional 'A' records which include all healthy shards in that region. For example, 'us-central1'.  These regional records are useful for clients which do not have a particular zone preference, and as a building block for the automated locality and failover mechanism described below.
-2. For zones where there are currently no healthy backend endpoints, a CNAME ('Canonical Name') record is used to alias (automatically redirect) those queries to the next closest healthy zone.  In the example, the service shard in us-central1-f currently has no healthy backend endpoints (i.e. Pods), so a CNAME record has been created to automatically redirect queries to other shards in that region (us-central1 in this case).
-3. Similarly, if no healthy shards exist in the enclosing region, the search progresses further afield. In the europe-west1-d availability zone, there are no healthy backends, so queries are redirected to the broader europe-west1 region (which also has no healthy backends), and onward to the global set of healthy addresses (' nginx.mynamespace.myfederation.svc.example.com.')
+3. For zones where there are currently no healthy backend endpoints, a CNAME ('Canonical Name') record is used to alias (automatically redirect) those queries to the next closest healthy zone.  In the example, the service shard in us-central1-f currently has no healthy backend endpoints (i.e. Pods), so a CNAME record has been created to automatically redirect queries to other shards in that region (us-central1 in this case).
+4. Similarly, if no healthy shards exist in the enclosing region, the search progresses further afield. In the europe-west1-d availability zone, there are no healthy backends, so queries are redirected to the broader europe-west1 region (which also has no healthy backends), and onward to the global set of healthy addresses (' nginx.mynamespace.myfederation.svc.example.com.').
 
 The above set of DNS records is automatically kept in sync with the
 current state of health of all service shards globally by the
@@ -355,8 +355,8 @@ how to bring up a cluster federation correctly (or have your cluster administrat
 #### I can create a federated service successfully against the cluster federation API, but no matching services are created in my underlying clusters
 Check that:
 
-1. Your clusters are correctly registered in the Cluster Federation API (`kubectl describe clusters`)
-2. Your clusters are all 'Active'.  This means that the cluster Federation system was able to connect and authenticate against the clusters' endpoints.  If not, consult the logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -oname`)
+1. Your clusters are correctly registered in the Cluster Federation API (`kubectl describe clusters`).
+2. Your clusters are all 'Active'.  This means that the cluster Federation system was able to connect and authenticate against the clusters' endpoints.  If not, consult the logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -o name`)
 3. That the login credentials provided to the Cluster Federation API for the clusters have the correct authorization and quota to create services in the relevant namespace in the clusters.  Again you should see associated error messages providing more detail in the above log file if this is not the case.
 4. Whether any other error is preventing the service creation operation from succeeding (look for `service-controller` errors in the output of `kubectl logs federation-controller-manager --namespace federation`).
 
@@ -365,7 +365,7 @@ Check that:
 
 1. Your federation name, DNS provider, DNS domain name are configured correctly.  Consult the [federation admin guide](/docs/admin/federation/) or  [tutorial](https://github.com/kelseyhightower/kubernetes-cluster-federation) to learn
 how to configure your Cluster Federation system's DNS provider (or have your cluster administrator do this for you).
-2. Confirm that the Cluster Federation's service-controller is successfully connecting to and authenticating against your selected DNS provider (look for `service-controller` errors or successes in the output of `kubectl logs federation-controller-manager --namespace federation`)
+2. Confirm that the Cluster Federation's service-controller is successfully connecting to and authenticating against your selected DNS provider (look for `service-controller` errors or successes in the output of `kubectl logs federation-controller-manager --namespace federation`).
 3. Confirm that the Cluster Federation's service-controller is successfully creating DNS records in your DNS provider (or outputting errors in its logs explaining in more detail what's failing).
 
 #### Matching DNS records are created in my DNS provider, but clients are unable to resolve against those names

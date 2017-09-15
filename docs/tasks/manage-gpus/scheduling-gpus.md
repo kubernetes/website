@@ -13,7 +13,7 @@ This page describes how users can consume GPUs and the current limitations.
 
 {% capture prerequisites %}
 
-1. Kubernetes nodes have to be pre-installed with Nvidia drivers. Kubelet will not detect Nvidia GPUs otherwise. Try to re-install nvidia drivers if kubelet fails to expose Nvidia GPUs as part of Node Capacity.
+1. Kubernetes nodes have to be pre-installed with Nvidia drivers. Kubelet will not detect Nvidia GPUs otherwise. Try to re-install Nvidia drivers if kubelet fails to expose Nvidia GPUs as part of Node Capacity. After installing the driver, run `nvidia-docker-plugin` to confirm that all drivers have been loaded.
 2. A special **alpha** feature gate `Accelerators` has to be set to true across the system: `--feature-gates="Accelerators=true"`.
 3. Nodes must be using `docker engine` as the container runtime.
 
@@ -60,7 +60,7 @@ Following is an illustration of this workflow:
 As part of your Node bootstrapping, identify the GPU hardware type on your nodes and expose it as a node label.
 
 ```shell
-NVIDIA_GPU_NAME=$(nvidia-smi --query-gpu=gpu_name --format=csv,noheader --id=0)
+NVIDIA_GPU_NAME=$(nvidia-smi --query-gpu=gpu_name --format=csv,noheader --id=0 | sed -e 's/ /-/g')
 source /etc/default/kubelet
 KUBELET_OPTS="$KUBELET_OPTS --node-labels='alpha.kubernetes.io/nvidia-gpu-name=$NVIDIA_GPU_NAME'"
 echo "KUBELET_OPTS=$KUBELET_OPTS" > /etc/default/kubelet
@@ -123,8 +123,6 @@ spec:
   containers:
   - name: gpu-container-1
     image: gcr.io/google_containers/pause:2.0
-    securityContext:
-      privileged: true
     resources:
       limits:
         alpha.kubernetes.io/nvidia-gpu: 1

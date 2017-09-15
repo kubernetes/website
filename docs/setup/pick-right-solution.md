@@ -43,8 +43,6 @@ a Kubernetes cluster from scratch.
 
 * [AppsCode.com](https://appscode.com/products/cloud-deployment/) provides managed Kubernetes clusters for various public clouds, including AWS and Google Cloud Platform.
 
-* [KCluster.io](https://kcluster.io) provides highly available and scalable managed Kubernetes clusters for AWS.
-
 * [KUBE2GO.io](https://kube2go.io) get started with highly available Kubernetes clusters on multiple public clouds along with useful tools for development, debugging, monitoring.
 
 * [Madcore.Ai](https://madcore.ai) is devops-focused CLI tool for deploying Kubernetes infrastructure in AWS. Master, auto-scaling group nodes with spot-instances, ingress-ssl-lego, Heapster, and Grafana.
@@ -99,6 +97,7 @@ These solutions are combinations of cloud providers and operating systems not co
 
 * [CoreOS on AWS or GCE](/docs/getting-started-guides/coreos)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
+* [Kubespray](/docs/getting-started-guides/kubespray/)
 
 ## On-Premises VMs
 
@@ -121,7 +120,6 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)
 * [CentOS](/docs/getting-started-guides/centos/centos_manual_config)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
-* [Manually Deploying Kubernetes on Ubuntu Nodes](/docs/getting-started-guides/ubuntu/manual)
 * [CoreOS on AWS or GCE](/docs/getting-started-guides/coreos)
 
 ## Integrations
@@ -144,7 +142,6 @@ any                  | any          | multi-support | any CNI | [docs](/docs/set
 GKE                  |              |        | GCE         | [docs](https://cloud.google.com/container-engine) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
-KCluster.io          |              | multi-support | multi-support | [docs](https://kcluster.io) | Commercial
 KUBE2GO.io          |              | multi-support | multi-support | [docs](https://kube2go.io) | Commercial
 Madcore.Ai           | Jenkins DSL  | Ubuntu | flannel     | [docs](https://madcore.ai)                        | Community ([@madcore-ai](https://github.com/madcore-ai))
 Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial

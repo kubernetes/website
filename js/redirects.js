@@ -15,25 +15,7 @@ $( document ).ready(function() {
      *   "postfix": "/#<token>"                //[optional] append this to base URL w/ <token> found by "pattern"
      * }
      */
-    var forwardingRules = [{
-        "from":"/docs/api-reference/v1/definitions",
-        "pattern":"#_v1_(\\w+)",
-        "to":"/docs/api-reference/v1.7",
-        "postfix":"/#<token>-v1-core"
-    },
-    {
-        "from":"/docs/user-guide/kubectl/kubectl_",
-        "pattern":"kubectl_(\\w+)",
-        "to":"/docs/user-guide/kubectl/v1.7",
-        "postfix":"/#<token>"
-    },
-    {
-        "from":"/docs/contribute/",
-        "pattern":"\/contribute\/([0-9a-zA-Z\-\_]+)",
-        "to":"/docs/home/contribute",
-        "postfix":"/<token>"
-    }
-    ];
+    var forwardingRules = [];
 
     forwardingRules.forEach(function(rule) {
         if (forwardingURL.indexOf(rule.from) > -1) {

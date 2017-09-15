@@ -13,7 +13,7 @@ DNS provider for Cluster Federation.
 {% capture objectives %}
 
 * Configure and deploy CoreDNS server
-* Bringup federation with CoreDNS as dns provider
+* Bring up federation with CoreDNS as dns provider
 * Setup CoreDNS server in nameserver lookup chain
 
 {% endcapture %}
@@ -21,10 +21,12 @@ DNS provider for Cluster Federation.
 
 {% capture prerequisites %}
 
-You need to have a running Kubernetes cluster (which is
+* You need to have a running Kubernetes cluster (which is
 referenced as host cluster). Please see one of the
 [getting started](/docs/getting-started-guides/) guides for
 installation instructions for your platform.
+* Support for `LoadBalancer` services in member clusters of federation is
+mandatory to enable `CoreDNS` for service discovery across federated clusters.
 
 {% endcapture %}
 
@@ -98,7 +100,7 @@ coredns-provider.conf has below format:
 
  - `etcd-endpoints` is the endpoint to access etcd.
  - `zones` is the federation domain for which CoreDNS is authoritative and is same as --dns-zone-name flag of `kubefed init`.
- - `coredns-endpoints` is the endpoint to access coredns server. This is an optional parameter introduced from v1.7 onwards.
+ - `coredns-endpoints` is the endpoint to access CoreDNS server. This is an optional parameter introduced from v1.7 onwards.
 
 *Note: middleware.etcd.zones in CoreDNS configuration and --dns-zone-name
 flag to kubefed init should match.*

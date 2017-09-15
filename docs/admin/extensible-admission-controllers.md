@@ -35,7 +35,7 @@ This page describes how to use Initializers and External Admission Webhooks.
 * A list of pending pre-initialization tasks, stored in every object's metadata
   (e.g., "AddMyCorporatePolicySidecar").
 
-* A user customized controller, which actually perform those tasks. The name of the task
+* A user customized controller, which actually performs those tasks. The name of the task
   corresponds to the controller which performs the task. For clarity, we call
   them *initializer controllers* in this page.
 
@@ -283,5 +283,5 @@ and `Fail` policies, meaning that upon a communication error with the webhook
 admission controller, the `GenericAdmissionWebhook` can admit or reject the
 operation based on the configured policy.
 
-After you create the `initializerConfiguration`, the system will take a few
+After you create the `externalAdmissionHookConfiguration`, the system will take a few
 seconds to honor the new configuration.

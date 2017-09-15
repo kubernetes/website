@@ -49,6 +49,7 @@ It doesn't have any user facing configuration (component config) or API and can 
 ### Marking add-on as critical
 
 To be critical an add-on has to run in `kube-system` namespace (configurable via flag) and
+
 * have the `scheduler.alpha.kubernetes.io/critical-pod` annotation set to empty string, and
 * have the PodSpec's `tolerations` field set to `[{"key":"CriticalAddonsOnly", "operator":"Exists"}]`
 

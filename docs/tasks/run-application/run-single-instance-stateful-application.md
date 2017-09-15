@@ -95,10 +95,31 @@ for a secure solution.
         Namespace:            default
         CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
         Labels:               app=mysql
+        Annotations:          deployment.kubernetes.io/revision=1
         Selector:             app=mysql
-        Replicas:             1 updated | 1 total | 0 available | 1 unavailable
+        Replicas:             1 desired | 1 updated | 1 total | 0 available | 1 unavailable
         StrategyType:         Recreate
         MinReadySeconds:      0
+        Pod Template:
+          Labels:       app=mysql
+          Containers:
+           mysql:
+            Image:      mysql:5.6
+            Port:       3306/TCP
+            Environment:
+              MYSQL_ROOT_PASSWORD:      password
+            Mounts:
+              /var/lib/mysql from mysql-persistent-storage (rw)
+          Volumes:
+           mysql-persistent-storage:
+            Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+            ClaimName:  mysql-pv-claim
+            ReadOnly:   false
+        Conditions:
+          Type          Status  Reason
+          ----          ------  ------
+          Available     False   MinimumReplicasUnavailable
+          Progressing   True    ReplicaSetUpdated
         OldReplicaSets:       <none>
         NewReplicaSet:        mysql-63082529 (1/1 replicas created)
         Events:
@@ -119,6 +140,8 @@ for a secure solution.
 
         Name:            mysql-pv
         Labels:          <none>
+        Annotations:    pv.kubernetes.io/bound-by-controller=yes
+        StorageClass:
         Status:          Bound
         Claim:           default/mysql-pv-claim
         Reclaim Policy:  Retain
@@ -131,7 +154,7 @@ for a secure solution.
             FSType:      ext4
             Partition:   0
             ReadOnly:    false
-        No events.
+        Events:          <none>
 
 1. Inspect the PersistentVolumeClaim:
 
@@ -139,12 +162,15 @@ for a secure solution.
 
         Name:         mysql-pv-claim
         Namespace:    default
+        StorageClass:
         Status:       Bound
         Volume:       mysql-pv
         Labels:       <none>
+        Annotations:    pv.kubernetes.io/bind-completed=yes
+                        pv.kubernetes.io/bound-by-controller=yes
         Capacity:     20Gi
         Access Modes: RWO
-        No events.
+        Events:       <none>
 
 ## Accessing the MySQL instance
 
@@ -157,10 +183,10 @@ behind a Service and you don't intend to increase the number of Pods.
 Run a MySQL client to connect to the server:
 
 ```
-kubectl run -it --rm --image=mysql:5.6 mysql-client -- mysql -h <pod-ip> -ppassword
+kubectl run -it --rm --image=mysql:5.6 mysql-client -- mysql -h <pod-ip> -p <password>
 ```
 
-This command creates a new Pod in the cluster running a mysql client
+This command creates a new Pod in the cluster running a MySQL client
 and connects it to the server through the Service. If it connects, you
 know your stateful MySQL database is up and running.
 

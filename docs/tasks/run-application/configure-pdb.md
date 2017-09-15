@@ -14,8 +14,8 @@ nodes.
 {% capture prerequisites %}
 * You are the owner of an application running on a Kubernetes cluster that requires
   high availability.
-* You should know how to deploy [Replicated Stateless Applications](/docs/tasks/run-application/run-stateless-application-deployment.md)
-  and/or [Replicated Stateful Applications](/docs/tasks/run-application/run-replicated-stateful-application.md).
+* You should know how to deploy [Replicated Stateless Applications](/docs/tasks/run-application/run-stateless-application-deployment/)
+  and/or [Replicated Stateful Applications](/docs/tasks/run-application/run-replicated-stateful-application/).
 * You should have read about [Pod Disruptions](/docs/concepts/workloads/pods/disruptions/).
 * You should confirm with your cluster owner or service provider that they respect
   Pod Disruption Budgets.
@@ -26,7 +26,7 @@ nodes.
 ## Protecting an Application with a PodDisruptionBudget
 
 1. Identify what application you want to protect with a PodDisruptionBudget (PDB).
-1. Think about how your application reacts to disruptions
+1. Think about how your application reacts to disruptions.
 1. Create a PDB definition as a YAML file.
 1. Create the PDB object from the YAML file.
 
@@ -57,22 +57,22 @@ described in [Arbitrary Controllers and Selectors](#arbitrary-controllers-and-se
 Decide how many instances can be down at the same time for a short period
 due to a voluntary disruption.
 
-- Stateless frontends
+- Stateless frontends:
   - Concern: don't reduce serving capacity by more than 10%. 
     - Solution: use PDB with minAvailable 90% for example.
-- Single-instance Stateful Application
+- Single-instance Stateful Application:
   - Concern: do not terminate this application without talking to me.
     - Possible Solution 1: Do not use a PDB and tolerate occasional downtime.
     - Possible Solution 2: Set PDB with maxUnavailable=0.  Have an understanding
       (outside of Kubernetes) that the cluster operator needs to consult you before
       termination.  When the cluster operator contacts you, prepare for downtime,
       and then delete the PDB to indicate readiness for disruption.  Recreate afterwards.
-- Multiple-instance Stateful application such as Consul, ZooKeeper, or etcd  
+- Multiple-instance Stateful application such as Consul, ZooKeeper, or etcd:
   - Concern: Do not reduce number of instances below quorum, otherwise writes fail.
     - Possible Solution 1: set maxUnavailable to 1 (works with varying scale of application).
     - Possible Solution 2: set minAvailable to quorum-size (e.g. 3 when scale is 5).  (Allows more disruptions at once).
 - Restartable Batch Job:
-  - Concern: Job needs to complete in case of voluntary disruption
+  - Concern: Job needs to complete in case of voluntary disruption.
     - Possible solution: Do not create a PDB.  The Job controller will create a replacement pod.
 
 ## Specifying a PodDisruptionBudget
@@ -192,6 +192,8 @@ $ kubectl get poddisruptionbudgets zk-pdb -o yaml
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
+  creationTimestamp: 2017-08-28T02:38:26Z
+  generation: 1
   name: zk-pdb
 ...
 status:

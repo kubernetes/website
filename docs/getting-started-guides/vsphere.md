@@ -12,28 +12,27 @@ This page covers how to get started with deploying Kubernetes on vSphere and det
 
 ### Getting started with the vSphere Cloud Provider
 
-Kubernetes comes with a cloud provider for vSphere. A quick and easy way to try out the cloud provider is to deploy Kubernetes using [Kubernetes-Anywhere](https://github.com/kubernetes/kubernetes-anywhere).
-
-This page also describes how to configure and get started with the cloud provider if deploying using custom install scripts.
+Kubernetes comes with *vSphere Cloud Provider*, a cloud provider for vSphere that allows Kubernetes Pods to use enterprise grade vSphere Storage.
 
 ### Deploy Kubernetes on vSphere
 
-To start using Kubernetes on top of vSphere and use the vSphere Cloud Provider use Kubernetes-Anywhere. Kubernetes-Anywhere will deploy and configure a cluster from scratch.
+To deploy Kubernetes on vSphere and use the vSphere Cloud Provider, see [Kubernetes-Anywhere](https://github.com/kubernetes/kubernetes-anywhere). 
 
-Detailed steps can be found at the [getting started with Kubernetes-Anywhere on vSphere](https://git.k8s.io/kubernetes-anywhere/phase1/vsphere/README.md) page
+Detailed steps can be found at the [getting started with Kubernetes-Anywhere on vSphere](https://git.k8s.io/kubernetes-anywhere/phase1/vsphere/README.md) page.
 
 ### vSphere Cloud Provider
 
-vSphere Cloud Provider allows using vSphere managed storage within Kubernetes. It supports:
+vSphere Cloud Provider allows Kubernetes to use vSphere managed enterprise grade storage. It supports:
 
-1. Volumes
-2. Persistent Volumes
-3. Storage Classes and provisioning of volumes.
-4. vSphere Storage Policy Based Management for Containers orchestrated by Kubernetes.
+- Enterprise class services such as de-duplication and encryption with vSAN, QoS, high availability and data reliability.
+- Policy based management at granularity of container volumes.
+- Volumes, Persistent Volumes, Storage Classes, dynamic provisioning of volumes, and scalable deployment of Stateful Apps with StatefulSets.
 
-Documentation for how to use vSphere managed storage can be found in the [persistent volumes user guide](/docs/concepts/storage/persistent-volumes/#vsphere) and the [volumes user guide](/docs/concepts/storage/volumes/#vspherevolume)
+For more detail visit [vSphere Storage for Kubernetes Documentation](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/index.html).
 
-Examples can be found [here](https://git.k8s.io/kubernetes/examples/volumes/vsphere)
+Documentation for how to use vSphere managed storage can be found in the [persistent volumes user guide](/docs/concepts/storage/persistent-volumes/#vsphere) and the [volumes user guide](/docs/concepts/storage/volumes/#vspherevolume).
+
+Examples can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere).
 
 #### Enable vSphere Cloud Provider
 
@@ -41,15 +40,15 @@ If a Kubernetes cluster has not been deployed using Kubernetes-Anywhere, follow 
 
 **Step-1** [Create a VM folder](https://docs.vmware.com/en/VMware-vSphere/6.0/com.vmware.vsphere.vcenterhost.doc/GUID-031BDB12-D3B2-4E2D-80E6-604F304B4D0C.html) and move Kubernetes Node VMs to this folder.
 
-**Step-2** Make sure Node VM names must comply with the regex `[a-z](([-0-9a-z]+)?[0-9a-z])?(\.[a-z0-9](([-0-9a-z]+)?[0-9a-z])?)*` If Node VMs does not comply with this regex, rename them and make it compliant to this regex.
+**Step-2** Make sure Node VM names must comply with the regex `[a-z](([-0-9a-z]+)?[0-9a-z])?(\.[a-z0-9](([-0-9a-z]+)?[0-9a-z])?)*`. If Node VMs do not comply with this regex, rename them and make it compliant to this regex.
 
   Node VM names constraints:
 
   * VM names can not begin with numbers.
   * VM names can not have capital letters, any special characters except `.` and `-`.
-  * VM names can not be shorter than 3 chars and longer than 63
+  * VM names can not be shorter than 3 chars and longer than 63.
 
-**Step-3** Enable disk UUID on Node virtual machines
+**Step-3** Enable disk UUID on Node virtual machines.
 
 The disk.EnableUUID parameter must be set to "TRUE" for each Node VM. This step is necessary so that the VMDK always presents a consistent UUID to the VM, thus allowing the disk to be mounted properly. 
 
@@ -114,7 +113,7 @@ vSphere Cloud Provider requires the following minimal set of privileges to inter
 </tbody>
 </table>
 
-**Step-5** Create the vSphere cloud config file (`vsphere.conf`). Cloud config template can be found [here](https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf)
+**Step-5** Create the vSphere cloud config file (`vsphere.conf`). Cloud config template can be found [here](https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf).
 
 This config file needs to be placed in the shared directory which should be accessible from kubelet container, controller-manager pod, and API server pod.
 
@@ -138,7 +137,7 @@ This config file needs to be placed in the shared directory which should be acce
 
 Note: **```vm-name``` parameter is introduced in 1.6.4 release.** Both ```vm-uuid``` and ```vm-name``` are optional parameters. If ```vm-name``` is specified then ```vm-uuid``` is not used. If both are not specified then kubelet will get vm-uuid from `/sys/class/dmi/id/product_serial` and query vCenter to find the Node VM's name. 
 
-**```vsphere.conf``` for Worker Nodes:** (Only Applicable to 1.6.4 release and above. For older releases this file should have all the parameters specified in Master node's ```vSphere.conf``` file)
+**```vsphere.conf``` for Worker Nodes:** (Only Applicable to 1.6.4 release and above. For older releases this file should have all the parameters specified in Master node's ```vSphere.conf``` file).
  
 ``` 
 [Global]
@@ -184,25 +183,27 @@ Below is summary of supported parameters in the `vsphere.conf` file
 --cloud-config=<Path of the vsphere.conf file>
 ```
 
-Manifest files for API server and controller-manager are generally located at `/etc/kubernetes`
+Manifest files for API server and controller-manager are generally located at `/etc/kubernetes/manifests`.
 
 **Step-7** Restart Kubelet on all nodes.
+
 * Reload kubelet systemd unit file using ```systemctl daemon-reload```
 * Restart kubelet service using ```systemctl restart kubelet.service```
 
 Note: After enabling the vSphere Cloud Provider, Node names will be set to the VM names from the vCenter Inventory.
 
 #### Known issues
-[vmware#220](https://github.com/vmware/kubernetes/issues/220) :
-vSphere Cloud Provider can not be used on the Kubernetes Cluster when vCenter port is configured other than the default port 443. Fix for this issue is already out (Kubernetes PR# [49689](https://github.com/kubernetes/kubernetes/pull/49689)). We will make sure that, PR 49689 is cherry picked to 1.7, 1.6 and 1.5 branches. 
+Please visit [known issues](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/known-issues.html) for the list of major known issues with Kubernetes vSphere Cloud Provider.
 
 ## Support Level
 
+For quick support please join VMware Code Slack ([#kubernetes](https://vmwarecode.slack.com/messages/kubernetes/)) and post your question.
 
 IaaS Provider        | Config. Mgmt | OS     | Networking | Docs                                          | Conforms  | Support Level
 -------------------- | ------------ | ------ | ---------- | --------------------------------------------- | --------- | ----------------------------
 Vmware vSphere       | Kube-anywhere    | Photon OS | Flannel         | [docs](/docs/getting-started-guides/vsphere)                                |                | Community  ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)), ([@BaluDontu](https://github.com/BaluDontu)), ([@luomiao](https://github.com/luomiao)), ([@divyenpatel](https://github.com/divyenpatel))
 
 If you identify any issues/problems using the vSphere cloud provider, you can create an issue in our repo - [VMware Kubernetes](https://github.com/vmware/kubernetes).
+
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.

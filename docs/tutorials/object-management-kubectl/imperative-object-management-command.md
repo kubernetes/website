@@ -130,8 +130,8 @@ creation. This is done by piping the output of the `create` command to the
 kubectl create service clusterip <myservicename> -o yaml --dry-run | kubectl set selector --local -f - 'environment=qa' -o yaml | kubectl create -f -
 ```
 
-1. The `create service -o yaml --dry-run` command creates the configuration for the Service, but prints it to stdout as YAML instead of sending it to the Kubernetes API server.
-1. The `set --local -f - -o yaml` command reads the configuration from stdin, and writes the updated configuration to stdout as YAML.
+1. The `kubectl create service -o yaml --dry-run` command creates the configuration for the Service, but prints it to stdout as YAML instead of sending it to the Kubernetes API server.
+1. The `kubectl set --local -f - -o yaml` command reads the configuration from stdin, and writes the updated configuration to stdout as YAML.
 1. The `kubectl create -f -` command creates the object using the configuration provided via stdin.
 
 ## Using `--edit` to modify objects before creation
@@ -144,8 +144,8 @@ kubectl create service clusterip my-svc -o yaml --dry-run > /tmp/srv.yaml
 kubectl create --edit -f /tmp/srv.yaml
 ```
 
-1. The `create service` command creates the configuration for the Service and saves it to `/tmp/srv.yaml`.
-1. The `create --edit` command opens the configuration file for editing before it creates the object.
+1. The `kubectl create service` command creates the configuration for the Service and saves it to `/tmp/srv.yaml`.
+1. The `kubectl create --edit` command opens the configuration file for editing before it creates the object.
 
 {% endcapture %}
 

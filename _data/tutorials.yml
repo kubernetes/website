@@ -29,8 +29,12 @@ toc:
     section:
     - docs/tutorials/kubernetes-basics/update-intro.html
     - docs/tutorials/kubernetes-basics/update-interactive.html
-- title: Online Training Course
-  path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
+- title: Online Training Courses
+  section:
+  - title: Scalable Microservices with Kubernetes (Udacity)
+    path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
+  - title: Introduction to Kubernetes (edX)
+    path: https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#
 - docs/tutorials/stateless-application/hello-minikube.md
 - title: Configuration
   section:
@@ -61,4 +65,3 @@ toc:
 - title: Services
   section:
   - docs/tutorials/services/source-ip.md
-

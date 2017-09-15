@@ -33,7 +33,7 @@ fed-node = 192.168.121.65
 **Prepare the hosts:**
 
 * Install Kubernetes on all hosts - fed-{master,node}.  This will also pull in docker. Also install etcd on fed-master.  This guide has been tested with Kubernetes-0.18 and beyond.
-* Running on AWS EC2 with RHEL 7.2, you need to enable "extras" repository for yum by editing `/etc/yum.repos.d/redhat-rhui.repo` and changing the changing the `enable=0` to `enable=1` for extras.
+* Running on AWS EC2 with RHEL 7.2, you need to enable "extras" repository for yum by editing `/etc/yum.repos.d/redhat-rhui.repo` and changing the `enable=0` to `enable=1` for extras.
 
 ```shell
 dnf -y install kubernetes
@@ -85,7 +85,7 @@ KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
 KUBE_API_ARGS=""
 ```
 
-* Edit /etc/etcd/etcd.conf to let etcd listen on all available IPs instead of 127.0.0.1; If you have not done this, you might see an error such as "connection refused".
+* Edit /etc/etcd/etcd.conf to let etcd listen on all available IPs instead of 127.0.0.1. If you have not done this, you might see an error such as "connection refused".
 
 ```shell
 ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"

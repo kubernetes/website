@@ -26,17 +26,17 @@ When multiple authorization modules are configured, each is checked in sequence,
 ## Review Your Request Attributes
 Kubernetes reviews only the following API request attributes:
 
- * **user** - The `user` string provided during authentication
- * **group** - The list of group names to which the authenticated user belongs
- * **"extra"** - A map of arbitrary string keys to string values, provided by the authentication layer
- * **API** - Indicates whether the request is for an API resource
+ * **user** - The `user` string provided during authentication.
+ * **group** - The list of group names to which the authenticated user belongs.
+ * **"extra"** - A map of arbitrary string keys to string values, provided by the authentication layer.
+ * **API** - Indicates whether the request is for an API resource.
  * **Request path** - Path to miscellaneous non-resource endpoints like `/api` or `/healthz`.
  * **API request verb** - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests. To determine the request verb for a resource API endpoint, see **Determine the request verb** below.
- * **HTTP request verb** - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests
+ * **HTTP request verb** - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests.
  * **Resource** - The ID or name of the resource that is being accessed (for resource requests only)
 --* For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
- * **Subresource** - The subresource that is being accessed (for resource requests only)
- * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only)
+ * **Subresource** - The subresource that is being accessed (for resource requests only).
+ * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only).
  * **API group** - The API group being accessed (for resource requests only). An empty string designates the [core API group](/docs/api/).
 
 ## Determine the Request Verb
@@ -58,34 +58,12 @@ of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authoriz
 * [Authentication](/docs/admin/authentication/) layer checks for authorization of the `impersonate` verb on `users`, `groups`, and `serviceaccounts` in the core API group, and the `userextras` in the `authentication.k8s.io` API group.
 
 ## Authorization Modules
- * **Node** - A special-purpose authorizer that grants permissions to kubelets based on the pods they are scheduled to run. To learn more about using the Node authorization mode, see [Node Authorization](/docs/admin/authorization/node/)
- * **ABAC** - Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes etc). To learn more about using the ABAC mode, see [ABAC Mode](/docs/admin/authorization/abac/)
+ * **Node** - A special-purpose authorizer that grants permissions to kubelets based on the pods they are scheduled to run. To learn more about using the Node authorization mode, see [Node Authorization](/docs/admin/authorization/node/).
+ * **ABAC** - Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes etc). To learn more about using the ABAC mode, see [ABAC Mode](/docs/admin/authorization/abac/).
  * **RBAC** - Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise. In this context, access is the ability of an individual user to perform a specific task, such as view, create, or modify a file. To learn more about using the RBAC mode, see [RBAC Mode](/docs/admin/authorization/rbac/)
  ..* When specified "RBAC" (Role-Based Access Control) uses the "rbac.authorization.k8s.io" API group to drive authorization decisions, allowing admins to dynamically configure permission policies through the Kubernetes API.
- ..* As of 1.6 RBAC mode is in beta.
  ..* To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.
- * **Webhook** - A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen. To learn more about using the Webhook mode, see [Webhook Mode](/docs/admin/authorization/webhook/)
- * **Custom Modules** - You can create custom modules for using with Kubernetes. To learn more, see **Custom Modules** below.
- 
-### Custom Modules
-Other implementations can be developed fairly easily. The APIserver calls the Authorizer interface:
-
-```go
-type Authorizer interface {
-  Authorize(a Attributes) error
-}
-```
-
-to determine whether or not to allow each API action.
-
-An authorization plugin is a module that implements this interface.
-Authorization plugin code goes in `pkg/auth/authorizer/$MODULENAME`.
-
-An authorization module can be completely implemented in go, or can call out
-to a remote authorization service.  Authorization modules can implement
-their own caching to reduce the cost of repeated authorization calls with the
-same or similar arguments.  Developers should then consider the interaction
-between caching and revocation of permissions.
+ * **Webhook** - A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen. To learn more about using the Webhook mode, see [Webhook Mode](/docs/admin/authorization/webhook/).
 
 #### Checking API Access
 
@@ -136,11 +114,12 @@ to determine what access an authorizer is granting.
 You must include a flag in your policy to indicate which authorization module your policies include:
 
 The following flags can be used:
-  - `--authorization-mode=ABAC` Attribute-Based Access Control (ABAC) mode allows you to configure policies using local files.
-  - `--authorization-mode=RBAC` Role-based access control (RBAC) mode allows you to create and store policies using the Kubernetes API.
-  - `--authorization-mode=Webhook` WebHook is an HTTP callback mode that allows you to manage authorization using a remote REST.
-  - `--authorization-mode=AlwaysDeny` This flag blocks all requests. Use this flag only for testing.
-  - `--authorization-mode=AlwaysAllow` This flag allows all requests. Use this flag only if you do not require authorization for your API requests.
+
+  * `--authorization-mode=ABAC` Attribute-Based Access Control (ABAC) mode allows you to configure policies using local files.
+  * `--authorization-mode=RBAC` Role-based access control (RBAC) mode allows you to create and store policies using the Kubernetes API.
+  * `--authorization-mode=Webhook` WebHook is an HTTP callback mode that allows you to manage authorization using a remote REST.
+  * `--authorization-mode=AlwaysDeny` This flag blocks all requests. Use this flag only for testing.
+  * `--authorization-mode=AlwaysAllow` This flag allows all requests. Use this flag only if you do not require authorization for your API requests.
 
 You can choose more than one authorization module. If one of the modes is `AlwaysAllow`, then it overrides the other modes and all API requests are allowed. 
 

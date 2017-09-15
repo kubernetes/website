@@ -33,7 +33,7 @@ Explore the following resources for more information about Kubernetes, Kubernete
 
 - [DCOS Documentation](https://docs.mesosphere.com/)
 - [Managing DCOS Services](https://docs.mesosphere.com/services/kubernetes/)
-- [Kubernetes Examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/)
+- [Kubernetes Examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/)
 - [Kubernetes on Mesos Documentation](https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/README.md)
 - [Kubernetes on Mesos Release Notes](https://github.com/mesosphere/kubernetes-mesos/releases)
 - [Kubernetes on DCOS Package Source](https://github.com/mesosphere/kubernetes-mesos)
@@ -42,7 +42,7 @@ Explore the following resources for more information about Kubernetes, Kubernete
 ## Prerequisites
 
 - A running [DCOS cluster](https://mesosphere.com/product/)
-  - [DCOS Community Edition](https://docs.mesosphere.com/install/) is currently available on [AWS](https://mesosphere.com/amazon/).
+  - [DCOS Community Edition](https://docs.mesosphere.com/1.7/archived-dcos-enterprise-edition/installing-enterprise-edition-1-6/cloud/) is currently available on [AWS](https://mesosphere.com/amazon/).
   - [DCOS Enterprise Edition](https://mesosphere.com/product/) can be deployed on virtual or bare metal machines. Contact sales@mesosphere.com for more info and to set up an engagement.
 - [DCOS CLI](https://docs.mesosphere.com/install/cli/) installed locally
 
@@ -110,7 +110,7 @@ $ dcos kubectl get pods --namespace=kube-system
 Names and ages may vary.
 
 
-Now that Kubernetes is installed on DCOS, you may wish to explore the [Kubernetes Examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/README.md) or the [Kubernetes User Guide](/docs/user-guide/).
+Now that Kubernetes is installed on DCOS, you may wish to explore the [Kubernetes Examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/README.md) or the [Kubernetes User Guide](/docs/user-guide/).
 
 
 ## Uninstall

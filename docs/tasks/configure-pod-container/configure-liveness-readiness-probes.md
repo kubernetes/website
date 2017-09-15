@@ -136,7 +136,7 @@ Any code greater than or equal to 200 and less than 400 indicates success. Any
 other code indicates failure.
 
 You can see the source code for the server in
-[server.go](http://k8s.io/docs/user-guide/liveness/image/server.go).
+[server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/liveness/server.go).
 
 For the first 10 seconds that the Container is alive, the `/healthz` handler
 returns a status of 200. After that, the handler returns a status of 500.
@@ -180,7 +180,7 @@ can’t it is considered a failure.
 
 {% include code.html language="yaml" file="tcp-liveness-readiness.yaml" ghlink="/docs/tasks/configure-pod-container/tcp-liveness-readiness.yaml" %}
 
-As you can see, configuration for a TCP check is quite similar to a HTTP check.
+As you can see, configuration for a TCP check is quite similar to an HTTP check.
 This example uses both readiness and liveness probes. The kubelet will send the
 first readiness probe 5 seconds after the container starts. This will attempt to
 connect to the `goproxy` container on port 8080. If the probe succeeds, the pod
@@ -207,8 +207,8 @@ ports:
 
 livenessProbe:
   httpGet:
-  path: /healthz
-  port: liveness-port
+    path: /healthz
+    port: liveness-port
 ```
 
 ## Define readiness probes
@@ -268,7 +268,7 @@ have additional fields that can be set on `httpGet`:
 
 * `host`: Host name to connect to, defaults to the pod IP. You probably want to
 set "Host" in httpHeaders instead.
-* `scheme`: Scheme to use for connecting to the host. Defaults to HTTP.
+* `scheme`: Scheme to use for connecting to the host (HTTP or HTTPS). Defaults to HTTP.
 * `path`: Path to access on the HTTP server.
 * `httpHeaders`: Custom headers to set in the request. HTTP allows repeated headers.
 * `port`: Name or number of the port to access on the container. Number must be
@@ -276,12 +276,13 @@ in the range 1 to 65535.
 
 For an HTTP probe, the kubelet sends an HTTP request to the specified path and
 port to perform the check. The kubelet sends the probe to the container’s IP address,
-unless the address is overridden by the optional `host` field in `httpGet`.
-In most scenarios, you do not want to set the `host` field. Here's one scenario
-where you would set it. Suppose the Container listens on 127.0.0.1 and the Pod's
-`hostNetwork` field is true. Then `host`, under `httpGet`, should be set to 127.0.0.1.
-If your pod relies on virtual hosts, which is probably the more common case,
-you should not use `host`, but rather set the `Host` header in `httpHeaders`.
+unless the address is overridden by the optional `host` field in `httpGet`. If
+`scheme` field is set to `HTTPS`, the kubelet sends an HTTPS request skipping the
+certificate verification. In most scenarios, you do not want to set the `host` field.
+Here's one scenario where you would set it. Suppose the Container listens on 127.0.0.1
+and the Pod's `hostNetwork` field is true. Then `host`, under `httpGet`, should be set
+to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more common
+case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
 {% endcapture %}
 

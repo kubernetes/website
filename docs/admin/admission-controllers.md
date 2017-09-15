@@ -59,6 +59,28 @@ required.
 
 Rejects all requests.  Used for testing.
 
+### DefaultStorageClass
+
+This plug-in observes creation of `PersistentVolumeClaim` objects that do not request any specific storage class
+and automatically adds a default storage class to them.
+This way, users that do not request any special storage class do not need to care about them at all and they
+will get the default one.
+
+This plug-in does not do anything when no default storage class is configured. When more than one storage
+class is marked as default, it rejects any creation of `PersistentVolumeClaim` with an error and administrator
+must revisit `StorageClass` objects and mark only one as default.
+This plugin ignores any `PersistentVolumeClaim` updates; it acts only on creation.
+
+See [persistent volume](/docs/user-guide/persistent-volumes) documentation about persistent volume claims and
+storage classes and how to mark a storage class as default.
+
+### DefaultTolerationSeconds
+
+This plug-in sets the default forgiveness toleration for pods to tolerate
+the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes,
+if the pods don't already have toleration for taints `notready:NoExecute` or
+`unreachable:NoExecute`.
+
 ### DenyExecOnPrivileged (deprecated)
 
 This plug-in will intercept all requests to exec a command in a pod if that pod has a privileged container.
@@ -77,6 +99,15 @@ have access to the host PID namespace.
 If your cluster supports containers that run with escalated privileges, and you want to
 restrict the ability of end-users to exec commands in those containers, we strongly encourage
 enabling this plug-in.
+
+### GenericAdmissionWebhook (alpha)
+
+This plug-in is related to the [Dynamic Admission Control](/docs/admin/extensible-admission-controllers)
+introduced in v1.7.
+The plug-in calls the webhooks configured via `ExternalAdmissionHookConfiguration`,
+and only admits the operation if all the webhooks admit it.
+Currently, the plug-in always fails open.
+In other words, it ignores the failed calls to a webhook.
 
 ### ImagePolicyWebhook
 
@@ -190,25 +221,29 @@ Examples of information you might put here are:
 
 In any case, the annotations are provided by the user and are not validated by Kubernetes in any way. In the future, if an annotation is determined to be widely useful, it may be promoted to a named field of ImageReviewSpec.
 
-### ServiceAccount
+### Initializers (alpha)
 
-This plug-in implements automation for [serviceAccounts](/docs/user-guide/service-accounts).
-We strongly recommend using this plug-in if you intend to make use of Kubernetes `ServiceAccount` objects.
+This plug-in is introduced in v1.7.
+The plug-in determines the initializers of a resource based on the existing
+`InitializerConfiguration`s. It sets the pending initializers by modifying the
+metadata of the resource to be created.
+For more information, please check [Dynamic Admission Control](/docs/admin/extensible-admission-controllers).
 
-### SecurityContextDeny
+### InitialResources (experimental)
 
-This plug-in will deny any pod that attempts to set certain escalating [SecurityContext](/docs/user-guide/security-context) fields. This should be enabled if a cluster doesn't utilize [pod security policies](/docs/user-guide/pod-security-policy) to restrict the set of values a security context can take.
+This plug-in observes pod creation requests. If a container omits compute resource requests and limits,
+then the plug-in auto-populates a compute resource request based on historical usage of containers running the same image.
+If there is not enough data to make a decision the Request is left unchanged.
+When the plug-in sets a compute resource request, it does this by *annotating* the
+the pod spec rather than mutating the `container.resources` fields.
+The annotations added contain the information on what compute resources were auto-populated.
 
-### ResourceQuota
+See the [InitialResouces proposal](https://git.k8s.io/community/contributors/design-proposals/initial-resources.md) for more details.
 
-This plug-in will observe the incoming request and ensure that it does not violate any of the constraints
-enumerated in the `ResourceQuota` object in a `Namespace`.  If you are using `ResourceQuota`
-objects in your Kubernetes deployment, you MUST use this plug-in to enforce quota constraints.
+### LimitPodHardAntiAffinity
 
-See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
-
-It is strongly encouraged that this plug-in is configured last in the sequence of admission control plug-ins.  This is
-so that quota is not prematurely incremented only for the request to be rejected later in admission control.
+This plug-in denies any pod that defines `AntiAffinity` topology key other than
+`kubernetes.io/hostname` in `requiredDuringSchedulingRequiredDuringExecution`.
 
 ### LimitRanger
 
@@ -220,14 +255,18 @@ applies a 0.1 CPU requirement to all Pods in the `default` namespace.
 
 See the [limitRange design doc](https://git.k8s.io/community/contributors/design-proposals/admission_control_limit_range.md) and the [example of Limit Range](/docs/tasks/configure-pod-container/limit-range/) for more details.
 
-### InitialResources (experimental)
+### NamespaceAutoProvision
 
-This plug-in observes pod creation requests. If a container omits compute resource requests and limits,
-then the plug-in auto-populates a compute resource request based on historical usage of containers running the same image.
-If there is not enough data to make a decision the Request is left unchanged.
-When the plug-in sets a compute resource request, it annotates the pod with information on what compute resources it auto-populated.
+This plug-in examines all incoming requests on namespaced resources and checks
+if the referenced namespace does exist.
+It creates a namespace if it cannot be found.
+This plug-in is useful in deployments that do not want to restrict creation of
+a namespace prior to its usage.
 
-See the [InitialResouces proposal](https://git.k8s.io/community/contributors/design-proposals/initial-resources.md) for more details.
+### NamespaceExists
+
+This plug-in checks all requests on namespaced resources other than `Namespace` itself.
+If the namespace referenced from a request doesn't exist, the request is rejected.
 
 ### NamespaceLifecycle
 
@@ -238,25 +277,30 @@ three system reserved namespaces `default`, `kube-system`, `kube-public`.
 A `Namespace` deletion kicks off a sequence of operations that remove all objects (pods, services, etc.) in that
 namespace.  In order to enforce integrity of that process, we strongly recommend running this plug-in.
 
-### DefaultStorageClass
+### NodeRestriction
 
-This plug-in observes creation of `PersistentVolumeClaim` objects that do not request any specific storage class
-and automatically adds a default storage class to them.
-This way, users that do not request any special storage class do no need to care about them at all and they
-will get the default one.
+This plug-in limits the `Node` and `Pod` objects a kubelet can modify. In order to be limited by this admission plugin,
+kubelets must use credentials in the `system:nodes` group, with a username in the form `system:node:<nodeName>`. 
+Such kubelets will only be allowed to modify their own `Node` API object, and only modify `Pod` API objects that are bound to their node.
+Future versions may add additional restrictions to ensure kubelets have the minimal set of permissions required to operate correctly.
 
-This plug-in does not do anything when no default storage class is configured. When more than one storage
-class is marked as default, it rejects any creation of `PersistentVolumeClaim` with an error and administrator
-must revisit `StorageClass` objects and mark only one as default.
-This plugin ignores any `PersistentVolumeClaim` updates, it acts only on creation.
+### OwnerReferencesPermissionEnforcement
 
-See [persistent volume](/docs/user-guide/persistent-volumes) documentation about persistent volume claims and
-storage classes and how to mark a storage class as default.
+This plug-in protects the access to the `metadata.ownerReferences` of an object
+so that only users with "delete" permission to the object can change it.
+This plug-in also protects the access to `metadata.ownerReferences[x].blockOwnerDeletion`
+of an object, so that only users with "update" permission to the `finalizers`
+subresource of the referenced *owner* can change it.
 
-### DefaultTolerationSeconds
+### PersistentVolumeLabel
 
-This plug-in sets the default forgiveness toleration for pods, which have no forgiveness tolerations, to tolerate
-the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes.
+This plug-in automatically attaches region or zone labels to PersistentVolumes
+as defined by the cloud provider, e.g. GCE and AWS.
+It helps ensure the Pods and the PersistentVolumes mounted are in the same
+region and/or zone.
+If the plug-in doesn't support automatic labelling your PersistentVolumes, you
+may need to add the labels manually to prevent pods from mounting volumes from
+a different zone.
 
 ### PodNodeSelector
 
@@ -288,6 +332,12 @@ metadata:
   name: namespace3
 ```
 
+### PodPreset
+
+This plug-in injects a pod with the fields specified in a matching PodPreset.
+See also [Inject Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset)
+for more information.
+
 ### PodSecurityPolicy
 
 This plug-in acts on creation and modification of the pod and determines if it should be admitted
@@ -299,12 +349,43 @@ extensions group (`--runtime-config=extensions/v1beta1/podsecuritypolicy=true`).
 See also [Pod Security Policy documentation](/docs/concepts/policy/pod-security-policy/)
 for more information.
 
-### NodeRestriction
+### PodTolerationRestriction
 
-This plug-in limits the `Node` and `Pod` objects a kubelet can modify. In order to be limited by this admission plugin,
-kubelets must use credentials in the `system:nodes` group, with a username in the form `system:node:<nodeName>`. 
-Such kubelets will only be allowed to modify their own `Node` API object, and only modify `Pod` API objects that are bound to their node.
-Future versions may add additional restrictions to ensure kubelets have the minimal set of permissions required to operate correctly.
+This plug-in first verifies any conflict between a pod's tolerations and its
+namespace's tolerations, and rejects the pod request if there is a conflict.
+It then merges the namespace's tolerations into the pod's tolerations.
+The resulting tolerations are checked against the namespace's whitelist of
+tolerations. If the check succeeds, the pod request is admitted otherwise
+rejected.
+
+If the pod's namespace does not have any associated default or whitelist of
+tolerations, then the cluster-level default or whitelist of tolerations are used
+instead if specified.
+
+Tolerations to a namespace are assigned via the
+`scheduler.alpha.kubernetes.io/defaultTolerations` and
+`scheduler.alpha.kubernetes.io/tolerationsWhitelist`
+annotation keys.
+
+### ResourceQuota
+
+This plug-in will observe the incoming request and ensure that it does not violate any of the constraints
+enumerated in the `ResourceQuota` object in a `Namespace`.  If you are using `ResourceQuota`
+objects in your Kubernetes deployment, you MUST use this plug-in to enforce quota constraints.
+
+See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
+
+It is strongly encouraged that this plug-in is configured last in the sequence of admission control plug-ins.  This is
+so that quota is not prematurely incremented only for the request to be rejected later in admission control.
+
+### SecurityContextDeny
+
+This plug-in will deny any pod that attempts to set certain escalating [SecurityContext](/docs/user-guide/security-context) fields. This should be enabled if a cluster doesn't utilize [pod security policies](/docs/user-guide/pod-security-policy) to restrict the set of values a security context can take.
+
+### ServiceAccount
+
+This plug-in implements automation for [serviceAccounts](/docs/user-guide/service-accounts).
+We strongly recommend using this plug-in if you intend to make use of Kubernetes `ServiceAccount` objects.
 
 ## Is there a recommended set of plug-ins to use?
 

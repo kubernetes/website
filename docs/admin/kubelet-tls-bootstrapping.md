@@ -26,7 +26,7 @@ controller. As this feature matures, you should ensure tokens are bound to a Rol
 While any authentication strategy can be used for the kubelet's initial bootstrap credentials, the following two authenticators are recommended for ease of provisioning.
 
 1. [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) - __alpha__
-2. [Token authentication file](###token-authentication-file)
+2. [Token authentication file](#token-authentication-file)
 
 Using bootstrap tokens is currently __alpha__ and will simplify the management of bootstrap token management especially in a HA scenario. 
 
@@ -99,7 +99,7 @@ may be automatically created in future releases.
 # A ClusterRole which instructs the CSR approver to approve a user requesting
 # node client credentials.
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: approve-node-client-csr
 rules:
@@ -110,7 +110,7 @@ rules:
 # A ClusterRole which instructs the CSR approver to approve a node renewing its
 # own client credentials.
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: approve-node-client-renewal-csr
 rules:
@@ -121,7 +121,7 @@ rules:
 # A ClusterRole which instructs the CSR approver to approve a node requesting a
 # serving cert matching its client cert.
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: approve-node-server-renewal-csr
 rules:
@@ -143,7 +143,7 @@ An admin would create a `ClusterRoleBinding` targeting that group.
 ```yml
 # Approve all CSRs for the group "system:bootstrappers"
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: auto-approve-csrs-for-group
 subjects:
@@ -161,7 +161,7 @@ that node's credentials:
 
 ```yml
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: node1-client-cert-renewal
 subjects:

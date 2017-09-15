@@ -93,7 +93,7 @@ routed according to the following flow:
 
 ## ConfigMap options
 
-Options for the kube-dns `kube-system:kube-dns` ConfigMap
+Options for the kube-dns `kube-system:kube-dns` ConfigMap:
 
 | Field | Format | Description |
 | ----- | ------ | ----------- |
@@ -107,7 +107,7 @@ Options for the kube-dns `kube-system:kube-dns` ConfigMap
 In this example, the user has a Consul DNS service discovery system that they wish to
 integrate with kube-dns. The consul domain server is located at 10.150.0.1, and
 all consul names have the suffix “.consul.local”.  To configure Kubernetes, the
-cluster administrator simply creates a ConfigMap object as shown below.  
+cluster administrator simply creates a ConfigMap object as shown below.
 
 ```yaml
 apiVersion: v1

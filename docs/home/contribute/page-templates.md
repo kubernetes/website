@@ -33,7 +33,7 @@ variables:</p>
     <li>whatsnext - optional</li>
 </ul>
 
-Then include templates/task.md like this:
+<p>Then include templates/task.md like this:</p>
 
 {% raw %}<pre>...
 {% include templates/task.md %}</pre>{% endraw %}
@@ -105,7 +105,7 @@ variables:</p>
     <li>whatsnext - optional</li>
 </ul>
 
-Then include templates/tutorial.md like this:
+<p>Then include templates/tutorial.md like this:</p>
 
 {% raw %}<pre>...
 {% include templates/tutorial.md %}</pre>{% endraw %}
@@ -185,7 +185,7 @@ variables:</p>
     <li>whatsnext - optional</li>
 </ul>
 
-Then include templates/concept.md like this:
+<p>Then include templates/concept.md like this:</p>
 
 {% raw %}<pre>...
 {% include templates/concept.md %}</pre>{% endraw %}

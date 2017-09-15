@@ -38,7 +38,7 @@ by default, the hosts file only includes ipv4 and ipv6 boilerplates like `localh
 
 ## Adding Additional Entries with HostAliases
 
-In addition the the default boilerplate, we can add additional entries to the hosts file to resolve `foo.local`, `bar.local` to `127.0.0.1` and `foo.remote`, `bar.remote` to `10.1.2.3`, we can by adding HostAliases to the Pod under `.spec.hostAliases`:
+In addition to the default boilerplate, we can add additional entries to the hosts file to resolve `foo.local`, `bar.local` to `127.0.0.1` and `foo.remote`, `bar.remote` to `10.1.2.3`, we can by adding HostAliases to the Pod under `.spec.hostAliases`:
 
 {% include code.html language="yaml" file="hostaliases-pod.yaml" ghlink="/docs/concepts/services-networking/hostaliases-pod.yaml" %}
 
@@ -67,6 +67,6 @@ As of 1.7, Pods with hostNetwork enabled will not be able to use this feature. T
 
 ## Why Does Kubelet Manage the Hosts File?
 
-kubelet [manages](https://github.com/kubernetes/kubernetes/issues/14633) the hosts file for each container of the Pod to prevent Docker from [modifying](https://github.com/moby/moby/issues/17190) the file after the containers have already been started.
+Kubelet [manages](https://github.com/kubernetes/kubernetes/issues/14633) the hosts file for each container of the Pod to prevent Docker from [modifying](https://github.com/moby/moby/issues/17190) the file after the containers have already been started.
 
 Because of the managed-nature of the file, any user-written content will be overwritten whenever the hosts file is remounted by Kubelet in the event of a container restart or a Pod reschedule. Thus, it is not suggested to modify the contents of the file.

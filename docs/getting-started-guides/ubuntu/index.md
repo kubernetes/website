@@ -55,12 +55,6 @@ These are more in-depth guides for users choosing to run Kubernetes in productio
 
   - [Localhost using LXD](/docs/getting-started-guides/ubuntu/local)
 
-## Community Ubuntu Guides
-
-  - [Calico Configuration](/docs/getting-started-guides/ubuntu/calico)
-
-Please feel free to submit guides to this section.
-
 ## Where to find us
 
 We're normally following the following Slack channels:

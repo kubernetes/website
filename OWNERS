@@ -1,6 +1,5 @@
-approvers:
-- smarterclayton
-- janetkuo
-- pwittrock
-- kelseyhightower
-- jaredbhatti
+reviewers:
+- bradamant3
+- chenopis
+- steveperry-53
+- zacharysarah

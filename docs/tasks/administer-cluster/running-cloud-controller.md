@@ -16,8 +16,8 @@ In future Kubernetes releases, cloud vendors should link code that satisfies the
 
 To build cloud-controller-manager for your cloud, follow these steps:
 
-* Write a cloudprovider that satisfies the [cloudprovider.Interface](https://git.k8s.io/kubernetes/pkg/cloudprovider/cloud.go).
-* Link the cloudprovider to cloud-controller-manager
+1. Write a cloudprovider that satisfies the [cloudprovider.Interface](https://git.k8s.io/kubernetes/pkg/cloudprovider/cloud.go).
+2. Link the cloudprovider to cloud-controller-manager.
 
 The methods in [cloudprovider.Interface](https://git.k8s.io/kubernetes/pkg/cloudprovider/cloud.go) are self-explanatory. All of the
 [existing providers](https://git.k8s.io/kubernetes/pkg/cloudprovider/providers) satisfy this interface. If your cloud is already a part
@@ -32,3 +32,7 @@ To run `cloud-controller-manager`, add it to your existing Kubernetes cluster as
 The `kube-controller-manager` should not run any cloud-specific controllers, since the `cloud-controller-manager` takes over this responsibility. To prevent the `kube-controller-manager` from running cloud-specific controllers, you must set the `--cloud-provider` flag in `kube-controller-manager` to `external`.
 
 The `kube-apiserver` should not run the Persistent Volume Label admission controller either since the `cloud-controller-manager` takes over labeling persistent volumes.  To prevent the Persistent Volume Label admission plugin from running, make sure the `kube-apiserver` has a `--admission-control` flag with a value that does not include `PersistentVolumeLabel`.
+
+For the `cloud-controller-manager` to label persistent volumes, initializers will need to be enabled and an InitializerConifguration needs to be added to the system.  Follow [these instructions](/docs/admin/extensible-admission-controllers.md#enable-initializers-alpha-feature) to enable initializers.  Use the following YAML to create the InitializerConfiguration:
+
+{% include code.html language="yaml" file="persistent-volume-label-initializer-config.yaml" ghlink="/docs/tasks/administer-cluster/persistent-volume-label-initializer-config.yaml" %}

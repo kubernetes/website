@@ -16,7 +16,7 @@ Let's look at some of the other components in more detail.
 
 ### cAdvisor
 
-cAdvisor is an open source container resource usage and performance analysis agent. It is purpose-built for containers and supports Docker containers natively. In Kubernetes, cadvisor is integrated into the Kubelet binary. cAdvisor auto-discovers all containers in the machine and collects CPU, memory, filesystem, and network usage statistics. cAdvisor also provides the overall machine usage by analyzing the 'root'? container on the machine.
+cAdvisor is an open source container resource usage and performance analysis agent. It is purpose-built for containers and supports Docker containers natively. In Kubernetes, cAdvisor is integrated into the Kubelet binary. cAdvisor auto-discovers all containers in the machine and collects CPU, memory, filesystem, and network usage statistics. cAdvisor also provides the overall machine usage by analyzing the 'root' container on the machine.
 
 On most Kubernetes clusters, cAdvisor exposes a simple UI for on-machine containers on port 4194. Here is a snapshot of part of cAdvisor's UI that shows the overall machine usage:
 
@@ -50,7 +50,7 @@ Here is a video showing how to setup and run a Google Cloud Monitoring backed He
 
 [![how to setup and run a Google Cloud Monitoring backed Heapster](http://img.youtube.com/vi/xSMNR2fcoLs/0.jpg)](http://www.youtube.com/watch?v=xSMNR2fcoLs)
 
-Here is a snapshot of the a Google Cloud Monitoring dashboard showing cluster-wide resource usage.
+Here is a snapshot of the Google Cloud Monitoring dashboard showing cluster-wide resource usage.
 
 ![Google Cloud Monitoring dashboard](/images/docs/gcm.png)
 

@@ -74,7 +74,7 @@ KUBE_CONFIG_2=value-2
 ## Step Three: Create a pod that sets the command line using ConfigMap
 
 Use the [`command-pod.yaml`](command-pod.yaml) file to create a Pod with a container
-whose command is injected with the keys of a ConfigMap
+whose command is injected with the keys of a ConfigMap:
 
 ```shell
 $ kubectl create -f docs/user-guide/configmap/command-pod.yaml
@@ -89,7 +89,7 @@ value-1 value-2
 
 ## Step Four: Create a pod that consumes a configMap in a volume
 
-Pods can also consume ConfigMaps in volumes.  Use the [`volume-pod.yaml`](volume-pod.yaml) file to create a Pod that consume the ConfigMap in a volume.
+Pods can also consume ConfigMaps in volumes.  Use the [`volume-pod.yaml`](volume-pod.yaml) file to create a Pod that consumes the ConfigMap in a volume.
 
 ```shell
 $ kubectl create -f docs/user-guide/configmap/volume-pod.yaml

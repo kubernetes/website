@@ -52,9 +52,9 @@ spec:
   selector:
     app: MyApp
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
 ```
 
 This specification will create a new `Service` object named "my-service" which
@@ -97,9 +97,9 @@ metadata:
   name: my-service
 spec:
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
 ```
 
 Because this service has no selector, the corresponding `Endpoints` object will not be
@@ -216,17 +216,17 @@ apiVersion: v1
 metadata:
   name: my-service
 spec:
-    selector:
-      app: MyApp
-    ports:
-      - name: http
-        protocol: TCP
-        port: 80
-        targetPort: 9376
-      - name: https
-        protocol: TCP
-        port: 443
-        targetPort: 9377
+  selector:
+    app: MyApp
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 9376
+  - name: https
+    protocol: TCP
+    port: 443
+    targetPort: 9377
 ```
 
 ## Choosing your own IP address
@@ -404,17 +404,17 @@ spec:
   selector:
     app: MyApp
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
-      nodePort: 30061
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
+    nodePort: 30061
   clusterIP: 10.0.171.239
   loadBalancerIP: 78.11.24.19
   type: LoadBalancer
 status:
   loadBalancer:
     ingress:
-      - ip: 146.148.47.155
+    - ip: 146.148.47.155
 ```
 
 Traffic from the external load balancer will be directed at the backend `Pods`,
@@ -466,9 +466,9 @@ metadata:
 {% capture azure %}
 ```yaml
 [...]
-metadata: 
+metadata:
     name: my-service
-    annotations: 
+    annotations:
         service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 [...]
 ```
@@ -479,25 +479,25 @@ metadata:
 {% include tabs.md %}
 
 #### SSL support on AWS
-For partial SSL support on clusters running on AWS, starting with 1.3 two
+For partial SSL support on clusters running on AWS, starting with 1.3 three
 annotations can be added to a `LoadBalancer` service:
 
 ```
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
+metadata:
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
 ```
 
-The first specifies which certificate to use. It can be either a
+The first specifies the ARN of the certificate to use. It can be either a
 certificate from a third party issuer that was uploaded to IAM or one created
 within AWS Certificate Manager.
 
 ```yaml
-    metadata:
-      name: my-service
-      annotations:
-         service.beta.kubernetes.io/aws-load-balancer-backend-protocol: (https|http|ssl|tcp)
+metadata:
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: (https|http|ssl|tcp)
 ```
 
 The second annotation specifies which protocol a pod speaks. For HTTPS and
@@ -511,6 +511,37 @@ ELB at the other end of its connection) when forwarding requests.
 
 TCP and SSL will select layer 4 proxying: the ELB will forward traffic without
 modifying the headers.
+
+In a mixed-use environment where some ports are secured and others are left unencrypted,
+the following annotations may be used:
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+        service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443,8443"
+```
+
+In the above example, if the service contained three ports, `80`, `443`, and
+`8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
+be proxied HTTP.
+
+#### PROXY protocol support on AWS
+
+To enable [PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
+support for clusters running on AWS, you can use the following service
+annotation:
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+```
+
+Since version 1.3.0 the use of this annotation applies to all ports proxied by the ELB
+and cannot be configured otherwise.
 
 ### External IPs
 
@@ -531,12 +562,12 @@ spec:
   selector:
     app: MyApp
   ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 9376
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 9376
   externalIPs:
-    - 80.11.12.10
+  - 80.11.12.10
 ```
 
 ## Shortcomings

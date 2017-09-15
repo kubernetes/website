@@ -294,9 +294,8 @@ bits 12 and 25 are set. Bit 12 is `CAP_NET_ADMIN`, and bit 25 is `CAP_SYS_TIME`.
 See [capability.h](https://github.com/torvalds/linux/blob/master/include/uapi/linux/capability.h)
 for definitions of the capability constants.
 
-**Note**: Linux capability constants have the form `CAP_XXX`. But when you list capabilities
-in your Container manifest, you must omit the `CAP_` portion of the constant. For example,
-to add `CAP_SYS_TIME`, include `SYS_TIME` in your list of capabilities.
+**Note:** Linux capability constants have the form `CAP_XXX`. But when you list capabilities in your Container manifest, you must omit the `CAP_` portion of the constant. For example, to add `CAP_SYS_TIME`, include `SYS_TIME` in your list of capabilities.
+{: .note}
 
 ## Assign SELinux labels to a Container
 
@@ -313,8 +312,8 @@ securityContext:
     level: "s0:c123,c456"
 ```
 
-**Note**: To assign SELinux labels, the SELinux security module must be loaded
-on the host operating system.
+**Note:** To assign SELinux labels, the SELinux security module must be loaded on the host operating system.
+{: .note}
 
 ## Discussion
 
@@ -333,9 +332,8 @@ need to set the `level` section. This sets the
 [Multi-Category Security (MCS)](https://selinuxproject.org/page/NB_MLS)
 label given to all Containers in the Pod as well as the Volumes.
 
-**Warning**: After you specify an MCS label for a Pod, all Pods with the same
-label will able to access the Volume. So if you need inter-Pod
-protection, you must ensure each Pod is assigned a unique MCS label.
+**Warning:** After you specify an MCS label for a Pod, all Pods with the same label can access the Volume. If you need inter-Pod protection, you must assign a unique MCS label to each Pod.
+{: .warning}
 
 {% endcapture %}
 

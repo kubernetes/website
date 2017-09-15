@@ -43,10 +43,13 @@ for this image.
 1. In the root of your cloned repository, enter this command to start a local
 web server:
 
-        docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.1
+       make stage
 
-1. View your staged content at
-http://localhost:4000.
+   This will run the following command:
+
+       docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.1
+
+1. View your staged content at `http://localhost:4000`.
 
 ## Staging locally without Docker
 
@@ -56,29 +59,23 @@ http://localhost:4000.
 
 1. Verify that Ruby and RubyGems are installed:
 
-        gem --version
+       gem --version
 
 1. Install the GitHub Pages package, which includes Jekyll:
 
-        gem install github-pages
+       gem install github-pages
 
 1. Clone your fork to your local development machine.
 
 1. In the root of your cloned repository, enter this command to start a local
 web server:
 
-        jekyll serve
+       jekyll serve
 
-1. View your staged content at
-http://localhost:4000.
+1. View your staged content at `http://localhost:4000`.
 
-<i>NOTE: If you do not want Jekyll to interfere with your other globally installed gems, you can use `bundler`:</i> 
- 
- 	gem install bundler
- 	bundle install
- 	bundler exec jekyll serve
-
-<i> Regardless of whether you use `bundler` or not, your copy of the site will then be viewable at: http://localhost:4000</i>
+**Note:** "If you do not want Jekyll to interfere with your other globally installed gems, you can use `bundler`: <br /> <br /> ```gem install bundler``` <br /> ```bundle install``` <br /> ```bundler exec jekyll serve``` <br /> <br /> Regardless of whether you use `bundler` or not, your copy of the site will then be viewable at: http://localhost:4000
+{: .note}
 
 {% endcapture %}
 

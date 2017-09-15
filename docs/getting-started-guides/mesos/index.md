@@ -228,13 +228,16 @@ Note that we have passed these two values already as parameter to the apiserver 
 
 A template for a replication controller spinning up the pod with the 3 containers can be found at [cluster/addons/dns/kubedns-controller.yaml.in][12] in the repository. The following steps are necessary in order to get a valid replication controller yaml file:
 
-- replace `{% raw %}{{ pillar['dns_replicas'] }}{% endraw %}`  with `1`
-- replace `{% raw %}{{ pillar['dns_domain'] }}{% endraw %}` with `cluster.local.`
+{% assign dns_replicas = "{{ pillar['dns_replicas'] }}" %}
+{% assign dns_domain = "{{ pillar['dns_domain'] }}" %}
+- replace `{{ dns_replicas }}`  with `1`
+- replace `{{ dns_domain }}` with `cluster.local.`
 - add `--kube_master_url=${KUBERNETES_MASTER}` parameter to the kube2sky container command.
 
 In addition the service template at [cluster/addons/dns/kubedns-controller.yaml.in][12] needs the following replacement:
 
-- `{% raw %}{{ pillar['dns_server'] }}{% endraw %}` with `10.10.10.10`.
+{% assign dns_server = "{{ pillar['dns_server'] }}" %}
+- `{{ dns_server }}` with `10.10.10.10`.
 
 To do this automatically:
 
@@ -244,7 +247,7 @@ sed -e "s/{{ pillar\['dns_replicas'\] }}/1/g;"\
 "s/{{ pillar\['dns_domain'\] }}/cluster.local/g" \
   cluster/addons/dns/kubedns-controller.yaml.in > kubedns-controller.yaml
 sed -e "s/{{ pillar\['dns_server'\] }}/10.10.10.10/g" \
-  cluster/addons/dns/kubedns-svc.yaml.in > kubedns-svc.yaml
+  cluster/addons/dns/kubedns-svc.yaml.in > kubedns-svc.yaml{% endraw %}
 ```
 
 Now the kube-dns pod and service are ready to be launched:
@@ -324,13 +327,13 @@ Future work will add instructions to this guide to enable support for Kubernetes
 
 [1]: https://docs.mesosphere.com/latest/usage/service-guides/hdfs/
 [2]: https://docs.mesosphere.com/latest/usage/service-guides/spark/
-[3]: https://docs.mesosphere.com/latest/usage/service-guides/chronos/
+[3]: https://mesos.github.io/chronos/docs/getting-started.html
 [4]: https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md
 [5]: https://dcos.io/docs/latest/administration/installing/cloud/gce/
 [6]: http://mesos.apache.org/
 [7]: https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/docs/issues.md
 [8]: https://github.com/mesosphere/kubernetes-mesos/issues
-[9]: https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples
+[9]: https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/
 [10]: http://open.mesosphere.com/getting-started/cloud/google/mesosphere/#vpn-setup
 [11]: https://git.k8s.io/kubernetes/cluster/addons/dns/README.md#kube-dns
 [12]: https://git.k8s.io/kubernetes/cluster/addons/dns/kubedns-controller.yaml.in

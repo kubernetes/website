@@ -30,23 +30,23 @@ file "redis-deployment.yaml" created
 
 ## Installation
 
-We have multiple ways to install Kompose. Our prefered method is downloading the binary from the latest GitHub release.
+We have multiple ways to install Kompose. Our preferred method is downloading the binary from the latest GitHub release.
 
 ### GitHub release
 
-Kompose is released via GitHub on a three-week cycle, you can see all current releases on the [GitHub release page](https://github.com/kubernetes-incubator/kompose/releases).
+Kompose is released via GitHub on a three-week cycle, you can see all current releases on the [GitHub release page](https://github.com/kubernetes/kompose/releases).
 
-The current release we use is `0.5.0`.
+The current release we use is `1.0.0`.
 
 ```sh
 # Linux
-curl -L https://github.com/kubernetes-incubator/kompose/releases/download/v0.5.0/kompose-linux-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.0.0/kompose-linux-amd64 -o kompose
 
 # macOS
-curl -L https://github.com/kubernetes-incubator/kompose/releases/download/v0.5.0/kompose-darwin-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.0.0/kompose-darwin-amd64 -o kompose
 
 # Windows
-curl -L https://github.com/kubernetes-incubator/kompose/releases/download/v0.5.0/kompose-windows-amd64.exe -o kompose.exe
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.0.0/kompose-windows-amd64.exe -o kompose.exe
 ```
 
 Make the binary executable and move it to your PATH (e.g. `/usr/local/bin`)
@@ -127,7 +127,7 @@ frontend-service.yaml     mongodb-deployment.yaml                    redis-slave
 redis-master-deployment.yaml
 ```
 
-When multiple docker-compose files are provided the configuration is merged. Any configuration that is common will be over ridden by subsequent file.
+When multiple docker-compose files are provided the configuration is merged. Any configuration that is common will be overridden by subsequent file.
 
 Using `--bundle, --dab` to specify a DAB file as below:
 
@@ -300,7 +300,7 @@ file "redis-rc.yaml" created
 file "web-rc.yaml" created
 ```
 
-The `*-rc.yaml` files contain the Replication Controller objects. If you want to specify replicas (default is 1), use `--replicas` flag: `$ kompose convert --rc --replicas 3`
+The `*-rc.yaml` files contain the Replication Controller objects. If you want to specify replicas (default is 1), use `--replicas` flag: `$ kompose convert --rc --replicas 3`.
 
 ```console
 $ kompose convert --ds
@@ -310,7 +310,7 @@ file "redis-daemonset.yaml" created
 file "web-daemonset.yaml" created
 ```
 
-The `*-daemonset.yaml` files contain the Daemon Set objects
+The `*-daemonset.yaml` files contain the Daemon Set objects.
 
 If you want to generate a Chart to be used with [Helm](https://github.com/kubernetes/helm) simply do:
 

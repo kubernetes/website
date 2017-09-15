@@ -10,40 +10,34 @@ title: 使用命令式的方式管理 Kubernetes 对象
 
 ## 权衡
 
-`kubectl` 工具支持三种对象的管理:
+`kubectl` 工具支持三种方式进行对象的管理:
 
 * 命令式的方式
 * 命令式的对象配置
 * 声明式的对象配置
 
 参见[Kubernetes对象管理](/docs/concepts/tools/kubectl/object-management-overview/)
-讨论各种对象管理的优缺点.
+讨论各种对象管理方式的优缺点.
 
 ## 如何创建对象
 
-`kubectl` 工具支持用于创建一些最常用的对象类型的动词驱动命令，这些命令被命名为对于不熟悉的用户也是一目了然。
+`kubectl` 工具支持用于创建一些最常用的对象类型的动词驱动命令，这些命令的命名让不熟悉Kubernetes 对象的用户也可以见名知义。
 
 - `run`: 创建一个新的 Deployment 对象以在一个或多个 Pod 中运行 Containers。
 - `expose`: 创建一个新的 Service 对象用于负载均衡 Pods 上的的网络流量。
-- `autoscale`: 创建一个新的 Autoscaler 对象，即自动水平扩展控制器，提供 Deployment 自动水平伸缩支持。
+- `autoscale`: 创建一个新的 Autoscaler 对象，来实现 Deployment 等控制器的自动水平拓展。
 
 `kubectl` 工具也支持由对象类型驱动的创建命令。 这些命令支持更多的对象类型，并且对其意图更为明确，但要求用户知道他们打算创建的对象的类型。
 
  - `create <objecttype> [<subtype>] <instancename>`
 
-某些对象类型具有您可以在“create"命令中指定的子类型.
-例如，Service对象有几种子类型，包括ClusterIP，
-LoadBalancer和NodePort. 以下是创建一个服务的示例
-子类型NodePort:
-
-一些对象类型允许你在 `create` 命令中指定子命令。例如，Service 对象拥有几个子命令，包括 ClusterIP、LoadBalancer 和 NodePort。以下是使用子命令 NodePort 创建服务的示例:
-
+某些对象类型具有您可以在“create"命令中指定的子类型。例如，Service对象有ClusterIP，LoadBalancer和NodePort等几种子类型。以下是使用子类型NodePort创建一个服务的示例:
 
 ```shell
 kubectl create service nodeport <myservicename>
 ```
 
-在前面的例子中，调用 `create service nodeport`命令是 `create service`命令的子命令.
+在前面的例子中， `create service nodeport`命令叫做 `create service`命令的子命令.
 
 您可以使用 `-h` 标志来查找子命令支持的参数和标志:
 
@@ -53,7 +47,7 @@ kubectl create service nodeport -h
 
 ## 如何更新对象
 
-`kubectl` 命令支持一些常见更新操作的动词驱动命令。这样命名可以让不熟悉 Kubernetes 对象的用户，在不知道必须设置的特定字段的情况下也可以执行更新操作:
+`kubectl` 命令支持一些常见更新操作的动词驱动命令。这些命令的命名方式可以让不熟悉 Kubernetes 对象的用户，在不知道必须设置的特定字段的情况下也可以执行更新操作:
 
  - `scale`: 通过更新控制器的副本数量，水平扩展控制器以添加或删除 Pod。
  - `annotate`: 从对象添加或删除注释。
@@ -61,9 +55,9 @@ kubectl create service nodeport -h
 
 `kubectl`命令还支持由对象的一个​​切面驱动的更新命令.设置此切面可能会为不同的对象类型设置不同的字段:
 
- - `set` <field>: 设置对象的一个​​切面.
+ - `set` <field>: 设置对象的一个​​切面。
 
-**注**: 在 Kubernetes 版本 1.5 中，并不是每个动词驱动的命令都有一个相关的切面驱动的命令.
+**注**: 在 Kubernetes 版本 1.5 中，并不是每个动词驱动的命令都有一个相关的切面驱动的命令。
 
 `kubectl` 工具支持直接更新活动对象的其他方法，然而，它们需要更好的了解 Kubernetes 对象模式。
 
@@ -71,7 +65,7 @@ kubectl create service nodeport -h
 - `patch`: 通过使用补丁字符串直接修改活动对象的特定字段。
 
 有关补丁字符串的更多详细信息，请参阅补丁部分
-[API 公约](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#patch-operations).
+[API 公约](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#patch-operations)。
 
 ## 如何删除对象
 
@@ -80,7 +74,7 @@ kubectl create service nodeport -h
  - `delete <type>/<name>`
 
  **注意**: 您可以对命令式命令和命令式对象配置都使用 `kubectl delete` 方法。两者的差异在于传递的命令参数不同。要将
- `kubectl delete` 作为命令式命令使用，将要删除的对象作为参数传递。以下是传递名为 nginx 的 Deployment 对象的示例:
+ `kubectl delete` 作为命令式命令使用，需将要删除的对象作为参数传递。以下是传递名为 nginx 的 Deployment 对象的示例:
 
 ```shell
 kubectl delete deployment/nginx
@@ -89,9 +83,9 @@ kubectl delete deployment/nginx
 ## 如何查看对象
 
 {% comment %}
-TODO(pwittrock): 实现时取消注释.
+TODO(pwittrock): 实现时取消注释。
 
-您可以使用 `kubectl view` 打印指定对象的字段。
+您可以使用 `kubectl view` 打印对象的指定字段。
 
 - `view`: 打印对象的特定字段的值。
 
@@ -107,7 +101,7 @@ TODO(pwittrock): 实现时取消注释.
 
 ##  使用 `set` 命令在创建之前修改对象
 
-有一些对象字段没有可以使用的标志，在 `create` 命令中。在某些情况下，您可以使用组合 `set` 和 `create` 为对象之前的字段指定一个值创建。这是通过将 `create` 命令的输出管道连接到 `set` 命令，然后回到 `create` 命令。以下是一个例子:
+有一些对象字段没有可以在 `create` 命令中使用的标志。在某些情况下，您可以组合使用 `set` 和 `create` 在对象创建之前指定字段的值。这是通过将 `create` 命令的输出管道连接到 `set` 命令，然后回到 `create` 命令。以下是一个例子:
 
 ```sh
 kubectl create service clusterip <myservicename> -o yaml --dry-run | kubectl set selector --local -f - 'environment=qa' -o yaml | kubectl create -f -

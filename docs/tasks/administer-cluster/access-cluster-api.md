@@ -31,7 +31,7 @@ Check the location and credentials that kubectl knows about with this command:
 $ kubectl config view
 ```
 
-Many of the [examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/) provide an introduction to using
+Many of the [examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/) provide an introduction to using
 kubectl.  Complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl/index).
 
 ### Directly accessing the REST API
@@ -121,7 +121,7 @@ Kubernetes officially supports client libraries for [Go](#go-client) and
 * Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct.
 
 The Go client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://git.k8s.io/client-go/examples/out-of-cluster/main.go):
+as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go):
 
 ```golang
 import (
@@ -169,7 +169,7 @@ There are [client libraries](/docs/reference/client-libraries/) for accessing th
 ### Accessing the API from a Pod
 
 When accessing the API from a pod, locating and authenticating
-to the api server are somewhat different.
+to the API server are somewhat different.
 
 The recommended way to locate the apiserver within the pod is with
 the `kubernetes` DNS name, which resolves to a Service IP which in turn
@@ -194,9 +194,9 @@ From within a pod the recommended ways to connect to API are:
     process within a container.  This proxies the
     Kubernetes API to the localhost interface of the pod, so that other processes
     in any container of the pod can access it.  See this [example of using kubectl proxy
-    in a pod](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/kubectl-container/).
+    in a pod](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/kubectl-container/).
   - use the Go client library, and create a client using the `rest.InClusterConfig()` and `kubernetes.NewForConfig()` functions.
-    They handle locating and authenticating to the apiserver. [example](https://git.k8s.io/client-go/examples/in-cluster/main.go)
+    They handle locating and authenticating to the apiserver. [example](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)
 
 In each case, the credentials of the pod are used to communicate securely with the apiserver.
 

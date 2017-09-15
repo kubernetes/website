@@ -53,8 +53,8 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 
 Unlike `docker run ...`, if `--attach` is specified, we attach to `stdin`, `stdout` and `stderr`, there is no ability to control which streams are attached (`docker -a ...`).
 
-Because we start a Deployment for your container, it will be restarted if you terminate the attached process (e.g. `ctrl-c`), this is different than `docker run -it`.
-To destroy the Deployment (and its pods) you need to run `kubectl delete deployment <name>`
+Because we start a Deployment for your container, it will be restarted if you terminate the attached process (e.g. `ctrl-c`), this is different from `docker run -it`.
+To destroy the Deployment (and its pods) you need to run `kubectl delete deployment <name>`.
 
 #### docker ps
 
@@ -78,7 +78,7 @@ nginx-app-5jyvm   1/1       Running   0          1h
 
 #### docker attach
 
-How do I attach to a process that is already running in a container?  Checkout [kubectl attach](/docs/user-guide/kubectl/{{page.version}}/#attach)
+How do I attach to a process that is already running in a container?  Checkout [kubectl attach](/docs/user-guide/kubectl/{{page.version}}/#attach).
 
 With docker:
 
@@ -164,7 +164,7 @@ $ kubectl logs -f nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
 
-Now's a good time to mention slight difference between pods and containers; by default pods will not terminate if their processes exit. Instead it will restart the process. This is similar to the docker run option `--restart=always` with one major difference. In docker, the output for each invocation of the process is concatenated but for Kubernetes, each invocation is separate. To see the output from a previous run in Kubernetes, do this:
+Now's a good time to mention slight difference between pods and containers; by default pods will not terminate if their processes exit. Instead it will restart the process. This is similar to the docker run option `--restart=always` with one major difference. In docker, the output for each invocation of the process is concatenated, but for Kubernetes, each invocation is separate. To see the output from a previous run in Kubernetes, do this:
 
 ```shell
 $ kubectl logs --previous nginx-app-zibvs
@@ -178,7 +178,7 @@ See [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administrat
 
 How do I stop and delete a running process? Checkout [kubectl delete](/docs/user-guide/kubectl/{{page.version}}/#delete).
 
-With docker
+With docker:
 
 ```shell
 $ docker ps
@@ -235,8 +235,8 @@ With kubectl:
 
 ```shell
 $ kubectl version
-Client Version: version.Info{Major:"0", Minor:"20.1", GitVersion:"v0.20.1", GitCommit:"", GitTreeState:"not a git tree"}
-Server Version: version.Info{Major:"0", Minor:"21+", GitVersion:"v0.21.1-411-g32699e873ae1ca-dirty", GitCommit:"32699e873ae1caa01812e41de7eab28df4358ee4", GitTreeState:"dirty"}
+Client Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4335", GitCommit:"9b77fed11a9843ce3780f70dd251e92901c43072", GitTreeState:"dirty", BuildDate:"2017-08-29T20:32:58Z", OpenPaasKubernetesVersion:"v1.03.02", GoVersion:"go1.7.5", Compiler:"gc", Platform:"linux/amd64"}
+Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4335", GitCommit:"9b77fed11a9843ce3780f70dd251e92901c43072", GitTreeState:"dirty", BuildDate:"2017-08-29T20:32:58Z", OpenPaasKubernetesVersion:"v1.03.02", GoVersion:"go1.7.5", Compiler:"gc", Platform:"linux/amd64"}
 ```
 
 #### docker info

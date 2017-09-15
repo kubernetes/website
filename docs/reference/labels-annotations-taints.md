@@ -63,7 +63,7 @@ of requiring a `g2.2xlarge`)
 
 ## failure-domain.beta.kubernetes.io/region
 
-See [failure-domain.beta.kubernetes.io/zone](#failure-domainbetakubernetesiozone)
+See [failure-domain.beta.kubernetes.io/zone](#failure-domainbetakubernetesiozone).
 
 ## failure-domain.beta.kubernetes.io/zone
 
@@ -82,8 +82,8 @@ On the PersistentVolume: The `PersistentVolumeLabel` admission controller will a
 on GCE and AWS.
 
 Kubernetes will automatically spread the pods in a replication controller or service across nodes in a single-zone
-cluster (to reduce the impact of failures.) With multiple-zone clusters, this spreading behaviour is extended
-across zones (to reduce the impact of zone failures.) This is achieved via SelectorSpreadPriority.
+cluster (to reduce the impact of failures). With multiple-zone clusters, this spreading behaviour is extended
+across zones (to reduce the impact of zone failures). This is achieved via SelectorSpreadPriority.
 
 This is a best-effort placement, and so if the zones in your cluster are heterogeneous (e.g. different numbers of nodes,
 different types of nodes, or different pod resource requirements), this might prevent equal spreading of

@@ -1,3 +1,7 @@
+---
+title: kubefed init
+notitle: true
+---
 ## kubefed init
 
 Initialize a federation control plane
@@ -5,7 +9,7 @@ Initialize a federation control plane
 ### Synopsis
 
 
-Init initializes a federation control plane. 
+Initialize a federation control plane. 
 
     Federation control plane is hosted inside a Kubernetes
     cluster. The host cluster must be specified using the
@@ -18,10 +22,10 @@ kubefed init FEDERATION_NAME --host-cluster-context=HOST_CONTEXT
 ### Examples
 
 ```
-  # Initialize federation control plane for a federation
-  # named foo in the host cluster whose local kubeconfig
-  # context is bar.
-  kubefed init foo --host-cluster-context=bar
+# Initialize federation control plane for a federation
+# named foo in the host cluster whose local kubeconfig
+# context is bar.
+kubefed init foo --host-cluster-context=bar
 ```
 
 ### Options

@@ -34,7 +34,7 @@ You can access Dashboard using the kubectl command-line tool by running the foll
 $ kubectl proxy
 ```
 
-kubectl will handle authentication with apiserver and make Dashboard available at http://localhost:8001/ui
+Kubectl will handle authentication with apiserver and make Dashboard available at http://localhost:8001/ui.
 
 The UI can _only_ be accessed from the machine where the command is executed. See `kubectl proxy --help` for more options.
 
@@ -156,7 +156,7 @@ Services and discovery view shows Kubernetes resources that allow for exposing s
 Storage view shows Persistent Volume Claim resources which are used by applications for storing data.
 
 #### Config
-Config view show all Kubernetes resources that are used for live configuration of applications running in clusters. This is now Config Maps and Secrets. Thie views allows for editing and managing config objects and displays secrets hidden by default.
+Config view show all Kubernetes resources that are used for live configuration of applications running in clusters. This is now Config Maps and Secrets. The view allows for editing and managing config objects and displays secrets hidden by default.
 
 ![Secret detail view](/images/docs/ui-dashboard-secret-detail.png)
 

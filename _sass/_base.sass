@@ -258,12 +258,47 @@ ul.global-nav
 				left: 0
 				background: #fff
 
+			.ui-icon
+				filter: brightness(0) invert(1)
+
+		ul
+			display: none
+			position: fixed
+			top: 40px
+			text-align: left
+
+			li
+				display: block
+				height: 28px
+
+				a
+					background: $dark-grey
+					color: #fff
+					padding: 7px
+
+			li:last-child
+				a
+					border-radius: 7px
+
+	li:hover
+		ul
+			display: block
+
 
 .flip-nav ul.global-nav li a,
 .open-nav ul.global-nav li a,
-	color: #333
+	color: $dark-grey
+
+.flip-nav ul.global-nav li a .ui-icon
+	filter: brightness(0)
+
+
+.flip-nav ul.global-nav li ul li a,
+	background: #fff
+	color: $dark-grey
 
 .flip-nav ul.global-nav li a.active:after,
+.flip-nav ul.global-nav li ul li a.active:after,
 .open-nav ul.global-nav li a.active:after,
 
 	background: $blue

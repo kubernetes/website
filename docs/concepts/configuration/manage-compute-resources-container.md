@@ -79,7 +79,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 
 Here's an example.
 The following Pod has two Containers. Each Container has a request of 0.25 cpu
-and 64MiB (2<sup>26</sup> bytes) of memory Each Container has a limit of 0.5
+and 64MiB (2<sup>26</sup> bytes) of memory. Each Container has a limit of 0.5
 cpu and 128MiB of memory. You can say the Pod has a request of 0.5 cpu and 128
 MiB of memory, and a limit of 1 cpu and 256MiB of memory.
 
@@ -135,14 +135,12 @@ When using Docker:
   [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint)
   flag in the `docker run` command.
 
-- The `spec.containers[].resources.limits.cpu` is converted to its millicore value,
-  multiplied by 100000, and then divided by 1000. This number is used as the value
-  of the [`--cpu-quota`](https://docs.docker.com/engine/reference/run/#/cpu-quota-constraint)
-  flag in the `docker run` command.  The [`--cpu-period`] flag is set to 100000,
-   which represents the default 100ms period for measuring quota usage. The
-   kubelet enforces cpu limits if it is started with the
-  [`--cpu-cfs-quota`] flag set to true. As of Kubernetes version 1.2, this flag
-  defaults to true.
+- The `spec.containers[].resources.limits.cpu` is converted to its millicore value and
+  multiplied by 100. The resulting value is the total amount of CPU time that a container can use
+  every 100ms. A container cannot use more than its share of CPU time during this interval.
+
+  **Note**: The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.
+  {: .note}
 
 - The `spec.containers[].resources.limits.memory` is converted to an integer, and
   used as the value of the
@@ -307,6 +305,8 @@ where `OOM` stands for Out Of Memory.
 
 ## Opaque integer resources (Alpha feature)
 
+{% include feature-state-deprecated.md %}
+
 Kubernetes version 1.5 introduces Opaque integer resources. Opaque
 integer resources allow cluster operators to advertise new node-level
 resources that would be otherwise unknown to the system.
@@ -315,9 +315,12 @@ Users can consume these resources in Pod specs just like CPU and memory.
 The scheduler takes care of the resource accounting so that no more than the
 available amount is simultaneously allocated to Pods.
 
-**Note:** Opaque integer resources are Alpha in Kubernetes version 1.5.
-Only resource accounting is implemented; node-level isolation is still
-under active development.
+**Note:** Opaque Integer Resources will be removed in version 1.9.
+[Extended Resources](#extended-resources) are a replacement for Opaque Integer
+Resources. Users can use any domain name prefix outside of the `kubernetes.io/`
+domain instead of the previous `pod.alpha.kubernetes.io/opaque-int-resource-`
+prefix.
+{: .note}
 
 Opaque integer resources are resources that begin with the prefix
 `pod.alpha.kubernetes.io/opaque-int-resource-`. The API server
@@ -341,22 +344,9 @@ first pod that requests the resource to be scheduled on that node.
 
 **Example:**
 
-Here is an HTTP request that advertises five "foo" resources on node `k8s-node-1` whose master is `k8s-master`.
-
-```http
-PATCH /api/v1/nodes/k8s-node-1/status HTTP/1.1
-Accept: application/json
-Content-Type: application/json-patch+json
-Host: k8s-master:8080
-
-[
-  {
-    "op": "add",
-    "path": "/status/capacity/pod.alpha.kubernetes.io~1opaque-int-resource-foo",
-    "value": "5"
-  }
-]
-```
+Here is an example showing how to use `curl` to form an HTTP request that
+advertises five "foo" resources on node `k8s-node-1` whose master is
+`k8s-master`.
 
 ```shell
 curl --header "Content-Type: application/json-patch+json" \
@@ -397,6 +387,92 @@ spec:
         pod.alpha.kubernetes.io/opaque-int-resource-foo: 1
 ```
 
+## Extended Resources
+
+Kubernetes version 1.8 introduces Extended Resources. Extended Resources are
+fully-qualified resource names outside the `kubernetes.io` domain. Extended
+Resources allow cluster operators to advertise new node-level resources that
+would be otherwise unknown to the system. Extended Resource quantities must be
+integers and cannot be overcommitted.
+
+Users can consume Extended Resources in Pod specs just like CPU and memory.
+The scheduler takes care of the resource accounting so that no more than the
+available amount is simultaneously allocated to Pods.
+
+The API server restricts quantities of Extended Resources to whole numbers.
+Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
+_invalid_ quantities are `0.5` and `1500m`.
+
+**Note:** Extended Resources replace [Opaque Integer
+Resources](#opaque-integer-resources-alpha-feature). Users can use any domain
+name prefix outside of the `kubernetes.io/` domain instead of the previous
+`pod.alpha.kubernetes.io/opaque-int-resource-` prefix.
+{: .note}
+
+There are two steps required to use Extended Resources. First, the
+cluster operator must advertise a per-node Extended Resource on one or more
+nodes. Second, users must request the Extended Resource in Pods.
+
+To advertise a new Extended Resource, the cluster operator should
+submit a `PATCH` HTTP request to the API server to specify the available
+quantity in the `status.capacity` for a node in the cluster. After this
+operation, the node's `status.capacity` will include a new resource. The
+`status.allocatable` field is updated automatically with the new resource
+asynchronously by the kubelet. Note that because the scheduler uses the
+node `status.allocatable` value when evaluating Pod fitness, there may
+be a short delay between patching the node capacity with a new resource and the
+first pod that requests the resource to be scheduled on that node.
+
+**Example:**
+
+Here is an example showing how to use `curl` to form an HTTP request that
+advertises five "example.com/foo" resources on node `k8s-node-1` whose master
+is `k8s-master`.
+
+```shell
+curl --header "Content-Type: application/json-patch+json" \
+--request PATCH \
+--data '[{"op": "add", "path": "/status/capacity/example.com~1foo", "value": "5"}]' \
+http://k8s-master:8080/api/v1/nodes/k8s-node-1/status
+```
+
+**Note**: In the preceding request, `~1` is the encoding for the character `/`
+in the patch path. The operation path value in JSON-Patch is interpreted as a
+JSON-Pointer. For more details, see
+[IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3).
+{: .note}
+
+To consume an Extended Resource in a Pod, include the resource name as a key
+in the `spec.containers[].resources.requests` map.
+
+**Note:** Extended resources cannot be overcommitted, so request and limit
+must be equal if both are present in a container spec.
+{: .note}
+
+The Pod is scheduled only if all of the resource requests are
+satisfied, including cpu, memory and any Extended Resources. The Pod will
+remain in the `PENDING` state as long as the resource request cannot be met by
+any node.
+
+**Example:**
+
+The Pod below requests 2 cpus and 1 "example.com/foo" (an extended resource.)
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: myimage
+    resources:
+      requests:
+        cpu: 2
+        example.com/foo: 1
+```
+
 ## Planned Improvements
 
 Kubernetes version 1.5 only allows resource quantities to be specified on a
@@ -434,4 +510,3 @@ consistency across providers and platforms.
 {% endcapture %}
 
 {% include templates/concept.md %}
-

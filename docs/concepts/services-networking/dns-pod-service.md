@@ -101,9 +101,9 @@ spec:
     name: busybox
   clusterIP: None
   ports:
-    - name: foo # Actually, no port is needed.
-      port: 1234
-      targetPort: 1234
+  - name: foo # Actually, no port is needed.
+    port: 1234
+    targetPort: 1234
 ---
 apiVersion: v1
 kind: Pod
@@ -139,7 +139,7 @@ spec:
 ```
 
 If there exists a headless service in the same namespace as the pod and with the same name as the subdomain, the cluster's KubeDNS Server also returns an A record for the Pod's fully qualified hostname.
-Given a Pod with the hostname set to "busybox-1" and the subdomain set to "default-subdomain", and a headless Service named "default-subdomain" in the same namespace, the pod will see it's own FQDN as "busybox-1.default-subdomain.my-namespace.svc.cluster.local". DNS serves an A record at that name, pointing to the Pod's IP. Both pods "busybox1" and "busybox2" can have their distinct A records.
+Given a Pod with the hostname set to "busybox-1" and the subdomain set to "default-subdomain", and a headless Service named "default-subdomain" in the same namespace, the pod will see its own FQDN as "busybox-1.default-subdomain.my-namespace.svc.cluster.local". DNS serves an A record at that name, pointing to the Pod's IP. Both pods "busybox1" and "busybox2" can have their distinct A records.
 
 As of Kubernetes v1.2, the Endpoints object also has the annotation `endpoints.beta.kubernetes.io/hostnames-map`. Its value is the json representation of map[string(IP)][endpoints.HostRecord], for example: '{"10.245.1.6":{HostName: "my-webserver"}}'.
 If the Endpoints are for a headless service, an A record is created with the format <hostname>.<service name>.<pod namespace>.svc.<cluster domain>
@@ -149,7 +149,7 @@ This endpoints annotation generally does not need to be specified by end-users, 
 With v1.3, The Endpoints object can specify the `hostname` for any endpoint, along with its IP. The hostname field takes precedence over the hostname value
 that might have been specified via the  `endpoints.beta.kubernetes.io/hostnames-map` annotation.
 
-With v1.3, the following annotations are deprecated: `pod.beta.kubernetes.io/hostname`, `pod.beta.kubernetes.io/subdomain`, `endpoints.beta.kubernetes.io/hostnames-map`
+With v1.3, the following annotations are deprecated: `pod.beta.kubernetes.io/hostname`, `pod.beta.kubernetes.io/subdomain`, `endpoints.beta.kubernetes.io/hostnames-map`.
 
 ## How do I test if it is working?
 
@@ -345,7 +345,7 @@ kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 
 If you do not see the endpoints, see endpoints section in the [debugging services documentation](/docs/tasks/debug-application-cluster/debug-service/).
 
-For additional Kubernetes DNS examples, see the [cluster-dns examples](https://git.k8s.io/kubernetes/examples/cluster-dns) in the Kubernetes GitHub repository.
+For additional Kubernetes DNS examples, see the [cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns) in the Kubernetes GitHub repository.
 
 ## Kubernetes Federation (Multiple Zone support)
 
@@ -370,7 +370,7 @@ kubelet passes DNS configured using the `--cluster-dns=10.0.0.10` flag to each
 container.
 
 DNS names also need domains. The local domain is configurable, in the kubelet using
-the flag `--cluster-domain=<default local domain>`
+the flag `--cluster-domain=<default local domain>`.
 
 The Kubernetes cluster DNS server (based off the [SkyDNS](https://github.com/skynetservices/skydns) library)
 supports forward lookups (A records), service lookups (SRV records) and reverse IP address lookups (PTR records).

@@ -133,6 +133,7 @@ metadata:
     jobgroup: jobexample
 spec:
   template:
+    metadata:
       name: jobexample
       labels:
         jobgroup: jobexample
@@ -170,7 +171,7 @@ The output can be saved to a file, like this:
 cat job.yaml.jinja2 | render_template > jobs.yaml
 ```
 
-or sent directly to kubectl, like this:
+Or sent directly to kubectl, like this:
 
 ```shell
 cat job.yaml.jinja2 | render_template | kubectl create -f -
@@ -180,7 +181,7 @@ cat job.yaml.jinja2 | render_template | kubectl create -f -
 
 If you have a large number of job objects, you may find that:
 
-- even using labels, managing so many Job objects is cumbersome.
+- Even using labels, managing so many Job objects is cumbersome.
 - You exceed resource quota when creating all the Jobs at once,
   and do not want to wait to create them incrementally.
 - You need a way to easily scale the number of pods running
@@ -188,7 +189,7 @@ If you have a large number of job objects, you may find that:
   compute resources.  Another would be to limit the number of
   concurrent requests to a shared resource, such as a database,
   used by all the pods in the job.
-- very large numbers of jobs created at once overload the
+- Very large numbers of jobs created at once overload the
   Kubernetes apiserver, controller, or scheduler.
 
 In this case, you can consider one of the

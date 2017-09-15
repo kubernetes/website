@@ -27,7 +27,7 @@ Familiarity with [pods](/docs/user-guide/pods) is suggested.
 ## Background
 
 Docker also has a concept of
-[volumes](https://docs.docker.com/userguide/dockervolumes/), though it is
+[volumes](https://docs.docker.com/engine/admin/volumes/), though it is
 somewhat looser and less managed.  In Docker, a volume is simply a directory on
 disk or in another container.  Lifetimes are not managed and until very
 recently there were only local-disk-backed volumes.  Docker now provides volume
@@ -99,9 +99,10 @@ exists as long as that Pod is running on that node.  As the name says, it is
 initially empty.  Containers in the pod can all read and write the same
 files in the `emptyDir` volume, though that volume can be mounted at the same
 or different paths in each container.  When a Pod is removed from a node for
-any reason, the data in the `emptyDir` is deleted forever.  NOTE: a container
-crashing does *NOT* remove a pod from a node, so the data in an `emptyDir`
-volume is safe across container crashes.
+any reason, the data in the `emptyDir` is deleted forever.  
+
+**Note:** a container crashing does *NOT* remove a pod from a node, so the data in an `emptyDir` volume is safe across container crashes.
+{: .note}
 
 Some uses for an `emptyDir` are:
 
@@ -111,11 +112,11 @@ Some uses for an `emptyDir` are:
   container serves the data
 
 By default, `emptyDir` volumes are stored on whatever medium is backing the
-machine - that might be disk or SSD or network storage, depending on your
+node - that might be disk or SSD or network storage, depending on your
 environment.  However, you can set the `emptyDir.medium` field to `"Memory"`
 to tell Kubernetes to mount a tmpfs (RAM-backed filesystem) for you instead.
 While tmpfs is very fast, be aware that unlike disks, tmpfs is cleared on
-machine reboot and any files you write will count against your container's
+node reboot and any files you write will count against your container's
 memory limit.
 
 #### Example pod
@@ -189,8 +190,8 @@ Disk](http://cloud.google.com/compute/docs/disks) into your pod.  Unlike
 preserved and the volume is merely unmounted.  This means that a PD can be
 pre-populated with data, and that data can be "handed off" between pods.
 
-__Important: You must create a PD using `gcloud` or the GCE API or UI
-before you can use it__
+**Important:** You must create a PD using `gcloud` or the GCE API or UI before you can use it.
+{: .caution}
 
 There are some restrictions when using a `gcePersistentDisk`:
 
@@ -245,8 +246,8 @@ volume are preserved and the volume is merely unmounted.  This means that an
 EBS volume can be pre-populated with data, and that data can be "handed off"
 between pods.
 
-__Important: You must create an EBS volume using `aws ec2 create-volume` or
-the AWS API before you can use it__
+**Important:** You must create an EBS volume using `aws ec2 create-volume` or the AWS API before you can use it.
+{: .caution}
 
 There are some restrictions when using an awsElasticBlockStore volume:
 
@@ -259,7 +260,7 @@ There are some restrictions when using an awsElasticBlockStore volume:
 Before you can use an EBS volume with a pod, you need to create it.
 
 ```shell
-aws ec2 create-volume --availability-zone eu-west-1a --size 10 --volume-type gp2
+aws ec2 create-volume --availability-zone=eu-west-1a --size=10 --volume-type=gp2
 ```
 
 Make sure the zone matches the zone you brought up your cluster in.  (And also check that the size and EBS volume
@@ -296,10 +297,10 @@ unmounted.  This means that an NFS volume can be pre-populated with data, and
 that data can be "handed off" between pods.  NFS can be mounted by multiple
 writers simultaneously.
 
-__Important: You must have your own NFS server running with the share exported
-before you can use it__
+**Important:** You must have your own NFS server running with the share exported before you can use it.
+{: .caution}
 
-See the [NFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/nfs) for more details.
+See the [NFS example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/nfs) for more details.
 
 ### iscsi
 
@@ -309,8 +310,8 @@ contents of an `iscsi` volume are preserved and the volume is merely
 unmounted.  This means that an iscsi volume can be pre-populated with data, and
 that data can be "handed off" between pods.
 
-__Important: You must have your own iSCSI server running with the volume
-created before you can use it__
+**Important:** You must have your own iSCSI server running with the volume created before you can use it.
+{: .caution}
 
 A feature of iSCSI is that it can be mounted as read-only by multiple consumers
 simultaneously.  This means that you can pre-populate a volume with your dataset
@@ -318,7 +319,7 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/iscsi) for more details.
+See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/iscsi) for more details.
 
 ### fc (fibre channel)
 
@@ -327,11 +328,10 @@ You can specify single or multiple target World Wide Names using the parameter
 `targetWWNs` in your volume configuration. If multiple WWNs are specified,
 targetWWNs expect that those WWNs are from multi-path connections.
 
-__Important: You must configure FC SAN Zoning to allocate and mask those
-LUNs (volumes) to the target WWNs beforehand so that Kubernetes hosts
-can access them__
+**Important:** You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to the target WWNs beforehand so that Kubernetes hosts can access them.
+{: .caution}
 
-See the [FC example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/fibre_channel) for more details.
+See the [FC example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/fibre_channel) for more details.
 
 ### flocker
 
@@ -344,9 +344,10 @@ CLI or by using the Flocker API. If the dataset already exists it will be
 reattached by Flocker to the node that the pod is scheduled. This means data
 can be "handed off" between pods as required.
 
-__Important: You must have your own Flocker installation running before you can use it__
+**Important:** You must have your own Flocker installation running before you can use it.
+{: .caution}
 
-See the [Flocker example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/flocker) for more details.
+See the [Flocker example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/flocker) for more details.
 
 ### glusterfs
 
@@ -358,10 +359,10 @@ means that a glusterfs volume can be pre-populated with data, and that data can
 be "handed off" between pods.  GlusterFS can be mounted by multiple writers
 simultaneously.
 
-__Important: You must have your own GlusterFS installation running before you
-can use it__
+**Important:** You must have your own GlusterFS installation running before you can use it.
+{: .caution}
 
-See the [GlusterFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/glusterfs) for more details.
+See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/glusterfs) for more details.
 
 ### rbd
 
@@ -372,8 +373,8 @@ a `rbd` volume are preserved and the volume is merely unmounted.  This
 means that a RBD volume can be pre-populated with data, and that data can
 be "handed off" between pods.
 
-__Important: You must have your own Ceph installation running before you
-can use RBD__
+**Important:** You must have your own Ceph installation running before you can use RBD.
+{: .caution}
 
 A feature of RBD is that it can be mounted as read-only by multiple consumers
 simultaneously.  This means that you can pre-populate a volume with your dataset
@@ -381,7 +382,7 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [RBD example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/rbd) for more details.
+See the [RBD example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/rbd) for more details.
 
 ### cephfs
 
@@ -392,10 +393,10 @@ unmounted.  This means that a CephFS volume can be pre-populated with data, and
 that data can be "handed off" between pods.  CephFS can be mounted by multiple
 writers simultaneously.
 
-__Important: You must have your own Ceph server running with the share exported
-before you can use it__
+**Important:** You must have your own Ceph server running with the share exported before you can use it.
+{: .caution}
 
-See the [CephFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/cephfs/) for more details.
+See the [CephFS example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/cephfs/) for more details.
 
 ### gitRepo
 
@@ -433,8 +434,8 @@ use by pods without coupling to Kubernetes directly.  `secret` volumes are
 backed by tmpfs (a RAM-backed filesystem) so they are never written to
 non-volatile storage.
 
-__Important: You must create a secret in the Kubernetes API before you can use
-it__
+**Important:** You must create a secret in the Kubernetes API before you can use it.
+{: .caution}
 
 Secrets are described in more detail [here](/docs/user-guide/secrets).
 
@@ -467,7 +468,7 @@ Currently, the following types of volume sources can be projected:
 
 All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/all-in-one-volume.md).
 
-#### Example pod with a secret, a downward API, and a configmap
+#### Example pod with a secret, a downward API, and a configmap.
 
 ```yaml
 apiVersion: v1
@@ -507,7 +508,7 @@ spec:
               path: my-group/my-config
 ```
 
-#### Example pod with multiple secrets with a non-default permission mode set
+#### Example pod with multiple secrets with a non-default permission mode set.
 
 ```yaml
 apiVersion: v1
@@ -543,7 +544,7 @@ Each projected volume source is listed in the spec under `sources`. The
 parameters are nearly the same with two exceptions:
 
 * For secrets, the `secretName` field has been changed to `name` to be consistent
-with config maps naming.
+with ConfigMap naming.
 * The `defaultMode` can only be specified at the projected level and not for each
 volume source. However, as illustrated above, you can explicitly set the `mode`
 for each individual projection.
@@ -554,45 +555,55 @@ A `FlexVolume` enables users to mount vendor volumes into a pod. It expects vend
 drivers are installed in the volume plugin path on each kubelet node. This is
 an alpha feature and may change in future.
 
-More details are in [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/flexvolume/README.md)
+More details are in [here](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/flexvolume/README.md).
 
 ### AzureFileVolume
 
 A `AzureFileVolume` is used to mount a Microsoft Azure File Volume (SMB 2.1 and 3.0)
 into a Pod.
 
-More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/azure_file/README.md)
+More details can be found [here](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/azure_file/README.md).
 
 ### AzureDiskVolume
 
 A `AzureDiskVolume` is used to mount a Microsoft Azure [Data Disk](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) into a Pod.
 
-More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/azure_disk/README.md)
+More details can be found [here](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/azure_disk/README.md).
 
 ### vsphereVolume
 
-__Prerequisite: Kubernetes with vSphere Cloud Provider configured.
-For cloudprovider configuration please refer [vSphere getting started guide](/docs/getting-started-guides/vsphere/).__
+**Prerequisite:** Kubernetes with vSphere Cloud Provider configured. For cloudprovider configuration please refer [vSphere getting started guide](/docs/getting-started-guides/vsphere/).
+{: .note}
 
 A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
 of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
 
-__Important: You must create VMDK using one of the following method before using with POD.__
+**Important:** You must create VMDK using one of the following method before using with POD.
+{: .caution}
 
 #### Creating a VMDK volume
 
-* Create using vmkfstools.
+Choose one of the following methods to create a VMDK.
 
-   First ssh into ESX and then use following command to create vmdk,
+{% capture vmkfstools %}
+First ssh into ESX, then use the following command to create a VMDK:
 
 ```shell
-    vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
+vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
 ```
+{% endcapture %}
 
-* Create using vmware-vdiskmanager.
+{% capture vdiskmanager %}
+Use the following command to create a VMDK:
+
 ```shell
-  vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
+vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
 ```
+{% endcapture %}
+
+{% assign tab_names = 'Create using vmkfstools,Create using vmware-vdiskmanager' | split: ',' | compact %}
+{% assign tab_contents = site.emptyArray | push: vmkfstools | push: vdiskmanager %}
+{% include tabs.md %}
 
 #### vSphere VMDK Example configuration
 
@@ -615,17 +626,17 @@ spec:
       volumePath: "[DatastoreName] volumes/myDisk"
       fsType: ext4
 ```
-More examples can be found [here](https://git.k8s.io/kubernetes/examples/volumes/vsphere).
+More examples can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere).
 
 
 ### Quobyte
 
 A `Quobyte` volume allows an existing [Quobyte](http://www.quobyte.com) volume to be mounted into your pod.
 
-__Important: You must have your own Quobyte setup running with the volumes created
-before you can use it__
+**Important:** You must have your own Quobyte setup running with the volumes created before you can use it.
+{: .caution}
 
-See the [Quobyte example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/quobyte) for more details.
+See the [Quobyte example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/quobyte) for more details.
 
 ### PortworxVolume
 A `PortworxVolume` is an elastic block storage layer that runs hyperconverged with Kubernetes. Portworx fingerprints storage in a
@@ -655,18 +666,19 @@ spec:
       fsType: "<fs-type>"
 ```
 
-__Important: Make sure you have an existing PortworxVolume with name `pxvol` before using it in the pod__
+**Important:** Make sure you have an existing PortworxVolume with name `pxvol` before using it in the pod.
+{: .caution}
 
-More details and examples can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/portworx/README.md)
+More details and examples can be found [here](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/portworx/README.md).
 
 ### ScaleIO
 ScaleIO is a software-based storage platform that can use existing hardware to create clusters of scalable
 shared block networked storage.  The ScaleIO volume plugin allows deployed pods to access existing ScaleIO
-volumes (or it can dynamically provision new volumes for persistent volume claims, see
-[ScaleIO Persistent Volumes](/docs/user-guide/persistent-volumes/#scaleio)).
+volumes or it can dynamically provision new volumes, see
+[ScaleIO Persistent Volumes](/docs/user-guide/persistent-volumes/#scaleio).
 
-__Important: You must have an existing ScaleIO cluster already setup and running with the volumes created
-before you can use them__
+**Important:** You must have an existing ScaleIO cluster already setup and running with the volumes created before you can use them.
+{: .caution}
 
 The following is an example pod configuration with ScaleIO:
 
@@ -687,13 +699,15 @@ spec:
     scaleIO:
       gateway: https://localhost:443/api
       system: scaleio
+      protectionDomain: sd0
+      storagePool: sp1
       volumeName: vol-0
       secretRef:
         name: sio-secret
       fsType: xfs
 ```
 
-For further detail, please the see the [ScaleIO examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/scaleio).
+For further detail, please the see the [ScaleIO examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/scaleio).
 
 ### StorageOS
 A `storageos` volume allows an existing [StorageOS](https://www.storageos.com) volume to be mounted into your pod.
@@ -704,7 +718,8 @@ At its core, StorageOS provides block storage to containers, accessible via a fi
 
 The StorageOS container requires 64-bit Linux and has no additional dependencies.  A free developer licence is available.
 
-__Important: You must run the StorageOS container on each node that wants to access StorageOS volumes or that will contribute storage capacity to the pool.  For installation instructions, consult the [StorageOS documentation](https://docs.storageos.com)__
+**Important:** You must run the StorageOS container on each node that wants to access StorageOS volumes or that will contribute storage capacity to the pool.  For installation instructions, consult the [StorageOS documentation](https://docs.storageos.com).
+{: .caution}
 
 ```yaml
 apiVersion: v1
@@ -734,7 +749,7 @@ spec:
         fsType: ext4
 ```
 
-For more information including Dynamic Provisioning and Persistent Volume Claims, please see the [StorageOS examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/storageos).
+For more information including Dynamic Provisioning and Persistent Volume Claims, please see the [StorageOS examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/storageos).
 
 ### local
 
@@ -782,11 +797,11 @@ spec:
       path: /mnt/disks/ssd1
 ```
 
-Note that local PersistentVolume cleanup and deletion requires manual
-intervention without the external provisioner.
+**Note:** The local PersistentVolume cleanup and deletion requires manual intervention without the external provisioner.
+{: .note}
 
 For details on the `local` volume type, see the [Local Persistent Storage
-user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume)
+user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).
 
 ## Using subPath
 
@@ -834,6 +849,10 @@ request a certain amount of space using a [resource](/docs/user-guide/compute-re
 specification, and to select the type of media to use, for clusters that have
 several media types.
 
+{% endcapture %}
+
+{% capture whatsnext %}
+* Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 {% endcapture %}
 
 {% include templates/concept.md %}

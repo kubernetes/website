@@ -91,7 +91,7 @@ Even though Kubernetes provides a lot of functionality, there are always new sce
 
 [Labels](/docs/concepts/overview/working-with-objects/labels/) empower users to organize their resources however they please. [Annotations](/docs/concepts/overview/working-with-objects/annotations/) enable users to decorate resources with custom information to facilitate their workflows and provide an easy way for management tools to checkpoint state.
 
-Additionally, the [Kubernetes control plane](/docs/concepts/overview/components/) is built upon the same [APIs](/docs/reference/api-overview/) that are available to developers and users. Users can write their own controllers, such as [schedulers](https://git.k8s.io/community/contributors/devel/scheduler.md), with [their own APIs](https://git.k8s.io/community/contributors/design-proposals/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
+Additionally, the [Kubernetes control plane](/docs/concepts/overview/components/) is built upon the same [APIs](/docs/reference/api-overview/) that are available to developers and users. Users can write their own controllers, such as [schedulers](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/devel/scheduler.md), with [their own APIs](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
 
 This [design](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/principles.md) has enabled a number of other systems to build atop Kubernetes.
 
