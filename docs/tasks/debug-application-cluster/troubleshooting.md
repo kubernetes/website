@@ -33,7 +33,6 @@ and command-line interfaces (CLIs), such as [`kubectl`](/docs/user-guide/kubectl
 
 We also have a number of FAQ pages:
 
-   * [User FAQ](https://github.com/kubernetes/kubernetes/wiki/User-FAQ)
    * [Debugging FAQ](https://github.com/kubernetes/kubernetes/wiki/Debugging-FAQ)
    * [Services FAQ](https://github.com/kubernetes/kubernetes/wiki/Services-FAQ)
 

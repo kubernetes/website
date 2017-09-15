@@ -37,6 +37,5 @@ The [Troubleshooting](/docs/tasks/debug-application-cluster/troubleshooting) pag
 
 ## Frequently Asked Questions
 
-* [User FAQ](https://github.com/kubernetes/kubernetes/wiki/User-FAQ)
 * [Debugging FAQ](https://github.com/kubernetes/kubernetes/wiki/Debugging-FAQ)
 * [Services FAQ](https://github.com/kubernetes/kubernetes/wiki/Services-FAQ)
