@@ -31,7 +31,7 @@ A device plugin can register itself with the kubelet through this gRPC service.
 During the registration, the device plugin needs to send:
 
   * The name of its Unix socket.
-  * The API version against which it was built.
+  * The Device Plugin API version against which it was built.
   * The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
     [extended resource naming scheme](https://github.com/kubernetes/kubernetes/pull/48922)
     as `vendor-domain/resource`.
