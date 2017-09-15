@@ -549,14 +549,6 @@ with ConfigMap naming.
 volume source. However, as illustrated above, you can explicitly set the `mode`
 for each individual projection.
 
-### FlexVolume
-
-A `FlexVolume` enables users to mount vendor volumes into a pod. It expects vendor
-drivers are installed in the volume plugin path on each kubelet node. This is
-an alpha feature and may change in future.
-
-More details are in [here](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/flexvolume/README.md).
-
 ### AzureFileVolume
 
 A `AzureFileVolume` is used to mount a Microsoft Azure File Volume (SMB 2.1 and 3.0)
@@ -848,6 +840,19 @@ In the future, we expect that `emptyDir` and `hostPath` volumes will be able to
 request a certain amount of space using a [resource](/docs/user-guide/compute-resources)
 specification, and to select the type of media to use, for clusters that have
 several media types.
+
+## Out-of-Tree Volume Plugins
+In addition to the previously listed volume types, storage vendors may create
+custom plugins without adding it to the Kubernetes repository. This can be
+achieved by using the `FlexVolume` plugin.
+
+`FlexVolume` enables users to mount vendor volumes into a pod. The vendor plugin
+is implemented using a driver, an executable supporting a list of volume commands
+defined by the `FlexVolume` API. Drivers must be installed in a pre-defined
+volume plugin path on each node. This is an alpha feature and may change in future.
+
+More details are in [here](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/flexvolume/README.md).
+
 
 {% endcapture %}
 
