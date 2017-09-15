@@ -607,7 +607,7 @@ using kubeadm.
  - Less convenient to use manually since the file is difficult to copy and paste
    between nodes.
 
-## Use Kubeadm with other CRI runtimes
+## Use kubeadm with other CRI runtimes
 
 Since [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1), Kubernetes container runtimes have been transferred to using CRI by default. Currently, the build-in container runtime is Docker which is enabled by build-in `dockershim` in `kubelet`.
 
@@ -819,6 +819,15 @@ use-case.
 This means you can, for example, prepopulate `/etc/kubernetes/pki/ca.crt`
 and `/etc/kubernetes/pki/ca.key` with an existing CA, which then will be used
 for signing the rest of the certs.
+
+## Self-hosting the Kubernetes control plane  {#self-hosting}
+As of 1.8, kubeadm can experimentally create a _self-hosted_ Kubernetes control
+plane. This means that key components such as the API server, controller
+manager, and scheduler run as normal pods instead of static pods.
+
+Self-hosting is beta in kubeadm 1.8 and is expected to become the default in
+kubeadm 1.9. To create a self-hosted cluster, pass the
+`--feature-gates=SelfHosting=true` to `kubeadm init`.
 
 ## Releases and release notes
 
