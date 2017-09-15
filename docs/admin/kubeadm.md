@@ -607,7 +607,7 @@ using kubeadm.
  - Less convenient to use manually since the file is difficult to copy and paste
    between nodes.
 
-## Use Kubeadm with other CRI runtimes
+## Use kubeadm with other CRI runtimes
 
 Since [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1), Kubernetes container runtimes have been transferred to using CRI by default. Currently, the build-in container runtime is Docker which is enabled by build-in `dockershim` in `kubelet`.
 
@@ -819,6 +819,60 @@ use-case.
 This means you can, for example, prepopulate `/etc/kubernetes/pki/ca.crt`
 and `/etc/kubernetes/pki/ca.key` with an existing CA, which then will be used
 for signing the rest of the certs.
+
+## Self-hosting the Kubernetes control plane  {#self-hosting}
+As of 1.8, kubeadm can experimentally create a _self-hosted_ Kubernetes control
+plane. This means that key components such as the API server, controller
+manager, and scheduler run as [DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
+configured via the Kubernetes API instead of [static pods](/docs/tasks/administer-cluster/static-pod/)
+configured in the kubelet via static files.
+
+Self-hosting is alpha in kubeadm 1.8 but is expected to become the default in
+a future version. To create a self-hosted cluster, pass the `--feature-gates=SelfHosting=true`
+flag to `kubeadm init`.
+
+#### Caveats
+Kubeadm self-hosting in 1.8 has some important limitations. In particular, a
+self-hosted cluster cannot currently recover from a reboot of the master node
+without manual intervention. This and other limitations are expected to be
+resolved before self-hosting graduates from alpha.
+
+By default, self-hosted control plane pods rely on credentials loaded from
+[`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)
+volumes. Except for initial creation, these credentials are not managed by
+kubeadm. You can use `--feature-gates=StoreCertsInSecrets=true` to enable an
+experimental mode where control plane credentials are loaded from Secrets
+instead. This requires very careful control over the authentication and
+authorization configuration for your cluster, and may not be appropriate for
+your environment.
+
+In 1.8, the self-hosted portion of the control plane does not include etcd,
+which still runs as a static pod.
+
+#### Process
+The self-hosting bootstrap process is documented in [the kubeadm 1.8 design
+document](https://github.com/kubernetes/kubeadm/blob/master/docs/design/design_v1.8.md#optional-self-hosting).
+In summary, `kubeadm init --feature-gates=SelfHosting=true` works as follows:
+
+ 1. As usual, kubeadm creates static pod YAML files in `/etc/kubernetes/manifests/`.
+
+ 1. Kubelet loads these files and launches the initial static control plane.
+    Kubeadm waits for this initial static control plane to be running and
+    healthy. This is identical to the `kubeadm init` process without self-hosting.
+
+ 1. Kubeadm uses the static control plane pod manifests to construct a set of
+    DaemonSet manifests that will run the self-hosted control plane.
+
+ 1. Kubeadm creates DaemonSets in the `kube-system` namespace and waits for the
+    resulting pods to be running.
+
+ 1. Once the new control plane is running (but not yet active), kubeadm deletes
+    the static pod YAML files. This triggers kubelet to stop those static pods.
+
+ 1. When the original static control plane stops, the new self-hosted control
+    plane is able to bind to listening ports and become active.
+
+This process (steps 3-6) can also be triggered with `kubeadm phase selfhosting convert-from-staticpods`.
 
 ## Releases and release notes
 
