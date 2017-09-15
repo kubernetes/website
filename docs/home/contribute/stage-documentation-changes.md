@@ -25,19 +25,15 @@ kubernetes/kubernetes.github.io repository. This opens a page that shows the
 status of your pull request.
 
 1. Look for a comment that says **Deploy preview ready!**. In the comment, click
-the link to the Netlify page. This opens a staging site where you can see your
-changes:
+the link to the Netlify page:
 
-    Deploy preview ready!
+        https://deploy-preview-&lt;pr-number&gt;--kubernetes-io-master-staging.netlify.com
 
-    Built with commit &lt;commit-number&gt;
+    This opens a staging site where you can see your changes.
 
-    [https://deploy-preview-&lt;pr-number&gt;--kubernetes-io-master-staging.netlify.com]()
-
-  Here's another way to find the staging site. Scroll down to the list of automated
-  checks. Click **Show all checks**. Wait for the **deploy/netlify** check to complete.
-  To the right of
-  **deploy/netlify**, click **Details**.
+Here's another way to find the staging site. Scroll down to the list of automated
+checks. Click **Show all checks**. Wait for the **deploy/netlify** check to complete.
+To the right of **deploy/netlify**, click **Details**.
 
 {% endcapture %}
 
