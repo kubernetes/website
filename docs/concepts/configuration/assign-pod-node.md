@@ -142,7 +142,7 @@ If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, 
 If you remove or change the label of the node where the pod is scheduled, the pod won't be removed. In other words, the affinity selection works only at the time of scheduling the pod.
 
 For more information on node affinity, see the design doc
-[here](https://git.k8s.io/community/contributors/design-proposals/nodeaffinity.md).
+[here](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md).
 
 ### Inter-pod affinity and anti-affinity (beta feature)
 
@@ -183,7 +183,7 @@ value V that is running a pod that has a label with key "security" and value "S1
 rule says that the pod prefers to not schedule onto a node if that node is already running a pod with label
 having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
 it would mean that the pod cannot schedule onto a node if that node is in the same zone as a pod with
-label having key "security" and value "S2".) See the [design doc](https://git.k8s.io/community/contributors/design-proposals/podaffinity.md).
+label having key "security" and value "S2".) See the [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
 for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
 flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 
@@ -296,7 +296,7 @@ Highly Available database statefulset has one master and three replicas, one may
 [Here](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) is an example of zookeper statefulset configured with anti-affinity for high availability.
 
 For more information on inter-pod affinity/anti-affinity, see the design doc
-[here](https://git.k8s.io/community/contributors/design-proposals/podaffinity.md).
+[here](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
 
 You may want to check [Taints](/docs/concepts/configuration/taint-and-toleration/)
 as well, which allow a *node* to *repel* a set of pods.
