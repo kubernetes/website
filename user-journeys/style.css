@@ -1,0 +1,511 @@
+
+body {
+
+  margin:0 auto;
+
+}
+
+a {
+  color:#303030;
+}
+
+.container {
+width:80%;
+
+}
+
+
+.topheader {
+
+ background: url('header.jpg');
+ color:#ffffff;
+ font-family: 'roboto';
+ text-align:center;
+ padding:6%;
+ font-weight:100;
+
+font-size:24pt;
+letter-spacing:0.08em;
+
+background-repeat:repeat;
+background-size:contain;
+background-position:center;
+
+
+}
+
+.bar1 {
+padding:1%;
+background-color:#3399ff;
+text-align:center;
+
+}
+
+.bar2 {
+padding:1%;
+background-color:#000066;
+text-align:center;
+font-size:18px;
+font-family: 'roboto';
+text-transform:uppercase;
+text-align:center;
+letter-spacing:0.1em;
+color:#ffffff;
+
+}
+
+.cards {
+padding:3%;
+background-color:#ffffff;
+text-align:center;
+font-family: 'roboto';
+text-transform:uppercase;
+text-align:center;
+letter-spacing:0.1em;
+}
+
+.cards > div {
+  display: none;
+}
+
+button {
+
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; /* future proofing */
+  -khtml-border-radius: 5px; /* for old Konqueror browsers */
+  border: 2px solid #ffffff;
+  padding:1%;
+  margin:1%;
+  color:#ffffff;
+  font-family: 'roboto';
+  text-transform:uppercase;
+  text-align:center;
+  letter-spacing:0.1em;
+  display: inline-block;
+
+}
+
+
+.navButton {
+
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; /* future proofing */
+  -khtml-border-radius: 5px; /* for old Konqueror browsers */
+  border: 2px solid #ffffff;
+  padding:1%;
+  margin:1%;
+  color:#ffffff;
+  font-family: 'roboto';
+  text-transform:uppercase;
+  text-align:center;
+  letter-spacing:0.1em;
+  display: inline-block;
+
+}
+
+.navButton:active {
+
+  background-color:white;
+  color:#3399ff;
+  border: 2px solid #ffffff;
+}
+
+.navButton:visited {
+
+  background-color:white;
+  color:#3399ff;
+  border: 2px solid #ffffff;
+}
+
+.navButton:focus {
+
+  background-color:white !important</div>;
+  color:#3399ff;
+  border: 2px solid #ffffff;
+}
+
+
+.navButton:hover {
+
+  background-color:white;
+  color:#3399ff;
+  border: 2px solid #ffffff;
+}
+
+
+
+.buttons {
+  background-color:#3399ff;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; /* future proofing */
+  -khtml-border-radius: 5px; /* for old Konqueror browsers */
+  border: 2px solid #ffffff;
+  padding:2%;
+  margin:1%;
+  color:#ffffff;
+  font-family: 'roboto';
+  text-transform:uppercase;
+  text-align:center;
+  letter-spacing:0.1em;
+  display: inline-block;
+  width:250px;
+  vertical-align:middle;
+
+
+}
+
+
+.buttonoption1 {
+  background-color:#3399ff;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; /* future proofing */
+  -khtml-border-radius: 5px; /* for old Konqueror browsers */
+  border: 2px solid #ffffff;
+  padding:2%;
+  margin:1%;
+  color:#ffffff;
+  font-family: 'roboto';
+  text-transform:uppercase;
+  text-align:center;
+  letter-spacing:0.1em;
+  display: inline-block;
+  width:250px;
+  vertical-align:middle;
+
+
+}
+
+
+
+.buttons:active .active{
+
+  background-color:white;
+  color:#3399ff;
+  border: 2px solid #3399ff;
+}
+
+.buttons:hover {
+
+  background-color:white;
+  color:#3399ff;
+  border: 2px solid #3399ff;
+  cursor: pointer;
+}
+
+.buttons:target {
+
+  background-color:white;
+  color:#3399ff;
+  border: 2px solid #3399ff;
+
+}
+
+.buttons:visited {
+
+  background-color:white;
+  color:#3399ff;
+  border: 2px solid #3399ff;
+
+}
+
+.buttons.selected {
+  background-color:white;
+  color:#3399ff;
+  border: 2px solid #3399ff;
+
+}
+
+.keepShow {
+
+  background-color:white;
+  color:#3399ff;
+  border: 2px solid white;
+
+}
+
+.tab1 {
+  background-color:#cccccc;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; /* future proofing */
+  -khtml-border-radius: 5px; /* for old Konqueror browsers */
+  border: 2px solid #ffffff;
+  padding:0%;
+  padding-top:3%;
+  margin:1%;
+  margin-top:4%;
+  color:#ffffff;
+  font-family: 'roboto';
+  font-weight:100;
+  text-transform:none;
+  text-align:center;
+  letter-spacing:0.1em;
+  display: inline-block;
+  width:300px;  cursor: pointer;
+  cursor: pointer;
+
+
+}
+.tab1:hover, .tab1.selected {
+  background-color:#ffffff;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; /* future proofing */
+  -khtml-border-radius: 5px; /* for old Konqueror browsers */
+  border: 2px solid #000066;
+
+  cursor: pointer;
+
+}
+
+
+.tab1text{
+  padding:5%;
+  color:#303030;
+  font-size:15px;
+  line-height:22px;
+
+}
+
+.tabbottom {
+
+background-color:#000066;
+color:#ffffff;;
+font-family:'roboto';
+width:100%;
+margin:0px;
+font-size:34 !important;
+
+
+}
+
+
+i {
+
+  font-size:44px !important;
+  text-align:center;
+  color:#000066;
+
+}
+.infobarWrapper {
+    visibility: hidden;
+    height: 70vh;
+}
+.infobar {
+    padding:0%;
+    background-color:#3399ff;
+    text-align:center;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; /* future proofing */
+    -khtml-border-radius: 5px; /* for old Konqueror browsers */
+    border: 2px solid #ffffff;
+    padding:2%;
+    font-size:22px;
+    line-height:30px;
+    letter-spacing:0.07em;
+    text-transform:uppercase;
+    margin:3%;
+    font-weight:bold;
+    color:#ffffff;
+    font-family: 'roboto';
+    width:72%;
+    margin-left:12%;
+    margin-bottom:3%;
+
+
+}
+
+.whitebar {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; /* future proofing */
+  -khtml-border-radius: 5px; /* for old Konqueror browsers */
+  background-color:#ffffff;
+      text-transform:none;
+  padding:3%;
+  font-size:15px;
+  z-index:99;
+  font-weight:100;
+  line-height:18pt;
+  color:#606060;
+  margin:1%;
+  text-align:left;
+}
+
+.whitebararrow{
+  float:right
+  padding:3%;
+  font-size:15px;
+  z-index:99;
+  font-weight:100;
+  line-height:18pt;
+  color:#606060;
+  margin:1%;
+  text-align:right;
+}
+
+
+
+
+
+
+.hide {
+
+float:left;
+font-size:16px;
+padding-left:2%;
+padding-bottom:5%;
+
+
+
+}
+
+
+
+.fa {
+
+  line-height:0.7em !important;
+}
+
+
+.infoicon {
+float:left;
+padding-bottom:2%;
+padding-right:2%;
+margin-bottom:10%:
+color:#3399ff !important;
+
+
+
+}
+
+
+
+.numberCircle {
+display:inline-block;
+line-height:0px;
+
+border-radius:5px;
+border:2px solid;
+font-weight:300;
+font-size:24px;
+}
+
+.numberCircle span {
+  display:inline-block;
+  padding-top:50%;  padding-bottom:50%;
+  margin-left:12px;
+  margin-right:12px;
+}
+
+.docButton {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; /* future proofing */
+  -khtml-border-radius: 5px; /* for old Konqueror browsers */
+  border: 1.5px solid white;
+  padding:1%;
+  background-color:#3399ff;
+  font-size:13px;
+  margin:.5%;
+  color:white;
+  font-family: 'roboto';
+  text-transform:uppercase;
+  text-align:center;
+  letter-spacing:0.1em;
+  display: inline-block;
+
+}
+
+.docButton:hover {
+  border: 1.5px solid #3399ff;
+  background-color:white;
+  font-size:13px;
+  color:#3399ff;
+
+
+}
+
+.tablebar {
+  text-align:center;
+  background-color:#3399ff;
+  padding:1.5%;
+  border-bottom:1px solid #3399ff;
+}
+
+.docsection1 {
+  background-color:white;
+  font-family: 'roboto';
+  padding:3%;
+  font-weight:100;
+  font-size:14px;
+  letter-spacing:0.05em;
+  line-height:22px;
+  width:75%;
+  margin-left:10%;
+
+
+}
+
+.intro {
+  background-color:white;
+  font-family: 'roboto';
+  padding:3%;
+  font-weight:100;
+  font-size:14px;
+  letter-spacing:0.05em;
+  line-height:22px;
+  width:100%;
+  margin-left:10%;
+
+}
+.introtext {
+  float:right;
+  background-color:white;
+  font-family: 'roboto';
+  padding:3%;
+  font-weight:100;
+  font-size:14px;
+  letter-spacing:0.05em;
+  line-height:22px;
+  width:50%;
+  margin-left:10%;
+
+}
+
+.track {
+  background-color:#3399ff;
+  font-family: 'roboto';
+  padding:1.5%;
+  color:white;
+  font-weight:500;
+  text-align:center;
+  text-transform:uppercase;
+  font-size:18px;
+  letter-spacing:0.05em;
+  line-height:22px;
+  width:100%;
+
+
+}
+
+.sections {
+  background-color:white;
+  font-family: 'roboto';
+  padding:1%;
+  color:#3399ff;
+  font-weight:500;
+  text-align:center;
+  text-transform:uppercase;
+  font-size:18px;
+  letter-spacing:0.05em;
+  line-height:22px;
+  width:100%;
+
+
+}
