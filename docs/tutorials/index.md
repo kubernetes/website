@@ -2,7 +2,7 @@
 title: Tutorials
 ---
 
-This section of the Kubernetes documentation contains tutorials.
+This section of the Kubernetes documentation contains tutorials and a test for allowing edits from maintainers.
 A tutorial shows how to accomplish a goal that is larger than a single
 [task](/docs/tasks/). Typically a tutorial has several sections,
 each of which has a sequence of steps.
