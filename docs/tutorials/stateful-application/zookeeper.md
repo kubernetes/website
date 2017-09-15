@@ -27,7 +27,6 @@ Kubernetes concepts.
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
-* [ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget)
 * [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
@@ -90,26 +89,26 @@ safely discarded.
 
 The manifest below contains a 
 [Headless Service](/docs/user-guide/services/#headless-services), 
-a [ConfigMap](/docs/tasks/configure-pod-container/configmap/), 
+a [Service](/docs/concepts/services-networking/service),
 a [PodDisruptionBudget](/docs/admin/disruptions/#specifying-a-poddisruptionbudget), 
 and a [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/). 
 
 {% include code.html language="yaml" file="zookeeper.yaml" ghlink="/docs/tutorials/stateful-application/zookeeper.yaml" %}
 
 Open a command terminal, and use 
-[`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create) to create the 
+[`kubectl apply`](/docs/user-guide/kubectl/{{page.version}}/#apply) to create the 
 manifest.
 
 ```shell
-kubectl create -f https://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
+kubectl apply -f https://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
 ```
 
-This creates the `zk-headless` Headless Service, the `zk-config` ConfigMap, 
-the `zk-budget` PodDisruptionBudget, and the `zk` StatefulSet.
+This creates the `zk-hs` Headless Service, the `zk-cs` Service, 
+the `zk-pdb` PodDisruptionBudget, and the `zk` StatefulSet.
 
 ```shell
-service "zk-headless" created
-configmap "zk-config" created
+service "zk-hs" created
+service "zk-cs" created
 poddisruptionbudget "zk-budget" created
 statefulset "zk" created
 ```
@@ -200,13 +199,13 @@ Get the FQDN (Fully Qualified Domain Name) of each Pod in the `zk` StatefulSet.
 for i in 0 1 2; do kubectl exec zk-$i -- hostname -f; done
 ```
 
-The `zk-headless` Service creates a domain for all of the Pods, 
+The `zk-hs` Service creates a domain for all of the Pods, 
 `zk-headless.default.svc.cluster.local`.
 
 ```shell
-zk-0.zk-headless.default.svc.cluster.local
-zk-1.zk-headless.default.svc.cluster.local
-zk-2.zk-headless.default.svc.cluster.local
+zk-0.zk-hs.default.svc.cluster.local
+zk-1.zk-hs.default.svc.cluster.local
+zk-2.zk-hs.default.svc.cluster.local
 ```
 
 The A records in [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) resolve the FQDNs to the Pods' IP addresses. 
@@ -251,10 +250,6 @@ which processes have committed which data. If two Pods were launched with the
 same ordinal, two ZooKeeper servers would both identify themselves as the same
  server.
 
-When you created the `zk` StatefulSet, the StatefulSet's controller created 
-each Pod sequentially, in the order defined by the Pods' ordinal indices, and it 
-waited for each Pod to be Running and Ready before creating the next Pod. 
-
 ```shell
 kubectl get pods -w -l app=zk
 NAME      READY     STATUS    RESTARTS   AGE
@@ -281,18 +276,18 @@ endpoint will be the unique ZooKeeper server claiming the identity configured
 in its `myid` file.
 
 ```shell
-zk-0.zk-headless.default.svc.cluster.local
-zk-1.zk-headless.default.svc.cluster.local
-zk-2.zk-headless.default.svc.cluster.local
+zk-0.zk-hs.default.svc.cluster.local
+zk-1.zk-hs.default.svc.cluster.local
+zk-2.zk-hs.default.svc.cluster.local
 ```
 
 This ensures that the `servers` properties in the ZooKeepers' `zoo.cfg` files 
 represents a correctly configured ensemble.
 
 ```shell
-server.1=zk-0.zk-headless.default.svc.cluster.local:2888:3888
-server.2=zk-1.zk-headless.default.svc.cluster.local:2888:3888
-server.3=zk-2.zk-headless.default.svc.cluster.local:2888:3888
+server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
+server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
+server.3=zk-2.zk-hsdefault.svc.cluster.local:2888:3888
 ```
 
 When the servers use the Zab protocol to attempt to commit a value, they will 
@@ -394,13 +389,6 @@ kubectl apply -f https://k8s.io/docs/tutorials/stateful-application/zookeeper.ya
 
 The `zk` StatefulSet will be created, but, as they already exist, the other API 
 Objects in the manifest will not be modified.
-
-```shell
-statefulset "zk" created
-Error from server (AlreadyExists): error when creating "zookeeper.yaml": services "zk-headless" already exists
-Error from server (AlreadyExists): error when creating "zookeeper.yaml": configmaps "zk-config" already exists
-Error from server (AlreadyExists): error when creating "zookeeper.yaml": poddisruptionbudgets.policy "zk-budget" already exists
-```
 
 Watch the StatefulSet controller recreate the StatefulSet's Pods.
 
@@ -513,143 +501,42 @@ As noted in the [Facilitating Leader Election](#facilitating-leader-election) an
 [Achieving Consensus](#achieving-consensus) sections, the servers in a 
 ZooKeeper ensemble require consistent configuration in order to elect a leader 
 and form a quorum. They also require consistent configuration of the Zab protocol
-in order for the protocol to work correctly over a network. You can use 
-ConfigMaps to achieve this. 
+in order for the protocol to work correctly over a network. In our example we 
+achive consistent configuration by embedding the configuration directly into 
+the manifest.
 
-Get the `zk-config` ConfigMap.
+Get the `zk` StatefulSet.
 
-```shell
- kubectl get cm zk-config -o yaml
-apiVersion: v1
-data:
-  client.cnxns: "60"
-  ensemble: zk-0;zk-1;zk-2
-  init: "10"
-  jvm.heap: 2G
-  purge.interval: "0"
-  snap.retain: "3"
-  sync: "5"
-  tick: "2000"
-```
-
-The `env` field of the `zk` StatefulSet's Pod `template` reads the ConfigMap 
-into environment variables. These variables are injected into the containers 
-environment.
-
-```yaml
-env:
-        - name : ZK_ENSEMBLE
-          valueFrom:
-            configMapKeyRef:
-              name: zk-config
-              key: ensemble
-        - name : ZK_HEAP_SIZE
-          valueFrom:
-            configMapKeyRef:
-                name: zk-config
-                key: jvm.heap
-        - name : ZK_TICK_TIME
-          valueFrom:
-            configMapKeyRef:
-                name: zk-config
-                key: tick
-        - name : ZK_INIT_LIMIT
-          valueFrom:
-            configMapKeyRef:
-                name: zk-config
-                key: init
-        - name : ZK_SYNC_LIMIT
-          valueFrom:
-            configMapKeyRef:
-                name: zk-config
-                key: tick
-        - name : ZK_MAX_CLIENT_CNXNS
-          valueFrom:
-            configMapKeyRef:
-                name: zk-config
-                key: client.cnxns
-        - name: ZK_SNAP_RETAIN_COUNT
-          valueFrom:
-            configMapKeyRef:
-                name: zk-config
-                key: snap.retain
-        - name: ZK_PURGE_INTERVAL
-          valueFrom:
-            configMapKeyRef:
-                name: zk-config
-                key: purge.interval
-```
-
-The entry point of the container invokes a bash script, `zkGenConfig.sh`, prior to
-launching the ZooKeeper server process. This bash script generates the 
-ZooKeeper configuration files from the supplied environment variables.
-
-```yaml
+```shell{% raw %}
+ kubectl get sts zk -o yaml
+...
  command:
         - sh
         - -c
-        - zkGenConfig.sh && zkServer.sh start-foreground
-```
+        - "start-zookeeper \
+          --servers=3 \
+          --data_dir=/var/lib/zookeeper/data \
+          --data_log_dir=/var/lib/zookeeper/data/log \
+          --conf_dir=/opt/zookeeper/conf \
+          --client_port=2181 \
+          --election_port=3888 \
+          --server_port=2888 \
+          --tick_time=2000 \
+          --init_limit=10 \
+          --sync_limit=5 \
+          --heap=512M \
+          --max_client_cnxns=60 \
+          --snap_retain_count=3 \
+          --purge_interval=12 \
+          --max_session_timeout=40000 \
+          --min_session_timeout=4000 \
+          --log_level=INFO"
+...
+```{% endraw %}
 
-Examine the environment of all of the Pods in the `zk` StatefulSet.
-
-```shell
-for i in 0 1 2; do kubectl exec zk-$i env | grep ZK_*;echo""; done
-```
-
-All of the variables populated from `zk-config` contain identical values. This 
-allows the `zkGenConfig.sh` script to create consistent configurations for all 
-of the ZooKeeper servers in the ensemble.
-
-```shell
-ZK_ENSEMBLE=zk-0;zk-1;zk-2
-ZK_HEAP_SIZE=2G
-ZK_TICK_TIME=2000
-ZK_INIT_LIMIT=10
-ZK_SYNC_LIMIT=2000
-ZK_MAX_CLIENT_CNXNS=60
-ZK_SNAP_RETAIN_COUNT=3
-ZK_PURGE_INTERVAL=0
-ZK_CLIENT_PORT=2181
-ZK_SERVER_PORT=2888
-ZK_ELECTION_PORT=3888
-ZK_USER=zookeeper
-ZK_DATA_DIR=/var/lib/zookeeper/data
-ZK_DATA_LOG_DIR=/var/lib/zookeeper/log
-ZK_LOG_DIR=/var/log/zookeeper
-
-ZK_ENSEMBLE=zk-0;zk-1;zk-2
-ZK_HEAP_SIZE=2G
-ZK_TICK_TIME=2000
-ZK_INIT_LIMIT=10
-ZK_SYNC_LIMIT=2000
-ZK_MAX_CLIENT_CNXNS=60
-ZK_SNAP_RETAIN_COUNT=3
-ZK_PURGE_INTERVAL=0
-ZK_CLIENT_PORT=2181
-ZK_SERVER_PORT=2888
-ZK_ELECTION_PORT=3888
-ZK_USER=zookeeper
-ZK_DATA_DIR=/var/lib/zookeeper/data
-ZK_DATA_LOG_DIR=/var/lib/zookeeper/log
-ZK_LOG_DIR=/var/log/zookeeper
-
-ZK_ENSEMBLE=zk-0;zk-1;zk-2
-ZK_HEAP_SIZE=2G
-ZK_TICK_TIME=2000
-ZK_INIT_LIMIT=10
-ZK_SYNC_LIMIT=2000
-ZK_MAX_CLIENT_CNXNS=60
-ZK_SNAP_RETAIN_COUNT=3
-ZK_PURGE_INTERVAL=0
-ZK_CLIENT_PORT=2181
-ZK_SERVER_PORT=2888
-ZK_ELECTION_PORT=3888
-ZK_USER=zookeeper
-ZK_DATA_DIR=/var/lib/zookeeper/data
-ZK_DATA_LOG_DIR=/var/lib/zookeeper/log
-ZK_LOG_DIR=/var/log/zookeeper
-```
+Notice that the command used to start the ZooKeeper servers passed the configuration 
+as command line parameter. Enviornment variables are another, equally good, way to 
+pass configuration to ensemble.
 
 ### Configuring Logging
 
@@ -782,6 +669,52 @@ manages each of your ZooKeeper server processes (JVM)." Utilizing a watchdog
 common pattern. When deploying an application in Kubernetes, rather than using 
 an external utility as a supervisory process, you should use Kubernetes as the 
 watchdog for your application.
+
+### Updating the Ensemble
+
+The `zk` StatefulSet is configured to use the RollingUpdate update strategy.
+
+You can use `kubectl patch` to update the number of `cpus` allocated to the servers.
+
+```shell{% raw %}
+kubectl patch sts zk --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/resources/requests/cpu", "value":"0.3"}]'statefulset "zk" patched
+```{% endraw %}
+
+Use `kubectl rollout status` to watch the status of the update.
+
+``shell
+kubectl rollout status sts/zk
+waiting for statefulset rolling update to complete 0 pods at revision zk-5db4499664...
+Waiting for 1 pods to be ready...
+Waiting for 1 pods to be ready...
+waiting for statefulset rolling update to complete 1 pods at revision zk-5db4499664...
+Waiting for 1 pods to be ready...
+Waiting for 1 pods to be ready...
+waiting for statefulset rolling update to complete 2 pods at revision zk-5db4499664...
+Waiting for 1 pods to be ready...
+Waiting for 1 pods to be ready...
+statefulset rolling update complete 3 pods at revision zk-5db4499664...
+```
+
+The Pods are terminated, one at a time, in reverse ordinal order, and they 
+are recreated with the new configuration. This ensures that quorum is maintained
+during a rolling update.
+
+Use `kubectl rollout history` to view a history or previous configurations.
+
+```shell
+kubectl rollout history sts/zk
+statefulsets "zk"
+REVISION
+1
+2
+```
+Use `kubectl rollout undo` to roll back the modification.
+
+```shell
+kubectl rollout undo sts/zk
+statefulset "zk" rolled back
+```
 
 ### Handling Process Failure 
 
@@ -1029,18 +962,18 @@ cordon all but four of the nodes in your cluster.
 kubectl cordon < node name >
 ```{% endraw %}
 
-Get the `zk-budget` PodDisruptionBudget.
+Get the `zk-pdb` PodDisruptionBudget.
 
 ```shell
-kubectl get poddisruptionbudget zk-budget
+kubectl get pdb zk-pdb
 ```
 
-The `min-available` field indicates to Kubernetes that at least two Pods from 
-`zk` StatefulSet must be available at any time. 
+The `max-unavailable` field indicates to Kubernetes that at most one Pod from 
+`zk` StatefulSet must be unavailable at any time. 
 
-```yaml
-NAME        MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
-zk-budget   2               1                     1h
+```shell
+NAME      MIN-AVAILABLE   MAX-UNAVAILABLE   ALLOWED-DISRUPTIONS   AGE
+zk-pdb    N/A             1                 1                  
 
 ```
 
