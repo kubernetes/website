@@ -174,6 +174,7 @@ toc:
   - docs/tasks/administer-federation/deployment.md
   - docs/tasks/administer-federation/events.md
   - docs/tasks/administer-federation/ingress.md
+  - docs/tasks/administer-federation/job.md
   - docs/tasks/administer-federation/namespaces.md
   - docs/tasks/administer-federation/replicaset.md
   - docs/tasks/administer-federation/secret.md
