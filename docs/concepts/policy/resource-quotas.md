@@ -85,8 +85,9 @@ define a quota as follows:
 * `bronze.storageclass.storage.k8s.io/requests.storage: 100Gi`
 
 In release 1.8, quota support for local ephemeral storage is added as alpha feature
+
 | Resource Name | Description |
-| --------------------- |----------------------------------------------------------- |
+| ------------------------------- |----------------------------------------------------------- |
 | `requests.ephemeral-storage` | Across all pods in the namespace, the sum of local ephemeral storage requests cannot exceed this value. |
 | `limits.ephemeral-storage` | Across all pods in the namespace, the sum of local ephemeral storage limits cannot exceed this value. |
 
