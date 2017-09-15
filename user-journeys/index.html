@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="jquery-3.2.1.min.js"></script>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/4bcc658a89.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      var info = {
+        personas: {
+          a_persona: {
+            beginner: "a1: beginner stuff",
+            intermediate: "a1: intermediate stuff",
+            advanced: "a1: advanced stuff"
+          },
+          b_persona: {
+            beginner: "b1: beginner stuff",
+            intermediate: "b1: intermediate stuff",
+            advanced: "b1: advanced stuff"
+          },
+          c_persona: {
+            beginner: "c1: beginner stuff",
+            intermediate: "c1: intermediate stuff",
+            advanced: "c1: advanced stuff"
+          },
+          d_persona: {
+            beginner: "d1: beginner stuff",
+            intermediate: "d1: intermediate stuff",
+            advanced: "d1: advanced stuff"
+          },
+          e_persona: {
+            beginner: "e1: beginner stuff",
+            intermediate: "e1: intermediate stuff",
+            advanced: "e1: advanced stuff"
+          },
+          f_persona: {
+            beginner: "f1: beginner stuff",
+            intermediate: "f1: intermediate stuff",
+            advanced: "f1: advanced stuff"
+          }
+        },
+        groups: {
+          a_groups: {
+            beginner: "a1: beginner stuff",
+            intermediate: "a1: intermediate stuff",
+            advanced: "a1: advanced stuff"
+          },
+          b_groups: {
+            beginner: "b1: beginner stuff",
+            intermediate: "b1: intermediate stuff",
+            advanced: "b1: advanced stuff"
+          },
+          c_groups: {
+            beginner: "c1: beginner stuff",
+            intermediate: "c1: intermediate stuff",
+            advanced: "c1: advanced stuff"
+          },
+          d_groups: {
+            beginner: "d1: beginner stuff",
+            intermediate: "d1: intermediate stuff",
+            advanced: "d1: advanced stuff"
+          },
+          e_groups: {
+            beginner: "e1: beginner stuff",
+            intermediate: "e1: intermediate stuff",
+            advanced: "e1: advanced stuff"
+          },
+          f_groups: {
+            beginner: "f1: beginner stuff",
+            intermediate: "f1: intermediate stuff",
+            advanced: "f1: advanced stuff"
+          }
+        },
+        areas: {
+          a_areas: {
+            beginner: "a1: beginner stuff",
+            intermediate: "a1: intermediate stuff",
+            advanced: "a1: advanced stuff"
+          },
+          b_areas: {
+            beginner: "b1: beginner stuff",
+            intermediate: "b1: intermediate stuff",
+            advanced: "b1: advanced stuff"
+          },
+          c_areas: {
+            beginner: "c1: beginner stuff",
+            intermediate: "c1: intermediate stuff",
+            advanced: "c1: advanced stuff"
+          },
+          d_areas: {
+            beginner: "d1: beginner stuff",
+            intermediate: "d1: intermediate stuff",
+            advanced: "d1: advanced stuff"
+          },
+          e_areas: {
+            beginner: "e1: beginner stuff",
+            intermediate: "e1: intermediate stuff",
+            advanced: "e1: advanced stuff"
+          },
+          f_areas: {
+            beginner: "f1: beginner stuff",
+            intermediate: "f1: intermediate stuff",
+            advanced: "f1: advanced stuff"
+          },
+        },
+        challenges: {
+          a_challenges: {
+            beginner: "a1: beginner stuff",
+            intermediate: "a1: intermediate stuff",
+            advanced: "a1: advanced stuff"
+          },
+          b_challenges: {
+            beginner: "b1: beginner stuff",
+            intermediate: "b1: intermediate stuff",
+            advanced: "b1: advanced stuff"
+          },
+          c_challenges: {
+            beginner: "c1: beginner stuff",
+            intermediate: "c1: intermediate stuff",
+            advanced: "c1: advanced stuff"
+          },
+          d_challenges: {
+            beginner: "d1: beginner stuff",
+            intermediate: "d1: intermediate stuff",
+            advanced: "d1: advanced stuff"
+          },
+          e_challenges: {
+            beginner: "e1: beginner stuff",
+            intermediate: "e1: intermediate stuff",
+            advanced: "e1: advanced stuff"
+          },
+          f_challenges: {
+            beginner: "f1: beginner stuff",
+            intermediate: "f1: intermediate stuff",
+            advanced: "f1: advanced stuff"
+          }
+        }
+     };
+      var selected = {
+          type:'',
+          button: '',
+          level: ''
+      };
+
+      $(document).ready(function() {
+        buildCards();
+        $('.bar1 .navButton').on('click', function(e) {
+            $('.navButton').removeClass("keepShow");
+            $(this).addClass("keepShow");
+            var type = '';
+
+            $('.cards > div').hide();
+            if (/personas/.test(e.currentTarget.className)) {
+              $('.card_personas').show();
+              type = 'personas';
+            }
+            else if (/groups/.test(e.currentTarget.className)) {
+              $('.card_groups').show();
+              type = 'groups';
+            }
+            else if (/areas/.test(e.currentTarget.className)) {
+              $('.card_areas').show();
+              type = 'areas';
+            }
+            else if (/challenges/.test(e.currentTarget.className)) {
+              $('.card_challenges').show();
+              type = 'challenges'
+            }
+            selected.type = type;
+        });
+
+        function buildCards () {
+          for (var c in info) {
+            var card = document.createElement('div');
+            card.className += "card_" + c;
+
+            for (var i in info[c]) {
+              var button = document.createElement('div');
+              button.className += 'buttons';
+              button.setAttribute('data-button', i);
+              button.innerText = i;
+              card.appendChild(button);
+            }
+            $('.cards').append(card);
+          }
+        }
+
+        $('.bar1 .personas').click();
+        $('.cards .buttons').on('click', handleCardClick);
+        $('.tab1').on('click', function(e) {
+            $('.tab1').removeClass('selected');
+            $(this).addClass('selected');
+            var level = e.currentTarget.className.match(/(?:tab1 )(.+)(?:selected)$/)[1].trim();
+            selected.level = level;
+            setInfoData(level);
+        });
+      });
+
+      function setInfoData(level) {
+          $('.infobar .data').text(info[selected.type][selected.button][selected.level]);
+          $('.infobarWrapper').css('visibility', 'visible');
+      }
+
+      function handleCardClick(e) {
+          $('.buttons').removeClass('selected');
+          $(this).addClass('selected');
+
+          $('html,body').animate({scrollTop: $("#subTitle").offset().top},'slow');
+
+          selected.button = e.currentTarget.getAttribute('data-button');
+          var cardText = e.currentTarget.innerText;
+          $('#subTitle').text(cardText);
+          $('.tab1.beginner').click();
+      }
+
+      function clicked_on(){
+          document.getElementById('future-clicked').innerHTML = 'Future World';
+      }
+
+
+
+
+
+    </script>
+    <title></title>
+  </head>
+  <body>
+      <div class="topheader">
+        Kubernetes User Journeys
+      </div>
+
+      <div class="bar1">
+          <div class="navButton personas">Personas</div>
+          <div class="navButton groups">User&nbsp;Groups</div>
+          <div class="navButton areas">Focus&nbsp;Areas</div>
+          <div class="navButton challenges">Challenges</div>
+      </div>
+
+      <div id="cardWrapper">
+  <div class="bar2">I AM...</div>
+  <div class='cards'></div>
+</div>
+
+      <div style='text-align: center;'>
+          <div class="bar2" id="subTitle"></div>
+          <div class="bar3">
+              <div class="tab1 beginner">
+                  <i class="fa fa-cloud-download" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
+                  <br>
+                  <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
+                      Beginner
+                  </div>
+                  </div>
+              <div class="tab1 intermediate">
+                  <i class="fa fa-check-square" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
+                  <br>
+
+                  <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
+                      Intermediate
+                  </div>
+              </div>
+              <div class="tab1 advanced">
+                  <i class="fa fa-exclamation-circle" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
+                  <br>
+                  <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
+                      Advanced
+                  </div>
+              </div>
+            </div>
+      </div>
+
+      <div class='infobarWrapper'>
+          <div class="infobar">
+              <span style="padding-bottom: 3% ">Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>
+              <a href="docs.html"><div class="whitebar" >
+                  <div class="infoicon">
+                      <i class="fa fa-retweet" aria-hidden="true" style="padding-bottom:%;float:left;color:#3399ff"></i>
+                  </div>
+                  <div id="info1" class='data'></div>
+              </div>
+            </a>
+              <a href="docs.html"><div class="whitebar">
+                  <div class="infoicon">
+                      <i class="fa fa-folder-open-o" aria-hidden="true" style="padding:%;float:left;color:#3399ff"></i>
+                  </div>
+                  <div id="info2" class='data'></div>
+              </div>
+            </a>
+              <a href="docs.html"> <div class="whitebar">
+                  <div class="infoicon">
+                      <i class="fa fa-hdd-o" aria-hidden="true" style="padding:%;float:left;color:#3399ff"></i>
+                  </div>
+                  <div id="info3" class='data'></div>
+                </a>
+                    <!--  <i class="fa fa-arrow-right" aria-hidden="true" style="line-height:0em !important;display:inline;padding-bottom:5%;float:right;color:#3399ff"></i>-->
+
+              </div>
+
+          </div>
+      </div>
+  </body>
+</html>
