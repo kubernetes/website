@@ -22,8 +22,10 @@ on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) forma
 **Note:** The question mark (`?`) in the schedule has the same meaning as an asterisk `*`,
 that is, it stands for any of available value for a given field.
 
-**Note:** ScheduledJob resource was introduced in Kubernetes version 1.4, but starting
-from version 1.5 its current name is CronJob.
+**Note:** CronJob resource in `batch/v2alpha1` API group has been deprecated starting
+from cluster version 1.8. You should switch to using `batch/v1beta1`, instead, which is
+enabled by default in the API server.  Further in this document, we will be using
+`batch/v1beta1` in all the examples.
 
 A typical use case is:
 
@@ -32,8 +34,8 @@ A typical use case is:
 
 ### Prerequisites
 
-You need a working Kubernetes cluster at version >= 1.4 (for ScheduledJob), >= 1.5 (for CronJob),
-with batch/v2alpha1 API turned on by passing `--runtime-config=batch/v2alpha1=true` while bringing up
+You need a working Kubernetes cluster at version >= 1.8 (for CronJob). For previous versions of cluster (< 1.8)
+you need to explicitly enable `batch/v2alpha1` API by passing `--runtime-config=batch/v2alpha1=true` to
 the API server (see [Turn on or off an API version for your cluster](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
 for more).
 
