@@ -115,7 +115,7 @@ NAME                          DESIRED   CURRENT   READY   AGE
 nginx-deployment-2035384211   3         3         3       18s
 ```
 
-Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[POD-TEMPLATE-HASH-VALUE]`. The hash value is automatically generated when the Deployemnt is created.
+Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[POD-TEMPLATE-HASH-VALUE]`. The hash value is automatically generated when the Deployment is created.
 
 To see the labels automatically generated for each pod, run `kubectl get pods --show-labels`. The following output is returned:
 
