@@ -168,7 +168,7 @@ with a value of `Basic BASE64ENCODED(USER:PASSWORD)`.
 
 ### Service Account Tokens
 
-Service accounts are an automatically enabled authenticator that uses signed
+A service account is an automatically enabled authenticator that uses signed
 bearer tokens to verify requests. The plugin takes two optional flags:
 
 * `--service-account-key-file` A file containing a PEM encoded key for signing bearer tokens.
@@ -281,8 +281,8 @@ Since all of the data needed to validate who you are is in the `id_token`, Kuber
 solution for authentication.  It does offer a few challenges:
 
 1.  Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
-2.  The `id_token` can't be revoked, it's like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes
-3.  There's no easy way to authenticate to the Kubernetes dashboard without using the `kubectl proxy` command or a reverse proxy that injects the `id_token`
+2.  The `id_token` can't be revoked, it's like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes.
+3.  There's no easy way to authenticate to the Kubernetes dashboard without using the `kubectl proxy` command or a reverse proxy that injects the `id_token`.
 
 
 #### Configuring the API Server
@@ -728,7 +728,7 @@ Finally, add the following parameters into API server start parameters:
 
         ./easyrsa --batch "--req-cn=${MASTER_IP}@`date +%s`" build-ca nopass
 1.  Generate server certificate and key.
-    (build-server-full [filename]: Generate a keypair and sign locally for a client or server)
+    (build-server-full [filename]: Generate a keypair and sign locally for a client or server.)
 
         ./easyrsa --subject-alt-name="IP:${MASTER_IP}" build-server-full server nopass
 1.  Copy `pki/ca.crt`, `pki/issued/server.crt`, and `pki/private/server.key` to your directory.
@@ -748,7 +748,7 @@ Finally, add the following parameters into API server start parameters:
 1.  According to the ca.key generate a ca.crt (use -days to set the certificate effective time):
 
         openssl req -x509 -new -nodes -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt
-1.  Generate a server.key with 2048bit
+1.  Generate a server.key with 2048bit:
 
         openssl genrsa -out server.key 2048
 1.  According to the server.key generate a server.csr:
