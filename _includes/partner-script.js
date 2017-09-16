@@ -261,7 +261,7 @@
   		},
 		{
  			type: 2,
- 			name: 'inwinSTACK',
+ 			name: 'InwinSTACK',
  			logo: 'inwinstack',
  			link: 'http://www.inwinstack.com/index.php/en/solutions-en/',
  			blurb: 'Our container service leverages OpenStack-based infrastructure and its container orchestration engine Magnum to manage Kubernetes clusters.'
@@ -498,7 +498,7 @@
 			blurb: 'Generate a real-time, auto-discovered application topology map! Monitor Kubernetes pods and namespaces without any code instrumentation.'
 			},
 		{
-			type: 0,
+			type: 2,
 			name: 'Treasure Data',
 			logo: 'treasure-data',
 			link: 'https://fluentd.treasuredata.com/kubernetes-logging/',
