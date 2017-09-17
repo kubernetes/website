@@ -66,6 +66,9 @@ For cloud controller managers not in Kubernetes core, you can find the respectiv
 * [DigitalOcean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [Rancher](https://github.com/rancher/rancher-cloud-controller-manager)
 
+For providers already in Kubernetes core, you can run the in-tree cloud controller manager as a [Deployment](/docs/tasks/administer-cluster/cloud-controller-manager-deployment-example.yaml) or [Daemonset](/docs/tasks/administer-cluster/cloud-controller-manager-daemonset-example.yaml) in your cluster.
+
+
 ## Limitations
 
 Running cloud controller manager comes with a possible limitations. Although these limitations are being in addressed in upcoming releases, it's important that you are aware of these limitations for production workloads.
@@ -88,21 +91,6 @@ As this initiative evolves, changes will be made to address these issues in upco
 
 ## Developing your own Cloud Controller Manager
 
-### Background
-
-Before going into how to build your own cloud controller manager, some background on how it works under the hood is helpful. The cloud controller manager is code from `kube-controller-manager` utilizing Go interfaces to allow implementations from any cloud to be plugged in. Most of the logic for the cloud controller manager will still live in Kubernetes core but the implementations for each cloud can develop at any pace, so long as the [cloud provider interface](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/cloud.go#L29-L50) is satisifed. Most of the scaffolding and generic controller implementations will be in core, but it will always exec out to the cloud interfaces it is provided.
-
-To dive a little deeper into implementation details, all cloud controller managers will import packages from Kubernetes core, the only difference being each project will register their own cloud providers by calling [cloudprovider.RegisterCloudProvier](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/plugins.go#L42-L52) where a global variable of available cloud providers is updated. Using DigitalOcean as an example, it [imports the package do](https://github.com/digitalocean/digitalocean-cloud-controller-manager/blob/master/main.go#L34) which then calls [init](https://github.com/digitalocean/digitalocean-cloud-controller-manager/blob/master/do/cloud.go#L81-L86) to add itself to the list of avaiable providers.
-
-### Building
-
-To build cloud-controller-manager for your cloud, follow these steps:
-
-1. Create a go package with an implementation that satisfies [cloudprovider.Interface](https://git.k8s.io/kubernetes/pkg/cloudprovider/cloud.go).
-2. Use [main.go in cloud-controller-manager](https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/controller-manager.go) from Kubernestes core as a template for your main.go. As mentioned above, the only difference should be the cloud package that will be imported.
-3. Import your cloud package in `main.go`, ensure your package has an `init` block to run [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/plugins.go#L42-L52).
-
-Use [DigitalOcean](https://github.com/digitalocean/digitalocean-cloud-controller-manager/blob/master/main.go) and [Racher](https://github.com/rancher/rancher-cloud-controller-manager/blob/master/main.go) cloud controller managers as examples!
-
+To build and develop your own cloud controller manager, read the [Develop Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager.md) doc.
 
 {% endcapture %}
