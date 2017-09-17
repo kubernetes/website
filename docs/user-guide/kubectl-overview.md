@@ -238,6 +238,12 @@ $ kubectl get replicationcontroller <rc-name>
 
 // List all replication controllers and services together in plain-text output format.
 $ kubectl get rc,services
+
+// List all daemon sets, including uninitialized ones, in plain-text output format.
+$ kubectl get ds --include-uninitialized
+
+// List all daemon sets, not including uninitialized ones, in plain-text output format.
+$ kubectl get ds --include-uninitialized=false
 ```
 
 `kubectl describe` - Display detailed state of one or more resources.
@@ -263,7 +269,10 @@ $ kubectl delete -f pod.yaml
 // Delete all the pods and services that have the label name=<label-name>.
 $ kubectl delete pods,services -l name=<label-name>
 
-// Delete all pods.
+// Delete all the pods and services that have the label name=<label-name>, including uninitialized ones.
+$ kubectl delete pods,services -l name=<label-name> --include-uninitialized
+
+// Delete all pods, including uninitialized ones.
 $ kubectl delete pods --all
 ```
 
