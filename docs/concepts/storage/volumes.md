@@ -141,7 +141,7 @@ spec:
 ### hostPath
 
 A `hostPath` volume mounts a file or directory from the host node's filesystem
-into your pod.  This is not something that most Pods will need, but it offers a
+into your pod. This is not something that most Pods will need, but it offers a
 powerful escape hatch for some applications.
 
 For example, some uses for a `hostPath` are:
@@ -149,6 +149,21 @@ For example, some uses for a `hostPath` are:
 * running a container that needs access to Docker internals; use a `hostPath`
   of `/var/lib/docker`
 * running cAdvisor in a container; use a `hostPath` of `/dev/cgroups`
+* allowing a pod to specify whether a given hostPath should exist prior to the
+  pod running, whether it should be created, and what it should exist as
+
+Supported HostPath Types are:
+
+| Value | Behavior |
+|:------|:---------|
+| *unset* | For backwards compatible, leave it empty if unset. **Default value**. |
+| `DirectoryOrCreate` | If nothing exists at the given path, an empty directory will be created there as needed with file mode 0755, having the same group and ownership with Kubelet. |
+| `Directory` | A directory must exist at the given path |
+| `FileOrCreate` | If nothing exists at the given path, an empty file will be created there as needed with file mode 0644, having the same group and ownership with Kubelet. |
+| `File` | A file must exist at the given path |
+| `Socket` | A UNIX socket must exist at the given path |
+| `CharDevice` | A character device must exist at the given path |
+| `BlockDevice` | A block device must exist at the given path |
 
 Watch out when using this type of volume, because:
 
@@ -156,7 +171,7 @@ Watch out when using this type of volume, because:
   behave differently on different nodes due to different files on the nodes
 * when Kubernetes adds resource-aware scheduling, as is planned, it will not be
   able to account for resources used by a `hostPath`
-* the directories created on the underlying hosts are only writable by root. You
+* the files or directories created on the underlying hosts are only writable by root. You
   either need to run your process as root in a
   [privileged container](/docs/user-guide/security-context) or modify the file
   permissions on the host to be able to write to a `hostPath` volume
@@ -180,6 +195,8 @@ spec:
     hostPath:
       # directory location on host
       path: /data
+      # this field is optional
+      type: Directory
 ```
 
 ### gcePersistentDisk
