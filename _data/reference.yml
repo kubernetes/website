@@ -90,7 +90,7 @@ toc:
 - title: Kubernetes Design Docs
   section:
   - title: Kubernetes Architecture
-    path: https://git.k8s.io/community/contributors/design-proposals/architecture.md
+    path: https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md
   - title: Kubernetes Design Overview
     path: https://github.com/kubernetes/kubernetes/tree/release-1.6/docs/design
   - title: Kubernetes Identity and Access Management
