@@ -6,7 +6,7 @@ title: Assign Opaque Integer Resources to a Container
 
 This page shows how to assign opaque integer resources to a Container.
 
-{% include feature-state-alpha.md %}
+{% include feature-state-deprecated.md %}
 
 {% endcapture %}
 

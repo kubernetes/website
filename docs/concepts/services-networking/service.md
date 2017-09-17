@@ -466,9 +466,9 @@ metadata:
 {% capture azure %}
 ```yaml
 [...]
-metadata: 
+metadata:
     name: my-service
-    annotations: 
+    annotations:
         service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 [...]
 ```
@@ -512,39 +512,36 @@ ELB at the other end of its connection) when forwarding requests.
 TCP and SSL will select layer 4 proxying: the ELB will forward traffic without
 modifying the headers.
 
-```yaml
-metadata:
-  name: my-service
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: (comma-separated-port-names)
-```
-
-The third annotation indicates which port(s) should accept SSL traffic on the ELB. If a certificate is set on the
-Service, the default is to configure all ports on the ELB to use SSL. This is not typically desired for HTTP servers.
-
-A complete HTTP Service supporting SSL might look like:
+In a mixed-use environment where some ports are secured and others are left unencrypted,
+the following annotations may be used:
 
 ```yaml
-kind: Service
-apiVersion: v1
-metadata:
-  name: my-service
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
-    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-    name: http
-    targetPort: 8080
-  - port: 443
-    name: https
-    targetPort: 8080
-  selector:
-    app: MyApp
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+        service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443,8443"
 ```
+
+In the above example, if the service contained three ports, `80`, `443`, and
+`8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
+be proxied HTTP.
+
+#### PROXY protocol support on AWS
+
+To enable [PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
+support for clusters running on AWS, you can use the following service
+annotation:
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+```
+
+Since version 1.3.0 the use of this annotation applies to all ports proxied by the ELB
+and cannot be configured otherwise.
 
 ### External IPs
 

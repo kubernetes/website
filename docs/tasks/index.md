@@ -62,6 +62,10 @@ Perform common tasks for managing a DaemonSet, such as performing a rolling upda
 
 Configure and schedule NVIDIA GPUs for use as a resource by nodes in a cluster.
 
+#### Managing HugePages
+
+Configure and schedule huge pages as a schedulable resource in a cluster.
+
 ### What's next
 
 If you would like to write a task page, see

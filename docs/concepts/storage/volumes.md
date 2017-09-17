@@ -549,14 +549,6 @@ with ConfigMap naming.
 volume source. However, as illustrated above, you can explicitly set the `mode`
 for each individual projection.
 
-### FlexVolume
-
-A `FlexVolume` enables users to mount vendor volumes into a pod. It expects vendor
-drivers are installed in the volume plugin path on each kubelet node. This is
-an alpha feature and may change in future.
-
-More details are in [here](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/flexvolume/README.md).
-
 ### AzureFileVolume
 
 A `AzureFileVolume` is used to mount a Microsoft Azure File Volume (SMB 2.1 and 3.0)
@@ -674,8 +666,8 @@ More details and examples can be found [here](https://github.com/kubernetes/exam
 ### ScaleIO
 ScaleIO is a software-based storage platform that can use existing hardware to create clusters of scalable
 shared block networked storage.  The ScaleIO volume plugin allows deployed pods to access existing ScaleIO
-volumes (or it can dynamically provision new volumes for persistent volume claims, see
-[ScaleIO Persistent Volumes](/docs/user-guide/persistent-volumes/#scaleio)).
+volumes or it can dynamically provision new volumes, see
+[ScaleIO Persistent Volumes](/docs/user-guide/persistent-volumes/#scaleio).
 
 **Important:** You must have an existing ScaleIO cluster already setup and running with the volumes created before you can use them.
 {: .caution}
@@ -699,6 +691,8 @@ spec:
     scaleIO:
       gateway: https://localhost:443/api
       system: scaleio
+      protectionDomain: sd0
+      storagePool: sp1
       volumeName: vol-0
       secretRef:
         name: sio-secret
@@ -846,6 +840,19 @@ In the future, we expect that `emptyDir` and `hostPath` volumes will be able to
 request a certain amount of space using a [resource](/docs/user-guide/compute-resources)
 specification, and to select the type of media to use, for clusters that have
 several media types.
+
+## Out-of-Tree Volume Plugins
+In addition to the previously listed volume types, storage vendors may create
+custom plugins without adding it to the Kubernetes repository. This can be
+achieved by using the `FlexVolume` plugin.
+
+`FlexVolume` enables users to mount vendor volumes into a pod. The vendor plugin
+is implemented using a driver, an executable supporting a list of volume commands
+defined by the `FlexVolume` API. Drivers must be installed in a pre-defined
+volume plugin path on each node. This is an alpha feature and may change in future.
+
+More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md).
+
 
 {% endcapture %}
 
