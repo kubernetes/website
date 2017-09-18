@@ -24,7 +24,7 @@ kubernetes中包含了以下内建工具
 
 ##### kubeadm
 
-[`kubeadm`](/docs/getting-started-guides/kubeadm/)可以在物理、云服务器或是虚拟机(目前处于alpha）上，轻松配置安全的kubernetes集群的命令行工具。
+[`kubeadm`](/docs/getting-started-guides/kubeadm/)可以在物理机、云服务器或是虚拟机(目前处于alpha）上，轻松配置安全的kubernetes集群的命令行工具。
 
 
 
