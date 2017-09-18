@@ -42,7 +42,7 @@ complete clusters:
 |--------|---------------
 | Command line UX | beta
 | Config file | alpha
-| Selfhosting | alpha
+| Self-hosting | alpha
 | `kubeadm alpha` commands | alpha
 | Implementation | alpha
 
@@ -166,7 +166,7 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 You can now join any number of machines by running the following on each node
 as root:
 
-  kubeadm join --token <token> <master-ip>:<master-port>
+  kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
@@ -325,7 +325,7 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
 * Run the command that was output by `kubeadm init`. For example:
 
   ``` bash
-  kubeadm join --token <token> <master-ip>:<master-port>
+  kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
   ```
 
 The output should look something like:
@@ -335,7 +335,8 @@ The output should look something like:
 [preflight] Running pre-flight checks
 [discovery] Trying to connect to API Server "10.138.0.4:6443"
 [discovery] Created cluster-info discovery client, requesting info from "https://10.138.0.4:6443"
-[discovery] Cluster info signature and contents are valid, will use API Server "https://10.138.0.4:6443"
+[discovery] Requesting info from "https://10.138.0.4:6443" again to validate TLS against the pinned public key
+[discovery] Cluster info signature and contents are valid and TLS certificate validates against pinned roots, will use API Server "10.138.0.4:6443"
 [discovery] Successfully established connection with API Server "10.138.0.4:6443"
 [bootstrap] Detected server version: v1.7.0
 [bootstrap] The server supports the Certificates API (certificates.k8s.io/v1beta1)
