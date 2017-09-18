@@ -18,7 +18,7 @@ kubernetes中包含了以下内建工具
 
 ##### kubectl
 
-[`kubectl`](/docs/user-guide/kubectl/)是kubernetes的命令行工具。它控制着kubernetes的集群管理。
+[`kubectl`](/docs/user-guide/kubectl/)是kubernetes的命令行工具。它可以被用于管理Kubernetes集群。
 
 
 
