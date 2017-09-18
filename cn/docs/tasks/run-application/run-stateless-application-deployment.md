@@ -31,7 +31,7 @@ title: 使用Deployment运行一个无状态应用
 
 你可以通过创建一个Kubernetes Deployment对象来运行一个应用, 可以在一个YAML文件中描述Deployment. 例如, 下面这个YAML文件描述了一个运行nginx:1.7.9 Docker镜像的Deployment:
 
-{% include code.html language="yaml" file="deployment.yaml" ghlink="/docs/tasks/run-application/deployment.yaml" %}
+{% include code.html language="yaml" file="deployment.yaml" ghlink="/cn/docs/tasks/run-application/deployment.yaml" %}
 
 
 1. 通过YAML文件创建一个Deployment:
@@ -89,7 +89,7 @@ title: 使用Deployment运行一个无状态应用
 
 你可以通过更新一个新的YAML文件来更新deployment. 下面的YAML文件指定该deployment镜像更新为nginx 1.8.
 
-{% include code.html language="yaml" file="deployment-update.yaml" ghlink="/docs/tutorials/stateless-application/deployment-update.yaml" %}
+{% include code.html language="yaml" file="deployment-update.yaml" ghlink="/cn/docs/tutorials/stateless-application/deployment-update.yaml" %}
 
 1. 应用新的YAML:
 
@@ -103,7 +103,7 @@ title: 使用Deployment运行一个无状态应用
 
 你可以通过应用新的YAML文件来增加Deployment中pods的数量. 该YAML文件将`replicas`设置为4, 指定该Deployment应有4个pods:
 
-{% include code.html language="yaml" file="deployment-scale.yaml" ghlink="/docs/tutorials/stateless-application/deployment-scale.yaml" %}
+{% include code.html language="yaml" file="deployment-scale.yaml" ghlink="/cn/docs/tutorials/stateless-application/deployment-scale.yaml" %}
 
 1. 应用新的YAML文件:
 
