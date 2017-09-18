@@ -177,7 +177,7 @@ or `Services` or `Pods`.
 By default, the choice of backend is round robin.  Client-IP based session affinity
 can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
 default is `"None"`), and you can set the max session sticky time by setting the field
-`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you already setted 
+`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set 
 `service.spec.sessionAffinity` to `"ClientIP"` (the default is "10800").
 
 ![Services overview diagram for userspace proxy](/images/docs/services-userspace-overview.svg)
@@ -194,7 +194,7 @@ select a backend `Pod`.
 By default, the choice of backend is random.  Client-IP based session affinity
 can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
 default is `"None"`), and you can set the max session sticky time by setting the field
-`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you already setted 
+`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set 
 `service.spec.sessionAffinity` to `"ClientIP"` (the default is "10800").
 
 As with the userspace proxy, the net result is that any traffic bound for the
