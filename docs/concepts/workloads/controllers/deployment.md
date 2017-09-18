@@ -288,7 +288,7 @@ It is generally discouraged to make label selector updates and it is suggested t
 In any case, if you need to perform a label selector update, exercise great caution and make sure you have grasped
 all of the implications.
 
-In Kubernetes 1.8 or later, after a Deployment gets created, its label selector is immutable.
+Note that in API version `apps/v1beta2`, a Deployment's label selector is immutable after it gets created.
 
 * Selector additions require the pod template labels in the Deployment spec to be updated with the new label too,
 otherwise a validation error is returned. This change is a non-overlapping one, meaning that the new selector does
@@ -854,7 +854,7 @@ for the Pods targeted by this deployment.
 
 `.spec.selector` must match `.spec.template.metadata.labels`, or it will be rejected by the API.
 
-In Kubernetes 1.8 or later, `.spec.selector` and `.metadata.labels` no longer default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation of the Deployment in Kubernetes 1.8 or later.
+In API version `apps/v1beta2`, `.spec.selector` and `.metadata.labels` no longer default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation of the Deployment in `apps/v1beta2`.
 
 A Deployment may terminate Pods whose labels match the selector if their template is different
 from `.spec.template` or if the total number of such Pods exceeds `.spec.replicas`. It brings up new
@@ -928,7 +928,7 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 
 ### Rollback To
 
-In Kubernetes 1.8 or later, field `.spec.rollbackTo` is deprecated. Instead, `kubectl rollout undo` as introduced in [Rolling Back to a Previous Revision](#rolling-back-to-a-previous-revision) should be used.
+Field `.spec.rollbackTo` has been deprecated in API versions `extensions/v1beta1` and `apps/v1beta1`, and removed in API version `apps/v1beta2`. Instead, `kubectl rollout undo` as introduced in [Rolling Back to a Previous Revision](#rolling-back-to-a-previous-revision) should be used.
 
 ### Revision History Limit
 
