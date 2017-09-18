@@ -109,6 +109,39 @@ However, the particular path specified in the custom recycler pod template in th
 
 For volume plugins that support the Delete reclaim policy, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in the external infrastructure, such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume. Volumes that were dynamically provisioned inherit the [reclaim policy of their `StorageClass`](#reclaim-policy-1), which defaults to Delete. The administrator should configure the `StorageClass` according to users' expectations, otherwise the PV must be edited or patched after it is created. See [Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
 
+
+### Expanding Persistent Volumes Claims
+
+With Kubernetes 1.8, we have added Alpha support for expanding persistent volumes. The current Alpha support was designed to only support volume types
+that don't need file system resizing (Currently only glusterfs).
+
+Administrator can allow expanding persistent volume claims by setting `ExpandPersistentVolumes` feature gate to true. Administrator
+should also enable [`PersistentVolumeClaimResize` admission plugin](/docs/admin/admission-controllers/#persistentvolumeclaimresize)
+to perform additional validations of volumes that can be resized.
+
+Once `PersistentVolumeClaimResize` admission plug-in has been turned on, resizing will only be allowed for storage classes
+whose `allowVolumeExpansion` field is set to true.
+
+``` yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gluster-vol-default
+provisioner: kubernetes.io/glusterfs
+parameters:
+  resturl: "http://192.168.10.100:8080"
+  restuser: ""
+  secretNamespace: ""
+  secretName: ""
+allowVolumeExpansion: true
+```
+
+Once both feature gate and aforementioned admission plug-in are turned on, an user can request larger volume for their `PersistentVolumeClaim`
+by simply editing the claim and requesting bigger size.  This in turn will trigger expansion of volume that is backing underlying `PersistentVolume`.
+
+Under no circustances a new `PersistentVolume` gets created to satisfy the claim. Kubernetes will attempt to resize existing volume to satisfy the claim.
+
+
 ## Types of Persistent Volumes
 
 `PersistentVolume` types are implemented as plugins.  Kubernetes currently supports the following plugins:

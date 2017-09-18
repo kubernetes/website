@@ -387,6 +387,32 @@ This plug-in will deny any pod that attempts to set certain escalating [Security
 This plug-in implements automation for [serviceAccounts](/docs/user-guide/service-accounts).
 We strongly recommend using this plug-in if you intend to make use of Kubernetes `ServiceAccount` objects.
 
+### PersistentVolumeClaimResize
+
+This plug-in implements additional validations for checking incoming `PersistentVolumeClaim` resize
+requests. Currently support for Volume resizing is in Alpha and admin must set feature gate `ExpandPersistentVolumes`
+to `true` to enable resizing. 
+
+After the `ExpandPersistentVolumes` feature gate is enabled - it is recommend that `PersistentVolumeClaimResize` admission
+plug-in is enabled too. This plug-in will prevent resizing of all claims by default unless claim's `StorageClass`
+has explicitly enabled resizing by setting `allowVolumeExpansion` to true.
+
+For example - all `PersistnetVolumeClaims` created from following `StorageClass` will support volume expansion:
+
+``` yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gluster-vol-default
+provisioner: kubernetes.io/glusterfs
+parameters:
+  resturl: "http://192.168.10.100:8080"
+  restuser: ""
+  secretNamespace: ""
+  secretName: ""
+allowVolumeExpansion: true
+```
+
 ## Is there a recommended set of plug-ins to use?
 
 Yes.
