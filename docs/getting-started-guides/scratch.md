@@ -807,7 +807,7 @@ controller manager will retry reaching the apiserver until it is up.
 Use `ps` or `docker ps` to verify that each process has started.  For example, verify that kubelet has started a container for the apiserver like this:
 
 ```shell
-$ sudo docker ps | grep apiserver:
+$ sudo docker ps | grep apiserver
 5783290746d5        gcr.io/google_containers/kube-apiserver:e36bf367342b5a80d7467fd7611ad873            "/bin/sh -c '/usr/lo'"    10 seconds ago      Up 9 seconds                              k8s_kube-apiserver.feb145e7_kube-apiserver-kubernetes-master_default_eaebc600cf80dae59902b44225f2fc0a_225a4695
 ```
 
