@@ -305,8 +305,49 @@ where `OOM` stands for Out Of Memory.
 
 ## Local ephemeral storage (Alpha feature)
 
-Kubernetes version 1.8 introduces local ephemeral storage resources. The
+Kubernetes version 1.8 introduces local ephemeral storage resource. The
 management of local ephemeral storage is very similar to memory resource.
+
+Each Container of a Pod can specify one or more of the following:
+
+* `spec.containers[].resources.limits.ephemeral-storage`
+* `spec.containers[].resources.requests.ephemeral-storage`
+
+Limits and requests for `ephemeral-storage` are measured in bytes. You can express storage as
+a plain integer or as a fixed-point integer using one of these suffixes:
+E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
+Mi, Ki. For example, the following represent roughly the same value:
+
+```shell
+128974848, 129e6, 129M, 123Mi
+```
+
+Here's an example.
+The following Pod has two Containers. Each one has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. You can say the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of storage.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+spec:
+  containers:
+  - name: db
+    image: mysql
+    resources:
+      requests:
+        ephemeral-storage: "2Gi"
+      limits:
+        ephemeral-storage: "4Gi"
+  - name: wp
+    image: wordpress
+    resources:
+      requests:
+        ephemeral-storage: "2Gi"
+      limits:
+        ephemeral-storage: "4Gi"
+```
+
 
 ## Opaque integer resources (Alpha feature)
 
