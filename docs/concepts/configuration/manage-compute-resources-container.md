@@ -303,6 +303,11 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 You can see that the Container was terminated because of `reason:OOM Killed`,
 where `OOM` stands for Out Of Memory.
 
+## Local ephemeral storage (Alpha feature)
+
+Kubernetes version 1.8 introduces local ephemeral storage resources. The
+management of local ephemeral storage is very similar to memory resource.
+
 ## Opaque integer resources (Alpha feature)
 
 Kubernetes version 1.5 introduces Opaque integer resources. Opaque
