@@ -416,15 +416,14 @@
 /docs/contribute/stage-documentation-changes	/docs/home/contribute/stage-documentation-changes	301
 /docs/contribute/style-guide					/docs/home/contribute/style-guide					301
 
-/docs/deprecated/
-/docs/deprecation-policy/
+/docs/deprecated				/docs/reference/deprecation-policy		301
+/docs/deprecation-policy		/docs/reference/deprecation-policy		301
 
-/docs/download/lava/lava-1.1.0-download/
 
-/docs/federation/api-reference/
-/docs/federation/api-reference/extensions/v1beta1/operations/
-/docs/federation/api-reference/federation/v1beta1/operations/
-/docs/federation/api-reference/v1/operations/
+/docs/federation/api-reference										/docs/reference/federation/v1/operations		301
+/docs/federation/api-reference/extensions/v1beta1/operations		/docs/reference/federation/extensions/v1beta1/operations		301
+/docs/federation/api-reference/federation/v1beta1/operations		/docs/reference/federation/extensions/v1beta1/operations		301
+/docs/federation/api-reference/v1/operations						/docs/reference/federation/v1/operations		301
 
 /docs/getting-started-guide/*			/docs/setup		301
 
@@ -437,73 +436,40 @@
 /docs/stable/user-guide/labels			/docs/concepts/overview/working-with-objects/labels		301
 
 
-/docs/tasks/administer-cluster/apply-resource-quota-limit
-/docs/tasks/administer-cluster/apply-resource-quota-limit/
-/docs/tasks/administer-cluster/configure-namespace-isolation
-/docs/tasks/administer-cluster/configure-namespace-isolation/
-/docs/tasks/administer-cluster/configure-pod-disruption-budget/
-/docs/tasks/administer-cluster/cpu-constraint-namespace/docs/tasks/administer-cluster/default-cpu-request-limit/
-/docs/tasks/administer-cluster/cpu-constraint-namespace/docs/tasks/administer-cluster/default-memory-request-limit/
-/docs/tasks/administer-cluster/cpu-constraint-namespace/docs/tasks/administer-cluster/quota-memory-cpu-namespace
-/docs/tasks/administer-cluster/cpu-constraint-namespace/docs/tasks/configure-pod-container/assign-cpu-resource/
-/docs/tasks/administer-cluster/cpu-default-namespace/docs/tasks/administer-cluster/default-memory-request-limit/
-/docs/tasks/administer-cluster/cpu-default-namespace/docs/tasks/configure-pod-container/assign-cpu-resource/
-/docs/tasks/administer-cluster/cpu-management-policies/
-/docs/tasks/administer-cluster/default-cpu-request-limit/
-/docs/tasks/administer-cluster/default-memory-request-limit/
-/docs/tasks/administer-cluster/memory-constraint-namespace/docs/tasks/administer-cluster/default-cpu-request-limit/
-/docs/tasks/administer-cluster/memory-constraint-namespace/docs/tasks/administer-cluster/default-memory-request-limit/
-/docs/tasks/administer-cluster/memory-constraint-namespace/docs/tasks/configure-pod-container/assign-cpu-resource/
-/docs/tasks/administer-cluster/memory-default-namespace/docs/tasks/administer-cluster/default-cpu-request-limit/
-/docs/tasks/administer-cluster/memory-default-namespace/docs/tasks/configure-pod-container/assign-cpu-resource/
-/docs/tasks/administer-cluster/quota-api-object/docs/tasks/administer-cluster/default-cpu-request-limit/
-/docs/tasks/administer-cluster/quota-api-object/docs/tasks/administer-cluster/default-memory-request-limit/
-/docs/tasks/administer-cluster/quota-api-object/docs/tasks/configure-pod-container/assign-cpu-resource/
-/docs/tasks/administer-cluster/quota-memory-cpu-namespace/docs/tasks/administer-cluster/default-cpu-request-limit/
-/docs/tasks/administer-cluster/quota-memory-cpu-namespace/docs/tasks/administer-cluster/default-memory-request-limit/
-/docs/tasks/administer-cluster/quota-memory-cpu-namespace/docs/tasks/configure-pod-container/assign-cpu-resource/
-/docs/tasks/administer-cluster/quota-pod-namespace/docs/tasks/administer-cluster/default-cpu-request-limit/
-/docs/tasks/administer-cluster/quota-pod-namespace/docs/tasks/administer-cluster/default-memory-request-limit/
-/docs/tasks/administer-cluster/quota-pod-namespace/docs/tasks/configure-pod-container/assign-cpu-resource/
+/docs/tasks/administer-cluster/apply-resource-quota-limit		/docs/tasks/administer-cluster/quota-api-object		301
+/docs/tasks/administer-cluster/configure-namespace-isolation	/docs/concepts/services-networking/network-policies		301
+/docs/tasks/administer-cluster/configure-pod-disruption-budget	/docs/tasks/run-application/configure-pdb		301
 
-/docs/tasks/configure-pod-container/
-/docs/tasks/configure-pod-container/assign-cpu-resource/docs/tasks/administer-cluster/default-cpu-request-limit/
-/docs/tasks/configure-pod-container/assign-cpu-resource/docs/tasks/administer-cluster/default-memory-request-limit/
-/docs/tasks/configure-pod-container/assign-memory-resource/docs/tasks/administer-cluster/default-cpu-request-limit/
-/docs/tasks/configure-pod-container/assign-memory-resource/docs/tasks/administer-cluster/default-memory-request-limit/
-/docs/tasks/configure-pod-container/assign-memory-resource/docs/tasks/configure-pod-container/assign-cpu-resource/
-/docs/tasks/configure-pod-container/cilium-network-policy/
-/docs/tasks/configure-pod-container/define-command-argument-container/
-/docs/tasks/configure-pod-container/opaque-integer-resource/docs/tasks/configure-pod-container/assign-cpu-resource/
-/docs/tasks/configure-pod-container/projected-volume/
-/docs/tasks/configure-pod-container/quality-service-pod/docs/tasks/administer-cluster/default-cpu-request-limit/
-/docs/tasks/configure-pod-container/quality-service-pod/docs/tasks/administer-cluster/default-memory-request-limit/
-/docs/tasks/configure-pod-container/quality-service-pod/docs/tasks/configure-pod-container/assign-cpu-resource/
+/docs/tasks/administer-cluster/cpu-management-policies			/docs/concepts/configuration/manage-compute-resources-container		301
+/docs/tasks/administer-cluster/default-cpu-request-limit		/docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit		301
+/docs/tasks/administer-cluster/default-memory-request-limit		/docs/tasks/configure-pod-container/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit		301
 
-/docs/tasks/extend-kubectl/kubectl-plugins/
-/docs/tasks/stateful-sets/deleting-pods/
-/docs/tasks/test/
+/docs/tasks/configure-pod-container/cilium-network-policy					/docs/tasks/administer-cluster/cilium-network-policy		301
+/docs/tasks/configure-pod-container/define-command-argument-container		/docs/tasks/inject-data-application/define-command-argument-container		301
+/docs/tasks/configure-pod-container/projected-volume						/docs/tasks/configure-pod-container/configure-projected-volume-storage		301
 
-/docs/templatedemos/*			/docs/home/contribute/page-templates		301
+/docs/tasks/stateful-sets/deleting-pods			/docs/tasks/run-application/force-delete-stateful-set-pod		301
 
-/docs/tutorials/getting-started/*			/docs/tutorials/kubernetes-basics		301
+/docs/templatedemos/*							/docs/home/contribute/page-templates		301
 
-/docs/user-guide/federation/*			/docs/concepts/cluster-administration/federation		301
-/docs/user-guide/garbage-collector			/docs/concepts/workloads/controllers/garbage-collection		301
-/docs/user-guide/horizontal-pod-autoscaler/* /docs/tasks/run-application/horizontal-pod-autoscale		301
+/docs/tutorials/getting-started/*				/docs/tutorials/kubernetes-basics		301
+
+/docs/user-guide/federation/*					/docs/concepts/cluster-administration/federation		301
+/docs/user-guide/garbage-collector				/docs/concepts/workloads/controllers/garbage-collection		301
+/docs/user-guide/horizontal-pod-autoscaler/*	/docs/tasks/run-application/horizontal-pod-autoscale		301
 
 
-/docs/user-guide/liveness			/docs/tasks/configure-pod-container/configure-liveness-readiness-probes		301
-/docs/user-guide/logging			/docs/concepts/cluster-administration/logging		301
+/docs/user-guide/liveness									/docs/tasks/configure-pod-container/configure-liveness-readiness-probes		301
+/docs/user-guide/logging									/docs/concepts/cluster-administration/logging		301
 /docs/user-guide/replication-controller/operations			/docs/concepts/workloads/controllers/replicationcontroller		301
-/docs/user-guide/service-accounts/working-with-resources			/docs/tutorials/object-management-kubectl/object-management		301
-/docs/user-guide/StatefulSet			/docs/concepts/workloads/controllers/statefulset		301
-/docs/user-guide/ui-access			/docs/tasks/access-application-cluster/web-ui-dashboard		301
+/docs/user-guide/service-accounts/working-with-resources	/docs/tutorials/object-management-kubectl/object-management		301
+/docs/user-guide/StatefulSet								/docs/concepts/workloads/controllers/statefulset		301
+/docs/user-guide/ui-access									/docs/tasks/access-application-cluster/web-ui-dashboard		301
 
-/kubernetes-bootcamp/*			/docs/tutorials/kubernetes-basics		301
+/kubernetes-bootcamp/*				/docs/tutorials/kubernetes-basics		301
 
-/latest/docs			/docs/home		301
+/latest/docs						/docs/home		301
 
 /kubernetes/swagger-spec			https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec		301
-/swagger-spec/*			https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec		301
+/swagger-spec/*						https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec		301
 /third_party/swagger-ui/*			/docs/reference		301
