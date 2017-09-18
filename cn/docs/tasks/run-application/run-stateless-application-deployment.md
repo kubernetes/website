@@ -29,8 +29,7 @@ title: 使用Deployment运行一个无状态应用
 
 ## 创建和探究一个nginx deployment
 
-你可以通过创建一个Kubernetes Deployment对象来运行一个应用, 可以在一个YAML文件
-中描述Deployment. 例如, 下面这个YAML文件描述了一个运行nginx:1.7.9 Docker镜像的Deployment:
+你可以通过创建一个Kubernetes Deployment对象来运行一个应用, 可以在一个YAML文件中描述Deployment. 例如, 下面这个YAML文件描述了一个运行nginx:1.7.9 Docker镜像的Deployment:
 
 {% include code.html language="yaml" file="deployment.yaml" ghlink="/docs/tasks/run-application/deployment.yaml" %}
 
@@ -130,8 +129,7 @@ title: 使用Deployment运行一个无状态应用
 
 ## ReplicationControllers -- 旧的方式
 
-创建一个多副本应用首选方法是使用Deployment,反过来使用ReplicaSet. 在Deployment和ReplicaSet加入到Kubernetes之前, replicated 
-applications 通过[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)来配置.
+创建一个多副本应用首选方法是使用Deployment,反过来使用ReplicaSet. 在Deployment和ReplicaSet加入到Kubernetes之前, 多副本应用通过[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)来配置.
 
 {% endcapture %}
 
