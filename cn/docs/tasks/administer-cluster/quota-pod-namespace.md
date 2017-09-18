@@ -1,12 +1,12 @@
----
-title: ÅäÖÃÃüÃû¿Õ¼äÏÂpod×ÜÊı
+ï»¿---
+title: é…ç½®å‘½åç©ºé—´ä¸‹podæ€»æ•°
 ---
 
 
 {% capture overview %}
 
-±¾ÎÄÖ÷ÒªÃèÊöÈçºÎÅäÖÃÒ»¸öÃüÃû¿Õ¼äÏÂ¿ÉÔËĞĞµÄpod×ÜÊı¡£×ÊÔ´Åä¶îÏêÏ¸ĞÅÏ¢¿É²é¿´£º[×ÊÔ´Åä¶î](/docs/api-reference/v1.7/#resourcequota-v1-core)
-¡£
+æœ¬æ–‡ä¸»è¦æè¿°å¦‚ä½•é…ç½®ä¸€ä¸ªå‘½åç©ºé—´ä¸‹å¯è¿è¡Œçš„podæ€»æ•°ã€‚èµ„æºé…é¢è¯¦ç»†ä¿¡æ¯å¯æŸ¥çœ‹ï¼š[èµ„æºé…é¢](/docs/api-reference/v1.7/#resourcequota-v1-core)
+ã€‚
 
 {% endcapture %}
 
@@ -20,33 +20,33 @@ title: ÅäÖÃÃüÃû¿Õ¼äÏÂpod×ÜÊı
 
 {% capture steps %}
 
-## ´´½¨Ò»¸öÃüÃû¿Õ¼ä
+## åˆ›å»ºä¸€ä¸ªå‘½åç©ºé—´
 
-Ê×ÏÈ´´½¨Ò»¸öÃüÃû¿Õ¼ä£¬ÕâÑù¿ÉÒÔ½«±¾´Î²Ù×÷ÖĞ´´½¨µÄ×ÊÔ´Óë¼¯ÈºÆäËû×ÊÔ´¸ôÀë¿ªÀ´¡£
+é¦–å…ˆåˆ›å»ºä¸€ä¸ªå‘½åç©ºé—´ï¼Œè¿™æ ·å¯ä»¥å°†æœ¬æ¬¡æ“ä½œä¸­åˆ›å»ºçš„èµ„æºä¸é›†ç¾¤å…¶ä»–èµ„æºéš”ç¦»å¼€æ¥ã€‚
 
 ```shell
 kubectl create namespace quota-pod-example
 ```
 
-## ´´½¨×ÊÔ´Åä¶î
+## åˆ›å»ºèµ„æºé…é¢
 
-ÏÂÃæÊÇÒ»¸ö×ÊÔ´Åä¶îµÄÅäÖÃÎÄ¼ş£º
+ä¸‹é¢æ˜¯ä¸€ä¸ªèµ„æºé…é¢çš„é…ç½®æ–‡ä»¶ï¼š
 
 {% include code.html language="yaml" file="quota-pod.yaml" ghlink="/docs/tasks/administer-cluster/quota-pod.yaml" %}
 
-´´½¨Õâ¸ö×ÊÔ´Åä¶î£º
+åˆ›å»ºè¿™ä¸ªèµ„æºé…é¢ï¼š
 
 ```shell
 kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-pod.yaml --namespace=quota-pod-example
 ```
 
-²é¿´×ÊÔ´Åä¶îµÄÏêÏ¸ĞÅÏ¢£º
+æŸ¥çœ‹èµ„æºé…é¢çš„è¯¦ç»†ä¿¡æ¯ï¼š
 
 ```shell
 kubectl get resourcequota pod-demo --namespace=quota-pod-example --output=yaml
 ```
 
-´ÓÊä³öµÄĞÅÏ¢ÎÒÃÇ¿ÉÒÔ¿´µ½£¬¸ÃÃüÃû¿Õ¼äÏÂpodµÄÅä¶îÊÇ2¸ö£¬Ä¿Ç°´´½¨µÄpodsÊıÎª0£¬Åä¶îÊ¹ÓÃÂÊÎª0¡£
+ä»è¾“å‡ºçš„ä¿¡æ¯æˆ‘ä»¬å¯ä»¥çœ‹åˆ°ï¼Œè¯¥å‘½åç©ºé—´ä¸‹podçš„é…é¢æ˜¯2ä¸ªï¼Œç›®å‰åˆ›å»ºçš„podsæ•°ä¸º0ï¼Œé…é¢ä½¿ç”¨ç‡ä¸º0ã€‚
 
 ```yaml
 spec:
@@ -59,25 +59,25 @@ status:
     pods: "0"
 ```
 
-ÏÂÃæÊÇÒ»¸öDeploymentµÄÅäÖÃÎÄ¼ş£º
+ä¸‹é¢æ˜¯ä¸€ä¸ªDeploymentçš„é…ç½®æ–‡ä»¶ï¼š
 
 {% include code.html language="yaml" file="quota-pod-deployment.yaml" ghlink="/docs/tasks/administer-cluster/quota-pod-deployment.yaml" %}
 
-ÔÚÅäÖÃÎÄ¼şÖĞ£¬ `replicas: 3` ¸æËßkubernetes³¢ÊÔ´´½¨Èı¸öpods£¬ÇÒÔËĞĞÏàÍ¬µÄÓ¦ÓÃ¡£
+åœ¨é…ç½®æ–‡ä»¶ä¸­ï¼Œ `replicas: 3` å‘Šè¯‰kuberneteså°è¯•åˆ›å»ºä¸‰ä¸ªpodsï¼Œä¸”è¿è¡Œç›¸åŒçš„åº”ç”¨ã€‚
 
-´´½¨Õâ¸öDeployment£º
+åˆ›å»ºè¿™ä¸ªDeploymentï¼š
 
 ```shell
 kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-pod-deployment.yaml --namespace=quota-pod-example
 ```
 
-²é¿´DeploymentµÄÏêÏ¸ĞÅÏ¢£º
+æŸ¥çœ‹Deploymentçš„è¯¦ç»†ä¿¡æ¯ï¼š
 
 ```shell
 kubectl get deployment pod-quota-demo --namespace=quota-pod-example --output=yaml
 ```
 
-´ÓÊä³öµÄĞÅÏ¢ÎÒÃÇ¿ÉÒÔ¿´µ½£¬¾¡¹Ü³¢ÊÔ´´½¨Èı¸öpod£¬µ«ÊÇÓÉÓÚÅä¶îµÄÏŞÖÆ£¬Ö»ÓĞÁ½¸öpodÄÜ±»³É¹¦´´½¨¡£
+ä»è¾“å‡ºçš„ä¿¡æ¯æˆ‘ä»¬å¯ä»¥çœ‹åˆ°ï¼Œå°½ç®¡å°è¯•åˆ›å»ºä¸‰ä¸ªpodï¼Œä½†æ˜¯ç”±äºé…é¢çš„é™åˆ¶ï¼Œåªæœ‰ä¸¤ä¸ªpodèƒ½è¢«æˆåŠŸåˆ›å»ºã€‚
 
 ```yaml
 spec:
@@ -92,9 +92,9 @@ lastUpdateTime: 2017-07-07T20:57:05Z
       exceeded quota: pod-demo, requested: pods=1, used: pods=2, limited: pods=2'
 ```
 
-## ÇåÀí
+## æ¸…ç†
 
-É¾³ıÃüÃû¿Õ¼ä£º
+åˆ é™¤å‘½åç©ºé—´ï¼š
 
 ```shell
 kubectl delete namespace quota-pod-example
@@ -104,27 +104,27 @@ kubectl delete namespace quota-pod-example
 
 {% capture whatsnext %}
 
-### ¶ÔÓÚ¼¯Èº¹ÜÀí
+### å¯¹äºé›†ç¾¤ç®¡ç†
 
-* [ÅäÖÃÃüÃû¿Õ¼äÏÂ£¬ÄÚ´æÄ¬ÈÏµÄrequestÖµºÍlimitÖµ](/docs/tasks/administer-cluster/memory-default-namespace/)
+* [é…ç½®å‘½åç©ºé—´ä¸‹ï¼Œå†…å­˜é»˜è®¤çš„requestå€¼å’Œlimitå€¼](/docs/tasks/administer-cluster/memory-default-namespace/)
 
-* [ÅäÖÃÃüÃû¿Õ¼äÏÂ£¬CPUÄ¬ÈÏµÄrequestÖµºÍlimitÖµ](/docs/tasks/administer-cluster/cpu-default-namespace/)
+* [é…ç½®å‘½åç©ºé—´ä¸‹ï¼ŒCPUé»˜è®¤çš„requestå€¼å’Œlimitå€¼](/docs/tasks/administer-cluster/cpu-default-namespace/)
 
-* [ÅäÖÃÃüÃû¿Õ¼äÏÂ£¬ÄÚ´æµÄ×îĞ¡ÖµºÍ×î´óÖµ](/docs/tasks/administer-cluster/memory-constraint-namespace/)
+* [é…ç½®å‘½åç©ºé—´ä¸‹ï¼Œå†…å­˜çš„æœ€å°å€¼å’Œæœ€å¤§å€¼](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 
-* [ÅäÖÃÃüÃû¿Õ¼äÏÂ£¬CPUµÄ×îĞ¡ÖµºÍ×î´óÖµ](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+* [é…ç½®å‘½åç©ºé—´ä¸‹ï¼ŒCPUçš„æœ€å°å€¼å’Œæœ€å¤§å€¼](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
 
-* [ÅäÖÃÃüÃû¿Õ¼äÏÂ£¬ÄÚ´æºÍCPUµÄÅä¶î](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [é…ç½®å‘½åç©ºé—´ä¸‹ï¼Œå†…å­˜å’ŒCPUçš„é…é¢](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
 
-* [ÅäÖÃÃüÃû¿Õ¼äÏÂ£¬API¶ÔÏóµÄÅä¶î](/docs/tasks/administer-cluster/quota-api-object/)
+* [é…ç½®å‘½åç©ºé—´ä¸‹ï¼ŒAPIå¯¹è±¡çš„é…é¢](/docs/tasks/administer-cluster/quota-api-object/)
 
-### ¶ÔÓÚÓ¦ÓÃ¿ª·¢
+### å¯¹äºåº”ç”¨å¼€å‘
 
-* [¸øÈİÆ÷ºÍpod·ÖÅäÄÚ´æ×ÊÔ´](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [ç»™å®¹å™¨å’Œpodåˆ†é…å†…å­˜èµ„æº](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [¸øÈİÆ÷ºÍpod·ÖÅäCPU×ÊÔ´](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [ç»™å®¹å™¨å’Œpodåˆ†é…CPUèµ„æº](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [ÅäÖÃpodµÄQoS](/docs/tasks/configure-pod-container/quality-service-pod/)
+* [é…ç½®podçš„QoS](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 {% endcapture %}
 
