@@ -42,17 +42,16 @@ complete clusters:
 |--------|---------------
 | Command line UX | beta
 | Config file | alpha
-| Selfhosting | alpha
+| Self-hosting | alpha
 | `kubeadm alpha` commands | alpha
-| Implementation | alpha
+| Implementation | beta
 
 The experience for the command line is currently in beta and we are trying hard
 not to change command line flags and break that flow.  Other parts of the
-experience are still under active development.  Specifically, kubeadm relies on
-some features (bootstrap tokens, cluster signing), that are still considered
-alpha.  The implementation may change as the tool evolves to support even easier
-upgrades and high availability (HA).  Any commands under `kubeadm alpha` (not
-documented here) are, of course, alpha.
+experience are still under active development.  The implementation may change
+slightly as the tool evolves to support even easier upgrades and high
+availability (HA).  Any commands under `kubeadm alpha` (not documented here)
+are, of course, alpha.
 
 **Be sure to read the [limitations](#limitations)**.  Specifically, configuring
 cloud providers is difficult.
@@ -128,7 +127,7 @@ The output should look like:
 
 ```
 [kubeadm] WARNING: kubeadm is in beta, please do not use it for production clusters.
-[init] Using Kubernetes version: v1.7.0
+[init] Using Kubernetes version: v1.8.0
 [init] Using Authorization modes: [Node RBAC]
 [preflight] Running pre-flight checks
 [preflight] Starting the kubelet service
@@ -166,7 +165,7 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 You can now join any number of machines by running the following on each node
 as root:
 
-  kubeadm join --token <token> <master-ip>:<master-port>
+  kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
@@ -325,7 +324,7 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
 * Run the command that was output by `kubeadm init`. For example:
 
   ``` bash
-  kubeadm join --token <token> <master-ip>:<master-port>
+  kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
   ```
 
 The output should look something like:
@@ -335,9 +334,10 @@ The output should look something like:
 [preflight] Running pre-flight checks
 [discovery] Trying to connect to API Server "10.138.0.4:6443"
 [discovery] Created cluster-info discovery client, requesting info from "https://10.138.0.4:6443"
-[discovery] Cluster info signature and contents are valid, will use API Server "https://10.138.0.4:6443"
+[discovery] Requesting info from "https://10.138.0.4:6443" again to validate TLS against the pinned public key
+[discovery] Cluster info signature and contents are valid and TLS certificate validates against pinned roots, will use API Server "10.138.0.4:6443"
 [discovery] Successfully established connection with API Server "10.138.0.4:6443"
-[bootstrap] Detected server version: v1.7.0
+[bootstrap] Detected server version: v1.8.0
 [bootstrap] The server supports the Certificates API (certificates.k8s.io/v1beta1)
 [csr] Created API client to obtain unique certificate for this node, generating keys and certificate signing request
 [csr] Received signed certificate from the API server, generating KubeConfig...
@@ -449,8 +449,10 @@ appropriate arguments.
 
 ## Upgrading
 
-Instructions for upgrading kubeadm clusters can be found
-[here](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/).
+Instructions for upgrading kubeadm clusters are available for:
+
+ * [1.7.x->1.7.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/)
+ * [1.7.x->1.8.y and 1.8.x->1.8.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
 
 ## Explore other add-ons
 
@@ -484,8 +486,8 @@ kubeadm CLI vX.Y can also upgrade an existing kubeadm-created cluster of version
 
 Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be able to deploy vX.(Y+1) clusters.
 
-Example: kubeadm v1.7 can deploy both v1.6 and v1.7 clusters and upgrade v1.6 kubeadm-created clusters to
-v1.7.
+Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
+v1.8.
 
 ## kubeadm is multi-platform {#multi-platform}
 
