@@ -303,10 +303,13 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 You can see that the Container was terminated because of `reason:OOM Killed`,
 where `OOM` stands for Out Of Memory.
 
-## Local ephemeral storage (Alpha feature)
+## Local ephemeral storage (alpha feature)
 
-Kubernetes version 1.8 introduces local ephemeral storage resource. The
-management of local ephemeral storage is very similar to memory resource.
+Kubernetes version 1.8 introduces a resource for local ephemeral storage. The
+management of local ephemeral storage is very similar to memory resources.
+
+**Note:** Local ephemeral storage is an alpha feature in version 1.8.
+{: .note}
 
 Each Container of a Pod can specify one or more of the following:
 
@@ -322,8 +325,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 128974848, 129e6, 129M, 123Mi
 ```
 
-Here's an example.
-The following Pod has two Containers. Each one has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. You can say the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of storage.
+For example, the following Pod has two Containers. Each Container has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of storage.
 
 ```yaml
 apiVersion: v1
@@ -349,7 +351,7 @@ spec:
 ```
 
 
-## Opaque integer resources (Alpha feature)
+## Opaque integer resources (alpha feature)
 
 Kubernetes version 1.5 introduces Opaque integer resources. Opaque
 integer resources allow cluster operators to advertise new node-level
