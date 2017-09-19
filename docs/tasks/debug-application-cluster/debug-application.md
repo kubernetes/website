@@ -12,10 +12,6 @@ This is *not* a guide for people who want to debug their cluster.  For that you 
 * TOC
 {:toc}
 
-## FAQ
-
-Users are highly encouraged to check out our [FAQ](https://github.com/kubernetes/kubernetes/wiki/User-FAQ).
-
 ## Diagnosing the problem
 
 The first step in troubleshooting is triage.  What is the problem?  Is it your Pods, your Replication Controller or
