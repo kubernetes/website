@@ -3,7 +3,7 @@ title: Federated Jobs
 ---
 
 {% capture overview %}
-This guide explains how to use jobs in the Federation control plane.
+This guide explains how to use jobs in the federation control plane.
 
 Jobs in the federation control plane (referred to as "federated jobs" in
 this guide) are similar to the traditional [Kubernetes
