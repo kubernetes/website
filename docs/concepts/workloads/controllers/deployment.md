@@ -288,6 +288,9 @@ It is generally discouraged to make label selector updates and it is suggested t
 In any case, if you need to perform a label selector update, exercise great caution and make sure you have grasped
 all of the implications.
 
+**Note:** In API version `apps/v1beta2`, a Deployment's label selector is immutable after it gets created.
+{: .note}
+
 * Selector additions require the pod template labels in the Deployment spec to be updated with the new label too,
 otherwise a validation error is returned. This change is a non-overlapping one, meaning that the new selector does
 not select ReplicaSets and Pods created with the old selector, resulting in orphaning all old ReplicaSets and
@@ -850,9 +853,9 @@ allowed, which is the default if not specified.
 `.spec.selector` is an optional field that specifies a [label selector](/docs/concepts/overview/working-with-objects/labels/)
 for the Pods targeted by this deployment.
 
-If specified, `.spec.selector` must match `.spec.template.metadata.labels`, or it will be rejected by
-the API.  If `.spec.selector` is unspecified, `.spec.selector.matchLabels` defaults to
-`.spec.template.metadata.labels`.
+`.spec.selector` must match `.spec.template.metadata.labels`, or it will be rejected by the API.
+
+In API version `apps/v1beta2`, `.spec.selector` and `.metadata.labels` no longer default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation of the Deployment in `apps/v1beta2`.
 
 A Deployment may terminate Pods whose labels match the selector if their template is different
 from `.spec.template` or if the total number of such Pods exceeds `.spec.replicas`. It brings up new
@@ -926,20 +929,7 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 
 ### Rollback To
 
-`.spec.rollbackTo` is an optional field with the configuration the Deployment
-should roll back to. Setting this field triggers a rollback, and this field will
-be cleared by the server after a rollback is done.
-
-Because this field will be cleared by the server, it should not be used
-declaratively. For example, you should not perform `kubectl apply` with a
-manifest with `.spec.rollbackTo` field set.
-
-#### Revision
-
-`.spec.rollbackTo.revision` is an optional field specifying the revision to roll
-back to. Setting to 0 means rolling back to the last revision in history;
-otherwise, means rolling back to the specified revision. This defaults to 0 when
-[`spec.rollbackTo`](#rollback-to) is set.
+Field `.spec.rollbackTo` has been deprecated in API versions `extensions/v1beta1` and `apps/v1beta1`, and is no longer supported in API version `apps/v1beta2`. Instead, `kubectl rollout undo` as introduced in [Rolling Back to a Previous Revision](#rolling-back-to-a-previous-revision) should be used.
 
 ### Revision History Limit
 
