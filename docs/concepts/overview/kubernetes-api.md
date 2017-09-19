@@ -68,7 +68,7 @@ in more detail in the [API Changes documentation](https://git.k8s.io/community/c
 
 ## API groups
 
-To make it easier to extend the Kubernetes API, we implemented [*API groups*](https://git.k8s.io/community/contributors/design-proposals/api-group.md).
+To make it easier to extend the Kubernetes API, we implemented [*API groups*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md).
 The API group is specified in a REST path and in the `apiVersion` field of a serialized object.
 
 Currently there are several API groups in use:
