@@ -557,6 +557,8 @@ These roles include:
 
 ## Privilege Escalation Prevention and Bootstrapping
 
+### Roles and Role Bindings
+
 The RBAC API prevents users from escalating privileges by editing roles or role bindings.
 Because this is enforced at the API level, it applies even when the RBAC authorizer is not in use.
 
@@ -609,11 +611,23 @@ subjects:
   name: user-1
 ```
 
+### Bootstrapping
+
 When bootstrapping the first roles and role bindings, it is necessary for the initial user to grant permissions they do not yet have.
 To bootstrap initial roles and role bindings:
 
 * Use a credential with the `system:masters` group, which is bound to the `cluster-admin` super-user role by the default bindings.
 * If your API server runs with the insecure port enabled (`--insecure-port`), you can also make API calls via that port, which does not enforce authentication or authorization.
+
+### Pod Creation
+
+Users who have ability to create pods in a namespace can potentially escalate their privileges within that namespace.  If a user is granted permission to create pods (or controllers that create pods), the RBAC API does not police the privileges of the pods being created.  This means that users can create pods that access secrets the user herself cannot read, or that run under a service account with different/greater permissions.
+
+System administrators are cautioned to use care in granting access to pod creation.  A user granted permission to create pods (or controllers that create pods) in the namespace essentially has the ability to:
+
+ * Read all secrets in the namespace.
+ * Read all config maps in the namespace.
+ * Impersonate any service account in the namespace and take any action the account could take.
 
 ## Command-line Utilities
 
