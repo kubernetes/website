@@ -88,7 +88,7 @@ Notice how the values in each field correspond to the values in the Deployment s
 
 * The number of desired replicas is 3 according to `spec: replicas` field.
 * The number of current replicas is 0 according to the `.status.replicas` field.
-* The number of up-to-date replicas is 0 accoridng to the `.status.updatedReplicas` field.
+* The number of up-to-date replicas is 0 according to the `.status.updatedReplicas` field.
 * The number of available replicas is 0 according to the `.status.availableReplicas` field.
 
 To see the Deployment rollout status, run `kubectl rollout status deployment/nginx-deployment`. This command returns the following output:
