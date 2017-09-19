@@ -24,8 +24,7 @@ Controller Manager.  The tokens are also used to create a signature for a
 specific ConfigMap used in a "discovery" process through a BootstrapSigner
 controller.
 
-Currently, Bootstrap Tokens are **beta** and there are no large breaking
-changes expected.
+{% include feature-state-beta.md %}
 
 ## Token Format
 
@@ -108,8 +107,8 @@ controller will delete expired tokens.
 
 ## Token Management with `kubeadm`
 
-You can use the `kubeadm` tool to manage tokens on a running cluster. See [the
-`kubeadm token` docs](/docs/admin/kubeadm/#manage-tokens) for details.
+You can use the `kubeadm` tool to manage tokens on a running cluster. See the
+[`kubeadm token` docs](/docs/admin/kubeadm/#manage-tokens) for details.
 
 ## ConfigMap Signing
 
