@@ -166,9 +166,9 @@ See [kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment
 
 {% capture whatsnext %}
 
-[Design Doc 1](https://git.k8s.io/community/contributors/design-proposals/garbage-collection.md)
+[Design Doc 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
 
-[Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/synchronous-garbage-collection.md)
+[Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
 {% endcapture %}
 
