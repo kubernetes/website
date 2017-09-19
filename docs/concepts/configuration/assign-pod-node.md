@@ -6,9 +6,9 @@ approvers:
 title: Assigning Pods to Nodes
 ---
 
-You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/nodes/node/) or to prefer to
+You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/architecture/nodes/) or to prefer to
 run on particular nodes. There are several ways to do this, and they all use
-[label selectors](/docs/user-guide/labels/) to make the selection.
+[label selectors](/docs/concepts/overview/working-with-objects/labels/) to make the selection.
 Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
 (e.g. spread your pods across nodes, not place the pod on a node with insufficient free resources, etc.)
 but there are some circumstances where you may want more control on a node where a pod lands, e.g. to ensure
@@ -206,15 +206,15 @@ If defined but empty, it means "all namespaces."
 All `matchExpressions` associated with `requiredDuringSchedulingIgnoredDuringExecution` affinity and anti-affinity
 must be satisfied for the pod to schedule onto a node.
 
-#### More Practical Use-cases 
+#### More Practical Use-cases
 
 Interpod Affinity and AnitAffinity can be even more useful when they are used with higher
 level collections such as ReplicaSets, Statefulsets, Deployments, etc.  One can easily configure that a set of workloads should
-be co-located in the same defined topology, eg., the same node. 
+be co-located in the same defined topology, eg., the same node.
 
 ##### Always co-located in the same node
 
-In a three node cluster, a web application has in-memory cache such as redis. We want the web-servers to be co-located with the cache as much as possible. 
+In a three node cluster, a web application has in-memory cache such as redis. We want the web-servers to be co-located with the cache as much as possible.
 Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`
 
 ```yaml
@@ -234,8 +234,8 @@ spec:
         image: redis:3.2-alpine
 ```
 
-Below yaml snippet of the webserver deployment has `podAffinity` configured, this informs the scheduler that all its replicas are to be 
-co-located with pods that has selector label `app=store` 
+Below yaml snippet of the webserver deployment has `podAffinity` configured, this informs the scheduler that all its replicas are to be
+co-located with pods that has selector label `app=store`
 
 ```yaml
 apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
@@ -270,7 +270,7 @@ if we create the above two deployments, our three node cluster could look like b
 | *webserver-1*        |   *webserver-2*     |    *webserver-3*   |
 |  *cache-1*           |     *cache-2*       |     *cache-3*      |
 
-As you can see, all the 3 replicas of the `web-server` are automatically co-located with the cache as expected. 
+As you can see, all the 3 replicas of the `web-server` are automatically co-located with the cache as expected.
 
 ```
 $kubectl get pods -o wide
