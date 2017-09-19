@@ -146,18 +146,19 @@ Any tokens for non-existent service accounts will be cleaned up by the token con
 
 ```shell
 $ kubectl describe secrets/build-robot-secret
-Name:   build-robot-secret
-Namespace:  default
-Labels:   <none>
-Annotations:  kubernetes.io/service-account.name=build-robot,kubernetes.io/service-account.uid=870ef2a5-35cf-11e5-8d06-005056b45392
+Name:           build-robot-secret
+Namespace:      default
+Labels:         <none>
+Annotations:    kubernetes.io/service-account.name=build-robot
+                kubernetes.io/service-account.uid=da68f9c6-9d26-11e7-b84e-002dc52800da
 
-Type: kubernetes.io/service-account-token
+Type:   kubernetes.io/service-account-token
 
 Data
 ====
-ca.crt: 1220 bytes
-token: ...
-namespace: 7 bytes
+ca.crt:         1338 bytes
+namespace:      7 bytes
+token:          eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImJ1aWxkLXJvYm90LXNlY3JldCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJidWlsZC1yb2JvdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6ImRhNjhmOWM2LTlkMjYtMTFlNy1iODRlLTAwMmRjNTI4MDBkYSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmJ1aWxkLXJvYm90In0.l5LmE4XfU_aMXr0tewL2TCfJa4-jjng9-l5yohyoBqUzt9IT45dal05q-9dJzT1oCfJTPBO8gg-6Gg-PsKv8hoTlHY5bxE1MFkVxulhns135TmUK1-PCPPT0-7okbPn6bRD0f-L0p6G4wNkUXLk3HlWM5MO2GthENopFwPvdWe5W2IbJSHVNbgbAkuC1zDapxI5uNwfdQ3oS16Tw0O1H7G4vYL2XUYgBt25kkIvvgYjLjTDwV_IC8b_zV19mXEc8Q62eg8PQAGbmm9e5mTCprNxvFF45rIET0njfiQvq8xPaYClWrpKiaSNhth_OCJqMrzJBoLDWW-orianwZ3coQg
 ```
 
 **Note:** The content of `token` is elided here.
