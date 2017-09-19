@@ -81,13 +81,13 @@ The output shows that the PodSpec in the Deployment has two Containers:
 
 ```shell
 containers:
-- image: nginx
-  imagePullPolicy: Always
-  name: patch-demo-ctr
-  ...
 - image: redis
   imagePullPolicy: Always
   name: patch-demo-ctr-2
+  ...
+- image: nginx
+  imagePullPolicy: Always
+  name: patch-demo-ctr
   ...
 ```
 
@@ -118,9 +118,9 @@ The output shows that the Pod has two Containers: one running nginx and one runn
 
 ```
 containers:
-- image: nginx
-  ...
 - image: redis
+  ...
+- image: nginx
   ...
 ```
 
