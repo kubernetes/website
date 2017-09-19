@@ -288,7 +288,8 @@ It is generally discouraged to make label selector updates and it is suggested t
 In any case, if you need to perform a label selector update, exercise great caution and make sure you have grasped
 all of the implications.
 
-Note that in API version `apps/v1beta2`, a Deployment's label selector is immutable after it gets created.
+**Note:** In API version `apps/v1beta2`, a Deployment's label selector is immutable after it gets created.
+{: .note}
 
 * Selector additions require the pod template labels in the Deployment spec to be updated with the new label too,
 otherwise a validation error is returned. This change is a non-overlapping one, meaning that the new selector does
@@ -928,7 +929,7 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 
 ### Rollback To
 
-Field `.spec.rollbackTo` has been deprecated in API versions `extensions/v1beta1` and `apps/v1beta1`, and removed in API version `apps/v1beta2`. Instead, `kubectl rollout undo` as introduced in [Rolling Back to a Previous Revision](#rolling-back-to-a-previous-revision) should be used.
+Field `.spec.rollbackTo` has been deprecated in API versions `extensions/v1beta1` and `apps/v1beta1`, and is no longer supported in API version `apps/v1beta2`. Instead, `kubectl rollout undo` as introduced in [Rolling Back to a Previous Revision](#rolling-back-to-a-previous-revision) should be used.
 
 ### Revision History Limit
 
