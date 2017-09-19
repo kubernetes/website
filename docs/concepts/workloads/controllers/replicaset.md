@@ -110,11 +110,11 @@ The `.spec.template` is the only required field of the `.spec`. The `.spec.templ
 In addition to required fields of a pod, a pod template in a ReplicaSet must specify appropriate
 labels and an appropriate restart policy.
 
-For labels, make sure to not overlap with other controllers. For more information, see [pod selector](#pod-selector). 
-For restart policy, only a  [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/) 
-equal to `Always` is allowed, which is the default if not specified.
+For labels, make sure to not overlap with other controllers. For more information, see [pod selector](#pod-selector).
 
-For local container restarts, ReplicaSet delegate to an agent on the node,
+For [restart policy](/docs/concepts/workloads/pods/pod-lifecycle/), the only allowed value for `.spec.template.spec.restartPolicy` is `Always`, which is the default.
+
+For local container restarts, ReplicaSet delegates to an agent on the node,
 for example the [Kubelet](/docs/admin/kubelet/) or Docker.
 
 ### Pod Selector
@@ -130,7 +130,7 @@ be rejected by the API.
 In Kubernetes 1.8 the API version `apps/v1beta2` on the ReplicaSet kind is the current version and is enabled by default. The API version `extensions/v1beta1` is deprecated. In API version `apps/v1beta2`, `.spec.selector` and `.metadata.labels` no longer default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation starting in API version `apps/v1beta2`.
 
 Also you should not normally create any pods whose labels match this selector, either directly, with 
-another ReplicaSet, or with another controller such as Deployment. If you do so, the ReplicaSet thinks that it 
+another ReplicaSet, or with another controller such as a Deployment. If you do so, the ReplicaSet thinks that it 
 created the other pods. Kubernetes does not stop you from doing this.
 
 If you do end up with multiple controllers that have overlapping selectors, you
@@ -144,10 +144,9 @@ different, and the `.metadata.labels` do not affect the behavior of the ReplicaS
 
 ### Replicas
 
-You can specify how many pods should run concurrently by setting `.spec.replicas` to the number
-of pods you would like to have running concurrently. The number running at any time may be higher
+You can specify how many pods should run concurrently by setting `.spec.replicas`. The number running at any time may be higher
 or lower, such as if the replicas were just increased or decreased, or if a pod is gracefully
-shutdown, and a replacement starts early.
+shut down, and a replacement starts early.
 
 If you do not specify `.spec.replicas`, then it defaults to 1.
 
@@ -213,14 +212,14 @@ kubectl autoscale rs frontend
 
 ### Deployment (Recommended)
 
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/) is a higher-level API object that updates its underlying Replica Sets and their Pods
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/) is a higher-level API object that updates its underlying ReplicaSets and their Pods
 in a similar fashion as `kubectl rolling-update`. Deployments are recommended if you want this rolling update functionality,
 because unlike `kubectl rolling-update`, they are declarative, server-side, and have additional features. For more information on running a stateless
 application using a Deployment, please read [Run a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
 
 ### Bare Pods
 
-Unlike in the case where a user directly created pods, a ReplicaSet replaces pods that are deleted or terminated for any reason, such as in the case of node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, we recommend that you use a ReplicaSet even if your application requires only a single pod. Think of it similarly to a process supervisor, only it supervises multiple pods across multiple nodes instead of individual processes on a single node.  A ReplicaSet delegates local container restarts to some agent on the node (for example, Kubelet or Docker).
+Unlike the case where a user directly created pods, a ReplicaSet replaces pods that are deleted or terminated for any reason, such as in the case of node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, we recommend that you use a ReplicaSet even if your application requires only a single pod. Think of it similarly to a process supervisor, only it supervises multiple pods across multiple nodes instead of individual processes on a single node. A ReplicaSet delegates local container restarts to some agent on the node (for example, Kubelet or Docker).
 
 ### Job
 
