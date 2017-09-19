@@ -30,7 +30,7 @@ title: 为容器设置启动时要执行的命令及其入参
 
 本示例中，将创建一个只包含单个容器的Pod。在Pod配置文件中设置了一个命令与两个入参：
 
-{% include code.html language="yaml" file="commands.yaml" ghlink="/docs/tasks/inject-data-application/commands.yaml" %}
+{% include code.html language="yaml" file="commands.yaml" ghlink="/cn/docs/tasks/inject-data-application/commands.yaml" %}
 
 1. 基于YAML文件创建一个Pod：
 
