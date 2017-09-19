@@ -53,7 +53,7 @@ DELETE    | delete (for individual resources), deletecollection (for collections
 Kubernetes sometimes checks authorization for additional permissions using specialized verbs. For example:
 
 * [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) checks for authorization of the `use` verb on `podsecuritypolicies` resources in the `extensions` API group.
-* [RBAC](/docs/admin/authorization/rbac/#privilege-escalation-prevention-and-bootstrapping) checks for authorization 
+* [RBAC](/docs/admin/authorization/rbac/#privilege-escalation-prevention-and-bootstrapping) checks for authorization
 of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
 * [Authentication](/docs/admin/authentication/) layer checks for authorization of the `impersonate` verb on `users`, `groups`, and `serviceaccounts` in the core API group, and the `userextras` in the `authentication.k8s.io` API group.
 
@@ -68,47 +68,66 @@ of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authoriz
 
 #### Checking API Access
 
-Kubernetes exposes the `subjectaccessreviews.v1.authorization.k8s.io` resource as a
-normal resource that allows external access to API authorizer decisions.  No matter which authorizer
-you choose to use, you can issue a `POST` with a `SubjectAccessReview` just like the webhook
-authorizer to the `apis/authorization.k8s.io/v1/subjectaccessreviews` endpoint and
-get back a response.  For instance:
+Kubernetes exposes resources in the `authorization.k8s.io` API group to query the API server's
+authorizer, which can be useful for debugging. For example, creating a `SelfSubjectRulesReview`,
+either using `kubectl` or directly with an HTTP `POST`, returns the set of actions the current
+user can perform for a given namespace. Note that the user must have permission to create a
+`SelfSubjectRulesReview` resource.
 
 ```bash
-kubectl create --v=8 -f -  << __EOF__
+kubectl create -o yaml -f - << EOF
 {
-  "apiVersion": "authorization.k8s.io/v1",
-  "kind": "SubjectAccessReview",
-  "spec": {
-    "resourceAttributes": {
-      "namespace": "kittensandponies",
-      "verb": "get",
-      "group": "unicorn.example.org",
-      "resource": "pods"
-    },
-    "user": "jane",
-    "group": [
-      "group1",
-      "group2"
-    ],
-    "extra": {
-      "scopes": [
-        "openid",
-        "profile"
-      ]
+    "apiVersion": "authorization.k8s.io/v1",
+    "kind": "SelfSubjectRulesReview",
+    "spec": {
+        "namespace": "dev"
     }
-  }
 }
-__EOF__
-
---- snip lots of output ---
-
-I0913 08:12:31.362873   27425 request.go:908] Response Body: {"kind":"SubjectAccessReview","apiVersion":"authorization.k8s.io/v1","metadata":{"creationTimestamp":null},"spec":{"resourceAttributes":{"namespace":"kittensandponies","verb":"GET","group":"unicorn.example.org","resource":"pods"},"user":"jane","group":["group1","group2"],"extra":{"scopes":["openid","profile"]}},"status":{"allowed":true}}
-subjectaccessreview "" created
+EOF
+apiVersion: authorization.k8s.io/v1
+kind: SelfSubjectRulesReview
+metadata:
+  creationTimestamp: null
+spec: {}
+status:
+  incomplete: false
+  resourceRules:
+--- skip lots of output ---
+  - apiGroups:
+    - extensions
+    resources:
+    - daemonsets
+    - deployments
+    - deployments/scale
+    - ingresses
+    - replicasets
+    - replicasets/scale
+    - replicationcontrollers/scale
+    verbs:
+    - get
+    - list
+    - watch
 ```
 
-This is useful for debugging access problems, in that you can use this resource
-to determine what access an authorizer is granting.
+`SelfSubjectRulesReview` can be combined with [user impersonation](/docs/admin/authentication/#user-impersonation)
+to check the permissions of an arbitrary user. For example, to check the permissions of
+the user "dave" in namespace "dev" an admin could use the following `kubectl` command.
+
+```bash
+kubectl create --as dave -o yaml -f - << EOF
+{
+    "apiVersion": "authorization.k8s.io/v1",
+    "kind": "SelfSubjectRulesReview",
+    "spec": {
+        "namespace": "dev"
+    }
+}
+EOF
+--- List of "dave"'s permissions within the namespace "dev" ---
+```
+
+`SelfSubjectRulesReview` currently returns incomplete results when the API server uses the
+`Webhook` authorization mode.
 
 ## Using Flags for Your Authorization Module
 
@@ -122,7 +141,7 @@ The following flags can be used:
   * `--authorization-mode=AlwaysDeny` This flag blocks all requests. Use this flag only for testing.
   * `--authorization-mode=AlwaysAllow` This flag allows all requests. Use this flag only if you do not require authorization for your API requests.
 
-You can choose more than one authorization module. If one of the modes is `AlwaysAllow`, then it overrides the other modes and all API requests are allowed. 
+You can choose more than one authorization module. If one of the modes is `AlwaysAllow`, then it overrides the other modes and all API requests are allowed.
 
 ## Versioning
 For version 1.2, clusters created by kube-up.sh are configured so that no authorization is required for any request.
