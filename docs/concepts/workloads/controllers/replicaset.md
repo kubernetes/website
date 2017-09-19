@@ -127,7 +127,7 @@ deleted. This allows the ReplicaSet to be replaced without affecting the running
 The `.spec.template.metadata.labels` must match the `.spec.selector`, or it will
 be rejected by the API.
 
-In Kubernetes 1.8 or later, `.spec.selector` and `.metadata.labels` no longer default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation in Kubernetes 1.8 or later.
+In Kubernetes 1.8 the API version `apps/v1beta2` on the ReplicaSet kind is the current version and is enabled by default. The API version `extensions/v1beta1` is deprecated. In API version `apps/v1beta2`, `.spec.selector` and `.metadata.labels` no longer default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation starting in API version `apps/v1beta2`.
 
 Also you should not normally create any pods whose labels match this selector, either directly, with 
 another ReplicaSet, or with another controller such as Deployment. If you do so, the ReplicaSet thinks that it 
