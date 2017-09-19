@@ -84,7 +84,7 @@ There are two supported paths to extending the API with [custom resources](/docs
 1. [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
    is for users with very basic CRUD needs.
 1. Coming soon: users needing the full set of Kubernetes API semantics can implement their own apiserver
-   and use the [aggregator](https://git.k8s.io/community/contributors/design-proposals/aggregated-api-servers.md)
+   and use the [aggregator](https://git.k8s.io/community/contributors/design-proposals/api-machinery/aggregated-api-servers.md)
    to make it seamless for clients.
 
 
