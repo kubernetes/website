@@ -350,7 +350,7 @@ spec:
 ### How Pods with ephemeral-storage requests are scheduled
 
 When you create a Pod, the Kubernetes scheduler selects a node for the Pod to 
-run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods (Please refer to the documentation of [Node Allocata](/docs/tasks/administer-cluster/reserve-compute-resources/). The scheduler ensures that, the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
+run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods (Please refer to the documentation of [Node Allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable). The scheduler ensures that, the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
 
 ### How Pods with ephemeral-storage limits are run
 
