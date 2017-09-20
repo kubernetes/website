@@ -131,7 +131,7 @@ Optional fields are:
   is `1m0s`. Valid units are as described for `--poll-interval` above.
 
 Additional information about the `kubectl rolling-update` command is available
-from the [`kubectl` reference](/docs/user-guide/kubectl/v1.6/#rolling-update).
+from the [`kubectl` reference](/docs/user-guide/kubectl/{{page.version}}/#rolling-update).
 
 ## Walkthrough
 
