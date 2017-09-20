@@ -335,16 +335,18 @@ metadata:
 ### PersistentVolumeClaimResize
 
 This plug-in implements additional validations for checking incoming `PersistentVolumeClaim` resize
-requests. Currently support for Volume resizing is in Alpha and admin must set feature gate `ExpandPersistentVolumes`
+requests. 
+**Note:** Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
 to `true` to enable resizing. 
+{: .note}
 
-After the `ExpandPersistentVolumes` feature gate is enabled - it is recommend that `PersistentVolumeClaimResize` admission
-plug-in is enabled too. This plug-in will prevent resizing of all claims by default unless claim's `StorageClass`
+After the `ExpandPersistentVolumes` feature gate is enabled, it's recommended to enable the `PersistentVolumeClaimResize` admission
+plug-in, too. This plug-in prevents resizing of all claims by default unless claim's `StorageClass`
 has explicitly enabled resizing by setting `allowVolumeExpansion` to true.
 
-For example - all `PersistnetVolumeClaim`s created from following `StorageClass` will support volume expansion:
+For example: all `PersistnetVolumeClaim`s created from the following `StorageClass` support volume expansion:
 
-``` yaml
+```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
