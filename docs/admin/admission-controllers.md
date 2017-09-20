@@ -340,8 +340,8 @@ to `true` to enable resizing.
 {: .note}
 
 After enabling the `ExpandPersistentVolumes` feature gate, enabling the `PersistentVolumeClaimResize` admission
-plug-in is recommended, too. This plug-in prevents resizing of all claims by default unless claim's `StorageClass`
-has explicitly enabled resizing by setting `allowVolumeExpansion` to true.
+plug-in is recommended, too. This plug-in prevents resizing of all claims by default unless a claim's `StorageClass`
+ explicitly enables resizing by setting `allowVolumeExpansion` to `true`.
 
 For example: all `PersistnetVolumeClaim`s created from the following `StorageClass` support volume expansion:
 
