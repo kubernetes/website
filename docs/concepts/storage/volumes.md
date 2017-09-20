@@ -854,6 +854,58 @@ volume plugin path on each node. This is an alpha feature and may change in futu
 More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md).
 
 
+## Mount propagation
+
+**Note:** Mount propagation is alpha feature in Kubernetes 1.8 and may be
+redesigned or even removed in future releases.
+{: .note}
+
+Mount propagation allows for sharing volumes mounted by a Container in a Pod to
+other Containers in the Pod or even to other Pods on the same node.
+
+If MountPropagation feature is disabled, all volume mounts in pods are not
+propagated (i.e. run with `private` mount propagation as described in
+[Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt))
+
+To enable this feature, the `MountPropagation=true` option has to be specified
+in the `--feature-gates` command line option. When enabled, `volumeMounts` field
+in Container gets a new field `mountPropagation`. Its values are:
+
+ * `HostToContainer` - this volume mount will receive all subsequent mounts
+   that are mounted to this volume or any of its subdirectories. This is
+   the default mode when MountPropagation feature is enabled.
+
+   In other words, if the host mounts anything inside the volume mount, the
+   Container will see it mounted there.
+
+   Similarly, if any pod with `Bidirectional` mount propagation to the same
+   volume mounts anything there, the Container with `HostToContainer` mount
+   propagation will see it.
+
+   This mode equals to `rslave` mount propagation as described in
+   [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+
+ * `Bidirectional` - this volume mount behaves as with `HostToContainer` mount
+   propagation mode, i.e. it receives all volume mounts created by the host or
+   Pods in the volume mount.
+
+   In addition, all volume mounts created by this Container in this volume mount
+   will be propagated back to the host and to all Containers of all Pods that
+   use the same volume.
+
+   Typical use case for this mode would be a Pod with a Flex volume driver or
+   a Pod that needs to mount something on the host using HostPath volume.
+
+   This mode equals to `rshared` mount propagation as described in
+   [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+
+**Caution:** `Bidirectional` mount propagation can be dangerous. It can damage
+host operating system and therefore it is allowed only in privileged
+Containers. Familiarity with Linux kernel behavior is strongly recommended.
+In addition, any volume mounts created by Containers in Pods must be destroyed
+(unmounted) by the Containers on termination.
+{: .caution}
+
 {% endcapture %}
 
 {% capture whatsnext %}
