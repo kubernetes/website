@@ -656,7 +656,7 @@ pod "web-2" deleted
 Wait for the Pod to be Running and Ready.
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get po -l app=nginx -w
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          4m
 web-1     1/1       Running             0          4m
@@ -691,7 +691,7 @@ statefulset "web" patched
 Wait for `web-2` to be Running and Ready.
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get po -l app=nginx -w
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          4m
 web-1     1/1       Running             0          4m
@@ -721,7 +721,7 @@ pod "web-1" deleted
 Wait for the `web-1` Pod to be Running and Ready.
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get po -l app=nginx -w
 NAME      READY     STATUS        RESTARTS   AGE
 web-0     1/1       Running       0          6m
 web-1     0/1       Terminating   0          6m
@@ -766,7 +766,7 @@ statefulset "web" patched
 Wait for all of the Pods in the StatefulSet to become Running and Ready.
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get po -l app=nginx -w
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          3m
 web-1     0/1       ContainerCreating   0          11s
@@ -1034,7 +1034,7 @@ statefulset "web" created
 Examine the output of the `kubectl get` command that you executed in the first terminal.
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get po -l app=nginx -w
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     0/1       Pending   0          0s
 web-0     0/1       Pending   0         0s
