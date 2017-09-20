@@ -305,12 +305,9 @@ where `OOM` stands for Out Of Memory.
 
 ## Local ephemeral storage (alpha feature)
 
-Kubernetes version 1.8 introduces a resource for local ephemeral storage. The
-management of local ephemeral storage is very similar to memory resources.
+Kubernetes version 1.8 introduces a new resource "ephemeral-storage" for managing local ephemeral storage. In each kubernetes's node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This parition is also shared and consumed by pods via EmptyDir volumes, container logs, image layers and container writable layers.  (Notes: If an optional runntime partition is used, root parition will not hold any image layer or writable layers.) This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition, the optional partition for image alyer and writable layer is out of scope.
 
-**Note:** Local ephemeral storage is an alpha feature in version 1.8.
-{: .note}
-
+### Requests and limits setting for local ephemeral storage
 Each Container of a Pod can specify one or more of the following:
 
 * `spec.containers[].resources.limits.ephemeral-storage`
@@ -349,6 +346,15 @@ spec:
       limits:
         ephemeral-storage: "4Gi"
 ```
+
+### How Pods with ephemeral-storage requests are scheduled
+
+When you create a Pod, the Kubernetes scheduler selects a node for the Pod to 
+run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods (Please refer to the documentation of [Node Allocata](/docs/tasks/administer-cluster/reserve-compute-resources/). The scheduler ensures that, the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
+
+### How Pods with ephemeral-storage limits are run
+
+For container-level isolation, if a Container's writable layer and logs usage exceeds its storage limit, the pod will be evicted. For pod-level isolation, if the sum of the local ephemeral storage usage from all containers and also the pod's EmptyDir volumes exceeds the limit, the pod will be evicted.
 
 
 ## Opaque integer resources (alpha feature)
