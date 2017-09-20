@@ -340,7 +340,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
 			"web":       {&api.Service{}, &apps.StatefulSet{}},
 			"webp":      {&api.Service{}, &apps.StatefulSet{}},
-			"zookeeper": {&api.Service{}, &api.ConfigMap{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
+			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
 	}
 
