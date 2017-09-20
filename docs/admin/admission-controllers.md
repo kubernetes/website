@@ -280,7 +280,7 @@ namespace.  In order to enforce integrity of that process, we strongly recommend
 ### NodeRestriction
 
 This plug-in limits the `Node` and `Pod` objects a kubelet can modify. In order to be limited by this admission plugin,
-kubelets must use credentials in the `system:nodes` group, with a username in the form `system:node:<nodeName>`. 
+kubelets must use credentials in the `system:nodes` group, with a username in the form `system:node:<nodeName>`.
 Such kubelets will only be allowed to modify their own `Node` API object, and only modify `Pod` API objects that are bound to their node.
 Future versions may add additional restrictions to ensure kubelets have the minimal set of permissions required to operate correctly.
 
@@ -334,14 +334,13 @@ metadata:
 
 ### PersistentVolumeClaimResize
 
-This plug-in implements additional validations for checking incoming `PersistentVolumeClaim` resize
-requests. 
+This plug-in implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
 **Note:** Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
-to `true` to enable resizing. 
+to `true` to enable resizing.
 {: .note}
 
-After the `ExpandPersistentVolumes` feature gate is enabled, it's recommended to enable the `PersistentVolumeClaimResize` admission
-plug-in, too. This plug-in prevents resizing of all claims by default unless claim's `StorageClass`
+After enabling the `ExpandPersistentVolumes` feature gate, enabling the `PersistentVolumeClaimResize` admission
+plug-in is recommended, too. This plug-in prevents resizing of all claims by default unless claim's `StorageClass`
 has explicitly enabled resizing by setting `allowVolumeExpansion` to true.
 
 For example: all `PersistnetVolumeClaim`s created from the following `StorageClass` support volume expansion:
@@ -359,6 +358,8 @@ parameters:
   secretName: ""
 allowVolumeExpansion: true
 ```
+
+For more information about persistent volume claims, see ["PersistentVolumeClaims"](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 
 ### PodPreset
 
