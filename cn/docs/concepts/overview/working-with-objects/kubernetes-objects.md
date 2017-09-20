@@ -8,7 +8,7 @@ redirect_from:
 
 {% capture overview %}
 
-该页说明了 Kubernetes 对象在 Kubernetes API 中是如何表示的，以及如何在 `.yaml` 格式的文件中表示。
+本页说明了 Kubernetes 对象在 Kubernetes API 中是如何表示的，以及如何在 `.yaml` 格式的文件中表示。
 {% endcapture %}
 
 {% capture body %}
@@ -18,42 +18,50 @@ redirect_from:
 
 ## 理解 Kubernetes 对象
 
-在 Kubernetes 系统中，*Kubernetes 对象* 是持久化的条目。Kubernetes 使用这些条目去表示整个集群的状态。特别地，它们描述了如下信息：
+在 Kubernetes 系统中，*Kubernetes 对象* 是持久化的实体。Kubernetes 使用这些实体去表示整个集群的状态。特别地，它们描述了如下信息：
 
-* 什么容器化应用在运行（以及在哪个 Node 上）
+* 哪些容器化应用在运行（以及在哪个 Node 上）
 * 可以被应用使用的资源
-* 关于应用如何表现的策略，比如重启策略、升级策略，以及容错策略
+* 关于应用运行时表现的策略，比如重启策略、升级策略，以及容错策略
 
 
 
-Kubernetes 对象是 “目标性记录” —— 一旦创建对象，Kubernetes 系统将持续工作以确保对象存在。通过创建对象，可以有效地告知 Kubernetes 系统，所需要的集群工作负载看起来是什么样子的，这就是 Kubernetes 集群的 **期望状态**。
+Kubernetes 对象是 “目标性记录” —— 一旦创建对象，Kubernetes 系统将持续工作以确保对象存在。通过创建对象，本质上是在告知 Kubernetes 系统，所需要的集群工作负载看起来是什么样子的，这就是 Kubernetes 集群的 **期望状态（Desired State）**。
 
-与 Kubernetes 对象工作 —— 是否创建、修改，或者删除 —— 需要使用 [Kubernetes API](https://git.k8s.io/community/contributors/devel/api-conventions.md)。当使用 `kubectl` 命令行接口时，比如，CLI 会使用必要的 Kubernetes API 调用，也可以在程序中直接使用 Kubernetes API。为了实现该目标，Kubernetes 当前提供了一个 `golang` [客户端库](https://github.com/kubernetes/client-go) 
+操作 Kubernetes 对象 —— 是否创建、修改，或者删除 —— 需要使用 [Kubernetes API](https://git.k8s.io/community/contributors/devel/api-conventions.md)。比如，当使用 `kubectl` 命令行接口时，CLI 会执行必要的 Kubernetes API 调用，也可以在程序中直接调用 Kubernetes API。为了实现该目标，Kubernetes 当前提供了一个 `golang` [客户端库](https://github.com/kubernetes/client-go) 
 ，其它语言库（例如[Python](https://github.com/kubernetes-incubator/client-python)）也正在开发中。
 
 
 
-### 对象 Spec 与状态
+### 对象规约（Spec）与状态（Status）
 
-每个 Kubernetes 对象包含两个嵌套的对象字段，它们负责管理对象的配置：对象 *spec* 和 对象 *status*。*spec* 必须提供，它描述了对象的 *期望状态* —— 希望对象所具有的特征。*status* 描述了对象的 *实际状态*，它是由 Kubernetes 系统提供和更新。在任何时刻，Kubernetes 控制平面一直处于活跃状态，管理着对象的实际状态以与我们所期望的状态相匹配。
+每个 Kubernetes 对象包含两个嵌套的对象字段，它们负责管理对象的配置：对象 *spec* 和 对象 *status*。
+*spec* 是必需的，它描述了对象的 *期望状态（Desired State）* —— 希望对象所具有的特征。
+*status* 描述了对象的 *实际状态（Actual State）*，它是由 Kubernetes 系统提供和更新的。在任何时刻，Kubernetes 控制面一直努力地管理着对象的实际状态以与期望状态相匹配。
 
 
 
-例如，Kubernetes Deployment 对象能够表示运行在集群中的应用。当创建 Deployment 时，可能需要设置 Deployment 的 spec，以指定该应用需要有 3 个副本在运行。Kubernetes 系统读取 Deployment spec，启动我们所期望的该应用的 3 个实例 —— 更新状态以与 spec 相匹配。如果那些实例中有失败的（一种状态变更），Kubernetes 系统通过修正来响应 spec 和状态之间的不一致 —— 这种情况，启动一个新的实例来替换。
+例如，Kubernetes Deployment 对象能够表示运行在集群中的应用。
+当创建 Deployment 时，可能需要设置 Deployment 的规约，以指定该应用需要有 3 个副本在运行。
+Kubernetes 系统读取 Deployment 规约，并启动我们所期望的该应用的 3 个实例 —— 更新状态以与规约相匹配。
+如果那些实例中有失败的（一种状态变更），Kubernetes 系统通过修正来响应规约和状态之间的不一致 —— 这种情况，会启动一个新的实例来替换。
 
-关于对象 spec、status 和 metadata 更多信息，查看 [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md)。
+关于对象 spec、status 和 metadata 的更多信息，查看 [Kubernetes API 约定](https://git.k8s.io/community/contributors/devel/api-conventions.md)。
 
 
 
 ### 描述 Kubernetes 对象
 
-当创建 KUbernetes 对象时，必须提供对象的 spec，用来描述该对象的期望状态，以及关于对象的一些基本信息（例如，名称）。当使用 KUbernetes API 创建对象时（或者直接创建，或者基于`kubectl`），API 请求必须在请求体中包含 JSON 格式的信息。**更常用的是，需要在 .yaml 文件中为 `kubectl` 提供这些信息**。 `kubectl` 在执行 API 请求时，将这些信息转换成 JSON 格式。
+当创建 KUbernetes 对象时，必须提供对象的规约，用来描述该对象的期望状态，以及关于对象的一些基本信息（例如名称）。
+当使用 KUbernetes API 创建对象时（或者直接创建，或者基于`kubectl`），API 请求必须在请求体中包含 JSON 格式的信息。
+**大多数情况下，需要在 .yaml 文件中为 `kubectl` 提供这些信息**。 
+`kubectl` 在发起 API 请求时，将这些信息转换成 JSON 格式。
 
-这里有一个 `.yaml` 示例文件，展示了 KUbernetes Deployment 的必需字段和对象 spec：
+这里有一个 `.yaml` 示例文件，展示了 KUbernetes Deployment 的必需字段和对象规约：
 
 {% include code.html language="yaml" file="nginx-deployment.yaml" ghlink="/docs/concepts/overview/working-with-objects/nginx-deployment.yaml" %}
 
-一种创建 Deployment 的方式，类似上面使用 `.yaml` 文件，是使用 `kubectl` 命令行接口（CLI）中的 [`kubectl create`](/docs/user-guide/kubectl/v1.7/#create) 命令，传递 `.yaml` 作为参数。下面是一个示例：
+使用类似于上面的 `.yaml` 文件来创建 Deployment，一种方式是使用 `kubectl` 命令行接口（CLI）中的 [`kubectl create`](/docs/user-guide/kubectl/v1.7/#create) 命令，将 `.yaml` 文件作为参数。下面是一个示例：
 
 ```shell
 $ kubectl create -f docs/user-guide/nginx-deployment.yaml --record

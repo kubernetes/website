@@ -11,7 +11,7 @@ redirect_from:
 
 {% capture overview %}
 
-本页提供了 Init 容器的概览，它是一种专用的容器，在应用容器之前运行，并包括一些应用镜像中不存在的实用工具和安装脚本。
+本页提供了 Init 容器的概览，它是一种专用的容器，在应用容器启动之前运行，并包括一些应用镜像中不存在的实用工具和安装脚本。
 {% endcapture %}
 
 {:toc}
@@ -38,9 +38,9 @@ Init 容器与普通的容器非常像，除了如下两点：
 
 
 
-如果 Pod 的 Init 容器失败，Kubernetes 会不断地重启该 Pod，直到 Init 容器成功为止。然而，如果 Pod 对应的 `restartPolicy` 为 Never，它不会重新启动。
+如果 Pod 的 Init 容器失败，Kubernetes 会不断地重启该 Pod，直到 Init 容器成功为止。然而，如果 Pod 对应的 `restartPolicy` 值为 Never，它不会重新启动。
 
-指定容器为 Init 容器，在 PodSpec 中添加 `initContainers` 字段，以 [v1.Container](/docs/api-reference/v1.6/#container-v1-core) 类型对象的 JSON 数组的形式，还有 app 的 `containers` 数组。
+指定容器为 Init 容器，需要在 PodSpec 中添加 `initContainers` 字段，以 [v1.Container](/docs/api-reference/v1.6/#container-v1-core) 类型对象的 JSON 数组的形式，还有 app 的 `containers` 数组。
 Init 容器的状态在 `status.initContainerStatuses` 字段中以容器状态数组的格式返回（类似 `status.containerStatuses` 字段）。
 
 

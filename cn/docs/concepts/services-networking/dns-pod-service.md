@@ -21,15 +21,20 @@ Kubernetes DNS 在集群中调度 DNS Pod 和 Service ，配置 kubelet 以通�
 
 ## 怎样获取 DNS 名字?
 
-在集群中定义的每个 Service（包括 DNS 服务器自身）都会被指派一个 DNS 名称。默认，一个客户端 Pod 的 DNS 搜索列表将包含该 Pod 自己的 Namespace 和集群默认域。可以通过如下示例进行说明：
+在集群中定义的每个 Service（包括 DNS 服务器自身）都会被指派一个 DNS 名称。
+默认，一个客户端 Pod 的 DNS 搜索列表将包含该 Pod 自己的 Namespace 和集群默认域。
+通过如下示例可以很好地说明：
 
-假设在 Kubernetes 集群的 Namespace `bar` 中，定义了一个Service `foo`。运行在Namespace `bar` 中的一个 Pod，可以简单地通过 DNS 查询 `foo` 来找到该 Service。运行在 Namespace `quux` 中的一个 Pod 可以通过 DNS 查询 `foo.bar` 找到该 Service。
+假设在 Kubernetes 集群的 Namespace `bar` 中，定义了一个Service `foo`。
+运行在Namespace `bar` 中的一个 Pod，可以简单地通过 DNS 查询 `foo` 来找到该 Service。
+运行在 Namespace `quux` 中的一个 Pod 可以通过 DNS 查询 `foo.bar` 找到该 Service。
 
 
 
 ## 支持的 DNS 模式
 
-下面各段详细说明支持的记录类型和布局。如果任何其它的布局、名称或查询，碰巧也能够使用，这就需要研究下它们的实现细节，以免后续修改它们又不能使用了。
+下面各段详细说明支持的记录类型和布局。
+如果任何其它的布局、名称或查询，碰巧也能够使用，这就需要研究下它们的实现细节，以免后续修改它们又不能使用了。
 
 
 
@@ -37,9 +42,11 @@ Kubernetes DNS 在集群中调度 DNS Pod 和 Service ，配置 kubelet 以通�
 
 #### A 记录
 
-“正常” Service（除了Headless Service）会以 `my-svc.my-namespace.svc.cluster.local` 这种名字的形式被指派一个 DNS A 记录。这会解析成该 Service 的 Cluster IP。
+“正常” Service（除了 Headless Service）会以 `my-svc.my-namespace.svc.cluster.local` 这种名字的形式被指派一个 DNS A 记录。这会解析成该 Service 的 Cluster IP。
 
-“Headless” Service（没有Cluster IP）也会以 `my-svc.my-namespace.svc.cluster.local` 这种名字的形式被指派一个 DNS A 记录。不像正常 Service，它会解析成该 Service 选择的一组 Pod 的 IP。希望客户端能够使用这一组 IP，否则就使用标准的 round-robin 策略从这一组 IP 中进行选择。
+“Headless” Service（没有Cluster IP）也会以 `my-svc.my-namespace.svc.cluster.local` 这种名字的形式被指派一个 DNS A 记录。
+不像正常 Service，它会解析成该 Service 选择的一组 Pod 的 IP。
+希望客户端能够使用这一组 IP，否则就使用标准的 round-robin 策略从这一组 IP 中进行选择。
 
 
 
@@ -49,7 +56,7 @@ Kubernetes DNS 在集群中调度 DNS Pod 和 Service ，配置 kubelet 以通�
 Services](/docs/concepts/services-networking/service/#headless-services) 的一部分。
 对每个命名端口，SRV 记录具有 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local` 这种形式。
 对普通 Service，这会被解析成端口号和 CNAME：`my-svc.my-namespace.svc.cluster.local`。
-对 Headless Service，这会被解析成多个结果，Service 对应的每个 backend Pod各一个，包含 `auto-generated-name.my-svc.my-namespace.svc.cluster.local` 这种形式 Pod 的端口号和 CNAME。
+对 Headless Service，这会被解析成多个结果，Service 对应的每个 backend Pod 各一个，包含 `auto-generated-name.my-svc.my-namespace.svc.cluster.local` 这种形式 Pod 的端口号和 CNAME。
 
 #### 后向兼容性
 
@@ -84,7 +91,8 @@ Services](/docs/concepts/services-networking/service/#headless-services) 的一�
 
 
 
-在 v1.3 版本中，PodSpec 具有  `subdomain` 字段，可以用来指定 Pod 的子域名。这个字段的值优先于 annotation `pod.beta.kubernetes.io/subdomain` 的值。
+在 v1.3 版本中，PodSpec 具有 `subdomain` 字段，可以用来指定 Pod 的子域名。
+这个字段的值优先于 annotation `pod.beta.kubernetes.io/subdomain` 的值。
 
 ```yaml
 apiVersion: v1
@@ -135,19 +143,25 @@ spec:
 
 
 
-如果 Headless Service 与 Pod 在同一个 Namespace 中，它们具有相同的子域名，集群的 KubeDNS 服务器也会为该 Pod 的完整合法主机名返回 A 记录。在同一个 Namespace 中，给定一个主机名为 “busybox-1” 的 Pod，子域名设置为 “default-subdomain”，名称为 “default-subdomain” 的 Headless Service ，Pod 将看到自己的 FQDN 为 “busybox-1.default-subdomain.my-namespace.svc.cluster.local”。DNS 会为那个名字提供一个 A 记录，指向该 Pod 的 IP。“busybox1” 和 “busybox2” 这两个 Pod 分别具有它们自己的 A 记录。
+如果 Headless Service 与 Pod 在同一个 Namespace 中，它们具有相同的子域名，集群的 KubeDNS 服务器也会为该 Pod 的完整合法主机名返回 A 记录。
+在同一个 Namespace 中，给定一个主机名为 “busybox-1” 的 Pod，子域名设置为 “default-subdomain”，名称为 “default-subdomain” 的 Headless Service ，Pod 将看到自己的 FQDN 为 “busybox-1.default-subdomain.my-namespace.svc.cluster.local”。
+DNS 会为那个名字提供一个 A 记录，指向该 Pod 的 IP。
+“busybox1” 和 “busybox2” 这两个 Pod 分别具有它们自己的 A 记录。
 
 
 
-在Kubernetes v1.2 版本中，`Endpoints` 对象也具有 annotation `endpoints.beta.kubernetes.io/hostnames-map`。它的值是 map[string(IP)][endpoints.HostRecord] 的 JSON 格式，例如： '{"10.245.1.6":{HostName: "my-webserver"}}'。
+在Kubernetes v1.2 版本中，`Endpoints` 对象也具有 annotation `endpoints.beta.kubernetes.io/hostnames-map`。
+它的值是 map[string(IP)][endpoints.HostRecord] 的 JSON 格式，例如： '{"10.245.1.6":{HostName: "my-webserver"}}'。
 
-如果是 Headless Service 的 `Endpoints`，会以  <hostname>.<service name>.<pod namespace>.svc.<cluster domain> 的格式创建 A 记录。对示例中的 JSON 字符串，如果 `Endpoints` 是为名称为 “bar” 的 Headless Service 而创建的，其中一个 `Endpoints`  的 IP 是 “10.245.1.6”，则会创建一个名称为 “my-webserver.bar.my-namespace.svc.cluster.local” 的 A 记录，该 A 记录查询将返回 “10.245.1.6”。
+如果是 Headless Service 的 `Endpoints`，会以  <hostname>.<service name>.<pod namespace>.svc.<cluster domain> 的格式创建 A 记录。
+对示例中的 JSON 字符串，如果 `Endpoints` 是为名称为 “bar” 的 Headless Service 而创建的，其中一个 `Endpoints`  的 IP 是 “10.245.1.6”，则会创建一个名称为 “my-webserver.bar.my-namespace.svc.cluster.local” 的 A 记录，该 A 记录查询将返回 “10.245.1.6”。
 
- `Endpoints` annotation 通常没必要由最终用户指定，但可以被内部的 Service Controller 用来提供上述功能。
+`Endpoints` annotation 通常没必要由最终用户指定，但可以被内部的 Service Controller 用来提供上述功能。
 
 
 
-在 v1.3 版本中，`Endpoints` 对象可以为任何 endpoint 指定 `hostname` 和 IP。`hostname` 字段优先于通过 `endpoints.beta.kubernetes.io/hostnames-map` annotation 指定的主机名。
+在 v1.3 版本中，`Endpoints` 对象可以为任何 endpoint 指定 `hostname` 和 IP。
+`hostname` 字段优先于通过 `endpoints.beta.kubernetes.io/hostnames-map` annotation 指定的主机名。
 
 在 v1.3 版本中，下面的 annotation 是过时的：`pod.beta.kubernetes.io/hostname`、`pod.beta.kubernetes.io/subdomain`、`endpoints.beta.kubernetes.io/hostnames-map`。
 

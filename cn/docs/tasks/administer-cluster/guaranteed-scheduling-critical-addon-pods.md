@@ -13,7 +13,7 @@ title: 关键插件 Pod 的调度保证
 
 ## 概览
 
-除了 Kubernetes 核心组件，像运行在 master 机器上的 api-server、scheduler、controller-manager，还有很多插件，出于各种原因必须运行在一个普通的集群节点上（而不是 Kubernetes master）。
+除了 Kubernetes 核心组件，像运行在 master 机器上的 api-server、scheduler、controller-manager，由于各种原因，还有很多插件必须运行在一个普通的集群节点上（而不是 Kubernetes master）。
 这些插件中的一些对于一个功能完备的集群来说是非常关键的，例如 Heapster、DNS 以及 UI。
 如果一个关键的插件被移除（或者手动，或是类似升级这样具有副作用的其它操作），或者变成挂起状态（例如，当集群利用率过高，以及或者其它被调度到该空间中的挂起 Pod 被清理关键插件 Pod 给移除，或者由于其它原因导致节点上可用资源的总量发生变化），集群可能会停止正常工作。
 
@@ -45,7 +45,7 @@ title: 关键插件 Pod 的调度保证
 
 
 
-### 成为关键插件
+### 标记关键插件
 
 想变成关键插件，必须运行在 `kube-system` Namespace 中（是基于标志可配置的），并且：
 * 将 `scheduler.alpha.kubernetes.io/critical-pod` annotation 设置为空字符串，并且

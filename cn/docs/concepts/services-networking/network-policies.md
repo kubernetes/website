@@ -3,7 +3,7 @@ assignees:
 - thockin
 - caseydavenport
 - danwinship
-title: Network Policies
+title: 网络策略
 redirect_from:
 - "/docs/user-guide/networkpolicies/"
 - "/docs/user-guide/networkpolicies.html"
@@ -14,14 +14,14 @@ redirect_from:
 
 
 
-网络策略说明了，一组 `Pod` 之间是如何被允许互相通信，以及与其它网络 Endpoint 进行通信。
+网络策略说明了多组 `Pod` 之间是如何被允许互相通信，以及与其它网络 Endpoint 进行通信。
 `NetworkPolicy` 资源使用标签来选择 `Pod`，并定义了一些规则，这些规则指明了什么流量被允许进入到选中的 `Pod` 上。
 
 
 
 ## 前提条件
 
-网络策略通过网络插件来实现，所以必须使用一种支持 `NetworkPolicy` 的网络方案 —— 不使用 Controller 来实现该资源的创建，是不起作用的。
+网络策略通过网络插件来实现，所以必须使用一种支持 `NetworkPolicy` 的网络连接方案 —— 不使用 Controller 来实现该资源的创建，是不起作用的。
 
 
 
@@ -29,15 +29,15 @@ redirect_from:
 
 默认 Pod 是未隔离的，它们可以从任何的源接收请求。
 具有一个可以选择 Pod 的网络策略后，Pod 就会变成隔离的。
-一旦 Namespace 中配置的网络策略能够选择一个特定的 Pod，这个 Pod 将拒绝任何该网络策略不允许的连接。（Namespace 中其它未被网络策略选中的 Pod 将继续接收所有流量）
+一旦 Namespace 中配置的网络策略能够选择一个特定的 Pod，这个 Pod 将拒绝该网络策略不允许的任何连接。（Namespace 中其它未被网络策略选中的 Pod 将继续接收所有流量）
 
 
 
 ## `NetworkPolicy` 资源
 
-查看 [API参考](/docs/api-reference/v1.7/#networkpolicy-v1-networking) 可以获取该资源的完整定义。
+查看 [API 参考](/docs/api-reference/v1.7/#networkpolicy-v1-networking) 可以获取该资源的完整定义。
 
-一个 `NetworkPolicy` 的例子看起来可能是这样的：
+一个 `NetworkPolicy` 的例子可能看起来是这样的：
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -64,21 +64,21 @@ spec:
 
 
 
-*将上面配置 POST 到 API Server 将不起任何作用，除非选择的网络方案支持网络策略。*
+*将这个配置 POST 到 API Server 将不起任何作用，除非选择的网络连接方案支持网络策略。*
 
 __必选字段__：像所有其它 Kubernetes 配置一样， `NetworkPolicy` 需要 `apiVersion`、`kind` 和 `metadata` 这三个字段，关于如何使用配置文件的基本信息，可以查看 [这里](/docs/user-guide/simple-yaml)，[这里](/docs/user-guide/configuring-containers) 和 [这里](/docs/user-guide/working-with-resources)。
 
-__spec__：`NetworkPolicy` [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) 具有在给定 Namespace 中定义特定网络的全部信息。
+__spec__：`NetworkPolicy` [规约](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) 具有在给定 Namespace 中定义特定网络所需要的全部信息。
 
-__podSelector__：每个 `NetworkPolicy` 包含一个 `podSelector`，它可以选择一组应用了网络策略的 Pod。由于 `NetworkPolicy` 当前只支持定义 `ingress` 规则，这个 `podSelector` 实际上为该策略定义了一组 “目标Pod”。示例中的策略选择了标签为 “role=db” 的 Pod。一个空的 `podSelector` 选择了该 Namespace 中的所有 Pod。
+__podSelector__：每个 `NetworkPolicy` 包含一个 `podSelector`，它可以选择一组应用了网络策略的 Pod。由于 `NetworkPolicy` 当前只支持定义 `ingress` 规则，这个 `podSelector` 实际上为该策略定义了一组 “目标Pod”。示例中的策略选择了具有标签 “role=db” 的 Pod。一个空的 `podSelector` 选择了该 Namespace 中的所有 Pod。
 
-__ingress__：每个`NetworkPolicy` 包含了一个白名单 `ingress` 规则列表。每个规则只允许能够匹配上 `from` 和 `ports` 配置段的流量。示例策略包含了单个规则，它从这两个源中匹配在单个端口上的流量，第一个是通过`namespaceSelector` 指定的，第二个是通过 `podSelector` 指定的。
+__ingress__：每个`NetworkPolicy` 包含了一个白名单 `ingress` 规则列表。每个规则只允许能够匹配上 `from` 和 `ports` 配置段的流量。示例策略包含了单个规则，它从这两个源中之一匹配在单个端口上的流量，第一个是通过 `namespaceSelector` 指定的，第二个是通过 `podSelector` 指定的。
 
 
 
 因此，上面示例的 NetworkPolicy：
 
-1. 在 “default” Namespace中 隔离了标签 “role=db” 的 Pod（如果他们还没有被隔离）
+1. 在 “default” Namespace中隔离了具有标签 “role=db” 的 Pod（如果他们还没有被隔离）
 2. 在 “default” Namespace中，允许任何具有 “role=frontend” 的 Pod，连接到标签为 “role=db” 的 Pod 的 TCP 端口 6379
 3. 允许在 Namespace 中任何具有标签 “project=myproject” 的 Pod，连接到 “default” Namespace 中标签为 “role=db” 的 Pod 的 TCP 端口 6379
 

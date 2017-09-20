@@ -14,8 +14,8 @@ redirect_from:
 
 
 
-默认情况下，Pod 运行没有 CPU 和内存的限额。
-这意味着系统中的任何 Pod 将能够像执行该 Pod 所在的节点一样，消耗足够多的 CPU 和内存。
+默认情况下，Pod 运行没有限制 CPU 和内存。
+这意味着系统中的任何 Pod 将能够像执行该 Pod 所在的节点一样，使用足够多 CPU 和内存。
 
 
 
@@ -36,7 +36,7 @@ redirect_from:
 
 ## 创建 Namespace
 
-这个例子将能在一个自定义的 Namespace 中工作，演示了相关的概念。
+这个例子将使用一个自定义的 Namespace 来演示相关的概念。
 
 让我们创建一个名称为 limit-example 的 Namespace：
 
@@ -47,7 +47,7 @@ namespace "limit-example" created
 
 
 
-注意到 `kubectl` 命令将打印出创建或修改的资源类型和名称，然后会在后续的命令中使用到：
+注意到 `kubectl` 命令将打印出被创建或修改的资源的类型和名称，也会在后面的命令中使用到：
 
 ```shell
 $ kubectl get namespaces
@@ -58,9 +58,9 @@ limit-example   Active    45s
 
 
 
-## 对 Namespace 应用限额
+## 对 Namespace 应用限制
 
-在我们的 Namespace 中创建一个简单的限额：
+在我们的 Namespace 中创建一个简单的限制：
 
 ```shell
 $ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/limits.yaml --namespace=limit-example
@@ -69,7 +69,7 @@ limitrange "mylimits" created
 
 
 
-让我们描述一下在该 Namespace 中被强加的限额：
+让我们描述一下在该 Namespace 中被强加的限制：
 
 ```shell
 $ kubectl describe limits mylimits --namespace=limit-example
@@ -85,12 +85,12 @@ Container   memory        3Mi      1Gi      100Mi                200Mi          
 
 
 
-在这种场景下，指定了如下限制：
+在这个场景下，指定了如下限制：
 
-1. 如果一个资源被指定了最大约束（在该例子中为 2 CPU 和 1Gi 内存），然后跨所有容器的该资源，限额必须被指定。
+1. 如果一个资源被指定了最大约束（在该例子中为 2 CPU 和 1Gi 内存），则必须为跨所有容器的该资源指定限制（limits）。
 当尝试创建该 Pod 时，指定限额失败将导致一个验证错误。
 注意，一个默认的限额通过在 `limits.yaml` 文件中的 *default* 来设置（300m CPU 和 200Mi 内存）。
-2. 如果一个资源被指定了最小约束（在该例子中为 100m CPU 和 3Mi 内存），然后跨所有容器的该资源，请求必须被指定。
+2. 如果一个资源被指定了最小约束（在该例子中为 100m CPU 和 3Mi 内存），则必须跨所有容器的该资源指定请求（requests）。
 当尝试创建该 Pod 时，指定的请求失败将导致一个验证错误。
 注意，一个默认的请求的值通过在 `limits.yaml` 文件中的 *defaultRequest* 来设置（200m CPU 和 100Mi 内存）。
 3. 对任意 Pod，所有容器内存 requests 值之和必须 >= 6Mi，所有容器内存 limits 值之和必须 <= 1Gi；
@@ -98,7 +98,7 @@ Container   memory        3Mi      1Gi      100Mi                200Mi          
 
 
 
-## 创建时强制设置限额
+## 创建时强制设置限制
 
 当集群中的 Pod 创建和更新时，在一个 Namespace 中列出的限额是强制设置的。
 如果将该限额修改成一个不同的值范围，它不会影响先前在该 Namespace 中创建的 Pod。
@@ -107,7 +107,7 @@ Container   memory        3Mi      1Gi      100Mi                200Mi          
 
 如果资源（CPU 或内存）被设置限额，用户将在创建时得到一个错误，并指出了错误的原因。
 
-首先让我们启动一个创建单容器 Pod 的 [Deployment](/docs/concepts/workloads/controllers/deployment/)，来演示默认值是如何被应用到每个 Pod 上的：
+首先让我们启动一个 [Deployment](/docs/concepts/workloads/controllers/deployment/)，它创建一个单容器 Pod，演示了如何将默认值应用到每个 Pod 上：
 
 ```shell
 $ kubectl run nginx --image=nginx --replicas=1 --namespace=limit-example
@@ -115,7 +115,7 @@ deployment "nginx" created
 ```
 
 
-注意到在 >= v1.2 的 Kubernetes 集群中，`kubectl run` 创建了名称为 “nginx” 的 Deployment。如果在老版本的集群上运行，相反它会创建 ReplicationController。
+注意，在 >= v1.2 版本的 Kubernetes 集群中，`kubectl run` 创建了名称为 “nginx” 的 Deployment。如果在老版本的集群上运行，相反它会创建 ReplicationController。
 如果想要获取老版本的行为，使用 `--generator=run/v1` 选项来创建 ReplicationController。查看 [`kubectl run`](/docs/user-guide/kubectl/v1.6/#run) 获取更多详细信息。
 Deployment 管理单容器 Pod 的 1 个副本。让我们看一下它是如何管理 Pod 的。首先，查找到 Pod 的名称：
 
@@ -127,7 +127,7 @@ nginx-2040093540-s8vzu   1/1       Running   0          11s
 
 
 
-以 yaml 输出格式来打印这个 Pod，然后`grep` 其中的 `resources` 字段。注意，您自己的 Pod 的名称将不同于上面输出的：
+以 yaml 输出格式来打印这个 Pod，然后 `grep` 其中的 `resources` 字段。注意，您自己的 Pod 的名称将不同于上面输出的：
 
 ```shell
 $ kubectl get pods nginx-2040093540-s8vzu --namespace=limit-example -o yaml | grep resources -C 8
@@ -152,9 +152,9 @@ spec:
 
 
 
-注意我们的 Nginx 容器已经使用了 Namespace 的默认 CPU 和内存资源的 *limits* 和 *requests*。
+注意，我们的 Nginx 容器已经使用了 Namespace 的默认 CPU 和内存资源的 *limits* 和 *requests*。
 
-让我们创建一个超过被允许限额的 Pod，通过使它具有一个请求 3 CPU 核心的容器：
+让我们创建一个 Pod，它具有一个请求 3 CPU 核心的容器，这超过了被允许的限额：
 
 ```shell
 $ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/invalid-pod.yaml --namespace=limit-example

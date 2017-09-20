@@ -21,13 +21,13 @@ redirect_from:
 _Cron Job_ 管理基于时间的 [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/)，即：
 
 * 在给定时间点只运行一次
-* 周期性地在给定时间点运行
+* 在给定时间点周期性地运行
 
 一个 CronJob 对象类似于 _crontab_ （cron table）文件中的一行。它根据指定的预定计划周期性地运行一个 Job，格式可以参考 [Cron](https://en.wikipedia.org/wiki/Cron) 。
 
 
 
-**注意：** 在预定计划中，问号（`?`）和星号（`*`）的意义是相同的，表示给定的字段的取值是任何可用的值。
+**注意：** 在预定计划中，问号（`?`）和星号（`*`）的意义是相同的，表示给定字段的取值是任意可用值。
 
 **注意：** 在 Kubernetes 1.4 版本引入了 ScheduledJob 资源，但从 1.5 版本开始改成了 CronJob。
 
@@ -99,7 +99,7 @@ hello     */1 * * * *   False     0         Mon, 29 Aug 2016 14:34:00 -0700
 ```
 
 
-应该能够看到名称为 “hello” 的 Job 在 `LAST-SCHEDULE` 指定的时间点被调度了。当前存在 0 个 active 的 Job，说明该 Job 已经被调度运行完成或失败。
+应该能够看到名称为 “hello” 的 Job 在 `LAST-SCHEDULE` 指定的时间点被调度了。当前存在 0 个活跃（Active）的 Job，说明该 Job 已经被调度运行完成或失败。
 
 现在，找到最近一次被调度的 Job 创建的 Pod，能够看到其中一个 Pod 的标准输出。注意，Job 名称和 Pod 名称是不一样的。
 
@@ -152,27 +152,33 @@ job "hello-1202039034" deleted
 
 Cron Job 在每次调度运行时间内 _大概_ 会创建一个 Job 对象。我们之所以说 _大概_ ，是因为在特定的环境下可能会创建两个 Job，或者一个 Job 都没创建。我们尝试少发生这种情况，但却不能完全避免。因此，创建 Job 操作应该是 _幂等的_。
 
-Job 根据它所创建的 Pod 的并行度，负责重试创建 Pod，并就决定这一组 Pod 的成功或失败。Cron Job 根本就不会去检查 Pod。
+Job 根据它所创建的 Pod 的并行度，负责重试创建 Pod，并就决定这一组 Pod 的成功或失败。Cron Job 根本不会去检查 Pod。
 
 
 
-## 编写 Cron Job Spec
+## 编写 Cron Job 规约
 
-和其它 Kubernetes 配置一样，Cron Job 需要 `apiVersion`、 `kind`、和 `metadata` 这三个字段。关于更多如何实现一个配置文件，参考文档 [部署应用](/docs/user-guide/deploying-applications)、
+和其它 Kubernetes 配置一样，Cron Job 需要 `apiVersion`、 `kind`、和 `metadata` 这三个字段。
+关于如何实现一个配置文件的更新信息，参考文档 [部署应用](/docs/user-guide/deploying-applications)、
 [配置容器](/docs/user-guide/configuring-containers) 和 
 [使用 kubectl 管理资源](/docs/user-guide/working-with-resources)。
 
+Cron Job 也需要 [`.spec` 段](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)。
+
+**注意：** 对一个 Cron Job 的所有修改，尤其是对其 `.spec` 的修改，仅会在下一次运行的时候生效。
 
 
 ### 调度
 
- `.spec.schedule` 是 `.spec` 中必需的字段，它的值是 [Cron](https://en.wikipedia.org/wiki/Cron) 格式字符串，例如：`0 * * * *`，或者 `@hourly`，根据指定的调度时间 Job 会被创建和执行。
+ `.spec.schedule` 是 `.spec` 中必需的字段，它的值是 [Cron](https://en.wikipedia.org/wiki/Cron) 格式字的符串，例如：`0 * * * *`，或者 `@hourly`，根据指定的调度时间 Job 会被创建和执行。
 
 
 
 ### Job 模板
 
-`.spec.jobTemplate` 是另一个 `.spec` 中必需的字段。它是 Job 的模板。它和 [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) 一样具有完全相同的模式（schema），除了它是可以嵌套的，并且不具有 `apiVersion` 或 `kind` 字段。参考 [编写 Job 规格](/docs/concepts/jobs/run-to-completion-finite-workloads/#writing-a-job-spec)。
+`.spec.jobTemplate` 是另一个 `.spec` 中必需的字段。它是 Job 的模板。
+除了它可以是嵌套的，并且不具有 `apiVersion` 或 `kind` 字段之外，它和 [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) 一样具有完全相同的模式（schema）。
+参考 [编写 Job 规格](/docs/concepts/jobs/run-to-completion-finite-workloads/#writing-a-job-spec)。
 
 
 
@@ -196,12 +202,12 @@ Job 根据它所创建的 Pod 的并行度，负责重试创建 Pod，并就决�
 
 ### 挂起
 
-`.spec.suspend` 字段也是可选的。如果设置为 `true`，后续所有执行都会被挂起。它对已经开始执行的 Job 不起作用。默认值为 `false`。
+`.spec.suspend` 字段也是可选的。如果设置为 `true`，后续所有执行都将被挂起。它对已经开始执行的 Job 不起作用。默认值为 `false`。
 
 
 
 ### Job 历史限制
 
-`.spec.successfulJobsHistoryLimit` 和 `.spec.failedJobsHistoryLimit` 是可选的字段。它们指定了可以保留多少完成和失败的 Job。
+`.spec.successfulJobsHistoryLimit` 和 `.spec.failedJobsHistoryLimit` 这两个字段是可选的。它们指定了可以保留完成和失败 Job 数量的限制。
 
-默认没有限制，所有成功和失败的 Job 都会被保留。然而，当运行一个 Cron Job 时，Job 可以很快就堆积很多，推荐设置这两个字段的值。设置限制的值为 `0`，相关类型的 Job 完成后将不会被保留。
+默认没有限制，所有成功和失败的 Job 都会被保留。然而，当运行一个 Cron Job 时，很快就会堆积很多 Job，推荐设置这两个字段的值。设置限制值为 `0`，相关类型的 Job 完成后将不会被保留。

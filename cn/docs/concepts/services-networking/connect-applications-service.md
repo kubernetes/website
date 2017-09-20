@@ -13,19 +13,21 @@ title: 应用连接到 Service
 
 ## Kubernetes 连接容器模型
 
-既然有了一个持续运行、可复制的应用，我们就能够将它暴露到网络上。在讨论 Kubernetes 网络连接的方式之前，非常值得我们同 Docker中 “正常” 方式的网络进行一番对比。 
+既然有了一个持续运行、可复制的应用，我们就能够将它暴露到网络上。
+在讨论 Kubernetes 网络连接的方式之前，非常值得与 Docker 中 “正常” 方式的网络进行对比。 
 
 
 
-默认情况下，Docker 使用私有主机网络，仅能与同在一台机器上的容器间通信。为了实现容器的跨节点通信，必须在机器自己的 IP 上为这些容器分配端口，为容器进行端口转发或者代理。
+默认情况下，Docker 使用私有主机网络连接，只能与同在一台机器上的容器进行通信。
+为了实现容器的跨节点通信，必须在机器自己的 IP 上为这些容器分配端口，为容器进行端口转发或者代理。
 
 多个开发人员之间协调端口的使用很难做到规模化，那些难以控制的集群级别的问题，都会交由用户自己去处理。
 Kubernetes 假设 Pod 可与其它 Pod 通信，不管它们在哪个主机上。
 我们给 Pod 分配属于自己的集群私有 IP 地址，所以没必要在 Pod 或映射到的容器的端口和主机端口之间显式地创建连接。
 这表明了在 Pod 内的容器都能够连接到本地的每个端口，集群中的所有 Pod 不需要通过 NAT 转换就能够互相看到。
-文档的剩余部分将详述，如何在一个网络模型之上运行可靠的服务。
+文档的剩余部分将详述如何在一个网络模型之上运行可靠的服务。
 
-该指南使用一个简单的 Nginx server 来演示证明谈及的概念。同样的原则也体现在一个更加完整的 [Jenkins CI 应用](http://blog.kubernetes.io/2015/07/strong-simple-ssl-for-kubernetes.html) 中。
+该指南使用一个简单的 Nginx server 来演示并证明谈到的概念。同样的原则也体现在一个更加完整的 [Jenkins CI 应用](http://blog.kubernetes.io/2015/07/strong-simple-ssl-for-kubernetes.html) 中。
 
 
 
@@ -60,7 +62,7 @@ $ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 
 
 
-应该能够通过 ssh 登录到集群中的任何一个节点，使用 curl 也能调通所有 IP 地址。
+应该能够通过 ssh 登录到集群中的任何一个节点上，使用 curl 也能调通所有 IP 地址。
 需要注意的是，容器不会使用该节点上的 80 端口，也不会使用任何特定的 NAT 规则去路由流量到 Pod 上。
 这意味着可以在同一个节点上运行多个 Pod，使用相同的容器端口，并且可以从集群中任何其他的 Pod 或节点上使用 IP 的方式访问到它们。
 像 Docker 一样，端口能够被发布到主机节点的接口上，但是出于网络模型的原因应该从根本上减少这种用法。
@@ -72,14 +74,14 @@ $ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 ## 创建 Service
 
 我们有 Pod 在一个扁平的、集群范围的地址空间中运行 Nginx 服务，可以直接连接到这些 Pod，但如果某个节点死掉了会发生什么呢？
-Pod 会终止，Deployment 将创建新的 Pod，使用不同的 IP。这正是 Service 要解决的问题。
+Pod 会终止，Deployment 将创建新的 Pod，且使用不同的 IP。这正是 Service 要解决的问题。
 
 Kubernetes Service 从逻辑上定义了运行在集群中的一组 Pod，这些 Pod 提供了相同的功能。
-当创建时，每个 Service 被分配一个唯一的 IP 地址（也称为 clusterIP）。
+当每个 Service 创建时，会被分配一个唯一的 IP 地址（也称为 clusterIP）。
 这个 IP 地址与一个 Service 的生命周期绑定在一起，当 Service 存在的时候它也不会改变。
-可以配置 Pod 使它与 Service 进行通信，Pod 知道，与 Service 通信将被自动地负载均衡到该 Service 中的某些 Pod 上。
+可以配置 Pod 使它与 Service 进行通信，Pod 知道与 Service 通信将被自动地负载均衡到该 Service 中的某些 Pod 上。
 
-可以使用 `kubectl expose` 为 2个 Nginx 副本创建一个 Service：
+可以使用 `kubectl expose` 命令为 2个 Nginx 副本创建一个 Service：
 
 ```shell
 $ kubectl expose deployment/my-nginx
@@ -94,7 +96,7 @@ service "my-nginx" exposed
 
 
 
-上述规格将创建一个 Service，对应具有标签 `run: my-nginx` 的 Pod，目标 TCP 端口 80，并且在一个抽象的 Service 端口（`targetPort`：容器接收流量的端口；`port`：抽象的 Service 端口，可以使任何其它 Pod 访问该 Service 的端口）上暴露。
+上述规约将创建一个 Service，对应具有标签 `run: my-nginx` 的 Pod，目标 TCP 端口 80，并且在一个抽象的 Service 端口（`targetPort`：容器接收流量的端口；`port`：抽象的 Service 端口，可以使任何其它 Pod 访问该 Service 的端口）上暴露。
 查看 [Service API 对象](/docs/api-reference/{{page.version}}/#service-v1-core) 了解 Service 定义支持的字段列表。
 
 ```shell
@@ -106,7 +108,7 @@ my-nginx   10.0.162.149   <none>        80/TCP    21s
 
 
 正如前面所提到的，一个 Service 由一组 backend Pod 组成。这些 Pod 通过 `endpoints` 暴露出来。
-Service Selector 将持续评估，结果被 POST 到一个名称为 `my-nginx` 的 Endpoint 对象。
+Service Selector 将持续评估，结果被 POST 到一个名称为 `my-nginx` 的 Endpoint 对象上。
 当 Pod 终止后，它会自动从 Endpoint 中移除，新的能够匹配上 Service Selector 的 Pod 将自动地被添加到 Endpoint 中。
 检查该 Endpoint，注意到 IP 地址与在第一步创建的 Pod 是相同的。
 
@@ -130,14 +132,14 @@ my-nginx   10.244.2.5:80,10.244.3.4:80   1m
 
 
 
-现在能够从集群中任意节点上，通过 curl 请求 Nginx Service  `<CLUSTER-IP>:<PORT>` 。
-注意 Service IP 完全是虚拟的，它从来没有走过网络，如果对它如何工作的原理好奇，可以阅读更多关于 [服务代理](/docs/user-guide/services/#virtual-ips-and-service-proxies) 的内容。
+现在，能够从集群中任意节点上使用 curl 命令请求 Nginx Service  `<CLUSTER-IP>:<PORT>` 。
+注意 Service IP 完全是虚拟的，它从来没有走过网络，如果对它如何工作的原理感到好奇，可以阅读更多关于 [服务代理](/docs/user-guide/services/#virtual-ips-and-service-proxies) 的内容。
 
 
 
 ## 访问 Service
 
-Kubernetes 支持两种主要的服务发现模式 —— 环境变量和 DNS。前者在单个节点上可用使用，然而后者需要 [kube-dns 集群插件](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md)。
+Kubernetes 支持两种主要的服务发现模式 —— 环境变量和 DNS。前者在单个节点上可用使用，然而后者必须使用 [kube-dns 集群插件](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md)。
 
 
 
@@ -157,7 +159,7 @@ KUBERNETES_SERVICE_PORT_HTTPS=443
 注意，还没有谈及到 Service。这是因为创建副本先于 Service。
 这样做的另一个缺点是，调度器可能在同一个机器上放置所有 Pod，如果该机器宕机则所有的 Service 都会挂掉。
 正确的做法是，我们杀掉 2 个 Pod，等待 Deployment 去创建它们。
-这次 Service 会 *先于* 副本存在。这将实现调度器级别的 Service，能够使 Pod 分散创建（假定所有的 Node 都具有同样的容量），还有正确的环境变量：
+这次 Service 会 *先于* 副本存在。这将实现调度器级别的 Service，能够使 Pod 分散创建（假定所有的 Node 都具有同样的容量），以及正确的环境变量：
 
 ```shell
 $ kubectl scale deployment my-nginx --replicas=0; kubectl scale deployment my-nginx --replicas=2;
@@ -368,7 +370,7 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 
 ## 进一步阅读
 
-Kubernetes 也支持联合 Service，能够跨多个集群和云提供商，提供逐步增长的可用性，更好的容错和服务的可伸缩性。
+Kubernetes 也支持联合 Service，能够跨多个集群和云提供商，为 Service 提供逐步增强的可用性、更优的容错、更好的可伸缩性。
 查看 [联合 Service 用户指南](/docs/concepts/cluster-administration/federation-service-discovery/) 获取更进一步信息。
 
 
