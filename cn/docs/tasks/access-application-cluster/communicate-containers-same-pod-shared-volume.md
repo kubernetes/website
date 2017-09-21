@@ -3,8 +3,8 @@ title: 同 Pod 内的容器使用共享卷通信
 redirect_from:
 - "/docs/user-guide/pods/multi-container/"
 - "/docs/user-guide/pods/multi-container.html"
-- "docs/tasks/configure-pod-container/communicate-containers-same-pod/"
-- "docs/tasks/configure-pod-container/communicate-containers-same-pod.html"
+- "/docs/tasks/configure-pod-container/communicate-containers-same-pod/"
+- "/docs/tasks/configure-pod-container/communicate-containers-same-pod.html"
 ---
 
 
@@ -12,7 +12,7 @@ redirect_from:
 
 
 
-本文旨在说明如何使用一个卷（Volume）让一个 Pod 内的两个容器进行通信
+本文旨在说明如何让一个 Pod 内的两个容器使用一个卷（Volume）进行通信。
 
 {% endcapture %}
 
@@ -27,7 +27,7 @@ redirect_from:
 {% capture steps %}
 
 
-## 创建一个两个容器的 Pod
+## 创建一个包含两个容器的 Pod
 
 
 
@@ -46,7 +46,7 @@ Pod 的配置文件如下：
 
 
 配置文件中的第一个容器运行了一个 nginx 服务器。共享卷的挂载路径是 `/usr/share/nginx/html`。
-第二个容器是基于 debian 镜像的，有一个挂载路径是 `/pod-data`。第二个容器运行了下面的命令然后终止。
+第二个容器是基于 debian 镜像的，有一个 `/pod-data` 的挂载路径。第二个容器运行了下面的命令然后终止。
 
     echo Hello from the debian container > /pod-data/index.html
 
@@ -126,7 +126,7 @@ Pod 的配置文件如下：
     root@two-containers:/# curl localhost
 
 
-输出显示了 nginx 提供了 debian 容器写的页面：
+输出表示 nginx 提供了 debian 容器写的页面：
 
     Hello from the debian container
 
@@ -145,9 +145,10 @@ Pod 的配置文件如下：
 
 
 
-Pod 能有多个容器的主要原因是为了支持协助主应用的辅助应用。辅助应用的典型例子是数据抽取，数据推送和代理。
-辅助应用和主应用经常需要相互通信。通常这是通过共享文件系统完成的，就如这个练习所示，或者通过回环网络接口
-localhost 完成。网络接口的例子是 web 服务器带有一个协助程序用于拉取 Git 仓库的更新。
+Pod 能有多个容器的主要原因是为了支持辅助应用（helper applications），以协助主应用（primary application）。
+辅助应用的典型例子是数据抽取，数据推送和代理。辅助应用和主应用经常需要相互通信。
+就如这个练习所示，通信通常是通过共享文件系统完成的，或者，也通过回环网络接口 localhost 完成。
+举个网络接口的例子，web 服务器带有一个协助程序用于拉取 Git 仓库的更新。
 
 
 
@@ -167,17 +168,17 @@ localhost 完成。网络接口的例子是 web 服务器带有一个协助程�
 
 
 
-* 学习[模块化架构的混合容器](http://www.slideshare.net/Docker/slideshare-burns)。
+* 学习 [模块化架构的混合容器](http://www.slideshare.net/Docker/slideshare-burns)。
 
 
 
-* 参见[配置一个使用存储卷的 Pod](/cn/docs/tasks/configure-pod-container/configure-volume-storage/)。
+* 参见 [配置一个使用存储卷的 Pod](/docs/tasks/configure-pod-container/configure-volume-storage/)。
 
 
-* 参见 [卷](/cn/docs/api-reference/v1.6/#volume-v1-core)。
+* 参见 [卷](/docs/api-reference/v1.6/#volume-v1-core)。
 
 
-* 参见 [Pod](/cn/docs/api-reference/v1.6/#pod-v1-core).
+* 参见 [Pod](/docs/api-reference/v1.6/#pod-v1-core).
 
 {% endcapture %}
 
