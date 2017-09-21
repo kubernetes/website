@@ -69,7 +69,9 @@ If you already are running on a machine which has passwordless ssh access to the
 
 *Otherwise* setup ssh on the machines like so (you will need to know the root password to all machines in the cluster).
 
+```conf
 edit: ~/contrib/ansible/inventory/group_vars/all.yml
+```
 
 ```yaml
 ansible_ssh_user: root
