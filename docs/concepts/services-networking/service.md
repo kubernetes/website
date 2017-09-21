@@ -203,6 +203,21 @@ having working [readiness probes](/docs/tasks/configure-pod-container/configure-
 
 ![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
 
+### Proxy-mode: ipvs
+
+In this mode, kube-proxy watches the Kubernetes master for the addition and
+removal of `Service` and `Endpoints` objects. For each `Service` it installs
+iptables rules which direct requests for TCP/UDP based services to one of the
+`Service`'s backend sets. For each `Endpoints` object it installs ipvs rules
+which select a backend `Pod`.
+
+By default, the choice of backend is random. Client-IP based session affinity
+can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
+default is `"None"`).
+
+Unlike the iptables, ipvs redirect traffic through a hash algorithm, so this
+should be faster espically when there are a large number of `Service`s.
+
 ## Multi-Port Services
 
 Many `Services` need to expose more than one port.  For this case, Kubernetes
