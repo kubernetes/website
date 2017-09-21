@@ -22,14 +22,14 @@ following Kubernetes concepts.
 * [Pods](/docs/user-guide/pods/single-container/)
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
-* [PersistentVolumes](/docs/concepts/storage/volumes/)
+* [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [kubectl CLI](/docs/user-guide/kubectl)
 
 This tutorial assumes that your cluster is configured to dynamically provision 
 PersistentVolumes. If your cluster is not configured to do so, you
-will have to manually provision five 1 GiB volumes prior to starting this 
+will have to manually provision two 1 GiB volumes prior to starting this 
 tutorial.
 {% endcapture %}
 
@@ -37,7 +37,7 @@ tutorial.
 StatefulSets are intended to be used with stateful applications and distributed 
 systems. However, the administration of stateful applications and 
 distributed systems on Kubernetes is a broad, complex topic. In order to 
-demonstrate the basic features of a StatefulSet, and to not conflate the former 
+demonstrate the basic features of a StatefulSet, and not to conflate the former 
 topic with the latter, you will deploy a simple web application using a StatefulSet.
 
 After this tutorial, you will be familiar with the following.
