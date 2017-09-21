@@ -1020,7 +1020,7 @@ of the `web` StatefulSet is set to `Parallel`.
 In one terminal, watch the Pods in the StatefulSet.
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get po -l app=nginx -w
 ```
 
 In another terminal, create the StatefulSet and Service in the manifest.
