@@ -136,3 +136,10 @@ As of version 1.3, clusters created by kube-up.sh are configured so that the A
 {% endcapture %}
 
 {% include templates/concept.md %}
+
+## Privilege escalation via pod creation
+
+Users who have ability to create pods in a namespace can potentially escalate their privileges within that namespace.  They can create pods that access secrets the user cannot themselves read, or that run under a service account with different/greater permissions.
+
+**Caution:** System administrators, use care when granting access to pod creation.  A user granted permission to create pods (or controllers that create pods) in the namespace can: read all secrets in the namespace; read all config maps in the namespace; and impersonate any service account in the namespace and take any action the account could take. This applies regardless of authorization mode.
+{: .caution}

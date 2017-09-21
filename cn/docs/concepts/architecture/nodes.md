@@ -18,7 +18,7 @@ redirect_from:
 ## Node 是什么？
 
 
-`Node` 是 Kubernetes 的工作节点，以前叫做 `minion`。取决于你的集群，Node 可以是一个虚拟机或者物理机器。每个 node 都有用于运行 [pods](/docs/user-guide/pods) 的必要服务，并由 master 组件管理。Node 上的服务包括 Docker、kubelet 和 kube-proxy。请查阅架构设计文档中 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture.md#the-kubernetes-node) 一节获取更多细节。
+`Node` 是 Kubernetes 的工作节点，以前叫做 `minion`。取决于你的集群，Node 可以是一个虚拟机或者物理机器。每个 node 都有用于运行 [pods](/docs/user-guide/pods) 的必要服务，并由 master 组件管理。Node 上的服务包括 Docker、kubelet 和 kube-proxy。请查阅架构设计文档中 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) 一节获取更多细节。
 
 
 ## Node 状态
