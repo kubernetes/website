@@ -262,8 +262,7 @@ www-web-0   Bound     pvc-15c268c7-b507-11e6-932f-42010a800002   1Gi        RWO 
 www-web-1   Bound     pvc-15c79307-b507-11e6-932f-42010a800002   1Gi        RWO           48s
 ```
 The StatefulSet controller created two PersistentVolumeClaims that are 
-bound to two [PersistentVolumes](/docs/concepts/storage/volumes/). As the 
-cluster used in this tutorial is configured to dynamically provision 
+bound to two [PersistentVolumes](/docs/concepts/storage/persistent-volumes/). As the cluster used in this tutorial is configured to dynamically provision 
 PersistentVolumes, the PersistentVolumes were created and bound automatically.
 
 The NGINX webservers, by default, will serve an index file at 
@@ -330,7 +329,7 @@ web-1
 
 Even though `web-0` and `web-1` were rescheduled, they continue to serve their 
 hostnames because the PersistentVolumes associated with their 
-PersistentVolumeClaims are remounted to their `volumeMount`s. No matter what 
+PersistentVolumeClaims are remounted to their `volumeMounts`. No matter what 
 node `web-0`and `web-1` are scheduled on, their PersistentVolumes will be 
 mounted to the appropriate mount points.
 
@@ -338,8 +337,7 @@ mounted to the appropriate mount points.
 Scaling a StatefulSet refers to increasing or decreasing the number of replicas. 
 This is accomplished by updating the `replicas` field. You can use either
 [`kubectl scale`](/docs/user-guide/kubectl/{{page.version}}/#scale) or
-[`kubectl patch`](/docs/user-guide/kubectl/{{page.version}}/#patch) to scale a Stateful 
-Set.
+[`kubectl patch`](/docs/user-guide/kubectl/{{page.version}}/#patch) to scale a StatefulSet.
 
 ### Scaling Up
 
@@ -440,10 +438,7 @@ www-web-4   Bound     pvc-e11bb5f8-b508-11e6-932f-42010a800002   1Gi        RWO 
 ```
 
 There are still five PersistentVolumeClaims and five PersistentVolumes. 
-When exploring a Pod's [stable storage](#stable-storage), we saw that the 
-PersistentVolumes mounted to the Pods of a StatefulSet are not deleted when 
-the StatefulSet's Pods are deleted. This is still true when Pod deletion is 
-caused by scaling the StatefulSet down. 
+When exploring a Pod's [stable storage](#writing-to-stable-storage), we saw that the PersistentVolumes mounted to the Pods of a StatefulSet are not deleted whenthe StatefulSet's Pods are deleted. This is still true when Pod deletion is caused by scaling the StatefulSet down. 
 
 ## Updating StatefulSets
 
