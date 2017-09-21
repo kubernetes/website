@@ -399,7 +399,7 @@ three replicas.
 
 ```shell
 kubectl patch sts web -p '{"spec":{"replicas":3}}'
-"web" patched
+statefulset "web" patched
 ```
 
 Wait for `web-4` and `web-3` to transition to Terminating.
@@ -464,7 +464,7 @@ Patch the container image for the `web` StatefulSet.
 
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.7"}]'
-"web" patched
+statefulset "web" patched
 ```
 
 Delete the `web-0` Pod.

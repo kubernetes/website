@@ -280,34 +280,55 @@ kubernetes-node-unaj     Ready         1h      v1.6.0+fff5156
 
 $ kubectl describe node kubernetes-node-861h
 Name:			kubernetes-node-861h
-Labels:			kubernetes.io/hostname=kubernetes-node-861h
-CreationTimestamp:	Fri, 10 Jul 2015 14:32:29 -0700
+Role
+Labels:		 beta.kubernetes.io/arch=amd64
+           beta.kubernetes.io/os=linux
+           kubernetes.io/hostname=kubernetes-node-861h
+Annotations:        node.alpha.kubernetes.io/ttl=0
+                    volumes.kubernetes.io/controller-managed-attach-detach=true
+Taints:             <none>
+CreationTimestamp:	Mon, 04 Sep 2017 17:13:23 +0800
+Phase:
 Conditions:
   Type		Status		LastHeartbeatTime			LastTransitionTime			Reason					Message
-  Ready 	Unknown 	Fri, 10 Jul 2015 14:34:32 -0700 	Fri, 10 Jul 2015 14:35:15 -0700 	Kubelet stopped posting node status.
+  ----    ------    -----------------     ------------------      ------          -------
+  OutOfDisk             Unknown         Fri, 08 Sep 2017 16:04:28 +0800         Fri, 08 Sep 2017 16:20:58 +0800         NodeStatusUnknown       Kubelet stopped posting node status.
+  MemoryPressure        Unknown         Fri, 08 Sep 2017 16:04:28 +0800         Fri, 08 Sep 2017 16:20:58 +0800         NodeStatusUnknown       Kubelet stopped posting node status.
+  DiskPressure          Unknown         Fri, 08 Sep 2017 16:04:28 +0800         Fri, 08 Sep 2017 16:20:58 +0800         NodeStatusUnknown       Kubelet stopped posting node status.
+  Ready                 Unknown         Fri, 08 Sep 2017 16:04:28 +0800         Fri, 08 Sep 2017 16:20:58 +0800         NodeStatusUnknown       Kubelet stopped posting node status.
 Addresses:	10.240.115.55,104.197.0.26
 Capacity:
- cpu:		1
- memory:	3800808Ki
- pods:		100
-Version:
- Kernel Version:		3.16.0-0.bpo.4-amd64
- OS Image:			Debian GNU/Linux 7 (wheezy)
- Container Runtime Version:	docker://Unknown
- Kubelet Version:		v0.21.1-185-gffc5a86098dc01
- Kube-Proxy Version:		v0.21.1-185-gffc5a86098dc01
-PodCIDR:			10.244.0.0/24
-ExternalID:			15233045891481496305
-Pods:				(0 in total)
-  Namespace			Name
-Events:
-  FirstSeen				LastSeen			Count	From					SubobjectPath	Reason		Message
-  Fri, 10 Jul 2015 14:32:28 -0700	Fri, 10 Jul 2015 14:32:28 -0700	1	{kubelet kubernetes-node-861h}				NodeNotReady	Node kubernetes-node-861h status is now: NodeNotReady
-  Fri, 10 Jul 2015 14:32:30 -0700	Fri, 10 Jul 2015 14:32:30 -0700	1	{kubelet kubernetes-node-861h}				NodeNotReady	Node kubernetes-node-861h status is now: NodeNotReady
-  Fri, 10 Jul 2015 14:33:00 -0700	Fri, 10 Jul 2015 14:33:00 -0700	1	{kubelet kubernetes-node-861h}				starting	Starting kubelet.
-  Fri, 10 Jul 2015 14:33:02 -0700	Fri, 10 Jul 2015 14:33:02 -0700	1	{kubelet kubernetes-node-861h}				NodeReady	Node kubernetes-node-861h status is now: NodeReady
-  Fri, 10 Jul 2015 14:35:15 -0700	Fri, 10 Jul 2015 14:35:15 -0700	1	{controllermanager }					NodeNotReady	Node kubernetes-node-861h status is now: NodeNotReady
-
+ cpu:           2
+ hugePages:     0
+ memory:        4046788Ki
+ pods:          110
+Allocatable:
+ cpu:           1500m
+ hugePages:     0
+ memory:        1479263Ki
+ pods:          110
+System Info:
+ Machine ID:                    8e025a21a4254e11b028584d9d8b12c4
+ System UUID:                   349075D1-D169-4F25-9F2A-E886850C47E3
+ Boot ID:                       5cd18b37-c5bd-4658-94e0-e436d3f110e0
+ Kernel Version:                4.4.0-31-generic
+ OS Image:                      Debian GNU/Linux 8 (jessie)
+ Operating System:              linux
+ Architecture:                  amd64
+ Container Runtime Version:     docker://1.12.5
+ Kubelet Version:               v1.6.9+a3d1dfa6f4335
+ Kube-Proxy Version:            v1.6.9+a3d1dfa6f4335
+ExternalID:                     15233045891481496305
+Non-terminated Pods:            (9 in total)
+  Namespace                     Name                                            CPU Requests    CPU Limits      Memory Requests Memory Limits
+  ---------                     ----                                            ------------    ----------      --------------- -------------
+......
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  CPU Requests  CPU Limits      Memory Requests         Memory Limits
+  ------------  ----------      ---------------         -------------
+  900m (60%)    2200m (146%)    1009286400 (66%)        5681286400 (375%)
+Events:         <none>
 
 $ kubectl get node kubernetes-node-861h -o yaml
 apiVersion: v1

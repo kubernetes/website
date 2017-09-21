@@ -150,7 +150,7 @@ spec:
 
 Yaml file below outlines the `mydb` and `myservice` services:
 
-```
+```yaml
 kind: Service
 apiVersion: v1
 metadata:
@@ -174,7 +174,7 @@ spec:
 
 This Pod can be started and debugged with the following commands:
 
-```
+```shell
 $ kubectl create -f myapp.yaml
 pod "myapp-pod" created
 $ kubectl get -f myapp.yaml
@@ -220,7 +220,7 @@ $ kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 Once we start the `mydb` and `myservice` services, we can see the Init Containers
 complete and the `myapp-pod` is created:
 
-```
+```shell
 $ kubectl create -f services.yaml
 service "myservice" created
 service "mydb" created

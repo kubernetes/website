@@ -60,7 +60,7 @@ Following is an illustration of this workflow:
 As part of your Node bootstrapping, identify the GPU hardware type on your nodes and expose it as a node label.
 
 ```shell
-NVIDIA_GPU_NAME=$(nvidia-smi --query-gpu=gpu_name --format=csv,noheader --id=0)
+NVIDIA_GPU_NAME=$(nvidia-smi --query-gpu=gpu_name --format=csv,noheader --id=0 | sed -e 's/ /-/g')
 source /etc/default/kubelet
 KUBELET_OPTS="$KUBELET_OPTS --node-labels='alpha.kubernetes.io/nvidia-gpu-name=$NVIDIA_GPU_NAME'"
 echo "KUBELET_OPTS=$KUBELET_OPTS" > /etc/default/kubelet
