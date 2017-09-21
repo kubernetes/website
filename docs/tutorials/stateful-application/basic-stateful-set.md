@@ -795,8 +795,7 @@ continue the update process.
 ## Deleting StatefulSets
 
 StatefulSet supports both Non-Cascading and Cascading deletion. In a 
-Non-Cascading Delete, the StatefulSet's Pods are not deleted when the Stateful
-Set is deleted. In a Cascading Delete, both the StatefulSet and its Pods are 
+Non-Cascading Delete, the StatefulSet's Pods are not deleted when the StatefulSet is deleted. In a Cascading Delete, both the StatefulSet and its Pods are 
 deleted.
 
 ### Non-Cascading Delete
@@ -940,7 +939,7 @@ web-1     0/1       Terminating   0         29m
 
 ```
 
-As you saw in the [Scaling Down](#ordered-pod-termination) section, the Pods 
+As you saw in the [Scaling Down](#scaling-down) section, the Pods 
 are terminated one at a time, with respect to the reverse order of their ordinal 
 indices. Before terminating a Pod, the StatefulSet controller waits for 
 the Pod's successor to be completely terminated.
