@@ -10,7 +10,7 @@ title: StatefulSet Basics
 ---
 
 {% capture overview %}
-This tutorial provides an introduction to manage applications with
+This tutorial provides an introduction to managing applications with
 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/). It 
 demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
 {% endcapture %}
