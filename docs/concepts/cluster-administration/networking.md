@@ -234,4 +234,4 @@ CNI-Genie also supports [assigning multiple IP addresses to a pod](https://githu
 
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the [networking design
-document](https://git.k8s.io/community/contributors/design-proposals/networking.md).
+document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).

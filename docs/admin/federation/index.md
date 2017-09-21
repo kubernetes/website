@@ -385,4 +385,4 @@ if required.
 
 ## For more information
 
- * [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation.md) details use cases that motivated this work.
+ * [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation/federation.md) details use cases that motivated this work.
