@@ -139,7 +139,7 @@ As of version 1.3, clusters created by kube-up.sh are configured so that the A
 
 ## Privilege escalation via pod creation
 
-Users who have ability to create pods in a namespace can potentially escalate their privileges within that namespace.  If a user is granted permission to create pods (or controllers that create pods), the Kubernetes API does not police the privileges of the pods being created.  This means that users can create pods that access secrets the user herself cannot read, or that run under a service account with different/greater permissions.
+Users who have ability to create pods in a namespace can potentially escalate their privileges within that namespace.  They can create pods that access secrets the user cannot themselves read, or that run under a service account with different/greater permissions.
 
 **Caution:** System administrators, use care when granting access to pod creation.  A user granted permission to create pods (or controllers that create pods) in the namespace has the ability to:
     * Read all secrets in the namespace.
