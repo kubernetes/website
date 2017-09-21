@@ -10,7 +10,7 @@ This page shows how to migrate data stored in a ThirdPartyResource (TPR) to a Cu
 
 Kubernetes does not automatically migrate existing TPRs.
 This is due to API changes introduced as part of
-[graduating to beta](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/thirdpartyresources.md)
+[graduating to beta](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/thirdpartyresources.md)
 under a new name and API group.
 Instead, both TPR and CRD are available and operate independently in Kubernetes 1.7.
 Users must migrate each TPR one by one to preserve their data before upgrading to Kubernetes 1.8.

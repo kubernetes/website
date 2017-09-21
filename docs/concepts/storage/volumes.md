@@ -466,7 +466,7 @@ Currently, the following types of volume sources can be projected:
 - [`downwardAPI`](#downardapi)
 - `configMap`
 
-All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/all-in-one-volume.md).
+All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/node/all-in-one-volume.md).
 
 #### Example pod with a secret, a downward API, and a configmap.
 

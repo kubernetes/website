@@ -33,7 +33,7 @@ multiple API versions, each at a different API path, such as `/api/v1` or
 The version is set at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-life and/or experimental APIs. The JSON and Protobuf serialization schemas follow the same guidelines for schema changes; all descriptions below cover both formats.
 
 Note that API versioning and software versioning are only indirectly related.  The [API and release
-versioning proposal](https://git.k8s.io/community/contributors/design-proposals/versioning.md) describes the relationship between API versioning and software versioning.
+versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) describes the relationship between API versioning and software versioning.
 
 Different API versions imply different levels of stability and support.  The criteria for each level are described
 in more detail in the [API Changes documentation](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions).  
@@ -60,7 +60,7 @@ The criteria are summarized here:
 
 ## API groups
 
-[*API groups*](https://git.k8s.io/community/contributors/design-proposals/api-group.md) make it easier to extend the Kubernetes API. The API group is specified in a REST path and in the `apiVersion` field of a serialized object.
+[*API groups*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md) make it easier to extend the Kubernetes API. The API group is specified in a REST path and in the `apiVersion` field of a serialized object.
 
 Currently, there are several API groups in use:
 
@@ -73,7 +73,7 @@ There are two supported paths to extending the API with [custom resources](/docs
 1. [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
    is for users with very basic CRUD needs.
 1. Coming soon: users needing the full set of Kubernetes API semantics can implement their own apiserver
-   and use the [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/aggregated-api-servers.md)
+   and use the [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)
    to make it seamless for clients.
  
 
