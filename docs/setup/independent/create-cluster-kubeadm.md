@@ -468,9 +468,9 @@ control of your Kubernetes cluster.
 ## Feedback
 
 * kubeadm support Slack Channel:
-  [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
+  [kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
 * General SIG Cluster Lifecycle Development Slack Channel:
-  [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
+  [sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
 * Mailing List:
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
 * [GitHub Issues in the kubeadm
@@ -561,10 +561,10 @@ Verify that the `$HOME/.kube/config` file contains a valid certificate, and rege
 Another workaround is to overwrite the default `kubeconfig` for the "admin" user:
 
 ```
-  mv  $HOME/.kube $HOME/.kube.bak
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+mv  $HOME/.kube $HOME/.kube.bak
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 1. If you are using CentOS and encounter difficulty while setting up the master node，

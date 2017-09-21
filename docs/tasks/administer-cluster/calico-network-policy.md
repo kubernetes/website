@@ -9,7 +9,7 @@ This page shows how to use Calico for NetworkPolicy.
 {% endcapture %}
 
 {% capture prerequisites %}
-* Install Calico for Kubernetes.
+* [Install Calico for Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/).
 {% endcapture %}
 
 {% capture steps %}

@@ -42,9 +42,10 @@ Or you can get detailed information with:
 
 ```shell
 $ kubectl describe namespaces <name>
-Name:      default
-Labels:    <none>
-Status:    Active
+Name:           default
+Labels:         <none>
+Annotations:    <none>
+Status:         Active
 
 No resource quota.
 

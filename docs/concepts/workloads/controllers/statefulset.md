@@ -226,6 +226,7 @@ update, roll out a canary, or perform a phased roll out.
 {% capture whatsnext %}
 
 * Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set).
+* Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
 
 {% endcapture %}
 {% include templates/concept.md %}

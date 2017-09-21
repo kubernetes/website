@@ -40,4 +40,4 @@ client libraries:
 
 ## Design Docs
 
-An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture.md) and [Kubernetes Design Overview](https://github.com/kubernetes/kubernetes/tree/{{page.fullversion}}/docs/design).
+An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and [Kubernetes Design Overview](https://github.com/kubernetes/kubernetes/tree/{{page.fullversion}}/docs/design).
