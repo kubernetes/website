@@ -997,7 +997,7 @@ Appears In:
 </tr>
 <tr>
 <td>manualSelector <br /> <em>boolean</em></td>
-<td>manualSelector controls generation of pod labels and pod selectors. Leave <code>manualSelector</code> unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see <code>manualSelector=true</code> in jobs that were created with the old <code>extensions/v1beta1</code> API. More info: <a href="https://git.k8s.io/community/contributors/design-proposals/selector-generation.md">https://git.k8s.io/community/contributors/design-proposals/selector-generation.md</a></td>
+<td>manualSelector controls generation of pod labels and pod selectors. Leave <code>manualSelector</code> unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see <code>manualSelector=true</code> in jobs that were created with the old <code>extensions/v1beta1</code> API. More info: <a href="https://git.k8s.io/community/contributors/design-proposals/apps/selector-generation.md">https://git.k8s.io/community/contributors/design-proposals/apps/selector-generation.md</a></td>
 </tr>
 <tr>
 <td>parallelism <br /> <em>integer</em></td>
@@ -1315,7 +1315,7 @@ Appears In:
 </tr>
 <tr>
 <td>qosClass <br /> <em>string</em></td>
-<td>The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: <a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-qos.md">https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-qos.md</a></td>
+<td>The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: <a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md">https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md</a></td>
 </tr>
 <tr>
 <td>reason <br /> <em>string</em></td>
@@ -4873,7 +4873,7 @@ Appears In:
 <tbody>
 <tr>
 <td>finalizers <br /> <em>string array</em></td>
-<td>Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: <a href="https://git.k8s.io/community/contributors/design-proposals/namespaces.md#finalizers">https://git.k8s.io/community/contributors/design-proposals/namespaces.md#finalizers</a></td>
+<td>Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: <a href="https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#finalizers">https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#finalizers</a></td>
 </tr>
 </tbody>
 </table>
@@ -4895,7 +4895,7 @@ Appears In:
 <tbody>
 <tr>
 <td>phase <br /> <em>string</em></td>
-<td>Phase is the current lifecycle phase of the namespace. More info: <a href="https://git.k8s.io/community/contributors/design-proposals/namespaces.md#phases">https://git.k8s.io/community/contributors/design-proposals/namespaces.md#phases</a></td>
+<td>Phase is the current lifecycle phase of the namespace. More info: <a href="https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#phases">https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#phases</a></td>
 </tr>
 </tbody>
 </table>

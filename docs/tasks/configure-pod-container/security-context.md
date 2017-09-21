@@ -323,7 +323,7 @@ applied to Volumes as follows:
 
 * `fsGroup`: Volumes that support ownership management are modified to be owned
 and writable by the GID specified in `fsGroup`. See the
-[Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/volume-ownership-management.md)
+[Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
 for more details.
 
 * `seLinuxOptions`: Volumes that support SELinux labeling are relabeled to be accessible
@@ -343,7 +343,7 @@ label given to all Containers in the Pod as well as the Volumes.
 * [SecurityContext](/docs/api-reference/{{page.version}}/#securitycontext-v1-core)
 * [Tuning Docker with the newest security enhancements](https://opensource.com/business/15/3/docker-security-tuning)
 * [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
-* [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/volume-ownership-management.md)
+* [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
 * [Pod Security Policies](/docs/concepts/policy/pod-security-policy/)
 
 
