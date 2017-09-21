@@ -105,7 +105,7 @@ NAME                RULE          BACKEND        ADDRESS
 test-ingress        -             testsvc:80     107.178.254.228
 ```
 
-Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy this Ingress. The `RULE` column shows that all traffic send to the IP is directed to the Kubernetes Service listed under `BACKEND`.
+Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy this Ingress. The `RULE` column shows that all traffic sent to the IP is directed to the Kubernetes Service listed under `BACKEND`.
 
 ### Simple fanout
 
@@ -239,7 +239,7 @@ test      -                       178.91.123.132
 $ kubectl edit ing test
 ```
 
-This should pop up an editor with the existing yaml, modify it to include the new Host.
+This should pop up an editor with the existing yaml, modify it to include the new Host:
 
 ```yaml
 spec:
@@ -261,7 +261,7 @@ spec:
 ..
 ```
 
-saving it will update the resource in the API server, which should tell the Ingress controller to reconfigure the loadbalancer.
+Saving it will update the resource in the API server, which should tell the Ingress controller to reconfigure the loadbalancer.
 
 ```shell
 $ kubectl get ing
