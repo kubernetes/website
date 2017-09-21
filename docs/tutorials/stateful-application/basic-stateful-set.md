@@ -399,7 +399,7 @@ three replicas.
 
 ```shell
 kubectl patch sts web -p '{"spec":{"replicas":3}}'
-"web" patched
+statefulset "web" patched
 ```
 
 Wait for `web-4` and `web-3` to transition to Terminating.

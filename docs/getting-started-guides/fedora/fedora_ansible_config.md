@@ -147,9 +147,9 @@ dns_setup: true
 This will finally setup your whole Kubernetes cluster for you.
 
 ```shell
-cd ~/contrib/ansible/
+cd ~/contrib/ansible/scripts/
 
-./scripts/deploy-cluster.sh
+./deploy-cluster.sh
 ```
 
 ## Testing and using your new cluster

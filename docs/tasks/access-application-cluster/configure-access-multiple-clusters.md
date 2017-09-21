@@ -264,7 +264,7 @@ kubectl config view
 ```
 
 The output shows merged information from all the files listed in your `KUBECONFIG`
-environnment variable. In particular, notice that the merged information has the
+environment variable. In particular, notice that the merged information has the
 `dev-ramp-up` context from the `config-demo-2` file and the three contexts from
 the `config-demo` file:
 
