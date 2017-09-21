@@ -10,7 +10,7 @@ requests specified, the scheduler can make better decisions about which nodes to
 place Pods on. And when Containers have their limits specified, contention for
 resources on a node can be handled in a specified manner. For more details about
 the difference between requests and limits, see
-[Resource QoS](https://git.k8s.io/community/contributors/design-proposals/resource-qos.md).
+[Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
 
 {% endcapture %}
 
@@ -238,7 +238,7 @@ The amount of resources available to Pods is less than the node capacity, becaus
 system daemons use a portion of the available resources. The `allocatable` field
 [NodeStatus](/docs/resources-reference/{{page.version}}/#nodestatus-v1-core)
 gives the amount of resources that are available to Pods. For more information, see
-[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md).
+[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
 
 The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
 to limit the total amount of resources that can be consumed. If used in conjunction
@@ -405,7 +405,7 @@ all Containers in a Pod, such as
 Kubernetes version 1.5 only supports Container requests and limits for CPU and
 memory. It is planned to add new resource types, including a node disk space
 resource, and a framework for adding custom
-[resource types](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/resources.md).
+[resource types](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/scheduling/resources.md).
 
 Kubernetes supports overcommitment of resources by supporting multiple levels of
 [Quality of Service](http://issue.k8s.io/168).

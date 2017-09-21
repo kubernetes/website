@@ -70,7 +70,7 @@ A namespace can be in one of two phases:
    * `Active` the namespace is in use
    * `Terminating` the namespace is being deleted, and can not be used for new objects
 
-See the [design doc](https://git.k8s.io/community/contributors/design-proposals/namespaces.md#phases) for more details.
+See the [design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#phases) for more details.
 
 ## Creating a new namespace
 
@@ -93,7 +93,7 @@ Note that the name of your namespace must be a DNS compatible label.
 
 There's an optional field `finalizers`, which allows observables to purge resources whenever the namespace is deleted. Keep in mind that if you specify a nonexistent finalizer, the namespace will be created but will get stuck in the `Terminating` state if the user tries to delete it.
 
-More information on `finalizers` can be found in the namespace [design doc](https://git.k8s.io/community/contributors/design-proposals/namespaces.md#finalizers).
+More information on `finalizers` can be found in the namespace [design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#finalizers).
 
 ## Deleting a namespace
 
@@ -346,7 +346,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 {% capture whatsnext %}
 * Learn more about [setting the namespace preference](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
 * Learn more about [setting the namespace for a request](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
-* See [namespaces design](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/namespaces.md).
+* See [namespaces design](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/architecture/namespaces.md).
 {% endcapture %}
 
 {% include templates/task.md %}

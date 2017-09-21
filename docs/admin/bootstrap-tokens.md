@@ -58,7 +58,7 @@ Authorization: Bearer 07401b.f395accd246ae52d
 
 Each valid token is backed by a secret in the `kube-system` namespace.  You can
 find the full design doc
-[here](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/bootstrap-discovery.md).
+[here](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md).
 
 Here is what the secret looks like.  Note that `base64(string)` indicates the
 value should be base64 encoded.  The undecoded version is provided here for
