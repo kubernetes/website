@@ -303,7 +303,65 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 You can see that the Container was terminated because of `reason:OOM Killed`,
 where `OOM` stands for Out Of Memory.
 
-## Opaque integer resources (Alpha feature)
+## Local ephemeral storage (alpha feature)
+
+Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managing local ephemeral storage. In each Kubernetes node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This partition is also shared and consumed by pods via EmptyDir volumes, container logs, image layers and container writable layers.
+
+This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
+
+**Note:** If an optional runntime partition is used, root parition will not hold any image layer or writable layers. 
+{: .note}
+
+### Requests and limits setting for local ephemeral storage
+Each Container of a Pod can specify one or more of the following:
+
+* `spec.containers[].resources.limits.ephemeral-storage`
+* `spec.containers[].resources.requests.ephemeral-storage`
+
+Limits and requests for `ephemeral-storage` are measured in bytes. You can express storage as
+a plain integer or as a fixed-point integer using one of these suffixes:
+E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
+Mi, Ki. For example, the following represent roughly the same value:
+
+```shell
+128974848, 129e6, 129M, 123Mi
+```
+
+For example, the following Pod has two Containers. Each Container has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of storage.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+spec:
+  containers:
+  - name: db
+    image: mysql
+    resources:
+      requests:
+        ephemeral-storage: "2Gi"
+      limits:
+        ephemeral-storage: "4Gi"
+  - name: wp
+    image: wordpress
+    resources:
+      requests:
+        ephemeral-storage: "2Gi"
+      limits:
+        ephemeral-storage: "4Gi"
+```
+
+### How Pods with ephemeral-storage requests are scheduled
+
+When you create a Pod, the Kubernetes scheduler selects a node for the Pod to 
+run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. (For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
+
+### How Pods with ephemeral-storage limits run
+
+For container-level isolation, if a Container's writable layer and logs usage exceeds its storage limit, the pod will be evicted. For pod-level isolation, if the sum of the local ephemeral storage usage from all containers and also the pod's EmptyDir volumes exceeds the limit, the pod will be evicted.
+
+## Opaque integer resources (alpha feature)
 
 {% include feature-state-deprecated.md %}
 
