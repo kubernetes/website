@@ -63,7 +63,7 @@ to define *Hard* resource usage limits that a *Namespace* may consume.
 A limit range defines min/max constraints on the amount of resources a single entity can consume in
 a *Namespace*.
 
-See [Admission control: Limit Range](https://git.k8s.io/community/contributors/design-proposals/admission_control_limit_range.md)
+See [Admission control: Limit Range](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)
 
 A namespace can be in one of two phases:
 
@@ -236,9 +236,9 @@ Let's create some contents.
 ```shell
 $ kubectl run snowflake --image=kubernetes/serve_hostname --replicas=2
 ```
-We have just created a deployment whose replica size is 2 that is running the pod called snowflake with a basic container that just serves the hostname. 
+We have just created a deployment whose replica size is 2 that is running the pod called snowflake with a basic container that just serves the hostname.
 Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/v1.7/#run) for more details. 
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/v1.7/#run) for more details.
 
 ```shell
 $ kubectl get deployment
@@ -322,7 +322,7 @@ The Namespace provides a unique scope for:
 2. delegated management authority to trusted users
 3. ability to limit community resource consumption
 
-Use cases include: 
+Use cases include:
 
 1.  As a cluster operator, I want to support multiple user communities on a single cluster.
 2.  As a cluster operator, I want to delegate authority to partitions of the cluster to trusted users
