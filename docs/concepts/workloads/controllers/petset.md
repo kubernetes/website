@@ -268,7 +268,7 @@ web-0    1/1       Running   0          30s
 web-1    1/1       Running   0          36s
 
 $ kubectl patch petset web -p '{"spec":{"replicas":3}}'
-"web" patched
+petset "web" patched
 
 $ kubectl get po
 NAME     READY     STATUS    RESTARTS   AGE
