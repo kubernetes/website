@@ -5,43 +5,37 @@ approvers:
 title: Core metrics pipeline
 ---
 
-Resource usage metrics are important for:
+Starting from Kubernetes 1.8, resource usage metrics, such as container CPU and memory usage,
+are available in Kubernetes though the the Metrics API. These metrics can be either accessed directly
+by user, for example by using `kubectl top` command, or used by a controller in the cluster, e.g.
+Horizontal Pod Autoscaler to make decisions.
 
-- Kubernetes components to operate (e.g. autoscalers to automatically scale user applications)
-- Kubernetes users to understand their applications behavior
+## The Metrics API
 
-In Kubernetes they are available through Metrics API.
+Through the Metrics API you can get the amount of resource currently used
+by a given node or a given pod. This API doesn't store the metric values,
+so it's not possible for example to get the amount of resources used by a
+given node 10 minutes ago.
 
-## Metrics API
-
-Metrics API provides current resource usage metrics for pods and nodes. It doesn't offer historical metrics, so one needs to
-archive metrics themselves. In the future Historical API might be defined but it will not be implemented as a part of
-the core metrics pipeline.
-
-The API is discoverable through the same endpoint as the other Kubernetes APIs under `/apis/metrics.k8s.io/` path.
+The API no different from any other API:
+it is discoverable through the same endpoint as the other Kubernetes APIs under `/apis/metrics.k8s.io/` path.
 It also offers the same security, scalability and reliability guarantees.
 
-The API is defined in [k8s.io/metrics](https://github.com/kubernetes/metrics/tree/master/pkg/apis/metrics) repository,
-where the detailed semantic is explained.
-
-### Supported endpoints
-
-The list of supported endpoints in the API:
-
-- `/nodes` - all node metrics; support for `labelSelector` parameter
-- `/nodes/{node}` - metrics for the specified node
-- `/namespaces/{namespace}/pods` - all pod metrics within the namespace; support for `labelSelector` parameter
-- `/namespaces/{namespace}/pods/{pod}` - metrics for the specified pods
+The API is defined in [k8s.io/metrics](https://github.com/kubernetes/metrics/blob/master/pkg/apis/metrics/v1beta1/types.go)
+repository. You can find more information about the API resources there.
 
 ## Metrics Server
 
-[Metrics Server](https://github.com/kubernetes-incubator/metrics-server) is a cluster-wide aggregator of monitoring data.
-Starting from Kubernetes 1.8 it's work on all Kubernetes setups
-and runs as a pod in a user space (on one of the nodes), similar to how any Kubernetes application would run.
+[Metrics Server](https://github.com/kubernetes-incubator/metrics-server) is a cluster-wide aggregator of resource usage data.
+Starting from Kubernetes 1.8 it's deployed by default in clusters crated by `kube-up.sh` script
+as a Deployment object.
+User can deploy it also using the provided [deployment yamls](https://github.com/kubernetes-incubator/metrics-server/tree/master/deploy).
+It's supported in Kubernetes 1.7+ (see details below).
 
-It discovers all nodes in the cluster and queries usage information from Summary API exposed by [Kubelet](/docs/admin/kubelet/)s.
+Metric server collects metrics from the Summary API, exposed by [Kubelet](/docs/admin/kubelet/) on each node.
 
-Metrics Server use the same authorization/authentication mechanism as the main API server. It's registered there through
-[Kubernetes aggregator](https://kubernetes.io/docs/concepts/api-extension/apiserver-aggregation/).
+Metrics Server registered in the main API server through
+[Kubernetes aggregator](https://kubernetes.io/docs/concepts/api-extension/apiserver-aggregation/),
+which was introduced in Kubernetes 1.7.
 
 Learn more about the metrics server in [the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).
