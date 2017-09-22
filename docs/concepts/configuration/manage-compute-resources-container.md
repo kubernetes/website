@@ -405,7 +405,7 @@ all Containers in a Pod, such as
 Kubernetes version 1.5 only supports Container requests and limits for CPU and
 memory. It is planned to add new resource types, including a node disk space
 resource, and a framework for adding custom
-[resource types](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/resources.md).
+[resource types](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/scheduling/resources.md).
 
 Kubernetes supports overcommitment of resources by supporting multiple levels of
 [Quality of Service](http://issue.k8s.io/168).

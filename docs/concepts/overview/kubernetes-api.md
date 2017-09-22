@@ -28,7 +28,7 @@ Complete API details are documented using [Swagger v1.2](http://swagger.io/) and
 
 Starting with Kubernetes 1.4, OpenAPI spec is also available at [`/swagger.json`](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json). While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
 
-Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
+Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
 
 ## API versioning
 
@@ -102,5 +102,5 @@ to pick up the `--runtime-config` changes.
 
 DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
 Other extensions resources can be enabled by setting `--runtime-config` on
-apiserver. `--runtime-config` accepts comma separated values. For ex: to disable deployments and ingress, set
+apiserver. `--runtime-config` accepts comma separated values. For example: to disable deployments and ingress, set
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`

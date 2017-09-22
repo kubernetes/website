@@ -346,7 +346,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 {% capture whatsnext %}
 * Learn more about [setting the namespace preference](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
 * Learn more about [setting the namespace for a request](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
-* See [namespaces design](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/namespaces.md).
+* See [namespaces design](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/architecture/namespaces.md).
 {% endcapture %}
 
 {% include templates/task.md %}
