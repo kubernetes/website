@@ -123,7 +123,7 @@ kubectl delete pod constraints-mem-demo --namespace=constraints-mem-example
 ## Attempt to create a Pod that exceeds the maximum memory constraint
 
 Here's the configuration file for a Pod that has one Container. The Container specifies a
-memory request of 700 MiB and a memory limit of 1.5 GiB.
+memory request of 800 MiB and a memory limit of 1.5 GiB.
 
 {% include code.html language="yaml" file="memory-constraints-pod-2.yaml" ghlink="/docs/tasks/administer-cluster/memory-constraints-pod-2.yaml" %}
 
