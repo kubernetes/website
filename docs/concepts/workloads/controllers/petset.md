@@ -24,7 +24,9 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 
 * Node: A single virtual or physical machine in a Kubernetes cluster.
 * Cluster: A group of nodes in a single failure domain, unless mentioned otherwise.
-* Persistent Volume Claim (PVC): A request for storage, typically a [persistent volume](/docs/concepts/storage/persistent-volumes/walkthrough/).
+
+* Persistent Volume Claim (PVC): A request for storage, typically a [persistent volume](/docs/concepts/storage/persistent-volumes/).
+>>>>>>> relink the  persistent volume of petset
 * Host name: The hostname attached to the UTS namespace of the pod, i.e. the output of `hostname` in the pod.
 * DNS/Domain name: A *cluster local* domain name resolvable using standard methods (e.g.: [gethostbyname](http://linux.die.net/man/3/gethostbyname)).
 * Ordinality: the property of being "ordinal", or occupying a position in a sequence.
@@ -38,7 +40,7 @@ This doc assumes familiarity with the following Kubernetes concepts:
 * [Pods](/docs/user-guide/pods/single-container/)
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
-* [Persistent Volumes](/docs/concepts/storage/volumes/)
+* [Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 * [Persistent Volume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/README.md)
 
 You need a working Kubernetes cluster at version >= 1.3, with a healthy DNS [cluster addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md) at version >= 15. You cannot use PetSet on a hosted Kubernetes provider that has disabled `alpha` resources.
