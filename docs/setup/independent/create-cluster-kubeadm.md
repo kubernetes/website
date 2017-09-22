@@ -249,7 +249,6 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel-rbac.yml
 ```
 {% endcapture %}
 
