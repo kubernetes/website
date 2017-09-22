@@ -6,9 +6,9 @@ title: Core metrics pipeline
 ---
 
 Starting from Kubernetes 1.8, resource usage metrics, such as container CPU and memory usage,
-are available in Kubernetes though the the Metrics API. These metrics can be either accessed directly
+are available in Kubernetes through the Metrics API. These metrics can be either accessed directly
 by user, for example by using `kubectl top` command, or used by a controller in the cluster, e.g.
-Horizontal Pod Autoscaler to make decisions.
+Horizontal Pod Autoscaler, to make decisions.
 
 ## The Metrics API
 
@@ -18,18 +18,21 @@ so it's not possible for example to get the amount of resources used by a
 given node 10 minutes ago.
 
 The API no different from any other API:
-it is discoverable through the same endpoint as the other Kubernetes APIs under `/apis/metrics.k8s.io/` path.
-It also offers the same security, scalability and reliability guarantees.
+
+- it is discoverable through the same endpoint as the other Kubernetes APIs under `/apis/metrics.k8s.io/` path
+- it offers the same security, scalability and reliability guarantees
 
 The API is defined in [k8s.io/metrics](https://github.com/kubernetes/metrics/blob/master/pkg/apis/metrics/v1beta1/types.go)
-repository. You can find more information about the API resources there.
+repository. You can find more information about the API there.
+
+The API requires metrics server to be deployed in the cluster. Otherwise it will be not available.
 
 ## Metrics Server
 
 [Metrics Server](https://github.com/kubernetes-incubator/metrics-server) is a cluster-wide aggregator of resource usage data.
-Starting from Kubernetes 1.8 it's deployed by default in clusters crated by `kube-up.sh` script
-as a Deployment object.
-User can deploy it also using the provided [deployment yamls](https://github.com/kubernetes-incubator/metrics-server/tree/master/deploy).
+Starting from Kubernetes 1.8 it's deployed by default in clusters created by `kube-up.sh` script
+as a Deployment object. If you use a different Kubernetes setup mechanism you can deploy it using the provided
+[deployment yamls](https://github.com/kubernetes-incubator/metrics-server/tree/master/deploy).
 It's supported in Kubernetes 1.7+ (see details below).
 
 Metric server collects metrics from the Summary API, exposed by [Kubelet](/docs/admin/kubelet/) on each node.
