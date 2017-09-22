@@ -246,6 +246,16 @@ As mentioned above, you use the `kubectl cluster-info` command to retrieve the s
 
 If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
 
+By default, the API server proxies to your service using http. To use https, prefix the service name with `https:`:
+`http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`https:service_name:[port_name]`*`/proxy`
+
+The supported formats for the name segment of the URL are:
+
+* `<service_name>` - proxies to the default or unnamed port using http
+* `<service_name>:<port_name>` - proxies to the specified port using http
+* `https:<service_name>:` - proxies to the default or unnamed port using https (note the trailing colon)
+* `https:<service_name>:<port_name>` - proxies to the specified port using https
+
 ##### Examples
 
  * To access the Elasticsearch service endpoint `_search?q=user:kimchy`, you would use:   `http://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy`
