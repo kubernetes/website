@@ -154,5 +154,4 @@ To make such deployment secure, communication between etcd instances is authoriz
 
 ## Additional reading
 
-[Automated HA master deployment - design doc](https://git.k8s.io/community/contributors/design-proposals/ha_master.md)
-
+[Automated HA master deployment - design doc](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/ha_master.md)
