@@ -442,7 +442,7 @@ that are considered invalid environment variable names will have those keys
 skipped.  The pod will be allowed to start.  There will be an event whose
 reason is `InvalidVariableNames` and the message will contain the list of
 invalid keys that were skipped. The example shows a pod which refers to the
-default/mysecret ConfigMap that contains 2 invalid keys, 1badkey and 2alsobad.
+default/mysecret that contains 2 invalid keys, 1badkey and 2alsobad.
 
 ```shell
 $ kubectl get events

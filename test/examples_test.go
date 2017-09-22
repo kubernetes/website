@@ -234,7 +234,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"kitten-rc":   {&api.ReplicationController{}},
 			"nautilus-rc": {&api.ReplicationController{}},
 		},
-		"../docs/user-guide/pod-security-policy": {
+		"../docs/concepts/policy": {
 			"psp": {&extensions.PodSecurityPolicy{}},
 		},
 		"../docs/user-guide/persistent-volumes/volumes": {
