@@ -37,7 +37,7 @@ Kubernetes reviews only the following API request attributes:
 --* For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
  * **Subresource** - The subresource that is being accessed (for resource requests only).
  * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only).
- * **API group** - The API group being accessed (for resource requests only). An empty string designates the [core API group](/docs/api/).
+ * **API group** - The API group being accessed (for resource requests only). An empty string designates the [core API group](/docs/concepts/overview/kubernetes-api/).
 
 ## Determine the Request Verb
 To determine the request verb for a resource API endpoint, review the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:
