@@ -13,7 +13,8 @@ can develop their features independantly from the core Kubernetes release cycles
 
 {% endcapture %}
 
-{% capture body %}
+* TOC
+{:toc}
 
 ## Cloud Controller Manager
 
@@ -92,5 +93,3 @@ As this initiative evolves, changes will be made to address these issues in upco
 ## Developing your own Cloud Controller Manager
 
 To build and develop your own cloud controller manager, read the [Develop Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager.md) doc.
-
-{% endcapture %}
