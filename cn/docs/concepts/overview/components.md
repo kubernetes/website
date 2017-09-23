@@ -56,32 +56,32 @@ cloud-controller-manager 允许云供应商代码和 Kubernetes 核心彼此独�
 
 [kube-scheduler](/docs/admin/kube-scheduler)监视没有分配节点的新创建的 Pod，选择一个节点供他们运行。
 
-### 插件
+### 插件(addons)
 
-插件是实现集群功能的 Pod 和 Service。 Pods 可能通过 Deployments，ReplicationControllers 管理。命名空间的插件对象被创建在 `kube-system` 命名空间。
+插件是实现集群功能的 Pod 和 Service。 Pods 可以通过 Deployments，ReplicationControllers 管理。插件对象本身是受命名空间限制的，被创建于 `kube-system` 命名空间。
 
 Addon 管理器用于创建和维护附加资源. 有关详细信息，请参阅[here](http://releases.k8s.io/HEAD/cluster/addons).
 
 #### DNS
 
-虽然其他插件并不是严格要求的，但所有 Kubernetes 集群都应该具有[Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)，许多示例依赖于它。
+虽然其他插件并不是必需的，但所有 Kubernetes 集群都应该具有[Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)，许多示例依赖于它。
 
-Cluster DNS是一个 DNS 服务器，除了您的环境中的其他 DNS 服务器，它为 Kubernetes 服务提供DNS记录。
+Cluster DNS 是一个 DNS 服务器，和您部署环境中的其他 DNS 服务器一起工作，为 Kubernetes 服务提供DNS记录。
 
 Kubernetes 启动的容器自动将 DNS 服务器包含在 DNS 搜索中。
 
 #### 用户界面
 
-kube-ui 提供了集群状态的只读概述。有关更多信息，请参阅[使用HTTP代理访问 Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
+dashboard 提供了集群状态的只读概述。有关更多信息，请参阅[使用HTTP代理访问 Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
 
 
 #### 容器资源监控
 
-[容器资源监控](/docs/user-guide/monitoring)记录关于中央数据库中的容器的通用时间序列指标，并提供用于浏览该数据的 UI。
+[容器资源监控](/docs/user-guide/monitoring)将关于容器的一些常见的时间序列度量值保存到一个集中的数据库中，并提供用于浏览这些数据的界面。
 
-#### 集群级日志记录
+#### 集群层面日志
 
-[Cluster-level logging](/docs/user-guide/logging/overview) 负责使用搜索/浏览界面将容器日志保存到中央日志存储。
+[Cluster-level logging](/docs/user-guide/logging/overview) 机制负责将容器的日志数据保存到一个集中的日志存储中，该存储能够提供搜索和浏览接口。
 
 ## 节点组件
 
@@ -89,13 +89,13 @@ kube-ui 提供了集群状态的只读概述。有关更多信息，请参阅[�
 
 ### kubelet
 
-[kubelet](/docs/admin/kubelet)是 Master 节点代理,它监视已分配给其节点的 Pod(通过 apiserver 或通过本地配置文件)和:
+[kubelet](/docs/admin/kubelet)是主要的节点代理,它监测已分配给其节点的 Pod(通过 apiserver 或通过本地配置文件)，提供如下的功能:
 
-* 安装 Pod 的所需数据卷(Volume)。
+* 挂载 Pod 所需要的数据卷(Volume)。
 * 下载 Pod 的 secrets。
-* 通过 Docker码 运行(或通过 rkt)运行 Pod 的容器。
-* 定期对容器生命周期进行探测。
-* 如果需要，通过创建 *mirror pod* 将报告状态报告回系统的其余部分。
+* 通过 Docker 运行(或通过 rkt)运行 Pod 的容器。
+* 周期性的对容器生命周期进行探测。
+* 如果需要，通过创建 *mirror pod* 将 Pod 的状态报告回系统的其余部分。
 * 将节点的状态报告回系统的其余部分。
 
 ### kube-proxy
@@ -109,15 +109,15 @@ Docker 用于运行容器。
 
 ### rkt
 
-实验中支持 rkt 运行容器作为 Docker 的替代方案。
+支持 rkt 运行容器作为 Docker 的试验性替代方案。
 
 ### supervisord
 
-supervisord 是一个轻量级的过程监控和控制系统，可以用来保证 kubelet 和 docker 运行。
+supervisord 是一个轻量级的过程监控系统，可以用来保证 kubelet 和 docker 运行。
 
 ### fluentd
 
-fluentd 是一个守护进程，它有助于提供[cluster-level logging](#cluster-level-logging) 集群层级的日志。
+fluentd 是一个守护进程，它有助于提供[cluster-level logging](#cluster-level-logging) 集群层面的日志。
 
 {% endcapture %}
 
