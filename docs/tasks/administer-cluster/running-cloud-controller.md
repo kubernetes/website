@@ -7,21 +7,17 @@ title: Kubernetes Cloud Controller Manager
 ---
 
 {% capture overview %}
-**Cloud Controller Manager is an alpha feature in 1.8. In upcoming releases it will
-be the preferred way to integrate Kubernetes with any cloud. This will ensure cloud providers
-can develop their features independantly from the core Kubernetes release cycles.**
-
-{% include templates/glossary/snippet.md term="cloud-controller-manager" length="long" %}
+**Cloud Controller Manager is an alpha feature in 1.8. In upcoming releases it will be the preferred way to integrate Kubernetes with any cloud. This will ensure cloud providers can develop their features independantly from the core Kubernetes release cycles.**
 {% endcapture %}
+
+* TOC
+{:toc}
 
 ## Cloud Controller Manager
 
 Kubernetes v1.6 contains a new binary called `cloud-controller-manager`. `cloud-controller-manager` is a daemon that embeds cloud-specific control loops. These cloud-specific control loops were originally in the `kube-controller-manager`. Since cloud providers develop and release at a different pace compared to the Kubernetes project, abstracting the provider-specific code to the `cloud-controller-manager` binary allows cloud vendors to evolve independently from the core Kubernetes code.
 
 The `cloud-controller-manager` can be linked to any cloud provider that satisifies [cloudprovider.Interface](https://git.k8s.io/kubernetes/pkg/cloudprovider/cloud.go). For backwards compatibility, the [cloud-controller-manager](https://github.com/kubernetes/kubernetes/tree/master/cmd/cloud-controller-manager) provided in the core Kubernetes project uses the same cloud libraries as `kube-controller-manager`. Cloud providers already supported in Kubernetes core are expected to use the in-tree cloud-controller-manager to transition out of Kubernetes core. In future Kubernetes releases, all cloud controller managers will be developed outside of the core Kubernetes project managed by sig leads or cloud vendors.
-
-* TOC
-{:toc}
 
 ## Administration
 
@@ -37,14 +33,17 @@ Every cloud has their own set of requirements for running their own cloud provid
 
 Successfully running cloud-controller-manager requires some changes to your cluster configuration.
 
-* `kube-apiserver` and `kube-controller-manager` must not specify a `--cloud-provider` flag or must set it to `--cloud-provider=external`. This ensures that it does not run any cloud specific loops that would be run by cloud controller manager. In the future, this flag will be deprecated and removed.
+* `kube-apiserver` and `kube-controller-manager` MUST NOT specify the --cloud-provider flag. This ensures that it does not run any cloud specific loops that would be run by cloud controller manager. In the future, this flag will be deprecated and removed.
 * `kubelet` must run with `--cloud-provider=external`. This is to ensure that the kubelet is aware that it must be initialized by the cloud controller manager before it is scheduled any work.
+* kube-apiserver SHOULD NOT run the Persistent Volume Label admission controller since the cloud-controller-manager takes over labeling persistent volumes. To prevent the Persistent Volume Label admission plugin from running, make sure the kube-apiserver has a --admission-control flag with a value that does not include PersistentVolumeLabel.
+* For the `cloud-controller-manager` to label persistent volumes, initializers will need to be enabled and an InitializerConifguration needs to be added to the system.  Follow [these instructions](/docs/admin/extensible-admission-controllers.md#enable-initializers-alpha-feature) to enable initializers.  Use the following YAML to create the InitializerConfiguration:
+
+{% include code.html language="yaml" file="persistent-volume-label-initializer-config.yaml" ghlink="/docs/tasks/administer-cluster/persistent-volume-label-initializer-config.yaml" %}
 
 Keep in mind that setting up your cluster to use cloud controller manager will change your cluster behaviour in a few ways:
 
 * kubelets specifying `--cloud-provider=external` will add a taint `node.cloudprovider.kubernetes.io/uninitialized` with an effect `NoSchedule` during initialization. This marks the node as needing a second initialization from an external controller before it can be scheduled work. Note that in the event that cloud controller manager is not available, new nodes in the cluster will be left unscheduable. The taint is important since the scheduler may require cloud specific information about nodes such as it's region or type (high cpu, gpu, high memory, spot instance, etc).
 * cloud information about nodes in the cluster will no longer be retrieved using local metadata, but instead all API calls to retreive node information will go through cloud controller manager. This may mean you can restrict access to your cloud API on the kubelets for better security. For larger clusters you may want to consider if cloud controller manager will hit rate limits since it is now responsible for almost all API calls to your cloud from within the cluster.
-* kube-apiserver should not run the Persistent Volume Label admission controller either since the cloud-controller-manager takes over labeling persistent volumes. To prevent the Persistent Volume Label admission plugin from running, make sure the kube-apiserver has a --admission-control flag with a value that does not include PersistentVolumeLabel.
 
 
 As of v1.8, cloud controller manager can implement:
@@ -53,6 +52,7 @@ As of v1.8, cloud controller manager can implement:
 * service controller - responsible for loadbalancers on your cloud against services of type LoadBalancer.
 * route controller - responsible for setting up network routes on your cloud
 * [PersistentVolumeLabel Admission Controller](/docs/admin/admission-controllers/#persistentvolumelabel) - responsible for labeling persistent volumes on your cloud - ensure that the persistent volume label admission plugin is not enabled on your kube-apiserver.
+* any other features you would like to implement if you are running an out-of-tree provider.
 
 
 ## Examples
@@ -69,11 +69,11 @@ For providers already in Kubernetes core, you can run the in-tree cloud controll
 
 ## Limitations
 
-Running cloud controller manager comes with a possible limitations. Although these limitations are being in addressed in upcoming releases, it's important that you are aware of these limitations for production workloads.
+Running cloud controller manager comes with a few possible limitations. Although these limitations are being addressed in upcoming releases, it's important that you are aware of these limitations for production workloads.
 
 ### Support for Volumes
 
-Cloud controller manager does not implement any of the volume controllers found in `kube-controller-manager` as volume integrations also require coordination with kubelets. As we evolve CSI (container storage interface) and add stronger support for flex volume plugins, necessary support will be added to cloud controller manager so that clouds can fully integrate with volumes.
+Cloud controller manager does not implement any of the volume controllers found in `kube-controller-manager` as the volume integrations also require coordination with kubelets. As we evolve CSI (container storage interface) and add stronger support for flex volume plugins, necessary support will be added to cloud controller manager so that clouds can fully integrate with volumes.
 
 ### Scalability
 
@@ -81,7 +81,7 @@ In the previous architecture for cloud providers, we relied on kubelets using a 
 
 ### Chicken and Egg
 
-The goal of the cloud controller manager project is to decouple development of cloud features from the core Kubernetes project. Unforunately, many aspects of the Kubernetes project has assumptions that cloud provider features are tightly integrated into the project. As a result, adopting this new architecture can create several situations where a requests is being made for information from a cloud provider, but the cloud controller manager may not be able to return that information without the original request being complete.
+The goal of the cloud controller manager project is to decouple development of cloud features from the core Kubernetes project. Unforunately, many aspects of the Kubernetes project has assumptions that cloud provider features are tightly integrated into the project. As a result, adopting this new architecture can create several situations where a request is being made for information from a cloud provider, but the cloud controller manager may not be able to return that information without the original request being complete.
 
 A good example of this is the TLS bootstrapping feature in the Kubelet. Currently, TLS bootstraping assumes that the Kubelet has the ability to ask the cloud provider (or a local metadata service) for all its address types (private, public, etc) but cloud controller manager cannot set a node's address types without being initialzed in the first place which requires that the kubelet has TLS certificates to communicate with the apiserver.
 
@@ -90,4 +90,3 @@ As this initiative evolves, changes will be made to address these issues in upco
 ## Developing your own Cloud Controller Manager
 
 To build and develop your own cloud controller manager, read the [Develop Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager.md) doc.
-

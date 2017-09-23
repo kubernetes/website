@@ -27,8 +27,6 @@ kind: Deployment
 metadata:
   labels:
     k8s-app: cloud-controller-manager
-  annotations:
-    scheduler.alpha.kubernetes.io/critical-pod: ''
   name: cloud-controller-manager
   namespace: kube-system
 spec:
@@ -39,11 +37,15 @@ spec:
     metadata:
       labels:
         k8s-app: cloud-controller-manager
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ''
     spec:
       serviceAccountName: cloud-controller-manager
       containers:
       - name: cloud-controller-manager
-        image: gcr.io/google_containers/cloud-controller-manager:v1.7.0
+        # for in-tree providers we use gcr.io/google_containers/cloud-controller-manager
+        # this can be replaced with any other image for out-of-tree providers
+        image: gcr.io/google_containers/cloud-controller-manager:v1.8.0
         command:
         - /usr/local/bin/cloud-controller-manager
         - --cloud-provider=<YOUR_CLOUD_PROVIDER>   # Add your own cloud provider here!
@@ -54,6 +56,9 @@ spec:
         - --configure-cloud-routes=true
         - --cluster-cidr=172.17.0.0/16
       tolerations:
+      # this is required so CCM can bootstrap itself
       - key: node.cloudprovider.kubernetes.io/uninitialized
         value: "true"
         effect: NoSchedule
+      - key: "CriticalAddonsOnly"
+        operator: "Exists"

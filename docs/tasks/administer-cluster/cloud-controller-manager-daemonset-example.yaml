@@ -43,7 +43,9 @@ spec:
       serviceAccountName: cloud-controller-manager
       containers:
       - name: cloud-controller-manager
-        image: gcr.io/google_containers/cloud-controller-manager:v1.7.0
+        # for in-tree providers we use gcr.io/google_containers/cloud-controller-manager
+        # this can be replaced with any other image for out-of-tree providers
+        image: gcr.io/google_containers/cloud-controller-manager:v1.8.0
         command:
         - /usr/local/bin/cloud-controller-manager
         - --cloud-provider=<YOUR_CLOUD_PROVIDER>   # Add your own cloud provider here!
@@ -54,10 +56,15 @@ spec:
         - --configure-cloud-routes=true
         - --cluster-cidr=172.17.0.0/16
       tolerations:
+      # this is required so CCM can bootstrap itself
       - key: node.cloudprovider.kubernetes.io/uninitialized
         value: "true"
         effect: NoSchedule
+      # this is to have the daemonset runnable on master nodes
+      # the taint may vary depending on your cluster setup
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
+      # this is to restrict CCM to only run on master nodes
+      # the node selector may vary depending on your cluster setup
       nodeSelector:
         node-role.kubernetes.io/master: ""
