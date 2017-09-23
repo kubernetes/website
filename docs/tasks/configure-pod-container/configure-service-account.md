@@ -9,7 +9,7 @@ title: Configure Service Accounts for Pods
 A service account provides an identity for processes that run in a Pod.
 
 *This is a user introduction to Service Accounts.  See also the
-[Cluster Admin Guide to Service Accounts](/docs/admin/service-accounts-admin).*
+[Cluster Admin Guide to Service Accounts](/docs/admin/service-accounts-admin/).*
 
 **Note:** This document describes how service accounts behave in a cluster set up
 as recommended by the Kubernetes project.  Your cluster administrator may have
