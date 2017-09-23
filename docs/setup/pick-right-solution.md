@@ -120,6 +120,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)
 * [CentOS](/docs/getting-started-guides/centos/centos_manual_config)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
+* [Manually Deploying Kubernetes on Ubuntu 16.04 LTS](/docs/getting-started-guides/ubuntu/manual-deploy)
 * [CoreOS on AWS or GCE](/docs/getting-started-guides/coreos)
 
 ## Integrations
