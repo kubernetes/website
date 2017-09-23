@@ -6,9 +6,7 @@ approvers:
 title: Kubernetes Cloud Controller Manager
 ---
 
-{% capture overview %}
 **Cloud Controller Manager is an alpha feature in 1.8. In upcoming releases it will be the preferred way to integrate Kubernetes with any cloud. This will ensure cloud providers can develop their features independantly from the core Kubernetes release cycles.**
-{% endcapture %}
 
 * TOC
 {:toc}
