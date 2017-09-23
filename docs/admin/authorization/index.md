@@ -99,37 +99,28 @@ field of the returned object is the result of the query.
 
 ```bash
 $ kubectl create -f - -o yaml << EOF
-{
-    "kind": "SelfSubjectAccessReview",
-    "apiVersion": "authorization.k8s.io/v1",
-    "spec": {
-         "resourceAttributes": {
-             "group": "apps",
-             "name": "deployments",
-             "verb": "create",
-             "namespace": "dev"
-         }
-     }
-}
+apiVersion: authorization.k8s.io/v1
+kind: SelfSubjectAccessReview
+spec:
+  resourceAttributes:
+    group: apps
+    name: deployments
+    verb: create
+    namespace: dev
 EOF
-{
-    "apiVersion": "authorization.k8s.io/v1",
-    "kind": "SelfSubjectAccessReview",
-    "metadata": {
-        "creationTimestamp": null
-    },
-    "spec": {
-        "resourceAttributes": {
-            "group": "apps",
-            "name": "deployments",
-            "namespace": "dev",
-            "verb": "create"
-        }
-    },
-    "status": {
-        "allowed": true
-    }
-}
+
+apiVersion: authorization.k8s.io/v1
+kind: SelfSubjectAccessReview
+metadata:
+  creationTimestamp: null
+spec:
+  resourceAttributes:
+    group: apps
+    name: deployments
+    namespace: dev
+    verb: create
+status:
+  allowed: true
 ```
 
 ## Using Flags for Your Authorization Module
