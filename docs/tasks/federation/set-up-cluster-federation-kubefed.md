@@ -373,7 +373,7 @@ For more information see
 
 Once you've deployed a federation control plane, you'll need to make
 that control plane aware of the clusters it should manage. You can add
-a cluster to your federation by using the [`kubefed join`](/docs/admin/kubefed_join)
+a cluster to your federation by using the [`kubefed join`](/docs/admin/kubefed_join/)
 command.
 
 To use `kubefed join`, you'll need to provide the name of the cluster
