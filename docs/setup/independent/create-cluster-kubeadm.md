@@ -548,7 +548,7 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
     If not, you may still use the [NodePort feature of
     services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
     
-1. **Pods cannot access themselves via their Service IP**
+1. **Pods cannot access themselves via their Service IP**.
     Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip) 
     which allows pods to access themselves via their Service IP if they don't know about their podIP. This is an issue
     related to [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the providers of the network 
