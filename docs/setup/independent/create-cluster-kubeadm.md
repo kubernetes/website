@@ -547,6 +547,12 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
 
     If not, you may still use the [NodePort feature of
     services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
+    
+1. **Pods cannot access themselves via their Service IP**
+    Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip) 
+    which allows pods to access themselves via their Service IP if they don't know about their podIP. This is an issue
+    related to [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the providers of the network 
+    add-on providers to get timely information about whether they support hairpin mode.
 
 1. If you are using VirtualBox (directly or via Vagrant), you will need to
    ensure that `hostname -i` returns a routable IP address (i.e. one on the
@@ -608,10 +614,6 @@ kubectl -n ${NAMESPACE} describe pod ${POD_NAME}
 
 kubectl -n ${NAMESPACE} logs ${POD_NAME} -c ${CONTAINER_NAME}
 ```
-1. Many CNI-based network add-ons do not set [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip) which allows pods to access 
-themselves via their Service IP if they don't know about their podIP. Please consult issue [containernetworking/cni#476](https://github.com/containernetworking/cni/issues/476) 
-for more up-to-date information or directly contact the providers of the network add-on providers to get 
-timely information about whether they support hairpin mode.
 
 {% endcapture %}
 
