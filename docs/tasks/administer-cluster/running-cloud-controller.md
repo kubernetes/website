@@ -14,8 +14,6 @@ can develop their features independantly from the core Kubernetes release cycles
 {% include templates/glossary/snippet.md term="cloud-controller-manager" length="long" %}
 {% endcapture %}
 
-{% capture body %}
-
 ## Cloud Controller Manager
 
 Kubernetes v1.6 contains a new binary called `cloud-controller-manager`. `cloud-controller-manager` is a daemon that embeds cloud-specific control loops. These cloud-specific control loops were originally in the `kube-controller-manager`. Since cloud providers develop and release at a different pace compared to the Kubernetes project, abstracting the provider-specific code to the `cloud-controller-manager` binary allows cloud vendors to evolve independently from the core Kubernetes code.
@@ -93,4 +91,3 @@ As this initiative evolves, changes will be made to address these issues in upco
 
 To build and develop your own cloud controller manager, read the [Develop Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager.md) doc.
 
-{% endcapture %}
