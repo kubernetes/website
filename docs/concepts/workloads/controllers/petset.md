@@ -37,7 +37,7 @@ This doc assumes familiarity with the following Kubernetes concepts:
 
 * [Pods](/docs/user-guide/pods/single-container/)
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Services](/docs/user-guide/services/#headless-services)
+* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [Persistent Volumes](/docs/concepts/storage/volumes/)
 * [Persistent Volume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/README.md)
 
