@@ -57,7 +57,7 @@ If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](
 * [Auditing](/docs/tasks/debug-application-cluster/audit/) describes how to interact with Kubernetes' audit logs.
 
 ### Securing the kubelet
-  * [Master-Node communication](/docs/concepts/cluster-administration/master-node-communication/)
+  * [Master-Node communication](/docs/concepts/architecture/master-node-communication/)
   * [TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/)
   * [Kubelet authentication/authorization](/docs/admin/kubelet-authentication-authorization/)
 
