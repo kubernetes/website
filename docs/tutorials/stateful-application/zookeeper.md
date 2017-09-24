@@ -89,7 +89,7 @@ safely discarded.
 ## Creating a ZooKeeper Ensemble
 
 The manifest below contains a 
-[Headless Service](/docs/user-guide/services/#headless-services), 
+[Headless Service](/docs/concepts/services-networking/service/#headless-services), 
 a [ConfigMap](/docs/tasks/configure-pod-container/configmap/), 
 a [PodDisruptionBudget](/docs/admin/disruptions/#specifying-a-poddisruptionbudget), 
 and a [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/). 

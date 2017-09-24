@@ -53,7 +53,7 @@ deployment "source-ip-app" created
 ## Source IP for Services with Type=ClusterIP
 
 Packets sent to ClusterIP from within the cluster are never source NAT'd if
-you're running kube-proxy in [iptables mode](/docs/user-guide/services/#proxy-mode-iptables),
+you're running kube-proxy in [iptables mode](/docs/concepts/services-networking/service/#proxy-mode-iptables),
 which is the default since Kubernetes 1.2. Kube-proxy exposes its mode through
 a `proxyMode` endpoint:
 
@@ -110,7 +110,7 @@ If the client pod and server pod are in the same node, the client_address is the
 
 ## Source IP for Services with Type=NodePort
 
-As of Kubernetes 1.5, packets sent to Services with [Type=NodePort](/docs/user-guide/services/#type-nodeport)
+As of Kubernetes 1.5, packets sent to Services with [Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
 are source NAT'd by default. You can test this by creating a `NodePort` Service:
 
 ```console
@@ -208,7 +208,7 @@ Visually:
 
 ## Source IP for Services with Type=LoadBalancer
 
-As of Kubernetes 1.5, packets sent to Services with [Type=LoadBalancer](/docs/user-guide/services/#type-loadbalancer) are
+As of Kubernetes 1.5, packets sent to Services with [Type=LoadBalancer](/docs/concepts/services-networking/service/#type-loadbalancer) are
 source NAT'd by default, because all schedulable Kubernetes nodes in the
 `Ready` state are eligible for loadbalanced traffic. So if packets arrive
 at a node without an endpoint, the system proxies it to a node *with* an
