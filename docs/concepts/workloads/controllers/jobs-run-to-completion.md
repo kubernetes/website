@@ -92,9 +92,7 @@ $ kubectl logs $pods
 
 ## Writing a Job Spec
 
-As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.  For
-general information about working with config files, see [here](/docs/user-guide/simple-yaml),
-[here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
+As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.
 
 A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
