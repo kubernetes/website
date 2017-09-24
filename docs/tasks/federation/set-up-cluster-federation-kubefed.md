@@ -289,17 +289,17 @@ Federation control plane stores its state in
 [`etcd`](https://coreos.com/etcd/docs/latest/) data must be stored in
 a persistent storage volume to ensure correct operation across
 federation control plane restarts. On host clusters that support
-[dynamic provisioning of storage volumes](/docs/user-guide/persistent-volumes/#dynamic),
+[dynamic provisioning of storage volumes](/docs/concepts/storage/persistent-volumes/#dynamic),
 `kubefed init` dynamically provisions a
-[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes)
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes)
 and binds it to a
-[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 to store [`etcd`](https://coreos.com/etcd/docs/latest/) data. If your
 host cluster doesn't support dynamic provisioning, you can also
 statically provision a
-[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes).
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes).
 `kubefed init` creates a
-[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 that has the following configuration:
 
 ```yaml
@@ -321,12 +321,12 @@ spec:
 ```
 
 To statically provision a
-[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes),
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes),
 you must ensure that the
-[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes)
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes)
 that you create has the matching storage class, access mode and
 at least as much capacity as the requested
-[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims).
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 
 Alternatively, you can disable persistent storage completely
 by passing `--etcd-persistent-storage=false` to `kubefed init`.
@@ -342,7 +342,7 @@ kubefed init fellowship \
 ```
 
 `kubefed init` still doesn't support attaching an existing
-[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 to the federation control plane that it bootstraps. We are planning to
 support this in a future version of `kubefed`.
 

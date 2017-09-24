@@ -27,7 +27,7 @@ application is MySQL.
 * For data persistence we will create a Persistent Volume that
   references a disk in your
   environment. See
-  [here](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes) for
+  [here](/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes) for
   the types of environments supported. This Tutorial will demonstrate
   `GCEPersistentDisk` but any type will work. `GCEPersistentDisk`
   volumes only work on Google Compute Engine.
@@ -40,7 +40,7 @@ application is MySQL.
 ## Set up a disk in your environment
 
 You can use any type of persistent volume for your stateful app. See
-[Types of Persistent Volumes](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes)
+[Types of Persistent Volumes](/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes)
 for a list of supported environment disks. For Google Compute Engine, run:
 
 ```

@@ -24,7 +24,7 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 
 * Node: A single virtual or physical machine in a Kubernetes cluster.
 * Cluster: A group of nodes in a single failure domain, unless mentioned otherwise.
-* Persistent Volume Claim (PVC): A request for storage, typically a [persistent volume](/docs/user-guide/persistent-volumes/walkthrough/).
+* Persistent Volume Claim (PVC): A request for storage, typically a [persistent volume](/docs/concepts/storage/persistent-volumes/walkthrough/).
 * Host name: The hostname attached to the UTS namespace of the pod, i.e. the output of `hostname` in the pod.
 * DNS/Domain name: A *cluster local* domain name resolvable using standard methods (e.g.: [gethostbyname](http://linux.die.net/man/3/gethostbyname)).
 * Ordinality: the property of being "ordinal", or occupying a position in a sequence.

@@ -35,7 +35,7 @@ administrators. Kubernetes itself is unopinionated about what classes
 represent. This concept is sometimes called "profiles" in other storage
 systems.
 
-Please see the [detailed walkthrough with working examples](/docs/user-guide/persistent-volumes/walkthrough/).
+Please see the [detailed walkthrough with working examples](/docs/concepts/storage/persistent-volumes/walkthrough/).
 
 
 ## Lifecycle of a volume and claim

@@ -675,7 +675,7 @@ More details and examples can be found [here](https://github.com/kubernetes/exam
 ScaleIO is a software-based storage platform that can use existing hardware to create clusters of scalable
 shared block networked storage.  The ScaleIO volume plugin allows deployed pods to access existing ScaleIO
 volumes (or it can dynamically provision new volumes for persistent volume claims, see
-[ScaleIO Persistent Volumes](/docs/user-guide/persistent-volumes/#scaleio)).
+[ScaleIO Persistent Volumes](/docs/concepts/storage/persistent-volumes/#scaleio)).
 
 **Important:** You must have an existing ScaleIO cluster already setup and running with the volumes created before you can use them.
 {: .caution}
