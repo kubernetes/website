@@ -27,7 +27,7 @@ steps that existing cluster setup scripts are making.
 
   1. You should be familiar with using Kubernetes already.  We suggest you set
     up a temporary cluster by following one of the other Getting Started Guides.
-    This will help you become familiar with the CLI ([kubectl](/docs/user-guide/kubectl/)) and concepts ([pods](/docs/user-guide/pods/), [services](/docs/user-guide/services/), etc.) first.
+    This will help you become familiar with the CLI ([kubectl](/docs/user-guide/kubectl/)) and concepts ([pods](/docs/user-guide/pods/), [services](/docs/concepts/services-networking/service/), etc.) first.
   1. You should have `kubectl` installed on your desktop.  This will happen as a side
     effect of completing one of the other Getting Started Guides.  If not, follow the instructions
     [here](/docs/tasks/kubectl/install/).
@@ -113,7 +113,7 @@ You will need to select an address range for the Pod IPs. Note that IPv6 is not 
     using `10.10.0.0/24` through `10.10.255.0/24`, respectively.
   - Need to make these routable or connect with overlay.
 
-Kubernetes also allocates an IP to each [service](/docs/user-guide/services/).  However,
+Kubernetes also allocates an IP to each [service](/docs/concepts/services-networking/service/).  However,
 service IPs do not necessarily need to be routable.  The kube-proxy takes care
 of translating Service IPs to Pod IPs before traffic leaves the node.  You do
 need to Allocate a block of IPs for services.  Call this

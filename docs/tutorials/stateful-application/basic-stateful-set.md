@@ -55,7 +55,7 @@ After this tutorial, you will be familiar with the following.
 Begin by creating a StatefulSet using the example below. It is similar to the 
 example presented in the
 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/) concept. 
-It creates a [Headless Service](/docs/user-guide/services/#headless-services), 
+It creates a [Headless Service](/docs/concepts/services-networking/service/#headless-services), 
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`. 
 
 {% include code.html language="yaml" file="web.yaml" ghlink="/docs/tutorials/stateful-application/web.yaml" %}
