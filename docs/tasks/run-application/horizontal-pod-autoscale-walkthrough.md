@@ -24,7 +24,7 @@ heapster monitoring will be turned-on by default).
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
 and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
 must be able to communicate with the API server providing the custom metrics API.
-See the [Horizontal Pod Autoscaling user guide](/docs/user-guide/horizontal-pod-autoscaling/#support-for-custom-metrics) for more details.
+See the [Horizontal Pod Autoscaling user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
 
 ## Step One: Run & expose php-apache server
 
