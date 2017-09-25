@@ -65,7 +65,7 @@ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/exec-livenes
 
 Within 30 seconds, view the Pod events:
 
-```
+```shell
 kubectl describe pod liveness-exec
 ```
 
@@ -268,7 +268,7 @@ have additional fields that can be set on `httpGet`:
 
 * `host`: Host name to connect to, defaults to the pod IP. You probably want to
 set "Host" in httpHeaders instead.
-* `scheme`: Scheme to use for connecting to the host. Defaults to HTTP.
+* `scheme`: Scheme to use for connecting to the host (HTTP or HTTPS). Defaults to HTTP.
 * `path`: Path to access on the HTTP server.
 * `httpHeaders`: Custom headers to set in the request. HTTP allows repeated headers.
 * `port`: Name or number of the port to access on the container. Number must be
@@ -276,12 +276,13 @@ in the range 1 to 65535.
 
 For an HTTP probe, the kubelet sends an HTTP request to the specified path and
 port to perform the check. The kubelet sends the probe to the container’s IP address,
-unless the address is overridden by the optional `host` field in `httpGet`.
-In most scenarios, you do not want to set the `host` field. Here's one scenario
-where you would set it. Suppose the Container listens on 127.0.0.1 and the Pod's
-`hostNetwork` field is true. Then `host`, under `httpGet`, should be set to 127.0.0.1.
-If your pod relies on virtual hosts, which is probably the more common case,
-you should not use `host`, but rather set the `Host` header in `httpHeaders`.
+unless the address is overridden by the optional `host` field in `httpGet`. If
+`scheme` field is set to `HTTPS`, the kubelet sends an HTTPS request skipping the
+certificate verification. In most scenarios, you do not want to set the `host` field.
+Here's one scenario where you would set it. Suppose the Container listens on 127.0.0.1
+and the Pod's `hostNetwork` field is true. Then `host`, under `httpGet`, should be set
+to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more common
+case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
 {% endcapture %}
 

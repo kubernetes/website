@@ -128,7 +128,7 @@ $ echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.na
 
 # Check which nodes are ready
 $ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
- && kubectl get nodes -o jsonpath=$JSONPATH | grep "Ready=True"
+ && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
 
 # List all Secrets currently in use by a pod
 $ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq

@@ -41,15 +41,18 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 
 In this example:
 
-* A Deployment named `nginx` is created.
-* The `nginx` Deployment creates three replicated Pods.
-* The Pods are created from the `template` field.
+* A Deployment named `nginx` is created, indicated by the `metadata: name` field.
+* The Deployment creates three replicated Pods, indicated by the `replicas` field.
+* The Pod template's specification, or `template: spec` field, indicates that
+  the Pods run one container, `nginx`, which runs the `nginx`
+  [Docker Hub](https://hub.docker.com/) image at version 1.7.9.
+* The Deployment opens port 80 for use by the Pods.
 
 The `template` field contains the following instructions:
 
-* Create one container in each Pod.
-* Label the container `app: nginx`.
-* Run the [Docker Hub](https://hub.docker.com) image `nginx` at version `1.7.9`.
+* The Pods are labeled `app: nginx`
+* Create one container and name it `nginx`.
+* Run the `nginx` image at version `1.7.9`.
 * Open port `80` so that the container can send and accept traffic.
 
 To create this Deployment, run the following command:
@@ -112,7 +115,7 @@ NAME                          DESIRED   CURRENT   READY   AGE
 nginx-deployment-2035384211   3         3         3       18s
 ```
 
-Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[POD-TEMPALTE-HASH-VALUE]`. The hash value is automatically generated when the Deployemnt is created.
+Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[POD-TEMPLATE-HASH-VALUE]`. The hash value is automatically generated when the Deployment is created.
 
 To see the labels automatically generated for each pod, run `kubectl get pods --show-labels`. The following output is returned:
 
@@ -221,11 +224,26 @@ Name:           nginx-deployment
 Namespace:      default
 CreationTimestamp:  Tue, 15 Mar 2016 12:01:06 -0700
 Labels:         app=nginx
+Annotations:    deployment.kubernetes.io/revision=2
 Selector:       app=nginx
-Replicas:       3 updated | 3 total | 3 available | 0 unavailable
+Replicas:       3 desired | 3 updated | 3 total | 3 available | 0 unavailable
 StrategyType:       RollingUpdate
 MinReadySeconds:    0
 RollingUpdateStrategy:  1 max unavailable, 1 max surge
+Pod Template:
+  Labels:       app=nginx
+  Containers:
+   nginx:
+    Image:              nginx:1.9.1
+    Port:               80/TCP
+    Environment:        <none>
+    Mounts:             <none>
+  Volumes:              <none>
+Conditions:
+  Type          Status  Reason
+  ----          ------  ------
+  Available     True    MinimumReplicasAvailable
+  Progressing   True    NewReplicaSetAvailable
 OldReplicaSets:     <none>
 NewReplicaSet:      nginx-deployment-1564180365 (3/3 replicas created)
 Events:

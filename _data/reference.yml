@@ -90,16 +90,16 @@ toc:
 - title: Kubernetes Design Docs
   section:
   - title: Kubernetes Architecture
-    path: https://git.k8s.io/community/contributors/design-proposals/architecture.md
+    path: https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md
   - title: Kubernetes Design Overview
     path: https://github.com/kubernetes/kubernetes/tree/release-1.6/docs/design
   - title: Kubernetes Identity and Access Management
-    path: https://git.k8s.io/community/contributors/design-proposals/access.md
+    path: https://git.k8s.io/community/contributors/design-proposals/auth/access.md
   - docs/admin/ovs-networking.md
   - title: Security Contexts
-    path: https://git.k8s.io/community/contributors/design-proposals/security_context.md
+    path: https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md
   - title: Security in Kubernetes
-    path: https://git.k8s.io/community/contributors/design-proposals/security.md
+    path: https://git.k8s.io/community/contributors/design-proposals/auth/security.md
 
 - title: Kubernetes Issues and Security
   section:

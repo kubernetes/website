@@ -14,7 +14,7 @@ A `node` is a worker machine in Kubernetes, previously known as a `minion`. A no
 may be a VM or physical machine, depending on the cluster. Each node has
 the services necessary to run [pods](/docs/user-guide/pods) and is managed by the master
 components. The services on a node include Docker, kubelet and kube-proxy. See
-[The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture.md#the-kubernetes-node) section in the
+[The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) section in the
 architecture design doc for more details.
 
 ## Node Status
@@ -51,6 +51,7 @@ The `conditions` field describes the status of all `Running` nodes.
 | `Ready`        | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last 40 seconds |
 | `MemoryPressure`    | `True` if pressure exists on the node memory -- that is, if the node memory is low; otherwise `False` |
 | `DiskPressure`    | `True` if pressure exists on the disk size -- that is, if the disk capacity is low; otherwise `False` |
+| `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
 
 The node condition is represented as a JSON object. For example, the following response describes a healthy node.
 
@@ -181,7 +182,6 @@ register itself with the API server.  This is the preferred pattern, used by mos
 
 For self-registration, the kubelet is started with the following options:
 
-  - `--api-servers` - Location of the apiservers.
   - `--kubeconfig` - Path to credentials to authenticate itself to the apiserver.
   - `--cloud-provider` - How to talk to a cloud provider to read metadata about itself.
   - `--register-node` - Automatically register with the API server.

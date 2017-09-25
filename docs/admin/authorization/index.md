@@ -37,7 +37,7 @@ Kubernetes reviews only the following API request attributes:
 --* For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
  * **Subresource** - The subresource that is being accessed (for resource requests only).
  * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only).
- * **API group** - The API group being accessed (for resource requests only). An empty string designates the [core API group](/docs/api/).
+ * **API group** - The API group being accessed (for resource requests only). An empty string designates the [core API group](/docs/concepts/overview/kubernetes-api/).
 
 ## Determine the Request Verb
 To determine the request verb for a resource API endpoint, review the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:
@@ -136,3 +136,10 @@ As of version 1.3, clusters created by kube-up.sh are configured so that the A
 {% endcapture %}
 
 {% include templates/concept.md %}
+
+## Privilege escalation via pod creation
+
+Users who have ability to create pods in a namespace can potentially escalate their privileges within that namespace.  They can create pods that access secrets the user cannot themselves read, or that run under a service account with different/greater permissions.
+
+**Caution:** System administrators, use care when granting access to pod creation.  A user granted permission to create pods (or controllers that create pods) in the namespace can: read all secrets in the namespace; read all config maps in the namespace; and impersonate any service account in the namespace and take any action the account could take. This applies regardless of authorization mode.
+{: .caution}

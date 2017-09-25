@@ -103,6 +103,7 @@ kubeadm init
 ```
 
 **Note:**
+
  - You need to choose a Pod Network Plugin in the next step. Depending on what
 third-party provider you choose, you might have to set the `--pod-network-cidr` to
 something provider-specific. The tabs below will contain a notice about what flags
@@ -214,7 +215,8 @@ Please select one of the tabs to see installation instructions for the respectiv
 The official Calico guide is [here](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/).
 
 **Note:**
- - In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`
+
+ - In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`.
  - Calico works on `amd64` only.
 
 ```shell
@@ -227,6 +229,7 @@ kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/i
 The official Canal set-up guide is [here](https://github.com/projectcalico/canal/tree/master/k8s-install).
 
 **Note:**
+
  - For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
  - Canal works on `amd64` only.
 
@@ -239,6 +242,7 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8
 {% capture flannel %}
 
 **Note:**
+
  - For flannel to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
  - flannel works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on an other platform than
 `amd64` you have to manually download the manifest and replace `amd64` occurences with your chosen platform.
@@ -468,9 +472,9 @@ control of your Kubernetes cluster.
 ## Feedback
 
 * kubeadm support Slack Channel:
-  [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
+  [kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
 * General SIG Cluster Lifecycle Development Slack Channel:
-  [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
+  [sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
 * Mailing List:
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
 * [GitHub Issues in the kubeadm
@@ -561,10 +565,10 @@ Verify that the `$HOME/.kube/config` file contains a valid certificate, and rege
 Another workaround is to overwrite the default `kubeconfig` for the "admin" user:
 
 ```
-  mv  $HOME/.kube $HOME/.kube.bak
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+mv  $HOME/.kube $HOME/.kube.bak
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 1. If you are using CentOS and encounter difficulty while setting up the master node，

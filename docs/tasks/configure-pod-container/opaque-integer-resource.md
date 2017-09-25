@@ -53,7 +53,7 @@ Describe the Pod:
 kubectl describe pod oir-demo
 ```
 
-The output shows the memory, CPU, and dongle requests:
+The output shows dongle requests:
 
 ```yaml
 Requests:

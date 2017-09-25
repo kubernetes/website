@@ -8,7 +8,7 @@ Objects of type `PodSecurityPolicy` govern the ability
 to make requests on a pod that affect the `SecurityContext` that will be
 applied to a pod and container.
 
-See [PodSecurityPolicy proposal](https://git.k8s.io/community/contributors/design-proposals/security-context-constraints.md) for more information.
+See [PodSecurityPolicy proposal](https://git.k8s.io/community/contributors/design-proposals/auth/security-context-constraints.md) for more information.
 
 * TOC
 {:toc}

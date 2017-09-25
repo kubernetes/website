@@ -25,7 +25,7 @@ cluster nodes _provided your cluster runs in a supported environment and is conf
 ## Configuration file
 
 To create an external load balancer, add the following line to your
-[service configuration file](/docs/user-guide/services/operations/#service-configuration-file):
+[service configuration file](/docs/concepts/services-networking/service/operations/#service-configuration-file):
 
 ```json
     "type": "LoadBalancer"
@@ -82,16 +82,19 @@ kubectl describe services example-service
 which should produce output like this:
 
 ```bash
-    Name:  example-service
-    Selector:   app=example
-    Type:     LoadBalancer
-    IP:     10.67.252.103
-    LoadBalancer Ingress: 123.45.678.9
-    Port:     <unnamed> 80/TCP
-    NodePort:   <unnamed> 32445/TCP
-    Endpoints:    10.64.0.4:80,10.64.1.5:80,10.64.2.4:80
-    Session Affinity: None
-    No events.
+    Name:                   example-service
+    Namespace:              default
+    Labels:                 <none>
+    Annotations:            <none>
+    Selector:               app=example
+    Type:                   LoadBalancer
+    IP:                     10.67.252.103
+    LoadBalancer Ingress:   123.45.678.9
+    Port:                   <unnamed> 80/TCP
+    NodePort:               <unnamed> 32445/TCP
+    Endpoints:              10.64.0.4:80,10.64.1.5:80,10.64.2.4:80
+    Session Affinity:       None
+    Events:                 <none>
 ```
 
 The IP address is listed next to `LoadBalancer Ingress`.

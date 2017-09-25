@@ -49,7 +49,7 @@ cd contrib/ansible
 
 **Tell ansible about each machine and its role in your cluster**
 
-Get the IP addresses from the master and nodes.  Add those to the `~/contrib/ansible/inventory` file on the host running Ansible.
+Get the IP addresses from the master and nodes.  Add those to the `~/contrib/ansible/inventory/localhost.ini` file on the host running Ansible.
 
 ```shell
 [masters]
@@ -69,7 +69,7 @@ If you already are running on a machine which has passwordless ssh access to the
 
 *Otherwise* setup ssh on the machines like so (you will need to know the root password to all machines in the cluster).
 
-edit: ~/contrib/ansible/inventory/group_vars/all.yml
+edit: `~/contrib/ansible/inventory/group_vars/all.yml`
 
 ```yaml
 ansible_ssh_user: root
@@ -147,9 +147,9 @@ dns_setup: true
 This will finally setup your whole Kubernetes cluster for you.
 
 ```shell
-cd ~/contrib/ansible/
+cd ~/contrib/ansible/scripts/
 
-./scripts/deploy-cluster.sh
+./deploy-cluster.sh
 ```
 
 ## Testing and using your new cluster

@@ -112,11 +112,11 @@ Some uses for an `emptyDir` are:
   container serves the data
 
 By default, `emptyDir` volumes are stored on whatever medium is backing the
-machine - that might be disk or SSD or network storage, depending on your
+node - that might be disk or SSD or network storage, depending on your
 environment.  However, you can set the `emptyDir.medium` field to `"Memory"`
 to tell Kubernetes to mount a tmpfs (RAM-backed filesystem) for you instead.
 While tmpfs is very fast, be aware that unlike disks, tmpfs is cleared on
-machine reboot and any files you write will count against your container's
+node reboot and any files you write will count against your container's
 memory limit.
 
 #### Example pod
@@ -466,7 +466,7 @@ Currently, the following types of volume sources can be projected:
 - [`downwardAPI`](#downardapi)
 - `configMap`
 
-All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/all-in-one-volume.md).
+All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/node/all-in-one-volume.md).
 
 #### Example pod with a secret, a downward API, and a configmap.
 
@@ -675,7 +675,7 @@ More details and examples can be found [here](https://github.com/kubernetes/exam
 ScaleIO is a software-based storage platform that can use existing hardware to create clusters of scalable
 shared block networked storage.  The ScaleIO volume plugin allows deployed pods to access existing ScaleIO
 volumes (or it can dynamically provision new volumes for persistent volume claims, see
-[ScaleIO Persistent Volumes](/docs/user-guide/persistent-volumes/#scaleio)).
+[ScaleIO Persistent Volumes](/docs/concepts/storage/persistent-volumes/#scaleio)).
 
 **Important:** You must have an existing ScaleIO cluster already setup and running with the volumes created before you can use them.
 {: .caution}
@@ -847,6 +847,10 @@ request a certain amount of space using a [resource](/docs/user-guide/compute-re
 specification, and to select the type of media to use, for clusters that have
 several media types.
 
+{% endcapture %}
+
+{% capture whatsnext %}
+* Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 {% endcapture %}
 
 {% include templates/concept.md %}

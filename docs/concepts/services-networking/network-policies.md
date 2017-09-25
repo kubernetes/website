@@ -41,6 +41,10 @@ spec:
       role: db
   ingress:
   - from:
+    - ipBlock:
+        cidr: 172.17.0.0/16
+        except:
+        - 172.17.1.0/24
     - namespaceSelector:
         matchLabels:
           project: myproject
@@ -61,6 +65,11 @@ __spec__: `NetworkPolicy` [spec](https://git.k8s.io/community/contributors/devel
 __podSelector__: Each `NetworkPolicy` includes a `podSelector` which selects the grouping of pods to which the policy applies. Since `NetworkPolicy` currently only supports defining `ingress` rules, this `podSelector` essentially defines the "destination pods" for the policy. The example policy selects pods with the label "role=db". An empty `podSelector` selects all pods in the namespace.
 
 __ingress__: Each `NetworkPolicy` includes a list of whitelist `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port, from either of two sources, the first specified via a `namespaceSelector` and the second specified via a `podSelector`.
+
+__ipBlock__: `ipBlock` describes a particular CIDR that is allowed to
+the pods matched by a NetworkPolicySpec's podSelector. The `except` entry
+is a slice of CIDRs that should not be included within an IP Block. Except
+values will be rejected if they are outside the CIDR range.
 
 So, the example NetworkPolicy:
 

@@ -24,7 +24,7 @@ heapster monitoring will be turned-on by default).
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
 and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
 must be able to communicate with the API server providing the custom metrics API.
-See the [Horizontal Pod Autoscaling user guide](/docs/user-guide/horizontal-pod-autoscaling/#support-for-custom-metrics) for more details.
+See the [Horizontal Pod Autoscaling user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
 
 ## Step One: Run & expose php-apache server
 
@@ -49,7 +49,7 @@ controlled by the php-apache deployment we created in the first step of these in
 Roughly speaking, HPA will increase and decrease the number of replicas
 (via the deployment) to maintain an average CPU utilization across all Pods of 50%
 (since each pod requests 200 milli-cores by [kubectl run](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/user-guide/kubectl/kubectl_run.md), this means average CPU usage of 100 milli-cores).
-See [here](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
+See [here](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
 
 ```shell
 $ kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10

@@ -105,7 +105,7 @@ NAME                RULE          BACKEND        ADDRESS
 test-ingress        -             testsvc:80     107.178.254.228
 ```
 
-Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy this Ingress. The `RULE` column shows that all traffic send to the IP is directed to the Kubernetes Service listed under `BACKEND`.
+Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy this Ingress. The `RULE` column shows that all traffic sent to the IP is directed to the Kubernetes Service listed under `BACKEND`.
 
 ### Simple fanout
 
@@ -239,7 +239,7 @@ test      -                       178.91.123.132
 $ kubectl edit ing test
 ```
 
-This should pop up an editor with the existing yaml, modify it to include the new Host.
+This should pop up an editor with the existing yaml, modify it to include the new Host:
 
 ```yaml
 spec:
@@ -261,7 +261,7 @@ spec:
 ..
 ```
 
-saving it will update the resource in the API server, which should tell the Ingress controller to reconfigure the loadbalancer.
+Saving it will update the resource in the API server, which should tell the Ingress controller to reconfigure the loadbalancer.
 
 ```shell
 $ kubectl get ing
@@ -292,7 +292,7 @@ Please track the [L7 and Ingress proposal](https://github.com/kubernetes/kuberne
 
 You can expose a Service in multiple ways that don't directly involve the Ingress resource:
 
-* Use [Service.Type=LoadBalancer](/docs/user-guide/services/#type-loadbalancer)
-* Use [Service.Type=NodePort](/docs/user-guide/services/#type-nodeport)
+* Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#type-loadbalancer)
+* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
 * Use a [Port Proxy](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 * Deploy the [Service loadbalancer](https://git.k8s.io/contrib/service-loadbalancer). This allows you to share a single IP among multiple Services and achieve more advanced loadbalancing through Service Annotations.

@@ -27,7 +27,7 @@ application is MySQL.
 * For data persistence we will create a Persistent Volume that
   references a disk in your
   environment. See
-  [here](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes) for
+  [here](/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes) for
   the types of environments supported. This Tutorial will demonstrate
   `GCEPersistentDisk` but any type will work. `GCEPersistentDisk`
   volumes only work on Google Compute Engine.
@@ -40,7 +40,7 @@ application is MySQL.
 ## Set up a disk in your environment
 
 You can use any type of persistent volume for your stateful app. See
-[Types of Persistent Volumes](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes)
+[Types of Persistent Volumes](/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes)
 for a list of supported environment disks. For Google Compute Engine, run:
 
 ```
@@ -140,6 +140,8 @@ for a secure solution.
 
         Name:            mysql-pv
         Labels:          <none>
+        Annotations:    pv.kubernetes.io/bound-by-controller=yes
+        StorageClass:
         Status:          Bound
         Claim:           default/mysql-pv-claim
         Reclaim Policy:  Retain
@@ -152,7 +154,7 @@ for a secure solution.
             FSType:      ext4
             Partition:   0
             ReadOnly:    false
-        No events.
+        Events:          <none>
 
 1. Inspect the PersistentVolumeClaim:
 
@@ -160,12 +162,15 @@ for a secure solution.
 
         Name:         mysql-pv-claim
         Namespace:    default
+        StorageClass:
         Status:       Bound
         Volume:       mysql-pv
         Labels:       <none>
+        Annotations:    pv.kubernetes.io/bind-completed=yes
+                        pv.kubernetes.io/bound-by-controller=yes
         Capacity:     20Gi
         Access Modes: RWO
-        No events.
+        Events:       <none>
 
 ## Accessing the MySQL instance
 
@@ -201,7 +206,7 @@ specific to stateful apps:
 * Don't scale the app. This setup is for single-instance apps
   only. The underlying PersistentVolume can only be mounted to one
   Pod. For clustered stateful apps, see the
-  [StatefulSet documentation](/docs/concepts/workloads/controllers/petset/).
+  [StatefulSet documentation](/docs/concepts/workloads/controllers/statefulset/).
 * Use `strategy:` `type: Recreate` in the Deployment configuration
   YAML file. This instructs Kubernetes to _not_ use rolling
   updates. Rolling updates will not work, as you cannot have more than

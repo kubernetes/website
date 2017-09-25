@@ -125,9 +125,9 @@ underlying Kubernetes services (once these have been allocated - this
 may take a few seconds). For inter-cluster and inter-cloud-provider
 networking between service shards to work correctly, your services
 need to have an externally visible IP address. [Service Type:
-Loadbalancer](/docs/user-guide/services/#type-loadbalancer)
+Loadbalancer](/docs/concepts/services-networking/service/#type-loadbalancer)
 is typically used for this, although other options
-(e.g. [External IP's](/docs/user-guide/services/#external-ips)) exist.
+(e.g. [External IP's](/docs/concepts/services-networking/service/#external-ips)) exist.
 
 Note also that we have not yet provisioned any backend Pods to receive
 the network traffic directed to these addresses (i.e. 'Service
@@ -379,4 +379,4 @@ Check that:
 
 ## For more information
 
- * [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation.md) details use cases that motivated this work.
+ * [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation/federation.md) details use cases that motivated this work.

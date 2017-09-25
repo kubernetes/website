@@ -10,7 +10,7 @@ requests specified, the scheduler can make better decisions about which nodes to
 place Pods on. And when Containers have their limits specified, contention for
 resources on a node can be handled in a specified manner. For more details about
 the difference between requests and limits, see
-[Resource QoS](https://git.k8s.io/community/contributors/design-proposals/resource-qos.md).
+[Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
 
 {% endcapture %}
 
@@ -26,7 +26,7 @@ CPU and memory are collectively referred to as *compute resources*, or just
 *resources*. Compute
 resources are measurable quantities that can be requested, allocated, and
 consumed. They are distinct from
-[API resources](/docs/api/). API resources, such as Pods and
+[API resources](/docs/concepts/overview/kubernetes-api/). API resources, such as Pods and
 [Services](/docs/user-guide/services) are objects that can be read and modified
 through the Kubernetes API server.
 
@@ -135,14 +135,12 @@ When using Docker:
   [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint)
   flag in the `docker run` command.
 
-- The `spec.containers[].resources.limits.cpu` is converted to its millicore value,
-  multiplied by 100000, and then divided by 1000. This number is used as the value
-  of the [`--cpu-quota`](https://docs.docker.com/engine/reference/run/#/cpu-quota-constraint)
-  flag in the `docker run` command.  The [`--cpu-period`] flag is set to 100000,
-   which represents the default 100ms period for measuring quota usage. The
-   kubelet enforces cpu limits if it is started with the
-  [`--cpu-cfs-quota`] flag set to true. As of Kubernetes version 1.2, this flag
-  defaults to true.
+- The `spec.containers[].resources.limits.cpu` is converted to its millicore value and
+  multiplied by 100. The resulting value is the total amount of CPU time that a container can use
+  every 100ms. A container cannot use more than its share of CPU time during this interval.
+
+  **Note**: The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.
+  {: .note}
 
 - The `spec.containers[].resources.limits.memory` is converted to an integer, and
   used as the value of the
@@ -240,7 +238,7 @@ The amount of resources available to Pods is less than the node capacity, becaus
 system daemons use a portion of the available resources. The `allocatable` field
 [NodeStatus](/docs/resources-reference/{{page.version}}/#nodestatus-v1-core)
 gives the amount of resources that are available to Pods. For more information, see
-[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md).
+[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
 
 The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
 to limit the total amount of resources that can be consumed. If used in conjunction
@@ -407,7 +405,7 @@ all Containers in a Pod, such as
 Kubernetes version 1.5 only supports Container requests and limits for CPU and
 memory. It is planned to add new resource types, including a node disk space
 resource, and a framework for adding custom
-[resource types](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/resources.md).
+[resource types](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/scheduling/resources.md).
 
 Kubernetes supports overcommitment of resources by supporting multiple levels of
 [Quality of Service](http://issue.k8s.io/168).
@@ -434,4 +432,3 @@ consistency across providers and platforms.
 {% endcapture %}
 
 {% include templates/concept.md %}
-

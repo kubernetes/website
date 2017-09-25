@@ -74,9 +74,9 @@ In addition, you can limit consumption of storage resources based on associated 
 | Resource Name | Description |
 | --------------------- | ----------------------------------------------------------- |
 | `requests.storage` | Across all persistent volume claims, the sum of storage requests cannot exceed this value. |
-| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 | `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | Across all persistent volume claims associated with the storage-class-name, the sum of storage requests cannot exceed this value. |
-| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | Across all persistent volume claims associated with the storage-class-name, the total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | Across all persistent volume claims associated with the storage-class-name, the total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 
 For example, if an operator wants to quota storage with `gold` storage class separate from `bronze` storage class, the operator can
 define a quota as follows:
@@ -92,7 +92,7 @@ are supported:
 | Resource Name | Description |
 | ------------------------------- | ------------------------------------------------- |
 | `configmaps` | The total number of config maps that can exist in the namespace. |
-| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 | `pods` | The total number of pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `status.phase in (Failed, Succeeded)` is true.  |
 | `replicationcontrollers` | The total number of replication controllers that can exist in the namespace. |
 | `resourcequotas` | The total number of [resource quotas](/docs/admin/admission-controllers/#resourcequota) that can exist in the namespace. |

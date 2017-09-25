@@ -50,11 +50,11 @@ This is a living document. If you think of something that is not on this list bu
   If you only need access to the port for debugging purposes, you can use the [kubectl proxy and apiserver proxy](/docs/tasks/access-kubernetes-api/http-proxy-access-api/) or [kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
   You can use a [Service](/docs/concepts/services-networking/service/) object for external service access.
 
-  If you explicitly need to expose a pod's port on the host machine, consider using a [NodePort](/docs/user-guide/services/#type-nodeport) service before resorting to `hostPort`.
+  If you explicitly need to expose a pod's port on the host machine, consider using a [NodePort](/docs/concepts/services-networking/service/#type-nodeport) service before resorting to `hostPort`.
 
 - Avoid using `hostNetwork`, for the same reasons as `hostPort`.
 
-- Use _headless services_ for easy service discovery when you don't need kube-proxy load balancing. See [headless services](/docs/user-guide/services/#headless-services).
+- Use _headless services_ for easy service discovery when you don't need kube-proxy load balancing. See [headless services](/docs/concepts/services-networking/service/#headless-services).
 
 ## Using Labels
 

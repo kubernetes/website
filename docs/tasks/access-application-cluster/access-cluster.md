@@ -136,7 +136,7 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 
 To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes`. See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
 
-The Python client can use the same [kubeconfig file](/docs/user-guide/kubeconfig-file)
+The Python client can use the same [kubeconfig file](docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py).
 
 #### Other languages
@@ -246,6 +246,16 @@ As mentioned above, you use the `kubectl cluster-info` command to retrieve the s
 
 If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
 
+By default, the API server proxies to your service using http. To use https, prefix the service name with `https:`:
+`http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`https:service_name:[port_name]`*`/proxy`
+
+The supported formats for the name segment of the URL are:
+
+* `<service_name>` - proxies to the default or unnamed port using http
+* `<service_name>:<port_name>` - proxies to the specified port using http
+* `https:<service_name>:` - proxies to the default or unnamed port using https (note the trailing colon)
+* `https:<service_name>:<port_name>` - proxies to the specified port using https
+
 ##### Examples
 
  * To access the Elasticsearch service endpoint `_search?q=user:kimchy`, you would use:   `http://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy`
@@ -298,7 +308,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxy to target may use HTTP or HTTPS as chosen by proxy using available information
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
-  1. The [kube proxy](/docs/user-guide/services/#ips-and-vips):
+  1. The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
     - runs on each node
     - proxies UDP and TCP
     - does not understand HTTP
