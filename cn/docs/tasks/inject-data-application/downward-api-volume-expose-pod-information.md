@@ -164,22 +164,22 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 
 下面这些信息可以通过环境变量和DownwardAPIVolumeFiles提供给容器：
 
-* node的name
-* node的IP
-* Pod的name
-* Pod的namespace
-* Pod的IP address
-* Pod的service account name
+* 节点名称
+* 节点IP
+* Pod名称
+* Pod名字空间
+* Pod IP地址
+* Pod服务帐号名称
 * Pod的UID
-* Container的CPU limit
-* Container的CPU request
-* Container的memory limit
-* Container的memory request
+* 容器的CPU约束
+* 容器的CPU请求值
+* 容器的内存约束
+* 容器的内存请求值
 
 此外，以下信息可通过DownwardAPIVolumeFiles获得：
 
-* Pod的labels
-* Pod的annotations
+* Pod的标签
+* Pod的注释
 
 **Note:** 如果容器未指定CPU和memory limits，则Downward API默认为节点可分配值。
 {: .note}
@@ -190,7 +190,7 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 
 ## Downward API的动机
 
-对于容器来说，有时候拥有自己的信息是很有用的，可避免与Kubernetes过度耦合。Downward API使得容器使用自己或者集群的信息，而不必通过Kubernetes client或API server。
+对于容器来说，有时候拥有自己的信息是很有用的，可避免与Kubernetes过度耦合。Downward API使得容器使用自己或者集群的信息，而不必通过Kubernetes客户端或API服务器。
 
 一个例子是有一个现有的应用假定要用一个非常熟悉的环境变量来保存一个唯一标识。一种可能是给应用增加处理层，但这样是冗余和易出错的，而且它违反了低耦合的目标。更好的选择是使用Pod名称作为标识，把Pod名称注入这个环境变量中。
 {% endcapture %}
