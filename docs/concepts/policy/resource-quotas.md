@@ -67,7 +67,7 @@ The following resource types are supported:
 
 ## Storage Resource Quota
 
-You can limit the total sum of [storage resources](/docs/user-guide/persistent-volumes) that can be requested in a given namespace.
+You can limit the total sum of [storage resources](/docs/concepts/storage/persistent-volumes/) that can be requested in a given namespace.
 
 In addition, you can limit consumption of storage resources based on associated storage-class.
 
