@@ -81,7 +81,7 @@ The information is gathered by Kubelet from the node.
 
 ## Management
 
-Unlike [pods](/docs/user-guide/pods) and [services](/docs/concepts/services-networking/service/),
+Unlike [pods](/docs/user-guide/pods) and [services](/docs/user-guide/services),
 a node is not inherently created by Kubernetes: it is created externally by cloud
 providers like Google Compute Engine, or exists in your pool of physical or virtual
 machines. What this means is that when Kubernetes creates a node, it is really

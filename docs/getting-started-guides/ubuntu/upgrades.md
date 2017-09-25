@@ -11,7 +11,7 @@ This page assumes you have a working deployed cluster.
 
 ## Assumptions
 
-You should always back up all your data before attempting an upgrade. Don't forget to include the workload inside your cluster! Refer to the [backup documentation](/docs/home/ubuntu/backups).
+You should always back up all your data before attempting an upgrade. Don't forget to include the workload inside your cluster! Refer to the [backup documentation](/docs/getting-started-guides/ubuntu/backups).
 {% endcapture %}
 
 {% capture steps %}
@@ -23,7 +23,7 @@ You can use `juju status` to see if an upgrade is available. There will either b
 
 # Upgrade etcd
 
-Backing up etcd requires an export and snapshot, refer to the [backup documentation](/docs/home/ubuntu/backups) to create a snapshot. After the snapshot upgrade the etcd service with:  
+Backing up etcd requires an export and snapshot, refer to the [backup documentation](/docs/getting-started-guides/ubuntu/backups) to create a snapshot. After the snapshot upgrade the etcd service with:  
 
     juju upgrade-charm etcd
 
@@ -96,7 +96,7 @@ Where `x` is the minor version of Kubernetes. For example, `1.6/stable`. See abo
 
 `kubectl version` should return the newer version. 
 
-It is recommended to rerun a [cluster validation](/docs/home/ubuntu/validation) to ensure that the cluster upgrade has successfully completed.
+It is recommended to rerun a [cluster validation](/docs/getting-started-guides/ubuntu/validation) to ensure that the cluster upgrade has successfully completed.
 
 # Upgrade Flannel
 

@@ -35,7 +35,7 @@ Mac, you can install this with [brew](http://brew.sh/):
 5. You should have an ssh public key installed. This will be used to
 give you access to the VM's user account, `kube`.
 
-6. Get or build a [binary release](/docs/home/binary_release/)
+6. Get or build a [binary release](/docs/getting-started-guides/binary_release/)
 
 ### Download VM Image
 
@@ -235,4 +235,4 @@ networks such as Weave or Calico.
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Vmware Photon        | Saltstack    | Debian | OVS         | [docs](/docs/home/photon-controller)                      |          | Community ([@alainroy](https://github.com/alainroy))
+Vmware Photon        | Saltstack    | Debian | OVS         | [docs](/docs/getting-started-guides/photon-controller)                      |          | Community ([@alainroy](https://github.com/alainroy))
