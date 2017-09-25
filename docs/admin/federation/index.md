@@ -134,7 +134,7 @@ existing Kubernetes cluster. It also starts a
 [`type: LoadBalancer`](/docs/concepts/services-networking/service/#type-loadbalancer)
 [`Service`](/docs/concepts/services-networking/service/) for the
 `federation-apiserver` and a
-[`PVC`](/docs/concepts/storage/persistent-volumes/) backed
+[`PVC`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims/) backed
 by a dynamically provisioned
 [`PV`](/docs/concepts/storage/persistent-volumes/) for
  `etcd`. All these components are created in the `federation` namespace.
