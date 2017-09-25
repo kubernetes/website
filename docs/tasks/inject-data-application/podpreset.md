@@ -525,10 +525,10 @@ spec:
         - mountPath: /cache
           name: cache-volume
       ports:
+        - containerPort: 80
   volumes:
     - name: cache-volume
       emptyDir: {}
-        - containerPort: 80
 ```
 
 **If we run `kubectl describe...` we can see the event:**
