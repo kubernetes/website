@@ -77,7 +77,7 @@ So, the example NetworkPolicy:
 2. allows connections to TCP port 6379 of "role=db" pods in the "default" namespace from any pod in the "default" namespace with the label "role=frontend"
 3. allows connections to TCP port 6379 of "role=db" pods in the "default" namespace from any pod in a namespace with the label "project=myproject"
 
-See the [NetworkPolicy getting started guide](/docs/home/network-policy/walkthrough) for further examples.
+See the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) for further examples.
 
 ## Default policies
 

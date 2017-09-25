@@ -18,7 +18,7 @@ This document walks you through an example of enabling Horizontal Pod Autoscalin
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
 [Heapster](https://github.com/kubernetes/heapster) monitoring needs to be deployed in the cluster
 as Horizontal Pod Autoscaler uses it to collect metrics
-(if you followed [getting started on GCE guide](/docs/home/gce/),
+(if you followed [getting started on GCE guide](/docs/getting-started-guides/gce),
 heapster monitoring will be turned-on by default).
 
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster

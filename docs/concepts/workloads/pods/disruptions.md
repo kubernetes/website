@@ -72,7 +72,7 @@ Here are some ways to mitigate involuntary disruptions:
 and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/) applications.)
 - For even higher availability when running replicated applications,
 spread applications across racks (using
-[anti-affinity](/docs/concepts/configuration/assign-pod-node//#inter-pod-affinity-and-anti-affinity-beta-feature))
+[anti-affinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature))
 or across zones (if using a
 [multi-zone cluster](/docs/admin/multiple-zones).)
 

@@ -121,7 +121,7 @@ The name **Kubernetes** originates from Greek, meaning *helmsman* or *pilot*, an
 {% endcapture %}
 
 {% capture whatsnext %}
-*   Ready to [Get Started](/docs/home/)?
+*   Ready to [Get Started](/docs/getting-started-guides/)?
 *   For more details, see the [Kubernetes Documentation](/docs/home/).
 {% endcapture %}
 {% include templates/concept.md %}
