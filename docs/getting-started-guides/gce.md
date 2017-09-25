@@ -59,7 +59,7 @@ cluster/kube-up.sh
 
 If you want more than one cluster running in your project, want to use a different name, or want a different number of worker nodes, see the `<kubernetes>/cluster/gce/config-default.sh` file for more fine-grained configuration before you start up your cluster.
 
-If you run into trouble, please see the section on [troubleshooting](/docs/getting-started-guides/gce/#troubleshooting), post to the
+If you run into trouble, please see the section on [troubleshooting](/docs/home/gce//#troubleshooting), post to the
 [kubernetes-users group](https://groups.google.com/forum/#!forum/kubernetes-users), or come ask questions on [Slack](/docs/troubleshooting/#slack).
 
 The next few steps will show you:
@@ -96,7 +96,7 @@ Once `kubectl` is in your path, you can use it to look at your cluster. E.g., ru
 $ kubectl get --all-namespaces services
 ```
 
-should show a set of [services](/docs/user-guide/services) that look something like this:
+should show a set of [services](/docs/concepts/services-networking/service/) that look something like this:
 
 ```shell
 NAMESPACE     NAME                  CLUSTER_IP       EXTERNAL_IP       PORT(S)        AGE
@@ -202,9 +202,9 @@ field values:
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    |   | Project
+GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/home/gce/)                                    |   | Project
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/home/#table-of-solutions) chart.
 
 ## Further reading
 

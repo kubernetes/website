@@ -79,7 +79,7 @@ kubectl annotate pods <pod-name> pod.alpha.kubernetes.io/initialized="true" --ov
 
 {% capture whatsnext %}
 
-Learn more about [debugging an init-container](/docs/tasks/troubleshoot/debug-init-containers/).
+Learn more about [debugging an init-container](/docs/tasks/debug-application-cluster/debug-init-containers/).
 
 {% endcapture %}
 

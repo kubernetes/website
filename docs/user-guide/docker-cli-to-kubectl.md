@@ -43,7 +43,7 @@ $ kubectl expose deployment nginx-app --port=80 --name=nginx-http
 service "nginx-http" exposed
 ```
 
-With kubectl, we create a [Deployment](/docs/concepts/workloads/controllers/deployment/) which will make sure that N pods are running nginx (where N is the number of replicas stated in the spec, which defaults to 1). We also create a [service](/docs/user-guide/services) with a selector that matches the Deployment's selector. See the [Quick start](/docs/user-guide/quick-start) for more information.
+With kubectl, we create a [Deployment](/docs/concepts/workloads/controllers/deployment/) which will make sure that N pods are running nginx (where N is the number of replicas stated in the spec, which defaults to 1). We also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the Deployment's selector. See the [Quick start](/docs/user-guide/quick-start) for more information.
 
 By default images are run in the background, similar to `docker run -d ...`, if you want to run things in the foreground, use:
 

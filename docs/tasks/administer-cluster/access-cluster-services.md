@@ -15,7 +15,7 @@ This page shows how to connect to services running on the Kubernetes cluster.
 
 ## Accessing services running on the cluster
 
-In Kubernetes, [nodes](/docs/admin/node), [pods](/docs/user-guide/pods) and [services](/docs/user-guide/services) all have
+In Kubernetes, [nodes](/docs/admin/node), [pods](/docs/user-guide/pods) and [services](/docs/concepts/services-networking/service/) all have
 their own IPs.  In many cases, the node IPs, pod IPs, and some service IPs on a cluster will not be
 routable, so they will not be reachable from a machine outside the cluster,
 such as your desktop machine.
@@ -26,7 +26,7 @@ You have several options for connecting to nodes, pods and services from outside
 
   - Access services through public IPs.
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
-      the cluster.  See the [services](/docs/user-guide/services) and
+      the cluster.  See the [services](/docs/concepts/services-networking/service/) and
       [kubectl expose](/docs/user-guide/kubectl/v1.6/#expose) documentation.
     - Depending on your cluster environment, this may just expose the service to your corporate network,
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
