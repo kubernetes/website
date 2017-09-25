@@ -56,18 +56,18 @@ For each of the virtual machine nodes that will be participating in the cluster,
 
 * Set up GOVC environment
 
-        export GOVC_URL='vCenter IP OR FQDN'
-        export GOVC_USERNAME='vCenter User'
-        export GOVC_PASSWORD='vCenter Password'
-        export GOVC_INSECURE=1
+      export GOVC_URL='vCenter IP OR FQDN'
+      export GOVC_USERNAME='vCenter User'
+      export GOVC_PASSWORD='vCenter Password'
+      export GOVC_INSECURE=1
 
 * Find Node VM Paths
 
-        govc ls /datacenter/vm/<vm-folder-name>
+      govc ls /datacenter/vm/<vm-folder-name>
 
 * Set disk.EnableUUID to true for all VMs
 
-        govc vm.change -e="disk.enableUUID=1" -vm='VM Path'
+      govc vm.change -e="disk.enableUUID=1" -vm='VM Path'
 
 Note: If Kubernetes Node VMs are created from template VM then `disk.EnableUUID=1` can be set on the template VM. VMs cloned from this template, will automatically inherit this property.
 
@@ -197,13 +197,13 @@ Please visit [known issues](https://vmware.github.io/vsphere-storage-for-kuberne
 
 ## Support Level
 
-For quick support please join VMware Code Slack ([#kubernetes](https://vmwarecode.slack.com/messages/kubernetes/)) and post your question.
+For quick support please join VMware Code Slack ([kubernetes](https://vmwarecode.slack.com/messages/kubernetes/)) and post your question.
 
 IaaS Provider        | Config. Mgmt | OS     | Networking | Docs                                          | Conforms  | Support Level
 -------------------- | ------------ | ------ | ---------- | --------------------------------------------- | --------- | ----------------------------
-Vmware vSphere       | Kube-anywhere    | Photon OS | Flannel         | [docs](/docs/getting-started-guides/vsphere)                                |                | Community  ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)), ([@BaluDontu](https://github.com/BaluDontu)), ([@luomiao](https://github.com/luomiao)), ([@divyenpatel](https://github.com/divyenpatel))
+Vmware vSphere       | Kube-anywhere    | Photon OS | Flannel         | [docs](/docs/home/vsphere/)                                |                | Community  ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)), ([@BaluDontu](https://github.com/BaluDontu)), ([@luomiao](https://github.com/luomiao)), ([@divyenpatel](https://github.com/divyenpatel))
 
 If you identify any issues/problems using the vSphere cloud provider, you can create an issue in our repo - [VMware Kubernetes](https://github.com/vmware/kubernetes).
 
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/home/#table-of-solutions) chart.

@@ -12,7 +12,7 @@ title: StatefulSets
 {% capture overview %}
 **StatefulSets are a beta feature in 1.7. This feature replaces the
 PetSets feature from 1.4. Users of PetSets are referred to the 1.5
-[Upgrade Guide](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
+[Upgrade Guide](/docs/tasks/run-application/upgrade-pet-set-to-stateful-set/)
 for further information on how to upgrade existing PetSets to StatefulSets.**
 
 {% include templates/glossary/snippet.md term="statefulset" length="long" %}
@@ -160,7 +160,7 @@ The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of
 
 When the nginx example above is created, three Pods will be deployed in the order
 web-0, web-1, web-2. web-1 will not be deployed before web-0 is
-[Running and Ready](/docs/user-guide/pod-states), and web-2 will not be deployed until
+[Running and Ready](/docs/user-guide/pod-states/), and web-2 will not be deployed until
 web-1 is Running and Ready. If web-0 should fail, after web-1 is Running and Ready, but before
 web-2 is launched, web-2 will not be launched until web-0 is successfully relaunched and
 becomes Running and Ready.
@@ -225,7 +225,7 @@ update, roll out a canary, or perform a phased roll out.
 {% endcapture %}
 {% capture whatsnext %}
 
-* Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set).
+* Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
 * Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
 
 {% endcapture %}

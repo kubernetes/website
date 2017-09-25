@@ -11,7 +11,7 @@ title: StatefulSet Basics
 
 {% capture overview %}
 This tutorial provides an introduction to managing applications with
-[StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/). It 
+[StatefulSets](/docs/concepts/workloads/controllers/statefulset/). It 
 demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
 {% endcapture %}
 
@@ -22,14 +22,14 @@ following Kubernetes concepts.
 * [Pods](/docs/user-guide/pods/single-container/)
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
-* [PersistentVolumes](/docs/concepts/storage/volumes/)
+* [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
-* [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
+* [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
 * [kubectl CLI](/docs/user-guide/kubectl)
 
 This tutorial assumes that your cluster is configured to dynamically provision 
 PersistentVolumes. If your cluster is not configured to do so, you
-will have to manually provision five 1 GiB volumes prior to starting this 
+will have to manually provision two 1 GiB volumes prior to starting this 
 tutorial.
 {% endcapture %}
 
@@ -37,7 +37,7 @@ tutorial.
 StatefulSets are intended to be used with stateful applications and distributed 
 systems. However, the administration of stateful applications and 
 distributed systems on Kubernetes is a broad, complex topic. In order to 
-demonstrate the basic features of a StatefulSet, and to not conflate the former 
+demonstrate the basic features of a StatefulSet, and not to conflate the former 
 topic with the latter, you will deploy a simple web application using a StatefulSet.
 
 After this tutorial, you will be familiar with the following.
@@ -54,8 +54,8 @@ After this tutorial, you will be familiar with the following.
 
 Begin by creating a StatefulSet using the example below. It is similar to the 
 example presented in the
-[StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/) concept. 
-It creates a [Headless Service](/docs/user-guide/services/#headless-services), 
+[StatefulSets](/docs/concepts/workloads/controllers/statefulset/) concept. 
+It creates a [Headless Service](/docs/concepts/services-networking/service/#headless-services), 
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`. 
 
 {% include code.html language="yaml" file="web.yaml" ghlink="/docs/tutorials/stateful-application/web.yaml" %}
@@ -133,7 +133,7 @@ web-1     1/1       Running   0          1m
 
 ```
 
-As mentioned in the [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/) 
+As mentioned in the [StatefulSets](/docs/concepts/workloads/controllers/statefulset/) 
 concept, the Pods in a StatefulSet have a sticky, unique identity. This identity 
 is based on a unique ordinal index that is assigned to each Pod by the 
 StatefulSet controller. The Pods' names take the form 
@@ -262,8 +262,7 @@ www-web-0   Bound     pvc-15c268c7-b507-11e6-932f-42010a800002   1Gi        RWO 
 www-web-1   Bound     pvc-15c79307-b507-11e6-932f-42010a800002   1Gi        RWO           48s
 ```
 The StatefulSet controller created two PersistentVolumeClaims that are 
-bound to two [PersistentVolumes](/docs/concepts/storage/volumes/). As the 
-cluster used in this tutorial is configured to dynamically provision 
+bound to two [PersistentVolumes](/docs/concepts/storage/persistent-volumes/). As the cluster used in this tutorial is configured to dynamically provision 
 PersistentVolumes, the PersistentVolumes were created and bound automatically.
 
 The NGINX webservers, by default, will serve an index file at 
@@ -330,7 +329,7 @@ web-1
 
 Even though `web-0` and `web-1` were rescheduled, they continue to serve their 
 hostnames because the PersistentVolumes associated with their 
-PersistentVolumeClaims are remounted to their `volumeMount`s. No matter what 
+PersistentVolumeClaims are remounted to their `volumeMounts`. No matter what 
 node `web-0`and `web-1` are scheduled on, their PersistentVolumes will be 
 mounted to the appropriate mount points.
 
@@ -338,8 +337,7 @@ mounted to the appropriate mount points.
 Scaling a StatefulSet refers to increasing or decreasing the number of replicas. 
 This is accomplished by updating the `replicas` field. You can use either
 [`kubectl scale`](/docs/user-guide/kubectl/{{page.version}}/#scale) or
-[`kubectl patch`](/docs/user-guide/kubectl/{{page.version}}/#patch) to scale a Stateful 
-Set.
+[`kubectl patch`](/docs/user-guide/kubectl/{{page.version}}/#patch) to scale a StatefulSet.
 
 ### Scaling Up
 
@@ -399,7 +397,7 @@ three replicas.
 
 ```shell
 kubectl patch sts web -p '{"spec":{"replicas":3}}'
-"web" patched
+statefulset "web" patched
 ```
 
 Wait for `web-4` and `web-3` to transition to Terminating.
@@ -440,10 +438,7 @@ www-web-4   Bound     pvc-e11bb5f8-b508-11e6-932f-42010a800002   1Gi        RWO 
 ```
 
 There are still five PersistentVolumeClaims and five PersistentVolumes. 
-When exploring a Pod's [stable storage](#stable-storage), we saw that the 
-PersistentVolumes mounted to the Pods of a StatefulSet are not deleted when 
-the StatefulSet's Pods are deleted. This is still true when Pod deletion is 
-caused by scaling the StatefulSet down. 
+When exploring a Pod's [stable storage](#writing-to-stable-storage), we saw that the PersistentVolumes mounted to the Pods of a StatefulSet are not deleted whenthe StatefulSet's Pods are deleted. This is still true when Pod deletion is caused by scaling the StatefulSet down. 
 
 ## Updating StatefulSets
 
@@ -800,8 +795,7 @@ continue the update process.
 ## Deleting StatefulSets
 
 StatefulSet supports both Non-Cascading and Cascading deletion. In a 
-Non-Cascading Delete, the StatefulSet's Pods are not deleted when the Stateful
-Set is deleted. In a Cascading Delete, both the StatefulSet and its Pods are 
+Non-Cascading Delete, the StatefulSet's Pods are not deleted when the StatefulSet is deleted. In a Cascading Delete, both the StatefulSet and its Pods are 
 deleted.
 
 ### Non-Cascading Delete
@@ -945,7 +939,7 @@ web-1     0/1       Terminating   0         29m
 
 ```
 
-As you saw in the [Scaling Down](#ordered-pod-termination) section, the Pods 
+As you saw in the [Scaling Down](#scaling-down) section, the Pods 
 are terminated one at a time, with respect to the reverse order of their ordinal 
 indices. Before terminating a Pod, the StatefulSet controller waits for 
 the Pod's successor to be completely terminated.

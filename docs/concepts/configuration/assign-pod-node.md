@@ -6,9 +6,9 @@ approvers:
 title: Assigning Pods to Nodes
 ---
 
-You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/nodes/node/) or to prefer to
+You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/architecture/nodes/) or to prefer to
 run on particular nodes. There are several ways to do this, and they all use
-[label selectors](/docs/user-guide/labels/) to make the selection.
+[label selectors](/docs/concepts/overview/working-with-objects/labels/) to make the selection.
 Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
 (e.g. spread your pods across nodes, not place the pod on a node with insufficient free resources, etc.)
 but there are some circumstances where you may want more control on a node where a pod lands, e.g. to ensure
@@ -16,7 +16,7 @@ that a pod ends up on a machine with an SSD attached to it, or to co-locate pods
 services that communicate a lot into the same availability zone.
 
 You can find all the files for these examples [in our docs
-repo here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/node-selection).
+repo here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/concepts/configuration/assign-pod-node/).
 
 * TOC
 {:toc}
@@ -40,7 +40,7 @@ Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the o
 
 If this fails with an "invalid command" error, you're likely using an older version of kubectl that doesn't have the `label` command. In that case, see the [previous version](https://github.com/kubernetes/kubernetes/blob/a053dbc313572ed60d89dae9821ecab8bfd676dc/examples/node-selection/README.md) of this guide for instructions on how to manually set labels on a node.
 
-Also, note that label keys must be in the form of DNS labels (as described in the [identifiers doc](https://git.k8s.io/community/contributors/design-proposals/identifiers.md)), meaning that they are not allowed to contain any upper-case letters.
+Also, note that label keys must be in the form of DNS labels (as described in the [identifiers doc](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)), meaning that they are not allowed to contain any upper-case letters.
 
 You can verify that it worked by re-running `kubectl get nodes --show-labels` and checking that the node now has a label.
 
@@ -142,7 +142,7 @@ If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, 
 If you remove or change the label of the node where the pod is scheduled, the pod won't be removed. In other words, the affinity selection works only at the time of scheduling the pod.
 
 For more information on node affinity, see the design doc
-[here](https://git.k8s.io/community/contributors/design-proposals/nodeaffinity.md).
+[here](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md).
 
 ### Inter-pod affinity and anti-affinity (beta feature)
 
@@ -183,7 +183,7 @@ value V that is running a pod that has a label with key "security" and value "S1
 rule says that the pod prefers to not schedule onto a node if that node is already running a pod with label
 having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
 it would mean that the pod cannot schedule onto a node if that node is in the same zone as a pod with
-label having key "security" and value "S2".) See the [design doc](https://git.k8s.io/community/contributors/design-proposals/podaffinity.md).
+label having key "security" and value "S2".) See the [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
 for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
 flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 
@@ -206,15 +206,15 @@ If defined but empty, it means "all namespaces."
 All `matchExpressions` associated with `requiredDuringSchedulingIgnoredDuringExecution` affinity and anti-affinity
 must be satisfied for the pod to schedule onto a node.
 
-#### More Practical Use-cases 
+#### More Practical Use-cases
 
 Interpod Affinity and AnitAffinity can be even more useful when they are used with higher
 level collections such as ReplicaSets, Statefulsets, Deployments, etc.  One can easily configure that a set of workloads should
-be co-located in the same defined topology, eg., the same node. 
+be co-located in the same defined topology, eg., the same node.
 
 ##### Always co-located in the same node
 
-In a three node cluster, a web application has in-memory cache such as redis. We want the web-servers to be co-located with the cache as much as possible. 
+In a three node cluster, a web application has in-memory cache such as redis. We want the web-servers to be co-located with the cache as much as possible.
 Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`
 
 ```yaml
@@ -234,8 +234,8 @@ spec:
         image: redis:3.2-alpine
 ```
 
-Below yaml snippet of the webserver deployment has `podAffinity` configured, this informs the scheduler that all its replicas are to be 
-co-located with pods that has selector label `app=store` 
+Below yaml snippet of the webserver deployment has `podAffinity` configured, this informs the scheduler that all its replicas are to be
+co-located with pods that has selector label `app=store`
 
 ```yaml
 apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
@@ -270,7 +270,7 @@ if we create the above two deployments, our three node cluster could look like b
 | *webserver-1*        |   *webserver-2*     |    *webserver-3*   |
 |  *cache-1*           |     *cache-2*       |     *cache-3*      |
 
-As you can see, all the 3 replicas of the `web-server` are automatically co-located with the cache as expected. 
+As you can see, all the 3 replicas of the `web-server` are automatically co-located with the cache as expected.
 
 ```
 $kubectl get pods -o wide
@@ -296,7 +296,7 @@ Highly Available database statefulset has one master and three replicas, one may
 [Here](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) is an example of zookeper statefulset configured with anti-affinity for high availability.
 
 For more information on inter-pod affinity/anti-affinity, see the design doc
-[here](https://git.k8s.io/community/contributors/design-proposals/podaffinity.md).
+[here](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
 
 You may want to check [Taints](/docs/concepts/configuration/taint-and-toleration/)
 as well, which allow a *node* to *repel* a set of pods.

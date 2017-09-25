@@ -55,7 +55,7 @@ and the like.
 {% endcapture %}
 
 {% capture whatsnext %}
-Learn more about [Labels and Selectors](/docs/user-guide/labels/).
+Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
 {% endcapture %}
 
 {% include templates/concept.md %}

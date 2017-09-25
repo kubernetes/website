@@ -69,7 +69,7 @@ If you already are running on a machine which has passwordless ssh access to the
 
 *Otherwise* setup ssh on the machines like so (you will need to know the root password to all machines in the cluster).
 
-edit: ~/contrib/ansible/inventory/group_vars/all.yml
+edit: `~/contrib/ansible/inventory/group_vars/all.yml`
 
 ```yaml
 ansible_ssh_user: root
@@ -147,9 +147,9 @@ dns_setup: true
 This will finally setup your whole Kubernetes cluster for you.
 
 ```shell
-cd ~/contrib/ansible/
+cd ~/contrib/ansible/scripts/
 
-./scripts/deploy-cluster.sh
+./deploy-cluster.sh
 ```
 
 ## Testing and using your new cluster
@@ -235,6 +235,6 @@ That's it!
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Bare-metal           | Ansible      | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_ansible_config)           |          | Project
+Bare-metal           | Ansible      | Fedora | flannel     | [docs](/docs/home/fedora/fedora_ansible_config)           |          | Project
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/home/#table-of-solutions) chart.

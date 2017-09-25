@@ -14,7 +14,7 @@ A `node` is a worker machine in Kubernetes, previously known as a `minion`. A no
 may be a VM or physical machine, depending on the cluster. Each node has
 the services necessary to run [pods](/docs/user-guide/pods) and is managed by the master
 components. The services on a node include Docker, kubelet and kube-proxy. See
-[The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture.md#the-kubernetes-node) section in the
+[The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) section in the
 architecture design doc for more details.
 
 ## Node Status
@@ -81,7 +81,7 @@ The information is gathered by Kubelet from the node.
 
 ## Management
 
-Unlike [pods](/docs/user-guide/pods) and [services](/docs/user-guide/services),
+Unlike [pods](/docs/user-guide/pods) and [services](/docs/concepts/services-networking/service/),
 a node is not inherently created by Kubernetes: it is created externally by cloud
 providers like Google Compute Engine, or exists in your pool of physical or virtual
 machines. What this means is that when Kubernetes creates a node, it is really
@@ -182,7 +182,6 @@ register itself with the API server.  This is the preferred pattern, used by mos
 
 For self-registration, the kubelet is started with the following options:
 
-  - `--api-servers` - Location of the apiservers.
   - `--kubeconfig` - Path to credentials to authenticate itself to the apiserver.
   - `--cloud-provider` - How to talk to a cloud provider to read metadata about itself.
   - `--register-node` - Automatically register with the API server.

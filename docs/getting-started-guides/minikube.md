@@ -318,7 +318,7 @@ $ export no_proxy=$no_proxy,$(minikube ip)
 
 Minikube uses [libmachine](https://github.com/docker/machine/tree/master/libmachine) for provisioning VMs, and [localkube](https://git.k8s.io/minikube/pkg/localkube) (originally written and donated to this project by [RedSpread](https://redspread.com/)) for running the cluster.
 
-For more information about minikube, see the [proposal](https://git.k8s.io/community/contributors/design-proposals/local-cluster-ux.md).
+For more information about minikube, see the [proposal](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md).
 
 ## Additional Links:
 * **Goals and Non-Goals**: For the goals and non-goals of the minikube project, please see our [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).

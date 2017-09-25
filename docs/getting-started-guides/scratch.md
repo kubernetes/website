@@ -8,7 +8,7 @@ title: Creating a Custom Cluster from Scratch
 
 This guide is for people who want to craft a custom Kubernetes cluster.  If you
 can find an existing Getting Started Guide that meets your needs on [this
-list](/docs/getting-started-guides/), then we recommend using it, as you will be able to benefit
+list](/docs/home/), then we recommend using it, as you will be able to benefit
 from the experience of others.  However, if you have specific IaaS, networking,
 configuration management, or operating system requirements not met by any of
 those guides, then this guide will provide an outline of the steps you need to
@@ -27,7 +27,7 @@ steps that existing cluster setup scripts are making.
 
   1. You should be familiar with using Kubernetes already.  We suggest you set
     up a temporary cluster by following one of the other Getting Started Guides.
-    This will help you become familiar with the CLI ([kubectl](/docs/user-guide/kubectl/)) and concepts ([pods](/docs/user-guide/pods), [services](/docs/user-guide/services), etc.) first.
+    This will help you become familiar with the CLI ([kubectl](/docs/user-guide/kubectl/)) and concepts ([pods](/docs/user-guide/pods/), [services](/docs/concepts/services-networking/service/), etc.) first.
   1. You should have `kubectl` installed on your desktop.  This will happen as a side
     effect of completing one of the other Getting Started Guides.  If not, follow the instructions
     [here](/docs/tasks/kubectl/install/).
@@ -58,7 +58,7 @@ on how flags are set on various components.
 ### Network
 
 #### Network Connectivity
-Kubernetes has a distinctive [networking model](/docs/admin/networking).
+Kubernetes has a distinctive [networking model](/docs/concepts/cluster-administration/networking/).
 
 Kubernetes allocates an IP address to each pod.  When creating a cluster, you
 need to allocate a block of IPs for Kubernetes to use as Pod IPs.  The simplest
@@ -87,11 +87,11 @@ to implement one of the above options:
     - [Open vSwitch (OVS)](http://openvswitch.org/)
     - [Romana](http://romana.io/)
     - [Weave](http://weave.works/)
-    - [More found here](/docs/admin/networking#how-to-achieve-this)
+    - [More found here](/docs/admin/networking#how-to-achieve-this/)
   - You can also write your own.
 - **Compile support directly into Kubernetes**
   - This can be done by implementing the "Routes" interface of a Cloud Provider module.
-  - The Google Compute Engine ([GCE](/docs/getting-started-guides/gce)) and [AWS](/docs/getting-started-guides/aws) guides use this approach.
+  - The Google Compute Engine ([GCE](/docs/home/gce/)/) and [AWS](/docs/home/aws/) guides use this approach.
 - **Configure the network external to Kubernetes**
   - This can be done by manually running commands, or through a set of externally maintained scripts.
   - You have to implement this yourself, but it can give you an extra degree of flexibility.
@@ -113,7 +113,7 @@ You will need to select an address range for the Pod IPs. Note that IPv6 is not 
     using `10.10.0.0/24` through `10.10.255.0/24`, respectively.
   - Need to make these routable or connect with overlay.
 
-Kubernetes also allocates an IP to each [service](/docs/user-guide/services).  However,
+Kubernetes also allocates an IP to each [service](/docs/concepts/services-networking/service/).  However,
 service IPs do not necessarily need to be routable.  The kube-proxy takes care
 of translating Service IPs to Pod IPs before traffic leaves the node.  You do
 need to Allocate a block of IPs for services.  Call this
@@ -237,7 +237,7 @@ You need to prepare several certs:
 Unless you plan to have a real CA generate your certs, you will need
 to generate a root cert and use that to sign the master, kubelet, and
 kubectl certs. How to do this is described in the [authentication
-documentation](/docs/admin/authentication/#creating-certificates).
+documentation](/docs/admin/authentication/#creating-certificates/).
 
 You will end up with the following files (we will use these variables later on)
 
@@ -263,7 +263,7 @@ The admin user (and any users) need:
 
 Your tokens and passwords need to be stored in a file for the apiserver
 to read.  This guide uses `/var/lib/kube-apiserver/known_tokens.csv`.
-The format for this file is described in the [authentication documentation](/docs/admin/authentication).
+The format for this file is described in the [authentication documentation](/docs/admin/authentication/).
 
 For distributing credentials to clients, the convention in Kubernetes is to put the credentials
 into a [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/).
@@ -408,7 +408,7 @@ Arguments to consider:
   - `--docker-root=`
   - `--root-dir=`
   - `--configure-cbr0=` (described below)
-  - `--register-node` (described in [Node](/docs/admin/node) documentation.)
+  - `--register-node` (described in [Node](/docs/admin/node/) documentation.)
 
 ### kube-proxy
 
@@ -430,7 +430,7 @@ Each node needs to be allocated its own CIDR range for pod networking.
 Call this `NODE_X_POD_CIDR`.
 
 A bridge called `cbr0` needs to be created on each node.  The bridge is explained
-further in the [networking documentation](/docs/admin/networking).  The bridge itself
+further in the [networking documentation](/docs/concepts/cluster-administration/networking/).  The bridge itself
 needs an address from `$NODE_X_POD_CIDR` - by convention the first IP.  Call
 this `NODE_X_BRIDGE_ADDR`.  For example, if `NODE_X_POD_CIDR` is `10.0.0.0/16`,
 then `NODE_X_BRIDGE_ADDR` is `10.0.0.1/16`.  NOTE: this retains the `/16` suffix
@@ -499,7 +499,7 @@ traffic to the internet, but have no problem with them inside your GCE Project.
 
 The previous steps all involved "conventional" system administration techniques for setting up
 machines.  You may want to use a Configuration Management system to automate the node configuration
-process.  There are examples of [Saltstack](/docs/admin/salt), Ansible, Juju, and CoreOS Cloud Config in the
+process.  There are examples of [Saltstack](/docs/admin/salt/), Ansible, Juju, and CoreOS Cloud Config in the
 various Getting Started Guides.
 
 ## Bootstrapping the Cluster
@@ -524,7 +524,7 @@ You will need to run one or more instances of etcd.
   - Highly available - Run 3 or 5 etcd instances with non durable storage.
     **Note:** Log can be written to non-durable storage because storage is replicated.
 
-See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting) for more discussion on factors affecting cluster
+See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting/) for more discussion on factors affecting cluster
 availability.
 
 To run an etcd instance:
@@ -633,7 +633,7 @@ Here are some apiserver flags you may need to set:
 - `--tls-cert-file=/srv/kubernetes/server.cert`
 - `--tls-private-key-file=/srv/kubernetes/server.key`
 - `--admission-control=$RECOMMENDED_LIST`
-  - See [admission controllers](/docs/admin/admission-controllers) for recommended arguments.
+  - See [admission controllers](/docs/admin/admission-controllers/) for recommended arguments.
 - `--allow-privileged=true`, only if you trust your cluster user to run pods as root.
 
 If you are following the firewall-only security approach, then use these arguments:
@@ -841,9 +841,9 @@ Notes for setting up each cluster service are given below:
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
   * [Admin Guide](/docs/concepts/services-networking/dns-pod-service/)
 * Cluster-level Logging
-  * [Cluster-level Logging Overview](/docs/user-guide/logging/overview)
-  * [Cluster-level Logging with Elasticsearch](/docs/user-guide/logging/elasticsearch)
-  * [Cluster-level Logging with Stackdriver Logging](/docs/user-guide/logging/stackdriver)
+  * [Cluster-level Logging Overview](/docs/user-guide/logging/overview/)
+  * [Cluster-level Logging with Elasticsearch](/docs/user-guide/logging/elasticsearch/)
+  * [Cluster-level Logging with Stackdriver Logging](/docs/user-guide/logging/stackdriver/)
 * Container Resource Monitoring
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/)
 * GUI
@@ -878,7 +878,7 @@ Cluster validation succeeded
 
 ### Inspect pods and services
 
-Try to run through the "Inspect your cluster" section in one of the other Getting Started Guides, such as [GCE](/docs/getting-started-guides/gce/#inspect-your-cluster).
+Try to run through the "Inspect your cluster" section in one of the other Getting Started Guides, such as [GCE](/docs/home/gce//#inspect-your-cluster).
 You should see some services.  You should also see "mirror pods" for the apiserver, scheduler and controller-manager, plus any add-ons you started.
 
 ### Try Examples
@@ -896,7 +896,7 @@ pinging or SSH-ing from one node to another.
 
 ### Getting Help
 
-If you run into trouble, please see the section on [troubleshooting](/docs/getting-started-guides/gce#troubleshooting), post to the
+If you run into trouble, please see the section on [troubleshooting](/docs/home/gce/#troubleshooting), post to the
 [kubernetes-users group](https://groups.google.com/forum/#!forum/kubernetes-users), or come ask questions on [Slack](/docs/troubleshooting#slack).
 
 ## Support Level
@@ -904,7 +904,7 @@ If you run into trouble, please see the section on [troubleshooting](/docs/getti
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch)                                |          | Community ([@erictune](https://github.com/erictune))
+any                  | any          | any    | any         | [docs](/docs/home/scratch/)                                |          | Community ([@erictune](https://github.com/erictune))
 
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/home/#table-of-solutions/) chart.

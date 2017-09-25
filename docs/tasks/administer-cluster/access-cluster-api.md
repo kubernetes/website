@@ -22,7 +22,7 @@ Kubernetes command-line tool, `kubectl`.
 
 To access a cluster, you need to know the location of the cluster and have credentials
 to access it.  Typically, this is automatically set-up when you work through
-a [Getting started guide](/docs/getting-started-guides/),
+a [Getting started guide](/docs/home/),
 or someone else setup the cluster and provided you with credentials and a location.
 
 Check the location and credentials that kubectl knows about with this command:
@@ -147,7 +147,7 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 
 To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
 
-The Python client can use the same [kubeconfig file](/docs/user-guide/kubeconfig-file)
+The Python client can use the same [kubeconfig file](docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py):
 
 ```python

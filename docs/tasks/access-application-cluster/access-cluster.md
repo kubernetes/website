@@ -14,7 +14,7 @@ Kubernetes CLI, `kubectl`.
 
 To access a cluster, you need to know the location of the cluster and have credentials
 to access it.  Typically, this is automatically set-up when you work through
-a [Getting started guide](/docs/getting-started-guides/),
+a [Getting started guide](/docs/home/),
 or someone else setup the cluster and provided you with credentials and a location.
 
 Check the location and credentials that kubectl knows about with this command:
@@ -136,7 +136,7 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 
 To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes`. See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
 
-The Python client can use the same [kubeconfig file](/docs/user-guide/kubeconfig-file)
+The Python client can use the same [kubeconfig file](docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py).
 
 #### Other languages
@@ -183,7 +183,7 @@ In each case, the credentials of the pod are used to communicate securely with t
 
 The previous section was about connecting the Kubernetes API server.  This section is about
 connecting to other services running on Kubernetes cluster.  In Kubernetes, the
-[nodes](/docs/admin/node), [pods](/docs/user-guide/pods) and [services](/docs/user-guide/services) all have
+[nodes](/docs/admin/node), [pods](/docs/user-guide/pods) and [services](/docs/concepts/services-networking/service/) all have
 their own IPs.  In many cases, the node IPs, pod IPs, and some service IPs on a cluster will not be
 routable, so they will not be reachable from a machine outside the cluster,
 such as your desktop machine.
@@ -194,7 +194,7 @@ You have several options for connecting to nodes, pods and services from outside
 
   - Access services through public IPs.
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
-      the cluster.  See the [services](/docs/user-guide/services) and
+      the cluster.  See the [services](/docs/concepts/services-networking/service/) and
       [kubectl expose](/docs/user-guide/kubectl/v1.6/#expose) documentation.
     - Depending on your cluster environment, this may just expose the service to your corporate network,
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
@@ -245,6 +245,16 @@ As mentioned above, you use the `kubectl cluster-info` command to retrieve the s
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
 If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
+
+By default, the API server proxies to your service using http. To use https, prefix the service name with `https:`:
+`http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`https:service_name:[port_name]`*`/proxy`
+
+The supported formats for the name segment of the URL are:
+
+* `<service_name>` - proxies to the default or unnamed port using http
+* `<service_name>:<port_name>` - proxies to the specified port using http
+* `https:<service_name>:` - proxies to the default or unnamed port using https (note the trailing colon)
+* `https:<service_name>:<port_name>` - proxies to the specified port using https
 
 ##### Examples
 
@@ -298,7 +308,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxy to target may use HTTP or HTTPS as chosen by proxy using available information
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
-  1. The [kube proxy](/docs/user-guide/services/#ips-and-vips):
+  1. The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
     - runs on each node
     - proxies UDP and TCP
     - does not understand HTTP

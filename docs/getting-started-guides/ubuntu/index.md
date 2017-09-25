@@ -36,24 +36,24 @@ conjure-up kubernetes
 
 These are more in-depth guides for users choosing to run Kubernetes in production:
 
-  - [Installation](/docs/getting-started-guides/ubuntu/installation)
-  - [Validation](/docs/getting-started-guides/ubuntu/validation)
-  - [Backups](/docs/getting-started-guides/ubuntu/backups)
-  - [Upgrades](/docs/getting-started-guides/ubuntu/upgrades)
-  - [Scaling](/docs/getting-started-guides/ubuntu/scaling)
-  - [Logging](/docs/getting-started-guides/ubuntu/logging)
-  - [Monitoring](/docs/getting-started-guides/ubuntu/monitoring)
-  - [Networking](/docs/getting-started-guides/ubuntu/networking)
-  - [Security](/docs/getting-started-guides/ubuntu/security)
-  - [Storage](/docs/getting-started-guides/ubuntu/storage)
-  - [Troubleshooting](/docs/getting-started-guides/ubuntu/troubleshooting)
-  - [Decommissioning](/docs/getting-started-guides/ubuntu/decommissioning)
-  - [Operational Considerations](/docs/getting-started-guides/ubuntu/operational-considerations)
-  - [Glossary](/docs/getting-started-guides/ubuntu/glossary)
+  - [Installation](/docs/home/ubuntu/installation/)
+  - [Validation](/docs/home/ubuntu/validation/)
+  - [Backups](/docs/home/ubuntu/backups/)
+  - [Upgrades](/docs/home/ubuntu/upgrades/)
+  - [Scaling](/docs/home/ubuntu/scaling/)
+  - [Logging](/docs/home/ubuntu/logging/)
+  - [Monitoring](/docs/home/ubuntu/monitoring/)
+  - [Networking](/docs/home/ubuntu/networking/)
+  - [Security](/docs/home/ubuntu/security/)
+  - [Storage](/docs/home/ubuntu/storage/)
+  - [Troubleshooting](/docs/home/ubuntu/troubleshooting/)
+  - [Decommissioning](/docs/home/ubuntu/decommissioning/)
+  - [Operational Considerations](/docs/home/ubuntu/operational-considerations/)
+  - [Glossary](/docs/home/ubuntu/glossary/)
 
 ## Developer Guides
 
-  - [Localhost using LXD](/docs/getting-started-guides/ubuntu/local)
+  - [Localhost using LXD](/docs/home/ubuntu/local/)
 
 ## Where to find us
 

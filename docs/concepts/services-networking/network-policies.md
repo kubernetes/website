@@ -41,6 +41,10 @@ spec:
       role: db
   ingress:
   - from:
+    - ipBlock:
+        cidr: 172.17.0.0/16
+        except:
+        - 172.17.1.0/24
     - namespaceSelector:
         matchLabels:
           project: myproject
@@ -62,13 +66,18 @@ __podSelector__: Each `NetworkPolicy` includes a `podSelector` which selects the
 
 __ingress__: Each `NetworkPolicy` includes a list of whitelist `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port, from either of two sources, the first specified via a `namespaceSelector` and the second specified via a `podSelector`.
 
+__ipBlock__: `ipBlock` describes a particular CIDR that is allowed to
+the pods matched by a NetworkPolicySpec's podSelector. The `except` entry
+is a slice of CIDRs that should not be included within an IP Block. Except
+values will be rejected if they are outside the CIDR range.
+
 So, the example NetworkPolicy:
 
 1. isolates "role=db" pods in the "default" namespace (if they weren't already isolated)
 2. allows connections to TCP port 6379 of "role=db" pods in the "default" namespace from any pod in the "default" namespace with the label "role=frontend"
 3. allows connections to TCP port 6379 of "role=db" pods in the "default" namespace from any pod in a namespace with the label "project=myproject"
 
-See the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) for further examples.
+See the [NetworkPolicy getting started guide](/docs/home/network-policy/walkthrough) for further examples.
 
 ## Default policies
 

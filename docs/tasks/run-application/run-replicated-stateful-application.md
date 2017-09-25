@@ -13,7 +13,7 @@ title: Run a Replicated Stateful Application
 {% capture overview %}
 
 This page shows how to run a replicated stateful application using a
-[StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/) controller.
+[StatefulSet](/docs/concepts/workloads/controllers/statefulset/) controller.
 The example is a MySQL single-master topology with multiple slaves running
 asynchronous replication.
 
@@ -29,7 +29,7 @@ on general patterns for running stateful applications in Kubernetes.
 * {% include default-storage-class-prereqs.md %}
 * This tutorial assumes you are familiar with
   [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
-  and [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/),
+  and [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
   as well as other core concepts like [Pods](/docs/concepts/workloads/pods/pod/),
   [Services](/docs/concepts/services-networking/service/), and
   [ConfigMaps](/docs/tasks/configure-pod-container/configmap/).
@@ -169,7 +169,7 @@ Because the example topology consists of a single MySQL master and any number of
 slaves, the script simply assigns ordinal `0` to be the master, and everyone
 else to be slaves.
 Combined with the StatefulSet controller's
-[deployment order guarantee](/docs/concepts/abstractions/controllers/statefulsets/#deployment-and-scaling-guarantee),
+[deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantee),
 this ensures the MySQL master is Ready before creating slaves, so they can begin
 replicating.
 

@@ -17,7 +17,7 @@ When you are ready to scale up to more machines and higher availability, a [host
 [Turnkey cloud solutions](#turnkey-cloud-solutions) require only a few commands to create
 and cover a wide range of cloud providers.
 
-If you already have a way to configure hosting resources, use [kubeadm](/docs/getting-started-guides/kubeadm/) to easily bring up a cluster with a single command per machine.
+If you already have a way to configure hosting resources, use [kubeadm](/docs/home/kubeadm/) to easily bring up a cluster with a single command per machine.
 
 [Custom solutions](#custom-solutions) vary from step-by-step instructions to general advice for setting up
 a Kubernetes cluster from scratch.
@@ -27,9 +27,9 @@ a Kubernetes cluster from scratch.
 
 # Local-machine Solutions
 
-* [Minikube](/docs/getting-started-guides/minikube/) is the recommended method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
+* [Minikube](/docs/home/minikube/) is the recommended method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
-* [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local) supports a nine-instance deployment on localhost.
+* [Ubuntu on LXD](/docs/home/ubuntu/local/) supports a nine-instance deployment on localhost.
 
 * [IBM Cloud private-ce (Community Edition)](https://www.ibm.com/support/knowledgecenter/en/SSBS6K/product_welcome_cloud_private.html) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for dev and test scenarios. Scales to full multi-node cluster. Free version of the enterprise solution.
 
@@ -62,13 +62,13 @@ a Kubernetes cluster from scratch.
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
 few commands. These solutions are actively developed and have active community support.
 
-* [Google Compute Engine (GCE)](/docs/getting-started-guides/gce)
-* [AWS](/docs/getting-started-guides/aws)
-* [Azure](/docs/getting-started-guides/azure)
+* [Google Compute Engine (GCE)](/docs/home/gce//)
+* [AWS](/docs/home/aws/)
+* [Azure](/docs/home/azure/)
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
-* [CenturyLink Cloud](/docs/getting-started-guides/clc)
+* [CenturyLink Cloud](/docs/home/clc/)
 * [IBM Bluemix](https://github.com/patrocinio/kubernetes-softlayer)
-* [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
+* [Stackpoint.io](/docs/home/stackpoint/)
 * [KUBE2GO.io](https://kube2go.io/)
 * [Madcore.Ai](https://madcore.ai/)
 
@@ -80,7 +80,7 @@ base operating systems.
 If you can find a guide below that matches your needs, use it. It may be a little out of date, but
 it will be easier than starting from scratch. If you do want to start from scratch, either because you
 have special requirements, or just because you want to understand what is underneath a Kubernetes
-cluster, try the [Getting Started from Scratch](/docs/getting-started-guides/scratch) guide.
+cluster, try the [Getting Started from Scratch](/docs/home/scratch/) guide.
 
 If you are interested in supporting Kubernetes on a new platform, see
 [Writing a Getting Started Guide](https://git.k8s.io/community/contributors/devel/writing-a-getting-started-guide.md).
@@ -88,47 +88,47 @@ If you are interested in supporting Kubernetes on a new platform, see
 ## Universal
 
 If you already have a way to configure hosting resources, use
-[kubeadm](/docs/getting-started-guides/kubeadm/) to easily bring up a cluster
+[kubeadm](/docs/home/kubeadm/) to easily bring up a cluster
 with a single command per machine.
 
 ## Cloud
 
 These solutions are combinations of cloud providers and operating systems not covered by the above solutions.
 
-* [CoreOS on AWS or GCE](/docs/getting-started-guides/coreos)
-* [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
-* [Kubespray](/docs/getting-started-guides/kubespray/)
+* [CoreOS on AWS or GCE](/docs/home/coreos/)
+* [Kubernetes on Ubuntu](/docs/home/ubuntu/)
+* [Kubespray](/docs/home/kubespray/)
 
 ## On-Premises VMs
 
-* [Vagrant](/docs/getting-started-guides/coreos) (uses CoreOS and flannel)
-* [CloudStack](/docs/getting-started-guides/cloudstack) (uses Ansible, CoreOS and flannel)
-* [Vmware vSphere](/docs/getting-started-guides/vsphere)  (uses Debian)
-* [Vmware Photon Controller](/docs/getting-started-guides/photon-controller)  (uses Debian)
-* [Vmware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/) (uses Juju, Ubuntu and flannel)
-* [Vmware](/docs/getting-started-guides/coreos)  (uses CoreOS and flannel)
-* [CoreOS on libvirt](/docs/getting-started-guides/libvirt-coreos)  (uses CoreOS)
-* [oVirt](/docs/getting-started-guides/ovirt)
-* [OpenStack Heat](/docs/getting-started-guides/openstack-heat) (uses CentOS and flannel)
-* [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster) (uses Fedora and flannel)
+* [Vagrant](/docs/home/coreos/) (uses CoreOS and flannel)
+* [CloudStack](/docs/home/cloudstack/) (uses Ansible, CoreOS and flannel)
+* [Vmware vSphere](/docs/home/vsphere/)  (uses Debian)
+* [Vmware Photon Controller](/docs/home/photon-controller/)  (uses Debian)
+* [Vmware vSphere, OpenStack, or Bare Metal](/docs/home/ubuntu/) (uses Juju, Ubuntu and flannel)
+* [Vmware](/docs/home/coreos/)  (uses CoreOS and flannel)
+* [CoreOS on libvirt](/docs/home/libvirt-coreos//)  (uses CoreOS)
+* [oVirt](/docs/home/ovirt/)
+* [OpenStack Heat](/docs/home/openstack-heat/) (uses CentOS and flannel)
+* [Fedora (Multi Node)](/docs/home/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
 
 ## Bare Metal
 
-* [Offline](/docs/getting-started-guides/coreos/bare_metal_offline) (no internet required.  Uses CoreOS and Flannel)
-* [Fedora via Ansible](/docs/getting-started-guides/fedora/fedora_ansible_config)
-* [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config)
-* [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)
-* [CentOS](/docs/getting-started-guides/centos/centos_manual_config)
-* [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
-* [CoreOS on AWS or GCE](/docs/getting-started-guides/coreos)
+* [Offline](/docs/home/coreos/bare_metal_offline/) (no internet required.  Uses CoreOS and Flannel)
+* [Fedora via Ansible](/docs/home/fedora/fedora_ansible_config/)
+* [Fedora (Single Node)](/docs/home/fedora/fedora_manual_config/)
+* [Fedora (Multi Node)](/docs/home/fedora/flannel_multi_node_cluster/)
+* [CentOS](/docs/home/centos/centos_manual_config/)
+* [Kubernetes on Ubuntu](/docs/home/ubuntu/)
+* [CoreOS on AWS or GCE](/docs/home/coreos/)
 
 ## Integrations
 
 These solutions provide integration with third-party schedulers, resource managers, and/or lower level platforms.
 
-* [Kubernetes on Mesos](/docs/getting-started-guides/mesos)
+* [Kubernetes on Mesos](/docs/home/mesos/)
   * Instructions specify GCE, but are generic enough to be adapted to most existing Mesos clusters
-* [DCOS](/docs/getting-started-guides/dcos)
+* [DCOS](/docs/home/dcos/)
   * Community Edition DCOS uses AWS
   * Enterprise Edition DCOS supports cloud hosting, on-premises VMs, and bare metal
 
@@ -146,37 +146,37 @@ KUBE2GO.io          |              | multi-support | multi-support | [docs](http
 Madcore.Ai           | Jenkins DSL  | Ubuntu | flannel     | [docs](https://madcore.ai)                        | Community ([@madcore-ai](https://github.com/madcore-ai))
 Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
 Giant Swarm        |              | CoreOS | flannel and/or Calico | [docs](https://docs.giantswarm.io/) | Commercial
-GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    | Project
+GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/home/gce//)                                    | Project
 Azure Container Service |              | Ubuntu | Azure       | [docs](https://azure.microsoft.com/en-us/services/container-service/)                    |  Commercial
-Azure (IaaS)    |              | Ubuntu | Azure       | [docs](/docs/getting-started-guides/azure)                    |  [Community (Microsoft)](https://github.com/Azure/acs-engine)
-Bare-metal           | Ansible      | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_ansible_config)           |  Project
-Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/getting-started-guides/fedora/fedora_manual_config)            |  Project
-Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
-libvirt              | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
-KVM                  | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
-Mesos/Docker         | custom       | Ubuntu | Docker      | [docs](/docs/getting-started-guides/mesos-docker)                           |  Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
-Mesos/GCE            |              |        |             | [docs](/docs/getting-started-guides/mesos)                                  |  Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
-DCOS                 | Marathon   | CoreOS/Alpine | custom | [docs](/docs/getting-started-guides/dcos)                                   |  Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
-AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/aws)                                 |  Community
-GCE                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |  Community ([@pires](https://github.com/pires))
-Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |  Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
-Bare-metal (Offline) | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/bare_metal_offline)              |  Community ([@jeffbean](https://github.com/jeffbean))
-CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/getting-started-guides/cloudstack)                             |  Community ([@sebgoa](https://github.com/sebgoa))
-Vmware vSphere       | Saltstack    | Debian | OVS         | [docs](/docs/getting-started-guides/vsphere)                                |  Community ([@imkin](https://github.com/imkin))
-Vmware Photon        | Saltstack    | Debian | OVS         | [docs](/docs/getting-started-guides/photon-controller)                      |  Community ([@alainroy](https://github.com/alainroy))
-Bare-metal           | custom       | CentOS | flannel      | [docs](/docs/getting-started-guides/centos/centos_manual_config)            |  Community ([@coolsvap](https://github.com/coolsvap))
-AWS                  | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
-GCE                  | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
-Bare Metal           | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
-Rackspace            | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
-Vmware vSphere       | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
-AWS                  | Saltstack    | Debian | AWS         | [docs](/docs/getting-started-guides/aws)                                    |  Community ([@justinsb](https://github.com/justinsb))
-AWS                  | kops         | Debian | AWS         | [docs](https://github.com/kubernetes/kops)                                  |  Community ([@justinsb](https://github.com/justinsb))
-Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu)                                 |  Community ([@resouer](https://github.com/resouer), [@WIZARD-CXY](https://github.com/WIZARD-CXY))
-libvirt/KVM          | CoreOS       | CoreOS | libvirt/KVM | [docs](/docs/getting-started-guides/libvirt-coreos)                         |  Community ([@lhuard1A](https://github.com/lhuard1A))
-oVirt                |              |        |             | [docs](/docs/getting-started-guides/ovirt)                                  |  Community ([@simon3z](https://github.com/simon3z))
-OpenStack Heat       | Saltstack    | CentOS | Neutron + flannel hostgw | [docs](/docs/getting-started-guides/openstack-heat)            |  Community ([@FujitsuEnablingSoftwareTechnologyGmbH](https://github.com/FujitsuEnablingSoftwareTechnologyGmbH))
-any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch)                                |  Community ([@erictune](https://github.com/erictune))
+Azure (IaaS)    |              | Ubuntu | Azure       | [docs](/docs/home/azure/)                    |  [Community (Microsoft)](https://github.com/Azure/acs-engine)
+Bare-metal           | Ansible      | Fedora | flannel     | [docs](/docs/home/fedora/fedora_ansible_config/)           |  Project
+Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/home/fedora/fedora_manual_config/)            |  Project
+Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/home/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
+libvirt              | custom       | Fedora | flannel     | [docs](/docs/home/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
+KVM                  | custom       | Fedora | flannel     | [docs](/docs/home/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
+Mesos/Docker         | custom       | Ubuntu | Docker      | [docs](/docs/home/mesos-docker/)                           |  Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
+Mesos/GCE            |              |        |             | [docs](/docs/home/mesos/)                                  |  Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
+DCOS                 | Marathon   | CoreOS/Alpine | custom | [docs](/docs/home/dcos/)                                   |  Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
+AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/home/aws/)                                 |  Community
+GCE                  | CoreOS       | CoreOS | flannel     | [docs](/docs/home/coreos/)                                 |  Community ([@pires](https://github.com/pires))
+Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/home/coreos/)                                 |  Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
+Bare-metal (Offline) | CoreOS       | CoreOS | flannel     | [docs](/docs/home/coreos/bare_metal_offline/)              |  Community ([@jeffbean](https://github.com/jeffbean))
+CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/home/cloudstack/)                             |  Community ([@sebgoa](https://github.com/sebgoa))
+Vmware vSphere       | Saltstack    | Debian | OVS         | [docs](/docs/home/vsphere/)                                |  Community ([@imkin](https://github.com/imkin))
+Vmware Photon        | Saltstack    | Debian | OVS         | [docs](/docs/home/photon-controller/)                      |  Community ([@alainroy](https://github.com/alainroy))
+Bare-metal           | custom       | CentOS | flannel      | [docs](/docs/home/centos/centos_manual_config/)            |  Community ([@coolsvap](https://github.com/coolsvap))
+AWS                  | Juju         | Ubuntu | flannel     | [docs](/docs/home/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
+GCE                  | Juju         | Ubuntu | flannel     | [docs](/docs/home/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
+Bare Metal           | Juju         | Ubuntu | flannel     | [docs](/docs/home/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
+Rackspace            | Juju         | Ubuntu | flannel     | [docs](/docs/home/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
+Vmware vSphere       | Juju         | Ubuntu | flannel     | [docs](/docs/home/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
+AWS                  | Saltstack    | Debian | AWS         | [docs](/docs/home/aws/)                                    |  Community ([@justinsb](https://github.com/justinsb))
+AWS                  | kops         | Debian | AWS         | [docs](https://github.com/kubernetes/kops/)                                  |  Community ([@justinsb](https://github.com/justinsb))
+Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/home/ubuntu/)                                 |  Community ([@resouer](https://github.com/resouer), [@WIZARD-CXY](https://github.com/WIZARD-CXY))
+libvirt/KVM          | CoreOS       | CoreOS | libvirt/KVM | [docs](/docs/home/libvirt-coreos//)                         |  Community ([@lhuard1A](https://github.com/lhuard1A))
+oVirt                |              |        |             | [docs](/docs/home/ovirt/)                                  |  Community ([@simon3z](https://github.com/simon3z))
+OpenStack Heat       | Saltstack    | CentOS | Neutron + flannel hostgw | [docs](/docs/home/openstack-heat/)            |  Community ([@FujitsuEnablingSoftwareTechnologyGmbH](https://github.com/FujitsuEnablingSoftwareTechnologyGmbH))
+any                  | any          | any    | any         | [docs](/docs/home/scratch/)                                |  Community ([@erictune](https://github.com/erictune))
 any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
 
 **Note**: The above table is ordered by version test/used in nodes, followed by support level.

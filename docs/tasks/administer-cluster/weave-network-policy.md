@@ -12,7 +12,7 @@ This page shows how to use Weave Net for NetworkPolicy.
 
 {% capture prerequisites %}
 
-Complete steps 1, 2, and 3 of the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/).
+Complete steps 1, 2, and 3 of the [kubeadm getting started guide](/docs/home/kubeadm/).
 
 {% endcapture %}
 
@@ -108,7 +108,7 @@ spec:
 
 {% capture whatsnext %}
 
-Once you have installed the Weave Net addon, you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
+Once you have installed the Weave Net addon, you can follow the [NetworkPolicy getting started guide](/docs/home/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
 
 {% endcapture %}
 

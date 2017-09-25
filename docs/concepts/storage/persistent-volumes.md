@@ -35,7 +35,7 @@ administrators. Kubernetes itself is unopinionated about what classes
 represent. This concept is sometimes called "profiles" in other storage
 systems.
 
-Please see the [detailed walkthrough with working examples](/docs/user-guide/persistent-volumes/walkthrough/).
+Please see the [detailed walkthrough with working examples](/docs/concepts/storage/persistent-volumes/walkthrough/).
 
 
 ## Lifecycle of a volume and claim
@@ -157,7 +157,7 @@ spec:
 
 ### Capacity
 
-Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://git.k8s.io/community/contributors/design-proposals/resources.md) to understand the units expected by `capacity`.
+Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) to understand the units expected by `capacity`.
 
 Currently, storage size is the only resource that can be set or requested.  Future attributes may include IOPS, throughput, etc.
 
@@ -311,11 +311,11 @@ Claims use the same conventions as volumes when requesting storage with specific
 
 ### Resources
 
-Claims, like pods, can request specific quantities of a resource.  In this case, the request is for storage.  The same [resource model](https://git.k8s.io/community/contributors/design-proposals/resources.md) applies to both volumes and claims.
+Claims, like pods, can request specific quantities of a resource.  In this case, the request is for storage.  The same [resource model](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) applies to both volumes and claims.
 
 ### Selector
 
-Claims can specify a [label selector](/docs/user-guide/labels/#label-selectors) to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim. The selector can consist of two fields:
+Claims can specify a [label selector](/docs/concepts/overview/working-with-objects/labels/#label-selectors) to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim. The selector can consist of two fields:
 
 * matchLabels - the volume must have a label with this value
 * matchExpressions - a list of requirements made by specifying key, list of values, and operator that relates the key and values. Valid operators include In, NotIn, Exists, and DoesNotExist.
@@ -442,7 +442,7 @@ for provisioning PVs. This field must be specified.
 You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
 alongside Kubernetes). You can also run and specify external provisioners,
-which are independent programs that follow a [specification](https://git.k8s.io/community/contributors/design-proposals/volume-provisioning.md)
+which are independent programs that follow a [specification](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)
 defined by Kubernetes. Authors of external provisioners have full discretion
 over where their code lives, how the provisioner is shipped, how it needs to be
 run, what volume plugin it uses (including Flex), etc. The repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage)

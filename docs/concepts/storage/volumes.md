@@ -454,7 +454,7 @@ details.
 A `downwardAPI` volume is used to make downward API data available to applications.
 It mounts a directory and writes the requested data in plain text files.
 
-See the [`downwardAPI` volume example](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/)  for more details.
+See the [`downwardAPI` volume example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)  for more details.
 
 ### projected
 
@@ -466,7 +466,7 @@ Currently, the following types of volume sources can be projected:
 - [`downwardAPI`](#downardapi)
 - `configMap`
 
-All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/all-in-one-volume.md).
+All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/node/all-in-one-volume.md).
 
 #### Example pod with a secret, a downward API, and a configmap.
 
@@ -572,7 +572,7 @@ More details can be found [here](https://github.com/kubernetes/examples/tree/{{p
 
 ### vsphereVolume
 
-**Prerequisite:** Kubernetes with vSphere Cloud Provider configured. For cloudprovider configuration please refer [vSphere getting started guide](/docs/getting-started-guides/vsphere/).
+**Prerequisite:** Kubernetes with vSphere Cloud Provider configured. For cloudprovider configuration please refer [vSphere getting started guide](/docs/home/vsphere/).
 {: .note}
 
 A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
@@ -675,7 +675,7 @@ More details and examples can be found [here](https://github.com/kubernetes/exam
 ScaleIO is a software-based storage platform that can use existing hardware to create clusters of scalable
 shared block networked storage.  The ScaleIO volume plugin allows deployed pods to access existing ScaleIO
 volumes (or it can dynamically provision new volumes for persistent volume claims, see
-[ScaleIO Persistent Volumes](/docs/user-guide/persistent-volumes/#scaleio)).
+[ScaleIO Persistent Volumes](/docs/concepts/storage/persistent-volumes/#scaleio)).
 
 **Important:** You must have an existing ScaleIO cluster already setup and running with the volumes created before you can use them.
 {: .caution}

@@ -66,7 +66,7 @@ this for you). Other tutorials, for example
 by Kelsey Hightower, are also available to help you.
 
 You must also have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+[working knowledge of Kubernetes](/docs/home/) in
 general, and [Ingress](/docs/concepts/services-networking/ingress/) in particular.
 {% endcapture %}
 
@@ -300,6 +300,6 @@ Check that:
 {% capture whatsnext %}
 *  If you need assistance, use one of the [support channels](/docs/tasks/debug-application-cluster/troubleshooting/) to seek assistance.
  *  For details about use cases that motivated this work, see
- [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation.md).
+ [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation/federation.md).
 {% endcapture %}
 {% include templates/task.md %}

@@ -24,7 +24,7 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 
 * Node: A single virtual or physical machine in a Kubernetes cluster.
 * Cluster: A group of nodes in a single failure domain, unless mentioned otherwise.
-* Persistent Volume Claim (PVC): A request for storage, typically a [persistent volume](/docs/user-guide/persistent-volumes/walkthrough/).
+* Persistent Volume Claim (PVC): A request for storage, typically a [persistent volume](/docs/concepts/storage/persistent-volumes/walkthrough/).
 * Host name: The hostname attached to the UTS namespace of the pod, i.e. the output of `hostname` in the pod.
 * DNS/Domain name: A *cluster local* domain name resolvable using standard methods (e.g.: [gethostbyname](http://linux.die.net/man/3/gethostbyname)).
 * Ordinality: the property of being "ordinal", or occupying a position in a sequence.
@@ -37,7 +37,7 @@ This doc assumes familiarity with the following Kubernetes concepts:
 
 * [Pods](/docs/user-guide/pods/single-container/)
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Services](/docs/user-guide/services/#headless-services)
+* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [Persistent Volumes](/docs/concepts/storage/volumes/)
 * [Persistent Volume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/README.md)
 
@@ -227,7 +227,7 @@ web-1
 
 A pet can piece together its own identity:
 
-1. Use the [downward api](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/) to find its pod name
+1. Use the [downward api](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/) to find its pod name
 2. Run `hostname` to find its DNS name
 3. Run `mount` or `df` to find its volumes (usually this is unnecessary)
 
@@ -434,7 +434,7 @@ Deploying one RC of size 1/Service per pod is a popular alternative, as is simpl
 
 ## Next steps
 
-* Learn about [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/),
+* Learn about [StatefulSet](/docs/concepts/workloads/controllers/statefulset/),
   the replacement for PetSet introduced in Kubernetes version 1.5.
 * [Migrate your existing PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
   when upgrading to Kubernetes version 1.5 or higher.
