@@ -64,7 +64,7 @@ A Controller can create and manage multiple Pods for you, handling replication a
 Some examples of Controllers that contain one or more pods include:
 
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)
-* [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/)
+* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
 * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
 
 In general, Controllers use a Pod Template that you provide to create the Pods for which it is responsible.

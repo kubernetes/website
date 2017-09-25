@@ -21,7 +21,7 @@ using `kubefed`.
 ## Prerequisites
 
 This guide assumes that you have a running Kubernetes cluster. Please
-see one of the [getting started](/docs/getting-started-guides/) guides
+see one of the [getting started](/docs/home/) guides
 for installation instructions for your platform.
 
 
@@ -367,7 +367,7 @@ kubefed init fellowship \
 ```
 
 For more information see
-[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tutorials/federation/set-up-coredns-provider-federation/).
+[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tasks/federation/set-up-coredns-provider-federation/).
 
 ## Adding a cluster to a federation
 

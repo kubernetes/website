@@ -12,9 +12,9 @@ title: Running ZooKeeper, A CP Distributed System
 
 {% capture overview %}
 This tutorial demonstrates [Apache Zookeeper](https://zookeeper.apache.org) on 
-Kubernetes using [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/), 
+Kubernetes using [StatefulSets](/docs/concepts/workloads/controllers/statefulset/), 
 [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget), 
-and [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature).
+and [PodAntiAffinity](/docs/concepts/configuration/assign-pod-node//#inter-pod-affinity-and-anti-affinity-beta-feature).
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -28,9 +28,9 @@ Kubernetes concepts.
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
 * [ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
-* [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
+* [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
 * [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
-* [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
+* [PodAntiAffinity](/docs/concepts/configuration/assign-pod-node//#inter-pod-affinity-and-anti-affinity-beta-feature)
 * [kubectl CLI](/docs/user-guide/kubectl)
 
 You will require a cluster with at least four nodes, and each node will require
@@ -92,7 +92,7 @@ The manifest below contains a
 [Headless Service](/docs/concepts/services-networking/service/#headless-services), 
 a [ConfigMap](/docs/tasks/configure-pod-container/configmap/), 
 a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget), 
-and a [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/). 
+and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/). 
 
 {% include code.html language="yaml" file="zookeeper.yaml" ghlink="/docs/tutorials/stateful-application/zookeeper.yaml" %}
 

@@ -16,7 +16,7 @@ replicas exist across the registered clusters.
 
 * {% include federated-task-tutorial-prereqs.md %}
 * You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+[working knowledge of Kubernetes](/docs/home/) in
 general and [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) in particular.
 {% endcapture %}
 

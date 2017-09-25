@@ -13,7 +13,7 @@ The [Kubernetes Basics interactive tutorial](/docs/tutorials/kubernetes-basics/)
 
 ## Installing/Setting Up Kubernetes
 
-[Picking the Right Solution](/docs/getting-started-guides/) can help you get a Kubernetes cluster up and running, either for local development, or on your cloud provider of choice.
+[Picking the Right Solution](/docs/home/) can help you get a Kubernetes cluster up and running, either for local development, or on your cloud provider of choice.
 
 ## Concepts, Tasks, and Tutorials
 
