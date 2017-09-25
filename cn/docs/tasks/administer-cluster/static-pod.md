@@ -4,11 +4,11 @@ approvers:
 title: 静态Pods
 ---
 
-**如果你正在运行Kubernetes集群并且使用静态pods在每个节点上起一个pod，那么最好使用[DaemonSet](/docs/concepts/workloads/controllers/daemonset/)!**
+**如果你正在运行Kubernetes集群并且使用静态pods在每个节点上起一个pod，那么最好使用[DaemonSet](/cn/docs/concepts/workloads/controllers/daemonset/)!**
 
 *静态pods*直接由特定节点上的kubelet进程来管理，不通过主控节点上的API服务器。静态pod不关联任何replicationcontroller，它由kubelet进程自己来监控，当pod崩溃时重启该pod。对于静态pod没有健康检查。静态pod始终绑定在某一个kubelet，并且始终运行在同一个节点上。
 
-Kubelet自动为每一个静态pod在Kubernetes的API服务器上创建一个镜像Pod（Mirror Pod），因此可以在API服务器查询到该pod，但是不被API 服务器控制（例如不能删除）。
+Kubelet自动为每一个静态pod在Kubernetes的API服务器上创建一个镜像Pod（Mirror Pod），因此可以在API服务器查询到该pod，但是不被API服务器控制（例如不能删除）。
 
 ## 静态pod创建
 
@@ -48,14 +48,13 @@ Kubelet自动为每一个静态pod在Kubernetes的API服务器上创建一个镜
     EOF
     ```
 
-3. 配置节点上的kubelet使用这个目录，kubelet启动时增加`--pod-manifest-path=/etc/kubelet.d/`参数。
-	如果是Fedora系统，在Kubelet配置文件/etc/kubernetes/kubelet中添加下面这行：
+3.配置节点上的kubelet使用这个目录，kubelet启动时增加`--pod-manifest-path=/etc/kubelet.d/`参数。如果是Fedora系统，在Kubelet配置文件/etc/kubernetes/kubelet中添加下面这行：
 	
     ```
     KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
     ```
 
-    如果是其它Linux发行版或者其它Kubernetes安装方式，配置方法可能会不一样。
+如果是其它Linux发行版或者其它Kubernetes安装方式，配置方法可能会不一样。
 
 4. 重启kubelet。如果是Fedora系统，就是：
 
@@ -77,7 +76,7 @@ CONTAINER ID IMAGE         COMMAND  CREATED        STATUS         PORTS     NAME
 f6d05272b57e nginx:latest  "nginx"  8 minutes ago  Up 8 minutes             k8s_web.6f802af4_static-web-fk-node1_default_67e24ed9466ba55986d120c867395f3c_378e5f3c
 ```
 
-如果我们查看Kubernetes的API服务器（运行在主机 `my-master`），可以看到这里创建了一个新的mirror-pod：
+如果我们查看Kubernetes的API服务器（运行在主机 `my-master`），可以看到这里创建了一个新的镜像Pod：
 
 ```shell
 [joe@host ~] $ ssh my-master
