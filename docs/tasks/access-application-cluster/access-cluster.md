@@ -14,7 +14,7 @@ Kubernetes CLI, `kubectl`.
 
 To access a cluster, you need to know the location of the cluster and have credentials
 to access it.  Typically, this is automatically set-up when you work through
-a [Getting started guide](/docs/home/),
+a [Getting started guide](/docs/getting-started-guides/),
 or someone else setup the cluster and provided you with credentials and a location.
 
 Check the location and credentials that kubectl knows about with this command:
@@ -183,7 +183,7 @@ In each case, the credentials of the pod are used to communicate securely with t
 
 The previous section was about connecting the Kubernetes API server.  This section is about
 connecting to other services running on Kubernetes cluster.  In Kubernetes, the
-[nodes](/docs/admin/node), [pods](/docs/user-guide/pods) and [services](/docs/concepts/services-networking/service/) all have
+[nodes](/docs/admin/node), [pods](/docs/user-guide/pods) and [services](/docs/user-guide/services) all have
 their own IPs.  In many cases, the node IPs, pod IPs, and some service IPs on a cluster will not be
 routable, so they will not be reachable from a machine outside the cluster,
 such as your desktop machine.
@@ -194,7 +194,7 @@ You have several options for connecting to nodes, pods and services from outside
 
   - Access services through public IPs.
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
-      the cluster.  See the [services](/docs/concepts/services-networking/service/) and
+      the cluster.  See the [services](/docs/user-guide/services) and
       [kubectl expose](/docs/user-guide/kubectl/v1.6/#expose) documentation.
     - Depending on your cluster environment, this may just expose the service to your corporate network,
       or it may expose it to the internet.  Think about whether the service being exposed is secure.

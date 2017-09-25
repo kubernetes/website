@@ -58,7 +58,7 @@ This is a living document. If you think of something that is not on this list bu
 
 ## Using Labels
 
-- Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or deployment. For example, instead of attaching a label to a set of pods to explicitly represent some service (For example, `service: myservice`), or explicitly representing the replication controller managing the pods  (for example, `controller: mycontroller`), attach labels that identify semantic attributes, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. This will let you select the object groups appropriate to the context— for example, a service for all "tier: frontend" pods, or all "test" phase components of app "myapp". See the [guestbook](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) app for an example of this approach.
+- Define and use [labels](/docs/user-guide/labels/) that identify __semantic attributes__ of your application or deployment. For example, instead of attaching a label to a set of pods to explicitly represent some service (For example, `service: myservice`), or explicitly representing the replication controller managing the pods  (for example, `controller: mycontroller`), attach labels that identify semantic attributes, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. This will let you select the object groups appropriate to the context— for example, a service for all "tier: frontend" pods, or all "test" phase components of app "myapp". See the [guestbook](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) app for an example of this approach.
 
   A service can be made to span multiple deployments, such as is done across [rolling updates](/docs/tasks/run-application/rolling-update-replication-controller/), by simply omitting release-specific labels from its selector, rather than updating a service's selector to match the replication controller's selector fully.
 
@@ -84,7 +84,7 @@ This is a living document. If you think of something that is not on this list bu
 
 - Use `kubectl delete` rather than `stop`. `Delete` has a superset of the functionality of `stop`, and `stop` is deprecated.
 
-- Use kubectl bulk operations (via files and/or labels) for get and delete. See [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) and [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
+- Use kubectl bulk operations (via files and/or labels) for get and delete. See [label selectors](/docs/user-guide/labels/#label-selectors) and [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
 
 - Use `kubectl run` and `expose` to quickly create and expose single container Deployments. See the [quick start guide](/docs/user-guide/quick-start/) for an example.
 

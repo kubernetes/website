@@ -9,7 +9,7 @@ title: CentOS
 
 ## Warning
 
-This guide [has been deprecated](https://github.com/kubernetes/kubernetes.github.io/issues/1613). It was originally written for Kubernetes 1.1.0. Please check [the latest guide](/docs/home/kubeadm/).
+This guide [has been deprecated](https://github.com/kubernetes/kubernetes.github.io/issues/1613). It was originally written for Kubernetes 1.1.0. Please check [the latest guide](/docs/getting-started-guides/kubeadm/).
 
 ## Prerequisites
 
@@ -233,6 +233,6 @@ centos-minion-3        Ready      3d      v1.6.0+fff5156
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Bare-metal           | custom       | CentOS | flannel     | [docs](/docs/home/centos/centos_manual_config)            |          | Community ([@coolsvap](https://github.com/coolsvap))
+Bare-metal           | custom       | CentOS | flannel     | [docs](/docs/getting-started-guides/centos/centos_manual_config)            |          | Community ([@coolsvap](https://github.com/coolsvap))
 
-For support level information on all solutions, see the [Table of solutions](/docs/home/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.

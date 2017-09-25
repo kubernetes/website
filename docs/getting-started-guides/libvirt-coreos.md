@@ -332,8 +332,8 @@ Ensure libvirtd has been restarted since ebtables was installed.
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-libvirt/KVM          | CoreOS       | CoreOS | libvirt/KVM | [docs](/docs/home/libvirt-coreos/)                         |          | Community ([@lhuard1A](https://github.com/lhuard1A))
+libvirt/KVM          | CoreOS       | CoreOS | libvirt/KVM | [docs](/docs/getting-started-guides/libvirt-coreos)                         |          | Community ([@lhuard1A](https://github.com/lhuard1A))
 
 
-For support level information on all solutions, see the [Table of solutions](/docs/home/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 

@@ -12,7 +12,7 @@ This page shows how to use Romana for NetworkPolicy.
 
 {% capture prerequisites %}
 
-Complete steps 1, 2, and 3 of  the [kubeadm getting started guide](/docs/home/kubeadm/).
+Complete steps 1, 2, and 3 of  the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/).
 
 {% endcapture %}
 
@@ -34,7 +34,7 @@ To apply network policies use one of the following:
 
 {% capture whatsnext %}
 
-Once your have installed Romana, you can follow the [NetworkPolicy getting started guide](/docs/home/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
+Once your have installed Romana, you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
 
 {% endcapture %}
 
