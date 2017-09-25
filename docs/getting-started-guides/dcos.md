@@ -6,6 +6,10 @@ title: DCOS
 
 {% assign for_k8s_version="1.6" %}{% include feature-state-deprecated.md %}
 
+**[Kuberenetes on DC/OS](https://mesosphere.com/blog/kubernetes-dcos/) is coming soon!**
+
+**WARNING**: This legacy guide requires DCOS v1.6 and installs Kubernetes v1.1.5.
+
 This guide will walk you through installing [Kubernetes-Mesos](https://github.com/mesosphere/kubernetes-mesos) on [Datacenter Operating System (DCOS)](https://mesosphere.com/product/) with the [DCOS CLI](https://github.com/mesosphere/dcos-cli) and operating Kubernetes with the [DCOS Kubectl plugin](https://github.com/mesosphere/dcos-kubectl).
 
 * TOC
