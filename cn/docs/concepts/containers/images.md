@@ -51,14 +51,12 @@ title: 镜像
 ### 使用 Google Container Registry
 Kuberetes运行在Google Compute Engine (GCE)时原生支持[Google ContainerRegistry (GCR)]
 (https://cloud.google.com/tools/container-registry/)。如果kubernetes集群运行在GCE
-或者Google Container Engine (GKE)上，使用镜像全名(e.g. gcr.io/my_project/image:tag)
-即可。
+或者Google Container Engine (GKE)上，使用镜像全名(e.g. gcr.io/my_project/image:tag)即可。
 
 集群中的所有pod都会有读取这个仓库中镜像的权限。
 
 Kubelet将使用实例的Google service account向GCR认证。实例的service account拥有
-`https://www.googleapis.com/auth/devstorage.read_only`，所以它可以从项目的GCR拉取，但不能
-推送。
+`https://www.googleapis.com/auth/devstorage.read_only`，所以它可以从项目的GCR拉取，但不能推送。
 	
 ### 使用 AWS EC2 Container Registry
 
@@ -94,8 +92,7 @@ Kubelet会获取并且定期刷新ECR的凭证。它需要以下权限
   - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
 
 ### 使用 Azure Container Registry (ACR)
-当使用[Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)时，
-可以使用admin user或者service principal认证。
+当使用[Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)时，可以使用admin user或者service principal认证。
 任何一种情况，认证都通过标准的Dokcer authentication完成。本指南假设使用[azure-cli](https://github.com/azure/azure-cli)
 命令行工具。
 
