@@ -18,7 +18,7 @@ this for you). Other tutorials, for example
 by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+[working knowledge of Kubernetes](/docs/home/) in
 general and [Secrets](/docs/concepts/configuration/secret/) in particular.
 
 ## Overview

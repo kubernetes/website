@@ -12,7 +12,7 @@ ReplicaSet is the next-generation Replication Controller. The only difference
 between a _ReplicaSet_ and a
 [_Replication Controller_](/docs/concepts/workloads/controllers/replicationcontroller/) right now is
 the selector support. ReplicaSet supports the new set-based selector requirements
-as described in the [labels user guide](/docs/user-guide/labels/#label-selectors)
+as described in the [labels user guide](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 whereas a Replication Controller only supports equality-based selector requirements.
 
 {% endcapture %}
