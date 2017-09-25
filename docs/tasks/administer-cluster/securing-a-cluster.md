@@ -82,7 +82,7 @@ resources granted to a namespace. This is most often used to limit the amount of
 or persistent disk a namespace can allocate, but can also control how many pods, services, or
 volumes exist in each namespace. 
 
-[Limit ranges](/docs/admin/limitrange) restrict the maximum or minimum size of some of the
+[Limit ranges](/docs/tasks/administer-cluster/memory-default-namespace/) restrict the maximum or minimum size of some of the
 resources above, to prevent users from requesting unreasonably high or low values for commonly
 reserved resources like memory, or to provide default limits when none are specified.
 
