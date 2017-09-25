@@ -49,7 +49,7 @@ container, and if users use the [node
 allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) feature, out of resource decisions
 are made local to the end user pod part of the cgroup hierarchy as well as the
 root node.  This
-[script](/docs/concepts/cluster-administration/out-of-resource/memory-available.sh)
+[script](/docs/tasks/administer-cluster/out-of-resource/memory-available.sh)
 reproduces the same set of steps that the `kubelet` performs to calculate
 `memory.available`. The `kubelet` excludes inactive_file (i.e. # of bytes of
 file-backed memory on inactive LRU list) from its calculation as it assumes that

@@ -165,9 +165,9 @@ cluster/kube-down.sh
 IaaS Provider        | Config. Mgmt | OS            | Networking  | Docs                                          | Conforms | Support Level
 -------------------- | ------------ | ------------- | ----------  | --------------------------------------------- | ---------| ----------------------------
 AWS                  | kops         | Debian        | k8s (VPC)   | [docs](https://github.com/kubernetes/kops)    |          | Community ([@justinsb](https://github.com/justinsb))
-AWS                  | CoreOS       | CoreOS        | flannel     | [docs](/docs/getting-started-guides/aws)      |          | Community
+AWS                  | CoreOS       | CoreOS        | flannel     | [docs](/docs/home/aws)      |          | Community
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/home/#table-of-solutions) chart.
 
 ## Further reading
 

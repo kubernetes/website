@@ -66,7 +66,7 @@ this for you). Other tutorials, for example
 by Kelsey Hightower, are also available to help you.
 
 You must also have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+[working knowledge of Kubernetes](/docs/home/) in
 general, and [Ingress](/docs/concepts/services-networking/ingress/) in particular.
 {% endcapture %}
 

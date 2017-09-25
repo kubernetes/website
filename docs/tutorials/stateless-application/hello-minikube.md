@@ -7,7 +7,7 @@ title: Hello Minikube
 The goal of this tutorial is for you to turn a simple Hello World Node.js app
 into an application running on Kubernetes. The tutorial shows you how to
 take code that you have developed on your machine, turn it into a Docker
-container image and then run that image on [Minikube](/docs/getting-started-guides/minikube).
+container image and then run that image on [Minikube](/docs/home/minikube).
 Minikube provides a simple way of running Kubernetes on your local machine for free.
 
 {% endcapture %}
@@ -45,7 +45,7 @@ create a local cluster. This tutorial also assumes you are using
 on OS X. If you are on a different platform like Linux, or using VirtualBox
 instead of Docker for Mac, the instructions to install Minikube may be
 slightly different. For general Minikube installation instructions, see
-the [Minikube installation guide](/docs/getting-started-guides/minikube/).
+the [Minikube installation guide](/docs/home/minikube/).
 
 Use `curl` to download and install the latest Minikube release:
 

@@ -130,7 +130,7 @@ $ kubectl get pods -l 'environment,environment notin (frontend)'
 
 ### Set references in API objects
 
-Some Kubernetes objects, such as [`services`](/docs/user-guide/services) and [`replicationcontrollers`](/docs/user-guide/replication-controller), also use label selectors to specify sets of other resources, such as [pods](/docs/user-guide/pods).
+Some Kubernetes objects, such as [`services`](/docs/concepts/services-networking/service/) and [`replicationcontrollers`](/docs/user-guide/replication-controller), also use label selectors to specify sets of other resources, such as [pods](/docs/user-guide/pods).
 
 #### Service and ReplicationController
 
@@ -170,4 +170,4 @@ selector:
 #### Selecting sets of nodes
 
 One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
-See the documentation on [node selection](/docs/user-guide/node-selection) for more information.
+See the documentation on [node selection](/docs/concepts/configuration/assign-pod-node/) for more information.

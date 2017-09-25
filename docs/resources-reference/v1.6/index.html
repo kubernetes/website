@@ -2056,7 +2056,7 @@ Appears In <a href="#service-v1-core">Service</a> </aside>
 <tbody>
 <tr>
 <td>clusterIP <br /> <em>string</em></td>
-<td>clusterIP is the IP address of the service and is usually assigned randomly by the master. If an address is specified manually and is not in use by others, it will be allocated to the service; otherwise, creation of the service will fail. This field can not be changed through updates. Valid values are &quot;None&quot;, empty string (&quot;&quot;), or a valid IP address. &quot;None&quot; can be specified for headless services when proxying is not required. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: <a href="http://kubernetes.io/docs/user-guide/services#virtual-ips-and-service-proxies">http://kubernetes.io/docs/user-guide/services#virtual-ips-and-service-proxies</a></td>
+<td>clusterIP is the IP address of the service and is usually assigned randomly by the master. If an address is specified manually and is not in use by others, it will be allocated to the service; otherwise, creation of the service will fail. This field can not be changed through updates. Valid values are &quot;None&quot;, empty string (&quot;&quot;), or a valid IP address. &quot;None&quot; can be specified for headless services when proxying is not required. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: <a href="http://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies">http://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies</a></td>
 </tr>
 <tr>
 <td>deprecatedPublicIPs <br /> <em>string array</em></td>
@@ -2076,23 +2076,23 @@ Appears In <a href="#service-v1-core">Service</a> </aside>
 </tr>
 <tr>
 <td>loadBalancerSourceRanges <br /> <em>string array</em></td>
-<td>If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature.&quot; More info: <a href="http://kubernetes.io/docs/user-guide/services-firewalls">http://kubernetes.io/docs/user-guide/services-firewalls</a></td>
+<td>If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature.&quot; More info: <a href="http://kubernetes.io/docs/concepts/services-networking/service/-firewalls">http://kubernetes.io/docs/concepts/services-networking/service/-firewalls</a></td>
 </tr>
 <tr>
 <td>ports <br /> <em><a href="#serviceport-v1-core">ServicePort</a> array</em></td>
-<td>The list of ports that are exposed by this service. More info: <a href="http://kubernetes.io/docs/user-guide/services#virtual-ips-and-service-proxies">http://kubernetes.io/docs/user-guide/services#virtual-ips-and-service-proxies</a></td>
+<td>The list of ports that are exposed by this service. More info: <a href="http://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies">http://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies</a></td>
 </tr>
 <tr>
 <td>selector <br /> <em>object</em></td>
-<td>Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: <a href="http://kubernetes.io/docs/user-guide/services#overview">http://kubernetes.io/docs/user-guide/services#overview</a></td>
+<td>Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: <a href="http://kubernetes.io/docs/concepts/services-networking/service/#overview">http://kubernetes.io/docs/concepts/services-networking/service/#overview</a></td>
 </tr>
 <tr>
 <td>sessionAffinity <br /> <em>string</em></td>
-<td>Supports &quot;ClientIP&quot; and &quot;None&quot;. Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: <a href="http://kubernetes.io/docs/user-guide/services#virtual-ips-and-service-proxies">http://kubernetes.io/docs/user-guide/services#virtual-ips-and-service-proxies</a></td>
+<td>Supports &quot;ClientIP&quot; and &quot;None&quot;. Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: <a href="http://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies">http://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies</a></td>
 </tr>
 <tr>
 <td>type <br /> <em>string</em></td>
-<td>type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. &quot;ExternalName&quot; maps to the specified externalName. &quot;ClusterIP&quot; allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is &quot;None&quot;, no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. &quot;NodePort&quot; builds on ClusterIP and allocates a port on every node which routes to the clusterIP. &quot;LoadBalancer&quot; builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: <a href="http://kubernetes.io/docs/user-guide/services#overview">http://kubernetes.io/docs/user-guide/services#overview</a></td>
+<td>type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. &quot;ExternalName&quot; maps to the specified externalName. &quot;ClusterIP&quot; allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is &quot;None&quot;, no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. &quot;NodePort&quot; builds on ClusterIP and allocates a port on every node which routes to the clusterIP. &quot;LoadBalancer&quot; builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: <a href="http://kubernetes.io/docs/concepts/services-networking/service/#overview">http://kubernetes.io/docs/concepts/services-networking/service/#overview</a></td>
 </tr>
 </tbody>
 </table>
@@ -11254,7 +11254,7 @@ Appears In  <a href="#servicespec-v1-core">ServiceSpec</a> </aside>
 </tr>
 <tr>
 <td>nodePort <br /> <em>integer</em></td>
-<td>The port on each node on which this service is exposed when type=NodePort or LoadBalancer. Usually assigned by the system. If specified, it will be allocated to the service if unused or else creation of the service will fail. Default is to auto-allocate a port if the ServiceType of this Service requires one. More info: <a href="http://kubernetes.io/docs/user-guide/services#type--nodeport">http://kubernetes.io/docs/user-guide/services#type--nodeport</a></td>
+<td>The port on each node on which this service is exposed when type=NodePort or LoadBalancer. Usually assigned by the system. If specified, it will be allocated to the service if unused or else creation of the service will fail. Default is to auto-allocate a port if the ServiceType of this Service requires one. More info: <a href="http://kubernetes.io/docs/concepts/services-networking/service/#type--nodeport">http://kubernetes.io/docs/concepts/services-networking/service/#type--nodeport</a></td>
 </tr>
 <tr>
 <td>port <br /> <em>integer</em></td>
@@ -11266,7 +11266,7 @@ Appears In  <a href="#servicespec-v1-core">ServiceSpec</a> </aside>
 </tr>
 <tr>
 <td>targetPort</td>
-<td>Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod&#39;s container ports. If this is not specified, the value of the &#39;port&#39; field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the &#39;port&#39; field. More info: <a href="http://kubernetes.io/docs/user-guide/services#defining-a-service">http://kubernetes.io/docs/user-guide/services#defining-a-service</a></td>
+<td>Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod&#39;s container ports. If this is not specified, the value of the &#39;port&#39; field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the &#39;port&#39; field. More info: <a href="http://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service">http://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service</a></td>
 </tr>
 </tbody>
 </table>
