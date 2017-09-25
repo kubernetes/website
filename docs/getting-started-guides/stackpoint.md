@@ -38,7 +38,7 @@ Choose any extra options you may want to include with your cluster, then click *
 
 You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-For information on using and managing a Kubernetes cluster on AWS, [consult the  Kubernetes documentation](/docs/home/aws/).
+For information on using and managing a Kubernetes cluster on AWS, [consult the  Kubernetes documentation](/docs/getting-started-guides/aws/).
 
 
 
@@ -70,7 +70,7 @@ Choose any extra options you may want to include with your cluster, then click *
 
 You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-For information on using and managing a Kubernetes cluster on GCE, [consult the  Kubernetes documentation](/docs/home/gce//).
+For information on using and managing a Kubernetes cluster on GCE, [consult the  Kubernetes documentation](/docs/getting-started-guides/gce/).
 
 
 
@@ -168,7 +168,7 @@ Choose any extra options you may want to include with your cluster, then click *
 
 You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-For information on using and managing a Kubernetes cluster on Azure, [consult the  Kubernetes documentation](/docs/home/azure/).
+For information on using and managing a Kubernetes cluster on Azure, [consult the  Kubernetes documentation](/docs/getting-started-guides/azure/).
 
 
 

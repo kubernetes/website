@@ -75,7 +75,7 @@ a `disktype=ssd` label.
 
 {% capture whatsnext %}
 Learn more about
-[labels and selectors](/docs/concepts/overview/working-with-objects/labels/).
+[labels and selectors](/docs/user-guide/labels/).
 {% endcapture %}
 
 {% include templates/task.md %}

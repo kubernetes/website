@@ -16,7 +16,7 @@ that a pod ends up on a machine with an SSD attached to it, or to co-locate pods
 services that communicate a lot into the same availability zone.
 
 You can find all the files for these examples [in our docs
-repo here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/concepts/configuration/assign-pod-node/).
+repo here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/node-selection).
 
 * TOC
 {:toc}

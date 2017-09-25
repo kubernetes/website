@@ -109,7 +109,7 @@ Processing item cherry
 
 In the first example, each instance of the template had one parameter, and that parameter was also
 used as a label.  However label keys are limited in [what characters they can
-contain](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
+contain](/docs/user-guide/labels/#syntax-and-character-set).
 
 This slightly more complex example uses the jinja2 template language to generate our objects.
 We will use a one-line python script to convert the template to a file.

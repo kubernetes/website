@@ -58,6 +58,6 @@ This short screencast demonstrates how the oVirt Cloud Provider can be used to d
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-oVirt                |              |        |             | [docs](/docs/home/ovirt)                                  |          | Community ([@simon3z](https://github.com/simon3z))
+oVirt                |              |        |             | [docs](/docs/getting-started-guides/ovirt)                                  |          | Community ([@simon3z](https://github.com/simon3z))
 
-For support level information on all solutions, see the [Table of solutions](/docs/home/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
