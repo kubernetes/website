@@ -442,7 +442,7 @@ Secrets are described in more detail [here](/docs/user-guide/secrets).
 ### persistentVolumeClaim
 
 A `persistentVolumeClaim` volume is used to mount a
-[PersistentVolume](/docs/user-guide/persistent-volumes) into a pod.  PersistentVolumes are a
+[PersistentVolume](/docs/concepts/storage/persistent-volumes/) into a pod.  PersistentVolumes are a
 way for users to "claim" durable storage (such as a GCE PersistentDisk or an
 iSCSI volume) without knowing the details of the particular cloud environment.
 
