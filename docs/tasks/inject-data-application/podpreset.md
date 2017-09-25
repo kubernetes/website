@@ -123,7 +123,7 @@ metadata:
     app: website
     role: frontend
   annotations:
-    podpreset.admission.kubernetes.io/allow-database: "resource version"
+    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
 spec:
   containers:
     - name: website
@@ -229,7 +229,7 @@ metadata:
     app: website
     role: frontend
   annotations:
-    podpreset.admission.kubernetes.io/allow-database: "resource version"
+    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
 spec:
   containers:
     - name: website
@@ -331,7 +331,7 @@ kind: Pod
       app: guestbook
       tier: frontend
     annotations:
-    podpreset.admission.kubernetes.io/allow-database: "resource version"
+    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
   spec:
     containers:
       - name: php-redis
@@ -432,8 +432,8 @@ metadata:
     app: website
     role: frontend
   annotations:
-    podpreset.admission.kubernetes.io/allow-database: "resource version"
-    podpreset.admission.kubernetes.io/proxy: "resource version"
+    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
+    podpreset.admission.kubernetes.io/podpreset-proxy: "resource version"
 spec:
   containers:
     - name: website
@@ -538,7 +538,7 @@ $ kubectl describe ...
 ....
 Events:
   FirstSeen             LastSeen            Count   From                    SubobjectPath               Reason      Message
-  Tue, 07 Feb 2017 16:56:12 -0700   Tue, 07 Feb 2017 16:56:12 -0700 1   {podpreset.admission.kubernetes.io/allow-database }    conflict  Conflict on pod preset. Duplicate mountPath /cache.
+  Tue, 07 Feb 2017 16:56:12 -0700   Tue, 07 Feb 2017 16:56:12 -0700 1   {podpreset.admission.kubernetes.io/podpreset-allow-database }    conflict  Conflict on pod preset. Duplicate mountPath /cache.
 ```
 
 ## Deleting a Pod Preset
