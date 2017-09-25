@@ -87,7 +87,7 @@ Here are some ideas for how to use Init Containers:
   place the POD_IP value in a configuration and generate the main app
   configuration file using Jinja.
 
-More detailed usage examples can be found in the [StatefulSets documentation](/docs/concepts/workloads/controllers/statefulset/)
+More detailed usage examples can be found in the [StatefulSets documentation](/docs/concepts/abstractions/controllers/statefulsets/)
 and the [Production Pods guide](/docs/tasks/#handling-initialization).
 
 ### Init Containers in use

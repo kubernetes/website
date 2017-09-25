@@ -227,7 +227,7 @@ web-1
 
 A pet can piece together its own identity:
 
-1. Use the [downward api](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/) to find its pod name
+1. Use the [downward api](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/) to find its pod name
 2. Run `hostname` to find its DNS name
 3. Run `mount` or `df` to find its volumes (usually this is unnecessary)
 
@@ -434,7 +434,7 @@ Deploying one RC of size 1/Service per pod is a popular alternative, as is simpl
 
 ## Next steps
 
-* Learn about [StatefulSet](/docs/concepts/workloads/controllers/statefulset/),
+* Learn about [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/),
   the replacement for PetSet introduced in Kubernetes version 1.5.
 * [Migrate your existing PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
   when upgrading to Kubernetes version 1.5 or higher.
