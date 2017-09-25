@@ -71,7 +71,7 @@ class is marked as default, it rejects any creation of `PersistentVolumeClaim` w
 must revisit `StorageClass` objects and mark only one as default.
 This plugin ignores any `PersistentVolumeClaim` updates; it acts only on creation.
 
-See [persistent volume](/docs/user-guide/persistent-volumes) documentation about persistent volume claims and
+See [persistent volume](/docs/concepts/storage/persistent-volumes/) documentation about persistent volume claims and
 storage classes and how to mark a storage class as default.
 
 ### DefaultTolerationSeconds
