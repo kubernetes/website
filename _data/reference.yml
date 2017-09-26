@@ -26,6 +26,8 @@ toc:
 
 - title: API Reference
   section:
+  - title: v1.8
+    path: /docs/api-reference/v1.8/
   - title: v1.7
     path: /docs/api-reference/v1.7/
   - title: v1.6
@@ -52,6 +54,8 @@ toc:
 - title: kubectl CLI
   section:
   - docs/user-guide/kubectl-overview.md
+  - title: v1.8 Commands
+    path: /docs/user-guide/kubectl/v1.8/
   - title: v1.7 Commands
     path: /docs/user-guide/kubectl/v1.7/
   - title: v1.6 Commands
