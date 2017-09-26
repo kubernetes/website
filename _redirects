@@ -237,6 +237,7 @@
 /docs/user-guide/node-selection/     /docs/concepts/configuration/assign-pod-node/ 301
 /docs/user-guide/persistent-volumes/     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/index     /docs/concepts/storage/persistent-volumes/ 301
+/docs/user-guide/persistent-volumes/index.md     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/walkthrough/     /docs/tasks/configure-pod-container/configure-persistent-volume-storage/ 301
 /docs/user-guide/petset/     /docs/concepts/workloads/controllers/petset/ 301
 /docs/user-guide/petset/bootstrapping/     /docs/concepts/workloads/controllers/petset/ 301
