@@ -127,7 +127,8 @@ example. You have to do this until SELinux support is improved in the kubelet.
 
 {% capture whatsnext %}
 
-* [Using kubeadm to Create a Cluster](/docs/getting-started-guides/kubeadm/)
+* [Using kubeadm to Create a
+  Cluster](/docs/setup/independent/create-cluster-kubeadm/)
 
 {% endcapture %}
 
