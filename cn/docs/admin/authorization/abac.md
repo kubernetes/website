@@ -75,7 +75,7 @@ title: ABAC 模式
 
 Kubectl 使用 api-server 的 `/api` 和 `/apis` 端点进行协商客户端/服务器版本。 通过创建/更新来验证发送到API的对象操作，kubectl 查询某些 swagger 资源。 对于API版本"v1", 那就是`/swaggerapi/api/v1` ＆ `/swaggerapi/ experimental/v1`。
 
-当使用 ABAC 授权时，这些特殊资源必须明确通过策略中的 `nonResourcePath` 属性暴露出来(参见下面的[examples](#examples)):
+当使用 ABAC 授权时，这些特殊资源必须明确通过策略中的 `nonResourcePath` 属性暴露出来(参见下面的[例子](#examples)):
 
 * `/api`，`/api/*`，`/apis`和`/apis/*` 用于 API 版本协商.
 * `/version` 通过 `kubectl version` 检索服务器版本.
