@@ -44,6 +44,7 @@
 /docs/admin/addons/     /docs/concepts/cluster-administration/addons/ 301
 /docs/admin/apparmor/     /docs/tutorials/clusters/apparmor/ 301
 /docs/admin/audit/     /docs/tasks/debug-application-cluster/audit/ 301
+//docs/admin/authorization/rbac.md     /docs/admin/authorization/rbac/ 301
 /docs/admin/cluster-components/     /docs/concepts/overview/components/ 301
 /docs/admin/cluster-management/     /docs/tasks/administer-cluster/cluster-management/ 301
 /docs/admin/cluster-troubleshooting/     /docs/tasks/debug-application-cluster/debug-cluster/ 301
@@ -70,6 +71,7 @@
 /docs/admin/networking/     /docs/concepts/cluster-administration/networking/ 301
 /docs/admin/node/     /docs/concepts/architecture/nodes/ 301
 /docs/admin/node-allocatable/     /docs/tasks/administer-cluster/reserve-compute-resources/ 301
+//docs/admin/node-allocatable.md     /docs/tasks/administer-cluster/reserve-compute-resources/ 301
 /docs/admin/node-conformance.md     /docs/admin/node-conformance/ 301
 /docs/admin/node-problem/     /docs/tasks/debug-application-cluster/monitor-node-health/ 301
 /docs/admin/out-of-resource/     /docs/tasks/administer-cluster/out-of-resource/ 301
@@ -125,6 +127,7 @@
 
 /docs/hellonode/     /docs/tutorials/stateless-application/hello-minikube/ 301
 /docs/     /docs/home/ 301
+/docs/home/coreos/     /docs/getting-started-guides/coreos/ 301
 /docs/samples/     /docs/tutorials/ 301
 
 /docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-api-object/ 301
@@ -165,6 +168,7 @@
 /docs/tutorials/clusters/multiple-schedulers/     /docs/tasks/administer-cluster/configure-multiple-schedulers/ 301
 /docs/tutorials/connecting-apps/connecting-frontend-backend/     /docs/tasks/access-application-cluster/connecting-frontend-backend/ 301
 /docs/tutorials/federation/set-up-cluster-federation-kubefed/     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
+//docs/tutorials/federation/set-up-cluster-federation-kubefed.md     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
 /docs/tutorials/federation/set-up-coredns-provider-federation/     /docs/tasks/federation/set-up-coredns-provider-federation/ 301
 /docs/tutorials/federation/set-up-placement-policies-federation/     /docs/tasks/federation/set-up-placement-policies-federation/ 301
 /docs/tutorials/getting-started/create-cluster/     /docs/tutorials/kubernetes-basics/cluster-intro/ 301
