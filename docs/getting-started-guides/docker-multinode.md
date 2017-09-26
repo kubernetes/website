@@ -1,1 +1,6 @@
-# Stop. This guide has been superseded by [kubeadm](/docs/admin/kubeadm/). This page is only present for historical purposes.
+---
+title: docker-multinode
+---
+
+**Caution:** This guide is deprecated and replaced by [kubeadm](/docs/admin/kubeadm/).
+{: .caution}
