@@ -1,6 +1,7 @@
 ---
 approvers:
-- smarterclayton
+- jcbsmpsn
+- mikedanese
 title: Certificate rotation
 ---
 
@@ -19,6 +20,17 @@ This page shows how to enable and configure certificate rotation for the kubelet
 {% endcapture %}
 
 {% capture steps %}
+
+## Overview
+
+The kubelet uses certificates for authenticating to the Kubernetes API.
+Normally, these certificates are issued with a long expiry date, such that
+normally they do not need to be renewed.
+
+Kubernetes 1.8 contains [kubelet certificate
+rotation](/docs/tasks/administer-cluster/certificate-rotation/), a beta feature
+that will automatically generate a new key and request a new certificate from
+the Kubernetes API to use for authenticating connections.
 
 ## Configuration and determining whether certificate rotation is already enabled
 
