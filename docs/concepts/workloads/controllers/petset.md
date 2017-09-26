@@ -10,7 +10,7 @@ approvers:
 title: PetSets
 ---
 
-__Warning:__ Starting in Kubernetes version 1.5, PetSet has been renamed to [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets). To use (or continue to use) PetSet in Kubernetes 1.5, you _must_ [migrate](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/) your existing PetSets to StatefulSets. For information on working with StatefulSet, see the tutorial on [how to run replicated stateful applications](/docs/tutorials/stateful-application/run-replicated-stateful-application).
+__Warning:__ Starting in Kubernetes version 1.5, PetSet has been renamed to [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets). To use (or continue to use) PetSet in Kubernetes 1.5, you _must_ [migrate](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/) your existing PetSets to StatefulSets. For information on working with StatefulSet, see the tutorial on [how to run replicated stateful applications](/docs/tasks/run-application/run-replicated-stateful-application/).
 
 __This document has been deprecated__, but can still apply if you're using
   Kubernetes version 1.4 or earlier.
@@ -24,7 +24,7 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 
 * Node: A single virtual or physical machine in a Kubernetes cluster.
 * Cluster: A group of nodes in a single failure domain, unless mentioned otherwise.
-* Persistent Volume Claim (PVC): A request for storage, typically a [persistent volume](/docs/user-guide/persistent-volumes/walkthrough/).
+* Persistent Volume Claim (PVC): A request for storage, typically a [persistent volume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
 * Host name: The hostname attached to the UTS namespace of the pod, i.e. the output of `hostname` in the pod.
 * DNS/Domain name: A *cluster local* domain name resolvable using standard methods (e.g.: [gethostbyname](http://linux.die.net/man/3/gethostbyname)).
 * Ordinality: the property of being "ordinal", or occupying a position in a sequence.
@@ -37,8 +37,8 @@ This doc assumes familiarity with the following Kubernetes concepts:
 
 * [Pods](/docs/user-guide/pods/single-container/)
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Services](/docs/user-guide/services/#headless-services)
-* [Persistent Volumes](/docs/concepts/storage/volumes/)
+* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
+* [Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 * [Persistent Volume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/README.md)
 
 You need a working Kubernetes cluster at version >= 1.3, with a healthy DNS [cluster addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md) at version >= 15. You cannot use PetSet on a hosted Kubernetes provider that has disabled `alpha` resources.
@@ -227,7 +227,7 @@ web-1
 
 A pet can piece together its own identity:
 
-1. Use the [downward api](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/) to find its pod name
+1. Use the [downward api](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/) to find its pod name
 2. Run `hostname` to find its DNS name
 3. Run `mount` or `df` to find its volumes (usually this is unnecessary)
 
@@ -268,7 +268,7 @@ web-0    1/1       Running   0          30s
 web-1    1/1       Running   0          36s
 
 $ kubectl patch petset web -p '{"spec":{"replicas":3}}'
-"web" patched
+petset "web" patched
 
 $ kubectl get po
 NAME     READY     STATUS    RESTARTS   AGE

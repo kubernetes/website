@@ -292,7 +292,7 @@ Please track the [L7 and Ingress proposal](https://github.com/kubernetes/kuberne
 
 You can expose a Service in multiple ways that don't directly involve the Ingress resource:
 
-* Use [Service.Type=LoadBalancer](/docs/user-guide/services/#type-loadbalancer)
-* Use [Service.Type=NodePort](/docs/user-guide/services/#type-nodeport)
+* Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#type-loadbalancer)
+* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
 * Use a [Port Proxy](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 * Deploy the [Service loadbalancer](https://git.k8s.io/contrib/service-loadbalancer). This allows you to share a single IP among multiple Services and achieve more advanced loadbalancing through Service Annotations.

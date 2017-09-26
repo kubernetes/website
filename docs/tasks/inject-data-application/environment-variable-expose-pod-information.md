@@ -161,7 +161,7 @@ The output shows the values of selected environment variables:
 
 {% capture whatsnext %}
 
-* [Defining Environment Variables for a Container](/docs/tasks/configure-pod-container/define-environment-variable-container/)
+* [Defining Environment Variables for a Container](/docs/tasks/inject-data-application/define-environment-variable-container/)
 * [PodSpec](/docs/resources-reference/{{page.version}}/#podspec-v1-core)
 * [Container](/docs/resources-reference/{{page.version}}/#container-v1-core)
 * [EnvVar](/docs/resources-reference/{{page.version}}/#envvar-v1-core)
