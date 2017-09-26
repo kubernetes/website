@@ -110,6 +110,7 @@ toc:
 - title: TLS
   section:
   - docs/tasks/tls/managing-tls-in-a-cluster.md
+  - docs/tasks/tls/certificate-rotation.md
 
 - title: Administer a Cluster
   section:
