@@ -62,7 +62,7 @@ a Kubernetes cluster from scratch.
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
 few commands. These solutions are actively developed and have active community support.
 
-* [Google Compute Engine (GCE)](/docs/getting-started-guides/gce//)
+* [Google Compute Engine (GCE)](/docs/getting-started-guides/gce/)
 * [AWS](/docs/getting-started-guides/aws/)
 * [Azure](/docs/getting-started-guides/azure/)
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
@@ -146,7 +146,7 @@ KUBE2GO.io          |              | multi-support | multi-support | [docs](http
 Madcore.Ai           | Jenkins DSL  | Ubuntu | flannel     | [docs](https://madcore.ai)                        | Community ([@madcore-ai](https://github.com/madcore-ai))
 Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
 Giant Swarm        |              | CoreOS | flannel and/or Calico | [docs](https://docs.giantswarm.io/) | Commercial
-GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce//)                                    | Project
+GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce/)                                    | Project
 Azure Container Service |              | Ubuntu | Azure       | [docs](https://azure.microsoft.com/en-us/services/container-service/)                    |  Commercial
 Azure (IaaS)    |              | Ubuntu | Azure       | [docs](/docs/getting-started-guides/azure/)                    |  [Community (Microsoft)](https://github.com/Azure/acs-engine)
 Bare-metal           | Ansible      | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_ansible_config/)           |  Project
