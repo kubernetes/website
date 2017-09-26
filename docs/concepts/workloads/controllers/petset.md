@@ -38,7 +38,7 @@ This doc assumes familiarity with the following Kubernetes concepts:
 * [Pods](/docs/user-guide/pods/single-container/)
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
-* [Persistent Volumes](/docs/concepts/storage/volumes/)
+* [Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 * [Persistent Volume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/README.md)
 
 You need a working Kubernetes cluster at version >= 1.3, with a healthy DNS [cluster addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md) at version >= 15. You cannot use PetSet on a hosted Kubernetes provider that has disabled `alpha` resources.
