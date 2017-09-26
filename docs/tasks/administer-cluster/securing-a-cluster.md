@@ -195,6 +195,17 @@ parties that gain access to your etcd backups from viewing the content of those 
 this feature is currently experimental, it may offer an additional level of defense when backups
 are not encrypted or an attacker gains read access to etcd.
 
+### Kubelet Certificate Rotation
+
+The kubelet uses certificates for authenticating to the Kubernetes API.
+Normally, these certificates are issued with a long expiry date, such that
+normally they do not need to be renewed.
+
+Kubernetes 1.8 contains [kubelet certificate
+rotation](/docs/tasks/administer-cluster/certificate-rotation/), a beta feature
+that will automatically generate a new key and request a new certificate from
+the Kubernetes API to use for authenticating connections.
+
 ### Receiving alerts for security updates and reporting vulnerabilities
 
 Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) 

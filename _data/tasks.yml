@@ -128,6 +128,7 @@ toc:
   - docs/tasks/administer-cluster/access-cluster-services.md
   - docs/tasks/administer-cluster/securing-a-cluster.md
   - docs/tasks/administer-cluster/encrypt-data.md
+  - docs/tasks/administer-cluster/certificate-rotation.md
   - docs/tasks/administer-cluster/configure-upgrade-etcd.md
   - docs/tasks/administer-cluster/static-pod.md
   - docs/tasks/administer-cluster/cluster-management.md
