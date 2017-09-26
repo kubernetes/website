@@ -91,7 +91,7 @@ to implement one of the above options:
   - You can also write your own.
 - **Compile support directly into Kubernetes**
   - This can be done by implementing the "Routes" interface of a Cloud Provider module.
-  - The Google Compute Engine ([GCE](/docs/getting-started-guides/gce)/) and [AWS](/docs/getting-started-guides/aws/) guides use this approach.
+  - The Google Compute Engine ([GCE](/docs/getting-started-guides/gce/)/) and [AWS](/docs/getting-started-guides/aws/) guides use this approach.
 - **Configure the network external to Kubernetes**
   - This can be done by manually running commands, or through a set of externally maintained scripts.
   - You have to implement this yourself, but it can give you an extra degree of flexibility.
@@ -878,7 +878,7 @@ Cluster validation succeeded
 
 ### Inspect pods and services
 
-Try to run through the "Inspect your cluster" section in one of the other Getting Started Guides, such as [GCE](/docs/getting-started-guides/gce/#inspect-your-cluster).
+Try to run through the "Inspect your cluster" section in one of the other Getting Started Guides, such as [GCE](/docs/getting-started-guides/gce//#inspect-your-cluster).
 You should see some services.  You should also see "mirror pods" for the apiserver, scheduler and controller-manager, plus any add-ons you started.
 
 ### Try Examples
@@ -896,7 +896,7 @@ pinging or SSH-ing from one node to another.
 
 ### Getting Help
 
-If you run into trouble, please see the section on [troubleshooting](/docs/getting-started-guides/gce#troubleshooting), post to the
+If you run into trouble, please see the section on [troubleshooting](/docs/getting-started-guides/gce/#troubleshooting), post to the
 [kubernetes-users group](https://groups.google.com/forum/#!forum/kubernetes-users), or come ask questions on [Slack](/docs/troubleshooting#slack).
 
 ## Support Level
