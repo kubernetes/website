@@ -158,6 +158,7 @@ toc:
   - docs/tasks/administer-cluster/limit-storage-consumption.md
   - docs/tasks/administer-cluster/change-default-storage-class.md
   - docs/tasks/administer-cluster/running-cloud-controller.md
+  - docs/tasks/administer-cluster/developing-cloud-controller-manager.md
   - docs/tasks/administer-cluster/highly-available-master.md
   - docs/tasks/administer-cluster/configure-multiple-schedulers.md
   - docs/tasks/administer-cluster/ip-masq-agent.md
