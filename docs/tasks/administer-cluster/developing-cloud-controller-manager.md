@@ -29,8 +29,8 @@ To build an out-of-tree cloud-controller-manager for your cloud, follow these st
 2. Use [main.go in cloud-controller-manager](https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/controller-manager.go) from Kubernestes core as a template for your main.go. As mentioned above, the only difference should be the cloud package that will be imported.
 3. Import your cloud package in `main.go`, ensure your package has an `init` block to run [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/plugins.go#L42-L52).
 
-Using existing out-of-tree cloud providers as an example may be helpful. You can find the list [here](/docs/tasks/administer-cluster/running-cloud-controller.md#examples).
+Using existing out-of-tree cloud providers as an example may be helpful. You can find the list [here](/docs/tasks/administer-cluster/running-cloud-controller/#examples).
 
 ### In Tree
 
-For in-tree cloud providers, you can run the in-tree cloud controller manager as a [Daemonset](/docs/tasks/administer-cluster/cloud-controller-manager-daemonset-example.yaml) in your cluster. See the [running cloud controller manager docs](/docs/tasks/administer-cluster/running-cloud-controller.md) for more details.
+For in-tree cloud providers, you can run the in-tree cloud controller manager as a [Daemonset](/docs/tasks/administer-cluster/cloud-controller-manager-daemonset-example.yaml) in your cluster. See the [running cloud controller manager docs](/docs/tasks/administer-cluster/running-cloud-controller/) for more details.

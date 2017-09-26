@@ -66,10 +66,10 @@ A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/user-guide/pod
 The `.spec.selector` field is a pod selector.  It works the same as the `.spec.selector` of
 a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
 
-As of Kubernetes 1.8, you must specify a pod selector that matches the labels of the 
-`.spec.template`. The pod selector will no longer be defaulted when left empty. Selector 
-defaulting was not compatible with `kubectl apply`. Also, once a DaemonSet is created, 
-its `spec.selector` can not be mutated. Mutating the pod selector can lead to the 
+As of Kubernetes 1.8, you must specify a pod selector that matches the labels of the
+`.spec.template`. The pod selector will no longer be defaulted when left empty. Selector
+defaulting was not compatible with `kubectl apply`. Also, once a DaemonSet is created,
+its `spec.selector` can not be mutated. Mutating the pod selector can lead to the
 unintentional orphaning of Pods, and it was found to be confusing to users.
 
 The `spec.selector` is an object consisting of two fields:
@@ -89,7 +89,7 @@ controller will think that those Pods were created by it.  Kubernetes will not s
 this.  One case where you might want to do this is manually create a Pod with a different value on
 a node for testing.
 
-If you attempt to create a DaemonSet such that 
+If you attempt to create a DaemonSet such that
 
 ### Running Pods on Only Some Nodes
 
@@ -122,7 +122,7 @@ they will not be evicted when there are node problems such as a network partitio
 due to hard-coded behavior of the NodeController rather than due to tolerations).
 
  They also tolerate following `NoSchedule` taints:
- 
+
  - `node.kubernetes.io/memory-pressure`
  - `node.kubernetes.io/disk-pressure`
 
@@ -198,7 +198,7 @@ in cluster bootstrapping cases.  Also, static Pods may be deprecated in the futu
 
 ### Deployments
 
-DaemonSets are similar to [Deployments](/docs/concepts/workloads/controllers/deployment.md) in that
+DaemonSets are similar to [Deployments](/docs/concepts/workloads/controllers/deployment/) in that
 they both create Pods, and those Pods have processes which are not expected to terminate (e.g. web servers,
 storage servers).
 

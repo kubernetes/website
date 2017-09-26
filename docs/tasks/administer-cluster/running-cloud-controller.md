@@ -34,7 +34,7 @@ Successfully running cloud-controller-manager requires some changes to your clus
 * `kube-apiserver` and `kube-controller-manager` MUST NOT specify the `--cloud-provider` flag. This ensures that it does not run any cloud specific loops that would be run by cloud controller manager. In the future, this flag will be deprecated and removed.
 * `kubelet` must run with `--cloud-provider=external`. This is to ensure that the kubelet is aware that it must be initialized by the cloud controller manager before it is scheduled any work.
 * `kube-apiserver` SHOULD NOT run the `PersistentVolumeLabel` admission controller since the cloud controller manager takes over labeling persistent volumes. To prevent the PersistentVolumeLabel admission plugin from running, make sure the `kube-apiserver` has a `--admission-control` flag with a value that does not include `PersistentVolumeLabel`.
-* For the `cloud-controller-manager` to label persistent volumes, initializers will need to be enabled and an InitializerConifguration needs to be added to the system.  Follow [these instructions](/docs/admin/extensible-admission-controllers.md#enable-initializers-alpha-feature) to enable initializers.  Use the following YAML to create the InitializerConfiguration:
+* For the `cloud-controller-manager` to label persistent volumes, initializers will need to be enabled and an InitializerConifguration needs to be added to the system.  Follow [these instructions](/docs/admin/extensible-admission-controllers/#enable-initializers-alpha-feature) to enable initializers.  Use the following YAML to create the InitializerConfiguration:
 
 {% include code.html language="yaml" file="persistent-volume-label-initializer-config.yaml" ghlink="/docs/tasks/administer-cluster/persistent-volume-label-initializer-config.yaml" %}
 
@@ -90,4 +90,4 @@ As this initiative evolves, changes will be made to address these issues in upco
 
 ## Developing your own Cloud Controller Manager
 
-To build and develop your own cloud controller manager, read the [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager.md) doc.
+To build and develop your own cloud controller manager, read the [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/) doc.
