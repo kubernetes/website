@@ -2,7 +2,7 @@
 approvers:
 - bgrant0607
 - hw-qiaolei
-title：kubectl概述
+title: kubectl概述
 ---
 kubectl是用于针对Kubernetes集群运行命令的命令行接口。本概述涵盖`kubectl`语法，描述命令操作，并提供常见的示例。有关每个命令的详细信息，包括所有支持的flags和子命令，请参考[kubectl](/docs/user-guide/kubectl)相关文档。有关安装说明，请参阅[安装kubectl](/docs/tasks/kubectl/install/)。
 
@@ -22,19 +22,19 @@ kubectl [command] [TYPE] [NAME] [flags]
     $ kubectl get pod pod1
     $ kubectl get pods pod1
     $ kubectl get po pod1
-   
+
 `NAME`：指定资源的名称。名称区分大小写。如果省略名称，则会显示所有资源的详细信息,比如`$ kubectl get pods`。
 
    在多个资源上执行操作时，可以按类型和名称指定每个资源，或指定一个或多个文件：
 
    * 按类型和名称指定资源：
-   
+
         * 要分组资源，如果它们都是相同的类型：`TYPE1 name1 name2 name<#>`.<br/>
         例: `$ kubectl get pod example-pod1 example-pod2`
 
         * 要分别指定多种资源类型:  `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
         例: `$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
-        
+
      使用一个或多个文件指定资源： `-f file1 -f file2 -f file<#>` 使用[YAML而不是JSON](/docs/concepts/configuration/overview/#general-config-tips)，因为YAML往往更加用户友好，特别是对于配置文件。<br/>
      例：$ kubectl get pod -f ./pod.yaml
 
