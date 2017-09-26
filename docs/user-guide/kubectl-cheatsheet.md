@@ -229,7 +229,7 @@ $ kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Dump c
 $ kubectl taint nodes foo dedicated=special-user:NoSchedule
 ```
 
-## Resource types
+## [Resource types](#Resource-types)
 
 The following table includes a list of all the supported resource types and their abbreviated aliases:
 
