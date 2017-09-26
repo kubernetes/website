@@ -57,8 +57,8 @@ Refer to the [Custom Resource Example](https://github.com/kubernetes/kubernetes/
 for a demonstration of how to register a new custom resource, work with instances of your new resource type,
 and setup a controller to handle events.
 
-CRD is the successor to the deprecated *ThirdPartyResource* (TPR) API, and is available as of
-Kubernetes 1.7.
+**Note:** CRD is the successor to the deprecated *ThirdPartyResource* (TPR) API, and is available as of Kubernetes 1.7.
+{: .note}
 
 ## API server aggregation
 
