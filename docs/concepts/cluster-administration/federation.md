@@ -91,6 +91,7 @@ The following guides explain some of the resources in detail:
 * [DaemonSets](/docs/tasks/administer-federation/daemonset/)
 * [Deployment](/docs/tasks/administer-federation/deployment/)
 * [Events](/docs/tasks/administer-federation/events/)
+* [Hpa](/docs/tasks/administer-federation/hpa/)
 * [Ingress](/docs/tasks/administer-federation/ingress/)
 * [Jobs](docs/tasks/administer-federation/job/)
 * [Namespaces](/docs/tasks/administer-federation/namespaces/)
