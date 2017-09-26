@@ -81,7 +81,7 @@ dashboard 提供了集群状态的只读概述。有关更多信息，请参阅[
 
 #### 集群层面日志
 
-[Cluster-level logging](/docs/user-guide/logging/overview) 机制负责将容器的日志数据保存到一个集中的日志存储中，该存储能够提供搜索和浏览接口。
+[集群层面日志](/docs/user-guide/logging/overview) 机制负责将容器的日志数据保存到一个集中的日志存储中，该存储能够提供搜索和浏览接口。
 
 ## 节点组件
 
@@ -89,13 +89,13 @@ dashboard 提供了集群状态的只读概述。有关更多信息，请参阅[
 
 ### kubelet
 
-[kubelet](/docs/admin/kubelet)是主要的节点代理,它监测已分配给其节点的 Pod(通过 apiserver 或通过本地配置文件)，提供如下的功能:
+[kubelet](/docs/admin/kubelet)是主要的节点代理,它监测已分配给其节点的 Pod(通过 apiserver 或通过本地配置文件)，提供如下功能:
 
 * 挂载 Pod 所需要的数据卷(Volume)。
 * 下载 Pod 的 secrets。
 * 通过 Docker 运行(或通过 rkt)运行 Pod 的容器。
 * 周期性的对容器生命周期进行探测。
-* 如果需要，通过创建 *mirror pod* 将 Pod 的状态报告回系统的其余部分。
+* 如果需要，通过创建 *镜像 Pod（Mirror Pod）* 将 Pod 的状态报告回系统的其余部分。
 * 将节点的状态报告回系统的其余部分。
 
 ### kube-proxy
@@ -113,7 +113,7 @@ Docker 用于运行容器。
 
 ### supervisord
 
-supervisord 是一个轻量级的过程监控系统，可以用来保证 kubelet 和 docker 运行。
+supervisord 是一个轻量级的进程监控系统，可以用来保证 kubelet 和 docker 运行。
 
 ### fluentd
 
