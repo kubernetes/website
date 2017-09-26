@@ -117,7 +117,7 @@ supervisord 是一个轻量级的进程监控系统，可以用来保证 kubelet
 
 ### fluentd
 
-fluentd 是一个守护进程，它有助于提供[cluster-level logging](#cluster-level-logging) 集群层面的日志。
+fluentd 是一个守护进程，它有助于提供[集群层面日志](#cluster-level-logging) 集群层面的日志。
 
 {% endcapture %}
 
