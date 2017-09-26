@@ -124,7 +124,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
      SPECIAL_TYPE: charm
    ```
 
-1. Use `env-from` to define all of the ConfigMap's data as Pod environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
+1. Use `envFrom` to define all of the ConfigMap's data as Pod environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
    
    ```yaml
    apiVersion: v1
