@@ -35,7 +35,7 @@ administrators. Kubernetes itself is unopinionated about what classes
 represent. This concept is sometimes called "profiles" in other storage
 systems.
 
-Please see the [detailed walkthrough with working examples](/docs/user-guide/persistent-volumes/walkthrough/).
+Please see the [detailed walkthrough with working examples](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
 
 
 ## Lifecycle of a volume and claim
@@ -334,7 +334,7 @@ Claims, like pods, can request specific quantities of a resource.  In this case,
 
 ### Selector
 
-Claims can specify a [label selector](/docs/user-guide/labels/#label-selectors) to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim. The selector can consist of two fields:
+Claims can specify a [label selector](/docs/concepts/overview/working-with-objects/labels/#label-selectors) to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim. The selector can consist of two fields:
 
 * matchLabels - the volume must have a label with this value
 * matchExpressions - a list of requirements made by specifying key, list of values, and operator that relates the key and values. Valid operators include In, NotIn, Exists, and DoesNotExist.

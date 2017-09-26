@@ -55,7 +55,7 @@ After this tutorial, you will be familiar with the following.
 Begin by creating a StatefulSet using the example below. It is similar to the 
 example presented in the
 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/) concept. 
-It creates a [Headless Service](/docs/user-guide/services/#headless-services), 
+It creates a [Headless Service](/docs/concepts/services-networking/service/#headless-services), 
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`. 
 
 {% include code.html language="yaml" file="web.yaml" ghlink="/docs/tutorials/stateful-application/web.yaml" %}
@@ -457,7 +457,7 @@ reverse ordinal order, while respecting the StatefulSet guarantees.
 Patch the `web` StatefulSet to apply the `RollingUpdate` update strategy.
 
 ```shell
-kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate"}}}
+kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate"}}}'
 statefulset "web" patched
 ```
 
@@ -563,7 +563,7 @@ pod "web-2" deleted
 Wait for the Pod to be Running and Ready.
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get po -l app=nginx -w
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          4m
 web-1     1/1       Running             0          4m
@@ -598,7 +598,7 @@ statefulset "web" patched
 Wait for `web-2` to be Running and Ready.
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get po -l app=nginx -w
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          4m
 web-1     1/1       Running             0          4m
@@ -628,7 +628,7 @@ pod "web-1" deleted
 Wait for the `web-1` Pod to be Running and Ready.
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get po -l app=nginx -w
 NAME      READY     STATUS        RESTARTS   AGE
 web-0     1/1       Running       0          6m
 web-1     0/1       Terminating   0          6m
@@ -673,7 +673,7 @@ statefulset "web" patched
 Wait for all of the Pods in the StatefulSet to become Running and Ready.
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get po -l app=nginx -w
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          3m
 web-1     0/1       ContainerCreating   0          11s
@@ -935,7 +935,7 @@ of the `web` StatefulSet is set to `Parallel`.
 In one terminal, watch the Pods in the StatefulSet.
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get po -l app=nginx -w
 ```
 
 In another terminal, create the StatefulSet and Service in the manifest.
@@ -949,7 +949,7 @@ statefulset "web" created
 Examine the output of the `kubectl get` command that you executed in the first terminal.
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get po -l app=nginx -w
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     0/1       Pending   0          0s
 web-0     0/1       Pending   0         0s

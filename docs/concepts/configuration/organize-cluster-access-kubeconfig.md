@@ -37,16 +37,20 @@ in a variety of ways. For example:
 - Administrators might have sets of certificates that they provide to individual users.
 
 With kubeconfig files, you can organize your clusters, users, and namespaces.
-And you can define contexts that enable users to quickly and easily switch between
+You can also define contexts to quickly and easily switch between
 clusters and namespaces.
 
 ## Context
 
-A kubeconfig file can have *context* elements. Each context is a triple
-(cluster, namespace, user). You can use `kubectl config use-context` to set
-the current context. The `kubectl` command-line tool communicates with the
-cluster and namespace listed in the current context. And it uses the
-credentials of the user listed in the current context.
+A *context* element in a kubeconfig file is used to group access parameters
+under a convenient name. Each context has three parameters: cluster, namespace, and user.
+By default, the `kubectl` command-line tool uses parameters from
+the *current context* to communicate with the cluster. 
+
+To choose the current context:
+```
+kubectl config use-context
+```
 
 ## The KUBECONFIG environment variable
 

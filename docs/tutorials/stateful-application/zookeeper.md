@@ -13,7 +13,7 @@ title: Running ZooKeeper, A CP Distributed System
 {% capture overview %}
 This tutorial demonstrates [Apache Zookeeper](https://zookeeper.apache.org) on 
 Kubernetes using [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/), 
-[PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget), 
+[PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget), 
 and [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature).
 {% endcapture %}
 
@@ -28,7 +28,7 @@ Kubernetes concepts.
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
-* [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget)
+* [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
 * [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
 * [kubectl CLI](/docs/user-guide/kubectl)
 
@@ -88,9 +88,9 @@ safely discarded.
 ## Creating a ZooKeeper Ensemble
 
 The manifest below contains a 
-[Headless Service](/docs/user-guide/services/#headless-services), 
+[Headless Service](/docs/concepts/services-networking/service/#headless-services), 
 a [Service](/docs/concepts/services-networking/service),
-a [PodDisruptionBudget](/docs/admin/disruptions/#specifying-a-poddisruptionbudget), 
+a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget), 
 and a [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/). 
 
 {% include code.html language="yaml" file="zookeeper.yaml" ghlink="/docs/tutorials/stateful-application/zookeeper.yaml" %}
@@ -935,7 +935,7 @@ This is because the Pods in the `zk` StatefulSet have a PodAntiAffinity specifie
               topologyKey: "kubernetes.io/hostname"
 ```
 
-The `requiredDuringSchedulingRequiredDuringExecution` field tells the 
+The `requiredDuringSchedulingIgnoredDuringExecution` field tells the 
 Kubernetes Scheduler that it should never co-locate two Pods from the `zk-headless`
 Service in the domain defined by the `topologyKey`. The `topologyKey`
 `kubernetes.io/hostname` indicates that the domain is an individual node. Using 
@@ -957,6 +957,7 @@ Get the nodes in your cluster.
 kubectl get nodes
 ```
 
+<<<<<<< HEAD
 Use [`kubectl cordon`](/docs/user-guide/kubectl/{{page.version}}/#cordon) to 
 cordon all but four of the nodes in your cluster.
 
@@ -965,6 +966,9 @@ kubectl cordon < node name >
 ```{% endraw %}
 
 Get the `zk-pdb` PodDisruptionBudget.
+=======
+Get the `zk-budget` PodDisruptionBudget.
+>>>>>>> master
 
 ```shell
 kubectl get pdb zk-pdb
@@ -993,6 +997,13 @@ kubernetes-minion-group-ixsl
 kubernetes-minion-group-i4c4
 {% endraw %}
 ```
+
+Use [`kubectl cordon`](/docs/user-guide/kubectl/{{page.version}}/#cordon) to 
+cordon the three nodes that the Pods are currently scheduled on.
+
+```shell{% raw %}
+kubectl cordon < node name >
+{% endraw %}```
 
 Use [`kubectl drain`](/docs/user-guide/kubectl/{{page.version}}/#drain) to cordon and 
 drain the node on which the `zk-0` Pod is scheduled.
@@ -1029,7 +1040,8 @@ Keep watching the StatefulSet's Pods in the first terminal and drain the node on
 `zk-1` is scheduled.
 
 ```shell{% raw %}
-kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-minion-group-ixsl" cordoned
+kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+node "kubernetes-minion-group-ixsl" cordoned
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-ixsl, kube-proxy-kubernetes-minion-group-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
 pod "zk-1" deleted
 node "kubernetes-minion-group-ixsl" drained

@@ -25,7 +25,7 @@ cluster nodes _provided your cluster runs in a supported environment and is conf
 ## Configuration file
 
 To create an external load balancer, add the following line to your
-[service configuration file](/docs/user-guide/services/operations/#service-configuration-file):
+[service configuration file](/docs/concepts/services-networking/service/#type-loadbalancer):
 
 ```json
     "type": "LoadBalancer"
@@ -68,7 +68,7 @@ resource (in the case of the example above, a replication controller named
 `example`).
 
 For more information, including optional flags, refer to the
-[`kubectl expose` reference](/docs/user-guide/kubectl/v1.6/#expose).
+[`kubectl expose` reference](/docs/user-guide/kubectl/{{page.version}}/#expose).
 
 ## Finding your IP address
 

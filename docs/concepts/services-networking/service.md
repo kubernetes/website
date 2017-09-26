@@ -120,7 +120,7 @@ subsets:
 NOTE: Endpoint IPs may not be loopback (127.0.0.0/8), link-local
 (169.254.0.0/16), or link-local multicast (224.0.0.0/24).
 
-Accessing a `Service` without a selector works the same as if it had selector.
+Accessing a `Service` without a selector works the same as if it had a selector.
 The traffic will be routed to endpoints defined by the user (`1.2.3.4:9376` in
 this example).
 
@@ -176,7 +176,9 @@ or `Services` or `Pods`.
 
 By default, the choice of backend is round robin.  Client-IP based session affinity
 can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
-default is `"None"`).
+default is `"None"`), and you can set the max session sticky time by setting the field
+`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set 
+`service.spec.sessionAffinity` to `"ClientIP"` (the default is "10800").
 
 ![Services overview diagram for userspace proxy](/images/docs/services-userspace-overview.svg)
 
@@ -191,7 +193,9 @@ select a backend `Pod`.
 
 By default, the choice of backend is random.  Client-IP based session affinity
 can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
-default is `"None"`).
+default is `"None"`), and you can set the max session sticky time by setting the field
+`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set 
+`service.spec.sessionAffinity` to `"ClientIP"` (the default is "10800").
 
 As with the userspace proxy, the net result is that any traffic bound for the
 `Service`'s IP:Port is proxied to an appropriate backend without the clients

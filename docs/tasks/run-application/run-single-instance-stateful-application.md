@@ -25,11 +25,46 @@ application is MySQL.
 * {% include task-tutorial-prereqs.md %}
 
 * {% include default-storage-class-prereqs.md %}
+* For data persistence we will create a Persistent Volume that
+  references a disk in your
+  environment. See
+  [here](/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes) for
+  the types of environments supported. This Tutorial will demonstrate
+  `GCEPersistentDisk` but any type will work. `GCEPersistentDisk`
+  volumes only work on Google Compute Engine.
 
 {% endcapture %}
 
 
 {% capture lessoncontent %}
+
+## Set up a disk in your environment
+
+You can use any type of persistent volume for your stateful app. See
+[Types of Persistent Volumes](/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes)
+for a list of supported environment disks. For Google Compute Engine, run:
+
+```
+gcloud compute disks create --size=20GB mysql-disk
+```
+
+Next create a PersistentVolume that points to the `mysql-disk`
+disk just created. Here is a configuration file for a PersistentVolume
+that points to the Compute Engine disk above:
+
+{% include code.html language="yaml" file="gce-volume.yaml" ghlink="/docs/tasks/run-application/gce-volume.yaml" %}
+
+Notice that the `pdName: mysql-disk` line matches the name of the disk
+in the Compute Engine environment. See the
+[Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
+for details on writing a PersistentVolume configuration file for other
+environments.
+
+Create the persistent volume:
+
+```
+kubectl create -f https://k8s.io/docs/tasks/run-application/gce-volume.yaml
+```
 
 ## Deploy MySQL
 
@@ -149,7 +184,11 @@ specific to stateful apps:
 * Don't scale the app. This setup is for single-instance apps
   only. The underlying PersistentVolume can only be mounted to one
   Pod. For clustered stateful apps, see the
+<<<<<<< HEAD
   [StatefulSet documentation](/docs/concepts/workloads/controllers/statefulset.md).
+=======
+  [StatefulSet documentation](/docs/concepts/workloads/controllers/statefulset/).
+>>>>>>> master
 * Use `strategy:` `type: Recreate` in the Deployment configuration
   YAML file. This instructs Kubernetes to _not_ use rolling
   updates. Rolling updates will not work, as you cannot have more than
