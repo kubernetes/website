@@ -13,7 +13,25 @@ spec:
             values:
             - S1
         topologyKey: failure-domain.beta.kubernetes.io/zone
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: app
+              operator: In
+              values:
+              - P1
+            topologyKey: kubernetes.io/hostname
     podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: security
+            operator: In
+            values:
+            - S2
+        topologyKey: kubernetes.io/hostname
       preferredDuringSchedulingIgnoredDuringExecution:
       - weight: 100
         podAffinityTerm:
