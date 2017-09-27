@@ -1,0 +1,11 @@
+.preview-text p {
+  display: inline;
+}
+
+.no-underline {
+  text-decoration: none !important;
+}
+
+.hide {
+  display: none;
+}

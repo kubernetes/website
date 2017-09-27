@@ -1,5 +1,5 @@
 id: statefulset
-name: StatefulSet
+name: StatefulSets
 formerly:
 - PetSet
 related:
@@ -10,9 +10,9 @@ tags:
 - Workload
 - API Object
 short-description: |
-  Manage the deployment and scaling of a set of Pods, *and provide guarantees about ordering*. They do so by maintaining a *unique*, sticky identity for each of their Pods.
+  Manage the deployment and scaling of a set of Pods, *and provide guarantees about the ordering and uniqueness* of these Pods.
 
 long-description: |
-  Like Deployments, StatefulSets manage Pods that are based on an identical container spec. However, although their specs are the same, the Pods in a StatefulSet are not interchangeable. Each Pod has a persistent identifier that it maintains across any rescheduling.
+  Like Deployments, StatefulSets manage Pods that are based on an identical container spec. Unlike Deployments, StatefulSets maintain a sticky identity for each of their Pods. These pods are created from the same spec, but are not interchangeable--each has a persistent identifier that it maintains across any rescheduling.
 
-  StatefulSets also operate according to the Controller pattern. You define your desired state in a StatefulSet *object*, and the StatefulSet *controller* makes any necessary updates to the get there from the current state.
+  StatefulSets operate under the same pattern as any other Controller. You define your desired state in a StatefulSet *object*, and the StatefulSet *controller* makes any necessary updates to the get there from the current state.
