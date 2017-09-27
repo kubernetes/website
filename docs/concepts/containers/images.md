@@ -25,7 +25,7 @@ you can do one of the following:
 
 - set the `imagePullPolicy` of the container to `Always`;
 - use `:latest` as the tag for the image to use;
-- enable the [AllwaysPullImages](/docs/admin/admission-controllers/#alwayspullimages) admission controller.
+- enable the [AlwaysPullImages](/docs/admin/admission-controllers/#alwayspullimages) admission controller.
 
 If you did not specify tag of your image, it will be assumed as `:latest`, with
 pull image policy of `Always` correspondingly.

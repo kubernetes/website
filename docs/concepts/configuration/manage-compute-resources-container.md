@@ -26,7 +26,7 @@ CPU and memory are collectively referred to as *compute resources*, or just
 *resources*. Compute
 resources are measurable quantities that can be requested, allocated, and
 consumed. They are distinct from
-[API resources](/docs/api/). API resources, such as Pods and
+[API resources](/docs/concepts/overview/kubernetes-api/). API resources, such as Pods and
 [Services](/docs/user-guide/services) are objects that can be read and modified
 through the Kubernetes API server.
 

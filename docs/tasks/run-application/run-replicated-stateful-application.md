@@ -148,7 +148,7 @@ properties to perform orderly startup of MySQL replication.
 ### Generating configuration
 
 Before starting any of the containers in the Pod spec, the Pod first runs any
-[Init Containers](/docs/user-guide/production-pods/#handling-initialization)
+[Init Containers](/docs/concepts/workloads/pods/init-containers/)
 in the order defined.
 
 The first Init Container, named `init-mysql`, generates special MySQL config
@@ -168,7 +168,7 @@ Because the example topology consists of a single MySQL master and any number of
 slaves, the script simply assigns ordinal `0` to be the master, and everyone
 else to be slaves.
 Combined with the StatefulSet controller's
-[deployment order guarantee](/docs/concepts/abstractions/controllers/statefulsets/#deployment-and-scaling-guarantee),
+[deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees/),
 this ensures the MySQL master is Ready before creating slaves, so they can begin
 replicating.
 
@@ -292,7 +292,7 @@ running while you force a Pod out of the Ready state.
 
 ### Break the Readiness Probe
 
-The [readiness probe](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks)
+The [readiness probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-readiness-probes)
 for the `mysql` container runs the command `mysql -h 127.0.0.1 -e 'SELECT 1'`
 to make sure the server is up and able to execute queries.
 
@@ -410,7 +410,7 @@ With MySQL replication, you can scale your read query capacity by adding slaves.
 With StatefulSet, you can do this with a single command:
 
 ```shell
-kubectl scale --replicas=5 statefulset mysql
+kubectl scale statefulset mysql  --replicas=5
 ```
 
 Watch the new Pods come up by running:
@@ -443,7 +443,7 @@ pod "mysql-client" deleted
 Scaling back down is also seamless:
 
 ```shell
-kubectl scale --replicas=3 statefulset mysql
+kubectl scale statefulset mysql --replicas=3
 ```
 
 Note, however, that while scaling up creates new PersistentVolumeClaims

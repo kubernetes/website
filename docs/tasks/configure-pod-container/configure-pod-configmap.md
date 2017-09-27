@@ -124,7 +124,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
      SPECIAL_TYPE: charm
    ```
 
-1. Use `env-from` to define all of the ConfigMap's data as Pod environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
+1. Use `envFrom` to define all of the ConfigMap's data as Pod environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
    
    ```yaml
    apiVersion: v1
@@ -185,7 +185,7 @@ very charm
 
 ## Add ConfigMap data to a Volume 
 
-As explained in [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap.html), when you create a ConfigMap using ``--from-file``, the filename becomes a key stored in the `data` section of the ConfigMap. The file contents become the key's value. 
+As explained in [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap/), when you create a ConfigMap using ``--from-file``, the filename becomes a key stored in the `data` section of the ConfigMap. The file contents become the key's value. 
 
 The examples in this section refer to a ConfigMap named special-config, shown below.
 

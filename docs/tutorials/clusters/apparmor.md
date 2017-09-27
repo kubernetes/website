@@ -192,20 +192,7 @@ Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
 {% include code.html language="yaml" file="hello-apparmor-pod.yaml" ghlink="/docs/tutorials/clusters/hello-apparmor-pod.yaml" %}
 
 ```shell
-$ kubectl create -f /dev/stdin <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: hello-apparmor
-  annotations:
-    container.apparmor.security.beta.kubernetes.io/hello: localhost/k8s-apparmor-example-deny-write
-spec:
-  containers:
-  - name: hello
-    image: busybox
-    command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
-EOF
-pod "hello-apparmor" created
+$ kubectl create -f ./hello-apparmor-pod.yaml
 ```
 
 If we look at the pod events, we can see that the Pod container was created with the AppArmor
@@ -260,7 +247,7 @@ Node:          gke-test-default-pool-239f5d02-x1kf/
 Start Time:    Tue, 30 Aug 2016 17:58:56 -0700
 Labels:        <none>
 Annotations:   container.apparmor.security.beta.kubernetes.io/hello=localhost/k8s-apparmor-example-allow-write
-Status:        Failed
+Status:        Pending
 Reason:        AppArmor
 Message:       Pod Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
 IP:
