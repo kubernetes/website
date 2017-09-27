@@ -113,25 +113,8 @@ $ kubectl delete cronjob hello
 cronjob "hello" deleted
 ```
 
-This stops new jobs from being created. However, running jobs won't be stopped, and no jobs or their pods will
-be deleted. To clean up those jobs and pods, you need to list all jobs created by the cron job, and delete them all:
-
-```shell
-$ kubectl get jobs
-NAME               DESIRED   SUCCESSFUL   AGE
-hello-1201907962   1         1            11m
-hello-1202039034   1         1            8m
-...
-
-$ kubectl delete jobs hello-1201907962 hello-1202039034 ...
-job "hello-1201907962" deleted
-job "hello-1202039034" deleted
-...
-```
-
-Once the jobs are deleted, the pods created by them are deleted as well. Note that all jobs created by cron
-job "hello" will be prefixed "hello-". You can delete them at once with `kubectl delete jobs --all`, if you want to
-delete all jobs in the current namespace (not just the ones created by "hello").
+This stops new jobs from being created and removes all the jobs and pods created by this cronjob.
+You can read more about it in [garbage collection section](/docs/concepts/cluster-administration/kubelet-garbage-collection/).
 
 ## Cron Job Limitations
 
@@ -191,5 +174,5 @@ apply to already started executions. Defaults to false.
 
 The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional.
 These fields specify how many completed and failed jobs should be kept.  By default, they are
-set to 3 and 1 accordingly.  Setting a limit to `0` corresponds to keeping none of the corresponding
+set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping none of the corresponding
 kind of jobs after they finish.
