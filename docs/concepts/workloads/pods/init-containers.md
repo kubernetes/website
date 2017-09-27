@@ -12,7 +12,7 @@ scripts not present in an app image.
 
 {:toc}
 
-This feature has exited beta in 1.6. Init Containers can be specified in the PodSpec
+This feature has exited beta in 1.7. Init Containers can be specified in the PodSpec
 alongside the app `containers` array. The beta annotation value will still be respected
 and overrides the PodSpec field value.
 
