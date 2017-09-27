@@ -17,7 +17,7 @@ When you are ready to scale up to more machines and higher availability, a [host
 [Turnkey cloud solutions](#turnkey-cloud-solutions) require only a few commands to create
 and cover a wide range of cloud providers.
 
-If you already have a way to configure hosting resources, use [kubeadm](/docs/getting-started-guides/kubeadm/) to easily bring up a cluster with a single command per machine.
+If you already have a way to configure hosting resources, use [kubeadm](/docs/setup/independent/create-cluster-kubeadm/) to easily bring up a cluster with a single command per machine.
 
 [Custom solutions](#custom-solutions) vary from step-by-step instructions to general advice for setting up
 a Kubernetes cluster from scratch.
@@ -88,7 +88,7 @@ If you are interested in supporting Kubernetes on a new platform, see
 ## Universal
 
 If you already have a way to configure hosting resources, use
-[kubeadm](/docs/getting-started-guides/kubeadm/) to easily bring up a cluster
+[kubeadm](/docs/setup/independent/create-cluster-kubeadm/) to easily bring up a cluster
 with a single command per machine.
 
 ## Cloud
