@@ -277,7 +277,9 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 
 The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
 
-**Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required.
+**Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required. 
+Weave Net sets hairpin mode by default. This allows Pods to access themselves via their Service IP address
+if they don't know their PodIP.
 
 ```shell
 export kubever=$(kubectl version | base64 | tr -d '\n')
@@ -545,6 +547,12 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
 
     If not, you may still use the [NodePort feature of
     services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
+    
+1. **Pods cannot access themselves via their Service IP**.
+    Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip) 
+    which allows pods to access themselves via their Service IP if they don't know about their podIP. This is an issue
+    related to [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the providers of the network 
+    add-on providers to get timely information about whether they support hairpin mode.
 
 1. If you are using VirtualBox (directly or via Vagrant), you will need to
    ensure that `hostname -i` returns a routable IP address (i.e. one on the
