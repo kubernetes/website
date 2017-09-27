@@ -106,6 +106,32 @@ i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and
 The reason this doesn't work is that when rolling update creates a new replication controller,
 the Horizontal Pod Autoscaler will not be bound to the new replication controller.
 
+## Support for cooldown/delay
+
+When managing the scale of a group of replicas using the Horizontal Pod Autoscaler,
+it is possible that the number of replicas keeps fluctuating frequently due to the
+dynamic nature of the metrics evaluated. This is sometimes referred to as *thrashing*.
+
+Starting from v1.6, a cluster operator can mitigate this problem by tuning
+the global HPA settings exposed as flags for the `kube-controller-manager` component:
+
+- `--horizontal-pod-autoscaler-downscale-delay`: The value for this option is a
+  duration that specifies how long the autoscaler has to wait before another
+  downscale operation can be performed after the current one has completed.
+  The default value is 5 minutes (`5m0s`).
+
+- `--horizontal-pod-autoscaler-upscale-delay`: The value for this option is a
+  duration that specifies how long the autoscaler has to wait before another
+  upscale operation can be performed after the current one has completed.
+  The default value is 3 minutes (`3m0s`).
+
+**Note**: When tuning these parameter values, a cluster operator should be aware of
+the possible consequences. If the delay (cooldown) value is set too long, there
+could be complaints that the Horizontal Pod Autoscaler is not responsive to workload
+changes. However, if the delay value is set too short, the scale of the replicas set
+may keep thrashing as usual.
+{: .note}
+
 ## Support for multiple metrics
 
 Kubernetes 1.6 adds support for scaling based on multiple metrics. You can use the `autoscaling/v2alpha1` API
