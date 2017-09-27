@@ -67,6 +67,10 @@ toc:
   - docs/user-guide/jsonpath.md
   - docs/user-guide/kubectl-cheatsheet.md
 
+- title: Cloud Controller Manager
+  section:
+  - docs/admin/cloud-controller-manager.md
+
 - title: Setup Tools
   section:
   - docs/admin/kubeadm.md
