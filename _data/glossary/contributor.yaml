@@ -1,0 +1,8 @@
+id: contributor
+name: Contributor
+tags:
+- community
+short-description: |
+  Donates code, documentation, or their time to help further the project or community.
+long-description: |
+  For example, their contributions may include pull requests (PRs), issues, feedback, special interetest group (SIG) participation, or organizing community events.

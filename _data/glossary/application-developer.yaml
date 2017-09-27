@@ -1,0 +1,10 @@
+id: application-developer
+name: Application Developer
+related:
+  - application-architect
+tags:
+  - user-type
+short-description: |
+  A person who writes an application that runs in a Kubernetes cluster.
+long-description: |
+  Typically an application developer works on one portion of an application that is split into microservices.

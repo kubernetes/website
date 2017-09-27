@@ -1,0 +1,8 @@
+id: member
+name: Member
+tags:
+- community
+short-description: |
+  A continuously active contributor in the K8s community.
+long-description: |
+  They can have issues and PRs assigned to them, participate in SIGs through GitHub teams, and pre-submit tests are automatically run for their PRs. A member is expected to remain an active contributor to the community.

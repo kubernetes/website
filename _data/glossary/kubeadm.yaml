@@ -1,0 +1,9 @@
+id: kubeadm
+name: Kubeadm
+tags:
+- tool
+- operation
+short-description: |
+  A tool that you can use to quickly install Kubernetes and set up a secure cluster.
+long-description: |
+  You can use it to install both the control plane and the worker node components.

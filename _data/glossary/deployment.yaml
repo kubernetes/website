@@ -1,0 +1,10 @@
+id: deployment
+name: Deployment
+tags:
+- fundamental
+- core-object
+- workload
+short-description: |
+  An API object that manages a replicated application.
+long-description: |
+  Each replica is represented by a Pod, and the Pods are distrubuted among the Nodes of a cluster.

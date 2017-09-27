@@ -1,0 +1,11 @@
+id: application-architect
+name: Application Architect
+related:
+  - application-developer
+tags:
+  - user-type
+short-description: |
+  A person concerned with the high-level design of an application.
+long-description: |
+  The architect typically ensures that the app's implementation allows it to interact with its surrounding components in a scalable, maintainable way.
+  These other components are often databases, logging infrastructure, and other microservices.

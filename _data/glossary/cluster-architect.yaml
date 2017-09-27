@@ -1,0 +1,12 @@
+id: cluster-architect
+name: Cluster Architect
+related:
+  - cluster
+  - cluster-operator
+tags:
+  - user-type
+short-description: |
+  A person who designs infrastructure that involves one or more Kubernetes clusters.
+
+long-description: |
+  They are concerned with distributed system best practices, such as high availability and security. A cluster architect is likely the one determining the suitability of a feature like cross-cloud cluster federation, for their particular setup.

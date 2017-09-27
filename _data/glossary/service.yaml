@@ -1,0 +1,9 @@
+id: service
+name: Service
+tags:
+- fundamental
+- core-object
+short-description: |
+  An API object that manages load-balanced access to a replicated set of Pods.
+long-description: |
+  The access point can be internal or external to the cluster.

@@ -1,0 +1,15 @@
+id: cluster-operator
+name: Cluster Operator
+aka:
+  - Cluster Administrator
+related:
+  - cluster
+  - cluster-architect
+tags:
+  - user-type
+short-description: |
+  A person who configures, controls, and monitors cluster(s).
+
+long-description: |
+  Their primary responsibility is keeping the cluster up and running, which may involve periodic maintenance activities or upgrades.<br>
+  *(Cluster operators are not to be confused with the [Operator pattern](https://coreos.com/operators) that extends the Kubernetes API.)*

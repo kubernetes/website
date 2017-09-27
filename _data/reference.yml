@@ -2,6 +2,7 @@ bigheader: "Reference Documentation"
 abstract: "Design docs, concept definitions, and references for APIs and CLIs."
 toc:
 - docs/reference/index.md
+- docs/reference/glossary.md
 
 - title: Using the API
   section:
@@ -106,5 +107,3 @@ toc:
   - title: Kubernetes Issue Tracker on GitHub
     path: https://github.com/kubernetes/kubernetes/issues/
   - docs/reference/security.md
-
-
