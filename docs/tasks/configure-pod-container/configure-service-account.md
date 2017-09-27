@@ -9,7 +9,7 @@ title: Configure Service Accounts for Pods
 A service account provides an identity for processes that run in a Pod.
 
 *This is a user introduction to Service Accounts.  See also the
-[Cluster Admin Guide to Service Accounts](/docs/admin/service-accounts-admin).*
+[Cluster Admin Guide to Service Accounts](/docs/admin/service-accounts-admin/).*
 
 **Note:** This document describes how service accounts behave in a cluster set up
 as recommended by the Kubernetes project.  Your cluster administrator may have
@@ -146,18 +146,19 @@ Any tokens for non-existent service accounts will be cleaned up by the token con
 
 ```shell
 $ kubectl describe secrets/build-robot-secret
-Name:   build-robot-secret
-Namespace:  default
-Labels:   <none>
-Annotations:  kubernetes.io/service-account.name=build-robot,kubernetes.io/service-account.uid=870ef2a5-35cf-11e5-8d06-005056b45392
+Name:           build-robot-secret
+Namespace:      default
+Labels:         <none>
+Annotations:    kubernetes.io/service-account.name=build-robot
+                kubernetes.io/service-account.uid=da68f9c6-9d26-11e7-b84e-002dc52800da
 
-Type: kubernetes.io/service-account-token
+Type:   kubernetes.io/service-account-token
 
 Data
 ====
-ca.crt: 1220 bytes
-token: ...
-namespace: 7 bytes
+ca.crt:         1338 bytes
+namespace:      7 bytes
+token:          ...
 ```
 
 **Note:** The content of `token` is elided here.

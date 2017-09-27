@@ -23,7 +23,7 @@ This page shows you how to configure an application using a ConfigMap. ConfigMap
 
 ## Use kubectl to create a ConfigMap
 
-Use the `kubectl create configmap` command to create configmaps from [directories](#creating-configmaps-from-directories), [files](#creating-configmaps-from-files), or [literal values](#creating-configmaps-from-literal-values):
+Use the `kubectl create configmap` command to create configmaps from [directories](#create-configmaps-from-directories), [files](#create-configmaps-from-files), or [literal values](#create-configmaps-from-literal-values):
 
 ```shell
 kubectl create configmap <map-name> <data-source>
