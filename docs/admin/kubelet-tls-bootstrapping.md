@@ -92,16 +92,18 @@ tracked at [kubernetes/features#267](https://github.com/kubernetes/features/issu
 --feature-gates=RotateKubeletServerCertificate=true
 ```
 
-The following RBAC `ClusterRoles` represent the `nodeclient`, `selfnodeclient`, and `selfnodeserver` capabilities. Similar roles
-may be automatically created in future releases.
+The following RBAC `ClusterRoles` represent the `nodeclient`, `selfnodeclient`, and `selfnodeserver` capabilities.
+Some of these roles are automatically created since the v1.8.0 release.
+Prior to that, you had to create these resources yourself.
 
 ```yml
 # A ClusterRole which instructs the CSR approver to approve a user requesting
 # node client credentials.
+# This ClusterRole is automatically created since v1.8.0
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: approve-node-client-csr
+  name: system:certificates.k8s.io:certificatesigningrequests:nodeclient
 rules:
 - apiGroups: ["certificates.k8s.io"]
   resources: ["certificatesigningrequests/nodeclient"]
@@ -109,10 +111,11 @@ rules:
 ---
 # A ClusterRole which instructs the CSR approver to approve a node renewing its
 # own client credentials.
+# This ClusterRole is automatically created since v1.8.0
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: approve-node-client-renewal-csr
+  name: system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
 rules:
 - apiGroups: ["certificates.k8s.io"]
   resources: ["certificatesigningrequests/selfnodeclient"]
@@ -120,10 +123,12 @@ rules:
 ---
 # A ClusterRole which instructs the CSR approver to approve a node requesting a
 # serving cert matching its client cert.
+# This ClusterRole is automatically created since v1.8.0, if the
+# RotateKubeletServerCertificate feature gate is enabled
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: approve-node-server-renewal-csr
+  name: system:certificates.k8s.io:certificatesigningrequests:selfnodeserver
 rules:
 - apiGroups: ["certificates.k8s.io"]
   resources: ["certificatesigningrequests/selfnodeserver"]
@@ -152,7 +157,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
-  name: approve-node-client-csr
+  name: system:certificates.k8s.io:certificatesigningrequests:nodeclient
   apiGroup: rbac.authorization.k8s.io
 ```
 
@@ -170,7 +175,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
-  name: approve-node-client-renewal-csr
+  name: system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
   apiGroup: rbac.authorization.k8s.io
 ```
 
