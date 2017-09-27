@@ -5,8 +5,8 @@ set -o errexit
 # Uncomment this to see the commands as they are run
 # set -x
 
-VERSION=1.7
-OLDVERSION=1.6
+VERSION=1.8
+OLDVERSION=1.7
 
 # Processes api reference docs.
 function process_api_ref_docs {
@@ -136,7 +136,7 @@ done <_data/overrides.yml
 )
 
 
-BINARIES="federation-apiserver.md federation-controller-manager.md kube-apiserver.md kube-controller-manager.md kube-proxy.md kube-scheduler.md kubelet.md kubefed.md kubefed_init.md kubefed_join.md kubefed_options.md kubefed_unjoin.md kubefed_version.md"
+BINARIES="cloud-controller-manager.md federation-apiserver.md federation-controller-manager.md kube-apiserver.md kube-controller-manager.md kube-proxy.md kube-scheduler.md kubelet.md kubefed.md kubefed_init.md kubefed_join.md kubefed_options.md kubefed_unjoin.md kubefed_version.md"
 
 (
   cd docs/admin
