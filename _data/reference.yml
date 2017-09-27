@@ -23,6 +23,7 @@ toc:
     - docs/admin/authorization/node.md
     - docs/admin/authorization/webhook.md
   - docs/reference/deprecation-policy.md
+  - docs/reference/workloads-18-19.md
 
 - title: API Reference
   section:
