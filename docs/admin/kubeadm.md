@@ -14,7 +14,7 @@ This document provides information on how to use kubeadm's advanced options.
 * TOC
 {:toc}
 
-Running `kubeadm init` a Kubernetes master node will be created. This consists of the
+Running `kubeadm init` bootstraps a Kubernetes master node. This consists of the
 following steps:
 
 1. kubeadm runs a series of pre-flight checks to validate the system state
@@ -30,11 +30,11 @@ following steps:
 1. kubeadm generates a self-signed CA to provision identities for each component
    (including nodes) in the cluster.  It also generates client certificates to
    be used by various components.  If the user has provided their own CA by
-   dropping it in the cert directory configured via `--cert-dir`, by default
-   `/etc/kubernetes/pki`, this step is skipped as described in the
+   dropping it in the cert directory configured via `--cert-dir`
+   (`/etc/kubernetes/pki` by default) this step is skipped as described in the
    [section on using custom certificates](#custom-certificates).
 
-1. kubeadm writes  in `/etc/kubernetes/` kubeconfig files for
+1. kubeadm writes kubeconfig files in `/etc/kubernetes/`  for
    the kubelet, the controller-manager and the scheduler to use to connect to the
    API server, each one with their respective identities, as well as an additional
    kubeconfig file for administration.
@@ -47,7 +47,7 @@ following steps:
    watches this directory for Pods to create on startup, as described in
    the [section about kubelet drop-in](#kubelet-drop-in).
 
-   Once control plabe Pods are up and running kubeadm init sequence can continue.
+   Once control plane Pods are up and running kubeadm init sequence can continue.
 
 1. kubeadm "labels" and "taints" the master node so that only control plane
    components will run there.
@@ -56,34 +56,40 @@ following steps:
    [Bootstrap Tokens](https://kubernetes.io/docs/admin/bootstrap-tokens/) and
    [TLS Bootstrap](https://kubernetes.io/docs/admin/kubelet-tls-bootstrapping/)
    mechanism:
+
    - Write a ConfigMap for making available all the information required
      for joining and set up related RBAC access rules.
+
    - Ensure access to the CSR signing API for bootstrap tokens.
+
    - Configure auto approval for new CSR requests.
 
-   See [Securing your installation](#Securing-more) for hardening.
+   See [Securing your installation](#securing-more) for hardening.
 
 1. kubeadm installs add-on components via the API server.  Right now this is
    the internal DNS server and the kube-proxy DaemonSet.
 
-1. Eventually, if `kubeadm init` is invoked with
-  `—features-gates=self-hosting`, the static Pod based control plane will be
-  transformed in a [self-hosed control plane](#self-hosting).
+1. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
+   (`--feature-gates=SelfHosting=true`), the static Pod based control plane will
+   be transformed in a [self-hosed control plane](#self-hosting).
 
 Running `kubeadm join` on each node in the cluster consists of the following
 steps:
 
 1. kubeadm downloads necessary cluster information from the API server.
-   By default, it uses the bootstrap token and the CA key hash to verify the authenticity of that data. The root CA can also be discovered directly via a file or URL.
+   By default, it uses the bootstrap token and the CA key hash to verify the
+   authenticity of that data. The root CA can also be discovered directly via a
+   file or URL.
 
-1. Once the cluster information are known, kubelet can start the TLS Bootstrapping
+1. Once the cluster information are known, kubelet can start the TLS bootstrapping
    process (in v.1.7 this step was managed by kubeadm).
 
    The TLS bootstrap uses the shared token to temporarily authenticate
-   with the Kubernetes Master to submit a certificate signing request (CSR); by default the control plane will sign this CSR request automatically.
+   with the Kubernetes Master to submit a certificate signing request (CSR); by
+   default the control plane will sign this CSR request automatically.
 
-1. Finally, kubeadm will configures the local kubelet to connect to the API server
-   with the defintive identity assigned to the node.
+1. Finally, kubeadm will configures the local kubelet to connect to the API
+   server with the definitive identity assigned to the node.
 
 ## Usage
 
@@ -91,7 +97,8 @@ Fields that support multiple values do so either with comma separation, or by
 specifying the flag multiple times.
 
 The kubeadm command line interface is currently in **beta**.  We are aiming to
-not break any scripted use of the main `kubeadm init` and `kubeadm join`.  Exceptions to this are documented below.
+not break any scripted use of the main `kubeadm init` and `kubeadm join`.
+Exceptions to this are documented below.
 
 ### `kubeadm init`
 
@@ -136,9 +143,9 @@ flags that can be used to customise the Kubernetes installation.
   extended set of options including passing arbitrary command line flags to the
   control plane components.
 
-  **Note**: Since 1.8, when providing a configuration files, it is not
-  allowed to use flags, with the exceptions of flags used to define kubeadm
-  behaviours (not configurations) e.g. `--skip-preflight-checks`
+  **Note**: Since 1.8, other flags are not allowed alongside `--config` except
+  for flags used to define kubeadm behaviour (not configuration) such as
+  `--skip-preflight-checks`.
 
 - `--dry-run`
 
@@ -146,11 +153,14 @@ flags that can be used to customise the Kubernetes installation.
 
 - `--feature-gates`
 
-  A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
+  A set of key=value pairs that describe feature gates for alpha/experimental
+  features. Options are:
+
   - SelfHosting=true|false (ALPHA - default=false)
+
   - StoreCertsInSecrets=true|false (ALPHA - default=false)
 
-  See [self-hosed control plane](#self-hosting) for more detail.
+  See [self-hosted control plane](#self-hosting) for more detail.
 
 - `--kubernetes-version` (default 'latest') the kubernetes version to initialise
 
@@ -331,9 +341,9 @@ Here's an example on how to use it:
 
 - `--node-name`
 
-  Allow to specify the node name, is something different than os hostname should be used e.g. in case of Amazon EC2 instances.
-
-  This node-name is also added to the certificate that the API Server uses.
+  Specify the Node name. The default is to use the OS hostname. This is useful
+  on some cloud providers such as AWS. This name is also added to the node's
+  TLS certificate.
 
 - `--tls-bootstrap-token`
 
@@ -359,9 +369,9 @@ Output shell completion code for the specified shell (bash or zsh).
 ### `kubeadm config`
 
 Kubeadm v1.8.0+ automatically creates a ConfigMap with all the parameters
-used config on `kubeadm init`.
+used during `kubeadm init`.
 
-But if you initialized your cluster using kubeadm v1.7.x or lower, you must use
+If you initialized your cluster using kubeadm v1.7.x or lower, you must use
 the `kubeadm config upload` command to create this ConfigMap in order
 for `kubeadm upgrade` to be able to configure your upgraded cluster correctly.
 
@@ -371,18 +381,21 @@ Reverts any changes made to this host by `kubeadm init` or `kubeadm join`.
 
 ### `kubeadm token`
 
-You can use the `kubeadm` tool to manage tokens on a running cluster. see [managing tokens](#manage-tokens) below for further details.
+Manage tokens on a running cluster. See [managing tokens](#manage-tokens) below
+for further details.
 
 ### `kubeadm alpha phases`
 
-**WARNING:** While kubeadm command line interface is in beta, commands under this entry is still considered alpha and may change in future versions.
+**WARNING:** While kubeadm command line interface is in beta, commands under
+this entry is still considered alpha and may change in future versions.
 
 `kubeadm phase` introduces a set of kubeadm CLI commands allowing to invoke
-individually each phase of the kubeadm init sequence; phases provide a reusable and composable API/toolbox.
+individually each phase of the kubeadm init sequence; phases provide a reusable
+and composable API/toolbox for building your own automated cluster installer.
 
 **Options for `kubeadm phases`:**
 
-Each kubeadm phase exposes a subset of relevant options from `kubeadm init` .
+Each kubeadm phase exposes a subset of relevant options from `kubeadm init`.
 
 ## Using kubeadm with a configuration file {#config-file}
 
@@ -469,7 +482,7 @@ discoveryTokenCACertHashes:
 discoveryTokenUnsafeSkipCAVerification: <bool>
 ```
 
-## Securing your installation even more {#Securing-more}
+## Securing your installation even more {#securing-more}
 
 The defaults for kubeadm may not work for everyone. This section documents how to tighten up a kubeadm install
 at the cost of some usability.
@@ -602,7 +615,7 @@ know the IP address that the master will have after it is started.
     kubeadm token generate
     ```
 
-2. Start both the master node and the worker nodes concurrently with this token.
+1. Start both the master node and the worker nodes concurrently with this token.
    As they come up they should find each other and form the cluster.  The same
    `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
 
@@ -627,7 +640,7 @@ that the API server certificate is valid under the root CA.
 
 **Example `kubeadm join` command:**
 
-`kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef 1.2.3.4:6443`
+ - `kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef 1.2.3.4:6443`
 
 **Advantages:**
 
@@ -661,7 +674,7 @@ using one of the other modes if possible.
 
  - The token can be generated ahead of time and shared with the master and
    worker nodes, which can then bootstrap in parallel without coordination. This
-     allows it to be used in many provisioning scenarios.
+   allows it to be used in many provisioning scenarios.
 
 **Disadvantages:**
 
@@ -698,19 +711,26 @@ using kubeadm.
 
 ## Use kubeadm with other CRI runtimes
 
-Since [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1), Kubernetes container runtimes have been transferred to using CRI by default. Currently, the build-in container runtime is Docker which is enabled by build-in `dockershim` in `kubelet`.
+Since [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1),
+Kubernetes container runtimes have been transferred to using CRI by default.
+Currently, the build-in container runtime is Docker which is enabled by built-in
+`dockershim` in `kubelet`.
 
-Using other CRI based runtimes with kubeadm is very simple, and currently supported runtimes are:
+Using other CRI based runtimes with kubeadm is very simple, and currently
+supported runtimes are:
 
 - [cri-o](https://github.com/kubernetes-incubator/cri-o)
 - [frakti](https://github.com/kubernetes/frakti)
 - [rkt](https://github.com/kubernetes-incubator/rktlet)
 
-After you have successfully installed `kubeadm` and `kubelet`, please follow these two steps:
+After you have successfully installed `kubeadm` and `kubelet`, please follow
+these two steps:
 
-1. Install runtime shim on every node. You will need to follow the installation document in the runtime shim project listing above.
+1. Install runtime shim on every node. You will need to follow the installation
+   document in the runtime shim project listing above.
 
-2. Configure kubelet to use remote CRI runtime. Please remember to change `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
+1. Configure kubelet to use remote CRI runtime. Please remember to change
+   `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
 
 ```shell
   $ cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
@@ -719,13 +739,17 @@ EOF
   $ systemctl daemon-reload
 ```
 
-Now `kubelet` is ready to use the specified CRI runtime, and you can continue with `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
+Now `kubelet` is ready to use the specified CRI runtime, and you can continue
+with `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
 
 ## Using custom images {#custom-images}
 
-By default, kubeadm will pull images from `gcr.io/google_containers`, unless requested kubernetes version is a ci version; in this case `gcr.io/kubernetes-ci-image` will be used.
+By default, kubeadm will pull images from `gcr.io/google_containers`, unless
+requested kubernetes version is a ci version; in this case
+`gcr.io/kubernetes-ci-image` will be used.
 
-This behaviour can be overriden by [using kubeadm with a configuration file](#config-file). Allowed customization are:
+This behaviour can be overridden by [using kubeadm with a configuration file](#config-file).
+Allowed customization are:
 - provide an alternative `imageRepository` to be used instead of
   `gcr.io/google_containers` (NB. does not works for ci version)
 - provide an `unifiedControlPlaneImage` to be used instead of single images
@@ -858,12 +882,12 @@ Most users will have no need to set these. These environment variables are a
 short-term solution, eventually they will be integrated in the kubeadm
 configuration file.
 
-| Variable               | Default                                  | Description                              |
-| ---------------------- | ---------------------------------------- | ---------------------------------------- |
-| `KUBE_KUBERNETES_DIR`  | `/etc/kubernetes`                        | Where most configuration files are written to and read from |
-| `KUBE_HYPERKUBE_IMAGE` |                                          | If set, use a single hyperkube image with this name. If not set, individual images per server component will be used. |
-| `KUBE_ETCD_IMAGE`      | `gcr.io/google_containers/etcd-<arch>:3.0.17` | The etcd container image to use.         |
-| `KUBE_REPO_PREFIX`     | `gcr.io/google_containers`               | The image prefix for all images that are used. |
+| Variable               | Default                                       | Description                              |
+| ---------------------- | --------------------------------------------- | ---------------------------------------- |
+| `KUBE_KUBERNETES_DIR`  | `/etc/kubernetes`                             | Where most configuration files are written to and read from |
+| `KUBE_HYPERKUBE_IMAGE` |                                               | If set, use a single hyperkube image with this name. If not set, individual images per server component will be used. |
+| `KUBE_ETCD_IMAGE`      | `gcr.io/google_containers/etcd-<arch>:3.0.17` | The etcd container image to use. |
+| `KUBE_REPO_PREFIX`     | `gcr.io/google_containers`                    | The image prefix for all images that are used. |
 
 If `KUBE_KUBERNETES_DIR` is specified, you may need to rewrite the arguments of the kubelet.
 (e.g. --kubeconfig, --pod-manifest-path)
