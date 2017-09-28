@@ -36,9 +36,16 @@ You have to carry out the following steps by executing these commands on your ma
 1. Install the most recent version of `kubeadm` using `curl` like so:
 
 ```shell
-$ export VERSION=v1.8.0 # or any given released Kubernetes version
+$ export VERSION=$(curl -sSL https://dl.k8s.io/release/stable.txt) # or manually specify a released Kubernetes version
 $ export ARCH=amd64 # or: arm, arm64, ppc64le, s390x
 $ curl -sSL https://dl.k8s.io/release/${VERSION}/bin/linux/${ARCH}/kubeadm > /usr/bin/kubeadm
+$ chmod a+rx /usr/bin/kubeadm
+```
+
+Verify that this download of kubeadm works, and has the expected version:
+
+```shell
+$ kubeadm version
 ```
 
 2. If this the first time you use `kubeadm upgrade`, in order to preserve the configuration for future upgrades, do:
@@ -195,52 +202,74 @@ $ kubeadm upgrade apply v1.8.0
    find your CNI provider and see if there are additional upgrade steps
    necessary.
 
-## Upgrading your worker nodes
+## Upgrading your master and nodes
 
-For each worker node (referred to as `$WORKER` below) in your cluster, upgrade `kubelet` by executing the following commands:
+For each host (referred to as `$HOST` below) in your cluster, upgrade `kubelet` by executing the following commands:
 
-1. Prepare the node for maintenance, marking it unschedulable and evicting the workload:
+1. Prepare the host for maintenance, marking it unschedulable and evicting the workload:
 
 ```shell
-$ kubectl cordon $WORKER
-$ kubectl drain $WORKER
+$ kubectl cordon $HOST
+$ kubectl drain $HOST --ignore-daemonsets
 ```
 
-2. Upgrade the `kubelet` version on the `$WORKER` node by using a Linux distribution-specific package manager:
+When running `kubectl drain` against the master host, this error is expected and can be safely ignored:
 
-If the node is running a Debian-based distro such as Ubuntu, run:
+```shell
+node "master" already cordoned
+error: pods not managed by ReplicationController, ReplicaSet, Job, DaemonSet or StatefulSet (use --force to override): etcd-kubeadm, kube-apiserver-kubeadm, kube-controller-manager-kubeadm, kube-scheduler-kubeadm
+```
+
+2. Upgrade the Kubernetes package versions on the `$HOST` node by using a Linux distribution-specific package manager:
+
+If the host is running a Debian-based distro such as Ubuntu, run:
 
 ```shell
 $ apt-get update
-$ apt-get install -y kubelet
+$ apt-get upgrade
 ```
 
-If the node is running CentOS or the like, run:
+If the host is running CentOS or the like, run:
 
 ```shell
 $ yum update
-$ yum install -y kubelet
+$ yum upgrade
 ```
 
-Now the new version of the `kubelet` should be running on the `$WORKER` node. Verify this using the following command:
+Now the new version of the `kubelet` should be running on the host. Verify this using the following command on `$HOST`:
 
 ```shell
 $ systemctl status kubelet
 ```
 
-3. Bring the `$WORKER` node back online by marking it schedulable:
+3. If certificate rotation is enabled, you may need to manually approve the new kubelet's CertificateSigningRequest before it can rejoin the cluster:
 
 ```shell
-$ kubectl uncordon $WORKER
+$ kubectl get csr | grep -v Approved
+NAME                                                   AGE       REQUESTOR                 CONDITION
+node-csr-czl32tarZb_XYKnvXf0Q0o4spGUXzJhN2p4_ld7k1iM   2h        system:bootstrap:033abb   Pending
 ```
 
-4. After upgrading `kubelet` on each worker node in your cluster, verify that all nodes are available again by executing the following (from anywhere, for example, from outside the cluster):
+If you see any CSRs listed that aren't already approved, you can manually approve them using kubectl:
+
+```shell
+$ kubectl certificate approve node-csr-czl32tarZb_XYKnvXf0Q0o4spGUXzJhN2p4_ld7k1iM
+certificatesigningrequest "node-csr-czl32tarZb_XYKnvXf0Q0o4spGUXzJhN2p4_ld7k1iM" approved
+```
+
+4. Bring the host back online by marking it schedulable:
+
+```shell
+$ kubectl uncordon $HOST
+```
+
+5. After upgrading `kubelet` on each host in your cluster, verify that all nodes are available again by executing the following (from anywhere, for example, from outside the cluster):
 
 ```shell
 $ kubectl get nodes
 ```
 
-If the `STATUS` column of the above command shows `Ready` for all of your worker nodes, you are done.
+If the `STATUS` column of the above command shows `Ready` for all of your hosts, you are done.
 
 ## Recovering from a bad state
 
