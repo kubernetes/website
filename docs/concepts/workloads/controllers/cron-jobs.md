@@ -114,7 +114,7 @@ cronjob "hello" deleted
 ```
 
 This stops new jobs from being created and removes all the jobs and pods created by this cronjob.
-You can read more about it in [garbage collection section](/docs/concepts/cluster-administration/kubelet-garbage-collection/).
+You can read more about it in [garbage collection section](/docs/concepts/workloads/controllers/garbage-collection/).
 
 ## Cron Job Limitations
 
