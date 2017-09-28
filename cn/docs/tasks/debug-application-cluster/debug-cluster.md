@@ -3,7 +3,7 @@ title: 集群故障排查
 ---
 
 本篇文档是介绍集群故障排查的；我们假设对于你碰到的问题，你已经排除了是由应用程序造成的。  
-对于应用的调试，请参阅[应用故障排查指南](cn/docs/tasks/debug-application-cluster/debug-application)。
+对于应用的调试，请参阅[应用故障排查指南](/cn/docs/tasks/debug-application-cluster/debug-application)。
 你也可以访问[troubleshooting document](/docs/troubleshooting/)来获取更多的信息。
 
 ## 显示出集群的节点列表
@@ -20,8 +20,8 @@ kubectl get nodes
 
 ## 查看logs
 
-现在，挖掘出集群更深层的信息就需要登录到相关的机器上。这里是相关log文件所在的位置。  
-(注意，对于基于systemd的系统上，你可能需要使用`journalctl`)
+现在，挖掘出集群更深层的信息就需要登录到相关的机器上。下面是相关log文件所在的位置。  
+(注意，对于基于systemd的系统，你可能需要使用`journalctl`)
 
 
 ### Master
@@ -37,7 +37,7 @@ kubectl get nodes
 
 ## 集群故障模式的概述
 
-这是一个不完整的，可能会出错的场景的列表，以及如何调整集群设置来减少问题的发生。
+下面是一个不完整的列表，列举了一些可能出错的场景，以及通过调整集群配置来解决相关问题的方法。
 
 根本原因：
 
@@ -80,11 +80,11 @@ kubectl get nodes
       - 丢失pods，服务等等
       - 丢失apiserver后端存储
       - 用户无法读取API
-      - etc.
+      - 等等
 
 缓解措施:
 
-- 措施：对于IaaS的VMs，使用IaaS的自动VM重启功能
+- 措施：对于IaaS上的VMs，使用IaaS的自动VM重启功能
   - 缓解：Apiserver VM关机或apiserver崩溃
   - 缓解：Kubernetes服务组件所在的VM关机或崩溃
 
