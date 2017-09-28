@@ -23,7 +23,7 @@ This is a living document. If you think of something that is not on this list bu
 
   Note also that many `kubectl` commands can be called on a directory, so you can also call `kubectl create` on a directory of config files. See below for more details.
 
-- Don't specify default values unnecessarily, in order to simplify and minimize configs, and to reduce error. For example, omit the selector and labels in a `ReplicationController` if you want them to be the same as the labels in its `podTemplate`, since those fields are populated from the `podTemplate` labels by default. See the [guestbook app's](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) .yaml files for some [examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/frontend-deployment.yaml) of this.
+- Don't specify default values unnecessarily, in order to simplify and minimize configs, and to reduce error.
 
 - Put an object description in an annotation to allow better introspection.
 
