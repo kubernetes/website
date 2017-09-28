@@ -23,7 +23,8 @@ TEMPORARY
 /docs/tasks/administer-cluster/certificate-rotation/     /docs/admin/kubelet-tls-bootstrapping/ 301
 /docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
 /docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301
-/docs/concepts/workloads/controllers/deployment.md     /docs/concepts/workloads/controllers/deployment/ 301    
+/docs/concepts/workloads/controllers/deployment.md     /docs/concepts/workloads/controllers/deployment/ 301
+/docs/tasks/administer-cluster/out-of-resource/memory-available.sh     /docs/concepts/cluster-administration/out-of-resource/memory-available.sh 301
 
 #############
 
