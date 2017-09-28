@@ -10,11 +10,12 @@ This page shows how to use install kubeadm.
 
 {% capture prerequisites %}
 
-* One or more machines running Ubuntu 16.04+, CentOS 7 or HypriotOS v1.0.1+
+* One or more machines running Ubuntu 16.04+, Debian 9, CentOS 7, RHEL 7, Fedora 25/26 (YMMV) or HypriotOS v1.0.1+
 * 1GB or more of RAM per machine (any less will leave little room for your apps)
 * Full network connectivity between all machines in the cluster (public or private network is fine)
 * Unique MAC address and product_uuid for every node
 * Certain ports are open on your machines. See the section below for more details
+* Swap disabled. You must disable swap in order for the kubelet to work properly.
 
 {% endcapture %}
 
@@ -55,73 +56,105 @@ documentation for the plugins about what port(s) those need.
 ## Installing Docker
 
 On each of your machines, install Docker.
-Version 1.12 is recommended, but v1.10 and v1.11 are known to work as well.
-Versions 1.13 and 17.03+ have not yet been tested and verified by the Kubernetes node team.
-For installation instructions, see
-[Install Docker](https://docs.docker.com/engine/installation/).
+Version v1.12 is recommended, but v1.11, v1.13 and 17.03 are known to work as well.
+Versions 17.06+ _might work_, but have not yet been tested and verified by the Kubernetes node team.
 
-## Installing kubectl
+You can use the following commands to install Docker on your system:
 
-On each of your machines,
-[install kubectl](/docs/tasks/tools/install-kubectl/).
-You only need kubectl on the master and/or your workstation, but it can be
-useful to have on the other nodes as well.
+{% capture docker_ubuntu %}
 
-## Installing kubelet and kubeadm
+Install Docker from Ubuntu's repositories:
+
+```bash
+apt-get update
+apt-get install -y docker.io
+```
+
+or install Docker CE 17.03 from Docker's repositories for Ubuntu or Debian:
+
+```bash
+apt-get update && apt-get install -y curl apt-transport-https
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+cat <<EOF >/etc/apt/sources.list.d/docker.list
+deb https://download.docker.com/linux/$(lsb_release -si | tr '[:upper:]' '[:lower:]') $(lsb_release -cs) stable
+EOF
+apt-get update && apt-get install -y docker-ce=$(apt-cache madison docker-ce | grep 17.03 | head -1 | awk '{print $3}')
+```
+
+{% endcapture %}
+
+{% capture docker_centos %}
+
+```bash
+yum install -y docker
+systemctl enable docker && systemctl start docker
+```
+
+{% endcapture %}
+
+{% assign docker_tab_names = "Ubuntu, Debian or HypriotOS;CentOS, RHEL or Fedora" | split: ';' | compact %}
+{% assign docker_tab_contents = site.emptyArray | push: docker_ubuntu | push: docker_centos %}
+
+## Installing kubeadm, kubelet and kubectl
 
 You will install these packages on all of your machines:
+
+* `kubeadm`: the command to bootstrap the cluster.
 
 * `kubelet`: the component that runs on all of the machines in your cluster
     and does things like starting pods and containers.
 
-* `kubeadm`: the command to bootstrap the cluster.
+* `kubectl`: the command line util to talk to your cluster.
 
-**Note:** If you already have kubeadm installed, you should do a `apt-get update &&
-apt-get upgrade` or `yum update` to get the latest version of kubeadm. See the
-kubeadm release notes if you want to read about the different [kubeadm
-releases](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md).
+Please proceed with executing the following commands based on your OS as the `root` user by SSH-ing
+into each machine. You may for example become `root` by executing `sudo -i`.
 
-For each machine:
+{% capture ubuntu %}
 
-* SSH into the machine and become root if you are not already (for example,
-  run `sudo -i`).
+```bash
+apt-get update && apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+apt-get update
+apt-get install -y kubelet kubeadm kubectl
+```
 
-* If the machine is running Ubuntu or HypriotOS, run:
+{% endcapture %}
 
-  ``` bash
-  apt-get update && apt-get install -y apt-transport-https
-  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-  cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
-  deb http://apt.kubernetes.io/ kubernetes-xenial main
-  EOF
-  apt-get update
-  apt-get install -y kubelet kubeadm
-  ```
+{% capture centos %}
 
-* If the machine is running CentOS, run:
+```bash
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+setenforce 0
+yum install -y kubelet kubeadm
+systemctl enable kubelet && systemctl start kubelet
+```
 
-  ``` bash
-  cat <<EOF > /etc/yum.repos.d/kubernetes.repo
-  [kubernetes]
-  name=Kubernetes
-  baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
-  enabled=1
-  gpgcheck=1
-  repo_gpgcheck=1
-  gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
-          https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-  EOF
-  setenforce 0
-  yum install -y kubelet kubeadm
-  systemctl enable kubelet && systemctl start kubelet
-  ```
+**Note:** Disabling SELinux by running `setenforce 0` is required to allow
+containers to access the host filesystem, which is required for the `kubeadm init`
+process to complete successfully. You have to do this until SELinux support is
+improved in the kubelet.
+
+{% endcapture %}
+
+{% assign tab_names = "Ubuntu, Debian or HypriotOS;CentOS, RHEL or Fedora" | split: ';' | compact %}
+{% assign tab_contents = site.emptyArray | push: ubuntu | push: centos %}
+
+{% include tabs.md %}
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
-
-**Note:** Disabling SELinux by running `setenforce 0` is required to allow
-containers to access the host filesystem, which is required by pod networks for
-example. You have to do this until SELinux support is improved in the kubelet.
 
 {% endcapture %}
 
