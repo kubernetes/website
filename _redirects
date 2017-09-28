@@ -9,6 +9,21 @@ TEMPORARY
 
 /docs/resources-reference/v1.8/*     /docs/api-reference/v1.8/:splat 301
 
+/docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
+/docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301
+/docs/admin/extensible-admission-controllers.md     /docs/admin/extensible-admission-controllers/ 301
+/docs/tasks/administer-cluster/developing-cloud-controller-manager.md     /docs/tasks/administer-cluster/developing-cloud-controller-manager/ 301
+/docs/concepts/workloads/controllers/job/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
+/docs/federation/api-reference/federation/v1beta1/operations.html     /docs/federation/api-reference/federation/v1beta1/operations/ 301
+/docs/federation/api-reference/federation/v1beta1/definitions.html     /docs/federation/api-reference/federation/v1beta1/definitions/ 301
+/docs/federation/api-reference/extensions/v1beta1/operations.html     /docs/federation/api-reference/extensions/v1beta1/operations/ 301
+/docs/federation/api-reference/v1/operations.html     /docs/federation/api-reference/v1/operations/ 301
+/docs/federation/api-reference/extensions/v1beta1/definitions.html     /docs/federation/api-reference/extensions/v1beta1/definitions/ 301
+/docs/federation/api-reference/v1/definitions.html     /docs/federation/api-reference/v1/definitions/ 301
+/docs/tasks/administer-cluster/certificate-rotation/     /docs/admin/kubelet-tls-bootstrapping/ 301
+/docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
+/docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301
+
 #############
 
 /api-ref/     https://github.com/kubernetes/kubernetes/milestones/ 301
