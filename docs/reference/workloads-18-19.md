@@ -130,7 +130,7 @@ In Kubernetes 1.8, we unify the core Workloads API kinds in a single group and v
 
 ### Release 1.9
 
-In Kubernetes 1.9, our goal is to address any feedback on the apps/v1beta2 group version and to to promote the group version to GA. The table below shows the kinds that we plan to deprecate and the kinds that will replace them.
+In Kubernetes 1.9, our goal is to address any feedback on the apps/v1beta2 group version and to promote the group version to GA. The table below shows the kinds that we plan to deprecate and the kinds that will replace them.
 
 <table style="width:100%">
   <tr>
