@@ -189,6 +189,7 @@ are averaged together across pods and compared with a target value to determine 
 They work much like resource metrics, except that they *only* have the `targetAverageValue` field.
 
 Pod metrics are specified using a metric block like this:
+
 ```yaml
 type: Pods
 pods:
