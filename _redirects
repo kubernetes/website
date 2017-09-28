@@ -8,6 +8,7 @@
 # pattern matching redirects
 #
 
+/docs/resources-reference/v1.8/*     /docs/api-reference/v1.8/:splat 301		
 /docs/user-guide/kubectl/kubectl_*/     /docs/user-guide/kubectl/v1.7/#:splat 200
 /v1.1/docs/*     /docs/ 301
 /docs/user-guide/kubectl/1_5/*     https://v1-5.docs.kubernetes.io/docs/user-guide/kubectl/v1.5/ 301
