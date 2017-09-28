@@ -2,7 +2,8 @@
 approvers:
 - chenopis
 - abiogenesis-now
-title: Official K8s Glossary
+title: Standardized Glossary
+noedit: true
 ---
 <link href="/css/expander.css" rel="stylesheet">
 <script src="/js/expander.js"></script>
