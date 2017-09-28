@@ -4,6 +4,13 @@
 # test at https://play.netlify.com/redirects  #
 ###############################################
 
+#############
+TEMPORARY
+
+/docs/resources-reference/v1.8/*     /docs/api-reference/v1.8/:splat 301
+
+#############
+
 /api-ref/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /concepts/containers/container-lifecycle-hooks                  /docs/concepts/containers/container-lifecycle-hooks     301
 /docs/                                                          /docs/home/     301
