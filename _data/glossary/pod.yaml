@@ -1,0 +1,13 @@
+id: pod
+name: Pods
+related:
+- container
+- sidecar
+- deployment
+- statefulset
+tags:
+- API Object
+short-description: |
+  The smallest and simplest Kubernetes objects. Represent a set of running processes on your cluster.
+long-description: |
+  Pods most often run only a single container, and are managed by a Deployment. <TODO ELABORATE>

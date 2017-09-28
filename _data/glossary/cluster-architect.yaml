@@ -1,9 +1,10 @@
 id: cluster-architect
 name: Cluster Architects
 related:
-  - Cluster Administrator
+  - cluster
+  - cluster-operator
 tags:
-- People
+- User Type
 short-description: |
   People who design infrastructure that involves one or more Kubernetes clusters.
 

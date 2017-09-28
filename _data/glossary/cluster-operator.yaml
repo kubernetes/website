@@ -3,9 +3,10 @@ name: Cluster Operators
 formerly:
   - Cluster Administrator
 related:
-  - Cluster Architect
+  - cluster
+  - cluster-architect
 tags:
-- People
+- User Type
 short-description: |
   People who configure, control, and monitor cluster(s).
 
