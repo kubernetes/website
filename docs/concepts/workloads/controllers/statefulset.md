@@ -18,6 +18,8 @@ for further information on how to upgrade existing PetSets to StatefulSets.**
 {% include templates/glossary/snippet.md term="statefulset" length="long" %}
 {% endcapture %}
 
+Note also that in Kubernetes version 1.8, significant changes were made to the group and version for the StatefulSet object, as well as for other objects (Kinds) in the Workloads API. Additional changes are planned for a future release. We recommend that you [read in detail about these changes](docs/reference/workloads-18-19/) before you decide which group version to move to, and when to make your move.
+
 {% capture body %}
 
 ## Using StatefulSets

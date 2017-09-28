@@ -15,6 +15,8 @@ You describe a _desired state_ in a Deployment object, and the Deployment contro
 **Note:** You should not manage ReplicaSets owned by a Deployment. All the use cases should be covered by manipulating the Deployment object. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
 {: .note}
 
+Note also that in Kubernetes version 1.8, significant changes were made to the group and version for the Deployment object, as well as for other objects (Kinds) in the Workloads API. Additional changes are planned for a future release. We recommend that you [read in detail about these changes](docs/reference/workloads-18-19/) before you decide which group version to move to, and when to make your move.
+
 {% endcapture %}
 
 
