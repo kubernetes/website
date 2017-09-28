@@ -65,7 +65,7 @@ cluster.
 
 Once a federated HPA is created, the federation control plane partitions and
 creates the HPA in all underlying Kubernetes clusters. As of Kubernetes V1.7,
-[cluster selectors](docs/tasks/administer-federation/cluster/#clusterselector-annotation)
+[cluster selectors](/docs/tasks/administer-federation/cluster/#clusterselector-annotation)
 can also be used to restrict any federated object, including the HPAs in a subset
 of clusters.
 
@@ -120,7 +120,7 @@ You can delete a federated HPA as you would delete a Kubernetes
 HPA; however, for a federated HPA, you must send the request to
 the federation API server instead of sending it to a specific Kubernetes cluster.
 It should also be noted that for the federated resource to be deleted from
-all underlying clusters, [cascading deletion](docs/concepts/cluster-administration/federation/#cascading-deletion)
+all underlying clusters, [cascading deletion](/docs/concepts/cluster-administration/federation/#cascading-deletion)
 should be used.
 
 For example, you can do that using `kubectl` by running:
@@ -139,7 +139,7 @@ and `kubectl autoscale` work on federation. Given this fact, the mechanism speci
 [horizontal pod autoscaler walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)
 will also work when used with federation.
 Care however will need to be taken that when
-[generating load on a target deployment](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#step-three-increase-load),
+[generating load on a target deployment](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#step-three-increase-load),
 it should be done against a specific federated cluster (or multiple clusters) not the federation.
 
 ## Conclusion

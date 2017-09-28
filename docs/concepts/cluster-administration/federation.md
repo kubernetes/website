@@ -93,7 +93,7 @@ The following guides explain some of the resources in detail:
 * [Events](/docs/tasks/administer-federation/events/)
 * [Hpa](/docs/tasks/administer-federation/hpa/)
 * [Ingress](/docs/tasks/administer-federation/ingress/)
-* [Jobs](docs/tasks/administer-federation/job/)
+* [Jobs](/docs/tasks/administer-federation/job/)
 * [Namespaces](/docs/tasks/administer-federation/namespaces/)
 * [ReplicaSets](/docs/tasks/administer-federation/replicaset/)
 * [Secrets](/docs/tasks/administer-federation/secret/)
