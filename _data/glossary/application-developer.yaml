@@ -1,0 +1,11 @@
+id: application-developer
+name: Application Developer
+related:
+  - application-architect
+tags:
+  - user-type
+short-description: |
+  TODO
+
+long-description: |
+  more TODO
