@@ -948,7 +948,7 @@ template:
 {% capture whatsnext %}
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
 - [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
-- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.6/)
+- [Kubectl Command Reference](/docs/user-guide/kubectl/{{page.version}}/)
 - [Kubernetes Object Schema Reference](/docs/resources-reference/{{page.version}}/)
 {% endcapture %}
 
