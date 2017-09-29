@@ -1,6 +1,5 @@
 ---
 approvers:
-- bprashanth
 - enisoc
 - erictune
 - foxish
@@ -225,7 +224,7 @@ by running a temporary container with the `mysql:5.7` image and running the
 `mysql` client binary.
 
 ```shell
-kubectl run mysql-client --image=mysql:5.7 -i -t --rm --restart=Never --\
+kubectl run mysql-client --image=mysql:5.7 -i --rm --restart=Never --\
   mysql -h mysql-0.mysql <<EOF
 CREATE DATABASE test;
 CREATE TABLE test.messages (message VARCHAR(250));

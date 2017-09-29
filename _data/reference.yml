@@ -23,9 +23,12 @@ toc:
     - docs/admin/authorization/node.md
     - docs/admin/authorization/webhook.md
   - docs/reference/deprecation-policy.md
+  - docs/reference/workloads-18-19.md
 
 - title: API Reference
   section:
+  - title: v1.8
+    path: /docs/api-reference/v1.8/
   - title: v1.7
     path: /docs/api-reference/v1.7/
   - title: v1.6
@@ -52,6 +55,8 @@ toc:
 - title: kubectl CLI
   section:
   - docs/user-guide/kubectl-overview.md
+  - title: v1.8 Commands
+    path: /docs/user-guide/kubectl/v1.8/
   - title: v1.7 Commands
     path: /docs/user-guide/kubectl/v1.7/
   - title: v1.6 Commands
@@ -63,12 +68,14 @@ toc:
   - docs/user-guide/jsonpath.md
   - docs/user-guide/kubectl-cheatsheet.md
 
+- title: Cloud Controller Manager
+  section:
+  - docs/admin/cloud-controller-manager.md
+
 - title: Setup Tools
   section:
-  - title: Kubeadm
-    path: /docs/admin/kubeadm/
+  - docs/admin/kubeadm.md
   - title: Kubefed
-    path: /docs/admin/kubefed/
     section:
     - docs/admin/kubefed.md
     - docs/admin/kubefed_options.md

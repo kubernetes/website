@@ -38,7 +38,7 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 
 1. Create a Deployment based on the YAML file:
 
-       kubectl create -f https://k8s.io/docs/tasks/run-application/deployment.yaml
+       kubectl apply -f https://k8s.io/docs/tasks/run-application/deployment.yaml
 
 1. Display information about the Deployment:
 

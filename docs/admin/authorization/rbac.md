@@ -13,7 +13,7 @@ Role-Based Access Control ("RBAC") uses the "rbac.authorization.k8s.io" API grou
 to drive authorization decisions, allowing admins to dynamically configure policies
 through the Kubernetes API.
 
-As of 1.6 RBAC mode is in beta.
+As of 1.8, RBAC mode is stable and backed by the rbac.authorization.k8s.io/v1 API.
 
 To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.
 
@@ -37,7 +37,7 @@ Here's an example `Role` in the "default" namespace that can be used to grant re
 
 ```yaml
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: pod-reader
@@ -59,7 +59,7 @@ or across all namespaces (depending on how it is [bound](#rolebinding-and-cluste
 
 ```yaml
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   # "namespace" omitted since ClusterRoles are not namespaced
   name: secret-reader
@@ -82,7 +82,7 @@ This allows "jane" to read pods in the "default" namespace.
 ```yaml
 # This role binding allows "jane" to read pods in the "default" namespace.
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: read-pods
   namespace: default
@@ -108,7 +108,7 @@ namespace (the namespace of the `RoleBinding`).
 ```yaml
 # This role binding allows "dave" to read secrets in the "development" namespace.
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: read-secrets
   namespace: development # This only grants permissions within the "development" namespace.
@@ -129,7 +129,7 @@ secrets in any namespace.
 ```yaml
 # This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: read-secrets-global
 subjects:
@@ -158,7 +158,7 @@ to read both pods and pod logs, you would write:
 
 ```yaml
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: pod-and-pod-logs-reader
@@ -175,7 +175,7 @@ configmap, you would write:
 
 ```yaml
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: configmap-updater
@@ -461,12 +461,14 @@ The permissions required by individual control loops are contained in the <a hre
 </tr>
 <tr>
 <td><b>system:node</b></td>
-<td><b>system:nodes</b> group (deprecated in 1.7)</td>
-<td>Allows access to resources required by the kubelet component, <b>including read access to all secrets, and write access to all pods</b>.
+<td>None in 1.8+</td>
+<td>Allows access to resources required by the kubelet component, <b>including read access to all secrets, and write access to all pod status objects</b>.
 As of 1.7, use of the [Node authorizer](/docs/admin/authorization/node/) 
 and [NodeRestriction admission plugin](/docs/admin/admission-controllers#NodeRestriction) 
 is recommended instead of this role, and allow granting API access to kubelets based on the pods scheduled to run on them.
-As of 1.7, when the `Node` authorization mode is enabled, the automatic binding to the `system:nodes` group is not created.
+Prior to 1.7, this role was automatically bound to the `system:nodes` group.
+In 1.7, this role was automatically bound to the `system:nodes` group if the `Node` authorization mode is not enabled.
+In 1.8+, no binding is automatically created.
 </td>
 </tr>
 <tr>
@@ -581,7 +583,7 @@ to a role that grants that permission. To allow a user to create/update role bin
 For example, this cluster role and role binding would allow "user-1" to grant other users the `admin`, `edit`, and `view` roles in the "user-1-namespace" namespace:
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: role-grantor
@@ -594,7 +596,7 @@ rules:
   verbs: ["bind"]
   resourceNames: ["admin","edit","view"]
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: role-grantor-binding

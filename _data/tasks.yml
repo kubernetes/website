@@ -80,6 +80,7 @@ toc:
 
 - title: Monitor, Log, and Debug
   section:
+  - docs/tasks/debug-application-cluster/core-metrics-pipeline.md
   - docs/tasks/debug-application-cluster/resource-usage-monitoring.md
   - docs/tasks/debug-application-cluster/get-shell-running-container.md
   - docs/tasks/debug-application-cluster/monitor-node-health.md
@@ -110,6 +111,7 @@ toc:
 - title: TLS
   section:
   - docs/tasks/tls/managing-tls-in-a-cluster.md
+  - docs/tasks/tls/certificate-rotation.md
 
 - title: Administer a Cluster
   section:
@@ -124,6 +126,7 @@ toc:
     - docs/tasks/administer-cluster/quota-pod-namespace.md
     - docs/tasks/administer-cluster/quota-api-object.md
     - docs/tasks/administer-cluster/opaque-integer-resource-node.md
+    - docs/tasks/administer-cluster/cpu-management-policies.md
   - docs/tasks/administer-cluster/access-cluster-api.md
   - docs/tasks/administer-cluster/access-cluster-services.md
   - docs/tasks/administer-cluster/securing-a-cluster.md
@@ -133,6 +136,7 @@ toc:
   - docs/tasks/administer-cluster/cluster-management.md
   - docs/tasks/administer-cluster/upgrade-1-6.md
   - docs/tasks/administer-cluster/kubeadm-upgrade-1-7.md
+  - docs/tasks/administer-cluster/kubeadm-upgrade-1-8.md
   - docs/tasks/administer-cluster/namespaces.md
   - docs/tasks/administer-cluster/namespaces-walkthrough.md
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
@@ -142,6 +146,7 @@ toc:
   - docs/tasks/administer-cluster/reserve-compute-resources.md
   - docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods.md
   - docs/tasks/administer-cluster/declare-network-policy.md
+  - docs/tasks/administer-cluster/reconfigure-kubelet.md
   - title: Install Network Policy Provider
     section:
     - docs/tasks/administer-cluster/calico-network-policy.md
@@ -154,6 +159,7 @@ toc:
   - docs/tasks/administer-cluster/limit-storage-consumption.md
   - docs/tasks/administer-cluster/change-default-storage-class.md
   - docs/tasks/administer-cluster/running-cloud-controller.md
+  - docs/tasks/administer-cluster/developing-cloud-controller-manager.md
   - docs/tasks/administer-cluster/highly-available-master.md
   - docs/tasks/administer-cluster/configure-multiple-schedulers.md
   - docs/tasks/administer-cluster/ip-masq-agent.md
@@ -170,7 +176,9 @@ toc:
   - docs/tasks/administer-federation/daemonset.md
   - docs/tasks/administer-federation/deployment.md
   - docs/tasks/administer-federation/events.md
+  - docs/tasks/administer-federation/hpa.md
   - docs/tasks/administer-federation/ingress.md
+  - docs/tasks/administer-federation/job.md
   - docs/tasks/administer-federation/namespaces.md
   - docs/tasks/administer-federation/replicaset.md
   - docs/tasks/administer-federation/secret.md
@@ -183,3 +191,11 @@ toc:
 - title: Manage GPUs
   section:
   - docs/tasks/manage-gpus/scheduling-gpus.md
+
+- title: Manage HugePages
+  section:
+  - docs/tasks/manage-hugepages/scheduling-hugepages.md
+
+- title: Extend kubectl with plugins
+  section:
+  - docs/tasks/extend-kubectl/kubectl-plugins.md

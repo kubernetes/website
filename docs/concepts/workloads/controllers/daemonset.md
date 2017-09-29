@@ -1,6 +1,10 @@
 ---
 approvers:
+- enisoc
 - erictune
+- foxish
+- janetkuo
+- kow3ns
 title: Daemon Sets
 ---
 
@@ -9,9 +13,9 @@ title: Daemon Sets
 
 ## What is a DaemonSet?
 
-A _DaemonSet_ ensures that all (or some) nodes run a copy of a pod.  As nodes are added to the
-cluster, pods are added to them.  As nodes are removed from the cluster, those pods are garbage
-collected.  Deleting a DaemonSet will clean up the pods it created.
+A _DaemonSet_ ensures that all (or some) Nodes run a copy of a Pod.  As nodes are added to the
+cluster, Pods are added to them.  As nodes are removed from the cluster, those Pods are garbage
+collected.  Deleting a DaemonSet will clean up the Pods it created.
 
 Some typical uses of a DaemonSet are:
 
@@ -47,20 +51,26 @@ A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/dev
 
 ### Pod Template
 
-The `.spec.template` is the only required field of the `.spec`.
+The `.spec.template` is one of the required fields in `.spec`.
 
-The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [pod](/docs/concepts/workloads/pods/pod/), except it is nested and does not have an `apiVersion` or `kind`.
+The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [Pod](/docs/concepts/workloads/pods/pod/), except it is nested and does not have an `apiVersion` or `kind`.
 
-In addition to required fields for a pod, a pod template in a DaemonSet has to specify appropriate
+In addition to required fields for a Pod, a Pod template in a DaemonSet has to specify appropriate
 labels (see [pod selector](#pod-selector)).
 
-A pod template in a DaemonSet must have a [`RestartPolicy`](/docs/user-guide/pod-states)
+A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/user-guide/pod-states)
  equal to `Always`, or be unspecified, which defaults to `Always`.
 
 ### Pod Selector
 
 The `.spec.selector` field is a pod selector.  It works the same as the `.spec.selector` of
-a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) or other new resources.
+a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
+
+As of Kubernetes 1.8, you must specify a pod selector that matches the labels of the 
+`.spec.template`. The pod selector will no longer be defaulted when left empty. Selector 
+defaulting was not compatible with `kubectl apply`. Also, once a DaemonSet is created, 
+its `spec.selector` can not be mutated. Mutating the pod selector can lead to the 
+unintentional orphaning of Pods, and it was found to be confusing to users.
 
 The `spec.selector` is an object consisting of two fields:
 
@@ -73,53 +83,58 @@ When the two are specified the result is ANDed.
 If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`.  If not
 specified, they are defaulted to be equal.  Config with these not matching will be rejected by the API.
 
-Also you should not normally create any pods whose labels match this selector, either directly, via
-another DaemonSet, or via other controller such as ReplicationController.  Otherwise, the DaemonSet
-controller will think that those pods were created by it.  Kubernetes will not stop you from doing
-this.  One case where you might want to do this is manually create a pod with a different value on
+Also you should not normally create any Pods whose labels match this selector, either directly, via
+another DaemonSet, or via other controller such as ReplicaSet.  Otherwise, the DaemonSet
+controller will think that those Pods were created by it.  Kubernetes will not stop you from doing
+this.  One case where you might want to do this is manually create a Pod with a different value on
 a node for testing.
+
+If you attempt to create a DaemonSet such that 
 
 ### Running Pods on Only Some Nodes
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
-create pods on nodes which match that [node
+create Pods on nodes which match that [node
 selector](/docs/concepts/configuration/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity`,
-then DaemonSet controller will create pods on nodes which match that [node affinity](/docs/concepts/configuration/assign-pod-node/).
-If you do not specify either, then the DaemonSet controller will create pods on all nodes.
+then DaemonSet controller will create Pods on nodes which match that [node affinity](/docs/concepts/configuration/assign-pod-node/).
+If you do not specify either, then the DaemonSet controller will create Pods on all nodes.
 
 ## How Daemon Pods are Scheduled
 
-Normally, the machine that a pod runs on is selected by the Kubernetes scheduler.  However, pods
-created by the Daemon controller have the machine already selected (`.spec.nodeName` is specified
-when the pod is created, so it is ignored by the scheduler).  Therefore:
+Normally, the machine that a Pod runs on is selected by the Kubernetes scheduler.  However, Pods
+created by the DaemonSet controller have the machine already selected (`.spec.nodeName` is specified
+when the Pod is created, so it is ignored by the scheduler).  Therefore:
 
  - The [`unschedulable`](/docs/admin/node/#manual-node-administration) field of a node is not respected
    by the DaemonSet controller.
- - DaemonSet controller can make pods even when the scheduler has not been started, which can help cluster
+ - The DaemonSet controller can make Pods even when the scheduler has not been started, which can help cluster
    bootstrap.
 
-Daemon pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature),
+Daemon Pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature),
 but they are created with `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
  - `node.alpha.kubernetes.io/notReady`
  - `node.alpha.kubernetes.io/unreachable`
- - `node.alpha.kubernetes.io/memoryPressure`
- - `node.alpha.kubernetes.io/diskPressure`
-
-When the support to critical pods is enabled and the pods in a DaemonSet are
-labelled as critical, the Daemon pods are created with an additional
-`NoExecute` toleration for the `node.alpha.kubernetes.io/outOfDisk` taint with
-no `tolerationSeconds`.
 
 This ensures that when the `TaintBasedEvictions` alpha feature is enabled,
 they will not be evicted when there are node problems such as a network partition. (When the
 `TaintBasedEvictions` feature is not enabled, they are also not evicted in these scenarios, but
 due to hard-coded behavior of the NodeController rather than due to tolerations).
 
+ They also tolerate following `NoSchedule` taints:
+ 
+ - `node.kubernetes.io/memory-pressure`
+ - `node.kubernetes.io/disk-pressure`
+
+When the support to critical pods is enabled and the pods in a DaemonSet are
+labelled as critical, the Daemon pods are created with an additional
+`NoSchedule` toleration for the `node.kubernetes.io/out-of-disk` taint.
+
+Note that all above `NoSchedule` taints above are created only in version 1.8 or later if the alpha feature `TaintNodesByCondition` is enabled.
 
 ## Communicating with Daemon Pods
 
-Some possible patterns for communicating with pods in a DaemonSet are:
+Some possible patterns for communicating with Pods in a DaemonSet are:
 
 - **Push**: Pods in the DaemonSet are configured to send updates to another service, such
   as a stats database.  They do not have clients.
@@ -127,24 +142,24 @@ Some possible patterns for communicating with pods in a DaemonSet are:
 - **DNS**: Create a [headless service](/docs/concepts/services-networking/service/#headless-services) with the same pod selector,
   and then discover DaemonSets using the `endpoints` resource or retrieve multiple A records from
   DNS.
-- **Service**: Create a service with the same pod selector, and use the service to reach a
+- **Service**: Create a service with the same Pod selector, and use the service to reach a
   daemon on a random node. (No way to reach specific node.)
 
 ## Updating a DaemonSet
 
-If node labels are changed, the DaemonSet will promptly add pods to newly matching nodes and delete
-pods from newly not-matching nodes.
+If node labels are changed, the DaemonSet will promptly add Pods to newly matching nodes and delete
+Pods from newly not-matching nodes.
 
-You can modify the pods that a DaemonSet creates.  However, pods do not allow all
+You can modify the Pods that a DaemonSet creates.  However, Pods do not allow all
 fields to be updated.  Also, the DaemonSet controller will use the original template the next
 time a node (even with the same name) is created.
 
 
-You can delete a DaemonSet.  If you specify `--cascade=false` with `kubectl`, then the pods
+You can delete a DaemonSet.  If you specify `--cascade=false` with `kubectl`, then the Pods
 will be left on the nodes.  You can then create a new DaemonSet with a different template.
-the new DaemonSet with the different template will recognize all the existing pods as having
-matching labels.  It will not modify or delete them despite a mismatch in the pod template.
-You will need to force new pod creation by deleting the pod or deleting the node.
+The new DaemonSet with the different template will recognize all the existing Pods as having
+matching labels.  It will not modify or delete them despite a mismatch in the Pod template.
+You will need to force new Pod creation by deleting the Pod or deleting the node.
 
 In Kubernetes version 1.6 and later, you can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
 
@@ -159,35 +174,35 @@ It is certainly possible to run daemon processes by directly starting them on a 
 running such processes via a DaemonSet:
 
 - Ability to monitor and manage logs for daemons in the same way as applications.
-- Same config language and tools (e.g. pod templates, `kubectl`) for daemons and applications.
+- Same config language and tools (e.g. Pod templates, `kubectl`) for daemons and applications.
 - Future versions of Kubernetes will likely support integration between DaemonSet-created
-  pods and node upgrade workflows.
+  Pods and node upgrade workflows.
 - Running daemons in containers with resource limits increases isolation between daemons from app
-  containers.  However, this can also be accomplished by running the daemons in a container but not in a pod
+  containers.  However, this can also be accomplished by running the daemons in a container but not in a Pod
   (e.g. start directly via Docker).
 
 ### Bare Pods
 
-It is possible to create pods directly which specify a particular node to run on.  However,
-a DaemonSet replaces pods that are deleted or terminated for any reason, such as in the case of
+It is possible to create Pods directly which specify a particular node to run on.  However,
+a DaemonSet replaces Pods that are deleted or terminated for any reason, such as in the case of
 node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, you should
-use a DaemonSet rather than creating individual pods.
+use a DaemonSet rather than creating individual Pods.
 
 ### Static Pods
 
-It is possible to create pods by writing a file to a certain directory watched by Kubelet.  These
+It is possible to create Pods by writing a file to a certain directory watched by Kubelet.  These
 are called [static pods](/docs/concepts/cluster-administration/static-pod/).
-Unlike DaemonSet, static pods cannot be managed with kubectl
-or other Kubernetes API clients.  Static pods do not depend on the apiserver, making them useful
-in cluster bootstrapping cases.  Also, static pods may be deprecated in the future.
+Unlike DaemonSet, static Pods cannot be managed with kubectl
+or other Kubernetes API clients.  Static Pods do not depend on the apiserver, making them useful
+in cluster bootstrapping cases.  Also, static Pods may be deprecated in the future.
 
-### Replication Controller
+### Deployments
 
-DaemonSet are similar to [Replication Controllers](/docs/user-guide/replication-controller) in that
-they both create pods, and those pods have processes which are not expected to terminate (e.g. web servers,
+DaemonSets are similar to [Deployments](/docs/concepts/workloads/controllers/deployment.md) in that
+they both create Pods, and those Pods have processes which are not expected to terminate (e.g. web servers,
 storage servers).
 
-Use a replication controller for stateless services, like frontends, where scaling up and down the
+Use a Deployment for stateless services, like frontends, where scaling up and down the
 number of replicas and rolling out updates are more important than controlling exactly which host
-the pod runs on.  Use a Daemon Controller when it is important that a copy of a pod always run on
-all or certain hosts, and when it needs to start before other pods.
+the Pod runs on.  Use a DaemonSet when it is important that a copy of a Pod always run on
+all or certain hosts, and when it needs to start before other Pods.

@@ -52,7 +52,7 @@ Configure components in a cluster federation.
 
 #### Managing Stateful Applications
 
-Perform common tasks for managing Stateful applications, including upgrading from PetSets and scaling, deleting, and debugging StatefulSets.
+Perform common tasks for managing Stateful applications, including scaling, deleting, and debugging StatefulSets.
 
 #### Cluster Daemons
 
@@ -61,6 +61,10 @@ Perform common tasks for managing a DaemonSet, such as performing a rolling upda
 #### Managing GPUs
 
 Configure and schedule NVIDIA GPUs for use as a resource by nodes in a cluster.
+
+#### Managing HugePages
+
+Configure and schedule huge pages as a schedulable resource in a cluster.
 
 ### What's next
 
