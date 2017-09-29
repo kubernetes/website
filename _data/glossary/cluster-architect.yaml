@@ -4,7 +4,7 @@ related:
   - cluster
   - cluster-operator
 tags:
-- User Type
+  - user-type
 short-description: |
   People who design infrastructure that involves one or more Kubernetes clusters.
 

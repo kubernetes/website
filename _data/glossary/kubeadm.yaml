@@ -1,0 +1,9 @@
+id: kubeadm
+name: Kubeadm
+tags:
+- tool
+- operation
+short-description: |
+  TODO
+long-description: |
+  more TODO

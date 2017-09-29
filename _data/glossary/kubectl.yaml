@@ -1,0 +1,9 @@
+id: kubectl
+name: Kubectl
+tags:
+- tool
+- fundamental
+short-description: |
+  TODO
+long-description: |
+  more TODO

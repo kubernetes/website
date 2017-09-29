@@ -6,7 +6,7 @@ related:
   - cluster
   - cluster-architect
 tags:
-- User Type
+  - user-type
 short-description: |
   People who configure, control, and monitor cluster(s).
 

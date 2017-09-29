@@ -1,8 +1,10 @@
 id: ingress
 name: Ingress
 tags:
-- Networking
+- networking
+- architecture
+- extension
 short-description: |
   TODO
 long-description: |
-  TODO
+  more TODO

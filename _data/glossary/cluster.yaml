@@ -1,9 +1,9 @@
 id: cluster
 name: Clusters
 tags:
-- Fundamental
-- Operation
+- fundamental
+- operation
 short-description: |
   TODO
 long-description: |
-  TODO
+  more TODO

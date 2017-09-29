@@ -1,10 +1,10 @@
 id: deployment
 name: Deployments
 tags:
-- Fundamental
-- Core Object
-- Workload
+- fundamental
+- core-object
+- workload
 short-description: |
   TODO
 long-description: |
-  TODO
+  more TODO

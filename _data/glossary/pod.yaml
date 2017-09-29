@@ -6,7 +6,7 @@ related:
 - deployment
 - statefulset
 tags:
-- API Object
+- core-object
 short-description: |
   The smallest and simplest Kubernetes objects. Represent a set of running processes on your cluster.
 long-description: |

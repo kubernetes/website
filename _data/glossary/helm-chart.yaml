@@ -1,9 +1,8 @@
 id: helm-chart
 name: Helm Charts
 tags:
-- Configuration
-- Tool
+- tool
 short-description: |
   TODO
 long-description: |
-  TODO
+  more TODO

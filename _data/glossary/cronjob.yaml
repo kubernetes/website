@@ -1,9 +1,9 @@
 id: cronjob
 name: CronJobs
 tags:
-- Core Object
-- Workload
+- core-object
+- workload
 short-description: |
   TODO
 long-description: |
-  TODO
+  more TODO

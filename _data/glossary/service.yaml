@@ -1,0 +1,9 @@
+id: service
+name: Service
+tags:
+- fundamental
+- core-object
+short-description: |
+  TODO
+long-description: |
+  more TODO

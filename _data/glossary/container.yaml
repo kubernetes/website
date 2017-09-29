@@ -1,9 +1,9 @@
 id: container
 name: Containers
 tags:
-- Fundamental
-- Workload
+- fundamental
+- workload
 short-description: |
   TODO
 long-description: |
-  TODO
+  more TODO

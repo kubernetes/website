@@ -1,0 +1,3 @@
+id: workload
+name: Workload
+description: Relevant to running applications ON Kubernetes.

@@ -6,9 +6,9 @@ related:
 - deployment
 - pod
 tags:
-- Core Object
-- Workload
-- Storage
+- core-object
+- workload
+- storage
 short-description: |
   Manage the deployment and scaling of a set of Pods, *and provide guarantees about the ordering and uniqueness* of these Pods.
 
