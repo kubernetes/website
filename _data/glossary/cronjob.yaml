@@ -1,5 +1,5 @@
 id: cronjob
-name: CronJobs
+name: CronJob
 tags:
 - core-object
 - workload

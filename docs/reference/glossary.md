@@ -4,18 +4,10 @@ approvers:
 - abiogenesis-now
 title: Standardized Glossary
 noedit: true
-default_active_tag_state: true
+default_active_tag: fundamental
 ---
 <link href="/css/glossary.css" rel="stylesheet">
 <script src="/js/glossary.js"></script>
-
-{% if page.default_active_tag_state %}
-{% assign tag_state_class = "active-tag" %}
-{% assign term_visibility_class = "" %}
-{% else %}
-{% assign tag_state_class = "" %}
-{% assign term_visibility_class = "hide" %}
-{% endif %}
 
 <p><b><i>This page is still a work-in-progress. More terms will be added.</i></b><p>
 
@@ -32,7 +24,14 @@ default_active_tag_state: true
 {% endfor %}
 
 {% for tag in site.data.canonical-tags %}
+
 {% assign tag_info = tag[1] %}
+{% if tag_info.id == page.default_active_tag %}
+{% assign tag_state_class = "active-tag" %}
+{% else %}
+{% assign tag_state_class = "" %}
+{% endif %}
+
 <span class="tag-option canonical-tag {{ tag_state_class }}" data-target="{{ tag_info.id | prepend: "tag-" }}">
 <a href="javascript:void(0)">{{ tag_info.name }}</a>
 </span>
@@ -49,9 +48,13 @@ default_active_tag_state: true
 {% for term in glossary_terms %}
 
 {% assign tag_classes = term.tags | join: " tag-" | prepend: "tag-" %}
-{% if page.default_active_tag_state %}
-{% assign show_count = term.tags | size %}
+
+{% assign num_match = term.tags | where_exp: "tag", "tag == page.default_active_tag" | size %}
+{% if num_match > 0 %}
+{% assign term_visibility_class = "" %}
+{% assign show_count = 1 %}
 {% else %}
+{% assign term_visibility_class = "hide" %}
 {% assign show_count = 0 %}
 {% endif %}
 

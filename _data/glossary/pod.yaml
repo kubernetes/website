@@ -1,5 +1,5 @@
 id: pod
-name: Pods
+name: Pod
 related:
 - container
 - sidecar
@@ -8,6 +8,6 @@ related:
 tags:
 - core-object
 short-description: |
-  The smallest and simplest Kubernetes objects. Represent a set of running processes on your cluster.
+  The smallest and simplest Kubernetes object. Represents a set of running processes on your cluster.
 long-description: |
-  Pods most often run only a single container, and are managed by a Deployment. <TODO ELABORATE>
+  A pod is typically set up to run a single primary container. It can also run optional sidecar containers that add supplementary features like logging. Pods are commonly managed by a Deployment.
