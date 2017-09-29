@@ -349,7 +349,7 @@ and then return on its own.
 
 If your Kubernetes cluster has multiple Nodes, you can simulate Node downtime
 (such as when Nodes are upgraded) by issuing a
-[drain](/docs/user-guide/kubectl/v1.6/#drain).
+[drain](/docs/user-guide/kubectl/{{page.version}}/#drain).
 
 First determine which Node one of the MySQL Pods is on:
 
