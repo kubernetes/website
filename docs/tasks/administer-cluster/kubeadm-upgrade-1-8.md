@@ -202,6 +202,12 @@ $ kubeadm upgrade apply v1.8.0
    find your CNI provider and see if there are additional upgrade steps
    necessary.
 
+6. Add RBAC permissions for automated certificate rotation. In the future, kubeadm will perform this step automatically:
+
+```shell
+$ kubectl create clusterrolebinding kubeadm:node-autoapprove-certificate-rotation --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient --group=system:nodes
+```
+
 ## Upgrading your master and node packages
 
 For each host (referred to as `$HOST` below) in your cluster, upgrade `kubelet` by executing the following commands:
@@ -240,28 +246,13 @@ Now the new version of the `kubelet` should be running on the host. Verify this 
 $ systemctl status kubelet
 ```
 
-3. Since certificate rotation is enabled by default, you may need to manually approve the new kubelet's CertificateSigningRequest before it can rejoin the cluster:
-
-```shell
-$ kubectl get csr | grep -v Approved
-NAME                                                   AGE       REQUESTOR                 CONDITION
-node-csr-czl32tarZb_XYKnvXf0Q0o4spGUXzJhN2p4_ld7k1iM   2h        system:bootstrap:033abb   Pending
-```
-
-If you see any CSRs listed that aren't already approved, you can manually approve them using kubectl:
-
-```shell
-$ kubectl certificate approve node-csr-czl32tarZb_XYKnvXf0Q0o4spGUXzJhN2p4_ld7k1iM
-certificatesigningrequest "node-csr-czl32tarZb_XYKnvXf0Q0o4spGUXzJhN2p4_ld7k1iM" approved
-```
-
-4. Bring the host back online by marking it schedulable:
+3. Bring the host back online by marking it schedulable:
 
 ```shell
 $ kubectl uncordon $HOST
 ```
 
-5. After upgrading `kubelet` on each host in your cluster, verify that all nodes are available again by executing the following (from anywhere, for example, from outside the cluster):
+4. After upgrading `kubelet` on each host in your cluster, verify that all nodes are available again by executing the following (from anywhere, for example, from outside the cluster):
 
 ```shell
 $ kubectl get nodes
