@@ -257,7 +257,8 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8
 `amd64` you have to manually download the manifest and replace `amd64` occurences with your chosen platform.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.8.0/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.8.0/Documentation/kube-flannel-rbac.yml
 ```
 {% endcapture %}
 
