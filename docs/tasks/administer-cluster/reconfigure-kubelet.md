@@ -89,12 +89,13 @@ and debug issues. The compromise, however, is that you must start with knowledge
 of the existing configuration to ensure that you only change the fields you
 intend to change.
 
-In the future, the Kubelet will be bootstrapped from a file on disk, and you
-will simply edit a copy of this file (which, as a best practice, should live in
-version control) while creating the first Kubelet ConfigMap. Today, however, the
-Kubelet is still bootstrapped with command-line flags. Fortunately, there is a
-dirty trick you can use to generate a config file containing a Node's current
-configuration. The trick involves hitting the Kubelet server's `configz`
+In the future, the Kubelet will be bootstrapped from a file on disk
+(see [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file)),
+and you will simply edit a copy of this file (which, as a best practice, should
+live in version control) while creating the first Kubelet ConfigMap. Today,
+however, the Kubelet is still bootstrapped with command-line flags. Fortunately,
+there is a dirty trick you can use to generate a config file containing a Node's
+current configuration. The trick involves hitting the Kubelet server's `configz`
 endpoint via the kubectl proxy. This endpoint, in its current implementation, is
 intended to be used only as a debugging aid, which is part of why this is a
 dirty trick. There is ongoing work to improve the endpoint, and in the future
