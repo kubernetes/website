@@ -133,9 +133,9 @@ rules:
 As of 1.8, equivalent roles to the ones listed above are automatically created as part of the default RBAC roles.
 For 1.8 clusters admins are recommended to bind tokens to the following roles instead of creating their own:
 
-* `system:certificates.k8s.io:certificatesigningrequests:io:certificatesigningrequests:nodeclient`
+* `system:certificates.k8s.io:certificatesigningrequests:nodeclient`
     - Automatically approve CSRs for client certs bound to this role.
-* `system:certificates.k8s.io:certificatesigningrequests:io:certificatesigningrequests:selfnodeclient`
+* `system:certificates.k8s.io:certificatesigningrequests:selfnodeclient`
     - Automatically approve CSRs when a client bound to its role renews its own certificate.
 
 These powers can be granted to credentials, such as bootstrapping tokens. For example, to replicate the behavior
