@@ -7,7 +7,7 @@ title: Services
 Kubernetes [`Pods`](/docs/user-guide/pods) are mortal. They are born and when they die, they
 are not resurrected.  [`ReplicationControllers`](/docs/user-guide/replication-controller) in
 particular create and destroy `Pods` dynamically (e.g. when scaling up or down
-or when doing [rolling updates](/docs/user-guide/kubectl/v1.7/#rolling-update)).  While each `Pod` gets its own IP address, even
+or when doing [rolling updates](/docs/user-guide/kubectl/{{page.version}}/#rolling-update)).  While each `Pod` gets its own IP address, even
 those IP addresses cannot be relied upon to be stable over time. This leads to
 a problem: if some set of `Pods` (let's call them backends) provides
 functionality to other `Pods` (let's call them frontends) inside the Kubernetes
@@ -177,7 +177,7 @@ or `Services` or `Pods`.
 By default, the choice of backend is round robin.  Client-IP based session affinity
 can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
 default is `"None"`), and you can set the max session sticky time by setting the field
-`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set 
+`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set
 `service.spec.sessionAffinity` to `"ClientIP"` (the default is "10800").
 
 ![Services overview diagram for userspace proxy](/images/docs/services-userspace-overview.svg)
@@ -194,7 +194,7 @@ select a backend `Pod`.
 By default, the choice of backend is random.  Client-IP based session affinity
 can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
 default is `"None"`), and you can set the max session sticky time by setting the field
-`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set 
+`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set
 `service.spec.sessionAffinity` to `"ClientIP"` (the default is "10800").
 
 As with the userspace proxy, the net result is that any traffic bound for the
