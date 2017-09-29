@@ -55,6 +55,7 @@ toc:
 - title: kubectl CLI
   section:
   - docs/user-guide/kubectl-overview.md
+  - docs/user-guide/kubectl/index.md
   - title: v1.8 Commands
     path: /docs/user-guide/kubectl/v1.8/
   - title: v1.7 Commands
