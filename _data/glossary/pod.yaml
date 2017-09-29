@@ -7,6 +7,7 @@ related:
 - statefulset
 tags:
 - core-object
+- fundamental
 short-description: |
   The smallest and simplest Kubernetes object. Represents a set of running processes on your cluster.
 long-description: |

@@ -2,6 +2,7 @@ id: rbac
 name: RBAC
 tags:
 - security
+- fundamental
 short-description: |
   TODO
 long-description: |

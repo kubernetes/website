@@ -23,9 +23,9 @@ default_active_tag: fundamental
 </div>
 {% endfor %}
 
-{% for tag in site.data.canonical-tags %}
+{% assign sorted_tags = site.data.canonical-tags | where_exp: "tag", "true" | sort: 'name' %}
+{% for tag_info in sorted_tags %}
 
-{% assign tag_info = tag[1] %}
 {% if tag_info.id == page.default_active_tag %}
 {% assign tag_state_class = "active-tag" %}
 {% else %}
