@@ -42,7 +42,7 @@ on each node.
 
 `Allocatable` on a Kubernetes node is defined as the amount of compute resources
 that are available for pods. The scheduler does not over-subscribe
-`Allocatable`. `CPU`, `memory` and `storage` are supported as of now.
+`Allocatable`. `CPU`, `memory` and `ephemeral-storage` are supported as of now.
 
 Node Allocatable is exposed as part of `v1.Node` object in the API and as part
 of `kubectl describe node` in the CLI.
@@ -77,7 +77,7 @@ be configured to use the `systemd` cgroup driver.
 
 ### Kube Reserved
 
-- **Kubelet Flag**: `--kube-reserved=[cpu=100m][,][memory=100Mi][,][storage=1Gi]`
+- **Kubelet Flag**: `--kube-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=1Gi]`
 - **Kubelet Flag**: `--kube-reserved-cgroup=`
 
 `kube-reserved` is meant to capture resource reservation for kubernetes system
@@ -107,7 +107,7 @@ exist. Kubelet will fail if an invalid cgroup is specified.
 
 ### System Reserved
 
-- **Kubelet Flag**: `--system-reserved=[cpu=100mi][,][memory=100Mi][,][storage=1Gi]`
+- **Kubelet Flag**: `--system-reserved=[cpu=100mi][,][memory=100Mi][,][ephemeral-storage=1Gi]`
 - **Kubelet Flag**: `--system-reserved-cgroup=`
 
 
@@ -135,7 +135,7 @@ Memory pressure at the node level leads to System OOMs which affects the entire
 node and all pods running on it. Nodes can go offline temporarily until memory
 has been reclaimed. To avoid (or reduce the probability of) system OOMs kubelet
 provides [`Out of Resource`](./out-of-resource.md) management. Evictions are
-supported for `memory` and `storage` only. By reserving some memory via
+supported for `memory` and `ephemeral-storage` only. By reserving some memory via
 `--eviction-hard` flag, the `kubelet` attempts to `evict` pods whenever memory
 availability on the node drops below the reserved value. Hypothetically, if
 system daemons did not exist on a node, pods cannot use more than `capacity -
@@ -191,8 +191,8 @@ So expect a drop in `Allocatable` capacity in future releases.
 Here is an example to illustrate Node Allocatable computation:
 
 * Node has `32Gi` of `memory`, `16 CPUs` and `100Gi` of `Storage`
-* `--kube-reserved` is set to `cpu=1,memory=2Gi,storage=1Gi`
-* `--system-reserved` is set to `cpu=500m,memory=1Gi,storage=1Gi`
+* `--kube-reserved` is set to `cpu=1,memory=2Gi,ephemeral-storage=1Gi`
+* `--system-reserved` is set to `cpu=500m,memory=1Gi,ephemeral-storage=1Gi`
 * `--eviction-hard` is set to `memory.available<500Mi,nodefs.available<10%`
 
 Under this scenario, `Allocatable` will be `14.5 CPUs`, `28.5Gi` of memory and

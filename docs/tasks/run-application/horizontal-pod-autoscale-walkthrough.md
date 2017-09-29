@@ -9,7 +9,7 @@ title: Horizontal Pod Autoscaling Walkthrough
 
 Horizontal Pod Autoscaling automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization
-(or, with alpha support, on some other, application-provided metrics).
+(or, with beta support, on some other, application-provided metrics).
 
 This document walks you through an example of enabling Horizontal Pod Autoscaling for the php-apache server.  For more information on how Horizontal Pod Autoscaling behaves, see the [Horizontal Pod Autoscaling user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
@@ -129,18 +129,18 @@ Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas 
 ## Autoscaling on multiple metrics and custom metrics
 
 You can introduce additional metrics to use when autoscaling the `php-apache` Deployment
-by making use of the `autoscaling/v2alpha1` API version.
+by making use of the `autoscaling/v2beta1` API version.
 
-First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2alpha1` form:
+First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2beta1` form:
 
 ```shell
-$ kubectl get hpa.v2alpha1.autoscaling -o yaml > /tmp/hpa-v2.yaml
+$ kubectl get hpa.v2beta1.autoscaling -o yaml > /tmp/hpa-v2.yaml
 ```
 
 Open the `/tmp/hpa-v2.yaml` file in an editor, and you should see YAML which looks like this:
 
 ```yaml
-apiVersion: autoscaling/v2alpha1
+apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
@@ -189,6 +189,7 @@ are averaged together across pods and compared with a target value to determine 
 They work much like resource metrics, except that they *only* have the `targetAverageValue` field.
 
 Pod metrics are specified using a metric block like this:
+
 ```yaml
 type: Pods
 pods:
@@ -220,7 +221,7 @@ For example, if you had your monitoring system collecting metrics about network 
 you could update the definition above using `kubectl edit` to look like this:
 
 ```yaml
-apiVersion: autoscaling/v2alpha1
+apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
@@ -268,7 +269,7 @@ Ingress were serving a total of 10000 requests per second.
 
 ## Appendix: Horizontal Pod Autoscaler Status Conditions
 
-When using the `autoscaling/v2alpha1` form of the HorizontalPodAutoscaler, you will be able to see
+When using the `autoscaling/v2beta1` form of the HorizontalPodAutoscaler, you will be able to see
 *status conditions* set by Kubernetes on the HorizontalPodAutoscaler.  These status conditions indicate
 whether or not the HorizontalPodAutoscaler is able to scale, and whether or not it is currently restricted
 in any way.

@@ -12,7 +12,7 @@ title: Extend the Kubernetes API with ThirdPartyResources
 
 ## What is ThirdPartyResource?
 
-**ThirdPartyResource is deprecated as of Kubernetes 1.7 and may be removed in version 1.8 in
+**ThirdPartyResource is deprecated as of Kubernetes 1.7 and has been removed in version 1.8 in
 accordance with the [deprecation policy](/docs/reference/deprecation-policy) for beta features.**
 
 **To avoid losing data stored in ThirdPartyResources, you must

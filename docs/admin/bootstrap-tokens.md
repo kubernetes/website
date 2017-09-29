@@ -24,8 +24,7 @@ Controller Manager.  The tokens are also used to create a signature for a
 specific ConfigMap used in a "discovery" process through a BootstrapSigner
 controller.
 
-Currently, Bootstrap Tokens are **alpha** but there are no large breaking
-changes expected.
+{% include feature-state-beta.md %}
 
 ## Token Format
 
@@ -39,10 +38,10 @@ only be shared with trusted parties.
 
 ## Enabling Bootstrap Tokens
 
-All features for Bootstrap Tokens are disabled by default in Kubernetes v1.6.
+All features for Bootstrap Tokens are disabled by default in Kubernetes v1.8.
 
 You can enable the Bootstrap Token authenticator with the
-`--experimental-bootstrap-token-auth` flag on the API server.  You can enable
+`--enable-bootstrap-token-auth` flag on the API server.  You can enable
 the Bootstrap controllers by specifying them with the `--controllers` flag on the
 controller manager with something like
 `--controllers=*,tokencleaner,bootstrapsigner`.  This is done automatically when
@@ -78,6 +77,7 @@ data:
   expiration: base64(2017-03-10T03:22:11Z)
   usage-bootstrap-authentication: base64(true)
   usage-bootstrap-signing: base64(true)
+  auth-extra-groups: base64(system:bootstrappers:group1,system:bootstrappers:group2)
 ```
 
 The type of the secret must be `bootstrap.kubernetes.io/token` and the name must
@@ -92,8 +92,11 @@ for.  A value must be set to `true` to be enabled.
 `usage-bootstrap-authentication` indicates that the token can be used to
 authenticate to the API server.  The authenticator authenticates as
 `system:bootstrap:<Token ID>`.  It is included in the `system:bootstrappers`
-group.  The naming and groups are intentionally limited to discourage users from
-using these tokens past bootstrapping.
+group. `auth-extra-groups` indicates that it will also be included in the
+`system:bootstrappers:group1`, and `system:bootstrappers:group2` groups. The
+naming and groups are intentionally limited to discourage users from using these
+tokens past bootstrapping. Extra bootstrap token groups must start with
+`system:bootstrappers:`.
 
 `usage-bootstrap-signing` indicates that the token should be used to sign the
 `cluster-info` ConfigMap as described below.
@@ -104,24 +107,8 @@ controller will delete expired tokens.
 
 ## Token Management with `kubeadm`
 
-You can use the `kubeadm` tool to manage tokens on a running cluster.  It will
-automatically grab the default admin credentials on a master from a `kubeadm`
-created cluster (`/etc/kubernetes/admin.conf`).  You can specify an alternate
-kubeconfig file for credentials with the `--kubeconfig` to the following
-commands.
-
-* `kubeadm token list` Lists the tokens along with when they expire and what the
-  approved usages are.
-* `kubeadm token create` Creates a new token.
-    * `--description` Set the description on the new token.
-    * `--ttl duration` Set expiration time of the token as a delta from "now".
-      Default is 0 for no expiration.
-    * `--usages` Set the ways that the token can be used.  The default is
-      `signing,authentication`.  These are the usages as described above.
-* `kubeadm token delete <token id>|<token id>.<token secret>` Delete a token.
-  The token can either be identified with just an ID or with the entire token
-  value.  Only the ID is used; the token is still deleted if the secret does not
-  match.
+You can use the `kubeadm` tool to manage tokens on a running cluster. See the
+[`kubeadm token` docs](/docs/admin/kubeadm/#manage-tokens) for details.
 
 ## ConfigMap Signing
 
