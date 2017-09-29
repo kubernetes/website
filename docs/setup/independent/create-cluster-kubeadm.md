@@ -286,7 +286,7 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 
 The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
 
-**Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required. 
+**Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required.
 Weave Net sets hairpin mode by default. This allows Pods to access themselves via their Service IP address
 if they don't know their PodIP.
 
@@ -442,7 +442,7 @@ master.
 ## Tear down
 
 To undo what kubeadm did, you should first [drain the
-node](/docs/user-guide/kubectl/v1.6/#drain) and make
+node](/docs/user-guide/kubectl/{{page.version}}/#drain) and make
 sure that the node is empty before shutting it down.
 
 Talking to the master with the appropriate credentials, run:
@@ -560,11 +560,11 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
 
     If not, you may still use the [NodePort feature of
     services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
-    
+
 1. **Pods cannot access themselves via their Service IP**.
-    Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip) 
+    Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
     which allows pods to access themselves via their Service IP if they don't know about their podIP. This is an issue
-    related to [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the providers of the network 
+    related to [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the providers of the network
     add-on providers to get timely information about whether they support hairpin mode.
 
 1. If you are using VirtualBox (directly or via Vagrant), you will need to
@@ -577,8 +577,8 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
 1. The following error indicates a possible certificate mismatch.
 
 ```
-# kubectl get po                           
-Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")       
+# kubectl get po
+Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
 ```
 
 Verify that the `$HOME/.kube/config` file contains a valid certificate, and regenerate a certificate if necessary.
@@ -601,13 +601,13 @@ cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 
 If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver.
 
-Update 
+Update
 
 ```bash
-KUBELET_CGROUP_ARGS=--cgroup-driver=systemd 
+KUBELET_CGROUP_ARGS=--cgroup-driver=systemd
 ```
 
-To 
+To
 
 ```bash
 KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs
