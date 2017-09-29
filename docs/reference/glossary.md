@@ -43,7 +43,7 @@ default_active_tag_state: true
 
 <p>Click on the <a href="javascript:void(0)" class="no-underline">[+]</a> indicators below to get a longer explanation for any particular term.</p>
 
-{% assign glossary_terms = site.data.glossary | where_exp: "term", "term.id != '_example'" %}
+{% assign glossary_terms = site.data.glossary | where_exp: "term", "term.id != '_example'" | sort: 'name' %}
 
 <ul>
 {% for term in glossary_terms %}
