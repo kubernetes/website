@@ -303,7 +303,67 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 You can see that the Container was terminated because of `reason:OOM Killed`,
 where `OOM` stands for Out Of Memory.
 
-## Opaque integer resources (Alpha feature)
+## Local ephemeral storage (alpha feature)
+
+Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managing local ephemeral storage. In each Kubernetes node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This partition is also shared and consumed by pods via EmptyDir volumes, container logs, image layers and container writable layers.
+
+This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
+
+**Note:** If an optional runntime partition is used, root parition will not hold any image layer or writable layers. 
+{: .note}
+
+### Requests and limits setting for local ephemeral storage
+Each Container of a Pod can specify one or more of the following:
+
+* `spec.containers[].resources.limits.ephemeral-storage`
+* `spec.containers[].resources.requests.ephemeral-storage`
+
+Limits and requests for `ephemeral-storage` are measured in bytes. You can express storage as
+a plain integer or as a fixed-point integer using one of these suffixes:
+E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
+Mi, Ki. For example, the following represent roughly the same value:
+
+```shell
+128974848, 129e6, 129M, 123Mi
+```
+
+For example, the following Pod has two Containers. Each Container has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of storage.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+spec:
+  containers:
+  - name: db
+    image: mysql
+    resources:
+      requests:
+        ephemeral-storage: "2Gi"
+      limits:
+        ephemeral-storage: "4Gi"
+  - name: wp
+    image: wordpress
+    resources:
+      requests:
+        ephemeral-storage: "2Gi"
+      limits:
+        ephemeral-storage: "4Gi"
+```
+
+### How Pods with ephemeral-storage requests are scheduled
+
+When you create a Pod, the Kubernetes scheduler selects a node for the Pod to 
+run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. (For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
+
+### How Pods with ephemeral-storage limits run
+
+For container-level isolation, if a Container's writable layer and logs usage exceeds its storage limit, the pod will be evicted. For pod-level isolation, if the sum of the local ephemeral storage usage from all containers and also the pod's EmptyDir volumes exceeds the limit, the pod will be evicted.
+
+## Opaque integer resources (alpha feature)
+
+{% include feature-state-deprecated.md %}
 
 Kubernetes version 1.5 introduces Opaque integer resources. Opaque
 integer resources allow cluster operators to advertise new node-level
@@ -313,9 +373,12 @@ Users can consume these resources in Pod specs just like CPU and memory.
 The scheduler takes care of the resource accounting so that no more than the
 available amount is simultaneously allocated to Pods.
 
-**Note:** Opaque integer resources are Alpha in Kubernetes version 1.5.
-Only resource accounting is implemented; node-level isolation is still
-under active development.
+**Note:** Opaque Integer Resources will be removed in version 1.9.
+[Extended Resources](#extended-resources) are a replacement for Opaque Integer
+Resources. Users can use any domain name prefix outside of the `kubernetes.io/`
+domain instead of the previous `pod.alpha.kubernetes.io/opaque-int-resource-`
+prefix.
+{: .note}
 
 Opaque integer resources are resources that begin with the prefix
 `pod.alpha.kubernetes.io/opaque-int-resource-`. The API server
@@ -339,22 +402,9 @@ first pod that requests the resource to be scheduled on that node.
 
 **Example:**
 
-Here is an HTTP request that advertises five "foo" resources on node `k8s-node-1` whose master is `k8s-master`.
-
-```http
-PATCH /api/v1/nodes/k8s-node-1/status HTTP/1.1
-Accept: application/json
-Content-Type: application/json-patch+json
-Host: k8s-master:8080
-
-[
-  {
-    "op": "add",
-    "path": "/status/capacity/pod.alpha.kubernetes.io~1opaque-int-resource-foo",
-    "value": "5"
-  }
-]
-```
+Here is an example showing how to use `curl` to form an HTTP request that
+advertises five "foo" resources on node `k8s-node-1` whose master is
+`k8s-master`.
 
 ```shell
 curl --header "Content-Type: application/json-patch+json" \
@@ -393,6 +443,92 @@ spec:
       requests:
         cpu: 2
         pod.alpha.kubernetes.io/opaque-int-resource-foo: 1
+```
+
+## Extended Resources
+
+Kubernetes version 1.8 introduces Extended Resources. Extended Resources are
+fully-qualified resource names outside the `kubernetes.io` domain. Extended
+Resources allow cluster operators to advertise new node-level resources that
+would be otherwise unknown to the system. Extended Resource quantities must be
+integers and cannot be overcommitted.
+
+Users can consume Extended Resources in Pod specs just like CPU and memory.
+The scheduler takes care of the resource accounting so that no more than the
+available amount is simultaneously allocated to Pods.
+
+The API server restricts quantities of Extended Resources to whole numbers.
+Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
+_invalid_ quantities are `0.5` and `1500m`.
+
+**Note:** Extended Resources replace [Opaque Integer
+Resources](#opaque-integer-resources-alpha-feature). Users can use any domain
+name prefix outside of the `kubernetes.io/` domain instead of the previous
+`pod.alpha.kubernetes.io/opaque-int-resource-` prefix.
+{: .note}
+
+There are two steps required to use Extended Resources. First, the
+cluster operator must advertise a per-node Extended Resource on one or more
+nodes. Second, users must request the Extended Resource in Pods.
+
+To advertise a new Extended Resource, the cluster operator should
+submit a `PATCH` HTTP request to the API server to specify the available
+quantity in the `status.capacity` for a node in the cluster. After this
+operation, the node's `status.capacity` will include a new resource. The
+`status.allocatable` field is updated automatically with the new resource
+asynchronously by the kubelet. Note that because the scheduler uses the
+node `status.allocatable` value when evaluating Pod fitness, there may
+be a short delay between patching the node capacity with a new resource and the
+first pod that requests the resource to be scheduled on that node.
+
+**Example:**
+
+Here is an example showing how to use `curl` to form an HTTP request that
+advertises five "example.com/foo" resources on node `k8s-node-1` whose master
+is `k8s-master`.
+
+```shell
+curl --header "Content-Type: application/json-patch+json" \
+--request PATCH \
+--data '[{"op": "add", "path": "/status/capacity/example.com~1foo", "value": "5"}]' \
+http://k8s-master:8080/api/v1/nodes/k8s-node-1/status
+```
+
+**Note**: In the preceding request, `~1` is the encoding for the character `/`
+in the patch path. The operation path value in JSON-Patch is interpreted as a
+JSON-Pointer. For more details, see
+[IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3).
+{: .note}
+
+To consume an Extended Resource in a Pod, include the resource name as a key
+in the `spec.containers[].resources.requests` map.
+
+**Note:** Extended resources cannot be overcommitted, so request and limit
+must be equal if both are present in a container spec.
+{: .note}
+
+The Pod is scheduled only if all of the resource requests are
+satisfied, including cpu, memory and any Extended Resources. The Pod will
+remain in the `PENDING` state as long as the resource request cannot be met by
+any node.
+
+**Example:**
+
+The Pod below requests 2 cpus and 1 "example.com/foo" (an extended resource.)
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: myimage
+    resources:
+      requests:
+        cpu: 2
+        example.com/foo: 1
 ```
 
 ## Planned Improvements

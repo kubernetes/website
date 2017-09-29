@@ -42,17 +42,16 @@ complete clusters:
 |--------|---------------
 | Command line UX | beta
 | Config file | alpha
-| Selfhosting | alpha
+| Self-hosting | alpha
 | `kubeadm alpha` commands | alpha
-| Implementation | alpha
+| Implementation | beta
 
 The experience for the command line is currently in beta and we are trying hard
 not to change command line flags and break that flow.  Other parts of the
-experience are still under active development.  Specifically, kubeadm relies on
-some features (bootstrap tokens, cluster signing), that are still considered
-alpha.  The implementation may change as the tool evolves to support even easier
-upgrades and high availability (HA).  Any commands under `kubeadm alpha` (not
-documented here) are, of course, alpha.
+experience are still under active development.  The implementation may change
+slightly as the tool evolves to support even easier upgrades and high
+availability (HA).  Any commands under `kubeadm alpha` (not documented here)
+are, of course, alpha.
 
 **Be sure to read the [limitations](#limitations)**.  Specifically, configuring
 cloud providers is difficult.
@@ -129,28 +128,38 @@ The output should look like:
 
 ```
 [kubeadm] WARNING: kubeadm is in beta, please do not use it for production clusters.
-[init] Using Kubernetes version: v1.7.0
+[init] Using Kubernetes version: v1.8.0
 [init] Using Authorization modes: [Node RBAC]
 [preflight] Running pre-flight checks
-[preflight] Starting the kubelet service
-[certificates] Generated CA certificate and key.
-[certificates] Generated API server certificate and key.
-[certificates] API Server serving cert is signed for DNS names [kubeadm-master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.138.0.4]
-[certificates] Generated API server kubelet client certificate and key.
-[certificates] Generated service account token signing key and public key.
-[certificates] Generated front-proxy CA certificate and key.
-[certificates] Generated front-proxy client certificate and key.
+[kubeadm] WARNING: starting in 1.8, tokens expire after 24 hours by default (if you require a non-expiring token use --token-ttl 0)
+[certificates] Generated ca certificate and key.
+[certificates] Generated apiserver certificate and key.
+[certificates] apiserver serving cert is signed for DNS names [kubeadm-master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.138.0.4]
+[certificates] Generated apiserver-kubelet-client certificate and key.
+[certificates] Generated sa key and public key.
+[certificates] Generated front-proxy-ca certificate and key.
+[certificates] Generated front-proxy-client certificate and key.
 [certificates] Valid certificates and keys now exist in "/etc/kubernetes/pki"
-[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/admin.conf"
-[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
-[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/controller-manager.conf"
-[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/scheduler.conf"
-[apiclient] Created API client, waiting for the control plane to become ready
-[apiclient] All control plane components are healthy after 16.502136 seconds
-[token] Using token: <token>
-[apiconfig] Created RBAC rules
-[addons] Applied essential addon: kube-proxy
+[kubeconfig] Wrote KubeConfig file to disk: "admin.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "kubelet.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "controller-manager.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "scheduler.conf"
+[controlplane] Wrote Static Pod manifest for component kube-apiserver to "/etc/kubernetes/manifests/kube-apiserver.yaml"
+[controlplane] Wrote Static Pod manifest for component kube-controller-manager to "/etc/kubernetes/manifests/kube-controller-manager.yaml"
+[controlplane] Wrote Static Pod manifest for component kube-scheduler to "/etc/kubernetes/manifests/kube-scheduler.yaml"
+[etcd] Wrote Static Pod manifest for a local etcd instance to "/etc/kubernetes/manifests/etcd.yaml"
+[init] Waiting for the kubelet to boot up the control plane as Static Pods from directory "/etc/kubernetes/manifests"
+[init] This often takes around a minute; or longer if the control plane images have to be pulled.
+[apiclient] All control plane components are healthy after 39.511972 seconds
+[uploadconfig] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[markmaster] Will mark node master as master by adding a label and a taint
+[markmaster] Master master tainted and labelled with key/value: node-role.kubernetes.io/master=""
+[bootstraptoken] Using token: <token>
+[bootstraptoken] Configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstraptoken] Configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstraptoken] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
 [addons] Applied essential addon: kube-dns
+[addons] Applied essential addon: kube-proxy
 
 Your Kubernetes master has initialized successfully!
 
@@ -167,7 +176,7 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 You can now join any number of machines by running the following on each node
 as root:
 
-  kubeadm join --token <token> <master-ip>:<master-port>
+  kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
@@ -330,7 +339,7 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
 * Run the command that was output by `kubeadm init`. For example:
 
   ``` bash
-  kubeadm join --token <token> <master-ip>:<master-port>
+  kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
   ```
 
 The output should look something like:
@@ -340,13 +349,13 @@ The output should look something like:
 [preflight] Running pre-flight checks
 [discovery] Trying to connect to API Server "10.138.0.4:6443"
 [discovery] Created cluster-info discovery client, requesting info from "https://10.138.0.4:6443"
-[discovery] Cluster info signature and contents are valid, will use API Server "https://10.138.0.4:6443"
+[discovery] Requesting info from "https://10.138.0.4:6443" again to validate TLS against the pinned public key
+[discovery] Cluster info signature and contents are valid and TLS certificate validates against pinned roots, will use API Server "10.138.0.4:6443"
 [discovery] Successfully established connection with API Server "10.138.0.4:6443"
-[bootstrap] Detected server version: v1.7.0
+[bootstrap] Detected server version: v1.8.0
 [bootstrap] The server supports the Certificates API (certificates.k8s.io/v1beta1)
 [csr] Created API client to obtain unique certificate for this node, generating keys and certificate signing request
 [csr] Received signed certificate from the API server, generating KubeConfig...
-[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
 
 Node join complete:
 * Certificate signing request sent to master and response
@@ -454,8 +463,12 @@ appropriate arguments.
 
 ## Upgrading
 
-Instructions for upgrading kubeadm clusters can be found
-[here](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/).
+Instructions for upgrading kubeadm clusters are available for:
+
+ * [1.6 to 1.7 upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/)
+ * [1.7.x to 1.7.y  upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
+ * [1.7 to 1.8 upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
+ * [1.8.x to 1.8.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
 
 ## Explore other add-ons
 
@@ -489,8 +502,8 @@ kubeadm CLI vX.Y can also upgrade an existing kubeadm-created cluster of version
 
 Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be able to deploy vX.(Y+1) clusters.
 
-Example: kubeadm v1.7 can deploy both v1.6 and v1.7 clusters and upgrade v1.6 kubeadm-created clusters to
-v1.7.
+Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
+v1.8.
 
 ## kubeadm is multi-platform {#multi-platform}
 

@@ -99,7 +99,7 @@ may be automatically created in future releases.
 # A ClusterRole which instructs the CSR approver to approve a user requesting
 # node client credentials.
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: approve-node-client-csr
 rules:
@@ -110,7 +110,7 @@ rules:
 # A ClusterRole which instructs the CSR approver to approve a node renewing its
 # own client credentials.
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: approve-node-client-renewal-csr
 rules:
@@ -121,7 +121,7 @@ rules:
 # A ClusterRole which instructs the CSR approver to approve a node requesting a
 # serving cert matching its client cert.
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: approve-node-server-renewal-csr
 rules:
@@ -129,6 +129,14 @@ rules:
   resources: ["certificatesigningrequests/selfnodeserver"]
   verbs: ["create"]
 ```
+
+As of 1.8, equivalent roles to the ones listed above are automatically created as part of the default RBAC roles.
+For 1.8 clusters admins are recommended to bind tokens to the following roles instead of creating their own:
+
+* `system:certificates.k8s.io:certificatesigningrequests:io:certificatesigningrequests:nodeclient`
+    - Automatically approve CSRs for client certs bound to this role.
+* `system:certificates.k8s.io:certificatesigningrequests:io:certificatesigningrequests:selfnodeclient`
+    - Automatically approve CSRs when a client bound to its role renews its own certificate.
 
 These powers can be granted to credentials, such as bootstrapping tokens. For example, to replicate the behavior
 provided by the removed auto-approval flag, of approving all CSRs by a single group:
@@ -143,7 +151,7 @@ An admin would create a `ClusterRoleBinding` targeting that group.
 ```yml
 # Approve all CSRs for the group "system:bootstrappers"
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: auto-approve-csrs-for-group
 subjects:
@@ -161,7 +169,7 @@ that node's credentials:
 
 ```yml
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: node1-client-cert-renewal
 subjects:

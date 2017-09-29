@@ -1,4 +1,5 @@
 overrides:
+- path: docs/admin/cloud-controller-manager.md
 - path: docs/admin/federation-apiserver.md
 - path: docs/admin/federation-controller-manager.md
 - path: docs/admin/kube-apiserver.md
