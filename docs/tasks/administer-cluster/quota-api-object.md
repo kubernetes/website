@@ -9,7 +9,7 @@ This page shows how to configure quotas for API objects, including
 PersistentVolumeClaims and Services. A quota restricts the number of
 objects, of a particular type, that can be created in a namespace.
 You specify quotas in a
-[ResourceQuota](/docs/api-reference/v1.7/#resourcequota-v1-core)
+[ResourceQuota](/docs/api-reference/{{page.version}}/#resourcequota-v1-core)
 object.
 
 {% endcapture %}
@@ -53,7 +53,7 @@ kubectl get resourcequota object-quota-demo --namespace=quota-object-example --o
 
 The output shows that in the quota-object-example namespace, there can be at most
 one PersistentVolumeClaim, at most two Services of type LoadBalancer, and no Services
-of type NodePort. 
+of type NodePort.
 
 ```yaml
 status:
