@@ -102,7 +102,7 @@ This allows administrators to define a set of common roles for the entire cluste
 then reuse them within multiple namespaces.
 
 For instance, even though the following `RoleBinding` refers to a `ClusterRole`,
-"dave" (the subject) will only be able read secrets in the "development"
+"dave" (the subject) will only be able to read secrets in the "development"
 namespace (the namespace of the `RoleBinding`).
 
 ```yaml
@@ -181,7 +181,7 @@ metadata:
   name: configmap-updater
 rules:
 - apiGroups: [""]
-  resources: ["configmap"]
+  resources: ["configmaps"]
   resourceNames: ["my-configmap"]
   verbs: ["update", "get"]
 ```
@@ -258,7 +258,7 @@ A `RoleBinding` or `ClusterRoleBinding` binds a role to *subjects*.
 Subjects can be groups, users or service accounts.
 
 Users are represented by strings.  These can be plain usernames, like
-"alice", email-style names, like "bob@example.com", or numeric ids
+"alice", email-style names, like "bob@example.com", or numeric IDs
 represented as a string.  It is up to the Kubernetes admin to configure
 the [authentication modules](/docs/admin/authentication/) to produce
 usernames in the desired format.  The RBAC authorization system does

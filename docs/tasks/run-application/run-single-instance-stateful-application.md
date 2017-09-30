@@ -140,6 +140,8 @@ for a secure solution.
 
         Name:            mysql-pv
         Labels:          <none>
+        Annotations:    pv.kubernetes.io/bound-by-controller=yes
+        StorageClass:
         Status:          Bound
         Claim:           default/mysql-pv-claim
         Reclaim Policy:  Retain
@@ -152,7 +154,7 @@ for a secure solution.
             FSType:      ext4
             Partition:   0
             ReadOnly:    false
-        No events.
+        Events:          <none>
 
 1. Inspect the PersistentVolumeClaim:
 
@@ -160,12 +162,15 @@ for a secure solution.
 
         Name:         mysql-pv-claim
         Namespace:    default
+        StorageClass:
         Status:       Bound
         Volume:       mysql-pv
         Labels:       <none>
+        Annotations:    pv.kubernetes.io/bind-completed=yes
+                        pv.kubernetes.io/bound-by-controller=yes
         Capacity:     20Gi
         Access Modes: RWO
-        No events.
+        Events:       <none>
 
 ## Accessing the MySQL instance
 
