@@ -16,5 +16,3 @@ spec:
     max: 8080
   volumes:
   - '*'
-  allowedCapabilities:
-  - '*'

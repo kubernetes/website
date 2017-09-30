@@ -29,7 +29,7 @@ frontend and backend are connected using a Kubernetes Service object.
   [Services with external load balancers](/docs/tasks/access-application-cluster/create-external-load-balancer/), which
   require a supported environment. If your environment does not
   support this, you can use a Service of type
-  [NodePort](/docs/concepts/services-networking/service/#type-nodeport) instead.
+  [NodePort](/docs/user-guide/services/#type-nodeport) instead.
 
 {% endcapture %}
 

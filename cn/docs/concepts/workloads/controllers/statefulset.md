@@ -10,8 +10,10 @@ title: StatefulSets
 ---
 
 {% capture overview %}
-**StatefulSet is the workload API object used to manage stateful applications. 
-StatefulSets are beta in 1.8.**
+**StatefulSets are a beta feature in 1.7. This feature replaces the
+PetSets feature from 1.4. Users of PetSets are referred to the 1.5
+[Upgrade Guide](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
+for further information on how to upgrade existing PetSets to StatefulSets.**
 
 {% include templates/glossary/snippet.md term="statefulset" length="long" %}
 {% endcapture %}
@@ -40,7 +42,7 @@ provides a set of stateless replicas. Controllers such as
 
 * StatefulSet is a beta resource, not available in any Kubernetes release prior to 1.5.
 * As with all alpha/beta resources, you can disable StatefulSet through the `--runtime-config` option passed to the apiserver.
-* The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
+* The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
 * StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
 
@@ -49,7 +51,8 @@ The example below demonstrates the components of a StatefulSet.
 
 * A Headless Service, named nginx, is used to control the network domain.
 * The StatefulSet, named web, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
-* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/concepts/storage/volumes/) provisioned by a PersistentVolume Provisioner.
+* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/concepts/storage/volumes/) provisioned by a
+ PersistentVolume Provisioner.
 
 ```yaml
 apiVersion: v1
@@ -66,20 +69,17 @@ spec:
   selector:
     app: nginx
 ---
-apiVersion: apps/v1beta2
+apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
   name: web
 spec:
-  selector:
-    matchLabels:
-      app: nginx # has to match .spec.template.metadata.labels
   serviceName: "nginx"
-  replicas: 3 # by default is 1
+  replicas: 3
   template:
     metadata:
       labels:
-        app: nginx # has to match .spec.selector.matchLabels
+        app: nginx
     spec:
       terminationGracePeriodSeconds: 10
       containers:
@@ -101,9 +101,6 @@ spec:
         requests:
           storage: 1Gi
 ```
-
-## Pod Selector
-You must set the `spec.selector` field of a StatefulSet to match the labels of its `.spec.template.metadata.labels`. Prior to Kubernetes 1.8, the `spec.selector` field was defaulted when omitted. In 1.8 and later versions, failing to specify a matching Pod Selector will result in a validation error during StatefulSet creation.
 
 ## Pod Identity
 StatefulSet Pods have a unique identity that is comprised of an ordinal, a

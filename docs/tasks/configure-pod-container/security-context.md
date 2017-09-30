@@ -24,8 +24,6 @@ a Pod or Container. Security context settings include:
 
 * [Seccomp](https://en.wikipedia.org/wiki/Seccomp): Limit a process's access to open file descriptors.
 
-* AllowPrivilegeEscalation: Controls whether a process can gain more privileges than its parent process. This bool directly controls whether the [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt) flag gets set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged OR 2) has `CAP_SYS_ADMIN`.
-
 For more information about security mechanisms in Linux, see
 [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
 
@@ -325,7 +323,7 @@ applied to Volumes as follows:
 
 * `fsGroup`: Volumes that support ownership management are modified to be owned
 and writable by the GID specified in `fsGroup`. See the
-[Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
+[Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/volume-ownership-management.md)
 for more details.
 
 * `seLinuxOptions`: Volumes that support SELinux labeling are relabeled to be accessible
@@ -344,11 +342,9 @@ label given to all Containers in the Pod as well as the Volumes.
 * [PodSecurityContext](/docs/api-reference/{{page.version}}/#podsecuritycontext-v1-core)
 * [SecurityContext](/docs/api-reference/{{page.version}}/#securitycontext-v1-core)
 * [Tuning Docker with the newest security enhancements](https://opensource.com/business/15/3/docker-security-tuning)
-* [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
-* [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
+* [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/security_context.md)
+* [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/volume-ownership-management.md)
 * [Pod Security Policies](/docs/concepts/policy/pod-security-policy/)
-* [AllowPrivilegeEscalation design
-  document](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
 
 
 {% endcapture %}

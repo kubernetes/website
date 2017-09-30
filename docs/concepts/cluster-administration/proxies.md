@@ -27,7 +27,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxy to target may use HTTP or HTTPS as chosen by proxy using available information
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
-  1. The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+  1. The [kube proxy](/docs/user-guide/services/#ips-and-vips):
     - runs on each node
     - proxies UDP and TCP
     - does not understand HTTP

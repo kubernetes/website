@@ -67,29 +67,22 @@ The following resource types are supported:
 
 ## Storage Resource Quota
 
-You can limit the total sum of [storage resources](/docs/concepts/storage/persistent-volumes/) that can be requested in a given namespace.
+You can limit the total sum of [storage resources](/docs/user-guide/persistent-volumes) that can be requested in a given namespace.
 
 In addition, you can limit consumption of storage resources based on associated storage-class.
 
 | Resource Name | Description |
 | --------------------- | ----------------------------------------------------------- |
 | `requests.storage` | Across all persistent volume claims, the sum of storage requests cannot exceed this value. |
-| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 | `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | Across all persistent volume claims associated with the storage-class-name, the sum of storage requests cannot exceed this value. |
-| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | Across all persistent volume claims associated with the storage-class-name, the total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | Across all persistent volume claims associated with the storage-class-name, the total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 
 For example, if an operator wants to quota storage with `gold` storage class separate from `bronze` storage class, the operator can
 define a quota as follows:
 
 * `gold.storageclass.storage.k8s.io/requests.storage: 500Gi`
 * `bronze.storageclass.storage.k8s.io/requests.storage: 100Gi`
-
-In release 1.8, quota support for local ephemeral storage is added as alpha feature
-
-| Resource Name | Description |
-| ------------------------------- |----------------------------------------------------------- |
-| `requests.ephemeral-storage` | Across all pods in the namespace, the sum of local ephemeral storage requests cannot exceed this value. |
-| `limits.ephemeral-storage` | Across all pods in the namespace, the sum of local ephemeral storage limits cannot exceed this value. |
 
 ## Object Count Quota
 
@@ -99,7 +92,7 @@ are supported:
 | Resource Name | Description |
 | ------------------------------- | ------------------------------------------------- |
 | `configmaps` | The total number of config maps that can exist in the namespace. |
-| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 | `pods` | The total number of pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `status.phase in (Failed, Succeeded)` is true.  |
 | `replicationcontrollers` | The total number of replication controllers that can exist in the namespace. |
 | `resourcequotas` | The total number of [resource quotas](/docs/admin/admission-controllers/#resourcequota) that can exist in the namespace. |
@@ -244,4 +237,4 @@ See a [detailed example for how to use resource quota](/docs/tasks/administer-cl
 
 ## Read More
 
-See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.
+See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md) for more information.

@@ -23,12 +23,9 @@ toc:
     - docs/admin/authorization/node.md
     - docs/admin/authorization/webhook.md
   - docs/reference/deprecation-policy.md
-  - docs/reference/workloads-18-19.md
 
 - title: API Reference
   section:
-  - title: v1.8
-    path: /docs/api-reference/v1.8/
   - title: v1.7
     path: /docs/api-reference/v1.7/
   - title: v1.6
@@ -55,9 +52,6 @@ toc:
 - title: kubectl CLI
   section:
   - docs/user-guide/kubectl-overview.md
-  - docs/user-guide/kubectl/index.md
-  - title: v1.8 Commands
-    path: /docs/user-guide/kubectl/v1.8/
   - title: v1.7 Commands
     path: /docs/user-guide/kubectl/v1.7/
   - title: v1.6 Commands
@@ -68,10 +62,6 @@ toc:
   - docs/user-guide/kubectl-conventions.md
   - docs/user-guide/jsonpath.md
   - docs/user-guide/kubectl-cheatsheet.md
-
-- title: Cloud Controller Manager
-  section:
-  - docs/admin/cloud-controller-manager.md
 
 - title: Setup Tools
   section:
@@ -98,16 +88,16 @@ toc:
 - title: Kubernetes Design Docs
   section:
   - title: Kubernetes Architecture
-    path: https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md
+    path: https://git.k8s.io/community/contributors/design-proposals/architecture.md
   - title: Kubernetes Design Overview
     path: https://github.com/kubernetes/kubernetes/tree/release-1.6/docs/design
   - title: Kubernetes Identity and Access Management
-    path: https://git.k8s.io/community/contributors/design-proposals/auth/access.md
+    path: https://git.k8s.io/community/contributors/design-proposals/access.md
   - docs/admin/ovs-networking.md
   - title: Security Contexts
-    path: https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md
+    path: https://git.k8s.io/community/contributors/design-proposals/security_context.md
   - title: Security in Kubernetes
-    path: https://git.k8s.io/community/contributors/design-proposals/auth/security.md
+    path: https://git.k8s.io/community/contributors/design-proposals/security.md
 
 - title: Kubernetes Issues and Security
   section:

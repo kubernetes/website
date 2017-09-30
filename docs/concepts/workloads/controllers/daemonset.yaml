@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta2
+apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   name: fluentd-elasticsearch
@@ -6,9 +6,6 @@ metadata:
   labels:
     k8s-app: fluentd-logging
 spec:
-  selector:
-    matchLabels:
-      name: fluentd-elasticsearch
   template:
     metadata:
       labels:

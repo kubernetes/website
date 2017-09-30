@@ -23,7 +23,7 @@ This is a living document. If you think of something that is not on this list bu
 
   Note also that many `kubectl` commands can be called on a directory, so you can also call `kubectl create` on a directory of config files. See below for more details.
 
-- Don't specify default values unnecessarily -- simple and minimal configs will reduce errors.
+- Don't specify default values unnecessarily, in order to simplify and minimize configs, and to reduce error. For example, omit the selector and labels in a `ReplicationController` if you want them to be the same as the labels in its `podTemplate`, since those fields are populated from the `podTemplate` labels by default. See the [guestbook app's](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) .yaml files for some [examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/frontend-deployment.yaml) of this.
 
 - Put an object description in an annotation to allow better introspection.
 
@@ -50,15 +50,15 @@ This is a living document. If you think of something that is not on this list bu
   If you only need access to the port for debugging purposes, you can use the [kubectl proxy and apiserver proxy](/docs/tasks/access-kubernetes-api/http-proxy-access-api/) or [kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
   You can use a [Service](/docs/concepts/services-networking/service/) object for external service access.
 
-  If you explicitly need to expose a pod's port on the host machine, consider using a [NodePort](/docs/concepts/services-networking/service/#type-nodeport) service before resorting to `hostPort`.
+  If you explicitly need to expose a pod's port on the host machine, consider using a [NodePort](/docs/user-guide/services/#type-nodeport) service before resorting to `hostPort`.
 
 - Avoid using `hostNetwork`, for the same reasons as `hostPort`.
 
-- Use _headless services_ for easy service discovery when you don't need kube-proxy load balancing. See [headless services](/docs/concepts/services-networking/service/#headless-services).
+- Use _headless services_ for easy service discovery when you don't need kube-proxy load balancing. See [headless services](/docs/user-guide/services/#headless-services).
 
 ## Using Labels
 
-- Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or deployment. For example, instead of attaching a label to a set of pods to explicitly represent some service (For example, `service: myservice`), or explicitly representing the replication controller managing the pods  (for example, `controller: mycontroller`), attach labels that identify semantic attributes, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. This will let you select the object groups appropriate to the context— for example, a service for all "tier: frontend" pods, or all "test" phase components of app "myapp". See the [guestbook](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) app for an example of this approach.
+- Define and use [labels](/docs/user-guide/labels/) that identify __semantic attributes__ of your application or deployment. For example, instead of attaching a label to a set of pods to explicitly represent some service (For example, `service: myservice`), or explicitly representing the replication controller managing the pods  (for example, `controller: mycontroller`), attach labels that identify semantic attributes, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. This will let you select the object groups appropriate to the context— for example, a service for all "tier: frontend" pods, or all "test" phase components of app "myapp". See the [guestbook](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) app for an example of this approach.
 
   A service can be made to span multiple deployments, such as is done across [rolling updates](/docs/tasks/run-application/rolling-update-replication-controller/), by simply omitting release-specific labels from its selector, rather than updating a service's selector to match the replication controller's selector fully.
 
@@ -84,7 +84,7 @@ This is a living document. If you think of something that is not on this list bu
 
 - Use `kubectl delete` rather than `stop`. `Delete` has a superset of the functionality of `stop`, and `stop` is deprecated.
 
-- Use kubectl bulk operations (via files and/or labels) for get and delete. See [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) and [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
+- Use kubectl bulk operations (via files and/or labels) for get and delete. See [label selectors](/docs/user-guide/labels/#label-selectors) and [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
 
 - Use `kubectl run` and `expose` to quickly create and expose single container Deployments. See the [quick start guide](/docs/user-guide/quick-start/) for an example.
 

@@ -1,5 +1,6 @@
 ---
 approvers:
+- bprashanth
 - enisoc
 - erictune
 - foxish
@@ -148,7 +149,7 @@ properties to perform orderly startup of MySQL replication.
 ### Generating configuration
 
 Before starting any of the containers in the Pod spec, the Pod first runs any
-[Init Containers](/docs/concepts/workloads/pods/init-containers/)
+[Init Containers](/docs/user-guide/production-pods/#handling-initialization)
 in the order defined.
 
 The first Init Container, named `init-mysql`, generates special MySQL config
@@ -168,7 +169,7 @@ Because the example topology consists of a single MySQL master and any number of
 slaves, the script simply assigns ordinal `0` to be the master, and everyone
 else to be slaves.
 Combined with the StatefulSet controller's
-[deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees/),
+[deployment order guarantee](/docs/concepts/abstractions/controllers/statefulsets/#deployment-and-scaling-guarantee),
 this ensures the MySQL master is Ready before creating slaves, so they can begin
 replicating.
 
@@ -224,7 +225,7 @@ by running a temporary container with the `mysql:5.7` image and running the
 `mysql` client binary.
 
 ```shell
-kubectl run mysql-client --image=mysql:5.7 -i --rm --restart=Never --\
+kubectl run mysql-client --image=mysql:5.7 -i -t --rm --restart=Never --\
   mysql -h mysql-0.mysql <<EOF
 CREATE DATABASE test;
 CREATE TABLE test.messages (message VARCHAR(250));
@@ -292,7 +293,7 @@ running while you force a Pod out of the Ready state.
 
 ### Break the Readiness Probe
 
-The [readiness probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-readiness-probes)
+The [readiness probe](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks)
 for the `mysql` container runs the command `mysql -h 127.0.0.1 -e 'SELECT 1'`
 to make sure the server is up and able to execute queries.
 
@@ -349,7 +350,7 @@ and then return on its own.
 
 If your Kubernetes cluster has multiple Nodes, you can simulate Node downtime
 (such as when Nodes are upgraded) by issuing a
-[drain](/docs/user-guide/kubectl/{{page.version}}/#drain).
+[drain](/docs/user-guide/kubectl/v1.6/#drain).
 
 First determine which Node one of the MySQL Pods is on:
 
@@ -410,7 +411,7 @@ With MySQL replication, you can scale your read query capacity by adding slaves.
 With StatefulSet, you can do this with a single command:
 
 ```shell
-kubectl scale statefulset mysql  --replicas=5
+kubectl scale --replicas=5 statefulset mysql
 ```
 
 Watch the new Pods come up by running:
@@ -443,7 +444,7 @@ pod "mysql-client" deleted
 Scaling back down is also seamless:
 
 ```shell
-kubectl scale statefulset mysql --replicas=3
+kubectl scale --replicas=3 statefulset mysql
 ```
 
 Note, however, that while scaling up creates new PersistentVolumeClaims

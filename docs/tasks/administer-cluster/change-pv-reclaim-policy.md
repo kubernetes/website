@@ -68,7 +68,7 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 
 {% capture whatsnext %}
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
-* Learn more about [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
+* Learn more about [PersistentVolumeClaims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims).
 
 ### Reference
 

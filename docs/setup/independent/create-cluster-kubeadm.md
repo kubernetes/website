@@ -42,16 +42,17 @@ complete clusters:
 |--------|---------------
 | Command line UX | beta
 | Config file | alpha
-| Self-hosting | alpha
+| Selfhosting | alpha
 | `kubeadm alpha` commands | alpha
-| Implementation | beta
+| Implementation | alpha
 
 The experience for the command line is currently in beta and we are trying hard
 not to change command line flags and break that flow.  Other parts of the
-experience are still under active development.  The implementation may change
-slightly as the tool evolves to support even easier upgrades and high
-availability (HA).  Any commands under `kubeadm alpha` (not documented here)
-are, of course, alpha.
+experience are still under active development.  Specifically, kubeadm relies on
+some features (bootstrap tokens, cluster signing), that are still considered
+alpha.  The implementation may change as the tool evolves to support even easier
+upgrades and high availability (HA).  Any commands under `kubeadm alpha` (not
+documented here) are, of course, alpha.
 
 **Be sure to read the [limitations](#limitations)**.  Specifically, configuring
 cloud providers is difficult.
@@ -102,7 +103,6 @@ kubeadm init
 ```
 
 **Note:**
-
  - You need to choose a Pod Network Plugin in the next step. Depending on what
 third-party provider you choose, you might have to set the `--pod-network-cidr` to
 something provider-specific. The tabs below will contain a notice about what flags
@@ -128,38 +128,28 @@ The output should look like:
 
 ```
 [kubeadm] WARNING: kubeadm is in beta, please do not use it for production clusters.
-[init] Using Kubernetes version: v1.8.0
+[init] Using Kubernetes version: v1.7.0
 [init] Using Authorization modes: [Node RBAC]
 [preflight] Running pre-flight checks
-[kubeadm] WARNING: starting in 1.8, tokens expire after 24 hours by default (if you require a non-expiring token use --token-ttl 0)
-[certificates] Generated ca certificate and key.
-[certificates] Generated apiserver certificate and key.
-[certificates] apiserver serving cert is signed for DNS names [kubeadm-master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.138.0.4]
-[certificates] Generated apiserver-kubelet-client certificate and key.
-[certificates] Generated sa key and public key.
-[certificates] Generated front-proxy-ca certificate and key.
-[certificates] Generated front-proxy-client certificate and key.
+[preflight] Starting the kubelet service
+[certificates] Generated CA certificate and key.
+[certificates] Generated API server certificate and key.
+[certificates] API Server serving cert is signed for DNS names [kubeadm-master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.138.0.4]
+[certificates] Generated API server kubelet client certificate and key.
+[certificates] Generated service account token signing key and public key.
+[certificates] Generated front-proxy CA certificate and key.
+[certificates] Generated front-proxy client certificate and key.
 [certificates] Valid certificates and keys now exist in "/etc/kubernetes/pki"
-[kubeconfig] Wrote KubeConfig file to disk: "admin.conf"
-[kubeconfig] Wrote KubeConfig file to disk: "kubelet.conf"
-[kubeconfig] Wrote KubeConfig file to disk: "controller-manager.conf"
-[kubeconfig] Wrote KubeConfig file to disk: "scheduler.conf"
-[controlplane] Wrote Static Pod manifest for component kube-apiserver to "/etc/kubernetes/manifests/kube-apiserver.yaml"
-[controlplane] Wrote Static Pod manifest for component kube-controller-manager to "/etc/kubernetes/manifests/kube-controller-manager.yaml"
-[controlplane] Wrote Static Pod manifest for component kube-scheduler to "/etc/kubernetes/manifests/kube-scheduler.yaml"
-[etcd] Wrote Static Pod manifest for a local etcd instance to "/etc/kubernetes/manifests/etcd.yaml"
-[init] Waiting for the kubelet to boot up the control plane as Static Pods from directory "/etc/kubernetes/manifests"
-[init] This often takes around a minute; or longer if the control plane images have to be pulled.
-[apiclient] All control plane components are healthy after 39.511972 seconds
-[uploadconfig] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
-[markmaster] Will mark node master as master by adding a label and a taint
-[markmaster] Master master tainted and labelled with key/value: node-role.kubernetes.io/master=""
-[bootstraptoken] Using token: <token>
-[bootstraptoken] Configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
-[bootstraptoken] Configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
-[bootstraptoken] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
-[addons] Applied essential addon: kube-dns
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/admin.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/controller-manager.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/scheduler.conf"
+[apiclient] Created API client, waiting for the control plane to become ready
+[apiclient] All control plane components are healthy after 16.502136 seconds
+[token] Using token: <token>
+[apiconfig] Created RBAC rules
 [addons] Applied essential addon: kube-proxy
+[addons] Applied essential addon: kube-dns
 
 Your Kubernetes master has initialized successfully!
 
@@ -176,7 +166,7 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 You can now join any number of machines by running the following on each node
 as root:
 
-  kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
+  kubeadm join --token <token> <master-ip>:<master-port>
 ```
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
@@ -224,8 +214,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 The official Calico guide is [here](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/).
 
 **Note:**
-
- - In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`.
+ - In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`
  - Calico works on `amd64` only.
 
 ```shell
@@ -238,7 +227,6 @@ kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/i
 The official Canal set-up guide is [here](https://github.com/projectcalico/canal/tree/master/k8s-install).
 
 **Note:**
-
  - For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
  - Canal works on `amd64` only.
 
@@ -251,14 +239,13 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8
 {% capture flannel %}
 
 **Note:**
-
  - For flannel to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
  - flannel works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on an other platform than
 `amd64` you have to manually download the manifest and replace `amd64` occurences with your chosen platform.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.8.0/Documentation/kube-flannel.yml
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.8.0/Documentation/kube-flannel-rbac.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel-rbac.yml
 ```
 {% endcapture %}
 
@@ -288,8 +275,6 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
 
 **Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required.
-Weave Net sets hairpin mode by default. This allows Pods to access themselves via their Service IP address
-if they don't know their PodIP.
 
 ```shell
 export kubever=$(kubectl version | base64 | tr -d '\n')
@@ -340,7 +325,7 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
 * Run the command that was output by `kubeadm init`. For example:
 
   ``` bash
-  kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
+  kubeadm join --token <token> <master-ip>:<master-port>
   ```
 
 The output should look something like:
@@ -350,13 +335,13 @@ The output should look something like:
 [preflight] Running pre-flight checks
 [discovery] Trying to connect to API Server "10.138.0.4:6443"
 [discovery] Created cluster-info discovery client, requesting info from "https://10.138.0.4:6443"
-[discovery] Requesting info from "https://10.138.0.4:6443" again to validate TLS against the pinned public key
-[discovery] Cluster info signature and contents are valid and TLS certificate validates against pinned roots, will use API Server "10.138.0.4:6443"
+[discovery] Cluster info signature and contents are valid, will use API Server "https://10.138.0.4:6443"
 [discovery] Successfully established connection with API Server "10.138.0.4:6443"
-[bootstrap] Detected server version: v1.8.0
+[bootstrap] Detected server version: v1.7.0
 [bootstrap] The server supports the Certificates API (certificates.k8s.io/v1beta1)
 [csr] Created API client to obtain unique certificate for this node, generating keys and certificate signing request
 [csr] Received signed certificate from the API server, generating KubeConfig...
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
 
 Node join complete:
 * Certificate signing request sent to master and response
@@ -443,7 +428,7 @@ master.
 ## Tear down
 
 To undo what kubeadm did, you should first [drain the
-node](/docs/user-guide/kubectl/{{page.version}}/#drain) and make
+node](/docs/user-guide/kubectl/v1.6/#drain) and make
 sure that the node is empty before shutting it down.
 
 Talking to the master with the appropriate credentials, run:
@@ -464,12 +449,8 @@ appropriate arguments.
 
 ## Upgrading
 
-Instructions for upgrading kubeadm clusters are available for:
-
- * [1.6 to 1.7 upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/)
- * [1.7.x to 1.7.y  upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
- * [1.7 to 1.8 upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
- * [1.8.x to 1.8.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
+Instructions for upgrading kubeadm clusters can be found
+[here](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/).
 
 ## Explore other add-ons
 
@@ -503,8 +484,8 @@ kubeadm CLI vX.Y can also upgrade an existing kubeadm-created cluster of version
 
 Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be able to deploy vX.(Y+1) clusters.
 
-Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
-v1.8.
+Example: kubeadm v1.7 can deploy both v1.6 and v1.7 clusters and upgrade v1.6 kubeadm-created clusters to
+v1.7.
 
 ## kubeadm is multi-platform {#multi-platform}
 
@@ -562,12 +543,6 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
     If not, you may still use the [NodePort feature of
     services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
 
-1. **Pods cannot access themselves via their Service IP**.
-    Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
-    which allows pods to access themselves via their Service IP if they don't know about their podIP. This is an issue
-    related to [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the providers of the network
-    add-on providers to get timely information about whether they support hairpin mode.
-
 1. If you are using VirtualBox (directly or via Vagrant), you will need to
    ensure that `hostname -i` returns a routable IP address (i.e. one on the
    second network interface, not the first one). By default, it doesn't do this
@@ -578,8 +553,8 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
 1. The following error indicates a possible certificate mismatch.
 
 ```
-# kubectl get po
-Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
+# kubectl get po                           
+Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")       
 ```
 
 Verify that the `$HOME/.kube/config` file contains a valid certificate, and regenerate a certificate if necessary.
@@ -602,13 +577,13 @@ cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 
 If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver.
 
-Update
+Update 
 
 ```bash
-KUBELET_CGROUP_ARGS=--cgroup-driver=systemd
+KUBELET_CGROUP_ARGS=--cgroup-driver=systemd 
 ```
 
-To
+To 
 
 ```bash
 KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs

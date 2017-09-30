@@ -63,14 +63,14 @@ to define *Hard* resource usage limits that a *Namespace* may consume.
 A limit range defines min/max constraints on the amount of resources a single entity can consume in
 a *Namespace*.
 
-See [Admission control: Limit Range](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)
+See [Admission control: Limit Range](https://git.k8s.io/community/contributors/design-proposals/admission_control_limit_range.md)
 
 A namespace can be in one of two phases:
 
    * `Active` the namespace is in use
    * `Terminating` the namespace is being deleted, and can not be used for new objects
 
-See the [design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#phases) for more details.
+See the [design doc](https://git.k8s.io/community/contributors/design-proposals/namespaces.md#phases) for more details.
 
 ## Creating a new namespace
 
@@ -93,7 +93,7 @@ Note that the name of your namespace must be a DNS compatible label.
 
 There's an optional field `finalizers`, which allows observables to purge resources whenever the namespace is deleted. Keep in mind that if you specify a nonexistent finalizer, the namespace will be created but will get stuck in the `Terminating` state if the user tries to delete it.
 
-More information on `finalizers` can be found in the namespace [design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#finalizers).
+More information on `finalizers` can be found in the namespace [design doc](https://git.k8s.io/community/contributors/design-proposals/namespaces.md#finalizers).
 
 ## Deleting a namespace
 
@@ -236,9 +236,9 @@ Let's create some contents.
 ```shell
 $ kubectl run snowflake --image=kubernetes/serve_hostname --replicas=2
 ```
-We have just created a deployment whose replica size is 2 that is running the pod called snowflake with a basic container that just serves the hostname.
+We have just created a deployment whose replica size is 2 that is running the pod called snowflake with a basic container that just serves the hostname. 
 Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/{{page.version}}/#run) for more details.
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/v1.7/#run) for more details. 
 
 ```shell
 $ kubectl get deployment
@@ -322,7 +322,7 @@ The Namespace provides a unique scope for:
 2. delegated management authority to trusted users
 3. ability to limit community resource consumption
 
-Use cases include:
+Use cases include: 
 
 1.  As a cluster operator, I want to support multiple user communities on a single cluster.
 2.  As a cluster operator, I want to delegate authority to partitions of the cluster to trusted users
@@ -346,7 +346,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 {% capture whatsnext %}
 * Learn more about [setting the namespace preference](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
 * Learn more about [setting the namespace for a request](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
-* See [namespaces design](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/architecture/namespaces.md).
+* See [namespaces design](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/namespaces.md).
 {% endcapture %}
 
 {% include templates/task.md %}

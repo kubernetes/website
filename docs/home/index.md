@@ -13,7 +13,7 @@ The [Kubernetes Basics interactive tutorial](/docs/tutorials/kubernetes-basics/)
 
 ## Installing/Setting Up Kubernetes
 
-[Picking the Right Solution](/docs/setup/pick-right-solution/) can help you get a Kubernetes cluster up and running, either for local development, or on your cloud provider of choice.
+[Picking the Right Solution](/docs/getting-started-guides/) can help you get a Kubernetes cluster up and running, either for local development, or on your cloud provider of choice.
 
 ## Concepts, Tasks, and Tutorials
 
@@ -34,3 +34,9 @@ The [Tools](/docs/tools/) page contains a list of native and third-party tools f
 ## Troubleshooting
 
 The [Troubleshooting](/docs/tasks/debug-application-cluster/troubleshooting) page outlines some resources for troubleshooting and finding help.
+
+## Frequently Asked Questions
+
+* [User FAQ](https://github.com/kubernetes/kubernetes/wiki/User-FAQ)
+* [Debugging FAQ](https://github.com/kubernetes/kubernetes/wiki/Debugging-FAQ)
+* [Services FAQ](https://github.com/kubernetes/kubernetes/wiki/Services-FAQ)

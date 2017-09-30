@@ -18,20 +18,20 @@ cluster (for example, scheduling), and detecting and responding to cluster event
 Master components can be run on any node in the cluster. However,
 for simplicity, set up scripts typically start all master components on
 the same VM, and do not run user containers on this VM. See
-[Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
+[Building High-Availability Clusters](/docs/admin/high-availability) for an example multi-master-VM setup.
 
 ### kube-apiserver
 
-[kube-apiserver](/docs/admin/kube-apiserver/) exposes the Kubernetes API. It is the front-end for the
-Kubernetes control plane. It is designed to scale horizontally -- that is, it scales by deploying more instances. See [Building High-Availability Clusters](/docs/admin/high-availability/).
+[kube-apiserver](/docs/admin/kube-apiserver) exposes the Kubernetes API. It is the front-end for the
+Kubernetes control plane. It is designed to scale horizontally -- that is, it scales by deploying more instances. See [Building High-Availability Clusters](/docs/admin/high-availability).
 
 ### etcd
 
-[etcd](/docs/tasks/administer-cluster/configure-upgrade-etcd/) is used as Kubernetes' backing store. All cluster data is stored here. Always have a backup plan for etcd's data for your Kubernetes cluster.
+[etcd](/docs/tasks/administer-cluster/configure-upgrade-etcd) is used as Kubernetes' backing store. All cluster data is stored here. Always have a backup plan for etcd's data for your Kubernetes cluster.
 
 ### kube-controller-manager
 
-[kube-controller-manager](/docs/admin/kube-controller-manager/) runs controllers, which are the background threads that handle routine tasks in the cluster. Logically, each controller is a separate process, but to reduce complexity, they are all compiled into a single binary and run in a single process.
+[kube-controller-manager](/docs/admin/kube-controller-manager) runs controllers, which are the background threads that handle routine tasks in the cluster. Logically, each controller is a separate process, but to reduce complexity, they are all compiled into a single binary and run in a single process.
 
 These controllers include:
 
@@ -58,7 +58,7 @@ The following controllers have cloud provider dependencies:
 
 ### kube-scheduler
 
-[kube-scheduler](/docs/admin/kube-scheduler/) watches newly created pods that have no node assigned, and
+[kube-scheduler](/docs/admin/kube-scheduler) watches newly created pods that have no node assigned, and
 selects a node for them to run on.
 
 ### addons
@@ -84,12 +84,12 @@ Containers started by Kubernetes automatically include this DNS server in their 
 
 #### Container Resource Monitoring
 
-[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) records generic time-series metrics
+[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring) records generic time-series metrics
 about containers in a central database, and provides a UI for browsing that data.
 
 #### Cluster-level Logging
 
-A [Cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
+A [Cluster-level logging](/docs/concepts/cluster-administration/logging) mechanism is responsible for
 saving container logs to a central log store with search/browsing interface.
 
 ## Node components
@@ -98,7 +98,7 @@ Node components run on every node, maintaining running pods and providing the Ku
 
 ### kubelet
 
-[kubelet](/docs/admin/kubelet/) is the primary node agent. It watches for pods that have been assigned to its node (either by apiserver or via local configuration file) and:
+[kubelet](/docs/admin/kubelet) is the primary node agent. It watches for pods that have been assigned to its node (either by apiserver or via local configuration file) and:
 
   * Mounts the pod's required volumes.
   * Downloads the pod's secrets.
@@ -109,7 +109,7 @@ Node components run on every node, maintaining running pods and providing the Ku
 
 ### kube-proxy
 
-[kube-proxy](/docs/admin/kube-proxy/) enables the Kubernetes service abstraction by maintaining
+[kube-proxy](/docs/admin/kube-proxy) enables the Kubernetes service abstraction by maintaining
 network rules on the host and performing connection forwarding.
 
 

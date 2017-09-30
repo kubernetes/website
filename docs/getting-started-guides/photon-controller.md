@@ -35,7 +35,7 @@ Mac, you can install this with [brew](http://brew.sh/):
 5. You should have an ssh public key installed. This will be used to
 give you access to the VM's user account, `kube`.
 
-6. Get or build a [binary release](/docs/getting-started-guides/binary_release/)
+6. Get or build a [binary release](/docs/getting-started-guides/binary_release)
 
 ### Download VM Image
 

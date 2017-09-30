@@ -245,19 +245,15 @@ In this case you need to be able to change the parameters of `DaemonSet` and `Co
 
 ### Prerequisites
 
-If you're using GKE and Stackdriver Logging is enabled in your cluster, you
-cannot change its configuration, because it's managed and supported by GKE.
-However, you can disable the default integration and deploy your own. Note,
-that you will have to support and maintain a newly deployed configuration
-yourself: update the image and configuration, adjust the resources and so on.
-To disable the default logging integration, use the following command:
+If you're on GKE and Stackdriver Logging is enabled in your cluster, you cannot change its
+parameters. Likewise, if you're not on GKE, but Stackdriver Logging is installed as an addon,
+you won't be able to change deployment parameters using Kubernetes API. To make it possible
+to change parameters of Stackdriver Logging agents, you should switch to the API object
+deployment, when Stackdriver Logging is installed into a running cluster that didn't have any
+cluster logging solutions installed before that.
 
-```
-gcloud beta container clusters update --logging-service=none CLUSTER
-```
-
-You can find notes on how to then install Stackdriver Logging agents into
-a running cluster in the [Deploying section](#deploying).
+You can find notes on how to install Stackdriver Logging agents into a running cluster in the
+[Deploying section](#deploying).
 
 ### Changing `DaemonSet` parameters
 

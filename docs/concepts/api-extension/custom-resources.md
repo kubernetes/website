@@ -53,12 +53,8 @@ This frees you from writing your own API server to handle the custom resource,
 but the generic nature of the implementation means you have less flexibility than with
 [API server aggregation](#api-server-aggregation).
 
-Refer to the [Custom Resource Example](https://github.com/kubernetes/kubernetes/tree/master/staging/src/k8s.io/apiextensions-apiserver/examples/client-go)
-for a demonstration of how to register a new custom resource, work with instances of your new resource type,
-and setup a controller to handle events.
-
-**Note:** CRD is the successor to the deprecated *ThirdPartyResource* (TPR) API, and is available as of Kubernetes 1.7.
-{: .note}
+CRD is the successor to the deprecated *ThirdPartyResource* (TPR) API, and is available as of
+Kubernetes 1.7.
 
 ## API server aggregation
 

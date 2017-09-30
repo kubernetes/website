@@ -236,4 +236,9 @@ and cross Node preemption will not be considered a blocker for Beta or GA.
 
 {% endcapture %}
 
+{% capture whatsnext %}
+* Learn more about [this](...).
+* See this [related task](...).
+{% endcapture %}
+
 {% include templates/concept.md %}

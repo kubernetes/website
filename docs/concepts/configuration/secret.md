@@ -7,7 +7,7 @@ title: Secrets
 Objects of type `secret` are intended to hold sensitive information, such as
 passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
 is safer and more flexible than putting it verbatim in a `pod` definition or in
-a docker image. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
+a docker image. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/secrets.md) for more information.
 
 * TOC
 {:toc}
@@ -118,10 +118,10 @@ data:
 ```
 
 The data field is a map.  Its keys must match
-[`DNS_SUBDOMAIN`](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md), except that leading dots are also
+[`DNS_SUBDOMAIN`](https://git.k8s.io/community/contributors/design-proposals/identifiers.md), except that leading dots are also
 allowed.  The values are arbitrary data, encoded using base64.
 
-Create the secret using [`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create):
+Create the secret using [`kubectl create`](/docs/user-guide/kubectl/v1.7/#create):
 
 ```shell
 $ kubectl create -f ./secret.yaml
@@ -442,7 +442,7 @@ that are considered invalid environment variable names will have those keys
 skipped.  The pod will be allowed to start.  There will be an event whose
 reason is `InvalidVariableNames` and the message will contain the list of
 invalid keys that were skipped. The example shows a pod which refers to the
-default/mysecret that contains 2 invalid keys, 1badkey and 2alsobad.
+default/mysecret ConfigMap that contains 2 invalid keys, 1badkey and 2alsobad.
 
 ```shell
 $ kubectl get events
@@ -688,7 +688,7 @@ the app needs.
 For improved performance over a looping `get`, clients can design resources that
 reference a secret then `watch` the resource, re-requesting the secret when the
 reference changes. Additionally, a ["bulk watch" API](
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
+https://github.com/kubernetes/community/blob/master/contributors/design-proposals/bulk_watch.md)
 to let clients `watch` individual resources has also been proposed, and will likely
 be available in future releases of Kubernetes.
 

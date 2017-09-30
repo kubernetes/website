@@ -170,7 +170,7 @@ traffic to the internet.
 
 ### Kube-router
 
-[Kube-router](https://github.com/cloudnativelabs/kube-router) is a purpose-built networking solution for Kubernetes that aims to provide high performance and operational simplicity. Kube-router provides a Linux [LVS/IPVS](http://www.linuxvirtualserver.org/software/ipvs.html)-based service proxy, a Linux kernel forwarding-based pod-to-pod networking solution with no overlays, and iptables/ipset-based network policy enforcer.
+[Kube-router](https://github.com/cloudnativelabs/kube-router) is a purpose-built networking solution for Kubernetes that aims to provide high performance and operational simplicity. Kube-router provides a Linux [LVS/IPVS](http://www.linuxvirtualserver.org/software/ipvs.html)-based service proxy, a Linux kernel forwarding-based pod-to-pod networking solution with no overlays, and iptables/ipset-based network policy enforcer. 
 
 ### L2 networks and linux bridging
 
@@ -234,4 +234,4 @@ CNI-Genie also supports [assigning multiple IP addresses to a pod](https://githu
 
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the [networking design
-document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
+document](https://git.k8s.io/community/contributors/design-proposals/networking.md).

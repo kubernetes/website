@@ -47,6 +47,7 @@ toc:
     - docs/concepts/workloads/controllers/replicationcontroller.md
     - docs/concepts/workloads/controllers/deployment.md
     - docs/concepts/workloads/controllers/statefulset.md
+    - docs/concepts/workloads/controllers/petset.md
     - docs/concepts/workloads/controllers/daemonset.md
     - docs/concepts/workloads/controllers/garbage-collection.md
     - docs/concepts/workloads/controllers/jobs-run-to-completion.md

@@ -53,7 +53,7 @@ Run it like this:
 $ kubectl proxy --port=8080 &
 ```
 
-See [kubectl proxy](/docs/user-guide/kubectl/{{page.version}}/#proxy) for more details.
+See [kubectl proxy](/docs/user-guide/kubectl/v1.6/#proxy) for more details.
 
 Then you can explore the API with curl, wget, or a browser, like so:
 
@@ -136,7 +136,7 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 
 To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes`. See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
 
-The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+The Python client can use the same [kubeconfig file](/docs/user-guide/kubeconfig-file)
 as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py).
 
 #### Other languages
@@ -195,7 +195,7 @@ You have several options for connecting to nodes, pods and services from outside
   - Access services through public IPs.
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
       the cluster.  See the [services](/docs/user-guide/services) and
-      [kubectl expose](/docs/user-guide/kubectl/{{page.version}}/#expose) documentation.
+      [kubectl expose](/docs/user-guide/kubectl/v1.6/#expose) documentation.
     - Depending on your cluster environment, this may just expose the service to your corporate network,
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
       Does it do its own authentication?
@@ -211,7 +211,7 @@ You have several options for connecting to nodes, pods and services from outside
     - Only works for HTTP/HTTPS.
     - Described [here](#manually-constructing-apiserver-proxy-urls).
   - Access from a node or pod in the cluster.
-    - Run a pod, and then connect to a shell in it using [kubectl exec](/docs/user-guide/kubectl/{{page.version}}/#exec).
+    - Run a pod, and then connect to a shell in it using [kubectl exec](/docs/user-guide/kubectl/v1.6/#exec).
       Connect to other nodes, pods, and services from that shell.
     - Some clusters may allow you to ssh to a node in the cluster.  From there you may be able to
       access cluster services.  This is a non-standard method, and will work on some clusters but
@@ -245,16 +245,6 @@ As mentioned above, you use the `kubectl cluster-info` command to retrieve the s
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
 If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
-
-By default, the API server proxies to your service using http. To use https, prefix the service name with `https:`:
-`http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`https:service_name:[port_name]`*`/proxy`
-
-The supported formats for the name segment of the URL are:
-
-* `<service_name>` - proxies to the default or unnamed port using http
-* `<service_name>:<port_name>` - proxies to the specified port using http
-* `https:<service_name>:` - proxies to the default or unnamed port using https (note the trailing colon)
-* `https:<service_name>:<port_name>` - proxies to the specified port using https
 
 ##### Examples
 
@@ -308,7 +298,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxy to target may use HTTP or HTTPS as chosen by proxy using available information
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
-  1. The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+  1. The [kube proxy](/docs/user-guide/services/#ips-and-vips):
     - runs on each node
     - proxies UDP and TCP
     - does not understand HTTP

@@ -36,24 +36,24 @@ conjure-up kubernetes
 
 These are more in-depth guides for users choosing to run Kubernetes in production:
 
-  - [Installation](/docs/getting-started-guides/ubuntu/installation/)
-  - [Validation](/docs/getting-started-guides/ubuntu/validation/)
-  - [Backups](/docs/getting-started-guides/ubuntu/backups/)
-  - [Upgrades](/docs/getting-started-guides/ubuntu/upgrades/)
-  - [Scaling](/docs/getting-started-guides/ubuntu/scaling/)
-  - [Logging](/docs/getting-started-guides/ubuntu/logging/)
-  - [Monitoring](/docs/getting-started-guides/ubuntu/monitoring/)
-  - [Networking](/docs/getting-started-guides/ubuntu/networking/)
-  - [Security](/docs/getting-started-guides/ubuntu/security/)
-  - [Storage](/docs/getting-started-guides/ubuntu/storage/)
-  - [Troubleshooting](/docs/getting-started-guides/ubuntu/troubleshooting/)
-  - [Decommissioning](/docs/getting-started-guides/ubuntu/decommissioning/)
-  - [Operational Considerations](/docs/getting-started-guides/ubuntu/operational-considerations/)
-  - [Glossary](/docs/getting-started-guides/ubuntu/glossary/)
+  - [Installation](/docs/getting-started-guides/ubuntu/installation)
+  - [Validation](/docs/getting-started-guides/ubuntu/validation)
+  - [Backups](/docs/getting-started-guides/ubuntu/backups)
+  - [Upgrades](/docs/getting-started-guides/ubuntu/upgrades)
+  - [Scaling](/docs/getting-started-guides/ubuntu/scaling)
+  - [Logging](/docs/getting-started-guides/ubuntu/logging)
+  - [Monitoring](/docs/getting-started-guides/ubuntu/monitoring)
+  - [Networking](/docs/getting-started-guides/ubuntu/networking)
+  - [Security](/docs/getting-started-guides/ubuntu/security)
+  - [Storage](/docs/getting-started-guides/ubuntu/storage)
+  - [Troubleshooting](/docs/getting-started-guides/ubuntu/troubleshooting)
+  - [Decommissioning](/docs/getting-started-guides/ubuntu/decommissioning)
+  - [Operational Considerations](/docs/getting-started-guides/ubuntu/operational-considerations)
+  - [Glossary](/docs/getting-started-guides/ubuntu/glossary)
 
 ## Developer Guides
 
-  - [Localhost using LXD](/docs/getting-started-guides/ubuntu/local/)
+  - [Localhost using LXD](/docs/getting-started-guides/ubuntu/local)
 
 ## Where to find us
 

@@ -13,7 +13,7 @@ This section describes all the possible configurations which can
 be used when running Kubernetes on Amazon Web Services.
 
 ## Load Balancers
-You can setup [external load balancers](/docs/tasks/access-application-cluster/create-external-load-balancer/)
+You can setup [external load balancers](/docs/tasks/access-application-cluster/create-external-load-balancer)
 to use specific features in AWS by configuring the annotations as shown below.
 
 ```yaml

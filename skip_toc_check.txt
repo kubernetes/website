@@ -96,6 +96,8 @@ docs/user-guide/namespaces.md
 docs/user-guide/networkpolicies.md
 docs/user-guide/node-selection/index.md
 docs/user-guide/persistent-volumes/index.md
+docs/user-guide/petset.md
+docs/user-guide/petset/bootstrapping/index.md
 docs/user-guide/pod-preset/index.md
 docs/user-guide/pod-security-policy/index.md
 docs/user-guide/pod-states.md

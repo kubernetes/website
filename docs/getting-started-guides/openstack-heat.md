@@ -10,9 +10,6 @@ title: OpenStack Heat
 
 ## Getting started with OpenStack
 
-**Note:** The `openstack-heat` provider that this guide uses is deprecated as of
-Kubernetes v1.8 and will be removed in a future release.
-
 This guide will take you through the steps of deploying Kubernetes to Openstack using `kube-up.sh`. The primary mechanisms for this are [OpenStack Heat](https://wiki.openstack.org/wiki/Heat) and the [SaltStack](https://git.k8s.io/kubernetes/cluster/saltbase) distributed with Kubernetes.
 
 The default OS is CentOS 7, this has not been tested on other operating systems.

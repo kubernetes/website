@@ -10,7 +10,7 @@ requests specified, the scheduler can make better decisions about which nodes to
 place Pods on. And when Containers have their limits specified, contention for
 resources on a node can be handled in a specified manner. For more details about
 the difference between requests and limits, see
-[Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
+[Resource QoS](https://git.k8s.io/community/contributors/design-proposals/resource-qos.md).
 
 {% endcapture %}
 
@@ -26,7 +26,7 @@ CPU and memory are collectively referred to as *compute resources*, or just
 *resources*. Compute
 resources are measurable quantities that can be requested, allocated, and
 consumed. They are distinct from
-[API resources](/docs/concepts/overview/kubernetes-api/). API resources, such as Pods and
+[API resources](/docs/api/). API resources, such as Pods and
 [Services](/docs/user-guide/services) are objects that can be read and modified
 through the Kubernetes API server.
 
@@ -238,7 +238,7 @@ The amount of resources available to Pods is less than the node capacity, becaus
 system daemons use a portion of the available resources. The `allocatable` field
 [NodeStatus](/docs/resources-reference/{{page.version}}/#nodestatus-v1-core)
 gives the amount of resources that are available to Pods. For more information, see
-[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
+[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md).
 
 The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
 to limit the total amount of resources that can be consumed. If used in conjunction
@@ -303,65 +303,7 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 You can see that the Container was terminated because of `reason:OOM Killed`,
 where `OOM` stands for Out Of Memory.
 
-## Local ephemeral storage (alpha feature)
-
-Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managing local ephemeral storage. In each Kubernetes node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This partition is also shared and consumed by pods via EmptyDir volumes, container logs, image layers and container writable layers.
-
-This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
-
-**Note:** If an optional runntime partition is used, root parition will not hold any image layer or writable layers. 
-{: .note}
-
-### Requests and limits setting for local ephemeral storage
-Each Container of a Pod can specify one or more of the following:
-
-* `spec.containers[].resources.limits.ephemeral-storage`
-* `spec.containers[].resources.requests.ephemeral-storage`
-
-Limits and requests for `ephemeral-storage` are measured in bytes. You can express storage as
-a plain integer or as a fixed-point integer using one of these suffixes:
-E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
-Mi, Ki. For example, the following represent roughly the same value:
-
-```shell
-128974848, 129e6, 129M, 123Mi
-```
-
-For example, the following Pod has two Containers. Each Container has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of storage.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: frontend
-spec:
-  containers:
-  - name: db
-    image: mysql
-    resources:
-      requests:
-        ephemeral-storage: "2Gi"
-      limits:
-        ephemeral-storage: "4Gi"
-  - name: wp
-    image: wordpress
-    resources:
-      requests:
-        ephemeral-storage: "2Gi"
-      limits:
-        ephemeral-storage: "4Gi"
-```
-
-### How Pods with ephemeral-storage requests are scheduled
-
-When you create a Pod, the Kubernetes scheduler selects a node for the Pod to 
-run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. (For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
-
-### How Pods with ephemeral-storage limits run
-
-For container-level isolation, if a Container's writable layer and logs usage exceeds its storage limit, the pod will be evicted. For pod-level isolation, if the sum of the local ephemeral storage usage from all containers and also the pod's EmptyDir volumes exceeds the limit, the pod will be evicted.
-
-## Opaque integer resources (alpha feature)
+## Opaque integer resources (Alpha feature)
 
 {% include feature-state-deprecated.md %}
 
@@ -541,7 +483,7 @@ all Containers in a Pod, such as
 Kubernetes version 1.5 only supports Container requests and limits for CPU and
 memory. It is planned to add new resource types, including a node disk space
 resource, and a framework for adding custom
-[resource types](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/scheduling/resources.md).
+[resource types](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/resources.md).
 
 Kubernetes supports overcommitment of resources by supporting multiple levels of
 [Quality of Service](http://issue.k8s.io/168).

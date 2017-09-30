@@ -80,11 +80,7 @@ With the additional entries specified at the bottom.
 
 ## Limitations
 
-HostAlias is only supported in 1.7+.
-
-HostAlias support in 1.7 is limited to non-hostNetwork Pods because kubelet only manages the hosts file for non-hostNetwork Pods.
-
-In 1.8, HostAlias is supported for all Pods regardless of network configuration.
+As of 1.7, Pods with hostNetwork enabled will not be able to use this feature. This is because kubelet only manages the hosts file for non-hostNetwork Pods. There are ongoing discussions to change this.
 
 ## Why Does Kubelet Manage the Hosts File?
 

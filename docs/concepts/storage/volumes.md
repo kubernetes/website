@@ -141,7 +141,7 @@ spec:
 ### hostPath
 
 A `hostPath` volume mounts a file or directory from the host node's filesystem
-into your pod. This is not something that most Pods will need, but it offers a
+into your pod.  This is not something that most Pods will need, but it offers a
 powerful escape hatch for some applications.
 
 For example, some uses for a `hostPath` are:
@@ -149,24 +149,6 @@ For example, some uses for a `hostPath` are:
 * running a container that needs access to Docker internals; use a `hostPath`
   of `/var/lib/docker`
 * running cAdvisor in a container; use a `hostPath` of `/dev/cgroups`
-* allowing a pod to specify whether a given hostPath should exist prior to the
-  pod running, whether it should be created, and what it should exist as
-
-In addition to the required `path` property, user can optionally specify a `type` for a `hostPath` volume.
-
-The supported values for field `type` are:
-
-
-| Value | Behavior |
-|:------|:---------|
-| | Empty string (default) is for backward compatibility, which means that no checks will be performed before mounting the hostPath volume. |
-| `DirectoryOrCreate` | If nothing exists at the given path, an empty directory will be created there as needed with permission set to 0755, having the same group and ownership with Kubelet. |
-| `Directory` | A directory must exist at the given path |
-| `FileOrCreate` | If nothing exists at the given path, an empty file will be created there as needed with permission set to 0644, having the same group and ownership with Kubelet. |
-| `File` | A file must exist at the given path |
-| `Socket` | A UNIX socket must exist at the given path |
-| `CharDevice` | A character device must exist at the given path |
-| `BlockDevice` | A block device must exist at the given path |
 
 Watch out when using this type of volume, because:
 
@@ -174,7 +156,7 @@ Watch out when using this type of volume, because:
   behave differently on different nodes due to different files on the nodes
 * when Kubernetes adds resource-aware scheduling, as is planned, it will not be
   able to account for resources used by a `hostPath`
-* the files or directories created on the underlying hosts are only writable by root. You
+* the directories created on the underlying hosts are only writable by root. You
   either need to run your process as root in a
   [privileged container](/docs/user-guide/security-context) or modify the file
   permissions on the host to be able to write to a `hostPath` volume
@@ -198,8 +180,6 @@ spec:
     hostPath:
       # directory location on host
       path: /data
-      # this field is optional
-      type: Directory
 ```
 
 ### gcePersistentDisk
@@ -462,7 +442,7 @@ Secrets are described in more detail [here](/docs/user-guide/secrets).
 ### persistentVolumeClaim
 
 A `persistentVolumeClaim` volume is used to mount a
-[PersistentVolume](/docs/concepts/storage/persistent-volumes/) into a pod.  PersistentVolumes are a
+[PersistentVolume](/docs/user-guide/persistent-volumes) into a pod.  PersistentVolumes are a
 way for users to "claim" durable storage (such as a GCE PersistentDisk or an
 iSCSI volume) without knowing the details of the particular cloud environment.
 
@@ -474,7 +454,7 @@ details.
 A `downwardAPI` volume is used to make downward API data available to applications.
 It mounts a directory and writes the requested data in plain text files.
 
-See the [`downwardAPI` volume example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)  for more details.
+See the [`downwardAPI` volume example](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/)  for more details.
 
 ### projected
 
@@ -486,7 +466,7 @@ Currently, the following types of volume sources can be projected:
 - [`downwardAPI`](#downardapi)
 - `configMap`
 
-All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/node/all-in-one-volume.md).
+All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/all-in-one-volume.md).
 
 #### Example pod with a secret, a downward API, and a configmap.
 
@@ -686,8 +666,8 @@ More details and examples can be found [here](https://github.com/kubernetes/exam
 ### ScaleIO
 ScaleIO is a software-based storage platform that can use existing hardware to create clusters of scalable
 shared block networked storage.  The ScaleIO volume plugin allows deployed pods to access existing ScaleIO
-volumes (or it can dynamically provision new volumes for persistent volume claims, see
-[ScaleIO Persistent Volumes](/docs/concepts/storage/persistent-volumes/#scaleio)).
+volumes or it can dynamically provision new volumes, see
+[ScaleIO Persistent Volumes](/docs/user-guide/persistent-volumes/#scaleio).
 
 **Important:** You must have an existing ScaleIO cluster already setup and running with the volumes created before you can use them.
 {: .caution}
@@ -873,54 +853,6 @@ volume plugin path on each node. This is an alpha feature and may change in futu
 
 More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md).
 
-
-## Mount propagation
-
-**Note:** Mount propagation is an alpha feature in Kubernetes 1.8 and may be
-redesigned or even removed in future releases.
-{: .note}
-
-Mount propagation allows for sharing volumes mounted by a Container to
-other Containers in the same Pod, or even to other Pods on the same node.
-
-If the MountPropagation feature is disabled, volume mounts in pods are not propagated.
-That is, Containers run with `private` mount propagation as described in the
-[Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt).
-
-To enable this feature, specify `MountPropagation=true` in the
-`--feature-gates` command line option. When enabled, the `volumeMounts` field
-of a Container has a new `mountPropagation` subfield. Its values are:
-
- * `HostToContainer` - This volume mount will receive all subsequent mounts
-   that are mounted to this volume or any of its subdirectories. This is
-   the default mode when the MountPropagation feature is enabled.
-
-   In other words, if the host mounts anything inside the volume mount, the
-   Container will see it mounted there.
-
-   Similarly, if any pod with `Bidirectional` mount propagation to the same
-   volume mounts anything there, the Container with `HostToContainer` mount
-   propagation will see it.
-
-   This mode is equal to `rslave` mount propagation as described in the
-   [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
-
- * `Bidirectional` - This volume mount behaves the same the `HostToContainer` mount.
-   In addition, all volume mounts created by the Container will be propagated
-   back to the host and to all Containers of all Pods that use the same volume.
-
-   A typical use case for this mode is a Pod with a Flex volume driver or
-   a Pod that needs to mount something on the host using a HostPath volume.
-
-   This mode is equal to `rshared` mount propagation as described in the
-   [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
-
-**Caution:** `Bidirectional` mount propagation can be dangerous. It can damage
-the host operating system and therefore it is allowed only in privileged
-Containers. Familiarity with Linux kernel behavior is strongly recommended.
-In addition, any volume mounts created by Containers in Pods must be destroyed
-(unmounted) by the Containers on termination.
-{: .caution}
 
 {% endcapture %}
 

@@ -12,7 +12,7 @@ This document describes the current state of Horizontal Pod Autoscaling in Kuber
 
 With Horizontal Pod Autoscaling, Kubernetes automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization
-(or, with beta support, on some other, application-provided metrics). Note that Horizontal
+(or, with alpha support, on some other, application-provided metrics). Note that Horizontal 
 Pod Autoscaling does not apply to objects that can't be scaled, for example, DaemonSet.
 
 The Horizontal Pod Autoscaler is implemented as a Kubernetes API resource and a controller.
@@ -44,7 +44,7 @@ or the custom metrics API (for all other metrics).
 
   Please note that if some of the pod's containers do not have the relevant resource request set,
   CPU utilization for the pod will not be defined and the autoscaler will not take any action
-  for that metric. See the [autoscaling algorithm design document](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm) for further
+  for that metric. See the [autoscaling algorithm design document](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md#autoscaling-algorithm) for further
   details about how the autoscaling algorithm works.
 
 * For per-pod custom metrics, the controller functions similarly to per-pod resource metrics,
@@ -64,7 +64,7 @@ See [Support for custom metrics](#support-for-custom-metrics) for more details o
 
 The autoscaler accesses corresponding replication controller, deployment or replica set by scale sub-resource.
 Scale is an interface that allows you to dynamically set the number of replicas and examine each of their current states.
-More details on scale sub-resource can be found [here](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#scale-subresource).
+More details on scale sub-resource can be found [here](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md#scale-subresource).
 
 
 ## API Object
@@ -73,12 +73,12 @@ The Horizontal Pod Autoscaler is an API resource in the Kubernetes `autoscaling`
 The current stable version, which only includes support for CPU autoscaling,
 can be found in the `autoscaling/v1` API version.
 
-The beta version, which includes support for scaling on memory and custom metrics,
-can be found in `autoscaling/v2beta1`. The new fields introduced in `autoscaling/v2beta1`
+The alpha version, which includes support for scaling on memory and custom metrics,
+can be found in `autoscaling/v2alpha1`. The new fields introduced in `autoscaling/v2alpha1`
 are preserved as annotations when working with `autoscaling/v1`.
 
 More details about the API object can be found at
-[HorizontalPodAutoscaler Object](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
+[HorizontalPodAutoscaler Object](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
 
 ## Support for Horizontal Pod Autoscaler in kubectl
 
@@ -91,7 +91,7 @@ In addition, there is a special `kubectl autoscale` command for easy creation of
 For instance, executing `kubectl autoscale rc foo --min=2 --max=5 --cpu-percent=80`
 will create an autoscaler for replication controller *foo*, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
-The detailed documentation of `kubectl autoscale` can be found [here](/docs/user-guide/kubectl/{{page.version}}/#autoscale).
+The detailed documentation of `kubectl autoscale` can be found [here](/docs/user-guide/kubectl/v1.6/#autoscale).
 
 
 ## Autoscaling during rolling update
@@ -108,7 +108,7 @@ the Horizontal Pod Autoscaler will not be bound to the new replication controlle
 
 ## Support for multiple metrics
 
-Kubernetes 1.6 adds support for scaling based on multiple metrics. You can use the `autoscaling/v2beta1` API
+Kubernetes 1.6 adds support for scaling based on multiple metrics. You can use the `autoscaling/v2alpha1` API
 version to specify multiple metrics for the Horizontal Pod Autoscaler to scale on. Then, the Horizontal Pod
 Autoscaler controller will evaluate each metric, and propose a new scale based on that metric. The largest of the
 proposed scales will be used as the new scale.
@@ -116,12 +116,12 @@ proposed scales will be used as the new scale.
 ## Support for custom metrics
 
 **Note**: Kubernetes 1.2 added alpha support for scaling based on application-specific metrics using special annotations.
-Support for these annotations was removed in Kubernetes 1.6 in favor of the new autoscaling API.  While the old method for collecting
+Support for these annotations was removed in Kubernetes 1.6 in favor of the `autoscaling/v2alpha1` API.  While the old method for collecting
 custom metrics is still available, these metrics will not be available for use by the Horizontal Pod Autoscaler, and the former
 annotations for specifying which custom metrics to scale on are no longer honored by the Horizontal Pod Autoscaler controller.
 
 Kubernetes 1.6 adds support for making use of custom metrics in the Horizontal Pod Autoscaler.
-You can add custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2beta1` API.
+You can add custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2alpha1` API.
 Kubernetes then queries the new custom metrics API to fetch the values of the appropriate custom metrics.
 
 ### Requirements
@@ -149,6 +149,6 @@ custom metrics API with the API aggregation layer. Both of these API servers mus
 
 ## Further reading
 
-* Design documentation: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
-* kubectl autoscale command: [kubectl autoscale](/docs/user-guide/kubectl/{{page.version}}/#autoscale).
+* Design documentation: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md).
+* kubectl autoscale command: [kubectl autoscale](/docs/user-guide/kubectl/v1.6/#autoscale).
 * Usage example of [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).

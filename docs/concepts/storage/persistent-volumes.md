@@ -35,7 +35,7 @@ administrators. Kubernetes itself is unopinionated about what classes
 represent. This concept is sometimes called "profiles" in other storage
 systems.
 
-Please see the [detailed walkthrough with working examples](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
+Please see the [detailed walkthrough with working examples](/docs/user-guide/persistent-volumes/walkthrough/).
 
 
 ## Lifecycle of a volume and claim
@@ -109,39 +109,6 @@ However, the particular path specified in the custom recycler pod template in th
 
 For volume plugins that support the Delete reclaim policy, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in the external infrastructure, such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume. Volumes that were dynamically provisioned inherit the [reclaim policy of their `StorageClass`](#reclaim-policy-1), which defaults to Delete. The administrator should configure the `StorageClass` according to users' expectations, otherwise the PV must be edited or patched after it is created. See [Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
 
-
-### Expanding Persistent Volumes Claims
-
-With Kubernetes 1.8, we have added Alpha support for expanding persistent volumes. The current Alpha support was designed to only support volume types
-that don't need file system resizing (Currently only glusterfs).
-
-Administrator can allow expanding persistent volume claims by setting `ExpandPersistentVolumes` feature gate to true. Administrator
-should also enable [`PersistentVolumeClaimResize` admission plugin](/docs/admin/admission-controllers/#persistentvolumeclaimresize)
-to perform additional validations of volumes that can be resized.
-
-Once `PersistentVolumeClaimResize` admission plug-in has been turned on, resizing will only be allowed for storage classes
-whose `allowVolumeExpansion` field is set to true.
-
-``` yaml
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: gluster-vol-default
-provisioner: kubernetes.io/glusterfs
-parameters:
-  resturl: "http://192.168.10.100:8080"
-  restuser: ""
-  secretNamespace: ""
-  secretName: ""
-allowVolumeExpansion: true
-```
-
-Once both feature gate and aforementioned admission plug-in are turned on, an user can request larger volume for their `PersistentVolumeClaim`
-by simply editing the claim and requesting bigger size.  This in turn will trigger expansion of volume that is backing underlying `PersistentVolume`.
-
-Under no circustances a new `PersistentVolume` gets created to satisfy the claim. Kubernetes will attempt to resize existing volume to satisfy the claim.
-
-
 ## Types of Persistent Volumes
 
 `PersistentVolume` types are implemented as plugins.  Kubernetes currently supports the following plugins:
@@ -193,7 +160,7 @@ Each PV contains a spec and status, which is the specification and status of the
 
 ### Capacity
 
-Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) to understand the units expected by `capacity`.
+Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://git.k8s.io/community/contributors/design-proposals/resources.md) to understand the units expected by `capacity`.
 
 Currently, storage size is the only resource that can be set or requested.  Future attributes may include IOPS, throughput, etc.
 
@@ -234,7 +201,7 @@ In the CLI, the access modes are abbreviated to:
 | Quobyte              | &#x2713;     | &#x2713;    | &#x2713;     |
 | NFS                  | &#x2713;     | &#x2713;    | &#x2713;     |
 | RBD                  | &#x2713;     | &#x2713;    | -            |
-| VsphereVolume        | &#x2713;     | -           | - (works when pods are collocated)  |
+| VsphereVolume        | &#x2713;     | -           | -            |
 | PortworxVolume       | &#x2713;     | -           | &#x2713;     |
 | ScaleIO              | &#x2713;     | &#x2713;    | -            |
 | StorageOS            | &#x2713;     | -           | -            |
@@ -330,11 +297,11 @@ Claims use the same conventions as volumes when requesting storage with specific
 
 ### Resources
 
-Claims, like pods, can request specific quantities of a resource.  In this case, the request is for storage.  The same [resource model](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) applies to both volumes and claims.
+Claims, like pods, can request specific quantities of a resource.  In this case, the request is for storage.  The same [resource model](https://git.k8s.io/community/contributors/design-proposals/resources.md) applies to both volumes and claims.
 
 ### Selector
 
-Claims can specify a [label selector](/docs/concepts/overview/working-with-objects/labels/#label-selectors) to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim. The selector can consist of two fields:
+Claims can specify a [label selector](/docs/user-guide/labels/#label-selectors) to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim. The selector can consist of two fields:
 
 * matchLabels - the volume must have a label with this value
 * matchExpressions - a list of requirements made by specifying key, list of values, and operator that relates the key and values. Valid operators include In, NotIn, Exists, and DoesNotExist.
@@ -466,7 +433,7 @@ for provisioning PVs. This field must be specified.
 You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
 alongside Kubernetes). You can also run and specify external provisioners,
-which are independent programs that follow a [specification](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)
+which are independent programs that follow a [specification](https://git.k8s.io/community/contributors/design-proposals/volume-provisioning.md)
 defined by Kubernetes. Authors of external provisioners have full discretion
 over where their code lives, how the provisioner is shipped, how it needs to be
 run, what volume plugin it uses (including Flex), etc. The repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage)

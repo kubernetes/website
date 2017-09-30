@@ -37,7 +37,7 @@ Kubernetes reviews only the following API request attributes:
 --* For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
  * **Subresource** - The subresource that is being accessed (for resource requests only).
  * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only).
- * **API group** - The API group being accessed (for resource requests only). An empty string designates the [core API group](/docs/concepts/overview/kubernetes-api/).
+ * **API group** - The API group being accessed (for resource requests only). An empty string designates the [core API group](/docs/api/).
 
 ## Determine the Request Verb
 To determine the request verb for a resource API endpoint, review the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:
@@ -67,61 +67,47 @@ of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authoriz
 
 #### Checking API Access
 
-`kubectl` provides the `auth can-i` subcommand for quickly querying the API authorization layer.
-The command uses the `SelfSubjectAccessReview` API to determine if the current user can perform
-a given action, and works regardless of the authorization mode used.
-
-
-```bash
-$ kubectl auth can-i create deployments --namespace dev
-yes
-$ kubectl auth can-i create deployments --namespace prod
-no
-```
-
-Administrators can combine this with ["user impersonation"](/docs/admin/authentication/#user-impersonation)
-to determine what action other users can perform.
+Kubernetes exposes the `subjectaccessreviews.v1.authorization.k8s.io` resource as a
+normal resource that allows external access to API authorizer decisions.  No matter which authorizer
+you choose to use, you can issue a `POST` with a `SubjectAccessReview` just like the webhook
+authorizer to the `apis/authorization.k8s.io/v1/subjectaccessreviews` endpoint and
+get back a response.  For instance:
 
 ```bash
-$ kubectl auth can-i list secrets --namespace dev --as dave
-no
+kubectl create --v=8 -f -  << __EOF__
+{
+  "apiVersion": "authorization.k8s.io/v1",
+  "kind": "SubjectAccessReview",
+  "spec": {
+    "resourceAttributes": {
+      "namespace": "kittensandponies",
+      "verb": "get",
+      "group": "unicorn.example.org",
+      "resource": "pods"
+    },
+    "user": "jane",
+    "group": [
+      "group1",
+      "group2"
+    ],
+    "extra": {
+      "scopes": [
+        "openid",
+        "profile"
+      ]
+    }
+  }
+}
+__EOF__
+
+--- snip lots of output ---
+
+I0913 08:12:31.362873   27425 request.go:908] Response Body: {"kind":"SubjectAccessReview","apiVersion":"authorization.k8s.io/v1","metadata":{"creationTimestamp":null},"spec":{"resourceAttributes":{"namespace":"kittensandponies","verb":"GET","group":"unicorn.example.org","resource":"pods"},"user":"jane","group":["group1","group2"],"extra":{"scopes":["openid","profile"]}},"status":{"allowed":true}}
+subjectaccessreview "" created
 ```
 
-`SelfSubjectAccessReview` is part of the `authorization.k8s.io` API group, which exposes the
-API server authorization to external services. Other resources in this group include:
-
-* `SubjectAccessReview` - Access review for any user, not just the current one. Useful for delegating authorization decisions to the API server. For example, the kubelet and extension API servers use this to determine user access to their own APIs.
-* `LocalSubjectAccessReview` - Like `SubjectAccessReview` but restricted to a specific namespace.
-* `SelfSubjectRulesReview` - A review which returns the set of actions a user can perform within a namespace. Useful for users to quickly summarize their own access, or for UIs to hide/show actions.
-
-These APIs can be queried by creating normal Kubernetes resources, where the response "status"
-field of the returned object is the result of the query.
-
-```bash
-$ kubectl create -f - -o yaml << EOF
-apiVersion: authorization.k8s.io/v1
-kind: SelfSubjectAccessReview
-spec:
-  resourceAttributes:
-    group: apps
-    name: deployments
-    verb: create
-    namespace: dev
-EOF
-
-apiVersion: authorization.k8s.io/v1
-kind: SelfSubjectAccessReview
-metadata:
-  creationTimestamp: null
-spec:
-  resourceAttributes:
-    group: apps
-    name: deployments
-    namespace: dev
-    verb: create
-status:
-  allowed: true
-```
+This is useful for debugging access problems, in that you can use this resource
+to determine what access an authorizer is granting.
 
 ## Using Flags for Your Authorization Module
 
@@ -149,10 +135,3 @@ As of version 1.3, clusters created by kube-up.sh are configured so that the A
 {% endcapture %}
 
 {% include templates/concept.md %}
-
-## Privilege escalation via pod creation
-
-Users who have ability to create pods in a namespace can potentially escalate their privileges within that namespace.  They can create pods that access secrets the user cannot themselves read, or that run under a service account with different/greater permissions.
-
-**Caution:** System administrators, use care when granting access to pod creation.  A user granted permission to create pods (or controllers that create pods) in the namespace can: read all secrets in the namespace; read all config maps in the namespace; and impersonate any service account in the namespace and take any action the account could take. This applies regardless of authorization mode.
-{: .caution}

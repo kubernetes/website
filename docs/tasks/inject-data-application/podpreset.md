@@ -8,7 +8,7 @@ You can use a `podpreset` object to inject certain information into pods at crea
 time. This information can include secrets, volumes, volume mounts, and environment
 variables.
 
-See [PodPreset proposal](https://git.k8s.io/community/contributors/design-proposals/service-catalog/pod-preset.md) for more information.
+See [PodPreset proposal](https://git.k8s.io/community/contributors/design-proposals/pod-preset.md) for more information.
 
 * TOC
 {:toc}
@@ -123,7 +123,7 @@ metadata:
     app: website
     role: frontend
   annotations:
-    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
+    podpreset.admission.kubernetes.io/allow-database: "resource version"
 spec:
   containers:
     - name: website
@@ -229,7 +229,7 @@ metadata:
     app: website
     role: frontend
   annotations:
-    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
+    podpreset.admission.kubernetes.io/allow-database: "resource version"
 spec:
   containers:
     - name: website
@@ -325,35 +325,34 @@ spec:
 **Pod spec after admission controller:**
 
 ```yaml
-apiVersion: v1
 kind: Pod
-metadata:
-  labels:
-    app: guestbook
-    tier: frontend
-  annotations:
-    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
-spec:
-  containers:
-  - name: php-redis
-    image: gcr.io/google_samples/gb-frontend:v3
-    resources:
-      requests:
-        cpu: 100m
-        memory: 100Mi
-    volumeMounts:
-    - mountPath: /cache
-      name: cache-volume
-    env:
-    - name: GET_HOSTS_FROM
-      value: dns
-    - name: DB_PORT
-      value: "6379"
-    ports:
-    - containerPort: 80
-  volumes:
-  - name: cache-volume
-    emptyDir: {}
+  metadata:
+    labels:
+      app: guestbook
+      tier: frontend
+    annotations:
+    podpreset.admission.kubernetes.io/allow-database: "resource version"
+  spec:
+    containers:
+      - name: php-redis
+        image: gcr.io/google_samples/gb-frontend:v3
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+          - mountPath: /cache
+            name: cache-volume
+        env:
+          - name: GET_HOSTS_FROM
+            value: dns
+          - name: DB_PORT
+            value: "6379"
+        ports:
+          - containerPort: 80
+    volumes:
+      - name: cache-volume
+        emptyDir: {}
 ```
 
 ### Multiple PodPreset Example
@@ -433,8 +432,8 @@ metadata:
     app: website
     role: frontend
   annotations:
-    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
-    podpreset.admission.kubernetes.io/podpreset-proxy: "resource version"
+    podpreset.admission.kubernetes.io/allow-database: "resource version"
+    podpreset.admission.kubernetes.io/proxy: "resource version"
 spec:
   containers:
     - name: website
@@ -526,10 +525,10 @@ spec:
         - mountPath: /cache
           name: cache-volume
       ports:
-        - containerPort: 80
   volumes:
     - name: cache-volume
       emptyDir: {}
+        - containerPort: 80
 ```
 
 **If we run `kubectl describe...` we can see the event:**
@@ -539,7 +538,7 @@ $ kubectl describe ...
 ....
 Events:
   FirstSeen             LastSeen            Count   From                    SubobjectPath               Reason      Message
-  Tue, 07 Feb 2017 16:56:12 -0700   Tue, 07 Feb 2017 16:56:12 -0700 1   {podpreset.admission.kubernetes.io/podpreset-allow-database }    conflict  Conflict on pod preset. Duplicate mountPath /cache.
+  Tue, 07 Feb 2017 16:56:12 -0700   Tue, 07 Feb 2017 16:56:12 -0700 1   {podpreset.admission.kubernetes.io/allow-database }    conflict  Conflict on pod preset. Duplicate mountPath /cache.
 ```
 
 ## Deleting a Pod Preset

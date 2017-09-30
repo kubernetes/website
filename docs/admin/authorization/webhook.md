@@ -58,7 +58,7 @@ action. This object contains fields describing the user attempting to make the
 request, and either details about the resource being accessed or requests
 attributes.
 
-Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
+Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/api/)
 as other Kubernetes API objects. Implementers should be aware of looser
 compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API Server must

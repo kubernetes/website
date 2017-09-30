@@ -19,7 +19,7 @@ onto nodes with matching taints.
 
 ## Concepts
 
-You add a taint to a node using [kubectl taint](/docs/user-guide/kubectl/{{page.version}}/#taint).
+You add a taint to a node using [kubectl taint](/docs/user-guide/kubectl/v1.7/#taint).
 For example,
 
 ```shell
