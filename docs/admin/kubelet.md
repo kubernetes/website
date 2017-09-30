@@ -59,7 +59,7 @@ kubelet
       --cluster-domain string                                    Domain for this cluster.  If set, kubelet will configure all containers to search this domain in addition to the host's search domains
       --cni-bin-dir string                                       <Warning: Alpha feature> The full path of the directory in which to search for CNI plugin binaries. Default: /opt/cni/bin
       --cni-conf-dir string                                      <Warning: Alpha feature> The full path of the directory in which to search for CNI config files. Default: /etc/cni/net.d
-      --container-runtime string                                 The container runtime to use. Possible values: 'docker', 'rkt'. (default "docker")
+      --container-runtime string                                 The container runtime to use. Possible values: 'docker', 'rkt', 'remote'. (default "docker")
       --container-runtime-endpoint string                        [Experimental] The endpoint of remote runtime service. Currently unix socket is supported on Linux, and tcp is supported on windows.  Examples:'unix:///var/run/dockershim.sock', 'tcp://localhost:3735' (default "unix:///var/run/dockershim.sock")
       --containerized                                            Experimental support for running kubelet in a container.  Intended for testing.
       --contention-profiling                                     Enable lock contention profiling, if profiling is enabled
