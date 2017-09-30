@@ -79,7 +79,7 @@ You will install these packages on all of your machines:
 **Note:** If you already have kubeadm installed, you should do a `apt-get update &&
 apt-get upgrade` or `yum update` to get the latest version of kubeadm. See the
 kubeadm release notes if you want to read about the different [kubeadm
-releases](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md)
+releases](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md).
 
 For each machine:
 
@@ -116,12 +116,12 @@ For each machine:
   systemctl enable kubelet && systemctl start kubelet
   ```
 
-  The kubelet is now restarting every few seconds, as it waits in a crashloop for
-  kubeadm to tell it what to do.
+The kubelet is now restarting every few seconds, as it waits in a crashloop for
+kubeadm to tell it what to do.
 
-  Note: Disabling SELinux by running `setenforce 0` is required to allow
-  containers to access the host filesystem, which is required by pod networks for
-  example. You have to do this until SELinux support is improved in the kubelet.
+**Note:** Disabling SELinux by running `setenforce 0` is required to allow
+containers to access the host filesystem, which is required by pod networks for
+example. You have to do this until SELinux support is improved in the kubelet.
 
 {% endcapture %}
 

@@ -849,4 +849,8 @@ several media types.
 
 {% endcapture %}
 
+{% capture whatsnext %}
+* Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
+{% endcapture %}
+
 {% include templates/concept.md %}
