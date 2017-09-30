@@ -108,7 +108,7 @@ spec:
 
 {% capture whatsnext %}
 
-Once you have installed the Weave Net addon, you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
+Once you have installed the Weave Net addon, you can follow the [NetworkPolicy guide](/docs/concepts/services-networking/network-policies) to try out Kubernetes NetworkPolicy.
 
 {% endcapture %}
 
