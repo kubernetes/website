@@ -34,9 +34,9 @@ Kubernetes 将用户账号和服务账号的概念区分开，主要基于以下
 
 服务账号的自动化由三个独立的组件共同配合实现：
 
-  - 用户账号准入控制器（A Service account admission controller）
-  - 令牌控制器（A Token controller）
-  - 服务账号控制器（A Service account controller）
+  - 用户账号准入控制器（Service account admission controller）
+  - 令牌控制器（Token controller）
+  - 服务账号控制器（Service account controller）
 
 
 ### 服务账号准入控制器
