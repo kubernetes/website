@@ -17,6 +17,7 @@ Static pod can be created in two ways: either by using configuration file(s) or 
 ### Configuration files
 
 The configuration files are just standard pod definition in json or yaml format in specific directory. Use `kubelet --pod-manifest-path=<the directory>` to start kubelet daemon, which periodically scans the directory and creates/deletes static pods as yaml/json files appear/disappear there.
+Note that kubelet will ignore files starting with dots when scanning the specified directory.
 
 For example, this is how to start a simple web server as a static pod:
 
@@ -92,7 +93,7 @@ Notice we cannot delete the pod with the API server (e.g. via [`kubectl`](/docs/
 
 ```shell
 [joe@my-master ~] $ kubectl delete pod static-web-my-node1
-pods/static-web-my-node1
+pod "static-web-my-node1" deleted
 [joe@my-master ~] $ kubectl get pods
 NAME                       READY     STATUS    RESTARTS   AGE
 static-web-my-node1        1/1       Running   0          12s

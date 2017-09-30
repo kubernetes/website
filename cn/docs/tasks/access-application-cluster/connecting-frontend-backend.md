@@ -8,8 +8,8 @@ title: 使用 Service 把前端连接到后端
 
 
 
-这项任务会描述如何创建一个前端和一个后端的微服务。后端微服务是一个 hello 欢迎程序。
-前端和后端的连接是通过 Kubernetes Service 对象完成的。
+本任务会描述如何创建前端微服务和后端微服务。后端微服务是一个 hello 欢迎程序。
+前端和后端的连接是通过 Kubernetes 服务对象（Service object）完成的。
 
 {% endcapture %}
 
@@ -19,9 +19,9 @@ title: 使用 Service 把前端连接到后端
 
 
 
-* 使用 Deployment 对象创建并运行一个微服务
+* 使用部署对象（Deployment object）创建并运行一个微服务
 * 从后端将流量路由到前端
-* 使用 Service 对象把前端应用连接到后端应用
+* 使用服务对象把前端应用连接到后端应用
 
 {% endcapture %}
 
@@ -31,9 +31,9 @@ title: 使用 Service 把前端连接到后端
 * {% include task-tutorial-prereqs.md %}
 
 
-* 本项任务使用[外部负载均衡服务](/cn/docs/tasks/access-application-cluster/create-external-load-balancer/)，
-  所以需要对应的可支持此功能的环境。如果你的环境不能支持，你可以使用[NodePort](/cn/docs/user-guide/services/#type-nodeport)
-  的类型 Service 来代替。
+* 本任务使用 [外部负载均衡服务](/docs/tasks/access-application-cluster/create-external-load-balancer/)，
+  所以需要对应的可支持此功能的环境。如果你的环境不能支持，你可以使用
+  [NodePort](/docs/user-guide/services/#type-nodeport) 类型的服务代替。
 
 {% endcapture %}
 
@@ -41,7 +41,7 @@ title: 使用 Service 把前端连接到后端
 {% capture lessoncontent %}
 
 
-### 使用 Deployment 创建后端
+### 使用部署对象（Deployment）创建后端
 
 
 
@@ -85,14 +85,14 @@ Events:
 ```
 
 
-### 创建后端 Service 对象
+### 创建后端服务对象（Service object）
 
 
 
 
 
 前端连接到后端的关键是 Service。Service 创建一个固定 IP 和 DNS 解析名入口，
-使得后端微服务可达。Service 使用 selector 标签来寻找目的地 Pods。
+使得后端微服务可达。Service 使用 selector 标签来寻找目标 Pod。
 
 
 首先，浏览 Service 的配置文件：
@@ -101,7 +101,7 @@ Events:
 
 
 
-配置文件中，你可以看到 Service 将流量路由到包含 `app: hello` 和 `tier: backend` 标签的 Pods。
+配置文件中，你可以看到 Service 将流量路由到包含 `app: hello` 和 `tier: backend` 标签的 Pod。
 
 
 创建 `hello` Service：
@@ -147,7 +147,7 @@ kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/frontend.
 ```
 
 
-输出确认两个资源都已经被创建：
+通过输出确认两个资源都已经被创建：
 
 ```
 deployment "frontend" created
@@ -159,8 +159,8 @@ service "frontend" created
 
 
 
-**注意**：这个 nginx 配置文件是被打包在[容器镜像](/cn/docs/tasks/access-application-cluster/frontend/Dockerfile)里的。
-更好的方法是使用 [ConfigMap](/cn/docs/tasks/configure-pod-container/configmap/)，这样的话你可以更轻易地更改配置。
+**注意**：这个 nginx 配置文件是被打包在 [容器镜像](/docs/tasks/access-application-cluster/frontend/Dockerfile) 里的。
+更好的方法是使用 [ConfigMap](/docs/tasks/configure-pod-container/configmap/)，这样的话你可以更轻易地更改配置。
 
 
 ### 与前端 Service 交互
@@ -175,7 +175,7 @@ kubectl get service frontend
 
 
 
-外部 IP 的字段的生成可能需要一些时间。如果是这种情况，外部 IP 会显示为 `<pending>`。
+外部 IP 字段的生成可能需要一些时间。如果是这种情况，外部 IP 会显示为 `<pending>`。
 
 ```
 NAME       CLUSTER-IP      EXTERNAL-IP   PORT(S)  AGE
@@ -215,8 +215,8 @@ curl http://<EXTERNAL-IP>
 
 
 
-* 了解更多 [Services](/cn/docs/concepts/services-networking/service/)
-* 了解更多 [ConfigMaps](/cn/docs/tasks/configure-pod-container/configmap/)
+* 了解更多 [Services](/docs/concepts/services-networking/service/)
+* 了解更多 [ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
 
 {% endcapture %}
 

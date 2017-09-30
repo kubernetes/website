@@ -2,7 +2,7 @@
 assignees:
 - jbeda
 
-title: Webhook 模式
+title: 使用启动引导令牌（Bootstrap Tokens）认证
 ---
 
 * TOC
@@ -17,10 +17,10 @@ title: Webhook 模式
 
 
 
-启动引导令牌是一种简单的 bearer token ，这种令牌是在新建集群或者在现有集群中添加新加新节点时使用的。
-它被设计成能支持 [`kubeadm`](/docs/admin/kubeadm/)，但是也可以被用在其他上下文中以便用户在
-不使用 `kubeadm` 的情况下启动cluster。它也被设计成可以通过 RBAC 策略，结合[Kubelet TLS
-Bootstrapping](/cn/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
+启动引导令牌是一种简单的持有者令牌（Bearer Token），这种令牌是在新建集群或者在现有集群中添加新加新节点时使用的。
+它被设计成能够支持 [`kubeadm`](/docs/admin/kubeadm/)，但是也可以被用在其他 context 中以便用户在
+不使用 `kubeadm` 的情况下启动集群。它也被设计成可以通过 RBAC 策略，结合 [Kubelet TLS
+Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 
 
 
@@ -29,15 +29,14 @@ Bootstrapping](/cn/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 
 
 
-启动引导令牌被定义成一个特定类型的secrets (`bootstrap.kubernetes.io/token`)，并存在于
+启动引导令牌被定义成一个特定类型的 secrets(`bootstrap.kubernetes.io/token`)，并存在于
 `kube-system` 命名空间中。然后这些 secrets 会被 API 服务器上的启动引导的认证器读取。
-过期的令牌与令牌清除控制器会被控制管理器一起清除。令牌也会被用于创建签名，签名用于
-启动引导签名控制器在 "discovery" 进程中特定的 configmap 。
+过期的令牌与 TokenCleaner 会被控制管理器一起清除。令牌也会被用于创建特定 configmap 的签名，
+而这个 configmap 会通过启动引导签名控制器在 "discovery" 过程中使用。
 
 
 
-
-目前，启动引导令牌处于 **alpha** 阶段，但是预期也不会有大的突破性的变化。
+目前，启动引导令牌处于 **alpha** 阶段，但是预期也不会有大的突破性变化。
 
 
 ## 令牌格式
@@ -51,14 +50,14 @@ Bootstrapping](/cn/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 
 
 
-令牌的第一部分是 "Token ID" ，它是公共信息。它被用于引用一个 token 用于认证而不会泄漏保密部分。
+令牌的第一部分是 "Token ID" ，它是公共信息。它被用于引用一个用于认证的令牌而不会泄漏令牌的保密部分。
 第二部分是 "Token Secret"，它应该只能被信任方共享。
 
 
 ## 启用启动引导令牌
 
 
-所有启动引导令牌的特新在 Kubernetes v1.6 版本中都是默认禁用的。
+所有启动引导令牌的特性在 Kubernetes v1.6 版本中默认都是禁用的。
 
 
 
@@ -68,7 +67,7 @@ Bootstrapping](/cn/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 
 你可以在 API 服务器上通过 `--experimental-bootstrap-token-auth` 参数启用启动引导令牌。
 你可以在控制管理器上通过 `--controllers` 参数，比如 `--controllers=*,tokencleaner,bootstrapsigner` 来启用启动引导令牌。
-在使用 `kubeadm` 时，这个是自动完成的。
+在使用 `kubeadm` 时，这是自动完成的。
 
 
 HTTPS 调用中的令牌是这样使用的：
@@ -84,13 +83,13 @@ Authorization: Bearer 07401b.f395accd246ae52d
 
 
 每个合法的令牌是通过一个 `kube-system` 命名空间中的 secret 隐藏的。
-你可以从[这里](https://git.k8s.io/community/contributors/design-proposals/bootstrap-discovery.md)找到完整设计文档。
+你可以从 [这里](https://git.k8s.io/community/contributors/design-proposals/bootstrap-discovery.md) 找到完整设计文档。
 
 
 
 
-这是 secret 看起来的样子。注意，`base64(string)` 表示值应该是通过 base64 编码的。
-这里使用的是解码版本以便于阅读。
+这是 secret 看起来的样子。注意，`base64(string)` 表示应该通过 base64 对值进行编码。
+这里使用的是未解码的版本以便于阅读。
 
 ```yaml
 apiVersion: v1
@@ -113,12 +112,12 @@ data:
 
 
 
-secret的类型必须是 `bootstrap.kubernetes.io/token` ，而名字必须是 `bootstrap-token-<token id>`。
+secret 的类型必须是 `bootstrap.kubernetes.io/token` ，而且名字必须是 `bootstrap-token-<token id>`。
 `description` 是人类可读的描述，而不应该是机器可读的信息。令牌 ID 和 Secret 是包含在数据字典中的。
 
-The `usage-bootstrap-*` members indicate what this secret is intended to be used
-for.  A value must be set to `true` to be enabled.
- `usage-bootstrap-*` 成员代表了这个 secret 被用于什么。启用时，值必须设置为 `true`。
+
+
+ `usage-bootstrap-*` 成员表示这个 secret 的用途。启用时，值必须设置为 `true`。
 
 
 
@@ -127,7 +126,7 @@ for.  A value must be set to `true` to be enabled.
 
 `usage-bootstrap-authentication` 表示令牌可以用于 API 服务器的认证。认证器会以
 `system:bootstrap:<Token ID>` 认证。它被包含在 `system:bootstrappers` 组中。
-命名和组是故意受限制的，以阻碍用户在启动引导后再使用这些令牌。
+命名和组是故意受限制的，以防止用户在启动引导后再使用这些令牌。
 
 
 
@@ -136,8 +135,8 @@ for.  A value must be set to `true` to be enabled.
 
 
 
-`expiration` 数据成员列举了令牌在失效后的时间。这是通过 RFC3339 进行编码的 UTC 时间。
-令牌清理控制器会删除过期的令牌。
+`expiration` 数据成员列举了令牌在失效后的时间。这是遵循 RFC3339 进行编码的 UTC 时间。
+TokenCleaner 控制器会删除过期的令牌。
 
 
 ## 使用 `kubeadm` 管理令牌
@@ -147,18 +146,18 @@ for.  A value must be set to `true` to be enabled.
 
 
 
-你可以是用 `kubeadm` 工具管理正在运行集群的令牌。它会从 `kubeadm` 创建的集群(`/etc/kubernetes/admin.conf`)
-自动抓取默认管理员密码。你可以对下面命令指定一个另外的 kubeconfig 文件抓取密码，参数使用 `--kubeconfig`。
+你可以使用 `kubeadm` 工具管理正在运行集群的令牌。它会从 `kubeadm` 创建的集群(`/etc/kubernetes/admin.conf`)
+自动抓取默认管理员密码。你可以通过参数 `--kubeconfig` 对下面命令指定一个另外的 kubeconfig 文件抓取密码。
 
 
 * `kubeadm token list` 列举了令牌，同时显示了它们的过期时间和用途。
 * `kubeadm token create` 创建一个新令牌。
     * `--description` 设置新令牌的描述。
-    * `--ttl duration` 设置令牌从 "现在" 算起到过期的时间增量。
+    * `--ttl duration` 设置令牌从 "现在" 起到过期时间的差值。
       默认是 0 ，也就是不过期。
     * `--usages` 设置令牌被使用的方式。默认是 `signing,authentication`。用途在上面已经描述。
 * `kubeadm token delete <token id>|<token id>.<token secret>` 删除令牌。
-  令牌可以只用 ID 来确认，或者用整个令牌的值。如果只用 ID，密文不符合的令牌也会被删除。
+  令牌可以只用 ID 来确认，也可以用整个令牌的值。如果只用 ID 的情况下，密文不匹配的令牌也会被删除。
 
 
 ### ConfigMap签名
@@ -166,16 +165,16 @@ for.  A value must be set to `true` to be enabled.
 
 
 
-除了认证之外，令牌可以用于签名 ConfigMap。这在集群启动流程的早期，在客户端信任 API服务器之前被使用。
-签名过的 ConfigMap 可以通过共享令牌被认证。
+除了认证之外，令牌可以用于签名 ConfigMap。这在集群启动过程的早期，在客户端信任 API 服务器之前被使用。
+被签名的 ConfigMap 可以通过共享令牌被认证。
 
 
 
 
 
-签名过的 ConfigMap 是 `kube-public` 命名空间中的 `cluster-info`。
-典型的工作流中，客户端读取这个 ConfigMap 而不管认证和 TLS 报错。
-它会通过 ConfigMap 中嵌入的签名校验 ConfigMap 的载荷。
+被签名的 ConfigMap 是 `cluster-info`，存在于 `kube-public` 命名空间中。
+典型的工作流中，客户端在未经认证和忽略 TLS 报错的状态下读取这个 ConfigMap。
+通过 ConfigMap 中嵌入的签名校验 ConfigMap 的载荷。
 
 
 ConfigMap 会是这个样子的：
@@ -206,7 +205,7 @@ data:
 
 
 ConfigMap 的 `kubeconfig` 成员是一个填好了集群信息的配置文件。
-这里主要交换的信息是 `certificate-authority-data`。在将来可能会被扩展。
+这里主要交换的信息是 `certificate-authority-data`。在将来可能会有扩展。
 
 
 
@@ -216,6 +215,6 @@ ConfigMap 的 `kubeconfig` 成员是一个填好了集群信息的配置文件�
 
 
 签名是一个 JWS 签名，使用了 "detached" 模式。为了检验签名，用户应该按照 JWS 规则
-(base64 编码而忽略结尾的 `=`)对 `kubeconfig` 载荷进行编码。那样编码过载荷会被通过插入 JWS 并存在于两个点的中间
-，用于形成一个完整的 JWS。你可以使用令牌的完整信息(比如 `07401b.f395accd246ae52d`)作为共享密钥，
+(base64 编码而忽略结尾的 `=`)对 `kubeconfig` 的载荷进行编码。完成编码的载荷会被通过插入 JWS 并存在于两个点的中间
+，用于形成一个完整的 JWS。可以使用令牌的完整信息（比如 `07401b.f395accd246ae52d`）作为共享密钥，
 通过 `HS256` 方式 (HMAC-SHA256) 对 JWS 进行校验。 用户 _必须_ 确保使用了 HS256。

@@ -85,6 +85,7 @@ external IP address.
         Name:           my-service
         Namespace:      default
         Labels:         run=load-balancer-example
+        Annotations:    <none>
         Selector:       run=load-balancer-example
         Type:           LoadBalancer
         IP:             10.3.245.137
@@ -93,7 +94,7 @@ external IP address.
         NodePort:       <unset> 32377/TCP
         Endpoints:      10.0.0.6:8080,10.0.1.6:8080,10.0.1.7:8080 + 2 more...
         Session Affinity:   None
-        Events:
+        Events:         <none>
 
     Make a note of the external IP address exposed by your service. In this
     example, the external IP address is 104.198.205.71. Also note

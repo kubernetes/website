@@ -19,10 +19,13 @@ The `image` property of a container supports the same syntax as the `docker` com
 
 ## Updating Images
 
-The default pull policy is `IfNotPresent` which causes the Kubelet to not
-pull an image if it already exists. If you would like to always force a pull
-you must set a pull image policy of `Always` or specify a `:latest` tag on
-your image.
+The default pull policy is `IfNotPresent` which causes the Kubelet to skip
+pulling an image if it already exists. If you would like to always force a pull,
+you can do one of the following:
+
+- set the `imagePullPolicy` of the container to `Always`;
+- use `:latest` as the tag for the image to use;
+- enable the [AllwaysPullImages](/docs/admin/admission-controllers/#alwayspullimages) admission controller.
 
 If you did not specify tag of your image, it will be assumed as `:latest`, with
 pull image policy of `Always` correspondingly.
