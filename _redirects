@@ -284,9 +284,13 @@ TEMPORARY
 /docs/user-guide/environment-guide                              /docs/tasks/inject-data-application/environment-variable-expose-pod-information     301
 /docs/user-guide/federation                                     /docs/concepts/cluster-administration/federation        301
 /docs/user-guide/federation/cluster                             /docs/tasks/administer-federation/cluster       301
+/docs/user-guide/federation/index.md							/docs/tasks/federation/federation-service-discovery/ 301
 /docs/user-guide/federation/configmap                           /docs/tasks/administer-federation/configmap     301
+/docs/user-guide/federation/configmap.md                        /docs/tasks/administer-federation/configmap     301
 /docs/user-guide/federation/daemonsets                          /docs/tasks/administer-federation/daemonset     301
+/docs/user-guide/federation/daemonsets.md                       /docs/tasks/administer-federation/daemonset     301
 /docs/user-guide/federation/deployment                          /docs/tasks/administer-federation/deployment        301
+/docs/user-guide/federation/deployment.md						/docs/tasks/administer-federation/deployment 301
 /docs/user-guide/federation/events                              /docs/tasks/administer-federation/events        301
 /docs/user-guide/federation/federated-ingress                   /docs/tasks/administer-federation/ingress       301
 /docs/user-guide/federation/federated-services                  /docs/tasks/federation/federation-service-discovery     301
