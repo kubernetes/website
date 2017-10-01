@@ -357,9 +357,9 @@ Kubelet 仅支持从 API server 获取的 Pod 使用 secret。这包括使用 ku
 
 必须先创建 secret，除非将它们标记为可选项，否则必须在将其作为环境变量在 pod 中使用之前创建 secret。对不存在的 secret 的引用将阻止其启动。
 
-通过 `secretKeyRef` 对不存在于命名的 key 中的 key 进行引用将阻止该启动。
+使用 `secretKeyRef` ，引用指定的 secret 中的不存在的 key ，这会阻止 pod 的启动。
 
-用于通过 `envFrom` 填充环境变量的 secret，这些环境变量具有被认为是无效环境变量名称的 key 将跳过这些键。该 pod 将被允许启动。将会有一个事件，其原因是 `InvalidVariableNames`，该消息将包含被跳过的无效键的列表。该示例显示一个 pod，它指的是包含2个无效键，1badkey 和 2alsobad 的默认/mysecret ConfigMap。
+对于通过 `envFrom` 填充环境变量的 secret，这些环境变量具有被认为是无效环境变量名称的 key 将跳过这些键。该 pod 将被允许启动。将会有一个事件，其原因是 `InvalidVariableNames`，该消息将包含被跳过的无效键的列表。该示例显示一个 pod，它指的是包含2个无效键，1badkey 和 2alsobad 的默认/mysecret ConfigMap。
 
 ```shell
 $ kubectl get events
@@ -495,7 +495,7 @@ spec:
     image: myClientImage
 ```
 
-### 使用案例：secret 卷中以点号开头的文件
+### 使用案例：Secret 卷中以点号开头的文件
 
 为了将数据“隐藏”起来（即文件名以点号开头的文件），简单地说让该键以一个点开始。例如，当如下 secret 被挂载到卷中：
 
@@ -547,7 +547,7 @@ spec:
 
 ## 最佳实践
 
-### 客户端使用 secret API
+### 客户端使用 Secret API
 
 当部署与 secret API 交互的应用程序时，应使用诸如 [RBAC](https://kubernetes.io/docs/admin/authorization/rbac/) 之类的 [授权策略](https://kubernetes.io/docs/admin/authorization/) 来限制访问。
 
@@ -573,11 +573,11 @@ Secret 中的值对于不同的环境来说重要性可能不同，例如对于 
 
 同一节点上的很多个 pod 可能拥有多个 secret。但是，只有 pod 请求的 secret 在其容器中才是可见的。因此，一个 pod 不能访问另一个 Pod 的 secret。
 
-Pod 中有多个容器。但是，pod 中的每个容器必须请求其挂载卷中的 secret 卷才能在容器内可见。这可以用于 [在 Pod 级别构建安全分区](#use-case-secret-visible-to-one-container-in-a-pod)。
+Pod 中有多个容器。但是，pod 中的每个容器必须请求其挂载卷中的 secret 卷才能在容器内可见。这可以用于 [在 Pod 级别构建安全分区](#使用案例secret-仅对-pod-中的一个容器可见)。
 
 ### 风险
 
-- API server 的 secret 数据以纯文本的方式存储在 etcd 中；因此：
+- API server 的 secret 数据以纯文本的方式存储在 etcd 中，因此：
   - 管理员应该限制 admin 用户访问 etcd；
   - API server 中的 secret 数据位于 etcd 使用的磁盘上；管理员可能希望在不再使用时擦除/粉碎 etcd 使用的磁盘
 - 如果您将 secret 数据编码为 base64 的清单（JSON 或 YAML）文件，共享该文件或将其检入代码库，这样的话该密码将会被泄露。 Base64 编码不是一种加密方式，一样也是纯文本。
