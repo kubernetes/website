@@ -3,10 +3,6 @@ approvers:
 - bgrant0607
 - brendandburns
 - thockin
-cn-approvers:
-- rootsongjc
-cn-reviewers:
-- Jimexist
 title: Docker 用户使用 kubectl 命令指南
 ---
 
@@ -37,7 +33,7 @@ $ kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
 deployment "nginx-app" created
 ```
 
-在大于等于 1.2 版本 Kubernetes 集群中，使用`kubectl run` 命令将创建一个名为 "nginx-app" 的 Deployment。如果您运行的是老版本，将会创建一个 replication controller。
+在 1.2 及以上版本的 Kubernetes 集群中，使用`kubectl run` 命令将创建一个名为 "nginx-app" 的 Deployment。如果您运行的是老版本，将会创建一个 replication controller。
 如果您想沿用旧的行为，使用 `--generation=run/v1` 参数，这样就会创建 replication controller。查看 [`kubectl run`](/docs/user-guide/kubectl/{{page.version}}/#run) 获取更多详细信息。
 
 ```shell

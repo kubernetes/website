@@ -1,11 +1,6 @@
 ---
 approvers:
 - mikedanese
-cn-approvers：
-- rootsongjc
-cn-reviewers:
-- markthink
-- xuyuan02965
 title: Secret
 ---
 

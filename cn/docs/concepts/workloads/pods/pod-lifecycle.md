@@ -3,10 +3,6 @@ title: Pod 生命周期
 redirect_from:
 - "/docs/user-guide/pod-states/"
 - "/docs/user-guide/pod-states.html"
-cn-approvers:
-- rootsongjc
-cn-reviewers:
-- zjj2wry
 ---
 
 {% capture overview %}
@@ -24,7 +20,7 @@ cn-reviewers:
 
 Pod 的 `status` 定义在 [PodStatus](/docs/resources-reference/v1.7/#podstatus-v1-core) 对象中，其中有一个 `phase` 字段。
 
-Pod 的相位（phase）是 Pod 在其生命周期中的简单宏观概述。该阶段并不是对容器或 Pod 的综合汇总，也不是为了做为综合状态机。
+Pod 的运行阶段（phase）是 Pod 在其生命周期中的简单宏观概述。该阶段并不是对容器或 Pod 的综合汇总，也不是为了做为综合状态机。
 
 Pod 相位的数量和含义是严格指定的。除了本文档中列举的内容外，不应该再假定 Pod 有其他的 `phase` 值。
 

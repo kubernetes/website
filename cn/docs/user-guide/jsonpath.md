@@ -1,9 +1,5 @@
 ---
 title: JSONPath 支持
-cn-approvers:
-- rootsongjc
-cn-reviewers:
-- rootsongjc
 ---
 
 JSONPath 模板由 {} 包起来的 JSONPath 表达式组成。
