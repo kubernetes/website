@@ -407,8 +407,7 @@ README](https://github.com/microservices-demo/microservices-demo).
 Note that the Sock Shop demo only works on `amd64`.
 
 ``` bash
-kubectl create namespace sock-shop
-kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
+kubectl apply -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
 ```
 
 You can then find out the port that the [NodePort feature of
@@ -427,8 +426,8 @@ front-end   10.110.250.153   <nodes>       80:30001/TCP   59s
 ```
 
 It takes several minutes to download and start all the containers, watch the
-output of `kubectl get pods -n sock-shop` to see when they're all up and
-running.
+output of `kubectl get pods -n sock-shop && kubectl get pods -n zipkin` to see 
+when they're all up and running.
 
 Then go to the IP address of your cluster's master node in your browser, and
 specify the given port. So for example, `http://<master_ip>:<port>`. In the
@@ -437,7 +436,7 @@ example above, this was `30001`, but it may be a different port for you.
 If there is a firewall, make sure it exposes this port to the internet before
 you try to access it.
 
-To uninstall the socks shop, run `kubectl delete namespace sock-shop` on the
+To uninstall the socks shop, run `kubectl delete namespace sock-shop && kubectl delete namespace zipkin` on the
 master.
 
 ## Tear down
