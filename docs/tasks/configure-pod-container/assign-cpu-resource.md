@@ -23,6 +23,12 @@ A few of the steps on this page require that the
 in your cluster. But if you don't have Heapster running, you can do most
 of the steps, and it won't be a problem if you skip the Heapster steps.
 
+If you are running minikube, to enable heapster run the following command:
+
+```shell
+minikube addons enable heapster
+```
+
 To see whether the Heapster service is running, enter this command:
 
 ```shell
