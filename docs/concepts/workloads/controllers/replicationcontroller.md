@@ -88,7 +88,7 @@ To list all the pods that belong to the ReplicationController in a machine reada
 
 ```shell
 $ pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items..metadata.name})
-echo $pods
+$ echo $pods
 nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
 
