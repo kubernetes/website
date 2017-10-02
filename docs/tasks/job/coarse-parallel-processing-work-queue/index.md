@@ -152,9 +152,9 @@ In practice, you might write a program to fill the queue using an amqp client li
 $ /usr/bin/amqp-declare-queue --url=$BROKER_URL -q job1  -d
 job1
 $ for f in apple banana cherry date fig grape lemon melon
-do
-  /usr/bin/amqp-publish --url=$BROKER_URL -r job1 -p -b $f
-done
+> do
+>  /usr/bin/amqp-publish --url=$BROKER_URL -r job1 -p -b $f
+> done
 ```
 
 So, we filled the queue with 8 messages.
