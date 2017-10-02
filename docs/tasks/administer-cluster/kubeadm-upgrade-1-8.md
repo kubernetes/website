@@ -42,6 +42,13 @@ $ curl -sSL https://dl.k8s.io/release/${VERSION}/bin/linux/${ARCH}/kubeadm > /us
 $ chmod a+rx /usr/bin/kubeadm
 ```
 
+NOTE: You will notice that `kubeadm` is also shipped in the Kubernetes
+repositories. It is important that you follow the instructions above and get
+`kubeadm` manually. Upgrading the `kubeadm` package on your system prior to
+upgrading the control plane will bring in new versions of kubelet and other
+packages, resulting in your upgrade going out of order! The kubeadm team is
+working on fixing this limitation. 
+
 Verify that this download of kubeadm works, and has the expected version:
 
 ```shell
