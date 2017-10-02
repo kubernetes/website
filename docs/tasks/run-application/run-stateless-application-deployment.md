@@ -44,6 +44,8 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 
        kubectl describe deployment nginx-deployment
 
+    The output is similar to this:
+
         user@computer:~/kubernetes.github.io$ kubectl describe deployment nginx-deployment
         Name:     nginx-deployment
         Namespace:    default
@@ -76,6 +78,8 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 1. List the pods created by the deployment:
 
        kubectl get pods -l app=nginx
+
+    The output is similar to this:
 
         NAME                                READY     STATUS    RESTARTS   AGE
         nginx-deployment-1771418926-7o5ns   1/1       Running   0          16h
