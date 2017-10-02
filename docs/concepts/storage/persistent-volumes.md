@@ -583,7 +583,7 @@ parameters:
         parameters:
           diskformat: zeroedthick
 
-    * `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
+    `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
 
 2. Create a StorageClass with a disk format on a user specified datastore.
   
@@ -596,7 +596,7 @@ parameters:
             diskformat: zeroedthick
             datastore: VSANDatastore
 
-    * `datastore`: The user can also specify the datastore in the StorageClass. The volume will be created on the datastore specified in the storage class, which in this case is `VSANDatastore`. This field is optional. If the datastore is not specified, then the volume will be created on the datastore specified in the vSphere config file used to initialize the vSphere Cloud Provider.
+    `datastore`: The user can also specify the datastore in the StorageClass. The volume will be created on the datastore specified in the storage class, which in this case is `VSANDatastore`. This field is optional. If the datastore is not specified, then the volume will be created on the datastore specified in the vSphere config file used to initialize the vSphere Cloud Provider.
 
 3. Storage Policy Management inside kubernetes
 
