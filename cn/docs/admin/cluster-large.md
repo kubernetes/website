@@ -35,7 +35,7 @@ title: 搭建大型集群
 为了避免在云服务商平台上发生配额问题，当创建一个许多节点的集群时，要考虑：
 
 * 增加这些资源的配额，比如 CPU ，IP 地址等等。
-  * 例如，在 [GCE 中，举个例子](https://cloud.google.com/compute/docs/resource-quotas) 中用户需要提升以下资源的配额：
+  * 例如，在 [GCE](https://cloud.google.com/compute/docs/resource-quotas) 中用户需要提升以下资源的配额：
     * CPU
     * 虚拟机实例
     * 永久磁盘的预留总量
