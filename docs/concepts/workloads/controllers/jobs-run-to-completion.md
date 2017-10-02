@@ -76,7 +76,7 @@ To list all the pods that belong to a job in a machine readable form, you can us
 
 ```shell
 $ pods=$(kubectl get pods  --show-all --selector=job-name=pi --output=jsonpath={.items..metadata.name})
-echo $pods
+$ echo $pods
 pi-aiw0a
 ```
 
