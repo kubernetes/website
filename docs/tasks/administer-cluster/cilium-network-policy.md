@@ -72,7 +72,7 @@ There are two main components to be aware of:
 {% endcapture %}
 
 {% capture whatsnext %}
-Once your cluster is running, you can follow the [NetworkPolicy guide](/docs/concepts/services-networking/network-policies) to try out Kubernetes NetworkPolicy with Cilium.  Have fun, and if you have questions, contact us using the [Cilium Slack Channel](https://cilium.herokuapp.com/).
+Once your cluster is running, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy with Cilium.  Have fun, and if you have questions, contact us using the [Cilium Slack Channel](https://cilium.herokuapp.com/).
 {% endcapture %}
 
 {% include templates/task.md %}

@@ -34,7 +34,7 @@ To apply network policies use one of the following:
 
 {% capture whatsnext %}
 
-Once your have installed Romana, you can follow the [NetworkPolicy guide](/docs/concepts/services-networking/network-policies) to try out Kubernetes NetworkPolicy.
+Once your have installed Romana, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
 
 {% endcapture %}
 
