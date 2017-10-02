@@ -9,7 +9,7 @@ title: 使用启动引导令牌（Bootstrap Tokens）认证
 
 ## 概述
 
-启动引导令牌是一种简单的持有者令牌（Bearer Token），这种令牌是在新建集群或者在现有集群中添加新加新节点时使用的。
+启动引导令牌是一种简单的持有者令牌（Bearer Token），这种令牌是在新建集群或者在现有集群中添加新节点时使用的。
 它被设计成能够支持 [`kubeadm`](/docs/admin/kubeadm/)，但是也可以被用在其他的案例中以便用户在
 不使用 `kubeadm` 的情况下启动集群。它也被设计成可以通过 RBAC 策略，结合 [Kubelet TLS
 Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
@@ -34,7 +34,7 @@ Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 所有与启动引导令牌相关的特性在 Kubernetes v1.6 版本中默认都是禁用的。
 
 你可以在 API 服务器上通过 `--experimental-bootstrap-token-auth` 参数启用启动引导令牌。
-你可以设置控制管理器的 --controllers 参数来启用启动引导令牌相关的控制器，例如 --controllers=*,tokencleaner,bootstrapsigner 。
+你可以设置控制管理器的 `--controllers` 参数来启用启动引导令牌相关的控制器，例如 `--controllers=*,tokencleaner,bootstrapsigner` 。
 在使用 `kubeadm` 时，这是自动完成的。
 
 HTTPS 调用中的令牌是这样使用的：
