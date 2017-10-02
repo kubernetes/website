@@ -18,8 +18,7 @@ The Kube-router Addon comes with a Network Policy Controller that watches Kubern
 {% endcapture %}
 
 {% capture whatsnext %}
-Once you have installed the Kube-router addon, you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
+Once you have installed the Kube-router addon, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
 {% endcapture %}
 
 {% include templates/task.md %}
-
