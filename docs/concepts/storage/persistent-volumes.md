@@ -575,7 +575,6 @@ parameters:
 
 1. Create a StorageClass with a user specified disk format.
 
-        ```
         kind: StorageClass
         apiVersion: storage.k8s.io/v1
         metadata:
@@ -583,13 +582,11 @@ parameters:
         provisioner: kubernetes.io/vsphere-volume
         parameters:
           diskformat: zeroedthick
-        ```
 
-    - `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
+  * `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
 
 2. Create a StorageClass with a disk format on a user specified datastore.
   
-        ```
         kind: StorageClass
         apiVersion: storage.k8s.io/v1
         metadata:
@@ -598,19 +595,18 @@ parameters:
         parameters:
             diskformat: zeroedthick
             datastore: VSANDatastore
-        ```
 
-    - `datastore`: The user can also specify the datastore in the StorageClass. The volume will be created on the datastore specified in the storage class, which in this case is `VSANDatastore`. This field is optional. If the datastore is not specified, then the volume will be created on the datastore specified in the vSphere config file used to initialize the vSphere Cloud Provider.
+  * `datastore`: The user can also specify the datastore in the StorageClass. The volume will be created on the datastore specified in the storage class, which in this case is `VSANDatastore`. This field is optional. If the datastore is not specified, then the volume will be created on the datastore specified in the vSphere config file used to initialize the vSphere Cloud Provider.
 
 3. Storage Policy Management inside kubernetes
 
-    - Using existing vCenter SPBM policy
+  * Using existing vCenter SPBM policy
 
     One of the most important features of vSphere for Storage Management is policy based Management. Storage Policy Based Management (SPBM) is a storage policy framework that provides a single unified control plane across a broad range of data services and storage solutions. SPBM enables vSphere administrators to overcome upfront storage provisioning challenges, such as capacity planning, differentiated service levels and managing capacity headroom.
 
     The SPBM policies can be specified in the StorageClass using the storagePolicyName parameter.
 
-    - Virtual SAN policy support inside Kubernetes
+  * Virtual SAN policy support inside Kubernetes
 
     Vsphere Infrastructure (VI) Admins will have the ability to specify custom Virtual SAN Storage Capabilities during dynamic volume provisioning. You can now define storage requirements, such as performance and availability, in the form of storage capabilities during dynamic volume provisioning. The storage capability requirements are converted into a Virtual SAN policy which are then pushed down to the Virtual SAN layer when a persistent volume (virtual disk) is being created. The virtual disk is distributed across the Virtual SAN datastore to meet the requirements.
 
