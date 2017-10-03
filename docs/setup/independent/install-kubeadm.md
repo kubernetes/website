@@ -16,6 +16,9 @@ This page shows how to use install kubeadm.
 * Unique MAC address and product_uuid for every node
 * Certain ports are open on your machines. See the section below for more details
 * Swap disabled. You must disable swap in order for the kubelet to work properly.
+* Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 {% endcapture %}
 
