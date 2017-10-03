@@ -143,7 +143,7 @@ between option name and option value.
 ## Cluster Expansion
 
 To expand an existing Kubernetes cluster, run the ```add-kube-node.sh```
-script. A complete list of script options and some examples are listed [[below]](####Cluster Expansion: Script Options).
+script. A complete list of script options and some examples are listed [below](#cluster-expansion-script-options).
 This script must be run from the same host that created the cluster (or a host
 that has the cluster artifact files stored in ```~/.clc_kube/$cluster_name```).
 
