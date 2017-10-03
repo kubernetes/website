@@ -9,7 +9,22 @@ title: Setting up Kubernetes with Juju
 Ubuntu 16.04 introduced the [Canonical Distribution of Kubernetes](https://www.ubuntu.com/cloud/kubernetes), a pure upstream distribution of Kubernetes designed for production usage. This page shows you how to deploy a cluster.
 {% endcapture %}
 
-Out of the box it comes with the following components on 9 machines:
+{% capture prerequisites %}
+- A working [Juju client](https://jujucharms.com/docs/2.2/reference-install); this does not have to be a Linux machine, it can also be Windows or OSX.
+- A [supported cloud](#cloud-compatibility).
+  - Bare Metal deployments are supported via [MAAS](http://maas.io). Refer to the [MAAS documentation](http://maas.io/docs/) for configuration instructions.
+  - OpenStack deployments are currently only tested on Icehouse and newer.
+- Network access to the following domains
+  - *.jujucharms.com
+  - gcr.io
+  - github.com
+  - Access to an Ubuntu mirror (public or private)
+{% endcapture %}
+
+
+{% capture steps %}
+## Deployment overview
+Out of the box the deployment comes with the following components on 9 machines:
 
 - Kubernetes (automated deployment, operations, and scaling)
      - Three node Kubernetes cluster with one master and two worker nodes.
@@ -24,32 +39,34 @@ Out of the box it comes with the following components on 9 machines:
 - ETCD (distributed key value store)
      - Three unit cluster for reliability.
 
-The Juju Kubernetes work is curated by a dedicated team of community members,
+The Juju Kubernetes work is curated by the Big Software team at [Canonical Ltd](https://www.canonical.com/),
 let us know how we are doing. If you find any problems please open an
 [issue on our tracker](https://github.com/juju-solutions/bundle-canonical-kubernetes)
 so we can find them.
 
-{% capture prerequisites %}
-## Prerequisites
+## Support Level
 
-- A working [Juju client](https://jujucharms.com/docs/2.0/getting-started-general); this does not have to be a Linux machine, it can also be Windows or OSX.
-- A [supported cloud](#cloud-compatibility).
-  - Bare Metal deployments are supported via [MAAS](http://maas.io). Refer to the [MAAS documentation](http://maas.io/docs/) for configuration instructions.
-  - OpenStack deployments are currently only tested on Icehouse and newer.
-- Network access to the following domains
-  - *.jujucharms.com
-  - gcr.io
-  - github.com
-  - Access to an Ubuntu mirror (public or private)
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+Amazon Web Services (AWS)   | Juju         | Ubuntu | flannel, calico*     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
+OpenStack                   | Juju         | Ubuntu | flannel, calico     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
+Microsoft Azure             | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
+Google Compute Engine (GCE) | Juju         | Ubuntu | flannel, calico     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
+Joyent                      | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
+Rackspace                   | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
+VMWare vSphere              | Juju         | Ubuntu | flannel, calico     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
+Bare Metal (MAAS)           | Juju         | Ubuntu | flannel, calico     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
 
 
-### Configure Juju to use your cloud provider
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+
+## Configure Juju to use your cloud provider
 
 Deployment of the cluster is [supported on a wide variety of public clouds](#cloud-compatibility), private OpenStack clouds, or raw bare metal clusters. Bare metal deployments are supported via [MAAS](http://maas.io/).
 
 After deciding which cloud to deploy to, follow the [cloud setup page](https://jujucharms.com/docs/devel/getting-started) to configure deploying to that cloud.
 
-Load your [cloud credentials](https://jujucharms.com/docs/2.0/credentials) for each
+Load your [cloud credentials](https://jujucharms.com/docs/2.2/credentials) for each
 cloud provider you would like to use.
 
 In this example
@@ -76,12 +93,10 @@ or, another example, this time on Azure:
 juju bootstrap azure/centralus
 ```
 
-You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.0/controllers) for more information.
+You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.2/controllers) for more information.
 
 Note that each controller can host multiple Kubernetes clusters in a given cloud or region.
-{% endcapture %}
 
-{% capture steps %}
 ## Launch a Kubernetes cluster
 
 The following command will deploy the initial 9-node starter cluster. The speed of execution is very dependent of the performance of the cloud you're deploying to:
@@ -190,7 +205,7 @@ resources from Juju by using **constraints**. You can increase the amount of
 CPU or memory (RAM) in any of the systems requested by Juju. This allows you
 to fine tune the Kubernetes cluster to fit your workload. Use flags on the
 bootstrap command or as a separate `juju constraints` command. Look to the
-[Juju documentation for machine](https://jujucharms.com/docs/2.0/charms-constraints)
+[Juju documentation for machine](https://jujucharms.com/docs/2.2/charms-constraints)
 details.
 
 ## Scale out cluster
@@ -242,25 +257,10 @@ project on github.com:
 
  - [Bundle location](https://git.k8s.io/kubernetes/cluster/juju/bundles)
  - [Kubernetes charm layer location](https://git.k8s.io/kubernetes/cluster/juju/layers)
- - [Canonical Kubernetes home](https://jujucharms.com/canonical-kubernetes/)
+ - [Canonical Kubernetes home](https://jujucharms.com/kubernetes)
+ - [Main issue tracker](https://github.com/juju-solutions/bundle-canonical-kubernetes)
 
-Feature requests, bug reports, pull requests or any feedback would be much appreciated.
+Feature requests, bug reports, pull requests and feedback are appreciated.
 {% endcapture %}
-
-## Support Level
-
-IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
--------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Amazon Web Services (AWS)   | Juju         | Ubuntu | flannel, calico*     | [docs](/docs/getting-started-guides/ubuntu/)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core) ( [@mbruzek](https://github.com/mbruzek), [@chuckbutler](https://github.com/chuckbutler) )
-OpenStack                   | Juju         | Ubuntu | flannel, calico     | [docs](/docs/getting-started-guides/ubuntu/)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core) ( [@mbruzek](https://github.com/mbruzek), [@chuckbutler](https://github.com/chuckbutler) )
-Microsoft Azure             | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core) ( [@mbruzek](https://github.com/mbruzek), [@chuckbutler](https://github.com/chuckbutler) )
-Google Compute Engine (GCE) | Juju         | Ubuntu | flannel, calico     | [docs](/docs/getting-started-guides/ubuntu/)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core) ( [@mbruzek](https://github.com/mbruzek), [@chuckbutler](https://github.com/chuckbutler) )
-Joyent                      | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core) ( [@mbruzek](https://github.com/mbruzek), [@chuckbutler](https://github.com/chuckbutler) )
-Rackspace                   | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core) ( [@mbruzek](https://github.com/mbruzek), [@chuckbutler](https://github.com/chuckbutler) )
-VMWare vSphere              | Juju         | Ubuntu | flannel, calico     | [docs](/docs/getting-started-guides/ubuntu/)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core) ( [@mbruzek](https://github.com/mbruzek), [@chuckbutler](https://github.com/chuckbutler) )
-Bare Metal (MAAS)           | Juju         | Ubuntu | flannel, calico     | [docs](/docs/getting-started-guides/ubuntu/)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core) ( [@mbruzek](https://github.com/mbruzek), [@chuckbutler](https://github.com/chuckbutler) )
-
-
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 
 {% include templates/task.md %}
