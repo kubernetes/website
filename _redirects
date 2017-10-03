@@ -87,7 +87,7 @@
 /docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig   /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
 /docs/concepts/cluster-administration/cluster-management/     /docs/tasks/administer-cluster/cluster-management/ 301
 /docs/concepts/cluster-administration/configure-etcd/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
-/docs/concepts/cluster-administration/device-plugins/     /docs/concepts/cluster-administration/network-plugins/ 301
+/docs/concepts/cluster-administration/device-plugins/     /docs/concepts/cluster-administration/device-plugins/ 301
 /docs/concepts/cluster-administration/etcd-upgrade/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/concepts/cluster-administration/federation-service-discovery/     /docs/tasks/federation/federation-service-discovery/ 301
 /docs/concepts/cluster-administration/guaranteed-scheduling-critical-addon-pods/     /docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/ 301
