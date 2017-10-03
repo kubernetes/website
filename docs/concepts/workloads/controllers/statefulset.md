@@ -123,8 +123,8 @@ is `$(statefulset name)-$(ordinal)`. The example above will create three Pods
 named `web-0,web-1,web-2`.
 A StatefulSet can use a [Headless Service](/docs/concepts/services-networking/service/#headless-services)
 to control the domain of its Pods. The domain managed by this Service takes the form:
-`$(service name).$(namespace).svc.cluster.local`, where "cluster.local"
-is the [cluster domain](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md).
+`$(service name).$(namespace).svc.cluster.local`, where "cluster.local" is the
+cluster domain.
 As each Pod is created, it gets a matching DNS subdomain, taking the form:
 `$(podname).$(governing service domain)`, where the governing service is defined
 by the `serviceName` field on the StatefulSet.
@@ -139,7 +139,7 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
 Note that Cluster Domain will be set to `cluster.local` unless
-[otherwise configured](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md).
+[otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
 
 ### Stable Storage
 
