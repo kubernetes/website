@@ -159,7 +159,7 @@ Allocated resources:
 
 通过查看 `Pods` 部分，您将看到哪些 Pod 占用的节点上的资源。
 
-Pod 可用的资源量小于节点容量，因为系统守护程序使用一部分可用资源。 [NodeStatus](/docs/resources-reference/{{page.version}}/#nodestatus-v1-core)  的 `allocatable` 字段给出了可用于 Pod 的资源量。有关更多信息，请参阅 [节点可分配资源](https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md)。
+Pod 可用的资源量小于节点容量，因为系统守护程序使用一部分可用资源。 [NodeStatus](/docs/api-reference/{{page.version}}/#nodestatus-v1-core)  的 `allocatable` 字段给出了可用于 Pod 的资源量。有关更多信息，请参阅 [节点可分配资源](https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md)。
 
 可以将 [资源配额](/docs/concepts/policy/resource-quotas/) 功能配置为限制可以使用的资源总量。如果与 namespace 配合一起使用，就可以防止一个团队占用所有资源。
 
@@ -290,9 +290,8 @@ Kubernetes 通过支持通过多级别的 [服务质量](http://issue.k8s.io/168
 
 - 获取将 [CPU 和内存资源分配给容器](/docs/tasks/configure-pod-container/assign-cpu-ram-container/) 的实践经验
 - [容器](/docs/api-reference/{{page.version}}/#container-v1-core)
-- [ResourceRequirements](/docs/resources-reference/{{page.version}}/#resourcerequirements-v1-core)
+- [ResourceRequirements](/docs/api-reference/{{page.version}}/#resourcerequirements-v1-core)
 
 {% endcapture %}
 
 {% include templates/concept.md %}
-

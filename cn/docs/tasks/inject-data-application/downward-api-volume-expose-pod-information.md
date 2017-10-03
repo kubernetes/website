@@ -34,11 +34,11 @@ title: 通过文件将Pod信息呈现给容器
 
 在配置文件中，你可以看到Pod有一个`downwardAPI`类型的Volume，并且挂载到容器中的`/etc`。
 
-查看`downwardAPI`下面的`items`数组。每个数组元素都是一个[DownwardAPIVolumeFile](/docs/resources-reference/{{page.version}}/#downwardapivolumefile-v1-core)。
+查看`downwardAPI`下面的`items`数组。每个数组元素都是一个[DownwardAPIVolumeFile](/docs/api-reference/{{page.version}}/#downwardapivolumefile-v1-core)。
 第一个元素指示Pod的`metadata.labels`字段的值保存在名为`labels`的文件中。
 第二个元素指示Pod的`annotations`字段的值保存在名为`annotations`的文件中。
 
-**注意:** 本示例中的字段是Pod字段，不是Pod中容器的字段。 
+**注意:** 本示例中的字段是Pod字段，不是Pod中容器的字段。
 {: .note}
 
 创建Pod：
@@ -198,11 +198,11 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 
 {% capture whatsnext %}
 
-* [PodSpec](/docs/resources-reference/{{page.version}}/#podspec-v1-core)
-* [Volume](/docs/resources-reference/{{page.version}}/#volume-v1-core)
-* [DownwardAPIVolumeSource](/docs/resources-reference/{{page.version}}/#downwardapivolumesource-v1-core)
-* [DownwardAPIVolumeFile](/docs/resources-reference/{{page.version}}/#downwardapivolumefile-v1-core)
-* [ResourceFieldSelector](/docs/resources-reference/{{page.version}}/#resourcefieldselector-v1-core)
+* [PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core)
+* [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core)
+* [DownwardAPIVolumeSource](/docs/api-reference/{{page.version}}/#downwardapivolumesource-v1-core)
+* [DownwardAPIVolumeFile](/docs/api-reference/{{page.version}}/#downwardapivolumefile-v1-core)
+* [ResourceFieldSelector](/docs/api-reference/{{page.version}}/#resourcefieldselector-v1-core)
 
 {% endcapture %}
 
