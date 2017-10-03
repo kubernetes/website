@@ -23,7 +23,7 @@ in before it can be used.  The `$ITEM` syntax is not meaningful to Kubernetes.
 
 In this example, the only processing the container does is to `echo` a string and sleep for a bit.
 In a real use case, the processing would be some substantial computation, such as rendering a frame
-of a movie, or processing a range of rows in a database.  The "$ITEM" parameter would specify for
+of a movie, or processing a range of rows in a database.  The `$ITEM` parameter would specify for
 example, the frame number or the row range.
 
 This Job and its Pod template have a label: `jobgroup=jobexample`.  There is nothing special
