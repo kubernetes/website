@@ -15,6 +15,8 @@ the selector support. ReplicaSet supports the new set-based selector requirement
 as described in the [labels user guide](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 whereas a Replication Controller only supports equality-based selector requirements.
 
+Note also that in Kubernetes version 1.8, significant changes were made to the group and version for the ReplicaSet object, as well as for other objects (Kinds) in the Workloads API. Additional changes are planned for a future release. We recommend that you [read in detail about these changes](docs/reference/workloads-18-19/) before you decide which group version to move to, and when to make your move.
+
 {% endcapture %}
 
 {% capture body %}

@@ -24,6 +24,8 @@ the API. However, the API can also be accessed directly using REST calls.
 Consider using one of the [client libraries](/docs/reference/client-libraries/)
 if you are writing an application using the Kubernetes API.
 
+Note that in Kubernetes version 1.8, significant changes were made to the group and version for the Deployment, ReplicaSet, DaemonSet, and StatefulSet kinds (objects). Additional changes are planned for a future release. We recommend that you [read in detail about these changes](docs/reference/workloads-18-19/) before you decide which group version to move to, and when to make your move.
+
 ## API versioning
 
 To make it easier to eliminate fields or restructure resource representations, Kubernetes supports

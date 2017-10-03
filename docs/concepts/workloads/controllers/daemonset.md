@@ -28,6 +28,8 @@ In a simple case, one DaemonSet, covering all nodes, would be used for each type
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
 different flags and/or different memory and cpu requests for different hardware types.
 
+Note that in Kubernetes version 1.8, significant changes were made to the group and version for the DaemonSet object, as well as for other objects (kinds) in the Workloads API. Additional changes are planned for a future release. We recommend that you [read in detail about these changes](docs/reference/workloads-18-19/) before you decide which group version to move to, and when to make your move.
+
 ## Writing a DaemonSet Spec
 
 ### Create a DaemonSet
