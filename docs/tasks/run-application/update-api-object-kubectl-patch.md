@@ -253,7 +253,7 @@ create the Deployment object. Other commands for updating API objects include
 [kubectl edit](/docs/user-guide/kubectl/{{page.version}}/#edit),
 [kubectl replace](/docs/user-guide/kubectl/{{page.version}}/#replace),
 [kubectl scale](/docs/user-guide/kubectl/{{page.version}}/#scale),
-[kubectl update](/docs/user-guide/kubectl/{{page.version}}/#update). and
+and
 [kubectl apply](/docs/user-guide/kubectl/{{page.version}}/#apply).
 
 {% endcapture %}
