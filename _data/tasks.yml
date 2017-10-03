@@ -87,6 +87,7 @@ toc:
   - docs/tasks/debug-application-cluster/logging-stackdriver.md
   - docs/tasks/debug-application-cluster/events-stackdriver.md
   - docs/tasks/debug-application-cluster/logging-elasticsearch-kibana.md
+  - docs/tasks/debug-application-cluster/sematext-logging-monitoring.md
   - docs/tasks/debug-application-cluster/determine-reason-pod-failure.md
   - docs/tasks/debug-application-cluster/debug-init-containers.md
   - docs/tasks/debug-application-cluster/debug-pod-replication-controller.md
