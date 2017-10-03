@@ -4,7 +4,7 @@ title: Managing Compute Resources for Containers
 
 {% capture overview %}
 
-When you specify a [Pod](/docs/user-guide/pods), you can optionally specify how
+When you specify a [Pod](/docs/concepts/workloads/pods/pod-overview/), you can optionally specify how
 much CPU and memory (RAM) each Container needs. When Containers have resource
 requests specified, the scheduler can make better decisions about which nodes to
 place Pods on. And when Containers have their limits specified, contention for
@@ -27,7 +27,7 @@ CPU and memory are collectively referred to as *compute resources*, or just
 resources are measurable quantities that can be requested, allocated, and
 consumed. They are distinct from
 [API resources](/docs/concepts/overview/kubernetes-api/). API resources, such as Pods and
-[Services](/docs/user-guide/services) are objects that can be read and modified
+[Services](/docs/concepts/services-networking/service/) are objects that can be read and modified
 through the Kubernetes API server.
 
 ## Resource requests and limits of Pod and Container
@@ -236,7 +236,7 @@ the node.
 
 The amount of resources available to Pods is less than the node capacity, because
 system daemons use a portion of the available resources. The `allocatable` field
-[NodeStatus](/docs/resources-reference/{{page.version}}/#nodestatus-v1-core)
+[NodeStatus](/docs/api-reference/{{page.version}}/#nodestatus-v1-core)
 gives the amount of resources that are available to Pods. For more information, see
 [Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
 
@@ -309,7 +309,7 @@ Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managi
 
 This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
 
-**Note:** If an optional runntime partition is used, root parition will not hold any image layer or writable layers. 
+**Note:** If an optional runntime partition is used, root parition will not hold any image layer or writable layers.
 {: .note}
 
 ### Requests and limits setting for local ephemeral storage
@@ -354,7 +354,7 @@ spec:
 
 ### How Pods with ephemeral-storage requests are scheduled
 
-When you create a Pod, the Kubernetes scheduler selects a node for the Pod to 
+When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
 run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. (For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
 
 ### How Pods with ephemeral-storage limits run
@@ -559,11 +559,14 @@ consistency across providers and platforms.
 {% capture whatsnext %}
 
 * Get hands-on experience
-[assigning CPU and RAM resources to a container](/docs/tasks/configure-pod-container/assign-cpu-ram-container/).
+[assign Memory resources to containers and pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
+
+* Get hands-on experience
+[assign CPU resources to containers and pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 
 * [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
 
-* [ResourceRequirements](/docs/resources-reference/{{page.version}}/#resourcerequirements-v1-core)
+* [ResourceRequirements](/docs/api-reference/{{page.version}}/#resourcerequirements-v1-core)
 
 {% endcapture %}
 
