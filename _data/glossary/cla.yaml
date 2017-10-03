@@ -1,8 +1,8 @@
 id: cla
-name: CLA (Community License Agreement)
+name: CLA (Contributor License Agreement)
 tags:
 - community
 short-description: |
-  TODO
+  Terms under which the contributor grants a license to the open source project for their contributions.
 long-description: |
-  more TODO
+  They help enable a legal resolution to legal cases in which there are copyright disputes related to contributed material or intellectual property (IP).
