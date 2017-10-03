@@ -487,5 +487,5 @@ federation control plane's etcd. You can delete the federation
 namespace by running the following command:
 
 ```
-$ kubectl delete ns federation-system
+kubectl delete ns federation-system
 ```
