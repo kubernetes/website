@@ -39,8 +39,8 @@ Next, expand the template into multiple files, one for each item to be processed
 
 ```shell
 # Expand files into a temporary directory
-mkdir ./jobs
-for i in apple banana cherry
+$ mkdir ./jobs
+$ for i in apple banana cherry
 do
   cat job.yaml.txt | sed "s/\$ITEM/$i/" > ./jobs/job-$i.yaml
 done
