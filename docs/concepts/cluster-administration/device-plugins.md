@@ -102,7 +102,7 @@ If a device plugin is running as a DaemonSet, `/var/lib/kubelet/device-plugins`
 must be mounted as a
 [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core)
 in the plugin's
-[PodSpec](/docs/api-reference/{{paage.version}}/#podspec-v1-core).
+[PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core).
 
 ## Examples
 
