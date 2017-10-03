@@ -17,6 +17,9 @@ marks that the node should not accept any pods that do not tolerate the taints.
 Tolerations are applied to pods, and allow (but do not require) the pods to schedule
 onto nodes with matching taints.
 
+* TOC
+{:toc}
+
 ## Concepts
 
 You add a taint to a node using [kubectl taint](/docs/user-guide/kubectl/{{page.version}}/#taint).
@@ -205,8 +208,8 @@ currently include:
    this node, kubelet removes this taint.
 
 When the `TaintBasedEvictions` alpha feature is enabled (you can do this by
-including `TaintBasedEvictions=true` in `--feature-gates`, such as
-`--feature-gates=FooBar=true,TaintBasedEvictions=true`), the taints are automatically
+including `TaintBasedEvictions=true` in `--feature-gates` for Kubernetes controller manager,
+such as `--feature-gates=FooBar=true,TaintBasedEvictions=true`), the taints are automatically
 added by the NodeController (or kubelet) and the normal logic for evicting pods from nodes
 based on the Ready NodeCondition is disabled.
 (Note: To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
