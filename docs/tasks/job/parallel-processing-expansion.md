@@ -15,7 +15,7 @@ non-parallel, use of [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloa
 
 First, download the following template of a job to a file called `job.yaml`
 
-{% include code.html language="yaml" file="job.yaml" ghlink="/docs/tasks/job/parallel-processing-expansion/job.yaml" %}
+{% include code.html language="yaml" file="job.yaml" ghlink="/docs/tasks/job/job.yaml" %}
 
 Unlike a *pod template*, our *job template* is not a Kubernetes API type.  It is just
 a yaml representation of a Job object that has some placeholders that need to be filled
