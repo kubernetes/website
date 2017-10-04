@@ -89,7 +89,7 @@ safely discarded.
 
 The manifest below contains a 
 [Headless Service](/docs/concepts/services-networking/service/#headless-services), 
-a [Service](/docs/concepts/services-networking/service),
+a [Service](/docs/concepts/services-networking/service/),
 a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget), 
 and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/). 
 
