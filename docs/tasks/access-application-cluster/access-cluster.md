@@ -23,8 +23,8 @@ Check the location and credentials that kubectl knows about with this command:
 $ kubectl config view
 ```
 
-Many of the [examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/) provide an introduction to using
-kubectl and complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl/index).
+Many of the [examples](/docs/user-guide/kubectl-cheatsheet) provide an introduction to using
+kubectl and complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl-overview).
 
 ### Directly accessing the REST API
 
