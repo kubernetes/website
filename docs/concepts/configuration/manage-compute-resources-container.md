@@ -4,7 +4,7 @@ title: Managing Compute Resources for Containers
 
 {% capture overview %}
 
-When you specify a [Pod](/docs/user-guide/pods), you can optionally specify how
+When you specify a [Pod](/docs/concepts/workloads/pods/pod/), you can optionally specify how
 much CPU and memory (RAM) each Container needs. When Containers have resource
 requests specified, the scheduler can make better decisions about which nodes to
 place Pods on. And when Containers have their limits specified, contention for
@@ -27,7 +27,7 @@ CPU and memory are collectively referred to as *compute resources*, or just
 resources are measurable quantities that can be requested, allocated, and
 consumed. They are distinct from
 [API resources](/docs/concepts/overview/kubernetes-api/). API resources, such as Pods and
-[Services](/docs/user-guide/services) are objects that can be read and modified
+[Services](/docs/concepts/services-networking/service/) are objects that can be read and modified
 through the Kubernetes API server.
 
 ## Resource requests and limits of Pod and Container
