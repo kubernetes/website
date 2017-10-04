@@ -36,7 +36,7 @@ Kubespray provides the following utilities to help provision your environment:
 
 * [Terraform](https://www.terraform.io/) scripts for the following cloud providers:
   * [AWS](https://github.com/kubernetes-incubator/kubespray/tree/master/contrib/terraform/aws)
-  * [OpenStack](https://github.com/kubernetes-incubator/kubespray/tree/master/contrib/terraform/aws)
+  * [OpenStack](https://github.com/kubernetes-incubator/kubespray/tree/master/contrib/terraform/openstack)
 * [kubespray-cli](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md)
 
 **Note:** kubespray-cli is no longer actively maintained.
