@@ -194,14 +194,14 @@ support for representing node problems. In other words, the node controller
 automatically taints a node when certain condition is true. The built-in taints
 currently include:
 
- * `node.alpha.kubernetes.io/notReady`: Node is not ready. This corresponds to
+ * `node.kubernetes.io/not-ready`: Node is not ready. This corresponds to
    the NodeCondition `Ready` being "`False`".
  * `node.alpha.kubernetes.io/unreachable`: Node is unreachable from the node
    controller. This corresponds to the NodeCondition `Ready` being "`Unknown`".
- * `node.kubernetes.io/outOfDisk`: Node becomes out of disk.
- * `node.kubernetes.io/memoryPressure`: Node has memory pressure.
- * `node.kubernetes.io/diskPressure`: Node has disk pressure.
- * `node.kubernetes.io/networkUnavailable`: Node's network is unavailable.
+ * `node.kubernetes.io/out-of-disk`: Node becomes out of disk.
+ * `node.kubernetes.io/memory-pressure`: Node has memory pressure.
+ * `node.kubernetes.io/disk-pressure`: Node has disk pressure.
+ * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
  * `node.cloudprovider.kubernetes.io/uninitialized`: When kubelet is started
    with "external" cloud provider, it sets this taint on a node to mark it
    as unusable. When a controller from the cloud-controller-manager initializes
@@ -233,9 +233,9 @@ tolerations:
 ```
 
 Note that Kubernetes automatically adds a toleration for
-`node.alpha.kubernetes.io/notReady` with `tolerationSeconds=300`
+`node.kubernetes.io/not-ready` with `tolerationSeconds=300`
 unless the pod configuration provided
-by the user already has a toleration for `node.alpha.kubernetes.io/notReady`.
+by the user already has a toleration for `node.kubernetes.io/not-ready`.
 Likewise it adds a toleration for
 `node.alpha.kubernetes.io/unreachable` with `tolerationSeconds=300`
 unless the pod configuration provided
@@ -251,7 +251,7 @@ admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/default
 `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
   * `node.alpha.kubernetes.io/unreachable`
-  * `node.alpha.kubernetes.io/notReady`
+  * `node.kubernetes.io/not-ready`
 
 This ensures that DaemonSet pods are never evicted due to these problems,
 which matches the behavior when this feature is disabled.
