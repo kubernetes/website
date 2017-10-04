@@ -58,7 +58,7 @@ on how flags are set on various components.
 ### Network
 
 #### Network Connectivity
-Kubernetes has a distinctive [networking model](/docs/admin/networking/).
+Kubernetes has a distinctive [networking model](/docs/concepts/cluster-administration/networking/).
 
 Kubernetes allocates an IP address to each pod.  When creating a cluster, you
 need to allocate a block of IPs for Kubernetes to use as Pod IPs.  The simplest
@@ -430,7 +430,7 @@ Each node needs to be allocated its own CIDR range for pod networking.
 Call this `NODE_X_POD_CIDR`.
 
 A bridge called `cbr0` needs to be created on each node.  The bridge is explained
-further in the [networking documentation](/docs/admin/networking/).  The bridge itself
+further in the [networking documentation](/docs/concepts/cluster-administration/networking/).  The bridge itself
 needs an address from `$NODE_X_POD_CIDR` - by convention the first IP.  Call
 this `NODE_X_BRIDGE_ADDR`.  For example, if `NODE_X_POD_CIDR` is `10.0.0.0/16`,
 then `NODE_X_BRIDGE_ADDR` is `10.0.0.1/16`.  NOTE: this retains the `/16` suffix
