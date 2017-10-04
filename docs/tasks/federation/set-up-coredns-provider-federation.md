@@ -57,7 +57,7 @@ The CoreDNS default configuration should be customized to suit the federation.
 Shown below is the Values.yaml, which overrides the default
 configuration parameters on the CoreDNS chart.
 
-{% include code.html language="yaml" file="Values.yaml" ghlink="/docs/tutorials/federation/Values.yaml" %}
+{% include code.html language="yaml" file="Values.yaml" ghlink="/docs/tasks/federation/Values.yaml" %}
 
 The above configuration file needs some explanation:
 
