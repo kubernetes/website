@@ -37,7 +37,7 @@ This is a living document. If you think of something that is not on this list bu
 
 ## Services
 
-- It's typically best to create a [service](/docs/concepts/services-networking/service/) before corresponding [replication controllers](/docs/concepts/workloads/controllers/replicationcontroller/). This lets the scheduler spread the pods that comprise the service.
+- It's typically best to create a [service](/docs/concepts/services-networking/service//) before corresponding [replication controllers](/docs/concepts/workloads/controllers/replicationcontroller/). This lets the scheduler spread the pods that comprise the service.
 
   You can also use this process to ensure that at least one replica works before creating lots of them:
 
@@ -48,7 +48,7 @@ This is a living document. If you think of something that is not on this list bu
 - Don't use `hostPort` unless it is absolutely necessary (for example: for a node daemon). It specifies the port number to expose on the host. When you bind a Pod to a `hostPort`, there are a limited number of places to schedule a pod due to port conflicts— you can only schedule as many such Pods as there are nodes in your Kubernetes cluster.
 
   If you only need access to the port for debugging purposes, you can use the [kubectl proxy and apiserver proxy](/docs/tasks/access-kubernetes-api/http-proxy-access-api/) or [kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
-  You can use a [Service](/docs/concepts/services-networking/service/) object for external service access.
+  You can use a [Service](/docs/concepts/services-networking/service//) object for external service access.
 
   If you explicitly need to expose a pod's port on the host machine, consider using a [NodePort](/docs/user-guide/services/#type-nodeport) service before resorting to `hostPort`.
 

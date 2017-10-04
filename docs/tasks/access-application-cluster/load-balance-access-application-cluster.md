@@ -101,7 +101,7 @@ load-balanced access to an application running in a cluster.
 ## Using a service configuration file
 
 As an alternative to using `kubectl expose`, you can use a
-[service configuration file](/docs/concepts/services-networking/service/)
+[service configuration file](/docs/concepts/services-networking/service//)
 to create a Service.
 
 

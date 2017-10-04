@@ -24,7 +24,7 @@ Kubernetes concepts.
 
 * [Pods](/docs/user-guide/pods/single-container/)
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
+* [Headless Services](/docs/concepts/services-networking/service//#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
 * [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
@@ -88,8 +88,8 @@ safely discarded.
 ## Creating a ZooKeeper Ensemble
 
 The manifest below contains a 
-[Headless Service](/docs/concepts/services-networking/service/#headless-services), 
-a [Service](/docs/concepts/services-networking/service),
+[Headless Service](/docs/concepts/services-networking/service//#headless-services), 
+a [Service](/docs/concepts/services-networking/service/),
 a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget), 
 and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/). 
 

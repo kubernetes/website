@@ -21,7 +21,7 @@ following Kubernetes concepts.
 
 * [Pods](/docs/user-guide/pods/single-container/)
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
+* [Headless Services](/docs/concepts/services-networking/service//#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
 * [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
@@ -55,7 +55,7 @@ After this tutorial, you will be familiar with the following.
 Begin by creating a StatefulSet using the example below. It is similar to the 
 example presented in the
 [StatefulSets](/docs/concepts/workloads/controllers/statefulset/) concept. 
-It creates a [Headless Service](/docs/concepts/services-networking/service/#headless-services), 
+It creates a [Headless Service](/docs/concepts/services-networking/service//#headless-services), 
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`. 
 
 {% include code.html language="yaml" file="web.yaml" ghlink="/docs/tutorials/stateful-application/web.yaml" %}
