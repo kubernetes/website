@@ -101,7 +101,7 @@ specifies an expression that just gets the name from each pod in the returned li
 
 As with all other Kubernetes config, a ReplicationController needs `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with config files, see [here](/docs/user-guide/simple-yaml/),
-[here](/docs/user-guide/configuring-containers/), and [here](/docs/concepts/tools/kubectl/object-management-overview/).
+[here](/docs/tasks/), and [here](/docs/concepts/tools/kubectl/object-management-overview/).
 
 A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
