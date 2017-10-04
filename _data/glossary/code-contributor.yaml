@@ -1,0 +1,11 @@
+id: code-contributor
+name: Code Contributor
+formerly:
+  - Community Developer
+tags:
+- community
+- user-type
+short-description: |
+  Develops and contributes code to the project that is part of the open source codebase.
+long-description: |
+  They are also an active community member and participate in one of the Special Interest Groups (SIGs).

@@ -1,0 +1,11 @@
+id: developer
+name: Developer (disambiguation)
+formerly:
+  - Kubernetes Developer
+tags:
+- community
+- user-type
+short-description: |
+  May refer to: Application Developer, Code Contributor, or Platform Developer.
+long-description: |
+  This overloaded term may have different meanings depending on the context. Respectively, it could mean someone who develops applications that run in Kubernetes clusters, someone who contributes code to the Kubernetes open source project, or someone who customizes the Kubernetes platform to fit the needs of their project, for example, by extending the API.
