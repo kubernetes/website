@@ -3,6 +3,7 @@ name: WG (Working Group)
 tags:
 - community
 short-description: |
-  TODO
+  Facilitates the discussion and/or implementation of a short-lived, narrow, or decoupled project for a committee, SIG, or cross-SIG effort.
 long-description: |
-  more TODO
+  They are a way of organizing people to accomplish a discrete task and are relatively easy to create and deprecate when inactive.
+  For more information, see the [kubernetes/community](https://github.com/kubernetes/community) repo and the current list of [SIGs and Working Groups](https://github.com/kubernetes/community/blob/master/sig-list.md).
