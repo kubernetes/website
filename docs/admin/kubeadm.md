@@ -71,7 +71,7 @@ following steps:
 
 1. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
    (`--feature-gates=SelfHosting=true`), the static Pod based control plane will
-   be transformed in a [self-hosed control plane](#self-hosting).
+   be transformed in a [self-hosted control plane](#self-hosting).
 
 Running `kubeadm join` on each node in the cluster consists of the following
 steps:
