@@ -165,7 +165,7 @@ Ingresses in the clusters comprising your federation.
 To render the underlying ingress shards healthy, you need to add
 backend Pods behind the service upon which the Ingress is based.  There are several ways to achieve this, but
 the easiest is to create a Federated Service and
-Federated Replicaset.  To
+Federated ReplicaSet.  To
 create appropriately labelled pods and services in the 13 underlying clusters of
 your federation:
 
@@ -300,6 +300,6 @@ Check that:
 {% capture whatsnext %}
 *  If you need assistance, use one of the [support channels](/docs/tasks/debug-application-cluster/troubleshooting/) to seek assistance.
  *  For details about use cases that motivated this work, see
- [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation.md).
+ [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation/federation.md).
 {% endcapture %}
 {% include templates/task.md %}

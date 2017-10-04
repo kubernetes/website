@@ -234,7 +234,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"kitten-rc":   {&api.ReplicationController{}},
 			"nautilus-rc": {&api.ReplicationController{}},
 		},
-		"../docs/user-guide/pod-security-policy": {
+		"../docs/concepts/policy": {
 			"psp": {&extensions.PodSecurityPolicy{}},
 		},
 		"../docs/user-guide/persistent-volumes/volumes": {
@@ -282,7 +282,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-probe-deployment":     {&extensions.Deployment{}},
 			"nginx-secure-app":           {&api.Service{}, &extensions.Deployment{}},
 			"nginx-svc":                  {&api.Service{}},
-			"petset":                     {&api.Service{}, nil},
 			"pod":                        {&api.Pod{}},
 			"pod-w-message":              {&api.Pod{}},
 			"redis-deployment":           {&extensions.Deployment{}},
@@ -340,7 +339,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
 			"web":       {&api.Service{}, &apps.StatefulSet{}},
 			"webp":      {&api.Service{}, &apps.StatefulSet{}},
-			"zookeeper": {&api.Service{}, &api.ConfigMap{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
+			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
 	}
 

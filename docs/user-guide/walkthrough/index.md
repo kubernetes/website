@@ -162,4 +162,4 @@ Finally, we have also introduced an environment variable to the `git-monitor` co
 ## What's Next?
 
 Continue on to [Kubernetes 201](/docs/user-guide/walkthrough/k8s201) or
-for a complete application see the [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/)
+for a complete application see the [guestbook example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/)

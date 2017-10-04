@@ -22,7 +22,7 @@ answer the following questions:
  - from where was it initiated?
  - to where was it going?
 
-## Audit logs
+## Legacy Audit
 
 Kubernetes audit is part of [Kube-apiserver][kube-apiserver] logging all requests
 processed by the server. Each audit log entry contains two lines:
@@ -37,8 +37,13 @@ Example output for `admin` user listing pods in the `default` namespace:
 2017-03-21T03:57:09.108403639-04:00 AUDIT: id="c939d2a7-1c37-4ef1-b2f7-4ba9b1e43b53" response="200"
 ```
 
-Note that this format changes when enabling the `AdvancedAuditing` feature discussed
-later in this document.
+Note that Kubernetes 1.8 has switched to use the advanced structured audit log by default.
+To fallback to this legacy audit, disable the advanced auditing feature
+using the `AdvancedAuditing` feature gate on the [kube-apiserver][kube-apiserver]:
+
+```
+--feature-gates=AdvancedAuditing=false
+```
 
 ### Configuration
 
@@ -62,18 +67,12 @@ and `audit-log-maxage` options.
 ## Advanced audit
 
 Kubernetes 1.7 expands auditing with experimental functionality such as event
-filtering and a webhook for integration with external systems. The rest of this
-document covers features that are __alpha__ and may change in backward incompatible
-ways.
+filtering and a webhook for integration with external systems. Kubernetes 1.8
+upgrades the advanced audit feature to beta, and some backward incompatible changes
+have been committed.
 
-Enable the alpha auditing features using the `AdvancedAuditing` feature gate on
-the [kube-apiserver][kube-apiserver]:
 
-```
---feature-gates=AdvancedAuditing=true
-```
-
-`AdvancedAuditing`is customizable in two ways. Policy, which determines what's recorded,
+`AdvancedAuditing` is customizable in two ways. Policy, which determines what's recorded,
 and backends, which persist records. Backend implementations include logs files and
 webhooks.
 
@@ -110,10 +109,17 @@ The policy file holds rules that determine the level of an event. Known audit le
 When an event is processed, it's compared against the list of rules in order.
 The first matching rule sets the audit level of the event. The audit policy is
 defined by the [`audit.k8s.io` API group][audit-api].
+Some new fields are supported in beta version, like `resourceNames` and `omitStages`.
 
-An example audit policy file:
+In Kubernetes 1.8 `kind` and `apiVersion` along with `rules` __must__ be provided in
+the audit policy file. A policy file with 0 rules, or a policy file that doesn't provide
+a valid `apiVersion` and `kind` value will be treated as illgal.
+
+Some example audit policy files:
 
 ```yaml
+apiVersion: audit.k8s.io/v1beta1  #this is required in Kubernetes 1.8
+kind: Policy
 rules:
   # Don't log watch requests by the "system:kube-proxy" on endpoints or services
   - level: None
@@ -155,10 +161,46 @@ rules:
   - level: Metadata
 ```
 
+The next audit policy file shows new features introduced in Kubernetes 1.8:
+
+```yaml
+apiVersion: audit.k8s.io/v1beta1
+kind: Policy
+rules:
+  # Log pod changes at Request level
+  - level: Request
+    resources:
+    - group: ""
+      # Resource "pods" no longer matches requests to any subresource of pods,
+      # This behavior is consistent with the RBAC policy.
+      resources: ["pods"]
+  # Log "pods/log", "pods/status" at Metadata level
+  - level: Metadata
+    resources:
+    - group: ""
+      resources: ["pods/log", "pods/status"]
+
+  # Don't log requests to a configmap called "controller-leader"
+  - level: None
+    resources:
+    - group: ""
+      resources: ["configmaps"]
+      resourceNames: ["controller-leader"]
+
+  # A catch-all rule to log all other requests at the Metadata level.
+  # For this rule we use "omitStages" to omit events at "ReqeustReceived" stage.
+  # Events in this stage will not be sent to backend.
+  - level: Metadata
+    omitStages:
+      - "RequestReceived"
+```
+
 You can use a minimal audit policy file to log all requests at the `Metadata` level:
 
 ```yaml
 # Log all requests at the Metadata level.
+apiVersion: audit.k8s.io/v1beta1
+kind: Policy
 rules:
 - level: Metadata
 ```
@@ -181,18 +223,35 @@ API can be found [here][audit-api] with more details about the exact fields capt
 #### Log backend
 
 The behavior of the `--audit-log-path` flag changes when enabling the `AdvancedAuditing`
-feature flag. This includes the cleanups discussed above, such as changes to the `method`
-values and the introduction of a "stage" for each event. As before, the `id` field of
-the log line indicates which events were generated from the same request. Events are
-formatted as follows:
+feature flag. All generated events defined by `--audit-policy-file` are recorded in structured
+json format:
 
 ```
-2017-06-15T21:50:50.259470834Z AUDIT: id="591e9fde-6a98-46f6-b7bc-ec8ef575696d" stage="RequestReceived" ip="10.2.1.3" method="update" user="system:serviceaccount:kube-system:default" groups="\"system:serviceaccounts\",\"system:serviceaccounts:kube-system\",\"system:authenticated\"" as="<self>" asgroups="<lookup>" namespace="kube-system" uri="/api/v1/namespaces/kube-system/endpoints/kube-controller-manager" response="<deferred>"
-2017-06-15T21:50:50.259470834Z AUDIT: id="591e9fde-6a98-46f6-b7bc-ec8ef575696d" stage="ResponseComplete" ip="10.2.1.3" method="update" user="system:serviceaccount:kube-system:default" groups="\"system:serviceaccounts\",\"system:serviceaccounts:kube-system\",\"system:authenticated\"" as="<self>" asgroups="<lookup>" namespace="kube-system" uri="/api/v1/namespaces/kube-system/endpoints/kube-controller-manager" response="200"
+{"kind":"Event","apiVersion":"audit.k8s.io/v1beta1","metadata":{"creationTimestamp":null},"level":"Metadata","timestamp":"2017-09-05T10:04:55Z","auditID":"77e58433-d345-40ac-b2d8-9866bd355cea","stage":"RequestReceived","requestURI":"/apis/rbac.authorization.k8s.io/v1/namespaces/default/roles","verb":"list","user":{"username":"kubecfg","groups":["system:masters","system:authenticated"]},"sourceIPs":["172.16.116.128"],"objectRef":{"resource":"roles","namespace":"default","apiGroup":"rbac.authorization.k8s.io","apiVersion":"v1"}}
+{"kind":"Event","apiVersion":"audit.k8s.io/v1beta1","metadata":{"creationTimestamp":null},"level":"Metadata","timestamp":"2017-09-05T10:04:55Z","auditID":"77e58433-d345-40ac-b2d8-9866bd355cea","stage":"ResponseComplete","requestURI":"/apis/rbac.authorization.k8s.io/v1/namespaces/default/roles","verb":"list","user":{"username":"kubecfg","groups":["system:masters","system:authenticated"]},"sourceIPs":["172.16.116.128"],"objectRef":{"resource":"roles","namespace":"default","apiGroup":"rbac.authorization.k8s.io","apiVersion":"v1"},"responseStatus":{"metadata":{},"code":200}}
+```
+
+In alpha version, objectRef.apiVersion holds both the api group and version.
+In beta version these were break out into objectRef.apiGroup and objectRef.apiVersion.
+
+Starting from Kubernetes 1.8, structured json format is used for log backend by default.
+Use the following option to switch log to legacy format:
+
+```
+--audit-log-format=legacy
+```
+
+With legacy format, events are formatted as follows:
+
+```
+2017-09-05T06:08:19.885328047-04:00 AUDIT: id="c28a95ad-f9dd-47e1-a617-b6dc152db95f" stage="RequestReceived" ip="172.16.116.128" method="list" user="kubecfg" groups="\"system:masters\",\"system:authenticated\"" as="<self>" asgroups="<lookup>" namespace="default" uri="/apis/rbac.authorization.k8s.io/v1/namespaces/default/roles" response="<deferred>"
+2017-09-05T06:08:19.885328047-04:00 AUDIT: id="c28a95ad-f9dd-47e1-a617-b6dc152db95f" stage="ResponseComplete" ip="172.16.116.128" method="list" user="kubecfg" groups="\"system:masters\",\"system:authenticated\"" as="<self>" asgroups="<lookup>" namespace="default" uri="/apis/rbac.authorization.k8s.io/v1/namespaces/default/roles" response="200"
 ```
 
 Logged events omit the request and response bodies. The `Request` and
-`RequestResponse` levels are equivalent to `Metadata` for this backend.
+`RequestResponse` levels are equivalent to `Metadata` for legacy format. This legacy format
+of advanced audit is different from the [Legacy Audit](# Legacy Audit) discussed above, such
+as changes to the method values and the introduction of a "stage" for each event.
 
 #### Webhook backend
 
@@ -241,44 +300,187 @@ Events are POSTed as a JSON serialized `EventList`. An example payload:
 
 ```json
 {
-  "kind": "EventList",
-  "apiVersion": "audit.k8s.io/v1alpha1",
-  "items": [
-    {
-      "metadata": {
-        "creationTimestamp": null
-      },
-      "level": "Metadata",
-      "timestamp": "2017-06-15T23:07:40Z",
-      "auditID": "4faf711a-9094-400f-a876-d9188ceda548",
-      "stage": "ResponseComplete",
-      "requestURI": "/apis/rbac.authorization.k8s.io/v1beta1/namespaces/kube-public/rolebindings/system:controller:bootstrap-signer",
-      "verb": "get",
-      "user": {
-        "username": "system:apiserver",
-        "uid": "97a62906-e4d7-4048-8eda-4f0fb6ff8f1e",
-        "groups": [
-          "system:masters"
-        ]
-      },
-      "sourceIPs": [
-        "127.0.0.1"
-      ],
-      "objectRef": {
-        "resource": "rolebindings",
-        "namespace": "kube-public",
-        "name": "system:controller:bootstrap-signer",
-        "apiVersion": "rbac.authorization.k8s.io/v1beta1"
-      },
-      "responseStatus": {
-        "metadata": {},
-        "code": 200
-      }
-    }
-  ]
+    "apiVersion": "audit.k8s.io/v1beta1",
+    "items": [
+        {
+            "auditID": "24f30caf-d7d4-45d5-b7bd-e7af300d7886",
+            "level": "Metadata",
+            "metadata": {
+                "creationTimestamp": null
+            },
+            "objectRef": {
+                "apiGroup": "rbac.authorization.k8s.io",
+                "apiVersion": "v1",
+                "name": "jane",
+                "namespace": "default",
+                "resource": "roles"
+            },
+            "requestURI": "/apis/rbac.authorization.k8s.io/v1/namespaces/default/roles/jane",
+            "responseStatus": {
+                "code": 200,
+                "metadata": {}
+            },
+            "sourceIPs": [
+                "172.16.116.128"
+            ],
+            "stage": "ResponseComplete",
+            "timestamp": "2017-09-05T10:20:24Z",
+            "user": {
+                "groups": [
+                    "system:masters",
+                    "system:authenticated"
+                ],
+                "username": "kubecfg"
+            },
+            "verb": "get"
+        }
+    ],
+    "kind": "EventList",
+    "metadata": {}
 }
 ```
 
-[audit-api]: https://github.com/kubernetes/kubernetes/blob/v1.7.0-rc.1/staging/src/k8s.io/apiserver/pkg/apis/audit/v1alpha1/types.go
+### Audit-Id
+
+Audit-Id is a unique ID for each http request to kube-apiserver. The ID of events will be the
+same if they were generated from the same request. Starting from Kubernetes 1.8, if an audit
+event is generated for the request, kube-apiserver will respond with an Audit-Id in the HTTP header.
+Note that for some special requests like `kubectl exec`, `kubectl attach`, kube-apiserver works
+like a proxy, no Audit-Id will be returned even if audit events are recorded.
+
+### Log Collector Examples
+
+#### Use fluentd to collect and distribute audit events from log file
+
+[Fluentd][fluentd] is an open source data collector for unified logging layer.
+In this example, we will use fluentd to split audit events by different namespaces.
+Note that this example requries json format output support in Kubernetes 1.8.
+
+1. install [fluentd, fluent-plugin-forest and fluent-plugin-rewrite-tag-filter][fluentd_install_doc] in the kube-apiserver node
+1. create a config file for fluentd
+
+          $ cat <<EOF > /etc/fluentd/config
+          # fluentd conf runs in the same host with kube-apiserver
+          <source>
+              @type tail
+              # audit log path of kube-apiserver
+              path /var/log/audit
+              pos_file /var/log/audit.pos
+              format json
+              time_key time
+              time_format %Y-%m-%dT%H:%M:%S.%N%z
+              tag audit
+          </source>
+          
+          <filter audit>
+              #https://github.com/fluent/fluent-plugin-rewrite-tag-filter/issues/13
+              type record_transformer
+              enable_ruby
+              <record>
+              	namespace ${record["objectRef"].nil? ? "none":(record["objectRef"]["namespace"].nil? ?  "none":record["objectRef"]["namespace"])}
+              </record>
+          </filter>
+          
+          <match audit>
+              # route audit according to namespace element in context
+              @type rewrite_tag_filter
+              rewriterule1 namespace ^(.+) ${tag}.$1
+          </match>
+          
+          <filter audit.**>
+          	  @type record_transformer
+          	  remove_keys namespace
+          </filter>
+          
+          <match audit.**>
+              @type forest
+              subtype file
+              remove_prefix audit
+              <template>
+                  time_slice_format %Y%m%d%H
+                  compress gz
+                  path /var/log/audit-${tag}.*.log
+                  format json
+                  include_time_key true
+              </template>
+          </match>
+1. start fluentd
+
+          $ fluentd -c /etc/fluentd/config  -vv
+1. start kube-apiserver with the following options:
+
+          --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-log-path=/var/log/kube-audit --audit-log-format=json
+1. check audits for different namespaces in /var/log/audit-*.log
+
+#### Use logstash to collect and distribute audit events from webhook backend
+
+[Logstash][logstash] is an open source, server-side data processing tool. In this example,
+we will use logstash to collect audit events from webhook backend, and save events of
+different users into different files.
+
+1. install [logstash][logstash_install_doc]
+1. create config file for logstash
+
+          $ cat <<EOF > /etc/logstash/config
+          input{
+              http{
+                  #TODO, figure out a way to use kubeconfig file to authenticate to logstash
+                  #https://www.elastic.co/guide/en/logstash/current/plugins-inputs-http.html#plugins-inputs-http-ssl
+                  port=>8888
+              }
+          }
+          filter{
+              split{
+                  # Webhook audit backend sends several events together with EventList
+                  # split each event here.
+                  field=>[items]
+                  # We only need event subelement, remove others.
+                  remove_field=>[headers, metadata, apiVersion, "@timestamp", kind, "@version", host]
+              }
+              mutate{
+                  rename => {items=>event}
+              }
+          }
+          output{
+              file{
+                  # Audit events from different users will be saved into different files.
+                  path=>"/var/log/kube-audit-%{[event][user][username]}/audit"
+              }
+          }
+1. start logstash
+
+          $ bin/logstash -f /etc/logstash/config --path.settings /etc/logstash/
+1. create a [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) for kube-apiserver webhook audit backend
+
+          $ cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
+          apiVersion: v1
+          clusters:
+          - cluster:
+              server: http://<ip_of_logstash>:8888
+            name: logstash
+          contexts:
+          - context:
+              cluster: logstash
+              user: ""
+            name: default-context
+          current-context: default-context
+          kind: Config
+          preferences: {}
+          users: []
+          EOF
+1. start kube-apiserver with the following options:
+
+          --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-webhook-config-file=/etc/kubernetes/audit-webhook-kubeconfig
+1. check audits in logstash node's directories /var/log/kube-audit-*/audit
+
+Note that in addition to file output plugin, logstash has a variety of outputs that
+let users route data where they want. For example, users can emit audit events to elasticsearch
+plugin which supports full-text search and analytics.
+
+[audit-api]: https://github.com/kubernetes/kubernetes/blob/v1.8.0-beta.1/staging/src/k8s.io/apiserver/pkg/apis/audit/v1beta1/types.go
 [kube-apiserver]: /docs/admin/kube-apiserver
-[gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/v1.7.0/cluster/gce/gci/configure-helper.sh#L490
+[gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/v1.8.0-beta.0/cluster/gce/gci/configure-helper.sh#L532
+[fluentd]: http://www.fluentd.org/
+[fluentd_install_doc]: http://docs.fluentd.org/v0.12/articles/quickstart#step1-installing-fluentd
+[logstash]: https://www.elastic.co/products/logstash
+[logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html

@@ -38,7 +38,7 @@ An Ingress is a collection of rules that allow inbound connections to reach the 
    [ Services ]
 ```
 
-It can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. Users request ingress by POSTing the Ingress resource to the API server. An [Ingress controller](#ingress-controllers) is responsible for fulfilling the Ingress, usually with a loadbalancer, though it may also configure your edge router or additional frontends to help handle the traffic in an HA manner.
+It can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, offer name based virtual hosting, and more. Users request ingress by POSTing the Ingress resource to the API server. An [Ingress controller](#ingress-controllers) is responsible for fulfilling the Ingress, usually with a loadbalancer, though it may also configure your edge router or additional frontends to help handle the traffic in an HA manner.
 
 ## Prerequisites
 
@@ -105,7 +105,7 @@ NAME                RULE          BACKEND        ADDRESS
 test-ingress        -             testsvc:80     107.178.254.228
 ```
 
-Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy this Ingress. The `RULE` column shows that all traffic send to the IP is directed to the Kubernetes Service listed under `BACKEND`.
+Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy this Ingress. The `RULE` column shows that all traffic sent to the IP is directed to the Kubernetes Service listed under `BACKEND`.
 
 ### Simple fanout
 
@@ -185,7 +185,7 @@ spec:
           servicePort: 80
 ```
 
-__Default Backends__: An Ingress with no rules, like the one shown in the previous section, sends all traffic to a single default backend. You can use the same technique to tell a loadbalancer where to find your website's 404 page, by specifying a set of rules *and* a default backend. Traffic is routed to your default backend if none of the Hosts in your Ingress match the Host in the request header, and/or none of the paths match the url of the request.
+__Default Backends__: An Ingress with no rules, like the one shown in the previous section, sends all traffic to a single default backend. You can use the same technique to tell a loadbalancer where to find your website's 404 page, by specifying a set of rules *and* a default backend. Traffic is routed to your default backend if none of the Hosts in your Ingress match the Host in the request header, and/or none of the paths match the URL of the request.
 
 ### TLS
 
@@ -222,7 +222,7 @@ Note that there is a gap between TLS features supported by various Ingress contr
 
 ### Loadbalancing
 
-An Ingress controller is bootstrapped with some loadbalancing policy settings that it applies to all Ingress, such as the loadbalancing algorithm, backend weight scheme etc. More advanced loadbalancing concepts (e.g.: persistent sessions, dynamic weights) are not yet exposed through the Ingress. You can still get these features through the [service loadbalancer](https://git.k8s.io/contrib/service-loadbalancer). With time, we plan to distill loadbalancing patterns that are applicable cross platform into the Ingress resource.
+An Ingress controller is bootstrapped with some load balancing policy settings that it applies to all Ingress, such as the load balancing algorithm, backend weight scheme, and others. More advanced load balancing concepts (e.g.: persistent sessions, dynamic weights) are not yet exposed through the Ingress. You can still get these features through the [service loadbalancer](https://git.k8s.io/contrib/service-loadbalancer). With time, we plan to distill load balancing patterns that are applicable cross platform into the Ingress resource.
 
 It's also worth noting that even though health checks are not exposed directly through the Ingress, there exist parallel concepts in Kubernetes such as [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) which allow you to achieve the same end result. Please review the controller specific docs to see how they handle health checks ([nginx](https://git.k8s.io/ingress/controllers/nginx/README.md), [GCE](https://git.k8s.io/ingress/controllers/gce/README.md#health-checks)).
 
@@ -239,7 +239,7 @@ test      -                       178.91.123.132
 $ kubectl edit ing test
 ```
 
-This should pop up an editor with the existing yaml, modify it to include the new Host.
+This should pop up an editor with the existing yaml, modify it to include the new Host:
 
 ```yaml
 spec:
@@ -261,7 +261,7 @@ spec:
 ..
 ```
 
-saving it will update the resource in the API server, which should tell the Ingress controller to reconfigure the loadbalancer.
+Saving the yaml will update the resource in the API server, which should tell the Ingress controller to reconfigure the loadbalancer.
 
 ```shell
 $ kubectl get ing
@@ -292,7 +292,7 @@ Please track the [L7 and Ingress proposal](https://github.com/kubernetes/kuberne
 
 You can expose a Service in multiple ways that don't directly involve the Ingress resource:
 
-* Use [Service.Type=LoadBalancer](/docs/user-guide/services/#type-loadbalancer)
-* Use [Service.Type=NodePort](/docs/user-guide/services/#type-nodeport)
+* Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#type-loadbalancer)
+* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
 * Use a [Port Proxy](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 * Deploy the [Service loadbalancer](https://git.k8s.io/contrib/service-loadbalancer). This allows you to share a single IP among multiple Services and achieve more advanced loadbalancing through Service Annotations.

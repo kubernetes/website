@@ -100,7 +100,7 @@ To be able to work with the docker daemon on your mac/linux host use the `docker
 ```
 eval $(minikube docker-env)
 ```
-you should now be able to use docker on the command line on your host mac/linux machine talking to the docker daemon inside the minikube VM:
+You should now be able to use docker on the command line on your host mac/linux machine talking to the docker daemon inside the minikube VM:
 
 ```
 docker ps
@@ -143,6 +143,23 @@ Unfortunately just setting the environment variables will not work.
 Minikube will also create a "minikube" context, and set it to default in kubectl.
 To switch back to this context later, run this command: `kubectl config use-context minikube`.
 
+#### Specifying the Kubernetes version
+
+Minikube supports running multiple different versions of Kubernetes. You can
+access a list of all available versions via
+
+```
+minikube get-k8s-versions
+```
+
+You can specify the specific version of Kubernetes for Minikube to use by
+adding the `--kubernetes-version` string to the `minikube start` command. For
+example, to run version `v1.7.3`, you would run the following:
+
+```
+minikube start --kubernetes-version v1.7.3
+```
+
 ### Configuring Kubernetes
 
 Minikube has a "configurator" feature that allows users to configure the Kubernetes components with arbitrary values.
@@ -184,14 +201,14 @@ This command shuts down and deletes the minikube virtual machine. No data or sta
 
 ### Kubectl
 
-The `minikube start` command creates a "[kubectl context](/docs/user-guide/kubectl/v1.6/#-em-set-context-em-)" called "minikube".
+The `minikube start` command creates a "[kubectl context](/docs/user-guide/kubectl/{{page.version}}/#-em-set-context-em-)" called "minikube".
 This context contains the configuration to communicate with your minikube cluster.
 
 Minikube sets this context to default automatically, but if you need to switch back to it in the future, run:
 
 `kubectl config use-context minikube`,
 
-or pass the context on each command like this: `kubectl get pods --context=minikube`.
+Or pass the context on each command like this: `kubectl get pods --context=minikube`.
 
 ### Dashboard
 
@@ -301,7 +318,7 @@ $ export no_proxy=$no_proxy,$(minikube ip)
 
 Minikube uses [libmachine](https://github.com/docker/machine/tree/master/libmachine) for provisioning VMs, and [localkube](https://git.k8s.io/minikube/pkg/localkube) (originally written and donated to this project by [RedSpread](https://redspread.com/)) for running the cluster.
 
-For more information about minikube, see the [proposal](https://git.k8s.io/community/contributors/design-proposals/local-cluster-ux.md).
+For more information about minikube, see the [proposal](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md).
 
 ## Additional Links:
 * **Goals and Non-Goals**: For the goals and non-goals of the minikube project, please see our [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).

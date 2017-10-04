@@ -1,6 +1,6 @@
 language: go
 go:
-  - 1.8.1
+  - 1.8.3
 
 # Don't want default ./... here:
 install:
@@ -15,15 +15,6 @@ install:
 - cp -L -R $GOPATH/src/k8s.io/kubernetes/vendor/ $GOPATH/src/
 - rm -r $GOPATH/src/k8s.io/kubernetes/vendor/
 
-# (2) Fetch md-check along with all its dependencies.
-- git clone --depth=50 --branch=master https://github.com/kubernetes/md-check $HOME/gopath/src/k8s.io/md-check
-- go get -t -v k8s.io/md-check
-
-# (3) Fetch mungedocs
-- go get -v k8s.io/kubernetes/cmd/mungedocs
-
 script:
 - go test -v k8s.io/kubernetes.github.io/test
-- $GOPATH/bin/md-check --root-dir=$HOME/gopath/src/k8s.io/kubernetes.github.io
 - ./verify-docs-format.sh
-- $GOPATH/bin/mungedocs --verbose --verify --upstream=origin --root-dir=$HOME/gopath/src/k8s.io/kubernetes.github.io/docs/ --repo-root=$HOME/gopath/src/k8s.io/kubernetes.github.io --skip-munges=remove-whitespace,blank-lines-surround-preformatted,header-lines,sync-examples,analytics,analytics,kubectl-dash-f,table-of-contents,md-links,kubectl-dash-f

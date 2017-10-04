@@ -24,7 +24,7 @@ toc:
 - title: Extending the Kubernetes API
   section:
   - docs/concepts/api-extension/custom-resources.md
-  - docs/concepts/api-extension/apiserver-aggregation.md  
+  - docs/concepts/api-extension/apiserver-aggregation.md
 
 - title: Containers
   section:
@@ -47,7 +47,6 @@ toc:
     - docs/concepts/workloads/controllers/replicationcontroller.md
     - docs/concepts/workloads/controllers/deployment.md
     - docs/concepts/workloads/controllers/statefulset.md
-    - docs/concepts/workloads/controllers/petset.md
     - docs/concepts/workloads/controllers/daemonset.md
     - docs/concepts/workloads/controllers/garbage-collection.md
     - docs/concepts/workloads/controllers/jobs-run-to-completion.md
@@ -58,7 +57,10 @@ toc:
   - docs/concepts/configuration/overview.md
   - docs/concepts/configuration/manage-compute-resources-container.md
   - docs/concepts/configuration/assign-pod-node.md
+  - docs/concepts/configuration/taint-and-toleration.md
   - docs/concepts/configuration/secret.md
+  - docs/concepts/configuration/organize-cluster-access-kubeconfig.md
+  - docs/concepts/configuration/pod-priority-preemption.md
 
 - title: Services, Load Balancing, and Networking
   section:
@@ -79,6 +81,7 @@ toc:
 - title: Cluster Administration
   section:
   - docs/concepts/cluster-administration/cluster-administration-overview.md
+  - docs/concepts/cluster-administration/cloud-providers.md
   - docs/concepts/cluster-administration/manage-deployment.md
   - docs/concepts/cluster-administration/networking.md
   - docs/concepts/cluster-administration/network-plugins.md
@@ -90,6 +93,7 @@ toc:
   - docs/concepts/cluster-administration/master-node-communication.md
   - docs/concepts/cluster-administration/proxies.md
   - docs/concepts/cluster-administration/controller-metrics.md
+  - docs/concepts/cluster-administration/device-plugins.md
   - title: Policies
     section:
     - docs/concepts/policy/resource-quotas.md

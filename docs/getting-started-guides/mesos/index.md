@@ -309,10 +309,10 @@ Address 1: 10.10.10.1
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Mesos/GCE            |              |        |             | [docs](/docs/getting-started-guides/mesos)                                  |          | Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
+Mesos/GCE            |              |        |             | [docs](/docs/getting-started-guides/mesos/)                                  |          | Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
 
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions/) chart.
 
 ## What next?
 
@@ -327,13 +327,13 @@ Future work will add instructions to this guide to enable support for Kubernetes
 
 [1]: https://docs.mesosphere.com/latest/usage/service-guides/hdfs/
 [2]: https://docs.mesosphere.com/latest/usage/service-guides/spark/
-[3]: https://docs.mesosphere.com/latest/usage/service-guides/chronos/
+[3]: https://mesos.github.io/chronos/docs/getting-started.html
 [4]: https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md
 [5]: https://dcos.io/docs/latest/administration/installing/cloud/gce/
 [6]: http://mesos.apache.org/
 [7]: https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/docs/issues.md
 [8]: https://github.com/mesosphere/kubernetes-mesos/issues
-[9]: https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples
+[9]: https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/
 [10]: http://open.mesosphere.com/getting-started/cloud/google/mesosphere/#vpn-setup
 [11]: https://git.k8s.io/kubernetes/cluster/addons/dns/README.md#kube-dns
 [12]: https://git.k8s.io/kubernetes/cluster/addons/dns/kubedns-controller.yaml.in

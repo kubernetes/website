@@ -104,6 +104,7 @@ $ kubectl get services                          # List all services in the names
 $ kubectl get pods --all-namespaces             # List all pods in all namespaces
 $ kubectl get pods -o wide                      # List all pods in the namespace, with more details
 $ kubectl get deployment my-dep                 # List a particular deployment
+$ kubectl get pods --include-uninitialized      # List all pods in the namespace, including uninitialized ones
 
 # Describe commands with verbose output
 $ kubectl describe nodes my-node
@@ -128,7 +129,7 @@ $ echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.na
 
 # Check which nodes are ready
 $ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
- && kubectl get nodes -o jsonpath=$JSONPATH | grep "Ready=True"
+ && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
 
 # List all Secrets currently in use by a pod
 $ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
@@ -193,10 +194,11 @@ $ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale mult
 ## Deleting Resources
 
 ```console
-$ kubectl delete -f ./pod.json                      # Delete a pod using the type and name specified in pod.json
-$ kubectl delete pod,service baz foo                # Delete pods and services with same names "baz" and "foo"
-$ kubectl delete pods,services -l name=myLabel      # Delete pods and services with label name=myLabel
-$ kubectl -n my-ns delete po,svc --all              # Delete all pods and services in namespace my-ns
+$ kubectl delete -f ./pod.json                                              # Delete a pod using the type and name specified in pod.json
+$ kubectl delete pod,service baz foo                                        # Delete pods and services with same names "baz" and "foo"
+$ kubectl delete pods,services -l name=myLabel                              # Delete pods and services with label name=myLabel
+$ kubectl delete pods,services -l name=myLabel --include-uninitialized      # Delete pods and services, including uninitialized ones, with label name=myLabel
+$ kubectl -n my-ns delete po,svc --all                                      # Delete all pods and services, including uninitialized ones, in namespace my-ns,
 ```
 
 ## Interacting with running Pods

@@ -89,7 +89,7 @@ similar to the following:
 
 ```
 CURRENT   NAME                                          CLUSTER                                       AUTHINFO                                      NAMESPACE
-          gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1
+*         gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1
 ```
 
 
@@ -261,11 +261,11 @@ kubefed init fellowship \
 `kubefed init` exposes the federation API server as a Kubernetes
 [service](/docs/concepts/services-networking/service/) on the host cluster. By default,
 this service is exposed as a
-[load balanced service](/docs/user-guide/services/#type-loadbalancer).
+[load balanced service](/docs/concepts/services-networking/service/#type-loadbalancer).
 Most on-premises and bare-metal environments, and some cloud
 environments lack support for load balanced services. `kubefed init`
 allows exposing the federation API server as a
-[`NodePort` service](/docs/user-guide/services/#type-nodeport) on
+[`NodePort` service](/docs/concepts/services-networking/service/#type-nodeport) on
 such environments. This can be accomplished by passing
 the `--api-server-service-type=NodePort` flag. You can also specify
 the preferred address to advertise the federation API server by
@@ -289,17 +289,17 @@ Federation control plane stores its state in
 [`etcd`](https://coreos.com/etcd/docs/latest/) data must be stored in
 a persistent storage volume to ensure correct operation across
 federation control plane restarts. On host clusters that support
-[dynamic provisioning of storage volumes](/docs/user-guide/persistent-volumes/#dynamic),
+[dynamic provisioning of storage volumes](/docs/concepts/storage/persistent-volumes/#dynamic),
 `kubefed init` dynamically provisions a
-[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes)
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes)
 and binds it to a
-[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 to store [`etcd`](https://coreos.com/etcd/docs/latest/) data. If your
 host cluster doesn't support dynamic provisioning, you can also
 statically provision a
-[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes).
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes).
 `kubefed init` creates a
-[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 that has the following configuration:
 
 ```yaml
@@ -321,12 +321,12 @@ spec:
 ```
 
 To statically provision a
-[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes),
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes),
 you must ensure that the
-[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes)
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes)
 that you create has the matching storage class, access mode and
 at least as much capacity as the requested
-[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims).
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 
 Alternatively, you can disable persistent storage completely
 by passing `--etcd-persistent-storage=false` to `kubefed init`.
@@ -342,7 +342,7 @@ kubefed init fellowship \
 ```
 
 `kubefed init` still doesn't support attaching an existing
-[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 to the federation control plane that it bootstraps. We are planning to
 support this in a future version of `kubefed`.
 
@@ -367,13 +367,13 @@ kubefed init fellowship \
 ```
 
 For more information see
-[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tutorials/federation/set-up-coredns-provider-federation/)
+[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tutorials/federation/set-up-coredns-provider-federation/).
 
 ## Adding a cluster to a federation
 
 Once you've deployed a federation control plane, you'll need to make
 that control plane aware of the clusters it should manage. You can add
-a cluster to your federation by using the [`kubefed join`](/docs/admin/kubefed_join)
+a cluster to your federation by using the [`kubefed join`](/docs/admin/kubefed_join/)
 command.
 
 To use `kubefed join`, you'll need to provide the name of the cluster
@@ -464,11 +464,11 @@ commands.
 
 In all other cases, you must update `kube-dns` configuration manually
 as described in the
-[Updating KubeDNS section of the admin guide](/docs/admin/federation/)
+[Updating KubeDNS section of the admin guide](/docs/admin/federation/).
 
 ## Removing a cluster from a federation
 
-To remove a cluster from a federation, run the [`kubefed unjoin`](/docs/admin/kubefed_unjoin)
+To remove a cluster from a federation, run the [`kubefed unjoin`](/docs/admin/kubefed_unjoin/)
 command with the cluster name and the federation's
 `--host-cluster-context`:
 
@@ -487,5 +487,5 @@ federation control plane's etcd. You can delete the federation
 namespace by running the following command:
 
 ```
-$ kubectl delete ns federation-system
+kubectl delete ns federation-system
 ```

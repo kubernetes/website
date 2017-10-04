@@ -13,15 +13,7 @@ The [Kubernetes Basics interactive tutorial](/docs/tutorials/kubernetes-basics/)
 
 ## Installing/Setting Up Kubernetes
 
-[Picking the Right Solution](/docs/getting-started-guides/) can help you get a Kubernetes cluster up and running, either for local development, or on your cloud provider of choice.
-
-Other/newer ways to set up a Kubernetes cluster include:
-
-* [Minikube](/docs/getting-started-guides/minikube/): Install a single-node Kubernetes cluster on your local machine for development and testing.
-* [Installing Kubernetes on AWS with kops](/docs/getting-started-guides/kops/): Bring up a complete Kubernetes cluster on Amazon Web Services, using a tool called `kops`.
-* [Installing Kubernetes on Linux with kubeadm](/docs/getting-started-guides/kubeadm/) (Beta): Install a secure Kubernetes cluster on any pre-existing machines running Linux, using the built-in `kubeadm` tool.
-* [Installing Kubernetes On-premises/Cloud Providers with Kubespray](/docs/getting-started-guides/kubespray/): Deploy a Kubernetes cluster on-premises baremetal or hosted on cloud providers, with Ansible and `kubespray` tools.
-* [Installing Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/): Deploy a Kubernetes cluster on-premises, baremetal, cloud providers, or localhost with Charms and `conjure-up`.
+[Picking the Right Solution](/docs/setup/pick-right-solution/) can help you get a Kubernetes cluster up and running, either for local development, or on your cloud provider of choice.
 
 ## Concepts, Tasks, and Tutorials
 
@@ -42,9 +34,3 @@ The [Tools](/docs/tools/) page contains a list of native and third-party tools f
 ## Troubleshooting
 
 The [Troubleshooting](/docs/tasks/debug-application-cluster/troubleshooting) page outlines some resources for troubleshooting and finding help.
-
-## Frequently Asked Questions
-
-* [User FAQ](https://github.com/kubernetes/kubernetes/wiki/User-FAQ)
-* [Debugging FAQ](https://github.com/kubernetes/kubernetes/wiki/Debugging-FAQ)
-* [Services FAQ](https://github.com/kubernetes/kubernetes/wiki/Services-FAQ)

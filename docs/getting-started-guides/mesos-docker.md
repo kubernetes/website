@@ -216,7 +216,7 @@ sudo route -n add -net 172.17.0.0 $(docker-machine ip kube-dev)
     To learn more about Pods, Volumes, Labels, Services, and Replication Controllers, start with the
     [Kubernetes Tutorials](/docs/tutorials/).
 
-    To skip to a more advanced example, see the [Guestbook Example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/)
+    To skip to a more advanced example, see the [Guestbook Example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/)
 
 1. Destroy cluster
 

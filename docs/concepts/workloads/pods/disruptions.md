@@ -32,7 +32,7 @@ an application.  Examples are:
 - cluster administrator deletes VM (instance) by mistake
 - cloud provider or hypervisor failure makes VM disappear
 - a kernel panic
-- if the node to disappears from the cluster due to cluster network partition
+- the node disappears from the cluster due to cluster network partition
 - eviction of a pod due to the node being [out-of-resources](/docs/tasks/administer-cluster/out-of-resource/).
 
 Except for the out-of-resources condition, all these conditions
@@ -122,13 +122,13 @@ The "intended" number of pods is computed from the `.spec.replicas` of the pods 
 The controller is discovered from the pods using the `.metadata.ownerReferences` of the object.
 
 PDBs cannot prevent [involuntary disruptions](#voluntary-and-involuntary-disruptions) from
-occuring, but they do count against the budget.
+occurring, but they do count against the budget.
 
 Pods which are deleted or unavailable due to a rolling upgrade to an application do count
 against the disruption budget, but controllers (like deployment and stateful-set)
 are not limited by PDBs when doing rolling upgrades -- the handling of failures
 during application updates is configured in the controller spec.
-(Learn about [updating a deployment](/docs/concepts/cluster-administration/manage-deployment/#updating-your-application-without-a-service-outage).)
+(Learn about [updating a deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment).)
 
 When a pod is evicted using the eviction API, it is gracefully terminated (see
 `terminationGracePeriodSeconds` in [PodSpec](/docs/resources-reference/{{page.version}}/#podspec-v1-core).)
@@ -145,7 +145,7 @@ Initially, the pods are laid out as follows:
 | pod-a  *available*   | pod-b *available*   | pod-c *available*  |
 | pod-x  *available*   |                     |                    |
 
-All 3 pods are part of an deployment, and they collectively have a PDB which requires
+All 3 pods are part of a deployment, and they collectively have a PDB which requires
 there be at least 2 of the 3 pods to be available at all times.
 
 For example, assume the cluster administrator wants to reboot into a new kernel version to fix a bug in the kernel.
@@ -174,7 +174,7 @@ Now the cluster is in this state:
 | pod-a  *terminating* | pod-b *available*   | pod-c *available*  |
 | pod-x  *terminating* | pod-d *starting*    | pod-y              |
 
-At some point, the pods terminate, and the cluster look like this:
+At some point, the pods terminate, and the cluster looks like this:
 
 |    node-1 *drained*  |       node-2        |       node-3       |
 |:--------------------:|:-------------------:|:------------------:|

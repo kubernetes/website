@@ -60,6 +60,10 @@ The API server does not guarantee the order authenticators run in.
 
 The `system:authenticated` group is included in the list of groups for all authenticated users.
 
+Integrations with other authentication protocols (LDAP, SAML, Kerberos, alternate x509 schemes, etc)
+can be accomplished using an [authenticating proxy](#authenticating-proxy) or the
+[authentication webhook](#webhook-token-authentication).
+
 ### X509 Client Certs
 
 Client certificate authentication is enabled by passing the `--client-ca-file=SOMEFILE`
@@ -164,7 +168,7 @@ with a value of `Basic BASE64ENCODED(USER:PASSWORD)`.
 
 ### Service Account Tokens
 
-Service accounts are an automatically enabled authenticator that uses signed
+A service account is an automatically enabled authenticator that uses signed
 bearer tokens to verify requests. The plugin takes two optional flags:
 
 * `--service-account-key-file` A file containing a PEM encoded key for signing bearer tokens.
@@ -224,6 +228,7 @@ $ kubectl get secret jenkins-token-1yvwg -o yaml
 apiVersion: v1
 data:
   ca.crt: (APISERVER'S CA BASE64 ENCODED)
+  namespace: ZGVmYXVsdA==
   token: (BEARER TOKEN BASE64 ENCODED)
 kind: Secret
 metadata:
@@ -276,8 +281,8 @@ Since all of the data needed to validate who you are is in the `id_token`, Kuber
 solution for authentication.  It does offer a few challenges:
 
 1.  Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
-2.  The `id_token` can't be revoked, its like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes
-3.  There's no easy way to authenticate to the Kubernetes dashboard without using the `kubectl proxy` command or a reverse proxy that injects the `id_token`
+2.  The `id_token` can't be revoked, it's like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes.
+3.  There's no easy way to authenticate to the Kubernetes dashboard without using the `kubectl proxy` command or a reverse proxy that injects the `id_token`.
 
 
 #### Configuring the API Server
@@ -286,7 +291,7 @@ To enable the plugin, configure the following flags on the API server:
 
 | Parameter | Description | Example | Required |
 | --------- | ----------- | ------- | ------- |
-| `--oidc-issuer-url` | URL of the provider which allows the API server to discover public signing keys. Only URLs which use the `https://` scheme are accepted.  This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".  This URL should point to the level below .well-known/openid-configuration | If the discovery URL is https://accounts.google.com/.well-known/openid-configuration the value should be https://accounts.google.com | Yes |
+| `--oidc-issuer-url` | URL of the provider which allows the API server to discover public signing keys. Only URLs which use the `https://` scheme are accepted.  This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".  This URL should point to the level below .well-known/openid-configuration | If the discovery URL is `https://accounts.google.com/.well-known/openid-configuration`, the value should be `https://accounts.google.com` | Yes |
 | `--oidc-client-id` |  A client id that all tokens must be issued for. | kubernetes | Yes |
 | `--oidc-username-claim` | JWT claim to use as the user name. By default `sub`, which is expected to be a unique identifier of the end user. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent naming clashes with other plugins. | sub | No |
 | `--oidc-groups-claim` | JWT claim to use as the user's group. If the claim is present it must be an array of strings. | groups | No |
@@ -319,7 +324,8 @@ For an identity provider to work with Kubernetes it must:
 2.  Run in TLS with non-obsolete ciphers
 3.  Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
 
-A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST have your identity provider's web server certificate signed by a certificate with the `CA` flag set to `TRUE`, even if it is self signed.  This is due to GoLang's TLS client implementation being very strict to the standards around certificate validation.  If you don't have a CA handy, you can use this script from the CoreOS team to create a simple CA and a signed certificate and key pair - https://github.com/coreos/dex/blob/1ee5920c54f5926d6468d2607c728b71cfe98092/examples/k8s/gencert.sh or this script based on it that will generate SHA256 certs with a longer life and larger key size https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/makecerts.sh.
+A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST have your identity provider's web server certificate signed by a certificate with the `CA` flag set to `TRUE`, even if it is self signed.  This is due to GoLang's TLS client implementation being very strict to the standards around certificate validation.  If you don't have a CA handy, you can use [this script](https://github.com/coreos/dex/blob/1ee5920c54f5926d6468d2607c728b71cfe98092/examples/k8s/gencert.sh) from the CoreOS team to create a simple CA and a signed certificate and key pair.
+Or you can use [this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/makecerts.sh) that generates SHA256 certs with a longer life and larger key size.
 
 Setup instructions for specific systems:
 
@@ -429,7 +435,7 @@ the authentication webhook
 queries the remote service with a review object containing the token. Kubernetes
 will not challenge a request that lacks such a header.
 
-Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/api/)
+Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
 as other Kubernetes API objects. Implementers should be aware of looser
 compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API server must
@@ -543,7 +549,7 @@ checked.
 Keystone authentication is enabled by passing the `--experimental-keystone-url=<AuthURL>`
 option to the API server during startup. The plugin is implemented in
 `plugin/pkg/auth/authenticator/password/keystone/keystone.go` and currently uses
-basic auth to verify used by username and password.
+basic auth to verify user by username and password.
 
 If you have configured self-signed certificates for the Keystone server,
 you may need to set the `--experimental-keystone-ca-file=SOMEFILE` option when
@@ -632,7 +638,7 @@ authorization plugin, the following ClusterRole encompasses the rules needed to
 set user and group impersonation headers:
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: impersonator
@@ -647,7 +653,7 @@ allow a user to use impersonation headers for the extra field "scopes," a user
 should be granted the following role:
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: scopes-impersonator
@@ -661,7 +667,7 @@ The values of impersonation headers can also be restricted by limiting the set
 of `resourceNames` a resource can take.
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: limited-impersonator
@@ -684,14 +690,6 @@ rules:
   verbs: ["impersonate"]
   resourceNames: ["view", "development"]
 ```
-
-## Plugin Development
-
-We plan for the Kubernetes API server to issue tokens after the user has been
-(re)authenticated by a *bedrock* authentication provider external to Kubernetes.
-We also plan to make it easy to develop modules that interface between
-Kubernetes and a bedrock authentication provider (e.g. github.com, google.com,
-enterprise directory, kerberos, etc.)
 
 ## APPENDIX
 
@@ -730,7 +728,7 @@ Finally, add the following parameters into API server start parameters:
 
         ./easyrsa --batch "--req-cn=${MASTER_IP}@`date +%s`" build-ca nopass
 1.  Generate server certificate and key.
-    (build-server-full [filename]: Generate a keypair and sign locally for a client or server)
+    (build-server-full [filename]: Generate a keypair and sign locally for a client or server.)
 
         ./easyrsa --subject-alt-name="IP:${MASTER_IP}" build-server-full server nopass
 1.  Copy `pki/ca.crt`, `pki/issued/server.crt`, and `pki/private/server.key` to your directory.
@@ -742,7 +740,7 @@ Finally, add the following parameters into API server start parameters:
 
 #### openssl
 
-**openssl** can also be use to manually generate certificates for your cluster.
+**openssl** can also be used to manually generate certificates for your cluster.
 
 1.  Generate a ca.key with 2048bit:
 
@@ -750,7 +748,7 @@ Finally, add the following parameters into API server start parameters:
 1.  According to the ca.key generate a ca.crt (use -days to set the certificate effective time):
 
         openssl req -x509 -new -nodes -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt
-1.  Generate a server.key with 2048bit
+1.  Generate a server.key with 2048bit:
 
         openssl genrsa -out server.key 2048
 1.  According to the server.key generate a server.csr:

@@ -9,13 +9,13 @@ This page shows how to use Calico for NetworkPolicy.
 {% endcapture %}
 
 {% capture prerequisites %}
-* Install Calico for Kubernetes.
+* [Install Calico for Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/).
 {% endcapture %}
 
 {% capture steps %}
 ## Deploying a cluster using Calico
 
-You can deploy a cluster using Calico for network policy in the default [GCE deployment](/docs/getting-started-guides/gce) using the following set of commands:
+You can deploy a cluster using Calico for network policy in the default [GCE deployment](/docs/getting-started-guides/gce/) using the following set of commands:
 
 ```shell
 export NETWORK_POLICY_PROVIDER=calico
@@ -55,7 +55,7 @@ There are two main components to be aware of:
 {% endcapture %}
 
 {% capture whatsnext %}
-Once your cluster is running, you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
+Once your cluster is running, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
 {% endcapture %}
 
 {% include templates/task.md %}

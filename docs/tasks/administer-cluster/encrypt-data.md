@@ -14,6 +14,8 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 * Kubernetes version 1.7.0 or later is required
 
+* etcd v3 or later is required
+
 * Encryption at rest is alpha in 1.7.0 which means it may change without notice. Users may be required to decrypt their data prior to upgrading to 1.8.0.
 
 {% endcapture %}
@@ -137,7 +139,7 @@ program to retrieve the contents of your secret.
 4. Verify the secret is correctly decrypted when retrieved via the API:
 
     ```
-    kubectl describe secret generic -n default
+    kubectl describe secret secret1 -n default
     ```
 
     should match `mykey: mydata`

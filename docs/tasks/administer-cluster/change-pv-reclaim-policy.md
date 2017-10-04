@@ -43,7 +43,7 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
    This list also includes the name of the claims that are bound to each volume
    for easier identification of dynamically provisioned volumes.
 
-1. Chose one of your PersistentVolumes and change its reclaim policy:
+1. Choose one of your PersistentVolumes and change its reclaim policy:
 
        kubectl patch pv <your-pv-name> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
 
@@ -68,7 +68,7 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 
 {% capture whatsnext %}
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
-* Learn more about [PersistentVolumeClaims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims).
+* Learn more about [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 
 ### Reference
 

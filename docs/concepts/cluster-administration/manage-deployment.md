@@ -82,7 +82,7 @@ Because `kubectl` outputs resource names in the same syntax it accepts, it's eas
 ```shell
 $ kubectl get $(kubectl create -f docs/user-guide/nginx/ -o name | grep service)
 NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
-my-nginx-svc   10.0.0.208                 80/TCP       0s
+my-nginx-svc   10.0.0.208   <pending>     80/TCP       0s
 ```
 
 With the above commands, we first create resources under docs/user-guide/nginx/ and print the resources created with `-o name` output format
@@ -137,7 +137,7 @@ If you're interested in learning more about `kubectl`, go ahead and read [kubect
 
 The examples we've used so far apply at most a single label to any resource. There are many scenarios where multiple labels should be used to distinguish sets from one another.
 
-For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
+For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
 
 ```yaml
      labels:
@@ -256,7 +256,7 @@ my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 
 This outputs all "app=nginx" pods, with an additional label column of pods' tier (specified with `-L` or `--label-columns`).
 
-For more information, please see [labels](/docs/user-guide/labels/) and [kubectl label](/docs/user-guide/kubectl/{{page.version}}/#label) document.
+For more information, please see [labels](/docs/concepts/overview/working-with-objects/labels/) and [kubectl label](/docs/user-guide/kubectl/{{page.version}}/#label) document.
 
 ## Updating annotations
 
@@ -301,7 +301,7 @@ deployment "my-nginx" autoscaled
 
 Now your nginx replicas will be scaled up and down as needed, automatically.
 
-For more information, please see [kubectl scale](/docs/user-guide/kubectl/{{page.version}}/#scale), [kubectl autoscale](/docs/user-guide/kubectl/v1.6/#autoscale) and [horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) document.
+For more information, please see [kubectl scale](/docs/user-guide/kubectl/{{page.version}}/#scale), [kubectl autoscale](/docs/user-guide/kubectl/{{page.version}}/#autoscale) and [horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) document.
 
 
 ## In-place updates of resources

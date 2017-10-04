@@ -65,9 +65,10 @@ or service through the apiserver's proxy functionality.
 ### apiserver -> kubelet
 
 The connections from the apiserver to the kubelet are used for:
-  * fetching logs for pods.
-  * attaching (through kubectl) to running pods.
-  * the kubelet's port-forwarding functionality. 
+
+  * Fetching logs for pods.
+  * Attaching (through kubectl) to running pods.
+  * Providing the kubelet's port-forwarding functionality. 
 
 These connections terminate at the kubelet's HTTPS endpoint. By default, 
 the apiserver does not verify the kubelet's serving certificate,

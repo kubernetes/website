@@ -7,7 +7,7 @@ title: Configure Minimum and Maximum CPU Constraints for a Namespace
 
 This page shows how to set minimum and maximum values for the CPU resources used by Containers
 and Pods in a namespace. You specify minimum and maximum CPU values in a
-[LimitRange](/docs/api-reference/v1.6/#limitrange-v1-core)
+[LimitRange](/docs/api-reference/{{page.version}}/#limitrange-v1-core)
 object. If a Pod does not meet the constraints imposed by the LimitRange, it cannot be created
 in the namespace.
 
@@ -77,7 +77,7 @@ CPU request and limit to the Container.
 
 * Verify that the Container specifies a CPU request that is greater than or equal to 200 millicpu.
 
-* Verify that the Container specifies a memory limit that is less than or equal to 800 millicpu.
+* Verify that the Container specifies a CPU limit that is less than or equal to 800 millicpu.
 
 Here's the configuration file for a Pod that has one Container. The Container manifest
 specifies a CPU request of 500 millicpu and a CPU limit of 800 millicpu. These satisfy the
@@ -193,9 +193,9 @@ resources:
 ```
 
 Because your Container did not specify its own CPU request and limit, it was given the
-[default CPU request and limit](/docs/tasks/administer-cluster/default-cpu-request-limit/)
+[default CPU request and limit](/docs/tasks/administer-cluster/cpu-default-namespace/)
 from the LimitRange.
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace)
+
 At this point, your Container might be running or it might not be running. Recall that a prerequisite
 for this task is that your Nodes have at least 1 CPU. If each of your Nodes has only
 1 CPU, then there might not be enough allocatable CPU on any Node to accommodate a request
@@ -219,12 +219,12 @@ Pods that were created previously.
 As a cluster administrator, you might want to impose restrictions on the CPU resources that Pods can use.
 For example:
 
-* Each Node in a cluster has 2 cpu. You do not want to accept any Pod that requests
-more than 2 cpu, because no Node in the cluster can support the request.
+* Each Node in a cluster has 2 CPU. You do not want to accept any Pod that requests
+more than 2 CPU, because no Node in the cluster can support the request.
 
 * A cluster is shared by your production and development departments.
-You want to allow production workloads to consume up to 3 cpu, but you want development workloads to be limited
-to 1 cpu. You create separate namespaces for production and development, and you apply CPU constraints to
+You want to allow production workloads to consume up to 3 CPU, but you want development workloads to be limited
+to 1 CPU. You create separate namespaces for production and development, and you apply CPU constraints to
 each namespace.
 
 ## Clean up

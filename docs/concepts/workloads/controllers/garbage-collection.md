@@ -155,20 +155,17 @@ is not used, only the ReplicaSets will be deleted, and the Pods will be orphaned
 See [kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment-284766613) for more information.
 
 ## Known issues
-* As of 1.7, garbage collection does not yet support
-  [custom resources](/docs/concepts/api-extension/custom-resources/),
-  such as those added through CustomResourceDefinition or aggregated API servers.
 
-[Other known issues](https://github.com/kubernetes/kubernetes/issues/26120)
+Tracked at [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 
 {% endcapture %}
 
 
 {% capture whatsnext %}
 
-[Design Doc 1](https://git.k8s.io/community/contributors/design-proposals/garbage-collection.md)
+[Design Doc 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
 
-[Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/synchronous-garbage-collection.md)
+[Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
 {% endcapture %}
 

@@ -80,20 +80,21 @@ $ kubectl describe svc my-nginx
 Name:                my-nginx
 Namespace:           default
 Labels:              run=my-nginx
+Annotations:         <none>
 Selector:            run=my-nginx
 Type:                ClusterIP
 IP:                  10.0.162.149
 Port:                <unset> 80/TCP
 Endpoints:           10.244.2.5:80,10.244.3.4:80
 Session Affinity:    None
-No events.
+Events:              <none>
 
 $ kubectl get ep my-nginx
 NAME       ENDPOINTS                     AGE
 my-nginx   10.244.2.5:80,10.244.3.4:80   1m
 ```
 
-You should now be able to curl the nginx Service on `<CLUSTER-IP>:<PORT>` from any node in your cluster. Note that the Service IP is completely virtual, it never hits the wire, if you're curious about how this works you can read more about the [service proxy](/docs/user-guide/services/#virtual-ips-and-service-proxies).
+You should now be able to curl the nginx Service on `<CLUSTER-IP>:<PORT>` from any node in your cluster. Note that the Service IP is completely virtual, it never hits the wire, if you're curious about how this works you can read more about the [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
 
 ## Accessing the Service
 
@@ -169,7 +170,7 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 * An nginx server configured to use the certificates
 * A [secret](/docs/user-guide/secrets) that makes the certificates accessible to pods
 
-You can acquire all these from the [nginx https example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/https-nginx/), in short:
+You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/https-nginx/), in short:
 
 ```shell
 $ make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
@@ -188,7 +189,7 @@ Now modify your nginx replicas to start an https server using the certificate in
 Noteworthy points about the nginx-secure-app manifest:
 
 - It contains both Deployment and Service specification in the same file.
-- The [nginx server](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/https-nginx/default.conf) serves http traffic on port 80 and https traffic on 443, and nginx Service exposes both ports.
+- The [nginx server](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/https-nginx/default.conf) serves http traffic on port 80 and https traffic on 443, and nginx Service exposes both ports.
 - Each container has access to the keys through a volume mounted at /etc/nginx/ssl. This is setup *before* the nginx server is started.
 
 ```shell

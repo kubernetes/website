@@ -9,7 +9,7 @@ This page shows how to specify opaque integer resources for a Node.
 Opaque integer resources allow cluster administrators to advertise node-level
 resources that would otherwise be unknown to Kubernetes.
 
-{% include feature-state-alpha.md %}
+{% include feature-state-deprecated.md %}
 
 {% endcapture %}
 
@@ -134,7 +134,7 @@ opaque-int-resource-special-storage.
 ```yaml
 Capacity:
  ...
- pod.alpha.kubernetes.io/opaque-int-special-storage:  8
+ pod.alpha.kubernetes.io/opaque-int-resource-special-storage:  8
 ```
 
 If you want to allow arbitrary requests for special storage, you
@@ -144,7 +144,7 @@ could advertise special storage in chunks of size 1 byte. In that case, you woul
 ```yaml
 Capacity:
  ...
- pod.alpha.kubernetes.io/opaque-int-special-storage:  8Gi
+ pod.alpha.kubernetes.io/opaque-int-resource-special-storage:  800Gi
 ```
 
 Then a Container could request any number of bytes of special storage, up to 800Gi.

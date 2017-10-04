@@ -10,13 +10,10 @@ title: StatefulSets
 ---
 
 {% capture overview %}
-**StatefulSets are a beta feature in 1.7. This feature replaces the
-PetSets feature from 1.4. Users of PetSets are referred to the 1.5
-[Upgrade Guide](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
-for further information on how to upgrade existing PetSets to StatefulSets.**
+**StatefulSet is the workload API object used to manage stateful applications. 
+StatefulSets are beta in 1.8.**
 
-A StatefulSet is a Controller that provides a unique identity to its Pods. It provides
-guarantees about the ordering of deployment and scaling.
+{% include templates/glossary/snippet.md term="statefulset" length="long" %}
 {% endcapture %}
 
 {% capture body %}
@@ -40,9 +37,10 @@ provides a set of stateless replicas. Controllers such as
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) may be better suited to your stateless needs.
 
 ## Limitations
+
 * StatefulSet is a beta resource, not available in any Kubernetes release prior to 1.5.
 * As with all alpha/beta resources, you can disable StatefulSet through the `--runtime-config` option passed to the apiserver.
-* The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
+* The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
 * StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
 
@@ -51,8 +49,7 @@ The example below demonstrates the components of a StatefulSet.
 
 * A Headless Service, named nginx, is used to control the network domain.
 * The StatefulSet, named web, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
-* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/concepts/storage/volumes/) provisioned by a
- PersistentVolume Provisioner.
+* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/concepts/storage/volumes/) provisioned by a PersistentVolume Provisioner.
 
 ```yaml
 apiVersion: v1
@@ -69,17 +66,20 @@ spec:
   selector:
     app: nginx
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
   name: web
 spec:
+  selector:
+    matchLabels:
+      app: nginx # has to match .spec.template.metadata.labels
   serviceName: "nginx"
-  replicas: 3
+  replicas: 3 # by default is 1
   template:
     metadata:
       labels:
-        app: nginx
+        app: nginx # has to match .spec.selector.matchLabels
     spec:
       terminationGracePeriodSeconds: 10
       containers:
@@ -102,6 +102,9 @@ spec:
           storage: 1Gi
 ```
 
+## Pod Selector
+You must set the `spec.selector` field of a StatefulSet to match the labels of its `.spec.template.metadata.labels`. Prior to Kubernetes 1.8, the `spec.selector` field was defaulted when omitted. In 1.8 and later versions, failing to specify a matching Pod Selector will result in a validation error during StatefulSet creation.
+
 ## Pod Identity
 StatefulSet Pods have a unique identity that is comprised of an ordinal, a
 stable network identity, and stable storage. The identity sticks to the Pod,
@@ -120,8 +123,8 @@ is `$(statefulset name)-$(ordinal)`. The example above will create three Pods
 named `web-0,web-1,web-2`.
 A StatefulSet can use a [Headless Service](/docs/concepts/services-networking/service/#headless-services)
 to control the domain of its Pods. The domain managed by this Service takes the form:
-`$(service name).$(namespace).svc.cluster.local`, where "cluster.local"
-is the [cluster domain](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md).
+`$(service name).$(namespace).svc.cluster.local`, where "cluster.local" is the
+cluster domain.
 As each Pod is created, it gets a matching DNS subdomain, taking the form:
 `$(podname).$(governing service domain)`, where the governing service is defined
 by the `serviceName` field on the StatefulSet.
@@ -136,7 +139,7 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
 Note that Cluster Domain will be set to `cluster.local` unless
-[otherwise configured](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md).
+[otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
 
 ### Stable Storage
 
@@ -160,7 +163,7 @@ The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of
 
 When the nginx example above is created, three Pods will be deployed in the order
 web-0, web-1, web-2. web-1 will not be deployed before web-0 is
-[Running and Ready](/docs/user-guide/pod-states), and web-2 will not be deployed until
+[Running and Ready](/docs/user-guide/pod-states/), and web-2 will not be deployed until
 web-1 is Running and Ready. If web-0 should fail, after web-1 is Running and Ready, but before
 web-2 is launched, web-2 will not be launched until web-0 is successfully relaunched and
 becomes Running and Ready.
@@ -225,7 +228,8 @@ update, roll out a canary, or perform a phased roll out.
 {% endcapture %}
 {% capture whatsnext %}
 
-* Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set).
+* Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
+* Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
 
 {% endcapture %}
 {% include templates/concept.md %}

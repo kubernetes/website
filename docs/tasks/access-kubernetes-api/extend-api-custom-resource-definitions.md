@@ -85,7 +85,7 @@ kind: CronTab
 metadata:
   name: my-new-cron-object
 spec:
-  cronSpec: "* * * * /5"
+  cronSpec: "* * * * */5"
   image: my-awesome-cron-image
 ```
 
@@ -112,7 +112,7 @@ Note that resource names are not case-sensitive when using kubectl,
 and you can use either the singular or plural forms defined in the CRD,
 as well as any short names.
 
-You can also view the raw JSON data:
+You can also view the raw YAML data:
 
 ```shell
 kubectl get ct -o yaml
@@ -137,7 +137,7 @@ items:
     selfLink: /apis/stable.example.com/v1/namespaces/default/crontabs/my-new-cron-object
     uid: 9423255b-4600-11e7-af6a-28d2447dc82b
   spec:
-    cronSpec: '* * * * /5'
+    cronSpec: '* * * * */5'
     image: my-awesome-cron-image
 kind: List
 metadata:
@@ -171,6 +171,124 @@ This triggers controllers watching the object to execute any finalizers they han
 Each controller then removes its finalizer from the list and issues the delete request again.
 This request only deletes the object if the list of finalizers is now empty,
 meaning all finalizers are done.
+
+### Validation
+
+Validation of custom objects is possible via [OpenAPI v3 schema](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject).
+Additionally, the following restrictions are applied to the schema:
+
+- The fields `default`, `nullable`, `discriminator`, `readOnly`, `writeOnly`, `xml` and
+`deprecated` cannot be set.
+- The field `uniqueItems` cannot be set to true.
+- The field `additionalProperties` cannot be set to false.
+
+This feature is __alpha__ in v1.8 and may change in backward incompatible ways.
+Enable this feature using the `CustomResourceValidation` feature gate on
+the [kube-apiserver](/docs/admin/kube-apiserver):
+
+```
+--feature-gates=CustomResourceValidation=true
+```
+
+The schema is defined in the CustomResourceDefinition. In the following example, the
+CustomResourceDefinition applies the following validations on the custom object:
+
+- `spec.cronSpec` must be a string and must be of the form described by the regular expression.
+- `spec.replicas` must be an integer and must have a minimum value of 1 and a maximum value of 10.
+
+Save the CustomResourceDefinition to `resourcedefinition.yaml`:
+
+```yaml
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: crontabs.stable.example.com
+spec:
+  group: stable.example.com
+  version: v1
+  scope: Namespaced
+  names:
+    plural: crontabs
+    singular: crontab
+    kind: CronTab
+    shortNames:
+    - ct
+  validation:
+   # openAPIV3Schema is the schema for validating custom objects.
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            cronSpec:
+              type: string
+              pattern: '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'
+            replicas:
+              type: integer
+              minimum: 1
+              maximum: 10
+```
+
+And create it:
+
+```shell
+kubectl create -f resourcedefinition.yaml
+```
+
+A request to create a custom object of kind `CronTab` will be rejected if there are invalid values in its fields.
+In the following example, the custom object contains fields with invalid values:
+
+- `spec.cronSpec` does not match the regular expression.
+- `spec.replicas` is greater than 10.
+
+If you save the following YAML to `my-crontab.yaml`:
+
+```yaml
+apiVersion: "stable.example.com/v1"
+kind: CronTab
+metadata:
+  name: my-new-cron-object
+spec:
+  cronSpec: "* * * *"
+  image: my-awesome-cron-image
+  replicas: 15
+```
+
+and create it:
+
+```shell
+kubectl create -f my-crontab.yaml
+```
+
+you will get an error:
+
+```console
+The CronTab "my-new-cron-object" is invalid: []: Invalid value: map[string]interface {}{"apiVersion":"stable.example.com/v1", "kind":"CronTab", "metadata":map[string]interface {}{"name":"my-new-cron-object", "namespace":"default", "deletionTimestamp":interface {}(nil), "deletionGracePeriodSeconds":(*int64)(nil), "creationTimestamp":"2017-09-05T05:20:07Z", "uid":"e14d79e7-91f9-11e7-a598-f0761cb232d1", "selfLink":"", "clusterName":""}, "spec":map[string]interface {}{"cronSpec":"* * * *", "image":"my-awesome-cron-image", "replicas":15}}:
+validation failure list:
+spec.cronSpec in body should match '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'
+spec.replicas in body should be less than or equal to 10
+```
+
+If the fields contain valid values, the object creation request is accepted.
+
+Save the following YAML to `my-crontab.yaml`:
+
+```yaml
+apiVersion: "stable.example.com/v1"
+kind: CronTab
+metadata:
+  name: my-new-cron-object
+spec:
+  cronSpec: "* * * * */5"
+  image: my-awesome-cron-image
+  replicas: 5
+```
+
+And create it:
+
+```shell
+kubectl create -f my-crontab.yaml
+crontab "my-new-cron-object" created
+```
 {% endcapture %}
 
 {% capture whatsnext %}
@@ -178,7 +296,3 @@ meaning all finalizers are done.
 {% endcapture %}
 
 {% include templates/task.md %}
-
-
-
-

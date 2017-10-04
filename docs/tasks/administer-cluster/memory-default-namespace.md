@@ -103,7 +103,7 @@ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-defaults-p
 View detailed information about the Pod:
 
 ```shell
-kubectl get pod mem-limit-no-request --output=yaml --namespace=default-mem-example
+kubectl get pod default-mem-demo-2 --output=yaml --namespace=default-mem-example
 ```
 
 The output shows that the Container's memory request is set to match its memory limit.
@@ -133,7 +133,7 @@ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-defaults-p
 View the Pod's specification:
 
 ```shell
-kubectl get pod default-mem-request-no-limit --output=yaml --namespace=default-mem-example
+kubectl get pod default-mem-demo-3 --output=yaml --namespace=default-mem-example
 ```
 
 The output shows that the Container's memory request is set to the value specified in the

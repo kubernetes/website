@@ -12,28 +12,27 @@ This page covers how to get started with deploying Kubernetes on vSphere and det
 
 ### Getting started with the vSphere Cloud Provider
 
-Kubernetes comes with a cloud provider for vSphere. A quick and easy way to try out the cloud provider is to deploy Kubernetes using [Kubernetes-Anywhere](https://github.com/kubernetes/kubernetes-anywhere).
-
-This page also describes how to configure and get started with the cloud provider if deploying using custom install scripts.
+Kubernetes comes with *vSphere Cloud Provider*, a cloud provider for vSphere that allows Kubernetes Pods to use enterprise grade vSphere Storage.
 
 ### Deploy Kubernetes on vSphere
 
-To start using Kubernetes on top of vSphere and use the vSphere Cloud Provider use Kubernetes-Anywhere. Kubernetes-Anywhere will deploy and configure a cluster from scratch.
+To deploy Kubernetes on vSphere and use the vSphere Cloud Provider, see [Kubernetes-Anywhere](https://github.com/kubernetes/kubernetes-anywhere). 
 
 Detailed steps can be found at the [getting started with Kubernetes-Anywhere on vSphere](https://git.k8s.io/kubernetes-anywhere/phase1/vsphere/README.md) page.
 
 ### vSphere Cloud Provider
 
-vSphere Cloud Provider allows using vSphere managed storage within Kubernetes. It supports:
+vSphere Cloud Provider allows Kubernetes to use vSphere managed enterprise grade storage. It supports:
 
-1. Volumes
-2. Persistent Volumes
-3. Storage Classes and provisioning of volumes.
-4. vSphere Storage Policy Based Management for Containers orchestrated by Kubernetes.
+- Enterprise class services such as de-duplication and encryption with vSAN, QoS, high availability and data reliability.
+- Policy based management at granularity of container volumes.
+- Volumes, Persistent Volumes, Storage Classes, dynamic provisioning of volumes, and scalable deployment of Stateful Apps with StatefulSets.
+
+For more detail visit [vSphere Storage for Kubernetes Documentation](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/index.html).
 
 Documentation for how to use vSphere managed storage can be found in the [persistent volumes user guide](/docs/concepts/storage/persistent-volumes/#vsphere) and the [volumes user guide](/docs/concepts/storage/volumes/#vspherevolume).
 
-Examples can be found [here](https://git.k8s.io/kubernetes/examples/volumes/vsphere).
+Examples can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere).
 
 #### Enable vSphere Cloud Provider
 
@@ -57,18 +56,18 @@ For each of the virtual machine nodes that will be participating in the cluster,
 
 * Set up GOVC environment
 
-        export GOVC_URL='vCenter IP OR FQDN'
-        export GOVC_USERNAME='vCenter User'
-        export GOVC_PASSWORD='vCenter Password'
-        export GOVC_INSECURE=1
+      export GOVC_URL='vCenter IP OR FQDN'
+      export GOVC_USERNAME='vCenter User'
+      export GOVC_PASSWORD='vCenter Password'
+      export GOVC_INSECURE=1
 
 * Find Node VM Paths
 
-        govc ls /datacenter/vm/<vm-folder-name>
+      govc ls /datacenter/vm/<vm-folder-name>
 
 * Set disk.EnableUUID to true for all VMs
 
-        govc vm.change -e="disk.enableUUID=1" -vm='VM Path'
+      govc vm.change -e="disk.enableUUID=1" -vm='VM Path'
 
 Note: If Kubernetes Node VMs are created from template VM then `disk.EnableUUID=1` can be set on the template VM. VMs cloned from this template, will automatically inherit this property.
 
@@ -184,25 +183,27 @@ Below is summary of supported parameters in the `vsphere.conf` file
 --cloud-config=<Path of the vsphere.conf file>
 ```
 
-Manifest files for API server and controller-manager are generally located at `/etc/kubernetes`.
+Manifest files for API server and controller-manager are generally located at `/etc/kubernetes/manifests`.
 
 **Step-7** Restart Kubelet on all nodes.
+
 * Reload kubelet systemd unit file using ```systemctl daemon-reload```
 * Restart kubelet service using ```systemctl restart kubelet.service```
 
 Note: After enabling the vSphere Cloud Provider, Node names will be set to the VM names from the vCenter Inventory.
 
 #### Known issues
-[vmware#220](https://github.com/vmware/kubernetes/issues/220) :
-vSphere Cloud Provider can not be used on the Kubernetes Cluster when vCenter port is configured other than the default port 443. Fix for this issue is already out (Kubernetes PR# [49689](https://github.com/kubernetes/kubernetes/pull/49689)). We will make sure that, PR 49689 is cherry picked to 1.7, 1.6 and 1.5 branches. 
+Please visit [known issues](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/known-issues.html) for the list of major known issues with Kubernetes vSphere Cloud Provider.
 
 ## Support Level
 
+For quick support please join VMware Code Slack ([kubernetes](https://vmwarecode.slack.com/messages/kubernetes/)) and post your question.
 
 IaaS Provider        | Config. Mgmt | OS     | Networking | Docs                                          | Conforms  | Support Level
 -------------------- | ------------ | ------ | ---------- | --------------------------------------------- | --------- | ----------------------------
-Vmware vSphere       | Kube-anywhere    | Photon OS | Flannel         | [docs](/docs/getting-started-guides/vsphere)                                |                | Community  ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)), ([@BaluDontu](https://github.com/BaluDontu)), ([@luomiao](https://github.com/luomiao)), ([@divyenpatel](https://github.com/divyenpatel))
+Vmware vSphere       | Kube-anywhere    | Photon OS | Flannel         | [docs](/docs/getting-started-guides/vsphere/)                                |                | Community  ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)), ([@BaluDontu](https://github.com/BaluDontu)), ([@luomiao](https://github.com/luomiao)), ([@divyenpatel](https://github.com/divyenpatel))
 
 If you identify any issues/problems using the vSphere cloud provider, you can create an issue in our repo - [VMware Kubernetes](https://github.com/vmware/kubernetes).
+
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.

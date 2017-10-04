@@ -5,6 +5,9 @@ approvers:
 title: DNS Pods and Services
 ---
 
+* TOC
+{:toc}
+
 ## Introduction
 
 As of Kubernetes 1.3, DNS is a built-in service launched automatically using the addon manager [cluster add-on](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md).
@@ -30,6 +33,8 @@ DNS query for `foo.bar`.
 The following sections detail the supported record types and layout that is
 supported.  Any other layout or names or queries that happen to work are
 considered implementation details and are subject to change without warning.
+For more up-to-date specification, see
+[Kubernetes DNS-Based Service Discovery](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
 
 ### Services
 
@@ -101,9 +106,9 @@ spec:
     name: busybox
   clusterIP: None
   ports:
-    - name: foo # Actually, no port is needed.
-      port: 1234
-      targetPort: 1234
+  - name: foo # Actually, no port is needed.
+    port: 1234
+    targetPort: 1234
 ---
 apiVersion: v1
 kind: Pod
@@ -345,7 +350,7 @@ kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 
 If you do not see the endpoints, see endpoints section in the [debugging services documentation](/docs/tasks/debug-application-cluster/debug-service/).
 
-For additional Kubernetes DNS examples, see the [cluster-dns examples](https://git.k8s.io/kubernetes/examples/cluster-dns) in the Kubernetes GitHub repository.
+For additional Kubernetes DNS examples, see the [cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns) in the Kubernetes GitHub repository.
 
 ## Kubernetes Federation (Multiple Zone support)
 

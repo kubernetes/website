@@ -145,7 +145,7 @@ kubectl rollout status ds/<daemonset-name>
 When the rollout is complete, the output is similar to this:
 
 ```shell
-daemon set "<daemonset-name>" successfully rolled out
+daemonset "<daemonset-name>" successfully rolled out
 ```
 
 ## Troubleshooting 
@@ -159,7 +159,7 @@ causes:
 
 The rollout is stuck because new DaemonSet pods can't be scheduled on at least one
 node. This is possible when the node is 
-[running out of resources](/docs/concepts/cluster-administration/out-of-resource/).
+[running out of resources](/docs/tasks/administer-cluster/out-of-resource/).
 
 When this happens, find the nodes that don't have the DaemonSet pods scheduled on
 by comparing the output of `kubectl get nodes` and the output of:
@@ -198,7 +198,7 @@ progress.
 
 * See [Task: Performing a rollback on a
   DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
-* *TODO: Link to "Task: Creating a DaemonSet to adopt existing DaemonSet pods"*
+* See [Concepts: Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
 
 {% endcapture %}
 

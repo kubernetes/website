@@ -33,7 +33,7 @@ $ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/counter-
 pod "counter" created
 ```
 
-To fetch the logs, use the `kubectl logs` command, as follows
+To fetch the logs, use the `kubectl logs` command, as follows:
 
 ```shell
 $ kubectl logs counter
@@ -60,7 +60,7 @@ so that logs don't consume all available storage on the node. Kubernetes
 currently is not responsible for rotating logs, but rather a deployment tool
 should set up a solution to address that.
 For example, in Kubernetes clusters, deployed by the `kube-up.sh` script,
-there is a [`logrotate`](http://www.linuxcommand.org/man_pages/logrotate8.html)
+there is a [`logrotate`](https://linux.die.net/man/8/logrotate)
 tool configured to run each hour. You can also set up a container runtime to
 rotate application's logs automatically, e.g. by using Docker's `log-opt`.
 In the `kube-up.sh` script, the latter approach is used for COS image on GCP,

@@ -24,47 +24,12 @@ application is MySQL.
 
 * {% include task-tutorial-prereqs.md %}
 
-* For data persistence we will create a Persistent Volume that
-  references a disk in your
-  environment. See
-  [here](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes) for
-  the types of environments supported. This Tutorial will demonstrate
-  `GCEPersistentDisk` but any type will work. `GCEPersistentDisk`
-  volumes only work on Google Compute Engine.
+* {% include default-storage-class-prereqs.md %}
 
 {% endcapture %}
 
 
 {% capture lessoncontent %}
-
-## Set up a disk in your environment
-
-You can use any type of persistent volume for your stateful app. See
-[Types of Persistent Volumes](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes)
-for a list of supported environment disks. For Google Compute Engine, run:
-
-```
-gcloud compute disks create --size=20GB mysql-disk
-```
-
-Next create a PersistentVolume that points to the `mysql-disk`
-disk just created. Here is a configuration file for a PersistentVolume
-that points to the Compute Engine disk above:
-
-{% include code.html language="yaml" file="gce-volume.yaml" ghlink="/docs/tasks/run-application/gce-volume.yaml" %}
-
-Notice that the `pdName: mysql-disk` line matches the name of the disk
-in the Compute Engine environment. See the
-[Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
-for details on writing a PersistentVolume configuration file for other
-environments.
-
-Create the persistent volume:
-
-```
-kubectl create -f https://k8s.io/docs/tasks/run-application/gce-volume.yaml
-```
-
 
 ## Deploy MySQL
 
@@ -74,8 +39,8 @@ PersistentVolumeClaim.  For example, this YAML file describes a
 Deployment that runs MySQL and references the PersistentVolumeClaim. The file
 defines a volume mount for /var/lib/mysql, and then creates a
 PersistentVolumeClaim that looks for a 20G volume. This claim is
-satisfied by any volume that meets the requirements, in this case, the
-volume created above.
+satisfied by any existing volume that meets the requirements,
+or by a dynamic provisioner.
 
 Note: The password is defined in the config yaml, and this is insecure. See
 [Kubernetes Secrets](/docs/concepts/configuration/secret/)
@@ -95,10 +60,31 @@ for a secure solution.
         Namespace:            default
         CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
         Labels:               app=mysql
+        Annotations:          deployment.kubernetes.io/revision=1
         Selector:             app=mysql
-        Replicas:             1 updated | 1 total | 0 available | 1 unavailable
+        Replicas:             1 desired | 1 updated | 1 total | 0 available | 1 unavailable
         StrategyType:         Recreate
         MinReadySeconds:      0
+        Pod Template:
+          Labels:       app=mysql
+          Containers:
+           mysql:
+            Image:      mysql:5.6
+            Port:       3306/TCP
+            Environment:
+              MYSQL_ROOT_PASSWORD:      password
+            Mounts:
+              /var/lib/mysql from mysql-persistent-storage (rw)
+          Volumes:
+           mysql-persistent-storage:
+            Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+            ClaimName:  mysql-pv-claim
+            ReadOnly:   false
+        Conditions:
+          Type          Status  Reason
+          ----          ------  ------
+          Available     False   MinimumReplicasUnavailable
+          Progressing   True    ReplicaSetUpdated
         OldReplicaSets:       <none>
         NewReplicaSet:        mysql-63082529 (1/1 replicas created)
         Events:
@@ -113,38 +99,21 @@ for a secure solution.
         NAME                   READY     STATUS    RESTARTS   AGE
         mysql-63082529-2z3ki   1/1       Running   0          3m
 
-1. Inspect the Persistent Volume:
-
-       kubectl describe pv mysql-pv
-
-        Name:            mysql-pv
-        Labels:          <none>
-        Status:          Bound
-        Claim:           default/mysql-pv-claim
-        Reclaim Policy:  Retain
-        Access Modes:    RWO
-        Capacity:        20Gi
-        Message:
-        Source:
-            Type:        GCEPersistentDisk (a Persistent Disk resource in Google Compute Engine)
-            PDName:      mysql-disk
-            FSType:      ext4
-            Partition:   0
-            ReadOnly:    false
-        No events.
-
 1. Inspect the PersistentVolumeClaim:
 
        kubectl describe pvc mysql-pv-claim
 
         Name:         mysql-pv-claim
         Namespace:    default
+        StorageClass:
         Status:       Bound
         Volume:       mysql-pv
         Labels:       <none>
+        Annotations:    pv.kubernetes.io/bind-completed=yes
+                        pv.kubernetes.io/bound-by-controller=yes
         Capacity:     20Gi
         Access Modes: RWO
-        No events.
+        Events:       <none>
 
 ## Accessing the MySQL instance
 
@@ -157,7 +126,7 @@ behind a Service and you don't intend to increase the number of Pods.
 Run a MySQL client to connect to the server:
 
 ```
-kubectl run -it --rm --image=mysql:5.6 mysql-client -- mysql -h <pod-ip> -p <password>
+kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
 ```
 
 This command creates a new Pod in the cluster running a MySQL client
@@ -180,7 +149,7 @@ specific to stateful apps:
 * Don't scale the app. This setup is for single-instance apps
   only. The underlying PersistentVolume can only be mounted to one
   Pod. For clustered stateful apps, see the
-  [StatefulSet documentation](/docs/concepts/workloads/controllers/petset/).
+  [StatefulSet documentation](/docs/concepts/workloads/controllers/statefulset/).
 * Use `strategy:` `type: Recreate` in the Deployment configuration
   YAML file. This instructs Kubernetes to _not_ use rolling
   updates. Rolling updates will not work, as you cannot have more than
@@ -194,14 +163,14 @@ Delete the deployed objects by name:
 ```
 kubectl delete deployment,svc mysql
 kubectl delete pvc mysql-pv-claim
-kubectl delete pv mysql-pv
 ```
 
-Also, if you are using Compute Engine disks:
-
-```
-gcloud compute disks delete mysql-disk
-```
+If you manually provisioned a PersistentVolume, you also need to manually
+delete it, as well as release the underlying resource.
+If you used a dynamic provisioner, it automatically deletes the
+PersistentVolume when it sees that you deleted the PersistentVolumeClaim.
+Some dynamic provisioners (such as those for EBS and PD) also release the
+underlying resource upon deleting the PersistentVolume.
 
 {% endcapture %}
 
@@ -212,7 +181,7 @@ gcloud compute disks delete mysql-disk
 
 * Learn more about [Deploying applications](/docs/user-guide/deploying-applications/)
 
-* [kubectl run documentation](/docs/user-guide/kubectl/v1.6/#run)
+* [kubectl run documentation](/docs/user-guide/kubectl/{{page.version}}/#run)
 
 * [Volumes](/docs/concepts/storage/volumes/) and [Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 

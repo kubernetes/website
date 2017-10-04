@@ -55,11 +55,20 @@ Check on the status of the ReplicationController using this command:
 $ kubectl describe replicationcontrollers/nginx
 Name:        nginx
 Namespace:   default
-Image(s):    nginx
 Selector:    app=nginx
 Labels:      app=nginx
+Annotations:    <none>
 Replicas:    3 current / 3 desired
 Pods Status: 0 Running / 3 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:       app=nginx
+  Containers:
+   nginx:
+    Image:              nginx
+    Port:               80/TCP
+    Environment:        <none>
+    Mounts:             <none>
+  Volumes:              <none>
 Events:
   FirstSeen       LastSeen     Count    From                        SubobjectPath    Type      Reason              Message
   ---------       --------     -----    ----                        -------------    ----      ------              -------
@@ -92,7 +101,7 @@ specifies an expression that just gets the name from each pod in the returned li
 
 As with all other Kubernetes config, a ReplicationController needs `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with config files, see [here](/docs/user-guide/simple-yaml/),
-[here](/docs/user-guide/configuring-containers/), and [here](/docs/concepts/tools/kubectl/object-management-overview/).
+[here](/docs/tasks/), and [here](/docs/concepts/tools/kubectl/object-management-overview/).
 
 A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
@@ -120,7 +129,7 @@ different, and the `.metadata.labels` do not affect the behavior of the Replicat
 
 ### Pod Selector
 
-The `.spec.selector` field is a [label selector](/docs/user-guide/labels/#label-selectors). A ReplicationController
+The `.spec.selector` field is a [label selector](/docs/concepts/overview/working-with-objects/labels/#label-selectors). A ReplicationController
 manages all the pods with labels that match the selector. It does not distinguish
 between pods that it created or deleted and pods that another person or process created or
 deleted. This allows the ReplicationController to be replaced without affecting the running pods.
@@ -141,7 +150,7 @@ will have to manage the deletion yourself (see [below](#working-with-replication
 
 You can specify how many pods should run concurrently by setting `.spec.replicas` to the number
 of pods you would like to have running concurrently.  The number running at any time may be higher
-or lower, such as if the replicas was just increased or decreased, or if a pod is gracefully
+or lower, such as if the replicas were just increased or decreased, or if a pod is gracefully
 shutdown, and a replacement starts early.
 
 If you do not specify `.spec.replicas`, then it defaults to 1.
@@ -234,7 +243,7 @@ object](/docs/api-reference/{{page.version}}/#replicationcontroller-v1-core).
 
 ### ReplicaSet
 
-[`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is the next-generation ReplicationController that supports the new [set-based label selector](/docs/user-guide/labels/#set-based-requirement).
+[`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is the next-generation ReplicationController that supports the new [set-based label selector](/docs/concepts/overview/working-with-objects/labels/#set-based-requirement).
 It’s mainly used by [`Deployment`](/docs/concepts/workloads/controllers/deployment/) as a mechanism to orchestrate pod creation, deletion and updates.
 Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don’t require updates at all.
 

@@ -22,6 +22,12 @@ A few of the steps on this page require that the
 in your cluster. But if you don't have Heapster running, you can do most
 of the steps, and it won't be a problem if you skip the Heapster steps.
 
+If you are running minikube, run the following command to enable heapster:
+
+```shell
+minikube addons enable heapster
+```
+
 To see whether the Heapster service is running, enter this command:
 
 ```shell
@@ -129,7 +135,7 @@ kubectl delete pod memory-demo --namespace=mem-example
 A Container can exceed its memory request if the Node has memory available. But a Container
 is not allowed to use more than its memory limit. If a Container allocates more memory than
 its limit, the Container becomes a candidate for termination. If the Container continues to
-to consume memory beyond its limit, the Container is terminated. If a terminated Container is
+consume memory beyond its limit, the Container is terminated. If a terminated Container is
 restartable, the kubelet will restart it, as with any other type of runtime failure.
 
 In this exercise, you create a Pod that attempts to allocate more memory than its limit.
@@ -211,7 +217,6 @@ The output shows that the Container starts and fails repeatedly:
 ```
 ... Normal  Created   Created container with id 66a3a20aa7980e61be4922780bf9d24d1a1d8b7395c09861225b0eba1b1f8511
 ... Warning BackOff   Back-off restarting failed container
-
 ```
 
 View detailed information about your cluster's Nodes:
@@ -314,7 +319,7 @@ could use all of the memory available on the Node where it is running.
 
 * The Container is running in a namespace that has a default memory limit, and the
 Container is automatically assigned the default limit. Cluster administrators can use a
-[LimitRange](https://kubernetes.io/docs/api-reference/v1.6/)
+[LimitRange](https://kubernetes.io/docs/api-reference/{{page.version}}/#limitrange-v1-core)
 to specify a default value for the memory limit.
 
 ## Motivation for memory requests and limits

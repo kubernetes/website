@@ -7,7 +7,7 @@ title: Configure Minimum and Maximum Memory Constraints for a Namespace
 
 This page shows how to set minimum and maximum values for memory used by Containers
 running in a namespace. You specify minimum and maximum memory values in a
-[LimitRange](/docs/api-reference/v1.6/#limitrange-v1-core)
+[LimitRange](/docs/api-reference/{{page.version}}/#limitrange-v1-core)
 object. If a Pod does not meet the constraints imposed by the LimitRange,
 it cannot be created in the namespace.
 
@@ -123,7 +123,7 @@ kubectl delete pod constraints-mem-demo --namespace=constraints-mem-example
 ## Attempt to create a Pod that exceeds the maximum memory constraint
 
 Here's the configuration file for a Pod that has one Container. The Container specifies a
-memory request of 700 MiB and a memory limit of 1.5 GiB.
+memory request of 800 MiB and a memory limit of 1.5 GiB.
 
 {% include code.html language="yaml" file="memory-constraints-pod-2.yaml" ghlink="/docs/tasks/administer-cluster/memory-constraints-pod-2.yaml" %}
 
@@ -162,7 +162,7 @@ Error from server (Forbidden): error when creating "docs/tasks/administer-cluste
 pods "constraints-mem-demo-3" is forbidden: minimum memory usage per Container is 500Mi, but request is 100Mi.
 ```
 
-## Create a Pod that does not specify any CPU request or limit
+## Create a Pod that does not specify any memory request or limit
 
 
 

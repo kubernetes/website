@@ -38,7 +38,7 @@ why you might want multiple clusters are:
 * Scalability: There are scalability limits to a single kubernetes cluster (this
   should not be the case for most users. For more details:
   [Kubernetes Scaling and Performance Goals](https://git.k8s.io/community/sig-scalability/goals.md)).
-* [Hybrid cloud](###hybrid-cloud-capabilities): You can have multiple clusters on different cloud providers or
+* [Hybrid cloud](#hybrid-cloud-capabilities): You can have multiple clusters on different cloud providers or
   on-premises data centers.
 
 ### Caveats
@@ -70,7 +70,7 @@ register each cluster's API endpoint and credentials with your
 Federation API Server (See the
 [federation admin guide](/docs/admin/federation/) for details).
 
-Thereafter, your [API resources](##api-resources) can span different clusters
+Thereafter, your [API resources](#api-resources) can span different clusters
 and cloud providers.
 
 ## Setting up federation
@@ -91,7 +91,9 @@ The following guides explain some of the resources in detail:
 * [DaemonSets](/docs/tasks/administer-federation/daemonset/)
 * [Deployment](/docs/tasks/administer-federation/deployment/)
 * [Events](/docs/tasks/administer-federation/events/)
+* [Hpa](/docs/tasks/administer-federation/hpa/)
 * [Ingress](/docs/tasks/administer-federation/ingress/)
+* [Jobs](/docs/tasks/administer-federation/job/)
 * [Namespaces](/docs/tasks/administer-federation/namespaces/)
 * [ReplicaSets](/docs/tasks/administer-federation/replicaset/)
 * [Secrets](/docs/tasks/administer-federation/secret/)
@@ -169,7 +171,7 @@ you may need even more clusters.  Kubernetes v1.3 supports clusters up to 1000 n
 
 {% capture whatsnext %}
 * Learn more about the [Federation
-  proposal](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/federation.md).
+  proposal](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/federation/federation.md).
 * See this [setup guide](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) for cluster federation.
 * See this [Kubecon2016 talk on federation](https://www.youtube.com/watch?v=pq9lbkmxpS8)
 {% endcapture %}

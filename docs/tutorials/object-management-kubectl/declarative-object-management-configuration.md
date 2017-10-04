@@ -72,7 +72,7 @@ kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -143,7 +143,7 @@ configuration file instead of a directory.
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -194,7 +194,7 @@ kubectl scale deployment/nginx-deployment --replicas 2
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `replicas` field has been set to 2, and the `last-applied-configuration`
@@ -248,7 +248,7 @@ kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/update_
 Print the live configuration using `kubectl get`:
 
 ```
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows the following changes to the live configuration:
@@ -679,7 +679,7 @@ kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the API server set several fields to default values in the live
@@ -948,7 +948,7 @@ template:
 {% capture whatsnext %}
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
 - [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
-- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.6/)
+- [Kubectl Command Reference](/docs/user-guide/kubectl/{{page.version}}/)
 - [Kubernetes Object Schema Reference](/docs/resources-reference/{{page.version}}/)
 {% endcapture %}
 

@@ -192,20 +192,7 @@ Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
 {% include code.html language="yaml" file="hello-apparmor-pod.yaml" ghlink="/docs/tutorials/clusters/hello-apparmor-pod.yaml" %}
 
 ```shell
-$ kubectl create -f /dev/stdin <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: hello-apparmor
-  annotations:
-    container.apparmor.security.beta.kubernetes.io/hello: localhost/k8s-apparmor-example-deny-write
-spec:
-  containers:
-  - name: hello
-    image: busybox
-    command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
-EOF
-pod "hello-apparmor" created
+$ kubectl create -f ./hello-apparmor-pod.yaml
 ```
 
 If we look at the pod events, we can see that the Pod container was created with the AppArmor
@@ -259,27 +246,42 @@ Namespace:     default
 Node:          gke-test-default-pool-239f5d02-x1kf/
 Start Time:    Tue, 30 Aug 2016 17:58:56 -0700
 Labels:        <none>
-Status:        Failed
+Annotations:   container.apparmor.security.beta.kubernetes.io/hello=localhost/k8s-apparmor-example-allow-write
+Status:        Pending
 Reason:        AppArmor
 Message:       Pod Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
 IP:
 Controllers:   <none>
 Containers:
   hello:
+    Container ID:
     Image:     busybox
+    Image ID:
     Port:
     Command:
       sh
       -c
       echo 'Hello AppArmor!' && sleep 1h
-    Requests:
-      cpu:            100m
-    Environment Variables:    <none>
+    State:              Waiting
+      Reason:           Blocked
+    Ready:              False
+    Restart Count:      0
+    Environment:        <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-dnz7v (ro)
+Conditions:
+  Type          Status
+  Initialized   True
+  Ready         False
+  PodScheduled  True
 Volumes:
   default-token-dnz7v:
     Type:    Secret (a volume populated by a Secret)
     SecretName:    default-token-dnz7v
-QoS Tier:    Burstable
+    Optional:   false
+QoS Class:      BestEffort
+Node-Selectors: <none>
+Tolerations:    <none>
 Events:
   FirstSeen    LastSeen    Count    From                        SubobjectPath    Type        Reason        Message
   ---------    --------    -----    ----                        -------------    --------    ------        -------

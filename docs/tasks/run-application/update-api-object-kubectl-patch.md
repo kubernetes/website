@@ -81,13 +81,13 @@ The output shows that the PodSpec in the Deployment has two Containers:
 
 ```shell
 containers:
-- image: nginx
-  imagePullPolicy: Always
-  name: patch-demo-ctr
-  ...
 - image: redis
   imagePullPolicy: Always
   name: patch-demo-ctr-2
+  ...
+- image: nginx
+  imagePullPolicy: Always
+  name: patch-demo-ctr
   ...
 ```
 
@@ -118,9 +118,9 @@ The output shows that the Pod has two Containers: one running nginx and one runn
 
 ```
 containers:
-- image: nginx
-  ...
 - image: redis
+  ...
+- image: nginx
   ...
 ```
 
@@ -250,11 +250,11 @@ In this exercise, you `kubectl patch` to change the live configuration
 of a Deployment object. You did not change the configuration file that you originally used to
 create the Deployment object. Other commands for updating API objects include
 [kubectl annotate](/docs/user-guide/kubectl/{{page.version}}/#annotate),
-[kubectl edit](/docs/user-guide/kubectl/v1.7/#edit),
-[kubectl replace](/docs/user-guide/kubectl/v1.7/#replace),
-[kubectl scale](/docs/user-guide/kubectl/v1.7/#scale),
-[kubectl update](/docs/user-guide/kubectl/v1.7/#update). and
-[kubectl apply](/docs/user-guide/kubectl/v1.7/#apply).
+[kubectl edit](/docs/user-guide/kubectl/{{page.version}}/#edit),
+[kubectl replace](/docs/user-guide/kubectl/{{page.version}}/#replace),
+[kubectl scale](/docs/user-guide/kubectl/{{page.version}}/#scale),
+and
+[kubectl apply](/docs/user-guide/kubectl/{{page.version}}/#apply).
 
 {% endcapture %}
 

@@ -143,7 +143,7 @@ between option name and option value.
 ## Cluster Expansion
 
 To expand an existing Kubernetes cluster, run the ```add-kube-node.sh```
-script. A complete list of script options and some examples are listed [[below]](####Cluster Expansion: Script Options).
+script. A complete list of script options and some examples are listed [below](#cluster-expansion-script-options).
 This script must be run from the same host that created the cluster (or a host
 that has the cluster artifact files stored in ```~/.clc_kube/$cluster_name```).
 
@@ -186,19 +186,19 @@ Kubernetes Cluster. We hope to add a scripted option to do this soon.
 Create a cluster with name of k8s_1, 1 master node and 3 worker minions (on physical machines), in VA1
 
 ```shell
- bash kube-up.sh --clc_cluster_name=k8s_1 --minion_type=bareMetal --minion_count=3 --datacenter=VA1
+bash kube-up.sh --clc_cluster_name=k8s_1 --minion_type=bareMetal --minion_count=3 --datacenter=VA1
 ```
 
 Create a cluster with name of k8s_2, an ha etcd cluster on 3 VMs and 6 worker minions (on VMs), in VA1
 
 ```shell
- bash kube-up.sh --clc_cluster_name=k8s_2 --minion_type=standard --minion_count=6 --datacenter=VA1 --etcd_separate_cluster=yes
+bash kube-up.sh --clc_cluster_name=k8s_2 --minion_type=standard --minion_count=6 --datacenter=VA1 --etcd_separate_cluster=yes
 ```
 
 Create a cluster with name of k8s_3, 1 master node, and 10 worker minions (on VMs) with higher mem/cpu, in UC1:
 
 ```shell
-  bash kube-up.sh --clc_cluster_name=k8s_3 --minion_type=standard --minion_count=10 --datacenter=VA1 -mem=6 -cpu=4
+bash kube-up.sh --clc_cluster_name=k8s_3 --minion_type=standard --minion_count=10 --datacenter=VA1 -mem=6 -cpu=4
 ```
 
 

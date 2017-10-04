@@ -41,14 +41,29 @@ Check on the status of the job using this command:
 $ kubectl describe jobs/pi
 Name:             pi
 Namespace:        default
-Image(s):         perl
 Selector:         controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
+Labels:           controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
+                  job-name=pi
+Annotations:      <none>
 Parallelism:      1
 Completions:      1
 Start Time:       Tue, 07 Jun 2016 10:56:16 +0200
-Labels:           controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495,job-name=pi
 Pods Statuses:    0 Running / 1 Succeeded / 0 Failed
-No volumes.
+Pod Template:
+  Labels:       controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
+                job-name=pi
+  Containers:
+   pi:
+    Image:      perl
+    Port:
+    Command:
+      perl
+      -Mbignum=bpi
+      -wle
+      print bpi(2000)
+    Environment:        <none>
+    Mounts:             <none>
+  Volumes:              <none>
 Events:
   FirstSeen    LastSeen    Count    From            SubobjectPath    Type        Reason            Message
   ---------    --------    -----    ----            -------------    --------    ------            -------
@@ -61,7 +76,7 @@ To list all the pods that belong to a job in a machine readable form, you can us
 
 ```shell
 $ pods=$(kubectl get pods  --show-all --selector=job-name=pi --output=jsonpath={.items..metadata.name})
-echo $pods
+$ echo $pods
 pi-aiw0a
 ```
 
@@ -77,9 +92,7 @@ $ kubectl logs $pods
 
 ## Writing a Job Spec
 
-As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.  For
-general information about working with config files, see [here](/docs/user-guide/simple-yaml),
-[here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
+As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.
 
 A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
@@ -112,7 +125,7 @@ There are three main types of jobs:
   - the job is complete when there is one successful pod for each value in the range 1 to `.spec.completions`.
   - **not implemented yet:** each pod passed a different index in the range 1 to `.spec.completions`.
 1. Parallel Jobs with a *work queue*:
-  - do not specify `.spec.completions`, default to `.spec.Parallelism`.
+  - do not specify `.spec.completions`, default to `.spec.parallelism`.
   - the pods must coordinate with themselves or an external service to determine what each should work on.
   - each pod is independently capable of determining whether or not all its peers are done, thus the entire Job is done.
   - when _any_ pod terminates with success, no new pods are created.
@@ -183,6 +196,12 @@ sometimes be started twice.
 If you do specify `.spec.parallelism` and `.spec.completions` both greater than 1, then there may be
 multiple pods running at once.  Therefore, your pods must also be tolerant of concurrency.
 
+### Pod Backoff failure policy
+
+There are situations where you want to fail a Job after some amount of retries due to a logical error in configuration etc.
+To do so set `.spec.template.spec.backoffLimit` to specify the number of retries before considering a Job as failed.
+The back-off limit is set by default to 6. Failed Pods associated with the Job are recreated by the Job controller with an exponential back-off delay (10s, 20s, 40s ...) capped at six minutes, The back-off limit is reset if no new failed Pods appear before the Job's next status check.
+
 ## Job Termination and Cleanup
 
 When a Job completes, no more Pods are created, but the Pods are not deleted either.  Since they are terminated,
@@ -217,6 +236,7 @@ spec:
         image: perl
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
+      backoffLimit: 5
 ```
 
 Note that both the Job Spec and the Pod Template Spec within the Job have a field with the same name.
@@ -366,7 +386,7 @@ of custom controller for those pods.  This allows the most flexibility, but may 
 complicated to get started with and offers less integration with Kubernetes.
 
 One example of this pattern would be a Job which starts a Pod which runs a script that in turn
-starts a Spark master controller (see [spark example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/spark/README.md)), runs a spark
+starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/spark/README.md)), runs a spark
 driver, and then cleans up.
 
 An advantage of this approach is that the overall process gets the completion guarantee of a Job

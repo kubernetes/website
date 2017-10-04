@@ -421,7 +421,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -470,7 +470,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unavailableReplicas</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total number of unavailable pods targeted by this deployment.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">integer (int32)</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -486,7 +486,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <td class="tableblock halign-left valign-top"><p class="tableblock">collisionCount</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">integer (int64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integer (int32)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -504,7 +504,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -559,7 +559,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -607,7 +607,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -679,7 +679,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <td class="tableblock halign-left valign-top"><p class="tableblock">collisionCount</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">integer (int64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integer (int32)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -697,7 +697,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -731,7 +731,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -765,7 +765,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -806,7 +806,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -861,7 +861,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -909,7 +909,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -949,8 +949,19 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mountPropagation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationHostToContainer is used. This field is alpha in 1.8 and can be reworked or removed in a future release.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_v1_mountpropagationmode">v1.MountPropagationMode</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
 </tbody>
 </table>
+
+</div>
+<div class="sect2">
+<h3 id="_v1_mountpropagationmode">v1.MountPropagationMode</h3>
 
 </div>
 <div class="sect2">
@@ -964,7 +975,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -998,7 +1009,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1039,7 +1050,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1080,7 +1091,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1135,7 +1146,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1204,7 +1215,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1238,7 +1249,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1279,7 +1290,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1344,7 +1355,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1399,7 +1410,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1440,7 +1451,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1477,7 +1488,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1532,7 +1543,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1583,7 +1594,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1624,7 +1635,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1672,7 +1683,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1713,7 +1724,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1747,7 +1758,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1781,7 +1792,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1822,7 +1833,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1856,7 +1867,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1890,7 +1901,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2045,7 +2056,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2092,7 +2103,7 @@ When an object is created, the system will populate this list with the current s
 <div class="sect2">
 <h3 id="_v1beta1_deployment">v1beta1.Deployment</h3>
 <div class="paragraph">
-<p>Deployment enables declarative updates for Pods and ReplicaSets.</p>
+<p>DEPRECATED - This group version of Deployment is deprecated by apps/v1beta2/Deployment. See the release notes for more information. Deployment enables declarative updates for Pods and ReplicaSets.</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
 <colgroup>
@@ -2100,7 +2111,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2162,7 +2173,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2235,7 +2246,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2283,7 +2294,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2365,6 +2376,13 @@ When an object is created, the system will populate this list with the current s
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_v1_localobjectreference">v1.LocalObjectReference</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">initiatorName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom iSCSI initiator name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be created for the connection.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
 </tbody>
 </table>
 
@@ -2380,7 +2398,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2435,7 +2453,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2476,7 +2494,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2510,7 +2528,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2558,7 +2576,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2606,7 +2624,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2620,7 +2638,7 @@ When an object is created, the system will populate this list with the current s
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">requiredDuringSchedulingIgnoredDuringExecution</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">NOT YET IMPLEMENTED. TODO: Uncomment field once it is implemented. If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system will try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied. RequiredDuringSchedulingRequiredDuringExecution []PodAffinityTerm  <code>json:"requiredDuringSchedulingRequiredDuringExecution,omitempty"</code> If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_v1_podaffinityterm">v1.PodAffinityTerm</a> array</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2647,7 +2665,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2688,7 +2706,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2729,7 +2747,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2743,7 +2761,7 @@ When an object is created, the system will populate this list with the current s
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">selfLink</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SelfLink is a URL representing this object. Populated by the system. Read-only.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">selfLink is a URL representing this object. Populated by the system. Read-only.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2755,19 +2773,29 @@ When an object is created, the system will populate this list with the current s
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">continue</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
 </tbody>
 </table>
 
 </div>
 <div class="sect2">
 <h3 id="_v1beta1_rollbackconfig">v1beta1.RollbackConfig</h3>
+<div class="paragraph">
+<p>DEPRECATED.</p>
+</div>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
 <colgroup>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2804,7 +2832,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2859,7 +2887,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2921,7 +2949,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -2942,7 +2970,7 @@ When an object is created, the system will populate this list with the current s
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">resourceFieldRef</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_v1_resourcefieldselector">v1.ResourceFieldSelector</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2976,7 +3004,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3017,7 +3045,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3086,7 +3114,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3131,7 +3159,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3172,7 +3200,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3227,7 +3255,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3296,7 +3324,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3351,7 +3379,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3574,7 +3602,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3622,7 +3650,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3670,7 +3698,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3753,7 +3781,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3794,7 +3822,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3857,14 +3885,14 @@ When an object is created, the system will populate this list with the current s
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">rollbackTo</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The config this deployment is rolling back to. Will be cleared after rollback is done.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEPRECATED. The config this deployment is rolling back to. Will be cleared after rollback is done.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_v1beta1_rollbackconfig">v1beta1.RollbackConfig</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">progressDeadlineSeconds</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Once autoRollback is implemented, the deployment controller will automatically rollback failed deployments. Note that progress will not be estimated during the time a deployment is paused. This is not set by default.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. This is not set by default.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">integer (int32)</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -3884,7 +3912,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3936,7 +3964,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -3991,7 +4019,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4193,7 +4221,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4255,7 +4283,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4296,7 +4324,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4344,7 +4372,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4392,7 +4420,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4454,7 +4482,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4495,7 +4523,7 @@ When an object is created, the system will populate this list with the current s
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4547,7 +4575,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4609,7 +4637,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4695,7 +4723,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4743,7 +4771,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4784,7 +4812,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4871,6 +4899,10 @@ Examples:<br>
 
 </div>
 <div class="sect2">
+<h3 id="_v1_hostpathtype">v1.HostPathType</h3>
+
+</div>
+<div class="sect2">
 <h3 id="_v1_initializers">v1.Initializers</h3>
 <div class="paragraph">
 <p>Initializers tracks the progress of initialization.</p>
@@ -4881,7 +4913,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -4922,7 +4954,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5005,7 +5037,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5053,7 +5085,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5101,7 +5133,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5148,7 +5180,7 @@ Examples:<br>
 <div class="sect2">
 <h3 id="_v1beta1_deploymentrollback">v1beta1.DeploymentRollback</h3>
 <div class="paragraph">
-<p>DeploymentRollback stores the information required to rollback a deployment.</p>
+<p>DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
 <colgroup>
@@ -5156,7 +5188,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5218,7 +5250,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5259,7 +5291,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5273,15 +5305,15 @@ Examples:<br>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">targetWWNs</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required: FC target worldwide names (WWNs)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional: FC target worldwide names (WWNs)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string array</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">lun</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required: FC target lun number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional: FC target lun number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">integer (int32)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -5299,6 +5331,13 @@ Examples:<br>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wwids</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string array</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
 </tbody>
 </table>
 
@@ -5314,7 +5353,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5328,7 +5367,7 @@ Examples:<br>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">requiredDuringSchedulingIgnoredDuringExecution</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">NOT YET IMPLEMENTED. TODO: Uncomment field once it is implemented. If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system will try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied. RequiredDuringSchedulingRequiredDuringExecution []PodAffinityTerm  <code>json:"requiredDuringSchedulingRequiredDuringExecution,omitempty"</code> If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_v1_podaffinityterm">v1.PodAffinityTerm</a> array</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -5359,7 +5398,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5400,7 +5439,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5441,7 +5480,7 @@ Examples:<br>
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5487,7 +5526,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5549,7 +5588,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5598,7 +5637,7 @@ Both these may change in the future. Incoming requests are matched against the h
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">retryAfterSeconds</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If specified, the time in seconds before the operation should be retried.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">integer (int32)</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -5618,7 +5657,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5652,7 +5691,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5673,8 +5712,8 @@ Both these may change in the future. Incoming requests are matched against the h
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">image</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Docker image name. More info: <a href="https://kubernetes.io/docs/concepts/containers/images">https://kubernetes.io/docs/concepts/containers/images</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker image name. More info: <a href="https://kubernetes.io/docs/concepts/containers/images">https://kubernetes.io/docs/concepts/containers/images</a> This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -5819,7 +5858,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5883,7 +5922,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -5952,7 +5991,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6021,7 +6060,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6053,6 +6092,20 @@ Both these may change in the future. Incoming requests are matched against the h
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">group</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">group is the preferred group of the resource.  Empty implies the group of the containing resource list. For subresources, this may have a different value, for example: Scale".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version is the preferred version of the resource.  Empty implies the version of the containing resource list For subresources, this may have a different value, for example: v1 (while inside a v1beta1 version of the core resource&#8217;s group)".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">kind</p></td>
@@ -6097,7 +6150,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6137,7 +6190,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <div class="sect2">
 <h3 id="_v1beta1_replicaset">v1beta1.ReplicaSet</h3>
 <div class="paragraph">
-<p>ReplicaSet represents the configuration of a ReplicaSet.</p>
+<p>DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1beta2/ReplicaSet. See the release notes for more information. ReplicaSet represents the configuration of a ReplicaSet.</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
 <colgroup>
@@ -6145,7 +6198,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6207,7 +6260,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6221,9 +6274,16 @@ Both these may change in the future. Incoming requests are matched against the h
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">path</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Path of the directory on the host. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#hostpath">https://kubernetes.io/docs/concepts/storage/volumes#hostpath</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#hostpath">https://kubernetes.io/docs/concepts/storage/volumes#hostpath</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type for HostPath Volume Defaults to "" More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#hostpath">https://kubernetes.io/docs/concepts/storage/volumes#hostpath</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_v1_hostpathtype">v1.HostPathType</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -6244,7 +6304,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6284,7 +6344,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <div class="sect2">
 <h3 id="_v1beta1_daemonset">v1beta1.DaemonSet</h3>
 <div class="paragraph">
-<p>DaemonSet represents the configuration of a daemon set.</p>
+<p>DEPRECATED - This group version of DaemonSet is deprecated by apps/v1beta2/DaemonSet. See the release notes for more information. DaemonSet represents the configuration of a daemon set.</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
 <colgroup>
@@ -6292,7 +6352,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6354,7 +6414,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6402,7 +6462,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6456,6 +6516,13 @@ Both these may change in the future. Incoming requests are matched against the h
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allowPrivilegeEscalation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
 </tbody>
 </table>
 
@@ -6474,7 +6541,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6529,7 +6596,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6588,7 +6655,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6629,7 +6696,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6650,7 +6717,7 @@ Both these may change in the future. Incoming requests are matched against the h
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">operator</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">operator represents a key&#8217;s relationship to a set of values. Valid operators ard In, NotIn, Exists and DoesNotExist.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">operator represents a key&#8217;s relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -6677,7 +6744,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6725,7 +6792,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6766,7 +6833,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6807,7 +6874,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6848,7 +6915,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6888,7 +6955,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -6960,7 +7027,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -7001,7 +7068,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -7063,7 +7130,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -7108,7 +7175,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -7149,7 +7216,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -7197,7 +7264,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -7238,7 +7305,7 @@ Both these may change in the future. Incoming requests are matched against the h
 <col style="width:20%;">
 <col style="width:20%;">
 <col style="width:20%;">
-<col style="width:20%;">
+<col style="width:20%;"> 
 </colgroup>
 <thead>
 <tr>

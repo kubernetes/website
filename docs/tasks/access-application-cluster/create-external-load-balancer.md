@@ -25,7 +25,7 @@ cluster nodes _provided your cluster runs in a supported environment and is conf
 ## Configuration file
 
 To create an external load balancer, add the following line to your
-[service configuration file](/docs/user-guide/services/operations/#service-configuration-file):
+[service configuration file](/docs/concepts/services-networking/service/#type-loadbalancer):
 
 ```json
     "type": "LoadBalancer"
@@ -68,7 +68,7 @@ resource (in the case of the example above, a replication controller named
 `example`).
 
 For more information, including optional flags, refer to the
-[`kubectl expose` reference](/docs/user-guide/kubectl/v1.6/#expose).
+[`kubectl expose` reference](/docs/user-guide/kubectl/{{page.version}}/#expose).
 
 ## Finding your IP address
 
@@ -82,16 +82,19 @@ kubectl describe services example-service
 which should produce output like this:
 
 ```bash
-    Name:  example-service
-    Selector:   app=example
-    Type:     LoadBalancer
-    IP:     10.67.252.103
-    LoadBalancer Ingress: 123.45.678.9
-    Port:     <unnamed> 80/TCP
-    NodePort:   <unnamed> 32445/TCP
-    Endpoints:    10.64.0.4:80,10.64.1.5:80,10.64.2.4:80
-    Session Affinity: None
-    No events.
+    Name:                   example-service
+    Namespace:              default
+    Labels:                 <none>
+    Annotations:            <none>
+    Selector:               app=example
+    Type:                   LoadBalancer
+    IP:                     10.67.252.103
+    LoadBalancer Ingress:   123.45.678.9
+    Port:                   <unnamed> 80/TCP
+    NodePort:               <unnamed> 32445/TCP
+    Endpoints:              10.64.0.4:80,10.64.1.5:80,10.64.2.4:80
+    Session Affinity:       None
+    Events:                 <none>
 ```
 
 The IP address is listed next to `LoadBalancer Ingress`.
@@ -125,7 +128,7 @@ Service Configuration file.
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
-        "name": "example-service",
+        "name": "example-service"
       },
       "spec": {
         "ports": [{
@@ -164,6 +167,10 @@ compared to the `service.spec.externalTrafficPolicy` field. The values match as 
 
 **Note that this feature is not currently implemented for all cloudproviders/environments.**
 
+Known issues:
+
+* AWS: [kubernetes/kubernetes#35758](https://github.com/kubernetes/kubernetes/issues/35758)
+* Weave-Net: [weaveworks/weave/#2924](https://github.com/weaveworks/weave/issues/2924)
 
 {% endcapture %}
 

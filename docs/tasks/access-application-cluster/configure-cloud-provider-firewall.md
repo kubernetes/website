@@ -26,8 +26,8 @@ metadata:
   name: myapp
 spec:
   ports:
-    - port: 8765
-      targetPort: 9376
+  - port: 8765
+    targetPort: 9376
   selector:
     app: example
   type: LoadBalancer
@@ -44,8 +44,8 @@ metadata:
   name: myapp
 spec:
   ports:
-    - port: 8765
-      targetPort: 9376
+  - port: 8765
+    targetPort: 9376
   selector:
     app: example
   type: LoadBalancer
@@ -65,7 +65,7 @@ Google Compute Engine firewalls are documented [elsewhere](https://cloud.google.
 You can add a firewall with the `gcloud` command line tool:
 
 ```shell
-$ gcloud compute firewall-rules create my-rule --allow=tcp:<port>
+gcloud compute firewall-rules create my-rule --allow=tcp:<port>
 ```
 
 **Note**

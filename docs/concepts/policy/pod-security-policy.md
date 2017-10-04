@@ -8,7 +8,7 @@ Objects of type `PodSecurityPolicy` govern the ability
 to make requests on a pod that affect the `SecurityContext` that will be
 applied to a pod and container.
 
-See [PodSecurityPolicy proposal](https://git.k8s.io/community/contributors/design-proposals/security-context-constraints.md) for more information.
+See [PodSecurityPolicy proposal](https://git.k8s.io/community/contributors/design-proposals/auth/pod-security-policy.md) for more information.
 
 * TOC
 {:toc}
@@ -21,28 +21,30 @@ actions that a pod can perform and what it has the ability to access. The
 run with in order to be accepted into the system. They allow an
 administrator to control the following:
 
-| Control Aspect                                                | Field Name                        |
-| ------------------------------------------------------------- | --------------------------------- |
-| Running of privileged containers                              | `privileged`                      |
-| Default set of capabilities that will be added to a container | `defaultAddCapabilities`          |
-| Capabilities that will be dropped from a container            | `requiredDropCapabilities`        |
-| Capabilities a container can request to be added              | `allowedCapabilities`             |
-| Controlling the usage of volume types                         | [`volumes`](#controlling-volumes) |
-| The use of host networking                                    | [`hostNetwork`](#host-network)    |
-| The use of host ports                                         | `hostPorts`                       |
-| The use of host's PID namespace                               | `hostPID`                         |
-| The use of host's IPC namespace                               | `hostIPC`                         |
-| The SELinux context of the container                          | [`seLinux`](#selinux)             |
-| The user ID                                                   | [`runAsUser`](#runasuser)         |
-| Configuring allowable supplemental groups                     | [`supplementalGroups`](#supplementalgroups) |
-| Allocating an FSGroup that owns the pod's volumes             | [`fsGroup`](#fsgroup)             |
-| Requiring the use of a read only root file system             | `readOnlyRootFilesystem`          |
+| Control Aspect                                                         | Field Name                                  |
+| ---------------------------------------------------------------------- | ------------------------------------------- |
+| Running of privileged containers                                       | `privileged`                                |
+| Default set of capabilities that will be added to a container          | `defaultAddCapabilities`                    |
+| Capabilities that will be dropped from a container                     | `requiredDropCapabilities`                  |
+| Capabilities a container can request to be added                       | `allowedCapabilities`                       |
+| Controlling the usage of volume types                                  | [`volumes`](#controlling-volumes)           |
+| The use of host networking                                             | [`hostNetwork`](#host-network)              |
+| The use of host ports                                                  | `hostPorts`                                 |
+| The use of host's PID namespace                                        | `hostPID`                                   |
+| The use of host's IPC namespace                                        | `hostIPC`                                   |
+| The SELinux context of the container                                   | [`seLinux`](#selinux)                       |
+| The user ID                                                            | [`runAsUser`](#runasuser)                   |
+| Configuring allowable supplemental groups                              | [`supplementalGroups`](#supplementalgroups) |
+| Allocating an FSGroup that owns the pod's volumes                      | [`fsGroup`](#fsgroup)                       |
+| Requiring the use of a read only root file system                      | `readOnlyRootFilesystem`                    |
+| Running of a container that allow privilege escalation from its parent | [`allowPrivilegeEscalation`](#allowPrivilegeEscalation) |
+| Control whether a process can gain more privileges than its parent process | [`defaultAllowPrivilegeEscalation`](#defaultAllowPrivilegeEscalation) |
 
 _Pod Security Policies_ are comprised of settings and strategies that
 control the security features a pod has access to. These settings fall
 into three categories:
 
-- *Controlled by a boolean*: Fields of this type default to the most
+- *Controlled by a Boolean*: Fields of this type default to the most
 restrictive value.
 - *Controlled by an allowable set*: Fields of this type are checked
 against the set to ensure their values are allowed.
@@ -124,7 +126,21 @@ configMap, downwardAPI, emptyDir, persistentVolumeClaim, secret, and projected.
 
 ### Host Network
  - *HostPorts*, default `empty`. List of `HostPortRange`, defined by `min`(inclusive) and `max`(inclusive), which define the allowed host ports.
- 
+
+### AllowPrivilegeEscalation
+
+Gates whether or not a user is allowed to set the security context of a container
+to `allowPrivilegeEscalation=true`. This field defaults to `false`.
+
+### DefaultAllowPrivilegeEscalation
+
+Sets the default for the security context `AllowPrivilegeEscalation` of a container.
+This bool directly controls whether the `no_new_privs` flag gets set on the
+container process. It defaults to `nil`. The default behavior of `nil`
+allows privilege escalation so as to not break setuid binaries. Setting it to `false`
+ensures that no child process of a container can gain more privileges than
+its parent.
+
 ## Admission
 
 _Admission control_ with `PodSecurityPolicy` allows for control over the
@@ -193,7 +209,7 @@ podsecuritypolicy "permissive" deleted
 In order to use Pod Security Policies in your cluster you must ensure the
 following
 
-1.  You have enabled the api type `extensions/v1beta1/podsecuritypolicy` (only for versions prior 1.6)
+1.  You have enabled the API type `extensions/v1beta1/podsecuritypolicy` (only for versions prior 1.6)
 1.  You have enabled the admission controller `PodSecurityPolicy`
 1.  You have defined your policies
 
