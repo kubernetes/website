@@ -584,7 +584,7 @@ More details can be found [here](https://github.com/kubernetes/examples/tree/{{p
 
 ### vsphereVolume
 
-**Prerequisite:** Kubernetes with vSphere Cloud Provider configured. For cloudprovider configuration please refer [vSphere getting started guide](/docs/getting-started-guides/vsphere/).
+**Prerequisite:** Kubernetes with vSphere Cloud Provider configured. For cloudprovider configuration please refer [vSphere getting started guide](/docs/setup/vsphere/).
 {: .note}
 
 A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
