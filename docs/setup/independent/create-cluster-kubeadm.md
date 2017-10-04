@@ -412,7 +412,7 @@ kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservic
 ```
 
 You can then find out the port that the [NodePort feature of
-services](/docs/concepts/services-networking/service/) allocated for the front-end service by
+services](/docs/concepts/services-networking/service//) allocated for the front-end service by
 running:
 
 ``` bash
@@ -560,7 +560,7 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
     `HostPort` and `HostIP` functionality are available.
 
     If not, you may still use the [NodePort feature of
-    services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
+    services](/docs/concepts/services-networking/service//#type-nodeport) or use `HostNetwork=true`.
 
 1. **Pods cannot access themselves via their Service IP**.
     Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)

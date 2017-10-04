@@ -26,12 +26,12 @@ by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
 [working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general, and [Services](/docs/concepts/services-networking/service/) in particular.
+general, and [Services](/docs/concepts/services-networking/service//) in particular.
 
 ## Overview
 
 Federated Services are created in much that same way as traditional
-[Kubernetes Services](/docs/concepts/services-networking/service/) by making an API
+[Kubernetes Services](/docs/concepts/services-networking/service//) by making an API
 call which specifies the desired properties of your service. In the
 case of Federated Services, this API call is directed to the
 Federation API endpoint, rather than a Kubernetes cluster API
@@ -125,9 +125,9 @@ underlying Kubernetes services (once these have been allocated - this
 may take a few seconds). For inter-cluster and inter-cloud-provider
 networking between service shards to work correctly, your services
 need to have an externally visible IP address. [Service Type:
-Loadbalancer](/docs/concepts/services-networking/service/#type-loadbalancer)
+Loadbalancer](/docs/concepts/services-networking/service//#type-loadbalancer)
 is typically used for this, although other options
-(e.g. [External IP's](/docs/concepts/services-networking/service/#external-ips)) exist.
+(e.g. [External IP's](/docs/concepts/services-networking/service//#external-ips)) exist.
 
 Note also that we have not yet provisioned any backend Pods to receive
 the network traffic directed to these addresses (i.e. 'Service

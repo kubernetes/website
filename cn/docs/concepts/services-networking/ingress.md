@@ -15,7 +15,7 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 * Cluster: A group of nodes firewalled from the internet, that are the primary compute resources managed by Kubernetes.
 * Edge router: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware.
 * Cluster network: A set of links, logical or physical, that facilitate communication within a cluster according to the [Kubernetes networking model](/docs/concepts/cluster-administration/networking/). Examples of a Cluster network include Overlays such as [flannel](https://github.com/coreos/flannel#flannel) or SDNs such as [OVS](/docs/admin/ovs-networking/).
-* Service: A Kubernetes [Service](/docs/concepts/services-networking/service/) that identifies a set of pods using label selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
+* Service: A Kubernetes [Service](/docs/concepts/services-networking/service//) that identifies a set of pods using label selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
 
 ## What is Ingress?
 
@@ -77,7 +77,7 @@ __Lines 7-9__: Ingress [spec](https://git.k8s.io/community/contributors/devel/ap
 
 __Lines 10-11__: Each http rule contains the following information: A host (e.g.: foo.bar.com, defaults to * in this example), a list of paths (e.g.: /testpath) each of which has an associated backend (test:80). Both the host and path must match the content of an incoming request before the loadbalancer directs traffic to the backend.
 
-__Lines 12-14__: A backend is a service:port combination as described in the [services doc](/docs/concepts/services-networking/service/). Ingress traffic is typically sent directly to the endpoints matching a backend.
+__Lines 12-14__: A backend is a service:port combination as described in the [services doc](/docs/concepts/services-networking/service//). Ingress traffic is typically sent directly to the endpoints matching a backend.
 
 __Global Parameters__: For the sake of simplicity the example Ingress has no global parameters, see the [API reference](https://releases.k8s.io/{{page.githubbranch}}/staging/src/k8s.io/api/extensions/v1beta1/types.go) for a full definition of the resource. One can specify a global default backend in the absence of which requests that don't match a path in the spec are sent to the default backend of the Ingress controller.
 

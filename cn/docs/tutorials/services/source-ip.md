@@ -23,8 +23,8 @@ Kubernetes 集群中运行的应用通过抽象的 Service 查找彼此，相互
 * [NAT](https://en.wikipedia.org/wiki/Network_address_translation): 网络地址转换
 * [Source NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT): 替换数据包的源 IP, 通常为节点的 IP
 * [Destination NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT): 替换数据包的目的 IP, 通常为 Pod 的 IP
-* [VIP](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): 一个虚拟 IP, 例如分配给每个 Kubernetes Service 的 IP
-* [Kube-proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): 一个网络守护程序，在每个节点上协调 Service VIP 管理
+* [VIP](/docs/concepts/services-networking/service//#virtual-ips-and-service-proxies): 一个虚拟 IP, 例如分配给每个 Kubernetes Service 的 IP
+* [Kube-proxy](/docs/concepts/services-networking/service//#virtual-ips-and-service-proxies): 一个网络守护程序，在每个节点上协调 Service VIP 管理
 
 
 ## 准备工作

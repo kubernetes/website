@@ -42,7 +42,7 @@ provides a set of stateless replicas. Controllers such as
 * As with all alpha/beta resources, you can disable StatefulSet through the `--runtime-config` option passed to the apiserver.
 * The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
-* StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
+* StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service//#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
 
 ## Components
 The example below demonstrates the components of a StatefulSet.
@@ -121,7 +121,7 @@ Each Pod in a StatefulSet derives its hostname from the name of the StatefulSet
 and the ordinal of the Pod. The pattern for the constructed hostname
 is `$(statefulset name)-$(ordinal)`. The example above will create three Pods
 named `web-0,web-1,web-2`.
-A StatefulSet can use a [Headless Service](/docs/concepts/services-networking/service/#headless-services)
+A StatefulSet can use a [Headless Service](/docs/concepts/services-networking/service//#headless-services)
 to control the domain of its Pods. The domain managed by this Service takes the form:
 `$(service name).$(namespace).svc.cluster.local`, where "cluster.local"
 is the [cluster domain](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md).

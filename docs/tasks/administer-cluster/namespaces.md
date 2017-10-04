@@ -11,7 +11,7 @@ This page shows how to view, work in, and delete namespaces. The page also shows
 
 {% capture prerequisites %}
 * Have an [existing Kubernetes cluster](/docs/getting-started-guides/).
-* Have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_.
+* Have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service//)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_.
 {% endcapture %}
 
 {% capture steps %}
@@ -334,7 +334,7 @@ Use cases include:
 
 ## Understanding namespaces and DNS
 
-When you create a [Service](/docs/concepts/services-networking/service/), it creates a corresponding [DNS entry](/docs/admin/dns).
+When you create a [Service](/docs/concepts/services-networking/service//), it creates a corresponding [DNS entry](/docs/admin/dns).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
 that if a container just uses `<service-name>` it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across

@@ -53,7 +53,7 @@ Kubernetes DNS 在集群中调度 DNS Pod 和 Service ，配置 kubelet 以通�
 #### SRV 记录
 
 命名端口需要创建 SRV 记录，这些端口是正常 Service或 [Headless
-Services](/docs/concepts/services-networking/service/#headless-services) 的一部分。
+Services](/docs/concepts/services-networking/service//#headless-services) 的一部分。
 对每个命名端口，SRV 记录具有 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local` 这种形式。
 对普通 Service，这会被解析成端口号和 CNAME：`my-svc.my-namespace.svc.cluster.local`。
 对 Headless Service，这会被解析成多个结果，Service 对应的每个 backend Pod 各一个，包含 `auto-generated-name.my-svc.my-namespace.svc.cluster.local` 这种形式 Pod 的端口号和 CNAME。

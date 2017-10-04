@@ -22,7 +22,7 @@ title: 运行 ZooKeeper， 一个 CP 分布式系统
 
 * [Pods](/docs/user-guide/pods/single-container/)
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
+* [Headless Services](/docs/concepts/services-networking/service//#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
 * [ConfigMaps](/docs/tasks/configure-pod-container/configmap/)

@@ -24,7 +24,7 @@ The docker is based on `debian:jessie` and includes OpenJDK 8. This image includ
 {% endcapture %}
 
 {% capture objectives %}
-* Create and Validate a Cassandra headless [Services](/docs/concepts/services-networking/service/).
+* Create and Validate a Cassandra headless [Services](/docs/concepts/services-networking/service//).
 * Use a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) to create a Cassandra ring.
 * Validate the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 * Modify the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
@@ -32,7 +32,7 @@ The docker is based on `debian:jessie` and includes OpenJDK 8. This image includ
 {% endcapture %}
 
 {% capture prerequisites %}
-To complete this tutorial, you should already have a basic familiarity with [Pods](/docs/concepts/workloads/pods/pod/), [Services](/docs/concepts/services-networking/service/), and [StatefulSets](/docs/concepts/workloads/controllers/statefulset/). In addition, you should:
+To complete this tutorial, you should already have a basic familiarity with [Pods](/docs/concepts/workloads/pods/pod/), [Services](/docs/concepts/services-networking/service//), and [StatefulSets](/docs/concepts/workloads/controllers/statefulset/). In addition, you should:
 
 * [Install and Configure](/docs/tasks/tools/install-kubectl/) the `kubectl` command line
 
@@ -56,7 +56,7 @@ To avoid these errors, run minikube with:
 
 {% capture lessoncontent %}
 ## Creating a Cassandra Headless Service
-A Kubernetes [Service](/docs/concepts/services-networking/service/) describes a set of [Pods](/docs/concepts/workloads/pods/pod/) that perform the same task. 
+A Kubernetes [Service](/docs/concepts/services-networking/service//) describes a set of [Pods](/docs/concepts/workloads/pods/pod/) that perform the same task. 
 
 The following `Service` is used for DNS lookups between Cassandra Pods and clients within the Kubernetes Cluster.
 

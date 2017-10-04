@@ -40,7 +40,7 @@ This page shows how to use install kubeadm.
 |-------------|---------------------------------|
 | 10250       | Kubelet API                     |
 | 10255       | Read-only Kubelet API (Heapster)|
-| 30000-32767 | Default port range for [NodePort Services](/docs/concepts/services-networking/service/). Typically, these ports would need to be exposed to external load-balancers, or other external consumers of the application itself. |
+| 30000-32767 | Default port range for [NodePort Services](/docs/concepts/services-networking/service//). Typically, these ports would need to be exposed to external load-balancers, or other external consumers of the application itself. |
 
 Any port numbers marked with * are overridable, so you will need to ensure any
 custom ports you provide are also open.

@@ -70,7 +70,7 @@ monitoring-influx-grafana-v1-o79xf             2/2       Running   0          2h
 
 The `fluentd-elasticsearch` pods gather logs from each node and send them to
 the `elasticsearch-logging` pods, which are part of a
-[service](/docs/concepts/services-networking/service/) named `elasticsearch-logging`. These
+[service](/docs/concepts/services-networking/service//) named `elasticsearch-logging`. These
 Elasticsearch pods store the logs and expose them via a REST API.
 The `kibana-logging` pod provides a web UI for reading the logs stored in
 Elasticsearch, and is part of a service named `kibana-logging`.
