@@ -113,7 +113,7 @@ when the Pod is created, so it is ignored by the scheduler).  Therefore:
 Daemon Pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature),
 but they are created with `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
- - `node.alpha.kubernetes.io/notReady`
+ - `node.kubernetes.io/not-ready`
  - `node.alpha.kubernetes.io/unreachable`
 
 This ensures that when the `TaintBasedEvictions` alpha feature is enabled,
