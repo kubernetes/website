@@ -21,7 +21,7 @@ using `kubefed`.
 ## Prerequisites
 
 This guide assumes that you have a running Kubernetes cluster. Please
-see one of the [getting started](/docs/getting-started-guides/) guides
+see one of the [getting started](/docs/setup/) guides
 for installation instructions for your platform.
 
 
@@ -367,7 +367,7 @@ kubefed init fellowship \
 ```
 
 For more information see
-[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tutorials/federation/set-up-coredns-provider-federation/).
+[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tasks/federation/set-up-coredns-provider-federation/).
 
 ## Adding a cluster to a federation
 
@@ -383,7 +383,7 @@ for the federation control plane's host cluster.
 > Note: The name that you provide to the `join` command is used as the
 joining cluster's identity in federation. This name should adhere to
 the rules described in the
-[identifiers doc](/docs/user-guide/identifiers/#names). If the context
+[identifiers doc](/docs/concepts/overview/working-with-objects/names/). If the context
 corresponding to your joining cluster conforms to these rules then you
 can use the same name in the join command. Otherwise, you will have to
 choose a different name for your cluster's identity. For more
@@ -408,7 +408,7 @@ cluster.
 
 The cluster name you supply to `kubefed join` must be a valid
 [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt) label and are
-enumerated in the [Identifiers doc](/docs/user-guide/identifiers/#names).
+enumerated in the [Identifiers doc](/docs/concepts/overview/working-with-objects/names/).
 
 Furthermore, federation control plane requires credentials of the
 joined clusters to operate on them. These credentials are obtained

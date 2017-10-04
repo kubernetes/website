@@ -12,7 +12,7 @@ resources using an external policy engine.
 {% capture prerequisites %}
 
 You need to have a running Kubernetes cluster (which is referenced as host
-cluster). Please see one of the [getting started](/docs/getting-started-guides/)
+cluster). Please see one of the [getting started](/docs/setup/)
 guides for installation instructions for your platform.
 
 {% endcapture %}
