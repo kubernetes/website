@@ -97,7 +97,7 @@ frontend-qhloh   1/1       Running   0          1m
 
 As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with manifests, see [here](/docs/user-guide/simple-yaml/),
-[here](/docs/user-guide/configuring-containers/), and [here](/docs/concepts/tools/kubectl/object-management-overview/).
+[here](/docs/tasks/), and [here](/docs/concepts/tools/kubectl/object-management-overview/).
 
 A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
