@@ -99,7 +99,7 @@ exists as long as that Pod is running on that node.  As the name says, it is
 initially empty.  Containers in the pod can all read and write the same
 files in the `emptyDir` volume, though that volume can be mounted at the same
 or different paths in each container.  When a Pod is removed from a node for
-any reason, the data in the `emptyDir` is deleted forever.  
+any reason, the data in the `emptyDir` is deleted forever.
 
 **Note:** a container crashing does *NOT* remove a pod from a node, so the data in an `emptyDir` volume is safe across container crashes.
 {: .note}
@@ -761,7 +761,9 @@ spec:
         fsType: ext4
 ```
 
-For more information including Dynamic Provisioning and Persistent Volume Claims, please see the [StorageOS examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/storageos).
+For more information including Dynamic Provisioning and Persistent Volume Claims, please see the
+[StorageOS examples](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/storageos).
+
 
 ### local
 
