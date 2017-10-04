@@ -44,7 +44,7 @@ You can debug individual Pods in a StatefulSet using the
 
 {% capture whatsnext %}
 
-Learn more about [debugging an init-container](/docs/tasks/troubleshoot/debug-init-containers/).
+Learn more about [debugging an init-container](/docs/tasks/debug-application-cluster/debug-init-containers/).
 
 {% endcapture %}
 
