@@ -21,7 +21,7 @@ needed most by manipulating the min and max limits of the HPA objects in the fed
 
 * {% include federated-task-tutorial-prereqs.md %}
 * You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+[working knowledge of Kubernetes](/docs/setup/) in
 general and [HPAs](/docs/tasks/run-application/horizontal-pod-autoscale/) in particular.
 
 The federated HPA is an alpha feature. The API is not enabled by default on the
@@ -136,7 +136,7 @@ the interaction is almost identical to interacting with a normal Kubernetes clus
 with a limited set of APIs that are federated). As both Deployments and
 HorizontalPodAutoscalers are now federated, `kubectl` commands like `kubectl run`
 and `kubectl autoscale` work on federation. Given this fact, the mechanism specified in
-[horizontal pod autoscaler walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)
+[horizontal pod autoscaler walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 will also work when used with federation.
 Care however will need to be taken that when
 [generating load on a target deployment](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#step-three-increase-load),
