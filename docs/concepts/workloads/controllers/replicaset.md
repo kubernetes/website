@@ -119,7 +119,7 @@ for example the [Kubelet](/docs/admin/kubelet/) or Docker.
 
 ### Pod Selector
 
-The `.spec.selector` field is a [label selector](/docs/concepts/overview/working-with-objects/#label-selectors). A ReplicaSet
+The `.spec.selector` field is a [label selector](/docs/concepts/overview/working-with-objects/labels/). A ReplicaSet
 manages all the pods with labels that match the selector. It does not distinguish
 between pods that it created or deleted and pods that another person or process created or
 deleted. This allows the ReplicaSet to be replaced without affecting the running pods.
