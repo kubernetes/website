@@ -41,11 +41,11 @@ export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 An up-to-date documentation page for this tool is available here: [kubectl manual](/docs/user-guide/kubectl)
 
 By default, `kubectl` will use the `kubeconfig` file generated during the cluster startup for authenticating against the API.
-For more information, please read [kubeconfig files](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+For more information, please read [kubeconfig files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 
 ### Examples
 
-See [a simple nginx example](/docs/user-guide/simple-nginx) to try out your new cluster.
+See [a simple nginx example](/docs/tasks/run-application/run-stateless-application-deployment/) to try out your new cluster.
 
 The "Guestbook" application is another popular example to get started with Kubernetes: [guestbook example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/)
 
