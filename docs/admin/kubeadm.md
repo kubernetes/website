@@ -713,7 +713,7 @@ using kubeadm.
 
 Since [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1),
 Kubernetes container runtimes have been transferred to using CRI by default.
-Currently, the build-in container runtime is Docker which is enabled by built-in
+Currently, the built-in container runtime is Docker which is enabled by built-in
 `dockershim` in `kubelet`.
 
 Using other CRI based runtimes with kubeadm is very simple, and currently
