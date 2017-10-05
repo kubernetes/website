@@ -671,7 +671,7 @@ Apiserver supports several cloud providers.
 Some cloud providers require a config file. If so, you need to put config file into apiserver image or mount through hostPath.
 
 - `--cloud-config=` set if cloud provider requires a config file.
-- Used by `aws`, `gce`, `mesos`, `openshift`, `ovirt` and `rackspace`.
+- Used by `aws`, `gce`, `mesos`, `openstack`, `ovirt` and `rackspace`.
 - You must put config file into apiserver image or mount through hostPath.
 - Cloud config file syntax is [Gcfg](https://code.google.com/p/gcfg/).
 - AWS format defined by type [AWSCloudConfig](https://releases.k8s.io/{{page.githubbranch}}/pkg/cloudprovider/providers/aws/aws.go)
