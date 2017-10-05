@@ -168,7 +168,7 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 
 * Self signed certificates for https (unless you already have an identity certificate)
 * An nginx server configured to use the certificates
-* A [secret](/docs/user-guide/secrets) that makes the certificates accessible to pods
+* A [secret](/docs/concepts/configuration/secret/) that makes the certificates accessible to pods
 
 You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/https-nginx/), in short:
 
@@ -296,7 +296,3 @@ clusters and cloud providers, to provide increased availability,
 better fault tolerance and greater scalability for your services. See
 the [Federated Services User Guide](/docs/concepts/cluster-administration/federation-service-discovery/)
 for further information.
-
-## What's next?
-
-[Learn about more Kubernetes features that will help you run containers reliably in production.](/docs/user-guide/production-pods)

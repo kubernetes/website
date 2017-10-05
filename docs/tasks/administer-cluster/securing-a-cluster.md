@@ -123,7 +123,7 @@ prevent cross talk, or advanced networking policy.
 
 By default, there are no restrictions on which nodes may run a pod.  Kubernetes offers a 
 [rich set of policies for controlling placement of pods onto nodes](/docs/concepts/configuration/assign-pod-node/)
-and the [taint based pod placement and eviction](/docs/concepts/configuration/taint-and-toleration)
+and the [taint based pod placement and eviction](/docs/concepts/configuration/taint-and-toleration/)
 that are available to end users. For many clusters use of these policies to separate workloads
 can be a convention that authors adopt or enforce via tooling.
 
@@ -151,7 +151,7 @@ access to a subset of the keyspace is strongly recommended.
 
 ### Enable audit logging
 
-The [audit logger](/docs/admin/audit/) is an alpha feature that records actions taken by the
+The [audit logger](/docs/tasks/debug-application-cluster/audit/) is an alpha feature that records actions taken by the
 API for later analysis in the event of a compromise. It is recommended to enable audit logging 
 and archive the audit file on a secure server.
 
