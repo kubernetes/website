@@ -1,6 +1,6 @@
 id: statefulset
 name: StatefulSet
-formerly:
+aka:
 - PetSet
 related:
 - deployment

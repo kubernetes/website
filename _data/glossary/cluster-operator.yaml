@@ -1,6 +1,6 @@
 id: cluster-operator
 name: Cluster Operator
-formerly:
+aka:
   - Cluster Administrator
 related:
   - cluster

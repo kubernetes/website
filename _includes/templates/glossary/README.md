@@ -10,8 +10,8 @@ To write a glossary snippet, start with a copy of the template, [`/_data/glossar
   * Must be one of the tags listed in kubernetes.github.io/_data/canonical-terms-tags.yml.
 * (Required) `short description`
   * Make sure to replace the instructional text in the template with your content.
-* (Optional) `formerly`
-  * These terms do not need to be glossary terms themselves (as they are deprecated), and can include spaces.
+* (Optional) `aka`
+  * These synonyms do not need to be glossary terms themselves (if they are deprecated), and can include spaces.
 * (Optional) `related`
   * These should be the `id`s (not the `names`) of related glossary terms.
 * (Optional) `long description`
