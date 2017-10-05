@@ -18,7 +18,7 @@ This process works with local VMs, physical servers and/or cloud servers. It is
 simple enough that you can easily integrate its use into your own automation
 (Terraform, Chef, Puppet, etc).
 
-See the full [kubeadm reference](/docs/admin/kubeadm) for information on all
+See the full [kubeadm reference](/docs/admin/kubeadm/) for information on all
 kubeadm command-line flags and for advice on automating kubeadm itself.
 
 kubeadm assumes you have a set of machines (virtual or real) that are up and
@@ -121,7 +121,7 @@ will then download and install the cluster database and control plane
 components. This may take several minutes.
 
 You can't run `kubeadm init` twice without tearing down the cluster in between
-([unless you're upgrading from v1.6 to v1.7](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7)),
+([unless you're upgrading from v1.6 to v1.7](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/)),
 see [Tear Down](#tear-down).
 
 The output should look like:
