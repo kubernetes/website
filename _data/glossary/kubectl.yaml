@@ -4,6 +4,6 @@ tags:
 - tool
 - fundamental
 short-description: |
-  TODO
+  A command line tool that you can use to communicate with a Kubernetes API server.
 long-description: |
-  more TODO
+  You can use kubectl to create, inspect, update, and delete Kubernetes objects.
