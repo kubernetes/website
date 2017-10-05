@@ -75,6 +75,14 @@ represents.
   <tr><td>Open the <code>/_data/concepts.yaml</code> file.</td><td>Open the /_data/concepts.yaml file.</td></tr>
 </table>
 
+### Use the international standard for punctuation inside quotes
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>events are recorded with an associated "stage".</td><td>events are recorded with an associated "stage."</td></tr>
+  <tr><td>The copy is called a "fork".</td><td>The copy is called a "fork."</td></tr>
+</table>
+
 ## Inline code formatting
 
 ### Use code style for inline code and commands
