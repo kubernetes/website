@@ -376,7 +376,7 @@
  			name: 'StackOverdrive.io',
  			logo: 'stackoverdrive',
  			link: 'http://www.stackoverdrive.net/kubernetes-consulting/',
- 			blurb: 'StackOverdrive helps organizations of all sizes leverage Kubernetes for container based orchestration and management'
+ 			blurb: 'StackOverdrive.io helps organizations of all sizes leverage Kubernetes for container based orchestration and management'
   		},
 		{
  			type: 0,
