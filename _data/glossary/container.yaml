@@ -4,6 +4,6 @@ tags:
 - fundamental
 - workload
 short-description: |
-  TODO
+  A lightweight and portable executable image that contains software and all of its dependencies.
 long-description: |
-  more TODO
+  Containers decouple applications from underlying host infrastructure so that they can easily be deployed in different cloud or OS environments and be scaled out to meet usage demands.
