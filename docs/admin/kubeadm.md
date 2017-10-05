@@ -325,7 +325,7 @@ Here's an example on how to use it:
   [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) and can also be
   calculated by 3rd party tools or provisioning systems. For example, using the
   OpenSSL CLI:
-  `openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>&/dev/null | openssl dgst -sha256 -hex`
+  `openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | awk '{print $2}'`
 
   _Skipping this flag is allowed in Kubernetes 1.8, but makes certain spoofing
   attacks possible._ See the [security model](#security-model) for details.
