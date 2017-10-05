@@ -7,7 +7,7 @@ title: Limit Storage Consumption
 This example demonstrates an easy way to limit the amount of storage consumed in a namespace.
 
 The following resources are used in the demonstration: [ResourceQuota](/docs/concepts/policy/resource-quotas/),
-[LimitRange](/docs/tasks/configure-pod-container/limit-range/),
+[LimitRange](/docs/tasks/administer-cluster/memory-default-namespace/),
 and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 
 {% endcapture %}
