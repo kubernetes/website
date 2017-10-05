@@ -5,6 +5,6 @@ tags:
 - core-object
 - workload
 short-description: |
-  TODO
+  An API object that manages a replicated application.
 long-description: |
-  more TODO
+  Each replica is represented by a Pod, and the Pods are distrubuted among the Nodes of a cluster.
