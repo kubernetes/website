@@ -4,6 +4,6 @@ tags:
 - fundamental
 - operation
 short-description: |
-  TODO
+  A set of machines, called nodes, that run containerized applications managed by Kubernetes.
 long-description: |
-  more TODO
+  Typically a cluster has serveral worker nodes and at least one master node.
