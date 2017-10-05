@@ -383,7 +383,7 @@ for the federation control plane's host cluster.
 > Note: The name that you provide to the `join` command is used as the
 joining cluster's identity in federation. This name should adhere to
 the rules described in the
-[identifiers doc](docs/concepts/overview/working-with-objects/names/). If the context
+[identifiers doc](/docs/concepts/overview/working-with-objects/names/). If the context
 corresponding to your joining cluster conforms to these rules then you
 can use the same name in the join command. Otherwise, you will have to
 choose a different name for your cluster's identity. For more
@@ -408,7 +408,7 @@ cluster.
 
 The cluster name you supply to `kubefed join` must be a valid
 [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt) label and are
-enumerated in the [Identifiers doc](docs/concepts/overview/working-with-objects/names/).
+enumerated in the [Identifiers doc](/docs/concepts/overview/working-with-objects/names/).
 
 Furthermore, federation control plane requires credentials of the
 joined clusters to operate on them. These credentials are obtained
