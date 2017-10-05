@@ -5,7 +5,6 @@ related:
 tags:
   - user-type
 short-description: |
-  TODO
-
+  A person who writes an application that runs in a Kubernetes cluster.
 long-description: |
-  more TODO
+  Typically an application developer works on one portion of an application that is split into microservices.
