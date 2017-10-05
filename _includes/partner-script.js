@@ -373,10 +373,10 @@
   		},
 		{
  			type: 1,
- 			name: 'StackOVerdrive.io',
+ 			name: 'StackOverdrive.io',
  			logo: 'stackoverdrive',
  			link: 'http://www.stackoverdrive.net/kubernetes-consulting/',
- 			blurb: 'We are a devops consulting firm and we do alot of work with containers and Kunbernetes is one of our go to tools.'
+ 			blurb: 'StackOverdrive helps organizations of all sizes leverage Kubernetes for container based orchestration and management'
   		},
 		{
  			type: 0,
