@@ -2,6 +2,7 @@ bigheader: "Tasks"
 abstract: "Step-by-step instructions for performing operations with Kubernetes."
 toc:
 - docs/tasks/index.md
+- docs/tasks/non-task.md
 
 - title: Install Tools
   section:
