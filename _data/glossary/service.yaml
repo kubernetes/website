@@ -4,6 +4,6 @@ tags:
 - fundamental
 - core-object
 short-description: |
-  TODO
+  An API object that manages load-balanced access to a replicated set of Pods.
 long-description: |
-  more TODO
+  The access point can be internal or external to the cluster.
