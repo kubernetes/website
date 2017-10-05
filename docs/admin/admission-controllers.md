@@ -343,7 +343,7 @@ After enabling the `ExpandPersistentVolumes` feature gate, enabling the `Persist
 plug-in is recommended, too. This plug-in prevents resizing of all claims by default unless a claim's `StorageClass`
  explicitly enables resizing by setting `allowVolumeExpansion` to `true`.
 
-For example: all `PersistnetVolumeClaim`s created from the following `StorageClass` support volume expansion:
+For example: all `PersistentVolumeClaim`s created from the following `StorageClass` support volume expansion:
 
 ```yaml
 kind: StorageClass
