@@ -75,7 +75,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
      name: env-config
      namespace: default
    data:
-     log_level: INFO
+     special.type: INFO
    ``` 
 
 1. Define the environment variables in the Pod specification.
