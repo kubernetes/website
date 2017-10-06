@@ -8,6 +8,10 @@ css: /css/style_user_journeys.css
 js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
 ---
 
+{% unless page.notitle %}
+<h1>{{ page.title }}</h1>
+{% endunless %}
+
 <div class="bar1">
     <div class="navButton users">Users</div>
     <div class="navButton contributors">Contributors</div>
