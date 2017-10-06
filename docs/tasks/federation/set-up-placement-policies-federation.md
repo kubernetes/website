@@ -12,7 +12,7 @@ resources using an external policy engine.
 {% capture prerequisites %}
 
 You need to have a running Kubernetes cluster (which is referenced as host
-cluster). Please see one of the [getting started](/docs/getting-started-guides/)
+cluster). Please see one of the [getting started](/docs/setup/)
 guides for installation instructions for your platform.
 
 {% endcapture %}
@@ -31,8 +31,7 @@ received from the external policy engine.
 
 Shown below is an example ConfigMap for the Admission Controller:
 
-{% include code.html language="yaml" file="scheduling-policy-admission.yaml"
-ghlink="/docs/tutorials/federation/scheduling-policy-admission.yaml" %}
+{% include code.html language="yaml" file="scheduling-policy-admission.yaml" ghlink="/docs/tasks/federation/scheduling-policy-admission.yaml" %}
 
 The ConfigMap contains three files:
 
@@ -82,8 +81,7 @@ Create a Service in the host cluster to contact the external policy engine:
 
 Shown below is an example Service for OPA.
 
-{% include code.html language="yaml" file="policy-engine-service.yaml"
-ghlink="/docs/tutorials/federation/policy-engine-service.yaml" %}
+{% include code.html language="yaml" file="policy-engine-service.yaml" ghlink="/docs/tasks/federation/policy-engine-service.yaml" %}
 
 Create a Deployment in the host cluster with the Federation control plane:
 
@@ -91,8 +89,7 @@ Create a Deployment in the host cluster with the Federation control plane:
 
 Shown below is an example Deployment for OPA.
 
-{% include code.html language="yaml" file="policy-engine-deployment.yaml"
-ghlink="/docs/tutorials/federation/policy-engine-deployment.yaml" %}
+{% include code.html language="yaml" file="policy-engine-deployment.yaml" ghlink="/docs/tasks/federation/policy-engine-deployment.yaml" %}
 
 ## Configuring placement policies via ConfigMaps
 
@@ -105,8 +102,7 @@ Create the namespace if it does not already exist:
 
 Configure a sample policy to test the external policy engine:
 
-{% include code.html language="yaml" file="policy.rego"
-ghlink="/docs/tutorials/federation/policy.rego" %}
+{% include code.html language="yaml" file="policy.rego" ghlink="/docs/tasks/federation/policy.rego" %}
 
 Shown below is the command to create the sample policy:
 
@@ -129,8 +125,7 @@ Annotate one of the clusters to indicate that it is PCI certified.
 
 Deploy a Federated ReplicaSet to test the placement policy.
 
-{% include code.html language="yaml" file="replicaset-example-policy.yaml"
-ghlink="/docs/tutorials/federation/replicaset-example-policy.yaml" %}
+{% include code.html language="yaml" file="replicaset-example-policy.yaml" ghlink="/docs/tasks/federation/replicaset-example-policy.yaml" %}
 
 Shown below is the command to deploy a ReplicaSet that *does* match the policy.
 

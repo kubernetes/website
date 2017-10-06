@@ -435,7 +435,7 @@ the authentication webhook
 queries the remote service with a review object containing the token. Kubernetes
 will not challenge a request that lacks such a header.
 
-Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/api/)
+Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
 as other Kubernetes API objects. Implementers should be aware of looser
 compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API server must
@@ -638,7 +638,7 @@ authorization plugin, the following ClusterRole encompasses the rules needed to
 set user and group impersonation headers:
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: impersonator
@@ -653,7 +653,7 @@ allow a user to use impersonation headers for the extra field "scopes," a user
 should be granted the following role:
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: scopes-impersonator
@@ -667,7 +667,7 @@ The values of impersonation headers can also be restricted by limiting the set
 of `resourceNames` a resource can take.
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: limited-impersonator

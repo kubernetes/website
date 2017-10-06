@@ -20,7 +20,7 @@ Dashboard also provides information on the state of Kubernetes resources in your
 The Dashboard UI is not deployed by default. To deploy it, run the following command:
 
 ```
-kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 ```
 
 ## Accessing the Dashboard UI
@@ -31,7 +31,7 @@ There are multiple ways you can access the Dashboard UI; either by using the kub
 You can access Dashboard using the kubectl command-line tool by running the following command:
 
 ```
-$ kubectl proxy
+kubectl proxy
 ```
 
 Kubectl will handle authentication with apiserver and make Dashboard available at http://localhost:8001/ui.
@@ -64,7 +64,7 @@ To access the deploy wizard from the Welcome page, click the respective button. 
 
 The deploy wizard expects that you provide the following information:
 
-- **App name** (mandatory): Name for your application. A [label](/docs/user-guide/labels/) with the name will be added to the Deployment and Service, if any, that will be deployed.
+- **App name** (mandatory): Name for your application. A [label](/docs/concepts/overview/working-with-objects/labels/) with the name will be added to the Deployment and Service, if any, that will be deployed.
 
   The application name must be unique within the selected Kubernetes [namespace](/docs/tasks/administer-cluster/namespaces/). It must start with a lowercase character, and end with a lowercase character or a number, and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters. Leading and trailing spaces are ignored.
 
@@ -84,7 +84,7 @@ If needed, you can expand the **Advanced options** section where you can specify
 
 - **Description**: The text you enter here will be added as an [annotation](/docs/concepts/overview/working-with-objects/annotations/) to the Deployment and displayed in the application's details.
 
-- **Labels**: Default [labels](/docs/user-guide/labels/) to be used for your application are application name and version. You can specify additional labels to be applied to the Deployment, Service (if any), and Pods, such as release, environment, tier, partition, and release track.
+- **Labels**: Default [labels](/docs/concepts/overview/working-with-objects/labels/) to be used for your application are application name and version. You can specify additional labels to be applied to the Deployment, Service (if any), and Pods, such as release, environment, tier, partition, and release track.
 
   Example:
 

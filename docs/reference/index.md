@@ -8,6 +8,7 @@ approvers:
 
 * [Kubernetes API Overview](/docs/reference/api-overview/) - Overview of the API for Kubernetes.
 * Kubernetes API Versions
+  * [1.8](/docs/api-reference/v1.8/)
   * [1.7](/docs/api-reference/v1.7/)
   * [1.6](/docs/api-reference/v1.6/)
   * [1.5](/docs/api-reference/v1.5/)
@@ -40,4 +41,4 @@ client libraries:
 
 ## Design Docs
 
-An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and [Kubernetes Design Overview](https://github.com/kubernetes/kubernetes/tree/{{page.fullversion}}/docs/design).
+An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and [Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).

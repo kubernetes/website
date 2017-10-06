@@ -14,7 +14,8 @@ scripts not present in an app image.
 
 This feature has exited beta in 1.6. Init Containers can be specified in the PodSpec
 alongside the app `containers` array. The beta annotation value will still be respected
-and overrides the PodSpec field value.
+and overrides the PodSpec field value, however, they are deprecated in 1.6 and 1.7.
+In 1.8, the annotations are no longer supported and must be converted to the PodSpec field.
 
 {% capture body %}
 ## Understanding Init Containers
@@ -87,7 +88,7 @@ Here are some ideas for how to use Init Containers:
   place the POD_IP value in a configuration and generate the main app
   configuration file using Jinja.
 
-More detailed usage examples can be found in the [StatefulSets documentation](/docs/concepts/abstractions/controllers/statefulsets/)
+More detailed usage examples can be found in the [StatefulSets documentation](/docs/concepts/workloads/controllers/statefulset/)
 and the [Production Pods guide](/docs/tasks/#handling-initialization).
 
 ### Init Containers in use
@@ -123,7 +124,7 @@ spec:
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
-There is a new syntax in Kubernetes 1.6, although the old annotation syntax still works. We have moved the declaration of init containers to `spec`:
+There is a new syntax in Kubernetes 1.6, although the old annotation syntax still works for 1.6 and 1.7.  The new syntax must be used for 1.8 or greater. We have moved the declaration of init containers to `spec`:
 
 ```yaml
 apiVersion: v1
@@ -146,7 +147,7 @@ spec:
     command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
 ```
 
-1.5 syntax still works on 1.6, but we recommend using 1.6 syntax. In Kubernetes 1.6, Init Containers were made a field in the API. The beta annotation is still respected but will be deprecated in future releases.
+1.5 syntax still works on 1.6, but we recommend using 1.6 syntax. In Kubernetes 1.6, Init Containers were made a field in the API. The beta annotation is still respected in 1.6 and 1.7, but is not supported in 1.8 or greater.
 
 Yaml file below outlines the `mydb` and `myservice` services:
 
@@ -310,6 +311,10 @@ using the alpha or beta annotations. The `spec.initContainers` field is also mir
 into alpha and beta annotations so that Kubelets version 1.3.0 or greater can execute
 Init Containers, and so that a version 1.6 apiserver can safely be rolled back to version
 1.5.x without losing Init Container functionality for existing created pods.
+
+In Apiserver and Kubelet versions 1.8.0 or greater, support for the alpha and beta annotations
+is removed, requiring a conversion from the deprecated annotations to the
+`spec.initContainers` field.
 
 {% endcapture %}
 

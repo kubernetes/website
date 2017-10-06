@@ -71,7 +71,7 @@ class is marked as default, it rejects any creation of `PersistentVolumeClaim` w
 must revisit `StorageClass` objects and mark only one as default.
 This plugin ignores any `PersistentVolumeClaim` updates; it acts only on creation.
 
-See [persistent volume](/docs/user-guide/persistent-volumes) documentation about persistent volume claims and
+See [persistent volume](/docs/concepts/storage/persistent-volumes/) documentation about persistent volume claims and
 storage classes and how to mark a storage class as default.
 
 ### DefaultTolerationSeconds
@@ -280,7 +280,7 @@ namespace.  In order to enforce integrity of that process, we strongly recommend
 ### NodeRestriction
 
 This plug-in limits the `Node` and `Pod` objects a kubelet can modify. In order to be limited by this admission plugin,
-kubelets must use credentials in the `system:nodes` group, with a username in the form `system:node:<nodeName>`. 
+kubelets must use credentials in the `system:nodes` group, with a username in the form `system:node:<nodeName>`.
 Such kubelets will only be allowed to modify their own `Node` API object, and only modify `Pod` API objects that are bound to their node.
 Future versions may add additional restrictions to ensure kubelets have the minimal set of permissions required to operate correctly.
 
@@ -331,6 +331,35 @@ metadata:
     scheduler.alpha.kubernetes.io/node-selector: <node-selectors-labels>
   name: namespace3
 ```
+
+### PersistentVolumeClaimResize
+
+This plug-in implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
+**Note:** Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
+to `true` to enable resizing.
+{: .note}
+
+After enabling the `ExpandPersistentVolumes` feature gate, enabling the `PersistentVolumeClaimResize` admission
+plug-in is recommended, too. This plug-in prevents resizing of all claims by default unless a claim's `StorageClass`
+ explicitly enables resizing by setting `allowVolumeExpansion` to `true`.
+
+For example: all `PersistentVolumeClaim`s created from the following `StorageClass` support volume expansion:
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gluster-vol-default
+provisioner: kubernetes.io/glusterfs
+parameters:
+  resturl: "http://192.168.10.100:8080"
+  restuser: ""
+  secretNamespace: ""
+  secretName: ""
+allowVolumeExpansion: true
+```
+
+For more information about persistent volume claims, see ["PersistentVolumeClaims"](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 
 ### PodPreset
 
@@ -386,6 +415,7 @@ This plug-in will deny any pod that attempts to set certain escalating [Security
 
 This plug-in implements automation for [serviceAccounts](/docs/user-guide/service-accounts).
 We strongly recommend using this plug-in if you intend to make use of Kubernetes `ServiceAccount` objects.
+
 
 ## Is there a recommended set of plug-ins to use?
 

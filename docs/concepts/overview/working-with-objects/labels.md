@@ -16,7 +16,7 @@ Each object can have a set of key/value labels defined.  Each Key must be unique
 }
 ```
 
-We'll eventually index and reverse-index labels for efficient queries and watches, use them to sort and group in UIs and CLIs, etc. We don't want to pollute labels with non-identifying, especially large and/or structured, data. Non-identifying information should be recorded using [annotations](/docs/user-guide/annotations).
+We'll eventually index and reverse-index labels for efficient queries and watches, use them to sort and group in UIs and CLIs, etc. We don't want to pollute labels with non-identifying, especially large and/or structured, data. Non-identifying information should be recorded using [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 
 * TOC
 {:toc}
@@ -170,4 +170,4 @@ selector:
 #### Selecting sets of nodes
 
 One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
-See the documentation on [node selection](/docs/user-guide/node-selection) for more information.
+See the documentation on [node selection](/docs/concepts/configuration/assign-pod-node/) for more information.

@@ -38,7 +38,7 @@ An Ingress is a collection of rules that allow inbound connections to reach the 
    [ Services ]
 ```
 
-It can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, offer name based virtual hosting etc. Users request ingress by POSTing the Ingress resource to the API server. An [Ingress controller](#ingress-controllers) is responsible for fulfilling the Ingress, usually with a loadbalancer, though it may also configure your edge router or additional frontends to help handle the traffic in an HA manner.
+It can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, offer name based virtual hosting, and more. Users request ingress by POSTing the Ingress resource to the API server. An [Ingress controller](#ingress-controllers) is responsible for fulfilling the Ingress, usually with a loadbalancer, though it may also configure your edge router or additional frontends to help handle the traffic in an HA manner.
 
 ## Prerequisites
 
@@ -222,7 +222,7 @@ Note that there is a gap between TLS features supported by various Ingress contr
 
 ### Loadbalancing
 
-An Ingress controller is bootstrapped with some loadbalancing policy settings that it applies to all Ingress, such as the loadbalancing algorithm, backend weight scheme etc. More advanced loadbalancing concepts (e.g.: persistent sessions, dynamic weights) are not yet exposed through the Ingress. You can still get these features through the [service loadbalancer](https://git.k8s.io/contrib/service-loadbalancer). With time, we plan to distill loadbalancing patterns that are applicable cross platform into the Ingress resource.
+An Ingress controller is bootstrapped with some load balancing policy settings that it applies to all Ingress, such as the load balancing algorithm, backend weight scheme, and others. More advanced load balancing concepts (e.g.: persistent sessions, dynamic weights) are not yet exposed through the Ingress. You can still get these features through the [service loadbalancer](https://git.k8s.io/contrib/service-loadbalancer). With time, we plan to distill load balancing patterns that are applicable cross platform into the Ingress resource.
 
 It's also worth noting that even though health checks are not exposed directly through the Ingress, there exist parallel concepts in Kubernetes such as [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) which allow you to achieve the same end result. Please review the controller specific docs to see how they handle health checks ([nginx](https://git.k8s.io/ingress/controllers/nginx/README.md), [GCE](https://git.k8s.io/ingress/controllers/gce/README.md#health-checks)).
 
@@ -261,7 +261,7 @@ spec:
 ..
 ```
 
-Saving it will update the resource in the API server, which should tell the Ingress controller to reconfigure the loadbalancer.
+Saving the yaml will update the resource in the API server, which should tell the Ingress controller to reconfigure the loadbalancer.
 
 ```shell
 $ kubectl get ing
@@ -292,7 +292,7 @@ Please track the [L7 and Ingress proposal](https://github.com/kubernetes/kuberne
 
 You can expose a Service in multiple ways that don't directly involve the Ingress resource:
 
-* Use [Service.Type=LoadBalancer](/docs/user-guide/services/#type-loadbalancer)
-* Use [Service.Type=NodePort](/docs/user-guide/services/#type-nodeport)
+* Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#type-loadbalancer)
+* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
 * Use a [Port Proxy](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 * Deploy the [Service loadbalancer](https://git.k8s.io/contrib/service-loadbalancer). This allows you to share a single IP among multiple Services and achieve more advanced loadbalancing through Service Annotations.

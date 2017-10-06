@@ -7,7 +7,7 @@ title: Configure Minimum and Maximum Memory Constraints for a Namespace
 
 This page shows how to set minimum and maximum values for memory used by Containers
 running in a namespace. You specify minimum and maximum memory values in a
-[LimitRange](/docs/api-reference/v1.6/#limitrange-v1-core)
+[LimitRange](/docs/api-reference/{{page.version}}/#limitrange-v1-core)
 object. If a Pod does not meet the constraints imposed by the LimitRange,
 it cannot be created in the namespace.
 

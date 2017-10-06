@@ -55,7 +55,7 @@ Run it like this:
 $ kubectl proxy --port=8080 &
 ```
 
-See [kubectl proxy](/docs/user-guide/kubectl/v1.6/#proxy) for more details.
+See [kubectl proxy](/docs/user-guide/kubectl/{{page.version}}/#proxy) for more details.
 
 Then you can explore the API with curl, wget, or a browser, like so:
 
@@ -147,7 +147,7 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 
 To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
 
-The Python client can use the same [kubeconfig file](/docs/user-guide/kubeconfig-file)
+The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
 as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py):
 
 ```python

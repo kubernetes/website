@@ -22,8 +22,10 @@ on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) forma
 **Note:** The question mark (`?`) in the schedule has the same meaning as an asterisk `*`,
 that is, it stands for any of available value for a given field.
 
-**Note:** ScheduledJob resource was introduced in Kubernetes version 1.4, but starting
-from version 1.5 its current name is CronJob.
+**Note:** CronJob resource in `batch/v2alpha1` API group has been deprecated starting
+from cluster version 1.8. You should switch to using `batch/v1beta1`, instead, which is
+enabled by default in the API server.  Further in this document, we will be using
+`batch/v1beta1` in all the examples.
 
 A typical use case is:
 
@@ -32,8 +34,8 @@ A typical use case is:
 
 ### Prerequisites
 
-You need a working Kubernetes cluster at version >= 1.4 (for ScheduledJob), >= 1.5 (for CronJob),
-with batch/v2alpha1 API turned on by passing `--runtime-config=batch/v2alpha1=true` while bringing up
+You need a working Kubernetes cluster at version >= 1.8 (for CronJob). For previous versions of cluster (< 1.8)
+you need to explicitly enable `batch/v2alpha1` API by passing `--runtime-config=batch/v2alpha1=true` to
 the API server (see [Turn on or off an API version for your cluster](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
 for more).
 
@@ -92,7 +94,7 @@ your job name and pod name would be different.
 
 ```shell
 # Replace "hello-4111706356" with the job name in your system
-$ pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
+$ pods=$(kubectl get pods -a --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
 
 $ echo $pods
 hello-4111706356-o9qcm
@@ -111,25 +113,8 @@ $ kubectl delete cronjob hello
 cronjob "hello" deleted
 ```
 
-This stops new jobs from being created. However, running jobs won't be stopped, and no jobs or their pods will
-be deleted. To clean up those jobs and pods, you need to list all jobs created by the cron job, and delete them all:
-
-```shell
-$ kubectl get jobs
-NAME               DESIRED   SUCCESSFUL   AGE
-hello-1201907962   1         1            11m
-hello-1202039034   1         1            8m
-...
-
-$ kubectl delete jobs hello-1201907962 hello-1202039034 ...
-job "hello-1201907962" deleted
-job "hello-1202039034" deleted
-...
-```
-
-Once the jobs are deleted, the pods created by them are deleted as well. Note that all jobs created by cron
-job "hello" will be prefixed "hello-". You can delete them at once with `kubectl delete jobs --all`, if you want to
-delete all jobs in the current namespace (not just the ones created by "hello").
+This stops new jobs from being created and removes all the jobs and pods created by this cronjob.
+You can read more about it in [garbage collection section](/docs/concepts/workloads/controllers/garbage-collection/).
 
 ## Cron Job Limitations
 
@@ -187,6 +172,7 @@ apply to already started executions. Defaults to false.
 
 ### Jobs History Limits
 
-The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional. These fields specify how many completed and failed jobs should be kept.
-
-By default, there are no limits, and all successful and failed jobs are kept. However, jobs can pile up quickly when running a cron job, and setting these fields is recommended. Setting a limit to `0` corresponds to keeping none of the corresponding kind of jobs after they finish.
+The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional.
+These fields specify how many completed and failed jobs should be kept.  By default, they are
+set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping none of the corresponding
+kind of jobs after they finish.

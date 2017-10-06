@@ -20,7 +20,7 @@ service when determining user privileges.
 Mode `Webhook` requires a file for HTTP configuration, specify by the
 `--authorization-webhook-config-file=SOME_FILENAME` flag.
 
-The configuration file uses the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+The configuration file uses the [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 file format. Within the file "users" refers to the API Server webhook and
 "clusters" refers to the remote service.
 
@@ -58,7 +58,7 @@ action. This object contains fields describing the user attempting to make the
 request, and either details about the resource being accessed or requests
 attributes.
 
-Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/api/)
+Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
 as other Kubernetes API objects. Implementers should be aware of looser
 compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API Server must

@@ -37,7 +37,7 @@ The automatic creation and use of API credentials can be disabled or overridden
 if desired.  However, if all you need to do is securely access the apiserver,
 this is the recommended workflow.
 
-See the [Service Account](/docs/user-guide/service-accounts) documentation for more
+See the [Service Account](/docs/tasks/configure-pod-container/configure-service-account/) documentation for more
 information on how Service Accounts work.
 
 ### Creating your own Secrets
@@ -121,7 +121,7 @@ The data field is a map.  Its keys must match
 [`DNS_SUBDOMAIN`](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md), except that leading dots are also
 allowed.  The values are arbitrary data, encoded using base64.
 
-Create the secret using [`kubectl create`](/docs/user-guide/kubectl/v1.7/#create):
+Create the secret using [`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create):
 
 ```shell
 $ kubectl create -f ./secret.yaml
@@ -406,7 +406,7 @@ See [Adding ImagePullSecrets to a service account](/docs/tasks/configure-pod-con
 
 Manually created secrets (e.g. one containing a token for accessing a github account)
 can be automatically attached to pods based on their service account.
-See [Injecting Information into Pods Using a PodPreset](/docs/tasks/run-application/podpreset/) for a detailed explanation of that process.
+See [Injecting Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset/) for a detailed explanation of that process.
 
 ## Details
 

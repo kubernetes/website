@@ -90,9 +90,9 @@ next upcoming release. It's automatically updated as new PRs get merged.
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn about [writing a new topic](/docs/home/contribute/write-new-topic).
+* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes).
+* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/).
 {% endcapture %}
 
 {% include templates/task.md %}

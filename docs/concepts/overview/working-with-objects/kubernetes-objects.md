@@ -36,7 +36,7 @@ Here's an example `.yaml` file that shows the required fields and object spec fo
 
 {% include code.html language="yaml" file="nginx-deployment.yaml" ghlink="/docs/concepts/overview/working-with-objects/nginx-deployment.yaml" %}
 
-One way to create a Deployment using a `.yaml` file like the one above is to use the [`kubectl create`](/docs/user-guide/kubectl/v1.7/#create) command in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
+One way to create a Deployment using a `.yaml` file like the one above is to use the [`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create) command in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
 
 ```shell
 $ kubectl create -f docs/user-guide/nginx-deployment.yaml --record
@@ -56,7 +56,7 @@ In the `.yaml` file for the Kubernetes object you want to create, you'll need to
 * `kind` - What kind of object you want to create
 * `metadata` - Data that helps uniquely identify the object, including a `name` string, UID, and optional `namespace`
 
-You'll also need to provide the object `spec` field. The precise format of the object `spec` is different for every Kubernetes object, and contains nested fields specific to that object. The [Kubernetes API reference](/docs/api/) can help you find the spec format for all of the objects you can create using Kubernetes.
+You'll also need to provide the object `spec` field. The precise format of the object `spec` is different for every Kubernetes object, and contains nested fields specific to that object. The [Kubernetes API reference](/docs/concepts/overview/kubernetes-api/) can help you find the spec format for all of the objects you can create using Kubernetes.
 
 {% endcapture %}
 

@@ -34,7 +34,7 @@ why you might want multiple clusters are:
 * Fault isolation: It might be better to have multiple small clusters rather
   than a single large  cluster for fault isolation (for example: multiple
   clusters in different availability zones of a cloud provider).
-  See [Multi cluster guide](/docs/admin/multi-cluster) for details.
+  See [Multi cluster guide](/docs/concepts/cluster-administration/federation/) for details.
 * Scalability: There are scalability limits to a single kubernetes cluster (this
   should not be the case for most users. For more details:
   [Kubernetes Scaling and Performance Goals](https://git.k8s.io/community/sig-scalability/goals.md)).
@@ -91,7 +91,9 @@ The following guides explain some of the resources in detail:
 * [DaemonSets](/docs/tasks/administer-federation/daemonset/)
 * [Deployment](/docs/tasks/administer-federation/deployment/)
 * [Events](/docs/tasks/administer-federation/events/)
+* [Hpa](/docs/tasks/administer-federation/hpa/)
 * [Ingress](/docs/tasks/administer-federation/ingress/)
+* [Jobs](/docs/tasks/administer-federation/job/)
 * [Namespaces](/docs/tasks/administer-federation/namespaces/)
 * [ReplicaSets](/docs/tasks/administer-federation/replicaset/)
 * [Secrets](/docs/tasks/administer-federation/secret/)

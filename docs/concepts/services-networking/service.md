@@ -4,10 +4,10 @@ approvers:
 title: Services
 ---
 
-Kubernetes [`Pods`](/docs/user-guide/pods) are mortal. They are born and when they die, they
-are not resurrected.  [`ReplicationControllers`](/docs/user-guide/replication-controller) in
+Kubernetes [`Pods`](/docs/concepts/workloads/pods/pod/) are mortal. They are born and when they die, they
+are not resurrected.  [`ReplicationControllers`](/docs/concepts/workloads/controllers/replicationcontroller/) in
 particular create and destroy `Pods` dynamically (e.g. when scaling up or down
-or when doing [rolling updates](/docs/user-guide/kubectl/v1.7/#rolling-update)).  While each `Pod` gets its own IP address, even
+or when doing [rolling updates](/docs/user-guide/kubectl/{{page.version}}/#rolling-update)).  While each `Pod` gets its own IP address, even
 those IP addresses cannot be relied upon to be stable over time. This leads to
 a problem: if some set of `Pods` (let's call them backends) provides
 functionality to other `Pods` (let's call them frontends) inside the Kubernetes
@@ -84,7 +84,7 @@ abstract other kinds of backends.  For example:
   * You want to have an external database cluster in production, but in test
     you use your own databases.
   * You want to point your service to a service in another
-    [`Namespace`](/docs/user-guide/namespaces) or on another cluster.
+    [`Namespace`](/docs/concepts/overview/working-with-objects/namespaces/) or on another cluster.
   * You are migrating your workload to Kubernetes and some of your backends run
     outside of Kubernetes.
 
@@ -120,7 +120,7 @@ subsets:
 NOTE: Endpoint IPs may not be loopback (127.0.0.0/8), link-local
 (169.254.0.0/16), or link-local multicast (224.0.0.0/24).
 
-Accessing a `Service` without a selector works the same as if it had selector.
+Accessing a `Service` without a selector works the same as if it had a selector.
 The traffic will be routed to endpoints defined by the user (`1.2.3.4:9376` in
 this example).
 
@@ -176,7 +176,9 @@ or `Services` or `Pods`.
 
 By default, the choice of backend is round robin.  Client-IP based session affinity
 can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
-default is `"None"`).
+default is `"None"`), and you can set the max session sticky time by setting the field
+`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set
+`service.spec.sessionAffinity` to `"ClientIP"` (the default is "10800").
 
 ![Services overview diagram for userspace proxy](/images/docs/services-userspace-overview.svg)
 
@@ -191,7 +193,9 @@ select a backend `Pod`.
 
 By default, the choice of backend is random.  Client-IP based session affinity
 can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
-default is `"None"`).
+default is `"None"`), and you can set the max session sticky time by setting the field
+`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set
+`service.spec.sessionAffinity` to `"ClientIP"` (the default is "10800").
 
 As with the userspace proxy, the net result is that any traffic bound for the
 `Service`'s IP:Port is proxied to an appropriate backend without the clients
@@ -466,9 +470,9 @@ metadata:
 {% capture azure %}
 ```yaml
 [...]
-metadata: 
+metadata:
     name: my-service
-    annotations: 
+    annotations:
         service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 [...]
 ```
@@ -512,39 +516,36 @@ ELB at the other end of its connection) when forwarding requests.
 TCP and SSL will select layer 4 proxying: the ELB will forward traffic without
 modifying the headers.
 
-```yaml
-metadata:
-  name: my-service
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: (comma-separated-port-names)
-```
-
-The third annotation indicates which port(s) should accept SSL traffic on the ELB. If a certificate is set on the
-Service, the default is to configure all ports on the ELB to use SSL. This is not typically desired for HTTP servers.
-
-A complete HTTP Service supporting SSL might look like:
+In a mixed-use environment where some ports are secured and others are left unencrypted,
+the following annotations may be used:
 
 ```yaml
-kind: Service
-apiVersion: v1
-metadata:
-  name: my-service
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
-    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-    name: http
-    targetPort: 8080
-  - port: 443
-    name: https
-    targetPort: 8080
-  selector:
-    app: MyApp
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+        service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443,8443"
 ```
+
+In the above example, if the service contained three ports, `80`, `443`, and
+`8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
+be proxied HTTP.
+
+#### PROXY protocol support on AWS
+
+To enable [PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
+support for clusters running on AWS, you can use the following service
+annotation:
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+```
+
+Since version 1.3.0 the use of this annotation applies to all ports proxied by the ELB
+and cannot be configured otherwise.
 
 ### External IPs
 
@@ -686,4 +687,4 @@ object](/docs/api-reference/{{page.version}}/#service-v1-core).
 
 ## For More Information
 
-Read [Connecting a Front End to a Back End Using a Service](/docs/tutorials/connecting-apps/connecting-frontend-backend/).
+Read [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/).

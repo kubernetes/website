@@ -15,7 +15,7 @@ non-parallel, use of [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloa
 
 First, download the following template of a job to a file called `job.yaml`
 
-{% include code.html language="yaml" file="job.yaml" ghlink="/docs/tasks/job/parallel-processing-expansion/job.yaml" %}
+{% include code.html language="yaml" file="job.yaml" ghlink="/docs/tasks/job/job.yaml" %}
 
 Unlike a *pod template*, our *job template* is not a Kubernetes API type.  It is just
 a yaml representation of a Job object that has some placeholders that need to be filled
@@ -23,7 +23,7 @@ in before it can be used.  The `$ITEM` syntax is not meaningful to Kubernetes.
 
 In this example, the only processing the container does is to `echo` a string and sleep for a bit.
 In a real use case, the processing would be some substantial computation, such as rendering a frame
-of a movie, or processing a range of rows in a database.  The "$ITEM" parameter would specify for
+of a movie, or processing a range of rows in a database.  The `$ITEM` parameter would specify for
 example, the frame number or the row range.
 
 This Job and its Pod template have a label: `jobgroup=jobexample`.  There is nothing special
@@ -39,8 +39,8 @@ Next, expand the template into multiple files, one for each item to be processed
 
 ```shell
 # Expand files into a temporary directory
-mkdir ./jobs
-for i in apple banana cherry
+$ mkdir ./jobs
+$ for i in apple banana cherry
 do
   cat job.yaml.txt | sed "s/\$ITEM/$i/" > ./jobs/job-$i.yaml
 done
@@ -109,7 +109,7 @@ Processing item cherry
 
 In the first example, each instance of the template had one parameter, and that parameter was also
 used as a label.  However label keys are limited in [what characters they can
-contain](/docs/user-guide/labels/#syntax-and-character-set).
+contain](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
 
 This slightly more complex example uses the jinja2 template language to generate our objects.
 We will use a one-line python script to convert the template to a file.

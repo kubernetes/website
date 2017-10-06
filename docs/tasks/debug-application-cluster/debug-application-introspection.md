@@ -376,10 +376,10 @@ status:
 
 Learn about additional debugging tools, including:
 
-* [Logging](/docs/user-guide/logging/overview)
-* [Monitoring](/docs/user-guide/monitoring)
-* [Getting into containers via `exec`](/docs/user-guide/getting-into-containers)
-* [Connecting to containers via proxies](/docs/user-guide/connecting-to-applications-proxy)
-* [Connecting to containers via port forwarding](/docs/user-guide/connecting-to-applications-port-forward)
+* [Logging](/docs/concepts/cluster-administration/logging/)
+* [Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+* [Getting into containers via `exec`](/docs/tasks/debug-application-cluster/get-shell-running-container/)
+* [Connecting to containers via proxies](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
+* [Connecting to containers via port forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 
 

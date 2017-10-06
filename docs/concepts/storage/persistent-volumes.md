@@ -35,7 +35,7 @@ administrators. Kubernetes itself is unopinionated about what classes
 represent. This concept is sometimes called "profiles" in other storage
 systems.
 
-Please see the [detailed walkthrough with working examples](/docs/user-guide/persistent-volumes/walkthrough/).
+Please see the [detailed walkthrough with working examples](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
 
 
 ## Lifecycle of a volume and claim
@@ -107,7 +107,40 @@ However, the particular path specified in the custom recycler pod template in th
 
 #### Deleting
 
-For volume plugins that support the Delete reclaim policy, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in the external infrastructure, such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume. Volumes that were dynamically provisioned are always deleted. If that is not desired, currently, the only option is to edit or patch the PV after it is created. See [Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
+For volume plugins that support the Delete reclaim policy, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in the external infrastructure, such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume. Volumes that were dynamically provisioned inherit the [reclaim policy of their `StorageClass`](#reclaim-policy-1), which defaults to Delete. The administrator should configure the `StorageClass` according to users' expectations, otherwise the PV must be edited or patched after it is created. See [Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
+
+
+### Expanding Persistent Volumes Claims
+
+With Kubernetes 1.8, we have added Alpha support for expanding persistent volumes. The current Alpha support was designed to only support volume types
+that don't need file system resizing (Currently only glusterfs).
+
+Administrator can allow expanding persistent volume claims by setting `ExpandPersistentVolumes` feature gate to true. Administrator
+should also enable [`PersistentVolumeClaimResize` admission plugin](/docs/admin/admission-controllers/#persistentvolumeclaimresize)
+to perform additional validations of volumes that can be resized.
+
+Once `PersistentVolumeClaimResize` admission plug-in has been turned on, resizing will only be allowed for storage classes
+whose `allowVolumeExpansion` field is set to true.
+
+``` yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gluster-vol-default
+provisioner: kubernetes.io/glusterfs
+parameters:
+  resturl: "http://192.168.10.100:8080"
+  restuser: ""
+  secretNamespace: ""
+  secretName: ""
+allowVolumeExpansion: true
+```
+
+Once both feature gate and aforementioned admission plug-in are turned on, an user can request larger volume for their `PersistentVolumeClaim`
+by simply editing the claim and requesting bigger size.  This in turn will trigger expansion of volume that is backing underlying `PersistentVolume`.
+
+Under no circustances a new `PersistentVolume` gets created to satisfy the claim. Kubernetes will attempt to resize existing volume to satisfy the claim.
+
 
 ## Types of Persistent Volumes
 
@@ -139,20 +172,23 @@ For volume plugins that support the Delete reclaim policy, deletion removes both
 Each PV contains a spec and status, which is the specification and status of the volume.
 
 ```yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv0003
-spec:
-  capacity:
-    storage: 5Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Recycle
-  storageClassName: slow
-  nfs:
-    path: /tmp
-    server: 172.17.0.2
+  apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    name: pv0003
+  spec:
+    capacity:
+      storage: 5Gi
+    accessModes:
+      - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Recycle
+    storageClassName: slow
+    mountOptions:
+      - hard
+      - nfsvers=4.1
+    nfs:
+      path: /tmp
+      server: 172.17.0.2
 ```
 
 ### Capacity
@@ -198,7 +234,7 @@ In the CLI, the access modes are abbreviated to:
 | Quobyte              | &#x2713;     | &#x2713;    | &#x2713;     |
 | NFS                  | &#x2713;     | &#x2713;    | &#x2713;     |
 | RBD                  | &#x2713;     | &#x2713;    | -            |
-| VsphereVolume        | &#x2713;     | -           | -            |
+| VsphereVolume        | &#x2713;     | -           | - (works when pods are collocated)  |
 | PortworxVolume       | &#x2713;     | -           | &#x2713;     |
 | ScaleIO              | &#x2713;     | &#x2713;    | -            |
 | StorageOS            | &#x2713;     | -           | -            |
@@ -225,47 +261,14 @@ Current reclaim policies are:
 
 Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD, Azure Disk, and Cinder volumes support deletion.
 
-### Phase
-
-A volume will be in one of the following phases:
-
-* Available -- a free resource that is not yet bound to a claim
-* Bound -- the volume is bound to a claim
-* Released -- the claim has been deleted, but the resource is not yet reclaimed by the cluster
-* Failed -- the volume has failed its automatic reclamation
-
-The CLI will show the name of the PVC bound to the PV.
-
 ### Mount Options
 
-A Kubernetes administrator can specify additional mount options for when a Persistent Volume is being mounted on a node.
+A Kubernetes administrator can specify additional mount options for when a Persistent Volume is mounted on a node.
 
-You can specify a mount option by using the annotation `volume.beta.kubernetes.io/mount-options` on
-your Persistent Volume.
+**Note:** Not all Persistent volume types support mount options.
+{: .note}
 
-For example:
-
-```yaml
-apiVersion: "v1"
-kind: "PersistentVolume"
-metadata:
-  name: gce-disk-1
-  annotations:
-    volume.beta.kubernetes.io/mount-options: "discard"
-spec:
-  capacity:
-    storage: "10Gi"
-  accessModes:
-    - "ReadWriteOnce"
-  gcePersistentDisk:
-    fsType: "ext4"
-    pdName: "gce-disk-1"
-```
-
-A mount option is a string which will be cumulatively joined and used while mounting volume to the disk.
-
-Note that not all Persistent volume types support mount options. In Kubernetes version 1.6, the following
-volume types support mount options.
+The following volume types support mount options:
 
 * GCEPersistentDisk
 * AWSElasticBlockStore
@@ -281,6 +284,22 @@ volume types support mount options.
 * Quobyte Volumes
 * VMware Photon
 
+Mount options are not validated, so mount will simply fail if one is invalid.
+
+In the past, the annotation `volume.beta.kubernetes.io/mount-options` was used instead
+of the `mountOptions` attribute. This annotation is still working, however
+it will become fully deprecated in a future Kubernetes release.
+
+### Phase
+
+A volume will be in one of the following phases:
+
+* Available -- a free resource that is not yet bound to a claim
+* Bound -- the volume is bound to a claim
+* Released -- the claim has been deleted, but the resource is not yet reclaimed by the cluster
+* Failed -- the volume has failed its automatic reclamation
+
+The CLI will show the name of the PVC bound to the PV.
 
 ## PersistentVolumeClaims
 
@@ -315,7 +334,7 @@ Claims, like pods, can request specific quantities of a resource.  In this case,
 
 ### Selector
 
-Claims can specify a [label selector](/docs/user-guide/labels/#label-selectors) to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim. The selector can consist of two fields:
+Claims can specify a [label selector](/docs/concepts/overview/working-with-objects/labels/#label-selectors) to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim. The selector can consist of two fields:
 
 * matchLabels - the volume must have a label with this value
 * matchExpressions - a list of requirements made by specifying key, list of values, and operator that relates the key and values. Valid operators include In, NotIn, Exists, and DoesNotExist.
@@ -355,8 +374,10 @@ to Kubernetes cluster by addon manager during installation.
 
 When a PVC specifies a `selector` in addition to requesting a `StorageClass`,
 the requirements are ANDed together: only a PV of the requested class and with
-the requested labels may be bound to the PVC. Note that currently, a PVC with a
-non-empty `selector` can't have a PV dynamically provisioned for it.
+the requested labels may be bound to the PVC.
+
+**Note:** Currently, a PVC with a non-empty `selector` can't have a PV dynamically provisioned for it.
+{: .note}
 
 In the past, the annotation `volume.beta.kubernetes.io/storage-class` was used instead
 of `storageClassName` attribute. This annotation is still working, however
@@ -390,9 +411,9 @@ spec:
 
 ## StorageClasses
 
-Each `StorageClass` contains the fields `provisioner` and `parameters`, which
-are used when a `PersistentVolume` belonging to the class needs to be
-dynamically provisioned.
+Each `StorageClass` contains the fields `provisioner`, `parameters`, and
+`reclaimPolicy`, which are used when a `PersistentVolume` belonging to the
+class needs to be dynamically provisioned.
 
 The name of a `StorageClass` object is significant, and is how users can
 request a particular class. Administrators set the name and other parameters
@@ -412,6 +433,9 @@ metadata:
 provisioner: kubernetes.io/aws-ebs
 parameters:
   type: gp2
+reclaimPolicy: Retain
+mountOptions:
+  - debug
 ```
 
 ### Provisioner
@@ -455,12 +479,21 @@ There are also cases when 3rd party storage vendors provide their own external
 provisioner.
 
 ### Reclaim Policy
-Persistent Volumes that are dynamically created by a storage class will have a reclaim
-policy of `delete`.  If that is not desired, the only current option is to edit the
-PV after it is created.
+Persistent Volumes that are dynamically created by a storage class will have the
+reclaim policy specified in the `reclaimPolicy` field of the class, which can be
+either `Delete` or `Retain`. If no `reclaimPolicy` is specified when a
+`StorageClass` object is created, it will default to `Delete`.
 
 Persistent Volumes that are created manually and managed via a storage class will have
 whatever reclaim policy they were assigned at creation.
+
+### Mount Options
+Persistent Volumes that are dynamically created by a storage class will have the
+mount options specified in the `mountOptions` field of the class.
+
+If the volume plugin does not support mount options but mount options are
+specified, provisioning will fail. Mount options are not validated on neither
+the class nor PV, so mount of the PV will simply fail if one is invalid.
 
 ### Parameters
 Storage classes have parameters that describe volumes belonging to the storage
@@ -573,68 +606,46 @@ parameters:
 
 #### vSphere
 
-1. Create a persistent volume with a user specified disk format.
+1. Create a StorageClass with a user specified disk format.
 
-```yaml
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: fast
-provisioner: kubernetes.io/vsphere-volume
-parameters:
-  diskformat: zeroedthick
-```
+        kind: StorageClass
+        apiVersion: storage.k8s.io/v1
+        metadata:
+          name: fast
+        provisioner: kubernetes.io/vsphere-volume
+        parameters:
+          diskformat: zeroedthick
 
--   `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
+    `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
 
-2. Create a persistent volume with a disk format on a user specified datastore.
+2. Create a StorageClass with a disk format on a user specified datastore.
+  
+        kind: StorageClass
+        apiVersion: storage.k8s.io/v1
+        metadata:
+          name: fast
+        provisioner: kubernetes.io/vsphere-volume
+        parameters:
+            diskformat: zeroedthick
+            datastore: VSANDatastore
 
-```yaml
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: fast
-provisioner: kubernetes.io/vsphere-volume
-parameters:
-    diskformat: zeroedthick
-    datastore: VSANDatastore
-```
+    `datastore`: The user can also specify the datastore in the StorageClass. The volume will be created on the datastore specified in the storage class, which in this case is `VSANDatastore`. This field is optional. If the datastore is not specified, then the volume will be created on the datastore specified in the vSphere config file used to initialize the vSphere Cloud Provider.
 
--   `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
--   `datastore`: The user can also specify the datastore in the Storageclass. The volume will be created on the datastore specified in the storage class which in this case is `VSANDatastore`. This field is optional. If not specified as in previous YAML description, the volume will be created on the datastore specified in the vsphere config file used to initialize the vSphere Cloud Provider.
+3. Storage Policy Management inside kubernetes
 
-3. Create a persistent volume with user specified VSAN storage capabilities.
+    * Using existing vCenter SPBM policy
 
-```yaml
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: vsan-policy-fast
-provisioner: kubernetes.io/vsphere-volume
-parameters:
-  diskformat: thin
-  hostFailuresToTolerate: "1"
-  diskStripes: "2"
-  cacheReservation: "20"
-  datastore: VSANDatastore
-```
+      One of the most important features of vSphere for Storage Management is policy based Management. Storage Policy Based Management (SPBM) is a storage policy framework that provides a single unified control plane across a broad range of data services and storage solutions. SPBM enables vSphere administrators to overcome upfront storage provisioning challenges, such as capacity planning, differentiated service levels and managing capacity headroom.
 
--   Here, the user can specify VSAN storage capabilities for dynamic volume provisioning inside Kubernetes.
--   Storage Policies capture storage requirements, such as performance and availability, for persistent volumes. These policies determine how the container volume storage objects are provisioned and allocated within the datastore to guarantee the requested Quality of Service. Storage policies are composed of storage capabilities, typically represented by a key-value pair. The key is a specific property that the datastore can offer and the value is a metric, or a range, that the datastore guarantees for a provisioned object, such as a container volume backed by a virtual disk.
--   As described in [official documentation](https://pubs.vmware.com/vsphere-65/index.jsp?topic=%2Fcom.vmware.vsphere.virtualsan.doc%2FGUID-08911FD3-2462-4C1C-AE81-0D4DBC8F7990.html), VSAN exposes multiple storage capabilities. The below table lists VSAN storage capabilities that are currently supported by vSphere Cloud Provider.
+      The SPBM policies can be specified in the StorageClass using the storagePolicyName parameter.
 
-    Storage Capability Name       | Description
-    -------------------- | ------------
-    cacheReservation     | Flash read cache reservation
-    diskStripes          | Number of disk stripes per object
-    forceProvisioning     | Force provisioning
-    hostFailuresToTolerate     | Number of failures to tolerate
-    iopsLimit     | IOPS limit for object
-    objectSpaceReservation     | Object space reservation
+    * Virtual SAN policy support inside Kubernetes
 
-    vSphere Infrastructure(VI) administrator can specify storage requirements for applications in terms of storage capabilities while creating a storage class inside Kubernetes. Please note that while creating a StorageClass, administrator should specify storage capability names used in the table above as these names might differ from the ones used by VSAN. For example - Number of disk stripes per object is referred to as stripeWidth in VSAN documentation however vSphere Cloud Provider uses a friendly name diskStripes.
+      Vsphere Infrastructure (VI) Admins will have the ability to specify custom Virtual SAN Storage Capabilities during dynamic volume provisioning. You can now define storage requirements, such as performance and availability, in the form of storage capabilities during dynamic volume provisioning. The storage capability requirements are converted into a Virtual SAN policy which are then pushed down to the Virtual SAN layer when a persistent volume (virtual disk) is being created. The virtual disk is distributed across the Virtual SAN datastore to meet the requirements.
 
-You can see [vSphere example](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere) for more details.
+      You can see [Storage Policy Based Management for dynamic provisioning of volumes](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html) for more details on how to use storage policies for persistent volumes management.
+        
+There are few [vSphere examples](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere) which you try out for persistent volume management inside Kubernetes for vSphere.
 
 #### Ceph RBD
 
@@ -795,8 +806,8 @@ provisioner: kubernetes.io/scaleio
 parameters:
   gateway: https://192.168.99.200:443/api
   system: scaleio
-  protectionDomain: default
-  storagePool: default
+  protectionDomain: pd0
+  storagePool: sp1
   storageMode: ThinProvisionned
   secretRef: sio-secret
   readOnly: false
@@ -806,12 +817,12 @@ parameters:
 * `provisioner`: attribute is set to `kubernetes.io/scaleio`
 * `gateway`: address to a ScaleIO API gateway (required)
 * `system`: the name of the ScaleIO system (required)
-* `protectionDomain`: the name of the ScaleIO protection domain
-* `storagePool`: the name of the volume storage pool
+* `protectionDomain`: the name of the ScaleIO protection domain (required)
+* `storagePool`: the name of the volume storage pool (required)
 * `storageMode`: the storage provision mode: `ThinProvisionned` (default) or `ThickProvisionned`
-* `secretRef`: reference to a configured Secret object (required, see detail below)
-* `readOnly`: specifies the access mode to the mounted volume
-* `fsType`: the file system to use for the volume
+* `secretRef`: reference to a configured Secret object (required)
+* `readOnly`: specifies the access mode to the mounted volume (default false)
+* `fsType`: the file system to use for the volume (default ext4)
 
 The ScaleIO Kubernetes volume plugin requires a configured Secret object.
 The secret must be created with type `kubernetes.io/scaleio` and use the same namespace value as that of the PVC where it is referenced

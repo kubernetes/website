@@ -91,7 +91,7 @@ to wait until some pods are terminated or a new node is added.
 Cluster autoscaler looks for the pods that cannot be scheduled and checks if adding a new node, similar
 to the other in the cluster, would help. If yes, then it resizes the cluster to accommodate the waiting pods.
 
-Cluster autoscaler also scales down the cluster if it notices that some node is not needed anymore for
+Cluster autoscaler also scales down the cluster if it notices that one or more nodes are not needed anymore for
 an extended period of time (10min but it may change in the future).
 
 Cluster autoscaler is configured per instance group (GCE) or node pool (GKE).
@@ -198,4 +198,4 @@ You can use `kubectl convert` command to convert config files between different 
 kubectl convert -f pod.yaml --output-version v1
 ```
 
-For more options, please refer to the usage of [kubectl convert](/docs/user-guide/kubectl/v1.6/#convert) command.
+For more options, please refer to the usage of [kubectl convert](/docs/user-guide/kubectl/{{page.version}}/#convert) command.

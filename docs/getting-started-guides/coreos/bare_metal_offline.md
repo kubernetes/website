@@ -631,7 +631,7 @@ Reboot these servers to get the images PXEd and ready for running containers!
 
 Now that the CoreOS with Kubernetes installed is up and running lets spin up some Kubernetes pods to demonstrate the system.
 
-See [a simple nginx example](/docs/user-guide/simple-nginx) to try out your new cluster.
+See [a simple nginx example](/docs/user-guide/simple-nginx/) to try out your new cluster.
 
 For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/).
 
@@ -683,6 +683,6 @@ for i in `kubectl get pods | awk '{print $1}'`; do kubectl delete pod $i; done
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Bare-metal (Offline) | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/bare_metal_offline)              |          | Community ([@jeffbean](https://github.com/jeffbean))
+Bare-metal (Offline) | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/bare_metal_offline/)              |          | Community ([@jeffbean](https://github.com/jeffbean))
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions/) chart.

@@ -136,7 +136,7 @@ image format is SVG.
 
 {% capture whatsnext %}
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes).
+* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/).
 * Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
 {% endcapture %}
 

@@ -93,7 +93,7 @@ Even though Kubernetes provides a lot of functionality, there are always new sce
 
 Additionally, the [Kubernetes control plane](/docs/concepts/overview/components/) is built upon the same [APIs](/docs/reference/api-overview/) that are available to developers and users. Users can write their own controllers, such as [schedulers](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/devel/scheduler.md), with [their own APIs](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/api-machinery/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
 
-This [design](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/architecture/principles.md) has enabled a number of other systems to build atop Kubernetes.
+This [design](https://git.k8s.io/community/contributors/design-proposals/architecture/principles.md) has enabled a number of other systems to build atop Kubernetes.
 
 #### What Kubernetes is not
 
@@ -121,7 +121,7 @@ The name **Kubernetes** originates from Greek, meaning *helmsman* or *pilot*, an
 {% endcapture %}
 
 {% capture whatsnext %}
-*   Ready to [Get Started](/docs/getting-started-guides/)?
+*   Ready to [Get Started](/docs/setup/)?
 *   For more details, see the [Kubernetes Documentation](/docs/home/).
 {% endcapture %}
 {% include templates/concept.md %}

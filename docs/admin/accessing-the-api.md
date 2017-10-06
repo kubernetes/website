@@ -97,7 +97,7 @@ Kubernetes authorization requires that you use common REST attributes to interac
 
 Kubernetes supports multiple authorization modules, such as ABAC mode, RBAC Mode, and Webhook mode. When an administrator creates a cluster, they configured the authorization modules that should be used in the API server. If more than one authorization modules are configured, Kubernetes checks each module, and if any module authorizes the request, then the request can proceed. If all of the modules deny the request, then the request is denied (HTTP status code 403).
 
-To learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules, see [Authorization Overview](/docs/admin/authorization). 
+To learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules, see [Authorization Overview](/docs/admin/authorization/). 
 
 
 ## Admission Control
@@ -149,7 +149,7 @@ By default the Kubernetes API server serves HTTP on 2 ports:
           - default IP is first non-localhost network interface, change with `--bind-address` flag.
           - request handled by authentication and authorization modules.
           - request handled by admission control module(s).
-          - authentication and authorisation modules run.
+          - authentication and authorization modules run.
 
 When the cluster is created by `kube-up.sh`, on Google Compute Engine (GCE),
 and on several other cloud providers, the API server serves on port 443.  On

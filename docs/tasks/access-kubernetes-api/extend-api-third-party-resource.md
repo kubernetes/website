@@ -12,7 +12,7 @@ title: Extend the Kubernetes API with ThirdPartyResources
 
 ## What is ThirdPartyResource?
 
-**ThirdPartyResource is deprecated as of Kubernetes 1.7 and may be removed in version 1.8 in
+**ThirdPartyResource is deprecated as of Kubernetes 1.7 and has been removed in version 1.8 in
 accordance with the [deprecation policy](/docs/reference/deprecation-policy) for beta features.**
 
 **To avoid losing data stored in ThirdPartyResources, you must
@@ -134,3 +134,11 @@ $ kubectl get crontab -o json
     "selfLink": ""
 }
 ```
+
+## What's next
+
+* [Migrate a ThirdPartyResource to a CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/)
+* [Extend the Kubernetes API with CustomResourceDefinitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
+* [ThirdPartyResource](/docs/api-reference/v1.7/#thirdpartyresource-v1beta1-extensions)
+
+

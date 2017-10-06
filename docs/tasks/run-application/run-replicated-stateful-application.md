@@ -1,6 +1,5 @@
 ---
 approvers:
-- bprashanth
 - enisoc
 - erictune
 - foxish
@@ -13,7 +12,7 @@ title: Run a Replicated Stateful Application
 {% capture overview %}
 
 This page shows how to run a replicated stateful application using a
-[StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/) controller.
+[StatefulSet](/docs/concepts/workloads/controllers/statefulset/) controller.
 The example is a MySQL single-master topology with multiple slaves running
 asynchronous replication.
 
@@ -29,7 +28,7 @@ on general patterns for running stateful applications in Kubernetes.
 * {% include default-storage-class-prereqs.md %}
 * This tutorial assumes you are familiar with
   [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
-  and [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/),
+  and [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
   as well as other core concepts like [Pods](/docs/concepts/workloads/pods/pod/),
   [Services](/docs/concepts/services-networking/service/), and
   [ConfigMaps](/docs/tasks/configure-pod-container/configmap/).
@@ -149,7 +148,7 @@ properties to perform orderly startup of MySQL replication.
 ### Generating configuration
 
 Before starting any of the containers in the Pod spec, the Pod first runs any
-[Init Containers](/docs/user-guide/production-pods/#handling-initialization)
+[Init Containers](/docs/concepts/workloads/pods/init-containers/)
 in the order defined.
 
 The first Init Container, named `init-mysql`, generates special MySQL config
@@ -169,7 +168,7 @@ Because the example topology consists of a single MySQL master and any number of
 slaves, the script simply assigns ordinal `0` to be the master, and everyone
 else to be slaves.
 Combined with the StatefulSet controller's
-[deployment order guarantee](/docs/concepts/abstractions/controllers/statefulsets/#deployment-and-scaling-guarantee),
+[deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees/),
 this ensures the MySQL master is Ready before creating slaves, so they can begin
 replicating.
 
@@ -225,7 +224,7 @@ by running a temporary container with the `mysql:5.7` image and running the
 `mysql` client binary.
 
 ```shell
-kubectl run mysql-client --image=mysql:5.7 -i -t --rm --restart=Never --\
+kubectl run mysql-client --image=mysql:5.7 -i --rm --restart=Never --\
   mysql -h mysql-0.mysql <<EOF
 CREATE DATABASE test;
 CREATE TABLE test.messages (message VARCHAR(250));
@@ -293,7 +292,7 @@ running while you force a Pod out of the Ready state.
 
 ### Break the Readiness Probe
 
-The [readiness probe](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks)
+The [readiness probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-readiness-probes)
 for the `mysql` container runs the command `mysql -h 127.0.0.1 -e 'SELECT 1'`
 to make sure the server is up and able to execute queries.
 
@@ -350,7 +349,7 @@ and then return on its own.
 
 If your Kubernetes cluster has multiple Nodes, you can simulate Node downtime
 (such as when Nodes are upgraded) by issuing a
-[drain](/docs/user-guide/kubectl/v1.6/#drain).
+[drain](/docs/user-guide/kubectl/{{page.version}}/#drain).
 
 First determine which Node one of the MySQL Pods is on:
 
@@ -411,7 +410,7 @@ With MySQL replication, you can scale your read query capacity by adding slaves.
 With StatefulSet, you can do this with a single command:
 
 ```shell
-kubectl scale --replicas=5 statefulset mysql
+kubectl scale statefulset mysql  --replicas=5
 ```
 
 Watch the new Pods come up by running:
@@ -444,7 +443,7 @@ pod "mysql-client" deleted
 Scaling back down is also seamless:
 
 ```shell
-kubectl scale --replicas=3 statefulset mysql
+kubectl scale statefulset mysql --replicas=3
 ```
 
 Note, however, that while scaling up creates new PersistentVolumeClaims
