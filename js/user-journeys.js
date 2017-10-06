@@ -7,43 +7,43 @@ $( document ).ready(function() {
         foundational: [
           {
             label: "Setup a development environment.",
-            url: "application_developer-foundational.html#1"
+            url: "/docs/user-journeys/application_developer-foundational.html#1"
           },
           {
             label: "Deploy, scale, and update an application.",
-            url: "application_developer-foundational.html#2"
+            url: "/docs/user-journeys/application_developer-foundational.html#2"
           },
           {
             label: "Understand Kubernetes basics, such as Containers, Pods, Labels and Annotations.",
-            url: "application_developer-foundational.html#3"
+            url: "/docs/user-journeys/application_developer-foundational.html#3"
           }
         ],
         intermediate: [
           {
             label: "Setup a full-featured or production environment.",
-            url: "application_developer-intermediate.html#1"
+            url: "/docs/user-journeys/application_developer-intermediate.html#1"
           },
           {
             label: "Work with commonly used features, such as Service Discovery, Networking, and ReplicaSets.",
-            url: "application_developer-intermediate.html#2"
+            url: "/docs/user-journeys/application_developer-intermediate.html#2"
           },
           {
             label: "Understand key concepts, such as the API/Controller pattern, Schedulers, and Node Affinity.",
-            url: "application_developer-intermediate.html#3"
+            url: "/docs/user-journeys/application_developer-intermediate.html#3"
           }
         ],
         advanced: [
           {
             label: "Setup federated clusters.",
-            url: "application_developer-advanced.html#1"
+            url: "/docs/user-journeys/application_developer-advanced.html#1"
           },
           {
             label: "Deploy an application with advanced features, such as StatefulSets, DaemonSets, and Jobs.",
-            url: "application_developer-advanced.html#2"
+            url: "/docs/user-journeys/application_developer-advanced.html#2"
           },
           {
             label: "Explore advanced topics, such as Storage Solutions, Custom Resources, and Pod Disruptions.",
-            url: "application_developer-advanced.html#3"
+            url: "/docs/user-journeys/application_developer-advanced.html#3"
           }
         ]
       },
