@@ -525,7 +525,7 @@ it off regardless. Doing so will disable the ability to use the `--discovery-tok
 Fetch the `cluster-info` file from the API Server:
 
 ```console
-$ kubectl -n kube-public get cm cluster-info -oyaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+$ kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
 apiVersion: v1
 clusters:
 - cluster:

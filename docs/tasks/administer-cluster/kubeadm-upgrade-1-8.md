@@ -85,7 +85,7 @@ $ kubeadm upgrade plan
 [upgrade/health] Checking Static Pod manifests exists on disk: All manifests exist on disk
 [upgrade/config] Making sure the configuration is correct:
 [upgrade/config] Reading configuration from the cluster...
-[upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
 [upgrade] Fetching available versions to upgrade to:
 [upgrade/versions] Cluster version: v1.7.1
 [upgrade/versions] kubeadm version: v1.8.0
@@ -146,7 +146,7 @@ $ kubeadm upgrade apply v1.8.0
 [upgrade/health] Checking Static Pod manifests exists on disk: All manifests exist on disk
 [upgrade/config] Making sure the configuration is correct:
 [upgrade/config] Reading configuration from the cluster...
-[upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
 [upgrade/version] You have chosen to upgrade to version "v1.8.0"
 [upgrade/versions] Cluster version: v1.7.1
 [upgrade/versions] kubeadm version: v1.8.0
