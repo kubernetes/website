@@ -334,8 +334,13 @@ $ kubectl get node kubernetes-node-861h -o yaml
 apiVersion: v1
 kind: Node
 metadata:
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    volumes.kubernetes.io/controller-managed-attach-detach: "true"
   creationTimestamp: 2015-07-10T21:32:29Z
   labels:
+    beta.kubernetes.io/arch: amd64
+    beta.kubernetes.io/os: linux
     kubernetes.io/hostname: kubernetes-node-861h
   name: kubernetes-node-861h
   resourceVersion: "757"
@@ -351,25 +356,81 @@ status:
     type: InternalIP
   - address: 104.197.0.26
     type: ExternalIP
+  - address: 20.20.20.65
+    type: Hostname
+  allocatable:
+    cpu: 500m
+    hugePages: "0"
+    memory: 1478959Ki
+    pods: "100"
   capacity:
     cpu: "1"
+    hugePages: "0"
     memory: 3800808Ki
     pods: "100"
   conditions:
   - lastHeartbeatTime: 2015-07-10T21:34:32Z
     lastTransitionTime: 2015-07-10T21:35:15Z
-    reason: Kubelet stopped posting node status.
+    message: Kubelet stopped posting node status.
+    reason: NodeStatusUnknown
+    status: Unknown
+    type: OutOfDisk
+  - lastHeartbeatTime: 2015-07-10T21:34:32Z
+    lastTransitionTime: 2015-07-10T21:35:15Z
+    message: Kubelet stopped posting node status.
+    reason: NodeStatusUnknown
+    status: Unknown
+    type: MemoryPressure
+  - lastHeartbeatTime: 2015-07-10T21:34:32Z
+    lastTransitionTime: 2015-07-10T21:35:15Z
+    message: Kubelet stopped posting node status.
+    reason: NodeStatusUnknown
+    status: Unknown
+    type: DiskPressure
+  - lastHeartbeatTime: 2015-07-10T21:34:32Z
+    lastTransitionTime: 2015-07-10T21:35:15Z
+    message: Kubelet stopped posting node status.
+    reason: NodeStatusUnknown
     status: Unknown
     type: Ready
+  daemonEndpoints:
+    kubeletEndpoint:
+      Port: 10250
+  images:
+  - names:
+    - 10.114.51.54/usee/hyperkube-amd64@sha256:4e20189fc600093d2e360da5272a86588a9a4dfd064cbf03a0d14c68c6fa97f7
+    - 10.114.51.54/usee/hyperkube-amd64:v1.6.9
+    sizeBytes: 376483888
+  - names:
+    - 10.114.51.54/usee/flannel@sha256:7b5fe5260e978c3b2cc9aaebb3cf0538aa92cb82ffb7d7a584caa5185efa196e
+    - 10.114.51.54/usee/flannel:v0.8.0
+    sizeBytes: 51338908
+  - names:
+    - 10.114.51.54/usee/ikeepalived@sha256:113ec6114b8c7c939bad73240a5bf9b8febfd84db960843d1eae72d4ad561968
+    - 10.114.51.54/usee/ikeepalived:v2
+    sizeBytes: 46659970
+  - names:
+    - 10.114.51.54/usee/etcd@sha256:68294caf183a8c4325725c50ab831e599e3e5c21cebb2b4d31dc3336c1963cf3
+    - 10.114.51.54/usee/etcd:v3.0.17
+    sizeBytes: 42638303
+  - names:
+    - 10.114.51.54/usee/pause-amd64@sha256:f08f3ef4886ad27a80682c1e55ede2dbe8a801c521db07859b829101488f7d83
+    - 10.114.51.54/usee/pause-amd64:3.0
+    sizeBytes: 350164
   nodeInfo:
+    architecture: amd64
     bootID: 4e316776-b40d-4f78-a4ea-ab0d73390897
     containerRuntimeVersion: docker://Unknown
+    gpus: []
     kernelVersion: 3.16.0-0.bpo.4-amd64
     kubeProxyVersion: v0.21.1-185-gffc5a86098dc01
     kubeletVersion: v0.21.1-185-gffc5a86098dc01
     machineID: ""
+    operatingSystem: linux
     osImage: Debian GNU/Linux 7 (wheezy)
     systemUUID: ABE5F6B4-D44B-108B-C46A-24CCE16C8B6E
+    vgaDevices:
+    - Cirrus Logic GD 5446
 ```
 
 ## What's next?
