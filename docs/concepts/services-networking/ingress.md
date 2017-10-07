@@ -44,7 +44,7 @@ It can be configured to give services externally-reachable URLs, load balance tr
 
 Before you start using the Ingress resource, there are a few things you should understand. The Ingress is a beta resource, not available in any Kubernetes release prior to 1.1. You need an Ingress controller to satisfy an Ingress, simply creating the resource will have no effect.
 
-GCE/GKE deploys an ingress controller on the master. You can deploy any number of custom ingress controllers in a pod. You must annotate each ingress with the appropriate class, as indicated [here](https://git.k8s.io/ingress/controllers/nginx#running-multiple-ingress-controllers) and [here](https://git.k8s.io/ingress/controllers/gce/BETA_LIMITATIONS.md#disabling-glbc).
+GCE/GKE deploys an ingress controller on the master. You can deploy any number of custom ingress controllers in a pod. You must annotate each ingress with the appropriate class, as indicated [here](https://git.k8s.io/ingress#running-multiple-ingress-controllers) and [here](https://git.k8s.io/ingress-gce/BETA_LIMITATIONS.md#disabling-glbc).
 
 Make sure you review the [beta limitations](https://git.k8s.io/ingress/controllers/gce/BETA_LIMITATIONS.md) of this controller. In environments other than GCE/GKE, you need to [deploy a controller](https://git.k8s.io/ingress/controllers) as a pod.
 
