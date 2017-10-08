@@ -168,12 +168,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: special-config
-              key: special_level
+              key: SPECIAL_LEVEL
         - name: SPECIAL_TYPE_KEY
           valueFrom:
             configMapKeyRef:
               name: special-config
-              key: special_type
+              key: SPECIAL_TYPE
   restartPolicy: Never
 ```
 
