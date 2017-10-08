@@ -86,7 +86,7 @@ kubelet
       --experimental-allocatable-ignore-eviction                 When set to 'true', Hard Eviction Thresholds will be ignored while calculating Node Allocatable. See https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md for more details. [default=false]
       --experimental-allowed-unsafe-sysctls stringSlice          Comma-separated whitelist of unsafe sysctls or unsafe sysctl patterns (ending in *). Use these at your own risk.
       --experimental-bootstrap-kubeconfig string                 deprecated: use --bootstrap-kubeconfig
-      --experimental-check-node-capabilities-before-mount        [Experimental] if set true, the kubelet will check the underlying node for required componenets (binaries, etc.) before performing the mount
+      --experimental-check-node-capabilities-before-mount        [Experimental] if set true, the kubelet will check the underlying node for required components (binaries, etc.) before performing the mount
       --experimental-kernel-memcg-notification                   If enabled, the kubelet will integrate with the kernel memcg notification to determine if memory eviction thresholds are crossed rather than polling.
       --experimental-mounter-path string                         [Experimental] Path of mounter binary. Leave empty to use the default mount.
       --experimental-qos-reserved mapStringString                A set of ResourceName=Percentage (e.g. memory=50%) pairs that describe how pod resource requests are reserved at the QoS level. Currently only memory is supported. [default=none]
