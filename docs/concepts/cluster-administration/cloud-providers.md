@@ -61,7 +61,7 @@ This section describes all the possible configurations which can
 be used when using OpenStack with Kubernetes.
 
 ## cloud.conf
-Kubernetes knows how to interact with OpenStack via the file cloud.conf.It is the file that will tell Kubernetes where are your credentials and OpenStack auth endpoint.
+Kubernetes knows how to interact with OpenStack via the file cloud.conf. It is the file that will provide Kubernetes with credentials and location for the OpenStack auth endpoint.
 You can create a cloud.conf file by specifying the following details in it
 
 ### Minimal configuration
@@ -80,7 +80,7 @@ subnet-id=6937f8fa-858d-4bc9-a3a5-18d2c957166a
 #### Global
 *`username`: Refers to the username of a valid user set in keystone.
 *`password`:Refers to the password of a valid user set in keystone.
-*`auth-url`: The URL of the keystone API used to authenticate.On OpenStack control panels,this can be found at: Access and Security > API Access > Credentials
+*`auth-url`: The URL of the keystone API used to authenticate. On OpenStack control panels,this can be found at: Access and Security > API Access > Credentials
 *`tenant-id`: Used to specify the id of the project where you want to create your resources.
 *`domain-id`: Used to specify the id of the domain your user belongs to.
 
