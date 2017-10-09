@@ -4,19 +4,18 @@ title: Troubleshooting kubeadm
 
 {% capture overview %}
 
-Sometimes you will run into errors installing or operating kubeadm. Below we have listed 
+As with any program, you might run into an error using or operating it. Below we have listed 
 common failure scenarios and have provided steps that will help you to understand and hopefully
 fix the problem.
 
 If your problem is not listed below, please follow the following steps:
 
 - If you think your problem is a bug with kubeadm:
-  - Go to github.com/kubernetes/kubeadm and search for existing issues.
-  - If no issue exists, please [open one](https://github.com/kubernetes/kubeadm/issues/new) explaining
-    what the issue is, and what you expect kubeadm to do.
+  - Go to [github.com/kubernetes/kubeadm](https://github.com/kubernetes/kubeadm/issues) and search for existing issues.
+  - If no issue exists, please [open one](https://github.com/kubernetes/kubeadm/issues/new) and follow the issue template.
 
 - If you are unsure about how kubeadm or kubernetes works, and would like to receive 
-  support about your question, please open a question on StackOverflow. Please include 
+  support about your question, please ask on Slack in #kubeadm, or open a question on StackOverflow. Please include 
   relevant tags like `#kubernetes` and `#kubeadm` so folks can help you.
 
 If your cluster is in an error state, you may have trouble in the configuration if you see Pod statuses like `RunContainerError`,
@@ -56,7 +55,7 @@ an issue in the Pod Network providers' issue tracker and get the issue triaged t
 
 #### `kube-dns` is stuck in the `Pending` state
 
-This is expected and part of the design. kubeadm is network provider-agnostic, so the admin
+This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
 should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
 of choice. You have to install a Pod Network
 before `kube-dns` may deployed fully. Hence the `Pending` state before the network is set up.
@@ -116,23 +115,18 @@ If you are using CentOS and encounter difficulty while setting up the master nod
 verify that your Docker cgroup driver matches the kubelet config:
 
 ```bash
-docker info |grep -i cgroup
+docker info | grep -i cgroup
 cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
-If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver.
-
-Update
-
-```bash
-KUBELET_CGROUP_ARGS=--cgroup-driver=systemd
-```
-
-To
+If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver. The
+flag you need to change is `--cgroup-driver`. If it's already set, you can update like so:
 
 ```bash
-KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs
+sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
+
+Otherwise, you will need to open the systemd file and add the flag to an existing environment line.
 
 Then restart kubelet:
 

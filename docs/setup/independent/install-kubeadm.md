@@ -187,8 +187,6 @@ systemctl enable kubelet && systemctl start kubelet
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
 
-{% endcapture %}
-
 ## Troubleshooting
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
@@ -197,6 +195,8 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 
 * [Using kubeadm to Create a
   Cluster](/docs/setup/independent/create-cluster-kubeadm/)
+
+{% endcapture %}
 
 {% endcapture %}
 
