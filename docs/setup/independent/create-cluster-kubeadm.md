@@ -506,6 +506,9 @@ Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be abl
 Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
 v1.8.
 
+Please also check our [installation guide](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+for more information on the version skew between kubelets and the control panel.
+
 ## kubeadm is multi-platform {#multi-platform}
 
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
