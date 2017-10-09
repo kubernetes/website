@@ -5,6 +5,6 @@ tags:
 - architecture
 - extension
 short-description: |
-  An API object that manages external access to the services in a cluster.
+  An API object that manages external access to the services in a cluster, typically HTTP.
 long-description: |
   It can provide load balancing, SSL termination and name-based virtual hosting.

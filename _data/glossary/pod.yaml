@@ -9,6 +9,6 @@ tags:
 - core-object
 - fundamental
 short-description: |
-  The smallest and simplest Kubernetes object. Represents a set of running processes on your cluster.
+  The smallest and simplest Kubernetes object. Represents a set of running containers on your cluster.
 long-description: |
   A pod is typically set up to run a single primary container. It can also run optional sidecar containers that add supplementary features like logging. Pods are commonly managed by a Deployment.
