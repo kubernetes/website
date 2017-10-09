@@ -307,7 +307,7 @@ checking that the kube-dns pod is Running in the output of `kubectl get pods --a
 And once the kube-dns pod is up and running, you can continue by joining your nodes.
 
 If your network is not working or kube-dns is not in the Running state, check
-out the [troubleshooting section](/docs/setup/independent/troubleshooting-kubeadm/) below.
+out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
 #### Master Isolation
 
