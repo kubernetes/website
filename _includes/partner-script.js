@@ -582,13 +582,6 @@
 			blurb: 'Booz Allen partners with public and private sector clients to solve their most difficult challenges through a combination of consulting, analytics, mission operations, technology, systems delivery, cybersecurity, engineering, and innovation expertise.'
 			},
 		{
-			type: 2,
-			name: 'Booz Allen Hamilton',
-			logo: 'boozallenhamilton',
-			link: 'https://www.boozallen.com/expertise/digital-solutions.html',
-			blurb: 'Provider of Digital Solutions for federal and commercial clients, to include DevSecOps, cloud platforms, transformation strategy, cognitive solutions, and UX.'
-				},
-		{
 			type: 1,
 			name: 'BigBinary',
 			logo: 'bigbinary',
