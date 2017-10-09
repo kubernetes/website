@@ -65,25 +65,6 @@ The pod network plugin you use (see below) may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
 
-## Installing ebtables ethtool
-
-If you see the following warnings while running `kubeadm init`
-
-```
-[preflight] WARNING: ebtables not found in system path                          
-[preflight] WARNING: ethtool not found in system path                           
-```
-
-Then you may be missing ebtables and ethtool on your Linux machine. You can install them with the following commands: 
-
-```
-# For ubuntu/debian users, try 
-apt install ebtables ethtool
-
-# For CentOS/Fedora users, try 
-yum install ebtables ethtool
-```
-
 ## Installing Docker
 
 On each of your machines, install Docker.
@@ -207,6 +188,10 @@ The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
 
 {% endcapture %}
+
+## Troubleshooting
+
+If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
 {% capture whatsnext %}
 
