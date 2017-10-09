@@ -346,7 +346,7 @@ IP's in less time than that given appropriate configuration.
 #### I cannot connect to my cluster federation API
 Check that your
 
-1. Client (typically kubectl) is correctly configured (including API endpoints and login credentials), and
+1. Client (typically kubectl) is correctly configured (including API endpoints and login credentials).
 2. Cluster Federation API server is running and network-reachable.
 
 See the [federation admin guide](/docs/admin/federation/) to learn
