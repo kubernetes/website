@@ -233,6 +233,6 @@ centos-minion-3        Ready      3d      v1.6.0+fff5156
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Bare-metal           | custom       | CentOS | flannel     | [docs](/docs/getting-started-guides/centos/centos_manual_config)            |          | Community ([@coolsvap](https://github.com/coolsvap))
+Bare-metal           | custom       | CentOS | flannel     | [docs](/docs/setup/centos/centos_manual_config)            |          | Community ([@coolsvap](https://github.com/coolsvap))
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/setup/#table-of-solutions) chart.

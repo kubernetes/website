@@ -12,7 +12,7 @@ This page shows how to use Weave Net for NetworkPolicy.
 
 {% capture prerequisites %}
 
-Complete steps 1, 2, and 3 of the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/).
+Complete steps 1, 2, and 3 of the [kubeadm getting started guide](/docs/setup/kubeadm/).
 
 {% endcapture %}
 

@@ -17,10 +17,10 @@ This guide explains how to set up cluster federation that lets us control multip
 ## Prerequisites
 
 This guide assumes that you have a running Kubernetes cluster.
-If you need to start a new cluster, see the [getting started guides](/docs/getting-started-guides/) for instructions on bringing a cluster up.
+If you need to start a new cluster, see the [getting started guides](/docs/setup/) for instructions on bringing a cluster up.
 
 To use the commands in this guide, you must download a Kubernetes release from the 
-[getting started binary releases](/docs/getting-started-guides/binary_release/) and 
+[getting started binary releases](/docs/setup/binary_release/) and 
 extract into a directory; all the commands in this guide are run from
 that directory.
 
