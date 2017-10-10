@@ -201,9 +201,9 @@ For quick support please join VMware Code Slack ([kubernetes](https://vmwarecode
 
 IaaS Provider        | Config. Mgmt | OS     | Networking | Docs                                          | Conforms  | Support Level
 -------------------- | ------------ | ------ | ---------- | --------------------------------------------- | --------- | ----------------------------
-Vmware vSphere       | Kube-anywhere    | Photon OS | Flannel         | [docs](/docs/getting-started-guides/vsphere/)                                |                | Community  ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)), ([@BaluDontu](https://github.com/BaluDontu)), ([@luomiao](https://github.com/luomiao)), ([@divyenpatel](https://github.com/divyenpatel))
+Vmware vSphere       | Kube-anywhere    | Photon OS | Flannel         | [docs](/docs/setup/vsphere/)                                |                | Community  ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)), ([@BaluDontu](https://github.com/BaluDontu)), ([@luomiao](https://github.com/luomiao)), ([@divyenpatel](https://github.com/divyenpatel))
 
 If you identify any issues/problems using the vSphere cloud provider, you can create an issue in our repo - [VMware Kubernetes](https://github.com/vmware/kubernetes).
 
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/setup/#table-of-solutions) chart.
