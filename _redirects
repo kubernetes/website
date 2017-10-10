@@ -395,3 +395,5 @@
 /v1.1/docs/admin/networking.html     /docs/concepts/cluster-administration/networking/     301
 /v1.1/docs/getting-started-guides/     /docs/tutorials/kubernetes-basics/ 301
 
+https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/"splat 301
+
