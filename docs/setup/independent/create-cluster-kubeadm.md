@@ -179,7 +179,7 @@ as root:
   kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
-To let kubectl work in the following step, you need to run these commands as a regular user (which is part of the output above):
+To let kubectl work in the following steps, you need to run these commands as a regular user (which is part of the output above):
 ```
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
