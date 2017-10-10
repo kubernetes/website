@@ -29,12 +29,6 @@ toc:
   section:
   - title: v1.8
     path: /docs/api-reference/v1.8/
-  - title: v1.7
-    path: /docs/api-reference/v1.7/
-  - title: v1.6
-    path: /docs/api-reference/v1.6/
-  - title: v1.5
-    path: /docs/api-reference/v1.5/
   - docs/reference/labels-annotations-taints.md
   - title: OpenAPI and Swagger
     section:
