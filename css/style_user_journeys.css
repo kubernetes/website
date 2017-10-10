@@ -110,7 +110,8 @@ button {
   border: 2px solid #ffffff;
   padding:1%;
   margin:1%;
-  color:#ffffff;
+  color:#3371e3;
+  background-color:white;
   font-family: 'roboto';
   text-transform:uppercase;
   text-align:center;
@@ -121,30 +122,30 @@ button {
 
 .navButton:active {
 
-  background-color:white;
-  color:#3399ff;
+  background-color:#3371e3;
+  color:white;
   border: 2px solid #ffffff;
 }
 
 .navButton:visited {
 
-  background-color:white;
-  color:#3399ff;
+  background-color:#3371e3;
+  color:white;
   border: 2px solid #ffffff;
 }
 
 .navButton:focus {
 
-  background-color:white !important</div>;
-  color:#3399ff;
+  background-color:#3371e3 !important</div>;
+  color:white;
   border: 2px solid #ffffff;
 }
 
 
 .navButton:hover {
 
-  background-color:white;
-  color:#3399ff;
+  background-color:#3371e3;
+  color:white;
   border: 2px solid #ffffff;
 }
 
