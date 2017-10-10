@@ -212,7 +212,7 @@ metadata:
   name: no-rules-map
 spec:
   tls:
-    - secretName: testsecret
+  - secretName: testsecret
   backend:
     serviceName: s1
     servicePort: 80
