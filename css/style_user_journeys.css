@@ -14,6 +14,18 @@ width:80%;
 
 }
 
+#encyclopedia {
+padding: 0px !important;  
+  
+}
+
+h1 {
+ 
+padding: 3% !important;
+text-align: center !important;
+font-size: 24pt !important;  
+  
+}
 
 .topheader {
 
@@ -36,7 +48,7 @@ background-position:center;
 
 .bar1 {
 padding:1%;
-background-color:#3399ff;
+background-color:#3371e3;
 text-align:center;
 
 }
@@ -137,7 +149,7 @@ button {
 
 
 .buttons {
-  background-color:#3399ff;
+  background-color:#3371e3;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px; /* future proofing */
@@ -159,7 +171,7 @@ button {
 
 
 .buttonoption1 {
-  background-color:#3399ff;
+  background-color:#3371e3;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px; /* future proofing */
@@ -184,45 +196,45 @@ button {
 .buttons:active .active{
 
   background-color:white;
-  color:#3399ff;
-  border: 2px solid #3399ff;
+  color:#3371e3;
+  border: 2px solid #3371e3;
 }
 
 .buttons:hover {
 
   background-color:white;
-  color:#3399ff;
-  border: 2px solid #3399ff;
+  color:#3371e3;
+  border: 2px solid #3371e3;
   cursor: pointer;
 }
 
 .buttons:target {
 
   background-color:white;
-  color:#3399ff;
-  border: 2px solid #3399ff;
+  color:#3371e3;
+  border: 2px solid #3371e3;
 
 }
 
 .buttons:visited {
 
   background-color:white;
-  color:#3399ff;
-  border: 2px solid #3399ff;
+  color:#3371e3;
+  border: 2px solid #3371e3;
 
 }
 
 .buttons.selected {
   background-color:white;
-  color:#3399ff;
-  border: 2px solid #3399ff;
+  color:#3371e3;
+  border: 2px solid #3371e3;
 
 }
 
 .keepShow {
 
   background-color:white;
-  color:#3399ff;
+  color:#3371e3;
   border: 2px solid white;
 
 }
@@ -297,7 +309,7 @@ i {
 }
 .infobar {
     padding:0%;
-    background-color:#3399ff;
+    background-color:#3371e3;
     text-align:center;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -378,7 +390,7 @@ float:left;
 padding-bottom:2%;
 padding-right:2%;
 margin-bottom:10%:
-color:#3399ff !important;
+color:#3371e3 !important;
 
 
 
@@ -410,7 +422,7 @@ font-size:24px;
   -khtml-border-radius: 5px; /* for old Konqueror browsers */
   border: 1.5px solid white;
   padding:1%;
-  background-color:#3399ff;
+  background-color:#3371e3;
   font-size:13px;
   margin:.5%;
   color:white;
@@ -423,19 +435,19 @@ font-size:24px;
 }
 
 .docButton:hover {
-  border: 1.5px solid #3399ff;
+  border: 1.5px solid #3371e3;
   background-color:white;
   font-size:13px;
-  color:#3399ff;
+  color:#3371e3;
 
 
 }
 
 .tablebar {
   text-align:center;
-  background-color:#3399ff;
+  background-color:#3371e3;
   padding:1.5%;
-  border-bottom:1px solid #3399ff;
+  border-bottom:1px solid #3371e3;
 }
 
 .docsection1 {
@@ -479,7 +491,7 @@ font-size:24px;
 }
 
 .track {
-  background-color:#3399ff;
+  background-color:#3371e3;
   font-family: 'roboto';
   padding:1.5%;
   color:white;
@@ -498,7 +510,7 @@ font-size:24px;
   background-color:white;
   font-family: 'roboto';
   padding:1%;
-  color:#3399ff;
+  color:#3371e3;
   font-weight:500;
   text-align:center;
   text-transform:uppercase;
