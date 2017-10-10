@@ -23,7 +23,7 @@ DNS provider for Cluster Federation.
 
 * You need to have a running Kubernetes cluster (which is
 referenced as host cluster). Please see one of the
-[getting started](/docs/getting-started-guides/) guides for
+[getting started](/docs/setup/) guides for
 installation instructions for your platform.
 * Support for `LoadBalancer` services in member clusters of federation is
 mandatory to enable `CoreDNS` for service discovery across federated clusters.
