@@ -61,7 +61,7 @@ You'll also need to provide the object `spec` field. The precise format of the o
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/abstractions/pod/).
+* Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/pod-overview/).
 {% endcapture %}
 
 {% include templates/concept.md %}
