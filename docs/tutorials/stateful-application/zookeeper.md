@@ -535,7 +535,7 @@ Get the `zk` StatefulSet.
 ```{% endraw %}
 
 Notice that the command used to start the ZooKeeper servers passed the configuration 
-as command line parameter. Enviornment variables are another, equally good, way to 
+as command line parameter. Environment variables are another, equally good, way to 
 pass configuration to ensemble.
 
 ### Configuring Logging
