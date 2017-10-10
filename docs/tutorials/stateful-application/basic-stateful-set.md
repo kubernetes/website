@@ -25,7 +25,7 @@ following Kubernetes concepts.
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
 * [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
-* [kubectl CLI](/docs/user-guide/kubectl)
+* [kubectl CLI](/docs/user-guide/kubectl/)
 
 This tutorial assumes that your cluster is configured to dynamically provision 
 PersistentVolumes. If your cluster is not configured to do so, you
