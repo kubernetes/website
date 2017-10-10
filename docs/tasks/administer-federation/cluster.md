@@ -34,10 +34,14 @@ kubectl --context=federation get clusters
 The `--context=federation` flag tells kubectl to submit the
 request to the Federation apiserver instead of sending it to a Kubernetes
 cluster. If you submit it to a k8s cluster, you will receive an error saying
-`the server doesn't have a resource type "clusters"`
+
+```the server doesn't have a resource type "clusters"```
 
 If you passed the correct Federation context but received a message error saying
-`No resources found.`, it means that you haven't
+
+```No resources found.```
+
+it means that you haven't
 added any cluster to the Federation yet.
 
 ## Creating a Federated Cluster
