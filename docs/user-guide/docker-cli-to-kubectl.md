@@ -141,7 +141,7 @@ $ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
-For more information see [Getting a Shell to a Running Container](/docs/tasks/kubectl/get-shell-running-container/).
+For more information see [Getting a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
 
 #### docker logs
 
