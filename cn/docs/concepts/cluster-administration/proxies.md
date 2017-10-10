@@ -12,14 +12,14 @@ title: Kubernetes中的代理
 
 用户在使用 Kubernetes的过程中可能遇到几种不同的代理（proxy）：
 
-  1. [kubectl proxy](#directly-accessing-the-rest-api)：
+  1. [kubectl proxy](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api)：
     - 运行在用户的桌面或pod中
     - 从本机地址到 Kubernetes apiserver 的代理
     - 客户端到代理使用 HTTP 协议
     - 代理到 apiserver 使用 HTTPS 协议
     - 指向 apiserver
     - 添加认证头信息
-  1. [apiserver proxy](#discovering-builtin-services)：
+  1. [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services)：
     - 是一个建立在 apiserver 内部的“堡垒”
     - 将集群外部的用户与群集IP相连接，这些IP是无法通过其他方式访问的
     - 运行在 apiserver 进程内

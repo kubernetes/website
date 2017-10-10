@@ -12,14 +12,14 @@ This page explains proxies used with Kubernetes.
 
 There are several different proxies you may encounter when using Kubernetes:
 
-  1. The [kubectl proxy](#directly-accessing-the-rest-api):
+  1. The [kubectl proxy](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
     - runs on a user's desktop or in a pod
     - proxies from a localhost address to the Kubernetes apiserver
     - client to proxy uses HTTP
     - proxy to apiserver uses HTTPS
     - locates apiserver
     - adds authentication headers
-  1. The [apiserver proxy](#discovering-builtin-services):
+  1. The [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
     - is a bastion built into the apiserver
     - connects a user outside of the cluster to cluster IPs which otherwise might not be reachable
     - runs in the apiserver processes
