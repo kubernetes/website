@@ -246,12 +246,12 @@ button {
   -webkit-border-radius: 5px;
   border-radius: 5px; /* future proofing */
   -khtml-border-radius: 5px; /* for old Konqueror browsers */
-  border: 2px solid #3371e3;
+  border: 2px solid #303030;
   padding:0%;
   padding-top:3%;
   margin:1%;
   margin-top:4%;
-  color:#3371e3;
+  color:#303030;
   font-family: 'roboto';
   font-weight:100;
   text-transform:none;
@@ -264,12 +264,12 @@ button {
 
 }
 .tab1:hover, .tab1.selected {
-  background-color:#ffffff;
+  background-color:#dddddd;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px; /* future proofing */
   -khtml-border-radius: 5px; /* for old Konqueror browsers */
-  border: 2px solid #3371e3;
+  border: 2px solid #303030;
 
   cursor: pointer;
 
@@ -286,7 +286,7 @@ button {
 
 .tabbottom {
 
-background-color:#3371e3;
+background-color:#303030;
 color:#ffffff;;
 font-family:'roboto';
 width:100%;
