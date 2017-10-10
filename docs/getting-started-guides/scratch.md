@@ -8,7 +8,7 @@ title: Creating a Custom Cluster from Scratch
 
 This guide is for people who want to craft a custom Kubernetes cluster.  If you
 can find an existing Getting Started Guide that meets your needs on [this
-list](/docs/getting-started-guides/), then we recommend using it, as you will be able to benefit
+list](/docs/setup/), then we recommend using it, as you will be able to benefit
 from the experience of others.  However, if you have specific IaaS, networking,
 configuration management, or operating system requirements not met by any of
 those guides, then this guide will provide an outline of the steps you need to
