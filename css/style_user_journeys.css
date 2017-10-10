@@ -25,6 +25,7 @@ padding: 3% !important;
 text-align: center !important;
 font-size: 22pt !important; 
  font-weight:normal;
+  color:#303030;
   
 }
 
@@ -56,7 +57,7 @@ text-align:center;
 
 .bar2 {
 padding:1%;
-background-color:#bbbbbb;
+background-color:#303030;
 text-align:center;
 font-size:18px;
 font-family: 'roboto';
