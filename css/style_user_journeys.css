@@ -48,14 +48,14 @@ background-position:center;
 
 .bar1 {
 padding:1%;
-background-color:#3371e3;
+background-color:#bbbbbb;
 text-align:center;
 
 }
 
 .bar2 {
 padding:1%;
-background-color:#000066;
+background-color:#3371e3;
 text-align:center;
 font-size:18px;
 font-family: 'roboto';
@@ -268,7 +268,7 @@ button {
   -webkit-border-radius: 5px;
   border-radius: 5px; /* future proofing */
   -khtml-border-radius: 5px; /* for old Konqueror browsers */
-  border: 2px solid #000066;
+  border: 2px solid #3371e3;
 
   cursor: pointer;
 
@@ -285,7 +285,7 @@ button {
 
 .tabbottom {
 
-background-color:#000066;
+background-color:#3371e3;
 color:#ffffff;;
 font-family:'roboto';
 width:100%;
