@@ -32,7 +32,7 @@ different flags and/or different memory and cpu requests for different hardware 
 
 ### Create a DaemonSet
 
-You can describe a DaemonSet in a YAML file. For example, the 'daemonset.yaml' file below describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
+You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` file below describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
 
 {% include code.html language="yaml" file="daemonset.yaml" ghlink="/docs/concepts/workloads/controllers/daemonset.yaml" %}
 
