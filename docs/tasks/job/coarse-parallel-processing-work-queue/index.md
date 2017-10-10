@@ -37,7 +37,7 @@ Start RabbitMQ as follows:
 $ kubectl create -f examples/celery-rabbitmq/rabbitmq-service.yaml
 service "rabbitmq-service" created
 $ kubectl create -f examples/celery-rabbitmq/rabbitmq-controller.yaml
-replicationController "rabbitmq-controller" created
+replicationcontroller "rabbitmq-controller" created
 ```
 
 We will only use the rabbitmq part from the [celery-rabbitmq example](https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/celery-rabbitmq).
