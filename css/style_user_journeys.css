@@ -49,7 +49,8 @@ background-position:center;
 
 .bar1 {
 padding:1%;
-background-color:#3371e3;
+background-color:#ffffff;
+border-top:2px solid #3371e3;
 text-align:center;
 
 }
@@ -241,12 +242,12 @@ button {
 }
 
 .tab1 {
-  background-color:#cccccc;
+  background-color:#ffffff;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px; /* future proofing */
   -khtml-border-radius: 5px; /* for old Konqueror browsers */
-  border: 2px solid #ffffff;
+  border: 2px solid #3371e3;
   padding:0%;
   padding-top:3%;
   margin:1%;
