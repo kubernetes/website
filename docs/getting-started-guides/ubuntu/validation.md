@@ -1,9 +1,10 @@
 ---
-title: Validation
+title: Validation - End-to-end Testing
 ---
 
 {% capture overview %}
-This page will outline how to ensure that a Juju deployed Kubernetes cluster has stood up correctly and is ready to accept workloads. 
+This page will outline how to ensure that a Juju-deployed Kubernetes
+cluster has stood up correctly and is ready to accept workloads.
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -11,9 +12,7 @@ This page assumes you have a working Juju deployed cluster.
 {% endcapture %}
 
 {% capture steps %}
-# Validation
-
-## End to End Testing
+## End-to-end testing
 
 End-to-end (e2e) tests for Kubernetes provide a mechanism to test end-to-end
 behavior of the system, and is the last signal to ensure end user operations
@@ -26,14 +25,16 @@ The primary objectives of the e2e tests are to ensure a consistent and reliable
 behavior of the kubernetes code base, and to catch hard-to-test bugs before
 users do, when unit and integration tests are insufficient.
 
-### Usage
+### Deploy kubernetes-e2e charm
 
-To deploy the end-to-end test suite, you need to relate the `kubernetes-e2e` charm to your existing kubernetes-master nodes and easyrsa:
+To deploy the end-to-end test suite, you need to relate the `kubernetes-e2e` charm
+to your existing kubernetes-master nodes and easyrsa:
 
 ```
 juju deploy cs:~containers/kubernetes-e2e
-juju add-relation kubernetes-e2e kubernetes-master
 juju add-relation kubernetes-e2e easyrsa
+juju add-relation kubernetes-e2e:kubernetes-master kubernetes-master:kube-api-endpoint
+juju add-relation kubernetes-e2e:kube-control kubernetes-master:kube-control
 ```
 
 Once the relations have settled, you can do `juju status` until the workload status results in 
@@ -85,19 +86,19 @@ a deployed cluster. The following example will skip the `Flaky`, `Slow`, and
 
     juju run-action kubernetes-e2e/0 test skip='\[(Flaky|Slow|Feature:.*)\]'
 
-> Note: the escaping of the regex due to how bash handles brackets.
+**Note:** the escaping of the regex due to how bash handles brackets.
+{: .note}
 
 To see the different types of tests the Kubernetes end-to-end charm has access
-to, we encourage you to see the upstream documentation on the different types
-of tests, and to strongly understand what subsets of the tests you are running.
-
-[Kinds of tests](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/e2e-tests.md#kinds-of-tests)
+to, we encourage you to see the [upstream documentation on the different types
+of tests](https://git.k8s.io/community/contributors/devel/e2e-tests.md#kinds-of-tests),
+and to thoroughly understand what subsets of the tests you are running.
 
 ### More information on end-to-end testing
 
 Along with the above descriptions, end-to-end testing is a much larger subject
 than this readme can encapsulate. There is far more information in the
-[end-to-end testing guide](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/e2e-tests.md).
+[end-to-end testing guide](https://git.k8s.io/community/contributors/devel/e2e-tests.md).
 
 ### Evaluating end-to-end results
 
@@ -106,11 +107,12 @@ places. The raw output of the e2e run is available in the `juju show-action-outp
 command, as well as a flat file on disk on the `kubernetes-e2e` unit that
 executed the test.
 
-> Note: The results will only be available once the action has
-completed the test run. End-to-end testing can be quite time intensive. Often
-times taking **greater than 1 hour**, depending on configuration.
+**Note:** The results will only be available once the action has
+completed the test run. End-to-end testing can be quite time consuming, often
+taking more than 1 hour, depending on configuration.
+{: .note}
 
-##### Flat file
+##### Accessing the results in a flat file
 
 Here's how to copy the output out as a file: 
 
@@ -149,7 +151,8 @@ on the kubernetes-worker units.
 
 ## Upgrading the e2e tests
 
-The e2e tests are always expanding, you can see if there's an upgrade available by running `juju status kubernetes-e2e`. 
+The e2e tests are always expanding; you can see if there's an upgrade
+available by running `juju status kubernetes-e2e`.
 
 When an upgrade is available, upgrade your deployment:
 

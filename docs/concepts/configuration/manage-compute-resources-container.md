@@ -1,19 +1,16 @@
 ---
 title: Managing Compute Resources for Containers
-redirect_from:
-- "/docs/user-guide/compute-resources/"
-- "/docs/user-guide/compute-resources.html"
 ---
 
 {% capture overview %}
 
-When you specify a [Pod](/docs/user-guide/pods), you can optionally specify how
+When you specify a [Pod](/docs/concepts/workloads/pods/pod/), you can optionally specify how
 much CPU and memory (RAM) each Container needs. When Containers have resource
 requests specified, the scheduler can make better decisions about which nodes to
 place Pods on. And when Containers have their limits specified, contention for
 resources on a node can be handled in a specified manner. For more details about
 the difference between requests and limits, see
-[Resource QoS](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-qos.md).
+[Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
 
 {% endcapture %}
 
@@ -29,8 +26,8 @@ CPU and memory are collectively referred to as *compute resources*, or just
 *resources*. Compute
 resources are measurable quantities that can be requested, allocated, and
 consumed. They are distinct from
-[API resources](/docs/api/). API resources, such as Pods and
-[Services](/docs/user-guide/services) are objects that can be read and modified
+[API resources](/docs/concepts/overview/kubernetes-api/). API resources, such as Pods and
+[Services](/docs/concepts/services-networking/service/) are objects that can be read and modified
 through the Kubernetes API server.
 
 ## Resource requests and limits of Pod and Container
@@ -82,7 +79,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 
 Here's an example.
 The following Pod has two Containers. Each Container has a request of 0.25 cpu
-and 64MiB (2<sup>26</sup> bytes) of memory Each Container has a limit of 0.5
+and 64MiB (2<sup>26</sup> bytes) of memory. Each Container has a limit of 0.5
 cpu and 128MiB of memory. You can say the Pod has a request of 0.5 cpu and 128
 MiB of memory, and a limit of 1 cpu and 256MiB of memory.
 
@@ -133,19 +130,17 @@ to the container runtime.
 When using Docker:
 
 - The `spec.containers[].resources.requests.cpu` is converted to its core value,
-  which is potentially fractional, and multiplied by 1024. This number is used
-  as the value of the
+  which is potentially fractional, and multiplied by 1024. The greater of this number
+  or 2 is used as the value of the
   [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint)
   flag in the `docker run` command.
 
-- The `spec.containers[].resources.limits.cpu` is converted to its millicore value,
-  multiplied by 100000, and then divided by 1000. This number is used as the value
-  of the [`--cpu-quota`](https://docs.docker.com/engine/reference/run/#/cpu-quota-constraint)
-  flag in the `docker run` command.  The [`--cpu-period`] flag is set to 100000,
-   which represents the default 100ms period for measuring quota usage. The
-   kubelet enforces cpu limits if it is started with the
-  [`--cpu-cfs-quota`] flag set to true. As of Kubernetes version 1.2, this flag
-  defaults to true.
+- The `spec.containers[].resources.limits.cpu` is converted to its millicore value and
+  multiplied by 100. The resulting value is the total amount of CPU time that a container can use
+  every 100ms. A container cannot use more than its share of CPU time during this interval.
+
+  **Note**: The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.
+  {: .note}
 
 - The `spec.containers[].resources.limits.memory` is converted to an integer, and
   used as the value of the
@@ -197,7 +192,7 @@ is pending with a message of this type, there are several things to try:
 - Add more nodes to the cluster.
 - Terminate unneeded Pods to make room for pending Pods.
 - Check that the Pod is not larger than all the nodes. For example, if all the
-  nodes have a capacity of `cpu: 1`, then a Pod with a limit of `cpu: 1.1` will
+  nodes have a capacity of `cpu: 1`, then a Pod with a request of `cpu: 1.1` will
   never be scheduled.
 
 You can check node capacities and amounts allocated with the
@@ -241,9 +236,9 @@ the node.
 
 The amount of resources available to Pods is less than the node capacity, because
 system daemons use a portion of the available resources. The `allocatable` field
-[NodeStatus](/docs/resources-reference/v1.6/#nodestatus-v1-core)
+[NodeStatus](/docs/resources-reference/{{page.version}}/#nodestatus-v1-core)
 gives the amount of resources that are available to Pods. For more information, see
-[Node Allocatable Resources](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node-allocatable.md).
+[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
 
 The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
 to limit the total amount of resources that can be consumed. If used in conjunction
@@ -308,7 +303,67 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 You can see that the Container was terminated because of `reason:OOM Killed`,
 where `OOM` stands for Out Of Memory.
 
-## Opaque integer resources (Alpha feature)
+## Local ephemeral storage (alpha feature)
+
+Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managing local ephemeral storage. In each Kubernetes node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This partition is also shared and consumed by pods via EmptyDir volumes, container logs, image layers and container writable layers.
+
+This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
+
+**Note:** If an optional runntime partition is used, root partition will not hold any image layer or writable layers.
+{: .note}
+
+### Requests and limits setting for local ephemeral storage
+Each Container of a Pod can specify one or more of the following:
+
+* `spec.containers[].resources.limits.ephemeral-storage`
+* `spec.containers[].resources.requests.ephemeral-storage`
+
+Limits and requests for `ephemeral-storage` are measured in bytes. You can express storage as
+a plain integer or as a fixed-point integer using one of these suffixes:
+E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
+Mi, Ki. For example, the following represent roughly the same value:
+
+```shell
+128974848, 129e6, 129M, 123Mi
+```
+
+For example, the following Pod has two Containers. Each Container has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of storage.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+spec:
+  containers:
+  - name: db
+    image: mysql
+    resources:
+      requests:
+        ephemeral-storage: "2Gi"
+      limits:
+        ephemeral-storage: "4Gi"
+  - name: wp
+    image: wordpress
+    resources:
+      requests:
+        ephemeral-storage: "2Gi"
+      limits:
+        ephemeral-storage: "4Gi"
+```
+
+### How Pods with ephemeral-storage requests are scheduled
+
+When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
+run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. (For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
+
+### How Pods with ephemeral-storage limits run
+
+For container-level isolation, if a Container's writable layer and logs usage exceeds its storage limit, the pod will be evicted. For pod-level isolation, if the sum of the local ephemeral storage usage from all containers and also the pod's EmptyDir volumes exceeds the limit, the pod will be evicted.
+
+## Opaque integer resources (alpha feature)
+
+{% include feature-state-deprecated.md %}
 
 Kubernetes version 1.5 introduces Opaque integer resources. Opaque
 integer resources allow cluster operators to advertise new node-level
@@ -318,9 +373,12 @@ Users can consume these resources in Pod specs just like CPU and memory.
 The scheduler takes care of the resource accounting so that no more than the
 available amount is simultaneously allocated to Pods.
 
-**Note:** Opaque integer resources are Alpha in Kubernetes version 1.5.
-Only resource accounting is implemented; node-level isolation is still
-under active development.
+**Note:** Opaque Integer Resources will be removed in version 1.9.
+[Extended Resources](#extended-resources) are a replacement for Opaque Integer
+Resources. Users can use any domain name prefix outside of the `kubernetes.io/`
+domain instead of the previous `pod.alpha.kubernetes.io/opaque-int-resource-`
+prefix.
+{: .note}
 
 Opaque integer resources are resources that begin with the prefix
 `pod.alpha.kubernetes.io/opaque-int-resource-`. The API server
@@ -344,22 +402,9 @@ first pod that requests the resource to be scheduled on that node.
 
 **Example:**
 
-Here is an HTTP request that advertises five "foo" resources on node `k8s-node-1` whose master is `k8s-master`.
-
-```http
-PATCH /api/v1/nodes/k8s-node-1/status HTTP/1.1
-Accept: application/json
-Content-Type: application/json-patch+json
-Host: k8s-master:8080
-
-[
-  {
-    "op": "add",
-    "path": "/status/capacity/pod.alpha.kubernetes.io~1opaque-int-resource-foo",
-    "value": "5"
-  }
-]
-```
+Here is an example showing how to use `curl` to form an HTTP request that
+advertises five "foo" resources on node `k8s-node-1` whose master is
+`k8s-master`.
 
 ```shell
 curl --header "Content-Type: application/json-patch+json" \
@@ -400,6 +445,92 @@ spec:
         pod.alpha.kubernetes.io/opaque-int-resource-foo: 1
 ```
 
+## Extended Resources
+
+Kubernetes version 1.8 introduces Extended Resources. Extended Resources are
+fully-qualified resource names outside the `kubernetes.io` domain. Extended
+Resources allow cluster operators to advertise new node-level resources that
+would be otherwise unknown to the system. Extended Resource quantities must be
+integers and cannot be overcommitted.
+
+Users can consume Extended Resources in Pod specs just like CPU and memory.
+The scheduler takes care of the resource accounting so that no more than the
+available amount is simultaneously allocated to Pods.
+
+The API server restricts quantities of Extended Resources to whole numbers.
+Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
+_invalid_ quantities are `0.5` and `1500m`.
+
+**Note:** Extended Resources replace [Opaque Integer
+Resources](#opaque-integer-resources-alpha-feature). Users can use any domain
+name prefix outside of the `kubernetes.io/` domain instead of the previous
+`pod.alpha.kubernetes.io/opaque-int-resource-` prefix.
+{: .note}
+
+There are two steps required to use Extended Resources. First, the
+cluster operator must advertise a per-node Extended Resource on one or more
+nodes. Second, users must request the Extended Resource in Pods.
+
+To advertise a new Extended Resource, the cluster operator should
+submit a `PATCH` HTTP request to the API server to specify the available
+quantity in the `status.capacity` for a node in the cluster. After this
+operation, the node's `status.capacity` will include a new resource. The
+`status.allocatable` field is updated automatically with the new resource
+asynchronously by the kubelet. Note that because the scheduler uses the
+node `status.allocatable` value when evaluating Pod fitness, there may
+be a short delay between patching the node capacity with a new resource and the
+first pod that requests the resource to be scheduled on that node.
+
+**Example:**
+
+Here is an example showing how to use `curl` to form an HTTP request that
+advertises five "example.com/foo" resources on node `k8s-node-1` whose master
+is `k8s-master`.
+
+```shell
+curl --header "Content-Type: application/json-patch+json" \
+--request PATCH \
+--data '[{"op": "add", "path": "/status/capacity/example.com~1foo", "value": "5"}]' \
+http://k8s-master:8080/api/v1/nodes/k8s-node-1/status
+```
+
+**Note**: In the preceding request, `~1` is the encoding for the character `/`
+in the patch path. The operation path value in JSON-Patch is interpreted as a
+JSON-Pointer. For more details, see
+[IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3).
+{: .note}
+
+To consume an Extended Resource in a Pod, include the resource name as a key
+in the `spec.containers[].resources.requests` map.
+
+**Note:** Extended resources cannot be overcommitted, so request and limit
+must be equal if both are present in a container spec.
+{: .note}
+
+The Pod is scheduled only if all of the resource requests are
+satisfied, including cpu, memory and any Extended Resources. The Pod will
+remain in the `PENDING` state as long as the resource request cannot be met by
+any node.
+
+**Example:**
+
+The Pod below requests 2 cpus and 1 "example.com/foo" (an extended resource.)
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: myimage
+    resources:
+      requests:
+        cpu: 2
+        example.com/foo: 1
+```
+
 ## Planned Improvements
 
 Kubernetes version 1.5 only allows resource quantities to be specified on a
@@ -410,7 +541,7 @@ all Containers in a Pod, such as
 Kubernetes version 1.5 only supports Container requests and limits for CPU and
 memory. It is planned to add new resource types, including a node disk space
 resource, and a framework for adding custom
-[resource types](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/resources.md).
+[resource types](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/scheduling/resources.md).
 
 Kubernetes supports overcommitment of resources by supporting multiple levels of
 [Quality of Service](http://issue.k8s.io/168).
@@ -427,14 +558,14 @@ consistency across providers and platforms.
 
 {% capture whatsnext %}
 
-* Get hands-on experience
-[assigning CPU and RAM resources to a container](/docs/tasks/configure-pod-container/assign-cpu-ram-container/).
+* Get hands-on experience [assigning Memory resources to containers and pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
 
-* [Container](/docs/api-reference/v1.6/#container-v1-core)
+* Get hands-on experience [assigning CPU resources to containers and pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 
-* [ResourceRequirements](/docs/resources-reference/v1.6/#resourcerequirements-v1-core)
+* [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
+
+* [ResourceRequirements](/docs/resources-reference/{{page.version}}/#resourcerequirements-v1-core)
 
 {% endcapture %}
 
 {% include templates/concept.md %}
-

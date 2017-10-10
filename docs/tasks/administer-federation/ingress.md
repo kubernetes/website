@@ -1,9 +1,7 @@
 ---
 title: Federated Ingress
-redirect_from:
-- "/docs/user-guide/federation/federated-ingress/"
-- "/docs/user-guide/federation/federated-ingress.html"
 ---
+
 {% capture overview %}
 This page explains how to use Kubernetes Federated Ingress to deploy
 a common HTTP(S) virtual IP load balancer across a federated service running in
@@ -24,8 +22,8 @@ unresponsive clusters).
 Federated Ingress is released as an alpha feature, and supports Google Cloud Platform (GKE,
 GCE and hybrid scenarios involving both) in Kubernetes v1.4.  Work is under way to support other cloud
 providers such as AWS, and other hybrid cloud scenarios (e.g. services
-spanning private on-premise as well as public cloud Kubernetes
-clusters).  
+spanning private on-premises as well as public cloud Kubernetes
+clusters).
 
 You create Federated Ingresses in much that same way as traditional
 [Kubernetes Ingresses](/docs/concepts/services-networking/ingress/): by making an API
@@ -68,7 +66,7 @@ this for you). Other tutorials, for example
 by Kelsey Hightower, are also available to help you.
 
 You must also have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+[working knowledge of Kubernetes](/docs/setup/) in
 general, and [Ingress](/docs/concepts/services-networking/ingress/) in particular.
 {% endcapture %}
 
@@ -80,7 +78,7 @@ You can create a federated ingress in any of the usual ways, for example, using 
 ``` shell
 kubectl --context=federation-cluster create -f myingress.yaml
 ```
-For example ingress YAML configurations, see the [Ingress User Guide](/docs/concepts/services-networking/ingress/)
+For example ingress YAML configurations, see the [Ingress User Guide](/docs/concepts/services-networking/ingress/).
 The '--context=federation-cluster' flag tells kubectl to submit the
 request to the Federation API endpoint, with the appropriate
 credentials. If you have not yet configured such a context, see the
@@ -151,7 +149,7 @@ may take up to a few minutes).
 the network traffic directed to this ingress (that is, 'Service
 Endpoints' behind the service backing the Ingress), so the Federated Ingress does not yet consider these to
 be healthy shards and will not direct traffic to any of these clusters.
-*  The federation control system 
+*  The federation control system
 automatically reconfigures the load balancer controllers in all of the
 clusters in your federation to make them consistent, and allows
 them to share global load balancers.  But this reconfiguration can
@@ -167,7 +165,7 @@ Ingresses in the clusters comprising your federation.
 To render the underlying ingress shards healthy, you need to add
 backend Pods behind the service upon which the Ingress is based.  There are several ways to achieve this, but
 the easiest is to create a Federated Service and
-Federated Replicaset.  To
+Federated ReplicaSet.  To
 create appropriately labelled pods and services in the 13 underlying clusters of
 your federation:
 
@@ -185,7 +183,7 @@ services need to be identical.  If you're using a federated service
 this is easy to do.  Simply pick a node port that is not already
 being used in any of your clusters, and add that to the spec of your
 federated service.  If you do not specify a node port for your
-federated service, each cluster will choose it's own node port for
+federated service, each cluster will choose its own node port for
 its cluster-local shard of the service, and these will probably end
 up being different, which is not what you want.
 
@@ -202,7 +200,7 @@ nginx     10.63.250.98   104.199.136.89   80/TCP    9m
 Federations of Kubernetes Clusters can include clusters running in
 different cloud providers (for example, Google Cloud, AWS), and on-premises
 (for example, on OpenStack).  However, in Kubernetes v1.4, Federated Ingress is only
-supported across Google Cloud clusters.  
+supported across Google Cloud clusters.
 
 ## Discovering a federated ingress
 
@@ -232,7 +230,7 @@ In particular, Federated ReplicaSets ensure that the desired number of
 pods are kept running in each cluster, even in the event of node
 failures.  In the event of entire cluster or availability zone
 failures, Federated ReplicaSets automatically place additional
-replacas in the other available clusters in the federation to accommodate the
+replicas in the other available clusters in the federation to accommodate the
 traffic which was previously being served by the now unavailable
 cluster. While the Federated ReplicaSet ensures that sufficient replicas are
 kept running, the Federated Ingress ensures that user traffic is
@@ -255,10 +253,10 @@ how to bring up a cluster federation correctly (or have your cluster administrat
 
 Check that:
 
-1. Your clusters are correctly registered in the Cluster Federation API (`kubectl describe clusters`)
+1. Your clusters are correctly registered in the Cluster Federation API. (`kubectl describe clusters`)
 2. Your clusters are all 'Active'.  This means that the cluster
    Federation system was able to connect and authenticate against the
-   clusters' endpoints.  If not, consult the event logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -oname`)
+   clusters' endpoints.  If not, consult the event logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -o name`)
 3. That the login credentials provided to the Cluster Federation API
    for the clusters have the correct authorization and quota to create
    ingresses/services/replicasets in the relevant namespace in the
@@ -278,7 +276,7 @@ Check that:
 2. The load balancer controllers in each of your clusters are of the
    correct type ("GLBC") and have been correctly reconfigured by the
    federation control plane to share a global GCE load balancer (this
-   should happen automatically).  If they of the correct type, and
+   should happen automatically).  If they are of the correct type, and
    have been correctly reconfigured, the UID data item in the GLBC
    configmap in each cluster will be identical across all clusters.
    See
@@ -293,19 +291,15 @@ Check that:
     your GLBC will interfere with the behavior of your federated
     ingresses created after the reconfiguration (see
     [the GLBC docs](https://github.com/kubernetes/ingress/blob/7dcb4ae17d5def23d3e9c878f3146ac6df61b09d/controllers/gce/README.md)
-    for further information. To remedy this,
+    for further information). To remedy this,
     delete any ingresses created before the cluster joined the
-    federation (and had it's GLBC reconfigured), and recreate them if
+    federation (and had its GLBC reconfigured), and recreate them if
     necessary.
 {% endcapture %}
 
 {% capture whatsnext %}
-*  If you need assistance, use one of the [support channels](http://kubernetes.io/docs/troubleshooting/) to seek assistance.
- *  For details about use cases that motivated this work, see 
- [Federation proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/federation.md).
+*  If you need assistance, use one of the [support channels](/docs/tasks/debug-application-cluster/troubleshooting/) to seek assistance.
+ *  For details about use cases that motivated this work, see
+ [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation/federation.md).
 {% endcapture %}
 {% include templates/task.md %}
- 
- 
- 
- 

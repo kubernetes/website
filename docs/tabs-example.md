@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - chenopis
 title: Tabs Example
 ---
@@ -14,7 +14,7 @@ Select one of the tabs.
 
 {% capture calico %}
 ```shell
-kubectl apply -f "http://docs.projectcalico.org/v2.0/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml"
+kubectl apply -f "http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml"
 ```
 {% endcapture %}
 
@@ -43,7 +43,7 @@ kubectl apply -f "https://git.io/weave-kube"
 
 ## Example Liquid template code for tabs
 
-Below is the [Liquid](https://shopify.github.io/liquid/) template code for the tabs demo above to illustrate how to specify the contents of each tab. The [`/_includes/tabs.md`](https://github.com/kubernetes/kubernetes.github.io/tree/master/_includes/tabs.md) file included at the end then uses those elements to render the actual tab set.
+Below is the [Liquid](https://shopify.github.io/liquid/) template code for the tabs demo above to illustrate how to specify the contents of each tab. The [`/_includes/tabs.md`](https://git.k8s.io/kubernetes.github.io/_includes/tabs.md) file included at the end then uses those elements to render the actual tab set.
 
 ### The code
 
@@ -54,7 +54,7 @@ Select one of the tabs.
 
 {{ "{% capture calico " }}%}
 ```shell
-kubectl apply -f "http://docs.projectcalico.org/v2.0/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml"
+kubectl apply -f "http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml"
 ```
 {{ "{% endcapture " }}%}
 
@@ -87,7 +87,7 @@ kubectl apply -f "https://git.io/weave-kube"
 ````liquid
 {{ "{% capture calico " }}%}
 ```shell
-kubectl apply -f "http://docs.projectcalico.org/v2.0/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml"
+kubectl apply -f "http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml"
 ```
 {{ "{% endcapture " }}%}
 ````

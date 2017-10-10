@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - mikedanese
 - thockin
 title: Container Environment Variables
@@ -19,7 +19,7 @@ This page describes the resources available to Containers in the Container envir
 
 The Kubernetes Container environment provides several important resources to Containers:
 
-* A filesystem, which is a combination of an [image](/docs/concepts/containers/images) and one or more [volumes](/docs/concepts/storage/volumes).
+* A filesystem, which is a combination of an [image](/docs/concepts/containers/images/) and one or more [volumes](/docs/concepts/storage/volumes/).
 * Information about the Container itself.
 * Information about other objects in the cluster.
 
@@ -31,14 +31,14 @@ It is available through the `hostname` command or the
 function call in libc.
 
 The Pod name and namespace are available as environment variables through the
-[downward API](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information).
+[downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/).
 
 User defined environment variables from the Pod definition are also available to the Container,
 as are any environment variables specified statically in the Docker image.
 
 ### Cluster information
 
-A list of all services that were running when a Container was created are available to that Container as environment variables.
+A list of all services that were running when a Container was created is available to that Container as environment variables.
 Those environment variables match the syntax of Docker links.
 
 For a service named *foo* that maps to a container port named *bar*,

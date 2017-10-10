@@ -1,10 +1,5 @@
 ---
 title: Distribute Credentials Securely Using Secrets
-redirect_from:
-- "/docs/user-guide/secrets/walkthrough/"
-- "/docs/user-guide/secrets/walkthrough.html"
-- "/docs/tasks/configure-pod-container/distribute-credentials-secure/"
-- "/docs/tasks/configure-pod-container/distribute-credentials-secure.html"
 ---
 
 {% capture overview %}
@@ -42,16 +37,17 @@ username and password:
 
 1. Create the Secret
 
-        kubectl create -f secret.yaml
+       kubectl create -f secret.yaml
 
     **Note:** If you want to skip the Base64 encoding step, you can create a Secret
     by using the `kubectl create secret` command:
+    {: .note}
 
-        kubectl create secret generic test-secret --from-literal=username='my-app',password='39528$vdg7Jb'
+       kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
 
 1. View information about the Secret:
 
-        kubectl get secret test-secret
+       kubectl get secret test-secret
 
     Output:
 
@@ -61,7 +57,7 @@ username and password:
 
 1. View more detailed information about the Secret:
 
-        kubectl describe secret test-secret
+       kubectl describe secret test-secret
 
     Output:
 
@@ -85,11 +81,11 @@ Here is a configuration file you can use to create a Pod:
 
 1. Create the Pod:
 
-        kubectl create -f secret-pod.yaml
+       kubectl create -f secret-pod.yaml
 
 1. Verify that your Pod is running:
 
-        kubectl get pod secret-test-pod
+       kubectl get pod secret-test-pod
 
     Output:
 
@@ -99,17 +95,17 @@ Here is a configuration file you can use to create a Pod:
 
 1. Get a shell into the Container that is running in your Pod:
 
-        kubectl exec -it secret-test-pod -- /bin/bash
+       kubectl exec -it secret-test-pod -- /bin/bash
 
 1. The secret data is exposed to the Container through a Volume mounted under
 `/etc/secret-volume`. In your shell, go to the directory where the secret data
 is exposed:
 
-        root@secret-test-pod:/# cd /etc/secret-volume
+       root@secret-test-pod:/# cd /etc/secret-volume
 
 1. In your shell, list the files in the `/etc/secret-volume` directory:
 
-        root@secret-test-pod:/etc/secret-volume# ls
+       root@secret-test-pod:/etc/secret-volume# ls
 
     The output shows two files, one for each piece of secret data:
 
@@ -117,7 +113,7 @@ is exposed:
 
 1. In your shell, display the contents of the `username` and `password` files:
 
-        root@secret-test-pod:/etc/secret-volume# cat username; echo; cat password; echo
+       root@secret-test-pod:/etc/secret-volume# cat username; echo; cat password; echo
 
     The output is your username and password:
 
@@ -132,11 +128,11 @@ Here is a configuration file you can use to create a Pod:
 
 1. Create the Pod:
 
-        kubectl create -f secret-envars-pod.yaml
+       kubectl create -f secret-envars-pod.yaml
 
 1. Verify that your Pod is running:
 
-        kubectl get pod secret-envars-test-pod
+       kubectl get pod secret-envars-test-pod
 
     Output:
 
@@ -145,7 +141,7 @@ Here is a configuration file you can use to create a Pod:
 
 1. Get a shell into the Container that is running in your Pod:
 
-        kubectl exec -it secret-envars-test-pod -- /bin/bash
+       kubectl exec -it secret-envars-test-pod -- /bin/bash
 
 1. In your shell, display the environment variables:
 
@@ -167,9 +163,9 @@ Here is a configuration file you can use to create a Pod:
 
 ### Reference
 
-* [Secret](/docs/api-reference/v1.6/#secret-v1-core)
-* [Volume](/docs/api-reference/v1.6/#volume-v1-core)
-* [Pod](/docs/api-reference/v1.6/#pod-v1-core)
+* [Secret](/docs/api-reference/{{page.version}}/#secret-v1-core)
+* [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core)
+* [Pod](/docs/api-reference/{{page.version}}/#pod-v1-core)
 
 {% endcapture %}
 

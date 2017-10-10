@@ -1,12 +1,9 @@
 ---
-assignees:
+approvers:
 - caesarxuchao
 - lavalamp
 - thockin
 title: Connecting Applications with Services
-redirect_from:
-- "/docs/user-guide/connecting-applications/"
-- "/docs/user-guide/connecting-applications.html"
 ---
 
 * TOC
@@ -29,7 +26,7 @@ We did this in a previous example, but let's do it once again and focus on the n
 {% include code.html language="yaml" file="run-my-nginx.yaml" ghlink="/docs/concepts/services-networking/run-my-nginx.yaml" %}
 
 This makes it accessible from any node in your cluster. Check the nodes the pod is running on:
-user
+
 ```shell
 $ kubectl create -f ./run-my-nginx.yaml
 $ kubectl get pods -l run=my-nginx -o wide
@@ -67,7 +64,7 @@ This is equivalent to `kubectl create -f` the following yaml:
 
 {% include code.html language="yaml" file="nginx-svc.yaml" ghlink="/docs/concepts/services-networking/nginx-svc.yaml" %}
 
-This specification will create a Service which targets TCP port 80 on any Pod with the `run: my-nginx` label, and expose it on an abstracted Service port (`targetPort`: is the port the container accepts traffic on, `port`: is the abstracted Service port, which can be any port other pods use to access the Service). View [service API object](/docs/api-reference/v1.6/#service-v1-core) to see the list of supported fields in service definition.
+This specification will create a Service which targets TCP port 80 on any Pod with the `run: my-nginx` label, and expose it on an abstracted Service port (`targetPort`: is the port the container accepts traffic on, `port`: is the abstracted Service port, which can be any port other pods use to access the Service). View [service API object](/docs/api-reference/{{page.version}}/#service-v1-core) to see the list of supported fields in service definition.
 Check your Service:
 
 ```shell
@@ -83,20 +80,21 @@ $ kubectl describe svc my-nginx
 Name:                my-nginx
 Namespace:           default
 Labels:              run=my-nginx
+Annotations:         <none>
 Selector:            run=my-nginx
 Type:                ClusterIP
 IP:                  10.0.162.149
 Port:                <unset> 80/TCP
 Endpoints:           10.244.2.5:80,10.244.3.4:80
 Session Affinity:    None
-No events.
+Events:              <none>
 
 $ kubectl get ep my-nginx
 NAME       ENDPOINTS                     AGE
 my-nginx   10.244.2.5:80,10.244.3.4:80   1m
 ```
 
-You should now be able to curl the nginx Service on `<CLUSTER-IP>:<PORT>` from any node in your cluster. Note that the Service IP is completely virtual, it never hits the wire, if you're curious about how this works you can read more about the [service proxy](/docs/user-guide/services/#virtual-ips-and-service-proxies).
+You should now be able to curl the nginx Service on `<CLUSTER-IP>:<PORT>` from any node in your cluster. Note that the Service IP is completely virtual, it never hits the wire, if you're curious about how this works you can read more about the [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
 
 ## Accessing the Service
 
@@ -104,7 +102,7 @@ Kubernetes supports 2 primary modes of finding a Service - environment variables
 
 ### Environment Variables
 
-When a Pod is run on a Node, the kubelet adds a set of environment variables for each active Service. This introduces an ordering problem. To see why, inspect the environment of your running nginx pods (your pod name will be different):
+When a Pod runs on a Node, the kubelet adds a set of environment variables for each active Service. This introduces an ordering problem. To see why, inspect the environment of your running nginx pods (your pod name will be different):
 
 ```shell
 $ kubectl exec my-nginx-3800858182-jr4a2 -- printenv | grep SERVICE
@@ -170,9 +168,9 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 
 * Self signed certificates for https (unless you already have an identity certificate)
 * An nginx server configured to use the certificates
-* A [secret](/docs/user-guide/secrets) that makes the certificates accessible to pods
+* A [secret](/docs/concepts/configuration/secret/) that makes the certificates accessible to pods
 
-You can acquire all these from the [nginx https example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/https-nginx/), in short:
+You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/https-nginx/), in short:
 
 ```shell
 $ make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
@@ -181,7 +179,7 @@ secret "nginxsecret" created
 $ kubectl get secrets
 NAME                  TYPE                                  DATA      AGE
 default-token-il9rc   kubernetes.io/service-account-token   1         1d
-nginxsecret           Opaque                                2         1m     
+nginxsecret           Opaque                                2         1m
 ```
 
 Now modify your nginx replicas to start an https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
@@ -191,7 +189,7 @@ Now modify your nginx replicas to start an https server using the certificate in
 Noteworthy points about the nginx-secure-app manifest:
 
 - It contains both Deployment and Service specification in the same file.
-- The [nginx server](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/https-nginx/default.conf) serves http traffic on port 80 and https traffic on 443, and nginx Service exposes both ports.
+- The [nginx server](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/https-nginx/default.conf) serves http traffic on port 80 and https traffic on 443, and nginx Service exposes both ports.
 - Each container has access to the keys through a volume mounted at /etc/nginx/ssl. This is setup *before* the nginx server is started.
 
 ```shell
@@ -298,7 +296,3 @@ clusters and cloud providers, to provide increased availability,
 better fault tolerance and greater scalability for your services. See
 the [Federated Services User Guide](/docs/concepts/cluster-administration/federation-service-discovery/)
 for further information.
-
-## What's next?
-
-[Learn about more Kubernetes features that will help you run containers reliably in production.](/docs/user-guide/production-pods)

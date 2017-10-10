@@ -1,9 +1,6 @@
 ---
-assignees:
+approvers:
 title: Pods
-redirect_from:
-- "/docs/user-guide/pods/index/"
-- "/docs/user-guide/pods/index.html"
 ---
 
 * TOC
@@ -16,8 +13,8 @@ managed in Kubernetes.
 ## What is a Pod?
 
 A _pod_ (as in a pod of whales or pea pod) is a group of one or more containers
-(such as Docker containers), the shared storage for those containers, and
-options about how to run the containers.  Pods are always co-located and
+(such as Docker containers), with shared storage/network, and a specification 
+for how to run the containers.  A pod's contents are always co-located and
 co-scheduled, and run in a shared context.  A pod models an
 application-specific "logical host" - it contains one or more application
 containers which are relatively tightly coupled &mdash; in a pre-container
@@ -153,7 +150,7 @@ Pod is exposed as a primitive in order to facilitate:
 * clean composition of Kubelet-level functionality with cluster-level functionality &mdash; Kubelet is effectively the "pod controller"
 * high-availability applications, which will expect pods to be replaced in advance of their termination and certainly in advance of deletion, such as in the case of planned evictions, image prefetching, or live pod migration [#3949](http://issue.k8s.io/3949)
 
-There is new first-class support for stateful pods with the [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/) controller (currently in beta). The feature was alpha in 1.4 and was called [PetSet](/docs/concepts/workloads/controllers/petset/). For prior versions of Kubernetes, best practice for having stateful pods is to create a replication controller with `replicas` equal to `1` and a corresponding service, see [this MySQL deployment example](/docs/tutorials/stateful-application/run-stateful-application/). 
+There is new first-class support for stateful pods with the [StatefulSet](/docs/concepts/workloads/controllers/statefulset.md) controller (currently in beta). The feature was alpha in 1.4 and was called PetSet. For prior versions of Kubernetes, best practice for having stateful pods is to create a replication controller with `replicas` equal to `1` and a corresponding service, see [this MySQL deployment example](/docs/tutorials/stateful-application/run-stateful-application/).
 
 ## Termination of Pods
 
@@ -171,13 +168,13 @@ An example flow:
 6. When the grace period expires, any processes still running in the Pod are killed with SIGKILL.
 7. The Kubelet will finish deleting the Pod on the API server by setting grace period 0 (immediate deletion). The Pod disappears from the API and is no longer visible from the client.
 
-By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports the `--grace-period=<seconds>` option which allows a user to override the default and specify their own value. The value `0` [force deletes](/docs/user-guide/pods/#force-termination-of-pods) the pod. In kubectl version >= 1.5, you must specify an additional flag `--force` along with `--grace-period=0` in order to perform force deletions.
+By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports the `--grace-period=<seconds>` option which allows a user to override the default and specify their own value. The value `0` [force deletes](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods) the pod. In kubectl version >= 1.5, you must specify an additional flag `--force` along with `--grace-period=0` in order to perform force deletions.
 
 ### Force deletion of pods
 
 Force deletion of a pod is defined as deletion of a pod from the cluster state and etcd immediately. When a force deletion is performed, the apiserver does not wait for confirmation from the kubelet that the pod has been terminated on the node it was running on. It removes the pod in the API immediately so a new pod can be created with the same name. On the node, pods that are set to terminate immediately will still be given a small grace period before being force killed.
 
-Force deletions can be potentially dangerous for some pods and should be performed with caution. In case of StatefulSet pods, please refer to the task documentation for [deleting Pods from a StatefulSet](/docs/tasks/manage-stateful-set/delete-pods/#deleting-pods).
+Force deletions can be potentially dangerous for some pods and should be performed with caution. In case of StatefulSet pods, please refer to the task documentation for [deleting Pods from a StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
 ## Privileged mode for pod containers
 
@@ -196,4 +193,4 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 
 Pod is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [Pod API
-object](/docs/api-reference/v1.6/#pod-v1-core).
+object](/docs/api-reference/{{page.version}}/#pod-v1-core).

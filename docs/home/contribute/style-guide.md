@@ -46,7 +46,7 @@ represents.
 
 1. Display information about a pod:
 
-        kubectl describe pod <pod-name>
+       kubectl describe pod <pod-name>
 
     where `<pod-name>` is the name of one of your pods.
 
@@ -73,6 +73,14 @@ represents.
   <tr><td>Open the <code>envars.yaml</code> file.</td><td>Open the envars.yaml file.</td></tr>
   <tr><td>Go to the <code>/docs/tutorials</code> directory.</td><td>Go to the /docs/tutorials directory.</td></tr>
   <tr><td>Open the <code>/_data/concepts.yaml</code> file.</td><td>Open the /_data/concepts.yaml file.</td></tr>
+</table>
+
+### Use the international standard for punctuation inside quotes
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>events are recorded with an associated "stage".</td><td>events are recorded with an associated "stage."</td></tr>
+  <tr><td>The copy is called a "fork".</td><td>The copy is called a "fork."</td></tr>
 </table>
 
 ## Inline code formatting
@@ -136,6 +144,124 @@ A list of Kubernetes-specific terms and words to be used consistently across the
   <tr><th>Term</th><th>Useage</th></tr>
   <tr><td>TBD</td><td>TBD</td></tr>
 </table>{% endcomment %}
+
+## Callout Formatting
+Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: **Note:** {: .note}, **Caution:** {: .caution}, and **Warning:** {: .warning}. 
+
+1. Start each callout with the appropriate prefix.
+
+2. Use the following syntax to apply a style:
+
+       **Note:** The prefix you use is the same text you use in the tag. 
+       {: .note} <!-- This tag must appear on a new line. -->
+
+The output is:
+
+**Note:** The prefix you choose is the same text for the tag.
+{: .note}
+
+### Note
+
+Use {: .note} to highlight a tip or a piece of information that may be helpful to know. 
+
+For example:
+
+    **Note:** You can _still_ use Markdown inside these callouts. 
+    {: .note}
+
+The output is:
+
+**Note:** You can _still_ use Markdown inside these callouts.
+{: .note}
+
+### Caution
+
+Use {: .caution} to call attention to an important piece of information to avoid pitfalls.  
+
+For example:
+
+    **Caution:** The callout style only applies to the line directly above the tag. 
+    {: .caution}
+
+The output is:
+
+**Caution:** The callout style only applies to the line directly above the tag. 
+{: .caution}
+
+### Warning
+
+Use {: .warning} to indicate danger or a piece of information that is crucial to follow.
+
+For example:
+
+    **Warning:** Beware. 
+    {: .warning}
+
+The output is:
+
+**Warning:** Beware. 
+{: .warning}
+
+## Common Callout Issues
+
+### Style Does Not Apply
+
+Callout tags must be on a new line to apply the style. Github's Preview Changes feature further obfuscates this fact by rendering the tag on the same line, but your code must match the following syntax:
+
+    **Note:** Your text goes here.
+    {: .note} <!-- This tag must appear on a new line. -->
+
+### Multiple Lines
+
+Callouts automatically span multiple lines. However, you can use `<br/>` tags if you need to create multiple lines.
+
+For example:
+
+    **Note:"** This is my note. Use `<br/>` to create multiple lines. <br/> <br/> You can still use _Markdown_ to **format** text!
+    {: .note}
+
+The output is:
+
+**Note:** This is my note. Use `<br/>` to create multiple lines. <br/> <br/> You can still use _Markdown_ to **format** text!
+{: .note}
+
+Typing multiple lines does **not** work. The callout style only applies to the line directly above the tag. 
+
+    **Note:** This is my note. 
+
+    I didn't read the style guide.
+    {: .note}
+
+**Note:** This is my note. 
+
+I didn't read the style guide.
+{: .note}
+
+### Ordered Lists
+
+Callouts will interrupt numbered lists unless you indent three spaces before the notice and the tag.
+
+For example:
+
+    1. Preheat oven to 350˚F
+       
+    1. Prepare the batter, and pour into springform pan.
+          
+       **Note:** Grease the pan for best results. 
+       {: .note}
+          
+    1. Bake for 20-25 minutes or until set.
+       
+The output is:
+
+1. Preheat oven to 350˚F
+       
+1. Prepare the batter, and pour into springform pan.
+          
+   **Note:** Grease the pan for best results. 
+   {: .note}
+          
+1. Bake for 20-25 minutes or until set.
 
 
 ## Content best practices

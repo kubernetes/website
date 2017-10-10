@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - david-mcmahon
 - jbeda
 title: Downloading or Building Kubernetes
@@ -37,7 +37,7 @@ For more details on the release process see the [`build`](http://releases.k8s.io
 
 ### Download Kubernetes and automatically set up a default cluster
 
-The bash script at `https://get.k8s.io`, which can be run with `wget` or `curl`, automatically downloads Kubernetes, and provisions a cluster based on your desired cloud provider.
+The bash script at [`https://get.k8s.io`](https://get.k8s.io), which can be run with `wget` or `curl`, automatically downloads Kubernetes, and provisions a cluster based on your desired cloud provider.
 
 ```shell
 # wget version
@@ -57,4 +57,4 @@ Possible values for `YOUR_PROVIDER` include:
 * `vsphere` - VMWare VSphere
 * `rackspace` - Rackspace
 
-For the complete, up-to-date list of providers supported by this script, see the [`/cluster`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster) folder in the main Kubernetes repo, where each folder represents a possible value for `YOUR_PROVIDER`. If you don't see your desired provider, try looking at our [getting started guides](/docs/getting-started-guides); there's a good chance we have docs for them.
+For the complete, up-to-date list of providers supported by this script, see the [`/cluster`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster) folder in the main Kubernetes repo, where each folder represents a possible value for `YOUR_PROVIDER`. If you don't see your desired provider, try looking at our [getting started guides](/docs/setup/); there's a good chance we have docs for them.

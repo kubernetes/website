@@ -1,8 +1,5 @@
 ---
 title: Federated Events
-redirect_from:
-- "/docs/user-guide/federation/events/"
-- "/docs/user-guide/federation/events.html"
 ---
 
 This guide explains how to use events in federation control plane to help in debugging.
@@ -15,14 +12,14 @@ This guide explains how to use events in federation control plane to help in deb
 
 This guide assumes that you have a running Kubernetes Cluster
 Federation installation. If not, then head over to the
-[federation admin guide](/docs/admin/federation/) to learn how to
+[federation admin guide](/docs/concepts/cluster-administration/federation/) to learn how to
 bring up a cluster federation (or have your cluster administrator do
 this for you). Other tutorials, for example
 [this one](https://github.com/kelseyhightower/kubernetes-cluster-federation)
 by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+[working knowledge of Kubernetes](/docs/setup/) in
 general.
 
 ## Overview

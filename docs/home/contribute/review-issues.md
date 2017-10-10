@@ -55,7 +55,7 @@ The following labels and definitions should be used to prioritize issues. If you
 ## Handling special issue types
 
 ### Duplicate issues
-If a single problem has one or more issues open for it, the problem should be consolodated into a single issue. You should decide which issue to keep open (or open a new issue), port over all relevant information, link related issues, and close all the other issues that describe the same problem. Only having a single issue to work on will help reduce confusion and avoid duplicating work on the same problem.
+If a single problem has one or more issues open for it, the problem should be consolidated into a single issue. You should decide which issue to keep open (or open a new issue), port over all relevant information, link related issues, and close all the other issues that describe the same problem. Only having a single issue to work on will help reduce confusion and avoid duplicating work on the same problem.
 
 ### Dead link issues
 Depending on where the dead link is reported, different actions are required to resolve the issue. Dead links in the API and Kubectl docs are automation issues and should be assigned a P1 until the problem can be fully understood. All other dead links are issues that need to be manually fixed and can be assigned a P3.
@@ -65,9 +65,9 @@ Depending on where the dead link is reported, different actions are required to 
 
 
 {% capture whatsnext %}
-* Learn about [writing a new topic](/docs/home/contribute/write-new-topic).
+* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes).
+* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/).
 {% endcapture %}
 
 {% include templates/concept.md %}

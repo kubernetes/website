@@ -42,8 +42,9 @@ The output contains a section similar to this:
             }
         }
     }
-    
-NOTE: If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
+
+**Note:** If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
+{: .note}
 
 ## Create a Secret that holds your authorization token
 
@@ -101,9 +102,12 @@ Here is a configuration file for a Pod that needs access to your secret data:
 
 {% include code.html language="yaml" file="private-reg-pod.yaml" ghlink="/docs/tasks/configure-pod-container/private-reg-pod.yaml" %}
 
-Copy the contents of `private-reg-pod.yaml` to your own file named
-`my-private-reg-pod.yaml`. In your file, replace `<your-private-image>` with
-the path to an image in a private repository.
+Download the above file:
+
+    wget -O my-private-reg-pod.yaml https://k8s.io/docs/tasks/configure-pod-container/private-reg-pod.yaml
+
+In file `my-private-reg-pod.yaml`, replace `<your-private-image>` with the
+path to an image in a private repository.
 
 Example Docker Hub private image:
 
@@ -126,10 +130,10 @@ Create a Pod that uses your Secret, and verify that the Pod is running:
 * Learn more about [Secrets](/docs/concepts/configuration/secret/).
 * Learn more about
 [using a private registry](/docs/concepts/containers/images/#using-a-private-registry).
-* See [kubectl create secret docker-registry](/docs/user-guide/kubectl/v1.6/#-em-secret-docker-registry-em-).
-* See [Secret](/docs/api-reference/v1.6/#secret-v1-core)
+* See [kubectl create secret docker-registry](/docs/user-guide/kubectl/{{page.version}}/#-em-secret-docker-registry-em-).
+* See [Secret](/docs/api-reference/{{page.version}}/#secret-v1-core)
 * See the `imagePullSecrets` field of
-[PodSpec](/docs/api-reference/v1.6/#podspec-v1-core).
+[PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core).
 
 {% endcapture %}
 

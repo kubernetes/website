@@ -1,19 +1,16 @@
 ---
-assignees:
+approvers:
 - chenopis
 title: The Kubernetes API
-redirect_from:
-- "/docs/api/"
-- "/docs/api.html"
 ---
 
-Overall API conventions are described in the [API conventions doc](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md).
+Overall API conventions are described in the [API conventions doc](https://git.k8s.io/community/contributors/devel/api-conventions.md).
 
 API endpoints, resource types and samples are described in [API Reference](/docs/reference).
 
 Remote access to the API is discussed in the [access doc](/docs/admin/accessing-the-api).
 
-The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [Kubectl](/docs/user-guide/kubectl) command-line tool can be used to create, update, delete, and get API objects.
+The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [Kubectl](/docs/user-guide/kubectl/) command-line tool can be used to create, update, delete, and get API objects.
 
 Kubernetes also stores its serialized state (currently in [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)) in terms of the API resources.
 
@@ -21,17 +18,17 @@ Kubernetes itself is decomposed into multiple components, which interact through
 
 ## API changes
 
-In our experience, any system that is successful needs to grow and change as new use cases emerge or existing ones change. Therefore, we expect the Kubernetes API to continuously change and grow. However, we intend to not break compatibility with existing clients, for an extended period of time. In general, new API resources and new resource fields can be expected to be added frequently. Elimination of resources or fields will require following a deprecation process. The precise deprecation policy for eliminating features is TBD, but once we reach our 1.0 milestone, there will be a specific policy.
+In our experience, any system that is successful needs to grow and change as new use cases emerge or existing ones change. Therefore, we expect the Kubernetes API to continuously change and grow. However, we intend to not break compatibility with existing clients, for an extended period of time. In general, new API resources and new resource fields can be expected to be added frequently. Elimination of resources or fields will require following the [API deprecation policy](https://kubernetes.io/docs/reference/deprecation-policy/).
 
-What constitutes a compatible change and how to change the API are detailed by the [API change document](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api_changes.md).
+What constitutes a compatible change and how to change the API are detailed by the [API change document](https://git.k8s.io/community/contributors/devel/api_changes.md).
 
 ## OpenAPI and Swagger definitions
 
 Complete API details are documented using [Swagger v1.2](http://swagger.io/) and [OpenAPI](https://www.openapis.org/). The Kubernetes apiserver (aka "master") exposes an API that can be used to retrieve the Swagger v1.2 Kubernetes API spec located at `/swaggerapi`. You can also enable a UI to browse the API documentation at `/swagger-ui` by passing the `--enable-swagger-ui=true` flag to apiserver.
 
-Starting with kubernetes 1.4, OpenAPI spec is also available at [`/swagger.json`](https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/swagger.json). While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
+Starting with Kubernetes 1.4, OpenAPI spec is also available at [`/swagger.json`](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json). While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
 
-Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/proposals/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
+Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
 
 ## API versioning
 
@@ -42,12 +39,12 @@ multiple API versions, each at a different API path, such as `/api/v1` or
 We chose to version at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-lifed and/or experimental APIs. The JSON and Protobuf serialization schemas follow the same guidelines for schema changes - all descriptions below cover both formats.
 
 Note that API versioning and Software versioning are only indirectly related.  The [API and release
-versioning proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/versioning.md) describes the relationship between API versioning and
+versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) describes the relationship between API versioning and
 software versioning.
 
 
 Different API versions imply different levels of stability and support.  The criteria for each level are described
-in more detail in the [API Changes documentation](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api_changes.md#alpha-beta-and-stable-versions).  They are summarized here:
+in more detail in the [API Changes documentation](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions).  They are summarized here:
 
 - Alpha level:
   - The version names contain `alpha` (e.g. `v1alpha1`).
@@ -71,22 +68,23 @@ in more detail in the [API Changes documentation](https://github.com/kubernetes/
 
 ## API groups
 
-To make it easier to extend the Kubernetes API, we implemented [*API groups*](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-group.md).
+To make it easier to extend the Kubernetes API, we implemented [*API groups*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md).
 The API group is specified in a REST path and in the `apiVersion` field of a serialized object.
 
 Currently there are several API groups in use:
 
-1. the "core" (oftentimes called "legacy", due to not having explicit group name) group, which is at
+1. The "core" (oftentimes called "legacy", due to not having explicit group name) group, which is at
    REST path `/api/v1` and is not specified as part of the `apiVersion` field, e.g. `apiVersion: v1`.
-1. the named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
+1. The named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
    (e.g. `apiVersion: batch/v1`).  Full list of supported API groups can be seen in [Kubernetes API reference](/docs/reference/).
 
 
-There are two supported paths to extending the API.
-1. [Third Party Resources](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/extending-api.md)
-   are for users with very basic CRUD needs.
+There are two supported paths to extending the API with [custom resources](/docs/concepts/api-extension/custom-resources/):
+
+1. [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
+   is for users with very basic CRUD needs.
 1. Coming soon: users needing the full set of Kubernetes API semantics can implement their own apiserver
-   and use the [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/aggregated-api-servers.md)
+   and use the [aggregator](https://git.k8s.io/community/contributors/design-proposals/api-machinery/aggregated-api-servers.md)
    to make it seamless for clients.
 
 
@@ -104,5 +102,5 @@ to pick up the `--runtime-config` changes.
 
 DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
 Other extensions resources can be enabled by setting `--runtime-config` on
-apiserver. `--runtime-config` accepts comma separated values. For ex: to disable deployments and jobs, set
+apiserver. `--runtime-config` accepts comma separated values. For example: to disable deployments and ingress, set
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`

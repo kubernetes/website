@@ -1,16 +1,13 @@
 ---
-assignees:
+approvers:
 - bprashanth
 title: Services
-redirect_from:
-- "/docs/user-guide/services/"
-- "/docs/user-guide/services/index.html"
 ---
 
-Kubernetes [`Pods`](/docs/user-guide/pods) are mortal. They are born and when they die, they
-are not resurrected.  [`ReplicationControllers`](/docs/user-guide/replication-controller) in
+Kubernetes [`Pods`](/docs/concepts/workloads/pods/pod/) are mortal. They are born and when they die, they
+are not resurrected.  [`ReplicationControllers`](/docs/concepts/workloads/controllers/replicationcontroller/) in
 particular create and destroy `Pods` dynamically (e.g. when scaling up or down
-or when doing [rolling updates](/docs/user-guide/kubectl/v1.6/#rolling-update)).  While each `Pod` gets its own IP address, even
+or when doing [rolling updates](/docs/user-guide/kubectl/{{page.version}}/#rolling-update)).  While each `Pod` gets its own IP address, even
 those IP addresses cannot be relied upon to be stable over time. This leads to
 a problem: if some set of `Pods` (let's call them backends) provides
 functionality to other `Pods` (let's call them frontends) inside the Kubernetes
@@ -55,9 +52,9 @@ spec:
   selector:
     app: MyApp
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
 ```
 
 This specification will create a new `Service` object named "my-service" which
@@ -87,7 +84,7 @@ abstract other kinds of backends.  For example:
   * You want to have an external database cluster in production, but in test
     you use your own databases.
   * You want to point your service to a service in another
-    [`Namespace`](/docs/user-guide/namespaces) or on another cluster.
+    [`Namespace`](/docs/concepts/overview/working-with-objects/namespaces/) or on another cluster.
   * You are migrating your workload to Kubernetes and some of your backends run
     outside of Kubernetes.
 
@@ -100,9 +97,9 @@ metadata:
   name: my-service
 spec:
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
 ```
 
 Because this service has no selector, the corresponding `Endpoints` object will not be
@@ -123,7 +120,7 @@ subsets:
 NOTE: Endpoint IPs may not be loopback (127.0.0.0/8), link-local
 (169.254.0.0/16), or link-local multicast (224.0.0.0/24).
 
-Accessing a `Service` without a selector works the same as if it had selector.
+Accessing a `Service` without a selector works the same as if it had a selector.
 The traffic will be routed to endpoints defined by the user (`1.2.3.4:9376` in
 this example).
 
@@ -140,8 +137,6 @@ metadata:
 spec:
   type: ExternalName
   externalName: my.database.example.com
-  ports:
-  - port: 12345
 ```
 
 When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
@@ -181,7 +176,9 @@ or `Services` or `Pods`.
 
 By default, the choice of backend is round robin.  Client-IP based session affinity
 can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
-default is `"None"`).
+default is `"None"`), and you can set the max session sticky time by setting the field
+`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set
+`service.spec.sessionAffinity` to `"ClientIP"` (the default is "10800").
 
 ![Services overview diagram for userspace proxy](/images/docs/services-userspace-overview.svg)
 
@@ -196,7 +193,9 @@ select a backend `Pod`.
 
 By default, the choice of backend is random.  Client-IP based session affinity
 can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
-default is `"None"`).
+default is `"None"`), and you can set the max session sticky time by setting the field
+`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set
+`service.spec.sessionAffinity` to `"ClientIP"` (the default is "10800").
 
 As with the userspace proxy, the net result is that any traffic bound for the
 `Service`'s IP:Port is proxied to an appropriate backend without the clients
@@ -221,17 +220,17 @@ apiVersion: v1
 metadata:
   name: my-service
 spec:
-    selector:
-      app: MyApp
-    ports:
-      - name: http
-        protocol: TCP
-        port: 80
-        targetPort: 9376
-      - name: https
-        protocol: TCP
-        port: 443
-        targetPort: 9377
+  selector:
+    app: MyApp
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 9376
+  - name: https
+    protocol: TCP
+    port: 443
+    targetPort: 9377
 ```
 
 ## Choosing your own IP address
@@ -321,9 +320,9 @@ Sometimes you don't need or want load-balancing and a single service IP.  In
 this case, you can create "headless" services by specifying `"None"` for the
 cluster IP (`spec.clusterIP`).
 
-This option allows developers to reduce coupling to the Kubernetes system by 
-allowing them freedom to do discovery their own way.  Applications can still use 
-a self-registration pattern and adapters for other discovery systems could easily 
+This option allows developers to reduce coupling to the Kubernetes system by
+allowing them freedom to do discovery their own way.  Applications can still use
+a self-registration pattern and adapters for other discovery systems could easily
 be built upon this API.
 
 For such `Services`, a cluster IP is not allocated, kube-proxy does not handle
@@ -343,9 +342,9 @@ For headless services that do not define selectors, the endpoints controller doe
 not create `Endpoints` records. However, the DNS system looks for and configures
 either:
 
-  * CNAME records for `ExternalName`-type services
+  * CNAME records for `ExternalName`-type services.
   * A records for any `Endpoints` that share a name with the service, for all
-    other types
+    other types.
 
 ## Publishing services - service types
 
@@ -358,15 +357,15 @@ The default is `ClusterIP`.
 
 `Type` values and their behaviors are:
 
-   * `ClusterIP`: Exposes the service on a cluster-internal IP. Choosing this value 
-     makes the service only reachable from within the cluster. This is the 
+   * `ClusterIP`: Exposes the service on a cluster-internal IP. Choosing this value
+     makes the service only reachable from within the cluster. This is the
      default `ServiceType`.
-   * `NodePort`: Exposes the service on each Node's IP at a static port (the `NodePort`). 
-     A `ClusterIP` service, to which the NodePort service will route, is automatically 
-     created.  You'll be able to contact the `NodePort` service, from outside the cluster, 
+   * `NodePort`: Exposes the service on each Node's IP at a static port (the `NodePort`).
+     A `ClusterIP` service, to which the NodePort service will route, is automatically
+     created.  You'll be able to contact the `NodePort` service, from outside the cluster,
      by requesting `<NodeIP>:<NodePort>`.
-   * `LoadBalancer`: Exposes the service externally using a cloud provider's load balancer. 
-     `NodePort` and `ClusterIP` services, to which the external load balancer will route, 
+   * `LoadBalancer`: Exposes the service externally using a cloud provider's load balancer.
+     `NodePort` and `ClusterIP` services, to which the external load balancer will route,
      are automatically created.
    * `ExternalName`: Maps the service to the contents of the `externalName` field
      (e.g. `foo.bar.example.com`), by returning a `CNAME` record with its value.
@@ -409,17 +408,17 @@ spec:
   selector:
     app: MyApp
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
-      nodePort: 30061
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
+    nodePort: 30061
   clusterIP: 10.0.171.239
   loadBalancerIP: 78.11.24.19
   type: LoadBalancer
 status:
   loadBalancer:
     ingress:
-      - ip: 146.148.47.155
+    - ip: 146.148.47.155
 ```
 
 Traffic from the external load balancer will be directed at the backend `Pods`,
@@ -429,41 +428,80 @@ with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not s
 an ephemeral IP will be assigned to the loadBalancer. If the `loadBalancerIP` is specified, but the
 cloud provider does not support the feature, the field will be ignored.
 
-#### Internal load balancer on AWS
-In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC.
-This can be achieved by adding the following annotation to the service:
+Special notes for Azure: To use user-specified public type `loadBalancerIP`, a static type
+public IP address resource needs to be created first, and it should be in the same resource
+group of the cluster. Then you could specify the assigned IP address as `loadBalancerIP`.
 
+#### Internal load balancer
+In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC.
+
+In a split-horizon DNS environment you would need two services to be able to route both external and internal traffic to your endpoints.
+
+This can be achieved by adding the following annotations to the service based on cloud provider.
+
+{% capture default_tab %}
+Select one of the tabs.
+{% endcapture %}
+
+{% capture gcp %}
 ```yaml
 [...]
-metadata: 
+metadata:
     name: my-service
-    annotations: 
+    annotations:
+        cloud.google.com/load-balancer-type: "internal"
+[...]
+```
+
+For more information, see the [docs](https://cloud.google.com/container-engine/docs/internal-load-balancing).
+{% endcapture %}
+
+{% capture aws %}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
         service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 [...]
 ```
-In a split-horizon DNS environment you would need two services to be able to route both external and internal traffic to your endpoints.
+{% endcapture %}
 
+{% capture azure %}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+[...]
+```
+{% endcapture %}
+
+{% assign tab_names = 'Default,GCP,AWS,Azure' | split: ',' | compact %}
+{% assign tab_contents = site.emptyArray | push: default_tab | push: gcp | push: aws | push: azure %}
+{% include tabs.md %}
 
 #### SSL support on AWS
-For partial SSL support on clusters running on AWS, starting with 1.3 two
+For partial SSL support on clusters running on AWS, starting with 1.3 three
 annotations can be added to a `LoadBalancer` service:
 
 ```
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
+metadata:
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
 ```
 
-The first specifies which certificate to use. It can be either a
+The first specifies the ARN of the certificate to use. It can be either a
 certificate from a third party issuer that was uploaded to IAM or one created
 within AWS Certificate Manager.
 
 ```yaml
-    metadata:
-      name: my-service
-      annotations:
-         service.beta.kubernetes.io/aws-load-balancer-backend-protocol: (https|http|ssl|tcp)
+metadata:
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: (https|http|ssl|tcp)
 ```
 
 The second annotation specifies which protocol a pod speaks. For HTTPS and
@@ -478,6 +516,37 @@ ELB at the other end of its connection) when forwarding requests.
 TCP and SSL will select layer 4 proxying: the ELB will forward traffic without
 modifying the headers.
 
+In a mixed-use environment where some ports are secured and others are left unencrypted,
+the following annotations may be used:
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+        service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443,8443"
+```
+
+In the above example, if the service contained three ports, `80`, `443`, and
+`8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
+be proxied HTTP.
+
+#### PROXY protocol support on AWS
+
+To enable [PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
+support for clusters running on AWS, you can use the following service
+annotation:
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+```
+
+Since version 1.3.0 the use of this annotation applies to all ports proxied by the ELB
+and cannot be configured otherwise.
+
 ### External IPs
 
 If there are external IPs that route to one or more cluster nodes, Kubernetes services can be exposed on those
@@ -489,20 +558,20 @@ In the ServiceSpec, `externalIPs` can be specified along with any of the `Servic
 In the example below, my-service can be accessed by clients on 80.11.12.10:80 (externalIP:port)
 
 ```yaml
-kind: Service,
-apiVersion: v1,
+kind: Service
+apiVersion: v1
 metadata:
   name: my-service
 spec:
   selector:
     app: MyApp
   ports:
-    - name: http,
-      protocol: TCP,
-      port: 80,
-      targetPort: 9376
-  externalIPs: 
-    - 80.11.12.10
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 9376
+  externalIPs:
+  - 80.11.12.10
 ```
 
 ## Shortcomings
@@ -614,8 +683,8 @@ through a load-balancer, though in those cases the client IP does get altered.
 
 Service is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [Service API
-object](/docs/api-reference/v1.6/#service-v1-core).
+object](/docs/api-reference/{{page.version}}/#service-v1-core).
 
 ## For More Information
 
-Read [Connecting a Front End to a Back End Using a Service](/docs/tutorials/connecting-apps/connecting-frontend-backend/).
+Read [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/).

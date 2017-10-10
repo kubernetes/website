@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 - deads2k
 - liggitt
@@ -13,7 +13,7 @@ Role-Based Access Control ("RBAC") uses the "rbac.authorization.k8s.io" API grou
 to drive authorization decisions, allowing admins to dynamically configure policies
 through the Kubernetes API.
 
-As of 1.6 RBAC mode is in beta.
+As of 1.8, RBAC mode is stable and backed by the rbac.authorization.k8s.io/v1 API.
 
 To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.
 
@@ -37,7 +37,7 @@ Here's an example `Role` in the "default" namespace that can be used to grant re
 
 ```yaml
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: pod-reader
@@ -59,7 +59,7 @@ or across all namespaces (depending on how it is [bound](#rolebinding-and-cluste
 
 ```yaml
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   # "namespace" omitted since ClusterRoles are not namespaced
   name: secret-reader
@@ -82,7 +82,7 @@ This allows "jane" to read pods in the "default" namespace.
 ```yaml
 # This role binding allows "jane" to read pods in the "default" namespace.
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: read-pods
   namespace: default
@@ -102,13 +102,13 @@ This allows administrators to define a set of common roles for the entire cluste
 then reuse them within multiple namespaces.
 
 For instance, even though the following `RoleBinding` refers to a `ClusterRole`,
-"dave" (the subject) will only be able read secrets in the "development"
+"dave" (the subject) will only be able to read secrets in the "development"
 namespace (the namespace of the `RoleBinding`).
 
 ```yaml
 # This role binding allows "dave" to read secrets in the "development" namespace.
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: read-secrets
   namespace: development # This only grants permissions within the "development" namespace.
@@ -129,7 +129,7 @@ secrets in any namespace.
 ```yaml
 # This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: read-secrets-global
 subjects:
@@ -158,7 +158,7 @@ to read both pods and pod logs, you would write:
 
 ```yaml
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: pod-and-pod-logs-reader
@@ -175,20 +175,21 @@ configmap, you would write:
 
 ```yaml
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: configmap-updater
 rules:
 - apiGroups: [""]
-  resources: ["configmap"]
+  resources: ["configmaps"]
   resourceNames: ["my-configmap"]
   verbs: ["update", "get"]
 ```
 
-Notably, `resourceNames` can NOT be used to limit requests using the "create" verb because
-authorizers only have access to information that can be obtained from the request URL, method,
-and headers (resource names in a "create" request are part of the request body).
+Notably, if `resourceNames` are set, then the verb must not be list, watch, create, or deletecollection.
+Because resource names are not present in the URL for create, list, watch, and deletecollection API requests,
+those verbs would not be allowed by a rule with resourceNames set, since the resourceNames portion of the
+rule would not match the request.
 
 #### Role Examples
 
@@ -247,7 +248,7 @@ Allow "GET" and "POST" requests to the non-resource endpoint "/healthz" and all 
 
 ```yaml
 rules:
-- nonResourceURLs: ["/healthz", "/healthz/*"]
+- nonResourceURLs: ["/healthz", "/healthz/*"] # '*' in a nonResourceURL is a suffix glob match
   verbs: ["get", "post"]
 ```
 
@@ -257,7 +258,7 @@ A `RoleBinding` or `ClusterRoleBinding` binds a role to *subjects*.
 Subjects can be groups, users or service accounts.
 
 Users are represented by strings.  These can be plain usernames, like
-"alice", email-style names, like "bob@example.com", or numeric ids
+"alice", email-style names, like "bob@example.com", or numeric IDs
 represented as a string.  It is up to the Kubernetes admin to configure
 the [authentication modules](/docs/admin/authentication/) to produce
 usernames in the desired format.  The RBAC authorization system does
@@ -460,11 +461,14 @@ The permissions required by individual control loops are contained in the <a hre
 </tr>
 <tr>
 <td><b>system:node</b></td>
-<td><b>system:nodes</b> group</td>
-<td>Allows access to resources required by the kubelet component, <b>including read access to secrets, and write access to pods</b>.
-In the future, read access to secrets and write access to pods will be restricted to objects scheduled to the node.
-To maintain permissions in the future, Kubelets must identify themselves with the group <b>system:nodes</b> and a username in the form <b>system:node:&lt;node-name&gt;</b>.
-See <a href="https://pr.k8s.io/40476">https://pr.k8s.io/40476</a> for details.
+<td>None in 1.8+</td>
+<td>Allows access to resources required by the kubelet component, <b>including read access to all secrets, and write access to all pod status objects</b>.
+As of 1.7, use of the [Node authorizer](/docs/admin/authorization/node/) 
+and [NodeRestriction admission plugin](/docs/admin/admission-controllers#NodeRestriction) 
+is recommended instead of this role, and allow granting API access to kubelets based on the pods scheduled to run on them.
+Prior to 1.7, this role was automatically bound to the `system:nodes` group.
+In 1.7, this role was automatically bound to the `system:nodes` group if the `Node` authorization mode is not enabled.
+In 1.8+, no binding is automatically created.
 </td>
 </tr>
 <tr>
@@ -502,7 +506,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:kube-dns</b></td>
 <td><b>kube-dns</b> service account in the <b>kube-system</b> namespace</td>
-<td>Role for the <a href="/docs/admin/dns/">kube-dns</a> component.</td>
+<td>Role for the <a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a> component.</td>
 </tr>
 <tr>
 <td><b>system:node-bootstrapper</b></td>
@@ -517,7 +521,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:persistent-volume-provisioner</b></td>
 <td>None</td>
-<td>Allows access to the resources required by most <a href="/docs/user-guide/persistent-volumes/#provisioner">dynamic volume provisioners</a>.</td>
+<td>Allows access to the resources required by most <a href="/docs/concepts/storage/persistent-volumes/#provisioner">dynamic volume provisioners</a>.</td>
 </tr>
 </table>
 
@@ -579,7 +583,7 @@ to a role that grants that permission. To allow a user to create/update role bin
 For example, this cluster role and role binding would allow "user-1" to grant other users the `admin`, `edit`, and `view` roles in the "user-1-namespace" namespace:
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: role-grantor
@@ -592,7 +596,7 @@ rules:
   verbs: ["bind"]
   resourceNames: ["admin","edit","view"]
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: role-grantor-binding
@@ -645,7 +649,7 @@ Grants a `ClusterRole` across the entire cluster, including all namespaces. Exam
 
     `kubectl create clusterrolebinding myapp-view-binding --clusterrole=view --serviceaccount=acme:myapp`
 
-See the CLI help for detailed usage
+See the CLI help for detailed usage.
 
 ## Service Account Permissions
 
@@ -680,6 +684,7 @@ In order from most secure to least secure, the approaches are:
    NOTE: Permissions given to the "default" service account are available to any pod in the namespace that does not specify a `serviceAccountName`.
 
    For example, grant read-only permission within "my-namespace" to the "default" service account:
+   
    ```shell
    kubectl create rolebinding default-view \
      --clusterrole=view \
@@ -689,6 +694,7 @@ In order from most secure to least secure, the approaches are:
 
    Many [add-ons](/docs/concepts/cluster-administration/addons/) currently run as the "default" service account in the "kube-system" namespace.
    To allow those add-ons to run with super-user access, grant cluster-admin permissions to the "default" service account in the "kube-system" namespace.
+   
    NOTE: Enabling this means the "kube-system" namespace contains secrets that grant super-user access to the API.
    
    ```shell
@@ -752,7 +758,7 @@ Here are two approaches for managing this transition:
 Run both the RBAC and ABAC authorizers, and include the legacy ABAC policy:
 
 ```
---authorization-mode=RBAC,ABAC --authorization-policy-file=mypolicy.jsonl
+--authorization-mode=RBAC,ABAC --authorization-policy-file=mypolicy.json
 ```
 
 The RBAC authorizer will attempt to authorize requests first. If it denies an API request,

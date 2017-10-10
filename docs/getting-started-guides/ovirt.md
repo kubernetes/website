@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - caesarxuchao
 - erictune
 title: oVirt

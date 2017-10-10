@@ -1,4 +1,5 @@
 overrides:
+- path: docs/admin/cloud-controller-manager.md
 - path: docs/admin/federation-apiserver.md
 - path: docs/admin/federation-controller-manager.md
 - path: docs/admin/kube-apiserver.md
@@ -7,4 +8,3 @@ overrides:
 - path: docs/admin/kube-scheduler.md
 - path: docs/admin/kubelet.md
 - copypath: k8s/federation/docs/api-reference/ docs/federation/
-- copypath: k8s/cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml docs/getting-started-guides/fluentd-gcp.yaml

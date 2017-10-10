@@ -1,10 +1,5 @@
 ---
 title: Communicate Between Containers in the Same Pod Using a Shared Volume
-redirect_from:
-- "/docs/user-guide/pods/multi-container/"
-- "/docs/user-guide/pods/multi-container.html"
-- "docs/tasks/configure-pod-container/communicate-containers-same-pod/"
-- "docs/tasks/configure-pod-container/communicate-containers-same-pod.html"
 ---
 
 {% capture overview %}
@@ -144,9 +139,9 @@ the shared Volume is lost.
 * See
 [Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
 
-* See [Volume](/docs/api-reference/v1.6/#volume-v1-core).
+* See [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core).
 
-* See [Pod](/docs/api-reference/v1.6/#pod-v1-core).
+* See [Pod](/docs/api-reference/{{page.version}}/#pod-v1-core).
 
 {% endcapture %}
 

@@ -1,13 +1,8 @@
 ---
-assignees:
+approvers:
 - lavalamp
 - thockin
 title: Cluster Management
-redirect_from:
-- "/docs/admin/cluster-management/"
-- "/docs/admin/cluster-management.html"
-- "/docs/concepts/cluster-administration/cluster-management/"
-- "/docs/concepts/cluster-administration/cluster-management.html"
 ---
 
 * TOC
@@ -20,11 +15,11 @@ running cluster.
 
 ## Creating and configuring a Cluster
 
-To install Kubernetes on a set of machines, consult one of the existing [Getting Started guides](/docs/getting-started-guides/) depending on your environment.
+To install Kubernetes on a set of machines, consult one of the existing [Getting Started guides](/docs/setup/) depending on your environment.
 
 ## Upgrading a cluster
 
-The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md), as well as the version specific upgrade notes prior to upgrading their clusters.
+The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://git.k8s.io/kubernetes/CHANGELOG.md), as well as the version specific upgrade notes prior to upgrading their clusters.
 
 * [Upgrading to 1.6](/docs/admin/upgrade-1-6)
 
@@ -66,7 +61,7 @@ The node upgrade process is user-initiated and is described in the [GKE document
 Different providers, and tools, will manage upgrades differently.  It is recommended that you consult their main documentation regarding upgrades.
 
 * [kops](https://github.com/kubernetes/kops)
-* [kargo](https://github.com/kubernetes-incubator/kargo)
+* [kubespray](https://github.com/kubernetes-incubator/kubespray)
 * [CoreOS Tectonic](https://coreos.com/tectonic/docs/latest/admin/upgrade.html)
 * ...
 
@@ -76,7 +71,7 @@ If your cluster runs short on resources you can easily add more machines to it i
 If you're using GCE or GKE it's done by resizing Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
 
 ```shell
-gcloud compute instance-groups managed resize kubernetes-minion-group --size 42 --zone $ZONE
+gcloud compute instance-groups managed resize kubernetes-minion-group --size=42 --zone=$ZONE
 ```
 
 Instance Group will take care of putting appropriate image on new machines and start them, while Kubelet will register its Node with API server to make it available for scheduling. If you scale the instance group down, system will randomly choose Nodes to kill.
@@ -96,7 +91,7 @@ to wait until some pods are terminated or a new node is added.
 Cluster autoscaler looks for the pods that cannot be scheduled and checks if adding a new node, similar
 to the other in the cluster, would help. If yes, then it resizes the cluster to accommodate the waiting pods.
 
-Cluster autoscaler also scales down the cluster if it notices that some node is not needed anymore for
+Cluster autoscaler also scales down the cluster if it notices that one or more nodes are not needed anymore for
 an extended period of time (10min but it may change in the future).
 
 Cluster autoscaler is configured per instance group (GCE) or node pool (GKE).
@@ -203,4 +198,4 @@ You can use `kubectl convert` command to convert config files between different 
 kubectl convert -f pod.yaml --output-version v1
 ```
 
-For more options, please refer to the usage of [kubectl convert](/docs/user-guide/kubectl/v1.6/#convert) command.
+For more options, please refer to the usage of [kubectl convert](/docs/user-guide/kubectl/{{page.version}}/#convert) command.

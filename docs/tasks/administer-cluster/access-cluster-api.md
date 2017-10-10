@@ -1,9 +1,5 @@
 ---
 title: Access Clusters Using the Kubernetes API
-redirect_from:
-- "/docs/user-guide/accessing-the-cluster/"
-- "/docs/user-guide/accessing-the-cluster.html"
-- "/docs/concepts/cluster-administration/access-cluster/"
 ---
 
 {% capture overview %}
@@ -26,7 +22,7 @@ Kubernetes command-line tool, `kubectl`.
 
 To access a cluster, you need to know the location of the cluster and have credentials
 to access it.  Typically, this is automatically set-up when you work through
-a [Getting started guide](/docs/getting-started-guides/),
+a [Getting started guide](/docs/setup/),
 or someone else setup the cluster and provided you with credentials and a location.
 
 Check the location and credentials that kubectl knows about with this command:
@@ -35,7 +31,7 @@ Check the location and credentials that kubectl knows about with this command:
 $ kubectl config view
 ```
 
-Many of the [examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/) provide an introduction to using
+Many of the [examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/) provide an introduction to using
 kubectl.  Complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl/index).
 
 ### Directly accessing the REST API
@@ -43,10 +39,10 @@ kubectl.  Complete documentation is found in the [kubectl manual](/docs/user-gui
 Kubectl handles locating and authenticating to the apiserver. If you want to directly access the REST API with an http client like
 `curl` or `wget`, or a browser, there are multiple ways you can locate and authenticate against the apiserver:
 
- 1. Run kubectl in proxy mode (recommended).  This method is recommended, since it uses the stored apiserver location abd verifies the identity of the apiserver using a self-signed cert.  No Man-in-the-middle (MITM) attack is possible using this method . 
+ 1. Run kubectl in proxy mode (recommended).  This method is recommended, since it uses the stored apiserver location abd verifies the identity of the apiserver using a self-signed cert.  No Man-in-the-middle (MITM) attack is possible using this method .
  1. Alternatively, you can provide the location and credentials directly to the http client. This works with for client code that is confused by proxies.  To protect against man in the middle attacks, you'll need to import a root cert into your browser.
- 
- Using the Go or Python client libraries provides accessing kubectl in proxy mode. 
+
+ Using the Go or Python client libraries provides accessing kubectl in proxy mode.
 
 #### Using kubectl proxy
 
@@ -59,7 +55,7 @@ Run it like this:
 $ kubectl proxy --port=8080 &
 ```
 
-See [kubectl proxy](/docs/user-guide/kubectl/v1.6/#proxy) for more details.
+See [kubectl proxy](/docs/user-guide/kubectl/{{page.version}}/#proxy) for more details.
 
 Then you can explore the API with curl, wget, or a browser, like so:
 
@@ -116,7 +112,8 @@ with future high-availability support.
 
 ### Programmatic access to the API
 
-Kubernetes supports [Go](#go-client) and [Python](#python-client) client libraries.
+Kubernetes officially supports client libraries for [Go](#go-client) and
+[Python](#python-client).
 
 #### Go client
 
@@ -124,7 +121,7 @@ Kubernetes supports [Go](#go-client) and [Python](#python-client) client librari
 * Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct.
 
 The Go client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes/client-go/blob/master/examples/out-of-cluster/main.go):
+as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go):
 
 ```golang
 import (
@@ -150,7 +147,7 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 
 To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
 
-The Python client can use the same [kubeconfig file](/docs/user-guide/kubeconfig-file)
+The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
 as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py):
 
 ```python
@@ -167,12 +164,12 @@ for i in ret.items:
 
 #### Other languages
 
-There are [client libraries](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/client-libraries.md) for accessing the API from other languages. See documentation for other libraries for how they authenticate.
+There are [client libraries](/docs/reference/client-libraries/) for accessing the API from other languages. See documentation for other libraries for how they authenticate.
 
 ### Accessing the API from a Pod
 
 When accessing the API from a pod, locating and authenticating
-to the api server are somewhat different.
+to the API server are somewhat different.
 
 The recommended way to locate the apiserver within the pod is with
 the `kubernetes` DNS name, which resolves to a Service IP which in turn
@@ -197,9 +194,9 @@ From within a pod the recommended ways to connect to API are:
     process within a container.  This proxies the
     Kubernetes API to the localhost interface of the pod, so that other processes
     in any container of the pod can access it.  See this [example of using kubectl proxy
-    in a pod](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/kubectl-container/).
+    in a pod](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/kubectl-container/).
   - use the Go client library, and create a client using the `rest.InClusterConfig()` and `kubernetes.NewForConfig()` functions.
-    They handle locating and authenticating to the apiserver. [example](https://github.com/kubernetes/client-go/blob/master/examples/in-cluster/main.go)
+    They handle locating and authenticating to the apiserver. [example](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)
 
 In each case, the credentials of the pod are used to communicate securely with the apiserver.
 

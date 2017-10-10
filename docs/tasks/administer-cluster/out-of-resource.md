@@ -1,14 +1,9 @@
 ---
-assignees:
+approvers:
 - derekwaynecarr
 - vishh
 - timstclair
 title: Configure Out Of Resource Handling
-redirect_from:
-- "/docs/admin/out-of-resource/"
-- "/docs/admin/out-of-resource.html"
-- "/docs/concepts/cluster-administration/out-of-resource/"
-- "/docs/concepts/cluster-administration/out-of-resource.html"
 ---
 
 * TOC
@@ -54,7 +49,7 @@ container, and if users use the [node
 allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) feature, out of resource decisions
 are made local to the end user pod part of the cgroup hierarchy as well as the
 root node.  This
-[script](/docs/concepts/cluster-administration/out-of-resource/memory-available.sh)
+[script](/docs/tasks/administer-cluster/out-of-resource/memory-available.sh)
 reproduces the same set of steps that the `kubelet` performs to calculate
 `memory.available`. The `kubelet` excludes inactive_file (i.e. # of bytes of
 file-backed memory on inactive LRU list) from its calculation as it assumes that
@@ -210,7 +205,7 @@ it will begin evicting pods.
 
 The `kubelet` ranks pods for eviction as follows:
 
-* by their quality of service
+* by their quality of service.
 * by the consumption of the starved compute resource relative to the pods scheduling request.
 
 As a result, pod eviction occurs in the following order:
@@ -382,12 +377,12 @@ to prevent system OOMs, and promote eviction of workloads so cluster state can r
 ### kubelet may evict more pods than needed
 
 The pod eviction may evict more pods than needed due to stats collection timing gap. This can be mitigated by adding
-the ability to get root container stats on an on-demand basis (https://github.com/google/cadvisor/issues/1247) in the future.
+the ability to get root container stats on an on-demand basis [(https://github.com/google/cadvisor/issues/1247)](https://github.com/google/cadvisor/issues/1247) in the future.
 
 ### How kubelet ranks pods for eviction in response to inode exhaustion
 
 At this time, it is not possible to know how many inodes were consumed by a particular container.  If the `kubelet` observes
 inode exhaustion, it will evict pods by ranking them by quality of service.  The following issue has been opened in cadvisor
-to track per container inode consumption (https://github.com/google/cadvisor/issues/1422) which would allow us to rank pods
+to track per container inode consumption [(https://github.com/google/cadvisor/issues/1422)](https://github.com/google/cadvisor/issues/1422) which would allow us to rank pods
 by inode consumption.  For example, this would let us identify a container that created large numbers of 0 byte files, and evict
 that pod over others.

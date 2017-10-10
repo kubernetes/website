@@ -1,14 +1,11 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - erictune
 - foxish
 - janetkuo
 - smarterclayton
 title: Delete a Stateful Set
-redirect_from:
-- "/docs/tasks/manage-stateful-set/deleting-a-statefulset/"
-- "/docs/tasks/manage-stateful-set/deleting-a-statefulset.html"
 ---
 
 {% capture overview %}
@@ -30,7 +27,7 @@ This task shows you how to delete a StatefulSet.
 You can delete a StatefulSet in the same way you delete other resources in Kubernetes: use the `kubectl delete` command, and specify the StatefulSet either by file or by name.
 
 ```shell
-kubectl delete -f <file.yaml> 
+kubectl delete -f <file.yaml>
 ```
 
 ```shell
@@ -57,7 +54,7 @@ kubectl delete pods -l app=myapp
 
 ### Persistent Volumes
 
-Deleting the Pods in a StatefulSet will not delete the associated volumes. This is to ensure that you have the chance to copy data off the volume before deleting it. Deleting the PVC after the pods have left the [terminating state](/docs/user-guide/pods/index#termination-of-pods) might trigger deletion of the backing Persistent Volumes depending on the storage class and reclaim policy. You should never assume ability to access a volume after claim deletion.
+Deleting the Pods in a StatefulSet will not delete the associated volumes. This is to ensure that you have the chance to copy data off the volume before deleting it. Deleting the PVC after the pods have left the [terminating state](/docs/concepts/workloads/pods/pod/#termination-of-pods) might trigger deletion of the backing Persistent Volumes depending on the storage class and reclaim policy. You should never assume ability to access a volume after claim deletion.
 
 **Note: Use caution when deleting a PVC, as it may lead to data loss.**
 
@@ -83,7 +80,7 @@ If you find that some pods in your StatefulSet are stuck in the 'Terminating' or
 
 {% capture whatsnext %}
 
-Learn more about [force deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/).
+Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
 {% endcapture %}
 

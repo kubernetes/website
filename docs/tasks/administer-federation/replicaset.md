@@ -1,8 +1,5 @@
 ---
 title: Federated ReplicaSets
-redirect_from:
-- "/docs/user-guide/federation/replicasets/"
-- "/docs/user-guide/federation/replicasets.html"
 ---
 
 {% capture overview %}
@@ -19,7 +16,7 @@ replicas exist across the registered clusters.
 
 * {% include federated-task-tutorial-prereqs.md %}
 * You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+[working knowledge of Kubernetes](/docs/setup/) in
 general and [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) in particular.
 {% endcapture %}
 
@@ -59,7 +56,7 @@ federation ReplicaSet.
 
 ### Spreading Replicas in Underlying Clusters
 
-By default, replicas are spread equally in all the underlying clusters. For ex:
+By default, replicas are spread equally in all the underlying clusters. For example:
 if you have 3 registered clusters and you create a federated ReplicaSet with
 `spec.replicas = 9`, then each ReplicaSet in the 3 clusters will have
 `spec.replicas=3`.

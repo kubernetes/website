@@ -1,8 +1,5 @@
 ---
 title: Use Port Forwarding to Access Applications in a Cluster
-redirect_from:
-- "/docs/user-guide/connecting-to-applications-port-forward/"
-- "/docs/user-guide/connecting-to-applications-port-forward.html"
 ---
 
 {% capture overview %}
@@ -29,7 +26,7 @@ for database debugging.
 
 1. Create a pod:
 
-        kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/redis-master.yaml
+       kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/redis-master.yaml
 
     The output of a successful command verifies that the pod was created:
 
@@ -37,7 +34,7 @@ for database debugging.
 
 1. Check to see whether the pod is running and ready:
 
-        kubectl get pods
+       kubectl get pods
 
     When the pod is ready, the output displays a STATUS of Running:
 
@@ -47,7 +44,7 @@ for database debugging.
 1. Verify that the Redis server is running in the pod and listening on port 6379:
 
         {% raw %}
-        kubectl get pods redis-master --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
+       kubectl get pods redis-master --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
         {% endraw %}
 
     The output displays the port:
@@ -58,7 +55,7 @@ for database debugging.
 
 1. Forward port 6379 on the local workstation to port 6379 of redis-master pod:
 
-        kubectl port-forward redis-master 6379:6379
+       kubectl port-forward redis-master 6379:6379
 
     The output is similar to this:
 
@@ -67,11 +64,11 @@ for database debugging.
 
 1. Start the Redis command line interface:
 
-        redis-cli
+       redis-cli
 
 1. At the Redis command line prompt, enter the `ping` command:
 
-        127.0.0.1:6379>ping
+       127.0.0.1:6379>ping
 
     A successful ping request returns PONG.
 
@@ -90,7 +87,7 @@ local workstation to debug the database that is running in the pod.
 
 
 {% capture whatsnext %}
-Learn more about [kubectl port-forward](/docs/user-guide/kubectl/v1.6/#port-forward).
+Learn more about [kubectl port-forward](/docs/user-guide/kubectl/{{page.version}}/#port-forward).
 {% endcapture %}
 
 

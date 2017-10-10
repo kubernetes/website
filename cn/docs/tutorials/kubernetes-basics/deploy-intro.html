@@ -1,0 +1,108 @@
+---
+title: 使用 kubectl 创建部署
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+
+		 <div class="col-md-8">
+      	<h3>目标</h3>
+				<ul>
+					<li>了解应用程序部署</li>
+					<li>使用 kubectl 在 Kubernetes 上部署您的第一个应用程序</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+				<h3>Kubernetes 部署</h3>
+				<p>
+				一旦运行了 Kubernetes 集群，您可以在其上部署容器化应用程序。为此，您可以创建一个 Kubernetes <b>Deployment</b>。Deployment 负责创建和更新应用程序实例。创建 Deployment 后， Kubernetes master 会将 Deployment 创建的应用程序实例调度到集群中的各个节点。
+				</p>
+
+				<p>创建应用程序实例后，Kubernetes 部署控制器会持续监视这些实例。如果托管它的节点不可用或删除，则部署控制器将替换实例。 <b>这提供了一种解决机器故障或维护的自愈机制。</b></p>
+
+				<p>在编排诞生前的世界中，通常会使用安装脚本启动应用程序，但是它们并不能从机器故障中恢复。通过创建应用程序实例并使其运行在跨节点的机器之间，Kubernetes 部署提供了截然不同的应用管理方法。 </p>
+
+			</div>
+
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>概要:</h3>
+					<ul>
+						<li>部署</li>
+						<li>Kubectl</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+					<p><i>
+						部署负责创建和更新应用程序的实例
+					</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h2 style="color: #3771e3;">在 Kubernetes 上部署您的第一个应用程序</h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg"></p>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+
+                <p>您可以使用 Kubernetes 命令行工具 <b>Kubectl</b>创建和管理部署。Kubectl 使用 Kubernetes API 与集群进行交互。在本模块中，您将学习在 Kubernetes 集群上运行应用程序部署所需的最常见的 Kubectl 命令。</p>
+
+				<p>创建部署时，您需要为应用程序指定容器镜像以及要运行的副本数。您可以稍后通过更新部署来更改该信息；基础训练模块 <a href="/docs/tutorials/kubernetes-basics/scale-intro/">5</a> 和 <a href="/docs/tutorials/kubernetes-basics/update-intro/">6</a> 讨论如何扩展和更新您的部署。</p>
+
+
+
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_fill">
+					<p><i> 应用程序需要打包成支持的容器格式之一，以便部署在 Kubernetes 上。</i></p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p>对于我们的第一个部署，我们将使用 <a href="https://nodejs.org">Node.js</a> 应用程序打包到 Docker 容器。源代码和 Dockerfile 可在 Kubernetes Bootcamp 的 <a href="https://github.com/kubernetes/kubernetes-bootcamp">GitHub 存储库</a> 中找到。</p>
+
+				<p>现在您已经知道部署是什么，我来再来看看在线教程，并部署我们的第一个应用程序!</p>
+
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/deploy-interactive/" role="button">启动互动教程 <span class="btn__next">›</span></a>
+			</div>
+		</div>
+
+	</main>
+
+</div>
+
+</body>
+</html>

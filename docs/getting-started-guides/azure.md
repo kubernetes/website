@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - colemickens
 - brendandburns
 title: Running Kubernetes on Azure

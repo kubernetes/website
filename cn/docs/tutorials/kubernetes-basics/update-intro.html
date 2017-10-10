@@ -1,0 +1,135 @@
+---
+title: 执行滚动更新
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+
+     <div class="col-md-8">
+      	<h3>目标</h3>
+				<ul>
+					<li>使用 kubectl 执行滚动更新</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+			<h3>更新应用程序</h3>
+
+			<p>用户期望应用程序始终可用，并且希望开发人员每天部署新版本。在 Kubernetes 上这通过滚动更新(Rolling updates)达成。 <b>Rolling updates</b> 允许通过使用新的 Pods 实例逐个更新来实现零停机的部署更新。新的 Pods 会被调度到可用资源的 Node 节点上。</p>
+
+			<p>在上一个模块中，我们将应用程序扩展为运行多个实例。这也是执行更新但不影响应用可用性所需的条件。默认情况下，更新期间最大数量的不可用 Pod 以及最大数量的新 Pod 是一。 这两个选项可以配置为数字或百分比(Pods)。
+			在 Kubernetes 中，更新已版本化，任何部署更新都可以恢复到以前的 (稳定) 版本。</p>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>摘要:</h3>
+					<ul>
+						<li>更新应用程序</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+					<p><i>滚动更新允许通过使用新的 Pods 实例逐个更新来实现零停机的部署更新。 </i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h2 style="color: #3771e3;">滚动更新概述</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-8">
+				<div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+					<ol class="carousel-indicators">
+					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					    <li data-target="#myCarousel" data-slide-to="1"></li>
+					    <li data-target="#myCarousel" data-slide-to="2"></li>
+					    <li data-target="#myCarousel" data-slide-to="3"></li>
+					</ol>
+					  <div class="carousel-inner" role="listbox">
+					    <div class="item active">
+					      <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg" >
+					    </div>
+
+					    <div class="item">
+					      <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
+					    </div>
+
+					    <div class="item">
+					      <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
+					    </div>
+
+					    <div class="item">
+					      <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
+					    </div>
+					  </div>
+
+					  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+						<span class="sr-only ">Previous</span>
+					  </a>
+					  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+						<span class="sr-only">Next</span>
+					  </a>
+
+					</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+
+				<p>与应用程序伸缩类似，如果 Deployment 外部可见，则服务将在更新期间将流量负载均衡到可用的 Pod。可用的 Pod 指的是应用程序用户可用的实例。</p>
+
+				<p>滚动更新允许以下操作:</p>
+				<ul>
+					<li>将应用程序从一个环境升级到另一个环境 (通过容器镜像更新)</li>
+					<li>回滚到以前的版本</li>
+					<li>持续集成和持续交付，实现应用程序零停机</li>
+
+				</ul>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_fill">
+					<p><i>如果部署外部可见，则服务将在更新期间将流量负载均衡到可用的 Pod。 </i></p>
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p> 在下面的互动教程中，我们将把应用程序更新到一个新版本，并执行回滚。</p>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/update-interactive/" role="button">启动交互式教程<span class="btn__next">›</span></a>
+			</div>
+		</div>
+
+	</main>
+
+</div>
+
+</body>
+</html>

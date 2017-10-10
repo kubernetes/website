@@ -25,7 +25,7 @@ a building block.  kops builds on the kubeadm work.
 
 #### Requirements
 
-You must have [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
+You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
 
 #### Installation
 
@@ -34,15 +34,17 @@ Download kops from the [releases page](https://github.com/kubernetes/kops/releas
 On MacOS:
 
 ```
-wget https://github.com/kubernetes/kops/releases/download/v1.4.1/kops-darwin-amd64
+wget https://github.com/kubernetes/kops/releases/download/1.7.0/kops-darwin-amd64
 chmod +x kops-darwin-amd64
 mv kops-darwin-amd64 /usr/local/bin/kops
+# you can also install using Homebrew
+brew update && brew install kops
 ```
 
 On Linux:
 
 ```
-wget https://github.com/kubernetes/kops/releases/download/v1.4.1/kops-linux-amd64
+wget https://github.com/kubernetes/kops/releases/download/1.7.0/kops-linux-amd64
 chmod +x kops-linux-amd64
 mv kops-linux-amd64 /usr/local/bin/kops
 ```
@@ -54,7 +56,7 @@ from clients.
 
 kops has a strong opinion on the cluster name: it should be a valid DNS name.  By doing so you will
 no longer get your clusters confused, you can share clusters with your colleagues unambiguously,
-and you can reach them without relying on remembering an IP address. 
+and you can reach them without relying on remembering an IP address.
 
 You can, and probably should, use subdomains to divide your clusters.  As our example we will use
 `useast1.dev.example.com`.  The API server endpoint will then be `api.useast1.dev.example.com`.
@@ -100,8 +102,8 @@ the S3 bucket name.
 
 * Create the S3 bucket using `aws s3 mb s3://clusters.dev.example.com`
 
-* You can `export KOPS_STATE_STORE=s3://clusters.dev.example.com` and then kops will use this location by default. 
-   We suggest putting this in your bash profile or similar. 
+* You can `export KOPS_STATE_STORE=s3://clusters.dev.example.com` and then kops will use this location by default.
+   We suggest putting this in your bash profile or similar.
 
 
 ### (4/5) Build your cluster configuration
@@ -160,4 +162,4 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 * Slack Channel: [#sig-aws](https://kubernetes.slack.com/messages/sig-aws/) has a lot of kops users
 * [GitHub Issues](https://github.com/kubernetes/kops/issues)
- 
+

@@ -17,7 +17,7 @@ repository. This page shows how to create a pull request.
 1. Sign the
 [Linux Foundation Contributor License Agreement](https://identity.linuxfoundation.org/projects/cncf){: target="_blank"}.
 
-Documentation will be published under the [CC BY SA 4.0](https://github.com/kubernetes/kubernetes.github.io/blob/master/LICENSE) license.
+Documentation will be published under the [CC BY SA 4.0](https://git.k8s.io/kubernetes.github.io/LICENSE) license.
 
 {% endcapture %}
 
@@ -90,9 +90,9 @@ next upcoming release. It's automatically updated as new PRs get merged.
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn about [writing a new topic](/docs/home/contribute/write-new-topic).
+* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes).
+* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/).
 {% endcapture %}
 
 {% include templates/task.md %}

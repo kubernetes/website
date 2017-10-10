@@ -34,7 +34,7 @@ shared Volume at `/work-dir`, and the application container mounts the shared
 Volume at `/usr/share/nginx/html`. The init container runs the following command
 and then terminates:
 
-     wget -O /work-dir/index.html http://kubernetes.io
+    wget -O /work-dir/index.html http://kubernetes.io
 
 Notice that the init container writes the `index.html` file in the root directory
 of the nginx server.
@@ -49,8 +49,8 @@ Verify that the nginx container is running:
 
 The output shows that the nginx container is running:
 
-    NAME      READY     STATUS    RESTARTS   AGE
-    nginx     1/1       Running   0          43m
+    NAME        READY     STATUS    RESTARTS   AGE
+    init-demo   1/1       Running   0          1m
 
 Get a shell into the nginx container running in the init-demo Pod:
 
@@ -81,9 +81,10 @@ The output shows that nginx is serving the web page that was written by the init
 {% capture whatsnext %}
 
 * Learn more about
-[communicating between Containers running in the same Pod](/docs/tasks/configure-pod-container/communicate-containers-same-pod/).
+[communicating between Containers running in the same Pod](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/).
 * Learn more about [Init Containers](/docs/concepts/workloads/pods/init-containers/).
 * Learn more about [Volumes](/docs/concepts/storage/volumes/).
+* Learn more about [Debugging Init Containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
 
 {% endcapture %}
 

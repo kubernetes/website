@@ -1,23 +1,21 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - liggitt
 - thockin
 title: Configure Service Accounts for Pods
-redirect_from:
-- "/docs/user-guide/service-accounts/"
-- "/docs/user-guide/service-accounts.html"
 ---
 
 A service account provides an identity for processes that run in a Pod.
 
 *This is a user introduction to Service Accounts.  See also the
-[Cluster Admin Guide to Service Accounts](/docs/admin/service-accounts-admin).*
+[Cluster Admin Guide to Service Accounts](/docs/admin/service-accounts-admin/).*
 
-*Note: This document describes how service accounts behave in a cluster set up
+**Note:** This document describes how service accounts behave in a cluster set up
 as recommended by the Kubernetes project.  Your cluster administrator may have
 customized the behavior in your cluster, in which case this documentation may
-not apply.*
+not apply.
+{: .note}
 
 When you (a human) access the cluster (e.g. using `kubectl`), you are
 authenticated by the apiserver as a particular User Account (currently this is
@@ -134,7 +132,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: build-robot-secret
-  annotations: 
+  annotations:
     kubernetes.io/service-account.name: build-robot
 type: kubernetes.io/service-account-token
 EOF
@@ -147,26 +145,28 @@ Now you can confirm that the newly built secret is populated with an API token f
 Any tokens for non-existent service accounts will be cleaned up by the token controller.
 
 ```shell
-$ kubectl describe secrets/build-robot-secret 
-Name:   build-robot-secret
-Namespace:  default
-Labels:   <none>
-Annotations:  kubernetes.io/service-account.name=build-robot,kubernetes.io/service-account.uid=870ef2a5-35cf-11e5-8d06-005056b45392
+$ kubectl describe secrets/build-robot-secret
+Name:           build-robot-secret
+Namespace:      default
+Labels:         <none>
+Annotations:    kubernetes.io/service-account.name=build-robot
+                kubernetes.io/service-account.uid=da68f9c6-9d26-11e7-b84e-002dc52800da
 
-Type: kubernetes.io/service-account-token
+Type:   kubernetes.io/service-account-token
 
 Data
 ====
-ca.crt: 1220 bytes
-token: ...
-namespace: 7 bytes
+ca.crt:         1338 bytes
+namespace:      7 bytes
+token:          ...
 ```
 
-> Note that the content of `token` is elided here.
+**Note:** The content of `token` is elided here.
+{: .note}
 
 ## Add ImagePullSecrets to a service account
 
-First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
+First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod). 
 Next, verify it has been created.  For example:
 
 ```shell
@@ -175,18 +175,14 @@ NAME             TYPE                              DATA    AGE
 myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
 ```
 
-Next, read/modify/write the service account for the namespace to use this secret as an imagePullSecret.
+Next, modify the default service account for the namespace to use this secret as an imagePullSecret.
 
-Automated version using json and the jq utility:
 ```shell
-kubectl get serviceaccounts default -o json |
-     jq  'del(.metadata.resourceVersion)'|
-     jq 'setpath(["imagePullSecrets"];[{"name":"myregistrykey"}])' |
-     kubectl replace serviceaccount default -f -
-
+kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
 ```
 
 Interactive version requiring manual edit:
+
 ```shell
 $ kubectl get serviceaccounts default -o yaml > ./sa.yaml
 $ cat sa.yaml

@@ -1,16 +1,13 @@
 ---
-assignees:
+approvers:
 - mikedanese
 title: Secrets
-redirect_from:
-- "/docs/user-guide/secrets/index/"
-- "/docs/user-guide/secrets/index.html"
 ---
 
 Objects of type `secret` are intended to hold sensitive information, such as
 passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
 is safer and more flexible than putting it verbatim in a `pod` definition or in
-a docker image. See [Secrets design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/secrets.md) for more information.
+a docker image. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
 
 * TOC
 {:toc}
@@ -40,7 +37,7 @@ The automatic creation and use of API credentials can be disabled or overridden
 if desired.  However, if all you need to do is securely access the apiserver,
 this is the recommended workflow.
 
-See the [Service Account](/docs/user-guide/service-accounts) documentation for more
+See the [Service Account](/docs/tasks/configure-pod-container/configure-service-account/) documentation for more
 information on how Service Accounts work.
 
 ### Creating your own Secrets
@@ -121,10 +118,10 @@ data:
 ```
 
 The data field is a map.  Its keys must match
-[`DNS_SUBDOMAIN`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/design/identifiers.md), except that leading dots are also
+[`DNS_SUBDOMAIN`](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md), except that leading dots are also
 allowed.  The values are arbitrary data, encoded using base64.
 
-Create the secret using [`kubectl create`](/docs/user-guide/kubectl/v1.6/#create):
+Create the secret using [`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create):
 
 ```shell
 $ kubectl create -f ./secret.yaml
@@ -140,7 +137,7 @@ the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
 
 #### Decoding a Secret
 
-Get back the secret created in the previous section:
+Secrets can be retrieved via the `kubectl get secret` command. For example, to retrieve the secret created in the previous section:
 
 ```shell
 $ kubectl get secret mysecret -o yaml
@@ -185,32 +182,23 @@ To consume a Secret in a volume in a Pod:
 
 This is an example of a pod that mounts a secret in a volume:
 
-```json
-{
- "apiVersion": "v1",
- "kind": "Pod",
-  "metadata": {
-    "name": "mypod",
-    "namespace": "myns"
-  },
-  "spec": {
-    "containers": [{
-      "name": "mypod",
-      "image": "redis",
-      "volumeMounts": [{
-        "name": "foo",
-        "mountPath": "/etc/foo",
-        "readOnly": true
-      }]
-    }],
-    "volumes": [{
-      "name": "foo",
-      "secret": {
-        "secretName": "mysecret"
-      }
-    }]
-  }
-}
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+      readOnly: true
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
 ```
 
 Each secret you want to use needs to be referred to in `spec.volumes`.
@@ -225,36 +213,26 @@ You can package many files into one secret, or use many secrets, whichever is co
 We can also control the paths within the volume where Secret keys are projected.
 You can use `spec.volumes[].secret.items` field to change target path of each key:
 
-```json
-{
- "apiVersion": "v1",
- "kind": "Pod",
-  "metadata": {
-    "name": "mypod",
-    "namespace": "myns"
-  },
-  "spec": {
-    "containers": [{
-      "name": "mypod",
-      "image": "redis",
-      "volumeMounts": [{
-        "name": "foo",
-        "mountPath": "/etc/foo",
-        "readOnly": true
-      }]
-    }],
-    "volumes": [{
-      "name": "foo",
-      "secret": {
-        "secretName": "mysecret",
-        "items": [{
-          "key": "username",
-          "path": "my-group/my-username"
-        }]
-      }
-    }]
-  }
-}
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+      readOnly: true
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      items:
+      - key: username
+        path: my-group/my-username
 ```
 
 What will happen:
@@ -274,32 +252,23 @@ mode for the whole secret volume and override per key if needed.
 
 For example, you can specify a default mode like this:
 
-```json
-{
- "apiVersion": "v1",
- "kind": "Pod",
-  "metadata": {
-    "name": "mypod",
-    "namespace": "myns"
-  },
-  "spec": {
-    "containers": [{
-      "name": "mypod",
-      "image": "redis",
-      "volumeMounts": [{
-        "name": "foo",
-        "mountPath": "/etc/foo"
-      }]
-    }],
-    "volumes": [{
-      "name": "foo",
-      "secret": {
-        "secretName": "mysecret",
-        "defaultMode": 256
-      }
-    }]
-  }
-}
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      defaultMode: 256
 ```
 
 Then, the secret will be mounted on `/etc/foo` and all the files created by the
@@ -312,36 +281,26 @@ notation to specify permissions in a more natural way.
 You can also use mapping, as in the previous example, and specify different
 permission for different files like this:
 
-```json
-{
- "apiVersion": "v1",
- "kind": "Pod",
-  "metadata": {
-    "name": "mypod",
-    "namespace": "myns"
-  },
-  "spec": {
-    "containers": [{
-      "name": "mypod",
-      "image": "redis",
-      "volumeMounts": [{
-        "name": "foo",
-        "mountPath": "/etc/foo"
-      }]
-    }],
-    "volumes": [{
-      "name": "foo",
-      "secret": {
-        "secretName": "mysecret",
-        "items": [{
-          "key": "username",
-          "path": "my-group/my-username",
-          "mode": 511
-        }]
-      }
-    }]
-  }
-}
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      items:
+      - key: username
+        path: my-group/my-username
+        mode: 511
 ```
 
 In this case, the file resulting in `/etc/foo/my-group/my-username` will have
@@ -396,19 +355,19 @@ metadata:
   name: secret-env-pod
 spec:
   containers:
-    - name: mycontainer
-      image: redis
-      env:
-        - name: SECRET_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: mysecret
-              key: username
-        - name: SECRET_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysecret
-              key: password
+  - name: mycontainer
+    image: redis
+    env:
+      - name: SECRET_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: mysecret
+            key: username
+      - name: SECRET_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mysecret
+            key: password
   restartPolicy: Never
 ```
 
@@ -447,7 +406,7 @@ See [Adding ImagePullSecrets to a service account](/docs/tasks/configure-pod-con
 
 Manually created secrets (e.g. one containing a token for accessing a github account)
 can be automatically attached to pods based on their service account.
-See [Injecting Information into Pods Using a PodPreset](/docs/tasks/run-application/podpreset/) for a detailed explanation of that process.
+See [Injecting Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset/) for a detailed explanation of that process.
 
 ## Details
 
@@ -483,7 +442,7 @@ that are considered invalid environment variable names will have those keys
 skipped.  The pod will be allowed to start.  There will be an event whose
 reason is `InvalidVariableNames` and the message will contain the list of
 invalid keys that were skipped. The example shows a pod which refers to the
-default/mysecret ConfigMap that contains 2 invalid keys, 1badkey and 2alsobad.
+default/mysecret that contains 2 invalid keys, 1badkey and 2alsobad.
 
 ```shell
 $ kubectl get events
@@ -512,46 +471,31 @@ Create a secret containing some ssh keys:
 $ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
 
-**Security Note:** think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to have accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
+**Security Note:** think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to be accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
 
 
 Now we can create a pod which references the secret with the ssh key and
 consumes it in a volume:
 
-```json
-{
-  "kind": "Pod",
-  "apiVersion": "v1",
-  "metadata": {
-    "name": "secret-test-pod",
-    "labels": {
-      "name": "secret-test"
-    }
-  },
-  "spec": {
-    "volumes": [
-      {
-        "name": "secret-volume",
-        "secret": {
-          "secretName": "ssh-key-secret"
-        }
-      }
-    ],
-    "containers": [
-      {
-        "name": "ssh-test-container",
-        "image": "mySshImage",
-        "volumeMounts": [
-          {
-            "name": "secret-volume",
-            "readOnly": true,
-            "mountPath": "/etc/secret-volume"
-          }
-        ]
-      }
-    ]
-  }
-}
+```yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: secret-test-pod
+  labels:
+    name: secret-test
+spec:
+  volumes:
+  - name: secret-volume
+    secret:
+      secretName: ssh-key-secret
+  containers:
+  - name: ssh-test-container
+    image: mySshImage
+    volumeMounts:
+    - name: secret-volume
+      readOnly: true
+      mountPath: "/etc/secret-volume"
 ```
 
 When the container's command runs, the pieces of the key will be available in:
@@ -580,81 +524,49 @@ secret "test-db-secret" created
 
 Now make the pods:
 
-```json
-{
-  "apiVersion": "v1",
-  "kind": "List",
-  "items":
-  [{
-    "kind": "Pod",
-    "apiVersion": "v1",
-    "metadata": {
-      "name": "prod-db-client-pod",
-      "labels": {
-        "name": "prod-db-client"
-      }
-    },
-    "spec": {
-      "volumes": [
-        {
-          "name": "secret-volume",
-          "secret": {
-            "secretName": "prod-db-secret"
-          }
-        }
-      ],
-      "containers": [
-        {
-          "name": "db-client-container",
-          "image": "myClientImage",
-          "volumeMounts": [
-            {
-              "name": "secret-volume",
-              "readOnly": true,
-              "mountPath": "/etc/secret-volume"
-            }
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "kind": "Pod",
-    "apiVersion": "v1",
-    "metadata": {
-      "name": "test-db-client-pod",
-      "labels": {
-        "name": "test-db-client"
-      }
-    },
-    "spec": {
-      "volumes": [
-        {
-          "name": "secret-volume",
-          "secret": {
-            "secretName": "test-db-secret"
-          }
-        }
-      ],
-      "containers": [
-        {
-          "name": "db-client-container",
-          "image": "myClientImage",
-          "volumeMounts": [
-            {
-              "name": "secret-volume",
-              "readOnly": true,
-              "mountPath": "/etc/secret-volume"
-            }
-          ]
-        }
-      ]
-    }
-  }]
-}
+```yaml
+apiVersion: v1
+kind: List
+items:
+- kind: Pod
+  apiVersion: v1
+  metadata:
+    name: prod-db-client-pod
+    labels:
+      name: prod-db-client
+  spec:
+    volumes:
+    - name: secret-volume
+      secret:
+        secretName: prod-db-secret
+    containers:
+    - name: db-client-container
+      image: myClientImage
+      volumeMounts:
+      - name: secret-volume
+        readOnly: true
+        mountPath: "/etc/secret-volume"
+- kind: Pod
+  apiVersion: v1
+  metadata:
+    name: test-db-client-pod
+    labels:
+      name: test-db-client
+  spec:
+    volumes:
+    - name: secret-volume
+      secret:
+        secretName: test-db-secret
+    containers:
+    - name: db-client-container
+      image: myClientImage
+      volumeMounts:
+      - name: secret-volume
+        readOnly: true
+        mountPath: "/etc/secret-volume"
 ```
 
-Both containers will have the following files present on their filesystems:
+Both containers will have the following files present on their filesystems with the values for each container's environment:
 
 ```shell
 /etc/secret-volume/username
@@ -668,26 +580,18 @@ You could further simplify the base pod specification by using two Service Accou
 one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
 `test-user` with the `test-db-secret`.  Then, the pod spec can be shortened to, for example:
 
-```json
-{
-  "kind": "Pod",
-  "apiVersion": "v1",
-  "metadata": {
-    "name": "prod-db-client-pod",
-    "labels": {
-      "name": "prod-db-client"
-    }
-  },
-  "spec": {
-    "serviceAccount": "prod-db-client",
-    "containers": [
-      {
-        "name": "db-client-container",
-        "image": "myClientImage"
-      }
-    ]
-  }
-}
+```yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: prod-db-client-pod
+  labels:
+    name: prod-db-client
+spec:
+  serviceAccount: prod-db-client
+  containers:
+  - name: db-client-container
+    image: myClientImage
 ```
 
 ### Use-case: Dotfiles in secret volume
@@ -695,49 +599,34 @@ one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
 In order to make piece of data 'hidden' (i.e., in a file whose name begins with a dot character), simply
 make that key begin with a dot.  For example, when the following secret is mounted into a volume:
 
-```json
-{
-  "kind": "Secret",
-  "apiVersion": "v1",
-  "metadata": {
-    "name": "dotfile-secret"
-  },
-  "data": {
-    ".secret-file": "dmFsdWUtMg0KDQo="
-  }
-}
-
-{
-  "kind": "Pod",
-  "apiVersion": "v1",
-  "metadata": {
-    "name": "secret-dotfiles-pod"
-  },
-  "spec": {
-    "volumes": [
-      {
-        "name": "secret-volume",
-        "secret": {
-          "secretName": "dotfile-secret"
-        }
-      }
-    ],
-    "containers": [
-      {
-        "name": "dotfile-test-container",
-        "image": "gcr.io/google_containers/busybox",
-        "command": [ "ls", "-l", "/etc/secret-volume" ],
-        "volumeMounts": [
-          {
-            "name": "secret-volume",
-            "readOnly": true,
-            "mountPath": "/etc/secret-volume"
-          }
-        ]
-      }
-    ]
-  }
-}
+```yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: dotfile-secret
+data:
+  .secret-file: dmFsdWUtMg0KDQo=
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: secret-dotfiles-pod
+spec:
+  volumes:
+  - name: secret-volume
+    secret:
+      secretName: dotfile-secret
+  containers:
+  - name: dotfile-test-container
+    image: gcr.io/google_containers/busybox
+    command:
+    - ls
+    - "-l"
+    - "/etc/secret-volume"
+    volumeMounts:
+    - name: secret-volume
+      readOnly: true
+      mountPath: "/etc/secret-volume"
 ```
 
 
@@ -768,6 +657,40 @@ server into doing something rather arbitrary, which may be harder than getting
 it to read a file.
 
 <!-- TODO: explain how to do this while still using automation. -->
+
+## Best practices
+
+### Clients that use the secrets API
+
+When deploying applications that interact with the secrets API, access should be
+limited using [authorization policies](
+https://kubernetes.io/docs/admin/authorization/) such as [RBAC](
+https://kubernetes.io/docs/admin/authorization/rbac/).
+
+Secrets often hold values that span a spectrum of importance, many of which can
+cause escalations within Kubernetes (e.g. service account tokens) and to
+external systems. Even if an individual app can reason about the power of the
+secrets it expects to interact with, other apps within the same namespace can
+render those assumptions invalid.
+
+For these reasons `watch` and `list` requests for secrets within a namespace are
+extremely powerful capabilities and should be avoided, since listing secrets allows
+the clients to inspect the values if all secrets are in that namespace. The ability to
+`watch` and `list` all secrets in a cluster should be reserved for only the most
+privileged, system-level components.
+
+Applications that need to access the secrets API should perform `get` requests on
+the secrets they need. This lets administrators restrict access to all secrets
+while [white-listing access to individual instances](
+https://kubernetes.io/docs/admin/authorization/rbac/#referring-to-resources) that
+the app needs.
+
+For improved performance over a looping `get`, clients can design resources that
+reference a secret then `watch` the resource, re-requesting the secret when the
+reference changes. Additionally, a ["bulk watch" API](
+https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
+to let clients `watch` individual resources has also been proposed, and will likely
+be available in future releases of Kubernetes.
 
 ## Security Properties
 

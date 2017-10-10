@@ -1,10 +1,12 @@
 ---
-assignees:
+approvers:
 - yifan-gu
 title: Running Kubernetes with rkt
 ---
 
-This document describes how to run Kubernetes using [rkt](https://github.com/coreos/rkt) as the container runtime.
+This document describes how to run Kubernetes using [rkt](https://github.com/coreos/rkt) as the container runtime. 
+
+*Note*: This document describes how to use what is known as "rktnetes". In future, Kubernetes will support the rkt runtime through the Container Runtime Interface (CRI). At present the [rkt shim for the CRI](https://github.com/kubernetes-incubator/rktlet) is considered "experimental", but if you wish to use it you will find instructions in the [kubeadm reference](/docs/admin/kubeadm/#use-kubeadm-with-other-cri-runtimes). 
 
 * TOC
 {:toc}
@@ -16,6 +18,8 @@ This document describes how to run Kubernetes using [rkt](https://github.com/cor
 * [Install the latest rkt release](https://coreos.com/rkt/docs/latest/trying-out-rkt.html). The minimum rkt version required is [v1.13.0](https://github.com/coreos/rkt/releases/tag/v1.13.0). The [CoreOS Linux alpha channel](https://coreos.com/releases/) ships with a recent rkt release, and you can easily [upgrade rkt on CoreOS](https://coreos.com/rkt/docs/latest/install-rkt-in-coreos.html), if necessary.
 
 * The [rkt API service](https://coreos.com/rkt/docs/latest/subcommands/api-service.html) must be running on the node.
+
+* You will need [kubelet](/docs/getting-started-guides/scratch/#kubelet) installed on the node, and it's recommended that you run [kube-proxy](/docs/getting-started-guides/scratch/#kube-proxy) on all nodes. This document describes how to set the parameters for kubelet so that it uses rkt as the runtime. 
 
 ## Pod networking in rktnetes
 
@@ -75,7 +79,7 @@ $ cat <<EOF >/etc/rkt/net.d/k8s_flannel_example.conf
 EOF
 ```
 
-For more information on flannel configuration, see the [CNI/flannel README](https://github.com/containernetworking/cni/blob/master/Documentation/flannel.md).
+For more information on flannel configuration, see the [CNI/flannel README](https://github.com/containernetworking/plugins/blob/master/plugins/meta/flannel/README.md).
 
 #### Contained network caveats:
 
@@ -149,7 +153,7 @@ The `kube-up` script is not yet supported on AWS. Instead, we recommend followin
 
 ### Deploy apps to the cluster
 
-After creating the cluster, you can start deploying applications. For an introductory example, [deploy a simple nginx web server](/docs/user-guide/simple-nginx). Note that this example did not have to be modified for use with a "rktnetes" cluster. More examples can be found in the [Kubernetes examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).
+After creating the cluster, you can start deploying applications. For an introductory example, [deploy a simple nginx web server](/docs/user-guide/simple-nginx). Note that this example did not have to be modified for use with a "rktnetes" cluster. More examples can be found in the [Kubernetes examples directory](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/).
 
 ## Modular isolation with interchangeable stage1 images
 

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - eparis
 - mikedanese
 title: Kubernetes 101
@@ -40,7 +40,7 @@ The simplest pod definition describes the deployment of a single container.  For
 
 A pod definition is a declaration of a _desired state_.  Desired state is a very important concept in the Kubernetes model.  Many things present a desired state to the system, and it is Kubernetes' responsibility to make sure that the current state matches the desired state.  For example, when you create a Pod, you declare that you want the containers in it to be running.  If the containers happen to not be running (e.g. program failure, ...), Kubernetes will continue to (re-)create them for you in order to drive them to the desired state. This process continues until the Pod is deleted.
 
-See the [design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/README.md) for more details.
+See the [design document](https://git.k8s.io/community/contributors/design-proposals/README.md) for more details.
 
 
 #### Pod Management
@@ -57,7 +57,7 @@ List all pods:
 $ kubectl get pods
 ```
 
-On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/tasks/kubectl/get-shell-running-container/) for details.
+On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/tasks/debug-application-cluster/get-shell-running-container/) for details.
 
 Provided the pod IP is accessible, you should be able to access its http endpoint with wget on port 80:
 
@@ -161,5 +161,5 @@ Finally, we have also introduced an environment variable to the `git-monitor` co
 
 ## What's Next?
 
-Continue on to [Kubernetes 201](/docs/user-guide/walkthrough/k8s201) or
-for a complete application see the [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/)
+Continue on to [Kubernetes 201](/docs/user-guide/walkthrough/k8s201/) or
+for a complete application see the [guestbook example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/)

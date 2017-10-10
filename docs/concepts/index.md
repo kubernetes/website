@@ -21,22 +21,22 @@ Kubernetes contains a number of abstractions that represent the state of your sy
 
 The basic Kubernetes objects include:
 
-* [Pod](/docs/concepts/abstractions/pod/)
-* Service
-* Volume
-* Namespace
+* [Pod](/docs/concepts/workloads/pods/pod-overview/)
+* [Service](/docs/concepts/services-networking/service/)
+* [Volume](/docs/concepts/storage/volumes/)
+* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
 In addition, Kubernetes contains a number of higher-level abstractions called Controllers. Controllers build upon the basic objects, and provide additional functionality and convenience features. They include:
 
-* ReplicaSet
-* Deployment
-* [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/)
-* DaemonSet
-* Job
+* [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
+* [Deployment](/docs/concepts/workloads/controllers/deployment/)
+* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
+* [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
+* [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 ## Kubernetes Control Plane
 
-The various parts of the Kubernetes Control Plane, such as the Kubernetes Master and kubelet processes, govern how Kubernetes communicates with your cluster. The Control Plane maintains a record of all of the Kubernetes Objects in the system, and runs continuous control loops to manage those objects' state. At any given time, the Control Plane's control loops will respond to changes in the cluster and work to make the actual state of all the objects in the system to the desired state that you provided.
+The various parts of the Kubernetes Control Plane, such as the Kubernetes Master and kubelet processes, govern how Kubernetes communicates with your cluster. The Control Plane maintains a record of all of the Kubernetes Objects in the system, and runs continuous control loops to manage those objects' state. At any given time, the Control Plane's control loops will respond to changes in the cluster and work to make the actual state of all the objects in the system match the desired state that you provided.
 
 For example, when you use the Kubernetes API to create a Deployment object, you provide a new desired state for the system. The Kubernetes Control Plane records that object creation, and carries out your instructions by starting the required applications and scheduling them to cluster nodes--thus making the cluster's actual state match the desired state.
 

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - idvoretskyi
 - xsgordon
 title: OpenStack Heat
@@ -10,7 +10,10 @@ title: OpenStack Heat
 
 ## Getting started with OpenStack
 
-This guide will take you through the steps of deploying Kubernetes to Openstack using `kube-up.sh`. The primary mechanisms for this are [OpenStack Heat](https://wiki.openstack.org/wiki/Heat) and the [SaltStack](https://github.com/kubernetes/kubernetes/tree/master/cluster/saltbase) distributed with Kubernetes.
+**Note:** The `openstack-heat` provider that this guide uses is deprecated as of
+Kubernetes v1.8 and will be removed in a future release.
+
+This guide will take you through the steps of deploying Kubernetes to Openstack using `kube-up.sh`. The primary mechanisms for this are [OpenStack Heat](https://wiki.openstack.org/wiki/Heat) and the [SaltStack](https://git.k8s.io/kubernetes/cluster/saltbase) distributed with Kubernetes.
 
 The default OS is CentOS 7, this has not been tested on other operating systems.
 
@@ -31,11 +34,11 @@ If you already have the required versions of the OpenStack CLI tools installed a
 #### Install OpenStack CLI tools
 
 ```sh
-sudo pip install -U --force 'python-openstackclient==2.4.0'
-sudo pip install -U --force 'python-heatclient==1.1.0'
-sudo pip install -U --force 'python-swiftclient==3.0.0'
-sudo pip install -U --force 'python-glanceclient==2.0.0'
-sudo pip install -U --force 'python-novaclient==3.4.0'
+sudo pip install -U --force 'python-openstackclient==3.11.0'
+sudo pip install -U --force 'python-heatclient==1.10.0'
+sudo pip install -U --force 'python-swiftclient==3.3.0'
+sudo pip install -U --force 'python-glanceclient==2.7.0'
+sudo pip install -U --force 'python-novaclient==9.0.1'
 ```
 
 #### Configure Openstack CLI tools
@@ -167,7 +170,7 @@ Once the nginx pod is running, use the port-forward command to set up a proxy fr
 
 You should now see nginx on [http://localhost:8888]().
 
-For more complex examples please see the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).
+For more complex examples please see the [examples directory](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/).
 
 ## Administering your cluster with Openstack
 
@@ -196,8 +199,8 @@ See the [OpenStack CLI Reference](http://docs.openstack.org/cli-reference/) for 
 
 ### Salt
 
-The OpenStack-Heat provider uses a [standalone Salt configuration](/docs/admin/salt/#standalone-salt-configuration-on-gce-and-others).  
-It only uses Salt for bootstraping the machines and creates no salt-master and does not auto-start the salt-minion service on the nodes.
+The OpenStack-Heat provider uses a [standalone Salt configuration](/docs/admin/salt/#standalone-salt-configuration-on-gce-and-others).
+It only uses Salt for bootstrapping the machines and creates no salt-master and does not auto-start the salt-minion service on the nodes.
 
 ## SSHing to your nodes
 

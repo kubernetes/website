@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - thockin
 title: Cluster Networking
-redirect_from:
-- "/docs/admin/networking/"
-- "/docs/admin/networking.html"
 ---
 
 Kubernetes approaches networking somewhat differently than Docker does by
@@ -40,7 +37,7 @@ review the "normal" way that networking works with Docker.  By default, Docker
 uses host-private networking.  It creates a virtual bridge, called `docker0` by
 default, and allocates a subnet from one of the private address blocks defined
 in [RFC1918](https://tools.ietf.org/html/rfc1918) for that bridge.  For each
-container that Docker creates, it allocates a virtual ethernet device (called
+container that Docker creates, it allocates a virtual Ethernet device (called
 `veth`) which is attached to the bridge. The veth is mapped to appear as `eth0`
 in the container, using Linux namespaces.  The in-container `eth0` interface is
 given an IP address from the bridge's address range.
@@ -85,7 +82,7 @@ talk to other VMs in your project.  This is the same basic model.
 Until now this document has talked about containers.  In reality, Kubernetes
 applies IP addresses at the `Pod` scope - containers within a `Pod` share their
 network namespaces - including their IP address.  This means that containers
-within a `Pod` can all reach each other's ports on `localhost`. This does imply 
+within a `Pod` can all reach each other's ports on `localhost`. This does imply
 that containers within a `Pod` must coordinate port usage, but this is no
 different than processes in a VM.  We call this the "IP-per-pod" model.  This
 is implemented in Docker as a "pod container" which holds the network namespace
@@ -171,6 +168,10 @@ sysctl net.ipv4.ip_forward=1
 The result of all this is that all `Pods` can reach each other and can egress
 traffic to the internet.
 
+### Kube-router
+
+[Kube-router](https://github.com/cloudnativelabs/kube-router) is a purpose-built networking solution for Kubernetes that aims to provide high performance and operational simplicity. Kube-router provides a Linux [LVS/IPVS](http://www.linuxvirtualserver.org/software/ipvs.html)-based service proxy, a Linux kernel forwarding-based pod-to-pod networking solution with no overlays, and iptables/ipset-based network policy enforcer.
+
 ### L2 networks and linux bridging
 
 If you have a "dumb" L2 network, such as a simple switch in a "bare-metal"
@@ -213,19 +214,19 @@ Calico can also be run in policy enforcement mode in conjunction with other netw
 
 ### Romana
 
-[Romana](http://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/networkpolicies/) to provide isolation across network namespaces.
+[Romana](http://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
 
 ### Weave Net from Weaveworks
 
-[Weave Net](https://www.weave.works/products/weave-net/) is a 
-resilient and simple to use network for Kubernetes and its hosted applications.  
-Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)  
+[Weave Net](https://www.weave.works/products/weave-net/) is a
+resilient and simple to use network for Kubernetes and its hosted applications.
+Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)
 or stand-alone.  In either version, it doesn't require any configuration or extra code
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 
 ### CNI-Genie from Huawei
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultanously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](https://github.com/kubernetes/kubernetes.github.io/blob/master/docs/concepts/cluster-administration/networking.md#kubernetes-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultanously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](https://git.k8s.io/kubernetes.github.io/docs/concepts/cluster-administration/networking.md#kubernetes-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
 
 CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
 
@@ -233,4 +234,4 @@ CNI-Genie also supports [assigning multiple IP addresses to a pod](https://githu
 
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the [networking design
-document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/networking.md).
+document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).

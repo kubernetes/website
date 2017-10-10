@@ -1,8 +1,5 @@
 ---
 title: Federated ConfigMap
-redirect_from:
-- "/docs/user-guide/federation/configmap/"
-- "/docs/user-guide/federation/configmap.html"
 ---
 
 {% capture overview %}
@@ -75,7 +72,7 @@ the federation apiserver instead of sending it to a specific Kubernetes cluster.
 For example, you can do that using kubectl by running:
 
 ```shell
-kubectl --context=federation-cluster delete configmap 
+kubectl --context=federation-cluster delete configmap
 ```
 
 Note that at this point, deleting a Federated ConfigMap will not delete the

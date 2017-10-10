@@ -5,9 +5,9 @@ title: Scaling
 {% capture overview %}
 This page shows how to horizontally scale master and worker nodes on a cluster.
 {% endcapture %}
+
 {% capture prerequisites %}
 This page assumes you have a working Juju deployed cluster.
-{% endcapture %}
 
 Any of the applications can be scaled out post-deployment. The charms
 update the status messages with progress, so it is recommended to run.
@@ -15,14 +15,21 @@ update the status messages with progress, so it is recommended to run.
 ```
 watch -c juju status --color
 ```
+{% endcapture %}
+
 {% capture steps %}
 ## Kubernetes masters
 
-The provided Kubernetes master nodes act as a control plane for the cluster. The deployment has been designed so that these nodes can be scaled independently of worker nodes to allow for more operational flexibility. To scale a master node up, simply execute:
+The provided Kubernetes master nodes act as a control plane for the cluster.
+The deployment has been designed so that these nodes can be scaled independently
+of worker nodes to allow for more operational flexibility.
+To scale a master node up, simply execute:
 
     juju add-unit kubernetes-master
 
-This will add another master node to the control plane. See the [building high-availability clusters](http://kubernetes.io/docs/admin/high-availability) section of the documentation for more information. 
+This will add another master node to the control plane.
+See the [building high-availability clusters](/docs/admin/high-availability)
+section of the documentation for more information.
 
 ## Kubernetes workers
 
@@ -65,15 +72,17 @@ juju add-unit etcd
 
 Shrinking of an etcd cluster after growth is not recommended.
 
-## Juju Controller
+## Juju controller
 
-A single node is responsible for coordinating with all the Juju agents on each machine that manage Kubernetes, it is called the controller node. For production deployments it is recommended to enable HA of the controller node:
+A single node is responsible for coordinating with all the Juju agents
+on each machine that manage Kubernetes; it is called the controller node.
+For production deployments it is recommended to enable HA of the controller node:
 
     juju enable-ha
     
 Enabling HA results in 3 controller nodes, this should be sufficient for most use cases. 5 and 7 controller nodes are also supported for extra large deployments. 
     
-Refer to the [Juju HA controller documentation](https://jujucharms.com/docs/2.0/controllers-ha) for more information. 
+Refer to the [Juju HA controller documentation](https://jujucharms.com/docs/2.2/controllers-ha) for more information.
 {% endcapture %}
 
 {% include templates/task.md %}

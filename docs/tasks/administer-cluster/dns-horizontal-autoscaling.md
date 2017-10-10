@@ -179,7 +179,7 @@ The output is:
 ### Option 3: Delete the kube-dns-autoscaler manifest file from the master node
 
 This option works if kube-dns-autoscaler is under control of the
-[Addon Manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/README.md)'s
+[Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md)'s
 control, and you have write access to the master node.
 
 Sign in to the master node and delete the corresponding manifest file.

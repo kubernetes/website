@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - mikedanese
 title: Configuring kubelet Garbage Collection
-redirect_from:
-- "/docs/admin/garbage-collection/"
-- "/docs/admin/garbage-collection.html"
 ---
 
 * TOC
@@ -45,7 +42,7 @@ to free. Default is 80%.
 We also allow users to customize garbage collection policy through the following kubelet flags:
 
 1. `minimum-container-ttl-duration`, minimum age for a finished container before it is
-garbage collected. Default is 0 minute, which means every finished container will be garbaged collected.
+garbage collected. Default is 0 minute, which means every finished container will be garbage collected.
 2. `maximum-dead-containers-per-container`, maximum number of old instances to be retained
 per container. Default is 1.
 3. `maximum-dead-containers`, maximum number of old instances of containers to retain globally.
@@ -75,4 +72,4 @@ Including:
 | `--low-diskspace-threshold-mb` | `--eviction-hard` or `eviction-soft` | eviction generalizes disk thresholds to other resources |
 | `--outofdisk-transition-frequency` | `--eviction-pressure-transition-period` | eviction generalizes disk pressure transition to other resources |
 
-See [Configuring Out Of Resource Handling](/docs/concepts/cluster-administration/out-of-resource/) for more details.
+See [Configuring Out Of Resource Handling](/docs/tasks/administer-cluster/out-of-resource/) for more details.

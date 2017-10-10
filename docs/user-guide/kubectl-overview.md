@@ -1,11 +1,11 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - hw-qiaolei
 title: Overview of kubectl
 ---
 
-`kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
+`kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
 
 ## Syntax
 
@@ -16,23 +16,28 @@ kubectl [command] [TYPE] [NAME] [flags]
 ```
 
 where `command`, `TYPE`, `NAME`, and `flags` are:
+
 * `command`: Specifies the operation that you want to perform on one or more resources, for example `create`, `get`, `describe`, `delete`.
+
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-sensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
-   ```shell
     $ kubectl get pod pod1
     $ kubectl get pods pod1
     $ kubectl get po pod1
-   ```
+   
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `$ kubectl get pods`.
 
    When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
+   
    * To specify resources by type and name:
-        * To group resources if they are all the same type: `TYPE1 name1 name2 name<#>`<br/>
+   
+        * To group resources if they are all the same type:  `TYPE1 name1 name2 name<#>`.<br/>
         Example: `$ kubectl get pod example-pod1 example-pod2`
-        * To specify multiple resource types individually: `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`<br/>
+        
+        * To specify multiple resource types individually:  `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
         Example: `$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
-   * To specify resources with one or more files: `-f file1 -f file2 -f file<#>`
+        
+   * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
      [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-config-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
      Example: `$ kubectl get pod -f ./pod.yaml`
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
@@ -73,7 +78,7 @@ Operation       | Syntax    |       Description
 `stop`        | `kubectl stop` | Deprecated: Instead, see `kubectl delete`.
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 
-Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl) reference documentation.
+Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
 
 ## Resource types
 
@@ -81,13 +86,16 @@ The following table includes a list of all the supported resource types and thei
 
 Resource type    | Abbreviated alias
 -------------------- | --------------------
+`apiservices` |
 `certificatesigningrequests` |`csr`
 `clusters` |
 `clusterrolebindings` |
 `clusterroles` |
 `componentstatuses` |`cs`
 `configmaps` |`cm`
+`controllerrevisions` |
 `cronjobs` |
+`customresourcedefinition` |`crd`
 `daemonsets` |`ds`
 `deployments` |`deploy`
 `endpoints` |`ep`
@@ -97,11 +105,12 @@ Resource type    | Abbreviated alias
 `jobs` |
 `limitranges` |`limits`
 `namespaces` |`ns`
-`networkpolicies` |
+`networkpolicies` |`netpol`
 `nodes` |`no`
 `persistentvolumeclaims` |`pvc`
 `persistentvolumes` |`pv`
 `poddisruptionbudget` |`pdb`
+`podpreset` |
 `pods` |`po`
 `podsecuritypolicies` |`psp`
 `podtemplates` |
@@ -115,11 +124,10 @@ Resource type    | Abbreviated alias
 `services` |`svc`
 `statefulsets` |
 `storageclasses` |
-`thirdpartyresources` |
 
 ## Output options
 
-Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl) reference documentation.
+Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
 
 ### Formatting output
 
@@ -150,7 +158,7 @@ In this example, the following command outputs the details for a single pod as a
 
 `$ kubectl get pod web-pod-13je7 -o=yaml`
 
-Remember: See the [kubectl](/docs/user-guide/kubectl) reference documentation for details about which output format is supported by each command.
+Remember: See the [kubectl](/docs/user-guide/kubectl/) reference documentation for details about which output format is supported by each command.
 
 #### Custom columns
 
@@ -230,9 +238,12 @@ $ kubectl get replicationcontroller <rc-name>
 
 // List all replication controllers and services together in plain-text output format.
 $ kubectl get rc,services
+
+// List all daemon sets, including uninitialized ones, in plain-text output format.
+$ kubectl get ds --include-uninitialized
 ```
 
-`kubectl describe` - Display detailed state of one or more resources.
+`kubectl describe` - Display detailed state of one or more resources, including the uninitialized ones by default.
 
 ```shell
 // Display the details of the node with name <node-name>.
@@ -244,6 +255,9 @@ $ kubectl describe pods/<pod-name>
 // Display the details of all the pods that are managed by the replication controller named <rc-name>.
 // Remember: Any pods that are created by the replication controller get prefixed with the name of the replication controller.
 $ kubectl describe pods <rc-name>
+
+// Describe all pods, not including uninitialized ones
+$ kubectl describe pods --include-uninitialized=false
 ```
 
 `kubectl delete` - Delete resources either from a file, stdin, or specifying label selectors, names, resource selectors, or resources.
@@ -255,7 +269,10 @@ $ kubectl delete -f pod.yaml
 // Delete all the pods and services that have the label name=<label-name>.
 $ kubectl delete pods,services -l name=<label-name>
 
-// Delete all pods.
+// Delete all the pods and services that have the label name=<label-name>, including uninitialized ones.
+$ kubectl delete pods,services -l name=<label-name> --include-uninitialized
+
+// Delete all pods, including uninitialized ones.
 $ kubectl delete pods --all
 ```
 
@@ -285,4 +302,4 @@ $ kubectl logs -f <pod-name>
 
 ## Next steps
 
-Start using the [kubectl](/docs/user-guide/kubectl) commands.
+Start using the [kubectl](/docs/user-guide/kubectl/) commands.

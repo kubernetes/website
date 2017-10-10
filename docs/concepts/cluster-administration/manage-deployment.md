@@ -1,15 +1,12 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - janetkuo
 - mikedanese
 title: Managing Resources
-redirect_from:
-- "/docs/user-guide/managing-deployments/"
-- "/docs/user-guide/managing-deployments.html"
 ---
 
-You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features we'll discuss in more depth are [configuration files](/docs/user-guide/configuring-containers/#configuration-in-kubernetes) and [labels](/docs/user-guide/deploying-applications/#labels).
+You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features that we will discuss in more depth are [configuration files](/docs/concepts/configuration/overview/) and [labels](/docs/concepts/overview/working-with-objects/labels/).
 
 You can find all the files for this example [in our docs
 repo here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/).
@@ -85,7 +82,7 @@ Because `kubectl` outputs resource names in the same syntax it accepts, it's eas
 ```shell
 $ kubectl get $(kubectl create -f docs/user-guide/nginx/ -o name | grep service)
 NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
-my-nginx-svc   10.0.0.208                 80/TCP       0s
+my-nginx-svc   10.0.0.208   <pending>     80/TCP       0s
 ```
 
 With the above commands, we first create resources under docs/user-guide/nginx/ and print the resources created with `-o name` output format
@@ -105,7 +102,7 @@ project/k8s/development
     └── my-pvc.yaml
 ```
 
-By default, performing a bulk operation on `project/k8s/development` will stop at the first level of the directory, not processing any subdirectories. If we tried to create the resources in this directory using the following command, we'd encounter an error:
+By default, performing a bulk operation on `project/k8s/development` will stop at the first level of the directory, not processing any subdirectories. If we had tried to create the resources in this directory using the following command, we would have encountered an error:
 
 ```shell
 $ kubectl create -f project/k8s/development
@@ -140,7 +137,7 @@ If you're interested in learning more about `kubectl`, go ahead and read [kubect
 
 The examples we've used so far apply at most a single label to any resource. There are many scenarios where multiple labels should be used to distinguish sets from one another.
 
-For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
+For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
 
 ```yaml
      labels:
@@ -259,7 +256,7 @@ my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 
 This outputs all "app=nginx" pods, with an additional label column of pods' tier (specified with `-L` or `--label-columns`).
 
-For more information, please see [labels](/docs/user-guide/labels/) and [kubectl label](/docs/user-guide/kubectl/v1.6/#label) document.
+For more information, please see [labels](/docs/concepts/overview/working-with-objects/labels/) and [kubectl label](/docs/user-guide/kubectl/{{page.version}}/#label) document.
 
 ## Updating annotations
 
@@ -276,7 +273,7 @@ metadata:
 ...
 ```
 
-For more information, please see [annotations](/docs/concepts/overview/working-with-objects/annotations/) and [kubectl annotate](/docs/user-guide/kubectl/v1.6/#annotate) document.
+For more information, please see [annotations](/docs/concepts/overview/working-with-objects/annotations/) and [kubectl annotate](/docs/user-guide/kubectl/{{page.version}}/#annotate) document.
 
 ## Scaling your application
 
@@ -304,7 +301,7 @@ deployment "my-nginx" autoscaled
 
 Now your nginx replicas will be scaled up and down as needed, automatically.
 
-For more information, please see [kubectl scale](/docs/user-guide/kubectl/v1.6/#scale), [kubectl autoscale](/docs/user-guide/kubectl/v1.6/#autoscale) and [horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) document.
+For more information, please see [kubectl scale](/docs/user-guide/kubectl/{{page.version}}/#scale), [kubectl autoscale](/docs/user-guide/kubectl/{{page.version}}/#autoscale) and [horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) document.
 
 
 ## In-place updates of resources
@@ -315,7 +312,7 @@ Sometimes it's necessary to make narrow, non-disruptive updates to resources you
 
 It is suggested to maintain a set of configuration files in source control (see [configuration as code](http://martinfowler.com/bliki/InfrastructureAsCode.html)),
 so that they can be maintained and versioned along with the code for the resources they configure.
-Then, you can use [`kubectl apply`](/docs/user-guide/kubectl/v1.6/#apply) to push your configuration changes to the cluster.
+Then, you can use [`kubectl apply`](/docs/user-guide/kubectl/{{page.version}}/#apply) to push your configuration changes to the cluster.
 
 This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
 
@@ -353,55 +350,15 @@ $ rm /tmp/nginx.yaml
 
 This allows you to do more significant changes more easily. Note that you can specify the editor with your `EDITOR` or `KUBE_EDITOR` environment variables.
 
-For more information, please see [kubectl edit](/docs/user-guide/kubectl/v1.6/#edit) document.
+For more information, please see [kubectl edit](/docs/user-guide/kubectl/{{page.version}}/#edit) document.
 
 ### kubectl patch
 
-Suppose you want to fix a typo of the container's image of a Deployment. One way to do that is with `kubectl patch`:
-
-```shell
-# Suppose you have a Deployment with a container named "nginx" and its image "nignx" (typo),
-# use container name "nginx" as a key to update the image from "nignx" (typo) to "nginx"
-$ kubectl get deployment my-nginx -o yaml
-```
-
-```yaml
-apiVersion: apps/v1beta1
-kind: Deployment
-...
-spec:
-  template:
-    spec:
-      containers:
-      - image: nignx
-        name: nginx
-...
-```
-
-```shell
-$ kubectl patch deployment my-nginx -p'{"spec":{"template":{"spec":{"containers":[{"name":"nginx","image":"nginx"}]}}}}'
-"my-nginx" patched
-$ kubectl get pod my-nginx-1jgkf -o yaml
-```
-
-```yaml
-apiVersion: apps/v1beta1
-kind: Deployment
-...
-spec:
-  template:
-    spec:
-      containers:
-      - image: nginx
-        name: nginx
-...
-```
-
-The patch is specified using json.
-
-The system ensures that you don't clobber changes made by other users or components by confirming that the `resourceVersion` doesn't differ from the version you edited. If you want to update regardless of other changes, remove the `resourceVersion` field when you edit the resource. However, if you do this, don't use your original configuration file as the source since additional fields most likely were set in the live state.
-
-For more information, please see [kubectl patch](/docs/user-guide/kubectl/v1.6/#patch) document.
+You can use `kubectl patch` to update API objects in place. This command supports JSON patch,
+JSON merge patch, and strategic merge patch. See
+[Update API Objects in Place Using kubectl patch](/docs/tasks/run-application/update-api-object-kubectl-patch/)
+and
+[kubectl patch](/docs/user-guide/kubectl/{{page.version}}/#patch).
 
 ## Disruptive updates
 

@@ -18,7 +18,7 @@ PersistentVolume.
 ## Why change reclaim policy of a PersistentVolume
 
 `PersistentVolumes` can have various reclaim policies, including "Retain",
-"Recycle", and "Delete". For dynamically provisioned `PersistentVolumes`, 
+"Recycle", and "Delete". For dynamically provisioned `PersistentVolumes`,
 the default reclaim policy is "Delete". This means that a dynamically provisioned
 volume is automatically deleted when a user deletes the corresponding
 `PeristentVolumeClaim`. This automatic behavior might be inappropriate if the volume
@@ -31,7 +31,7 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 
 1. List the PersistentVolumes in your cluster:
 
-        kubectl get pv
+       kubectl get pv
 
     The output is similar to this:
 
@@ -43,15 +43,15 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
    This list also includes the name of the claims that are bound to each volume
    for easier identification of dynamically provisioned volumes.
 
-1. Chose one of your PersistentVolumes and change its reclaim policy:
+1. Choose one of your PersistentVolumes and change its reclaim policy:
 
-        kubectl patch pv <your-pv-name> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
+       kubectl patch pv <your-pv-name> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
 
     where `<your-pv-name>` is the name of your chosen PersistentVolume.
 
 1. Verify that your chosen PersistentVolume has the right policy:
 
-        kubectl get pv
+       kubectl get pv
 
     The output is similar to this:
 
@@ -68,13 +68,13 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 
 {% capture whatsnext %}
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
-* Learn more about [PersistentVolumeClaims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims).
+* Learn more about [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 
 ### Reference
 
-* [PersistentVolume](/docs/api-reference/v1.6/#persistentvolume-v1-core)
-* [PersistentVolumeClaim](/docs/api-reference/v1.6/#persistentvolumeclaim-v1-core)
-* See the `persistentVolumeReclaimPolicy` field of [PersistentVolumeSpec](/docs/api-reference/v1.6/#persistentvolumeclaim-v1-core).
+* [PersistentVolume](/docs/api-reference/{{page.version}}/#persistentvolume-v1-core)
+* [PersistentVolumeClaim](/docs/api-reference/{{page.version}}/#persistentvolumeclaim-v1-core)
+* See the `persistentVolumeReclaimPolicy` field of [PersistentVolumeSpec](/docs/api-reference/{{page.version}}/#persistentvolumeclaim-v1-core).
 {% endcapture %}
 
 {% include templates/task.md %}

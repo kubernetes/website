@@ -1,11 +1,5 @@
 ---
 title: Garbage Collection
-redirect_from:
-- "/docs/concepts/abstractions/controllers/garbage-collection/"
-- "/docs/concepts/abstractions/controllers/garbage-collection.html"
-- "/docs/user-guide/garbage-collection/"
-- "/docs/user-guide/garbage-collection.html"
-
 ---
 
 {% capture overview %}
@@ -70,15 +64,15 @@ metadata:
 
 When you delete an object, you can specify whether the object's dependents are
 also deleted automatically. Deleting dependents automatically is called *cascading
-deletion*.  There are two modes of *cascading deletion*: *background* and *foreground*. 
+deletion*.  There are two modes of *cascading deletion*: *background* and *foreground*.
 
 If you delete an object without deleting its dependents
-automatically, the dependents are said to be *orphaned*. 
+automatically, the dependents are said to be *orphaned*.
 
 ### Background cascading deletion
 
-In *background cascading deletion*, Kubernetes deletes the owner object 
-immediately and the garbage collector then deletes the dependents in 
+In *background cascading deletion*, Kubernetes deletes the owner object
+immediately and the garbage collector then deletes the dependents in
 the background.
 
 ### Foreground cascading deletion
@@ -90,7 +84,7 @@ the following things are true:
  * The object is still visible via the REST API
  * The object's `deletionTimestamp` is set
  * The object's `metadata.finalizers` contains the value "foregroundDeletion".
- 
+
 Once the "deletion in progress" state is set, the garbage
 collector deletes the object's dependents. Once the garbage collector has deleted all
 "blocking" dependents (objects with `ownerReference.blockOwnerDeletion=true`), it delete
@@ -100,7 +94,7 @@ Note that in the "foregroundDeletion", only dependents with
 `ownerReference.blockOwnerDeletion` block the deletion of the owner object.
 Kubernetes version 1.7 will add an admission controller that controls user access to set
 `blockOwnerDeletion` to true based on delete permissions on the owner object, so that
-unauthorized dependents cannot delay deletion of an owner object. 
+unauthorized dependents cannot delay deletion of an owner object.
 
 If an object's `ownerReferences` field is set by a controller (such as Deployment or ReplicaSet),
 blockOwnerDeletion is set automatically and you do not need to manually modify this field.
@@ -153,23 +147,25 @@ Here's an example that orphans the dependents of a ReplicaSet:
 kubectl delete replicaset my-repset --cascade=false
 ```
 
-## Known issues
-* In 1.6, garbage collection does not support non-core resources, e.g.,
-  resources added via ThirdPartyResource or via aggregated API servers. It will
-  support non-core resources in the future. When it does, garbage collector will
-  delete objects with ownerRefereneces referring to non-existent object of a
-  valid non-core resource.
+### Additional note on Deployments
 
-[Other known issues](https://github.com/kubernetes/kubernetes/issues/26120)
+When using cascading deletes with Deployments you *must* use `propagationPolicy: Foreground`
+to delete not only the ReplicaSets created, but also their Pods. If this type of _propagationPolicy_
+is not used, only the ReplicaSets will be deleted, and the Pods will be orphaned.
+See [kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment-284766613) for more information.
+
+## Known issues
+
+Tracked at [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 
 {% endcapture %}
 
 
 {% capture whatsnext %}
 
-[Design Doc 1](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/garbage-collection.md)
+[Design Doc 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
 
-[Design Doc 2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/synchronous-garbage-collection.md)
+[Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
 {% endcapture %}
 

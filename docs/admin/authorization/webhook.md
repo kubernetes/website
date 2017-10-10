@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 - lavalamp
 - deads2k
@@ -20,7 +20,7 @@ service when determining user privileges.
 Mode `Webhook` requires a file for HTTP configuration, specify by the
 `--authorization-webhook-config-file=SOME_FILENAME` flag.
 
-The configuration file uses the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+The configuration file uses the [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 file format. Within the file "users" refers to the API Server webhook and
 "clusters" refers to the remote service.
 
@@ -58,7 +58,7 @@ action. This object contains fields describing the user attempting to make the
 request, and either details about the resource being accessed or requests
 attributes.
 
-Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/api/)
+Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
 as other Kubernetes API objects. Implementers should be aware of looser
 compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API Server must
@@ -86,9 +86,9 @@ An example request body:
 }
 ```
 
-The remote service is expected to fill the SubjectAccessReviewStatus field of
+The remote service is expected to fill the `status` field of
 the request and respond to either allow or disallow access. The response body's
-"spec" field is ignored and may be omitted. A permissive response would return:
+`spec` field is ignored and may be omitted. A permissive response would return:
 
 ```json
 {
@@ -141,7 +141,7 @@ Access to other non-resource paths can be disallowed without restricting access
 to the REST api.
 
 For further documentation refer to the authorization.v1beta1 API objects and
-[webhook.go](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).
+[webhook.go](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).
 
 {% endcapture %}
 

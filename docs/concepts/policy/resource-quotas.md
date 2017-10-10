@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - derekwaynecarr
 title: Resource Quotas
-redirect_from:
-- "/docs/admin/resourcequota/"
-- "/docs/admin/resourcequota/index.html"
 ---
 
 When several users or teams share a cluster with a fixed number of nodes,
@@ -29,11 +26,11 @@ Resource quotas work like this:
 - If quota is enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
   requests or limits for those values; otherwise, the quota system may reject pod creation.  Hint: Use
   the LimitRange admission controller to force defaults for pods that make no compute resource requirements.
-  See the [walkthrough](/docs/tasks/configure-pod-container/apply-resource-quota-limit/) for an example to avoid this problem.
+  See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example to avoid this problem.
 
 Examples of policies that could be created using namespaces and quotas are:
 
-- In a cluster with a capacity of 32 GiB RAM, and 16 cores, let team A use 20 Gib and 10 cores,
+- In a cluster with a capacity of 32 GiB RAM, and 16 cores, let team A use 20 GiB and 10 cores,
   let B use 10GiB and 4 cores, and hold 2GiB and 2 cores in reserve for future allocation.
 - Limit the "testing" namespace to using 1 core and 1GiB RAM.  Let the "production" namespace
   use any amount.
@@ -56,7 +53,7 @@ Resource Quota is enforced in a particular namespace when there is a
 ## Compute Resource Quota
 
 You can limit the total sum of [compute resources](/docs/user-guide/compute-resources) that can be requested in a given namespace.
- 
+
 The following resource types are supported:
 
 | Resource Name | Description |
@@ -70,22 +67,29 @@ The following resource types are supported:
 
 ## Storage Resource Quota
 
-You can limit the total sum of [storage resources](/docs/user-guide/persistent-volumes) that can be requested in a given namespace. 
+You can limit the total sum of [storage resources](/docs/concepts/storage/persistent-volumes/) that can be requested in a given namespace.
 
 In addition, you can limit consumption of storage resources based on associated storage-class.
 
 | Resource Name | Description |
 | --------------------- | ----------------------------------------------------------- |
 | `requests.storage` | Across all persistent volume claims, the sum of storage requests cannot exceed this value. |
-| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 | `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | Across all persistent volume claims associated with the storage-class-name, the sum of storage requests cannot exceed this value. |
-| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | Across all persistent volume claims associated with the storage-class-name, the total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | Across all persistent volume claims associated with the storage-class-name, the total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 
 For example, if an operator wants to quota storage with `gold` storage class separate from `bronze` storage class, the operator can
 define a quota as follows:
 
 * `gold.storageclass.storage.k8s.io/requests.storage: 500Gi`
 * `bronze.storageclass.storage.k8s.io/requests.storage: 100Gi`
+
+In release 1.8, quota support for local ephemeral storage is added as alpha feature
+
+| Resource Name | Description |
+| ------------------------------- |----------------------------------------------------------- |
+| `requests.ephemeral-storage` | Across all pods in the namespace, the sum of local ephemeral storage requests cannot exceed this value. |
+| `limits.ephemeral-storage` | Across all pods in the namespace, the sum of local ephemeral storage limits cannot exceed this value. |
 
 ## Object Count Quota
 
@@ -95,7 +99,7 @@ are supported:
 | Resource Name | Description |
 | ------------------------------- | ------------------------------------------------- |
 | `configmaps` | The total number of config maps that can exist in the namespace. |
-| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 | `pods` | The total number of pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `status.phase in (Failed, Succeeded)` is true.  |
 | `replicationcontrollers` | The total number of replication controllers that can exist in the namespace. |
 | `resourcequotas` | The total number of [resource quotas](/docs/admin/admission-controllers/#resourcequota) that can exist in the namespace. |
@@ -222,10 +226,10 @@ automatically give each namespace the ability to consume more resources.
 
 Sometimes more complex policies may be desired, such as:
 
-  - proportionally divide total cluster resources among several teams.
-  - allow each tenant to grow resource usage as needed, but have a generous
+  - Proportionally divide total cluster resources among several teams.
+  - Allow each tenant to grow resource usage as needed, but have a generous
     limit to prevent accidental resource exhaustion.
-  - detect demand from one namespace, add nodes, and increase quota.
+  - Detect demand from one namespace, add nodes, and increase quota.
 
 Such policies could be implemented using ResourceQuota as a building-block, by
 writing a 'controller' which watches the quota usage and adjusts the quota
@@ -236,8 +240,8 @@ restrictions around nodes: pods from several namespaces may run on the same node
 
 ## Example
 
-See a [detailed example for how to use resource quota](/docs/tasks/configure-pod-container/apply-resource-quota-limit/).
+See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
 
 ## Read More
 
-See [ResourceQuota design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/admission_control_resource_quota.md) for more information.
+See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.

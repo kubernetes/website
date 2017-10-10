@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - sttts
 title: Using Sysctls in a Kubernetes Cluster
-redirect_from:
-- "/docs/admin/sysctls/"
-- "/docs/admin/sysctls.html"
 ---
 
 * TOC
@@ -52,7 +49,7 @@ with privileged containers.
 **Note**: it is good practice to consider nodes with special sysctl settings as
 _tainted_ within a cluster, and only schedule pods onto them which need those
 sysctl settings. It is suggested to use the Kubernetes [_taints and toleration_
-feature](/docs/user-guide/kubectl/v1.6/#taint) to implement this.
+feature](/docs/user-guide/kubectl/{{page.version}}/#taint) to implement this.
 
 ## Safe vs. Unsafe Sysctls
 
@@ -121,4 +118,5 @@ spec:
 **Note**: a pod with the _unsafe_ sysctls specified above will fail to launch on
 any node which has not enabled those two _unsafe_ sysctls explicitly. As with
 _node-level_ sysctls it is recommended to use [_taints and toleration_
-feature](/docs/user-guide/kubectl/v1.6/#taint) or [labels on nodes](/docs/concepts/configuration/assign-pod-node/) to schedule those pods onto the right nodes.
+feature](/docs/user-guide/kubectl/{{page.version}}/#taint) or [taints on nodes](/docs/concepts/configuration/taint-and-toleration/)
+to schedule those pods onto the right nodes.

@@ -1,22 +1,17 @@
 ---
-assignees:
+approvers:
 - madhusudancs
 title: Set up Cluster Federation with Kubefed
-redirect_from:
-- "/docs/admin/federation/kubefed/"
-- "/docs/admin/federation/kubefed.html"
-- "/docs/tutorials/federation/set-up-cluster-federation-kubefed/"
-- "/docs/tutorials/federation/set-up-cluster-federation-kubefed.html"
 ---
 
 * TOC
 {:toc}
 
 Kubernetes version 1.5 and above includes a new command line tool called
-`kubefed` to help you administrate your federated clusters.
-`kubefed` helps you to deploy a new Kubernetes cluster federation
-control plane, and to add clusters to or remove clusters from an
-existing federation control plane.
+[`kubefed`](/docs/admin/kubefed/) to help you administrate your federated
+clusters. `kubefed` helps you to deploy a new Kubernetes cluster federation
+control plane, and to add clusters to or remove clusters from an existing
+federation control plane.
 
 This guide explains how to administer a Kubernetes Cluster Federation
 using `kubefed`.
@@ -26,7 +21,7 @@ using `kubefed`.
 ## Prerequisites
 
 This guide assumes that you have a running Kubernetes cluster. Please
-see one of the [getting started](/docs/getting-started-guides/) guides
+see one of the [getting started](/docs/setup/) guides
 for installation instructions for your platform.
 
 
@@ -53,7 +48,7 @@ tar -xzvf kubernetes-client-windows-amd64.tar.gz
 `amd64`. If you are on a different architecture, please use a URL
 appropriate for your architecture. You can find the list of available
 binaries on the
-[release page](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#client-binaries-1).
+[release page](https://git.k8s.io/kubernetes/CHANGELOG.md#client-binaries-1).
 
 Copy the extracted binaries to one of the directories in your `$PATH`
 and set the executable permission on those binaries.
@@ -66,6 +61,15 @@ sudo cp kubernetes/client/bin/kubectl /usr/local/bin
 sudo chmod +x /usr/local/bin/kubectl
 ```
 
+### Install with snap on Ubuntu
+
+kubefed is available as a [snap](https://snapcraft.io/) application.
+
+1. If you are on Ubuntu or one of other Linux distributions that support [snap](https://snapcraft.io/docs/core/install) package manager, you can install with:
+
+       sudo snap install kubefed --classic
+
+2. Run [`kubefed version`](/docs/admin/kubefed_version/) to verify that the version you've installed is sufficiently up-to-date.
 
 ## Choosing a host cluster.
 
@@ -85,7 +89,7 @@ similar to the following:
 
 ```
 CURRENT   NAME                                          CLUSTER                                       AUTHINFO                                      NAMESPACE
-          gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1
+*         gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1
 ```
 
 
@@ -97,8 +101,8 @@ control plane.
 ## Deploying a federation control plane
 
 To deploy a federation control plane on your host cluster, run
-`kubefed init` command. When you use `kubefed init`, you must provide
-the following:
+[`kubefed init`](/docs/admin/kubefed_init/) command. When you use
+`kubefed init`, you must provide the following:
 
 * Federation name
 * `--host-cluster-context`, the `kubeconfig` context for the host cluster
@@ -257,11 +261,11 @@ kubefed init fellowship \
 `kubefed init` exposes the federation API server as a Kubernetes
 [service](/docs/concepts/services-networking/service/) on the host cluster. By default,
 this service is exposed as a
-[load balanced service](/docs/user-guide/services/#type-loadbalancer).
-Most on-premises and bare-metal enviroments, and some cloud
+[load balanced service](/docs/concepts/services-networking/service/#type-loadbalancer).
+Most on-premises and bare-metal environments, and some cloud
 environments lack support for load balanced services. `kubefed init`
 allows exposing the federation API server as a
-[`NodePort` service](/docs/user-guide/services/#type-nodeport) on
+[`NodePort` service](/docs/concepts/services-networking/service/#type-nodeport) on
 such environments. This can be accomplished by passing
 the `--api-server-service-type=NodePort` flag. You can also specify
 the preferred address to advertise the federation API server by
@@ -285,17 +289,17 @@ Federation control plane stores its state in
 [`etcd`](https://coreos.com/etcd/docs/latest/) data must be stored in
 a persistent storage volume to ensure correct operation across
 federation control plane restarts. On host clusters that support
-[dynamic provisioning of storage volumes](/docs/user-guide/persistent-volumes/#dynamic),
+[dynamic provisioning of storage volumes](/docs/concepts/storage/persistent-volumes/#dynamic),
 `kubefed init` dynamically provisions a
-[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes)
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes)
 and binds it to a
-[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 to store [`etcd`](https://coreos.com/etcd/docs/latest/) data. If your
 host cluster doesn't support dynamic provisioning, you can also
 statically provision a
-[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes).
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes).
 `kubefed init` creates a
-[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 that has the following configuration:
 
 ```yaml
@@ -317,12 +321,12 @@ spec:
 ```
 
 To statically provision a
-[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes),
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes),
 you must ensure that the
-[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes)
+[`PersistentVolume`](/docs/concepts/storage/persistent-volumes/#persistent-volumes)
 that you create has the matching storage class, access mode and
 at least as much capacity as the requested
-[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims).
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 
 Alternatively, you can disable persistent storage completely
 by passing `--etcd-persistent-storage=false` to `kubefed init`.
@@ -338,7 +342,7 @@ kubefed init fellowship \
 ```
 
 `kubefed init` still doesn't support attaching an existing
-[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+[`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 to the federation control plane that it bootstraps. We are planning to
 support this in a future version of `kubefed`.
 
@@ -363,13 +367,14 @@ kubefed init fellowship \
 ```
 
 For more information see
-[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tutorials/federation/set-up-coredns-provider-federation/)
+[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tasks/federation/set-up-coredns-provider-federation/).
 
 ## Adding a cluster to a federation
 
 Once you've deployed a federation control plane, you'll need to make
 that control plane aware of the clusters it should manage. You can add
-a cluster to your federation by using the `kubefed join` command.
+a cluster to your federation by using the [`kubefed join`](/docs/admin/kubefed_join/)
+command.
 
 To use `kubefed join`, you'll need to provide the name of the cluster
 you want to add to the federation, and the `--host-cluster-context`
@@ -378,7 +383,7 @@ for the federation control plane's host cluster.
 > Note: The name that you provide to the `join` command is used as the
 joining cluster's identity in federation. This name should adhere to
 the rules described in the
-[identifiers doc](/docs/user-guide/identifiers/#names). If the context
+[identifiers doc](/docs/concepts/overview/working-with-objects/names/). If the context
 corresponding to your joining cluster conforms to these rules then you
 can use the same name in the join command. Otherwise, you will have to
 choose a different name for your cluster's identity. For more
@@ -403,7 +408,7 @@ cluster.
 
 The cluster name you supply to `kubefed join` must be a valid
 [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt) label and are
-enumerated in the [Identifiers doc](/docs/user-guide/identifiers/#names).
+enumerated in the [Identifiers doc](/docs/concepts/overview/working-with-objects/names/).
 
 Furthermore, federation control plane requires credentials of the
 joined clusters to operate on them. These credentials are obtained
@@ -418,7 +423,7 @@ in the federation don't follow
 In such cases, you can specify a cluster name that conforms to the
 [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt) label naming rules
 and specify the cluster context using the `--cluster-context` flag.
-For example, if context of the cluster your are joining is
+For example, if context of the cluster you are joining is
 `gondor_needs-no_king`, then you can join the cluster by running:
 
 ```shell
@@ -459,11 +464,11 @@ commands.
 
 In all other cases, you must update `kube-dns` configuration manually
 as described in the
-[Updating KubeDNS section of the admin guide](/docs/admin/federation/)
+[Updating KubeDNS section of the admin guide](/docs/admin/federation/).
 
 ## Removing a cluster from a federation
 
-To remove a cluster from a federation, run the `kubefed unjoin`
+To remove a cluster from a federation, run the [`kubefed unjoin`](/docs/admin/kubefed_unjoin/)
 command with the cluster name and the federation's
 `--host-cluster-context`:
 
@@ -482,5 +487,5 @@ federation control plane's etcd. You can delete the federation
 namespace by running the following command:
 
 ```
-$ kubectl delete ns federation-system
+kubectl delete ns federation-system
 ```

@@ -1,10 +1,5 @@
 ---
 title: Use a Service to Access an Application in a Cluster
-redirect_from:
-- "/docs/user-guide/quick-start/"
-- "/docs/user-guide/quick-start.html"
-- "/docs/tutorials/stateless-application/expose-external-ip-address-service/"
-- "/docs/tutorials/stateless-application/expose-external-ip-address-service.html"
 ---
 
 {% capture overview %}
@@ -38,7 +33,7 @@ provides load balancing for an application that has two running instances.
 
 1. Run a Hello World application in your cluster:
 
-        kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
+       kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
 
     The preceding command creates a
     [Deployment](/docs/concepts/workloads/controllers/deployment/)
@@ -50,42 +45,42 @@ provides load balancing for an application that has two running instances.
 
 1. Display information about the Deployment:
 
-        kubectl get deployments hello-world
-        kubectl describe deployments hello-world
+       kubectl get deployments hello-world
+       kubectl describe deployments hello-world
 
 1. Display information about your ReplicaSet objects:
 
-        kubectl get replicasets
-        kubectl describe replicasets
+       kubectl get replicasets
+       kubectl describe replicasets
 
 1. Create a Service object that exposes the deployment:
 
-        kubectl expose deployment hello-world --type=NodePort --name=example-service
+       kubectl expose deployment hello-world --type=NodePort --name=example-service
 
 1. Display information about the Service:
 
-        kubectl describe services example-service
+       kubectl describe services example-service
 
     The output is similar to this:
 
         Name:                   example-service
         Namespace:              default
         Labels:                 run=load-balancer-example
+        Annotations:            <none>
         Selector:               run=load-balancer-example
         Type:                   NodePort
         IP:                     10.32.0.16
         Port:                   <unset> 8080/TCP
-        NodePort:               <unset> 31496/TCP
         Endpoints:              10.200.1.4:8080,10.200.2.5:8080
         Session Affinity:       None
-        No events.
+        Events:                 <none>
 
     Make a note of the NodePort value for the service. For example,
     in the preceding output, the NodePort value is 31496.
 
 1. List the pods that are running the Hello World application:
 
-        kubectl get pods --selector="run=load-balancer-example" --output=wide
+       kubectl get pods --selector="run=load-balancer-example" --output=wide
 
     The output is similar to this:
 
@@ -99,15 +94,18 @@ provides load balancing for an application that has two running instances.
    see the node address by running `kubectl cluster-info`. If you are
    using Google Compute Engine instances, you can use the
    `gcloud compute instances list` command to see the public addresses of your
-   nodes.
+   nodes. For more information about this command, see the [GCE documentation](https://cloud.google.com/sdk/gcloud/reference/compute/instances/list). 
 
 1. On your chosen node, create a firewall rule that allows TCP traffic
    on your node port. For example, if your Service has a NodePort value of
-   31568, create a firewall rule that allows TCP traffic on port 31568.
+   31568, create a firewall rule that allows TCP traffic on port 31568. Different 
+   cloud providers offer different ways of configuring firewall rules. See [the 
+   GCE documentation on firewall rules](https://cloud.google.com/compute/docs/vpc/firewalls), 
+   for example.
 
 1. Use the node address and node port to access the Hello World application:
 
-        curl http://<public-node-ip>:<node-port>
+       curl http://<public-node-ip>:<node-port>
 
     where `<public-node-ip>` is the public IP address of your node,
     and `<node-port>` is the NodePort value for your service.
@@ -119,7 +117,7 @@ provides load balancing for an application that has two running instances.
 ## Using a service configuration file
 
 As an alternative to using `kubectl expose`, you can use a
-[service configuration file](/docs/user-guide/services/operations)
+[service configuration file](/docs/concepts/services-networking/service/)
 to create a Service.
 
 {% endcapture %}

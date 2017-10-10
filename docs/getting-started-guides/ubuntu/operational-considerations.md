@@ -48,7 +48,6 @@ Model             Cloud/Region   Status     Machines  Cores  Access  Last connec
 admin/controller  lxd/localhost  available         1      -  admin   just now
 admin/default     lxd/localhost  available         0      -  admin   2017-01-23
 admin/whale*      lxd/localhost  available         6      -  admin   3 minutes ago
-
 ```
 
 The first line ```Controller: k8s``` refers to how you bootstrapped. 

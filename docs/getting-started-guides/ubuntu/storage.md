@@ -60,14 +60,14 @@ juju add-relation kubernetes-master ceph-mon
 ```
 
 We are now ready to enlist 
-[Persistent Volumes](http://kubernetes.io/docs/user-guide/persistent-volumes/)
+[Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 in Kubernetes which our workloads can consume via Persistent Volume (PV) claims.
 
 ```
 juju run-action kubernetes-master/0 create-rbd-pv name=test size=50
 ```
 
-This example created a "test" Radios Block Device (rbd) in the size of 50 MB.
+This example created a "test" Rados Block Device (rbd) in the size of 50 MB.
 
 Use watch on your Kubernetes cluster like the following, you should see the PV
 become enlisted and be marked as available:
@@ -84,7 +84,7 @@ test   50M          RWO       Available                              10s
 
 To consume these Persistent Volumes, your pods will need an associated
 Persistent Volume Claim with them, and is outside the scope of this README. See the
-[Persistent Volumes](http://kubernetes.io/docs/user-guide/persistent-volumes/)
+[Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 documentation for more information.
 {% endcapture %}
 

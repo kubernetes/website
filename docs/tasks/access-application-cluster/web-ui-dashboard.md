@@ -1,14 +1,9 @@
 ---
-assignees:
+approvers:
 - bryk
 - mikedanese
 - rf232
 title: Web UI (Dashboard)
-redirect_from:
-- "/docs/user-guide/ui/"
-- "/docs/user-guide/ui.html"
-- "/docs/tasks/web-ui-dashboard/"
-- "/docs/tasks/web-ui-dashboard.html"
 ---
 
 Dashboard is a web-based Kubernetes user interface. You can use Dashboard to deploy containerized applications to a Kubernetes cluster, troubleshoot your containerized application, and manage the cluster itself along with its attendant resources. You can use Dashboard to get an overview of applications running on your cluster, as well as for creating or modifying individual Kubernetes resources (such as Deployments, Jobs, DaemonSets, etc). For example, you can scale a Deployment, initiate a rolling update, restart a pod or deploy new applications using a deploy wizard.
@@ -25,7 +20,7 @@ Dashboard also provides information on the state of Kubernetes resources in your
 The Dashboard UI is not deployed by default. To deploy it, run the following command:
 
 ```
-kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 ```
 
 ## Accessing the Dashboard UI
@@ -36,10 +31,10 @@ There are multiple ways you can access the Dashboard UI; either by using the kub
 You can access Dashboard using the kubectl command-line tool by running the following command:
 
 ```
-$ kubectl proxy
+kubectl proxy
 ```
 
-kubectl will handle authentication with apiserver and make Dashboard available at http://localhost:8001/ui
+Kubectl will handle authentication with apiserver and make Dashboard available at http://localhost:8001/ui.
 
 The UI can _only_ be accessed from the machine where the command is executed. See `kubectl proxy --help` for more options.
 
@@ -69,7 +64,7 @@ To access the deploy wizard from the Welcome page, click the respective button. 
 
 The deploy wizard expects that you provide the following information:
 
-- **App name** (mandatory): Name for your application. A [label](/docs/user-guide/labels/) with the name will be added to the Deployment and Service, if any, that will be deployed.
+- **App name** (mandatory): Name for your application. A [label](/docs/concepts/overview/working-with-objects/labels/) with the name will be added to the Deployment and Service, if any, that will be deployed.
 
   The application name must be unique within the selected Kubernetes [namespace](/docs/tasks/administer-cluster/namespaces/). It must start with a lowercase character, and end with a lowercase character or a number, and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters. Leading and trailing spaces are ignored.
 
@@ -79,7 +74,7 @@ The deploy wizard expects that you provide the following information:
 
   A [Deployment](/docs/concepts/workloads/controllers/deployment/) will be created to maintain the desired number of Pods across your cluster.
 
-- **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](http://kubernetes.io/docs/user-guide/services/) onto an external, maybe public IP address outside of your cluster (external Service). For external Services, you may need to open up one or more ports to do so. Find more details [here](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/).
+- **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](/docs/concepts/services-networking/service/) onto an external, maybe public IP address outside of your cluster (external Service). For external Services, you may need to open up one or more ports to do so. Find more details [here](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/).
 
   Other Services that are only visible from inside the cluster are called internal Services.
 
@@ -89,7 +84,7 @@ If needed, you can expand the **Advanced options** section where you can specify
 
 - **Description**: The text you enter here will be added as an [annotation](/docs/concepts/overview/working-with-objects/annotations/) to the Deployment and displayed in the application's details.
 
-- **Labels**: Default [labels](/docs/user-guide/labels/) to be used for your application are application name and version. You can specify additional labels to be applied to the Deployment, Service (if any), and Pods, such as release, environment, tier, partition, and release track.
+- **Labels**: Default [labels](/docs/concepts/overview/working-with-objects/labels/) to be used for your application are application name and version. You can specify additional labels to be applied to the Deployment, Service (if any), and Pods, such as release, environment, tier, partition, and release track.
 
   Example:
 
@@ -119,11 +114,11 @@ track=stable
 
 - **Run as privileged**: This setting determines whether processes in [privileged containers](/docs/user-guide/pods/#privileged-mode-for-pod-containers) are equivalent to processes running as root on the host. Privileged containers can make use of capabilities like manipulating the network stack and accessing devices.
 
-- **Environment variables**: Kubernetes exposes Services through [environment variables](http://kubernetes.io/docs/user-guide/environment-guide/). You can compose environment variable or pass arguments to your commands using the values of environment variables. They can be used in applications to find a Service. Values can reference other variables using the `$(VAR_NAME)` syntax.
+- **Environment variables**: Kubernetes exposes Services through [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/). You can compose environment variable or pass arguments to your commands using the values of environment variables. They can be used in applications to find a Service. Values can reference other variables using the `$(VAR_NAME)` syntax.
 
 ### Uploading a YAML or JSON file
 
-Kubernetes supports declarative configuration. In this style, all configuration is stored in YAML or JSON configuration files using the Kubernetes [API](http://kubernetes.io/docs/api/) resource schemas.
+Kubernetes supports declarative configuration. In this style, all configuration is stored in YAML or JSON configuration files using the Kubernetes [API](/docs/concepts/overview/kubernetes-api/) resource schemas.
 
 As an alternative to specifying application details in the deploy wizard, you can define your application in YAML or JSON files, and upload the files using Dashboard:
 
@@ -161,7 +156,7 @@ Services and discovery view shows Kubernetes resources that allow for exposing s
 Storage view shows Persistent Volume Claim resources which are used by applications for storing data.
 
 #### Config
-Config view show all Kubernetes resources that are used for live configuration of applications running in clusters. This is now Config Maps and Secrets. Thie views allows for editing and managing config objects and displays secrets hidden by default.
+Config view show all Kubernetes resources that are used for live configuration of applications running in clusters. This is now Config Maps and Secrets. The view allows for editing and managing config objects and displays secrets hidden by default.
 
 ![Secret detail view](/images/docs/ui-dashboard-secret-detail.png)
 

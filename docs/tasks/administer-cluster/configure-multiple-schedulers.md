@@ -1,13 +1,8 @@
 ---
-assignees:
+approvers:
 - davidopp
 - madhusudancs
 title: Configure Multiple Schedulers
-redirect_from:
-- "/docs/admin/multiple-schedulers/"
-- "/docs/admin/multiple-schedulers.html"
-- "/docs/tutorials/clusters/multiple-schedulers/"
-- "/docs/tutorials/clusters/multiple-schedulers.html"
 ---
 
 Kubernetes ships with a default scheduler that is described [here](/docs/admin/kube-scheduler/).
@@ -63,7 +58,7 @@ for this example. A [Deployment](/docs/concepts/workloads/controllers/deployment
 thereby making the scheduler resilient to failures. Here is the deployment
 config. Save it as `my-scheduler.yaml`:
 
-{% include code.html language="yaml" file="my-scheduler.yaml" ghlink="/docs/tutorials/clusters/my-scheduler.yaml" %}
+{% include code.html language="yaml" file="my-scheduler.yaml" ghlink="/docs/tasks/administer-cluster/my-scheduler.yaml" %}
 
 An important thing to note here is that the name of the scheduler specified as an
 argument to the scheduler command in the container spec should be unique. This is the name that is matched against the value of the optional `spec.schedulerName` on pods, to determine whether this scheduler is responsible for scheduling a particular pod.
@@ -105,7 +100,7 @@ First, update the following fields in your YAML file:
 If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` cluster role. Add you scheduler name to the resourceNames of the rule applied for endpoints resources, as in the following example:
 ```
 $ kubectl edit clusterrole system:kube-scheduler
-- apiVersion: rbac.authorization.k8s.io/v1beta1
+- apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
   metadata:
     annotations:
@@ -136,33 +131,33 @@ scheduler in that pod spec. Let's look at three examples.
 
 - Pod spec without any scheduler name
 
-  {% include code.html language="yaml" file="pod1.yaml" ghlink="/docs/tutorials/clusters/pod1.yaml" %}
+  {% include code.html language="yaml" file="pod1.yaml" ghlink="/docs/tasks/administer-cluster/pod1.yaml" %}
 
   When no scheduler name is supplied, the pod is automatically scheduled using the
   default-scheduler.
 
   Save this file as `pod1.yaml` and submit it to the Kubernetes cluster.
 
-  ```shell
-  kubectl create -f pod1.yaml
-  ```
+```shell
+kubectl create -f pod1.yaml
+```
 
 - Pod spec with `default-scheduler`
 
-  {% include code.html language="yaml" file="pod2.yaml" ghlink="/docs/tutorials/clusters/pod2.yaml" %}
+  {% include code.html language="yaml" file="pod2.yaml" ghlink="/docs/tasks/administer-cluster/pod2.yaml" %}
 
   A scheduler is specified by supplying the scheduler name as a value to `spec.schedulerName`. In this case, we supply the name of the
   default scheduler which is `default-scheduler`.
 
   Save this file as `pod2.yaml` and submit it to the Kubernetes cluster.
 
-  ```shell
-  kubectl create -f pod2.yaml
-  ```
+```shell
+kubectl create -f pod2.yaml
+```
 
 - Pod spec with `my-scheduler`
 
-  {% include code.html language="yaml" file="pod3.yaml" ghlink="/docs/tutorials/clusters/pod3.yaml" %}
+  {% include code.html language="yaml" file="pod3.yaml" ghlink="/docs/tasks/administer-cluster/pod3.yaml" %}
 
   In this case, we specify that this pod should be scheduled using the scheduler that we
   deployed - `my-scheduler`. Note that the value of `spec.schedulerName` should match the name supplied to the scheduler

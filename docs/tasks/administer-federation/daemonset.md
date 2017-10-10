@@ -1,8 +1,5 @@
 ---
 title: Federated DaemonSet
-redirect_from:
-- "/docs/user-guide/federation/daemonsets/"
-- "/docs/user-guide/federation/daemonsets.html"
 ---
 
 {% capture overview %}
@@ -43,7 +40,7 @@ request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 
 Once a Federated Daemonset is created, the federation control plane will create
-a matching DaemonSet in all underlying Kubernetes clusters. 
+a matching DaemonSet in all underlying Kubernetes clusters.
 You can verify this by checking each of the underlying clusters, for example:
 
 ``` shell

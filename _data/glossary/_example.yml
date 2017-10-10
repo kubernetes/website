@@ -1,0 +1,17 @@
+id: _example
+name: Example K8s Term
+formerly:
+- Slang K8s Term
+- Misnomer
+- Formerly Known as Prince
+related:
+- Less Fancy K8s Term
+- Tangential Term
+- Commonly Used With
+tags:
+- Some Tag
+short-description: |
+  Required. One or two lines that provide a minimum definition. Do not repeat the term. Write about the plural of the term. Prefer fragments. Model after tooltips. End with a period.
+long-description: |
+  Optional. Longer additional text to appear after (in conjunction with) short description. Provide where the short description is not sufficient as the intro paragraph to a topic. Write complete but concise sentences.
+  **See /_includes/templates/glossary/README.md for the official style guide.**

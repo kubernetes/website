@@ -1,15 +1,12 @@
 ---
-assignees:
+approvers:
 - davidopp
 title: Troubleshoot Clusters
-redirect_from:
-- "/docs/admin/cluster-troubleshooting/"
-- "/docs/admin/cluster-troubleshooting.html"
 ---
 
 This doc is about cluster troubleshooting; we assume you have already ruled out your application as the root cause of the
 problem you are experiencing. See
-the [application troubleshooting guide]/docs/tasks/debug-application-cluster/debug-application) for tips on application debugging.
+the [application troubleshooting guide](/docs/tasks/debug-application-cluster/debug-application) for tips on application debugging.
 You may also visit [troubleshooting document](/docs/troubleshooting/) for more information.
 
 ## Listing your cluster
@@ -114,5 +111,5 @@ Mitigations:
   - Mitigates: Node shutdown
   - Mitigates: Kubelet software fault
 
-- Action: [Multiple independent clusters](/docs/admin/multi-cluster) (and avoid making risky changes to all clusters at once)
+- Action: [Multiple independent clusters](/docs/concepts/cluster-administration/federation/) (and avoid making risky changes to all clusters at once)
   - Mitigates: Everything listed above.

@@ -5,8 +5,8 @@ set -o errexit
 # Uncomment this to see the commands as they are run
 # set -x
 
-VERSION=1.6
-OLDVERSION=1.5
+VERSION=1.8
+OLDVERSION=1.7
 
 # Processes api reference docs.
 function process_api_ref_docs {
@@ -136,19 +136,20 @@ done <_data/overrides.yml
 )
 
 
-BINARIES="federation-apiserver.md federation-controller-manager.md kube-apiserver.md kube-controller-manager.md kube-proxy.md kube-scheduler.md kubelet.md"
+BINARIES="cloud-controller-manager.md federation-apiserver.md federation-controller-manager.md kube-apiserver.md kube-controller-manager.md kube-proxy.md kube-scheduler.md kubelet.md kubefed.md kubefed_init.md kubefed_join.md kubefed_options.md kubefed_unjoin.md kubefed_version.md"
 
 (
   cd docs/admin
   for bin in $BINARIES; do
     sed -i -e '/<!-- BEGIN MUNGE: IS_VERSIONED -->/,/<!-- END MUNGE: IS_VERSIONED -->/d' "$bin"
-    sed -i -e '/<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->/,/<!-- END MUNGE: UNVERSIONED_WARNINgG -->/d' "$bin"
+    sed -i -e '/<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->/,/<!-- END MUNGE: UNVERSIONED_WARNING -->/d' "$bin"
     sed -i -e '1 i\
 ---' "$bin"
     sed -i -e '1 i\
 ---' "$bin"
   done
 )
+
 mv -- "${APIREFDESDIR}" "${APIREFSRCDIR}"
 mv -- "${KUBECTLDESDIR}" "${KUBECTLSRCDIR}"
 rm -rf -- "${TMPDIR}" "${K8SREPO}"

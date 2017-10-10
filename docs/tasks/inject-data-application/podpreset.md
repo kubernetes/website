@@ -1,19 +1,14 @@
 ---
-assignees:
+approvers:
 - jessfraz
 title: Inject Information into Pods Using a PodPreset
-redirect_from:
-- "/docs/user-guide/pod-preset/index/"
-- "/docs/user-guide/pod-preset/index.html"
-- "/docs/tasks/run-application/podpreset/"
-- "/docs/tasks/run-application/podpreset.html"
 ---
 
 You can use a `podpreset` object to inject certain information into pods at creation
 time. This information can include secrets, volumes, volume mounts, and environment
 variables.
 
-See [PodPreset proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/pod-preset.md) for more information.
+See [PodPreset proposal](https://git.k8s.io/community/contributors/design-proposals/service-catalog/pod-preset.md) for more information.
 
 * TOC
 {:toc}
@@ -23,7 +18,7 @@ See [PodPreset proposal](https://github.com/kubernetes/community/blob/master/con
 A _Pod Preset_ is an API resource that you can use to inject additional runtime
 requirements into a Pod at creation time. You use label selectors to specify
 the Pods to which a given Pod Preset applies. Check out more information on [label
-selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors).
+selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors).
 
 Using a Pod Preset allows pod template authors to not have to explicitly set
 information for every pod. This way, authors of pod templates consuming a
@@ -51,7 +46,7 @@ Kubernetes modifies the Pod Spec.
 
 Kubernetes annotates the resulting modified pod spec to show that it was
 modified by a `PodPreset`. The annotation is of the form
-`podpreset.admission.kubernetes.io/<pod-preset name>": "<resource version>"`.
+`podpreset.admission.kubernetes.io/podpreset-<pod-preset name>": "<resource version>"`.
 
 
 ## Enable Pod Preset
@@ -63,12 +58,18 @@ following
 1.  You have enabled the admission controller `PodPreset`
 1.  You have defined your pod presets
 
+## Disable Pod Preset for a pod
+
+There may be instances where you wish for a pod to not be altered by any pod
+preset mutations. For these events, one can add an annotation in the pod spec
+of the form: `podpreset.admission.kubernetes.io/exclude: "true"`.
+
 ## Create a Pod Preset
 
 ### Simple Pod Spec Example
 
 This is a simple example to show how a Pod spec is modified by the Pod
-Injection Policy.
+Preset.
 
 **User submitted pod spec:**
 
@@ -122,7 +123,7 @@ metadata:
     app: website
     role: frontend
   annotations:
-    podpreset.admission.kubernetes.io/allow-database: "resource version"
+    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
 spec:
   containers:
     - name: website
@@ -142,8 +143,8 @@ spec:
 
 ### Pod Spec with `ConfigMap` Example
 
-This is an example to show how a Pod spec is modified by the Pod Injection
-Policy that defines a `ConfigMap` for Environment Variables.
+This is an example to show how a Pod spec is modified by the Pod Preset
+that defines a `ConfigMap` for Environment Variables.
 
 **User submitted pod spec:**
 
@@ -213,7 +214,8 @@ spec:
     - name: cache-volume
       emptyDir: {}
     - name: secret-volume
-      secretName: config-details
+      secret:
+         secretName: config-details
 ```
 
 **Pod spec after admission controller:**
@@ -227,7 +229,7 @@ metadata:
     app: website
     role: frontend
   annotations:
-    podpreset.admission.kubernetes.io/allow-database: "resource version"
+    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
 spec:
   containers:
     - name: website
@@ -254,13 +256,14 @@ spec:
     - name: cache-volume
       emptyDir: {}
     - name: secret-volume
-      secretName: config-details
+      secret:
+         secretName: config-details
 ```
 
 ### ReplicaSet with Pod Spec Example
 
 The following example shows that only the pod spec is modified by the Pod
-Injection Policy.
+Preset.
 
 **User submitted ReplicaSet:**
 
@@ -322,34 +325,35 @@ spec:
 **Pod spec after admission controller:**
 
 ```yaml
+apiVersion: v1
 kind: Pod
-  metadata:
-    labels:
-      app: guestbook
-      tier: frontend
-    annotations:
-    podpreset.admission.kubernetes.io/allow-database: "resource version"
-  spec:
-    containers:
-      - name: php-redis
-        image: gcr.io/google_samples/gb-frontend:v3
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
-        volumeMounts:
-          - mountPath: /cache
-            name: cache-volume
-        env:
-          - name: GET_HOSTS_FROM
-            value: dns
-          - name: DB_PORT
-            value: "6379"
-        ports:
-          - containerPort: 80
-    volumes:
-      - name: cache-volume
-        emptyDir: {}
+metadata:
+  labels:
+    app: guestbook
+    tier: frontend
+  annotations:
+    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
+spec:
+  containers:
+  - name: php-redis
+    image: gcr.io/google_samples/gb-frontend:v3
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    volumeMounts:
+    - mountPath: /cache
+      name: cache-volume
+    env:
+    - name: GET_HOSTS_FROM
+      value: dns
+    - name: DB_PORT
+      value: "6379"
+    ports:
+    - containerPort: 80
+  volumes:
+  - name: cache-volume
+    emptyDir: {}
 ```
 
 ### Multiple PodPreset Example
@@ -429,8 +433,8 @@ metadata:
     app: website
     role: frontend
   annotations:
-    podpreset.admission.kubernetes.io/allow-database: "resource version"
-    podpreset.admission.kubernetes.io/proxy: "resource version"
+    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
+    podpreset.admission.kubernetes.io/podpreset-proxy: "resource version"
 spec:
   containers:
     - name: website
@@ -454,8 +458,8 @@ spec:
 
 ### Conflict Example
 
-This is a example to show how a Pod spec is not modified by the Pod Injection
-Policy when there is a conflict.
+This is an example to show how a Pod spec is not modified by the Pod Preset
+when there is a conflict.
 
 **User submitted pod spec:**
 
@@ -522,10 +526,10 @@ spec:
         - mountPath: /cache
           name: cache-volume
       ports:
+        - containerPort: 80
   volumes:
     - name: cache-volume
       emptyDir: {}
-        - containerPort: 80
 ```
 
 **If we run `kubectl describe...` we can see the event:**
@@ -535,7 +539,7 @@ $ kubectl describe ...
 ....
 Events:
   FirstSeen             LastSeen            Count   From                    SubobjectPath               Reason      Message
-  Tue, 07 Feb 2017 16:56:12 -0700   Tue, 07 Feb 2017 16:56:12 -0700 1   {podpreset.admission.kubernetes.io/allow-database }    conflict  Conflict on pod preset. Duplicate mountPath /cache.
+  Tue, 07 Feb 2017 16:56:12 -0700   Tue, 07 Feb 2017 16:56:12 -0700 1   {podpreset.admission.kubernetes.io/podpreset-allow-database }    conflict  Conflict on pod preset. Duplicate mountPath /cache.
 ```
 
 ## Deleting a Pod Preset

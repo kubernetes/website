@@ -1,10 +1,5 @@
 ---
 title: Connect a Front End to a Back End Using a Service
-redirect_from:
-- "/docs/user-guide/services/operations/"
-- "/docs/user-guide/services/operations.html"
-- "/docs/tutorials/connecting-apps/connecting-frontend-backend/"
-- "/docs/tutorials/connecting-apps/connecting-frontend-backend.html"
 ---
 
 {% capture overview %}
@@ -34,7 +29,7 @@ frontend and backend are connected using a Kubernetes Service object.
   [Services with external load balancers](/docs/tasks/access-application-cluster/create-external-load-balancer/), which
   require a supported environment. If your environment does not
   support this, you can use a Service of type
-  [NodePort](/docs/user-guide/services/#type-nodeport) instead.
+  [NodePort](/docs/concepts/services-networking/service/#type-nodeport) instead.
 
 {% endcapture %}
 
@@ -69,11 +64,28 @@ CreationTimestamp:              Mon, 24 Oct 2016 14:21:02 -0700
 Labels:                         app=hello
                                 tier=backend
                                 track=stable
+Annotations:                    deployment.kubernetes.io/revision=1
 Selector:                       app=hello,tier=backend,track=stable
-Replicas:                       7 updated | 7 total | 7 available | 0 unavailable
+Replicas:                       7 desired | 7 updated | 7 total | 7 available | 0 unavailable
 StrategyType:                   RollingUpdate
 MinReadySeconds:                0
 RollingUpdateStrategy:          1 max unavailable, 1 max surge
+Pod Template:
+  Labels:       app=hello
+                tier=backend
+                track=stable
+  Containers:
+   hello:
+    Image:              "gcr.io/google-samples/hello-go-gke:1.0"
+    Port:               80/TCP
+    Environment:        <none>
+    Mounts:             <none>
+  Volumes:              <none>
+Conditions:
+  Type          Status  Reason
+  ----          ------  ------
+  Available     True    MinimumReplicasAvailable
+  Progressing   True    NewReplicaSetAvailable
 OldReplicaSets:                 <none>
 NewReplicaSet:                  hello-3621623197 (7/7 replicas created)
 Events:

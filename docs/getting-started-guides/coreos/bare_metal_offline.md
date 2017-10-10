@@ -1,11 +1,11 @@
 ---
-assignees:
+approvers:
 - erictune
 - thockin
 title: Offline
 ---
 
-Deploy a CoreOS running Kubernetes environment. This particular guide is made to help those in an OFFLINE system, wither for testing a POC before the real deal, or you are restricted to be totally offline for your applications.
+Deploy a CoreOS running Kubernetes environment. This particular guide is made to help those in an OFFLINE system, whether for testing a POC before the real deal, or you are restricted to be totally offline for your applications.
 
 * TOC
 {:toc}
@@ -42,154 +42,134 @@ To setup CentOS PXELINUX environment there is a complete [guide here](http://doc
 
 1. Install packages needed on CentOS
 
-```shell
-sudo yum install tftp-server dhcp syslinux
-```
+        sudo yum install tftp-server dhcp syslinux
 
 2. `vi /etc/xinetd.d/tftp` to enable tftp service and change disable to 'no'
 
-```conf
-disable = no
-```
+        -disable = no
 
 3. Copy over the syslinux images we will need.
 
-```shell
-su -
-mkdir -p /tftpboot
-cd /tftpboot
-cp /usr/share/syslinux/pxelinux.0 /tftpboot
-cp /usr/share/syslinux/menu.c32 /tftpboot
-cp /usr/share/syslinux/memdisk /tftpboot
-cp /usr/share/syslinux/mboot.c32 /tftpboot
-cp /usr/share/syslinux/chain.c32 /tftpboot
+        su -
+        mkdir -p /tftpboot
+        cd /tftpboot
+        cp /usr/share/syslinux/pxelinux.0 /tftpboot
+        cp /usr/share/syslinux/menu.c32 /tftpboot
+        cp /usr/share/syslinux/memdisk /tftpboot
+        cp /usr/share/syslinux/mboot.c32 /tftpboot
+        cp /usr/share/syslinux/chain.c32 /tftpboot
 
-/sbin/service dhcpd start
-/sbin/service xinetd start
-/sbin/chkconfig tftp on
-```
+        /sbin/service dhcpd start
+        /sbin/service xinetd start
+        /sbin/chkconfig tftp on
 
 4. Setup default boot menu
 
-```shell
-mkdir /tftpboot/pxelinux.cfg
-touch /tftpboot/pxelinux.cfg/default
-```
+        mkdir /tftpboot/pxelinux.cfg
+        touch /tftpboot/pxelinux.cfg/default
 
 5. Edit the menu `vi /tftpboot/pxelinux.cfg/default`
 
-```conf
-default menu.c32
-prompt 0
-timeout 15
-ONTIMEOUT local
-display boot.msg
+        default menu.c32
+        prompt 0
+        timeout 15
+        ONTIMEOUT local
+        display boot.msg
 
-MENU TITLE Main Menu
+        MENU TITLE Main Menu
 
-LABEL local
-        MENU LABEL Boot local hard drive
-        LOCALBOOT 0
-```
+        LABEL local
+                MENU LABEL Boot local hard drive
+                LOCALBOOT 0
 
 Now you should have a working PXELINUX setup to image CoreOS nodes. You can verify the services by using VirtualBox locally or with bare metal servers.
 
 ## Adding CoreOS to PXE
 
 This section describes how to setup the CoreOS images to live alongside a pre-existing PXELINUX environment.
-
 1. Find or create the TFTP root directory that everything will be based on.
-    * For this document we will assume `/tftpboot/` is our root directory.
-2. Once we know and have our tftp root directory we will create a new directory structure for our CoreOS images.
+   - For this document we will assume `/tftpboot/` is our root directory.       
+2. Once we know and have our tftp root directory we will create a new directory structure for our CoreOS images.     
 3. Download the CoreOS PXE files provided by the CoreOS team.
 
-```shell
-MY_TFTPROOT_DIR=/tftpboot
-mkdir -p $MY_TFTPROOT_DIR/images/coreos/
-cd $MY_TFTPROOT_DIR/images/coreos/
-wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz
-wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz.sig
-wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz
-wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz.sig
-gpg --verify coreos_production_pxe.vmlinuz.sig
-gpg --verify coreos_production_pxe_image.cpio.gz.sig
-```
+        MY_TFTPROOT_DIR=/tftpboot
+        mkdir -p $MY_TFTPROOT_DIR/images/coreos/
+        cd $MY_TFTPROOT_DIR/images/coreos/
+        wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz
+        wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz.sig
+        wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz
+        wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz.sig
+        gpg --verify coreos_production_pxe.vmlinuz.sig
+        gpg --verify coreos_production_pxe_image.cpio.gz.sig
 
 4. Edit the menu `vi /tftpboot/pxelinux.cfg/default` again
 
-```conf
-default menu.c32
-prompt 0
-timeout 300
-ONTIMEOUT local
-display boot.msg
+        default menu.c32
+        prompt 0
+        timeout 300
+        ONTIMEOUT local
+        display boot.msg
 
-MENU TITLE Main Menu
+        MENU TITLE Main Menu
 
-LABEL local
-        MENU LABEL Boot local hard drive
-        LOCALBOOT 0
+        LABEL local
+                MENU LABEL Boot local hard drive
+                LOCALBOOT 0
 
-MENU BEGIN CoreOS Menu
+        MENU BEGIN CoreOS Menu
 
-    LABEL coreos-master
-        MENU LABEL CoreOS Master
-        KERNEL images/coreos/coreos_production_pxe.vmlinuz
-        APPEND initrd=images/coreos/coreos_production_pxe_image.cpio.gz cloud-config-url=http://<xxx.xxx.xxx.xxx>/pxe-cloud-config-single-master.yml
+            LABEL coreos-master
+                MENU LABEL CoreOS Master
+                KERNEL images/coreos/coreos_production_pxe.vmlinuz
+                APPEND initrd=images/coreos/coreos_production_pxe_image.cpio.gz cloud-config-url=http://<xxx.xxx.xxx.xxx>/pxe-cloud-config-single-master.yml
 
-    LABEL coreos-slave
-        MENU LABEL CoreOS Slave
-        KERNEL images/coreos/coreos_production_pxe.vmlinuz
-        APPEND initrd=images/coreos/coreos_production_pxe_image.cpio.gz cloud-config-url=http://<xxx.xxx.xxx.xxx>/pxe-cloud-config-slave.yml
-MENU END
-```
+            LABEL coreos-slave
+                MENU LABEL CoreOS Slave
+                KERNEL images/coreos/coreos_production_pxe.vmlinuz
+                APPEND initrd=images/coreos/coreos_production_pxe_image.cpio.gz cloud-config-url=http://<xxx.xxx.xxx.xxx>/pxe-cloud-config-slave.yml
+        MENU END
 
 This configuration file will now boot from local drive but have the option to PXE image CoreOS.
 
 ## DHCP configuration
 
 This section covers configuring the DHCP server to hand out our new images. In this case we are assuming that there are other servers that will boot alongside other images.
-
 1. Add the `filename` to the _host_ or _subnet_ sections.
 
-```conf
-filename "/tftpboot/pxelinux.0";
-```
+        filename "/tftpboot/pxelinux.0";
 
 2. At this point we want to make pxelinux configuration files that will be the templates for the different CoreOS deployments.
 
-```conf
-subnet 10.20.30.0 netmask 255.255.255.0 {
-        next-server 10.20.30.242;
-        option broadcast-address 10.20.30.255;
-        filename "<other default image>";
+        subnet 10.20.30.0 netmask 255.255.255.0 {
+                next-server 10.20.30.242;
+                option broadcast-address 10.20.30.255;
+                filename "<other default image>";
 
-        ...
-        # http://www.syslinux.org/wiki/index.php/PXELINUX
-        host core_os_master {
-                hardware ethernet d0:00:67:13:0d:00;
-                option routers 10.20.30.1;
-                fixed-address 10.20.30.40;
-                option domain-name-servers 10.20.30.242;
-                filename "/pxelinux.0";
+                ...
+                # http://www.syslinux.org/wiki/index.php/PXELINUX
+                host core_os_master {
+                        hardware ethernet d0:00:67:13:0d:00;
+                        option routers 10.20.30.1;
+                        fixed-address 10.20.30.40;
+                        option domain-name-servers 10.20.30.242;
+                        filename "/pxelinux.0";
+                }
+                host core_os_slave {
+                        hardware ethernet d0:00:67:13:0d:01;
+                        option routers 10.20.30.1;
+                        fixed-address 10.20.30.41;
+                        option domain-name-servers 10.20.30.242;
+                        filename "/pxelinux.0";
+                }
+                host core_os_slave2 {
+                        hardware ethernet d0:00:67:13:0d:02;
+                        option routers 10.20.30.1;
+                        fixed-address 10.20.30.42;
+                        option domain-name-servers 10.20.30.242;
+                        filename "/pxelinux.0";
+                }
+                ...
         }
-        host core_os_slave {
-                hardware ethernet d0:00:67:13:0d:01;
-                option routers 10.20.30.1;
-                fixed-address 10.20.30.41;
-                option domain-name-servers 10.20.30.242;
-                filename "/pxelinux.0";
-        }
-        host core_os_slave2 {
-                hardware ethernet d0:00:67:13:0d:02;
-                option routers 10.20.30.1;
-                fixed-address 10.20.30.42;
-                option domain-name-servers 10.20.30.242;
-                filename "/pxelinux.0";
-        }
-        ...
-}
-```
 
 We will be specifying the node configuration later in the guide.
 
@@ -214,15 +194,15 @@ rm /etc/httpd/conf.d/welcome.conf
 cd /var/www/html/
 wget -O kube-register  https://github.com/kelseyhightower/kube-register/releases/download/v0.0.2/kube-register-0.0.2-linux-amd64
 wget -O setup-network-environment https://github.com/kelseyhightower/setup-network-environment/releases/download/v1.0.0/setup-network-environment
-wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kubernetes --no-check-certificate
-wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kube-apiserver --no-check-certificate
-wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kube-controller-manager --no-check-certificate
-wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kube-scheduler --no-check-certificate
-wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kubectl --no-check-certificate
-wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kubecfg --no-check-certificate
-wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kubelet --no-check-certificate
-wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kube-proxy --no-check-certificate
-wget -O flanneld https://storage.googleapis.com/k8s/flanneld --no-check-certificate
+wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kubernetes
+wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kube-apiserver
+wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kube-controller-manager
+wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kube-scheduler
+wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kubectl
+wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kubecfg
+wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kubelet
+wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kube-proxy
+wget -O flanneld https://storage.googleapis.com/k8s/flanneld
 ```
 
 This sets up our binaries we need to run Kubernetes. This would need to be enhanced to download from the Internet for updates in the future.
@@ -651,9 +631,9 @@ Reboot these servers to get the images PXEd and ready for running containers!
 
 Now that the CoreOS with Kubernetes installed is up and running lets spin up some Kubernetes pods to demonstrate the system.
 
-See [a simple nginx example](/docs/user-guide/simple-nginx) to try out your new cluster.
+See [a simple nginx example](/docs/user-guide/simple-nginx/) to try out your new cluster.
 
-For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/).
 
 ## Helping commands for debugging
 
@@ -703,6 +683,6 @@ for i in `kubectl get pods | awk '{print $1}'`; do kubectl delete pod $i; done
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Bare-metal (Offline) | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/bare_metal_offline)              |          | Community ([@jeffbean](https://github.com/jeffbean))
+Bare-metal (Offline) | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/bare_metal_offline/)              |          | Community ([@jeffbean](https://github.com/jeffbean))
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions/) chart.

@@ -6,7 +6,7 @@ toc:
 - docs/home/index.md
 
 - title: Release Notes
-  path: https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md
+  path: https://git.k8s.io/kubernetes/CHANGELOG.md
 - title: Release Roadmap
   path: https://github.com/kubernetes/kubernetes/milestones/
 

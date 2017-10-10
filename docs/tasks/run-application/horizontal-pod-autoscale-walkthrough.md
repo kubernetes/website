@@ -1,18 +1,15 @@
 ---
-assignees:
+approvers:
 - fgrzadkowski
 - jszczepkowski
 - justinsb
 - directxman12
 title: Horizontal Pod Autoscaling Walkthrough
-redirect_from:
-- "/docs/user-guide/horizontal-pod-autoscaling/walkthrough/"
-- "/docs/user-guide/horizontal-pod-autoscaling/walkthrough.html"
 ---
 
 Horizontal Pod Autoscaling automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization
-(or, with alpha support, on some other, application-provided metrics).
+(or, with beta support, on some other, application-provided metrics).
 
 This document walks you through an example of enabling Horizontal Pod Autoscaling for the php-apache server.  For more information on how Horizontal Pod Autoscaling behaves, see the [Horizontal Pod Autoscaling user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
@@ -21,13 +18,13 @@ This document walks you through an example of enabling Horizontal Pod Autoscalin
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
 [Heapster](https://github.com/kubernetes/heapster) monitoring needs to be deployed in the cluster
 as Horizontal Pod Autoscaler uses it to collect metrics
-(if you followed [getting started on GCE guide](/docs/getting-started-guides/gce),
+(if you followed [getting started on GCE guide](/docs/getting-started-guides/gce/),
 heapster monitoring will be turned-on by default).
 
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
 and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
 must be able to communicate with the API server providing the custom metrics API.
-See the [Horizontal Pod Autoscaling user guide](/docs/user-guide/horizontal-pod-autoscaling/#support-for-custom-metrics) for more details.
+See the [Horizontal Pod Autoscaling user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
 
 ## Step One: Run & expose php-apache server
 
@@ -52,7 +49,7 @@ controlled by the php-apache deployment we created in the first step of these in
 Roughly speaking, HPA will increase and decrease the number of replicas
 (via the deployment) to maintain an average CPU utilization across all Pods of 50%
 (since each pod requests 200 milli-cores by [kubectl run](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/user-guide/kubectl/kubectl_run.md), this means average CPU usage of 100 milli-cores).
-See [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
+See [here](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
 
 ```shell
 $ kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
@@ -63,8 +60,8 @@ We may check the current status of autoscaler by running:
 
 ```shell
 $ kubectl get hpa
-NAME         REFERENCE                     TARGET    CURRENT   MINPODS   MAXPODS   AGE
-php-apache   Deployment/php-apache/scale   50%       0%        1         10        18s
+NAME         REFERENCE                     TARGET    MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1          18s
 
 ```
 
@@ -88,8 +85,8 @@ Within a minute or so, we should see the higher CPU load by executing:
 
 ```shell
 $ kubectl get hpa
-NAME         REFERENCE                     TARGET    CURRENT   MINPODS   MAXPODS   AGE
-php-apache   Deployment/php-apache/scale   50%       305%      1         10        3m
+NAME         REFERENCE                     TARGET      CURRENT   MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache/scale   305% / 50%  305%      1         10        1          3m
 
 ```
 
@@ -117,8 +114,8 @@ Then we will verify the result state (after a minute or so):
 
 ```shell
 $ kubectl get hpa
-NAME         REFERENCE                     TARGET    CURRENT   MINPODS   MAXPODS   AGE
-php-apache   Deployment/php-apache/scale   50%       0%        1         10        11m
+NAME         REFERENCE                     TARGET       MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1          11m
 
 $ kubectl get deployment php-apache
 NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -132,18 +129,18 @@ Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas 
 ## Autoscaling on multiple metrics and custom metrics
 
 You can introduce additional metrics to use when autoscaling the `php-apache` Deployment
-by making use of the `autoscaling/v2alpha1` API version.
+by making use of the `autoscaling/v2beta1` API version.
 
-First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2alpha1` form:
+First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2beta1` form:
 
 ```shell
-$ kubectl get hpa.autoscaling.v2alpha1 -o yaml > /tmp/hpa-v2.yaml
+$ kubectl get hpa.v2beta1.autoscaling -o yaml > /tmp/hpa-v2.yaml
 ```
 
 Open the `/tmp/hpa-v2.yaml` file in an editor, and you should see YAML which looks like this:
 
 ```yaml
-apiVersion: autoscaling/v2alpha1
+apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
@@ -180,7 +177,7 @@ the only other supported resource metric is memory.  These resources do not chan
 to cluster, and should always be available, as long as Heapster is deployed.
 
 You can also specify resource metrics in terms of direct values, instead of as percentages of the
-requested value.  To do so, use the `targetAverageValue` field insted of the `targetAverageUtilization`
+requested value.  To do so, use the `targetAverageValue` field instead of the `targetAverageUtilization`
 field.
 
 There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
@@ -192,6 +189,7 @@ are averaged together across pods and compared with a target value to determine 
 They work much like resource metrics, except that they *only* have the `targetAverageValue` field.
 
 Pod metrics are specified using a metric block like this:
+
 ```yaml
 type: Pods
 pods:
@@ -223,7 +221,7 @@ For example, if you had your monitoring system collecting metrics about network 
 you could update the definition above using `kubectl edit` to look like this:
 
 ```yaml
-apiVersion: autoscaling/v2alpha1
+apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
@@ -268,6 +266,48 @@ status:
 Then, your HorizontalPodAutoscaler would attempt to ensure that each pod was consuming roughly
 50% of its requested CPU, serving 1000 packets per second, and that all pods behind the main-route
 Ingress were serving a total of 10000 requests per second.
+
+## Appendix: Horizontal Pod Autoscaler Status Conditions
+
+When using the `autoscaling/v2beta1` form of the HorizontalPodAutoscaler, you will be able to see
+*status conditions* set by Kubernetes on the HorizontalPodAutoscaler.  These status conditions indicate
+whether or not the HorizontalPodAutoscaler is able to scale, and whether or not it is currently restricted
+in any way.
+
+The conditions appear in the `status.conditions` field.  To see the conditions affecting a HorizontalPodAutoscaler,
+we can use `kubectl describe hpa`:
+
+```shell
+$ kubectl describe hpa cm-test
+Name:                           cm-test
+Namespace:                      prom
+Labels:                         <none>
+Annotations:                    <none>
+CreationTimestamp:              Fri, 16 Jun 2017 18:09:22 +0000
+Reference:                      ReplicationController/cm-test
+Metrics:                        ( current / target )
+  "http_requests" on pods:      66m / 500m
+Min replicas:                   1
+Max replicas:                   4
+ReplicationController pods:     1 current / 1 desired
+Conditions:
+  Type                  Status  Reason                  Message
+  ----                  ------  ------                  -------
+  AbleToScale           True    ReadyForNewScale        the last scale time was sufficiently old as to warrant a new scale
+  ScalingActive         True    ValidMetricFound        the HPA was able to successfully calculate a replica count from pods metric http_requests
+  ScalingLimited        False   DesiredWithinRange      the desired replica count is within the acceptable range
+Events:
+```
+
+For this HorizontalPodAutoscaler, we can see several conditions in a healthy state.  The first,
+`AbleToScale`, indicates whether or not the HPA is able to fetch and update scales, as well as
+whether or not any backoff-related conditions would prevent scaling.  The second, `ScalingActive`,
+indicates whether or not the HPA is enabled (i.e. the replica count of the target is not zero) and
+is able to calculate desired scales. When it is `False`, it generally indicates problems with
+fetching metrics.  Finally, the last condition, `ScalingLimitted`, indicates that the desired scale
+was capped by the maximum or minimum of the HorizontalPodAutoscaler.  This is an indication that
+you may wish to raise or lower the minimum or maximum replica count constraints on your
+HorizontalPodAutoscaler.
 
 ## Appendix: Other possible scenarios
 

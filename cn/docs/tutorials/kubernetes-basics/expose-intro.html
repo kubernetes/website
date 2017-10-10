@@ -1,0 +1,119 @@
+---
+title: 使用服务发布您的应用程序
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+			<div class="col-md-8">
+    		<h3>目标</h3>
+				<ul>
+					<li>了解 Kubernetes 中的服务</li>
+					<li>了解标签和标签选择器对象如何与服务相关联</li>
+					<li>通过 Service 在 Kubernetes 集群外发布应用程序</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+			<h3>Kubernetes 服务概述</h3>
+
+				<p>Kubernetes <a href="/docs/concepts/workloads/pods/pod-overview/">Pods</a> 终有一死。
+					Pods 实际上有一个 <a href="/docs/concepts/workloads/pods/pod-lifecycle/">生命周期</a>。
+					当工作节点死机时，节点上运行的Pod也将丢失。
+					一个 <a href="/docs/user-guide/replication-controller/#what-is-a-replicationcontroller">ReplicationController</a> 可能会通过创建新的Pod以动态地将集群恢复到所需的状态，以保持您的应用程序运行。
+					比如说，假如一个图像处理软件有三个副本。这些副本是可替代的，前端系统不应关心后端副本，即使Pod丢失并重建也不会更改。
+					也就是说，Kubernetes 集群中的每个 Pod 都有一个唯一的IP地址，即使在同一个节点上的 Pods 也是如此，所以此时就需要一种自动调整更改 Pod 的方法，以便您的应用程序继续运行。</p>
+				<p><i>服务</i>：Kubernetes 中的服务是一个抽象对象，它定义了一组逻辑的 Pods 和一个访问它们的策略。 服务让互相依赖的 Pod 之间的耦合松动。 服务像所有 Kubernetes 对象一样，由 YAML <a href="/docs/concepts/configuration/overview/#general-config-tips">(首选)</a> 或 JSON 定义。
+					针对服务的一组 Pod 通常由 <i>LabelSelector</i> 确定（参见下文，为什么您可能不希望将 <code>选择器</code> 包含在规范中）。</p>
+
+				<p>虽然每个 Pod 都有一个唯一的 IP 地址，但是这些 IP 不会在没有服务的情况下公开在群集之外。服务允许您的应用程序接收流量。 可以通过在 ServiceSpec 中指定<code>类型</code> 以不同方式显示服务：</p>
+			<ul>
+				<li><i>ClusterIP</i>(默认) - 在集群中的内部IP上公开服务。此类型使服务只能从集群中访问。</li>
+				<li><i>NodePort</i> —— 使用NAT在群集中每个选定的节点的同一端口上显示该服务。使用 <code><NodeIP>:<NodePort></code>可以从群集外部访问服务。建立 ClusterIP 的超集。</li>
+				<li><i>LoadBalancer</i> —— 在当前云中创建外部负载平衡器(如果支持)，并为服务分配固定的外部IP。建立 NodePort 的超集。</li>
+				<li><i>ExternalName</i> —— 使用任意名称显示该服务(由规范中的<code>externalName</code> 指定)，本过程通过使用该名称返回 CNAME 记录达成。无须使用代理。这种类型需要 v1.7 或更高版本的 <code>kube-dns</code>.</li>
+			</ul>
+			<p>有关不同类型服务的详细信息，请参见 <a href="/docs/tutorials/services/source-ip/">使用源IP</a> 教程。另请参阅 <a href="/docs/concepts/services-networking/connect-applications-service">使用服务连接应用程序</a>.</p>
+			<p>另外，请注意，服务中有一些使用案例涉及在规范中不定义<code>选择器</code> 。不使用 <code>选择器</code> 创建的服务也不会创建相应的端点对象。 这允许用户手动将服务映射到特定端点。没有选择器还有可能是因为您严格地使用了 <code>type: ExternalName</code>.</p>
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>摘要</h3>
+					<ul>
+						<li>对外部流量曝光 Pod </li>
+						<li>跨多个 Pods 进行流量负载均衡</li>
+						<li>使用标签</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+						<p><i>Kubernetes 服务是一个抽象层，它定义了一组逻辑的Pods，并为这些Pods启用了外部流量曝光、负载平衡和服务发现。</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h3>服务和标签</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg" width="150%" height="150%"></p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p> A服务可以跨一组 Pod 路由流量。服务是允许 Pod 在 Kubernetes 中死亡和复制而不影响应用程序的抽象层。相关 Pod 之间的发现和路由(如应用程序中的前端和后端组件)是由 Kubernetes Services 处理的。</p>
+				<p> 服务使用 <a href="/docs/concepts/overview/working-with-objects/labels">标签和选择器</a>，匹配一组 Pod，成为分组原语，此原语允许在 Kubernetes 中的对象进行逻辑运算。
+					标签是一对附加到对象的键/值对，可以以多种方式使用，方式如下: </p>
+				<ul>
+					<li>指定用于开发、测试和生产的对象</li>
+					<li>嵌入版本标签</li>
+					<li>使用标签分类对象</li>
+				</ul>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_fill">
+					<p><i>您可以在使用<br><code>--expose</code> 在 kubectl 中创建部署的同时创建服务。</i></p>
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg"></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<p>标签可以在创建时或之后附加到对象后，并支持随时修改。让我们现在开始使用服务公开我们的应用程序并应用一些标签吧。</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/expose-interactive/" role="button">启动互动教程<span class="btn__next">›</span></a>
+			</div>
+		</div>
+	</main>
+</div>
+
+</body>
+</html>

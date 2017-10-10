@@ -1,27 +1,21 @@
 ---
-assignees:
+approvers:
 - crassirostris
 - piosz
-title: Logging and Monitoring Cluster Activity
-redirect_from:
-- "/docs/concepts/clusters/logging/"
-- "/docs/concepts/clusters/logging.html"
-redirect_from:
-- "/docs/user-guide/logging/overview/"
-- "/docs/user-guide/logging/overview.html"
+title: Logging Architecture
 ---
 
 Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
 
 However, the native functionality provided by a container engine or runtime is usually not enough for a complete logging solution. For example, if a container crashes, a pod is evicted, or a node dies, you'll usually still want to access your application's logs. As such, logs should have a separate storage and lifecycle independent of nodes, pods, or containers. This concept is called _cluster-level-logging_. Cluster-level logging requires a separate backend to store, analyze, and query logs. Kubernetes provides no native storage solution for log data, but you can integrate many existing logging solutions into your Kubernetes cluster.
 
-This document includes:
+* TOC
+{:toc}
 
-* A basic demonstration of logging in Kubernetes using the standard output stream
-* A detailed description of the node logging architecture in Kubernetes
-* Guidance for implementing cluster-level logging in Kubernetes
-
-The guidance for cluster-level logging assumes that a logging backend is present inside or outside of your cluster. If you're not interested in having cluster-level logging, you might still find the description of how logs are stored and handled on the node to be useful.
+Cluster-level logging architectures are described in assumption that
+a logging backend is present inside or outside of your cluster. If you're
+not interested in having cluster-level logging, you might still find
+the description of how logs are stored and handled on the node to be useful.
 
 ## Basic logging in Kubernetes
 
@@ -39,7 +33,7 @@ $ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/counter-
 pod "counter" created
 ```
 
-To fetch the logs, use the `kubectl logs` command, as follows
+To fetch the logs, use the `kubectl logs` command, as follows:
 
 ```shell
 $ kubectl logs counter
@@ -49,7 +43,7 @@ $ kubectl logs counter
 ...
 ```
 
-You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/user-guide/kubectl/v1.6/#logs) for more details.
+You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/user-guide/kubectl/{{page.version}}/#logs) for more details.
 
 ## Logging at the node level
 
@@ -66,7 +60,7 @@ so that logs don't consume all available storage on the node. Kubernetes
 currently is not responsible for rotating logs, but rather a deployment tool
 should set up a solution to address that.
 For example, in Kubernetes clusters, deployed by the `kube-up.sh` script,
-there is a [`logrotate`](http://www.linuxcommand.org/man_pages/logrotate8.html)
+there is a [`logrotate`](https://linux.die.net/man/8/logrotate)
 tool configured to run each hour. You can also set up a container runtime to
 rotate application's logs automatically, e.g. by using Docker's `log-opt`.
 In the `kube-up.sh` script, the latter approach is used for COS image on GCP,
@@ -77,7 +71,7 @@ As an example, you can find detailed information about how `kube-up.sh` sets
 up logging for COS image on GCP in the corresponding [script]
 [cosConfigureHelper].
 
-When you run [`kubectl logs`](/docs/user-guide/kubectl/v1.6/#logs) as in
+When you run [`kubectl logs`](/docs/user-guide/kubectl/{{page.version}}/#logs) as in
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file, returning the contents in the response.
 **Note:** currently, if some external system has performed the rotation,
@@ -101,7 +95,7 @@ systemd is not present, they write to `.log` files in the `/var/log` directory.
 System components inside containers always write to the `/var/log` directory,
 bypassing the default logging mechanism. They use the [glog][glog]
 logging library. You can find the conventions for logging severity for those
-components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md).
+components in the [development docs on logging](https://git.k8s.io/community/contributors/devel/logging.md).
 
 Similarly to the container logs, system component logs in the `/var/log`
 directory should be rotated. In Kubernetes clusters brought up by

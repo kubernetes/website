@@ -3,7 +3,7 @@ $( document ).ready(function() {
     var notHere = false;
     var forwardingURL = window.location.href;
 
-    var oldURLs = ["/README.md","/README.html","/index.md",".html",".md","/v1.1/","/v1.0/"];
+    var oldURLs = ["/README.md","/README.html","/index.md",".html",".md"];
 
     /* var:  forwardingRules
      * type: array of objects
@@ -15,68 +15,7 @@ $( document ).ready(function() {
      *   "postfix": "/#<token>"                //[optional] append this to base URL w/ <token> found by "pattern"
      * }
      */
-    var forwardingRules = [{
-        "from":"/docs/api-reference/v1/definitions",
-        "pattern":"#_v1_(\\w+)",
-        "to":"/docs/api-reference/v1.6",
-        "postfix":"/#<token>-v1-core"
-    },
-    {
-        "from":"/docs/user-guide/kubectl/kubectl_",
-        "pattern":"kubectl_(\\w+)",
-        "to":"/docs/user-guide/kubectl/v1.6",
-        "postfix":"/#<token>"
-    },
-    {
-        "from":"/docs/contribute/",
-        "pattern":"\/contribute\/([0-9a-zA-Z\-\_]+)",
-        "to":"/docs/home/contribute",
-        "postfix":"/<token>"
-    },
-    {
-        "from":"/resource-quota",
-        "pattern":"",
-        "to":"/docs/concepts/policy/resource-quotas/",
-        "postfix":""
-    },
-    {
-        "from":"/horizontal-pod-autoscaler",
-        "pattern":"",
-        "to":"/docs/tasks/run-application/horizontal-pod-autoscale/",
-        "postfix":""
-    },
-    {
-        "from":"/docs/roadmap",
-        "pattern":"",
-        "to":"https://github.com/kubernetes/kubernetes/milestones/",
-        "postfix":""
-    },
-    {
-        "from":"/api-ref/",
-        "pattern":"",
-        "to":"https://github.com/kubernetes/kubernetes/milestones/",
-        "postfix":""
-    },
-    {
-        "from":"/kubernetes/third_party/swagger-ui/",
-        "pattern":"",
-        "to":"/docs/reference",
-        "postfix":""
-    },
-    {
-        "from":"/docs/user-guide/overview",
-        "pattern":"",
-        "to":"/docs/concepts/overview/what-is-kubernetes/",
-        "postfix":""
-    },
-    {
-        "from": "/docs/admin/multiple-schedulers",
-        "to": "/docs/tutorials/clusters/multiple-schedulers/"
-    },
-    {
-        "from": "/docs/troubleshooting/",
-        "to": "/docs/tasks/debug-application-cluster/troubleshooting/"
-    }];
+    var forwardingRules = [];
 
     forwardingRules.forEach(function(rule) {
         if (forwardingURL.indexOf(rule.from) > -1) {

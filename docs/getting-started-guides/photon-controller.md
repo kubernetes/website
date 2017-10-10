@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 title: VMware Photon Controller
 ---
@@ -22,24 +22,20 @@ setup: the actual creation of the cluster can be done by anyone.)
 needs to be installed on the machine on which you'll be running kube-up. If you
 have go installed, this can be easily installed with:
 
-```shell
-go get github.com/vmware/photon-controller-cli/photon
-```
+       go get github.com/vmware/photon-controller-cli/photon
 
 3. `mkisofs` needs to be installed. The installation process creates a
 CD-ROM ISO image to bootstrap the VMs with cloud-init. If you are on a
 Mac, you can install this with [brew](http://brew.sh/):
 
-```shell
-brew install cdrtools
-```
+       brew install cdrtools
 
 4. Several common tools need to be installed: `ssh`, `scp`, `openssl`
 
 5. You should have an ssh public key installed. This will be used to
 give you access to the VM's user account, `kube`.
 
-6. Get or build a [binary release](/docs/getting-started-guides/binary_release)
+6. Get or build a [binary release](/docs/getting-started-guides/binary_release/)
 
 ### Download VM Image
 

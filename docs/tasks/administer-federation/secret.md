@@ -1,8 +1,5 @@
 ---
 title: Federated Secrets
-redirect_from:
-- "/docs/user-guide/federation/secrets/"
-- "/docs/user-guide/federation/secrets.html"
 ---
 
 This guide explains how to use secrets in Federation control plane.
@@ -21,7 +18,7 @@ this for you). Other tutorials, for example
 by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+[working knowledge of Kubernetes](/docs/setup/) in
 general and [Secrets](/docs/concepts/configuration/secret/) in particular.
 
 ## Overview
@@ -81,7 +78,7 @@ the federation apiserver instead of sending it to a specific Kubernetes cluster.
 For example, you can do that using kubectl by running:
 
 ```shell
-kubectl --context=federation-cluster delete secret mysecret 
+kubectl --context=federation-cluster delete secret mysecret
 ```
 
 Note that at this point, deleting a federated secret will not delete the

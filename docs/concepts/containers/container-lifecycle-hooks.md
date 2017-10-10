@@ -1,17 +1,14 @@
 ---
-assignees:
+approvers:
 - mikedanese
 - thockin
 title: Container Lifecycle Hooks
-redirect_from:
-- "/docs/user-guide/container-environment/"
-- "/docs/user-guide/container-environment.html"
 ---
 
 {% capture overview %}
 
 This page describes how kubelet managed Containers can use the Container lifecycle hook framework
-to run code triggered by events during their management lifecycle. 
+to run code triggered by events during their management lifecycle.
 
 {% endcapture %}
 
@@ -34,14 +31,14 @@ There are two hooks that are exposed to Containers:
 
 This hook executes immediately after a container is created.
 However, there is no guarantee that the hook will execute before the container ENTRYPOINT.
-No parameters are passed to the handler. 
+No parameters are passed to the handler.
 
 `PreStop`
 
 This hook is called immediately before a container is terminated.
 It is blocking, meaning it is synchronous,
-so it must complete before the call to delete the container can be sent. 
-No parameters are passed to the handler. 
+so it must complete before the call to delete the container can be sent.
+No parameters are passed to the handler.
 
 A more detailed description of the termination behavior can be found in
 [Termination of Pods](/docs/concepts/workloads/pods/pod/#termination-of-pods).
@@ -58,13 +55,13 @@ Resources consumed by the command are counted against the Container.
 ### Hook handler execution
 
 When a Container lifecycle management hook is called,
-the Kubernetes management system executes the handler in the Container registered for that hook.  
+the Kubernetes management system executes the handler in the Container registered for that hook. 
 
 Hook handler calls are synchronous within the context of the Pod containing the Container.
 This means that for a `PostStart` hook,
 the Container ENTRYPOINT and hook fire asynchronously.
 However, if the hook takes too long to run or hangs,
-the Container cannot reach a `running` state. 
+the Container cannot reach a `running` state.
 
 The behavior is similar for a `PreStop` hook.
 If the hook hangs during execution,
@@ -87,16 +84,16 @@ Generally, only single deliveries are made.
 If, for example, an HTTP hook receiver is down and is unable to take traffic,
 there is no attempt to resend.
 In some rare cases, however, double delivery may occur.
-For instance, if a kubelet restarts in the middle of sending a hook, 
+For instance, if a kubelet restarts in the middle of sending a hook,
 the hook might be resent after the kubelet comes back up.
 
 ### Debugging Hook handlers
 
 The logs for a Hook handler are not exposed in Pod events.
 If a handler fails for some reason, it broadcasts an event.
-For `PostStart`, this is the `FailedPostStartHook` event, 
-and for `PreStop`, this is the `FailedPreStopHook` event. 
-You can see these events by running `kubectl describe pod <pod_name>`. 
+For `PostStart`, this is the `FailedPostStartHook` event,
+and for `PreStop`, this is the `FailedPreStopHook` event.
+You can see these events by running `kubectl describe pod <pod_name>`.
 Here is some example output of events from running this command:
 
 ```
@@ -111,7 +108,7 @@ Events:
   38s        38s        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Killing        Killing container with docker id 5c6a256a2567: PostStart handler: Error executing in Docker Container: 1
   37s        37s        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Killing        Killing container with docker id 8df9fdfd7054: PostStart handler: Error executing in Docker Container: 1
   38s        37s        2    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}                Warning        FailedSync    Error syncing pod, skipping: failed to "StartContainer" for "main" with RunContainerError: "PostStart handler: Error executing in Docker Container: 1"
-  1m         22s         2     {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Warning        FailedPostStartHook    
+  1m         22s         2     {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Warning        FailedPostStartHook
 ```
 
 {% endcapture %}

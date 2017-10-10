@@ -29,9 +29,15 @@ toc:
     section:
     - docs/tutorials/kubernetes-basics/update-intro.html
     - docs/tutorials/kubernetes-basics/update-interactive.html
-- title: Online Training Course
-  path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
+- title: Online Training Courses
+  section:
+  - title: Scalable Microservices with Kubernetes (Udacity)
+    path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
+  - title: Introduction to Kubernetes (edX)
+    path: https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#
 - docs/tutorials/stateless-application/hello-minikube.md
+- docs/user-guide/walkthrough/index.md
+- docs/user-guide/walkthrough/k8s201.md
 - title: Configuration
   section:
   - docs/tutorials/configuration/configure-redis-using-configmap.md
@@ -43,10 +49,17 @@ toc:
   - docs/tutorials/object-management-kubectl/declarative-object-management-configuration.md
 - title: Stateless Applications
   section:
+  - docs/tasks/run-application/run-stateless-application-deployment.md
+  - docs/tutorials/stateless-application/guestbook.md
+  - docs/tasks/access-application-cluster/service-access-application-cluster.md
   - docs/tutorials/stateless-application/expose-external-ip-address.md
 - title: Stateful Applications
   section:
   - docs/tutorials/stateful-application/basic-stateful-set.md
+  - docs/tasks/run-application/run-single-instance-stateful-application.md
+  - docs/tasks/run-application/run-replicated-stateful-application.md
+  - docs/tutorials/stateful-application/mysql-wordpress-persistent-volume.md
+  - docs/tutorials/stateful-application/cassandra.md
   - docs/tutorials/stateful-application/zookeeper.md
 - title: Clusters
   section:
@@ -54,4 +67,3 @@ toc:
 - title: Services
   section:
   - docs/tutorials/services/source-ip.md
-

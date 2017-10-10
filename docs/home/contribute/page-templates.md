@@ -1,7 +1,4 @@
 ---
-redirect_from:
-- "/docs/templatedemos/"
-- "/docs/templatedemos.html"
 title: Using Page Templates
 ---
 
@@ -16,7 +13,7 @@ title: Using Page Templates
     <li><a href="#concept_template">Concept</a></li>
 </ul>
 
-<p>The page templates are in the <a href="https://github.com/kubernetes/kubernetes.github.io/tree/master/_includes/templates" target="_blank">_includes/templates</a> directory of the <a href="https://github.com/kubernetes/kubernetes.github.io">kubernetes.github.io</a> repository.
+<p>The page templates are in the <a href="https://git.k8s.io/kubernetes.github.io/_includes/templates" target="_blank">_includes/templates</a> directory of the <a href="https://github.com/kubernetes/kubernetes.github.io">kubernetes.github.io</a> repository.
 
 <h2 id="task_template">Task template</h2>
 
@@ -36,7 +33,7 @@ variables:</p>
     <li>whatsnext - optional</li>
 </ul>
 
-Then include templates/task.md like this:
+<p>Then include templates/task.md like this:</p>
 
 {% raw %}<pre>...
 {% include templates/task.md %}</pre>{% endraw %}
@@ -108,7 +105,7 @@ variables:</p>
     <li>whatsnext - optional</li>
 </ul>
 
-Then include templates/tutorial.md like this:
+<p>Then include templates/tutorial.md like this:</p>
 
 {% raw %}<pre>...
 {% include templates/tutorial.md %}</pre>{% endraw %}
@@ -188,7 +185,7 @@ variables:</p>
     <li>whatsnext - optional</li>
 </ul>
 
-Then include templates/concept.md like this:
+<p>Then include templates/concept.md like this:</p>
 
 {% raw %}<pre>...
 {% include templates/concept.md %}</pre>{% endraw %}

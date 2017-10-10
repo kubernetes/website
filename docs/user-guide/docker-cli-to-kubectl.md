@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bgrant0607
 - brendandburns
 - thockin
@@ -13,7 +13,7 @@ In this doc, we introduce the Kubernetes command line for interacting with the a
 
 #### docker run
 
-How do I run an nginx Deployment and expose it to the world? Checkout [kubectl run](/docs/user-guide/kubectl/v1.6/#run).
+How do I run an nginx Deployment and expose it to the world? Checkout [kubectl run](/docs/user-guide/kubectl/{{page.version}}/#run).
 
 With docker:
 
@@ -34,7 +34,7 @@ deployment "nginx-app" created
 ```
 
 `kubectl run` creates a Deployment named "nginx-app" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/v1.6/#run) for more details. 
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/{{page.version}}/#run) for more details. 
 Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands. Now, we can expose a new Service with the deployment created above:
 
 ```shell
@@ -53,12 +53,12 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 
 Unlike `docker run ...`, if `--attach` is specified, we attach to `stdin`, `stdout` and `stderr`, there is no ability to control which streams are attached (`docker -a ...`).
 
-Because we start a Deployment for your container, it will be restarted if you terminate the attached process (e.g. `ctrl-c`), this is different than `docker run -it`.
-To destroy the Deployment (and its pods) you need to run `kubectl delete deployment <name>`
+Because we start a Deployment for your container, it will be restarted if you terminate the attached process (e.g. `ctrl-c`), this is different from `docker run -it`.
+To destroy the Deployment (and its pods) you need to run `kubectl delete deployment <name>`.
 
 #### docker ps
 
-How do I list what is currently running? Checkout [kubectl get](/docs/user-guide/kubectl/v1.6/#get).
+How do I list what is currently running? Checkout [kubectl get](/docs/user-guide/kubectl/{{page.version}}/#get).
 
 With docker:
 
@@ -78,7 +78,7 @@ nginx-app-5jyvm   1/1       Running   0          1h
 
 #### docker attach
 
-How do I attach to a process that is already running in a container?  Checkout [kubectl attach](/docs/user-guide/kubectl/v1.6/#attach)
+How do I attach to a process that is already running in a container?  Checkout [kubectl attach](/docs/user-guide/kubectl/{{page.version}}/#attach).
 
 With docker:
 
@@ -102,7 +102,7 @@ $ kubectl attach -it nginx-app-5jyvm
 
 #### docker exec
 
-How do I execute a command in a container? Checkout [kubectl exec](/docs/user-guide/kubectl/v1.6/#exec).
+How do I execute a command in a container? Checkout [kubectl exec](/docs/user-guide/kubectl/{{page.version}}/#exec).
 
 With docker:
 
@@ -141,11 +141,11 @@ $ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
-For more information see [Getting a Shell to a Running Container](/docs/tasks/kubectl/get-shell-running-container/).
+For more information see [Getting a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
 
 #### docker logs
 
-How do I follow stdout/stderr of a running process? Checkout [kubectl logs](/docs/user-guide/kubectl/v1.6/#logs).
+How do I follow stdout/stderr of a running process? Checkout [kubectl logs](/docs/user-guide/kubectl/{{page.version}}/#logs).
 
 
 With docker:
@@ -164,7 +164,7 @@ $ kubectl logs -f nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
 
-Now's a good time to mention slight difference between pods and containers; by default pods will not terminate if their processes exit. Instead it will restart the process. This is similar to the docker run option `--restart=always` with one major difference. In docker, the output for each invocation of the process is concatenated but for Kubernetes, each invocation is separate. To see the output from a previous run in Kubernetes, do this:
+Now's a good time to mention slight difference between pods and containers; by default pods will not terminate if their processes exit. Instead it will restart the process. This is similar to the docker run option `--restart=always` with one major difference. In docker, the output for each invocation of the process is concatenated, but for Kubernetes, each invocation is separate. To see the output from a previous run in Kubernetes, do this:
 
 ```shell
 $ kubectl logs --previous nginx-app-zibvs
@@ -176,9 +176,9 @@ See [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administrat
 
 #### docker stop and docker rm
 
-How do I stop and delete a running process? Checkout [kubectl delete](/docs/user-guide/kubectl/v1.6/#delete).
+How do I stop and delete a running process? Checkout [kubectl delete](/docs/user-guide/kubectl/{{page.version}}/#delete).
 
-With docker
+With docker:
 
 ```shell
 $ docker ps
@@ -213,7 +213,7 @@ There is no direct analog of `docker login` in kubectl. If you are interested in
 
 #### docker version
 
-How do I get the version of my client and server? Checkout [kubectl version](/docs/user-guide/kubectl/v1.6/#version).
+How do I get the version of my client and server? Checkout [kubectl version](/docs/user-guide/kubectl/{{page.version}}/#version).
 
 With docker:
 
@@ -235,13 +235,13 @@ With kubectl:
 
 ```shell
 $ kubectl version
-Client Version: version.Info{Major:"0", Minor:"20.1", GitVersion:"v0.20.1", GitCommit:"", GitTreeState:"not a git tree"}
-Server Version: version.Info{Major:"0", Minor:"21+", GitVersion:"v0.21.1-411-g32699e873ae1ca-dirty", GitCommit:"32699e873ae1caa01812e41de7eab28df4358ee4", GitTreeState:"dirty"}
+Client Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4335", GitCommit:"9b77fed11a9843ce3780f70dd251e92901c43072", GitTreeState:"dirty", BuildDate:"2017-08-29T20:32:58Z", OpenPaasKubernetesVersion:"v1.03.02", GoVersion:"go1.7.5", Compiler:"gc", Platform:"linux/amd64"}
+Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4335", GitCommit:"9b77fed11a9843ce3780f70dd251e92901c43072", GitTreeState:"dirty", BuildDate:"2017-08-29T20:32:58Z", OpenPaasKubernetesVersion:"v1.03.02", GoVersion:"go1.7.5", Compiler:"gc", Platform:"linux/amd64"}
 ```
 
 #### docker info
 
-How do I get miscellaneous info about my environment and configuration? Checkout [kubectl cluster-info](/docs/user-guide/kubectl/v1.6/#cluster-info).
+How do I get miscellaneous info about my environment and configuration? Checkout [kubectl cluster-info](/docs/user-guide/kubectl/{{page.version}}/#cluster-info).
 
 With docker:
 

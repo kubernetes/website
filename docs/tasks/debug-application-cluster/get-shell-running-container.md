@@ -1,13 +1,8 @@
 ---
-assignees:
+approvers:
 - caesarxuchao
 - mikedanese
 title: Get a Shell to a Running Container
-redirect_from:
-- "/docs/user-guide/getting-into-containers/"
-- "/docs/user-guide/getting-into-containers.html"
-- "/docs/tasks/kubectl/get-shell-running-container/"
-- "/docs/tasks/kubectl/get-shell-running-container.html"
 ---
 
 {% capture overview %}
@@ -145,7 +140,7 @@ kubectl exec -it my-pod --container main-app -- /bin/bash
 
 {% capture whatsnext %}
 
-* [kubectl exec](/docs/user-guide/kubectl/v1.6/#exec)
+* [kubectl exec](/docs/user-guide/kubectl/{{page.version}}/#exec)
 
 {% endcapture %}
 

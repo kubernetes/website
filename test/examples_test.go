@@ -43,6 +43,8 @@ import (
 	expvalidation "k8s.io/kubernetes/pkg/apis/extensions/validation"
 	"k8s.io/kubernetes/pkg/apis/policy"
 	policyvalidation "k8s.io/kubernetes/pkg/apis/policy/validation"
+	"k8s.io/kubernetes/pkg/apis/storage"
+	storagevalidation "k8s.io/kubernetes/pkg/apis/storage/validation"
 	"k8s.io/kubernetes/pkg/capabilities"
 	"k8s.io/kubernetes/pkg/registry/batch/job"
 	schedulerapilatest "k8s.io/kubernetes/plugin/pkg/scheduler/api/latest"
@@ -156,6 +158,9 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = policyvalidation.ValidatePodDisruptionBudget(t)
+	case *storage.StorageClass:
+		// storageclass does not accept namespace
+		errors = storagevalidation.ValidateStorageClass(t)
 	default:
 		errors = field.ErrorList{}
 		errors = append(errors, field.InternalError(field.NewPath(""), fmt.Errorf("no validation defined for %#v", obj)))
@@ -215,21 +220,21 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 func TestExampleObjectSchemas(t *testing.T) {
 	cases := map[string]map[string][]runtime.Object{
 		"../docs/user-guide/walkthrough": {
-			"deployment":				{&extensions.Deployment{}},
-			"deployment-update":			{&extensions.Deployment{}},
-			"pod-nginx":				{&api.Pod{}},
-			"pod-nginx-with-label":			{&api.Pod{}},
-			"pod-redis":				{&api.Pod{}},
-			"pod-with-http-healthcheck":		{&api.Pod{}},
-			"pod-with-tcp-socket-healthcheck": 	{&api.Pod{}},
-			"podtemplate":				{&api.PodTemplate{}},
-			"service":				{&api.Service{}},
+			"deployment":                      {&extensions.Deployment{}},
+			"deployment-update":               {&extensions.Deployment{}},
+			"pod-nginx":                       {&api.Pod{}},
+			"pod-nginx-with-label":            {&api.Pod{}},
+			"pod-redis":                       {&api.Pod{}},
+			"pod-with-http-healthcheck":       {&api.Pod{}},
+			"pod-with-tcp-socket-healthcheck": {&api.Pod{}},
+			"podtemplate":                     {&api.PodTemplate{}},
+			"service":                         {&api.Service{}},
 		},
 		"../docs/user-guide/update-demo": {
 			"kitten-rc":   {&api.ReplicationController{}},
 			"nautilus-rc": {&api.ReplicationController{}},
 		},
-		"../docs/user-guide/pod-security-policy": {
+		"../docs/concepts/policy": {
 			"psp": {&extensions.PodSecurityPolicy{}},
 		},
 		"../docs/user-guide/persistent-volumes/volumes": {
@@ -277,7 +282,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-probe-deployment":     {&extensions.Deployment{}},
 			"nginx-secure-app":           {&api.Service{}, &extensions.Deployment{}},
 			"nginx-svc":                  {&api.Service{}},
-			"petset":                     {&api.Service{}, nil},
 			"pod":                        {&api.Pod{}},
 			"pod-w-message":              {&api.Pod{}},
 			"redis-deployment":           {&extensions.Deployment{}},
@@ -326,13 +330,16 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"secret-env-pod": {&api.Pod{}},
 		},
 		"../docs/tutorials/stateful-application": {
-			"gce-volume":        {&api.PersistentVolume{}},
-			"mysql-deployment":  {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
-			"mysql-services":    {&api.Service{}, &api.Service{}},
-			"mysql-configmap":   {&api.ConfigMap{}},
-			"mysql-statefulset": {&apps.StatefulSet{}},
-			"web":               {&api.Service{}, &apps.StatefulSet{}},
-			"zookeeper":         {&api.Service{}, &api.ConfigMap{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
+			"gce-volume":            {&api.PersistentVolume{}},
+			"mysql-deployment":      {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
+			"mysql-services":        {&api.Service{}, &api.Service{}},
+			"mysql-configmap":       {&api.ConfigMap{}},
+			"mysql-statefulset":     {&apps.StatefulSet{}},
+			"cassandra-service":     {&api.Service{}},
+			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
+			"web":       {&api.Service{}, &apps.StatefulSet{}},
+			"webp":      {&api.Service{}, &apps.StatefulSet{}},
+			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
 	}
 

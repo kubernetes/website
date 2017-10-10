@@ -1,8 +1,5 @@
 ---
 title: Declarative Management of Kubernetes Objects Using Configuration Files
-redirect_from:
-- "/docs/concepts/tools/kubectl/object-management-using-declarative-config/"
-- "/docs/concepts/tools/kubectl/object-management-using-declarative-config.html"
 ---
 
 {% capture overview %}
@@ -23,7 +20,7 @@ The `kubectl` tool supports three kinds of object management:
 * Imperative object configuration
 * Declarative object configuration
 
-See [Kubernetes Object Management](/docs/concepts/tools/kubectl/object-management-overview/)
+See [Kubernetes Object Management](/docs/tutorials/object-management-kubectl/object-management/)
 for a discussion of the advantages and disadvantage of each kind of object management.
 
 ## Before you begin
@@ -32,8 +29,8 @@ Declarative object configuration requires a firm understanding of
 the Kubernetes object definitions and configuration. Read and complete
 the following documents if you have not already:
 
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-imperative-commands/)
-- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/tools/kubectl/object-management-using-imperative-config/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
 
 Following are definitions for terms used in this document:
 
@@ -44,7 +41,7 @@ Following are definitions for terms used in this document:
   values of an object, as observed by the Kubernetes cluster. These are kept in the Kubernetes
   cluster storage, typically etcd.
 - *declarative configuration writer /  declarative writer*: A person or software component
-  that makes updates to a live object. The live writers refered to in this topic make changes
+  that makes updates to a live object. The live writers referred to in this topic make changes
   to object configuration files and run `kubectl apply` to write the changes.
 
 ## How to create objects
@@ -75,7 +72,7 @@ kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -146,7 +143,7 @@ configuration file instead of a directory.
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -197,7 +194,7 @@ kubectl scale deployment/nginx-deployment --replicas 2
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `replicas` field has been set to 2, and the `last-applied-configuration`
@@ -251,7 +248,7 @@ kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/update_
 Print the live configuration using `kubectl get`:
 
 ```
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows the following changes to the live configuration:
@@ -487,7 +484,7 @@ TODO(1.6): For 1.6, add the following bullet point to 1.
 ### How different types of fields are merged
 
 How a particular field in a configuration file is merged with
-with the live configuration depends on the
+the live configuration depends on the
 type of the field. There are several types of fields:
 
 - *primitive*: A field of type string, integer, or boolean.
@@ -575,7 +572,7 @@ Add, delete, or update individual elements. This does not preserve ordering.
 
 This merge strategy uses a special tag on each field called a `patchMergeKey`. The
 `patchMergeKey` is defined for each field in the Kubernetes source code:
-[types.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/api/v1/types.go#L2119)
+[types.go](https://git.k8s.io/api/core/v1/types.go#L2565)
 When merging a list of maps, the field specified as the `patchMergeKey` for a given element
 is used like a map key for that element.
 
@@ -649,7 +646,7 @@ by `name`.
 As of Kubernetes 1.5, merging lists of primitive elements is not supported.
 
 **Note:** Which of the above strategies is chosen for a given field is controlled by
-the `patchStrategy` tag in [types.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/api/v1/types.go#L2119)
+the `patchStrategy` tag in [types.go](https://git.k8s.io/api/core/v1/types.go#L2565)
 If no `patchStrategy` is specified for a field of type list, then
 the list is replaced.
 
@@ -682,7 +679,7 @@ kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the API server set several fields to default values in the live
@@ -897,7 +894,7 @@ configuration involves several manual steps:
 
 1. Export the live object to a local configuration file:
 
-        kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+       kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
 
 1. Manually remove the `status` field from the configuration file.
 
@@ -906,7 +903,7 @@ configuration involves several manual steps:
 
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
-        kubectl replace --save-config -f <kind>_<name>.yaml
+       kubectl replace --save-config -f <kind>_<name>.yaml
 
 1. Change processes to use `kubectl apply` for managing the object exclusively.
 
@@ -918,7 +915,7 @@ TODO(pwittrock): Why doesn't export remove the status field?  Seems like it shou
 
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
-        kubectl replace --save-config -f <kind>_<name>.yaml
+       kubectl replace --save-config -f <kind>_<name>.yaml
 
 1. Change processes to use `kubectl apply` for managing the object exclusively.
 
@@ -941,17 +938,18 @@ template:
       controller-selector: "extensions/v1beta1/deployment/nginx"
 ```
 
-## Support for ThirdPartyResources
+## Known Issues
 
-As of Kubernetes 1.5, ThirdPartyResources are not supported by `kubectl apply`.
-The recommended approach for ThirdPartyResources is to use [imperative object configuration](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/).
+* Prior to Kubernetes 1.6, `kubectl apply` did not support operating on objects stored in a
+  [custom resource](/docs/concepts/api-extension/custom-resources/).
+  For these cluster versions, you should instead use [imperative object configuration](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/).
 {% endcapture %}
 
 {% capture whatsnext %}
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
 - [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
-- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.6/)
-- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.6/)
+- [Kubectl Command Reference](/docs/user-guide/kubectl/{{page.version}}/)
+- [Kubernetes Object Schema Reference](/docs/resources-reference/{{page.version}}/)
 {% endcapture %}
 
 {% include templates/concept.md %}

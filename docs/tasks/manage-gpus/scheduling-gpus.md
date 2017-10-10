@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - vishh
 title: Schedule GPUs
-redirect_from:
-- "/docs/user-guide/gpus/"
-- "/docs/user-guide/gpus.html"
 ---
 
 {% capture overview %}
@@ -16,7 +13,7 @@ This page describes how users can consume GPUs and the current limitations.
 
 {% capture prerequisites %}
 
-1. Kubernetes nodes have to be pre-installed with Nvidia drivers. Kubelet will not detect Nvidia GPUs otherwise. Try to re-install nvidia drivers if kubelet fails to expose Nvidia GPUs as part of Node Capacity.
+1. Kubernetes nodes have to be pre-installed with Nvidia drivers. Kubelet will not detect Nvidia GPUs otherwise. Try to re-install Nvidia drivers if kubelet fails to expose Nvidia GPUs as part of Node Capacity. After installing the driver, run `nvidia-docker-plugin` to confirm that all drivers have been loaded.
 2. A special **alpha** feature gate `Accelerators` has to be set to true across the system: `--feature-gates="Accelerators=true"`.
 3. Nodes must be using `docker engine` as the container runtime.
 
@@ -32,16 +29,20 @@ Nvidia GPUs can be consumed via container level resource requirements using the 
 
 ```yaml
 apiVersion: v1
-kind: pod
+kind: Pod 
+metadata:
+  name: gpu-pod
 spec: 
   containers: 
     - 
       name: gpu-container-1
+      image: gcr.io/google_containers/pause:2.0
       resources: 
         limits: 
           alpha.kubernetes.io/nvidia-gpu: 2 # requesting 2 GPUs
-    - 
+    -
       name: gpu-container-2
+      image: gcr.io/google_containers/pause:2.0
       resources: 
         limits: 
           alpha.kubernetes.io/nvidia-gpu: 3 # requesting 3 GPUs
@@ -59,7 +60,7 @@ Following is an illustration of this workflow:
 As part of your Node bootstrapping, identify the GPU hardware type on your nodes and expose it as a node label.
 
 ```shell
-NVIDIA_GPU_NAME=$(nvidia-smi --query-gpu=gpu_name --format=csv,noheader --id=0)
+NVIDIA_GPU_NAME=$(nvidia-smi --query-gpu=gpu_name --format=csv,noheader --id=0 | sed -e 's/ /-/g')
 source /etc/default/kubelet
 KUBELET_OPTS="$KUBELET_OPTS --node-labels='alpha.kubernetes.io/nvidia-gpu-name=$NVIDIA_GPU_NAME'"
 echo "KUBELET_OPTS=$KUBELET_OPTS" > /etc/default/kubelet
@@ -90,12 +91,12 @@ metadata:
           }
         }
       }
-spec: 
-  containers: 
-    - 
+spec:
+  containers:
+    -
       name: gpu-container-1
-      resources: 
-        limits: 
+      resources:
+        limits:
           alpha.kubernetes.io/nvidia-gpu: 2
 ```
 
@@ -109,8 +110,6 @@ The API presented here **will change** in an upcoming release to better support 
 
 As of now, CUDA libraries are expected to be pre-installed on the nodes.
 
-The NVIDIA drivers will require privileged containers due to the permissions on ``/usr/lib/nvidia-367``.
-
 To mitigate this, you can copy the libraries to a more permissive folder in ``/var/lib/`` or change the permissions directly. (Future releases will automatically perform this operation)
 
 Pods can access the libraries using `hostPath` volumes.
@@ -123,8 +122,7 @@ metadata:
 spec:
   containers:
   - name: gpu-container-1
-    securityContext:
-      privileged: true
+    image: gcr.io/google_containers/pause:2.0
     resources:
       limits:
         alpha.kubernetes.io/nvidia-gpu: 1
@@ -135,16 +133,16 @@ spec:
       name: lib
   volumes:
   - hostPath:
-      path: /usr/lib/nvidia-367/bin
+      path: /usr/lib/nvidia-375/bin
     name: bin
-  - hostPath: 
-      path: /usr/lib/nvidia-367
+  - hostPath:
+      path: /usr/lib/nvidia-375
     name: lib
 ```
 
 ## Future
 
-- Support for hardware accelerators is in it's early stages in Kubernetes.
+- Support for hardware accelerators is in its early stages in Kubernetes.
 - GPUs and other accelerators will soon be a native compute resource across the system.
 - Better APIs will be introduced to provision and consume accelerators in a scalable manner.
 - Kubernetes will automatically ensure that applications consuming GPUs gets the best possible performance.

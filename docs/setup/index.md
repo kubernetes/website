@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - brendandburns
 - erictune
 - mikedanese

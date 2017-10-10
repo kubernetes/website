@@ -9,6 +9,7 @@ For more information about contributing to the Kubernetes documentation, see:
 * [Contributing to the Kubernetes Documentation](http://kubernetes.io/editdocs/)
 * [Creating a Documentation Pull Request](http://kubernetes.io/docs/home/contribute/create-pull-request/)
 * [Writing a New Topic](http://kubernetes.io/docs/home/contribute/write-new-topic/)
+* [Review Issues](http://kubernetes.io/docs/home/contribute/review-issues/)
 * [Staging Your Documentation Changes](http://kubernetes.io/docs/home/contribute/stage-documentation-changes/)
 * [Using Page Templates](http://kubernetes.io/docs/home/contribute/page-templates/)
 * [Documentation Style Guide](http://kubernetes.io/docs/home/contribute/style-guide/)

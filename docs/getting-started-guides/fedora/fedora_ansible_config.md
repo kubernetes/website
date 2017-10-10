@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - aveshagarwal
 - erictune
 title: Fedora via Ansible
@@ -49,7 +49,7 @@ cd contrib/ansible
 
 **Tell ansible about each machine and its role in your cluster**
 
-Get the IP addresses from the master and nodes.  Add those to the `~/contrib/ansible/inventory` file on the host running Ansible.
+Get the IP addresses from the master and nodes.  Add those to the `~/contrib/ansible/inventory/localhost.ini` file on the host running Ansible.
 
 ```shell
 [masters]
@@ -65,11 +65,11 @@ kube-node-02.example.com
 
 ## Setting up ansible access to your nodes
 
-If you already are running on a machine which has passwordless ssh access to the kube-master and kube-node-{01,02} nodes, and 'sudo' privileges, simply set the value of `ansible_ssh_user` in `~/contrib/ansible/group_vars/all.yml` to the username which you use to ssh to the nodes (i.e. `fedora`), and proceed to the next step...
+If you already are running on a machine which has passwordless ssh access to the kube-master and kube-node-{01,02} nodes, and 'sudo' privileges, simply set the value of `ansible_ssh_user` in `~/contrib/ansible/inventory/group_vars/all.yml` to the username which you use to ssh to the nodes (i.e. `fedora`), and proceed to the next step...
 
 *Otherwise* setup ssh on the machines like so (you will need to know the root password to all machines in the cluster).
 
-edit: ~/contrib/ansible/group_vars/all.yml
+edit: `~/contrib/ansible/inventory/group_vars/all.yml`
 
 ```yaml
 ansible_ssh_user: root
@@ -95,10 +95,10 @@ done
 
 ## Setting up the cluster
 
-Although the default value of variables in `~/contrib/ansible/group_vars/all.yml` should be good enough, if not, change them as needed.
+Although the default value of variables in `~/contrib/ansible/inventory/group_vars/all.yml` should be good enough, if not, change them as needed.
 
 ```conf
-edit: ~/contrib/ansible/group_vars/all.yml
+edit: ~/contrib/ansible/inventory/group_vars/all.yml
 ```
 
 **Configure access to Kubernetes packages**
@@ -111,7 +111,7 @@ source_type: packageManager
 
 **Configure the IP addresses used for services**
 
-Each Kubernetes service gets its own IP address.  These are not real IPs.  You need only select a range of IPs which are not in use elsewhere in your environment.
+Each Kubernetes service gets its own IP address.  These are not real IPs.  You need to only select a range of IPs which are not in use elsewhere in your environment.
 
 ```yaml
 kube_service_addresses: 10.254.0.0/16
@@ -147,9 +147,9 @@ dns_setup: true
 This will finally setup your whole Kubernetes cluster for you.
 
 ```shell
-cd ~/contrib/ansible/
+cd ~/contrib/ansible/scripts/
 
-./scripts/deploy-cluster.sh
+./deploy-cluster.sh
 ```
 
 ## Testing and using your new cluster
@@ -174,7 +174,6 @@ systemctl | grep -i kube
 
 ```shell
 iptables -nvL
-
 ```
 
 **Create /tmp/apache.json on the master with the following contents and deploy pod**
@@ -229,7 +228,7 @@ docker images
 curl http://localhost
 ```
 
-That's it !
+That's it!
 
 ## Support Level
 

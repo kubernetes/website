@@ -1,8 +1,5 @@
 ---
 title: Coarse Parallel Processing Using a Work Queue
-redirect_from:
-- "/docs/user-guide/jobs/work-queue-1/"
-- "/docs/user-guide/jobs/work-queue-1/index.html"
 ---
 
 * TOC
@@ -77,7 +74,7 @@ Later, we will make a docker image that includes these packages.
 Next, we will check that we can discover the rabbitmq service:
 
 ```
-# Note the rabitmq-service has a DNS name, provided by Kubernetes:
+# Note the rabbitmq-service has a DNS name, provided by Kubernetes:
 
 root@temp-loe07:/# nslookup rabbitmq-service
 Server:        10.0.0.10
@@ -177,7 +174,7 @@ tree, then change directory to `examples/job/work-queue-1`.
 Otherwise, make a temporary directory, change to it,
 download the [Dockerfile](Dockerfile?raw=true),
 and [worker.py](worker.py?raw=true).  In either case,
-build the image with this command: `
+build the image with this command:
 
 ```shell
 $ docker build -t job-wq-1 .
@@ -199,7 +196,7 @@ your app image with your project ID, and push to GCR. Replace
 
 ```shell
 docker tag job-wq-1 gcr.io/<project>/job-wq-1
-gcloud docker push gcr.io/<project>/job-wq-1
+gcloud docker -- push gcr.io/<project>/job-wq-1
 ```
 
 ## Defining a Job
@@ -228,24 +225,37 @@ Now wait a bit, then check on the job.
 $ kubectl describe jobs/job-wq-1
 Name:             job-wq-1
 Namespace:        default
-Image(s):         gcr.io/causal-jigsaw-637/job-wq-1
-Selector:         app in (job-wq-1)
+Selector:         controller-uid=41d75705-92df-11e7-b85e-fa163ee3c11f
+Labels:           controller-uid=41d75705-92df-11e7-b85e-fa163ee3c11f
+                  job-name=job-wq-1
+Annotations:      <none>
 Parallelism:      2
 Completions:      8
-Labels:           app=job-wq-1
+Start Time:       Wed, 06 Sep 2017 16:42:02 +0800
 Pods Statuses:    0 Running / 8 Succeeded / 0 Failed
-No volumes.
+Pod Template:
+  Labels:       controller-uid=41d75705-92df-11e7-b85e-fa163ee3c11f
+                job-name=job-wq-1
+  Containers:
+   c:
+    Image:      gcr.io/causal-jigsaw-637/job-wq-1
+    Port:
+    Environment:
+      BROKER_URL:       amqp://guest:guest@rabbitmq-service:5672
+      QUEUE:            job1
+    Mounts:             <none>
+  Volumes:              <none>
 Events:
-  FirstSeen  LastSeen   Count    From    SubobjectPath    Reason              Message
-  ─────────  ────────   ─────    ────    ─────────────    ──────              ───────
-  27s        27s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-hcobb
-  27s        27s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-weytj
-  27s        27s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-qaam5
-  27s        27s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-b67sr
-  26s        26s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-xe5hj
-  15s        15s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-w2zqe
-  14s        14s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-d6ppa
-  14s        14s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-p17e0
+  FirstSeen  LastSeen   Count    From    SubobjectPath    Type      Reason              Message
+  ─────────  ────────   ─────    ────    ─────────────    ──────    ──────              ───────
+  27s        27s        1        {job }                   Normal    SuccessfulCreate    Created pod: job-wq-1-hcobb
+  27s        27s        1        {job }                   Normal    SuccessfulCreate    Created pod: job-wq-1-weytj
+  27s        27s        1        {job }                   Normal    SuccessfulCreate    Created pod: job-wq-1-qaam5
+  27s        27s        1        {job }                   Normal    SuccessfulCreate    Created pod: job-wq-1-b67sr
+  26s        26s        1        {job }                   Normal    SuccessfulCreate    Created pod: job-wq-1-xe5hj
+  15s        15s        1        {job }                   Normal    SuccessfulCreate    Created pod: job-wq-1-w2zqe
+  14s        14s        1        {job }                   Normal    SuccessfulCreate    Created pod: job-wq-1-d6ppa
+  14s        14s        1        {job }                   Normal    SuccessfulCreate    Created pod: job-wq-1-p17e0
 ```
 
 All our pods succeeded.  Yay.

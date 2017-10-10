@@ -1,10 +1,7 @@
 ---
-assignees:
+approvers:
 - mikedanese
 title: Labels and Selectors
-redirect_from:
-- "/docs/user-guide/labels/"
-- "/docs/user-guide/labels.html"
 ---
 
 _Labels_ are key/value pairs that are attached to objects, such as pods.
@@ -19,7 +16,7 @@ Each object can have a set of key/value labels defined.  Each Key must be unique
 }
 ```
 
-We'll eventually index and reverse-index labels for efficient queries and watches, use them to sort and group in UIs and CLIs, etc. We don't want to pollute labels with non-identifying, especially large and/or structured, data. Non-identifying information should be recorded using [annotations](/docs/user-guide/annotations).
+We'll eventually index and reverse-index labels for efficient queries and watches, use them to sort and group in UIs and CLIs, etc. We don't want to pollute labels with non-identifying, especially large and/or structured, data. Non-identifying information should be recorded using [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 
 * TOC
 {:toc}
@@ -38,12 +35,12 @@ Example labels:
    * `"partition" : "customerA"`, `"partition" : "customerB"`
    * `"track" : "daily"`, `"track" : "weekly"`
 
-These are just examples; you are free to develop your own conventions.
+These are just examples of commonly used labels; you are free to develop your own conventions. Keep in mind that label Key must be unique for a given object.
 
 ## Syntax and character set
 
-_Labels_ are key value pairs. Valid label keys have two segments: an optional prefix and name, separated by a slash (`/`).  The name segment is required and must be 63 characters or less, beginning and ending with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.  The prefix is optional.  If specified, the prefix must be a DNS subdomain: a series of DNS labels separated by dots (`.`), not longer than 253 characters in total, followed by a slash (`/`).
-If the prefix is omitted, the label key is presumed to be private to the user. Automated system components (e.g. `kube-scheduler`, `kube-controller-manager`, `kube-apiserver`, `kubectl`, or other third-party automation) which add labels to end-user objects must specify a prefix.  The `kubernetes.io/` prefix is reserved for Kubernetes core components.
+_Labels_ are key/value pairs. Valid label keys have two segments: an optional prefix and name, separated by a slash (`/`).  The name segment is required and must be 63 characters or less, beginning and ending with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.  The prefix is optional.  If specified, the prefix must be a DNS subdomain: a series of DNS labels separated by dots (`.`), not longer than 253 characters in total, followed by a slash (`/`).
+If the prefix is omitted, the label Key is presumed to be private to the user. Automated system components (e.g. `kube-scheduler`, `kube-controller-manager`, `kube-apiserver`, `kubectl`, or other third-party automation) which add labels to end-user objects must specify a prefix.  The `kubernetes.io/` prefix is reserved for Kubernetes core components.
 
 Valid label values must be 63 characters or less and must be empty or begin and end with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
 
@@ -54,13 +51,13 @@ Unlike [names and UIDs](/docs/user-guide/identifiers), labels do not provide uni
 Via a _label selector_, the client/user can identify a set of objects. The label selector is the core grouping primitive in Kubernetes.
 
 The API currently supports two types of selectors: _equality-based_ and _set-based_.
-A label selector can be made of multiple _requirements_ which are comma-separated. In the case of multiple requirements, all must be satisfied so the comma separator acts as an _AND_ logical operator.
+A label selector can be made of multiple _requirements_ which are comma-separated. In the case of multiple requirements, all must be satisfied so the comma separator acts as a logical _AND_ (`&&`) operator.
 
 An empty label selector (that is, one with zero requirements) selects every object in the collection.
 
 A null label selector (which is only possible for optional selector fields) selects no objects.
 
-**Note**: the label selectors of two controllers must not overlap within a namespace, otherwise they will fight with each other. 
+**Note**: the label selectors of two controllers must not overlap within a namespace, otherwise they will fight with each other.
 
 ### _Equality-based_ requirement
 
@@ -79,7 +76,7 @@ One could filter for resources in `production` excluding `frontend` using the co
 
 ### _Set-based_ requirement
 
-_Set-based_ label requirements allow filtering keys according to a set of values. Three kinds of operators are supported: `in`,`notin` and exists (only the key identifier). For example:
+_Set-based_ label requirements allow filtering keys according to a set of values. Three kinds of operators are supported: `in`,`notin` and `exists` (only the key identifier). For example:
 
 ```
 environment in (production, qa)
@@ -173,4 +170,4 @@ selector:
 #### Selecting sets of nodes
 
 One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
-See the documentation on [node selection](/docs/user-guide/node-selection) for more information.
+See the documentation on [node selection](/docs/concepts/configuration/assign-pod-node/) for more information.

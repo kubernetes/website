@@ -22,7 +22,7 @@ Depending on the installation method, your Kubernetes cluster may be deployed wi
 an existing StorageClass that is marked as default. This default StorageClass
 is then used to dynamically provision storage for PersistentVolumeClaims
 that do not require any specific storage class. See
-[PersistentVolumeClaim documentation](/docs/user-guide/persistent-volumes/#class-1)
+[PersistentVolumeClaim documentation](/docs/concepts/storage/persistent-volumes/#class-1)
 for details.
 
 The pre-installed default StorageClass may not fit well with your expected workload;
@@ -38,7 +38,7 @@ for details about addon manager and how to disable individual addons.
 
 1. List the StorageClasses in your cluster:
 
-        kubectl get storageclass
+       kubectl get storageclass
 
     The output is similar to this:
 
@@ -56,7 +56,7 @@ for details about addon manager and how to disable individual addons.
 
    To mark a StorageClass as non-default, you need to change its value to `false`:
 
-        kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+       kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
 
     where `<your-class-name>` is the name of your chosen StorageClass.
 
@@ -65,7 +65,7 @@ for details about addon manager and how to disable individual addons.
    Similarly to the previous step, you need to add/set the annotation
    `storageclass.kubernetes.io/is-default-class=true`.
 
-        kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+       kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
    Please note that at most one StorageClass can be marked as default. If two
    or more of them are marked as default, Kubernetes ignores the annotation,
@@ -73,7 +73,7 @@ for details about addon manager and how to disable individual addons.
 
 1. Verify that your chosen StorageClass is default:
 
-        kubectl get storageclass
+       kubectl get storageclass
 
     The output is similar to this:
 

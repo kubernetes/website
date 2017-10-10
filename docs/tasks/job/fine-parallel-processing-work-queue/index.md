@@ -1,8 +1,5 @@
 ---
 title: Fine Parallel Processing Using a Work Queue
-redirect_from:
-- "/docs/user-guide/jobs/work-queue-2/"
-- "/docs/user-guide/jobs/work-queue-2/index.html"
 ---
 
 * TOC
@@ -33,8 +30,8 @@ Here is an overview of the steps in this example:
 
 ## Starting Redis
 
-For this example, for simplicitly, we will start a single instance of Redis.
-See the [Redis Example](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook) for an example
+For this example, for simplicity, we will start a single instance of Redis.
+See the [Redis Example](https://github.com/kubernetes/examples/tree/master/guestbook) for an example
 of deploying Redis scalably and redundantly.
 
 Start a temporary Pod running Redis and a service so we can find it.
@@ -53,7 +50,7 @@ If you're not working from the source tree, you could also download [`redis-pod.
 Now let's fill the queue with some "tasks".  In our example, our tasks are just strings to be
 printed.
 
-Start a temporary interactive pod for running the Redis CLI
+Start a temporary interactive pod for running the Redis CLI.
 
 ```shell
 $ kubectl run -i --tty temp --image redis --command "/bin/sh"
@@ -146,7 +143,7 @@ your app image with your project ID, and push to GCR. Replace
 
 ```shell
 docker tag job-wq-2 gcr.io/<project>/job-wq-2
-gcloud docker push gcr.io/<project>/job-wq-2
+gcloud docker -- push gcr.io/<project>/job-wq-2
 ```
 
 ## Defining a Job
@@ -181,14 +178,24 @@ Now wait a bit, then check on the job.
 $ kubectl describe jobs/job-wq-2
 Name:             job-wq-2
 Namespace:        default
-Image(s):         gcr.io/exampleproject/job-wq-2
-Selector:         app in (job-wq-2)
+Selector:         controller-uid=b1c7e4e3-92e1-11e7-b85e-fa163ee3c11f
+Labels:           controller-uid=b1c7e4e3-92e1-11e7-b85e-fa163ee3c11f
+                  job-name=job-wq-2
+Annotations:      <none>
 Parallelism:      2
-Completions:      Unset
+Completions:      <unset>
 Start Time:       Mon, 11 Jan 2016 17:07:59 -0800
-Labels:           app=job-wq-2
 Pods Statuses:    1 Running / 0 Succeeded / 0 Failed
-No volumes.
+Pod Template:
+  Labels:       controller-uid=b1c7e4e3-92e1-11e7-b85e-fa163ee3c11f
+                job-name=job-wq-2
+  Containers:
+   c:
+    Image:              gcr.io/exampleproject/job-wq-2
+    Port:
+    Environment:        <none>
+    Mounts:             <none>
+  Volumes:              <none>
 Events:
   FirstSeen    LastSeen    Count    From            SubobjectPath    Type        Reason            Message
   ---------    --------    -----    ----            -------------    --------    ------            -------
@@ -213,4 +220,4 @@ want to consider one of the other [job patterns](/docs/concepts/jobs/run-to-comp
 If you have a continuous stream of background processing work to run, then
 consider running your background workers with a `replicationController` instead,
 and consider running a background processing library such as
-https://github.com/resque/resque.
+[https://github.com/resque/resque](https://github.com/resque/resque).
