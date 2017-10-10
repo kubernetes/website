@@ -1,3 +1,3 @@
 id: storage
 name: Storage
-description: Relevant to how Kubernetes applications persist data.
+description: How Kubernetes applications handle persistent data.

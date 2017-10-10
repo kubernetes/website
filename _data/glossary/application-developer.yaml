@@ -7,4 +7,4 @@ tags:
 short-description: |
   A person who writes an application that runs in a Kubernetes cluster.
 long-description: |
-  Typically an application developer works on one portion of an application, which might be monolithic or composed of many microservices.
+  An application developer focuses on one part of an application. The scale of their focus may vary significantly in size.

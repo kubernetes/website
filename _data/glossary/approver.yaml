@@ -3,8 +3,8 @@ name: Approver
 tags:
 - community
 short-description: |
-  Able to both review and approve K8s code contributions.
+  A person who can review and approve Kubernetes code contributions.
 long-description: |
-  While code review is focused on code quality and correctness, approval is focused on holistic acceptance of a contribution including&#58; backwards/forwards compatibility, adhering to API and flag conventions, subtle performance and correctness issues, interactions with other parts of the system, etc.
+  While code review is focused on code quality and correctness, approval is focused on the holistic acceptance of a contribution. Holistic acceptance includes backwards/forwards compatibility, adhering to API and flag conventions, subtle performance and correctness issues, interactions with other parts of the system, and others.
 
   *Approver status is scoped to a part of the codebase.*

@@ -5,7 +5,7 @@ related:
 tags:
   - user-type
 short-description: |
-  A person concerned with the high-level design of an application.
+  A person responsible for the high-level design of an application.
 long-description: |
-  The architect typically ensures that the app's implementation allows it to interact with its surrounding components in a scalable, maintainable way.
-  These other components are often databases, logging infrastructure, and other microservices.
+  An architect ensures that an app's implementation allows it to interact with its surrounding components in a scalable, maintainable way.
+  Surrounding components include databases, logging infrastructure, and other microservices.
