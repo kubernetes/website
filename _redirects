@@ -70,8 +70,8 @@
 /docs/api-reference/storage.k8s.io/v1beta1/operations/     https://v1-4.docs.kubernetes.io/docs/api-reference/storage.k8s.io/v1beta1/operations/ 301
 /docs/api-reference/1_5/*     https://v1-5.docs.kubernetes.io/docs/reference/ 301
 /docs/api-reference/v1.5/*     https://v1-5.docs.kubernetes.io/docs/reference/ 301
-/docs/api-reference/v1.6/*     https://v1-6.docs.kubernetes.io/docs/api-reference/v1.6/ 301
-/docs/api-reference/v1.7/*     https://kubernetes-io-v1-7.netlify.com/docs/api-reference/v1.7/ 301
+/docs/api-reference/v1.6/*     https://v1-6.docs.kubernetes.io/docs/api-reference/ 301
+/docs/api-reference/v1.7/*     https://kubernetes-io-v1-7.netlify.com/docs/api-reference/ 301
 /docs/api-reference/v1/definitions/     /docs/api-reference/v1.8/ 301
 /docs/api-reference/v1/operations/     /docs/api-reference/v1.8/ 301
 
