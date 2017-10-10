@@ -334,7 +334,7 @@ Use cases include:
 
 ## Understanding namespaces and DNS
 
-When you create a [Service](/docs/concepts/services-networking/service/), it creates a corresponding [DNS entry](/docs/admin/dns).
+When you create a [Service](/docs/concepts/services-networking/service/), it creates a corresponding [DNS entry](/docs/concepts/services-networking/dns-pod-service/).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
 that if a container just uses `<service-name>` it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across

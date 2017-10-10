@@ -20,7 +20,7 @@ In 1.8, the annotations are no longer supported and must be converted to the Pod
 {% capture body %}
 ## Understanding Init Containers
 
-A [Pod](/docs/concepts/abstractions/pod/) can have multiple Containers running
+A [Pod](/docs/concepts/workloads/pods/pod-overview/) can have multiple Containers running
 apps within it, but it can also have one or more Init Containers, which are run
 before the app Containers are started.
 

@@ -30,7 +30,7 @@ Kubernetes concepts.
 * [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
 * [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
 * [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
-* [kubectl CLI](/docs/user-guide/kubectl)
+* [kubectl CLI](/docs/user-guide/kubectl/)
 
 You will require a cluster with at least four nodes, and each node will require
 at least 2 CPUs and 4 GiB of memory. In this tutorial you will cordon and 
