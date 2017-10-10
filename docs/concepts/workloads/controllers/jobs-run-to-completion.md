@@ -155,7 +155,7 @@ A job can be scaled up using the `kubectl scale` command.  For example, the foll
 command sets `.spec.parallelism` of a job called `myjob` to 10:
 
 ```shell
-$ kubectl scale  --replicas=10 jobs/myjob
+kubectl scale  --replicas=10 jobs/myjob
 job "myjob" scaled
 ```
 
