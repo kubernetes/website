@@ -9,7 +9,7 @@ title: 节点安装校验
 
 ## 节点一致性测试（Node Conformance Test）
 
-*节点一致性测试*是对节点提供系统验证及功能性测试的集装箱化测试框架。该测试验证节点是否满足加入Kubernetes的最小化要求；通过了测试的节点才适合加入到Kubernetes集群中。
+*节点一致性测试*是对节点提供系统验证及功能性测试的集装化测试框架。该测试验证节点是否满足加入Kubernetes的最小化要求；通过了测试的节点才适合加入到Kubernetes集群中。
 
 ## 限制
 
@@ -19,7 +19,7 @@ title: 节点安装校验
 
 ## 节点的前提条件
 
-想要进行节点一致性测试, 节点必须满足和标准的Kubernetes节点相同的先决条件。至少，该节点应该安装了以下这些软件：
+想要进行节点一致性测试，节点必须满足和标准的Kubernetes节点相同的先决条件。至少，该节点应该安装了以下这些软件：
 
 * 容器运行环境(Docker)
 * Kubelet
@@ -28,9 +28,9 @@ title: 节点安装校验
 
 通过执行以下步骤来进行节点一致性测试：
 
-1. 指定你的Kubelet到localhost `--api-servers="http://localhost:8080"`，因为测试框架会启动一个本地master来测试Kubelet。 有几个Kubelet的标签你应该要留意:
+1. 指定你的Kubelet到localhost `--api-servers="http://localhost:8080"`，因为测试框架会启动一个本地master来测试Kubelet。另外有几个Kubelet的标签你应该要留意:
   * `--pod-cidr`: 如果你正在用 `kubenet`, 你应该给Kubelet设定一个任意的CIDR值，例如 `--pod-cidr=10.180.0.0/24`。
-  * `--cloud-provider`: 如果你正在用 `--cloud-provider=gce`, 在执行测试的时候你应该删除该标签.
+  * `--cloud-provider`: 如果你正在用 `--cloud-provider=gce`， 在执行测试的时候你应该删除该标签。
 
 2. 通过命令来执行节点一致性测试:
 
@@ -52,7 +52,7 @@ Kubernetes也为不同的体系结构提供了节点一致性测试的docker镜�
   arm   |    node-test-arm  |
  arm64  |  node-test-arm64  |
 
-## 执行选择性的测试
+## 执行选择性测试
 
 想要执行特定的测试，可用你想要执行的正规测试表达式来覆盖`FOCUS`环境变量。
 ```shell
@@ -70,10 +70,10 @@ sudo docker run -it --rm --privileged --net=host \
   gcr.io/google_containers/node-test:0.2
 ```
 
-节点一致性测试是[node e2e test](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/devel/e2e-node-tests.md)的集装箱化版本。
-默认情况下，会执行所有的一致性测试.
+节点一致性测试是[node e2e test](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/devel/e2e-node-tests.md)的集装化版本。
+默认情况下，会执行所有的一致性测试。
 
-理论上, 如果你正确的配置了容器并挂载了必须的卷，你可以运行任何node e2e test。 但是**强烈的建议你只执行一致性测试**, 因为执行非一致性测试需要更多复杂的配置。
+理论上, 如果你正确的配置了容器并挂载了必须的卷，你就可以运行任何node e2e test。 但是**强烈建议你只执行一致性测试**，因为执行非一致性测试需要更多复杂的配置。
 
 ## 附加说明
 
