@@ -9,7 +9,7 @@ assignees:
 * [Kubernetes API Overview](/docs/reference/api-overview/) - Overview of the API for Kubernetes.
 * Kubernetes API Versions
   * [1.6](/docs/api-reference/v1.6/)
-  * [1.5](/docs/api-reference/v1.5/)
+  * [1.5](https://v1-5.docs.kubernetes.io/docs/reference/)
 
 ## CLI Reference
 
