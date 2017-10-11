@@ -15,7 +15,7 @@ js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
 <div class="bar1">
     <div class="navButton users">Users</div>
     <div class="navButton contributors">Contributors</div>
-    <div class="navButton migrators">Migration Paths</div>
+    <div class="navButton migrators">Migration&nbsp;Paths</div>
 </div>
 
 <div id="cardWrapper">
