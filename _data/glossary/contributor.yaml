@@ -3,6 +3,6 @@ name: Contributor
 tags:
 - community
 short-description: |
-  Someone who donates code, documentation, or their time to help further the project or community.
+  Someone who donates code, documentation, or their time to help the Kubernetes project or community.
 long-description: |
-  For example, their contributions may include pull requests (PRs), issues, feedback, special interetest group (SIG) participation, or organizing community events.
+  Contributions include pull requests (PRs), issues, feedback, special interest group (SIG) participation, or organizing community events.

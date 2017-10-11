@@ -12,4 +12,4 @@ long-description: |
 
   * Someone who develops applications that run in Kubernetes clusters
   * Someone who contributes code to the Kubernetes open source project
-  * Someone who customizes the Kubernetes platform to fit the needs of their project--by extending the API, for example
+  * Someone who customizes the Kubernetes platform to fit the needs of their project&mdash;for example, by extending the API

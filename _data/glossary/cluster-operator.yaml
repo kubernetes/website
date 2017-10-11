@@ -8,8 +8,8 @@ related:
 tags:
   - user-type
 short-description: |
-  A person who configures, controls, and monitors cluster(s).
+  A person who configures, controls, and monitors clusters.
 
 long-description: |
-  Their primary responsibility is keeping the cluster up and running, which may involve periodic maintenance activities or upgrades.<br>
-  *(Cluster operators are not to be confused with the [Operator pattern](https://coreos.com/operators) that extends the Kubernetes API.)*
+  Their primary responsibility is keeping a cluster up and running, which may involve periodic maintenance activities or upgrades.<br>
+  *NOTE: Cluster operators are different from the [Operator pattern](https://coreos.com/operators) that extends the Kubernetes API.)*

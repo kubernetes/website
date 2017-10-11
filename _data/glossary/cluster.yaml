@@ -6,4 +6,4 @@ tags:
 short-description: |
   A set of machines, called nodes, that run containerized applications managed by Kubernetes.
 long-description: |
-  Typically a cluster has several worker nodes and at least one master node.
+  A cluster has several worker nodes and at least one master node.
