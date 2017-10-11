@@ -64,7 +64,7 @@ For example, this is how to start a simple web server as a static pod:
     [root@my-node1 ~] $ systemctl restart kubelet
     ```
 
-## Pods created via HTTP
+### Pods created via HTTP
 
 Kubelet periodically downloads a file specified by `--manifest-url=<URL>` argument and interprets it as a json/yaml file with a pod definition. It works the same as `--pod-manifest-path=<directory>`, i.e. it's reloaded every now and then and changes are applied to running static pods (see below).
 
