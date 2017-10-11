@@ -71,7 +71,7 @@ following steps:
 
 1. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
    (`--feature-gates=SelfHosting=true`), the static Pod based control plane will
-   be transformed in a [self-hosed control plane](#self-hosting).
+   be transformed into a [self-hosted control plane](#self-hosting).
 
 Running `kubeadm join` on each node in the cluster consists of the following
 steps:
@@ -325,7 +325,7 @@ Here's an example on how to use it:
   [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) and can also be
   calculated by 3rd party tools or provisioning systems. For example, using the
   OpenSSL CLI:
-  `openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>&/dev/null | openssl dgst -sha256 -hex`
+  `openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'`
 
   _Skipping this flag is allowed in Kubernetes 1.8, but makes certain spoofing
   attacks possible._ See the [security model](#security-model) for details.
@@ -525,7 +525,7 @@ it off regardless. Doing so will disable the ability to use the `--discovery-tok
 Fetch the `cluster-info` file from the API Server:
 
 ```console
-$ kubectl -n kube-public get cm cluster-info -oyaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+$ kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
 apiVersion: v1
 clusters:
 - cluster:
@@ -713,7 +713,7 @@ using kubeadm.
 
 Since [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1),
 Kubernetes container runtimes have been transferred to using CRI by default.
-Currently, the build-in container runtime is Docker which is enabled by built-in
+Currently, the built-in container runtime is Docker which is enabled by built-in
 `dockershim` in `kubelet`.
 
 Using other CRI based runtimes with kubeadm is very simple, and currently

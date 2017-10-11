@@ -4,8 +4,8 @@ approvers:
 title: Services
 ---
 
-Kubernetes [`Pods`](/docs/user-guide/pods) are mortal. They are born and when they die, they
-are not resurrected.  [`ReplicationControllers`](/docs/user-guide/replication-controller) in
+Kubernetes [`Pods`](/docs/concepts/workloads/pods/pod/) are mortal. They are born and when they die, they
+are not resurrected.  [`ReplicationControllers`](/docs/concepts/workloads/controllers/replicationcontroller/) in
 particular create and destroy `Pods` dynamically (e.g. when scaling up or down
 or when doing [rolling updates](/docs/user-guide/kubectl/{{page.version}}/#rolling-update)).  While each `Pod` gets its own IP address, even
 those IP addresses cannot be relied upon to be stable over time. This leads to
@@ -84,7 +84,7 @@ abstract other kinds of backends.  For example:
   * You want to have an external database cluster in production, but in test
     you use your own databases.
   * You want to point your service to a service in another
-    [`Namespace`](/docs/user-guide/namespaces) or on another cluster.
+    [`Namespace`](/docs/concepts/overview/working-with-objects/namespaces/) or on another cluster.
   * You are migrating your workload to Kubernetes and some of your backends run
     outside of Kubernetes.
 
@@ -687,4 +687,4 @@ object](/docs/api-reference/{{page.version}}/#service-v1-core).
 
 ## For More Information
 
-Read [Connecting a Front End to a Back End Using a Service](/docs/tutorials/connecting-apps/connecting-frontend-backend/).
+Read [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/).

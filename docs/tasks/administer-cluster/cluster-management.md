@@ -15,7 +15,7 @@ running cluster.
 
 ## Creating and configuring a Cluster
 
-To install Kubernetes on a set of machines, consult one of the existing [Getting Started guides](/docs/getting-started-guides/) depending on your environment.
+To install Kubernetes on a set of machines, consult one of the existing [Getting Started guides](/docs/setup/) depending on your environment.
 
 ## Upgrading a cluster
 

@@ -16,6 +16,9 @@ This page shows how to use install kubeadm.
 * Unique MAC address and product_uuid for every node
 * Certain ports are open on your machines. See the section below for more details
 * Swap disabled. You must disable swap in order for the kubelet to work properly.
+* Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 {% endcapture %}
 
@@ -129,6 +132,11 @@ You will install these packages on all of your machines:
 
 * `kubectl`: the command line util to talk to your cluster.
 
+kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will 
+need to ensure they match the version of the Kubernetes control panel you want 
+kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
+can lead to unexpected, buggy behaviour.
+
 Please proceed with executing the following commands based on your OS as `root`.
 You may become the `root` user by executing `sudo -i` after SSH-ing to each host.
 
@@ -164,10 +172,18 @@ yum install -y kubelet kubeadm kubectl
 systemctl enable kubelet && systemctl start kubelet
 ```
 
-**Note:** Disabling SELinux by running `setenforce 0` is required to allow
-containers to access the host filesystem, which is required for the `kubeadm init`
-process to complete successfully. You have to do this until SELinux support
-is improved.
+  **Note:**
+
+  - Disabling SELinux by running `setenforce 0` is required to allow containers to access the host filesystem, which is required by pod networks for example. You have to do this until SELinux support is improved in the kubelet.
+  - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
+  
+    ``` bash
+    cat <<EOF >  /etc/sysctl.d/k8s.conf
+    net.bridge.bridge-nf-call-ip6tables = 1
+    net.bridge.bridge-nf-call-iptables = 1
+    EOF
+    sysctl --system
+    ```
 
 {% endcapture %}
 

@@ -12,7 +12,7 @@ title: Running ZooKeeper, A CP Distributed System
 
 {% capture overview %}
 This tutorial demonstrates [Apache Zookeeper](https://zookeeper.apache.org) on 
-Kubernetes using [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/), 
+Kubernetes using [StatefulSets](/docs/concepts/workloads/controllers/statefulset/), 
 [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget), 
 and [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature).
 {% endcapture %}
@@ -27,10 +27,10 @@ Kubernetes concepts.
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
-* [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
+* [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
 * [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
 * [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
-* [kubectl CLI](/docs/user-guide/kubectl)
+* [kubectl CLI](/docs/user-guide/kubectl/)
 
 You will require a cluster with at least four nodes, and each node will require
 at least 2 CPUs and 4 GiB of memory. In this tutorial you will cordon and 
@@ -89,9 +89,9 @@ safely discarded.
 
 The manifest below contains a 
 [Headless Service](/docs/concepts/services-networking/service/#headless-services), 
-a [Service](/docs/concepts/services-networking/service),
+a [Service](/docs/concepts/services-networking/service/),
 a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget), 
-and a [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/). 
+and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/). 
 
 {% include code.html language="yaml" file="zookeeper.yaml" ghlink="/docs/tutorials/stateful-application/zookeeper.yaml" %}
 
@@ -235,7 +235,7 @@ maxClientCnxns=60
 minSessionTimeout= 4000
 maxSessionTimeout= 40000
 autopurge.snapRetainCount=3
-autopurge.purgeInteval=0
+autopurge.purgeInterval=0
 server.1=zk-0.zk-headless.default.svc.cluster.local:2888:3888
 server.2=zk-1.zk-headless.default.svc.cluster.local:2888:3888
 server.3=zk-2.zk-headless.default.svc.cluster.local:2888:3888
@@ -535,7 +535,7 @@ Get the `zk` StatefulSet.
 ```{% endraw %}
 
 Notice that the command used to start the ZooKeeper servers passed the configuration 
-as command line parameter. Enviornment variables are another, equally good, way to 
+as command line parameter. Environment variables are another, equally good, way to 
 pass configuration to ensemble.
 
 ### Configuring Logging

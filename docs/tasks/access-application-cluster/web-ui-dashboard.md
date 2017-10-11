@@ -31,7 +31,7 @@ There are multiple ways you can access the Dashboard UI; either by using the kub
 You can access Dashboard using the kubectl command-line tool by running the following command:
 
 ```
-$ kubectl proxy
+kubectl proxy
 ```
 
 Kubectl will handle authentication with apiserver and make Dashboard available at http://localhost:8001/ui.

@@ -24,7 +24,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
    kubectl create configmap special-config --from-literal=special.how=very 
    ```
 
-1. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.  
+1. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
 
    ```shell
    kubectl edit pod dapi-test-pod
@@ -78,7 +78,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
      log_level: INFO
    ``` 
 
-1. Define the environment variables in the Pod specification.   
+1. Define the environment variables in the Pod specification.
 
    ```yaml
    apiVersion: v1
@@ -168,12 +168,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: special-config
-              key: special_level
+              key: SPECIAL_LEVEL
         - name: SPECIAL_TYPE_KEY
           valueFrom:
             configMapKeyRef:
               name: special-config
-              key: special_type
+              key: SPECIAL_TYPE
   restartPolicy: Never
 ```
 
@@ -272,7 +272,7 @@ very
 ### Project keys to specific paths and file permissions
 
 You can project keys to specific paths and specific permissions on a per-file
-basis. The [Secrets](/docs/concepts/configuration/secret#using-secrets-as-files-from-a-pod) user guide explains the syntax.
+basis. The [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) user guide explains the syntax.
 
 ### Mounted ConfigMaps are updated automatically
 
@@ -296,7 +296,7 @@ When a ConfigMap already being consumed in a volume is updated, projected keys a
    0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
    ```
 
-1. ConfigMaps reside in a specific [namespace](/docs/user-guide/namespaces/). A ConfigMap can only be referenced by pods residing in the same namespace.
+1. ConfigMaps reside in a specific [namespace](/docs/concepts/overview/working-with-objects/namespaces/). A ConfigMap can only be referenced by pods residing in the same namespace.
 
 1. Kubelet doesn't support the use of ConfigMaps for pods not found on the API server. 
    This includes every pod created using kubectl or indirectly via a replication controller. 

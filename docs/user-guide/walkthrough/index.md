@@ -57,7 +57,7 @@ List all pods:
 $ kubectl get pods
 ```
 
-On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/tasks/kubectl/get-shell-running-container/) for details.
+On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/tasks/debug-application-cluster/get-shell-running-container/) for details.
 
 Provided the pod IP is accessible, you should be able to access its http endpoint with wget on port 80:
 
@@ -161,5 +161,5 @@ Finally, we have also introduced an environment variable to the `git-monitor` co
 
 ## What's Next?
 
-Continue on to [Kubernetes 201](/docs/user-guide/walkthrough/k8s201) or
+Continue on to [Kubernetes 201](/docs/user-guide/walkthrough/k8s201/) or
 for a complete application see the [guestbook example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/)

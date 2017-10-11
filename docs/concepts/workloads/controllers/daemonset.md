@@ -32,7 +32,7 @@ different flags and/or different memory and cpu requests for different hardware 
 
 ### Create a DaemonSet
 
-You can describe a DaemonSet in a YAML file. For example, the daemonset.yaml file below describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
+You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` file below describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
 
 {% include code.html language="yaml" file="daemonset.yaml" ghlink="/docs/concepts/workloads/controllers/daemonset.yaml" %}
 
@@ -45,7 +45,7 @@ kubectl create -f daemonset.yaml
 
 As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications/),
-[configuring containers](/docs/user-guide/configuring-containers/), and [working with resources](/docs/concepts/tools/kubectl/object-management-overview/) documents.
+[configuring containers](/docs/tasks/), and [working with resources](/docs/concepts/tools/kubectl/object-management-overview/) documents.
 
 A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) section.
 
@@ -113,7 +113,7 @@ when the Pod is created, so it is ignored by the scheduler).  Therefore:
 Daemon Pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature),
 but they are created with `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
- - `node.alpha.kubernetes.io/notReady`
+ - `node.kubernetes.io/not-ready`
  - `node.alpha.kubernetes.io/unreachable`
 
 This ensures that when the `TaintBasedEvictions` alpha feature is enabled,

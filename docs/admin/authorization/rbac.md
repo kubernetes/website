@@ -506,7 +506,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:kube-dns</b></td>
 <td><b>kube-dns</b> service account in the <b>kube-system</b> namespace</td>
-<td>Role for the <a href="/docs/admin/dns/">kube-dns</a> component.</td>
+<td>Role for the <a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a> component.</td>
 </tr>
 <tr>
 <td><b>system:node-bootstrapper</b></td>

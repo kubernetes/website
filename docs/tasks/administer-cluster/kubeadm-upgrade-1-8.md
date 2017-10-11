@@ -41,6 +41,12 @@ $ export ARCH=amd64 # or: arm, arm64, ppc64le, s390x
 $ curl -sSL https://dl.k8s.io/release/${VERSION}/bin/linux/${ARCH}/kubeadm > /usr/bin/kubeadm
 $ chmod a+rx /usr/bin/kubeadm
 ```
+**Caution:** Upgrading the `kubeadm` package on your system prior to
+upgrading the control plane causes a failed upgrade. Even though 
+`kubeadm` is shipped in the Kubernetes repositories, it's important 
+to install `kubeadm` manually. The kubeadm team is working on fixing
+this limitation. 
+{: .caution}
 
 Verify that this download of kubeadm works, and has the expected version:
 
@@ -79,7 +85,7 @@ $ kubeadm upgrade plan
 [upgrade/health] Checking Static Pod manifests exists on disk: All manifests exist on disk
 [upgrade/config] Making sure the configuration is correct:
 [upgrade/config] Reading configuration from the cluster...
-[upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
 [upgrade] Fetching available versions to upgrade to:
 [upgrade/versions] Cluster version: v1.7.1
 [upgrade/versions] kubeadm version: v1.8.0
@@ -140,7 +146,7 @@ $ kubeadm upgrade apply v1.8.0
 [upgrade/health] Checking Static Pod manifests exists on disk: All manifests exist on disk
 [upgrade/config] Making sure the configuration is correct:
 [upgrade/config] Reading configuration from the cluster...
-[upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
 [upgrade/version] You have chosen to upgrade to version "v1.8.0"
 [upgrade/versions] Cluster version: v1.7.1
 [upgrade/versions] kubeadm version: v1.8.0

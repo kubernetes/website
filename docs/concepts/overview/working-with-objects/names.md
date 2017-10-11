@@ -7,7 +7,7 @@ title: Names
 
 All objects in the Kubernetes REST API are unambiguously identified by a Name and a UID.
 
-For non-unique user-provided attributes, Kubernetes provides [labels](/docs/user-guide/labels) and [annotations](/docs/user-guide/annotations).
+For non-unique user-provided attributes, Kubernetes provides [labels](/docs/user-guide/labels) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 
 ## Names
 

@@ -97,7 +97,7 @@ frontend-qhloh   1/1       Running   0          1m
 
 As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with manifests, see [here](/docs/user-guide/simple-yaml/),
-[here](/docs/user-guide/configuring-containers/), and [here](/docs/concepts/tools/kubectl/object-management-overview/).
+[here](/docs/tasks/), and [here](/docs/concepts/tools/kubectl/object-management-overview/).
 
 A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
@@ -119,7 +119,7 @@ for example the [Kubelet](/docs/admin/kubelet/) or Docker.
 
 ### Pod Selector
 
-The `.spec.selector` field is a [label selector](/docs/user-guide/labels/#label-selectors). A ReplicaSet
+The `.spec.selector` field is a [label selector](/docs/concepts/overview/working-with-objects/labels/). A ReplicaSet
 manages all the pods with labels that match the selector. It does not distinguish
 between pods that it created or deleted and pods that another person or process created or
 deleted. This allows the ReplicaSet to be replaced without affecting the running pods.

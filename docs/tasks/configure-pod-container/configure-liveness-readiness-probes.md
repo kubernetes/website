@@ -123,7 +123,7 @@ image.
 {% include code.html language="yaml" file="http-liveness.yaml" ghlink="/docs/tasks/configure-pod-container/http-liveness.yaml" %}
 
 In the configuration file, you can see that the Pod has a single Container.
-The `livenessProbe` field specifies that the kubelet should perform a liveness
+The `periodSeconds` field specifies that the kubelet should perform a liveness
 probe every 3 seconds. The `initialDelaySeconds` field tells the kubelet that it
 should wait 3 seconds before performing the first probe. To perform a probe, the
 kubelet sends an HTTP GET request to the server that is running in the Container
@@ -275,7 +275,7 @@ set "Host" in httpHeaders instead.
 in the range 1 to 65535.
 
 For an HTTP probe, the kubelet sends an HTTP request to the specified path and
-port to perform the check. The kubelet sends the probe to the container’s IP address,
+port to perform the check. The kubelet sends the probe to the pod’s IP address,
 unless the address is overridden by the optional `host` field in `httpGet`. If
 `scheme` field is set to `HTTPS`, the kubelet sends an HTTPS request skipping the
 certificate verification. In most scenarios, you do not want to set the `host` field.

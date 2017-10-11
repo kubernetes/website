@@ -6,7 +6,7 @@ title: Install and Set Up kubectl
 ---
 
 {% capture overview %}
-Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; and look at your new cluster and bring up example apps.
+Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; and look at your new cluster and bring up example apps.
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -130,7 +130,7 @@ Edit the config file with a text editor of your choice, such as Notepad for exam
 
 ## Configure kubectl
 
-In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/), which is created automatically when you create a cluster using kube-up.sh or successfully deploy a Minikube cluster. See the [getting started guides](/docs/getting-started-guides/) for more about creating clusters. If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/administer-cluster/share-configuration/).
+In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using kube-up.sh or successfully deploy a Minikube cluster. See the [getting started guides](/docs/setup/) for more about creating clusters. If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 By default, kubectl configuration is located at `~/.kube/config`.
 
 ## Check the kubectl configuration
@@ -196,6 +196,6 @@ plugins=(git zsh-completions kubectl)
 
 {% endcapture %}
 {% capture whatsnext %}
-[Learn how to launch and expose your application.](/docs/user-guide/quick-start)
+[Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 {% endcapture %}
 {% include templates/task.md %}
