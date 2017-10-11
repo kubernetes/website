@@ -229,7 +229,7 @@ The official Calico guide is [here](http://docs.projectcalico.org/latest/getting
  - Calico works on `amd64` only.
 
 ```shell
-kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v2.6/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
 ```
 {% endcapture %}
 
