@@ -166,4 +166,3 @@ Once you have installed the Weave Net addon, you can follow the [NetworkPolicy g
 {% endcapture %}
 
 {% include templates/task.md %}
-
