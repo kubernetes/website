@@ -84,7 +84,7 @@ Kubespray provides additional playbooks to manage your cluster: _scale_ and _upg
 
 ### Scale your cluster
 
-You can scale your cluster by running the scale playbook. For more information, see "[Adding nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#Adding-nodes)".
+You can scale your cluster by running the scale playbook. For more information, see "[Adding nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#adding-nodes)".
 
 ### Upgrade your cluster
 
