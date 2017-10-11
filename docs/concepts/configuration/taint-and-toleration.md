@@ -256,8 +256,8 @@ which matches the behavior when this feature is disabled.
 ## Taint Nodes by Condition
 
 Version 1.8 introduces an alpha feature that causes the node controller to create taints corresponding to
-Node conditions. When this feature is enabled (you can do this by including `TaintNodesByCondition=true` in `--feature-gates`, such as
-`--feature-gates=FooBar=true,TaintNodesByCondition=true`), the scheduler does not check conditions; instead the scheduler checks taints. This assures that conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as conditions) by adding appropriate Pod tolerations.
+Node conditions. When this feature is enabled (you can do this by including `TaintNodesByCondition=true` in the `--feature-gates` command line flag to the scheduler, such as
+`--feature-gates=FooBar=true,TaintNodesByCondition=true`), the scheduler does not check Node conditions; instead the scheduler checks taints. This assures that Node conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as Node conditions) by adding appropriate Pod tolerations.
 
 To make sure that turning on this feature doesn't break DaemonSets, starting in version 1.8, the  DaemonSet controller automatically adds the following `NoSchedule` tolerations to all daemons:
 
