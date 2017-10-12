@@ -60,8 +60,10 @@ cloud providers is difficult.
 {% capture prerequisites %}
 
 1. One or more machines running Ubuntu 16.04+, CentOS 7 or HypriotOS v1.0.1+
-1. 1GB or more of RAM per machine (any less will leave little room for your
+1. 2GB or more of RAM per machine (any less will leave little room for your
    apps)
+1. 2CPU or more on the master
+1. Approximately 10GB free disk space on the master
 1. Full network connectivity between all machines in the cluster (public or
    private network is fine)
 {% endcapture %}
@@ -221,7 +223,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 
 {% capture calico %}
 
-The official Calico guide is [here](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/).
+Refer to the Calico documentation for a [kubeadm quickstart](https://docs.projectcalico.org/latest/getting-started/kubernetes/), a [kubeadm installation guide](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/), and other resources.
 
 **Note:**
 
