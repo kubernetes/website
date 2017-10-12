@@ -1,0 +1,9 @@
+id: rbac
+name: RBAC (Role-Based Access Control)
+tags:
+- security
+- fundamental
+short-description: |
+  Manages authorization decisions, allowing admins to dynamically configure access policies through the [Kubernetes API](#term-kubernetes-api).
+long-description: |
+  RBAC utilizes *roles*, which contain permission rules, and *role bindings*, which grant the permissions defined in a role to a set of users.

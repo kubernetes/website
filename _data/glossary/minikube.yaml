@@ -1,0 +1,9 @@
+id: minikube
+name: Minikube
+tags:
+- fundamental
+- tool
+short-description: |
+  A tool for running Kubernetes locally.
+long-description: |
+  Minikube runs a single-node cluster inside a VM on your computer.
