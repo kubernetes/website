@@ -66,6 +66,7 @@ You can create a cloud.conf file by specifying the following details in it
 
 ### Minimal configuration
 This is an example of a minimal configuration that touches the values that most often need to be set:
+
 ```yaml
 [Global]
 username=user  
