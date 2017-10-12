@@ -1,0 +1,9 @@
+id: service
+name: Service
+tags:
+- fundamental
+- core-object
+short-description: |
+  An API object that describes how to access applications, such as a set of [Pods](#term-pod), and can describe ports and load-balancers.
+long-description: |
+  The access point can be internal or external to the cluster.

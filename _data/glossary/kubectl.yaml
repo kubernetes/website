@@ -1,0 +1,9 @@
+id: kubectl
+name: Kubectl
+tags:
+- tool
+- fundamental
+short-description: |
+  A command line tool for communicating with a [Kubernetes API](#term-kubernetes-api) server.
+long-description: |
+  You can use kubectl to create, inspect, update, and delete Kubernetes objects.

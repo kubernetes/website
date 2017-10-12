@@ -1,0 +1,3 @@
+id: core-object
+name: Core Object
+description: A resource type that Kubernetes supports by default.
