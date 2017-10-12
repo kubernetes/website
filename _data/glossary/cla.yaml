@@ -1,0 +1,8 @@
+id: cla
+name: CLA (Contributor License Agreement)
+tags:
+- community
+short-description: |
+  Terms under which a [contributor](#term-contributor) grants a license to an open source project for their contributions.
+long-description: |
+  CLAs help resolve legal disputes involving contributed material and intellectual property (IP).
