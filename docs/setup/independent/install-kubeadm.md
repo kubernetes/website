@@ -11,14 +11,12 @@ This page shows how to use install kubeadm.
 {% capture prerequisites %}
 
 * One or more machines running Ubuntu 16.04+, Debian 9, CentOS 7, RHEL 7, Fedora 25/26 (best-effort) or HypriotOS v1.0.1+
-* 1GB or more of RAM per machine (any less will leave little room for your apps)
+* 2 GB or more of RAM per machine (any less will leave little room for your apps)
+* 2 CPUs or more 
 * Full network connectivity between all machines in the cluster (public or private network is fine)
 * Unique hostname, MAC address, and product_uuid for every node
 * Certain ports are open on your machines. See the section below for more details
-* Swap disabled. You must disable swap in order for the kubelet to work properly.
-* Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
-to pass bridged IPv4 traffic to iptables' chains. This is a requirement for CNI plugins to work, for more information
-please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+* Swap disabled. You must disable swap in order for the kubelet to work properly. 
 
 {% endcapture %}
 
@@ -70,6 +68,8 @@ documentation for the plugins about what port(s) those need.
 On each of your machines, install Docker.
 Version v1.12 is recommended, but v1.11, v1.13 and 17.03 are known to work as well.
 Versions 17.06+ _might work_, but have not yet been tested and verified by the Kubernetes node team.
+
+Please proceed with executing the following commands based on your OS as root. You may become the root user by executing `sudo -i` after SSH-ing to each host.
 
 You can use the following commands to install Docker on your system:
 
@@ -146,9 +146,6 @@ server version. For example, kubelets running 1.7.0 should be fully compatible w
 
 For more information on version skews, please read our 
 [version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy).
-
-Please proceed with executing the following commands based on your OS as `root`.
-You may become the `root` user by executing `sudo -i` after SSH-ing to each host.
 
 {% capture ubuntu %}
 
