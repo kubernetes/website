@@ -45,7 +45,7 @@ Additionally, if you didn't specify a generator flag, other flags will suggest u
 a specific generator.  Below table shows which flags force using specific generators,
 depending on your cluster version:
 
-|   Generated Resource   | Cluster v1.4 and later | Cluster v1.3          | Cluster v1.2                               | Cluster v1.1 and eariler                   |
+|   Generated Resource   | Cluster v1.4 and later | Cluster v1.3          | Cluster v1.2                               | Cluster v1.1 and earlier                   |
 |:----------------------:|------------------------|-----------------------|--------------------------------------------|--------------------------------------------|
 | Pod                    | `--restart=Never`      | `--restart=Never`     | `--generator=run-pod/v1`                   | `--restart=OnFailure` OR `--restart=Never` |
 | Replication Controller | `--generator=run/v1`   | `--generator=run/v1`  | `--generator=run/v1`                       | `--restart=Always`                         |
