@@ -14,9 +14,8 @@ redirect_from:
 
 
 
-默认情况下，Pod 运行没有限制 CPU 和内存。
-这意味着系统中的任何 Pod 将能够像执行该 Pod 所在的节点一样，使用足够多 CPU 和内存。
-
+默认情况下，Pod 运行没有限制 CPU使用量 和内存使用量。
+这意味着当前系统中的任何 Pod 能够使用该 Pod 运行节点的所有 CPU 和内存资源。
 
 
 这个例子演示了如何限制 Kubernetes [Namespace](/docs/tasks/administer-cluster/namespaces-walkthrough/)，以此来控制每个 Pod 的最小/最大资源限额。
@@ -69,7 +68,7 @@ limitrange "mylimits" created
 
 
 
-让我们描述一下在该 Namespace 中被强加的限制：
+让我们查看一下在该 Namespace 中被强加的限制：
 
 ```shell
 $ kubectl describe limits mylimits --namespace=limit-example
