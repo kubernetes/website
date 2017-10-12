@@ -78,6 +78,7 @@ domain-id=2a73b8f597c04551a0fdc8e95544be8a
 [LoadBalancer]
 subnet-id=6937f8fa-858d-4bc9-a3a5-18d2c957166a  
 ```
+
 #### Global
 * `username`: Refers to the username of a valid user set in keystone.
 * `password`:Refers to the password of a valid user set in keystone.
