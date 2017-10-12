@@ -6,10 +6,10 @@ tags:
 - community
 - user-type
 short-description: |
-  May refer to&#58; [*Application Developer*](#term-application-developer), [*Code Contributor*](#term-code-contributor), or *Platform Developer*.
+  May refer to&#58; [*Application Developer*](#term-application-developer), [*Code Contributor*](#term-code-contributor), or [*Platform Developer*](#term-platform-developer).
 long-description: |
-  This overloaded term may have different meanings depending on the context. Respectively, it could mean&#58;
+  This overloaded term may have different meanings depending on the context. It could mean&#58;
 
-  * Someone who develops applications that run in Kubernetes clusters
-  * Someone who contributes code to the Kubernetes open source project
-  * Someone who customizes the Kubernetes platform to fit the needs of their project&mdash;for example, by extending the API
+  * [**Application Developer**](#term-application-developer): A person who writes an application that runs in a Kubernetes cluster.
+  * [**Code Contributor**](#term-code-contributor): A person who develops and contributes code to the Kubernetes open source codebase.
+  * [**Platform Developer**](#term-platform-developer): A person who customizes the Kubernetes platform to fit the needs of their project&mdash;for example, by extending the API.
