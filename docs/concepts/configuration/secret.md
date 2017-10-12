@@ -343,7 +343,7 @@ projected to the pod can be as long as kubelet sync period + ttl of secrets cach
 To use a secret in an environment variable in a pod:
 
 1. Create a secret or use an existing one.  Multiple pods can reference the same secret.
-1. Modify your Pod definition in each container that you wish to consume the value of a secret key to add an environment variable for each secret key you wish to consume.  The environment variable that consumes the secret key should populate the secret's name and key in `env[x].valueFrom.secretKeyRef`.
+1. Modify your Pod definition in each container that you wish to consume the value of a secret key to add an environment variable for each secret key you wish to consume.  The environment variable that consumes the secret key should populate the secret's name and key in `env[].valueFrom.secretKeyRef`.
 1. Modify your image and/or command line so that the program looks for values in the specified environment variables
 
 This is an example of a pod that uses secrets from environment variables:

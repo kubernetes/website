@@ -1,0 +1,10 @@
+id: wg
+name: WG (working group)
+tags:
+- community
+short-description: |
+  Facilitates the discussion and/or implementation of a short-lived, narrow, or decoupled project for a committee, [SIG](#term-sig), or cross-SIG effort.
+long-description: |
+  Working groups are a way of organizing people to accomplish a discrete task, and are relatively easy to create and deprecate when inactive.
+
+  For more information, see the [kubernetes/community](https://github.com/kubernetes/community) repo and the current list of [SIGs and working groups](https://github.com/kubernetes/community/blob/master/sig-list.md).
