@@ -42,25 +42,30 @@
       </div>
 
       <div class="docsection1">
-        To set up and explore a Kubernetes cluster for the first time, you can install a simple cluster locally with Minikube. Minikube gives you a cluster with a single node and all core Kubernetes components. Depending on your application, Minikube can also provide a useful development environment.
+        To set up and explore a Kubernetes cluster for the first time, you can create a simple cluster locally with Minikube. Minikube gives you a cluster with a single node and all core Kubernetes components. You can set up a Minikube cluster just to explore, or, depending on your application, Minikube can also provide a useful development environment. (TODO: provide more detail here?)
 <!--Originally provided list of "features" from GSG Minikube topic but it really doesn't make sense here. Not sure it makes sense in the GSG topic either. Discuss rewriting Minikube topic?
 -->
+<br><br>
+        Before you install Minikube, you install and configure kubectl (TODO: add tooltip for glossary).  
 <br><br>
         <a href="https://kubernetes.io/docs/tasks/tools/install-minikube/">Install Minikube</a>
 <br><br>
         <a href="https://kubernetes.io/docs/getting-started-guides/minikube/">Explore Kubernetes with Minikube</a>.
 <!-- If we want to emphasize Minikube here, we should redo the previous linked topics also. Installing sends you all over the place, although it looks as though we can't get all install content on a single page because versions, but maybe we could brainstorm ways of tracking version updates to Minikube and providing a cleaner install experience. IIRC, I called this issue out earlier in the year, but didn't follow up.
 -->
+<br><br> 
+
+        <ul>
+          <li>Minikube built-in Docker daemon (do we want to mention rkt support? I'm inclined not to do so, but it's currently on the Minikube GSG page)</li>
+          <li>minikube start</li>
+          <li></li>
+        </ul>
 <br><br>
-        Access the cluster
+        Access the cluster/Get basic information about the cluster: <code>kubectl get nodes</code> Drill down further? Explain what nodes do a little bit here?
 <br><br>
-        Get basic information about the cluster
-  <br><br>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id felis non enim faucibus lacinia. Aliquam massa mauris, interdum a ex ut, sagittis rutrum nulla. In pellentesque est at molestie fringilla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec eu mi at velit lacinia venenatis ac nec sem. In volutpat pellentesque dui ut commodo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis sollicitudin eleifend felis non facilisis. Pellentesque leo urna, congue id auctor non, varius a nunc. Duis ultrices, odio ut hendrerit suscipit, nisi mauris dignissim mauris, nec bibendum ante neque ut augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam condimentum libero sit amet rutrum fermentum. Proin posuere condimentum odio. Aenean volutpat, ex vel tincidunt tincidunt, massa odio condimentum lectus, vel iaculis libero dolor in nisi.
+        <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-intro/">Viewing Pods and Nodes</a>
 <br><br>
-        Curabitur bibendum tempor mi, vel lacinia nisi vulputate ac. Nulla dignissim consectetur nisl nec tincidunt. Etiam pharetra facilisis sapien, non gravida velit fermentum sed. Ut ac ultrices nunc, in vestibulum urna. Suspendisse accumsan euismod felis, sit amet rhoncus neque volutpat luctus. Aliquam tincidunt pellentesque mauris, sed tempus diam. Mauris in elit eget justo tempor suscipit.
-<br><br>
-        Aenean suscipit arcu ac leo tincidunt tempus. Donec maximus tellus libero, ac ullamcorper magna lobortis ac. Integer mollis nisl vitae magna gravida, nec ornare ex consectetur. Sed mattis tincidunt nisi, at consequat tellus malesuada non. Integer vel semper nisi, ut fringilla velit. Nam felis ex, congue non dui vitae, sollicitudin convallis turpis. Phasellus porttitor maximus turpis, in varius nibh fermentum aliquam. Cras finibus lacus non diam porttitor porttitor. Nulla fringilla sagittis nibh nec condimentum. Duis egestas mauris nec dolor hendrerit ullamcorper sit amet in mi. Phasellus sollicitudin justo diam.
+        Install a sample application. Recommendations? 
       </div>
 
       <div class="topheader" id="2">
@@ -68,18 +73,17 @@
       </div>
 
       <div class="docsection1">
-        To deploy and manage an application in Kubernetes, you write a manifest, also called a configuration or config file. The manifest is written in YAML or JSON, and describes the desired state of the application and related resources as Kubernetes should maintain them. You then <!-- mention tools to help write? Heptio is working on ksonnet, jsonnet also is used, others ...-->
+        To deploy and manage an application in Kubernetes, you write a manifest, also called a configuration or config file. The manifest is written in YAML or JSON, and describes the desired state of the application and related resources as Kubernetes should maintain them. (if this content stays, needs to be moved)
 <br><br>
-        TUTORIAL? suggest:
-
+        TUTORIAL? combine:
 <br><br>
-        Aenean suscipit arcu ac leo tincidunt tempus. Donec maximus tellus libero, ac ullamcorper magna lobortis ac. Integer mollis nisl vitae magna gravida, nec ornare ex consectetur. Sed mattis tincidunt nisi, at consequat tellus malesuada non. Integer vel semper nisi, ut fringilla velit. Nam felis ex, congue non dui vitae, sollicitudin convallis turpis. Phasellus porttitor maximus turpis, in varius nibh fermentum aliquam. Cras finibus lacus non diam porttitor porttitor. Nulla fringilla sagittis nibh nec condimentum. Duis egestas mauris nec dolor hendrerit ullamcorper sit amet in mi. Phasellus sollicitudin justo diam.
+        <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-intro/">Using kubectl to Create a Deployment</a>" -- this page is primarily conceptual/expanatory material.
   <br><br>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id felis non enim faucibus lacinia. Aliquam massa mauris, interdum a ex ut, sagittis rutrum nulla. In pellentesque est at molestie fringilla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec eu mi at velit lacinia venenatis ac nec sem. In volutpat pellentesque dui ut commodo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis sollicitudin eleifend felis non facilisis. Pellentesque leo urna, congue id auctor non, varius a nunc. Duis ultrices, odio ut hendrerit suscipit, nisi mauris dignissim mauris, nec bibendum ante neque ut augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam condimentum libero sit amet rutrum fermentum. Proin posuere condimentum odio. Aenean volutpat, ex vel tincidunt tincidunt, massa odio condimentum lectus, vel iaculis libero dolor in nisi.
+        <a href="https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/">Hello Minikube</a> -- the app parts only
 <br><br>
-        Curabitur bibendum tempor mi, vel lacinia nisi vulputate ac. Nulla dignissim consectetur nisl nec tincidunt. Etiam pharetra facilisis sapien, non gravida velit fermentum sed. Ut ac ultrices nunc, in vestibulum urna. Suspendisse accumsan euismod felis, sit amet rhoncus neque volutpat luctus. Aliquam tincidunt pellentesque mauris, sed tempus diam. Mauris in elit eget justo tempor suscipit.
+        <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/expose-intro/">Using a Service to Expose Your App</a>
 <br><br>
-        Aenean suscipit arcu ac leo tincidunt tempus. Donec maximus tellus libero, ac ullamcorper magna lobortis ac. Integer mollis nisl vitae magna gravida, nec ornare ex consectetur. Sed mattis tincidunt nisi, at consequat tellus malesuada non. Integer vel semper nisi, ut fringilla velit. Nam felis ex, congue non dui vitae, sollicitudin convallis turpis. Phasellus porttitor maximus turpis, in varius nibh fermentum aliquam. Cras finibus lacus non diam porttitor porttitor. Nulla fringilla sagittis nibh nec condimentum. Duis egestas mauris nec dolor hendrerit ullamcorper sit amet in mi. Phasellus sollicitudin justo diam.
+        Also useful content (with again overlapping material): <a href="https://kubernetes.io/docs/user-guide/walkthrough/">Kubernetes 101</a> -- explores kubectl, pods, volumes, multiple containers
       </div>
 
       <div class="topheader" id="3">
@@ -108,10 +112,7 @@
         </ul>       
   <br><br>
         TODO: previous taken from https://kubernetes.io/docs/concepts/. See intro for a different approach.
-<br><br>
-        Curabitur bibendum tempor mi, vel lacinia nisi vulputate ac. Nulla dignissim consectetur nisl nec tincidunt. Etiam pharetra facilisis sapien, non gravida velit fermentum sed. Ut ac ultrices nunc, in vestibulum urna. Suspendisse accumsan euismod felis, sit amet rhoncus neque volutpat luctus. Aliquam tincidunt pellentesque mauris, sed tempus diam. Mauris in elit eget justo tempor suscipit.
-<br><br>
-        Aenean suscipit arcu ac leo tincidunt tempus. Donec maximus tellus libero, ac ullamcorper magna lobortis ac. Integer mollis nisl vitae magna gravida, nec ornare ex consectetur. Sed mattis tincidunt nisi, at consequat tellus malesuada non. Integer vel semper nisi, ut fringilla velit. Nam felis ex, congue non dui vitae, sollicitudin convallis turpis. Phasellus porttitor maximus turpis, in varius nibh fermentum aliquam. Cras finibus lacus non diam porttitor porttitor. Nulla fringilla sagittis nibh nec condimentum. Duis egestas mauris nec dolor hendrerit ullamcorper sit amet in mi. Phasellus sollicitudin justo diam.
+
       </div>
       <div class="topheader" id="4">
          <span class="numberCircle"><span>3</span></span></i>&nbsp;&nbsp;Additional resources
