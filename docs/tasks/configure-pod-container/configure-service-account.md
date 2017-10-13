@@ -17,18 +17,18 @@ customized the behavior in your cluster, in which case this documentation may
 not apply.
 {: .note}
 
-When you (a human) access the cluster (e.g. using `kubectl`), you are
+When you (a human) access the cluster (for example, using `kubectl`), you are
 authenticated by the apiserver as a particular User Account (currently this is
 usually `admin`, unless your cluster administrator has customized your
 cluster).  Processes in containers inside pods can also contact the apiserver.
-When they do, they are authenticated as a particular Service Account (e.g.
+When they do, they are authenticated as a particular Service Account (for example,
 `default`).
 
 ## Use the Default Service Account to access the API server.
 
 When you create a pod, if you do not specify a service account, it is
 automatically assigned the `default` service account in the same namespace.
-If you get the raw json or yaml for a pod you have created (e.g. `kubectl get pods/podname -o yaml`),
+If you get the raw json or yaml for a pod you have created (for example, `kubectl get pods/podname -o yaml`),
 you can see the `spec.serviceAccountName` field has been
 [automatically set](/docs/user-guide/working-with-resources/#resources-are-automatically-modified).
 
