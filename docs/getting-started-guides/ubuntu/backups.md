@@ -69,7 +69,7 @@ Action queued with id: b46d5d6f-5625-4320-8cda-b611c6ae580c
 ```
 
 **Step 2:** Check the status of the action so you can grab the snapshot and verify
-the sum. The copy.cmd result output is a copy/paste command for you to download
+the sum. The `copy.cmd` result output is a copy/paste command for you to download
 the exact snapshot that you just created.
 
 Download the snapshot archive from the unit that created the snapshot and verify
