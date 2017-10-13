@@ -83,7 +83,7 @@ Once the latest charm is deployed, the channel for Kubernetes can be selected by
 
     juju config kubernetes-master channel=1.x/stable
 
-Where `x` is the minor version of Kubernetes. For example, `1.6/stable`. See above for Channel definitions
+Where `x` is the minor version of Kubernetes. For example, `1.6/stable`. See above for Channel definitions.
 
 
 ### Worker Upgrades
