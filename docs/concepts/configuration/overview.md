@@ -5,7 +5,7 @@ title: Configuration Best Practices
 ---
 
 {% capture overview %}
-This document highlights and consolidates configuration best practices that are introduced throughout the user-guide, getting-started documentation, and examples.
+This document highlights and consolidates configuration best practices that are introduced throughout the user-guide, getting-started documentation and examples.
 
 This is a living document. If you think of something that is not on this list but might be useful to others, please don't hesitate to file an issue or submit a PR.
 {% endcapture %}
