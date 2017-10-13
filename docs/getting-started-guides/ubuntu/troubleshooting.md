@@ -54,9 +54,9 @@ or just on the etcd cluster:
 
 Errors will have an obvious message, and will return a red result when used with `juju status --color`. Nodes that come up in this manner should be investigated.   
 
-## SSHing to units.
+## SSHing to units
 
-You can ssh to individual units easily with the following convention, `juju ssh <servicename>/<unit#>:
+You can ssh to individual units easily with the following convention, `juju ssh <servicename>/<unit#>`:
 
     juju ssh kubernetes-worker/3
 
