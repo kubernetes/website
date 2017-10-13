@@ -8,7 +8,7 @@ spec:
     image: vish/stress
     resources:
       requests:
-        memory: 50Mi
+        memory: "50Mi"
       limits:
         memory: "100Mi"
     args:
