@@ -69,7 +69,7 @@ accomplished in two ways:
 
 - **Using an overlay network**
   - An overlay network obscures the underlying network architecture from the
-    pod network through traffic encapsulation (e.g. vxlan).
+    pod network through traffic encapsulation (for example, vxlan).
   - Encapsulation reduces performance, though exactly how much depends on your solution.
 - **Without an overlay network**
   - Configure the underlying network fabric (switches, routers, etc.) to be aware of pod IP addresses.
@@ -109,7 +109,7 @@ You will need to select an address range for the Pod IPs. Note that IPv6 is not 
   - You need max-pods-per-node * max-number-of-nodes IPs in total. A `/24` per
     node supports 254 pods per machine and is a common choice.  If IPs are
     scarce, a `/26` (62 pods per machine) or even a `/27` (30 pods) may be sufficient.
-  - e.g. use `10.10.0.0/16` as the range for the cluster, with up to 256 nodes
+  - For example, use `10.10.0.0/16` as the range for the cluster, with up to 256 nodes
     using `10.10.0.0/24` through `10.10.255.0/24`, respectively.
   - Need to make these routable or connect with overlay.
 
@@ -142,7 +142,7 @@ which is unique from future cluster names. This will be used in several ways:
   - by kubectl to distinguish between various clusters you have access to.  You will probably want a
     second one sometime later, such as for testing new Kubernetes releases, running in a different
 region of the world, etc.
-  - Kubernetes clusters can create cloud provider resources (e.g. AWS ELBs) and different clusters
+  - Kubernetes clusters can create cloud provider resources (for example, AWS ELBs) and different clusters
     need to distinguish which resources each created.  Call this `CLUSTER_NAME`.
 
 ### Software Binaries
@@ -182,7 +182,7 @@ we recommend that you run these as containers, so you need an image to be built.
 You have several choices for Kubernetes images:
 
 - Use images hosted on Google Container Registry (GCR):
-  - e.g. `gcr.io/google_containers/hyperkube:$TAG`, where `TAG` is the latest
+  - For example `gcr.io/google_containers/hyperkube:$TAG`, where `TAG` is the latest
     release tag, which can be found on the [latest releases page](https://github.com/kubernetes/kubernetes/releases/latest).
   - Ensure $TAG is the same tag as the release tag you are using for kubelet and kube-proxy.
   - The [hyperkube](https://releases.k8s.io/{{page.githubbranch}}/cmd/hyperkube) binary is an all in one binary
@@ -242,12 +242,12 @@ documentation](/docs/admin/authentication/#creating-certificates/).
 You will end up with the following files (we will use these variables later on)
 
 - `CA_CERT`
-  - put in on node where apiserver runs, in e.g. `/srv/kubernetes/ca.crt`.
+  - put in on node where apiserver runs, for example, in `/srv/kubernetes/ca.crt`.
 - `MASTER_CERT`
   - signed by CA_CERT
-  - put in on node where apiserver runs, in e.g. `/srv/kubernetes/server.crt`
+  - put in on node where apiserver runs, for example, in `/srv/kubernetes/server.crt`
 - `MASTER_KEY `
-  - put in on node where apiserver runs, in e.g. `/srv/kubernetes/server.key`
+  - put in on node where apiserver runs, for example, in `/srv/kubernetes/server.key`
 - `KUBELET_CERT`
   - optional
 - `KUBELET_KEY`
@@ -258,7 +258,7 @@ You will end up with the following files (we will use these variables later on)
 The admin user (and any users) need:
 
   - a token or a password to identify them.
-  - tokens are just long alphanumeric strings, e.g. 32 chars.  See
+  - tokens are just long alphanumeric strings, for example, 32 chars.  See
     - `TOKEN=$(dd if=/dev/urandom bs=128 count=1 2>/dev/null | base64 | tr -d "=+/" | dd bs=32 count=1 2>/dev/null)`
 
 Your tokens and passwords need to be stored in a file for the apiserver
@@ -358,7 +358,7 @@ so that kube-proxy can manage iptables instead of docker.
   - `--ip-masq=false`
     - if you have setup PodIPs to be routable, then you want this false, otherwise, docker will
       rewrite the PodIP source-address to a NodeIP.
-    - some environments (e.g. GCE) still need you to masquerade out-bound traffic when it leaves the cloud environment. This is very environment specific.
+    - some environments (for example GCE) still need you to masquerade out-bound traffic when it leaves the cloud environment. This is very environment specific.
     - if you are using an overlay network, consult those instructions.
   - `--mtu=`
     - may be required when using Flannel, because of the extra packet size due to udp encapsulation
@@ -489,8 +489,8 @@ traffic to the internet, but have no problem with them inside your GCE Project.
 ### Other
 
 - Enable auto-upgrades for your OS package manager, if desired.
-- Configure log rotation for all node components (e.g. using [logrotate](http://linux.die.net/man/8/logrotate)).
-- Setup liveness-monitoring (e.g. using [supervisord](http://supervisord.org/)).
+- Configure log rotation for all node components (for example, using [logrotate](http://linux.die.net/man/8/logrotate)).
+- Setup liveness-monitoring (for example, using [supervisord](http://supervisord.org/)).
 - Setup volume plugin support (optional)
   - Install any client binaries for optional volume types, such as `glusterfs-client` for GlusterFS
     volumes.
@@ -519,12 +519,15 @@ You will need to run one or more instances of etcd.
   - Highly available and easy to restore - Run 3 or 5 etcd instances with, their logs written to a directory backed
     by durable storage (RAID, GCE PD)
   - Not highly available, but easy to restore - Run one etcd instance, with its log written to a directory backed
-    by durable storage (RAID, GCE PD)
-    **Note:** May result in operations outages in case of instance outage
+    by durable storage (RAID, GCE PD).
+    
+    **Note:** May result in operations outages in case of instance outage.
+   
   - Highly available - Run 3 or 5 etcd instances with non durable storage.
+  
     **Note:** Log can be written to non-durable storage because storage is replicated.
-
-See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting/) for more discussion on factors affecting cluster
+   
+ See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting/) for more discussion on factors affecting cluster
 availability.
 
 To run an etcd instance:
@@ -542,7 +545,7 @@ For each of these components, the steps to start them running are similar:
 1. Start with a provided template for a pod.
 1. Set the `HYPERKUBE_IMAGE` to the values chosen in [Selecting Images](#selecting-images).
 1. Determine which flags are needed for your cluster, using the advice below each template.
-1. Set the flags to be individual strings in the command array (e.g. $ARGN below)
+1. Set the flags to be individual strings in the command array (for example, $ARGN below)
 1. Start the pod by putting the completed template into the kubelet manifest directory.
 1. Verify that the pod is started.
 
@@ -652,7 +655,7 @@ This pod mounts several node file system directories using the  `hostPath` volum
 
 - The `/etc/ssl` mount allows the apiserver to find the SSL root certs so it can
   authenticate external services, such as a cloud provider.
-  - This is not required if you do not use a cloud provider (e.g. bare-metal).
+  - This is not required if you do not use a cloud provider (for example, bare-metal).
 - The `/srv/kubernetes` mount allows the apiserver to read certs and credentials stored on the
   node disk.  These could instead be stored on a persistent disk, such as a GCE PD, or baked into the image.
 - Optionally, you may want to mount `/var/log` as well and redirect output there (not shown in template).
@@ -665,7 +668,7 @@ This pod mounts several node file system directories using the  `hostPath` volum
 Apiserver supports several cloud providers.
 
 - options for `--cloud-provider` flag are `aws`, `azure`, `cloudstack`, `fake`, `gce`, `mesos`, `openstack`, `ovirt`, `photon`, `rackspace`, `vsphere`, or unset.
-- unset used for e.g. bare metal setups.
+- unset used for bare metal setups.
 - support for new IaaS is added by contributing code [here](https://releases.k8s.io/{{page.githubbranch}}/pkg/cloudprovider/providers)
 
 Some cloud providers require a config file. If so, you need to put config file into apiserver image or mount through hostPath.
