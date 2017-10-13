@@ -56,6 +56,38 @@ Different settings can be applied to a load balancer service in AWS using _annot
 
 The information for the annotations for AWS is taken from the comments on [aws.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/aws/aws.go)
 
+# OpenStack
+This section describes all the possible configurations which can
+be used when using OpenStack with Kubernetes.
+
+## cloud.conf
+Kubernetes knows how to interact with OpenStack via the file cloud.conf. It is the file that will provide Kubernetes with credentials and location for the OpenStack auth endpoint.
+You can create a cloud.conf file by specifying the following details in it
+
+### Minimal configuration
+This is an example of a minimal configuration that touches the values that most often need to be set:
+
+```yaml
+[Global]
+username=user  
+password=pass  
+auth-url=https://<keystone_ip>/identity/v3  
+tenant-id=c869168a828847f39f7f06edd7305637  
+domain-id=2a73b8f597c04551a0fdc8e95544be8a
+
+[LoadBalancer]
+subnet-id=6937f8fa-858d-4bc9-a3a5-18d2c957166a  
+```
+
+#### Global
+* `username`: Refers to the username of a valid user set in keystone.
+* `password`:Refers to the password of a valid user set in keystone.
+* `auth-url`: The URL of the keystone API used to authenticate. On OpenStack control panels, this can be found at Access and Security > API Access > Credentials.
+* `tenant-id`: Used to specify the id of the project where you want to create your resources.
+* `domain-id`: Used to specify the id of the domain your user belongs to.
+
+####  Load Balancer
+* `subnet-id`: Used to specify the id of the subnet you want to create your loadbalancer on. Can be found at Network > Networks. Click on the respective network to get its subnets.
 {% endcapture %}
 
 {% include templates/concept.md %}
