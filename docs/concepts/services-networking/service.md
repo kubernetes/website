@@ -449,10 +449,10 @@ Select one of the tabs.
 metadata:
     name: my-service
     annotations:
-        cloud.google.com/load-balancer-type: "internal"
+        cloud.google.com/load-balancer-type: "Internal"
 [...]
 ```
-
+Use `cloud.google.com/load-balancer-type: "internal"` for masters with version 1.7.0 to 1.7.3.  
 For more information, see the [docs](https://cloud.google.com/container-engine/docs/internal-load-balancing).
 {% endcapture %}
 
