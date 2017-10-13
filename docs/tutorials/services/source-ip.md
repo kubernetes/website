@@ -30,7 +30,7 @@ This document makes use of the following terms:
 
 You must have a working Kubernetes 1.5 cluster to run the examples in this
 document. The examples use a small nginx webserver that echoes back the source
-IP of requests it receives through an HTTP header. You can create it as follows:
+IP of requests it receives through a HTTP header. You can create it as follows:
 
 ```console
 $ kubectl run source-ip-app --image=gcr.io/google_containers/echoserver:1.4
@@ -311,7 +311,7 @@ protocol between the loadbalancer and backend to communicate the true client IP
 such as the HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For)
 header, or the [proxy protocol](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt).
 Loadbalancers in the second category can leverage the feature described above
-by simply creating an HTTP health check pointing at the port stored in
+by simply creating a HTTP health check pointing at the port stored in
 the `service.spec.healthCheckNodePort` field on the Service.
 
 {% endcapture %}
