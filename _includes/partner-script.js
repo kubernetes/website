@@ -485,8 +485,8 @@
 			},
 		{
 			type: 2,
-			name: 'Fluentd',
-			logo: 'Fluentd',
+			name: 'Treasure Data',
+			logo: 'treasuredata',
 			link: 'https://fluentd.treasuredata.com/kubernetes-logging/',
 			blurb: 'Fluentd Enterprise brings smart, secure logging to Kubernetes, and brings integrations with backends such as Splunk, Kafka, or AWS S3.'
 			},
@@ -750,11 +750,18 @@
 			blurb: 'VMware PKS is a purpose-built product to operationalize Kubernetes for enterprise and service provider environments.'
 				},
 		{
+			type: 2,
+			name: 'Caicloud',
+			logo: 'caicloud',
+			link: 'https://caicloud.io/',
+			blurb: 'Founded by ex-Googlers,and early Kubernetes contributors, Caicloud leverages Kubernetes to provide container products which have successfully served Fortune 500 enterprises, and  further utilizes Kubernetes as a vehicle to deliver ultra-speed deep learning experience.'
+				},
+		{
 			type: 0,
-			name: 'Applatix',
-			logo: 'applatix',
-			link: 'https://sphereinc.com/kubernetes/',
- 			blurb: 'Architect and implement scalable applications using Kubernetes in Google Cloud, AWS, and Azure with our team of experts.'
+			name: 'OpenEBS',
+			logo: 'OpenEBS',
+			link: 'https://openebs.io/',
+ 			blurb: 'OpenEBS is containerized storage for containers integrated tightly into Kubernetes and based on distributed block storage and containerization of storage control. OpenEBS derives intent from K8s and other YAML or JSON such as per container QoS SLAs, tiering and replica policies, and more. OpenEBS is EBS API compliant.'
 	  	}
 	]
 
