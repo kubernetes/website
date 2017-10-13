@@ -56,7 +56,7 @@ etcd 2.x to 3.x are currently unsupported. Instead, data will be run in etcdv2 s
 
 The Kubernetes Charms use snap channels to drive payloads.
 The channels are defined by `X.Y/channel` where `X.Y` is the `major.minor` release
-of Kubernetes (e.g. 1.6) and `channel` is one of the four following channels:
+of Kubernetes (for example 1.6) and `channel` is one of the four following channels:
 
 | Channel name        | Description  |
 | ------------------- | ------------ |
