@@ -69,7 +69,7 @@ accomplished in two ways:
 
 - **Using an overlay network**
   - An overlay network obscures the underlying network architecture from the
-    pod network through traffic encapsulation (for example, vxlan).
+    pod network through traffic encapsulation (for example vxlan).
   - Encapsulation reduces performance, though exactly how much depends on your solution.
 - **Without an overlay network**
   - Configure the underlying network fabric (switches, routers, etc.) to be aware of pod IP addresses.
@@ -242,12 +242,12 @@ documentation](/docs/admin/authentication/#creating-certificates/).
 You will end up with the following files (we will use these variables later on)
 
 - `CA_CERT`
-  - put in on node where apiserver runs, for example, in `/srv/kubernetes/ca.crt`.
+  - put in on node where apiserver runs, for example in `/srv/kubernetes/ca.crt`.
 - `MASTER_CERT`
   - signed by CA_CERT
-  - put in on node where apiserver runs, for example, in `/srv/kubernetes/server.crt`
+  - put in on node where apiserver runs, for example in `/srv/kubernetes/server.crt`
 - `MASTER_KEY `
-  - put in on node where apiserver runs, for example, in `/srv/kubernetes/server.key`
+  - put in on node where apiserver runs, for example in `/srv/kubernetes/server.key`
 - `KUBELET_CERT`
   - optional
 - `KUBELET_KEY`
@@ -489,8 +489,8 @@ traffic to the internet, but have no problem with them inside your GCE Project.
 ### Other
 
 - Enable auto-upgrades for your OS package manager, if desired.
-- Configure log rotation for all node components (for example, using [logrotate](http://linux.die.net/man/8/logrotate)).
-- Setup liveness-monitoring (for example, using [supervisord](http://supervisord.org/)).
+- Configure log rotation for all node components (for example using [logrotate](http://linux.die.net/man/8/logrotate)).
+- Setup liveness-monitoring (for example using [supervisord](http://supervisord.org/)).
 - Setup volume plugin support (optional)
   - Install any client binaries for optional volume types, such as `glusterfs-client` for GlusterFS
     volumes.
@@ -522,11 +522,11 @@ You will need to run one or more instances of etcd.
     by durable storage (RAID, GCE PD).
     
     **Note:** May result in operations outages in case of instance outage.
-   
+    {: .note}
   - Highly available - Run 3 or 5 etcd instances with non durable storage.
   
     **Note:** Log can be written to non-durable storage because storage is replicated.
-   
+    {: .note}
  See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting/) for more discussion on factors affecting cluster
 availability.
 
@@ -545,7 +545,7 @@ For each of these components, the steps to start them running are similar:
 1. Start with a provided template for a pod.
 1. Set the `HYPERKUBE_IMAGE` to the values chosen in [Selecting Images](#selecting-images).
 1. Determine which flags are needed for your cluster, using the advice below each template.
-1. Set the flags to be individual strings in the command array (for example, $ARGN below)
+1. Set the flags to be individual strings in the command array (for example $ARGN below)
 1. Start the pod by putting the completed template into the kubelet manifest directory.
 1. Verify that the pod is started.
 
@@ -655,7 +655,7 @@ This pod mounts several node file system directories using the  `hostPath` volum
 
 - The `/etc/ssl` mount allows the apiserver to find the SSL root certs so it can
   authenticate external services, such as a cloud provider.
-  - This is not required if you do not use a cloud provider (for example, bare-metal).
+  - This is not required if you do not use a cloud provider (bare-metal for example).
 - The `/srv/kubernetes` mount allows the apiserver to read certs and credentials stored on the
   node disk.  These could instead be stored on a persistent disk, such as a GCE PD, or baked into the image.
 - Optionally, you may want to mount `/var/log` as well and redirect output there (not shown in template).
