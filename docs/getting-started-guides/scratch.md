@@ -258,7 +258,7 @@ You will end up with the following files (we will use these variables later on)
 The admin user (and any users) need:
 
   - a token or a password to identify them.
-  - tokens are just long alphanumeric strings, for example, 32 chars.  See
+  - tokens are just long alphanumeric strings, 32 chars for example. See
     - `TOKEN=$(dd if=/dev/urandom bs=128 count=1 2>/dev/null | base64 | tr -d "=+/" | dd bs=32 count=1 2>/dev/null)`
 
 Your tokens and passwords need to be stored in a file for the apiserver
