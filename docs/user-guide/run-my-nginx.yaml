@@ -4,6 +4,9 @@ metadata:
   name: my-nginx
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      run: my-nginx
   template:
     metadata:
       labels:
