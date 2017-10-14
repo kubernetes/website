@@ -578,7 +578,7 @@ a request providing an invalid bearer token would receive a `401 Unauthorized` e
 A request providing no bearer token would be treated as an anonymous request.
 
 In 1.5.1-1.5.x, anonymous access is disabled by default, and can be enabled by
-passing the `--anonymous-auth=false` option to the API server.
+passing the `--anonymous-auth=true` option to the API server.
 
 In 1.6+, anonymous access is enabled by default if an authorization mode other than `AlwaysAllow`
 is used, and can be disabled by passing the `--anonymous-auth=false` option to the API server.
