@@ -46,7 +46,7 @@ namespace "limit-example" created
 
 
 
-注意到 `kubectl` 命令将打印出被创建或修改的资源的类型和名称，也会在后面的命令中使用到：
+可以看到 `kubectl` 命令将打印出被创建或修改的资源的类型和名称，也会在后面的命令中使用到：
 
 ```shell
 $ kubectl get namespaces
