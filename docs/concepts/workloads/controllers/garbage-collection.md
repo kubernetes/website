@@ -24,9 +24,10 @@ points to the owning object.
 
 Sometimes, Kubernetes sets the value of `ownerReference` automatically. For
 example, when you create a ReplicaSet, Kubernetes automatically sets the
-`ownerReference` field of each Pod in the ReplicaSet. In 1.6, Kubernetes
+`ownerReference` field of each Pod in the ReplicaSet. In 1.8, Kubernetes
 automatically sets the value of `ownerReference` for objects created or adopted
-by ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and Deployment.
+by ReplicationController, ReplicaSet, StatefulSet, DaemonSet, Deployment, Job
+and CronJob.
 
 You can also specify relationships between owners and dependents by manually
 setting the `ownerReference` field.
