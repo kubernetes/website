@@ -507,6 +507,7 @@ It is designed for use in combination with an authenticating proxy, which sets t
 * `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed, the remainder of the header name becomes the extra key, and the header value is the extra value.
 
 For example, with this configuration:
+
 ```
 --requestheader-username-headers=X-Remote-User
 --requestheader-group-headers=X-Remote-Group
@@ -514,6 +515,7 @@ For example, with this configuration:
 ```
 
 this request:
+
 ```
 GET / HTTP/1.1
 X-Remote-User: fido
@@ -524,6 +526,7 @@ X-Remote-Extra-Scopes: profile
 ```
 
 would result in this user info:
+
 ```yaml
 name: fido
 groups:
