@@ -20,20 +20,23 @@
       <div class="tablebar">
           <a href="#1"><div class="docButton">1.&nbsp;Set up&nbsp;a&nbsp;development&nbsp;environment</div></a>
           <a href="#2"><div class="docButton">2.&nbsp;Deploy,&nbsp;scale,&nbsp;and&nbsp;update&nbsp;an&nbsp;application</div></a>
-          <a href="#3"><div class="docButton">3.&nbsp;Understand&nbsp;basic&nbsp;Kubernetes&nbsp;objects</div></a>
+          <a href="#3"><div class="docButton">3.&nbsp;Understand&nbsp;basic&nbsp;Kubernetes&nbsp;architecture&nbsp;and&nbsp;objects</div></a>
           <a href="#4"><div class="docButton">4.&nbsp;Additional&nbsp;resources</div></a>
       </div>
       <div class="docsection1">
+       <p>
+        If you're an application developer looking to get started with Kubernetes, this page and its linked topics introduce you to foundational concepts and tasks. The focus is on a development workflow -- check out other user journeys to learn about managing production clusters, or providing high availability (HA) for critical application deployments.</p>
+        <p>
+        What can Kubernetes do for me?
+        Kubernetes is commonly described as an orchestration platform for containerized applications. Containers provide lightweight portable packaging for applications, and Kubernetes helps you deploy your containers to a cluster of connected computers. The cluster can run on bare metal, in classic virtual machines, or in the cloud. For a fuller description of Kubernetes and more information about containers, see <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">What Is Kubernetes</a>.</What><!--Alex: Maybe put the following in a box too? -->For more information about different environments for deploying Kubernetes, see LINK.</p> 
+       <p>
+        <!-- For an introduction to containers, see <a href="https://www.docker.com/what-container">this writeup from Docker, the most popular container technology</a>. Alex: box this separately? "What else you need to know" or maybe remove this content, but box what is K8s link from previous para--></p> 
+        <p>
+        A good way to learn Kubernetes basics is with Minikube, which lets you create a simple single-node cluster. You can explore Minikube with the interactive online tutorials, or you can install it locally. <!--Alex: box link to Minikube interactive tutorial separately? --> If you install locally, you may find that your cluster is sufficient for local application development. Installing Minikube locally is also a good idea if you want to continue exploring in a persistent environment that you can come back to and change.</p>
 
-        This page and its linked topics introduce you to foundational concepts and tasks for getting started with Kubernetes if you're an application developer. The focus is on a development workflow -- check out other user journeys to learn about managing production clusters, or providing high availability (HA) for critical application deployments.
+<a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/cluster-intro/">Using Minikube to Create a Cluster</a> 
 <br><br>
-        We start with hands-on tasks -- how to install and configure a simple Kubernetes cluster on your local machine, and how to deploy and manage applications on your new cluster. If you'd rather read more about Kubernetes terms and concepts first, you can skip to <a href="#3">Understand Kubernetes basics</a>.
-<br><br>
-        TODO: Add link back to setup from basics, depending on how much text we wind up with and what other navigation is available on the page
-<br><br>
-        TODO: decide how much intro conceptual material to put here. Working from <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/cluster-intro/">Using Minikube to Create a Cluster</a> here; see Kubernetes basics section for a different way of presenting the same information. TO DISCUSS: Large amount of near-duplicate material in different sections of the docs. Edit and move here? Edit in place and link? How much do we want to normalize/reconcile and remove?
-<br><br>
-        Kubernetes coordinates a highly available cluster of computers that are connected to work as a single unit. This cluster runs your application as a set of containers, which lets you decouple your application deployments from specific hosts. Kubernetes automates the distribution and scheduling of application containers across a cluster.
+        
 </div>
     </div>
 
@@ -91,7 +94,7 @@
       </div>
 
       <div class="docsection1">
-        Kubernetes is an open source system for managing containerized applications across multiple hosts, or nodes. It provides basic mechanisms to deploy, maintain, and scale your application. For an introduction to containers, see <a href="https://www.docker.com/what-container">this writeup from Docker, the most popular container technology</a>.
+        Kubernetes is an open source system for managing containerized applications across multiple hosts, or nodes. It provides basic mechanisms to deploy, maintain, and scale your application. 
 <br><br>
         To work with Kubernetes, you describe your cluster's desired state in terms of Kubernetes API objects. Cluster state includes but is not limited to the following information:
         <ul>
