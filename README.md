@@ -18,28 +18,3 @@ For more information about contributing to the Kubernetes documentation, see:
 
 Kubernetes thrives on community participation, and we really appreciate your
 contributions to our site and our documentation!
-
---
-DRAFT MATERIAL
-
-Review the documentation style guide
-
-Familiarize yourself with Kubernetes.
-    Install Docker, minikube
-
-Review repo labels:
-    Docs labels: needs review, open issues, LGTM
-    Default priority
-
-Review expectations for [community membership](https://github.com/kubernetes/community/blob/master/community-membership.md) and start by becoming a member:
-    - Find 2 sponsors
-        - Ask for support in the []#sig-docs Slack channel](https://kubernetes.slack.com/messages/C1J0BPD2M/details/)
-    - Open and merge 5 PRs
-        - Create a [fork](https://help.github.com/articles/fork-a-repo/) of the docs repository
-        - Open PRs based on [actionable issues](https://github.com/kubernetes/kubernetes.github.io/issues?q=is%3Aopen+is%3Aissue+label%3AActionable).
-        - Observe how labels are added and changed for your PRs
-    - Attend [SIG-docs meetings](https://docs.google.com/document/d/1Ds87eRiNZeXwRBEbFr6Z7ukjbTow5RQcNZLaSvWWQsE/edit?pli=1#) for one month consecutively
-    - Attend K8s [community meetings](https://docs.google.com/document/d/1VQDIAB0OqiSjIHI8AWMvSdceWhnz56jNpZrLs6o7NJY/edit) for one month consecutively
-
-Become a reviewer:
-- Open a PR with your name added to the OWNERS file as a reviewer
