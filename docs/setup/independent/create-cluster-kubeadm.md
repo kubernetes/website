@@ -461,6 +461,19 @@ kubeadm reset
 If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
 appropriate arguments.
 
+**Note**: `kubeadm reset` will not delete any etcd data if external etcd is used. 
+This means that if you run `kubeadm init` again using the same etcd endpoints, you 
+will see state from previous clusters. To wipe etcd data after reset, it is 
+recommended you use a client like `etcdctl`, such as:
+
+```
+etcdctl del "" --prefix
+``` 
+
+See 
+[their documentation](https://github.com/coreos/etcd/tree/master/etcdctl) for more 
+information.
+
 ## Upgrading
 
 Instructions for upgrading kubeadm clusters are available for:
