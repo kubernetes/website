@@ -125,6 +125,19 @@ systemctl enable docker && systemctl start docker
 
 {% endcapture %}
 
+**Note**: Please make sure the default cgroup driver for Docker is `systemd`. For certain versions of Docker,
+it will be set to `cgroupfs` which will cause incompatability issues with the kubelet. To fix, run this:
+
+```bash
+cat << EOF > /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}
+EOF
+```
+
+and restart Docker.
+
 {% assign tab_set_name = "docker_install" %}
 {% assign tab_names = "Ubuntu, Debian or HypriotOS;CentOS, RHEL or Fedora" | split: ';' | compact %}
 {% assign tab_contents = site.emptyArray | push: docker_ubuntu | push: docker_centos %}
