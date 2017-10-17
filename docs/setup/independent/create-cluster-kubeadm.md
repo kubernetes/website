@@ -555,11 +555,14 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
 
 1. **I tried to set `HostPort` on one workload, but it didn't have any effect**.
     The `HostPort` and `HostIP` functionality is available depending on your Pod Network
-    provider. Please contact the author of the Pod Network solution to find out whether
-    `HostPort` and `HostIP` functionality are available.
-
-    If not, you may still use the [NodePort feature of
-    services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
+    provider.
+    
+    - Verified HostPort CNI providers:
+        - [Calico](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/calico-policy-controller/calico-node-daemonset.yaml#L116-L118)
+        - [Canal](https://github.com/projectcalico/canal/blob/master/k8s-install/1.7/canal.yaml#L42-L44)
+        - Flannel
+    - [CNI PortMap Documentation](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md)
+    - You may still use the [NodePort feature of services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
 
 1. **Pods cannot access themselves via their Service IP**.
     Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
