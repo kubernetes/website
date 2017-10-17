@@ -142,7 +142,7 @@ INFO: 2017/08/14 02:22:32.538003 adding rule: [-m set --match-set weave-[T]a=ETz
 ^[^C
 ```
 
-4. Finally, check iptables rules,logs like that
+4. Finally, check the logs for iptables.
 
 ```shell
 command
