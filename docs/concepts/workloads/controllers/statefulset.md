@@ -66,7 +66,7 @@ spec:
   selector:
     app: nginx
 ---
-apiVersion: apps/v1beta2
+apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
   name: web
