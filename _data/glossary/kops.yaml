@@ -1,9 +1,10 @@
 id: kops
 name: Kops
+full-link: /docs/getting-started-guides/kops/
 tags:
 - tool
 - operation
-short-description: |
+short-description: >
   A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters. *NOTE&#58; Officially supports AWS only, with GCE and VMware vSphere in alpha*.
 long-description: |
   `kops` provisions your cluster with&#58;
@@ -15,4 +16,4 @@ long-description: |
     * High availability (HA) support
     * The ability to directly provision, or generate terraform manifests
 
-  You can also build your own cluster using [`kubeadm`](#term-kubeadm) as a building block. `kops` builds on the kubeadm work.
+  You can also build your own cluster using {% glossary_tooltip term_id="kubeadm" %} as a building block. `kops` builds on the kubeadm work.
