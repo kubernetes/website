@@ -187,11 +187,13 @@ kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
 
 The Homebrew project is independent from Kubernetes, so the bash-completion packages are not guaranteed to work.
 
-### Using Oh-My-Zsh
-When using [Oh-My-Zsh](http://ohmyz.sh/), edit the ~/.zshrc file and update the `plugins=` line to include the kubectl plugin.
+### Using zsh
+
+To add kubectl autocompletion to your ZSH profile, add the following line to
+the ~/.zshrc file:
 
 ```shell
-plugins=(git zsh-completions kubectl)
+source <(kubectl completion zsh)
 ```
 
 {% endcapture %}
