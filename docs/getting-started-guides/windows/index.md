@@ -79,7 +79,9 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 6. Start kube-proxy using script [TODO - Add link to George's script]
 7. [Optional] Add static routes on Windows host
 
-*** Windows CNI Config Example ***
+**Windows CNI Config Example**
+
+```
 {
     "cniVersion":  "0.2.0",
     "name":  "l2bridge",
@@ -129,7 +131,7 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
                            }
                        ]
 }
-
+```
 ### Component Setup
 
 !Note: TODO - Add link to George's documentation
