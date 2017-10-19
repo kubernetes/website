@@ -425,6 +425,13 @@ Arguments to consider:
   - Otherwise, if taking the firewall-based security approach
     - `--master=http://$MASTER_IP`
 
+Note that on some Linux platforms, you may need to manually install the
+`conntrack` package which is a dependency of kube-proxy, or else kube-proxy
+cannot be started successfully.
+
+For more details on debugging kube-proxy problems, please refer to
+[Debug Services](/docs/tasks/debug-application-cluster/debug-service/)
+
 ### Networking
 
 Each node needs to be allocated its own CIDR range for pod networking.
