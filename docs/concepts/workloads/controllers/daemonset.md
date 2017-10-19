@@ -80,8 +80,7 @@ The `spec.selector` is an object consisting of two fields:
 
 When the two are specified the result is ANDed.
 
-If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`.  If not
-specified, they are defaulted to be equal.  Config with these not matching will be rejected by the API.
+If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`. Config with these not matching will be rejected by the API.
 
 Also you should not normally create any Pods whose labels match this selector, either directly, via
 another DaemonSet, or via other controller such as ReplicaSet.  Otherwise, the DaemonSet
