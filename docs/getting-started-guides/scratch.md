@@ -407,6 +407,7 @@ Arguments to consider:
   - `--cluster-domain=` to the dns domain prefix to use for cluster DNS addresses.
   - `--docker-root=`
   - `--root-dir=`
+  - `--pod-cidr=` The CIDR to use for pod IP addresses, only used in standalone mode.  In cluster mode, this is obtained from the master.
   - `--configure-cbr0=` (described below)
   - `--register-node` (described in [Node](/docs/admin/node/) documentation.)
 
