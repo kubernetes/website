@@ -6,7 +6,7 @@ approvers:
 title: Picking the Right Solution
 ---
 
-Kubernetes can run on various platforms: from your laptop, to VMs on a cloud provider, to rack of
+Kubernetes can run on various platforms: from your laptop, to VMs on a cloud provider, to a rack of
 bare metal servers. The effort required to set up a cluster varies from running a single command to
 crafting your own customized cluster. Use this guide to choose a solution that fits your needs.
 
