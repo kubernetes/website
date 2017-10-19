@@ -21,7 +21,7 @@ branch, your changes are staged in a custom subdomain on Netlify so that
 you can see your changes in rendered form before the pull request is merged.
 
 1. In your GitHub account, in your new branch, submit a pull request to the
-kubernetes/kubernetes.github.io repository. This opens a page that shows the
+kubernetes/website repository. This opens a page that shows the
 status of your pull request.
 
 1. Scroll down to the list of automated checks. Click **Show all checks**.

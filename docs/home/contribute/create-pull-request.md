@@ -5,7 +5,7 @@ title: Creating a Documentation Pull Request
 {% capture overview %}
 
 To contribute to the Kubernetes documentation, create a pull request against the
-[kubernetes/kubernetes.github.io](https://github.com/kubernetes/kubernetes.github.io){: target="_blank"}
+[kubernetes/website](https://github.com/kubernetes/website){: target="_blank"}
 repository. This page shows how to create a pull request.
 
 {% endcapture %}
@@ -26,7 +26,7 @@ Documentation will be published under the [CC BY SA 4.0](https://git.k8s.io/kube
 ## Creating a fork of the Kubernetes documentation repository
 
 1. Go to the
-[kubernetes/kubernetes.github.io](https://github.com/kubernetes/kubernetes.github.io){: target="_blank"}
+[kubernetes/website](https://github.com/kubernetes/website){: target="_blank"}
 repository.
 
 1. In the upper-right corner, click **Fork**. This creates a copy of the
@@ -51,7 +51,7 @@ create a pull request against the master branch of the Kubernetes
 documentation repository.
 
 1. In your GitHub account, in your new branch, create a pull request
-against the master branch of the kubernetes/kubernetes.github.io
+against the master branch of the kubernetes/website
 repository. This opens a page that shows the status of your pull request.
 
 1. Click **Show all checks**. Wait for the **deploy/netlify** check to complete.
@@ -70,7 +70,7 @@ of the Kubernetes documentation repository. The &lt;vnext&gt; branch has the
 form `release-<version-number>`, for example release-1.5.
 
 1. In your GitHub account, in your new branch, create a pull request
-against the &lt;vnext&gt; branch of the kubernetes/kubernetes.github.io
+against the &lt;vnext&gt; branch of the kubernetes/website
 repository. This opens a page that shows the status of your pull request.
 
 1. Click **Show all checks**. Wait for the **deploy/netlify** check to complete.
