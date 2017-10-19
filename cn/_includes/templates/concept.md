@@ -24,7 +24,7 @@
 
 {% if whatsnext %}
 
-## 开始下一步
+## What's next
 
 {{ whatsnext }}
 
