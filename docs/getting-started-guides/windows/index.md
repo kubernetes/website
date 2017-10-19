@@ -43,7 +43,8 @@ In this topology, networking is achieved using L3 routing with static IP routes 
 
 Each Window Server node should have the following configuration:
 
-TODO: Add diagram
+The following diagram illustrates the Windows Server networking setup for Kubernetes using Upstream L3 Routing Setup:
+![K8s Cluster using L3 Routing with ToR](UpstreamRouting.png)
 
 #### Host-Gateway Topology
 This topology is similar to the Upstream L3 Routing topology with the only difference being that static IP routes are configured directly on each cluster node and not in the upstream ToR. Each node uses a local 'l2bridge' network with a Pod CIDR assigned as before and has routing table entries for all other Pod CIDR subnets assigned to the remote cluster nodes.
@@ -55,8 +56,6 @@ TODO: Add diagram
 TODO
 
 
-The following diagram illustrates the Windows Server networking setup for Kubernetes Setup:
-![Windows Setup](windows-setup.png)
 
 ## Setting up Windows Server Containers on Kubernetes
 To run Windows Server Containers on Kubernetes, you'll need to set up both your host machines and the Kubernetes node components for Windows and depending on your network topology, setup Routes for Pod communication on different nodes.
@@ -74,16 +73,66 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 1. Windows Server container host running Windows Server version 1709 and Docker v17.06 or later. Follow the setup instructions outlined by this help topic: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server.
 2. Build or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions found here [TODO - George's guide]
 3. Copy Node spec file (config) from Linux master node with X.509 keys
- -- TODO: Create node-specific keys
 4. Create HNS Network
 5. Ensure correct CNI network config
 5. Start kubelet.exe using script [TODO - Add link to George's script]
 6. Start kube-proxy using script [TODO - Add link to George's script]
 7. [Optional] Add static routes on Windows host
 
+*** Windows CNI Config Example ***
+{
+    "cniVersion":  "0.2.0",
+    "name":  "l2bridge",
+    "type":  "wincni.exe",
+    "master":  "Ethernet",
+    "ipam":  {
+                 "environment":  "azure",
+                 "subnet":  "10.10.187.64/26",
+                 "routes":  [
+                                {
+                                    "GW":  "10.10.187.66"
+                                }
+                            ]
+             },
+    "dns":  {
+                "Nameservers":  [
+                                    "11.0.0.10"
+                                ]
+            },
+    "AdditionalArgs":  [
+                           {
+                               "Name":  "EndpointPolicy",
+                               "Value":  {
+                                             "Type":  "OutBoundNAT",
+                                             "ExceptionList":  [
+                                                                   "11.0.0.0/8",
+                                                                   "10.10.0.0/16",
+                                                                   "10.127.132.128/25"
+                                                               ]
+                                         }
+                           },
+                           {
+                               "Name":  "EndpointPolicy",
+                               "Value":  {
+                                             "Type":  "ROUTE",
+                                             "DestinationPrefix":  "11.0.0.0/8",
+                                             "NeedEncap":  true
+                                         }
+                           },
+                           {
+                               "Name":  "EndpointPolicy",
+                               "Value":  {
+                                             "Type":  "ROUTE",
+                                             "DestinationPrefix":  "10.127.132.213/32",
+                                             "NeedEncap":  true
+                                         }
+                           }
+                       ]
+}
+
 ### Component Setup
 
-TODO - Add link to George's documentation
+!Note: TODO - Add link to George's documentation
 
 Requirements
 
@@ -93,8 +142,7 @@ TODO - George Check
 * make (if using Linux or MacOS)
 * Important notes and other dependencies are listed [here](https://git.k8s.io/community/contributors/devel/development.md#building-kubernetes-on-a-local-osshell-environment)
 
-Remove if it makes sense and info is in George's documentation
-
+!Note: Remove if it makes sense and info is in George's documentation
 
 **kubelet**
 
