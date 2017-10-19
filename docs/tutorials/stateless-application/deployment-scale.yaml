@@ -4,6 +4,9 @@ metadata:
   name: nginx-deployment
 spec:
   replicas: 4 # Update the replicas from 2 to 4
+  selector:
+    matchLabels:
+      app: nginx  
   template:
     metadata:
       labels:
