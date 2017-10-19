@@ -123,7 +123,7 @@ Each Node has a weave Pod, and all Pods are `Running` and `2/2 READY`. (`2/2` me
 
 2. Create a Network Policy. 
 
-For more information, see "[this link](https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/)".
+For more information, see "[Declare Network Policy](https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/)".
 
 3. Check the logs.
 
