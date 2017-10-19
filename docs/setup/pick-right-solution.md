@@ -62,7 +62,7 @@ a Kubernetes cluster from scratch.
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
 few commands. These solutions are actively developed and have active community support.
 
-* [Conjure-up Canonical Kubernetes on AWS, Azure, Google Cloud, Oracle Cloud](/docs/getting-started-guides/ubuntu/)
+* [Conjure-up Kubernetes with Ubuntu on AWS, Azure, Google Cloud, Oracle Cloud](/docs/getting-started-guides/ubuntu/)
 * [Google Compute Engine (GCE)](/docs/getting-started-guides/gce/)
 * [AWS](/docs/getting-started-guides/aws/)
 * [Azure](/docs/getting-started-guides/azure/)
