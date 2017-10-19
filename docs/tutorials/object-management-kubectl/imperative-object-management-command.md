@@ -140,7 +140,7 @@ You can use `kubectl create --edit` to make arbitrary changes to an object
 before it is created. Here's an example:
 
 ```sh
-kubectl create service clusterip my-svc -o yaml --dry-run > /tmp/srv.yaml
+kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run > /tmp/srv.yaml
 kubectl create --edit -f /tmp/srv.yaml
 ```
 
