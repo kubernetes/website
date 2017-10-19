@@ -4,6 +4,9 @@ metadata:
   name: nginx-deployment
 spec:
   replicas: 2 # tells deployment to run 2 pods matching the template
+  selector:
+    matchLabels:
+      app: nginx  
   template: # create pods using pod definition in this template
     metadata:
       # unlike pod-nginx.yaml, the name is not included in the meta data as a unique name is
