@@ -88,6 +88,8 @@ Get a shell to nginx Container:
 
 In your shell, verify that nginx is running:
 
+    root@two-containers:/# apt-get update
+    root@two-containers:/# apt-get install curl procps
     root@two-containers:/# ps aux
 
 The output is similar to this:
@@ -98,8 +100,6 @@ The output is similar to this:
 Recall that the debian Container created the `index.html` file in the nginx root
 directory. Use `curl` to send a GET request to the nginx server:
 
-    root@two-containers:/# apt-get update
-    root@two-containers:/# apt-get install curl
     root@two-containers:/# curl localhost
 
 The output shows that nginx serves a web page written by the debian container:
