@@ -20,6 +20,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxy to apiserver uses HTTPS
     - locates apiserver
     - adds authentication headers
+    - depends on the conntrack package on Linux to function properly
 
   1. The [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
 
