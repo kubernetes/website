@@ -37,8 +37,8 @@ administrator to control the following:
 | Configuring allowable supplemental groups                              | [`supplementalGroups`](#supplementalgroups) |
 | Allocating an FSGroup that owns the pod's volumes                      | [`fsGroup`](#fsgroup)                       |
 | Requiring the use of a read only root file system                      | `readOnlyRootFilesystem`                    |
-| Running of a container that allow privilege escalation from its parent | [`allowPrivilegeEscalation`](#allowPrivilegeEscalation) |
-| Control whether a process can gain more privileges than its parent process | [`defaultAllowPrivilegeEscalation`](#defaultAllowPrivilegeEscalation) |
+| Running of a container that allow privilege escalation from its parent | [`allowPrivilegeEscalation`](#allowprivilegeescalation) |
+| Control whether a process can gain more privileges than its parent process | [`defaultAllowPrivilegeEscalation`](#defaultallowprivilegeescalation) |
 
 _Pod Security Policies_ are comprised of settings and strategies that
 control the security features a pod has access to. These settings fall
