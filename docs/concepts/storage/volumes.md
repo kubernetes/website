@@ -834,12 +834,15 @@ spec:
     containers:
     - name: mysql
       image: mysql
+      env:
+      - name: MYSQL_ROOT_PASSWORD
+        value: "rootpasswd" 
       volumeMounts:
       - mountPath: /var/lib/mysql
         name: site-data
         subPath: mysql
     - name: php
-      image: php
+      image: php:7.0-apache
       volumeMounts:
       - mountPath: /var/www/html
         name: site-data
