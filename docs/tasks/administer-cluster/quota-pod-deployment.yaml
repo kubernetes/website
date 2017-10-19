@@ -4,6 +4,9 @@ metadata:
   name: pod-quota-demo
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      purpose: quota-demo  
   template:
     metadata:
       labels:
