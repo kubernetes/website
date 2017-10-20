@@ -83,7 +83,7 @@ width:80%;
    font-family: 'roboto';
    text-align:center;
    padding:1%;
-   color:white;
+   color:white !important;
    font-weight:100;
    font-size:18px;
    text-transform:uppercase;
@@ -95,7 +95,11 @@ width:80%;
    background-position:center;
 
 }
-
+.browseheader a{
+ 
+   color:white !important;
+  
+}
 
 
 
