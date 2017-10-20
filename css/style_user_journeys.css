@@ -8,6 +8,21 @@ a {
   color:#303030;
 }
 
+#encyclopedia {
+padding: 0px !important;  
+  
+}
+
+h1 {
+ 
+padding: 3% !important;
+text-align: center !important;
+font-size: 22pt !important; 
+ font-weight:normal;
+  color:#303030;
+  
+}
+
 .container {
 width:80%;
 
@@ -80,20 +95,8 @@ width:80%;
 
 }
 
-#encyclopedia {
-padding: 0px !important;  
-  
-}
 
-h1 {
- 
-padding: 3% !important;
-text-align: center !important;
-font-size: 22pt !important; 
- font-weight:normal;
-  color:#303030;
-  
-}
+
 
 .topheader {
 
