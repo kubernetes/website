@@ -94,7 +94,7 @@ spec:
     image: mysql
     env:
     - name: MYSQL_ROOT_PASSWORD
-      value: "passwd"
+      value: "password"
     resources:
       requests:
         memory: "64Mi"
