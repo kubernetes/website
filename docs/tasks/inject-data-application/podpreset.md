@@ -4,65 +4,14 @@ approvers:
 title: Inject Information into Pods Using a PodPreset
 ---
 
-You can use a `podpreset` object to inject certain information into pods at creation
-time. This information can include secrets, volumes, volume mounts, and environment
-variables.
-
-See [PodPreset proposal](https://git.k8s.io/community/contributors/design-proposals/service-catalog/pod-preset.md) for more information.
+You can use a `podpreset` object to inject information like secrets, volume
+mounts, and environment variables etc into pods at creation time.
+This task shows some examples on using the `PodPreset` resource.
+You can get an overview of PodPresets at
+[Understanding Pod Presets](/docs/concepts/workloads/pods/podpreset/).
 
 * TOC
 {:toc}
-
-## What is a Pod Preset?
-
-A _Pod Preset_ is an API resource that you can use to inject additional runtime
-requirements into a Pod at creation time. You use label selectors to specify
-the Pods to which a given Pod Preset applies. Check out more information on [label
-selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors).
-
-Using a Pod Preset allows pod template authors to not have to explicitly set
-information for every pod. This way, authors of pod templates consuming a
-specific service do not need to know all the details about that service.
-
-## Admission Control
-
-_Admission control_ is how Kubernetes applies Pod Presets to incoming pod
-creation requests. When a pod creation request occurs, the system does the
-following:
-
-1. Retrieve all `PodPresets` available for use.
-1. Match the label selector of the `PodPreset` to the pod being created.
-1. Attempt to merge the various defined resources for the `PodPreset` into the
-   Pod being created.
-1. On error, throw an event documenting the merge error on the pod, and create
-   the pod _without_ any injected resources from the `PodPreset`.
-
-### Behavior
-
-When a `PodPreset` is applied to one or more Pods, Kubernetes modifies the pod
-spec. For changes to `Env`, `EnvFrom`, and `VolumeMounts`, Kubernetes modifies
-the container spec for all containers in the Pod; for changes to Volume,
-Kubernetes modifies the Pod Spec.
-
-Kubernetes annotates the resulting modified pod spec to show that it was
-modified by a `PodPreset`. The annotation is of the form
-`podpreset.admission.kubernetes.io/podpreset-<pod-preset name>": "<resource version>"`.
-
-
-## Enable Pod Preset
-
-In order to use Pod Presets in your cluster you must ensure the
-following
-
-1.  You have enabled the api type `settings.k8s.io/v1alpha1/podpreset`
-1.  You have enabled the admission controller `PodPreset`
-1.  You have defined your pod presets
-
-## Disable Pod Preset for a pod
-
-There may be instances where you wish for a pod to not be altered by any pod
-preset mutations. For these events, one can add an annotation in the pod spec
-of the form: `podpreset.admission.kubernetes.io/exclude: "true"`.
 
 ## Create a Pod Preset
 

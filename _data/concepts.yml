@@ -40,6 +40,7 @@ toc:
     - docs/concepts/workloads/pods/pod.md
     - docs/concepts/workloads/pods/pod-lifecycle.md
     - docs/concepts/workloads/pods/init-containers.md
+    - docs/concepts/workloads/pods/podpreset.md
     - docs/concepts/workloads/pods/disruptions.md
   - title: Controllers
     section:
