@@ -14,6 +14,7 @@ width:80%;
 
 }
 
+
 .pages a {
   font-family: 'roboto';
   font-size:11pt;
@@ -48,7 +49,8 @@ width:80%;
 
 .browsecolumn {
   float:left;
-  width: 33%;
+  padding-right:5%;
+  width: 28%;
 
 }
 
@@ -79,21 +81,6 @@ width:80%;
    background-size:contain;
    background-position:center;
 
-}
-
-#encyclopedia {
-padding: 0px !important;  
-  
-}
-
-h1 {
- 
-padding: 3% !important;
-text-align: center !important;
-font-size: 22pt !important; 
- font-weight:normal;
-  color:#303030;
-  
 }
 
 .topheader {
