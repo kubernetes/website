@@ -77,12 +77,11 @@ js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
 </div>
 
 
-  <div class="browseheader" id="docs">
+<div class="browseheader" id="docs">
         Browse Docs
-      </div>
-<div class="browsedocs">
-
-<div class="browsesection">
+  </div>
+    <div class="browsedocs">
+        <div class="browsesection">
 
         <div class="docstitle">
           <a href="#">Setup</a>
@@ -118,15 +117,14 @@ js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
             <a href="/how-npm-works/packages" >01 - Overview</a><br>
             <a href="/how-npm-works/npm2" >02 - Kubernetes Architecture</a><br>
             <a href="/how-npm-works/npm3" >03 - Extending the Kubernetes API</a><br>
-          </div>
-            <div class="browsecolumn">
             <a href="/how-npm-works/npm3-dupe" >04 - Containers</a><br>
-            <a href="/how-npm-works/npm3-nondet" >05 - Workloads</a><br>
-
-            <a href="/how-npm-works/npm3" >06 - Configuration</a><br>
           </div>
             <div class="browsecolumn">
+            <a href="/how-npm-works/npm3-nondet" >05 - Workloads</a><br>
+            <a href="/how-npm-works/npm3" >06 - Configuration</a><br>
             <a href="/how-npm-works/npm3-dupe" >07 - Services, Load Balancing, and Networking</a><br>
+          </div>
+            <div class="browsecolumn">
             <a href="/how-npm-works/npm3-nondet" >08 - Storage</a><br>
             <a href="/how-npm-works/npm3-nondet" >09 - Cluster Administration</a><br>
           </div>
@@ -145,16 +143,16 @@ js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
             <a href="/private-modules/docker-and-private-modules" >03 - Inject Data Into Applications</a><br>
             <a href="/private-modules/intro" >04 - Run Applications</a><br>
             <a href="/private-modules/ci-server-config" >05 - Run Jobs</a><br>
+            <a href="/private-modules/docker-and-private-modules" >06 - Access Applications in a Cluster</a><br>
           </div>
               <div class="browsecolumn">
-            <a href="/private-modules/docker-and-private-modules" >06 - Access Applications in a Cluster</a><br>
             <a href="/private-modules/intro" >07 - Monitor, Log, and Debug</a><br>
             <a href="/private-modules/ci-server-config" >08 - Access and Extend the Kubernetes API</a><br>
             <a href="/private-modules/docker-and-private-modules" >09 - TLS</a><br>
             <a href="/private-modules/intro" >10 - Administer a Cluster</a><br>
+            <a href="/private-modules/ci-server-config" >11 - Federation - Run an App on Multiple Clusters</a><br>
           </div>
               <div class="browsecolumn">
-            <a href="/private-modules/ci-server-config" >11 - Federation - Run an App on Multiple Clusters</a><br>
             <a href="/private-modules/docker-and-private-modules" >12 - Manage Cluster Daemons</a><br>
             <a href="/private-modules/intro" >13 - Manage GPUs</a><br>
             <a href="/private-modules/ci-server-config" >14 - Manage HugePages</a><br>
@@ -210,5 +208,6 @@ js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
             <a href="/misc/scripts" >09 - Kubernetes Issues and Security</a><br>
           </div>
         </div>
-    </div>
+
+</div>
 </div>
