@@ -14,6 +14,74 @@ width:80%;
 
 }
 
+.pages a {
+  font-family: 'roboto';
+  font-size:11pt;
+  text-decoration:none !important;
+  letter-spacing:0.03em;
+  color:#aaaaaa;
+}
+
+.docstitle a{
+  font-family: 'roboto';
+  font-size:16pt;
+  margin-bottom:50px !important;
+  color:#3371e3 !important;
+  text-decoration:none !important;
+
+}
+
+.docstitle {
+  margin-bottom:10px !important;
+
+}
+
+.browsedocs {
+  font-family: 'roboto' !important;
+  width:70%;
+  margin-top:2%;
+  margin-bottom:5%;
+  margin-left:15%;
+  line-height:2em;
+
+}
+
+.browsecolumn {
+  float:left;
+  padding-right:5%;
+  width: 28%;
+
+}
+
+.browsesection {
+  float:left;
+  display:block;
+  width:100%;
+  margin:2%;
+}
+
+.pages {
+  width:100%;
+}
+
+
+.browseheader {
+   font-family: 'roboto';
+   text-align:center;
+   padding:1%;
+   color:white;
+   font-weight:100;
+   font-size:18px;
+   text-transform:uppercase;
+   font-weight:400;
+   background-color:#303030;
+   letter-spacing:0.08em;
+   background-repeat:repeat;
+   background-size:contain;
+   background-position:center;
+
+}
+
 
 .topheader {
 
