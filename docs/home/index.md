@@ -16,7 +16,7 @@ js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
     <div class="navButton users">Users</div>
     <div class="navButton contributors">Contributors</div>
     <div class="navButton migrators">Migration&nbsp;Paths</div>
-    <div class="navButton users">Browse Docs</div>
+    <a href="#docs"> <div class="navButton users">Browse Docs</div></a>
 </div>
 
 <div id="cardWrapper">
@@ -77,7 +77,7 @@ js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
 </div>
 
 
-  <div class="browseheader">
+  <div class="browseheader" id="docs">
         Browse Docs
       </div>
 <div class="browsedocs">
