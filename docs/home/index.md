@@ -77,9 +77,10 @@ js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
 </div>
 
 
-  <div class="browseheader" name="docs">
-        Browse Docs
+  <div class="browseheader">
+      <a name="docs">  Browse Docs</a>
       </div>
+    
 <div class="browsedocs">
 
 <div class="browsesection">
