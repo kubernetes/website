@@ -207,7 +207,7 @@ js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
             <a href="/misc/scope" >08 - Kubernetes Design Docs</a><br>
             <a href="/misc/scripts" >09 - Kubernetes Issues and Security</a><br>
           </div>
-        </div>
+    
 
 </div>
 </div>
