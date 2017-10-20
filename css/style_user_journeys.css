@@ -1,4 +1,3 @@
-
 body {
 
   margin:0 auto;
@@ -48,8 +47,7 @@ width:80%;
 
 .browsecolumn {
   float:left;
-  padding-right:5%;
-  width: 28%;
+  width: 33%;
 
 }
 
@@ -82,6 +80,20 @@ width:80%;
 
 }
 
+#encyclopedia {
+padding: 0px !important;  
+  
+}
+
+h1 {
+ 
+padding: 3% !important;
+text-align: center !important;
+font-size: 22pt !important; 
+ font-weight:normal;
+  color:#303030;
+  
+}
 
 .topheader {
 
@@ -580,3 +592,15 @@ font-size:24px;
 
 
 }
+© 2017 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+API
+Training
+Shop
+Blog
+About
