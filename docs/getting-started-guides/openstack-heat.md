@@ -168,7 +168,7 @@ Once the nginx pod is running, use the port-forward command to set up a proxy fr
 ./cluster/kubectl.sh port-forward nginx 8888:80
 ```
 
-You should now see nginx on [http://localhost:8888]().
+You should now see nginx on `http://localhost:8888`.
 
 For more complex examples please see the [examples directory](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/).
 
