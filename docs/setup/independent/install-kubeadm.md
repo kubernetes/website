@@ -13,7 +13,7 @@ This page shows how to use install kubeadm.
 * One or more machines running Ubuntu 16.04+, Debian 9, CentOS 7, RHEL 7, Fedora 25/26 (best-effort) or HypriotOS v1.0.1+
 * 1GB or more of RAM per machine (any less will leave little room for your apps)
 * Full network connectivity between all machines in the cluster (public or private network is fine)
-* Unique MAC address and product_uuid for every node
+* Unique hostname, MAC address, and product_uuid for every node
 * Certain ports are open on your machines. See the section below for more details
 * Swap disabled. You must disable swap in order for the kubelet to work properly.
 * Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
