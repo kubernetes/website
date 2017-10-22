@@ -1,12 +1,66 @@
 ---
 approvers:
 - chenopis
-title: Tabs Example
+title: Standard Include Statements
 ---
+
+{% capture overview %}
+This page explains the special include statements that can be used in
+Kubernetes documentation markdown.
+{% endcapture %}
+
+{% capture body %}
+## Feature state
+
+In a markdown page (.md file) on this site, you can add a tag to display
+version and state of the documented feature.
+
+### Feature state demo
+
+{% assign for_k8s_version = "1.6" %}
+{% include feature-state-stable.md %}
+
+### Feature state code
+
+Below is the template code for each available feature state.
+
+The displayed Kubernetes version defaults to that of the page. This can be
+changed by setting the <code>for_k8s_version</code> variable.
+
+````liquid
+{{ "{% assign for_k8s_version = " }} "1.6" %}
+{{ "{% include feature-state-stable.md " }}%}
+````
+
+#### Alpha feature
+
+````liquid
+{{ "{% include feature-state-alpha.md " }}%}
+````
+
+#### Beta feature
+
+````liquid
+{{ "{% include feature-state-beta.md " }}%}
+````
+
+#### Stable feature
+
+````liquid
+{{ "{% include feature-state-stable.md " }}%}
+````
+
+#### Deprecated feature
+
+````liquid
+{{ "{% include feature-state-deprecated.md " }}%}
+````
+
+## Tabs
 
 In a markdown page (.md file) on this site, you can add a tab set to display multiple flavors of a given solution. 
 
-## Demo
+### Tabs demo
 
 {% capture default_tab %}
 Select one of the tabs.
@@ -41,11 +95,11 @@ kubectl apply -f "https://git.io/weave-kube"
 
 {% include tabs.md %}
 
-## Example Liquid template code for tabs
+### Example Liquid template code for tabs
 
 Below is the [Liquid](https://shopify.github.io/liquid/) template code for the tabs demo above to illustrate how to specify the contents of each tab. The [`/_includes/tabs.md`](https://git.k8s.io/kubernetes.github.io/_includes/tabs.md) file included at the end then uses those elements to render the actual tab set.
 
-### The code
+#### Main tab code
 
 ````liquid
 {{ "{% capture default_tab " }}%}
@@ -82,7 +136,7 @@ kubectl apply -f "https://git.io/weave-kube"
 {{ "{% include tabs.md " }}%}
 ````
 
-### Capturing tab content
+#### Capturing tab content
 
 ````liquid
 {{ "{% capture calico " }}%}
@@ -94,7 +148,7 @@ kubectl apply -f "http://docs.projectcalico.org/v2.4/getting-started/kubernetes/
 
 The `capture [variable_name]` tags store text or markdown content and assign them to the specified variable.
 
-### Assigning tab names
+#### Assigning tab names
 
 ````liquid
 {{ "{% assign tab_names = 'Default,Calico,Flannel,Romana,Weave Net' | split: ',' | compact " }}%}
@@ -102,7 +156,7 @@ The `capture [variable_name]` tags store text or markdown content and assign the
 
 The `assign tab_names` tag takes a list of labels to use for the tabs. Label text can include spaces. The given comma delimited string is split into an array and assigned to the `tab_names` variable. 
 
-### Assigning tab contents
+#### Assigning tab contents
 
 ````liquid
 {{ "{% assign tab_contents = site.emptyArray | push: default_tab | push: calico | push: flannel | push: romana | push: weave_net " }}%}
@@ -110,10 +164,20 @@ The `assign tab_names` tag takes a list of labels to use for the tabs. Label tex
 
 The `assign tab_contents` tag adds the contents of each tab pane, captured above, as elements to the `tab_contents` array.
 
-### Including the tabs.md template
+#### Including the tabs.md template
 
 ````liquid
 {{ "{% include tabs.md " }}%}
 ````
 
 `{{ "{% include tabs.md " }}%}` pulls in the tabs template code, which uses the `tab_names` and `tab_contents` variables to render the tab set.
+{% endcapture %}
+
+{% capture whatsnext %}
+* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
+* Learn about [using page templates](/docs/home/contribute/page-templates/).
+* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
+* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
+{% endcapture %}
+
+{% include templates/concept.md %}
