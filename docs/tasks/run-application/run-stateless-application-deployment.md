@@ -46,7 +46,7 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 
     The output is similar to this:
 
-        user@computer:~/kubernetes.github.io$ kubectl describe deployment nginx-deployment
+        user@computer:~/website$ kubectl describe deployment nginx-deployment
         Name:     nginx-deployment
         Namespace:    default
         CreationTimestamp:  Tue, 30 Aug 2016 18:11:37 -0700
