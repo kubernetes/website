@@ -157,6 +157,10 @@ like node, rack, cloud provider zone, cloud provider region, etc. You express it
 key for the node label that the system uses to denote such a topology domain, e.g. see the label keys listed above
 in the section [Interlude: built-in node labels](#interlude-built-in-node-labels).
 
+**Note:** Inter-pod affinity and anti-affinity require substantial amount of 
+processing which can slow down scheduling in large clusters significantly. We do
+not recommend using them in clusters larger than several hundred nodes.
+
 As with node affinity, there are currently two types of pod affinity and anti-affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
 `preferredDuringSchedulingIgnoredDuringExecution` which denote "hard" vs. "soft" requirements.
 See the description in the node affinity section earlier.
