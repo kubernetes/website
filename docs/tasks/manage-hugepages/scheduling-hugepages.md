@@ -72,7 +72,7 @@ spec:
 ## Future
 
 - Support container isolation of huge pages in addition to pod isolation.
-- NUMA locality guarnatees as a feature of quality of service.
+- NUMA locality guarantees as a feature of quality of service.
 - ResourceQuota support.
 - LimitRange support.
 
