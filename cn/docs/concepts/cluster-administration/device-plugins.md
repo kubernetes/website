@@ -1,7 +1,7 @@
 ---
 approvers:
 title: 设备插件
-描述： 使用 Kubernetes 设备插件框架来为 GPUs、 NICs、 FPGAs、 InfiniBand 和其他类似的需要供应商特别设置的资源开发插件。
+description: 使用 Kubernetes 设备插件框架来为 GPUs、 NICs、 FPGAs、 InfiniBand 和其他类似的需要供应商特别设置的资源开发插件。
 ---
 
 {% include feature-state-alpha.md %}
