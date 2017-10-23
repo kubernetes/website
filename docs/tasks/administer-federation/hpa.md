@@ -161,8 +161,8 @@ and averaged current CPU utilization still higher than the target CPU utilizatio
 are fields on local HPA object), then the target app in this cluster
 needs more replicas, and the scaling is currently restricted by max replicas set on this local
 HPA object. In such a scenario, the federated HPA controller scans all clusters and tries to
-find clusters which do not have such a condition (meaning the the desired replicas are less
-than the max, and current averaged cpu utilization is lower then the threshold). If it finds such
+find clusters which do not have such a condition (meaning the desired replicas are less
+than the max, and current averaged CPU utilization is lower then the threshold). If it finds such
 a cluster, it reduces the max replica on the HPA in this cluster and increases the max replicas
 on the HPA in the cluster which needed the replicas.
 
