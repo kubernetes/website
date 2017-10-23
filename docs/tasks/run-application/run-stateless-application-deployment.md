@@ -96,11 +96,11 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 You can update the deployment by applying a new YAML file. This YAML file
 specifies that the deployment should be updated to use nginx 1.8.
 
-{% include code.html language="yaml" file="deployment-update.yaml" ghlink="/docs/tutorials/stateless-application/deployment-update.yaml" %}
+{% include code.html language="yaml" file="deployment-update.yaml" ghlink="/docs/tasks/run-application/deployment-update.yaml" %}
 
 1. Apply the new YAML file:
 
-       kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-update.yaml
+       kubectl apply -f https://k8s.io/docs/tasks/run-application/deployment-update.yaml
 
 1. Watch the deployment create pods with new names and delete the old pods:
 
@@ -112,11 +112,11 @@ You can increase the number of pods in your Deployment by applying a new YAML
 file. This YAML file sets `replicas` to 4, which specifies that the Deployment
 should have four pods:
 
-{% include code.html language="yaml" file="deployment-scale.yaml" ghlink="/docs/tutorials/stateless-application/deployment-scale.yaml" %}
+{% include code.html language="yaml" file="deployment-scale.yaml" ghlink="/docs/tasks/run-application/deployment-scale.yaml" %}
 
 1. Apply the new YAML file:
 
-       kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-scale.yaml
+       kubectl apply -f https://k8s.io/docs/tasks/run-application/deployment-scale.yaml
 
 1. Verify that the Deployment has four pods:
 
