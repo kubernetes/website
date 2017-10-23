@@ -178,7 +178,7 @@ as root:
 
   kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
-To make kubectl work for your non-root user, you might want to run these commands (which is also a part of the kubeadm init output):
+To make kubectl work for your non-root user, you might want to run these commands (which is also a part of the `kubeadm init` output):
 ```
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
