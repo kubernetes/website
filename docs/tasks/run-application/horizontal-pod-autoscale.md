@@ -11,8 +11,9 @@ This document describes the current state of Horizontal Pod Autoscaling in Kuber
 ## What is Horizontal Pod Autoscaling?
 
 With Horizontal Pod Autoscaling, Kubernetes automatically scales the number of pods
-in a replication controller, deployment or replica set based on observed CPU utilization
-(or, with beta support, on some other, application-provided metrics). Note that Horizontal
+in a replication controller, deployment or replica set based on observed CPU utilization (or, with
+[custom metrics](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md)
+support, on some other application-provided metrics). Note that Horizontal
 Pod Autoscaling does not apply to objects that can't be scaled, for example, DaemonSet.
 
 The Horizontal Pod Autoscaler is implemented as a Kubernetes API resource and a controller.
