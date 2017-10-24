@@ -1,12 +1,14 @@
 ---
 approvers:
 - chenopis
-title: Standard Include Statements
+title: Custom Jekyll Include Snippets
 ---
 
 {% capture overview %}
-This page explains the special include statements that can be used in
+This page explains the custom Jekyll include snippets that can be used in
 Kubernetes documentation markdown.
+
+Read more about includes in the [Jekkyl documentation] (https://jekyllrb.com/docs/includes/).
 {% endcapture %}
 
 {% capture body %}
@@ -16,6 +18,8 @@ In a markdown page (.md file) on this site, you can add a tag to display
 version and state of the documented feature.
 
 ### Feature state demo
+
+Below is a demo of the feature state snippet. Here it is used to display the feature as stable in Kuberentes version 1.6.
 
 {% assign for_k8s_version = "1.6" %}
 {% include feature-state-stable.md %}
@@ -62,6 +66,8 @@ In a markdown page (.md file) on this site, you can add a tab set to display mul
 
 ### Tabs demo
 
+Below is a demo of the tabs snippet. Here it is used to display each of the installation commands for the various Kubernetes network solutions.
+
 {% capture default_tab %}
 Select one of the tabs.
 {% endcapture %}
@@ -97,9 +103,7 @@ kubectl apply -f "https://git.io/weave-kube"
 
 ### Example Liquid template code for tabs
 
-Below is the [Liquid](https://shopify.github.io/liquid/) template code for the tabs demo above to illustrate how to specify the contents of each tab. The [`/_includes/tabs.md`](https://git.k8s.io/website/_includes/tabs.md) file included at the end then uses those elements to render the actual tab set.
-
-#### Main tab code
+Below is the [Liquid](https://shopify.github.io/liquid/) template code for the tabs demo above to illustrate how to specify the contents of each tab. The [`/_includes/tabs.md`](https://git.k8s.io/kubernetes.github.io/_includes/tabs.md) file included at the end then uses those elements to render the actual tab set.
 
 ````liquid
 {{ "{% capture default_tab " }}%}
@@ -135,6 +139,8 @@ kubectl apply -f "https://git.io/weave-kube"
 
 {{ "{% include tabs.md " }}%}
 ````
+
+The following sections will break down each of the individual features used.
 
 #### Capturing tab content
 
@@ -174,6 +180,7 @@ The `assign tab_contents` tag adds the contents of each tab pane, captured above
 {% endcapture %}
 
 {% capture whatsnext %}
+* Learn about [Jekyll] (https://jekyllrb.com/docs).
 * Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
 * Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
