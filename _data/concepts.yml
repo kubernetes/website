@@ -75,8 +75,7 @@ toc:
   section:
   - docs/concepts/storage/volumes.md
   - docs/concepts/storage/persistent-volumes.md
-  - title: Dynamic Provisioning
-    path: http://blog.kubernetes.io/2016/10/dynamic-provisioning-and-storage-in-kubernetes.html
+  - docs/concepts/storage/dynamic-provisioning.md
 
 - title: Cluster Administration
   section:
