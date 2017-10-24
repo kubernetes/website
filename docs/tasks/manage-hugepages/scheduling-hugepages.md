@@ -8,7 +8,7 @@ title: Manage HugePages
 {% include feature-state-alpha.md %}
 
 Kubernetes supports the allocation and consumption of pre-allocated huge pages
-by applications in a Pod as an **alpha** feature.  This page describes how users
+by applications in a Pod as an **alpha** feature. This page describes how users
 can consume huge pages and the current limitations.
 
 {% endcapture %}
@@ -16,7 +16,7 @@ can consume huge pages and the current limitations.
 {% capture prerequisites %}
 
 1. Kubernetes nodes must pre-allocate huge pages in order for the node to report
-   its huge page capacity.  A node may only pre-allocate huge pages for a single
+   its huge page capacity. A node may only pre-allocate huge pages for a single
    size.
 1. A special **alpha** feature gate `HugePages` has to be set to true across the
    system: `--feature-gates="HugePages=true"`.
@@ -32,9 +32,9 @@ schedulable resource.
 
 Huge pages can be consumed via container level resource requirements using the
 resource name `hugepages-<size>`, where size is the most compact binary notation
-using integer values supported on a particular node.  For example, if a node
+using integer values supported on a particular node. For example, if a node
 supports 2048KiB page sizes, it will expose a schedulable resource
-`hugepages-2Mi`.  Unlike CPU or memory, huge pages do not support overcommit.
+`hugepages-2Mi`. Unlike CPU or memory, huge pages do not support overcommit.
 
 ```yaml
 apiVersion: v1
@@ -60,19 +60,19 @@ spec:
       medium: HugePages
 ```
 
-- Huge page requests must equal the limits.  This is the default if limits are
+- Huge page requests must equal the limits. This is the default if limits are
   specified, but requests are not.
 - Huge pages are isolated at a pod scope, container isolation is planned in a
   future iteration.
 - EmptyDir volumes backed by huge pages may not consume more huge page memory
   than the pod request.
 - Applications that consume huge pages via `shmget()` with `SHM_HUGETLB` must
-  run with a supplemental group that matches `proc/sys/vm/hugetlb_shm_group`
+  run with a supplemental group that matches `proc/sys/vm/hugetlb_shm_group`.
 
 ## Future
 
 - Support container isolation of huge pages in addition to pod isolation.
-- NUMA locality guarnatees as a feature of quality of service.
+- NUMA locality guarantees as a feature of quality of service.
 - ResourceQuota support.
 - LimitRange support.
 

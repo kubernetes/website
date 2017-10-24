@@ -7,7 +7,7 @@ title: CentOS
 * TOC
 {:toc}
 
-**Caution:** This guide was originally written for Kubernetes 1.1.0 and [is deprecated](https://github.com/kubernetes/kubernetes.github.io/issues/1613) and is replaced by [kubeadm](/docs/admin/kubeadm/).
+**Caution:** This guide was originally written for Kubernetes 1.1.0 and [is deprecated](https://github.com/kubernetes/website/issues/1613) and is replaced by [kubeadm](/docs/admin/kubeadm/).
 {: .caution}
 
 ## Prerequisites
