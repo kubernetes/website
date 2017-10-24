@@ -231,8 +231,8 @@ Allocated resources:
   680m (34%)      400m (20%)    920Mi (12%)        1070Mi (14%)
 ```
 
-In the preceding output, you can see that if a Pod requests more than 1120m
-CPUs or 6.23Gi of memory, it will not fit on the node.
+In the preceding output, you can see that if a Pod requests more than 1800m
+CPUs or 7.13Gi of memory, it will not fit on the node.
 
 By looking at the `Pods` section, you can see which Pods are taking up space on
 the node.
