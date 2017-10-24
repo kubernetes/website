@@ -42,6 +42,7 @@ docs/getting-started-guides/docker-multinode.md
 docs/getting-started-guides/kubectl.md
 docs/home/security.md
 docs/reference/deprecation-policy.md
+docs/reference/auto-generated/README.md
 docs/search.md
 docs/sitemap.md
 docs/tabs-example.md
