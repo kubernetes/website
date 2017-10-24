@@ -43,7 +43,10 @@ In this example:
 
 * A Deployment named `nginx-deployment` is created, indicated by the `metadata: name` field.
 * The Deployment creates three replicated Pods, indicated by the `replicas` field.
-* Set the `spec.selector` field of a Deployment to match the labels of its `.spec.template.metadata.labels`. In this case the label is `app: nginx`.
+* The `selector` field defines how the Deployment finds which Pods to manage.
+  In this case, we simply select on one label defined in the Pod template (`app: nginx`).
+  However, more sophisticated selection rules are possible,
+  as long as the Pod template itself satisfies the rule.
 * The Pod template's specification, or `template: spec` field, indicates that
   the Pods run one container, `nginx`, which runs the `nginx`
   [Docker Hub](https://hub.docker.com/) image at version 1.7.9.
