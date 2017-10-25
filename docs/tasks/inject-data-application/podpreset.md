@@ -73,73 +73,15 @@ Preset.
 
 **User submitted pod spec:**
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: website
-  labels:
-    app: website
-    role: frontend
-spec:
-  containers:
-    - name: website
-      image: ecorp/website
-      ports:
-        - containerPort: 80
-```
+{% include code.html language="yaml" file="podpreset-pod.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-pod.yaml" %}
 
 **Example Pod Preset:**
 
-```yaml
-kind: PodPreset
-apiVersion: settings.k8s.io/v1alpha1
-metadata:
-  name: allow-database
-  namespace: myns
-spec:
-  selector:
-    matchLabels:
-      role: frontend
-  env:
-    - name: DB_PORT
-      value: "6379"
-  volumeMounts:
-    - mountPath: /cache
-      name: cache-volume
-  volumes:
-    - name: cache-volume
-      emptyDir: {}
-```
+{% include code.html language="yaml" file="podpreset-preset.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-preset.yaml" %}
 
 **Pod spec after admission controller:**
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: website
-  labels:
-    app: website
-    role: frontend
-  annotations:
-    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
-spec:
-  containers:
-    - name: website
-      image: ecorp/website
-      volumeMounts:
-        - mountPath: /cache
-          name: cache-volume
-      ports:
-        - containerPort: 80
-      env:
-        - name: DB_PORT
-          value: "6379"
-  volumes:
-    - name: cache-volume
-      emptyDir: {}
-```
+{% include code.html language="yaml" file="podpreset-merged.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-merged.yaml" %}
 
 ### Pod Spec with `ConfigMap` Example
 
@@ -148,117 +90,19 @@ that defines a `ConfigMap` for Environment Variables.
 
 **User submitted pod spec:**
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: website
-  labels:
-    app: website
-    role: frontend
-spec:
-  containers:
-    - name: website
-      image: ecorp/website
-      ports:
-        - containerPort: 80
-```
+{% include code.html language="yaml" file="podpreset-pod.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-pod.yaml" %}
 
 **User submitted `ConfigMap`:**
 
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: etcd-env-config
-data:
-  number_of_members: "1"
-  initial_cluster_state: new
-  initial_cluster_token: DUMMY_ETCD_INITIAL_CLUSTER_TOKEN
-  discovery_token: DUMMY_ETCD_DISCOVERY_TOKEN
-  discovery_url: http://etcd_discovery:2379
-  etcdctl_peers: http://etcd:2379
-  duplicate_key: FROM_CONFIG_MAP
-  REPLACE_ME: "a value"
-```
+{% include code.html language="yaml" file="podpreset-configmap.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-configmap.yaml" %}
 
 **Example Pod Preset:**
 
-```yaml
-kind: PodPreset
-apiVersion: settings.k8s.io/v1alpha1
-metadata:
-  name: allow-database
-  namespace: myns
-spec:
-  selector:
-    matchLabels:
-      role: frontend
-  env:
-    - name: DB_PORT
-      value: 6379
-    - name: duplicate_key
-      value: FROM_ENV
-    - name: expansion
-      value: $(REPLACE_ME)
-  envFrom:
-    - configMapRef:
-        name: etcd-env-config
-  volumeMounts:
-    - mountPath: /cache
-      name: cache-volume
-    - mountPath: /etc/app/config.json
-      readOnly: true
-      name: secret-volume
-  volumes:
-    - name: cache-volume
-      emptyDir: {}
-    - name: secret-volume
-      secret:
-         secretName: config-details
-```
+{% include code.html language="yaml" file="podpreset-allow-db.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-allow-db.yaml" %}
 
 **Pod spec after admission controller:**
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: website
-  labels:
-    app: website
-    role: frontend
-  annotations:
-    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
-spec:
-  containers:
-    - name: website
-      image: ecorp/website
-      volumeMounts:
-        - mountPath: /cache
-          name: cache-volume
-        - mountPath: /etc/app/config.json
-          readOnly: true
-          name: secret-volume
-      ports:
-        - containerPort: 80
-      env:
-        - name: DB_PORT
-          value: "6379"
-        - name: duplicate_key
-          value: FROM_ENV
-        - name: expansion
-          value: $(REPLACE_ME)
-      envFrom:
-        - configMapRef:
-          name: etcd-env-config
-  volumes:
-    - name: cache-volume
-      emptyDir: {}
-    - name: secret-volume
-      secret:
-         secretName: config-details
-```
+{% include code.html language="yaml" file="podpreset-allow-db-merged.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-allow-db-merged.yaml" %}
 
 ### ReplicaSet with Pod Spec Example
 
@@ -267,94 +111,18 @@ Preset.
 
 **User submitted ReplicaSet:**
 
-```yaml
-apiVersion: settings.k8s.io/v1alpha1
-kind: ReplicaSet
-metadata:
-  name: frontend
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      tier: frontend
-    matchExpressions:
-      - {key: tier, operator: In, values: [frontend]}
-  template:
-    metadata:
-      labels:
-        app: guestbook
-        tier: frontend
-    spec:
-      containers:
-      - name: php-redis
-        image: gcr.io/google_samples/gb-frontend:v3
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
-        env:
-          - name: GET_HOSTS_FROM
-            value: dns
-        ports:
-          - containerPort: 80
-```
+{% include code.html language="yaml" file="podpreset-replicaset.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-replicaset.yaml" %}
 
 **Example Pod Preset:**
 
-```yaml
-kind: PodPreset
-apiVersion: settings.k8s.io/v1alpha1
-metadata:
-  name: allow-database
-  namespace: myns
-spec:
-  selector:
-    matchLabels:
-      tier: frontend
-  env:
-    - name: DB_PORT
-      value: "6379"
-  volumeMounts:
-    - mountPath: /cache
-      name: cache-volume
-  volumes:
-    - name: cache-volume
-      emptyDir: {}
-```
+{% include code.html language="yaml" file="podpreset-preset.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-preset.yaml" %}
 
 **Pod spec after admission controller:**
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    app: guestbook
-    tier: frontend
-  annotations:
-    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
-spec:
-  containers:
-  - name: php-redis
-    image: gcr.io/google_samples/gb-frontend:v3
-    resources:
-      requests:
-        cpu: 100m
-        memory: 100Mi
-    volumeMounts:
-    - mountPath: /cache
-      name: cache-volume
-    env:
-    - name: GET_HOSTS_FROM
-      value: dns
-    - name: DB_PORT
-      value: "6379"
-    ports:
-    - containerPort: 80
-  volumes:
-  - name: cache-volume
-    emptyDir: {}
-```
+Note that the ReplicaSet spec was not changed, users have to check individual pods
+to validate that the PodPreset has been applied.
+
+{% include code.html language="yaml" file="podpreset-replicaset-merged.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-replicaset-merged.yaml" %}
 
 ### Multiple PodPreset Example
 
@@ -363,98 +131,19 @@ Injection Policies.
 
 **User submitted pod spec:**
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: website
-  labels:
-    app: website
-    role: frontend
-spec:
-  containers:
-    - name: website
-      image: ecorp/website
-      ports:
-        - containerPort: 80
-```
+{% include code.html language="yaml" file="podpreset-pod.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-pod.yaml" %}
 
 **Example Pod Preset:**
 
-```yaml
-kind: PodPreset
-apiVersion: settings.k8s.io/v1alpha1
-metadata:
-  name: allow-database
-  namespace: myns
-spec:
-  selector:
-    matchLabels:
-      role: frontend
-  env:
-    - name: DB_PORT
-      value: "6379"
-  volumeMounts:
-    - mountPath: /cache
-      name: cache-volume
-  volumes:
-    - name: cache-volume
-      emptyDir: {}
-```
+{% include code.html language="yaml" file="podpreset-preset.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-preset.yaml" %}
 
 **Another Pod Preset:**
 
-```yaml
-kind: PodPreset
-apiVersion: settings.k8s.io/v1alpha1
-metadata:
-  name: proxy
-  namespace: myns
-spec:
-  selector:
-    matchLabels:
-      role: frontend
-  volumeMounts:
-    - mountPath: /etc/proxy/configs
-      name: proxy-volume
-  volumes:
-    - name: proxy-volume
-      emptyDir: {}
-```
+{% include code.html language="yaml" file="podpreset-proxy.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-proxy.yaml" %}
 
 **Pod spec after admission controller:**
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: website
-  labels:
-    app: website
-    role: frontend
-  annotations:
-    podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
-    podpreset.admission.kubernetes.io/podpreset-proxy: "resource version"
-spec:
-  containers:
-    - name: website
-      image: ecorp/website
-      volumeMounts:
-        - mountPath: /cache
-          name: cache-volume
-        - mountPath: /etc/proxy/configs
-          name: proxy-volume
-      ports:
-        - containerPort: 80
-      env:
-        - name: DB_PORT
-          value: "6379"
-  volumes:
-    - name: cache-volume
-      emptyDir: {}
-    - name: proxy-volume
-      emptyDir: {}
-```
+{% include code.html language="yaml" file="podpreset-multi-merged.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-multi-merged.yaml" %}
 
 ### Conflict Example
 
@@ -463,74 +152,15 @@ when there is a conflict.
 
 **User submitted pod spec:**
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: website
-  labels:
-    app: website
-    role: frontend
-spec:
-  containers:
-    - name: website
-      image: ecorp/website
-      volumeMounts:
-        - mountPath: /cache
-          name: cache-volume
-      ports:
-  volumes:
-    - name: cache-volume
-      emptyDir: {}
-        - containerPort: 80
-```
+{% include code.html language="yaml" file="podpreset-conflict-pod.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-conflict-pod.yaml" %}
 
 **Example Pod Preset:**
 
-```yaml
-kind: PodPreset
-apiVersion: settings.k8s.io/v1alpha1
-metadata:
-  name: allow-database
-  namespace: myns
-spec:
-  selector:
-    matchLabels:
-      role: frontend
-  env:
-    - name: DB_PORT
-      value: "6379"
-  volumeMounts:
-    - mountPath: /cache
-      name: other-volume
-  volumes:
-    - name: other-volume
-      emptyDir: {}
-```
+{% include code.html language="yaml" file="podpreset-conflict-preset.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-conflict-preset.yaml" %}
 
 **Pod spec after admission controller will not change because of the conflict:**
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: website
-  labels:
-    app: website
-    role: frontend
-spec:
-  containers:
-    - name: website
-      image: ecorp/website
-      volumeMounts:
-        - mountPath: /cache
-          name: cache-volume
-      ports:
-        - containerPort: 80
-  volumes:
-    - name: cache-volume
-      emptyDir: {}
-```
+{% include code.html language="yaml" file="podpreset-conflict-pod.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-conflict-pod.yaml" %}
 
 **If we run `kubectl describe...` we can see the event:**
 
