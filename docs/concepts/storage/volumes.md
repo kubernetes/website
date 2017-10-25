@@ -483,7 +483,7 @@ A `projected` volume maps several existing volume sources into the same director
 Currently, the following types of volume sources can be projected:
 
 - [`secret`](#secret)
-- [`downwardAPI`](#downardapi)
+- [`downwardAPI`](#downwardapi)
 - `configMap`
 
 All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/node/all-in-one-volume.md).
