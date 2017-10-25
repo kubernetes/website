@@ -16,3 +16,4 @@ docs/user-guide/pods/_viewing-a-pod.md
 docs/user-guide/simple-yaml.md
 docs/user-guide/update-demo/images/kitten/README.md
 docs/user-guide/update-demo/images/nautilus/README.md
+docs/reference/auto-generated/README.md
