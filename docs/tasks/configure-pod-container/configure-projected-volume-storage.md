@@ -39,7 +39,7 @@ Here is the configuration file for the Pod:
 1. Verify that the Pod's Container is running, and then watch for changes to
 the Pod:
 
-       kubectl get --watch pod test-projected-volume
+       kubectl get pod test-projected-volume -w
 
     The output looks like this:
 
