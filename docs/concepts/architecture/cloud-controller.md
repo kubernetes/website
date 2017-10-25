@@ -19,7 +19,7 @@ Here's the architecture of a Kubernetes cluster without the cloud controller man
 In the preceding diagram, Kubernetes and the cloud provider are integrated through several different components:
 
 * Kubelet
-* Kubenetes controller manager
+* Kubernetes controller manager
 * Kubernetes API server
 
 The CCM consolidates all of the cloud-dependent logic from the preceding three components to create a single point of integration with the cloud. The new architecture with the CCM looks like this:
@@ -97,7 +97,7 @@ The Node controller contains the cloud-dependent functionality of the kubelet. P
 
 In this new model, the kubelet initializes a node without cloud-specific information. However, it adds a taint to the newly created node that makes the node unschedulable until the CCM initializes the node with cloud-specific information, and then removes this taint. 
 
-### 3. Kubernets API server
+### 3. Kubernetes API server
 
 The PersistentVolumeLabels controller moves the cloud-dependent functionality of the Kubernetes API server to the CCM as described in the preceding sections.
 
@@ -105,7 +105,7 @@ The PersistentVolumeLabels controller moves the cloud-dependent functionality of
 
 The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in. Specifically, it uses the CloudProvider Interface defined [here](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/cloud.go)
 
-The implementation of the four shared controllers highlighted above, and some scaffolding along with the shared cloudprovider interface, will stay in the Kubernetes core, but implementations specifie to cloud providers will
+The implementation of the four shared controllers highlighted above, and some scaffolding along with the shared cloudprovider interface, will stay in the Kubernetes core, but implementations specific to cloud providers will
 be built outside of the core, and implement interfaces defined in the core.
 
 For more information about developing plugins, see
