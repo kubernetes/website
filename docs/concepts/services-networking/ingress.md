@@ -1,7 +1,7 @@
 ---
 approvers:
 - bprashanth
-title: Ingress Resources
+title: Ingress
 ---
 
 {% capture overview %}
