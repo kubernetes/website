@@ -4,9 +4,11 @@ approvers:
 title: Ingress Resources
 ---
 
-* TOC
-{:toc}
+{% capture overview %}
+{% include templates/glossary/snippet.md term="ingress" length="long" %}
+{% endcapture %}
 
+{% capture body %}
 __Terminology__
 
 Throughout this doc you will see a few terms that are sometimes used interchangeably elsewhere, that might cause confusion. This section attempts to clarify them.
@@ -296,3 +298,6 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
 * Use a [Port Proxy](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 * Deploy the [Service loadbalancer](https://git.k8s.io/contrib/service-loadbalancer). This allows you to share a single IP among multiple Services and achieve more advanced loadbalancing through Service Annotations.
+{% endcapture %}
+
+{% include templates/concept.md %}
