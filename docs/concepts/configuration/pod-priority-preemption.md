@@ -168,7 +168,7 @@ problematic in clusters with a high Pod creation rate.
 
 We will address this problem in the beta version of Pod preemption. The solution
 we plan to implement is
-[provided here](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/pod-preemption.md#preemption-mechanics).
+[provided here](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-preemption.md#preemption-mechanics).
 
 #### PodDisruptionBudget is not supported
 
