@@ -158,7 +158,6 @@ $ kubectl autoscale deployment foo --min=2 --max=10                # Auto scale 
 ```
 
 ## Patching Resources
-Patch a resource(s) with a strategic merge patch.
 
 ```console
 $ kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}' # Partially update a node
