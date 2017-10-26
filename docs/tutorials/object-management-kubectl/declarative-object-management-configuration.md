@@ -27,7 +27,7 @@ for a discussion of the advantages and disadvantage of each kind of object manag
 
 Declarative object configuration requires a firm understanding of
 the Kubernetes object definitions and configuration. Read and complete
-the following documents if you have not already:
+the following documents if you are not already:
 
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
 - [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
