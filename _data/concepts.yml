@@ -20,6 +20,7 @@ toc:
   section:
   - docs/concepts/architecture/nodes.md
   - docs/concepts/architecture/master-node-communication.md
+  - docs/concepts/architecture/cloud-controller.md
 
 - title: Extending the Kubernetes API
   section:
