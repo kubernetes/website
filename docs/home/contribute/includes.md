@@ -8,7 +8,7 @@ title: Custom Jekyll Include Snippets
 This page explains the custom Jekyll include snippets that can be used in
 Kubernetes documentation markdown.
 
-Read more about includes in the [Jekkyl documentation](https://jekyllrb.com/docs/includes/).
+Read more about includes in the [Jekyll documentation](https://jekyllrb.com/docs/includes/).
 {% endcapture %}
 
 {% capture body %}
