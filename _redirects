@@ -66,6 +66,7 @@
 /docs/api-reference/certificates.k8s.io/v1alpha1/definitions/     https://v1-4.docs.kubernetes.io/docs/api-reference/certificates.k8s.io/v1alpha1/definitions/ 301
 /docs/api-reference/certificates/v1alpha1/operations/     https://v1-4.docs.kubernetes.io/docs/api-reference/certificates/v1alpha1/operations/ 301
 /docs/api-reference/extensions/v1beta1/operations/     https://v1-4.docs.kubernetes.io/docs/api-reference/extensions/v1beta1/operations/ 301
+/docs/api-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
 /docs/api-reference/policy/v1alpha1/definitions/     https://v1-4.docs.kubernetes.io/docs/api-reference/policy/v1alpha1/definitions/ 301
 /docs/api-reference/policy/v1beta1/definitions/     https://v1-4.docs.kubernetes.io/docs/api-reference/policy/v1beta1/definitions/ 301
 /docs/api-reference/README/     https://v1-4.docs.kubernetes.io/docs/api-reference/README/ 301
@@ -278,6 +279,7 @@
 /docs/user-guide/compute-resources/     /docs/concepts/configuration/manage-compute-resources-container/ 301
 /docs/user-guide/config-best-practices/     /docs/concepts/configuration/overview/ 301
 /docs/user-guide/configmap/     /docs/tasks/configure-pod-container/configmap/ 301
+/docs/user-guide/configmap/README/     /docs/tasks/configure-pod-container/configure-pod-configmap/ 301
 /docs/user-guide/configuring-containers/     /docs/tasks/ 301
 /docs/user-guide/connecting-applications/     /docs/concepts/services-networking/connect-applications-service/ 301
 /docs/user-guide/connecting-to-applications-port-forward/     /docs/tasks/access-application-cluster/port-forward-access-application-cluster/ 301
@@ -290,6 +292,7 @@
 /docs/user-guide/deploying-applications/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/user-guide/deployments/     /docs/concepts/workloads/controllers/deployment/ 301
 /docs/user-guide/downward-api/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
+/docs/user-guide/downward-api/README/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
 /docs/user-guide/downward-api/volume/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
 /docs/user-guide/environment-guide/     /docs/tasks/inject-data-application/environment-variable-expose-pod-information/ 301
 /docs/user-guide/federation/     /docs/concepts/cluster-administration/federation/ 301
