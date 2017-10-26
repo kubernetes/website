@@ -419,7 +419,7 @@ configure environments that are not fully supported by Kubernetes, or
 even to just expose one or more nodes' IPs directly.
 
 Note that this Service will be visible as both `<NodeIP>:spec.ports[*].nodePort`
-and `spec.clusterIp:spec.ports[*].port`.
+and `spec.clusterIP:spec.ports[*].port`.
 
 ### Type LoadBalancer
 
