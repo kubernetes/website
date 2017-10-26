@@ -397,6 +397,10 @@ Tolerations to a namespace are assigned via the
 `scheduler.alpha.kubernetes.io/tolerationsWhitelist`
 annotation keys.
 
+### Priority
+
+The priority admission controller uses the `priorityClassName` field and populates the integer value of the priority. If the priority class is not found, the Pod is rejected.
+
 ### ResourceQuota
 
 This plug-in will observe the incoming request and ensure that it does not violate any of the constraints
