@@ -93,6 +93,7 @@ For example, consider key pairs `k8sclient.key` and `k8sclient.cert` that are tr
 Once etcd is configured correctly, only clients with valid certificates can access it. To give Kubernetes API server the access, configure it with the flags `--etcd-certfile=k8sclient.cert` and `--etcd-keyfile=k8sclient.key`.
 
 **Note**: etcd authentication is not currently supported by Kubernetes. For more information, see the related issue [Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398).
+{: .note}
 
 ## Replacing a failed etcd member
 
@@ -198,7 +199,8 @@ The upgrade procedure described in this document assumes that either:
    etcd cluster. During the time the etcd cluster is shut down, the Kubernetes API Server will be read only.
 
 **Warning**: Deviations from the assumptions are untested by continuous
-integration, and deviations might create undesirable consequences. Additional information about operating an etcd cluster is available [from the etcd maintainers](https://github.com/coreos/etcd/tree/master/Documentation).
+integration, and deviations might create undesirable consequences. Additional information about operating an etcd cluster is available [from the etcd maintainers](https://github.com/coreos/etcd/tree/master/Documentation). 
+{: .warning}
 
 ### Background
 
@@ -250,6 +252,7 @@ but the rollback tool has these limitations:
 **Warning**: If the data is not kept in `application/json` format (see [Upgrade
 Procedure](#upgrade-procedure)), you will lose the option to roll back to etcd
 2.2.
+{: .warning}
 
 The last bullet means that any component or user that has some logic
 depending on resource versions may require restart after etcd rollback. This
@@ -267,6 +270,7 @@ will be down for the period of rollback, all of node components should basically
 restart their watches and start from “now” when apiserver is back. And it will
 be back with new resource version. That would mean that restarting node
 components is not needed.  But the assumptions here may not hold forever.
+{: .note}
 
 ### Design
 
