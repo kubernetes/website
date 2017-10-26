@@ -178,6 +178,16 @@ as root:
 
   kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
+To make kubectl work for your non-root user, you might want to run these commands (which is also a part of the `kubeadm init` output):
+```
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+Alternatively, if you are the root user, you could run this:
+```
+export KUBECONFIG=/etc/kubernetes/admin.conf
+```
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
 will need this in a moment.
@@ -243,8 +253,8 @@ The official Canal set-up guide is [here](https://github.com/projectcalico/canal
  - Canal works on `amd64` only.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.6/rbac.yaml
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.6/canal.yaml
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/rbac.yaml
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/canal.yaml
 ```
 {% endcapture %}
 
