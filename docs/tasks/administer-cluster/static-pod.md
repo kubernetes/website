@@ -29,26 +29,25 @@ For example, this is how to start a simple web server as a static pod:
 
 2. Choose a directory, say `/etc/kubelet.d` and place a web server pod definition there, e.g. `/etc/kubelet.d/static-web.yaml`:
 
-    ```shell
-
-    [root@my-node1 ~] $ mkdir /etc/kubelet.d/
-    [root@my-node1 ~] $ cat <<EOF >/etc/kubelet.d/static-web.yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: static-web
-      labels:
-        role: myrole
-    spec:
-      containers:
+```shell
+[root@my-node1 ~] $ mkdir /etc/kubelet.d/
+[root@my-node1 ~] $ cat <<EOF >/etc/kubelet.d/static-web.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: static-web
+  labels:
+    role: myrole
+spec:
+  containers:
+    - name: web
+      image: nginx
+      ports:
         - name: web
-          image: nginx
-          ports:
-            - name: web
-              containerPort: 80
-              protocol: TCP
-    EOF
-    ```
+          containerPort: 80
+          protocol: TCP
+EOF
+```
 
 3. Configure your kubelet daemon on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument.
     On Fedora edit `/etc/kubernetes/kubelet` to include this line:
