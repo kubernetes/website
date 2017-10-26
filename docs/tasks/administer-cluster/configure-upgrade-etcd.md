@@ -40,9 +40,9 @@ Use a single-node etcd cluster only for testing purpose.
 
 1. Run the following:
 
-```shell
-./etcd --client-listen-urls=http://$PRIVATE_IP:2379 --client-advertise-urls=http://$PRIVATE_IP:2379
-```
+    ```shell
+    ./etcd --client-listen-urls=http://$PRIVATE_IP:2379 --client-advertise-urls=http://$PRIVATE_IP:2379
+    ```
 
 2. Start Kubernetes API server with the flag `--etcd-servers=$PRIVATE_IP:2379`.
 
@@ -130,12 +130,12 @@ Though etcd keeps unique member IDs internally, it is recommended to use a uniqu
 
 4. Start the newly added member on a machine with the IP `10.0.0.4`:
 
-```shell
-export ETCD_NAME="member4"
-export ETCD_INITIAL_CLUSTER="member2=http://10.0.0.2:2380,member3=http://10.0.0.3:2380,member4=http://10.0.0.4:2380"
-export ETCD_INITIAL_CLUSTER_STATE=existing
-etcd [flags]
-```
+    ```shell
+    export ETCD_NAME="member4"
+    export ETCD_INITIAL_CLUSTER="member2=http://10.0.0.2:2380,member3=http://10.0.0.3:2380,member4=http://10.0.0.4:2380"
+    export ETCD_INITIAL_CLUSTER_STATE=existing
+    etcd [flags]
+    ```
 
 5. Do either of the following:
 
