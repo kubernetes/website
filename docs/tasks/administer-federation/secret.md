@@ -18,7 +18,7 @@ this for you). Other tutorials, for example
 by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+[working knowledge of Kubernetes](/docs/setup/) in
 general and [Secrets](/docs/concepts/configuration/secret/) in particular.
 
 ## Overview
@@ -42,7 +42,7 @@ You can do that using [kubectl](/docs/user-guide/kubectl/) by running:
 kubectl --context=federation-cluster create -f mysecret.yaml
 ```
 
-The '--context=federation-cluster' flag tells kubectl to submit the
+The `--context=federation-cluster` flag tells kubectl to submit the
 request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 

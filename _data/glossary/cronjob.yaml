@@ -1,0 +1,9 @@
+id: cronjob
+name: CronJob
+tags:
+- core-object
+- workload
+short-description: |
+  Manages a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) that runs on a periodic schedule.
+long-description: |
+  Similar to a line in a *crontab* file, a [CronJob](/docs/concepts/workloads/controllers/cron-jobs/#writing-a-cron-job-spec) object specifies a schedule using the [Cron](https://en.wikipedia.org/wiki/Cron) format.

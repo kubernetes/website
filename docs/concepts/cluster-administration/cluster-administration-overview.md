@@ -34,13 +34,15 @@ If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](
 
 ## Managing a cluster
 
-* [Managing a cluster](/docs/concepts/cluster-administration/cluster-management/) describes several topics related to the lifecycle of a cluster: creating a new cluster, upgrading your cluster’s master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a running cluster.
+* [Managing a cluster](/docs/tasks/administer-cluster/cluster-management/) describes several topics related to the lifecycle of a cluster: creating a new cluster, upgrading your cluster’s master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a running cluster.
 
 * Learn how to [manage nodes](/docs/concepts/nodes/node/).
 
 * Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/) for shared clusters.
 
 ## Securing a cluster
+
+* [Certificates](/docs/concepts/cluster-administration/certificates/) describes the steps to generate certificates using different tool chains.
 
 * [Kubernetes Container Environment](/docs/concepts/containers/container-environment-variables/) describes the environment for Kubelet managed containers on a Kubernetes node.
 

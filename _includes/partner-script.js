@@ -156,13 +156,6 @@
 		},
 		{
 			type: 0,
-			name: 'Apprenda',
-			logo: 'apprenda',
-			link: 'https://apprenda.com/kubernetes-support/',
-			blurb: 'Apprenda creates and supports modern, enterprise-ready application platforms for both cloud native and traditional application workloads.'
-		},
-		{
-			type: 0,
 			name: 'Aporeto',
 			logo: 'aporeto',
 			link: 'https://aporeto.com/trireme',
@@ -200,7 +193,7 @@
 			type: 1,
 			name: 'Reactive Ops',
 			logo: 'reactive_ops',
-			link: 'https://www.reactiveops.com/kubernetes/',
+			link: 'https://www.reactiveops.com/the-kubernetes-experts/',
 			blurb: 'ReactiveOps has written automation on best practices for infrastructure as code on GCP & AWS using Kubernetes, helping you build and maintain a world-class infrastructure at a fraction of the price of an internal hire.'
 		},
 		{
@@ -237,13 +230,6 @@
 			logo: 'tigera',
 			link: 'http://docs.projectcalico.org/latest/getting-started/kubernetes/',
 			blurb: 'Tigera builds high performance, policy driven, cloud native networking solutions for Kubernetes.'
-		},
-		{
-			type: 1,
-			name: 'Skippbox',
-			logo: 'skippbox',
-			link: 'http://www.skippbox.com/services/',
-			blurb: 'Skippbox brings its Kubernetes expertise to help companies embrace Kubernetes on their way to digital transformation. Skippbox offers both professional services and expert training.'
 		},
 		{
  			type: 1,
@@ -333,8 +319,8 @@
  			type: 0,
  			name: 'CA Technologies',
  			logo: 'ca',
- 			link: 'https://www.ca.com/us/products/application-deployment.html',
- 			blurb: 'The RA CDE Kubernetes plugin enables an automated process for pushing changes to production by applying standard Kubernetes YAML files'
+ 			link: 'https://docops.ca.com/ca-continuous-delivery-director/integrations/en/plug-ins/kubernetes-plug-in',
+ 			blurb: 'The CA Continuous Delivery Director Kubernetes plugin orchestrates deployment of containerized applications within an end-to-end release pipeline.'
   		},
 		{
  			type: 0,
@@ -359,7 +345,7 @@
   		},
 		{
  			type: 1,
- 			name: 'codecrux web technologies pvt ltd',
+ 			name: 'Codecrux web technologies pvt ltd',
  			logo: 'codecrux',
  			link: 'http://codecrux.com/kubernetes/',
  			blurb: 'At CodeCrux we help your organization get the most out of Containers and Kubernetes, regardless of where you are in your journey'
@@ -450,10 +436,10 @@
   		},
 		{
  			type: 1,
- 			name: 'EASYNUBE LTD',
+ 			name: 'EASYNUBE',
  			logo: 'easynube',
- 			link: 'https://www.carrefour.es/supermercado/?ic_source=portal-home&ic_medium=menu-links&ic_content=section-home',
- 			blurb: 'Provide consultancy, architecture and implementation'
+ 			link: 'http://easynube.co.uk/devopsnube/',
+ 			blurb: 'EasyNube provide architecture, implementation, and manage scalable applications using Kubernetes and Openshift.'
   		},
 		{
  			type: 1,
@@ -471,7 +457,7 @@
   		},
 		{
  			type: 0,
- 			name: '{code} by Dell EMC',
+ 			name: 'code by Dell EMC',
  			logo: 'codedellemc',
  			link: 'https://blog.codedellemc.com',
  			blurb: 'Respected as a thought leader in storage persistence for containerized applications. Contributed significant work to K8 and Ecosystem'
@@ -500,7 +486,7 @@
 		{
 			type: 2,
 			name: 'Treasure Data',
-			logo: 'treasure-data',
+			logo: 'treasuredata',
 			link: 'https://fluentd.treasuredata.com/kubernetes-logging/',
 			blurb: 'Fluentd Enterprise brings smart, secure logging to Kubernetes, and brings integrations with backends such as Splunk, Kafka, or AWS S3.'
 			},
@@ -596,11 +582,186 @@
 			blurb: 'Booz Allen partners with public and private sector clients to solve their most difficult challenges through a combination of consulting, analytics, mission operations, technology, systems delivery, cybersecurity, engineering, and innovation expertise.'
 			},
 		{
+			type: 1,
+			name: 'BigBinary',
+			logo: 'bigbinary',
+			link: 'http://blog.bigbinary.com/categories/Kubernetes',
+			blurb: 'Provider of Digital Solutions for federal and commercial clients, to include DevSecOps, cloud platforms, transformation strategy, cognitive solutions, and UX.'
+				},
+		{
 			type: 0,
-			name: 'Applatix',
-			logo: 'applatix',
-			link: 'https://applatix.com/applatix-product/',
- 			blurb: 'Applatix helps build and run containerized apps on public cloud using Docker and Kubernetes.'
+			name: 'CloudPerceptions',
+			logo: 'cloudperceptions',
+			link: 'https://www.meetup.com/Triangle-Kubernetes-Meetup/files/',
+			blurb: 'Container security solution for small-to-medium size enterprises who plan to run Kubernetes on shared infrastructure.'
+				},
+		{
+			type: 1,
+			name: 'Creationline, Inc.',
+			logo: 'creationline',
+			link: 'https://www.creationline.com/ci',
+			blurb: 'Total solution for container based IT resource management.'
+				},
+		{
+			type: 0,
+			name: 'DaoCloud',
+			logo: 'daocloud',
+			link: 'https://www.daocloud.io/dcex',
+			blurb: 'We provide enterprise-level cloud native application platform that supports both Kubernetes and Docker Swarm.'
+				},
+		{
+			type: 0,
+			name: 'DataCore Software',
+			logo: 'datacore',
+			link: 'https://www.datacore.com/solutions/virtualization/containerization',
+			blurb: 'DataCore provides highly-available, high-performance universal block storage for Kubernetes, radically improving the speed of deployment.'
+				},
+		{
+			type: 0,
+			name: 'Elastifile',
+			logo: 'elastifile',
+			link: 'https://www.elastifile.com/stateful-containers',
+			blurb: 'Elastifile’s cross-cloud data fabric delivers elastically scalable, high performance, software-defined persistent storage for Kubernetes.'
+				},
+		{
+			type: 0,
+			name: 'GitLab',
+			logo: 'gitlab',
+			link: 'https://about.gitlab.com/2016/11/14/idea-to-production/',
+			blurb: 'With GitLab and Kubernetes, you can deploy a complete CI/CD pipeline with multiple environments, automatic deployments, and automatic monitoring.'
+				},
+		{
+			type: 0,
+			name: 'Gravitational, Inc.',
+			logo: 'gravitational',
+			link: 'https://gravitational.com/telekube/',
+			blurb: 'Telekube combines Kubernetes with Teleport, our modern SSH server, so operators can remotely manage a multitude of K8s application deployments.'
+				},
+		{
+			type: 0,
+			name: 'Hitachi Data Systems',
+			logo: 'hitachi',
+			link: 'https://www.hds.com/en-us/products-solutions/application-solutions/unified-compute-platform-with-kubernetes-orchestration.html',
+			blurb: 'Build the Applications You Need to Drive Your Business - DEVELOP AND DEPLOY APPLICATIONS FASTER AND MORE RELIABLY.'
+				},
+		{
+			type: 1,
+			name: 'Infosys Technologies',
+			logo: 'infosys',
+			link: 'https://www.infosys.com',
+			blurb: 'Monolithic to microservices on openshift is a offering that we are building as part of open source practice.'
+				},
+		{
+			type: 0,
+			name: 'JFrog',
+			logo: 'jfrog',
+			link: 'https://www.jfrog.com/use-cases/12584/',
+			blurb: 'You can use Artifactory to store and manage all of your application’s container images and deploy to Kubernetes and setup a build, test, deploy pipeline using Jenkins and Artifactory. Once an image is ready to be rolled out, Artifactory can trigger a rolling-update deployment into a Kubernetes cluster without downtime – automatically!'
+				},
+		{
+			type: 0,
+			name: 'Loodse',
+			logo: 'loodse',
+			link: 'https://loodse.com/en/',
+			blurb: 'Kubermatic Container Engine: Loodse runs Kubernetes on Kubernetes to provide a Cluster-as-a-Service to easily manage and orchestrate multiple Kubernetes clusters in cloud and on premise.'
+				},
+		{
+			type: 0,
+			name: 'Navops by Univa',
+			logo: 'navops',
+			link: 'https://www.navops.io',
+			blurb: 'Navops is a suite of products that enables enterprises to take full advantage of Kubernetes and provides the ability to quickly and efficiently run containers at scale.'
+				},
+		{
+			type: 0,
+			name: 'NeuVector',
+			logo: 'neuvector',
+			link: 'http://neuvector.com/solutions-for-kubernetes-security/',
+			blurb: 'NeuVector delivers an application and network intelligent container network security solution integrated with and optimized for Kubernetes.'
+				},
+		{
+			type: 1,
+			name: 'OpsZero',
+			logo: 'opszero',
+			link: 'https://www.opszero.com/kubernetes.html',
+			blurb: 'opsZero provides DevOps for Startups. We build and service your Kubernetes and Cloud Infrastructure to accelerate your release cycle.'
+				},
+		{
+			type: 1,
+			name: 'Shiwaforce.com Ltd.',
+			logo: 'shiwaforce',
+			link: 'https://www.shiwaforce.com/en/',
+			blurb: 'Shiwaforce.com is the Agile Partner in Digital Transformation. Our solutions follow business changes quickly, easily and cost-effectively.'
+				},
+		{
+			type: 1,
+			name: 'SoftServe',
+			logo: 'softserve',
+			link: 'https://www.softserveinc.com/en-us/blogs/kubernetes-travis-ci/',
+			blurb: 'SoftServe allows its clients to adopt modern application design patterns and benefit from fully integrated, highly available, cost effective Kubernetes clusters at any scale.'
+				},
+		{
+			type: 1,
+			name: 'Solinea',
+			logo: 'solinea',
+			link: 'https://www.solinea.com/cloud-consulting-services/container-microservices-offerings',
+			blurb: 'Solinea is a digital transformation consultancy that enables businesses to build innovative solutions by adopting cloud native computing.'
+				},
+		{
+			type: 1,
+			name: 'Sphere Software, LLC',
+			logo: 'spheresoftware',
+			link: 'https://www.solinea.com/cloud-consulting-services/container-microservices-offerings',
+			blurb: 'Solinea is a digital transformation consultancy that enables businesses to build innovative solutions by adopting cloud native computing.'
+				},
+		{
+			type: 1,
+			name: 'Altoros',
+			logo: 'altoros',
+			link: 'https://www.altoros.com/container-orchestration-tools-enablement.html',
+			blurb: 'Deployment and configuration of Kubernetes, Optimization of existing solutions, training for developers on using Kubernetes, support.'
+				},
+		{
+			type: 0,
+			name: 'Cloudbase Solutions',
+			logo: 'cloudbase',
+			link: 'https://cloudbase.it/kubernetes',
+			blurb: 'Cloudbase Solutions provides Kubernetes cross-cloud interoperability for Windows and Linux deployments based on open source technologies.'
+				},
+		{
+			type: 0,
+			name: 'Codefresh',
+			logo: 'codefresh',
+			link: 'https://codefresh.io/kubernetes-deploy/',
+			blurb: 'Codefresh is a complete tool chain for delivering containers to Kubernetes.'
+				},
+		{
+			type: 0,
+			name: 'NetApp',
+			logo: 'netapp',
+			link: 'http://netapp.io/2016/12/23/introducing-trident-dynamic-persistent-volume-provisioner-kubernetes/',
+			blurb: 'Dynamic provisioning and persistent storage support.'
+				},
+		{
+			type: 0,
+			name: 'VMware',
+			logo: 'vmware',
+			link: 'https://cloud.vmware.com/pivotal-container-service',
+			blurb: 'VMware PKS is a purpose-built product to operationalize Kubernetes for enterprise and service provider environments.'
+				},
+		{
+			type: 2,
+			name: 'Caicloud',
+			logo: 'caicloud',
+			link: 'https://caicloud.io/',
+			blurb: 'Founded by ex-Googlers,and early Kubernetes contributors, Caicloud leverages Kubernetes to provide container products which have successfully served Fortune 500 enterprises, and  further utilizes Kubernetes as a vehicle to deliver ultra-speed deep learning experience.'
+				},
+		{
+			type: 0,
+			name: 'OpenEBS',
+			logo: 'OpenEBS',
+			link: 'https://openebs.io/',
+ 			blurb: 'OpenEBS is containerized storage for containers integrated tightly into Kubernetes and based on distributed block storage and containerization of storage control. OpenEBS derives intent from K8s and other YAML or JSON such as per container QoS SLAs, tiering and replica policies, and more. OpenEBS is EBS API compliant.'
 	  	}
 	]
 

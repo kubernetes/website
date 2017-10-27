@@ -92,6 +92,9 @@ spec:
   containers:
   - name: db
     image: mysql
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "password"
     resources:
       requests:
         memory: "64Mi"
@@ -295,7 +298,7 @@ You can call `kubectl get pod` with the `-o go-template=...` option to fetch the
 of previously terminated Containers:
 
 ```shell{% raw %}
-[13:59:01] $ kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-60xbc
+[13:59:01] $ kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
 Container Name: simmemleak
 LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]{% endraw %}
 ```
@@ -309,7 +312,7 @@ Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managi
 
 This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
 
-**Note:** If an optional runntime partition is used, root parition will not hold any image layer or writable layers.
+**Note:** If an optional runntime partition is used, root partition will not hold any image layer or writable layers.
 {: .note}
 
 ### Requests and limits setting for local ephemeral storage
@@ -338,6 +341,9 @@ spec:
   containers:
   - name: db
     image: mysql
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "password"
     resources:
       requests:
         ephemeral-storage: "2Gi"

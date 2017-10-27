@@ -93,7 +93,11 @@ flag of the kubelet, e.g.:
 ```shell
 $ kubelet --experimental-allowed-unsafe-sysctls 'kernel.msg*,net.ipv4.route.min_pmtu' ...
 ```
+For minikube, this can be done via the `extra-config` flag:
 
+```shell
+$ minikube start --extra-config="kubelet.AllowedUnsafeSysctls=kernel.msg*,net.ipv4.route.min_pmtu"...
+```
 Only _namespaced_ sysctls can be enabled this way.
 
 ## Setting Sysctls for a Pod

@@ -11,7 +11,7 @@ This page shows you how to properly decommission a cluster.
 This page assumes you have a working Juju deployed cluster.
 
 **Warning:** By the time you've reached this step you should have backed up your workloads and pertinent data; this section is for the complete destruction of a cluster.
-{. warning}
+{: .warning}
 
 {% endcapture %}
 

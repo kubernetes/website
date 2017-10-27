@@ -13,7 +13,7 @@ Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [in
 * support for most popular Linux distributions
 * continuous integration tests
 
-To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/comparisons.md) to [kubeadm](../kubeadm) and [kops](../kops).
+To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/comparisons.md) to [kubeadm](/docs/admin/kubeadm/) and [kops](../kops).
 
 ## Creating a cluster
 
@@ -84,7 +84,7 @@ Kubespray provides additional playbooks to manage your cluster: _scale_ and _upg
 
 ### Scale your cluster
 
-You can scale your cluster by running the scale playbook. For more information, see "[Adding nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#Adding-nodes)".
+You can scale your cluster by running the scale playbook. For more information, see "[Adding nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#adding-nodes)".
 
 ### Upgrade your cluster
 

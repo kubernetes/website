@@ -374,7 +374,13 @@ For more information see
 Once you've deployed a federation control plane, you'll need to make
 that control plane aware of the clusters it should manage. You can add
 a cluster to your federation by using the [`kubefed join`](/docs/admin/kubefed_join/)
-command.
+command. A new context will have been added to your kubeconfig named `fellowship`
+(after the name of your federation). To join clusters into the federation, you will
+need to change the context.
+
+```
+kubectl config use-context fellowship
+```
 
 To use `kubefed join`, you'll need to provide the name of the cluster
 you want to add to the federation, and the `--host-cluster-context`

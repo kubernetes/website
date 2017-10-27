@@ -82,7 +82,7 @@ openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app
 
 This would create a CSR for the username "jbeda", belonging to two groups, "app1" and "app2".
 
-See [APPENDIX](#appendix) for how to generate a client cert.
+See [Managing Certificates](/docs/concepts/cluster-administration/certificates/) for how to generate a client cert.
 
 ### Static Token File
 
@@ -185,7 +185,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 NOTE: `serviceAccountName` is usually omitted because this is done automatically.
 
 ```
-apiVersion: apps/v1beta1
+apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -507,6 +507,7 @@ It is designed for use in combination with an authenticating proxy, which sets t
 * `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed, the remainder of the header name becomes the extra key, and the header value is the extra value.
 
 For example, with this configuration:
+
 ```
 --requestheader-username-headers=X-Remote-User
 --requestheader-group-headers=X-Remote-Group
@@ -514,6 +515,7 @@ For example, with this configuration:
 ```
 
 this request:
+
 ```
 GET / HTTP/1.1
 X-Remote-User: fido
@@ -524,6 +526,7 @@ X-Remote-Extra-Scopes: profile
 ```
 
 would result in this user info:
+
 ```yaml
 name: fido
 groups:
@@ -578,7 +581,7 @@ a request providing an invalid bearer token would receive a `401 Unauthorized` e
 A request providing no bearer token would be treated as an anonymous request.
 
 In 1.5.1-1.5.x, anonymous access is disabled by default, and can be enabled by
-passing the `--anonymous-auth=false` option to the API server.
+passing the `--anonymous-auth=true` option to the API server.
 
 In 1.6+, anonymous access is enabled by default if an authorization mode other than `AlwaysAllow`
 is used, and can be disabled by passing the `--anonymous-auth=false` option to the API server.
@@ -693,78 +696,4 @@ rules:
 
 ## APPENDIX
 
-### Creating Certificates
 
-When using client certificate authentication, you can generate certificates
-using an existing deployment script or manually through `easyrsa` or `openssl.`
-
-#### Using an Existing Deployment Script
-
-**Using an existing deployment script** is implemented at
-`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.
-
-Execute this script with two parameters. The first is the IP address
-of API server. The second is a list of subject alternate names in the form `IP:<ip-address> or DNS:<dns-name>`.
-
-The script will generate three files: `ca.crt`, `server.crt`, and `server.key`.
-
-Finally, add the following parameters into API server start parameters:
-
-- `--client-ca-file=/srv/kubernetes/ca.crt`
-- `--tls-cert-file=/srv/kubernetes/server.crt`
-- `--tls-private-key-file=/srv/kubernetes/server.key`
-
-#### easyrsa
-
-**easyrsa** can be used to manually generate certificates for your cluster.
-
-1.  Download, unpack, and initialize the patched version of easyrsa3.
-
-        curl -L -O https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
-        tar xzf easy-rsa.tar.gz
-        cd easy-rsa-master/easyrsa3
-        ./easyrsa init-pki
-1.  Generate a CA. (`--batch` set automatic mode. `--req-cn` default CN to use.)
-
-        ./easyrsa --batch "--req-cn=${MASTER_IP}@`date +%s`" build-ca nopass
-1.  Generate server certificate and key.
-    (build-server-full [filename]: Generate a keypair and sign locally for a client or server.)
-
-        ./easyrsa --subject-alt-name="IP:${MASTER_IP}" build-server-full server nopass
-1.  Copy `pki/ca.crt`, `pki/issued/server.crt`, and `pki/private/server.key` to your directory.
-1.  Fill in and add the following parameters into the API server start parameters:
-
-        --client-ca-file=/yourdirectory/ca.crt
-        --tls-cert-file=/yourdirectory/server.crt
-        --tls-private-key-file=/yourdirectory/server.key
-
-#### openssl
-
-**openssl** can also be used to manually generate certificates for your cluster.
-
-1.  Generate a ca.key with 2048bit:
-
-        openssl genrsa -out ca.key 2048
-1.  According to the ca.key generate a ca.crt (use -days to set the certificate effective time):
-
-        openssl req -x509 -new -nodes -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt
-1.  Generate a server.key with 2048bit:
-
-        openssl genrsa -out server.key 2048
-1.  According to the server.key generate a server.csr:
-
-        openssl req -new -key server.key -subj "/CN=${MASTER_IP}" -out server.csr
-1.  According to the ca.key, ca.crt and server.csr generate the server.crt:
-
-        openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 10000
-1.  View the certificate.
-
-        openssl x509  -noout -text -in ./server.crt
-
-Finally, do not forget to fill out and add the same parameters into the API server start parameters.
-
-#### Certificates API
-
-You can use the `certificates.k8s.io` API to provision
-x509 certificates to use for authentication as documented
-[here](/docs/tasks/tls/managing-tls-in-a-cluster).

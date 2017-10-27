@@ -13,7 +13,7 @@ This page shows how to use install kubeadm.
 * One or more machines running Ubuntu 16.04+, Debian 9, CentOS 7, RHEL 7, Fedora 25/26 (best-effort) or HypriotOS v1.0.1+
 * 1GB or more of RAM per machine (any less will leave little room for your apps)
 * Full network connectivity between all machines in the cluster (public or private network is fine)
-* Unique MAC address and product_uuid for every node
+* Unique hostname, MAC address, and product_uuid for every node
 * Certain ports are open on your machines. See the section below for more details
 * Swap disabled. You must disable swap in order for the kubelet to work properly.
 * Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
@@ -23,6 +23,16 @@ please see [here](https://kubernetes.io/docs/concepts/cluster-administration/net
 {% endcapture %}
 
 {% capture steps %}
+
+## Verify the MAC address and product_uuid are unique for every node
+
+* You can get the MAC address of the network interfaces using the command `ip link` or `ifconfig -a`
+* The product_uuid can be checked by using the command `sudo cat /sys/class/dmi/id/product_uuid`
+
+It is very likely that hardware devices will have unique addresses, although some virtual machines may have
+identical values. Kubernetes uses these values to uniquely identify the nodes in the cluster.
+If these values are not unique to each node, the installation processes
+[can fail](https://github.com/kubernetes/kubeadm/issues/31).
 
 ## Check required ports
 
@@ -115,6 +125,20 @@ systemctl enable docker && systemctl start docker
 
 {% endcapture %}
 
+**Note**: Make sure that the cgroup driver used by kubelet is the same as the one used by 
+Docker. To ensure compatability you can either update Docker, like so:
+
+```bash
+cat << EOF > /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}
+EOF
+```
+
+and restart Docker. Or ensure the `--cgroup-driver` kubelet flag is set to the same value 
+as Docker (e.g. `cgroupfs`).
+
 {% assign tab_set_name = "docker_install" %}
 {% assign tab_names = "Ubuntu, Debian or HypriotOS;CentOS, RHEL or Fedora" | split: ';' | compact %}
 {% assign tab_contents = site.emptyArray | push: docker_ubuntu | push: docker_centos %}
@@ -131,6 +155,11 @@ You will install these packages on all of your machines:
     and does things like starting pods and containers.
 
 * `kubectl`: the command line util to talk to your cluster.
+
+kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will 
+need to ensure they match the version of the Kubernetes control panel you want 
+kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
+can lead to unexpected, buggy behaviour.
 
 Please proceed with executing the following commands based on your OS as `root`.
 You may become the `root` user by executing `sudo -i` after SSH-ing to each host.
@@ -167,10 +196,18 @@ yum install -y kubelet kubeadm kubectl
 systemctl enable kubelet && systemctl start kubelet
 ```
 
-**Note:** Disabling SELinux by running `setenforce 0` is required to allow
-containers to access the host filesystem, which is required for the `kubeadm init`
-process to complete successfully. You have to do this until SELinux support
-is improved.
+  **Note:**
+
+  - Disabling SELinux by running `setenforce 0` is required to allow containers to access the host filesystem, which is required by pod networks for example. You have to do this until SELinux support is improved in the kubelet.
+  - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
+  
+    ``` bash
+    cat <<EOF >  /etc/sysctl.d/k8s.conf
+    net.bridge.bridge-nf-call-ip6tables = 1
+    net.bridge.bridge-nf-call-iptables = 1
+    EOF
+    sysctl --system
+    ```
 
 {% endcapture %}
 

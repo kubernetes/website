@@ -6,7 +6,7 @@ title: Install and Set Up kubectl
 ---
 
 {% capture overview %}
-Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; and look at your new cluster and bring up example apps.
+Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; and look at your new cluster and bring up example apps.
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -187,11 +187,20 @@ kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
 
 The Homebrew project is independent from Kubernetes, so the bash-completion packages are not guaranteed to work.
 
-### Using Oh-My-Zsh
-When using [Oh-My-Zsh](http://ohmyz.sh/), edit the ~/.zshrc file and update the `plugins=` line to include the kubectl plugin.
+### Using Zsh
+If you are using zsh edit the ~/.zshrc file and add the following code to enable kubectl autocompletion:
 
 ```shell
-plugins=(git zsh-completions kubectl)
+if [ $commands[kubectl] ]; then
+  source <(kubectl completion zsh)
+fi
+```
+
+Or when using [Oh-My-Zsh](http://ohmyz.sh/), edit the ~/.zshrc file and update the `plugins=` line to include the kubectl plugin.
+
+
+```shell
+source <(kubectl completion zsh)
 ```
 
 {% endcapture %}

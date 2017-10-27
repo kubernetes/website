@@ -52,7 +52,7 @@ following steps:
 1. kubeadm "labels" and "taints" the master node so that only control plane
    components will run there.
 
-1. Kubeadm makes all the necessary configurations for allowing node joining with the
+1. kubeadm makes all the necessary configurations for allowing node joining with the
    [Bootstrap Tokens](https://kubernetes.io/docs/admin/bootstrap-tokens/) and
    [TLS Bootstrap](https://kubernetes.io/docs/admin/kubelet-tls-bootstrapping/)
    mechanism:
@@ -88,7 +88,7 @@ steps:
    with the Kubernetes Master to submit a certificate signing request (CSR); by
    default the control plane will sign this CSR request automatically.
 
-1. Finally, kubeadm will configures the local kubelet to connect to the API
+1. Finally, kubeadm will configure the local kubelet to connect to the API
    server with the definitive identity assigned to the node.
 
 ## Usage
@@ -192,7 +192,7 @@ flags that can be used to customise the Kubernetes installation.
 - `--service-cidr` (default '10.96.0.0/12')
 
   You can use the `--service-cidr` flag to override the subnet Kubernetes uses to
-  assign pods IP addresses. If you do, you will also need to update the
+  assign services IP addresses. If you do, you will also need to update the
   `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` file to reflect this
   change else DNS will not function correctly.
 
@@ -325,7 +325,7 @@ Here's an example on how to use it:
   [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) and can also be
   calculated by 3rd party tools or provisioning systems. For example, using the
   OpenSSL CLI:
-  `openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>&/dev/null | openssl dgst -sha256 -hex`
+  `openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'`
 
   _Skipping this flag is allowed in Kubernetes 1.8, but makes certain spoofing
   attacks possible._ See the [security model](#security-model) for details.
@@ -489,7 +489,7 @@ at the cost of some usability.
 
 ### Turning off auto-approval of Node Client Certificates
 
-By default, there is an CSR auto-approver enabled that basically approves any client certificate request
+By default, there is a CSR auto-approver enabled that basically approves any client certificate request
 for a kubelet when a Bootstrap Token was used when authenticating. If you don't want the cluster to
 automatically approve kubelet client certs, you can turn it off by executing this command:
 
@@ -525,7 +525,7 @@ it off regardless. Doing so will disable the ability to use the `--discovery-tok
 Fetch the `cluster-info` file from the API Server:
 
 ```console
-$ kubectl -n kube-public get cm cluster-info -oyaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+$ kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
 apiVersion: v1
 clusters:
 - cluster:
@@ -541,13 +541,13 @@ users: []
 
 You can then use the `cluster-info.yaml` file as an argument to `kubeadm join --discovery-file`.
 
-Turning of public access to the `cluster-info` ConfigMap:
+Turning off public access to the `cluster-info` ConfigMap:
 
 ```console
 $ kubectl -n kube-public delete rolebinding kubeadm:bootstrap-signer-clusterinfo
 ```
 
-These command should be run after `kubeadm init` but before `kubeadm join`.
+These commands should be run after `kubeadm init` but before `kubeadm join`.
 
 ## Managing Tokens {#manage-tokens}
 
@@ -752,7 +752,7 @@ This behaviour can be overridden by [using kubeadm with a configuration file](#c
 Allowed customization are:
 - provide an alternative `imageRepository` to be used instead of
   `gcr.io/google_containers` (NB. does not works for ci version)
-- provide an `unifiedControlPlaneImage` to be used instead of single images
+- provide an `unifiedControlPlaneImage` to be used instead of single image
   for control plane components
 - provide an `etcd.image` name to be used
 

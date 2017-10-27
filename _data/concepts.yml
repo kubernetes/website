@@ -20,6 +20,7 @@ toc:
   section:
   - docs/concepts/architecture/nodes.md
   - docs/concepts/architecture/master-node-communication.md
+  - docs/concepts/architecture/cloud-controller.md
 
 - title: Extending the Kubernetes API
   section:
@@ -40,7 +41,9 @@ toc:
     - docs/concepts/workloads/pods/pod.md
     - docs/concepts/workloads/pods/pod-lifecycle.md
     - docs/concepts/workloads/pods/init-containers.md
+    - docs/concepts/workloads/pods/podpreset.md
     - docs/concepts/workloads/pods/disruptions.md
+    - docs/concepts/abstractions/pod-termination.md
   - title: Controllers
     section:
     - docs/concepts/workloads/controllers/replicaset.md
@@ -81,6 +84,7 @@ toc:
 - title: Cluster Administration
   section:
   - docs/concepts/cluster-administration/cluster-administration-overview.md
+  - docs/concepts/cluster-administration/certificates.md
   - docs/concepts/cluster-administration/cloud-providers.md
   - docs/concepts/cluster-administration/manage-deployment.md
   - docs/concepts/cluster-administration/networking.md

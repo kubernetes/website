@@ -5,7 +5,7 @@ title: Configuration Best Practices
 ---
 
 {% capture overview %}
-This document highlights and consolidates configuration best practices that are introduced throughout the user-guide, getting-started documentation, and examples.
+This document highlights and consolidates configuration best practices that are introduced throughout the user-guide, getting-started documentation and examples.
 
 This is a living document. If you think of something that is not on this list but might be useful to others, please don't hesitate to file an issue or submit a PR.
 {% endcapture %}
@@ -62,9 +62,9 @@ This is a living document. If you think of something that is not on this list bu
 
   A service can be made to span multiple deployments, such as is done across [rolling updates](/docs/tasks/run-application/rolling-update-replication-controller/), by simply omitting release-specific labels from its selector, rather than updating a service's selector to match the replication controller's selector fully.
 
-- To facilitate rolling updates, include version info in replication controller names, for example as a suffix to the name. It is useful to set a 'version' label as well. The rolling update creates a new controller as opposed to modifying the existing controller. So, there will be issues with version-agnostic controller names. See the [documentation](/docs/tasks/run-application/rolling-update-replication-controller/) on the rolling-update command for more detail.
+- To facilitate rolling updates, include version info in replication controller names, for example as a suffix to the name. It is useful to set a `version` label as well. The rolling update creates a new controller as opposed to modifying the existing controller. So, there will be issues with version-agnostic controller names. See the [documentation](/docs/tasks/run-application/rolling-update-replication-controller/) on the rolling-update command for more detail.
 
-  Note that the [Deployment](/docs/concepts/workloads/controllers/deployment/) object obviates the need to manage replication controller 'version names'. A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate. (Deployment objects are currently part of the [`extensions` API Group](/docs/concepts/overview/kubernetes-api/#api-groups).)
+  Note that the [Deployment](/docs/concepts/workloads/controllers/deployment/) object obviates the need to manage replication controller `version names`. A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate. (Deployment objects are currently part of the [`extensions` API Group](/docs/concepts/overview/kubernetes-api/#api-groups).)
 
 - You can manipulate labels for debugging. Because Kubernetes replication controllers and services match to pods using labels, this allows you to remove a pod from being considered by a controller, or served traffic by a service, by removing the relevant selector labels. If you remove the labels of an existing pod, its controller will create a new pod to take its place. This is a useful way to debug a previously "live" pod in a quarantine environment. See the [`kubectl label`](/docs/concepts/overview/working-with-objects/labels/) command.
 

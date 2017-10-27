@@ -50,7 +50,19 @@ There are two ways PVs may be provisioned: statically or dynamically.
 A cluster administrator creates a number of PVs. They carry the details of the real storage which is available for use by cluster users.  They exist in the Kubernetes API and are available for consumption.
 
 #### Dynamic
-When none of the static PVs the administrator created matches a user's `PersistentVolumeClaim`, the cluster may try to dynamically provision a volume specially for the PVC. This provisioning is based on `StorageClasses`: the PVC must request a class and the administrator must have created and configured that class in order for dynamic provisioning to occur. Claims that request the class `""` effectively disable dynamic provisioning for themselves.
+When none of the static PVs the administrator created matches a user's `PersistentVolumeClaim`,
+the cluster may try to dynamically provision a volume specially for the PVC.
+This provisioning is based on `StorageClasses`: the PVC must request a class and
+the administrator must have created and configured that class in order for dynamic
+provisioning to occur. Claims that request the class `""` effectively disable
+dynamic provisioning for themselves.
+
+To enable dynamic storage provisioning based on storage class, the cluster administrator
+needs to enable the `DefaultStorageClass` [admission controller](/docs/admin/admission-controllers/#defaultstorageclass)
+on the API server. This can be done, for example, by ensuring that `DefaultStorageClass` is
+among the comma-delimited, ordered list of values for the `--admission-control` flag of 
+the API server component. For more information on API server command line flags,
+please check [kube-apiserver](/docs/admin/kube-apiserver/) documentation.
 
 ### Binding
 
@@ -139,7 +151,7 @@ allowVolumeExpansion: true
 Once both feature gate and aforementioned admission plug-in are turned on, an user can request larger volume for their `PersistentVolumeClaim`
 by simply editing the claim and requesting bigger size.  This in turn will trigger expansion of volume that is backing underlying `PersistentVolume`.
 
-Under no circustances a new `PersistentVolume` gets created to satisfy the claim. Kubernetes will attempt to resize existing volume to satisfy the claim.
+Under no circumstances a new `PersistentVolume` gets created to satisfy the claim. Kubernetes will attempt to resize existing volume to satisfy the claim.
 
 
 ## Types of Persistent Volumes

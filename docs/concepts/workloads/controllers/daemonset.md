@@ -32,7 +32,7 @@ different flags and/or different memory and cpu requests for different hardware 
 
 ### Create a DaemonSet
 
-You can describe a DaemonSet in a YAML file. For example, the daemonset.yaml file below describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
+You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` file below describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
 
 {% include code.html language="yaml" file="daemonset.yaml" ghlink="/docs/concepts/workloads/controllers/daemonset.yaml" %}
 
@@ -80,8 +80,7 @@ The `spec.selector` is an object consisting of two fields:
 
 When the two are specified the result is ANDed.
 
-If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`.  If not
-specified, they are defaulted to be equal.  Config with these not matching will be rejected by the API.
+If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`. Config with these not matching will be rejected by the API.
 
 Also you should not normally create any Pods whose labels match this selector, either directly, via
 another DaemonSet, or via other controller such as ReplicaSet.  Otherwise, the DaemonSet
@@ -110,7 +109,7 @@ when the Pod is created, so it is ignored by the scheduler).  Therefore:
  - The DaemonSet controller can make Pods even when the scheduler has not been started, which can help cluster
    bootstrap.
 
-Daemon Pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature),
+Daemon Pods do respect [taints and tolerations](/docs/concepts/configuration/taint-and-toleration),
 but they are created with `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
  - `node.kubernetes.io/not-ready`

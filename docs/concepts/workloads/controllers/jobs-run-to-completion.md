@@ -155,7 +155,7 @@ A job can be scaled up using the `kubectl scale` command.  For example, the foll
 command sets `.spec.parallelism` of a job called `myjob` to 10:
 
 ```shell
-$ kubectl scale  --replicas=$N jobs/myjob
+$ kubectl scale  --replicas=10 jobs/myjob
 job "myjob" scaled
 ```
 
@@ -180,7 +180,7 @@ a non-zero exit code, or the Container was killed for exceeding a memory limit, 
 happens, and the `.spec.template.spec.restartPolicy = "OnFailure"`, then the Pod stays
 on the node, but the Container is re-run.  Therefore, your program needs to handle the case when it is
 restarted locally, or else specify `.spec.template.spec.restartPolicy = "Never"`.
-See [pods-states](/docs/user-guide/pod-states) for more information on `restartPolicy`.
+See [pods-states](/docs/concepts/workloads/pods/pod-lifecycle/#example-states) for more information on `restartPolicy`.
 
 An entire Pod can also fail, for a number of reasons, such as when the pod is kicked off the node
 (node is upgraded, rebooted, deleted, etc.), or if a container of the Pod fails and the
@@ -199,7 +199,7 @@ multiple pods running at once.  Therefore, your pods must also be tolerant of co
 ### Pod Backoff failure policy
 
 There are situations where you want to fail a Job after some amount of retries due to a logical error in configuration etc.
-To do so set `.spec.template.spec.backoffLimit` to specify the number of retries before considering a Job as failed.
+To do so set `.spec.backoffLimit` to specify the number of retries before considering a Job as failed.
 The back-off limit is set by default to 6. Failed Pods associated with the Job are recreated by the Job controller with an exponential back-off delay (10s, 20s, 40s ...) capped at six minutes, The back-off limit is reset if no new failed Pods appear before the Job's next status check.
 
 ## Job Termination and Cleanup
@@ -226,6 +226,7 @@ kind: Job
 metadata:
   name: pi-with-timeout
 spec:
+  backoffLimit: 5
   activeDeadlineSeconds: 100
   template:
     metadata:
@@ -236,7 +237,6 @@ spec:
         image: perl
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
-      backoffLimit: 5
 ```
 
 Note that both the Job Spec and the Pod Template Spec within the Job have a field with the same name.

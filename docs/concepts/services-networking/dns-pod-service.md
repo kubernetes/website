@@ -343,6 +343,7 @@ kubectl get ep kube-dns --namespace=kube-system
 ```
 
 You should see something like:
+
 ```
 NAME       ENDPOINTS                       AGE
 kube-dns   10.180.3.17:53,10.180.3.17:53    1h

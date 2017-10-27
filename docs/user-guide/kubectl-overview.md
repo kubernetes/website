@@ -5,7 +5,7 @@ approvers:
 title: Overview of kubectl
 ---
 
-`kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
+`kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
 
 ## Syntax
 
@@ -21,9 +21,9 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-sensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
-    $ kubectl get pod pod1
-    $ kubectl get pods pod1
-    $ kubectl get po pod1
+      $ kubectl get pod pod1
+      $ kubectl get pods pod1
+      $ kubectl get po pod1
    
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `$ kubectl get pods`.
 
@@ -38,7 +38,8 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
         Example: `$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
         
    * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
-     [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-config-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
+   
+        * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-config-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
      Example: `$ kubectl get pod -f ./pod.yaml`
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
 **Important**: Flags that you specify from the command line override default values and any corresponding environment variables.
@@ -78,7 +79,7 @@ Operation       | Syntax    |       Description
 `stop`        | `kubectl stop` | Deprecated: Instead, see `kubectl delete`.
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 
-Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl) reference documentation.
+Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
 
 ## Resource types
 
@@ -127,7 +128,7 @@ Resource type    | Abbreviated alias
 
 ## Output options
 
-Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl) reference documentation.
+Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
 
 ### Formatting output
 
@@ -158,7 +159,7 @@ In this example, the following command outputs the details for a single pod as a
 
 `$ kubectl get pod web-pod-13je7 -o=yaml`
 
-Remember: See the [kubectl](/docs/user-guide/kubectl) reference documentation for details about which output format is supported by each command.
+Remember: See the [kubectl](/docs/user-guide/kubectl/) reference documentation for details about which output format is supported by each command.
 
 #### Custom columns
 
@@ -302,4 +303,4 @@ $ kubectl logs -f <pod-name>
 
 ## Next steps
 
-Start using the [kubectl](/docs/user-guide/kubectl) commands.
+Start using the [kubectl](/docs/user-guide/kubectl/) commands.

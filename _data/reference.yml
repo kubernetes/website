@@ -2,6 +2,7 @@ bigheader: "Reference Documentation"
 abstract: "Design docs, concept definitions, and references for APIs and CLIs."
 toc:
 - docs/reference/index.md
+- docs/reference/glossary.md
 
 - title: Using the API
   section:
@@ -29,12 +30,6 @@ toc:
   section:
   - title: v1.8
     path: /docs/api-reference/v1.8/
-  - title: v1.7
-    path: /docs/api-reference/v1.7/
-  - title: v1.6
-    path: /docs/api-reference/v1.6/
-  - title: v1.5
-    path: /docs/api-reference/v1.5/
   - docs/reference/labels-annotations-taints.md
   - title: OpenAPI and Swagger
     section:
@@ -88,10 +83,12 @@ toc:
 - title: Config Reference
   section:
   - docs/admin/kubelet.md
+  - docs/admin/kubelet-authentication-authorization.md
   - docs/admin/kube-apiserver.md
   - docs/admin/kube-controller-manager.md
   - docs/admin/kube-proxy.md
   - docs/admin/kube-scheduler.md
+  - docs/admin/kubelet-tls-bootstrapping.md
   - docs/admin/federation-apiserver.md
   - docs/admin/federation-controller-manager.md
 
@@ -114,5 +111,3 @@ toc:
   - title: Kubernetes Issue Tracker on GitHub
     path: https://github.com/kubernetes/kubernetes/issues/
   - docs/reference/security.md
-
-
