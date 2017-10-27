@@ -15,7 +15,7 @@ secrets, volumes, volume mounts, and environment variables.
 {% capture body %}
 ## Understanding Pod Presets
 
-A "Pod Preset" is an API resource for injecting additional runtime requirements
+A `Pod Preset` is an API resource for injecting additional runtime requirements
 into a Pod at creation time.
 You use [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 to specify the Pods to which a given Pod Preset applies.
