@@ -214,8 +214,8 @@ systemctl enable kubelet && systemctl start kubelet
 {% endcapture %}
 
 {% assign tab_set_name = "k8s_install" %}
-{% assign tab_names = "Ubuntu, Debian or HypriotOS;CentOS, RHEL or Fedora" | split: ';' | compact %}
-{% assign tab_contents = site.emptyArray | push: ubuntu | push: centos %}
+{% assign tab_names = "Ubuntu; Debian or HypriotOS;CentOS, RHEL or Fedora" | split: ';' | compact %}
+{% assign tab_contents = site.emptyArray | push: ubuntu | push: debian | push: centos %}
 
 {% include tabs.md %}
 
