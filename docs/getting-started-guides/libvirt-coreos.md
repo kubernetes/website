@@ -47,8 +47,8 @@ On the other hand, `libvirt-coreos` might be useful for people investigating low
 1. Install [openssl](http://openssl.org/)
 1. Enable and start the libvirt daemon, e.g.:
 
-   - `systemctl enable libvirtd && systemctl start libvirtd`  for systemd-based systems
-   - `/etc/init.d/libvirt-bin start`  for init.d-based systems
+    - `systemctl enable libvirtd && systemctl start libvirtd`  for systemd-based systems
+    - `/etc/init.d/libvirt-bin start`  for init.d-based systems
    
 1. [Grant libvirt access to your user¹](https://libvirt.org/aclpolkit.html)
 1. Check that your $HOME is accessible to the qemu user²
