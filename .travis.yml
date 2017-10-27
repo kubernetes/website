@@ -6,7 +6,7 @@ go:
 install:
 - export PATH=$GOPATH/bin:$PATH
 - mkdir -p $HOME/gopath/src/k8s.io
-- mv $TRAVIS_BUILD_DIR $HOME/gopath/src/k8s.io/kubernetes.github.io
+- mv $TRAVIS_BUILD_DIR $HOME/gopath/src/k8s.io/website
 
 # (1) Fetch dependencies for us to run the tests in test/examples_test.go
 - go get -t -v k8s.io/kubernetes.github.io/test
@@ -16,5 +16,5 @@ install:
 - rm -r $GOPATH/src/k8s.io/kubernetes/vendor/
 
 script:
-- go test -v k8s.io/kubernetes.github.io/test
+- go test -v k8s.io/website/test
 - ./verify-docs-format.sh
