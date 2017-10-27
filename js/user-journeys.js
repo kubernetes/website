@@ -369,5 +369,10 @@ $( document ).ready(function() {
       $('#subTitle').text(cardText);
       $('.tab1.foundational').click();
   }
+  
 
+});
+
+$(document).ready(function() {
+   $("#beginner").trigger('click');
 });
