@@ -117,7 +117,7 @@ This section breaks down the access required on various API objects by the CCM t
 
 ### Node Controller
 
-The code controller only works with Node objects. It requires full access to get, list, create, update, patch, watch, and delete Node objects.
+The Node controller only works with Node objects. It requires full access to get, list, create, update, patch, watch, and delete Node objects.
 
 v1/Node: 
 - Get
