@@ -27,7 +27,7 @@ js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
 <div style='text-align: center;'>
     <div class="bar2" id="subTitle"></div>
     <div class="bar3">
-        <div class="tab1 foundational">
+        <div class="tab1 foundational" id="beginner">
             <i class="fa fa-cloud-download" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
             <br>
             <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
