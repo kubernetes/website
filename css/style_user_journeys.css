@@ -585,6 +585,11 @@ font-size:24px;
 
 }
 
+span .editthispage {
+display: -webkit-inline-box; 
+  
+}
+
 .sections {
   background-color:white;
   font-family: 'roboto';
