@@ -1,10 +1,14 @@
 bigheader: "Reference Documentation"
 abstract: "Design docs, concept definitions, and references for APIs and CLIs."
+landing_page: /docs/reference/index/
 toc:
 - docs/reference/index.md
-- docs/reference/glossary.md
+
+- title: Standardized Glossary
+  path: /docs/reference/glossary/
 
 - title: Using the API
+  landing_page: /docs/reference/api-overview/
   section:
   - docs/reference/api-overview.md
   - docs/reference/client-libraries.md
@@ -27,6 +31,7 @@ toc:
   - docs/reference/workloads-18-19.md
 
 - title: API Reference
+  landing_page: /docs/api-reference/v1.8/
   section:
   - title: v1.8
     path: /docs/api-reference/v1.8/
@@ -39,6 +44,7 @@ toc:
       path: https://git.k8s.io/kubernetes/api/swagger-spec/
 
 - title: Federation API
+  landing_page: /docs/reference/federation/v1/operations/
   section:
     - docs/reference/federation/v1/operations.html
     - docs/reference/federation/v1/definitions.html
@@ -48,6 +54,7 @@ toc:
     - docs/reference/federation/extensions/v1beta1/definitions.html
 
 - title: kubectl CLI
+  landing_page: /docs/user-guide/kubectl-overview/
   section:
   - docs/user-guide/kubectl-overview.md
   - docs/user-guide/kubectl/index.md
@@ -65,10 +72,12 @@ toc:
   - docs/user-guide/kubectl-cheatsheet.md
 
 - title: Cloud Controller Manager
+  landing_page: /docs/admin/cloud-controller-manager/
   section:
   - docs/admin/cloud-controller-manager.md
 
 - title: Setup Tools
+  landing_page: /docs/admin/kubeadm/
   section:
   - docs/admin/kubeadm.md
   - title: Kubefed
@@ -81,6 +90,7 @@ toc:
     - docs/admin/kubefed_version.md
 
 - title: Config Reference
+  landing_page: /docs/admin/kubelet/
   section:
   - docs/admin/kubelet.md
   - docs/admin/kubelet-authentication-authorization.md
@@ -93,6 +103,7 @@ toc:
   - docs/admin/federation-controller-manager.md
 
 - title: Kubernetes Design Docs
+  landing_page: https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md
   section:
   - title: Kubernetes Architecture
     path: https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md
@@ -107,6 +118,7 @@ toc:
     path: https://git.k8s.io/community/contributors/design-proposals/auth/security.md
 
 - title: Kubernetes Issues and Security
+  landing_page: https://github.com/kubernetes/kubernetes/issues/
   section:
   - title: Kubernetes Issue Tracker on GitHub
     path: https://github.com/kubernetes/kubernetes/issues/

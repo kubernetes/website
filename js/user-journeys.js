@@ -333,6 +333,10 @@ $( document ).ready(function() {
     }
 
     $('.bar1 .users').click();
+    setTimeout(function() {
+      var el = {'currentTarget' : $('div[data-button="app_developer"')[0]};
+      handleCardClick(el, true);
+    },200);
     $('.cards .buttons').on('click', handleCardClick);
     $('.tab1').on('click', function(e) {
         $('.tab1').removeClass('selected');
@@ -358,12 +362,13 @@ $( document ).ready(function() {
       $('.infobarWrapper').css('visibility', 'visible');
   }
 
-  function handleCardClick(e) {
+  function handleCardClick(e, stopScroll) {
       $('.buttons').removeClass('selected');
       $(this).addClass('selected');
-
-      $('html,body').animate({scrollTop: $("#subTitle").offset().top},'slow');
-
+      if(!stopScroll){
+        $('html,body').animate({scrollTop: $("#subTitle").offset().top},'slow');
+      }
+      $(e.currentTarget).addClass('selected');
       selected.button = e.currentTarget.getAttribute('data-button');
       var cardText = e.currentTarget.innerText;
       $('#subTitle').text(cardText);
@@ -371,8 +376,20 @@ $( document ).ready(function() {
   }
   
 
-});
+    setTimeout(function() {
 
-$(document).ready(function() {
    $("#beginner").trigger('click');
+      
+    } ,500); 
 });
+function showOnlyDocs(flag){
+  if(flag){
+    jQuery('.applicationDeveloperContainer').hide();
+    jQuery('.infobarWrapper').hide();
+    jQuery('#cardWrapper').hide()
+  }else{
+    jQuery('.applicationDeveloperContainer').show();
+    jQuery('.infobarWrapper').show();
+    jQuery('#cardWrapper').show()
+  }
+}

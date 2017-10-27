@@ -9,18 +9,28 @@ a {
 }
 
 #encyclopedia {
-padding: 0px !important;  
-  
+padding: 0px !important;
+
+}
+
+
+span .editthispage {
+display: -webkit-inline-box !important;
+
+}
+
+.editthispage {
+display: -webkit-inline-box !important;
 }
 
 h1 {
- 
+
 padding: 3% !important;
 text-align: center !important;
-font-size: 22pt !important; 
+font-size: 22pt !important;
  font-weight:normal;
   color:#303030;
-  
+
 }
 
 .container {
@@ -52,7 +62,7 @@ width:80%;
 
 .browsedocs {
   font-family: 'roboto' !important;
-  width:70%;
+  width:75%;
   margin-top:2%;
   margin-bottom:5%;
   margin-left:15%;
@@ -96,36 +106,142 @@ width:80%;
 
 }
 .browseheader a{
- 
+
    color:white !important;
-  
+
 }
 
 
 
 .topheader {
-
- background: url('header.jpg');
- color:#ffffff;
+ background-color: white !important;
+ color:#303030;
  font-family: 'roboto';
  text-align:center;
- padding:6%;
+ padding:3%;
  font-weight:100;
+ font-size:24pt;
+ letter-spacing:0.08em;
 
-font-size:24pt;
-letter-spacing:0.08em;
+}
 
-background-repeat:repeat;
-background-size:contain;
-background-position:center;
+.docssectionheaders {
+ background-color: #ffffff !important;
+ color:#3371e3;
+ font-family: 'roboto';
+ text-align:center;
+ padding:3%;
 
+ font-weight:100;
+ font-size:22pt;
+ letter-spacing:0.06em;
+}
+
+.docscols {
+width:100%;
+float:left;
+}
+
+.section1 {
+width:100%;
+float:left;
+}
+
+
+.docscol1 {
+background-color:#eeeeee;
+padding:2%;
+margin-right:2%;
+width:28% !important;
+display:inline-block;
+float:left;
+
+}
+
+.docscol2 {
+background-color:#ffffff;
+border:1px solid #aaaaaa;
+padding:2%;
+width:30% !important;
+float:left;
+margin-right:1%;
+display:inline-block;
+
+}
+
+.docscol3 {
+background-color:#ffffff;
+padding:1.5%;
+width:27% !important;
+display:inline-block;
+float:right;
+border:1px solid blue;
+
+}
+
+.docscoltitle {
+float:left;
+padding-top:2%;
+margin-right:2%;
+padding-bottom:3%;
+font-size:12pt;
+font-weight:400;
+color:#3371e3;
+
+}
+
+.docsfullcol1 {
+
+  width:95%;
+  padding:2%;
+  margin:3%;
+}
+
+.docsfullcol2 {
+
+  width:95%;
+  padding:2%;
+  background-color:#eeeeee;
+margin:3%;
+}
+
+.docsfullcol3 {
+background-color:#ffffff;
+padding:2%;
+width:95%;
+display:inline-block;
+
+border:1px solid blue;
+margin:3%;
+
+}
+
+.docsfullcol1icon {
+  width:5%;
+  padding:2%;
+}
+
+.docstitle2 {
+padding:0%;
+padding-bottom:3%;
+font-size:16pt;
+text-align:center;
+font-weight:400;
+padding-top:2%;
+color:#3371e3;
+}
+
+.material-icons {
+
+font-size:50pt !important;
+color:#3371e3;
 
 }
 
 .bar1 {
-padding:1%;
-background-color:#3371e3;
-text-align:center;
+ padding:1%;
+ background-color:#3371e3;
+ text-align:center;
 
 }
 
@@ -218,7 +334,7 @@ button {
 }
 
 
-.navButton:hover {
+.navButton:hover, .keepShow {
 
   background-color:#3371e3;
   color:white;
@@ -244,6 +360,7 @@ button {
   display: inline-block;
   width:250px;
   vertical-align:middle;
+  line-height:1.3em;
 
 
 }
@@ -310,13 +427,13 @@ button {
 
 }
 
-.keepShow {
+/*.keepShow {
 
   background-color:white;
   color:#3371e3;
   border: 2px solid white;
 
-}
+}*/
 
 .tab1 {
   background-color:#ffffff;
@@ -384,7 +501,7 @@ i {
 }
 .infobarWrapper {
     visibility: hidden;
-    height: 70vh;
+    height: 60vh;
 }
 .infobar {
     padding:0%;
@@ -404,8 +521,8 @@ i {
     font-weight:bold;
     color:#ffffff;
     font-family: 'roboto';
-    width:72%;
-    margin-left:12%;
+    width:70%;
+    margin-left:15%;
     margin-bottom:3%;
 
 
@@ -417,11 +534,11 @@ i {
   border-radius: 5px; /* future proofing */
   -khtml-border-radius: 5px; /* for old Konqueror browsers */
   background-color:#ffffff;
-      text-transform:none;
+  text-transform:none;
   padding:3%;
   font-size:15px;
   z-index:99;
-  font-weight:100;
+  font-weight:400;
   line-height:18pt;
   color:#606060;
   margin:1%;
@@ -499,12 +616,12 @@ font-size:24px;
   -webkit-border-radius: 5px;
   border-radius: 5px; /* future proofing */
   -khtml-border-radius: 5px; /* for old Konqueror browsers */
-  border: 1.5px solid white;
+  border: 1.5px solid #3371e3;
   padding:1%;
-  background-color:#3371e3;
+  background-color:#eeeeee;
   font-size:13px;
   margin:.5%;
-  color:white;
+  color:#3371e3;
   font-family: 'roboto';
   text-transform:uppercase;
   text-align:center;
@@ -524,9 +641,9 @@ font-size:24px;
 
 .tablebar {
   text-align:center;
-  background-color:#3371e3;
+  background-color:#eeeeee;
   padding:1.5%;
-  border-bottom:1px solid #3371e3;
+
 }
 
 .docsection1 {
@@ -585,16 +702,12 @@ font-size:24px;
 
 }
 
-span .editthispage {
-display: -webkit-inline-box; 
-  
-}
 
 .sections {
-  background-color:white;
+  background-color:#303030;
   font-family: 'roboto';
   padding:1%;
-  color:#3371e3;
+  color:white;
   font-weight:500;
   text-align:center;
   text-transform:uppercase;
@@ -605,15 +718,10 @@ display: -webkit-inline-box;
 
 
 }
-© 2017 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-API
-Training
-Shop
-Blog
-About
+
+
+.quotedocs {
+  line-height:26pt;
+ font-size:16pt;
+
+}

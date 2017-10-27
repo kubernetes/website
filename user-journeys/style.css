@@ -17,11 +17,11 @@ width:80%;
 
 .topheader {
 
- background: url('header.jpg');
- color:#ffffff;
+ background-color: white;
+ color:#303030;
  font-family: 'roboto';
  text-align:center;
- padding:6%;
+ padding:3%;
  font-weight:100;
 
 font-size:24pt;
@@ -479,7 +479,7 @@ font-size:24px;
 }
 
 .track {
-  background-color:#3399ff;
+  background-color:#303030;
   font-family: 'roboto';
   padding:1.5%;
   color:white;

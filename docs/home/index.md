@@ -6,6 +6,7 @@ layout: docsportal
 cid: userJourneys
 css: /css/style_user_journeys.css
 js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
+display_browse_numbers: true
 ---
 
 {% unless page.notitle %}
@@ -13,10 +14,10 @@ js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
 {% endunless %}
 
 <div class="bar1">
-    <div class="navButton users">Users</div>
-    <div class="navButton contributors">Contributors</div>
-    <div class="navButton migrators">Migration&nbsp;Paths</div>
-    <a href="#browsedocs"> <div class="navButton">Browse Docs</div></a>
+    <div class="navButton users" onClick="showOnlyDocs(false)">Users</div>
+    <div class="navButton contributors" onClick="showOnlyDocs(false)">Contributors</div>
+    <div class="navButton migrators" onClick="showOnlyDocs(false)">Migration&nbsp;Paths</div>
+    <a onClick="showOnlyDocs(true)"> <div class="navButton">Browse Docs</div></a>
 </div>
 
 <div id="cardWrapper">
@@ -24,8 +25,8 @@ js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
   <div class='cards'></div>
 </div>
 
-<div style='text-align: center;'>
-    <div class="bar2" id="subTitle"></div>
+<div style='text-align: center;' class="applicationDeveloperContainer">
+    <div class="bar2" id="subTitle">LEVEL</div>
     <div class="bar3">
         <div class="tab1 foundational" id="beginner">
             <i class="fa fa-cloud-download" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
@@ -77,140 +78,53 @@ js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
 </div>
 
 
-  <div class="browseheader">
-      <a name="browsedocs">  Browse Docs</a>
-      </div>
-    
+<div class="browseheader" id="browsedocs">
+    <a name="browsedocs">  Browse Docs</a>
+</div>
+
 <div class="browsedocs">
 
-<div class="browsesection" id="browsedocs">
+{% assign sections = "setup,concepts,tasks,tutorials,reference" | split: "," %}
 
-        <div class="docstitle">
-          <a href="#">Setup</a>
-        </div>
+{% for section_id in sections %}
 
-        <div class="pages">
-            <div class="browsecolumn">
-
-            <a href="/getting-started/what-is-npm" >01 - Picking the Right Solution</a><br>
-            <a href="/getting-started/installing-node" >02 - Independent Solutions</a><br>
-          </div>
-          <div class="browsecolumn">
-            <a href="/getting-started/fixing-npm-permissions" >03 - Hosted Solutions</a><br>
-            <a href="/getting-started/installing-npm-packages-locally" >04 - Turn-key Cloud Solutions</a><br>
-            </div>
-            <div class="browsecolumn">
-            <a href="/getting-started/using-a-package.json" >05 - Custom Solutions</a><br>
-          </div>
-
-
-        </div>
-
-  </div>
+  {% assign section_data = site.data.[section_id] %}
+  {% assign section_toc = section_data.toc %}
 
   <div class="browsesection">
-
-        <div class="docstitle">
-          <a href="#">Concepts</a>
-        </div>
-
-        <div class="pages">
-          <div class="browsecolumn">
-            <a href="/how-npm-works/packages" >01 - Overview</a><br>
-            <a href="/how-npm-works/npm2" >02 - Kubernetes Architecture</a><br>
-            <a href="/how-npm-works/npm3" >03 - Extending the Kubernetes API</a><br>
-          </div>
-            <div class="browsecolumn">
-            <a href="/how-npm-works/npm3-dupe" >04 - Containers</a><br>
-            <a href="/how-npm-works/npm3-nondet" >05 - Workloads</a><br>
-
-            <a href="/how-npm-works/npm3" >06 - Configuration</a><br>
-          </div>
-            <div class="browsecolumn">
-            <a href="/how-npm-works/npm3-dupe" >07 - Services, Load Balancing, and Networking</a><br>
-            <a href="/how-npm-works/npm3-nondet" >08 - Storage</a><br>
-            <a href="/how-npm-works/npm3-nondet" >09 - Cluster Administration</a><br>
-          </div>
-        </div>
-</div>
-
-<div class="browsesection">
-        <div class="docstitle">
-          <a href="#">Tasks</a>
-        </div>
-
-        <div class="pages">
-              <div class="browsecolumn">
-            <a href="/private-modules/intro" >01 - Install Tools</a><br>
-            <a href="/private-modules/ci-server-config" >02 - Configure Pods and Containers</a><br>
-            <a href="/private-modules/docker-and-private-modules" >03 - Inject Data Into Applications</a><br>
-            <a href="/private-modules/intro" >04 - Run Applications</a><br>
-            <a href="/private-modules/ci-server-config" >05 - Run Jobs</a><br>
-          </div>
-              <div class="browsecolumn">
-            <a href="/private-modules/docker-and-private-modules" >06 - Access Applications in a Cluster</a><br>
-            <a href="/private-modules/intro" >07 - Monitor, Log, and Debug</a><br>
-            <a href="/private-modules/ci-server-config" >08 - Access and Extend the Kubernetes API</a><br>
-            <a href="/private-modules/docker-and-private-modules" >09 - TLS</a><br>
-            <a href="/private-modules/intro" >10 - Administer a Cluster</a><br>
-          </div>
-              <div class="browsecolumn">
-            <a href="/private-modules/ci-server-config" >11 - Federation - Run an App on Multiple Clusters</a><br>
-            <a href="/private-modules/docker-and-private-modules" >12 - Manage Cluster Daemons</a><br>
-            <a href="/private-modules/intro" >13 - Manage GPUs</a><br>
-            <a href="/private-modules/ci-server-config" >14 - Manage HugePages</a><br>
-            <a href="/private-modules/docker-and-private-modules" >15 - Extend kubectl with plugins</a><br>
-          </div>
-        </div>
-
-</div>
-<div class="browsesection">
-        <div class="docstitle">
-          <a href="#">Tutorials</a>
-        </div>
-
-        <div class="pages">
-          <div class="browsecolumn">
-            <a href="/troubleshooting/try-the-latest-stable-version-of-node" >01 - Kubernetes Basics</a><br>
-            <a href="/troubleshooting/try-the-latest-stable-version-of-npm" >02 - Online Training Courses</a><br>
-            <a href="/troubleshooting/if-your-npm-is-broken" >03 - Configuration</a><br>
-          </div>
-          <div class="browsecolumn">
-            <a href="/troubleshooting/try-clearing-the-npm-cache" >04 - Object Management Using kubectl</a><br>
-
-            <a href="/troubleshooting/common-errors" >05 - Stateless Applications</a><br>
-            <a href="/troubleshooting/try-clearing-the-npm-cache" >06 - Stateful Applications</a><br>
-          </div>
-          <div class="browsecolumn">
-            <a href="/troubleshooting/common-errors" >07 - Clusters</a><br>
-            <a href="/troubleshooting/common-errors" >08 - Services</a><br>
-          </div>
-        </div>
-</div>
-
-<div class="browsesection">
-
-        <div class="docstitle">
-          <a href="#">Reference</a>
-        </div>
-
-        <div class="pages">
-          <div class="browsecolumn">
-            <a href="/misc/coding-style" >01 - Using the API</a><br>
-            <a href="/misc/config" >02 - API Reference</a><br>
-            <a href="/misc/developers" >03 - Federation API</a><br>
-          </div>
-              <div class="browsecolumn">
-            <a href="/misc/disputes" >04 - kubectl CLI</a><br>
-            <a href="/misc/orgs" >05 - Cloud Controller Manager</a><br>
-            <a href="/misc/registry" >06 - Setup Tools</a><br>
-          </div>
-              <div class="browsecolumn">
-            <a href="/misc/removing-npm" >07 - Config Reference</a><br>
-            <a href="/misc/scope" >08 - Kubernetes Design Docs</a><br>
-            <a href="/misc/scripts" >09 - Kubernetes Issues and Security</a><br>
-          </div>
-            <br><br><br><br><br>
-        </div>
+    <div class="docstitle">
+      <a href="{{ section_data.landing_page }}">{{ section_data.bigheader }}</a>
     </div>
+
+    {% assign section_toc = section_toc | where_exp: "elt", "elt.title != null" %}
+    {% assign num_pages = section_toc | size - 1 %}
+    {% assign column_size = num_pages | divided_by: 3.0 | ceil %}
+
+    <div class="pages">
+
+    {% for i in (1..num_pages) %}
+      {% assign offset = i | modulo: column_size %}
+      {% assign index = i | minus: 1 %}
+      {% assign section_elt = section_toc[index] %}
+
+      {% if page.display_browse_numbers %}
+        {% assign browse_number = i | prepend: "0" | slice: -2, 2 | append: " - " %}
+      {% else %}
+        {% assign browse_number = "" %}
+      {% endif %}
+
+      {% if offset == 1 %}
+        <div class="browsecolumn">
+      {% endif %}
+
+      {% assign elt_url = section_elt.path | default: section_elt.landing_page | default: "#" %}
+      <a href="{{ elt_url }}">{{ section_elt.title | prepend: browse_number }}</a><br>
+      {% if offset == 0 or i == num_pages %}
+        </div>
+      {% endif %}
+    {% endfor %}
+    </div>
+  </div>
+
+{% endfor %}
 </div>

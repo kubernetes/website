@@ -1,10 +1,14 @@
 bigheader: "Setup"
 abstract: "Instructions for setting up a Kubernetes cluster."
+landing_page: /docs/setup/index/
 toc:
 - docs/setup/index.md
-- docs/setup/pick-right-solution.md
+
+- title: Picking the Right Solution
+  path: /docs/setup/pick-right-solution/
 
 - title: Independent Solutions
+  landing_page: /docs/getting-started-guides/minikube/
   section:
   - docs/getting-started-guides/minikube.md
 
@@ -17,6 +21,7 @@ toc:
   - docs/getting-started-guides/alternatives.md
 
 - title: Hosted Solutions
+  landing_page: https://cloud.google.com/container-engine/docs/before-you-begin/
   section:
   - title: Running Kubernetes on Google Container Engine
     path: https://cloud.google.com/container-engine/docs/before-you-begin/
@@ -26,6 +31,7 @@ toc:
     path: https://console.ng.bluemix.net/docs/containers/container_index.html
 
 - title: Turn-key Cloud Solutions
+  landing_page: /docs/getting-started-guides/gce/
   section:
   - docs/getting-started-guides/gce.md
   - docs/getting-started-guides/aws.md
@@ -37,7 +43,7 @@ toc:
   - docs/getting-started-guides/stackpoint.md
 
 - title: Custom Solutions
-
+  landing_page: /docs/getting-started-guides/coreos/index/
   section:
   - title: Custom Cloud Solutions
     section:

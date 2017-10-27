@@ -1,9 +1,11 @@
 bigheader: "Concepts"
 abstract: "Detailed explanations of Kubernetes system concepts and abstractions."
+landing_page: /docs/concepts/index/
 toc:
 - docs/concepts/index.md
 
 - title: Overview
+  landing_page: /docs/concepts/overview/what-is-kubernetes/
   section:
   - docs/concepts/overview/what-is-kubernetes.md
   - docs/concepts/overview/components.md
@@ -17,23 +19,27 @@ toc:
   - docs/concepts/overview/kubernetes-api.md
 
 - title: Kubernetes Architecture
+  landing_page: /docs/concepts/architecture/nodes/
   section:
   - docs/concepts/architecture/nodes.md
   - docs/concepts/architecture/master-node-communication.md
   - docs/concepts/architecture/cloud-controller.md
 
 - title: Extending the Kubernetes API
+  landing_page: /docs/concepts/api-extension/custom-resources/
   section:
   - docs/concepts/api-extension/custom-resources.md
   - docs/concepts/api-extension/apiserver-aggregation.md
 
 - title: Containers
+  landing_page: /docs/concepts/containers/images/
   section:
   - docs/concepts/containers/images.md
   - docs/concepts/containers/container-environment-variables.md
   - docs/concepts/containers/container-lifecycle-hooks.md
 
 - title: Workloads
+  landing_page: /docs/concepts/workloads/pods/pod-overview/
   section:
   - title: Pods
     section:
@@ -56,6 +62,7 @@ toc:
     - docs/concepts/workloads/controllers/cron-jobs.md
 
 - title: Configuration
+  landing_page: /docs/concepts/configuration/overview/
   section:
   - docs/concepts/configuration/overview.md
   - docs/concepts/configuration/manage-compute-resources-container.md
@@ -66,6 +73,7 @@ toc:
   - docs/concepts/configuration/pod-priority-preemption.md
 
 - title: Services, Load Balancing, and Networking
+  landing_page: /docs/concepts/services-networking/service/
   section:
   - docs/concepts/services-networking/service.md
   - docs/concepts/services-networking/dns-pod-service.md
@@ -75,6 +83,7 @@ toc:
   - docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases.md
 
 - title: Storage
+  landing_page: /docs/concepts/storage/volumes/
   section:
   - docs/concepts/storage/volumes.md
   - docs/concepts/storage/persistent-volumes.md
@@ -82,6 +91,7 @@ toc:
     path: http://blog.kubernetes.io/2016/10/dynamic-provisioning-and-storage-in-kubernetes.html
 
 - title: Cluster Administration
+  landing_page: /docs/concepts/cluster-administration/cluster-administration-overview/
   section:
   - docs/concepts/cluster-administration/cluster-administration-overview.md
   - docs/concepts/cluster-administration/certificates.md
@@ -102,5 +112,3 @@ toc:
     section:
     - docs/concepts/policy/resource-quotas.md
     - docs/concepts/policy/pod-security-policy.md
-
-
