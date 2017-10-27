@@ -15,9 +15,9 @@ secrets, volumes, volume mounts, and environment variables.
 {% capture body %}
 ## Understanding Pod Presets
 
-A "Pod Preset" is an API resource for injecting additional runtime requirements
+A `Pod Preset` is an API resource for injecting additional runtime requirements
 into a Pod at creation time.
-You use [label selectors] (/docs/concepts/overview/working-with-objects/labels/#label-selectors)
+You use [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 to specify the Pods to which a given Pod Preset applies.
 
 Using a Pod Preset allows pod template authors to not have to explicitly provide 
@@ -39,7 +39,7 @@ When a pod creation request occurs, the system does the following:
    Pod being created.
 1. On error, throw an event documenting the merge error on the pod, and create
    the pod _without_ any injected resources from the `PodPreset`.
-1. Annotate the resulting mmodified Pod spec to indicate that it has been
+1. Annotate the resulting modified Pod spec to indicate that it has been
    modified by a `PodPreset`. The annotation is of the form
    `podpreset.admission.kubernetes.io/podpreset-<pod-preset name>": "<resource version>"`.
 
