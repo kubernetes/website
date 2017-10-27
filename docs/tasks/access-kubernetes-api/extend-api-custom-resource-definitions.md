@@ -151,6 +151,23 @@ metadata:
   resourceVersion: ""
   selfLink: ""
 ```
+
+## Delete a CustomResourceDefinition
+
+When you delete a CustomResourceDefinition, the server will uninstall the RESTful API  endpoint
+and **delete all custom objects stored in it**.
+
+```shell
+kubectl delete -f resourcedefinition.yaml
+kubectl get crontabs
+```
+
+```console
+Error from server (NotFound): Unable to list "crontabs": the server could not find the requested resource (get crontabs.stable.example.com)
+```
+
+If you later recreate the same CustomResourceDefinition, it will start out empty.
+
 {% endcapture %}
 
 {% capture discussion %}
