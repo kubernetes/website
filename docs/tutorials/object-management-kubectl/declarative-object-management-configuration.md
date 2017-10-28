@@ -188,7 +188,7 @@ Directly update the `replicas` field in the live configuration by using `kubectl
 This does not use `kubectl apply`:
 
 ```shell
-kubectl scale deployment/nginx-deployment --replicas 2
+kubectl scale deployment/nginx-deployment --replicas=2
 ```
 
 Print the live configuration using `kubectl get`:

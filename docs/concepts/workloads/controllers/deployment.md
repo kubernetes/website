@@ -43,10 +43,18 @@ In this example:
 
 * A Deployment named `nginx-deployment` is created, indicated by the `metadata: name` field.
 * The Deployment creates three replicated Pods, indicated by the `replicas` field.
+* The `selector` field defines how the Deployment finds which Pods to manage.
+  In this case, we simply select on one label defined in the Pod template (`app: nginx`).
+  However, more sophisticated selection rules are possible,
+  as long as the Pod template itself satisfies the rule.
 * The Pod template's specification, or `template: spec` field, indicates that
   the Pods run one container, `nginx`, which runs the `nginx`
   [Docker Hub](https://hub.docker.com/) image at version 1.7.9.
 * The Deployment opens port 80 for use by the Pods.
+
+Note: `matchLabels` is a map of {key,value} pairs. A single {key,value} in the matchLabels map 
+is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In",
+and the values array contains only "value". The requirements are ANDed.
 
 The `template` field contains the following instructions:
 
@@ -58,7 +66,7 @@ The `template` field contains the following instructions:
 To create this Deployment, run the following command:
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/concepts/workloads/controllers/nginx-deployment.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/website/master/docs/concepts/workloads/controllers/nginx-deployment.yaml
 ```
 
 Note: You can append `--record` to this command to record the current command in the annotations of

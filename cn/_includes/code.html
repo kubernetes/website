@@ -1,6 +1,6 @@
 {% capture samplecode %}{% include_relative {{include.file}} %}{% endcapture %}
 {% if include.k8slink %}{% capture ghlink %}https://raw.githubusercontent.com/kubernetes/kubernetes/blob/{{page.githubbranch}}{{include.k8slink}}{% endcapture %}{% endif %}
-{% if include.ghlink %}{% capture ghlink %}https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/{{page.docsbranch}}{{include.ghlink}}{% endcapture %}{% endif %}
+{% if include.ghlink %}{% capture ghlink %}https://raw.githubusercontent.com/kubernetes/website/{{page.docsbranch}}{{include.ghlink}}{% endcapture %}{% endif %}
 {% capture mysample %}
 ```{{include.language}}
 {{ samplecode | raw | strip }}

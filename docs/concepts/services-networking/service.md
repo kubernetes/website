@@ -207,6 +207,36 @@ having working [readiness probes](/docs/tasks/configure-pod-container/configure-
 
 ![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
 
+### Proxy-mode: ipvs[alpha]
+
+**Warning:** This is an alpha feature and not recommended for production clusters yet.
+
+In this mode, kube-proxy watches Kubernetes `services` and `endpoints`,
+call `netlink` interface create ipvs rules accordingly and sync ipvs rules with Kubernetes
+`services` and `endpoints`  periodically, to make sure ipvs status is
+consistent with the expectation. When access the `service`, traffic will
+be redirect to one of the backend `pod`.
+
+Similar to iptables, Ipvs is based on netfilter hook function, but use hash
+table as the underlying data structure and work in the kernal state.
+That means ipvs redirects traffic can be much faster, and have much
+better performance when sync proxy rules. Furthermore, ipvs provides more
+options for load balancing algorithm, such as:
+
+- rr: round-robin
+- lc: least connection
+- dh: destination hashing
+- sh: source hashing
+- sed: shortest expected delay
+- nq: never queue
+
+**Note:** ipvs mode assumed IPVS kernel modules are installed on the node
+before running kube-proxy. When kube-proxy starts, if proxy mode is ipvs,
+kube-proxy would validate if IPVS modules are installed on the node, if
+it's not installed kube-proxy will fall back to iptables proxy mode.
+
+![Services overview diagram for ipvs proxy](/images/docs/services-ipvs-overview.svg)
+
 ## Multi-Port Services
 
 Many `Services` need to expose more than one port.  For this case, Kubernetes
@@ -389,7 +419,7 @@ configure environments that are not fully supported by Kubernetes, or
 even to just expose one or more nodes' IPs directly.
 
 Note that this Service will be visible as both `<NodeIP>:spec.ports[*].nodePort`
-and `spec.clusterIp:spec.ports[*].port`.
+and `spec.clusterIP:spec.ports[*].port`.
 
 ### Type LoadBalancer
 
@@ -449,10 +479,10 @@ Select one of the tabs.
 metadata:
     name: my-service
     annotations:
-        cloud.google.com/load-balancer-type: "internal"
+        cloud.google.com/load-balancer-type: "Internal"
 [...]
 ```
-
+Use `cloud.google.com/load-balancer-type: "internal"` for masters with version 1.7.0 to 1.7.3.  
 For more information, see the [docs](https://cloud.google.com/container-engine/docs/internal-load-balancing).
 {% endcapture %}
 

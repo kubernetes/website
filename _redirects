@@ -11,6 +11,7 @@
 
 /docs/admin/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
 /docs/admin/add-ons/     /docs/concepts/cluster-administration/addons/ 301
+/docs/admin/addons/     /docs/concepts/cluster-administration/addons/ 301
 /docs/admin/apparmor/     /docs/tutorials/clusters/apparmor/ 301
 /docs/admin/audit/     /docs/tasks/debug-application-cluster/audit/ 301
 /docs/admin/authorization/rbac.md     /docs/admin/authorization/rbac/ 301
@@ -51,6 +52,7 @@
 /docs/admin/static-pods/     /docs/tasks/administer-cluster/static-pod/ 301
 /docs/admin/sysctls/     /docs/concepts/cluster-administration/sysctl-cluster/ 301
 /docs/admin/upgrade-1-6/     /docs/tasks/administer-cluster/upgrade-1-6/ 301
+/docs/admin/resource-quota/     /docs/concepts/policy/resource-quotas/     301
 
 /docs/api/     /docs/concepts/overview/kubernetes-api/ 301
 
@@ -64,6 +66,7 @@
 /docs/api-reference/certificates.k8s.io/v1alpha1/definitions/     https://v1-4.docs.kubernetes.io/docs/api-reference/certificates.k8s.io/v1alpha1/definitions/ 301
 /docs/api-reference/certificates/v1alpha1/operations/     https://v1-4.docs.kubernetes.io/docs/api-reference/certificates/v1alpha1/operations/ 301
 /docs/api-reference/extensions/v1beta1/operations/     https://v1-4.docs.kubernetes.io/docs/api-reference/extensions/v1beta1/operations/ 301
+/docs/api-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
 /docs/api-reference/policy/v1alpha1/definitions/     https://v1-4.docs.kubernetes.io/docs/api-reference/policy/v1alpha1/definitions/ 301
 /docs/api-reference/policy/v1beta1/definitions/     https://v1-4.docs.kubernetes.io/docs/api-reference/policy/v1beta1/definitions/ 301
 /docs/api-reference/README/     https://v1-4.docs.kubernetes.io/docs/api-reference/README/ 301
@@ -97,7 +100,8 @@
 /docs/concepts/cluster-administration/resource-usage-monitoring /docs/tasks/debug-application-cluster/resource-usage-monitoring/ 301
 /docs/concepts/cluster-administration/static-pod/     /docs/tasks/administer-cluster/static-pod/ 301
 /docs/concepts/clusters/logging/     /docs/concepts/cluster-administration/logging/ 301
-/docs/concepts/configuration/container-command-arg/     /docs/tasks/inject-data-application/define-command-argument-container/ 301                
+/docs/concepts/configuration/container-command-arg/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
+/docs/concepts/configuration/container-command-args/     /docs/tasks/inject-data-application/define-command-argument-container/     301
 /docs/concepts/ecosystem/thirdpartyresource/     /docs/tasks/access-kubernetes-api/extend-api-third-party-resource/ 301
 /docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/jobs/run-to-completion-finite-workloads/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
@@ -119,6 +123,7 @@
 /docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
 /docs/concepts/workloads/controllers/deployment.md     /docs/concepts/workloads/controllers/deployment/ 301
 /docs/concepts/workloads/controllers/job/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
+/docs/concepts/workloads/controllers/petset/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/petsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301
@@ -274,6 +279,7 @@
 /docs/user-guide/compute-resources/     /docs/concepts/configuration/manage-compute-resources-container/ 301
 /docs/user-guide/config-best-practices/     /docs/concepts/configuration/overview/ 301
 /docs/user-guide/configmap/     /docs/tasks/configure-pod-container/configmap/ 301
+/docs/user-guide/configmap/README/     /docs/tasks/configure-pod-container/configure-pod-configmap/ 301
 /docs/user-guide/configuring-containers/     /docs/tasks/ 301
 /docs/user-guide/connecting-applications/     /docs/concepts/services-networking/connect-applications-service/ 301
 /docs/user-guide/connecting-to-applications-port-forward/     /docs/tasks/access-application-cluster/port-forward-access-application-cluster/ 301
@@ -286,6 +292,7 @@
 /docs/user-guide/deploying-applications/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/user-guide/deployments/     /docs/concepts/workloads/controllers/deployment/ 301
 /docs/user-guide/downward-api/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
+/docs/user-guide/downward-api/README/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
 /docs/user-guide/downward-api/volume/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
 /docs/user-guide/environment-guide/     /docs/tasks/inject-data-application/environment-variable-expose-pod-information/ 301
 /docs/user-guide/federation/     /docs/concepts/cluster-administration/federation/ 301
@@ -379,9 +386,11 @@
 /docs/user-guide/update-dem/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
 /docs/user-guide/update-demo/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
 /docs/user-guide/volumes/     /docs/concepts/storage/volumes/ 301
+
 /docs/user-guide/working-with-resources/     /docs/tutorials/object-management-kubectl/object-management/ 301
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301
+/events/     /docs/community     301
 /gettingstarted/     /docs/home/ 301
 /horizontal-pod-autoscaler/     /docs/tasks/run-application/horizontal-pod-autoscale/ 301
 /kubernetes/     /docs/ 301
@@ -389,6 +398,8 @@
 /kubernetes/swagger-spec/     https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/ 301
 /kubernetes/third_party/swagger-ui/     /docs/reference/ 301
 /latest/docs/     /docs/home/ 301
+/media/     /docs/community     301
+/news/     /docs/community     301
 /resource-quota/     /docs/concepts/policy/resource-quotas/ 301
 /serviceaccount/token/     /docs/tasks/configure-pod-container/configure-service-account/ 301
 /swagger-spec/*     https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/ 301
@@ -397,4 +408,3 @@
 /v1.1/docs/getting-started-guides/     /docs/tutorials/kubernetes-basics/ 301
 
 https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/"splat 301
-

@@ -18,7 +18,7 @@ need the features they provide.
 
 Namespaces provide a scope for names.  Names of resources need to be unique within a namespace, but not across namespaces.
 
-Namespaces are a way to divide cluster resources between multiple uses (via [resource quota](/docs/concepts/policy/resource-quotas/)).
+Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
 
 In future versions of Kubernetes, objects in the same namespace will have the same
 access control policies by default.

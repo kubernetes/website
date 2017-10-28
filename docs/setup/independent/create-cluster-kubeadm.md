@@ -178,6 +178,16 @@ as root:
 
   kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
+To make kubectl work for your non-root user, you might want to run these commands (which is also a part of the `kubeadm init` output):
+```
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+Alternatively, if you are the root user, you could run this:
+```
+export KUBECONFIG=/etc/kubernetes/admin.conf
+```
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
 will need this in a moment.
@@ -243,8 +253,8 @@ The official Canal set-up guide is [here](https://github.com/projectcalico/canal
  - Canal works on `amd64` only.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.6/rbac.yaml
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.6/canal.yaml
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/rbac.yaml
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/canal.yaml
 ```
 {% endcapture %}
 
@@ -555,11 +565,14 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
 
 1. **I tried to set `HostPort` on one workload, but it didn't have any effect**.
     The `HostPort` and `HostIP` functionality is available depending on your Pod Network
-    provider. Please contact the author of the Pod Network solution to find out whether
-    `HostPort` and `HostIP` functionality are available.
-
-    If not, you may still use the [NodePort feature of
-    services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
+    provider.
+    
+    - Verified HostPort CNI providers:
+        - Calico
+        - Canal
+        - Flannel
+    - [CNI portmap Documentation](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md)
+    - If your network provider does not support the portmap CNI plugin, you may need to use a [service of type NodePort](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
 
 1. **Pods cannot access themselves via their Service IP**.
     Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)

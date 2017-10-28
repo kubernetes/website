@@ -6,7 +6,7 @@ approvers:
 title: Picking the Right Solution
 ---
 
-Kubernetes can run on various platforms: from your laptop, to VMs on a cloud provider, to rack of
+Kubernetes can run on various platforms: from your laptop, to VMs on a cloud provider, to a rack of
 bare metal servers. The effort required to set up a cluster varies from running a single command to
 crafting your own customized cluster. Use this guide to choose a solution that fits your needs.
 
@@ -62,6 +62,7 @@ a Kubernetes cluster from scratch.
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
 few commands. These solutions are actively developed and have active community support.
 
+* [Conjure-up Kubernetes with Ubuntu on AWS, Azure, Google Cloud, Oracle Cloud](/docs/getting-started-guides/ubuntu/)
 * [Google Compute Engine (GCE)](/docs/getting-started-guides/gce/)
 * [AWS](/docs/getting-started-guides/aws/)
 * [Azure](/docs/getting-started-guides/azure/)
@@ -165,11 +166,14 @@ CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/gettin
 Vmware vSphere       | Saltstack    | Debian | OVS         | [docs](/docs/getting-started-guides/vsphere/)                                |  Community ([@imkin](https://github.com/imkin))
 Vmware Photon        | Saltstack    | Debian | OVS         | [docs](/docs/getting-started-guides/photon-controller/)                      |  Community ([@alainroy](https://github.com/alainroy))
 Bare-metal           | custom       | CentOS | flannel      | [docs](/docs/getting-started-guides/centos/centos_manual_config/)            |  Community ([@coolsvap](https://github.com/coolsvap))
-AWS                  | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
-GCE                  | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
-Bare Metal           | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
-Rackspace            | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
-Vmware vSphere       | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
+lxd                  | Juju         | Ubuntu | flannel/canal            | [docs](/docs/getting-started-guides/ubuntu/local/)              |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+AWS                  | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+Azure                | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+GCE                  | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+Oracle Cloud         | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+Rackspace            | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+Vmware vSphere       | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+Bare Metal           | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
 AWS                  | Saltstack    | Debian | AWS         | [docs](/docs/getting-started-guides/aws/)                                    |  Community ([@justinsb](https://github.com/justinsb))
 AWS                  | kops         | Debian | AWS         | [docs](https://github.com/kubernetes/kops/)                                  |  Community ([@justinsb](https://github.com/justinsb))
 Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                 |  Community ([@resouer](https://github.com/resouer), [@WIZARD-CXY](https://github.com/WIZARD-CXY))
