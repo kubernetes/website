@@ -140,7 +140,12 @@ You will install these packages on all of your machines:
 kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will 
 need to ensure they match the version of the Kubernetes control panel you want 
 kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
-can lead to unexpected, buggy behaviour.
+can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the 
+kubelet and the control plane is supported, but the kubelet version may never exceed the API
+server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server. 
+
+For more information on version skews, please read our 
+[version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy).
 
 Please proceed with executing the following commands based on your OS as `root`.
 You may become the `root` user by executing `sudo -i` after SSH-ing to each host.
