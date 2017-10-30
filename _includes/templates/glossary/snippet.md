@@ -1,5 +1,7 @@
 {% assign term_data = site.data.glossary.[include.term] %}
 
+{% if include.length == "all" or include.length == "short" %}
+
 {% if term_data.short-description %}
 
 {{ term_data.short-description | markdownify }}
@@ -10,7 +12,9 @@
 
 {% endif %}
 
-{% if include.length == "long" %}
+{% endif %}
+
+{% if include.length == "all" or include.length == "long" %}
 
 {% if term_data.long-description %}
 
