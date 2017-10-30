@@ -5,7 +5,7 @@ title: Ingress
 ---
 
 {% capture overview %}
-{% include templates/glossary/snippet.md term="ingress" length="long" %}
+{% include templates/glossary/snippet.md term="ingress" length="all" %}
 {% endcapture %}
 
 {% capture body %}
