@@ -30,6 +30,8 @@ Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery
 |----------|----------------|-----------------|
 | Go       | [github.com/kubernetes/client-go/](https://github.com/kubernetes/client-go/) | [browse](https://github.com/kubernetes/client-go/tree/master/examples)
 | Python       | [github.com/kubernetes-incubator/client-python/](https://github.com/kubernetes-incubator/client-python/) | [browse](https://github.com/kubernetes-incubator/client-python/tree/master/examples)
+| Java     | [github.com/kubernetes-client/java](https://github.com/kubernetes-client/java/) | [browse] (https://github.com/kubernetes-client/java#installation)
+| dotnet   | [github.com/kubernetes-client/csharp](https://github.com/kubernetes-client/csharp) | [browse] (https://github.com/kubernetes-client/csharp/tree/master/examples/simple)
 
 ## Community-maintained client libraries
 
@@ -42,6 +44,7 @@ their authors, not the Kubernetes team.
 | Go                   | [github.com/ericchiang/k8s](https://github.com/ericchiang/k8s) |
 | Java (OSGi)          | [bitbucket.org/amdatulabs/amdatu-kubernetes](https://bitbucket.org/amdatulabs/amdatu-kubernetes) |
 | Java (Fabric8, OSGi) | [github.com/fabric8io/kubernetes-client](https://github.com/fabric8io/kubernetes-client) |
+| Lisp                 | [github.com/brendandburns/cl-k8s](https://github.com/brendandburns/cl-k8s) |
 | Node.js (TypeScript) | [github.com/Goyoo/node-k8s-client](https://github.com/Goyoo/node-k8s-client) |
 | Node.js              | [github.com/tenxcloud/node-kubernetes-client](https://github.com/tenxcloud/node-kubernetes-client) |
 | Node.js              | [github.com/godaddy/kubernetes-client](https://github.com/godaddy/kubernetes-client) |
