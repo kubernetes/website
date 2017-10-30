@@ -164,6 +164,22 @@ apt-get install -y kubelet kubeadm kubectl
 
 {% endcapture %}
 
+{% capture debian %}
+
+```bash
+apt-get update && apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-stretch main
+EOF
+apt-get update
+apt-get install -y kubelet kubeadm kubectl
+echo "Only kubectl are found. 2017-10-20"
+```
+
+{% endcapture %}
+
+
 {% capture centos %}
 
 ```bash
@@ -198,8 +214,8 @@ systemctl enable kubelet && systemctl start kubelet
 {% endcapture %}
 
 {% assign tab_set_name = "k8s_install" %}
-{% assign tab_names = "Ubuntu, Debian or HypriotOS;CentOS, RHEL or Fedora" | split: ';' | compact %}
-{% assign tab_contents = site.emptyArray | push: ubuntu | push: centos %}
+{% assign tab_names = "Ubuntu; Debian or HypriotOS;CentOS, RHEL or Fedora" | split: ';' | compact %}
+{% assign tab_contents = site.emptyArray | push: ubuntu | push: debian | push: centos %}
 
 {% include tabs.md %}
 
