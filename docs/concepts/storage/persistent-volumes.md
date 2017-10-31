@@ -820,7 +820,7 @@ parameters:
   system: scaleio
   protectionDomain: pd0
   storagePool: sp1
-  storageMode: ThinProvisionned
+  storageMode: ThinProvisioned
   secretRef: sio-secret
   readOnly: false
   fsType: xfs
@@ -831,7 +831,7 @@ parameters:
 * `system`: the name of the ScaleIO system (required)
 * `protectionDomain`: the name of the ScaleIO protection domain (required)
 * `storagePool`: the name of the volume storage pool (required)
-* `storageMode`: the storage provision mode: `ThinProvisionned` (default) or `ThickProvisionned`
+* `storageMode`: the storage provision mode: `ThinProvisioned` (default) or `ThickProvisioned`
 * `secretRef`: reference to a configured Secret object (required)
 * `readOnly`: specifies the access mode to the mounted volume (default false)
 * `fsType`: the file system to use for the volume (default ext4)
