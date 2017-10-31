@@ -196,6 +196,12 @@ rules:
 - apiGroups:
   - ""
   resources:
+  - nodes/status
+  verbs:
+  - patch
+- apiGroups:
+  - ""
+  resources:
   - services
   verbs:
   - list
