@@ -14,7 +14,7 @@ Your Kubernetes server must be version {{page.min-kubernetes-server-version}}. T
 `kubectl version`.
 {% endif %}
 
-{% if page.min-kubernetes-server-version < page.version %}
+{% if page.min-kubernetes-server-version != page.version %}
 Your Kubernetes server must be version {{page.min-kubernetes-server-version}} or later. To check the version, enter
 `kubectl version`.
 {% endif %}
