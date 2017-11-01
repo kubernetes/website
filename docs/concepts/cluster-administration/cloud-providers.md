@@ -62,19 +62,20 @@ be used when using OpenStack with Kubernetes. The OpenStack cloud provider
 implementation for Kubernetes supports the use of these OpenStack services from
 the underlying cloud, where available:
 
-Service                  | API Version(s) | Required
--------------------------+----------------+----------
-Block Storage (Cinder)   | V1†, V2        | No
-Compute (Nova)           | V2             | No
-Identity (Keystone)      | V2‡,  V3         | Yes
-Load Balancing (Neutron) | V1§, V2        | No
+|         Service         | API Version(s) |  Required  |
+| ------------------------|:--------------:|:----------:|
+| Block Storage (Cinder)  | V1, V2         | No         |
+| Compute (Nova)          | V2             | No         |
+| Identity (Keystone)     | V2,  V3        | Yes        |
+| Load Balancing (Neutron)| V1, V2         | No         |
 
-† Block Storage V1 API support is deprecated, support for Block Storage V3 will
+**Note:** 
+* Block Storage V1 API support is deprecated, support for Block Storage V3 will
   be added in the future.
-‡ Identity V2 API support is deprecated and will be removed from the provider in
+* Identity V2 API support is deprecated and will be removed from the provider in
 a future release. As of the "Queens" release OpenStack will no longer expose the
 Identity V2 API.
-§ Load Balancing V1 API support is deprecated and will be removed from the
+* Load Balancing V1 API support is deprecated and will be removed from the
 provider in a future release.
 
 Service discovery is achieved by listing the service catalog managed by
