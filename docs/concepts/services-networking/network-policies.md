@@ -105,7 +105,7 @@ kind: NetworkPolicy
 metadata:
   name: default-deny
 spec:
-  podSelector:
+  podSelector: {}
   policyTypes:
   - Ingress
 ```
@@ -122,7 +122,7 @@ kind: NetworkPolicy
 metadata:
   name: allow-all
 spec:
-  podSelector:
+  podSelector: {}
   ingress:
   - {}
 ```
@@ -137,7 +137,7 @@ kind: NetworkPolicy
 metadata:
   name: default-deny
 spec:
-  podSelector:
+  podSelector: {}
   policyTypes:
   - Egress
 ```
@@ -155,7 +155,7 @@ kind: NetworkPolicy
 metadata:
   name: allow-all
 spec:
-  podSelector:
+  podSelector: {}
   egress:
   - {}
 ```
@@ -170,7 +170,7 @@ kind: NetworkPolicy
 metadata:
   name: default-deny
 spec:
-  podSelector:
+  podSelector: {}
   policyTypes:
   - Ingress
   - Egress
