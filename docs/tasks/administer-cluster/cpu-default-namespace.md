@@ -122,6 +122,12 @@ Create the Pod:
 kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-defaults-pod-3.yaml --namespace=default-cpu-example
 ```
 
+View the Pod specification:
+
+```
+kubectl get pod default-cpu-demo-3 --output=yaml --namespace=default-cpu-example
+```
+
 The output shows that the Container's CPU request is set to the value specified in the
 Container's configuration file. The Container's CPU limit is set to 1 cpu, which is the
 default CPU limit for the namespace.
