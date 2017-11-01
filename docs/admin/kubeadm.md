@@ -1003,6 +1003,30 @@ In summary, `kubeadm init --feature-gates=SelfHosting=true` works as follows:
 
 This process (steps 3-6) can also be triggered with `kubeadm phase selfhosting convert-from-staticpods`.
 
+## Customising the control plane with custom arguments {#custom-args}
+
+If you would like to override or extend the behaviour of a control plane component, you can provide 
+extra arguments to kubeadm. When the component is deployed, it will use these additional arguments _in its 
+pod command_. 
+
+For example, to add flag `--feature-gates=APIResponseCompression=true` to kube-apiserver, your [configuration file](#sample-master-configuration) 
+will need to look like this:
+
+```
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+apiServerExtraArgs:
+   feature-gates: APIResponseCompression=true
+```
+
+To customise the scheduler or controller-manager, use `schedulerExtraArgs` and `controllerManagerExtraArgs` respectively.
+
+More information on custom arguments can be found here:
+
+- [kube-apiserver](https://kubernetes.io/docs/admin/kube-apiserver/)
+- [kube-controller-manager](https://kubernetes.io/docs/admin/kube-controller-manager/)
+- [kube-scheduler](https://kubernetes.io/docs/admin/kube-scheduler/)
+
 ## Releases and release notes
 
 If you already have kubeadm installed and want to upgrade, run `apt-get update
