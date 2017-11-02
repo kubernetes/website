@@ -810,3 +810,24 @@
 		container.appendChild(box)
 	})
 })();
+
+function showPage(param){
+if(param=='1'){
+jQuery('.kcspSection').show();
+jQuery('.techSection').hide();
+jQuery('.serviceSection').hide();
+}else if(param =='2'){
+jQuery('.kcspSection').hide();
+jQuery('.techSection').show();
+jQuery('.serviceSection').hide();
+}
+else if( param =='3' ){
+jQuery('.kcspSection').hide();
+jQuery('.techSection').hide();
+jQuery('.serviceSection').show();
+}
+
+}
+
+
+
