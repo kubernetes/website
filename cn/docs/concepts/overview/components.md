@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - lavalamp
 title: Kubernetes 组件
 redirect_from:

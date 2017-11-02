@@ -1,6 +1,6 @@
 ---
 title: "Example: Deploying WordPress and MySQL with Persistent Volumes"
-assignees:
+approvers:
 - ahmetb
 ---
 
