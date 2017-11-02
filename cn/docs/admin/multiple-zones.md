@@ -10,13 +10,13 @@ title: 多区域运行
 
 Kubernetes 从v1.2开始支持将集群运行在多个故障域中。
 (GCE 中称其为 "区（Zones）"， AWS 中称其为 "可用区（Availability Zones）"，这里我们也称其为 "区")。
-它是广泛意义上的集群联邦特性的轻量级版本 (之前被称为 ["Ubernetes"](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/federation/federation.md))。
+它是广泛意义上的集群联邦特性的轻量级版本 (之前被称为 ["Ubernetes"](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/multicluster/federation.md))。
 完整的集群联邦能够将多个分别运行在不同区或云供应商（或本地数据中心）的集群集中管理。
 然而，很多用户只是希望通过将单一云供应商上的Kubernetes集群运行在多个区域，来提高集群的可用性，
 这就是1.2版本中提供的对多区域的支持。
 (之前被称为 "Ubernetes Lite")。
 
-多区域的支持是有明确限制的： Kubernetes集群能够运行在多个区，但必须在同一个地域内 (云供应商也须一致)。  
+多区域的支持是有明确限制的： Kubernetes集群能够运行在多个区，但必须在同一个地域内 (云供应商也须一致)。
 目前只有GCE和AWS自动支持 (尽管在其他云甚至裸机上，也很容易通过为节点和卷添加合适的标签来实现类似的支持)。
 
 
@@ -59,7 +59,7 @@ Kubernetes 从v1.2开始支持将集群运行在多个故障域中。
 
 ## 演练
 
-接下来我们将介绍如何同时在 GCE 和 AWS 上创建和使用多区域的集群。 为此，你需要创建一个完整的集群 
+接下来我们将介绍如何同时在 GCE 和 AWS 上创建和使用多区域的集群。 为此，你需要创建一个完整的集群
 (指定 `MULTIZONE=true`)，然后再次执行 `kube-up`（指定 `KUBE_USE_EXISTING_MASTER=true`）来添加其他区域的节点。
 
 ### 创建集群
