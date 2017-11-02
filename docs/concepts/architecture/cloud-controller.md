@@ -19,7 +19,7 @@ Here's the architecture of a Kubernetes cluster without the cloud controller man
 In the preceding diagram, Kubernetes and the cloud provider are integrated through several different components:
 
 * Kubelet
-* Kubenetes controller manager
+* Kubernetes controller manager
 * Kubernetes API server
 
 The CCM consolidates all of the cloud-dependent logic from the preceding three components to create a single point of integration with the cloud. The new architecture with the CCM looks like this:
@@ -105,7 +105,7 @@ The PersistentVolumeLabels controller moves the cloud-dependent functionality of
 
 The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in. Specifically, it uses the CloudProvider Interface defined [here](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/cloud.go)
 
-The implementation of the four shared controllers highlighted above, and some scaffolding along with the shared cloudprovider interface, will stay in the Kubernetes core, but implementations specifie to cloud providers will
+The implementation of the four shared controllers highlighted above, and some scaffolding along with the shared cloudprovider interface, will stay in the Kubernetes core, but implementations specified to cloud providers will
 be built outside of the core, and implement interfaces defined in the core.
 
 For more information about developing plugins, see
