@@ -2,6 +2,14 @@
   display: inline;
 }
 
+.no-underline {
+  text-decoration: none !important;
+}
+
+.hide {
+  display: none !important;
+}
+
 .permalink {
   background-image: url(../images/link.png);
   background-repeat: no-repeat;

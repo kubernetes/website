@@ -56,10 +56,9 @@ default_active_tag: fundamental
 Also known as: <i>{{ term.aka | join: ", " }}</i>
 <br>
 {% endif %}
-
-<span class="preview-text">{{ term.short-description | liquify | markdownify }} <a href="javascript:void(0)" class="click-controller no-underline" data-target="{{ term.id }}">[+]</a></span>
+<span class="preview-text">{{ term.short-description | markdownify }} <a href="javascript:void(0)" class="click-controller no-underline" data-target="{{ term.id }}">[+]</a></span>
 <div id="{{ term.id }}" class="hide">
-{{ term.long-description | liquify | markdownify }}
+{{ term.long-description | markdownify }}
 </div>
 </div>
 </li>
