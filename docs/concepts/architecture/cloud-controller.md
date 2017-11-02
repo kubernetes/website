@@ -105,7 +105,7 @@ The PersistentVolumeLabels controller moves the cloud-dependent functionality of
 
 The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in. Specifically, it uses the CloudProvider Interface defined [here](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/cloud.go)
 
-The implementation of the four shared controllers highlighted above, and some scaffolding along with the shared cloudprovider interface, will stay in the Kubernetes core, but implementations specified to cloud providers will
+The implementation of the four shared controllers highlighted above, and some scaffolding along with the shared cloudprovider interface, will stay in the Kubernetes core, but implementations specific to cloud providers will
 be built outside of the core, and implement interfaces defined in the core.
 
 For more information about developing plugins, see
