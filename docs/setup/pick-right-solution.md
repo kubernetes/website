@@ -31,7 +31,7 @@ a Kubernetes cluster from scratch.
 
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
 
-* [IBM Cloud Private-CE (Community Edition)](https://www.ibm.com/support/knowledgecenter/en/SSBS6K/product_welcome_cloud_private.html) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for dev and test scenarios. Scales to full multi-node cluster. Free version of the enterprise solution.
+* [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for developement and test scenarios. Scales to full multi-node cluster. 
 
 # Hosted Solutions
 
