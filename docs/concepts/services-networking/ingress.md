@@ -5,7 +5,7 @@ title: Ingress
 ---
 
 {% capture overview %}
-{% glossary_definition term_id="ingress" length="all" %}
+{% include templates/glossary/snippet.md term="ingress" length="all" %}
 {% endcapture %}
 
 {% capture body %}
