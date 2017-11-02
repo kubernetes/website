@@ -103,5 +103,5 @@ You can reset your nodes and wipe out all components installed with Kubespray vi
 
 ## Feedback
 
-* Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/)
+* Slack Channel: [kubespray](https://kubernetes.slack.com/messages/kubespray/)
 * [GitHub Issues](https://github.com/kubernetes-incubator/kubespray/issues)
