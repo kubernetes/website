@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - rickypai
 - thockin
 title: 使用 HostAliases 向 Pod /etc/hosts 文件添加条目

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 title: Service
 redirect_from:

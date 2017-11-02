@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - derekwaynecarr
 - janetkuo
 title: 设置 Pod CPU 和内存限制
