@@ -10,10 +10,10 @@ title: StatefulSets
 ---
 
 {% capture overview %}
-**StatefulSet is the workload API object used to manage stateful applications.
+**StatefulSet is the workload API object used to manage stateful applications. 
 StatefulSets are beta in 1.8.**
 
-{% glossary_definition term_id="statefulset" length="all" %}
+{% include templates/glossary/snippet.md term="statefulset" length="all" %}
 {% endcapture %}
 
 {% capture body %}
