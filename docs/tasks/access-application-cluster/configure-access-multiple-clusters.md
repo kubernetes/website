@@ -210,7 +210,7 @@ Change the current context to `dev-storage`:
 kubectl config --kubeconfig=config-demo use-context dev-storage
 ```
 
-View configuration associated with the new current context, `dev-storage.
+View configuration associated with the new current context, `dev-storage`.
 
 
 ```shell
