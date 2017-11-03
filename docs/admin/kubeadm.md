@@ -750,10 +750,13 @@ requested kubernetes version is a ci version; in this case
 
 This behaviour can be overridden by [using kubeadm with a configuration file](#config-file).
 Allowed customization are:
+
 - provide an alternative `imageRepository` to be used instead of
   `gcr.io/google_containers` (NB. does not works for ci version)
+  
 - provide an `unifiedControlPlaneImage` to be used instead of single image
   for control plane components
+  
 - provide an `etcd.image` name to be used
 
 ## Running kubeadm without an internet connection
