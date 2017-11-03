@@ -521,3 +521,20 @@ $(function() {
         $('#hero').addClass('no-sub');
     }
 });
+
+/* section toggle */
+function showPage(flag){
+ if(flag ==1){
+  jQuery('.kscp_section').fadeIn();
+  jQuery('.tech_section').fadeOut();
+  jQuery('.service_Section').fadeOut();
+ }else if(flag ==2){
+  jQuery('.kscp_section').fadeOut();
+  jQuery('.tech_section').fadeIn();
+  jQuery('.service_Section').fadeOut();
+ else{
+  jQuery('.kscp_section').fadeOut();
+  jQuery('.tech_section').fadeOut();
+  jQuery('.service_Section').fadeIn();
+ }
+}
