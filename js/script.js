@@ -532,6 +532,7 @@ function showPage(flag){
   jQuery('.kscp_section').fadeOut();
   jQuery('.tech_section').fadeIn();
   jQuery('.service_Section').fadeOut();
+ }
  else{
   jQuery('.kscp_section').fadeOut();
   jQuery('.tech_section').fadeOut();
