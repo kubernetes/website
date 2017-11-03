@@ -28,7 +28,7 @@
         If you're an application developer looking to get started with Kubernetes, this page and its linked topics introduce you to foundational concepts and tasks. The focus is on a development workflow -- check out other user journeys to learn about managing production clusters, or providing high availability (HA) for critical application deployments.</p>
         <p>
         What can Kubernetes do for me?
-        Kubernetes is commonly described as an orchestration platform for containerized applications. Containers provide lightweight portable packaging for applications, and Kubernetes helps deploy your containers to a cluster of connected computers and then manage the cluster. The cluster can run on bare metal, in classic virtual machines, or in the cloud. For a fuller description of Kubernetes and more information about containers, see <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">What Is Kubernetes</a>.</What><!--Alex: Maybe put the following in a box too? -->For more information about different environments for deploying Kubernetes, see LINK.</p> 
+        Kubernetes is commonly described as an orchestration platform for containerized applications. Containers provide lightweight portable packaging for applications, and Kubernetes helps deploy your containers to a cluster of connected computers and then manage the cluster. The cluster can run on bare metal, in classic virtual machines, or in the cloud. For a fuller description of Kubernetes and more information about containers, see <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">What Is Kubernetes</a>.</What><!--Alex: Maybe put the following in a box too? --> For more information about different environments for deploying Kubernetes, see LINK.</p> 
        <p>
         <!-- For an introduction to containers, see <a href="https://www.docker.com/what-container">this writeup from Docker, the most popular container technology</a>. Alex: box this separately? "What else you need to know" or maybe remove this content, but box what is K8s link from previous para--></p> 
         <p>
@@ -54,11 +54,13 @@
         Before you install Minikube:
 
         <ul>
-          <li>Anything else?</li>
-          <li>Anything else?</li>
-          <li><a href="">Install Docker</a></li>
-          <li><a href="">Install and configure kubectl</a></li>
-          <li>kubeconfig</li>
+          <li><a href="https://kubernetes.io/docs/tasks/tools/install-minikube/#install-a-hypervisor">Install a hypervisor if you don't have one already:</a>
+              <li>For OS X, xhyve, VirtualBox, or VMWare Fusion</li>
+              <li>For Linux, VirtualBox or KVM</li>
+              <li>For Windows, VirtualBox or Hyper-V</li>
+          </li>
+          <li><a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-docker">Install Docker</a>. Minikube includes a Docker daemon, but we recommend that you install your own. Note that version 1.12 is recommended, but a few other versions are tested and known to work.</li>
+          <li><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">Install kubectl, the Kubernetes command-line tool.</a> Note that when you start Minikube, your kubectl is automatically configured to communicate with the server. You should therefore skip kubectl configuration at this point.</li>
         </ul>
 <br><br>
         <a href="https://kubernetes.io/docs/tasks/tools/install-minikube/">Install Minikube</a>
@@ -67,11 +69,11 @@
 <!-- These are some of the topics that need re-architecting.
 -->
 <br><br> 
-
+        
 <br><br>
-        Access the cluster/Get basic information about the cluster: <code>kubectl get nodes</code> What else can we look at without adding objects? (Deployment/Pod/Service) Or do we want to move immediately to the next section? (I think that Set up and Deploy are useful top-level categories)
+        You can now get basic information about your cluster with the command <code>kubectl get nodes</code>. But to get a good idea of what's really going on, you now need to deploy an application to your cluster.
 <br><br>
-        <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-intro/">Viewing Pods and Nodes</a>. TODO: identify more relevant content
+        <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-intro/">Viewing Pods and Nodes</a>.
 <br><br>
       </div>
 
