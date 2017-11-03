@@ -42,6 +42,8 @@ If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](
 
 ## Securing a cluster
 
+* [Certificates](/docs/concepts/cluster-administration/certificates/) describes the steps to generate certificates using different tool chains.
+
 * [Kubernetes Container Environment](/docs/concepts/containers/container-environment-variables/) describes the environment for Kubelet managed containers on a Kubernetes node.
 
 * [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api/) describes how to set up permissions for users and service accounts.

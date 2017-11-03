@@ -17,7 +17,7 @@ repository. This page shows how to create a pull request.
 1. Sign the
 [Linux Foundation Contributor License Agreement](https://identity.linuxfoundation.org/projects/cncf){: target="_blank"}.
 
-Documentation will be published under the [CC BY SA 4.0](https://git.k8s.io/kubernetes.github.io/LICENSE) license.
+Documentation will be published under the [CC BY SA 4.0](https://git.k8s.io/website/LICENSE) license.
 
 {% endcapture %}
 
@@ -86,6 +86,9 @@ The staging site for the upcoming Kubernetes release is here:
 The staging site reflects the current state of what's been merged in the
 release branch, or in other words, what the docs will look like for the
 next upcoming release. It's automatically updated as new PRs get merged.
+
+## Pull request review process for both Current and Upcoming Releases
+Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback.  As the owner of the pull request, **it is your responsibility to modify your pull request to address the feedback that has been provided to you by the Kubernetes reviewer.**  Also note that you may end up having more than one Kubernetes reviewer provide you feedback or you may end up getting feedback from a Kubernetes reviewer that is different than the one originally assigned to provide you feedback.  Furthermore, in some cases, one of your reviewers might ask for a technical review from a [Kubernetes tech reviewer](https://github.com/kubernetes/website/wiki/Tech-reviewers) when needed.  Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
 
 {% endcapture %}
 

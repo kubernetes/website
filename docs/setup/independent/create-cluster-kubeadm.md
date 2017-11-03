@@ -178,6 +178,16 @@ as root:
 
   kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
+To make kubectl work for your non-root user, you might want to run these commands (which is also a part of the `kubeadm init` output):
+```
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+Alternatively, if you are the root user, you could run this:
+```
+export KUBECONFIG=/etc/kubernetes/admin.conf
+```
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
 will need this in a moment.
@@ -243,8 +253,8 @@ The official Canal set-up guide is [here](https://github.com/projectcalico/canal
  - Canal works on `amd64` only.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.6/rbac.yaml
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.6/canal.yaml
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/rbac.yaml
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/canal.yaml
 ```
 {% endcapture %}
 
@@ -306,7 +316,7 @@ checking that the kube-dns pod is Running in the output of `kubectl get pods --a
 And once the kube-dns pod is up and running, you can continue by joining your nodes.
 
 If your network is not working or kube-dns is not in the Running state, check
-out the [troubleshooting section](#troubleshooting) below.
+out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
 #### Master Isolation
 
@@ -461,6 +471,19 @@ kubeadm reset
 If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
 appropriate arguments.
 
+**Note**: `kubeadm reset` will not delete any etcd data if external etcd is used. 
+This means that if you run `kubeadm init` again using the same etcd endpoints, you 
+will see state from previous clusters. To wipe etcd data after reset, it is 
+recommended you use a client like `etcdctl`, such as:
+
+```
+etcdctl del "" --prefix
+``` 
+
+See 
+[their documentation](https://github.com/coreos/etcd/tree/master/etcdctl) for more 
+information.
+
 ## Upgrading
 
 Instructions for upgrading kubeadm clusters are available for:
@@ -505,6 +528,9 @@ Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be abl
 Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
 v1.8.
 
+Please also check our [installation guide](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+for more information on the version skew between kubelets and the control plane.
+
 ## kubeadm is multi-platform {#multi-platform}
 
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
@@ -530,106 +556,9 @@ addressed in due course.
    etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). The etcd data
    directory configured by kubeadm is at `/var/lib/etcd` on the master.
 
+## Troubleshooting
 
-
-## Troubleshooting {#troubleshooting}
-
-You may have trouble in the configuration if you see Pod statuses like `RunContainerError`,
-`CrashLoopBackOff` or `Error`.
-
-1. **There are Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state**.
-    Right after `kubeadm init` there should not be any such Pods. If there are Pods in
-    such a state _right after_ `kubeadm init`, please open an issue in the kubeadm repo.
-    `kube-dns` should be in the `Pending` state until you have deployed the network solution.
-    However, if you see Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state
-    after deploying the network solution and nothing happens to `kube-dns`, it's very
-    likely that the Pod Network solution that you installed is somehow broken. You
-    might have to grant it more RBAC privileges or use a newer version. Please file
-    an issue in the Pod Network providers' issue tracker and get the issue triaged there.
-
-1. **The `kube-dns` Pod is stuck in the `Pending` state forever**.
-    This is expected and part of the design. kubeadm is network provider-agnostic, so the admin
-    should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
-    of choice. You have to install a Pod Network
-    before `kube-dns` may deployed fully. Hence the `Pending` state before the network is set up.
-
-1. **I tried to set `HostPort` on one workload, but it didn't have any effect**.
-    The `HostPort` and `HostIP` functionality is available depending on your Pod Network
-    provider.
-    
-    - Verified HostPort CNI providers:
-        - Calico
-        - Canal
-        - Flannel
-    - [CNI portmap Documentation](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md)
-    - If your network provider does not support the portmap CNI plugin, you may need to use a [service of type NodePort](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
-
-1. **Pods cannot access themselves via their Service IP**.
-    Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
-    which allows pods to access themselves via their Service IP if they don't know about their podIP. This is an issue
-    related to [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the providers of the network
-    add-on providers to get timely information about whether they support hairpin mode.
-
-1. If you are using VirtualBox (directly or via Vagrant), you will need to
-   ensure that `hostname -i` returns a routable IP address (i.e. one on the
-   second network interface, not the first one). By default, it doesn't do this
-   and kubelet ends-up using first non-loopback network interface, which is
-   usually NATed. Workaround: Modify `/etc/hosts`, take a look at this
-   `Vagrantfile`[ubuntu-vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11) for how this can be achieved.
-
-1. The following error indicates a possible certificate mismatch.
-
-```
-# kubectl get po
-Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
-```
-
-Verify that the `$HOME/.kube/config` file contains a valid certificate, and regenerate a certificate if necessary.
-Another workaround is to overwrite the default `kubeconfig` for the "admin" user:
-
-```
-mv  $HOME/.kube $HOME/.kube.bak
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-```
-
-1. If you are using CentOS and encounter difficulty while setting up the master node，
-verify that your Docker cgroup driver matches the kubelet config:
-
-```bash
-docker info |grep -i cgroup
-cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-```
-
-If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver.
-
-Update
-
-```bash
-KUBELET_CGROUP_ARGS=--cgroup-driver=systemd
-```
-
-To
-
-```bash
-KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs
-```
-
-Then restart kubelet:
-
-```bash
-systemctl daemon-reload
-systemctl restart kubelet
-```
-
-The `kubectl describe pod` or `kubectl logs` commands can help you diagnose errors. For example:
-
-```bash
-kubectl -n ${NAMESPACE} describe pod ${POD_NAME}
-
-kubectl -n ${NAMESPACE} logs ${POD_NAME} -c ${CONTAINER_NAME}
-```
+If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
 {% endcapture %}
 

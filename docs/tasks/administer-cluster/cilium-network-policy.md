@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - danwent
 title: Use Cilium for NetworkPolicy
 ---

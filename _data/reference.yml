@@ -83,10 +83,12 @@ toc:
 - title: Config Reference
   section:
   - docs/admin/kubelet.md
+  - docs/admin/kubelet-authentication-authorization.md
   - docs/admin/kube-apiserver.md
   - docs/admin/kube-controller-manager.md
   - docs/admin/kube-proxy.md
   - docs/admin/kube-scheduler.md
+  - docs/admin/kubelet-tls-bootstrapping.md
   - docs/admin/federation-apiserver.md
   - docs/admin/federation-controller-manager.md
 

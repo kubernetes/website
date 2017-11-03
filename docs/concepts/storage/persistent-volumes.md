@@ -50,7 +50,19 @@ There are two ways PVs may be provisioned: statically or dynamically.
 A cluster administrator creates a number of PVs. They carry the details of the real storage which is available for use by cluster users.  They exist in the Kubernetes API and are available for consumption.
 
 #### Dynamic
-When none of the static PVs the administrator created matches a user's `PersistentVolumeClaim`, the cluster may try to dynamically provision a volume specially for the PVC. This provisioning is based on `StorageClasses`: the PVC must request a class and the administrator must have created and configured that class in order for dynamic provisioning to occur. Claims that request the class `""` effectively disable dynamic provisioning for themselves.
+When none of the static PVs the administrator created matches a user's `PersistentVolumeClaim`,
+the cluster may try to dynamically provision a volume specially for the PVC.
+This provisioning is based on `StorageClasses`: the PVC must request a class and
+the administrator must have created and configured that class in order for dynamic
+provisioning to occur. Claims that request the class `""` effectively disable
+dynamic provisioning for themselves.
+
+To enable dynamic storage provisioning based on storage class, the cluster administrator
+needs to enable the `DefaultStorageClass` [admission controller](/docs/admin/admission-controllers/#defaultstorageclass)
+on the API server. This can be done, for example, by ensuring that `DefaultStorageClass` is
+among the comma-delimited, ordered list of values for the `--admission-control` flag of 
+the API server component. For more information on API server command line flags,
+please check [kube-apiserver](/docs/admin/kube-apiserver/) documentation.
 
 ### Binding
 
@@ -808,7 +820,7 @@ parameters:
   system: scaleio
   protectionDomain: pd0
   storagePool: sp1
-  storageMode: ThinProvisionned
+  storageMode: ThinProvisioned
   secretRef: sio-secret
   readOnly: false
   fsType: xfs
@@ -819,7 +831,7 @@ parameters:
 * `system`: the name of the ScaleIO system (required)
 * `protectionDomain`: the name of the ScaleIO protection domain (required)
 * `storagePool`: the name of the volume storage pool (required)
-* `storageMode`: the storage provision mode: `ThinProvisionned` (default) or `ThickProvisionned`
+* `storageMode`: the storage provision mode: `ThinProvisioned` (default) or `ThickProvisioned`
 * `secretRef`: reference to a configured Secret object (required)
 * `readOnly`: specifies the access mode to the mounted volume (default false)
 * `fsType`: the file system to use for the volume (default ext4)

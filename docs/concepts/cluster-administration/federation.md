@@ -165,13 +165,14 @@ users in the event of a cluster failure), then you need to have `R * (U + 1)` cl
 (`U + 1` in each of `R` regions).  In any case, try to put each cluster in a different zone.
 
 Finally, if any of your clusters would need more than the maximum recommended number of nodes for a Kubernetes cluster, then
-you may need even more clusters.  Kubernetes v1.3 supports clusters up to 1000 nodes in size.
+you may need even more clusters.  Kubernetes v1.3 supports clusters up to 1000 nodes in size. Kubernetes v1.8 supports
+clusters up to 5000 nodes. See [Building Large Clusters](/docs/admin/cluster-large/) for more guidance.
 
 {% endcapture %}
 
 {% capture whatsnext %}
 * Learn more about the [Federation
-  proposal](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/federation/federation.md).
+  proposal](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/multicluster/federation.md).
 * See this [setup guide](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) for cluster federation.
 * See this [Kubecon2016 talk on federation](https://www.youtube.com/watch?v=pq9lbkmxpS8)
 {% endcapture %}

@@ -114,10 +114,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kube-dns
-    namespace: kube-system
-    data:
-      stubDomains: |
-          {“consul.local”: [“10.150.0.1”]}
+  namespace: kube-system
+data:
+  stubDomains: |
+    {“consul.local”: [“10.150.0.1”]}
 ```
 
 Note that the cluster administrator did not wish to override the node’s
@@ -136,10 +136,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kube-dns
-    namespace: kube-system
-    data:
-      upstreamNameservers: |
-          [“172.16.0.1”]
+  namespace: kube-system
+data:
+  upstreamNameservers: |
+    [“172.16.0.1”]
 ```
 
 {% endcapture %}

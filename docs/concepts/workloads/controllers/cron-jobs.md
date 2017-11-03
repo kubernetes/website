@@ -129,8 +129,7 @@ of the set of pods. A cron job does not examine pods at all.
 
 As with all other Kubernetes configs, a cron job needs `apiVersion`, `kind`, and `metadata` fields. For general
 information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications),
-[configuring containers](/docs/user-guide/configuring-containers), and
-[using kubectl to manage resources](/docs/user-guide/working-with-resources) documents.
+and [using kubectl to manage resources](/docs/user-guide/working-with-resources) documents.
 
 A cron job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 

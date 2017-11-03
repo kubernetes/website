@@ -483,7 +483,7 @@ A `projected` volume maps several existing volume sources into the same director
 Currently, the following types of volume sources can be projected:
 
 - [`secret`](#secret)
-- [`downwardAPI`](#downardapi)
+- [`downwardAPI`](#downwardapi)
 - `configMap`
 
 All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/node/all-in-one-volume.md).
@@ -834,12 +834,15 @@ spec:
     containers:
     - name: mysql
       image: mysql
+      env:
+      - name: MYSQL_ROOT_PASSWORD
+        value: "rootpasswd" 
       volumeMounts:
       - mountPath: /var/lib/mysql
         name: site-data
         subPath: mysql
     - name: php
-      image: php
+      image: php:7.0-apache
       volumeMounts:
       - mountPath: /var/www/html
         name: site-data

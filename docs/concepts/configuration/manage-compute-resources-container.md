@@ -92,6 +92,9 @@ spec:
   containers:
   - name: db
     image: mysql
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "password"
     resources:
       requests:
         memory: "64Mi"
@@ -338,6 +341,9 @@ spec:
   containers:
   - name: db
     image: mysql
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "password"
     resources:
       requests:
         ephemeral-storage: "2Gi"
