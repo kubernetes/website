@@ -523,7 +523,7 @@ $(function() {
 });
 
 /* section toggle */
-function showPage(flag){
+function showPageNow(flag){
  if(flag ==1){
   jQuery('.kscp_section').fadeIn();
   jQuery('.tech_section').fadeOut();
