@@ -156,9 +156,9 @@ flags that can be used to customise the Kubernetes installation.
   A set of key=value pairs that describe feature gates for alpha/experimental
   features. Options are:
 
-  - SelfHosting=true|false (ALPHA - default=false)
+    - SelfHosting=true\|false (ALPHA - default=false)
 
-  - StoreCertsInSecrets=true|false (ALPHA - default=false)
+    - StoreCertsInSecrets=true\|false (ALPHA - default=false)
 
   See [self-hosted control plane](#self-hosting) for more detail.
 
