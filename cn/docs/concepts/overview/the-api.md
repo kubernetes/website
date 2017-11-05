@@ -22,7 +22,7 @@ Kubernetes 被分成多个组件，各部分通过API相互交互。
 
 Kubernetes使用 [Swagger v1.2](http://swagger.io/) 与 [OpenAPI](https://www.openapis.org/) 记录API所有细节。Kubernetes apiserver (aka “master”)提供了一个API接口用于获取 Swagger 1.2 Kubernetes API 规范 ，默认在路径 **`/swaggerapi`** 下。你可以通过设定 apiserver 上 **`/swagger-ui`** 下的 **`-enable-swagger-ui=true`**，然后使用浏览器查看API文档的UI 。
 
-从Kubernetes 1.4版本开始，OpenAPI 规范已经通过 [**`/swagger.json`**](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json) 提供。在我们将 Swagger v1.2 切换到 OpenAPI (aka Swagger v2.0) 期间，一部分工具(如 kubectl 与 swagger-ui )会继续使用 1.2 版本规范。Kubernetes 1.5版本中的 OpenAPI 规范是 Beta 版本。
+从Kubernetes 1.4版本开始，OpenAPI 规范已经通过 [**`/swagger.json`**](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json) 提供。在我们将 Swagger v1.2 切换到 OpenAPI (aka Swagger v2.0) 期间，一部分工具(如 kubectl 与 swagger-ui )会继续使用 1.2 版本规范。Kubernetes 1.5 版本中的 OpenAPI 规范是 Beta 版本。
 
 Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要用于集群内通信，并在[设计方案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)中进行了说明，每个模式的IDL文件位于定义API对象的Go软件包中。
 
