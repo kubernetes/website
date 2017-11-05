@@ -20,15 +20,15 @@ Kubernetes 被分成多个组件，各部分通过API相互交互。
 
 ## API 变形定义 （API Swagger）
 
-Kubernetes使用 [Swagger v1.2](http://swagger.io/) 与 [OpenAPI](https://www.openapis.org/) 记录API所有细节。Kubernetes apiserver (aka “master”)提供了一个API接口用于获取 Swagger 1.2 Kubernetes API 规范 ，默认在路径 /swaggerapi 下。你可以通过设定 apiserver 上 /swagger-ui 下的 -enable-swagger-ui=true，然后使用浏览器查看API文档的UI 。
+Kubernetes使用 [Swagger v1.2](http://swagger.io/) 与 [OpenAPI](https://www.openapis.org/) 记录API所有细节。Kubernetes apiserver (aka “master”)提供了一个API接口用于获取 Swagger 1.2 Kubernetes API 规范 ，默认在路径 **`/swaggerapi`** 下。你可以通过设定 apiserver 上 **`/swagger-ui`** 下的 **`-enable-swagger-ui=true`**，然后使用浏览器查看API文档的UI 。
 
-从Kubernetes 1.4版本开始，OpenAPI 规范已经通过 [/swagger.json](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json) 提供。在我们将 Swagger v1.2 切换到 OpenAPI (aka Swagger v2.0) 期间，一部分工具(如 kubectl 与 swagger-ui )会继续使用 1.2 版本规范。Kubernetes 1.5 版本中的 OpenAPI 规范是 Beta 版本。
+从Kubernetes 1.4版本开始，OpenAPI 规范已经通过 [**`/swagger.json`**](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json) 提供。在我们将 Swagger v1.2 切换到 OpenAPI (aka Swagger v2.0) 期间，一部分工具(如 kubectl 与 swagger-ui )会继续使用 1.2 版本规范。Kubernetes 1.5 版本中的 OpenAPI 规范是 Beta 版本。
 
 Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要用于集群内通信，并在[设计方案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)中进行了说明，每个模式的IDL文件位于定义API对象的Go软件包中。
 
 ## API 版本
 
-为了使删除字段或者重构资源表示更加容易，Kubernetes 支持多个API版本。每一个版本都在不同API路径下，例如 /api/v1 或者 /apis/extensions/v1beta1。
+为了使删除字段或者重构资源表示更加容易，Kubernetes 支持多个API版本。每一个版本都在不同API路径下，例如 **`/api/v1`** 或者 **`/apis/extensions/v1beta1`**。
 
 我们选择在API级别进行版本化，而不是在资源或现场级别进行版本化，以确保API提供清晰，一致的系统资源和行为视图，并控制对终止API和/或实验性API的访问。 JSON和Protobuf序列化架构遵循架构更改的相同准则 - 下面的所有描述都涵盖了这两种格式。
 
@@ -38,7 +38,7 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
 * Alpha 测试版本：
 
-  * 版本名称包含了 alpha (例如：v1alpha1)。
+  * 版本名称包含了 **`alpha`** (例如：**`v1alpha1`**)。
 
   * 可能是有缺陷的。启用该功能可能会带来隐含的问题，默认情况是关闭的。
 
@@ -50,7 +50,7 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
 * Beta 测试版本：
 
-  * 版本名称包含了 beta (例如: v2beta3)。
+  * 版本名称包含了 **`beta`** (例如: **`v2beta3`**)。
 
   * 代码已经测试过。启用该功能被认为是安全的，功能默认已启用。
 
@@ -64,19 +64,19 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
 * 稳定版本：
 
-  * 版本名称是vX，其中X是整数。
+  * 版本名称是 **`vX`**，其中 **`X`** 是整数。
 
   * 功能的稳定版本将出现在许多后续版本的发行软件中。
 
 ## API 组
 
-为了更容易地扩展Kubernetes API，我们实现了[API组](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)。 API组在REST路径和序列化对象的 apiVersion 字段中指定。
+为了更容易地扩展Kubernetes API，我们实现了[*`API组`*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)。 API组在REST路径和序列化对象的 **`apiVersion`** 字段中指定。
 
 目前有几个API组正在使用中：
 
-1. 核心组（通常被称为遗留组）位于REST路径 /api/v1 并使用apiVersion：v1。
+1. 核心组（通常被称为遗留组）位于REST路径 **`/api/v1`** 并使用 **`apiVersion：v1`**。
 
-1. 指定的组位于REST路径 /apis/$GROUP_NAME/$VERSION，并使用 apiVersion：$GROUP_NAME/$VERSION（例如apiVersion：batch/v1）。 在[Kubernetes API参考](https://kubernetes.io/docs/reference/)中可以看到支持的API组的完整列表。
+1. 指定的组位于REST路径 **`/apis/$GROUP_NAME/$VERSION`**，并使用 **`apiVersion：$GROUP_NAME/$VERSION`**（例如 **`apiVersion：batch/v1`**）。 在[Kubernetes API参考](https://kubernetes.io/docs/reference/)中可以看到支持的API组的完整列表。
 
 有两个受支持的路径可以使用[自定义资源](https://kubernetes.io/docs/concepts/api-extension/custom-resources/)扩展API：
 
@@ -86,12 +86,12 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
 ## 启用 API 组
 
-某些资源和API组默认情况下处于启用状态。 可以通过在apiserver上设置 --runtime-config 来启用或禁用它们。 --runtime-config接受逗号分隔的值。 例如：要禁用batch/v1，请设置--runtime-config=batch/v1=false，以启用batch/v2alpha1，请设置--runtime-config=batch/v2alpha1。 该标志接受描述apiserver的运行时配置的逗号分隔的一组键值对。
+某些资源和API组默认情况下处于启用状态。 可以通过在apiserver上设置 **`--runtime-config`** 来启用或禁用它们。 **`--runtime-config`**接受逗号分隔的值。 例如：要禁用batch/v1，请设置**`--runtime-config=batch/v1=false`**，以启用batch/v2alpha1，请设置**`--runtime-config=batch/v2alpha1`**。 该标志接受描述apiserver的运行时配置的逗号分隔的一组键值对。
 
-重要：启用或禁用组或资源需要重新启动apiserver和控制器管理器来使得 --runtime-config 更改生效。
+重要：启用或禁用组或资源需要重新启动apiserver和控制器管理器来使得 **`--runtime-config`** 更改生效。
 
 ## 启用组中资源
 
-DaemonSets，Deployments，HorizontalPodAutoscalers，Ingress，Jobs和ReplicaSets是默认启用的。 其他扩展资源可以通过在apiserver上设置--runtime-config来启用。 --runtime-config接受逗号分隔的值。
+DaemonSets，Deployments，HorizontalPodAutoscalers，Ingress，Jobs和ReplicaSets是默认启用的。 其他扩展资源可以通过在apiserver上设置 **`--runtime-config`** 来启用。**`--runtime-config`** 接受逗号分隔的值。
 
-例如：要禁用部署和入口，请设置--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false
+例如：要禁用部署和入口，请设置 **`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`**
