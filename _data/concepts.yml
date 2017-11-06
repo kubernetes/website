@@ -43,7 +43,6 @@ toc:
     - docs/concepts/workloads/pods/init-containers.md
     - docs/concepts/workloads/pods/podpreset.md
     - docs/concepts/workloads/pods/disruptions.md
-    - docs/concepts/abstractions/pod-termination.md
   - title: Controllers
     section:
     - docs/concepts/workloads/controllers/replicaset.md
