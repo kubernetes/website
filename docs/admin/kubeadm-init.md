@@ -136,6 +136,29 @@ featureGates:
   <feature>: <bool>
 ```
 
+### Passing custom arguments to control plane components {#custom-args}
+
+If you would like to override or extend the behaviour of a control plane component, you can provide 
+extra arguments to kubeadm. When the component is deployed, it will use these additional arguments in 
+the pod command itself. 
+
+For example, to add additional feature-gate arguments to the apiserver, your [configuration file](#sample-master-configuration) 
+will need to look like this:
+
+```
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+apiServerExtraArgs:
+   feature-gates: APIResponseCompression=true
+```
+
+To customise the scheduler or controller-manager, use `schedulerExtraArgs` and `controllerManagerExtraArgs` respectively.
+
+More information on custom arguments can be found here:
+- [kube-apiserver](https://kubernetes.io/docs/admin/kube-apiserver/)
+- [kube-controller-manager](https://kubernetes.io/docs/admin/kube-controller-manager/)
+- [kube-scheduler](https://kubernetes.io/docs/admin/kube-scheduler/)
+
 ### Using custom images {#custom-images}
 
 By default, kubeadm will pull images from `gcr.io/google_containers`, unless
