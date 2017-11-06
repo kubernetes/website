@@ -19,7 +19,7 @@ collected.  Deleting a DaemonSet will clean up the Pods it created.
 
 Some typical uses of a DaemonSet are:
 
-- running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
+- running a cluster storage daemon, such as `gluster`, `ceph`, on each node.
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
 - running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
   https://github.com/prometheus/node_exporter), `collectd`, Datadog agent, New Relic agent, or Ganglia `gmond`.
