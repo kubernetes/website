@@ -100,6 +100,42 @@ If your cluster supports containers that run with escalated privileges, and you 
 restrict the ability of end-users to exec commands in those containers, we strongly encourage
 enabling this plug-in.
 
+### EventRateLimit (alpha)
+
+This plug-in is introduced in v1.9 to mitigate the problem where the API server gets flooded by
+event requests. The cluster admin can specify event rate limits by:
+
+ * Ensuring that `eventratelimit.admission.k8s.io/v1alpha1=true` is included in the
+   `--runtime-config` flag for the API server;
+ * Enabling the `EventRateLimit` admission controller;
+ * Including a `EventRateLimit` configuration in the file provided to the API
+   server's command line flag `--admission-control-config-file`.
+
+There are four types of limits that can be specified in the configuration:
+
+ * `Server`: all event requests received by the API server share a single bucket;
+ * `Namespace`: each namespace has a dedicated bucket;
+ * `User`: each user is allocated a bucket;
+ * `SourceAndObject`: a bucket is assigned by each combination of source and
+   involved object of the event.
+
+Below is a sample snippet for such a configuration:
+
+```yaml
+EventRateLimit:
+  limits:
+  - type: Namespace
+    qps: 50
+    burst: 100
+    cacheSize: 2000
+  - type: User
+    qps: 10
+    burst: 50
+```
+
+See the [EventRateLimit proposal](https://git.k8s.io/community/contributors/design-proposals/api-machinery/admission_control_event_rate_limit.md)
+for more details.
+
 ### GenericAdmissionWebhook (alpha)
 
 This plug-in is related to the [Dynamic Admission Control](/docs/admin/extensible-admission-controllers)
