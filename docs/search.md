@@ -2,8 +2,11 @@
 layout: docwithnav
 title: Search Results
 ---
-<script>
+<script type="text/javascript">
+  document.write('<gcse:searchresults-only linktarget="_parent"></gcse:searchresults-only>');
+</script>
 
+<script>
   (function() {
     var cx = '013288817511911618469:elfqqbqldzg';
     var gcse = document.createElement('script');
@@ -17,4 +20,3 @@ title: Search Results
     document.querySelector('html').classList.add('search');
   })();
 </script>
-<gcse:searchresults-only linktarget="_parent"></gcse:searchresults-only>

@@ -1,8 +1,9 @@
 id: helm-chart
 name: Helm Chart
+full-link: https://github.com/kubernetes/helm/blob/master/docs/charts.md
 tags:
 - tool
-short-description: |
+short-description: >
   A package of pre-configured Kubernetes resources that can be managed with the Helm tool.
 long-description: |
   Charts provide a reproducible way of creating and sharing Kubernetes applications.
