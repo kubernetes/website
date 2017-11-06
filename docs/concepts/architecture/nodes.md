@@ -22,7 +22,7 @@ architecture design doc for more details.
 A node's status contains the following information:
 
 * [Addresses](#addresses)
-* ~~[Phase](#Phase)~~ **deprecated**
+* ~~[Phase](#phase)~~ **deprecated**
 * [Condition](#condition)
 * [Capacity](#capacity)
 * [Info](#info)
