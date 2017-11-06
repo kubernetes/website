@@ -21,11 +21,11 @@ architecture design doc for more details.
 
 A node's status contains the following information:
 
-* [Addresses](#Addresses)
+* [Addresses](#addresses)
 * ~~[Phase](#Phase)~~ **deprecated**
-* [Condition](#Condition)
-* [Capacity](#Capacity)
-* [Info](#Info)
+* [Condition](#condition)
+* [Capacity](#capacity)
+* [Info](#info)
 
 Each section is described in detail below.
 
