@@ -733,10 +733,10 @@ these two steps:
    `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
 
 ```shell
-  $ cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
+$ cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
 Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --container-runtime-endpoint=$RUNTIME_ENDPOINT --feature-gates=AllAlpha=true"
 EOF
-  $ systemctl daemon-reload
+$ systemctl daemon-reload
 ```
 
 Now `kubelet` is ready to use the specified CRI runtime, and you can continue
