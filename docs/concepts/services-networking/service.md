@@ -462,6 +462,8 @@ Special notes for Azure: To use user-specified public type `loadBalancerIP`, a s
 public IP address resource needs to be created first, and it should be in the same resource
 group of the cluster. Then you could specify the assigned IP address as `loadBalancerIP`.
 
+Special notes for AWS: AWS ELB only know instance, it doesn't know POD. When you use k8s service with `type: LoadBalancer`, kube-proxy will listen on a randomly port on instance in the cluster, an ELB is created and mapped to each instances ports even if a pod, which serve service, is not present. ELB uses round robin for the loabalancing mecanism. kube-proxy (on behalf of srevice) use a random connection 
+
 #### Internal load balancer
 In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC.
 
