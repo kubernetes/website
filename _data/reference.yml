@@ -70,7 +70,17 @@ toc:
 
 - title: Setup Tools
   section:
-  - docs/admin/kubeadm.md
+  - title: Kubeadm
+    section:
+    - docs/admin/kubeadm.md
+    - docs/admin/kubeadm-init.md
+    - docs/admin/kubeadm-join.md
+    - docs/admin/kubeadm-upgrade.md
+    - docs/admin/kubeadm-config.md
+    - docs/admin/kubeadm-reset.md
+    - docs/admin/kubeadm-token.md
+    - docs/admin/kubeadm-version.md
+    - docs/admin/kubeadm-alpha.md
   - title: Kubefed
     section:
     - docs/admin/kubefed.md
