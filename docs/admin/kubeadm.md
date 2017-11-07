@@ -733,10 +733,10 @@ these two steps:
    `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
 
 ```shell
-  $ cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
+$ cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
 Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --container-runtime-endpoint=$RUNTIME_ENDPOINT --feature-gates=AllAlpha=true"
 EOF
-  $ systemctl daemon-reload
+$ systemctl daemon-reload
 ```
 
 Now `kubelet` is ready to use the specified CRI runtime, and you can continue
@@ -750,10 +750,13 @@ requested kubernetes version is a ci version; in this case
 
 This behaviour can be overridden by [using kubeadm with a configuration file](#config-file).
 Allowed customization are:
+
 - provide an alternative `imageRepository` to be used instead of
   `gcr.io/google_containers` (NB. does not works for ci version)
+  
 - provide an `unifiedControlPlaneImage` to be used instead of single image
   for control plane components
+  
 - provide an `etcd.image` name to be used
 
 ## Running kubeadm without an internet connection
