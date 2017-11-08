@@ -32,6 +32,8 @@ complete clusters:
 
 * On GCE, [Google Container Engine](https://cloud.google.com/container-engine/)
   gives you one-click Kubernetes clusters.
+* On Microsoft Azure, [Azure Container Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
+  gives you managed Kubernetes clusters as a service.
 * On AWS, [kops](https://github.com/kubernetes/kops) makes cluster installation
   and management easy.  kops supports building high availability clusters (a
   feature that kubeadm is currently lacking but is building toward).
