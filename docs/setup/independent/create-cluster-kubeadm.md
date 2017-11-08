@@ -62,10 +62,10 @@ cloud providers is difficult.
 {% capture prerequisites %}
 
 1. One or more machines running Ubuntu 16.04+, CentOS 7 or HypriotOS v1.0.1+
-1. 2GB or more of RAM per machine (any less will leave little room for your
+1. 2 GB or more of RAM per machine (any less will leave little room for your
    apps)
-1. 2CPU or more on the master
-1. Approximately 10GB free disk space on the master
+1. 2 CPUs or more on the master
+1. Approximately 10 GB free disk space on the master
 1. Full network connectivity between all machines in the cluster (public or
    private network is fine)
 {% endcapture %}
@@ -268,6 +268,9 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8
  - For flannel to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
  - flannel works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on an other platform than
 `amd64` you have to manually download the manifest and replace `amd64` occurences with your chosen platform.
+ - Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.0/Documentation/kube-flannel.yml
@@ -275,6 +278,10 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.0/Documen
 {% endcapture %}
 
 {% capture kube-router %}
+
+Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Kube-router relies on kube-controll-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
 
@@ -286,6 +293,10 @@ For information on setting up Kubernetes cluster with Kube-router using kubeadm 
 
 {% capture romana %}
 
+Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+
 The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
 
 **Note:** Romana works on `amd64` only.
@@ -296,6 +307,10 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 {% endcapture %}
 
 {% capture weave_net %}
+
+Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
 
