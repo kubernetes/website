@@ -88,7 +88,7 @@ controller will think that those Pods were created by it.  Kubernetes will not s
 this.  One case where you might want to do this is manually create a Pod with a different value on
 a node for testing.
 
-If you attempt to create a DaemonSet such that 
+If you attempt to create a DaemonSet such that ???
 
 ### Running Pods on Only Some Nodes
 
