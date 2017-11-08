@@ -70,12 +70,6 @@ deletion*.  There are two modes of *cascading deletion*: *background* and *foreg
 If you delete an object without deleting its dependents
 automatically, the dependents are said to be *orphaned*.
 
-### Background cascading deletion
-
-In *background cascading deletion*, Kubernetes deletes the owner object
-immediately and the garbage collector then deletes the dependents in
-the background.
-
 ### Foreground cascading deletion
 
 In *foreground cascading deletion*, the root object first
@@ -99,6 +93,12 @@ unauthorized dependents cannot delay deletion of an owner object.
 
 If an object's `ownerReferences` field is set by a controller (such as Deployment or ReplicaSet),
 blockOwnerDeletion is set automatically and you do not need to manually modify this field.
+
+### Background cascading deletion
+
+In *background cascading deletion*, Kubernetes deletes the owner object
+immediately and the garbage collector then deletes the dependents in
+the background.
 
 ### Setting the cascading deletion policy
 
