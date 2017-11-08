@@ -2,7 +2,9 @@
 title: Localizing Kubernetes Documentation
 ---
 
-To add a localization of Kubernetes documentation to the Kubernetes website, localizations must meet the following requirements for _workflow_ (how to localize) and _output_ (what to localize).
+We're happy to add localizations of Kubernetes documentation to the website!
+
+Localizations must meet the following requirements for _workflow_ (how to localize) and _output_ (what to localize).
 
 ## Workflow  
 
