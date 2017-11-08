@@ -93,7 +93,7 @@ the owner object.
 
 Note that in the "foregroundDeletion", only dependents with
 `ownerReference.blockOwnerDeletion` block the deletion of the owner object.
-Kubernetes version 1.7 will add an admission controller that controls user access to set
+Kubernetes version 1.7 added an admission controller (link?) that controls user access to set
 `blockOwnerDeletion` to true based on delete permissions on the owner object, so that
 unauthorized dependents cannot delay deletion of an owner object.
 
