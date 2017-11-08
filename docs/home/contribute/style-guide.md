@@ -16,6 +16,7 @@ docs, follow the instructions on
 {% capture body %}
 
 **Note:** Kubernetes documentation uses [GitHub Flavored Markdown](https://github.github.com/gfm/).
+{: .note}
 
 ## Documentation formatting standards
 
