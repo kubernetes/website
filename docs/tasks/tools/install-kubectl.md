@@ -146,6 +146,11 @@ If you see a message similar to the following, kubectl is not correctly configur
 ```shell
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
+If kubectl cluster-info returns the url response but you can't access your cluster, to check whether it is configured properly, use:
+
+```shell
+kubectl cluster-info dump
+```
 
 ## Enabling shell autocompletion
 
