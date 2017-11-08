@@ -126,7 +126,9 @@ Finally, add the following parameters into API server start parameters:
         openssl req -new -key server.key -out server.csr -config csr.conf
 1.  Generate the server certificate using the ca.key, ca.crt and server.csr:
 
-        openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 10000
+        openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key \
+        -CAcreateserial -out server.crt -days 10000 \
+        -extensions v3_ext -extfile csr.conf
 1.  View the certificate:
 
         openssl x509  -noout -text -in ./server.crt

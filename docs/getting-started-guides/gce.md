@@ -16,6 +16,9 @@ The example below creates a Kubernetes cluster with 4 worker node Virtual Machin
 
 If you want a simplified getting started experience and GUI for managing clusters, please consider trying [Google Container Engine](https://cloud.google.com/container-engine/) (GKE) for hosted cluster installation and management.
 
+For an easy way to experiment with the Kubernetes development environment, [click here](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/kubernetes/kubernetes&page=editor&open_in_editor=README.md)
+to open a Google Cloud Shell with an auto-cloned copy of the Kubernetes source repo.
+
 If you want to use custom binaries or pure open source Kubernetes, please continue with the instructions below.
 
 ### Prerequisites

@@ -699,7 +699,7 @@ lack of progress for a Deployment after 10 minutes:
 
 ```shell
 $ kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
-"nginx-deployment" patched
+deployment "nginx-deployment" patched
 ```
 Once the deadline has been exceeded, the Deployment controller adds a DeploymentCondition with the following
 attributes to the Deployment's `status.conditions`:

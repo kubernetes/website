@@ -4,7 +4,7 @@ title: Install Minikube
 
 {% capture overview %}
 
-This page shows how to use install Minikube.
+This page shows how to install Minikube.
 
 {% endcapture %}
 

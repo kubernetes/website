@@ -10,9 +10,11 @@ The purpose of using [LXD](https://linuxcontainers.org/lxd/) on a local machine 
 
 {% capture prerequisites %}
 Install [conjure-up](http://conjure-up.io/), a tool for deploying big software.
+Add the current user to the `lxd` user group.
     
 ```
 sudo snap install conjure-up --classic
+sudo usermod -a -G lxd $(whoami)
 ```
 
 Note: If conjure-up asks you to "Setup an ipv6 subnet" with LXD, answer NO. ipv6 with Juju/LXD is currently unsupported.
