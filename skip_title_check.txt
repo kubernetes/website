@@ -1,5 +1,4 @@
 # Put files you want to skip "title:" check here:
-docs/concepts/abstractions/pod-termination.md 
 docs/reference/generated/README.md
 docs/sitemap.md
 docs/user-guide/configmap/README.md
