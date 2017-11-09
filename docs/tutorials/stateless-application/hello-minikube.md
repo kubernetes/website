@@ -291,6 +291,52 @@ Run your app again to view the new message:
 minikube service hello-node
 ```
 
+## Enable Add-ons
+
+Minikube has a set of built in addons that can be used enabled, disabled, and opened inside of the local Kubernetes environment. Below is an example of this functionality for the `heapster` addon.
+
+First we can list the currently supported addons:
+
+```shell
+$ minikube addons list
+- storage-provisioner: enabled
+- kube-dns: enabled
+- registry: disabled
+- registry-creds: disabled
+- addon-manager: enabled
+- dashboard: disabled
+- default-storageclass: enabled
+- coredns: disabled
+- heapster: disabled
+- efk: disabled
+- ingress: disabled
+```
+
+Minikube must be running for these command to take effect addon:
+
+```shell
+$ minikube addons enable heapster
+heapster was successfully enabled
+
+$ kubectl get po,svc -n kube-system
+NAME                             READY     STATUS    RESTARTS   AGE
+po/heapster-zbwzv                1/1       Running   0          2m
+po/influxdb-grafana-gtht9        2/2       Running   0          2m
+
+NAME                       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)             AGE
+svc/heapster               NodePort    10.0.0.52    <none>        80:31655/TCP        2m
+svc/monitoring-grafana     NodePort    10.0.0.33    <none>        80:30002/TCP        2m
+svc/monitoring-influxdb    ClusterIP   10.0.0.43    <none>        8083/TCP,8086/TCP   2m
+```
+
+Open the endpoint in the browser:
+
+```shell
+# This will open grafana (interacting w/ heapster)
+$ minikube addons open heapster
+Opening kubernetes service kube-system/monitoring-grafana in default browser...
+```
+
 ## Clean up
 
 Now you can clean up the resources you created in your cluster:
@@ -304,6 +350,12 @@ Optionally, stop Minikube:
 
 ```shell
 minikube stop
+```
+
+Optionally, delete Minikube vm:
+
+```shell
+minikube delete
 ```
 
 {% endcapture %}
