@@ -30,6 +30,8 @@ Their application can simply use it as a service.
 Service Catalog is built on the [Open Service Broker API](https://github.com/openservicebrokerapi/servicebroker) and is implemented as an extension API server, controller manager, and etcd operator.
 It communicates with Service Brokers via the OSB API and acts as an intermediary for the Kubernetes API Server in order to negotiate the initial provisioning and return the credentials necessary for the application to use a Managed Service.
 
+It also uses the [aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/) available in Kubernetes 1.7+ to present its API.
+
 <br>
 
 ![Service Catalog Architecture](/images/docs/service-catalog-architecture.svg)
@@ -221,7 +223,7 @@ The following example describes how to map secret values into application enviro
 
 
 {% capture whatsnext %}
-* [Install Service Catalog](/docs/tasks/service-catalog/install-service-catalog/) in your Kubernetes cluster.
+* If you are familiar with {% glossary_tooltip text="Helm Charts" term_id="helm-chart" %}, [install Service Catalog using Helm](/docs/tasks/service-catalog/install-service-catalog-using-helm/) into your Kubernetes cluster. Alternatively, you can [install Service Catalog using the SC tool](/docs/tasks/service-catalog/install-service-catalog-using-sc/).
 * View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
 * Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
 

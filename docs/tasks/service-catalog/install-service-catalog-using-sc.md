@@ -1,5 +1,5 @@
 ---
-title: Install Service Catalog
+title: Install Service Catalog using SC
 approvers:
 - chenopis
 ---
