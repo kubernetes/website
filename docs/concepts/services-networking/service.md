@@ -516,7 +516,7 @@ metadata:
 For partial SSL support on clusters running on AWS, starting with 1.3 three
 annotations can be added to a `LoadBalancer` service:
 
-```
+```yaml
 metadata:
   name: my-service
   annotations:
@@ -560,6 +560,23 @@ the following annotations may be used:
 In the above example, if the service contained three ports, `80`, `443`, and
 `8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
 be proxied HTTP.
+
+Beginning in 1.9, services can use [predefined AWS SSL policies](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)
+for any HTTPS or SSL listeners. To see which policies are available for use, run
+the awscli command:
+
+```bash
+aws elb describe-load-balancer-policies --query 'PolicyDescriptions[].PolicyName'
+```
+
+Any one of those policies can then be specified using the following annotation:
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: "ELBSecurityPolicy-TLS-1-2-2017-01"
+```
 
 #### PROXY protocol support on AWS
 
