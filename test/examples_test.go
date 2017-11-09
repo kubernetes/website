@@ -32,22 +32,21 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 	"k8s.io/apimachinery/pkg/util/yaml"
-	"k8s.io/kubernetes/pkg/api"
 	"k8s.io/kubernetes/pkg/api/testapi"
-	"k8s.io/kubernetes/pkg/api/validation"
+	core_validation "k8s.io/kubernetes/pkg/apis/core/validation"
 	"k8s.io/kubernetes/pkg/apis/apps"
 	apps_validation "k8s.io/kubernetes/pkg/apis/apps/validation"
 	"k8s.io/kubernetes/pkg/apis/batch"
 	batch_validation "k8s.io/kubernetes/pkg/apis/batch/validation"
 	"k8s.io/kubernetes/pkg/apis/extensions"
-	expvalidation "k8s.io/kubernetes/pkg/apis/extensions/validation"
+	ext_validation "k8s.io/kubernetes/pkg/apis/extensions/validation"
 	"k8s.io/kubernetes/pkg/apis/policy"
-	policyvalidation "k8s.io/kubernetes/pkg/apis/policy/validation"
+	policy_validation "k8s.io/kubernetes/pkg/apis/policy/validation"
 	"k8s.io/kubernetes/pkg/apis/storage"
-	storagevalidation "k8s.io/kubernetes/pkg/apis/storage/validation"
+	storage_validation "k8s.io/kubernetes/pkg/apis/storage/validation"
 	"k8s.io/kubernetes/pkg/capabilities"
 	"k8s.io/kubernetes/pkg/registry/batch/job"
-	schedulerapilatest "k8s.io/kubernetes/plugin/pkg/scheduler/api/latest"
+	scheduler_api_latest "k8s.io/kubernetes/plugin/pkg/scheduler/api/latest"
 )
 
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
@@ -56,7 +55,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidateReplicationController(t)
+		errors = core_validation.ValidateReplicationController(t)
 	case *api.ReplicationControllerList:
 		for i := range t.Items {
 			errors = append(errors, validateObject(&t.Items[i])...)
@@ -117,7 +116,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = expvalidation.ValidateDeployment(t)
+		errors = ext_validation.ValidateDeployment(t)
 	case *batch.Job:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -130,14 +129,14 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = expvalidation.ValidateIngress(t)
+		errors = ext_validation.ValidateIngress(t)
 	case *extensions.DaemonSet:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = expvalidation.ValidateDaemonSet(t)
+		errors = ext_validation.ValidateDaemonSet(t)
 	case *extensions.PodSecurityPolicy:
-		errors = expvalidation.ValidatePodSecurityPolicy(t)
+		errors = ext_validation.ValidatePodSecurityPolicy(t)
 	case *batch.CronJob:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -157,10 +156,10 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = policyvalidation.ValidatePodDisruptionBudget(t)
+		errors = policy_validation.ValidatePodDisruptionBudget(t)
 	case *storage.StorageClass:
 		// storageclass does not accept namespace
-		errors = storagevalidation.ValidateStorageClass(t)
+		errors = storage_validation.ValidateStorageClass(t)
 	default:
 		errors = field.ErrorList{}
 		errors = append(errors, field.InternalError(field.NewPath(""), fmt.Errorf("no validation defined for %#v", obj)))
@@ -369,7 +368,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 					return
 				}
 				if strings.Contains(name, "scheduler-policy-config") {
-					if err := runtime.DecodeInto(schedulerapilatest.Codec, data, expectedType); err != nil {
+					if err := runtime.DecodeInto(scheduler_api_latest.Codec, data, expectedType); err != nil {
 						t.Errorf("%s did not decode correctly: %v\n%s", path, err, string(data))
 						return
 					}
