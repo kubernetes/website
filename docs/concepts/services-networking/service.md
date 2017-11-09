@@ -481,7 +481,7 @@ metadata:
         cloud.google.com/load-balancer-type: "Internal"
 [...]
 ```
-Use `cloud.google.com/load-balancer-type: "internal"` for masters with version 1.7.0 to 1.7.3.  
+Use `cloud.google.com/load-balancer-type: "internal"` for masters with version 1.7.0 to 1.7.3.
 For more information, see the [docs](https://cloud.google.com/kubernetes-engine/docs/internal-load-balancing).
 {% endcapture %}
 
@@ -575,6 +575,66 @@ annotation:
 
 Since version 1.3.0 the use of this annotation applies to all ports proxied by the ELB
 and cannot be configured otherwise.
+
+#### Network Load Balancer support on AWS [alpha]
+
+**Warning:** This is an alpha feature and not recommended for production clusters yet.
+
+Starting in version 1.9.0, Kubernetes supports Network Load Balancer (NLB). To
+use a Network Load Balancer on AWS, use the annotation `service.beta.kubernetes.io/aws-load-balancer-type`
+with the value set to `nlb`.
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+```
+
+Unlike classic Elastic Load Balancers, Network Load Balancers (NLBs) forward the
+client's IP through to the node. If a service's `spec.externalTrafficPolicy` is
+set to `Cluster`, the client's IP address will not be propagated to the end
+pods.
+
+By setting `spec.externalTrafficPolicy` to `Local`, client IP addresses will be
+propagated to the end pods, but this could result in uneven distribution of
+traffic. Nodes without any pods for a particular LoadBalancer service will fail
+the NLB Target Group's health check on the auto-assigned
+`spec.healthCheckNodePort` and not recieve any traffic.
+
+In order to achieve even traffic, either use a DaemonSet, or specify a
+[pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature)
+to not locate pods on the same node.
+
+NLB can also be used with the [internal load balancer](/docs/concepts/services-networking/service/#internal-load-balancer)
+annotation.
+
+In order for client traffic to reach instances behind an NLB, the Node security
+groups are modified with the following IP rules:
+
+| Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
+|------|----------|---------|------------|---------------------|
+| Health Check | TCP | NodePort(s) (`spec.healthCheckNodePort` for `spec.externalTrafficPolicy = Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+| Client Traffic | TCP | NodePort(s) | `spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
+| MTU Discovery | ICMP | 3,4 | `spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
+
+Be aware that if `spec.loadBalancerSourceRanges` is not set, Kubernetes will
+allow traffic from `0.0.0.0/0` to the Node Security Group(s). If nodes have
+public IP addresses, be aware that non-NLB traffic can also reach all instances
+in those modified security groups. IPv6 is not yet supported for source ranges.
+
+In order to limit which client IP's can access the Network Load Balancer,
+specify `loadBalancerSourceRanges`.
+
+```yaml
+spec:
+  loadBalancerSourceRanges:
+  - "143.231.0.0/16"
+```
+
+**Note:** NLB only works with certain instance classes, see the [AWS documentation](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
+for supported instance types.
+
 
 ### External IPs
 
