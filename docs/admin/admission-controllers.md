@@ -78,8 +78,9 @@ storage classes and how to mark a storage class as default.
 
 This plug-in sets the default forgiveness toleration for pods to tolerate
 the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes,
-if the pods don't already have toleration for taints `notready:NoExecute` or
-`unreachable:NoExecute`.
+if the pods don't already have toleration for taints
+`node.kubernetes.io/not-ready:NoExecute` or
+`node.alpha.kubernetes.io/unreachable:NoExecute`.
 
 ### DenyExecOnPrivileged (deprecated)
 
