@@ -8,23 +8,37 @@ Localizations must meet the following requirements for _workflow_ (how to locali
 
 ## Workflow  
 
-- All localization work must happen within a Kubernetes organization repository specifically dedicated to localization.
+All localization work must be stored and tracked within the [Kubernetes organization](https://github.com/kubernetes).
 
-    For example: https://github.com/kubernetes/kubernetes-docs-cn
+#### Repository
 
-    To open a localization repository, [contact the SIG docs lead](https://kubernetes.slack.com/messages/C1J0BPD2M) on Slack for assistance.
+A localization team will have a repository specifically dedicated to its work, for example: [kubernetes/kubernetes-docs/cn](https://github.com/kubernetes/kubernetes-docs-cn).
 
-- Teams must track their overall progress with a GitHub project.
+**Note:** To open a localization repository, [contact the SIG docs lead](https://kubernetes.slack.com/messages/C1J0BPD2M) on Slack for assistance.
+{: .note}
 
-    Projects must include columns for pending work, work in progress, and completed work.
+#### Project
 
-- L10n teams must provide their own repository maintainers.
+Teams must track their overall progress with a [GitHub project](https://help.github.com/articles/creating-a-project-board/).
 
-- All localization work must be self-sustaining with the team's own resources.
+Projects must include columns for:
+- pending work
+- work in progress
+- completed work
 
-- Upstream contributions are limited to a maximum of one PR with squashed commits per week.
+#### Team function
 
-- Wherever possible, every localized page must be approved by a reviewer from a different company than the translator. 
+L10n teams must provide their own repository maintainers.
+
+All localization work must be self-sustaining with the team's own resources.
+
+Wherever possible, every localized page must be approved by a reviewer from a different company than the translator.
+
+### Upstream contributions
+
+Upstream contributions are welcome and encouraged!
+
+For the sake of efficiency, limit upstream contributions to a single pull request per week, containing a single squashed commit.
 
 ## Output
 
@@ -38,6 +52,9 @@ Tutorials | [Kubernetes Basics](https://kubernetes.io/docs/tutorials/), [Hello M
 
 ## Next steps
 
-Once a localization project meets requirements for workflow and minimum output, SIG docs will work with the localization team to implement a language selector on the website and publicize availability through [Cloud Native Computing Foundation](https://www.cncf.io/) (CNCF) channels.
+Once a localization project meets requirements for workflow and minimum output, SIG docs will:
+- Work with the localization team to implement a language selector on the website
+- Publicize availability through [Cloud Native Computing Foundation](https://www.cncf.io/) (CNCF) channels.
 
 **Note:** Implementation of a language selector is pending Kubernetes' first completed localization project.
+{: .note}
