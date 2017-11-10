@@ -34,6 +34,10 @@ identical values. Kubernetes uses these values to uniquely identify the nodes in
 If these values are not unique to each node, the installation processes
 [can fail](https://github.com/kubernetes/kubeadm/issues/31).
 
+## Check network adapters
+
+If you have more than one network adapter, and your Kubernetes components are not reachable on the default route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
+
 ## Check required ports
 
 ### Master node(s)
