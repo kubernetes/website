@@ -124,7 +124,7 @@
  			name: 'Mirantis',
  			logo: 'mirantis',
  			link: 'https://www.mirantis.com/software/kubernetes/',
- 			blurb: 'Mirantis - Mirantis Cloud Platform - v1.7.8-3+bdc5df8ecb261a'
+ 			blurb: 'Mirantis - Mirantis Cloud Platform'
  		},
 		{
  			type: 0,
@@ -656,35 +656,35 @@
 			name: 'Google Container Engine',
 			logo: 'gcp',
 			link: 'https://cloud.google.com/container-engine/',
-			blurb: 'Google - Google Container Engine - v1.7.8, v1.8.0'
+			blurb: 'Google - Google Container Engine'
 				},
 		{
 			type: 3,
 			name: 'Apprenda',
 			logo: 'kismatic',
 			link: 'https://apprenda.com/kismatic/',
-			blurb: 'Apprenda - Kismatic Enterprise Toolkit (KET) - v1.6.0'
+			blurb: 'Apprenda - Kismatic Enterprise Toolkit (KET)'
 				},
 		{
 			type: 3,
 			name: 'Red Hat',
-			logo: 'openshift',
+			logo: 'redhat',
 			link: 'https://www.openshift.com',
-			blurb: 'Red Hat - OpenShift Online and OpenShift Container Platform - v1.7.0'
+			blurb: 'Red Hat - OpenShift Online and OpenShift Container Platform'
 				},
 		{
 			type: 3,
 			name: 'Rancher',
 			logo: 'rancher',
 			link: 'http://rancher.com/kubernetes/',
-			blurb: 'Rancher Inc. - Rancher Kubernetes - v1.7.7'
+			blurb: 'Rancher Inc. - Rancher Kubernetes'
 				},
 		{
 			type: 3,
 			name: 'Canonical',
 			logo: 'canonical',
 			link: 'https://www.ubuntu.com/kubernetes',
-			blurb: 'Canonical Ltd. - Canonical Distribution of Kubernetes - v1.8.1'
+			blurb: 'Canonical Ltd. - Canonical Distribution of Kubernetes'
 				},
 		{
 			type: 3,
@@ -698,168 +698,168 @@
 			name: 'Cloud Foundry',
 			logo: 'cff',
 			link: 'https://www.cloudfoundry.org/container-runtime/',
-			blurb: 'Cloud Foundry - Cloud Foundry Container Runtime - v0.8.0'
+			blurb: 'Cloud Foundry - Cloud Foundry Container Runtime'
 				},
 		{
 			type: 3,
 			name: 'IBM',
-			logo: 'ibmcloud',
+			logo: 'ibm',
 			link: 'https://www.ibm.com/cloud/container-service',
-			blurb: 'IBM - IBM Cloud Container Service - v1.7.4, v1.8.2'
+			blurb: 'IBM - IBM Cloud Container Service'
 				},
 		{
 			type: 3,
 			name: 'Samsung',
-			logo: 'kraken',
+			logo: 'samsung_sds',
 			link: 'https://github.com/samsung-cnct/kraken',
-			blurb: 'Samsung SDS - Kraken - v1.2.1, v1.2.2'
+			blurb: 'Samsung SDS - Kraken'
 				},
 		{
 			type: 3,
 			name: 'IBM',
-			logo: 'ibmprivate',
+			logo: 'ibm',
 			link: 'https://www.ibm.com/cloud-computing/products/ibm-cloud-private/',
-			blurb: 'IBM - IBM Cloud Private - v2.1'
+			blurb: 'IBM - IBM Cloud Private'
 				},
 		{
 			type: 3,
 			name: 'Heptio',
 			logo: 'heptio',
 			link: 'https://aws.amazon.com/quickstart/architecture/heptio-kubernetes',
-			blurb: 'Heptio - AWS-Quickstart - v1.8.2'
+			blurb: 'Heptio - AWS-Quickstart'
 				},
 		{
 			type: 3,
 			name: 'StackPointCloud',
 			logo: 'stackpoint',
 			link: 'https://stackpoint.io',
-			blurb: 'StackPointCloud - StackPointCloud - v1.0'
+			blurb: 'StackPointCloud - StackPointCloud'
 				},
 		{
 			type: 3,
 			name: 'Caicloud',
 			logo: 'caicloud',
 			link: 'https://caicloud.io/products/compass',
-			blurb: 'Caicloud - Compass - v1.7.9'
+			blurb: 'Caicloud - Compass'
 				},
 		{
 			type: 3,
 			name: 'Alibaba',
 			logo: 'alibaba',
 			link: 'https://www.aliyun.com/product/containerservice?spm=5176.8142029.388261.219.3836dbccRpJ5e9',
-			blurb: 'Alibaba Cloud - Alibaba Cloud Container Service - v1.8.1'
+			blurb: 'Alibaba Cloud - Alibaba Cloud Container Service'
 				},
 		{
 			type: 3,
 			name: 'Tencent',
 			logo: 'tencent',
 			link: 'https://cloud.tencent.com/product/ccs?lang=en',
-			blurb: 'Tencent Cloud - Tencent Cloud Container Service - v1.7.8'
+			blurb: 'Tencent Cloud - Tencent Cloud Container Service'
 				},
 		{
 			type: 3,
 			name: 'Huawei',
 			logo: 'huawei',
 			link: 'http://www.huaweicloud.com/product/cce.html',
-			blurb: 'Huawei - Huawei Cloud Container Engine - v1.7.3-cce2.10'
+			blurb: 'Huawei - Huawei Cloud Container Engine'
 				},
 		{
 			type: 3,
 			name: 'Google',
-			logo: 'gce',
+			logo: 'gcp',
 			link: 'https://github.com/kubernetes/kubernetes/tree/master/cluster',
-			blurb: 'Google - kube-up.sh on Google Compute Engine - v1.7.9, v1.8.1'
+			blurb: 'Google - kube-up.sh on Google Compute Engine'
 				},
 		{
 			type: 3,
 			name: 'Poseidon',
 			logo: 'poseidon',
 			link: 'https://typhoon.psdn.io/',
-			blurb: 'Poseidon - Typhoon - v1.8.2'
+			blurb: 'Poseidon - Typhoon'
 				},
 		{
 			type: 3,
 			name: 'Netease',
 			logo: 'netease',
 			link: 'https://www.163yun.com/product/container-service-dedicated',
-			blurb: 'Netease - Netease Container Service Dedicated - v1.0'
+			blurb: 'Netease - Netease Container Service Dedicated'
 				},
 		{
 			type: 3,
 			name: 'Loodse',
-			logo: 'kubermatic',
+			logo: 'loodse',
 			link: 'https://loodse.io',
-			blurb: 'Loodse - Kubermatic Container Engine - v1.4'
+			blurb: 'Loodse - Kubermatic Container Engine'
 				},
 		{
 			type: 3,
 			name: 'Microsoft',
 			logo: 'microsoft',
 			link: 'https://github.com/Azure/acs-engine',
-			blurb: 'Microsoft - Azure acs-engine - v0.8.0'
+			blurb: 'Microsoft - Azure acs-engine'
 				},
 		{
 			type: 3,
 			name: 'Oracle',
 			logo: 'oracle',
 			link: 'http://www.wercker.com/product',
-			blurb: 'Oracle - Oracle Container Engine - 1.2.11.12'
+			blurb: 'Oracle - Oracle Container Engine'
 				},
 		{
 			type: 3,
 			name: 'Oracle',
 			logo: 'oracle',
 			link: 'https://github.com/oracle/terraform-kubernetes-installer',
-			blurb: 'Oracle -  Oracle Terraform Kubernetes Installer - 1.1.0'
+			blurb: 'Oracle -  Oracle Terraform Kubernetes Installer'
 				},
 		{
 			type: 3,
 			name: 'Mesosphere',
 			logo: 'mesosphere',
 			link: 'https://mesosphere.com/kubernetes/',
-			blurb: 'Mesosphere -  Kubernetes on DC/OS - 0.3.0-1.7.10'
+			blurb: 'Mesosphere -  Kubernetes on DC/OS'
 				},
 		{
 			type: 3,
 			name: 'Appscode',
 			logo: 'appscode',
 			link: 'https://appscode.com/products/cloud-deployment/',
-			blurb: 'Appscode - Pharmer - v1.8.0'
+			blurb: 'Appscode - Pharmer'
 				},
 		{
 			type: 3,
 			name: 'SAP',
 			logo: 'sap',
 			link: 'https://cloudplatform.sap.com/index.html',
-			blurb: 'SAP - Cloud Platform - Gardener (not yet released) - 1.3.1'
+			blurb: 'SAP - Cloud Platform - Gardener (not yet released)'
 				},
 		{
 			type: 3,
 			name: 'Oracle',
 			logo: 'oraclelinux',
 			link: 'https://www.oracle.com/linux/index.html',
-			blurb: 'Oracle Linux - Oracle Linux Container Services for use with Kubernetes - 1.7.4-2.0.1'
+			blurb: 'Oracle Linux - Oracle Linux Container Services for use with Kubernetes'
 				},
 		{
 			type: 3,
 			name: 'CoreOS',
-			logo: 'bootkube',
+			logo: 'coreos',
 			link: 'https://github.com/kubernetes-incubator/bootkube',
-			blurb: 'CoreOS - bootkube - v1.8.2'
+			blurb: 'CoreOS - bootkube'
 				},
 		{
 			type: 3,
 			name: 'Weaveworks',
-			logo: 'kubeadm',
+			logo: 'weave_works',
 			link: 'https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/',
-			blurb: 'Weaveworks - kubeadm - v1.8.2'
+			blurb: 'Weaveworks - kubeadm'
 				},
 		{
 			type: 3,
 			name: 'Wise2c',
-			logo: 'wisecloud',
+			logo: 'wise2c',
 			link: 'http://www.wise2c.com/solution',
-			blurb: 'Wise2C Technology - WiseCloud - v1.4.4'
+			blurb: 'Wise2C Technology - WiseCloud'
 				},
 		{
 			type: 3,
@@ -873,28 +873,28 @@
 			name: 'Daocloud',
 			logo: 'daocloud',
 			link: 'http://www.daocloud.io/dce',
-			blurb: 'DaoCloud - DaoCloud Enterprise - v1.7.5'
+			blurb: 'DaoCloud - DaoCloud Enterprise'
 				},
 		{
 			type: 3,
 			name: 'SUSE',
 			logo: 'suse',
 			link: 'https://www.suse.com/products/caas-platform/',
-			blurb: 'SUSE - SUSE CaaS (Container as a Service) Platform - v2.0'
+			blurb: 'SUSE - SUSE CaaS (Container as a Service) Platform'
 				},
 		{
 			type: 3,
 			name: 'Pivotal',
 			logo: 'pivotal',
 			link: 'https://cloud.vmware.com/pivotal-container-service',
-			blurb: 'Pivotal/VMware - Pivotal Container Service (PKS) - v0.1.0'
+			blurb: 'Pivotal/VMware - Pivotal Container Service (PKS)'
 				},
 		{
 			type: 3,
 			name: 'CoreOS',
-			logo: 'tectonic',
+			logo: 'coreos',
 			link: 'https://coreos.com/tectonic/',
-			blurb: 'CoreOS - Tectonic - 1.7.5-tectonic.1'
+			blurb: 'CoreOS - Tectonic'
 				},
 		{
 			type: 0,
@@ -972,6 +972,11 @@
 
 		var link = document.createElement('a')
 		link.href = obj.link
+		link.target = '_blank'
+		link.textContent = 'Learn more'
+
+		var link = document.createElement('a')
+		link.href = obj.link2
 		link.target = '_blank'
 		link.textContent = 'Learn more'
 
