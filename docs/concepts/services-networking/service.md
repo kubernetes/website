@@ -441,7 +441,6 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 9376
-    nodePort: 30061
   clusterIP: 10.0.171.239
   loadBalancerIP: 78.11.24.19
   type: LoadBalancer

@@ -66,7 +66,7 @@ if you have 3 registered clusters and you create a Federated Deployment with
 `spec.replicas = 9`, then each Deployment in the 3 clusters will have
 `spec.replicas=3`.
 To modify the number of replicas in each cluster, you can specify
-[FederatedReplicaSetPreference](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/federation/apis/federation/types.go)
+[FederatedReplicaSetPreference](https://github.com/kubernetes/federation/blob/{{page.githubbranch}}/apis/federation/types.go)
 as an annotation with key `federation.kubernetes.io/deployment-preferences`
 on Federated Deployment.
 

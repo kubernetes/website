@@ -32,6 +32,8 @@ complete clusters:
 
 * On GCE, [Google Container Engine](https://cloud.google.com/container-engine/)
   gives you one-click Kubernetes clusters.
+* On Microsoft Azure, [Azure Container Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
+  gives you managed Kubernetes clusters as a service.
 * On AWS, [kops](https://github.com/kubernetes/kops) makes cluster installation
   and management easy.  kops supports building high availability clusters (a
   feature that kubeadm is currently lacking but is building toward).
@@ -101,26 +103,25 @@ kubeadm on, and run:
 kubeadm init
 ```
 
-**Note:**
+**Notes:**
 
- - You need to choose a Pod Network Plugin in the next step. Depending on what
+- Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to
+read more about the flags `kubeadm init` provides. You can also specify a 
+[configuration file](/docs/admin/kubeadm/#sample-master-configuration) instead of using flags.
+- You need to choose a Pod Network Plugin in the next step. Depending on what
 third-party provider you choose, you might have to set the `--pod-network-cidr` to
 something provider-specific. The tabs below will contain a notice about what flags
 on `kubeadm init` are required.
- - This will autodetect the network interface to advertise the master on
-as the interface with the default gateway. If you want to use a different
-interface, specify `--apiserver-advertise-address=<ip-address>` argument to `kubeadm
-init`.
-
-Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to
-read more about the flags `kubeadm init` provides.
-
-`kubeadm init` will first run a series of prechecks to ensure that the machine
+- Unless otherwise specified, kubeadm uses the default gateway's network interface 
+to advertise the master's IP. If you want to use a different network interface, specify 
+`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`.
+- If you would like to customise control plane components, you can do so by providing 
+extra args to each one, as documented [here](/docs/admin/kubeadm#custom-args).
+- `kubeadm init` will first run a series of prechecks to ensure that the machine
 is ready to run Kubernetes.  It will expose warnings and exit on errors. It
 will then download and install the cluster database and control plane
 components. This may take several minutes.
-
-You can't run `kubeadm init` twice without tearing down the cluster in between
+- You can't run `kubeadm init` twice without tearing down the cluster in between
 ([unless you're upgrading from v1.6 to v1.7](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/)),
 see [Tear Down](#tear-down).
 

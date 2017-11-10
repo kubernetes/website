@@ -39,6 +39,7 @@ administrator to control the following:
 | Requiring the use of a read only root file system                      | `readOnlyRootFilesystem`                    |
 | Running of a container that allow privilege escalation from its parent | [`allowPrivilegeEscalation`](#allowprivilegeescalation) |
 | Control whether a process can gain more privileges than its parent process | [`defaultAllowPrivilegeEscalation`](#defaultallowprivilegeescalation) |
+| Whitelist of allowed host paths                                        | [`allowedHostPaths`](#allowedhostpaths)     |
 
 _Pod Security Policies_ are comprised of settings and strategies that
 control the security features a pod has access to. These settings fall
@@ -140,6 +141,26 @@ container process. It defaults to `nil`. The default behavior of `nil`
 allows privilege escalation so as to not break setuid binaries. Setting it to `false`
 ensures that no child process of a container can gain more privileges than
 its parent.
+
+### AllowedHostPaths
+
+This specifies a whitelist of host paths that are allowed to be used by Pods.
+An empty list means there is no restriction on host paths used.
+Each item in the list must specify a string value named `pathPrefix` that
+defines a host path to match. The value cannot be "`*`" though.
+An example is shown below:
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: custom-paths
+spec:
+  allowedHostPaths:
+    # This allows "/foo", "/foo/", "/foo/bar" etc., but
+    # disallows "/fool", "/etc/foo" etc.
+    - pathPrefix: "/foo"
+```
 
 ## Admission
 

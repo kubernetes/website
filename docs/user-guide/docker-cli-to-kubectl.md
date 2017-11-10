@@ -19,10 +19,11 @@ With docker:
 
 ```shell
 $ docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 nginx
-a9ec34d9878748d2f33dc20cb25c714ff21da8d40558b45bfaec9955859075d0
+55c103fa129692154a7652490236fee9be47d70a8dd562281ae7d2f9a339a6db
+
 $ docker ps
-CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
-a9ec34d98787        nginx               "nginx -g 'daemon of   2 seconds ago       Up 2 seconds        0.0.0.0:80->80/tcp, 443/tcp   nginx-app 
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
+55c103fa1296        nginx               "nginx -g 'daemon of…"   9 seconds ago       Up 9 seconds        0.0.0.0:80->80/tcp   nginx-app
 ```
 
 With kubectl:
@@ -34,7 +35,7 @@ deployment "nginx-app" created
 ```
 
 `kubectl run` creates a Deployment named "nginx-app" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/{{page.version}}/#run) for more details. 
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/{{page.version}}/#run) for more details.
 Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands. Now, we can expose a new Service with the deployment created above:
 
 ```shell
@@ -63,17 +64,19 @@ How do I list what is currently running? Checkout [kubectl get](/docs/user-guide
 With docker:
 
 ```shell
-$ docker ps
-CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
-a9ec34d98787        nginx               "nginx -g 'daemon of   About an hour ago   Up About an hour    0.0.0.0:80->80/tcp, 443/tcp   nginx-app
+$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS                     PORTS                NAMES
+14636241935f        ubuntu:16.04        "echo test"              5 seconds ago        Exited (0) 5 seconds ago                        cocky_fermi
+55c103fa1296        nginx               "nginx -g 'daemon of…"   About a minute ago   Up About a minute          0.0.0.0:80->80/tcp   nginx-app
 ```
 
 With kubectl:
 
 ```shell
-$ kubectl get po
-NAME              READY     STATUS    RESTARTS   AGE
-nginx-app-5jyvm   1/1       Running   0          1h
+$ kubectl get po -a
+NAME                        READY     STATUS      RESTARTS   AGE
+nginx-app-8df569cb7-4gd89   1/1       Running     0          3m
+ubuntu                      0/1       Completed   0          20s
 ```
 
 #### docker attach
@@ -84,9 +87,10 @@ With docker:
 
 ```shell
 $ docker ps
-CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
-a9ec34d98787        nginx               "nginx -g 'daemon of   8 minutes ago       Up 8 minutes        0.0.0.0:80->80/tcp, 443/tcp   nginx-app
-$ docker attach a9ec34d98787
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
+55c103fa1296        nginx               "nginx -g 'daemon of…"   5 minutes ago       Up 5 minutes        0.0.0.0:80->80/tcp   nginx-app
+
+$ docker attach 55c103fa1296
 ...
 ```
 
@@ -96,6 +100,7 @@ With kubectl:
 $ kubectl get pods
 NAME              READY     STATUS    RESTARTS   AGE
 nginx-app-5jyvm   1/1       Running   0          10m
+
 $ kubectl attach -it nginx-app-5jyvm
 ...
 ```
@@ -108,10 +113,11 @@ With docker:
 
 ```shell
 $ docker ps
-CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
-a9ec34d98787        nginx               "nginx -g 'daemon of   8 minutes ago       Up 8 minutes        0.0.0.0:80->80/tcp, 443/tcp   nginx-app
-$ docker exec a9ec34d98787 cat /etc/hostname
-a9ec34d98787
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
+55c103fa1296        nginx               "nginx -g 'daemon of…"   6 minutes ago       Up 6 minutes        0.0.0.0:80->80/tcp   nginx-app
+
+$ docker exec 55c103fa1296 cat /etc/hostname
+55c103fa1296
 ```
 
 With kubectl:
@@ -120,6 +126,7 @@ With kubectl:
 $ kubectl get po
 NAME              READY     STATUS    RESTARTS   AGE
 nginx-app-5jyvm   1/1       Running   0          10m
+
 $ kubectl exec nginx-app-5jyvm -- cat /etc/hostname
 nginx-app-5jyvm
 ```
@@ -130,7 +137,7 @@ What about interactive commands?
 With docker:
 
 ```shell
-$ docker exec -ti a9ec34d98787 /bin/sh
+$ docker exec -ti 55c103fa1296 /bin/sh
 # exit
 ```
 
@@ -183,9 +190,11 @@ With docker:
 ```shell
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
-a9ec34d98787        nginx               "nginx -g 'daemon of   22 hours ago        Up 22 hours         0.0.0.0:80->80/tcp, 443/tcp   nginx-app
+a9ec34d98787        nginx               "nginx -g 'daemon of"  22 hours ago        Up 22 hours         0.0.0.0:80->80/tcp, 443/tcp   nginx-app
+
 $ docker stop a9ec34d98787
 a9ec34d98787
+
 $ docker rm a9ec34d98787
 a9ec34d98787
 ```
@@ -196,11 +205,14 @@ With kubectl:
 $ kubectl get deployment nginx-app
 NAME        DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-app   1         1         1            1           2m
+
 $ kubectl get po -l run=nginx-app
 NAME                         READY     STATUS    RESTARTS   AGE
 nginx-app-2883164633-aklf7   1/1       Running   0          2m
+
 $ kubectl delete deployment nginx-app
 deployment "nginx-app" deleted
+
 $ kubectl get po -l run=nginx-app
 # Return nothing
 ```
