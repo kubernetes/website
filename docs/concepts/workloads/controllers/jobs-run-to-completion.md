@@ -162,7 +162,7 @@ job "myjob" scaled
 You can also use the `scale` subresource of the Job resource.
 
 Actual parallelism (number of pods running at any instant) may be more or less than requested
-parallelism, for a variety or reasons:
+parallelism, for a variety of reasons:
 
 - For Fixed Completion Count jobs, the actual number of pods running in parallel will not exceed the number of
   remaining completions.   Higher values of `.spec.parallelism` are effectively ignored.

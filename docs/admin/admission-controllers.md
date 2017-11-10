@@ -364,7 +364,7 @@ For more information about persistent volume claims, see ["PersistentVolumeClaim
 ### PodPreset
 
 This plug-in injects a pod with the fields specified in a matching PodPreset.
-See also [PodPreset concept](docs/concepts/workloads/pods/podpreset/) and
+See also [PodPreset concept](/docs/concepts/workloads/pods/podpreset/) and
 [Inject Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset)
 for more information.
 
