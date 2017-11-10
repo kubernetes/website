@@ -24,6 +24,8 @@ Localizations must meet the following requirements for _workflow_ (how to locali
 
 - Upstream contributions are limited to a maximum of one PR with squashed commits per week.
 
+- Wherever possible, every localized page must be approved by a reviewer from a different company than the translator. 
+
 ## Output
 
 All localizations must include the following documentation at a minimum:
