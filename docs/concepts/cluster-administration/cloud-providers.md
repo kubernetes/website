@@ -210,7 +210,7 @@ bs-version=v2
 
 #### Router
 These configuration options for the OpenStack provider pertain to routing and
-should appear in the `[Router]` section of the `cloud.conf` file:
+should appear in the `[Route]` section of the `cloud.conf` file:
 
 * `router-id` (Optional): If the underlying cloud's Neutron deployment supports
   the `extraroutes` extension then use `router-id` to specify a router to add
