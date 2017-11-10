@@ -12,7 +12,7 @@ deployments of one of three open source orchestrators: DC/OS, Swarm, and Kuberne
 
 For an example of deploying a Kubernetes cluster onto Azure via the Azure Container Service:
 
-**[Microsoft Azure Container Service - Kubernetes Walkthrough](https://docs.microsoft.com/en-us/azure/container-service/container-service-kubernetes-walkthrough)**
+**[Microsoft Azure Container Service - Kubernetes Walkthrough](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)**
 
 ## Custom Deployments: ACS-Engine
 

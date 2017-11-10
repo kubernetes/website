@@ -49,7 +49,7 @@ Different settings can be applied to a load balancer service in AWS using _annot
 * `service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout`: Used on the service to specify a connection draining timeout.
 * `service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout`: Used on the service to specify the idle connection timeout.
 * `service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled`: Used on the service to enable or disable cross-zone load balancing.
-* `service.beta.kubernetes.io/aws-load-balancer-extra-security-groups`: Used one the service to specify additional security groups to be added to ELB created
+* `service.beta.kubernetes.io/aws-load-balancer-extra-security-groups`: Used on the service to specify additional security groups to be added to ELB created
 * `service.beta.kubernetes.io/aws-load-balancer-internal`: Used on the service to indicate that we want an internal ELB.
 * `service.beta.kubernetes.io/aws-load-balancer-proxy-protocol`: Used on the service to enable the proxy protocol on an ELB. Right now we only accept the value `*` which means enable the proxy protocol on all ELB backends. In the future we could adjust this to allow setting the proxy protocol only on certain backends.
 * `service.beta.kubernetes.io/aws-load-balancer-ssl-ports`: Used on the service to specify a comma-separated list of ports that will use SSL/HTTPS listeners. Defaults to `*` (all)
@@ -58,50 +58,138 @@ The information for the annotations for AWS is taken from the comments on [aws.g
 
 # OpenStack
 This section describes all the possible configurations which can
-be used when using OpenStack with Kubernetes.
+be used when using OpenStack with Kubernetes. The OpenStack cloud provider
+implementation for Kubernetes supports the use of these OpenStack services from
+the underlying cloud, where available:
+
+| Service                  | API Version(s) | Required |
+|--------------------------|----------------|----------|
+| Block Storage (Cinder)   | V1†, V2        | No       |
+| Compute (Nova)           | V2             | No       |
+| Identity (Keystone)      | V2‡,  V3       | Yes      |
+| Load Balancing (Neutron) | V1§, V2        | No       |
+
+† Block Storage V1 API support is deprecated, support for Block Storage V3 will
+  be added in the future.
+‡ Identity V2 API support is deprecated and will be removed from the provider in
+a future release. As of the "Queens" release OpenStack will no longer expose the
+Identity V2 API.
+§ Load Balancing V1 API support is deprecated and will be removed from the
+provider in a future release.
+
+Service discovery is achieved by listing the service catalog managed by
+OpenStack Identity (Keystone) using the `auth-url` provided in the provider
+configuration. The provider will gracefully degrade in functionality when
+OpenStack services other than Keystone are not available and simply disclaim
+support for impacted features. Certain features are also enabled or disabled
+based on the list of extensions published by Neutron in the underlying cloud.
 
 ## cloud.conf
 Kubernetes knows how to interact with OpenStack via the file cloud.conf. It is the file that will provide Kubernetes with credentials and location for the OpenStack auth endpoint.
 You can create a cloud.conf file by specifying the following details in it
 
-### Minimal configuration
-This is an example of a minimal configuration that touches the values that most often need to be set:
+### Typical configuration
+This is an example of a typical configuration that touches the values that most
+often need to be set. It points the provider at the OpenStack cloud's Keystone
+endpoint, provides details for how to authenticate with it, and configures the
+load balancer:
 
 ```yaml
 [Global]
-username=user  
-password=pass  
-auth-url=https://<keystone_ip>/identity/v3  
-tenant-id=c869168a828847f39f7f06edd7305637  
+username=user
+password=pass
+auth-url=https://<keystone_ip>/identity/v3
+tenant-id=c869168a828847f39f7f06edd7305637
 domain-id=2a73b8f597c04551a0fdc8e95544be8a
 
 [LoadBalancer]
-subnet-id=6937f8fa-858d-4bc9-a3a5-18d2c957166a  
+subnet-id=6937f8fa-858d-4bc9-a3a5-18d2c957166a
 ```
 
 #### Global
-* `username`: Refers to the username of a valid user set in keystone.
-* `password`:Refers to the password of a valid user set in keystone.
-* `auth-url`: The URL of the keystone API used to authenticate. On OpenStack control panels, this can be found at Access and Security > API Access > Credentials.
-* `tenant-id`: Used to specify the id of the project where you want to create your resources.
-* `domain-id`: Used to specify the id of the domain your user belongs to.
+These configuration options for the OpenStack provider pertain to its global
+configuration and should appear in the `[Global]` section of the `cloud.conf`
+file:
+
+* `auth-url` (Required): The URL of the keystone API used to authenticate. On
+  OpenStack control panels, this can be found at Access and Security > API
+  Access > Credentials.
+* `username` (Required): Refers to the username of a valid user set in keystone.
+* `password` (Required): Refers to the password of a valid user set in keystone.
+* `tenant-id` (Required): Used to specify the id of the project where you want
+  to create your resources.
+* `tenant-name` (Optional): Used to specify the name of the project where you
+  want to create your resources.
+* `trust-id` (Optional): Used to specify the identifier of the trust to use for
+  authorization. A trust represents a user's (the trustor) authorization to
+  delegate roles to another user (the trustee), and optionally allow the trustee
+  to impersonate the trustor. Available trusts are found under the
+  `/v3/OS-TRUST/trusts` endpoint of the Keystone API.
+* `domain-id` (Optional): Used to specify the id of the domain your user belongs
+  to.
+* `domain-name` (Optional): Used to specify the name of the domain your user
+  belongs to.
+* `region` (Optional): Used to specify the identifier of the region to use when
+  running on a multi-region OpenStack cloud. A region is a general division of
+  an OpenStack deployment. Although a region does not have a strict geographical
+  connotation, a deployment can use a geographical name for a region identifier
+  such as `us-east`. Available regions are found under the `/v3/regions`
+  endpoint of the Keystone API.
+* `ca-file` (Optional): TODO
+
+When using Keystone V3 - which changes tenant to project the `tenant-id` value 
+is automatically mapped to the project construct in the API.
 
 ####  Load Balancer
-* `subnet-id`: Used to specify the id of the subnet you want to create your loadbalancer on. Can be found at Network > Networks. Click on the respective network to get its subnets.
+These configuration options for the OpenStack provider pertain to the load
+balancer and should appear in the `[LoadBalancer]` section of the `cloud.conf`
+file:
 
-### Optional configuration
+* `lb-version` (Optional): Used to override automatic version detection. Valid
+  values are `v1` or `v2`. Where no value is provided automatic detection will
+  select the highest supported version exposed by the underlying OpenStack
+  cloud.
+* `subnet-id` (Optional): Used to specify the id of the subnet you want to
+  create your loadbalancer on. Can be found at Network > Networks. Click on the
+  respective network to get its subnets.
+* `floating-network-id` (Optional): If specified, will create a floating IP for
+  the load balancer.
+* `lb-method` (Optional): Used to specify algorithm by which load will be
+  distributed amongst members of the load balancer pool. The value can be
+  `ROUND_ROBIN`, `LEAST_CONNECTIONS`, or `SOURCE_IP`. The default behavior if
+  none is specified is `ROUND_ROBIN`.
+* `create-monitor` (Optional): Indicates whether or not to create a health
+  monitor for the Neutron load balancer. Valid values are `true` and `false`.
+  The default is `false`. When `true` is specified then `monitor-delay`,
+  `monitor-timeout`, and `monitor-max-retries` must also be set.
+* `monitor-delay` (Optional): The time, in seconds, between sending probes to
+  members of the load balancer.
+* `monitor-timeout` (Optional): Maximum number of seconds for a monitor to wait
+  for a ping reply before it times out. The value must be less than the delay
+  value.
+* `monitor-max-retries` (Optional): Number of permissible ping failures before
+  changing the load balancer member's status to INACTIVE. Must be a number
+  between 1 and 10.
+* `manage-security-groups` (Optional): Determines whether or not the load
+  balancer should automatically manage the security group rules. Valid values
+  are `true` and `false`. The default is `false`. When `true` is specified
+  `node-security-group` must also be supplied.
+* `node-security-group` (Optional): ID of the security group to manage.
 
 #### Block Storage
+These configuration options for the OpenStack provider pertain to block storage
+and should appear in the `[BlockStorage]` section of the `cloud.conf` file:
 
-Kubernetes uses the OpenStack service catalog to locate services it knows how to
-use including Cinder Block Storage. The cloud provider configuration does
-however include an additional option for influencing the way the block storage
-API is used:
-
-* `bs-version`: Refers to the version of the block storage API to use. Valid
-  values are `v1`, `v2`, `v3` and `auto`. The `auto` value is the default and
-  will use the newest version of the block storage API supported by the
-  underlying OpenStack cloud.
+* `bs-version` (Optional): Used to override automatic version detection. Valid
+  values are `v1`, `v2`, `v3` and `auto`. When `auto` is specified automatic
+  detection will select the highest supported version exposed by the underlying
+  OpenStack cloud. The default value if none is provided is `auto`.
+* `trust-device-path` (Optional): In most scenarios the block device names
+  provided by Cinder (e.g. /dev/vda) can not be trusted. This boolean toggles
+  this behavior. Setting it to `true` results in trusting the block device names
+  provided by Cinder. The default value of `false` results in the discovery of
+  the device path based on it's serial number and /dev/disk/by-id mapping and is
+  the recommended approach.
 
 If deploying Kubernetes versions <= 1.8 on an OpenStack deployment that uses
 paths rather than ports to differentiate between endpoints it may be necessary
@@ -119,6 +207,15 @@ provider configuration:
 [BlockStorage]
 bs-version=v2
 ```
+
+#### Router
+These configuration options for the OpenStack provider pertain to routing and
+should appear in the `[Route]` section of the `cloud.conf` file:
+
+* `router-id` (Optional): If the underlying cloud's Neutron deployment supports
+  the `extraroutes` extension then use `router-id` to specify a router to add
+  routes to.
+
 {% endcapture %}
 
 {% include templates/concept.md %}

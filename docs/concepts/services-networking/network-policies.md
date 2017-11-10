@@ -68,7 +68,7 @@ spec:
 
 *POSTing this to the API server will have no effect unless your chosen networking solution supports network policy.*
 
-__Mandatory Fields__: As with all other Kubernetes config, a `NetworkPolicy` needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [here](/docs/user-guide/simple-yaml), [here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
+__Mandatory Fields__: As with all other Kubernetes config, a `NetworkPolicy` needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap/), and [Object Management](https://kubernetes.io/docs/tutorials/object-management-kubectl/object-management/).
 
 __spec__: `NetworkPolicy` [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) has all the information needed to define a particular network policy in the given namespace.
 
@@ -105,7 +105,7 @@ kind: NetworkPolicy
 metadata:
   name: default-deny
 spec:
-  podSelector:
+  podSelector: {}
   policyTypes:
   - Ingress
 ```
@@ -122,7 +122,7 @@ kind: NetworkPolicy
 metadata:
   name: allow-all
 spec:
-  podSelector:
+  podSelector: {}
   ingress:
   - {}
 ```
@@ -137,7 +137,7 @@ kind: NetworkPolicy
 metadata:
   name: default-deny
 spec:
-  podSelector:
+  podSelector: {}
   policyTypes:
   - Egress
 ```
@@ -155,7 +155,7 @@ kind: NetworkPolicy
 metadata:
   name: allow-all
 spec:
-  podSelector:
+  podSelector: {}
   egress:
   - {}
 ```
@@ -170,7 +170,7 @@ kind: NetworkPolicy
 metadata:
   name: default-deny
 spec:
-  podSelector:
+  podSelector: {}
   policyTypes:
   - Ingress
   - Egress

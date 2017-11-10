@@ -156,9 +156,9 @@ flags that can be used to customise the Kubernetes installation.
   A set of key=value pairs that describe feature gates for alpha/experimental
   features. Options are:
 
-  - SelfHosting=true|false (ALPHA - default=false)
+    - SelfHosting=true\|false (ALPHA - default=false)
 
-  - StoreCertsInSecrets=true|false (ALPHA - default=false)
+    - StoreCertsInSecrets=true\|false (ALPHA - default=false)
 
   See [self-hosted control plane](#self-hosting) for more detail.
 
@@ -733,10 +733,10 @@ these two steps:
    `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
 
 ```shell
-  $ cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
+$ cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
 Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --container-runtime-endpoint=$RUNTIME_ENDPOINT --feature-gates=AllAlpha=true"
 EOF
-  $ systemctl daemon-reload
+$ systemctl daemon-reload
 ```
 
 Now `kubelet` is ready to use the specified CRI runtime, and you can continue
@@ -750,10 +750,13 @@ requested kubernetes version is a ci version; in this case
 
 This behaviour can be overridden by [using kubeadm with a configuration file](#config-file).
 Allowed customization are:
+
 - provide an alternative `imageRepository` to be used instead of
   `gcr.io/google_containers` (NB. does not works for ci version)
+  
 - provide an `unifiedControlPlaneImage` to be used instead of single image
   for control plane components
+  
 - provide an `etcd.image` name to be used
 
 ## Running kubeadm without an internet connection
@@ -1002,6 +1005,30 @@ In summary, `kubeadm init --feature-gates=SelfHosting=true` works as follows:
     plane is able to bind to listening ports and become active.
 
 This process (steps 3-6) can also be triggered with `kubeadm phase selfhosting convert-from-staticpods`.
+
+## Customising the control plane with custom arguments {#custom-args}
+
+If you would like to override or extend the behaviour of a control plane component, you can provide 
+extra arguments to kubeadm. When the component is deployed, it will use these additional arguments _in its 
+pod command_. 
+
+For example, to add flag `--feature-gates=APIResponseCompression=true` to kube-apiserver, your [configuration file](#sample-master-configuration) 
+will need to look like this:
+
+```
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+apiServerExtraArgs:
+   feature-gates: APIResponseCompression=true
+```
+
+To customise the scheduler or controller-manager, use `schedulerExtraArgs` and `controllerManagerExtraArgs` respectively.
+
+More information on custom arguments can be found here:
+
+- [kube-apiserver](https://kubernetes.io/docs/admin/kube-apiserver/)
+- [kube-controller-manager](https://kubernetes.io/docs/admin/kube-controller-manager/)
+- [kube-scheduler](https://kubernetes.io/docs/admin/kube-scheduler/)
 
 ## Releases and release notes
 

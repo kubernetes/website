@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 title: DaemonSet
 redirect_from:

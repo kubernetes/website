@@ -2,7 +2,6 @@
 docs/admin/kubelet-authentication-authorization.md
 docs/admin/kubelet-tls-bootstrapping.md
 docs/api-reference/labels-annotations-taints.md
-docs/concepts/abstractions/pod-termination.md
 docs/concepts/example-concept-template.md
 docs/contribute/README.md
 docs/reference/generated/README.md

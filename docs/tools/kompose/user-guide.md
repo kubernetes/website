@@ -1,6 +1,6 @@
 ---
 
-assignees:
+approvers:
 - cdrage
 
 title: Translate a Docker Compose File to Kubernetes Resources

@@ -107,7 +107,7 @@ Kubernetes集群数量选择也许是一个相对静止的选择，因为对其�
 {% endcapture %}
 
 {% capture whatsnext %}
-* 进一步学习[联邦提案](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/federation.md)。
+* 进一步学习[联邦提案](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/multicluster/federation.md)。
 * 集群联邦参考该[配置指导](/docs/tutorials/federation/set-up-cluster-federation-kubefed/)。
 * 查看[Kubecon2016浅谈联邦](https://www.youtube.com/watch?v=pq9lbkmxpS8)
 {% endcapture %}

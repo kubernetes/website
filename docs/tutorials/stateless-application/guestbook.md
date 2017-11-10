@@ -1,6 +1,6 @@
 ---
 title: "Example: Deploying PHP Guestbook application with Redis"
-assignees:
+approvers:
 - ahmetb
 ---
 
