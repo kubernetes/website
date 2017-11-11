@@ -30,7 +30,7 @@ of backends themselves.  The `Service` abstraction enables this decoupling.
 
 For Kubernetes-native applications, Kubernetes offers a simple `Endpoints` API
 that is updated whenever the set of `Pods` in a `Service` changes.  For
-non-native applications, Kubernetes offers a virtual-IP-based bridge to Services
+non-native applications, Kubernetes offers a virtual-IP-based bridge to `Service`
 which redirects to the backend `Pods`.
 
 * TOC
@@ -69,16 +69,16 @@ the `targetPort` will be set to the same value as the `port` field.  Perhaps
 more interesting is that `targetPort` can be a string, referring to the name of
 a port in the backend `Pods`.  The actual port number assigned to that name can
 be different in each backend `Pod`. This offers a lot of flexibility for
-deploying and evolving your `Services`.  For example, you can change the port
+deploying and evolving your `Service`.  For example, you can change the port
 number that pods expose in the next version of your backend software, without
 breaking clients.
 
-Kubernetes `Services` support `TCP` and `UDP` for protocols.  The default
+Kubernetes `Service` support `TCP` and `UDP` for protocols.  The default
 is `TCP`.
 
-### Services without selectors
+### Service without selectors
 
-Services generally abstract access to Kubernetes `Pods`, but they can also
+`Service` generally abstract access to Kubernetes `Pods`, but they can also
 abstract other kinds of backends.  For example:
 
   * You want to have an external database cluster in production, but in test
@@ -149,13 +149,13 @@ its pods, add appropriate selectors or endpoints and change the service `type`.
 ## Virtual IPs and service proxies
 
 Every node in a Kubernetes cluster runs a `kube-proxy`.  `kube-proxy` is
-responsible for implementing a form of virtual IP for `Services` of type other
+responsible for implementing a form of virtual IP for `Service` of type other
 than `ExternalName`.
 In Kubernetes v1.0 the proxy was purely in userspace.  In Kubernetes v1.1 an
 iptables proxy was added, but was not the default operating mode.  Since
 Kubernetes v1.2, the iptables proxy is the default.
 
-As of Kubernetes v1.0, `Services` are a "layer 4" (TCP/UDP over IP) construct.
+As of Kubernetes v1.0, `Service` are a "layer 4" (TCP/UDP over IP) construct.
 In Kubernetes v1.1 the `Ingress` API was added (beta) to represent "layer 7"
 (HTTP) services.
 
@@ -237,9 +237,9 @@ it's not installed kube-proxy will fall back to iptables proxy mode.
 
 ![Services overview diagram for ipvs proxy](/images/docs/services-ipvs-overview.svg)
 
-## Multi-Port Services
+## Multi-Port Service
 
-Many `Services` need to expose more than one port.  For this case, Kubernetes
+Many `Service` need to expose more than one port.  For this case, Kubernetes
 supports multiple port definitions on a `Service` object.  When using multiple
 ports you must give all of your ports names, so that endpoints can be
 disambiguated.  For example:
@@ -325,7 +325,7 @@ variables will not be populated.  DNS does not have this restriction.
 
 An optional (though strongly recommended) [cluster
 add-on](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md) is a DNS server.  The
-DNS server watches the Kubernetes API for new `Services` and creates a set of
+DNS server watches the Kubernetes API for new `Service` and creates a set of
 DNS records for each.  If DNS has been enabled throughout the cluster then all
 `Pods` should be able to do name resolution of `Services` automatically.
 
@@ -355,7 +355,7 @@ allowing them freedom to do discovery their own way.  Applications can still use
 a self-registration pattern and adapters for other discovery systems could easily
 be built upon this API.
 
-For such `Services`, a cluster IP is not allocated, kube-proxy does not handle
+For such `Service`, a cluster IP is not allocated, kube-proxy does not handle
 these services, and there is no load balancing or proxying done by the platform
 for them. How DNS is automatically configured depends on whether the service has
 selectors defined.
@@ -379,7 +379,7 @@ either:
 ## Publishing services - service types
 
 For some parts of your application (e.g. frontends) you may want to expose a
-Service onto an external (outside of your cluster) IP address.
+`Service` onto an external (outside of your cluster) IP address.
 
 
 Kubernetes `ServiceTypes` allow you to specify what kind of service you want.
@@ -634,7 +634,7 @@ the current `ClusterIP`, `NodePort`, and `LoadBalancer` modes and more.
 ## The gory details of virtual IPs
 
 The previous information should be sufficient for many people who just want to
-use `Services`.  However, there is a lot going on behind the scenes that may be
+use `Service`.  However, there is a lot going on behind the scenes that may be
 worth understanding.
 
 ### Avoiding collisions
@@ -645,8 +645,8 @@ of their own.  In this situation, we are looking at network ports - users
 should not have to choose a port number if that choice might collide with
 another user.  That is an isolation failure.
 
-In order to allow users to choose a port number for their `Services`, we must
-ensure that no two `Services` can collide.  We do that by allocating each
+In order to allow users to choose a port number for their `Service`, we must
+ensure that no two `Service` can collide.  We do that by allocating each
 `Service` its own IP address.
 
 To ensure each service receives a unique IP, an internal allocator atomically
@@ -665,7 +665,7 @@ Unlike `Pod` IP addresses, which actually route to a fixed destination,
 `iptables` (packet processing logic in Linux) to define virtual IP addresses
 which are transparently redirected as needed.  When clients connect to the
 VIP, their traffic is automatically transported to an appropriate endpoint.
-The environment variables and DNS for `Services` are actually populated in
+The environment variables and DNS for `Service` are actually populated in
 terms of the `Service`'s VIP and port.
 
 We support two proxy modes - userspace and iptables, which operate slightly
@@ -710,7 +710,7 @@ through a load-balancer, though in those cases the client IP does get altered.
 
 ## API Object
 
-Service is a top-level resource in the Kubernetes REST API. More details about the
+`Service` is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [Service API
 object](/docs/api-reference/{{page.version}}/#service-v1-core).
 
