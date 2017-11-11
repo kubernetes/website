@@ -661,7 +661,7 @@
 		{
 			type: 3,
 			name: 'Apprenda',
-			logo: 'kismatic',
+			logo: 'apprenda',
 			link: 'https://apprenda.com/kismatic/',
 			blurb: 'Apprenda - Kismatic Enterprise Toolkit (KET)'
 				},
@@ -836,9 +836,9 @@
 		{
 			type: 3,
 			name: 'Oracle',
-			logo: 'oraclelinux',
+			logo: 'oracle',
 			link: 'https://www.oracle.com/linux/index.html',
-			blurb: 'Oracle Linux - Oracle Linux Container Services for use with Kubernetes'
+			blurb: 'Oracle - Oracle Linux Container Services for use with Kubernetes'
 				},
 		{
 			type: 3,
@@ -886,6 +886,13 @@
 			type: 3,
 			name: 'Pivotal',
 			logo: 'pivotal',
+			link: 'https://cloud.vmware.com/pivotal-container-service',
+			blurb: 'Pivotal/VMware - Pivotal Container Service (PKS)'
+				},
+		{
+			type: 3,
+			name: 'VMware',
+			logo: 'vmware',
 			link: 'https://cloud.vmware.com/pivotal-container-service',
 			blurb: 'Pivotal/VMware - Pivotal Container Service (PKS)'
 				},
@@ -972,11 +979,6 @@
 
 		var link = document.createElement('a')
 		link.href = obj.link
-		link.target = '_blank'
-		link.textContent = 'Learn more'
-
-		var link = document.createElement('a')
-		link.href = obj.link2
 		link.target = '_blank'
 		link.textContent = 'Learn more'
 
