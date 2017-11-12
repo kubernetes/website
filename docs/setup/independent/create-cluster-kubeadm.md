@@ -179,6 +179,8 @@ as root:
 
   kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
+**Note:** The last line `kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>` you must save in your local, it's so important once you need join one node to your cluster.
+
 To make kubectl work for your non-root user, you might want to run these commands (which is also a part of the `kubeadm init` output):
 ```
   mkdir -p $HOME/.kube
@@ -225,7 +227,6 @@ kubectl apply -f <add-on.yaml>
 
 **NOTE:** You can install **only one** pod network per cluster.
 
-
 {% capture choose %}
 Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
 {% endcapture %}
@@ -263,22 +264,25 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8
 
 **Note:**
 
- - For flannel to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
- - flannel works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on an other platform than
+ - For `flannel` to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
+ - `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on an other platform than
 `amd64` you have to manually download the manifest and replace `amd64` occurences with your chosen platform.
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.0/Documentation/kube-flannel.yml
 ```
+
+ - More informations about `flannel`, please see [here](https://github.com/coreos/flannel).
+ 
 {% endcapture %}
 
 {% capture kube-router %}
 
-Kube-router relies on kube-controll-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
+ - Kube-router relies on kube-controll-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
 
-Kube-router provides pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
+ - Kube-router provides pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
 
-For information on setting up Kubernetes cluster with Kube-router using kubeadm please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/kubeadm.md).
+For information on setting up Kubernetes cluster with Kube-router using kubeadm, please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/kubeadm.md).
 
 {% endcapture %}
 
