@@ -6,7 +6,7 @@
 
 [访问文档](https://kubernetes.io/docs/admin/accessing-the-api)讨论了通过远程访问API的相关问题。
 
-Kubernetes API是系统描述性配置的基础。 [Kubectl](https://kubernetes.io/docs/user-guide/kubectl/) 命令行工具被用于创建，更新，删除，获取API对象。
+Kubernetes API是系统描述性配置的基础。 [Kubectl](https://kubernetes.io/docs/user-guide/kubectl/) 命令行工具被用于创建、更新、删除、获取API对象。
 
 Kubernetes 通过API资源存储自己序列化状态(现在存储在[etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/))。
 
@@ -14,15 +14,16 @@ Kubernetes 被分成多个组件，各部分通过API相互交互。
 
 ## API 变更
 
-根据经验，任何成功的系统都需要成长和改变，可能是一个新的示例出现，也可能是对已有系统进行更改。因此，我们希望Kubernetes API也可以持续的改变和成长。同时，在较长一段时间内，我们不打算破坏与现有客户端的兼容性。一般情况，经常会有新的API资源和新的资源字段增加。删除资源或者字段会有一个[API废弃流程](https://kubernetes.io/docs/reference/deprecation-policy/)。
+根据经验，任何成功的系统都需要随着新的用例出现或现有用例发生变化的情况下，进行相应的进化与调整。因此，我们希望Kubernetes API也可以保持持续的进化和调整。同时，在较长一段时间内，我们也希望与现有客户端版本保持良好的向下兼容性。一般情况下，增加新的API资源和资源字段不会导致向下兼容性问题发生；但如果是需要删除一个已有的资源或者字段。那么必须通过[API废弃流程](/docs/reference/deprecation-policy/)来进行。
 
-如何构成一个兼容性的改变以及如何更改API的详细信息都在[API变更文档](https://git.k8s.io/community/contributors/devel/api_changes.md)。
+参考API变更文档，了解兼容性变更的要素以及如何变更API的流程。[API变更文档](https://git.k8s.io/community/contributors/devel/api_changes.md)。
 
-## API 变形定义 （API Swagger）
+## API Swagger 定义
 
-Kubernetes使用 [Swagger v1.2](http://swagger.io/) 与 [OpenAPI](https://www.openapis.org/) 记录API所有细节。Kubernetes apiserver (aka “master”)提供了一个API接口用于获取 Swagger 1.2 Kubernetes API 规范 ，默认在路径 **`/swaggerapi`** 下。你可以通过设定 apiserver 上 **`/swagger-ui`** 下的 **`-enable-swagger-ui=true`**，然后使用浏览器查看API文档的UI 。
+Kubernetes使用 [Swagger v1.2](http://swagger.io/) 与 [OpenAPI](https://www.openapis.org/) 记录API所有细节。Kubernetes apiserver (即 “master”)提供了一个API接口用于获取 Swagger 1.2 Kubernetes API 规范 ，默认在路径 **`/swaggerapi`** 下。你也可以为API服务器可以设置 **`-enable-swagger-ui=true`** 来启用API界面，之后使用浏览器访问 **`/swagger-ui`**，浏览API文档。
 
-从Kubernetes 1.4版本开始，OpenAPI 规范已经通过 [**`/swagger.json`**](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json) 提供。在我们将 Swagger v1.2 切换到 OpenAPI (aka Swagger v2.0) 期间，一部分工具(如 kubectl 与 swagger-ui )会继续使用 1.2 版本规范。Kubernetes 1.5 版本中的 OpenAPI 规范是 Beta 版本。
+
+Kubernetes从1.4版本开始也支持通过 [**`/swagger.json`**](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json) 来访问 OpenAPI 形式给出的API文档在我们将 Swagger v1.2 切换到 OpenAPI (aka Swagger v2.0) 期间，一部分工具(如 kubectl 与 swagger-ui )会继续使用 1.2 版本规范。Kubernetes 1.5 版本中的 OpenAPI 规范是 Beta 版本。
 
 Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要用于集群内通信，并在[设计方案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)中进行了说明，每个模式的IDL文件位于定义API对象的Go软件包中。
 
@@ -30,11 +31,11 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
 为了使删除字段或者重构资源表示更加容易，Kubernetes 支持多个API版本。每一个版本都在不同API路径下，例如 **`/api/v1`** 或者 **`/apis/extensions/v1beta1`**。
 
-我们选择在API级别进行版本化，而不是在资源或现场级别进行版本化，以确保API提供清晰，一致的系统资源和行为视图，并控制对终止API和/或实验性API的访问。 JSON和Protobuf序列化架构遵循架构更改的相同准则 - 下面的所有描述都涵盖了这两种格式。
+我们选择在API级别进行版本化，而不是在资源或字段级别进行版本化，以确保API提供清晰，一致的系统资源和行为视图，并控制对已废止的API和/或实验性API的访问。 JSON和Protobuf序列化模式遵循架构更改的相同准则 - 下面的所有描述都同时适用于这两种格式。
 
-请注意，API版本控制和软件版本控制只是间接相关的。 [API和发行版本建议](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)描述了API版本与软件版本之间的关系。
+请注意，API版本控制和软件版本控制只有间接相关性。 [API和发行版本建议](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)描述了API版本与软件版本之间的关系。
 
-不同的API版本意味着不同级别的稳定性和支持。 每个级别的标准在[API变更文档](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions)中有更详细的描述。 内容主要概括如下：
+不同的API版本名称意味着不同级别的软件稳定性和支持程度。 每个级别的标准在[API变更文档](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions)中有更详细的描述。 内容主要概括如下：
 
 * Alpha 测试版本：
 
@@ -56,7 +57,7 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
   * 所有已支持的功能不会被删除，细节可能会发生变化。
 
-  * 对象的模式和/或语义可能会在后续的beta测试版或稳定版中以不兼容的方式进行更改。 发生这种情况时，我们将提供迁移到下一个版本的说明。 这可能需要删除，编辑和重新创建API对象。 编辑过程可能需要一些思考。这可能需要停用依赖该功能的应用程序。
+  * 对象的模式和/或语义可能会在后续的beta测试版或稳定版中以不兼容的方式进行更改。 发生这种情况时，我们将提供迁移到下一个版本的说明。 这可能需要删除、编辑和重新创建API对象。执行编辑操作时需要谨慎行事，这可能需要停用依赖该功能的应用程序。
 
   * 建议仅用于非业务关键型用途，因为后续版本中可能存在不兼容的更改。 如果您有多个可以独立升级的群集，则可以放宽此限制。
 
@@ -78,7 +79,7 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
 1. 指定的组位于REST路径 **`/apis/$GROUP_NAME/$VERSION`**，并使用 **`apiVersion：$GROUP_NAME/$VERSION`**（例如 **`apiVersion：batch/v1`**）。 在[Kubernetes API参考](https://kubernetes.io/docs/reference/)中可以看到支持的API组的完整列表。
 
-有两个受支持的路径可以使用[自定义资源](https://kubernetes.io/docs/concepts/api-extension/custom-resources/)扩展API：
+社区支持使用以下两种方式来提供自定义资源对API进行扩展[自定义资源](https://kubernetes.io/docs/concepts/api-extension/custom-resources/)扩展API：
 
 1. [CustomResourceDefinition](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)适用于具有非常基本的CRUD需求的用户。
 
@@ -94,4 +95,4 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
 DaemonSets，Deployments，HorizontalPodAutoscalers，Ingress，Jobs和ReplicaSets是默认启用的。 其他扩展资源可以通过在apiserver上设置 **`--runtime-config`** 来启用。**`--runtime-config`** 接受逗号分隔的值。
 
-例如：要禁用部署和入口，请设置 **`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`**
+例如：要禁用 Deployment 和 Ingress，请设置 **`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`**
