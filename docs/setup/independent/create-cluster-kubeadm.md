@@ -225,7 +225,6 @@ kubectl apply -f <add-on.yaml>
 
 **NOTE:** You can install **only one** pod network per cluster.
 
-
 {% capture choose %}
 Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
 {% endcapture %}
@@ -263,13 +262,16 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8
 
 **Note:**
 
- - For flannel to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
- - flannel works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on an other platform than
+ - For `flannel` to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
+ - `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on a platform other than
 `amd64` you have to manually download the manifest and replace `amd64` occurences with your chosen platform.
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.0/Documentation/kube-flannel.yml
 ```
+
+ - For more information about `flannel`, please see [here](https://github.com/coreos/flannel).
+ 
 {% endcapture %}
 
 {% capture kube-router %}
@@ -278,7 +280,7 @@ Kube-router relies on kube-controll-manager to allocate pod CIDR for the nodes. 
 
 Kube-router provides pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
 
-For information on setting up Kubernetes cluster with Kube-router using kubeadm please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/kubeadm.md).
+For information on setting up Kubernetes cluster with Kube-router using kubeadm, please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/kubeadm.md).
 
 {% endcapture %}
 
