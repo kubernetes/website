@@ -181,9 +181,9 @@ as root:
 ```
 To make kubectl work for your non-root user, you might want to run these commands (which is also a part of the `kubeadm init` output):
 ```
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 Alternatively, if you are the root user, you could run this:
 ```
@@ -224,7 +224,6 @@ kubectl apply -f <add-on.yaml>
 ```
 
 **NOTE:** You can install **only one** pod network per cluster.
-
 
 {% capture choose %}
 Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
@@ -273,6 +272,8 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.0/Documen
 {% endcapture %}
 
 {% capture kube-router %}
+
+**Note:**
 
 Kube-router relies on kube-controll-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
 
