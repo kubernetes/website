@@ -9,7 +9,7 @@ title: 构建高可用集群
 本文描述了如何构建一个高可用（high-availability, HA）的Kubernetes集群。这是一个非常高级的主题。
 
 对于仅希望使用Kubernetes进行试验的用户，推荐使用更简单的配置工具进行搭建，例如：
-[Minikube](/docs/getting-started-guides/minikube/)，或者尝试使用[Google Container Engine](https://cloud.google.com/container-engine/) 来运行Kubernetes。
+[Minikube](/docs/getting-started-guides/minikube/)，或者尝试使用[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) 来运行Kubernetes。
 
 此外，当前在我们的端到端（e2e）测试环境中，没有对Kubernetes高可用的支持进行连续测试。我们将会增加这个连续测试项，但当前对单节点master的安装测试得更加严格。
 
