@@ -19,8 +19,8 @@ toc:
 
 - title: Hosted Solutions
   section:
-  - title: Running Kubernetes on Google Container Engine
-    path: https://cloud.google.com/container-engine/docs/before-you-begin/
+  - title: Running Kubernetes on Google Kubernetes Engine
+    path: https://cloud.google.com/kubernetes-engine/docs/before-you-begin/
   - title: Running Kubernetes on Azure Container Service
     path: https://docs.microsoft.com/en-us/azure/container-service/container-service-kubernetes-walkthrough
   - title: Running Kubernetes on IBM Bluemix Container Service
