@@ -89,7 +89,7 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
 某些资源和API组默认情况下处于启用状态。 可以通过在apiserver上设置 **`--runtime-config`** 来启用或禁用它们。 **`--runtime-config`** 接受逗号分隔的值。 例如：要禁用batch/v1，请设置**`--runtime-config=batch/v1=false`**，以启用batch/v2alpha1，请设置**`--runtime-config=batch/v2alpha1`**。 该标志接受描述apiserver的运行时配置的逗号分隔的一组键值对。
 
-重要：启用或禁用组或资源需要重新启动apiserver和控制器管理器来使得 **`--runtime-config`** 更改生效。
+重要：启用或禁用组或资源需要重新启动apiserver和控制管理器来使得 **`--runtime-config`** 更改生效。
 
 ## 启用组中资源
 
