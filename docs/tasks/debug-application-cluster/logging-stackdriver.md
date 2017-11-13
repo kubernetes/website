@@ -22,9 +22,9 @@ and the instances are managed using a Kubernetes `DaemonSet`. The actual deploym
 
 ### Deploying to a new cluster
 
-#### Google Container Engine
+#### Google Kubernetes Engine
 
-Stackdriver is the default logging solution for clusters deployed on Google Container Engine.
+Stackdriver is the default logging solution for clusters deployed on Google Kubernetes Engine.
 Stackdriver Logging is deployed to a new cluster by default unless you explicitly opt-out.
 
 #### Other platforms
@@ -186,14 +186,14 @@ the messages from a particular pod.
 
 The most important pieces of metadata are the resource type and log name.
 The resource type of a container log is `container`, which is named
-`GKE Containers` in the UI (even if the Kubernetes cluster is not on GKE).
+`GKE Containers` in the UI (even if the Kubernetes cluster is not on Google Kubernetes Engine).
 The log name is the name of the container, so that if you have a pod with
 two containers, named `container_1` and `container_2` in the spec, their logs
 will have log names `container_1` and `container_2` respectively.
 
 System components have resource type `compute`, which is named
 `GCE VM Instance` in the interface. Log names for system components are fixed.
-For a GKE node, every log entry from a system component has one of the following
+For a Google Kubernetes Engine node, every log entry from a system component has one of the following
 log names:
 
 * docker

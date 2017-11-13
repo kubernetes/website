@@ -49,7 +49,7 @@ Running this command spawns a shell. In the shell, start your service. You can t
 
 {% capture whatsnext %}
 
-If you're interested in a hands-on tutorial, check out [this tutorial](https://cloud.google.com/community/tutorials/developing-services-with-k8s) that walks through locally developing the Guestbook application on Google Container Engine.
+If you're interested in a hands-on tutorial, check out [this tutorial](https://cloud.google.com/community/tutorials/developing-services-with-k8s) that walks through locally developing the Guestbook application on Google Kubernetes Engine.
 
 Telepresence has [numerous proxying options](https://www.telepresence.io/reference/methods), depending on your situation.
 
