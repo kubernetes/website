@@ -219,7 +219,7 @@ be co-located in the same defined topology, eg., the same node.
 ##### Always co-located in the same node
 
 In a three node cluster, a web application has in-memory cache such as redis. We want the web-servers to be co-located with the cache as much as possible.
-Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`
+Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`. The deployment has `PodAntiAffinity` configured to ensure the scheduler does not co-locate replicas on a single node.
 
 ```yaml
 apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
@@ -233,13 +233,22 @@ spec:
       labels:
         app: store
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - store
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - name: redis-server
         image: redis:3.2-alpine
 ```
 
-Below yaml snippet of the webserver deployment has `podAffinity` configured, this informs the scheduler that all its replicas are to be
-co-located with pods that has selector label `app=store`
+The below yaml snippet of the webserver deployment has `podAffinity` configured. This informs the scheduler that all its replicas are to be co-located with pods that have selector label `app=store`
 
 ```yaml
 apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
@@ -265,6 +274,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: web-app
+        image: nginx:1.12-alpine
 ```
 
 if we create the above two deployments, our three node cluster could look like below.
