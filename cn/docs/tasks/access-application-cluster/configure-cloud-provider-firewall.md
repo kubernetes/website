@@ -21,7 +21,7 @@ title: 配置你的云平台防火墙
  
  
  当以 `spec.type: LoadBalancer` 使用服务时，你可以使用 `spec.loadBalancerSourceRanges` 指定允许访问负载均衡的 IP 段。
- 这个字段采用 CIDR 的 IP 段，Kubernetes 会使用这个段配置防火墙。支持这个功能的平台目前有 Google Compute Engine，Google Container Engine 和 AWS。
+ 这个字段采用 CIDR 的 IP 段，Kubernetes 会使用这个段配置防火墙。支持这个功能的平台目前有 Google Compute Engine，Google Kubernetes Engine 和 AWS。
  如果云服务商不支持这个功能，这个字段会被忽略。
 
  
@@ -112,7 +112,7 @@ $ gcloud compute firewall-rules create my-rule --allow=tcp:<port>
 
 
 
-因此，在 Google Compute Engine 或者 Google Container Engine 上开启防火墙端口时请
+因此，在 Google Compute Engine 或者 Google Kubernetes Engine 上开启防火墙端口时请
 小心。你可能无意间把其他服务也暴露给了 internet。
 
 

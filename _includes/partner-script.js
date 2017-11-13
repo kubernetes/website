@@ -653,10 +653,10 @@
 				},
 		{
 			type: 3,
-			name: 'Google Container Engine',
+			name: 'Google Kubernetes Engine',
 			logo: 'gcp',
-			link: 'https://cloud.google.com/container-engine/',
-			blurb: 'Google - Google Container Engine'
+			link: 'https://cloud.google.com/kubernetes-engine/',
+			blurb: 'Google - Google Kubernetes Engine'
 				},
 		{
 			type: 3,

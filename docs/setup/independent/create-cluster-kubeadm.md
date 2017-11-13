@@ -30,7 +30,7 @@ system (e.g. Puppet) that you have to integrate with.
 If you are not constrained, there are other higher-level tools built to give you
 complete clusters:
 
-* On GCE, [Google Container Engine](https://cloud.google.com/container-engine/)
+* On GCE, [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/)
   gives you one-click Kubernetes clusters.
 * On Microsoft Azure, [Azure Container Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
   gives you managed Kubernetes clusters as a service.
