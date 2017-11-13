@@ -48,7 +48,11 @@ spec:
           alpha.kubernetes.io/nvidia-gpu: 3 # requesting 3 GPUs
 ```
 
-- GPUs can be specified in the `limits` section only.
+- GPUs are only supposed to be specified in the `limits` section, which means:
+  * You can specify GPU `limits` without specifying `requests` because Kubernetes
+    will use the limit as the request value by default.
+  * You can specify GPU in both `limits` and `requests` but these two values must equal.
+  * You cannot specify GPU `requests` without specifying `limits`.
 - Containers (and pods) do not share GPUs.
 - Each container can request one or more GPUs.
 - It is not possible to request a portion of a GPU.
