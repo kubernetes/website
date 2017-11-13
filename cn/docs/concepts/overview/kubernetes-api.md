@@ -14,16 +14,16 @@ Kubernetes 被分成多个组件，各部分通过API相互交互。
 
 ## API 变更
 
-根据经验，任何成功的系统都需要随着新的用例出现或现有用例发生变化的情况下，进行相应的进化与调整。因此，我们希望Kubernetes API也可以保持持续的进化和调整。同时，在较长一段时间内，我们也希望与现有客户端版本保持良好的向下兼容性。一般情况下，增加新的API资源和资源字段不会导致向下兼容性问题发生；但如果是需要删除一个已有的资源或者字段。那么必须通过[API废弃流程](/docs/reference/deprecation-policy/)来进行。
+根据经验，任何成功的系统都需要随着新的用例出现或现有用例发生变化的情况下，进行相应的进化与调整。因此，我们希望Kubernetes API也可以保持持续的进化和调整。同时，在较长一段时间内，我们也希望与现有客户端版本保持良好的向下兼容性。一般情况下，增加新的API资源和资源字段不会导致向下兼容性问题发生；但如果是需要删除一个已有的资源或者字段，那么必须通过[API废弃流程](/docs/reference/deprecation-policy/)来进行。
 
-参考API变更文档，了解兼容性变更的要素以及如何变更API的流程。[API变更文档](https://git.k8s.io/community/contributors/devel/api_changes.md)。
+参考[API变更文档](https://git.k8s.io/community/contributors/devel/api_changes.md)，了解兼容性变更的要素以及如何变更API的流程。
 
 ## API Swagger 定义
 
 Kubernetes使用 [Swagger v1.2](http://swagger.io/) 与 [OpenAPI](https://www.openapis.org/) 记录API所有细节。Kubernetes apiserver (即 “master”)提供了一个API接口用于获取 Swagger 1.2 Kubernetes API 规范 ，默认在路径 **`/swaggerapi`** 下。你也可以为API服务器可以设置 **`-enable-swagger-ui=true`** 来启用API界面，之后使用浏览器访问 **`/swagger-ui`**，浏览API文档。
 
 
-Kubernetes从1.4版本开始也支持通过 [**`/swagger.json`**](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json) 来访问 OpenAPI 形式给出的API文档在我们将 Swagger v1.2 切换到 OpenAPI (aka Swagger v2.0) 期间，一部分工具(如 kubectl 与 swagger-ui )会继续使用 1.2 版本规范。Kubernetes 1.5 版本中的 OpenAPI 规范是 Beta 版本。
+Kubernetes从1.4版本开始，也支持通过 [**`/swagger.json`**](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json) 来访问 OpenAPI 形式给出的API文档。在我们将 Swagger v1.2 切换到 OpenAPI (aka Swagger v2.0) 期间，一部分工具(如 kubectl 与 swagger-ui )会继续使用 1.2 版本规范。Kubernetes 1.5 版本中的 OpenAPI 规范是 Beta 版本。
 
 Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要用于集群内通信，并在[设计方案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)中进行了说明，每个模式的IDL文件位于定义API对象的Go软件包中。
 
@@ -79,7 +79,7 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
 1. 指定的组位于REST路径 **`/apis/$GROUP_NAME/$VERSION`**，并使用 **`apiVersion：$GROUP_NAME/$VERSION`**（例如 **`apiVersion：batch/v1`**）。 在[Kubernetes API参考](https://kubernetes.io/docs/reference/)中可以看到支持的API组的完整列表。
 
-社区支持使用以下两种方式来提供自定义资源对API进行扩展[自定义资源](https://kubernetes.io/docs/concepts/api-extension/custom-resources/)扩展API：
+社区支持使用以下两种方式来提供自定义资源对API进行扩展[自定义资源](https://kubernetes.io/docs/concepts/api-extension/custom-resources/)：
 
 1. [CustomResourceDefinition](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)适用于具有非常基本的CRUD需求的用户。
 
