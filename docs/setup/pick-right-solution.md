@@ -37,7 +37,7 @@ a Kubernetes cluster from scratch.
 
 # Hosted Solutions
 
-* [Google Container Engine](https://cloud.google.com/container-engine) offers managed Kubernetes clusters.
+* [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) offers managed Kubernetes clusters.
 
 * [Azure Container Service](https://azure.microsoft.com/en-us/services/container-service/) can easily deploy Kubernetes clusters.
 
@@ -142,7 +142,7 @@ Below is a table of all of the solutions listed above.
 IaaS Provider        | Config. Mgmt. | OS     | Networking  | Docs                                              | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ----------------------------
 any                  | any          | multi-support | any CNI | [docs](/docs/setup/independent/create-cluster-kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
-GKE                  |              |        | GCE         | [docs](https://cloud.google.com/container-engine) | Commercial
+Google Kubernetes Engine |              |        | GCE         | [docs](https://cloud.google.com/kubernetes-engine/docs/) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
 KUBE2GO.io          |              | multi-support | multi-support | [docs](https://kube2go.io) | Commercial
@@ -211,5 +211,5 @@ any                  | any          | any    | any         | [docs](http://docs.
 [1]: https://gist.github.com/erictune/4cabc010906afbcc5061
 <!-- Vagrant conformance test result -->
 [2]: https://gist.github.com/derekwaynecarr/505e56036cdf010bf6b6
-<!-- GKE conformance test result -->
+<!-- Google Kubernetes Engine conformance test result -->
 [3]: https://gist.github.com/erictune/2f39b22f72565365e59b

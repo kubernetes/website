@@ -148,11 +148,11 @@ to program the DNS service that you are using. For example, if your
 cluster is running on Google Compute Engine, you must enable the
 Google Cloud DNS API for your project.
 
-The machines in Google Container Engine (GKE) clusters are created
+The machines in Google Kubernetes Engine clusters are created
 without the Google Cloud DNS API scope by default. If you want to use a
-GKE cluster as a Federation host, you must create it using the `gcloud`
+Google Kubernetes Engine cluster as a Federation host, you must create it using the `gcloud`
 command with the appropriate value in the `--scopes` field. You cannot
-modify a GKE cluster directly to add this scope, but you can create a
+modify a Google Kubernetes Engine cluster directly to add this scope, but you can create a
 new node pool for your cluster and delete the old one. *Note that this
 will cause pods in the cluster to be rescheduled.*
 

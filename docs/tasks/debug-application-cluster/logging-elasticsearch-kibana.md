@@ -14,7 +14,7 @@ This article describes how to set up a cluster to ingest logs into
 them using [Kibana](https://www.elastic.co/products/kibana), as an alternative to
 Stackdriver Logging when running on GCE. Note that Elasticsearch and Kibana
 cannot be setup automatically in the Kubernetes cluster hosted on
-Google Container Engine, you have to deploy it manually.
+Google Kubernetes Engine, you have to deploy it manually.
 
 To use Elasticsearch and Kibana for cluster logging, you should set the
 following environment variable as shown below when creating your cluster with
