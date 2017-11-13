@@ -68,4 +68,4 @@ Master 组件通过非安全（没有加密或认证）端口和集群的 apiser
 ### SSH 隧道
 
 
-[Google Container Engine](https://cloud.google.com/container-engine/docs/) 使用 SSH 隧道保护 Master -> Cluster 通信路径。在这种配置下，apiserver 发起一个到集群中每个节点的 SSH 隧道（连接到在 22 端口监听的 ssh 服务）并通过这个隧道传输所有到 kubelet、node、pod 或者 service 的流量。这个隧道保证流量不会在集群运行的私有 GCE 网络之外暴露。
+[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/docs/) 使用 SSH 隧道保护 Master -> Cluster 通信路径。在这种配置下，apiserver 发起一个到集群中每个节点的 SSH 隧道（连接到在 22 端口监听的 ssh 服务）并通过这个隧道传输所有到 kubelet、node、pod 或者 service 的流量。这个隧道保证流量不会在集群运行的私有 GCE 网络之外暴露。

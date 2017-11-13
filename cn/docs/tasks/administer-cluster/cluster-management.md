@@ -57,13 +57,13 @@ cluster/gce/upgrade.sh release/stable
 ```
 
 
-### 升级 Google Container Engine (GKE) 集群
+### 升级 Google Kubernetes Engine 集群
 
 
-Google Container Engine 自动升级 master 组件（例如 `kube-apiserver`、`kube-scheduler`）至最新版本。它还负责 master 运行的操作系统和其它组件。
+Google Kubernetes Engine 自动升级 master 组件（例如 `kube-apiserver`、`kube-scheduler`）至最新版本。它还负责 master 运行的操作系统和其它组件。
 
 
-节点升级过程由用户初始化，[GKE 文档](https://cloud.google.com/container-engine/docs/clusters/upgrade) 里有相关描述。
+节点升级过程由用户初始化，[Google Kubernetes Engine 文档](https://cloud.google.com/kubernetes-engine/docs/clusters/upgrade) 里有相关描述。
 
 
 ### 在其他平台上升级集群
@@ -80,7 +80,7 @@ Google Container Engine 自动升级 master 组件（例如 `kube-apiserver`、`
 ## 调整集群大小
 
 
-如果集群资源短缺，您可以轻松的添加更多的机器，如果集群正运行在[节点自注册模式](/docs/admin/node/#self-registration-of-nodes)下的话。如果正在使用的是 GCE 或者 GKE，这将通过调整管理节点的实例组的大小完成。在  [Google Cloud Console page](https://console.developers.google.com) 的 `Compute > Compute Engine > Instance groups > your group > Edit group` 下修改实例数量或使用 gcloud CLI 都可以完成这个任务。
+如果集群资源短缺，您可以轻松的添加更多的机器，如果集群正运行在[节点自注册模式](/docs/admin/node/#self-registration-of-nodes)下的话。如果正在使用的是 GCE 或者 Google Kubernetes Engine，这将通过调整管理节点的实例组的大小完成。在  [Google Cloud Console page](https://console.developers.google.com) 的 `Compute > Compute Engine > Instance groups > your group > Edit group` 下修改实例数量或使用 gcloud CLI 都可以完成这个任务。
 
 ```shell
 gcloud compute instance-groups managed resize kubernetes-minion-group --size 42 --zone $ZONE
@@ -96,7 +96,7 @@ gcloud compute instance-groups managed resize kubernetes-minion-group --size 42 
 ### 集群自动伸缩
 
 
-如果正在使用 GCE 或者 GKE，您可以配置您的集群，使其能够基于 pod 需求自动重新调整大小。
+如果正在使用 GCE 或者 Google Kubernetes Engine，您可以配置您的集群，使其能够基于 pod 需求自动重新调整大小。
 
 
 如  [Compute Resource](/docs/concepts/configuration/manage-compute-resources-container/) 所述，用户可以控制预留多少 CPU 和内存来分配给 pod。这个信息被 Kubernetes scheduler 用来寻找一个运行 pod 的地方。如果没有一个节点有足够的空闲容量（或者不能满足其他 pod 的需求），这个 pod 就需要等待某些 pod 结束，或者一个新的节点被添加。
@@ -108,7 +108,7 @@ gcloud compute instance-groups managed resize kubernetes-minion-group --size 42 
 如果发现在一段延时时间内（默认10分钟，将来有可能改变）某些节点不再需要，集群 autoscaler 也会缩小集群。
 
 
-集群 autoscaler 在每一个实例组（GCE）或节点池（GKE）上配置。
+集群 autoscaler 在每一个实例组（GCE）或节点池（Google Kubernetes Engine）上配置。
 
 
 如果您使用 GCE，那么您可以在使用 kube-up.sh 脚本创建集群的时候启用它。要想配置集群 autoscaler，您需要设置三个环境变量：
@@ -126,7 +126,7 @@ KUBE_ENABLE_CLUSTER_AUTOSCALER=true KUBE_AUTOSCALER_MIN_NODES=3 KUBE_AUTOSCALER_
 ```
 
 
-在 GKE 上，您可以在创建、更新集群或创建一个特别的节点池（您希望自动伸缩的）时，通过给对应的 `gcloud` 命令传递 `--enable-autoscaling` `--min-nodes` 和 `--max-nodes` 来配置集群 autoscaler。
+在 Google Kubernetes Engine 上，您可以在创建、更新集群或创建一个特别的节点池（您希望自动伸缩的）时，通过给对应的 `gcloud` 命令传递 `--enable-autoscaling` `--min-nodes` 和 `--max-nodes` 来配置集群 autoscaler。
 
 
 示例：
