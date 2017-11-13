@@ -6,7 +6,9 @@ approvers:
 title: Horizontal Pod Autoscaling
 ---
 
+{% capture overview %}
 This document describes the current state of Horizontal Pod Autoscaling in Kubernetes.
+{% endcapture %}
 
 ## What is Horizontal Pod Autoscaling?
 
