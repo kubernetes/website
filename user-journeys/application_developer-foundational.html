@@ -26,9 +26,7 @@
       <div class="docsection1">
        <p>
         If you're an application developer looking to get started with Kubernetes, this page and its linked topics introduce you to foundational concepts and tasks. The focus is on a development workflow -- check out other user journeys to learn about managing production clusters, or providing high availability (HA) for critical application deployments.</p>
-        <p>
-        What can Kubernetes do for me?
-        Kubernetes is commonly described as an orchestration platform for containerized applications. Containers provide lightweight portable packaging for applications, and Kubernetes helps deploy your containers to a cluster of connected computers and then manage the cluster. The cluster can run on bare metal, in classic virtual machines, or in the cloud. For a fuller description of Kubernetes and more information about containers, see <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">What Is Kubernetes</a>.</What><!--Alex: Maybe put the following in a box too? --> For more information about different environments for deploying Kubernetes, see LINK.</p> 
+        <p>In a production workflow, it's common to assign the tasks and responsibilities of setting up and maintaining a Kubernetes cluster to the distinct roles of cluster administrator and cluster user. These roles might or might  not be assigned to different individuals or teams. As an application developer, you don't need to learn all the intricacies of cluster administration. But you do need to learn the basics, and to understand how certain aspects of adminstering a cluster can affect development, testing, and deployment at the application level.</p>
        <p>
         <!-- For an introduction to containers, see <a href="https://www.docker.com/what-container">this writeup from Docker, the most popular container technology</a>. Alex: box this separately? "What else you need to know" or maybe remove this content, but box what is K8s link from previous para--></p> 
         <p>
@@ -59,8 +57,8 @@
               <li>For Linux, VirtualBox or KVM</li>
               <li>For Windows, VirtualBox or Hyper-V</li>
           </li>
-          <li><a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-docker">Install Docker</a>. Minikube includes a Docker daemon, but we recommend that you install your own. Note that version 1.12 is recommended, but a few other versions are tested and known to work.</li>
           <li><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">Install kubectl, the Kubernetes command-line tool.</a> Note that when you start Minikube, your kubectl is automatically configured to communicate with the server. You should therefore skip kubectl configuration at this point.</li>
+          <li>(optional) If you plan to run your Minikube cluster as part of a local development environment, consider <a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-docker">installing Docker</a>. Minikube includes a Docker daemon, but to create and push containers as part of your development workflow, you'll want an independent Docker instance. Note that version 1.12 is recommended for full compatibility with Kubernetes, but a few other versions are tested and known to work.</li><!--Maybe this is another candidate for a callout/box to the side instead of as part of the main list? -->
         </ul>
 <br><br>
         <a href="https://kubernetes.io/docs/tasks/tools/install-minikube/">Install Minikube</a>
@@ -83,25 +81,55 @@
 
       <div class="docsection1">
 
+        <!-- maybe a little sub-toc here? Ingress, Networking, Storage, Labels -->
+
       <p>You can deploy a simple application in Kubernetes with a Deployment manifest, also called a configuration or config file. The manifest is written in YAML or JSON, and describes the desired state of the application and related resources as Kubernetes should maintain them.</p>
-      <p>This Deployment installs <!--(is this the right verb? not standard K8s terminology but maybe useful here? Or should we provide some basic verb explanation on this page to complement the noun-based glossary?)--> an nginx server, which is used as one of the standard ways to provide ingress to your cluster. <!--Link to ingress glossary entry --></p>
-      <a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/">Run a Stateless Application Using a Deployment</a>
-      <p>Now you can create a Service so that your nginx Deployment can provide actual ingress. <a href="https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/"></a>Use a Service to Access an Application in a Cluster</p>
+      <ul>
+        <li><a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/">Get started by deploying a simple nginx server.</a> Nginx provides basic ingress<!--link to glossary--> to your cluster.</li>
+        <li>Next, <a href="https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/">create a Service</a> so that your nginx Deployment can provide ingress.</li>
+        <li></li>
+        </ul>
         
-<br><br>
+<!--<br><br>
         more resources to analyze/refactor:
 <br><br>
-        <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-intro/">Using kubectl to Create a Deployment</a>" -- this page is primarily conceptual/expanatory material.
+        <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-intro/">Using kubectl to Create a Deployment</a>" - this page is primarily conceptual/expanatory material.
   <br><br>
-        <a href="https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/">Hello Minikube</a> -- the app parts only
+        <a href="https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/">Hello Minikube</a> - the app parts only
 <br><br>
-        <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/expose-intro/">Using a Service to Expose Your App</a>
-<br><br>
-        Also useful content (with again overlapping material): <a href="https://kubernetes.io/docs/user-guide/walkthrough/">Kubernetes 101</a> -- explores kubectl, pods, volumes, multiple containers
+        <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/expose-intro/">Using a Service to Expose Your App</a>-->
+
+  <p>Ingress provides networking between your cluster and the outside world. But you also need networking between containers and between nodes in your cluster, which you <a href="https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/">configure with a network policy</a>. See also:</p>
+    <ul>
+      <li><a href="https://kubernetes.io/docs/concepts/services-networking/network-policies/">More information about network policies</a>.</li>
+      <li><a href="https://kubernetes.io/docs/concepts/cluster-administration/networking/">And too much information about network policies</a>."
+      </li>
+      <li></li>
+    </ul>
+
+          
+<p>You'll also want to think about storage. Kubernetes provides different types of storage for different storage needs:</p>
+
+  <ul>
+    <li>A Volume lets you define storage for your cluster that is tied to the lifecycle of a Pod. It is therefore more persistent than container storage. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-volume-storage/">how to configure volume storage</a>, or <a href="https://kubernetes.io/docs/concepts/storage/volumes/">read more about about volume storage</a>.</li>
+    <li>A PersistentVolume and PersistentVolumeClaim let you define storage at the cluster level. Typically a cluster administrator defines the PersistentVolume objects for the cluster, and cluster users (application developers, you) define the PersistentVolumeClaim objects that your application requires. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/">how to set up persistent storage for your cluster</a> or <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">read more about persistent volumes</a>.</li>
+    <li>Q: mention also projected volumes? This seems more specialized, might be distracting?</li>
+  </ul>
+
+  <p>Labels let you specify identifying information for Kubernetes objects, such as pods, that you define. This information is entirely user-defined, and is used to sort and select sets of objects.</p>
+
+      <ul>
+        <li>https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+        </li>
+        <li>https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/</li>
+        <li>https://kubernetes.io/docs/concepts/configuration/assign-pod-node/</li>
+      </ul>
+
+        <!--Also useful content (with again overlapping material): <a href="https://kubernetes.io/docs/user-guide/walkthrough/">Kubernetes 101</a> - explores kubectl, pods, volumes, multiple containers
 
         <p>TODO: identify all possible related content, do content analysis, plan new IA</p>
         <p>TODO: Networking, ConfigMap, Secrets (do we need/want secrets for this persona?)</p>
-        <p>TODO: Update application</p>
+        <p>TODO: Update application</p>-->
       </div>
 
       <div class="topheader" id="3">
@@ -145,7 +173,7 @@
       <br><br>
         TODO Links to closely related user journeys (when we have them)
       <br><br>
-        Aenean suscipit arcu ac leo tincidunt tempus. Donec maximus tellus libero, ac ullamcorper magna lobortis ac. Integer mollis nisl vitae magna gravida, nec ornare ex consectetur. Sed mattis tincidunt nisi, at consequat tellus malesuada non. Integer vel semper nisi, ut fringilla velit. Nam felis ex, congue non dui vitae, sollicitudin convallis turpis. Phasellus porttitor maximus turpis, in varius nibh fermentum aliquam. Cras finibus lacus non diam porttitor porttitor. Nulla fringilla sagittis nibh nec condimentum. Duis egestas mauris nec dolor hendrerit ullamcorper sit amet in mi. Phasellus sollicitudin justo diam.
+      https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/
       <br><br>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id felis non enim faucibus lacinia. Aliquam massa mauris, interdum a ex ut, sagittis rutrum nulla. In pellentesque est at molestie fringilla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec eu mi at velit lacinia venenatis ac nec sem. In volutpat pellentesque dui ut commodo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis sollicitudin eleifend felis non facilisis. Pellentesque leo urna, congue id auctor non, varius a nunc. Duis ultrices, odio ut hendrerit suscipit, nisi mauris dignissim mauris, nec bibendum ante neque ut augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam condimentum libero sit amet rutrum fermentum. Proin posuere condimentum odio. Aenean volutpat, ex vel tincidunt tincidunt, massa odio condimentum lectus, vel iaculis libero dolor in nisi.
       <br><br>
