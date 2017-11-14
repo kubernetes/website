@@ -15,7 +15,7 @@ If you just want to "kick the tires" on Kubernetes, use the [local Docker-based 
 When you are ready to scale up to more machines and higher availability, a [hosted solution](#hosted-solutions) is the easiest to create and maintain.
 
 [Turnkey cloud solutions](#turnkey-cloud-solutions) require only a few commands to create
-and cover a wide range of cloud providers.
+and cover a wide range of cloud providers. [On-Premises turnkey cloud solutions](#on-premises-turnkey-cloud-solutions) have the simplicity of the turnkey cloud solution combined with the security of your own private network.
 
 If you already have a way to configure hosting resources, use [kubeadm](/docs/setup/independent/create-cluster-kubeadm/) to easily bring up a cluster with a single command per machine.
 
@@ -74,6 +74,12 @@ few commands. These solutions are actively developed and have active community s
 * [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
 * [KUBE2GO.io](https://kube2go.io/)
 * [Madcore.Ai](https://madcore.ai/)
+
+# On-Premises turnkey cloud solutions
+These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
+few commands.
+
+* [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
 
 # Custom Solutions
 
