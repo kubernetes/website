@@ -13,6 +13,10 @@ display_browse_numbers: true
 <h1>{{ page.title }}</h1>
 {% endunless %}
 
+<div id="user-persona-data" class="hide">
+  {{ site.data.user-personas | json | replace: "=>", ": " }}
+</div>
+
 <div class="bar1">
     <div class="navButton users" onClick="showOnlyDocs(false)">Users</div>
     <div class="navButton contributors" onClick="showOnlyDocs(false)">Contributors</div>
@@ -88,7 +92,7 @@ display_browse_numbers: true
 
 {% for section_id in sections %}
 
-  {% assign section_data = site.data.[section_id] %}
+  {% assign section_data = site.data[section_id] %}
   {% assign section_toc = section_data.toc %}
 
   <div class="browsesection">
@@ -97,7 +101,7 @@ display_browse_numbers: true
     </div>
 
     {% assign section_toc = section_toc | where_exp: "elt", "elt.title != null" %}
-    {% assign num_pages = section_toc | size - 1 %}
+    {% assign num_pages = section_toc | size | minus: 1 %}
     {% assign column_size = num_pages | divided_by: 3.0 | ceil %}
 
     <div class="pages">
