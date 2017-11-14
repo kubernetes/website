@@ -6,12 +6,10 @@ title: What is Kubernetes?
 ---
 
 {% capture overview %}
-This page is an overview of Kubernetes.
+Kubernetes is an [open-source platform designed to automate deploying, scaling, and operating application containers](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations).
 {% endcapture %}
 
 {% capture body %}
-Kubernetes is an [open-source platform designed to automate deploying, scaling, and operating application containers](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations).
-
 With Kubernetes, you are able to quickly and efficiently respond to customer demand:
 
  - Deploy your applications quickly and predictably.
