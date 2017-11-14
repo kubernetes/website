@@ -441,7 +441,6 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 9376
-    nodePort: 30061
   clusterIP: 10.0.171.239
   loadBalancerIP: 78.11.24.19
   type: LoadBalancer
@@ -483,7 +482,7 @@ metadata:
 [...]
 ```
 Use `cloud.google.com/load-balancer-type: "internal"` for masters with version 1.7.0 to 1.7.3.  
-For more information, see the [docs](https://cloud.google.com/container-engine/docs/internal-load-balancing).
+For more information, see the [docs](https://cloud.google.com/kubernetes-engine/docs/internal-load-balancing).
 {% endcapture %}
 
 {% capture aws %}
