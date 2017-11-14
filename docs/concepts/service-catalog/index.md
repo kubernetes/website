@@ -13,16 +13,16 @@ approvers:
 {% capture body %}
 ## Example use case
 
-An {% glossary_tooltip text="Application Developer" term_id="application-developer" %} wants to use a datastore, such as MySQL, as part of their application running in a Kubernetes cluster.
-However, they do not want to deal with the overhead of setting one up and administrating it themselves.
-Fortunately, there is a cloud provider that offers MySQL databases as a *Managed Service* through their *Service Broker*.
+An {% glossary_tooltip text="Application Developer" term_id="application-developer" %} wants to use message queuing as part of their application running in a Kubernetes cluster.
+However, they do not want to deal with the overhead of setting such a service up and administrating it themselves.
+Fortunately, there is a cloud provider that offers message queuing as a *Managed Service* through their *Service Broker*.
 
 A *Service Broker*, as defined by the [Open Service Broker API spec](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md), is an endpoint for a set of Managed Services offered and maintained by a third-party, which could be a cloud provider such as AWS, GCP, or Azure.
-Some examples of *Managed Services* are Azure SQL Database, Amazon EC2, and Google Cloud Pub/Sub, but they can be any software offering that can be used by an application, typically available via HTTP REST endpoints.
+Some examples of *Managed Services* are Microsoft Azure Cloud Queue, Amazon Simple Queue Service, and Google Cloud Pub/Sub, but they can be any software offering that can be used by an application, typically available via HTTP REST endpoints.
 {: .note}
 
-Using Service Catalog, the {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can browse the list of Managed Services offered by a Service Broker, provision a MySQL database instance, and bind with it to make it available to the application within the Kubernetes cluster.
-The Application Developer therefore does not need to concern themselves with the implementation details or management of the database.
+Using Service Catalog, the {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can browse the list of Managed Services offered by a Service Broker, provision an instance of the message queuing service, and bind with it to make it available to the application within the Kubernetes cluster.
+The Application Developer therefore does not need to concern themselves with the implementation details or management of the message queue.
 Their application can simply use it as a service.
 
 ## Architecture
@@ -121,12 +121,12 @@ This is an example of a `ServiceInstance` resource:
 apiVersion: servicecatalog.k8s.io/v1alpha1
 kind: ServiceInstance
 metadata:
-  name: cloud-mysql-instance
+  name: cloud-queue-instance
   namespace: cloud-apps
 spec:
   # References one of the previously returned services
-  serviceClassName: mysql
-  planName: mysql-plan
+  serviceClassName: queue
+  planName: queue-plan
 ```
 
 The following sequence diagram illustrates the steps involved in provisioning a new instance of a Managed Service:
@@ -147,23 +147,23 @@ The following is an example of a `ServiceBinding` resource:
 apiVersion: servicecatalog.k8s.io/v1alpha1
 kind: ServiceBinding
 metadata:
-  name: cloud-mysql-binding
+  name: cloud-queue-binding
   namespace: cloud-apps
 spec:
   instanceRef:
-    name: cloud-mysql-instance
+    name: cloud-queue-instance
   # Secret to store returned data from bind call
   # Currently:
   #   project: provider project id
   #   serviceAccount: same as passed as parameter
   #   subscription: generated subscription name
   #   topic: generated topic name
-  secretName: cloud-mysql-credentials
+  secretName: cloud-queue-credentials
   parameters:
     # provider *app* service account
     serviceAccount: "someuser@auth.somecloudprovider.com"
     # publisher or subscriber
-    roles: ["roles/mysql.subscriber"]
+    roles: ["roles/queue.subscriber"]
 ```
 
 The following sequence diagram illustrates the steps involved in binding to a Managed Service instance:
@@ -187,7 +187,7 @@ These pieces of information are stored in secrets that the application in the cl
 
 One method to perform this mapping is to use a declarative Pod configuration.
 
-The following example describes how to map service account credentials into the application. A key called `sa-key` is stored in a volume named `google-cloud-key`, and the application mounts this volume at `/var/secrets/google/key.json`. The environment variable `GOOGLE_APPLICATION_CREDENTIALS` is mapped from the value of the mounted file.
+The following example describes how to map service account credentials into the application. A key called `sa-key` is stored in a volume named `provider-cloud-key`, and the application mounts this volume at `/var/secrets/provider/key.json`. The environment variable `GOOGLE_APPLICATION_CREDENTIALS` is mapped from the value of the mounted file.
 
 ```yaml
 ...
@@ -206,7 +206,7 @@ The following example describes how to map service account credentials into the 
             value: "/var/secrets/provider/key.json"
 ```
 
-The following example describes how to map secret values into application environment variables. In this example, the MySql topic name is mapped from a secret named `provider-mysql-credentials` with a key named `topic` to the environment variable `TOPIC`.
+The following example describes how to map secret values into application environment variables. In this example, the messaging queue topic name is mapped from a secret named `provider-queue-credentials` with a key named `topic` to the environment variable `TOPIC`.
 
 
 ```yaml
@@ -215,7 +215,7 @@ The following example describes how to map secret values into application enviro
           - name: "TOPIC"
             valueFrom:
                 secretKeyRef:
-                   name: provider-mysql-credentials
+                   name: provider-queue-credentials
                    key: topic
 ```
 
