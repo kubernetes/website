@@ -47,34 +47,29 @@ When creating a new API, consider whether to [aggregate your API with the Kubern
 | You want to reuse these features of the Kubernetes code: <ul><li>Client Libraries for listing, watching, and patching resource.</li><li>Authentication</li><li>Authorization</li><li>Audit logging</li><li>Garbage collection and hierarchy of resources</li><li>Resource metadata such as labels, annotations, and creation timestamps.</li></ul> | You either don't need or have different needs for these features. |
 | You want to reuse these aspects of your cluster environment that may already be set up. <br>For example: <ul><li>Existing Kubernetes Service Accounts, and their ability to discover the APIServer</li><li>Any built-in or custom Access Control and Policy mechanisms on your cluster</li><li>User's existing Clients which point to your existing cluster</li><li>Hostname, IP and certificate of the existing APIserver, which has already been delivered to clients and is in their `.kube/config` file</li><li>Code which already uses in Kubernetes client libraries</li><li>High Availability (if any) of your Kubernetes APIServer(s) and etcd</li><li>Your API needs to be acted on by Kubernetes controllers, e.g. scaled by autoscaler</li></ul> | You don't need these features. |
 
-### Should I use a configMap or a User-defined resource?
+### Should I use a configMap or a user-defined resource?
 
 Sometimes, you just need to store a small amount of plain-old data alongside your other Kubernetes configuration.
 
-Use a ConfigMap if any of the followingi apply:
+Use a ConfigMap if any of the following apply:
 
+* There is an existing, well-documented config file format, such as a `mysql.cnf` or `pom.xml`.
+* You want to put the entire config file into one key of a configMap.
+* The main use of the config file is for a program running in a Pod on your cluster to consume the file to configure itself.
+* Consumers of the file prefer to consume via file in a Pod or environment variable in a pod, rather than the Kubernetes API.
+* You want to perform rolling updates via Deployment, etc, when the file is updated.
 
+**Note:** Use a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) for sensitive data, which is similar to a configMap but more secure.
+{: .note}
 
-*   there is an existing well documented config file format, such as a mysql.cnf, or pom.xml.
-    *   Put the entire config file into one key of a configMap.
-*   The main use of the config file is for a program running in a Pod on your cluster to consume the file to configure itself.
-*   Consumers of the file prefer to consume via file in a Pod or environment variable in a pod, rather than the Kubernetes API.
-*   You want to do rolling updates via Deployment, etc, when the file is updated.
+Use a custom resource (CRD or Aggregated API) if most of the following apply:
 
-Use a secret, which is similar to a configMap, but more secure, for sensitive data.
-
-Use a custom resource (CRD or Aggregated API) if you want do most of the following:
-
-
-
-*   You want to use Kubernetes client libraries and CLIs to create and update the new resource.
-*   You want top-level support from kubectl (e.g. `kubectl get my-object object-name`)
-*   You want to build new automation that watches for updates on the new object, and then CRUD other objects, or vice versa.
-*   You want to write automation that handles updates to the object.
-*   You want to use Kubernetes API conventions like having .spec and .status and .metadata.
-*   You want to object to be an abstraction over a collection of controlled resources, or summarization of other resources.
-
-
+* You want to use Kubernetes client libraries and CLIs to create and update the new resource.
+* You want top-level support from kubectl (for example: `kubectl get my-object object-name`).
+* You want to build new automation that watches for updates on the new object, and then CRUD other objects, or vice versa.
+* You want to write automation that handles updates to the object.
+* You want to use Kubernetes API conventions like `.spec`, `.status`, and `.metadata`.
+* You want an object to be an abstraction over a collection of controlled resources, or a summarization of other resources.
 
 ## Two Ways to Add Custom Resources
 
