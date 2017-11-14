@@ -158,6 +158,9 @@ file:
   distributed amongst members of the load balancer pool. The value can be
   `ROUND_ROBIN`, `LEAST_CONNECTIONS`, or `SOURCE_IP`. The default behavior if
   none is specified is `ROUND_ROBIN`.
+* `lb-provider` (Optional): Used to specify the provider of the load balancer.
+  If not specified, the default provider service configured in neutron will be
+  used.
 * `create-monitor` (Optional): Indicates whether or not to create a health
   monitor for the Neutron load balancer. Valid values are `true` and `false`.
   The default is `false`. When `true` is specified then `monitor-delay`,
