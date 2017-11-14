@@ -71,9 +71,11 @@ the underlying cloud, where available:
 
 † Block Storage V1 API support is deprecated, support for Block Storage V3 will
   be added in the future.
+  
 ‡ Identity V2 API support is deprecated and will be removed from the provider in
 a future release. As of the "Queens" release OpenStack will no longer expose the
 Identity V2 API.
+
 § Load Balancing V1 API support is deprecated and will be removed from the
 provider in a future release.
 
