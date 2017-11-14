@@ -225,7 +225,7 @@ If you see that, DNS is working correctly.
 If the nslookup command fails, check the following:
 
 #### Check the local DNS configuration first
-Take a look inside the resolv.conf file. (See "Inheriting DNS from the node" and "Known issues" below for more information)
+Take a look inside the resolv.conf file. (See [Inheriting DNS from the node](#inheriting-dns-from-the-node) and [Known issues](#known-issues) below for more information)
 
 ```
 kubectl exec busybox cat /etc/resolv.conf
