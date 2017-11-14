@@ -291,14 +291,19 @@ Run your app again to view the new message:
 minikube service hello-node
 ```
 
-## Enable Add-ons
+## Enable addons
 
-Minikube has a set of built in addons that can be used enabled, disabled, and opened inside of the local Kubernetes environment. Below is an example of this functionality for the `heapster` addon.
+Minikube has a set of built-in addons that can be enabled, disabled and opened in the local Kubernetes environment.
 
-First we can list the currently supported addons:
+First list the currently supported addons:
 
 ```shell
-$ minikube addons list
+minikube addons list
+```
+
+Output:
+
+```shell
 - storage-provisioner: enabled
 - kube-dns: enabled
 - registry: disabled
@@ -312,13 +317,27 @@ $ minikube addons list
 - ingress: disabled
 ```
 
-Minikube must be running for these command to take effect addon:
+Minikube must be running for these command to take effect. To enable `heapster` addon, for example:
 
 ```shell
-$ minikube addons enable heapster
-heapster was successfully enabled
+minikube addons enable heapster
+```
 
-$ kubectl get po,svc -n kube-system
+Output:
+
+```shell
+heapster was successfully enabled
+```
+
+View the Pod and Service you just created:
+
+```shell
+kubectl get po,svc -n kube-system
+```
+
+Output:
+
+```shell
 NAME                             READY     STATUS    RESTARTS   AGE
 po/heapster-zbwzv                1/1       Running   0          2m
 po/influxdb-grafana-gtht9        2/2       Running   0          2m
@@ -329,11 +348,15 @@ svc/monitoring-grafana     NodePort    10.0.0.33    <none>        80:30002/TCP  
 svc/monitoring-influxdb    ClusterIP   10.0.0.43    <none>        8083/TCP,8086/TCP   2m
 ```
 
-Open the endpoint in the browser:
+Open the endpoint to interacting with heapster in a browser:
 
 ```shell
-# This will open grafana (interacting w/ heapster)
-$ minikube addons open heapster
+minikube addons open heapster
+```
+
+Output:
+
+```shell
 Opening kubernetes service kube-system/monitoring-grafana in default browser...
 ```
 
@@ -346,13 +369,13 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-Optionally, stop Minikube:
+Optionally, stop the Minikube VM:
 
 ```shell
 minikube stop
 ```
 
-Optionally, delete Minikube vm:
+Optionally, delete the Minikube VM:
 
 ```shell
 minikube delete
