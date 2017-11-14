@@ -474,6 +474,7 @@ for provisioning PVs. This field must be specified.
 | VsphereVolume        | &#x2713;            | [vSphere](#vsphere)                  |
 | PortworxVolume       | &#x2713;            | [Portworx Volume](#portworx-volume)  |
 | ScaleIO              | &#x2713;            | [ScaleIO](#scaleio)                  |
+| StorageOS            | &#x2713;            | [StorageOS](#storageos)              |
 
 You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
