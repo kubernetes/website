@@ -46,116 +46,24 @@ extension of the Kubernetes API.
 ### Should I Add a Custom Resource to my Kubernetes Cluster?
 When creating a new API, first consider if you should add your API to Kubernetes cluster APIs, or instead let your API stand alone.
 
-
-<table>
-  <tr>
-   <td>Consider adding an API to the Kubernetes API if...
-   </td>
-   <td>Prefer a stand-alone API if...
-   </td>
-  </tr>
-  <tr>
-   <td>… your API is Declarative. Typically, this means:<ul>
-<li>your API consists of a relatively small number of relatively small objects
-<li>the objects define configuration of applications or infrastructure
-<li>the objects are updated relatively infrequently
-<li>humans often need to read and write the objects
-<li>the main operations on the objects are (CRUD) creating, reading, updating and deleting
-<li>humans often need to read and write the objects
-<li>transactions across objects are not required.</li></ul>
-   </td>
-   <td>… your API does not fit the Declarative model.  For example, it might:<ul>
-<li>need to directly store large amounts of data (e.g. > a few kB per object, or >1000s of objects)
-<li>need to be high bandwidth (10s of requests per second sustained)
-<li>store end-user data (such as images, PII, etc) or other large-scale data processed by applications<li>
-<li>the objects require non-CRUD operations.
-<li>the API does is not well modeled as objects.</li></ul>
-   </td>
-  </tr>
-  <tr>
-   <td>...you want your new types to be readable and writable using the kubernetes CLI.  For example:<ul>
-
-<li><code>kubectl create -f customresources.{yaml|json}</code>
-<li><code>kubectl get myresourcetype myresinstance</code>
-<li><code>kubectl delete myresourcetype myresinstance</code>
-<li><code>kubectl list myresourcetype</code></li></ul>
-
-   </td>
-   <td><code>kubectl</code> support not required
-   </td>
-  </tr>
-  <tr>
-   <td>… you want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types.
-   </td>
-   <td>Kuberetes UI support not required
-   </td>
-  </tr>
-  <tr>
-   <td>… you prefer Declarative/REST/Resource style APIs
-   </td>
-   <td>... you prefer Imperative/RPC/Operation style APIs [<a href="https://apihandyman.io/do-you-really-know-why-you-prefer-rest-over-rpc/">comparison</a>].
-   </td>
-  </tr>
-  <tr>
-   <td>... you are developing a new API. 
-   </td>
-   <td>… you already have program that serves your API and works just fine. 
-   </td>
-  </tr>
-  <tr>
-   <td>… you are willing to accept the format restriction that Kubernetes puts on REST resource paths, such as API Groups, Namespaces, 
-<p>
-(See the <a href="https://kubernetes.io/docs/reference/api-overview/">API Overview</a>.)
-   </td>
-   <td>… you need to have specific REST paths to be compatible with an already defined REST API.
-   </td>
-  </tr>
-  <tr>
-   <td>... your resources are naturally scoped to a cluster or to namespaces of a cluster; 
-   </td>
-   <td>... if cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths.
-   </td>
-  </tr>
-  <tr>
-   <td>... you want to reuse these features of the Kubernetes code:<ul>
-
-<li>Client Libraries for listing, watching, and patching resource.
-<li>Authentication
-<li>Authorization 
-<li>Audit logging 
-<li>Garbage collection and hierarchy of resources
-<li>Resource metadata such as  labels, annotations, and creation timestamps</li></ul>
-
-   </td>
-   <td>… you don't need or have different needs for items to the left. 
-<p>
-<em>But,</em> see Access Control and Policy Section below for options on how to configuring those which might allow you to continue to use the Kubernetes API.
-   </td>
-  </tr>
-  <tr>
-   <td>… you want to reuse these aspects of your cluster environment that may already be set up:<ul>
-
-<li>Existing Kubernetes Service Accounts, and their ability to discover the APIServer
-<li>Any built-in or custom Access Control and Policy mechanisms on your cluster.
-<li>User's existing Clients which point to your existing cluster.
-<li>Hostname, IP and certificate of the existing APIserver, which has already been delivered to clients and is in their  .kube/config file 
-<li>Code which already uses in Kubernetes client libraries.
-<li>High Availability (if any) of your Kubernetes APIServer(s)
-<li>Your API can be acted on by default controllers, e.g. scaled by autoscaler</li></ul>
-
-   </td>
-   <td>… you don't need these.
-   </td>
-  </tr>
-</table>
-
+|Consider adding an API to the Kubernetes API if...|      Prefer a stand-alone API if...      |
+|-|-|
+|… your API is Declarative.<br>Typically, this means: <li>your API consists of a relatively small number of relatively small objects <li>the objects define configuration of applications or infrastructure the objects are updated relatively infrequently <li>humans often need to read and write the objects <li>the main operations on the objects are CRUDy (creating, reading, updating and deleting) <li>humans often need to read and write the objects transactions across objects are not required.|… your API does not fit the Declarative model. <br>For example, it might: <li>need to directly store large amounts of data (e.g. > a few kB per object, or >1000s of objects) <li>need to be high bandwidth (10s of requests per second sustained) <li>store end-user data (such as images, PII, etc) or other large-scale data processed by applications <li>the objects require non-CRUD operations <li>the API does is not well modeled as objects.|
+|...you want your new types to be readable and writable using `kubectl`. For example: <li>`kubectl create -f customresources.{yaml,json}` <li>`kubectl get myresourcetype myresinstance` <li>`kubectl delete myresourcetype myresinstance` <li>`kubectl list myresourcetype`|`kubectl` support not required|
+|… you want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types.|Kuberetes UI support not required|
+|… you prefer Declarative/REST/Resource style APIs|... you prefer Imperative/RPC/Operation style APIs [comparison].|
+|... you are developing a new API.|… you already have program that serves your API and works just fine.|
+|… you are willing to accept the format restriction that Kubernetes puts on REST resource paths, such as API Groups, Namespaces, (See the API Overview.)|… you need to have specific REST paths to be compatible with an already defined REST API.|
+|... your resources are naturally scoped to a cluster or to namespaces of a cluster;|... if cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths.|
+|... you want to reuse these features of the Kubernetes code: <li>Client Libraries for listing, watching, and patching resource. <li>Authentication <li>Authorization <li>Audit logging <li>Garbage collection and hierarchy of resources <li>Resource metadata such as labels, annotations, and creation timestamps|… you don't need or have different needs for items to the left.|
+|… you want to reuse these aspects of your cluster environment that may already be set up. <br>For example: <li>Existing Kubernetes Service Accounts, and their ability to discover the APIServer <li>Any built-in or custom Access Control and Policy mechanisms on your cluster.<li>User's existing Clients which point to your existing cluster. <li>Hostname, IP and certificate of the existing APIserver, which has already been delivered to clients and is in their `.kube/config` file <li>Code which already uses in Kubernetes client libraries. <li>High Availability (if any) of your Kubernetes APIServer(s) and etcd <li>Your API needs to be acted on by  Kubernetes controllers, e.g. scaled by autoscaler|… you don't need these.|
 
 
 ### Should I use a configMap or a User-defined resource?
 
 Sometimes, you just need to store a small amount of plain-old data alongside your other Kubernetes configuration.
 
-Use a ConfigMap if any of the following:
+Use a ConfigMap if any of the followingi apply:
 
 
 
@@ -234,271 +142,55 @@ Typically, CRDs are a good fit if:
 *   You are have a handful of fields 
 *   You are using the resource within your company, or as part of a small open-source project (as opposed to a commercial product)
 
-<table>
-  <tr>
-   <td colspan="2" >
-<strong>Ease of use comparison</strong>
-   </td>
-  </tr>
-  <tr>
-   <td>CRDs
-   </td>
-   <td>Aggregated API
-   </td>
-  </tr>
-  <tr>
-   <td>Do not require programming.
-<p>
-For writing a controller for the custom resources, user can chose any language for the controller.
-   </td>
-   <td>Requires programming in Go and building binary and image.
-<p>
- 
-<p>
-For writing a controller for the custom resources, user can chose any language for the controller.
-   </td>
-  </tr>
-  <tr>
-   <td>No additional service to run; CRs are handled by API Server
-   </td>
-   <td>An additional service to create and that could fail.
-   </td>
-  </tr>
-  <tr>
-   <td>No ongoing support once the CRD is created.
-<p>
-Any bugfixes picked up as part of normal Kubernetes Master upgrades.
-   </td>
-   <td>May need to periodically pickup bugfixes from upstream and rebuild and update the Aggregated APIserver. 
-   </td>
-  </tr>
-  <tr>
-   <td>
-   </td>
-   <td>
-   </td>
-  </tr>
-  <tr>
-   <td>You don't need to handle multiple versions of your API.<ul>
-
-<li>E.g. when you control the client for this resource, so you can upgrade it in sync with the API.</li></ul>
-
-   </td>
-   <td>You need to handle multiple versions of your API.<ul>
-
-<li>E.g. when developing an extension to share with the world.</li></ul>
-
-   </td>
-  </tr>
-</table>
 
 
+#### Ease of Use Comparison
 
-<table>
-  <tr>
-   <td colspan="4" ><strong>Flexibility Comparison</strong>
-   </td>
-  </tr>
-  <tr>
-   <td>Feature
-   </td>
-   <td>What it does
-   </td>
-   <td>CRDs
-   </td>
-   <td>Aggregated API
-   </td>
-  </tr>
-  <tr>
-   <td>Validation
-   </td>
-   <td rowspan="2" >These help users prevent errors and allow you to evolve your API independently of your clients.  
-<p>
-These features are most useful when there are many clients, and they can't all update at the same time.
-   </td>
-   <td>Alpha feature of CRDs in v1.8.  Checks limited to what is supported by OpenAPI v3.0.
-   </td>
-   <td>Yes, arbitrary validation checks.
-   </td>
-  </tr>
-  <tr>
-   <td>Defaulting
-   </td>
-   <td>No.  But can get same effect with an Initializer. (requires programming).
-   </td>
-   <td>Yes
-   </td>
-  </tr>
-  <tr>
-   <td>Multi-versioning
-   </td>
-   <td>Allows serving the same object through two API versions.  Can help ease API changes like renaming fields.
-<p>
-Less important if you control your client versions.
-   </td>
-   <td>No.
-   </td>
-   <td>Yes
-   </td>
-  </tr>
-  <tr>
-   <td>Custom Storage
-   </td>
-   <td>If you need storage with a different performance mode (e.g. time-series database instead of key-value store) or isolation for security (e.g. encryption secrets or different trust level for admins) or fault isolation.
-   </td>
-   <td>No.
-   </td>
-   <td>Yes.
-   </td>
-  </tr>
-  <tr>
-   <td>Custom Business Logic
-   </td>
-   <td>Do arbitrary checks or actions when creating, reading, updating or deleting an object.
-   </td>
-   <td>No.  But can get some of the same effects with Initializers or Finalizers. (requires programming).
-   </td>
-   <td>Yes.
-   </td>
-  </tr>
-  <tr>
-   <td>Subresources
-   </td>
-   <td>Add extra operations other than CRUD, such as "scale" or "exec".
-<p>
-Allows systems like like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource. 
-<p>
-Allows splitting responsibility for setting spec vs status.
-<p>
-Allows incrementing object Generation on custom resource data mutation (requires Spec/Status split).
-   </td>
-   <td>No but planned.
-   </td>
-   <td>Yes.  Any Subresource.
-   </td>
-  </tr>
-  <tr>
-   <td>strategic-merge-patch
-   </td>
-   <td>The new endpoints support PATCH with <code>Content-Type: application/strategic-merge-patch+json</code>.
-<p>
-Useful for updating objects that may be modified both locally, and by the server.   See: <a href="https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch/#use-a-strategic-merge-patch-to-update-a-deployment">https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch/#use-a-strategic-merge-patch-to-update-a-deployment</a>  
-   </td>
-   <td>No
-   </td>
-   <td>Yes.
-   </td>
-  </tr>
-  <tr>
-   <td>Protocol Buffers
-   </td>
-   <td>The new resource supports clients that want to use  Protocol Buffers
-   </td>
-   <td>No
-   </td>
-   <td>Yes
-   </td>
-  </tr>
-  <tr>
-   <td>OpenAPI Schema
-   </td>
-   <td>Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server?  Is the user protected from misspelling field names by ensuring only allowed fields are set?  Are types enforced (e.g. don't put an int in a string field?)
-   </td>
-   <td>No but planned.
-   </td>
-   <td>Yes.
-   </td>
-  </tr>
-</table>
+CRDs are easier to create than AAs.
+
+|CRDs|Aggregated API|
+|-|-|
+|Do not require programming. For writing a controller for the custom resources, user can chose any language for the controller.|Requires programming in Go and building binary and image. For writing a controller for the custom resources, user can chose any language for the controller.|
+|No additional service to run; CRs are handled by API Server|An additional service to create and that could fail.|
+|No ongoing support once the CRD is created. Any bugfixes picked up as part of normal Kubernetes Master upgrades.|May need to periodically pickup bugfixes from upstream and rebuild and update the Aggregated APIserver.|
+|You don't need to handle multiple versions of your API. E.g. when you control the client for this resource, so you can upgrade it in sync with the API.|You need to handle multiple versions of your API. E.g. when developing an extension to share with the world.|
+ API|
+
+#### Flexibility Comparison
 
 
+### Advanted Features and Flexibility 
+AAs allow for some more advanced API features, and customization of things like the storage layer.
 
-<table>
-  <tr>
-   <td colspan="2" ><strong>Common Capabilities</strong>
-   </td>
-  </tr>
-  <tr>
-   <td><strong>Feature</strong>
-   </td>
-   <td><strong>What it does</strong>
-   </td>
-  </tr>
-  <tr>
-   <td>CRUD
-   </td>
-   <td>The new endpoints support CRUD basic operations via HTTP
-   </td>
-  </tr>
-  <tr>
-   <td>Watch
-   </td>
-   <td>The new endpoints support Kubernetes Watch operations via HTTP
-   </td>
-  </tr>
-  <tr>
-   <td>Discovery
-   </td>
-   <td>Clients like kubectl and dashboard automatically offer list, display, and field edit operations on your resources.
-   </td>
-  </tr>
-  <tr>
-   <td>json-patch
-   </td>
-   <td>The new endpoints support PATCH with Content-Type: <code>application/json-patch+json</code>.
-   </td>
-  </tr>
-  <tr>
-   <td>merge-patch
-   </td>
-   <td>The new endpoints support PATCH with Content-Type: <code>application/merge-patch+json</code>.
-   </td>
-  </tr>
-  <tr>
-   <td>HTTPS
-   </td>
-   <td>The new endpoints uses HTTPS
-   </td>
-  </tr>
-  <tr>
-   <td>Built-in Authentication
-   </td>
-   <td>Can the extension reuse the core apiserver's authentication?
-   </td>
-  </tr>
-  <tr>
-   <td>Built-in 
-<p>
-Authorization
-   </td>
-   <td>Can I reuse the authorization scheme of the Core API server (e.g. RBAC).  
-   </td>
-  </tr>
-  <tr>
-   <td>Finalizers
-   </td>
-   <td>Can I have resource deletion block on another client doing something.
-   </td>
-  </tr>
-  <tr>
-   <td>Initializers
-   </td>
-   <td>Can I have resource creation block on another client doing something.
-   </td>
-  </tr>
-  <tr>
-   <td>UI/CLI Display
-   </td>
-   <td>Kubectl, dashboard can display objects of your new type, without modification.
-   </td>
-  </tr>
-  <tr>
-   <td>Unset vs Empty
-   </td>
-   <td>Can clients distinguish unset fields from set to 0 or empty-string fields.
-   </td>
-  </tr>
-</table>
+|Feature|What it does|CRDs|Aggregated API|
+|-|-|-|
+|Validation|These help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients, and they can't all update at the same time.|Alpha feature of CRDs in v1.8. Checks limited to what is supported by OpenAPI v3.0.|Yes, arbitrary validation checks.|
+|Defaulting|See above| No. But can get same effect with an Initializer. (requires programming).|Yes|
+|Multi-versioning|Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions.|No.|Yes|
+|Custom Storage|If you need storage with a different performance mode (e.g. time-series database instead of key-value store) or isolation for security (e.g. encryption secrets or different t|No.|Yes.|
+|Custom Business Logic|Do arbitrary checks or actions when creating, reading, updating or deleting an object.|No. But can get some of the same effects with Initializers or Finalizers. (requires programming).|Yes.|
+|Subresources|Add extra operations other than CRUD, such as "scale" or "exec". Allows systems like like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource. Allows splitting responsibility for setting spec vs status. Allows incrementing object Generation on custom resource data mutation (requires Spec/Status split).|No but planned.|Yes. Any Subresource.|
+|strategic-merge-patch|The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. See [here](https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch/)|No|Yes|
+|Protocol Buffers|The new resource supports clients that want to use  Protocol Buffers|No|Yes|
+|OpenAPI Schema|Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server?  Is the user protected from misspelling field names by ensuring only allowed fields are set?  Are types enforced (e.g. don't put an int in a string field?) |No but planned.|Yes.|
+
+#### Common Features
+CRDs and AAs support many of the same features:
+
+|Feature|What it Does|
+|-|-|
+|CRUD|The new endpoints support CRUD basic operations via HTTP|
+|Watch|The new endpoints support Kubernetes Watch operations via HTTP|
+|Discovery|Clients like kubectl and dashboard automatically offer list, display, and field edit operations on your resources.|
+|json-patch|The new endpoints support PATCH with `Content-Type: application/json-patch+json`.|
+|merge-patch|The new endpoints support PATCH with `Content-Type: application/merge-patch+json`.|
+|HTTPS|The new endpoints uses HTTPS|
+|Built-in Authentication|Can the extension reuse the core apiserver's authentication?|
+|Built-in Authorization|Can I reuse the authorization scheme of the Core API server (e.g. RBAC).|
+|Finalizers|Can I have resource deletion block on another client doing something.|
+|Initializers|Can I have resource creation block on another client doing something.|
+|UI/CLI Display|Kubectl, dashboard can display objects of your new type, without modification.|
+|Unset vs Empty|Can clients distinguish unset fields from set to 0 or empty-string fields.|
 
 
 ## Preparing to Install a Custom Resource
