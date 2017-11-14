@@ -39,37 +39,26 @@ Then you may be missing ebtables and ethtool on your Linux machine. You can inst
 
 #### kubeadm blocks waiting for `control plane` during installation
 
-If you see the following blocks while running `kubeadm init`
+If you notice that `kubeadm init` hangs after printing out the following line
 
 ```
-[kubeadm] WARNING: kubeadm is in beta, please do not use it for production clusters.
-[init] Using Kubernetes version: v1.8.0
-[init] Using Authorization modes: [Node RBAC]
-[preflight] Skipping pre-flight checks
-[kubeadm] WARNING: starting in 1.8, tokens expire after 24 hours by default (if you require a non-expiring token use --token-ttl 0)
-[certificates] Using the existing CA certificate and key.
-[certificates] Using the existing API Server certificate and key.
-[certificates] Using the existing API Server kubelet client certificate and key.
-[certificates] Using the existing service account token signing key.
-[certificates] Using the existing front-proxy CA certificate and key.
-[certificates] Using the existing front-proxy client certificate and key.
-[certificates] Valid certificates and keys now exist in "/etc/kubernetes/pki"
-[kubeconfig] Using existing up-to-date KubeConfig file: "/etc/kubernetes/controller-manager.conf"
-[kubeconfig] Using existing up-to-date KubeConfig file: "/etc/kubernetes/scheduler.conf"
-[kubeconfig] Using existing up-to-date KubeConfig file: "/etc/kubernetes/admin.conf"
-[kubeconfig] Using existing up-to-date KubeConfig file: "/etc/kubernetes/kubelet.conf"
 [apiclient] Created API client, waiting for the control plane to become ready                          
 ```
 
-Then there may can not connect to net or parameter `Cgroup Driver` diff bettween docker and kubelet in your linux machine. 
+You may want to first check if your node has network connection problem.
+Another reason that `kubeadm init` hands is that the default CGroup driver configuration
+for the kubelet differs from that used by Docker.
 
-- Ensure your machine can connect to net.
-- If you find some log in `var/log/message`, look like:
+Check the system log file (e.g. `var/log/message`) or examine the output from `journalctl -u kubelet`.
+If you see something like the following
+
 ```
 error: failed to run Kubelet: failed to create kubelet: 
 misconfiguration: kubelet cgroup driver: "systemd" is different from docker cgroup driver: "cgroupfs"
 ```
-then modify startup parameter `KUBELET_CGROUP_ARGS=--cgroup-driver=` in `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`(Ubuntu).
+
+you will need to fix the cgroup driver problem by following intstructions
+[here](/docs/setup/indenpendent/install-kubeadm/#installing-docker).
 
 #### Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
 
