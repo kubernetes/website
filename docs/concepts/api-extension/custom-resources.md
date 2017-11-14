@@ -6,17 +6,14 @@ approvers:
 ---
 
 {% capture overview %}
-This page explains the concept of *custom resources*, which are extensions of the Kubernetes API.  This page shows how to decide when to add a custom resource to your Kubernetes cluster, and when to have a standalone service.  It describes the two ways that custom resources can be added, and how to chose between them.
+This page explains [*custom resources*](/docs/concepts/api-extension/custom-resources/), which are extensions of the Kubernetes API. This page explains when to add a custom resource to your Kubernetes cluster and when to use a standalone service. It describes the two methods for adding custom resources and how to choose between them.
 
 {% endcapture %}
 
 {% capture body %}
 ## Custom resources
 
-A *resource* is an endpoint in the [Kubernetes API](/docs/reference/api-overview/) that stores a
-collection of [API objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/) of a
-certain kind.
-For example, the built-in *pods* resource contains a collection of Pod objects.
+A *resource* is an endpoint in the [Kubernetes API](/docs/reference/api-overview/) that stores a collection of [API objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/) of a certain kind. For example, the built-in *pods* resource contains a collection of Pod objects.
 
 A *custom resource* is an extension of the Kubernetes API that is not necessarily available on every
 Kubernetes cluster.
@@ -30,34 +27,25 @@ Once a custom resource is installed, users can create and access its objects wit
 ### Custom controllers
 
 On their own, custom resources simply let you store and retrieve structured data.
-It is only when combined with a *controller* that they become a true
-[declarative API](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects).
-The controller interprets the structured data as a record of the user's desired state,
-and continually takes action to achieve and maintain that state.
+It is only when combined with a *controller* that they become a true [declarative API](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects). The controller interprets the structured data as a record of the user's desired state, and continually takes action to achieve and maintain that state.
 
-A *custom controller* is a controller that users can deploy and update on a running cluster,
-independently of the cluster's own lifecycle.
-Custom controllers can work with any kind of resource, but they are especially effective when
-combined with custom resources.
-The [Operator](https://coreos.com/blog/introducing-operators.html) pattern is one example of such a
-combination. It allows developers to encode domain knowledge for specific applications into an
-extension of the Kubernetes API.
+A *custom controller* is a controller that users can deploy and update on a running cluster, independently of the cluster's own lifecycle. Custom controllers can work with any kind of resource, but they are especially effective when combined with custom resources. The [Operator](https://coreos.com/blog/introducing-operators.html) pattern is one example of such a combination. It allows developers to encode domain knowledge for specific applications into an extension of the Kubernetes API.
 
-### Should I Add a Custom Resource to my Kubernetes Cluster?
-When creating a new API, first consider if you should add your API to Kubernetes cluster APIs, or instead let your API stand alone.
+### Should I add a custom resource to my Kubernetes Cluster?
 
-|Consider adding an API to the Kubernetes API if...|      Prefer a stand-alone API if...      |
+When creating a new API, consider whether to [aggregate your API with the Kubernetes cluster APIs](https://kubernetes.io/docs/concepts/api-extension/apiserver-aggregation/) or  let your API stand alone.
+
+| Consider API aggregation if: | Prefer a stand-alone API if: |
 |-|-|
-|… your API is Declarative.<br>Typically, this means: <li>your API consists of a relatively small number of relatively small objects <li>the objects define configuration of applications or infrastructure the objects are updated relatively infrequently <li>humans often need to read and write the objects <li>the main operations on the objects are CRUDy (creating, reading, updating and deleting) <li>humans often need to read and write the objects transactions across objects are not required.|… your API does not fit the Declarative model. <br>For example, it might: <li>need to directly store large amounts of data (e.g. > a few kB per object, or >1000s of objects) <li>need to be high bandwidth (10s of requests per second sustained) <li>store end-user data (such as images, PII, etc) or other large-scale data processed by applications <li>the objects require non-CRUD operations <li>the API does is not well modeled as objects.|
-|...you want your new types to be readable and writable using `kubectl`. For example: <li>`kubectl create -f customresources.{yaml,json}` <li>`kubectl get myresourcetype myresinstance` <li>`kubectl delete myresourcetype myresinstance` <li>`kubectl list myresourcetype`|`kubectl` support not required|
-|… you want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types.|Kuberetes UI support not required|
-|… you prefer Declarative/REST/Resource style APIs|... you prefer Imperative/RPC/Operation style APIs [comparison].|
-|... you are developing a new API.|… you already have program that serves your API and works just fine.|
-|… you are willing to accept the format restriction that Kubernetes puts on REST resource paths, such as API Groups, Namespaces, (See the API Overview.)|… you need to have specific REST paths to be compatible with an already defined REST API.|
-|... your resources are naturally scoped to a cluster or to namespaces of a cluster;|... if cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths.|
-|... you want to reuse these features of the Kubernetes code: <li>Client Libraries for listing, watching, and patching resource. <li>Authentication <li>Authorization <li>Audit logging <li>Garbage collection and hierarchy of resources <li>Resource metadata such as labels, annotations, and creation timestamps|… you don't need or have different needs for items to the left.|
-|… you want to reuse these aspects of your cluster environment that may already be set up. <br>For example: <li>Existing Kubernetes Service Accounts, and their ability to discover the APIServer <li>Any built-in or custom Access Control and Policy mechanisms on your cluster.<li>User's existing Clients which point to your existing cluster. <li>Hostname, IP and certificate of the existing APIserver, which has already been delivered to clients and is in their `.kube/config` file <li>Code which already uses in Kubernetes client libraries. <li>High Availability (if any) of your Kubernetes APIServer(s) and etcd <li>Your API needs to be acted on by  Kubernetes controllers, e.g. scaled by autoscaler|… you don't need these.|
-
+| Your API is Declarative.<br>Typically, this means: <ul><li>your API consists of a relatively small number of relatively small objects</li><li>the objects define configuration of applications or infrastructure the objects are updated relatively infrequently</li><li>humans often need to read and write the objects</li><li>the main operations on the objects are CRUD-y (creating, reading, updating and deleting)</li><li>transactions across objects are not required.</li><ul> | Your API does not fit the Declarative model.<br>For example, it might: <ul><li>need to directly store large amounts of data (e.g. > a few kB per object, or >1000s of objects)</li><li>need to be high bandwidth (10s of requests per second sustained)</li><li>store end-user data (such as images, PII, etc) or other large-scale data processed by applications</li><li>the objects require non-CRUD operations</li><li>the API does is not well modeled as objects.</li></ul> |
+| You want your new types to be readable and writable using `kubectl`. For example: <ul><li>`kubectl create -f customresources.{yaml,json}`</li><li>`kubectl get myresourcetype myresinstance`</li><li>`kubectl delete myresourcetype myresinstance`</li><li>`kubectl list myresourcetype`</li></ul> | `kubectl` support is not required |
+| You want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types. | Kuberetes UI support is not required. |
+| You prefer Declarative/REST/Resource style APIs. | You prefer Imperative/RPC/Operation style APIs [comparison]. |
+| You are developing a new API. | You already have program that serves your API and works well. |
+| You are willing to accept the format restriction that Kubernetes puts on REST resource paths, such as API Groups and Namespaces. (See the [API Overview](https://kubernetes.io/docs/concepts/overview/kubernetes-api/).) | You need to have specific REST paths to be compatible with an already defined REST API. |
+| Your resources are naturally scoped to a cluster or to namespaces of a cluster. | Cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths. |
+| You want to reuse these features of the Kubernetes code: <ul><li>Client Libraries for listing, watching, and patching resource.</li><li>Authentication</li><li>Authorization</li><li>Audit logging</li><li>Garbage collection and hierarchy of resources</li><li>Resource metadata such as labels, annotations, and creation timestamps.</li></ul> | You either don't need or have different needs for these features. |
+| You want to reuse these aspects of your cluster environment that may already be set up. <br>For example: <ul><li>Existing Kubernetes Service Accounts, and their ability to discover the APIServer</li><li>Any built-in or custom Access Control and Policy mechanisms on your cluster</li><li>User's existing Clients which point to your existing cluster</li><li>Hostname, IP and certificate of the existing APIserver, which has already been delivered to clients and is in their `.kube/config` file</li><li>Code which already uses in Kubernetes client libraries</li><li>High Availability (if any) of your Kubernetes APIServer(s) and etcd</li><li>Your API needs to be acted on by Kubernetes controllers, e.g. scaled by autoscaler</li></ul> | You don't need these features. |
 
 ### Should I use a configMap or a User-defined resource?
 
@@ -100,7 +88,7 @@ Kubernetes provides these two options to meet the needs of different users, so t
 Aggregated APIs are subordinate APIServers that sit behind the primary API server, which acts as a proxy.  This arrangement is called [API Aggregation (AA)](docs/concepts/api-extension/apiserver-aggregation.md).  To users, it simply appears that the Kubernetes API is extended.
 
 Custom Resource Definitions (CRDS) allow users to create new types of resources without adding another APIserver.  You do not need to understand API Aggregation to use CRDs.
-  
+
 Regardless of whether they are installed via CRDs or AA, the new resources are called Custom Resources to distinguish them from built-in Kubernetes resources (like pods)
 
 ## CustomResourceDefinitions
@@ -139,7 +127,7 @@ Typically, CRDs are a good fit if:
 
 
 
-*   You are have a handful of fields 
+*   You are have a handful of fields
 *   You are using the resource within your company, or as part of a small open-source project (as opposed to a commercial product)
 
 
@@ -159,7 +147,7 @@ CRDs are easier to create than AAs.
 #### Flexibility Comparison
 
 
-### Advanted Features and Flexibility 
+### Advanted Features and Flexibility
 AAs allow for some more advanced API features, and customization of things like the storage layer.
 
 |Feature|What it does|CRDs|Aggregated API|
@@ -204,7 +192,7 @@ Installing a CRD by itself, (meaning creating a resource of kind CustomResourceD
 Installing an Aggregated APIserver always involves running a new Deployment.  
 
 
-### Storage 
+### Storage
 
 Custom resources consume storage space in the same way that ConfigMaps do.  Watch out for creating too many, as it may overload your APIserver.  Aggregated API Servers may have their own storage, or may use Custom Resources for their storage, in which case the same warning applies.  
 
@@ -215,7 +203,7 @@ Custom Resources always use the same authentication, authorization, and audit lo
 
 If you are using RBAC for authorization, then most RBAC roles will not grant access to the new resources (except the cluster-admin role or any you created with wildcard rules).  You'll need to explicitly grant access to the new resources.  CRDs and Aggregated APIs often come bundled with new role definitions for the types they add.
 
-Aggregated API servers may or may not use the same authentication, authorization and auditing as the primary APIServer. 
+Aggregated API servers may or may not use the same authentication, authorization and auditing as the primary APIServer.
 
 
 ## Accessing a Custom Resource
