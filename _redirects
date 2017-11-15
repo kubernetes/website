@@ -417,3 +417,12 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/"spl
 /docs/admin/kube-proxy/     /docs/reference/generated/kube-proxy/ 301
 /docs/admin/kube-scheduler/     /docs/reference/generated/kube-scheduler/ 301
 /docs/admin/kube-scheduler/     /docs/reference/generated/kube-scheduler/ 301
+/docs/admin/federation-controller-manager/    /docs/reference/generated/federation-controller-manager/ 301
+/docs/admin/federation-apiserver/      /docs/reference/generated/federation-apiserver/ 301
+/docs/admin/kubefed/     /docs/reference/generated/kubefed/ 301
+/docs/admin/kubefed_init/    /docs/reference/generated/kubefed_init/ 301 
+/docs/admin/kubefed_join/    /docs/reference/generated/kubefed_join/ 30
+/docs/admin/kubefed_options/    /docs/reference/generated/kubefed_options/ 301
+/docs/admin/kubefed_unjoin/     /docs/reference/generated/kubefed_unjoin/ 301 
+/docs/admin/kubefed_version/    /docs/reference/generated/kubefed_version/ 301    
+
