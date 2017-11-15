@@ -46,7 +46,7 @@ If you notice that `kubeadm init` hangs after printing out the following line
 ```
 
 You may want to first check if your node has network connection problem.
-Another reason that `kubeadm init` hands is that the default CGroup driver configuration
+Another reason that `kubeadm init` hangs could be that the default cgroup driver configuration
 for the kubelet differs from that used by Docker.
 
 Check the system log file (e.g. `var/log/message`) or examine the output from `journalctl -u kubelet`.
