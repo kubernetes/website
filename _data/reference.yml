@@ -89,8 +89,8 @@ toc:
   - docs/admin/kube-proxy.md
   - docs/admin/kube-scheduler.md
   - docs/admin/kubelet-tls-bootstrapping.md
-  - docs/admin/federation-apiserver.md
-  - docs/admin/federation-controller-manager.md
+  - docs/reference/generated/federation-apiserver.md
+  - docs/reference/generated/federation-controller-manager.md
 
 - title: Kubernetes Design Docs
   section:
