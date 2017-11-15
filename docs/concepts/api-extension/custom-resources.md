@@ -148,55 +148,52 @@ Aggregated APIs offer more advanced API features and customization of other feat
 
 CRDs and AAs support many of the same features:
 
-|Feature|What it Does|
+| Feature | What it does |
 |-|-|
-|CRUD|The new endpoints support CRUD basic operations via HTTP|
-|Watch|The new endpoints support Kubernetes Watch operations via HTTP|
-|Discovery|Clients like kubectl and dashboard automatically offer list, display, and field edit operations on your resources.|
-|json-patch|The new endpoints support PATCH with `Content-Type: application/json-patch+json`.|
-|merge-patch|The new endpoints support PATCH with `Content-Type: application/merge-patch+json`.|
-|HTTPS|The new endpoints uses HTTPS|
-|Built-in Authentication|Can the extension reuse the core apiserver's authentication?|
-|Built-in Authorization|Can I reuse the authorization scheme of the Core API server (e.g. RBAC).|
-|Finalizers|Can I have resource deletion block on another client doing something.|
-|Initializers|Can I have resource creation block on another client doing something.|
-|UI/CLI Display|Kubectl, dashboard can display objects of your new type, without modification.|
-|Unset vs Empty|Can clients distinguish unset fields from set to 0 or empty-string fields.|
+| CRUD | The new endpoints support CRUD basic operations via HTTP |
+| Watch | The new endpoints support Kubernetes Watch operations via HTTP |
+| Discovery | Clients like kubectl and dashboard automatically offer list, display, and field edit operations on your resources |
+| json-patch | The new endpoints support PATCH with `Content-Type: application/json-patch+json` |
+| merge-patch | The new endpoints support PATCH with `Content-Type: application/merge-patch+json` |
+| HTTPS | The new endpoints uses HTTPS |
+| Built-in Authentication | Can the extension reuse the core apiserver's authentication? |
+| Built-in Authorization | Can I reuse the authorization scheme of the Core API server (e.g. RBAC) |
+| Finalizers | Can I have resource deletion block on another client doing something? |
+| Initializers | Can I have resource creation block on another client doing something? |
+| UI/CLI Display | Kubectl, dashboard can display objects of your new type, without modification |
+| Unset vs Empty | Can clients distinguish unset fields from set to 0 or empty-string fields? |
 
-
-## Preparing to Install a Custom Resource
+## Preparing to install a custom resource
 
 There are several points to be aware of before adding a custom resource to your cluster.
 
-### Third Party Code and New Points of Failure
+### Third party code and new points of failure
 
-Installing a CRD by itself, (meaning creating a resource of kind CustomResourceDefinition), does not cause any "third party code" to run on your apiserver, and does not add any new point of failure. However packages (such as Charts) or other installation bundles often include CRDs as well as a Deployment of third-party code that implements the business logic for the new Custom Resource.
+While creating a CRD does not automatically add any new points of failure (for example, by causing third party code to run on your API server), packages (for example, Charts) or other installation bundles often include CRDs as well as a Deployment of third-party code that implements the business logic for a new custom resource.
 
 Installing an Aggregated APIserver always involves running a new Deployment.
 
-
 ### Storage
 
-Custom resources consume storage space in the same way that ConfigMaps do. Watch out for creating too many, as it may overload your APIserver. Aggregated API Servers may have their own storage, or may use Custom Resources for their storage, in which case the same warning applies.
+Custom resources consume storage space in the same way that ConfigMaps do. Creating too many custom resources may overload your API server's storage space.
 
+Aggregated API servers may use the same storage as the main API server, in which case the same warning applies.
 
-### Authentication, Authorization and Auditing
+### Authentication, authorization, and auditing
 
-Custom Resources always use the same authentication, authorization, and audit logging as the built-in resources of your API Server.
+CRDs always use the same authentication, authorization, and audit logging as the built-in resources of your API Server.
 
-If you are using RBAC for authorization, then most RBAC roles will not grant access to the new resources (except the cluster-admin role or any you created with wildcard rules). You'll need to explicitly grant access to the new resources. CRDs and Aggregated APIs often come bundled with new role definitions for the types they add.
+If you use RBAC for authorization, most RBAC roles will not grant access to the new resources (except the cluster-admin role or any role created with wildcard rules). You'll need to explicitly grant access to the new resources. CRDs and Aggregated APIs often come bundled with new role definitions for the types they add.
 
-Aggregated API servers may or may not use the same authentication, authorization and auditing as the primary APIServer.
+Aggregated API servers may or may not use the same authentication, authorization, and auditing as the primary API server.
 
-
-## Accessing a Custom Resource
+## Accessing a custom resource
 
 Kubernetes [client libraries](https://kubernetes.io/docs/reference/client-libraries/) can be used to access custom resources. Not all client libraries support custom resources. The go and python client libraries do.
 
 TODO: talk about how to access the resource from kubectl. Are binary plugins needed?
 
 TODO: confirm this: When you add a custom resource, you can access it using: your own rest client, a kubernetes dynamic client, a generated client using the open-api spec (is that true?). When you use api aggregation, you generate a static client from the go-idl. TODO: make glossary and check if these terms are defined on the web site.
-
 
 {% endcapture %}
 
