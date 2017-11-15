@@ -43,7 +43,7 @@ CCM突破了Kubernetes控制器管理器（KCM）的一些功能，并将其作�
 
 **注意**：卷控制器被特意设计为CCM之外的一部分。由于其中涉及到的复杂性和对现有供应商特定卷的逻辑抽象，因此决定了卷控制器不会被移动到CCM之中。
 
-原本计划使用CCM来支持卷的目的是为了引入Flex卷来支持可插拔卷。然而，官方正在计划使用更具备竞争力的CSI来取代FlexVolume。
+原本计划使用CCM来支持卷的目的是为了引入Flex卷来支持可插拔卷。然而，官方正在计划使用更具备竞争力的CSI来取代FlexVolume卷。
 
 考虑到这些正在进行中的变化，我们决定暂时停止当前工作直至CSI准备就绪。
 
@@ -92,11 +92,11 @@ PersistentVolumeLabels控制器是专门为CCM创建的; 也就是说，在CCM�
 
 ### 2. Kubelet
 
-Node控制器包含kubelet中依赖于云的功能。在系统引入CCM组件之前，是由kubelet采用包含云特定信息的方式对节点进行初始化，如IP地址、区（Region）/域（Zone）标签和实例类型信息；引入CCM之后，这部分的初始化操作就从kubelet转移到了CCM中。
+Node控制器包含kubelet中依赖于云的功能。在系统引入CCM组件之前，是由kubelet采用包含云特定信息的方式对节点进行初始化，如IP地址、区（Region）/域（Zone）标签和实例类型信息；引入CCM之后，这部分的初始化操作就从kubelet转移到了CCM中。
 
 在引入CCM后的新的模型中，kubelet采用不包含云特定信息的方式初始化一个节点。但是，它会为新创建的节点添加一个污点，使得该节点不可被立即调度，直到CCM使用包含云的特定信息初始化节点后，才会删除该污点，使得该节点可被调度。
 
-### 3. Kubernets API服务器
+### 3. Kubernetes API服务器
 
 PersistentVolumeLabels控制器将Kubernetes API服务器的依赖于云的功能移至CCM，如前面部分所述。
 
