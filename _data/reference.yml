@@ -52,7 +52,7 @@ toc:
   - docs/user-guide/kubectl-overview.md
   - docs/user-guide/kubectl/index.md
   - title: v1.8 Commands
-    path: /docs/user-guide/kubectl/v1.8/
+    path: /docs/reference/generated/kubectl/v1.8/
   - title: v1.7 Commands
     path: /docs/user-guide/kubectl/v1.7/
   - title: v1.6 Commands
