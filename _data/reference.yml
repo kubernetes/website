@@ -56,7 +56,7 @@ toc:
   - title: v1.7 Commands
     path: /docs/user-guide/kubectl/v1.7/
   - title: v1.6 Commands
-    path: /docs/user-guide/kubectl/v1.6/
+    path: /docs/reference/generated/kubectl/v1.6/
   - title: v1.5 Commands
     path: /docs/user-guide/kubectl/v1.5/
   - docs/user-guide/docker-cli-to-kubectl.md
