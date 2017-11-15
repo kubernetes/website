@@ -108,7 +108,7 @@ implementations for your custom resources by writing and deploying your own stan
 The main API server delegates requests to you for the custom resources that you handle,
 making them available to all of its clients.
 
-### Choosing which method to use to add a User-defined Resource
+### Choosing a method for adding custom resources
 
 CRDs are easier to use. Aggregated APIs are more flexible. Choose the method that best meets your needs.
 
@@ -128,22 +128,24 @@ CRDs are easier to create than Aggregated APIs.
 | No ongoing support once the CRD is created. Any bug fixes are picked up as part of normal Kubernetes Master upgrades. | May need to periodically pickup bug fixes from upstream and rebuild and update the Aggregated APIserver. |
 | No need to handle multiple versions of your API. For example: when you control the client for this resource, you can upgrade it in sync with the API. | You need to handle multiple versions of your API, for example: when developing an extension to share with the world. |
 
-### Advanted Features and Flexibility
-AAs allow for some more advanced API features, and customization of things like the storage layer.
+### Advanced features and flexibility
 
-|Feature|What it does|CRDs|Aggregated API|
-|-|-|-|
-|Validation|These help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients, and they can't all update at the same time.|Alpha feature of CRDs in v1.8. Checks limited to what is supported by OpenAPI v3.0.|Yes, arbitrary validation checks.|
-|Defaulting|See above| No. But can get same effect with an Initializer. (requires programming).|Yes|
-|Multi-versioning|Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions.|No.|Yes|
-|Custom Storage|If you need storage with a different performance mode (e.g. time-series database instead of key-value store) or isolation for security (e.g. encryption secrets or different t|No.|Yes.|
-|Custom Business Logic|Do arbitrary checks or actions when creating, reading, updating or deleting an object.|No. But can get some of the same effects with Initializers or Finalizers. (requires programming).|Yes.|
-|Subresources|Add extra operations other than CRUD, such as "scale" or "exec". Allows systems like like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource. Allows splitting responsibility for setting spec vs status. Allows incrementing object Generation on custom resource data mutation (requires Spec/Status split).|No but planned.|Yes. Any Subresource.|
-|strategic-merge-patch|The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. See [here](https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch/)|No|Yes|
-|Protocol Buffers|The new resource supports clients that want to use Protocol Buffers|No|Yes|
-|OpenAPI Schema|Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server? Is the user protected from misspelling field names by ensuring only allowed fields are set? Are types enforced (e.g. don't put an int in a string field?) |No but planned.|Yes.|
+Aggregated APIs offer more advanced API features and customization of other features, for example: the storage layer.
+
+| Feature | Description | CRDs | Aggregated API |
+|-|-|-|-|
+| Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Alpha feature of CRDs in v1.8. Checks limited to what is supported by OpenAPI v3.0. | Yes, arbitrary validation checks |
+| Defaulting | See above | No, but can achieve the same effect with an Initializer (requires programming) | Yes |
+| Multi-versioning | Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions. | No | Yes |
+| Custom Storage | If you need storage with a different performance mode (for example, time-series database instead of key-value store) or isolation for security (for example, encryption secrets or different | No | Yes |
+| Custom Business Logic | Perform arbitrary checks or actions when creating, reading, updating or deleting an object | No, but can get some of the same effects with Initializers or Finalizers (requires programming) | Yes |
+| Subresources | <ul><li>Add extra operations other than CRUD, such as "scale" or "exec"</li><li>Allows systems like like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource</li><li>Allows splitting responsibility for setting spec vs status</li><li>Allows incrementing object Generation on custom resource data mutation (requires Spec/Status split)</li></ul> | No but planned | Yes, any Subresource |
+| strategic-merge-patch | The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. For more information, see ["Update API Objects in Place Using kubectl patch"](/docs/tasks/run-application/update-api-object-kubectl-patch/) | No | Yes |
+| Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |
+| OpenAPI Schema | Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server? Is the user protected from misspelling field names by ensuring only allowed fields are set? Are types enforced (in other words, don't put an `int` in a `string` field?) | No but planned | Yes |
 
 #### Common Features
+
 CRDs and AAs support many of the same features:
 
 |Feature|What it Does|
