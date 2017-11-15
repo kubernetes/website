@@ -75,25 +75,36 @@ only the termination message:
 {% raw %}  kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"{% endraw %}
 ```
 
-## Setting the termination log file
+## Customizing the termination message
 
-By default Kubernetes retrieves termination messages from
-`/dev/termination-log`. To change this to a different file,
-specify a `terminationMessagePath` field for your Container.
+Kubernetes retrieves termination messages from the termination message file
+specified in the `terminationMessagePath` field of a Container, which as a default
+value of `/dev/termination-log`. By customizing this field, you can tell Kubernetes
+to use a different file. Kubernetes use the contents from the specified file to
+populate the Container's status message on both success and failure.
 
-For example, suppose your Container writes termination messages to
-`/tmp/my-log`, and you want Kubernetes to retrieve those messages.
-Set `terminationMessagePath` as shown here:
+In the following example, the container writes termination messages to
+`/tmp/my-log` for Kubernetes to retrieve:
 
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: msg-path-demo
-    spec:
-      containers:
-      - name: msg-path-demo-container
-        image: debian
-        terminationMessagePath: "/tmp/my-log"
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: msg-path-demo
+spec:
+  containers:
+  - name: msg-path-demo-container
+    image: debian
+    terminationMessagePath: "/tmp/my-log"
+```
+
+Moreover, users can set the `terminationMessagePolicy` field of a Container for
+further customization. This field defaults to "`File`" which means the termination
+messages are retrieved only from the termination message file. By setting the
+`terminationMessagePolicy` to "`FallbackToLogsOnError`", you can tell Kubernetes
+to use the last chunk of container log output if the termination message file
+is empty and the container exited with an error. The log output is limited to
+2048 bytes or 80 lines, whichever is smaller.
 
 {% endcapture %}
 
