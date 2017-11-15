@@ -410,3 +410,5 @@
 /v1.1/docs/getting-started-guides/     /docs/tutorials/kubernetes-basics/ 301
 
 https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/"splat 301
+
+/docs/user-guide/kubectl/v1.6/*     /docs/reference/generated/kubectl/v1.6/ 301
