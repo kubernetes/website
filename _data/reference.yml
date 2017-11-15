@@ -73,12 +73,12 @@ toc:
   - docs/admin/kubeadm.md
   - title: Kubefed
     section:
-    - docs/admin/kubefed.md
-    - docs/admin/kubefed_options.md
-    - docs/admin/kubefed_init.md
-    - docs/admin/kubefed_join.md
-    - docs/admin/kubefed_unjoin.md
-    - docs/admin/kubefed_version.md
+    - docs/reference/generated/kubefed.md
+    - docs/reference/generated/kubefed_options.md
+    - docs/reference/generated/kubefed_init.md
+    - docs/reference/generated/kubefed_join.md
+    - docs/reference/generated/kubefed_unjoin.md
+    - docs/reference/generated/kubefed_version.md
 
 - title: Config Reference
   section:
