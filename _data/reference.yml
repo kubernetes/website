@@ -54,7 +54,7 @@ toc:
   - title: v1.8 Commands
     path: /docs/user-guide/kubectl/v1.8/
   - title: v1.7 Commands
-    path: /docs/user-guide/kubectl/v1.7/
+    path: /docs/reference/generated/kubectl/v1.7/
   - title: v1.6 Commands
     path: /docs/user-guide/kubectl/v1.6/
   - title: v1.5 Commands
