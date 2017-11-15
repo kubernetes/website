@@ -70,7 +70,7 @@ toc:
 
 - title: Setup Tools
   section:
-  - docs/admin/kubeadm.md
+  - docs/reference/generated/kubeadm.md
   - title: Kubefed
     section:
     - docs/reference/generated/kubefed.md
