@@ -1,35 +1,35 @@
-title: 云控制管理器的基本概念
+title: 云控制器管理器的基本概念
 
-## 云控制管理器
+## 云控制器管理器
 
-云控制管理器（CCM）这个概念创建的初衷是为了让特定的云服务供应商代码和Kubernetes核心相互独立演化。云控制管理器与其他主要组件如Kubernetes控制管理器，API服务器和调度程序同时运行。云控制管理器也可以作为Kubernetes的插件启动，这种情况下，CCM运行在Kubernetes系统之上。
+云控制器管理器（CCM）这个概念创建的初衷是为了让特定的云服务供应商代码和Kubernetes核心相互独立演化。云控制器管理器与其他主要组件如Kubernetes控制器管理器，API服务器和调度程序同时运行。云控制器管理器也可以作为Kubernetes的插件启动，这种情况下，CCM运行在Kubernetes系统之上。
 
-云控制管理器基于插件机制设计，允许新的云服务供应商通过插件轻松地与Kubernetes集成。目前已经有在Kubernetes上加入新的云服务供应商计划，并为云服务供应商提供从原先的旧模式迁移到新CCM模式的方案。
+云控制器管理器基于插件机制设计，允许新的云服务供应商通过插件轻松地与Kubernetes集成。目前已经有在Kubernetes上加入新的云服务供应商计划，并为云服务供应商提供从原先的旧模式迁移到新CCM模式的方案。
 
-本文讨论了云控制管理器背后的概念，并提供了相关功能的详细信息。
+本文讨论了云控制器管理器背后的概念，并提供了相关功能的详细信息。
 
-下面这张图描述了没有云控制管理器的Kubernetes集群架构：
+下面这张图描述了没有云控制器管理器的Kubernetes集群架构：
 
-![无云控制管理器的 K8s 集群架构](/images/docs/pre-ccm-arch.png)
+![无云控制器管理器的 K8s 集群架构](/images/docs/pre-ccm-arch.png)
 
 ## 设计
 
 在上图中，Kubernetes和云服务供应商通过几个不同的组件进行了集成，分别是：
 
 * Kubelet
-* Kubernetes控制器管理
+* Kubernetes 控制管理器
 * Kubernetes API服务器
 
 而CCM整合了前三个组件中的所有依赖于云的逻辑，用来创建与云的单点集成。新架构如下图所示：
 
-![有云控制管理器的 K8s 集群架构](/images/docs/post-ccm-arch.png)
+![有云控制器管理器的 K8s 集群架构](/images/docs/post-ccm-arch.png)
 
 ## CCM的组件
 
-CCM突破了Kubernetes控制管理器（KCM）的一些功能，并将其作为一个独立的进程运行。具体而言，它打破了KCM中与云相关的控制器。KCM具有以下依赖于云的控制器循环：
+CCM突破了Kubernetes控制器管理器（KCM）的一些功能，并将其作为一个独立的进程运行。具体而言，它打破了KCM中与云相关的控制器。KCM具有以下依赖于云的控制器引擎：
 
 * 节点控制器
-* 音量控制器
+* 卷控制器
 * 路由控制器
 * 服务控制器
 
@@ -39,11 +39,11 @@ CCM突破了Kubernetes控制管理器（KCM）的一些功能，并将其作为�
 * 路由控制器
 * 服务控制器
 
-另外，它运行另一个名为 PersistentVolumeLabels控制器的控制器。这个控制器负责对在GCP和AWS云里创建的PersistentVolumes的域（Zone）和区（Region）标签进行设置。
+另外，它运行另一个名为 PersistentVolumeLabels Controller 的控制器。这个控制器负责对在GCP和AWS云里创建的PersistentVolumes的域（Zone）和区（Region）标签进行设置。
 
 **注意**：卷控制器被特意设计为CCM之外的一部分。由于其中涉及到的复杂性和对现有供应商特定卷的逻辑抽象，因此决定了卷控制器不会被移动到CCM之中。
 
-原本计划使用CCM来支持卷的目的是为了引入Flex卷来支持可插拔卷。然而，官方正在计划使用更具备竞争力的CSI来取代Flex。
+原本计划使用CCM来支持卷的目的是为了引入Flex卷来支持可插拔卷。然而，官方正在计划使用更具备竞争力的CSI来取代FlexVolume。
 
 考虑到这些正在进行中的变化，我们决定暂时停止当前工作直至CSI准备就绪。
 
@@ -51,11 +51,11 @@ CCM突破了Kubernetes控制管理器（KCM）的一些功能，并将其作为�
 
 ## CCM功能
 
-CCM继承了依赖于云服务供应商的Kubernetes组件的功能。 本节基于被CCM继承其功能的组件展开描述。
+CCM从Kubernetes组件中继承了与云服务供应商相关的功能。本节基于被CCM继承其功能的组件展开描述。
 
-### 1. Kubernetes 控制管理器
+### 1. Kubernetes 控制器管理器
 
-CCM的大部分功能都来自KCM。 如上一节所述，CCM运行以下控制循环：
+CCM的大部分功能都来自KCM。 如上一节所述，CCM运行以下控制引擎：
 
 * 节点控制器
 * 路由控制器
@@ -68,17 +68,15 @@ CCM的大部分功能都来自KCM。 如上一节所述，CCM运行以下控制�
 
 1.使用云特定域（Zone）/区（Region）标签初始化节点。
 
-2.使用特定于云的实例详细信息初始化节点，例如类型和大小。
+1.使用特定于云的实例详细信息初始化节点，例如类型和大小。
 
-3.获取节点的网络地址和主机名。
+1.获取节点的网络地址和主机名。
 
-4.如果节点无响应，请检查该节点是否已从云中删除。
-
-如果该节点已从云中删除，请删除Kubernetes节点对象。
+1.如果节点无响应，检查该节点是否已从云中删除。如果该节点已从云中删除，则删除Kubernetes节点对象。
 
 #### 路由控制器
 
-路由控制器负责为云配置正确的路由，以便Kubernetes集群中不同节点上的容器可以相互通信。路由控制器仅适用于Google Compute Engine群集。
+路由控制器负责为云配置正确的路由，以便Kubernetes集群中不同节点上的容器可以相互通信。路由控制器仅适用于Google Compute Engine平台。
 
 #### 服务控制器
 
@@ -104,12 +102,12 @@ PersistentVolumeLabels控制器将Kubernetes API服务器的依赖于云的功�
 
 ## 插件机制
 
-云控制管理器使用Go接口与外部对接从而实现功能扩展。具体来说，它使用了[这里](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/cloud.go)定义的CloudProvider接口。
+云控制器管理器使用Go接口与外部对接从而实现功能扩展。具体来说，它使用了[这里](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/cloud.go)定义的CloudProvider接口。
 
-上面强调的四个共享控制器的实现，以及一些脚手架（scaffolding）和共享的云服务供应商接口，将被保留在Kubernetes核心当中。但云服务供应商特有的实现将会建立在核心之外，并实现核心中定义的接口。
+上面强调的四个共享控制器的实现，以及一些辅助设施（scaffolding）和共享的云服务供应商接口，将被保留在Kubernetes核心当中。但云服务供应商特有的实现将会建立在核心之外，并实现核心中定义的接口。
 
 有关开发插件的更多信息，请参阅
-[开发云控制管理器](/docs/tasks/administrators-cluster/developing-cloud-controller-manager/)。
+[开发云控制器管理器](/docs/tasks/administrators-cluster/developing-cloud-controller-manager/)。
 
 ## 授权
 

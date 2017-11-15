@@ -16,8 +16,8 @@ Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 
 启动引导令牌被定义成一个特定类型的 secrets(`bootstrap.kubernetes.io/token`)，并存在于
 `kube-system` 命名空间中。然后这些 secrets 会被 API 服务器上的启动引导的认证器读取。
-控制管理器中的控制器TokenCleaner能够删除过期的令牌。在节点发现的过程中Kubernetes会使用特殊的ConfigMap对象。
-控制管理器中的BootstrapSigner控制器也会使用启动引导令牌为这类对象生成签名信息。
+控制器管理器中的控制器TokenCleaner能够删除过期的令牌。在节点发现的过程中Kubernetes会使用特殊的ConfigMap对象。
+控制器管理器中的BootstrapSigner控制器也会使用启动引导令牌为这类对象生成签名信息。
 
 目前，启动引导令牌处于 **alpha** 阶段，但是预期也不会有大的突破性变化。
 

@@ -37,13 +37,13 @@ Master 组件可以在集群中的任何节点上运行。然而，为了简单�
 * 端点控制器: 填充 端点(Endpoints) 对象(即连接 Services & Pods)。
 * 服务帐户和令牌控制器: 为新的命名空间创建默认帐户和 API 访问令牌.
 
-### 云控制管理器-(cloud-controller-manager)
+### 云控制器管理器-(cloud-controller-manager)
 
-cloud-controller-manager 是用于与底层云提供商交互的控制器。云控制管理器二进制是 Kubernetes v1.6 版本中引入的 Alpha 功能。
+cloud-controller-manager 是用于与底层云提供商交互的控制器。云控制器管理器可执行组件是 Kubernetes v1.6 版本中引入的 Alpha 功能。
 
 cloud-controller-manager 仅运行云提供商特定的控制器循环。您必须在 kube-controller-manager 中禁用这些控制器循环，您可以通过在启动 kube-controller-manager 时将 `--cloud-provider` 标志设置为`external`来禁用控制器循环。
 
-cloud-controller-manager 允许云供应商代码和 Kubernetes 核心彼此独立发展，在以前的版本中，Kubernetes 核心代码依赖于云提供商特定的功能代码。在未来的版本中，云供应商的特定代码应由云供应商自己维护，并与运行 Kubernetes 的云控制管理器相关联。
+cloud-controller-manager 允许云供应商代码和 Kubernetes 核心彼此独立发展，在以前的版本中，Kubernetes 核心代码依赖于云提供商特定的功能代码。在未来的版本中，云供应商的特定代码应由云供应商自己维护，并与运行 Kubernetes 的云控制器管理器相关联。
 
 以下控制器具有云提供商依赖关系:
 
