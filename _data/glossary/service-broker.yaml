@@ -1,0 +1,8 @@
+id: service-broker
+name: Service Broker
+tags:
+- extension
+short-description: >
+  An endpoint for a set of {% glossary_tooltip text="Managed Services" term_id="managed-service" %} offered and maintained by a third-party.
+long-description: >
+  Service Brokers implement the [Open Service Broker API spec](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md) and provide a standard interface for applications to use their Managed Services.
