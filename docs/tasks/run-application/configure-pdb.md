@@ -88,6 +88,12 @@ of the evicted pod. `minAvailable` can be either an absolute number or a percent
 of the number of pods from that set that can be unavailable after the eviction. 
 It can be either an absolute number or a percentage.
 
+**Note:** Before v1.9, when creating a `PodDisruptionBudget` object using the
+`kubectl` command line tool, the `minAvailable` field is set to 1 as its default
+value if neither `minAvailable` nor `maxAvailable` is specified. This defaulting
+behavior is removed since v1.9.
+{: .note}
+
 You can specify only one of `maxUnavailable` and `minAvailable` in a single `PodDisruptionBudget`. 
 `maxUnavailable` can only be used to control the eviction of pods 
 that have an associated controller managing them. In the examples below, "desired replicas"
