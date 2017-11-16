@@ -127,7 +127,7 @@ spec:
   - {}
 ```
 
-### Default deny all egress traffic.
+### Default deny all egress traffic
 
 You can create a "default" egress isolation policy for a namespace by creating a NetworkPolicy that selects all pods but does not allow any egress traffic from those pods.
 
