@@ -40,22 +40,22 @@ If you have more than one network adapter, and your Kubernetes components are no
 
 ### Master node(s)
 
-| Port Range | Purpose                         |
-|------------|---------------------------------|
-| 6443*      | Kubernetes API server           |
-| 2379-2380  | etcd server client API          |
-| 10250      | Kubelet API                     |
-| 10251      | kube-scheduler                  |
-| 10252      | kube-controller-manager         |
-| 10255      | Read-only Kubelet API (Heapster)|
+| Protocol | Direction | Port Range | Purpose                         |
+|----------|-----------|------------|---------------------------------|
+| TCP      | Inbound   | 6443*      | Kubernetes API server           |
+| TCP      | Inbound   | 2379-2380  | etcd server client API          |
+| TCP      | Inbound   | 10250      | Kubelet API                     |
+| TCP      | Inbound   | 10251      | kube-scheduler                  |
+| TCP      | Inbound   | 10252      | kube-controller-manager         |
+| TCP      | Inbound   | 10255      | Read-only Kubelet API (Heapster)|
 
 ### Worker node(s)
 
-| Port Range  | Purpose                         |
-|-------------|---------------------------------|
-| 10250       | Kubelet API                     |
-| 10255       | Read-only Kubelet API (Heapster)|
-| 30000-32767 | Default port range for [NodePort Services](/docs/concepts/services-networking/service/). Typically, these ports would need to be exposed to external load-balancers, or other external consumers of the application itself. |
+| Protocol | Direction | Port Range  | Purpose                         |
+|----------|-----------|-------------|---------------------------------|
+| TCP      | Inbound   | 10250       | Kubelet API                     |
+| TCP      | Inbound   | 10255       | Read-only Kubelet API (Heapster)|
+| TCP      | Inbound   | 30000-32767 | Default port range for [NodePort Services](/docs/concepts/services-networking/service/). Typically, these ports would need to be exposed to external load-balancers, or other external consumers of the application itself. |
 
 Any port numbers marked with * are overridable, so you will need to ensure any
 custom ports you provide are also open.
