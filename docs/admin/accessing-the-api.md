@@ -24,7 +24,7 @@ following diagram:
 In a typical Kubernetes cluster, the API served on port 443.  A TLS connection is
 established.  The API server presents a certificate.  This certificate is
 often self-signed, so `$USER/.kube/config` on the user's machine typically
-contains the root certficate for the API server's certificate, which when specified
+contains the root certificate for the API server's certificate, which when specified
 is used in place of the system default root certificates.  This certificate is typically
 automatically written into your `$USER/.kube/config` when you create a cluster yourself
 using `kube-up.sh`.  If the cluster has multiple users, then the creator needs to share
@@ -92,7 +92,7 @@ to restrict what users can do.
 
 
 The Authorization step is designed to operate on attributes that are likely to be common to most
-REST requests, such as object name, kind, etc.  This is intended to facilitate interation with
+REST requests, such as object name, kind, etc.  This is intended to facilitate interaction with
 existing organization-wide or cloud-provider-wide access control systems (which may handle
 other APIs besides the Kubernetes API.
 
@@ -148,7 +148,7 @@ By default the Kubernetes APIserver serves HTTP on 2 ports:
           - default IP is first non-localhost network interface, change with `--bind-address` flag.
           - request handled by authentication and authorization modules.
           - request handled by admission control module(s).
-          - authentication and authoriation modules run.
+          - authentication and authorization modules run.
 
 When the cluster is created by `kube-up.sh`, on Google Compute Engine (GCE),
 and on several other cloud providers, the API server serves on port 443.  On

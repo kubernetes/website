@@ -110,14 +110,14 @@ Currently, there are three components that interact with the Kubernetes node int
 Node controller is a component in Kubernetes master which manages Node
 objects.
 
-Node controller has mutliple roles in Node's life. First is assigning a CIDR block to
+Node controller has multiple roles in Node's life. First is assigning a CIDR block to
 the Node when it is registered (if CIDR assignment is turned on). Second is keeping the
 node controller's list of nodes up to date with the cloud provider's list of available
 machines. When running in cloud environment whenever a node is unhealthy node controller
 asks cloud provider if the VM for that node is still available. If not, the node
 controller deletes the node from its list of nodes.
 
-Third responsibiliy is monitoring Node's health. Node controller is responsible for updating
+Third responsibility is monitoring Node's health. Node controller is responsible for updating
 the NodeReady condition of NodeStatus to ConditionUnknown when a node becomes unreachable
 (i.e. node controller stops receiving heartbeats e.g. due to the node being down), and then
 later evicting all the pods from the node (using graceful termination) if the node continues
@@ -179,7 +179,7 @@ Modifications include setting labels on the Node, and marking it unschedulable.
 Labels on nodes can be used in conjunction with node selectors on pods to control scheduling,
 e.g. to constrain a Pod to only be eligible to run on a subset of the nodes.
 
-Making a node unscheduleable will prevent new pods from being scheduled to that
+Making a node unschedulable will prevent new pods from being scheduled to that
 node, but will not affect any existing pods on the node.  This is useful as a
 preparatory step before a node reboot, etc.  For example, to mark a node
 unschedulable, run this command:

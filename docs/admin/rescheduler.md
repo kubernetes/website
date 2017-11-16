@@ -49,7 +49,7 @@ It's enabled by default. It can be disabled:
 
 ### Marking add-on as critical
 
-To be critical an add-on has to run in `kube-system` namespace (cofigurable via flag)
+To be critical an add-on has to run in `kube-system` namespace (configurable via flag)
 and have the following annotations specified:
 * `scheduler.alpha.kubernetes.io/critical-pod` set to empty string
 * `scheduler.alpha.kubernetes.io/tolerations` set to `[{"key":"CriticalAddonsOnly", "operator":"Exists"}]`

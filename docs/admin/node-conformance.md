@@ -32,7 +32,7 @@ node. At least, the node should have properly installed:
 * Container Runtime (Docker)
 * Kubelet
 
-Node conformance test validates kernel configurations. If the kenrel module
+Node conformance test validates kernel configurations. If the kernel module
 `configs` is built as module in your environment, it must be loaded before the
 test. (See [Caveats #3](#caveats) for more information)
 
