@@ -53,7 +53,7 @@ cluster/gce/upgrade.sh release/stable
 
 Google Kubernetes Engine automatically updates master components (e.g. `kube-apiserver`, `kube-scheduler`) to the latest version. It also handles upgrading the operating system and other components that the master runs on.
 
-The node upgrade process is user-initiated and is described in the [Google Kubernetes Engine documentation](https://cloud.google.com/kubernetes-engine//docs/clusters/upgrade).
+The node upgrade process is user-initiated and is described in the [Google Kubernetes Engine documentation](https://cloud.google.com/kubernetes-engine/docs/clusters/upgrade).
 
 ### Upgrading clusters on other platforms
 
