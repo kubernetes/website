@@ -250,7 +250,7 @@ default         Active        12m
 {% capture whatsnext %}
 
 
-* 查看 [LimitRange 设计文档](https://git.k8s.io/community/contributors/design-proposals/admission_control_limit_range.md) 获取更多信息。
+* 查看 [LimitRange 设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/admission_control_limit_range.md) 获取更多信息。
 * 查看 [资源](/docs/concepts/configuration/manage-compute-resources-container/) 获取关于 Kubernetes 资源模型的详细描述。
 
 {% endcapture %}
