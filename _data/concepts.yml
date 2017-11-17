@@ -84,6 +84,7 @@ toc:
   section:
   - docs/concepts/storage/volumes.md
   - docs/concepts/storage/persistent-volumes.md
+  - docs/concepts/storage/storage-classes.md
   - docs/concepts/storage/dynamic-provisioning.md
 
 - title: Cluster Administration
