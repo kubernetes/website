@@ -169,7 +169,7 @@ can be done in the Google Cloud Console.  See the [Google Cloud Storage JSON
 API Overview](https://cloud.google.com/storage/docs/json_api/) for more
 details.
 
-Also ensure that-- as listed in the [Prerequsites section](#prerequisites)-- you've enabled the `Compute Engine Instance Group Manager API`, and can start up a GCE VM from the command line as in the [GCE Quickstart](https://cloud.google.com/compute/docs/quickstart) instructions.
+Also ensure that-- as listed in the [Prerequisites section](#prerequisites)-- you've enabled the `Compute Engine Instance Group Manager API`, and can start up a GCE VM from the command line as in the [GCE Quickstart](https://cloud.google.com/compute/docs/quickstart) instructions.
 
 #### Cluster initialization hang
 
