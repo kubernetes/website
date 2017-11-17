@@ -98,8 +98,8 @@ AWS使用的规格为：
 
 * 当扩大集群规模时，如果涉及，相应扩大以下插件的内存和CPU限制 (通过一个实例处理整个集群，因此其内存和CPU使用量往往与集群的大小/负载成比例增长)：
   * [InfluxDB 和 Grafana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
-  * [kubedns, dnsmasq, 和 sidecar](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/kubedns-controller.yaml.in)
-  * [Kibana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/kibana-controller.yaml)
+  * [kubedns, dnsmasq, 和 sidecar](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/kube-dns.yaml.in)
+  * [Kibana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/kibana-deployment.yaml)
 * 当扩大集群规模时，如果涉及，相应扩大以下插件副本数 (每个组件有多个副本，因此增加副本将有助于处理增加的负载，但是，由于每个副本的负载也略有增加，也应考虑提高CPU /内存上限)：
   * [elasticsearch](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/es-controller.yaml)
 * 当扩大集群规模时，如果涉及，略微扩大以下插件的内存和CPU限制 (每个节点一个副本， 但是CPU/内存使用随集群的大小/负载增长变化不明显)：
