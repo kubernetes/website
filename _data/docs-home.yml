@@ -20,3 +20,11 @@ toc:
   - docs/home/contribute/review-issues.md
   - docs/home/contribute/style-guide.md
   - docs/home/contribute/includes.md
+
+  - title: Updating Automatically Generated Reference Pages
+    section:
+    - docs/home/contribute/generated-reference/kubernetes-components.md
+    - docs/home/contribute/generated-reference/kubectl.md
+    - docs/home/contribute/generated-reference/kubernetes-api.md
+    - docs/home/contribute/generated-reference/federation-components.md
+    - docs/home/contribute/generated-reference/federation-api.md
