@@ -80,6 +80,7 @@ toc:
 
 - title: Command-line Tools Reference
   section:
+  - docs/reference/feature-gates.md
   - docs/reference/generated/kubelet.md
   - docs/admin/kubelet-authentication-authorization.md
   - docs/reference/generated/kube-apiserver.md
