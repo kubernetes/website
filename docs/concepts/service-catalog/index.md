@@ -10,6 +10,8 @@ approvers:
 A *Service Broker*, as defined by the [Open Service Broker API spec](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md), is an endpoint for a set of Managed Services offered and maintained by a third-party, which could be a cloud provider such as AWS, GCP, or Azure.
 Some examples of *Managed Services* are Microsoft Azure Cloud Queue, Amazon Simple Queue Service, and Google Cloud Pub/Sub, but they can be any software offering that can be used by an application, typically available via HTTP REST endpoints.
 
+Using Service Catalog, a {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can browse the list of {% glossary_tooltip text="Managed Services" term_id="managed-service" %} offered by a {% glossary_tooltip text="Service Brokers" term_id="service-broker" %}, provision an instance of a Managed Service, and bind with it to make it available to an application within the Kubernetes cluster.
+
 {% endcapture %}
 
 
@@ -20,7 +22,7 @@ An {% glossary_tooltip text="Application Developer" term_id="application-develop
 However, they do not want to deal with the overhead of setting such a service up and administering it themselves.
 Fortunately, there is a cloud provider that offers message queuing as a *Managed Service* through their *Service Broker*.
 
-Using Service Catalog, the {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can browse the list of Managed Services offered by a Service Broker, provision an instance of the message queuing service, and bind with it to make it available to the application within the Kubernetes cluster.
+A {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can setup Service Catalog and use it to communicate with the cloud provider's {% glossary_tooltip text="Service Broker" term_id="service-broker" %} to provision an instance of the message queuing service and make it available to the application within the Kubernetes cluster.
 The {% glossary_tooltip text="Application Developer" term_id="application-developer" %} therefore does not need to concern themselves with the implementation details or management of the message queue.
 Their application can simply use it as a service.
 
