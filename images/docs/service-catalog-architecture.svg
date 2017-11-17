@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="-1 -1 841 457" width="841pt" height="457pt" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <metadata> Produced by OmniGraffle 7.5 
-    <dc:date>2017-11-06 20:14:44 +0000</dc:date>
+    <dc:date>2017-11-17 22:47:47 +0000</dc:date>
   </metadata>
   <defs>
     <font-face font-family="Arial" font-size="16" panose-1="2 11 6 4 2 2 2 2 2 4" units-per-em="1000" underline-position="-105.95703" underline-thickness="73.24219" slope="0" x-height="518.5547" cap-height="716.3086" ascent="905.2734" descent="-211.91406" font-weight="500">
@@ -57,7 +57,7 @@
     </font-face>
   </defs>
   <g stroke="none" stroke-opacity="1" stroke-dasharray="none" fill="none" fill-opacity="1">
-    <title>V3</title>
+    <title>architecture</title>
     <g>
       <title>Layer 1</title>
       <path d="M 0 0 L 600 0 L 600 420 L 0 420 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke-dasharray="4,4"/>
@@ -73,11 +73,12 @@
       <rect x="215" y="10" width="170" height="190" fill="#4285f5"/>
       <text transform="translate(227 30)" fill="white">
         <tspan font-family="Arial" font-size="16" font-weight="bold" fill="white" x="12.972656" y="14" textLength="120.05469">Service Catalog</tspan>
-        <tspan font-family="Arial" font-size="14" font-weight="bold" fill="white" x=".23828125" y="66.52344" textLength="145.52344">servicecatalog.k8s.io:</tspan>
-        <tspan font-family="Arial" font-size="14" font-weight="500" fill="white" x="0" y="98.98145" textLength="87.91699">ServiceBroker</tspan>
-        <tspan font-family="Arial" font-size="14" font-weight="500" fill="white" x="0" y="115.43945" textLength="81.68945">ServiceClass</tspan>
-        <tspan font-family="Arial" font-size="14" font-weight="500" fill="white" x="0" y="131.89746" textLength="99.60645">ServiceInstance</tspan>
-        <tspan font-family="Arial" font-size="14" font-weight="500" fill="white" x="0" y="148.35547" textLength="93.38574">ServiceBinding</tspan>
+        <tspan font-family="Arial" font-size="14" font-weight="bold" fill="white" x=".23828125" y="62.52344" textLength="145.52344">servicecatalog.k8s.io:</tspan>
+        <tspan font-family="Arial" font-size="14" font-weight="500" fill="white" x="0" y="94.98145" textLength="132.26172">ClusterServiceBroker</tspan>
+        <tspan font-family="Arial" font-size="14" font-weight="500" fill="white" x="0" y="111.43945" textLength="126.03418">ClusterServiceClass</tspan>
+        <tspan font-family="Arial" font-size="14" font-weight="500" fill="white" x="0" y="127.89746" textLength="119.04785">ClusterServicePlan</tspan>
+        <tspan font-family="Arial" font-size="14" font-weight="500" fill="white" x="0" y="144.35547" textLength="99.60645">ServiceInstance</tspan>
+        <tspan font-family="Arial" font-size="14" font-weight="500" fill="white" x="0" y="160.81348" textLength="93.38574">ServiceBinding</tspan>
       </text>
       <rect x="420" y="220" width="170" height="190" fill="#4285f5"/>
       <text transform="translate(430 240)" fill="white">

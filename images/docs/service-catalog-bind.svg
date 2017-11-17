@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="71 1472 560 377" width="560pt" height="377pt" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <metadata> Produced by OmniGraffle 7.5 
-    <dc:date>2017-11-07 07:41:42 +0000</dc:date>
+    <dc:date>2017-11-17 22:45:14 +0000</dc:date>
   </metadata>
   <defs>
     <filter id="Shadow" filterUnits="userSpaceOnUse">
@@ -55,10 +55,10 @@
         <tspan font-family="Arial" font-size="12" font-weight="500" x=".14257812" y="11" textLength="72.71484">Bind Instance</tspan>
       </text>
       <line x1="515.25" y1="1657.9107" x2="350.17202" y2="1699.6439" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-      <rect x="384.7893" y="1662.544" width="70" height="39" fill="white"/>
-      <text transform="translate(389.7893 1667.6514)" fill="black">
-        <tspan font-family="Arial" font-size="12" font-weight="500" x=".9785156" y="11" textLength="58.04297">connection</tspan>
-        <tspan font-family="Arial" font-size="12" font-weight="500" x=".31933594" y="25.392578" textLength="59.36133">information</tspan>
+      <rect x="384.2893" y="1662.544" width="71" height="39" fill="white"/>
+      <text transform="translate(389.2893 1667.6514)" fill="black">
+        <tspan font-family="Arial" font-size="12" font-weight="500" x=".14550781" y="11" textLength="60.708984">Connection</tspan>
+        <tspan font-family="Arial" font-size="12" font-weight="500" x=".48535156" y="25.392578" textLength="60.0293">Information</tspan>
       </text>
       <rect x="279.25" y="1710.5152" width="91" height="38" fill="white"/>
       <text transform="translate(284.25 1715.5152)" fill="black">
@@ -70,7 +70,7 @@
         <tspan font-family="Helvetica" font-size="12" font-weight="500" x=".47753906" y="11" textLength="80.04492">ServiceBinding</tspan>
         <tspan font-family="Helvetica" font-size="12" font-weight="500" x="14.821289" y="25" textLength="51.35742">Resource</tspan>
       </text>
-      <line x1="130" y1="1556.5866" x2="268.5814" y2="1557.479" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="130" y1="1556.5866" x2="260.87955" y2="1557.4745" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       <rect x="279" y="1472.5" width="101" height="39" fill="white"/>
       <text transform="translate(284 1477.6074)" fill="black">
         <tspan font-family="Arial" font-size="12" font-weight="bold" x=".4794922" y="11" textLength="90.04102">Service Catalog</tspan>

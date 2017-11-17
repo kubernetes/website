@@ -5,10 +5,10 @@ approvers:
 ---
 
 {% capture overview %}
-{% glossary_definition term_id="service-catalog" length="long" %}  
+{% glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is " %}  
 
-A *Service Broker*, as defined by the [Open Service Broker API spec](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md), is an endpoint for a set of Managed Services offered and maintained by a third-party, which could be a cloud provider such as AWS, GCP, or Azure.
-Some examples of *Managed Services* are Microsoft Azure Cloud Queue, Amazon Simple Queue Service, and Google Cloud Pub/Sub, but they can be any software offering that can be used by an application, typically available via HTTP REST endpoints.
+A *Service Broker*, as defined by the [Open Service Broker API spec](https://github.com/openClusterServiceBrokerapi/ClusterServiceBroker/blob/v2.13/spec.md), is an endpoint for a set of Managed Services offered and maintained by a third-party, which could be a cloud provider such as AWS, GCP, or Azure.
+Some examples of *Managed Services* are Microsoft Azure Cloud Queue, Amazon Simple Queue Service, and Google Cloud Pub/Sub, but they can be any software offering that can be used by an application.
 
 Using Service Catalog, a {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can browse the list of {% glossary_tooltip text="Managed Services" term_id="managed-service" %} offered by a {% glossary_tooltip text="Service Brokers" term_id="service-broker" %}, provision an instance of a Managed Service, and bind with it to make it available to an application within the Kubernetes cluster.
 
@@ -28,10 +28,9 @@ Their application can simply use it as a service.
 
 ## Architecture
 
-Service Catalog is built on the [Open Service Broker API](https://github.com/openservicebrokerapi/servicebroker) and is implemented as an extension API server, controller manager, and etcd operator.
-It communicates with Service Brokers via the OSB API and acts as an intermediary for the Kubernetes API Server in order to negotiate the initial provisioning and return the credentials necessary for the application to use a Managed Service.
+Service Catalog uses the [Open Service Broker API](https://github.com/openClusterServiceBrokerapi/ClusterServiceBroker) to communicate with Service Brokers, acting as an intermediary for the Kubernetes API Server in order to negotiate the initial provisioning and retrieve the credentials necessary for the application to use a Managed Service.
 
-It also uses the [aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/) available in Kubernetes 1.7+ to present its API.
+It is implemented as an extension API server and a controller manager, using Etcd for storage. It also uses the [aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/) available in Kubernetes 1.7+ to present its API.
 
 <br>
 
@@ -42,27 +41,17 @@ It also uses the [aggregation layer](/docs/concepts/api-extension/apiserver-aggr
 
 Service Catalog installs the `servicecatalog.k8s.io` API and provides the following Kubernetes resources:
 
-* `ServiceBroker`: An in-cluster representation of a Service Broker, encapsulating its server connection details.
+* `ClusterServiceBroker`: An in-cluster representation of a Service Broker, encapsulating its server connection details.
 These are created and managed by Cluster Operators who wish to use that broker server to make new types of Managed Services available within their cluster.
-* `ServiceClass`: A Managed Service offered by a particular Service Broker.
-When a new `ServiceBroker` resource is added to the cluster, the Service Catalog controller connects to the Service Broker to obtain a list of available Managed Services. It then creates a new `ServiceClass` resource corresponding to each Managed Service.
-* `ServiceInstance`: A provisioned instance of a `ServiceClass`.
+* `ClusterServiceClass`: A Managed Service offered by a particular Service Broker.
+When a new `ClusterServiceBroker` resource is added to the cluster, the Service Catalog controller connects to the Service Broker to obtain a list of available Managed Services. It then creates a new `ClusterServiceClass` resource corresponding to each Managed Service.
+* `ClusterServicePlan`: A specific offering of a Managed Service. For example, a Managed Service may have different plans available, such as a free tier or paid tier, or it may have different configuration options, such as using SSD storage or having more resources. Similar to `ClusterServiceClass`, when a new `ClusterServiceBroker` is added to the cluster, the Service Catalog creates a new `ClusterServicePlan` resource corresponding to each Service Plan available for each Managed Service.
+* `ServiceInstance`: A provisioned instance of a `ClusterServiceClass`.
 These are created by Cluster Operators to make a specific instance of a Managed Service available for use by one or more in-cluster applications.
 When a new `ServiceInstance` resource is created, the Service Catalog controller will connect to the appropriate Service Broker and instruct it to provision the service instance.
 * `ServiceBinding`: Access credentials to a `ServiceInstance`.
 These are created by Cluster Operators who want their applications to make use of a Service `ServiceInstance`.
 Upon creation, the Service Catalog controller will create a Kubernetes `Secret` containing connection details and credentials for the Service Instance, which can be mounted into Pods.
-
-### Mutual TLS encryption
-
-The mutual TLS protocol encrypts communication between the Service Catalog extension API server and the main Kubernetes API server. 
-
-During installation, Service Catalog creates its own certificate authority (CA), and generates its own public and private keys, signed by this CA.
-The CA public certificate is installed into the main API server when Service Catalog registers its API.
-Service Catalog accesses the main API server CA certificate from the API server ConfigMap, after being granted the *extension-apiserver-authentication-reader* role. 
-
-Certificate rotation is handled by exposing a Service Catalog URL, similar to a `/statusz` endpoint, which returns the number of days until the CA and certificates expire.
-Alerts for certificate rotation can be created by monitoring this URL.
 
 ### Authentication
 
@@ -75,42 +64,57 @@ Service Catalog supports these methods of authentication:
 
 A {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can use the Service Catalog API Resources to provision Managed Services and make them available within a Kubernetes cluster. The steps involved are:
 
-1. Listing the Managed Services available from a Service Broker.
+1. Listing the Managed Services and Service Plans available from a Service Broker.
 1. Provisioning a new instance of the Managed Service.
 1. Binding to the Managed Service, which returns the connection credentials.
 1. Mapping the connection credentials into the application.
 
-### Listing Managed Services
+### Listing Managed Services and Service Plans
 
-First, a {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} must create a `ServiceBroker` resource within the `servicecatalog.k8s.io` group. This resource contains the URL and connection details necessary to access a Service Broker endpoint.
+First, a {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} must create a `ClusterServiceBroker` resource within the `servicecatalog.k8s.io` group. This resource contains the URL and connection details necessary to access a Service Broker endpoint.
 
-This is an example of a `ServiceBroker` resource:
+This is an example of a `ClusterServiceBroker` resource:
 
 ```yaml
-apiVersion: servicecatalog.k8s.io/v1alpha1
-kind: ServiceBroker
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ClusterServiceBroker
 metadata:
   name: cloud-broker
 spec:
   # Points to the endpoint of a Service Broker. (This example is not a working URL.)
   url:  https://servicebroker.somecloudprovider.com/v1alpha1/projects/service-catalog/brokers/default
-  # Describes the secret which contains the short-lived bearer token
-  authInfo:
-    bearer:
-      secretRef:
-        name: cloud-svc-account-secret
-        namespace: service-catalog
+  #####
+  # Additional values can be added here, which may be used to communicate
+  # with the Service Broker, such as bearer token info or a caBundle for TLS.
+  #####
 ```
 
-The following is a sequence diagram illustrating the steps involved in listing Managed Services available from a Service Broker:
+The following is a sequence diagram illustrating the steps involved in listing Managed Services and Plans available from a Service Broker:
 
 ![List Services](/images/docs/service-catalog-list.svg){:height="80%" width="80%"}
 
-1. Once the `ServiceBroker` resource is added to Service Catalog, it triggers a *List Services* call to the external Service Broker.
-1. The Service Broker returns a list of available Managed Services, which is cached locally in a `ServiceClass` resource.
+1. Once the `ClusterServiceBroker` resource is added to Service Catalog, it triggers a *List Services* call to the external Service Broker.
+1. The Service Broker returns a list of available Managed Services and Service Plans, which are cached locally in `ClusterServiceClass` and `ClusterServicePlan` resources.
 1. A {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can then get the list of available Managed Services using the following command:
 
-        kubectl get serviceclasses
+        kubectl get clusterserviceclasses -o=custom-columns=SERVICE\ NAME:.metadata.name,EXTERNAL\ NAME:.spec.externalName
+
+    It should output a list of service names with a format similar to:
+
+        SERVICE NAME                           EXTERNAL NAME
+        4f6e6cf6-ffdd-425f-a2c7-3c9258ad2468   cloud-provider-service
+        ...                                    ...
+
+    They can also view the Service Plans available using the following command:
+
+        kubectl get clusterserviceplans -o=custom-columns=PLAN\ NAME:.metadata.name,EXTERNAL\ NAME:.spec.externalName
+
+    It should output a list of plan names with a format similar to:
+
+        PLAN NAME                              EXTERNAL NAME
+        86064792-7ea2-467b-af93-ac9694d96d52   service-plan-name
+        ...                                    ...
+
 
 ### Provisioning a new instance
 
@@ -119,15 +123,19 @@ A {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can 
 This is an example of a `ServiceInstance` resource:
 
 ```yaml
-apiVersion: servicecatalog.k8s.io/v1alpha1
+apiVersion: servicecatalog.k8s.io/v1beta1
 kind: ServiceInstance
 metadata:
   name: cloud-queue-instance
   namespace: cloud-apps
 spec:
   # References one of the previously returned services
-  serviceClassName: queue
-  planName: queue-plan
+  clusterServiceClassExternalName: cloud-provider-service
+  clusterServicePlanExternalName: service-plan-name
+  #####
+  # Additional parameters can be added here, 
+  # which may be used by the Service Broker.
+  #####
 ```
 
 The following sequence diagram illustrates the steps involved in provisioning a new instance of a Managed Service:
@@ -135,7 +143,7 @@ The following sequence diagram illustrates the steps involved in provisioning a 
 ![Provision a Service](/images/docs/service-catalog-provision.svg){:height="80%" width="80%"}
 
 1. When the `ServiceInstance` resource is created, Service Catalog initiates a *Provision Instance* call to the external Service Broker.
-1. The Service Broker creates a new instance of the Managed Service and returns an HTTP 200 response if the provisioning was successful.
+1. The Service Broker creates a new instance of the Managed Service and returns an HTTP response.
 1. A {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can then check the status of the instance to see if it is ready.
 
 ### Binding to a Managed Service
@@ -145,7 +153,7 @@ After a new instance has been provisioned, a {% glossary_tooltip text="Cluster O
 The following is an example of a `ServiceBinding` resource:
 
 ```yaml
-apiVersion: servicecatalog.k8s.io/v1alpha1
+apiVersion: servicecatalog.k8s.io/v1beta1
 kind: ServiceBinding
 metadata:
   name: cloud-queue-binding
@@ -153,18 +161,10 @@ metadata:
 spec:
   instanceRef:
     name: cloud-queue-instance
-  # Secret to store returned data from bind call
-  # Currently:
-  #   project: provider project id
-  #   serviceAccount: same as passed as parameter
-  #   subscription: generated subscription name
-  #   topic: generated topic name
-  secretName: cloud-queue-credentials
-  parameters:
-    # provider *app* service account
-    serviceAccount: "someuser@auth.somecloudprovider.com"
-    # publisher or subscriber
-    roles: ["roles/queue.subscriber"]
+  #####
+  # Additional information can be added here, such as a secretName or 
+  # service account parameters, which may be used by the Service Broker.
+  #####
 ```
 
 The following sequence diagram illustrates the steps involved in binding to a Managed Service instance:
@@ -225,7 +225,7 @@ The following example describes how to map secret values into application enviro
 
 {% capture whatsnext %}
 * If you are familiar with {% glossary_tooltip text="Helm Charts" term_id="helm-chart" %}, [install Service Catalog using Helm](/docs/tasks/service-catalog/install-service-catalog-using-helm/) into your Kubernetes cluster. Alternatively, you can [install Service Catalog using the SC tool](/docs/tasks/service-catalog/install-service-catalog-using-sc/).
-* View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
+* View [sample service brokers](https://github.com/openClusterServiceBrokerapi/ClusterServiceBroker/blob/master/gettingStarted.md#sample-service-brokers).
 * Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
 
 {% endcapture %}

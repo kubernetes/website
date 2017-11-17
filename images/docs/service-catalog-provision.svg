@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="71 1022 560 377" width="560pt" height="377pt" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <metadata> Produced by OmniGraffle 7.5 
-    <dc:date>2017-11-07 07:41:42 +0000</dc:date>
+    <dc:date>2017-11-17 23:02:50 +0000</dc:date>
   </metadata>
   <defs>
     <filter id="Shadow" filterUnits="userSpaceOnUse">
@@ -24,6 +24,11 @@
     <font-face font-family="Helvetica" font-size="12" units-per-em="1000" underline-position="-75.68359" underline-thickness="49.316406" slope="0" x-height="522.9492" cap-height="717.28516" ascent="770.0195" descent="-229.98047" font-weight="500">
       <font-face-src>
         <font-face-name name="Helvetica"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Arial" font-size="11" panose-1="2 11 6 4 2 2 2 2 2 4" units-per-em="1000" underline-position="-105.95703" underline-thickness="73.24219" slope="0" x-height="518.5547" cap-height="716.3086" ascent="905.2734" descent="-211.91406" font-weight="500">
+      <font-face-src>
+        <font-face-name name="ArialMT"/>
       </font-face-src>
     </font-face>
     <font-face font-family="Arial" font-size="12" panose-1="2 11 7 4 2 2 2 2 2 4" units-per-em="1000" underline-position="-105.95703" underline-thickness="104.98047" slope="0" x-height="518.5547" cap-height="715.8203" ascent="905.2734" descent="-211.91406" font-weight="bold">
@@ -55,11 +60,6 @@
         <tspan font-family="Arial" font-size="12" font-weight="500" x=".4746094" y="11" textLength="98.05078">Provision Instance</tspan>
       </text>
       <line x1="515.25" y1="1207.9547" x2="350.17202" y2="1249.6879" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-      <rect x="387.2893" y="1219.588" width="65" height="25" fill="white"/>
-      <text transform="translate(392.2893 1224.8917)" fill="black">
-        <tspan font-family="Arial" font-size="12" font-weight="500" x=".265625" y="11" textLength="31.330078">HTTP</tspan>
-        <tspan font-family="Arial" font-size="12" font-weight="500" x="31.378906" y="11" textLength="23.35547"> 200</tspan>
-      </text>
       <rect x="276.75" y="1260.5592" width="96" height="38" fill="white"/>
       <text transform="translate(281.75 1265.5592)" fill="black">
         <tspan font-family="Helvetica" font-size="12" font-weight="500" x=".31152344" y="11" textLength="85.37695">ServiceInstance</tspan>
@@ -70,11 +70,11 @@
         <tspan font-family="Helvetica" font-size="12" font-weight="500" x=".31152344" y="11" textLength="85.37695">ServiceInstance</tspan>
         <tspan font-family="Helvetica" font-size="12" font-weight="500" x="17.32129" y="25" textLength="51.35742">Resource</tspan>
       </text>
-      <line x1="133.5" y1="1106.6307" x2="269.3522" y2="1107.5215" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-      <line x1="133.5" y1="1279.0592" x2="269.3522" y2="1279.95" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-      <rect x="143.55904" y="1266.9957" width="113" height="25" fill="white"/>
-      <text transform="translate(148.55904 1272.2994)" fill="black">
-        <tspan font-family="Arial" font-size="12" font-weight="500" x=".13964844" y="11" textLength="102.7207">get serviceinstance</tspan>
+      <line x1="133.5" y1="1106.6307" x2="264.37955" y2="1107.5185" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="133.5" y1="1279.0592" x2="264.37955" y2="1279.947" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <rect x="147.41178" y="1268.0097" width="105" height="23" fill="white"/>
+      <text transform="translate(152.41178 1273.3298)" fill="black">
+        <tspan font-family="Arial" font-size="11" font-weight="500" x=".41967773" y="10" textLength="94.16064">get serviceinstance</tspan>
       </text>
       <line x1="311" y1="1310.1637" x2="145.92202" y2="1351.8969" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       <rect x="189.53932" y="1321.797" width="52" height="25" fill="white"/>
