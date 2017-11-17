@@ -61,11 +61,8 @@
           <li>(optional) If you plan to run your Minikube cluster as part of a local development environment, consider <a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-docker">installing Docker</a>. Minikube includes a Docker daemon, but to create and push containers as part of your development workflow, you'll want an independent Docker instance. Note that version 1.12 is recommended for full compatibility with Kubernetes, but a few other versions are tested and known to work.</li><!--Maybe this is another candidate for a callout/box to the side instead of as part of the main list? -->
         </ul>
 <br><br>
-        <a href="https://kubernetes.io/docs/tasks/tools/install-minikube/">Install Minikube</a>
-<br><br>
-        <a href="https://kubernetes.io/docs/getting-started-guides/minikube/">Explore Kubernetes with Minikube</a>.
-<!-- These are some of the topics that need re-architecting.
--->
+        Now you can <a href="https://kubernetes.io/docs/tasks/tools/install-minikube/">install Minikube</a>.
+        <!--Make sure to track changes to Minikube content for this link. https://github.com/kubernetes/website/issues/6339 -->
 <br><br> 
         
 <br><br>
@@ -81,18 +78,21 @@
 
       <div class="docsection1">
 
-        <!-- maybe a little sub-toc here? Ingress, Networking, Storage, Labels -->
+        <!-- maybe a little sub-toc here? Ingress, Networking, Storage, Labels. Also: what about subheadings for each? -->
 
       <p>You can deploy a simple application in Kubernetes with a Deployment manifest, also called a configuration or config file. The manifest is written in YAML or JSON, and describes the desired state of the application and related resources as Kubernetes should maintain them.</p>
       <ul>
-        <li><a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/">Get started by deploying a simple nginx server.</a> Nginx provides basic ingress<!--link to glossary--> to your cluster.</li>
+        <li><a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/">Get started by deploying a simple nginx server</a>. Nginx provides basic ingress<!--link to glossary--> to your cluster.</li>
         <li>Next, <a href="https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/">create a Service</a> so that your nginx Deployment can provide ingress.</li>
-        <li></li>
+        <li><a href="https://kubernetes.io/docs/concepts/services-networking/ingress/">Learn more about Ingress.</a></li>
+        <li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">Learn more about Deployments.</a></li>
+        <li><a href="https://kubernetes.io/docs/concepts/services-networking/service/"></a>Learn more about Services.</li>
         </ul>
         
 <!--<br><br>
         more resources to analyze/refactor:
 <br><br>
+        TRACK THIS ISSUE: https://github.com/kubernetes/website/issues/4478
         <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-intro/">Using kubectl to Create a Deployment</a>" - this page is primarily conceptual/expanatory material.
   <br><br>
         <a href="https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/">Hello Minikube</a> - the app parts only
@@ -102,9 +102,9 @@
   <p>Ingress provides networking between your cluster and the outside world. But you also need networking between containers and between nodes in your cluster, which you <a href="https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/">configure with a network policy</a>. See also:</p>
     <ul>
       <li><a href="https://kubernetes.io/docs/concepts/services-networking/network-policies/">More information about network policies</a>.</li>
-      <li><a href="https://kubernetes.io/docs/concepts/cluster-administration/networking/">And too much information about network policies</a>."
+      <li><a href="https://kubernetes.io/docs/concepts/cluster-administration/networking/">And too much information about network policies</a>.
       </li>
-      <li></li>
+      <li><!--https://github.com/kubernetes/website/issues/4480 --></li>
     </ul>
 
           
@@ -113,7 +113,7 @@
   <ul>
     <li>A Volume lets you define storage for your cluster that is tied to the lifecycle of a Pod. It is therefore more persistent than container storage. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-volume-storage/">how to configure volume storage</a>, or <a href="https://kubernetes.io/docs/concepts/storage/volumes/">read more about about volume storage</a>.</li>
     <li>A PersistentVolume and PersistentVolumeClaim let you define storage at the cluster level. Typically a cluster administrator defines the PersistentVolume objects for the cluster, and cluster users (application developers, you) define the PersistentVolumeClaim objects that your application requires. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/">how to set up persistent storage for your cluster</a> or <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">read more about persistent volumes</a>.</li>
-    <li>Q: mention also projected volumes? This seems more specialized, might be distracting?</li>
+    <li>Q: mention also projected volumes? This seems more specialized, might be distracting?<!--https://github.com/kubernetes/website/issues/4514 --></li>
   </ul>
 
   <p>Labels let you specify identifying information for Kubernetes objects, such as pods, that you define. This information is entirely user-defined, and is used to sort and select sets of objects.</p>
@@ -125,7 +125,9 @@
         <li>https://kubernetes.io/docs/concepts/configuration/assign-pod-node/</li>
       </ul>
 
-        <!--Also useful content (with again overlapping material): <a href="https://kubernetes.io/docs/user-guide/walkthrough/">Kubernetes 101</a> - explores kubectl, pods, volumes, multiple containers
+        <!--https://github.com/kubernetes/website/issues/4509 and https://github.com/kubernetes/website/pull/4355 -->
+      
+      <!--Also useful content (with again overlapping material): <a href="https://kubernetes.io/docs/user-guide/walkthrough/">Kubernetes 101</a> - explores kubectl, pods, volumes, multiple containers
 
         <p>TODO: identify all possible related content, do content analysis, plan new IA</p>
         <p>TODO: Networking, ConfigMap, Secrets (do we need/want secrets for this persona?)</p>
@@ -156,12 +158,9 @@
             </ul>
           </li>
         </ul>
-        <p>TODO: add images/diagrams here? Useful material on these pages:</p>
-        <p></p>
-        <p></p>
-        <p></p>       
+        <!--<p>TODO: add images/diagrams here? Useful material on these pages:</p>-->       
   <br><br>
-        TODO: previous taken from https://kubernetes.io/docs/concepts/. See intro for a different approach.
+        <!--TODO: previous taken from https://kubernetes.io/docs/concepts/.-->
 
       </div>
       <div class="topheader" id="4">
