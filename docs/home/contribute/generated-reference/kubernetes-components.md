@@ -58,7 +58,7 @@ The script calls these Golang programs to generate several sets of reference doc
 
 The code at `<k8s-base>/cmd/gendocs/gen_kubectl_docs.go` generates reference
 pages for the `kubectl` commands. It places Markdown files in
-`<k8s-base>`/docs/user-guide/kubectl`.
+`<k8s-base>/docs/user-guide/kubectl`.
 
 * kubectl_create.md
 * kubectl_apply.md
@@ -96,12 +96,11 @@ These files are published at
 Example: [kube-api-server](/docs/reference/generated/kube-apiserver/).
 
 The `kubeadm_xxx.md` files are not published directly. Instead, they
-are included in manually created topics like
-[kubeadm join]().
+are included in manually created topics.
 
 ### gen_kube_man.go
 
-The code at `<k8s-base>/cmd/genman/gen_kube_man.go generates reference
+The code at `<k8s-base>/cmd/genman/gen_kube_man.go` generates reference
 pages for Kubernetes components, `kubectl` commands, and `kubadm`. It places
 man pages in `<k8s-base>/docs/man/man1`.
 
@@ -123,15 +122,15 @@ The `kubeadm-xxx.1` files are not published directly.
 Some of these files are also published at [rpm.phone.net](http://rpm.phone.net).
 Example: [kubectl-create](http://rpm.pbone.net/index.php3/stat/45/idpl/30415699/numer/1/nazwa/kubectl-create).
 
-### gen_kubectl_yaml
+### gen_kubectl_yaml.go
 
 The code at `<k8s-base>/cmd/genyaml/gen_kubectl_yaml` generates reference
 pages for the `kubectl` commands. It places YAML files in `<k8s-base>/docs/yaml/kubectl`.
 
-    * kubectl_create.yaml
-    * kubectl_apply.yaml
-    * kubectl_describe.yaml
-    * ... (many more)
+* kubectl_create.yaml
+* kubectl_apply.yaml
+* kubectl_describe.yaml
+* ... (many more)
 
 {% endcapture %}
 
