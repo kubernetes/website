@@ -16,16 +16,27 @@ title: Using Admission Controllers
 
 An admission control plug-in is a piece of code that intercepts requests to the Kubernetes
 API server prior to persistence of the object, but after the request is authenticated
-and authorized.  The plug-in code is in the API server process
-and must be compiled into the binary in order to be used at this time.
+and authorized.  The plug-ins discussed in this document are compiled into the
+API server process and may only be configured by the cluster administrator. As of 1.9, [user provided
+webhooks](/docs/admin/extensible-admission-controllers.md#external-admission-webhooks)
+are in beta; these are dynamically configurable.
 
-Each admission control plug-in is run in sequence before a request is accepted into the cluster.  If
-any of the plug-ins in the sequence reject the request, the entire request is rejected immediately
-and an error is returned to the end-user.
+Admission control plug-ins may be "validating", "mutating", or both. Mutating
+plug-ins may modify the objects they admit; validating plug-ins may not.
 
-Admission control plug-ins may mutate the incoming object in some cases to apply system configured
-defaults.  In addition, admission control plug-ins may mutate related resources as part of request
-processing to do things like increment quota usage.
+The admission control process proceeds in two phases. In the first phase,
+mutating admission control plug-ins are run. In the second phase, validating
+admission control plug-ins are run. Note again that some of the plug-ins are
+both. In both phases, the plug-ins are run in the order specified by the
+`--admission-control` flag of `kube-apiserver`.
+
+If any of the plug-ins in either phase reject the request, the entire
+request is rejected immediately and an error is returned to the end-user.
+
+Finally, in addition to sometimes mutating the object in question, admission
+control plug-ins may sometimes have side effects, that is, mutate related
+resources as part of request processing. Incrementing quota usage is the
+canonical example of why this is necessary.
 
 ## Why do I need them?
 
@@ -101,14 +112,16 @@ If your cluster supports containers that run with escalated privileges, and you 
 restrict the ability of end-users to exec commands in those containers, we strongly encourage
 enabling this plug-in.
 
-### GenericAdmissionWebhook (alpha)
+### GenericAdmissionWebhook (alpha in 1.8; beta in 1.9)
 
-This plug-in is related to the [Dynamic Admission Control](/docs/admin/extensible-admission-controllers)
-introduced in v1.7.
-The plug-in calls the webhooks configured via `ExternalAdmissionHookConfiguration`,
-and only admits the operation if all the webhooks admit it.
-Currently, the plug-in always fails open.
-In other words, it ignores the failed calls to a webhook.
+This plug-in calls any validating webhooks which match the request. Matching
+webhooks are called in parallel; if any of them rejects the request, the request
+fails. This plugin only runs in the validation phase; the webhooks it calls may not
+mutate the object, as opposed to the webhooks called by the `MutatingAdmissionWebhook` plugin.
+
+If a webhook called by this has side effects (e.g., decrementing quota) it
+*must* have a reconcilation system, as it is not guaranteed that subsequent
+webhooks or other validating plugins will permit the request to finish.
 
 ### ImagePolicyWebhook
 
@@ -255,6 +268,17 @@ be used to apply default resource requests to Pods that don't specify any; curre
 applies a 0.1 CPU requirement to all Pods in the `default` namespace.
 
 See the [limitRange design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) and the [example of Limit Range](/docs/tasks/configure-pod-container/limit-range/) for more details.
+
+### MutatingAdmissionWebhook (beta in 1.9)
+
+This plug-in calls any mutating webhooks which match the request. Matching
+webhooks are called in serial; each one may modify the object if it desires.
+
+This plugin (as implied by the name) only runs in the mutating phase.
+
+If a webhook called by this has side effects (e.g., decrementing quota) it
+*must* have a reconcilation system, as it is not guaranteed that subsequent
+webhooks or validating plugins will permit the request to finish.
 
 ### NamespaceAutoProvision
 
@@ -426,6 +450,11 @@ We strongly recommend using this plug-in if you intend to make use of Kubernetes
 ## Is there a recommended set of plug-ins to use?
 
 Yes.
+For Kubernetes >= 1.9.0, we strongly recommend running the following set of admission control plug-ins (order matters):
+
+```shell
+--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,GenericAdmissionWebhook,ResourceQuota,DefaultTolerationSeconds,MutatingAdmissionWebhook
+```
 For Kubernetes >= 1.6.0, we strongly recommend running the following set of admission control plug-ins (order matters):
 
 ```shell
