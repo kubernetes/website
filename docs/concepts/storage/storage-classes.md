@@ -221,7 +221,7 @@ parameters:
   `secretNamespace` and `secretName` are omitted. The provided secret must have
   type "kubernetes.io/glusterfs", e.g. created in this way:
   ```
-  $ kubectl create secret generic heketi-secret \
+  kubectl create secret generic heketi-secret \
     --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
     --namespace=default
   ```
@@ -378,7 +378,7 @@ parameters:
   The provided secret must have type "kubernetes.io/rbd", e.g. created in this
   way:
   ```
-  $ kubectl create secret generic ceph-secret --type="kubernetes.io/rbd" \
+  kubectl create secret generic ceph-secret --type="kubernetes.io/rbd" \
     --from-literal=key='QVFEQ1pMdFhPUnQrSmhBQUFYaERWNHJsZ3BsMmNjcDR6RFZST0E9PQ==' \
     --namespace=kube-system
   ```
@@ -421,7 +421,7 @@ parameters:
   the password to authenticate against the API server. The provided secret
   must have type "kubernetes.io/quobyte", e.g. created in this way:
   ```
-  $ kubectl create secret generic quobyte-admin-secret \
+  kubectl create secret generic quobyte-admin-secret \
     --type="kubernetes.io/quobyte" --from-literal=key='opensesame' \
     --namespace=kube-system
   ```
