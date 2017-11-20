@@ -27,15 +27,8 @@
        <p>
         If you're an application developer looking to get started with Kubernetes, this page and its linked topics introduce you to foundational concepts and tasks. The focus is on a development workflow -- check out other user journeys to learn about managing production clusters, or providing high availability (HA) for critical application deployments.</p>
         <p>In a production workflow, it's common to assign the tasks and responsibilities of setting up and maintaining a Kubernetes cluster to the distinct roles of cluster administrator and cluster user. These roles might or might  not be assigned to different individuals or teams. As an application developer, you don't need to learn all the intricacies of cluster administration. But you do need to learn the basics, and to understand how certain aspects of adminstering a cluster can affect development, testing, and deployment at the application level.</p>
-       <p>
-        <!-- For an introduction to containers, see <a href="https://www.docker.com/what-container">this writeup from Docker, the most popular container technology</a>. Alex: box this separately? "What else you need to know" or maybe remove this content, but box what is K8s link from previous para--></p> 
-        <p>
-        One good way to learn Kubernetes basics is with Minikube, which lets you create a simple single-node cluster. You can explore Minikube with the interactive online tutorials, or you can install it locally. <!--Alex: box link to Minikube interactive tutorial separately? --> If you install locally, you may find that your cluster is sufficient for local application development. Installing Minikube locally is also a good idea if you want to continue exploring in a persistent environment that you can come back to and change.</p>
-<p><!--This link is for reference only atm. Wondering also about layout/presentation to show differences between these three ways of getting started in a more neutral way, something like "If you want to set up a cluster from scratch, here's the simplest local model that you might be able to extend into a dev environment" vs "If you want to start learning without the complexity of setting up the cluster (Katacoda)" vs "If you want to explore further without worrying about cluster setup (play with K8s)". Also WDYT of linking to Heptio's AWS QuickStart? It's dead simple from the console (a little trickier lately from the CLI but I can see whether we can fix that one up), gives you a cloud provider experience. Maybe GCP also? Or are we sliding too far into proprietary stuff? -->
-<a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/cluster-intro/">Using Minikube to Create a Cluster</a></p>
-<p>If you're brand new to Kubernetes, you might want to try out the <a href="https://www.katacoda.com/courses/kubernetes/playground">Katacoda Kubernetes Playground</a>, which provides a set of web-based tutorials complete with their own Kubernetes environment.</p>
-<p>If you want to explore further, the web-based <a href="http://labs.play-with-k8s.com/">Play with Kubernetes</a> gives you a less structured Kubernetes environment on the web.</p>
-<br><br>
+       <!--<p>
+        For an introduction to containers, see <a href="https://www.docker.com/what-container">this writeup from Docker, the most popular container technology</a>. Alex: box this separately? "What else you need to know" or maybe remove this content, but box what is K8s link from previous para</p>-->
         
 </div>
     </div>
@@ -45,11 +38,14 @@
       </div>
 
       <div class="docsection1">
-        To set up and explore your own Kubernetes cluster for the first time, you can create a simple cluster locally with Minikube. Minikube gives you a cluster with a single node and all core Kubernetes components. You can set up a Minikube cluster just to explore, or, depending on your application, Minikube can also provide a useful development environment.
-<!--Originally provided list of "features" from GSG Minikube topic but it really doesn't make sense here. Not sure it makes sense in the GSG topic either. Discuss rewriting Minikube topic?
--->
-<br><br>
-        Before you install Minikube:
+
+        <p>
+            One good way to learn Kubernetes basics is with Minikube, which lets you create a simple single-node cluster with all core Kubernetes components. If you install locally, you may find that your cluster is sufficient for local application development. Installing Minikube locally is also a good idea if you want to continue exploring in a persistent environment that you can come back to and change.</p><!--Alex: this is the main box or secion, that we want to keep as the intro to the main narrative that continues with "Before you install Minikube:" -->
+
+    <p>If you're brand new to Kubernetes, you might want to try out the <a href="https://www.katacoda.com/courses/kubernetes/playground">Katacoda Kubernetes Playground</a>, which provides a set of web-based tutorials complete with their own Kubernetes environment.</p><!--Secondary box/callout -->
+    <p>If you want to explore further, the web-based <a href="http://labs.play-with-k8s.com/">Play with Kubernetes</a> gives you a less structured Kubernetes environment on the web.</p><!--Secondary box/callout -->
+
+        <p>Before you install Minikube:</p>
 
         <ul>
           <li><a href="https://kubernetes.io/docs/tasks/tools/install-minikube/#install-a-hypervisor">Install a hypervisor if you don't have one already:</a>
@@ -82,11 +78,14 @@
 
       <p>You can deploy a simple application in Kubernetes with a Deployment manifest, also called a configuration or config file. The manifest is written in YAML or JSON, and describes the desired state of the application and related resources as Kubernetes should maintain them.</p>
       <ul>
-        <li><a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/">Get started by deploying a simple nginx server</a>. Nginx provides basic ingress<!--link to glossary--> to your cluster.</li>
-        <li>Next, <a href="https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/">create a Service</a> so that your nginx Deployment can provide ingress.</li>
-        <li><a href="https://kubernetes.io/docs/concepts/services-networking/ingress/">Learn more about Ingress.</a></li>
-        <li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">Learn more about Deployments.</a></li>
-        <li><a href="https://kubernetes.io/docs/concepts/services-networking/service/"></a>Learn more about Services.</li>
+        <li><a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/">Get started by deploying a simple nginx server</a>. Nginx is often used as the web server to provide ingress from outside your cluster.<!--need to reword this --></li>
+        <li>By itself, a Deployment can't provide ingress. The simplest way to configure ingress is to <a href="https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/">create a Service</a> of type <code>NodePort</code>, which takes care of routing external traffic to your cluster over a dynamically allocated IP address and port. The service also takes care of load balancing.</li>
+        <li>Optionally, learn more about providing external access:
+          <ul>
+            <li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">More about Deployments.</a></li>
+            <li><a href="https://kubernetes.io/docs/concepts/services-networking/service/">More about Services.</a></li>
+            <li><a href="https://kubernetes.io/docs/concepts/services-networking/ingress/">Learn more about Ingress.</a></li>
+          </ul></li>
         </ul>
         
 <!--<br><br>
@@ -98,15 +97,6 @@
         <a href="https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/">Hello Minikube</a> - the app parts only
 <br><br>
         <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/expose-intro/">Using a Service to Expose Your App</a>-->
-
-  <p>Ingress provides networking between your cluster and the outside world. But you also need networking between containers and between nodes in your cluster, which you <a href="https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/">configure with a network policy</a>. See also:</p>
-    <ul>
-      <li><a href="https://kubernetes.io/docs/concepts/services-networking/network-policies/">More information about network policies</a>.</li>
-      <li><a href="https://kubernetes.io/docs/concepts/cluster-administration/networking/">And too much information about network policies</a>.
-      </li>
-      <li><!--https://github.com/kubernetes/website/issues/4480 --></li>
-    </ul>
-
           
 <p>You'll also want to think about storage. Kubernetes provides different types of storage for different storage needs:</p>
 
@@ -124,13 +114,20 @@
         <li>https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/</li>
         <li>https://kubernetes.io/docs/concepts/configuration/assign-pod-node/</li>
       </ul>
-
-        <!--https://github.com/kubernetes/website/issues/4509 and https://github.com/kubernetes/website/pull/4355 -->
+      
+  <p>Note that ingress provides networking between your cluster and the outside world. A production cluster should also configure networking between containers and between nodes, which is <a href="https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/">defined in a network policy</a>. <!-- See also:</p>
+      <ul>
+        <li><a href="https://kubernetes.io/docs/concepts/services-networking/network-policies/">More information about network policies</a>.</li>
+        <li><a href="https://kubernetes.io/docs/concepts/cluster-administration/networking/">And too much information about network policies</a>.
+        </li>
+        <li>https://github.com/kubernetes/website/issues/4480</li>
+      </ul>
+        https://github.com/kubernetes/website/issues/4509 and https://github.com/kubernetes/website/pull/4355 -->
       
       <!--Also useful content (with again overlapping material): <a href="https://kubernetes.io/docs/user-guide/walkthrough/">Kubernetes 101</a> - explores kubectl, pods, volumes, multiple containers
 
         <p>TODO: identify all possible related content, do content analysis, plan new IA</p>
-        <p>TODO: Networking, ConfigMap, Secrets (do we need/want secrets for this persona?)</p>
+        <p>TODO: ConfigMap, Secrets (do we need/want secrets for this persona?)</p>
         <p>TODO: Update application</p>-->
       </div>
 
