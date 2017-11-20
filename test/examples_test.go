@@ -284,7 +284,9 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-deployment": {&extensions.Deployment{}},
 		},
 		"../docs/concepts/policy": {
-			"psp": {&extensions.PodSecurityPolicy{}},
+			"privileged-psp": {&extensions.PodSecurityPolicy{}},
+			"restricted-psp": {&extensions.PodSecurityPolicy{}},
+			"example-psp":    {&extensions.PodSecurityPolicy{}},
 		},
 		"../docs/concepts/services-networking": {
 			"curlpod":          {&extensions.Deployment{}},
