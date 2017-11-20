@@ -54,8 +54,8 @@ controller.
 
 ## Authorizing Policies
 
-Once a PodSecurityPolicy resource has been created, it does nothing. In order to
-use it, the requesting user or target pod's [service
+When a PodSecurityPolicy resource is created, it does nothing. In order to use
+it, the requesting user or target pod's [service
 account](/docs/tasks/configure-pod-container/configure-service-account/) must be
 authorized to use the policy, by allowing the `use` verb on the policy.
 
@@ -77,6 +77,10 @@ First, a `Role` or `ClusterRole` needs to grant access to `use` the desired
 policies. The rules to grant access look like this:
 
 ```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: <role name>
 rules:
 - apiGroups: ['extensions']
   resources: ['podsecuritypolicies']
@@ -88,6 +92,14 @@ rules:
 Then the `(Cluster)Role` is bound to the authorized user(s):
 
 ```yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: <binding name>
+roleRef:
+  kind: ClusterRole
+  name: <role name>
+  apiGroup: rbac.authorization.k8s.io
 subjects:
 # Authorize specific service accounts:
 - kind: ServiceAccount
