@@ -55,7 +55,7 @@ a Kubernetes cluster from scratch.
 
 * [OpenShift Online](https://www.openshift.com/features/) provides free hosted access for Kubernetes applications.
 
-* [IBM Bluemix Container Service](https://console.ng.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
+* [IBM Cloud Container Service](https://console.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
 
 * [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
 
@@ -70,7 +70,7 @@ few commands. These solutions are actively developed and have active community s
 * [Azure](/docs/getting-started-guides/azure/)
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
 * [CenturyLink Cloud](/docs/getting-started-guides/clc/)
-* [IBM Bluemix](https://github.com/patrocinio/kubernetes-softlayer)
+* [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
 * [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
 * [KUBE2GO.io](https://kube2go.io/)
 * [Madcore.Ai](https://madcore.ai/)
