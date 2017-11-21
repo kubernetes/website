@@ -21,9 +21,6 @@ spec:
     volumeMounts:
     - mountPath: /var/log/kube-scheduler.log
       name: logfile
-    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
-      name: default-token-s8ejd
-      readOnly: true
   volumes:
   - hostPath:
       path: /var/log/kube-scheduler.log
