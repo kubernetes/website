@@ -7944,7 +7944,8 @@ $</span><span class="bash"> kubectl proxy</span>
   <span class="hljs-attribute">name</span>: pod-example
 <span class="hljs-attribute">spec</span>:
   <span class="hljs-attribute">containers</span>:
-  - <span class="hljs-attribute">image</span>: <span class="hljs-attribute">ubuntu</span>:trusty
+  - <span class="hljs-attribute">name</span>: <span class="hljs-attribute">ubuntu</span>
+    <span class="hljs-attribute">image</span>: <span class="hljs-attribute">ubuntu</span>:trusty
     <span class="hljs-attribute">command</span>: [<span class="hljs-string">"echo"</span>]
     <span class="hljs-attribute">args</span>: [<span class="hljs-string">"Hello World"</span>]
 </code></pre>
@@ -7958,7 +7959,8 @@ $</span><span class="bash"> kubectl proxy</span>
   <span class="hljs-attribute">name</span>: pod-example
 <span class="hljs-attribute">spec</span>:
   <span class="hljs-attribute">containers</span>:
-  - <span class="hljs-attribute">image</span>: <span class="hljs-attribute">ubuntu</span>:trusty
+  - <span class="hljs-attribute">name</span>: <span class="hljs-attribute">ubuntu</span>
+    <span class="hljs-attribute">image</span>: <span class="hljs-attribute">ubuntu</span>:trusty
     <span class="hljs-attribute">command</span>: [<span class="hljs-string">"echo"</span>]
     <span class="hljs-attribute">args</span>: [<span class="hljs-string">"Hello World"</span>]
 </code></pre>
