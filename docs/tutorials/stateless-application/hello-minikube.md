@@ -304,6 +304,7 @@ Optionally, stop Minikube:
 
 ```shell
 minikube stop
+eval $(minikube docker-env -u)
 ```
 
 {% endcapture %}
