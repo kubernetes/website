@@ -2,10 +2,10 @@
 	var partners = [
 		{
 			type: 0,
-			name: 'Sysdig Cloud',
+			name: 'Sysdig',
 			logo: 'sys_dig',
 			link: 'https://sysdig.com/blog/monitoring-kubernetes-with-sysdig-cloud/',
-			blurb: 'Container native monitoring with deep support for Kubernetes.'
+			blurb: 'Sysdig is the container intelligence company. Sysdig has created the only unified platform to deliver monitoring, security, and troubleshooting in a microservices-friendly architecture.'
 		},
 		{
 			type: 0,

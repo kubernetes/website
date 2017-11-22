@@ -66,31 +66,31 @@ toc:
 
 - title: Cloud Controller Manager
   section:
-  - docs/admin/cloud-controller-manager.md
+  - docs/reference/generated/cloud-controller-manager.md
 
 - title: Setup Tools
   section:
-  - docs/admin/kubeadm.md
+  - docs/reference/generated/kubeadm.md
   - title: Kubefed
     section:
-    - docs/admin/kubefed.md
-    - docs/admin/kubefed_options.md
-    - docs/admin/kubefed_init.md
-    - docs/admin/kubefed_join.md
-    - docs/admin/kubefed_unjoin.md
-    - docs/admin/kubefed_version.md
+    - docs/reference/generated/kubefed.md
+    - docs/reference/generated/kubefed_options.md
+    - docs/reference/generated/kubefed_init.md
+    - docs/reference/generated/kubefed_join.md
+    - docs/reference/generated/kubefed_unjoin.md
+    - docs/reference/generated/kubefed_version.md
 
 - title: Config Reference
   section:
-  - docs/admin/kubelet.md
+  - docs/reference/generated/kubelet.md
   - docs/admin/kubelet-authentication-authorization.md
-  - docs/admin/kube-apiserver.md
-  - docs/admin/kube-controller-manager.md
-  - docs/admin/kube-proxy.md
-  - docs/admin/kube-scheduler.md
+  - docs/reference/generated/kube-apiserver.md
+  - docs/reference/generated/kube-controller-manager.md
+  - docs/reference/generated/kube-proxy.md
+  - docs/reference/generated/kube-scheduler.md
   - docs/admin/kubelet-tls-bootstrapping.md
-  - docs/admin/federation-apiserver.md
-  - docs/admin/federation-controller-manager.md
+  - docs/reference/generated/federation-apiserver.md
+  - docs/reference/generated/federation-controller-manager.md
 
 - title: Kubernetes Design Docs
   section:

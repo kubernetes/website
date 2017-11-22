@@ -493,5 +493,8 @@ federation control plane's etcd. You can delete the federation
 namespace by running the following command:
 
 ```
-kubectl delete ns federation-system
+kubectl delete ns federation-system --context=rivendell
 ```
+
+Note that `rivendell` is the host cluster name, replace that with the appropriate name in your configuration.
+

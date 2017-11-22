@@ -90,8 +90,8 @@ metadata:
   name: mysecret
 type: Opaque
 data:
-  password: $(echo "s33msi4" | base64)
-  username: $(echo "jane" | base64)
+  password: $(echo -n "s33msi4" | base64)
+  username: $(echo -n "jane" | base64)
 EOF
 
 ```
@@ -118,6 +118,9 @@ $ kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 # Get the version label of all pods with label app=cassandra
 $ kubectl get pods --selector=app=cassandra rc -o \
   jsonpath='{.items[*].metadata.labels.version}'
+
+# Get all running pods in the namespace
+$ kubectl get pods --field-selector=status.phase=Running
 
 # Get ExternalIPs of all nodes
 $ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
