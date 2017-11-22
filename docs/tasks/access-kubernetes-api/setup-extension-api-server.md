@@ -38,7 +38,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 1. Create a Kubernetes service account in your namespace.
 1. Create a Kubernetes cluster role for the operations you want to allow on your resources.
 1. Create a Kubernetes cluster role binding from the default service account in your namespace to the cluster role you just created.
-1. Create a Kubernetes apiservice. The CA cert above should be base 64 encoded, stripped of new lines and used as the spec.caBundle in the apiservice. This should not be namespaced. If using the [kube-aggregator API](https://github.com/kubernetes/kube-aggregator/blob/f44a75f488b92e99f8cd13640ef03a6aeda7be48/pkg/apis/apiregistration/types.go#L55-L56), only pass in the PEM encoded CA bundle because the base 64 encoding is done for you.
+1. Create a Kubernetes apiservice. The CA cert above should be base 64 encoded, stripped of new lines and used as the spec.caBundle in the apiservice. This should not be namespaced. If using the [kube-aggregator API](https://github.com/kubernetes/kube-aggregator/), only pass in the PEM encoded CA bundle because the base 64 encoding is done for you.
 1. Use kubectl to get your resource. It should return "No resources found." Which means that everything worked but you currently have no objects of that resource type created yet.
 
 {% endcapture %}
@@ -46,7 +46,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 {% capture whatsnext %}
 
 * If you haven't already, [configure the aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) and enable the apiserver flags.
-* For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/).
+* For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation).
 * Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
 
 {% endcapture %}
