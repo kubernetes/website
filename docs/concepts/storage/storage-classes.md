@@ -52,6 +52,21 @@ mountOptions:
   - debug
 ```
 
+### Volume Binding Mode
+{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
+
+This field requires the `VolumeScheduling` feature gate to be enabled.
+
+A new field, `volumeBindingMode`, controls if volume binding should happen
+immediately or wait until pod scheduling.  Valid values are `Immediate` and
+`WaitForFirstConsumer`.  The default mode is `Immediate`, which is the same
+behavior prior to this feature.
+
+**Note:** The `WaitForFirstConsumer` volume binding mode does not support
+dynamic provisioning yet.  Also, it currently is only useful for the
+[local](volumes.md#local) volume type.  Additional volume types will be
+supported in the future.
+
 ### Provisioner
 
 Storage classes have a provisioner that determines what volume plugin is used
@@ -78,6 +93,7 @@ for provisioning PVs. This field must be specified.
 | PortworxVolume       | &#x2713;            | [Portworx Volume](#portworx-volume)  |
 | ScaleIO              | &#x2713;            | [ScaleIO](#scaleio)                  |
 | StorageOS            | &#x2713;            | [StorageOS](#storageos)              |
+| Local                | -                   | [Local](#local)              |
 
 You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
@@ -634,3 +650,22 @@ Secrets used for dynamically provisioned volumes may be created in any namespace
 and referenced with the `adminSecretNamespace` parameter. Secrets used by
 pre-provisioned volumes must be created in the same namespace as the PVC that
 references it.
+
+#### Local
+
+{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
+
+This feature requires the `VolumeScheduling` feature gate to be enabled.
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: local-fast
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+```
+
+Local volumes do not support dynamic provisioning yet, however a StorageClass
+should still be created to delay volume binding until pod scheduling.  This is
+specified by the `WaitForFirstConsumer` volume binding mode.
