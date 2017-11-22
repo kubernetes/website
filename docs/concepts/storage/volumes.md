@@ -434,7 +434,12 @@ See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{page.githu
 
 ### local
 
-This volume type is alpha in 1.7.
+{% assign for_k8s_version="v1.7" %}{% include feature-state-alpha.md %}
+
+This alpha feature requires the `PersistentLocalVolumes` feature gate to be
+enabled.
+
+Starting in 1.9, the `VolumeScheduling` feature gate must also be enabled.
 
 A `local` volume represents a mounted local storage device such as a disk,
 partition or directory.
@@ -443,7 +448,7 @@ Local volumes can only be used as a statically created PersistentVolume.
 
 Compared to HostPath volumes, local volumes can be used in a durable manner
 without manually scheduling pods to nodes, as the system is aware of the volume's
-node constraints.
+node constraints by looking at the node affinity on the PersistentVolume.
 
 However, local volumes are still subject to the availability of the underlying
 node and are not suitable for all applications.
@@ -480,6 +485,13 @@ spec:
 
 **Note:** The local PersistentVolume cleanup and deletion requires manual intervention without the external provisioner.
 {: .note}
+
+Starting in 1.9, local volume binding can be delayed until pod scheduling by
+creating a StorageClass with `volumeBindingMode` set to `WaitForFirstConsumer`.
+See the [example](storage-classes.md#local).  Delaying volume binding ensures
+that the volume binding decision will also be evaluated with any other node
+constraints the pod may have, such as node resource requirements, node
+selectors, pod affinity, and pod anti-affinity.
 
 For details on the `local` volume type, see the [Local Persistent Storage
 user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).

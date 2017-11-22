@@ -78,6 +78,7 @@ for provisioning PVs. This field must be specified.
 | PortworxVolume       | &#x2713;            | [Portworx Volume](#portworx-volume)  |
 | ScaleIO              | &#x2713;            | [ScaleIO](#scaleio)                  |
 | StorageOS            | &#x2713;            | [StorageOS](#storageos)              |
+| Local                | -                   | [Local](#local)              |
 
 You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
@@ -634,3 +635,22 @@ Secrets used for dynamically provisioned volumes may be created in any namespace
 and referenced with the `adminSecretNamespace` parameter. Secrets used by
 pre-provisioned volumes must be created in the same namespace as the PVC that
 references it.
+
+#### Local
+
+{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
+
+This feature requires the `VolumeScheduling` feature gate to be enabled.
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: local-fast
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+```
+
+Local volumes do not support dynamic provisioning yet, however a StorageClass
+should still be created to delay volume binding until pod scheduling.  This is
+specified by the `WaitForFirstConsumer` volume binding mode.
