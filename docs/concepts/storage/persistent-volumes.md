@@ -70,6 +70,24 @@ Pods use claims as volumes. The cluster inspects the claim to find the bound vol
 
 Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a persistentVolumeClaim in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
 
+### Persistent Volume Claim Protection
+In case the [PVC protection alpha feature](/docs/tasks/administer-cluster/pvc-protection/) is switched on, a PVC is being actively used by a pod and a user deletes the PVC the PVC is not deleted immediately, but the PVC deletion is postponed until it is not actively used by any pods.
+
+Such situation is indicated by the `Terminating` status of the PVC and the presence of the `kubernetes.io/pvc-protection` finalizer in the `Finalizers` list as shown below:
+```shell
+kubectl described pvc hostpath
+Name:          hostpath
+Namespace:     default
+StorageClass:  example-hostpath
+Status:        Terminating
+Volume:        
+Labels:        <none>
+Annotations:   volume.beta.kubernetes.io/storage-class=example-hostpath
+               volume.beta.kubernetes.io/storage-provisioner=example.com/hostpath
+Finalizers:    [kubernetes.io/pvc-protection]
+...
+```
+
 ### Reclaiming
 
 When a user is done with their volume, they can delete the PVC objects from the API which allows reclamation of the resource. The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released of its claim. Currently, volumes can either be Retained, Recycled or Deleted.
