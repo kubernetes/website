@@ -64,11 +64,7 @@ toc:
   - docs/user-guide/jsonpath.md
   - docs/user-guide/kubectl-cheatsheet.md
 
-- title: Cloud Controller Manager
-  section:
-  - docs/reference/generated/cloud-controller-manager.md
-
-- title: Setup Tools
+- title: Setup Tools Reference
   section:
   - docs/reference/generated/kubeadm.md
   - title: Kubefed
@@ -80,7 +76,7 @@ toc:
     - docs/reference/generated/kubefed_unjoin.md
     - docs/reference/generated/kubefed_version.md
 
-- title: Config Reference
+- title: Command-line Tools Reference
   section:
   - docs/reference/generated/kubelet.md
   - docs/admin/kubelet-authentication-authorization.md
@@ -89,6 +85,7 @@ toc:
   - docs/reference/generated/kube-proxy.md
   - docs/reference/generated/kube-scheduler.md
   - docs/admin/kubelet-tls-bootstrapping.md
+  - docs/reference/generated/cloud-controller-manager.md
   - docs/reference/generated/federation-apiserver.md
   - docs/reference/generated/federation-controller-manager.md
 
