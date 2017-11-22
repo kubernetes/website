@@ -60,9 +60,25 @@ please check [kube-apiserver](/docs/admin/kube-apiserver/) documentation.
 
 ### Binding
 
-A user creates, or has already created in the case of dynamic provisioning, a `PersistentVolumeClaim` with a specific amount of storage requested and with certain access modes.  A control loop in the master watches for new PVCs, finds a matching PV (if possible), and binds them together.  If a PV was dynamically provisioned for a new PVC, the loop will always bind that PV to the PVC. Otherwise, the user will always get at least what they asked for, but the volume may be in excess of what was requested.  Once bound, `PersistentVolumeClaim` binds are exclusive, regardless of the mode used to bind them.
+A user creates, or has already created in the case of dynamic provisioning, a `PersistentVolumeClaim` with a specific amount of storage requested and with certain access modes.  A control loop in the master watches for new PVCs, finds a matching PV (if possible), and binds them together.  If a PV was dynamically provisioned for a new PVC, the loop will always bind that PV to the PVC. Otherwise, the user will always get at least what they asked for, but the volume may be in excess of what was requested.  Once bound, `PersistentVolumeClaim` binds are exclusive, regardless of how they were bound.  A PVC to PV binding is a one-to-one mapping.
 
 Claims will remain unbound indefinitely if a matching volume does not exist.  Claims will be bound as matching volumes become available.  For example, a cluster provisioned with many 50Gi PVs would not match a PVC requesting 100Gi.  The PVC can be bound when a 100Gi PV is added to the cluster.
+
+{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
+
+The new binding mode requires the `VolumeScheduling` feature gate to be enabled.
+
+Normally, volume binding occurs immediately upon PVC creation.
+However, for PVs that specify NodeAffinity, it may be beneficial to delay
+binding until there is a pod consumer that references the PVC.  This ensures
+that the volume binding decision will also be evaluated with any other node
+constraints the pod may have, such as node resource requirements, node
+selectors, pod affinity, and pod anti-affinity.  This new mode of binding is
+controlled through the `VolumeBindingMode` parameter in the
+[StorageClass](storage-classes.md#thestorageclassresource).
+
+**Note:** Dynamic provisioning is not supported yet with this alpha feature.
+{: .note}
 
 ### Using
 

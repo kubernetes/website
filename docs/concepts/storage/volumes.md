@@ -434,7 +434,10 @@ See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{page.githu
 
 ### local
 
-This volume type is alpha in 1.7.
+{% assign for_k8s_version="v1.7" %}{% include feature-state-alpha.md %}
+
+This alpha feature requires the `PersistentLocalVolumes` feature gate to be
+enabled.
 
 A `local` volume represents a mounted local storage device such as a disk,
 partition or directory.
@@ -480,6 +483,10 @@ spec:
 
 **Note:** The local PersistentVolume cleanup and deletion requires manual intervention without the external provisioner.
 {: .note}
+
+Starting in 1.9, local volume binding can be delayed by creating a StorageClass
+with `volumeBindingMode` set to `WaitForFirstConsumer`.  See the
+[example](storage-classes.md#local).
 
 For details on the `local` volume type, see the [Local Persistent Storage
 user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).
