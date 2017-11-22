@@ -39,7 +39,10 @@ different Kubernetes components.
 | `APIListChunking` | `true` | Beta | Y | | | | | | 1.9 | |
 | `APIResponseCompression` | `false` | Alpha | Y | | | | | | 1.7 | |
 | `AppArmor` | `true` | Beta | Y | | Y | | | | 1.4 | |
+| `BlockVolume` | `false` | Alpha | Y | Y | Y | | | | 1.9 | |
 | `CPUManager` | `false` | Alpha | Y | | Y | | | | 1.8 | |
+| `CSIPersistentVolume` | `false` | Alpha | Y | Y | Y | | | | 1.9 | |
+| `CustomPodDNS` | `false` | Alpha | Y | | Y | | | | 1.9 | |
 | `CustomResourceValidation` | `false` | Alpha | Y | | | | | | 1.8 | 1.8 |
 | `CustomResourceValidation` | `true` | Beta | Y | | | | | | 1.9 | |
 | `DevicePlugins` | `false` | Alpha | | | Y | | | | 1.8 | |
@@ -115,7 +118,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIListChunking`: Enable the API clients to retrieve (`LIST` or `GET`) resources from API server in chunks.
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
 - `AppArmor`: Enable AppArmor based mandatory access control on Linux nodes when using Docker.
+- `BlockVolume`: Enable the definition and consumption of raw block devices in Pods. <!-- TODO: link to doc about blockDevices -->
 - `CPUManager`: Enable container level CPU affinity support, see [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
+- `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
+  [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
+  compatible volume plugin. <!-- TODO: link to doc about CSI -->
+- `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property. <!-- TODO: link to doc about dnsConfig -->
 - `CustomeResourceValidation`: Enable schema based validation on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/) based resource provisioning on nodes.
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
