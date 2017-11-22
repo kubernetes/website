@@ -241,6 +241,8 @@ options ndots:5
 
 ### DNS Policy
 
+TODO(MrHohn): Add information about custom pod DNS here.
+
 By default, DNS policy for a pod is 'ClusterFirst'. So pods running with hostNetwork cannot resolve DNS names. To have DNS options set along with hostNetwork, you should specify DNS policy explicitly to 'ClusterFirstWithHostNet'. Update the busybox.yaml as following:
 
 ```yaml
