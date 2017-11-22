@@ -31,7 +31,7 @@ administrator to control the following:
 | Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
 | Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
 | The user and group IDs of the container             | [`runAsUser`, `supplementalGroups`](#users-and-groups) |
-| Restricting root privileges                         | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
+| Restricting escalation to root privileges           | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
 | Linux capabilities                                  | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
 | The SELinux context of the container                | [`seLinux`](#selinux)                       |
 | The AppArmor profile used by containers             | [annotations](#apparmor)                    |
@@ -173,7 +173,7 @@ simply prevents the creation of privileged pods.
 
 {% include code.html language="yaml" file="example-psp.yaml" ghlink="/docs/concepts/policy/example-psp.yaml" %}
 
-And create it with the standard `kubectl` command:
+And create it with kubectl:
 
 ```shell
 $ kubectl-admin create -f example-psp.yaml
@@ -181,7 +181,7 @@ $ kubectl-admin create -f example-psp.yaml
 
 Now, as the unprivileged user, try to create a simple pod:
 
-```
+```shell
 $ kubectl-user create -f- <<EOF
 apiVersion: v1
 kind: Pod
@@ -278,7 +278,7 @@ LASTSEEN   FIRSTSEEN   COUNT     NAME              KIND         SUBOBJECT       
 1m         2m          15        pause-7774d79b5   ReplicaSet                            Warning   FailedCreate            replicaset-controller                   Error creating: pods "pause-7774d79b5-" is forbidden: no providers available to validate pod request
 ```
 
-**What happened?** We already bound the psp:unprivileged role for our fake-user,
+**What happened?** We already bound the `psp:unprivileged` role for our `fake-user`,
 why are we getting the error `Error creating: pods "pause-7774d79b5-" is
 forbidden: no providers available to validate pod request`? The answer lies in
 the source - `replicaset-controller`. Fake-user successfully created the
@@ -346,7 +346,7 @@ several security mechanisms.
 
 **HostPID** - Controls whether the pod containers can share the host process ID
 namespace. Note that when paired with ptrace this can be used to escalate
-privileges outside of the container.
+privileges outside of the container (ptrace is forbidden by default).
 
 **HostIPC** - Controls whether the pod containers can share the host IPC
 namespace.
@@ -365,39 +365,19 @@ and `max`(inclusive). Defaults to no allowed host ports.
 ### Volumes and file systems
 
 **Volumes** - Provides a whitelist of allowed volume types. The allowable values
-correspond to the volume sources that are defined when creating a volume:
+correspond to the volume sources that are defined when creating a volume. For
+the complete list of volume types, see [Types of
+Volumes](/docs/concepts/storage/volumes/#types-of-volumes). Additionally, `*`
+may be used to allow all volume types.
 
-1. azureFile
-1. azureDisk
-1. flocker
-1. flexVolume
-1. hostPath
-1. emptyDir
-1. gcePersistentDisk
-1. awsElasticBlockStore
-1. gitRepo
-1. secret
-1. nfs
-1. iscsi
-1. glusterfs
-1. persistentVolumeClaim
-1. rbd
-1. cinder
-1. cephFS
-1. downwardAPI
-1. fc
-1. configMap
-1. vsphereVolume
-1. quobyte
-1. photonPersistentDisk
-1. projected
-1. portworxVolume
-1. scaleIO
-1. storageos
-1. \* (allow all volumes)
+The **recommended minimum set** of allowed volumes for new PSPs are:
 
-The recommended minimum set of allowed volumes for new PSPs are
-configMap, downwardAPI, emptyDir, persistentVolumeClaim, secret, and projected.
+- configMap
+- downwardAPI
+- emptyDir
+- persistentVolumeClaim
+- secret
+- projected
 
 **FSGroup** - Controls the supplemental group applied to some volumes.
 
@@ -407,9 +387,9 @@ first ID in the first range.
 - *RunAsAny* - No default provided. Allows any `fsGroup` ID to be specified.
 
 **AllowedHostPaths** - This specifies a whitelist of host paths that are allowed
-to be used by HostPath volumes. An empty list means there is no restriction on
+to be used by hostPath volumes. An empty list means there is no restriction on
 host paths used. This is defined as a list of objects with a single `pathPrefix`
-field, which allows HostPath volumes to mount a path that begins with an
+field, which allows hostPath volumes to mount a path that begins with an
 allowed prefix. For example:
 
 ```yaml
@@ -434,9 +414,9 @@ root filesystem (i.e. no writeable layer).
 - *MustRunAs* - Requires a `range` to be configured. Uses the first value
 of the range as the default. Validates against the configured range.
 - *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
-`runAsUser` or have the `USER` directive defined in the image. No default
-provided. Setting `AllowPrivilegeEscalation=false` is strongly recommended with
-this strategy.
+`runAsUser` or have the `USER` directive defined (using a numeric UID) in the
+image. No default provided. Setting `AllowPrivilegeEscalation=false` is strongly
+recommended with this strategy.
 - *RunAsAny* - No default provided. Allows any `runAsUser` to be specified.
 
 **SupplementalGroups** - Controls which group IDs containers add.
@@ -477,7 +457,7 @@ Linux capabilities provide a finer grained breakdown of the privileges
 traditionally associated with the superuser. Some of these capabilities can be
 used to escalate privileges or for container breakout, and may be restricted by
 the PodSecurityPolicy. For more details on Linux capabilities, see
-[Capabilities(7)](http://man7.org/linux/man-pages/man7/capabilities.7.html).
+[capabilities(7)](http://man7.org/linux/man-pages/man7/capabilities.7.html).
 
 The following fields take a list of capabilities, specified as the capability
 name in ALL_CAPS without the `CAP_` prefix.
@@ -485,7 +465,7 @@ name in ALL_CAPS without the `CAP_` prefix.
 **AllowedCapabilities** - Provides a whitelist of capabilities that may be added
 to a container. The default set of capabilities are implicitly allowed. The
 empty set means that no additional capabilities may be added beyond the default
-set.
+set. `*` can be used to allow all capabilities.
 
 **RequiredDropCapabilities** - The capabilities which must be dropped from
 containers. These capabilities are removed from the default set, and must not be
@@ -493,22 +473,9 @@ added. Capabilities listed in `RequiredDropCapabilities` must not be included in
 `AllowedCapabilities` or `DefaultAddCapabilities`.
 
 **DefaultAddCapabilities** - The capabilities which are added to containers by
-default, in addition to the runtime defaults. The Docker runtime defaults are:
-
-- `AUDIT_WRITE`
-- `CHOWN`
-- `DAC_OVERRIDE`
-- `FOWNER`
-- `FSETID`
-- `KILL`
-- `MKNOD`
-- `NET_BIND_SERVICE`
-- `NET_RAW`
-- `SETFCAP`
-- `SETGID`
-- `SETPCAP`
-- `SETUID`
-- `SYS_CHROOT`
+default, in addition to the runtime defaults. See the [Docker
+documentation](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities)
+for the default list of capabilities when using the Docker runtime.
 
 ### SELinux
 
