@@ -462,11 +462,14 @@ process of a container can gain more privileges than its parent.
 
 **AllowPrivilegeEscalation** - Gates whether or not a user is allowed to set the
 security context of a container to `allowPrivilegeEscalation=true`. This
-defaults to allowed.
+defaults to allowed. When set to false, the container's `allPrivilegeEscalation`
+is defaulted to false.
 
 **DefaultAllowPrivilegeEscalation** - Sets the default for the
-`AllowPrivilegeEscalation` option. The default behavior is to allow privilege
-escalation so as to not break setuid binaries.
+`AllowPrivilegeEscalation` option. The default behavior without this is to allow
+privilege escalation so as to not break setuid binaries. If that behavior is not
+desired, this field can be used to default to disallow, while still permitting
+pods to request `AllowPrivilegeEscalation` explicitly.
 
 ### Capabilities
 
