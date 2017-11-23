@@ -397,6 +397,12 @@ information, please see the
 [naming rules and customization](#naming-rules-and-customization)
 section below.
 
+For GKE kubernetes cluster, you should create a clusterrolebinfing for your currently active gcloud account email before join the cluster, otherwise you can't join the cluster:
+
+```shell
+kubectl create clusterrolebinding <clusterrolebindingname> --clusterrole=cluster-admin --user=<gcloud email account> --context=fellowship
+```
+
 The following example command adds the cluster `gondor` to the
 federation running on host cluster `rivendell`:
 
