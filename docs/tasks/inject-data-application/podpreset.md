@@ -20,17 +20,43 @@ You can get an overview of PodPresets at
 This is a simple example to show how a Pod spec is modified by the Pod
 Preset.
 
-**User submitted pod spec:**
+{% include code.html language="yaml" file="podpreset-preset.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-preset.yaml" %}
+
+1. Create above PodPreset
+
+		kubectl create -f https://k8s.io/docs/tasks/inject-data-application/podpreset-preset.yaml
+
+
+1. See the created PodPreset
+
+		$ kubectl get podpreset
+		NAME             AGE
+		allow-database   1m
+
+	Create above PodPreset, now any pod that has label `role: frontend` will have this
+	PodPreset acted upon.
 
 {% include code.html language="yaml" file="podpreset-pod.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-pod.yaml" %}
 
-**Example Pod Preset:**
+1. Create Pod
 
-{% include code.html language="yaml" file="podpreset-preset.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-preset.yaml" %}
+		kubectl create -f https://k8s.io/docs/tasks/inject-data-application/podpreset-pod.yaml
+
+1. List the running Pods:
+
+		$ kubectl get pods
+		NAME      READY     STATUS    RESTARTS   AGE
+		website   1/1       Running   0          4m
+
 
 **Pod spec after admission controller:**
 
 {% include code.html language="yaml" file="podpreset-merged.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-merged.yaml" %}
+
+To see above output, run following command
+
+		kubectl get pod website -o yaml
+
 
 ### Pod Spec with `ConfigMap` Example
 
