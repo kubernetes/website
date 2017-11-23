@@ -857,21 +857,24 @@ Secrets used for dynamically provisioned volumes may be created in any namespace
 If you're writing configuration templates or examples that run on a wide range of clusters
 and need persistent storage, we recommend that you use the following pattern:
 
-- Do include PersistentVolumeClaim objects in your bundle of config (alongside Deployments, ConfigMaps, etc).
-- Do not include PersistentVolume objects in the config, since the user instantiating the config may not have
-  permission to create PersistentVolumes.
-- Give the user the option of providing a storage class name when instantiating the template.
-  - If the user provides a storage class name, and the cluster is version 1.4 or newer, put that value into the `volume.beta.kubernetes.io/storage-class` annotation of the PVC.
-    This will cause the PVC to match the right storage class if the cluster has StorageClasses enabled by the admin.
-  - If the user does not provide a storage class name or the cluster is version 1.3, then instead put a `volume.alpha.kubernetes.io/storage-class: default` annotation on the PVC.
-    - This will cause a PV to be automatically provisioned for the user with sane default characteristics on some clusters.
-    - Despite the word `alpha` in the name, the code behind this annotation has `beta` level support.
-    - Do not use `volume.beta.kubernetes.io/storage-class:` with any value including the empty string since it will prevent DefaultStorageClass admission controller
-      from running if enabled.
-- In your tooling, do watch for PVCs that are not getting bound after some time and surface this to the user, as this may indicate that the cluster has no dynamic
-  storage support (in which case the user should create a matching PV) or the cluster has no storage system (in which case the user cannot deploy config requiring
-  PVCs).
-- In the future, we expect most clusters to have `DefaultStorageClass` enabled, and to have some form of storage available.  However, there may not be any
-  storage class names which work on all clusters, so continue to not set one by default.
-  At some point, the alpha annotation will cease to have meaning, but the unset `storageClass` field on the PVC
-  will have the desired effect.
+- Do include PersistentVolumeClaim objects in your bundle of config (alongside
+  Deployments, ConfigMaps, etc).
+- Do not include PersistentVolume objects in the config, since the user instantiating
+  the config may not have permission to create PersistentVolumes.
+- Give the user the option of providing a storage class name when instantiating
+  the template.
+  - If the user provides a storage class name, put that value into the
+    `persistentVolumeClaim.storageClassName` field.
+    This will cause the PVC to match the right storage
+    class if the cluster has StorageClasses enabled by the admin.
+  - If the user does not provide a storage class name, leave the 
+    `persistentVolumeClaim.storageClassName` field as nil.
+    - This will cause a PV to be automatically provisioned for the user with
+      the default StorageClass in the cluster.  Many cluster environments have
+      a default StorageClass installed, or administrators can create their own
+      default StorageClass.
+- In your tooling, do watch for PVCs that are not getting bound after some time
+  and surface this to the user, as this may indicate that the cluster has no
+  dynamic storage support (in which case the user should create a matching PV)
+  or the cluster has no storage system (in which case the user cannot deploy
+  config requiring PVCs).
