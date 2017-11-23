@@ -185,21 +185,13 @@ default is `"None"`), and you can set the max session sticky time by setting the
 ### Proxy-mode: iptables
 
 In this mode, kube-proxy watches the Kubernetes master for the addition and
-removal of `Service` and `Endpoints` objects. For each `Service` it installs
+removal of `Service` and `Endpoints` objects. For each `Service`, it installs
 iptables rules which capture traffic to the `Service`'s `clusterIP` (which is
 virtual) and `Port` and redirects that traffic to one of the `Service`'s
-backend sets.  For each `Endpoints` object it installs iptables rules which
-select a backend `Pod`.
+backend sets.  For each `Endpoints` object, it installs iptables rules which
+select a backend `Pod`.By default, the choice of backend is random.  
 
-By default, the choice of backend is random.  Client-IP based session affinity
-can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
-default is `"None"`), and you can set the max session sticky time by setting the field
-`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set
-`service.spec.sessionAffinity` to `"ClientIP"` (the default is "10800").
-
-As with the userspace proxy, the net result is that any traffic bound for the
-`Service`'s IP:Port is proxied to an appropriate backend without the clients
-knowing anything about Kubernetes or `Services` or `Pods`. This should be
+Obviously, iptables need not switch back between userspace and kernelspace, it should be
 faster and more reliable than the userspace proxy. However, unlike the
 userspace proxier, the iptables proxier cannot automatically retry another
 `Pod` if the one it initially selects does not respond, so it depends on
@@ -231,7 +223,7 @@ options for load balancing algorithm, such as:
 - nq: never queue
 
 **Note:** ipvs mode assumed IPVS kernel modules are installed on the node
-before running kube-proxy. When kube-proxy starts, if proxy mode is ipvs,
+before running kube-proxy. When kube-proxy starts with ipvs proxy mode,
 kube-proxy would validate if IPVS modules are installed on the node, if
 it's not installed kube-proxy will fall back to iptables proxy mode.
 
@@ -707,6 +699,10 @@ work, and the client IP is not altered.
 
 This same basic flow executes when traffic comes in through a node-port or
 through a load-balancer, though in those cases the client IP does get altered.
+
+#### Ipvs
+
+The same as Iptables mostly, the most different thing is that  ipvs use hash table as the underlying data structure, making less routing rules and faster than iptables.
 
 ## API Object
 
