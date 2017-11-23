@@ -37,13 +37,7 @@ This is a living document. If you think of something that is not on this list bu
 
 ## Services
 
-- It's typically best to create a [service](/docs/concepts/services-networking/service/) before corresponding [replication controllers](/docs/concepts/workloads/controllers/replicationcontroller/). This lets the scheduler spread the pods that comprise the service.
-
-  You can also use this process to ensure that at least one replica works before creating lots of them:
-
-    1. Create a replication controller without specifying replicas (this will set replicas=1);
-    2. Create a service;
-    3. Then scale up the replication controller.
+- It's typically best to create a [service](/docs/concepts/services-networking/service/) before the corresponding [replication controllers](/docs/concepts/workloads/controllers/replicationcontroller/). This lets the scheduler spread the pods that comprise the service.
 
 - Don't use `hostPort` unless it is absolutely necessary (for example: for a node daemon). It specifies the port number to expose on the host. When you bind a Pod to a `hostPort`, there are a limited number of places to schedule a pod due to port conflicts— you can only schedule as many such Pods as there are nodes in your Kubernetes cluster.
 
