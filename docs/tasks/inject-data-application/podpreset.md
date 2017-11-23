@@ -22,41 +22,47 @@ Preset.
 
 {% include code.html language="yaml" file="podpreset-preset.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-preset.yaml" %}
 
-1. Create above PodPreset
+1. Create the PodPreset:
 
-		kubectl create -f https://k8s.io/docs/tasks/inject-data-application/podpreset-preset.yaml
+```shell
+kubectl create -f https://k8s.io/docs/tasks/inject-data-application/podpreset-preset.yaml
+```
 
+1. Examine the created PodPreset:
 
-1. See the created PodPreset
+```shell
+kubectl get podpreset
+NAME             AGE
+allow-database   1m
+```
 
-		$ kubectl get podpreset
-		NAME             AGE
-		allow-database   1m
-
-	Create above PodPreset, now any pod that has label `role: frontend` will have this
-	PodPreset acted upon.
+   The new PodPreset will act upon any pod that has label `role: frontend`.
 
 {% include code.html language="yaml" file="podpreset-pod.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-pod.yaml" %}
 
 1. Create Pod
 
-		kubectl create -f https://k8s.io/docs/tasks/inject-data-application/podpreset-pod.yaml
+```shell
+kubectl create -f https://k8s.io/docs/tasks/inject-data-application/podpreset-pod.yaml
+```
 
 1. List the running Pods:
 
-		$ kubectl get pods
-		NAME      READY     STATUS    RESTARTS   AGE
-		website   1/1       Running   0          4m
-
+```shell
+kubectl get pods
+NAME      READY     STATUS    RESTARTS   AGE
+website   1/1       Running   0          4m
+```
 
 **Pod spec after admission controller:**
 
 {% include code.html language="yaml" file="podpreset-merged.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-merged.yaml" %}
 
-To see above output, run following command
+To see above output, run the following command:
 
-		kubectl get pod website -o yaml
-
+```shell
+kubectl get pod website -o yaml
+```
 
 ### Pod Spec with `ConfigMap` Example
 
