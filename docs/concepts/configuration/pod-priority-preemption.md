@@ -39,7 +39,7 @@ The following sections provide more information about these steps.
 ## Enabling priority and preemption
 
 Pod priority and preemption is disabled by default in Kubernetes 1.8.
-To enable the feature, set this command-line flag for the API server,scheduler and kubelet:
+To enable the feature, set this command-line flag for the API server, scheduler and kubelet:
 
 ```
 --feature-gates=PodPriority=true
