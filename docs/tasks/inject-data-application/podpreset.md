@@ -22,13 +22,13 @@ Preset.
 
 {% include code.html language="yaml" file="podpreset-preset.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-preset.yaml" %}
 
-1. Create the PodPreset:
+Create the PodPreset:
 
 ```shell
 kubectl create -f https://k8s.io/docs/tasks/inject-data-application/podpreset-preset.yaml
 ```
 
-1. Examine the created PodPreset:
+Examine the created PodPreset:
 
 ```shell
 kubectl get podpreset
@@ -36,17 +36,17 @@ NAME             AGE
 allow-database   1m
 ```
 
-   The new PodPreset will act upon any pod that has label `role: frontend`.
+The new PodPreset will act upon any pod that has label `role: frontend`.
 
 {% include code.html language="yaml" file="podpreset-pod.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-pod.yaml" %}
 
-1. Create Pod
+Create a pod:
 
 ```shell
 kubectl create -f https://k8s.io/docs/tasks/inject-data-application/podpreset-pod.yaml
 ```
 
-1. List the running Pods:
+List the running Pods:
 
 ```shell
 kubectl get pods
