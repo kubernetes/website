@@ -119,11 +119,7 @@
       </ul>
       
   <p>
-    To provide configuration data for your application, you can specify Kubernetes environment variables as part of the container definition in your Deployment manifest. But to manage configuration data without having to rebuild your container or modify your Deployment, you can also use a ConfigMap for non-confidential data, or a Secret for confidential data.
-    <ul>
-      <li><a href="https://kubernetes.io/docs/tasks/configure-pod-container/configmap/">Explore ConfigMaps</a></li>
-      <li><a href="https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/">Explore Secrets</a></li>
-    </ul>
+    To provide configuration data for your application, you can specify Kubernetes environment variables as part of the container definition in your Deployment manifest. But to manage configuration data without having to rebuild your container or modify your Deployment, you can also <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configmap/">use a ConfigMap</a> for non-confidential data, or <a href="https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/">a Secret</a> for confidential data.
   </p>
 
   <!--resource for re-doing docs: https://medium.com/google-cloud/kubernetes-configmaps-and-secrets-68d061f7ab5b -->
