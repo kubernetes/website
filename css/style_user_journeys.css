@@ -126,14 +126,15 @@ width:80%;
 }
 
 .docssectionheaders {
- background-color: #ffffff !important;
+ background-color: #eeeeee !important;
  color:#3371e3;
  font-family: 'roboto';
  text-align:center;
  padding:3%;
 
+
  font-weight:100;
- font-size:22pt;
+ font-size:18pt;
  letter-spacing:0.06em;
 }
 
@@ -162,9 +163,9 @@ float:left;
 background-color:#ffffff;
 border:1px solid #aaaaaa;
 padding:2%;
-width:30% !important;
+width:27% !important;
 float:left;
-margin-right:1%;
+margin-right:2%;
 display:inline-block;
 
 }
@@ -181,10 +182,11 @@ border:1px solid blue;
 
 .docscoltitle {
 float:left;
-padding-top:2%;
+padding-top:%;
 margin-right:2%;
 padding-bottom:3%;
-font-size:12pt;
+font-size:16pt;
+line-height:20pt;
 font-weight:400;
 color:#3371e3;
 
@@ -202,7 +204,7 @@ color:#3371e3;
   width:95%;
   padding:2%;
   background-color:#eeeeee;
-margin:3%;
+  margin:3%;
 }
 
 .docsfullcol3 {
@@ -229,6 +231,25 @@ text-align:center;
 font-weight:400;
 padding-top:2%;
 color:#3371e3;
+}
+
+.docsButton {
+
+    background-color:#3371e3;
+    color:white;
+    border: 2px solid #ffffff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; /* future proofing */
+    -khtml-border-radius: 5px; /* for old Konqueror browsers */
+    border: 2px solid #ffffff;
+    padding:1%;
+    text-decoration:none;
+    margin:%;
+  }
+
+
+
 }
 
 .material-icons {
@@ -655,6 +676,7 @@ font-size:24px;
   letter-spacing:0.05em;
   line-height:22px;
   width:75%;
+
   margin-left:10%;
 
 
@@ -689,12 +711,12 @@ font-size:24px;
 .track {
   background-color:#3371e3;
   font-family: 'roboto';
-  padding:1.5%;
+  padding:1%;
   color:white;
   font-weight:500;
   text-align:center;
   text-transform:uppercase;
-  font-size:18px;
+  font-size:16px;
   letter-spacing:0.05em;
   line-height:22px;
   width:100%;
