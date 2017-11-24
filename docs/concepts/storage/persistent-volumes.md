@@ -54,7 +54,7 @@ dynamic provisioning for themselves.
 To enable dynamic storage provisioning based on storage class, the cluster administrator
 needs to enable the `DefaultStorageClass` [admission controller](/docs/admin/admission-controllers/#defaultstorageclass)
 on the API server. This can be done, for example, by ensuring that `DefaultStorageClass` is
-among the comma-delimited, ordered list of values for the `--admission-control` flag of 
+among the comma-delimited, ordered list of values for the `--admission-control` flag of
 the API server component. For more information on API server command line flags,
 please check [kube-apiserver](/docs/admin/kube-apiserver/) documentation.
 
@@ -79,8 +79,8 @@ When a user is done with their volume, they can delete the PVC objects from the 
 The Retain reclaim policy allows for manual reclamation of the resource. When the `PersistentVolumeClaim` is deleted, the `PersistentVolume` still exists and the volume is considered "released". But it is not yet available for another claim because the previous claimant's data remains on the volume. An administrator can manually reclaim the volume with the following steps.
 
 1. Delete the `PersistentVolume`. The associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume) still exists after the PV is deleted.
-1. Manually clean up the data on the associated storage asset accordingly.
-1. Manually delete the associated storage asset, or if you want to reuse the same storage asset, create a new `PersistentVolume` with the storage asset definition.
+2. Manually clean up the data on the associated storage asset accordingly.
+3. Manually delete the associated storage asset, or if you want to reuse the same storage asset, create a new `PersistentVolume` with the storage asset definition.
 
 #### Recycling
 
@@ -417,8 +417,6 @@ spec:
 
 `PersistentVolumes` binds are exclusive, and since `PersistentVolumeClaims` are namespaced objects, mounting claims with "Many" modes (`ROX`, `RWX`) is only possible within one namespace.
 
-``
-
 ## Writing Portable Configuration
 
 If you're writing configuration templates or examples that run on a wide range of clusters
@@ -455,4 +453,3 @@ and need persistent storage, we recommend that you use the following pattern:
   default.
   At some point, the alpha annotation will cease to have meaning, but the unset
   `storageClass` field on the PVC will have the desired effect.
-
