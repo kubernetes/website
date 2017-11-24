@@ -285,6 +285,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"../docs/concepts/services-networking": {
 			"curlpod":          {&extensions.Deployment{}},
+			"custom-dns":		{&api.Pod{}},
 			"hostaliases-pod":  {&api.Pod{}},
 			"ingress":          {&extensions.Ingress{}},
 			"nginx-secure-app": {&api.Service{}, &extensions.Deployment{}},
