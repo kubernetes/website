@@ -89,7 +89,12 @@ apt-get install -y docker.io
 or install Docker CE 17.09 from Docker's repositories for Ubuntu or Debian:
 
 ```bash
-apt-get update && apt-get install -y curl apt-transport-https
+apt-get update
+apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
@@ -130,6 +135,9 @@ as Docker (e.g. `cgroupfs`).
 {% assign tab_contents = site.emptyArray | push: docker_ubuntu | push: docker_centos %}
 
 {% include tabs.md %}
+
+Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
+for more information.
 
 ## Installing kubeadm, kubelet and kubectl
 
