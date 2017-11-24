@@ -90,7 +90,7 @@ or install Docker CE 17.09 from Docker's repositories for Ubuntu or Debian:
 
 ```bash
 apt-get update
-apt-get install \
+apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
