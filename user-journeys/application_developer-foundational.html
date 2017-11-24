@@ -103,19 +103,32 @@
   <ul>
     <li>A Volume lets you define storage for your cluster that is tied to the lifecycle of a Pod. It is therefore more persistent than container storage. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-volume-storage/">how to configure volume storage</a>, or <a href="https://kubernetes.io/docs/concepts/storage/volumes/">read more about about volume storage</a>.</li>
     <li>A PersistentVolume and PersistentVolumeClaim let you define storage at the cluster level. Typically a cluster administrator defines the PersistentVolume objects for the cluster, and cluster users (application developers, you) define the PersistentVolumeClaim objects that your application requires. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/">how to set up persistent storage for your cluster</a> or <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">read more about persistent volumes</a>.</li>
-    <li>Q: mention also projected volumes? This seems more specialized, might be distracting?<!--https://github.com/kubernetes/website/issues/4514 --></li>
+    <!--<li>Q: mention also projected volumes? This seems more specialized, might be distracting?https://github.com/kubernetes/website/issues/4514 </li>-->
   </ul>
 
   <p>Labels let you specify identifying information for Kubernetes objects, such as pods, that you define. This information is entirely user-defined, and is used to sort and select sets of objects.</p>
 
       <ul>
-        <li>https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+        <li>When you <a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/">create a basic nginx Deployment</a>, you specify the <code>app: nginx</code>label as part of the template metadata. The <code>matchLabels</code> selector then specifies this label as part of the spec.</li>
+        
+        <li><a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/">More about labels</a>
         </li>
+        <li>You also specify labels to customize your cluster, for example by <a href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/">assigning pods to nodes</a>.</li>
         <li>https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/</li>
-        <li>https://kubernetes.io/docs/concepts/configuration/assign-pod-node/</li>
+        
       </ul>
       
-  <p>Note that ingress provides networking between your cluster and the outside world. A production cluster should also configure networking between containers and between nodes, which is <a href="https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/">defined in a network policy</a>. <!-- See also:</p>
+  <p>
+    To provide configuration data for your application, you can specify Kubernetes environment variables as part of the container definition in your Deployment manifest. But to manage configuration data without having to rebuild your container or modify your Deployment, you can also use a ConfigMap for non-confidential data, or a Secret for confidential data.
+    <ul>
+      <li><a href="https://kubernetes.io/docs/tasks/configure-pod-container/configmap/">Explore ConfigMaps</a></li>
+      <li><a href="https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/">Explore Secrets</a></li>
+    </ul>
+  </p>
+
+  <!--resource for re-doing docs: https://medium.com/google-cloud/kubernetes-configmaps-and-secrets-68d061f7ab5b -->
+  
+      <p>Note that ingress provides networking between your cluster and the outside world. A production cluster should also configure networking between containers and between nodes, which is <a href="https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/">defined in a network policy</a>. <!-- See also:</p>
       <ul>
         <li><a href="https://kubernetes.io/docs/concepts/services-networking/network-policies/">More information about network policies</a>.</li>
         <li><a href="https://kubernetes.io/docs/concepts/cluster-administration/networking/">And too much information about network policies</a>.
@@ -124,11 +137,7 @@
       </ul>
         https://github.com/kubernetes/website/issues/4509 and https://github.com/kubernetes/website/pull/4355 -->
       
-      <!--Also useful content (with again overlapping material): <a href="https://kubernetes.io/docs/user-guide/walkthrough/">Kubernetes 101</a> - explores kubectl, pods, volumes, multiple containers
-
-        <p>TODO: identify all possible related content, do content analysis, plan new IA</p>
-        <p>TODO: ConfigMap, Secrets (do we need/want secrets for this persona?)</p>
-        <p>TODO: Update application</p>-->
+      <!--Also useful content (with again overlapping material): <a href="https://kubernetes.io/docs/user-guide/walkthrough/">Kubernetes 101</a> - explores kubectl, pods, volumes, multiple containers-->
       </div>
 
       <div class="topheader" id="3">
