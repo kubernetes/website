@@ -38,7 +38,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 1. Create a Kubernetes service account in your namespace.
 1. Create a Kubernetes cluster role for the operations you want to allow on your resources.
 1. Create a Kubernetes cluster role binding from the default service account in your namespace to the cluster role you just created.
-1. Create a Kubernetes apiservice. The CA cert above should be base 64 encoded, stripped of new lines and used as the spec.caBundle in the apiservce.  This should not be namespaced.
+1. Create a Kubernetes apiservice. The CA cert above should be base 64 encoded, stripped of new lines and used as the spec.caBundle in the apiservice.  This should not be namespaced.
 1. Use kubectl to get your resource. It should return "No resources found." Which means that everything worked but you currently have no objects of that resource type created yet.
 
 {% endcapture %}
