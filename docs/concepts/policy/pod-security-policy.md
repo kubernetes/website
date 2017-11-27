@@ -40,7 +40,8 @@ administrator to control the following:
 
 ## Enabling Pod Security Policies
 
-Pod security policy control is implemented as an optional [admission
+Pod security policy control is implemented as an optional (but recommended)
+[admission
 controller](/docs/admin/admission-controllers/#podsecuritypolicy). PodSecurityPolicies
 are enforced by [enabling the admission
 controller](/docs/admin/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in),
@@ -59,13 +60,13 @@ it, the requesting user or target pod's [service
 account](/docs/tasks/configure-pod-container/configure-service-account/) must be
 authorized to use the policy, by allowing the `use` verb on the policy.
 
-Most Kubernetes pods are not created directly by user. Instead, they are
+Most Kubernetes pods are not created directly by users. Instead, they are
 typically created indirectly as part of a
 [Deployment](/docs/concepts/workloads/controllers/deployment/),
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/), or other
 templated controller via the controller manager. Granting the controller access
 to the policy would grant access for *all* pods created by that the controller,
-so the preferable method for authorizing policies is to grant access to the
+so the preferred method for authorizing policies is to grant access to the
 pod's service account (see [example](#run-another-pod)).
 
 ### Via RBAC
@@ -130,12 +131,22 @@ Examples](docs/admin/authorization/rbac/#role-binding-examples). For a complete
 example of authorizing a PodSecurityPolicy, see
 [below](#example).
 
+
+### Troubleshooting
+
+- The [Controller Manager](/docs/admin/kube-controller-manager/) must be run
+against [the secured API port](/docs/admin/accessing-the-api/), and must not
+have superuser permissions. Otherwise requests would bypass authentication and
+authorization modules, all PodSecurityPolicy objects would be allowed, and users
+would be able to create privileged containers. For more details on configuring
+Controller Manager authorization, see [Controller
+Roles](docs/admin/authorization/rbac/#controller-roles).
+
 ## Policy Order
 
 In addition to restricting pod creation and update, pod security policies can
 also be used to provide default values for many of the fields that it
-controls. However, this presents a problem when multiple policies are available
-that provide conflicting defaults. To work around this, the pod security policy
+controls. When multiple policies are available, the pod security policy
 controller selects policies in the following order:
 
 1. If any policies successfully validate the pod without altering it, they are
@@ -149,7 +160,7 @@ admission controller enabled and you have cluster admin privileges._
 
 ### Set up
 
-Setup a namespace and a service account to act as for this example. We'll use
+Set up a namespace and a service account to act as for this example. We'll use
 this service account to mock a non-admin user.
 
 ```shell
@@ -196,10 +207,10 @@ Error from server (Forbidden): error when creating "STDIN": pods "pause" is forb
 ```
 
 **What happened?** Although the PodSecurityPolicy was created, neither the
-created pod nor `fake-user` have permission to use the new policy:
+pod's service account nor `fake-user` have permission to use the new policy:
 
 ```shell
-$ kubectl-user auth can-i use podsecuritypolicy/example.unprivileged
+$ kubectl-user auth can-i use podsecuritypolicy/example
 no
 ```
 
@@ -213,13 +224,13 @@ for the preferred approach._
 $ kubectl-admin create role psp:unprivileged \
     --verb=use \
     --resource=podsecuritypolicy \
-    --resource-name=example.unprivileged
+    --resource-name=example
 role "psp:unprivileged" created
 $ kubectl-admin create rolebinding fake-user:psp:unprivileged \
     --role=psp:unprivileged \
     --serviceaccount=psp-example:fake-user
 rolebinding "fake-user:psp:unprivileged" created
-$ kubectl-user auth can-i use podsecuritypolicy/example.unprivileged
+$ kubectl-user auth can-i use podsecuritypolicy/example
 yes
 ```
 
@@ -323,8 +334,8 @@ Note that `PodSecurityPolicy` resources are not namespaced, and must be cleaned
 up separately:
 
 ```shell
-$ kubectl-admin delete psp example.unprivileged
-podsecuritypolicy "example.unprivileged" deleted
+$ kubectl-admin delete psp example
+podsecuritypolicy "example" deleted
 ```
 
 ### Example Policies
@@ -381,9 +392,8 @@ The **recommended minimum set** of allowed volumes for new PSPs are:
 
 **FSGroup** - Controls the supplemental group applied to some volumes.
 
-- *MustRunAs* - Requires at least one range to be specified. Uses the
-minimum value of the first range as the default. Validates against the
-first ID in the first range.
+- *MustRunAs* - Requires at least one `range` to be specified. Uses the
+minimum value of the first range as the default. Validates against all ranges.
 - *RunAsAny* - No default provided. Allows any `fsGroup` ID to be specified.
 
 **AllowedHostPaths** - This specifies a whitelist of host paths that are allowed
@@ -411,24 +421,24 @@ root filesystem (i.e. no writeable layer).
 
 **RunAsUser** - Controls the what user ID containers run as.
 
-- *MustRunAs* - Requires a `range` to be configured. Uses the first value
-of the range as the default. Validates against the configured range.
+- *MustRunAs* - Requires at least one `range` to be specified. Uses the
+minimum value of the first range as the default. Validates against all ranges.
 - *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
 `runAsUser` or have the `USER` directive defined (using a numeric UID) in the
-image. No default provided. Setting `AllowPrivilegeEscalation=false` is strongly
+image. No default provided. Setting `allowPrivilegeEscalation=false` is strongly
 recommended with this strategy.
 - *RunAsAny* - No default provided. Allows any `runAsUser` to be specified.
 
 **SupplementalGroups** - Controls which group IDs containers add.
 
-- *MustRunAs* - Requires at least one range to be specified. Uses the
+- *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
 - *RunAsAny* - No default provided. Allows any `supplementalGroups` to be
 specified.
 
 ### Privilege Escalation
 
-These options control the `AllowPrivilegeEscalation` container option. This bool
+These options control the `allowPrivilegeEscalation` container option. This bool
 directly controls whether the
 [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)
 flag gets set on the container process. This flag will prevent `setuid` binaries
@@ -442,14 +452,14 @@ process of a container can gain more privileges than its parent.
 
 **AllowPrivilegeEscalation** - Gates whether or not a user is allowed to set the
 security context of a container to `allowPrivilegeEscalation=true`. This
-defaults to allowed. When set to false, the container's `allPrivilegeEscalation`
-is defaulted to false.
+defaults to allowed. When set to false, the container's
+`allowPrivilegeEscalation` is defaulted to false.
 
 **DefaultAllowPrivilegeEscalation** - Sets the default for the
-`AllowPrivilegeEscalation` option. The default behavior without this is to allow
+`allowPrivilegeEscalation` option. The default behavior without this is to allow
 privilege escalation so as to not break setuid binaries. If that behavior is not
 desired, this field can be used to default to disallow, while still permitting
-pods to request `AllowPrivilegeEscalation` explicitly.
+pods to request `allowPrivilegeEscalation` explicitly.
 
 ### Capabilities
 
@@ -511,11 +521,3 @@ specifies which values are allowed for the pod seccomp annotations. Specified as
 a comma-delimited list of allowed values. Possible values are those listed
 above, plus `*` to allow all profiles. Absence of this annotation means that the
 default cannot be changed.
-
-## Troubleshooting
-
-- The [Controller Manager](/docs/admin/kube-controller-manager/) must be run
-against [the secured API port](/docs/admin/accessing-the-api/), and must not
-have superuser permissions. Otherwise requests would bypass authentication and
-authorization modules, all PodSecurityPolicy objects would be allowed,
-and user will be able to create privileged containers.

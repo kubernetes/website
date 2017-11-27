@@ -32,13 +32,13 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 	"k8s.io/apimachinery/pkg/util/yaml"
-	api "k8s.io/kubernetes/pkg/apis/core"
 	"k8s.io/kubernetes/pkg/api/testapi"
-	"k8s.io/kubernetes/pkg/apis/core/validation"
 	"k8s.io/kubernetes/pkg/apis/apps"
 	apps_validation "k8s.io/kubernetes/pkg/apis/apps/validation"
 	"k8s.io/kubernetes/pkg/apis/batch"
 	batch_validation "k8s.io/kubernetes/pkg/apis/batch/validation"
+	api "k8s.io/kubernetes/pkg/apis/core"
+	"k8s.io/kubernetes/pkg/apis/core/validation"
 	"k8s.io/kubernetes/pkg/apis/extensions"
 	expvalidation "k8s.io/kubernetes/pkg/apis/extensions/validation"
 	"k8s.io/kubernetes/pkg/apis/policy"
@@ -235,7 +235,9 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nautilus-rc": {&api.ReplicationController{}},
 		},
 		"../docs/concepts/policy": {
-			"psp": {&extensions.PodSecurityPolicy{}},
+			"privileged-psp": {&extensions.PodSecurityPolicy{}},
+			"restricted-psp": {&extensions.PodSecurityPolicy{}},
+			"example-psp":    {&extensions.PodSecurityPolicy{}},
 		},
 		"../docs/user-guide/persistent-volumes/volumes": {
 			"local-01": {&api.PersistentVolume{}},

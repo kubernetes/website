@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: example.unprivileged
+  name: example
 spec:
   privileged: false  # Don't allow privileged pods!
   # The rest fills in some required fields.
