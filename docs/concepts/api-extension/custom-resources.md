@@ -37,7 +37,7 @@ When creating a new API, consider whether to [aggregate your API with the Kubern
 
 | Consider API aggregation if: | Prefer a stand-alone API if: |
 |-|-|
-| Your API is Declarative.<br>Typically, this means: <ul><li>your API consists of a relatively small number of relatively small objects</li><li>the objects define configuration of applications or infrastructure the objects are updated relatively infrequently</li><li>humans often need to read and write the objects</li><li>the main operations on the objects are CRUD-y (creating, reading, updating and deleting)</li><li>transactions across objects are not required.</li><ul> | Your API does not fit the Declarative model.<br>For example, it might: <ul><li>need to directly store large amounts of data (e.g. > a few kB per object, or >1000s of objects)</li><li>need to be high bandwidth (10s of requests per second sustained)</li><li>store end-user data (such as images, PII, etc) or other large-scale data processed by applications</li><li>the objects require non-CRUD operations</li><li>the API does is not well modeled as objects.</li></ul> |
+| Your API is Declarative.  Typically, this means: <ul><li>your API consists of a relatively small number of relatively small objects</li><li>the objects define configuration of applications or infrastructure the objects are updated relatively infrequently</li><li>humans often need to read and write the objects</li><li>the main operations on the objects are CRUD-y (creating, reading, updating and deleting)</li><li>transactions across objects are not required.</li></ul> | Your API does not fit the Declarative model.  For example, it might: <ul><li>need to directly store large amounts of data (e.g. > a few kB per object, or >1000s of objects)</li><li>need to be high bandwidth (10s of requests per second sustained)</li><li>store end-user data (such as images, PII, etc) or other large-scale data processed by applications</li><li>the objects require non-CRUD operations</li><li>the API does is not well modeled as objects.</li></ul> |
 | You want your new types to be readable and writable using `kubectl`. For example: <ul><li>`kubectl create -f customresources.{yaml,json}`</li><li>`kubectl get myresourcetype myresinstance`</li><li>`kubectl delete myresourcetype myresinstance`</li><li>`kubectl list myresourcetype`</li></ul> | `kubectl` support is not required |
 | You want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types. | Kuberetes UI support is not required. |
 | You prefer Declarative/REST/Resource style APIs. | You prefer Imperative/RPC/Operation style APIs [comparison]. |
@@ -45,7 +45,7 @@ When creating a new API, consider whether to [aggregate your API with the Kubern
 | You are willing to accept the format restriction that Kubernetes puts on REST resource paths, such as API Groups and Namespaces. (See the [API Overview](https://kubernetes.io/docs/concepts/overview/kubernetes-api/).) | You need to have specific REST paths to be compatible with an already defined REST API. |
 | Your resources are naturally scoped to a cluster or to namespaces of a cluster. | Cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths. |
 | You want to reuse these features of the Kubernetes code: <ul><li>Client Libraries for listing, watching, and patching resource.</li><li>Authentication</li><li>Authorization</li><li>Audit logging</li><li>Garbage collection and hierarchy of resources</li><li>Resource metadata such as labels, annotations, and creation timestamps.</li></ul> | You either don't need or have different needs for these features. |
-| You want to reuse these aspects of your cluster environment that may already be set up. <br>For example: <ul><li>Existing Kubernetes Service Accounts, and their ability to discover the APIServer</li><li>Any built-in or custom Access Control and Policy mechanisms on your cluster</li><li>User's existing Clients which point to your existing cluster</li><li>Hostname, IP and certificate of the existing APIserver, which has already been delivered to clients and is in their `.kube/config` file</li><li>Code which already uses in Kubernetes client libraries</li><li>High Availability (if any) of your Kubernetes APIServer(s) and etcd</li><li>Your API needs to be acted on by Kubernetes controllers, e.g. scaled by autoscaler</li></ul> | You don't need these features. |
+| You want to reuse these aspects of your cluster environment that may already be set up. For example: <ul><li>Existing Kubernetes Service Accounts, and their ability to discover the APIServer</li><li>Any built-in or custom Access Control and Policy mechanisms on your cluster</li><li>User's existing Clients which point to your existing cluster</li><li>Hostname, IP and certificate of the existing APIserver, which has already been delivered to clients and is in their `.kube/config` file</li><li>Code which already uses in Kubernetes client libraries</li><li>High Availability (if any) of your Kubernetes APIServer(s) and etcd</li><li>Your API needs to be acted on by Kubernetes controllers, e.g. scaled by autoscaler</li></ul> | You don't need these features. |
 
 ### Should I use a configMap or a custom resource?
 
@@ -139,7 +139,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | Multi-versioning | Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions. | No | Yes |
 | Custom Storage | If you need storage with a different performance mode (for example, time-series database instead of key-value store) or isolation for security (for example, encryption secrets or different | No | Yes |
 | Custom Business Logic | Perform arbitrary checks or actions when creating, reading, updating or deleting an object | No, but can get some of the same effects with Initializers or Finalizers (requires programming) | Yes |
-| Subresources | <ul><li>Add extra operations other than CRUD, such as "scale" or "exec"</li><li>Allows systems like like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource</li><li>Allows splitting responsibility for setting spec vs status</li><li>Allows incrementing object Generation on custom resource data mutation (requires Spec/Status split)</li></ul> | No but planned | Yes, any Subresource |
+| Subresources | <ul><li>Add extra operations other than CRUD, such as "scale" or "exec"</li><li>Allows systems like like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource</li><li>Finer-grained access control: user writes spec section, controller writes status section.</li><li>Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource)</li></ul> | No but planned | Yes, any Subresource |
 | strategic-merge-patch | The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. For more information, see ["Update API Objects in Place Using kubectl patch"](/docs/tasks/run-application/update-api-object-kubectl-patch/) | No | Yes |
 | Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |
 | OpenAPI Schema | Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server? Is the user protected from misspelling field names by ensuring only allowed fields are set? Are types enforced (in other words, don't put an `int` in a `string` field?) | No but planned | Yes |
@@ -156,12 +156,12 @@ CRDs and AAs support many of the same features:
 | json-patch | The new endpoints support PATCH with `Content-Type: application/json-patch+json` |
 | merge-patch | The new endpoints support PATCH with `Content-Type: application/merge-patch+json` |
 | HTTPS | The new endpoints uses HTTPS |
-| Built-in Authentication | Can the extension reuse the core apiserver's authentication? |
-| Built-in Authorization | Can I reuse the authorization scheme of the Core API server (e.g. RBAC) |
-| Finalizers | Can I have resource deletion block on another client doing something? |
-| Initializers | Can I have resource creation block on another client doing something? |
-| UI/CLI Display | Kubectl, dashboard can display objects of your new type, without modification |
-| Unset vs Empty | Can clients distinguish unset fields from set to 0 or empty-string fields? |
+| Built-in Authentication | Access to the extension uses the core apiserver for authentication? |
+| Built-in Authorization | Access the the extension reuses the authorization scheme of the core apiserver (e.g. RBAC) |
+| Finalizers | Block deletion of extension resources until external cleanup happens. |
+| Admission Webhooks | Set default values and validate extension resources during any create/update/delete operation. |
+| UI/CLI Display | Kubectl, dashboard can display extension resources. |
+| Unset vs Empty | Clients can distinguish unset fields from zero-valued fields. |
 
 ## Preparing to install a custom resource
 
@@ -191,9 +191,11 @@ Aggregated API servers may or may not use the same authentication, authorization
 
 Kubernetes [client libraries](https://kubernetes.io/docs/reference/client-libraries/) can be used to access custom resources. Not all client libraries support custom resources. The go and python client libraries do.
 
-TODO: talk about how to access the resource from kubectl. Are binary plugins needed?
-
-TODO: confirm this: When you add a custom resource, you can access it using: your own rest client, a kubernetes dynamic client, a generated client using the open-api spec (is that true?). When you use api aggregation, you generate a static client from the go-idl. TODO: make glossary and check if these terms are defined on the web site.
+When you add a custom resource, you can access it using:
+  - kubectl
+  - the kubernetes dynamic client
+  - a REST client that you write
+  - a client generated using Kubernetes client generation tools (generating one is an advanced undertaking, but some projects may provide a client along with the CRD or AA).
 
 {% endcapture %}
 
