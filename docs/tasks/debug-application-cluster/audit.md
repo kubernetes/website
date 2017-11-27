@@ -33,13 +33,13 @@ Audit policy defines rules about what events should be recorded and what data
 they should include. When an event is processed, it's compared against the list
 of rules in order. The first matching rule sets the [audit level][auditing-level]
 of the event. The audit policy object structure is defined in the
-[`audit.k8s.io` API group][audit-api].
+[`audit.k8s.io` API group][auditing-api].
 
 You can pass a file with the policy to [kube-apiserver][kube-apiserver]
 using the `--audit-policy-file` flag. If the flag is omitted, no events are logged.
 __Note:__ `kind` and `apiVersion` fields along with `rules` __must__ be provided
 in the audit policy file. A policy with 0 rules, or a policy that doesn't
-provide valid `apiVersion` and `kind` values is treated as illgal.
+provide valid `apiVersion` and `kind` values is treated as illegal.
 
 Some example audit policy files:
 
@@ -137,18 +137,18 @@ Audit backends implement exporting audit events to an external storage.
 
 In both cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
-[`v1beta1`][auditing-beta-api].
+[`v1beta1`][auditing-api].
 
 ### Log backend
 
 Log backend writes audit events to a file in JSON format. You can configure
 log audit backend using the following [kube-apiserver][kube-apiserver] flags:
 
-- `--audit-log-path` specifies the log file path, that log backend uses to write
-  audit events. Not specifying this flag disables log backend.
+- `--audit-log-path` specifies the log file path that log backend uses to write
+  audit events. Not specifying this flag disables log backend. `-` means standard out
 - `--audit-log-maxage` defined the maximum number of days to retain old audit log files.
 - `--audit-log-maxbackup` defines the maximum number of audit log files to retain.
-- `--audit-log-maxsize` defines the maximum size of the audit log file before it gets rotated.
+- `--audit-log-maxsize` defines the maximum size in megabytes of the audit log file before it gets rotated.
 
 ### Webhook backend
 
@@ -160,6 +160,7 @@ audit backend using the following kube-apiserver flags:
   configuration. Webhook configuration is effectively a [kubeconfig][kubeconfig].
 - `--audit-webhook-mode` define the buffering strategy, one of the following:
   - `batch` - buffer events and asynchronously send the set of events to the external service.
+    This is the default.
   - `blocking` - block API server responses on sending each event to the external service.
 
 The webhook config file uses the kubeconfig format to specify the remote address of
@@ -295,7 +296,7 @@ plugin which supports full-text search and analytics.
 
 ## Legacy Audit
 
-__Note:__ Legacy Audit is deprecated and is disabled by defaule since Kubernetes 1.8.
+__Note:__ Legacy Audit is deprecated and is disabled by default since Kubernetes 1.8.
 To fallback to this legacy audit, disable the advanced auditing feature
 using the `AdvancedAuditing` feature gate in [kube-apiserver][kube-apiserver]:
 
