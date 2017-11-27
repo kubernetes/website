@@ -53,7 +53,7 @@ This is a living document. If you think of something that is not on this list bu
   For example, a pod that binds to host port 80 on 127.0.0.1 with TCP protocol has no conflict with another Pod that binds to host port 80 on 127.0.0.2 with TCP protocol.
   
   *Special notes on hostIP and protocol*: If you don't specify the hostIP and protocol explicitly,
-  kubernetes will give you 0.0.0.0 and tcp as the default hostIP and protocol, 
+  kubernetes will use 0.0.0.0 and TCP as the default hostIP and protocol, 
   where "0.0.0.0" is a wildcard IP that will match all <*,hostPort,protocol> on the node the pod is scheduled on.
   Specifically, it will match all <IP,hostPort,protocol> tuples for all IPs on the host.
 
