@@ -371,44 +371,35 @@ For more information see
 
 ## Adding a cluster to a federation
 
-Once you've deployed a federation control plane, you'll need to make
-that control plane aware of the clusters it should manage. You can add
-a cluster to your federation by using the [`kubefed join`](/docs/admin/kubefed_join/)
-command. A new context will have been added to your kubeconfig named `fellowship`
-(after the name of your federation). To join clusters into the federation, you will
-need to change the context.
+After you've deployed a federation control plane, you'll need to make that control plane aware of the clusters it should manage. 
 
-```
-kubectl config use-context fellowship
-```
+To join clusters into the federation:
 
-To use `kubefed join`, you'll need to provide the name of the cluster
-you want to add to the federation, and the `--host-cluster-context`
-for the federation control plane's host cluster.
+1. Change the context:
 
-> Note: The name that you provide to the `join` command is used as the
-joining cluster's identity in federation. This name should adhere to
-the rules described in the
-[identifiers doc](/docs/concepts/overview/working-with-objects/names/). If the context
-corresponding to your joining cluster conforms to these rules then you
-can use the same name in the join command. Otherwise, you will have to
-choose a different name for your cluster's identity. For more
-information, please see the
-[naming rules and customization](#naming-rules-and-customization)
-section below.
+       kubectl config use-context fellowship
 
-The following example command adds the cluster `gondor` to the
-federation running on host cluster `rivendell`:
+1. If you are using a managed cluster service, allow the service to access the cluster. To do this, create a `clusterrolebinding` for the account associated with your cluster service:
 
-```
-kubefed join gondor --host-cluster-context=rivendell
-```
+       kubectl create clusterrolebinding <your_user>-cluster-admin-binding --clusterrole=cluster-admin --user=<your_user>@example.org --context=<joining_cluster_context
 
-> Note: Kubernetes requires that you manually join clusters to a
-federation because the federation control plane manages only those
-clusters that it is responsible for managing. Adding a cluster tells
-the federation control plane that it is responsible for managing that
-cluster.
+1. Join the cluster to the federation, using `kubefed join`, and make sure you provide the following:
+
+    * The name of the cluster that you are joining to the federation
+    * `--host-cluster-context`, the kubeconfig context for the host cluster
+
+    For example, this command adds the cluster `gondor` to the federation running on host cluster `rivendell`:
+
+    ```
+    kubefed join gondor --host-cluster-context=rivendell
+    ```
+
+A new context has now been added to your kubeconfig named `fellowship` (after the name of your federation). 
+
+
+> Note: The name that you provide to the `join` command is used as the joining cluster's identity in federation. If this name adheres to the rules described in the [identifiers doc](/docs/concepts/overview/working-with-objects/names/). If the context
+corresponding to your joining cluster conforms to these rules then you can use the same name in the join command. Otherwise, you will have to choose a different name for your cluster's identity.
+
 
 ### Naming rules and customization
 

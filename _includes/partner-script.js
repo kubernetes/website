@@ -432,7 +432,7 @@
 			name: 'Kublr',
 			logo: 'kublr',
 			link: 'http://kublr.com',
-			blurb: 'SSimplify and speed up the management of your containerized applications at scale.'
+			blurb: 'Simplify and speed up the management of your containerized applications at scale.'
 			},
 		{
 			type: 0,
@@ -614,7 +614,7 @@
 			name: 'Sphere Software, LLC',
 			logo: 'spheresoftware',
 			link: 'https://sphereinc.com/kubernetes/',
-			blurb: 'Architect and implement scalable applications using Kubernetes in Google Cloud, AWS, and Azure with our team of experts.'
+			blurb: 'The Sphere Software team of experts allows customers to architect and implement scalable applications using Kubernetes in Google Cloud, AWS, and Azure.'
 				},
 		{
 			type: 1,
@@ -743,6 +743,13 @@
 			blurb: 'Caicloud - Compass'
 				},
 		{
+			type: 2,
+			name: 'Caicloud',
+			logo: 'caicloud',
+			link: 'https://caicloud.io/',
+			blurb: 'Founded by ex-Googlers,and early Kubernetes contributors, Caicloud leverages Kubernetes to provide container products which have successfully served Fortune 500 enterprises, and  further utilizes Kubernetes as a vehicle to deliver ultra-speed deep learning experience.'
+				},
+		{
 			type: 3,
 			name: 'Alibaba',
 			logo: 'alibaba',
@@ -788,7 +795,7 @@
 			type: 3,
 			name: 'Loodse',
 			logo: 'loodse',
-			link: 'https://loodse.io',
+			link: 'https://loodse.com',
 			blurb: 'Loodse - Kubermatic Container Engine'
 				},
 		{
@@ -798,6 +805,13 @@
 			link: 'https://github.com/Azure/acs-engine',
 			blurb: 'Microsoft - Azure acs-engine'
 				},
+		{
+			type: 3,
+			name: 'Microsoft',
+			logo: 'microsoft',
+			link: 'https://docs.microsoft.com/en-us/azure/aks/',
+			blurb: 'Microsoft - Azure Container Service AKS'
+						},
 		{
 			type: 3,
 			name: 'Oracle',
@@ -912,6 +926,20 @@
 				},
 		{
 			type: 0,
+			name: 'Vexxhost',
+			logo: 'vexxhost',
+			link: 'https://vexxhost.com/public-cloud/container-services/kubernetes/',
+			blurb: 'VEXXHOST offers a high-performance container management service powered by Kubernetes and OpenStack Magnum.'
+				},
+		{
+			type: 1,
+			name: 'Component Soft',
+			logo: 'componentsoft',
+			link: 'https://www.componentsoft.eu/?p=3925',
+			blurb: 'Component Soft offers training, consultation and support around open cloud technologies like Kubernetes, Docker, Openstack and Ceph.'
+				},
+		{
+			type: 0,
 			name: 'Datera',
 			logo: 'datera',
 			link: 'http://www.datera.io/kubernetes/',
@@ -944,6 +972,41 @@
 			logo: 'portworx',
 			link: 'https://docs.portworx.com/scheduler/kubernetes/install.html',
 			blurb: 'With Portworx, you can manage any database or stateful service on any infrastructure using Kubernetes. You get a single data management layer for all of your stateful services, no matter where they run.'
+				},
+		{
+			type: 1,
+			name: 'Object Computing, Inc.',
+			logo: 'objectcomputing',
+			link: 'https://objectcomputing.com/services/software-engineering/devops/kubernetes-services',
+			blurb: 'Our portfolio of DevOps consulting services includes Kubernetes support, development, and training.'
+				},
+		{
+			type: 1,
+			name: 'Isotoma',
+			logo: 'isotoma',
+			link: 'https://www.isotoma.com/blog/2017/10/24/containerisation-tips-for-using-kubernetes-with-aws/',
+			blurb: 'Based in the North of England, Amazon partners who are delivering Kubernetes solutions on AWS for replatforming and native development.'
+				},
+		{
+			type: 1,
+			name: 'Servian',
+			logo: 'servian',
+			link: 'https://www.servian.com/cloud-and-technology/',
+			blurb: 'Based in Australia, Servian provides advisory, consulting and managed services to support both application and data centric kubernetes use cases.'
+				},
+		{
+			type: 1,
+			name: 'Redzara',
+			logo: 'redzara',
+			link: 'http://redzara.com/cloud-service',
+			blurb: 'Redzara has wide and in-depth experience in Cloud automation, now taking one giant step by providing container service offering and services to our customers.'
+				},
+		{
+			type: 0,
+			name: 'Dataspine',
+			logo: 'dataspine',
+			link: 'http://dataspine.xyz/',
+			blurb: 'Dataspine is building a secure, elastic and serverless deployment platform for production ML/AI workloads on top of k8s.'
 				},
 		{
 			type: 0,
