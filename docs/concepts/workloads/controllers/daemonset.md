@@ -129,6 +129,8 @@ labelled as critical, the Daemon pods are created with an additional
 
 Note that all above `NoSchedule` taints above are created only in version 1.8 or later if the alpha feature `TaintNodesByCondition` is enabled.
 
+Also note that the `node-role.kubernetes.io/master` `NoSchedule` toleration specified in the above example is needed on 1.6 or later to schedule on *master* nodes as this is not a default toleration.
+
 ## Communicating with Daemon Pods
 
 Some possible patterns for communicating with Pods in a DaemonSet are:
