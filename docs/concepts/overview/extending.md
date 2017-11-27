@@ -14,16 +14,12 @@ there is rarely a need to fork or submit patches to the Kubernetes
 project code.
 
 This guide describes the options for customizing a Kubernetes
-cluster. It is aimed at **Cluster Operators** who want to
+cluster. It is aimed at {% glossary_tooltip text="Cluster Operators" term_id="cluster-operator" %} who want to
 understand how to adapt their Kubernetes cluster to the needs of
-their work environment. Developers who are prospective **Platform
-Developers** or Kubernetes Project **Contributors** will also find it
+their work environment. Developers who are prospective {% glossary_tooltip text="Platform
+Developers" term_id="platform-developer" %} or Kubernetes Project {% glossary_tooltip text="Contributors" term_id="contributor" %} will also find it
 useful as an introduction to what extension points and patterns
-exist, and their tradeoffs and limitations.
-
-{% glossary_definition term_id="cluster-operator" length="all" %}
-{% glossary_definition term_id="platform-developer" length="all" %}
-{% glossary_definition term_id="contributor" length="all" %}
+exist, and their trade-offs and limitations.
 
 {% endcapture %}
 
@@ -43,7 +39,7 @@ Customization approaches can be broadly divided into *configuration*, which only
 * [kube-controller-manager](/docs/admin/kube-controller-manager/)
 * [kube-scheduler](/docs/admin/kube-scheduler/).
 
-Flags and configuration files may not always be changable in a hosted Kubernetes service or a distribution with managed installation. When they are changable, they are usually only changeable by the cluster administrator. Also, they are subject to change in future Kubernetes versions, and setting them may require restarting processes. For those reasons, they should be used only when there are no other options.
+Flags and configuration files may not always be changeable in a hosted Kubernetes service or a distribution with managed installation. When they are changeable, they are usually only changeable by the cluster administrator. Also, they are subject to change in future Kubernetes versions, and setting them may require restarting processes. For those reasons, they should be used only when there are no other options.
 
 *Built-in Policy APIs*, such as [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) and Role-based Access Control ([RBAC](/docs/admin/authorization/rbac/)), are built-in Kubernetes APIs. APIs are typically used with hosted Kubernetes services and with managed Kubernetes installations. They are declarative and use the same conventions as other Kubernetes resources like pods, so new cluster configuration can be repeatable and be managed the same way as applications. And, where they are stable, they enjoy a [defined support policy](/docs/reference/deprecation-policy/) like other Kubernetes APIs. For these reasons, they are preferred over *configuration files* and *flags* where suitable.
 
@@ -159,7 +155,7 @@ After a request is authorized, if it is a write operation, it also t goes throug
 
 *   The [Image Policy webhook](/docs/admin/admission-controllers/#imagepolicywebhook) restricts what images can be run in containers.
 *   To make arbitrary admission control decisions, a general [Admission webhook](/docs/admin/extensible-admission-controllers/#external-admission-webhooks) can be used. Admission Webhooks can reject creations or updates.
-*   [Initializers](/docs/admin/extensible-admission-controllers/#initializers) are controllers that can modify objects before they are created. Intializers can modify initial object creations but cannot affect updates to objects. Initializers can also reject objects.
+*   [Initializers](/docs/admin/extensible-admission-controllers/#initializers) are controllers that can modify objects before they are created. Initializers can modify initial object creations but cannot affect updates to objects. Initializers can also reject objects.
 
 ## Infrastructure Extensions
 
