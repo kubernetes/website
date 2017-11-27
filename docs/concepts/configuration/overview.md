@@ -45,9 +45,17 @@ This is a living document. If you think of something that is not on this list bu
     2. Create a service;
     3. Then scale up the replication controller.
 
-- Don't use `hostPort` unless it is absolutely necessary (for example: for a node daemon). It specifies the port number to expose on the host.  When you bind a Pod to a `hostPort`, there are a limited number of places to schedule a pod due to port conflicts. The conflict comes from being limited to a single `hostIP:hostPort:protocol` combination. Different `hostIP:hostPort:protocol` combinations mean different requirements. For example, a pod that binds tcp 80 host port on 127.0.0.1 does not conflict with another pod that binds tcp 80 port on 127.0.0.2. 
+- Don't use `hostPort` unless it is absolutely necessary (for example: for a node daemon).
+  It specifies the port number to expose on the host.
+  When you bind a Pod to a `hostPort`, there are a limited number of places to schedule a pod due to port conflicts.
+  The conflict comes from the requirement of an unique <hostIP,hostPort,protocol> combination.
+  Different <hostIP,hostPort,protocol> combinations mean different requirements.
+  For example, a pod that binds to host port 80 on 127.0.0.1 with TCP protocol has no conflict with another Pod that binds to host port 80 on 127.0.0.2 with TCP protocol.
   
-  Special notes on hostIP and protocol, if you don't specify the hostIP and protocol explicitly, kubernetes will give you 0.0.0.0 and tcp as default hostIP and protocol. And "0.0.0.0" is a wildcard hostIP that will occupy all <_,hostPort,protocol> on the node the pod is scheduled on. Specifically, it will occupy all <IP,hostPort,protocol> for all IPs on the host.
+  *Special notes on hostIP and protocol*: If you don't specify the hostIP and protocol explicitly,
+  kubernetes will give you 0.0.0.0 and tcp as the default hostIP and protocol, 
+  where "0.0.0.0" is a wildcard IP that will match all <*,hostPort,protocol> on the node the pod is scheduled on.
+  Specifically, it will match all <IP,hostPort,protocol> tuples for all IPs on the host.
 
   If you only need access to the port for debugging purposes, you can use the [kubectl proxy and apiserver proxy](/docs/tasks/access-kubernetes-api/http-proxy-access-api/) or [kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
   You can use a [Service](/docs/concepts/services-networking/service/) object for external service access.
