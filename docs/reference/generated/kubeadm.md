@@ -1020,7 +1020,18 @@ apiVersion: kubeadm.k8s.io/v1alpha1
 kind: MasterConfiguration
 apiServerExtraArgs:
    feature-gates: APIResponseCompression=true
+apiServerExtraArgs:
+  etcd-servers: "http://[fd00::101]:2379"
+controllerManagerExtraArgs:
+  address: "fd00::101"
+schedulerExtraArgs:
+  address: "fd00::101"
+etcd:
+  extraArgs:
+    listen-client-urls: "http://[fd00::101]:2379"
 ```
+
+Optionally, IPv6 for liveness probe for control plane components and etcd server can also be specified using extra args as mentioned in the example above. Please note that whenever IPv6 is specified as a tuple of IP:Port, IPv6 must be enclosed in square brackets.
 
 To customise the scheduler or controller-manager, use `schedulerExtraArgs` and `controllerManagerExtraArgs` respectively.
 

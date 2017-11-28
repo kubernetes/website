@@ -115,9 +115,8 @@ something provider-specific. The tabs below will contain a notice about what fla
 on `kubeadm init` are required.
 - Unless otherwise specified, kubeadm uses the default gateway's network interface 
 to advertise the master's IP. If you want to use a different network interface, specify 
-`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`. To configure IPV6 for apiserver, this argument should be specified with IPV6 enclosed in square brackets `--apiserver-advertise-address=[ipv6-address]` 
-- If you would like to customise control plane components, you can do so by providing 
-extra args to each one, as documented [here](/docs/admin/kubeadm#custom-args).
+`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you must specify an IPv6 `--apiserver-advertise-address=<IPv6-address>` 
+- If you would like to customise control plane components including optional IPv6 assignment to liveness probe for control plane components and etcd server, you can do so by providing extra args to each one, as documented [here](/docs/admin/kubeadm#custom-args).
 - `kubeadm init` will first run a series of prechecks to ensure that the machine
 is ready to run Kubernetes.  It will expose warnings and exit on errors. It
 will then download and install the cluster database and control plane
@@ -125,21 +124,6 @@ components. This may take several minutes.
 - You can't run `kubeadm init` twice without tearing down the cluster in between
 ([unless you're upgrading from v1.6 to v1.7](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/)),
 see [Tear Down](#tear-down).
-- Optionally, to specify IPV6 for liveness probe for control-plan components and etcd server, you can specify extraArgs in kubeadm.conf file as mentioned in example below. ${APISERVER_ADVERTISE_ADDRESS} is your IPV6 enclosed in square brackets.
-
-  ``` yaml
-  apiVersion: kubeadm.k8s.io/v1alpha1
-  kind: MasterConfiguration
-  apiServerExtraArgs:
-    etcd-servers: "http://${APISERVER_ADVERTISE_ADDRESS}:2379"
-  controllerManagerExtraArgs:
-    address: "${APISERVER_ADVERTISE_ADDRESS}"
-  schedulerExtraArgs:
-    address: "${APISERVER_ADVERTISE_ADDRESS}"
-  etcd:
-    extraArgs:
-      listen-client-urls: "http://${APISERVER_ADVERTISE_ADDRESS}:2379"
-  ```
 
 The output should look like:
 
@@ -226,7 +210,7 @@ supports Container Network Interface (CNI) based networks (and does not support 
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
 support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons
-page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. IPV6 support was added in CNI v0.6, so for IPV6 based network please use CNI version 0.6 or higher.
+page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0), so for IPv6 based network please use CNI version 0.6.0 or higher. [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported drivers in 1.9.
 
 **New for Kubernetes 1.6:** kubeadm 1.6 sets up a more secure cluster by
 default.  As such it uses RBAC to grant limited privileges to workloads running
@@ -386,7 +370,7 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
   kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
   ```
 
-Please note that to specify IPV6 for master-ip it must be enclosed in square brackets, for instance `[fd00::100]`.
+**Note:** To specify IPv6 tuple for <master-ip>:<master-port>, IPv6 address must be enclosed in square brackets, for example `[fd00::101]:2073`.
 
 The output should look something like:
 
