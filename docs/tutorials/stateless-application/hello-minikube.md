@@ -90,6 +90,18 @@ minikube start --vm-driver=xhyve --docker-env HTTP_PROXY=http://your-http-proxy-
 The `--vm-driver=xhyve` flag specifies that you are using Docker for Mac. The
 default VM driver is VirtualBox.
 
+Note if `minikube start --vm-driver=xhyve` is unsuccessful due to the error:
+```
+Error creating machine: Error in driver during machine creation: Could not convert the UUID to MAC address: exit status 1
+```
+
+Then the following may resolve the `minikube start --vm-driver=xhyve` issue:
+```
+rm -rf ~/.minikube
+sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
+sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
+```
+
 Now set the Minikube context. The context is what determines which cluster
 `kubectl` is interacting with. You can see all your available contexts in the
 `~/.kube/config` file.
