@@ -136,7 +136,7 @@ import (
    // creates the clientset
    clientset, _:= kubernetes.NewForConfig(config)
    // access the API to list pods
-   pods, _:= clientset.Core().Pods("").List(v1.ListOptions{})
+   pods, _:= clientset.CoreV1().Pods("").List(v1.ListOptions{})
    fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
 ...
 ```
