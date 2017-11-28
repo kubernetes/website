@@ -1,14 +1,17 @@
 $( document ).ready(function() {
+  //default UI state
   var selected = {
-      type:'users',
+      type: 'users',
       button: 'app-developer',
       level: 'foundational'
   };
 
+  //load persona JSON data structure
   function loadInfo() {
     return JSON.parse($('#user-persona-data').html());
   }
 
+  //create persona buttons in "I am..." section, e.g. Application Developer
   function buildCards(info) {
     for (var c in info) {
       var card = document.createElement('div');
@@ -25,6 +28,7 @@ $( document ).ready(function() {
     }
   }
 
+  //set links in the "I want to..." section, e.g. Setup a development environment
   function setInfoData(info, level) {
       var contentArray = info[selected.type][selected.button][selected.level];
       for(i = 1; i<=contentArray.length; i++) {
@@ -40,6 +44,7 @@ $( document ).ready(function() {
       $('.infobarWrapper').css('visibility', 'visible');
   }
 
+  //attach click handler + scroll for persona buttons in "I am..." section
   function handleCardClick(e, stopScroll) {
       $('.buttons').removeClass('selected');
       $(this).addClass('selected');
@@ -53,6 +58,7 @@ $( document ).ready(function() {
       $('.tab1.foundational').click();
   }
 
+  //attach click handler for Users, Contributors, Migration Paths buttons
   function attachCardEvents(info) {
     $('.bar1 .navButton').on('click', function(e) {
         $('.navButton').removeClass("keepShow");
@@ -94,6 +100,7 @@ $( document ).ready(function() {
     });
   }
 
+  //initialize page and load defaults
   function main() {
     var info = loadInfo();
     buildCards(info);
@@ -104,9 +111,11 @@ $( document ).ready(function() {
     }, 500);
   }
 
+  //execute page initialization
   main();
 });
 
+//hide persona wizard section if Browse Docs button is clicked
 function showOnlyDocs(flag){
   if(flag){
     jQuery('.applicationDeveloperContainer').hide();

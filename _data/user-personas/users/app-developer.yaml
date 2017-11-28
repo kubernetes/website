@@ -8,6 +8,8 @@ foundational:
     url: /docs/user-journeys/application_developer-foundational.html#2
   - label: Understand Kubernetes basics, such as Containers, Pods, Labels and Annotations.
     url: /docs/user-journeys/application_developer-foundational.html#3
+  - label: Additional resources
+    url: /docs/user-journeys/application_developer-foundational.html#4
 intermediate:
   - label: Setup a full-featured or production environment.
     url: /docs/user-journeys/application_developer-intermediate.html#1
