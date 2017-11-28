@@ -71,6 +71,7 @@ Pods use claims as volumes. The cluster inspects the claim to find the bound vol
 Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a persistentVolumeClaim in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
 
 ### Persistent Volume Claim Protection
+{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
 In case the [PVC protection alpha feature](/docs/tasks/administer-cluster/pvc-protection/) is switched on, a PVC is being actively used by a pod and a user deletes the PVC the PVC is not deleted immediately, but the PVC deletion is postponed until it is not actively used by any pods.
 
 Such situation is indicated by the `Terminating` status of the PVC and the presence of the `kubernetes.io/pvc-protection` finalizer in the `Finalizers` list as shown below:

@@ -6,7 +6,7 @@ title: Persistent Volume Claim Protection
 ---
 
 {% capture overview %}
-{% include feature-state-alpha.md %}
+{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
 
 As of Kubernetes 1.9, persistent volume claims (PVCs) that are actively used by a pod can be protected from pre-mature delettion.
 

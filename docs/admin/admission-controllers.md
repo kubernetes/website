@@ -330,7 +330,7 @@ of an object, so that only users with "update" permission to the `finalizers`
 subresource of the referenced *owner* can change it.
 
 ### Persistent Volume Claim Protection (alpha)
-
+{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
 The `PVCProtection` plugin protects Persistent Volume Claims (PVCs) that are being actively used by a pod from being deleted by adding `kubernetes.io/pvc-protection` finalizer to newly created PVCs.
 In case a user deletes a PVC that is not actively used by a pod the PVC's finalizer is removed by PVC Protection Controller.
 
