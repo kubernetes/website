@@ -366,16 +366,7 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ...
 ```
 
-
-
 ## 进一步阅读
 
 Kubernetes 也支持联合 Service，能够跨多个集群和云提供商，为 Service 提供逐步增强的可用性、更优的容错、更好的可伸缩性。
 查看 [联合 Service 用户指南](/docs/concepts/cluster-administration/federation-service-discovery/) 获取更进一步信息。
-
-
-
-## 下一步
-
-[了解更多关于 Kubernetes 的特性，有助于在生产环境中可靠地运行容器](/docs/user-guide/production-pods)
-
