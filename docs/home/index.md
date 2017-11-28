@@ -45,7 +45,7 @@ See the [Kubernetes Release](https://github.com/kubernetes/kubernetes/releases) 
 
 ### Minor Versions
 
-Different components are expected to be compatible across different version skew relative to the master. Nodes may lag master by up to two versions, but not exceed the master version. Clients may lag master by one version and may exceed master up to one version.
+A certain amount of version skew is permissible between master components, node components, and the kubectl client. Nodes may lag master by up to two versions, but not exceed the master version. Clients may lag master by one version and may exceed master up to one version.
 
 For example, a v1.8 master is expected to be compatible with v1.6, v1.7, and v1.8 nodes, and compatible with v1.7, v1.8, and v1.9 clients. 
 
