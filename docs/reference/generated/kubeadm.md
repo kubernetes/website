@@ -67,7 +67,7 @@ following steps:
    See [Securing your installation](#securing-more) for hardening.
 
 1. kubeadm installs add-on components via the API server.  Right now this is
-   the internal DNS server and the kube-proxy DaemonSet.
+   the internal DNS server and the kube-proxy DaemonSet. There is no requirement for specifying kube-proxy bind address in kubeadm.conf. The kube-proxy bind address is dynamically assigned based on the address type of API server (i.e. v4 will assign 0.0.0.0 & v6 will assign :: ).
 
 1. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
    (`--feature-gates=SelfHosting=true`), the static Pod based control plane will
@@ -111,8 +111,8 @@ flags that can be used to customise the Kubernetes installation.
 - `--apiserver-advertise-address`
 
   This is the address the API Server will advertise to other members of the
-  cluster.  This is also the address used to construct the suggested `kubeadm
-  join` line at the end of the init process.  If not set (or set to 0.0.0.0) then
+  cluster.  API server IP address can either be IPv4 or IPv6.This is also the address used to construct the suggested `kubeadm
+  join` line at the end of the init process.  If not set (or set to 0.0.0.0 for IPv4 or :: for IPv6) then
   IP for the default interface will be used.
 
   This address is also added to the certificate that the API Server uses.
