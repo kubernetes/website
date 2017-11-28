@@ -30,16 +30,42 @@ $( document ).ready(function() {
 
   //set links in the "I want to..." section, e.g. Setup a development environment
   function setInfoData(info, level) {
-      var contentArray = info[selected.type][selected.button][selected.level];
+      // info links specific to type/button/level
+      var contentArray = (typeof info[selected.type][selected.button] !== 'undefined') ? info[selected.type][selected.button][selected.level] : [];
+
+/* 
+  insert:
+        <a id="infolink1" href="docs.html"><div class="whitebar" >
+            <div class="infoicon">
+                <i class="fa fa-folder-open-o" aria-hidden="true" style="padding:%;float:left;color:#3399ff"></i>
+            </div>
+            <div id="info1" class='data'></div>
+        </div></a>
+
+  defaults:
+    label: "Missing link label."
+    icon: "fa-ellipsis-h"
+    url: "docs.html"
+*/
+
+      //clear contents of #infobarLinks div
+      $('#infobarLinks').empty();
+      //process and add each info link
       for(i = 1; i<=contentArray.length; i++) {
           var content = contentArray[i-1];
-          if( typeof content === 'object') {
-            $('#info'+i).text(content.label);
-            $('#infolink'+i).attr('href',content.url);
-          } else {
-            $('#info'+i).text(content);
-            $('#infolink'+i).attr('href',"docs.html");
-          }
+          var linkLabel = (typeof content.label !== 'undefined') ? content.label : "Missing link label.";
+          var linkIcon = (typeof content.icon !== 'undefined') ? content.icon : "fa-ellipsis-h";
+          var linkUrl = (typeof content.url !== 'undefined') ? content.url : "docs.html";
+
+          //append link to the end of the div
+          $('#infobarLinks').append(
+            '<a id="infolink'+i+'" href="'+linkUrl+'"><div class="whitebar">' +
+              '<div class="infoicon">' +
+                '<i class="fa '+linkIcon+'" aria-hidden="true" style="padding:%;float:left;color:#3399ff"></i>' +
+              '</div>' +
+              '<div id="info'+i+'" class="data">'+linkLabel+'</div>' +
+            '</div></a>'
+          );
       }
       $('.infobarWrapper').css('visibility', 'visible');
   }
@@ -80,6 +106,7 @@ $( document ).ready(function() {
           type = 'migrators';
         }
         selected.type = type;
+        //selected.button = Object.keys(info[type])[0]; //set button to first in list
     });
 
     $('.bar1 .users').click();
