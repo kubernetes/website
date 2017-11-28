@@ -27,50 +27,50 @@ different Kubernetes components.
 - The "Y" values in the cells indicate that a specific feature gate can be applied
   to a specific component.
 
-| Feature | Default | Stage | APIServer | KCM | Kubelet | Scheduler | CCM | Proxy | Since | Till |
-|---------|---------|-------|-----------|-----|---------|-----------|-----|-------|-------|------|
-| `Accelerators` | `false` | Alpha | | | Y | | | | 1.6 | |
-| `AdvancedAuditing` | `false` | Alpha | Y | | | | | | 1.7 | |
-| `AdvancedAuditing` | `true` | Beta | Y | | | | | | 1.8 | |
-| `AffinityInAnnotations` | `false` | Alpha | Y | | | | | | 1.6 | 1.7 |
-| `AllowExtTrafficLocalEndpoints` | `false` | Beta | | | | | | | 1.4 | 1.6 |
-| `AllowExtTrafficLocalEndpoints` | `true` | GA | Y | | | | | Y | 1.7 |  |
-| `APIListChunking` | `false` | Alpha | Y | | | | | | 1.8 | 1.8 |
-| `APIListChunking` | `true` | Beta | Y | | | | | | 1.9 | |
-| `APIResponseCompression` | `false` | Alpha | Y | | | | | | 1.7 | |
-| `AppArmor` | `true` | Beta | Y | | Y | | | | 1.4 | |
-| `BlockVolume` | `false` | Alpha | Y | Y | Y | | | | 1.9 | |
-| `CPUManager` | `false` | Alpha | Y | | Y | | | | 1.8 | |
-| `CSIPersistentVolume` | `false` | Alpha | Y | Y | Y | | | | 1.9 | |
-| `CustomPodDNS` | `false` | Alpha | Y | | Y | | | | 1.9 | |
-| `CustomResourceValidation` | `false` | Alpha | Y | | | | | | 1.8 | 1.8 |
-| `CustomResourceValidation` | `true` | Beta | Y | | | | | | 1.9 | |
-| `DevicePlugins` | `false` | Alpha | | | Y | | | | 1.8 | |
-| `DynamicKubeletConfig` | `false` | Alpha | Y | | Y | | | | 1.4 | |
-| `DynamicVolumeProvisioning` | `true` | Alpha |  | Y | | | | | 1.3 | 1.7 |
-| `DynamicVolumeProvisioning` | `true` | GA |  | Y | | | | | 1.8 |  |
-| `EnableEquivalenceClassCache` | `false` | Alpha | | | | Y | | | 1.8 | |
-| `ExpandPersistentVolumes` | `false` | Alpha | Y | Y | | | | | 1.8 | |
-| `ExperimentalCriticalPodAnnotation` | `false` | Alpha | | Y | Y | | | | 1.5 | |
-| `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | | | Y | | | | 1.5 | |
-| `HugePages` | `false` | Alpha | Y | | Y | | | | 1.8 | |
-| `Initializers` | `false` | Alpha | Y | Y | | | | | 1.7 |  |
-| `KubeletConfigFile` | `false` | Alpha | | | Y | | | | 1.8 | |
-| `LocalStorageCapacityIsolation` | `false` | Alpha | Y | | Y | | | | 1.7 | |
-| `MountContainers` | `false` | Alpha | | | Y | | | | 1.9 | |
-| `MountPropagation` | `false` | Alpha | Y | | Y | | | | 1.8 | |
-| `PersistentLocalVolumes` | `false` | Alpha | Y | | Y | Y | | | 1.7 | |
-| `PodPriority` | `false` | Alpha | Y | | Y | Y | | | 1.8 | |
-| `RotateKubeletClientCertificate` | `true` | Beta | | | Y | | | | 1.7 | |
-| `RotateKubeletServerCertificate` | `false` | Alpha | Y | Y | Y | | | | 1.7 | |
-| `ServiceNodeExclusion` | `false` | Alpha | | Y | | | Y | | 1.8 | |
-| `StreamingProxyRedirects` | `true` | Beta | Y | | | | | | 1.5 | |
-| `SupportIPVSProxyMode` | `false` | Alpha | | | | | | Y | 1.8 | |
-| `TaintBasedEvictions` | `false` | Alpha | | Y | | | | | 1.6 | |
-| `TaintNodesByCondition` | `false` | Alpha | Y | Y | | Y | | | 1.8 | |
-| `VolumeScheduling` | `false` | Alpha | Y | | | | | | 1.9 | |
+| Feature | Default | Stage | Since | Until |APIServer | KCM | Kubelet | Scheduler | CCM | Proxy |
+|---------|---------|-------|-------|-------|----------|-----|---------|-----------|-----|-------|
+| `Accelerators` | `false` | Alpha | 1.6 | | | Y | | | |
+| `AdvancedAuditing` | `false` | Alpha | 1.7 | | Y | | | | | |
+| `AdvancedAuditing` | `true` | Beta | 1.8 | Y | | | | | |
+| `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 | Y | | | | | |
+| `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 | | | | | |
+| `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7| | Y | | | | | Y |
+| `APIListChunking` | `false` | Alpha | 1.8 | 1.8 | Y | | | | | |
+| `APIListChunking` | `true` | Beta | 1.9 | | Y | | | | | |
+| `APIResponseCompression` | `false` | Alpha | 1.7 | | Y | | | | | |
+| `AppArmor` | `true` | Beta | 1.4 | | Y | | Y | | | |
+| `BlockVolume` | `false` | Alpha | 1.9 | | Y | Y | Y | | | |
+| `CPUManager` | `false` | Alpha | 1.8 | | Y | | Y | | | |
+| `CSIPersistentVolume` | `false` | Alpha | 1.9 | | Y | Y | Y | | | |
+| `CustomPodDNS` | `false` | Alpha | 1.9 | | Y | | Y | | | |
+| `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 | Y | | | | | |
+| `CustomResourceValidation` | `true` | Beta | 1.9 | | Y | | | | | |
+| `DevicePlugins` | `false` | Alpha | 1.8 | | | | Y | | | |
+| `DynamicKubeletConfig` | `false` | Alpha | 1.4 | | Y | | Y | | | |
+| `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 | | Y | | | | |
+| `DynamicVolumeProvisioning` | `true` | GA | 1.8 | | | Y | | | | |
+| `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | | | | | Y | | |
+| `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.8 | Y | Y | | | | |
+| `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | | | Y | Y | | | |
+| `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | | | | Y | | | |
+| `HugePages` | `false` | Alpha | 1.8 | | Y | | Y | | | |
+| `Initializers` | `false` | Alpha | 1.7 | | Y | Y | | | | |
+| `KubeletConfigFile` | `false` | Alpha | 1.8 | | | | Y | | | |
+| `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | | Y | | Y | | | |
+| `MountContainers` | `false` | Alpha | 1.9 | | | | Y | | | |
+| `MountPropagation` | `false` | Alpha | 1.8 | | Y | | Y | | | |
+| `PersistentLocalVolumes` | `false` | Alpha | 1.7 | | Y | | Y | Y | | |
+| `PodPriority` | `false` | Alpha | 1.8 | | Y | | Y | Y | | |
+| `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | | | | Y | | | |
+| `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | | Y | Y | Y | | | |
+| `ServiceNodeExclusion` | `false` | Alpha | 1.8 | | | Y | | | Y | |
+| `StreamingProxyRedirects` | `true` | Beta | 1.5 | | Y | | | | | |
+| `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | | | | | | | Y |
+| `TaintBasedEvictions` | `false` | Alpha | 1.6 | | | Y | | | | |
+| `TaintNodesByCondition` | `false` | Alpha | 1.8 | | Y | Y | | Y | | |
+| `VolumeScheduling` | `false` | Alpha | 1.9 | | Y | | | | | |
 
-## Using Feature
+## Using a Feature
 
 ### Feature Stages
 
