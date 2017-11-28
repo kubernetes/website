@@ -242,6 +242,9 @@ $ kubectl get rc,services
 
 // List all daemon sets, including uninitialized ones, in plain-text output format.
 $ kubectl get ds --include-uninitialized
+
+// List all pods running on node server01
+$ kubectl get pods --field-selector=spec.nodeName=server01
 ```
 
 `kubectl describe` - Display detailed state of one or more resources, including the uninitialized ones by default.
@@ -260,6 +263,17 @@ $ kubectl describe pods <rc-name>
 // Describe all pods, not including uninitialized ones
 $ kubectl describe pods --include-uninitialized=false
 ```
+
+**Note:** The `kubectl get` command is usually used for retrieving one or more
+resources of the same resource type. It features a rich set of flags that allows
+you to customize the output format using the `-o` or `--output` flag, for example.
+You can specify the `-w` or `--watch` flag to start watching updates to a particular
+object. The `kubectl describe` command is more focused on describing the many
+related aspects of a specified resource. It may invoke several API calls to the
+API server to build a view for the user. For example, the `kubectl describe node`
+command retrieves not only the information about the node, but also a summary of
+the pods running on it, the events generated for the node etc.
+{: .note}
 
 `kubectl delete` - Delete resources either from a file, stdin, or specifying label selectors, names, resource selectors, or resources.
 

@@ -48,7 +48,11 @@ spec:
           alpha.kubernetes.io/nvidia-gpu: 3 # requesting 3 GPUs
 ```
 
-- GPUs can be specified in the `limits` section only.
+- GPUs are only supposed to be specified in the `limits` section, which means:
+  * You can specify GPU `limits` without specifying `requests` because Kubernetes
+    will use the limit as the request value by default.
+  * You can specify GPU in both `limits` and `requests` but these two values must equal.
+  * You cannot specify GPU `requests` without specifying `limits`.
 - Containers (and pods) do not share GPUs.
 - Each container can request one or more GPUs.
 - It is not possible to request a portion of a GPU.
@@ -145,7 +149,7 @@ spec:
 - Support for hardware accelerators is in its early stages in Kubernetes.
 - GPUs and other accelerators will soon be a native compute resource across the system.
 - Better APIs will be introduced to provision and consume accelerators in a scalable manner.
-- Kubernetes will automatically ensure that applications consuming GPUs gets the best possible performance.
+- Kubernetes will automatically ensure that applications consuming GPUs get the best possible performance.
 - Key usability problems like access to CUDA libraries will be addressed.
 
 {% endcapture %}

@@ -31,8 +31,10 @@ A configuration example which uses HTTPS client auth:
 clusters:
   - name: name-of-remote-authz-service
     cluster:
-      certificate-authority: /path/to/ca.pem      # CA for verifying the remote service.
-      server: https://authz.example.com/authorize # URL of remote service to query. Must use 'https'.
+      # CA for verifying the remote service.
+      certificate-authority: /path/to/ca.pem
+      # URL of remote service to query. Must use 'https'. May not include parameters.
+      server: https://authz.example.com/authorize
 
 # users refers to the API Server's webhook configuration.
 users:
