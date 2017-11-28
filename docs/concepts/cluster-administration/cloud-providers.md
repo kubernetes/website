@@ -213,6 +213,28 @@ provider configuration:
 bs-version=v2
 ```
 
+#### Metadata
+These configuration options for the OpenStack provider pertain to metadata and
+should appear in the `[Metadata]` section of the `cloud.conf` file:
+
+* `search-order` (Optional): This configuration key influences the way that the
+  provider retrieves metadata relating to the instance(s) in which it runs. The
+  default value of `configDrive,metadataService` results in the provider
+  retrieving metadata relating to the instance from the config drive first if
+  available and then the metadata service. Alternative values are:
+  * `configDrive` - Only retrieve instance metadata from the configuration
+    drive.
+  * `metadataService` - Only retrieve instance metadata from the metadata
+    service.
+  * `metadataService,configDrive` - Retrieve instance metadata from the metadata
+    service first if available, then the configuration drive.
+
+  Influencing this behavior may be desirable as the metadata on the
+  configuration drive may grow stale over time, whereas the metadata service
+  always provides the most up to date view. Not all OpenStack clouds provide
+  both configuration drive and metadata service though and only one or the other
+  may be available which is why the default is to check both.
+
 #### Router
 These configuration options for the OpenStack provider pertain to routing and
 should appear in the `[Route]` section of the `cloud.conf` file:

@@ -20,17 +20,49 @@ You can get an overview of PodPresets at
 This is a simple example to show how a Pod spec is modified by the Pod
 Preset.
 
-**User submitted pod spec:**
+{% include code.html language="yaml" file="podpreset-preset.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-preset.yaml" %}
+
+Create the PodPreset:
+
+```shell
+kubectl create -f https://k8s.io/docs/tasks/inject-data-application/podpreset-preset.yaml
+```
+
+Examine the created PodPreset:
+
+```shell
+$ kubectl get podpreset
+NAME             AGE
+allow-database   1m
+```
+
+The new PodPreset will act upon any pod that has label `role: frontend`.
 
 {% include code.html language="yaml" file="podpreset-pod.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-pod.yaml" %}
 
-**Example Pod Preset:**
+Create a pod:
 
-{% include code.html language="yaml" file="podpreset-preset.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-preset.yaml" %}
+```shell
+$ kubectl create -f https://k8s.io/docs/tasks/inject-data-application/podpreset-pod.yaml
+```
+
+List the running Pods:
+
+```shell
+$ kubectl get pods
+NAME      READY     STATUS    RESTARTS   AGE
+website   1/1       Running   0          4m
+```
 
 **Pod spec after admission controller:**
 
 {% include code.html language="yaml" file="podpreset-merged.yaml" ghlink="/docs/tasks/inject-data-application/podpreset-merged.yaml" %}
+
+To see above output, run the following command:
+
+```shell
+$ kubectl get pod website -o yaml
+```
 
 ### Pod Spec with `ConfigMap` Example
 
@@ -113,7 +145,7 @@ when there is a conflict.
 
 **If we run `kubectl describe...` we can see the event:**
 
-```
+```shell
 $ kubectl describe ...
 ....
 Events:
