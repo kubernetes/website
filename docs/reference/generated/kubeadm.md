@@ -67,7 +67,7 @@ following steps:
    See [Securing your installation](#securing-more) for hardening.
 
 1. kubeadm installs add-on components via the API server.  Right now this is
-   the internal DNS server and the kube-proxy DaemonSet. There is no requirement for specifying kube-proxy bind address in kubeadm.conf. The kube-proxy bind address is dynamically assigned based on the address type of API server (i.e. v4 will assign 0.0.0.0 & v6 will assign :: ).
+   the internal DNS server and the kube-proxy DaemonSet. There is no requirement for specifying kube-proxy bind address in kubeadm configuration file. The kube-proxy bind address is dynamically assigned based on the address type of API server (i.e. v4 will assign 0.0.0.0 & v6 will assign :: ).
 
 1. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
    (`--feature-gates=SelfHosting=true`), the static Pod based control plane will
@@ -111,7 +111,7 @@ flags that can be used to customise the Kubernetes installation.
 - `--apiserver-advertise-address`
 
   This is the address the API Server will advertise to other members of the
-  cluster.  API server IP address can either be IPv4 or IPv6.This is also the address used to construct the suggested `kubeadm
+  cluster.  API server IP address can either be IPv4 or IPv6. This is also the address used to construct the suggested `kubeadm
   join` line at the end of the init process.  If not set (or set to 0.0.0.0 for IPv4 or :: for IPv6) then
   IP for the default interface will be used.
 
@@ -1020,6 +1020,25 @@ apiVersion: kubeadm.k8s.io/v1alpha1
 kind: MasterConfiguration
 apiServerExtraArgs:
    feature-gates: APIResponseCompression=true
+```
+
+To customise the scheduler or controller-manager, use `schedulerExtraArgs` and `controllerManagerExtraArgs` respectively.
+
+More information on custom arguments can be found here:
+
+- [kube-apiserver](https://kubernetes.io/docs/admin/kube-apiserver/)
+- [kube-controller-manager](https://kubernetes.io/docs/admin/kube-controller-manager/)
+- [kube-scheduler](https://kubernetes.io/docs/admin/kube-scheduler/)
+
+### Specifying custom arguments for IPv6 interfaces
+
+Optionally, IPv6 for liveness probe for control plane components and etcd server can also be specified using extra args as mentioned in the example below. Please note that whenever IPv6 needs to be specified as IP:Port, IPv6 hostname must be enclosed.
+
+```
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+apiServerExtraArgs:
+   feature-gates: APIResponseCompression=true
 apiServerExtraArgs:
   etcd-servers: "http://[fd00::101]:2379"
 controllerManagerExtraArgs:
@@ -1031,15 +1050,6 @@ etcd:
     listen-client-urls: "http://[fd00::101]:2379"
 ```
 
-Optionally, IPv6 for liveness probe for control plane components and etcd server can also be specified using extra args as mentioned in the example above. Please note that whenever IPv6 is specified as a tuple of IP:Port, IPv6 must be enclosed in square brackets.
-
-To customise the scheduler or controller-manager, use `schedulerExtraArgs` and `controllerManagerExtraArgs` respectively.
-
-More information on custom arguments can be found here:
-
-- [kube-apiserver](https://kubernetes.io/docs/admin/kube-apiserver/)
-- [kube-controller-manager](https://kubernetes.io/docs/admin/kube-controller-manager/)
-- [kube-scheduler](https://kubernetes.io/docs/admin/kube-scheduler/)
 
 ## Releases and release notes
 
