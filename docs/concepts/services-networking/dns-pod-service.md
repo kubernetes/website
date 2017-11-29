@@ -202,20 +202,26 @@ busybox   1/1       Running   0          <some-time>
 
 ### Validate that DNS is working
 
-Once that pod is running, you can exec nslookup in that environment:
+Once that pod is running, you can exec nslookup in that environment. For IPV4 setup you should see something like:
 
 ```
-kubectl exec -ti busybox -- nslookup kubernetes.default
-```
-
-You should see something like:
-
-```
+$ kubectl exec -ti busybox -- nslookup kubernetes.default
 Server:    10.0.0.10
 Address 1: 10.0.0.10
 
 Name:      kubernetes.default
 Address 1: 10.0.0.1
+```
+
+For IPv6 setup you should see something like:
+
+```
+kubectl exec -it busybox -- nslookup kubernetes.default
+Server:    fd00:79:30::a
+Address 1: fd00:79:30::a
+
+Name:      kubernetes.default
+Address 1: fd00:79:30::1	
 ```
 
 If you see that, DNS is working correctly.
@@ -231,13 +237,23 @@ Take a look inside the resolv.conf file. (See [Inheriting DNS from the node](#in
 kubectl exec busybox cat /etc/resolv.conf
 ```
 
-Verify that the search path and name server are set up like the following (note that search path may vary for different cloud providers):
+For IPv4 setup, verify that the search path and name server are set up like the following (note that search path may vary for different cloud providers):
 
 ```
 search default.svc.cluster.local svc.cluster.local cluster.local google.internal c.gce_project_id.internal
 nameserver 10.0.0.10
 options ndots:5
 ```
+
+For IPv6 setup, search path and name server should be setup like this:
+
+```
+$ kubectl exec -it busybox -- cat /etc/resolv.conf
+nameserver fd00:79:30::a
+search default.svc.cluster.local svc.cluster.local cluster.local
+options ndots:5
+```
+
 
 ### DNS Policy
 
@@ -317,36 +333,44 @@ See if there is any suspicious log. W, E, F letter at the beginning represent Wa
 
 #### Is DNS service up?
 
-Verify that the DNS service is up by using the `kubectl get service` command.
+Verify that the DNS service is up by using the `kubectl get service` command. For IPv4 setup you should see:
 
 ```
-kubectl get svc --namespace=kube-system
-```
-
-You should see:
-
-```
+$ kubectl get svc --namespace=kube-system
 NAME                    CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
 ...
 kube-dns                10.0.0.10      <none>        53/UDP,53/TCP        1h
 ...
 ```
 
+For IPv6 setup you should see:
+
+```
+$ kubectl get svc -n kube-system
+NAME                   TYPE        CLUSTER-IP        EXTERNAL-IP   PORT(S)         AGE
+kube-dns               ClusterIP   fd00:79:30::a     <none>        53/UDP,53/TCP   6h
+kubernetes-dashboard   NodePort    fd00:79:30::f21   <none>        80:31552/TCP    6h
+```
+
+
 If you have created the service or in the case it should be created by default but it does not appear, see this [debugging services page](/docs/tasks/debug-application-cluster/debug-service/) for more information.
 
 #### Are DNS endpoints exposed?
 
-You can verify that DNS endpoints are exposed by using the `kubectl get endpoints` command.
+You can verify that DNS endpoints are exposed by using the `kubectl get endpoints` command. For IPv4 setup you should see something like:
 
 ```
-kubectl get ep kube-dns --namespace=kube-system
-```
-
-You should see something like:
-
-```
+$ kubectl get ep kube-dns --namespace=kube-system
 NAME       ENDPOINTS                       AGE
 kube-dns   10.180.3.17:53,10.180.3.17:53    1h
+```
+
+For IPv6 setup you should see something like:
+
+```
+$ kubectl get ep kube-dns -n kube-system
+NAME       ENDPOINTS                                     AGE
+kube-dns   [fd00:79::2:0:0:1]:53,[fd00:79::2:0:0:1]:53   6h
 ```
 
 If you do not see the endpoints, see endpoints section in the [debugging services documentation](/docs/tasks/debug-application-cluster/debug-service/).
