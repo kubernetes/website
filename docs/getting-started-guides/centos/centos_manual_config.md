@@ -29,10 +29,10 @@ Hosts:
 Please replace host IP with your environment.
 
 ```conf
-centos-master = 192.168.121.9
-centos-minion-1 = 192.168.121.65
-centos-minion-2 = 192.168.121.66
-centos-minion-3 = 192.168.121.67
+192.168.121.9 centos-master
+192.168.121.65 centos-minion-1
+192.168.121.66 centos-minion-2
+192.168.121.67 centos-minion-3 
 ```
 
 **Prepare the hosts:**
