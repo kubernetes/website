@@ -109,7 +109,7 @@ However, the particular path specified in the custom recycler pod template in th
 * AWSElasticBlockStore
 * AzureFile
 * AzureDisk
-* FC (Fibre Channel)
+* FC (Fibre Channel File and Block Support)
 * Flocker
 * NFS
 * iSCSI
@@ -137,6 +137,7 @@ Each PV contains a spec and status, which is the specification and status of the
   spec:
     capacity:
       storage: 5Gi
+    volumeMode: Filesystem
     accessModes:
       - ReadWriteOnce
     persistentVolumeReclaimPolicy: Recycle
@@ -150,6 +151,10 @@ Each PV contains a spec and status, which is the specification and status of the
 Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resources.md) to understand the units expected by `capacity`.
 
 Currently, storage size is the only resource that can be set or requested.  Future attributes may include IOPS, throughput, etc.
+
+### Volume Mode
+
+Prior to v1.9, the default behavior for all volume plugins was to create a filesystem on the persistent volume. With v1.9, the user can specify a volumeMode which will now support raw block devices in addition to fileystems. This feature is alpha in v1.9 and may change in the future. Acceptable values for volumeMode are "Filesystem" or "Block". This is an optional parameter for default filesytem selection.
 
 ### Access Modes
 
@@ -236,6 +241,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  volumeMode: Filesystem
   resources:
     requests:
       storage: 8Gi
@@ -249,6 +255,10 @@ spec:
 ### Access Modes
 
 Claims use the same conventions as volumes when requesting storage with specific access modes.
+
+### Volume Modes
+
+Claims use the same convention as volumes to indicates the consumption of the volume as either a filesystem or block device.
 
 ### Resources
 
