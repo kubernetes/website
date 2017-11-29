@@ -191,6 +191,64 @@ Because resource names are not present in the URL for create, list, watch, and d
 those verbs would not be allowed by a rule with resourceNames set, since the resourceNames portion of the
 rule would not match the request.
 
+### Aggregated ClusterRoles
+
+ClusterRoles can be created by combining other ClusterRoles using an `aggregationRule`. The permissions of
+aggregated ClusterRoles are controller managed, and filled in by unioning the rules of any ClusterRole that
+matches the provided label selector. An example aggregated ClusterRole:
+
+```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: monitoring
+aggregationRule:
+  clusterRoleSelectors:
+  - matchLabels:
+      rbac.example.com/aggregate-to-monitoring: "true"
+rules: [] # Rules are automatically filled in by the controller manager.
+```
+
+Creating a ClusterRole that matches the label selector will add rules to the original ClusterRole. In this case
+rules can be added to the "monitoring" ClusterRole by creating another ClusterRole that has the label
+`rbac.example.com/aggregate-to-monitoring: true`.
+
+```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: monitoring-endpoints
+  labels:
+    rbac.example.com/aggregate-to-monitoring: "true"
+# These rules will be added to the "monitoring" role.
+rules:
+- apiGroups: [""]
+  Resources: ["services", "endpoints", "pods"]
+  verbs: ["get", "list", "watch"]
+```
+
+The default user facing roles (described below) use ClusterRole aggregation. This lets admins attach rules
+for custom resources, such as those served by CustomResourceDefinitions or Aggregated API servers, to the
+default roles.
+
+For example, the following ClusterRole adds the ability to manage the custom resource "CronTabs" to the "admin"
+and "edit" default roles.
+
+```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: aggregate-cron-tabs
+  labels:
+    # Add these permissions to the "admin" and "edit" default roles.
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+rules:
+- apiGroups: ["stable.example.com"]
+  Resources: ["crontabs"]
+  verbs: ["*"]
+```
+
 #### Role Examples
 
 Only the `rules` section is shown in the following examples.
@@ -401,6 +459,16 @@ Some of the default roles are not `system:` prefixed. These are intended to be u
 They include super-user roles (`cluster-admin`),
 roles intended to be granted cluster-wide using ClusterRoleBindings (`cluster-status`),
 and roles intended to be granted within particular namespaces using RoleBindings (`admin`, `edit`, `view`).
+
+User-facing roles use ClusterRole Aggregation to allow admins to attach rules for custom resources to these
+roles. To add rules to the "admin", "edit", or "view" role, create a ClusterRole with the following label (you
+may provide mulitiple labels to target multiple roles):
+
+```yaml
+metadata:
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-( role name ): "true"
+```
 
 <table>
 <colgroup><col width="25%"><col width="25%"><col></colgroup>
