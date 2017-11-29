@@ -33,19 +33,39 @@ A *custom controller* is a controller that users can deploy and update on a runn
 
 ### Should I add a custom resource to my Kubernetes Cluster?
 
-When creating a new API, consider whether to [aggregate your API with the Kubernetes cluster APIs](https://kubernetes.io/docs/concepts/api-extension/apiserver-aggregation/) or let your API stand alone.
+When creating a new API, consider whether to [aggregate your API with the Kubernetes cluster APIs](/docs/concepts/api-extension/apiserver-aggregation/) or let your API stand alone.
 
 | Consider API aggregation if: | Prefer a stand-alone API if: |
 |-|-|
-| Your API is Declarative.  Typically, this means: <ul><li>your API consists of a relatively small number of relatively small objects</li><li>the objects define configuration of applications or infrastructure the objects are updated relatively infrequently</li><li>humans often need to read and write the objects</li><li>the main operations on the objects are CRUD-y (creating, reading, updating and deleting)</li><li>transactions across objects are not required.</li></ul> | Your API does not fit the Declarative model.  For example, it might: <ul><li>need to directly store large amounts of data (e.g. > a few kB per object, or >1000s of objects)</li><li>need to be high bandwidth (10s of requests per second sustained)</li><li>store end-user data (such as images, PII, etc) or other large-scale data processed by applications</li><li>the objects require non-CRUD operations</li><li>the API does is not well modeled as objects.</li></ul> |
-| You want your new types to be readable and writable using `kubectl`. For example: <ul><li>`kubectl create -f customresources.{yaml,json}`</li><li>`kubectl get myresourcetype myresinstance`</li><li>`kubectl delete myresourcetype myresinstance`</li><li>`kubectl list myresourcetype`</li></ul> | `kubectl` support is not required |
+| Your API is [Declarative](#declarative-apis). | Your API does not fit the [Declarative](#declarative-apis) model. |
+| You want your new types to be readable and writable using `kubectl`.| `kubectl` support is not required |
 | You want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types. | Kuberetes UI support is not required. |
-| You prefer Declarative/REST/Resource style APIs. | You prefer Imperative/RPC/Operation style APIs [comparison]. |
 | You are developing a new API. | You already have program that serves your API and works well. |
-| You are willing to accept the format restriction that Kubernetes puts on REST resource paths, such as API Groups and Namespaces. (See the [API Overview](https://kubernetes.io/docs/concepts/overview/kubernetes-api/).) | You need to have specific REST paths to be compatible with an already defined REST API. |
+| You are willing to accept the format restriction that Kubernetes puts on REST resource paths, such as API Groups and Namespaces. (See the [API Overview](/docs/concepts/overview/kubernetes-api/).) | You need to have specific REST paths to be compatible with an already defined REST API. |
 | Your resources are naturally scoped to a cluster or to namespaces of a cluster. | Cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths. |
-| You want to reuse these features of the Kubernetes code: <ul><li>Client Libraries for listing, watching, and patching resource.</li><li>Authentication</li><li>Authorization</li><li>Audit logging</li><li>Garbage collection and hierarchy of resources</li><li>Resource metadata such as labels, annotations, and creation timestamps.</li></ul> | You either don't need or have different needs for these features. |
-| You want to reuse these aspects of your cluster environment that may already be set up. For example: <ul><li>Existing Kubernetes Service Accounts, and their ability to discover the APIServer</li><li>Any built-in or custom Access Control and Policy mechanisms on your cluster</li><li>User's existing Clients which point to your existing cluster</li><li>Hostname, IP and certificate of the existing APIserver, which has already been delivered to clients and is in their `.kube/config` file</li><li>Code which already uses in Kubernetes client libraries</li><li>High Availability (if any) of your Kubernetes APIServer(s) and etcd</li><li>Your API needs to be acted on by Kubernetes controllers, e.g. scaled by autoscaler</li></ul> | You don't need these features. |
+| You want to reuse [Kubernetes API support features](#common-features).  | You don't need those features. |
+
+#### Declarative APIs
+
+In a Declarative API, typically:
+ - your API consists of a relatively small number of relatively small objects (resources).
+ - the objects define configuration of applications or infrastructure
+ - the objects are updated relatively infrequently
+ - humans often need to read and write the objects
+ - the main operations on the objects are CRUD-y (creating, reading, updating and deleting)
+ - transactions across objects are not required: the API represents a desired state, not an exact state.
+
+Imperative APIs are not declarative. 
+Signs that your API might not be declarative include:
+ - the client says "do this", and then gets a synchornous response back when it is done.
+ - the client says "do this", and then gets an operation ID back, and has to check a separate Operation objects to determine completion of the request.
+ - you talk about Remote Procedure Calls (RPCs)
+ - directly stoing large amounts of data (e.g. > a few kB per object, or >1000s of objects)
+ - high bandwidth access (10s of requests per second sustained) needed
+ - store end-user data (such as images, PII, etc) or other large-scale data processed by applications
+ - the natural operations on the objects are not CRUD-y.
+ - the API is not easily modeled as objects.
+ - you chose to represent pending operations with an operation ID or operation object.
 
 ### Should I use a configMap or a custom resource?
 
@@ -57,7 +77,7 @@ Use a ConfigMap if any of the following apply:
 * Consumers of the file prefer to consume via file in a Pod or environment variable in a pod, rather than the Kubernetes API.
 * You want to perform rolling updates via Deployment, etc, when the file is updated.
 
-**Note:** Use a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) for sensitive data, which is similar to a configMap but more secure.
+**Note:** Use a [secret](/docs/concepts/configuration/secret/) for sensitive data, which is similar to a configMap but more secure.
 {: .note}
 
 Use a custom resource (CRD or Aggregated API) if most of the following apply:
@@ -92,7 +112,7 @@ This frees you from writing your own API server to handle the custom resource,
 but the generic nature of the implementation means you have less flexibility than with
 [API server aggregation](#api-server-aggregation).
 
-Refer to the [Custom Resource Example](https://github.com/kubernetes/kubernetes/tree/master/staging/src/k8s.io/apiextensions-apiserver/examples/client-go)
+Refer to the [Custom Controler example, which uses Custom Resources](https://github.com/kubernetes/sample-controller)
 for a demonstration of how to register a new custom resource, work with instances of your new resource type,
 and setup a controller to handle events.
 
@@ -146,22 +166,24 @@ Aggregated APIs offer more advanced API features and customization of other feat
 
 #### Common Features
 
-CRDs and AAs support many of the same features:
+When you create a custom resource, either via a CRDs or an AA, you get many features for your API, compared to implementing it outside the Kubernetes platform:
 
 | Feature | What it does |
 |-|-|
-| CRUD | The new endpoints support CRUD basic operations via HTTP |
+| CRUD | The new endpoints support CRUD basic operations via HTTP and `kubectl` |
 | Watch | The new endpoints support Kubernetes Watch operations via HTTP |
 | Discovery | Clients like kubectl and dashboard automatically offer list, display, and field edit operations on your resources |
 | json-patch | The new endpoints support PATCH with `Content-Type: application/json-patch+json` |
 | merge-patch | The new endpoints support PATCH with `Content-Type: application/merge-patch+json` |
 | HTTPS | The new endpoints uses HTTPS |
-| Built-in Authentication | Access to the extension uses the core apiserver for authentication? |
-| Built-in Authorization | Access the the extension reuses the authorization scheme of the core apiserver (e.g. RBAC) |
+| Built-in Authentication | Access to the extension uses the core apiserver (aggregation layer) for authentication |
+| Built-in Authorization | Access the the extension can reuse the authorization used by the core apiserver (e.g. RBAC) |
 | Finalizers | Block deletion of extension resources until external cleanup happens. |
 | Admission Webhooks | Set default values and validate extension resources during any create/update/delete operation. |
 | UI/CLI Display | Kubectl, dashboard can display extension resources. |
 | Unset vs Empty | Clients can distinguish unset fields from zero-valued fields. |
+| Client Libraries Generation | Kubernetes provides generic clent libraries, as well as tools to generate type-specific client libraries. |
+| Labels and annotations | Common metadata across objects that tools know how to edit for core and custom resources. |
 
 ## Preparing to install a custom resource
 
@@ -189,7 +211,7 @@ Aggregated API servers may or may not use the same authentication, authorization
 
 ## Accessing a custom resource
 
-Kubernetes [client libraries](https://kubernetes.io/docs/reference/client-libraries/) can be used to access custom resources. Not all client libraries support custom resources. The go and python client libraries do.
+Kubernetes [client libraries](/docs/reference/client-libraries/) can be used to access custom resources. Not all client libraries support custom resources. The go and python client libraries do.
 
 When you add a custom resource, you can access it using:
   - kubectl
