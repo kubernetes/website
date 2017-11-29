@@ -49,48 +49,39 @@ toc:
 
 - title: kubectl CLI
   section:
-  - docs/user-guide/kubectl-overview.md
-  - docs/user-guide/kubectl/index.md
-  - title: v1.8 Commands
-    path: /docs/user-guide/kubectl/v1.8/
-  - title: v1.7 Commands
-    path: /docs/user-guide/kubectl/v1.7/
-  - title: v1.6 Commands
-    path: /docs/user-guide/kubectl/v1.6/
-  - title: v1.5 Commands
-    path: /docs/user-guide/kubectl/v1.5/
-  - docs/user-guide/docker-cli-to-kubectl.md
-  - docs/user-guide/kubectl-conventions.md
-  - docs/user-guide/jsonpath.md
-  - docs/user-guide/kubectl-cheatsheet.md
+  - docs/reference/kubectl/overview.md
+  - docs/reference/generated/kubectl/kubectl-options.md
+  - title: kubectl Commands
+    path: /docs/reference/generated/kubectl/kubectl-commands.html
+  - docs/reference/kubectl/docker-cli-to-kubectl.md
+  - docs/reference/kubectl/conventions.md
+  - docs/reference/kubectl/jsonpath.md
+  - docs/reference/kubectl/cheatsheet.md
 
-- title: Cloud Controller Manager
+- title: Setup Tools Reference
   section:
-  - docs/admin/cloud-controller-manager.md
-
-- title: Setup Tools
-  section:
-  - docs/admin/kubeadm.md
+  - docs/reference/generated/kubeadm.md
   - title: Kubefed
     section:
-    - docs/admin/kubefed.md
-    - docs/admin/kubefed_options.md
-    - docs/admin/kubefed_init.md
-    - docs/admin/kubefed_join.md
-    - docs/admin/kubefed_unjoin.md
-    - docs/admin/kubefed_version.md
+    - docs/reference/generated/kubefed.md
+    - docs/reference/generated/kubefed_options.md
+    - docs/reference/generated/kubefed_init.md
+    - docs/reference/generated/kubefed_join.md
+    - docs/reference/generated/kubefed_unjoin.md
+    - docs/reference/generated/kubefed_version.md
 
-- title: Config Reference
+- title: Command-line Tools Reference
   section:
-  - docs/admin/kubelet.md
+  - docs/reference/generated/kubelet.md
   - docs/admin/kubelet-authentication-authorization.md
-  - docs/admin/kube-apiserver.md
-  - docs/admin/kube-controller-manager.md
-  - docs/admin/kube-proxy.md
-  - docs/admin/kube-scheduler.md
+  - docs/reference/generated/kube-apiserver.md
+  - docs/reference/generated/kube-controller-manager.md
+  - docs/reference/generated/kube-proxy.md
+  - docs/reference/generated/kube-scheduler.md
   - docs/admin/kubelet-tls-bootstrapping.md
-  - docs/admin/federation-apiserver.md
-  - docs/admin/federation-controller-manager.md
+  - docs/reference/generated/cloud-controller-manager.md
+  - docs/reference/generated/federation-apiserver.md
+  - docs/reference/generated/federation-controller-manager.md
 
 - title: Kubernetes Design Docs
   section:

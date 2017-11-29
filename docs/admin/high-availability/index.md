@@ -7,7 +7,7 @@ title: Building High-Availability Clusters
 This document describes how to build a high-availability (HA) Kubernetes cluster.  This is a fairly advanced topic.
 Users who merely want to experiment with Kubernetes are encouraged to use configurations that are simpler to set up such
 as [Minikube](/docs/getting-started-guides/minikube/)
-or try [Google Container Engine](https://cloud.google.com/container-engine/) for hosted Kubernetes.
+or try [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) for hosted Kubernetes.
 
 Also, at this time high availability support for Kubernetes is not continuously tested in our end-to-end (e2e) testing.  We will
 be working to add this continuous testing, but for now the single-node master installations are more heavily tested.

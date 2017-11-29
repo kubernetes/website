@@ -34,3 +34,21 @@ The [Tools](/docs/tools/) page contains a list of native and third-party tools f
 ## Troubleshooting
 
 The [Troubleshooting](/docs/tasks/debug-application-cluster/troubleshooting) page outlines some resources for troubleshooting and finding help.
+
+## Supported Versions
+
+Kubernetes has a _X.Y.Z_ versioning scheme, where _X_ is the major version, _Y_ is the minor version, and _Z_ is the patch version. 
+
+Kubernetes is supported for three minor versions at a time. This includes the current release version and two previous versions. 
+
+See the [Kubernetes Release](https://github.com/kubernetes/kubernetes/releases) page on GitHub for the latest release information.
+
+### Minor Versions
+
+A certain amount of version skew is permissible between master components, node components, and the kubectl client. Nodes may lag master by up to two versions, but not exceed the master version. Clients may lag master by one version and may exceed master up to one version.
+
+For example, a v1.8 master is expected to be compatible with v1.6, v1.7, and v1.8 nodes, and compatible with v1.7, v1.8, and v1.9 clients. 
+
+### Patch Versions
+
+Patch releases often include critical bug fixes. You should be running the latest patch release of a given minor release.

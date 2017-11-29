@@ -684,7 +684,3 @@ rules:
   verbs: ["impersonate"]
   resourceNames: ["view", "development"]
 ```
-
-## APPENDIX
-
-
