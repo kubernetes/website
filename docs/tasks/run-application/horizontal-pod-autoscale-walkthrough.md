@@ -7,11 +7,13 @@ approvers:
 title: Horizontal Pod Autoscaling Walkthrough
 ---
 
+{% capture overview %}
 Horizontal Pod Autoscaling automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization
 (or, with beta support, on some other, application-provided metrics).
 
 This document walks you through an example of enabling Horizontal Pod Autoscaling for the php-apache server.  For more information on how Horizontal Pod Autoscaling behaves, see the [Horizontal Pod Autoscaling user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
+{% endcapture %}
 
 ## Prerequisites
 
