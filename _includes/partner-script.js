@@ -11,8 +11,8 @@
 			type: 0,
 			name: 'Puppet',
 			logo: 'puppet',
-			link: 'https://puppet.com/blog/managing-kubernetes-configuration-puppet',
-			blurb: 'The Puppet module for Kubernetes makes it easy to manage Pods, Replication Controllers, Services and more in Kubernetes, and to build domain-specific interfaces to one\'s Kubernetes configuration.'
+			link: 'https://puppet.com/blog/announcing-kream-and-new-kubernetes-helm-and-docker-modules',
+			blurb: 'We\'ve developed tools and products to make your adoption of Kubernetes as efficient as possible, covering your full workflow cycle from development to production. And now Puppet Pipelines for Containers is your complete DevOps dashboard for Kubernetes.'
 		},
 		{
 			type: 0,
