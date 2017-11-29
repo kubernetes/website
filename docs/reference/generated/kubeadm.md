@@ -321,10 +321,10 @@ Here's an example on how to use it:
   The CA key hash is used to verify the full root CA certificate discovered during
   token-based bootstrapping. It has the format `sha256:<hex_encoded_hash>`. By
   default, the hash value is returned in the `kubeadm join` command printed at the
-  end of `kubeadm init`. It is in a standard format (see
-  [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) and can also be
-  calculated by 3rd party tools or provisioning systems. For example, using the
-  OpenSSL CLI:
+  end of `kubeadm init` or in the output of `kubeadm token create --print-join-command`.
+  It is in a standard format (see [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4))
+  and can also be calculated by 3rd party tools or provisioning systems. For
+  example, using the OpenSSL CLI:
   `openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'`
 
   _Skipping this flag is allowed in Kubernetes 1.8, but makes certain spoofing
