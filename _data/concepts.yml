@@ -24,6 +24,7 @@ toc:
 
 - title: Extending Kubernetes
   section:
+  - docs/concepts/overview/extending.md
   - title: Extending the Kubernetes API
     section:
     - docs/concepts/api-extension/apiserver-aggregation.md
@@ -33,6 +34,7 @@ toc:
     - docs/concepts/cluster-administration/network-plugins.md
     - docs/concepts/cluster-administration/device-plugins.md
     - docs/concepts/cluster-administration/sysctl-cluster.md
+  - docs/concepts/service-catalog/index.md
 
 - title: Containers
   section:
@@ -84,8 +86,8 @@ toc:
   section:
   - docs/concepts/storage/volumes.md
   - docs/concepts/storage/persistent-volumes.md
-  - title: Dynamic Provisioning
-    path: http://blog.kubernetes.io/2016/10/dynamic-provisioning-and-storage-in-kubernetes.html
+  - docs/concepts/storage/storage-classes.md
+  - docs/concepts/storage/dynamic-provisioning.md
 
 - title: Cluster Administration
   section:
