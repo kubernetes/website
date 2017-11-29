@@ -115,7 +115,7 @@ something provider-specific. The tabs below will contain a notice about what fla
 on `kubeadm init` are required.
 - Unless otherwise specified, kubeadm uses the default gateway's network interface 
 to advertise the master's IP. If you want to use a different network interface, specify 
-`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you must specify an IPv6 `--apiserver-advertise-address=<IPv6-address>` 
+`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you must specify an IPv6, e.g. `--apiserver-advertise-address=fd00::101` 
 - If you would like to customise control plane components including optional IPv6 assignment to liveness probe for control plane components and etcd server, you can do so by providing extra args to each one, as documented [here](/docs/admin/kubeadm#custom-args).
 - `kubeadm init` will first run a series of prechecks to ensure that the machine
 is ready to run Kubernetes.  It will expose warnings and exit on errors. It
@@ -210,7 +210,7 @@ supports Container Network Interface (CNI) based networks (and does not support 
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
 support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons
-page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0), so for IPv6 based network please use CNI version 0.6.0 or higher. [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported drivers in 1.9.
+page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in 1.9.
 
 **New for Kubernetes 1.6:** kubeadm 1.6 sets up a more secure cluster by
 default.  As such it uses RBAC to grant limited privileges to workloads running

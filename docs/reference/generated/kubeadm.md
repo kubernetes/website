@@ -1038,8 +1038,6 @@ Optionally, IPv6 for liveness probe for control plane components and etcd server
 apiVersion: kubeadm.k8s.io/v1alpha1
 kind: MasterConfiguration
 apiServerExtraArgs:
-   feature-gates: APIResponseCompression=true
-apiServerExtraArgs:
   etcd-servers: "http://[fd00::101]:2379"
 controllerManagerExtraArgs:
   address: "fd00::101"
