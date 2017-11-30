@@ -32,7 +32,7 @@ You have several options for connecting to nodes, pods and services from outside
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
       Does it do its own authentication?
     - Place pods behind services.  To access one specific pod from a set of replicas, such as for debugging,
-      place a unique label on the pod it and create a new service which selects this label.
+      place a unique label on the pod and create a new service which selects this label.
     - In most cases, it should not be necessary for application developer to directly access
       nodes via their nodeIPs.
   - Access services, nodes, or pods using the Proxy Verb.
@@ -45,9 +45,9 @@ You have several options for connecting to nodes, pods and services from outside
   - Access from a node or pod in the cluster.
     - Run a pod, and then connect to a shell in it using [kubectl exec](/docs/user-guide/kubectl/{{page.version}}/#exec).
       Connect to other nodes, pods, and services from that shell.
-    - Some clusters may allow you to ssh to a node in the cluster.  From there you may be able to
-      access cluster services.  This is a non-standard method, and will work on some clusters but
-      not others.  Browsers and other tools may or may not be installed.  Cluster DNS may not work.
+    - Some clusters may allow you to ssh to a node in the cluster. From there you may be able to
+      access cluster services. This is a non-standard method, and will work on some clusters but
+      not others. Browsers and other tools may or may not be installed. Cluster DNS may not work.
 
 ### Discovering builtin services
 
@@ -102,7 +102,7 @@ If you haven't specified a name for your port, you don't have to specify *port_n
 
 You may be able to put an apiserver proxy URL into the address bar of a browser. However:
 
-  - Web browsers cannot usually pass tokens, so you may need to use basic (password) auth.  Apiserver can be configured to accept basic auth,
+  - Web browsers cannot usually pass tokens, so you may need to use basic (password) auth. Apiserver can be configured to accept basic auth,
     but your cluster may not be configured to accept basic auth.
   - Some web apps may not work, particularly those with client side javascript that construct URLs in a
     way that is unaware of the proxy path prefix.
