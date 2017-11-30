@@ -24,7 +24,7 @@ As of Kubernetes 1.9, persistent volume claims (PVCs) that are actively used by 
 
 As PVC Protection is an alpha feature it must be turned on:
 1. Admission controller must be started with the PVC Protection plugin.
-2. All kubelets must be started with the `PVCProtection` alpha features switched on.
+2. All Kubernetes components must be started with the `PVCProtection` alpha features switched on.
 
 {% endcapture %}
 
