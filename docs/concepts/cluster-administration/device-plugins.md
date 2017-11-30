@@ -34,7 +34,7 @@ During the registration, the device plugin needs to send:
   * The name of its Unix socket.
   * The Device Plugin API version against which it was built.
   * The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
-    [extended resource naming scheme](https://github.com/kubernetes/kubernetes/pull/48922)
+    [extended resource naming scheme](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
     as `vendor-domain/resource`.
     For example, an Nvidia GPU is advertised as `nvidia.com/gpu`.
 
@@ -45,12 +45,30 @@ For example, after a device plugin registers `vendor-domain/foo` with the kubele
 and reports two healthy devices on a node, the node status is updated
 to advertise 2 `vendor-domain/foo`.
 
-Then, developers can request devices in a
+Then, users can request devices in a
 [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
-specification by using the same process that is used for
-[opaque integer resources](/docs/tasks/configure-pod-container/opaque-integer-resource/).
-In version 1.8, extended resources are supported only as integer resources and must have
-`limit` equal to `request` in the Container specification.
+specification as they request other types of resources, with the following limitations:
+  * Extended resources are only supported as integer resources and cannot be overcommitted.
+  * Devices cannot be shared among Containers.
+  * There is no support for requesting device plugin resources in [Init Containers](/docs/concepts/workloads/pods/init-containers/).
+
+Suppose a Kubernetes cluster is running a device plugin that advertises resource `vendor-domain/resource`
+on certain nodes, here is an example user pod requesting this resource:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod
+spec:
+  containers:
+    -
+      name: demo-container-1
+      image: gcr.io/google_containers/pause:2.0
+      resources:
+        limits:
+          vendor-domain/resource: 2 # requesting 2 vendor-domain/resource
+```
 
 ## Device plugin implementation
 
@@ -88,7 +106,7 @@ runtime configurations for accessing the allocated devices. The kubelet passes t
 to the container runtime.
 
 A device plugin is expected to detect kubelet restarts and re-register itself with the new
-kubelet instance. In version 1.8, a new kubelet instance cleans up all the existing Unix sockets
+kubelet instance. In the current implementation, a new kubelet instance deletes all the existing Unix sockets
 under `/var/lib/kubelet/device-plugins` when it starts. A device plugin can monitor the deletion
 of its Unix socket and re-register itself upon such an event.
 
@@ -104,6 +122,16 @@ must be mounted as a
 [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core)
 in the plugin's
 [PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core).
+
+Kubernetes device plugin support is still in alpha. As development continues, its API version can
+change in incompatible ways. We recommend that device plugin developers do the following:
+  * Watch for changes in future releases.
+  * Support multiple versions of the device plugin API for backward/forward compatibility.
+
+If you enable the DevicePlugins feature and run device plugins on nodes that need to be upgraded to
+a Kubernetes release with a newer device plugin API version, upgrade your device plugins
+to support both versions before upgrading these nodes to
+ensure the continuous functioning of the device allocations during the upgrade.
 
 ## Examples
 
