@@ -1,332 +1,480 @@
-# High Availability
+---
+approvers:
+- mikedanese
+- luxas
+- errordeveloper
+- jbeda
+title: Creating HA clusters with kubeadm
+---
+
+{% capture overview %}
 
 This guide will instruct you on how to install and set up a highly available Kubernetes cluster using kubeadm.
 
-## Scope and non-goals
+The goal of this document is to cover the areas that kubeadm was not designed to cover: the provisioning of hardware, configuration of multiple systems, and load balancing. The user is expected to handle this themselves with the aid of our documentation. Please note this guide is one potential solution - there are many ways to configure HA! If a better solution works for you, please use it. If you feel it can be adopted by the community, feel free to contribute it back.
 
-- kubeadm is designed to be a minimal, generic tool to install Kubernetes clusters. It is not meant to extensively cover HA setups or provision hardware.
-- The goal of this document is to cover the areas that kubeadm was not designed to cover: the provisioning of hardware, configuration of multiple systems, and load balancing. The user is expected to handle this themselves with the aid of our documentation. 
-- Please note this guide is one potential solution - there are many ways to configure HA! If a better solution works for you, please use it. If you feel it can be adopted by the community, feel free to contribute it back.
+{% endcapture %}
 
-## Set up etcd
+{% capture prerequisites %}
 
-For this HA setup, you will be using external etcd to host your Kubernetes cluster. This will exist as 3 Virtual Machines, each running etcd as a systemd unit.
+1. Three machines that meet [kubeadm's minimum requirements](https://kubernetes.io/docs/setup/independent/install-kubeadm/#before-you-begin) for the masters. 
+1. Three machines that meet [kubeadm's minimum requirements](https://kubernetes.io/docs/setup/independent/install-kubeadm/#before-you-begin) for the workers. 
+1. (optional) At least three machines that meet [kubeadm's minimum requirements](https://kubernetes.io/docs/setup/independent/install-kubeadm/#before-you-begin) 
+   if you intend to host etcd on dedicated nodes (see information below).
+1. 1GB or more of RAM per machine (any less will leave little room for your apps).
+1. Full network connectivity between all machines in the cluster (public or
+   private network is fine).
 
-1. To do this, you will need to create 3 Virtual Machines that follow [CoreOS' hardware recommendations](https://coreos.com/etcd/docs/latest/op-guide/hardware.html).
+{% endcapture %}
+
+{% capture steps %}
+
+## Installing pre-requisites on masters
+
+1. For each master that has been provisioned, follow the [installation guide](/docs/setup/independent/install-kubeadm/) on how to install kubeadm and its dependencies. At the end of this step, you should have all the dependencies installed on each master.
+
+## Setting up an HA etcd cluster
+
+For highly available set ups, you will need to decide how to host your etcd cluster. A cluster is composed of at least 3 members. We recommend one of the following models:
+
+1. Hosting etcd cluster on separate compute nodes (Virtual Machines), or
+2. Hosting etcd cluster on the master nodes.
+
+Whilst the first option provides more performance and better hardware isolation, it is also more expensive and requires an additional support burden.
+
+For **Option 1**: you will need to create 3 Virtual Machines that follow [CoreOS's hardware recommendations](https://coreos.com/etcd/docs/latest/op-guide/hardware.html).
    For the sake of simplicity, we will refer to them as `etcd0`, `etcd1` and `etcd2`.
 
-### create CA
+For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd1` and `etcd2` throughout this guide should be replaced with `master0`, `master1` and `master2` accordingly, since your master nodes host etcd.
+
+### Create etcd CA certs
+
+1. First you will need to install `cfssl` and `cfssljson`:
+
+    ```shell
+    curl -o /usr/local/bin/cfssl https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
+    curl -o /usr/local/bin/cfssljson https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
+    chmod +x /usr/local/bin/cfssl*
+    ```
 
 1. SSH into `etcd0` and run the following:
 
-```
-mkdir ~/certs
-cd ~/certs
-```
-```
-cat >ca-config.json <<EOL
-{
-    "signing": {
-        "default": {
-            "expiry": "43800h"
-        },
-        "profiles": {
-            "server": {
-                "expiry": "43800h",
-                "usages": [
-                    "signing",
-                    "key encipherment",
-                    "server auth",
-                    "client auth"
-                ]
+    ```shell
+    mkdir -p /etc/kubernetes/pki/etcd
+    cd /etc/kubernetes/pki/etcd
+    ```
+    ```shell
+    cat >ca-config.json <<EOL
+    {
+        "signing": {
+            "default": {
+                "expiry": "43800h"
             },
-            "client": {
-                "expiry": "43800h",
-                "usages": [
-                    "signing",
-                    "key encipherment",
-                    "client auth"
-                ]
-            },
-            "peer": {
-                "expiry": "43800h",
-                "usages": [
-                    "signing",
-                    "key encipherment",
-                    "server auth",
-                    "client auth"
-                ]
+            "profiles": {
+                "server": {
+                    "expiry": "43800h",
+                    "usages": [
+                        "signing",
+                        "key encipherment",
+                        "server auth",
+                        "client auth"
+                    ]
+                },
+                "client": {
+                    "expiry": "43800h",
+                    "usages": [
+                        "signing",
+                        "key encipherment",
+                        "client auth"
+                    ]
+                },
+                "peer": {
+                    "expiry": "43800h",
+                    "usages": [
+                        "signing",
+                        "key encipherment",
+                        "server auth",
+                        "client auth"
+                    ]
+                }
             }
         }
     }
-}
-EOL
-```
-```
-cat >ca-csr.json <<EOL
-{
-    "CN": "etcd",
-    "key": {
-        "algo": "rsa",
-        "size": 2048
-    },
-    "names": [
-        {
-            "C": "US",
-            "L": "CA",
-            "O": "My Company Name",
-            "ST": "San Francisco",
-            "OU": "Org Unit 1",
-            "OU": "Org Unit 2"
+    EOL
+    ```
+    ```shell
+    cat >ca-csr.json <<EOL
+    {
+        "CN": "etcd",
+        "key": {
+            "algo": "rsa",
+            "size": 2048
         }
-    ]
-}
-EOL
-```
+    }
+    EOL
+    ```
 
-1. Ensure that the names section in `ca-csr.json` matches your own, or that you use a suitable default.
+    You will need to ensure that the `names` section in `ca-csr.json` matches your own company or personal address, or that you use a suitable default.
+
 1. Next, generate the CA certs like so:
 
-```
-cfssl gencert -initca ca-csr.json | cfssljson -bare ca -
-```
+    ```shell
+    cfssl gencert -initca ca-csr.json | cfssljson -bare ca -
+    ```
 
-### generate client certs
+### Generate etcd client certs
 
 1. Next you will generate the client certificates. Whilst on `etcd0`, run the following:
 
-```
-cat >client.json <<EOL
-{
-    "CN": "client",
-    "key": {
-        "algo": "ecdsa",
-        "size": 256
-    },
-    "names": [
-        {
-            "C": "US",
-            "L": "CA",
-            "ST": "San Francisco"
+    ```shell
+    cat >client.json <<EOL
+    {
+        "CN": "client",
+        "key": {
+            "algo": "ecdsa",
+            "size": 256
         }
-    ]
-}
-EOL
-```
-```
-cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=client client.json | cfssljson -bare client
-```
+    }
+    EOL
+    ```
+    ```shell
+    cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=client client.json | cfssljson -bare client
+    ```
 
 This should result in `client.pem` and `client-key.pem` being created.
 
-### set environment vars
+### Create SSH access
 
-1. Open new new tabs in your shell for `etcd1` and `etcd2`. Ensure you are SSHed into all three VMs are run the following (it will be a lot quicker if you use tmux syncing - to do this in iTerm enter `cmd+shift+i`):
+In order copy certs between machines, you will need to enable SSH access for `scp`.
 
-```
-export PEER_NAME=$(hostname)
-export PUBLIC_IP=$(ip addr show eth0 | grep -Po 'inet \K[\d.]+')
-export PRIVATE_IP=$(ip addr show eth1 | grep -Po 'inet \K[\d.]+')
+1. First, open new new tabs in your shell for `etcd1` and `etcd2`. Ensure you are SSHed into all three machines and then run the following (it will be a lot quicker if you use tmux syncing - to do this in iTerm enter `cmd+shift+i`):
 
-touch /etcd/etcd.env
-echo "PEER_NAME=$PEER_NAME" >> /etcd/etcd.env
-echo "PUBLIC_IP=$PUBLIC_IP" >> /etcd/etcd.env
-echo "PRIVATE_IP=$PRIVATE_IP" >> /etcd/etcd.env
-```
+    ```shell
+    export PEER_NAME=$(hostname)
+    export PRIVATE_IP=$(ip addr show eth1 | grep -Po 'inet \K[\d.]+')
+    ```
 
-### create ssh access
+    Make sure that `eth1` corresponds to the network interface for the IPv4 address of the private network. This might vary depending on your networking setup, so please check by running `echo $PRIVATE_IP` before continuing.
 
-1. Your `etcd1` and `etcd2` VMs need access to the CA certs created by `etcd0`. To do this, we'll use SCP which relies on SSH. So let's generate some SSH keys for the boxes:
+1. Next, generate some SSH keys for the boxes:
 
-```
-ssh-keygen -t rsa -b 4096 -C ""
-```
+    ```shell
+    ssh-keygen -t rsa -b 4096 -C "<email>"
+    ```
 
-Keep hitting enter until files exist in `~/.ssh`.
+    Make sure to replace `<email>` with your email, a placeholder, or an empty string. Keep hitting enter until files exist in `~/.ssh`.
 
-1. Find the public key for `etcd1` and `etcd2` like so:
+1. Output the contents of the public key file for `etcd1` and `etcd2`, like so:
 
-```
-cat ~/.ssh/id_rsa.pub
-```
+    ```shell
+    cat ~/.ssh/id_rsa.pub
+    ```
 
-1. Copy the output for each VM and paste into `etcd0`'s `~/.ssh/authorized_keys` file. This will permit `etcd1` and `etcd2` to SSH in to the VM.
+1. Finally, copy the output for each and paste them into `etcd0`'s `~/.ssh/authorized_keys` file. This will permit `etcd1` and `etcd2` to SSH in to the machine.
 
-### generate the certs
+### Generate etcd server and peer certs
 
-1. On `etcd1` and `etcd2`, run the following:
+1. In order to generate certs, each etcd machine needs the root CA generated by `etcd0`. On `etcd1` and `etcd2`, run the following:
 
-```
-mkdir ~/certs
-cd ~/certs
-scp root@<etcd1-ip-address>:/root/certs/ca.pem .
-scp root@<etcd1-ip-address>:/root/certs/ca-key.pem .
-```
+    ```shell
+    mkdir -p /etc/kubernetes/pki/etcd
+    cd /etc/kubernetes/pki/etcd
+    scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/ca.pem .
+    scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/ca-key.pem .
+    scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client.pem .
+    scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client-key.pem .
+    ```
 
-1. On all VMs, run the following:
+    Where `<etcd0-ip-address>` corresponds to the public or private IPv4 of `etcd0`.
 
-```
-cfssl print-defaults csr > config.json
-sed -i '0,/CN/{s/example\.net/'"$PEER_NAME"'/}' config.json
-sed -i 's/www\.example\.net/'"$PRIV_IP"'/' config.json
-sed -i 's/example\.net/'"$PUB_IP"'/' config.json
+1. Once this is done, run the following on all etcd machines:
 
-cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=server config.json | cfssljson -bare server
-cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=peer config.json | cfssljson -bare peer
-```
+    ```shell
+    cfssl print-defaults csr > config.json
+    sed -i '0,/CN/{s/example\.net/'"$PEER_NAME"'/}' config.json
+    sed -i 's/www\.example\.net/'"$PRIVATE_IP"'/' config.json
+    sed -i 's/example\.net/'"$PUBLIC_IP"'/' config.json
 
-This will result in the following files at a minimum: `peer.pem`, `peer-key.pem`, `server.pem`, `server-key.pem`.
+    cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=server config.json | cfssljson -bare server
+    cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=peer config.json | cfssljson -bare peer
+    ```
 
-### set up systemd
+    The above will replace the default configuration with your machine's hostname as the peer name, and its IP addresses. Make sure
+    these are correct before generating the certs. If you found an error, reconfigure `config.json` and re-run the `cfssl` commands.
 
-1. Now that all the certificates have been generated, you will now install and set up etcd on each VM. First install etcd binaries like so:
+This will result in the following files: `peer.pem`, `peer-key.pem`, `server.pem`, `server-key.pem`.
 
-```
-export ETCD_VERSION=v3.1.10
-wget -q --show-progress --https-only --timestamping \
-  "https://github.com/coreos/etcd/releases/download/$ETCD_VERSION/etcd-$ETCD_VERSION-linux-amd64.tar.gz"
-tar -xvf etcd-$ETCD_VERSION-linux-amd64.tar.gz
-sudo mv etcd-$ETCD_VERSION-linux-amd64/etcd* /usr/local/bin/
-rm -rf etcd-$ETCD_VERSION-linux-amd64*
-```
+### Run etcd
 
-1. Next, copy the systemd unit file like so:
+Now that all the certificates have been generated, you will now install and set up etcd on each machine. 
 
-```
-cat >/etc/systemd/system/etcd.service <<EOL
-[Unit]
-Description=etcd
-Documentation=https://github.com/coreos/etcd
-Conflicts=etcd.service
-Conflicts=etcd2.service
+{% capture choose %}
+Please select one of the tabs to see installation instructions for the respective way to run etcd.
+{% endcapture %}
 
-[Service]
-EnvironmentFile=/etc/etcd.env
-Type=notify
-Restart=always
-RestartSec=5s
-LimitNOFILE=40000
-TimeoutStartSec=0
+{% capture systemd %}
 
-ExecStart=/usr/local/bin/etcd --name ${PEER_NAME} \
-    --data-dir /var/lib/etcd \
-    --listen-client-urls https://${PUBLIC_IP}:2379 \
-    --advertise-client-urls https://${PUBLIC_IP}:2379 \
-    --listen-peer-urls https://${PRIVATE_IP}:2380 \
-    --initial-advertise-peer-urls https://${PRIVATE_IP}:2380 \
-    --cert-file=/root/certs/server.pem \
-    --key-file=/root/certs/server-key.pem \
-    --client-cert-auth \
-    --trusted-ca-file=/root/certs/ca.pem \
-    --peer-cert-file=/root/certs/peer.pem \
-    --peer-key-file=/root/certs/peer-key.pem \
-    --peer-client-cert-auth \
-    --peer-trusted-ca-file=/root/certs/ca.pem \
-    --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd1=https://<etcd2-ip-address>:2380 \
-    --initial-cluster-token my-etcd-token \
-    --initial-cluster-state new
+1. First you will install etcd binaries like so:
 
-[Install]
-WantedBy=multi-user.target
-EOL
-```
+    ```shell
+    export ETCD_VERSION=v3.1.10
+    curl -sSL https://github.com/coreos/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz | tar -xzv --strip-components=1 -C /usr/local/bin/
+    rm -rf etcd-$ETCD_VERSION-linux-amd64*
+    ```
 
-Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` will the real VM IPv4s.
+    It is worth noting that etcd v3.1.10 is the preferred version for Kubernetes v1.9. For other versions of Kubernetes please consult [the changelog](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md).
+
+    Also, please realise that most distributions of Linux already have a version of etcd installed, so you will be replacing the system default.
+
+1. Next, generate the environment file that systemd will use:
+
+    ```
+    touch /etc/etcd.env
+    echo "PEER_NAME=$PEER_NAME" >> /etc/etcd.env
+    echo "PRIVATE_IP=$PRIVATE_IP" >> /etc/etcd.env
+    ```
+
+1. Now copy the systemd unit file like so:
+
+    ```shell
+    cat >/etc/systemd/system/etcd.service <<EOL
+    [Unit]
+    Description=etcd
+    Documentation=https://github.com/coreos/etcd
+    Conflicts=etcd.service
+    Conflicts=etcd2.service
+
+    [Service]
+    EnvironmentFile=/etc/etcd.env
+    Type=notify
+    Restart=always
+    RestartSec=5s
+    LimitNOFILE=40000
+    TimeoutStartSec=0
+
+    ExecStart=/usr/local/bin/etcd --name ${PEER_NAME} \
+        --data-dir /var/lib/etcd \
+        --listen-client-urls https://${PRIVATE_IP}:2379 \
+        --advertise-client-urls https://${PRIVATE_IP}:2379 \
+        --listen-peer-urls https://${PRIVATE_IP}:2380 \
+        --initial-advertise-peer-urls https://${PRIVATE_IP}:2380 \
+        --cert-file=/etc/kubernetes/pki/etcd/server.pem \
+        --key-file=/etc/kubernetes/pki/etcd/server-key.pem \
+        --client-cert-auth \
+        --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem \
+        --peer-cert-file=/etc/kubernetes/pki/etcd/peer.pem \
+        --peer-key-file=/etc/kubernetes/pki/etcd/peer-key.pem \
+        --peer-client-cert-auth \
+        --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem \
+        --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 \
+        --initial-cluster-token my-etcd-token \
+        --initial-cluster-state new
+
+    [Install]
+    WantedBy=multi-user.target
+    EOL
+    ```
+
+    Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses.
 
 1. Finally, launch etcd like so:
 
-```
-systemctl daemon-reload
-systemctl start etcd
-```
+    ```shell
+    systemctl daemon-reload
+    systemctl start etcd
+    ```
 
 1. Check that it launched successfully:
 
-```
-systemctl status etcd
-```
+    ```shell
+    systemctl status etcd
+    ```
+{% endcapture %}
 
-## Provision master nodes
+{% capture static_pods %}
 
-1. You will need to provision 3 Virtual Machines for your masters. For the sake of simplicity, we will name these instances `master0`, `master1` and `master2`.
+**Note**: This is only supported on nodes that have the all dependencies for the kubelet installed. If you are hosting etcd on the master nodes, this has already been set up. If you are hosting etcd on dedicated nodes, you should either use systemd or run the [installation guide](/docs/setup/independent/install-kubeadm/) on each dedicated etcd machine.
 
-## Set up master LB
+1. The first step is to run the following to generate the manifest file:
 
-1. The next step is to create a cloud Load Balancer for your master nodes. This solution will depend on your cloud provider. Examples are:
+    ```shell
+    cat >/etc/kubernetes/manifests/etcd.yaml <<EOL
+    apiVersion: v1
+    kind: Pod
+    metadata:
+    labels:
+        component: etcd
+        tier: control-plane
+    name: <podname>
+    namespace: kube-system
+    spec:
+    containers:
+    - command:
+        - etcd --name ${PEER_NAME} \
+        - --data-dir /var/lib/etcd \
+        - --listen-client-urls https://${PRIVATE_IP}:2379 \
+        - --advertise-client-urls https://${PRIVATE_IP}:2379 \
+        - --listen-peer-urls https://${PRIVATE_IP}:2380 \
+        - --initial-advertise-peer-urls https://${PRIVATE_IP}:2380 \
+        - --cert-file=/certs/server.pem \
+        - --key-file=/certs/server-key.pem \
+        - --client-cert-auth \
+        - --trusted-ca-file=/certs/ca.pem \
+        - --peer-cert-file=/certs/peer.pem \
+        - --peer-key-file=/certs/peer-key.pem \
+        - --peer-client-cert-auth \
+        - --peer-trusted-ca-file=/certs/ca.pem \
+        - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd1=https://<etcd2-ip-address>:2380 \
+        - --initial-cluster-token my-etcd-token \
+        - --initial-cluster-state new
+        image: gcr.io/google_containers/etcd-amd64:3.1.0
+        livenessProbe:
+        httpGet:
+            path: /health
+            port: 2379
+            scheme: HTTP
+        initialDelaySeconds: 15
+        timeoutSeconds: 15
+        name: etcd
+        env:
+        - name: PUBLIC_IP
+        valueFrom:
+            fieldRef:
+            fieldPath: status.hostIP
+        - name: PRIVATE_IP
+        valueFrom:
+            fieldRef:
+            fieldPath: status.podIP
+        - name: PEER_NAME
+        valueFrom:
+            fieldRef:
+            fieldPath: metadata.name
+        volumeMounts:
+        - mountPath: /var/lib/etcd
+        name: etcd
+        - mountPath: /certs
+        name: certs
+    hostNetwork: true
+    volumes:
+    - hostPath:
+        path: /var/lib/etcd
+        type: DirectoryOrCreate
+        name: etcd
+    - hostPath:
+        path: /etc/kubernetes/pki/etcd
+        name: certs
+    EOL
+    ```
 
-- [AWS Elastic Load Balancer](https://aws.amazon.com/elasticloadbalancing/)
-- [GCE Load Balancing](https://cloud.google.com/compute/docs/load-balancing/)
-- [Azure](https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-overview)
+    Make sure you replace:
+    * `<podname>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
+    * `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the public IPv4s of the other machines that host etcd.
 
-You will need to ensure that the load balancer routes to all three master VMs set up in the previous step **on port 6443**. If possible, use a smart load balancing algorithm like "least connections", and use health checks so unhealthy nodes can be removed from circulation. Most providers will provide these features.
+{% endcapture %}
 
-## Set up master VMs
+{% assign tab_names = "Choose one...,systemd,Static Pods" | split: ',' | compact %}
+{% assign tab_contents = site.emptyArray | push: choose | push: systemd | push: static_pods %}
 
-1. Follow the [installation guide](/docs/setup/independent/install-kubeadm/) on how to install kubeadm and its dependencies.
+{% include tabs.md %}
 
-### acquire etcd certs
+## Set up master Load Balancer
 
-1. Generate SSH keys for each of the master nodes by following the steps in the [create ssh access](#create-ssh-access) section. After doing this, each master will have an SSH key and will be permitted to SSH into `etcd0`.
+The next step is to create a Load Balancer that sits in front of your master nodes. How you do this depends on your environment; you could, for example, leverage a cloud provider Load Balancer, or set up your own using nginx, keepalived, or HAproxy. Some examples of cloud provider solutions are:
+
+* [AWS Elastic Load Balancer](https://aws.amazon.com/elasticloadbalancing/)
+* [GCE Load Balancing](https://cloud.google.com/compute/docs/load-balancing/)
+* [Azure](https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-overview)
+
+You will need to ensure that the load balancer routes to **just `master0` on port 6443**. This is because kubeadm will perform health checks using the load balancer IP. Since `master0` is set up individually first, the other masters will not have running apiservers, which will result in kubeadm hanging indefinitely.
+
+If possible, use a smart load balancing algorithm like "least connections", and use health checks so unhealthy nodes can be removed from circulation. Most providers will provide these features.
+
+## Acquire etcd certs
+
+Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). If you are hosting etcd on the masters (**Option 2**), you can skip this step since you've already generated the etcd certificates on the masters.
+
+1. Generate SSH keys for each of the master nodes by following the steps in the [create ssh access](#create-ssh-access) section. After doing this, each master will have an SSH key in `~/.ssh/id_rsa.pub` and an entry in `etcd0`'s `~/.ssh/authorized_keys` file.
 
 1. Next, run the following:
 
-```
-mkdir -p /etc/kubernetes/pki/etcd
-scp root@<etcd1-ip-address>:/root/certs/ca.pem /etc/kubernetes/pki/etcd
-scp root@<etcd1-ip-address>:/root/certs/client.pem /etc/kubernetes/pki/etcd
-scp root@<etcd1-ip-address>:/root/certs/client-key.pem /etc/kubernetes/pki/etcd
-```
-
-### acquire k8s ca certs
-
-You now need to copy the K8s CA cert from `master0` to `master1` and `master2`. To do this, you have two options:
-
-1. Follow the steps in the [create ssh access](#create-ssh-access) section, but instead of adding to `etcd0`'s `authorized_keys` file, add them to `master0`. Once you've done this, run:
-
-    ```
-    scp root@<master0-ip-address>:/etc/kubernetes/pki/ca.pem /etc/kubernetes/pki
+    ```shell
+    mkdir -p /etc/kubernetes/pki/etcd
+    scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/ca.pem /etc/kubernetes/pki/etcd
+    scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client.pem /etc/kubernetes/pki/etcd
+    scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client-key.pem /etc/kubernetes/pki/etcd
     ```
 
-2. Copy the contents of `/etc/kubernetes/pki/ca.pem` and create this file manually on `master1` and `master2`.
+## Run `kubeadm init` on `master0` {#kubeadm-init-master0}
 
-### use kubeadm
+1. In order for kubeadm to run, you first need to write a configuration file:
 
-1. The next step is to write the configuration file for kubeadm:
+    ```shell
+    cat >config.yaml <<EOL
+    apiVersion: kubeadm.k8s.io/v1alpha1
+    kind: MasterConfiguration
+    api:
+      advertiseAddress: <load-balancer-ip>
+    etcd:
+      endpoints:
+      - https://<etcd0-ip-address>:2379
+      - https://<etcd1-ip-address>:2379
+      - https://<etcd2-ip-address>:2379
+      caFile: /etc/kubernetes/pki/etcd/ca.pem
+      certFile: /etc/kubernetes/pki/etcd/client.pem
+      keyFile: /etc/kubernetes/pki/etcd/client-key.pem
+    networking:
+      podSubnet: <podCIDR>
+    apiServerCertSANs:
+    - <load-balancer-ip>
+    EOL
+    ```
 
-```
-cat >config.yaml <<EOL
-apiVersion: kubeadm.k8s.io/v1alpha1
-kind: MasterConfiguration
-api:
-  advertiseAddress: <load-balancer-ip>
-etcd:
-  endpoints:
-  - https://<etcd0-ip>:2379
-  - https://<etcd1-ip>:2379
-  - https://<etcd2-ip>:2379
-  caFile: /etc/kubernetes/pki/etcd/ca.pem
-  certFile: /etc/kubernetes/pki/etcd/client.pem
-  keyFile: /etc/kubernetes/pki/etcd/client-key.pem
-networking:
-  podSubnet: <podCIDR>
-apiServerCertSANs:
-- <load-balancer-ip>
-EOL
-```
+    Ensure that the following placeholders are replaced:
 
-Ensure that the following placeholders are replaced:
-
-- `<load-balancer-ip>` with the public IPv4 of your load balancer. 
-- `<etcd0-ip>`, `<etcd1-ip>` and `<etcd2-ip>` with the IP addresses of your three etcd nodes
-- `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information.
+    - `<load-balancer-ip>` with the public IPv4 of your load balancer. 
+    - `<etcd0-ip>`, `<etcd1-ip>` and `<etcd2-ip>` with the IP addresses of your three etcd nodes
+    - `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
 
 1. When this is done, run kubeadm like so:
 
-```
-kubeadm init --config=config.yaml
-```
+    ```shell
+    kubeadm init --config=config.yaml
+    ```
 
-## install workers
+## Run `kubeadm init` on `master1` and `master2`
 
-1. The final step is to provision and set up the worker nodes. To do this, you will need to provision at least 3 Virtual Machines.
+Before running kubeadm on the other masters, you need to first copy the K8s CA cert from `master0`. To do this, you have two options:
+
+#### Option 1: Copy with scp
+
+1. Follow the steps in the [create ssh access](#create-ssh-access) section, but instead of adding to `etcd0`'s `authorized_keys` file, add them to `master0`. 
+1. Once you've done this, run:
+
+    ```shell
+    scp root@<master0-ip-address>:/etc/kubernetes/pki/ca.crt /etc/kubernetes/pki
+    scp root@<master0-ip-address>:/etc/kubernetes/pki/ca.key /etc/kubernetes/pki
+    ```
+
+#### Option 2: Copy paste
+
+1. Copy the contents of `/etc/kubernetes/pki/ca.crt` and `/etc/kubernetes/pki/ca.key` and create these files manually on `master1` and `master2`.
+
+When this is done, you can follow the [previous step](#kubeadm-init-master0) to install the control plane with kubeadm.
+
+## Add `master1` and `master2` to load balancer
+
+Once kubeadm has provisioned the other masters, you can add them to the load balancer pool.
+
+## Install CNI network
+
+Follow the instructions [here](/docs/setup/independent/create-cluster-kubeadm/#pod-network) to install the pod network. Make sure this corresponds to whichever pod CIDR you provided in the master configuration file.
+
+## Install workers
+
+The final step is to provision and set up the worker nodes. To do this, you will need to provision at least 3 Virtual Machines.
+
 1. To configure the worker nodes, you [follow the same steps](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#44-joining-your-nodes) as non-HA workloads.
+
+{% endcapture %}
+
+{% include templates/task.md %}
