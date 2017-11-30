@@ -171,3 +171,142 @@ Because your cluster has both Linux and Windows nodes, you must explicitly set t
   }
 }
 ```
+
+## Supported Features and Limitations
+
+### Secrets and ConfigMaps
+Secrets and ConfigMaps can be utilized in Windows Server Containers, but must be used as environment variables.  
+Using Secrets and ConfigMaps as volume mounts is not supported in Windows Server Containers at this time.
+
+**Examples:**
+
+ Windows pod with secrets mapped to environment variables
+ ```yaml
+ apiVersion: v1
+    kind: Secret
+    metadata:
+      name: mysecret
+    type: Opaque
+    data:
+      username: YWRtaW4=
+      password: MWYyZDFlMmU2N2Rm
+    
+    ---
+    
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: mypod-secret
+    spec:
+      containers:
+      - name: mypod-secret
+        image: redis:3.0-nanoserver
+        env:
+          - name: USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mysecret
+                key: username
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysecret
+                key: password
+      nodeSelector:
+        beta.kubernetes.io/os: windows
+```
+ 
+ Windows pod with configMap values mapped to environment variables
+
+```yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: example-config
+data:
+  example.property.1: hello
+  example.property.2: world
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-pod
+spec:
+  containers:
+  - name: configmap-redis
+    image: redis:3.0-nanoserver
+    env:
+      - name: EXAMPLE_PROPERTY_1
+        valueFrom:
+          configMapKeyRef:
+            name: example-config
+            key: example.property.1
+      - name: EXAMPLE_PROPERTY_2
+        valueFrom:
+          configMapKeyRef:
+            name: example-config
+            key: example.property.2
+  nodeSelector:
+    beta.kubernetes.io/os: windows
+```
+ 
+### Volumes
+Some supported Volume Mounts are local, emptyDir, hostPath.  One thing to remember is paths must either be escaped, or use forward slashes, for example `mountPath: "C:\\etc\\foo"` or `mountPath: "C:/etc/foo"`.
+
+Persistent Volume Claims are supported for supported volume types.
+
+**Examples:**
+ 
+ Windows pod with a hostPath volume
+ ```yaml
+ apiVersion: v1
+ kind: Pod
+ metadata:
+   name: hostpath-volume-pod
+ spec:
+   containers:
+   - name: hostpath-redis
+     image: redis:3.0-nanoserver
+     volumeMounts:
+     - name: blah
+       mountPath: "C:\\etc\\foo"
+       readOnly: true
+   nodeSelector:
+     beta.kubernetes.io/os: windows
+   volumes:
+   - name: blah
+     hostPath:
+       path: "C:\\etc\\foo"
+ ```
+ 
+ Windows pod with multiple emptyDir volumes
+ 
+ ```yaml
+ apiVersion: v1
+ kind: Pod
+ metadata:
+   name: empty-dir-pod
+ spec:
+   containers:
+   - image: redis:3.0-nanoserver
+     name: empty-dir-redis
+     volumeMounts:
+     - mountPath: /cache
+       name: cache-volume
+     - mountPath: C:/scratch
+       name: scratch-volume
+   volumes:
+   - name: cache-volume
+     emptyDir: {}
+   - name: scratch-volume
+     emptyDir: {}
+   nodeSelector:
+     beta.kubernetes.io/os: windows
+ ```
+ 
+### Metrics
+
+Windows Stats use a hybrid model: pod and container level stats come from CRI (via dockershim), while node level stats come from the "winstats" package that exports cadvisor like datastructures using windows specific perf counters from the node.
+
