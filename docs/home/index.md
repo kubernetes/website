@@ -60,24 +60,7 @@ display_browse_numbers: true
 <div class='infobarWrapper'>
     <div class="infobar">
         <span style="padding-bottom: 3% ">I want to...</span>
-        <a id="infolink1" href="docs.html"><div class="whitebar" >
-            <div class="infoicon">
-                <i class="fa fa-folder-open-o" aria-hidden="true" style="padding:%;float:left;color:#3399ff"></i>
-            </div>
-            <div id="info1" class='data'></div>
-        </div></a>
-        <a id="infolink2" href="docs.html"><div class="whitebar">
-            <div class="infoicon">
-                <i class="fa fa-retweet" aria-hidden="true" style="padding-bottom:%;float:left;color:#3399ff"></i>
-            </div>
-            <div id="info2" class='data'></div>
-        </div></a>
-        <a id="infolink3" href="docs.html"> <div class="whitebar">
-            <div class="infoicon">
-                <i class="fa fa-hdd-o" aria-hidden="true" style="padding:%;float:left;color:#3399ff;margin-right:9px"></i>
-            </div>
-            <div id="info3" class='data'></div>
-        </div></a>
+        <div id="infobarLinks"></div>
     </div>
 </div>
 
