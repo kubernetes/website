@@ -310,6 +310,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-service": {&api.Service{}},
 		},
 		"../docs/tutorials/stateful-application": {
+			"temp":                  {&api.Service{}},
 			"gce-volume":            {&api.PersistentVolume{}},
 			"mysql-deployment":      {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
 			"mysql-services":        {&api.Service{}, &api.Service{}},
