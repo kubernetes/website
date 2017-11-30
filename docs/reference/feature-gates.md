@@ -11,64 +11,63 @@ can specify on different Kubernetes components.
 
 ## Overview
 
-Feature gates are a set of key=value pairs that describe the features for alpha
-or experimental features.
+Feature gates are a set of key=value pairs that describe alpha or experimental
+features.
 An administrator can use the `--feature-gates` command line flag on each component
 to turn a feature on or off.
 The following table is a summary of the feature gates that you can set on
 different Kubernetes components.
 
-- The "KCM" column and the "CCM" column are refering to the controller manager
-  component and the cloud controller manager component respectively.
 - The "Since" column contains the Kubernetes release when a feature is introduced
   or its release stage is changed.
-- The "Till" column, if not empty, contains the last Kubernetes release in which
+- The "Until" column, if not empty, contains the last Kubernetes release in which
   you can still use a feature gate.
-- The "Y" values in the cells indicate that a specific feature gate can be applied
-  to a specific component.
 
-| Feature | Default | Stage | Since | Until |APIServer | KCM | Kubelet | Scheduler | CCM | Proxy |
-|---------|---------|-------|-------|-------|----------|-----|---------|-----------|-----|-------|
-| `Accelerators` | `false` | Alpha | 1.6 | | | Y | | | |
-| `AdvancedAuditing` | `false` | Alpha | 1.7 | | Y | | | | | |
-| `AdvancedAuditing` | `true` | Beta | 1.8 | Y | | | | | |
-| `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 | Y | | | | | |
-| `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 | | | | | |
-| `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7| | Y | | | | | Y |
-| `APIListChunking` | `false` | Alpha | 1.8 | 1.8 | Y | | | | | |
-| `APIListChunking` | `true` | Beta | 1.9 | | Y | | | | | |
-| `APIResponseCompression` | `false` | Alpha | 1.7 | | Y | | | | | |
-| `AppArmor` | `true` | Beta | 1.4 | | Y | | Y | | | |
-| `BlockVolume` | `false` | Alpha | 1.9 | | Y | Y | Y | | | |
-| `CPUManager` | `false` | Alpha | 1.8 | | Y | | Y | | | |
-| `CSIPersistentVolume` | `false` | Alpha | 1.9 | | Y | Y | Y | | | |
-| `CustomPodDNS` | `false` | Alpha | 1.9 | | Y | | Y | | | |
-| `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 | Y | | | | | |
-| `CustomResourceValidation` | `true` | Beta | 1.9 | | Y | | | | | |
-| `DevicePlugins` | `false` | Alpha | 1.8 | | | | Y | | | |
-| `DynamicKubeletConfig` | `false` | Alpha | 1.4 | | Y | | Y | | | |
-| `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 | | Y | | | | |
-| `DynamicVolumeProvisioning` | `true` | GA | 1.8 | | | Y | | | | |
-| `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | | | | | Y | | |
-| `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.8 | Y | Y | | | | |
-| `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | | | Y | Y | | | |
-| `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | | | | Y | | | |
-| `HugePages` | `false` | Alpha | 1.8 | | Y | | Y | | | |
-| `Initializers` | `false` | Alpha | 1.7 | | Y | Y | | | | |
-| `KubeletConfigFile` | `false` | Alpha | 1.8 | | | | Y | | | |
-| `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | | Y | | Y | | | |
-| `MountContainers` | `false` | Alpha | 1.9 | | | | Y | | | |
-| `MountPropagation` | `false` | Alpha | 1.8 | | Y | | Y | | | |
-| `PersistentLocalVolumes` | `false` | Alpha | 1.7 | | Y | | Y | Y | | |
-| `PodPriority` | `false` | Alpha | 1.8 | | Y | | Y | Y | | |
-| `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | | | | Y | | | |
-| `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | | Y | Y | Y | | | |
-| `ServiceNodeExclusion` | `false` | Alpha | 1.8 | | | Y | | | Y | |
-| `StreamingProxyRedirects` | `true` | Beta | 1.5 | | Y | | | | | |
-| `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | | | | | | | Y |
-| `TaintBasedEvictions` | `false` | Alpha | 1.6 | | | Y | | | | |
-| `TaintNodesByCondition` | `false` | Alpha | 1.8 | | Y | Y | | Y | | |
-| `VolumeScheduling` | `false` | Alpha | 1.9 | | Y | | | | | |
+| Feature | Default | Stage | Since | Until |
+|---------|---------|-------|-------|-------|
+| `Accelerators` | `false` | Alpha | 1.6 | |
+| `AdvancedAuditing` | `false` | Alpha | 1.7 | |
+| `AdvancedAuditing` | `true` | Beta | 1.8 | |
+| `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 |
+| `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
+| `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | |
+| `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
+| `APIListChunking` | `true` | Beta | 1.9 | |
+| `APIResponseCompression` | `false` | Alpha | 1.7 | |
+| `AppArmor` | `true` | Beta | 1.4 | |
+| `BlockVolume` | `false` | Alpha | 1.9 | |
+| `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
+| `CPUManager` | `true` | Beta | 1.10 | |
+| `CSIPersistentVolume` | `false` | Alpha | 1.9 | |
+| `CustomPodDNS` | `false` | Alpha | 1.9 | |
+| `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
+| `CustomResourceValidation` | `true` | Beta | 1.9 | |
+| `DevicePlugins` | `false` | Alpha | 1.8 | |
+| `DynamicKubeletConfig` | `false` | Alpha | 1.4 | |
+| `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
+| `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
+| `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
+| `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.8 |
+| `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
+| `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
+| `HugePages` | `false` | Alpha | 1.8 | |
+| `Initializers` | `false` | Alpha | 1.7 | |
+| `KubeletConfigFile` | `false` | Alpha | 1.8 | |
+| `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | |
+| `MountContainers` | `false` | Alpha | 1.9 | |
+| `MountPropagation` | `false` | Alpha | 1.8 | |
+| `PersistentLocalVolumes` | `false` | Alpha | 1.7 | |
+| `PodPriority` | `false` | Alpha | 1.8 | |
+| `PVCProtection` | `false` | Alpha | 1.9 | |
+| `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
+| `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | |
+| `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | |
+| `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
+| `StreamingProxyRedirects` | `true` | Beta | 1.5 | |
+| `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | |
+| `TaintBasedEvictions` | `false` | Alpha | 1.6 | |
+| `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
+| `VolumeScheduling` | `false` | Alpha | 1.9 | |
 
 ## Using a Feature
 
@@ -118,14 +117,21 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIListChunking`: Enable the API clients to retrieve (`LIST` or `GET`) resources from API server in chunks.
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
 - `AppArmor`: Enable AppArmor based mandatory access control on Linux nodes when using Docker.
-- `BlockVolume`: Enable the definition and consumption of raw block devices in Pods. <!-- TODO: link to doc about blockDevices -->
+   See [AppArmor Tutorial](/docs/tutorials/clusters/apparmor/) for more details.
+- `BlockVolume`: Enable the definition and consumption of raw block devices in Pods.
+   See [Raw Block Volume Support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
+   for more details.
 - `CPUManager`: Enable container level CPU affinity support, see [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
-  compatible volume plugin. <!-- TODO: link to doc about CSI -->
-- `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property. <!-- TODO: link to doc about dnsConfig -->
+  compatible volume plugin.
+  Check the [`csi` volume type](/docs/concepts/storage/volumes/#csi) documentation for more details.
+- `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
+   Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
+   for more details.
 - `CustomeResourceValidation`: Enable schema based validation on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
-- `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/) based resource provisioning on nodes.
+- `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
+  based resource provisioning on nodes.
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
 - `DynamicVolumeProvisioning`(*deprecated*): Enable the [dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/) of persistent volumes to Pods.
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of nodes when scheduling Pods.
@@ -149,6 +155,13 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their [priorities](/docs/concepts/configuration/pod-priority-preemption/).
+- `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
+  being deleted when it is still used by any Pod.
+  More details can be found [here](/docs/tasks/administer-cluster/pvc-protection/).
+- `ResourceLimitsPriorityFunction`: Enable a scheduler priority function that
+  assigns a lowest possible score of 1 to a node that satisfies at least one of
+  the input Pod's cpu and memory limits. The intent is to break ties between
+  nodes with same scores.
 - `RotateKubeletClientCertificate`: Enable the rotation of the client TLS certificate on the kubelet.
   See [kubelet configuration](/docs/admin/kubelet-tls-bootstrapping/#kubelet-configuration) for more details.
 - `RotateKubeletServerCertificate`: Enable the rotation of the server TLS certificate on the kubelet.
@@ -163,7 +176,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TaintBasedEvictions`: Enable evicting pods from nodes based on taints on nodes and tolerations on Pods.
   See [taints and tolerations](/docs/concepts/configuration/taint-and-toleration/) for more details.
 - `TaintNodesByCondition`: Enable automatic tainting nodes based on [node conditions](/docs/concepts/architecture/nodes/#condition).
-- `VolumeScheduling`: Enable setting volume binding mode (`volumeBindingMode`) on storage classes.
+- `VolumeScheduling`: Enable volume topology aware scheduling and make the
+  PersistentVolumeClaim (PVC) binding aware of scheduling decisions. It also
+  enables the usage of [`local`](/docs/concepts/storage/volumes/#local) volume
+  type when used together with the `PersistentLocalVolumes` feature gate.
 
 {% endcapture %}
 
