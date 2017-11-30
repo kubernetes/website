@@ -69,11 +69,11 @@ the underlying cloud, where available:
 | Identity (Keystone)      | V2‡,  V3       | Yes      |
 | Load Balancing (Neutron) | V1§, V2        | No       |
 
-† Block Storage V1 API support is deprecated, support for Block Storage V3 will
-  be added in the future.
+† Block Storage V1 API support is deprecated, support for Block Storage V3 will 
+be added in the future.
   
 ‡ Identity V2 API support is deprecated and will be removed from the provider in
-a future release. As of the "Queens" release OpenStack will no longer expose the
+a future release. As of the "Queens" release, OpenStack will no longer expose the
 Identity V2 API.
 
 § Load Balancing V1 API support is deprecated and will be removed from the
@@ -87,7 +87,8 @@ support for impacted features. Certain features are also enabled or disabled
 based on the list of extensions published by Neutron in the underlying cloud.
 
 ## cloud.conf
-Kubernetes knows how to interact with OpenStack via the file cloud.conf. It is the file that will provide Kubernetes with credentials and location for the OpenStack auth endpoint.
+Kubernetes knows how to interact with OpenStack via the file cloud.conf. It is
+the file that will provide Kubernetes with credentials and location for the OpenStack auth endpoint.
 You can create a cloud.conf file by specifying the following details in it
 
 ### Typical configuration
@@ -139,7 +140,7 @@ file:
   endpoint of the Keystone API.
 * `ca-file` (Optional): TODO
 
-When using Keystone V3 - which changes tenant to project the `tenant-id` value 
+When using Keystone V3 - which changes tenant to project - the `tenant-id` value
 is automatically mapped to the project construct in the API.
 
 ####  Load Balancer
@@ -190,10 +191,10 @@ and should appear in the `[BlockStorage]` section of the `cloud.conf` file:
   detection will select the highest supported version exposed by the underlying
   OpenStack cloud. The default value if none is provided is `auto`.
 * `trust-device-path` (Optional): In most scenarios the block device names
-  provided by Cinder (e.g. /dev/vda) can not be trusted. This boolean toggles
+  provided by Cinder (e.g. `/dev/vda`) can not be trusted. This boolean toggles
   this behavior. Setting it to `true` results in trusting the block device names
   provided by Cinder. The default value of `false` results in the discovery of
-  the device path based on it's serial number and /dev/disk/by-id mapping and is
+  the device path based on its serial number and `/dev/disk/by-id` mapping and is
   the recommended approach.
 
 If deploying Kubernetes versions <= 1.8 on an OpenStack deployment that uses
@@ -236,12 +237,19 @@ should appear in the `[Metadata]` section of the `cloud.conf` file:
   may be available which is why the default is to check both.
 
 #### Router
-These configuration options for the OpenStack provider pertain to routing and
-should appear in the `[Route]` section of the `cloud.conf` file:
+
+These configuration options for the OpenStack provider pertain to the [kubenet]
+Kubernetes network plugin and should appear in the `[Router]` section of the
+`cloud.conf` file:
 
 * `router-id` (Optional): If the underlying cloud's Neutron deployment supports
   the `extraroutes` extension then use `router-id` to specify a router to add
-  routes to.
+  routes to.  The router chosen must span the private networks containing your
+  cluster nodes (typically there is only one node network, and this value should be
+  the default router for the node network).  This value is required to use [kubenet]
+  on OpenStack.
+
+[kubenet]: https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#kubenet
 
 {% endcapture %}
 
