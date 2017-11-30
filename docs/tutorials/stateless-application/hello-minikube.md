@@ -303,6 +303,75 @@ Run your app again to view the new message:
 minikube service hello-node
 ```
 
+## Enable addons
+
+Minikube has a set of built-in addons that can be enabled, disabled and opened in the local Kubernetes environment.
+
+First list the currently supported addons:
+
+```shell
+minikube addons list
+```
+
+Output:
+
+```shell
+- storage-provisioner: enabled
+- kube-dns: enabled
+- registry: disabled
+- registry-creds: disabled
+- addon-manager: enabled
+- dashboard: disabled
+- default-storageclass: enabled
+- coredns: disabled
+- heapster: disabled
+- efk: disabled
+- ingress: disabled
+```
+
+Minikube must be running for these command to take effect. To enable `heapster` addon, for example:
+
+```shell
+minikube addons enable heapster
+```
+
+Output:
+
+```shell
+heapster was successfully enabled
+```
+
+View the Pod and Service you just created:
+
+```shell
+kubectl get po,svc -n kube-system
+```
+
+Output:
+
+```shell
+NAME                             READY     STATUS    RESTARTS   AGE
+po/heapster-zbwzv                1/1       Running   0          2m
+po/influxdb-grafana-gtht9        2/2       Running   0          2m
+
+NAME                       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)             AGE
+svc/heapster               NodePort    10.0.0.52    <none>        80:31655/TCP        2m
+svc/monitoring-grafana     NodePort    10.0.0.33    <none>        80:30002/TCP        2m
+svc/monitoring-influxdb    ClusterIP   10.0.0.43    <none>        8083/TCP,8086/TCP   2m
+```
+
+Open the endpoint to interacting with heapster in a browser:
+
+```shell
+minikube addons open heapster
+```
+
+Output:
+
+```shell
+Opening kubernetes service kube-system/monitoring-grafana in default browser...
+```
+
 ## Clean up
 
 Now you can clean up the resources you created in your cluster:
@@ -312,10 +381,17 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-Optionally, stop Minikube:
+Optionally, stop the Minikube VM:
 
 ```shell
 minikube stop
+eval $(minikube docker-env -u)
+```
+
+Optionally, delete the Minikube VM:
+
+```shell
+minikube delete
 ```
 
 {% endcapture %}
