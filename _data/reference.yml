@@ -60,7 +60,17 @@ toc:
 
 - title: Setup Tools Reference
   section:
-  - docs/reference/generated/kubeadm.md
+  - title: Kubeadm
+    section:
+    - docs/reference/setup-tools/kubeadm/kubeadm.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-init.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-join.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-upgrade.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-config.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-reset.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-token.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-version.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-alpha.md
   - title: Kubefed
     section:
     - docs/reference/generated/kubefed.md
