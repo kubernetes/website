@@ -40,7 +40,8 @@ different Kubernetes components.
 | `APIResponseCompression` | `false` | Alpha | 1.7 | | Y | | | | | |
 | `AppArmor` | `true` | Beta | 1.4 | | Y | | Y | | | |
 | `BlockVolume` | `false` | Alpha | 1.9 | | Y | Y | Y | | | |
-| `CPUManager` | `false` | Alpha | 1.8 | | Y | | Y | | | |
+| `CPUManager` | `false` | Alpha | 1.8 | 1.9 | Y | | Y | | | |
+| `CPUManager` | `true` | Beta | 1.10 | | Y | | Y | | | |
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | | Y | Y | Y | | | |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | | Y | | Y | | | |
 | `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 | Y | | | | | |
@@ -61,6 +62,8 @@ different Kubernetes components.
 | `MountPropagation` | `false` | Alpha | 1.8 | | Y | | Y | | | |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | | Y | | Y | Y | | |
 | `PodPriority` | `false` | Alpha | 1.8 | | Y | | Y | Y | | |
+| `PVCProtection` | `false` | Alpha | 1.9 | | Y | Y | Y | | | |
+| `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | | | | Y | | | |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | | | | Y | | | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | | Y | Y | Y | | | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | | | Y | | | Y | |
@@ -68,7 +71,7 @@ different Kubernetes components.
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | | | | | | | Y |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | | | Y | | | | |
 | `TaintNodesByCondition` | `false` | Alpha | 1.8 | | Y | Y | | Y | | |
-| `VolumeScheduling` | `false` | Alpha | 1.9 | | Y | | | | | |
+| `VolumeScheduling` | `false` | Alpha | 1.9 | | Y | Y | | Y | | |
 
 ## Using a Feature
 
@@ -149,6 +152,13 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their [priorities](/docs/concepts/configuration/pod-priority-preemption/).
+- `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
+  being deleted when it is still used by any Pod.
+  <!-- TODO: add link to feature documentation -->
+- `ResourceLimitsPriorityFunction`: Enable a scheduler priority function that
+  assigns a lowest possible score of 1 to a node that satisfies at least one of
+  the input Pod's cpu and memory limits. The intent is to break ties between
+  nodes with same scores.
 - `RotateKubeletClientCertificate`: Enable the rotation of the client TLS certificate on the kubelet.
   See [kubelet configuration](/docs/admin/kubelet-tls-bootstrapping/#kubelet-configuration) for more details.
 - `RotateKubeletServerCertificate`: Enable the rotation of the server TLS certificate on the kubelet.
@@ -163,7 +173,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TaintBasedEvictions`: Enable evicting pods from nodes based on taints on nodes and tolerations on Pods.
   See [taints and tolerations](/docs/concepts/configuration/taint-and-toleration/) for more details.
 - `TaintNodesByCondition`: Enable automatic tainting nodes based on [node conditions](/docs/concepts/architecture/nodes/#condition).
-- `VolumeScheduling`: Enable setting volume binding mode (`volumeBindingMode`) on storage classes.
+- `VolumeScheduling`: Enable volume topology aware scheduling and make the
+  PersistentVolumeClaim (PVC) binding aware of scheduling decisions.
+  <!-- TODO: add link to volume scheduling docs -->
 
 {% endcapture %}
 
