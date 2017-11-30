@@ -48,9 +48,12 @@ to advertise 2 `vendor-domain/foo`.
 Then, developers can request devices in a
 [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
 specification by using the same process that is used for
-[opaque integer resources](/docs/tasks/configure-pod-container/opaque-integer-resource/).
-In version 1.8, extended resources are supported only as integer resources and must have
-`limit` equal to `request` in the Container specification.
+[opaque integer resources](/docs/tasks/configure-pod-container/opaque-integer-resource/),
+with the following limitations:
+  * As of now, extended resources are supported only as integer resources and must have
+    `limit` equal to `request` in the Container specification.
+  * Devices can NOT be shared among Containers.
+  * We currently do NOT support requesting device plugin resources in [Init Containers](/docs/concepts/workloads/pods/init-containers/).
 
 ## Device plugin implementation
 
@@ -88,7 +91,7 @@ runtime configurations for accessing the allocated devices. The kubelet passes t
 to the container runtime.
 
 A device plugin is expected to detect kubelet restarts and re-register itself with the new
-kubelet instance. In version 1.8, a new kubelet instance cleans up all the existing Unix sockets
+kubelet instance. In the current implementation, a new kubelet instance cleans up all the existing Unix sockets
 under `/var/lib/kubelet/device-plugins` when it starts. A device plugin can monitor the deletion
 of its Unix socket and re-register itself upon such an event.
 
@@ -104,6 +107,15 @@ must be mounted as a
 [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core)
 in the plugin's
 [PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core).
+
+As Kubernetes device plugin support is still in alpha stage, its API version can be upgraded in
+the future and possibly in incompatible ways. We recommend device plugin developers to watch
+for device plugin API version change in the future releases and support multiple versions of API
+for backward/forward compatibility. If some nodes in a cluster have DevicePlugins feature enabled and
+are running some device plugins with versionX, and it needs to upgrade to a Kubernetes version that
+uses device plugin versionY, we recommend users to upgrade their device plugins to support both
+versions before upgrading these nodes to ensure the continuous functioning of the device allocations
+during the upgrade.
 
 ## Examples
 
