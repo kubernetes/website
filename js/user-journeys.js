@@ -28,44 +28,59 @@ $( document ).ready(function() {
     }
   }
 
+  //generate HTML for info links
+  function getInfoLinkHtml(
+    i = 1 //enumeration index for link id
+    , linkLabel = "Missing link label." //info link text
+    , linkUrl = "/docs/home/" //link to content
+    , linkIcon = "fa-ellipsis-h" //icon preceding info link text
+  ) {
+    var html = '';
+
+    /* 
+      html template:
+        <a id="infolink1" href="docs.html"><div class="whitebar" >
+            <div class="infoicon">
+                <i class="fa fa-ellipsis-h" aria-hidden="true" style="padding:%;float:left;color:#3399ff"></i>
+            </div>
+            <div id="info1" class='data'>Missing link label.</div>
+        </div></a>
+
+      defaults:
+        label: "Missing link label."
+        icon: "fa-ellipsis-h"
+        url: "docs.html"
+    */
+
+    html =  '<a id="infolink'+i+'" href="'+linkUrl+'"><div class="whitebar">' +
+              '<div class="infoicon">' +
+                '<i class="fa '+linkIcon+'" aria-hidden="true" style="padding:%;float:left;color:#3399ff"></i>' +
+              '</div>' +
+              '<div id="info'+i+'" class="data">'+linkLabel+'</div>' +
+            '</div></a>';
+
+    return html;
+  }
+
   //set links in the "I want to..." section, e.g. Setup a development environment
   function setInfoData(info, level) {
       // info links specific to type/button/level
-      var contentArray = (typeof info[selected.type][selected.button] !== 'undefined') ? info[selected.type][selected.button][selected.level] : [];
-
-/* 
-  insert:
-        <a id="infolink1" href="docs.html"><div class="whitebar" >
-            <div class="infoicon">
-                <i class="fa fa-folder-open-o" aria-hidden="true" style="padding:%;float:left;color:#3399ff"></i>
-            </div>
-            <div id="info1" class='data'></div>
-        </div></a>
-
-  defaults:
-    label: "Missing link label."
-    icon: "fa-ellipsis-h"
-    url: "docs.html"
-*/
+      var contentArray = (typeof info[selected.type][selected.button] !== 'undefined') 
+        ? info[selected.type][selected.button][selected.level] 
+        : [{
+            label: 'Please select a role or persona in the "I AM..." section above.'
+            ,url: '#cardWrapper'
+            ,icon: 'fa-exclamation'
+          }];
 
       //clear contents of #infobarLinks div
       $('#infobarLinks').empty();
       //process and add each info link
       for(i = 1; i<=contentArray.length; i++) {
           var content = contentArray[i-1];
-          var linkLabel = (typeof content.label !== 'undefined') ? content.label : "Missing link label.";
-          var linkIcon = (typeof content.icon !== 'undefined') ? content.icon : "fa-ellipsis-h";
-          var linkUrl = (typeof content.url !== 'undefined') ? content.url : "docs.html";
 
           //append link to the end of the div
-          $('#infobarLinks').append(
-            '<a id="infolink'+i+'" href="'+linkUrl+'"><div class="whitebar">' +
-              '<div class="infoicon">' +
-                '<i class="fa '+linkIcon+'" aria-hidden="true" style="padding:%;float:left;color:#3399ff"></i>' +
-              '</div>' +
-              '<div id="info'+i+'" class="data">'+linkLabel+'</div>' +
-            '</div></a>'
-          );
+          $('#infobarLinks').append(getInfoLinkHtml(i,content.label,content.url,content.icon));
       }
       $('.infobarWrapper').css('visibility', 'visible');
   }
