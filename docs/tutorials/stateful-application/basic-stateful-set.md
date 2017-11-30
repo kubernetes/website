@@ -1038,4 +1038,7 @@ storage configuration, and provisioning method, to ensure that all storage is
 reclaimed.
 {% endcapture %}
 
+
+{% include code.html language="yaml" file="temp.yaml" ghlink="/docs/tutorials/stateful-application/temp.yaml" %}
+
 {% include templates/tutorial.md %}
