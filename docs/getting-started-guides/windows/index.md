@@ -12,7 +12,7 @@ Kubernetes version 1.5 introduced Alpha support for Windows Server Containers ba
 
 The Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) continue to run on Linux, while the kubelet and kube-proxy can be run on Windows Server 2016 or later
 
-**Note:** Windows Server Containers on Kubernetes is an Beta feature in Kubernetes v1.9
+**Note:** Windows Server Containers on Kubernetes is a Beta feature in Kubernetes v1.9
 
 ## Build
 If you wish to build the code yourself, please refer to these [instructions](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md), otherwise the release binaries can be found at [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases). 
@@ -45,7 +45,7 @@ The above networking approaches are already supported on Linux using a bridge in
 Windows supports the CNI network model and uses plugins to interface with the Windows Host Networking Service (HNS) to configure host networking and policy. An administrator creates a local host network using HNS PowerShell commands on each node as documented in the **_Windows Host Setup_** section below.
 
 #### Upstream L3 Routing Topology
-In this topology, networking is achieved using L3 routing with static IP routes configured in an upstream Top of Rack (ToR) switch/router. Each cluster node is connected to the management network with a host IP. Additionally, each node uses a local 'l2bridge' network with a Pod CIDR assigned. All pods on a given worker node will be connected to the POD CIDR subnet ('l2bridge' network). In order to enable network communication between pods running on different nodes. The upstream router has static routes configured with POD CIDR prefix => Host IP.
+In this topology, networking is achieved using L3 routing with static IP routes configured in an upstream Top of Rack (ToR) switch/router. Each cluster node is connected to the management network with a host IP. Additionally, each node uses a local 'l2bridge' network with a Pod CIDR assigned. All pods on a given worker node will be connected to the POD CIDR subnet ('l2bridge' network). In order to enable network communication between pods running on different nodes, the upstream router has static routes configured with POD CIDR prefix => Host IP.
 
 Each Window Server node should have the following configuration:
 
