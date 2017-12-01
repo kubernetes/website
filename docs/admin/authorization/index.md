@@ -32,9 +32,10 @@ means that permissions are denied by default.
 depend on specific fields of specific kinds of objects are handled by Admission
 Controllers.)
 
-When multiple authorization modules are configured, each is checked in sequence,
-and if any module authorizes the request, then the request can proceed. If all
-modules deny the request, then the request is denied (HTTP status code 403).
+When multiple authorization modules are configured, each is checked in sequence.
+If any authorizer approves or denies a request, that decision is immediately
+returned and no other authorizer is consulted. If all modules have no opinion on
+the request, then the request is denied. A deny returns an HTTP status code 403.
 
 ## Review Your Request Attributes
 Kubernetes reviews only the following API request attributes:
@@ -136,6 +137,7 @@ spec:
     verb: create
 status:
   allowed: true
+  denied: false
 ```
 
 ## Using Flags for Your Authorization Module
@@ -152,9 +154,8 @@ The following flags can be used:
   * `--authorization-mode=AlwaysDeny` This flag blocks all requests. Use this flag only for testing.
   * `--authorization-mode=AlwaysAllow` This flag allows all requests. Use this flag only if you do not require authorization for your API requests.
 
-You can choose more than one authorization module. If one of the modes is
-`AlwaysAllow`, then it overrides the other modes and all API requests are
-allowed.
+You can choose more than one authorization module. Modules are checked in order
+so an earlier module has higher priority to allow or deny a request.
 
 ## Versioning
 For version 1.2, clusters created by kube-up.sh are configured so that no
