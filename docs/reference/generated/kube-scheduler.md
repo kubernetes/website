@@ -24,7 +24,7 @@ kube-scheduler
 ### Options
 
 ```
-      --address string                           The IP address to serve on (set to 0.0.0.0 for all interfaces) (default "0.0.0.0")
+      --address string                           The IP address to serve on (set to 0.0.0.0 for all IPv4 interfaces and :: for all IPv6 interfaces) (default "0.0.0.0")
       --algorithm-provider string                The scheduling algorithm provider to use, one of: ClusterAutoscalerProvider | DefaultProvider (default "DefaultProvider")
       --azure-container-registry-config string   Path to the file container Azure container registry configuration information.
       --contention-profiling                     Enable lock contention profiling, if profiling is enabled

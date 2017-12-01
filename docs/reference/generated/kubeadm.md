@@ -113,7 +113,7 @@ flags that can be used to customise the Kubernetes installation.
   This is the address the API Server will advertise to other members of the
   cluster.  This is also the address used to construct the suggested `kubeadm
   join` line at the end of the init process.  If not set (or set to 0.0.0.0) then
-  IP for the default interface will be used.
+  IP for the default interface will be used. IPv6 address (e.g. fd00:79:30::a) can also be configured here.
 
   This address is also added to the certificate that the API Server uses.
 
