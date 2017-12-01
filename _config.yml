@@ -10,6 +10,8 @@ kramdown:
   syntax_highlighter: rouge
 incremental: true
 
+test: "do not merge"
+
 safe: false
 lsi: false
 
