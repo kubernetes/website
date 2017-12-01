@@ -22,7 +22,7 @@ This page shows how to perform a rolling update on a DaemonSet.
 
 ## DaemonSet Update Strategy
 
-DaemonSet has two update strategy types :
+DaemonSet has two update strategy types:
 
 * OnDelete: This is the default update strategy for backward-compatibility. With
   `OnDelete` update strategy, after you update a DaemonSet template, new
@@ -56,7 +56,7 @@ to 1) and `.spec.minReadySeconds` (default to 0) as well.
 ### Step 1: Checking DaemonSet `RollingUpdate` update strategy
 
 First, check the update strategy of your DaemonSet, and make sure it's set to 
-RollingUpdate:
+`RollingUpdate`:
 
 ```shell{% raw %}
 kubectl get ds/<daemonset-name> -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'

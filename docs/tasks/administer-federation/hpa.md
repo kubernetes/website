@@ -21,7 +21,7 @@ needed most by manipulating the min and max limits of the HPA objects in the fed
 
 * {% include federated-task-tutorial-prereqs.md %}
 * You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+[working knowledge of Kubernetes](/docs/setup/) in
 general and [HPAs](/docs/tasks/run-application/horizontal-pod-autoscale/) in particular.
 
 The federated HPA is an alpha feature. The API is not enabled by default on the
@@ -79,7 +79,7 @@ kubectl --context=gce-asia-east1a get HPA php-apache
 The HPA in the underlying clusters will match the federation HPA
 except in the number of min and max replicas. The federation control plane ensures that the sum of max replicas in each cluster matches the specified
 max replicas on the federated HPA object, and the sum of minimum replicas will be greater
-than or equal to the minimum specified on the federated HPA object. 
+than or equal to the minimum specified on the federated HPA object.
 
 **Note:** A particular cluster cannot have a minimum replica sum of 0.
 {: .note}
@@ -136,7 +136,11 @@ the interaction is almost identical to interacting with a normal Kubernetes clus
 with a limited set of APIs that are federated). As both Deployments and
 HorizontalPodAutoscalers are now federated, `kubectl` commands like `kubectl run`
 and `kubectl autoscale` work on federation. Given this fact, the mechanism specified in
+<<<<<<< HEAD
 [horizontal pod autoscaler walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)
+=======
+[horizontal pod autoscaler walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+>>>>>>> master
 will also work when used with federation.
 Care however will need to be taken that when
 [generating load on a target deployment](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#step-three-increase-load),
@@ -161,8 +165,13 @@ and averaged current CPU utilization still higher than the target CPU utilizatio
 are fields on local HPA object), then the target app in this cluster
 needs more replicas, and the scaling is currently restricted by max replicas set on this local
 HPA object. In such a scenario, the federated HPA controller scans all clusters and tries to
+<<<<<<< HEAD
 find clusters which do not have such a condition (meaning the the desired replicas are less
 than the max, and current averaged cpu utilization is lower then the threshold). If it finds such
+=======
+find clusters which do not have such a condition (meaning the desired replicas are less
+than the max, and current averaged CPU utilization is lower then the threshold). If it finds such
+>>>>>>> master
 a cluster, it reduces the max replica on the HPA in this cluster and increases the max replicas
 on the HPA in the cluster which needed the replicas.
 

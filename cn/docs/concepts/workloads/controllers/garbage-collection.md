@@ -45,7 +45,7 @@ Kubernetes 垃圾收集器的角色是删除指定的对象，这些对象曾经
 如果创建该 ReplicaSet，然后查看 Pod 的 metadata 字段，能够看到 OwnerReferences 字段：
 
 ```shell
-kubectl create -f https://k8s.io/docs/concepts/abstractions/controllers/my-repset.yaml
+kubectl create -f https://k8s.io/docs/concepts/controllers/my-repset.yaml
 kubectl get pods --output=yaml
 ```
 

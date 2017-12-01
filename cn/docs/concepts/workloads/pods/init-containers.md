@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 title: Init 容器
 redirect_from:

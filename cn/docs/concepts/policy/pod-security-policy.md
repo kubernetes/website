@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - pweil-
 title: Pod 安全策略
 redirect_from:

@@ -20,7 +20,7 @@ This example demonstrates how to use Kubernetes namespaces to subdivide your clu
 
 This example assumes the following:
 
-1. You have an [existing Kubernetes cluster](/docs/getting-started-guides/).
+1. You have an [existing Kubernetes cluster](/docs/setup/).
 2. You have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_.
 
 ### Step One: Understand the default namespace
@@ -152,7 +152,7 @@ $ kubectl run snowflake --image=kubernetes/serve_hostname --replicas=2
 ```
 We have just created a deployment whose replica size is 2 that is running the pod called snowflake with a basic container that just serves the hostname.
 Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/v1.6/#run) for more details.
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/{{page.version}}/#run) for more details.
 
 ```shell
 $ kubectl get deployment

@@ -49,8 +49,8 @@ Verify that the nginx container is running:
 
 The output shows that the nginx container is running:
 
-    NAME      READY     STATUS    RESTARTS   AGE
-    nginx     1/1       Running   0          43m
+    NAME        READY     STATUS    RESTARTS   AGE
+    init-demo   1/1       Running   0          1m
 
 Get a shell into the nginx container running in the init-demo Pod:
 

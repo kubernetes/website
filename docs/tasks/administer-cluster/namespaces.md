@@ -10,7 +10,7 @@ This page shows how to view, work in, and delete namespaces. The page also shows
 {% endcapture %}
 
 {% capture prerequisites %}
-* Have an [existing Kubernetes cluster](/docs/getting-started-guides/).
+* Have an [existing Kubernetes cluster](/docs/setup/).
 * Have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_.
 {% endcapture %}
 
@@ -238,7 +238,7 @@ $ kubectl run snowflake --image=kubernetes/serve_hostname --replicas=2
 ```
 We have just created a deployment whose replica size is 2 that is running the pod called snowflake with a basic container that just serves the hostname.
 Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/v1.7/#run) for more details.
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/{{page.version}}/#run) for more details.
 
 ```shell
 $ kubectl get deployment
@@ -334,7 +334,7 @@ Use cases include:
 
 ## Understanding namespaces and DNS
 
-When you create a [Service](/docs/concepts/services-networking/service/), it creates a corresponding [DNS entry](/docs/admin/dns).
+When you create a [Service](/docs/concepts/services-networking/service/), it creates a corresponding [DNS entry](/docs/concepts/services-networking/dns-pod-service/).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
 that if a container just uses `<service-name>` it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across

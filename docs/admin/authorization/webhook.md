@@ -20,7 +20,7 @@ service when determining user privileges.
 Mode `Webhook` requires a file for HTTP configuration, specify by the
 `--authorization-webhook-config-file=SOME_FILENAME` flag.
 
-The configuration file uses the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+The configuration file uses the [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 file format. Within the file "users" refers to the API Server webhook and
 "clusters" refers to the remote service.
 
@@ -31,8 +31,10 @@ A configuration example which uses HTTPS client auth:
 clusters:
   - name: name-of-remote-authz-service
     cluster:
-      certificate-authority: /path/to/ca.pem      # CA for verifying the remote service.
-      server: https://authz.example.com/authorize # URL of remote service to query. Must use 'https'.
+      # CA for verifying the remote service.
+      certificate-authority: /path/to/ca.pem
+      # URL of remote service to query. Must use 'https'. May not include parameters.
+      server: https://authz.example.com/authorize
 
 # users refers to the API Server's webhook configuration.
 users:

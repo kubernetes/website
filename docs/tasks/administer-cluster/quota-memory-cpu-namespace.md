@@ -7,7 +7,7 @@ title: Configure Memory and CPU Quotas for a Namespace
 
 This page shows how to set quotas for the total amount memory and CPU that
 can be used by all Containers running in a namespace. You specify quotas in a
-[ResourceQuota](/docs/api-reference/v1.7/#resourcequota-v1-core)
+[ResourceQuota](/docs/api-reference/{{page.version}}/#resourcequota-v1-core)
 object.
 
 {% endcapture %}

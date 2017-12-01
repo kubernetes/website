@@ -16,33 +16,12 @@ your pods. But there are a number of ways to get even more information about you
 
 For this example we'll use a Deployment to create two pods, similar to the earlier example.
 
-```yaml
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-spec:
-  replicas: 2
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-        - containerPort: 80
-```
+{% include code.html language="yaml" file="nginx-dep.yaml" ghlink="/docs/tasks/debug-application-cluster/nginx-dep.yaml" %}
 
-Copy this to a file *./my-nginx-dep.yaml*
+Create deployment by running following command:
 
 ```shell
-$ kubectl create -f ./my-nginx-dep.yaml
+$ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/nginx-dep.yaml
 deployment "nginx-deployment" created
 ```
 
@@ -376,10 +355,10 @@ status:
 
 Learn about additional debugging tools, including:
 
-* [Logging](/docs/user-guide/logging/overview)
-* [Monitoring](/docs/user-guide/monitoring)
-* [Getting into containers via `exec`](/docs/user-guide/getting-into-containers)
+* [Logging](/docs/concepts/cluster-administration/logging/)
+* [Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+* [Getting into containers via `exec`](/docs/tasks/debug-application-cluster/get-shell-running-container/)
 * [Connecting to containers via proxies](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
-* [Connecting to containers via port forwarding](/docs/user-guide/connecting-to-applications-port-forward)
+* [Connecting to containers via port forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 
 

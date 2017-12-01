@@ -67,7 +67,7 @@ in Kubernetes which our workloads can consume via Persistent Volume (PV) claims.
 juju run-action kubernetes-master/0 create-rbd-pv name=test size=50
 ```
 
-This example created a "test" Radios Block Device (rbd) in the size of 50 MB.
+This example created a "test" Rados Block Device (rbd) in the size of 50 MB.
 
 Use watch on your Kubernetes cluster like the following, you should see the PV
 become enlisted and be marked as available:

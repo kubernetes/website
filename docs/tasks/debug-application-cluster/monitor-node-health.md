@@ -32,7 +32,7 @@ kernel log now. It doesn't support log tools like journald.
 
 * The kernel issue detection of node problem detector has assumption on kernel
 log format, and now it only works on Ubuntu and Debian. However, it is easy to extend
-it to [support other log format](/docs/admin/node-problem/#support-other-log-format).
+it to [support other log format](/docs/tasks/debug-application-cluster/monitor-node-health/#support-other-log-format).
 
 ## Enable/Disable in GCE cluster
 

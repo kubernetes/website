@@ -140,7 +140,7 @@ You can use `kubectl create --edit` to make arbitrary changes to an object
 before it is created. Here's an example:
 
 ```sh
-kubectl create service clusterip my-svc -o yaml --dry-run > /tmp/srv.yaml
+kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run > /tmp/srv.yaml
 kubectl create --edit -f /tmp/srv.yaml
 ```
 
@@ -152,7 +152,7 @@ kubectl create --edit -f /tmp/srv.yaml
 {% capture whatsnext %}
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/)
-- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.6/)
+- [Kubectl Command Reference](/docs/user-guide/kubectl/{{page.version}}/)
 - [Kubernetes Object Schema Reference](/docs/resources-reference/{{page.version}}/)
 {% endcapture %}
 

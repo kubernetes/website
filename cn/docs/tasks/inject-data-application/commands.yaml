@@ -10,3 +10,4 @@ spec:
     image: debian
     command: ["printenv"]
     args: ["HOSTNAME", "KUBERNETES_PORT"]
+  restartPolicy: OnFailure

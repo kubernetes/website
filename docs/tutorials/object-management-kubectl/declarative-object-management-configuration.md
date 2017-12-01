@@ -188,7 +188,7 @@ Directly update the `replicas` field in the live configuration by using `kubectl
 This does not use `kubectl apply`:
 
 ```shell
-kubectl scale deployment/nginx-deployment --replicas 2
+kubectl scale deployment/nginx-deployment --replicas=2
 ```
 
 Print the live configuration using `kubectl get`:
@@ -572,7 +572,7 @@ Add, delete, or update individual elements. This does not preserve ordering.
 
 This merge strategy uses a special tag on each field called a `patchMergeKey`. The
 `patchMergeKey` is defined for each field in the Kubernetes source code:
-[types.go](https://git.k8s.io/kubernetes/pkg/api/v1/types.go#L2119)
+[types.go](https://git.k8s.io/api/core/v1/types.go#L2565)
 When merging a list of maps, the field specified as the `patchMergeKey` for a given element
 is used like a map key for that element.
 
@@ -646,7 +646,7 @@ by `name`.
 As of Kubernetes 1.5, merging lists of primitive elements is not supported.
 
 **Note:** Which of the above strategies is chosen for a given field is controlled by
-the `patchStrategy` tag in [types.go](https://git.k8s.io/kubernetes/pkg/api/v1/types.go#L2119)
+the `patchStrategy` tag in [types.go](https://git.k8s.io/api/core/v1/types.go#L2565)
 If no `patchStrategy` is specified for a field of type list, then
 the list is replaced.
 
@@ -948,7 +948,7 @@ template:
 {% capture whatsnext %}
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
 - [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
-- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.6/)
+- [Kubectl Command Reference](/docs/user-guide/kubectl/{{page.version}}/)
 - [Kubernetes Object Schema Reference](/docs/resources-reference/{{page.version}}/)
 {% endcapture %}
 

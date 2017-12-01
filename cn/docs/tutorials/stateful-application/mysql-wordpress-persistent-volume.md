@@ -1,6 +1,6 @@
 ---
 title: "基于 Persistent Volumes 搭建 WordPress 和 MySQL 应用"
-assignees:
+approvers:
 - ahmetb
 - jeffmendoza
 ---

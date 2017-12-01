@@ -41,15 +41,17 @@ On the other hand, `libvirt-coreos` might be useful for people investigating low
 ### Prerequisites
 
 1. Install [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html)
-2. Install [ebtables](http://ebtables.netfilter.org/)
-3. Install [qemu](http://wiki.qemu.org/Main_Page)
-4. Install [libvirt](http://libvirt.org/)
-5. Install [openssl](http://openssl.org/)
-6. Enable and start the libvirt daemon, e.g.:
-   * ``systemctl enable libvirtd && systemctl start libvirtd`` # for systemd-based systems
-   * ``/etc/init.d/libvirt-bin start`` # for init.d-based systems
-7. [Grant libvirt access to your user¹](https://libvirt.org/aclpolkit.html)
-8. Check that your $HOME is accessible to the qemu user²
+1. Install [ebtables](http://ebtables.netfilter.org/)
+1. Install [qemu](http://wiki.qemu.org/Main_Page)
+1. Install [libvirt](http://libvirt.org/)
+1. Install [openssl](http://openssl.org/)
+1. Enable and start the libvirt daemon, e.g.:
+
+    - `systemctl enable libvirtd && systemctl start libvirtd`  for systemd-based systems
+    - `/etc/init.d/libvirt-bin start`  for init.d-based systems
+   
+1. [Grant libvirt access to your user¹](https://libvirt.org/aclpolkit.html)
+1. Check that your $HOME is accessible to the qemu user²
 
 #### &sup1; Depending on your distribution, libvirt access may be denied by default or may require a password at each access.
 
@@ -332,7 +334,7 @@ Ensure libvirtd has been restarted since ebtables was installed.
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-libvirt/KVM          | CoreOS       | CoreOS | libvirt/KVM | [docs](/docs/getting-started-guides/libvirt-coreos)                         |          | Community ([@lhuard1A](https://github.com/lhuard1A))
+libvirt/KVM          | CoreOS       | CoreOS | libvirt/KVM | [docs](/docs/getting-started-guides/libvirt-coreos/)                         |          | Community ([@lhuard1A](https://github.com/lhuard1A))
 
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.

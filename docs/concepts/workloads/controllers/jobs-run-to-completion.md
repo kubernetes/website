@@ -76,7 +76,7 @@ To list all the pods that belong to a job in a machine readable form, you can us
 
 ```shell
 $ pods=$(kubectl get pods  --show-all --selector=job-name=pi --output=jsonpath={.items..metadata.name})
-echo $pods
+$ echo $pods
 pi-aiw0a
 ```
 
@@ -125,7 +125,7 @@ There are three main types of jobs:
   - the job is complete when there is one successful pod for each value in the range 1 to `.spec.completions`.
   - **not implemented yet:** each pod passed a different index in the range 1 to `.spec.completions`.
 1. Parallel Jobs with a *work queue*:
-  - do not specify `.spec.completions`, default to `.spec.Parallelism`.
+  - do not specify `.spec.completions`, default to `.spec.parallelism`.
   - the pods must coordinate with themselves or an external service to determine what each should work on.
   - each pod is independently capable of determining whether or not all its peers are done, thus the entire Job is done.
   - when _any_ pod terminates with success, no new pods are created.
@@ -155,14 +155,14 @@ A job can be scaled up using the `kubectl scale` command.  For example, the foll
 command sets `.spec.parallelism` of a job called `myjob` to 10:
 
 ```shell
-$ kubectl scale  --replicas=$N jobs/myjob
+$ kubectl scale  --replicas=10 jobs/myjob
 job "myjob" scaled
 ```
 
 You can also use the `scale` subresource of the Job resource.
 
 Actual parallelism (number of pods running at any instant) may be more or less than requested
-parallelism, for a variety or reasons:
+parallelism, for a variety of reasons:
 
 - For Fixed Completion Count jobs, the actual number of pods running in parallel will not exceed the number of
   remaining completions.   Higher values of `.spec.parallelism` are effectively ignored.
@@ -180,7 +180,7 @@ a non-zero exit code, or the Container was killed for exceeding a memory limit, 
 happens, and the `.spec.template.spec.restartPolicy = "OnFailure"`, then the Pod stays
 on the node, but the Container is re-run.  Therefore, your program needs to handle the case when it is
 restarted locally, or else specify `.spec.template.spec.restartPolicy = "Never"`.
-See [pods-states](/docs/user-guide/pod-states) for more information on `restartPolicy`.
+See [pods-states](/docs/concepts/workloads/pods/pod-lifecycle/#example-states) for more information on `restartPolicy`.
 
 An entire Pod can also fail, for a number of reasons, such as when the pod is kicked off the node
 (node is upgraded, rebooted, deleted, etc.), or if a container of the Pod fails and the
@@ -198,9 +198,20 @@ multiple pods running at once.  Therefore, your pods must also be tolerant of co
 
 ### Pod Backoff failure policy
 
-There are situations where you want to fail a Job after some amount of retries due to a logical error in configuration etc.
-To do so set `.spec.template.spec.backoffLimit` to specify the number of retries before considering a Job as failed.
-The back-off limit is set by default to 6. Failed Pods associated with the Job are recreated by the Job controller with an exponential back-off delay (10s, 20s, 40s ...) capped at six minutes, The back-off limit is reset if no new failed Pods appear before the Job's next status check.
+There are situations where you want to fail a Job after some amount of retries
+due to a logical error in configuration etc.
+To do so, set `.spec.backoffLimit` to specify the number of retries before
+considering a Job as failed. The back-off limit is set by default to 6. Failed
+Pods associated with the Job are recreated by the Job controller with an
+exponential back-off delay (10s, 20s, 40s ...) capped at six minutes, The
+back-off limit is reset if no new failed Pods appear before the Job's next
+status check.
+
+**Note:** Due to a known issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870),
+when the `spec.template.spec.restartPolicy` field is set to "`OnFailure`", the
+back-off limit may be ineffective. As a short-term workaround, set the restart
+policy for the embedded template to "`Never`".
+{: .note}
 
 ## Job Termination and Cleanup
 
@@ -226,6 +237,7 @@ kind: Job
 metadata:
   name: pi-with-timeout
 spec:
+  backoffLimit: 5
   activeDeadlineSeconds: 100
   template:
     metadata:

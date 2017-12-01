@@ -24,9 +24,10 @@ points to the owning object.
 
 Sometimes, Kubernetes sets the value of `ownerReference` automatically. For
 example, when you create a ReplicaSet, Kubernetes automatically sets the
-`ownerReference` field of each Pod in the ReplicaSet. In 1.6, Kubernetes
+`ownerReference` field of each Pod in the ReplicaSet. In 1.8, Kubernetes
 automatically sets the value of `ownerReference` for objects created or adopted
-by ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and Deployment.
+by ReplicationController, ReplicaSet, StatefulSet, DaemonSet, Deployment, Job
+and CronJob.
 
 You can also specify relationships between owners and dependents by manually
 setting the `ownerReference` field.
@@ -39,7 +40,7 @@ If you create the ReplicaSet and then view the Pod metadata, you can see
 OwnerReferences field:
 
 ```shell
-kubectl create -f https://k8s.io/docs/concepts/abstractions/controllers/my-repset.yaml
+kubectl create -f https://k8s.io/docs/concepts/controllers/my-repset.yaml
 kubectl get pods --output=yaml
 ```
 
@@ -69,12 +70,6 @@ deletion*.  There are two modes of *cascading deletion*: *background* and *foreg
 If you delete an object without deleting its dependents
 automatically, the dependents are said to be *orphaned*.
 
-### Background cascading deletion
-
-In *background cascading deletion*, Kubernetes deletes the owner object
-immediately and the garbage collector then deletes the dependents in
-the background.
-
 ### Foreground cascading deletion
 
 In *foreground cascading deletion*, the root object first
@@ -92,12 +87,18 @@ the owner object.
 
 Note that in the "foregroundDeletion", only dependents with
 `ownerReference.blockOwnerDeletion` block the deletion of the owner object.
-Kubernetes version 1.7 will add an admission controller that controls user access to set
+Kubernetes version 1.7 added an [admission controller](/docs/admin/admission-controllers/#ownerreferencespermissionenforcement) that controls user access to set
 `blockOwnerDeletion` to true based on delete permissions on the owner object, so that
 unauthorized dependents cannot delay deletion of an owner object.
 
 If an object's `ownerReferences` field is set by a controller (such as Deployment or ReplicaSet),
 blockOwnerDeletion is set automatically and you do not need to manually modify this field.
+
+### Background cascading deletion
+
+In *background cascading deletion*, Kubernetes deletes the owner object
+immediately and the garbage collector then deletes the dependents in
+the background.
 
 ### Setting the cascading deletion policy
 

@@ -99,7 +99,7 @@ public networks.
 
 ### SSH Tunnels
 
-[Google Container Engine](https://cloud.google.com/container-engine/docs/) uses
+[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) uses
 SSH tunnels to protect the Master -> Cluster communication paths. In this
 configuration, the apiserver initiates an SSH tunnel to each node in the
 cluster (connecting to the ssh server listening on port 22) and passes all

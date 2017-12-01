@@ -11,7 +11,7 @@ title: StatefulSet Basics
 
 {% capture overview %}
 This tutorial provides an introduction to managing applications with
-[StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/). It 
+[StatefulSets](/docs/concepts/workloads/controllers/statefulset/). It 
 demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
 {% endcapture %}
 
@@ -24,8 +24,8 @@ following Kubernetes concepts.
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
-* [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
-* [kubectl CLI](/docs/user-guide/kubectl)
+* [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
+* [kubectl CLI](/docs/user-guide/kubectl/)
 
 This tutorial assumes that your cluster is configured to dynamically provision 
 PersistentVolumes. If your cluster is not configured to do so, you
@@ -54,7 +54,7 @@ After this tutorial, you will be familiar with the following.
 
 Begin by creating a StatefulSet using the example below. It is similar to the 
 example presented in the
-[StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/) concept. 
+[StatefulSets](/docs/concepts/workloads/controllers/statefulset/) concept. 
 It creates a [Headless Service](/docs/concepts/services-networking/service/#headless-services), 
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`. 
 
@@ -133,7 +133,7 @@ web-1     1/1       Running   0          1m
 
 ```
 
-As mentioned in the [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/) 
+As mentioned in the [StatefulSets](/docs/concepts/workloads/controllers/statefulset/) 
 concept, the Pods in a StatefulSet have a sticky, unique identity. This identity 
 is based on a unique ordinal index that is assigned to each Pod by the 
 StatefulSet controller. The Pods' names take the form 
@@ -438,7 +438,7 @@ www-web-4   Bound     pvc-e11bb5f8-b508-11e6-932f-42010a800002   1Gi        RWO 
 ```
 
 There are still five PersistentVolumeClaims and five PersistentVolumes. 
-When exploring a Pod's [stable storage](#writing-to-stable-storage), we saw that the PersistentVolumes mounted to the Pods of a StatefulSet are not deleted whenthe StatefulSet's Pods are deleted. This is still true when Pod deletion is caused by scaling the StatefulSet down. 
+When exploring a Pod's [stable storage](#writing-to-stable-storage), we saw that the PersistentVolumes mounted to the Pods of a StatefulSet are not deleted when the StatefulSet's Pods are deleted. This is still true when Pod deletion is caused by scaling the StatefulSet down. 
 
 ## Updating StatefulSets
 

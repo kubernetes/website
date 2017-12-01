@@ -12,7 +12,7 @@ title: Run a Replicated Stateful Application
 {% capture overview %}
 
 This page shows how to run a replicated stateful application using a
-[StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/) controller.
+[StatefulSet](/docs/concepts/workloads/controllers/statefulset/) controller.
 The example is a MySQL single-master topology with multiple slaves running
 asynchronous replication.
 
@@ -28,7 +28,7 @@ on general patterns for running stateful applications in Kubernetes.
 * {% include default-storage-class-prereqs.md %}
 * This tutorial assumes you are familiar with
   [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
-  and [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/),
+  and [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
   as well as other core concepts like [Pods](/docs/concepts/workloads/pods/pod/),
   [Services](/docs/concepts/services-networking/service/), and
   [ConfigMaps](/docs/tasks/configure-pod-container/configmap/).
@@ -349,7 +349,7 @@ and then return on its own.
 
 If your Kubernetes cluster has multiple Nodes, you can simulate Node downtime
 (such as when Nodes are upgraded) by issuing a
-[drain](/docs/user-guide/kubectl/v1.6/#drain).
+[drain](/docs/user-guide/kubectl/{{page.version}}/#drain).
 
 First determine which Node one of the MySQL Pods is on:
 

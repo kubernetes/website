@@ -7,7 +7,8 @@ description: Use the Kubernetes device plugin framework to implement plugins for
 {% include feature-state-alpha.md %}
 
 {% capture overview %}
-Starting in version 1.8, Kubernetes provides a [device plugin framework](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/device-plugin.md)
+Starting in version 1.8, Kubernetes provides a
+[device plugin framework](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)
 for vendors to advertise their resources to the kubelet without changing Kubernetes core code.
 Instead of writing custom Kubernetes code, vendors can implement a device plugin that can
 be deployed manually or as a DaemonSet. The targeted devices include GPUs,
@@ -48,7 +49,7 @@ Then, developers can request devices in a
 [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
 specification by using the same process that is used for
 [opaque integer resources](/docs/tasks/configure-pod-container/opaque-integer-resource/).
-In version 1.8, extended resources are spported only as integer resources and must have
+In version 1.8, extended resources are supported only as integer resources and must have
 `limit` equal to `request` in the Container specification.
 
 ## Device plugin implementation
@@ -57,7 +58,7 @@ The general workflow of a device plugin includes the following steps:
 
 * Initialization. During this phase, the device plugin performs vendor specific
   initialization and setup to make sure the devices are in a ready state.
-  
+
 * The plugin starts a gRPC service, with a Unix socket under host path
   `/var/lib/kubelet/device-plugins/`, that implements the following interfaces:
 
@@ -97,17 +98,17 @@ A device plugin can be deployed manually or as a DaemonSet. Being deployed as a 
 the benefit that Kubernetes can restart the device plugin if it fails.
 Otherwise, an extra mechanism is needed to recover from device plugin failures.
 The canonical directory `/var/lib/kubelet/device-plugins` requires privileged access,
-so a device plugin must run in a privileged security context. 
+so a device plugin must run in a privileged security context.
 If a device plugin is running as a DaemonSet, `/var/lib/kubelet/device-plugins`
 must be mounted as a
 [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core)
 in the plugin's
-[PodSpec](/docs/api-reference/{{paage.version}}/#podspec-v1-core).
+[PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core).
 
 ## Examples
 
 For an example device plugin implementation, see
-[nvidia GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/nvidia_gpu).
+[nvidia GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu).
 
 {% endcapture %}
 

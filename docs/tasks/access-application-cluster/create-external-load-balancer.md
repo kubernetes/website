@@ -104,7 +104,7 @@ The IP address is listed next to `LoadBalancer Ingress`.
 Due to the implementation of this feature, the source IP seen in the target
 container will *not be the original source IP* of the client. To enable
 preservation of the client IP, the following fields can be configured in the
-service spec (supported in GCE/GKE environments):
+service spec (supported in GCE/Google Kubernetes Engine environments):
 
 * `service.spec.externalTrafficPolicy` - denotes if this Service desires to route
 external traffic to node-local or cluster-wide endpoints. There are two available
@@ -180,7 +180,7 @@ Known issues:
 
 It is important to note that the datapath for this functionality is provided by a load balancer external to the Kubernetes cluster.
 
-When the service type is set to `LoadBalancer`, Kubernetes provides functionality equivalent to `type=<ClusterIP>` to pods within the cluster and extends it by programming the (external to Kubernetes) load balancer with entries for the Kubernetes VMs. The Kubernetes service controller automates the creation of the external load balancer, health checks (if needed), firewall rules (if needed) and retrieves the external IP allocated by the cloud provider and populates it in the service object.
+When the service type is set to `LoadBalancer`, Kubernetes provides functionality equivalent to `type=<ClusterIP>` to pods within the cluster and extends it by programming the (external to Kubernetes) load balancer with entries for the Kubernetes pods. The Kubernetes service controller automates the creation of the external load balancer, health checks (if needed), firewall rules (if needed) and retrieves the external IP allocated by the cloud provider and populates it in the service object.
 
 ## Caveats and Limitations when preserving source IPs
 

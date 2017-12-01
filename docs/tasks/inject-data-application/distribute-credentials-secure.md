@@ -37,7 +37,7 @@ username and password:
 
 1. Create the Secret
 
-       kubectl create -f secret.yaml
+       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret.yaml
 
     **Note:** If you want to skip the Base64 encoding step, you can create a Secret
     by using the `kubectl create secret` command:
@@ -81,7 +81,7 @@ Here is a configuration file you can use to create a Pod:
 
 1. Create the Pod:
 
-       kubectl create -f secret-pod.yaml
+       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-pod.yaml
 
 1. Verify that your Pod is running:
 
@@ -101,11 +101,11 @@ Here is a configuration file you can use to create a Pod:
 `/etc/secret-volume`. In your shell, go to the directory where the secret data
 is exposed:
 
-        root@secret-test-pod:/# cd /etc/secret-volume
+       root@secret-test-pod:/# cd /etc/secret-volume
 
 1. In your shell, list the files in the `/etc/secret-volume` directory:
 
-        root@secret-test-pod:/etc/secret-volume# ls
+       root@secret-test-pod:/etc/secret-volume# ls
 
     The output shows two files, one for each piece of secret data:
 
@@ -113,7 +113,7 @@ is exposed:
 
 1. In your shell, display the contents of the `username` and `password` files:
 
-        root@secret-test-pod:/etc/secret-volume# cat username; echo; cat password; echo
+       root@secret-test-pod:/etc/secret-volume# cat username; echo; cat password; echo
 
     The output is your username and password:
 
@@ -128,7 +128,7 @@ Here is a configuration file you can use to create a Pod:
 
 1. Create the Pod:
 
-       kubectl create -f secret-envars-pod.yaml
+       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-envars-pod.yaml
 
 1. Verify that your Pod is running:
 

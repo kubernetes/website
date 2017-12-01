@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - erictune
 title: DaemonSet
 redirect_from:
@@ -95,7 +95,7 @@ DaemonSet 也需要一个 [`.spec`](https://git.k8s.io/community/contributors/de
 
 
 
-Daemon Pod 关心 [Taint 和 Toleration](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature)，它们会为没有指定 `tolerationSeconds` 的 `node.alpha.kubernetes.io/notReady` 和 `node.alpha.kubernetes.io/unreachable` 的 Taint，创建具有 `NoExecute` 的 Toleration。这确保了当 alpha 特性的 `TaintBasedEvictions` 被启用时，发生节点故障，比如网络分区，这时它们将不会被清除掉（当 `TaintBasedEvictions` 特性没有启用，在这些场景下也不会被清除，但会因为 NodeController 的硬编码行为而被清除，而不会因为 Toleration 导致被清除）。
+Daemon Pod 关心 [Taint 和 Toleration](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature)，它们会为没有指定 `tolerationSeconds` 的 `node.kubernetes.io/not-ready` 和 `node.alpha.kubernetes.io/unreachable` 的 Taint，创建具有 `NoExecute` 的 Toleration。这确保了当 alpha 特性的 `TaintBasedEvictions` 被启用时，发生节点故障，比如网络分区，这时它们将不会被清除掉（当 `TaintBasedEvictions` 特性没有启用，在这些场景下也不会被清除，但会因为 NodeController 的硬编码行为而被清除，而不会因为 Toleration 导致被清除）。
 
 
 

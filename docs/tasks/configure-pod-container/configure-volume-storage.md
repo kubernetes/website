@@ -53,6 +53,7 @@ the Pod:
 
 1. In your shell, go to `/data/redis`, and create a file:
 
+       root@redis:/data# cd /data/redis/
        root@redis:/data/redis# echo Hello > test-file
 
 1. In your shell, list the running processes:

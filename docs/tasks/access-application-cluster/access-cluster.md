@@ -14,7 +14,7 @@ Kubernetes CLI, `kubectl`.
 
 To access a cluster, you need to know the location of the cluster and have credentials
 to access it.  Typically, this is automatically set-up when you work through
-a [Getting started guide](/docs/getting-started-guides/),
+a [Getting started guide](/docs/setup/),
 or someone else setup the cluster and provided you with credentials and a location.
 
 Check the location and credentials that kubectl knows about with this command:
@@ -23,8 +23,8 @@ Check the location and credentials that kubectl knows about with this command:
 $ kubectl config view
 ```
 
-Many of the [examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/) provide an introduction to using
-kubectl and complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl/index).
+Many of the [examples](/docs/user-guide/kubectl-cheatsheet) provide an introduction to using
+kubectl and complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl-overview).
 
 ### Directly accessing the REST API
 
@@ -53,7 +53,7 @@ Run it like this:
 $ kubectl proxy --port=8080 &
 ```
 
-See [kubectl proxy](/docs/user-guide/kubectl/v1.6/#proxy) for more details.
+See [kubectl proxy](/docs/user-guide/kubectl/{{page.version}}/#proxy) for more details.
 
 Then you can explore the API with curl, wget, or a browser, like so:
 
@@ -195,7 +195,7 @@ You have several options for connecting to nodes, pods and services from outside
   - Access services through public IPs.
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
       the cluster.  See the [services](/docs/user-guide/services) and
-      [kubectl expose](/docs/user-guide/kubectl/v1.6/#expose) documentation.
+      [kubectl expose](/docs/user-guide/kubectl/{{page.version}}/#expose) documentation.
     - Depending on your cluster environment, this may just expose the service to your corporate network,
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
       Does it do its own authentication?
@@ -211,7 +211,7 @@ You have several options for connecting to nodes, pods and services from outside
     - Only works for HTTP/HTTPS.
     - Described [here](#manually-constructing-apiserver-proxy-urls).
   - Access from a node or pod in the cluster.
-    - Run a pod, and then connect to a shell in it using [kubectl exec](/docs/user-guide/kubectl/v1.6/#exec).
+    - Run a pod, and then connect to a shell in it using [kubectl exec](/docs/user-guide/kubectl/{{page.version}}/#exec).
       Connect to other nodes, pods, and services from that shell.
     - Some clusters may allow you to ssh to a node in the cluster.  From there you may be able to
       access cluster services.  This is a non-standard method, and will work on some clusters but
@@ -293,14 +293,17 @@ The redirect capabilities have been deprecated and removed.  Please use a proxy 
 
 There are several different proxies you may encounter when using Kubernetes:
 
-  1. The [kubectl proxy](#directly-accessing-the-rest-api):
+1.  The [kubectl proxy](#directly-accessing-the-rest-api):
+  
     - runs on a user's desktop or in a pod
     - proxies from a localhost address to the Kubernetes apiserver
     - client to proxy uses HTTP
     - proxy to apiserver uses HTTPS
     - locates apiserver
     - adds authentication headers
-  1. The [apiserver proxy](#discovering-builtin-services):
+    
+1.  The [apiserver proxy](#discovering-builtin-services):
+  
     - is a bastion built into the apiserver
     - connects a user outside of the cluster to cluster IPs which otherwise might not be reachable
     - runs in the apiserver processes
@@ -308,17 +311,23 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxy to target may use HTTP or HTTPS as chosen by proxy using available information
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
-  1. The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+    
+1.  The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+  
     - runs on each node
     - proxies UDP and TCP
     - does not understand HTTP
     - provides load balancing
     - is just used to reach services
-  1. A Proxy/Load-balancer in front of apiserver(s):
+    
+1.  A Proxy/Load-balancer in front of apiserver(s):
+  
     - existence and implementation varies from cluster to cluster (e.g. nginx)
     - sits between all clients and one or more apiservers
     - acts as load balancer if there are several apiservers.
-  1. Cloud Load Balancers on external services:
+    
+1.  Cloud Load Balancers on external services:
+  
     - are provided by some cloud providers (e.g. AWS ELB, Google Cloud Load Balancer)
     - are created automatically when the Kubernetes service has type `LoadBalancer`
     - use UDP/TCP only

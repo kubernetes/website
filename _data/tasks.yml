@@ -96,10 +96,11 @@ toc:
   - docs/tasks/debug-application-cluster/debug-stateful-set.md
   - docs/tasks/debug-application-cluster/debug-application-introspection.md
   - docs/tasks/debug-application-cluster/audit.md
+  - docs/tasks/debug-application-cluster/local-debugging.md
   - title: Use Explorer to Examine the Runtime Environment
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
 
-- title: Access and Extend the Kubernetes API
+- title: Extend Kubernetes
   section:
   - docs/tasks/access-kubernetes-api/http-proxy-access-api.md
   - docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions.md
@@ -107,6 +108,8 @@ toc:
   - docs/tasks/access-kubernetes-api/migrate-third-party-resource.md
   - docs/tasks/access-kubernetes-api/configure-aggregation-layer.md
   - docs/tasks/access-kubernetes-api/setup-extension-api-server.md
+  - docs/tasks/service-catalog/install-service-catalog-using-helm.md
+  - docs/tasks/service-catalog/install-service-catalog-using-sc.md
 
 - title: TLS
   section:
@@ -147,6 +150,7 @@ toc:
   - docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods.md
   - docs/tasks/administer-cluster/declare-network-policy.md
   - docs/tasks/administer-cluster/reconfigure-kubelet.md
+  - docs/tasks/administer-cluster/kubelet-config-file.md
   - title: Install Network Policy Provider
     section:
     - docs/tasks/administer-cluster/calico-network-policy.md

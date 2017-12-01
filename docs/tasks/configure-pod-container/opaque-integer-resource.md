@@ -116,7 +116,7 @@ oir-demo-2   0/1       Pending   0          6m
 Delete the Pod that you created for this exercise:
 
 ```shell
-kubectl delete pod oir-demo
+kubectl delete pod oir-demo-2
 ```
 
 {% endcapture %}

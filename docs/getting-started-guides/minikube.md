@@ -68,6 +68,8 @@ client_address=192.168.99.1
 command=GET
 real path=/
 ...
+$ kubectl delete deployment hello-minikube
+deployment "hello-minikube" deleted
 $ minikube stop
 Stopping local Kubernetes cluster...
 Stopping "minikube"...
@@ -201,7 +203,7 @@ This command shuts down and deletes the minikube virtual machine. No data or sta
 
 ### Kubectl
 
-The `minikube start` command creates a "[kubectl context](/docs/user-guide/kubectl/v1.6/#-em-set-context-em-)" called "minikube".
+The `minikube start` command creates a "[kubectl context](/docs/user-guide/kubectl/{{page.version}}/#-em-set-context-em-)" called "minikube".
 This context contains the configuration to communicate with your minikube cluster.
 
 Minikube sets this context to default automatically, but if you need to switch back to it in the future, run:
@@ -284,7 +286,10 @@ We recommend you use `ImagePullSecrets`, but if you would like to configure acce
 
 ## Add-ons
 
-In order to have minikube properly start/restart custom addons, place the addons you wish to be launched with minikube in the `~/.minikube/addons` directory.  Addons in this folder will be moved to the minikubeVM and launched each time minikube is started/restarted.
+In order to have minikube properly start or restart custom addons,
+place the addons you wish to be launched with minikube in the `~/.minikube/addons`
+directory. Addons in this folder will be moved to the minikube VM and
+launched each time minikube is started or restarted.
 
 ## Using Minikube with an HTTP Proxy
 

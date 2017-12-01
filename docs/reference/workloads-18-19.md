@@ -167,7 +167,7 @@ In Kubernetes 1.9, our goal is to address any feedback on the apps/v1beta2 group
     <td>ReplicaSet</td>
     <td>apps</td>
     <td>v1</td>
-    <td>StatefulSet</td>
+    <td>ReplicaSet</td>
   </tr>
   <tr>
     <td>apps</td>

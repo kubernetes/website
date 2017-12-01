@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - lavalamp
 title: Kubernetes 组件
 redirect_from:
@@ -39,7 +39,7 @@ Master 组件可以在集群中的任何节点上运行。然而，为了简单�
 
 ### 云控制器管理器-(cloud-controller-manager)
 
-cloud-controller-manager 是用于与底层云提供商交互的控制器。云控制器管理器二进制是 Kubernetes v1.6 版本中引入的 Alpha 功能。
+cloud-controller-manager 是用于与底层云提供商交互的控制器。云控制器管理器可执行组件是 Kubernetes v1.6 版本中引入的 Alpha 功能。
 
 cloud-controller-manager 仅运行云提供商特定的控制器循环。您必须在 kube-controller-manager 中禁用这些控制器循环，您可以通过在启动 kube-controller-manager 时将 `--cloud-provider` 标志设置为`external`来禁用控制器循环。
 

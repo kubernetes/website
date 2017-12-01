@@ -78,10 +78,10 @@ or across zones (if using a
 
 The frequency of voluntary disruptions varies.  On a basic Kubernetes cluster, there are
 no voluntary disruptions at all.  However, your cluster administrator or hosting provider
-may run some additional services which cause voluntary disruptions.  For example,
-rolling out node software updates can cause voluntary updates.  Also, some implementations
+may run some additional services which cause voluntary disruptions. For example,
+rolling out node software updates can cause voluntary disruptions. Also, some implementations
 of cluster (node) autoscaling may cause voluntary disruptions to defragment and compact nodes.
-You cluster administrator or hosting provider should have documented what level of voluntary
+Your cluster administrator or hosting provider should have documented what level of voluntary
 disruptions, if any, to expect.
 
 Kubernetes offers features to help run highly available applications at the same

@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - bprashanth
 - enisoc
 - erictune
@@ -204,7 +204,7 @@ maxClientCnxns=60
 minSessionTimeout= 4000
 maxSessionTimeout= 40000
 autopurge.snapRetainCount=3
-autopurge.purgeInteval=0
+autopurge.purgeInterval=0
 server.1=zk-0.zk-headless.default.svc.cluster.local:2888:3888
 server.2=zk-1.zk-headless.default.svc.cluster.local:2888:3888
 server.3=zk-2.zk-headless.default.svc.cluster.local:2888:3888

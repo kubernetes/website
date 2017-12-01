@@ -26,7 +26,7 @@ css: /css/style_peardeck.css
 
 <div class="col2">
   <h2>Solution</h2>
-    In 2016, the company began moving their code from Heroku to <a href="https://www.docker.com/">Docker</a> containers running on <a href="https://cloud.google.com/container-engine/">Google Container Engine</a>, orchestrated by <a href="http://kubernetes.io/">Kubernetes</a> and monitored with <a href="https://prometheus.io/">Prometheus</a>.
+    In 2016, the company began moving their code from Heroku to <a href="https://www.docker.com/">Docker</a> containers running on <a href="https://cloud.google.com/kubernetes-engine/">Google Kubernetes Engine</a>, orchestrated by <a href="http://kubernetes.io/">Kubernetes</a> and monitored with <a href="https://prometheus.io/">Prometheus</a>.
     <br>
     <br>
 <h2>Impact</h2>
@@ -51,22 +51,22 @@ But once it launched, the user base began growing steadily at a rate of 30 perce
 <br><br>
 On top of that, many of Pear Deck’s customers are behind government firewalls and connect through Firebase, not Pear Deck’s servers, making troubleshooting even more difficult.
 <br><br>
-The team began looking around for another solution, and finally decided in early 2016 to start moving the app from Heroku to <a href="https://www.docker.com/">Docker</a> containers running on <a href="https://cloud.google.com/container-engine/">Google Container Engine</a>, orchestrated by <a href="http://kubernetes.io/">Kubernetes</a> and monitored with <a href="https://prometheus.io/">Prometheus</a>.
+The team began looking around for another solution, and finally decided in early 2016 to start moving the app from Heroku to <a href="https://www.docker.com/">Docker</a> containers running on <a href="https://cloud.google.com/kubernetes-engine/">Google Kubernetes Engine</a>, orchestrated by <a href="http://kubernetes.io/">Kubernetes</a> and monitored with <a href="https://prometheus.io/">Prometheus</a>.
 </div>
 </section>
 
 <div class="banner3">
   <div class="banner3text">
-    "When it became clear that Google Container Engine was going to have a lot of support from Google and be a fully-managed Kubernetes platform, it seemed very obvious to us that was the way to go," says Eynon-Lynch.
+    "When it became clear that Google Kubernetes Engine was going to have a lot of support from Google and be a fully-managed Kubernetes platform, it seemed very obvious to us that was the way to go," says Eynon-Lynch.
   </div>
 </div>
 
 <section class="section3">
 <div class="fullcol">
-  They had considered other options like Google’s App Engine (which they were already using for one service) and Amazon’s <a href="https://aws.amazon.com/ec2/">Elastic Compute Cloud</a> (EC2), while experimenting with running one small service that wasn’t accessible to the Internet in Kubernetes. "When it became clear that Google Container Engine was going to have a lot of support from Google and be a fully-managed Kubernetes platform, it seemed very obvious to us that was the way to go," says Eynon-Lynch. "We didn’t really consider Terraform and the other competitors because the abstractions offered by Kubernetes just jumped off the page to us."<br><br>
+  They had considered other options like Google’s App Engine (which they were already using for one service) and Amazon’s <a href="https://aws.amazon.com/ec2/">Elastic Compute Cloud</a> (EC2), while experimenting with running one small service that wasn’t accessible to the Internet in Kubernetes. "When it became clear that Google Kubernetes Engine was going to have a lot of support from Google and be a fully-managed Kubernetes platform, it seemed very obvious to us that was the way to go," says Eynon-Lynch. "We didn’t really consider Terraform and the other competitors because the abstractions offered by Kubernetes just jumped off the page to us."<br><br>
   Once the team started porting its Heroku apps into Kubernetes, which was "super easy," he says, the impact was immediate. "Before, to make a new version of the app meant going to Heroku and reconfiguring 10 new services, so basically no one was willing to do it, and we never   staged things," he says. "Now we can deploy our exact same configuration in lots of different clusters in 30 seconds. We have a full set up that’s always running, and then any of our developers or designers can stage new versions with one command, including their recent changes. We stage all the time now, and everyone stopped talking about how cool it is because it’s become invisible how great it is."
   <br><br>
-  Along with Kubernetes came Prometheus. "Until pretty recently we didn’t have any kind of visibility into aggregate server metrics or performance," says Eynon-Lynch. The team had tried to use GKE’s <a href="https://cloud.google.com/stackdriver/">Stackdriver</a> monitoring, but had problems making it work, and considered <a href="https://newrelic.com/">New Relic</a>. When they started looking at Prometheus in the fall of 2016, "the fit between the abstractions in Prometheus and the way we think about how our system works, was so clear and obvious," he says.<br><br>
+  Along with Kubernetes came Prometheus. "Until pretty recently we didn’t have any kind of visibility into aggregate server metrics or performance," says Eynon-Lynch. The team had tried to use Google Kubernetes Engine’s <a href="https://cloud.google.com/stackdriver/">Stackdriver</a> monitoring, but had problems making it work, and considered <a href="https://newrelic.com/">New Relic</a>. When they started looking at Prometheus in the fall of 2016, "the fit between the abstractions in Prometheus and the way we think about how our system works, was so clear and obvious," he says.<br><br>
   The integration with Kubernetes made set-up easy. Once Helm installed Prometheus, "We started getting a graph of the health of all our Kubernetes nodes and pods immediately. I think we were pretty hooked at that point," Eynon-Lynch says. "Then we got our own custom instrumentation working in 15 minutes, and had an actively updated count of requests that we could do, rate on and get a sense of how many users are connected at a given point. And then it was another hour before we had alarms automatically showing up in our Slack channel. All that was in one afternoon. And it was an afternoon of gasping with delight, basically!"
 </div>
 </section>

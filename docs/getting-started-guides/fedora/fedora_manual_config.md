@@ -19,7 +19,7 @@ This is a getting started guide for Fedora.  It is a manual configuration so you
 
 This guide will only get ONE node (previously minion) working.  Multiple nodes require a functional [networking configuration](/docs/concepts/cluster-administration/networking/) done outside of Kubernetes.  Although the additional Kubernetes configuration requirements should be obvious.
 
-The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, kube-controller-manager, kubelet, kube-proxy.  These services are managed by systemd and the configuration resides in a central location: /etc/kubernetes.  We will break the services up between the hosts.  The first host, fed-master, will be the Kubernetes master.  This host will run the kube-apiserver, kube-controller-manager, and kube-scheduler.  In addition, the master will also run _etcd_ (not needed if _etcd_ runs on a different host but this guide assumes that _etcd_ and Kubernetes master run on the same host).  The remaining host, fed-node will be the node and run kubelet, proxy and docker.
+The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, kube-controller-manager, kubelet, kube-proxy.  These services are managed by systemd and the configuration resides in a central location: `/etc/kubernetes`.  We will break the services up between the hosts.  The first host, fed-master, will be the Kubernetes master.  This host will run the kube-apiserver, kube-controller-manager, and kube-scheduler.  In addition, the master will also run _etcd_ (not needed if _etcd_ runs on a different host but this guide assumes that _etcd_ and Kubernetes master run on the same host).  The remaining host, fed-node will be the node and run kubelet, proxy and docker.
 
 **System Information:**
 
@@ -45,14 +45,14 @@ dnf -y install kubernetes
 dnf -y install etcd
 ```
 
-* Add master and node to /etc/hosts on all machines (not needed if hostnames already in DNS). Make sure that communication works between fed-master and fed-node by using a utility such as ping.
+* Add master and node to `/etc/hosts` on all machines (not needed if hostnames already in DNS). Make sure that communication works between fed-master and fed-node by using a utility such as ping.
 
 ```shell
 echo "192.168.121.9    fed-master
 192.168.121.65    fed-node" >> /etc/hosts
 ```
 
-* Edit /etc/kubernetes/config (which should be the same on all hosts) to set
+* Edit `/etc/kubernetes/config` (which should be the same on all hosts) to set
 the name of the master server:
 
 ```shell
@@ -69,7 +69,7 @@ systemctl stop iptables-services firewalld
 
 **Configure the Kubernetes services on the master.**
 
-* Edit /etc/kubernetes/apiserver to appear as such.  The service-cluster-ip-range IP addresses must be an unused block of addresses, not used anywhere else.  They do not need to be routed or assigned to anything.
+* Edit `/etc/kubernetes/apiserver` to appear as such.  The service-cluster-ip-range IP addresses must be an unused block of addresses, not used anywhere else.  They do not need to be routed or assigned to anything.
 
 ```shell
 # The address on the local server to listen to.
@@ -85,7 +85,7 @@ KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
 KUBE_API_ARGS=""
 ```
 
-* Edit /etc/etcd/etcd.conf to let etcd listen on all available IPs instead of 127.0.0.1. If you have not done this, you might see an error such as "connection refused".
+* Edit `/etc/etcd/etcd.conf` to let etcd listen on all available IPs instead of 127.0.0.1. If you have not done this, you might see an error such as "connection refused".
 
 ```shell
 ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
@@ -139,7 +139,7 @@ a Kubernetes node (fed-node) below.
 
 ***We need to configure the kubelet on the node.***
 
-* Edit /etc/kubernetes/kubelet to appear as such:
+* Edit `/etc/kubernetes/kubelet` to appear as such:
 
 ```shell
 ###

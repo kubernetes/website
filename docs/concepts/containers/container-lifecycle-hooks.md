@@ -65,7 +65,7 @@ the Container cannot reach a `running` state.
 
 The behavior is similar for a `PreStop` hook.
 If the hook hangs during execution,
-the Pod phase stays in a `running` state and never reaches `failed`.
+the Pod phase stays in a `Terminating` state and is killed after `terminationGracePeriodSeconds` of pod ends.
 If a `PostStart` or `PreStop` hook fails,
 it kills the Container.
 

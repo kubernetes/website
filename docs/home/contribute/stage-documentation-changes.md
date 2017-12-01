@@ -21,7 +21,7 @@ branch, your changes are staged in a custom subdomain on Netlify so that
 you can see your changes in rendered form before the pull request is merged.
 
 1. In your GitHub account, in your new branch, submit a pull request to the
-kubernetes/kubernetes.github.io repository. This opens a page that shows the
+kubernetes/website repository. This opens a page that shows the
 status of your pull request.
 
 1. Scroll down to the list of automated checks. Click **Show all checks**.
@@ -33,7 +33,7 @@ can see your changes.
 
 You can use the k8sdocs Docker image to run a local staging server. If you're
 interested, you can view the
-[Dockerfile](https://git.k8s.io/kubernetes.github.io/staging-container/Dockerfile){: target="_blank"}
+[Dockerfile](https://git.k8s.io/website/staging-container/Dockerfile){: target="_blank"}
 for this image.
 
 1. Install Docker if you don't already have it.
@@ -74,7 +74,7 @@ web server:
 
 1. View your staged content at `http://localhost:4000`.
 
-**Note:** "If you do not want Jekyll to interfere with your other globally installed gems, you can use `bundler`: <br /> <br /> ```gem install bundler``` <br /> ```bundle install``` <br /> ```bundler exec jekyll serve``` <br /> <br /> Regardless of whether you use `bundler` or not, your copy of the site will then be viewable at: http://localhost:4000
+**Note:** If you do not want Jekyll to interfere with your other globally installed gems, you can use `bundler`: <br /> <br /> ```gem install bundler``` <br /> ```bundle install``` <br /> ```bundler exec jekyll serve``` <br /> <br /> Regardless of whether you use `bundler` or not, your copy of the site will then be viewable at: http://localhost:4000
 {: .note}
 
 {% endcapture %}

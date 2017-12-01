@@ -5,6 +5,9 @@ approvers:
 title: DNS Pods and Services
 ---
 
+* TOC
+{:toc}
+
 ## Introduction
 
 As of Kubernetes 1.3, DNS is a built-in service launched automatically using the addon manager [cluster add-on](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md).
@@ -30,6 +33,8 @@ DNS query for `foo.bar`.
 The following sections detail the supported record types and layout that is
 supported.  Any other layout or names or queries that happen to work are
 considered implementation details and are subject to change without warning.
+For more up-to-date specification, see
+[Kubernetes DNS-Based Service Discovery](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
 
 ### Services
 
@@ -220,7 +225,7 @@ If you see that, DNS is working correctly.
 If the nslookup command fails, check the following:
 
 #### Check the local DNS configuration first
-Take a look inside the resolv.conf file. (See "Inheriting DNS from the node" and "Known issues" below for more information)
+Take a look inside the resolv.conf file. (See [Inheriting DNS from the node](#inheriting-dns-from-the-node) and [Known issues](#known-issues) below for more information)
 
 ```
 kubectl exec busybox cat /etc/resolv.conf
@@ -338,6 +343,7 @@ kubectl get ep kube-dns --namespace=kube-system
 ```
 
 You should see something like:
+
 ```
 NAME       ENDPOINTS                       AGE
 kube-dns   10.180.3.17:53,10.180.3.17:53    1h

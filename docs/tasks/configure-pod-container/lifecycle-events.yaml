@@ -6,7 +6,6 @@ spec:
   containers:
   - name: lifecycle-demo-container
     image: nginx
-
     lifecycle:
       postStart:
         exec:
@@ -14,20 +13,4 @@ spec:
       preStop:
         exec:
           command: ["/usr/sbin/nginx","-s","quit"]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

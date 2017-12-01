@@ -93,7 +93,11 @@ flag of the kubelet, e.g.:
 ```shell
 $ kubelet --experimental-allowed-unsafe-sysctls 'kernel.msg*,net.ipv4.route.min_pmtu' ...
 ```
+For minikube, this can be done via the `extra-config` flag:
 
+```shell
+$ minikube start --extra-config="kubelet.AllowedUnsafeSysctls=kernel.msg*,net.ipv4.route.min_pmtu"...
+```
 Only _namespaced_ sysctls can be enabled this way.
 
 ## Setting Sysctls for a Pod
@@ -118,5 +122,5 @@ spec:
 **Note**: a pod with the _unsafe_ sysctls specified above will fail to launch on
 any node which has not enabled those two _unsafe_ sysctls explicitly. As with
 _node-level_ sysctls it is recommended to use [_taints and toleration_
-feature](/docs/user-guide/kubectl/v1.6/#taint) or [taints on nodes](/docs/concepts/configuration/taint-and-toleration/)
+feature](/docs/user-guide/kubectl/{{page.version}}/#taint) or [taints on nodes](/docs/concepts/configuration/taint-and-toleration/)
 to schedule those pods onto the right nodes.

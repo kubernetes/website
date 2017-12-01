@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - mikedanese
 title: Rolling Update Demo
 ---
@@ -7,15 +7,15 @@ title: Rolling Update Demo
 This example demonstrates the usage of Kubernetes to perform a [rolling update](/docs/user-guide/kubectl/kubectl_rolling-update/) on a running group of [pods](/docs/user-guide/pods/). See [here](/docs/concepts/cluster-administration/manage-deployment/#updating-your-application-without-a-service-outage) to understand why you need a rolling update. Also check [rolling update design document](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) for more information.
 
 The files for this example are viewable in [our docs repo
-here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/update-demo).
+here](https://github.com/kubernetes/website/tree/{{page.docsbranch}}/docs/user-guide/update-demo).
 
 ### Step Zero: Prerequisites
 
-This example assumes that you have forked the docs repository and [turned up a Kubernetes cluster](/docs/getting-started-guides/):
+This example assumes that you have forked the docs repository and [turned up a Kubernetes cluster](/docs/setup/):
 
 ```shell
-$ git clone -b {{page.docsbranch}} https://github.com/kubernetes/kubernetes.github.io
-$ cd kubernetes.github.io
+$ git clone -b {{page.docsbranch}} https://github.com/kubernetes/website
+$ cd website
 ```
 
 ### Step One: Turn up the UX for the demo

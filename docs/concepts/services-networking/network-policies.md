@@ -68,31 +68,27 @@ spec:
 
 *POSTing this to the API server will have no effect unless your chosen networking solution supports network policy.*
 
-__Mandatory Fields__: As with all other Kubernetes config, a `NetworkPolicy` needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [here](/docs/user-guide/simple-yaml), [here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
+__Mandatory Fields__: As with all other Kubernetes config, a `NetworkPolicy` needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap/), and [Object Management](https://kubernetes.io/docs/tutorials/object-management-kubectl/object-management/).
 
 __spec__: `NetworkPolicy` [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) has all the information needed to define a particular network policy in the given namespace.
 
-__podSelector__: Each `NetworkPolicy` includes a `podSelector` which selects the grouping of pods to which the policy applies. Since `NetworkPolicy` currently only supports defining `ingress` rules, this `podSelector` essentially defines the "destination pods" for the policy. The example policy selects pods with the label "role=db". An empty `podSelector` selects all pods in the namespace.
+__podSelector__: Each `NetworkPolicy` includes a `podSelector` which selects the grouping of pods to which the policy applies. The example policy selects pods with the label "role=db". An empty `podSelector` selects all pods in the namespace.
 
 __policyTypes__: Each `NetworkPolicy` includes a `policyTypes` list which may include either `Ingress`, `Egress`, or both. The `policyTypes` field indicates whether or not the given policy applies to ingress traffic to selected pod, egress traffic from selected pods, or both. If no `policyTypes` are specified on a NetworkPolicy then by default `Ingress` will always be set and `Egress` will be set if the NetworkPolicy has any egress rules.
 
-__ingress__: Each `NetworkPolicy` may include a list of whitelist `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port, from either of two sources, the first specified via a `namespaceSelector` and the second specified via a `podSelector`.
+__ingress__: Each `NetworkPolicy` may include a list of whitelist `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port, from one of three sources, the first specified via an `ipBlock`, the second via a `namespaceSelector` and the third via a `podSelector`.
 
 __egress__: Each `NetworkPolicy` may include a list of whitelist `egress` rules.  Each rule allows traffic which matches both the `to` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port to any destination in `10.0.0.0/24`.
-
-__ipBlock__: `ipBlock` describes a particular CIDR that is allowed to
-the pods matched by a NetworkPolicySpec's podSelector. The `except` entry
-is a slice of CIDRs that should not be included within an IP Block. Except
-values will be rejected if they are outside the CIDR range.
 
 So, the example NetworkPolicy:
 
 1. isolates "role=db" pods in the "default" namespace for both ingress and egress traffic (if they weren't already isolated)
 2. allows connections to TCP port 6379 of "role=db" pods in the "default" namespace from any pod in the "default" namespace with the label "role=frontend"
 3. allows connections to TCP port 6379 of "role=db" pods in the "default" namespace from any pod in a namespace with the label "project=myproject"
-3. allows connections from any pod in the "default" namespace with the label "role=db" to CIDR 10.0.0.0/24 on TCP port 5978
+4. allows connections to TCP port 6379 of "role=db" pods in the "default" namespace from IP addresses that are in CIDR 172.17.0.0/16 and not in 172.17.1.0/24
+5. allows connections from any pod in the "default" namespace with the label "role=db" to CIDR 10.0.0.0/24 on TCP port 5978
 
-See the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) for further examples.
+See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) walkthrough for further examples.
 
 ## Default policies
 
@@ -109,7 +105,7 @@ kind: NetworkPolicy
 metadata:
   name: default-deny
 spec:
-  podSelector:
+  podSelector: {}
   policyTypes:
   - Ingress
 ```
@@ -126,12 +122,12 @@ kind: NetworkPolicy
 metadata:
   name: allow-all
 spec:
-  podSelector:
+  podSelector: {}
   ingress:
   - {}
 ```
 
-### Default deny all egress traffic.
+### Default deny all egress traffic
 
 You can create a "default" egress isolation policy for a namespace by creating a NetworkPolicy that selects all pods but does not allow any egress traffic from those pods.
 
@@ -141,7 +137,7 @@ kind: NetworkPolicy
 metadata:
   name: default-deny
 spec:
-  podSelector:
+  podSelector: {}
   policyTypes:
   - Egress
 ```
@@ -159,7 +155,7 @@ kind: NetworkPolicy
 metadata:
   name: allow-all
 spec:
-  podSelector:
+  podSelector: {}
   egress:
   - {}
 ```
@@ -174,7 +170,7 @@ kind: NetworkPolicy
 metadata:
   name: default-deny
 spec:
-  podSelector:
+  podSelector: {}
   policyTypes:
   - Ingress
   - Egress

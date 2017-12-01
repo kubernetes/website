@@ -6,7 +6,7 @@ approvers:
 title: (Deprecated) Using `federation-up` and `deploy.sh`
 ---
 
-## The mechanisms explained in this doc to setup federation are deprecated. [`kubefed`](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) is now the recommended way to deploy federation.
+## The mechanisms explained in this doc to setup federation are deprecated. [`kubefed`](/docs/tasks/federation/set-up-cluster-federation-kubefed/) is now the recommended way to deploy federation.
 
 This guide explains how to set up cluster federation that lets us control multiple Kubernetes clusters.
 
@@ -17,7 +17,7 @@ This guide explains how to set up cluster federation that lets us control multip
 ## Prerequisites
 
 This guide assumes that you have a running Kubernetes cluster.
-If you need to start a new cluster, see the [getting started guides](/docs/getting-started-guides/) for instructions on bringing a cluster up.
+If you need to start a new cluster, see the [getting started guides](/docs/setup/) for instructions on bringing a cluster up.
 
 To use the commands in this guide, you must download a Kubernetes release from the 
 [getting started binary releases](/docs/getting-started-guides/binary_release/) and 
@@ -154,7 +154,7 @@ to be able to talk to federation apiserver. You can view this by running
 `kubectl config view`.
 
 Note: Dynamic provisioning for persistent volume currently works only on
-AWS, GKE, and GCE. However, you can edit the created `Deployments` to suit
+AWS, Google Kubernetes Engine, and GCE. However, you can edit the created `Deployments` to suit
 your needs, if required.
 
 ## Registering Kubernetes clusters with federation
@@ -378,11 +378,11 @@ to be able to talk to federation apiserver. You can view this by running
 
 Note: `federation-up.sh` creates the federation-apiserver pod with an etcd
 container that is backed by a persistent volume, so as to persist data. This
-currently works only on AWS, GKE, and GCE.  You can edit
+currently works only on AWS, Google Kubernetes Engine, and GCE.  You can edit
 `federation/manifests/federation-apiserver-deployment.yaml` to suit your needs,
 if required.
 
 
 ## For more information
 
- * [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation/federation.md) details use cases that motivated this work.
+ * [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/multicluster/federation.md) details use cases that motivated this work.

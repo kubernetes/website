@@ -9,7 +9,7 @@ title: CentOS
 
 ## 警告
 
-本文档适用于Kubernetes 1.1.0，目前已经被[废弃](https://github.com/kubernetes/kubernetes.github.io/issues/1613)。相关内容请参阅最新版[指南](/docs/getting-started-guides/kubeadm/)。
+本文档适用于Kubernetes 1.1.0，目前已经被[废弃](https://github.com/kubernetes/website/issues/1613)。相关内容请参阅最新版[指南](/docs/getting-started-guides/kubeadm/)。
 
 ## 前提条件
 

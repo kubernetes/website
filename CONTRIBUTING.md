@@ -9,7 +9,7 @@ These are just guidelines, not rules. Use your best judgment, and feel free to p
 
 ### Code of Conduct
 
-Kubernetes follows the [Cloud Native Computing Foundation (CNCF) Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to Sarah Novotny [sarahnovotny@google.com](mailto:sarahnovotny@google.com) and/or Dan Kohn [dan@linuxfoundation.org](mailto:dan@linuxfoundation.org). 
+Kubernetes follows the [Cloud Native Computing Foundation (CNCF) Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to Sarah Novotny [sarahnovotny@google.com](mailto:sarahnovotny@google.com) and/or Dan Kohn [dan@linuxfoundation.org](mailto:dan@linuxfoundation.org).
 
 ### Documentation and Site Decisions
 
@@ -17,7 +17,7 @@ The [Kubernetes SIG Docs Discussion Group](https://groups.google.com/forum/#!for
 
 ### Style Guides and Templates
 
-Before submitting a pull request to create new content, please review the [Kubernetes.io style guide](http://kubernetes.io/docs/home/contribute/style-guide/) and follow the [instructions for using page templates](http://kubernetes.io/docs/home/contribute/page-templates/). 
+Before submitting a pull request to create new content, please review the [Kubernetes.io style guide](http://kubernetes.io/docs/home/contribute/style-guide/) and follow the [instructions for using page templates](http://kubernetes.io/docs/home/contribute/page-templates/).
 
 
 ## Contributing to Documentation
@@ -26,10 +26,10 @@ Before submitting a pull request to create new content, please review the [Kuber
 
 Kubernetes.io uses github issues to track documentation issues and requests. If you see a documentation issue, submit an issue using the following steps:
 
-1. Check the [kubernetes.io issues list](https://github.com/kubernetes/kubernetes.github.io/issues) as you might find out the issue is a duplicate. 
-2. Use the [included template for every new issue](https://github.com/kubernetes/kubernetes.github.io/issues/new).  When you create a bug report, include as many details as possible and include suggested fixes to the issue. 
+1. Check the [kubernetes.io issues list](https://github.com/kubernetes/website/issues) as you might find out the issue is a duplicate.
+2. Use the [included template for every new issue](https://github.com/kubernetes/website/issues/new).  When you create a bug report, include as many details as possible and include suggested fixes to the issue.
 
-Note that code issues should be filed against the main kubernetes repository, while documentation issues should go in the kubernetes.io repository. 
+Note that code issues should be filed against the main kubernetes repository, while documentation issues should go in the kubernetes.io repository.
 
 ### Submitting Documentation Pull Requests
 

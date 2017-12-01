@@ -5,14 +5,14 @@ title: Fine Parallel Processing Using a Work Queue
 * TOC
 {:toc}
 
-# Example: Job with Work Queue with Pod Per Work Item
+# Example: Job with Work Queue with Multiple Work Items Per Pod
 
 In this example, we will run a Kubernetes Job with multiple parallel
 worker processes.  You may want to be familiar with the basic,
 non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) first.
 
 In this example, as each pod is created, it picks up one unit of work
-from a task queue, completes it, deletes it from the queue, and exits.
+from a task queue, processes it, and repeats until the end of the queue is reached.
 
 
 Here is an overview of the steps in this example:

@@ -29,41 +29,53 @@ import (
 type GlossaryTerm struct {
   Id string          `yaml: "id"`
   Name string        `yaml: "name"`
-  Formerly []string  `yaml: "formerly"`
+  Aka []string       `yaml: "aka"`
   Related []string   `yaml: "related"`
   Tags []string      `yaml: "tags"`
+}
+
+// Not unmarshaling other fields (for simplicity)
+type CanonicalTag struct {
+  Id string          `yaml: "id"`
 }
 
 // Checks that all glossary files (../_data/glossary/*) contain valid tags
 // that are present in the canonical set.
 func TestCanonicalTags(t *testing.T) {
-  canonicalTagsFile := "../_data/canonical-tags.yml"
-  data, err := ioutil.ReadFile(canonicalTagsFile)
+  canonicalTagsDir := "../_data/canonical-tags"
+  files, err := ioutil.ReadDir(canonicalTagsDir)
   if err != nil {
-    t.Errorf("Unable to read file %s: %v", canonicalTagsFile, err)
-    return
-  }
-  var tagList []string
-  err = yaml.Unmarshal(data, &tagList)
-  if err != nil {
-    t.Errorf("Unable to unmarshal file %s: %v", tagList, err)
+    t.Errorf("Unable to read directory %s: %v", canonicalTagsDir, err)
     return
   }
 
   canonicalTagsSet := make(map[string]bool)
-  for _, tag := range tagList {
-    canonicalTagsSet[tag] = true
+  var tag CanonicalTag
+  for _, f := range files {
+    filePath := path.Join(canonicalTagsDir, f.Name())
+    data, err := ioutil.ReadFile(filePath)
+    if err != nil {
+      t.Errorf("Unable to read file %s: %v", filePath, err)
+      continue
+    }
+    err = yaml.Unmarshal(data, &tag)
+    if err != nil {
+      t.Errorf("Unable to unmarshal file %s: %v", filePath, err)
+      continue
+    }
+
+    canonicalTagsSet[tag.Id] = true
   }
 
   glossaryDir := "../_data/glossary"
-  files, err := ioutil.ReadDir(glossaryDir)
+  files, err = ioutil.ReadDir(glossaryDir)
   if err != nil {
     t.Errorf("Unable to read directory %s: %v", glossaryDir, err)
     return
   }
 
-  var term GlossaryTerm
   for _, f := range files {
+    var term GlossaryTerm
     // skip validation of example files
     if (strings.HasPrefix(f.Name(), "_")) {
       continue
@@ -81,9 +93,12 @@ func TestCanonicalTags(t *testing.T) {
       continue
     }
 
+    if (len(term.Tags) == 0) {
+      t.Errorf("Glossary term \"%s\" requires at least one tag. See %s for the list of valid tags.", term.Name, canonicalTagsDir)
+    }
     for _, tag := range term.Tags {
       if _, present := canonicalTagsSet[tag]; !present {
-        t.Errorf("Glossary term \"%s\" has invalid tag \"%s\". See %s for the list of valid tags.", term.Name, tag, canonicalTagsFile)
+        t.Errorf("Glossary term \"%s\" has invalid tag \"%s\". See %s for the list of valid tags.", term.Name, tag, canonicalTagsDir)
         continue
       }
     }

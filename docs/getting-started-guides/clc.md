@@ -12,20 +12,22 @@ You can accomplish all these tasks with a single command. We have made the Ansib
 ## Find Help
 
 If you run into any problems or want help with anything, we are here to help. Reach out to use via any of the following ways:
+
 - Submit a github issue
 - Send an email to Kubernetes AT ctl DOT io
-- Visit http://info.ctl.io/kubernetes
+- Visit [http://info.ctl.io/kubernetes](http://info.ctl.io/kubernetes)
 
 ## Clusters of VMs or Physical Servers, your choice.
 
 - We support Kubernetes clusters on both Virtual Machines or Physical Servers. If you want to use physical servers for the worker nodes (minions), simple use the --minion_type=bareMetal flag.
-- For more information on physical servers, visit: [https://www.ctl.io/bare-metal/](https://www.ctl.io/bare-metal/))
+- For more information on physical servers, visit: [https://www.ctl.io/bare-metal/](https://www.ctl.io/bare-metal/)
 - Physical serves are only available in the VA1 and GB3 data centers.
 - VMs are available in all 13 of our public cloud locations
 
 ## Requirements
 
 The requirements to run this script are:
+
 - A linux administrative host (tested on ubuntu and OSX)
 - python 2 (tested on 2.7.11)
   - pip (installed with python as of 2.7.9)
@@ -44,6 +46,7 @@ git clone https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc
 ```
 
 2) Install all requirements, including
+
   * Ansible
   * CenturyLink Cloud SDK
   * Ansible Modules
@@ -70,30 +73,30 @@ If you use an ubuntu 14, for your convenience we have provided a step by step
 guide to install the requirements and install the script.
 
 ```shell
-  # system
- apt-get update
- apt-get install -y git python python-crypto
- curl -O https://bootstrap.pypa.io/get-pip.py
- python get-pip.py
+# system
+apt-get update
+apt-get install -y git python python-crypto
+curl -O https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
 
-  # installing this repository
- mkdir -p ~home/k8s-on-clc
- cd ~home/k8s-on-clc
- git clone https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc.git
- cd adm-kubernetes-on-clc/
- pip install -r requirements.txt
+# installing this repository
+mkdir -p ~home/k8s-on-clc
+cd ~home/k8s-on-clc
+git clone https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc.git
+cd adm-kubernetes-on-clc/
+pip install -r requirements.txt
 
-  # getting started
- cd ansible
- cp credentials.sh.template credentials.sh; vi credentials.sh
- source credentials.sh
+# getting started
+cd ansible
+cp credentials.sh.template credentials.sh; vi credentials.sh
+source credentials.sh
 ```
 
 
 
 ## Cluster Creation
 
-To create a new Kubernetes cluster, simply run the kube-up.sh script. A complete
+To create a new Kubernetes cluster, simply run the ```kube-up.sh``` script. A complete
 list of script options and some examples are listed below.
 
 ```shell
@@ -143,7 +146,7 @@ between option name and option value.
 ## Cluster Expansion
 
 To expand an existing Kubernetes cluster, run the ```add-kube-node.sh```
-script. A complete list of script options and some examples are listed [[below]](####Cluster Expansion: Script Options).
+script. A complete list of script options and some examples are listed [below](#cluster-expansion-script-options).
 This script must be run from the same host that created the cluster (or a host
 that has the cluster artifact files stored in ```~/.clc_kube/$cluster_name```).
 
@@ -270,8 +273,9 @@ We install two UIs on Kubernetes. The original KubeUI and [the newer kube
 dashboard](/docs/tasks/web-ui-dashboard/). When you create a cluster, the script should output URLs for these
 interfaces like this:
 
-KubeUI is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kube-ui/proxy```
-kubernetes-dashboard is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy```
+KubeUI is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kube-ui/proxy```.
+
+kubernetes-dashboard is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy```.
 
 Note on Authentication to the UIs: The cluster is set up to use basic
 authentication for the user _admin_.   Hitting the url at

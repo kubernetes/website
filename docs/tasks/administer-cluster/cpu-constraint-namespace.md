@@ -7,7 +7,7 @@ title: Configure Minimum and Maximum CPU Constraints for a Namespace
 
 This page shows how to set minimum and maximum values for the CPU resources used by Containers
 and Pods in a namespace. You specify minimum and maximum CPU values in a
-[LimitRange](/docs/api-reference/v1.6/#limitrange-v1-core)
+[LimitRange](/docs/api-reference/{{page.version}}/#limitrange-v1-core)
 object. If a Pod does not meet the constraints imposed by the LimitRange, it cannot be created
 in the namespace.
 
@@ -78,6 +78,11 @@ CPU request and limit to the Container.
 * Verify that the Container specifies a CPU request that is greater than or equal to 200 millicpu.
 
 * Verify that the Container specifies a CPU limit that is less than or equal to 800 millicpu.
+
+**Note:** When creating a `LimitRange` object, you can specify limits on huge-pages
+or GPUs as well. However, when both `default` and `defaultRequest` are specified
+on these resources, the two values must be the same.
+{: .note}
 
 Here's the configuration file for a Pod that has one Container. The Container manifest
 specifies a CPU request of 500 millicpu and a CPU limit of 800 millicpu. These satisfy the

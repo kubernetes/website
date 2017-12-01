@@ -7,7 +7,7 @@ title: Configure a Pod Quota for a Namespace
 
 This page shows how to set a quota for the total number of Pods that can run
 in a namespace. You specify quotas in a
-[ResourceQuota](/docs/api-reference/v1.7/#resourcequota-v1-core)
+[ResourceQuota](/docs/api-reference/{{page.version}}/#resourcequota-v1-core)
 object.
 
 {% endcapture %}

@@ -7,9 +7,8 @@ title: CentOS
 * TOC
 {:toc}
 
-## Warning
-
-This guide [has been deprecated](https://github.com/kubernetes/kubernetes.github.io/issues/1613). It was originally written for Kubernetes 1.1.0. Please check [the latest guide](/docs/getting-started-guides/kubeadm/).
+**Caution:** This guide was originally written for Kubernetes 1.1.0 and [is deprecated](https://github.com/kubernetes/website/issues/1613) and is replaced by [kubeadm](/docs/admin/kubeadm/).
+{: .caution}
 
 ## Prerequisites
 
@@ -79,6 +78,7 @@ KUBE_MASTER="--master=http://centos-master:8080"
 ```
 
 * Disable the firewall on the master and all the nodes, as docker does not play well with other firewall rule managers. CentOS won't let you disable the firewall as long as SELinux is enforcing, so that needs to be disabled first.
+* If you disable SELinux, make sure you reboot your machine before continuing to more steps.
 
 ```shell
 setenforce 0
@@ -222,7 +222,7 @@ kubectl config use-context default-context
 $ kubectl get nodes
 NAME                   STATUS     AGE     VERSION
 centos-minion-1        Ready      3d      v1.6.0+fff5156
-centos-minion-2        Ready      3d      v1.6.0+fff5156   
+centos-minion-2        Ready      3d      v1.6.0+fff5156
 centos-minion-3        Ready      3d      v1.6.0+fff5156
 ```
 

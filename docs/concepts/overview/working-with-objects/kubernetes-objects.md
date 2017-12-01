@@ -36,10 +36,10 @@ Here's an example `.yaml` file that shows the required fields and object spec fo
 
 {% include code.html language="yaml" file="nginx-deployment.yaml" ghlink="/docs/concepts/overview/working-with-objects/nginx-deployment.yaml" %}
 
-One way to create a Deployment using a `.yaml` file like the one above is to use the [`kubectl create`](/docs/user-guide/kubectl/v1.7/#create) command in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
+One way to create a Deployment using a `.yaml` file like the one above is to use the [`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create) command in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
 
 ```shell
-$ kubectl create -f docs/user-guide/nginx-deployment.yaml --record
+$ kubectl create -f https://k8s.io/docs/user-guide/nginx-deployment.yaml --record
 ```
 
 The output is similar to this:
@@ -61,7 +61,7 @@ You'll also need to provide the object `spec` field. The precise format of the o
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/abstractions/pod/).
+* Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/pod-overview/).
 {% endcapture %}
 
 {% include templates/concept.md %}

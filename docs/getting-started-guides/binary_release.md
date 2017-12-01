@@ -50,11 +50,11 @@ export KUBERNETES_PROVIDER=YOUR_PROVIDER; curl -sS https://get.k8s.io | bash
 Possible values for `YOUR_PROVIDER` include:
 
 * `gce` - Google Compute Engine [default]
-* `gke` - Google Container Engine
+* `gke` - Google Kubernetes Engine
 * `aws` - Amazon EC2
 * `azure` - Microsoft Azure
 * `vagrant` - Vagrant (on local virtual machines)
 * `vsphere` - VMWare VSphere
 * `rackspace` - Rackspace
 
-For the complete, up-to-date list of providers supported by this script, see the [`/cluster`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster) folder in the main Kubernetes repo, where each folder represents a possible value for `YOUR_PROVIDER`. If you don't see your desired provider, try looking at our [getting started guides](/docs/getting-started-guides); there's a good chance we have docs for them.
+For the complete, up-to-date list of providers supported by this script, see the [`/cluster`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster) folder in the main Kubernetes repo, where each folder represents a possible value for `YOUR_PROVIDER`. If you don't see your desired provider, try looking at our [getting started guides](/docs/setup/); there's a good chance we have docs for them.

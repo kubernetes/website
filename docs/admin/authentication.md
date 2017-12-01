@@ -82,7 +82,7 @@ openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app
 
 This would create a CSR for the username "jbeda", belonging to two groups, "app1" and "app2".
 
-See [APPENDIX](#appendix) for how to generate a client cert.
+See [Managing Certificates](/docs/concepts/cluster-administration/certificates/) for how to generate a client cert.
 
 ### Static Token File
 
@@ -185,7 +185,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 NOTE: `serviceAccountName` is usually omitted because this is done automatically.
 
 ```
-apiVersion: apps/v1beta1
+apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -294,18 +294,10 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-issuer-url` | URL of the provider which allows the API server to discover public signing keys. Only URLs which use the `https://` scheme are accepted.  This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".  This URL should point to the level below .well-known/openid-configuration | If the discovery URL is `https://accounts.google.com/.well-known/openid-configuration`, the value should be `https://accounts.google.com` | Yes |
 | `--oidc-client-id` |  A client id that all tokens must be issued for. | kubernetes | Yes |
 | `--oidc-username-claim` | JWT claim to use as the user name. By default `sub`, which is expected to be a unique identifier of the end user. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent naming clashes with other plugins. | sub | No |
+| `--oidc-username-prefix` | Prefix prepended to username claims to prevent clashes with existing names (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag isn't provided and `--oidc-user-claim` is a value other than `email` the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `--oidc-issuer-url`. The value `-` can be used to disable all prefixing. | `oidc:` | No |
 | `--oidc-groups-claim` | JWT claim to use as the user's group. If the claim is present it must be an array of strings. | groups | No |
+| `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
-
-If a claim other than `email` is chosen for `--oidc-username-claim`, the value
-will be prefixed with the `--oidc-issuer-url` to prevent clashes with existing
-Kubernetes names (such as the `system:` users). For example, if the provider
-URL is `https://accounts.google.com` and the username claim maps to `jane`, the
-plugin will authenticate the user as:
-
-```
-https://accounts.google.com#jane
-```
 
 Importantly, the API server is not an OAuth2 client, rather it can only be
 configured to trust a single issuer. This allows the use of public providers,
@@ -337,7 +329,9 @@ Setup instructions for specific systems:
 
 ##### Option 1 - OIDC Authenticator
 
-The first option is to use the `oidc` authenticator.  This authenticator takes your `id_token`, `refresh_token` and your OIDC `client_secret` and will refresh your token automatically.  Once you have authenticated to your identity provider:
+The first option is to use the kubectl `oidc` authenticator, which sets the `id_token` as a bearer token for all requests and refreshes the token once it expires. After you've logged into your provider, use kubectl to add your `id_token`, `refresh_token`, `client_id`, and `client_secret` to configure the plugin.
+
+Providers that don't return an `id_token` as part of their refresh token response (e.g. [Okta](https://developer.okta.com/docs/api/resources/oidc.html#response-parameters-4)) aren't supported by this plugin and should use "Option 2" below.
 
 ```bash
 kubectl config set-credentials USER_NAME \
@@ -347,8 +341,7 @@ kubectl config set-credentials USER_NAME \
    --auth-provider-arg=client-secret=( your client secret ) \
    --auth-provider-arg=refresh-token=( your refresh token ) \
    --auth-provider-arg=idp-certificate-authority=( path to your ca certificate ) \
-   --auth-provider-arg=id-token=( your id_token ) \
-   --auth-provider-arg=extra-scopes=( comma separated list of scopes to add to "openid email profile", optional )
+   --auth-provider-arg=id-token=( your id_token )
 ```
 
 As an example, running the below command after authenticating to your identity provider:
@@ -361,7 +354,6 @@ kubectl config set-credentials mmosley  \
         --auth-provider-arg=client-secret=1db158f6-177d-4d9c-8a8b-d36869918ec5  \
         --auth-provider-arg=refresh-token=q1bKLFOyUiosTfawzA93TzZIDzH2TNa2SMm0zEiPKTUwME6BkEo6Sql5yUWVBSWpKUGphaWpxSVAfekBOZbBhaEW+VlFUeVRGcluyVF5JT4+haZmPsluFoFu5XkpXk5BXqHega4GAXlF+ma+vmYpFcHe5eZR+slBFpZKtQA= \
         --auth-provider-arg=idp-certificate-authority=/root/ca.pem \
-        --auth-provider-arg=extra-scopes=groups \
         --auth-provider-arg=id-token=eyJraWQiOiJDTj1vaWRjaWRwLnRyZW1vbG8ubGFuLCBPVT1EZW1vLCBPPVRybWVvbG8gU2VjdXJpdHksIEw9QXJsaW5ndG9uLCBTVD1WaXJnaW5pYSwgQz1VUy1DTj1rdWJlLWNhLTEyMDIxNDc5MjEwMzYwNzMyMTUyIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL29pZGNpZHAudHJlbW9sby5sYW46ODQ0My9hdXRoL2lkcC9PaWRjSWRQIiwiYXVkIjoia3ViZXJuZXRlcyIsImV4cCI6MTQ4MzU0OTUxMSwianRpIjoiMm96US15TXdFcHV4WDlHZUhQdy1hZyIsImlhdCI6MTQ4MzU0OTQ1MSwibmJmIjoxNDgzNTQ5MzMxLCJzdWIiOiI0YWViMzdiYS1iNjQ1LTQ4ZmQtYWIzMC0xYTAxZWU0MWUyMTgifQ.w6p4J_6qQ1HzTG9nrEOrubxIMb9K5hzcMPxc9IxPx2K4xO9l-oFiUw93daH3m5pluP6K7eOE6txBuRVfEcpJSwlelsOsW8gb8VJcnzMS9EnZpeA0tW_p-mnkFc3VcfyXuhe5R3G7aa5d8uHv70yJ9Y3-UhjiN9EhpMdfPAoEB9fYKKkJRzF7utTTIPGrSaSU6d2pcpfYKaxIwePzEkT4DfcQthoZdy9ucNvvLoi1DIC-UocFD8HLs8LYKEqSxQvOcvnThbObJ9af71EwmuE21fO5KzMW20KtAeget1gnldOosPtz1G5EwvaQ401-RPQzPGMVBld0_zMCAwZttJ4knw
 ```
 
@@ -375,7 +367,6 @@ users:
       config:
         client-id: kubernetes
         client-secret: 1db158f6-177d-4d9c-8a8b-d36869918ec5
-        extra-scopes: groups
         id-token: eyJraWQiOiJDTj1vaWRjaWRwLnRyZW1vbG8ubGFuLCBPVT1EZW1vLCBPPVRybWVvbG8gU2VjdXJpdHksIEw9QXJsaW5ndG9uLCBTVD1WaXJnaW5pYSwgQz1VUy1DTj1rdWJlLWNhLTEyMDIxNDc5MjEwMzYwNzMyMTUyIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL29pZGNpZHAudHJlbW9sby5sYW46ODQ0My9hdXRoL2lkcC9PaWRjSWRQIiwiYXVkIjoia3ViZXJuZXRlcyIsImV4cCI6MTQ4MzU0OTUxMSwianRpIjoiMm96US15TXdFcHV4WDlHZUhQdy1hZyIsImlhdCI6MTQ4MzU0OTQ1MSwibmJmIjoxNDgzNTQ5MzMxLCJzdWIiOiI0YWViMzdiYS1iNjQ1LTQ4ZmQtYWIzMC0xYTAxZWU0MWUyMTgifQ.w6p4J_6qQ1HzTG9nrEOrubxIMb9K5hzcMPxc9IxPx2K4xO9l-oFiUw93daH3m5pluP6K7eOE6txBuRVfEcpJSwlelsOsW8gb8VJcnzMS9EnZpeA0tW_p-mnkFc3VcfyXuhe5R3G7aa5d8uHv70yJ9Y3-UhjiN9EhpMdfPAoEB9fYKKkJRzF7utTTIPGrSaSU6d2pcpfYKaxIwePzEkT4DfcQthoZdy9ucNvvLoi1DIC-UocFD8HLs8LYKEqSxQvOcvnThbObJ9af71EwmuE21fO5KzMW20KtAeget1gnldOosPtz1G5EwvaQ401-RPQzPGMVBld0_zMCAwZttJ4knw
         idp-certificate-authority: /root/ca.pem
         idp-issuer-url: https://oidcidp.tremolo.lan:8443/auth/idp/OidcIdP
@@ -507,6 +498,7 @@ It is designed for use in combination with an authenticating proxy, which sets t
 * `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed, the remainder of the header name becomes the extra key, and the header value is the extra value.
 
 For example, with this configuration:
+
 ```
 --requestheader-username-headers=X-Remote-User
 --requestheader-group-headers=X-Remote-Group
@@ -514,6 +506,7 @@ For example, with this configuration:
 ```
 
 this request:
+
 ```
 GET / HTTP/1.1
 X-Remote-User: fido
@@ -524,6 +517,7 @@ X-Remote-Extra-Scopes: profile
 ```
 
 would result in this user info:
+
 ```yaml
 name: fido
 groups:
@@ -578,7 +572,7 @@ a request providing an invalid bearer token would receive a `401 Unauthorized` e
 A request providing no bearer token would be treated as an anonymous request.
 
 In 1.5.1-1.5.x, anonymous access is disabled by default, and can be enabled by
-passing the `--anonymous-auth=false` option to the API server.
+passing the `--anonymous-auth=true` option to the API server.
 
 In 1.6+, anonymous access is enabled by default if an authorization mode other than `AlwaysAllow`
 is used, and can be disabled by passing the `--anonymous-auth=false` option to the API server.
@@ -690,81 +684,3 @@ rules:
   verbs: ["impersonate"]
   resourceNames: ["view", "development"]
 ```
-
-## APPENDIX
-
-### Creating Certificates
-
-When using client certificate authentication, you can generate certificates
-using an existing deployment script or manually through `easyrsa` or `openssl.`
-
-#### Using an Existing Deployment Script
-
-**Using an existing deployment script** is implemented at
-`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.
-
-Execute this script with two parameters. The first is the IP address
-of API server. The second is a list of subject alternate names in the form `IP:<ip-address> or DNS:<dns-name>`.
-
-The script will generate three files: `ca.crt`, `server.crt`, and `server.key`.
-
-Finally, add the following parameters into API server start parameters:
-
-- `--client-ca-file=/srv/kubernetes/ca.crt`
-- `--tls-cert-file=/srv/kubernetes/server.crt`
-- `--tls-private-key-file=/srv/kubernetes/server.key`
-
-#### easyrsa
-
-**easyrsa** can be used to manually generate certificates for your cluster.
-
-1.  Download, unpack, and initialize the patched version of easyrsa3.
-
-        curl -L -O https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
-        tar xzf easy-rsa.tar.gz
-        cd easy-rsa-master/easyrsa3
-        ./easyrsa init-pki
-1.  Generate a CA. (`--batch` set automatic mode. `--req-cn` default CN to use.)
-
-        ./easyrsa --batch "--req-cn=${MASTER_IP}@`date +%s`" build-ca nopass
-1.  Generate server certificate and key.
-    (build-server-full [filename]: Generate a keypair and sign locally for a client or server.)
-
-        ./easyrsa --subject-alt-name="IP:${MASTER_IP}" build-server-full server nopass
-1.  Copy `pki/ca.crt`, `pki/issued/server.crt`, and `pki/private/server.key` to your directory.
-1.  Fill in and add the following parameters into the API server start parameters:
-
-        --client-ca-file=/yourdirectory/ca.crt
-        --tls-cert-file=/yourdirectory/server.crt
-        --tls-private-key-file=/yourdirectory/server.key
-
-#### openssl
-
-**openssl** can also be used to manually generate certificates for your cluster.
-
-1.  Generate a ca.key with 2048bit:
-
-        openssl genrsa -out ca.key 2048
-1.  According to the ca.key generate a ca.crt (use -days to set the certificate effective time):
-
-        openssl req -x509 -new -nodes -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt
-1.  Generate a server.key with 2048bit:
-
-        openssl genrsa -out server.key 2048
-1.  According to the server.key generate a server.csr:
-
-        openssl req -new -key server.key -subj "/CN=${MASTER_IP}" -out server.csr
-1.  According to the ca.key, ca.crt and server.csr generate the server.crt:
-
-        openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 10000
-1.  View the certificate.
-
-        openssl x509  -noout -text -in ./server.crt
-
-Finally, do not forget to fill out and add the same parameters into the API server start parameters.
-
-#### Certificates API
-
-You can use the `certificates.k8s.io` API to provision
-x509 certificates to use for authentication as documented
-[here](/docs/tasks/tls/managing-tls-in-a-cluster).

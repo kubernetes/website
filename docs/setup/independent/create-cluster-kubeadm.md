@@ -18,7 +18,7 @@ This process works with local VMs, physical servers and/or cloud servers. It is
 simple enough that you can easily integrate its use into your own automation
 (Terraform, Chef, Puppet, etc).
 
-See the full [kubeadm reference](/docs/admin/kubeadm) for information on all
+See the full [kubeadm reference](/docs/admin/kubeadm/) for information on all
 kubeadm command-line flags and for advice on automating kubeadm itself.
 
 kubeadm assumes you have a set of machines (virtual or real) that are up and
@@ -30,8 +30,10 @@ system (e.g. Puppet) that you have to integrate with.
 If you are not constrained, there are other higher-level tools built to give you
 complete clusters:
 
-* On GCE, [Google Container Engine](https://cloud.google.com/container-engine/)
+* On GCE, [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/)
   gives you one-click Kubernetes clusters.
+* On Microsoft Azure, [Azure Container Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
+  gives you managed Kubernetes clusters as a service.
 * On AWS, [kops](https://github.com/kubernetes/kops) makes cluster installation
   and management easy.  kops supports building high availability clusters (a
   feature that kubeadm is currently lacking but is building toward).
@@ -60,8 +62,9 @@ cloud providers is difficult.
 {% capture prerequisites %}
 
 1. One or more machines running Ubuntu 16.04+, CentOS 7 or HypriotOS v1.0.1+
-1. 1GB or more of RAM per machine (any less will leave little room for your
+1. 2 GB or more of RAM per machine (any less will leave little room for your
    apps)
+1. 2 CPUs or more on the master
 1. Full network connectivity between all machines in the cluster (public or
    private network is fine)
 {% endcapture %}
@@ -101,27 +104,26 @@ kubeadm on, and run:
 kubeadm init
 ```
 
-**Note:**
+**Notes:**
 
- - You need to choose a Pod Network Plugin in the next step. Depending on what
+- Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to
+read more about the flags `kubeadm init` provides. You can also specify a
+[configuration file](/docs/admin/kubeadm/#sample-master-configuration) instead of using flags.
+- You need to choose a Pod Network Plugin in the next step. Depending on what
 third-party provider you choose, you might have to set the `--pod-network-cidr` to
 something provider-specific. The tabs below will contain a notice about what flags
 on `kubeadm init` are required.
- - This will autodetect the network interface to advertise the master on
-as the interface with the default gateway. If you want to use a different
-interface, specify `--apiserver-advertise-address=<ip-address>` argument to `kubeadm
-init`.
-
-Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to
-read more about the flags `kubeadm init` provides.
-
-`kubeadm init` will first run a series of prechecks to ensure that the machine
+- Unless otherwise specified, kubeadm uses the default gateway's network interface
+to advertise the master's IP. If you want to use a different network interface, specify
+`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`.
+- If you would like to customise control plane components, you can do so by providing
+extra args to each one, as documented [here](/docs/admin/kubeadm#custom-args).
+- `kubeadm init` will first run a series of prechecks to ensure that the machine
 is ready to run Kubernetes.  It will expose warnings and exit on errors. It
 will then download and install the cluster database and control plane
 components. This may take several minutes.
-
-You can't run `kubeadm init` twice without tearing down the cluster in between
-([unless you're upgrading from v1.6 to v1.7](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7)),
+- You can't run `kubeadm init` twice without tearing down the cluster in between
+([unless you're upgrading from v1.6 to v1.7](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/)),
 see [Tear Down](#tear-down).
 
 The output should look like:
@@ -178,6 +180,16 @@ as root:
 
   kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
+To make kubectl work for your non-root user, you might want to run these commands (which is also a part of the `kubeadm init` output):
+```
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+Alternatively, if you are the root user, you could run this:
+```
+export KUBECONFIG=/etc/kubernetes/admin.conf
+```
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
 will need this in a moment.
@@ -214,14 +226,13 @@ kubectl apply -f <add-on.yaml>
 
 **NOTE:** You can install **only one** pod network per cluster.
 
-
 {% capture choose %}
 Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
 {% endcapture %}
 
 {% capture calico %}
 
-The official Calico guide is [here](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/).
+Refer to the Calico documentation for a [kubeadm quickstart](https://docs.projectcalico.org/latest/getting-started/kubernetes/), a [kubeadm installation guide](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/), and other resources.
 
 **Note:**
 
@@ -229,7 +240,7 @@ The official Calico guide is [here](http://docs.projectcalico.org/latest/getting
  - Calico works on `amd64` only.
 
 ```shell
-kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v2.6/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
 ```
 {% endcapture %}
 
@@ -243,8 +254,8 @@ The official Canal set-up guide is [here](https://github.com/projectcalico/canal
  - Canal works on `amd64` only.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.6/rbac.yaml
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.6/canal.yaml
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/rbac.yaml
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/canal.yaml
 ```
 {% endcapture %}
 
@@ -252,26 +263,40 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8
 
 **Note:**
 
- - For flannel to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
- - flannel works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on an other platform than
+ - For `flannel` to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
+ - `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on a platform other than
 `amd64` you have to manually download the manifest and replace `amd64` occurences with your chosen platform.
+ - Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
 ```
+
+ - For more information about `flannel`, please see [here](https://github.com/coreos/flannel).
+
 {% endcapture %}
 
 {% capture kube-router %}
+
+Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Kube-router relies on kube-controll-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
 
 Kube-router provides pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
 
-For information on setting up Kubernetes cluster with Kube-router using kubeadm please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/kubeadm.md).
+For information on setting up Kubernetes cluster with Kube-router using kubeadm, please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/kubeadm.md).
 
 {% endcapture %}
 
 {% capture romana %}
+
+Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
 
@@ -284,9 +309,13 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 
 {% capture weave_net %}
 
+Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+
 The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
 
-**Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required. 
+**Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required.
 Weave Net sets hairpin mode by default. This allows Pods to access themselves via their Service IP address
 if they don't know their PodIP.
 
@@ -306,7 +335,7 @@ checking that the kube-dns pod is Running in the output of `kubectl get pods --a
 And once the kube-dns pod is up and running, you can continue by joining your nodes.
 
 If your network is not working or kube-dns is not in the Running state, check
-out the [troubleshooting section](#troubleshooting) below.
+out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
 #### Master Isolation
 
@@ -442,7 +471,7 @@ master.
 ## Tear down
 
 To undo what kubeadm did, you should first [drain the
-node](/docs/user-guide/kubectl/v1.6/#drain) and make
+node](/docs/user-guide/kubectl/{{page.version}}/#drain) and make
 sure that the node is empty before shutting it down.
 
 Talking to the master with the appropriate credentials, run:
@@ -460,6 +489,19 @@ kubeadm reset
 
 If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
 appropriate arguments.
+
+**Note**: `kubeadm reset` will not delete any etcd data if external etcd is used.
+This means that if you run `kubeadm init` again using the same etcd endpoints, you
+will see state from previous clusters. To wipe etcd data after reset, it is
+recommended you use a client like `etcdctl`, such as:
+
+```
+etcdctl del "" --prefix
+```
+
+See
+[their documentation](https://github.com/coreos/etcd/tree/master/etcdctl) for more
+information.
 
 ## Upgrading
 
@@ -505,6 +547,9 @@ Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be abl
 Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
 v1.8.
 
+Please also check our [installation guide](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+for more information on the version skew between kubelets and the control plane.
+
 ## kubeadm is multi-platform {#multi-platform}
 
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
@@ -530,103 +575,9 @@ addressed in due course.
    etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). The etcd data
    directory configured by kubeadm is at `/var/lib/etcd` on the master.
 
+## Troubleshooting
 
-
-## Troubleshooting {#troubleshooting}
-
-You may have trouble in the configuration if you see Pod statuses like `RunContainerError`,
-`CrashLoopBackOff` or `Error`.
-
-1. **There are Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state**.
-    Right after `kubeadm init` there should not be any such Pods. If there are Pods in
-    such a state _right after_ `kubeadm init`, please open an issue in the kubeadm repo.
-    `kube-dns` should be in the `Pending` state until you have deployed the network solution.
-    However, if you see Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state
-    after deploying the network solution and nothing happens to `kube-dns`, it's very
-    likely that the Pod Network solution that you installed is somehow broken. You
-    might have to grant it more RBAC privileges or use a newer version. Please file
-    an issue in the Pod Network providers' issue tracker and get the issue triaged there.
-
-1. **The `kube-dns` Pod is stuck in the `Pending` state forever**.
-    This is expected and part of the design. kubeadm is network provider-agnostic, so the admin
-    should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
-    of choice. You have to install a Pod Network
-    before `kube-dns` may deployed fully. Hence the `Pending` state before the network is set up.
-
-1. **I tried to set `HostPort` on one workload, but it didn't have any effect**.
-    The `HostPort` and `HostIP` functionality is available depending on your Pod Network
-    provider. Please contact the author of the Pod Network solution to find out whether
-    `HostPort` and `HostIP` functionality are available.
-
-    If not, you may still use the [NodePort feature of
-    services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
-    
-1. **Pods cannot access themselves via their Service IP**.
-    Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip) 
-    which allows pods to access themselves via their Service IP if they don't know about their podIP. This is an issue
-    related to [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the providers of the network 
-    add-on providers to get timely information about whether they support hairpin mode.
-
-1. If you are using VirtualBox (directly or via Vagrant), you will need to
-   ensure that `hostname -i` returns a routable IP address (i.e. one on the
-   second network interface, not the first one). By default, it doesn't do this
-   and kubelet ends-up using first non-loopback network interface, which is
-   usually NATed. Workaround: Modify `/etc/hosts`, take a look at this
-   `Vagrantfile`[ubuntu-vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11) for how this can be achieved.
-
-1. The following error indicates a possible certificate mismatch.
-
-```
-# kubectl get po                           
-Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")       
-```
-
-Verify that the `$HOME/.kube/config` file contains a valid certificate, and regenerate a certificate if necessary.
-Another workaround is to overwrite the default `kubeconfig` for the "admin" user:
-
-```
-mv  $HOME/.kube $HOME/.kube.bak
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-```
-
-1. If you are using CentOS and encounter difficulty while setting up the master node，
-verify that your Docker cgroup driver matches the kubelet config:
-
-```bash
-docker info |grep -i cgroup
-cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-```
-
-If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver.
-
-Update 
-
-```bash
-KUBELET_CGROUP_ARGS=--cgroup-driver=systemd 
-```
-
-To 
-
-```bash
-KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs
-```
-
-Then restart kubelet:
-
-```bash
-systemctl daemon-reload
-systemctl restart kubelet
-```
-
-The `kubectl describe pod` or `kubectl logs` commands can help you diagnose errors. For example:
-
-```bash
-kubectl -n ${NAMESPACE} describe pod ${POD_NAME}
-
-kubectl -n ${NAMESPACE} logs ${POD_NAME} -c ${CONTAINER_NAME}
-```
+If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
 {% endcapture %}
 

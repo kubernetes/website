@@ -40,9 +40,7 @@ Use a single-node etcd cluster only for testing purpose.
 
 1. Run the following:
 
-    ``` bash
-     ./etcd --client-listen-urls=http://$PRIVATE_IP:2379 --client-advertise-urls=http://$PRIVATE_IP:2379
-    ```
+        ./etcd --client-listen-urls=http://$PRIVATE_IP:2379 --client-advertise-urls=http://$PRIVATE_IP:2379
 
 2. Start Kubernetes API server with the flag `--etcd-servers=$PRIVATE_IP:2379`.
 
@@ -84,17 +82,18 @@ To secure etcd, either set up firewall rules or use the security features provid
 
 To configure etcd with secure peer communication, specify flags `--peer-key-file=peer.key` and `--peer-cert-file=peer.cert`, and use https as URL schema.
 
-Similarly, to configure etcd with secure client communication, specify flags `--key-file=peer.key` and `--cert-file=peer.cert`, and use https as URL schema.
+Similarly, to configure etcd with secure client communication, specify flags `--key-file=k8sclient.key` and `--cert-file=k8sclient.cert`, and use https as URL schema.
 
 ### Limiting access of etcd clusters
 
 After configuring secure communication, restrict the access of etcd cluster to only the Kubernetes API server. Use TLS authentication to do so.
 
-For example, consider key pairs `k8sclient.key` and `k8sclient.cert` that are trusted by the CA `etcd.ca`. When etcd is configured with `--client-cert-auth` along with TLS, it verifies the certificates from clients by using system CAs or the CA passed in by `--trusted-ca-file` flag. Specifying flags `--client-cert-auth=true` and `--trust-ca-file=etcd.ca` will restrict the access to clients with the certificate `k8sclient.cert`.
+For example, consider key pairs `k8sclient.key` and `k8sclient.cert` that are trusted by the CA `etcd.ca`. When etcd is configured with `--client-cert-auth` along with TLS, it verifies the certificates from clients by using system CAs or the CA passed in by `--trusted-ca-file` flag. Specifying flags `--client-cert-auth=true` and `--trusted-ca-file=etcd.ca` will restrict the access to clients with the certificate `k8sclient.cert`.
 
 Once etcd is configured correctly, only clients with valid certificates can access it. To give Kubernetes API server the access, configure it with the flags `--etcd-certfile=k8sclient.cert` and `--etcd-keyfile=k8sclient.key`.
 
 **Note**: etcd authentication is not currently supported by Kubernetes. For more information, see the related issue [Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398).
+{: .note}
 
 ## Replacing a failed etcd member
 
@@ -130,12 +129,11 @@ Though etcd keeps unique member IDs internally, it is recommended to use a uniqu
 
 4. Start the newly added member on a machine with the IP `10.0.0.4`:
 
-    ```bash
-    export ETCD_NAME="member4"
-    export ETCD_INITIAL_CLUSTER="member2=http://10.0.0.2:2380,member3=http://10.0.0.3:2380,member4=http://10.0.0.4:2380"
-    export ETCD_INITIAL_CLUSTER_STATE=existing
-    etcd [flags]
-    ```
+        export ETCD_NAME="member4"
+        export ETCD_INITIAL_CLUSTER="member2=http://10.0.0.2:2380,member3=http://10.0.0.3:2380,member4=http://10.0.0.4:2380"
+        export ETCD_INITIAL_CLUSTER_STATE=existing
+        etcd [flags]
+
 5. Do either of the following:
 
    1. Update its `--etcd-servers` flag to make Kubernetes aware of the configuration changes, then restart the Kubernetes API server.
@@ -186,7 +184,7 @@ Before starting the restore operation, a snapshot file must be present. It can e
 
 If the access URLs of the restored cluster is changed from the previous cluster, the Kubernetes API server must be reconfigured accordingly. In this case, restart Kubernetes API server with the flag `--etcd-servers=$NEW_ETCD_CLUSTER` instead of the flag `--etcd-servers=$OLD_ETCD_CLUSTER`. Replace `$NEW_ETCD_CLUSTER` and `$OLD_ETCD_CLUSTER` with the respective IP addresses. If a load balancer is used in front of an etcd cluster, you might need to update the load balancer instead.
 
-If the majority of etcd members have permanently failed, the etcd cluster is considered failed. In this scenario, Kubernetes cannot make any changes to its current state. Although the scheduled pods might  continue to run, no new pods can be scheduled. In such cases, recover the etcd cluster and potentially reconfigure Kubernetes API server to fix the issue.
+If the majority of etcd members have permanently failed, the etcd cluster is considered failed. In this scenario, Kubernetes cannot make any changes to its current state. Although the scheduled pods might continue to run, no new pods can be scheduled. In such cases, recover the etcd cluster and potentially reconfigure Kubernetes API server to fix the issue.
 
 ## Upgrading and rolling back etcd clusters
 
@@ -201,7 +199,8 @@ The upgrade procedure described in this document assumes that either:
    etcd cluster. During the time the etcd cluster is shut down, the Kubernetes API Server will be read only.
 
 **Warning**: Deviations from the assumptions are untested by continuous
-integration, and deviations might create undesirable consequences. Additional information about operating an etcd cluster is available [from the etcd maintainers](https://github.com/coreos/etcd/tree/master/Documentation).
+integration, and deviations might create undesirable consequences. Additional information about operating an etcd cluster is available [from the etcd maintainers](https://github.com/coreos/etcd/tree/master/Documentation). 
+{: .warning}
 
 ### Background
 
@@ -213,7 +212,7 @@ Note that we need to migrate both the etcd versions that we are using (from 2.2.
 to at least 3.0.x) as well as the version of the etcd API that Kubernetes talks to. The etcd 3.0.x
 binaries support both the v2 and v3 API.
 
-This document describes how to do this migration.  If you want to skip the
+This document describes how to do this migration. If you want to skip the
 background and cut right to the procedure, see [Upgrade
 Procedure](#upgrade-procedure).
 
@@ -228,7 +227,7 @@ There are requirements on how an etcd cluster upgrade can be performed. The prim
 Upgrade only one minor release at a time. For example, we cannot upgrade directly from 2.1.x to 2.3.x.
 Within patch releases it is possible to upgrade and downgrade between arbitrary versions. Starting a cluster for
 any intermediate minor release, waiting until the cluster is healthy, and then
-shutting down the cluster down will perform the migration. For example, to upgrade from version 2.1.x to 2.3.y,
+shutting down the cluster will perform the migration. For example, to upgrade from version 2.1.x to 2.3.y,
 it is enough to start etcd in 2.2.z version, wait until it is healthy, stop it, and then start the
 2.3.y version.
 
@@ -240,7 +239,7 @@ The etcd team has provided a [custom rollback tool](https://git.k8s.io/kubernete
 but the rollback tool has these limitations:
 
 * This custom rollback tool is not part of the etcd repo and does not receive the same
-  testing as the rest of etcd.  We are testing it in a couple of end-to-end tests.
+  testing as the rest of etcd. We are testing it in a couple of end-to-end tests.
   There is only community support here.
 
 * The rollback can be done only from the 3.0.x version (that is using the v3 API) to the
@@ -253,6 +252,7 @@ but the rollback tool has these limitations:
 **Warning**: If the data is not kept in `application/json` format (see [Upgrade
 Procedure](#upgrade-procedure)), you will lose the option to roll back to etcd
 2.2.
+{: .warning}
 
 The last bullet means that any component or user that has some logic
 depending on resource versions may require restart after etcd rollback. This
@@ -263,13 +263,14 @@ rollback might require restarting all Kubernetes components on all nodes.
 **Note**: At the time of writing, both Kubelet and KubeProxy are using “resource
 version” only for watching (i.e. are not using resource versions for anything
 else). And both are using reflector and/or informer frameworks for watching
-(i.e.  they don’t send watch requests themselves). Both those frameworks if they
+(i.e. they don’t send watch requests themselves). Both those frameworks if they
 can’t renew watch, they will start from “current version” by doing “list + watch
 from the resource version returned by list”. That means that if the apiserver
 will be down for the period of rollback, all of node components should basically
 restart their watches and start from “now” when apiserver is back. And it will
 be back with new resource version. That would mean that restarting node
-components is not needed.  But the assumptions here may not hold forever.
+components is not needed. But the assumptions here may not hold forever.
+{: .note}
 
 ### Design
 
@@ -283,7 +284,7 @@ focus on them at all. We focus only on the upgrade/rollback here.
 ### New etcd Docker image
 
 We decided to completely change the content of the etcd image and the way it works.
-So far, the Docker image for etcd  in version X has contained only the etcd and
+So far, the Docker image for etcd in version X has contained only the etcd and
 etcdctl binaries.
 
 Going forward, the Docker image for etcd in version X will contain multiple
@@ -336,7 +337,7 @@ script works as follows:
 1. Verify that the detected version is 3.0.x with the v3 API, and the
    desired version is 2.2.1 with the v2 API. We don’t support any other rollback.
 1. If so, we run the custom tool provided by etcd team to do the offline
-   rollback.  This tool reads the v3 formatted data and writes it back to disk
+   rollback. This tool reads the v3 formatted data and writes it back to disk
    in v2 format.
 1. Finally update the contents of the version file.
 
@@ -349,7 +350,7 @@ Simply modify the command line in the etcd manifest to:
 
 Starting in Kubernetes version 1.6, this has been done in the manifests for new
 Google Compute Engine clusters. You should also specify these environment
-variables.  In particular,you must keep `STORAGE_MEDIA_TYPE` set to
+variables. In particular, you must keep `STORAGE_MEDIA_TYPE` set to
 `application/json` if you wish to preserve the option to roll back.
 
 ```

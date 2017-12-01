@@ -6,14 +6,18 @@ title: Decommissioning
 This page shows you how to properly decommission a cluster.
 {% endcapture %}
 
-Warning: By the time you've reached this step you should have backed up your workloads and pertinent data, this section is for the complete destruction of a cluster. 
 
 {% capture prerequisites %}
 This page assumes you have a working Juju deployed cluster.
+
+**Warning:** By the time you've reached this step you should have backed up your workloads and pertinent data; this section is for the complete destruction of a cluster.
+{: .warning}
+
 {% endcapture %}
 
 {% capture steps %}
-It is recommended to deploy individual Kubernetes clusters in their own models, so that there is a clean separation between environments. To remove a cluster first find out which model it's in with `juju list-models`. The controller reserves an `admin` model for itself. If you have chosen to not name your model it might show up as `default`. 
+## Destroy the Juju model
+It is recommended to deploy individual Kubernetes clusters in their own models, so that there is a clean separation between environments. To remove a cluster first find out which model it's in with `juju list-models`. The controller reserves an `admin` model for itself. If you have chosen to not name your model it might show up as `default`.
 
 ```
 $ juju list-models

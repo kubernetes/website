@@ -6,7 +6,7 @@ title: Install and Set Up kubectl
 ---
 
 {% capture overview %}
-Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; and look at your new cluster and bring up example apps.
+Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; and look at your new cluster and bring up example apps.
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -130,7 +130,7 @@ Edit the config file with a text editor of your choice, such as Notepad for exam
 
 ## Configure kubectl
 
-In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/), which is created automatically when you create a cluster using kube-up.sh or successfully deploy a Minikube cluster. See the [getting started guides](/docs/getting-started-guides/) for more about creating clusters. If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/administer-cluster/share-configuration/).
+In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using kube-up.sh or successfully deploy a Minikube cluster. See the [getting started guides](/docs/setup/) for more about creating clusters. If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 By default, kubectl configuration is located at `~/.kube/config`.
 
 ## Check the kubectl configuration
@@ -145,6 +145,11 @@ If you see a message similar to the following, kubectl is not correctly configur
 
 ```shell
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
+```
+If kubectl cluster-info returns the url response but you can't access your cluster, to check whether it is configured properly, use:
+
+```shell
+kubectl cluster-info dump
 ```
 
 ## Enabling shell autocompletion
@@ -187,15 +192,24 @@ kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
 
 The Homebrew project is independent from Kubernetes, so the bash-completion packages are not guaranteed to work.
 
-### Using Oh-My-Zsh
-When using [Oh-My-Zsh](http://ohmyz.sh/), edit the ~/.zshrc file and update the `plugins=` line to include the kubectl plugin.
+### Using Zsh
+If you are using zsh edit the ~/.zshrc file and add the following code to enable kubectl autocompletion:
 
 ```shell
-plugins=(git zsh-completions kubectl)
+if [ $commands[kubectl] ]; then
+  source <(kubectl completion zsh)
+fi
+```
+
+Or when using [Oh-My-Zsh](http://ohmyz.sh/), edit the ~/.zshrc file and update the `plugins=` line to include the kubectl plugin.
+
+
+```shell
+source <(kubectl completion zsh)
 ```
 
 {% endcapture %}
 {% capture whatsnext %}
-[Learn how to launch and expose your application.](/docs/user-guide/quick-start)
+[Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 {% endcapture %}
 {% include templates/task.md %}

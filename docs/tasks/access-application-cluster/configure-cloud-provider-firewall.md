@@ -14,7 +14,7 @@ well as any provider specific details that may be necessary.
 
  When using a Service with `spec.type: LoadBalancer`, you can specify the IP ranges that are allowed to access the load balancer
  by using `spec.loadBalancerSourceRanges`. This field takes a list of IP CIDR ranges, which Kubernetes will use to configure firewall exceptions.
- This feature is currently supported on Google Compute Engine, Google Container Engine and AWS. This field will be ignored if the cloud provider does not support the feature.
+ This feature is currently supported on Google Compute Engine, Google Kubernetes Engine and AWS. This field will be ignored if the cloud provider does not support the feature.
 
  Assuming 10.0.0.0/8 is the internal subnet. In the following example, a load balancer will be created that is only accessible to cluster internal IPs.
  This will not allow clients from outside of your Kubernetes cluster to access the load balancer.
@@ -65,7 +65,7 @@ Google Compute Engine firewalls are documented [elsewhere](https://cloud.google.
 You can add a firewall with the `gcloud` command line tool:
 
 ```shell
-$ gcloud compute firewall-rules create my-rule --allow=tcp:<port>
+gcloud compute firewall-rules create my-rule --allow=tcp:<port>
 ```
 
 **Note**
@@ -89,7 +89,7 @@ Consider:
      the VM's external IP address.
 
 Consequently, please be careful when opening firewalls in Google Compute Engine
-or Google Container Engine.  You may accidentally be exposing other services to
+or Google Kubernetes Engine.  You may accidentally be exposing other services to
 the wilds of the internet.
 
 This will be fixed in an upcoming release of Kubernetes.

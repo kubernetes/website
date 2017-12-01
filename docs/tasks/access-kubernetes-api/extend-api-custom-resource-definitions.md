@@ -6,19 +6,26 @@ approvers:
 ---
 
 {% capture overview %}
-This page shows how to install a [custom resource](/docs/concepts/api-extension/custom-resources/)
-into the Kubernetes API by creating a CustomResourceDefinition.
+This page shows how to install a
+[custom resource](/docs/concepts/api-extension/custom-resources/)
+into the Kubernetes API by creating a
+[CustomResourceDefinition](/docs/api-reference/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions).
 {% endcapture %}
 
 {% capture prerequisites %}
-* Read about [custom resources](/docs/concepts/api-extension/custom-resources/).
+
+{% include task-tutorial-prereqs.md %}
+
 * Make sure your Kubernetes cluster has a master version of 1.7.0 or higher.
+
+* Read about [custom resources](/docs/concepts/api-extension/custom-resources/).
+
 {% endcapture %}
 
 {% capture steps %}
 ## Create a CustomResourceDefinition
 
-When you create a new *CustomResourceDefinition* (CRD), the Kubernetes API Server
+When you create a new CustomResourceDefinition (CRD), the Kubernetes API Server
 reacts by creating a new RESTful resource path, either namespaced or cluster-scoped,
 as specified in the CRD's `scope` field. As with existing built-in objects, deleting a
 namespace deletes all custom objects in that namespace.
@@ -144,6 +151,23 @@ metadata:
   resourceVersion: ""
   selfLink: ""
 ```
+
+## Delete a CustomResourceDefinition
+
+When you delete a CustomResourceDefinition, the server will uninstall the RESTful API  endpoint
+and **delete all custom objects stored in it**.
+
+```shell
+kubectl delete -f resourcedefinition.yaml
+kubectl get crontabs
+```
+
+```console
+Error from server (NotFound): Unable to list "crontabs": the server could not find the requested resource (get crontabs.stable.example.com)
+```
+
+If you later recreate the same CustomResourceDefinition, it will start out empty.
+
 {% endcapture %}
 
 {% capture discussion %}
@@ -174,7 +198,8 @@ meaning all finalizers are done.
 
 ### Validation
 
-Validation of custom objects is possible via [OpenAPI v3 schema](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject).
+Validation of custom objects is possible via
+[OpenAPI v3 schema](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject).
 Additionally, the following restrictions are applied to the schema:
 
 - The fields `default`, `nullable`, `discriminator`, `readOnly`, `writeOnly`, `xml` and
@@ -293,6 +318,7 @@ crontab "my-new-cron-object" created
 
 {% capture whatsnext %}
 * Learn how to [Migrate a ThirdPartyResource to CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/).
+* See [CustomResourceDefinition](/docs/api-reference/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions).
 {% endcapture %}
 
 {% include templates/task.md %}

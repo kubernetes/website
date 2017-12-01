@@ -12,9 +12,9 @@ $( document ).ready(function() {
         $("#generalInstructions").hide();
         $("#continueEdit").show();
         $("#continueEditButton").text("Edit " + forwarding);
-        $("#continueEditButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/edit/{{ page.docsbranch }}/" + forwarding)
+        $("#continueEditButton").attr("href", "https://github.com/kubernetes/website/edit/{{ page.docsbranch }}/" + forwarding)
         $("#viewOnGithubButton").text("View " + forwarding + " on GitHub");
-        $("#viewOnGithubButton").attr("href", "https://git.k8s.io/kubernetes.github.io/" + forwarding)
+        $("#viewOnGithubButton").attr("href", "https://git.k8s.io/website/" + forwarding)
     } else {
         $("#generalInstructions").show();
         $("#continueEdit").hide();
@@ -44,7 +44,7 @@ $( document ).ready(function() {
 
 <p>Click the button below to visit the repo for our site. You can then click the <b>Fork</b> button in the upper-right area of the screen to create a copy of our site in your GitHub account called a <i>fork</i>. Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click <b>New Pull Request</b> to let us know about it.</p>
 
-<p><a class="button" href="https://github.com/kubernetes/kubernetes.github.io/">Browse this site's source code</a></p>
+<p><a class="button" href="https://github.com/kubernetes/website/">Browse this site's source code</a></p>
 
 </div>
 <!-- END: Dynamic section -->

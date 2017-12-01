@@ -47,16 +47,10 @@ Get a shell to the running Container:
 kubectl exec -it shell-demo -- /bin/bash
 ```
 
-In your shell, list the running processes:
+In your shell, list the root directory:
 
 ```shell
-root@shell-demo:/# ps aux
-```
-
-In your shell, list the nginx processes:
-
-```shell
-root@shell-demo:/# ps aux | grep nginx
+root@shell-demo:/# ls /
 ```
 
 In your shell, experiment with other commands. Here are
@@ -67,10 +61,13 @@ root@shell-demo:/# ls /
 root@shell-demo:/# cat /proc/mounts
 root@shell-demo:/# cat /proc/1/maps
 root@shell-demo:/# apt-get update
-root@shell-demo:/# apt-get install tcpdump
+root@shell-demo:/# apt-get install -y tcpdump
 root@shell-demo:/# tcpdump
-root@shell-demo:/# apt-get install lsof
+root@shell-demo:/# apt-get install -y lsof
 root@shell-demo:/# lsof
+root@shell-demo:/# apt-get install -y procps
+root@shell-demo:/# ps aux
+root@shell-demo:/# ps aux | grep nginx
 ```
 
 ## Writing the root page for nginx
@@ -140,7 +137,7 @@ kubectl exec -it my-pod --container main-app -- /bin/bash
 
 {% capture whatsnext %}
 
-* [kubectl exec](/docs/user-guide/kubectl/v1.6/#exec)
+* [kubectl exec](/docs/user-guide/kubectl/{{page.version}}/#exec)
 
 {% endcapture %}
 

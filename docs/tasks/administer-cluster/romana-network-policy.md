@@ -27,19 +27,15 @@ Follow the [containerized installation guide](https://github.com/romana/romana/t
 To apply network policies use one of the following:
 
 * [Romana network policies](https://github.com/romana/romana/wiki/Romana-policies).
-    * [Example of Romana network policy](https://github.com/romana/core/tree/master/policy).
+    * [Example of Romana network policy](https://github.com/romana/core/blob/master/doc/policy.md).
 * The NetworkPolicy API.
 
 {% endcapture %}
 
 {% capture whatsnext %}
 
-Once your have installed Romana, you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
+Once your have installed Romana, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
 
 {% endcapture %}
 
 {% include templates/task.md %}
-
-
-
-

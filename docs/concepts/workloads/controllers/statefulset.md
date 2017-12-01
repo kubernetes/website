@@ -10,10 +10,10 @@ title: StatefulSets
 ---
 
 {% capture overview %}
-**StatefulSet is the workload API object used to manage stateful applications. 
+**StatefulSet is the workload API object used to manage stateful applications.
 StatefulSets are beta in 1.8.**
 
-{% include templates/glossary/snippet.md term="statefulset" length="long" %}
+{% glossary_definition term_id="statefulset" length="all" %}
 {% endcapture %}
 
 {% capture body %}
@@ -49,7 +49,7 @@ The example below demonstrates the components of a StatefulSet.
 
 * A Headless Service, named nginx, is used to control the network domain.
 * The StatefulSet, named web, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
-* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/concepts/storage/volumes/) provisioned by a PersistentVolume Provisioner.
+* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume Provisioner.
 
 ```yaml
 apiVersion: v1
@@ -123,8 +123,8 @@ is `$(statefulset name)-$(ordinal)`. The example above will create three Pods
 named `web-0,web-1,web-2`.
 A StatefulSet can use a [Headless Service](/docs/concepts/services-networking/service/#headless-services)
 to control the domain of its Pods. The domain managed by this Service takes the form:
-`$(service name).$(namespace).svc.cluster.local`, where "cluster.local"
-is the [cluster domain](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md).
+`$(service name).$(namespace).svc.cluster.local`, where "cluster.local" is the
+cluster domain.
 As each Pod is created, it gets a matching DNS subdomain, taking the form:
 `$(podname).$(governing service domain)`, where the governing service is defined
 by the `serviceName` field on the StatefulSet.
@@ -139,11 +139,11 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
 Note that Cluster Domain will be set to `cluster.local` unless
-[otherwise configured](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md).
+[otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
 
 ### Stable Storage
 
-Kubernetes creates one [PersistentVolume](/docs/concepts/storage/volumes/) for each
+Kubernetes creates one [PersistentVolume](/docs/concepts/storage/persistent-volumes/) for each
 VolumeClaimTemplate. In the nginx example above, each Pod will receive a single PersistentVolume
 with a StorageClass of `my-storage-class` and 1 Gib of provisioned storage. If no StorageClass
 is specified, then the default StorageClass will be used. When a Pod is (re)scheduled

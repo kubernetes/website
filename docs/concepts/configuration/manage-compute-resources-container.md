@@ -4,7 +4,7 @@ title: Managing Compute Resources for Containers
 
 {% capture overview %}
 
-When you specify a [Pod](/docs/user-guide/pods), you can optionally specify how
+When you specify a [Pod](/docs/concepts/workloads/pods/pod/), you can optionally specify how
 much CPU and memory (RAM) each Container needs. When Containers have resource
 requests specified, the scheduler can make better decisions about which nodes to
 place Pods on. And when Containers have their limits specified, contention for
@@ -27,7 +27,7 @@ CPU and memory are collectively referred to as *compute resources*, or just
 resources are measurable quantities that can be requested, allocated, and
 consumed. They are distinct from
 [API resources](/docs/concepts/overview/kubernetes-api/). API resources, such as Pods and
-[Services](/docs/user-guide/services) are objects that can be read and modified
+[Services](/docs/concepts/services-networking/service/) are objects that can be read and modified
 through the Kubernetes API server.
 
 ## Resource requests and limits of Pod and Container
@@ -70,7 +70,7 @@ CPU is always requested as an absolute quantity, never as a relative quantity;
 
 Limits and requests for `memory` are measured in bytes. You can express memory as
 a plain integer or as a fixed-point integer using one of these suffixes:
-E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
+E, P, T, G, M, k. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following represent roughly the same value:
 
 ```shell
@@ -92,6 +92,9 @@ spec:
   containers:
   - name: db
     image: mysql
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "password"
     resources:
       requests:
         memory: "64Mi"
@@ -295,7 +298,7 @@ You can call `kubectl get pod` with the `-o go-template=...` option to fetch the
 of previously terminated Containers:
 
 ```shell{% raw %}
-[13:59:01] $ kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-60xbc
+[13:59:01] $ kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
 Container Name: simmemleak
 LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]{% endraw %}
 ```
@@ -309,7 +312,7 @@ Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managi
 
 This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
 
-**Note:** If an optional runntime partition is used, root parition will not hold any image layer or writable layers. 
+**Note:** If an optional runntime partition is used, root partition will not hold any image layer or writable layers.
 {: .note}
 
 ### Requests and limits setting for local ephemeral storage
@@ -338,6 +341,9 @@ spec:
   containers:
   - name: db
     image: mysql
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "password"
     resources:
       requests:
         ephemeral-storage: "2Gi"
@@ -354,7 +360,7 @@ spec:
 
 ### How Pods with ephemeral-storage requests are scheduled
 
-When you create a Pod, the Kubernetes scheduler selects a node for the Pod to 
+When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
 run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. (For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
 
 ### How Pods with ephemeral-storage limits run
@@ -558,8 +564,9 @@ consistency across providers and platforms.
 
 {% capture whatsnext %}
 
-* Get hands-on experience
-[assigning CPU and RAM resources to a container](/docs/tasks/configure-pod-container/assign-cpu-ram-container/).
+* Get hands-on experience [assigning Memory resources to containers and pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
+
+* Get hands-on experience [assigning CPU resources to containers and pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 
 * [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
 

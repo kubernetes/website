@@ -14,7 +14,12 @@ The example below creates a Kubernetes cluster with 4 worker node Virtual Machin
 
 ### Before you start
 
-If you want a simplified getting started experience and GUI for managing clusters, please consider trying [Google Container Engine](https://cloud.google.com/container-engine/) (GKE) for hosted cluster installation and management.
+If you want a simplified getting started experience and GUI for managing clusters, please consider trying [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) for hosted cluster installation and management.
+
+For an easy way to experiment with the Kubernetes development environment, click the button below
+to open a Google Cloud Shell with an auto-cloned copy of the Kubernetes source repo.
+
+[![Open in Cloud Shell](http://gstatic.com/cloudssh/images/open-btn.png)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/kubernetes/kubernetes&page=editor&open_in_editor=README.md)
 
 If you want to use custom binaries or pure open source Kubernetes, please continue with the instructions below.
 
@@ -166,7 +171,7 @@ can be done in the Google Cloud Console.  See the [Google Cloud Storage JSON
 API Overview](https://cloud.google.com/storage/docs/json_api/) for more
 details.
 
-Also ensure that-- as listed in the [Prerequsites section](#prerequisites)-- you've enabled the `Compute Engine Instance Group Manager API`, and can start up a GCE VM from the command line as in the [GCE Quickstart](https://cloud.google.com/compute/docs/quickstart) instructions.
+Also ensure that-- as listed in the [Prerequisites section](#prerequisites)-- you've enabled the `Compute Engine Instance Group Manager API`, and can start up a GCE VM from the command line as in the [GCE Quickstart](https://cloud.google.com/compute/docs/quickstart) instructions.
 
 #### Cluster initialization hang
 

@@ -17,9 +17,12 @@ marks that the node should not accept any pods that do not tolerate the taints.
 Tolerations are applied to pods, and allow (but do not require) the pods to schedule
 onto nodes with matching taints.
 
+* TOC
+{:toc}
+
 ## Concepts
 
-You add a taint to a node using [kubectl taint](/docs/user-guide/kubectl/v1.7/#taint).
+You add a taint to a node using [kubectl taint](/docs/user-guide/kubectl/{{page.version}}/#taint).
 For example,
 
 ```shell
@@ -191,22 +194,22 @@ support for representing node problems. In other words, the node controller
 automatically taints a node when certain condition is true. The built-in taints
 currently include:
 
- * `node.alpha.kubernetes.io/notReady`: Node is not ready. This corresponds to
+ * `node.kubernetes.io/not-ready`: Node is not ready. This corresponds to
    the NodeCondition `Ready` being "`False`".
  * `node.alpha.kubernetes.io/unreachable`: Node is unreachable from the node
    controller. This corresponds to the NodeCondition `Ready` being "`Unknown`".
- * `node.kubernetes.io/outOfDisk`: Node becomes out of disk.
- * `node.kubernetes.io/memoryPressure`: Node has memory pressure.
- * `node.kubernetes.io/diskPressure`: Node has disk pressure.
- * `node.kubernetes.io/networkUnavailable`: Node's network is unavailable.
+ * `node.kubernetes.io/out-of-disk`: Node becomes out of disk.
+ * `node.kubernetes.io/memory-pressure`: Node has memory pressure.
+ * `node.kubernetes.io/disk-pressure`: Node has disk pressure.
+ * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
  * `node.cloudprovider.kubernetes.io/uninitialized`: When kubelet is started
    with "external" cloud provider, it sets this taint on a node to mark it
    as unusable. When a controller from the cloud-controller-manager initializes
    this node, kubelet removes this taint.
 
 When the `TaintBasedEvictions` alpha feature is enabled (you can do this by
-including `TaintBasedEvictions=true` in `--feature-gates`, such as
-`--feature-gates=FooBar=true,TaintBasedEvictions=true`), the taints are automatically
+including `TaintBasedEvictions=true` in `--feature-gates` for Kubernetes controller manager,
+such as `--feature-gates=FooBar=true,TaintBasedEvictions=true`), the taints are automatically
 added by the NodeController (or kubelet) and the normal logic for evicting pods from nodes
 based on the Ready NodeCondition is disabled.
 (Note: To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
@@ -230,9 +233,9 @@ tolerations:
 ```
 
 Note that Kubernetes automatically adds a toleration for
-`node.alpha.kubernetes.io/notReady` with `tolerationSeconds=300`
+`node.kubernetes.io/not-ready` with `tolerationSeconds=300`
 unless the pod configuration provided
-by the user already has a toleration for `node.alpha.kubernetes.io/notReady`.
+by the user already has a toleration for `node.kubernetes.io/not-ready`.
 Likewise it adds a toleration for
 `node.alpha.kubernetes.io/unreachable` with `tolerationSeconds=300`
 unless the pod configuration provided
@@ -248,7 +251,7 @@ admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/default
 `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
   * `node.alpha.kubernetes.io/unreachable`
-  * `node.alpha.kubernetes.io/notReady`
+  * `node.kubernetes.io/not-ready`
 
 This ensures that DaemonSet pods are never evicted due to these problems,
 which matches the behavior when this feature is disabled.
@@ -256,7 +259,8 @@ which matches the behavior when this feature is disabled.
 ## Taint Nodes by Condition
 
 Version 1.8 introduces an alpha feature that causes the node controller to create taints corresponding to
-Node conditions. When this feature is enabled, the scheduler does not check conditions; instead the scheduler checks taints. This assures that conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as conditions) by adding appropriate Pod tolerations.
+Node conditions. When this feature is enabled (you can do this by including `TaintNodesByCondition=true` in the `--feature-gates` command line flag to the scheduler, such as
+`--feature-gates=FooBar=true,TaintNodesByCondition=true`), the scheduler does not check Node conditions; instead the scheduler checks taints. This assures that Node conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as Node conditions) by adding appropriate Pod tolerations.
 
 To make sure that turning on this feature doesn't break DaemonSets, starting in version 1.8, the  DaemonSet controller automatically adds the following `NoSchedule` tolerations to all daemons:
 

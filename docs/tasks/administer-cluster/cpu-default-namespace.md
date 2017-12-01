@@ -95,7 +95,7 @@ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-defaults-pod-
 View the Pod specification:
 
 ```
-kubectl get pod cpu-limit-no-request --output=yaml --namespace=default-cpu-example
+kubectl get pod default-cpu-demo-2 --output=yaml --namespace=default-cpu-example
 ```
 
 The output shows that the Container's CPU request is set to match its CPU limit.
@@ -120,6 +120,12 @@ Create the Pod:
 
 ```shell
 kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-defaults-pod-3.yaml --namespace=default-cpu-example
+```
+
+View the Pod specification:
+
+```
+kubectl get pod default-cpu-demo-3 --output=yaml --namespace=default-cpu-example
 ```
 
 The output shows that the Container's CPU request is set to the value specified in the

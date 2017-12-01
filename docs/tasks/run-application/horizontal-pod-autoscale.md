@@ -11,8 +11,9 @@ This document describes the current state of Horizontal Pod Autoscaling in Kuber
 ## What is Horizontal Pod Autoscaling?
 
 With Horizontal Pod Autoscaling, Kubernetes automatically scales the number of pods
-in a replication controller, deployment or replica set based on observed CPU utilization
-(or, with beta support, on some other, application-provided metrics). Note that Horizontal
+in a replication controller, deployment or replica set based on observed CPU utilization (or, with
+[custom metrics](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md)
+support, on some other application-provided metrics). Note that Horizontal
 Pod Autoscaling does not apply to objects that can't be scaled, for example, DaemonSet.
 
 The Horizontal Pod Autoscaler is implemented as a Kubernetes API resource and a controller.
@@ -91,7 +92,7 @@ In addition, there is a special `kubectl autoscale` command for easy creation of
 For instance, executing `kubectl autoscale rc foo --min=2 --max=5 --cpu-percent=80`
 will create an autoscaler for replication controller *foo*, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
-The detailed documentation of `kubectl autoscale` can be found [here](/docs/user-guide/kubectl/v1.6/#autoscale).
+The detailed documentation of `kubectl autoscale` can be found [here](/docs/user-guide/kubectl/{{page.version}}/#autoscale).
 
 
 ## Autoscaling during rolling update
@@ -105,6 +106,32 @@ Horizontal Pod Autoscaler does not work with rolling update using direct manipul
 i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and do rolling update (e.g. using `kubectl rolling-update`).
 The reason this doesn't work is that when rolling update creates a new replication controller,
 the Horizontal Pod Autoscaler will not be bound to the new replication controller.
+
+## Support for cooldown/delay
+
+When managing the scale of a group of replicas using the Horizontal Pod Autoscaler,
+it is possible that the number of replicas keeps fluctuating frequently due to the
+dynamic nature of the metrics evaluated. This is sometimes referred to as *thrashing*.
+
+Starting from v1.6, a cluster operator can mitigate this problem by tuning
+the global HPA settings exposed as flags for the `kube-controller-manager` component:
+
+- `--horizontal-pod-autoscaler-downscale-delay`: The value for this option is a
+  duration that specifies how long the autoscaler has to wait before another
+  downscale operation can be performed after the current one has completed.
+  The default value is 5 minutes (`5m0s`).
+
+- `--horizontal-pod-autoscaler-upscale-delay`: The value for this option is a
+  duration that specifies how long the autoscaler has to wait before another
+  upscale operation can be performed after the current one has completed.
+  The default value is 3 minutes (`3m0s`).
+
+**Note**: When tuning these parameter values, a cluster operator should be aware of
+the possible consequences. If the delay (cooldown) value is set too long, there
+could be complaints that the Horizontal Pod Autoscaler is not responsive to workload
+changes. However, if the delay value is set too short, the scale of the replicas set
+may keep thrashing as usual.
+{: .note}
 
 ## Support for multiple metrics
 
@@ -150,5 +177,5 @@ custom metrics API with the API aggregation layer. Both of these API servers mus
 ## Further reading
 
 * Design documentation: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
-* kubectl autoscale command: [kubectl autoscale](/docs/user-guide/kubectl/v1.6/#autoscale).
+* kubectl autoscale command: [kubectl autoscale](/docs/user-guide/kubectl/{{page.version}}/#autoscale).
 * Usage example of [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).

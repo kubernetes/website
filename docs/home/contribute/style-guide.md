@@ -15,6 +15,15 @@ docs, follow the instructions on
 
 {% capture body %}
 
+**Note:** Kubernetes documentation uses [GitHub Flavored Markdown](https://github.github.com/gfm/).
+{: .note}
+
+
+## Language
+
+Kubernetes documentation uses US English.
+
+
 ## Documentation formatting standards
 
 ### Use camel case for API objects
@@ -73,6 +82,14 @@ represents.
   <tr><td>Open the <code>envars.yaml</code> file.</td><td>Open the envars.yaml file.</td></tr>
   <tr><td>Go to the <code>/docs/tutorials</code> directory.</td><td>Go to the /docs/tutorials directory.</td></tr>
   <tr><td>Open the <code>/_data/concepts.yaml</code> file.</td><td>Open the /_data/concepts.yaml file.</td></tr>
+</table>
+
+### Use the international standard for punctuation inside quotes
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>events are recorded with an associated "stage".</td><td>events are recorded with an associated "stage."</td></tr>
+  <tr><td>The copy is called a "fork".</td><td>The copy is called a "fork."</td></tr>
 </table>
 
 ## Inline code formatting

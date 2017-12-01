@@ -36,6 +36,8 @@ To enable API bearer tokens (including service account tokens) to be used to aut
 * start the kubelet with the `--authentication-token-webhook`, `--kubeconfig`, and `--require-kubeconfig` flags
 * the kubelet calls the `TokenReview` API on the configured API server to determine user information from bearer tokens
 
+**Note:** The flag `--require-kubeconfig` is deprecated as of Kubernetes 1.8, this will be removed in a future version. You no longer need to use `--require-kubeconfig` in Kubernetes 1.8.
+
 ## Kubelet authorization
 
 Any request that is successfully authenticated (including an anonymous request) is then authorized. The default authorization mode is `AlwaysAllow`, which allows all requests.
@@ -51,6 +53,8 @@ To subdivide access to the kubelet API, delegate authorization to the API server
 * ensure the `authorization.k8s.io/v1beta1` API group is enabled in the API server
 * start the kubelet with the `--authorization-mode=Webhook`, `--kubeconfig`, and `--require-kubeconfig` flags
 * the kubelet calls the `SubjectAccessReview` API on the configured API server to determine whether each request is authorized
+
+**Note:** The flag `--require-kubeconfig` is deprecated as of Kubernetes 1.8, this will be removed in a future version. You no longer need to use `--require-kubeconfig` in Kubernetes 1.8.
 
 The kubelet authorizes API requests using the same [request attributes](/docs/admin/authorization/#request-attributes) approach as the apiserver.
 

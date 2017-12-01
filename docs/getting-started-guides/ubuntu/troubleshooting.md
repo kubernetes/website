@@ -54,9 +54,9 @@ or just on the etcd cluster:
 
 Errors will have an obvious message, and will return a red result when used with `juju status --color`. Nodes that come up in this manner should be investigated.   
 
-## SSHing to units.
+## SSHing to units
 
-You can ssh to individual units easily with the following convention, `juju ssh <servicename>/<unit#>:
+You can ssh to individual units easily with the following convention, `juju ssh <servicename>/<unit#>`:
 
     juju ssh kubernetes-worker/3
 
@@ -66,7 +66,7 @@ Will automatically ssh you to the 3rd worker unit.
 
 This will automatically ssh you to the easyrsa unit. 
 
-## Collecting Debug information
+## Collecting debug information
 
 Sometimes it is useful to collect all the information from a node to share with a developer so problems can be identifying. This section will deal on how to use the debug action to collect this information. The debug action is only supported on `kubernetes-worker` nodes.
 
@@ -140,71 +140,69 @@ This is caused by the API load balancer not forwarding ports in the context of t
 
 1. Expose the Kubernetes Master service
 
-```
-juju expose kubernetes-master
-```
+   ```
+   juju expose kubernetes-master
+   ```
 
-2. Identify the public IP address of one of your masters
+1. Identify the public IP address of one of your masters
 
-```
-juju status kubernetes-master
-Model       Controller  Cloud/Region   Version
-production  k8s-admin   aws/us-east-1  2.0.0
+   ```
+   juju status kubernetes-master
+   Model       Controller  Cloud/Region   Version
+   production  k8s-admin   aws/us-east-1  2.0.0
 
-App                Version  Status  Scale  Charm              Store       Rev  OS      Notes
-flannel            0.6.1    active      1  flannel            jujucharms    7  ubuntu  
-kubernetes-master  1.5.1    active      1  kubernetes-master  jujucharms   10  ubuntu  exposed
+   App                Version  Status  Scale  Charm              Store       Rev  OS      Notes
+   flannel            0.6.1    active      1  flannel            jujucharms    7  ubuntu
+   kubernetes-master  1.5.1    active      1  kubernetes-master  jujucharms   10  ubuntu  exposed
 
-Unit                  Workload  Agent  Machine  Public address  Ports     Message
-kubernetes-master/0*  active    idle   5        54.210.100.102    6443/tcp  Kubernetes master running.
-  flannel/0           active    idle            54.210.100.102              Flannel subnet 10.1.50.1/24
+   Unit                  Workload  Agent  Machine  Public address  Ports     Message
+   kubernetes-master/0*  active    idle   5        54.210.100.102    6443/tcp  Kubernetes master running.
+     flannel/0           active    idle            54.210.100.102              Flannel subnet 10.1.50.1/24
 
-Machine  State    DNS           Inst id              Series  AZ
-5        started  54.210.100.102  i-002b7150639eb183b  xenial  us-east-1a
+   Machine  State    DNS           Inst id              Series  AZ
+   5        started  54.210.100.102  i-002b7150639eb183b  xenial  us-east-1a
 
-Relation      Provides               Consumes           Type
-certificates  easyrsa                kubernetes-master  regular
-etcd          etcd                   flannel            regular
-etcd          etcd                   kubernetes-master  regular
-cni           flannel                kubernetes-master  regular
-loadbalancer  kubeapi-load-balancer  kubernetes-master  regular
-cni           kubernetes-master      flannel            subordinate
-cluster-dns   kubernetes-master      kubernetes-worker  regular
-cni           kubernetes-worker      flannel            subordinate
-```
+   Relation      Provides               Consumes           Type
+   certificates  easyrsa                kubernetes-master  regular
+   etcd          etcd                   flannel            regular
+   etcd          etcd                   kubernetes-master  regular
+   cni           flannel                kubernetes-master  regular
+   loadbalancer  kubeapi-load-balancer  kubernetes-master  regular
+   cni           kubernetes-master      flannel            subordinate
+   cluster-dns   kubernetes-master      kubernetes-worker  regular
+   cni           kubernetes-worker      flannel            subordinate
+   ```
 
-In this context the public IP address is 54.210.100.102. 
+   In this context the public IP address is 54.210.100.102.
 
-If you want to access this data programmatically you can use the JSON output: 
+   If you want to access this data programmatically you can use the JSON output:
 
-```
-juju show-status kubernetes-master --format json | jq --raw-output '.applications."kubernetes-master".units | keys[]'
-54.210.100.102
-```
+   ```
+   juju show-status kubernetes-master --format json | jq --raw-output '.applications."kubernetes-master".units | keys[]'
+   54.210.100.102
+   ```
 
-3. Update the kubeconfig file 
+1. Update the kubeconfig file
 
-Identify the kubeconfig file or section used for this cluster, and edit the server configuration. 
+   Identify the kubeconfig file or section used for this cluster, and edit the server configuration.
 
-By default, it will look like ```https://54.213.123.123:443```. Replace it with the Kubernetes Master endpoint ```https://54.210.100.102:6443``` and save. 
+   By default, it will look like ```https://54.213.123.123:443```. Replace it with the Kubernetes Master endpoint ```https://54.210.100.102:6443``` and save.
 
-Note that the default port used by CDK for the Kubernetes Master API is 6443 while the port exposed by the load balancer is 443. 
+   Note that the default port used by CDK for the Kubernetes Master API is 6443 while the port exposed by the load balancer is 443.
 
-4. Start helming again! 
+1. Start helming again!
 
-```
-helm install <chart> --debug
-Created tunnel using local port: '36749'
-SERVER: "localhost:36749"
-CHART PATH: /home/ubuntu/.helm/<chart>
-NAME:   <chart>
-...
-...
-```
+   ```
+   helm install <chart> --debug
+   Created tunnel using local port: '36749'
+   SERVER: "localhost:36749"
+   CHART PATH: /home/ubuntu/.helm/<chart>
+   NAME:   <chart>
+   ...
+   ...
+   ```
 
-## etcd
-
-## Kubernetes
+## Logging and monitoring
 
 By default there is no log aggregation of the Kubernetes nodes, each node logs locally. It is recommended to deploy the Elastic Stack for log aggregation if you desire centralized logging. 
 {% endcapture %}

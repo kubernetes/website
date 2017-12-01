@@ -8,12 +8,6 @@ This page shows how a Pod can use environment variables to expose information
 about itself to Containers running in the Pod. Environment variables can expose
 Pod fields and Container fields.
 
-There are two ways to expose Pod and Container fields to a running Container:
-environment variables and
-[DownwardAPIVolumeFiles](/docs/resources-reference/{{page.version}}/#downwardapivolumefile-v1-core).
-Together, these two ways of exposing Pod and Container fields are called the
-*Downward API*.
-
 {% endcapture %}
 
 

@@ -21,7 +21,7 @@ using `kubefed`.
 ## Prerequisites
 
 This guide assumes that you have a running Kubernetes cluster. Please
-see one of the [getting started](/docs/getting-started-guides/) guides
+see one of the [getting started](/docs/setup/) guides
 for installation instructions for your platform.
 
 
@@ -148,11 +148,11 @@ to program the DNS service that you are using. For example, if your
 cluster is running on Google Compute Engine, you must enable the
 Google Cloud DNS API for your project.
 
-The machines in Google Container Engine (GKE) clusters are created
+The machines in Google Kubernetes Engine clusters are created
 without the Google Cloud DNS API scope by default. If you want to use a
-GKE cluster as a Federation host, you must create it using the `gcloud`
+Google Kubernetes Engine cluster as a Federation host, you must create it using the `gcloud`
 command with the appropriate value in the `--scopes` field. You cannot
-modify a GKE cluster directly to add this scope, but you can create a
+modify a Google Kubernetes Engine cluster directly to add this scope, but you can create a
 new node pool for your cluster and delete the old one. *Note that this
 will cause pods in the cluster to be rescheduled.*
 
@@ -367,48 +367,45 @@ kubefed init fellowship \
 ```
 
 For more information see
-[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tutorials/federation/set-up-coredns-provider-federation/).
+[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tasks/federation/set-up-coredns-provider-federation/).
 
 ## Adding a cluster to a federation
 
-Once you've deployed a federation control plane, you'll need to make
-that control plane aware of the clusters it should manage. You can add
-a cluster to your federation by using the [`kubefed join`](/docs/admin/kubefed_join/)
-command.
+After you've deployed a federation control plane, you'll need to make that control plane aware of the clusters it should manage. 
 
-To use `kubefed join`, you'll need to provide the name of the cluster
-you want to add to the federation, and the `--host-cluster-context`
-for the federation control plane's host cluster.
+To join clusters into the federation:
 
-> Note: The name that you provide to the `join` command is used as the
-joining cluster's identity in federation. This name should adhere to
-the rules described in the
-[identifiers doc](/docs/user-guide/identifiers/#names). If the context
-corresponding to your joining cluster conforms to these rules then you
-can use the same name in the join command. Otherwise, you will have to
-choose a different name for your cluster's identity. For more
-information, please see the
-[naming rules and customization](#naming-rules-and-customization)
-section below.
+1. Change the context:
 
-The following example command adds the cluster `gondor` to the
-federation running on host cluster `rivendell`:
+       kubectl config use-context fellowship
 
-```
-kubefed join gondor --host-cluster-context=rivendell
-```
+1. If you are using a managed cluster service, allow the service to access the cluster. To do this, create a `clusterrolebinding` for the account associated with your cluster service:
 
-> Note: Kubernetes requires that you manually join clusters to a
-federation because the federation control plane manages only those
-clusters that it is responsible for managing. Adding a cluster tells
-the federation control plane that it is responsible for managing that
-cluster.
+       kubectl create clusterrolebinding <your_user>-cluster-admin-binding --clusterrole=cluster-admin --user=<your_user>@example.org --context=<joining_cluster_context
+
+1. Join the cluster to the federation, using `kubefed join`, and make sure you provide the following:
+
+    * The name of the cluster that you are joining to the federation
+    * `--host-cluster-context`, the kubeconfig context for the host cluster
+
+    For example, this command adds the cluster `gondor` to the federation running on host cluster `rivendell`:
+
+    ```
+    kubefed join gondor --host-cluster-context=rivendell
+    ```
+
+A new context has now been added to your kubeconfig named `fellowship` (after the name of your federation). 
+
+
+> Note: The name that you provide to the `join` command is used as the joining cluster's identity in federation. If this name adheres to the rules described in the [identifiers doc](/docs/concepts/overview/working-with-objects/names/). If the context
+corresponding to your joining cluster conforms to these rules then you can use the same name in the join command. Otherwise, you will have to choose a different name for your cluster's identity.
+
 
 ### Naming rules and customization
 
 The cluster name you supply to `kubefed join` must be a valid
 [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt) label and are
-enumerated in the [Identifiers doc](/docs/user-guide/identifiers/#names).
+enumerated in the [Identifiers doc](/docs/concepts/overview/working-with-objects/names/).
 
 Furthermore, federation control plane requires credentials of the
 joined clusters to operate on them. These credentials are obtained
@@ -487,5 +484,8 @@ federation control plane's etcd. You can delete the federation
 namespace by running the following command:
 
 ```
-$ kubectl delete ns federation-system
+kubectl delete ns federation-system --context=rivendell
 ```
+
+Note that `rivendell` is the host cluster name, replace that with the appropriate name in your configuration.
+

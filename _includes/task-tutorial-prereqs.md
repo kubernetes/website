@@ -6,3 +6,9 @@ or you can use one of these Kubernetes playgrounds:
 
 * [Katacoda](https://www.katacoda.com/courses/kubernetes/playground)
 * [Play with Kubernetes](http://labs.play-with-k8s.com/)
+
+{% if page.min-kubernetes-server-version == page.version %}
+Your Kubernetes server must be version {{page.min-kubernetes-server-version}}.
+{% elsif page.min-kubernetes-server-version %}
+Your Kubernetes server must be version {{page.min-kubernetes-server-version}} or later.
+{% endif %} To check the version, enter `kubectl version`.

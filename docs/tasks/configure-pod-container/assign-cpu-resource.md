@@ -23,6 +23,12 @@ A few of the steps on this page require that the
 in your cluster. But if you don't have Heapster running, you can do most
 of the steps, and it won't be a problem if you skip the Heapster steps.
 
+If you are running minikube, run the following command to enable heapster:
+
+```shell
+minikube addons enable heapster
+```
+
 To see whether the Heapster service is running, enter this command:
 
 ```shell
@@ -219,7 +225,7 @@ could use all of the CPU resources available on the Node where it is running.
 
 * The Container is running in a namespace that has a default CPU limit, and the
 Container is automatically assigned the default limit. Cluster administrators can use a
-[LimitRange](https://kubernetes.io/docs/api-reference/v1.7/#limitrange-v1-core/)
+[LimitRange](https://kubernetes.io/docs/api-reference/{{page.version}}/#limitrange-v1-core/)
 to specify a default value for the CPU limit.
 
 ## Motivation for CPU requests and limits

@@ -37,8 +37,9 @@ administrator to control the following:
 | Configuring allowable supplemental groups                              | [`supplementalGroups`](#supplementalgroups) |
 | Allocating an FSGroup that owns the pod's volumes                      | [`fsGroup`](#fsgroup)                       |
 | Requiring the use of a read only root file system                      | `readOnlyRootFilesystem`                    |
-| Running of a container that allow privilege escalation from its parent | [`allowPrivilegeEscalation`](#allowPrivilegeEscalation) |
-| Control whether a process can gain more privileges than its parent process | [`defaultAllowPrivilegeEscalation`](#defaultAllowPrivilegeEscalation) |
+| Running of a container that allow privilege escalation from its parent | [`allowPrivilegeEscalation`](#allowprivilegeescalation) |
+| Control whether a process can gain more privileges than its parent process | [`defaultAllowPrivilegeEscalation`](#defaultallowprivilegeescalation) |
+| Whitelist of allowed host paths                                        | [`allowedHostPaths`](#allowedhostpaths)     |
 
 _Pod Security Policies_ are comprised of settings and strategies that
 control the security features a pod has access to. These settings fall
@@ -141,10 +142,31 @@ allows privilege escalation so as to not break setuid binaries. Setting it to `f
 ensures that no child process of a container can gain more privileges than
 its parent.
 
+### AllowedHostPaths
+
+This specifies a whitelist of host paths that are allowed to be used by Pods.
+An empty list means there is no restriction on host paths used.
+Each item in the list must specify a string value named `pathPrefix` that
+defines a host path to match. The value cannot be "`*`" though.
+An example is shown below:
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: custom-paths
+spec:
+  allowedHostPaths:
+    # This allows "/foo", "/foo/", "/foo/bar" etc., but
+    # disallows "/fool", "/etc/foo" etc.
+    - pathPrefix: "/foo"
+```
+
 ## Admission
 
-_Admission control_ with `PodSecurityPolicy` allows for control over the
-creation and modification of resources based on the capabilities allowed in the cluster.
+[_Admission control_ with `PodSecurityPolicy`](/docs/admin/admission-controllers/#podsecuritypolicy)
+allows for control over the creation and modification of resources based on the
+capabilities allowed in the cluster.
 
 Admission uses the following approach to create the final security context for
 the pod:
@@ -210,7 +232,7 @@ In order to use Pod Security Policies in your cluster you must ensure the
 following
 
 1.  You have enabled the API type `extensions/v1beta1/podsecuritypolicy` (only for versions prior 1.6)
-1.  You have enabled the admission controller `PodSecurityPolicy`
+1.  [You have enabled the admission control plug-in `PodSecurityPolicy`](/docs/admin/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in)
 1.  You have defined your policies
 
 ## Working With RBAC

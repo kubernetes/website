@@ -5,7 +5,7 @@ title: Creating a Documentation Pull Request
 {% capture overview %}
 
 To contribute to the Kubernetes documentation, create a pull request against the
-[kubernetes/kubernetes.github.io](https://github.com/kubernetes/kubernetes.github.io){: target="_blank"}
+[kubernetes/website](https://github.com/kubernetes/website){: target="_blank"}
 repository. This page shows how to create a pull request.
 
 {% endcapture %}
@@ -17,7 +17,7 @@ repository. This page shows how to create a pull request.
 1. Sign the
 [Linux Foundation Contributor License Agreement](https://identity.linuxfoundation.org/projects/cncf){: target="_blank"}.
 
-Documentation will be published under the [CC BY SA 4.0](https://git.k8s.io/kubernetes.github.io/LICENSE) license.
+Documentation will be published under the [CC BY SA 4.0](https://git.k8s.io/website/LICENSE) license.
 
 {% endcapture %}
 
@@ -26,7 +26,7 @@ Documentation will be published under the [CC BY SA 4.0](https://git.k8s.io/kube
 ## Creating a fork of the Kubernetes documentation repository
 
 1. Go to the
-[kubernetes/kubernetes.github.io](https://github.com/kubernetes/kubernetes.github.io){: target="_blank"}
+[kubernetes/website](https://github.com/kubernetes/website){: target="_blank"}
 repository.
 
 1. In the upper-right corner, click **Fork**. This creates a copy of the
@@ -51,7 +51,7 @@ create a pull request against the master branch of the Kubernetes
 documentation repository.
 
 1. In your GitHub account, in your new branch, create a pull request
-against the master branch of the kubernetes/kubernetes.github.io
+against the master branch of the kubernetes/website
 repository. This opens a page that shows the status of your pull request.
 
 1. Click **Show all checks**. Wait for the **deploy/netlify** check to complete.
@@ -70,7 +70,7 @@ of the Kubernetes documentation repository. The &lt;vnext&gt; branch has the
 form `release-<version-number>`, for example release-1.5.
 
 1. In your GitHub account, in your new branch, create a pull request
-against the &lt;vnext&gt; branch of the kubernetes/kubernetes.github.io
+against the &lt;vnext&gt; branch of the kubernetes/website
 repository. This opens a page that shows the status of your pull request.
 
 1. Click **Show all checks**. Wait for the **deploy/netlify** check to complete.
@@ -87,12 +87,15 @@ The staging site reflects the current state of what's been merged in the
 release branch, or in other words, what the docs will look like for the
 next upcoming release. It's automatically updated as new PRs get merged.
 
+## Pull request review process for both Current and Upcoming Releases
+Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback.  As the owner of the pull request, **it is your responsibility to modify your pull request to address the feedback that has been provided to you by the Kubernetes reviewer.**  Also note that you may end up having more than one Kubernetes reviewer provide you feedback or you may end up getting feedback from a Kubernetes reviewer that is different than the one originally assigned to provide you feedback.  Furthermore, in some cases, one of your reviewers might ask for a technical review from a [Kubernetes tech reviewer](https://github.com/kubernetes/website/wiki/Tech-reviewers) when needed.  Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
+
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn about [writing a new topic](/docs/home/contribute/write-new-topic).
+* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes).
+* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/).
 {% endcapture %}
 
 {% include templates/task.md %}

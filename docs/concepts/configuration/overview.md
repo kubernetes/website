@@ -5,7 +5,7 @@ title: Configuration Best Practices
 ---
 
 {% capture overview %}
-This document highlights and consolidates configuration best practices that are introduced throughout the user-guide, getting-started documentation, and examples.
+This document highlights and consolidates configuration best practices that are introduced throughout the user-guide, getting-started documentation and examples.
 
 This is a living document. If you think of something that is not on this list but might be useful to others, please don't hesitate to file an issue or submit a PR.
 {% endcapture %}
@@ -23,7 +23,7 @@ This is a living document. If you think of something that is not on this list bu
 
   Note also that many `kubectl` commands can be called on a directory, so you can also call `kubectl create` on a directory of config files. See below for more details.
 
-- Don't specify default values unnecessarily, in order to simplify and minimize configs, and to reduce error. For example, omit the selector and labels in a `ReplicationController` if you want them to be the same as the labels in its `podTemplate`, since those fields are populated from the `podTemplate` labels by default. See the [guestbook app's](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) .yaml files for some [examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/frontend-deployment.yaml) of this.
+- Don't specify default values unnecessarily -- simple and minimal configs will reduce errors.
 
 - Put an object description in an annotation to allow better introspection.
 
@@ -37,15 +37,19 @@ This is a living document. If you think of something that is not on this list bu
 
 ## Services
 
-- It's typically best to create a [service](/docs/concepts/services-networking/service/) before corresponding [replication controllers](/docs/concepts/workloads/controllers/replicationcontroller/). This lets the scheduler spread the pods that comprise the service.
+- It's typically best to create a [service](/docs/concepts/services-networking/service/) before the corresponding [replication controllers](/docs/concepts/workloads/controllers/replicationcontroller/). This lets the scheduler spread the pods that comprise the service.
 
-  You can also use this process to ensure that at least one replica works before creating lots of them:
-
-    1. Create a replication controller without specifying replicas (this will set replicas=1);
-    2. Create a service;
-    3. Then scale up the replication controller.
-
-- Don't use `hostPort` unless it is absolutely necessary (for example: for a node daemon). It specifies the port number to expose on the host. When you bind a Pod to a `hostPort`, there are a limited number of places to schedule a pod due to port conflicts— you can only schedule as many such Pods as there are nodes in your Kubernetes cluster.
+- Don't use `hostPort` unless it is absolutely necessary (for example: for a node daemon).
+  It specifies the port number to expose on the host.
+  When you bind a Pod to a `hostPort`, there are a limited number of places to schedule a pod due to port conflicts.
+  The conflict comes from the requirement of an unique <hostIP,hostPort,protocol> combination.
+  Different <hostIP,hostPort,protocol> combinations mean different requirements.
+  For example, a pod that binds to host port 80 on 127.0.0.1 with TCP protocol has no conflict with another Pod that binds to host port 80 on 127.0.0.2 with TCP protocol.
+  
+  *Special notes on hostIP and protocol*: If you don't specify the hostIP and protocol explicitly,
+  kubernetes will use 0.0.0.0 and TCP as the default hostIP and protocol, 
+  where "0.0.0.0" is a wildcard IP that will match all <*,hostPort,protocol> on the node the pod is scheduled on.
+  Specifically, it will match all <IP,hostPort,protocol> tuples for all IPs on the host.
 
   If you only need access to the port for debugging purposes, you can use the [kubectl proxy and apiserver proxy](/docs/tasks/access-kubernetes-api/http-proxy-access-api/) or [kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
   You can use a [Service](/docs/concepts/services-networking/service/) object for external service access.
@@ -62,9 +66,9 @@ This is a living document. If you think of something that is not on this list bu
 
   A service can be made to span multiple deployments, such as is done across [rolling updates](/docs/tasks/run-application/rolling-update-replication-controller/), by simply omitting release-specific labels from its selector, rather than updating a service's selector to match the replication controller's selector fully.
 
-- To facilitate rolling updates, include version info in replication controller names, for example as a suffix to the name. It is useful to set a 'version' label as well. The rolling update creates a new controller as opposed to modifying the existing controller. So, there will be issues with version-agnostic controller names. See the [documentation](/docs/tasks/run-application/rolling-update-replication-controller/) on the rolling-update command for more detail.
+- To facilitate rolling updates, include version info in replication controller names, for example as a suffix to the name. It is useful to set a `version` label as well. The rolling update creates a new controller as opposed to modifying the existing controller. So, there will be issues with version-agnostic controller names. See the [documentation](/docs/tasks/run-application/rolling-update-replication-controller/) on the rolling-update command for more detail.
 
-  Note that the [Deployment](/docs/concepts/workloads/controllers/deployment/) object obviates the need to manage replication controller 'version names'. A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate. (Deployment objects are currently part of the [`extensions` API Group](/docs/concepts/overview/kubernetes-api/#api-groups).)
+  Note that the [Deployment](/docs/concepts/workloads/controllers/deployment/) object obviates the need to manage replication controller `version names`. A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate. (Deployment objects are currently part of the [`extensions` API Group](/docs/concepts/overview/kubernetes-api/#api-groups).)
 
 - You can manipulate labels for debugging. Because Kubernetes replication controllers and services match to pods using labels, this allows you to remove a pod from being considered by a controller, or served traffic by a service, by removing the relevant selector labels. If you remove the labels of an existing pod, its controller will create a new pod to take its place. This is a useful way to debug a previously "live" pod in a quarantine environment. See the [`kubectl label`](/docs/concepts/overview/working-with-objects/labels/) command.
 

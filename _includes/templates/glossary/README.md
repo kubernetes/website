@@ -2,17 +2,19 @@
 
 To write a glossary snippet, start with a copy of the template, [`/_data/glossary/_example.yml`](/_data/glossary/_example.yml). Make sure to provide (or omit) values for the following fields:
 
-* (Required) `id`.
+* (Required) `id`
   * This field must match the name of the glossary file itself (without the `*.yml` extension). It is *not* intended to be displayed to users, and is only used programmatically.
-* (Required) `name`.
+* (Required) `name`
   * The name of the term.
-* (Required) `tags`.
-  * Must be one of the tags listed in kubernetes.github.io/_data/canonical-terms-tags.yml.
-* (Required) `short description`.
+* (Required) `tags`
+  * Must be one of the tags listed in the [tags directory in the website repository](https://github.com/kubernetes/website/tree/master/_data/canonical-tags).
+* (Required) `short description`
   * Make sure to replace the instructional text in the template with your content.
-* (Optional) `formerly` and `related`.
-  * If you do not provide these values, remove the fields.
-* (Optional) `long description`.
+* (Optional) `aka`
+  * These synonyms do not need to be glossary terms themselves (if they are deprecated), and can include spaces.
+* (Optional) `related`
+  * These should be the `id`s (not the `names`) of related glossary terms.
+* (Optional) `long description`
   * If you do not provide a long description, remove the field -- that is, the complete key-value pair.
 
 The `_example.yml` template also contains basic information about how to write your snippet. For additional guidance, continue reading this readme.

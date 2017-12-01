@@ -100,8 +100,8 @@ where:
 
 * `<LEXERVALUE>` is the language in which the file was written. This must be
 [a value supported by Rouge](https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers).
-* `<RELATIVEPATH>` is the path to the file you're including, relative to the current file, for example, `gce-volume.yaml`.
-* `<PATHFROMROOT>` is the path to the file relative to root, for example, `docs/tutorials/stateful-application/gce-volume.yaml`.
+* `<RELATIVEPATH>` is the path to the file you're including, relative to the current file, for example, `local-volume.yaml`.
+* `<PATHFROMROOT>` is the path to the file relative to root, for example, `docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/local-volumes.yaml`.
 
 Here's an example of using the `include` tag:
 
@@ -118,11 +118,11 @@ In your topic, show this command:
     kubectl create -f https://k8s.io/<PATHFROMROOT>
 
 where `<PATHFROMROOT>` is the path to the configuration file relative to root,
-for example, `docs/tutorials/stateful-application/gce-volume.yaml`.
+for example, `docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/local-volumes.yaml`.
 
 Here's an example of a command that creates an API object from a configuration file:
 
-    kubectl create -f https://k8s.io/docs/tutorials/stateful-application/gce-volume.yaml
+    kubectl create -f https://k8s.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/local-volumes.yaml
 
 For an example of a topic that uses this technique, see
 [Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/).
@@ -136,7 +136,7 @@ image format is SVG.
 
 {% capture whatsnext %}
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes).
+* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/).
 * Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
 {% endcapture %}
 

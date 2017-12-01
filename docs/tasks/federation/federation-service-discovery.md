@@ -25,7 +25,7 @@ this for you). Other tutorials, for example
 by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+[working knowledge of Kubernetes](/docs/setup/) in
 general, and [Services](/docs/concepts/services-networking/service/) in particular.
 
 ## Overview
@@ -346,7 +346,7 @@ IP's in less time than that given appropriate configuration.
 #### I cannot connect to my cluster federation API
 Check that your
 
-1. Client (typically kubectl) is correctly configured (including API endpoints and login credentials), and
+1. Client (typically kubectl) is correctly configured (including API endpoints and login credentials).
 2. Cluster Federation API server is running and network-reachable.
 
 See the [federation admin guide](/docs/admin/federation/) to learn
@@ -356,7 +356,8 @@ how to bring up a cluster federation correctly (or have your cluster administrat
 Check that:
 
 1. Your clusters are correctly registered in the Cluster Federation API (`kubectl describe clusters`).
-2. Your clusters are all 'Active'.  This means that the cluster Federation system was able to connect and authenticate against the clusters' endpoints.  If not, consult the logs of the federation-controller-manager pod to ascertain what the failure might be. (`kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -o name`)
+2. Your clusters are all 'Active'.  This means that the cluster Federation system was able to connect and authenticate against the clusters' endpoints.  If not, consult the logs of the federation-controller-manager pod to ascertain what the failure might be. 
+```kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -o name)```
 3. That the login credentials provided to the Cluster Federation API for the clusters have the correct authorization and quota to create services in the relevant namespace in the clusters.  Again you should see associated error messages providing more detail in the above log file if this is not the case.
 4. Whether any other error is preventing the service creation operation from succeeding (look for `service-controller` errors in the output of `kubectl logs federation-controller-manager --namespace federation`).
 
@@ -379,4 +380,4 @@ Check that:
 
 ## For more information
 
- * [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation/federation.md) details use cases that motivated this work.
+ * [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/multicluster/federation.md) details use cases that motivated this work.

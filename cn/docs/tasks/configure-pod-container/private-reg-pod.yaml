@@ -4,8 +4,8 @@ metadata:
   name: private-reg
 spec:
   containers:
-    - name: private-reg-container
-      image: <your-private-image>
+  - name: private-reg-container
+    image: <your-private-image>
   imagePullSecrets:
-    - name: regsecret
+  - name: regsecret
 

@@ -7,7 +7,7 @@ title: Cluster Administration Overview
 
 {% capture overview %}
 The cluster administration overview is for anyone creating or administering a Kubernetes cluster.
-It assumes some familiarity with concepts in the [User Guide](/docs/user-guide/).
+It assumes some familiarity with core Kubernetes [concepts](/docs/concepts/).
 {% endcapture %}
 
 {% capture body %}
@@ -18,10 +18,10 @@ See the guides in [Picking the Right Solution](/docs/setup/pick-right-solution/)
 Before choosing a guide, here are some considerations:
 
  - Do you just want to try out Kubernetes on your computer, or do you want to build a high-availability, multi-node cluster? Choose distros best suited for your needs.
- - **If you are designing for high-availability**, learn about configuring [clusters in multiple zones](/docs/admin/multi-cluster/).
- - Will you be using **a hosted Kubernetes cluster**, such as [Google Container Engine (GKE)](https://cloud.google.com/container-engine/), or **hosting your own cluster**?
+ - **If you are designing for high-availability**, learn about configuring [clusters in multiple zones](/docs/concepts/cluster-administration/federation/).
+ - Will you be using **a hosted Kubernetes cluster**, such as [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/), or **hosting your own cluster**?
  - Will your cluster be **on-premises**, or **in the cloud (IaaS)**? Kubernetes does not directly support hybrid clusters. Instead, you can set up multiple clusters.
- - **If you are configuring Kubernetes on-premises**, consider which [networking model](/docs/admin/networking/) fits best. One option for custom networking is [*OpenVSwitch GRE/VxLAN networking*](/docs/admin/ovs-networking/), which uses OpenVSwitch to set up networking between pods across Kubernetes nodes.
+ - **If you are configuring Kubernetes on-premises**, consider which [networking model](/docs/concepts/cluster-administration/networking/) fits best. One option for custom networking is [*OpenVSwitch GRE/VxLAN networking*](/docs/admin/ovs-networking/), which uses OpenVSwitch to set up networking between pods across Kubernetes nodes.
  - Will you be running Kubernetes on **"bare metal" hardware** or on **virtual machines (VMs)**?
  - Do you **just want to run a cluster**, or do you expect to do **active development of Kubernetes project code**? If the
    latter, choose a actively-developed distro. Some distros only use binary releases, but
@@ -34,13 +34,15 @@ If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](
 
 ## Managing a cluster
 
-* [Managing a cluster](/docs/concepts/cluster-administration/cluster-management/) describes several topics related to the lifecycle of a cluster: creating a new cluster, upgrading your cluster’s master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a running cluster.
+* [Managing a cluster](/docs/tasks/administer-cluster/cluster-management/) describes several topics related to the lifecycle of a cluster: creating a new cluster, upgrading your cluster’s master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a running cluster.
 
 * Learn how to [manage nodes](/docs/concepts/nodes/node/).
 
 * Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/) for shared clusters.
 
 ## Securing a cluster
+
+* [Certificates](/docs/concepts/cluster-administration/certificates/) describes the steps to generate certificates using different tool chains.
 
 * [Kubernetes Container Environment](/docs/concepts/containers/container-environment-variables/) describes the environment for Kubelet managed containers on a Kubernetes node.
 

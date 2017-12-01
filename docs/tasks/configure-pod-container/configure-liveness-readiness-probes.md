@@ -123,7 +123,7 @@ image.
 {% include code.html language="yaml" file="http-liveness.yaml" ghlink="/docs/tasks/configure-pod-container/http-liveness.yaml" %}
 
 In the configuration file, you can see that the Pod has a single Container.
-The `livenessProbe` field specifies that the kubelet should perform a liveness
+The `periodSeconds` field specifies that the kubelet should perform a liveness
 probe every 3 seconds. The `initialDelaySeconds` field tells the kubelet that it
 should wait 3 seconds before performing the first probe. To perform a probe, the
 kubelet sends an HTTP GET request to the server that is running in the Container
@@ -252,7 +252,7 @@ you can use to more precisely control the behavior of liveness and readiness
 checks:
 
 * `initialDelaySeconds`: Number of seconds after the container has started
-before liveness probes are initiated.
+before liveness or readiness probes are initiated.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
 seconds. Minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out. Defaults
@@ -260,8 +260,9 @@ to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be
 considered successful after having failed. Defaults to 1. Must be 1 for
 liveness. Minimum value is 1.
-* `failureThreshold`: Minimum consecutive failures for the probe to be
-considered failed after having succeeded. Defaults to 3. Minimum value is 1.
+* `failureThreshold`: When a Pod starts and the probe fails, Kubernetes will
+try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the Pod. In case of readiness probe the Pod will be marked Unready.
+Defaults to 3. Minimum value is 1.
 
 [HTTP probes](/docs/api-reference/{{page.version}}/#httpgetaction-v1-core)
 have additional fields that can be set on `httpGet`:
@@ -275,7 +276,7 @@ set "Host" in httpHeaders instead.
 in the range 1 to 65535.
 
 For an HTTP probe, the kubelet sends an HTTP request to the specified path and
-port to perform the check. The kubelet sends the probe to the container’s IP address,
+port to perform the check. The kubelet sends the probe to the pod’s IP address,
 unless the address is overridden by the optional `host` field in `httpGet`. If
 `scheme` field is set to `HTTPS`, the kubelet sends an HTTPS request skipping the
 certificate verification. In most scenarios, you do not want to set the `host` field.
