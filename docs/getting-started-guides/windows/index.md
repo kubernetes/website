@@ -26,10 +26,11 @@ In Kubernetes version 1.9 or later, Windows Server Containers for Kubernetes are
 4. Docker Version 17.06.1-ee-2 or later for Windows Server nodes (Linux nodes and Kubernetes control plane can run any Kubernetes supported Docker Version).
 
 ## Networking
-There are several supported network configurations with Kubernetes v1.9 on Windows, including both Layer-3 routed and overlay topologies using third-party network plugins. 
-1. Upstream L3 Routing - IP routes configured in upstream ToR
-2. Host-Gateway - IP routes configured on each host
-3. Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay - OVS switch extension and OVN controller creates VXLAN overlay network
+There are several supported network configurations with Kubernetes v1.9 on Windows, including both Layer-3 routed and overlay topologies using third-party network plugins.
+ 
+1. [Upstream L3 Routing](#upstream-l3-routing-topology) - IP routes configured in upstream ToR
+2. [Host-Gateway](#host-gateway-topology) - IP routes configured on each host
+3. [Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay](#overlay-using-ovn-controller-and-ovs-switch-extension-topology) - OVS switch extension and OVN controller creates VXLAN overlay network
 4. [Future Release] Overlay - VXLAN or IP-in-IP encapsulation using Flannel
 5. [Future Release] Layer-3 Routing with BGP (Calico)
 
@@ -42,10 +43,10 @@ An additional two CNI plugins [win-l2bridge (host-gateway) and win-overlay (vxla
 The above networking approaches are already supported on Linux using a bridge interface, which essentially creates a private network local to the node. Similar to the Windows side, routes to all other pod CIDRs must be created in order to send packets via the "public" NIC.
 
 ### Windows
-Windows supports the CNI network model and uses plugins to interface with the Windows Host Networking Service (HNS) to configure host networking and policy. An administrator creates a local host network using HNS PowerShell commands on each node as documented in the **_Windows Host Setup_** section below.
+Windows supports the CNI network model and uses plugins to interface with the Windows Host Networking Service (HNS) to configure host networking and policy. An administrator creates a local host network using HNS PowerShell commands on each node as documented in the [Windows Host Setup](#windows) section below.
 
 #### Upstream L3 Routing Topology
-In this topology, networking is achieved using L3 routing with static IP routes configured in an upstream Top of Rack (ToR) switch/router. Each cluster node is connected to the management network with a host IP. Additionally, each node uses a local 'l2bridge' network with a Pod CIDR assigned. All pods on a given worker node will be connected to the POD CIDR subnet ('l2bridge' network). In order to enable network communication between pods running on different nodes, the upstream router has static routes configured with POD CIDR prefix => Host IP.
+In this topology, networking is achieved using L3 routing with static IP routes configured in an upstream Top of Rack (ToR) switch/router. Each cluster node is connected to the management network with a host IP. Additionally, each node uses a local 'l2bridge' network with a pod CIDR assigned. All pods on a given worker node will be connected to the pod CIDR subnet ('l2bridge' network). In order to enable network communication between pods running on different nodes, the upstream router has static routes configured with pod CIDR prefix => Host IP.
 
 Each Window Server node should have the following configuration:
 
@@ -53,86 +54,82 @@ The following diagram illustrates the Windows Server networking setup for Kubern
 ![K8s Cluster using L3 Routing with ToR](UpstreamRouting.png)
 
 #### Host-Gateway Topology
-This topology is similar to the Upstream L3 Routing topology with the only difference being that static IP routes are configured directly on each cluster node and not in the upstream ToR. Each node uses a local 'l2bridge' network with a Pod CIDR assigned as before and has routing table entries for all other Pod CIDR subnets assigned to the remote cluster nodes.
+This topology is similar to the Upstream L3 Routing topology with the only difference being that static IP routes are configured directly on each cluster node and not in the upstream ToR. Each node uses a local 'l2bridge' network with a pod CIDR assigned as before and has routing table entries for all other pod CIDR subnets assigned to the remote cluster nodes.
 
 #### Overlay using OVN controller and OVS Switch Extension Topology
 _Documentation is pending..._
 
 ## Setting up Windows Server Containers on Kubernetes
-To run Windows Server Containers on Kubernetes, you'll need to set up both your host machines and the Kubernetes node components for Windows and depending on your network topology, set up Routes for pod communication on different nodes.
+To run Windows Server Containers on Kubernetes, you'll need to set up both your host machines and the Kubernetes node components for Windows. Depending on your network topology, routes may need to be set up for pod communication on different nodes.
 
 ### Host Setup
 
 **Linux Host Setup**
 
 1. Linux hosts should be setup according to their respective distro documentation and the requirements of the Kubernetes version you will be using. 
-2. Configure Linux Master node using steps [here](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md)
+2. Configure Linux Master node using steps [here](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md#prepare-the-master)
 3. [Optional] CNI network plugin installed.
 
 **Windows Host Setup**
 
 1. Windows Server container host running the required Windows Server and Docker versions. Follow the setup instructions outlined by this help topic: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server.
-2. Build or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions found [here](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md)
+2. Build or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions found [here](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md#building-kubernetes)
 3. Copy Node spec file (config) from Linux master node with X.509 keys
-4. Create HNS Network
-5. Ensure correct CNI network config
-5. Start kubelet.exe using this script [start-kubelet.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1)
-6. Start kube-proxy using this script [start-kubeproxy.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubeproxy.ps1)
-7. [Optional] Add static routes on Windows host
+4. Create the HNS Network, ensure the correct CNI network config, and start kubelet.exe using this script [start-kubelet.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1)
+5. Start kube-proxy using this script [start-kubeproxy.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubeproxy.ps1)
+6. [Optional] Add static routes on Windows host
 
 **Windows CNI Config Example**
 Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file.
 
-Note: this file assumes that a user previous created 'l2bridge' host networks on each Windows node using <Verb>-HNSNetwork cmdlets as shown in the start-kublet.ps1 and start-kubeproxy.ps1 scripts linked above
-```
+Note: this file assumes that a user previous created 'l2bridge' host networks on each Windows node using `<Verb>-HNSNetwork` cmdlets as shown in the `start-kubelet.ps1` and `start-kubeproxy.ps1` scripts linked above
+
+```json
 {
-    "cniVersion":  "0.2.0",
-    "name":  "l2bridge",
-    "type":  "wincni.exe",
-    "master":  "Ethernet",
-    "ipam":  {
-                 "environment":  "azure",
-                 "subnet":  "10.10.187.64/26",
-                 "routes":  [
-                                {
-                                    "GW":  "10.10.187.66"
-                                }
-                            ]
-             },
-    "dns":  {
-                "Nameservers":  [
-                                    "11.0.0.10"
-                                ]
-            },
-    "AdditionalArgs":  [
-                           {
-                               "Name":  "EndpointPolicy",
-                               "Value":  {
-                                             "Type":  "OutBoundNAT",
-                                             "ExceptionList":  [
-                                                                   "11.0.0.0/8",
-                                                                   "10.10.0.0/16",
-                                                                   "10.127.132.128/25"
-                                                               ]
-                                         }
-                           },
-                           {
-                               "Name":  "EndpointPolicy",
-                               "Value":  {
-                                             "Type":  "ROUTE",
-                                             "DestinationPrefix":  "11.0.0.0/8",
-                                             "NeedEncap":  true
-                                         }
-                           },
-                           {
-                               "Name":  "EndpointPolicy",
-                               "Value":  {
-                                             "Type":  "ROUTE",
-                                             "DestinationPrefix":  "10.127.132.213/32",
-                                             "NeedEncap":  true
-                                         }
-                           }
-                       ]
+	"cniVersion": "0.2.0",
+	"name": "l2bridge",
+	"type": "wincni.exe",
+	"master": "Ethernet",
+	"ipam": {
+		"environment": "azure",
+		"subnet": "10.10.187.64/26",
+		"routes": [{
+			"GW": "10.10.187.66"
+		}]
+	},
+	"dns": {
+		"Nameservers": [
+			"11.0.0.10"
+		]
+	},
+	"AdditionalArgs": [{
+			"Name": "EndpointPolicy",
+			"Value": {
+				"Type": "OutBoundNAT",
+				"ExceptionList": [
+					"11.0.0.0/8",
+					"10.10.0.0/16",
+					"10.127.132.128/25"
+				]
+			}
+		},
+		{
+			"Name": "EndpointPolicy",
+			"Value": {
+				"Type": "ROUTE",
+				"DestinationPrefix": "11.0.0.0/8",
+				"NeedEncap": true
+			}
+		},
+		{
+			"Name": "EndpointPolicy",
+			"Value": {
+				"Type": "ROUTE",
+				"DestinationPrefix": "10.127.132.213/32",
+				"NeedEncap": true
+			}
+		}
+	]
 }
 ```
 
@@ -143,9 +140,9 @@ To start your cluster, you'll need to start both the Linux-based Kubernetes cont
 Use your preferred method to setup and start Kubernetes cluster on Linux or follow the directions given in this [link](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md). Please note that Cluster CIDR might need to be updated.
 
 ## Scheduling Pods on Windows
-Because your cluster has both Linux and Windows nodes, you must explicitly set the nodeSelector constraint to be able to schedule Pods to Windows nodes. You must set nodeSelector with the label beta.kubernetes.io/os to the value windows; see the following example:
+Because your cluster has both Linux and Windows nodes, you must explicitly set the nodeSelector constraint to be able to schedule pods to Windows nodes. You must set nodeSelector with the label beta.kubernetes.io/os to the value windows; see the following example:
 
-```
+```yaml
 {
   "apiVersion": "v1",
   "kind": "Pod",
