@@ -43,7 +43,7 @@ An additional two CNI plugins [win-l2bridge (host-gateway) and win-overlay (vxla
 The above networking approaches are already supported on Linux using a bridge interface, which essentially creates a private network local to the node. Similar to the Windows side, routes to all other pod CIDRs must be created in order to send packets via the "public" NIC.
 
 ### Windows
-Windows supports the CNI network model and uses plugins to interface with the Windows Host Networking Service (HNS) to configure host networking and policy. An administrator creates a local host network using HNS PowerShell commands on each node as documented in the [Windows Host Setup](#windows) section below.
+Windows supports the CNI network model and uses plugins to interface with the Windows Host Networking Service (HNS) to configure host networking and policy. An administrator creates a local host network using HNS PowerShell commands on each node as documented in the [Windows Host Setup](#windows-host-setup) section below.
 
 #### Upstream L3 Routing Topology
 In this topology, networking is achieved using L3 routing with static IP routes configured in an upstream Top of Rack (ToR) switch/router. Each cluster node is connected to the management network with a host IP. Additionally, each node uses a local 'l2bridge' network with a pod CIDR assigned. All pods on a given worker node will be connected to the pod CIDR subnet ('l2bridge' network). In order to enable network communication between pods running on different nodes, the upstream router has static routes configured with pod CIDR prefix => Host IP.
@@ -64,13 +64,13 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 
 ### Host Setup
 
-**Linux Host Setup**
+#### Linux Host Setup
 
 1. Linux hosts should be setup according to their respective distro documentation and the requirements of the Kubernetes version you will be using. 
 2. Configure Linux Master node using steps [here](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md#prepare-the-master)
 3. [Optional] CNI network plugin installed.
 
-**Windows Host Setup**
+#### Windows Host Setup
 
 1. Windows Server container host running the required Windows Server and Docker versions. Follow the setup instructions outlined by this help topic: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server.
 2. Build or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions found [here](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md#building-kubernetes)
