@@ -33,8 +33,10 @@ depend on specific fields of specific kinds of objects are handled by Admission
 Controllers.)
 
 When multiple authorization modules are configured, each is checked in sequence,
-and if any module authorizes the request, then the request can proceed. If all
-modules deny the request, then the request is denied (HTTP status code 403).
+and if any module authorizes the request, then the request can proceed. If any
+module denies the request, the request is denied. If all modules have no opinion
+on the request, then the request is denied. A deny returns an HTTP status code
+403.
 
 ## Review Your Request Attributes
 Kubernetes reviews only the following API request attributes:
