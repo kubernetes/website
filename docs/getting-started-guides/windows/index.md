@@ -1,42 +1,45 @@
 ---
-title: Windows Server Containers
+title: Using Windows Server Containers in Kubernetes
 ---
-**Note:** These instructions were recently updated based on Windows Server platform enhancements
+**Note:** These instructions were recently updated based on Windows Server platform enhancements and the Kubernetes v1.9 release
 
-Kubernetes version 1.5 introduced support for Windows Server Containers based on the Windows Server 2016 OS. With the release of Windows Server version 1709 and using Kubernetes v1.8 users are able to deploy a K8s cluster either on-premises or in a private/public cloud using a number of different network toplogies and CNI plugins. Platform improvements include:
-- Improved support for Pods! Shared network namespace (compartment) with multiple Windows Server containers (shared kernel)
-- Reduced network complexity by using a single network endpoint per Pod
+Kubernetes version 1.5 introduced Alpha support for Windows Server Containers based on the Windows Server 2016 operating system. With the release of Windows Server version 1709 and using Kubernetes v1.9 users are able to deploy a Kubernetes cluster either on-premises or in a private/public cloud using a number of different network topologies and CNI plugins. Some key feature improvements for Windows Server Containers on Kubernetes include:
+- Improved support for pods! Shared network namespace (compartment) with multiple Windows Server containers (shared kernel)
+- Reduced network complexity by using a single network endpoint per pod
 - Kernel-Based load-balancing using the Virtual Filtering Platform (VFP) Hyper-v Switch Extension (analogous to Linux iptables)
+- Container Runtime Interface (CRI) pod and node level statistics
+- Support for kubeadm commands to add Windows Server nodes to a Kubernetes environment
 
- The Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) continue to run on Linux, while the kubelet and kube-proxy can be run on Windows Server version 1709.
+The Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) continue to run on Linux, while the kubelet and kube-proxy can be run on Windows Server 2016 or later
 
-**Note:** Windows Server Containers on Kubernetes is an Alpha feature in Kubernetes 1.8.
+**Note:** Windows Server Containers on Kubernetes is an Beta feature in Kubernetes v1.9
 
-**Note:** There is one outstanding PR ([51063 Fixes to enable Windows CNI](https://github.com/kubernetes/kubernetes/pull/51063))which has not been merged into v1.8 and is required for Windows CNI to work with kubelet. Users will need to build a private kubelet binary to consume this change. Please refer to these [instructions](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md) for build
+## Build
+If you wish to build the code yourself, please refer to these [instructions](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md)
 
 ## Prerequisites
-In Kubernetes version 1.8, Windows Server Containers for Kubernetes is supported using the following:
+In Kubernetes version 1.9 or later, Windows Server Containers for Kubernetes are supported using the following:
 
-1. Kubernetes control plane running on existing Linux infrastructure (version 1.8 or later).
+1. Kubernetes control plane running on existing Linux infrastructure (version 1.9 or later).
 2. Kubenet network plugin setup on the Linux nodes.
-3. Windows Server version 1709 (RTM version 10.0.16299.15 or later).
+3. Windows Server 2016 RTM or later. Windows Server version 1709 or later is preferred; unlocks key capabilities like shared network namespace
 4. Docker Version 17.06.1-ee-2 or later for Windows Server nodes (Linux nodes and Kubernetes control plane can run any Kubernetes supported Docker Version).
 
 ## Networking
-There are several supported network configurations with Windows Server version 1709 and K8s v1.8 including both Layer-3 routed and overlay topologies using third-party network plugins. 
+There are several supported network configurations with Kubernetes v1.9 on Windows, including both Layer-3 routed and overlay topologies using third-party network plugins. 
 1. Upstream L3 Routing - IP routes configured in upstream ToR
 2. Host-Gateway - IP routes configured on each host
-3. OVN & OVS with Overlay - OVS switch extension and OVN controller creates VXLAN overlay network
-4. [Future] Overlay - VXLAN or IP-in-IP encapsulation using Flannel
-5. [Future] Layer-3 Routing with BGP (Calico)
-
-## CNI Plugins
-Microsoft plans to publish code for two CNI plugins - win-l2bridge (host-gateway) and win-overlay (vxlan)) - per this [issue](https://github.com/containernetworking/plugins/issues/80). These two CNI plugins can either be used directly by WinCNI.exe or with Flannel [PR 832](https://github.com/coreos/flannel/pull/832). We have an [outstanding informational PR](https://github.com/containernetworking/plugins/pull/85) needed to complete this work. Windows Server platform work is complete.
+3. Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay - OVS switch extension and OVN controller creates VXLAN overlay network
+4. [Future Release] Overlay - VXLAN or IP-in-IP encapsulation using Flannel
+5. [Future Release] Layer-3 Routing with BGP (Calico)
 
 The selection of which network configuration and topology to deploy depends on the physical network topolgy and a user's ability to configure routes, performance concerns with encapsulation, and requirement to integrate with third-party network plugins.
 
+## Future CNI Plugins
+An additional two CNI plugins [win-l2bridge (host-gateway) and win-overlay (vxlan)] will be published in a future release. These two CNI plugins can either be used directly by WinCNI.exe or with Flannel
+
 ### Linux
-The above networking approach is already supported on Linux using a bridge interface, which essentially creates a private network local to the node. Similar to the Windows side, routes to all other pod CIDRs must be created in order to send packets via the "public" NIC.
+The above networking approaches are already supported on Linux using a bridge interface, which essentially creates a private network local to the node. Similar to the Windows side, routes to all other pod CIDRs must be created in order to send packets via the "public" NIC.
 
 ### Windows
 Windows supports the CNI network model and uses plugins to interface with the Windows Host Networking Service (HNS) to configure host networking and policy. An administrator creates a local host network using HNS PowerShell commands on each node as documented in the **_Windows Host Setup_** section below.
@@ -52,12 +55,11 @@ The following diagram illustrates the Windows Server networking setup for Kubern
 #### Host-Gateway Topology
 This topology is similar to the Upstream L3 Routing topology with the only difference being that static IP routes are configured directly on each cluster node and not in the upstream ToR. Each node uses a local 'l2bridge' network with a Pod CIDR assigned as before and has routing table entries for all other Pod CIDR subnets assigned to the remote cluster nodes.
 
-#### Overlay using OVN controller and OVS Switch Extension
-
-TODO
+#### Overlay using OVN controller and OVS Switch Extension Topology
+_Documentation is pending..._
 
 ## Setting up Windows Server Containers on Kubernetes
-To run Windows Server Containers on Kubernetes, you'll need to set up both your host machines and the Kubernetes node components for Windows and depending on your network topology, setup Routes for Pod communication on different nodes.
+To run Windows Server Containers on Kubernetes, you'll need to set up both your host machines and the Kubernetes node components for Windows and depending on your network topology, set up Routes for pod communication on different nodes.
 
 ### Host Setup
 
@@ -69,13 +71,13 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 
 **Windows Host Setup**
 
-1. Windows Server container host running Windows Server version 1709 and Docker v17.06 or later. Follow the setup instructions outlined by this help topic: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server.
+1. Windows Server container host running the required Windows Server and Docker versions. Follow the setup instructions outlined by this help topic: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server.
 2. Build or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions found [here](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md)
 3. Copy Node spec file (config) from Linux master node with X.509 keys
 4. Create HNS Network
 5. Ensure correct CNI network config
 5. Start kubelet.exe using this script [start-kubelet.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1)
-6. Start kube-proxy using this script[start-kubeproxy.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubeproxy.ps1)
+6. Start kube-proxy using this script [start-kubeproxy.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubeproxy.ps1)
 7. [Optional] Add static routes on Windows host
 
 **Windows CNI Config Example**
@@ -172,11 +174,10 @@ Because your cluster has both Linux and Windows nodes, you must explicitly set t
 }
 ```
 
-## Supported Features and Limitations
+## Supported Features
 
 ### Secrets and ConfigMaps
-Secrets and ConfigMaps can be utilized in Windows Server Containers, but must be used as environment variables.  
-Using Secrets and ConfigMaps as volume mounts is not supported in Windows Server Containers at this time.
+Secrets and ConfigMaps can be utilized in Windows Server Containers, but must be used as environment variables. See limitations section below for additional details.
 
 **Examples:**
 
@@ -253,7 +254,7 @@ spec:
 ```
  
 ### Volumes
-Some supported Volume Mounts are local, emptyDir, hostPath.  One thing to remember is paths must either be escaped, or use forward slashes, for example `mountPath: "C:\\etc\\foo"` or `mountPath: "C:/etc/foo"`.
+Some supported Volume Mounts are local, emptyDir, hostPath.  One thing to remember is that paths must either be escaped, or use forward slashes, for example `mountPath: "C:\\etc\\foo"` or `mountPath: "C:/etc/foo"`.
 
 Persistent Volume Claims are supported for supported volume types.
 
@@ -310,3 +311,10 @@ Persistent Volume Claims are supported for supported volume types.
 
 Windows Stats use a hybrid model: pod and container level stats come from CRI (via dockershim), while node level stats come from the "winstats" package that exports cadvisor like datastructures using windows specific perf counters from the node.
 
+## Known Limitations for Windows Server Containers with v1.9
+Some of these limitations will be addressed by the community in future releases of Kubernetes
+- Shared network namespace (compartment) with multiple Windows Server containers (shared kernel) per pod is only supported on Windows Server 1709 or later
+- Using Secrets and ConfigMaps as volume mounts is not supported 
+- The StatefulSet functionality for stateful applications is not supported
+- Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
+- Hyper-V Containers are not supported
