@@ -15,16 +15,16 @@ As of Kubernetes 1.9, persistent volume claims (PVCs) that are actively used by 
 {% capture prerequisites %}
 
 - A v1.9 or higher Kubernetes must be installed.
+- As PVC Protection is a Kubernetes v1.9 alpha feature it must be turned on:
+1. [Admission controller](/docs/admin/admission-controllers/) must be started with the [PVC Protection plugin](/docs/admin/admission-controllers/#persistent-volume-claim-protection-alpha).
+2. All Kubernetes components must be started with the `PVCProtection` alpha features switched on.
+
 
 {% endcapture %}
 
 {% capture steps %}
 
-## PVC Protection Configuration
 
-As PVC Protection is an alpha feature it must be turned on:
-1. [Admission controller](/docs/admin/admission-controllers/) must be started with the [PVC Protection plugin](/docs/admin/admission-controllers/#persistent-volume-claim-protection-alpha).
-2. All Kubernetes components must be started with the `PVCProtection` alpha features switched on.
 
 {% endcapture %}
 
