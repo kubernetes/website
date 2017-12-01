@@ -15,7 +15,7 @@ The Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) co
 **Note:** Windows Server Containers on Kubernetes is an Beta feature in Kubernetes v1.9
 
 ## Build
-If you wish to build the code yourself, please refer to these [instructions](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md)
+If you wish to build the code yourself, please refer to these [instructions](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md), otherwise the release binaries can be found at [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases). 
 
 ## Prerequisites
 In Kubernetes version 1.9 or later, Windows Server Containers for Kubernetes are supported using the following:
@@ -33,7 +33,7 @@ There are several supported network configurations with Kubernetes v1.9 on Windo
 4. [Future Release] Overlay - VXLAN or IP-in-IP encapsulation using Flannel
 5. [Future Release] Layer-3 Routing with BGP (Calico)
 
-The selection of which network configuration and topology to deploy depends on the physical network topolgy and a user's ability to configure routes, performance concerns with encapsulation, and requirement to integrate with third-party network plugins.
+The selection of which network configuration and topology to deploy depends on the physical network topology and a user's ability to configure routes, performance concerns with encapsulation, and requirement to integrate with third-party network plugins.
 
 ## Future CNI Plugins
 An additional two CNI plugins [win-l2bridge (host-gateway) and win-overlay (vxlan)] will be published in a future release. These two CNI plugins can either be used directly by WinCNI.exe or with Flannel
@@ -173,6 +173,17 @@ Because your cluster has both Linux and Windows nodes, you must explicitly set t
   }
 }
 ```
+## Support for kubeadm join
+
+If your cluster has been created by [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/), 
+and your networking is setup correctly using one of the methods listed above (networking is setup outside of kubeadm), you can use kubeadm to add a Windows node to your cluster.
+
+The kubeadm binary can be found at [Kubernetes Releases](https://github.com/kubernetes/kubernetes/releases), inside the node binaries archive.  Adding a Windows node
+is not any different than adding a Linux node:
+
+`kubeadm.exe join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
+
+See [joining-your-nodes](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#44-joining-your-nodes) for more details.
 
 ## Supported Features
 
