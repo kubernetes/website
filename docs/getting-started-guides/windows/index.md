@@ -15,14 +15,38 @@ The Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) co
 **Note:** Windows Server Containers on Kubernetes is a Beta feature in Kubernetes v1.9
 
 ## Build
-If you wish to build the code yourself, please refer to these [instructions](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md), otherwise the release binaries can be found at [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases). 
+We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases).
+
+If you wish to build the code yourself, please follow the next instructions:
+
+1. Install the pre-requisites on a Linux host:
+```
+sudo apt-get install curl git build-essential docker.io conntrack
+```
+2. Run the following commands to build kubelet and kube-proxy:
+```
+K8SREPO="github.com/kubernetes/kubernetes"
+go get -d $K8SREPO
+# Note: the above command may spit out a message about 
+#       "no Go files in...", but it can be safely ignored!
+
+cd $GOPATH/src/k8s.io/kubernetes
+# Build the kubelet
+KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kubelet
+
+# Build the kube-proxy
+KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kube-proxy
+
+# You will find the output binaries under the folder _output/local/bin/windows/
+```
+
 
 ## Prerequisites
 In Kubernetes version 1.9 or later, Windows Server Containers for Kubernetes are supported using the following:
 
 1. Kubernetes control plane running on existing Linux infrastructure (version 1.9 or later).
 2. Kubenet network plugin setup on the Linux nodes.
-3. Windows Server 2016 RTM or later. Windows Server version 1709 or later is preferred; unlocks key capabilities like shared network namespace
+3. Windows Server 2016 RTM or later. Windows Server version 1709 or later is preferred; unlocks key capabilities like shared network namespace.
 4. Docker Version 17.06.1-ee-2 or later for Windows Server nodes (Linux nodes and Kubernetes control plane can run any Kubernetes supported Docker Version).
 
 ## Networking
@@ -30,7 +54,7 @@ There are several supported network configurations with Kubernetes v1.9 on Windo
  
 1. [Upstream L3 Routing](#upstream-l3-routing-topology) - IP routes configured in upstream ToR
 2. [Host-Gateway](#host-gateway-topology) - IP routes configured on each host
-3. [Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay](#overlay-using-ovn-controller-and-ovs-switch-extension-topology) - OVS switch extension and OVN controller creates VXLAN overlay network
+3. [Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay](#overlay-using-ovn-controller-and-ovs-switch-extension-topology) - overlay networks (supports STT and Geneve tunneling types)
 4. [Future Release] Overlay - VXLAN or IP-in-IP encapsulation using Flannel
 5. [Future Release] Layer-3 Routing with BGP (Calico)
 
@@ -56,21 +80,30 @@ The following diagram illustrates the Windows Server networking setup for Kubern
 #### Host-Gateway Topology
 This topology is similar to the Upstream L3 Routing topology with the only difference being that static IP routes are configured directly on each cluster node and not in the upstream ToR. Each node uses a local 'l2bridge' network with a pod CIDR assigned as before and has routing table entries for all other pod CIDR subnets assigned to the remote cluster nodes.
 
-#### Overlay using OVN controller and OVS Switch Extension Topology
-_Documentation is pending..._
+#### Using OVN with OVS
+The following diagram gives a general overview of the architecture and interaction between components:
+
+![Overlay using OVN controller and OVS Switch Extension](ovn_kubernetes.png)
+
+(The above image is from https://github.com/openvswitch/ovn-kubernetes#overlay-mode-architecture-diagram)
+
+Due to its architecture, OVN has a central component which stores your networking intent in a database. Other components i.e. kube-apiserver, kube-controller-manager, kube-scheduler etc. can be deployed on that central node as well. 
 
 ## Setting up Windows Server Containers on Kubernetes
 To run Windows Server Containers on Kubernetes, you'll need to set up both your host machines and the Kubernetes node components for Windows. Depending on your network topology, routes may need to be set up for pod communication on different nodes.
 
 ### Host Setup
 
-#### Linux Host Setup
+#### For 1. Upstream L3 Routing Topology and 2. Host-Gateway Topology
+
+##### Linux Host Setup
 
 1. Linux hosts should be setup according to their respective distro documentation and the requirements of the Kubernetes version you will be using. 
 2. Configure Linux Master node using steps [here](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md#prepare-the-master)
 3. [Optional] CNI network plugin installed.
 
-#### Windows Host Setup
+##### Windows Host Setup
+
 
 1. Windows Server container host running the required Windows Server and Docker versions. Follow the setup instructions outlined by this help topic: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server.
 2. Build or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions found [here](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md#building-kubernetes)
@@ -133,11 +166,86 @@ Note: this file assumes that a user previous created 'l2bridge' host networks on
 }
 ```
 
+#### For 3. Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay
+
+##### Linux Host Setup
+
+Setting up the central node and the components needed is out of scope of this document. You can read [these instructions](https://github.com/openvswitch/ovn-kubernetes#k8s-master-node-initialization) for that.
+
+Adding a Linux minion is also out of scope and you can read it here: [Linux minion](https://github.com/openvswitch/ovn-kubernetes#k8s-minion-node-initializations).
+
+
+##### Windows Host Setup
+
+Adding a Windows minion requires you to install OVS and OVN binaries. Windows Server container host running the required Windows Server and Docker versions. Follow the setup instructions outlined by [this help topic](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server). This type of deployment is supported starting with Windows Server 2016 RTM.
+
+Compiling OVS and generating the installer will not be treated in this document. For a step by step instruction please visit [this link](http://docs.openvswitch.org/en/latest/intro/install/windows/#open-vswitch-on-windows).
+For a prebuilt certified installer please visit [this link](https://cloudbase.it/openvswitch/#download) and download the latest version of it.
+
+The following guide uses the prebuilt certified installer.
+
+Installing OVS can be done either via the GUI dialogs or unattended. Adding a Windows host to your setup requires you to have `OVN Host` together with the default installation features. Below is the dialog image on what needs to be installed:
+
+![OVN OVS Windows Installer](OVN_OVS_Windows_Installer.png)
+
+For an unattended installation please use the following command:
+```
+cmd /c 'msiexec /i openvswitch.msi ADDLOCAL="OpenvSwitchCLI,OpenvSwitchDriver,OVNHost" /qn'
+```
+
+The installer propagates new environment variables. Please open a new command shell or logoff/logon to ensure the environment variables are refreshed.
+
+For overlay, OVS on Windows requires a transparent docker network to function properly. Please use the following to create a transparent docker network which will be used by OVS. From powershell:
+```
+docker network create -d transparent --gateway $GATEWAY_IP --subnet $SUBNET `
+    -o com.docker.network.windowsshim.interface="$INTERFACE_ALIAS" external
+```
+Where $SUBNET is the minion subnet which will be used to spawn pods on (the one which will be used by kubernetes), $GATEWAY_IP is the first IP of the $SUBNET and $INTERFACE_ALIAS is the interface used for creating the overlay tunnels (must have connectivity with the rests of the OVN hosts).
+Example:
+```
+docker network create -d transparent --gateway 10.0.1.1 --subnet 10.0.1.0/24 `
+    -o com.docker.network.windowsshim.interface="Ethernet0" external
+```
+After creating the docker network please run the next commands from powershell. (creates an OVS bridge, adds the interface under the bridge and enables the OVS forwarding switch extension)
+```
+$a = Get-NetAdapter | where Name -Match HNSTransparent
+Rename-NetAdapter $a[0].Name -NewName HNSTransparent
+Stop-Service ovs-vswitchd -force; Disable-VMSwitchExtension "Cloudbase Open vSwitch Extension";
+ovs-vsctl --no-wait del-br br-ex
+ovs-vsctl --no-wait --may-exist add-br br-ex
+ovs-vsctl --no-wait add-port br-ex HNSTransparent -- set interface HNSTransparent type=internal
+ovs-vsctl --no-wait add-port br-ex $INTERFACE_ALIAS
+Enable-VMSwitchExtension "Cloudbase Open vSwitch Extension"; sleep 2; Restart-Service ovs-vswitchd
+```
+Besides of the above, setting up a Windows host is the same as the Linux host. Follow the steps from [here](https://github.com/openvswitch/ovn-kubernetes#k8s-minion-node-initializations).
+
+**Windows CNI Setup**
+
+Today, Windows OVN&OVS CNI plugin is based on ovn_cni.exe which can be downloaded from [here](https://cloudbase.it/downloads/ovn_cni.exe). A sample of CNI config file is the following:
+```
+{
+    "name": "net",
+    "type": "ovn_cni.exe",
+    "bridge": "br-int",
+    "isGateway": "true",
+    "ipMasq": "false",
+    "ipam": {
+         "type": "host-local",
+         "subnet": "$SUBNET"
+         }
+}
+```
+Where $SUBNET is the subnet that was used in the previous ```docker network create``` command.
+
+For a complete guide on Google Cloud Platform (GCP), namely Google Compute Engine (GCE) visit [this](https://github.com/apprenda/kubernetes-ovn-heterogeneous-cluster#heterogeneous-kubernetes-cluster-on-top-of-ovn).
+
+For a complete guide on Amazon Web Services (AWS) visit [this](https://github.com/justeat/kubernetes-windows-aws-ovs#kubernetes-on-windows-in-aws-using-ovn).
+
 ## Starting the Cluster
-To start your cluster, you'll need to start both the Linux-based Kubernetes control plane, and the Windows Server-based Kubernetes node components (kubelet and kube-proxy). 
+To start your cluster, you'll need to start both the Linux-based Kubernetes control plane, and the Windows Server-based Kubernetes node components (kubelet and kube-proxy). For the OVS & OVN only the kubelet is required.
 
 ## Starting the Linux-based Control Plane
-Use your preferred method to setup and start Kubernetes cluster on Linux or follow the directions given in this [link](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md). Please note that Cluster CIDR might need to be updated.
+Use your preferred method to start Kubernetes cluster on Linux. Please note that Cluster CIDR might need to be updated.
 
 ## Scheduling Pods on Windows
 Because your cluster has both Linux and Windows nodes, you must explicitly set the nodeSelector constraint to be able to schedule pods to Windows nodes. You must set nodeSelector with the label beta.kubernetes.io/os to the value windows; see the following example:
