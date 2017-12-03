@@ -7,7 +7,7 @@ title: Use Cilium for NetworkPolicy
 {% capture overview %}
 This page shows how to use Cilium for NetworkPolicy.
 
-For background on Cilium, read the [Introduction to Cilium](http://cilium.readthedocs.io/en/latest/intro/).
+For background on Cilium, read the [Introduction to Cilium](https://cilium.readthedocs.io/en/latest/intro).
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -20,20 +20,21 @@ For background on Cilium, read the [Introduction to Cilium](http://cilium.readth
 ## Deploying Cilium on Minikube for Basic Testing
 
 To get familiar with Cilium easily you can follow the
-[Cilium Kubernetes Getting Started Guide](http://www.cilium.io/try)
+[Cilium Kubernetes Getting Started Guide](https://www.cilium.io/try)
 to perform a basic DaemonSet installation of Cilium in minikube.
 
 Installation in a minikube setup uses a simple ''all-in-one'' YAML
-file that includes DaemonSet configurations for Cilium and a key-value store
-(consul) as well as appropriate RBAC settings:
+file that includes DaemonSet configurations for Cilium, to connect
+to a the minikube's etcd instance as well as appropriate RBAC settings:
 
 ```shell
-$ kubectl create -f https://raw.githubusercontent.com/cilium/cilium/master/examples/minikube/cilium-ds.yaml
-clusterrole "cilium" created
+$ kubectl create -f https://raw.githubusercontent.com/cilium/cilium/master/examples/kubernetes/cilium.yaml
+configmap "cilium-config" created
+secret "cilium-etcd-secrets" created
 serviceaccount "cilium" created
 clusterrolebinding "cilium" created
-daemonset "cilium-consul" created
 daemonset "cilium" created
+clusterrole "cilium" created
 ```
 
 The remainder of the Getting Started Guide explains how to enforce both L3/L4 (i.e., IP address + port) security
@@ -42,7 +43,7 @@ policies, as well as L7 (e.g., HTTP) security policies using an example applicat
 ## Deploying Cilium for Production Use
 
 For detailed instructions around deploying Cilium for production, see:
-[Cilium Administrator Guide](http://cilium.readthedocs.io/en/latest/admin/) This
+[Cilium Administrator Guide](https://cilium.readthedocs.io/en/latest/install/#kubernetes-installation-guide) This
 documentation includes detailed requirements, instructions and example production DaemonSet files.
 
 {% endcapture %}
@@ -67,7 +68,7 @@ cilium          1         1         1         <none>          2m
 There are two main components to be aware of:
 
 - One `cilium` Pod runs on each node in your cluster and enforces network policy on the traffic to/from Pods on that node using Linux BPF.
-- For production deployments, Cilium should leverage the key-value store cluster (e.g., etcd) used by Kubernetes, which typically runs on the Kubernetes master nodes.   The [Cilium Administrator Guide](http://cilium.readthedocs.io/en/latest/admin/) includes an example DaemonSet which can be customized to point to this key-value store cluster.   The simple ''all-in-one'' DaemonSet for minikube requires no such configuration because it automatically deploys a `cilium-consul` Pod to provide a key-value store.
+- For production deployments, Cilium should leverage the key-value store cluster (e.g., etcd) used by Kubernetes, which typically runs on the Kubernetes master nodes.   The [Cilium Administrator Guide](https://cilium.readthedocs.io/en/latest/install/#kubernetes-installation-guide) includes an example DaemonSet which can be customized to point to this key-value store cluster.   The simple ''all-in-one'' DaemonSet for minikube requires no such configuration because it automatically connects to the minikube's etcd instance.
 
 {% endcapture %}
 
