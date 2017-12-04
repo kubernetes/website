@@ -156,7 +156,7 @@ Under no circumstances a new `PersistentVolume` gets created to satisfy the clai
 * AWSElasticBlockStore
 * AzureFile
 * AzureDisk
-* FC (Fibre Channel)
+* FC (Fibre Channel)**
 * FlexVolume
 * Flocker
 * NFS
@@ -173,6 +173,8 @@ Under no circumstances a new `PersistentVolume` gets created to satisfy the clai
 * ScaleIO Volumes
 * StorageOS
 
+** Raw Block Support exists for these plugins only.
+
 ## Persistent Volumes
 
 Each PV contains a spec and status, which is the specification and status of the volume.
@@ -185,6 +187,7 @@ Each PV contains a spec and status, which is the specification and status of the
   spec:
     capacity:
       storage: 5Gi
+    volumeMode: Filesystem
     accessModes:
       - ReadWriteOnce
     persistentVolumeReclaimPolicy: Recycle
@@ -202,6 +205,10 @@ Each PV contains a spec and status, which is the specification and status of the
 Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) to understand the units expected by `capacity`.
 
 Currently, storage size is the only resource that can be set or requested.  Future attributes may include IOPS, throughput, etc.
+
+### Volume Mode
+
+Prior to v1.9, the default behavior for all volume plugins was to create a filesystem on the persistent volume. With v1.9, the user can specify a volumeMode which will now support raw block devices in addition to fileystems. This feature is alpha in v1.9 and may change in the future. Valid values for volumeMode are "Filesystem" or "Block". If left unspecified it will default to "Filesystem" internally. This is an optional API parameter.
 
 ### Access Modes
 
@@ -320,6 +327,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  volumeMode: Filesystem
   resources:
     requests:
       storage: 8Gi
@@ -334,6 +342,10 @@ spec:
 ### Access Modes
 
 Claims use the same conventions as volumes when requesting storage with specific access modes.
+
+### Volume Modes
+
+Claims use the same convention as volumes to indicates the consumption of the volume as either a filesystem or block device.
 
 ### Resources
 
@@ -416,6 +428,86 @@ spec:
 ### A Note on Namespaces
 
 `PersistentVolumes` binds are exclusive, and since `PersistentVolumeClaims` are namespaced objects, mounting claims with "Many" modes (`ROX`, `RWX`) is only possible within one namespace.
+
+## Raw Block Volume Support
+
+Static provisioning support for Raw Block Volumes is included as an alpha feature for v1.9. With this change are some new API labels that need to be used to facilitate this functionality. Currently, Fibre Channel is the only supported plugin for this feature.
+
+### Persistent Volumes using a Raw Block Volume
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: block-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Block
+  persistentVolumeReclaimPolicy: Retain
+  fc:
+    targetWWNs: ["50060e801049cfd1"]
+    lun: 0
+    readOnly: false
+```
+### Persistent Volume Claim requesting a Raw Block Volume
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: block-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Block
+  resources:
+    requests:
+      storage: 10Gi
+```
+### Pod specification adding Raw Block Device path in container
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-block-volume
+spec:
+  containers:
+    - name: fc-container
+      image: fedora:26
+      command: ["/bin/sh", "-c"]
+      args: [ "tail -f /dev/null" ]
+      volumeDevices:
+        - name: data
+          devicePath: /dev/xvda
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: block-pvc
+```
+#### Volume Devices
+
+Since we aren't mounting a filesystem, when using a raw block device for a pod we specify the device path in the container rather than a mount path.
+
+### Binding Block Volumes
+
+If a user requests a raw block volume by indicating this using the volumeMode label in the PersistentVolumeClaim spec, the binding rules differ slighty from previous releases that didn't consider this mode as part of the spec.
+Listed is a table of possible combinations the user and admin might specify for requesting a raw block device. The table indicates if the volume will be bound or not given the combinations:
+Volume binding matrix for statically provisioned volumes:
+
+| PV volumeMode | PVC volumeMode  | Result           |
+| --------------|:---------------:| ----------------:|
+|   unspecified | unspecified     | BIND             |
+|   unspecified | Block           | NO BIND          |
+|   unspecified | Filesystem      | BIND             |
+|   Block       | unspecified     | NO BIND          |
+|   Block       | Block           | BIND             |
+|   Block       | Filesystem      | NO BIND          |
+|   Filesystem  | Filesystem      | BIND             |
+|   Filesystem  | Block           | NO BIND          |
+|   Filesystem  | unspecified     | BIND             |
+
+Please note for alpha release only statically provisioned volumes are supported thus care should be taken by the administrator to consider these value when working with raw block devices.
 
 ## Writing Portable Configuration
 
