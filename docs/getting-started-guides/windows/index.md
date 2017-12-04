@@ -43,7 +43,7 @@ KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kube-proxy
 # You will find the output binaries under the folder _output/local/bin/windows/
 ```
 
-More detailed build instructions will be maintained and kept up to date [here](https://github.com/microsoft/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md)
+More detailed build instructions will be maintained and kept up to date [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md)
 
 ## Prerequisites
 In Kubernetes version 1.9 or later, Windows Server Containers for Kubernetes are supported using the following:
@@ -58,7 +58,7 @@ There are several supported network configurations with Kubernetes v1.9 on Windo
  
 1. [Upstream L3 Routing](#upstream-l3-routing-topology) - IP routes configured in upstream ToR
 2. [Host-Gateway](#host-gateway-topology) - IP routes configured on each host
-3. [Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay](#Using-OVN-with-OVS) - overlay networks (supports STT and Geneve tunneling types)
+3. [Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay](#using-ovn-with-ovs) - overlay networks (supports STT and Geneve tunneling types)
 4. [Future - In Review] Overlay - VXLAN or IP-in-IP encapsulation using Flannel
 5. [Future] Layer-3 Routing with BGP (Calico)
 
@@ -103,20 +103,20 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 ##### Linux Host Setup
 
 1. Linux hosts should be setup according to their respective distro documentation and the requirements of the Kubernetes version you will be using. 
-2. Configure Linux Master node using steps [here](https://github.com/Microsoft/virtualization/windowscontainers/kubernetes/creating-a-linux-master.md)
+2. Configure Linux Master node using steps [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/creating-a-linux-master.md)
 3. [Optional] CNI network plugin installed.
 
 ##### Windows Host Setup
 
 
 1. Windows Server container host running the required Windows Server and Docker versions. Follow the setup instructions outlined by this help topic: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server.
-2. Build or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions found [here](https://github.com/Microsoft/virtualization/windowscontainers/kubernetes/HOWTO-on-prem.md#building-kubernetes)
+2. Build or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions found [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md)
 3. Copy Node spec file (kube config) from Linux master node with X.509 keys
 4. Create the HNS Network, ensure the correct CNI network config, and start kubelet.exe using this script [start-kubelet.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1)
 5. Start kube-proxy using this script [start-kubeproxy.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubeproxy.ps1)
 6. [Only required for #2 Host-Gateway mode] Add static routes on Windows host using this script [AddRoutes.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/AddRoutes.ps1)
 
-More detailed instructions can be found [here](https://github.com/Microsoft/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows.md)
+More detailed instructions can be found [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows.md)
 
 **Windows CNI Config Example**
 Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file.
