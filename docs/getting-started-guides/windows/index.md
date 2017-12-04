@@ -40,6 +40,7 @@ KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kube-proxy
 # You will find the output binaries under the folder _output/local/bin/windows/
 ```
 
+More detailed build instructions will be maintained and kept up to date [here](https://github.com/microsoft/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md)
 
 ## Prerequisites
 In Kubernetes version 1.9 or later, Windows Server Containers for Kubernetes are supported using the following:
@@ -55,19 +56,19 @@ There are several supported network configurations with Kubernetes v1.9 on Windo
 1. [Upstream L3 Routing](#upstream-l3-routing-topology) - IP routes configured in upstream ToR
 2. [Host-Gateway](#host-gateway-topology) - IP routes configured on each host
 3. [Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay](#overlay-using-ovn-controller-and-ovs-switch-extension-topology) - overlay networks (supports STT and Geneve tunneling types)
-4. [Future Release] Overlay - VXLAN or IP-in-IP encapsulation using Flannel
-5. [Future Release] Layer-3 Routing with BGP (Calico)
+4. [Future - In Review] Overlay - VXLAN or IP-in-IP encapsulation using Flannel
+5. [Future] Layer-3 Routing with BGP (Calico)
 
 The selection of which network configuration and topology to deploy depends on the physical network topology and a user's ability to configure routes, performance concerns with encapsulation, and requirement to integrate with third-party network plugins.
 
 ### Future CNI Plugins
-An additional two CNI plugins [win-l2bridge (host-gateway) and win-overlay (vxlan)] will be published in a future release. These two CNI plugins can either be used directly by WinCNI.exe or with Flannel
+An additional two CNI plugins [win-l2bridge (host-gateway) and win-overlay (vxlan)] are in [PR review](https://github.com/containernetworking/plugins/pull/85). These two CNI plugins, when ready, can either be used directly or with Flannel.
 
 ### Linux
 The above networking approaches are already supported on Linux using a bridge interface, which essentially creates a private network local to the node. Similar to the Windows side, routes to all other pod CIDRs must be created in order to send packets via the "public" NIC.
 
 ### Windows
-Windows supports the CNI network model and uses plugins to interface with the Windows Host Networking Service (HNS) to configure host networking and policy. An administrator creates a local host network using HNS PowerShell commands on each node as documented in the [Windows Host Setup](#windows-host-setup) section below.
+Windows supports the CNI network model and uses plugins to interface with the Windows Host Networking Service (HNS) to configure host networking and policy. At the time of this writing, the only publicly available CNI plugin is built from a private repo and available here [wincni.exe](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/cni/wincni.exe) which uses an l2bridge network created through the Windows Host Networking Service (HNS). An administrator creates a local host network using HNS PowerShell commands on each node as documented in the [Windows Host Setup](#windows-host-setup) section below. Source code for the future CNI plugins will be made available publicly. 
 
 #### Upstream L3 Routing Topology
 In this topology, networking is achieved using L3 routing with static IP routes configured in an upstream Top of Rack (ToR) switch/router. Each cluster node is connected to the management network with a host IP. Additionally, each node uses a local 'l2bridge' network with a pod CIDR assigned. All pods on a given worker node will be connected to the pod CIDR subnet ('l2bridge' network). In order to enable network communication between pods running on different nodes, the upstream router has static routes configured with pod CIDR prefix => Host IP.
@@ -85,7 +86,7 @@ The following diagram gives a general overview of the architecture and interacti
 
 ![Overlay using OVN controller and OVS Switch Extension](ovn_kubernetes.png)
 
-(The above image is from https://github.com/openvswitch/ovn-kubernetes#overlay-mode-architecture-diagram)
+(The above image is from [https://github.com/openvswitch/ovn-kubernetes#overlay-mode-architecture-diagram](https://github.com/openvswitch/ovn-kubernetes#overlay-mode-architecture-diagram))
 
 Due to its architecture, OVN has a central component which stores your networking intent in a database. Other components i.e. kube-apiserver, kube-controller-manager, kube-scheduler etc. can be deployed on that central node as well. 
 
@@ -99,18 +100,20 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 ##### Linux Host Setup
 
 1. Linux hosts should be setup according to their respective distro documentation and the requirements of the Kubernetes version you will be using. 
-2. Configure Linux Master node using steps [here](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md#prepare-the-master)
+2. Configure Linux Master node using steps [here](https://github.com/Microsoft/virtualization/windowscontainers/kubernetes/creating-a-linux-master.md)
 3. [Optional] CNI network plugin installed.
 
 ##### Windows Host Setup
 
 
 1. Windows Server container host running the required Windows Server and Docker versions. Follow the setup instructions outlined by this help topic: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server.
-2. Build or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions found [here](https://github.com/Microsoft/SDN/blob/master/Kubernetes/HOWTO-on-prem.md#building-kubernetes)
-3. Copy Node spec file (config) from Linux master node with X.509 keys
+2. Build or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions found [here](https://github.com/Microsoft/virtualization/windowscontainers/kubernetes/HOWTO-on-prem.md#building-kubernetes)
+3. Copy Node spec file (kube config) from Linux master node with X.509 keys
 4. Create the HNS Network, ensure the correct CNI network config, and start kubelet.exe using this script [start-kubelet.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1)
 5. Start kube-proxy using this script [start-kubeproxy.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubeproxy.ps1)
-6. [Optional] Add static routes on Windows host
+6. [Only required for #2 Host-Gateway mode] Add static routes on Windows host using this script [AddRoutes.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/AddRoutes.ps1)
+
+More detailed instructions can be found [here](https://github.com/Microsoft/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows.md)
 
 **Windows CNI Config Example**
 Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file.
@@ -433,3 +436,6 @@ Some of these limitations will be addressed by the community in future releases 
 - The StatefulSet functionality for stateful applications is not supported
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
 - Hyper-V Containers are not supported
+
+[!Warning]   
+As of this writing, the Kube-proxy binary requires a pending Kubernetes [pull request](https://github.com/kubernetes/kubernetes/pull/56529) to work properly. You may need to build the binaries [manually](#Build) to work around this. 
