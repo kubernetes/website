@@ -49,12 +49,11 @@ Alternatively, to upgrade your entire cluster to the latest stable release:
 cluster/gce/upgrade.sh release/stable
 ```
 
-### Upgrading Google Container Engine (GKE) clusters
+### Upgrading Google Kubernetes Engine clusters
 
-Google Container Engine automatically updates master components (e.g. `kube-apiserver`, `kube-scheduler`) to the latest
-version. It also handles upgrading the operating system and other components that the master runs on.
+Google Kubernetes Engine automatically updates master components (e.g. `kube-apiserver`, `kube-scheduler`) to the latest version. It also handles upgrading the operating system and other components that the master runs on.
 
-The node upgrade process is user-initiated and is described in the [GKE documentation.](https://cloud.google.com/container-engine/docs/clusters/upgrade)
+The node upgrade process is user-initiated and is described in the [Google Kubernetes Engine documentation](https://cloud.google.com/kubernetes-engine/docs/clusters/upgrade).
 
 ### Upgrading clusters on other platforms
 
@@ -68,7 +67,7 @@ Different providers, and tools, will manage upgrades differently.  It is recomme
 ## Resizing a cluster
 
 If your cluster runs short on resources you can easily add more machines to it if your cluster is running in [Node self-registration mode](/docs/admin/node/#self-registration-of-nodes).
-If you're using GCE or GKE it's done by resizing Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
+If you're using GCE or Google Kubernetes Engine it's done by resizing Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
 
 ```shell
 gcloud compute instance-groups managed resize kubernetes-minion-group --size=42 --zone=$ZONE
@@ -80,7 +79,7 @@ In other environments you may need to configure the machine yourself and tell th
 
 ### Cluster autoscaling
 
-If you are using GCE or GKE, you can configure your cluster so that it is automatically rescaled based on
+If you are using GCE or Google Kubernetes Engine, you can configure your cluster so that it is automatically rescaled based on
 pod needs.
 
 As described in [Compute Resource](/docs/concepts/configuration/manage-compute-resources-container/), users can reserve how much CPU and memory is allocated to pods.
@@ -94,7 +93,7 @@ to the other in the cluster, would help. If yes, then it resizes the cluster to 
 Cluster autoscaler also scales down the cluster if it notices that one or more nodes are not needed anymore for
 an extended period of time (10min but it may change in the future).
 
-Cluster autoscaler is configured per instance group (GCE) or node pool (GKE).
+Cluster autoscaler is configured per instance group (GCE) or node pool (Google Kubernetes Engine).
 
 If you are using GCE then you can either enable it while creating a cluster with kube-up.sh script.
 To configure cluster autoscaler you have to set three environment variables:
@@ -109,7 +108,7 @@ Example:
 KUBE_ENABLE_CLUSTER_AUTOSCALER=true KUBE_AUTOSCALER_MIN_NODES=3 KUBE_AUTOSCALER_MAX_NODES=10 NUM_NODES=5 ./cluster/kube-up.sh
 ```
 
-On GKE you configure cluster autoscaler either on cluster creation or update or when creating a particular node pool
+On Google Kubernetes Engine you configure cluster autoscaler either on cluster creation or update or when creating a particular node pool
 (which you want to be autoscaled) by passing flags `--enable-autoscaling` `--min-nodes` and `--max-nodes`
 to the corresponding `gcloud` commands.
 

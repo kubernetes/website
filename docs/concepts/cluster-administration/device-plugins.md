@@ -49,7 +49,7 @@ Then, developers can request devices in a
 [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
 specification by using the same process that is used for
 [opaque integer resources](/docs/tasks/configure-pod-container/opaque-integer-resource/).
-In version 1.8, extended resources are spported only as integer resources and must have
+In version 1.8, extended resources are supported only as integer resources and must have
 `limit` equal to `request` in the Container specification.
 
 ## Device plugin implementation

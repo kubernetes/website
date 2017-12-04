@@ -50,7 +50,7 @@ export KUBERNETES_PROVIDER=YOUR_PROVIDER; curl -sS https://get.k8s.io | bash
 Possible values for `YOUR_PROVIDER` include:
 
 * `gce` - Google Compute Engine [default]
-* `gke` - Google Container Engine
+* `gke` - Google Kubernetes Engine
 * `aws` - Amazon EC2
 * `azure` - Microsoft Azure
 * `vagrant` - Vagrant (on local virtual machines)

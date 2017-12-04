@@ -1,10 +1,11 @@
 id: istio
 name: Istio
+full-link: https://istio.io/docs/concepts/what-is-istio/overview.html
 tags:
 - networking
 - architecture
 - extension
-short-description: |
+short-description: >
   An open platform (not Kubernetes-specific) that provides a uniform way to integrate microservices, manage traffic flow, enforce policies, and aggregate telemetry data.
 long-description: >
   Adding Istio does not require changing application code.

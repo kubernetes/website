@@ -3,7 +3,7 @@ name: Cluster
 tags:
 - fundamental
 - operation
-short-description: |
+short-description: >
   A set of machines, called nodes, that run containerized applications managed by Kubernetes.
-long-description: |
+long-description: >
   A cluster has several worker nodes and at least one master node.

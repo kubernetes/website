@@ -14,7 +14,7 @@ external IP address.
 
  * Install [kubectl](/docs/tasks/tools/install-kubectl/).
 
- * Use a cloud provider like Google Container Engine or Amazon Web Services to
+ * Use a cloud provider like Google Kubernetes Engine or Amazon Web Services to
  create a Kubernetes cluster. This tutorial creates an
  [external load balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/),
  which requires a cloud provider.

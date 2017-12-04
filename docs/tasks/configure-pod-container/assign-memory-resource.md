@@ -124,11 +124,13 @@ Pod's 200 MiB limit.
 }
 ```
 
+
 Delete your Pod:
 
 ```shell
 kubectl delete pod memory-demo --namespace=mem-example
 ```
+
 
 ## Exceed a Container's memory limit
 
@@ -370,4 +372,3 @@ kubectl delete namespace mem-example
 
 
 {% include templates/task.md %}
-

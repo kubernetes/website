@@ -193,7 +193,7 @@ kubectl config --kubeconfig=config-demo use-context exp-scratch
 
 Now any `kubectl` command you give will apply to the default namespace of
 the `scratch` cluster. And the command will use the credentials of the user
-listed in the `exa-scratch` context.
+listed in the `exp-scratch` context.
 
 View configuration associated with the new current context, `exp-scratch`.
 
@@ -210,7 +210,7 @@ Change the current context to `dev-storage`:
 kubectl config --kubeconfig=config-demo use-context dev-storage
 ```
 
-View configuration associated with the new current context, `dev-storage.
+View configuration associated with the new current context, `dev-storage`.
 
 
 ```shell

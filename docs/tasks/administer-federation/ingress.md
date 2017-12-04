@@ -6,7 +6,7 @@ title: Federated Ingress
 This page explains how to use Kubernetes Federated Ingress to deploy
 a common HTTP(S) virtual IP load balancer across a federated service running in
 multiple Kubernetes clusters.  As of v1.4, clusters hosted in Google
-Cloud (both GKE and GCE, or both) are supported. This makes it
+Cloud (both Google Kubernetes Engine and GCE, or both) are supported. This makes it
 easy to deploy a service that reliably serves HTTP(S) traffic
 originating from web clients around the globe on a single, static IP
 address.   Low network latency, high fault tolerance and easy administration are
@@ -19,7 +19,7 @@ automatically checks the health of the pods comprising the service,
 and avoids sending requests to unresponsive or slow pods (or entire
 unresponsive clusters).
 
-Federated Ingress is released as an alpha feature, and supports Google Cloud Platform (GKE,
+Federated Ingress is released as an alpha feature, and supports Google Cloud Platform (Google Kubernetes Engine,
 GCE and hybrid scenarios involving both) in Kubernetes v1.4.  Work is under way to support other cloud
 providers such as AWS, and other hybrid cloud scenarios (e.g. services
 spanning private on-premises as well as public cloud Kubernetes
@@ -300,6 +300,6 @@ Check that:
 {% capture whatsnext %}
 *  If you need assistance, use one of the [support channels](/docs/tasks/debug-application-cluster/troubleshooting/) to seek assistance.
  *  For details about use cases that motivated this work, see
- [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation/federation.md).
+ [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/multicluster/federation.md).
 {% endcapture %}
 {% include templates/task.md %}

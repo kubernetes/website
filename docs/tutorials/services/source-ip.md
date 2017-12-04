@@ -231,7 +231,7 @@ client_address=10.240.0.5
 ...
 ```
 
-However, if you're running on GKE/GCE, setting the same `service.spec.externalTrafficPolicy`
+However, if you're running on Google Kubernetes Engine/GCE, setting the same `service.spec.externalTrafficPolicy`
 field to `Local` forces nodes *without* Service endpoints to remove
 themselves from the list of nodes eligible for loadbalanced traffic by
 deliberately failing health checks.

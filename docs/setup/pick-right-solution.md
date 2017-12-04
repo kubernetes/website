@@ -15,7 +15,7 @@ If you just want to "kick the tires" on Kubernetes, use the [local Docker-based 
 When you are ready to scale up to more machines and higher availability, a [hosted solution](#hosted-solutions) is the easiest to create and maintain.
 
 [Turnkey cloud solutions](#turnkey-cloud-solutions) require only a few commands to create
-and cover a wide range of cloud providers.
+and cover a wide range of cloud providers. [On-Premises turnkey cloud solutions](#on-premises-turnkey-cloud-solutions) have the simplicity of the turnkey cloud solution combined with the security of your own private network.
 
 If you already have a way to configure hosting resources, use [kubeadm](/docs/setup/independent/create-cluster-kubeadm/) to easily bring up a cluster with a single command per machine.
 
@@ -29,13 +29,15 @@ a Kubernetes cluster from scratch.
 
 * [Minikube](/docs/getting-started-guides/minikube/) is the recommended method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
+* [Kubeadm-dind](https://github.com/Mirantis/kubeadm-dind-cluster) is a multi-node (while minikube is single-node) Kubernetes cluster which only requires a docker daemon. It uses docker-in-docker technique to spawn the Kubernetes cluster.
+
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
 
-* [IBM Cloud Private-CE (Community Edition)](https://www.ibm.com/support/knowledgecenter/en/SSBS6K/product_welcome_cloud_private.html) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for dev and test scenarios. Scales to full multi-node cluster. Free version of the enterprise solution.
+* [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for development and test scenarios. Scales to full multi-node cluster. 
 
 # Hosted Solutions
 
-* [Google Container Engine](https://cloud.google.com/container-engine) offers managed Kubernetes clusters.
+* [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) offers managed Kubernetes clusters.
 
 * [Azure Container Service](https://azure.microsoft.com/en-us/services/container-service/) can easily deploy Kubernetes clusters.
 
@@ -53,7 +55,7 @@ a Kubernetes cluster from scratch.
 
 * [OpenShift Online](https://www.openshift.com/features/) provides free hosted access for Kubernetes applications.
 
-* [IBM Bluemix Container Service](https://console.ng.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
+* [IBM Cloud Container Service](https://console.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
 
 * [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
 
@@ -68,10 +70,16 @@ few commands. These solutions are actively developed and have active community s
 * [Azure](/docs/getting-started-guides/azure/)
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
 * [CenturyLink Cloud](/docs/getting-started-guides/clc/)
-* [IBM Bluemix](https://github.com/patrocinio/kubernetes-softlayer)
+* [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
 * [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
 * [KUBE2GO.io](https://kube2go.io/)
 * [Madcore.Ai](https://madcore.ai/)
+
+# On-Premises turnkey cloud solutions
+These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
+few commands.
+
+* [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
 
 # Custom Solutions
 
@@ -140,7 +148,7 @@ Below is a table of all of the solutions listed above.
 IaaS Provider        | Config. Mgmt. | OS     | Networking  | Docs                                              | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ----------------------------
 any                  | any          | multi-support | any CNI | [docs](/docs/setup/independent/create-cluster-kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
-GKE                  |              |        | GCE         | [docs](https://cloud.google.com/container-engine) | Commercial
+Google Kubernetes Engine |              |        | GCE         | [docs](https://cloud.google.com/kubernetes-engine/docs/) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
 KUBE2GO.io          |              | multi-support | multi-support | [docs](https://kube2go.io) | Commercial
@@ -209,5 +217,5 @@ any                  | any          | any    | any         | [docs](http://docs.
 [1]: https://gist.github.com/erictune/4cabc010906afbcc5061
 <!-- Vagrant conformance test result -->
 [2]: https://gist.github.com/derekwaynecarr/505e56036cdf010bf6b6
-<!-- GKE conformance test result -->
+<!-- Google Kubernetes Engine conformance test result -->
 [3]: https://gist.github.com/erictune/2f39b22f72565365e59b

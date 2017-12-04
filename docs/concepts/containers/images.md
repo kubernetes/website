@@ -39,7 +39,7 @@ Credentials can be provided in several ways:
 
   - Using Google Container Registry
     - Per-cluster
-    - automatically configured on Google Compute Engine or Google Container Engine
+    - automatically configured on Google Compute Engine or Google Kubernetes Engine
     - all pods can read the project's private registry
   - Using AWS EC2 Container Registry (ECR)
     - use IAM roles and policies to control access to ECR repositories
@@ -60,7 +60,7 @@ Each option is described in more detail below.
 
 Kubernetes has native support for the [Google Container
 Registry (GCR)](https://cloud.google.com/tools/container-registry/), when running on Google Compute
-Engine (GCE).  If you are running your cluster on GCE or Google Container Engine (GKE), simply
+Engine (GCE).  If you are running your cluster on GCE or Google Kubernetes Engine, simply
 use the full image name (e.g. gcr.io/my_project/image:tag).
 
 All pods in a cluster will have read access to images in this registry.
@@ -128,8 +128,7 @@ Once you have those variables filled in you can
 
 ### Configuring Nodes to Authenticate to a Private Repository
 
-**Note:** if you are running on Google Container Engine (GKE), there will already be a `.dockercfg` on each node
-with credentials for Google Container Registry.  You cannot use this approach.
+**Note:** if you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
 
 **Note:** if you are running on AWS EC2 and are using the EC2 Container Registry (ECR), the kubelet on each node will
 manage and update the ECR login credentials. You cannot use this approach.
@@ -199,8 +198,7 @@ It should also work for a private registry such as quay.io, but that has not bee
 
 ### Pre-pulling Images
 
-**Note:** if you are running on Google Container Engine (GKE), there will already be a `.dockercfg` on each node
-with credentials for Google Container Registry.  You cannot use this approach.
+**Note:** if you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
 
 **Note:** this approach is suitable if you can control node configuration.  It
 will not work reliably on GCE, and any other cloud provider that does automatic
@@ -219,7 +217,7 @@ All pods will have read access to any pre-pulled images.
 
 ### Specifying ImagePullSecrets on a Pod
 
-**Note:** This approach is currently the recommended approach for GKE, GCE, and any cloud-providers
+**Note:** This approach is currently the recommended approach for Google Kubernetes Engine, GCE, and any cloud-providers
 where node creation is automated.
 
 Kubernetes supports specifying registry keys on a pod.
@@ -295,7 +293,7 @@ However, setting of this field can be automated by setting the imagePullSecrets
 in a [serviceAccount](/docs/user-guide/service-accounts) resource.
 
 You can use this in conjunction with a per-node `.docker/config.json`.  The credentials
-will be merged.  This approach will work on Google Container Engine (GKE).
+will be merged.  This approach will work on Google Kubernetes Engine.
 
 ### Use Cases
 
@@ -305,7 +303,7 @@ common use cases and suggested solutions.
 1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
    - Use public images on the Docker hub.
      - No configuration required.
-     - On GCE/GKE, a local mirror is automatically used for improved speed and availability.
+     - On GCE/Google Kubernetes Engine, a local mirror is automatically used for improved speed and availability.
 1. Cluster running some proprietary images which should be hidden to those outside the company, but
    visible to all cluster users.
    - Use a hosted private [Docker registry](https://docs.docker.com/registry/).
@@ -313,7 +311,7 @@ common use cases and suggested solutions.
      - Manually configure .docker/config.json on each node as described above.
    - Or, run an internal private registry behind your firewall with open read access.
      - No Kubernetes configuration is required.
-   - Or, when on GCE/GKE, use the project's Google Container Registry.
+   - Or, when on GCE/Google Kubernetes Engine, use the project's Google Container Registry.
      - It will work better with cluster autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 1. Cluster with a proprietary images, a few of which require stricter access control.

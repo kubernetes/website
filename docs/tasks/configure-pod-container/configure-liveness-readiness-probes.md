@@ -252,7 +252,7 @@ you can use to more precisely control the behavior of liveness and readiness
 checks:
 
 * `initialDelaySeconds`: Number of seconds after the container has started
-before liveness probes are initiated.
+before liveness or readiness probes are initiated.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
 seconds. Minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out. Defaults
@@ -261,7 +261,7 @@ to 1 second. Minimum value is 1.
 considered successful after having failed. Defaults to 1. Must be 1 for
 liveness. Minimum value is 1.
 * `failureThreshold`: When a Pod starts and the probe fails, Kubernetes will
-try `failureThreshold` times before giving up and restarting the Pod.
+try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the Pod. In case of readiness probe the Pod will be marked Unready.
 Defaults to 3. Minimum value is 1.
 
 [HTTP probes](/docs/api-reference/{{page.version}}/#httpgetaction-v1-core)

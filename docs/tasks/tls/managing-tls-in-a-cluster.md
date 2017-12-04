@@ -40,6 +40,9 @@ build a configmap containing the certificate bundle that you have access to use.
 The following section demonstrates how to create a TLS certificate for a
 Kubernetes service accessed through DNS.
 
+**Note:** This tutorial uses CFSSL: Cloudflare's PKI and TLS toolkit [click here](https://blog.cloudflare.com/introducing-cfssl/) to know more.
+{: .note}
+
 ### Step 0. Download and install CFSSL
 
 The cfssl tools used in this example can be downloaded at

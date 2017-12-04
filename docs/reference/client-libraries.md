@@ -56,6 +56,7 @@ their authors, not the Kubernetes team.
 | Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
 | Ruby                 | [github.com/abonas/kubeclient](https://github.com/abonas/kubeclient) |
 | Scala                | [github.com/doriordan/skuber](https://github.com/doriordan/skuber) |
+| dotNet               | [https://github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen)
 {% endcapture %}
 
 {% include templates/concept.md %}

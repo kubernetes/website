@@ -162,7 +162,7 @@ job "myjob" scaled
 You can also use the `scale` subresource of the Job resource.
 
 Actual parallelism (number of pods running at any instant) may be more or less than requested
-parallelism, for a variety or reasons:
+parallelism, for a variety of reasons:
 
 - For Fixed Completion Count jobs, the actual number of pods running in parallel will not exceed the number of
   remaining completions.   Higher values of `.spec.parallelism` are effectively ignored.
@@ -198,9 +198,20 @@ multiple pods running at once.  Therefore, your pods must also be tolerant of co
 
 ### Pod Backoff failure policy
 
-There are situations where you want to fail a Job after some amount of retries due to a logical error in configuration etc.
-To do so set `.spec.backoffLimit` to specify the number of retries before considering a Job as failed.
-The back-off limit is set by default to 6. Failed Pods associated with the Job are recreated by the Job controller with an exponential back-off delay (10s, 20s, 40s ...) capped at six minutes, The back-off limit is reset if no new failed Pods appear before the Job's next status check.
+There are situations where you want to fail a Job after some amount of retries
+due to a logical error in configuration etc.
+To do so, set `.spec.backoffLimit` to specify the number of retries before
+considering a Job as failed. The back-off limit is set by default to 6. Failed
+Pods associated with the Job are recreated by the Job controller with an
+exponential back-off delay (10s, 20s, 40s ...) capped at six minutes, The
+back-off limit is reset if no new failed Pods appear before the Job's next
+status check.
+
+**Note:** Due to a known issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870),
+when the `spec.template.spec.restartPolicy` field is set to "`OnFailure`", the
+back-off limit may be ineffective. As a short-term workaround, set the restart
+policy for the embedded template to "`Never`".
+{: .note}
 
 ## Job Termination and Cleanup
 

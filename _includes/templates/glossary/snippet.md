@@ -1,10 +1,10 @@
-{% assign term_data = site.data.glossary.[include.term] %}
+{% assign term_data = site.data.glossary.[include.term_id] %}
 
 {% if include.length == "all" or include.length == "short" %}
 
 {% if term_data.short-description %}
 
-{{ term_data.short-description | markdownify }}
+{{ term_data.short-description | liquify | markdownify }}
 
 {% else %}
 
@@ -18,7 +18,7 @@
 
 {% if term_data.long-description %}
 
-{{ term_data.long-description | markdownify }}
+{{ term_data.long-description | liquify | markdownify }}
 
 {% else %}
 

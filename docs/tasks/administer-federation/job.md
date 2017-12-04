@@ -61,7 +61,7 @@ if you have 3 registered clusters and you create a federated job with
 `spec.parallelism = 9` and `spec.completions = 18`, then each job in the 3 clusters has
 `spec.parallelism = 3` and `spec.completions = 6`.
 To modify the number of parallelism and completions in each cluster, you can specify
-[ReplicaAllocationPreferences](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/federation/apis/federation/types.go)
+[ReplicaAllocationPreferences](https://github.com/kubernetes/federation/blob/{{page.githubbranch}}/apis/federation/types.go)
 as an annotation with key `federation.kubernetes.io/job-preferences`
 on the federated job.
 

@@ -2,7 +2,7 @@ id: approver
 name: Approver
 tags:
 - community
-short-description: |
+short-description: >
   A person who can review and approve Kubernetes code contributions.
 long-description: >
   While code review is focused on code quality and correctness, approval is focused on the holistic acceptance of a contribution.

@@ -5,7 +5,7 @@ title: Define a Command and Arguments for a Container
 {% capture overview %}
 
 This page shows how to define commands and arguments when you run a container
-in a Kubernetes Pod.
+in a {% glossary_tooltip term_id="pod" %}.
 
 {% endcapture %}
 

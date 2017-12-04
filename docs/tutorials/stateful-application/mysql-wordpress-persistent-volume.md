@@ -46,7 +46,7 @@ Download the following configuration files:
 
 MySQL and Wordpress each use a PersistentVolume to store data. While Kubernetes supports many different [types of PersistentVolumes](/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes), this tutorial covers [hostPath](/docs/concepts/storage/volumes/#hostpath).
 
-**Note:** If you have a Kubernetes cluster running on Google Container Engine, please follow [this guide](https://cloud.google.com/container-engine/docs/tutorials/persistent-disk).
+**Note:** If you have a Kubernetes cluster running on Google Kubernetes Engine, please follow [this guide](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk).
 {: .note}
 
 ### Setting up a hostPath Volume

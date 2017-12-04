@@ -139,6 +139,7 @@
 
 /docs/contribute/write-new-topic/        /docs/home/contribute/write-new-topic/ 301
 /docs/deprecate/     /ddocs/reference/deprecation-policy/ 301
+/docs/deprecated/     /ddocs/reference/deprecation-policy/ 301
 /docs/deprecation-policy/     /docs/reference/deprecation-policy/ 301
 
 /docs/federation/api-reference/     /docs/reference/federation/v1/operations/ 301
@@ -269,6 +270,7 @@
 /docs/tutorials/stateless-application/expose-external-ip-address-service/     /docs/tasks/access-application-cluster/service-access-application-cluster/ 301
 /docs/tutorials/stateless-application/run-stateless-ap-replication-controller/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/tutorials/stateless-application/run-stateless-application-deployment/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
+/docs/tutorials/tasks/set-up-cluster-federation-kubefed/     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
 
 /docs/user-guide/     /docs/home/ 301
 /docs/user-guide/accessing-the-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
@@ -279,7 +281,7 @@
 /docs/user-guide/config-best-practices/     /docs/concepts/configuration/overview/ 301
 /docs/user-guide/configmap/     /docs/tasks/configure-pod-container/configmap/ 301
 /docs/user-guide/configmap/README/     /docs/tasks/configure-pod-container/configure-pod-configmap/ 301
-/docs/user-guide/configuring-containers/     /docs/tasks/ 301
+/docs/user-guide/configuring-containers/     /docs/tasks/configure-pod-container/configmap/ 301
 /docs/user-guide/connecting-applications/     /docs/concepts/services-networking/connect-applications-service/ 301
 /docs/user-guide/connecting-to-applications-port-forward/     /docs/tasks/access-application-cluster/port-forward-access-application-cluster/ 301
 /docs/user-guide/connecting-to-applications-proxy/     /docs/tasks/access-kubernetes-api/http-proxy-access-api/ 301
@@ -290,6 +292,7 @@
 /docs/user-guide/debugging-services/     /docs/tasks/debug-application-cluster/debug-service/ 301
 /docs/user-guide/deploying-applications/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/user-guide/deployments/     /docs/concepts/workloads/controllers/deployment/ 301
+/docs/user-guide/docker-cli-to-kubectl/     /docs/reference/kubectl/docker-cli-to-kubectl/
 /docs/user-guide/downward-api/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
 /docs/user-guide/downward-api/README/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
 /docs/user-guide/downward-api/volume/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
@@ -322,11 +325,17 @@
 /docs/user-guide/ingress/     /docs/concepts/services-networking/ingress/ 301
 /docs/user-guide/ingress.md     /docs/concepts/services-networking/ingress/ 301
 /docs/user-guide/introspection-and-debugging/     /docs/tasks/debug-application-cluster/debug-application-introspection/ 301
+/docs/user-guide/jsonpath/     /docs/reference/kubectl/jsonpath/
 /docs/user-guide/jobs/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
 /docs/user-guide/jobs/expansions/     /docs/tasks/job/parallel-processing-expansion/ 301
 /docs/user-guide/jobs/work-queue-1/     /docs/tasks/job/coarse-parallel-processing-work-queue/ 301
 /docs/user-guide/jobs/work-queue-2/     /docs/tasks/job/fine-parallel-processing-work-queue/ 301
 /docs/user-guide/kubeconfig-file/     /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
+/docs/user-guide/kubectl-overview/     /docs/reference/kubectl/overview/
+/docs/user-guide/kubectl/     /docs/reference/generated/kubectl/kubectl-options/
+/docs/user-guide/kubectl/v1.8/     /docs/reference/generated/kubectl/kubectl-commands/
+/docs/user-guide/kubectl-conventions/     /docs/reference/kubectl/conventions/
+/docs/user-guide/kubectl-cheatsheet/     /docs/reference/kubectl/cheatsheet/  
 /docs/user-guide/kubectl/1_5/*     https://v1-5.docs.kubernetes.io/docs/user-guide/kubectl/v1.5/ 301
 /docs/user-guide/kubectl/kubectl_*/     /docs/user-guide/kubectl/v1.7/#:splat 301
 /docs/user-guide/kubectl/v1.5/node_modules/*     https://v1-5.docs.kubernetes.io/docs/user-guide/kubectl/v1.5/ 301
@@ -343,6 +352,7 @@
 /docs/user-guide/namespaces/     /docs/concepts/overview/working-with-objects/namespaces/ 301
 /docs/user-guide/networkpolicies/     /docs/concepts/services-networking/network-policies/ 301
 /docs/user-guide/node-selection/     /docs/concepts/configuration/assign-pod-node/ 301
+/docs/user-guide/node-selection/README     /docs/concepts/configuration/assign-pod-node/ 301
 /docs/user-guide/overview/     /docs/concepts/overview/what-is-kubernetes/ 301
 /docs/user-guide/persistent-volumes/     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/index     /docs/concepts/storage/persistent-volumes/ 301
@@ -407,3 +417,21 @@
 /v1.1/docs/getting-started-guides/     /docs/tutorials/kubernetes-basics/ 301
 
 https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/"splat 301
+
+/docs/admin/cloud-controller-manager/     /docs/reference/generated/cloud-controller-manager/ 301
+/docs/admin/kube-apiserver/     /docs/reference/generated/kube-apiserver/ 301
+/docs/admin/kube-controller-manager/     /docs/reference/generated/kube-controller-manager/ 301
+/docs/admin/kube-proxy/     /docs/reference/generated/kube-proxy/ 301
+/docs/admin/kube-scheduler/     /docs/reference/generated/kube-scheduler/ 301
+/docs/admin/kube-scheduler/     /docs/reference/generated/kube-scheduler/ 301
+/docs/admin/kubeadm/     /docs/reference/generated/kubeadm/ 301
+/docs/admin/kubelet/      /docs/reference/generated/kubelet/ 301
+/docs/admin/federation-controller-manager/    /docs/reference/generated/federation-controller-manager/ 301
+/docs/admin/federation-apiserver/      /docs/reference/generated/federation-apiserver/ 301
+/docs/admin/kubefed/     /docs/reference/generated/kubefed/ 301
+/docs/admin/kubefed_init/    /docs/reference/generated/kubefed_init/ 301 
+/docs/admin/kubefed_join/    /docs/reference/generated/kubefed_join/ 301
+/docs/admin/kubefed_options/    /docs/reference/generated/kubefed_options/ 301
+/docs/admin/kubefed_unjoin/     /docs/reference/generated/kubefed_unjoin/ 301 
+/docs/admin/kubefed_version/    /docs/reference/generated/kubefed_version/ 301    
+

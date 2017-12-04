@@ -36,7 +36,9 @@ The data source corresponds to a key-value pair in the ConfigMap, where
 * key = the file name or the key you provided on the command line, and
 * value = the file contents or the literal value you provided on the command line.
 
-You can use [`kubectl describe`](/docs/user-guide/kubectl/{{page.version}}/#describe) or [`kubectl get`](/docs/user-guide/kubectl/{{page.version}}/#get) to retrieve information about a ConfigMap. The former shows a summary of the ConfigMap, while the latter returns the full contents of the ConfigMap.
+You can use [`kubectl describe`](/docs/user-guide/kubectl/{{page.version}}/#describe) or
+[`kubectl get`](/docs/user-guide/kubectl/{{page.version}}/#get) to retrieve information
+about a ConfigMap.
 
 ### Create ConfigMaps from directories
 

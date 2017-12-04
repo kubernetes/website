@@ -32,15 +32,17 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 	"k8s.io/apimachinery/pkg/util/yaml"
-	"k8s.io/kubernetes/pkg/api"
 	"k8s.io/kubernetes/pkg/api/testapi"
-	"k8s.io/kubernetes/pkg/api/validation"
 	"k8s.io/kubernetes/pkg/apis/apps"
 	apps_validation "k8s.io/kubernetes/pkg/apis/apps/validation"
+	"k8s.io/kubernetes/pkg/apis/autoscaling"
+	autoscaling_validation "k8s.io/kubernetes/pkg/apis/autoscaling/validation"
 	"k8s.io/kubernetes/pkg/apis/batch"
 	batch_validation "k8s.io/kubernetes/pkg/apis/batch/validation"
+	api "k8s.io/kubernetes/pkg/apis/core"
+	"k8s.io/kubernetes/pkg/apis/core/validation"
 	"k8s.io/kubernetes/pkg/apis/extensions"
-	expvalidation "k8s.io/kubernetes/pkg/apis/extensions/validation"
+	ext_validation "k8s.io/kubernetes/pkg/apis/extensions/validation"
 	"k8s.io/kubernetes/pkg/apis/policy"
 	policyvalidation "k8s.io/kubernetes/pkg/apis/policy/validation"
 	"k8s.io/kubernetes/pkg/apis/storage"
@@ -113,11 +115,21 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = validation.ValidateResourceQuota(t)
+	case *autoscaling.HorizontalPodAutoscaler:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = autoscaling_validation.ValidateHorizontalPodAutoscaler(t)
 	case *extensions.Deployment:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = expvalidation.ValidateDeployment(t)
+		errors = ext_validation.ValidateDeployment(t)
+	case *extensions.ReplicaSet:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = ext_validation.ValidateReplicaSet(t)
 	case *batch.Job:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -130,14 +142,14 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = expvalidation.ValidateIngress(t)
+		errors = ext_validation.ValidateIngress(t)
 	case *extensions.DaemonSet:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = expvalidation.ValidateDaemonSet(t)
+		errors = ext_validation.ValidateDaemonSet(t)
 	case *extensions.PodSecurityPolicy:
-		errors = expvalidation.ValidatePodSecurityPolicy(t)
+		errors = ext_validation.ValidatePodSecurityPolicy(t)
 	case *batch.CronJob:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -187,6 +199,10 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 			if err != nil {
 				return err
 			}
+			// workaround for Jekyllr limit
+			if bytes.HasPrefix(data, []byte("---\n")) {
+				return fmt.Errorf("YAML file cannot start with \"---\", please remove the first line")
+			}
 			name := strings.TrimSuffix(file, ext)
 
 			var docs [][]byte
@@ -205,7 +221,10 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 					if err != nil {
 						return fmt.Errorf("%s: %v", path, err)
 					}
-					docs = append(docs, out)
+					// deal with "empty" document (e.g. pure comments)
+					if string(out) != "null" {
+						docs = append(docs, out)
+					}
 				}
 			} else {
 				docs = append(docs, data)
@@ -218,45 +237,78 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 }
 
 func TestExampleObjectSchemas(t *testing.T) {
+	// Please help maintain the alphabeta order in the map
 	cases := map[string]map[string][]runtime.Object{
-		"../docs/user-guide/walkthrough": {
-			"deployment":                      {&extensions.Deployment{}},
-			"deployment-update":               {&extensions.Deployment{}},
-			"pod-nginx":                       {&api.Pod{}},
-			"pod-nginx-with-label":            {&api.Pod{}},
-			"pod-redis":                       {&api.Pod{}},
-			"pod-with-http-healthcheck":       {&api.Pod{}},
-			"pod-with-tcp-socket-healthcheck": {&api.Pod{}},
-			"podtemplate":                     {&api.PodTemplate{}},
-			"service":                         {&api.Service{}},
+		"../docs/admin/high-availability": {
+			"etcd":                    {&api.Pod{}},
+			"kube-apiserver":          {&api.Pod{}},
+			"kube-controller-manager": {&api.Pod{}},
+			"kube-scheduler":          {&api.Pod{}},
+			"podmaster":               {&api.Pod{}},
 		},
-		"../docs/user-guide/update-demo": {
-			"kitten-rc":   {&api.ReplicationController{}},
-			"nautilus-rc": {&api.ReplicationController{}},
+		"../docs/admin/limitrange": {
+			"invalid-pod": {&api.Pod{}},
+			"limits":      {&api.LimitRange{}},
+			"namespace":   {&api.Namespace{}},
+			"valid-pod":   {&api.Pod{}},
+		},
+		"../docs/admin/multiple-schedulers": {
+			"my-scheduler": {&extensions.Deployment{}},
+			"pod1":         {&api.Pod{}},
+			"pod2":         {&api.Pod{}},
+			"pod3":         {&api.Pod{}},
+		},
+		"../docs/admin/namespaces": {
+			"namespace-dev":  {&api.Namespace{}},
+			"namespace-prod": {&api.Namespace{}},
+		},
+		"../docs/admin/resourcequota": {
+			"best-effort":       {&api.ResourceQuota{}},
+			"compute-resources": {&api.ResourceQuota{}},
+			"limits":            {&api.LimitRange{}},
+			"namespace":         {&api.Namespace{}},
+			"not-best-effort":   {&api.ResourceQuota{}},
+			"object-counts":     {&api.ResourceQuota{}},
+		},
+		"../docs/concepts/cluster-administration": {
+			"counter-pod":                             {&api.Pod{}},
+			"fluentd-sidecar-config":                  {&api.ConfigMap{}},
+			"nginx-app":                               {&api.Service{}, &extensions.Deployment{}},
+			"two-files-counter-pod":                   {&api.Pod{}},
+			"two-files-counter-pod-agent-sidecar":     {&api.Pod{}},
+			"two-files-counter-pod-streaming-sidecar": {&api.Pod{}},
+		},
+		"../docs/concepts/configuration": {
+			"commands": {&api.Pod{}},
+			"pod":      {&api.Pod{}},
+			"pod-with-node-affinity": {&api.Pod{}},
+			"pod-with-pod-affinity":  {&api.Pod{}},
+		},
+		"../docs/concepts/overview/working-with-objects": {
+			"nginx-deployment": {&extensions.Deployment{}},
 		},
 		"../docs/concepts/policy": {
-			"psp": {&extensions.PodSecurityPolicy{}},
+			"privileged-psp": {&extensions.PodSecurityPolicy{}},
+			"restricted-psp": {&extensions.PodSecurityPolicy{}},
+			"example-psp":    {&extensions.PodSecurityPolicy{}},
 		},
-		"../docs/user-guide/persistent-volumes/volumes": {
-			"local-01": {&api.PersistentVolume{}},
-			"local-02": {&api.PersistentVolume{}},
-			"gce":      {&api.PersistentVolume{}},
-			"nfs":      {&api.PersistentVolume{}},
+		"../docs/concepts/services-networking": {
+			"curlpod":          {&extensions.Deployment{}},
+			"hostaliases-pod":  {&api.Pod{}},
+			"ingress":          {&extensions.Ingress{}},
+			"nginx-secure-app": {&api.Service{}, &extensions.Deployment{}},
+			"nginx-svc":        {&api.Service{}},
+			"run-my-nginx":     {&extensions.Deployment{}},
 		},
-		"../docs/user-guide/persistent-volumes/claims": {
-			"claim-01": {&api.PersistentVolumeClaim{}},
-			"claim-02": {&api.PersistentVolumeClaim{}},
-			"claim-03": {&api.PersistentVolumeClaim{}},
-		},
-		"../docs/user-guide/persistent-volumes/simpletest": {
-			"namespace": {&api.Namespace{}},
-			"pod":       {&api.Pod{}},
-			"service":   {&api.Service{}},
-		},
-		"../docs/user-guide/liveness": {
-			"exec-liveness":            {&api.Pod{}},
-			"http-liveness":            {&api.Pod{}},
-			"http-liveness-named-port": {&api.Pod{}},
+		"../docs/concepts/workloads/controllers": {
+			"cronjob":          {&batch.CronJob{}},
+			"daemonset":        {&extensions.DaemonSet{}},
+			"frontend":         {&extensions.ReplicaSet{}},
+			"hpa-rs":           {&autoscaling.HorizontalPodAutoscaler{}},
+			"job":              {&batch.Job{}},
+			"my-repset":        {&extensions.ReplicaSet{}},
+			"nginx-deployment": {&extensions.Deployment{}},
+			"replication":      {&api.ReplicationController{}},
 		},
 		"../docs/tasks/job/coarse-parallel-processing-work-queue": {
 			"job": {&batch.Job{}},
@@ -265,6 +317,18 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"job":           {&batch.Job{}},
 			"redis-pod":     {&api.Pod{}},
 			"redis-service": {&api.Service{}},
+		},
+		"../docs/tutorials/stateful-application": {
+			"gce-volume":            {&api.PersistentVolume{}},
+			"mysql-deployment":      {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
+			"mysql-services":        {&api.Service{}, &api.Service{}},
+			"mysql-configmap":       {&api.ConfigMap{}},
+			"mysql-statefulset":     {&apps.StatefulSet{}},
+			"cassandra-service":     {&api.Service{}},
+			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
+			"web":       {&api.Service{}, &apps.StatefulSet{}},
+			"webp":      {&api.Service{}, &apps.StatefulSet{}},
+			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
 		"../docs/user-guide": {
 			"bad-nginx-deployment":       {&extensions.Deployment{}},
@@ -290,9 +354,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"run-my-nginx":               {&extensions.Deployment{}},
 			"cronjob":                    {&batch.CronJob{}},
 		},
-		"../docs/admin": {
-			"daemon": {&extensions.DaemonSet{}},
-		},
 		"../docs/user-guide/downward-api": {
 			"dapi-pod":                 {&api.Pod{}},
 			"dapi-container-resources": {&api.Pod{}},
@@ -301,45 +362,51 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"dapi-volume":           {&api.Pod{}},
 			"dapi-volume-resources": {&api.Pod{}},
 		},
-		"../docs/admin/namespaces": {
-			"namespace-dev":  {&api.Namespace{}},
-			"namespace-prod": {&api.Namespace{}},
-		},
-		"../docs/admin/limitrange": {
-			"invalid-pod": {&api.Pod{}},
-			"limits":      {&api.LimitRange{}},
-			"namespace":   {&api.Namespace{}},
-			"valid-pod":   {&api.Pod{}},
+		"../docs/user-guide/liveness": {
+			"exec-liveness":            {&api.Pod{}},
+			"http-liveness":            {&api.Pod{}},
+			"http-liveness-named-port": {&api.Pod{}},
 		},
 		"../docs/user-guide/node-selection": {
 			"pod": {&api.Pod{}},
 			"pod-with-node-affinity": {&api.Pod{}},
 			"pod-with-pod-affinity":  {&api.Pod{}},
 		},
-		"../docs/admin/resourcequota": {
-			"best-effort":       {&api.ResourceQuota{}},
-			"compute-resources": {&api.ResourceQuota{}},
-			"limits":            {&api.LimitRange{}},
-			"namespace":         {&api.Namespace{}},
-			"not-best-effort":   {&api.ResourceQuota{}},
-			"object-counts":     {&api.ResourceQuota{}},
+		"../docs/user-guide/persistent-volumes/volumes": {
+			"local-01": {&api.PersistentVolume{}},
+			"local-02": {&api.PersistentVolume{}},
+			"gce":      {&api.PersistentVolume{}},
+			"nfs":      {&api.PersistentVolume{}},
+		},
+		"../docs/user-guide/persistent-volumes/claims": {
+			"claim-01": {&api.PersistentVolumeClaim{}},
+			"claim-02": {&api.PersistentVolumeClaim{}},
+			"claim-03": {&api.PersistentVolumeClaim{}},
+		},
+		"../docs/user-guide/persistent-volumes/simpletest": {
+			"namespace": {&api.Namespace{}},
+			"pod":       {&api.Pod{}},
+			"service":   {&api.Service{}},
 		},
 		"../docs/user-guide/secrets": {
 			"secret-pod":     {&api.Pod{}},
 			"secret":         {&api.Secret{}},
 			"secret-env-pod": {&api.Pod{}},
 		},
-		"../docs/tutorials/stateful-application": {
-			"gce-volume":            {&api.PersistentVolume{}},
-			"mysql-deployment":      {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
-			"mysql-services":        {&api.Service{}, &api.Service{}},
-			"mysql-configmap":       {&api.ConfigMap{}},
-			"mysql-statefulset":     {&apps.StatefulSet{}},
-			"cassandra-service":     {&api.Service{}},
-			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
-			"web":       {&api.Service{}, &apps.StatefulSet{}},
-			"webp":      {&api.Service{}, &apps.StatefulSet{}},
-			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
+		"../docs/user-guide/update-demo": {
+			"kitten-rc":   {&api.ReplicationController{}},
+			"nautilus-rc": {&api.ReplicationController{}},
+		},
+		"../docs/user-guide/walkthrough": {
+			"deployment":                      {&extensions.Deployment{}},
+			"deployment-update":               {&extensions.Deployment{}},
+			"pod-nginx":                       {&api.Pod{}},
+			"pod-nginx-with-label":            {&api.Pod{}},
+			"pod-redis":                       {&api.Pod{}},
+			"pod-with-http-healthcheck":       {&api.Pod{}},
+			"pod-with-tcp-socket-healthcheck": {&api.Pod{}},
+			"podtemplate":                     {&api.PodTemplate{}},
+			"service":                         {&api.Service{}},
 		},
 	}
 

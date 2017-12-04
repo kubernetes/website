@@ -67,7 +67,7 @@ status:
     services.nodeports: "0"
 ```
 
-## Create a PersistentVolumeClaim:
+## Create a PersistentVolumeClaim
 
 Here is the configuration file for a PersistentVolumeClaim object:
 
@@ -92,7 +92,7 @@ NAME             STATUS
 pvc-quota-demo   Pending
 ```
 
-## Attempt to create a second PersistentVolumeClaim:
+## Attempt to create a second PersistentVolumeClaim
 
 Here is the configuration file for a second PersistentVolumeClaim:
 

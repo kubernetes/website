@@ -66,10 +66,10 @@ A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/user-guide/pod
 The `.spec.selector` field is a pod selector.  It works the same as the `.spec.selector` of
 a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
 
-As of Kubernetes 1.8, you must specify a pod selector that matches the labels of the 
-`.spec.template`. The pod selector will no longer be defaulted when left empty. Selector 
-defaulting was not compatible with `kubectl apply`. Also, once a DaemonSet is created, 
-its `spec.selector` can not be mutated. Mutating the pod selector can lead to the 
+As of Kubernetes 1.8, you must specify a pod selector that matches the labels of the
+`.spec.template`. The pod selector will no longer be defaulted when left empty. Selector
+defaulting was not compatible with `kubectl apply`. Also, once a DaemonSet is created,
+its `spec.selector` can not be mutated. Mutating the pod selector can lead to the
 unintentional orphaning of Pods, and it was found to be confusing to users.
 
 The `spec.selector` is an object consisting of two fields:
@@ -87,8 +87,6 @@ another DaemonSet, or via other controller such as ReplicaSet.  Otherwise, the D
 controller will think that those Pods were created by it.  Kubernetes will not stop you from doing
 this.  One case where you might want to do this is manually create a Pod with a different value on
 a node for testing.
-
-If you attempt to create a DaemonSet such that 
 
 ### Running Pods on Only Some Nodes
 
@@ -121,7 +119,7 @@ they will not be evicted when there are node problems such as a network partitio
 due to hard-coded behavior of the NodeController rather than due to tolerations).
 
  They also tolerate following `NoSchedule` taints:
- 
+
  - `node.kubernetes.io/memory-pressure`
  - `node.kubernetes.io/disk-pressure`
 
@@ -130,6 +128,8 @@ labelled as critical, the Daemon pods are created with an additional
 `NoSchedule` toleration for the `node.kubernetes.io/out-of-disk` taint.
 
 Note that all above `NoSchedule` taints above are created only in version 1.8 or later if the alpha feature `TaintNodesByCondition` is enabled.
+
+Also note that the `node-role.kubernetes.io/master` `NoSchedule` toleration specified in the above example is needed on 1.6 or later to schedule on *master* nodes as this is not a default toleration.
 
 ## Communicating with Daemon Pods
 
@@ -162,8 +162,6 @@ You will need to force new Pod creation by deleting the Pod or deleting the node
 
 In Kubernetes version 1.6 and later, you can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
 
-Future releases of Kubernetes will support controlled updating of nodes.
-
 ## Alternatives to DaemonSet
 
 ### Init Scripts
@@ -174,8 +172,6 @@ running such processes via a DaemonSet:
 
 - Ability to monitor and manage logs for daemons in the same way as applications.
 - Same config language and tools (e.g. Pod templates, `kubectl`) for daemons and applications.
-- Future versions of Kubernetes will likely support integration between DaemonSet-created
-  Pods and node upgrade workflows.
 - Running daemons in containers with resource limits increases isolation between daemons from app
   containers.  However, this can also be accomplished by running the daemons in a container but not in a Pod
   (e.g. start directly via Docker).

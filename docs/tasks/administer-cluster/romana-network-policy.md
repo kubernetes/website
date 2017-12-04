@@ -27,7 +27,7 @@ Follow the [containerized installation guide](https://github.com/romana/romana/t
 To apply network policies use one of the following:
 
 * [Romana network policies](https://github.com/romana/romana/wiki/Romana-policies).
-    * [Example of Romana network policy](https://github.com/romana/core/tree/master/policy).
+    * [Example of Romana network policy](https://github.com/romana/core/blob/master/doc/policy.md).
 * The NetworkPolicy API.
 
 {% endcapture %}

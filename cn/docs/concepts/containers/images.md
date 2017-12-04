@@ -31,7 +31,7 @@ title: 镜像
 
   - 使用Google Container Registry
     - 每个集群分别配置
-	- 在Google Compute Engine 或者 Google Container Engine上自动配置
+	- 在Google Compute Engine 或者 Google Kubernetes Engine上自动配置
 	- 所有的pod都能读取项目的私有仓库
   - 使用 AWS EC2 Container Registry (ECR)
     - 使用IAM角色和策略来控制对ECR仓库的访问
@@ -51,7 +51,7 @@ title: 镜像
 ### 使用 Google Container Registry
 Kuberetes运行在Google Compute Engine (GCE)时原生支持[Google ContainerRegistry (GCR)]
 (https://cloud.google.com/tools/container-registry/)。如果kubernetes集群运行在GCE
-或者Google Container Engine (GKE)上，使用镜像全名(e.g. gcr.io/my_project/image:tag)即可。
+或者Google Kubernetes Engine 上，使用镜像全名(e.g. gcr.io/my_project/image:tag)即可。
 
 集群中的所有pod都会有读取这个仓库中镜像的权限。
 
@@ -112,7 +112,7 @@ Kubelet会获取并且定期刷新ECR的凭证。它需要以下权限
 
 ### 配置Nodes对私有仓库认证
 
-**注意：** 如果在Google Container Engine (GKE)上运行集群，每个节点上都会有`.dockercfg`文件，它包含对Google Container Registry的凭证。
+**注意：** 如果在Google Kubernetes Engine 上运行集群，每个节点上都会有`.dockercfg`文件，它包含对Google Container Registry的凭证。
 不需要使用以下方法。
 
 **注意：** 如果在AWS EC2上运行集群且准备使用EC2 Container Registry (ECR)，每个node上的kubelet会管理和更新ECR的登录凭证。不需要使用以下方法。
@@ -175,7 +175,7 @@ $ kubectl describe pods/private-image-test-1 | grep "Failed"
 
 ### 提前拉取镜像
 
-**注意：** 如果在Google Container Engine (GKE)上运行集群，每个节点上都会有`.dockercfg`文件，它包含对Google Container Registry的凭证。
+**注意：** 如果在Google Kubernetes Engine 上运行集群，每个节点上都会有`.dockercfg`文件，它包含对Google Container Registry的凭证。
 不需要使用以下方法。
 
 **注意：** 该方法适用于能够对节点进行配置的情况。该方法在GCE及在其它能自动配置节点的云平台上并不适合。
@@ -193,7 +193,7 @@ $ kubectl describe pods/private-image-test-1 | grep "Failed"
 
 ### 在pod上指定ImagePullSecrets
 
-**注意:** GKE,GCE及其他自动创建node的云平台上，推荐使用本方法。
+**注意:** Google Kubernetes Engine,GCE及其他自动创建node的云平台上，推荐使用本方法。
 
 Kuberentes支持在pod中指定仓库密钥。
 
@@ -262,7 +262,7 @@ spec:
 
 也可以在[serviceAccount](/docs/user-guide/service-accounts) 资源中设置imagePullSecrets自动设置`imagePullSecrets`
 
-`imagePullSecrets`可以和每个node上的`.docker/config.json`一起使用，他们将共同生效。本方法在Google Container Engine (GKE)
+`imagePullSecrets`可以和每个node上的`.docker/config.json`一起使用，他们将共同生效。本方法在Google Kubernetes Engine
 也能正常工作。
 
 ### 使用场景

@@ -219,7 +219,7 @@ be co-located in the same defined topology, eg., the same node.
 ##### Always co-located in the same node
 
 In a three node cluster, a web application has in-memory cache such as redis. We want the web-servers to be co-located with the cache as much as possible.
-Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`
+Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`. The deployment has `PodAntiAffinity` configured to ensure the scheduler does not co-locate replicas on a single node.
 
 ```yaml
 apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
@@ -233,13 +233,22 @@ spec:
       labels:
         app: store
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - store
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - name: redis-server
         image: redis:3.2-alpine
 ```
 
-Below yaml snippet of the webserver deployment has `podAffinity` configured, this informs the scheduler that all its replicas are to be
-co-located with pods that has selector label `app=store`
+The below yaml snippet of the webserver deployment has `podAntiAffinity` and `podAffinity` configured. This informs the scheduler that all its replicas are to be co-located with pods that have selector label `app=store`. This will also ensure that each web-server replica does not co-locate on a single node.
 
 ```yaml
 apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
@@ -254,6 +263,15 @@ spec:
         app: web-store
     spec:
       affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - web-store
+            topologyKey: "kubernetes.io/hostname"
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
@@ -265,9 +283,10 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: web-app
+        image: nginx:1.12-alpine
 ```
 
-if we create the above two deployments, our three node cluster could look like below.
+If we create the above two deployments, our three node cluster should look like below.
 
 |       node-1         |       node-2        |       node-3       |
 |:--------------------:|:-------------------:|:------------------:|
@@ -287,7 +306,7 @@ web-server-1287567482-6f7v5    1/1       Running   0          7m        10.192.4
 web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3.2   kube-node-2
 ```
 
-Best practice is to configure these highly available stateful workloads such as redis with AntiAffinity rules for more guaranteed spreading, which we will see in the next section.
+Best practice is to configure these highly available stateful workloads such as redis with AntiAffinity rules for more guaranteed spreading.
 
 ##### Never co-located in the same node
 

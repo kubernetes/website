@@ -743,3 +743,6 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
    by impersonating the kubelet.  It is a planned feature to only send secrets to
    nodes that actually require them, to restrict the impact of a root exploit on a
    single node.
+  
+**Note:** As of 1.7 [encryption of secret data at rest is supported](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/).
+{: .note}

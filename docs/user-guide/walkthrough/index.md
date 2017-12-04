@@ -97,8 +97,8 @@ volumes:
 
 ```yaml
 volumeMounts:
-    # name must match the volume name below
-    - name: redis-persistent-storage
+    # name must match the volume name defined in volumes
+    - name: redis-persistent-storage
       # mount path within the container
       mountPath: /data/redis
 ```

@@ -100,7 +100,7 @@ toc:
   - title: Use Explorer to Examine the Runtime Environment
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
 
-- title: Access and Extend the Kubernetes API
+- title: Extend Kubernetes
   section:
   - docs/tasks/access-kubernetes-api/http-proxy-access-api.md
   - docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions.md
@@ -108,6 +108,8 @@ toc:
   - docs/tasks/access-kubernetes-api/migrate-third-party-resource.md
   - docs/tasks/access-kubernetes-api/configure-aggregation-layer.md
   - docs/tasks/access-kubernetes-api/setup-extension-api-server.md
+  - docs/tasks/service-catalog/install-service-catalog-using-helm.md
+  - docs/tasks/service-catalog/install-service-catalog-using-sc.md
 
 - title: TLS
   section:

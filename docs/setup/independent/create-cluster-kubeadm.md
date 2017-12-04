@@ -30,8 +30,10 @@ system (e.g. Puppet) that you have to integrate with.
 If you are not constrained, there are other higher-level tools built to give you
 complete clusters:
 
-* On GCE, [Google Container Engine](https://cloud.google.com/container-engine/)
+* On GCE, [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/)
   gives you one-click Kubernetes clusters.
+* On Microsoft Azure, [Azure Container Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
+  gives you managed Kubernetes clusters as a service.
 * On AWS, [kops](https://github.com/kubernetes/kops) makes cluster installation
   and management easy.  kops supports building high availability clusters (a
   feature that kubeadm is currently lacking but is building toward).
@@ -60,8 +62,9 @@ cloud providers is difficult.
 {% capture prerequisites %}
 
 1. One or more machines running Ubuntu 16.04+, CentOS 7 or HypriotOS v1.0.1+
-1. 1GB or more of RAM per machine (any less will leave little room for your
+1. 2 GB or more of RAM per machine (any less will leave little room for your
    apps)
+1. 2 CPUs or more on the master
 1. Full network connectivity between all machines in the cluster (public or
    private network is fine)
 {% endcapture %}
@@ -101,26 +104,25 @@ kubeadm on, and run:
 kubeadm init
 ```
 
-**Note:**
+**Notes:**
 
- - You need to choose a Pod Network Plugin in the next step. Depending on what
+- Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to
+read more about the flags `kubeadm init` provides. You can also specify a 
+[configuration file](/docs/admin/kubeadm/#sample-master-configuration) instead of using flags.
+- You need to choose a Pod Network Plugin in the next step. Depending on what
 third-party provider you choose, you might have to set the `--pod-network-cidr` to
 something provider-specific. The tabs below will contain a notice about what flags
 on `kubeadm init` are required.
- - This will autodetect the network interface to advertise the master on
-as the interface with the default gateway. If you want to use a different
-interface, specify `--apiserver-advertise-address=<ip-address>` argument to `kubeadm
-init`.
-
-Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to
-read more about the flags `kubeadm init` provides.
-
-`kubeadm init` will first run a series of prechecks to ensure that the machine
+- Unless otherwise specified, kubeadm uses the default gateway's network interface 
+to advertise the master's IP. If you want to use a different network interface, specify 
+`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`.
+- If you would like to customise control plane components, you can do so by providing 
+extra args to each one, as documented [here](/docs/admin/kubeadm#custom-args).
+- `kubeadm init` will first run a series of prechecks to ensure that the machine
 is ready to run Kubernetes.  It will expose warnings and exit on errors. It
 will then download and install the cluster database and control plane
 components. This may take several minutes.
-
-You can't run `kubeadm init` twice without tearing down the cluster in between
+- You can't run `kubeadm init` twice without tearing down the cluster in between
 ([unless you're upgrading from v1.6 to v1.7](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/)),
 see [Tear Down](#tear-down).
 
@@ -180,9 +182,9 @@ as root:
 ```
 To make kubectl work for your non-root user, you might want to run these commands (which is also a part of the `kubeadm init` output):
 ```
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 Alternatively, if you are the root user, you could run this:
 ```
@@ -224,14 +226,13 @@ kubectl apply -f <add-on.yaml>
 
 **NOTE:** You can install **only one** pod network per cluster.
 
-
 {% capture choose %}
 Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
 {% endcapture %}
 
 {% capture calico %}
 
-The official Calico guide is [here](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/).
+Refer to the Calico documentation for a [kubeadm quickstart](https://docs.projectcalico.org/latest/getting-started/kubernetes/), a [kubeadm installation guide](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/), and other resources.
 
 **Note:**
 
@@ -262,26 +263,40 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8
 
 **Note:**
 
- - For flannel to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
- - flannel works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on an other platform than
+ - For `flannel` to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
+ - `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on a platform other than
 `amd64` you have to manually download the manifest and replace `amd64` occurences with your chosen platform.
+ - Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.0/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
 ```
+
+ - For more information about `flannel`, please see [here](https://github.com/coreos/flannel).
+ 
 {% endcapture %}
 
 {% capture kube-router %}
+
+Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Kube-router relies on kube-controll-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
 
 Kube-router provides pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
 
-For information on setting up Kubernetes cluster with Kube-router using kubeadm please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/kubeadm.md).
+For information on setting up Kubernetes cluster with Kube-router using kubeadm, please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/kubeadm.md).
 
 {% endcapture %}
 
 {% capture romana %}
+
+Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
 
@@ -293,6 +308,10 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 {% endcapture %}
 
 {% capture weave_net %}
+
+Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
 

@@ -132,6 +132,7 @@ specifies the profile to apply. The `profile_ref` can be one of:
 
 * `runtime/default` to apply the runtime's default profile
 * `localhost/<profile_name>` to apply the profile loaded on the host with the name `<profile_name>`
+* `unconfined` to indicate that no profiles will be loaded
 
 See the [API Reference](#api-reference) for the full details on the annotation and profile name formats.
 
@@ -410,6 +411,7 @@ Specifying the profile a container will run with:
 - `localhost/<profile_name>`: Refers to a profile loaded on the node (localhost) by name.
   - The possible profile names are detailed in the
     [core policy reference](http://wiki.apparmor.net/index.php/AppArmor_Core_Policy_Reference#Profile_names_and_attachment_specifications).
+- `unconfined`: This effectively disables AppArmor on the container.
 
 Any other profile reference format is invalid.
 

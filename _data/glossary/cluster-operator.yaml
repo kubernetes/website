@@ -7,9 +7,8 @@ related:
   - cluster-architect
 tags:
   - user-type
-short-description: |
+short-description: >
   A person who configures, controls, and monitors clusters.
-
 long-description: |
   Their primary responsibility is keeping a cluster up and running, which may involve periodic maintenance activities or upgrades.<br>
 

@@ -38,9 +38,9 @@ of the potential inaccuracy.
 
 ## Deployment
 
-### Google Container Engine
+### Google Kubernetes Engine
 
-In Google Container Engine (GKE), if cloud logging is enabled, event exporter
+In Google Kubernetes Engine, if cloud logging is enabled, event exporter
 is deployed by default to the clusters with master running version 1.7 and
 higher. To prevent disturbing your workloads, event exporter does not have
 resources set and is in the best effort QOS class, which means that it will

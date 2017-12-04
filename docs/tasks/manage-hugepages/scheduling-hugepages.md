@@ -19,7 +19,7 @@ can consume huge pages and the current limitations.
    its huge page capacity. A node may only pre-allocate huge pages for a single
    size.
 1. A special **alpha** feature gate `HugePages` has to be set to true across the
-   system: `--feature-gates="HugePages=true"`.
+   system: `--feature-gates=HugePages=true`.
 
 The nodes will automatically discover and report all huge page resources as a
 schedulable resource.

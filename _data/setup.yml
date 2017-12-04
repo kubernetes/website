@@ -19,12 +19,12 @@ toc:
 
 - title: Hosted Solutions
   section:
-  - title: Running Kubernetes on Google Container Engine
-    path: https://cloud.google.com/container-engine/docs/before-you-begin/
+  - title: Running Kubernetes on Google Kubernetes Engine
+    path: https://cloud.google.com/kubernetes-engine/docs/before-you-begin/
   - title: Running Kubernetes on Azure Container Service
     path: https://docs.microsoft.com/en-us/azure/container-service/container-service-kubernetes-walkthrough
-  - title: Running Kubernetes on IBM Bluemix Container Service
-    path: https://console.ng.bluemix.net/docs/containers/container_index.html
+  - title: Running Kubernetes on IBM Cloud Container Service
+    path: https://console.bluemix.net/docs/containers/container_index.html
 
 - title: Turn-key Cloud Solutions
   section:
@@ -33,7 +33,7 @@ toc:
   - docs/getting-started-guides/azure.md
   - docs/getting-started-guides/alibaba-cloud.md
   - docs/getting-started-guides/clc.md
-  - title: Running Kubernetes on IBM Bluemix
+  - title: Running Kubernetes on IBM Cloud
     path: https://github.com/patrocinio/kubernetes-softlayer
   - docs/getting-started-guides/stackpoint.md
 

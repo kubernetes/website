@@ -78,8 +78,9 @@ storage classes and how to mark a storage class as default.
 
 This plug-in sets the default forgiveness toleration for pods to tolerate
 the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes,
-if the pods don't already have toleration for taints `notready:NoExecute` or
-`unreachable:NoExecute`.
+if the pods don't already have toleration for taints
+`node.kubernetes.io/not-ready:NoExecute` or
+`node.alpha.kubernetes.io/unreachable:NoExecute`.
 
 ### DenyExecOnPrivileged (deprecated)
 
@@ -99,6 +100,42 @@ have access to the host PID namespace.
 If your cluster supports containers that run with escalated privileges, and you want to
 restrict the ability of end-users to exec commands in those containers, we strongly encourage
 enabling this plug-in.
+
+### EventRateLimit (alpha)
+
+This plug-in is introduced in v1.9 to mitigate the problem where the API server gets flooded by
+event requests. The cluster admin can specify event rate limits by:
+
+ * Ensuring that `eventratelimit.admission.k8s.io/v1alpha1=true` is included in the
+   `--runtime-config` flag for the API server;
+ * Enabling the `EventRateLimit` admission controller;
+ * Including a `EventRateLimit` configuration in the file provided to the API
+   server's command line flag `--admission-control-config-file`.
+
+There are four types of limits that can be specified in the configuration:
+
+ * `Server`: All event requests received by the API server share a single bucket.
+ * `Namespace`: Each namespace has a dedicated bucket.
+ * `User`: Each user is allocated a bucket.
+ * `SourceAndObject`: A bucket is assigned by each combination of source and
+   involved object of the event.
+
+Below is a sample snippet for such a configuration:
+
+```yaml
+EventRateLimit:
+  limits:
+  - type: Namespace
+    qps: 50
+    burst: 100
+    cacheSize: 2000
+  - type: User
+    qps: 10
+    burst: 50
+```
+
+See the [EventRateLimit proposal](https://git.k8s.io/community/contributors/design-proposals/api-machinery/admission_control_event_rate_limit.md)
+for more details.
 
 ### GenericAdmissionWebhook (alpha)
 
@@ -364,7 +401,7 @@ For more information about persistent volume claims, see ["PersistentVolumeClaim
 ### PodPreset
 
 This plug-in injects a pod with the fields specified in a matching PodPreset.
-See also [PodPreset concept](docs/concepts/workloads/pods/podpreset/) and
+See also [PodPreset concept](/docs/concepts/workloads/pods/podpreset/) and
 [Inject Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset)
 for more information.
 

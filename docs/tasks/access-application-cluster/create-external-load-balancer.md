@@ -104,7 +104,7 @@ The IP address is listed next to `LoadBalancer Ingress`.
 Due to the implementation of this feature, the source IP seen in the target
 container will *not be the original source IP* of the client. To enable
 preservation of the client IP, the following fields can be configured in the
-service spec (supported in GCE/GKE environments):
+service spec (supported in GCE/Google Kubernetes Engine environments):
 
 * `service.spec.externalTrafficPolicy` - denotes if this Service desires to route
 external traffic to node-local or cluster-wide endpoints. There are two available

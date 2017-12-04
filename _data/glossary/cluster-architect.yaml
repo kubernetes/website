@@ -5,8 +5,7 @@ related:
   - cluster-operator
 tags:
   - user-type
-short-description: |
+short-description: >
   A person who designs infrastructure that involves one or more Kubernetes clusters.
-
-long-description: |
+long-description: >
   Cluster architects are concerned with best practices for distributed systems, for example&#58; high availability and security.

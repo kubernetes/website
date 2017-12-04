@@ -4,7 +4,7 @@ related:
   - application-architect
 tags:
   - user-type
-short-description: |
+short-description: >
   A person who writes an application that runs in a Kubernetes cluster.
 long-description: >
   An application developer focuses on one part of an application.

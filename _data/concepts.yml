@@ -22,10 +22,19 @@ toc:
   - docs/concepts/architecture/master-node-communication.md
   - docs/concepts/architecture/cloud-controller.md
 
-- title: Extending the Kubernetes API
+- title: Extending Kubernetes
   section:
-  - docs/concepts/api-extension/custom-resources.md
-  - docs/concepts/api-extension/apiserver-aggregation.md
+  - docs/concepts/overview/extending.md
+  - title: Extending the Kubernetes API
+    section:
+    - docs/concepts/api-extension/apiserver-aggregation.md
+    - docs/concepts/api-extension/custom-resources.md
+  - title: Compute, Storage, and Networking Extensions
+    section:
+    - docs/concepts/cluster-administration/network-plugins.md
+    - docs/concepts/cluster-administration/device-plugins.md
+    - docs/concepts/cluster-administration/sysctl-cluster.md
+  - docs/concepts/service-catalog/index.md
 
 - title: Containers
   section:
@@ -43,7 +52,6 @@ toc:
     - docs/concepts/workloads/pods/init-containers.md
     - docs/concepts/workloads/pods/podpreset.md
     - docs/concepts/workloads/pods/disruptions.md
-    - docs/concepts/abstractions/pod-termination.md
   - title: Controllers
     section:
     - docs/concepts/workloads/controllers/replicaset.md
@@ -78,8 +86,8 @@ toc:
   section:
   - docs/concepts/storage/volumes.md
   - docs/concepts/storage/persistent-volumes.md
-  - title: Dynamic Provisioning
-    path: http://blog.kubernetes.io/2016/10/dynamic-provisioning-and-storage-in-kubernetes.html
+  - docs/concepts/storage/storage-classes.md
+  - docs/concepts/storage/dynamic-provisioning.md
 
 - title: Cluster Administration
   section:

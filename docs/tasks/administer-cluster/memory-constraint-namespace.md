@@ -49,7 +49,7 @@ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-constraint
 View detailed information about the LimitRange:
 
 ```shell
-kubectl get limitrange cpu-min-max-demo --namespace=constraints-mem-example --output=yaml
+kubectl get limitrange mem-min-max-demo-lr --namespace=constraints-mem-example --output=yaml
 ```
 
 The output shows the minimum and maximum memory constraints as expected. But

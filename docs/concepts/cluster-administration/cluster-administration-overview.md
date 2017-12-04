@@ -19,7 +19,7 @@ Before choosing a guide, here are some considerations:
 
  - Do you just want to try out Kubernetes on your computer, or do you want to build a high-availability, multi-node cluster? Choose distros best suited for your needs.
  - **If you are designing for high-availability**, learn about configuring [clusters in multiple zones](/docs/concepts/cluster-administration/federation/).
- - Will you be using **a hosted Kubernetes cluster**, such as [Google Container Engine (GKE)](https://cloud.google.com/container-engine/), or **hosting your own cluster**?
+ - Will you be using **a hosted Kubernetes cluster**, such as [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/), or **hosting your own cluster**?
  - Will your cluster be **on-premises**, or **in the cloud (IaaS)**? Kubernetes does not directly support hybrid clusters. Instead, you can set up multiple clusters.
  - **If you are configuring Kubernetes on-premises**, consider which [networking model](/docs/concepts/cluster-administration/networking/) fits best. One option for custom networking is [*OpenVSwitch GRE/VxLAN networking*](/docs/admin/ovs-networking/), which uses OpenVSwitch to set up networking between pods across Kubernetes nodes.
  - Will you be running Kubernetes on **"bare metal" hardware** or on **virtual machines (VMs)**?
