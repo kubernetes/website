@@ -20,10 +20,13 @@ We recommend using the release binaries that can be found at [https://github.com
 If you wish to build the code yourself, please follow the next instructions:
 
 1. Install the pre-requisites on a Linux host:
+
 ```
 sudo apt-get install curl git build-essential docker.io conntrack
 ```
+
 2. Run the following commands to build kubelet and kube-proxy:
+
 ```
 K8SREPO="github.com/kubernetes/kubernetes"
 go get -d $K8SREPO
