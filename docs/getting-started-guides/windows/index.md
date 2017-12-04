@@ -27,7 +27,7 @@ sudo apt-get install curl git build-essential docker.io conntrack
 
 2. Run the following commands to build kubelet and kube-proxy:
 
-```
+```code
 K8SREPO="github.com/kubernetes/kubernetes"
 go get -d $K8SREPO
 # Note: the above command may spit out a message about 
