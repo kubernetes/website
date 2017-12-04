@@ -8,17 +8,16 @@ title: Persistent Volume Claim Protection
 {% capture overview %}
 {% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
 
-As of Kubernetes 1.9, persistent volume claims (PVCs) that are actively used by a pod can be protected from pre-mature deletion.
+As of Kubernetes 1.9, persistent volume claims (PVCs) that are in active use by a pod can be protected from pre-mature removal.
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
 - A v1.9 or higher Kubernetes must be installed.
-- As PVC Protection is a Kubernetes v1.9 alpha feature it must be turned on:
+- As PVC Protection is a Kubernetes v1.9 alpha feature it must be enabled:
 1. [Admission controller](/docs/admin/admission-controllers/) must be started with the [PVC Protection plugin](/docs/admin/admission-controllers/#persistent-volume-claim-protection-alpha).
-2. All Kubernetes components must be started with the `PVCProtection` alpha features switched on.
-
+2. All Kubernetes components must be started with the `PVCProtection` alpha features enabled.
 
 {% endcapture %}
 
@@ -26,7 +25,7 @@ As of Kubernetes 1.9, persistent volume claims (PVCs) that are actively used by 
 
 ## PVC Protection Verification
 
-The example below uses a GCE PD StorageClass, however, similar steps can be performed for any volume type.
+The example below uses a GCE PD `StorageClass`, however, similar steps can be performed for any volume type.
 
 Create a `StorageClass` for convenient storage provisioning:
 ```yaml
@@ -39,11 +38,11 @@ parameters:
   type: pd-standard
 ```
 
-There are two scenarios: a PVC that is being deleted is either used or not used by a pod.
+There are two scenarios: a PVC deleted by a user is either in active use or not in active use by a pod.
 
-### Scenario 1: The PVC is not used by a pod
+### Scenario 1: The PVC is not in active use by a pod
 
-1. Create a PVC:
+- Create a PVC:
 
 ```yaml
 kind: PersistentVolumeClaim
@@ -59,7 +58,7 @@ spec:
       storage: 3.7Gi
 ```
 
-2. Check that the PVC has the finalizer `kubernetes.io/pvc-protection` set:
+- Check that the PVC has the finalizer `kubernetes.io/pvc-protection` set:
 ```shell
 $ kubectl describe pvc slzc
 Name:          slzc
@@ -80,12 +79,12 @@ Events:
   Normal  ProvisioningSucceeded  2m    persistentvolume-controller  Successfully provisioned volume pvc-bee8c30a-d6a3-11e7-9af0-42010a800002 using kubernetes.io/gce-pd
 ```
 
-3. Delete the PVC and check that the PVC (not used by a pod) was deleted successfully.
+- Delete the PVC and check that the PVC (not in active use by a pod) was removed successfully.
 
-### Scenario 2: The PVC is used by a pod
+### Scenario 2: The PVC is in active use by a pod
 
-1. Again, create the same PVC.
-2. Create a pod that uses the PVC:
+- Again, create the same PVC.
+- Create a pod that uses the PVC:
 
 ```yaml
 kind: Pod
@@ -111,8 +110,8 @@ spec:
         claimName: slzc
 ```
 
-3. Wait until the pod becomes `Running`.
-4. Delete the PVC that is now being used by a pod and verify that the PVC is not deleted but it's status is `Terminating`:
+- Wait until the pod status is `Running`, i.e. the PVC becomes in active use.
+- Delete the PVC that is now in active use by a pod and verify that the PVC is not removed but its status is `Terminating`:
 
 ```shell
 Name:          slzc
@@ -132,7 +131,7 @@ Events:
   ----    ------                 ----  ----                         -------
   Normal  ProvisioningSucceeded  52s   persistentvolume-controller  Successfully provisioned volume pvc-803a1f4d-d6a6-11e7-9af0-42010a800002 using kubernetes.io/gce-pd
 ```
-5. Wait until the pod becomes `Terminated` (either delete the pod or wait until it finishes). Afterwards, check that the PVC removed.
+-  Wait until the pod status is `Terminated` (either delete the pod or wait until it finishes). Afterwards, check that the PVC is removed.
 
 
 {% endcapture %}
