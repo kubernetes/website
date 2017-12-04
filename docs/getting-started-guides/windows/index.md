@@ -24,10 +24,10 @@ If you wish to build the code yourself, please follow the next instructions:
 ```
 sudo apt-get install curl git build-essential docker.io conntrack
 ```
-
+  
 2. Run the following commands to build kubelet and kube-proxy:
 
-```code
+```bash
 K8SREPO="github.com/kubernetes/kubernetes"
 go get -d $K8SREPO
 # Note: the above command may spit out a message about 
@@ -50,7 +50,7 @@ In Kubernetes version 1.9 or later, Windows Server Containers for Kubernetes are
 
 1. Kubernetes control plane running on existing Linux infrastructure (version 1.9 or later).
 2. Kubenet network plugin setup on the Linux nodes.
-3. Windows Server 2016 RTM or later. Windows Server version 1709 or later is preferred; unlocks key capabilities like shared network namespace.
+3. Windows Server 2016 RTM or later. Windows Server version 1709 or later is preferred; it unlocks key capabilities like shared network namespace.
 4. Docker Version 17.06.1-ee-2 or later for Windows Server nodes (Linux nodes and Kubernetes control plane can run any Kubernetes supported Docker Version).
 
 ## Networking
@@ -110,13 +110,14 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 
 
 1. Windows Server container host running the required Windows Server and Docker versions. Follow the setup instructions outlined by this help topic: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server.
-2. Build or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions found [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md)
+2. [Build](#Build) or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions
 3. Copy Node spec file (kube config) from Linux master node with X.509 keys
 4. Create the HNS Network, ensure the correct CNI network config, and start kubelet.exe using this script [start-kubelet.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1)
 5. Start kube-proxy using this script [start-kubeproxy.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubeproxy.ps1)
 6. [Only required for #2 Host-Gateway mode] Add static routes on Windows host using this script [AddRoutes.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/AddRoutes.ps1)
 
 More detailed instructions can be found [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows.md)
+
 
 **Windows CNI Config Example**
 Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file.
@@ -440,5 +441,5 @@ Some of these limitations will be addressed by the community in future releases 
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
 - Hyper-V Containers are not supported
 
-![Warning]   
+[!Warning]   
 As of this writing, the Kube-proxy binary requires a pending Kubernetes [pull request](https://github.com/kubernetes/kubernetes/pull/56529) to work properly. You may need to build the binaries [manually](#Build) to work around this. 
