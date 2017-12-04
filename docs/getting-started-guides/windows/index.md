@@ -27,20 +27,20 @@ If you wish to build the code yourself, please follow the next instructions:
   
 2. Run the following commands to build kubelet and kube-proxy:
 
-```bash
-K8SREPO="github.com/kubernetes/kubernetes"
-go get -d $K8SREPO
-# Note: the above command may spit out a message about 
-#       "no Go files in...", but it can be safely ignored!
+  ```bash
+  K8SREPO="github.com/kubernetes/kubernetes"
+  go get -d $K8SREPO
+  # Note: the above command may spit out a message about 
+  #       "no Go files in...", but it can be safely ignored!
 
-cd $GOPATH/src/k8s.io/kubernetes
-# Build the kubelet
-KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kubelet
+  cd $GOPATH/src/k8s.io/kubernetes
+  # Build the kubelet
+  KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kubelet
 
-# Build the kube-proxy
-KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kube-proxy
+  # Build the kube-proxy
+  KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kube-proxy
 
-# You will find the output binaries under the folder _output/local/bin/windows/
+  # You will find the output binaries under the folder _output/local/bin/windows/
 ```
 
 More detailed build instructions will be maintained and kept up to date [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md)
@@ -440,5 +440,5 @@ Some of these limitations will be addressed by the community in future releases 
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
 - Hyper-V Containers are not supported
 
-[!Warning]   
-As of this writing, the Kube-proxy binary requires a pending Kubernetes [pull request](https://github.com/kubernetes/kubernetes/pull/56529) to work properly. You may need to build the binaries [manually](#Build) to work around this. 
+
+> As of this writing, the Kube-proxy binary requires a pending Kubernetes [pull request](https://github.com/kubernetes/kubernetes/pull/56529) to work properly. You may need to build the binaries [manually](#Build) to work around this. 
