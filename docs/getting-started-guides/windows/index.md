@@ -60,7 +60,7 @@ There are several supported network configurations with Kubernetes v1.9 on Windo
 
 The selection of which network configuration and topology to deploy depends on the physical network topology and a user's ability to configure routes, performance concerns with encapsulation, and requirement to integrate with third-party network plugins.
 
-## Future CNI Plugins
+### Future CNI Plugins
 An additional two CNI plugins [win-l2bridge (host-gateway) and win-overlay (vxlan)] will be published in a future release. These two CNI plugins can either be used directly by WinCNI.exe or with Flannel
 
 ### Linux
