@@ -106,9 +106,11 @@ To control the cascading deletion policy, set the `deleteOptions.propagationPoli
 field on your owner object. Possible values include "Orphan",
 "Foreground", or "Background".
 
-The default garbage collection policy for many controller resources is `orphan`,
-including ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and
-Deployment. So unless you specify otherwise, dependent objects are orphaned.
+Prior to Kubernetes 1.9, the default garbage collection policy for many controller resources was `orphan`.
+This included ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and
+Deployment. For kinds in the extensions/v1beta1, apps/v1beta1, and apps/v1beta2 group versions, unless you 
+specify otherwise, dependent objects are orphaned by default. In Kubernetes 1.9, all kinds in the apps/v1 
+group version use a default garbage collection policy of `delete`.
 
 Here's an example that deletes dependents in background:
 
