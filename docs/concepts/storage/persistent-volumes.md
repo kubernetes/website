@@ -72,9 +72,13 @@ Once a user has a claim and that claim is bound, the bound PV belongs to the use
 
 ### Persistent Volume Claim Protection
 {% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
-In case the [PVC protection alpha feature](/docs/tasks/administer-cluster/pvc-protection/) is switched on, a PVC is being actively used by a pod and a user deletes the PVC the PVC is not deleted immediately, but the PVC deletion is postponed until it is not actively used by any pods.
+The purpose of the PVC protection is to ensure that PVCs in active use by a pod are not removed from the system as this may result in data loss.
 
-Such situation is indicated by the `Terminating` status of the PVC and the presence of the `kubernetes.io/pvc-protection` finalizer in the `Finalizers` list as shown below:
+Note: PVC is in active use by a pod when the pod status is `Running`.
+
+When the [PVC protection alpha feature](/docs/tasks/administer-cluster/pvc-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods.
+
+You can see that a PVC is protected when the PVC's status is `Terminating` and the `Finalizers` list includes `kubernetes.io/pvc-protection`:
 ```shell
 kubectl described pvc hostpath
 Name:          hostpath
