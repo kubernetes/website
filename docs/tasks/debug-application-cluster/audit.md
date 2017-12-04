@@ -9,6 +9,8 @@ title: Auditing
 * TOC
 {:toc}
 
+{% include feature-state-beta.md %}
+
 Kubernetes auditing provides a security-relevant chronological set of records documenting
 the sequence of activities that have affected system by individual users, administrators
 or other components of the system. It allows cluster administrator to
@@ -38,81 +40,12 @@ of the event. The audit policy object structure is defined in the
 You can pass a file with the policy to [kube-apiserver][kube-apiserver]
 using the `--audit-policy-file` flag. If the flag is omitted, no events are logged.
 __Note:__ `kind` and `apiVersion` fields along with `rules` __must__ be provided
-in the audit policy file. A policy with 0 rules, or a policy that doesn't
+in the audit policy file. A policy with no (0) rules, or a policy that doesn't
 provide valid `apiVersion` and `kind` values is treated as illegal.
 
 Some example audit policy files:
 
-```yaml
-apiVersion: audit.k8s.io/v1beta1 # This is required.
-kind: Policy
-# Don't generate audit events for all requests in RequestReceived stage. 
-omitStages:
-  - "RequestReceived"
-rules:
-  # Log pod changes at RequestResponse level
-  - level: RequestResponse
-    resources:
-    - group: ""
-      # Resource "pods" doesn't match requests to any subresource of pods,
-      # which is consistent with the RBAC policy.
-      resources: ["pods"]
-  # Log "pods/log", "pods/status" at Metadata level
-  - level: Metadata
-    resources:
-    - group: ""
-      resources: ["pods/log", "pods/status"]
-
-  # Don't log requests to a configmap called "controller-leader"
-  - level: None
-    resources:
-    - group: ""
-      resources: ["configmaps"]
-      resourceNames: ["controller-leader"]
-
-  # Don't log watch requests by the "system:kube-proxy" on endpoints or services
-  - level: None
-    users: ["system:kube-proxy"]
-    verbs: ["watch"]
-    resources:
-    - group: "" # core API group
-      resources: ["endpoints", "services"]
-
-  # Don't log authenticated requests to certain non-resource URL paths.
-  - level: None
-    userGroups: ["system:authenticated"]
-    nonResourceURLs:
-    - "/api*" # Wildcard matching.
-    - "/version"
-
-  # Log the request body of configmap changes in kube-system.
-  - level: Request
-    resources:
-    - group: "" # core API group
-      resources: ["configmaps"]
-    # This rule only applies to resources in the "kube-system" namespace.
-    # The empty string "" can be used to select non-namespaced resources.
-    namespaces: ["kube-system"]
-
-  # Log configmap and secret changes in all other namespaces at the Metadata level.
-  - level: Metadata
-    resources:
-    - group: "" # core API group
-      resources: ["secrets", "configmaps"]
-
-  # Log all other resources in core and extensions at the Request level.
-  - level: Request
-    resources:
-    - group: "" # core API group
-    - group: "extensions" # Version of group should NOT be included.
-
-  # A catch-all rule to log all other requests at the Metadata level.
-  - level: Metadata
-    # Long-running requests like watches that fall under this rule will not
-    # generate an audit event in RequestReceived.
-    omitStages:
-      - "RequestReceived"
-```
+{% include code.html language="yaml" file="policy.yaml" ghlink="/docs/tasks/debug-application-cluster/audit-policy.yaml" %}
 
 You can use a minimal audit policy file to log all requests at the `Metadata` level:
 
@@ -132,8 +65,8 @@ admins constructing their own audit profiles.
 Audit backends implement exporting audit events to an external storage.
 [Kube-apiserver][kube-apiserver] out of the box provides two backends:
 
-- Log backend, which writes events to a disk.
-- Webhook backend, which sends events to an external API.
+- Log backend, which writes events to a disk
+- Webhook backend, which sends events to an external API
 
 In both cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
@@ -146,9 +79,9 @@ log audit backend using the following [kube-apiserver][kube-apiserver] flags:
 
 - `--audit-log-path` specifies the log file path that log backend uses to write
   audit events. Not specifying this flag disables log backend. `-` means standard out
-- `--audit-log-maxage` defined the maximum number of days to retain old audit log files.
-- `--audit-log-maxbackup` defines the maximum number of audit log files to retain.
-- `--audit-log-maxsize` defines the maximum size in megabytes of the audit log file before it gets rotated.
+- `--audit-log-maxage` defined the maximum number of days to retain old audit log files
+- `--audit-log-maxbackup` defines the maximum number of audit log files to retain
+- `--audit-log-maxsize` defines the maximum size in megabytes of the audit log file before it gets rotated
 
 ### Webhook backend
 
@@ -160,8 +93,8 @@ audit backend using the following kube-apiserver flags:
   configuration. Webhook configuration is effectively a [kubeconfig][kubeconfig].
 - `--audit-webhook-mode` define the buffering strategy, one of the following:
   - `batch` - buffer events and asynchronously send the set of events to the external service.
-    This is the default.
-  - `blocking` - block API server responses on sending each event to the external service.
+    This is the default
+  - `blocking` - block API server responses on sending each event to the external service
 
 The webhook config file uses the kubeconfig format to specify the remote address of
 the service and credentials used to connect to it.
