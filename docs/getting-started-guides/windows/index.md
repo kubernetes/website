@@ -15,7 +15,7 @@ The Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) co
 **Note:** Windows Server Containers on Kubernetes is a Beta feature in Kubernetes v1.9
 
 ## Build
-We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases).
+We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases). Look for the Node Binaries section by visiting the binary downloads link. 
 
 If you wish to build the code yourself, please follow the next instructions:
 
@@ -281,10 +281,9 @@ Because your cluster has both Linux and Windows nodes, you must explicitly set t
 ## Support for kubeadm join
 
 If your cluster has been created by [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/), 
-and your networking is setup correctly using one of the methods listed above (networking is setup outside of kubeadm), you can use kubeadm to add a Windows node to your cluster.
+and your networking is setup correctly using one of the methods listed above (networking is setup outside of kubeadm), you can use kubeadm to add a Windows node to your cluster. At a high level, you first have to initialize the master with kubeadm (Linux), then set up the CNI based networking (outside of kubeadm), and finally start joining Windows or Linux worker nodes to the cluster. For additional documentation and reference material, visit the kubeadm link above.
 
-The kubeadm binary can be found at [Kubernetes Releases](https://github.com/kubernetes/kubernetes/releases), inside the node binaries archive.  Adding a Windows node
-is not any different than adding a Linux node:
+The kubeadm binary can be found at [Kubernetes Releases](https://github.com/kubernetes/kubernetes/releases), inside the node binaries archive. Adding a Windows node is not any different than adding a Linux node:
 
 `kubeadm.exe join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
 
