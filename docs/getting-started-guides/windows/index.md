@@ -21,9 +21,9 @@ If you wish to build the code yourself, please follow the next instructions:
 
 1. Install the pre-requisites on a Linux host:
 
-```
-sudo apt-get install curl git build-essential docker.io conntrack
-```
+  ```
+  sudo apt-get install curl git build-essential docker.io conntrack
+  ```
   
 2. Run the following commands to build kubelet and kube-proxy:
 
@@ -118,8 +118,7 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 
 More detailed instructions can be found [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows.md)
 
-
-**Windows CNI Config Example**
+**Windows CNI Config Example**  
 Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file.
 
 Note: this file assumes that a user previous created 'l2bridge' host networks on each Windows node using `<Verb>-HNSNetwork` cmdlets as shown in the `start-kubelet.ps1` and `start-kubeproxy.ps1` scripts linked above
