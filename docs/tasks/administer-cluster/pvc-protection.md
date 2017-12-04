@@ -26,7 +26,7 @@ As of Kubernetes 1.9, persistent volume claims (PVCs) that are actively used by 
 
 ## PVC Protection Verification
 
-The below is done in GCE using a Storage Class, however, similar steps can be performed for any type of storage.
+The example below uses a GCE PD StorageClass, however, similar steps can be performed for any volume type.
 
 Create a `StorageClass` for convenient storage provisioning:
 ```yaml
@@ -41,8 +41,9 @@ parameters:
 
 There are two scenarios: a PVC that is being deleted is either used or not used by a pod.
 
-Firstly, the PVC is not used by a pod:
-- Create a PVC:
+### Scenario 1: The PVC is not used by a pod
+
+1. Create a PVC:
 
 ```yaml
 kind: PersistentVolumeClaim
@@ -57,8 +58,8 @@ spec:
     requests:
       storage: 3.7Gi
 ```
-- Check that the PVC has the finalizer `kubernetes.io/pvc-protection` set:
 
+2. Check that the PVC has the finalizer `kubernetes.io/pvc-protection` set:
 ```shell
 $ kubectl describe pvc slzc
 Name:          slzc
@@ -78,11 +79,13 @@ Events:
   ----    ------                 ----  ----                         -------
   Normal  ProvisioningSucceeded  2m    persistentvolume-controller  Successfully provisioned volume pvc-bee8c30a-d6a3-11e7-9af0-42010a800002 using kubernetes.io/gce-pd
 ```
-- Delete the PVC and check that the PVC (not used by a pod) was deleted successfully.
 
-Secondly, the PVC is used by a pod:
-- Again, create the same PVC.
-- Create a pod that uses the PVC:
+3. Delete the PVC and check that the PVC (not used by a pod) was deleted successfully.
+
+### Scenario 2: The PVC is used by a pod
+
+1. Again, create the same PVC.
+2. Create a pod that uses the PVC:
 
 ```yaml
 kind: Pod
@@ -107,8 +110,9 @@ spec:
       persistentVolumeClaim:
         claimName: slzc
 ```
-- Wait until the pod becomes `Running`.
-- Delete the PVC that is now being used by a pod and verify that the PVC is not deleted but it's status is `Terminating`:
+
+3. Wait until the pod becomes `Running`.
+4. Delete the PVC that is now being used by a pod and verify that the PVC is not deleted but it's status is `Terminating`:
 
 ```shell
 Name:          slzc
@@ -128,7 +132,7 @@ Events:
   ----    ------                 ----  ----                         -------
   Normal  ProvisioningSucceeded  52s   persistentvolume-controller  Successfully provisioned volume pvc-803a1f4d-d6a6-11e7-9af0-42010a800002 using kubernetes.io/gce-pd
 ```
-- Wait until the pod becomes `Terminated` (either delete the pod or wait until it finishes). Afterwards, check that the PVC that is no longer used by a pod is deleted.
+5. Wait until the pod becomes `Terminated` (either delete the pod or wait until it finishes). Afterwards, check that the PVC removed.
 
 
 {% endcapture %}
