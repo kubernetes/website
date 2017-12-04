@@ -440,5 +440,5 @@ Some of these limitations will be addressed by the community in future releases 
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
 - Hyper-V Containers are not supported
 
-[!Warning]   
+![Warning]   
 As of this writing, the Kube-proxy binary requires a pending Kubernetes [pull request](https://github.com/kubernetes/kubernetes/pull/56529) to work properly. You may need to build the binaries [manually](#Build) to work around this. 
