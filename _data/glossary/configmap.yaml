@@ -1,0 +1,13 @@
+id: configmap
+name: ConfigMap
+full-link: /docs/tasks/configure-pod-container/configmap/
+related:
+- pod
+- secret
+tags:
+- core-object
+short-description: >
+  used to store non confidential data in key-value pairs and consumed as environment variables, command-line arguments, or config files in a volume
+long-description: >
+  Allows you to decouple configuration artifacts from image content to keep containerized applications portable.
+  When storing confidential data use a [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/).
