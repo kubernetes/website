@@ -10,4 +10,4 @@ short-description: >
   Used to store non-confidential data in key-value pairs and consumed as environment variables, command-line arguments, or config files in a {% glossary_tooltip text="volume" term_id="volume" %}.
 long-description: >
   Allows you to decouple configuration artifacts from image content to keep containerized applications portable.
-  When storing confidential data use a [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/).
+  When storing confidential data use a [Secret](https://kubernetes.io/docs/concepts/configuration/secret/).
