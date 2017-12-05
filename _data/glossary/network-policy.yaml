@@ -7,7 +7,6 @@ tags:
 - networking
 - architecture
 - extension
-- resource
 short-description: >
   A specification of how groups of Pods are allowed to communicate with each other and with other network endpoints.
 long-description: >
