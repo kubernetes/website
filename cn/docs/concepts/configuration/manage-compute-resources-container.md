@@ -15,7 +15,7 @@ title: Managing Compute Resources for Containers
 
 *CPU* 和 *内存* 都是 *资源类型*。资源类型具有基本单位。CPU 的单位是 core，内存的单位是 byte。
 
-CPU和内存统称为*计算资源*，也可以称为*资源*。计算资源的数量是可以被请求、分配和消耗的可测量的。它们与 [API 资源](/docs/api/) 不同。 API 资源（如 Pod 和 [Service](/docs/user-guide/services)）是可通过 Kubernetes API server 读取和修改的对象。
+CPU和内存统称为*计算资源*，也可以称为*资源*。计算资源的数量是可以被请求、分配、消耗和可测量的。它们与 [API 资源](/docs/api/) 不同。 API 资源（如 Pod 和 [Service](/docs/user-guide/services)）是可通过 Kubernetes API server 读取和修改的对象。
 
 ## Pod 和 容器的资源请求和限制
 
