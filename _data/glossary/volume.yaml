@@ -1,0 +1,18 @@
+id: volume
+name: Volume
+full-link: kubernetes.io/docs/concepts/storage/volumes/
+related:
+- pod
+- container
+- secret
+tags:
+- core-object
+- fundamental
+short-description: >
+ A volume is a directory containing data, which is accessible to the containers in a {% glossary_tooltip text="pod" term_id="pod" %}.
+long-description: >
+ A volume is a directory containing data, which is accessible to the containers in a {% glossary_tooltip text="pod" term_id="pod" %}.
+ A Kubernetes volume lives as long as the {% glossary_tooltip text="pod" term_id="pod" %} that encloses it.
+ Consequently, a volume outlives any {% glossary_tooltip text="containers" term_id="container" %} that run within the
+ {% glossary_tooltip text="pod" term_id="pod" %}, and data is preserved across
+ {% glossary_tooltip text="container" term_id="container" %} restarts. 
