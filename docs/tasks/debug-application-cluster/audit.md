@@ -92,7 +92,7 @@ audit backend using the following kube-apiserver flags:
 - `--audit-webhook-config-file` specifies the path to a file with a webhook
   configuration. Webhook configuration is effectively a [kubeconfig][kubeconfig].
 - `--audit-webhook-mode` define the buffering strategy, one of the following:
-  - `batch` - buffer events and asynchronously send the set of events to the external service.
+  - `batch` - buffer events and asynchronously send the set of events to the external service
     This is the default
   - `blocking` - block API server responses on sending each event to the external service
 
