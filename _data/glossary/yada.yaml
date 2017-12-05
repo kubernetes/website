@@ -10,7 +10,7 @@ related:
 - id-of-tangential-term
 - id-of-commonly-used-with-term
 tags:
-- Some Tag
+- fundamental
 short-description: >
   Required.
   Markdown allowed (e.g. for cross-linking).
