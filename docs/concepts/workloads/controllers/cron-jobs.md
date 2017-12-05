@@ -3,7 +3,7 @@ approvers:
 - erictune
 - soltysh
 - janetkuo
-title: Cron Jobs
+title: CronJob
 ---
 
 * TOC
