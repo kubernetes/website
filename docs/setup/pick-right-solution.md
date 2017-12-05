@@ -39,6 +39,8 @@ a Kubernetes cluster from scratch.
 
 * [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) offers managed Kubernetes clusters.
 
+* [Amazon Elastic Container Service for Kubernetes](https://aws.amazon.com/eks/) offers managed Kubernetes service.
+
 * [Azure Container Service](https://azure.microsoft.com/en-us/services/container-service/) can easily deploy Kubernetes clusters.
 
 * [Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
