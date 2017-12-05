@@ -110,10 +110,7 @@ flags that can be used to customise the Kubernetes installation.
 
 - `--apiserver-advertise-address`
 
-  This is the address the API Server will advertise to other members of the
-  cluster.  API server IP address can either be IPv4 or IPv6. This is also the address used to construct the suggested `kubeadm
-  join` line at the end of the init process.  If not set (or set to 0.0.0.0 for IPv4 or :: for IPv6) then
-  IP for the default interface will be used.
+  This is the address, the API Server will advertise to other members of the cluster. The API server IP address can either be IPv4 or IPv6. This is also the address used to construct the suggested kubeadm join line at the end of the init process. If not set (or set to 0.0.0.0 for IPv4 or :: for IPv6) then the IP for the default interface will be used.
 
   This address is also added to the certificate that the API Server uses.
 
@@ -1032,7 +1029,7 @@ More information on custom arguments can be found here:
 
 ### Specifying custom arguments for IPv6 interfaces
 
-Optionally, IPv6 for liveness probe for control plane components and etcd server can also be specified using extra args as mentioned in the example below. Please note that whenever IPv6 needs to be specified as IP:Port, IPv6 hostname must be enclosed.
+Optionally, IPv6 (for a liveness probe for control plane components) and etcd server can also be specified using extra args as mentioned in the following example. Please note that whenever IPv6 needs to be specified as IP:Port, the IPv6 hostname must be enclosed.
 
 ```
 apiVersion: kubeadm.k8s.io/v1alpha1
