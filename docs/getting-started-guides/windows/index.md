@@ -21,26 +21,25 @@ If you wish to build the code yourself, please follow the next instructions:
 
 1. Install the pre-requisites on a Linux host:
 
-  ```
-  sudo apt-get install curl git build-essential docker.io conntrack
-  ```
-  
+    ```
+    sudo apt-get install curl git build-essential docker.io conntrack
+    ```  
 2. Run the following commands to build kubelet and kube-proxy:
 
-  ```bash
-  K8SREPO="github.com/kubernetes/kubernetes"
-  go get -d $K8SREPO
-  # Note: the above command may spit out a message about 
-  #       "no Go files in...", but it can be safely ignored!
+    ```bash
+    K8SREPO="github.com/kubernetes/kubernetes"
+    go get -d $K8SREPO
+    # Note: the above command may spit out a message about 
+    #       "no Go files in...", but it can be safely ignored!
 
-  cd $GOPATH/src/k8s.io/kubernetes
-  # Build the kubelet
-  KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kubelet
+    cd $GOPATH/src/k8s.io/kubernetes
+    # Build the kubelet
+    KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kubelet
 
-  # Build the kube-proxy
-  KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kube-proxy
+    # Build the kube-proxy
+    KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kube-proxy
 
-  # You will find the output binaries under the folder _output/local/bin/windows/
+    # You will find the output binaries under the folder _output/local/bin/windows/
 ```
 
 More detailed build instructions will be maintained and kept up to date [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md)
