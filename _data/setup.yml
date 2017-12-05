@@ -25,6 +25,8 @@ toc:
     path: https://docs.microsoft.com/en-us/azure/container-service/container-service-kubernetes-walkthrough
   - title: Running Kubernetes on IBM Cloud Container Service
     path: https://console.bluemix.net/docs/containers/container_index.html
+  - title: Running Kubernetes on Platform9 Managed Kubernetes
+    path: https://platform9.com/managed-kubernetes/?utm_source=k8sio
 
 - title: Turn-key Cloud Solutions
   section:
@@ -35,6 +37,7 @@ toc:
   - docs/getting-started-guides/clc.md
   - title: Running Kubernetes on IBM Cloud
     path: https://github.com/patrocinio/kubernetes-softlayer
+  - docs/getting-started-guides/platform9/platform9-cloud.md
   - docs/getting-started-guides/stackpoint.md
 
 - title: Custom Solutions
@@ -52,6 +55,7 @@ toc:
     section:
     - docs/getting-started-guides/coreos/index.md
     - docs/getting-started-guides/cloudstack.md
+    - docs/getting-started-guides/platform9/platform9-on-prem.md
     - docs/getting-started-guides/vsphere.md
     - docs/getting-started-guides/photon-controller.md
     - docs/getting-started-guides/dcos.md
@@ -70,6 +74,7 @@ toc:
     - title: Bare Metal
       section:
       - docs/getting-started-guides/coreos/bare_metal_offline.md
+      - docs/getting-started-guides/platform9/platform9-on-prem.md
       - docs/getting-started-guides/fedora/fedora_ansible_config.md
       - docs/getting-started-guides/fedora/fedora_manual_config.md
       - docs/getting-started-guides/fedora/flannel_multi_node_cluster.md
