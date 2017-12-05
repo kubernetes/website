@@ -188,9 +188,9 @@ having working [readiness probes](/docs/tasks/configure-pod-container/configure-
 
 ![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
 
-### Proxy-mode: ipvs[alpha]
+### Proxy-mode: ipvs
 
-**Warning:** This is an alpha feature and not recommended for production clusters yet.
+{% include feature-state-beta.md %}
 
 In this mode, kube-proxy watches Kubernetes `services` and `endpoints`,
 call `netlink` interface create ipvs rules accordingly and sync ipvs rules with Kubernetes
