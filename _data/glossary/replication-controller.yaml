@@ -1,0 +1,14 @@
+id: replication-controller
+name: Replication Controller
+full-link: /docs/concepts/workloads/controllers/replicationcontroller/
+related:
+- deployment
+- pod
+tags:
+- core-object
+- workload
+- pod
+short-description: >
+  Manages the deployment and scaling of a set of {% glossary_tooltip text="Pods" term_id="pod" %}, *but does not provide guarantees about the ordering and uniqueness* of these Pods.
+long-description: |
+  Each replica is represented by a {% glossary_tooltip term_id="pod" %}, and the Pods are distributed among the nodes of a cluster.
