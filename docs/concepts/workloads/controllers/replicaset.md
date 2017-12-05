@@ -3,7 +3,7 @@ approvers:
 - Kashomon
 - bprashanth
 - madhusudancs
-title: ReplicaSets
+title: ReplicaSet
 ---
 
 {% capture overview %}
