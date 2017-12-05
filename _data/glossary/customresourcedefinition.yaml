@@ -1,9 +1,9 @@
 name: Custom Resource Definition
 aka: Third Party Resource
 tags:
-full-link: docs/tasks/access-kubernetes-api/migrate-third-party-resource/
 - fundamental
 - operation
+full-link: docs/tasks/access-kubernetes-api/migrate-third-party-resource/
 short-description: >
   A custom resource definition is the representation of a customization of a particular Kubernetes installation.
 long-description: >
