@@ -1,0 +1,12 @@
+id: horizontal-pod-autoscaling
+name: Horizontal Pod Autoscaling
+full-link: /docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
+related:
+- deployment
+- pod
+tags:
+- core-object
+short-description: >
+  Horizontal Pod Autoscaling(HPA) helps deployment to keep enough replicas according to defined strategy.
+long-description: |
+  Horizontal Pod Autoscaling(HPA) is a kind of resource type. Replicas of deployment can be automatically scaled with users or administrators's defined strategy on memory pressure or CPU pressure.
