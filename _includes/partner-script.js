@@ -460,7 +460,7 @@
 			name: 'Kublr',
 			logo: 'kublr',
 			link: 'http://kublr.com',
-			blurb: 'Kublr - Kublr'
+			blurb: 'Kublr - Accelerate and control the deployment, scaling, monitoring and management of your containerized applications.'
 			},
 		{
 			type: 3,
