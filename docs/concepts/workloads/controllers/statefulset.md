@@ -6,7 +6,7 @@ approvers:
 - janetkuo
 - kow3ns
 - smarterclayton
-title: StatefulSets
+title: Stateful Sets
 ---
 
 {% capture overview %}
