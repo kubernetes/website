@@ -1,0 +1,9 @@
+id: security-context
+name: Security Context
+full-link: /docs/concepts/security/
+tags:
+- security
+short-description: >
+  The securityContext field defines privilege and access control settings for a Pod or Container, including the runtime uid and gid.
+long-description: >
+  The securityContext field in a {% glossary_tooltip term_id="pod" %} (applying to all containers) or Container (just one) is used to set the user (runAsUser) and group (fsGroup), capabilities, privilege settings and security policies (SELinux/AppArmor/Seccomp) that container processes use.
