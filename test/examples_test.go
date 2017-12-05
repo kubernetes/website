@@ -199,10 +199,6 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 			if err != nil {
 				return err
 			}
-			// workaround for Jekyllr limit
-			if bytes.HasPrefix(data, []byte("---\n")) {
-				return fmt.Errorf("YAML file cannot start with \"---\", please remove the first line")
-			}
 			name := strings.TrimSuffix(file, ext)
 
 			var docs [][]byte
@@ -221,10 +217,7 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 					if err != nil {
 						return fmt.Errorf("%s: %v", path, err)
 					}
-					// deal with "empty" document (e.g. pure comments)
-					if string(out) != "null" {
-						docs = append(docs, out)
-					}
+					docs = append(docs, out)
 				}
 			} else {
 				docs = append(docs, data)
