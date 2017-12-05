@@ -5,7 +5,7 @@ approvers:
 - foxish
 - janetkuo
 - kow3ns
-title: Daemon Sets
+title: DaemonSets
 ---
 
 * TOC
