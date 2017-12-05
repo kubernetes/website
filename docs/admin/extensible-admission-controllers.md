@@ -79,17 +79,9 @@ perform its assigned task and remove its name from the list.
 ### Enable initializers alpha feature
 
 *Initializers* is an alpha feature, so it is disabled by default. To turn it on,
-you need to:
-
-* Include "Initializers" in the `--admission-control` flag when starting
-  `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all should
-  have the same flag setting.
-
-* Enable the dynamic admission controller registration API by adding
-  `admissionregistration.k8s.io/v1alpha1` to the `--runtime-config` flag passed
-  to `kube-apiserver`, e.g.
-  `--runtime-config=admissionregistration.k8s.io/v1alpha1`. Again, all replicas
-  should have the same flag setting.
+you need to include "Initializers" in the `--admission-control` flag when
+starting `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all
+should have the same flag setting.
 
 ### Deploy an initializer controller
 
@@ -108,7 +100,7 @@ newly created resources will be stuck in an uninitialized state.
 The following is an example `initializerConfiguration`:
 
 ```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
+apiVersion: admissionregistration.k8s.io/v1beta1
 kind: InitializerConfiguration
 metadata:
   name: example-config
@@ -182,17 +174,9 @@ admission request.
 ### Enable external admission webhooks
 
 *External Admission Webhooks* is an alpha feature, so it is disabled by default.
-To turn it on, you need to
-
-* Include "GenericAdmissionWebhook" in the `--admission-control` flag when
-  starting the apiserver. If you have multiple `kube-apiserver` replicas, all
-  should have the same flag setting.
-
-* Enable the dynamic admission controller registration API by adding
-  `admissionregistration.k8s.io/v1alpha1` to the `--runtime-config` flag passed
-  to `kube-apiserver`, e.g.
-  `--runtime-config=admissionregistration.k8s.io/v1alpha1`. Again, all replicas
-  should have the same flag setting.
+To turn it on, you need to include "GenericAdmissionWebhook" in the
+`--admission-control` flag when starting the apiserver. If you have multiple
+`kube-apiserver` replicas, all should have the same flag setting.
 
 ### Write a webhook admission controller
 
@@ -239,7 +223,7 @@ closed, operations will be unconditionally accepted or rejected.
 The following is an example `externaladmissionhookconfiguration`:
 
 ```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
+apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ExternalAdmissionHookConfiguration
 metadata:
   name: example-config
