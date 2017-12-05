@@ -21,25 +21,26 @@ actions that a pod can perform and what it has the ability to access. The
 run with in order to be accepted into the system. They allow an
 administrator to control the following:
 
-| Control Aspect                                                         | Field Name                                  |
-| ---------------------------------------------------------------------- | ------------------------------------------- |
-| Running of privileged containers                                       | `privileged`                                |
-| Default set of capabilities that will be added to a container          | `defaultAddCapabilities`                    |
-| Capabilities that will be dropped from a container                     | `requiredDropCapabilities`                  |
-| Capabilities a container can request to be added                       | `allowedCapabilities`                       |
-| Controlling the usage of volume types                                  | [`volumes`](#controlling-volumes)           |
-| The use of host networking                                             | [`hostNetwork`](#host-network)              |
-| The use of host ports                                                  | `hostPorts`                                 |
-| The use of host's PID namespace                                        | `hostPID`                                   |
-| The use of host's IPC namespace                                        | `hostIPC`                                   |
-| The SELinux context of the container                                   | [`seLinux`](#selinux)                       |
-| The user ID                                                            | [`runAsUser`](#runasuser)                   |
-| Configuring allowable supplemental groups                              | [`supplementalGroups`](#supplementalgroups) |
-| Allocating an FSGroup that owns the pod's volumes                      | [`fsGroup`](#fsgroup)                       |
-| Requiring the use of a read only root file system                      | `readOnlyRootFilesystem`                    |
-| Running of a container that allow privilege escalation from its parent | [`allowPrivilegeEscalation`](#allowprivilegeescalation) |
+| Control Aspect                                                             | Field Name                                                            |
+| ----------------------------------------------------------------------     | -------------------------------------------                           |
+| Running of privileged containers                                           | `privileged`                                                          |
+| Default set of capabilities that will be added to a container              | `defaultAddCapabilities`                                              |
+| Capabilities that will be dropped from a container                         | `requiredDropCapabilities`                                            |
+| Capabilities a container can request to be added                           | `allowedCapabilities`                                                 |
+| Controlling the usage of volume types                                      | [`volumes`](#controlling-volumes)                                     |
+| The use of host networking                                                 | [`hostNetwork`](#host-network)                                        |
+| The use of host ports                                                      | `hostPorts`                                                           |
+| The use of host's PID namespace                                            | `hostPID`                                                             |
+| The use of host's IPC namespace                                            | `hostIPC`                                                             |
+| The SELinux context of the container                                       | [`seLinux`](#selinux)                                                 |
+| The user ID                                                                | [`runAsUser`](#runasuser)                                             |
+| Configuring allowable supplemental groups                                  | [`supplementalGroups`](#supplementalgroups)                           |
+| Allocating an FSGroup that owns the pod's volumes                          | [`fsGroup`](#fsgroup)                                                 |
+| Requiring the use of a read only root file system                          | `readOnlyRootFilesystem`                                              |
+| Running of a container that allow privilege escalation from its parent     | [`allowPrivilegeEscalation`](#allowprivilegeescalation)               |
 | Control whether a process can gain more privileges than its parent process | [`defaultAllowPrivilegeEscalation`](#defaultallowprivilegeescalation) |
-| Whitelist of allowed host paths                                        | [`allowedHostPaths`](#allowedhostpaths)     |
+| Whitelist of allowed host paths                                            | [`allowedHostPaths`](#allowedhostpaths)                               |
+| Whitelist of allowed flexVolume drivers                                    | [`allowedFlexVolumes`](#allowedflexvolumes)                           |
 
 _Pod Security Policies_ are comprised of settings and strategies that
 control the security features a pod has access to. These settings fall
@@ -160,6 +161,28 @@ spec:
     # This allows "/foo", "/foo/", "/foo/bar" etc., but
     # disallows "/fool", "/etc/foo" etc.
     - pathPrefix: "/foo"
+```
+
+### AllowedFlexVolumes
+
+This specifies a whitelist of flex volume drivers that are allowed to be used
+by flexVolume. An empty list means there is no restriction on the drivers. we
+need make sure `volumes` contains the `flexVolume` volume type, if it doesn't
+, no flex volume driver is allowed.
+
+For example:
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: allow-flex-volumes
+spec:
+  volumes:
+  - flexVolume
+  allowedFlexVolumes:
+  - driver: example/lvm
+  - driver: example/cifs
 ```
 
 ## Admission
