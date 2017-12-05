@@ -1,0 +1,12 @@
+id: node
+name: Node
+full-link: /docs/concepts/architecture/node
+tags:
+- cluster
+- deployment
+- fundamental
+- pod
+short-description: >
+  A node is a worker machine in Kubernetes.
+long-description: >
+  A node may be a VM or physical machine, depending on the cluster.
