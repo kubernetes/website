@@ -1,5 +1,5 @@
 id: replication-controller
-name: StatefulSet
+name: Replication Controller
 full-link: /docs/concepts/workloads/controllers/replicationcontroller/
 related:
 - deployment
