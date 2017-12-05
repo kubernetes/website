@@ -1,0 +1,14 @@
+id: persistent-volume
+name: Persistent Volume
+full-link: /docs/concepts/storage/persistent-volumes/
+related:
+- statefulset
+- deployment
+- pod
+tags:
+- core-object
+- storage
+short-description: >
+  Persistent Volume is a kind of interface through two resource types, i.e. pv and pvc, and provides pod persistent storage service.
+long-description: |
+  Persistent Volume subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed.
