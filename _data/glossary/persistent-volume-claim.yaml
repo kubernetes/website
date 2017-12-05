@@ -1,0 +1,15 @@
+id: persistent-volume-claim
+name: Persistent Volume Claim
+full-link: /docs/concepts/storage/persistent-volumes/
+related:
+- persistent-volume
+- statefulset
+- deployment
+- pod
+tags:
+- core-object
+- storage
+short-description: >
+  A PersistentVolumeClaim (PVC) is used to claim storage resources defined in a PersistentVolume (PV) so that it can be mounted as a volume in a container.
+long-description: |
+  The PersistentVolumeClaim (PVC) specifies the amount of storage, how the storage will be accessed (read-only, read-write and/or exclusive) and how it is reclaimed (retained, recycled or deleted), but no details of the storage itself (which are in the PV).
