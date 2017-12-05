@@ -48,24 +48,24 @@ When creating a new API, consider whether to [aggregate your API with the Kubern
 #### Declarative APIs
 
 In a Declarative API, typically:
- - Your API consists of a relatively small number of relatively small objects (resources).
- - The objects define configuration of applications or infrastructure.
- - The objects are updated relatively infrequently.
- - Humans often need to read and write the objects.
- - The main operations on the objects are CRUD-y (creating, reading, updating and deleting).
- - Transactions across objects are not required: the API represents a desired state, not an exact state.
+ - your API consists of a relatively small number of relatively small objects (resources).
+ - the objects define configuration of applications or infrastructure
+ - the objects are updated relatively infrequently
+ - humans often need to read and write the objects
+ - the main operations on the objects are CRUD-y (creating, reading, updating and deleting)
+ - transactions across objects are not required: the API represents a desired state, not an exact state.
 
 Imperative APIs are not declarative. 
 Signs that your API might not be declarative include:
- - The client says "do this", and then gets a synchornous response back when it is done.
- - The client says "do this", and then gets an operation ID back, and has to check a separate Operation objects to determine completion of the request.
- - You talk about Remote Procedure Calls (RPCs).
- - Directly storing large amounts of data (e.g. > a few kB per object, or >1000s of objects).
- - High bandwidth access (10s of requests per second sustained) needed.
- - Store end-user data (such as images, PII, etc) or other large-scale data processed by applications.
- - The natural operations on the objects are not CRUD-y.
- - The API is not easily modeled as objects.
- - You chose to represent pending operations with an operation ID or operation object.
+ - the client says "do this", and then gets a synchornous response back when it is done.
+ - the client says "do this", and then gets an operation ID back, and has to check a separate Operation objects to determine completion of the request.
+ - you talk about Remote Procedure Calls (RPCs)
+ - directly stoing large amounts of data (e.g. > a few kB per object, or >1000s of objects)
+ - high bandwidth access (10s of requests per second sustained) needed
+ - store end-user data (such as images, PII, etc) or other large-scale data processed by applications
+ - the natural operations on the objects are not CRUD-y.
+ - the API is not easily modeled as objects.
+ - you chose to represent pending operations with an operation ID or operation object.
 
 ### Should I use a configMap or a custom resource?
 
@@ -102,7 +102,7 @@ Aggregated APIs are subordinate APIServers that sit behind the primary API serve
 
 Custom Resource Definitions (CRDS) allow users to create new types of resources without adding another APIserver. You do not need to understand API Aggregation to use CRDs.
 
-Regardless of whether they are installed via CRDs or AA, the new resources are called Custom Resources to distinguish them from built-in Kubernetes resources (like pods).
+Regardless of whether they are installed via CRDs or AA, the new resources are called Custom Resources to distinguish them from built-in Kubernetes resources (like pods)
 
 ## CustomResourceDefinitions
 
@@ -215,9 +215,9 @@ Kubernetes [client libraries](/docs/reference/client-libraries/) can be used to 
 
 When you add a custom resource, you can access it using:
   - kubectl
-  - The kubernetes dynamic client.
-  - A REST client that you write.
-  - A client generated using Kubernetes client generation tools (generating one is an advanced undertaking, but some projects may provide a client along with the CRD or AA).
+  - the kubernetes dynamic client
+  - a REST client that you write
+  - a client generated using Kubernetes client generation tools (generating one is an advanced undertaking, but some projects may provide a client along with the CRD or AA).
 
 {% endcapture %}
 
