@@ -190,7 +190,7 @@ having working [readiness probes](/docs/tasks/configure-pod-container/configure-
 
 ### Proxy-mode: ipvs
 
-{% include feature-state-beta.md %}
+{% assign for_k8s_version="v1.9" %}{% include feature-state-beta.md %}
 
 In this mode, kube-proxy watches Kubernetes `services` and `endpoints`,
 call `netlink` interface create ipvs rules accordingly and sync ipvs rules with Kubernetes
