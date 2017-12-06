@@ -75,7 +75,8 @@ few commands. These solutions are actively developed and have active community s
 * [KUBE2GO.io](https://kube2go.io/)
 * [Madcore.Ai](https://madcore.ai/)
 
-# On-Premises turnkey cloud solutions
+# Turnkey On-Premises Solutions
+
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
 few commands.
 
@@ -123,7 +124,7 @@ These solutions are combinations of cloud providers and operating systems not co
 
 ## Bare Metal
 
-* [Offline](/docs/getting-started-guides/coreos/bare_metal_offline/) (no internet required.  Uses CoreOS and Flannel)
+* [Offline](/docs/getting-started-guides/coreos/bare_metal_offline/) (no internet required. Uses CoreOS and flannel)
 * [Fedora via Ansible](/docs/getting-started-guides/fedora/fedora_ansible_config/)
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
