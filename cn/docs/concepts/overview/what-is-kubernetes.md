@@ -70,7 +70,7 @@ Kubernetes 满足了生产中运行应用程序的许多常见的需求，例如
 * [Pod](/docs/user-guide/pods/) 提供复合应用并保留一个应用一个容器的容器模型,
 * [挂载外部存储](/docs/user-guide/volumes/),
 * [Secret管理](/docs/user-guide/secrets/),
-* [应用健康检查](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks),
+* [应用健康检查](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/),
 * [副本应用实例](/docs/user-guide/replication-controller/),
 * [横向自动扩缩容](/docs/user-guide/horizontal-pod-autoscaling/),
 * [服务发现](/docs/user-guide/connecting-applications/),
