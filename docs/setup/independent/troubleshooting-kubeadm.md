@@ -34,31 +34,32 @@ If you see the following warnings while running `kubeadm init`
 
 Then you may be missing ebtables and ethtool on your Linux machine. You can install them with the following commands: 
 
-- For ubuntu/debian users, try `apt install ebtables ethtool`.
-- For CentOS/Fedora users, try `yum install ebtables ethtool`.
+- For ubuntu/debian users, run `apt install ebtables ethtool`.
+- For CentOS/Fedora users, run `yum install ebtables ethtool`.
 
-#### kubeadm blocks waiting for `control plane` during installation
+#### kubeadm blocks waiting for control plane during installation
 
-If you notice that `kubeadm init` hangs after printing out the following line
+If you notice that `kubeadm init` hangs after printing out the following line:
 
 ```
 [apiclient] Created API client, waiting for the control plane to become ready                          
 ```
 
-You may want to first check if your node has network connection problem.
-Another reason that `kubeadm init` hangs could be that the default cgroup driver configuration
-for the kubelet differs from that used by Docker.
+This may be caused by a number of problems. The most common are:
 
-Check the system log file (e.g. `var/log/message`) or examine the output from `journalctl -u kubelet`.
-If you see something like the following
+- network connection problems. Check that your machine has full network connectivity before continuing.
+- the default cgroup driver configuration for the kubelet differs from that used by Docker.
+  Check the system log file (e.g. `/var/log/message`) or examine the output from `journalctl -u kubelet`. If you see something like the following:
 
-```
-error: failed to run Kubelet: failed to create kubelet: 
-misconfiguration: kubelet cgroup driver: "systemd" is different from docker cgroup driver: "cgroupfs"
-```
+  ```shell
+  error: failed to run Kubelet: failed to create kubelet: 
+  misconfiguration: kubelet cgroup driver: "systemd" is different from docker cgroup driver: "cgroupfs"
+  ```
 
-you will need to fix the cgroup driver problem by following intstructions
-[here](/docs/setup/indenpendent/install-kubeadm/#installing-docker).
+  you will need to fix the cgroup driver problem by following intstructions
+  [here](/docs/setup/indenpendent/install-kubeadm/#installing-docker).
+- control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
+
 
 #### Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
 
