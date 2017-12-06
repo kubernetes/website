@@ -51,9 +51,9 @@ The output contains a section similar to this:
 
 In a Kubernetes cluster, it authenticates with a registry in order to pull a private image using the Secret of `docker-registry` type.
 
-Create this Secret, naming it `regsecret`:
+Create this Secret, naming it `regcred`:
 
-    kubectl create secret docker-registry regsecret --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
+    kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
 
 where:
 
@@ -62,13 +62,13 @@ where:
 * `<your-pword>` is your Docker password.
 * `<your-email>` is your Docker email.
 
-You have successfully set your Docker credentials in the cluster as a Secret called `regsecret`.
+You have successfully set your Docker credentials in the cluster as a Secret called `regcred`.
 
-## Inspecting the Secret `regsecret`
+## Inspecting the Secret `regcred`
 
-To understand the contents of the `regsecret` Secret you just created, start by viewing the Secret in YAML format:
+To understand the contents of the `regcred` Secret you just created, start by viewing the Secret in YAML format:
 
-    kubectl get secret regsecret --output=yaml
+    kubectl get secret regcred --output=yaml
 
 The output is similar to this:
 
@@ -78,7 +78,7 @@ The output is similar to this:
     kind: Secret
     metadata:
       ...
-      name: regsecret
+      name: regcred
       ...
     type: kubernetes.io/dockercfg
 
@@ -86,7 +86,7 @@ The value of the `.dockercfg` field is a base64 representation of your sensitive
 
 Decode the `dockercfg` field to a readable format to see what is in it:
 
-    kubectl get secret regsecret --output="jsonpath={.data.\.dockercfg}" | base64 -d
+    kubectl get secret regcred --output="jsonpath={.data.\.dockercfg}" | base64 -d
 
 The output is similar to this:
 
@@ -94,11 +94,11 @@ The output is similar to this:
 
 Notice that the Secret data contains the authorization token similar to your local `~/.docker/config.json` file.
 
-You have successfully set your Docker credentials as a Secret called `regsecret` in the cluster.
+You have successfully set your Docker credentials as a Secret called `regcred` in the cluster.
 
 ## Create a Pod that uses your Secret
 
-Here is a configuration file for a Pod that needs access to your Docker credentials in `regsecret`:
+Here is a configuration file for a Pod that needs access to your Docker credentials in `regcred`:
 
 {% include code.html language="yaml" file="private-reg-pod.yaml" ghlink="/docs/tasks/configure-pod-container/private-reg-pod.yaml" %}
 
@@ -111,7 +111,7 @@ In file `my-private-reg-pod.yaml`, replace `<your-private-image>` with the path 
     janedoe/jdoe-private:v1
 
 To pull the image from the private registry, Kubernetes needs credentials.
-The `imagePullSecrets` field in the configuration file specifies that Kubernetes should get the credentials from a Secret named `regsecret`.
+The `imagePullSecrets` field in the configuration file specifies that Kubernetes should get the credentials from a Secret named `regcred`.
 
 Create a Pod that uses your Secret, and verify that the Pod is running:
 
