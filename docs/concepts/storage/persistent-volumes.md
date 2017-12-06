@@ -118,8 +118,13 @@ For volume plugins that support the Delete reclaim policy, deletion removes both
 
 ### Expanding Persistent Volumes Claims
 
-With Kubernetes 1.8, we have added Alpha support for expanding persistent volumes. The current Alpha support was designed to only support volume types
-that don't need file system resizing (Currently only glusterfs).
+Kubernetes 1.8 added Alpha support for expanding persistent volumes. In v1.9, the following volume types support expanding Persistent volume claims:
+
+* gcePersistentDisk
+* awsElasticBlockStore
+* Cinder
+* glusterfs
+* rbd
 
 Administrator can allow expanding persistent volume claims by setting `ExpandPersistentVolumes` feature gate to true. Administrator
 should also enable [`PersistentVolumeClaimResize` admission plugin](/docs/admin/admission-controllers/#persistentvolumeclaimresize)
@@ -146,6 +151,16 @@ Once both feature gate and aforementioned admission plug-in are turned on, an us
 by simply editing the claim and requesting bigger size.  This in turn will trigger expansion of volume that is backing underlying `PersistentVolume`.
 
 Under no circumstances a new `PersistentVolume` gets created to satisfy the claim. Kubernetes will attempt to resize existing volume to satisfy the claim.
+
+For expanding volumes containing a file system, file system resizing is only performed when a new Pod is started using the `PersistentVolumeClaim` in
+ReadWrite mode. In other words, if a volume being expanded is used in a pod or deployment, you will need to delete and recreate the pod for file system
+resizing to take place. Also, file system resizing is only supported for following file system types:
+
+* XFS
+* Ext3, Ext4
+
+**Note:** Expanding EBS volumes is a time consuming operation. Also, there is a per-volume quota of one modification every 6 hours.
+{: .note}
 
 
 ## Types of Persistent Volumes
