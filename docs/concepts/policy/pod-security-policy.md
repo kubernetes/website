@@ -21,21 +21,22 @@ define a set of conditions that a pod must run with in order to be accepted into
 the system, as well as defaults for the related fields. They allow an
 administrator to control the following:
 
-| Control Aspect                                      | Field Names                                 |
-| ----------------------------------------------------| ------------------------------------------- |
-| Running of privileged containers                    | `privileged`                                |
-| Usage of the root namespaces                        | [`hostPID`, `hostIPC`](#host-namespaces)    |
-| Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
-| Usage of volume types                               | [`volumes`](#volumes-and-file-systems)      |
-| Usage of the host filesystem                        | [`allowedHostPaths`](#volumes-and-file-systems) |
-| Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
-| Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
-| The user and group IDs of the container             | [`runAsUser`, `supplementalGroups`](#users-and-groups) |
-| Restricting escalation to root privileges           | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
-| Linux capabilities                                  | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
-| The SELinux context of the container                | [`seLinux`](#selinux)                       |
-| The AppArmor profile used by containers             | [annotations](#apparmor)                    |
-| The seccomp profile used by containers              | [annotations](#seccomp)                     |
+| Control Aspect                                       | Field Names                                                                                  |
+| ---------------------------------------------------- | -------------------------------------------                                                  |
+| Running of privileged containers                     | `privileged`                                                                                 |
+| Usage of the root namespaces                         | [`hostPID`, `hostIPC`](#host-namespaces)                                                     |
+| Usage of host networking and ports                   | [`hostNetwork`, `hostPorts`](#host-namespaces)                                               |
+| Usage of volume types                                | [`volumes`](#volumes-and-file-systems)                                                       |
+| Usage of the host filesystem                         | [`allowedHostPaths`](#volumes-and-file-systems)                                              |
+| Usage of the flex volume drivers                     | [`allowedFlexVolumes`](#volumes-and-file-systems)                                            |
+| Allocating an FSGroup that owns the pod's volumes    | [`fsGroup`](#volumes-and-file-systems)                                                       |
+| Requiring the use of a read only root file system    | [`readOnlyRootFilesystem`](#volumes-and-file-systems)                                        |
+| The user and group IDs of the container              | [`runAsUser`, `supplementalGroups`](#users-and-groups)                                       |
+| Restricting escalation to root privileges            | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation)       |
+| Linux capabilities                                   | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
+| The SELinux context of the container                 | [`seLinux`](#selinux)                                                                        |
+| The AppArmor profile used by containers              | [annotations](#apparmor)                                                                     |
+| The seccomp profile used by containers               | [annotations](#seccomp)                                                                      |
 
 
 ## Enabling Pod Security Policies
@@ -408,6 +409,25 @@ allowedHostPaths:
   # disallows "/fool", "/etc/foo" etc.
   # "/foo/../" is never valid.
   - pathPrefix: "/foo"
+```
+
+
+**AllowedFlexVolumes** - This specifies a whitelist of flex volume drivers that are allowed
+to be used by flexVolume. An empty list means there is no restriction on the drivers. we
+need make sure `volumes` contains the `flexVolume` volume type, if it doesn't, no flex volume
+driver is allowed. For example:
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: allow-flex-volumes
+spec:
+  volumes:
+  - flexVolume
+  allowedFlexVolumes:
+  - driver: example/lvm
+  - driver: example/cifs
 ```
 
 _Note: There are many ways a container with unrestricted access to the host
