@@ -1,5 +1,6 @@
 id: job
 name: Job
+full-link: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 tags:
 - core-object
 short-description: >
