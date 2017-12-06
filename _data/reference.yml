@@ -105,4 +105,5 @@ toc:
 
 - title: Kops
   section:
-    - docs/reference/generated/kops/index.html
+  - title: Kops Definitions
+    path: /docs/reference/generated/kops/
