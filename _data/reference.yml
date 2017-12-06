@@ -103,6 +103,6 @@ toc:
     path: https://github.com/kubernetes/kubernetes/issues/
   - docs/reference/security.md
 
-- title Kops
+- title: Kops
   section:
     - docs/reference/generated/kops/index.html
