@@ -102,3 +102,7 @@ toc:
   - title: Kubernetes Issue Tracker on GitHub
     path: https://github.com/kubernetes/kubernetes/issues/
   - docs/reference/security.md
+
+- title Kops
+  section:
+    - docs/reference/generated/kops/index.html
