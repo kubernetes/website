@@ -111,7 +111,7 @@ Daemon Pods do respect [taints and tolerations](/docs/concepts/configuration/tai
 but they are created with `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
  - `node.kubernetes.io/not-ready`
- - `node.alpha.kubernetes.io/unreachable`
+ - `node.kubernetes.io/unreachable`
 
 This ensures that when the `TaintBasedEvictions` alpha feature is enabled,
 they will not be evicted when there are node problems such as a network partition. (When the
