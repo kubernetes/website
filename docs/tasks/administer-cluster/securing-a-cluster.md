@@ -163,7 +163,7 @@ access to a subset of the keyspace is strongly recommended.
 
 ### Enable audit logging
 
-The [audit logger](/docs/tasks/debug-application-cluster/audit/) is an alpha feature that records actions taken by the
+The [audit logger](/docs/tasks/debug-application-cluster/audit/) is a beta feature that records actions taken by the
 API for later analysis in the event of a compromise. It is recommended to enable audit logging 
 and archive the audit file on a secure server.
 
