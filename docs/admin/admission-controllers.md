@@ -329,6 +329,10 @@ This plug-in also protects the access to `metadata.ownerReferences[x].blockOwner
 of an object, so that only users with "update" permission to the `finalizers`
 subresource of the referenced *owner* can change it.
 
+### Persistent Volume Claim Protection (alpha)
+{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
+The `PVCProtection` plugin adds the `kubernetes.io/pvc-protection` finalizer to newly created Persistent Volume Claims (PVCs). In case a user deletes a PVC the PVC is not removed until the finalizer is removed from the PVC by PVC Protection Controller. Refer to the [PVC Protection](/docs/concepts/storage/persistent-volumes/#persistent-volume-claim-protection) for more detailed information.
+
 ### PersistentVolumeLabel
 
 This plug-in automatically attaches region or zone labels to PersistentVolumes
