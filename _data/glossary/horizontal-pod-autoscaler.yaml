@@ -1,0 +1,15 @@
+id: horizontal-pod-autoscaler
+name: Horizontal Pod Autoscaler
+full-link: /docs/tasks/run-application/horizontal-pod-autoscale/
+aka:
+- HPA
+related:
+- pod
+tags:
+- operation
+short-description: >
+  An API resource that automatically scales the number of pod replicas based on targeted CPU
+  utilization or custom metric targets.
+long-description: >
+  HPA is typically used with replication controllers, deployments or replica sets and cannot be
+  applied to objects that cannot be scaled, for example DaemonSets.  
