@@ -196,7 +196,7 @@ currently include:
 
  * `node.kubernetes.io/not-ready`: Node is not ready. This corresponds to
    the NodeCondition `Ready` being "`False`".
- * `node.alpha.kubernetes.io/unreachable`: Node is unreachable from the node
+ * `node.kubernetes.io/unreachable`: Node is unreachable from the node
    controller. This corresponds to the NodeCondition `Ready` being "`Unknown`".
  * `node.kubernetes.io/out-of-disk`: Node becomes out of disk.
  * `node.kubernetes.io/memory-pressure`: Node has memory pressure.
@@ -226,7 +226,7 @@ The toleration the pod would use in that case would look like
 
 ```yaml
 tolerations:
-- key: "node.alpha.kubernetes.io/unreachable"
+- key: "node.kubernetes.io/unreachable"
   operator: "Exists"
   effect: "NoExecute"
   tolerationSeconds: 6000
@@ -237,9 +237,9 @@ Note that Kubernetes automatically adds a toleration for
 unless the pod configuration provided
 by the user already has a toleration for `node.kubernetes.io/not-ready`.
 Likewise it adds a toleration for
-`node.alpha.kubernetes.io/unreachable` with `tolerationSeconds=300`
+`node.kubernetes.io/unreachable` with `tolerationSeconds=300`
 unless the pod configuration provided
-by the user already has a toleration for `node.alpha.kubernetes.io/unreachable`.
+by the user already has a toleration for `node.kubernetes.io/unreachable`.
 
 These automatically-added tolerations ensure that
 the default pod behavior of remaining bound for 5 minutes after one of these
@@ -250,7 +250,7 @@ admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/default
 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) pods are created with
 `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
-  * `node.alpha.kubernetes.io/unreachable`
+  * `node.kubernetes.io/unreachable`
   * `node.kubernetes.io/not-ready`
 
 This ensures that DaemonSet pods are never evicted due to these problems,
