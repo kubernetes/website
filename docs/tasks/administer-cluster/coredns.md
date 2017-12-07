@@ -2,6 +2,7 @@
 approvers:
 - johnbelamaric
 title: Using CoreDNS for Service Discovery
+min-kubernetes-server-version: v1.9
 ---
 
 {% include feature-state-alpha.md %}
@@ -12,7 +13,7 @@ discovery.
 {% endcapture %}
 
 {% capture prerequisites %}
-* Kubernetes version 1.9 and above.
+{% include task-tutorial-prereqs.md %}
 {% endcapture %}
 
 {% capture steps %}
@@ -26,15 +27,15 @@ may be installed by setting the `CoreDNS` feature gate to `true` during `kubeadm
 kubeadm init --feature-gates=CoreDNS=true
 ```
 
-This will install CoreDNS instead of kube-dns.
+This installs CoreDNS instead of kube-dns.
 
 {% endcapture %}
 
 {% capture whatsnext %}
 
-[CoreDNS](https://coredns.io) may be configured to support many more use cases than
-kube-dns by modifying the `Corefile`. See the CoreDNS [site](https://coredns.io) for some
-[examples](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/).
+You can configure [CoreDNS](https://coredns.io) to support many more use cases than
+kube-dns by modifying the `Corefile`. For more information, see the
+[CoreDNS site]https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/).
 
 {% endcapture %}
 
