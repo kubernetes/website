@@ -7,6 +7,12 @@ docs/user-guide/pods/_viewing-a-pod.md
 docs/user-guide/simple-yaml.md
 docs/user-guide/update-demo/images/kitten/README.md
 docs/user-guide/update-demo/images/nautilus/README.md
+docs/reference/generated/cloud-controller-manager.md
+docs/reference/generated/kube-apiserver.md
+docs/reference/generated/kube-controller-manager.md
+docs/reference/generated/kube-proxy.md
+docs/reference/generated/kube-scheduler.md
+docs/reference/generated/kubelet.md
 docs/reference/setup-tools/kubeadm/generated/README.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha.md
