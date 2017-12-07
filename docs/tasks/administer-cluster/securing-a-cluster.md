@@ -1,6 +1,9 @@
 ---
 approvers:
 - smarterclayton
+- liggitt
+- ericchiang
+- destijl
 title: Securing a Cluster
 ---
 
@@ -68,6 +71,15 @@ to prevent accidental escalation. You can make roles specific to your use case i
 
 Consult the [authorization reference section](/docs/admin/authorization/) for more information.
 
+## Controlling access to the Kubelet
+
+Kubelets expose HTTPS endpoints which give access to data of varying sensitivity, and allow performing operations with varying levels of power on the node and within containers.
+
+By default, Kubelets allow full access to those endpoints.
+
+To secure access to those endpoints, enable Kubelet authentication and authorization.
+
+Consult the [Kubelet authentication/authorization reference](/docs/admin/kubelet-authentication-authorization) for more information.
 
 ## Controlling the capabilities of a workload or user at runtime
 
