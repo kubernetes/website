@@ -28,6 +28,8 @@ kubeadm init --feature-gates=CoreDNS=true
 
 This will install CoreDNS instead of kube-dns.
 
+{% endcapture %}
+
 {% capture whatsnext %}
 
 [CoreDNS](https://coredns.io) may be configured to support many more use cases than
