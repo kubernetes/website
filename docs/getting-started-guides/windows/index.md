@@ -2,6 +2,7 @@
 title: Using Windows Server Containers in Kubernetes
 ---
 **Note:** These instructions were recently updated based on Windows Server platform enhancements and the Kubernetes v1.9 release
+{: .note}
 
 Kubernetes version 1.5 introduced Alpha support for Windows Server Containers based on the Windows Server 2016 operating system. With the release of Windows Server version 1709 and using Kubernetes v1.9 users are able to deploy a Kubernetes cluster either on-premises or in a private/public cloud using a number of different network topologies and CNI plugins. Some key feature improvements for Windows Server Containers on Kubernetes include:
 - Improved support for pods! Shared network namespace (compartment) with multiple Windows Server containers (shared kernel)
@@ -13,6 +14,7 @@ Kubernetes version 1.5 introduced Alpha support for Windows Server Containers ba
 The Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) continue to run on Linux, while the kubelet and kube-proxy can be run on Windows Server 2016 or later
 
 **Note:** Windows Server Containers on Kubernetes is a Beta feature in Kubernetes v1.9
+{: .note}
 
 ## Build
 We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases). Look for the Node Binaries section by visiting the binary downloads link. 
@@ -42,7 +44,7 @@ If you wish to build the code yourself, please follow the next instructions:
     # You will find the output binaries under the folder _output/local/bin/windows/
 ```
 
-More detailed build instructions will be maintained and kept up to date [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md)
+More detailed build instructions will be maintained and kept up to date [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md).
 
 ## Prerequisites
 In Kubernetes version 1.9 or later, Windows Server Containers for Kubernetes are supported using the following:
@@ -115,7 +117,7 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 5. Start kube-proxy using this script [start-kubeproxy.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubeproxy.ps1)
 6. [Only required for #2 Host-Gateway mode] Add static routes on Windows host using this script [AddRoutes.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/AddRoutes.ps1)
 
-More detailed instructions can be found [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows.md)
+More detailed instructions can be found [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows.md).
 
 **Windows CNI Config Example**  
 Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file.
