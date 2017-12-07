@@ -523,7 +523,9 @@ i {
 .infobarWrapper {
     visibility: hidden;
     height: 60vh;
+    margin-bottom:100px;
 }
+
 .infobar {
     padding:0%;
     background-color:#3371e3;
