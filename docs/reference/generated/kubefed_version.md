@@ -1,3 +1,7 @@
+---
+notitle: true
+---
+
 ## kubefed version
 
 Print the client and server version information

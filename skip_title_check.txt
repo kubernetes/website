@@ -1,5 +1,13 @@
 # Put files you want to skip "title:" check here:
 docs/reference/generated/README.md
+docs/reference/generated/federation-controller-manager.md
+docs/reference/generated/federation-apiserver.md
+docs/reference/generated/kubefed.md
+docs/reference/generated/kubefed_init.md
+docs/reference/generated/kubefed_join.md
+docs/reference/generated/kubefed_options.md
+docs/reference/generated/kubefed_unjoin.md
+docs/reference/generated/kubefed_version.md
 docs/sitemap.md
 docs/user-guide/configmap/README.md
 docs/user-guide/downward-api/README.md
