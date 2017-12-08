@@ -1,4 +1,5 @@
 # Put files you want to skip "title:" check here:
+docs/reference/generated/kubectl/kubectl.md
 docs/reference/generated/README.md
 docs/sitemap.md
 docs/user-guide/configmap/README.md
