@@ -75,15 +75,38 @@ Stopping local Kubernetes cluster...
 Stopping "minikube"...
 ```
 
-### Using rkt container engine
+### Alternative Container Runtimes
+
+#### CRI-O
+
+To use [CRI-O](https://github.com/kubernetes-incubator/cri-o) as the container runtime, run:
+
+```bash
+$ minikube start \
+    --network-plugin=cni \
+    --container-runtime=cri-o \
+    --bootstrapper=kubeadm
+```
+
+Or you can use the extended version:
+
+```bash
+$ minikube start \
+    --network-plugin=cni \
+    --extra-config=kubelet.container-runtime=remote \
+    --extra-config=kubelet.container-runtime-endpoint=/var/run/crio.sock \
+    --extra-config=image-service-endpoint=/var/run/crio.sock \
+    --bootstrapper=kubeadm
+```
+
+#### rkt container engine
 
 To use [rkt](https://github.com/coreos/rkt) as the container runtime run:
 
 ```shell
 $ minikube start \
     --network-plugin=cni \
-    --container-runtime=rkt \
-    --iso-url=https://github.com/coreos/minikube-iso/releases/download/v0.0.5/minikube-v0.0.5.iso
+    --container-runtime=rkt
 ```
 
 This will use an alternative minikube ISO image containing both rkt, and Docker, and enable CNI networking.
