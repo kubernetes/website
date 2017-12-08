@@ -57,8 +57,8 @@ toc:
   - docs/tasks/run-application/delete-stateful-set.md
   - docs/tasks/run-application/force-delete-stateful-set-pod.md
   - docs/tasks/run-application/rolling-update-replication-controller.md
-  - docs/tasks/run-application/horizontal-pod-autoscale.md
-  - docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md
+  - docs/tasks/run-application/horizontal-pod-autoscaler.md
+  - docs/tasks/run-application/horizontal-pod-autoscaler-walkthrough.md
   - docs/tasks/run-application/configure-pdb.md
 
 - title: Run Jobs
