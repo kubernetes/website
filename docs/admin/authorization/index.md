@@ -157,15 +157,6 @@ The following flags can be used:
 You can choose more than one authorization module. Modules are checked in order
 so an earlier module has higher priority to allow or deny a request.
 
-## Versioning
-For version 1.2, clusters created by kube-up.sh are configured so that no
-authorization is required for any request.
-
-As of version 1.3, clusters created by kube-up.sh are configured so that the
-ABAC authorization modules are enabled. However, its input file is initially set
-to allow all users to do all operations. The cluster administrator needs to edit
-that file, or configure a different authorizer to restrict what users can do.
-
 {% endcapture %}
 {% capture whatsnext %}
 * To learn more about Authentication, see **Authentication** in [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api/).
@@ -176,8 +167,9 @@ that file, or configure a different authorizer to restrict what users can do.
 
 ## Privilege escalation via pod creation
 
-Users who have ability to create pods in a namespace can potentially escalate
-their privileges within that namespace.  They can create pods that access
+Users who have the ability to create pods in a namespace can potentially
+escalate their privileges within that namespace.  They can create pods that
+access their privileges within that namespace. They can create pods that access
 secrets the user cannot themselves read, or that run under a service account
 with different/greater permissions.
 
