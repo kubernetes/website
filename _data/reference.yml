@@ -40,7 +40,7 @@ toc:
 
 - title: Federation API
   section:
-    - docs/reference/generated/federatioi/v1/operations.html
+    - docs/reference/generated/federation/v1/operations.html
     - docs/reference/generated/federation/v1/definitions.html
     - docs/reference/generated/federation/extensions/v1beta1/operations.html
     - docs/reference/generated/federation/extensions/v1beta1/definitions.html
