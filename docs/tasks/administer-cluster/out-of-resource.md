@@ -19,8 +19,8 @@ nodes become unstable.
 ## Eviction Policy
 
 The `kubelet` can proactively monitor for and prevent total starvation of a
-compute resource.  In those cases, the `kubelet` can reclaim the starved
-resource by proactively failing one or more Pods.  When the `kubelet` fails
+compute resource. In those cases, the `kubelet` can reclaim the starved
+resource by proactively failing one or more Pods. When the `kubelet` fails
 a Pod, it terminates all of its containers and transitions its `PodPhase` to `Failed`.
 
 ### Eviction Signals
@@ -42,11 +42,11 @@ The percentage based value is calculated relative to the total capacity
 associated with each signal.
 
 The value for `memory.available` is derived from the cgroupfs instead of tools
-like `free -m`.  This is important because `free -m` does not work in a
+like `free -m`. This is important because `free -m` does not work in a
 container, and if users use the [node
 allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) feature, out of resource decisions
 are made local to the end user Pod part of the cgroup hierarchy as well as the
-root node.  This
+root node. This
 [script](/docs/tasks/administer-cluster/out-of-resource/memory-available.sh)
 reproduces the same set of steps that the `kubelet` performs to calculate
 `memory.available`. The `kubelet` excludes inactive_file (i.e. # of bytes of
@@ -60,7 +60,7 @@ memory is reclaimable under pressure.
    container writable layers.
 
 `imagefs` is optional. `kubelet` auto-discovers these filesystems using
-cAdvisor.  `kubelet` does not care about any other filesystems. Any other types
+cAdvisor. `kubelet` does not care about any other filesystems. Any other types
 of configurations are not currently supported by the kubelet. For example, it is
 *not OK* to store volumes and logs in a dedicated `filesystem`.
 
@@ -78,7 +78,7 @@ Each threshold has the following form:
 
 where:
 
-* `eviction-signal` is a eviction signal token as defined in the previous table.
+* `eviction-signal` is an eviction signal token as defined in the previous table.
 * `operator` is the desired relational operator, such as `<` (less than).
 * `quantity` is the eviction threshhold quantity, such as `1Gi`. These tokens must
 match the quantity representation used by Kubernetes. An eviction threshold can also
@@ -208,7 +208,7 @@ relative to their request for that resource are killed first. If no Pod
 has exceeded its request, the strategy targets the largest consumer of the
 starved resource.
 * `Guaranteed` Pods are guaranteed only when requests and limits are specified
-for all the containers and they are equal A `Guaranteed` Pod is guaranteed to
+for all the containers and they are equal. A `Guaranteed` Pod is guaranteed to
 never be evicted because of another Pod's resource consumption. If a system
 daemon (such as `kubelet`, `docker`, and `journald`) is consuming more resources
 than were reserved via `system-reserved` or `kube-reserved` allocations, and the
@@ -322,7 +322,7 @@ and trigger eviction assuming those Pods use less than their configured request.
 
 ### DaemonSet
 
-It is never desired for a `kubelet` to evict a `DaemonSet` Pod, since the Pod is
+It is never desired for `kubelet` to evict a `DaemonSet` Pod, since the Pod is
 immediately recreated and rescheduled back to the same node.
 
 At the moment, the `kubelet` has no ability to distinguish a Pod created
