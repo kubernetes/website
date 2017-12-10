@@ -151,6 +151,11 @@ file:
   values are `v1` or `v2`. Where no value is provided automatic detection will
   select the highest supported version exposed by the underlying OpenStack
   cloud.
+* `use-octavia` (Optional): Used to determine whether to look for and use an
+  Octavia LBaaS V2 service catalog endpoint. Valid values are `true` or `false`.
+  Where `true` is specified and an Octaiva LBaaS V2 entry can not be found, the
+  provider will fall back and attempt to find a Neutron LBaaS V2 endpoint
+  instead. The default value is `false`.
 * `subnet-id` (Optional): Used to specify the id of the subnet you want to
   create your loadbalancer on. Can be found at Network > Networks. Click on the
   respective network to get its subnets.
@@ -195,6 +200,11 @@ and should appear in the `[BlockStorage]` section of the `cloud.conf` file:
   provided by Cinder. The default value of `false` results in the discovery of
   the device path based on it's serial number and /dev/disk/by-id mapping and is
   the recommended approach.
+* `ignore-volume-az` (Optional): Used to influence availability zone use when
+  attaching Cinder volumes. When Nova and Cinder have different availability
+  zones, this should be set to `true`. This is most commonly the case where
+  there are many Nova availability zones but only one Cinder availability zone.
+  The default value is `false`.
 
 If deploying Kubernetes versions <= 1.8 on an OpenStack deployment that uses
 paths rather than ports to differentiate between endpoints it may be necessary
