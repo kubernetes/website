@@ -88,7 +88,7 @@ With v1.3, the PodSpec has a `hostname` field, which can be used to specify the 
 `pod.beta.kubernetes.io/hostname` annotation value.
 
 v1.2 introduces a beta feature where the user can specify a Pod annotation, `pod.beta.kubernetes.io/subdomain`, to specify the Pod's subdomain.
-The final domain will be "<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>".
+The final domain will be `<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>`.
 For example, a Pod with the hostname annotation set to "foo", and the subdomain annotation set to "bar", in namespace "my-namespace", will have the FQDN "foo.bar.my-namespace.svc.cluster.local"
 
 With v1.3, the PodSpec has a `subdomain` field, which can be used to specify the Pod's subdomain. This field value takes precedence over the
