@@ -200,7 +200,7 @@ for i in 0 1 2; do kubectl exec zk-$i -- hostname -f; done
 ```
 
 The `zk-hs` Service creates a domain for all of the Pods, 
-`zk-headless.default.svc.cluster.local`.
+`zk-hs.default.svc.cluster.local`.
 
 ```shell
 zk-0.zk-hs.default.svc.cluster.local
@@ -236,9 +236,9 @@ minSessionTimeout= 4000
 maxSessionTimeout= 40000
 autopurge.snapRetainCount=3
 autopurge.purgeInterval=0
-server.1=zk-0.zk-headless.default.svc.cluster.local:2888:3888
-server.2=zk-1.zk-headless.default.svc.cluster.local:2888:3888
-server.3=zk-2.zk-headless.default.svc.cluster.local:2888:3888
+server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
+server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
+server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 ```
 
 ### Achieving Consensus
@@ -287,7 +287,7 @@ represents a correctly configured ensemble.
 ```shell
 server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
 server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
-server.3=zk-2.zk-hsdefault.svc.cluster.local:2888:3888
+server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 ```
 
 When the servers use the Zab protocol to attempt to commit a value, they will 
