@@ -11,7 +11,8 @@ title: kubeadm join
 {% capture body %}
 {% include_relative generated/kubeadm_join.md %}
 
-### Join workflow 
+### The joining workflow
+
 `kubeadm join` bootstraps a Kubernetes worker node and joins it to the cluster. 
 This action consists of the following steps:
 
@@ -30,12 +31,14 @@ This action consists of the following steps:
 1. Finally, kubeadm configures the local kubelet to connect to the API
    server with the definitive identity assigned to the node.
 
-### Discovery
+### Discovering what cluster CA to trust
+
 The kubeadm discovery has several options, each with security tradeoffs.
 The right method for your environment depends on how you provision nodes and the
 security expectations you have about your network and node lifecycles.
 
 #### Token-based discovery with CA pinning
+
 This is the default mode in Kubernetes 1.8 and above. In this mode, kubeadm downloads
 the cluster configuration (including root CA) and validates it using the token
 as well as validating that the root CA public key matches the provided hash and
@@ -49,7 +52,7 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 
 **Example `kubeadm join` command:**
 
-```
+```bash
 kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef 1.2.3.4:6443
 ```
 
@@ -65,9 +68,11 @@ kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert
 
  - The CA hash is not normally known until the master has been provisioned,
    which can make it more difficult to build automated provisioning tools that
-   use kubeadm.
+   use kubeadm. By generating your CA in beforehand, you may workaround this
+   limitation though.
 
 #### Token-based discovery without CA pinning
+
 _This was the default in Kubernetes 1.7 and earlier_, but comes with some
 important caveats. This mode relies only on the symmetric token to sign
 (HMAC-SHA256) the discovery information that establishes the root of trust for
@@ -118,9 +123,6 @@ using kubeadm.
    the master to the bootstrapping nodes. This might be possible, for example,
    via your cloud provider or provisioning tool. The information in this file is
    not secret, but HTTPS or equivalent is required to ensure its integrity.
-
- - Less convenient to use manually since the file is difficult to copy and paste
-   between nodes.
 
 ### Securing your installation even more {#securing-more}
 
