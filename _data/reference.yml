@@ -49,26 +49,16 @@ toc:
 
 - title: kubectl CLI
   section:
-  - docs/user-guide/kubectl-overview.md
-  - docs/user-guide/kubectl/index.md
-  - title: v1.8 Commands
-    path: /docs/user-guide/kubectl/v1.8/
-  - title: v1.7 Commands
-    path: /docs/user-guide/kubectl/v1.7/
-  - title: v1.6 Commands
-    path: /docs/user-guide/kubectl/v1.6/
-  - title: v1.5 Commands
-    path: /docs/user-guide/kubectl/v1.5/
-  - docs/user-guide/docker-cli-to-kubectl.md
-  - docs/user-guide/kubectl-conventions.md
-  - docs/user-guide/jsonpath.md
-  - docs/user-guide/kubectl-cheatsheet.md
+  - docs/reference/kubectl/overview.md
+  - docs/reference/generated/kubectl/kubectl-options.md
+  - title: kubectl Commands
+    path: /docs/reference/generated/kubectl/kubectl-commands.html
+  - docs/reference/kubectl/docker-cli-to-kubectl.md
+  - docs/reference/kubectl/conventions.md
+  - docs/reference/kubectl/jsonpath.md
+  - docs/reference/kubectl/cheatsheet.md
 
-- title: Cloud Controller Manager
-  section:
-  - docs/reference/generated/cloud-controller-manager.md
-
-- title: Setup Tools
+- title: Setup Tools Reference
   section:
   - docs/reference/generated/kubeadm.md
   - title: Kubefed
@@ -80,7 +70,7 @@ toc:
     - docs/reference/generated/kubefed_unjoin.md
     - docs/reference/generated/kubefed_version.md
 
-- title: Config Reference
+- title: Command-line Tools Reference
   section:
   - docs/reference/generated/kubelet.md
   - docs/admin/kubelet-authentication-authorization.md
@@ -89,6 +79,7 @@ toc:
   - docs/reference/generated/kube-proxy.md
   - docs/reference/generated/kube-scheduler.md
   - docs/admin/kubelet-tls-bootstrapping.md
+  - docs/reference/generated/cloud-controller-manager.md
   - docs/reference/generated/federation-apiserver.md
   - docs/reference/generated/federation-controller-manager.md
 
