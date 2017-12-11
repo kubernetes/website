@@ -73,11 +73,9 @@ Consult the [authorization reference section](/docs/admin/authorization/) for mo
 
 ## Controlling access to the Kubelet
 
-Kubelets expose HTTPS endpoints which give access to data of varying sensitivity, and allow performing operations with varying levels of power on the node and within containers.
+Kubelets expose HTTPS endpoints which grant powerful control over the node and containers. By default Kubelets allow unauthenticated access to this API.
 
-By default, Kubelets allow full access to those endpoints.
-
-To secure access to those endpoints, enable Kubelet authentication and authorization.
+Production clusters should enable Kubelet authentication and authorization.
 
 Consult the [Kubelet authentication/authorization reference](/docs/admin/kubelet-authentication-authorization) for more information.
 
