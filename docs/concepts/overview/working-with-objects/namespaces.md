@@ -6,7 +6,8 @@ approvers:
 title: Namespaces
 ---
 
-{% glossary_definition term_id="namespace" length="all" %}
+Kubernetes supports multiple virtual clusters backed by the same physical cluster.
+These virtual clusters are called namespaces.
 
 ## When to Use Multiple Namespaces
 
