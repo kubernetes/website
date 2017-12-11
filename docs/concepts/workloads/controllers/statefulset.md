@@ -10,8 +10,11 @@ title: StatefulSets
 ---
 
 {% capture overview %}
-**StatefulSet is the workload API object used to manage stateful applications.
-StatefulSets are beta in 1.8.**
+
+StatefulSet is the workload API object used to manage stateful applications.
+
+**Note:** StatefulSets are stable (GA) in 1.9.
+{: .note}
 
 {% glossary_definition term_id="statefulset" length="all" %}
 {% endcapture %}
@@ -66,7 +69,7 @@ spec:
   selector:
     app: nginx
 ---
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: web
@@ -151,6 +154,12 @@ onto a node, its `volumeMounts` mount the PersistentVolumes associated with its
 PersistentVolume Claims. Note that, the PersistentVolumes associated with the
 Pods' PersistentVolume Claims are not deleted when the Pods, or StatefulSet are deleted.
 This must be done manually.
+
+### Pod Name Label
+
+When the StatefulSet controller creates a Pod, it adds a label, `statefulset.kubernetes.io/pod-name`, 
+that is set to the name of the Pod. This label allows you to attach a Service to a specific Pod in 
+the StatefulSet.
 
 ## Deployment and Scaling Guarantees
 
