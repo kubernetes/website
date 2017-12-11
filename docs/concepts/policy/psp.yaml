@@ -1,10 +1,8 @@
 apiVersion: extensions/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: example
+  name: permissive
 spec:
-  privileged: false  # Don't allow privileged pods!
-  # The rest fills in some required fields.
   seLinux:
     rule: RunAsAny
   supplementalGroups:
@@ -13,5 +11,10 @@ spec:
     rule: RunAsAny
   fsGroup:
     rule: RunAsAny
+  hostPorts:
+  - min: 8000
+    max: 8080
   volumes:
+  - '*'
+  allowedCapabilities:
   - '*'
