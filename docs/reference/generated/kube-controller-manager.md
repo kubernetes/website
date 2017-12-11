@@ -25,14 +25,14 @@ kube-controller-manager
 ### Options
 
 ```
-      --address ip                                                        The IP address to serve on (set to 0.0.0.0 for all IPv4 interfaces and :: for all IPv6 interfaces) (default 0.0.0.0)
+      --address ip                                                        The IP address to serve on (set to 0.0.0.0 for all interfaces) (default 0.0.0.0)
       --allocate-node-cidrs                                               Should CIDRs for Pods be allocated and set on the cloud provider.
       --attach-detach-reconcile-sync-period duration                      The reconciler sync wait time between volume attach detach. This duration must be larger than one second, and increasing this value from the default may allow for volumes to be mismatched with pods. (default 1m0s)
       --azure-container-registry-config string                            Path to the file container Azure container registry configuration information.
       --cidr-allocator-type string                                        Type of CIDR allocator to use (default "RangeAllocator")
       --cloud-config string                                               The path to the cloud provider configuration file.  Empty string for no configuration file.
       --cloud-provider string                                             The provider for cloud services.  Empty string for no provider.
-      --cluster-cidr string                                               CIDR Range for Pods in cluster. For IPv6 the minimum length of the cluster or pod cidr is /66.
+      --cluster-cidr string                                               CIDR Range for Pods in cluster.
       --cluster-name string                                               The instance prefix for the cluster (default "kubernetes")
       --cluster-signing-cert-file string                                  Filename containing a PEM-encoded X509 CA certificate used to issue cluster-scoped certificates (default "/etc/kubernetes/ca/ca.pem")
       --cluster-signing-key-file string                                   Filename containing a PEM-encoded RSA or ECDSA private key used to sign cluster-scoped certificates (default "/etc/kubernetes/ca/ca.key")
