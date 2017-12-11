@@ -155,8 +155,8 @@ This must be done manually.
 ### Pod Name Label
 
 When the StatefulSet controller creates a Pod, it adds a label, `statefulset.kubernetes.io/pod-name`, 
-that is set to the name of the Pod. This label allows you to attach an individual Service to 
-each Pod in the StatefulSet.
+that is set to the name of the Pod. This label allows you to attach a Service to a specific Pod in 
+the StatefulSet.
 
 ## Deployment and Scaling Guarantees
 
