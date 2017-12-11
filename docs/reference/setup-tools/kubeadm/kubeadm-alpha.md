@@ -27,7 +27,7 @@ and behind the scene both use the same code.
 
 ## kubeadm alpha phase preflight {#cmd-phase-preflight}
 
-You can execute preflight checks both for he tmaster node, like in `kubeadm init`, or for the worker node
+You can execute preflight checks both for the master node, like in `kubeadm init`, or for the worker node
 like in `kubeadm join`.
 
 {% capture preflight_master %}
@@ -46,7 +46,7 @@ like in `kubeadm join`.
 
 ## kubeadm alpha phase certs {#cmd-phase-certs}
 
-You can create all required certificates with the `all` sub command or selectively create certificates.
+You can create all required certificates with the `all` subcommand or selectively create certificates.
 
 {% capture certs_all %}
 {% include_relative generated/kubeadm_alpha_phase_certs_all.md %}
@@ -84,7 +84,8 @@ You can create all required certificates with the `all` sub command or selective
 
 ## kubeadm alpha phase kubeconfig {#cmd-phase-kubeconfig}
 
-You can create all required kubeconfig files with the `all` sub command, or selectively create the files. Additionally, the `user` sub command supports the creation of kubeconfig files for additional users.
+You can create all required kubeconfig files with the `all` subcommand, or selectively create the files.
+Additionally, the `user` subcommand supports the creation of kubeconfig files for additional users.
 
 {% capture kubeconfig_all %}
 {% include_relative generated/kubeadm_alpha_phase_kubeconfig_all.md %}
@@ -118,7 +119,7 @@ You can create all required kubeconfig files with the `all` sub command, or sele
 
 ## kubeadm alpha phase controlplane {#cmd-phase-controlplane}
 
-You can create all required static pod files for control plane components with the `all` sub command, 
+You can create all required static Pod files for the control plane components with the `all` subcommand, 
 or selectively create the files.
 
 {% capture controlplane_all %}
@@ -145,7 +146,7 @@ or selectively create the files.
 
 ## kubeadm alpha phase etcd {#cmd-phase-etcd}
 
-Use the following command to create a self-hosted, local etcd instance based on a static pod file.
+Use the following command to create a self-hosted, local etcd instance based on a static Pod file.
 
 {% capture etcd-local %}
 {% include_relative generated/kubeadm_alpha_phase_etcd_local.md %}
@@ -159,7 +160,7 @@ Use the following command to create a self-hosted, local etcd instance based on 
 
 ## kubeadm alpha phase mark-master {#cmd-phase-mark-master}
 
-Use the following command to label the node with the `node-role.kubernetes.io/master` taint.
+Use the following command to label and taint the node with the `node-role.kubernetes.io/master=""` key-value pair.
 
 {% capture mark-master %}
 {% include_relative generated/kubeadm_alpha_phase_mark-master.md %}
@@ -174,7 +175,7 @@ Use the following command to label the node with the `node-role.kubernetes.io/ma
 ## kubeadm alpha phase bootstrap-token {#cmd-phase-bootstrap-token}
 
 Use the following actions to fully configure bootstrap tokens.
-You can fully configure bootstrap tokens with the `all` sub command, 
+You can fully configure bootstrap tokens with the `all` subcommand, 
 or selectively configure single elements.
 
 {% capture bootstrap-token_all %}
@@ -205,8 +206,8 @@ or selectively configure single elements.
 
 ## kubeadm alpha phase upload-config {#cmd-phase-upload-config}
 
-You can use this command to upload the configuration of your cluster. Alternatively, you 
-can use [kubeadm config](kubeadm-config.md).
+You can use this command to upload the kubeadm configuration to your cluster.
+Alternatively, you can use [kubeadm config](kubeadm-config.md).
 
 {% capture upload-config %}
 {% include_relative generated/kubeadm_alpha_phase_upload-config.md %}
@@ -220,7 +221,7 @@ can use [kubeadm config](kubeadm-config.md).
 
 ## kubeadm alpha phase addon {#cmd-phase-addon}
 
-You can install all the available addons with the `all` sub command, or 
+You can install all the available addons with the `all` subcommand, or 
 install them selectively.
 
 {% capture addon-all %}
@@ -258,4 +259,5 @@ install them selectively.
 
 ## What's next
 * [kubeadm init](kubeadm-init.md) to bootstrap a Kubernetes master node
+* [kubeadm join](kubeadm-join.md) to connect a node to the cluster
 * [kubeadm reset](kubeadm-reset.md) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
