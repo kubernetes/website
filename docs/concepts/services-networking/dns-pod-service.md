@@ -173,7 +173,7 @@ following pod-specific DNS policies. These policies are specified in the
   See [DNS config](#dns-config) subsection below.
 
 **NOTE:** "Default" is not the default DNS policy. If `dnsPolicy` is not
-explicitly specified, then ìClusterFirstî is used.
+explicitly specified, then ‚ÄúClusterFirst‚Äù is used.
 {: .note}
 
 
@@ -241,7 +241,6 @@ in its `/etc/resolv.conf` file:
 nameserver 1.2.3.4
 search ns1.svc.cluster.local my.dns.search.suffix
 options ndots:2 edns0
-```
 
 For IPv6 setup, search path and name server should be setup like this:
 

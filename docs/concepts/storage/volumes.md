@@ -69,6 +69,7 @@ Kubernetes supports several types of Volumes:
    * `azureDisk`
    * `azureFile`
    * `cephfs`
+   * `csi`
    * `downwardAPI`
    * `emptyDir`
    * `fc` (fibre channel)
@@ -169,6 +170,38 @@ writers simultaneously.
 {: .caution}
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/cephfs/) for more details.
+
+### csi
+
+CSI stands for [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md),
+a specification attempting to establish an industry standard interface that
+Container Orchestration Systems (COs) can use to expose arbitrary storage systems
+to their container workloads.
+For more information about the details, please check the
+[design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md).
+
+<!-- TODO: add link to the kubernetes extension section -->
+The `csi` volume type is an in-tree CSI volume plugin for Pods to interact
+with external CSI volume drivers running on the same node.
+After having deployed a CSI compatible volume driver, users can use `csi` as the
+volume type to mount the storage provided by the driver.
+
+CSI persistent volume support is introduced in Kubernetes v1.9 as an alpha feature
+which has to be explicitly enabled by the cluster administrator. In other words,
+the cluster administrator needs to add "`CSIPersistentVolume=true`" to the
+"`--feature-gates=`" flag for the apiserver, the controller-manager and the kubelet
+components.
+
+A CSI persistent volume has the following fields for users to specify:
+
+- `driver`: A string value that specifies the name of the volume driver to use.
+  It has to be less than 63 characters and starts with a character. The driver
+  name can have '`.`', '`-`', '`_`' or digits in it.
+- `volumeHandle`: A string value that uniquely identify the volume name returned
+  from the CSI volume plugin's `CreateVolume` call. The volume handle is then
+  used in all subsequent calls to the the volume driver for referencing the volume.
+- `readOnly`: An optional boolean value indicating whether the volume is to be
+  published as read only. Default is false.
 
 ### downwardAPI
 
@@ -434,7 +467,13 @@ See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{page.githu
 
 ### local
 
-This volume type is alpha in 1.7.
+{% assign for_k8s_version="v1.7" %}{% include feature-state-alpha.md %}
+
+This alpha feature requires the `PersistentLocalVolumes` feature gate to be
+enabled.
+
+**Note:** Starting in 1.9, the `VolumeScheduling` feature gate must also be enabled.
+{: .note}
 
 A `local` volume represents a mounted local storage device such as a disk,
 partition or directory.
@@ -443,7 +482,7 @@ Local volumes can only be used as a statically created PersistentVolume.
 
 Compared to HostPath volumes, local volumes can be used in a durable manner
 without manually scheduling pods to nodes, as the system is aware of the volume's
-node constraints.
+node constraints by looking at the node affinity on the PersistentVolume.
 
 However, local volumes are still subject to the availability of the underlying
 node and are not suitable for all applications.
@@ -480,6 +519,13 @@ spec:
 
 **Note:** The local PersistentVolume cleanup and deletion requires manual intervention without the external provisioner.
 {: .note}
+
+Starting in 1.9, local volume binding can be delayed until pod scheduling by
+creating a StorageClass with `volumeBindingMode` set to `WaitForFirstConsumer`.
+See the [example](storage-classes.md#local). Delaying volume binding ensures
+that the volume binding decision will also be evaluated with any other node
+constraints the pod may have, such as node resource requirements, node
+selectors, pod affinity, and pod anti-affinity.
 
 For details on the `local` volume type, see the [Local Persistent Storage
 user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).
