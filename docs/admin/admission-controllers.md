@@ -321,8 +321,6 @@ versions >= 1.9).
 
  * Users may be confused when the objects they try to create are different from
    what they get back.
- * Setting originally unset fields is less confusing that overwriting fields set in
-   the request. Avoid doing the latter.
  * Built in control loops may break when the objects they try to create are
    different when read back.
    * Setting originally unset fields is less likely to cause problems than
@@ -529,6 +527,16 @@ For Kubernetes >= 1.9.0, we strongly recommend running the following set of admi
 ```shell
 --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ValidatingAdmissionWebhook,ResourceQuota,DefaultTolerationSeconds,MutatingAdmissionWebhook
 ```
+
+It's worth reiterating that in 1.9 and up, these happen in a mutating phase
+and a validating phase, and that e.g. `ResourceQuota` runs in the validating
+phase, and therefore is the last admission controller to run.
+`DefaultTolerationSeconds` and `MutatingAdmissionWebhook` appear after it in this
+list, but they run in the mutating phase.
+
+For earlier versions, there was no concept of validating vs mutating and the
+admission controllers ran in the exact order specified.
+
 For Kubernetes >= 1.6.0, we strongly recommend running the following set of admission controllers (order matters):
 
 ```shell
