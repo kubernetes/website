@@ -20,15 +20,9 @@ following steps:
    considered errors and will exit kubeadm until the problem is corrected or the
    user specifies `--skip-preflight-checks`.
 
-1. Generates the token that additional nodes can use to register
-   themselves with the master in the future.  Optionally, the user can provide a
-   token via `--token`, as described in the
-   [kubeadm token](kubeadm-token.md) docs.
-
-1. Generates a self-signed CA to provision identities for each component
-   (including nodes) in the cluster.  It also generates client certificates to
-   be used by various components.  If the user has provided their own CA by
-   dropping it in the cert directory configured via `--cert-dir`
+1. Generates a self-signed CA (or using an existing one if provided) to set up
+   identities for each component in the cluster. If the user has provided their
+   own CA cert and/or key by dropping it in the cert directory configured via `--cert-dir`
    (`/etc/kubernetes/pki` by default) this step is skipped as described in the
    [Using custom certificates](#custom-certificates) document.
 
@@ -44,10 +38,15 @@ following steps:
    Static Pod manifests are written to `/etc/kubernetes/manifests`; the kubelet
    watches this directory for Pods to create on startup.
 
-   Once control plane Pods are up and running, the kubeadm init sequence can continue.
+   Once control plane Pods are up and running, the `kubeadm init` sequence can continue.
 
 1. Apply labels and taints to the master node so that no additional workloads will 
    run there.
+
+1. Generates the token that additional nodes can use to register
+   themselves with the master in the future.  Optionally, the user can provide a
+   token via `--token`, as described in the
+   [kubeadm token](kubeadm-token.md) docs.
 
 1. Makes all the necessary configurations for allowing node joining with the
    [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) and
@@ -57,9 +56,9 @@ following steps:
    - Write a ConfigMap for making available all the information required
      for joining, and set up related RBAC access rules.
 
-   - Ensure access to the CSR signing API for bootstrap tokens.
+   - Let Bootstrap Tokens access the CSR signing API.
 
-   - Configure auto approval for new CSR requests.
+   - Configure auto-approval for new CSR requests.
 
    See [kubeadm join](kubeadm-join.md) for additional info.
 
@@ -145,7 +144,7 @@ will need to look like this:
 apiVersion: kubeadm.k8s.io/v1alpha1
 kind: MasterConfiguration
 apiServerExtraArgs:
-   feature-gates: APIResponseCompression=true
+  feature-gates: APIResponseCompression=true
 ```
 
 To customize the scheduler or controller-manager, use `schedulerExtraArgs` and `controllerManagerExtraArgs` respectively.
@@ -159,7 +158,7 @@ More information on custom arguments can be found here:
 
 By default, kubeadm pulls images from `gcr.io/google_containers`, unless
 the requested Kubernetes version is a CI version. In this case,
-`gcr.io/kubernetes-ci-image` is used.
+`gcr.io/kubernetes-ci-images` is used.
 
 You can override this behavior by using [kubeadm with a configuration file](#config-file).
 Allowed customization are:
@@ -185,11 +184,15 @@ use case. This means you can, for example, copy an existing CA into `/etc/kubern
 and `/etc/kubernetes/pki/ca.key`, and kubeadm will use this CA for signing the rest 
 of the certs.
 
+#### External CA mode {#external-ca-mode}
+
 It is also possible to provide just the `ca.crt` file and not the 
 `ca.key` file (this is only available for the root CA file, not other cert pairs). 
 If all other certificates and kubeconfig files are in place, kubeadm recognizes 
-this condition and activates the "ExternalCA" mode, which also
-implies the CSR signer controller in the controller manager won't be started.
+this condition and activates the "External CA" mode, which means that kubeadm will
+proceed without the CA key on disk, and just don't run the CSR signer controller.
+The user should run the controller-manager standalone with
+`--controllers=csrsigner` and point to the CA certificate and key.
 
 ### Managing the kubeadm drop-in file for the kubelet {#kubelet-drop-in}
 
@@ -241,7 +244,7 @@ Here's a breakdown of what/why:
    `https://{node-ip}:10250/stats/`. If you want to enable cAdvisor to listen on a
    wide-open port, run:
 
-   ```
+   ```bash
    sed -e "/cadvisor-port=0/d" -i /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
    systemctl daemon-reload
    systemctl restart kubelet
@@ -252,12 +255,11 @@ Here's a breakdown of what/why:
 
 ### Use kubeadm with other CRI runtimes
 
-Since the [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1),
-Kubernetes has started using CRI as the default container runtime.
-The container runtime used by kubeadm is Docker, which is enabled through the built-in
-`dockershim` in `kubelet` mechanisms.
+Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
+The container runtime used by default is Docker, which is enabled through the built-in
+`dockershim` CRI implementation inside of the `kubelet`.
 
-Other CRI-based runtimes include::
+Well-known, external CRI-based runtimes include:
 
 - [cri-o](https://github.com/kubernetes-incubator/cri-o)
 - [frakti](https://github.com/kubernetes/frakti)
@@ -273,14 +275,17 @@ these two additional steps:
    `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
 
 ```shell
-  cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
-Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --container-runtime-endpoint=$RUNTIME_ENDPOINT --feature-gates=AllAlpha=true"
+cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
+Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --container-runtime-endpoint=$RUNTIME_ENDPOINT"
 EOF
-  systemctl daemon-reload
+systemctl daemon-reload
 ```
 
 Now `kubelet` is ready to use the specified CRI runtime, and you can continue
 with the `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
+
+You may also want to set `--cri-socket` to `kubeadm init` and `kubeadm reset` when
+using an external CRI implementation.
 
 ### Using internal IPs in your cluster
 
@@ -296,7 +301,8 @@ In order to set up a cluster where the master and worker nodes communicate with 
 
 3. Finally, when you run `kubeadm join`, make sure you provide the private IP of the API server addressed as defined in step 1.
 
-### Self-hosting the Kubernetes control plane  {#self-hosting}
+### Self-hosting the Kubernetes control plane {#self-hosting}
+
 As of 1.8, you can experimentally create a _self-hosted_ Kubernetes control
 plane. This means that key components such as the API server, controller
 manager, and scheduler run as [DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
@@ -314,7 +320,7 @@ flag to `kubeadm init`.
 #### Caveats
 
 Self-hosting in 1.8 has some important limitations. In particular, a
-self-hosted cluster cannot recover from a reboot of the master node
+self-hosted cluster _cannot recover from a reboot of the master node_
 without manual intervention. This and other limitations are expected to be
 resolved before self-hosting graduates from alpha.
 
@@ -331,8 +337,10 @@ In kubeadm 1.8, the self-hosted portion of the control plane does not include et
 which still runs as a static Pod.
 
 #### Process
+
 The self-hosting bootstrap process is documented in the [kubeadm design
 document](https://github.com/kubernetes/kubeadm/blob/master/docs/design/design_v1.9.md#optional-self-hosting).
+
 In summary, `kubeadm init --feature-gates=SelfHosting=true` works as follows:
 
   1. Waits for this bootstrap static control plane to be running and
@@ -359,23 +367,23 @@ This process (steps 3-6) can also be triggered with `kubeadm phase selfhosting c
 
 For running kubeadm without an internet connection you have to pre-pull the required master images for the version of choice:
 
-| Image Name |  v1.8 release branch version | v1.9 release branch version
-|---|---|---|
-| gcr.io/google_containers/kube-apiserver-${ARCH} | v1.8.x | v1.9.x
-| gcr.io/google_containers/kube-controller-manager-${ARCH} | v1.8.x | v1.9.x
-| gcr.io/google_containers/kube-scheduler-${ARCH} | v1.8.x | v1.9.x
-| gcr.io/google_containers/kube-proxy-${ARCH} | v1.8.x | v1.9.x
-| gcr.io/google_containers/etcd-${ARCH} | 3.0.17 | 3.1.10
-| gcr.io/google_containers/pause-${ARCH} | 3.0 | 3.0
-| gcr.io/google_containers/k8s-dns-sidecar-${ARCH} | 1.14.5 | 1.14.7
-| gcr.io/google_containers/k8s-dns-kube-dns-${ARCH} | 1.14.5 | 1.14.7
-| gcr.io/google_containers/k8s-dns-dnsmasq-nanny-${ARCH} | 1.14.5 | 1.14.7
+| Image Name                                               | v1.8 release branch version | v1.9 release branch version |
+|----------------------------------------------------------|-----------------------------|-----------------------------|
+| gcr.io/google_containers/kube-apiserver-${ARCH}          | v1.8.x                      | v1.9.x                      |
+| gcr.io/google_containers/kube-controller-manager-${ARCH} | v1.8.x                      | v1.9.x                      |
+| gcr.io/google_containers/kube-scheduler-${ARCH}          | v1.8.x                      | v1.9.x                      |
+| gcr.io/google_containers/kube-proxy-${ARCH}              | v1.8.x                      | v1.9.x                      |
+| gcr.io/google_containers/etcd-${ARCH}                    | 3.0.17                      | 3.1.10                      |
+| gcr.io/google_containers/pause-${ARCH}                   | 3.0                         | 3.0                         |
+| gcr.io/google_containers/k8s-dns-sidecar-${ARCH}         | 1.14.5                      | 1.14.7                      |
+| gcr.io/google_containers/k8s-dns-kube-dns-${ARCH}        | 1.14.5                      | 1.14.7                      |
+| gcr.io/google_containers/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.5                      | 1.14.7                      |
 
 Here `v1.8.x` means the "latest patch release of the v1.8 branch".
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
-If using `--feature-gates=CoreDNS` image `coredns/coredns:0.9.10` is required (instead of `kube-dns` images).
+If using `--feature-gates=CoreDNS` image `coredns/coredns:1.0.0` is required (instead of the three `k8s-dns-*` images).
 
 ### Automating kubeadm
 
