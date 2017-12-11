@@ -21,7 +21,7 @@ When accessing the Kubernetes API for the first time, use the
 Kubernetes command-line tool, `kubectl`.
 
 To access a cluster, you need to know the location of the cluster and have credentials
-to access it.  Typically, this is automatically set-up when you work through
+to access it. Typically, this is automatically set-up when you work through
 a [Getting started guide](/docs/setup/),
 or someone else setup the cluster and provided you with credentials and a location.
 
@@ -32,21 +32,21 @@ $ kubectl config view
 ```
 
 Many of the [examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/) provide an introduction to using
-kubectl.  Complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl/index).
+kubectl. Complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl/index).
 
 ### Directly accessing the REST API
 
 kubectl handles locating and authenticating to the API server. If you want to directly access the REST API with an http client like
 `curl` or `wget`, or a browser, there are multiple ways you can locate and authenticate against the API server:
 
- 1. Run kubectl in proxy mode (recommended).  This method is recommended, since it uses the stored apiserver location and verifies the identity of the API server using a self-signed cert.  No man-in-the-middle (MITM) attack is possible using this method.
- 1. Alternatively, you can provide the location and credentials directly to the http client. This works with for client code that is confused by proxies.  To protect against man in the middle attacks, you'll need to import a root cert into your browser.
+ 1. Run kubectl in proxy mode (recommended). This method is recommended, since it uses the stored apiserver location and verifies the identity of the API server using a self-signed cert. No man-in-the-middle (MITM) attack is possible using this method.
+ 1. Alternatively, you can provide the location and credentials directly to the http client. This works with client code that is confused by proxies. To protect against man in the middle attacks, you'll need to import a root cert into your browser.
 
  Using the Go or Python client libraries provides accessing kubectl in proxy mode.
 
 #### Using kubectl proxy
 
-The following command runs kubectl in a mode where it acts as a reverse proxy.  It handles
+The following command runs kubectl in a mode where it acts as a reverse proxy. It handles
 locating the API server and authenticating.
 
 Run it like this:
@@ -97,17 +97,17 @@ $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 }
 ```
 
-The above example uses the `--insecure` flag.  This leaves it subject to MITM
-attacks.  When kubectl accesses the cluster it uses a stored root certificate
-and client certificates to access the server.  (These are installed in the
-`~/.kube` directory).  Since cluster certificates are typically self-signed, it
+The above example uses the `--insecure` flag. This leaves it subject to MITM
+attacks. When kubectl accesses the cluster it uses a stored root certificate
+and client certificates to access the server. (These are installed in the
+`~/.kube` directory). Since cluster certificates are typically self-signed, it
 may take special configuration to get your http client to use root
 certificate.
 
 On some clusters, the API server does not require authentication; it may serve
-on localhost, or be protected by a firewall.  There is not a standard
-for this.  [Configuring Access to the API](/docs/admin/accessing-the-api)
-describes how a cluster admin can configure this.  Such approaches may conflict
+on localhost, or be protected by a firewall. There is not a standard
+for this. [Configuring Access to the API](/docs/admin/accessing-the-api)
+describes how a cluster admin can configure this. Such approaches may conflict
 with future high-availability support.
 
 ### Programmatic access to the API
@@ -136,7 +136,7 @@ import (
    // creates the clientset
    clientset, _:= kubernetes.NewForConfig(config)
    // access the API to list pods
-   pods, _:= clientset.Core().Pods("").List(v1.ListOptions{})
+   pods, _:= clientset.CoreV1().Pods("").List(v1.ListOptions{})
    fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
 ...
 ```
