@@ -511,6 +511,8 @@ Instructions for upgrading kubeadm clusters are available for:
  * [1.7.x to 1.7.y  upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
  * [1.7 to 1.8 upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
  * [1.8.x to 1.8.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
+ * [1.8 to 1.9 upgrades/downgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
+ * [1.9.x to 1.9.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
 
 ## Explore other add-ons
 
