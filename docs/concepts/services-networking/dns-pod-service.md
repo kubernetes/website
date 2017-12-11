@@ -78,21 +78,14 @@ For example, a pod with IP `1.2.3.4` in the namespace `default` with a DNS name 
 
 #### A Records and hostname based on Pod's hostname and subdomain fields
 
-Currently when a pod is created, its hostname is the Pod's `metadata.name` value.
+By default, when a pod is created, its hostname is the Pod's `metadata.name` value.
 
-With v1.2, users can specify a Pod annotation, `pod.beta.kubernetes.io/hostname`, to specify what the Pod's hostname should be.
-The Pod annotation, if specified, takes precedence over the Pod's name, to be the hostname of the pod.
-For example, given a Pod with annotation `pod.beta.kubernetes.io/hostname: my-pod-name`, the Pod will have its hostname set to "my-pod-name".
+With v1.3, the PodSpec has a `hostname` field, which can be used to specify the Pod's hostname. This field value, if specified, takes precedence over the Pod's name.
+For example, given a Pod with `hostname: my-pod-name`, the Pod will have its hostname set to "my-pod-name".
 
-With v1.3, the PodSpec has a `hostname` field, which can be used to specify the Pod's hostname. This field value takes precedence over the
-`pod.beta.kubernetes.io/hostname` annotation value.
-
-v1.2 introduces a beta feature where the user can specify a Pod annotation, `pod.beta.kubernetes.io/subdomain`, to specify the Pod's subdomain.
+With v1.3, the PodSpec has a `subdomain` field, which can be used to specify the Pod's subdomain.
 The final domain will be `<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>`.
 For example, a Pod with the hostname annotation set to "foo", and the subdomain annotation set to "bar", in namespace "my-namespace", will have the FQDN "foo.bar.my-namespace.svc.cluster.local"
-
-With v1.3, the PodSpec has a `subdomain` field, which can be used to specify the Pod's subdomain. This field value takes precedence over the
-`pod.beta.kubernetes.io/subdomain` annotation value.
 
 Example:
 
@@ -106,7 +99,7 @@ spec:
     name: busybox
   clusterIP: None
   ports:
-  - name: foo # Actually, no port is needed.
+  - name: foo
     port: 1234
     targetPort: 1234
 ---
@@ -146,15 +139,10 @@ spec:
 If there exists a headless service in the same namespace as the pod and with the same name as the subdomain, the cluster's KubeDNS Server also returns an A record for the Pod's fully qualified hostname.
 Given a Pod with the hostname set to "busybox-1" and the subdomain set to "default-subdomain", and a headless Service named "default-subdomain" in the same namespace, the pod will see its own FQDN as "busybox-1.default-subdomain.my-namespace.svc.cluster.local". DNS serves an A record at that name, pointing to the Pod's IP. Both pods "busybox1" and "busybox2" can have their distinct A records.
 
-As of Kubernetes v1.2, the Endpoints object also has the annotation `endpoints.beta.kubernetes.io/hostnames-map`. Its value is the json representation of map[string(IP)][endpoints.HostRecord], for example: '{"10.245.1.6":{HostName: "my-webserver"}}'.
-If the Endpoints are for a headless service, an A record is created with the format <hostname>.<service name>.<pod namespace>.svc.<cluster domain>
-For the example json, if endpoints are for a headless service named "bar", and one of the endpoints has IP "10.245.1.6", an A record is created with the name "my-webserver.bar.my-namespace.svc.cluster.local" and the A record lookup would return "10.245.1.6".
-This endpoints annotation generally does not need to be specified by end-users, but can used by the internal service controller to deliver the aforementioned feature.
+With v1.3, The Endpoints object can specify the `hostname` for any endpoint, along with its IP. If the Endpoints are for a headless service, an A record is created with the format `<hostname>.<service name>.<pod namespace>.svc.<cluster domain>`
+For example, if endpoints are for a headless service named "bar", and one of the endpoints has IP "10.245.1.6" and hostname "my-webserver", an A record is created with the name "my-webserver.bar.my-namespace.svc.cluster.local" and the A record lookup would return "10.245.1.6".
+This endpoints hostname generally does not need to be specified by end-users, but can used by the internal service controller to deliver the aforementioned feature.
 
-With v1.3, The Endpoints object can specify the `hostname` for any endpoint, along with its IP. The hostname field takes precedence over the hostname value
-that might have been specified via the  `endpoints.beta.kubernetes.io/hostnames-map` annotation.
-
-With v1.3, the following annotations are deprecated: `pod.beta.kubernetes.io/hostname`, `pod.beta.kubernetes.io/subdomain`, `endpoints.beta.kubernetes.io/hostnames-map`.
 
 ## How do I test if it is working?
 
