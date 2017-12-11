@@ -115,8 +115,10 @@ something provider-specific. The tabs below will contain a notice about what fla
 on `kubeadm init` are required.
 - Unless otherwise specified, kubeadm uses the default gateway's network interface 
 to advertise the master's IP. If you want to use a different network interface, specify 
-`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`.
-- If you would like to customise control plane components, you can do so by providing 
+`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`. An IPv4 or IPv6 address
+is supported. When specifying an IPv6 address, kubeadm will deploy an IPv6 Kubernetes cluster.
+- If you would like to customise control plane components, including changing the default
+127.0.0.1 bind address for scheduler, controller-manager or etcd, you can do so by providing
 extra args to each one, as documented [here](/docs/admin/kubeadm#custom-args).
 - `kubeadm init` will first run a series of prechecks to ensure that the machine
 is ready to run Kubernetes.  It will expose warnings and exit on errors. It
@@ -210,8 +212,12 @@ helper service, will not start up before a network is installed. kubeadm only
 supports Container Network Interface (CNI) based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
-support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons
-page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons.
+support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page]
+(/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons.
+IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0).
+[CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md)
+and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md)
+are the only supported IPv6 network plugins in v1.9.
 
 **New for Kubernetes 1.6:** kubeadm 1.6 sets up a more secure cluster by
 default.  As such it uses RBAC to grant limited privileges to workloads running
@@ -370,6 +376,8 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
   ``` bash
   kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
   ```
+**Note:** The <master-ip> must be enclosed in brackets for IPv6 deployments, for example: `[fd00::101]:6443`.
+{: .note}
 
 The output should look something like:
 

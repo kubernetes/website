@@ -113,7 +113,8 @@ flags that can be used to customise the Kubernetes installation.
   This is the address the API Server will advertise to other members of the
   cluster.  This is also the address used to construct the suggested `kubeadm
   join` line at the end of the init process.  If not set (or set to 0.0.0.0) then
-  IP for the default interface will be used.
+  IP for the default interface will be used. An IPv4 or IPv6 address is supported.
+  Kubeadm will deploy an IPv6 Kubernetes cluster when specifying an IPv6 address.
 
   This address is also added to the certificate that the API Server uses.
 
@@ -1022,13 +1023,35 @@ apiServerExtraArgs:
    feature-gates: APIResponseCompression=true
 ```
 
-To customise the scheduler or controller-manager, use `schedulerExtraArgs` and `controllerManagerExtraArgs` respectively.
+Use `schedulerExtraArgs` to customise the scheduler, use `controllerManagerExtraArgs` to customise
+controller-manager and use `etd: extraArgs` to customise etcd server.
 
 More information on custom arguments can be found here:
 
 - [kube-apiserver](https://kubernetes.io/docs/admin/kube-apiserver/)
 - [kube-controller-manager](https://kubernetes.io/docs/admin/kube-controller-manager/)
 - [kube-scheduler](https://kubernetes.io/docs/admin/kube-scheduler/)
+- [etcd](https://coreos.com/etcd/docs/latest/op-guide/configuration.html)
+
+### Custom Arguments IPv6 Deployment Example
+
+By default, 127.0.0.1 is the IP address used to bind kube-scheduler, kube-controller-manager and etcd
+control plane components. The bind address can be customized using extra args. The following is an example
+kubeadm configuration file that specifies an IPv6 address of `fd00::101` for all control plane components.
+
+```
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+apiServerExtraArgs:
+  etcd-servers: "http://[fd00::101]:2379"
+controllerManagerExtraArgs:
+  address: "fd00::101"
+schedulerExtraArgs:
+  address: "fd00::101"
+etcd:
+  extraArgs:
+    listen-client-urls: "http://[fd00::101]:2379"
+```
 
 ## Releases and release notes
 
