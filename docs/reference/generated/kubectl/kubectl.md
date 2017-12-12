@@ -1,3 +1,8 @@
+---
+title: kubectl
+notitle: true
+---
+
 ## kubectl
 
 kubectl controls the Kubernetes cluster manager
