@@ -10,7 +10,7 @@ spec:
   dnsPolicy: "None"
   dnsConfig:
     nameservers:
-      - "1.2.3.4"
+      - 1.2.3.4
     searches:
       - ns1.svc.cluster.local
       - my.dns.search.suffix
