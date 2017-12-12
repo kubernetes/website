@@ -4,8 +4,6 @@ notitle: true
 ---
 ## kubefed init
 
-Initialize a federation control plane
-
 ### Synopsis
 
 

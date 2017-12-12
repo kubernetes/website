@@ -4,8 +4,6 @@ notitle: true
 ---
 ## kubefed
 
-kubefed controls a Kubernetes Cluster Federation
-
 ### Synopsis
 
 
