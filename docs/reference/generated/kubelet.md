@@ -36,7 +36,7 @@ kubelet
 ### Options
 
 ```
-      --address ip                                               The IP address for the Kubelet to serve on (set to 0.0.0.0 for all interfaces) (default 0.0.0.0)
+      --address ip                                               The IP address for the Kubelet to serve on (set to 0.0.0.0 for all IPv4 interfaces and :: for all IPv6 interfaces) (default 0.0.0.0)
       --allow-privileged                                         If true, allow containers to request privileged mode.
       --anonymous-auth                                           Enables anonymous requests to the Kubelet server. Requests that are not rejected by another authentication method are treated as anonymous requests. Anonymous requests have a username of system:anonymous, and a group name of system:unauthenticated. (default true)
       --authentication-token-webhook                             Use the TokenReview API to determine authentication for bearer tokens.
@@ -124,7 +124,7 @@ TaintNodesByCondition=true|false (ALPHA - default=false)
       --file-check-frequency duration                            Duration between checking config files for new data (default 20s)
       --google-json-key string                                   The Google Cloud Platform Service Account JSON Key to use for authentication.
       --hairpin-mode string                                      How should the kubelet setup hairpin NAT. This allows endpoints of a Service to loadbalance back to themselves if they should try to access their own Service. Valid values are "promiscuous-bridge", "hairpin-veth" and "none". (default "promiscuous-bridge")
-      --healthz-bind-address ip                                  The IP address for the healthz server to serve on. (set to 0.0.0.0 for all interfaces) (default 127.0.0.1)
+      --healthz-bind-address ip                                  The IP address for the healthz server to serve on. (set to 0.0.0.0 for all IPv4 interfaces and :: for all IPv6 interfaces) (default 127.0.0.1)
       --healthz-port int32                                       The port of the localhost healthz endpoint (set to 0 to disable) (default 10248)
       --host-ipc-sources stringSlice                             Comma-separated list of sources from which the Kubelet allows pods to use the host ipc namespace. (default [*])
       --host-network-sources stringSlice                         Comma-separated list of sources from which the Kubelet allows pods to use of host network. (default [*])

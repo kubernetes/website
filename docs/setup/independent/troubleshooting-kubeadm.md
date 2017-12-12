@@ -23,7 +23,7 @@ If your cluster is in an error state, you may have trouble in the configuration 
 
 {% endcapture %}
 
-#### `ebtables` or `ethtool` not found during installation
+#### `ebtables` or executable not found during installation
 
 If you see the following warnings while running `kubeadm init`
 
@@ -32,7 +32,7 @@ If you see the following warnings while running `kubeadm init`
 [preflight] WARNING: ethtool not found in system path                           
 ```
 
-Then you may be missing ebtables and ethtool on your Linux machine. You can install them with the following commands: 
+Then you may be missing `ebtables`, `ethtool` or a similar executable on your Linux machine. You can install them with the following commands: 
 
 ```
 # For ubuntu/debian users, try 
