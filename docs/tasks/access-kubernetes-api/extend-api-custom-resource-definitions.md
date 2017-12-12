@@ -74,6 +74,7 @@ This endpoint URL can then be used to create and manage custom objects.
 The `kind` of these objects will be `CronTab` from the spec of the
 CustomResourceDefinition object you created above.
 
+Please note that it might take sometime for the endpoint to be created.
 
 ## Create custom objects
 
