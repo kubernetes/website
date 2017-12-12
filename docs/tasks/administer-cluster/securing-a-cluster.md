@@ -130,6 +130,16 @@ Additional protections may be available that control network rules on a per plug
 environment basis, such as per-node firewalls, physically separating cluster nodes to 
 prevent cross talk, or advanced networking policy.
 
+### Restricting cloud metadata API access
+
+Cloud platforms (AWS, Azure, GCE, etc.) often expose metadata services locally to instances.
+By default these APIs are accessible by pods running on an instance and can contain cloud
+credentials for that node, or provisioning data such as kubelet credentials. These credentials
+can be used to escalate within the cluster or to other cloud services under the same account.
+
+When running Kubernetes on a cloud platform limit permissions given to instance credentials, use
+[network policies](/docs/tasks/administer-cluster/declare-network-policy/) to restrict pod access
+to the metadata API, and avoid using provisioning data to deliver secrets.
 
 ### Controlling which nodes pods may access
 
