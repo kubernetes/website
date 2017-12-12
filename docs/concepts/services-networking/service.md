@@ -600,7 +600,7 @@ with the value set to `nlb`.
         service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
 ```
 
-Unlike classic Elastic Load Balancers, Network Load Balancers (NLBs) forward the
+Unlike Classic Load Balancers, Network Load Balancers (NLBs) forward the
 client's IP through to the node. If a service's `spec.externalTrafficPolicy` is
 set to `Cluster`, the client's IP address will not be propagated to the end
 pods.
@@ -609,7 +609,7 @@ By setting `spec.externalTrafficPolicy` to `Local`, client IP addresses will be
 propagated to the end pods, but this could result in uneven distribution of
 traffic. Nodes without any pods for a particular LoadBalancer service will fail
 the NLB Target Group's health check on the auto-assigned
-`spec.healthCheckNodePort` and not recieve any traffic.
+`spec.healthCheckNodePort` and not receive any traffic.
 
 In order to achieve even traffic, either use a DaemonSet, or specify a
 [pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature)
