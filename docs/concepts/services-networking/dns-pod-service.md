@@ -240,7 +240,8 @@ in its `/etc/resolv.conf` file:
 ```
 nameserver 1.2.3.4
 search ns1.svc.cluster.local my.dns.search.suffix
-options ndots:2 edns0
+options ndots:2
+options edns0
 ```
 
 {% endcapture %}
