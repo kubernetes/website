@@ -4,7 +4,7 @@ title: Installing kubeadm
 
 {% capture overview %}
 
-This page shows how to use install kubeadm.
+This page shows how to install kubeadm.
 
 {% endcapture %}
 
