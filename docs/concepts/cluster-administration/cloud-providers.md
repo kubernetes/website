@@ -64,20 +64,20 @@ the underlying cloud, where available:
 
 | Service                  | API Version(s) | Required |
 |--------------------------|----------------|----------|
-| Block Storage (Cinder)   | V1†, V2        | No       |
+| Block Storage (Cinder)   | V1†, V2, V3    | No       |
 | Compute (Nova)           | V2             | No       |
 | Identity (Keystone)      | V2‡,  V3       | Yes      |
 | Load Balancing (Neutron) | V1§, V2        | No       |
+| Load Balancing (Octavia) | V2             | No       |
 
-† Block Storage V1 API support is deprecated, support for Block Storage V3 will 
-be added in the future.
-  
+† Block Storage V1 API support is deprecated, Block Storage V3 API support was
+added in Kubernetes 1.9.
+
 ‡ Identity V2 API support is deprecated and will be removed from the provider in
 a future release. As of the "Queens" release, OpenStack will no longer expose the
 Identity V2 API.
 
-§ Load Balancing V1 API support is deprecated and will be removed from the
-provider in a future release.
+§ Load Balancing V1 API support was removed in Kubernetes 1.9.
 
 Service discovery is achieved by listing the service catalog managed by
 OpenStack Identity (Keystone) using the `auth-url` provided in the provider

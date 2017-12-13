@@ -939,7 +939,7 @@ achieved by using the `FlexVolume` plugin.
 `FlexVolume` enables users to mount vendor volumes into a pod. The vendor plugin
 is implemented using a driver, an executable supporting a list of volume commands
 defined by the `FlexVolume` API. Drivers must be installed in a pre-defined
-volume plugin path on each node. This is an alpha feature and may change in future.
+volume plugin path on each node.
 
 More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md).
 
