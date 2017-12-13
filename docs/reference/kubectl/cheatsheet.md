@@ -119,9 +119,6 @@ $ kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 $ kubectl get pods --selector=app=cassandra rc -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
-# Get all running pods in the namespace
-$ kubectl get pods --field-selector=status.phase=Running
-
 # Get ExternalIPs of all nodes
 $ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
 
