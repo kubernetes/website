@@ -50,7 +50,7 @@ toc:
 - title: kubectl CLI
   section:
   - docs/reference/kubectl/overview.md
-  - docs/reference/generated/kubectl/kubectl-options.md
+  - docs/reference/generated/kubectl/kubectl.md
   - title: kubectl Commands
     path: /docs/reference/generated/kubectl/kubectl-commands.html
   - docs/reference/kubectl/docker-cli-to-kubectl.md
