@@ -155,6 +155,14 @@ EventRateLimit:
 See the [EventRateLimit proposal](https://git.k8s.io/community/contributors/design-proposals/api-machinery/admission_control_event_rate_limit.md)
 for more details.
 
+### ExtendedResourceToleration
+
+This plug-in is introduced in v1.9 to facilitate creation of dedicated nodes with extended resources.
+If operators want to create dedicated nodes with extended resources (like GPUs, FPGAs etc.), they are expected to
+taint the node with the extended resource name as the key. This admission controller, if enabled, automatically
+adds tolerations for such taints to pods requesting extended resources, so users don't have to manually
+add these tolerations.
+
 ### ImagePolicyWebhook
 
 The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions. You enable this admission controller by setting the admission-control option as follows:
