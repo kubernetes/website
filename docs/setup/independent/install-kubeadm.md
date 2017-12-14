@@ -255,6 +255,4 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 
 {% endcapture %}
 
-{% endcapture %}
-
 {% include templates/task.md %}
