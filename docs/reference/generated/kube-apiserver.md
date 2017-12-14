@@ -21,7 +21,7 @@ kube-apiserver
 ### Options
 
 ```
-      --admission-control stringSlice                           Ordered list of plug-ins to do admission control of resources into cluster. Comma-delimited list of: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, DefaultStorageClass, DefaultTolerationSeconds, DenyEscalatingExec, DenyExecOnPrivileged, EventRateLimit, GenericAdmissionWebhook, ImagePolicyWebhook, InitialResources, Initializers, LimitPodHardAntiAffinityTopology, LimitRanger, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodPreset, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, SecurityContextDeny, ServiceAccount. (default [AlwaysAdmit])
+      --admission-control stringSlice                           Admission is divided into two phases. In the first phase, only mutating admission plugins run. In the second phase, only validating admission plugins run. The names in the below list may represent a validating plugin, a mutating plugin, or both. Within each phase, the plugins will run in the order in which they are passed to this flag. Comma-delimited list of: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, DefaultStorageClass, DefaultTolerationSeconds, DenyEscalatingExec, DenyExecOnPrivileged, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, InitialResources, Initializers, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PVCProtection, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodPreset, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, SecurityContextDeny, ServiceAccount, ValidatingAdmissionWebhook. (default [AlwaysAdmit])
       --admission-control-config-file string                    File with admission control configuration.
       --advertise-address ip                                    The IP address on which to advertise the apiserver to members of the cluster. This address must be reachable by the rest of the cluster. If blank, the --bind-address will be used. If --bind-address is unspecified, the host's default interface will be used.
       --allow-privileged                                        If true, allow privileged containers. [default=false]
@@ -33,6 +33,12 @@ kube-apiserver
       --audit-log-maxsize int                                   The maximum size in megabytes of the audit log file before it gets rotated.
       --audit-log-path string                                   If set, all requests coming to the apiserver will be logged to this file.  '-' means standard out.
       --audit-policy-file string                                Path to the file that defines the audit policy configuration. Requires the 'AdvancedAuditing' feature gate. With AdvancedAuditing, a profile is required to enable auditing.
+      --audit-webhook-batch-buffer-size int                     The size of the buffer to store events before batching and sending to the webhook. Only used in batch mode. (default 10000)
+      --audit-webhook-batch-initial-backoff duration            The amount of time to wait before retrying the first failed requests. Only used in batch mode. (default 10s)
+      --audit-webhook-batch-max-size int                        The maximum size of a batch sent to the webhook. Only used in batch mode. (default 400)
+      --audit-webhook-batch-max-wait duration                   The amount of time to wait before force sending the batch that hadn't reached the max size. Only used in batch mode. (default 30s)
+      --audit-webhook-batch-throttle-burst int                  Maximum number of requests sent at the same moment if ThrottleQPS was not utilized before. Only used in batch mode. (default 15)
+      --audit-webhook-batch-throttle-qps float32                Maximum average number of requests per second. Only used in batch mode. (default 10)
       --audit-webhook-config-file string                        Path to a kubeconfig formatted file that defines the audit webhook configuration. Requires the 'AdvancedAuditing' feature gate.
       --audit-webhook-mode string                               Strategy for sending audit events. Blocking indicates sending events should block server responses. Batch causes the webhook to buffer and send events asynchronously. Known modes are batch,blocking. (default "batch")
       --authentication-token-webhook-cache-ttl duration         The duration to cache responses from the webhook token authenticator. (default 2m0s)
@@ -54,16 +60,17 @@ kube-apiserver
       --default-watch-cache-size int                            Default watch cache size. If zero, watch cache will be disabled for resources that do not have a default watch size set. (default 100)
       --delete-collection-workers int                           Number of workers spawned for DeleteCollection call. These are used to speed up namespace cleanup. (default 1)
       --deserialization-cache-size int                          Number of deserialized json objects to cache in memory.
-      --enable-aggregator-routing                               Turns on aggregator routing requests to endpoints IP rather than cluster IP.
+      --enable-aggregator-routing                               Turns on aggregator routing requests to endoints IP rather than cluster IP.
       --enable-bootstrap-token-auth                             Enable to allow secrets of type 'bootstrap.kubernetes.io/token' in the 'kube-system' namespace to be used for TLS bootstrapping authentication.
       --enable-garbage-collector                                Enables the generic garbage collector. MUST be synced with the corresponding flag of the kube-controller-manager. (default true)
       --enable-logs-handler                                     If true, install a /logs handler for the apiserver logs. (default true)
       --enable-swagger-ui                                       Enables swagger ui on the apiserver at /swagger-ui
+      --endpoint-reconciler-type string                         Use an endpoint reconciler (master-count, lease, none) (default "master-count")
       --etcd-cafile string                                      SSL Certificate Authority file used to secure etcd communication.
       --etcd-certfile string                                    SSL certification file used to secure etcd communication.
+      --etcd-compaction-interval duration                       The interval of compaction requests. If 0, the compaction request from apiserver is disabled. (default 5m0s)
       --etcd-keyfile string                                     SSL key file used to secure etcd communication.
       --etcd-prefix string                                      The prefix to prepend to all resource paths in etcd. (default "/registry")
-      --etcd-quorum-read                                        If true, enable quorum read.
       --etcd-servers stringSlice                                List of etcd servers to connect with (scheme://ip:port), comma separated.
       --etcd-servers-overrides stringSlice                      Per-resource etcd servers overrides, comma separated. The individual override format: group/resource#servers, where servers are http://ip:port, semicolon separated.
       --event-ttl duration                                      Amount of time to retain events. (default 1h0m0s)
@@ -72,15 +79,18 @@ kube-apiserver
       --experimental-keystone-url string                        If passed, activates the keystone authentication plugin.
       --external-hostname string                                The hostname to use when generating externalized URLs for this master (e.g. Swagger API Docs).
       --feature-gates mapStringBool                             A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
-APIListChunking=true|false (ALPHA - default=false)
+APIListChunking=true|false (BETA - default=true)
 APIResponseCompression=true|false (ALPHA - default=false)
 Accelerators=true|false (ALPHA - default=false)
 AdvancedAuditing=true|false (BETA - default=true)
 AllAlpha=true|false (ALPHA - default=false)
 AllowExtTrafficLocalEndpoints=true|false (default=true)
 AppArmor=true|false (BETA - default=true)
+BlockVolume=true|false (ALPHA - default=false)
 CPUManager=true|false (ALPHA - default=false)
-CustomResourceValidation=true|false (ALPHA - default=false)
+CSIPersistentVolume=true|false (ALPHA - default=false)
+CustomPodDNS=true|false (ALPHA - default=false)
+CustomResourceValidation=true|false (BETA - default=true)
 DebugContainers=true|false (ALPHA - default=false)
 DevicePlugins=true|false (ALPHA - default=false)
 DynamicKubeletConfig=true|false (ALPHA - default=false)
@@ -92,15 +102,20 @@ HugePages=true|false (ALPHA - default=false)
 Initializers=true|false (ALPHA - default=false)
 KubeletConfigFile=true|false (ALPHA - default=false)
 LocalStorageCapacityIsolation=true|false (ALPHA - default=false)
+MountContainers=true|false (ALPHA - default=false)
 MountPropagation=true|false (ALPHA - default=false)
+PVCProtection=true|false (ALPHA - default=false)
 PersistentLocalVolumes=true|false (ALPHA - default=false)
 PodPriority=true|false (ALPHA - default=false)
+ResourceLimitsPriorityFunction=true|false (ALPHA - default=false)
 RotateKubeletClientCertificate=true|false (BETA - default=true)
 RotateKubeletServerCertificate=true|false (ALPHA - default=false)
+ServiceNodeExclusion=true|false (ALPHA - default=false)
 StreamingProxyRedirects=true|false (BETA - default=true)
-SupportIPVSProxyMode=true|false (ALPHA - default=false)
+SupportIPVSProxyMode=true|false (BETA - default=false)
 TaintBasedEvictions=true|false (ALPHA - default=false)
 TaintNodesByCondition=true|false (ALPHA - default=false)
+VolumeScheduling=true|false (ALPHA - default=false)
       --google-json-key string                                  The Google Cloud Platform Service Account JSON Key to use for authentication.
       --insecure-bind-address ip                                The IP address on which to serve the --insecure-port (set to 0.0.0.0 for all interfaces). (default 127.0.0.1)
       --insecure-port int                                       The port on which to serve unsecured, unauthenticated access. It is assumed that firewall rules are set up such that this port is not reachable from outside of the cluster and that port 443 on the cluster's public address is proxied to this port. This is performed by nginx in the default setup. (default 8080)
@@ -125,7 +140,7 @@ TaintNodesByCondition=true|false (ALPHA - default=false)
       --oidc-username-claim string                              The OpenID claim to use as the user name. Note that claims other than the default ('sub') is not guaranteed to be unique and immutable. This flag is experimental, please see the authentication documentation for further details. (default "sub")
       --oidc-username-prefix string                             If provided, all usernames will be prefixed with this value. If not provided, username claims other than 'email' are prefixed by the issuer URL to avoid clashes. To skip any prefixing, provide the value '-'.
       --profiling                                               Enable profiling via web interface host:port/debug/pprof/ (default true)
-      --proxy-client-cert-file string                           Client certificate used to prove the identity of the aggregator or kube-apiserver when it must call out during a request. This includes proxying requests to a user api-server and calling out to webhook admission plugins. It is expected that this cert includes a signature from the CA in the --requestheader-client-ca-file flag. That CA is published in the 'extension-apiserver-authentication' configmap in the kube-system namespace. Components receiving calls from kube-aggregator should use that CA to perform their half of the mutual TLS verification.
+      --proxy-client-cert-file string                           Client certificate used to prove the identity of the aggregator or kube-apiserver when it must call out during a request. This includes proxying requests to a user api-server and calling out to webhook admission plugins. It is expected that this cert includes a signature from the CA in the --requestheader-client-ca-file flag. That CA is published in the 'extension-apiserver-authentication' configmap in the kube-system namespace. Components recieving calls from kube-aggregator should use that CA to perform their half of the mutual TLS verification.
       --proxy-client-key-file string                            Private key for the client certificate used to prove the identity of the aggregator or kube-apiserver when it must call out during a request. This includes proxying requests to a user api-server and calling out to webhook admission plugins.
       --repair-malformed-updates                                If true, server will do its best to fix the update request to pass the validation, e.g., setting empty UID in update request to its existing value. This flag can be turned off after we fix all the clients that send malformed updates. (default true)
       --request-timeout duration                                An optional field indicating the duration a handler must keep a request open before timing it out. This is the default request timeout for requests but may be overridden by flags such as --min-request-timeout for specific types of requests. (default 1m0s)
@@ -140,14 +155,12 @@ TaintNodesByCondition=true|false (ALPHA - default=false)
       --service-account-lookup                                  If true, validate ServiceAccount tokens exist in etcd as part of authentication. (default true)
       --service-cluster-ip-range ipNet                          A CIDR notation IP range from which to assign service cluster IPs. This must not overlap with any IP ranges assigned to nodes for pods.
       --service-node-port-range portRange                       A port range to reserve for services with NodePort visibility. Example: '30000-32767'. Inclusive at both ends of the range. (default 30000-32767)
-      --ssh-keyfile string                                      If non-empty, use secure SSH proxy to the nodes, using this user keyfile
-      --ssh-user string                                         If non-empty, use secure SSH proxy to the nodes, using this user name
       --storage-backend string                                  The storage backend for persistence. Options: 'etcd3' (default), 'etcd2'.
       --storage-media-type string                               The media type to use to store objects in storage. Some resources or storage backends may only support a specific media type and will ignore this setting. (default "application/vnd.kubernetes.protobuf")
-      --storage-versions string                                 The per-group version to store resources in. Specified in the format "group1/version1,group2/version2,...". In the case where objects are moved from one group to the other, you may specify the format "group1=group2/v1beta1,group3/v1beta1,...". You only need to pass the groups you wish to change from the defaults. It defaults to a list of preferred versions of all registered groups, which is derived from the KUBE_API_VERSIONS environment variable. (default "admission.k8s.io/v1alpha1,admissionregistration.k8s.io/v1alpha1,apps/v1beta1,authentication.k8s.io/v1,authorization.k8s.io/v1,autoscaling/v1,batch/v1,certificates.k8s.io/v1beta1,componentconfig/v1alpha1,extensions/v1beta1,federation/v1beta1,imagepolicy.k8s.io/v1alpha1,networking.k8s.io/v1,policy/v1beta1,rbac.authorization.k8s.io/v1beta1,scheduling.k8s.io/v1alpha1,settings.k8s.io/v1alpha1,storage.k8s.io/v1,v1")
+      --storage-versions string                                 The per-group version to store resources in. Specified in the format "group1/version1,group2/version2,...". In the case where objects are moved from one group to the other, you may specify the format "group1=group2/v1beta1,group3/v1beta1,...". You only need to pass the groups you wish to change from the defaults. It defaults to a list of preferred versions of all registered groups, which is derived from the KUBE_API_VERSIONS environment variable. (default "admission.k8s.io/v1beta1,admissionregistration.k8s.io/v1beta1,apps/v1beta1,authentication.k8s.io/v1,authorization.k8s.io/v1,autoscaling/v1,batch/v1,certificates.k8s.io/v1beta1,componentconfig/v1alpha1,events.k8s.io/v1beta1,extensions/v1beta1,imagepolicy.k8s.io/v1alpha1,kubeadm.k8s.io/v1alpha1,networking.k8s.io/v1,policy/v1beta1,rbac.authorization.k8s.io/v1,scheduling.k8s.io/v1alpha1,settings.k8s.io/v1alpha1,storage.k8s.io/v1,v1")
       --target-ram-mb int                                       Memory limit for apiserver in MB (used to configure sizes of caches, etc.)
-      --tls-ca-file string                                      If set, this certificate authority will used for secure access from Admission Controllers. This must be a valid PEM-encoded CA bundle. Alternatively, the certificate authority can be appended to the certificate provided by --tls-cert-file.
-      --tls-cert-file string                                    File containing the default x509 Certificate for HTTPS. (CA cert, if any, concatenated after server cert). If HTTPS serving is enabled, and --tls-cert-file and --tls-private-key-file are not provided, a self-signed certificate and key are generated for the public address and saved to /var/run/kubernetes.
+      --tls-ca-file string                                      If set, this certificate authority will used for secure access from Admission Controllers. This must be a valid PEM-encoded CA bundle. Altneratively, the certificate authority can be appended to the certificate provided by --tls-cert-file.
+      --tls-cert-file string                                    File containing the default x509 Certificate for HTTPS. (CA cert, if any, concatenated after server cert). If HTTPS serving is enabled, and --tls-cert-file and --tls-private-key-file are not provided, a self-signed certificate and key are generated for the public address and saved to the directory specified by --cert-dir.
       --tls-private-key-file string                             File containing the default x509 private key matching --tls-cert-file.
       --tls-sni-cert-key namedCertKey                           A pair of x509 certificate and private key file paths, optionally suffixed with a list of domain patterns which are fully qualified domain names, possibly with prefixed wildcard segments. If no domain patterns are provided, the names of the certificate are extracted. Non-wildcard matches trump over wildcard matches, explicit domain patterns trump over extracted names. For multiple key/certificate pairs, use the --tls-sni-cert-key multiple times. Examples: "example.crt,example.key" or "foo.crt,foo.key:*.foo.com,foo.com". (default [])
       --token-auth-file string                                  If set, the file that will be used to secure the secure port of the API server via token authentication.
@@ -156,4 +169,4 @@ TaintNodesByCondition=true|false (ALPHA - default=false)
       --watch-cache-sizes stringSlice                           List of watch cache sizes for every resource (pods, nodes, etc.), comma separated. The individual override format: resource#size, where size is a number. It takes effect when watch-cache is enabled.
 ```
 
-###### Auto generated by spf13/cobra on 27-Sep-2017
+###### Auto generated by spf13/cobra on 12-Dec-2017
