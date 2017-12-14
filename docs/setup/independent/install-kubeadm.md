@@ -248,12 +248,14 @@ systemctl enable kubelet && systemctl start kubelet
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
+{% endcapture %}
+
+{% endcapture %}
+
 {% capture whatsnext %}
 
 * [Using kubeadm to Create a
   Cluster](/docs/setup/independent/create-cluster-kubeadm/)
-
-{% endcapture %}
 
 {% endcapture %}
 
