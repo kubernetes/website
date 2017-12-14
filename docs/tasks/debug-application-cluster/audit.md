@@ -113,7 +113,7 @@ Some new fields are supported in beta version, like `resourceNames` and `omitSta
 
 In Kubernetes 1.8 `kind` and `apiVersion` along with `rules` __must__ be provided in
 the audit policy file. A policy file with 0 rules, or a policy file that doesn't provide
-a valid `apiVersion` and `kind` value will be treated as illgal.
+a valid `apiVersion` and `kind` value will be treated as illegal.
 
 Some example audit policy files:
 
