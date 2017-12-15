@@ -140,9 +140,11 @@ toc:
   - docs/tasks/administer-cluster/upgrade-1-6.md
   - docs/tasks/administer-cluster/kubeadm-upgrade-1-7.md
   - docs/tasks/administer-cluster/kubeadm-upgrade-1-8.md
+  - docs/tasks/administer-cluster/kubeadm-upgrade-1-9.md
   - docs/tasks/administer-cluster/namespaces.md
   - docs/tasks/administer-cluster/namespaces-walkthrough.md
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
+  - docs/tasks/administer-cluster/coredns.md
   - docs/tasks/administer-cluster/safely-drain-node.md
   - docs/tasks/administer-cluster/cpu-memory-limit.md
   - docs/tasks/administer-cluster/out-of-resource.md
@@ -168,6 +170,7 @@ toc:
   - docs/tasks/administer-cluster/configure-multiple-schedulers.md
   - docs/tasks/administer-cluster/ip-masq-agent.md
   - docs/tasks/administer-cluster/dns-custom-nameservers.md
+  - docs/tasks/administer-cluster/pvc-protection.md
 
 - title: Federation - Run an App on Multiple Clusters
   section:

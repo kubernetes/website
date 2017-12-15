@@ -207,12 +207,12 @@ Additionally, the following restrictions are applied to the schema:
 - The field `uniqueItems` cannot be set to true.
 - The field `additionalProperties` cannot be set to false.
 
-This feature is __alpha__ in v1.8 and may change in backward incompatible ways.
-Enable this feature using the `CustomResourceValidation` feature gate on
+This feature is __beta__ in v1.9.
+You can disable this feature using the `CustomResourceValidation` feature gate on
 the [kube-apiserver](/docs/admin/kube-apiserver):
 
-```
---feature-gates=CustomResourceValidation=true
+``` 		  
+--feature-gates=CustomResourceValidation=false
 ```
 
 The schema is defined in the CustomResourceDefinition. In the following example, the
