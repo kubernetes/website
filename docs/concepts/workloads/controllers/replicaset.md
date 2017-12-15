@@ -102,8 +102,8 @@ A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contrib
 
 ### Pod Template
 
-The `.spec.template` is the only required field of the `.spec`. The `.spec.template` is a 
-[pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a 
+The `.spec.template` is the only required field of the `.spec`. The `.spec.template` is a
+[pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a
 [pod](/docs/concepts/workloads/pods/pod/), except that it is nested and does not have an `apiVersion` or `kind`.
 
 In addition to required fields of a pod, a pod template in a ReplicaSet must specify appropriate
@@ -128,8 +128,8 @@ be rejected by the API.
 
 In Kubernetes 1.8 the API version `apps/v1beta2` on the ReplicaSet kind is the current version and is enabled by default. The API version `extensions/v1beta1` is deprecated. In API version `apps/v1beta2`, `.spec.selector` and `.metadata.labels` no longer default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation starting in API version `apps/v1beta2`.
 
-Also you should not normally create any pods whose labels match this selector, either directly, with 
-another ReplicaSet, or with another controller such as a Deployment. If you do so, the ReplicaSet thinks that it 
+Also you should not normally create any pods whose labels match this selector, either directly, with
+another ReplicaSet, or with another controller such as a Deployment. If you do so, the ReplicaSet thinks that it
 created the other pods. Kubernetes does not stop you from doing this.
 
 If you do end up with multiple controllers that have overlapping selectors, you
@@ -174,7 +174,7 @@ To update pods to a new spec in a controlled way, use a [rolling update](#rollin
 
 ### Isolating pods from a ReplicaSet
 
-Pods may be removed from a ReplicaSet's target set by changing their labels. This technique may be used to remove pods 
+Pods may be removed from a ReplicaSet's target set by changing their labels. This technique may be used to remove pods
 from service for debugging, data recovery, etc. Pods that are removed in this way will be replaced automatically (
   assuming that the number of replicas is not also changed).
 

@@ -45,18 +45,18 @@ To complete this tutorial, you should already have a basic familiarity with [Pod
 
 ### Additional Minikube Setup Instructions
 
-**Caution:** [Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU which results in an insufficient resource errors during this tutorial. 
+**Caution:** [Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU which results in an insufficient resource errors during this tutorial.
 {: .caution}
 
 To avoid these errors, run minikube with:
 
     minikube start --memory 5120 --cpus=4
- 
+
 {% endcapture %}
 
 {% capture lessoncontent %}
 ## Creating a Cassandra Headless Service
-A Kubernetes [Service](/docs/concepts/services-networking/service/) describes a set of [Pods](/docs/concepts/workloads/pods/pod/) that perform the same task. 
+A Kubernetes [Service](/docs/concepts/services-networking/service/) describes a set of [Pods](/docs/concepts/workloads/pods/pod/) that perform the same task.
 
 The following `Service` is used for DNS lookups between Cassandra Pods and clients within the Kubernetes Cluster.
 
@@ -110,14 +110,14 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 2. Get the Pods to see the ordered creation status:
 
        kubectl get pods -l="app=cassandra"
-       
+
    The response should be    
-       
+
        NAME          READY     STATUS              RESTARTS   AGE
        cassandra-0   1/1       Running             0          1m
        cassandra-1   0/1       ContainerCreating   0          8s
 
-   **Note:** It can take up to ten minutes for all three Pods to deploy. 
+   **Note:** It can take up to ten minutes for all three Pods to deploy.
    {: .note}
 
     Once all Pods are deployed, the same command returns:
@@ -143,14 +143,14 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
        UN  172.17.0.6  84.74 KiB  32           67.1%             a6a1e8c2-3dc5-4417-b1a0-26507af2aaad  Rack1-K8Demo
 
 ## Modifying the Cassandra StatefulSet
-Use `kubectl edit` to modify the size of of a Cassandra StatefulSet. 
+Use `kubectl edit` to modify the size of of a Cassandra StatefulSet.
 
 1. Run the following command:
 
        kubectl edit statefulset cassandra
 
    This command opens an editor in your terminal. The line you need to change is the `replicas` field.
-   
+
    **Note:** The following sample is an excerpt of the StatefulSet file.
    {: .note}
 
@@ -173,7 +173,7 @@ Use `kubectl edit` to modify the size of of a Cassandra StatefulSet.
         spec:
          replicas: 3
 
-2. Change the number of replicas to 4, and then save the manifest. 
+2. Change the number of replicas to 4, and then save the manifest.
 
    The StatefulSet now contains 4 Pods.
 
@@ -185,11 +185,11 @@ Use `kubectl edit` to modify the size of of a Cassandra StatefulSet.
 
        NAME        DESIRED   CURRENT   AGE
        cassandra   4         4         36m
-      
+
 {% endcapture %}
 
 {% capture cleanup %}
-Deleting or scaling a StatefulSet down does not delete the volumes associated with the StatefulSet. This ensures safety first: your data is more valuable than an auto purge of all related StatefulSet resources. 
+Deleting or scaling a StatefulSet down does not delete the volumes associated with the StatefulSet. This ensures safety first: your data is more valuable than an auto purge of all related StatefulSet resources.
 
 **Warning:** Depending on the storage class and reclaim policy, deleting the Persistent Volume Claims may cause the associated volumes to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted.
 {: .warning}

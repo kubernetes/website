@@ -107,16 +107,16 @@ kubeadm init
 **Notes:**
 
 - Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to
-read more about the flags `kubeadm init` provides. You can also specify a 
+read more about the flags `kubeadm init` provides. You can also specify a
 [configuration file](/docs/admin/kubeadm/#sample-master-configuration) instead of using flags.
 - You need to choose a Pod Network Plugin in the next step. Depending on what
 third-party provider you choose, you might have to set the `--pod-network-cidr` to
 something provider-specific. The tabs below will contain a notice about what flags
 on `kubeadm init` are required.
-- Unless otherwise specified, kubeadm uses the default gateway's network interface 
-to advertise the master's IP. If you want to use a different network interface, specify 
+- Unless otherwise specified, kubeadm uses the default gateway's network interface
+to advertise the master's IP. If you want to use a different network interface, specify
 `--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`.
-- If you would like to customise control plane components, you can do so by providing 
+- If you would like to customise control plane components, you can do so by providing
 extra args to each one, as documented [here](/docs/admin/kubeadm#custom-args).
 - `kubeadm init` will first run a series of prechecks to ensure that the machine
 is ready to run Kubernetes.  It will expose warnings and exit on errors. It
@@ -275,7 +275,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documen
 ```
 
  - For more information about `flannel`, please see [here](https://github.com/coreos/flannel).
- 
+
 {% endcapture %}
 
 {% capture kube-router %}
@@ -490,17 +490,17 @@ kubeadm reset
 If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
 appropriate arguments.
 
-**Note**: `kubeadm reset` will not delete any etcd data if external etcd is used. 
-This means that if you run `kubeadm init` again using the same etcd endpoints, you 
-will see state from previous clusters. To wipe etcd data after reset, it is 
+**Note**: `kubeadm reset` will not delete any etcd data if external etcd is used.
+This means that if you run `kubeadm init` again using the same etcd endpoints, you
+will see state from previous clusters. To wipe etcd data after reset, it is
 recommended you use a client like `etcdctl`, such as:
 
 ```
 etcdctl del "" --prefix
-``` 
+```
 
-See 
-[their documentation](https://github.com/coreos/etcd/tree/master/etcdctl) for more 
+See
+[their documentation](https://github.com/coreos/etcd/tree/master/etcdctl) for more
 information.
 
 ## Upgrading

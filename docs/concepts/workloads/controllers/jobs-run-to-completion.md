@@ -248,6 +248,7 @@ spec:
         image: perl
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
+      backoffLimit: 5
 ```
 
 Note that both the Job Spec and the Pod Template Spec within the Job have a field with the same name.

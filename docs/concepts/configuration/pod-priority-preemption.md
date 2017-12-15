@@ -15,7 +15,7 @@ the scheduler tries to preempt (evict) lower priority Pods to make scheduling of
 pending Pod possible. In a future Kubernetes release, priority will also affect
 out-of-resource eviction ordering on the Node.
 
-**Note:** Preemption does not respect PodDisruptionBudget; see 
+**Note:** Preemption does not respect PodDisruptionBudget; see
 [the limitations section](#poddisruptionbudget-is-not-supported) for more details.
 {: .note}
 
@@ -31,7 +31,7 @@ To use priority and preemption in Kubernetes 1.8, follow these steps:
 1. Add one or more PriorityClasses.
 
 1. Create Pods with `PriorityClassName` set to one of the added PriorityClasses.
-Of course you do not need to create the Pods directly; normally you would add 
+Of course you do not need to create the Pods directly; normally you would add
 `PriorityClassName` to the Pod template of a collection object like a Deployment.
 
 The following sections provide more information about these steps.
@@ -66,7 +66,7 @@ cannot set PriorityClassName in new Pods.
 A PriorityClass is a non-namespaced object that defines a mapping from a priority
 class name to the integer value of the priority. The name is specified in the `name`
 field of the PriorityClass object's metadata. The value is specified in the required
-`value` field. The higher the value, the higher the priority. 
+`value` field. The higher the value, the higher the priority.
 
 A PriorityClass object can have any 32-bit integer value smaller than or equal to
 1 billion. Larger numbers are reserved for critical system Pods that should not
@@ -139,11 +139,11 @@ spec:
 
 When Pods are created, they go to a queue and wait to be scheduled. The scheduler
 picks a Pod from the queue and tries to schedule it on a Node. If no Node is found
-that satisfies all the specified requirements of the Pod, preemption logic is triggered 
+that satisfies all the specified requirements of the Pod, preemption logic is triggered
 for the pending Pod. Let's call the pending pod P. Preemption logic tries to find a Node
 where removal of one or more Pods with lower priority than P would enable P to be scheduled
 on that Node. If such a Node is found, one or more lower priority Pods get
-deleted from the Node. After the Pods are gone, P can be scheduled on the Node. 
+deleted from the Node. After the Pods are gone, P can be scheduled on the Node.
 
 ### Limitations of preemption (alpha version)
 
@@ -187,7 +187,7 @@ the answer to this question is yes: "If all the Pods with lower priority than
 the pending Pod are removed from the Node, can the pending pod be scheduled on
 the Node?"
 
-**Note:** Preemption does not necessarily remove all lower-priority Pods. If the 
+**Note:** Preemption does not necessarily remove all lower-priority Pods. If the
 pending pod can be scheduled by removing fewer than all lower-priority Pods, then
 only a portion of the lower-priority Pods are removed. Even so, the answer to the
 preceding question must be yes. If the answer is no, the Node is not considered
@@ -203,10 +203,10 @@ or it might not. There is no guarantee that the pending Pod can be scheduled.
 We might address this issue in future versions, but we don't have a clear plan yet.
 We will not consider it a blocker for Beta or GA. Part
 of the reason is that finding the set of lower-priority Pods that satisfy all
-inter-Pod affinity rules is computationally expensive, and adds substantial 
+inter-Pod affinity rules is computationally expensive, and adds substantial
 complexity to the preemption logic. Besides, even if preemption keeps the lower-priority
 Pods to satisfy inter-Pod affinity, the lower priority Pods might be preempted
-later by other Pods, which removes the benefits of having the complex logic of 
+later by other Pods, which removes the benefits of having the complex logic of
 respecting inter-Pod affinity.
 
 Our recommended solution for this problem is to create inter-Pod affinity only towards
@@ -230,7 +230,7 @@ If Pod Q were removed from its Node, the anti-affinity violation would be gone,
 and Pod P could possibly be scheduled on Node N.
 
 We may consider adding cross Node preemption in future versions if we find an
-algorithm with reasonable performance. We cannot promise anything at this point, 
+algorithm with reasonable performance. We cannot promise anything at this point,
 and cross Node preemption will not be considered a blocker for Beta or GA.
 
 {% endcapture %}

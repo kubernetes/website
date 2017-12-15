@@ -12,11 +12,11 @@ This page shows how to use install kubeadm.
 
 * One or more machines running Ubuntu 16.04+, Debian 9, CentOS 7, RHEL 7, Fedora 25/26 (best-effort) or HypriotOS v1.0.1+
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
-* 2 CPUs or more 
+* 2 CPUs or more
 * Full network connectivity between all machines in the cluster (public or private network is fine)
 * Unique hostname, MAC address, and product_uuid for every node
 * Certain ports are open on your machines. See the section below for more details
-* Swap disabled. You must disable swap in order for the kubelet to work properly. 
+* Swap disabled. You must disable swap in order for the kubelet to work properly.
 
 {% endcapture %}
 
@@ -116,7 +116,7 @@ systemctl enable docker && systemctl start docker
 
 {% endcapture %}
 
-**Note**: Make sure that the cgroup driver used by kubelet is the same as the one used by 
+**Note**: Make sure that the cgroup driver used by kubelet is the same as the one used by
 Docker. To ensure compatability you can either update Docker, like so:
 
 ```bash
@@ -127,7 +127,7 @@ cat << EOF > /etc/docker/daemon.json
 EOF
 ```
 
-and restart Docker. Or ensure the `--cgroup-driver` kubelet flag is set to the same value 
+and restart Docker. Or ensure the `--cgroup-driver` kubelet flag is set to the same value
 as Docker (e.g. `cgroupfs`).
 
 {% assign tab_set_name = "docker_install" %}
@@ -150,14 +150,14 @@ You will install these packages on all of your machines:
 
 * `kubectl`: the command line util to talk to your cluster.
 
-kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will 
-need to ensure they match the version of the Kubernetes control panel you want 
+kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will
+need to ensure they match the version of the Kubernetes control panel you want
 kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
-can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the 
+can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the
 kubelet and the control plane is supported, but the kubelet version may never exceed the API
-server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server. 
+server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server.
 
-For more information on version skews, please read our 
+For more information on version skews, please read our
 [version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy).
 
 {% capture ubuntu %}
@@ -195,7 +195,7 @@ systemctl enable kubelet && systemctl start kubelet
 
   - Disabling SELinux by running `setenforce 0` is required to allow containers to access the host filesystem, which is required by pod networks for example. You have to do this until SELinux support is improved in the kubelet.
   - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
-  
+
     ``` bash
     cat <<EOF >  /etc/sysctl.d/k8s.conf
     net.bridge.bridge-nf-call-ip6tables = 1
@@ -212,19 +212,50 @@ systemctl enable kubelet && systemctl start kubelet
 
 {% include tabs.md %}
 
-The kubelet is now restarting every few seconds, as it waits in a crashloop for
-kubeadm to tell it what to do.
+{% capture ubuntu %}
+
+```bash
+apt-get update && apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+apt-get update
+apt-get install -y kubelet kubeadm kubectl
+```
+
+{% endcapture %}
+
+{% capture centos %}
+
+```bash
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+setenforce 0
+yum install -y kubelet kubeadm kubectl
+systemctl enable kubelet && systemctl start kubelet
+```
 
 ## Troubleshooting
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
+{% endcapture %}
+
+{% endcapture %}
+
 {% capture whatsnext %}
 
 * [Using kubeadm to Create a
   Cluster](/docs/setup/independent/create-cluster-kubeadm/)
-
-{% endcapture %}
 
 {% endcapture %}
 

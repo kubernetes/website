@@ -60,19 +60,31 @@ spec:
       medium: HugePages
 ```
 
+<<<<<<< HEAD
+- Huge page requests must equal the limits.  This is the default if limits are
+=======
 - Huge page requests must equal the limits. This is the default if limits are
+>>>>>>> master
   specified, but requests are not.
 - Huge pages are isolated at a pod scope, container isolation is planned in a
   future iteration.
 - EmptyDir volumes backed by huge pages may not consume more huge page memory
   than the pod request.
 - Applications that consume huge pages via `shmget()` with `SHM_HUGETLB` must
+<<<<<<< HEAD
+  run with a supplemental group that matches `proc/sys/vm/hugetlb_shm_group`
+=======
   run with a supplemental group that matches `proc/sys/vm/hugetlb_shm_group`.
+>>>>>>> master
 
 ## Future
 
 - Support container isolation of huge pages in addition to pod isolation.
+<<<<<<< HEAD
+- NUMA locality guarnatees as a feature of quality of service.
+=======
 - NUMA locality guarantees as a feature of quality of service.
+>>>>>>> master
 - ResourceQuota support.
 - LimitRange support.
 

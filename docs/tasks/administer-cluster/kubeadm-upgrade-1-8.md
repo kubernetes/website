@@ -42,10 +42,10 @@ $ curl -sSL https://dl.k8s.io/release/${VERSION}/bin/linux/${ARCH}/kubeadm > /us
 $ chmod a+rx /usr/bin/kubeadm
 ```
 **Caution:** Upgrading the `kubeadm` package on your system prior to
-upgrading the control plane causes a failed upgrade. Even though 
-`kubeadm` is shipped in the Kubernetes repositories, it's important 
+upgrading the control plane causes a failed upgrade. Even though
+`kubeadm` is shipped in the Kubernetes repositories, it's important
 to install `kubeadm` manually. The kubeadm team is working on fixing
-this limitation. 
+this limitation.
 {: .caution}
 
 Verify that this download of kubeadm works, and has the expected version:

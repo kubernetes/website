@@ -53,7 +53,7 @@ DELETE    | delete (for individual resources), deletecollection (for collections
 Kubernetes sometimes checks authorization for additional permissions using specialized verbs. For example:
 
 * [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) checks for authorization of the `use` verb on `podsecuritypolicies` resources in the `extensions` API group.
-* [RBAC](/docs/admin/authorization/rbac/#privilege-escalation-prevention-and-bootstrapping) checks for authorization 
+* [RBAC](/docs/admin/authorization/rbac/#privilege-escalation-prevention-and-bootstrapping) checks for authorization
 of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
 * [Authentication](/docs/admin/authentication/) layer checks for authorization of the `impersonate` verb on `users`, `groups`, and `serviceaccounts` in the core API group, and the `userextras` in the `authentication.k8s.io` API group.
 
@@ -136,7 +136,7 @@ The following flags can be used:
   * `--authorization-mode=AlwaysDeny` This flag blocks all requests. Use this flag only for testing.
   * `--authorization-mode=AlwaysAllow` This flag allows all requests. Use this flag only if you do not require authorization for your API requests.
 
-You can choose more than one authorization module. If one of the modes is `AlwaysAllow`, then it overrides the other modes and all API requests are allowed. 
+You can choose more than one authorization module. If one of the modes is `AlwaysAllow`, then it overrides the other modes and all API requests are allowed.
 
 ## Versioning
 For version 1.2, clusters created by kube-up.sh are configured so that no authorization is required for any request.

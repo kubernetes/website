@@ -81,7 +81,7 @@ When `TaintNodesByCondition` is enabled, the scheduler ignores conditions when c
 it looks at the Node's taints and a Pod's tolerations.
 
 Now users can choose between the old scheduling model and a new, more flexible scheduling model.
-A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that 
+A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that
 tolerates the taints of a particular Node can be scheduled on that Node.
 
 Note that because of small delay, usually less than one second, between time when condition is observed and a taint

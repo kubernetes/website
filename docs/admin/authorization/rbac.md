@@ -9,7 +9,7 @@ title: Using RBAC Authorization
 * TOC
 {:toc}
 
-Role-Based Access Control ("RBAC") uses the "rbac.authorization.k8s.io" API group 
+Role-Based Access Control ("RBAC") uses the "rbac.authorization.k8s.io" API group
 to drive authorization decisions, allowing admins to dynamically configure policies
 through the Kubernetes API.
 
@@ -123,7 +123,7 @@ roleRef:
 ```
 
 Finally, a `ClusterRoleBinding` may be used to grant permission at the cluster level and in all
-namespaces. The following `ClusterRoleBinding` allows any user in the group "manager" to read 
+namespaces. The following `ClusterRoleBinding` allows any user in the group "manager" to read
 secrets in any namespace.
 
 ```yaml
@@ -267,7 +267,7 @@ reserved for Kubernetes system use, and so the admin should ensure
 usernames do not contain this prefix by accident.
 
 Group information in Kubernetes is currently provided by the Authenticator
-modules. Groups, like users, are represented as strings, and that string 
+modules. Groups, like users, are represented as strings, and that string
 has no format requirements, other than that the prefix `system:` is reserved.
 
 [Service Accounts](/docs/tasks/configure-pod-container/configure-service-account/) have usernames with the `system:serviceaccount:` prefix and belong
@@ -368,7 +368,7 @@ and updates default cluster role bindings with any missing subjects.
 This allows the cluster to repair accidental modifications,
 and to keep roles and rolebindings up-to-date as permissions and subjects change in new releases.
 
-To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/autoupdate` 
+To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/autoupdate`
 annotation on a default cluster role or rolebinding to `false`.
 Be aware that missing default permissions and subjects can result in non-functional clusters.
 
@@ -528,7 +528,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 The [Kubernetes controller manager](/docs/admin/kube-controller-manager/) runs core control loops.
 When invoked with `--use-service-account-credentials`, each control loop is started using a separate service account.
 Corresponding roles exist for each control loop, prefixed with `system:controller:`.
-If the controller manager is not started with `--use-service-account-credentials`, 
+If the controller manager is not started with `--use-service-account-credentials`,
 it runs all control loops using its own credential, which must be granted all the relevant roles.
 These roles include:
 
@@ -568,7 +568,7 @@ containing that permission. To allow a user to create/update roles:
 1. Grant them a role that allows them to create/update `Role` or `ClusterRole` objects, as desired.
 2. Grant them roles containing the permissions you would want them to be able to set in a `Role` or `ClusterRole`. If they attempt to create or modify a `Role` or `ClusterRole` with permissions they themselves have not been granted, the API request will be forbidden.
 
-A user can only create/update a role binding if they already have all the permissions contained in the referenced role 
+A user can only create/update a role binding if they already have all the permissions contained in the referenced role
 (at the same scope as the role binding) *or* if they've been given explicit permission to perform the `bind` verb on the referenced role.
 For example, if "user-1" does not have the ability to list secrets cluster-wide, they cannot create a `ClusterRoleBinding`
 to a role that grants that permission. To allow a user to create/update role bindings:
@@ -667,7 +667,7 @@ In order from most secure to least secure, the approaches are:
    and for the service account to be created (via the API, application manifest, `kubectl create serviceaccount`, etc.).
 
    For example, grant read-only permission within "my-namespace" to the "my-sa" service account:
-   
+
    ```shell
    kubectl create rolebinding my-sa-view \
      --clusterrole=view \
@@ -682,7 +682,7 @@ In order from most secure to least secure, the approaches are:
    NOTE: Permissions given to the "default" service account are available to any pod in the namespace that does not specify a `serviceAccountName`.
 
    For example, grant read-only permission within "my-namespace" to the "default" service account:
-   
+
    ```shell
    kubectl create rolebinding default-view \
      --clusterrole=view \
@@ -692,9 +692,9 @@ In order from most secure to least secure, the approaches are:
 
    Many [add-ons](/docs/concepts/cluster-administration/addons/) currently run as the "default" service account in the "kube-system" namespace.
    To allow those add-ons to run with super-user access, grant cluster-admin permissions to the "default" service account in the "kube-system" namespace.
-   
+
    NOTE: Enabling this means the "kube-system" namespace contains secrets that grant super-user access to the API.
-   
+
    ```shell
    kubectl create clusterrolebinding add-on-cluster-admin \
      --clusterrole=cluster-admin \
@@ -707,7 +707,7 @@ In order from most secure to least secure, the approaches are:
    you can grant a role to the service account group for that namespace.
 
    For example, grant read-only permission within "my-namespace" to to all service accounts in that namespace:
-   
+
    ```shell
    kubectl create rolebinding serviceaccounts-view \
      --clusterrole=view \
@@ -720,7 +720,7 @@ In order from most secure to least secure, the approaches are:
    If you don't want to manage permissions per-namespace, you can grant a cluster-wide role to all service accounts.
 
    For example, grant read-only permission across all namespaces to all service accounts in the cluster:
-   
+
    ```shell
    kubectl create clusterrolebinding serviceaccounts-view \
      --clusterrole=view \

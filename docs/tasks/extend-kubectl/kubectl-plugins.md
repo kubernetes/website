@@ -66,7 +66,7 @@ You can write a plugin in any programming language or script that allows you to 
 A plugin does not necessarily need to have a binary component. It could rely entirely on operating system utilities
 like `echo`, `sed`, or `grep`. Or it could rely on the `kubectl` binary.
 
-The only strong requirement for a `kubectl` plugin is the `plugin.yaml` descriptor file. This file is responsible for declaring at least the minimum attributes required to register a plugin and must be located under one of the locations specified in the [Search order](#search-order) section. 
+The only strong requirement for a `kubectl` plugin is the `plugin.yaml` descriptor file. This file is responsible for declaring at least the minimum attributes required to register a plugin and must be located under one of the locations specified in the [Search order](#search-order) section.
 
 ### The plugin.yaml descriptor
 
@@ -107,7 +107,7 @@ For example, the directory structure for the `targaryen` plugin could look like 
 
 In most use cases, the binary or script file you write to support the plugin must have access to some contextual information provided by the plugin framework. For example, if you declared flags in the descriptor file, your plugin must have access to the user-provided flag values at runtime. The same is true for global flags. The plugin framework is responsible for doing that, so plugin writers don't need to worry about parsing arguments. This also ensures the best level of consistency between plugins and regular `kubectl` commands.
 
-Plugins have access to runtime context attributes through environment variables. So to access the value provided through a flag, for example, just look for the value of the proper environment variable using the appropriate function call for your binary or script. 
+Plugins have access to runtime context attributes through environment variables. So to access the value provided through a flag, for example, just look for the value of the proper environment variable using the appropriate function call for your binary or script.
 
 The supported environment variables are:
 

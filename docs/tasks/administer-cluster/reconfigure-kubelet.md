@@ -159,7 +159,7 @@ because this ConfigMap configures a Kubernetes system component - the Kubelet.
 
 The `--append-hash` option appends a short checksum of the ConfigMap contents
 to the name. This is convenient for an edit->push workflow, as it will
-automatically, yet deterministically, generate new names for new ConfigMaps. 
+automatically, yet deterministically, generate new names for new ConfigMaps.
 
 We use the `-o yaml` output format so that the name, namespace, and uid are all
 reported following creation. We will need these in the next step. We will refer
@@ -168,7 +168,7 @@ to the name as CONFIG_MAP_NAME and the uid as CONFIG_MAP_UID.
 ### Authorize your Node to read the new ConfigMap
 
 Now that you've created a new ConfigMap, you need to authorize your node to
-read it. First, create a Role for your new ConfigMap with the 
+read it. First, create a Role for your new ConfigMap with the
 following commands:
 
 ```
@@ -183,7 +183,7 @@ $ kubectl -n kube-system create rolebinding ${CONFIG_MAP_NAME}-reader --role=${C
 ```
 
 Once the Node Authorizer is updated to do this automatically, you will
-be able to skip this step. 
+be able to skip this step.
 
 ### Set the Node to use the new configuration
 
@@ -256,7 +256,7 @@ as NEW_CONFIG_MAP_UID.
 ### Authorize your Node to read the new ConfigMap
 
 Now that you've created a new ConfigMap, you need to authorize your node to
-read it. First, create a Role for your new ConfigMap with the 
+read it. First, create a Role for your new ConfigMap with the
 following commands:
 
 ```
@@ -271,7 +271,7 @@ $ kubectl -n kube-system create rolebinding ${NEW_CONFIG_MAP_NAME}-reader --role
 ```
 
 Once the Node Authorizer is updated to do this automatically, you will
-be able to skip this step. 
+be able to skip this step.
 
 ### Configure the Node to use the new configuration
 
