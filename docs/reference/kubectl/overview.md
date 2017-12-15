@@ -242,9 +242,6 @@ $ kubectl get rc,services
 
 // List all daemon sets, including uninitialized ones, in plain-text output format.
 $ kubectl get ds --include-uninitialized
-
-// List all pods running on node server01
-$ kubectl get pods --field-selector=spec.nodeName=server01
 ```
 
 `kubectl describe` - Display detailed state of one or more resources, including the uninitialized ones by default.
