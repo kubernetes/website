@@ -1,15 +1,8 @@
 body {
 
   margin:0 auto;
+
 }
-
-
-p {
-  
- font-weight:300;
- font-size:14pt;
-  
-  
 
 a {
   color:#303030;
@@ -126,9 +119,9 @@ width:80%;
  font-family: 'roboto';
  text-align:center;
  padding:3%;
- font-weight:300;
+ font-weight:100;
  font-size:24pt;
- letter-spacing:0.06em;
+ letter-spacing:0.08em;
 
 }
 
@@ -530,9 +523,7 @@ i {
 .infobarWrapper {
     visibility: hidden;
     height: 60vh;
-    margin-bottom:100px;
 }
-
 .infobar {
     padding:0%;
     background-color:#3371e3;
@@ -684,7 +675,8 @@ font-size:24px;
   font-size:14px;
   letter-spacing:0.05em;
   line-height:22px;
-  width:80%;
+  width:75%;
+
   margin-left:10%;
 
 
