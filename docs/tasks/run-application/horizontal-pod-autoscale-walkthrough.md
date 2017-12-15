@@ -11,7 +11,7 @@ Horizontal Pod Autoscaler automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization
 (or, with beta support, on some other, application-provided metrics).
 
-This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.  For more information on how Horizontal Pod Autoscaler behaves, see the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscaler/).
+This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.  For more information on how Horizontal Pod Autoscaler behaves, see the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
 ## Prerequisites
 
@@ -24,7 +24,7 @@ heapster monitoring will be turned-on by default).
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
 and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
 must be able to communicate with the API server providing the custom metrics API.
-See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscaler/#support-for-custom-metrics) for more details.
+See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
 
 ## Step One: Run & expose php-apache server
 
