@@ -1,8 +1,15 @@
 body {
 
   margin:0 auto;
-
 }
+
+
+p {
+  
+ font-weight:300;
+ font-size:14pt;
+  
+  
 
 a {
   color:#303030;
@@ -119,9 +126,9 @@ width:80%;
  font-family: 'roboto';
  text-align:center;
  padding:3%;
- font-weight:100;
+ font-weight:300;
  font-size:24pt;
- letter-spacing:0.08em;
+ letter-spacing:0.06em;
 
 }
 
