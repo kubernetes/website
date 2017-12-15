@@ -28,8 +28,8 @@ toc:
 
 - title: API Reference
   section:
-  - title: v1.8
-    path: /docs/api-reference/v1.8/
+  - title: v1.9
+    path: /docs/reference/generated/kubernetes-api/v1.9/
   - docs/reference/labels-annotations-taints.md
   - title: OpenAPI and Swagger
     section:
@@ -40,17 +40,15 @@ toc:
 
 - title: Federation API
   section:
-    - docs/reference/federation/v1/operations.html
-    - docs/reference/federation/v1/definitions.html
-    - docs/reference/federation/v1beta1/operations.html
-    - docs/reference/federation/v1beta1/definitions.html
-    - docs/reference/federation/extensions/v1beta1/operations.html
-    - docs/reference/federation/extensions/v1beta1/definitions.html
+    - docs/reference/generated/federation/v1/operations.html
+    - docs/reference/generated/federation/v1/definitions.html
+    - docs/reference/generated/federation/extensions/v1beta1/operations.html
+    - docs/reference/generated/federation/extensions/v1beta1/definitions.html
 
 - title: kubectl CLI
   section:
   - docs/reference/kubectl/overview.md
-  - docs/reference/generated/kubectl/kubectl-options.md
+  - docs/reference/generated/kubectl/kubectl.md
   - title: kubectl Commands
     path: /docs/reference/generated/kubectl/kubectl-commands.html
   - docs/reference/kubectl/docker-cli-to-kubectl.md
@@ -60,7 +58,17 @@ toc:
 
 - title: Setup Tools Reference
   section:
-  - docs/reference/generated/kubeadm.md
+  - title: Kubeadm
+    section:
+    - docs/reference/setup-tools/kubeadm/kubeadm.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-init.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-join.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-upgrade.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-config.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-reset.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-token.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-version.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-alpha.md
   - title: Kubefed
     section:
     - docs/reference/generated/kubefed.md

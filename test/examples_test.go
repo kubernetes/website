@@ -32,6 +32,7 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 	"k8s.io/apimachinery/pkg/util/yaml"
+	utilfeature "k8s.io/apiserver/pkg/util/feature"
 	"k8s.io/kubernetes/pkg/api/testapi"
 	"k8s.io/kubernetes/pkg/apis/apps"
 	apps_validation "k8s.io/kubernetes/pkg/apis/apps/validation"
@@ -53,6 +54,8 @@ import (
 )
 
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
+	// Enable CustomPodDNS for testing
+	utilfeature.DefaultFeatureGate.Set("CustomPodDNS=true")
 	switch t := obj.(type) {
 	case *api.ReplicationController:
 		if t.Namespace == "" {
@@ -199,10 +202,6 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 			if err != nil {
 				return err
 			}
-			// workaround for Jekyllr limit
-			if bytes.HasPrefix(data, []byte("---\n")) {
-				return fmt.Errorf("YAML file cannot start with \"---\", please remove the first line")
-			}
 			name := strings.TrimSuffix(file, ext)
 
 			var docs [][]byte
@@ -221,10 +220,7 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 					if err != nil {
 						return fmt.Errorf("%s: %v", path, err)
 					}
-					// deal with "empty" document (e.g. pure comments)
-					if string(out) != "null" {
-						docs = append(docs, out)
-					}
+					docs = append(docs, out)
 				}
 			} else {
 				docs = append(docs, data)
@@ -288,12 +284,11 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-deployment": {&extensions.Deployment{}},
 		},
 		"../docs/concepts/policy": {
-			"privileged-psp": {&extensions.PodSecurityPolicy{}},
-			"restricted-psp": {&extensions.PodSecurityPolicy{}},
-			"example-psp":    {&extensions.PodSecurityPolicy{}},
+			"psp": {&extensions.PodSecurityPolicy{}},
 		},
 		"../docs/concepts/services-networking": {
 			"curlpod":          {&extensions.Deployment{}},
+			"custom-dns":		{&api.Pod{}},
 			"hostaliases-pod":  {&api.Pod{}},
 			"ingress":          {&extensions.Ingress{}},
 			"nginx-secure-app": {&api.Service{}, &extensions.Deployment{}},
