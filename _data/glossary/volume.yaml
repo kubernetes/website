@@ -1,6 +1,6 @@
 id: volume
 name: Volume
-full-link: kubernetes.io/docs/concepts/storage/volumes/
+full-link: /docs/concepts/storage/volumes/
 related:
 - pod
 - container
