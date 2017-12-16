@@ -48,7 +48,7 @@ to advertise 2 `vendor-domain/foo`.
 Then, developers can request devices in a
 [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
 specification by using the same process that is used for
-[opaque integer resources](/docs/tasks/configure-pod-container/opaque-integer-resource/).
+[opaque integer resources](/docs/concepts/configuration/manage-compute-resources-container/#opaque-integer-resources-alpha-feature).
 In version 1.8, extended resources are supported only as integer resources and must have
 `limit` equal to `request` in the Container specification.
 

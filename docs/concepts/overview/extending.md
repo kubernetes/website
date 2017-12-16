@@ -94,13 +94,13 @@ This diagram shows the extension points in a Kubernetes system.
 
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
-1.   Users often interact with the Kubernetes API using `kubectl`. [Kubectl plugins](docs/tasks/extend-kubectl/kubectl-plugins) extend the kubectl binary. They only affect the individual user's local environment, and so cannot enforce site-wide policies.
-2.   The apiserver handles all requests. Several types of extension points in the apiserver allow authenticating requests, or blocking them based on their content, editing content, and handling deletion. These are described in the [API Access Extensions](docs/concepts/overview/extending#api-access-extensions) section.
-3.   The apiserver serves various kinds of *resources*. *Built-in resource kinds*, like `pods`, are defined by the Kubernetes project and can't be changed. You can also add resources that you define, or that other projects have defined, called *Custom Resources*, as explained in the [Custom Resources](docs/concepts/overview/extending#custom-resources) section. Custom Resources are often used with API Access Extensions.
-4.   The Kubernetes scheduler decides which nodes to place pods on. There are several ways to extend scheduling. These are described in the [Scheduler Extensions](docs/concepts/overview/extending#shceduler-extensions) section.
+1.   Users often interact with the Kubernetes API using `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) extend the kubectl binary. They only affect the individual user's local environment, and so cannot enforce site-wide policies.
+2.   The apiserver handles all requests. Several types of extension points in the apiserver allow authenticating requests, or blocking them based on their content, editing content, and handling deletion. These are described in the [API Access Extensions](/docs/concepts/overview/extending#api-access-extensions) section.
+3.   The apiserver serves various kinds of *resources*. *Built-in resource kinds*, like `pods`, are defined by the Kubernetes project and can't be changed. You can also add resources that you define, or that other projects have defined, called *Custom Resources*, as explained in the [Custom Resources](/docs/concepts/overview/extending#custom-resources) section. Custom Resources are often used with API Access Extensions.
+4.   The Kubernetes scheduler decides which nodes to place pods on. There are several ways to extend scheduling. These are described in the [Scheduler Extensions](/docs/concepts/overview/extending#scheduler-extensions) section.
 5.   Much of the behavior of Kubernetes is implemented by programs called Controllers which are clients of the API-Server. Controllers are often used in conjunction with Custom Resources.
-6.   The kubelet runs on servers, and helps pods appear like virtual servers with their own IPs on the cluster network. [Network Plugins](docs/concepts/overview/extending#network-plugins) allow for different implementations of pod networking.
-7.  The kubelet also mounts and unmounts volumes for containers. New types of storage can be supported via [Storage Plugins](docs/concepts/overview/extending#storage-plugins).
+6.   The kubelet runs on servers, and helps pods appear like virtual servers with their own IPs on the cluster network. [Network Plugins](/docs/concepts/overview/extending#network-plugins) allow for different implementations of pod networking.
+7.  The kubelet also mounts and unmounts volumes for containers. New types of storage can be supported via [Storage Plugins](/docs/concepts/overview/extending#storage-plugins).
 
 If you are unsure where to start, this flowchart can help. Note that some solutions may involve several types of extensions.
 
@@ -116,7 +116,7 @@ Consider adding a Custom Resource to Kubernetes if you want to define new contro
 
 Do not use a Custom Resource as data storage for application, user, or monitoring data.
 
-For more about Custom Resources, see the [Custom Resources concept guide](/docs/concepts/api-extension/custom-resources.md).
+For more about Custom Resources, see the [Custom Resources concept guide](/docs/concepts/api-extension/custom-resources/).
 
 
 ### Combining New APIs with Automation
@@ -200,11 +200,11 @@ the nodes chosen for a pod.
 {% capture whatsnext %}
 
 * Learn more about [Custom Resources](/docs/concepts/api-extension/custom-resources/)
-* Learn about [Dynamic admission control](/docs/admin/extensible-admission-controller)
+* Learn about [Dynamic admission control](/docs/admin/extensible-admission-controllers/)
 * Learn more about Infrastructure extensions
-  * [Network Plugins](/docs/concepts/cluster-administration/network-plugin)
-  * [Device Plugins](/docs/concepts/cluster-administration/device-plugins.md)
-* Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugin)
+  * [Network Plugins](/docs/concepts/cluster-administration/network-plugins/)
+  * [Device Plugins](/docs/concepts/cluster-administration/device-plugins/)
+* Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * See examples of Automation
   * [List of Operators](https://github.com/coreos/awesome-kubernetes-extensions)
 
