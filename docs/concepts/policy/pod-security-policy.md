@@ -249,12 +249,12 @@ podsecuritypolicy "permissive" deleted
 
 ## Enabling Pod Security Policies
 
-In order to use Pod Security Policies in your cluster you must ensure the
-following
+In order to use Pod Security Policies in your cluster:
 
-1.  You have enabled the API type `extensions/v1beta1/podsecuritypolicy` (only for versions prior 1.6)
-1.  [You have enabled the admission control plug-in `PodSecurityPolicy`](/docs/admin/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in)
-1.  You have defined your policies
+1. Enable the API type `extensions/v1beta1/podsecuritypolicy` (only for versions prior 1.6)
+1. [Enable the admission control plug-in `PodSecurityPolicy`](/docs/admin/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in)
+1. Create PodSecurityPolicy objects
+1. Authorize users, groups, or service accounts to perform the `use` verb on desired policies
 
 ## Working With RBAC
 
@@ -262,23 +262,44 @@ In Kubernetes 1.5 and newer, you can use PodSecurityPolicy to control access to
 privileged containers based on user role and groups. Access to different
 PodSecurityPolicy objects can be controlled via authorization.
 
-Note that [Controller Manager](/docs/admin/kube-controller-manager/) must be run
-against [the secured API port](/docs/admin/accessing-the-api/), and must not
-have superuser permissions. Otherwise requests would bypass authentication and
-authorization modules, all PodSecurityPolicy objects would be allowed,
-and user will be able to create privileged containers.
+Before beginning to grant access to specific policies, ensure users and service accounts have not been given global access
+by running the following commands as a privileged user.
+
+Check anonymous users (should answer `no`):
+```shell
+kubectl auth can-i use podsecuritypolicies --as=system:anonymous --as-group=system:unauthenticated
+```
+
+Check all authenticated users (should answer `no`):
+```shell
+kubectl auth can-i use podsecuritypolicies --as=any-random-user --as-group=system:authenticated
+```
+
+Check all service accounts (should answer `no`):
+```shell
+kubectl auth can-i use podsecuritypolicies --as=system:serviceaccount:any-random-ns:any-random-sa
+```
+
+If any of those checks answer `yes`, it means that the associated set of users has been authorized
+to use any defined PodSecurityPolicy. Locate and remove that permission before continuing.
 
 PodSecurityPolicy authorization uses the union of all policies available to the
-user creating the pod and
-[the service account specified on the pod](/docs/tasks/configure-pod-container/configure-service-account/).
+user creating the pod and [the service account specified on the pod](/docs/tasks/configure-pod-container/configure-service-account/).
+This means that if the control loops started by the [Controller Manager](/docs/admin/kube-controller-manager/)
+have superuser permissions, any user that can create objects like ReplicaSets or Deployments could cause
+privileged containers to be created.
 
-Access to given PSP policies for a user will be effective only when creating
-Pods directly.
+Ensure the Controller Manager is:
+* configured to make requests to the [the secured API port](/docs/admin/accessing-the-api/)
+* running with `--use-service-account-credentials=true` to start each control loop with a restricted credential
 
 For pods created on behalf of a user, in most cases by Controller Manager,
 access should be given to the service account specified on the pod spec
 template. Examples of resources that create pods on behalf of a user are
 Deployments, ReplicaSets, etc.
+
+Access to given PSP policies for a user will be effective only when creating
+Pods directly.
 
 For more details, see the
 [PodSecurityPolicy RBAC example](https://git.k8s.io/examples/staging/podsecuritypolicy/rbac/README.md)
