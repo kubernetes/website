@@ -37,48 +37,11 @@ of rules in order. The first matching rule sets the [audit level][auditing-level
 of the event. The audit policy object structure is defined in the
 [`audit.k8s.io` API group][auditing-api].
 
-`AdvancedAuditing` is customizable in two ways. Policy, which determines what's recorded,
-and backends, which persist records. Backend implementations include logs files and
-webhooks.
-
-The structure of audit events changes when enabling the `AdvancedAuditing` feature
-flag. This includes some cleanups, such as the `method` reflecting the verb evaluated
-by the [authorization layer](/docs/admin/authorization/) instead of the [HTTP verb](/docs/admin/authorization/#determine-the-request-verb).
-Also, instead of always generating two events per request, events are recorded with an associated "stage".
-The known stages are:
-
-- `RequestReceived` - The stage for events generated as soon as the audit handler receives the request.
-- `ResponseStarted` - Once the response headers are sent, but before the response body is sent. This stage is only generated for long-running requests (e.g. watch).
-- `ResponseComplete` - Once the response body has been completed.
-- `Panic` - Events generated when a panic occurred.
-
-### Audit Policy
-
-Audit policy is a document defining rules about what events should be recorded.
-The policy is passed to the [kube-apiserver][kube-apiserver] using the
-`--audit-policy-file` flag.
-
-```
---audit-policy-file=/etc/kubernetes/audit-policy.yaml
-```
-
-If `AdvancedAuditing` is enabled and this flag is omitted, no events are logged.
-
-The policy file holds rules that determine the level of an event. Known audit levels are:
-
-- `None` - don't log events that match this rule.
-- `Metadata` - log request metadata (requesting user, timestamp, resource, verb, etc.) but not request or response body.
-- `Request` - log event metadata and request body but not response body.
-- `RequestResponse` - log event metadata, request and response bodies.
-
-When an event is processed, it's compared against the list of rules in order.
-The first matching rule sets the audit level of the event. The audit policy is
-defined by the [`audit.k8s.io` API group][audit-api].
-Some new fields are supported in beta version, like `resourceNames` and `omitStages`.
-
-In Kubernetes 1.8 `kind` and `apiVersion` along with `rules` __must__ be provided in
-the audit policy file. A policy file with 0 rules, or a policy file that doesn't provide
-a valid `apiVersion` and `kind` value will be treated as illegal.
+You can pass a file with the policy to [kube-apiserver][kube-apiserver]
+using the `--audit-policy-file` flag. If the flag is omitted, no events are logged.
+__Note:__ `kind` and `apiVersion` fields along with `rules` __must__ be provided
+in the audit policy file. A policy with no (0) rules, or a policy that doesn't
+provide valid `apiVersion` and `kind` values is treated as illegal.
 
 Some example audit policy files:
 
