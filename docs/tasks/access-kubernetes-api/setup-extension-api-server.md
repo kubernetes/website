@@ -23,7 +23,7 @@ Setting up an extension API server to work the aggregation layer allows the Kube
 
 ## Setup an extension api-server to work with the aggregation layer
 
-The following steps describe how to set up an extension-apiserver *at a high level*. For a concrete example of how they can be implemented, you can look at the [sample-apiserver](https://github.com/kubernetes/sample-apiserver/blob/master/README.md) in the Kubernetes repo.
+The following steps describe how to set up an extension-apiserver *at a high level*. These steps apply regardless if you're using YAML configs or using APIs. An attempt is made to specifically identify any differences between the two. For a concrete example of how they can be implemented using YAML configs, you can look at the [sample-apiserver](https://github.com/kubernetes/sample-apiserver/blob/master/README.md) in the Kubernetes repo.
 
 Alternatively, you can use an existing 3rd party solution, such as [apiserver-builder](https://github.com/Kubernetes-incubator/apiserver-builder/blob/master/README.md), which should generate a skeleton and automate all of the following steps for you.
 
@@ -38,7 +38,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 1. Create a Kubernetes service account in your namespace.
 1. Create a Kubernetes cluster role for the operations you want to allow on your resources.
 1. Create a Kubernetes cluster role binding from the default service account in your namespace to the cluster role you just created.
-1. Create a Kubernetes apiservice. The CA cert above should be base 64 encoded, stripped of new lines and used as the spec.caBundle in the apiservice.  This should not be namespaced.
+1. Create a Kubernetes apiservice. The CA cert above should be base64 encoded, stripped of new lines and used as the spec.caBundle in the apiservice. This should not be namespaced. If using the [kube-aggregator API](https://github.com/kubernetes/kube-aggregator/), only pass in the PEM encoded CA bundle because the base 64 encoding is done for you.
 1. Use kubectl to get your resource. It should return "No resources found." Which means that everything worked but you currently have no objects of that resource type created yet.
 
 {% endcapture %}
@@ -46,7 +46,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 {% capture whatsnext %}
 
 * If you haven't already, [configure the aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) and enable the apiserver flags.
-* For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/).
+* For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation).
 * Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
 
 {% endcapture %}
