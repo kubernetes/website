@@ -35,7 +35,7 @@ This installs CoreDNS instead of kube-dns.
 
 You can configure [CoreDNS](https://coredns.io) to support many more use cases than
 kube-dns by modifying the `Corefile`. For more information, see the
-[CoreDNS site]https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/).
+[CoreDNS site](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/).
 
 {% endcapture %}
 
