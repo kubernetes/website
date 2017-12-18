@@ -55,7 +55,7 @@ In a Declarative API, typically:
  - The main operations on the objects are CRUD-y (creating, reading, updating and deleting).
  - Transactions across objects are not required: the API represents a desired state, not an exact state.
 
-Imperative APIs are not declarative. 
+Imperative APIs are not declarative.
 Signs that your API might not be declarative include:
  - The client says "do this", and then gets a synchornous response back when it is done.
  - The client says "do this", and then gets an operation ID back, and has to check a separate Operation objects to determine completion of the request.
@@ -98,7 +98,7 @@ Kubernetes provides two ways to add custom resources to your cluster:
 
 Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility are compromised.
 
-Aggregated APIs are subordinate APIServers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](docs/concepts/api-extension/apiserver-aggregation.md) (AA). To users, it simply appears that the Kubernetes API is extended.
+Aggregated APIs are subordinate APIServers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/api-extension/apiserver-aggregation/) (AA). To users, it simply appears that the Kubernetes API is extended.
 
 Custom Resource Definitions (CRDS) allow users to create new types of resources without adding another APIserver. You do not need to understand API Aggregation to use CRDs.
 

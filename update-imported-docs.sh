@@ -5,8 +5,8 @@ set -o errexit
 # Uncomment this to see the commands as they are run
 # set -x
 
-VERSION=1.8
-OLDVERSION=1.7
+VERSION=1.9
+OLDVERSION=1.8
 
 # Processes api reference docs.
 function process_api_ref_docs {
