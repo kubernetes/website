@@ -68,7 +68,8 @@ toc:
     - docs/reference/setup-tools/kubeadm/kubeadm-reset.md
     - docs/reference/setup-tools/kubeadm/kubeadm-token.md
     - docs/reference/setup-tools/kubeadm/kubeadm-version.md
-    - docs/reference/setup-tools/kubeadm/kubeadm-alpha.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-alpha.md 
+    - docs/reference/setup-tools/kubeadm/internal-design.md
   - title: Kubefed
     section:
     - docs/reference/generated/kubefed.md
