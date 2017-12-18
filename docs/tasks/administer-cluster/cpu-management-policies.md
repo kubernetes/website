@@ -1,5 +1,9 @@
 ---
 title: Control CPU Management Policies on the Node
+approvers:
+- sjenning
+- ConnorDoyle
+- balajismaniam
 ---
 
 * TOC
