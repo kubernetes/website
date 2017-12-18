@@ -76,10 +76,9 @@
 /docs/api-reference/v1.5/*     https://v1-5.docs.kubernetes.io/docs/reference/ 301
 /docs/api-reference/v1.6/*     https://v1-6.docs.kubernetes.io/docs/reference/ 301
 /docs/api-reference/v1.7/*     https://v1-7.docs.kubernetes.io/docs/reference/ 301
-/docs/api-reference/v1.8/*     https://v1-8.docs.kubernetes.io/docs/reference/ 301
+/docs/api-reference/v1.8/*     https://v1-8.docs.kubernetes.io/docs/api-reference/v1.8/:splat 301
 /docs/api-reference/v1/definitions/     /docs/api-reference/v1.9/ 301
 /docs/api-reference/v1/operations/     /docs/api-reference/v1.9/ 301
-
 
 /docs/concepts/abstractions/controllers/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/concepts/abstractions/controllers/petsets/     /docs/concepts/workloads/controllers/statefulset/ 301
@@ -197,9 +196,9 @@
 
 /docs/resources-reference/1_5/*     /docs/resources-reference/v1.5/ 301
 /docs/resources-reference/1_5/*     https://v1-5.docs.kubernetes.io/docs/resources-reference/v1.5/ 301
+/docs/resources-reference/v1.5/node_modules/*     https://v1-5.docs.kubernetes.io/docs/resources-reference/v1.5/ 301
 /docs/resources-reference/1_6/*     /docs/resources-reference/v1.6/ 301
 /docs/resources-reference/1_7/*     /docs/resources-reference/v1.7/ 301
-/docs/resources-reference/v1.5/node_modules/*     https://v1-5.docs.kubernetes.io/docs/resources-reference/v1.5/ 301
 /docs/resources-reference/v1.8/*     /docs/api-reference/v1.8/:splat 301
 
 /docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
