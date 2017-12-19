@@ -3,13 +3,20 @@ name: Application Developer
 index: 0
 foundational:
   - label: Setup a development environment.
+    icon: fa-folder-open-o
     url: /docs/user-journeys/application_developer-foundational.html#1
   - label: Deploy, scale, and update an application.
+    icon: fa-retweet
     url: /docs/user-journeys/application_developer-foundational.html#2
   - label: Understand Kubernetes basics, such as Containers, Pods, Labels and Annotations.
+    icon: fa-hdd-o
     url: /docs/user-journeys/application_developer-foundational.html#3
+  - label: Additional resources.
+    icon: fa-book
+    url: /docs/user-journeys/application_developer-foundational.html#4
 intermediate:
   - label: Setup a full-featured or production environment.
+    icon: fa-folder-open-o
     url: /docs/user-journeys/application_developer-intermediate.html#1
   - label: Work with commonly used features, such as Service Discovery, Networking, and ReplicaSets.
     url: /docs/user-journeys/application_developer-intermediate.html#2
@@ -17,6 +24,7 @@ intermediate:
     url: /docs/user-journeys/application_developer-intermediate.html#3
 advanced:
   - label: Setup federated clusters.
+    icon: fa-folder-open-o
     url: /docs/user-journeys/application_developer-advanced.html#1
   - label: Deploy an application with advanced features, such as StatefulSets, DaemonSets, and Jobs.
     url: /docs/user-journeys/application_developer-advanced.html#2

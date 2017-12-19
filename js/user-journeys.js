@@ -1,14 +1,17 @@
 $( document ).ready(function() {
+  //default UI state
   var selected = {
-      type:'users',
+      type: 'users',
       button: 'app-developer',
       level: 'foundational'
   };
 
+  //load persona JSON data structure
   function loadInfo() {
     return JSON.parse($('#user-persona-data').html());
   }
 
+  //create persona buttons in "I am..." section, e.g. Application Developer
   function buildCards(info) {
     for (var c in info) {
       var card = document.createElement('div');
@@ -25,21 +28,64 @@ $( document ).ready(function() {
     }
   }
 
+  //generate HTML for info links
+  function getInfoLinkHtml(
+    i = 1 //enumeration index for link id
+    , linkLabel = "Missing link label." //info link text
+    , linkUrl = "/docs/home/" //link to content
+    , linkIcon = "fa-ellipsis-h" //icon preceding info link text
+  ) {
+    var html = '';
+
+    /* 
+      html template:
+        <a id="infolink1" href="docs.html"><div class="whitebar" >
+            <div class="infoicon">
+                <i class="fa fa-ellipsis-h" aria-hidden="true" style="padding:%;float:left;color:#3399ff"></i>
+            </div>
+            <div id="info1" class='data'>Missing link label.</div>
+        </div></a>
+
+      defaults:
+        label: "Missing link label."
+        icon: "fa-ellipsis-h"
+        url: "docs.html"
+    */
+
+    html =  '<a id="infolink'+i+'" href="'+linkUrl+'"><div class="whitebar">' +
+              '<div class="infoicon">' +
+                '<i class="fa '+linkIcon+'" aria-hidden="true" style="padding:%;float:left;color:#3399ff"></i>' +
+              '</div>' +
+              '<div id="info'+i+'" class="data">'+linkLabel+'</div>' +
+            '</div></a>';
+
+    return html;
+  }
+
+  //set links in the "I want to..." section, e.g. Setup a development environment
   function setInfoData(info, level) {
-      var contentArray = info[selected.type][selected.button][selected.level];
+      // info links specific to type/button/level
+      var contentArray = (typeof info[selected.type][selected.button] !== 'undefined') 
+        ? info[selected.type][selected.button][selected.level] 
+        : [{
+            label: 'Please select a role or persona in the "I AM..." section above.'
+            ,url: '#cardWrapper'
+            ,icon: 'fa-exclamation'
+          }];
+
+      //clear contents of #infobarLinks div
+      $('#infobarLinks').empty();
+      //process and add each info link
       for(i = 1; i<=contentArray.length; i++) {
           var content = contentArray[i-1];
-          if( typeof content === 'object') {
-            $('#info'+i).text(content.label);
-            $('#infolink'+i).attr('href',content.url);
-          } else {
-            $('#info'+i).text(content);
-            $('#infolink'+i).attr('href',"docs.html");
-          }
+
+          //append link to the end of the div
+          $('#infobarLinks').append(getInfoLinkHtml(i,content.label,content.url,content.icon));
       }
       $('.infobarWrapper').css('visibility', 'visible');
   }
 
+  //attach click handler + scroll for persona buttons in "I am..." section
   function handleCardClick(e, stopScroll) {
       $('.buttons').removeClass('selected');
       $(this).addClass('selected');
@@ -53,6 +99,7 @@ $( document ).ready(function() {
       $('.tab1.foundational').click();
   }
 
+  //attach click handler for Users, Contributors, Migration Paths buttons
   function attachCardEvents(info) {
     $('.bar1 .navButton').on('click', function(e) {
         $('.navButton').removeClass("keepShow");
@@ -74,6 +121,7 @@ $( document ).ready(function() {
           type = 'migrators';
         }
         selected.type = type;
+        //selected.button = Object.keys(info[type])[0]; //set button to first in list
     });
 
     $('.bar1 .users').click();
@@ -94,6 +142,7 @@ $( document ).ready(function() {
     });
   }
 
+  //initialize page and load defaults
   function main() {
     var info = loadInfo();
     buildCards(info);
@@ -104,9 +153,11 @@ $( document ).ready(function() {
     }, 500);
   }
 
+  //execute page initialization
   main();
 });
 
+//hide persona wizard section if Browse Docs button is clicked
 function showOnlyDocs(flag){
   if(flag){
     jQuery('.applicationDeveloperContainer').hide();
