@@ -16,7 +16,7 @@ For more information about contributing to the Kubernetes documentation, see:
 * [Using Page Templates](http://kubernetes.io/docs/home/contribute/page-templates/)
 * [Documentation Style Guide](http://kubernetes.io/docs/home/contribute/style-guide/)
 
-## Thank you!
+## Thank you! 
 
 Kubernetes thrives on community participation, and we really appreciate your
 contributions to our site and our documentation!
