@@ -38,6 +38,13 @@ width:80%;
 
 }
 
+.anchor {
+  display: block;
+  position: relative;
+  top: -50px;
+  visibility: hidden;
+}
+
 .pages a {
   font-family: 'roboto';
   font-size:11pt;
@@ -130,8 +137,8 @@ width:80%;
  color:#3371e3;
  font-family: 'roboto';
  text-align:center;
- padding:3%;
-
+ padding: 3%;
+ margin: 6% 0% 2% 0%;
 
  font-weight:100;
  font-size:18pt;
