@@ -3,13 +3,14 @@ name: Code Contributor
 index: 0
 foundational:
   - label: Developer Guide
+    icon: fa-book
     url: /docs/contributors/guide/README
   - label: The Kubernetes API
     url: /docs/contributors/devel/
   - label: Feature Development Process
     url: /docs/keps/README
   - label: Current Kubernetes Enhancement Proposals (KEPs)
-    -url: /docs/contributors/design-proposals/sample-KEP-list
+    url: /docs/contributors/design-proposals/sample-KEP-list
 intermediate:
   - label: "a1: intermediate stuff"
     url: "#"
