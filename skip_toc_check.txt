@@ -17,6 +17,8 @@ docs/user-guide/pods/_viewing-a-pod.md
 docs/user-guide/simple-yaml.md
 docs/user-guide/update-demo/images/kitten/README.md
 docs/user-guide/update-demo/images/nautilus/README.md
+docs/journey/new.md
+docs/journey/on-prem-vms.md
 docs/user-guide/walkthrough/index.md
 docs/user-guide/walkthrough/k8s201.md
 docs/reference/setup-tools/kubeadm/generated/README.md

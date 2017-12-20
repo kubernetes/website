@@ -1,54 +1,117 @@
 ---
 approvers:
-- bgrant0607
-- thockin
+- chenopis
 title: Kubernetes Documentation
+layout: docsportal
+cid: userJourneys
+css: /css/style_user_journeys.css
+js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
+display_browse_numbers: true
 ---
 
-Kubernetes documentation can help you set up Kubernetes, learn about the system, or get your applications and workloads running on Kubernetes. To learn the basics of what Kubernetes is and how it works, read "[What is Kubernetes](/docs/concepts/overview/what-is-kubernetes/)".
+{% unless page.notitle %}
+<h1>{{ page.title }}</h1>
+{% endunless %}
 
-## Interactive Tutorial
+<div id="user-persona-data" class="hide">
+  {{ site.data.user-personas | json | replace: "=>", ": " }}
+</div>
 
-The [Kubernetes Basics interactive tutorial](/docs/tutorials/kubernetes-basics/) lets you try out Kubernetes right out of your web browser, using a virtual terminal. Learn about the Kubernetes system and deploy, expose, scale, and upgrade a containerized application in just a few minutes.
+<div class="bar1">
+    <div class="navButton users" onClick="showOnlyDocs(false)">Users</div>
+    <div class="navButton contributors" onClick="showOnlyDocs(false)">Contributors</div>
+    <div class="navButton migrators" onClick="showOnlyDocs(false)">Migration&nbsp;Paths</div>
+    <a onClick="showOnlyDocs(true)"> <div class="navButton">Browse Docs</div></a>
+</div>
 
-## Installing/Setting Up Kubernetes
+<div id="cardWrapper">
+  <div class="bar2">I AM...</div>
+  <div class='cards'></div>
+</div>
 
-[Picking the Right Solution](/docs/setup/pick-right-solution/) can help you get a Kubernetes cluster up and running, either for local development, or on your cloud provider of choice.
+<div style='text-align: center;' class="applicationDeveloperContainer">
+    <div class="bar2" id="subTitle">LEVEL</div>
+    <div class="bar3">
+        <div class="tab1 foundational" id="beginner">
+            <i class="fa fa-cloud-download" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
+            <br>
+            <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
+                Foundational
+            </div>
+            </div>
+        <div class="tab1 intermediate">
+            <i class="fa fa-check-square" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
+            <br>
 
-## Concepts, Tasks, and Tutorials
+            <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
+                Intermediate
+            </div>
+        </div>
+        <div class="tab1 advanced">
+            <i class="fa fa-exclamation-circle" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
+            <br>
+            <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
+                Advanced Topics
+            </div>
+        </div>
+      </div>
+</div>
 
-The Kubernetes documentation contains a number of resources to help you understand and work with Kubernetes.
+<div class='infobarWrapper'>
+    <div class="infobar">
+        <span style="padding-bottom: 3% ">I want to...</span>
+        <div id="infobarLinks"></div>
+    </div>
+</div>
 
-* [Concepts](/docs/concepts/) provide a deep understanding of how Kubernetes works.
-* [Tasks](/docs/tasks/) contain step-by-step instructions for common Kubernetes tasks.
-* [Tutorials](/docs/tutorials/) contain detailed walkthroughs of the Kubernetes workflow.
 
-## API and Command References
+<div class="browseheader" id="browsedocs">
+    <a name="browsedocs">  Browse Docs</a>
+</div>
 
-The [Reference](/docs/reference/) documentation provides complete information on the Kubernetes APIs and the `kubectl` command-line interface.
+<div class="browsedocs">
 
-## Tools
+{% assign sections = "setup,concepts,tasks,tutorials,reference" | split: "," %}
 
-The [Tools](/docs/tools/) page contains a list of native and third-party tools for Kubernetes.
+{% for section_id in sections %}
 
-## Troubleshooting
+  {% assign section_data = site.data[section_id] %}
+  {% assign section_toc = section_data.toc %}
 
-The [Troubleshooting](/docs/tasks/debug-application-cluster/troubleshooting) page outlines some resources for troubleshooting and finding help.
+  <div class="browsesection">
+    <div class="docstitle">
+      <a href="{{ section_data.landing_page }}">{{ section_data.bigheader }}</a>
+    </div>
 
-## Supported Versions
+    {% assign section_toc = section_toc | where_exp: "elt", "elt.title != null" %}
+    {% assign num_pages = section_toc | size | minus: 1 %}
+    {% assign column_size = num_pages | divided_by: 3.0 | ceil %}
 
-Kubernetes has a _X.Y.Z_ versioning scheme, where _X_ is the major version, _Y_ is the minor version, and _Z_ is the patch version. 
+    <div class="pages">
 
-Kubernetes is supported for three minor versions at a time. This includes the current release version and two previous versions. 
+    {% for i in (1..num_pages) %}
+      {% assign offset = i | modulo: column_size %}
+      {% assign index = i | minus: 1 %}
+      {% assign section_elt = section_toc[index] %}
 
-See the [Kubernetes Release](https://github.com/kubernetes/kubernetes/releases) page on GitHub for the latest release information.
+      {% if page.display_browse_numbers %}
+        {% assign browse_number = i | prepend: "0" | slice: -2, 2 | append: " - " %}
+      {% else %}
+        {% assign browse_number = "" %}
+      {% endif %}
 
-### Minor Versions
+      {% if offset == 1 %}
+        <div class="browsecolumn">
+      {% endif %}
 
-A certain amount of version skew is permissible between master components, node components, and the kubectl client. Nodes may lag master by up to two versions, but not exceed the master version. Clients may lag master by one version and may exceed master up to one version.
+      {% assign elt_url = section_elt.path | default: section_elt.landing_page | default: "#" %}
+      <a href="{{ elt_url }}">{{ section_elt.title | prepend: browse_number }}</a><br>
+      {% if offset == 0 or i == num_pages %}
+        </div>
+      {% endif %}
+    {% endfor %}
+    </div>
+  </div>
 
-For example, a v1.8 master is expected to be compatible with v1.6, v1.7, and v1.8 nodes, and compatible with v1.7, v1.8, and v1.9 clients. 
-
-### Patch Versions
-
-Patch releases often include critical bug fixes. You should be running the latest patch release of a given minor release.
+{% endfor %}
+</div>
