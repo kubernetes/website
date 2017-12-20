@@ -107,8 +107,9 @@ in the plugin's
 
 ## Examples
 
-For an example device plugin implementation, see
-[nvidia GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu).
+For examples of device plugin implementations, see:
+- The official [NVIDIA GPU device](https://github.com/NVIDIA/k8s-device-plugin)
+- The [NVIDIA GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu).
 
 {% endcapture %}
 
