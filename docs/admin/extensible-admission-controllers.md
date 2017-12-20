@@ -131,7 +131,7 @@ seconds to honor the new configuration. Then, `"podimage.example.com"` will be
 appended to the `metadata.initializers.pending` field of newly created pods. You
 should already have a ready "podimage" initializer controller that handles pods
 whose `metadata.initializers.pending[0].name="podimage.example.com"`. Otherwise
-the pods will stuck uninitialized.
+the pods will be stuck in an uninitialized state.
 
 Make sure that all expansions of the `<apiGroup, apiVersions, resources>` tuple
 in a `rule` are valid. If they are not, separate them in different `rules`.
