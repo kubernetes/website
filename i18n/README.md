@@ -1,0 +1,1 @@
+Language directories, i.e. /en and /cn, should go in this directory.
