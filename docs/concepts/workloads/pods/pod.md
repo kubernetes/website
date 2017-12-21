@@ -40,7 +40,7 @@ filesystem.
 
 In terms of [Docker](https://www.docker.com/) constructs, a pod is modelled as
 a group of Docker containers with shared namespaces and shared
-[volumes](/docs/concepts/storage/volumes/). PID namespace sharing is not yet implemented in Docker.
+[volumes](/docs/concepts/storage/volumes/). 
 
 Like individual application containers, pods are considered to be relatively
 ephemeral (rather than durable) entities. As discussed in [life of a
