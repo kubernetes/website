@@ -33,6 +33,7 @@ toc:
   - docs/tools/kompose/user-guide.md
 
 - title: Inject Data Into Applications
+  path: docs/tasks/inject-data-application/overview.md
   section:
   - docs/tasks/inject-data-application/define-command-argument-container.md
   - docs/tasks/inject-data-application/define-environment-variable-container.md
