@@ -851,7 +851,7 @@ You can use that information to determine which roles need to be granted to whic
 Once you have [granted roles to service accounts](#service-account-permissions) and workloads are running with no RBAC denial messages
 in the server logs, you can remove the ABAC authorizer.
 
-### Permissive RBAC Permissions
+## Permissive RBAC Permissions
 
 You can replicate a permissive policy using RBAC role bindings.
 
