@@ -4,7 +4,7 @@ toc:
 - docs/tasks/index.md
 
 - title: Experiment
-  path: docs/tasks/inject-data-application/overview.md
+  path: /inject-data-application/overview.md
 
 - title: Install Tools
   section:
