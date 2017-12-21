@@ -21,7 +21,7 @@ federation-apiserver
 ### Options
 
 ```
-      --admission-control stringSlice                           Ordered list of plug-ins to do admission control of resources into cluster. Comma-delimited list of: NamespaceLifecycle. (default [AlwaysAdmit])
+      --admission-control stringSlice                           Ordered list of plug-ins to do admission control of resources into cluster. Comma-delimited list of: GenericAdmissionWebhook, Initializers, NamespaceLifecycle. (default [AlwaysAdmit])
       --admission-control-config-file string                    File with admission control configuration.
       --advertise-address ip                                    The IP address on which to advertise the apiserver to members of the cluster. This address must be reachable by the rest of the cluster. If blank, the --bind-address will be used. If --bind-address is unspecified, the host's default interface will be used.
       --anonymous-auth                                          Enables anonymous requests to the secure port of the API server. Requests that are not rejected by another authentication method are treated as anonymous requests. Anonymous requests have a username of system:anonymous, and a group name of system:unauthenticated. (default true)
@@ -56,9 +56,9 @@ federation-apiserver
       --enable-swagger-ui                                       Enables swagger ui on the apiserver at /swagger-ui
       --etcd-cafile string                                      SSL Certificate Authority file used to secure etcd communication.
       --etcd-certfile string                                    SSL certification file used to secure etcd communication.
+      --etcd-compaction-interval duration                       The interval of compaction requests. If 0, the compaction request from apiserver is disabled. (default 5m0s)
       --etcd-keyfile string                                     SSL key file used to secure etcd communication.
       --etcd-prefix string                                      The prefix to prepend to all resource paths in etcd. (default "/registry")
-      --etcd-quorum-read                                        If true, enable quorum read.
       --etcd-servers stringSlice                                List of etcd servers to connect with (scheme://ip:port), comma separated.
       --etcd-servers-overrides stringSlice                      Per-resource etcd servers overrides, comma separated. The individual override format: group/resource#servers, where servers are http://ip:port, semicolon separated.
       --event-ttl duration                                      Amount of time to retain events. (default 1h0m0s)
@@ -67,7 +67,7 @@ federation-apiserver
       --experimental-keystone-url string                        If passed, activates the keystone authentication plugin.
       --external-hostname string                                The hostname to use when generating externalized URLs for this master (e.g. Swagger API Docs).
       --feature-gates mapStringBool                             A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
-APIListChunking=true|false (ALPHA - default=false)
+APIListChunking=true|false (BETA - default=true)
 APIResponseCompression=true|false (ALPHA - default=false)
 Accelerators=true|false (ALPHA - default=false)
 AdvancedAuditing=true|false (BETA - default=true)
@@ -123,10 +123,10 @@ TaintNodesByCondition=true|false (ALPHA - default=false)
       --service-account-lookup                                  If true, validate ServiceAccount tokens exist in etcd as part of authentication. (default true)
       --storage-backend string                                  The storage backend for persistence. Options: 'etcd3' (default), 'etcd2'.
       --storage-media-type string                               The media type to use to store objects in storage. Some resources or storage backends may only support a specific media type and will ignore this setting. (default "application/vnd.kubernetes.protobuf")
-      --storage-versions string                                 The per-group version to store resources in. Specified in the format "group1/version1,group2/version2,...". In the case where objects are moved from one group to the other, you may specify the format "group1=group2/v1beta1,group3/v1beta1,...". You only need to pass the groups you wish to change from the defaults. It defaults to a list of preferred versions of all registered groups, which is derived from the KUBE_API_VERSIONS environment variable. (default "admissionregistration.k8s.io/v1alpha1,apps/v1beta1,authentication.k8s.io/v1,authorization.k8s.io/v1,autoscaling/v1,batch/v1,certificates.k8s.io/v1beta1,componentconfig/v1alpha1,extensions/v1beta1,federation/v1beta1,networking.k8s.io/v1,policy/v1beta1,rbac.authorization.k8s.io/v1beta1,scheduling.k8s.io/v1alpha1,settings.k8s.io/v1alpha1,storage.k8s.io/v1,v1")
+      --storage-versions string                                 The per-group version to store resources in. Specified in the format "group1/version1,group2/version2,...". In the case where objects are moved from one group to the other, you may specify the format "group1=group2/v1beta1,group3/v1beta1,...". You only need to pass the groups you wish to change from the defaults. It defaults to a list of preferred versions of all registered groups, which is derived from the KUBE_API_VERSIONS environment variable. (default "admissionregistration.k8s.io/v1alpha1,apps/v1beta1,authentication.k8s.io/v1,authorization.k8s.io/v1,autoscaling/v1,batch/v1,certificates.k8s.io/v1beta1,componentconfig/v1alpha1,extensions/v1beta1,federation/v1beta1,networking.k8s.io/v1,policy/v1beta1,rbac.authorization.k8s.io/v1,scheduling.k8s.io/v1alpha1,settings.k8s.io/v1alpha1,storage.k8s.io/v1,v1")
       --target-ram-mb int                                       Memory limit for apiserver in MB (used to configure sizes of caches, etc.)
-      --tls-ca-file string                                      If set, this certificate authority will used for secure access from Admission Controllers. This must be a valid PEM-encoded CA bundle. Alternatively, the certificate authority can be appended to the certificate provided by --tls-cert-file.
-      --tls-cert-file string                                    File containing the default x509 Certificate for HTTPS. (CA cert, if any, concatenated after server cert). If HTTPS serving is enabled, and --tls-cert-file and --tls-private-key-file are not provided, a self-signed certificate and key are generated for the public address and saved to /var/run/kubernetes.
+      --tls-ca-file string                                      If set, this certificate authority will used for secure access from Admission Controllers. This must be a valid PEM-encoded CA bundle. Altneratively, the certificate authority can be appended to the certificate provided by --tls-cert-file.
+      --tls-cert-file string                                    File containing the default x509 Certificate for HTTPS. (CA cert, if any, concatenated after server cert). If HTTPS serving is enabled, and --tls-cert-file and --tls-private-key-file are not provided, a self-signed certificate and key are generated for the public address and saved to the directory specified by --cert-dir.
       --tls-private-key-file string                             File containing the default x509 private key matching --tls-cert-file.
       --tls-sni-cert-key namedCertKey                           A pair of x509 certificate and private key file paths, optionally suffixed with a list of domain patterns which are fully qualified domain names, possibly with prefixed wildcard segments. If no domain patterns are provided, the names of the certificate are extracted. Non-wildcard matches trump over wildcard matches, explicit domain patterns trump over extracted names. For multiple key/certificate pairs, use the --tls-sni-cert-key multiple times. Examples: "example.crt,example.key" or "foo.crt,foo.key:*.foo.com,foo.com". (default [])
       --token-auth-file string                                  If set, the file that will be used to secure the secure port of the API server via token authentication.
@@ -134,4 +134,4 @@ TaintNodesByCondition=true|false (ALPHA - default=false)
       --watch-cache-sizes stringSlice                           List of watch cache sizes for every resource (pods, nodes, etc.), comma separated. The individual override format: resource#size, where size is a number. It takes effect when watch-cache is enabled.
 ```
 
-###### Auto generated by spf13/cobra on 27-Sep-2017
+###### Auto generated by spf13/cobra on 12-Dec-2017

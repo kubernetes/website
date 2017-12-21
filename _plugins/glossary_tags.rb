@@ -55,11 +55,17 @@ module Jekyll
     class Definition < Base
       VALID_PARAM_NAMES = [
         :term_id,
-        :length
+        :length,
+        :prepend,
       ].freeze
 
       def render(context)
-        include_snippet(context)
+        text = include_snippet(context)
+        if @args[:prepend]
+          text.sub(/<p>(.)/) { "<p>#{@args[:prepend]} #{$1.downcase}" }
+        else
+          text
+        end
       end
     end
 

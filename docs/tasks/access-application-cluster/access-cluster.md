@@ -55,7 +55,8 @@ $ kubectl proxy --port=8080 &
 
 See [kubectl proxy](/docs/user-guide/kubectl/{{page.version}}/#proxy) for more details.
 
-Then you can explore the API with curl, wget, or a browser, like so:
+Then you can explore the API with curl, wget, or a browser, replacing localhost
+with [::1] for IPv6, like so:
 
 ```shell
 $ curl http://localhost:8080/api/
@@ -154,7 +155,7 @@ the `kubernetes` DNS name, which resolves to a Service IP which in turn
 will be routed to an apiserver.
 
 The recommended way to authenticate to the apiserver is with a
-[service account](/docs/tasks/configure-pod-container/configure-service-account/) credential.  By kube-system, a pod
+[service account](/docs/tasks/configure-pod-container/configure-service-account/) credential. By kube-system, a pod
 is associated with a service account, and a credential (token) for that
 service account is placed into the filesystem tree of each container in that pod,
 at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
@@ -168,16 +169,14 @@ at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
 
 From within a pod the recommended ways to connect to API are:
 
-  - run a kubectl proxy as one of the containers in the pod, or as a background
-    process within a container.  This proxies the
+  - run `kubectl proxy` in a sidecar container in the pod, or as a background
+    process within the container. This proxies the
     Kubernetes API to the localhost interface of the pod, so that other processes
-    in any container of the pod can access it.  See this [example of using kubectl proxy
-    in a pod](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/kubectl-container/).
+    in any container of the pod can access it.
   - use the Go client library, and create a client using the `rest.InClusterConfig()` and `kubernetes.NewForConfig()` functions.
     They handle locating and authenticating to the apiserver. [example](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)
 
 In each case, the credentials of the pod are used to communicate securely with the apiserver.
-
 
 ## Accessing services running on the cluster
 

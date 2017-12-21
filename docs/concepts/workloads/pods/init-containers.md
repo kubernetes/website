@@ -89,7 +89,7 @@ Here are some ideas for how to use Init Containers:
   configuration file using Jinja.
 
 More detailed usage examples can be found in the [StatefulSets documentation](/docs/concepts/workloads/controllers/statefulset/)
-and the [Production Pods guide](/docs/tasks/#handling-initialization).
+and the [Production Pods guide](/docs/tasks/configure-pod-container/configure-pod-initialization/).
 
 ### Init Containers in use
 

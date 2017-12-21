@@ -42,7 +42,7 @@ Next, expand the template into multiple files, one for each item to be processed
 $ mkdir ./jobs
 $ for i in apple banana cherry
 do
-  cat job.yaml.txt | sed "s/\$ITEM/$i/" > ./jobs/job-$i.yaml
+  cat job.yaml | sed "s/\$ITEM/$i/" > ./jobs/job-$i.yaml
 done
 ```
 
@@ -72,10 +72,10 @@ Now, check on the jobs:
 
 ```shell
 $ kubectl get jobs -l jobgroup=jobexample
-JOB                   CONTAINER(S)   IMAGE(S)   SELECTOR                               SUCCESSFUL
-process-item-apple    c              busybox    app in (jobexample),item in (apple)    1
-process-item-banana   c              busybox    app in (jobexample),item in (banana)   1
-process-item-cherry   c              busybox    app in (jobexample),item in (cherry)   1
+NAME                  DESIRED   SUCCESSFUL   AGE
+process-item-apple    1         1            31s
+process-item-banana   1         1            31s
+process-item-cherry   1         1            31s
 ```
 
 Here we use the `-l` option to select all jobs that are part of this
