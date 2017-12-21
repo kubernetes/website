@@ -64,20 +64,20 @@ the underlying cloud, where available:
 
 | Service                  | API Version(s) | Required |
 |--------------------------|----------------|----------|
-| Block Storage (Cinder)   | V1†, V2        | No       |
+| Block Storage (Cinder)   | V1†, V2, V3    | No       |
 | Compute (Nova)           | V2             | No       |
 | Identity (Keystone)      | V2‡,  V3       | Yes      |
 | Load Balancing (Neutron) | V1§, V2        | No       |
+| Load Balancing (Octavia) | V2             | No       |
 
-† Block Storage V1 API support is deprecated, support for Block Storage V3 will
-  be added in the future.
-  
+† Block Storage V1 API support is deprecated, Block Storage V3 API support was
+added in Kubernetes 1.9.
+
 ‡ Identity V2 API support is deprecated and will be removed from the provider in
-a future release. As of the "Queens" release OpenStack will no longer expose the
+a future release. As of the "Queens" release, OpenStack will no longer expose the
 Identity V2 API.
 
-§ Load Balancing V1 API support is deprecated and will be removed from the
-provider in a future release.
+§ Load Balancing V1 API support was removed in Kubernetes 1.9.
 
 Service discovery is achieved by listing the service catalog managed by
 OpenStack Identity (Keystone) using the `auth-url` provided in the provider
@@ -87,7 +87,8 @@ support for impacted features. Certain features are also enabled or disabled
 based on the list of extensions published by Neutron in the underlying cloud.
 
 ## cloud.conf
-Kubernetes knows how to interact with OpenStack via the file cloud.conf. It is the file that will provide Kubernetes with credentials and location for the OpenStack auth endpoint.
+Kubernetes knows how to interact with OpenStack via the file cloud.conf. It is
+the file that will provide Kubernetes with credentials and location for the OpenStack auth endpoint.
 You can create a cloud.conf file by specifying the following details in it
 
 ### Typical configuration
@@ -139,7 +140,7 @@ file:
   endpoint of the Keystone API.
 * `ca-file` (Optional): TODO
 
-When using Keystone V3 - which changes tenant to project the `tenant-id` value 
+When using Keystone V3 - which changes tenant to project - the `tenant-id` value
 is automatically mapped to the project construct in the API.
 
 ####  Load Balancer
@@ -151,6 +152,11 @@ file:
   values are `v1` or `v2`. Where no value is provided automatic detection will
   select the highest supported version exposed by the underlying OpenStack
   cloud.
+* `use-octavia` (Optional): Used to determine whether to look for and use an
+  Octavia LBaaS V2 service catalog endpoint. Valid values are `true` or `false`.
+  Where `true` is specified and an Octaiva LBaaS V2 entry can not be found, the
+  provider will fall back and attempt to find a Neutron LBaaS V2 endpoint
+  instead. The default value is `false`.
 * `subnet-id` (Optional): Used to specify the id of the subnet you want to
   create your loadbalancer on. Can be found at Network > Networks. Click on the
   respective network to get its subnets.
@@ -190,11 +196,17 @@ and should appear in the `[BlockStorage]` section of the `cloud.conf` file:
   detection will select the highest supported version exposed by the underlying
   OpenStack cloud. The default value if none is provided is `auto`.
 * `trust-device-path` (Optional): In most scenarios the block device names
-  provided by Cinder (e.g. /dev/vda) can not be trusted. This boolean toggles
+  provided by Cinder (e.g. `/dev/vda`) can not be trusted. This boolean toggles
   this behavior. Setting it to `true` results in trusting the block device names
   provided by Cinder. The default value of `false` results in the discovery of
-  the device path based on it's serial number and /dev/disk/by-id mapping and is
+  the device path based on its serial number and `/dev/disk/by-id` mapping and is
   the recommended approach.
+* `ignore-volume-az` (Optional): Used to influence availability zone use when
+  attaching Cinder volumes. When Nova and Cinder have different availability
+  zones, this should be set to `true`. This is most commonly the case where
+  there are many Nova availability zones but only one Cinder availability zone.
+  The default value is `false` to preserve the behavior used in earlier
+  releases, but may change in the future.
 
 If deploying Kubernetes versions <= 1.8 on an OpenStack deployment that uses
 paths rather than ports to differentiate between endpoints it may be necessary
@@ -236,12 +248,19 @@ should appear in the `[Metadata]` section of the `cloud.conf` file:
   may be available which is why the default is to check both.
 
 #### Router
-These configuration options for the OpenStack provider pertain to routing and
-should appear in the `[Route]` section of the `cloud.conf` file:
+
+These configuration options for the OpenStack provider pertain to the [kubenet]
+Kubernetes network plugin and should appear in the `[Router]` section of the
+`cloud.conf` file:
 
 * `router-id` (Optional): If the underlying cloud's Neutron deployment supports
   the `extraroutes` extension then use `router-id` to specify a router to add
-  routes to.
+  routes to.  The router chosen must span the private networks containing your
+  cluster nodes (typically there is only one node network, and this value should be
+  the default router for the node network).  This value is required to use [kubenet]
+  on OpenStack.
+
+[kubenet]: https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#kubenet
 
 {% endcapture %}
 
