@@ -3,6 +3,9 @@ abstract: "Step-by-step instructions for performing operations with Kubernetes."
 toc:
 - docs/tasks/index.md
 
+- title: Experiment
+  path: docs/tasks/inject-data-application/overview.md
+
 - title: Install Tools
   section:
   - docs/tasks/tools/install-kubectl.md
