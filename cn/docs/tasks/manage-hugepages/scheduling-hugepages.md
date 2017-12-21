@@ -13,9 +13,9 @@ title: 管理巨页（HugePages）
 
 {% capture prerequisites %}
 
-1. 为了使节点能够上报巨页容量，Kubernetes 节点必须预先分配巨页。 
+1. 为了使节点能够上报巨页容量，Kubernetes 节点必须预先分配巨页。
    每个节点只能预先分配一种特定规格的巨页。
-1. 用户必须在整个系统中将专用的 **alpha** 特性开关 `HugePages` 设置为 true： `--feature-gates="HugePages=true"`。
+1. 用户必须在整个系统中将专用的 **alpha** 特性开关 `HugePages` 设置为 true： `--feature-gates=HugePages=true`。
 
 节点会自动发现全部巨页资源，并作为可供调度的资源进行上报。
 
