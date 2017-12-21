@@ -83,7 +83,7 @@ using one of the other modes if possible.
 **Example `kubeadm join` command:**
 
 ```
-kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-verification 1.2.3.4:6443`
+kubeadm join --token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-verification 1.2.3.4:6443`
 ```
 
 **Advantages:**
