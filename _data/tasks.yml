@@ -6,7 +6,8 @@ toc:
 - title: Experiment
   path: /docs/tasks/inject-data-application/overview/
   section:
-  - docs/user-journeys/users/application-developer/foundational.md
+  - docs/tasks/configure-pod-container/assign-memory-resource.md
+  - docs/tasks/configure-pod-container/assign-cpu-resource.md
 
 - title: Install Tools
   section:
