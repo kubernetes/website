@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-  $('div.docsection1 h2').each(function(index) {
+  $('#content h2').each(function(index) {
     var title = $(this).text();
     var id = $(this).attr("id");
 
