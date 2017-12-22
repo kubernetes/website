@@ -16,7 +16,7 @@
 {% endif %}
 
 {% if body %}
-{{ body | liquify | markdownify }}
+{{ body | liquify | markdownify | replace: '<h2', '</div><h2' | replace: '</h2>', '</h2><div class="docsection1">'}}
 {% else %}
 {% include templates/_errorthrower.md missing_block='body' purpose='contains content for this level.' %}
 {% endif %}
