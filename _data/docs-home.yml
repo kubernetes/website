@@ -5,9 +5,11 @@ toc:
 
 - title: Users
   section:
-    title: Application Developer
-    section:
+    - title: Application Developer
+      section:
       - /docs/user-journeys/users/application-developer/foundational.md
+      - /docs/user-journeys/users/application-developer/intermediate.md
+      - /docs/user-journeys/users/application-developer/advanced.md
 
 
 - title: Release Notes
