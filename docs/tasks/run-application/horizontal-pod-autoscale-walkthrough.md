@@ -35,7 +35,7 @@ It defines an [index.php](/docs/user-guide/horizontal-pod-autoscaling/image/inde
 First, we will start a deployment running the image and expose it as a service:
 
 ```shell
-$ kubectl run php-apache --image=gcr.io/google_containers/hpa-example --requests=cpu=200m --expose --port=80
+$ kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
 service "php-apache" created
 deployment "php-apache" created
 ```

@@ -36,13 +36,13 @@ spec:
   containers: 
     - 
       name: gpu-container-1
-      image: gcr.io/google_containers/pause:2.0
+      image: k8s.gcr.io/pause:2.0
       resources: 
         limits: 
           alpha.kubernetes.io/nvidia-gpu: 2 # requesting 2 GPUs
     -
       name: gpu-container-2
-      image: gcr.io/google_containers/pause:2.0
+      image: k8s.gcr.io/pause:2.0
       resources: 
         limits: 
           alpha.kubernetes.io/nvidia-gpu: 3 # requesting 3 GPUs
@@ -126,7 +126,7 @@ metadata:
 spec:
   containers:
   - name: gpu-container-1
-    image: gcr.io/google_containers/pause:2.0
+    image: k8s.gcr.io/pause:2.0
     resources:
       limits:
         alpha.kubernetes.io/nvidia-gpu: 1

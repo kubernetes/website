@@ -518,7 +518,7 @@ spec:
       secretName: dotfile-secret
   containers:
   - name: dotfile-test-container
-    image: gcr.io/google_containers/busybox
+    image: k8s.gcr.io/busybox
     command:
     - ls
     - "-l"
