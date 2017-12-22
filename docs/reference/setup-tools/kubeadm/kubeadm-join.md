@@ -21,6 +21,13 @@ This action consists of the following steps:
    authenticity of that data. The root CA can also be discovered directly via a
    file or URL.
 
+1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
+   first kubeadm retrives the kubelet init configuration from the master and writes is to
+   the disk; then, as soon as kubelet starts, kubeadm updates the node `Node.spec.configSource`. 
+   see [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file.md) 
+   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet.md) 
+   for more information about Dynamic Kubelet Configuration.
+
 1. Once the cluster information is known, kubelet can start the TLS bootstrapping
    process.
 
