@@ -16,7 +16,7 @@
   <body>
     <div class="track">USERS > APPLICATION DEVELOPER > FOUNDATIONAL</div>
       <div class="topheader">
-        Introduction
+        Introduction 
       </div>
       <div class="sections">Table of contents</div>
       <div class="tablebar">
@@ -44,28 +44,28 @@
         <p style="font-size:11pt;line-height:18pt;font-weight:100">
             One good way to learn Kubernetes basics is with Minikube, which lets you create a simple single-node cluster with all core Kubernetes components. If you install locally, you may find that your cluster is sufficient for local application development. Installing Minikube locally is also a good idea if you want to continue exploring in a persistent environment that you can come back to and change.</p><!--Alex: this is the main box or secion, that we want to keep as the intro to the main narrative that continues with "Before you install Minikube:" -->
 
-    <p style="font-size:11pt;line-height:17pt;font-weight:100">If you're brand new to Kubernetes, you might want to try out the <a href="https://www.katacoda.com/courses/kubernetes/playground" style="color:#3371e3;font-weight:500;text-decoration:none">Katacoda Kubernetes Playground</a>, which provides a set of web-based tutorials complete with their own Kubernetes environment.</p><!--Secondary box/callout -->
-    <p style="font-size:11pt;line-height:17pt;font-weight:300">If you want to explore further, the web-based <a href="http://labs.play-with-k8s.com/" style="color:#3371e3;font-weight:500;text-decoration:none">Play with Kubernetes</a> gives you a less structured Kubernetes environment on the web.</p><!--Secondary box/callout -->
+    <p style="font-size:11pt;line-height:17pt;font-weight:100">If you're brand new to Kubernetes, you might want to try out the <a href="https://www.katacoda.com/courses/kubernetes/playground" style="color:#3371e3;font-weight:400;text-decoration:none">Katacoda Kubernetes Playground</a>, which provides a set of web-based tutorials complete with their own Kubernetes environment.</p><!--Secondary box/callout -->
+    <p style="font-size:11pt;line-height:17pt;font-weight:300">If you want to explore further, the web-based <a href="http://labs.play-with-k8s.com/" style="color:#3371e3;font-weight:400;text-decoration:none">Play with Kubernetes</a> gives you a less structured Kubernetes environment on the web.</p><!--Secondary box/callout -->
 
         <p style="font-size:13pt;margin-top:25px;font-weight:400">Before you install Minikube:</p>
 
         <ul>
-          <li><a href="https://kubernetes.io/docs/tasks/tools/install-minikube/#install-a-hypervisor" style="color:#3371e3;font-weight:500;text-decoration:none">Install a hypervisor if you don't have one already:</a>
+          <li><a href="https://kubernetes.io/docs/tasks/tools/install-minikube/#install-a-hypervisor" style="color:#3371e3;font-weight:400;text-decoration:none">Install a hypervisor if you don't have one already:</a>
             <ul>
               <li>For OS X, xhyve, VirtualBox, or VMWare Fusion</li>
               <li>For Linux, VirtualBox or KVM</li>
               <li>For Windows, VirtualBox or Hyper-V</li>
           </ul>
           </li>
-          <li><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/" style="color:#3371e3;font-weight:500;text-decoration:none">Install kubectl, the Kubernetes command-line tool.</a> Note that when you start Minikube, your kubectl is automatically configured to communicate with the server. You should therefore skip kubectl configuration at this point.</li>
-          <li>(optional) If you plan to run your Minikube cluster as part of a local development environment, consider <a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-docker" style="color:#3371e3;font-weight:500;text-decoration:none">installing Docker</a>. Minikube includes a Docker daemon, but to create and push containers as part of your development workflow, you'll want an independent Docker instance. Note that version 1.12 is recommended for full compatibility with Kubernetes, but a few other versions are tested and known to work.</li><!--Maybe this is another candidate for a callout/box to the side instead of as part of the main list? -->
+          <li><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/" style="color:#3371e3;font-weight:400;text-decoration:none">Install kubectl, the Kubernetes command-line tool.</a> Note that when you start Minikube, your kubectl is automatically configured to communicate with the server. You should therefore skip kubectl configuration at this point.</li>
+          <li>(optional) If you plan to run your Minikube cluster as part of a local development environment, consider <a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-docker" style="color:#3371e3;font-weight:400;text-decoration:none">installing Docker</a>. Minikube includes a Docker daemon, but to create and push containers as part of your development workflow, you'll want an independent Docker instance. Note that version 1.12 is recommended for full compatibility with Kubernetes, but a few other versions are tested and known to work.</li><!--Maybe this is another candidate for a callout/box to the side instead of as part of the main list? -->
         </ul>
       <p style="font-size:13pt;">
-        Now you can <a href="https://kubernetes.io/docs/tasks/tools/install-minikube/" style="color:#3371e3;font-weight:500;text-decoration:none">install Minikube</a>.
+        Now you can <a href="https://kubernetes.io/docs/tasks/tools/install-minikube/" style="color:#3371e3;font-weight:400;text-decoration:none">install Minikube</a>.
         <!--Make sure to track changes to Minikube content for this link. https://github.com/kubernetes/website/issues/6339 -->
       </p>
       <p>
-        You can now get basic information about your cluster with the command <code>kubectl get nodes</code>. And you can <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-intro/" style="color:#3371e3;font-weight:500;text-decoration:none">view your cluster's Pods and Nodes</a>. But to get a good idea of what's really going on, you need to deploy an application to your cluster.
+        You can now get basic information about your cluster with the command <code>kubectl get nodes</code>. And you can <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-intro/" style="color:#3371e3;font-weight:400;text-decoration:none">view your cluster's Pods and Nodes</a>. But to get a good idea of what's really going on, you need to deploy an application to your cluster.
       </p>
       </div>
 
@@ -81,21 +81,21 @@
         You can deploy a simple application in Kubernetes with a Deployment manifest, also called a configuration or config file. The manifest is written in YAML or JSON, and describes the desired state of the application and related resources as Kubernetes should maintain them.
       </p>
       <ul>
-        <li><a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/" style="color:#3371e3;font-weight:500;text-decoration:none">Get started by deploying a simple nginx server</a>. Nginx is often used as the web server to help provide ingress from outside your cluster.</li>
-        <li>By itself, a Deployment can't provide ingress. The simplest way to configure ingress is to <a href="https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/" style="color:#3371e3;font-weight:500;text-decoration:none">create a Service</a> of type <code>NodePort</code>, which takes care of routing external traffic to your cluster over a dynamically allocated IP address and port. The service also takes care of load balancing.</li>
+        <li><a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/" style="color:#3371e3;font-weight:400;text-decoration:none">Get started by deploying a simple nginx server</a>. Nginx is often used as the web server to help provide ingress from outside your cluster.</li>
+        <li>By itself, a Deployment can't provide ingress. The simplest way to configure ingress is to <a href="https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/" style="color:#3371e3;font-weight:400;text-decoration:none">create a Service</a> of type <code>NodePort</code>, which takes care of routing external traffic to your cluster over a dynamically allocated IP address and port. The service also takes care of load balancing.</li>
         <li>Optionally, learn more about providing external access:
           <ul>
-            <li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" style="color:#3371e3;font-weight:500;text-decoration:none">More about Deployments.</a></li>
-            <li><a href="https://kubernetes.io/docs/concepts/services-networking/service/" style="color:#3371e3;font-weight:500;text-decoration:none">More about Services.</a></li>
-            <li><a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" style="color:#3371e3;font-weight:500;text-decoration:none">Learn more about Ingress.</a></li>
+            <li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" style="color:#3371e3;font-weight:400;text-decoration:none">More about Deployments.</a></li>
+            <li><a href="https://kubernetes.io/docs/concepts/services-networking/service/" style="color:#3371e3;font-weight:400;text-decoration:none">More about Services.</a></li>
+            <li><a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" style="color:#3371e3;font-weight:400;text-decoration:none">Learn more about Ingress.</a></li>
           </ul></li>
         </ul>
       <p>
         You'll also want to think about storage. Kubernetes provides different types of storage for different storage needs:
       </p>
       <ul>
-        <li>A Volume lets you define storage for your cluster that is tied to the lifecycle of a Pod. It is therefore more persistent than container storage. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-volume-storage/" style="color:#3371e3;font-weight:500;text-decoration:none">how to configure volume storage</a>, or <a href="https://kubernetes.io/docs/concepts/storage/volumes/" style="color:#3371e3;font-weight:500;text-decoration:none">read more about about volume storage</a>.</li>
-        <li>A PersistentVolume and PersistentVolumeClaim let you define storage at the cluster level. Typically a cluster administrator defines the PersistentVolume objects for the cluster, and cluster users (application developers, you) define the PersistentVolumeClaim objects that your application requires. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/" style="color:#3371e3;font-weight:500;text-decoration:none">how to set up persistent storage for your cluster</a> or <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/" style="color:#3371e3;font-weight:500;text-decoration:none">read more about persistent volumes</a>.</li>
+        <li>A Volume lets you define storage for your cluster that is tied to the lifecycle of a Pod. It is therefore more persistent than container storage. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-volume-storage/" style="color:#3371e3;font-weight:400;text-decoration:none">how to configure volume storage</a>, or <a href="https://kubernetes.io/docs/concepts/storage/volumes/" style="color:#3371e3;font-weight:400;text-decoration:none">read more about about volume storage</a>.</li>
+        <li>A PersistentVolume and PersistentVolumeClaim let you define storage at the cluster level. Typically a cluster administrator defines the PersistentVolume objects for the cluster, and cluster users (application developers, you) define the PersistentVolumeClaim objects that your application requires. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/" style="color:#3371e3;font-weight:400;text-decoration:none">how to set up persistent storage for your cluster</a> or <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/" style="color:#3371e3;font-weight:400;text-decoration:none">read more about persistent volumes</a>.</li>
     <!--<li>Q: mention also projected volumes? This seems more specialized, might be distracting?https://github.com/kubernetes/website/issues/4514 </li>-->
       </ul>
 
@@ -103,21 +103,21 @@
         Labels let you specify identifying information for Kubernetes objects, such as pods, that you define. This information is entirely user-defined, and is used to sort and select sets of objects.
       </p>
       <ul>
-        <li>When you <a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/" style="color:#3371e3;font-weight:500;text-decoration:none">create a basic nginx Deployment</a>, you specify the <code>app: nginx</code>label as part of the template metadata. The <code>matchLabels</code> selector then specifies this label as part of the spec.</li>
+        <li>When you <a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/" style="color:#3371e3;font-weight:400;text-decoration:none">create a basic nginx Deployment</a>, you specify the <code>app: nginx</code>label as part of the template metadata. The <code>matchLabels</code> selector then specifies this label as part of the spec.</li>
 
-        <li><a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/" style="color:#3371e3;font-weight:500;text-decoration:none">More about labels</a>
+        <li><a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/" style="color:#3371e3;font-weight:400;text-decoration:none">More about labels</a>
         </li>
-        <li>You also specify labels to customize your cluster, for example by <a href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/" style="color:#3371e3;font-weight:500;text-decoration:none">assigning pods to nodes</a>.</li>
+        <li>You also specify labels to customize your cluster, for example by <a href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/" style="color:#3371e3;font-weight:400;text-decoration:none">assigning pods to nodes</a>.</li>
         <!--<li>https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/</li>-->
       </ul>
 
       <p>
-        To provide configuration data for your application, you can specify Kubernetes environment variables as part of the container definition in your Deployment manifest. But to manage configuration data without having to rebuild your container or modify your Deployment, you can also <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configmap/" style="color:#3371e3;font-weight:500;text-decoration:none">use a ConfigMap</a> for non-confidential data, or <a href="https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/" style="color:#3371e3;font-weight:500;text-decoration:none">a Secret</a> for confidential data.
+        To provide configuration data for your application, you can specify Kubernetes environment variables as part of the container definition in your Deployment manifest. But to manage configuration data without having to rebuild your container or modify your Deployment, you can also <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configmap/" style="color:#3371e3;font-weight:400;text-decoration:none">use a ConfigMap</a> for non-confidential data, or <a href="https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/" style="color:#3371e3;font-weight:400;text-decoration:none">a Secret</a> for confidential data.
       </p>
 
   <!--resource for re-doing docs: https://medium.com/google-cloud/kubernetes-configmaps-and-secrets-68d061f7ab5b -->
 
-      <p>Note that ingress provides networking between your cluster and the outside world. A production cluster should also configure networking between containers and between nodes, which is <a href="https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/" style="color:#3371e3;font-weight:500;text-decoration:none">defined in a network policy</a>.
+      <p>Note that ingress provides networking between your cluster and the outside world. A production cluster should also configure networking between containers and between nodes, which is <a href="https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/" style="color:#3371e3;font-weight:400;text-decoration:none">defined in a network policy</a>.
       </p>
       </div>
 
@@ -156,7 +156,7 @@
 
       <div class="docsection1">
         <br>
-        <a href="#" style="color:#3371e3;font-weight:500;text-decoration:none;font-size:14pt">TODO More tutorials (links to items in tutorials section of docs)
+        <a href="#" style="color:#3371e3;font-weight:400;text-decoration:none;font-size:14pt">TODO More tutorials (links to items in tutorials section of docs)
       <br><br>
         TODO Links to closely related user journeys (when we have them)
       <br><br>
