@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/style_user_journeys.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 
@@ -73,7 +73,7 @@
          <span class="numberCircle"><span>2</span></span>&nbsp;&nbsp;Deploy, scale, and update an application
       </div>
 
-      <div class="docsection1" style="width:80% !important">
+      <div class="docsection1" style="width:75% !important">
 
         <!-- maybe a little sub-toc here? Ingress, Networking, Storage, Labels. Also: what about subheadings for each? -->
 
@@ -81,21 +81,21 @@
         You can deploy a simple application in Kubernetes with a Deployment manifest, also called a configuration or config file. The manifest is written in YAML or JSON, and describes the desired state of the application and related resources as Kubernetes should maintain them.
       </p>
       <ul>
-        <li><a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/">Get started by deploying a simple nginx server</a>. Nginx is often used as the web server to help provide ingress from outside your cluster.</li>
-        <li>By itself, a Deployment can't provide ingress. The simplest way to configure ingress is to <a href="https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/">create a Service</a> of type <code>NodePort</code>, which takes care of routing external traffic to your cluster over a dynamically allocated IP address and port. The service also takes care of load balancing.</li>
+        <li><a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/" style="color:#3371e3;font-weight:500;text-decoration:none">Get started by deploying a simple nginx server</a>. Nginx is often used as the web server to help provide ingress from outside your cluster.</li>
+        <li>By itself, a Deployment can't provide ingress. The simplest way to configure ingress is to <a href="https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/" style="color:#3371e3;font-weight:500;text-decoration:none">create a Service</a> of type <code>NodePort</code>, which takes care of routing external traffic to your cluster over a dynamically allocated IP address and port. The service also takes care of load balancing.</li>
         <li>Optionally, learn more about providing external access:
           <ul>
-            <li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">More about Deployments.</a></li>
-            <li><a href="https://kubernetes.io/docs/concepts/services-networking/service/">More about Services.</a></li>
-            <li><a href="https://kubernetes.io/docs/concepts/services-networking/ingress/">Learn more about Ingress.</a></li>
+            <li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" style="color:#3371e3;font-weight:500;text-decoration:none">More about Deployments.</a></li>
+            <li><a href="https://kubernetes.io/docs/concepts/services-networking/service/" style="color:#3371e3;font-weight:500;text-decoration:none">More about Services.</a></li>
+            <li><a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" style="color:#3371e3;font-weight:500;text-decoration:none">Learn more about Ingress.</a></li>
           </ul></li>
         </ul>
       <p>
         You'll also want to think about storage. Kubernetes provides different types of storage for different storage needs:
       </p>
       <ul>
-        <li>A Volume lets you define storage for your cluster that is tied to the lifecycle of a Pod. It is therefore more persistent than container storage. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-volume-storage/">how to configure volume storage</a>, or <a href="https://kubernetes.io/docs/concepts/storage/volumes/">read more about about volume storage</a>.</li>
-        <li>A PersistentVolume and PersistentVolumeClaim let you define storage at the cluster level. Typically a cluster administrator defines the PersistentVolume objects for the cluster, and cluster users (application developers, you) define the PersistentVolumeClaim objects that your application requires. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/">how to set up persistent storage for your cluster</a> or <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">read more about persistent volumes</a>.</li>
+        <li>A Volume lets you define storage for your cluster that is tied to the lifecycle of a Pod. It is therefore more persistent than container storage. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-volume-storage/" style="color:#3371e3;font-weight:500;text-decoration:none">how to configure volume storage</a>, or <a href="https://kubernetes.io/docs/concepts/storage/volumes/" style="color:#3371e3;font-weight:500;text-decoration:none">read more about about volume storage</a>.</li>
+        <li>A PersistentVolume and PersistentVolumeClaim let you define storage at the cluster level. Typically a cluster administrator defines the PersistentVolume objects for the cluster, and cluster users (application developers, you) define the PersistentVolumeClaim objects that your application requires. Learn <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/" style="color:#3371e3;font-weight:500;text-decoration:none">how to set up persistent storage for your cluster</a> or <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/" style="color:#3371e3;font-weight:500;text-decoration:none">read more about persistent volumes</a>.</li>
     <!--<li>Q: mention also projected volumes? This seems more specialized, might be distracting?https://github.com/kubernetes/website/issues/4514 </li>-->
       </ul>
 
@@ -103,21 +103,21 @@
         Labels let you specify identifying information for Kubernetes objects, such as pods, that you define. This information is entirely user-defined, and is used to sort and select sets of objects.
       </p>
       <ul>
-        <li>When you <a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/">create a basic nginx Deployment</a>, you specify the <code>app: nginx</code>label as part of the template metadata. The <code>matchLabels</code> selector then specifies this label as part of the spec.</li>
+        <li>When you <a href="https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/" style="color:#3371e3;font-weight:500;text-decoration:none">create a basic nginx Deployment</a>, you specify the <code>app: nginx</code>label as part of the template metadata. The <code>matchLabels</code> selector then specifies this label as part of the spec.</li>
 
-        <li><a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/">More about labels</a>
+        <li><a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/" style="color:#3371e3;font-weight:500;text-decoration:none">More about labels</a>
         </li>
-        <li>You also specify labels to customize your cluster, for example by <a href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/">assigning pods to nodes</a>.</li>
+        <li>You also specify labels to customize your cluster, for example by <a href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/" style="color:#3371e3;font-weight:500;text-decoration:none">assigning pods to nodes</a>.</li>
         <!--<li>https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/</li>-->
       </ul>
 
       <p>
-        To provide configuration data for your application, you can specify Kubernetes environment variables as part of the container definition in your Deployment manifest. But to manage configuration data without having to rebuild your container or modify your Deployment, you can also <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configmap/">use a ConfigMap</a> for non-confidential data, or <a href="https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/">a Secret</a> for confidential data.
+        To provide configuration data for your application, you can specify Kubernetes environment variables as part of the container definition in your Deployment manifest. But to manage configuration data without having to rebuild your container or modify your Deployment, you can also <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configmap/" style="color:#3371e3;font-weight:500;text-decoration:none">use a ConfigMap</a> for non-confidential data, or <a href="https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/" style="color:#3371e3;font-weight:500;text-decoration:none">a Secret</a> for confidential data.
       </p>
 
   <!--resource for re-doing docs: https://medium.com/google-cloud/kubernetes-configmaps-and-secrets-68d061f7ab5b -->
 
-      <p>Note that ingress provides networking between your cluster and the outside world. A production cluster should also configure networking between containers and between nodes, which is <a href="https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/">defined in a network policy</a>.
+      <p>Note that ingress provides networking between your cluster and the outside world. A production cluster should also configure networking between containers and between nodes, which is <a href="https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/" style="color:#3371e3;font-weight:500;text-decoration:none">defined in a network policy</a>.
       </p>
       </div>
 
@@ -125,7 +125,7 @@
          <span class="numberCircle"><span>3</span></span>&nbsp;&nbsp;Understand Kubernetes basics
       </div>
 
-      <div class="docsection1" style="width:80% !important">
+      <div class="docsection1" style="width:75% !important">
       <p>
         To work with Kubernetes, you describe your cluster's desired state in terms of Kubernetes API objects. Cluster state includes but is not limited to the following information:
       </p>
@@ -155,17 +155,12 @@
       </div>
 
       <div class="docsection1">
-        TODO More tutorials (links to items in tutorials section of docs)
+        <br>
+        <a href="#" style="color:#3371e3;font-weight:500;text-decoration:none;font-size:14pt">TODO More tutorials (links to items in tutorials section of docs)
       <br><br>
         TODO Links to closely related user journeys (when we have them)
       <br><br>
-      https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/
-      <br><br>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id felis non enim faucibus lacinia. Aliquam massa mauris, interdum a ex ut, sagittis rutrum nulla. In pellentesque est at molestie fringilla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec eu mi at velit lacinia venenatis ac nec sem. In volutpat pellentesque dui ut commodo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis sollicitudin eleifend felis non facilisis. Pellentesque leo urna, congue id auctor non, varius a nunc. Duis ultrices, odio ut hendrerit suscipit, nisi mauris dignissim mauris, nec bibendum ante neque ut augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam condimentum libero sit amet rutrum fermentum. Proin posuere condimentum odio. Aenean volutpat, ex vel tincidunt tincidunt, massa odio condimentum lectus, vel iaculis libero dolor in nisi.
-      <br><br>
-        Curabitur bibendum tempor mi, vel lacinia nisi vulputate ac. Nulla dignissim consectetur nisl nec tincidunt. Etiam pharetra facilisis sapien, non gravida velit fermentum sed. Ut ac ultrices nunc, in vestibulum urna. Suspendisse accumsan euismod felis, sit amet rhoncus neque volutpat luctus. Aliquam tincidunt pellentesque mauris, sed tempus diam. Mauris in elit eget justo tempor suscipit.
-      <br><br>
-        Aenean suscipit arcu ac leo tincidunt tempus. Donec maximus tellus libero, ac ullamcorper magna lobortis ac. Integer mollis nisl vitae magna gravida, nec ornare ex consectetur. Sed mattis tincidunt nisi, at consequat tellus malesuada non. Integer vel semper nisi, ut fringilla velit. Nam felis ex, congue non dui vitae, sollicitudin convallis turpis. Phasellus porttitor maximus turpis, in varius nibh fermentum aliquam. Cras finibus lacus non diam porttitor porttitor. Nulla fringilla sagittis nibh nec condimentum. Duis egestas mauris nec dolor hendrerit ullamcorper sit amet in mi. Phasellus sollicitudin justo diam.
+
       </div>
 
   </body>
