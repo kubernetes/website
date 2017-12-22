@@ -15,14 +15,8 @@ foundational:
     icon: fa-pencil-square-o
     url: "/docs/home/contribute/create-pull-request/"
   - label: "Stage documentation changes."
-    icon: fa-pencil-square-o 
+    icon: fa-eye
     url: "/docs/home/contribute/stage-documentation-changes/#staging-a-pull-request"
-  - label: "Use page templates."
-    icon: fa-clone
-    url: "/docs/home/contribute/page-templates/"
-  - label: "Add callout formatting."
-    icon: fa-exclamation-circle
-    url: "/docs/home/contribute/style-guide/#callout-formatting"
 intermediate:
   - label: "Write a new topic."
     icon: fa-plus-circle
@@ -30,7 +24,16 @@ intermediate:
   - label: "Stage documentation changes locally."
     icon: fa-cloud-download
     url: "/docs/home/contribute/stage-documentation-changes/#staging-locally-using-docker"
+  - label: "Use page templates."
+    icon: fa-clone
+    url: "/docs/home/contribute/page-templates/"
+  - label: "Add callout formatting."
+    icon: fa-exclamation-circle
+    url: "/docs/home/contribute/style-guide/#callout-formatting"
 advanced:
-  - label: "Add custom Jekyll include snippets."
-    icon: fa-i-cursor
-    url: "/docs/home/contribute/includes/"
+  - label: "Add feature state tags."
+    icon: fa-tag
+    url: "/docs/home/contribute/includes/#feature-state"
+  - label: "Add tabs to display multiple flavors of content."
+    icon: fa-folder-o
+    url: "/docs/home/contribute/includes/#tabs"
