@@ -116,7 +116,7 @@ When a default `StorageClass` exists in a cluster and a user creates a
 `storageClassName` field pointing to the default storage class.
 
 Note that there can be at most one *default* storage class on a cluster, or
-a `PersistentVolumeClaim` with `storageClassName` explicitly specified cannot
+a `PersistentVolumeClaim` without `storageClassName` explicitly specified cannot
 be created.
 
 {% endcapture %}
