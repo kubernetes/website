@@ -4,16 +4,16 @@ index: 0
 foundational:
   - label: Setup a development environment.
     icon: fa-folder-open-o
-    url: /docs/user-journeys/application_developer-foundational.html#1
+    url: /docs/user-journeys/users/application-developer/foundational#section-1
   - label: Deploy, scale, and update an application.
     icon: fa-retweet
-    url: /docs/user-journeys/application_developer-foundational.html#2
+    url: /docs/user-journeys/users/application-developer/foundational#section-2
   - label: Understand Kubernetes basics, such as Containers, Pods, Labels and Annotations.
     icon: fa-hdd-o
-    url: /docs/user-journeys/application_developer-foundational.html#3
+    url: /docs/user-journeys/users/application-developer/foundational#section-3
   - label: Additional resources.
     icon: fa-book
-    url: /docs/user-journeys/application_developer-foundational.html#4
+    url: /docs/user-journeys/users/application-developer/foundational#section-4
 intermediate:
   - label: Setup a full-featured or production environment.
     icon: fa-folder-open-o

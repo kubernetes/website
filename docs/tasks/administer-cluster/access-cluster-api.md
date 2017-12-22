@@ -32,7 +32,7 @@ $ kubectl config view
 ```
 
 Many of the [examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/) provide an introduction to using
-kubectl. Complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl/index).
+kubectl. Complete documentation is found in the [kubectl manual](/docs/reference/kubectl/overview/).
 
 ### Directly accessing the REST API
 

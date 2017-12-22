@@ -5,7 +5,7 @@ title: Kubernetes Documentation
 layout: docsportal
 cid: userJourneys
 css: /css/style_user_journeys.css
-js: /js/user-journeys.js, https://use.fontawesome.com/4bcc658a89.js
+js: /js/user-journeys/home.js, https://use.fontawesome.com/4bcc658a89.js
 display_browse_numbers: true
 ---
 
