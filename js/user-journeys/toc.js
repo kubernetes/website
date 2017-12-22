@@ -1,4 +1,12 @@
 $( document ).ready(function() {
+  function scrollToHash(hash) {
+    if (hash.length > 0) {
+      $('html, body').animate({
+        scrollTop: $(`#${hash}`).offset().top
+      }, 500);
+    }
+  }
+
   $('#content h2').each(function(index) {
     var title = $(this).text();
     var id = $(this).attr("id");
@@ -10,11 +18,13 @@ $( document ).ready(function() {
     $(this).replaceWith(`<div class="anchor" id="section-${index + 1}"></div><div class="docssectionheaders" id="${id}"><span class="numberCircle"><span><br><br>${index + 1}</span></span>&nbsp;&nbsp;${title}</div>`)
   });
 
-  var hash = window.location.hash.substr(1);
+  $('div#user-journeys-toc a').each(function() {
+    $(this).click(function() {
+      var target = $(this).attr("href").replace("#", "");
+      scrollToHash(target);
+    });
+  });
+
   // jump to section in URL now that anchors are created
-  if (hash.length > 0) {
-    $('html, body').animate({
-      scrollTop: $(`#${hash}`).offset().top
-    }, 100);
-  }
+  scrollToHash(window.location.hash.substr(1));
 });

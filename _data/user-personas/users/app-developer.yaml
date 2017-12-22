@@ -17,16 +17,22 @@ foundational:
 intermediate:
   - label: Setup a full-featured or production environment.
     icon: fa-folder-open-o
-    url: /docs/user-journeys/application_developer-intermediate.html#1
+    url: /docs/user-journeys/users/application-developer/intermediate#section-1
   - label: Work with commonly used features, such as Service Discovery, Networking, and ReplicaSets.
-    url: /docs/user-journeys/application_developer-intermediate.html#2
+    url: /docs/user-journeys/users/application-developer/intermediate#section-2
   - label: Understand key concepts, such as the API/Controller pattern, Schedulers, and Node Affinity.
-    url: /docs/user-journeys/application_developer-intermediate.html#3
+    url: /docs/user-journeys/users/application-developer/intermediate#section-3
+  - label: Additional resources.
+    icon: fa-book
+    url: /docs/user-journeys/users/application-developer/intermediate#section-4
 advanced:
   - label: Setup federated clusters.
     icon: fa-folder-open-o
-    url: /docs/user-journeys/application_developer-advanced.html#1
+    url: /docs/user-journeys/users/application-developer/advanced#section-1
   - label: Deploy an application with advanced features, such as StatefulSets, DaemonSets, and Jobs.
-    url: /docs/user-journeys/application_developer-advanced.html#2
+    url: /docs/user-journeys/users/application-developer/advanced#section-2
   - label: Explore advanced topics, such as Storage Solutions, Custom Resources, and Pod Disruptions.
-    url: /docs/user-journeys/application_developer-advanced.html#3
+    url: /docs/user-journeys/users/application-developer/advanced#section-3
+  - label: Additional resources.
+    icon: fa-book
+    url: /docs/user-journeys/users/application-developer/advanced#section-4
