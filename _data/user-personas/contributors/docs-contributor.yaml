@@ -2,23 +2,35 @@ id: docs-contributor
 name: Docs Contributor
 index: 2
 foundational:
-  - label: "c1: foundational stuff"
-    url: "#"
-  - label: "c2: foundational stuff"
-    url: "#"
-  - label: "c3: foundational stuff"
-    url: "#"
+  - label: "Contribute to the Kubernetes documentation."
+    icon: fa-users
+    url: "/editdocs/"
+  - label: "Read the documentation style guide."
+    icon: fa-book
+    url: "/docs/home/contribute/style-guide/"
+  - label: "Review documentation issues."
+    icon: fa-bug
+    url: "/docs/home/contribute/review-issues/"
+  - label: "Create a documentation pull request (PR)."
+    icon: fa-pencil-square-o
+    url: "/docs/home/contribute/create-pull-request/"
+  - label: "Stage documentation changes."
+    icon: fa-pencil-square-o 
+    url: "/docs/home/contribute/stage-documentation-changes/#staging-a-pull-request"
+  - label: "Use page templates."
+    icon: fa-clone
+    url: "/docs/home/contribute/page-templates/"
+  - label: "Add callout formatting."
+    icon: fa-exclamation-circle
+    url: "/docs/home/contribute/style-guide/#callout-formatting"
 intermediate:
-  - label: "c1: intermediate stuff"
-    url: "#"
-  - label: "c2: intermediate stuff"
-    url: "#"
-  - label: "c3: intermediate stuff"
-    url: "#"
+  - label: "Write a new topic."
+    icon: fa-plus-circle
+    url: "/docs/home/contribute/write-new-topic/"
+  - label: "Stage documentation changes locally."
+    icon: fa-cloud-download
+    url: "/docs/home/contribute/stage-documentation-changes/#staging-locally-using-docker"
 advanced:
-  - label: "c1: advanced stuff"
-    url: "#"
-  - label: "c2: advanced stuff"
-    url: "#"
-  - label: "c3: advanced stuff"
-    url: "#"
+  - label: "Add custom Jekyll include snippets."
+    icon: fa-i-cursor
+    url: "/docs/home/contribute/includes/"
