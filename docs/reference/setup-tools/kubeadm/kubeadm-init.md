@@ -156,7 +156,7 @@ More information on custom arguments can be found here:
 
 ### Using custom images {#custom-images}
 
-By default, kubeadm pulls images from `gcr.io/google_containers`, unless
+By default, kubeadm pulls images from `k8s.gcr.io`, unless
 the requested Kubernetes version is a CI version. In this case,
 `gcr.io/kubernetes-ci-images` is used.
 
@@ -164,9 +164,9 @@ You can override this behavior by using [kubeadm with a configuration file](#con
 Allowed customization are:
 
 * To provide an alternative `imageRepository` to be used instead of
-  `gcr.io/google_containers`.
+  `k8s.gcr.io`.
 * To provide a `unifiedControlPlaneImage` to be used instead of different images for control plane components.
-* To provide a specific `etcd.image` to be used instead of the image available at`gcr.io/google_containers`.
+* To provide a specific `etcd.image` to be used instead of the image available at`k8s.gcr.io`.
 
 
 ### Using custom certificates {#custom-certificates}
@@ -370,15 +370,15 @@ For running kubeadm without an internet connection you have to pre-pull the requ
 
 | Image Name                                               | v1.8 release branch version | v1.9 release branch version |
 |----------------------------------------------------------|-----------------------------|-----------------------------|
-| gcr.io/google_containers/kube-apiserver-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| gcr.io/google_containers/kube-controller-manager-${ARCH} | v1.8.x                      | v1.9.x                      |
-| gcr.io/google_containers/kube-scheduler-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| gcr.io/google_containers/kube-proxy-${ARCH}              | v1.8.x                      | v1.9.x                      |
-| gcr.io/google_containers/etcd-${ARCH}                    | 3.0.17                      | 3.1.10                      |
-| gcr.io/google_containers/pause-${ARCH}                   | 3.0                         | 3.0                         |
-| gcr.io/google_containers/k8s-dns-sidecar-${ARCH}         | 1.14.5                      | 1.14.7                      |
-| gcr.io/google_containers/k8s-dns-kube-dns-${ARCH}        | 1.14.5                      | 1.14.7                      |
-| gcr.io/google_containers/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.5                      | 1.14.7                      |
+| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.8.x                      | v1.9.x                      |
+| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.8.x                      | v1.9.x                      |
+| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.8.x                      | v1.9.x                      |
+| k8s.gcr.io/kube-proxy-${ARCH}              | v1.8.x                      | v1.9.x                      |
+| k8s.gcr.io/etcd-${ARCH}                    | 3.0.17                      | 3.1.10                      |
+| k8s.gcr.io/pause-${ARCH}                   | 3.0                         | 3.0                         |
+| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.5                      | 1.14.7                      |
+| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.5                      | 1.14.7                      |
+| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.5                      | 1.14.7                      |
 
 Here `v1.8.x` means the "latest patch release of the v1.8 branch".
 

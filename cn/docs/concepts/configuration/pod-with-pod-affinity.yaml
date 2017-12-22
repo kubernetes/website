@@ -26,4 +26,4 @@ spec:
           topologyKey: kubernetes.io/hostname
   containers:
   - name: with-pod-affinity
-    image: gcr.io/google_containers/pause:2.0
+    image: k8s.gcr.io/pause:2.0
