@@ -125,7 +125,7 @@ spec:
       path: /any/path/it/will/be/replaced
   containers:
   - name: pv-recycler
-    image: "gcr.io/google_containers/busybox"
+    image: "k8s.gcr.io/busybox"
     command: ["/bin/sh", "-c", "test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z \"$(ls -A /scrub)\" || exit 1"]
     volumeMounts:
     - name: vol

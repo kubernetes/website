@@ -178,7 +178,7 @@ $ kubectl get pods valid-pod --namespace=limit-example -o yaml | grep -C 6 resou
   uid: 3b1bfd7a-f53c-11e5-b066-64510658e388
 spec:
   containers:
-  - image: gcr.io/google_containers/serve_hostname
+  - image: k8s.gcr.io/serve_hostname
     imagePullPolicy: Always
     name: kubernetes-serve-hostname
     resources:
