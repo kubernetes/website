@@ -4,7 +4,7 @@ body {
 
 }
 
-a {
+.infobarWrapper a {
   color:#303030;
 }
 
@@ -679,7 +679,7 @@ font-size:24px;
   background-color:white;
   font-family: 'roboto';
   padding:3%;
-  font-weight:100;
+  font-weight:300 !important;
   font-size:14px;
   letter-spacing:0.05em;
   line-height:22px;
@@ -687,7 +687,35 @@ font-size:24px;
 
   margin-left:10%;
 
+}
 
+.docsection1 a {
+  text-decoration: underline;
+}
+
+.docsection1 p {
+  font-size: 16px;
+  font-weight:300;
+  line-height: 1.75em;
+  letter-spacing: 0.1px;
+  margin-bottom: 0.75em;
+}
+
+.docsection1 li {
+  margin-bottom: 0.75em;
+  margin-left: 2em;
+  font-size: 16px;
+  font-weight:300;
+  line-height: 1.75em;
+  letter-spacing: 0.1px;
+}
+
+.docsection1 ul li {
+  list-style: disc;
+}
+
+.docsection1 ol li {
+  list-style: decimal;
 }
 
 .intro {
