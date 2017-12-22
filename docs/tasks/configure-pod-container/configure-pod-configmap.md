@@ -38,7 +38,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
    spec:
      containers:
        - name: test-container
-         image: gcr.io/google_containers/busybox
+         image: k8s.gcr.io/busybox
          command: [ "/bin/sh", "-c", "env" ]
          env:
            # Define the environment variable
@@ -88,7 +88,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
    spec:
      containers:
        - name: test-container
-         image: gcr.io/google_containers/busybox
+         image: k8s.gcr.io/busybox
          command: [ "/bin/sh", "-c", "env" ]
          env:
            - name: SPECIAL_LEVEL_KEY
@@ -134,7 +134,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
    spec:
      containers:
        - name: test-container
-         image: gcr.io/google_containers/busybox
+         image: k8s.gcr.io/busybox
          command: [ "/bin/sh", "-c", "env" ]
          envFrom:
          - configMapRef:
@@ -161,7 +161,7 @@ metadata:
 spec:
   containers:
     - name: test-container
-      image: gcr.io/google_containers/busybox
+      image: k8s.gcr.io/busybox
       command: [ "/bin/sh", "-c", "echo $(SPECIAL_LEVEL_KEY) $(SPECIAL_TYPE_KEY)" ]
       env:
         - name: SPECIAL_LEVEL_KEY
@@ -214,7 +214,7 @@ metadata:
 spec:
   containers:
     - name: test-container
-      image: gcr.io/google_containers/busybox
+      image: k8s.gcr.io/busybox
       command: [ "/bin/sh", "-c", "ls /etc/config/" ]
       volumeMounts:
       - name: config-volume
@@ -248,7 +248,7 @@ metadata:
 spec:
   containers:
     - name: test-container
-      image: gcr.io/google_containers/busybox
+      image: k8s.gcr.io/busybox
       command: [ "/bin/sh","-c","cat /etc/config/keys" ]
       volumeMounts:
       - name: config-volume

@@ -465,7 +465,7 @@ In one terminal window, patch the `web` StatefulSet to change the container
 image again.
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.8"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.8"}]'
 statefulset "web" patched
 ```
 
@@ -522,9 +522,9 @@ Get the Pods to view their container images.
 
 ```shell{% raw %}
 for p in 0 1 2; do kubectl get po web-$p --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
-gcr.io/google_containers/nginx-slim:0.8
-gcr.io/google_containers/nginx-slim:0.8
-gcr.io/google_containers/nginx-slim:0.8
+k8s.gcr.io/nginx-slim:0.8
+k8s.gcr.io/nginx-slim:0.8
+k8s.gcr.io/nginx-slim:0.8
 {% endraw %}
 ```
 
@@ -549,7 +549,7 @@ statefulset "web" patched
 Patch the StatefulSet again to change the container's image.
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.7"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.7"}]'
 statefulset "web" patched
 ```
 
@@ -575,7 +575,7 @@ Get the Pod's container.
 
 ```shell{% raw %}
 kubectl get po web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
-gcr.io/google_containers/nginx-slim:0.8
+k8s.gcr.io/nginx-slim:0.8
 {% endraw %}
 ```
 
@@ -610,7 +610,7 @@ Get the Pod's container.
 
 ```shell{% raw %}
 kubectl get po web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
-gcr.io/google_containers/nginx-slim:0.7
+k8s.gcr.io/nginx-slim:0.7
 {% endraw %}
 ```
 
@@ -646,7 +646,7 @@ Get the `web-1` Pods container.
 
 ```shell{% raw %}
 kubectl get po web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
-gcr.io/google_containers/nginx-slim:0.8
+k8s.gcr.io/nginx-slim:0.8
 {% endraw %}
 ```
 `web-1` was restored to its original configuration because the Pod's ordinal 
@@ -695,9 +695,9 @@ Get the Pod's containers.
 
 ```shell{% raw %}
 for p in 0 1 2; do kubectl get po web-$p --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
-gcr.io/google_containers/nginx-slim:0.7
-gcr.io/google_containers/nginx-slim:0.7
-gcr.io/google_containers/nginx-slim:0.7
+k8s.gcr.io/nginx-slim:0.7
+k8s.gcr.io/nginx-slim:0.7
+k8s.gcr.io/nginx-slim:0.7
 {% endraw %}
 ```
 
