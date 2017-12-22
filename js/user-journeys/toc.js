@@ -7,7 +7,7 @@ $( document ).ready(function() {
     $("#user-journeys-toc").append(`<a href="#section-${index + 1}"><div class="docButton">${index + 1}. ${title}</div></a>`)
 
     // replace content headers with styled banners
-    $(this).replaceWith(`<div class="anchor" id="section-${index + 1}"></div><div class="docssectionheaders" id="${id}"><span class="numberCircle"><span><br><br>${index + 1}</span></span>&nbsp;&nbsp;${title}</div>`)
+    $(this).replaceWith(`</div><div class="anchor" id="section-${index + 1}"></div><div class="docssectionheaders" id="${id}"><span class="numberCircle"><span><br><br>${index + 1}</span></span>&nbsp;&nbsp;${title}</div><div class="docsection1">`)
   });
 
   var hash = window.location.hash.substr(1);
