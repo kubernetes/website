@@ -227,7 +227,7 @@ internal helper service, will not start up before a network is installed. kubead
 supports Container Network Interface (CNI) based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
-support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-onspage] (/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in 1.9.
+support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in 1.9.
 
 
 **Note:** kubeadm sets up a more secure cluster by default and enforces use of [RBAC](#TODO).
@@ -386,7 +386,7 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
 kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
-**Note:** To specify an IPv6 tuple for <master-ip>:<master-port>, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
+**Note:** To specify an IPv6 tuple for `<master-ip>:<master-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
 {: .note}
 
 The output should look something like:
