@@ -40,13 +40,13 @@ kubefed init FEDERATION_NAME --host-cluster-context=HOST_CONTEXT
       --dns-provider-config string               Config file path on local file system for configuring DNS provider.
       --dns-zone-name string                     DNS suffix for this federation. Federated Service DNS names are published with this suffix.
       --dry-run                                  dry run without sending commands to server.
-      --etcd-image string                        Image to use for etcd server. (default "gcr.io/google_containers/etcd:3.1.10")
+      --etcd-image string                        Image to use for etcd server. (default "k8s.gcr.io/etcd:3.1.10")
       --etcd-persistent-storage                  Use persistent volume for etcd. Defaults to 'true'. (default true)
       --etcd-pv-capacity string                  Size of persistent volume claim to be used for etcd. (default "10Gi")
       --etcd-pv-storage-class string             The storage class of the persistent volume claim used for etcd.   Must be provided if a default storage class is not enabled for the host cluster.
       --federation-system-namespace string       Namespace in the host cluster where the federation system components are installed (default "federation-system")
       --host-cluster-context string              Host cluster context
-      --image string                             Image to use for federation API server and controller manager binaries. (default "gcr.io/google_containers/hyperkube-amd64:v0.0.0-master_$Format:%h$")
+      --image string                             Image to use for federation API server and controller manager binaries. (default "k8s.gcr.io/hyperkube-amd64:v0.0.0-master_$Format:%h$")
       --image-pull-policy string                 PullPolicy describes a policy for if/when to pull a container image. The default pull policy is IfNotPresent which will not pull an image if it already exists. (default "IfNotPresent")
       --image-pull-secrets string                Provide secrets that can access the private registry.
       --kubeconfig string                        Path to the kubeconfig file to use for CLI requests.

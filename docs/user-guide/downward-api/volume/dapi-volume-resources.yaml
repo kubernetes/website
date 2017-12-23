@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: client-container
-      image: gcr.io/google_containers/busybox:1.24
+      image: k8s.gcr.io/busybox:1.24
       command: ["sh", "-c", "while true; do echo; if [[ -e /etc/cpu_limit ]]; then cat /etc/cpu_limit; fi; if [[ -e /etc/cpu_request ]]; then cat /etc/cpu_request; fi; if [[ -e /etc/mem_limit ]]; then cat /etc/mem_limit; fi; if [[ -e /etc/mem_request ]]; then cat /etc/mem_request; fi; sleep 5; done"]
       resources:
         requests:

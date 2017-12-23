@@ -77,7 +77,7 @@ spec:
       hostNetwork: true
       containers:
       - name: node-problem-detector
-        image: gcr.io/google_containers/node-problem-detector:v0.1
+        image: k8s.gcr.io/node-problem-detector:v0.1
         securityContext:
           privileged: true
         resources:
@@ -149,7 +149,7 @@ spec:
       hostNetwork: true
       containers:
       - name: node-problem-detector
-        image: gcr.io/google_containers/node-problem-detector:v0.1
+        image: k8s.gcr.io/node-problem-detector:v0.1
         securityContext:
           privileged: true
         resources:
