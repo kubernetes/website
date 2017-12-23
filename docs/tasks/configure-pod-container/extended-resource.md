@@ -59,6 +59,8 @@ kubectl describe pod extended-resource-demo
 The output shows dongle requests:
 
 ```yaml
+Limits:
+  example.com/dongle: 3
 Requests:
   example.com/dongle: 3
 ```

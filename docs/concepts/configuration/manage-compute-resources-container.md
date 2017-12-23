@@ -507,7 +507,7 @@ JSON-Pointer. For more details, see
 {: .note}
 
 To consume an Extended Resource in a Pod, include the resource name as a key
-in the `spec.containers[].resources.requests` map.
+in the `spec.containers[].resources.limits` map in the container spec.
 
 **Note:** Extended resources cannot be overcommitted, so request and limit
 must be equal if both are present in a container spec.
@@ -534,6 +534,8 @@ spec:
     resources:
       requests:
         cpu: 2
+        example.com/foo: 1
+      limits:
         example.com/foo: 1
 ```
 
