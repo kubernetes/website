@@ -265,7 +265,7 @@ metadata:
 spec:
   containers:
   - name: sleep-forever
-    image: gcr.io/google_containers/pause:0.8.0
+    image: k8s.gcr.io/pause:0.8.0
     resources:
       requests:
         cpu: 100m
