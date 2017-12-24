@@ -120,7 +120,7 @@ kubeadm init
 
 **Notes:**
 
-- Please refer to the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/) if you want to
+- Please refer to the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm/) if you want to
 read more about the flags `kubeadm init` provides. You can also specify a 
 [configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) instead of using flags.
 - You need to choose a Pod Network Plugin in the next step. Depending on what
