@@ -4,6 +4,7 @@ full-link: /docs/concepts/storage/persistent-volumes/
 related:
 - statefulset
 - deployment
+- persistent-volume-claim
 - pod
 tags:
 - core-object
