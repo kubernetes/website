@@ -9,7 +9,7 @@ title: Using kubeadm to Create a Cluster
 
 {% capture overview %}
 
-**kubeadm** is a toolkit that help you bootstrap a best-practice Kubernetes
+**kubeadm** is a toolkit that helps you bootstrap a best-practice Kubernetes
 cluster in an easy, reasonably secure and extensible way. It also supports
 managing [Bootstrap Tokens](#TODO) for you and upgrading/downgrading clusters.
 
