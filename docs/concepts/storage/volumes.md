@@ -69,6 +69,7 @@ Kubernetes supports several types of Volumes:
    * `azureDisk`
    * `azureFile`
    * `cephfs`
+   * `configMap`
    * `csi`
    * `downwardAPI`
    * `emptyDir`
@@ -170,6 +171,43 @@ writers simultaneously.
 {: .caution}
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/cephfs/) for more details.
+
+### configMap
+
+The [`configMap`](/docs/tasks/configure-pod-container/configmap/) resource
+provides a way to inject configuration data into Pods.
+The data stored in a `ConfigMap` object can be referenced in a `configMap` type
+of volume and then consumed by containerized applications running in a Pod.
+
+When referencing a `configMap` object, you can simply provide its name in the
+volume to reference it. You can also customize the path to use for a specific
+entry in the ConfigMap.
+For example:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-pod
+spec:
+  containers:
+    - name: test
+      image: busybox
+      volumeMounts:
+        - name: config-vol
+          mountPath: /etc/config
+  volumes:
+    - name: config-vol
+      configMap:
+        name: log-config
+        items:
+          - key: log_level
+            path: log_level
+```
+
+The Pod created using the above manifest references a ConfigMap object in the
+same namespace named "log-config". The contents stored in the `log_level` entry
+in the ConfigMap is mounted into the Pod at path "`/etc/config/log_level`".
 
 ### csi
 
