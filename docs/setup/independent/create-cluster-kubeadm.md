@@ -11,10 +11,10 @@ title: Using kubeadm to Create a Cluster
 
 **kubeadm** is a toolkit that helps you bootstrap a best-practice Kubernetes
 cluster in an easy, reasonably secure and extensible way. It also supports
-managing [Bootstrap Tokens](#TODO) for you and upgrading/downgrading clusters.
+managing [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for you and upgrading/downgrading clusters.
 
 kubeadm aims to set up a minimum viable cluster that pass the
-[Kubernetes Conformance tests](#TODO), but installing other addons than
+[Kubernetes Conformance tests](http://blog.kubernetes.io/2017/10/software-conformance-certification.html), but installing other addons than
 really necessary for a functional cluster is out of scope.
 
 It by design does not install a networking solution for you, which means you
@@ -26,27 +26,29 @@ matter, can be a Linux laptop, virtual machine, physical/cloud server or
 Raspberry Pi. This makes kubeadm well suited to integrate with provisioning
 systems of different kinds (e.g. Terraform, Ansible, etc.).
 
-kubeadm is designed to be a good way for new users to start trying
-Kubernetes out, possibly for the first time, an way for existing users to
-test their application on and stich together a cluster easily and to be
-a building block in a larger ecosystem and/or installer tool with a larger
+kubeadm is designed to be a simple way for new users to start trying
+Kubernetes out, possibly for the first time, a way for existing users to
+test their application on and stich together a cluster easily, and also to be
+a building block in other ecosystem and/or installer tool with a larger
 scope.
 
 You can install _kubeadm_ very easily on operating systems that support
 installing deb or rpm packages. The responsible SIG for kubeadm,
-[SIG Cluster Lifecycle](#TODO), provides these packages pre-built for you,
+[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), provides these packages pre-built for you,
 but you may also on other OSes. 
 
 
 ### kubeadm Maturity
 
-| Area            | Maturity Level |
-|-----------------|--------------- |
-| Command line UX | beta           |
-| Implementation  | beta           |
-| Config file API | alpha          |
-| Self-hosting    | alpha          |
-| `kubeadm alpha` | alpha          |
+| Area                      | Maturity Level |
+|---------------------------|--------------- |
+| Command line UX           | beta           |
+| Implementation            | beta           |
+| Config file API           | alpha          |
+| Self-hosting              | alpha          |
+| kubeadm alpha subcommands | alpha          |
+| CoreDNS                   | alpha          | 
+| DynamicKubeletConfig      | alpha          |
 
 
 kubeadm's overall feature state is **Beta** and will soon be graduated to
@@ -64,12 +66,12 @@ period a patch release may be issued from the release branch if a severe bug or
 security issue is found. Here are the latest Kubernetes releases and the support
 timeframe; which also applies to `kubeadm`.
 
-| Kubernetes version | Release date | End-of-life-month |
-|--------------------|--------------|-------------------|
-| v1.6.x             | TODO         | December 2017     |
-| v1.7.x             | TODO         | March 2018        |
-| v1.8.x             | TODO         | June 2018         |
-| v1.9.x             | TODO         | September 2018    |
+| Kubernetes version | Release month  | End-of-life-month |
+|--------------------|----------------|-------------------|
+| v1.6.x             | March 2017     | December 2017     |
+| v1.7.x             | June 2017      | March 2018        |
+| v1.8.x             | September 2017 | June 2018         |
+| v1.9.x             | December 2017  | September 2018    |
 
 {% endcapture %}
 

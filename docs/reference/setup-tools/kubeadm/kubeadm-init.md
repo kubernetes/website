@@ -31,6 +31,13 @@ following steps:
    API server, each with its own identity, as well as an additional
    kubeconfig file for administration named `admin.conf`.
 
+1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
+   it writes the kubelet init configuration into the `/var/lib/kubelet/config/init/kubelet` file. 
+   See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file.md) 
+   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet.md) 
+   for more information about Dynamic Kubelet Configuration.
+   This functionality is now by default disabled as it is behind a feature gate, but is expected to be a default in future versions.
+
 1. Generates static Pod manifests for the API server,
    controller manager and scheduler. In case an external etcd is not provided,
    an additional static Pod manifest are generated for etcd.
@@ -39,6 +46,12 @@ following steps:
    watches this directory for Pods to create on startup.
 
    Once control plane Pods are up and running, the `kubeadm init` sequence can continue.
+
+1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
+   it completes the kubelet dynamic configuration by creating a ConfigMap and some RBAC rules that enable
+   kubelets to access to it, and updates the node by pointing `Node.spec.configSource` to the 
+   newly-created ConfigMap. 
+   This functionality is now by default disabled as it is behind a feature gate, but is expected to be a default in future versions.
 
 1. Apply labels and taints to the master node so that no additional workloads will 
    run there.
@@ -120,6 +133,18 @@ controllerManagerExtraArgs:
 schedulerExtraArgs:
   <argument>: <value|string>
   <argument>: <value|string>
+apiServerExtraVolumes:
+- name: <value|string>
+  hostPath: <value|string>
+  mountPath: <value|string>
+controllerManagerExtraVolumes:
+- name: <value|string>
+  hostPath: <value|string>
+  mountPath: <value|string>
+schedulerExtraVolumes:
+- name: <value|string>
+  hostPath: <value|string>
+  mountPath: <value|string>
 apiServerCertSANs:
 - <name1|string>
 - <name2|string>
