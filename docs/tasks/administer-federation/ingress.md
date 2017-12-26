@@ -204,7 +204,7 @@ supported across Google Cloud clusters.
 
 ## Discovering a federated ingress
 
-Ingress objects (in both plain Kubernets clusters, and in federations
+Ingress objects (in both plain Kubernetes clusters, and in federations
 of clusters) expose one or more IP addresses (via
 the Status.Loadbalancer.Ingress field) that remains static for the lifetime
 of the Ingress object (in future, automatically managed DNS names

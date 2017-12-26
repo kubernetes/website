@@ -354,7 +354,7 @@ like a proxy, no Audit-Id will be returned even if audit events are recorded.
 
 [Fluentd][fluentd] is an open source data collector for unified logging layer.
 In this example, we will use fluentd to split audit events by different namespaces.
-Note that this example requries json format output support in Kubernetes 1.8.
+Note that this example requires json format output support in Kubernetes 1.8.
 
 1. install [fluentd, fluent-plugin-forest and fluent-plugin-rewrite-tag-filter][fluentd_install_doc] in the kube-apiserver node
 1. create a config file for fluentd
