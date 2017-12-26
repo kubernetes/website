@@ -127,7 +127,7 @@ $ curl http://123.45.67.89
 
 # Installation
 
-We have multiple ways to install Kompose. Our prefered method is downloading the binary from the latest GitHub release.
+We have multiple ways to install Kompose. Our preferred method is downloading the binary from the latest GitHub release.
 
 #### GitHub release
 
@@ -537,7 +537,7 @@ The currently supported options are:
 
 ## Restart
 
-If you want to create normal pods without controllers you can use `restart` construct of docker-compose to define that. Follow table below to see what heppens on the `restart` value.
+If you want to create normal pods without controllers you can use `restart` construct of docker-compose to define that. Follow table below to see what happens on the `restart` value.
 
 | `docker-compose` `restart` | object created    | Pod `restartPolicy` |
 |----------------------------|-------------------|---------------------|
