@@ -312,7 +312,7 @@ Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managi
 
 This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
 
-**Note:** If an optional runntime partition is used, root partition will not hold any image layer or writable layers.
+**Note:** If an optional runtime partition is used, root partition will not hold any image layer or writable layers.
 {: .note}
 
 ### Requests and limits setting for local ephemeral storage

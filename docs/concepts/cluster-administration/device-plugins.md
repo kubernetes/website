@@ -65,7 +65,7 @@ The general workflow of a device plugin includes the following steps:
   ```gRPC
   service DevicePlugin {
         // ListAndWatch returns a stream of List of Devices
-        // Whenever a Device state change or a Device disapears, ListAndWatch
+        // Whenever a Device state change or a Device disappears, ListAndWatch
         // returns the new list
         rpc ListAndWatch(Empty) returns (stream ListAndWatchResponse) {}
 
