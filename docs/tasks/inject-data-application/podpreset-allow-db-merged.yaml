@@ -28,7 +28,7 @@ spec:
           value: $(REPLACE_ME)
       envFrom:
         - configMapRef:
-          name: etcd-env-config
+            name: etcd-env-config
   volumes:
     - name: cache-volume
       emptyDir: {}
