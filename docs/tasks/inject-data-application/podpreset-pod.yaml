@@ -8,7 +8,7 @@ metadata:
 spec:
   containers:
     - name: website
-      image: ecorp/website
+      image: nginx
       ports:
         - containerPort: 80
 

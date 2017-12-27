@@ -48,7 +48,7 @@ to advertise 2 `vendor-domain/foo`.
 Then, developers can request devices in a
 [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
 specification by using the same process that is used for
-[opaque integer resources](/docs/tasks/configure-pod-container/opaque-integer-resource/).
+[opaque integer resources](/docs/concepts/configuration/manage-compute-resources-container/#opaque-integer-resources-alpha-feature).
 In version 1.8, extended resources are supported only as integer resources and must have
 `limit` equal to `request` in the Container specification.
 
@@ -65,7 +65,7 @@ The general workflow of a device plugin includes the following steps:
   ```gRPC
   service DevicePlugin {
         // ListAndWatch returns a stream of List of Devices
-        // Whenever a Device state change or a Device disapears, ListAndWatch
+        // Whenever a Device state change or a Device disappears, ListAndWatch
         // returns the new list
         rpc ListAndWatch(Empty) returns (stream ListAndWatchResponse) {}
 
@@ -107,8 +107,10 @@ in the plugin's
 
 ## Examples
 
-For an example device plugin implementation, see
-[nvidia GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu).
+For examples of device plugin implementations, see:
+* The official [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
+    * it requires using [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker) which allows you to run GPU enabled docker containers
+* The [NVIDIA GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu).
 
 {% endcapture %}
 

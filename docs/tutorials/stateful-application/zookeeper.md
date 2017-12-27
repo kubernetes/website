@@ -100,7 +100,7 @@ Open a command terminal, and use
 manifest.
 
 ```shell
-kubectl apply -f https://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/docs/tutorials/stateful-application/zookeeper.yaml
 ```
 
 This creates the `zk-hs` Headless Service, the `zk-cs` Service, 
@@ -384,7 +384,7 @@ zk-0      0/1       Terminating   0         11m
 Reapply the manifest in `zookeeper.yaml`.
 
 ```shell
-kubectl apply -f https://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/docs/tutorials/stateful-application/zookeeper.yaml
 ```
 
 The `zk` StatefulSet will be created, but, as they already exist, the other API 

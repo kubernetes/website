@@ -16,33 +16,12 @@ your pods. But there are a number of ways to get even more information about you
 
 For this example we'll use a Deployment to create two pods, similar to the earlier example.
 
-```yaml
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-spec:
-  replicas: 2
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-        - containerPort: 80
-```
+{% include code.html language="yaml" file="nginx-dep.yaml" ghlink="/docs/tasks/debug-application-cluster/nginx-dep.yaml" %}
 
-Copy this to a file *./my-nginx-dep.yaml*
+Create deployment by running following command:
 
 ```shell
-$ kubectl create -f ./my-nginx-dep.yaml
+$ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/nginx-dep.yaml
 deployment "nginx-deployment" created
 ```
 

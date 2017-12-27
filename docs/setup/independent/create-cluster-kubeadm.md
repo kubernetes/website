@@ -9,59 +9,75 @@ title: Using kubeadm to Create a Cluster
 
 {% capture overview %}
 
-This quickstart shows you how to easily install a Kubernetes cluster on machines
-running Ubuntu 16.04+, CentOS 7 or HypriotOS v1.0.1+. The installation uses a
-tool called _kubeadm_ which is part of Kubernetes.  As of v1.6, kubeadm aims to
-create a secure cluster out of the box via mechanisms such as RBAC.
+**kubeadm** is a toolkit that helps you bootstrap a best-practice Kubernetes
+cluster in an easy, reasonably secure and extensible way. It also supports
+managing [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for you and upgrading/downgrading clusters.
 
-This process works with local VMs, physical servers and/or cloud servers. It is
-simple enough that you can easily integrate its use into your own automation
-(Terraform, Chef, Puppet, etc).
+kubeadm aims to set up a minimum viable cluster that pass the
+[Kubernetes Conformance tests](http://blog.kubernetes.io/2017/10/software-conformance-certification.html), but installing other addons than
+really necessary for a functional cluster is out of scope.
 
-See the full [kubeadm reference](/docs/admin/kubeadm/) for information on all
-kubeadm command-line flags and for advice on automating kubeadm itself.
+It by design does not install a networking solution for you, which means you
+have to install a third-party CNI-compliant networking solution yourself
+using `kubectl apply`.
 
-kubeadm assumes you have a set of machines (virtual or real) that are up and
-running.  It is designed to be part of a large provisioning system - or just for
-easy manual provisioning.  kubeadm is a great choice where you have your own
-infrastructure (e.g. bare metal), or where you have an existing orchestration
-system (e.g. Puppet) that you have to integrate with.
+kubeadm expects the user to bring a machine to execute on, the type doesn't
+matter, can be a Linux laptop, virtual machine, physical/cloud server or
+Raspberry Pi. This makes kubeadm well suited to integrate with provisioning
+systems of different kinds (e.g. Terraform, Ansible, etc.).
 
-If you are not constrained, there are other higher-level tools built to give you
-complete clusters:
+kubeadm is designed to be a simple way for new users to start trying
+Kubernetes out, possibly for the first time, a way for existing users to
+test their application on and stich together a cluster easily, and also to be
+a building block in other ecosystem and/or installer tool with a larger
+scope.
 
-* On GCE, [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/)
-  gives you one-click Kubernetes clusters.
-* On Microsoft Azure, [Azure Container Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
-  gives you managed Kubernetes clusters as a service.
-* On AWS, [kops](https://github.com/kubernetes/kops) makes cluster installation
-  and management easy.  kops supports building high availability clusters (a
-  feature that kubeadm is currently lacking but is building toward).
+You can install _kubeadm_ very easily on operating systems that support
+installing deb or rpm packages. The responsible SIG for kubeadm,
+[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), provides these packages pre-built for you,
+but you may also on other OSes. 
+
 
 ### kubeadm Maturity
 
-| Aspect | Maturity Level
-|--------|---------------
-| Command line UX | beta
-| Config file | alpha
-| Self-hosting | alpha
-| `kubeadm alpha` commands | alpha
-| Implementation | beta
+| Area                      | Maturity Level |
+|---------------------------|--------------- |
+| Command line UX           | beta           |
+| Implementation            | beta           |
+| Config file API           | alpha          |
+| Self-hosting              | alpha          |
+| kubeadm alpha subcommands | alpha          |
+| CoreDNS                   | alpha          | 
+| DynamicKubeletConfig      | alpha          |
 
-The experience for the command line is currently in beta and we are trying hard
-not to change command line flags and break that flow.  Other parts of the
-experience are still under active development.  The implementation may change
-slightly as the tool evolves to support even easier upgrades and high
-availability (HA).  Any commands under `kubeadm alpha` (not documented here)
-are, of course, alpha.
 
-**Be sure to read the [limitations](#limitations)**.  Specifically, configuring
-cloud providers is difficult.
+kubeadm's overall feature state is **Beta** and will soon be graduated to
+**General Availability (GA)** during 2018. Some sub-features, like self-hosting
+or the configuration file API are still under active development. The
+implementation of creating the cluster may change slightly as the tool evolves,
+but the overall implementation should be pretty stable. Any commands under
+`kubeadm alpha` are by definition, supported on an alpha level.
+
+
+### Support timeframes
+
+Kubernetes releases are generally supported for nine months, and during that
+period a patch release may be issued from the release branch if a severe bug or
+security issue is found. Here are the latest Kubernetes releases and the support
+timeframe; which also applies to `kubeadm`.
+
+| Kubernetes version | Release month  | End-of-life-month |
+|--------------------|----------------|-------------------|
+| v1.6.x             | March 2017     | December 2017     |
+| v1.7.x             | June 2017      | March 2018        |
+| v1.8.x             | September 2017 | June 2018         |
+| v1.9.x             | December 2017  | September 2018    |
+
 {% endcapture %}
 
 {% capture prerequisites %}
 
-1. One or more machines running Ubuntu 16.04+, CentOS 7 or HypriotOS v1.0.1+
+1. One or more machines running a deb/rpm-compatible OS, e.g. Ubuntu or CentOS
 1. 2 GB or more of RAM per machine (any less will leave little room for your
    apps)
 1. 2 CPUs or more on the master
@@ -74,9 +90,8 @@ cloud providers is difficult.
 ## Objectives
 
 * Install a secure Kubernetes cluster on your machines
-* Install a pod network on the cluster so that application components (pods) can
+* Install a Pod network on the cluster so that your Pods can
   talk to each other
-* Install a sample microservices application (a socks shop) on the cluster
 
 ## Instructions
 
@@ -89,7 +104,8 @@ apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
-kubeadm to tell it what to do.
+kubeadm to tell it what to do. This crashloop is expected and normal, please
+proceed with the next step and the kubelet will start running normally.
 
 ### (2/4) Initializing your master
 
@@ -100,26 +116,25 @@ communicates with).
 To initialize the master, pick one of the machines you previously installed
 kubeadm on, and run:
 
-``` bash
+```bash
 kubeadm init
 ```
 
 **Notes:**
 
-- Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to
+- Please refer to the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm/) if you want to
 read more about the flags `kubeadm init` provides. You can also specify a 
-[configuration file](/docs/admin/kubeadm/#sample-master-configuration) instead of using flags.
+[configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) instead of using flags.
 - You need to choose a Pod Network Plugin in the next step. Depending on what
 third-party provider you choose, you might have to set the `--pod-network-cidr` to
 something provider-specific. The tabs below will contain a notice about what flags
 on `kubeadm init` are required.
 - Unless otherwise specified, kubeadm uses the default gateway's network interface 
 to advertise the master's IP. If you want to use a different network interface, specify 
-`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`.
-- If you would like to customise control plane components, you can do so by providing 
-extra args to each one, as documented [here](/docs/admin/kubeadm#custom-args).
+`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you must specify an IPv6, e.g. `--apiserver-advertise-address=fd00::101` 
+- If you would like to customise control plane components including optional IPv6 assignment to liveness probe for control plane components and etcd server, you can do so by providing extra args to each one, as documented [here](/docs/admin/kubeadm#custom-args).
 - `kubeadm init` will first run a series of prechecks to ensure that the machine
-is ready to run Kubernetes.  It will expose warnings and exit on errors. It
+is ready to run Kubernetes. It will expose warnings and exit on errors. It
 will then download and install the cluster database and control plane
 components. This may take several minutes.
 - You can't run `kubeadm init` twice without tearing down the cluster in between
@@ -180,14 +195,18 @@ as root:
 
   kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
+
 To make kubectl work for your non-root user, you might want to run these commands (which is also a part of the `kubeadm init` output):
-```
+
+```bash
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
-Alternatively, if you are the root user, you could run this:
-```
+
+Alternatively, if you are the `root` user, you could run this:
+
+```bash
 export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
 
@@ -195,32 +214,30 @@ Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
 will need this in a moment.
 
 The token is used for mutual authentication between the master and the joining
-nodes.  The token included here is secret, keep it safe &mdash; anyone with this
-token can add authenticated nodes to your cluster.  These tokens can be listed,
-created and deleted with the `kubeadm token` command.  See the [reference
-guide](/docs/admin/kubeadm/#manage-tokens).
+nodes.  The token included here is secret, keep it safe as anyone with this
+token can add authenticated nodes to your cluster. These tokens can be listed,
+created and deleted with the `kubeadm token` command. See the
+[reference guide](/docs/reference/setup-tools/kubeadm/kubeadm-token/) for more details.
 
 ### (3/4) Installing a pod network {#pod-network}
 
-You **must** install a pod network add-on so that your pods can communicate with
+You **MUST** install a pod network add-on so that your pods can communicate with
 each other.
 
-**The network must be deployed before any applications.  Also, kube-dns, a
-helper service, will not start up before a network is installed. kubeadm only
+**The network must be deployed before any applications.  Also, kube-dns, an
+internal helper service, will not start up before a network is installed. kubeadm only
 supports Container Network Interface (CNI) based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
-support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons
-page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons.
+support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in 1.9.
 
-**New for Kubernetes 1.6:** kubeadm 1.6 sets up a more secure cluster by
-default.  As such it uses RBAC to grant limited privileges to workloads running
-on the cluster.  This includes networking integrations.  As such, ensure that
-you are using a network system that has been updated to run with 1.6 and RBAC.
+
+**Note:** kubeadm sets up a more secure cluster by default and enforces use of [RBAC](#TODO).
+Please make sure that the network manifest of choice supports RBAC.
 
 You can install a pod network add-on with the following command:
 
-``` bash
+```bash
 kubectl apply -f <add-on.yaml>
 ```
 
@@ -284,7 +301,7 @@ Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
 please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
-Kube-router relies on kube-controll-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
+Kube-router relies on kube-controller-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
 
 Kube-router provides pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
 
@@ -343,7 +360,7 @@ By default, your cluster will not schedule pods on the master for security
 reasons. If you want to be able to schedule pods on the master, e.g. for a
 single-machine Kubernetes cluster for development, run:
 
-``` bash
+```bash
 kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
 
@@ -367,9 +384,12 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
 * Become root (e.g. `sudo su -`)
 * Run the command that was output by `kubeadm init`. For example:
 
-  ``` bash
-  kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
-  ```
+``` bash
+kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
+```
+
+**Note:** To specify an IPv6 tuple for `<master-ip>:<master-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
+{: .note}
 
 The output should look something like:
 
@@ -408,67 +428,31 @@ scp root@<master ip>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ```
 
-**Note:** If you are using GCE, instances disable ssh access for root by default.
-If that's the case you can log in to the machine, copy the file someplace that
-can be accessed and then use
-[`gcloud compute copy-files`](https://cloud.google.com/sdk/gcloud/reference/compute/copy-files).
+**Note:**
+ - The example above assumes SSH access is enabled for root. If that is not the
+   case, you can copy the `admin.conf` file to be accessible by some other user
+   and `scp` using that other user instead.
+ - The `admin.conf` file gives the user _superuser_ privileges over the cluster.
+   This file should be used sparsingly. For normal users, it's recommended to
+   generate an unique credential to which you whitelist privileges. You can do
+   this with the `kubeadm alpha phase kubeconfig user --client-name <CN>`
+   command. That command will print out a KubeConfig file to STDOUT which you
+   should save to a file and distribute to your user. After that, whitelist
+   privileges by using `kubectl create (cluster)rolebinding`.
 
 ### (Optional) Proxying API Server to localhost
 
 If you want to connect to the API Server from outside the cluster you can use
 `kubectl proxy`:
 
-``` bash
+```bash
 scp root@<master ip>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf proxy
 ```
 
 You can now access the API Server locally at `http://localhost:8001/api/v1`
 
-### (Optional) Installing a sample application
-
-Now it is time to take your new cluster for a test drive.  Sock Shop is a sample
-microservices application that shows how to run and connect a set of services on
-Kubernetes. To learn more about the sample microservices app, see the [GitHub
-README](https://github.com/microservices-demo/microservices-demo).
-
-Note that the Sock Shop demo only works on `amd64`.
-
-``` bash
-kubectl create namespace sock-shop
-kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
-```
-
-You can then find out the port that the [NodePort feature of
-services](/docs/concepts/services-networking/service/) allocated for the front-end service by
-running:
-
-``` bash
-kubectl -n sock-shop get svc front-end
-```
-
-Sample output:
-
-```
-NAME        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
-front-end   10.110.250.153   <nodes>       80:30001/TCP   59s
-```
-
-It takes several minutes to download and start all the containers, watch the
-output of `kubectl get pods -n sock-shop` to see when they're all up and
-running.
-
-Then go to the IP address of your cluster's master node in your browser, and
-specify the given port. So for example, `http://<master_ip>:<port>`. In the
-example above, this was `30001`, but it may be a different port for you.
-
-If there is a firewall, make sure it exposes this port to the internet before
-you try to access it.
-
-To uninstall the socks shop, run `kubectl delete namespace sock-shop` on the
-master.
-
-## Tear down
+## Tear down {#tear-down}
 
 To undo what kubeadm did, you should first [drain the
 node](/docs/user-guide/kubectl/{{page.version}}/#drain) and make
@@ -476,34 +460,24 @@ sure that the node is empty before shutting it down.
 
 Talking to the master with the appropriate credentials, run:
 
-``` bash
+```bash
 kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
 kubectl delete node <node name>
 ```
 
 Then, on the node being removed, reset all kubeadm installed state:
 
-``` bash
+```bash
 kubeadm reset
 ```
 
 If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
 appropriate arguments.
 
-**Note**: `kubeadm reset` will not delete any etcd data if external etcd is used. 
-This means that if you run `kubeadm init` again using the same etcd endpoints, you 
-will see state from previous clusters. To wipe etcd data after reset, it is 
-recommended you use a client like `etcdctl`, such as:
+More options and information about the
+[`kubeadm reset command`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/).
 
-```
-etcdctl del "" --prefix
-``` 
-
-See 
-[their documentation](https://github.com/coreos/etcd/tree/master/etcdctl) for more 
-information.
-
-## Upgrading
+## Upgrading a kubeadm cluster {#upgrades}
 
 Instructions for upgrading kubeadm clusters are available for:
 
@@ -511,33 +485,34 @@ Instructions for upgrading kubeadm clusters are available for:
  * [1.7.x to 1.7.y  upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
  * [1.7 to 1.8 upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
  * [1.8.x to 1.8.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
+ * [1.8 to 1.9 upgrades/downgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
+ * [1.9.x to 1.9.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
 
-## Explore other add-ons
+## Explore other add-ons {#other-addons}
 
 See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons,
 including tools for logging, monitoring, network policy, visualization &amp;
 control of your Kubernetes cluster.
 
-## What's next
+## What's next {#whats-next}
 
-* Learn about kubeadm's advanced usage on the [advanced reference
-  doc](/docs/admin/kubeadm/).
+* Learn about kubeadm's advanced usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/)
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
 * Configure log rotation. You can use **logrotate** for that. When using Docker, you can specify log rotation options for Docker daemon, for example `--log-driver=json-file --log-opt=max-size=10m --log-opt=max-file=5`. See [Configure and troubleshoot the Docker daemon](https://docs.docker.com/engine/admin/) for more details.
 
-## Feedback
+## Feedback {#feedback}
 
 * kubeadm support Slack Channel:
-  [kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
+  [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
 * General SIG Cluster Lifecycle Development Slack Channel:
-  [sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* Mailing List:
+  [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
+* SIG Cluster Lifecycle [SIG information](#TODO)
+* SIG Cluster Lifecycle Mailing List:
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
-* [GitHub Issues in the kubeadm
-  repository](https://github.com/kubernetes/kubeadm/issues)
+* [kubeadm Github issue tracker](https://github.com/kubernetes/kubeadm/issues)
 
 
-## Version skew policy
+## Version skew policy {#version-skew-policy}
 
 The kubeadm CLI tool of version vX.Y may deploy clusters with a control plane of version vX.Y or vX.(Y-1).
 kubeadm CLI vX.Y can also upgrade an existing kubeadm-created cluster of version vX.(Y-1).
@@ -550,7 +525,7 @@ v1.8.
 Please also check our [installation guide](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 for more information on the version skew between kubelets and the control plane.
 
-## kubeadm is multi-platform {#multi-platform}
+## kubeadm works on multiple platforms {#multi-platform}
 
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
 following the [multi-platform
@@ -560,22 +535,22 @@ Only some of the network providers offer solutions for all platforms. Please con
 network providers above or the documentation from each provider to figure out whether the provider
 supports your chosen platform.
 
-## Limitations
+## Limitations {#limitations}
 
 Please note: kubeadm is a work in progress and these limitations will be
 addressed in due course.
 
 1. The cluster created here has a single master, with a single etcd database
-   running on it. This means that if the master fails, your cluster loses its
-   configuration data and will need to be recreated from scratch. Adding HA
-   support (multiple etcd servers, multiple API servers, etc) to kubeadm is
+   running on it. This means that if the master fails, your cluster may lose
+   data and may need to be recreated from scratch. Adding HA support
+   (multiple etcd servers, multiple API servers, etc) to kubeadm is
    still a work-in-progress.
 
-   Workaround: regularly [back up
-   etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). The etcd data
-   directory configured by kubeadm is at `/var/lib/etcd` on the master.
+   Workaround: regularly
+   [back up etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). The
+   etcd data directory configured by kubeadm is at `/var/lib/etcd` on the master.
 
-## Troubleshooting
+## Troubleshooting {#troubleshooting}
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 

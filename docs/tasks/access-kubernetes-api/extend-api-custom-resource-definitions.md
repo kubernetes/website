@@ -74,6 +74,10 @@ This endpoint URL can then be used to create and manage custom objects.
 The `kind` of these objects will be `CronTab` from the spec of the
 CustomResourceDefinition object you created above.
 
+Please note that it might take a few seconds for the endpoint to be created.
+You can watch the `Established` condition of your CustomResourceDefinition
+to be true or watch the discovery information of the API server for your
+resource to show up.
 
 ## Create custom objects
 
@@ -207,12 +211,12 @@ Additionally, the following restrictions are applied to the schema:
 - The field `uniqueItems` cannot be set to true.
 - The field `additionalProperties` cannot be set to false.
 
-This feature is __alpha__ in v1.8 and may change in backward incompatible ways.
-Enable this feature using the `CustomResourceValidation` feature gate on
+This feature is __beta__ in v1.9.
+You can disable this feature using the `CustomResourceValidation` feature gate on
 the [kube-apiserver](/docs/admin/kube-apiserver):
 
-```
---feature-gates=CustomResourceValidation=true
+``` 		  
+--feature-gates=CustomResourceValidation=false
 ```
 
 The schema is defined in the CustomResourceDefinition. In the following example, the

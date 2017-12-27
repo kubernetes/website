@@ -12,19 +12,15 @@ title: Pod Priority and Preemption
 [Pods](/docs/user-guide/pods) in Kubernetes 1.8 and later can have priority. Priority
 indicates the importance of a Pod relative to other Pods. When a Pod cannot be scheduled,
 the scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
-pending Pod possible. In a future Kubernetes release, priority will also affect
-out-of-resource eviction ordering on the Node.
-
-**Note:** Preemption does not respect PodDisruptionBudget; see 
-[the limitations section](#poddisruptionbudget-is-not-supported) for more details.
-{: .note}
+pending Pod possible. In Kubernetes 1.9 and later, Priority also affects scheduling
+order of pods and out-of-resource eviction ordering on the Node.
 
 {% endcapture %}
 
 {% capture body %}
 
 ## How to use priority and preemption
-To use priority and preemption in Kubernetes 1.8, follow these steps:
+To use priority and preemption in Kubernetes 1.8 and later, follow these steps:
 
 1. Enable the feature.
 
@@ -39,8 +35,7 @@ The following sections provide more information about these steps.
 ## Enabling priority and preemption
 
 Pod priority and preemption is disabled by default in Kubernetes 1.8.
-To enable the feature, set this command-line flag for the API server 
-and the scheduler:
+To enable the feature, set this command-line flag for the API server, scheduler and kubelet:
 
 ```
 --feature-gates=PodPriority=true
@@ -136,6 +131,15 @@ spec:
   priorityClassName: high-priority
 ```
 
+### Effect of Pod priority on scheduling order
+
+In Kubernetes 1.9 and later, when Pod priority is enabled, scheduler orders pending
+pods by their priority and a pending Pod is placed ahead of other pending Pods with
+lower priority in the scheduling queue. As a result, the higher priority pod may
+by scheduled sooner that pods with lower priority if its scheduling requirements
+are met. If such pod cannot be scheduled, scheduler will continue and tries to
+schedule other lower priority Pods. 
+
 ## Preemption
 
 When Pods are created, they go to a queue and wait to be scheduled. The scheduler
@@ -146,9 +150,9 @@ where removal of one or more Pods with lower priority than P would enable P to b
 on that Node. If such a Node is found, one or more lower priority Pods get
 deleted from the Node. After the Pods are gone, P can be scheduled on the Node. 
 
-### Limitations of preemption (alpha version)
+### Limitations of preemption
 
-#### Starvation of preempting Pod
+#### Graceful termination of preemption victims
 
 When Pods are preempted, the victims get their
 [graceful termination period](https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods).
@@ -157,33 +161,24 @@ killed. This graceful termination period creates a time gap between the point
 that the scheduler preempts Pods and the time when the pending Pod (P) can be
 scheduled on the Node (N). In the meantime, the scheduler keeps scheduling other
 pending Pods. As victims exit or get terminated, the scheduler tries to schedule
-Pods in the pending queue, and one or more of them may be considered and
-scheduled to N before the scheduler considers scheduling P on N. In such a case,
-it is likely that when all the victims exit, Pod P won't fit on Node N anymore.
-So, scheduler will have to preempt other Pods on Node N or another Node so that
-P can be scheduled. This scenario might be repeated again for the second and
-subsequent rounds of preemption, and P might not get scheduled for a while.
-This scenario can cause problems in various clusters, but is particularly
-problematic in clusters with a high Pod creation rate.
+Pods in the pending queue. Therefore, there is usually a time gap between the point 
+that scheduler preempts victims and the time that Pod P is scheduled. In order to
+minimize this gap, one can set graceful termination period of lower priority pods
+to zero or a small number.
 
-We will address this problem in the beta version of Pod preemption. The solution
-we plan to implement is
-[provided here](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-preemption.md#preemption-mechanics).
-
-#### PodDisruptionBudget is not supported
+#### PodDisruptionBudget is supported, but not guaranteed!
 
 A [Pod Disruption Budget (PDB)](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/)
 allows application owners to limit the number Pods of a replicated application that
-are down simultaneously from voluntary disruptions. However, the alpha version of
-preemption does not respect PDB when choosing preemption victims.
-We plan to add PDB support in beta, but even in beta, respecting PDB will be best
-effort. The Scheduler will try to find victims whose PDB won't be violated by preemption,
-but if no such victims are found, preemption will still happen, and lower priority Pods
-will be removed despite their PDBs  being violated.
+are down simultaneously from voluntary disruptions. Kubernetes 1.9 supports PDB
+when preempting pods, but respecting PDB is best effort. The Scheduler tries to
+find victims whose PDB are not violated by preemption, but if no such victims are
+found, preemption will still happen, and lower priority Pods will be removed
+despite their PDBs  being violated.
 
 #### Inter-Pod affinity on lower-priority Pods
 
-In version 1.8, a Node is considered for preemption only when
+A Node is considered for preemption only when
 the answer to this question is yes: "If all the Pods with lower priority than
 the pending Pod are removed from the Node, can the pending pod be scheduled on
 the Node?"
@@ -200,15 +195,6 @@ on the Node, the inter-Pod affinity rule cannot be satisfied in the absence of t
 lower-priority Pods. In this case, the scheduler does not preempt any Pods on the
 Node. Instead, it looks for another Node. The scheduler might find a suitable Node
 or it might not. There is no guarantee that the pending Pod can be scheduled.
-
-We might address this issue in future versions, but we don't have a clear plan yet.
-We will not consider it a blocker for Beta or GA. Part
-of the reason is that finding the set of lower-priority Pods that satisfy all
-inter-Pod affinity rules is computationally expensive, and adds substantial 
-complexity to the preemption logic. Besides, even if preemption keeps the lower-priority
-Pods to satisfy inter-Pod affinity, the lower priority Pods might be preempted
-later by other Pods, which removes the benefits of having the complex logic of 
-respecting inter-Pod affinity.
 
 Our recommended solution for this problem is to create inter-Pod affinity only towards
 equal or higher priority pods.

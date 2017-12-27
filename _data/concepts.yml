@@ -24,6 +24,7 @@ toc:
 
 - title: Extending Kubernetes
   section:
+  - docs/concepts/overview/extending.md
   - title: Extending the Kubernetes API
     section:
     - docs/concepts/api-extension/apiserver-aggregation.md
