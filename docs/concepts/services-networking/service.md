@@ -117,7 +117,7 @@ subsets:
       - port: 9376
 ```
 
-NOTE: Endpoint IPs may not be loopback (127.0.0.0/8), link-local
+**NOTE:** Endpoint IPs may not be loopback (127.0.0.0/8), link-local
 (169.254.0.0/16), or link-local multicast (224.0.0.0/24).
 
 Accessing a `Service` without a selector works the same as if it had a selector.
@@ -151,13 +151,11 @@ its pods, add appropriate selectors or endpoints and change the service `type`.
 Every node in a Kubernetes cluster runs a `kube-proxy`.  `kube-proxy` is
 responsible for implementing a form of virtual IP for `Services` of type other
 than `ExternalName`.
-In Kubernetes v1.0 the proxy was purely in userspace.  In Kubernetes v1.1 an
-iptables proxy was added, but was not the default operating mode.  Since
-Kubernetes v1.2, the iptables proxy is the default.
-
-As of Kubernetes v1.0, `Services` are a "layer 4" (TCP/UDP over IP) construct.
-In Kubernetes v1.1 the `Ingress` API was added (beta) to represent "layer 7"
-(HTTP) services.
+In Kubernetes v1.0, `Services` are a "layer 4" (TCP/UDP over IP) construct, the 
+proxy was purely in userspace.  In Kubernetes v1.1, the `Ingress` API was added
+(beta) to represent "layer 7"(HTTP) services, iptables proxy was added too, 
+and become the default operating mode since Kubernetes v1.2. In Kubernetes v1.9-alpha,
+ipvs proxy was added.
 
 ### Proxy-mode: userspace
 
@@ -169,37 +167,20 @@ will be proxied to one of the `Service`'s backend `Pods` (as reported in
 `SessionAffinity` of the `Service`.  Lastly, it installs iptables rules which
 capture traffic to the `Service`'s `clusterIP` (which is virtual) and `Port`
 and redirects that traffic to the proxy port which proxies the backend `Pod`.
-
-The net result is that any traffic bound for the `Service`'s IP:Port is proxied
-to an appropriate backend without the clients knowing anything about Kubernetes
-or `Services` or `Pods`.
-
-By default, the choice of backend is round robin.  Client-IP based session affinity
-can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
-default is `"None"`), and you can set the max session sticky time by setting the field
-`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set
-`service.spec.sessionAffinity` to `"ClientIP"` (the default is "10800").
+By default, the choice of backend is round robin. 
 
 ![Services overview diagram for userspace proxy](/images/docs/services-userspace-overview.svg)
 
 ### Proxy-mode: iptables
 
 In this mode, kube-proxy watches the Kubernetes master for the addition and
-removal of `Service` and `Endpoints` objects. For each `Service` it installs
+removal of `Service` and `Endpoints` objects. For each `Service`, it installs
 iptables rules which capture traffic to the `Service`'s `clusterIP` (which is
 virtual) and `Port` and redirects that traffic to one of the `Service`'s
-backend sets.  For each `Endpoints` object it installs iptables rules which
-select a backend `Pod`.
+backend sets.  For each `Endpoints` object, it installs iptables rules which
+select a backend `Pod`.By default, the choice of backend is random.  
 
-By default, the choice of backend is random.  Client-IP based session affinity
-can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
-default is `"None"`), and you can set the max session sticky time by setting the field
-`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` if you have already set
-`service.spec.sessionAffinity` to `"ClientIP"` (the default is "10800").
-
-As with the userspace proxy, the net result is that any traffic bound for the
-`Service`'s IP:Port is proxied to an appropriate backend without the clients
-knowing anything about Kubernetes or `Services` or `Pods`. This should be
+Obviously, iptables need not switch back between userspace and kernelspace, it should be
 faster and more reliable than the userspace proxy. However, unlike the
 userspace proxier, the iptables proxier cannot automatically retry another
 `Pod` if the one it initially selects does not respond, so it depends on
@@ -207,9 +188,9 @@ having working [readiness probes](/docs/tasks/configure-pod-container/configure-
 
 ![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
 
-### Proxy-mode: ipvs[alpha]
+### Proxy-mode: ipvs
 
-**Warning:** This is an alpha feature and not recommended for production clusters yet.
+{% assign for_k8s_version="v1.9" %}{% include feature-state-beta.md %}
 
 In this mode, kube-proxy watches Kubernetes `services` and `endpoints`,
 call `netlink` interface create ipvs rules accordingly and sync ipvs rules with Kubernetes
@@ -231,11 +212,20 @@ options for load balancing algorithm, such as:
 - nq: never queue
 
 **Note:** ipvs mode assumed IPVS kernel modules are installed on the node
-before running kube-proxy. When kube-proxy starts, if proxy mode is ipvs,
+before running kube-proxy. When kube-proxy starts with ipvs proxy mode,
 kube-proxy would validate if IPVS modules are installed on the node, if
 it's not installed kube-proxy will fall back to iptables proxy mode.
 
 ![Services overview diagram for ipvs proxy](/images/docs/services-ipvs-overview.svg)
+
+In any of proxy model, any traffic bound for the Service’s IP:Port is 
+proxied to an appropriate backend without the clients knowing anything 
+about Kubernetes or Services or Pods. Client-IP based session affinity 
+can be selected by setting service.spec.sessionAffinity to "ClientIP" 
+(the default is "None"), and you can set the max session sticky time by 
+setting the field service.spec.sessionAffinityConfig.clientIP.timeoutSeconds 
+if you have already set service.spec.sessionAffinity to "ClientIP" 
+(the default is “10800”).
 
 ## Multi-Port Services
 
@@ -481,7 +471,7 @@ metadata:
         cloud.google.com/load-balancer-type: "Internal"
 [...]
 ```
-Use `cloud.google.com/load-balancer-type: "internal"` for masters with version 1.7.0 to 1.7.3.  
+Use `cloud.google.com/load-balancer-type: "internal"` for masters with version 1.7.0 to 1.7.3.
 For more information, see the [docs](https://cloud.google.com/kubernetes-engine/docs/internal-load-balancing).
 {% endcapture %}
 
@@ -515,7 +505,7 @@ metadata:
 For partial SSL support on clusters running on AWS, starting with 1.3 three
 annotations can be added to a `LoadBalancer` service:
 
-```
+```yaml
 metadata:
   name: my-service
   annotations:
@@ -560,6 +550,25 @@ In the above example, if the service contained three ports, `80`, `443`, and
 `8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
 be proxied HTTP.
 
+Beginning in 1.9, services can use [predefined AWS SSL policies](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)
+for any HTTPS or SSL listeners. To see which policies are available for use, run
+the awscli command:
+
+```bash
+aws elb describe-load-balancer-policies --query 'PolicyDescriptions[].PolicyName'
+```
+
+Any one of those policies can then be specified using the
+"`service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy`"
+annotation, for example:
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: "ELBSecurityPolicy-TLS-1-2-2017-01"
+```
+
 #### PROXY protocol support on AWS
 
 To enable [PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
@@ -575,6 +584,66 @@ annotation:
 
 Since version 1.3.0 the use of this annotation applies to all ports proxied by the ELB
 and cannot be configured otherwise.
+
+#### Network Load Balancer support on AWS [alpha]
+
+**Warning:** This is an alpha feature and not recommended for production clusters yet.
+
+Starting in version 1.9.0, Kubernetes supports Network Load Balancer (NLB). To
+use a Network Load Balancer on AWS, use the annotation `service.beta.kubernetes.io/aws-load-balancer-type`
+with the value set to `nlb`.
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+```
+
+Unlike classic Elastic Load Balancers, Network Load Balancers (NLBs) forward the
+client's IP through to the node. If a service's `spec.externalTrafficPolicy` is
+set to `Cluster`, the client's IP address will not be propagated to the end
+pods.
+
+By setting `spec.externalTrafficPolicy` to `Local`, client IP addresses will be
+propagated to the end pods, but this could result in uneven distribution of
+traffic. Nodes without any pods for a particular LoadBalancer service will fail
+the NLB Target Group's health check on the auto-assigned
+`spec.healthCheckNodePort` and not recieve any traffic.
+
+In order to achieve even traffic, either use a DaemonSet, or specify a
+[pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature)
+to not locate pods on the same node.
+
+NLB can also be used with the [internal load balancer](/docs/concepts/services-networking/service/#internal-load-balancer)
+annotation.
+
+In order for client traffic to reach instances behind an NLB, the Node security
+groups are modified with the following IP rules:
+
+| Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
+|------|----------|---------|------------|---------------------|
+| Health Check | TCP | NodePort(s) (`spec.healthCheckNodePort` for `spec.externalTrafficPolicy = Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+| Client Traffic | TCP | NodePort(s) | `spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
+| MTU Discovery | ICMP | 3,4 | `spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
+
+Be aware that if `spec.loadBalancerSourceRanges` is not set, Kubernetes will
+allow traffic from `0.0.0.0/0` to the Node Security Group(s). If nodes have
+public IP addresses, be aware that non-NLB traffic can also reach all instances
+in those modified security groups. IPv6 is not yet supported for source ranges.
+
+In order to limit which client IP's can access the Network Load Balancer,
+specify `loadBalancerSourceRanges`.
+
+```yaml
+spec:
+  loadBalancerSourceRanges:
+  - "143.231.0.0/16"
+```
+
+**Note:** NLB only works with certain instance classes, see the [AWS documentation](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
+for supported instance types.
+
 
 ### External IPs
 
@@ -707,6 +776,10 @@ work, and the client IP is not altered.
 
 This same basic flow executes when traffic comes in through a node-port or
 through a load-balancer, though in those cases the client IP does get altered.
+
+#### Ipvs
+
+Iptables operations slow down dramatically in large scale cluster e.g 10,000 Services. IPVS is designed for load balancing and based on in-kernel hash tables. So we can achieve performance consistency in large number of services from IPVS-based kube-proxy. Meanwhile, IPVS-based kube-proxy has more sophisticated load balancing algorithms (least conns, locality, weighted, persistence).
 
 ## API Object
 

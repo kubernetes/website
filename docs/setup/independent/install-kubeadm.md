@@ -4,19 +4,27 @@ title: Installing kubeadm
 
 {% capture overview %}
 
-This page shows how to use install kubeadm.
+This page shows how to use install the `kubeadm` toolbox.
+For information how to create a cluster with kubeadm once you have performed this installation process,
+see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-cluster-kubeadm/) page.
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
-* One or more machines running Ubuntu 16.04+, Debian 9, CentOS 7, RHEL 7, Fedora 25/26 (best-effort) or HypriotOS v1.0.1+
+* One or more machines running one of:
+  - Ubuntu 16.04+
+  - Debian 9
+  - CentOS 7
+  - RHEL 7
+  - Fedora 25/26 (best-effort)
+  - HypriotOS v1.0.1+
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
 * 2 CPUs or more 
 * Full network connectivity between all machines in the cluster (public or private network is fine)
 * Unique hostname, MAC address, and product_uuid for every node
 * Certain ports are open on your machines. See the section below for more details
-* Swap disabled. You must disable swap in order for the kubelet to work properly. 
+* Swap disabled. You **MUST** disable swap in order for the kubelet to work properly. 
 
 {% endcapture %}
 
@@ -29,39 +37,42 @@ This page shows how to use install kubeadm.
 
 It is very likely that hardware devices will have unique addresses, although some virtual machines may have
 identical values. Kubernetes uses these values to uniquely identify the nodes in the cluster.
-If these values are not unique to each node, the installation processes
-[can fail](https://github.com/kubernetes/kubeadm/issues/31).
+If these values are not unique to each node, the installation process
+[may fail](https://github.com/kubernetes/kubeadm/issues/31).
 
 ## Check network adapters
 
-If you have more than one network adapter, and your Kubernetes components are not reachable on the default route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
+If you have more than one network adapter, and your Kubernetes components are not reachable on the default
+route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 
 ## Check required ports
 
 ### Master node(s)
 
-| Protocol | Direction | Port Range | Purpose                         |
-|----------|-----------|------------|---------------------------------|
-| TCP      | Inbound   | 6443*      | Kubernetes API server           |
-| TCP      | Inbound   | 2379-2380  | etcd server client API          |
-| TCP      | Inbound   | 10250      | Kubelet API                     |
-| TCP      | Inbound   | 10251      | kube-scheduler                  |
-| TCP      | Inbound   | 10252      | kube-controller-manager         |
-| TCP      | Inbound   | 10255      | Read-only Kubelet API (Heapster)|
+| Protocol | Direction | Port Range | Purpose                 |
+|----------|-----------|------------|-------------------------|
+| TCP      | Inbound   | 6443*      | Kubernetes API server   |
+| TCP      | Inbound   | 2379-2380  | etcd server client API  |
+| TCP      | Inbound   | 10250      | Kubelet API             |
+| TCP      | Inbound   | 10251      | kube-scheduler          |
+| TCP      | Inbound   | 10252      | kube-controller-manager |
+| TCP      | Inbound   | 10255      | Read-only Kubelet API   |
 
 ### Worker node(s)
 
-| Protocol | Direction | Port Range  | Purpose                         |
-|----------|-----------|-------------|---------------------------------|
-| TCP      | Inbound   | 10250       | Kubelet API                     |
-| TCP      | Inbound   | 10255       | Read-only Kubelet API (Heapster)|
-| TCP      | Inbound   | 30000-32767 | Default port range for [NodePort Services](/docs/concepts/services-networking/service/). Typically, these ports would need to be exposed to external load-balancers, or other external consumers of the application itself. |
+| Protocol | Direction | Port Range  | Purpose               |
+|----------|-----------|-------------|-----------------------|
+| TCP      | Inbound   | 10250       | Kubelet API           |
+| TCP      | Inbound   | 10255       | Read-only Kubelet API |
+| TCP      | Inbound   | 30000-32767 | NodePort Services**   |
+
+** Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
 
 Any port numbers marked with * are overridable, so you will need to ensure any
 custom ports you provide are also open.
 
 Although etcd ports are included in master nodes, you can also host your own
-etcd cluster externally on custom ports.
+etcd cluster externally or on custom ports.
 
 The pod network plugin you use (see below) may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
@@ -89,11 +100,17 @@ apt-get install -y docker.io
 or install Docker CE 17.03 from Docker's repositories for Ubuntu or Debian:
 
 ```bash
-apt-get update && apt-get install -y curl apt-transport-https
+apt-get update
+apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-cat <<EOF >/etc/apt/sources.list.d/docker.list
-deb https://download.docker.com/linux/$(lsb_release -si | tr '[:upper:]' '[:lower:]') $(lsb_release -cs) stable
-EOF
+add-apt-repository \
+   "deb https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+   $(lsb_release -cs) \
+   stable"
 apt-get update && apt-get install -y docker-ce=$(apt-cache madison docker-ce | grep 17.03 | head -1 | awk '{print $3}')
 ```
 
@@ -130,6 +147,9 @@ as Docker (e.g. `cgroupfs`).
 
 {% include tabs.md %}
 
+Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
+for more information.
+
 ## Installing kubeadm, kubelet and kubectl
 
 You will install these packages on all of your machines:
@@ -146,7 +166,8 @@ need to ensure they match the version of the Kubernetes control panel you want
 kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
 can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the 
 kubelet and the control plane is supported, but the kubelet version may never exceed the API
-server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server. 
+server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
+but not vice versa.
 
 For more information on version skews, please read our 
 [version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy).
@@ -184,8 +205,10 @@ systemctl enable kubelet && systemctl start kubelet
 
   **Note:**
 
-  - Disabling SELinux by running `setenforce 0` is required to allow containers to access the host filesystem, which is required by pod networks for example. You have to do this until SELinux support is improved in the kubelet.
-  - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
+  - Disabling SELinux by running `setenforce 0` is required to allow containers to access the host filesystem, which is required by pod networks for example.
+    You have to do this until SELinux support is improved in the kubelet.
+  - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure
+    `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
   
     ``` bash
     cat <<EOF >  /etc/sysctl.d/k8s.conf
@@ -212,8 +235,7 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 
 {% capture whatsnext %}
 
-* [Using kubeadm to Create a
-  Cluster](/docs/setup/independent/create-cluster-kubeadm/)
+* [Using kubeadm to Create a Cluster](/docs/setup/independent/create-cluster-kubeadm/)
 
 {% endcapture %}
 

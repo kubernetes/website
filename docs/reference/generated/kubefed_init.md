@@ -4,12 +4,10 @@ notitle: true
 ---
 ## kubefed init
 
-Initialize a federation control plane
-
 ### Synopsis
 
 
-Initialize a federation control plane. 
+Init initializes a federation control plane. 
 
     Federation control plane is hosted inside a Kubernetes
     cluster. The host cluster must be specified using the
@@ -22,16 +20,17 @@ kubefed init FEDERATION_NAME --host-cluster-context=HOST_CONTEXT
 ### Examples
 
 ```
-# Initialize federation control plane for a federation
-# named foo in the host cluster whose local kubeconfig
-# context is bar.
-kubefed init foo --host-cluster-context=bar
+  # Initialize federation control plane for a federation
+  # named foo in the host cluster whose local kubeconfig
+  # context is bar.
+  kubefed init foo --host-cluster-context=bar
 ```
 
 ### Options
 
 ```
       --api-server-advertise-address string      Preferred address to advertise api server nodeport service. Valid only if 'api-server-service-type=NodePort'.
+      --api-server-port int32                    Preferred port to use for api server nodeport service (0 for random port assignment). Valid only if 'api-server-service-type=NodePort'.
       --api-server-service-type string           The type of service to create for federation API server. Options: 'LoadBalancer' (default), 'NodePort'. (default "LoadBalancer")
       --apiserver-arg-overrides string           comma separated list of federation-apiserver arguments to override: Example "--arg1=value1,--arg2=value2..."
       --apiserver-enable-basic-auth              Enables HTTP Basic authentication for the federation-apiserver. Defaults to false.
@@ -41,14 +40,17 @@ kubefed init foo --host-cluster-context=bar
       --dns-provider-config string               Config file path on local file system for configuring DNS provider.
       --dns-zone-name string                     DNS suffix for this federation. Federated Service DNS names are published with this suffix.
       --dry-run                                  dry run without sending commands to server.
-      --etcd-image string                        Image to use for etcd server. (default "gcr.io/google_containers/etcd:3.0.17")
+      --etcd-image string                        Image to use for etcd server. (default "k8s.gcr.io/etcd:3.1.10")
       --etcd-persistent-storage                  Use persistent volume for etcd. Defaults to 'true'. (default true)
       --etcd-pv-capacity string                  Size of persistent volume claim to be used for etcd. (default "10Gi")
       --etcd-pv-storage-class string             The storage class of the persistent volume claim used for etcd.   Must be provided if a default storage class is not enabled for the host cluster.
       --federation-system-namespace string       Namespace in the host cluster where the federation system components are installed (default "federation-system")
       --host-cluster-context string              Host cluster context
-      --image string                             Image to use for federation API server and controller manager binaries. (default "gcr.io/google_containers/hyperkube-amd64:v0.0.0-master+$Format:%h$")
+      --image string                             Image to use for federation API server and controller manager binaries. (default "k8s.gcr.io/hyperkube-amd64:v0.0.0-master_$Format:%h$")
+      --image-pull-policy string                 PullPolicy describes a policy for if/when to pull a container image. The default pull policy is IfNotPresent which will not pull an image if it already exists. (default "IfNotPresent")
+      --image-pull-secrets string                Provide secrets that can access the private registry.
       --kubeconfig string                        Path to the kubeconfig file to use for CLI requests.
+      --node-selector string                     comma separated list of nodeSelector arguments: Example "arg1=value1,arg2=value2..."
 ```
 
 ### Options inherited from parent commands
@@ -57,10 +59,11 @@ kubefed init foo --host-cluster-context=bar
       --alsologtostderr                         log to standard error as well as files
       --as string                               Username to impersonate for the operation
       --as-group stringArray                    Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --cache-dir string                        Default HTTP cache directory (default "/home/stevepe/.kube/http-cache")
       --certificate-authority string            Path to a cert file for the certificate authority
       --client-certificate string               Path to a client certificate file for TLS
       --client-key string                       Path to a client key file for TLS
-      --cloud-provider-gce-lb-src-cidrs cidrs   CIDRS opened in GCE firewall for LB traffic proxy & health checks (default 209.85.152.0/22,209.85.204.0/22,130.211.0.0/22,35.191.0.0/16)
+      --cloud-provider-gce-lb-src-cidrs cidrs   CIDRs opened in GCE firewall for LB traffic proxy & health checks (default 130.211.0.0/22,35.191.0.0/16,209.85.152.0/22,209.85.204.0/22)
       --cluster string                          The name of the kubeconfig cluster to use
       --context string                          The name of the kubeconfig context to use
       --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
@@ -84,4 +87,4 @@ kubefed init foo --host-cluster-context=bar
 ### SEE ALSO
 * [kubefed](kubefed.md)	 - kubefed controls a Kubernetes Cluster Federation
 
-###### Auto generated by spf13/cobra on 30-Jul-2017
+###### Auto generated by spf13/cobra on 12-Dec-2017
