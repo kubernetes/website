@@ -174,7 +174,7 @@ v1/ServiceAccount:
 The RBAC ClusterRole for the CCM looks like this:
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cloud-controller-manager
