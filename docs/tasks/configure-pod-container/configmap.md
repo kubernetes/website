@@ -107,7 +107,7 @@ metadata:
 
 ### Create ConfigMaps from files
 
-You can use `kubectl create configmap` to create a ConfigMap from an individual file, or from multiple files.
+You can use `kubectl create configmap` to create a ConfigMap from an individual file, multiple files or from an env-file.
 
 For example,
 
@@ -146,6 +146,65 @@ Data
 ====
 game.properties:        158 bytes
 ui.properties:          83 bytes
+```
+
+You can pass in the `--from-env-file` to create a ConfigMap from an env-file, for example:
+
+```shell
+kubectl create configmap game-config-env-file \
+        --from-env-file=docs/tasks/configure-pod-container/game-env-file.properties
+```
+
+would produce the following ConfigMap:
+
+```shell
+kubectl describe configmap game-config-env-file
+Name:           game-config-env-file
+Namespace:      default
+Labels:         <none>
+Annotations:    <none>
+
+Data
+====
+allowed:
+----
+true
+enemies:
+----
+aliens
+lives:
+----
+3
+```
+
+Note that when passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used:
+
+```shell
+kubectl create configmap config-multi-env-files \
+        --from-env-file=docs/tasks/configure-pod-container/game-env-file.properties \
+        --from-env-file=docs/tasks/configure-pod-container/ui-env-file.properties
+```
+
+would produce the following ConfigMap:
+
+```
+kubectl describe configmap config-multi-env-files
+Name:           config-multi-env-files
+Namespace:      default
+Labels:         <none>
+Annotations:    <none>
+
+Data
+====
+color:
+----
+purple
+how:
+----
+fairlyNice
+textmode:
+----
+true
 ```
 
 #### Define the key to use when creating a ConfigMap from a file
