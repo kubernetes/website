@@ -318,7 +318,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"../docs/concepts/services-networking": {
 			"curlpod":          {&extensions.Deployment{}},
-			"custom-dns":		{&api.Pod{}},
+			"custom-dns":       {&api.Pod{}},
 			"hostaliases-pod":  {&api.Pod{}},
 			"ingress":          {&extensions.Ingress{}},
 			"nginx-secure-app": {&api.Service{}, &extensions.Deployment{}},
@@ -343,6 +343,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"two-container-pod": {&api.Pod{}},
 		},
 		"../docs/tasks/administer-cluster": {
+			"busybox": {&api.Pod{}},
 			"cloud-controller-manager-daemonset-example": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.DaemonSet{}},
 			"cpu-constraints":                            {&api.LimitRange{}},
 			"cpu-constraints-pod":                        {&api.Pod{}},
@@ -381,35 +382,37 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"quota-pvc-2":          {&api.PersistentVolumeClaim{}},
 		},
 		"../docs/tasks/configure-pod-container": {
-			"cpu-request-limit":      {&api.Pod{}},
-			"cpu-request-limit-2":    {&api.Pod{}},
-			"exec-liveness":          {&api.Pod{}},
-			"http-liveness":          {&api.Pod{}},
-			"init-containers":        {&api.Pod{}},
-			"lifecycle-events":       {&api.Pod{}},
-			"mem-limit-range":        {&api.LimitRange{}},
-			"memory-request-limit":   {&api.Pod{}},
-			"memory-request-limit-2": {&api.Pod{}},
-			"memory-request-limit-3": {&api.Pod{}},
-			"oir-pod":                {&api.Pod{}},
-			"oir-pod-2":              {&api.Pod{}},
-			"pod":                    {&api.Pod{}},
-			"pod-redis":              {&api.Pod{}},
-			"private-reg-pod":        {&api.Pod{}},
-			"projected-volume":       {&api.Pod{}},
-			"qos-pod":                {&api.Pod{}},
-			"qos-pod-2":              {&api.Pod{}},
-			"qos-pod-3":              {&api.Pod{}},
-			"qos-pod-4":              {&api.Pod{}},
-			"rq-compute-resources":   {&api.ResourceQuota{}},
-			"security-context":       {&api.Pod{}},
-			"security-context-2":     {&api.Pod{}},
-			"security-context-3":     {&api.Pod{}},
-			"security-context-4":     {&api.Pod{}},
-			"task-pv-claim":          {&api.PersistentVolumeClaim{}},
-			"task-pv-pod":            {&api.Pod{}},
-			"task-pv-volume":         {&api.PersistentVolume{}},
-			"tcp-liveness-readiness": {&api.Pod{}},
+			"cpu-request-limit":       {&api.Pod{}},
+			"cpu-request-limit-2":     {&api.Pod{}},
+			"exec-liveness":           {&api.Pod{}},
+			"extended-resource-pod":   {&api.Pod{}},
+			"extended-resource-pod-2": {&api.Pod{}},
+			"http-liveness":           {&api.Pod{}},
+			"init-containers":         {&api.Pod{}},
+			"lifecycle-events":        {&api.Pod{}},
+			"mem-limit-range":         {&api.LimitRange{}},
+			"memory-request-limit":    {&api.Pod{}},
+			"memory-request-limit-2":  {&api.Pod{}},
+			"memory-request-limit-3":  {&api.Pod{}},
+			"oir-pod":                 {&api.Pod{}},
+			"oir-pod-2":               {&api.Pod{}},
+			"pod":                     {&api.Pod{}},
+			"pod-redis":               {&api.Pod{}},
+			"private-reg-pod":         {&api.Pod{}},
+			"projected-volume":        {&api.Pod{}},
+			"qos-pod":                 {&api.Pod{}},
+			"qos-pod-2":               {&api.Pod{}},
+			"qos-pod-3":               {&api.Pod{}},
+			"qos-pod-4":               {&api.Pod{}},
+			"rq-compute-resources":    {&api.ResourceQuota{}},
+			"security-context":        {&api.Pod{}},
+			"security-context-2":      {&api.Pod{}},
+			"security-context-3":      {&api.Pod{}},
+			"security-context-4":      {&api.Pod{}},
+			"task-pv-claim":           {&api.PersistentVolumeClaim{}},
+			"task-pv-pod":             {&api.Pod{}},
+			"task-pv-volume":          {&api.PersistentVolume{}},
+			"tcp-liveness-readiness":  {&api.Pod{}},
 		},
 		"../docs/tasks/debug-application-cluster": {
 			"counter-pod":           {&api.Pod{}},
@@ -460,6 +463,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"deployment-patch-demo": {&extensions.Deployment{}},
 			"deployment-scale":      {&extensions.Deployment{}},
 			"deployment-update":     {&extensions.Deployment{}},
+			"hpa-php-apache":        {&autoscaling.HorizontalPodAutoscaler{}},
 			"mysql-configmap":       {&api.ConfigMap{}},
 			"mysql-deployment":      {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
 			"mysql-services":        {&api.Service{}, &api.Service{}},
@@ -602,6 +606,11 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 	}
 
+	filesIgnore := map[string]map[string]bool{
+		"../docs/tasks/debug-application-cluster": {
+			"audit-policy": true,
+		},
+	}
 	capabilities.SetForTests(capabilities.Capabilities{
 		AllowPrivileged: true,
 	})
@@ -612,6 +621,12 @@ func TestExampleObjectSchemas(t *testing.T) {
 		err := walkConfigFiles(path, func(name, path string, docs [][]byte) {
 			expectedTypes, found := expected[name]
 			if !found {
+				p := filepath.Dir(path)
+				if files, ok := filesIgnore[p]; ok {
+					if files[name] {
+						return
+					}
+				}
 				t.Errorf("%s: %s does not have a test case defined", path, name)
 				return
 			}
