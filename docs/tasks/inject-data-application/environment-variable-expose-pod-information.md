@@ -25,7 +25,7 @@ Pod fields and Container fields.
 There are two ways to expose Pod and Container fields to a running Container:
 
 * Environment variables
-* [DownwardAPIVolumeFiles](/docs/resources-reference/{{page.version}}/#downwardapivolumefile-v1-core)
+* [DownwardAPIVolumeFiles](/docs/api-reference/{{page.version}}/#downwardapivolumefile-v1-core)
 
 Together, these two ways of exposing Pod and Container fields are called the
 *Downward API*.
@@ -40,7 +40,7 @@ configuration file for the Pod:
 
 In the configuration file, you can see five environment variables. The `env`
 field is an array of
-[EnvVars](/docs/resources-reference/{{page.version}}/#envvar-v1-core).
+[EnvVars](/docs/api-reference/{{page.version}}/#envvar-v1-core).
 The first element in the array specifies that the `MY_NODE_NAME` environment
 variable gets its value from the Pod's `spec.nodeName` field. Similarly, the
 other environment variables get their names from Pod fields.
@@ -118,7 +118,7 @@ container:
 
 In the configuration file, you can see four environment variables. The `env`
 field is an array of
-[EnvVars](/docs/resources-reference/{{page.version}}/#envvar-v1-core).
+[EnvVars](/docs/api-reference/{{page.version}}/#envvar-v1-core).
 The first element in the array specifies that the `MY_CPU_REQUEST` environment
 variable gets its value from the `requests.cpu` field of a Container named
 `test-container`. Similarly, the other environment variables get their values
@@ -156,12 +156,12 @@ The output shows the values of selected environment variables:
 {% capture whatsnext %}
 
 * [Defining Environment Variables for a Container](/docs/tasks/inject-data-application/define-environment-variable-container/)
-* [PodSpec](/docs/resources-reference/{{page.version}}/#podspec-v1-core)
-* [Container](/docs/resources-reference/{{page.version}}/#container-v1-core)
-* [EnvVar](/docs/resources-reference/{{page.version}}/#envvar-v1-core)
-* [EnvVarSource](/docs/resources-reference/{{page.version}}/#envvarsource-v1-core)
-* [ObjectFieldSelector](/docs/resources-reference/{{page.version}}/#objectfieldselector-v1-core)
-* [ResourceFieldSelector](/docs/resources-reference/{{page.version}}/#resourcefieldselector-v1-core)
+* [PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core)
+* [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
+* [EnvVar](/docs/api-reference/{{page.version}}/#envvar-v1-core)
+* [EnvVarSource](/docs/api-reference/{{page.version}}/#envvarsource-v1-core)
+* [ObjectFieldSelector](/docs/api-reference/{{page.version}}/#objectfieldselector-v1-core)
+* [ResourceFieldSelector](/docs/api-reference/{{page.version}}/#resourcefieldselector-v1-core)
 
 {% endcapture %}
 

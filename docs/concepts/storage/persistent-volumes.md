@@ -7,18 +7,18 @@ approvers:
 title: Persistent Volumes
 ---
 
-This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
+This document describes the current state of `PersistentVolumes` in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
 
 * TOC
 {:toc}
 
 ## Introduction
 
-Managing storage is a distinct problem from managing compute. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed.  To do this we introduce two new API resources:  `PersistentVolume` and `PersistentVolumeClaim`.
+Managing storage is a distinct problem from managing compute. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed. To do this we introduce two new API resources:  `PersistentVolume` and `PersistentVolumeClaim`.
 
-A `PersistentVolume` (PV) is a piece of storage in the cluster that has been provisioned by an administrator.  It is a resource in the cluster just like a node is a cluster resource.   PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV.  This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
+A `PersistentVolume` (PV) is a piece of storage in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
-A `PersistentVolumeClaim` (PVC) is a request for storage by a user.  It is similar to a pod.  Pods consume node resources and PVCs consume PV resources.  Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., can be mounted once read/write or many times read-only).
+A `PersistentVolumeClaim` (PVC) is a request for storage by a user. It is similar to a pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., can be mounted once read/write or many times read-only).
 
 While `PersistentVolumeClaims` allow a user to consume abstract storage
 resources, it is common that users need `PersistentVolumes` with varying
@@ -33,14 +33,14 @@ Please see the [detailed walkthrough with working examples](/docs/tasks/configur
 
 ## Lifecycle of a volume and claim
 
-PVs are resources in the cluster.  PVCs are requests for those resources and also act as claim checks to the resource.  The interaction between PVs and PVCs follows this lifecycle:
+PVs are resources in the cluster. PVCs are requests for those resources and also act as claim checks to the resource. The interaction between PVs and PVCs follows this lifecycle:
 
 ### Provisioning
 
 There are two ways PVs may be provisioned: statically or dynamically.
 
 #### Static
-A cluster administrator creates a number of PVs. They carry the details of the real storage which is available for use by cluster users.  They exist in the Kubernetes API and are available for consumption.
+A cluster administrator creates a number of PVs. They carry the details of the real storage which is available for use by cluster users. They exist in the Kubernetes API and are available for consumption.
 
 #### Dynamic
 When none of the static PVs the administrator created matches a user's `PersistentVolumeClaim`,
@@ -54,21 +54,44 @@ dynamic provisioning for themselves.
 To enable dynamic storage provisioning based on storage class, the cluster administrator
 needs to enable the `DefaultStorageClass` [admission controller](/docs/admin/admission-controllers/#defaultstorageclass)
 on the API server. This can be done, for example, by ensuring that `DefaultStorageClass` is
-among the comma-delimited, ordered list of values for the `--admission-control` flag of 
+among the comma-delimited, ordered list of values for the `--admission-control` flag of
 the API server component. For more information on API server command line flags,
 please check [kube-apiserver](/docs/admin/kube-apiserver/) documentation.
 
 ### Binding
 
-A user creates, or has already created in the case of dynamic provisioning, a `PersistentVolumeClaim` with a specific amount of storage requested and with certain access modes.  A control loop in the master watches for new PVCs, finds a matching PV (if possible), and binds them together.  If a PV was dynamically provisioned for a new PVC, the loop will always bind that PV to the PVC. Otherwise, the user will always get at least what they asked for, but the volume may be in excess of what was requested.  Once bound, `PersistentVolumeClaim` binds are exclusive, regardless of the mode used to bind them.
+A user creates, or has already created in the case of dynamic provisioning, a `PersistentVolumeClaim` with a specific amount of storage requested and with certain access modes. A control loop in the master watches for new PVCs, finds a matching PV (if possible), and binds them together. If a PV was dynamically provisioned for a new PVC, the loop will always bind that PV to the PVC. Otherwise, the user will always get at least what they asked for, but the volume may be in excess of what was requested. Once bound, `PersistentVolumeClaim` binds are exclusive, regardless of how they were bound. A PVC to PV binding is a one-to-one mapping.
 
-Claims will remain unbound indefinitely if a matching volume does not exist.  Claims will be bound as matching volumes become available.  For example, a cluster provisioned with many 50Gi PVs would not match a PVC requesting 100Gi.  The PVC can be bound when a 100Gi PV is added to the cluster.
+Claims will remain unbound indefinitely if a matching volume does not exist. Claims will be bound as matching volumes become available. For example, a cluster provisioned with many 50Gi PVs would not match a PVC requesting 100Gi. The PVC can be bound when a 100Gi PV is added to the cluster.
 
 ### Using
 
-Pods use claims as volumes. The cluster inspects the claim to find the bound volume and mounts that volume for a pod.  For volumes which support multiple access modes, the user specifies which mode desired when using their claim as a volume in a pod.
+Pods use claims as volumes. The cluster inspects the claim to find the bound volume and mounts that volume for a pod. For volumes which support multiple access modes, the user specifies which mode desired when using their claim as a volume in a pod.
 
 Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a persistentVolumeClaim in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
+
+### Persistent Volume Claim Protection
+{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
+The purpose of the PVC protection is to ensure that PVCs in active use by a pod are not removed from the system as this may result in data loss.
+
+Note: PVC is in active use by a pod when the the pod status is `Pending` and the pod is assigned to a node or the pod status is `Running`.
+
+When the [PVC protection alpha feature](/docs/tasks/administer-cluster/pvc-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods.
+
+You can see that a PVC is protected when the PVC's status is `Terminating` and the `Finalizers` list includes `kubernetes.io/pvc-protection`:
+```shell
+kubectl described pvc hostpath
+Name:          hostpath
+Namespace:     default
+StorageClass:  example-hostpath
+Status:        Terminating
+Volume:        
+Labels:        <none>
+Annotations:   volume.beta.kubernetes.io/storage-class=example-hostpath
+               volume.beta.kubernetes.io/storage-provisioner=example.com/hostpath
+Finalizers:    [kubernetes.io/pvc-protection]
+...
+```
 
 ### Reclaiming
 
@@ -102,7 +125,7 @@ spec:
       path: /any/path/it/will/be/replaced
   containers:
   - name: pv-recycler
-    image: "gcr.io/google_containers/busybox"
+    image: "k8s.gcr.io/busybox"
     command: ["/bin/sh", "-c", "test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z \"$(ls -A /scrub)\" || exit 1"]
     volumeMounts:
     - name: vol
@@ -118,8 +141,13 @@ For volume plugins that support the Delete reclaim policy, deletion removes both
 
 ### Expanding Persistent Volumes Claims
 
-With Kubernetes 1.8, we have added Alpha support for expanding persistent volumes. The current Alpha support was designed to only support volume types
-that don't need file system resizing (Currently only glusterfs).
+Kubernetes 1.8 added Alpha support for expanding persistent volumes. In v1.9, the following volume types support expanding Persistent volume claims:
+
+* gcePersistentDisk
+* awsElasticBlockStore
+* Cinder
+* glusterfs
+* rbd
 
 Administrator can allow expanding persistent volume claims by setting `ExpandPersistentVolumes` feature gate to true. Administrator
 should also enable [`PersistentVolumeClaimResize` admission plugin](/docs/admin/admission-controllers/#persistentvolumeclaimresize)
@@ -147,6 +175,16 @@ by simply editing the claim and requesting bigger size.  This in turn will trigg
 
 Under no circumstances a new `PersistentVolume` gets created to satisfy the claim. Kubernetes will attempt to resize existing volume to satisfy the claim.
 
+For expanding volumes containing a file system, file system resizing is only performed when a new Pod is started using the `PersistentVolumeClaim` in
+ReadWrite mode. In other words, if a volume being expanded is used in a pod or deployment, you will need to delete and recreate the pod for file system
+resizing to take place. Also, file system resizing is only supported for following file system types:
+
+* XFS
+* Ext3, Ext4
+
+**Note:** Expanding EBS volumes is a time consuming operation. Also, there is a per-volume quota of one modification every 6 hours.
+{: .note}
+
 
 ## Types of Persistent Volumes
 
@@ -156,7 +194,7 @@ Under no circumstances a new `PersistentVolume` gets created to satisfy the clai
 * AWSElasticBlockStore
 * AzureFile
 * AzureDisk
-* FC (Fibre Channel)
+* FC (Fibre Channel)**
 * FlexVolume
 * Flocker
 * NFS
@@ -173,28 +211,31 @@ Under no circumstances a new `PersistentVolume` gets created to satisfy the clai
 * ScaleIO Volumes
 * StorageOS
 
+** Raw Block Support exists for these plugins only.
+
 ## Persistent Volumes
 
 Each PV contains a spec and status, which is the specification and status of the volume.
 
 ```yaml
-  apiVersion: v1
-  kind: PersistentVolume
-  metadata:
-    name: pv0003
-  spec:
-    capacity:
-      storage: 5Gi
-    accessModes:
-      - ReadWriteOnce
-    persistentVolumeReclaimPolicy: Recycle
-    storageClassName: slow
-    mountOptions:
-      - hard
-      - nfsvers=4.1
-    nfs:
-      path: /tmp
-      server: 172.17.0.2
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv0003
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: slow
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /tmp
+    server: 172.17.0.2
 ```
 
 ### Capacity
@@ -202,6 +243,13 @@ Each PV contains a spec and status, which is the specification and status of the
 Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) to understand the units expected by `capacity`.
 
 Currently, storage size is the only resource that can be set or requested.  Future attributes may include IOPS, throughput, etc.
+
+### Volume Mode
+
+Prior to v1.9, the default behavior for all volume plugins was to create a filesystem on the persistent volume. With v1.9, the user can specify a volumeMode which will now support raw block devices in addition to file systems. Valid values for volumeMode are "Filesystem" or "Block". If left unspecified, volumeMode defaults to "Filesystem" internally. This is an optional API parameter. 
+
+**Note:** This feature is alpha in v1.9 and may change in the future. 
+{: .note}
 
 ### Access Modes
 
@@ -320,6 +368,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  volumeMode: Filesystem
   resources:
     requests:
       storage: 8Gi
@@ -334,6 +383,10 @@ spec:
 ### Access Modes
 
 Claims use the same conventions as volumes when requesting storage with specific access modes.
+
+### Volume Modes
+
+Claims use the same convention as volumes to indicates the consumption of the volume as either a filesystem or block device.
 
 ### Resources
 
@@ -417,7 +470,86 @@ spec:
 
 `PersistentVolumes` binds are exclusive, and since `PersistentVolumeClaims` are namespaced objects, mounting claims with "Many" modes (`ROX`, `RWX`) is only possible within one namespace.
 
-``
+## Raw Block Volume Support
+
+Static provisioning support for Raw Block Volumes is included as an alpha feature for v1.9. With this change are some new API fields that need to be used to facilitate this functionality. Currently, Fibre Channel is the only supported plugin for this feature.
+
+### Persistent Volumes using a Raw Block Volume
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: block-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Block
+  persistentVolumeReclaimPolicy: Retain
+  fc:
+    targetWWNs: ["50060e801049cfd1"]
+    lun: 0
+    readOnly: false
+```
+### Persistent Volume Claim requesting a Raw Block Volume
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: block-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Block
+  resources:
+    requests:
+      storage: 10Gi
+```
+### Pod specification adding Raw Block Device path in container
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-block-volume
+spec:
+  containers:
+    - name: fc-container
+      image: fedora:26
+      command: ["/bin/sh", "-c"]
+      args: [ "tail -f /dev/null" ]
+      volumeDevices:
+        - name: data
+          devicePath: /dev/xvda
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: block-pvc
+```
+
+**Note:** When adding a raw block device for a Pod, we specify the device path in the container instead of a mount path.
+{: .note}
+
+### Binding Block Volumes
+
+If a user requests a raw block volume by indicating this using the volumeMode field in the PersistentVolumeClaim spec, the binding rules differ slighty from previous releases that didn't consider this mode as part of the spec.
+Listed is a table of possible combinations the user and admin might specify for requesting a raw block device. The table indicates if the volume will be bound or not given the combinations:
+Volume binding matrix for statically provisioned volumes:
+
+| PV volumeMode | PVC volumeMode  | Result           |
+| --------------|:---------------:| ----------------:|
+|   unspecified | unspecified     | BIND             |
+|   unspecified | Block           | NO BIND          |
+|   unspecified | Filesystem      | BIND             |
+|   Block       | unspecified     | NO BIND          |
+|   Block       | Block           | BIND             |
+|   Block       | Filesystem      | NO BIND          |
+|   Filesystem  | Filesystem      | BIND             |
+|   Filesystem  | Block           | NO BIND          |
+|   Filesystem  | unspecified     | BIND             |
+
+**Note:** Only statically provisioned volumes are supported for alpha release. Administrators should take care to consider these values when working with raw block devices.
+{: .note}
 
 ## Writing Portable Configuration
 
@@ -430,29 +562,18 @@ and need persistent storage, we recommend that you use the following pattern:
   the config may not have permission to create PersistentVolumes.
 - Give the user the option of providing a storage class name when instantiating
   the template.
-  - If the user provides a storage class name, and the cluster is version 1.4
-    or newer, put that value into the `volume.beta.kubernetes.io/storage-class`
-    annotation of the PVC. This will cause the PVC to match the right storage
+  - If the user provides a storage class name, put that value into the
+    `persistentVolumeClaim.storageClassName` field.
+    This will cause the PVC to match the right storage
     class if the cluster has StorageClasses enabled by the admin.
-  - If the user does not provide a storage class name or the cluster is version
-    1.3, then instead put a `volume.alpha.kubernetes.io/storage-class: default`
-    annotation on the PVC.
+  - If the user does not provide a storage class name, leave the 
+    `persistentVolumeClaim.storageClassName` field as nil.
     - This will cause a PV to be automatically provisioned for the user with
-      sane default characteristics on some clusters.
-    - Despite the word `alpha` in the name, the code behind this annotation has
-      `beta` level support.
-    - Do not use `volume.beta.kubernetes.io/storage-class:` with any value
-      including the empty string since it will prevent `DefaultStorageClass`
-      admission controller from running if enabled.
+      the default StorageClass in the cluster.  Many cluster environments have
+      a default StorageClass installed, or administrators can create their own
+      default StorageClass.
 - In your tooling, do watch for PVCs that are not getting bound after some time
   and surface this to the user, as this may indicate that the cluster has no
   dynamic storage support (in which case the user should create a matching PV)
   or the cluster has no storage system (in which case the user cannot deploy
   config requiring PVCs).
-- In the future, we expect most clusters to have `DefaultStorageClass` enabled,
-  and to have some form of storage available.  However, there may not be any
-  storage class names which work on all clusters, so continue to not set one by
-  default.
-  At some point, the alpha annotation will cease to have meaning, but the unset
-  `storageClass` field on the PVC will have the desired effect.
-
