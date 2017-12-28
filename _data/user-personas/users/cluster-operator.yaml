@@ -2,19 +2,64 @@ id: cluster-operator
 name: Cluster Operator
 index: 2
 foundational:
-  - label: "c1: foundational stuff"
-    url: "#"
-  - label: "c2: foundational stuff"
-    url: "#"
-  - label: "c3: foundational stuff"
-    url: "#"
+  - label: What is Kubernetes?
+    icon: fa-folder-open-o
+    url: /docs/concepts/overview/what-is-kubernetes/
+  - label: Pod Overview
+    icon: fa-book
+    url: /docs/concepts/workloads/pods/pod-overview/
+  - label: Node Overview
+    icon: fa-book
+    url: /docs/concepts/architecture/nodes/
+  - label: Cluster Networking
+    icon: fa-book
+    url: /docs/concepts/cluster-administration/networking/
+  - label: Services
+    icon: fa-book
+    url: /docs/concepts/services-networking/service/
+  - label: Deployments
+    icon: fa-book
+    url: /docs/concepts/workloads/controllers/deployment/
+  - label: Labels and Selectors
+    icon: fa-book
+    url: /docs/concepts/overview/working-with-objects/labels/
+  - label: Annotations
+    icon: fa-book
+    url: /docs/concepts/overview/working-with-objects/annotations/
+  - label: ConfigMaps
+    icon: fa-book
+    url: /docs/tasks/configure-pod-container/configmap/
+  - label: Secrets
+    icon: fa-book
+    url: /docs/concepts/configuration/secret/
+  - label: Metrics
+    icon: fa-book
+    url: /docs/concepts/cluster-administration/controller-metrics/
 intermediate:
-  - label: "c1: intermediate stuff"
-    url: "#"
-  - label: "c2: intermediate stuff"
-    url: "#"
-  - label: "c3: intermediate stuff"
-    url: "#"
+  - label: "Managing Resources"
+    url: /docs/concepts/cluster-administration/manage-deployment/
+  - label: "Ingress"
+    url: /docs/concepts/services-networking/ingress/
+  - label: "Taints and Tolerations"
+    url: /docs/concepts/configuration/taint-and-toleration/
+  - label: "Pods and Priority"
+    url: /docs/concepts/configuration/pod-priority-preemption/
+  - label: "Volumes"
+    url: /docs/concepts/storage/volumes/
+  - label: "Persistent Volumes"
+    url: /docs/concepts/storage/persistent-volumes/
+  - label: "Pod Lifecycle"
+    url: /docs/concepts/workloads/pods/pod-lifecycle/
+  - label: "Initialization Containers"
+    url: /docs/concepts/workloads/pods/init-containers/
+  - label: "Stateful Sets"
+    url: /docs/concepts/workloads/controllers/statefulset/
+  - label: "Daemon Sets"
+    url: /docs/concepts/workloads/controllers/daemonset/
+  - label: "Jobs"
+    url: /docs/concepts/workloads/controllers/jobs-run-to-completion/
+  - label: "CronJobs"
+    url: /docs/concepts/workloads/controllers/cron-jobs/
 advanced:
   - label: "c1: advanced stuff"
     url: "#"
