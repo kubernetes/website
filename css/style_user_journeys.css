@@ -615,12 +615,7 @@ padding-bottom:2%;
 padding-right:2%;
 margin-bottom:10%:
 color:#3371e3 !important;
-
-
-
 }
-
-
 
 .numberCircle {
 display:inline-block;
@@ -660,7 +655,7 @@ font-size:24px;
 
 .docButton:hover {
   border: 1.5px solid #3371e3;
-  background-color:white;
+  background-color:#eeeeee;
   font-size:13px;
   color:#3371e3;
 
