@@ -199,7 +199,7 @@ consistent with the expectation. When access the `service`, traffic will
 be redirect to one of the backend `pod`.
 
 Similar to iptables, Ipvs is based on netfilter hook function, but use hash
-table as the underlying data structure and work in the kernal state.
+table as the underlying data structure and work in the kernel space.
 That means ipvs redirects traffic can be much faster, and have much
 better performance when sync proxy rules. Furthermore, ipvs provides more
 options for load balancing algorithm, such as:
