@@ -677,7 +677,9 @@ font-size:24px;
 .docsection1 {
   background-color:white;
   font-family: 'roboto';
-  padding:3%;
+  padding-top:3%;
+  padding-left:3%;
+  padding-right:3%;
   font-weight:300 !important;
   font-size:14px;
   letter-spacing:0.05em;
