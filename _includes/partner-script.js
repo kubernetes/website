@@ -43,7 +43,7 @@
 			blurb: 'Powering the GIFEE (Google’s Infrastructure for Everyone Else), to run OpenStack deployments on Kubernetes.'
 		},
 		{
-			type: 0,
+			type: 3,
 			name: 'Platform9',
 			logo: 'platform9',
 			link: 'https://platform9.com/products/kubernetes/',
@@ -131,7 +131,7 @@
 			name: 'Hasura',
 			logo: 'hasura',
 			link: 'https://hasura.io',
-			blurb: 'Hasura - Hasura'
+			blurb: 'Hasura is a Kubernetes-based PaaS and a Postgres-based BaaS that accelerates app development with ready-to-use components.'
 				},
 		{
  			type: 3,
@@ -463,6 +463,13 @@
 			blurb: 'Kublr - Accelerate and control the deployment, scaling, monitoring and management of your containerized applications.'
 			},
 		{
+			type: 1,
+			name: 'ControlPlane',
+			logo: 'controlplane',
+			link: 'https://control-plane.io',
+			blurb: 'We are a London-based Kubernetes consultancy with a focus on security and continuous delivery. We offer consulting & training.'
+			},
+		{
 			type: 3,
 			name: 'Nirmata',
 			logo: 'nirmata',
@@ -477,11 +484,11 @@
 			blurb: 'TenxCloud - TenxCloud Container Engine (TCE)'
 				},
 		{
-			type: 3,
+			type: 0,
 			name: 'Twistlock',
 			logo: 'twistlock',
 			link: 'https://www.twistlock.com/',
-			blurb: 'Twistlock - Twistlock'
+			blurb: 'Security at Kubernetes Scale: Twistlock allows you to deploy fearlessly with assurance that your images and containers are free of vulnerabilities and protected at runtime.'
 				},
 		{
 			type: 0,
@@ -527,6 +534,13 @@
 			},
 		{
 			type: 2,
+			name: 'Ghostcloud',
+			logo: 'ghostcloud',
+			link: 'https://www.ghostcloud.cn/ecos-kubernetes',
+			blurb: 'EcOS is an enterprise-grade PaaS / CaaS based on Docker and Kubernetes, which makes it easier to configure, deploy and manage containerized applications.'
+			},
+		{
+			type: 3,
 			name: 'Ghostcloud',
 			logo: 'ghostcloud',
 			link: 'https://www.ghostcloud.cn/ecos-kubernetes',
@@ -703,7 +717,7 @@
 		{
 			type: 3,
 			name: 'Google Kubernetes Engine',
-			logo: 'gcp',
+			logo: 'google',
 			link: 'https://cloud.google.com/kubernetes-engine/',
 			blurb: 'Google - Google Kubernetes Engine'
 				},
@@ -864,7 +878,7 @@
 		{
 			type: 3,
 			name: 'Google',
-			logo: 'gcp',
+			logo: 'google',
 			link: 'https://github.com/kubernetes/kubernetes/tree/master/cluster',
 			blurb: 'Google - kube-up.sh on Google Compute Engine'
 				},
@@ -883,11 +897,25 @@
 			blurb: 'Netease - Netease Container Service Dedicated'
 				},
 		{
+			type: 2,
+			name: 'Loodse',
+			logo: 'loodse',
+			link: 'https://loodse.com',
+			blurb: 'Loodse provides Kubernetes training & consulting, and host related events regularly across Europe.'
+				},
+		{
 			type: 3,
 			name: 'Loodse',
 			logo: 'loodse',
 			link: 'https://loodse.com',
 			blurb: 'Loodse - Kubermatic Container Engine'
+				},
+		{
+			type: 1,
+			name: 'LTI',
+			logo: 'lti',
+			link: 'https://www.lntinfotech.com/',
+			blurb: 'LTI helps enterprises architect, develop and support scalable cloud native apps using Docker and Kubernetes for private or public cloud.'
 				},
 		{
 			type: 3,
@@ -993,6 +1021,13 @@
 			logo: 'daocloud',
 			link: 'http://www.daocloud.io/dce',
 			blurb: 'DaoCloud - DaoCloud Enterprise'
+				},
+		{
+			type: 2,
+			name: 'Daocloud',
+			logo: 'daocloud',
+			link: 'http://www.daocloud.io/dce',
+			blurb: 'We provide enterprise-level cloud native application platform that supports both Kubernetes and Docker Swarm.'
 				},
 		{
 			type: 3,
@@ -1126,6 +1161,13 @@
 			logo: 'dataspine',
 			link: 'http://dataspine.xyz/',
 			blurb: 'Dataspine is building a secure, elastic and serverless deployment platform for production ML/AI workloads on top of k8s.'
+				},
+		{
+			type: 1,
+			name: 'CloudBourne',
+			logo: 'cloudbourne',
+			link: 'https://cloudbourne.com/kubernetes-enterprise-hybrid-cloud/',
+			blurb: 'Want to achieve maximum build, deploy and monitoring automation using Kubernetes? We can help.'
 				},
 		{
 			type: 0,
