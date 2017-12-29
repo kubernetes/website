@@ -2,39 +2,15 @@ id: cluster-operator
 name: Cluster Operator
 index: 2
 foundational:
-  - label: What is Kubernetes?
-    icon: fa-folder-open-o
-    url: /docs/concepts/overview/what-is-kubernetes/
-  - label: Pod Overview
+  - label: Kubernetes Overview
     icon: fa-book
-    url: /docs/concepts/workloads/pods/pod-overview/
-  - label: Node Overview
+    url: /docs/user-journeys/users/cluster-operator/foundational#section-1
+  - label: Kubernetes Basics
     icon: fa-book
-    url: /docs/concepts/architecture/nodes/
-  - label: Cluster Networking
+    url: /docs/user-journeys/users/cluster-operator/foundational#section-2
+  - label: Getting information about your cluster
     icon: fa-book
-    url: /docs/concepts/cluster-administration/networking/
-  - label: Services
-    icon: fa-book
-    url: /docs/concepts/services-networking/service/
-  - label: Deployments
-    icon: fa-book
-    url: /docs/concepts/workloads/controllers/deployment/
-  - label: Labels and Selectors
-    icon: fa-book
-    url: /docs/concepts/overview/working-with-objects/labels/
-  - label: Annotations
-    icon: fa-book
-    url: /docs/concepts/overview/working-with-objects/annotations/
-  - label: ConfigMaps
-    icon: fa-book
-    url: /docs/tasks/configure-pod-container/configmap/
-  - label: Secrets
-    icon: fa-book
-    url: /docs/concepts/configuration/secret/
-  - label: Metrics
-    icon: fa-book
-    url: /docs/concepts/cluster-administration/controller-metrics/
+    url: /docs/user-journeys/users/cluster-operator/foundational#section-3
 intermediate:
   - label: "Managing Resources"
     url: /docs/concepts/cluster-administration/manage-deployment/

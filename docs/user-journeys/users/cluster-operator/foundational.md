@@ -13,20 +13,8 @@ If you want to learn how to get started managing and operating a Kubernetes clus
 The concepts introduce you to a kubernetes cluster and key concepts to understand and manage it, favoring focusing on the cluster itself over the software running within the cluster.
 {% endcapture %}
 
-<!-- Foundational:
-Nodes, Pods, Networks, Deployments, Services, ConfigMaps, Secrets
-Labels, Selectors, Annotations
-Metrics -->
-
-
-<--
-  - label: Metrics
-    icon: fa-book
-    url: /docs/concepts/cluster-administration/controller-metrics/
--->
-
 {% capture body %}
-## Kubernetes Clusters
+## Kubernetes Overview
 
 If you have not already done so, start your understanding by reading through [What is Kubernetes?](/docs/concepts/overview/what-is-kubernetes/), which will introduce you to a number of basic concepts and terms. 
 
@@ -34,7 +22,7 @@ Kubernetes is quite flexible, and can a cluster can be run in a wide variety of 
 
 A cluster is made up of one or more [Nodes](/docs/concepts/architecture/nodes/); where a node is a physical or virtual machine. If there are more than one node in your cluster, then each of the nodes are connected with a [cluster network](/docs/concepts/cluster-administration/networking/). Regardless of how many nodes, all Kubernetes clusters will generally have the same components, which are described in [Kubernetes Components](/docs/concepts/overview/components).
 
-## Set up Kubernetes and learn the basic concepts
+## Kubernetes Basics
 
 A good way to become familiar with how to manage and operate a Kubernetes cluster is by setting them up. 
 One of the most compact ways to experiment with a cluster is [Installing and using Minikube](/docs/tasks/tools/install-minikube/).
@@ -48,6 +36,7 @@ These resources are covered in a number of articles within the Kubernetes docume
 
 * [Pod Overview](/docs/concepts/workloads/pods/pod-overview/)
 * [Namespaces](/docs/concepts/overview/working-with-objects/namespaces/)
+  * [Namespaces Walkthrough](/docs/tasks/administer-cluster/namespaces-walkthrough/)
 * [Services](/docs/concepts/services-networking/service/)
 * [Deployments](/docs/concepts/workloads/controllers/deployment/)
 * [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/)
@@ -57,37 +46,23 @@ These resources are covered in a number of articles within the Kubernetes docume
 
 As a cluster operator you may not need to use all these resources although you should be familiar with them to understand how the cluster is working and being used.
 
-You can get basic information about your cluster with the command `kubectl get nodes`.
-And you can [view your cluster's Pods and Nodes](/docs/tutorials/kubernetes-basics/explore-intro/). 
-But to get a good idea of what's really going on, you need to deploy an application to your cluster.
+## Getting information about your cluster
 
-## Deploy, scale, and update an application
+You can [access clusters using the cluster API](/docs/tasks/administer-cluster/access-cluster-api/).
+If you are not already familiar, run through the tutorial to [view your cluster's Pods and Nodes](/docs/tutorials/kubernetes-basics/explore-intro/).
+Using kubectl, you can retrieve a lot of information very quickly.
+To get basic information about the nodes in your cluster use the command `kubectl get nodes`. 
+You can get more detailed information for the same nodes with the command `kubectl describe nodes`.
+You can see the status of the core of kubernetes with the command `kubectl get componentstatuses`.
 
-You can deploy a simple application in Kubernetes with a Deployment manifest, also called a configuration or config file, or sometimes a spec. The manifest is written in YAML or JSON, and describes the desired state of the application and related resources as Kubernetes should maintain them.
+Some additional resources for getting information about your cluster and how it is operating include:
 
-* [Get started by deploying a simple nginx server](/docs/tasks/run-application/run-stateless-application-deployment/). Nginx is often used as the web server to help provide ingress from outside your cluster.
-* By itself, a Deployment can't provide ingress. The simplest way to configure ingress is to [create a Service](/docs/tasks/access-application-cluster/service-access-application-cluster/) of type `NodePort`, which takes care of routing external traffic to your cluster over a dynamically allocated IP address and port. The service also takes care of load balancing.
-* Optionally, learn more about providing external access:
-    * [More about Deployments](/docs/concepts/workloads/controllers/deployment/).
-    * [More about Services](/docs/concepts/services-networking/service/).
-    * [Learn more about Ingress](/docs/concepts/services-networking/ingress/).
+* [Tools for Monitoring Compute, Storage, and Network Resources](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+* [Core metrics pipeline](/docs/tasks/debug-application-cluster/core-metrics-pipeline/)
+  * [Metrics](/docs/concepts/cluster-administration/controller-metrics/)
 
-You'll also want to think about storage. Kubernetes provides different types of storage for different storage needs:
-
-* A Volume lets you define storage for your cluster that is tied to the lifecycle of a Pod. It is therefore more persistent than container storage. Learn [how to configure volume storage](/docs/tasks/configure-pod-container/configure-volume-storage/), or [read more about about volume storage](/docs/concepts/storage/volumes/).
-* A PersistentVolume and PersistentVolumeClaim let you define storage at the cluster level. Typically a cluster administrator defines the PersistentVolume objects for the cluster, and cluster users (application developers, you) define the PersistentVolumeClaim objects that your application requires. Learn [how to set up persistent storage for your cluster](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/) or [read more about persistent volumes](/docs/concepts/storage/persistent-volumes/).
-
-Labels let you specify identifying information for Kubernetes objects that you define, such as pods. This information is entirely user-defined, and is used to sort and select sets of objects.
-
-* When you [create a basic nginx Deployment](/docs/tasks/run-application/run-stateless-application-deployment/), you specify the `app: nginx` label as part of the template metadata. The `matchLabels` selector then specifies this label as part of the spec.
-* [More about labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
-* You also specify labels to customize your cluster, for example by [assigning pods to nodes](/docs/concepts/configuration/assign-pod-node/).
-
-To provide configuration data for your application, you can specify Kubernetes environment variables as part of the container definition in your Deployment manifest. But to manage configuration data without having to rebuild your container or modify your Deployment, you can also [use a ConfigMap](/docs/tasks/configure-pod-container/configmap/) for non-confidential data, or [a Secret](/docs/tasks/inject-data-application/distribute-credentials-secure/) for confidential data.
-
-Note that ingress provides networking between your cluster and the outside world. A production cluster should also configure networking between containers and between nodes, which is [defined in a network policy](/docs/tasks/administer-cluster/declare-network-policy/).
-
-## How Kubernetes works: an introduction
+...
+## Another section here...
 
 To work with Kubernetes, you describe your cluster's desired state in terms of Kubernetes API objects. Cluster state includes but is not limited to the following information:
 
