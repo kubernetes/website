@@ -9,10 +9,8 @@ track: "USERS › CLUSTER OPERATOR › FOUNDATIONAL"
 ---
 
 {% capture overview %}
-If you're an application developer looking to get started with Kubernetes, this page and its linked topics introduce you to foundational concepts and tasks. The focus is on a development workflow -- check out other user journeys to learn about managing production clusters, or providing high availability (HA) for critical application deployments.
-
-In a production workflow, it's common to assign the tasks and responsibilities of setting up and maintaining a Kubernetes cluster to the distinct roles of cluster administrator and cluster user. These roles might or might not be assigned to different individuals or teams. As an application developer, you don't need to learn all the intricacies of cluster administration. But you do need to learn the basics, and to understand how certain aspects of administering a cluster can affect development, testing, and deployment at the application level.
-
+If you want to learn how to get started managing and operating a Kubernetes cluster, this page and the linked topics will introduce you to foundational concepts and tasks.
+The concepts introduce you to a kubernetes cluster and key concepts to understand and manage it, favoring focusing on the cluster itself over the software running within the cluster.
 {% endcapture %}
 
 <!-- Foundational:
@@ -22,6 +20,44 @@ Metrics -->
 
 
 {% capture body %}
+## Kubernetes Clusters
+
+If you have not already done so, start your understanding by reading through [What is Kubernetes?](/docs/concepts/overview/what-is-kubernetes/), which will introduce you to a number of basic concepts and terms. 
+
+Kubernetes is quite flexible, and can a cluster can be run in a wide variety of places. You can interact with Kubernetes entirely on your own laptop or local development machine with it running within a virtual machine. Kubernetes can also run on virtual machines hosted either locally or in a cloud provider, and you can run a kubernetes cluster on bare metal. 
+
+A cluster is made up of one or more [Nodes](/docs/concepts/architecture/nodes/); where a node is a physical or virtual machine. If there are more than one node in your cluster, then each of the nodes are connected with a [cluster network](/docs/concepts/cluster-administration/networking/). Regardless of how many nodes, all Kubernetes clusters will generally have the same components, which are described in [Kubernetes Components](/docs/concepts/overview/components).
+
+
+
+
+
+ - label: Pod Overview
+    icon: fa-book
+    url: /docs/concepts/workloads/pods/pod-overview/
+ - label: Services
+    icon: fa-book
+    url: /docs/concepts/services-networking/service/
+  - label: Deployments
+    icon: fa-book
+    url: /docs/concepts/workloads/controllers/deployment/
+  - label: Labels and Selectors
+    icon: fa-book
+    url: /docs/concepts/overview/working-with-objects/labels/
+  - label: Annotations
+    icon: fa-book
+    url: /docs/concepts/overview/working-with-objects/annotations/
+  - label: ConfigMaps
+    icon: fa-book
+    url: /docs/tasks/configure-pod-container/configmap/
+  - label: Secrets
+    icon: fa-book
+    url: /docs/concepts/configuration/secret/
+
+  - label: Metrics
+    icon: fa-book
+    url: /docs/concepts/cluster-administration/controller-metrics/
+
 ## Set up Kubernetes
 
 One good way to learn Kubernetes basics is with Minikube, which lets you create a simple single-node cluster with all core Kubernetes components. If you install locally, you may find that your cluster is sufficient for local application development. Installing Minikube locally is also a good idea if you want to continue exploring in a persistent environment that you can come back to and change.
