@@ -20,28 +20,6 @@ Metrics -->
 
 
 <--
- - label: Pod Overview
-    icon: fa-book
-    url: /docs/concepts/workloads/pods/pod-overview/
- - label: Services
-    icon: fa-book
-    url: /docs/concepts/services-networking/service/
-  - label: Deployments
-    icon: fa-book
-    url: /docs/concepts/workloads/controllers/deployment/
-  - label: Labels and Selectors
-    icon: fa-book
-    url: /docs/concepts/overview/working-with-objects/labels/
-  - label: Annotations
-    icon: fa-book
-    url: /docs/concepts/overview/working-with-objects/annotations/
-  - label: ConfigMaps
-    icon: fa-book
-    url: /docs/tasks/configure-pod-container/configmap/
-  - label: Secrets
-    icon: fa-book
-    url: /docs/concepts/configuration/secret/
-
   - label: Metrics
     icon: fa-book
     url: /docs/concepts/cluster-administration/controller-metrics/
@@ -56,26 +34,32 @@ Kubernetes is quite flexible, and can a cluster can be run in a wide variety of 
 
 A cluster is made up of one or more [Nodes](/docs/concepts/architecture/nodes/); where a node is a physical or virtual machine. If there are more than one node in your cluster, then each of the nodes are connected with a [cluster network](/docs/concepts/cluster-administration/networking/). Regardless of how many nodes, all Kubernetes clusters will generally have the same components, which are described in [Kubernetes Components](/docs/concepts/overview/components).
 
-## Set up Kubernetes
+## Set up Kubernetes and learn the basic concepts
 
-One good way to learn Kubernetes basics is with Minikube, which lets you create a simple single-node cluster with all core Kubernetes components. If you install locally, you may find that your cluster is sufficient for local application development. Installing Minikube locally is also a good idea if you want to continue exploring in a persistent environment that you can come back to and change.
+A good way to become familiar with how to manage and operate a Kubernetes cluster is by setting them up. 
+One of the most compact ways to experiment with a cluster is [Installing and using Minikube](/docs/tasks/tools/install-minikube/).
+Minikube is a command line tool for setting up and running a single-node cluster within a virtual machine on your local laptop or development computer. Minikube is even available through your browser at the [Katacoda Kubernetes Playground](https://www.katacoda.com/courses/kubernetes/playground). 
+Katacoda provides a browser-based connection to a single-node cluster, using minikube behind the scenes, to support a number of tutorials to explore Kubernetes. You can also leverage the web-based [Play with Kubernetes](http://labs.play-with-k8s.com/) to the same ends - a temporary cluster to play with in on the web.
 
-If you're brand new to Kubernetes, you also might want to try out the [Katacoda Kubernetes Playground](https://www.katacoda.com/courses/kubernetes/playground), which provides a set of web-based tutorials complete with their own Kubernetes environment.
+You interact with Kubernetes either through a dashboard, an API, or using a command-line tool (such as `kubectl`) that interacts with the Kubernetes API. 
+The Kubernetes API exposes a number of resources that provide the building blocks and abstractions that are used to run software on Kubernetes.
+Learn more about these resources at [Understanding Kubernetes Objects](/docs/concepts/overview/kubernetes-objects)
+These resources are covered in a number of articles within the Kubernetes documentation.
 
-If you want to explore further without setting up a local environment, the web-based [Play with Kubernetes](http://labs.play-with-k8s.com/) gives you a less structured Kubernetes environment on the web.
+* [Pod Overview](/docs/concepts/workloads/pods/pod-overview/)
+* [Namespaces](/docs/concepts/overview/working-with-objects/namespaces/)
+* [Services](/docs/concepts/services-networking/service/)
+* [Deployments](/docs/concepts/workloads/controllers/deployment/)
+* [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/)
+* [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
+* [ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
+* [Secrets](/docs/concepts/configuration/secret/)
 
-Before you install Minikube:
+As a cluster operator you may not need to use all these resources although you should be familiar with them to understand how the cluster is working and being used.
 
-* [Install a hypervisor if you don't have one already](/docs/tasks/tools/install-minikube/#install-a-hypervisor):
-    * For OS X: xhyve, VirtualBox, or VMWare Fusion
-    * For Linux: VirtualBox or KVM
-    * For Windows: VirtualBox or Hyper-V
-* [Install kubectl, the Kubernetes command-line tool](/docs/tasks/tools/install-kubectl/). Note that when you start Minikube, your kubectl is automatically configured to communicate with the server. You should therefore skip kubectl configuration at this point.
-* (optional) If you plan to run your Minikube cluster as part of a local development environment, consider [installing Docker](/docs/setup/independent/install-kubeadm/#installing-docker). Minikube includes a Docker daemon, but to create and push containers as part of your development workflow, you'll want an independent Docker instance. Note that version 1.12 is recommended for full compatibility with Kubernetes, but a few other versions are tested and known to work.
-
-Now you can [install Minikube](/docs/tasks/tools/install-minikube/).
-
-You can get basic information about your cluster with the command `kubectl get nodes`. And you can [view your cluster's Pods and Nodes](/docs/tutorials/kubernetes-basics/explore-intro/). But to get a good idea of what's really going on, you need to deploy an application to your cluster.
+You can get basic information about your cluster with the command `kubectl get nodes`.
+And you can [view your cluster's Pods and Nodes](/docs/tutorials/kubernetes-basics/explore-intro/). 
+But to get a good idea of what's really going on, you need to deploy an application to your cluster.
 
 ## Deploy, scale, and update an application
 
