@@ -19,19 +19,7 @@ Labels, Selectors, Annotations
 Metrics -->
 
 
-{% capture body %}
-## Kubernetes Clusters
-
-If you have not already done so, start your understanding by reading through [What is Kubernetes?](/docs/concepts/overview/what-is-kubernetes/), which will introduce you to a number of basic concepts and terms. 
-
-Kubernetes is quite flexible, and can a cluster can be run in a wide variety of places. You can interact with Kubernetes entirely on your own laptop or local development machine with it running within a virtual machine. Kubernetes can also run on virtual machines hosted either locally or in a cloud provider, and you can run a kubernetes cluster on bare metal. 
-
-A cluster is made up of one or more [Nodes](/docs/concepts/architecture/nodes/); where a node is a physical or virtual machine. If there are more than one node in your cluster, then each of the nodes are connected with a [cluster network](/docs/concepts/cluster-administration/networking/). Regardless of how many nodes, all Kubernetes clusters will generally have the same components, which are described in [Kubernetes Components](/docs/concepts/overview/components).
-
-
-
-
-
+<--
  - label: Pod Overview
     icon: fa-book
     url: /docs/concepts/workloads/pods/pod-overview/
@@ -57,6 +45,16 @@ A cluster is made up of one or more [Nodes](/docs/concepts/architecture/nodes/);
   - label: Metrics
     icon: fa-book
     url: /docs/concepts/cluster-administration/controller-metrics/
+-->
+
+{% capture body %}
+## Kubernetes Clusters
+
+If you have not already done so, start your understanding by reading through [What is Kubernetes?](/docs/concepts/overview/what-is-kubernetes/), which will introduce you to a number of basic concepts and terms. 
+
+Kubernetes is quite flexible, and can a cluster can be run in a wide variety of places. You can interact with Kubernetes entirely on your own laptop or local development machine with it running within a virtual machine. Kubernetes can also run on virtual machines hosted either locally or in a cloud provider, and you can run a kubernetes cluster on bare metal. 
+
+A cluster is made up of one or more [Nodes](/docs/concepts/architecture/nodes/); where a node is a physical or virtual machine. If there are more than one node in your cluster, then each of the nodes are connected with a [cluster network](/docs/concepts/cluster-administration/networking/). Regardless of how many nodes, all Kubernetes clusters will generally have the same components, which are described in [Kubernetes Components](/docs/concepts/overview/components).
 
 ## Set up Kubernetes
 
