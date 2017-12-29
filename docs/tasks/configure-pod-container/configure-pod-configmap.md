@@ -143,6 +143,75 @@ game.properties:        158 bytes
 ui.properties:          83 bytes
 ```
 
+You can pass in the `--from-env-file` to create a ConfigMap from an env-file (i.e. a Docker .env file), for example:
+```shell
+# Env-files contain a list of environment variables.
+# These syntax rules apply:
+#   Each line in an env file has to be in VAR=VAL format.
+#   Lines beginning with # (i.e. comments) are ignored.
+#   Blank lines are ignored.
+#   There is no special handling of quotation marks (i.e. they will be part of the ConfigMap value)).
+
+
+cat docs/tasks/configure-pod-container/game-env-file.properties
+enemies=aliens
+lives=3
+allowed="true"
+
+# This comment and the empty line above it are ignored
+```
+
+```shell
+kubectl create configmap game-config-env-file \
+        --from-env-file=docs/tasks/configure-pod-container/game-env-file.properties
+```
+
+would produce the following ConfigMap:
+
+```shell
+kubectl get configmap game-config-env-file -o yaml
+apiVersion: v1
+data:
+  allowed: '"true"'
+  enemies: aliens
+  lives: "3"
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2017-12-27T18:36:28Z
+  name: game-config-env-file
+  namespace: default
+  resourceVersion: "809965"
+  selfLink: /api/v1/namespaces/default/configmaps/game-config-env-file
+  uid: d9d1ca5b-eb34-11e7-887b-42010a8002b8
+```
+
+Note that when passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used:
+
+```shell
+kubectl create configmap config-multi-env-files \
+        --from-env-file=docs/tasks/configure-pod-container/game-env-file.properties \
+        --from-env-file=docs/tasks/configure-pod-container/ui-env-file.properties
+```
+
+would produce the following ConfigMap:
+
+```
+kubectl get configmap config-multi-env-files -o yaml
+apiVersion: v1
+data:
+  color: purple
+  how: fairlyNice
+  textmode: "true"
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2017-12-27T18:38:34Z
+  name: config-multi-env-files
+  namespace: default
+  resourceVersion: "810136"
+  selfLink: /api/v1/namespaces/default/configmaps/config-multi-env-files
+  uid: 252c4572-eb35-11e7-887b-42010a8002b8
+```
+
 #### Define the key to use when creating a ConfigMap from a file
 
 You can define a key other than the file name to use in the `data` section of your ConfigMap when using the `--from-file` argument:
