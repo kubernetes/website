@@ -103,7 +103,7 @@ the background.
 ### Setting the cascading deletion policy
 
 To control the cascading deletion policy, set the `deleteOptions.propagationPolicy`
-field on your owner object. Possible values include "Orphan",
+field on the `deleteOptions` argument when deleting an Object. Possible values include "Orphan",
 "Foreground", or "Background".
 
 Prior to Kubernetes 1.9, the default garbage collection policy for many controller resources was `orphan`.
