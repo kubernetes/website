@@ -131,7 +131,7 @@ The [official NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plu
 has the following requirements:
 - Kubernetes nodes have to be pre-installed with NVIDIA drivers.
 - Kubernetes nodes have to be pre-installed with [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker)
-- nvidia-container-runtime must be configured as the [default runtime](https://github.com/NVIDIA/nvidia-docker/wiki/Advanced-topics#default-runtime)
+- nvidia-container-runtime must be configured as the [default runtime](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)
   for docker instead of runc.
 - NVIDIA drivers ~= 361.93
 
