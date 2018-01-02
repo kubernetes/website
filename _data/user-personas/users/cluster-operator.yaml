@@ -2,16 +2,16 @@ id: cluster-operator
 name: Cluster Operator
 index: 2
 foundational:
-  - label: Kubernetes Overview
+  - label: Get an overview of Kubernetes
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/foundational#section-1
-  - label: Kubernetes Basics
+  - label: Learn about Kubernetes basics
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/foundational#section-2
-  - label: Getting information about your cluster
+  - label: Get information about my cluster
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/foundational#section-3
-  - label: Additional Resources
+  - label: Additional introductory resources
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/foundational#section-4
 intermediate:

@@ -23,7 +23,7 @@ Metrics
 
 {% capture body %}
 
-## Kubernetes Overview
+## Get an overview of Kubernetes
 
 If you have not already done so, start your understanding by reading through [What is Kubernetes?](/docs/concepts/overview/what-is-kubernetes/), which will introduce you to a number of basic concepts and terms.
 
@@ -31,7 +31,7 @@ Kubernetes is quite flexible, and can a cluster can be run in a wide variety of 
 
 A cluster is made up of one or more [Nodes](/docs/concepts/architecture/nodes/); where a node is a physical or virtual machine. If there are more than one node in your cluster, then each of the nodes are connected with a [cluster network](/docs/concepts/cluster-administration/networking/). Regardless of how many nodes, all Kubernetes clusters will generally have the same components, which are described in [Kubernetes Components](/docs/concepts/overview/components).
 
-## Kubernetes Basics
+## Learn about Kubernetes basics
 
 A good way to become familiar with how to manage and operate a Kubernetes cluster is by setting them up.
 One of the most compact ways to experiment with a cluster is [Installing and using Minikube](/docs/tasks/tools/install-minikube/).
@@ -63,7 +63,7 @@ As a cluster operator you may not need to use all these resources although you s
 There are a number of additional resources that you should be aware of, some listed under [Intermediate Resources](/docs/user-journeys/cluster-operator/intermediate#section-1).
 you should also be familiar with [how to manage kubernetes resources](/docs/concepts/cluster-administration/manage-deployment/).
 
-## Getting information about your cluster
+## Get information about my cluster
 
 You can [access clusters using the cluster API](/docs/tasks/administer-cluster/access-cluster-api/).
 If you are not already familiar, run through the tutorial to [view your cluster's Pods and Nodes](/docs/tutorials/kubernetes-basics/explore-intro/).
@@ -78,7 +78,7 @@ Some additional resources for getting information about your cluster and how it 
 * [Core metrics pipeline](/docs/tasks/debug-application-cluster/core-metrics-pipeline/)
   * [Metrics](/docs/concepts/cluster-administration/controller-metrics/)
 
-## Additional Resources
+## Additional introductory resources
 
 ### Tutorials
 
