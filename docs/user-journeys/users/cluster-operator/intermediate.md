@@ -14,6 +14,22 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id felis non eni
 
 {% endcapture %}
 
+<!--
+Intermediate
+External services & Endpoints
+Autoscaling, taints, and tolerations to limit/expose resources in a cluster
+Ingress management
+External service discovery mechanisms/service broker
+Stateful sets, operators, Persistent Volume Claims
+Ancillary tooling to support log capture
+? fluentd, logstash, elastic
+Ancillary tooling to support metrics capture, trending, and monitoring
+? prometheus, influxdb, kibana, datadog/external monitoring
+Ancillary tooling to support distributed performance analysis
+? Opentracing, jaeger, zipkin
+RBAC & Admission Controller
+-->
+
 {% capture body %}
 
 ## Intermediate resources

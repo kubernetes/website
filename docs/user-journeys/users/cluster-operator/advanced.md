@@ -14,6 +14,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id felis non eni
 
 {% endcapture %}
 
+<!--
+Advanced
+Federated clusters
+Multi-cluster access
+Custom controllers, custom resource definitions
+Network-level service management (ISTIO)
+-->
 
 {% capture body %}
 ## Setup federated clusters
