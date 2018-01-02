@@ -473,7 +473,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"hello-apparmor-pod": {&api.Pod{}},
 			"my-scheduler":       {&extensions.Deployment{}},
 		},
-		"../docs/tutorials/object-management-kubectl": {
+		"../docs/concepts/overview/object-management-kubectl": {
 			"simple_deployment": {&extensions.Deployment{}},
 			"update_deployment": {&extensions.Deployment{}},
 		},

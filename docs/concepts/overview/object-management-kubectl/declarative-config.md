@@ -20,7 +20,7 @@ The `kubectl` tool supports three kinds of object management:
 * Imperative object configuration
 * Declarative object configuration
 
-See [Kubernetes Object Management](/docs/tutorials/object-management-kubectl/object-management/)
+See [Kubernetes Object Management](/docs/concepts/overview/object-management-kubectl/overview/)
 for a discussion of the advantages and disadvantage of each kind of object management.
 
 ## Before you begin
@@ -29,8 +29,8 @@ Declarative object configuration requires a firm understanding of
 the Kubernetes object definitions and configuration. Read and complete
 the following documents if you have not already:
 
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
-- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/overview/object-management-kubectl/imperative-config/)
 
 Following are definitions for terms used in this document:
 
@@ -61,18 +61,18 @@ configuration file that was used to create the object.
 
 Here's an example of an object configuration file:
 
-{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/simple_deployment.yaml" %}
+{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml" %}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -129,12 +129,12 @@ kubectl apply -f <directory>/
 
 Here's an example configuration file:
 
-{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/simple_deployment.yaml" %}
+{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml" %}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml
 ```
 
 **Note:** For purposes of illustration, the preceding command refers to a single
@@ -143,7 +143,7 @@ configuration file instead of a directory.
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -194,7 +194,7 @@ kubectl scale deployment/nginx-deployment --replicas=2
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `replicas` field has been set to 2, and the `last-applied-configuration`
@@ -237,18 +237,18 @@ spec:
 Update the `simple_deployment.yaml` configuration file to change the image from
 `nginx:1.7.9` to `nginx:1.11.9`, and delete the `minReadySeconds` field:
 
-{% include code.html language="yaml" file="update_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/update_deployment.yaml" %}
+{% include code.html language="yaml" file="update_deployment.yaml" ghlink="/docs/concepts/overview/object-management-kubectl/update_deployment.yaml" %}
 
 Apply the changes made to the configuration file:
 
 ```shell
-kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/update_deployment.yaml
+kubectl apply -f https://k8s.io/docs/concepts/overview/object-management-kubectl/update_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```
-kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows the following changes to the live configuration:
@@ -383,7 +383,7 @@ to calculate which fields should be deleted or set:
 
 Here's an example. Suppose this is the configuration file for a Deployment object:
 
-{% include code.html language="yaml" file="update_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/update_deployment.yaml" %}
+{% include code.html language="yaml" file="update_deployment.yaml" ghlink="/docs/concepts/overview/object-management-kubectl/update_deployment.yaml" %}
 
 Also, suppose this is the live configuration for the same Deployment object:
 
@@ -668,18 +668,18 @@ not specified when the object is created.
 
 Here's a configuration file for a Deployment. The file does not specify `strategy` or `selector`:
 
-{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/simple_deployment.yaml" %}
+{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml" %}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the API server set several fields to default values in the live
@@ -942,12 +942,12 @@ template:
 
 * Prior to Kubernetes 1.6, `kubectl apply` did not support operating on objects stored in a
   [custom resource](/docs/concepts/api-extension/custom-resources/).
-  For these cluster versions, you should instead use [imperative object configuration](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/).
+  For these cluster versions, you should instead use [imperative object configuration](/docs/concepts/overview/object-management-kubectl/imperative-config/).
 {% endcapture %}
 
 {% capture whatsnext %}
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
-- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/overview/object-management-kubectl/imperative-config/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/{{page.version}}/)
 - [Kubernetes API Reference](/docs/api-reference/{{page.version}}/)
 {% endcapture %}
