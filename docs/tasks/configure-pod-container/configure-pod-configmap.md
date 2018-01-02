@@ -96,7 +96,7 @@ metadata:
   name: game-config
   namespace: default
   resourceVersion: "516"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config-2
+  selfLink: /api/v1/namespaces/default/configmaps/game-config
   uid: b4952dc3-d670-11e5-8cd0-68f728db1985
 ```
 
