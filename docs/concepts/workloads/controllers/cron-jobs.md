@@ -37,7 +37,8 @@ A typical use case is:
 You need a working Kubernetes cluster at version >= 1.8 (for CronJob). For previous versions of cluster (< 1.8)
 you need to explicitly enable `batch/v2alpha1` API by passing `--runtime-config=batch/v2alpha1=true` to
 the API server (see [Turn on or off an API version for your cluster](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
-for more).
+for more), and then restart both the API server and the controller manager
+component.
 
 ## Creating a Cron Job
 
