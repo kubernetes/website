@@ -198,10 +198,10 @@ calls `netlink` interface to create ipvs rules accordingly and syncs ipvs rules 
 consistent with the expectation. When `service` is accessed, traffic will
 be redirected to one of the backend `pod`s.
 
-Similar to iptables, Ipvs is based on netfilter hook function, but use hash
-table as the underlying data structure and work in the kernel space.
-That means ipvs redirects traffic can be much faster, and have much
-better performance when sync proxy rules. Furthermore, ipvs provides more
+Similar to iptables, Ipvs is based on netfilter hook function, but uses hash
+table as the underlying data structure and works in the kernel space.
+That means ipvs redirects traffic much faster, and has much
+better performance when syncing proxy rules. Furthermore, ipvs provides more
 options for load balancing algorithm, such as:
 
 - rr: round-robin
@@ -211,7 +211,7 @@ options for load balancing algorithm, such as:
 - sed: shortest expected delay
 - nq: never queue
 
-**Note:** ipvs mode assumed IPVS kernel modules are installed on the node
+**Note:** ipvs mode assumes IPVS kernel modules are installed on the node
 before running kube-proxy. When kube-proxy starts with ipvs proxy mode,
 kube-proxy would validate if IPVS modules are installed on the node, if
 it's not installed kube-proxy will fall back to iptables proxy mode.
