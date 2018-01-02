@@ -1,7 +1,7 @@
 ---
 approvers:
 - smarterclayton
-title: Encrypting data at rest
+title: Encrypting Secret Data at Rest
 ---
 
 {% capture overview %}
