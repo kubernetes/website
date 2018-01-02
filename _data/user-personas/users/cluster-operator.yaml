@@ -2,19 +2,31 @@ id: cluster-operator
 name: Cluster Operator
 index: 2
 foundational:
-  - label: "c1: foundational stuff"
-    url: "#"
-  - label: "c2: foundational stuff"
-    url: "#"
-  - label: "c3: foundational stuff"
-    url: "#"
+  - label: Kubernetes Overview
+    icon: fa-book
+    url: /docs/user-journeys/users/cluster-operator/foundational#section-1
+  - label: Kubernetes Basics
+    icon: fa-book
+    url: /docs/user-journeys/users/cluster-operator/foundational#section-2
+  - label: Getting information about your cluster
+    icon: fa-book
+    url: /docs/user-journeys/users/cluster-operator/foundational#section-3
+  - label: Additional Resources
+    icon: fa-book
+    url: /docs/user-journeys/users/cluster-operator/foundational#section-4
 intermediate:
-  - label: "c1: intermediate stuff"
-    url: "#"
-  - label: "c2: intermediate stuff"
-    url: "#"
-  - label: "c3: intermediate stuff"
-    url: "#"
+  - label: "Intermediate Resources"
+    icon: fa-book
+    url: /docs/user-journeys/users/cluster-operator/intermediate#section-1
+  - label: "..."
+    icon: fa-book
+    url: /docs/user-journeys/users/cluster-operator/intermediate#section-2
+  - label: "..."
+    icon: fa-book
+    url: /docs/user-journeys/users/cluster-operator/intermediate#section-3
+  - label: "Additional Resources"
+    icon: fa-book
+    url: /docs/user-journeys/users/cluster-operator/intermediate#section-4
 advanced:
   - label: "c1: advanced stuff"
     url: "#"

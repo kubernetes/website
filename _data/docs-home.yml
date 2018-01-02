@@ -10,7 +10,12 @@ toc:
       - /docs/user-journeys/users/application-developer/foundational.md
       - /docs/user-journeys/users/application-developer/intermediate.md
       - /docs/user-journeys/users/application-developer/advanced.md
-
+  section:
+    - title: Cluster Operator
+      section:
+      - /docs/user-journeys/users/cluster-operator/foundational.md
+      - /docs/user-journeys/users/cluster-operator/intermediate.md
+      - /docs/user-journeys/users/cluster-operator/advanced.md
 
 - title: Release Notes
   path: https://git.k8s.io/kubernetes/CHANGELOG.md
