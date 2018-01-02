@@ -204,7 +204,7 @@ From within a Pod, the recommended ways to connect to the Kubernetes API are:
     as the [command](/docs/tasks/inject-data-application/define-command-argument-container/)
     of a new sidecar container in the Pod. This way, `kubectl proxy` will authenticate
     to the API and expose it on the `localhost` interface of the Pod, so that other containers
-    in the Pod can use it directly.
+    in the Pod can use it directly. See this [example of using kubectl proxy in a pod](https://github.com/kubernetes/examples/tree/master/staging/kubectl-container/).
 
 In each case, the service account credentials of the Pod are used to communicate
 securely with the API server.
