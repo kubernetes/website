@@ -332,7 +332,7 @@ please see [here](https://kubernetes.io/docs/concepts/cluster-administration/net
 
 The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
 
-**Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required.
+**Note:** Weave Net works on `amd64`, `arm`, `arm64` and `ppc64le` without any extra action required.
 Weave Net sets hairpin mode by default. This allows Pods to access themselves via their Service IP address
 if they don't know their PodIP.
 
