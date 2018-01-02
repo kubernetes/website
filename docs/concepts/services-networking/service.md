@@ -193,10 +193,10 @@ having working [readiness probes](/docs/tasks/configure-pod-container/configure-
 {% assign for_k8s_version="v1.9" %}{% include feature-state-beta.md %}
 
 In this mode, kube-proxy watches Kubernetes `services` and `endpoints`,
-call `netlink` interface create ipvs rules accordingly and sync ipvs rules with Kubernetes
+calls `netlink` interface to create ipvs rules accordingly and syncs ipvs rules with Kubernetes
 `services` and `endpoints`  periodically, to make sure ipvs status is
-consistent with the expectation. When access the `service`, traffic will
-be redirect to one of the backend `pod`.
+consistent with the expectation. When `service` is accessed, traffic will
+be redirected to one of the backend `pod`s.
 
 Similar to iptables, Ipvs is based on netfilter hook function, but use hash
 table as the underlying data structure and work in the kernel space.
