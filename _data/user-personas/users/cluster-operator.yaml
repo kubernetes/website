@@ -11,31 +11,22 @@ foundational:
   - label: Getting information about your cluster
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/foundational#section-3
+  - label: Additional Resources
+    icon: fa-book
+    url: /docs/user-journeys/users/cluster-operator/foundational#section-4
 intermediate:
-  - label: "Managing Resources"
-    url: /docs/concepts/cluster-administration/manage-deployment/
-  - label: "Ingress"
-    url: /docs/concepts/services-networking/ingress/
-  - label: "Taints and Tolerations"
-    url: /docs/concepts/configuration/taint-and-toleration/
-  - label: "Pods and Priority"
-    url: /docs/concepts/configuration/pod-priority-preemption/
-  - label: "Volumes"
-    url: /docs/concepts/storage/volumes/
-  - label: "Persistent Volumes"
-    url: /docs/concepts/storage/persistent-volumes/
-  - label: "Pod Lifecycle"
-    url: /docs/concepts/workloads/pods/pod-lifecycle/
-  - label: "Initialization Containers"
-    url: /docs/concepts/workloads/pods/init-containers/
-  - label: "Stateful Sets"
-    url: /docs/concepts/workloads/controllers/statefulset/
-  - label: "Daemon Sets"
-    url: /docs/concepts/workloads/controllers/daemonset/
-  - label: "Jobs"
-    url: /docs/concepts/workloads/controllers/jobs-run-to-completion/
-  - label: "CronJobs"
-    url: /docs/concepts/workloads/controllers/cron-jobs/
+  - label: "Intermediate Resources"
+    icon: fa-book
+    url: /docs/user-journeys/users/cluster-operator/intermediate#section-1
+  - label: "..."
+    icon: fa-book
+    url: /docs/user-journeys/users/cluster-operator/intermediate#section-2
+  - label: "..."
+    icon: fa-book
+    url: /docs/user-journeys/users/cluster-operator/intermediate#section-3
+  - label: "Additional Resources"
+    icon: fa-book
+    url: /docs/user-journeys/users/cluster-operator/intermediate#section-4
 advanced:
   - label: "c1: advanced stuff"
     url: "#"
