@@ -1,0 +1,14 @@
+repos:
+- name: kubernetes
+  remote: https://github.com/kubernetes/kubernetes.git
+  branch: release-1.9
+  files:
+  - src: docs/admin/cloud-controller-manager.md
+    dst: docs/reference/generated/cloud-controller-manager.md
+#- name: federation
+#  remote: https://github.com/kubernetes/federation.git
+#  # Change this to a release branch when federation has release branches.
+#  branch: master
+#  files:
+#  - src: a/foo.md
+#    dst: b/foo.md
