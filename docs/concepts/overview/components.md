@@ -58,8 +58,8 @@ The following controllers have cloud provider dependencies:
 
 ### kube-scheduler
 
-[kube-scheduler](/docs/admin/kube-scheduler/) watches newly created pods that have no node assigned, and
-selects a node for them to run on.
+[kube-scheduler](/docs/admin/kube-scheduler/) watches newly created pods that
+are not assigned to any node, and selects a node for them to run on.
 
 ### addons
 

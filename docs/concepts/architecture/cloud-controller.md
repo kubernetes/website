@@ -97,7 +97,7 @@ The Node controller contains the cloud-dependent functionality of the kubelet. P
 
 In this new model, the kubelet initializes a node without cloud-specific information. However, it adds a taint to the newly created node that makes the node unschedulable until the CCM initializes the node with cloud-specific information, and then removes this taint. 
 
-### 3. Kubernets API server
+### 3. Kubernetes API server
 
 The PersistentVolumeLabels controller moves the cloud-dependent functionality of the Kubernetes API server to the CCM as described in the preceding sections.
 
@@ -174,7 +174,7 @@ v1/ServiceAccount:
 The RBAC ClusterRole for the CCM looks like this:
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cloud-controller-manager

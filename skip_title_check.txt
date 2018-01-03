@@ -5,12 +5,6 @@ docs/reference/generated/federation/v1/definitions.html
 docs/reference/generated/federation/extensions/v1beta1/operations.html
 docs/reference/generated/federation/extensions/v1beta1/definitions.html
 docs/sitemap.md
-docs/user-guide/configmap/README.md
-docs/user-guide/downward-api/README.md
-docs/user-guide/pods/_viewing-a-pod.md
-docs/user-guide/simple-yaml.md
-docs/user-guide/update-demo/images/kitten/README.md
-docs/user-guide/update-demo/images/nautilus/README.md
 docs/reference/setup-tools/kubeadm/generated/README.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha.md
