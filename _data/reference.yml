@@ -30,6 +30,7 @@ toc:
   section:
   - title: v1.9
     path: /docs/reference/generated/kubernetes-api/v1.9/
+  - docs/reference/api.md
   - docs/reference/labels-annotations-taints.md
   - title: OpenAPI and Swagger
     section:
