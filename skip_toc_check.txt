@@ -1,24 +1,10 @@
 # Put files you want to skip table of contents entry check here:
-docs/reference/setup-tools/kubeadm/generated/kubelet-authentication-authorization.md
-docs/reference/setup-tools/kubeadm/generated/kubelet-tls-bootstrapping.md
-docs/api-reference/labels-annotations-taints.md
 docs/concepts/example-concept-template.md
-docs/contribute/README.md
 docs/reference/generated/README.md
-docs/reference/deprecation-policy.md
 docs/search.md
 docs/sitemap.md
 docs/tasks/example-task-template.md
 docs/tutorials/example-tutorial-template.md
-docs/user-guide/configmap/README.md
-docs/user-guide/downward-api/README.md
-docs/user-guide/liveness/image/README.md
-docs/user-guide/pods/_viewing-a-pod.md
-docs/user-guide/simple-yaml.md
-docs/user-guide/update-demo/images/kitten/README.md
-docs/user-guide/update-demo/images/nautilus/README.md
-docs/user-guide/walkthrough/index.md
-docs/user-guide/walkthrough/k8s201.md
 docs/reference/setup-tools/kubeadm/generated/README.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha.md
