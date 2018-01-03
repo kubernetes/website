@@ -152,7 +152,7 @@ $ kubectl create -f docs/admin/namespaces/namespace-dev.json
 And then let's create the production namespace using kubectl.
 
 ```shell
-$ kubectl create -f docs/admin/namespaces/namespace-prod.json
+$ kubectl create -f docs/tasks/administer-cluster/namespace-prod.json
 ```
 
 To be sure things are right, list all of the namespaces in our cluster.

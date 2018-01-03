@@ -62,3 +62,13 @@ text     | the plain text     | kind is {.kind}    | kind is List
 ?()      | filter             | {.users[?(@.name=="e2e")].user.password} | secret
 range, end | iterate list | {range .items[*]}[{.metadata.name}, {.status.capacity}] {end} | [127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]
 ""       | quote interpreted string | {range .items[*]}{.metadata.name}{"\t"}{end} | 127.0.0.1    127.0.0.2
+
+Below are some examples using jsonpath:
+
+```shell
+$ kubectl get pods -o json
+$ kubectl get pods -o=jsonpath='{@}'
+$ kubectl get pods -o=jsonpath='{.items[0]}'
+$ kubectl get pods -o=jsonpath='{.items[0].metadata.name}'
+$ kubectl get pods -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.startTime}{"\n"}{end}'
+```

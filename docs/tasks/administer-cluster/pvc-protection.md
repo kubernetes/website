@@ -94,7 +94,7 @@ metadata:
 spec:
   containers:
   - name: test-pod
-    image: gcr.io/google_containers/busybox:1.24
+    image: k8s.gcr.io/busybox:1.24
     command:
       - "/bin/sh"
     args:

@@ -33,7 +33,7 @@ Kubernetes 集群中运行的应用通过抽象的 Service 查找彼此，相互
 你必须拥有一个正常工作的 Kubernetes 1.5 集群，用来运行本文中的示例。该示例使用一个简单的 nginx webserver 回送它接收到的请求的 HTTP 头中的源 IP 地址。你可以像下面这样创建它：
 
 ```console
-$ kubectl run source-ip-app --image=gcr.io/google_containers/echoserver:1.4
+$ kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
 deployment "source-ip-app" created
 ```
 

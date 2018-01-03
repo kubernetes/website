@@ -35,7 +35,7 @@ HighAvailability=true|false (ALPHA - default=false)
 SelfHosting=true|false (BETA - default=false)
 StoreCertsInSecrets=true|false (ALPHA - default=false)
 SupportIPVSProxyMode=true|false (ALPHA - default=false)
-      --image-repository string              Choose a container registry to pull control plane images from (default "gcr.io/google_containers")
+      --image-repository string              Choose a container registry to pull control plane images from (default "k8s.gcr.io")
       --kubeconfig string                    The KubeConfig file to use when talking to the cluster (default "/etc/kubernetes/admin.conf")
       --kubernetes-version string            Choose a specific Kubernetes version for the control plane (default "stable-1.8")
       --pod-network-cidr string              The range of IP addresses used for the Pod network

@@ -32,7 +32,9 @@ Containers within a pod share an IP address and port space, and
 can find each other via `localhost`. They can also communicate with each
 other using standard inter-process communications like SystemV semaphores or
 POSIX shared memory.  Containers in different pods have distinct IP addresses
-and can not communicate by IPC.
+and can not communicate by IPC without
+[special configuration](/docs/concepts/policy/pod-security-policy/).
+These containers usually communicate with each other via Pod IP addresses.
 
 Applications within a pod also have access to shared volumes, which are defined
 as part of a pod and are made available to be mounted into each application's
