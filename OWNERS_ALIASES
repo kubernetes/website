@@ -1,0 +1,79 @@
+aliases:
+  sig-api-machinery: #API Server: Annotations, Labels
+    - sig-api-machinery-pr-reviews
+  sig-apps: #Workloads: ConfigMaps, CronJobs, CustomResourceDefinitions, DaemonSets, Deployments, Jobs, Secrets, StatefulSets
+    - sig-apps-pr-reviews
+  sig-architecture:
+    - sig-architecture-pr-reviews
+  sig-auth:
+    - sig-auth-pr-reviews
+  sig-autoscaling:
+    - sig-autoscaling-pr-reviews
+  sig-aws:
+    - justinsb
+    - kris-nova
+    - chrislovecnm
+    - mfburnett
+  sig-azure:
+    - slack
+    - colemickens
+    - jdumars
+  sig-big-data:
+    - sig-big-data-pr-reviews
+  sig-cli: #CLI: kubectl
+    - sig-cli-pr-reviews
+  sig-cluster-lifecycle:
+    - sig-cluster-lifecycle-pr-reviews
+  sig-cluster-ops:
+    - zehicle
+    - jdumars
+  sig-contribex:
+    - sig-contributor-experience-pr-reviews
+  sig-contributor-experience:
+    - sig-contributor-experience-pr-reviews
+  sig-docs:
+    - sig-docs-maintainers
+  sig-federation: #Federation: Federated Clusters
+    - csbell
+  sig-gcp:
+    - sig-gcp-pr-reviews
+  sig-instrumentation:
+    - sig-instrumentation-pr-reviews
+  sig-multicluster:
+    - sig-multicluster-pr-reviews
+  sig-network: #Network: Ingress, Network Policies, Services
+    - sig-network-pr-reviews
+  sig-node: #Node: Containers, Docker, Images, OS images, Pods, Registries
+    - sig-node-pr-reviews
+  sig-onprem:
+    - sig-onprem-pr-reviews
+  sig-openstack:
+    - sig-openstack-pr-reviews
+  sig-pm:
+    - apsinha
+    - idvoretskyi
+    - calebamiles
+  sig-product-management:
+    - apsinha
+    - idvoretskyi
+    - calebamiles
+  sig-release:
+    - sig-release-pr-reviews
+  sig-rktnetes:
+    - calebamiles
+  sig-scalability:
+    - sig-scalability-pr-reviews
+  sig-scheduling: #Sharing: Scheduler
+    - sig-scheduling-pr-reviews
+  sig-service-catalog:
+    - sig-service-catalog-pr-reviews
+  sig-storage: #Storage: Volumes
+    - sig-storage-pr-reviews
+  sig-testing:
+    - sig-testing-pr-reviews
+  sig-ui:
+    - danielromlein
+    - floreks
+  sig-windows:
+    - michmike
+
