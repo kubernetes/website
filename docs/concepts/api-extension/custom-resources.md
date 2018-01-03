@@ -112,7 +112,7 @@ This frees you from writing your own API server to handle the custom resource,
 but the generic nature of the implementation means you have less flexibility than with
 [API server aggregation](#api-server-aggregation).
 
-Refer to the [Custom Controler example, which uses Custom Resources](https://github.com/kubernetes/sample-controller)
+Refer to the [Custom Controller example, which uses Custom Resources](https://github.com/kubernetes/sample-controller)
 for a demonstration of how to register a new custom resource, work with instances of your new resource type,
 and setup a controller to handle events.
 
