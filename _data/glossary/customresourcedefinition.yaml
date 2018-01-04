@@ -1,9 +1,13 @@
-id: Custom Resource Definition
-name: Custom Resource Definition
+id: CustomResourceDefinition
+name: CustomResourceDefinition
+aka: 
+- CRD
+- Formerly Known as ThirdPartyResources (TPR)
 tags:
 - fundamental
 - operation
-full-link: docs/tasks/access-kubernetes-api/migrate-third-party-resource/
+- extension
+full-link: docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/
 short-description: >
   A custom resource definition is the representation of a customization of a particular Kubernetes installation.
 long-description: >
