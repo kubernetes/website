@@ -61,6 +61,7 @@ For cloud controller managers not in Kubernetes core, you can find the respectiv
 
 * [DigitalOcean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [keepalived](https://github.com/munnerz/keepalived-cloud-provider)
+* [Oracle Cloud Infrastructure](https://github.com/oracle/oci-cloud-controller-manager)
 * [Rancher](https://github.com/rancher/rancher-cloud-controller-manager)
 
 For providers already in Kubernetes core, you can run the in-tree cloud controller manager as a Daemonset in your cluster, use the following as a guideline:
