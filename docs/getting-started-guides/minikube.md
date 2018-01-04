@@ -160,7 +160,7 @@ This command also configures your [kubectl](/docs/user-guide/kubectl-overview/) 
 If you are behind a web proxy, you will need to pass this information in e.g. via
 
 ```
-https_proxy=<my proxy> minikube start --docker-env HTTP_PROXY=<my proxy> --docker-env HTTPS_PROXY=<my proxy> --docker-env NO_PROXY=192.168.99.0/24
+https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
 ```
 
 Unfortunately just setting the environment variables will not work.
@@ -325,8 +325,8 @@ To do this, pass the required environment variables as flags during `minikube st
 For example:
 
 ```shell
-$ minikube start --docker-env HTTP_PROXY=http://$YOURPROXY:PORT \
-                 --docker-env HTTPS_PROXY=https://$YOURPROXY:PORT
+$ minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
+                 --docker-env https_proxy=https://$YOURPROXY:PORT
 ```
 
 If your Virtual Machine address is 192.168.99.100, then chances are your proxy settings will prevent kubectl from directly reaching it.
