@@ -32,7 +32,7 @@ aliases:
   sig-contributor-experience:
     - sig-contributor-experience-pr-reviews
   sig-docs:
-    - sig-docs-maintainers
+    - sig-docs-pr-reviews
   sig-federation: #Federation: Federated Clusters
     - csbell
   sig-gcp:
