@@ -31,7 +31,7 @@ on general patterns for running stateful applications in Kubernetes.
   and [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
   as well as other core concepts like [Pods](/docs/concepts/workloads/pods/pod/),
   [Services](/docs/concepts/services-networking/service/), and
-  [ConfigMaps](/docs/tasks/configure-pod-container/configmap/).
+  [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Some familiarity with MySQL helps, but this tutorial aims to present
   general patterns that should be useful for other systems.
 
