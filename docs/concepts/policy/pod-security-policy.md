@@ -127,7 +127,7 @@ paired with system groups to grant access to all pods run in the namespace:
 ```
 
 For more examples of RBAC bindings, see [Role Binding
-Examples](docs/admin/authorization/rbac/#role-binding-examples). For a complete
+Examples](/docs/admin/authorization/rbac#role-binding-examples). For a complete
 example of authorizing a PodSecurityPolicy, see
 [below](#example).
 
