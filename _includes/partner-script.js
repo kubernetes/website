@@ -477,6 +477,13 @@
 			blurb: 'Nirmata - Nirmata Managed Kubernetes'
 				},
 		{
+			type: 2,
+			name: 'Nirmata',
+			logo: 'nirmata',
+			link: 'https://www.nirmata.com/',
+			blurb: 'Nirmata is a software platform that helps DevOps teams deliver enterprise-grade and cloud-provider agnostic Kubernetes based container management solutions.'
+				},
+		{
 			type: 3,
 			name: 'TenxCloud',
 			logo: 'tenxcloud',
@@ -526,7 +533,7 @@
 			blurb: 'CloudKite.io helps companies build and maintain highly automated, resilient, and impressively performing software on Kubernetes.'
 			},
 		{
-			type: 1,
+			type: 2,
 			name: 'CloudOps',
 			logo: 'CloudOps',
 			link: 'https://www.cloudops.com/services/docker-and-kubernetes-workshops/',
@@ -993,6 +1000,13 @@
 			logo: 'weave_works',
 			link: 'https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/',
 			blurb: 'Weaveworks - kubeadm'
+				},
+		{
+			type: 3,
+			name: 'Joyent',
+			logo: 'joyent',
+			link: 'https://github.com/joyent/triton-kubernetes',
+			blurb: 'Joyent - Triton Kubernetes'
 				},
 		{
 			type: 3,
