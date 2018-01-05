@@ -383,7 +383,7 @@ very charm
 
 ## Add ConfigMap data to a Volume 
 
-As explained in [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap/), when you create a ConfigMap using ``--from-file``, the filename becomes a key stored in the `data` section of the ConfigMap. The file contents become the key's value. 
+As explained in [Create ConfigMaps from files](#create-configmaps-from-files), when you create a ConfigMap using ``--from-file``, the filename becomes a key stored in the `data` section of the ConfigMap. The file contents become the key's value. 
 
 The examples in this section refer to a ConfigMap named special-config, shown below.
 
