@@ -120,7 +120,7 @@ Just create `node-problem-detector.yaml`, and put it under the addon pods direct
 The [default configuration](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)
 is embedded when building the docker image of node problem detector.
 
-However, you can use [ConfigMap](/docs/tasks/configure-pod-container/configmap/) to overwrite it
+However, you can use [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to overwrite it
 following the steps:
 
 * **Step 1:** Change the config files in `config/`.
