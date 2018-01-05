@@ -9,9 +9,9 @@ are not resurrected.  [`ReplicationControllers`](/docs/concepts/workloads/contro
 particular create and destroy `Pods` dynamically (e.g. when scaling up or down
 or when doing [rolling updates](/docs/user-guide/kubectl/{{page.version}}/#rolling-update)).  While each `Pod` gets its own IP address, even
 those IP addresses cannot be relied upon to be stable over time. This leads to
-a problem: if some set of `Pods` (let's call them backends) provides
-functionality to other `Pods` (let's call them frontends) inside the Kubernetes
-cluster, how do those frontends find out and keep track of which backends are
+a problem: if some set of `Pods` (let's call them producers) provides
+functionality to other `Pods` (let's call them consumers) inside the Kubernetes
+cluster, how do those consumers find out and keep track of which producers are
 in that set?
 
 Enter `Services`.
@@ -22,16 +22,16 @@ set of `Pods` targeted by a `Service` is (usually) determined by a [`Label
 Selector`](/docs/concepts/overview/working-with-objects/labels/#label-selectors) (see below for why you might want a
 `Service` without a selector).
 
-As an example, consider an image-processing backend which is running with 3
-replicas.  Those replicas are fungible - frontends do not care which backend
-they use.  While the actual `Pods` that compose the backend set may change, the
-frontend clients should not need to be aware of that or keep track of the list
-of backends themselves.  The `Service` abstraction enables this decoupling.
+As an example, consider an image-processing producer which is running with 3
+replicas.  Those replicas are fungible - consumers do not care which producer
+they use.  While the actual `Pods` that compose the producer set may change, the
+consumer clients should not need to be aware of that or keep track of the list
+of producers themselves.  The `Service` abstraction enables this decoupling.
 
 For Kubernetes-native applications, Kubernetes offers a simple `Endpoints` API
 that is updated whenever the set of `Pods` in a `Service` changes.  For
 non-native applications, Kubernetes offers a virtual-IP-based bridge to Services
-which redirects to the backend `Pods`.
+which redirects to the producer `Pods`.
 
 * TOC
 {:toc}
@@ -67,10 +67,10 @@ also named "my-service".
 Note that a `Service` can map an incoming port to any `targetPort`.  By default
 the `targetPort` will be set to the same value as the `port` field.  Perhaps
 more interesting is that `targetPort` can be a string, referring to the name of
-a port in the backend `Pods`.  The actual port number assigned to that name can
-be different in each backend `Pod`. This offers a lot of flexibility for
+a port in the producer `Pods`.  The actual port number assigned to that name can
+be different in each producer `Pod`. This offers a lot of flexibility for
 deploying and evolving your `Services`.  For example, you can change the port
-number that pods expose in the next version of your backend software, without
+number that pods expose in the next version of your producer software, without
 breaking clients.
 
 Kubernetes `Services` support `TCP` and `UDP` for protocols.  The default
@@ -162,12 +162,12 @@ ipvs proxy was added.
 In this mode, kube-proxy watches the Kubernetes master for the addition and
 removal of `Service` and `Endpoints` objects. For each `Service` it opens a
 port (randomly chosen) on the local node.  Any connections to this "proxy port"
-will be proxied to one of the `Service`'s backend `Pods` (as reported in
-`Endpoints`).  Which backend `Pod`  to use is decided based on the
+will be proxied to one of the `Service`'s producer `Pods` (as reported in
+`Endpoints`).  Which producer `Pod`  to use is decided based on the
 `SessionAffinity` of the `Service`.  Lastly, it installs iptables rules which
 capture traffic to the `Service`'s `clusterIP` (which is virtual) and `Port`
 and redirects that traffic to the proxy port which proxies the backend `Pod`.
-By default, the choice of backend is round robin. 
+By default, the choice of producer is round robin. 
 
 ![Services overview diagram for userspace proxy](/images/docs/services-userspace-overview.svg)
 
@@ -177,8 +177,8 @@ In this mode, kube-proxy watches the Kubernetes master for the addition and
 removal of `Service` and `Endpoints` objects. For each `Service`, it installs
 iptables rules which capture traffic to the `Service`'s `clusterIP` (which is
 virtual) and `Port` and redirects that traffic to one of the `Service`'s
-backend sets.  For each `Endpoints` object, it installs iptables rules which
-select a backend `Pod`.By default, the choice of backend is random.  
+producers sets.  For each `Endpoints` object, it installs iptables rules which
+select a producer `Pod`.By default, the choice of producer is random.  
 
 Obviously, iptables need not switch back between userspace and kernelspace, it should be
 faster and more reliable than the userspace proxy. However, unlike the
@@ -196,7 +196,7 @@ In this mode, kube-proxy watches Kubernetes `services` and `endpoints`,
 calls `netlink` interface to create ipvs rules accordingly and syncs ipvs rules with Kubernetes
 `services` and `endpoints`  periodically, to make sure ipvs status is
 consistent with the expectation. When `service` is accessed, traffic will
-be redirected to one of the backend `pod`s.
+be redirected to one of the producer `pod`s.
 
 Similar to iptables, Ipvs is based on netfilter hook function, but uses hash
 table as the underlying data structure and works in the kernel space.
@@ -219,7 +219,7 @@ it's not installed kube-proxy will fall back to iptables proxy mode.
 ![Services overview diagram for ipvs proxy](/images/docs/services-ipvs-overview.svg)
 
 In any of proxy model, any traffic bound for the Service’s IP:Port is 
-proxied to an appropriate backend without the clients knowing anything 
+proxied to an appropriate producer without the clients knowing anything 
 about Kubernetes or Services or Pods. Client-IP based session affinity 
 can be selected by setting service.spec.sessionAffinity to "ClientIP" 
 (the default is "None"), and you can set the max session sticky time by 
@@ -368,7 +368,7 @@ either:
 
 ## Publishing services - service types
 
-For some parts of your application (e.g. frontends) you may want to expose a
+For some parts of your application (e.g. consumers) you may want to expose a
 Service onto an external (outside of your cluster) IP address.
 
 
@@ -440,7 +440,7 @@ status:
     - ip: 146.148.47.155
 ```
 
-Traffic from the external load balancer will be directed at the backend `Pods`,
+Traffic from the external load balancer will be directed at the producer `Pods`,
 though exactly how that works depends on the cloud provider. Some cloud providers allow
 the `loadBalancerIP` to be specified. In those cases, the load-balancer will be created
 with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
