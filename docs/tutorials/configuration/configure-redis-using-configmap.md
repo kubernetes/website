@@ -7,7 +7,7 @@ title: Configuring Redis using a ConfigMap
 
 {% capture overview %}
 
-This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Using ConfigMap Data in Pods](/docs/tasks/configure-pod-container/configure-pod-configmap/) and [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap/) tasks. 
+This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
 
 {% endcapture %}
 
@@ -23,8 +23,7 @@ This page provides a real world example of how to configure Redis using a Config
 {% capture prerequisites %}
 
 * {% include task-tutorial-prereqs.md %}
-* Understand [Using ConfigMap Data in Pods](/docs/tasks/configure-pod-container/configure-pod-configmap/).
-* Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap/).
+* Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
 {% endcapture %}
 
@@ -120,8 +119,7 @@ You can follow the steps below to configure a Redis cache using data stored in a
 
 {% capture whatsnext %}
 
-* Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configmap/).
-* See [Using ConfigMap Data in Pods](/docs/tasks/configure-pod-container/configure-pod-configmap).
+* Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
 {% endcapture %}
 
