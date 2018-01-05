@@ -63,7 +63,7 @@ title: 为容器设置启动时要执行的命令及其入参
     args: ["$(MESSAGE)"]
 
 这样一来，我们就可以将那些用来设置环境变量的方法应用于设置命令的入参，其
-中包括了[ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
+中包括了[ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
 与
 [Secrets](/docs/concepts/configuration/secret/).
 
