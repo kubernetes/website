@@ -7,7 +7,7 @@ title: 使用ConfigMap来配置Redis
 
 {% capture overview %}
 
-这篇文档基于[在Pods中使用ConfigMap数据](/docs/tasks/configure-pod-container/configure-pod-configmap/) 和 [使用ConfigMap来配置Containers](/docs/tasks/configure-pod-container/configmap/) 两个任务，提供了一个使用ConfigMap来配置Redis的真实案例。
+这篇文档基于[使用ConfigMap来配置Containers](/docs/tasks/configure-pod-container/configure-pod-configmap/) 这个任务，提供了一个使用ConfigMap来配置Redis的真实案例。
 
 {% endcapture %}
 
@@ -23,8 +23,7 @@ title: 使用ConfigMap来配置Redis
 {% capture prerequisites %}
 
 * {% include task-tutorial-prereqs.md %}
-* 理解[在Pods中使用ConfigMap数据](/docs/tasks/configure-pod-container/configure-pod-configmap/)。
-* 理解[使用ConfigMap来配置Containers](/docs/tasks/configure-pod-container/configmap/)。
+* 理解[使用ConfigMap来配置Containers](/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
 {% endcapture %}
 
@@ -120,8 +119,7 @@ title: 使用ConfigMap来配置Redis
 
 {% capture whatsnext %}
 
-* 了解关于[ConfigMaps](/docs/tasks/configure-pod-container/configmap/)的更多知识。
-* 参见[在Pods中使用ConfigMap数据](/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+* 了解关于[ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)的更多知识。
 
 {% endcapture %}
 
