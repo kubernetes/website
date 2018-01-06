@@ -1,6 +1,6 @@
 id: configmap
 name: ConfigMap
-full-link: /docs/tasks/configure-pod-container/configmap/
+full-link: /docs/tasks/configure-pod-container/configure-pod-configmap/
 related:
 - pod
 - secret

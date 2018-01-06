@@ -28,7 +28,6 @@ toc:
   - docs/tasks/configure-pod-container/assign-pods-nodes.md
   - docs/tasks/configure-pod-container/configure-pod-initialization.md
   - docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md
-  - docs/tasks/configure-pod-container/configmap.md
   - docs/tasks/configure-pod-container/configure-pod-configmap.md
   - docs/tools/kompose/user-guide.md
 
