@@ -69,7 +69,7 @@ spec:
 - Applications that consume huge pages via `shmget()` with `SHM_HUGETLB` must
   run with a supplemental group that matches `proc/sys/vm/hugetlb_shm_group`.
 - Huge page usage in a namespace is controllable via ResourceQuota similar
-to other compute resources like `cpu` or `memory` via the `hugepages-<size>`
+to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
 token.
 
 ## Future
