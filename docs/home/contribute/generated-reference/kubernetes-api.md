@@ -178,7 +178,7 @@ is an example of a pull request that fixes a typo in the Kubernetes source code.
 **Note**: It can be tricky to determine the correct source file to be changed. In the
 preceding example, the authoritative source file is under the `staging` directory
 in the `kubernetes/kubernetes` repository. But in your situation,the `staging` directory
-might not be the place to find the authoritive source. For guidance, check the
+might not be the place to find the authoritative source. For guidance, check the
 `README` files in
 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes/tree/master/staging)
 repository and in related repositories like
@@ -220,7 +220,7 @@ and related files. Monitor your pull request until it gets merged into the relea
 At this point, both the master branch and the release-1.9 branch have your updated `types.go`
 file and a set of generated files that reflect the change you made to `types.go`. Note that the
 generated OpenAPI spec and other generated files in the release-1.9 branch are not necessarily
-the same as the generated files in the master branch. The generated files in the release1.9 branch
+the same as the generated files in the master branch. The generated files in the release-1.9 branch
 contain API elements only from Kubernetes 1.9. The generated files in the master branch might contain
 API elements that are not in 1.9, but are under development for 1.10.
 
@@ -362,7 +362,7 @@ in the [published reference documentation](/docs/reference/generated/kubernetes-
 
 * [Generating Reference Docs for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/)
 * [Generating Reference Documentation for kubectl Commands](/docs/home/contribute/generated-reference/kubectl/)
-* [Generating Reference Documentaion for the Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
+* [Generating Reference Documentation for the Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
 
 {% endcapture %}
 

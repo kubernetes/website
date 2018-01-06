@@ -38,12 +38,12 @@ reference documentation for tools and components in the
 The `update-imported-docs` tool performs these steps:
 
 1. Clone the `kubernetes/kubernetes` repository.
-1. Run several scipts under `kubernetes/kubernetes/hack`. These scripts
+1. Run several scripts under `kubernetes/kubernetes/hack`. These scripts
    generate Markdown files and place the files under `kubernetes/kubernetes/docs`.
 1. Copy the generated Markdown files to a local clone of the `kubernetes/website`
    repository under `kubernetes/website/docs/reference/generated`.
 1. Clone the `kubernetes/federation` repository.
-1. Run several scipts under `kubernetes/federation/hack`. These scripts
+1. Run several scripts under `kubernetes/federation/hack`. These scripts
    generate Markdown files and place the files under `kubernetes/federation/docs`.
 1. Copy the generated Markdown files to a local clone of the `kubernetes/website`
    repository under `kubernetes/website/docs/reference/generated`.

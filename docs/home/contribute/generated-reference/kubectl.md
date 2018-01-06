@@ -248,7 +248,7 @@ topics will be visible in the
 
 * [Generating Reference Documentation for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/)
 * [Generating Reference Documentation for the Kubernetes API](/docs/home/contribute/generated-reference/kubernetes-api/)
-* [Generating Reference Documentaion for the Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
+* [Generating Reference Documentation for the Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
 
 {% endcapture %}
 
