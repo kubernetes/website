@@ -22,6 +22,12 @@ You need to have these tools installed:
 Your $GOPATH environment variable must be set, and the location of `etcd`
 must be in your $PATH environment variable.
 
+You need to know how to create a pull request to a GitHub repository.
+Typically, this involves creating a fork of the repository. For more
+information, see
+[Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/) and
+[GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
+
 {% endcapture %}
 
 

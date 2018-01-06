@@ -28,6 +28,11 @@ reference documentation for tools and components in the
 
 * Your `$GOPATH` environment variable must be set.
 
+* You need to know how to create a pull request to a GitHub repository.
+Typically, this involves creating a fork of the repository. For more
+information, see
+[Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
+
 {% endcapture %}
 
 
