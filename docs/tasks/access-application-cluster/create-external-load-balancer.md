@@ -8,9 +8,15 @@ title: Create an External Load Balancer
 This page shows how to create an External Load Balancer.
 
 When creating a service, you have the option of automatically creating a
-cloud network load balancer. This provides an
-externally-accessible IP address that sends traffic to the correct port on your
-cluster nodes _provided your cluster runs in a supported environment and is configured with the correct cloud load balancer provider package_.
+cloud network load balancer. This provides an externally-accessible IP address
+that sends traffic to the correct port on your cluster nodes
+_provided your cluster runs in a supported environment and is configured with
+the correct cloud load balancer provider package_.
+
+For information on provisioning and using an Ingress resource that can give
+services externally-reachable URLs, load balance the traffic, terminate SSL etc.,
+please check the [Ingress](/docs/concepts/services-networking/ingress/)
+documentation.
 
 {% endcapture %}
 
