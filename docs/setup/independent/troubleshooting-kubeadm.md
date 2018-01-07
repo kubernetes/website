@@ -164,7 +164,7 @@ kubectl -n ${NAMESPACE} logs ${POD_NAME} -c ${CONTAINER_NAME}
 
 ### Default NIC When using flannel as the pod network in Vagrant
 
-The following error indicates that something was wrong in the pod network:
+The following error might indicate that something was wrong in the pod network:
 
 ```
 Error from server (NotFound): the server could not find the requested resource
