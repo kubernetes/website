@@ -35,7 +35,8 @@ the following drivers:
 * virtualbox
 * vmwarefusion
 * kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
-* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver))
+* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
 
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 
