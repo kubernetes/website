@@ -2,7 +2,7 @@
 approvers:
 - bprashanth
 - janetkuo
-title: Replication Controller
+title: ReplicationController
 ---
 
 {% capture overview %}
