@@ -75,7 +75,7 @@ following steps:
 
    See [kubeadm join](kubeadm-join.md) for additional info.
 
-1. Installs the internal DNS server and the kube-proxy addon components via the API server.  
+1. Installs the internal DNS server (kube-dns) and the kube-proxy addon components via the API server. If kubeadm is invoked with --feature-gates=CoreDNS=true, then [CoreDNS](https://coredns.io/) will be installed as the default internal DNS server instead of kube-dns.  
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 
 1. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
@@ -409,7 +409,7 @@ Here `v1.8.x` means the "latest patch release of the v1.8 branch".
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
-If using `--feature-gates=CoreDNS` image `coredns/coredns:1.0.0` is required (instead of the three `k8s-dns-*` images).
+If using `--feature-gates=CoreDNS=true` image `coredns/coredns:1.0.2` is required (instead of the three `k8s-dns-*` images).
 
 ### Automating kubeadm
 
