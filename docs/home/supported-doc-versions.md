@@ -18,9 +18,11 @@ The current version is
 
 ## Previous versions
 
+https://v1-8.docs.kubernetes.io/
+
 {% for v in page.versions %}
 {% if v.version != page.version %}
-* [{{ v.version }}](https://{{v.version}}.docs.kubernetes.io/)
+* [{{ v.version }}]({{v.url}})
 {% endif %}
 {% endfor %}
 
