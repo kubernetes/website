@@ -45,11 +45,9 @@ a Kubernetes cluster from scratch.
 
 * [AppsCode.com](https://appscode.com/products/cloud-deployment/) provides managed Kubernetes clusters for various public clouds, including AWS and Google Cloud Platform.
 
-* [KUBE2GO.io](https://kube2go.io) get started with highly available Kubernetes clusters on multiple public clouds along with useful tools for development, debugging, monitoring.
-
 * [Madcore.Ai](https://madcore.ai) is devops-focused CLI tool for deploying Kubernetes infrastructure in AWS. Master, auto-scaling group nodes with spot-instances, ingress-ssl-lego, Heapster, and Grafana.
 
-* [Platform9](https://platform9.com/products/kubernetes/) offers managed Kubernetes on-premises or on any public cloud, and provides 24/7 health monitoring and alerting.
+* [Platform9](https://platform9.com/managed-kubernetes/?utm_source=k8sio) offers SaaS-Managed Kubernetes on-premises or on any public cloud, and provides 24/7 health monitoring and alerting.
 
 * [OpenShift Dedicated](https://www.openshift.com/dedicated/) offers managed Kubernetes clusters powered by OpenShift.
 
@@ -71,15 +69,15 @@ few commands. These solutions are actively developed and have active community s
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
 * [CenturyLink Cloud](/docs/getting-started-guides/clc/)
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
+* [Platform9 on Public Cloud](/docs/getting-started-guides/platform9/platform9-cloud/)
 * [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
-* [KUBE2GO.io](https://kube2go.io/)
 * [Madcore.Ai](https://madcore.ai/)
 
 # On-Premises turnkey cloud solutions
-These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
-few commands.
+These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a few commands.
 
 * [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
+* [Platform9 On-Premises](/docs/getting-started-guides/platform9/platform9-on-prem/)
 
 # Custom Solutions
 
@@ -112,6 +110,7 @@ These solutions are combinations of cloud providers and operating systems not co
 
 * [Vagrant](/docs/getting-started-guides/coreos/) (uses CoreOS and flannel)
 * [CloudStack](/docs/getting-started-guides/cloudstack/) (uses Ansible, CoreOS and flannel)
+* [Platform9 on VMs](/docs/getting-started-guides/platform9/platform9-on-prem/)
 * [Vmware vSphere](/docs/getting-started-guides/vsphere/)  (uses Debian)
 * [Vmware Photon Controller](/docs/getting-started-guides/photon-controller/)  (uses Debian)
 * [Vmware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/) (uses Juju, Ubuntu and flannel)
@@ -124,6 +123,7 @@ These solutions are combinations of cloud providers and operating systems not co
 ## Bare Metal
 
 * [Offline](/docs/getting-started-guides/coreos/bare_metal_offline/) (no internet required.  Uses CoreOS and Flannel)
+* [Platform9 on Bare Metal](/docs/getting-started-guides/platform9/platform9-on-prem/)
 * [Fedora via Ansible](/docs/getting-started-guides/fedora/fedora_ansible_config/)
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
@@ -151,9 +151,8 @@ any                  | any          | multi-support | any CNI | [docs](/docs/set
 Google Kubernetes Engine |              |        | GCE         | [docs](https://cloud.google.com/kubernetes-engine/docs/) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
-KUBE2GO.io          |              | multi-support | multi-support | [docs](https://kube2go.io) | Commercial
 Madcore.Ai           | Jenkins DSL  | Ubuntu | flannel     | [docs](https://madcore.ai)                        | Community ([@madcore-ai](https://github.com/madcore-ai))
-Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
+Platform9: on-prem/cloud        |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
 Giant Swarm        |              | CoreOS | flannel and/or Calico | [docs](https://docs.giantswarm.io/) | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce/)                                    | Project
 Azure Container Service |              | Ubuntu | Azure       | [docs](https://azure.microsoft.com/en-us/services/container-service/)                    |  Commercial
