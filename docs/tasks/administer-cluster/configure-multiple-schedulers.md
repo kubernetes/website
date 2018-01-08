@@ -13,7 +13,7 @@ learn how to run multiple schedulers in Kubernetes with an example.
 
 A detailed description of how to implement a scheduler is outside the scope of this
 document. Please refer to the kube-scheduler implementation in
-[plugin/pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/plugin/pkg/scheduler)
+[pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/pkg/scheduler)
 in the Kubernetes source directory for a canonical example.
 
 ### 1. Package the scheduler
