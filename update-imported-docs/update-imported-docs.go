@@ -92,8 +92,10 @@ func main() {
     //if generate-command is specified in the repo config,
     //run the command for that repo, e.g. "hack/generate-docs.sh"
     if r["generate-command"] != nil {
-      fmt.Fprintf(os.Stdout, "Generating docs for repo %q\n", repoName)
-      if err := exec.Command(r["generate-command"].(string)).Run(); err != nil {
+      genCmd := r["generate-command"].(string)
+
+      fmt.Fprintf(os.Stdout, "Generating docs for repo %q with %q\n", repoName, genCmd)
+      if err := exec.Command(genCmd).Run(); err != nil {
         fmt.Fprintf(os.Stderr, "error when generating docs for repo %q: %v\n", repoName, err)
         os.Exit(1)
       }
