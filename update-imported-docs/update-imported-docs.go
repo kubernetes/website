@@ -14,10 +14,13 @@ import (
 )
 
 func main() {
+
+  args := os.Args[1:]
+
   websiteRepo, err := os.Getwd()
   checkError(err)
 
-  content, err := ioutil.ReadFile("update-imported-docs/config.yaml")
+  content, err := ioutil.ReadFile(args[0])
   if err != nil {
     fmt.Fprintf(os.Stderr, "error when reading file: %v\n", err)
     os.Exit(1)
@@ -60,10 +63,12 @@ func main() {
     err = os.Chdir(repoName)
     checkError(err)
 
-    fmt.Fprintf(os.Stdout, "Generating docs for repo %q\n", repoName)
-    if err := exec.Command("hack/generate-docs.sh").Run(); err != nil {
-      fmt.Fprintf(os.Stderr, "error when generating docs for repo %q: %v\n", repoName, err)
-      os.Exit(1)
+    if r["generate-command"] != nil {
+      fmt.Fprintf(os.Stdout, "Generating docs for repo %q\n", repoName)
+      if err := exec.Command(r["generate-command"]).Run(); err != nil {
+        fmt.Fprintf(os.Stderr, "error when generating docs for repo %q: %v\n", repoName, err)
+        os.Exit(1)
+      }
     }
 
     err = os.Chdir(websiteRepo)

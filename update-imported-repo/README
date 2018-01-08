@@ -1,5 +1,0 @@
-update-imported-repo/update-imported-repo.go <config-file.yaml> will update the target files generated from other repos listed in the specified config.yaml file.
-You should modify the corresponding update-imported-repo/*.yaml file to reflect the desired src and dst path.
-```
-go run update-imported-repo/update-imported-repo.go update-imported-repo/<config-file.yaml>
-```
