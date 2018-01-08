@@ -188,7 +188,7 @@ These pieces of information are stored in secrets that the application in the cl
 
 One method to perform this mapping is to use a declarative Pod configuration.
 
-The following example describes how to map service account credentials into the application. A key called `sa-key` is stored in a volume named `provider-cloud-key`, and the application mounts this volume at `/var/secrets/provider/key.json`. The environment variable `GOOGLE_APPLICATION_CREDENTIALS` is mapped from the value of the mounted file.
+The following example describes how to map service account credentials into the application. A key called `sa-key` is stored in a volume named `provider-cloud-key`, and the application mounts this volume at `/var/secrets/provider/key.json`. The environment variable `PROVIDER_APPLICATION_CREDENTIALS` is mapped from the value of the mounted file.
 
 ```yaml
 ...
