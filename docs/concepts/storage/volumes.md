@@ -953,13 +953,14 @@ redesigned or even removed in future releases.
 Mount propagation allows for sharing volumes mounted by a Container to
 other Containers in the same Pod, or even to other Pods on the same node.
 
-If the MountPropagation feature is disabled, volume mounts in pods are not propagated.
+If the "`MountPropagation`" feature is disabled, volume mounts in pods are not propagated.
 That is, Containers run with `private` mount propagation as described in the
 [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt).
 
 To enable this feature, specify `MountPropagation=true` in the
-`--feature-gates` command line option. When enabled, the `volumeMounts` field
-of a Container has a new `mountPropagation` subfield. Its values are:
+`--feature-gates` command line option for the API server and kubelets.
+When enabled, the `volumeMounts` field of a Container has a new
+`mountPropagation` subfield. Its values are:
 
  * `HostToContainer` - This volume mount will receive all subsequent mounts
    that are mounted to this volume or any of its subdirectories. This is
