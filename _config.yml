@@ -57,6 +57,12 @@ defaults:
     values:
       layout: docwithnav
       showedit: true
+  -
+    scope:
+      path: "docs/imported"
+    values:
+      layout: docwithnav
+      showedit: false
 
 permalink: pretty
 
@@ -88,3 +94,4 @@ tocs:
   - reference
   - samples
   - search
+  - imported
