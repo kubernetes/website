@@ -114,6 +114,8 @@ _____________________________________________________________________
 
 The `kubeadm upgrade plan` checks that your cluster is upgradeable and fetches the versions available to upgrade to in an user-friendly way.
 
+To check CoreDNS version, include the `--feature-gates=CoreDNS=true` flag to verify the CoreDNS version which will be installed in place of kube-dns.
+
 3. Pick a version to upgrade to and run. For example:
 
 ```shell
@@ -162,6 +164,7 @@ $ kubeadm upgrade apply v1.9.0
 [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets in turn.
 ```
 
+To upgrade the cluster with CoreDNS as the default internal DNS, invoke `kubeadm upgrade apply` with the `--feature-gates=CoreDNS=true` flag.
 `kubeadm upgrade apply` does the following:
 
 - Checks that your cluster is in an upgradeable state:
