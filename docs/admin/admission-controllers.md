@@ -334,7 +334,7 @@ If a webhook called by this has side effects (for example, decrementing quota) i
 webhooks or validating admission controllers will permit the request to finish.
 
 If you disable the MutatingAdmissionWebhook, you must also disable the
-`MutatingWebhookConfiguration` object in the `admissionregistration/v1beta1`
+`MutatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1beta1`
 group/version via the `--runtime-config` flag (both are on by default in
 versions >= 1.9).
 
@@ -535,7 +535,7 @@ If a webhook called by this has side effects (for example, decrementing quota) i
 webhooks or other validating admission controllers will permit the request to finish.
 
 If you disable the ValidatingAdmissionWebhook, you must also disable the
-`ValidatingWebhookConfiguration` object in the `admissionregistration/v1beta1`
+`ValidatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1beta1`
 group/version via the `--runtime-config` flag (both are on by default in
 versions >= 1.9).
 
