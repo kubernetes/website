@@ -9,23 +9,42 @@ import (
   "path"
   "path/filepath"
   "regexp"
-
+  "strings"
   "github.com/ghodss/yaml"
 )
 
 func main() {
 
-  args := os.Args[1:]
+  //get command line arguments without executable
+  clArgs := os.Args[1:]
 
-  websiteRepo, err := os.Getwd()
-  checkError(err)
+  //check that an argument has been passed in
+  if len(clArgs) == 0 {
+    fmt.Fprintf(os.Stderr, "Please specify a config file as a command line argument.\n")
+    os.Exit(1)
+  }
+  configFile := clArgs[0]
 
-  content, err := ioutil.ReadFile(args[0])
+  //get directory of executable
+  ex, err := os.Executable()
+  if err != nil {
+      panic(err)
+  }
+  exPath := filepath.Dir(ex) //file path of updated-imported-docs executable
+  suffix := filepath.Base(exPath) //should be "updated-imported-docs"
+
+  //set root directory of website
+  websiteRepo := filepath.Clean(strings.TrimSuffix(exPath,suffix)) //path of parent directory
+  fmt.Fprintf(os.Stdout, "Website root directory: %s\n", websiteRepo)
+
+  //read config.yaml file specified by first command line argument
+  content, err := ioutil.ReadFile(configFile)
   if err != nil {
     fmt.Fprintf(os.Stderr, "error when reading file: %v\n", err)
     os.Exit(1)
   }
 
+  //convert contents of config.yml file into a map
   var config map[string]interface{}
   err = yaml.Unmarshal(content, &config)
   if err != nil {
@@ -33,6 +52,11 @@ func main() {
     os.Exit(1)
   }
 
+  //change working directory to website root
+  err = os.Chdir(websiteRepo)
+  checkError(err)
+
+  //clean out temp directory
   tmpDir := "/tmp/update_docs"
   os.RemoveAll(tmpDir)
   os.Mkdir(tmpDir, 0750)
@@ -45,11 +69,13 @@ func main() {
   // ---
   titleRegex := regexp.MustCompile("^---\n(.*\n)*---\n")
 
+  //execute for each repo
   repos := config["repos"].([]interface{})
   for _, repo := range repos {
     err = os.Chdir(tmpDir)
     checkError(err)
 
+    //get config info for repo, clone repo locally
     r := repo.(map[string]interface{})
     repoName := r["name"].(string)
     cmd := "git"
@@ -63,14 +89,17 @@ func main() {
     err = os.Chdir(repoName)
     checkError(err)
 
+    //if generate-command is specified in the repo config,
+    //run the command for that repo, e.g. "hack/generate-docs.sh"
     if r["generate-command"] != nil {
       fmt.Fprintf(os.Stdout, "Generating docs for repo %q\n", repoName)
-      if err := exec.Command(r["generate-command"]).Run(); err != nil {
+      if err := exec.Command(r["generate-command"].(string)).Run(); err != nil {
         fmt.Fprintf(os.Stderr, "error when generating docs for repo %q: %v\n", repoName, err)
         os.Exit(1)
       }
     }
 
+    //copy and rename files from src -> dst specified in config
     err = os.Chdir(websiteRepo)
     checkError(err)
     files := r["files"].([]interface{})
