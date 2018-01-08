@@ -75,7 +75,8 @@ few commands. These solutions are actively developed and have active community s
 * [KUBE2GO.io](https://kube2go.io/)
 * [Madcore.Ai](https://madcore.ai/)
 
-# On-Premises turnkey cloud solutions
+# Turnkey On-Premises Solutions
+
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
 few commands.
 
@@ -123,7 +124,7 @@ These solutions are combinations of cloud providers and operating systems not co
 
 ## Bare Metal
 
-* [Offline](/docs/getting-started-guides/coreos/bare_metal_offline/) (no internet required.  Uses CoreOS and Flannel)
+* [Offline](/docs/getting-started-guides/coreos/bare_metal_offline/) (no internet required. Uses CoreOS and flannel)
 * [Fedora via Ansible](/docs/getting-started-guides/fedora/fedora_ansible_config/)
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
@@ -146,18 +147,18 @@ These solutions provide integration with third-party schedulers, resource manage
 Below is a table of all of the solutions listed above.
 
 IaaS Provider        | Config. Mgmt. | OS     | Networking  | Docs                                              | Support Level
--------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ----------------------------
+-------------------- | ------------- | ------ | ----------  | ------------------------------------------------- | ----------------------------
 any                  | any          | multi-support | any CNI | [docs](/docs/setup/independent/create-cluster-kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
-Google Kubernetes Engine |              |        | GCE         | [docs](https://cloud.google.com/kubernetes-engine/docs/) | Commercial
+Google Kubernetes Engine |              | Container-Optimized OS/Ubuntu | GCE         | [docs](https://cloud.google.com/kubernetes-engine/docs/) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
-KUBE2GO.io          |              | multi-support | multi-support | [docs](https://kube2go.io) | Commercial
+KUBE2GO.io           |              | multi-support | multi-support | [docs](https://kube2go.io) | Commercial
 Madcore.Ai           | Jenkins DSL  | Ubuntu | flannel     | [docs](https://madcore.ai)                        | Community ([@madcore-ai](https://github.com/madcore-ai))
-Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
-Giant Swarm        |              | CoreOS | flannel and/or Calico | [docs](https://docs.giantswarm.io/) | Commercial
+Platform9            |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
+Giant Swarm          |              | CoreOS | flannel and/or Calico | [docs](https://docs.giantswarm.io/) | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce/)                                    | Project
 Azure Container Service |              | Ubuntu | Azure       | [docs](https://azure.microsoft.com/en-us/services/container-service/)                    |  Commercial
-Azure (IaaS)    |              | Ubuntu | Azure       | [docs](/docs/getting-started-guides/azure/)                    |  [Community (Microsoft)](https://github.com/Azure/acs-engine)
+Azure (IaaS)         |              | Ubuntu | Azure       | [docs](/docs/getting-started-guides/azure/)                    |  [Community (Microsoft)](https://github.com/Azure/acs-engine)
 Bare-metal           | Ansible      | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_ansible_config/)           |  Project
 Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/getting-started-guides/fedora/fedora_manual_config/)            |  Project
 Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
@@ -196,26 +197,13 @@ any                  | any          | any    | any         | [docs](http://docs.
 ## Definition of columns
 
 * **IaaS Provider** is the product or organization which provides the virtual or physical machines (nodes) that Kubernetes runs on.
+* **Config. Mgmt.** is the configuration management system that helps install and maintain Kubernetes on the nodes.
 * **OS** is the base operating system of the nodes.
-* **Config. Mgmt.** is the configuration management system that helps install and maintain Kubernetes on the
-  nodes.
 * **Networking** is what implements the [networking model](/docs/concepts/cluster-administration/networking/). Those with networking type
   _none_ may not support more than a single node, or may support multiple VM nodes in a single physical node.
-* **Conformance** indicates whether a cluster created with this configuration has passed the project's conformance
-  tests for supporting the API and base features of Kubernetes v1.0.0.
 * **Support Levels**
   * **Project**: Kubernetes committers regularly use this configuration, so it usually works with the latest release
     of Kubernetes.
   * **Commercial**: A commercial offering with its own support arrangements.
   * **Community**: Actively supported by community contributions. May not work with recent releases of Kubernetes.
   * **Inactive**: Not actively maintained. Not recommended for first-time Kubernetes users, and may be removed.
-* **Notes** has other relevant information, such as the version of Kubernetes used.
-
-
-<!-- reference style links below here -->
-<!-- GCE conformance test result -->
-[1]: https://gist.github.com/erictune/4cabc010906afbcc5061
-<!-- Vagrant conformance test result -->
-[2]: https://gist.github.com/derekwaynecarr/505e56036cdf010bf6b6
-<!-- Google Kubernetes Engine conformance test result -->
-[3]: https://gist.github.com/erictune/2f39b22f72565365e59b
