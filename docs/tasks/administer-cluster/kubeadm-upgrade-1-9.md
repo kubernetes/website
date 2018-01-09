@@ -175,6 +175,7 @@ To upgrade the cluster with CoreDNS as the default internal DNS, invoke `kubeadm
 - Makes sure the control plane images are available or available to pull to the machine.
 - Upgrades the control plane components or rollbacks if any of them fails to come up.
 - Applies the new `kube-dns` and `kube-proxy` manifests and enforces that all necessary RBAC rules are created.
+- Creates new certificate and key files of apiserver and backs up old files if they're about to expire in 180 days.
 
 4. Manually upgrade your Software Defined Network (SDN).
 
