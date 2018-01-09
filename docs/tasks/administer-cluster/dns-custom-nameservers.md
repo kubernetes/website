@@ -2,7 +2,7 @@
 approvers:
 - bowei
 - zihongz
-title: Configure DNS Service
+title: Customizing DNS Service
 ---
 
 {% capture overview %}
