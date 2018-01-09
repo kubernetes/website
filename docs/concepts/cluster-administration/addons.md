@@ -12,6 +12,8 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 
 ## Networking and Network Policy
 
+
+* [ACI](https://www.github.com/noironetworks/aci-containers) provides integrated container networking and network security with Cisco ACI.
 * [Calico](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/) is a secure L3 networking and network policy provider.
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install) unites Flannel and Calico, providing networking and network policy.
 * [Cilium](https://github.com/cilium/cilium) is a L3 network and network policy plugin that can enforce HTTP/API/L7 policies transparently. Both routing and overlay/encapsulation mode are supported.
