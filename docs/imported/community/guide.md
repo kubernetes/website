@@ -1,6 +1,7 @@
-**OWNER:**
-
-sig-contributor-experience
+---
+title: Kubernetes Developer Guide
+owner: sig-contributor-experience
+---
 
 ## Disclaimer
 Hello! This is the starting point for our brand new contributor guide, currently underway as per [issue#6102](https://github.com/kubernetes/website/issues/6102) and in need of help. Please be patient, or fix a section below that needs improvement, and submit a pull request!

@@ -1,4 +1,6 @@
-# Kubernetes Enhancement Proposal Process
+---
+title: Kubernetes Enhancement Proposal Process
+---
 
 ## Metadata
 ```

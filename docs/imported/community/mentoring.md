@@ -1,4 +1,6 @@
-# Kubernetes Mentoring Initiatives 
+---
+title: Kubernetes Mentoring Initiatives 
+---
 
 This folder will be used for all mentoring initiatives for Kubernetes.
 
