@@ -66,7 +66,7 @@ operation (create, replace, etc.), optional flags and at least one file
 name. The file specified must contain a full definition of the object
 in YAML or JSON format.
 
-See the [resource reference](https://kubernetes.io/docs/resources-reference/{{page.version}}/)
+See the [API reference](/docs/api-reference/{{page.version}}/)
 for more details on object definitions.
 
 **Warning:** The imperative `replace` command replaces the existing
@@ -168,7 +168,7 @@ Disadvantages compared to imperative object configuration:
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/{{page.version}}/)
-- [Kubernetes Object Schema Reference](/docs/resources-reference/{{page.version}}/)
+- [Kubernetes API Reference](/docs/api-reference/{{page.version}}/)
 
 {% comment %}
 {% endcomment %}
