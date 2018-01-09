@@ -46,6 +46,15 @@ $( document ).ready(function() {
 
 <p><a class="button" href="https://github.com/kubernetes/website/">Browse this site's source code</a></p>
 
+<h2>Run our site locally</h2>
+
+<p>You can run our site locally to test changes that you have made. To do this, you need <a href="https://www.ruby-lang.org/en/">Ruby</a> and <a href="http://bundler.io/">Bundler</a> installed on your machine.</p>
+<p>Start by installing the site dependencies.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle install</code></pre></div></div>
+<p>Then, start the site on your machine</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle exec jekyll serve</code></pre></div></div>
+<p>After a few seconds, our site will be running on your machine and auto-updating as you change the content. You can visit it at <code>localhost:4000</code>.</p>
+
 </div>
 <!-- END: Dynamic section -->
 
