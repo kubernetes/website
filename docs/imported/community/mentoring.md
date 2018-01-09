@@ -4,7 +4,6 @@ title: Kubernetes Mentoring Initiatives
 
 This folder will be used for all mentoring initiatives for Kubernetes.
 
----
 ## Kubernetes Pilots
 
 We understand that everyone has different learning styles and we want to support as many of those as possible. Mentoring is vital to the growth of an individual and organization of every kind. For Kubernetes, the larger the project becomes, it's necessary to keep a continuous pipeline of quality contributors. 

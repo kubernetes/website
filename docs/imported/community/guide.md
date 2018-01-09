@@ -1,5 +1,5 @@
 ---
-title: Kubernetes Developer Guide
+title: Kubernetes Contributor Guide
 owner: sig-contributor-experience
 ---
 

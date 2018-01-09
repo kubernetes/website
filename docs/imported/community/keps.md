@@ -3,6 +3,7 @@ title: Kubernetes Enhancement Proposal Process
 ---
 
 ## Metadata
+
 ```
 ---
 kep-number: 1
@@ -26,6 +27,7 @@ editor:
   name: TBD
 creation-date: 2017-08-22
 status: draft
+---
 ```
 
 ## Table of Contents
