@@ -89,7 +89,7 @@ module Jekyll
           gsub(NESTED_MARKDOWN_LINKS, '\2').
           strip
 
-        "<a class='glossary-tooltip' href='#{external_link}'>" \
+        "<a class='glossary-tooltip' href='#{external_link}' target='_blank'>" \
         "#{@args[:text] || term_info["name"]}" \
         "<span class='tooltip-text'>" \
         "#{tooltip}" \

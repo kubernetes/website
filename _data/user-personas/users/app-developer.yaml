@@ -9,23 +9,23 @@ foundational:
   - label: Deploy, scale, and update an application
     icon: fa-retweet
     url: /docs/user-journeys/users/application-developer/foundational#section-2
-  - label: Understand Kubernetes basics
+  - label: Understand how Kubernetes works
     icon: fa-cog
     url: /docs/user-journeys/users/application-developer/foundational#section-3
   - label: Explore additional resources
     icon: fa-book
     url: /docs/user-journeys/users/application-developer/foundational#section-4
 intermediate:
-  - label: Setup a full-featured or production environment.
-    icon: fa-cube
+  - label: Learn more workload patterns (beyond Deployments)
+    icon: fa-cogs
     url: /docs/user-journeys/users/application-developer/intermediate
-  - label: Work with commonly used features, such as Service Discovery, Networking, and ReplicaSets.
+  - label: Extend the Kubernetes API
     icon: fa-pencil-square-o
     url: /docs/user-journeys/users/application-developer/intermediate#section-2
-  - label: Understand key concepts, such as the API/Controller pattern, Schedulers, and Node Affinity.
-    icon: fa-cogs
+  - label: Deploy a production-ready workload
+    icon: fa-cube
     url: /docs/user-journeys/users/application-developer/intermediate#section-3
-  - label: Additional resources.
+  - label: Explore additional resources
     icon: fa-book
     url: /docs/user-journeys/users/application-developer/intermediate#section-4
 advanced:
