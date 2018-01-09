@@ -1,6 +1,7 @@
 package main
 
 import (
+  "bufio"
   "fmt"
   "io"
   "io/ioutil"
@@ -40,7 +41,7 @@ func main() {
   //read config.yaml file specified by first command line argument
   content, err := ioutil.ReadFile(configFile)
   if err != nil {
-    fmt.Fprintf(os.Stderr, "error when reading file: %v\n", err)
+    fmt.Fprintf(os.Stderr, "Error when reading file: %v\n", err)
     os.Exit(1)
   }
 
@@ -48,7 +49,7 @@ func main() {
   var config map[string]interface{}
   err = yaml.Unmarshal(content, &config)
   if err != nil {
-    fmt.Fprintf(os.Stderr, "error when unmarshal the config file: %v\n", err)
+    fmt.Fprintf(os.Stderr, "Error when unmarshal the config file: %v\n", err)
     os.Exit(1)
   }
 
@@ -80,9 +81,9 @@ func main() {
     repoName := r["name"].(string)
     cmd := "git"
     args := []string{"clone", "--depth=1", "-b", r["branch"].(string), r["remote"].(string), repoName}
-    fmt.Fprintf(os.Stdout, "Cloning repo %q\n", repoName)
+    fmt.Fprintf(os.Stdout, "\n\t\t\t*\t*\t*\n\nCloning repo %q...\n", repoName)
     if err := exec.Command(cmd, args...).Run(); err != nil {
-      fmt.Fprintf(os.Stderr, "error when cloning repo %q: %v\n", repoName, err)
+      fmt.Fprintf(os.Stderr, "\n\t\t\t!\t!\t!\n\nError when cloning repo %q: %v\n", repoName, err)
       os.Exit(1)
     }
 
@@ -94,11 +95,33 @@ func main() {
     if r["generate-command"] != nil {
       genCmd := r["generate-command"].(string)
 
-      fmt.Fprintf(os.Stdout, "Generating docs for repo %q with %q\n", repoName, genCmd)
-      if err := exec.Command(genCmd).Run(); err != nil {
-        fmt.Fprintf(os.Stderr, "error when generating docs for repo %q: %v\n", repoName, err)
+      fmt.Fprintf(os.Stdout, "Generating docs for repo %q with %q...\n\n", repoName, genCmd)
+      cmd := exec.Command(genCmd)
+      cmdReader, err := cmd.StdoutPipe()
+      if err != nil {
+        fmt.Fprintf(os.Stderr, "\n\t\t\t!\t!\t!\n\nError when generating docs for repo %q: %v\n", repoName, err)
         os.Exit(1)
       }
+
+      scanner := bufio.NewScanner(cmdReader)
+      go func() {
+        for scanner.Scan() {
+          fmt.Printf("generator output | %s\n", scanner.Text())
+        }
+      }()
+
+      err = cmd.Start()
+      if err != nil {
+        fmt.Fprintln(os.Stderr, "Error starting %q command\n", genCmd, err)
+        os.Exit(1)
+      }
+
+      err = cmd.Wait()
+      if err != nil {
+        fmt.Fprintln(os.Stderr, "Error waiting for %q command\n", genCmd, err)
+        os.Exit(1)
+      }
+
     }
 
     //copy and rename files from src -> dst specified in config
@@ -128,7 +151,7 @@ func main() {
       dstFile.Sync()
     }
   }
-  fmt.Fprintf(os.Stdout, "Docs imported! Run 'git add .' 'git commit -m <comment>' and 'git push' to upload them\n")
+  fmt.Fprintf(os.Stdout, "\n\t\t\t*\t*\t*\n\nDocs imported! Run 'git add .' 'git commit -m <comment>' and 'git push' to upload them.\n")
 }
 
 func copyFile(src, dst string) error {
