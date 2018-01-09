@@ -28,9 +28,7 @@ func main() {
 
   //get directory of executable
   ex, err := os.Executable()
-  if err != nil {
-      panic(err)
-  }
+  checkError(err)
   exPath := filepath.Dir(ex) //file path of updated-imported-docs executable
   suffix := filepath.Base(exPath) //should be "updated-imported-docs"
 
@@ -103,6 +101,7 @@ func main() {
         os.Exit(1)
       }
 
+      //display running output of generate command
       scanner := bufio.NewScanner(cmdReader)
       go func() {
         for scanner.Scan() {
