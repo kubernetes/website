@@ -9,3 +9,5 @@ spec:
     resources:
       requests:
         example.com/dongle: 3
+      limits:
+        example.com/dongle: 3

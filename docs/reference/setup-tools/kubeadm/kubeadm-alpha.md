@@ -224,6 +224,8 @@ Alternatively, you can use [kubeadm config](kubeadm-config.md).
 You can install all the available addons with the `all` subcommand, or 
 install them selectively.
 
+Please note that if kubeadm is invoked with `--feature-gates=CoreDNS=true`,  [CoreDNS](https://coredns.io/) is installed instead of `kube-dns`.
+
 {% capture addon-all %}
 {% include_relative generated/kubeadm_alpha_phase_addon_all.md %}
 {% endcapture %}

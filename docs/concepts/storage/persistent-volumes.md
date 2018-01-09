@@ -125,7 +125,7 @@ spec:
       path: /any/path/it/will/be/replaced
   containers:
   - name: pv-recycler
-    image: "gcr.io/google_containers/busybox"
+    image: "k8s.gcr.io/busybox"
     command: ["/bin/sh", "-c", "test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z \"$(ls -A /scrub)\" || exit 1"]
     volumeMounts:
     - name: vol
@@ -218,24 +218,24 @@ resizing to take place. Also, file system resizing is only supported for followi
 Each PV contains a spec and status, which is the specification and status of the volume.
 
 ```yaml
-  apiVersion: v1
-  kind: PersistentVolume
-  metadata:
-    name: pv0003
-  spec:
-    capacity:
-      storage: 5Gi
-    volumeMode: Filesystem
-    accessModes:
-      - ReadWriteOnce
-    persistentVolumeReclaimPolicy: Recycle
-    storageClassName: slow
-    mountOptions:
-      - hard
-      - nfsvers=4.1
-    nfs:
-      path: /tmp
-      server: 172.17.0.2
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv0003
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: slow
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /tmp
+    server: 172.17.0.2
 ```
 
 ### Capacity

@@ -57,6 +57,10 @@ In the `.yaml` file for the Kubernetes object you want to create, you'll need to
 * `metadata` - Data that helps uniquely identify the object, including a `name` string, UID, and optional `namespace`
 
 You'll also need to provide the object `spec` field. The precise format of the object `spec` is different for every Kubernetes object, and contains nested fields specific to that object. The [Kubernetes API reference](/docs/concepts/overview/kubernetes-api/) can help you find the spec format for all of the objects you can create using Kubernetes.
+For example, the `spec` format for a `Pod` object can be found
+[here](/docs/reference/generated/kubernetes-api/{{page.version}}/#podspec-v1-core),
+and the `spec` format for a `Deployment` object can be found
+[here](/docs/reference/generated/kubernetes-api/{{page.version}}/#deploymentspec-v1-apps).
 
 {% endcapture %}
 

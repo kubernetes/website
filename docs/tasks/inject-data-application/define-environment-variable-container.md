@@ -60,6 +60,7 @@ Pod:
         HOSTNAME=envar-demo
         ...
         DEMO_GREETING=Hello from the environment
+        DEMO_FAREWELL=Such a sweet sorrow
 
 1. To exit the shell, enter `exit`.
 
