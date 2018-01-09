@@ -398,10 +398,8 @@ All nodes should run kubelet.  See [Software Binaries](#software-binaries).
 Arguments to consider:
 
   - If following the HTTPS security approach:
-    - `--api-servers=https://$MASTER_IP`
     - `--kubeconfig=/var/lib/kubelet/kubeconfig`
   - Otherwise, if taking the firewall-based security approach
-    - `--api-servers=http://$MASTER_IP`
   - `--config=/etc/kubernetes/manifests`
   - `--cluster-dns=` to the address of the DNS server you will setup (see [Starting Cluster Services](#starting-cluster-services).)
   - `--cluster-domain=` to the dns domain prefix to use for cluster DNS addresses.
