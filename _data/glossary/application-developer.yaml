@@ -1,5 +1,6 @@
 id: application-developer
 name: Application Developer
+full-link: docs/user-journeys/users/application-developer/foundational/
 related:
   - application-architect
 tags:
