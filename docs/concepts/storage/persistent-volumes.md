@@ -80,7 +80,7 @@ When the [PVC protection alpha feature](/docs/tasks/administer-cluster/pvc-prote
 
 You can see that a PVC is protected when the PVC's status is `Terminating` and the `Finalizers` list includes `kubernetes.io/pvc-protection`:
 ```shell
-kubectl described pvc hostpath
+kubectl describe pvc hostpath
 Name:          hostpath
 Namespace:     default
 StorageClass:  example-hostpath
