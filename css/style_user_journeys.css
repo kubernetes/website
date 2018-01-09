@@ -713,6 +713,18 @@ font-size:24px;
   list-style: decimal;
 }
 
+.docsection1 code {
+    font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+
+    font-size: 90%;
+
+    padding: 2px 4px;
+
+    color: #c7254e;
+    border-radius: 4px;
+    background-color: #f9f2f4;
+}
+
 .intro {
   background-color:white;
   font-family: 'roboto';

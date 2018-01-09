@@ -37,7 +37,7 @@ $( document ).ready(function() {
   ) {
     var html = '';
 
-    /* 
+    /*
       html template:
         <a id="infolink1" href="docs.html"><div class="whitebar" >
             <div class="infoicon">
@@ -65,8 +65,8 @@ $( document ).ready(function() {
   //set links in the "I want to..." section, e.g. Setup a development environment
   function setInfoData(info, level) {
       // info links specific to type/button/level
-      var contentArray = (typeof info[selected.type][selected.button] !== 'undefined') 
-        ? info[selected.type][selected.button][selected.level] 
+      var contentArray = (typeof info[selected.type][selected.button] !== 'undefined')
+        ? info[selected.type][selected.button][selected.level]
         : [{
             label: 'Please select a role or persona in the "I AM..." section above.'
             ,url: '#cardWrapper'
@@ -142,6 +142,18 @@ $( document ).ready(function() {
     });
   }
 
+  function scrollToHash(hash) {
+    if (hash.length > 0) {
+      if (hash == "browsedocs") {
+        $('#browsedocsButton').click();
+      } else {
+        $('html, body').animate({
+          scrollTop: $(`#${hash}`).offset().top
+        }, 500);
+      }
+    }
+  }
+
   //initialize page and load defaults
   function main() {
     var info = loadInfo();
@@ -151,6 +163,9 @@ $( document ).ready(function() {
     setTimeout(function() {
       $("#beginner").trigger('click');
     }, 500);
+
+    // jump to section in URL now that anchors are created
+    scrollToHash(window.location.hash.substr(1));
   }
 
   //execute page initialization
