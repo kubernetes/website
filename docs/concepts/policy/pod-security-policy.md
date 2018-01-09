@@ -140,7 +140,7 @@ have superuser permissions. Otherwise requests would bypass authentication and
 authorization modules, all PodSecurityPolicy objects would be allowed, and users
 would be able to create privileged containers. For more details on configuring
 Controller Manager authorization, see [Controller
-Roles](docs/admin/authorization/rbac/#controller-roles).
+Roles](/docs/admin/authorization/rbac/#controller-roles).
 
 ## Policy Order
 
