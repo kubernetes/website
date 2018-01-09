@@ -147,7 +147,7 @@ The following node conditions are defined that correspond to the specified evict
 | Node Condition | Eviction Signal  | Description                                                      |
 |-------------------------|-------------------------------|--------------------------------------------|
 | `MemoryPressure` | `memory.available` | Available memory on the node has satisfied an eviction threshold |
-| `DiskPressure` | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, or `imagefs.inodesFree` | Available disk space and inodes on either the node's root filesytem or image filesystem has satisfied an eviction threshold |
+| `DiskPressure` | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, or `imagefs.inodesFree` | Available disk space and inodes on either the node's root filesystem or image filesystem has satisfied an eviction threshold |
 
 The `kubelet` continues to report node status updates at the frequency specified by
 `--node-status-update-frequency` which defaults to `10s`.
