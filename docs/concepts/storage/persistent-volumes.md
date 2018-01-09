@@ -245,9 +245,11 @@ Generally, a PV will have a specific storage capacity.  This is set using the PV
 Currently, storage size is the only resource that can be set or requested.  Future attributes may include IOPS, throughput, etc.
 
 ### Volume Mode
-{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
 
 Prior to v1.9, the default behavior for all volume plugins was to create a filesystem on the persistent volume. With v1.9, the user can specify a volumeMode which will now support raw block devices in addition to file systems. Valid values for volumeMode are "Filesystem" or "Block". If left unspecified, volumeMode defaults to "Filesystem" internally. This is an optional API parameter. 
+
+**Note:** This feature is alpha in v1.9 and may change in the future. 
+{: .note}
 
 ### Access Modes
 
@@ -384,7 +386,7 @@ Claims use the same conventions as volumes when requesting storage with specific
 
 ### Volume Modes
 
-Claims use the same convention as volumes to indicate the consumption of the volume as either a filesystem or block device.
+Claims use the same convention as volumes to indicates the consumption of the volume as either a filesystem or block device.
 
 ### Resources
 
@@ -470,7 +472,7 @@ spec:
 
 ## Raw Block Volume Support
 
-Static provisioning support for Raw Block Volumes is included as an alpha feature for v1.9. Raw block volumes can be specified through new API fields. Currently, Fibre Channel is the only supported plugin for this feature.
+Static provisioning support for Raw Block Volumes is included as an alpha feature for v1.9. With this change are some new API fields that need to be used to facilitate this functionality. Currently, Fibre Channel is the only supported plugin for this feature.
 
 ### Persistent Volumes using a Raw Block Volume
 ```
@@ -530,7 +532,7 @@ spec:
 
 ### Binding Block Volumes
 
-If a user requests a raw block volume through the persistentVolumeClaim.volumeMode field, it can only bind to PersistentVolume with the matching volumeMode field.
+If a user requests a raw block volume by indicating this using the volumeMode field in the PersistentVolumeClaim spec, the binding rules differ slighty from previous releases that didn't consider this mode as part of the spec.
 Listed is a table of possible combinations the user and admin might specify for requesting a raw block device. The table indicates if the volume will be bound or not given the combinations:
 Volume binding matrix for statically provisioned volumes:
 
