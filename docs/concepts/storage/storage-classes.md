@@ -389,7 +389,7 @@ parameters:
   set `imageFormat` to "2". Currently supported features are `layering` only.
   Default is "", and no features are turned on.
 
-#### Quobyte
+### Quobyte
 
 ```yaml
 apiVersion: storage.k8s.io/v1
