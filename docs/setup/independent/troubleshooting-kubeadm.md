@@ -57,7 +57,7 @@ This may be caused by a number of problems. The most common are:
   ```
 
   you will need to fix the cgroup driver problem by following intstructions
-  [here](/docs/setup/indenpendent/install-kubeadm/#installing-docker).
+  [here](/docs/setup/independent/install-kubeadm/#installing-docker).
 - control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
 
 
