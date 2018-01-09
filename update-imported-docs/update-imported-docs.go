@@ -32,6 +32,12 @@ func main() {
   exPath := filepath.Dir(ex) //file path of updated-imported-docs executable
   suffix := filepath.Base(exPath) //should be "updated-imported-docs"
 
+  //check if suffix is "updated-imported-docs"
+  if suffix != "update-imported-docs" {
+    fmt.Fprintf(os.Stderr, "Instead of `go run update-imported-docs.go <config.yml>`, use the compiled binary `./update-imported-docs <config.yml>`\n")
+    os.Exit(1)
+  }
+
   //set root directory of website
   websiteRepo := filepath.Clean(strings.TrimSuffix(exPath,suffix)) //path of parent directory
   fmt.Fprintf(os.Stdout, "Website root directory: %s\n", websiteRepo)
