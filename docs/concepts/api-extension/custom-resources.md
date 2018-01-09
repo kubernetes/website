@@ -177,7 +177,7 @@ When you create a custom resource, either via a CRDs or an AA, you get many feat
 | merge-patch | The new endpoints support PATCH with `Content-Type: application/merge-patch+json` |
 | HTTPS | The new endpoints uses HTTPS |
 | Built-in Authentication | Access to the extension uses the core apiserver (aggregation layer) for authentication |
-| Built-in Authorization | Access the the extension can reuse the authorization used by the core apiserver (e.g. RBAC) |
+| Built-in Authorization | Access to the extension can reuse the authorization used by the core apiserver (e.g. RBAC) |
 | Finalizers | Block deletion of extension resources until external cleanup happens. |
 | Admission Webhooks | Set default values and validate extension resources during any create/update/delete operation. |
 | UI/CLI Display | Kubectl, dashboard can display extension resources. |
