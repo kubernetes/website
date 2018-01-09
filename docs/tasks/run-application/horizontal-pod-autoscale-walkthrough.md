@@ -304,7 +304,7 @@ For this HorizontalPodAutoscaler, we can see several conditions in a healthy sta
 whether or not any backoff-related conditions would prevent scaling.  The second, `ScalingActive`,
 indicates whether or not the HPA is enabled (i.e. the replica count of the target is not zero) and
 is able to calculate desired scales. When it is `False`, it generally indicates problems with
-fetching metrics.  Finally, the last condition, `ScalingLimitted`, indicates that the desired scale
+fetching metrics.  Finally, the last condition, `ScalingLimited`, indicates that the desired scale
 was capped by the maximum or minimum of the HorizontalPodAutoscaler.  This is an indication that
 you may wish to raise or lower the minimum or maximum replica count constraints on your
 HorizontalPodAutoscaler.
