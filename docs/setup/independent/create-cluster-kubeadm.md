@@ -9,12 +9,12 @@ title: Using kubeadm to Create a Cluster
 
 {% capture overview %}
 
-**kubeadm** is a toolkit that help you bootstrap a best-practice Kubernetes
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified_kubernetes_color.png" align="right" width="150px">**kubeadm** is a toolkit that helps you bootstrap a best-practice Kubernetes
 cluster in an easy, reasonably secure and extensible way. It also supports
-managing [Bootstrap Tokens](#TODO) for you and upgrading/downgrading clusters.
+managing [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for you and upgrading/downgrading clusters.
 
 kubeadm aims to set up a minimum viable cluster that pass the
-[Kubernetes Conformance tests](#TODO), but installing other addons than
+[Kubernetes Conformance tests](http://blog.kubernetes.io/2017/10/software-conformance-certification.html), but installing other addons than
 really necessary for a functional cluster is out of scope.
 
 It by design does not install a networking solution for you, which means you
@@ -26,27 +26,29 @@ matter, can be a Linux laptop, virtual machine, physical/cloud server or
 Raspberry Pi. This makes kubeadm well suited to integrate with provisioning
 systems of different kinds (e.g. Terraform, Ansible, etc.).
 
-kubeadm is designed to be a good way for new users to start trying
-Kubernetes out, possibly for the first time, an way for existing users to
-test their application on and stich together a cluster easily and to be
-a building block in a larger ecosystem and/or installer tool with a larger
+kubeadm is designed to be a simple way for new users to start trying
+Kubernetes out, possibly for the first time, a way for existing users to
+test their application on and stich together a cluster easily, and also to be
+a building block in other ecosystem and/or installer tool with a larger
 scope.
 
 You can install _kubeadm_ very easily on operating systems that support
 installing deb or rpm packages. The responsible SIG for kubeadm,
-[SIG Cluster Lifecycle](#TODO), provides these packages pre-built for you,
+[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), provides these packages pre-built for you,
 but you may also on other OSes. 
 
 
 ### kubeadm Maturity
 
-| Area            | Maturity Level |
-|-----------------|--------------- |
-| Command line UX | beta           |
-| Implementation  | beta           |
-| Config file API | alpha          |
-| Self-hosting    | alpha          |
-| `kubeadm alpha` | alpha          |
+| Area                      | Maturity Level |
+|---------------------------|--------------- |
+| Command line UX           | beta           |
+| Implementation            | beta           |
+| Config file API           | alpha          |
+| Self-hosting              | alpha          |
+| kubeadm alpha subcommands | alpha          |
+| CoreDNS                   | alpha          | 
+| DynamicKubeletConfig      | alpha          |
 
 
 kubeadm's overall feature state is **Beta** and will soon be graduated to
@@ -64,12 +66,12 @@ period a patch release may be issued from the release branch if a severe bug or
 security issue is found. Here are the latest Kubernetes releases and the support
 timeframe; which also applies to `kubeadm`.
 
-| Kubernetes version | Release date | End-of-life-month |
-|--------------------|--------------|-------------------|
-| v1.6.x             | TODO         | December 2017     |
-| v1.7.x             | TODO         | March 2018        |
-| v1.8.x             | TODO         | June 2018         |
-| v1.9.x             | TODO         | September 2018    |
+| Kubernetes version | Release month  | End-of-life-month |
+|--------------------|----------------|-------------------|
+| v1.6.x             | March 2017     | December 2017     |
+| v1.7.x             | June 2017      | March 2018        |
+| v1.8.x             | September 2017 | June 2018         |
+| v1.9.x             | December 2017  | September 2018    |
 
 {% endcapture %}
 
@@ -120,7 +122,7 @@ kubeadm init
 
 **Notes:**
 
-- Please refer to the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/) if you want to
+- Please refer to the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm/) if you want to
 read more about the flags `kubeadm init` provides. You can also specify a 
 [configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) instead of using flags.
 - You need to choose a Pod Network Plugin in the next step. Depending on what
@@ -227,7 +229,7 @@ internal helper service, will not start up before a network is installed. kubead
 supports Container Network Interface (CNI) based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
-support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-onspage] (/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in 1.9.
+support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in 1.9.
 
 
 **Note:** kubeadm sets up a more secure cluster by default and enforces use of [RBAC](#TODO).
@@ -330,7 +332,7 @@ please see [here](https://kubernetes.io/docs/concepts/cluster-administration/net
 
 The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
 
-**Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required.
+**Note:** Weave Net works on `amd64`, `arm`, `arm64` and `ppc64le` without any extra action required.
 Weave Net sets hairpin mode by default. This allows Pods to access themselves via their Service IP address
 if they don't know their PodIP.
 
@@ -386,7 +388,7 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
 kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
-**Note:** To specify an IPv6 tuple for <master-ip>:<master-port>, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
+**Note:** To specify an IPv6 tuple for `<master-ip>:<master-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
 {: .note}
 
 The output should look something like:

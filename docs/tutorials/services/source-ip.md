@@ -33,7 +33,7 @@ document. The examples use a small nginx webserver that echoes back the source
 IP of requests it receives through an HTTP header. You can create it as follows:
 
 ```console
-$ kubectl run source-ip-app --image=gcr.io/google_containers/echoserver:1.4
+$ kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
 deployment "source-ip-app" created
 ```
 

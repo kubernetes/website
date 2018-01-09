@@ -196,10 +196,10 @@ spec:
     metadata:
     # ...
     spec:
+      serviceAccountName: bob-the-bot
       containers:
       - name: nginx
         image: nginx:1.7.9
-        serviceAccountName: bob-the-bot
 ```
 
 Service account bearer tokens are perfectly valid to use outside the cluster and

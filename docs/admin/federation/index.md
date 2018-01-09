@@ -87,9 +87,9 @@ images or you can build them yourself from HEAD.
 ### Using official release images
 
 As part of every Kubernetes release, official release images are pushed to
-`gcr.io/google_containers`. To use the images in this repository, you can
+`k8s.gcr.io`. To use the images in this repository, you can
 set the container image fields in the following configs to point to the
-images in this repository. `gcr.io/google_containers/hyperkube` image
+images in this repository. `k8s.gcr.io/hyperkube` image
 includes the federation-apiserver and federation-controller-manager
 binaries, so you can point the corresponding configs for those components
 to the hyperkube image.
@@ -247,7 +247,7 @@ federation, and
 in your federation DNS.
 
 You can find more details about config maps in general at
-[config map](/docs/tasks/configure-pod-container/configmap/).
+[config map](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
 ### Kubernetes 1.4 and earlier: Setting federations flag on kube-dns-rc
 
@@ -315,8 +315,8 @@ official release images or you can build from HEAD.
 
 #### Using official release images
 
-As part of every release, images are pushed to `gcr.io/google_containers`. To use
-these images, set env var `FEDERATION_PUSH_REPO_BASE=gcr.io/google_containers`
+As part of every release, images are pushed to `k8s.gcr.io`. To use
+these images, set env var `FEDERATION_PUSH_REPO_BASE=k8s.gcr.io`
 This will always use the latest image.
 To use the hyperkube image which includes federation-apiserver and
 federation-controller-manager from a specific release, set the
@@ -345,7 +345,7 @@ Once you have the images, you can run these as pods on your existing kubernetes 
 The command to run these pods on an existing GCE cluster will look like:
 
 ```shell
-$ KUBERNETES_PROVIDER=gce FEDERATION_DNS_PROVIDER=google-clouddns FEDERATION_NAME=myfederation DNS_ZONE_NAME=myfederation.example FEDERATION_PUSH_REPO_BASE=gcr.io/google_containers ./federation/cluster/federation-up.sh
+$ KUBERNETES_PROVIDER=gce FEDERATION_DNS_PROVIDER=google-clouddns FEDERATION_NAME=myfederation DNS_ZONE_NAME=myfederation.example FEDERATION_PUSH_REPO_BASE=k8s.gcr.io ./federation/cluster/federation-up.sh
 ```
 
 `KUBERNETES_PROVIDER` is the cloud provider.

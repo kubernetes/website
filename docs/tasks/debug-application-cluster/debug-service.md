@@ -66,7 +66,7 @@ probably debugging your own `Service` you can substitute your own details, or yo
 can follow along and get a second data point.
 
 ```shell
-$ kubectl run hostnames --image=gcr.io/google_containers/serve_hostname \
+$ kubectl run hostnames --image=k8s.gcr.io/serve_hostname \
                         --labels=app=hostnames \
                         --port=9376 \
                         --replicas=3
@@ -93,7 +93,7 @@ spec:
     spec:
       containers:
       - name: hostnames
-        image: gcr.io/google_containers/serve_hostname
+        image: k8s.gcr.io/serve_hostname
         ports:
         - containerPort: 9376
           protocol: TCP

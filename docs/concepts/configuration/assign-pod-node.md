@@ -212,7 +212,7 @@ must be satisfied for the pod to schedule onto a node.
 
 #### More Practical Use-cases
 
-Interpod Affinity and AnitAffinity can be even more useful when they are used with higher
+Interpod Affinity and AntiAffinity can be even more useful when they are used with higher
 level collections such as ReplicaSets, Statefulsets, Deployments, etc.  One can easily configure that a set of workloads should
 be co-located in the same defined topology, eg., the same node.
 

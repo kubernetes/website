@@ -154,7 +154,108 @@ An example is shown below:
 apiVersion: extensions/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: custom-paths
+  name: <binding name>
+roleRef:
+  kind: ClusterRole
+  name: <role name>
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+# Authorize specific service accounts:
+- kind: ServiceAccount
+  name: <authorized service account name>
+  namespace: <authorized pod namespace>
+# Authorize specific users (not recommended):
+- kind: User
+  apiGroup: rbac.authorization.k8s.io
+  name: <authorized user name>
+```
+
+If a `RoleBinding` (not a `ClusterRoleBinding`) is used, it will only grant
+usage for pods being run in the same namespace as the binding. This can be
+paired with system groups to grant access to all pods run in the namespace:
+```yaml
+# Authorize all service accounts in a namespace:
+- kind: Group
+  apiGroup: rbac.authorization.k8s.io
+  name: system:serviceaccounts
+# Or equivalently, all authenticated users in a namespace:
+- kind: Group
+  apiGroup: rbac.authorization.k8s.io
+  name: system:authenticated
+```
+
+For more examples of RBAC bindings, see [Role Binding
+Examples](/docs/admin/authorization/rbac#role-binding-examples). For a complete
+example of authorizing a PodSecurityPolicy, see
+[below](#example).
+
+
+### Troubleshooting
+
+- The [Controller Manager](/docs/admin/kube-controller-manager/) must be run
+against [the secured API port](/docs/admin/accessing-the-api/), and must not
+have superuser permissions. Otherwise requests would bypass authentication and
+authorization modules, all PodSecurityPolicy objects would be allowed, and users
+would be able to create privileged containers. For more details on configuring
+Controller Manager authorization, see [Controller
+Roles](docs/admin/authorization/rbac/#controller-roles).
+
+## Policy Order
+
+In addition to restricting pod creation and update, pod security policies can
+also be used to provide default values for many of the fields that it
+controls. When multiple policies are available, the pod security policy
+controller selects policies in the following order:
+
+1. If any policies successfully validate the pod without altering it, they are
+   used.
+2. Otherwise, the first valid policy in alphabetical order is used.
+
+## Example
+
+_This example assumes you have a running cluster with the PodSecurityPolicy
+admission controller enabled and you have cluster admin privileges._
+
+### Set up
+
+Set up a namespace and a service account to act as for this example. We'll use
+this service account to mock a non-admin user.
+
+```shell
+$ kubectl create namespace psp-example
+$ kubectl create serviceaccount -n psp-example fake-user
+$ kubectl create rolebinding -n psp-example fake-editor --clusterrole=edit --serviceaccount=psp-example:fake-user
+```
+
+To make it clear which user we're acting as and save some typing, create 2
+aliases:
+
+```shell
+$ alias kubectl-admin='kubectl -n psp-example'
+$ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n psp-example'
+```
+
+### Create a policy and a pod
+
+Define the example PodSecurityPolicy object in a file. This is a policy that
+simply prevents the creation of privileged pods.
+
+{% include code.html language="yaml" file="example-psp.yaml" ghlink="/docs/concepts/policy/example-psp.yaml" %}
+
+And create it with kubectl:
+
+```shell
+$ kubectl-admin create -f example-psp.yaml
+```
+
+Now, as the unprivileged user, try to create a simple pod:
+
+```shell
+$ kubectl-user create -f- <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name:      pause
 spec:
   allowedHostPaths:
     # This allows "/foo", "/foo/", "/foo/bar" etc., but

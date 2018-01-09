@@ -25,6 +25,7 @@ This renders the definition of the glossary term inside a `<div>`, preserving Ma
 | --- | --- | --- |
 | `term_id` | N/A (Required) | The `id` of the glossary term whose definition will be used. (This `id` is the same as the filename of the term, i.e. `_data/glossary/<ID>.yml`.) |
 | `length` | "short" | Specifies which term definition should be used ("short" for the `short-definition`, "long" for `long-description`, "all" when both should be included). |
+| `prepend` | "Service Catalog is" | A prefix which can be attached in front of a term's short definition (which is one or more sentence fragments). |
 
 #### (2) `glossary_tooltip` tag
 

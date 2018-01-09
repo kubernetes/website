@@ -31,6 +31,13 @@ following steps:
    API server, each with its own identity, as well as an additional
    kubeconfig file for administration named `admin.conf`.
 
+1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
+   it writes the kubelet init configuration into the `/var/lib/kubelet/config/init/kubelet` file. 
+   See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file.md) 
+   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet.md) 
+   for more information about Dynamic Kubelet Configuration.
+   This functionality is now by default disabled as it is behind a feature gate, but is expected to be a default in future versions.
+
 1. Generates static Pod manifests for the API server,
    controller manager and scheduler. In case an external etcd is not provided,
    an additional static Pod manifest are generated for etcd.
@@ -39,6 +46,12 @@ following steps:
    watches this directory for Pods to create on startup.
 
    Once control plane Pods are up and running, the `kubeadm init` sequence can continue.
+
+1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
+   it completes the kubelet dynamic configuration by creating a ConfigMap and some RBAC rules that enable
+   kubelets to access to it, and updates the node by pointing `Node.spec.configSource` to the 
+   newly-created ConfigMap. 
+   This functionality is now by default disabled as it is behind a feature gate, but is expected to be a default in future versions.
 
 1. Apply labels and taints to the master node so that no additional workloads will 
    run there.
@@ -62,7 +75,7 @@ following steps:
 
    See [kubeadm join](kubeadm-join.md) for additional info.
 
-1. Installs the internal DNS server and the kube-proxy addon components via the API server.  
+1. Installs the internal DNS server (kube-dns) and the kube-proxy addon components via the API server. If kubeadm is invoked with --feature-gates=CoreDNS=true, then [CoreDNS](https://coredns.io/) will be installed as the default internal DNS server instead of kube-dns.  
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 
 1. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
@@ -120,6 +133,18 @@ controllerManagerExtraArgs:
 schedulerExtraArgs:
   <argument>: <value|string>
   <argument>: <value|string>
+apiServerExtraVolumes:
+- name: <value|string>
+  hostPath: <value|string>
+  mountPath: <value|string>
+controllerManagerExtraVolumes:
+- name: <value|string>
+  hostPath: <value|string>
+  mountPath: <value|string>
+schedulerExtraVolumes:
+- name: <value|string>
+  hostPath: <value|string>
+  mountPath: <value|string>
 apiServerCertSANs:
 - <name1|string>
 - <name2|string>
@@ -156,7 +181,7 @@ More information on custom arguments can be found here:
 
 ### Using custom images {#custom-images}
 
-By default, kubeadm pulls images from `gcr.io/google_containers`, unless
+By default, kubeadm pulls images from `k8s.gcr.io`, unless
 the requested Kubernetes version is a CI version. In this case,
 `gcr.io/kubernetes-ci-images` is used.
 
@@ -164,9 +189,9 @@ You can override this behavior by using [kubeadm with a configuration file](#con
 Allowed customization are:
 
 * To provide an alternative `imageRepository` to be used instead of
-  `gcr.io/google_containers`.
+  `k8s.gcr.io`.
 * To provide a `unifiedControlPlaneImage` to be used instead of different images for control plane components.
-* To provide a specific `etcd.image` to be used instead of the image available at`gcr.io/google_containers`.
+* To provide a specific `etcd.image` to be used instead of the image available at`k8s.gcr.io`.
 
 
 ### Using custom certificates {#custom-certificates}
@@ -370,21 +395,21 @@ For running kubeadm without an internet connection you have to pre-pull the requ
 
 | Image Name                                               | v1.8 release branch version | v1.9 release branch version |
 |----------------------------------------------------------|-----------------------------|-----------------------------|
-| gcr.io/google_containers/kube-apiserver-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| gcr.io/google_containers/kube-controller-manager-${ARCH} | v1.8.x                      | v1.9.x                      |
-| gcr.io/google_containers/kube-scheduler-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| gcr.io/google_containers/kube-proxy-${ARCH}              | v1.8.x                      | v1.9.x                      |
-| gcr.io/google_containers/etcd-${ARCH}                    | 3.0.17                      | 3.1.10                      |
-| gcr.io/google_containers/pause-${ARCH}                   | 3.0                         | 3.0                         |
-| gcr.io/google_containers/k8s-dns-sidecar-${ARCH}         | 1.14.5                      | 1.14.7                      |
-| gcr.io/google_containers/k8s-dns-kube-dns-${ARCH}        | 1.14.5                      | 1.14.7                      |
-| gcr.io/google_containers/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.5                      | 1.14.7                      |
+| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.8.x                      | v1.9.x                      |
+| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.8.x                      | v1.9.x                      |
+| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.8.x                      | v1.9.x                      |
+| k8s.gcr.io/kube-proxy-${ARCH}              | v1.8.x                      | v1.9.x                      |
+| k8s.gcr.io/etcd-${ARCH}                    | 3.0.17                      | 3.1.10                      |
+| k8s.gcr.io/pause-${ARCH}                   | 3.0                         | 3.0                         |
+| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.5                      | 1.14.7                      |
+| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.5                      | 1.14.7                      |
+| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.5                      | 1.14.7                      |
 
 Here `v1.8.x` means the "latest patch release of the v1.8 branch".
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
-If using `--feature-gates=CoreDNS` image `coredns/coredns:1.0.0` is required (instead of the three `k8s-dns-*` images).
+If using `--feature-gates=CoreDNS=true` image `coredns/coredns:1.0.2` is required (instead of the three `k8s-dns-*` images).
 
 ### Automating kubeadm
 
