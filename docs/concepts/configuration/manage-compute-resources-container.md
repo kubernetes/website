@@ -383,10 +383,8 @@ The API server restricts quantities of Extended Resources to whole numbers.
 Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
 _invalid_ quantities are `0.5` and `1500m`.
 
-**Note:** Extended Resources replace Opaque Integer
-Resources. Users can use any domain
-name prefix outside of the `kubernetes.io/` domain instead of the previous
-`pod.alpha.kubernetes.io/opaque-int-resource-` prefix.
+**Note:** Extended Resources replace Opaque Integer Resources.
+Users can use any domain name prefix other than "`kubernetes.io`" which is reserved.
 {: .note}
 
 There are two steps required to use Extended Resources. First, the
