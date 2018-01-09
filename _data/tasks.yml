@@ -150,8 +150,6 @@ toc:
   - docs/tasks/administer-cluster/reserve-compute-resources.md
   - docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods.md
   - docs/tasks/administer-cluster/declare-network-policy.md
-  - docs/tasks/administer-cluster/reconfigure-kubelet.md
-  - docs/tasks/administer-cluster/kubelet-config-file.md
   - title: Install Network Policy Provider
     section:
     - docs/tasks/administer-cluster/calico-network-policy.md
@@ -159,6 +157,8 @@ toc:
     - docs/tasks/administer-cluster/kube-router-network-policy.md
     - docs/tasks/administer-cluster/romana-network-policy.md
     - docs/tasks/administer-cluster/weave-network-policy.md
+  - docs/tasks/administer-cluster/reconfigure-kubelet.md
+  - docs/tasks/administer-cluster/kubelet-config-file.md
   - docs/tasks/administer-cluster/change-pv-reclaim-policy.md
   - docs/tasks/administer-cluster/configure-pod-disruption-budget.md
   - docs/tasks/administer-cluster/limit-storage-consumption.md
