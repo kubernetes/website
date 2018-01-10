@@ -20,7 +20,7 @@ display_browse_numbers: true
 <div class="bar1">
     <div class="navButton users" onClick="showOnlyDocs(false)">Users</div>
     <div class="navButton contributors" onClick="showOnlyDocs(false)">Contributors</div>
-    <div class="navButton migrators" onClick="showOnlyDocs(false)">Migration&nbsp;Paths</div>
+    <!-- div class="navButton migrators" onClick="showOnlyDocs(false)">Migration&nbsp;Paths</div -->
     <a onClick="showOnlyDocs(true)"> <div class="navButton">Browse Docs</div></a>
 </div>
 
