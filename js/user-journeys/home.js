@@ -54,7 +54,7 @@ $( document ).ready(function() {
 
     html =  '<a id="infolink'+i+'" href="'+linkUrl+'"><div class="whitebar">' +
               '<div class="infoicon">' +
-                '<i class="fa '+linkIcon+'" aria-hidden="true" style="padding:%;float:left;color:#3399ff"></i>' +
+                '<i class="fa '+linkIcon+'" aria-hidden="true" style="padding:%;float:left;color:#3371e3"></i>' +
               '</div>' +
               '<div id="info'+i+'" class="data">'+linkLabel+'</div>' +
             '</div></a>';
