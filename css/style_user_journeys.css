@@ -528,7 +528,6 @@ i {
 }
 .infobarWrapper {
     visibility: hidden;
-    height: 60vh;
     margin-bottom:5%;
 }
 .infobar {
