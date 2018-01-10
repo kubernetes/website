@@ -69,9 +69,9 @@ the underlying cloud, where available:
 | Identity (Keystone)      | V2‡,  V3       | Yes      |
 | Load Balancing (Neutron) | V1§, V2        | No       |
 
-† Block Storage V1 API support is deprecated, support for Block Storage V3 will 
+† Block Storage V1 API support is deprecated, support for Block Storage V3 will
 be added in the future.
-  
+
 ‡ Identity V2 API support is deprecated and will be removed from the provider in
 a future release. As of the "Queens" release, OpenStack will no longer expose the
 Identity V2 API.
@@ -201,12 +201,6 @@ and should appear in the `[BlockStorage]` section of the `cloud.conf` file:
   provided by Cinder. The default value of `false` results in the discovery of
   the device path based on its serial number and `/dev/disk/by-id` mapping and is
   the recommended approach.
-* `ignore-volume-az` (Optional): Used to influence availability zone use when
-  attaching Cinder volumes. When Nova and Cinder have different availability
-  zones, this should be set to `true`. This is most commonly the case where
-  there are many Nova availability zones but only one Cinder availability zone.
-  The default value is `false` to preserve the behavior used in earlier
-  releases, but may change in the future.
 
 If deploying Kubernetes versions <= 1.8 on an OpenStack deployment that uses
 paths rather than ports to differentiate between endpoints it may be necessary
