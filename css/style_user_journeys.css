@@ -336,6 +336,7 @@ button {
   -khtml-border-radius: 5px; /* for old Konqueror browsers */
   border: 2px solid #ffffff;
   padding:1%;
+  white-space: nowrap;
   margin:1%;
   color:#3371e3;
   background-color:white;
