@@ -48,7 +48,7 @@ other Kubelet flags you may care:
 # $LOG_DIR is the test output path.
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  gcr.io/google_containers/node-test:0.2
+  k8s.gcr.io/node-test:0.2
 ```
 
 ## Running Node Conformance Test for Other Architectures
@@ -71,7 +71,7 @@ regular expression of tests you want to run.
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e FOCUS=MirrorPod \ # Only run MirrorPod test
-  gcr.io/google_containers/node-test:0.2
+  k8s.gcr.io/node-test:0.2
 ```
 
 To skip specific tests, overwrite the environment variable `SKIP` with the
@@ -81,7 +81,7 @@ regular expression of tests you want to skip.
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e SKIP=MirrorPod \ # Run all conformance tests but skip MirrorPod test
-  gcr.io/google_containers/node-test:0.2
+  k8s.gcr.io/node-test:0.2
 ```
 
 Node conformance test is a containerized version of [node e2e test](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/devel/e2e-node-tests.md).

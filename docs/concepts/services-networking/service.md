@@ -154,7 +154,7 @@ than `ExternalName`.
 In Kubernetes v1.0, `Services` are a "layer 4" (TCP/UDP over IP) construct, the 
 proxy was purely in userspace.  In Kubernetes v1.1, the `Ingress` API was added
 (beta) to represent "layer 7"(HTTP) services, iptables proxy was added too, 
-and become the default operating mode since Kubernetes v1.2. In Kubernetes v1.9-alpha,
+and become the default operating mode since Kubernetes v1.2. In Kubernetes v1.8.0-beta.0,
 ipvs proxy was added.
 
 ### Proxy-mode: userspace
@@ -170,6 +170,8 @@ and redirects that traffic to the proxy port which proxies the backend `Pod`.
 By default, the choice of backend is round robin. 
 
 ![Services overview diagram for userspace proxy](/images/docs/services-userspace-overview.svg)
+
+Note that in the above diagram, `clusterIP` is shown as `ServiceIP`.
 
 ### Proxy-mode: iptables
 
@@ -188,20 +190,22 @@ having working [readiness probes](/docs/tasks/configure-pod-container/configure-
 
 ![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
 
+Note that in the above diagram, `clusterIP` is shown as `ServiceIP`.
+
 ### Proxy-mode: ipvs
 
 {% assign for_k8s_version="v1.9" %}{% include feature-state-beta.md %}
 
 In this mode, kube-proxy watches Kubernetes `services` and `endpoints`,
-call `netlink` interface create ipvs rules accordingly and sync ipvs rules with Kubernetes
+calls `netlink` interface to create ipvs rules accordingly and syncs ipvs rules with Kubernetes
 `services` and `endpoints`  periodically, to make sure ipvs status is
-consistent with the expectation. When access the `service`, traffic will
-be redirect to one of the backend `pod`.
+consistent with the expectation. When `service` is accessed, traffic will
+be redirected to one of the backend `pod`s.
 
-Similar to iptables, Ipvs is based on netfilter hook function, but use hash
-table as the underlying data structure and work in the kernal state.
-That means ipvs redirects traffic can be much faster, and have much
-better performance when sync proxy rules. Furthermore, ipvs provides more
+Similar to iptables, Ipvs is based on netfilter hook function, but uses hash
+table as the underlying data structure and works in the kernel space.
+That means ipvs redirects traffic much faster, and has much
+better performance when syncing proxy rules. Furthermore, ipvs provides more
 options for load balancing algorithm, such as:
 
 - rr: round-robin
@@ -211,7 +215,7 @@ options for load balancing algorithm, such as:
 - sed: shortest expected delay
 - nq: never queue
 
-**Note:** ipvs mode assumed IPVS kernel modules are installed on the node
+**Note:** ipvs mode assumes IPVS kernel modules are installed on the node
 before running kube-proxy. When kube-proxy starts with ipvs proxy mode,
 kube-proxy would validate if IPVS modules are installed on the node, if
 it's not installed kube-proxy will fall back to iptables proxy mode.
@@ -737,8 +741,8 @@ VIP, their traffic is automatically transported to an appropriate endpoint.
 The environment variables and DNS for `Services` are actually populated in
 terms of the `Service`'s VIP and port.
 
-We support two proxy modes - userspace and iptables, which operate slightly
-differently.
+We support three proxy modes - userspace, iptables and ipvs which operate
+slightly differently.
 
 #### Userspace
 

@@ -520,16 +520,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -712,12 +712,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -2235,16 +2235,16 @@ spec:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -3785,7 +3785,7 @@ Appears In:
 <tbody>
 <tr>
 <td>maxSurge</td>
-<td>The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new RC can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be scaled up further, ensuring that total number of pods running at any time during the update is atmost 130% of desired pods.</td>
+<td>The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new RC can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.</td>
 </tr>
 <tr>
 <td>maxUnavailable</td>
@@ -3975,16 +3975,16 @@ spec:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#deployment-v1-apps">Deployment</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#deployment-v1-apps">Deployment</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#deployment-v1-apps">Deployment</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#deployment-v1-apps">Deployment</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -4342,12 +4342,12 @@ spec:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#deployment-v1-apps">Deployment</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#deployment-v1-apps">Deployment</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#deployment-v1-apps">Deployment</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -6372,16 +6372,16 @@ spec:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#job-v1-batch">Job</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#job-v1-batch">Job</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#job-v1-batch">Job</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#job-v1-batch">Job</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -8016,7 +8016,8 @@ $</span><span class="bash"> kubectl proxy</span>
   <span class="hljs-attribute">name</span>: pod-example
 <span class="hljs-attribute">spec</span>:
   <span class="hljs-attribute">containers</span>:
-  - <span class="hljs-attribute">image</span>: <span class="hljs-attribute">ubuntu</span>:trusty
+  - <span class="hljs-attribute">name</span>: ubuntu
+    <span class="hljs-attribute">image</span>: <span class="hljs-attribute">ubuntu</span>:trusty
     <span class="hljs-attribute">command</span>: [<span class="hljs-string">"echo"</span>]
     <span class="hljs-attribute">args</span>: [<span class="hljs-string">"Hello World"</span>]
 </code></pre>
@@ -8030,7 +8031,8 @@ $</span><span class="bash"> kubectl proxy</span>
   <span class="hljs-attribute">name</span>: pod-example
 <span class="hljs-attribute">spec</span>:
   <span class="hljs-attribute">containers</span>:
-  - <span class="hljs-attribute">image</span>: <span class="hljs-attribute">ubuntu</span>:trusty
+  - <span class="hljs-attribute">name</span>: ubuntu
+    <span class="hljs-attribute">image</span>: <span class="hljs-attribute">ubuntu</span>:trusty
     <span class="hljs-attribute">command</span>: [<span class="hljs-string">"echo"</span>]
     <span class="hljs-attribute">args</span>: [<span class="hljs-string">"Hello World"</span>]
 </code></pre>
@@ -8387,16 +8389,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#pod-v1-core">Pod</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#pod-v1-core">Pod</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#pod-v1-core">Pod</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#pod-v1-core">Pod</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -8579,12 +8581,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#pod-v1-core">Pod</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#pod-v1-core">Pod</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#pod-v1-core">Pod</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -9641,12 +9643,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#pod-v1-core">Pod</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#pod-v1-core">Pod</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#pod-v1-core">Pod</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -11701,12 +11703,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#replicaset-v1-apps">ReplicaSet</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#replicaset-v1-apps">ReplicaSet</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#replicaset-v1-apps">ReplicaSet</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -12763,12 +12765,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#replicaset-v1-apps">ReplicaSet</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#replicaset-v1-apps">ReplicaSet</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#replicaset-v1-apps">ReplicaSet</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -14320,12 +14322,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#replicationcontroller-v1-core">ReplicationController</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#replicationcontroller-v1-core">ReplicationController</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#replicationcontroller-v1-core">ReplicationController</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -14609,16 +14611,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#statefulset-v1-apps">StatefulSet</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#statefulset-v1-apps">StatefulSet</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#statefulset-v1-apps">StatefulSet</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#statefulset-v1-apps">StatefulSet</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -16058,16 +16060,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#endpoints-v1-core">Endpoints</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#endpoints-v1-core">Endpoints</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#endpoints-v1-core">Endpoints</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#endpoints-v1-core">Endpoints</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -16250,12 +16252,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#endpoints-v1-core">Endpoints</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#endpoints-v1-core">Endpoints</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#endpoints-v1-core">Endpoints</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -18528,12 +18530,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#ingress-v1beta1-extensions">Ingress</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#ingress-v1beta1-extensions">Ingress</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#ingress-v1beta1-extensions">Ingress</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -19208,12 +19210,12 @@ service </span><span class="hljs-string">"deployment-example"</span> replaced
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#service-v1-core">Service</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#service-v1-core">Service</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#service-v1-core">Service</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -21789,16 +21791,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#configmap-v1-core">ConfigMap</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#configmap-v1-core">ConfigMap</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#configmap-v1-core">ConfigMap</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#configmap-v1-core">ConfigMap</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -22957,16 +22959,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>202 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
 <td>Accepted</td>
 </tr>
 <tr>
 <td>200 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -23149,12 +23151,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -24397,12 +24399,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#persistentvolumeclaim-v1-core">PersistentVolumeClaim</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#persistentvolumeclaim-v1-core">PersistentVolumeClaim</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#persistentvolumeclaim-v1-core">PersistentVolumeClaim</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -25641,16 +25643,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#storageclass-v1-storage">StorageClass</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#storageclass-v1-storage">StorageClass</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#storageclass-v1-storage">StorageClass</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#storageclass-v1-storage">StorageClass</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -26465,7 +26467,7 @@ Appears In:
 </tr>
 <tr>
 <td>flexVolume <br /> <em><a href="#flexvolumesource-v1-core">FlexVolumeSource</a></em></td>
-<td>FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. This is an alpha feature and may change in future.</td>
+<td>FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.</td>
 </tr>
 <tr>
 <td>flocker <br /> <em><a href="#flockervolumesource-v1-core">FlockerVolumeSource</a></em></td>
@@ -26759,16 +26761,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#volumeattachment-v1alpha1-storage">VolumeAttachment</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#volumeattachment-v1alpha1-storage">VolumeAttachment</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#volumeattachment-v1alpha1-storage">VolumeAttachment</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#volumeattachment-v1alpha1-storage">VolumeAttachment</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -27883,12 +27885,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#controllerrevision-v1-apps">ControllerRevision</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#controllerrevision-v1-apps">ControllerRevision</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#controllerrevision-v1-apps">ControllerRevision</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -28904,16 +28906,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#customresourcedefinition-v1beta1-apiextensions">CustomResourceDefinition</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#customresourcedefinition-v1beta1-apiextensions">CustomResourceDefinition</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#customresourcedefinition-v1beta1-apiextensions">CustomResourceDefinition</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#customresourcedefinition-v1beta1-apiextensions">CustomResourceDefinition</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -29740,12 +29742,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#customresourcedefinition-v1beta1-apiextensions">CustomResourceDefinition</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#customresourcedefinition-v1beta1-apiextensions">CustomResourceDefinition</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#customresourcedefinition-v1beta1-apiextensions">CustomResourceDefinition</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -29968,16 +29970,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#event-v1-core">Event</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#event-v1-core">Event</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#event-v1-core">Event</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#event-v1-core">Event</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -30160,12 +30162,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#event-v1-core">Event</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#event-v1-core">Event</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#event-v1-core">Event</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -31342,12 +31344,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#limitrange-v1-core">LimitRange</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#limitrange-v1-core">LimitRange</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#limitrange-v1-core">LimitRange</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -32389,16 +32391,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -32581,12 +32583,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -33643,12 +33645,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -33801,16 +33803,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#initializerconfiguration-v1alpha1-admissionregistration">InitializerConfiguration</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#initializerconfiguration-v1alpha1-admissionregistration">InitializerConfiguration</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#initializerconfiguration-v1alpha1-admissionregistration">InitializerConfiguration</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#initializerconfiguration-v1alpha1-admissionregistration">InitializerConfiguration</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -34701,16 +34703,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#mutatingwebhookconfiguration-v1beta1-admissionregistration">MutatingWebhookConfiguration</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#mutatingwebhookconfiguration-v1beta1-admissionregistration">MutatingWebhookConfiguration</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#mutatingwebhookconfiguration-v1beta1-admissionregistration">MutatingWebhookConfiguration</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#mutatingwebhookconfiguration-v1beta1-admissionregistration">MutatingWebhookConfiguration</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -35601,16 +35603,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#validatingwebhookconfiguration-v1beta1-admissionregistration">ValidatingWebhookConfiguration</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#validatingwebhookconfiguration-v1beta1-admissionregistration">ValidatingWebhookConfiguration</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#validatingwebhookconfiguration-v1beta1-admissionregistration">ValidatingWebhookConfiguration</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#validatingwebhookconfiguration-v1beta1-admissionregistration">ValidatingWebhookConfiguration</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -36557,16 +36559,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#podtemplate-v1-core">PodTemplate</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#podtemplate-v1-core">PodTemplate</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#podtemplate-v1-core">PodTemplate</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#podtemplate-v1-core">PodTemplate</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -37793,16 +37795,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#poddisruptionbudget-v1beta1-policy">PodDisruptionBudget</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#poddisruptionbudget-v1beta1-policy">PodDisruptionBudget</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#poddisruptionbudget-v1beta1-policy">PodDisruptionBudget</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#poddisruptionbudget-v1beta1-policy">PodDisruptionBudget</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -41413,16 +41415,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#podsecuritypolicy-v1beta1-extensions">PodSecurityPolicy</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#podsecuritypolicy-v1beta1-extensions">PodSecurityPolicy</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#podsecuritypolicy-v1beta1-extensions">PodSecurityPolicy</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#podsecuritypolicy-v1beta1-extensions">PodSecurityPolicy</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -43363,16 +43365,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#binding-v1-core">Binding</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#binding-v1-core">Binding</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#binding-v1-core">Binding</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#binding-v1-core">Binding</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -43597,16 +43599,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#certificatesigningrequest-v1beta1-certificates">CertificateSigningRequest</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>202 <br /> <em><a href="#certificatesigningrequest-v1beta1-certificates">CertificateSigningRequest</a></em></td>
 <td>Accepted</td>
 </tr>
 <tr>
 <td>200 <br /> <em><a href="#certificatesigningrequest-v1beta1-certificates">CertificateSigningRequest</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#certificatesigningrequest-v1beta1-certificates">CertificateSigningRequest</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -44598,16 +44600,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#clusterrole-v1-rbac">ClusterRole</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#clusterrole-v1-rbac">ClusterRole</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#clusterrole-v1-rbac">ClusterRole</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#clusterrole-v1-rbac">ClusterRole</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -45497,16 +45499,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#clusterrolebinding-v1-rbac">ClusterRoleBinding</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#clusterrolebinding-v1-rbac">ClusterRoleBinding</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#clusterrolebinding-v1-rbac">ClusterRoleBinding</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#clusterrolebinding-v1-rbac">ClusterRoleBinding</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -45681,12 +45683,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#clusterrolebinding-v1-rbac">ClusterRoleBinding</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#clusterrolebinding-v1-rbac">ClusterRoleBinding</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#clusterrolebinding-v1-rbac">ClusterRoleBinding</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -46621,16 +46623,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#localsubjectaccessreview-v1-authorization">LocalSubjectAccessReview</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#localsubjectaccessreview-v1-authorization">LocalSubjectAccessReview</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#localsubjectaccessreview-v1-authorization">LocalSubjectAccessReview</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#localsubjectaccessreview-v1-authorization">LocalSubjectAccessReview</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -48000,16 +48002,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#node-v1-core">Node</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#node-v1-core">Node</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#node-v1-core">Node</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#node-v1-core">Node</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -50357,7 +50359,7 @@ Appears In:
 </tr>
 <tr>
 <td>flexVolume <br /> <em><a href="#flexvolumesource-v1-core">FlexVolumeSource</a></em></td>
-<td>FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. This is an alpha feature and may change in future.</td>
+<td>FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.</td>
 </tr>
 <tr>
 <td>flocker <br /> <em><a href="#flockervolumesource-v1-core">FlockerVolumeSource</a></em></td>
@@ -50744,12 +50746,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#persistentvolume-v1-core">PersistentVolume</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#persistentvolume-v1-core">PersistentVolume</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#persistentvolume-v1-core">PersistentVolume</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -51786,16 +51788,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#resourcequota-v1-core">ResourceQuota</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#resourcequota-v1-core">ResourceQuota</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#resourcequota-v1-core">ResourceQuota</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#resourcequota-v1-core">ResourceQuota</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -53216,16 +53218,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -53408,12 +53410,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -55511,16 +55513,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#selfsubjectaccessreview-v1-authorization">SelfSubjectAccessReview</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#selfsubjectaccessreview-v1-authorization">SelfSubjectAccessReview</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#selfsubjectaccessreview-v1-authorization">SelfSubjectAccessReview</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#selfsubjectaccessreview-v1-authorization">SelfSubjectAccessReview</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -55668,16 +55670,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#selfsubjectrulesreview-v1-authorization">SelfSubjectRulesReview</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#selfsubjectrulesreview-v1-authorization">SelfSubjectRulesReview</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#selfsubjectrulesreview-v1-authorization">SelfSubjectRulesReview</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#selfsubjectrulesreview-v1-authorization">SelfSubjectRulesReview</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -56045,12 +56047,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#serviceaccount-v1-core">ServiceAccount</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#serviceaccount-v1-core">ServiceAccount</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#serviceaccount-v1-core">ServiceAccount</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -57050,16 +57052,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#subjectaccessreview-v1-authorization">SubjectAccessReview</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#subjectaccessreview-v1-authorization">SubjectAccessReview</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#subjectaccessreview-v1-authorization">SubjectAccessReview</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#subjectaccessreview-v1-authorization">SubjectAccessReview</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -57451,16 +57453,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>201 <br /> <em><a href="#networkpolicy-v1-networking">NetworkPolicy</a></em></td>
+<td>Created</td>
+</tr>
+<tr>
 <td>202 <br /> <em><a href="#networkpolicy-v1-networking">NetworkPolicy</a></em></td>
 <td>Accepted</td>
 </tr>
 <tr>
 <td>200 <br /> <em><a href="#networkpolicy-v1-networking">NetworkPolicy</a></em></td>
 <td>OK</td>
-</tr>
-<tr>
-<td>201 <br /> <em><a href="#networkpolicy-v1-networking">NetworkPolicy</a></em></td>
-<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -57643,12 +57645,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#networkpolicy-v1-networking">NetworkPolicy</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#networkpolicy-v1-networking">NetworkPolicy</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#networkpolicy-v1-networking">NetworkPolicy</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -59719,7 +59721,7 @@ Appears In:
 <tbody>
 <tr>
 <td>names <br /> <em>string array</em></td>
-<td>Names by which this image is known. e.g. [&quot;gcr.io/google_containers/hyperkube:v1.0.7&quot;, &quot;dockerhub.io/google_containers/hyperkube:v1.0.7&quot;]</td>
+<td>Names by which this image is known. e.g. [&quot;k8s.gcr.io/hyperkube:v1.0.7&quot;, &quot;dockerhub.io/google_containers/hyperkube:v1.0.7&quot;]</td>
 </tr>
 <tr>
 <td>sizeBytes <br /> <em>integer</em></td>
@@ -61247,7 +61249,7 @@ Appears In:
 </tr>
 </tbody>
 </table>
-<p>FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. This is an alpha feature and may change in future.</p>
+<p>FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.</p>
 <aside class="notice">
 Appears In:
 
@@ -70808,12 +70810,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#clusterrolebinding-v1beta1-rbac">ClusterRoleBinding</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#clusterrolebinding-v1beta1-rbac">ClusterRoleBinding</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#clusterrolebinding-v1beta1-rbac">ClusterRoleBinding</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -72287,7 +72289,7 @@ Appears In:
 <aside class="notice">Other api versions of this object exist: <a href="#controllerrevision-v1-apps">v1</a> <a href="#controllerrevision-v1beta1-apps">v1beta1</a> </aside>
 
 
-<p>ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.</p>
+<p>DEPRECATED - This group version of ControllerRevision is deprecated by apps/v1/ControllerRevision. See the release notes for more information. ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.</p>
 <aside class="notice">
 Appears In:
 
@@ -72437,16 +72439,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#controllerrevision-v1beta2-apps">ControllerRevision</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#controllerrevision-v1beta2-apps">ControllerRevision</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#controllerrevision-v1beta2-apps">ControllerRevision</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#controllerrevision-v1beta2-apps">ControllerRevision</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -73604,16 +73606,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#controllerrevision-v1beta1-apps">ControllerRevision</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#controllerrevision-v1beta1-apps">ControllerRevision</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#controllerrevision-v1beta1-apps">ControllerRevision</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#controllerrevision-v1beta1-apps">ControllerRevision</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -74843,16 +74845,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>201 <br /> <em><a href="#cronjob-v2alpha1-batch">CronJob</a></em></td>
+<td>Created</td>
+</tr>
+<tr>
 <td>202 <br /> <em><a href="#cronjob-v2alpha1-batch">CronJob</a></em></td>
 <td>Accepted</td>
 </tr>
 <tr>
 <td>200 <br /> <em><a href="#cronjob-v2alpha1-batch">CronJob</a></em></td>
 <td>OK</td>
-</tr>
-<tr>
-<td>201 <br /> <em><a href="#cronjob-v2alpha1-batch">CronJob</a></em></td>
-<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -76180,7 +76182,7 @@ Appears In:
 <aside class="notice">Other api versions of this object exist: <a href="#daemonset-v1-apps">v1</a> <a href="#daemonset-v1beta1-extensions">v1beta1</a> </aside>
 
 
-<p>DaemonSet represents the configuration of a daemon set.</p>
+<p>DEPRECATED - This group version of DaemonSet is deprecated by apps/v1/DaemonSet. See the release notes for more information. DaemonSet represents the configuration of a daemon set.</p>
 <aside class="notice">
 Appears In:
 
@@ -76551,16 +76553,16 @@ spec:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#daemonset-v1beta2-apps">DaemonSet</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#daemonset-v1beta2-apps">DaemonSet</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#daemonset-v1beta2-apps">DaemonSet</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#daemonset-v1beta2-apps">DaemonSet</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -78219,16 +78221,16 @@ spec:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -78411,12 +78413,12 @@ spec:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -79725,7 +79727,7 @@ Appears In:
 <aside class="notice">Other api versions of this object exist: <a href="#deployment-v1-apps">v1</a> <a href="#deployment-v1beta1-apps">v1beta1</a> <a href="#deployment-v1beta1-extensions">v1beta1</a> </aside>
 
 
-<p>Deployment enables declarative updates for Pods and ReplicaSets.</p>
+<p>DEPRECATED - This group version of Deployment is deprecated by apps/v1/Deployment. See the release notes for more information. Deployment enables declarative updates for Pods and ReplicaSets.</p>
 <aside class="notice">
 Appears In:
 
@@ -80124,16 +80126,16 @@ spec:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#deployment-v1beta2-apps">Deployment</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#deployment-v1beta2-apps">Deployment</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#deployment-v1beta2-apps">Deployment</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#deployment-v1beta2-apps">Deployment</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -82592,16 +82594,16 @@ spec:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#deployment-v1beta1-apps">Deployment</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#deployment-v1beta1-apps">Deployment</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#deployment-v1beta1-apps">Deployment</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#deployment-v1beta1-apps">Deployment</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -85060,16 +85062,16 @@ spec:
 </thead>
 <tbody>
 <tr>
+<td>201 <br /> <em><a href="#deployment-v1beta1-extensions">Deployment</a></em></td>
+<td>Created</td>
+</tr>
+<tr>
 <td>202 <br /> <em><a href="#deployment-v1beta1-extensions">Deployment</a></em></td>
 <td>Accepted</td>
 </tr>
 <tr>
 <td>200 <br /> <em><a href="#deployment-v1beta1-extensions">Deployment</a></em></td>
 <td>OK</td>
-</tr>
-<tr>
-<td>201 <br /> <em><a href="#deployment-v1beta1-extensions">Deployment</a></em></td>
-<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -88775,16 +88777,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#horizontalpodautoscaler-v2beta1-autoscaling">HorizontalPodAutoscaler</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>202 <br /> <em><a href="#horizontalpodautoscaler-v2beta1-autoscaling">HorizontalPodAutoscaler</a></em></td>
 <td>Accepted</td>
 </tr>
 <tr>
 <td>200 <br /> <em><a href="#horizontalpodautoscaler-v2beta1-autoscaling">HorizontalPodAutoscaler</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#horizontalpodautoscaler-v2beta1-autoscaling">HorizontalPodAutoscaler</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -90530,16 +90532,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#networkpolicy-v1beta1-extensions">NetworkPolicy</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#networkpolicy-v1beta1-extensions">NetworkPolicy</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#networkpolicy-v1beta1-extensions">NetworkPolicy</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#networkpolicy-v1beta1-extensions">NetworkPolicy</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -90722,12 +90724,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#networkpolicy-v1beta1-extensions">NetworkPolicy</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#networkpolicy-v1beta1-extensions">NetworkPolicy</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#networkpolicy-v1beta1-extensions">NetworkPolicy</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -91956,7 +91958,7 @@ Appears In:
 <aside class="notice">Other api versions of this object exist: <a href="#replicaset-v1-apps">v1</a> <a href="#replicaset-v1beta1-extensions">v1beta1</a> </aside>
 
 
-<p>ReplicaSet ensures that a specified number of pod replicas are running at any given time.</p>
+<p>DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1/ReplicaSet. See the release notes for more information. ReplicaSet ensures that a specified number of pod replicas are running at any given time.</p>
 <aside class="notice">
 Appears In:
 
@@ -95363,16 +95365,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#role-v1beta1-rbac">Role</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#role-v1beta1-rbac">Role</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#role-v1beta1-rbac">Role</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#role-v1beta1-rbac">Role</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -95555,12 +95557,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#role-v1beta1-rbac">Role</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#role-v1beta1-rbac">Role</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#role-v1beta1-rbac">Role</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -96518,16 +96520,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#role-v1alpha1-rbac">Role</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#role-v1alpha1-rbac">Role</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#role-v1alpha1-rbac">Role</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#role-v1alpha1-rbac">Role</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -96710,12 +96712,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#role-v1alpha1-rbac">Role</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#role-v1alpha1-rbac">Role</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#role-v1alpha1-rbac">Role</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -97869,12 +97871,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#rolebinding-v1beta1-rbac">RoleBinding</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#rolebinding-v1beta1-rbac">RoleBinding</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#rolebinding-v1beta1-rbac">RoleBinding</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -100750,7 +100752,7 @@ Appears In:
 <aside class="notice">Other api versions of this object exist: <a href="#statefulset-v1-apps">v1</a> <a href="#statefulset-v1beta1-apps">v1beta1</a> </aside>
 
 
-<p>StatefulSet represents a set of pods with consistent identities. Identities are defined as:</p>
+<p>DEPRECATED - This group version of StatefulSet is deprecated by apps/v1/StatefulSet. See the release notes for more information. StatefulSet represents a set of pods with consistent identities. Identities are defined as:</p>
 <ul>
 <li>Network: A single stable DNS and hostname.</li>
 <li>Storage: As many VolumeClaims as requested.
@@ -104384,12 +104386,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#storageclass-v1beta1-storage">StorageClass</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#storageclass-v1beta1-storage">StorageClass</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#storageclass-v1beta1-storage">StorageClass</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -105264,16 +105266,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#subjectaccessreview-v1beta1-authorization">SubjectAccessReview</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#subjectaccessreview-v1beta1-authorization">SubjectAccessReview</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#subjectaccessreview-v1beta1-authorization">SubjectAccessReview</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#subjectaccessreview-v1beta1-authorization">SubjectAccessReview</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -105506,16 +105508,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#tokenreview-v1beta1-authentication">TokenReview</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#tokenreview-v1beta1-authentication">TokenReview</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#tokenreview-v1beta1-authentication">TokenReview</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#tokenreview-v1beta1-authentication">TokenReview</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>

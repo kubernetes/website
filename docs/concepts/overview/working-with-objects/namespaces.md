@@ -29,7 +29,7 @@ resources within the same namespace.
 
 ## Working with Namespaces
 
-Creation and deletion of namespaces is described in the [Admin Guide documentation
+Creation and deletion of namespaces are described in the [Admin Guide documentation
 for namespaces](/docs/admin/namespaces).
 
 ### Viewing namespaces

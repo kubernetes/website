@@ -128,7 +128,7 @@ people have reported success with Flannel and Kubernetes.
 ### Google Compute Engine (GCE)
 
 For the Google Compute Engine cluster configuration scripts, we use [advanced
-routing](https://cloud.google.com/compute/docs/networking#routing) to
+routing](https://cloud.google.com/vpc/docs/routes) to
 assign each VM a subnet (default is `/24` - 254 IPs).  Any traffic bound for that
 subnet will be routed directly to the VM by the GCE network fabric.  This is in
 addition to the "main" IP address assigned to the VM, which is NAT'ed for

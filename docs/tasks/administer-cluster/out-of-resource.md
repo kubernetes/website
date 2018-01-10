@@ -147,7 +147,7 @@ The following node conditions are defined that correspond to the specified evict
 | Node Condition | Eviction Signal  | Description                                                      |
 |-------------------------|-------------------------------|--------------------------------------------|
 | `MemoryPressure` | `memory.available` | Available memory on the node has satisfied an eviction threshold |
-| `DiskPressure` | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, or `imagefs.inodesFree` | Available disk space and inodes on either the node's root filesytem or image filesystem has satisfied an eviction threshold |
+| `DiskPressure` | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, or `imagefs.inodesFree` | Available disk space and inodes on either the node's root filesystem or image filesystem has satisfied an eviction threshold |
 
 The `kubelet` continues to report node status updates at the frequency specified by
 `--node-status-update-frequency` which defaults to `10s`.
@@ -370,10 +370,3 @@ to prevent system OOMs, and promote eviction of workloads so cluster state can r
 
 The Pod eviction may evict more Pods than needed due to stats collection timing gap. This can be mitigated by adding
 the ability to get root container stats on an on-demand basis [(https://github.com/google/cadvisor/issues/1247)](https://github.com/google/cadvisor/issues/1247) in the future.
-
-### How kubelet ranks Pods for eviction in response to inode exhaustion
-
-At this time, it is not possible to know how many inodes were consumed by a particular container. If the `kubelet` observes
-inode exhaustion, it evicts Pods by ranking them by quality of service. The following issue has been opened in cadvisor
-to track per container inode consumption [(https://github.com/google/cadvisor/issues/1422)](https://github.com/google/cadvisor/issues/1422) which would allow us to rank Pods
-by inode consumption. For example, this would let us identify a container that created large numbers of 0 byte files, and evict that Pod over others.

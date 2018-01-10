@@ -56,6 +56,19 @@ support all the features you expect.
 
 The Kubernetes API server supports a flag, `admission-control` that takes a comma-delimited,
 ordered list of admission control choices to invoke prior to modifying objects in the cluster.
+For example, the following command line turns on the `NamespaceLifecycle` and the `LimitRanger`
+admission controller:
+
+```shell
+kube-apiserver --admission-control=NamespaceLifecyle,LimitRanger ...
+```
+
+**Note**: Depending on the way your Kubernetes cluster is deployed and how the
+API server is started, you may need to apply the settings in different ways.
+For example, you may have to modify the systemd unit file if the API server is
+deployed as a systemd service, you may modify the manifest file for the API
+server if Kubernetes is deployed in a self-hosted way.
+{: .note}
 
 ## What does each admission controller do?
 
@@ -321,7 +334,7 @@ If a webhook called by this has side effects (for example, decrementing quota) i
 webhooks or validating admission controllers will permit the request to finish.
 
 If you disable the MutatingAdmissionWebhook, you must also disable the
-`MutatingWebhookConfiguration` object in the `admissionregistration/v1beta1`
+`MutatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1beta1`
 group/version via the `--runtime-config` flag (both are on by default in
 versions >= 1.9).
 
@@ -522,7 +535,7 @@ If a webhook called by this has side effects (for example, decrementing quota) i
 webhooks or other validating admission controllers will permit the request to finish.
 
 If you disable the ValidatingAdmissionWebhook, you must also disable the
-`ValidatingWebhookConfiguration` object in the `admissionregistration/v1beta1`
+`ValidatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1beta1`
 group/version via the `--runtime-config` flag (both are on by default in
 versions >= 1.9).
 

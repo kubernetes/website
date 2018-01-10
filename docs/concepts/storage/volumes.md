@@ -69,6 +69,7 @@ Kubernetes supports several types of Volumes:
    * `azureDisk`
    * `azureFile`
    * `cephfs`
+   * `configMap`
    * `csi`
    * `downwardAPI`
    * `emptyDir`
@@ -131,7 +132,7 @@ metadata:
   name: test-ebs
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-ebs
@@ -170,6 +171,45 @@ writers simultaneously.
 {: .caution}
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/cephfs/) for more details.
+
+### configMap
+
+The [`configMap`](/docs/tasks/configure-pod-container/configmap/) resource
+provides a way to inject configuration data into Pods.
+The data stored in a `ConfigMap` object can be referenced in a volume of type
+`configMap` and then consumed by containerized applications running in a Pod.
+
+When referencing a `configMap` object, you can simply provide its name in the
+volume to reference it. You can also customize the path to use for a specific
+entry in the ConfigMap.
+For example, to mount the `log-config` ConfigMap onto a Pod called `configmap-pod`,
+you might use the YAML below:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-pod
+spec:
+  containers:
+    - name: test
+      image: busybox
+      volumeMounts:
+        - name: config-vol
+          mountPath: /etc/config
+  volumes:
+    - name: config-vol
+      configMap:
+        name: log-config
+        items:
+          - key: log_level
+            path: log_level
+```
+
+The `log-config` ConfigMap is mounted as a volume, and all contents stored in
+its `log_level` entry are mounted into the Pod at path "`/etc/config/log_level`".
+Note that this path is derived from the volume's `mountPath` and the `path`
+keyed with `log_level`.
 
 ### csi
 
@@ -246,7 +286,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /cache
@@ -326,7 +366,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-pd
@@ -432,7 +472,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-pd
@@ -665,7 +705,7 @@ metadata:
   name: test-portworx-volume-pod
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /mnt
@@ -736,7 +776,7 @@ metadata:
   name: pod-0
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: pod-0
     volumeMounts:
     - mountPath: /test-pd
@@ -866,7 +906,7 @@ metadata:
   name: test-vmdk
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-vmdk
@@ -953,13 +993,14 @@ redesigned or even removed in future releases.
 Mount propagation allows for sharing volumes mounted by a Container to
 other Containers in the same Pod, or even to other Pods on the same node.
 
-If the MountPropagation feature is disabled, volume mounts in pods are not propagated.
+If the "`MountPropagation`" feature is disabled, volume mounts in pods are not propagated.
 That is, Containers run with `private` mount propagation as described in the
 [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt).
 
 To enable this feature, specify `MountPropagation=true` in the
-`--feature-gates` command line option. When enabled, the `volumeMounts` field
-of a Container has a new `mountPropagation` subfield. Its values are:
+`--feature-gates` command line option for the API server and kubelets.
+When enabled, the `volumeMounts` field of a Container has a new
+`mountPropagation` subfield. Its values are:
 
  * `HostToContainer` - This volume mount will receive all subsequent mounts
    that are mounted to this volume or any of its subdirectories. This is

@@ -74,6 +74,10 @@ This endpoint URL can then be used to create and manage custom objects.
 The `kind` of these objects will be `CronTab` from the spec of the
 CustomResourceDefinition object you created above.
 
+Please note that it might take a few seconds for the endpoint to be created.
+You can watch the `Established` condition of your CustomResourceDefinition
+to be true or watch the discovery information of the API server for your
+resource to show up.
 
 ## Create custom objects
 
@@ -188,12 +192,22 @@ metadata:
   - finalizer.stable.example.com
 ```
 
-The first delete request on an object with finalizers merely sets a value for the
-`metadata.deletionTimestamp` field instead of deleting it.
-This triggers controllers watching the object to execute any finalizers they handle.
+Finalizers are arbitrary string values, that when present ensure that a hard delete
+of a resource is not possible while they exist.
 
-Each controller then removes its finalizer from the list and issues the delete request again.
-This request only deletes the object if the list of finalizers is now empty,
+The first delete request on an object with finalizers merely sets a value for the
+`metadata.deletionTimestamp` field instead of deleting it. Once this value is set,
+entries in the `finalizer` list can only be removed.
+
+This triggers controllers watching the object to execute any finalizers they handle.
+This will be represented via polling update requests for that 
+object, until all finalizers have been removed and the resource is deleted.
+
+The time period of polling update can be controlled by `metadata.deletionGracePeriodSeconds`.
+
+It is the responsibility of each controller to removes its finalizer from the list.
+
+Kubernetes will only finally delete the object if the list of finalizers is empty,
 meaning all finalizers are done.
 
 ### Validation

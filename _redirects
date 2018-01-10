@@ -217,7 +217,7 @@
 /docs/tasks/administer-cluster/default-cpu-request-limit/     /docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit/ 301
 /docs/tasks/administer-cluster/default-memory-request-limit/     /docs/tasks/configure-pod-container/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit/ 301
 /docs/tasks/administer-cluster/developing-cloud-controller-manager.md     /docs/tasks/administer-cluster/developing-cloud-controller-manager/ 301
-/docs/tasks/administer-cluster/out-of-resource/memory-available.sh     /docs/concepts/cluster-administration/out-of-resource/memory-available.sh 301
+/docs/tasks/administer-cluster/out-of-resource/memory-available.sh     /docs/tasks/administer-cluster/memory-available.sh 301
 /docs/tasks/administer-cluster/overview/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
 /docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/tasks/administer-cluster/out-of-resource/ 301
 /docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
@@ -443,3 +443,4 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/admin/kubefed_unjoin/     /docs/reference/generated/kubefed_unjoin/ 301 
 /docs/admin/kubefed_version/    /docs/reference/generated/kubefed_version/ 301    
 
+/docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/kubeadm/ 301
