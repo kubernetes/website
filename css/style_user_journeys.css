@@ -53,6 +53,14 @@ width:80%;
   color:#606060;
 }
 
+.pages a:hover{
+  font-family: 'roboto';
+  font-size:11pt;
+  text-decoration:none !important;
+  letter-spacing:0.03em;
+  color:#303030;
+}
+
 .docstitle a{
   font-family: 'roboto';
   font-size:16pt;
