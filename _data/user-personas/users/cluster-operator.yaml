@@ -11,7 +11,7 @@ foundational:
   - label: Get information about my cluster
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/foundational#section-3
-  - label: Additional introductory resources
+  - label: Explore additional resources
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/foundational#section-4
 intermediate:
