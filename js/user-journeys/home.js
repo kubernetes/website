@@ -23,7 +23,7 @@ $( document ).ready(function() {
       for (var i in carr) {
         var button = document.createElement('div');
         button.className += 'buttons';
-        button.setAttribute('data-button', i);
+        button.setAttribute('data-button', carr[i]["id"]);
         button.innerText = carr[i]["name"];
         card.appendChild(button);
       }
