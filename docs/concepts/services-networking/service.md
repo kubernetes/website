@@ -741,8 +741,8 @@ VIP, their traffic is automatically transported to an appropriate endpoint.
 The environment variables and DNS for `Services` are actually populated in
 terms of the `Service`'s VIP and port.
 
-We support two proxy modes - userspace and iptables, which operate slightly
-differently.
+We support three proxy modes - userspace, iptables and ipvs which operate
+slightly differently.
 
 #### Userspace
 
