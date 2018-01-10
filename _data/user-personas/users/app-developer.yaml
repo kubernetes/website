@@ -19,8 +19,10 @@ intermediate:
     icon: fa-folder-open-o
     url: /docs/user-journeys/users/application-developer/intermediate#section-1
   - label: Work with commonly used features, such as Service Discovery, Networking, and ReplicaSets.
+    icon: fa-retweet
     url: /docs/user-journeys/users/application-developer/intermediate#section-2
   - label: Understand key concepts, such as the API/Controller pattern, Schedulers, and Node Affinity.
+    icon: fa-hdd-o
     url: /docs/user-journeys/users/application-developer/intermediate#section-3
   - label: Additional resources.
     icon: fa-book
