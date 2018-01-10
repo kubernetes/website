@@ -365,6 +365,7 @@ button {
 
   background-color:#3371e3;
   color:white;
+  cursor:pointer;
   border: 2px solid #ffffff;
 }
 
