@@ -2,6 +2,7 @@ repos:
 - name: community
   remote: https://github.com/kubernetes/community.git
   branch: master
+  gen-absolute-links: true
   files:
   - src: contributors/devel/README.md
     dst: docs/imported/community/devel.md

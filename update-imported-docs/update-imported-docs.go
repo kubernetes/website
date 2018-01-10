@@ -3,7 +3,6 @@ package main
 import (
   "bufio"
   "fmt"
-  "io"
   "io/ioutil"
   "os"
   "os/exec"
@@ -72,7 +71,10 @@ func main() {
   // title: ***
   // notile: ***
   // ---
-  titleRegex := regexp.MustCompile("^---\n(.*\n)*---\n")
+  titleRegex := regexp.MustCompile("^---\ntitle:(.*\n)*?---\n")
+
+  // To extract repo path prefix from `remote`
+  remoteGitRegex := regexp.MustCompile("(https://.*)\\.git$")
 
   //execute for each repo
   repos := config["repos"].([]interface{})
@@ -83,6 +85,13 @@ func main() {
     //get config info for repo, clone repo locally
     r := repo.(map[string]interface{})
     repoName := r["name"].(string)
+    remotePathMatch := remoteGitRegex.FindAllStringSubmatch(r["remote"].(string), -1)
+    if (len(remotePathMatch) == 0) {
+      fmt.Fprintf(os.Stderr, "\n\t\t\t!\t!\t!\n\nInvalid remote path %q. Schema should look like: https://<url>.git\n", r["remote"].(string))
+      os.Exit(1)
+    }
+    remotePrefix := fmt.Sprintf("%s/tree/master", remotePathMatch[0][1])
+
     cmd := "git"
     args := []string{"clone", "--depth=1", "-b", r["branch"].(string), r["remote"].(string), repoName}
     fmt.Fprintf(os.Stdout, "\n\t\t\t*\t*\t*\n\nCloning repo %q...\n", repoName)
@@ -137,6 +146,7 @@ func main() {
       f := file.(map[string]interface{})
       src := f["src"].(string)
       dst := f["dst"].(string)
+      srcDir := filepath.Dir(src)
       absSrc, err := filepath.Abs(path.Join(tmpDir, repoName, src))
       checkError(err)
       absDst, err := filepath.Abs(dst)
@@ -146,11 +156,18 @@ func main() {
       titleBlock := titleRegex.Find(content)
       content, err = ioutil.ReadFile(absSrc)
       checkError(err)
+
+      // Write to new output file
       dstFile, err := os.OpenFile(absDst, os.O_RDWR|os.O_CREATE, 0755)
       checkError(err)
       defer dstFile.Close()
       _, err = dstFile.Write(titleBlock)
       checkError(err)
+
+      // Process content if necessary
+      if r["gen-absolute-links"] != nil {
+        content = processLinks(content, remotePrefix, srcDir)
+      }
       _, err = dstFile.Write(content)
       checkError(err)
       dstFile.Sync()
@@ -159,25 +176,33 @@ func main() {
   fmt.Fprintf(os.Stdout, "\n\t\t\t*\t*\t*\n\nDocs imported! Run 'git add .' 'git commit -m <comment>' and 'git push' to upload them.\n")
 }
 
-func copyFile(src, dst string) error {
-  sf, err := os.Open(src)
-  if err != nil {
-    return err
-  }
-  defer sf.Close()
+//
+func processLinks(content []byte, remotePrefix string, subPath string) []byte {
+  // To catch anything of the form [text](url)
+  linkRegex := regexp.MustCompile("(\\[.+?\\])\\(([^\\s\\)]+)\\)")
+  // Regexes to skip
+  absUrlRegex := regexp.MustCompile("https*://")
+  mailRegex := regexp.MustCompile("mailto:")
 
-  df, err := os.Create(dst)
-  if err != nil {
-    return err
-  }
-  defer df.Close()
+  processedContent := linkRegex.ReplaceAllFunc(content, func(b []byte) []byte {
+    if (absUrlRegex.Match(b) || mailRegex.Match(b)) {
+      return b // no processing needed
+    }
+    match := linkRegex.FindAllStringSubmatch(string(b), -1)
+    url := match[0][2]
+    if url[0] == '#' { // link on current page
+      return b
+    } else if url[0] == '/' { // link at root of repo
+      return []byte(fmt.Sprintf("%s(%s/%s)", match[0][1], remotePrefix, url[1:]))
+    } else { // link relative to current page
+      return []byte(fmt.Sprintf("%s(%s/%s/%s)", match[0][1], remotePrefix, subPath, url))
+    }
+  })
 
-  _, err = io.Copy(df, sf)
-  if err != nil {
-    return err
-  }
+  h1Regex := regexp.MustCompile("^(# .*)?\n")
+  processedContent = h1Regex.ReplaceAll(processedContent, []byte(""))
 
-  return df.Sync()
+  return processedContent
 }
 
 func checkError(err error) {

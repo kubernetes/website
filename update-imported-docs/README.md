@@ -13,7 +13,7 @@ Imported docs must follow these guidelines:
     ---
     title: Title Displayed in Table of Contents
     ---
-    
+
     Rest of the .md file...
     ```
 
@@ -25,7 +25,7 @@ From within this directory, run the following command:
 
 ```
 ./update-imported-docs <config.yaml>
-``` 
+```
 
 The output should look similar to the following:
 
@@ -69,3 +69,7 @@ repos:
 ```
 
 Note: `generate-command` is an optional entry, which can be used to run a given command to auto-generate the docs from within that repo.
+
+## Fixing Links
+
+To fix relative links within your imported files, set the repo config's `gen-absolute-links` value to `true`. You can see an example of this in [`community.yml`](community.yml).
