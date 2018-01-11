@@ -3,13 +3,13 @@ name: Application Developer
 index: 0
 foundational:
   - label: Set up a development environment
-    icon: fa-folder-open-o
+    icon: fa-television
     url: /docs/user-journeys/users/application-developer/foundational#section-1
   - label: Deploy, scale, and update an application
     icon: fa-retweet
     url: /docs/user-journeys/users/application-developer/foundational#section-2
   - label: Understand Kubernetes basics
-    icon: fa-hdd-o
+    icon: fa-cog
     url: /docs/user-journeys/users/application-developer/foundational#section-3
   - label: Explore additional resources
     icon: fa-book
@@ -22,7 +22,7 @@ intermediate:
     icon: fa-pencil-square-o
     url: /docs/user-journeys/users/application-developer/intermediate#section-2
   - label: Understand key concepts, such as the API/Controller pattern, Schedulers, and Node Affinity.
-    icon: fa-cog
+    icon: fa-cogs
     url: /docs/user-journeys/users/application-developer/intermediate#section-3
   - label: Additional resources.
     icon: fa-book
