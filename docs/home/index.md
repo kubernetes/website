@@ -33,14 +33,14 @@ display_browse_numbers: true
     <div class="bar2" id="subTitle">LEVEL</div>
     <div class="bar3">
         <div class="tab1 foundational" id="beginner">
-            <i class="fa fa-cloud-download" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
+            <i class="fa fa-sign-in" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
             <br>
             <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
                 Foundational
             </div>
             </div>
         <div class="tab1 intermediate">
-            <i class="fa fa-check-square" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
+            <i class="fa fa-university" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
             <br>
 
             <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
@@ -48,7 +48,7 @@ display_browse_numbers: true
             </div>
         </div>
         <div class="tab1 advanced">
-            <i class="fa fa-exclamation-circle" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
+            <i class="fa fa-magic" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
             <br>
             <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
                 Advanced Topics
