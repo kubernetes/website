@@ -17,11 +17,14 @@ $( document ).ready(function() {
       var card = document.createElement('div');
       card.className += "card_" + c;
 
-      for (var i in info[c]) {
+      var carr = Object.values(info[c]); //convert to array of objects
+      carr.sort(function(obj1,obj2){ return obj1.index-obj2.index; }); //sort by index
+
+      for (var i in carr) {
         var button = document.createElement('div');
         button.className += 'buttons';
-        button.setAttribute('data-button', i);
-        button.innerText = info[c][i]["name"];
+        button.setAttribute('data-button', carr[i]["id"]);
+        button.innerText = carr[i]["name"];
         card.appendChild(button);
       }
       $('.cards').append(card);
