@@ -16,10 +16,10 @@ foundational:
     url: /docs/user-journeys/users/application-developer/foundational#section-4
 intermediate:
   - label: Setup a full-featured or production environment.
-    icon: fa-folder-cube
+    icon: fa-cubes
     url: /docs/user-journeys/users/application-developer/intermediate#section-1
   - label: Work with commonly used features, such as Service Discovery, Networking, and ReplicaSets.
-    icon: fa-spinner
+    icon: fa-pencil-square-o
     url: /docs/user-journeys/users/application-developer/intermediate#section-2
   - label: Understand key concepts, such as the API/Controller pattern, Schedulers, and Node Affinity.
     icon: fa-cogs
