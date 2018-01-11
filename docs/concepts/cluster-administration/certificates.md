@@ -51,7 +51,7 @@ Finally, add the following parameters into API server start parameters:
     The sample below also assume that you are using `cluster.local` as the default
     DNS domain name.
 
-        ./easyrsa --subject-alt-name="IP:${MASTER_IP}"\
+        ./easyrsa --subject-alt-name="IP:${MASTER_IP},"\
         "IP:${MASTER_CLUSTER_IP},"\
         "DNS:kubernetes,"\
         "DNS:kubernetes.default,"\
