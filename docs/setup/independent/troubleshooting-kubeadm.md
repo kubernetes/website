@@ -56,8 +56,14 @@ This may be caused by a number of problems. The most common are:
   misconfiguration: kubelet cgroup driver: "systemd" is different from docker cgroup driver: "cgroupfs"
   ```
 
-  you will need to fix the cgroup driver problem by following intstructions
+  There are two common ways to fix the cgroup driver problem:
+  
+ 1. Install docker again following intstructions
   [here](/docs/setup/independent/install-kubeadm/#installing-docker).
+ 1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
+    [Errors on CentOS when setting up masters](#errors-on-centos-when-setting-up-masters)
+    for detailed instructions.
+  
 - control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
 
 
