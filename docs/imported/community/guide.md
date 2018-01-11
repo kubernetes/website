@@ -2,6 +2,9 @@
 title: Kubernetes Contributor Guide
 owner: sig-contributor-experience
 ---
+**OWNER:**
+
+sig-contributor-experience
 
 ## Disclaimer
 Hello! This is the starting point for our brand new contributor guide, currently underway as per [issue#6102](https://github.com/kubernetes/website/issues/6102) and in need of help. Please be patient, or fix a section below that needs improvement, and submit a pull request!
@@ -57,11 +60,11 @@ Welcome to Kubernetes! This document is the single source of truth for how to co
 
 ## Sign the CLA
 
-Before you can contribute, you will need to sign the [Contributor License Agreement](/CLA.md).
+Before you can contribute, you will need to sign the [Contributor License Agreement](https://github.com/kubernetes/community/tree/master/CLA.md).
 
 ## Setting up your development environment
 
-If you haven’t set up your environment, please find resources [here](/contributors/devel). These resources are not well organized currently; please have patience as we are working on it.
+If you haven’t set up your environment, please find resources [here](https://github.com/kubernetes/community/tree/master/contributors/devel). These resources are not well organized currently; please have patience as we are working on it.
 
 _Improvements needed_
 * A new developer guide will be created and linked to in this section.
@@ -106,11 +109,11 @@ Another good strategy is to find a documentation improvement, such as a missing/
 #### Sig structure
 
 You may have noticed that some repositories in the Kubernetes Organization are owned by Special Interest Groups, or SIGs. We organize the Kubernetes community into SIGs in order to improve our workflow and more easily manage what is a very large community project. The developers within each SIG have autonomy and ownership over that SIG's part of Kubernetes.
-SIGs also have their own CONTRIBUTING.md files, which may contain extra information or guidelines in addition to these general ones. These are located in the SIG specific community documentation directories, for example: sig-docs' is in the kubernetes/community repo's [/sig-docs/CONTRIBUTING.md](/sig-docs/CONTRIBUTING.md) file and similarly for other SIGs.
+SIGs also have their own CONTRIBUTING.md files, which may contain extra information or guidelines in addition to these general ones. These are located in the SIG specific community documentation directories, for example: sig-docs' is in the kubernetes/community repo's [/sig-docs/CONTRIBUTING.md](https://github.com/kubernetes/community/tree/master/sig-docs/CONTRIBUTING.md) file and similarly for other SIGs.
 
 Like everything else in Kubernetes, a SIG is an open, community, effort. Anybody is welcome to jump into a SIG and begin fixing issues, critiquing design proposals and reviewing code. SIGs have regular [video meetings](https://kubernetes.io/community/) which everyone is welcome to. Each SIG has a kubernetes slack channel that you can join as well.
 
-There is an entire SIG ([sig-contributor-experience](/sig-contributor-experience/README.md)) devoted to improving your experience as a contributor.
+There is an entire SIG ([sig-contributor-experience](https://github.com/kubernetes/community/tree/master/sig-contributor-experience/README.md)) devoted to improving your experience as a contributor.
 Contributing to Kubernetes should be easy. If you find a rough edge, let us know! Better yet, help us fix it by joining the SIG; just
 show up to one of the [bi-weekly meetings](https://docs.google.com/document/d/1qf-02B7EOrItQgwXFxgqZ5qjW0mtfu5qkYIF1Hl4ZLI/edit).
 
@@ -120,11 +123,11 @@ Finding the appropriate SIG for your contribution will help you ask questions in
 
 For Pull Requests, the automatically assigned reviewer will add a SIG label if you haven't done so. See [Open A Pull Request](#open-a-pull-request) below.
 
-For Issues we are still working on a more automated workflow. Since SIGs do not directly map onto Kubernetes subrepositories, it may be difficult to find which SIG your contribution belongs in. Here is the [list of SIGs](/sig-list.md). Determine which is most likely related to your contribution.
+For Issues we are still working on a more automated workflow. Since SIGs do not directly map onto Kubernetes subrepositories, it may be difficult to find which SIG your contribution belongs in. Here is the [list of SIGs](https://github.com/kubernetes/community/tree/master/sig-list.md). Determine which is most likely related to your contribution.
 
 *Example:* if you are filing a cni issue, you should choose SIG-networking.
 
-Follow the link in the SIG name column to reach each SIGs README. Most SIGs will have a set of GitHub Teams with tags that can be mentioned in a comment on issues and pull requests for higher visibility. If you are not sure about the correct SIG for an issue, you can try SIG-contributor-experience [here](/sig-contributor-experience#github-teams), or [ask in Slack](http://slack.k8s.io/).
+Follow the link in the SIG name column to reach each SIGs README. Most SIGs will have a set of GitHub Teams with tags that can be mentioned in a comment on issues and pull requests for higher visibility. If you are not sure about the correct SIG for an issue, you can try SIG-contributor-experience [here](https://github.com/kubernetes/community/tree/master/sig-contributor-experience#github-teams), or [ask in Slack](http://slack.k8s.io/).
 
 _Improvements needed_
 
@@ -140,23 +143,23 @@ Make sure to adhere to the prompted submission guidelines while opening an issue
 
 # Contributing
 
-(From:[here](/contributors/devel/collab.md))
+(From:[here](https://github.com/kubernetes/community/tree/master/contributors/devel/collab.md))
 
 Kubernetes is open source, but many of the people working on it do so as their day job. In order to avoid forcing people to be "at work" effectively 24/7, we want to establish some semi-formal protocols around development. Hopefully these rules make things go more smoothly. If you find that this is not the case, please complain loudly.
 
 As a potential contributor, your changes and ideas are welcome at any hour of the day or night, weekdays, weekends, and holidays. Please do not ever hesitate to ask a question or send a pull request.
 
-Our community guiding principles on how to create great code as a big group are found [here](/contributors/devel/collab.md). Beginner focused information can be found below in [Open a Pull Request](#open-a-pull-request) and [Code Review](#code-review).
+Our community guiding principles on how to create great code as a big group are found [here](https://github.com/kubernetes/community/tree/master/contributors/devel/collab.md). Beginner focused information can be found below in [Open a Pull Request](#open-a-pull-request) and [Code Review](#code-review).
 
 ### Communication
 
 It is best to contact your [SIG](#learn-about-sigs) for issues related to the SIG's topic. Your SIG will be able to help you much more quickly than a general question would.
 
-For questions and troubleshooting, please feel free to use any of the methods of communication listed [here](/communication.md). The [kubernetes website](https://kubernetes.io/docs/tasks/debug-application-cluster/troubleshooting/) also lists this information.
+For questions and troubleshooting, please feel free to use any of the methods of communication listed [here](https://github.com/kubernetes/community/tree/master/communication.md). The [kubernetes website](https://kubernetes.io/docs/tasks/debug-application-cluster/troubleshooting/) also lists this information.
 
 ## GitHub workflow
 
-To check out code to work on, please refer to [this guide](./github-workflow.md).
+To check out code to work on, please refer to [this guide](https://github.com/kubernetes/community/tree/master/contributors/guide/./github-workflow.md).
 
 ## Open a Pull Request
 
@@ -172,11 +175,11 @@ Common new contributor PR issues are:
 * finding the right SIG or reviewer(s) for the PR (see [Code Review](#code-review) section) and following any SIG specific contributing guidelines
 * dealing with test cases which fail on your PR, unrelated to the changes you introduce (see [Test Flakes](http://velodrome.k8s.io/dashboard/db/bigquery-metrics?orgId=1))
 
-The pull request workflow is described in detail [here](/contributors/devel/pull-requests.md#the-testing-and-merge-workflow).
+The pull request workflow is described in detail [here](https://github.com/kubernetes/community/tree/master/contributors/devel/pull-requests.md#the-testing-and-merge-workflow).
 
 ## Code Review
 
-For a brief description of the importance of code review, please read [On Code Review](/contributors/devel/community-expectations.md#code-review).  There are two aspects of code review: giving and receiving.
+For a brief description of the importance of code review, please read [On Code Review](https://github.com/kubernetes/community/tree/master/contributors/devel/community-expectations.md#code-review).  There are two aspects of code review: giving and receiving.
 
 To make it easier for your PR to receive reviews, consider the reviewers will need you to:
 
@@ -192,15 +195,15 @@ Reviewers, the people giving review, are highly encouraged to revisit the [Code 
 
 ## Testing
 
-Testing is the responsibility of all contributors and is in part owned by all sigs, but is also coordinated by [sig-testing](/sig-testing).
+Testing is the responsibility of all contributors and is in part owned by all sigs, but is also coordinated by [sig-testing](https://github.com/kubernetes/community/tree/master/sig-testing).
 
-The main testing overview document is [here](/contributors/devel/testing.md).
+The main testing overview document is [here](https://github.com/kubernetes/community/tree/master/contributors/devel/testing.md).
 
 There are three types of test in kubernetes.  The location of the test code varies with type, as does the specifics of the environment needed to successfully run the test:
 
 * Unit: These confirm that a particular function behaves as intended.  Golang includes native ability for unit testing via the [testing](https://golang.org/pkg/testing/) package.  Unit test source code can be found adjacent to the corresponding source code within a given package.  For example: functions defined in [kubernetes/cmd/kubeadm/app/util/version.go](https://git.k8s.io/kubernetes/cmd/kubeadm/app/util/version.go) will have unit tests in [kubernetes/cmd/kubeadm/app/util/version_test.go](https://git.k8s.io/kubernetes/cmd/kubeadm/app/util/version_test.go).  These are easily run locally be any developer on any OS.
 * Integration: These tests cover interactions of package components or interactions between kubernetes components and some other non-kubernetes system resource (eg: etcd).  An example would be testing whether a piece of code can correctly store data to or retrieve data from etcd.  Integration tests are stored in [kubernetes/test/integration/](https://git.k8s.io/kubernetes/test/integration).  Running these can require the developer set up additional functionality on their development system.
-* End-to-end ("e2e"): These are broad tests of overall kubernetes system behavior and coherence.  These are more complicated as they require a functional kubernetes cluster built from the sources to be tested.  A separate document [here](/contributors/devel/e2e-tests.md) details e2e testing and test cases themselves can be found in [kubernetes/test/e2e/](https://git.k8s.io/kubernetes/test/e2e).
+* End-to-end ("e2e"): These are broad tests of overall kubernetes system behavior and coherence.  These are more complicated as they require a functional kubernetes cluster built from the sources to be tested.  A separate document [here](https://github.com/kubernetes/community/tree/master/contributors/devel/e2e-tests.md) details e2e testing and test cases themselves can be found in [kubernetes/test/e2e/](https://git.k8s.io/kubernetes/test/e2e).
 
 Continuous integration will run these tests either as pre-submits on PRs, post-submits against master/release branches, or both.  The results appear on [testgrid](https://testgrid.k8s.io).
 
@@ -218,11 +221,11 @@ _Improvements needed_
 
 ## Issues Management or Triage
 
-Have you ever noticed the total number of [open issues](https://issues.k8s.io)? This number at any given time is typically high. Helping to manage or triage these open issues can be a great contribution to the Kubernetes project. This is also a great opportunity to learn about the various areas of the project. Refer to the [Kubernetes Issue Triage Guidelines](/contributors/devel/issues.md) for more information.
+Have you ever noticed the total number of [open issues](https://issues.k8s.io)? This number at any given time is typically high. Helping to manage or triage these open issues can be a great contribution to the Kubernetes project. This is also a great opportunity to learn about the various areas of the project. Refer to the [Kubernetes Issue Triage Guidelines](https://github.com/kubernetes/community/tree/master/contributors/devel/issues.md) for more information.
 
 # Community
 
-If you haven't noticed by now, we have a large, lively, and friendly open-source community. We depend on new people becoming members and regular code contributors, so we would like you to come join us. To find out more about our community structure, different levels of membership and code contributors, please [explore here](/community-membership.md).
+If you haven't noticed by now, we have a large, lively, and friendly open-source community. We depend on new people becoming members and regular code contributors, so we would like you to come join us. To find out more about our community structure, different levels of membership and code contributors, please [explore here](https://github.com/kubernetes/community/tree/master/community-membership.md).
 
 _Improvements needed_
 
