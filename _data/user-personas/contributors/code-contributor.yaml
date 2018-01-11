@@ -1,6 +1,6 @@
 id: code-contributor
 name: Code Contributor
-index: 1
+index: 0
 foundational:
   - label: "Read the Developer Guide"
     icon: fa-book

@@ -1,6 +1,6 @@
 id: community-contributor
 name: Community Contributor
-index: 3
+index: 2
 foundational:
   - label: "Contribute to the Kubernetes OSS project"
     icon: fa-users

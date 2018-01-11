@@ -1,6 +1,6 @@
 id: docs-contributor
 name: Docs Contributor
-index: 2
+index: 1
 foundational:
   - label: "Contribute to the Kubernetes documentation"
     icon: fa-users
