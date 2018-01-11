@@ -14,5 +14,5 @@ intermediate:
     url: "https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md"
 advanced:
   - label: "Learn about the release process"
-    icon: fa-ship 
+    icon: fa-code-fork
     url: "https://github.com/kubernetes/release/blob/master/README.md"
