@@ -111,6 +111,9 @@ etcd:
     <argument>: <value|string>
     <argument>: <value|string>
   image: <string>
+kubeProxy:
+  config:
+    mode: <value|string>
 networking:
   dnsDomain: <string>
   serviceSubnet: <cidr>
