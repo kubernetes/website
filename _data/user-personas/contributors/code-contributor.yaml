@@ -2,23 +2,14 @@ id: code-contributor
 name: Code Contributor
 index: 1
 foundational:
-  - label: "a1: foundational stuff"
-    url: "#"
-  - label: "a2: foundational stuff"
-    url: "#"
-  - label: "a3: foundational stuff"
-    url: "#"
+  - label: "Read the Developer Guide"
+    icon: fa-book
+    url: "https://github.com/kubernetes/community/blob/master/contributors/devel/README.md"
 intermediate:
-  - label: "a1: intermediate stuff"
-    url: "#"
-  - label: "a2: intermediate stuff"
-    url: "#"
-  - label: "a3: intermediate stuff"
-    url: "#"
+  - label: "Understand the API conventions"
+    icon: fa-map-o
+    url: "https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md"
 advanced:
-  - label: "a1: advanced stuff"
-    url: "#"
-  - label: "a2: advanced stuff"
-    url: "#"
-  - label: "a3: advanced stuff"
-    url: "#"
+  - label: "Learn about the release process"
+    icon: fa-ship 
+    url: "https://github.com/kubernetes/release/blob/master/README.md"
