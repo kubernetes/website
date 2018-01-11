@@ -251,7 +251,7 @@ Here's a breakdown of what/why:
    tells the kubelet where the API server is. This file also has the kubelet's
    credentials.
 * `--pod-manifest-path=/etc/kubernetes/manifests` specifies from where to read
-   static Pod manifests used for starting the control plane the control plane.
+   static Pod manifests used for starting the control plane.
 * `--allow-privileged=true` allows this kubelet to run privileged Pods.
 * `--network-plugin=cni` uses CNI networking.
 * `--cni-conf-dir=/etc/cni/net.d` specifies where to look for the
