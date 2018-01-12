@@ -57,6 +57,12 @@ defaults:
     values:
       layout: docwithnav
       showedit: true
+  -
+    scope:
+      path: "blog"
+    values:
+      layout: blog
+      showedit: false
 
 permalink: pretty
 
