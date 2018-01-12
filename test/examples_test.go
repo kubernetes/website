@@ -49,7 +49,7 @@ import (
 	storagevalidation "k8s.io/kubernetes/pkg/apis/storage/validation"
 	"k8s.io/kubernetes/pkg/capabilities"
 	"k8s.io/kubernetes/pkg/registry/batch/job"
-	schedulerapilatest "k8s.io/kubernetes/plugin/pkg/scheduler/api/latest"
+	schedulerapilatest "k8s.io/kubernetes/pkg/scheduler/api/latest"
 )
 
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
