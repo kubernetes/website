@@ -546,7 +546,7 @@ Yes.
 For Kubernetes >= 1.9.0, we strongly recommend running the following set of admission controllers (order matters):
 
 ```shell
---admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ValidatingAdmissionWebhook,ResourceQuota,DefaultTolerationSeconds,MutatingAdmissionWebhook
+--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,DefaultTolerationSeconds
 ```
 
 It's worth reiterating that in 1.9 and up, these happen in a mutating phase
