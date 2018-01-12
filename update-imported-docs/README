@@ -1,5 +1,0 @@
-update-imported-docs/update-imported-docs.go will update the target files generated from other repos.
-You should modify update-imported-docs/config.yaml to reflect the desired src and dst path.
-```
-go run update-imported-docs/update-imported-docs.go
-```

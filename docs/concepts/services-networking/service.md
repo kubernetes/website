@@ -501,8 +501,19 @@ metadata:
 ```
 {% endcapture %}
 
-{% assign tab_names = 'Default,GCP,AWS,Azure' | split: ',' | compact %}
-{% assign tab_contents = site.emptyArray | push: default_tab | push: gcp | push: aws | push: azure %}
+{% capture openstack %}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
+[...]
+```
+{% endcapture %}
+
+{% assign tab_names = 'Default,GCP,AWS,Azure,OpenStack' | split: ',' | compact %}
+{% assign tab_contents = site.emptyArray | push: default_tab | push: gcp | push: aws | push: azure | push: openstack %}
 {% include tabs.md %}
 
 #### SSL support on AWS
