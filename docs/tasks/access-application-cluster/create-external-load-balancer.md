@@ -106,6 +106,7 @@ which should produce output like this:
 The IP address is listed next to `LoadBalancer Ingress`.
 
 **Note**: If you are running your service on Minikube, you can find the assigned IP address and port with:
+
 ```bash
 minikube service example-service --url
 ```
