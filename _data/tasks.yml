@@ -53,6 +53,7 @@ toc:
   - docs/tasks/run-application/rolling-update-replication-controller.md
   - docs/tasks/run-application/horizontal-pod-autoscale.md
   - docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md
+  - docs/tasks/run-application/horizontal-pod-autoscale-custom-metric-walkthrough.md
   - docs/tasks/run-application/configure-pdb.md
 
 - title: Run Jobs
