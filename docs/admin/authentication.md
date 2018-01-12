@@ -422,9 +422,8 @@ contexts:
 
 When a client attempts to authenticate with the API server using a bearer token
 as discussed [above](#putting-a-bearer-token-in-a-request),
-the authentication webhook
-queries the remote service with a review object containing the token. Kubernetes
-will not challenge a request that lacks such a header.
+the authentication webhook POSTs a JSON-serialized `authentication.k8s.io/v1beta1` `TokenReview` object containing the token
+to the remote service. Kubernetes will not challenge a request that lacks such a header.
 
 Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
 as other Kubernetes API objects. Implementers should be aware of looser
@@ -432,7 +431,7 @@ compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API server must
 enable the `authentication.k8s.io/v1beta1` API extensions group (`--runtime-config=authentication.k8s.io/v1beta1=true`).
 
-The request body will be of the following format:
+The POST body will be of the following format:
 
 ```json
 {
