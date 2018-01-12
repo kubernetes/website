@@ -7,6 +7,12 @@ toc:
 - title: Picking the Right Solution
   path: /docs/setup/pick-right-solution/
 
+- title: Downloading Kubernetes
+  landing_page: /docs/imported/release/notes/
+  section:
+  - docs/imported/release/notes.md
+  - docs/getting-started-guides/binary_release.md
+
 - title: Independent Solutions
   landing_page: /docs/getting-started-guides/minikube/
   section:
@@ -107,9 +113,17 @@ toc:
 
   - docs/admin/node-conformance.md
 
-- docs/concepts/cluster-administration/addons.md
-- docs/admin/salt.md
-- docs/admin/cluster-large.md
-- docs/admin/multiple-zones.md
-- docs/admin/high-availability/index.md
-- docs/getting-started-guides/binary_release.md
+- title: Installing Addons
+  path: /docs/concepts/cluster-administration/addons/
+
+- title: Configuring Kubernetes with Salt
+  path: /docs/admin/salt/
+
+- title: Building Large Clusters
+  path: /docs/admin/cluster-large/
+
+- title: Running in Multiple Zones
+  path: /docs/admin/multiple-zones/
+
+- title: Building High-Availability Clusters
+  path: /docs/admin/high-availability/
