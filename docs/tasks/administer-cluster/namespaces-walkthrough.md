@@ -177,7 +177,7 @@ users:
   user:
     password: h5M0FtUUIflBSdI7
     username: admin
-
+```
 
 Let's switch to operate in the development namespace.
 
