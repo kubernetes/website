@@ -15,7 +15,7 @@ A pilot is a Kubernetes mentor helping new and current members navigate the seas
 ## Current mentoring activities:
 All are currently in an incubation phase. Please reach out to Paris Pittman (parispittman@google.com or Paris on Kubernetes slack channel) for more information on how to get involved. The preliminary deck for mentoring strategies is [here](https://docs.google.com/presentation/d/1bRjDEPEn3autWzaEFirbLfHagbZV04Q9kTCalYmnnXw/edit?usp=sharing0).
 
-[Contributor Office Hours](https://github.com/kubernetes/community/tree/master/community/office-hours.md)  
+[Contributor Office Hours](https://github.com/kubernetes/community/blob/master/events/office-hours.md)  
 [Group Mentoring Cohorts](https://github.com/kubernetes/community/tree/master/mentoring/group-mentoring.md)  
 [Outreachy](https://github.com/kubernetes/community/tree/master/sig-cli/outreachy.md)
 
