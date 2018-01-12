@@ -8,9 +8,6 @@ title: DNS for Services and Pods
 This page provides an overview of DNS support by Kubernetes.
 {% endcapture %}
 
-* TOC
-{:toc}
-
 {% capture body %}
 
 ## Introduction
