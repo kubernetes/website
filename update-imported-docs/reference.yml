@@ -2,6 +2,7 @@ repos:
 - name: kubernetes
   remote: https://github.com/kubernetes/kubernetes.git
   branch: release-1.9
+  generate-command: hack/generate-docs.sh
   files:
   - src: docs/admin/cloud-controller-manager.md
     dst: docs/reference/generated/cloud-controller-manager.md
@@ -21,6 +22,7 @@ repos:
   remote: https://github.com/kubernetes/federation.git
 #  # Change this to a release branch when federation has release branches.
   branch: master
+  generate-command: hack/generate-docs.sh
   files:
   - src: docs/admin/federation-apiserver.md
     dst: docs/reference/generated/federation-apiserver.md
