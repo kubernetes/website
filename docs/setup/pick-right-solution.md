@@ -122,7 +122,6 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Vmware](/docs/getting-started-guides/coreos/)  (uses CoreOS and flannel)
 * [CoreOS on libvirt](/docs/getting-started-guides/libvirt-coreos/)  (uses CoreOS)
 * [oVirt](/docs/getting-started-guides/ovirt/)
-* [OpenStack Heat](/docs/getting-started-guides/openstack-heat/) (uses CentOS and flannel)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
 
 ## Bare Metal
@@ -192,7 +191,6 @@ AWS                  | kops         | Debian | AWS         | [docs](https://gith
 Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                 |  Community ([@resouer](https://github.com/resouer), [@WIZARD-CXY](https://github.com/WIZARD-CXY))
 libvirt/KVM          | CoreOS       | CoreOS | libvirt/KVM | [docs](/docs/getting-started-guides/libvirt-coreos/)                         |  Community ([@lhuard1A](https://github.com/lhuard1A))
 oVirt                |              |        |             | [docs](/docs/getting-started-guides/ovirt/)                                  |  Community ([@simon3z](https://github.com/simon3z))
-OpenStack Heat       | Saltstack    | CentOS | Neutron + flannel hostgw | [docs](/docs/getting-started-guides/openstack-heat/)            |  Community ([@FujitsuEnablingSoftwareTechnologyGmbH](https://github.com/FujitsuEnablingSoftwareTechnologyGmbH))
 any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch/)                                |  Community ([@erictune](https://github.com/erictune))
 any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
 
