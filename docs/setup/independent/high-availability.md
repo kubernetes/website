@@ -418,7 +418,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
     apiVersion: kubeadm.k8s.io/v1alpha1
     kind: MasterConfiguration
     api:
-      advertiseAddress: <load-balancer-ip>
+      advertiseAddress: <private-ip>
     etcd:
       endpoints:
       - https://<etcd0-ip-address>:2379
@@ -431,14 +431,18 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
       podSubnet: <podCIDR>
     apiServerCertSANs:
     - <load-balancer-ip>
+    apiServerExtraArgs:
+      apiserver-count: 3
     EOL
     ```
 
     Ensure that the following placeholders are replaced:
 
-    - `<load-balancer-ip>` with the public IPv4 of your load balancer. 
+    - `<private-ip>` with the private IPv4 of the master server.
     - `<etcd0-ip>`, `<etcd1-ip>` and `<etcd2-ip>` with the IP addresses of your three etcd nodes
     - `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
+
+    **Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type=lease`. For more information, see [the documentation](https://kubernetes.io/docs/admin/high-availability/#endpoint-reconciler).
 
 1. When this is done, run kubeadm like so:
 
@@ -456,8 +460,8 @@ Before running kubeadm on the other masters, you need to first copy the K8s CA c
 1. Once you've done this, run:
 
     ```shell
-    scp root@<master0-ip-address>:/etc/kubernetes/pki/ca.crt /etc/kubernetes/pki
-    scp root@<master0-ip-address>:/etc/kubernetes/pki/ca.key /etc/kubernetes/pki
+    scp root@<master0-ip-address>:/etc/kubernetes/pki/* /etc/kubernetes/pki
+    rm apiserver.crt
     ```
 
 #### Option 2: Copy paste
@@ -476,9 +480,28 @@ Follow the instructions [here](/docs/setup/independent/create-cluster-kubeadm/#p
 
 ## Install workers
 
-The final step is to provision and set up the worker nodes. To do this, you will need to provision at least 3 Virtual Machines.
+Next provision and set up the worker nodes. To do this, you will need to provision at least 3 Virtual Machines.
 
 1. To configure the worker nodes, [follow the same steps](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#44-joining-your-nodes) as non-HA workloads.
+
+## Configure workers
+
+Reconfigure kube-proxy to access kube-apiserver via the load balancer:
+
+    ```shell
+    kubectl get configmap -n kube-system kube-proxy -o yaml > kube-proxy.yaml
+    sudo sed -i 's#server:.*#server: https://<masterLoadBalancerFQDN>:6443#g' kube-proxy.cm
+    kubectl apply -f kube-proxy.cm --force
+    # restart all kube-proxy pods to ensure that they load the new configmap
+    kubectl delete pod -n kube-system -l k8s-app=kube-proxy
+    ```
+
+Reconfigure the kubelet to access kube-apiserver via the load balancer:
+
+    ```shell
+    sudo sed -i 's#server:.*#server: https://<masterLoadBalancerFQDN>:6443#g' /etc/kubernetes/kubelet.conf
+    sudo systemctl restart kubelet
+    ```
 
 {% endcapture %}
 
