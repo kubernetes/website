@@ -58,7 +58,6 @@ toc:
     - docs/getting-started-guides/dcos.md
     - docs/getting-started-guides/libvirt-coreos.md
     - docs/getting-started-guides/ovirt.md
-    - docs/getting-started-guides/openstack-heat.md
 
     - title: rkt
       section:
