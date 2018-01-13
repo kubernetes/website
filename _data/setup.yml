@@ -54,9 +54,7 @@ toc:
     - docs/getting-started-guides/coreos/index.md
     - docs/getting-started-guides/cloudstack.md
     - docs/getting-started-guides/vsphere.md
-    - docs/getting-started-guides/photon-controller.md
     - docs/getting-started-guides/dcos.md
-    - docs/getting-started-guides/libvirt-coreos.md
     - docs/getting-started-guides/ovirt.md
 
     - title: rkt
