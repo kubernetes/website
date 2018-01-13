@@ -141,11 +141,15 @@ kubectl cluster-info
 ```
 If you see a URL response, kubectl is correctly configured to access your cluster.
 
-If you see a message similar to the following, kubectl is not correctly configured:
+If you see a message similar to the following, kubectl is not correctly configured or not able to connect to a Kubernetes cluster locally or remotely.
 
 ```shell
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
+
+For example, if you are intending to run a Kubernetes cluster on your laptop (locally), you will need a tool like minikube to be installed first and then re-run the commands stated above. 
+
+
 If kubectl cluster-info returns the url response but you can't access your cluster, to check whether it is configured properly, use:
 
 ```shell
