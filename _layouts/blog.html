@@ -1,13 +1,48 @@
 <!DOCTYPE html>
 <html id="blog"> 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="/css/callouts.css">
+    <link rel="stylesheet" type="text/css" href="/css/custom-jekyll/tags.css">
+    {% if page.deprecated %}<link rel="stylesheet" type="text/css" href="/css/deprecation-warning.css">{% endif %}
+    <link rel="stylesheet" type="text/css" href="/css/blog.css">
+    {% if page.class == "gridPage" %}<link rel="stylesheet" type="text/css" href="/css/gridpage.css">{% endif %}
+    {% if page.css %}<link rel="stylesheet" type="text/css" href="{{ page.css }}"><!-- custom css added -->{% else %}<!-- no custom css detected -->{% endif %}
 
-    {% include head.html %}
+    {% if page.description %}
+    <meta name="description" content="{{ page.description }}" />
+    {% else %}
+    <meta name="description" content="{{ page.title }}" />
+    {% endif %}
+
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/sweetalert.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/custom-jekyll/tags.js"></script>
+    {% seo %}
+</head>
 
     <body>
-        {% include header.html %}
-
-        {{ content }}
-
+      <header id='topHeader'>
+      <div id='headerWrapper'>
+      <div class='header-title'>
+      <a href='http://kubernetes.io/'><img src='/images/nav_logo.svg' style='height:80px; margin-top: 10px'/></a>
+      <h6>An open source system for automating deployment, scaling, and operations of applications.</h6>
+      </div>
+      <a href='http://kubernetes.io/docs/'>Learn about Kubernetes</a>
+      </div>
+      </header>
+        <div class='content'>
+          {{ content }}
+        </div>
         {% include footer.html %}
 
         {% include footer-scripts.html %}
