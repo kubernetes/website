@@ -6,5 +6,5 @@ tags:
 short-description: >
   A Kubernetes systems-generated string to uniquely identify objects.
 long-description: >
-  Every object created over the whole lifetime of a Kubernetes cluster has a distinct UID (i.e., they are spatially and temporally unique).
+  Every object created over the whole lifetime of a Kubernetes cluster has a distinct UID.
   It is intended to distinguish between historical occurrences of similar entities.
