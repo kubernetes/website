@@ -546,14 +546,14 @@ Yes.
 For Kubernetes >= 1.9.0, we strongly recommend running the following set of admission controllers (order matters):
 
 ```shell
---admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,DefaultTolerationSeconds
+--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota
 ```
 
 It's worth reiterating that in 1.9 and up, these happen in a mutating phase
 and a validating phase, and that e.g. `ResourceQuota` runs in the validating
 phase, and therefore is the last admission controller to run.
-`DefaultTolerationSeconds` and `MutatingAdmissionWebhook` appear after it in this
-list, but they run in the mutating phase.
+`MutatingAdmissionWebhook` appears before it in this list, because it runs
+in the mutating phase.
 
 For earlier versions, there was no concept of validating vs mutating and the
 admission controllers ran in the exact order specified.
