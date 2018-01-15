@@ -46,9 +46,8 @@ Resource Quota support is enabled by default for many Kubernetes distributions. 
 enabled when the apiserver `--admission-control=` flag has `ResourceQuota` as
 one of its arguments.
 
-Resource Quota is enforced in a particular namespace when there is a
-`ResourceQuota` object in that namespace.  There should be at most one
-`ResourceQuota` object in a namespace.
+Resource Quota is enforced in a particular namespace when there is at least one
+`ResourceQuota` object in that namespace.
 
 ## Compute Resource Quota
 
