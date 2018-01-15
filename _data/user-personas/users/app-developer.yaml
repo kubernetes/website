@@ -4,7 +4,7 @@ index: 0
 foundational:
   - label: Set up a development environment
     icon: fa-television
-    url: /docs/user-journeys/users/application-developer/foundational#section-1
+    url: /docs/user-journeys/users/application-developer/foundational
   - label: Deploy, scale, and update an application
     icon: fa-retweet
     url: /docs/user-journeys/users/application-developer/foundational#section-2
@@ -17,7 +17,7 @@ foundational:
 intermediate:
   - label: Setup a full-featured or production environment.
     icon: fa-cube
-    url: /docs/user-journeys/users/application-developer/intermediate#section-1
+    url: /docs/user-journeys/users/application-developer/intermediate
   - label: Work with commonly used features, such as Service Discovery, Networking, and ReplicaSets.
     icon: fa-pencil-square-o
     url: /docs/user-journeys/users/application-developer/intermediate#section-2
@@ -30,7 +30,7 @@ intermediate:
 advanced:
   - label: Setup federated clusters.
     icon: fa-cubes
-    url: /docs/user-journeys/users/application-developer/advanced#section-1
+    url: /docs/user-journeys/users/application-developer/advanced
   - label: Deploy an application with advanced features, such as StatefulSets, DaemonSets, and Jobs.
     icon: fa-share
     url: /docs/user-journeys/users/application-developer/advanced#section-2

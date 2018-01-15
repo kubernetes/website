@@ -74,7 +74,7 @@ width:80%;
   margin-bottom:5%;
   margin-left:15%;
   line-height:2em;
-
+  overflow:auto;
 }
 
 .browsecolumn {
@@ -110,7 +110,6 @@ width:80%;
    background-repeat:repeat;
    background-size:contain;
    background-position:center;
-
 }
 .browseheader a{
 
@@ -530,7 +529,7 @@ i {
 .infobarWrapper {
     visibility: hidden;
     height: 60vh;
-    margin-bottom:5%;
+    margin-bottom:10%;
 }
 .infobar {
     padding:0%;
@@ -680,9 +679,14 @@ font-size:24px;
   font-size:14px;
   letter-spacing:0.05em;
   line-height:22px;
-  width:80%;
-  margin-left:10%;
+  width:70%;
+  margin-left:15%;
 
+}
+
+.about-k8s-content {
+  width: 100%;
+  float: right;
 }
 
 .docsection1 a {

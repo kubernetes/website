@@ -10,10 +10,24 @@ $( document ).ready(function() {
     'users',
     'contributors',
     'migrators',
-    'browse'
+    'browse',
+    'about'
+  ];
+  // Paths that do not adhere to the actual user journey UI
+  var specialJourneyPaths = [
+    'browse',
+    'about',
   ];
   // Load persona JSON data structure
   var info = JSON.parse($('#user-persona-data').html());
+
+  var containerDivs = [
+    '.applicationDeveloperContainer',
+    '.infobarWrapper',
+    '#cardWrapper',
+    '#browsedocsWrapper',
+    '#aboutWrapper'
+  ];
 
   // Stateful wrapper for a regular hash. Stores parameters AND keeps them in
   // sync with the URL state.
@@ -147,16 +161,27 @@ $( document ).ready(function() {
   }
 
   // Hide persona wizard section if Browse Docs button is clicked
-  function showOnlyDocs(flag){
-    if (flag) {
-      $('.applicationDeveloperContainer').hide();
-      $('.infobarWrapper').hide();
-      $('#cardWrapper').hide();
-    } else {
-      $('.applicationDeveloperContainer').show();
-      $('.infobarWrapper').show();
-      $('#cardWrapper').show();
+  function toggleSections(path){
+    for (i in containerDivs) {
+      if (!isSpecialJourney(path)) {
+        $(containerDivs[i]).show();
+      } else {
+        $(containerDivs[i]).hide();
+      }
     }
+
+    if (!isSpecialJourney(path)) {
+      $('.card_' + path).show();
+      // TBD: Add code to set button to default to first in path list?
+    } else if (path == "browse") {
+      $('#browsedocsWrapper').show();
+    } else if (path == "about") {
+      $('#aboutWrapper').show();
+    }
+  }
+
+  function isSpecialJourney(path) {
+    return (specialJourneyPaths.indexOf(path) != -1);
   }
 
   // Click handler for high-level user journey paths ("Users", "Contributors", etc)
@@ -179,14 +204,8 @@ $( document ).ready(function() {
     $('.navButton').removeClass("keepShow");
     $(targetElt).addClass("keepShow");
     $('.cards > div').hide();
-    // Hide user journeys if "Browse Docs is selected"
-    if (type != 'browse') {
-      showOnlyDocs(false);
-      $('.card_' + type).show();
-    } else {
-      showOnlyDocs(true);
-    }
-    // TBD: Add code to set button to default to first in path list?
+    // Hide or show user journeys if "Browse Docs is selected"
+    toggleSections(type);
   }
 
   // Click handler + scroll for persona buttons in "I am..." section
@@ -251,13 +270,13 @@ $( document ).ready(function() {
     urlParamHash.init();
     var noScroll = urlParamHash.numElts() == 0;
     for (key in defaults) {
-      if (urlParamHash.get('path') != 'browse' && urlParamHash.get(key) == undefined) {
+      if (!isSpecialJourney(urlParamHash.get('path')) && urlParamHash.get(key) == undefined) {
         urlParamHash.set(key, defaults[key]);
       }
     }
     // Update UI
     handlePathClick($('.paths .' + urlParamHash.get('path'))[0], true);
-    if (urlParamHash.get('path') != 'browse') {
+    if (!isSpecialJourney(urlParamHash.get('path'))) {
       setTimeout(function() {
         var elt = $('div[data-button="' + urlParamHash.get('persona') + '"]')[0];
         handlePersonaClick(elt, true, noScroll);
