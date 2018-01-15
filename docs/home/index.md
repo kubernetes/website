@@ -17,29 +17,29 @@ display_browse_numbers: true
   {{ site.data.user-personas | json | replace: "=>", ": " }}
 </div>
 
-<div class="bar1">
-    <div class="navButton users" onClick="showOnlyDocs(false)">Users</div>
-    <div class="navButton contributors" onClick="showOnlyDocs(false)">Contributors</div>
-    <!-- div class="navButton migrators" onClick="showOnlyDocs(false)">Migration&nbsp;Paths</div -->
-    <a onClick="showOnlyDocs(true)"> <div class="navButton">Browse Docs</div></a>
+<div class="paths">
+    <div class="navButton users">Users</div>
+    <div class="navButton contributors">Contributors</div>
+    <!-- div class="navButton migrators">Migration&nbsp;Paths</div -->
+    <a> <div class="navButton browse">Browse Docs</div></a>
 </div>
 
 <div id="cardWrapper">
-  <div class="bar2">I AM...</div>
+  <div class="display-bar">I AM...</div>
   <div class='cards'></div>
 </div>
 
 <div style='text-align: center;' class="applicationDeveloperContainer">
-    <div class="bar2" id="subTitle">LEVEL</div>
-    <div class="bar3">
-        <div class="tab1 foundational" id="beginner">
+    <div class="display-bar" id="subTitle">LEVEL</div>
+    <div class="levels">
+        <div class="level" data-name="foundational">
             <i class="fa fa-sign-in" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
             <br>
             <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
                 Foundational
             </div>
             </div>
-        <div class="tab1 intermediate">
+        <div class="level" data-name="intermediate">
             <i class="fa fa-university" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
             <br>
 
@@ -47,7 +47,7 @@ display_browse_numbers: true
                 Intermediate
             </div>
         </div>
-        <div class="tab1 advanced">
+        <div class="level" data-name="advanced">
             <i class="fa fa-magic" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
             <br>
             <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">

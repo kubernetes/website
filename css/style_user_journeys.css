@@ -53,14 +53,6 @@ width:80%;
   color:#606060;
 }
 
-.pages a:hover{
-  font-family: 'roboto';
-  font-size:11pt;
-  text-decoration:none !important;
-  letter-spacing:0.03em;
-  color:#000000;
-}
-
 .docstitle a{
   font-family: 'roboto';
   font-size:16pt;
@@ -273,14 +265,14 @@ color:#3371e3;
 
 }
 
-.bar1 {
+.paths {
  padding:1%;
  background-color:#3371e3;
  text-align:center;
 
 }
 
-.bar2 {
+.display-bar {
 padding:1%;
 background-color:#303030;
 text-align:center;
@@ -336,7 +328,6 @@ button {
   -khtml-border-radius: 5px; /* for old Konqueror browsers */
   border: 2px solid #ffffff;
   padding:1%;
-  white-space: nowrap;
   margin:1%;
   color:#3371e3;
   background-color:white;
@@ -345,6 +336,7 @@ button {
   text-align:center;
   letter-spacing:0.1em;
   display: inline-block;
+  cursor: pointer;
 
 }
 
@@ -374,7 +366,6 @@ button {
 
   background-color:#3371e3;
   color:white;
-  cursor:pointer;
   border: 2px solid #ffffff;
 }
 
@@ -382,7 +373,6 @@ button {
 
 .buttons {
   background-color:#3371e3;
-  white-space: nowrap;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px; /* future proofing */
@@ -473,7 +463,7 @@ button {
 
 }*/
 
-.tab1 {
+.level {
   background-color:#ffffff;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -496,7 +486,7 @@ button {
 
 
 }
-.tab1:hover, .tab1.selected {
+.level:hover, .level.selected {
   background-color:#dddddd;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -539,6 +529,7 @@ i {
 }
 .infobarWrapper {
     visibility: hidden;
+    height: 60vh;
     margin-bottom:5%;
 }
 .infobar {
@@ -581,7 +572,6 @@ i {
   color:#606060;
   margin:1%;
   text-align:left;
-  letter-spacing: 0.5pt;
 }
 
 .whitebararrow{
@@ -697,7 +687,6 @@ font-size:24px;
 
 .docsection1 a {
   text-decoration: underline;
-  color:#3371e3;
 }
 
 .docsection1 p {
@@ -723,6 +712,18 @@ font-size:24px;
 
 .docsection1 ol li {
   list-style: decimal;
+}
+
+.docsection1 code {
+    font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+
+    font-size: 90%;
+
+    padding: 2px 4px;
+
+    color: #c7254e;
+    border-radius: 4px;
+    background-color: #f9f2f4;
 }
 
 .intro {
