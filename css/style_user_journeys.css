@@ -285,7 +285,7 @@ color:#ffffff;
 }
 
 .cards {
-padding:3%;
+padding:0% 3% 3%;
 width:80%;
  margin-left:10%;
 background-color:#ffffff;
@@ -528,8 +528,7 @@ i {
 }
 .infobarWrapper {
     visibility: hidden;
-    height: 60vh;
-    margin-bottom:10%;
+    margin-bottom:5%;
 }
 .infobar {
     padding:0%;
@@ -584,10 +583,6 @@ i {
   margin:1%;
   text-align:right;
 }
-
-
-
-
 
 
 .hide {
@@ -682,6 +677,16 @@ font-size:24px;
   width:70%;
   margin-left:15%;
 
+}
+
+.cards .docsection1 {
+  display: block !important;
+  padding: 3% 3% 1%;
+  text-transform: none;
+}
+
+#persona-definition {
+  visibility: hidden;
 }
 
 .about-k8s-content {

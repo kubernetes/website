@@ -17,6 +17,25 @@ display_browse_numbers: true
   {{ site.data.user-personas | json | replace: "=>", ": " }}
 </div>
 
+<div class="hide">
+{% assign skip_uj_paths = "migrators" | split: "," %}
+{% for path in site.data.user-personas %}
+  {% if skip_uj_paths contains path[0] %}
+  {% else %}
+    {% for persona in path[1] %}
+      <div class="persona-def-data" data-name="{{ persona[0] }}">
+      {% assign persona_info = persona[1] %}
+      {% if persona_info.glossary_id %}
+        {{ site.data.glossary[persona_info.glossary_id].short-description }}
+      {% else if persona_info.short_desc %}
+        {{ persona_info.short_desc }}
+      {% endif %}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+</div>
+
 <div class="paths">
     <div class="navButton users">Users</div>
     <div class="navButton contributors">Contributors</div>
@@ -27,7 +46,9 @@ display_browse_numbers: true
 
 <div id="cardWrapper">
   <div class="display-bar">I AM...</div>
-  <div class='cards'></div>
+  <div class='cards' markdown="1">
+  <div class='docsection1' id='persona-definition'>.</div>
+  </div>
 </div>
 
 <div style='text-align: center;' class="applicationDeveloperContainer">

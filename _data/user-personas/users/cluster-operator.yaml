@@ -1,5 +1,6 @@
 id: cluster-operator
 name: Cluster Operator
+glossary_id: cluster-operator
 index: 1
 foundational:
   - label: Get an overview of Kubernetes

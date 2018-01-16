@@ -1,5 +1,6 @@
 id: code-contributor
 name: Code Contributor
+glossary_id: code-contributor
 index: 0
 foundational:
   - label: "Read the Developer Guide"

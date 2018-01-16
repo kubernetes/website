@@ -249,6 +249,14 @@ $( document ).ready(function() {
       setInfoData();
   }
 
+  function showPersonaDefinition(targetElt) {
+    var persona = targetElt.getAttribute('data-button');
+
+    console.log($('.persona-def-data[data-name="' + persona + '"]')[0].innerHTML);
+    $("#persona-definition").html($('.persona-def-data[data-name="' + persona + '"]')[0].innerHTML);
+    $("#persona-definition").css("visibility", "visible");
+  }
+
   function attachCardEvents() {
     // Set up click handling for all paths ("Users", "Contributors", etc)
     $('.paths .navButton').on('click', function(e) {
@@ -257,6 +265,13 @@ $( document ).ready(function() {
     // Set up click handling for personas ("Application Developer", etc)
     $('.cards .buttons').on('click', function(e) {
       handlePersonaClick(e.currentTarget);
+    });
+    // Show persona definitions when hovering over card
+    $('.cards .buttons').hover( function(e) {
+      showPersonaDefinition(e.currentTarget);
+    }, function(e) {
+      $("#persona-definition").css("visibility", "hidden");
+      $("#persona-definition").html(".");
     });
     // Set up click handling for levels ("Foundational", "Intermediate", etc)
     $('.level').on('click', function(e) {

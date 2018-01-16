@@ -1,5 +1,6 @@
 id: docs-contributor
 name: Docs Contributor
+short_desc: A person who writes documentation for the Kubernetes project (e.g. this site).
 index: 2
 foundational:
   - label: "Contribute to the Kubernetes documentation"

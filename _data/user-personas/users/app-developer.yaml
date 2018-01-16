@@ -1,5 +1,6 @@
 id: app-developer
 name: Application Developer
+glossary_id: application-developer
 index: 0
 foundational:
   - label: Set up a development environment
