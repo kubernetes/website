@@ -11,7 +11,7 @@ track: "USERS › CLUSTER OPERATOR › FOUNDATIONAL"
 {% capture overview %}
 
 If you want to learn how to get started managing and operating a Kubernetes cluster, this page and the linked topics will introduce you to foundational concepts and tasks.
-The concepts introduce you to a kubernetes cluster and key concepts to understand and manage it, favoring focusing on the cluster itself over the software running within the cluster.
+The concepts introduce you to a Kubernetes cluster and key concepts to understand and manage it, favoring focusing on the cluster itself over the software running within the cluster.
 
 {% endcapture %}
 
@@ -61,14 +61,14 @@ These resources are covered in a number of articles within the Kubernetes docume
 
 As a cluster operator you may not need to use all these resources although you should be familiar with them to understand how the cluster is working and being used.
 There are a number of additional resources that you should be aware of, some listed under [Intermediate Resources](/docs/user-journeys/cluster-operator/intermediate#section-1).
-you should also be familiar with [how to manage kubernetes resources](/docs/concepts/cluster-administration/manage-deployment/).
+You should also be familiar with [how to manage kubernetes resources](/docs/concepts/cluster-administration/manage-deployment/).
 
 ## Get information about my cluster
 
 You can [access clusters using the cluster API](/docs/tasks/administer-cluster/access-cluster-api/).
 If you are not already familiar, run through the tutorial to [view your cluster's Pods and Nodes](/docs/tutorials/kubernetes-basics/explore-intro/).
-Using kubectl, you can retrieve a lot of information very quickly.
-To get basic information about the nodes in your cluster use the command `kubectl get nodes`.
+Using kubectl, you can retrieve information very quickly.
+To get basic information about the nodes in your cluster run the command `kubectl get nodes`.
 You can get more detailed information for the same nodes with the command `kubectl describe nodes`.
 You can see the status of the core of kubernetes with the command `kubectl get componentstatuses`.
 
