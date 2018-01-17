@@ -38,6 +38,13 @@ width:80%;
 
 }
 
+.issue-button-container {
+  width: 75%;
+  margin-left: 15%;
+  padding-left: 1.5%;
+  padding-bottom: 2%;
+}
+
 .anchor {
   display: block;
   position: relative;
@@ -74,7 +81,6 @@ width:80%;
   margin-bottom:5%;
   margin-left:15%;
   line-height:2em;
-  overflow:auto;
 }
 
 .browsecolumn {
@@ -662,6 +668,27 @@ font-size:24px;
   background-color:#eeeeee;
   padding:1.5%;
 
+}
+
+.aboutsection {
+  background-color:white;
+  font-family: 'roboto';
+  font-weight:300 !important;
+  font-size:14px;
+  letter-spacing:0.05em;
+  line-height:22px;
+  width:70%;
+  margin-left:15%;
+  padding-bottom:3%;
+
+}
+
+.aboutsection p {
+  font-size: 16px;
+  font-weight:300;
+  line-height: 1.75em;
+  letter-spacing: 0.1px;
+  margin-bottom: 0.75em;
 }
 
 .docsection1 {

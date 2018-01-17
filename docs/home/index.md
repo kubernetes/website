@@ -3,6 +3,7 @@ approvers:
 - chenopis
 title: Kubernetes Documentation
 layout: docsportal
+noedit: true
 cid: userJourneys
 css: /css/style_user_journeys.css
 js: /js/user-journeys/home.js, https://use.fontawesome.com/4bcc658a89.js
@@ -37,15 +38,21 @@ display_browse_numbers: true
 </div>
 
 <div id='aboutWrapper'>
-<div class="docsection1" markdown="1">
+<div class="aboutsection" markdown="1">
 
 Kubernetes is an open source system for managing [containerized applications](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/)
 across multiple hosts, providing basic mechanisms for deployment, maintenance, and scaling of applications.
 The open source project is hosted by the Cloud Native Computing Foundation ([CNCF](https://www.cncf.io/about)).
 
-Kubernetes builds upon a decade and a half of experience at Google running
-production workloads at scale using a system called [Borg](https://research.google.com/pubs/pub43438.html),
-combined with best-of-breed ideas and practices from the community.
+<div class="browsecolumn" markdown="1">
+[Download Current Release](/docs/imported/release/notes/) 
+</div>
+<div class="browsecolumn" markdown="1">
+[Supported Doc Versions](/docs/home/supported-doc-versions/) 
+</div>
+<div class="browsecolumn" markdown="1">
+  [Troubleshooting](/docs/tasks/debug-application-cluster/troubleshooting/)
+</div>
 
 </div>
 </div>
@@ -55,7 +62,6 @@ combined with best-of-breed ideas and practices from the community.
     <div class="navButton contributors">Contributors</div>
     <!-- div class="navButton migrators">Migration&nbsp;Paths</div -->
     <a> <div class="navButton browse">Browse Docs</div></a>
-    <a> <div class="navButton about-k8s">About Kubernetes</div></a>
 </div>
 
 <div id="cardWrapper">
