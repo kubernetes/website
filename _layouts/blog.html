@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
     <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
@@ -32,19 +33,33 @@
 
     <body>
       <header id='topHeader'>
-      <div id='headerWrapper'>
-      <div class='header-title'>
-      <a href='http://kubernetes.io/'><img src='/images/nav_logo.svg' style='height:80px; margin-top: 10px'/></a>
-      <h6>An open source system for automating deployment, scaling, and operations of applications.</h6>
-      </div>
-      <a href='http://kubernetes.io/docs/'>Learn about Kubernetes</a>
-      </div>
-      </header>
-        <div class='content'>
-          {{ content }}
+        <div id='headerWrapper'>
+          <div class='header-title'>
+            <a href='http://kubernetes.io/'><img src='/images/nav_logo.svg' style='height:80px; margin-top: 10px'/></a>
+            <h6>An open source system for automating deployment, scaling, and operations of applications.</h6>
+            </div>
+            <div class='header-try'>
+            <a href='http://kubernetes.io/docs/'>Learn about Kubernetes</a>
+          </div>
         </div>
-        {% include footer.html %}
+      </header>
+      
+      <div class="container-fluid">
+        <div class='content'>
+          <div class="row row-offcanvas row-offcanvas-right" >
+            <div class="col-xs-12 col-sm-9 col-lg-9">
+          
+          {{ content }}
+            </div>
+          
+      
+          <div class="col-xs-6 col-sm-3 col-sm-pull-9 sidebar-offcanvas" id="sidebar">
+            <div class="list-group">
+              <a href="#" class="list-group-item active">I'm the Sidebar</a>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        {% include footer-scripts.html %}
     </body>
 </html>

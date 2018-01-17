@@ -41,6 +41,7 @@ width: 100%;
 background: transparent none repeat-x scroll top left;
 _background-image: none;
 }
+
 .content-outer {
 -moz-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
 -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
@@ -332,7 +333,7 @@ position: absolute;
 top: 0;
 left: 0;
 width: 100%;
-height: 180px;
+height: 160px;
 background-color: #333;
 background-image: url(http://kub.unitedcreations.xyz/images/texture.png);
 background-position: center center;
