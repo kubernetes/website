@@ -117,7 +117,7 @@ vSphere Cloud Provider requires the following minimal set of privileges to inter
 
 This config file needs to be placed in the shared directory which should be accessible from kubelet container, controller-manager pod, and API server pod.
 
-**```vsphere.conf``` for Master Node:**
+**```vsphere.conf``` for master node:**
 
 ```
 [Global]
@@ -137,7 +137,9 @@ This config file needs to be placed in the shared directory which should be acce
 
 Note: **```vm-name``` parameter is introduced in 1.6.4 release.** Both ```vm-uuid``` and ```vm-name``` are optional parameters. If ```vm-name``` is specified then ```vm-uuid``` is not used. If both are not specified then kubelet will get vm-uuid from `/sys/class/dmi/id/product_serial` and query vCenter to find the Node VM's name. 
 
-**```vsphere.conf``` for Worker Nodes:** (Only Applicable to 1.6.4 release and above. For older releases this file should have all the parameters specified in Master node's ```vSphere.conf``` file).
+**```vsphere.conf``` for worker nodes:**
+
+Only applicable to Kubernetes v1.6.4 until v1.8.x. For older versions this file should have all the parameters specified in master node's ```vsphere.conf``` file. Starting from v1.9.0, the worker nodes do not need a cloud config file at all.
  
 ``` 
 [Global]
