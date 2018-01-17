@@ -40,7 +40,7 @@ Storage: Volumes and PersistentVolumes
 
 Workloads
 
-* [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/)
+* [DaemonSets](/docs/concepts/workloads/controllers/daemonset/)
 * [Stateful Sets](/docs/concepts/workloads/controllers/statefulset/)
 * [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 * [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
@@ -63,9 +63,20 @@ And how Pods work with scheduling, priority, disruptions:
 
 ## Implement security best practices
 
-RBAC/authz and authn, admission controller
+Securing your cluster includes work beyond the scope of Kubernetes itself. (TODO: identify major items)
 
-Secrets (not just how but limitations)
+In Kubernetes, you configure access control:
+
+* [Controlling Access to the Kubernetes API](docs/admin/accessing-the-api/)
+* [Authenticating](/docs/admin/authentication/)
+* [Using Admission Controllers](/docs/admin/admission-controllers/)
+
+You also configure authorization. That is, you determine not just how users and services authenticate to the API server, or whether they have access, but also what resources they have access to. Role-based access control (RBAC) is currently the recommended mechanism for controlling authorization to Kubernetes resources. Other authorization modes are available for more specific use cases. 
+
+* [Authorization Overview](https://kubernetes.io/docs/admin/authorization/)
+* [Using RBAC Authorization](/docs/admin/authorization/rbac/)
+
+You should create Secrets to hold sensitive data such as passwords, tokens, or keys. Be aware, however, that there are limitations to the protections that a Secret can provide. See [the Risks section of the Secrets documentation](/docs/concepts/configuration/secret/#risks).
 
 Other security content?
 
