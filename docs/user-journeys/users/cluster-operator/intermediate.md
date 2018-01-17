@@ -78,16 +78,26 @@ You also configure authorization. That is, you determine not just how users and 
 
 You should create Secrets to hold sensitive data such as passwords, tokens, or keys. Be aware, however, that there are limitations to the protections that a Secret can provide. See [the Risks section of the Secrets documentation](/docs/concepts/configuration/secret/#risks).
 
-Other security content?
+TODO: Other security content?
 
 ## Implement custom logging and monitoring
 
-Ancillary tooling to support log capture
-? fluentd, logstash, elastic
-Ancillary tooling to support metrics capture, trending, and monitoring
-? prometheus, influxdb, kibana, datadog/external monitoring
-Ancillary tooling to support distributed performance analysis -- does this maybe belong in advanced?
-? Opentracing, jaeger, zipkin
+Monitoring the health and state of your cluster is important. Kubernetes provides some basic logging structure, but you will almost certainly need third-party tools to help aggregate and analyze log data.
+
+Start with the [basics on Kubernetes logging](docs/concepts/cluster-administration/logging/).
+
+You'll need to add tooling to support log capture and more. See the following topics:
+
+* [Logging Using Elasticsearch and Kibana](docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)
+
+Other third-party tools to support metrics capture, trends, and monitoring include:
+
+* Prometheus
+* Influxdb
+* Datadog
+
+<!--Ancillary tooling to support distributed performance analysis -- does this maybe belong in advanced?
+? Opentracing, jaeger, zipkin-->
 
 ## Additional resources
 
