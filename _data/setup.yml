@@ -11,7 +11,7 @@ toc:
   landing_page: /docs/imported/release/notes/
   section:
   - docs/imported/release/notes.md
-  - docs/getting-started-guides/binary_release.md
+  - docs/setup/building-from-source.md
 
 - title: Independent Solutions
   landing_page: /docs/getting-started-guides/minikube/
