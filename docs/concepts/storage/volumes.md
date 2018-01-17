@@ -174,7 +174,7 @@ See the [CephFS example](https://github.com/kubernetes/examples/tree/{{page.gith
 
 ### configMap
 
-The [`configMap`](/docs/tasks/configure-pod-container/configmap/) resource
+The [`configMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/) resource
 provides a way to inject configuration data into Pods.
 The data stored in a `ConfigMap` object can be referenced in a volume of type
 `configMap` and then consumed by containerized applications running in a Pod.

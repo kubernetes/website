@@ -17,29 +17,51 @@ display_browse_numbers: true
   {{ site.data.user-personas | json | replace: "=>", ": " }}
 </div>
 
-<div class="bar1">
-    <div class="navButton users" onClick="showOnlyDocs(false)">Users</div>
-    <div class="navButton contributors" onClick="showOnlyDocs(false)">Contributors</div>
-    <!-- div class="navButton migrators" onClick="showOnlyDocs(false)">Migration&nbsp;Paths</div -->
-    <a onClick="showOnlyDocs(true)"> <div class="navButton">Browse Docs</div></a>
+<div class="hide">
+{% assign skip_uj_paths = "migrators" | split: "," %}
+{% for path in site.data.user-personas %}
+  {% if skip_uj_paths contains path[0] %}
+  {% else %}
+    {% for persona in path[1] %}
+      <div class="persona-def-data" data-name="{{ persona[0] }}">
+      {% assign persona_info = persona[1] %}
+      {% if persona_info.glossary_id %}
+        {{ site.data.glossary[persona_info.glossary_id].short-description }}
+      {% else if persona_info.short_desc %}
+        {{ persona_info.short_desc }}
+      {% endif %}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+</div>
+
+<div class="paths">
+    <div class="navButton users">Users</div>
+    <div class="navButton contributors">Contributors</div>
+    <!-- div class="navButton migrators">Migration&nbsp;Paths</div -->
+    <a> <div class="navButton browse">Browse Docs</div></a>
+    <a> <div class="navButton about-k8s">About Kubernetes</div></a>
 </div>
 
 <div id="cardWrapper">
-  <div class="bar2">I AM...</div>
-  <div class='cards'></div>
+  <div class="display-bar">I AM...</div>
+  <div class='cards' markdown="1">
+  <div class='docsection1' id='persona-definition'>.</div>
+  </div>
 </div>
 
 <div style='text-align: center;' class="applicationDeveloperContainer">
-    <div class="bar2" id="subTitle">LEVEL</div>
-    <div class="bar3">
-        <div class="tab1 foundational" id="beginner">
+    <div class="display-bar" id="subTitle">LEVEL</div>
+    <div class="levels">
+        <div class="level" data-name="foundational">
             <i class="fa fa-sign-in" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
             <br>
             <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
                 Foundational
             </div>
             </div>
-        <div class="tab1 intermediate">
+        <div class="level" data-name="intermediate">
             <i class="fa fa-university" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
             <br>
 
@@ -47,7 +69,7 @@ display_browse_numbers: true
                 Intermediate
             </div>
         </div>
-        <div class="tab1 advanced">
+        <div class="level" data-name="advanced">
             <i class="fa fa-magic" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
             <br>
             <div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
@@ -65,6 +87,7 @@ display_browse_numbers: true
 </div>
 
 
+<div id='browsedocsWrapper'>
 <div class="browseheader" id="browsedocs">
     <a name="browsedocs">  Browse Docs</a>
 </div>
@@ -114,4 +137,33 @@ display_browse_numbers: true
   </div>
 
 {% endfor %}
+</div>
+</div>
+
+<div id='aboutWrapper'>
+<div class="browseheader" id="about-k8s">
+    <a name="about-k8s">About Kubernetes</a>
+</div>
+
+<div class="about-k8s-content">
+<div class="docsection1" markdown="1">
+
+Kubernetes is an open source system for managing [containerized applications](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/
+)
+across multiple hosts, providing basic mechanisms for deployment, maintenance,
+and scaling of applications.
+
+Kubernetes builds upon a decade and a half of experience at Google running
+production workloads at scale using a system called [Borg](https://research.google.com/pubs/pub43438.html),
+combined with best-of-breed ideas and practices from the community.
+
+Kubernetes is hosted by the Cloud Native Computing Foundation ([CNCF](https://www.cncf.io/about)).
+If you are a company that wants to help shape the evolution of
+technologies that are container-packaged, dynamically-scheduled
+and microservices-oriented, consider joining the CNCF.
+For details about who's involved and how Kubernetes plays a role,
+read the CNCF [announcement](https://cncf.io/news/announcement/2015/07/new-cloud-native-computing-foundation-drive-alignment-among-container).
+
+</div>
+</div>
 </div>

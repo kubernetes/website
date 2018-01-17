@@ -1,10 +1,11 @@
 id: cluster-operator
 name: Cluster Operator
+glossary_id: cluster-operator
 index: 1
 foundational:
   - label: Get an overview of Kubernetes
     icon: fa-book
-    url: /docs/user-journeys/users/cluster-operator/foundational#section-1
+    url: /docs/user-journeys/users/cluster-operator/foundational
   - label: Learn about Kubernetes basics
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/foundational#section-2
@@ -17,7 +18,7 @@ foundational:
 intermediate:
   - label: "Intermediate Resources"
     icon: fa-book
-    url: /docs/user-journeys/users/cluster-operator/intermediate#section-1
+    url: /docs/user-journeys/users/cluster-operator/intermediate
   - label: "..."
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/intermediate#section-2
