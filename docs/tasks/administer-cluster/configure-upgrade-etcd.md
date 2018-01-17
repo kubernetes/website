@@ -374,7 +374,7 @@ STORAGE_MEDIA_TYPE=application/json
 ### Default configuration
 
 The default setup scripts use kubelet's file-based static pods feature to run etcd in a
-[pod](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/etcd/etcd.manifest). This manifest should only
+[pod](http://releases.k8s.io/{{page.githubbranch}}/cluster/gce/manifests/etcd.manifest). This manifest should only
 be run on master VMs. The default location that kubelet scans for manifests is
 `/etc/kubernetes/manifests/`.
 
