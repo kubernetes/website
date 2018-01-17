@@ -32,7 +32,7 @@ toc:
     - docs/tutorials/kubernetes-basics/update-intro.html
     - docs/tutorials/kubernetes-basics/update-interactive.html
 - title: Online Training Courses
-  landing_page: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
+  landing_page: https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x
   section:
   - title: Scalable Microservices with Kubernetes (Udacity)
     path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
@@ -53,7 +53,7 @@ toc:
   - docs/tutorials/object-management-kubectl/imperative-object-management-configuration.md
   - docs/tutorials/object-management-kubectl/declarative-object-management-configuration.md
 - title: Stateless Applications
-  landing_page: /docs/tasks/run-application/run-stateless-application-deployment/
+  landing_page: /docs/tasks/access-application-cluster/service-access-application-cluster/
   section:
   - docs/tasks/run-application/run-stateless-application-deployment.md
   - docs/tutorials/stateless-application/guestbook.md
