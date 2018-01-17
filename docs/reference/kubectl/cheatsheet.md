@@ -301,4 +301,5 @@ Verbosity | Description
 `--v=6` | Display requested resources.
 `--v=7` | Display HTTP request headers.
 `--v=8` | Display HTTP request contents.
+`--v=9` | Display HTTP request contents without truncation of contents.
 
