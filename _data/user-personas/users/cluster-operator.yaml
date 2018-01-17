@@ -16,13 +16,13 @@ foundational:
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/foundational#section-4
 intermediate:
-  - label: "Intermediate Resources"
+  - label: "Work with Ingress, Networking, Storage, Workloads"
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/intermediate
-  - label: "..."
+  - label: "Implement security best practices"
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/intermediate#section-2
-  - label: "..."
+  - label: "Implement custom logging and monitoring"
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/intermediate#section-3
   - label: "Additional Resources"
