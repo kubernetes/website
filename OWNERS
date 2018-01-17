@@ -1,10 +1,10 @@
 reviewers:
 - tengqm
-- heckj
 - chenopis
 - zhangxiaoyu-zidif
 - xiangpengzhao
 approvers:
+- heckj
 - a-mccarthy
 - abiogenesis-now
 - bradamant3
