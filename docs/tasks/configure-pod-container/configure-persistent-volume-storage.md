@@ -37,13 +37,13 @@ Open a shell to the Node in your cluster. How you open a shell depends on how
 you set up your cluster. For example, if you are using Minikube, you can open a
 shell to your Node by entering `minikube ssh`.
 
-In your shell, create a `/tmp/data` directory:
+In your shell, create a `/mnt/data` directory:
 
-    mkdir /tmp/data
+    mkdir /mnt/data
 
-In the `/tmp/data` directory, create an `index.html` file:
+In the `/mnt/data` directory, create an `index.html` file:
 
-    echo 'Hello from Kubernetes storage' > /tmp/data/index.html
+    echo 'Hello from Kubernetes storage' > /mnt/data/index.html
 
 ## Create a PersistentVolume
 
@@ -62,7 +62,7 @@ Here is the configuration file for the hostPath PersistentVolume:
 
 {% include code.html language="yaml" file="task-pv-volume.yaml" ghlink="/docs/tasks/configure-pod-container/task-pv-volume.yaml" %}
 
-The configuration file specifies that the volume is at `/tmp/data` on the
+The configuration file specifies that the volume is at `/mnt/data` on the
 the cluster's Node. The configuration also specifies a size of 10 gibibytes and
 an access mode of `ReadWriteOnce`, which means the volume can be mounted as
 read-write by a single Node. It defines the [StorageClass name](/docs/concepts/storage/persistent-volumes/#class)
