@@ -64,7 +64,7 @@ toc:
   - docs/reference/kubectl/cheatsheet.md
 
 - title: Setup Tools Reference
-  landing_page: /docs/admin/kubeadm/
+  landing_page: /docs/reference/setup-tools/kubeadm/kubeadm/
   section:
   - title: Kubeadm
     section:
@@ -101,8 +101,9 @@ toc:
   - docs/reference/generated/federation-controller-manager.md
 
 - title: Kubernetes Design Docs
-  landing_page: https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md
+  landing_page: /docs/reference/design-docs/overview/
   section:
+  - docs/reference/design-docs/overview.md
   - title: Kubernetes Architecture
     path: https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md
   - title: Kubernetes Design Overview

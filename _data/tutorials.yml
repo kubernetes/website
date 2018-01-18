@@ -32,15 +32,19 @@ toc:
     - docs/tutorials/kubernetes-basics/update-intro.html
     - docs/tutorials/kubernetes-basics/update-interactive.html
 - title: Online Training Courses
-  landing_page: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
+  landing_page: /docs/tutorials/online-training/overview/
   section:
+  - docs/tutorials/online-training/overview.md
   - title: Scalable Microservices with Kubernetes (Udacity)
     path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
   - title: Introduction to Kubernetes (edX)
     path: https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#
-- docs/tutorials/stateless-application/hello-minikube.md
-- docs/user-guide/walkthrough/index.md
-- docs/user-guide/walkthrough/k8s201.md
+- title: Hello Minikube
+  path: /docs/tutorials/stateless-application/hello-minikube/
+- title: Kubernetes 101
+  path: /docs/user-guide/walkthrough/
+- title: Kubernetes 201
+  path: /docs/user-guide/walkthrough/k8s201/
 - title: Configuration
   landing_page: /docs/tutorials/configuration/configure-redis-using-configmap/
   section:
@@ -53,7 +57,7 @@ toc:
   - docs/tutorials/object-management-kubectl/imperative-object-management-configuration.md
   - docs/tutorials/object-management-kubectl/declarative-object-management-configuration.md
 - title: Stateless Applications
-  landing_page: /docs/tasks/run-application/run-stateless-application-deployment/
+  landing_page: /docs/tutorials/stateless-application/guestbook/
   section:
   - docs/tasks/run-application/run-stateless-application-deployment.md
   - docs/tutorials/stateless-application/guestbook.md
