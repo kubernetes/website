@@ -95,7 +95,7 @@ spec:
       storage: 30Gi
 ```
 
-This claim results in an SSD-like Persistent Disk being automatically
+This claim results in a SSD-like Persistent Disk being automatically
 provisioned. When the claim is deleted, the volume is destroyed.
 
 ## Defaulting Behavior
