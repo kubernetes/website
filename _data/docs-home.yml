@@ -4,24 +4,21 @@ toc:
 - docs/home/index.md
 - docs/home/supported-doc-versions.md
 
-- title: Users
+- title: User Journeys
   section:
-    - title: Application Developer
-      section:
-      - /docs/user-journeys/users/application-developer/foundational.md
-      - /docs/user-journeys/users/application-developer/intermediate.md
-      - /docs/user-journeys/users/application-developer/advanced.md
-  section:
-    - title: Cluster Operator
-      section:
-      - /docs/user-journeys/users/cluster-operator/foundational.md
-      - /docs/user-journeys/users/cluster-operator/intermediate.md
-      - /docs/user-journeys/users/cluster-operator/advanced.md
+  - title: Application Developer
+    section:
+    - docs/user-journeys/users/application-developer/foundational.md
+    - docs/user-journeys/users/application-developer/intermediate.md
+    - docs/user-journeys/users/application-developer/advanced.md
+  - title: Cluster Operator
+    section:
+    - docs/user-journeys/users/cluster-operator/foundational.md
+    - docs/user-journeys/users/cluster-operator/intermediate.md
+    - docs/user-journeys/users/cluster-operator/advanced.md
 
 - title: Release Notes
   path: https://git.k8s.io/kubernetes/CHANGELOG.md
-- title: Release Roadmap
-  path: https://github.com/kubernetes/kubernetes/milestones/
 
 - docs/tasks/debug-application-cluster/troubleshooting.md
 

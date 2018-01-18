@@ -4,7 +4,7 @@ approvers:
 layout: docsportal
 css: /css/style_user_journeys.css, https://fonts.googleapis.com/icon?family=Material+Icons
 js: https://use.fontawesome.com/4bcc658a89.js, https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js
-title: Cluster Operators - Intermediate
+title: Intermediate
 track: "USERS > CLUSTER OPERATOR > INTERMEDIATE"
 ---
 
