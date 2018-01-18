@@ -69,7 +69,7 @@ The raw data for glossary terms is stored at [https://github.com/kubernetes/webs
 
 ### Glossary Demo
 
-For example, the following include within the markdown will render to `cluster` with a tooltip.
+For example, the following include within the markdown will render to {% glossary_tooltip text="cluster" term_id="cluster" %} with a tooltip:
 
 ````liquid
 {{ "{% glossary_tooltip text=" }}"cluster" term_id="cluster" %}
