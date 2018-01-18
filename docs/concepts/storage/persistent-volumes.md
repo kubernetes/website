@@ -475,7 +475,7 @@ spec:
 Static provisioning support for Raw Block Volumes is included as an alpha feature for v1.9. With this change are some new API fields that need to be used to facilitate this functionality. Currently, Fibre Channel is the only supported plugin for this feature.
 
 ### Persistent Volumes using a Raw Block Volume
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -493,7 +493,7 @@ spec:
     readOnly: false
 ```
 ### Persistent Volume Claim requesting a Raw Block Volume
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -507,7 +507,7 @@ spec:
       storage: 10Gi
 ```
 ### Pod specification adding Raw Block Device path in container
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
