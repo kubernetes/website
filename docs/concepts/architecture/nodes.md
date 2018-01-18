@@ -59,7 +59,7 @@ The node condition is represented as a JSON object. For example, the following r
 ```json
 "conditions": [
   {
-    "kind": "Ready",
+    "type": "Ready",
     "status": "True"
   }
 ]
