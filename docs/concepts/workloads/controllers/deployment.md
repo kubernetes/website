@@ -251,17 +251,17 @@ Conditions:
   Available      True    MinimumReplicasAvailable
   Progressing    True    NewReplicaSetAvailable
 OldReplicaSets:  <none>
-NewReplicaSet:   nginx-deployment-6bd4859cdb (3/3 replicas created)
+NewReplicaSet:   nginx-deployment-1564180365 (3/3 replicas created)
 Events:
   Type    Reason             Age   From                   Message
   ----    ------             ----  ----                   -------
-  Normal  ScalingReplicaSet  2m    deployment-controller  Scaled up replica set nginx-deployment-569477d6d8 to 3
-  Normal  ScalingReplicaSet  24s   deployment-controller  Scaled up replica set nginx-deployment-6bd4859cdb to 1
-  Normal  ScalingReplicaSet  22s   deployment-controller  Scaled down replica set nginx-deployment-569477d6d8 to 2
-  Normal  ScalingReplicaSet  22s   deployment-controller  Scaled up replica set nginx-deployment-6bd4859cdb to 2
-  Normal  ScalingReplicaSet  19s   deployment-controller  Scaled down replica set nginx-deployment-569477d6d8 to 1
-  Normal  ScalingReplicaSet  19s   deployment-controller  Scaled up replica set nginx-deployment-6bd4859cdb to 3
-  Normal  ScalingReplicaSet  14s   deployment-controller  Scaled down replica set nginx-deployment-569477d6d8 to 0
+  Normal  ScalingReplicaSet  2m    deployment-controller  Scaled up replica set nginx-deployment-2035384211 to 3
+  Normal  ScalingReplicaSet  24s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 1
+  Normal  ScalingReplicaSet  22s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 2
+  Normal  ScalingReplicaSet  22s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 2
+  Normal  ScalingReplicaSet  19s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 1
+  Normal  ScalingReplicaSet  19s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 3
+  Normal  ScalingReplicaSet  14s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 0
 ```
 
 Here we see that when we first created the Deployment, it created a ReplicaSet (nginx-deployment-2035384211)
