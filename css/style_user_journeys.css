@@ -679,7 +679,7 @@ font-size:24px;
   line-height:22px;
   width:70%;
   margin-left:15%;
-  padding-bottom:3%;
+  padding-bottom:5%;
 
 }
 
@@ -689,6 +689,10 @@ font-size:24px;
   line-height: 1.75em;
   letter-spacing: 0.1px;
   margin-bottom: 0.75em;
+}
+
+.aboutsection a {
+  text-decoration: underline;
 }
 
 .docsection1 {
