@@ -65,7 +65,7 @@ A Service can be made to span multiple Deployments by omitting release-specific 
 
   Note that the [Deployment](/docs/concepts/workloads/controllers/deployment/) object obviates the need to manage replication controller `version names`. A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate. (Deployment objects are currently part of the [`apps` API Group](/docs/concepts/overview/kubernetes-api/#api-groups).)
 
-- You can manipulate labels for debugging. Because Deployments, ReplicaSets, and Services use labels to define the Pods they apply to, you can remove a Pod from service by removing the relevant selector labels from it. If you remove the labels of an existing Pod, its controller will create a new Pod to take its place. This is a useful way to put a Pod in quarantine so that you can debug a problem with it. To interactively remove or add labels, use [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label).
+- You can manipulate labels for debugging. Because Kubernetes controllers (such as ReplicaSet) and Services match to Pods using labels, this allows you to remove a Pod from being considered by a controller, or served traffic by a Service, by removing the relevant selector labels. If you remove the labels of an existing Pod, its controller will create a new Pod to take its place. This is a useful way to debug a previously "live" Pod in a "quarantine" environment. To interactively remove or add labels, use [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label).
 
 ## Container Images
 
