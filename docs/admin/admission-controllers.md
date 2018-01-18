@@ -140,8 +140,17 @@ event requests. The cluster admin can specify event rate limits by:
  * Ensuring that `eventratelimit.admission.k8s.io/v1alpha1=true` is included in the
    `--runtime-config` flag for the API server;
  * Enabling the `EventRateLimit` admission controller;
- * Including a `EventRateLimit` configuration in the file provided to the API
-   server's command line flag `--admission-control-config-file`.
+ * Referencing a `EventRateLimit` configuration file from the file provided to the API
+   server's command line flag `--admission-control-config-file`:
+
+```yaml
+kind: AdmissionConfiguration
+apiVersion: apiserver.k8s.io/v1alpha1
+plugins:
+- name: EventRateLimit
+  path: eventconfig.yaml
+...
+```
 
 There are four types of limits that can be specified in the configuration:
 
@@ -151,18 +160,19 @@ There are four types of limits that can be specified in the configuration:
  * `SourceAndObject`: A bucket is assigned by each combination of source and
    involved object of the event.
 
-Below is a sample snippet for such a configuration:
+Below is a sample `eventconfig.yaml` for such a configuration:
 
 ```yaml
-EventRateLimit:
-  limits:
-  - type: Namespace
-    qps: 50
-    burst: 100
-    cacheSize: 2000
-  - type: User
-    qps: 10
-    burst: 50
+kind: Configuration
+apiVersion: eventratelimit.admission.k8s.io/v1alpha1
+limits:
+- type: Namespace
+  qps: 50
+  burst: 100
+  cacheSize: 2000
+- type: User
+  qps: 10
+  burst: 50
 ```
 
 See the [EventRateLimit proposal](https://git.k8s.io/community/contributors/design-proposals/api-machinery/admission_control_event_rate_limit.md)
@@ -185,21 +195,35 @@ The ImagePolicyWebhook admission controller allows a backend webhook to make adm
 ```
 
 #### Configuration File Format
-ImagePolicyWebhook uses the admission config file `--admission-control-config-file` to set configuration options for the behavior of the backend. This file may be json or yaml and has the following format:
 
-```javascript
-{
-  "imagePolicy": {
-     "kubeConfigFile": "path/to/kubeconfig/for/backend",
-     "allowTTL": 50,           // time in s to cache approval
-     "denyTTL": 50,            // time in s to cache denial
-     "retryBackoff": 500,      // time in ms to wait between retries
-     "defaultAllow": true      // determines behavior if the webhook backend fails
-  }
-}
+ImagePolicyWebhook uses a configuration file to set options for the behavior of the backend.
+This file may be json or yaml and has the following format:
+
+```yaml
+imagePolicy:
+  kubeConfigFile: /path/to/kubeconfig/for/backend
+  # time in s to cache approval
+  allowTTL: 50
+  # time in s to cache denial
+  denyTTL: 50 
+  # time in ms to wait between retries
+  retryBackoff: 500
+  # determines behavior if the webhook backend fails
+  defaultAllow: true
 ```
 
-The config file must reference a [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
+Reference the ImagePolicyWebhook configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
+
+```yaml
+kind: AdmissionConfiguration
+apiVersion: apiserver.k8s.io/v1alpha1
+plugins:
+- name: ImagePolicyWebhook
+  path: imagepolicyconfig.yaml
+...
+```
+
+The ImagePolicyWebhook config file must reference a [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
 
 The kubeconfig file's cluster field must point to the remote service, and the user field must contain the returned authorizer.
 
@@ -409,10 +433,9 @@ a different zone.
 This admission controller defaults and limits what node selectors may be used within a namespace by reading a namespace annotation and a global configuration.
 
 #### Configuration File Format
-PodNodeSelector uses the admission config file `--admission-control-config-file` to set configuration options for the behavior of the backend.
 
+PodNodeSelector uses a configuration file to set options for the behavior of the backend.
 Note that the configuration file format will move to a versioned file in a future release.
-
 This file may be json or yaml and has the following format:
 
 ```yaml
@@ -420,6 +443,17 @@ podNodeSelectorPluginConfig:
  clusterDefaultNodeSelector: <node-selectors-labels>
  namespace1: <node-selectors-labels>
  namespace2: <node-selectors-labels>
+```
+
+Reference the PodNodeSelector configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
+
+```yaml
+kind: AdmissionConfiguration
+apiVersion: apiserver.k8s.io/v1alpha1
+plugins:
+- name: PodNodeSelector
+  path: podnodeselector.yaml
+...
 ```
 
 #### Configuration Annotation Format
