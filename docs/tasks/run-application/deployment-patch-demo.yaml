@@ -3,9 +3,6 @@ kind: Deployment
 metadata:
   name: patch-demo
 spec:
-  selector:
-    matchLabels:
-      app: nginx
   replicas: 2
   selector:
     matchLabels:
