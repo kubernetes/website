@@ -77,7 +77,7 @@ For example, the following include within the markdown will render to `cluster` 
 
 ## Tabs
 
-In a markdown page (.md file) on this site, you can add a tab set to display multiple flavors of a given solution.
+In a markdown page (`.md` file) on this site, you can add a tab set to display multiple flavors of a given solution.
 
 ### Tabs demo
 
