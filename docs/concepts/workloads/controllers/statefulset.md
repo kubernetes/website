@@ -116,7 +116,7 @@ regardless of which node it's (re)scheduled on.
 ### Ordinal Index
 
 For a StatefulSet with N replicas, each Pod in the StatefulSet will be
-assigned an integer ordinal, in the range [0,N), that is unique over the Set.
+assigned an integer ordinal, in the range [0,N], that is unique over the Set.
 
 ### Stable Network ID
 
