@@ -172,14 +172,14 @@ with a GID. Then the GID is automatically added to any Pod that uses the
 PersistentVolume.
 
 Use the `pv.beta.kubernetes.io/gid` annotation as follows:
-
-    kind: PersistentVolume
-    apiVersion: v1
-    metadata:
-      name: pv1
-      annotations:
-        pv.beta.kubernetes.io/gid: "1234"
-
+```yaml
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv1
+  annotations:
+    pv.beta.kubernetes.io/gid: "1234"
+```
 When a Pod consumes a PersistentVolume that has a GID annotation, the annotated GID
 is applied to all Containers in the Pod in the same way that GIDs specified in the
 Pod’s security context are. Every GID, whether it originates from a PersistentVolume
