@@ -40,8 +40,8 @@ This is a living document. If you think of something that is not on this list bu
 - Create a [Service](/docs/concepts/services-networking/service/) before its corresponding backend workloads (Deployments or ReplicaSets), and before any workloads that need to access it. When Kubernetes starts a container, it provides environment variables pointing to all the Services which were running when the container was started. For example, if a Service named `foo` exists, all containers will get the following variables in their initial environment:
 
   ```shell
-  FOO_SERVICE_HOST=<the host the service is running on>
-  FOO_SERVICE_PORT=<the port the service is running on>
+  FOO_SERVICE_HOST=<the host the Service is running on>
+  FOO_SERVICE_PORT=<the port the Service is running on>
   ```
 
   If you are writing code that talks to a Service, don't use these environment variables; use the [DNS name of the Service](/docs/concepts/services-networking/dns-pod-service/) instead. Service environment variables are provided only for older software which can't be modified to use DNS lookups, and are a much less flexible way of accessing Services.
@@ -59,11 +59,11 @@ services) (which have a `ClusterIP` of `None`) for easy service discovery when y
 
 ## Using Labels
 
-- Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or Deployment, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the appropriate Pods for other resources; for example, a Service that selects all `tier: frontend` pods, or all `phase: test` components of `app: myapp`. See the [guestbook](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) app for examples of this approach.
+- Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or Deployment, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the appropriate Pods for other resources; for example, a Service that selects all `tier: frontend` Pods, or all `phase: test` components of `app: myapp`. See the [guestbook](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) app for examples of this approach.
 
 A Service can be made to span multiple Deployments by omitting release-specific labels from its selector. [Deployments](/docs/concepts/workloads/controllers/deployment/) make it easy to update a running service without downtime.
 
-  Note that the [Deployment](/docs/concepts/workloads/controllers/deployment/) object obviates the need to manage replication controller `version names`. A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate. (Deployment objects are currently part of the [`apps` API Group](/docs/concepts/overview/kubernetes-api/#api-groups).)
+A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate. (Deployment objects are currently part of the [`apps` API Group](/docs/concepts/overview/kubernetes-api/#api-groups).)
 
 - You can manipulate labels for debugging. Because Kubernetes controllers (such as ReplicaSet) and Services match to Pods using labels, this allows you to remove a Pod from being considered by a controller, or served traffic by a Service, by removing the relevant selector labels. If you remove the labels of an existing Pod, its controller will create a new Pod to take its place. This is a useful way to debug a previously "live" Pod in a "quarantine" environment. To interactively remove or add labels, use [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label).
 
