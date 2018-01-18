@@ -52,13 +52,14 @@ The `conditions` field describes the status of all `Running` nodes.
 | `MemoryPressure`    | `True` if pressure exists on the node memory -- that is, if the node memory is low; otherwise `False` |
 | `DiskPressure`    | `True` if pressure exists on the disk size -- that is, if the disk capacity is low; otherwise `False` |
 | `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
+| `ConfigOK`    | `True` if the kubelet is correctly configured, otherwise `False` |
 
 The node condition is represented as a JSON object. For example, the following response describes a healthy node.
 
 ```json
 "conditions": [
   {
-    "kind": "Ready",
+    "type": "Ready",
     "status": "True"
   }
 ]
