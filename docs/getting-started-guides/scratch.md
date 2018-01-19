@@ -537,7 +537,7 @@ availability.
 
 To run an etcd instance:
 
-1. Copy [`cluster/gce/manifests/etcd.manifest`](http://releases.k8s.io/{{page.githubbranch}}/cluster/gce/manifests/etcd.manifest)
+1. Copy [`cluster/gce/manifests/etcd.manifest`](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/manifests/etcd.manifest)
 1. Make any modifications needed
 1. Start the pod by putting it into the kubelet manifest directory
 
