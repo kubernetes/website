@@ -20,16 +20,7 @@ As a result, the app developer "user journey" is *not* a comprehensive overview 
 
 
 {% capture body %}
-## Set up Kubernetes
-
-Check to see if your organization already provides a dev cluster. If so, ask your cluster operator about credentials that you can use with the [kubectl command-line tool](/docs/tasks/tools/install-kubectl/){:target="_blank"}.
-*Skip to the [next section](#deploy-scale-and-update-an-application) once you have this set up.*
-
-Otherwise, you can get started with a couple of different options:
-* A web-based environment
-* A single-{% glossary_tooltip text="node" term_id="node" %} cluster called *Minikube*
-* A multi-node cluster
-
+## Get a cluster
 
 #### Web-based Environment
 
@@ -39,7 +30,7 @@ If you're brand new to Kubernetes and simply want to experiment, web-based envir
 
 * [Play with Kubernetes](http://labs.play-with-k8s.com/){:target="_blank"} allows you to explore further without setting up a local environment. Its environment is less structured than the Katacoda Playground, and allows you to spin up multiple nodes.
 
-#### Minikube
+#### Minikube (Recommended)
 
 Web-based environments are easy to access, but are not persistent. If you want to continue exploring Kubernetes in a workspace that you can come back to and change, Minikube is a good option.
 
@@ -54,43 +45,16 @@ Minikube can be installed locally, and runs a simple, single-node Kubernetes clu
 
 You can get basic information about your cluster with the command `kubectl get nodes`. To get a good idea of what's really going on, however, you need to deploy an application to your cluster. This is covered in the next major section.
 
-#### Multi-node cluster
-
-Take a look at [these options](/docs/setup/pick-right-solution/){:target="_blank"}. Note that unlike with the Minikube setup, you'll need to configure `kubectl` yourself.
-
-This is covered more in depth in the page for [intermediate app developers](){:target="_blank"}(LINK TODO).
-
-
-## Deploy, scale, and update an application
-
-When first trying to understand Kubernetes, you should start with the approach that best matches your learning style:
-
-* **Concrete -> Abstract**
-    *(Pods, Deployments, Jobs, etc. -> API Objects)*
-
-    *This is the default ordering, so you don't need to do anything else.* Check out this section's tutorials and tasks, before proceeding to the high-level overview in the next section.
-
-* **Abstract -> Concrete**
-  *(API Objects -> Pods, Deployments, Jobs, etc.)*
-
-    Skip ahead to the next section on [how Kubernetes works](#how-kubernetes-works-an-introduction). Return to this section afterwards to see those architectural patterns in practice.
-
-Alternating between these two approaches can also help you better understand the key, extensible abstractions in Kubernetes.
+## Deploy an application
 
 #### A Basic Workload
 
-To learn the basics of deploying an app to Kubernetes, you can check out any of the following resources. *(You do not have to do all of them, if you find one enough):*
-* Guided tutorials that embed conceptual explanations
-    * [Kubernetes 101](https://kubernetes.io/docs/user-guide/walkthrough/){:target="_blank"}
-
-    * [Kubernetes 201](https://kubernetes.io/docs/user-guide/walkthrough/k8s201/){:target="_blank"}
-
-* Shorter, practical examples
+The following examples demonstrate how to deploy basic apps to Kubernetes:
   * [Deploy a simple, stateless nginx server](/docs/tasks/run-application/run-stateless-application-deployment/){:target="_blank"}. Nginx is often used as the web server to help provide ingress from outside your cluster (in other words, external requests).
 
   * [Deploy a stateful, externally accessible MySQL database](/docs/tasks/run-application/run-single-instance-stateful-application/){:target="_blank"}. This introduces the concept of storage.
 
-Through these tutorials, you'll gain familiarity with the following concepts:
+Through these deployment tasks, you'll gain familiarity with the following concepts:
 * Fundamentals
 
   * **Kubernetes manifests** - These configuration files describe the desired state of your application and related resources as Kubernetes should maintain them. They are written in YAML or JSON. (See the [example from the nginx app](/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment))
@@ -100,7 +64,7 @@ Through these tutorials, you'll gain familiarity with the following concepts:
 * Common workload objects
   * **{% glossary_tooltip text="Deployment" term_id="deployment" %}** - The most common way of running X copies of your application. Supports rolling updates to your container images.
 
-  * **{% glossary_tooltip text="Ingress" term_id="ingress" %}** - A general API object that determines routing rules, e.g. how to handle traffic requests between your cluster and the outside world.
+  * **{% glossary_tooltip text="Ingress" term_id="ingress" %}** - A general API object that determines routing rules, such as how to handle traffic requests between your cluster and the outside world.
 
   * **{% glossary_tooltip text="Service" term_id="deployment" %}** - By itself, a Deployment can't provide ingress. This is one of the simplest ways to configure ingress, as it supports load balancing and {% glossary_tooltip text="label" term_id="labels" %}  selection.
 
@@ -112,7 +76,7 @@ The subsequent sections here describe other useful areas to know for app deploym
 
 * When you previously [created a basic nginx Deployment](/docs/tasks/run-application/run-stateless-application-deployment/){:target="_blank"}, you specify the `app: nginx` label as part of the template metadata. The `matchLabels` selector then specifies this label as part of the spec.
 
-* You can use these to tie a Service to a Deployment via the `selector` field, which you may have seen in the [MySQL example](/docs/tasks/run-application/run-single-instance-stateful-application/){:target="_blank"}.
+* You can use these to tie a Service to a Deployment using the `selector` field, which you may have seen in the [MySQL example](/docs/tasks/run-application/run-single-instance-stateful-application/){:target="_blank"}.
 
 * You also specify labels to customize your cluster, for example by [assigning pods to nodes](/docs/concepts/configuration/assign-pod-node/).
 
@@ -130,13 +94,13 @@ To provide configuration data for your application, you can specify Kubernetes e
 
 To decouple configuration data from your workload, you can also use the following objects:
 
-* **{% glossary_tooltip text="ConfigMaps" term_id="configmap" %}** - For non-confidential data (e.g. an nginx-specific configuration file).
+* **{% glossary_tooltip text="ConfigMaps" term_id="configmap" %}** - For non-confidential data, such as an nginx-specific configuration file.
 
 * **{% glossary_tooltip text="Secrets" term_id="secret" %}** - Similar to ConfigMaps, but for confidential data.
 
 *ConfigMaps and Secrets are not overlapping options.* If you have *any* data that you want to keep private, you should be using a Secret. Otherwise there is nothing stopping that data from being exposed to malicious users.
 
-## How Kubernetes works: an introduction
+## Understand Kubernetes basics
 
 As an app developer, you don't need to know everything about the inner workings of Kubernetes, but you may find it helpful to understand it at a high-level.
 
@@ -158,7 +122,7 @@ On a high-level, there are two key concepts to making this work: the *Kubernetes
 
 #### Kubernetes API
 
-For Kubernetes to be useful, it needs to know *what* sort of cluster state you want it to maintain. The {% glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" %} provides a way for you to declare this desired state, in terms of API objects (e.g. {% glossary_tooltip text="Deployments" term_id="deployment" %}). Cluster state includes but is not limited to the following information:
+For Kubernetes to be useful, it needs to know *what* sort of cluster state you want it to maintain. The {% glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" %} provides a way for you to declare this desired state, in terms of API objects (such as {% glossary_tooltip text="Deployments" term_id="deployment" %}). Cluster state includes but is not limited to the following information:
 
 * The applications or other workloads to run
 * The container images for your applications and workloads
@@ -180,16 +144,14 @@ The aforementioned Kubernetes API server actually runs as part of the Control Pl
 
 The rest of the Control Plane (`kube-controller-manager`, `kube-scheduler`, `kubelet`, etc) essentially implements a "control loop". For simplicity, you can think of it as continuously asking the following:
 
-```
+<div class="emphasize-box" markdown="1">
  1. What is the current state of the cluster (X)?
  2. What is the desired state of the cluster (Y)?
  3. X == Y ?
-   * true - Do nothing.
-   * false - Perform tasks to get to Y (e.g. starting or restarting containers,
-             scaling the number of replicas of a given application, etc.).
-```
-
-<br>
+   * `true` - Do nothing.
+   * `false` - Perform tasks to get to Y (such as starting or restarting containers,
+or scaling the number of replicas of a given application).
+</div>
 
 These ideas are covered in more detail [here](https://kubernetes.io/docs/concepts/){:target="_blank"}.
 
@@ -210,6 +172,10 @@ The Kubernetes documentation is rich in detail. Here's a curated list of resourc
 ### Tutorials
 
 * [Hello Minikube](https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/)
+
+* [Kubernetes 101](https://kubernetes.io/docs/user-guide/walkthrough/){:target="_blank"}
+
+* [Kubernetes 201](https://kubernetes.io/docs/user-guide/walkthrough/k8s201/){:target="_blank"}
 
 * [Kubernetes object management](https://kubernetes.io/docs/tutorials/object-management-kubectl/object-management/)
 

@@ -64,7 +64,17 @@ width:80%;
 
 .docstitle {
   margin-bottom:10px !important;
+}
 
+.emphasize-box {
+  background-color: #dde1e4;
+  margin: 2% 10%;
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+
+.emphasize-box li {
+  font-size: 14px !important;
 }
 
 .browsedocs {
@@ -674,8 +684,8 @@ font-size:24px;
   font-size:14px;
   letter-spacing:0.05em;
   line-height:22px;
-  width:70%;
-  margin-left:15%;
+  width:65%;
+  margin-left:17%;
 
 }
 
@@ -708,19 +718,19 @@ font-size:24px;
 
 .docsection1 li {
   margin-bottom: 0.75em;
-  margin-left: 2em;
+  margin-left: 3em;
   font-size: 16px;
   font-weight:300;
   line-height: 1.75em;
   letter-spacing: 0.1px;
 }
 
-.docsection1 ul li {
-  list-style: disc;
-}
-
 .docsection1 ol li {
   list-style: decimal;
+}
+
+.docsection1 ul li {
+  list-style: disc;
 }
 
 .docsection1 code {
