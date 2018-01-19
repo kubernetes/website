@@ -196,10 +196,10 @@ spec:
     metadata:
     # ...
     spec:
+      serviceAccountName: bob-the-bot
       containers:
       - name: nginx
         image: nginx:1.7.9
-        serviceAccountName: bob-the-bot
 ```
 
 Service account bearer tokens are perfectly valid to use outside the cluster and
@@ -317,7 +317,7 @@ For an identity provider to work with Kubernetes it must:
 3.  Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
 
 A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST have your identity provider's web server certificate signed by a certificate with the `CA` flag set to `TRUE`, even if it is self signed.  This is due to GoLang's TLS client implementation being very strict to the standards around certificate validation.  If you don't have a CA handy, you can use [this script](https://github.com/coreos/dex/blob/1ee5920c54f5926d6468d2607c728b71cfe98092/examples/k8s/gencert.sh) from the CoreOS team to create a simple CA and a signed certificate and key pair.
-Or you can use [this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/makecerts.sh) that generates SHA256 certs with a longer life and larger key size.
+Or you can use [this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh) that generates SHA256 certs with a longer life and larger key size.
 
 Setup instructions for specific systems:
 
@@ -422,9 +422,8 @@ contexts:
 
 When a client attempts to authenticate with the API server using a bearer token
 as discussed [above](#putting-a-bearer-token-in-a-request),
-the authentication webhook
-queries the remote service with a review object containing the token. Kubernetes
-will not challenge a request that lacks such a header.
+the authentication webhook POSTs a JSON-serialized `authentication.k8s.io/v1beta1` `TokenReview` object containing the token
+to the remote service. Kubernetes will not challenge a request that lacks such a header.
 
 Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
 as other Kubernetes API objects. Implementers should be aware of looser
@@ -432,7 +431,7 @@ compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API server must
 enable the `authentication.k8s.io/v1beta1` API extensions group (`--runtime-config=authentication.k8s.io/v1beta1=true`).
 
-The request body will be of the following format:
+The POST body will be of the following format:
 
 ```json
 {

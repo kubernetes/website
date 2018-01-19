@@ -85,9 +85,9 @@ unless the Pod's grace period expires. For more details, see
 
 ### Reference
 
-* [Lifecycle](/docs/resources-reference/{{page.version}}/#lifecycle-v1-core)
-* [Container](/docs/resources-reference/{{page.version}}/#container-v1-core)
-* See `terminationGracePeriodSeconds` in [PodSpec](/docs/resources-reference/{{page.version}}/#podspec-v1-core)
+* [Lifecycle](/docs/api-reference/{{page.version}}/#lifecycle-v1-core)
+* [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
+* See `terminationGracePeriodSeconds` in [PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core)
 
 {% endcapture %}
 

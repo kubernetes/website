@@ -59,6 +59,8 @@ a Kubernetes cluster from scratch.
 
 * [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
 
+* [Kubermatic](https://kubermatic.io) provides managed Kubernetes clusters for various public clouds, including AWS and Digital Ocean, as well as on-premises with OpenStack integration.
+
 # Turnkey Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
@@ -74,12 +76,14 @@ few commands. These solutions are actively developed and have active community s
 * [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
 * [KUBE2GO.io](https://kube2go.io/)
 * [Madcore.Ai](https://madcore.ai/)
+* [Kubermatic](https://kubermatic.io/)
 
 # On-Premises turnkey cloud solutions
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
 few commands.
 
 * [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
+* [Kubermatic](https://kubermatic.io/)
 
 # Custom Solutions
 
@@ -118,7 +122,6 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Vmware](/docs/getting-started-guides/coreos/)  (uses CoreOS and flannel)
 * [CoreOS on libvirt](/docs/getting-started-guides/libvirt-coreos/)  (uses CoreOS)
 * [oVirt](/docs/getting-started-guides/ovirt/)
-* [OpenStack Heat](/docs/getting-started-guides/openstack-heat/) (uses CentOS and flannel)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
 
 ## Bare Metal
@@ -154,6 +157,7 @@ AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://ap
 KUBE2GO.io          |              | multi-support | multi-support | [docs](https://kube2go.io) | Commercial
 Madcore.Ai           | Jenkins DSL  | Ubuntu | flannel     | [docs](https://madcore.ai)                        | Community ([@madcore-ai](https://github.com/madcore-ai))
 Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
+Kubermatic       |              | multi-support | multi-support | [docs](http://docs.kubermatic.io/) | Commercial
 Giant Swarm        |              | CoreOS | flannel and/or Calico | [docs](https://docs.giantswarm.io/) | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce/)                                    | Project
 Azure Container Service |              | Ubuntu | Azure       | [docs](https://azure.microsoft.com/en-us/services/container-service/)                    |  Commercial
@@ -187,7 +191,6 @@ AWS                  | kops         | Debian | AWS         | [docs](https://gith
 Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                 |  Community ([@resouer](https://github.com/resouer), [@WIZARD-CXY](https://github.com/WIZARD-CXY))
 libvirt/KVM          | CoreOS       | CoreOS | libvirt/KVM | [docs](/docs/getting-started-guides/libvirt-coreos/)                         |  Community ([@lhuard1A](https://github.com/lhuard1A))
 oVirt                |              |        |             | [docs](/docs/getting-started-guides/ovirt/)                                  |  Community ([@simon3z](https://github.com/simon3z))
-OpenStack Heat       | Saltstack    | CentOS | Neutron + flannel hostgw | [docs](/docs/getting-started-guides/openstack-heat/)            |  Community ([@FujitsuEnablingSoftwareTechnologyGmbH](https://github.com/FujitsuEnablingSoftwareTechnologyGmbH))
 any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch/)                                |  Community ([@erictune](https://github.com/erictune))
 any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
 

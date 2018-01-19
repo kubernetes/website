@@ -153,7 +153,7 @@ kubectl create --edit -f /tmp/srv.yaml
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/{{page.version}}/)
-- [Kubernetes Object Schema Reference](/docs/resources-reference/{{page.version}}/)
+- [Kubernetes API Reference](/docs/api-reference/{{page.version}}/)
 {% endcapture %}
 
 {% include templates/concept.md %}

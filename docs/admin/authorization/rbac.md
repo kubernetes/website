@@ -191,6 +191,76 @@ Because resource names are not present in the URL for create, list, watch, and d
 those verbs would not be allowed by a rule with resourceNames set, since the resourceNames portion of the
 rule would not match the request.
 
+### Aggregated ClusterRoles
+
+As of 1.9, ClusterRoles can be created by combining other ClusterRoles using an `aggregationRule`. The
+permissions of aggregated ClusterRoles are controller-managed, and filled in by unioning the rules of any
+ClusterRole that matches the provided label selector. An example aggregated ClusterRole:
+
+```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: monitoring
+aggregationRule:
+  clusterRoleSelectors:
+  - matchLabels:
+      rbac.example.com/aggregate-to-monitoring: "true"
+rules: [] # Rules are automatically filled in by the controller manager.
+```
+
+Creating a ClusterRole that matches the label selector will add rules to the aggregated ClusterRole. In this case
+rules can be added to the "monitoring" ClusterRole by creating another ClusterRole that has the label
+`rbac.example.com/aggregate-to-monitoring: true`.
+
+```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: monitoring-endpoints
+  labels:
+    rbac.example.com/aggregate-to-monitoring: "true"
+# These rules will be added to the "monitoring" role.
+rules:
+- apiGroups: [""]
+  Resources: ["services", "endpoints", "pods"]
+  verbs: ["get", "list", "watch"]
+```
+
+The default user-facing roles (described below) use ClusterRole aggregation. This lets admins include rules
+for custom resources, such as those served by CustomResourceDefinitions or Aggregated API servers, on the
+default roles.
+
+For example, the following ClusterRoles let the "admin" and "edit" default roles manage the custom resource
+"CronTabs" and the "view" role perform read-only actions on the resource.
+
+```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: aggregate-cron-tabs-edit
+  labels:
+    # Add these permissions to the "admin" and "edit" default roles.
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+rules:
+- apiGroups: ["stable.example.com"]
+  resources: ["crontabs"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: aggregate-cron-tabs-view
+  labels:
+    # Add these permissions to the "view" default role.
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+rules:
+- apiGroups: ["stable.example.com"]
+  resources: ["crontabs"]
+  verbs: ["get", "list", "watch"]
+```
+
 #### Role Examples
 
 Only the `rules` section is shown in the following examples.
@@ -402,6 +472,18 @@ They include super-user roles (`cluster-admin`),
 roles intended to be granted cluster-wide using ClusterRoleBindings (`cluster-status`),
 and roles intended to be granted within particular namespaces using RoleBindings (`admin`, `edit`, `view`).
 
+As of 1.9, user-facing roles use [ClusterRole Aggregation](#aggregated-clusterroles) to allow admins to include
+rules for custom resources on these roles. To add rules to the "admin", "edit", or "view" role, create a
+ClusterRole with one or more of the following labels:
+
+```yaml
+metadata:
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+```
+
 <table>
 <colgroup><col width="25%"><col width="25%"><col></colgroup>
 <tr>
@@ -546,6 +628,7 @@ These roles include:
 * system:controller:node-controller
 * system:controller:persistent-volume-binder
 * system:controller:pod-garbage-collector
+* system:controller:pvc-protection-controller
 * system:controller:replicaset-controller
 * system:controller:replication-controller
 * system:controller:resourcequota-controller
@@ -768,7 +851,7 @@ You can use that information to determine which roles need to be granted to whic
 Once you have [granted roles to service accounts](#service-account-permissions) and workloads are running with no RBAC denial messages
 in the server logs, you can remove the ABAC authorizer.
 
-### Permissive RBAC Permissions
+## Permissive RBAC Permissions
 
 You can replicate a permissive policy using RBAC role bindings.
 

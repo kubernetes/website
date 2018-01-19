@@ -74,6 +74,7 @@ up logging for COS image on GCP in the corresponding [script]
 When you run [`kubectl logs`](/docs/user-guide/kubectl/{{page.version}}/#logs) as in
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file, returning the contents in the response.
+
 **Note:** currently, if some external system has performed the rotation,
 only the contents of the latest log file will be available through
 `kubectl logs`. E.g. if there's a 10MB file, `logrotate` performs
@@ -216,7 +217,7 @@ by the kubelet.
 As an example, you could use [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/),
 which uses fluentd as a logging agent. Here are two configuration files that
 you can use to implement this approach. The first file contains
-a [ConfigMap](/docs/tasks/configure-pod-container/configmap/) to configure fluentd.
+a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to configure fluentd.
 
 {% include code.html language="yaml" file="fluentd-sidecar-config.yaml" ghlink="/docs/concepts/cluster-administration/fluentd-sidecar-config.yaml" %}
 

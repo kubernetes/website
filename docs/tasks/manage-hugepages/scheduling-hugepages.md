@@ -68,12 +68,14 @@ spec:
   than the pod request.
 - Applications that consume huge pages via `shmget()` with `SHM_HUGETLB` must
   run with a supplemental group that matches `proc/sys/vm/hugetlb_shm_group`.
+- Huge page usage in a namespace is controllable via ResourceQuota similar
+to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
+token.
 
 ## Future
 
 - Support container isolation of huge pages in addition to pod isolation.
 - NUMA locality guarantees as a feature of quality of service.
-- ResourceQuota support.
 - LimitRange support.
 
 {% endcapture %}

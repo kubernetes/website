@@ -175,6 +175,57 @@ For pods that you deploy into the cluster, the `kubernetes` service/dns name sho
 For external users of the API (e.g. the `kubectl` command line interface, continuous build pipelines, or other clients) you will want to configure
 them to talk to the external load balancer's IP address.
 
+### Endpoint reconciler
+
+As mentioned in the previous section, the apiserver is exposed through a
+service called `kubernetes`. The endpoints for this service correspond to
+the apiserver replicas that we just deployed.
+
+Since updating endpoints and services requires the apiserver to be up, there
+is special code in the apiserver to let it update its own endpoints directly.
+This code is called the "reconciler," because it reconciles the list of
+endpoints stored in etcd, and the list of endpoints that are actually up
+and running.
+
+Prior Kubernetes 1.9, the reconciler expects you to provide the
+number of endpoints (i.e., the number of apiserver replicas) through
+a command-line flag (e.g. `--apiserver-count=3`). If more replicas
+are available, the reconciler trims down the list of endpoints.
+As a result, if a node running a replica of the apiserver crashes
+and gets replaced, the list of endpoints is eventually updated.
+However, until the replica gets replaced, its endpoint stays in
+the list. During that time, a fraction of the API requests sent
+to the `kubernetes` service will fail, because they will be sent
+to a down endpoint.
+
+This is why the previous section advises you to deploy a load
+balancer, and access the API through that load balancer. The
+load balancer will directly assess the health of the apiserver
+replicas, and make sure that requests are not sent to crashed
+instances.
+
+If you do not add the `--apiserver-count` flag, the value defaults to 1.
+Your cluster will work correctly, but each apiserver replica will
+continuously try to add itself to the list of endpoints while removing
+the other ones, causing a lot of extraneous updates in kube-proxy
+and other components.
+
+Starting with Kubernetes 1.9, a new reconciler implementation is available.
+It uses a *lease* that is regularly renewed by each apiserver
+replica. When a replica is down, it stops renewing its lease, and
+the other replicas notice that the lease expired and remove it
+from the list of endpoints. You can switch to the new reconciler
+by adding the flag `--endpoint-reconciler-type=lease` when starting
+your apiserver replicas.
+
+If you want to know more, you can check the following resources:
+- [issue kubernetes/kuberenetes#22609](https://github.com/kubernetes/kubernetes/issues/22609),
+  which gives additional context
+- [master/reconcilers/mastercount.go](https://github.com/kubernetes/kubernetes/blob/dd9981d038012c120525c9e6df98b3beb3ef19e1/pkg/master/reconcilers/mastercount.go#L63),
+  the implementation of the master count reconciler
+- [PR kubernetes/kubernetes#51698](https://github.com/kubernetes/kubernetes/pull/51698),
+  which adds support for the lease reconciler
+
 ## Master elected components
 
 So far we have set up state storage, and we have set up the API server, but we haven't run anything that actually modifies

@@ -55,7 +55,7 @@ In a Declarative API, typically:
  - The main operations on the objects are CRUD-y (creating, reading, updating and deleting).
  - Transactions across objects are not required: the API represents a desired state, not an exact state.
 
-Imperative APIs are not declarative. 
+Imperative APIs are not declarative.
 Signs that your API might not be declarative include:
  - The client says "do this", and then gets a synchornous response back when it is done.
  - The client says "do this", and then gets an operation ID back, and has to check a separate Operation objects to determine completion of the request.
@@ -98,7 +98,7 @@ Kubernetes provides two ways to add custom resources to your cluster:
 
 Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility are compromised.
 
-Aggregated APIs are subordinate APIServers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](docs/concepts/api-extension/apiserver-aggregation.md) (AA). To users, it simply appears that the Kubernetes API is extended.
+Aggregated APIs are subordinate APIServers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/api-extension/apiserver-aggregation/) (AA). To users, it simply appears that the Kubernetes API is extended.
 
 Custom Resource Definitions (CRDS) allow users to create new types of resources without adding another APIserver. You do not need to understand API Aggregation to use CRDs.
 
@@ -106,13 +106,13 @@ Regardless of whether they are installed via CRDs or AA, the new resources are c
 
 ## CustomResourceDefinitions
 
-The [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/) (CRD) API resource allows you to define custom resources. Defining a CRD object creates an new custom resource with a name and schema that you specify. The Kubernetes API serves and handles the storage of your custom resource.
+The [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/) (CRD) API resource allows you to define custom resources. Defining a CRD object creates a new custom resource with a name and schema that you specify. The Kubernetes API serves and handles the storage of your custom resource.
 
 This frees you from writing your own API server to handle the custom resource,
 but the generic nature of the implementation means you have less flexibility than with
 [API server aggregation](#api-server-aggregation).
 
-Refer to the [Custom Controler example, which uses Custom Resources](https://github.com/kubernetes/sample-controller)
+Refer to the [Custom Controller example, which uses Custom Resources](https://github.com/kubernetes/sample-controller)
 for a demonstration of how to register a new custom resource, work with instances of your new resource type,
 and setup a controller to handle events.
 
@@ -159,7 +159,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | Multi-versioning | Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions. | No | Yes |
 | Custom Storage | If you need storage with a different performance mode (for example, time-series database instead of key-value store) or isolation for security (for example, encryption secrets or different | No | Yes |
 | Custom Business Logic | Perform arbitrary checks or actions when creating, reading, updating or deleting an object | No, but can get some of the same effects with Initializers or Finalizers (requires programming) | Yes |
-| Subresources | <ul><li>Add extra operations other than CRUD, such as "scale" or "exec"</li><li>Allows systems like like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource</li><li>Finer-grained access control: user writes spec section, controller writes status section.</li><li>Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource)</li></ul> | No but planned | Yes, any Subresource |
+| Subresources | {::nomarkdown}<ul><li>Add extra operations other than CRUD, such as "scale" or "exec"</li><li>Allows systems like like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource</li><li>Finer-grained access control: user writes spec section, controller writes status section.</li><li>Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource)</li></ul>{:/} | No but planned | Yes, any Subresource |
 | strategic-merge-patch | The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. For more information, see ["Update API Objects in Place Using kubectl patch"](/docs/tasks/run-application/update-api-object-kubectl-patch/) | No | Yes |
 | Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |
 | OpenAPI Schema | Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server? Is the user protected from misspelling field names by ensuring only allowed fields are set? Are types enforced (in other words, don't put an `int` in a `string` field?) | No but planned | Yes |
@@ -177,7 +177,7 @@ When you create a custom resource, either via a CRDs or an AA, you get many feat
 | merge-patch | The new endpoints support PATCH with `Content-Type: application/merge-patch+json` |
 | HTTPS | The new endpoints uses HTTPS |
 | Built-in Authentication | Access to the extension uses the core apiserver (aggregation layer) for authentication |
-| Built-in Authorization | Access the the extension can reuse the authorization used by the core apiserver (e.g. RBAC) |
+| Built-in Authorization | Access to the extension can reuse the authorization used by the core apiserver (e.g. RBAC) |
 | Finalizers | Block deletion of extension resources until external cleanup happens. |
 | Admission Webhooks | Set default values and validate extension resources during any create/update/delete operation. |
 | UI/CLI Display | Kubectl, dashboard can display extension resources. |
