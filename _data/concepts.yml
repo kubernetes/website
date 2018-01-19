@@ -7,6 +7,7 @@ toc:
   section:
   - docs/concepts/overview/what-is-kubernetes.md
   - docs/concepts/overview/components.md
+  - docs/concepts/overview/kubernetes-api.md
   - title: Working with Kubernetes Objects
     section:
     - docs/concepts/overview/working-with-objects/kubernetes-objects.md
@@ -14,7 +15,12 @@ toc:
     - docs/concepts/overview/working-with-objects/namespaces.md
     - docs/concepts/overview/working-with-objects/labels.md
     - docs/concepts/overview/working-with-objects/annotations.md
-  - docs/concepts/overview/kubernetes-api.md
+  - title: Object Management Using kubectl
+    section:
+    - docs/concepts/overview/object-management-kubectl/overview.md
+    - docs/concepts/overview/object-management-kubectl/imperative-command.md
+    - docs/concepts/overview/object-management-kubectl/imperative-config.md
+    - docs/concepts/overview/object-management-kubectl/declarative-config.md
 
 - title: Kubernetes Architecture
   section:
