@@ -7,7 +7,6 @@
 /api-ref/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /concepts/containers/container-lifecycle-hooks/     /docs/concepts/containers/container-lifecycle-hooks/ 301
 /docs/     /docs/home/ 301
-/docs/abstractions/controllers/petset/     /docs/concepts/workloads/controllers/statefulset/ 301
 
 /docs/admin/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
 /docs/admin/add-ons/     /docs/concepts/cluster-administration/addons/ 301
@@ -81,7 +80,6 @@
 /docs/api-reference/v1/operations/     /docs/api-reference/v1.9/ 301
 
 /docs/concepts/abstractions/controllers/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
-/docs/concepts/abstractions/controllers/petsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/abstractions/init-containers/     /docs/concepts/workloads/pods/init-containers/ 301
 /docs/concepts/abstractions/overview/     /docs/concepts/overview/working-with-objects/kubernetes-objects/ 301
@@ -124,8 +122,6 @@
 /docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
 /docs/concepts/workloads/controllers/deployment.md     /docs/concepts/workloads/controllers/deployment/ 301
 /docs/concepts/workloads/controllers/job/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
-/docs/concepts/workloads/controllers/petset/     /docs/concepts/workloads/controllers/statefulset/ 301
-/docs/concepts/workloads/controllers/petsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/pods/init-containers/Kubernetes/     /docs/concepts/workloads/pods/init-containers/ 301
@@ -369,8 +365,6 @@
 /docs/user-guide/persistent-volumes/index     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/index.md     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/walkthrough/     /docs/tasks/configure-pod-container/configure-persistent-volume-storage/ 301
-/docs/user-guide/petset/     /docs/concepts/workloads/controllers/statefulset/ 301
-/docs/user-guide/petset/bootstrapping/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/user-guide/pod-preset/     /docs/tasks/inject-data-application/podpreset/ 301
 /docs/user-guide/pod-security-policy/     /docs/concepts/policy/pod-security-policy/ 301
 /docs/user-guide/pod-states/     /docs/concepts/workloads/pods/pod-lifecycle/ 301
