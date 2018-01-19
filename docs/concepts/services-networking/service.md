@@ -225,10 +225,10 @@ it's not installed kube-proxy will fall back to iptables proxy mode.
 In any of proxy model, any traffic bound for the Service’s IP:Port is 
 proxied to an appropriate backend without the clients knowing anything 
 about Kubernetes or Services or Pods. Client-IP based session affinity 
-can be selected by setting service.spec.sessionAffinity to "ClientIP" 
+can be selected by setting `service.spec.sessionAffinity` to "ClientIP" 
 (the default is "None"), and you can set the max session sticky time by 
-setting the field service.spec.sessionAffinityConfig.clientIP.timeoutSeconds 
-if you have already set service.spec.sessionAffinity to "ClientIP" 
+setting the field `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` 
+if you have already set `service.spec.sessionAffinity` to "ClientIP" 
 (the default is “10800”).
 
 ## Multi-Port Services
