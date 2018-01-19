@@ -137,7 +137,7 @@ be down from `08:29:00` to `08:42:00`, the job will not start.
 Set a longer `startingDeadlineSeconds` if starting later is better than not
 starting at all.
 
-The job is only responsible for creating Jobs that match its schedule, and the
+The job is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
 
 ## Writing a Cron Job Spec
