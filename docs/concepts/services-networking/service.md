@@ -124,8 +124,8 @@ Accessing a `Service` without a selector works the same as if it had a selector.
 The traffic will be routed to endpoints defined by the user (`1.2.3.4:9376` in
 this example).
 
-An ExternalName service is a special case of service that does not have
-selectors. It does not define any ports or endpoints. Rather, it serves as a
+An `ExternalName` service is a special case of service that does not have
+selectors. It does not define any ports or `Endpoints`. Rather, it serves as a
 way to return an alias to an external service residing outside the cluster.
 
 ```yaml
@@ -196,11 +196,11 @@ Note that in the above diagram, `clusterIP` is shown as `ServiceIP`.
 
 {% assign for_k8s_version="v1.9" %}{% include feature-state-beta.md %}
 
-In this mode, kube-proxy watches Kubernetes `services` and `endpoints`,
+In this mode, kube-proxy watches Kubernetes `Services` and `Endpoints`,
 calls `netlink` interface to create ipvs rules accordingly and syncs ipvs rules with Kubernetes
-`services` and `endpoints`  periodically, to make sure ipvs status is
-consistent with the expectation. When `service` is accessed, traffic will
-be redirected to one of the backend `pod`s.
+`Services` and `Endpoints`  periodically, to make sure ipvs status is
+consistent with the expectation. When `Service` is accessed, traffic will
+be redirected to one of the backend `Pod`s.
 
 Similar to iptables, Ipvs is based on netfilter hook function, but uses hash
 table as the underlying data structure and works in the kernel space.
@@ -208,12 +208,12 @@ That means ipvs redirects traffic much faster, and has much
 better performance when syncing proxy rules. Furthermore, ipvs provides more
 options for load balancing algorithm, such as:
 
-- rr: round-robin
-- lc: least connection
-- dh: destination hashing
-- sh: source hashing
-- sed: shortest expected delay
-- nq: never queue
+- `rr`: round-robin
+- `lc`: least connection
+- `dh`: destination hashing
+- `sh`: source hashing
+- `sed`: shortest expected delay
+- `nq`: never queue
 
 **Note:** ipvs mode assumes IPVS kernel modules are installed on the node
 before running kube-proxy. When kube-proxy starts with ipvs proxy mode,
@@ -224,11 +224,11 @@ it's not installed kube-proxy will fall back to iptables proxy mode.
 
 In any of proxy model, any traffic bound for the Service’s IP:Port is 
 proxied to an appropriate backend without the clients knowing anything 
-about Kubernetes or Services or Pods. Client-IP based session affinity 
-can be selected by setting service.spec.sessionAffinity to "ClientIP" 
+about Kubernetes or `Services` or `Pods`. Client-IP based session affinity 
+can be selected by setting `service.spec.sessionAffinity` to "ClientIP" 
 (the default is "None"), and you can set the max session sticky time by 
-setting the field service.spec.sessionAffinityConfig.clientIP.timeoutSeconds 
-if you have already set service.spec.sessionAffinity to "ClientIP" 
+setting the field `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` 
+if you have already set `service.spec.sessionAffinity` to "ClientIP" 
 (the default is “10800”).
 
 ## Multi-Port Services
@@ -373,7 +373,7 @@ either:
 ## Publishing services - service types
 
 For some parts of your application (e.g. frontends) you may want to expose a
-Service onto an external (outside of your cluster) IP address.
+`Service` onto an external (outside of your cluster) IP address.
 
 
 Kubernetes `ServiceTypes` allow you to specify what kind of service you want.
@@ -385,7 +385,7 @@ The default is `ClusterIP`.
      makes the service only reachable from within the cluster. This is the
      default `ServiceType`.
    * `NodePort`: Exposes the service on each Node's IP at a static port (the `NodePort`).
-     A `ClusterIP` service, to which the NodePort service will route, is automatically
+     A `ClusterIP` service, to which the `NodePort` service will route, is automatically
      created.  You'll be able to contact the `NodePort` service, from outside the cluster,
      by requesting `<NodeIP>:<NodePort>`.
    * `LoadBalancer`: Exposes the service externally using a cloud provider's load balancer.
@@ -451,7 +451,7 @@ with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not s
 an ephemeral IP will be assigned to the loadBalancer. If the `loadBalancerIP` is specified, but the
 cloud provider does not support the feature, the field will be ignored.
 
-Special notes for Azure: To use user-specified public type `loadBalancerIP`, a static type
+**Special notes for Azure**: To use user-specified public type `loadBalancerIP`, a static type
 public IP address resource needs to be created first, and it should be in the same resource
 group of the cluster. Then you could specify the assigned IP address as `loadBalancerIP`.
 
@@ -626,7 +626,7 @@ traffic. Nodes without any pods for a particular LoadBalancer service will fail
 the NLB Target Group's health check on the auto-assigned
 `spec.healthCheckNodePort` and not recieve any traffic.
 
-In order to achieve even traffic, either use a DaemonSet, or specify a
+In order to achieve even traffic, either use a `DaemonSet`, or specify a
 [pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature)
 to not locate pods on the same node.
 
@@ -667,8 +667,8 @@ If there are external IPs that route to one or more cluster nodes, Kubernetes se
 will be routed to one of the service endpoints. `externalIPs` are not managed by Kubernetes and are the responsibility
 of the cluster administrator.
 
-In the ServiceSpec, `externalIPs` can be specified along with any of the `ServiceTypes`.
-In the example below, my-service can be accessed by clients on 80.11.12.10:80 (externalIP:port)
+In the `ServiceSpec`, `externalIPs` can be specified along with any of the `ServiceTypes`.
+In the example below, "`my-service`" can be accessed by clients on "`80.11.12.10:80`"" (`externalIP:port`)
 
 ```yaml
 kind: Service
@@ -690,7 +690,7 @@ spec:
 ## Shortcomings
 
 Using the userspace proxy for VIPs will work at small to medium scale, but will
-not scale to very large clusters with thousands of Services.  See [the original
+not scale to very large clusters with thousands of `Services`.  See [the original
 design proposal for portals](http://issue.k8s.io/1107) for more details.
 
 Using the userspace proxy obscures the source-IP of a packet accessing a `Service`.
@@ -794,7 +794,7 @@ through a load-balancer, though in those cases the client IP does get altered.
 
 #### Ipvs
 
-Iptables operations slow down dramatically in large scale cluster e.g 10,000 Services. IPVS is designed for load balancing and based on in-kernel hash tables. So we can achieve performance consistency in large number of services from IPVS-based kube-proxy. Meanwhile, IPVS-based kube-proxy has more sophisticated load balancing algorithms (least conns, locality, weighted, persistence).
+Iptables operations slow down dramatically in large scale cluster e.g 10,000 `Services`. IPVS is designed for load balancing and based on in-kernel hash tables. So we can achieve performance consistency in large number of services from IPVS-based kube-proxy. Meanwhile, IPVS-based kube-proxy has more sophisticated load balancing algorithms (least conns, locality, weighted, persistence).
 
 ## API Object
 

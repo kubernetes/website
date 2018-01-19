@@ -205,9 +205,9 @@ parameters:
   a mandatory parameter for GlusterFS dynamic provisioner. If Heketi service is
   exposed as a routable service in openshift/kubernetes setup, this can have a
   format similar to `http://heketi-storage-project.cloudapps.mystorage.com`
-  where the fqdn is a resolvable heketi service url.
+  where the fqdn is a resolvable Heketi service url.
 * `restauthenabled` : Gluster REST service authentication boolean that enables
-  authentication to the REST server. If this value is 'true', `restuser` and
+  authentication to the REST server. If this value is `"true"`, `restuser` and
   `restuserkey` or `secretNamespace` + `secretName` have to be filled. This
   option is deprecated, authentication is enabled when any of `restuser`,
   `restuserkey`, `secretName` or `secretNamespace` is specified.
@@ -220,7 +220,7 @@ parameters:
   contains user password to use when talking to Gluster REST service. These
   parameters are optional, empty password will be used when both
   `secretNamespace` and `secretName` are omitted. The provided secret must have
-  type "kubernetes.io/glusterfs", e.g. created in this way:
+  type `"kubernetes.io/glusterfs"`, e.g. created in this way:
   ```
   kubectl create secret generic heketi-secret \
     --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
