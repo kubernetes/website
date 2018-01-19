@@ -25,7 +25,7 @@ cannot be added to a cluster through an API call.
 In contrast, service accounts are users managed by the Kubernetes API. They are
 bound to specific namespaces, and created automatically by the API server or
 manually through API calls. Service accounts are tied to a set of credentials
-stored as `Secrets`, which are mounted into pods allowing in cluster processes
+stored as `Secrets`, which are mounted into pods allowing in-cluster processes
 to talk to the Kubernetes API.
 
 API requests are tied to either a normal user or a service account, or are treated
