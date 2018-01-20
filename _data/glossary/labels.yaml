@@ -1,9 +1,0 @@
-id: labels
-name: Labels
-full-link: /docs/concepts/overview/working-with-objects/labels
-tags:
-- fundamental
-short-description: >
-  Used to tag objects with identifying attributes that are meaningful and relevant to users.
-long-description: >
-  Labels are key/value pairs that are attached to objects, such as pods. They can be used to organize and to select subsets of objects.

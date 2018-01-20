@@ -1,9 +1,0 @@
-id: cla
-name: CLA (Contributor License Agreement)
-full-link: https://github.com/kubernetes/community/blob/master/CLA.md
-tags:
-- community
-short-description: >
-  Terms under which a {% glossary_tooltip text="contributor" term_id="contributor" %} grants a license to an open source project for their contributions.
-long-description: >
-  CLAs help resolve legal disputes involving contributed material and intellectual property (IP).

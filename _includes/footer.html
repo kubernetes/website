@@ -30,5 +30,17 @@
         <div id="miceType" class="center">
             Copyright &copy; {{ 'now' | date: "%Y" }} The Linux Foundation&reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our Trademark Usage page: <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">https://www.linuxfoundation.org/trademark-usage</a>
         </div>
+        <div id="miceType" class="center">
+            <a class="active" href="#">{{ site.languageNames[site.lang] }}</a>
+            {% for lang in site.languageNames %}
+            {% if lang[0] == site.lang %} {% continue %} {% endif %}
+            {% if page.namespace %}
+            <a class="light-text" href="{% tl {{ page.namespace }} {{ lang[0] }} %}">{{ lang[1] }}</a>
+            {% else %}
+            <a class="light-text" href="{{ site.baseurl_root }}/{{ lang[0] }}/">{{ lang[1] }}</a>
+            {% endif %}
+            {% endfor %}
+        </div>
     </main>
+
 </footer>

@@ -6,7 +6,7 @@ _site/**
 CNAME
 .travis.yml
 .idea/
-
+orig_backup/
 # Vim ignore
 # source: https://github.com/github/gitignore/blob/master/Global/Vim.gitignore
 

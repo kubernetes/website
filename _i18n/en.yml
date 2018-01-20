@@ -1,0 +1,19 @@
+site:
+  name: Kubernetes
+  tagline: the Kubernetes documentation site.
+  description: Production-Grade Container Orchestration
+
+menu:
+  documentation: Documentation
+  blog: Blog
+  partners: Partners
+  community: Community
+  caseStudies: Case Studies
+
+main:
+  welcomeSection:
+    heading: Production-Grade Container Orchestration.
+    subHeading: Automated container deployment, scaling, and management
+    bigButtonTitle: Try Our Interactive Tutorials
+    section1Lg: <a href="/docs/concepts/overview/what-is-kubernetes/">Kubernetes</a> is an open-source system for automating deployment, scaling, and management of containerized applications.
+    section1Sm: It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon <a href="http://queue.acm.org/detail.cfm?id=2898444">15 years of experience of running production workloads at Google</a>, combined with best-of-breed ideas and practices from the community.

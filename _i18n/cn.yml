@@ -1,0 +1,19 @@
+site:
+  name: Kubernetes
+  tagline: Kubernetes文档站点
+  description: 生产级别的容器编排系统
+
+menu:
+  documentation: 文档
+  blog: 博客
+  partners: 伙伴
+  community: 社区
+  caseStudies: 实例探究
+
+main:
+  welcomeSection:
+    heading: 生产级别的容器编排系统
+    subHeading: 自动化的容器部署、扩展和管理
+    bigButtonTitle: 尝试我们的互动教程
+    section1Lg: <a href="/docs/concepts/overview/what-is-kubernetes/">Kubernetes</a>Kubernetes</a> 是用于自动部署，扩展和管理容器化应用程序的开源系统。
+    section1Sm: 它将组成应用程序的容器组合成逻辑单元，以便于管理和服务发现，Kubernetes 构建在 <a href="http://queue.acm.org/detail.cfm?id=2898444">Google 15 年生产环境经验</a>基础之上,并结合来自社区的最佳创意和实践。
