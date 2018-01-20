@@ -3,6 +3,7 @@ approvers:
 - chenopis
 title: Kubernetes Documentation
 layout: docsportal
+noedit: true
 cid: userJourneys
 css: /css/style_user_journeys.css
 js: /js/user-journeys/home.js, https://use.fontawesome.com/4bcc658a89.js
@@ -36,12 +37,28 @@ display_browse_numbers: true
 {% endfor %}
 </div>
 
+<div id='aboutWrapper'>
+<div class="aboutsection" markdown="1">
+
+Kubernetes is an open source system for managing [containerized applications](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/)
+across multiple hosts, providing basic mechanisms for deployment, maintenance, and scaling of applications.
+The open source project is hosted by the Cloud Native Computing Foundation ([CNCF](https://www.cncf.io/about)).
+
+<div class="aboutcolumn" markdown="1">
+[Download Current Release](/docs/imported/release/notes/) 
+</div>
+<div class="aboutcolumn" markdown="1">
+[Supported Doc Versions](/docs/home/supported-doc-versions/) 
+</div>
+
+</div>
+</div>
+
 <div class="paths">
     <div class="navButton users">Users</div>
     <div class="navButton contributors">Contributors</div>
     <!-- div class="navButton migrators">Migration&nbsp;Paths</div -->
     <a> <div class="navButton browse">Browse Docs</div></a>
-    <a> <div class="navButton about-k8s">About Kubernetes</div></a>
 </div>
 
 <div id="cardWrapper">
@@ -89,12 +106,12 @@ display_browse_numbers: true
 
 <div id='browsedocsWrapper'>
 <div class="browseheader" id="browsedocs">
-    <a name="browsedocs">  Browse Docs</a>
+    <a name="browsedocs">Browse Docs</a>
 </div>
 
 <div class="browsedocs">
 
-{% assign sections = "setup,concepts,tasks,tutorials,reference" | split: "," %}
+{% assign sections = "setup,concepts,tasks,tutorials,reference,docs-home" | split: "," %}
 
 {% for section_id in sections %}
 
@@ -107,14 +124,14 @@ display_browse_numbers: true
     </div>
 
     {% assign section_toc = section_toc | where_exp: "elt", "elt.title != null" %}
-    {% assign num_pages = section_toc | size | minus: 1 %}
+    {% assign num_pages = section_toc | size %}
     {% assign column_size = num_pages | divided_by: 3.0 | ceil %}
 
     <div class="pages">
 
     {% for i in (1..num_pages) %}
-      {% assign offset = i | modulo: column_size %}
       {% assign index = i | minus: 1 %}
+      {% assign offset = index | modulo: column_size | plus: 1 %}
       {% assign section_elt = section_toc[index] %}
 
       {% if page.display_browse_numbers %}
@@ -129,41 +146,16 @@ display_browse_numbers: true
 
       {% assign elt_url = section_elt.path | default: section_elt.landing_page | default: "#" %}
       <a href="{{ elt_url }}">{{ section_elt.title | prepend: browse_number }}</a><br>
-      {% if offset == 0 or i == num_pages %}
+      {% if offset == column_size or i == num_pages %}
         </div>
       {% endif %}
     {% endfor %}
-    </div>
-  </div>
+
+    </div><!-- end pages -->
+
+  </div><!-- end browsesection -->
 
 {% endfor %}
-</div>
-</div>
 
-<div id='aboutWrapper'>
-<div class="browseheader" id="about-k8s">
-    <a name="about-k8s">About Kubernetes</a>
-</div>
-
-<div class="about-k8s-content">
-<div class="docsection1" markdown="1">
-
-Kubernetes is an open source system for managing [containerized applications](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/
-)
-across multiple hosts, providing basic mechanisms for deployment, maintenance,
-and scaling of applications.
-
-Kubernetes builds upon a decade and a half of experience at Google running
-production workloads at scale using a system called [Borg](https://research.google.com/pubs/pub43438.html),
-combined with best-of-breed ideas and practices from the community.
-
-Kubernetes is hosted by the Cloud Native Computing Foundation ([CNCF](https://www.cncf.io/about)).
-If you are a company that wants to help shape the evolution of
-technologies that are container-packaged, dynamically-scheduled
-and microservices-oriented, consider joining the CNCF.
-For details about who's involved and how Kubernetes plays a role,
-read the CNCF [announcement](https://cncf.io/news/announcement/2015/07/new-cloud-native-computing-foundation-drive-alignment-among-container).
-
-</div>
-</div>
-</div>
+</div><!-- end browsedocs -->
+</div><!-- end browsedocsWrapper -->

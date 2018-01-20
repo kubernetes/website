@@ -7,6 +7,12 @@ toc:
 - title: Picking the Right Solution
   path: /docs/setup/pick-right-solution/
 
+- title: Downloading Kubernetes
+  landing_page: /docs/imported/release/notes/
+  section:
+  - docs/imported/release/notes.md
+  - docs/setup/building-from-source.md
+
 - title: Independent Solutions
   landing_page: /docs/getting-started-guides/minikube/
   section:
@@ -108,15 +114,39 @@ toc:
 
   - docs/admin/node-conformance.md
 
+- title: User Journeys
+  landing_page: /docs/home/
+  section:
+
+  - title: Application Developer
+    section:
+    - docs/user-journeys/users/application-developer/foundational.md
+    - docs/user-journeys/users/application-developer/intermediate.md
+    - docs/user-journeys/users/application-developer/advanced.md
+  - title: Cluster Operator
+    section:
+    - docs/user-journeys/users/cluster-operator/foundational.md
+    - docs/user-journeys/users/cluster-operator/intermediate.md
+    - docs/user-journeys/users/cluster-operator/advanced.md
+
+  - title: Docs Contributor
+    path: /docs/home/?path=contributors&persona=docs-contributor&level=foundational
+  - title: Code Contributor
+    path: /docs/home/?path=contributors&persona=code-contributor&level=foundational
+  - title: Community Contributor
+    path: /docs/home/?path=contributors&persona=community-contributor&level=foundational
+
 - title: Installing Addons
   path: /docs/concepts/cluster-administration/addons/
+
 - title: Configuring Kubernetes with Salt
   path: /docs/admin/salt/
+
 - title: Building Large Clusters
   path: /docs/admin/cluster-large/
+
 - title: Running in Multiple Zones
   path: /docs/admin/multiple-zones/
+
 - title: Building High-Availability Clusters
-  path: /docs/admin/high-availability/
-- title: Downloading or Building Kubernetes
-  path: /docs/getting-started-guides/binary_release/
+  path: /docs/admin/high-availability/building/
