@@ -695,6 +695,12 @@ font-size:24px;
   text-decoration: underline;
 }
 
+.aboutcolumn {
+  float:left;
+  width: 50%;
+  text-align: center;
+}
+
 .docsection1 {
   background-color:white;
   font-family: 'roboto';

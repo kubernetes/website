@@ -44,14 +44,11 @@ Kubernetes is an open source system for managing [containerized applications](ht
 across multiple hosts, providing basic mechanisms for deployment, maintenance, and scaling of applications.
 The open source project is hosted by the Cloud Native Computing Foundation ([CNCF](https://www.cncf.io/about)).
 
-<div class="browsecolumn" markdown="1">
+<div class="aboutcolumn" markdown="1">
 [Download Current Release](/docs/imported/release/notes/) 
 </div>
-<div class="browsecolumn" markdown="1">
+<div class="aboutcolumn" markdown="1">
 [Supported Doc Versions](/docs/home/supported-doc-versions/) 
-</div>
-<div class="browsecolumn" markdown="1">
-  [Troubleshooting](/docs/tasks/debug-application-cluster/troubleshooting/)
 </div>
 
 </div>
@@ -109,12 +106,12 @@ The open source project is hosted by the Cloud Native Computing Foundation ([CNC
 
 <div id='browsedocsWrapper'>
 <div class="browseheader" id="browsedocs">
-    <a name="browsedocs">  Browse Docs</a>
+    <a name="browsedocs">Browse Docs</a>
 </div>
 
 <div class="browsedocs">
 
-{% assign sections = "setup,concepts,tasks,tutorials,reference" | split: "," %}
+{% assign sections = "setup,concepts,tasks,tutorials,reference,docs-home" | split: "," %}
 
 {% for section_id in sections %}
 
@@ -127,14 +124,14 @@ The open source project is hosted by the Cloud Native Computing Foundation ([CNC
     </div>
 
     {% assign section_toc = section_toc | where_exp: "elt", "elt.title != null" %}
-    {% assign num_pages = section_toc | size | minus: 1 %}
+    {% assign num_pages = section_toc | size %}
     {% assign column_size = num_pages | divided_by: 3.0 | ceil %}
 
     <div class="pages">
 
     {% for i in (1..num_pages) %}
-      {% assign offset = i | modulo: column_size %}
       {% assign index = i | minus: 1 %}
+      {% assign offset = index | modulo: column_size | plus: 1 %}
       {% assign section_elt = section_toc[index] %}
 
       {% if page.display_browse_numbers %}
@@ -149,13 +146,16 @@ The open source project is hosted by the Cloud Native Computing Foundation ([CNC
 
       {% assign elt_url = section_elt.path | default: section_elt.landing_page | default: "#" %}
       <a href="{{ elt_url }}">{{ section_elt.title | prepend: browse_number }}</a><br>
-      {% if offset == 0 or i == num_pages %}
+      {% if offset == column_size or i == num_pages %}
         </div>
       {% endif %}
     {% endfor %}
-    </div>
-  </div>
+
+    </div><!-- end pages -->
+
+  </div><!-- end browsesection -->
 
 {% endfor %}
-</div>
-</div>
+
+</div><!-- end browsedocs -->
+</div><!-- end browsedocsWrapper -->

@@ -208,16 +208,13 @@ toc:
   - docs/tasks/manage-daemon/rollback-daemon-set.md
 
 - title: Manage GPUs
-  landing_page: /docs/tasks/manage-gpus/scheduling-gpus/
-  section:
-  - docs/tasks/manage-gpus/scheduling-gpus.md
+  path: /docs/tasks/manage-gpus/scheduling-gpus/
 
 - title: Manage HugePages
-  landing_page: /docs/tasks/manage-hugepages/scheduling-hugepages/
-  section:
-  - docs/tasks/manage-hugepages/scheduling-hugepages.md
+  path: /docs/tasks/manage-hugepages/scheduling-hugepages/
 
 - title: Extend kubectl with plugins
-  landing_page: /docs/tasks/extend-kubectl/kubectl-plugins/
-  section:
-  - docs/tasks/extend-kubectl/kubectl-plugins.md
+  path: /docs/tasks/extend-kubectl/kubectl-plugins/
+
+- title: Troubleshooting
+  path: /docs/tasks/debug-application-cluster/troubleshooting/

@@ -1,28 +1,13 @@
-bigheader: "Documentation Home"
+bigheader: "About"
 abstract: "Documentation for using and learning about Kubernetes."
 toc:
 - docs/home/index.md
-- docs/home/supported-doc-versions.md
 
-- title: User Journeys
-  section:
-  - title: Application Developer
-    section:
-    - docs/user-journeys/users/application-developer/foundational.md
-    - docs/user-journeys/users/application-developer/intermediate.md
-    - docs/user-journeys/users/application-developer/advanced.md
-  - title: Cluster Operator
-    section:
-    - docs/user-journeys/users/cluster-operator/foundational.md
-    - docs/user-journeys/users/cluster-operator/intermediate.md
-    - docs/user-journeys/users/cluster-operator/advanced.md
-
-- title: Release Notes
-  path: https://git.k8s.io/kubernetes/CHANGELOG.md
-
-- docs/tasks/debug-application-cluster/troubleshooting.md
+- title: Supported Doc Versions
+  path: /docs/home/supported-doc-versions/
 
 - title: Contributing to the Kubernetes Docs
+  landing_page: /editdocs/
   section:
   - editdocs.md
   - docs/home/contribute/create-pull-request.md
