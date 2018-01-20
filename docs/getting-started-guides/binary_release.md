@@ -2,7 +2,7 @@
 approvers:
 - david-mcmahon
 - jbeda
-title: Downloading or Building Kubernetes
+title: Prebuilt or Building Kubernetes
 ---
 
 You can either build a release from sources or download a pre-built release.  If you do not plan on developing Kubernetes itself, we suggest a pre-built release. 
