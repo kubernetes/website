@@ -82,8 +82,13 @@ a:hover {
 }
 
 #blog-hero {
-  background-image: url('../images/texture');
+  background-image: url('../images/texture.png');
   background-color: #303030;
+  padding-left: 50px;
+}
+
+.blog-title {
+  clear: left
 }
 /* Tabs
 ----------------------------------------------- */
@@ -388,12 +393,7 @@ div.header-try a {
   outline: none;
   cursor: pointer;
 }
-.content {
-  margin-top: 160px;
-}
-.content header {
-  display: none;
-}
+
 .main-inner .column-right-outer {
   width: 320px;
   margin-right: -320px;
