@@ -212,7 +212,7 @@ To change the `MaxPods` setting to 5 on the Kubelet, pass this flag: `--extra-co
 
 This feature also supports nested structs. To change the `LeaderElection.LeaderElect` setting to `true` on the scheduler, pass this flag: `--extra-config=scheduler.LeaderElection.LeaderElect=true`.
 
-To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--extra-config=apiserver.AuthorizationMode=RBAC`.
+To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--extra-config=apiserver.Authorization.Mode=RBAC`.
 
 ### Stopping a Cluster
 The `minikube stop` command can be used to stop your cluster.
