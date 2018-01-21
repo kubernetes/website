@@ -39,7 +39,8 @@ killed for this purpose.
 
 ## Config
 
-Rescheduler should be enabled by default. It doesn't have any user facing configuration (component config) or API and can be disabled too.
+Rescheduler should be enabled by default. It doesn't have any user facing configuration (component config) or API.
+Rescheduler may also be disabled.
 
 ### Marking add-on as critical
 
