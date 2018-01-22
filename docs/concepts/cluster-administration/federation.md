@@ -34,7 +34,6 @@ why you might want multiple clusters are:
 * Fault isolation: It might be better to have multiple small clusters rather
   than a single large  cluster for fault isolation (for example: multiple
   clusters in different availability zones of a cloud provider).
-  See [Multi cluster guide](/docs/concepts/cluster-administration/federation/) for details.
 * Scalability: There are scalability limits to a single kubernetes cluster (this
   should not be the case for most users. For more details:
   [Kubernetes Scaling and Performance Goals](https://git.k8s.io/community/sig-scalability/goals.md)).
