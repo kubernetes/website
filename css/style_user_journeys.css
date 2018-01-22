@@ -25,11 +25,14 @@ display: -webkit-inline-box !important;
 
 h1 {
 
-padding: 3% !important;
+padding-top: 3% !important;
+padding-bottom: 1% !important;
+padding-left: 3% !important;
+padding-right: 3% !important;
 text-align: center !important;
 font-size: 22pt !important;
- font-weight:normal;
-  color:#303030;
+font-weight:normal;
+color:#303030;
 
 }
 
