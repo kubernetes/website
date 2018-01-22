@@ -685,6 +685,7 @@ font-size:24px;
 
 .aboutsection p {
   font-size: 16px;
+  text-align:center;
   font-weight:300;
   line-height: 1.75em;
   letter-spacing: 0.1px;
@@ -693,6 +694,8 @@ font-size:24px;
 
 .aboutsection a {
   text-decoration: underline;
+  color:#3371e3;
+  font-weight:400;
 }
 
 .aboutcolumn {
