@@ -55,8 +55,7 @@ $ kubectl proxy --port=8080 &
 
 See [kubectl proxy](/docs/user-guide/kubectl/{{page.version}}/#proxy) for more details.
 
-Then you can explore the API with curl, wget, or a browser, replacing localhost
-with [::1] for IPv6, like so:
+Then you can explore the API with curl, wget, or a browser, like so:
 
 ```shell
 $ curl http://localhost:8080/api/

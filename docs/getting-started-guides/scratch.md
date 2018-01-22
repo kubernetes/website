@@ -701,7 +701,7 @@ Complete this template for the scheduler pod:
     "containers": [
       {
         "name": "kube-scheduler",
-        "image": "$HYPERKUBE_IMAGE",
+        "image": "$HYBERKUBE_IMAGE",
         "command": [
           "/hyperkube",
           "scheduler",
