@@ -28,7 +28,7 @@ administrator to control the following:
 | Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
 | Usage of volume types                               | [`volumes`](#volumes-and-file-systems)      |
 | Usage of the host filesystem                        | [`allowedHostPaths`](#volumes-and-file-systems) |
-| Usage of FlexVolume drivers                         | [`allowedFlexVolumes`](#flexvolume-drivers) |
+| White list of FlexVolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
 | Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
 | Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
 | The user and group IDs of the container             | [`runAsUser`, `supplementalGroups`](#users-and-groups) |
@@ -420,16 +420,24 @@ root filesystem (i.e. no writeable layer).
 
 ### FlexVolume drivers
 
-When the [`Volumes`](#volumes-and-file-systems) field contains `flexVolume` in
-its list value, the cluster admin can further specify which driver(s) is permitted
-by setting the `allowedFlexVolumes` field.
+This specifies a whiltelist of flex volume drivers that are allowed to be used
+by flexVolume. An empty list or nil means there is no restriction on the drivers.
+Please make sure [`volumes`](#volumes-and-file-systems) field  contains the
+`flexVolume` volume type, no FlexVolume driver is allowed otherwise.
 
-**AllowedFlexVolumes** - Provides a whitelist of allowed FlexVolumes. Empty or
-nil indicates that all FlexVolume drivers may be used. For example, the following
-setting only permits the `examle/fast_cache` driver to be used on nodes:
+For example:
 
 ```yaml
-allowedFlexVolumes: [ "example/fast_cache" ]
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: allow-flex-volumes
+spec:
+  volumes:
+    - flexVolume
+  allowedFlexVolumes: 
+    - driver: example/lvm
+    - driver: example/cifs
 ```
 
 ### Users and groups
