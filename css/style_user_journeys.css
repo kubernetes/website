@@ -60,6 +60,10 @@ width:80%;
   color:#606060;
 }
 
+.pages a:hover{
+  color:black;
+}
+
 .docstitle a{
   font-family: 'roboto';
   font-size:16pt;
