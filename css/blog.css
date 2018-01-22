@@ -55,6 +55,14 @@ a:hover {
 .content-inner {
   background-color: #ffffff;
 }
+
+.container-fluid {
+  padding: 0px;
+}
+
+.blog-content {
+  padding-left: 50px;
+}
 /* Header
 ----------------------------------------------- */
 .header-outer {

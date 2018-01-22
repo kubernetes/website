@@ -12,7 +12,8 @@ incremental: true
 
 safe: false
 lsi: false
-
+paginate: 7
+paginate_path: "blog/page:num"
 defaults:
   -
     scope:
@@ -57,12 +58,6 @@ defaults:
     values:
       layout: docwithnav
       showedit: true
-  -
-    scope:
-      path: "blog"
-    values:
-      layout: blog
-      showedit: false
 
 permalink: pretty
 
@@ -71,6 +66,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-include-cache
+  - jekyll-paginate
 # disabled gems
 #  - jekyll-redirect-from
 
