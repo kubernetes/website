@@ -63,11 +63,7 @@ some caveats:
 
 Federations of Kubernetes Clusters can include clusters running in
 different cloud providers (e.g. Google Cloud, AWS), and on-premises
-(e.g. on OpenStack). Simply create all of the clusters that you
-require, in the appropriate cloud providers and/or locations, and
-register each cluster's API endpoint and credentials with your
-Federation API Server (See the
-[federation admin guide](/docs/admin/federation/) for details).
+(e.g. on OpenStack). [Kubefed](https://kubernetes.io/docs/tasks/federation/set-up-cluster-federation-kubefed/) is the recommended way to deploy federation.
 
 Thereafter, your [API resources](#api-resources) can span different clusters
 and cloud providers.
