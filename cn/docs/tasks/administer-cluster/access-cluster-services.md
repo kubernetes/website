@@ -31,7 +31,7 @@ redirect_from:
 
 
   - 通过公共 IP 访问 services。
-    - 使用具有 `NodePort` 或 `LoadBalancer` 类型的 service，可以从外部访问它们。请查阅 [services](/docs/user-guide/services) 和 [kubectl expose](/docs/user-guide/kubectl/v1.6/#expose) 文档。
+    - 使用具有 `NodePort` 或 `LoadBalancer` 类型的 service，可以从外部访问它们。请查阅 [services](/docs/user-guide/services) 和 [kubectl expose](/docs/user-guide/kubectl/{{page.version}}/#expose) 文档。
     - 取决于你的集群环境，你可以仅把 service 暴露在你的企业网络环境中，也可以将其暴露在因特网上。需要考虑暴露的 service 是否安全，它是否有自己的用户认证？
     - 将 pods 放置于 services 背后。如果要访问一个副本集合中特定的 pod，例如用于调试目的时，请给 pod 指定一个独特的标签并创建一个新 service 选择这个标签。
     - 大部分情况下，都不需要应用开发者通过节点 IP 直接访问 nodes。
@@ -41,7 +41,7 @@ redirect_from:
     - 仅适用于 HTTP/HTTPS。
     - 在[这里](#manually-constructing-apiserver-proxy-urls)描述
   - 从集群中的 node 或者 pod 访问。
-    - 运行一个 pod，然后使用 [kubectl exec](/docs/user-guide/kubectl/v1.6/#exec) 连接到它的一个shell。从那个 shell 连接其他的 nodes、pods 和 services。
+    - 运行一个 pod，然后使用 [kubectl exec](/docs/user-guide/kubectl/{{page.version}}/#exec) 连接到它的一个shell。从那个 shell 连接其他的 nodes、pods 和 services。
     - 某些集群可能允许你 ssh 到集群中的节点。你可能可以从那儿访问集群服务。这是一个非标准的方式，可能在一些集群上能工作，但在另一些上却不能。浏览器和其他工具可能安装或可能不会安装。集群 DNS 可能不会正常工作。
 
 

@@ -98,7 +98,7 @@ data:
 
 数据字段是一个映射。它的键必须匹配 [`DNS_SUBDOMAIN`](https://git.k8s.io/community/contributors/design-proposals/identifiers.md)，前导点也是可以的。这些值可以是任意数据，使用 base64 进行编码。
 
-使用  [`kubectl create`](/docs/user-guide/kubectl/v1.7/#create) 创建 secret：
+使用  [`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create) 创建 secret：
 
 ```shell
 $ kubectl create -f ./secret.yaml

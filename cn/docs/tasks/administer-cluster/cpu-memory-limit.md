@@ -115,7 +115,7 @@ deployment "nginx" created
 
 
 注意，在 >= v1.2 版本的 Kubernetes 集群中，`kubectl run` 创建了名称为 “nginx” 的 Deployment。如果在老版本的集群上运行，相反它会创建 ReplicationController。
-如果想要获取老版本的行为，使用 `--generator=run/v1` 选项来创建 ReplicationController。查看 [`kubectl run`](/docs/user-guide/kubectl/v1.6/#run) 获取更多详细信息。
+如果想要获取老版本的行为，使用 `--generator=run/v1` 选项来创建 ReplicationController。查看 [`kubectl run`](/docs/user-guide/kubectl/{{page.version}}/#run) 获取更多详细信息。
 Deployment 管理单容器 Pod 的 1 个副本。让我们看一下它是如何管理 Pod 的。首先，查找到 Pod 的名称：
 
 ```shell

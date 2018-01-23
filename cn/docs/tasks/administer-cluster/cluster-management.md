@@ -224,4 +224,4 @@ kubectl convert -f pod.yaml --output-version v1
 ```
 
 
-更多选项请参考 [kubectl convert](/docs/user-guide/kubectl/v1.6/#convert)  命令用法。
+更多选项请参考 [kubectl convert](/docs/user-guide/kubectl/{{page.version}}/#convert)  命令用法。
