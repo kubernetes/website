@@ -217,7 +217,7 @@ gcloud compute disks delete mysql-disk
 
 * 了解更多Deployment应用请参考 [Deploying applications](/docs/user-guide/deploying-applications/)
 
-* kubectl run文档请参考[kubectl run documentation](/docs/user-guide/kubectl/v1.6/#run)
+* kubectl run文档请参考[kubectl run documentation](/docs/user-guide/kubectl/{{page.version}}/#run)
 
 * 卷和持久卷请参考[Volumes](/docs/concepts/storage/volumes/) and [Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 

@@ -12,7 +12,7 @@ title: 基于Replication Controller执行滚动升级
 **注**: 创建副本应用的首选方法是使用[Deployment](/docs/api-reference/{{page.version}}/#deployment-v1beta1-apps)，Deployment使用[ReplicaSet](/docs/api-reference/{{page.version}}/#replicaset-v1beta1-extensions)来进行副本控制。
 更多信息, 查看[使用Deployment运行一个无状态应用](/docs/tasks/run-application/run-stateless-application-deployment/)。
 
-为了在更新服务的同时不中断业务， `kubectl` 支持['滚动更新'](/docs/user-guide/kubectl/v1.6/#rolling-update)，它一次更新一个pod，而不是同时停止整个服务。 有关更多信息，请参阅 [滚动更新设计文档](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) 和 [滚动更新示例](/docs/tasks/run-application/rolling-update-replication-controller/)。
+为了在更新服务的同时不中断业务， `kubectl` 支持['滚动更新'](/docs/user-guide/kubectl/{{page.version}}/#rolling-update)，它一次更新一个pod，而不是同时停止整个服务。 有关更多信息，请参阅 [滚动更新设计文档](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) 和 [滚动更新示例](/docs/tasks/run-application/rolling-update-replication-controller/)。
 
 请注意， `kubectl rolling-update` 仅支持Replication Controllers。 但是，如果使用Replication Controllers部署应用，请考虑将其切换到[Deployments](/docs/concepts/workloads/controllers/deployment/). Deployment是一种被推荐使用的更高级别的控制器，它可以对应用进行声明性的自动滚动更新。 如果您仍然希望保留您的Replication Controllers并使用 `kubectl rolling-update`进行滚动更新， 请继续往下阅读：
 
@@ -98,7 +98,7 @@ Replication Controllers的配置文件详细介绍见[创建Replication Controll
 * `--timeout DURATION`: 退出更新之前，等待控制器更新一个pod的最大时间。默认是`5m0s`。有效单位如`--poll-interval`所述。
 * `--update-period DURATION`: 更新两个pod之间等待的时间，默认值是`1m0s`。有效单位如`--poll-interval`所述。
 
-有关`kubectl rolling-update`命令的更多信息见[`kubectl`参考](/docs/user-guide/kubectl/v1.6/#rolling-update).
+有关`kubectl rolling-update`命令的更多信息见[`kubectl`参考](/docs/user-guide/kubectl/{{page.version}}/#rolling-update).
 
 ## 实践
 

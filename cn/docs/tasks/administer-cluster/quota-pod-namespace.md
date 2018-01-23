@@ -5,7 +5,7 @@ title: 配置命名空间下pod总数
 
 {% capture overview %}
 
-本文主要描述如何配置一个命名空间下可运行的pod总数。资源配额详细信息可查看：[资源配额](/docs/api-reference/v1.7/#resourcequota-v1-core)
+本文主要描述如何配置一个命名空间下可运行的pod总数。资源配额详细信息可查看：[资源配额](/docs/api-reference/{{page.version}}/#resourcequota-v1-core)
 。
 
 {% endcapture %}
