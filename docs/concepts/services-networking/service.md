@@ -624,7 +624,7 @@ By setting `spec.externalTrafficPolicy` to `Local`, client IP addresses will be
 propagated to the end pods, but this could result in uneven distribution of
 traffic. Nodes without any pods for a particular LoadBalancer service will fail
 the NLB Target Group's health check on the auto-assigned
-`spec.healthCheckNodePort` and not recieve any traffic.
+`spec.healthCheckNodePort` and not receive any traffic.
 
 In order to achieve even traffic, either use a DaemonSet, or specify a
 [pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature)
