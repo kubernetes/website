@@ -98,8 +98,8 @@ This way, users that do not request any special storage class do not need to car
 will get the default one.
 
 This admission controller does not do anything when no default storage class is configured. When more than one storage
-class is marked as default, it rejects any creation of `PersistentVolumeClaim` with an error and administrator
-must revisit `StorageClass` objects and mark only one as default.
+class is marked as default, it rejects any creation of `PersistentVolumeClaim` with an error and an administrator
+must revisit their `StorageClass` objects and mark only one as default.
 This admission controller ignores any `PersistentVolumeClaim` updates; it acts only on creation.
 
 See [persistent volume](/docs/concepts/storage/persistent-volumes/) documentation about persistent volume claims and
