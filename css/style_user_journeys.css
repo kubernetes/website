@@ -386,6 +386,7 @@ button {
 .buttons {
   background-color:#3371e3;
   white-space:nowrap;
+  cursor:pointer;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px; /* future proofing */
