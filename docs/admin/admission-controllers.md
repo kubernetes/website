@@ -140,7 +140,7 @@ event requests. The cluster admin can specify event rate limits by:
  * Ensuring that `eventratelimit.admission.k8s.io/v1alpha1=true` is included in the
    `--runtime-config` flag for the API server;
  * Enabling the `EventRateLimit` admission controller;
- * Referencing a `EventRateLimit` configuration file from the file provided to the API
+ * Referencing an `EventRateLimit` configuration file from the file provided to the API
    server's command line flag `--admission-control-config-file`:
 
 ```yaml
