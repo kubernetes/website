@@ -144,7 +144,7 @@ Docker. To ensure compatability you can either update Docker, like so:
 ```bash
 cat << EOF > /etc/docker/daemon.json
 {
-  "exec-opts": ["native.cgroupdriver=systemd"]
+  "exec-opt": ["native.cgroupdriver=systemd"]
 }
 EOF
 ```
