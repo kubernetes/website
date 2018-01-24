@@ -158,7 +158,7 @@ following pod-specific DNS policies. These policies are specified in the
   for more details.
 - "`ClusterFirst`": Any DNS query that does not match the configured cluster
   domain suffix, such as "`www.kubernetes.io`", is forwarded to the upstream
-  nameserver inherited from the node. Cluster aministrators may have extra
+  nameserver inherited from the node. Cluster administrators may have extra
   stub-domain and upstream DNS servers configured.
   See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers/#impacts-on-pods)
   for details on how DNS queries are handled in those cases.
