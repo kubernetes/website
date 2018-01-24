@@ -1,3 +1,4 @@
+require 'pry'
 # See /_plugins/README.md for full documentation of these custom Jekyll tags
 module Jekyll
   module GlossaryTags

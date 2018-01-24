@@ -30,6 +30,8 @@ The Kubernetes community
 
 #### kubectl
 
+`kubectl`, the command-line tool that allows you to easily read or modify your Kubernetes cluster, is basically just a user-friendly wrapper for the Kubernetes API. You're able to scale app instances and get node info because, under the hood, it's making API requests for you.
+
 #### Helm
 
 https://docs.google.com/a/heptio.com/spreadsheets/d/1FCgqz1Ci7_VCz_wdh8vBitZ3giBtac_H8SBw4uxnrsE/edit?usp=drive_web
@@ -42,7 +44,7 @@ As you gain familiarity with Kubernetes and your use cases become more complex, 
 
 {% glossary_tooltip text="Deployments" term_id="deployment" %}, which you previously covered, are ideal for running, updating, and scaling stateless web servers (e.g. a Rails app). However, for other workloads, you may find other Kubernetes API resources more useful:
 * **{% glossary_tooltip text="StatefulSets" term_id="statefulset" %}** - Because each Pod in a StatefulSet has a sticky identity, StatefulSets can be used to run datastores like Cassandra or Elasticsearch.
-* **{% glossary_tooltip text="DaemonSets" term_id="daemonset" %}** - Because they run per node, you may find DaemonSets useful for logging and monitoring.
+* **{% glossary_tooltip text="DaemonSets" term_id="daemonset" %}** - Because they run per node, DaemonSets are useful for logging and monitoring.
 * **{% glossary_tooltip text="Jobs" term_id="job" %}** - You can use these for one-off tasks like running a script or setting up a work queue.
 * **{% glossary_tooltip text="CronJobs" term_id="cronjob" %}** - These are similar to Jobs, but allow you to schedule their execution (similarly to *crontab*).
 
@@ -83,24 +85,24 @@ You (or your {% glossary_tooltip text="cluster operator" term_id="cluster-operat
 
 #### Resource isolation and management
 
-If your workloads may be operating in a **multi-tenant** environment with multiple teams or projects, your container(s) are *not* necessarily running alone on their node(s). They are sharing node resources with other containers which you do not own.
+If your workloads are operating in a **multi-tenant** environment with multiple teams or projects, your container(s) are *not* necessarily running alone on their node(s). They are sharing node resources with other containers which you do not own.
 
 Even if your cluster operator is managing the cluster on your behalf, it is helpful to be aware of the following:
 * **{% glossary_tooltip text="Namespaces" term_id="namespace" %}**, used for isolation
-* **[Resource quotas](/docs/concepts/policy/resource-quotas/){:target="_blank"}**, which may affect what your team's workloads can use
+* **[Resource quotas](/docs/concepts/policy/resource-quotas/){:target="_blank"}**, which affect what your team's workloads can use
 * **[Memory](/docs/tasks/configure-pod-container/assign-memory-resource/){:target="_blank"} and [CPU](/docs/tasks/configure-pod-container/assign-cpu-resource/){:target="_blank"} requests**, for a given Pod or container
 
 Although this list may not be completely comprehensive, the Kubernetes documentation is fairly rich and details other topics like [monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/){:target="_blank"} and [Ingress](/docs/concepts/services-networking/ingress/){:target="_blank"}. On the other hand, your team may already have existing processes that take care of all of the topics just covered!
 
 ## Additional resources
 
-Now that you're fairly familiar with Kubernetes, you may find it useful to browse the following reference pages to get a high-level view of what other features may exist:
+Now that you're fairly familiar with Kubernetes, you may find it useful to browse the following reference pages to get a high level view of what other features may exist:
 
 * [Commonly used `kubectl` commands](/docs/reference/kubectl/cheatsheet/){:target="_blank"}
 * [Kubernetes API reference](/docs/reference/generated/kubernetes-api/v1.9/){:target="_blank"}
 * [Kubernetes Client Libraries](/docs/reference/client-libraries/){:target="_blank"}
 
-Also, although it is not official documentation, [the Kubernetes blog](http://blog.kubernetes.io/){:target="_blank"} often has helpful posts on Kubernetes design patterns and case studies.
+In addition, [the Kubernetes blog](http://blog.kubernetes.io/){:target="_blank"} often has helpful posts on Kubernetes design patterns and case studies.
 
 ### What's next
 If you feel fairly comfortable with the topics on this page and want to learn more, check out the following user journeys:
