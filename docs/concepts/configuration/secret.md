@@ -675,7 +675,7 @@ render those assumptions invalid.
 
 For these reasons `watch` and `list` requests for secrets within a namespace are
 extremely powerful capabilities and should be avoided, since listing secrets allows
-the clients to inspect the values if all secrets are in that namespace. The ability to
+the clients to inspect the values of all secrets that are in that namespace. The ability to
 `watch` and `list` all secrets in a cluster should be reserved for only the most
 privileged, system-level components.
 
