@@ -199,7 +199,7 @@ spec:
 ### Pod's DNS Config
 
 Kubernetes v1.9 introduces an Alpha feature that allows users more control on
-the DNS settings for a Pod. To enable this feature, the cluster aministrator
+the DNS settings for a Pod. To enable this feature, the cluster administrator
 needs to enable the `CustomPodDNS` feature gate on the apiserver and the kubelet,
 for example, "`--feature-gates=CustomPodDNS=true,...`".
 When the feature gate is enabled, users can set the `dnsPolicy` field of a Pod
