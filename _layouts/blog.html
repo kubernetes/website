@@ -1,3 +1,6 @@
+---
+#empty front matter
+---
 <!DOCTYPE html>
 <html id="blog">
 <head>
@@ -95,112 +98,9 @@
     </div>
 
     <div class="col-xs-6 col-sm-3 col-sm-3">
-
-      <div class="wrapper">
-      {% for post in site.posts  %}
-    {% increment counter %}
-      {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
-      {% capture this_month %}{{ post.date | date: "%B" }}{% endcapture %}
-      {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
-      {% capture next_month %}{{ post.previous.date | date: "%B" }}{% endcapture %}
-
-      {% if forloop.first %}
-        <div id="accordion" role="tablist" aria-multiselectable="true">
-
-          <div class="card">
-              <h2 id="{{ this_year }}-ref">{{this_year}}</h2>
-            <div class="card-header" role="tab" id="headingOne">
-              <h5 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ counter }}" aria-expanded="false" aria-controls="collapse{{counter}}">
-
-                    <h3 id="{{ this_year }}-{{ this_month }}-ref">{{ this_month }}</h3>
-                </a>
-              </h5>
-            </div>
-
-            <div id="collapse{{ counter }}" class=" collapse" role="tabpanel" aria-labelledby="heading{{counter}}">
-              <div class="card-block">
-                <ul>
-                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-              </ul>
-              </div>
-            </div>
-          </div>
-          {% endif %}
-          {% if forloop.last %}
-        </div> <!-- accordion closing-->
-      </div> <!-- wrapper closing -->
-    </div> <!-- side bar column closing -->
-          {% else %}
-              {% if this_year != next_year %}
-              <div class="card">
-              <h2 id="{{ next_year }}-ref">{{next_year}}</h2>
-              {% else %}
-                  {% if this_month != next_month %}
-                <div class="card-header" role="tab" id="headingOne">
-                  <h5 class="mb-0">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ counter }}" aria-expanded="false" aria-controls="collapse{{counter}}">
-
-                    <h3 id="{{ this_year }}-{{ next_month }}-ref">{{ next_month }}</h3>
-                    </a>
-                  </h5>
-                </div>
-
-                <div id="collapse{{ counter }}" class=" collapse" role="tabpanel" aria-labelledby="heading{{counter}}">
-                  <div class="card-block">
-                    <ul>
-                    <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-                  </ul>
-                  </div>
-                </div>
-              </div>
-
-              </ul>
-
-                  {% endif %}
-              {% endif %}
-          {% endif %}
-      {% endfor %}
-
-          <!-- <div class="card">
-            <div class="card-header" role="tab" id="headingTwo">
-              <h5 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Collapsible Group Item #2
-                </a>
-              </h5>
-            </div>
-            <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-              <div class="card-block">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
-          <div class="card">
-
-            <div class="card-header" role="tab" id="headingThree">
-              <h5 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Collapsible Group Item #3
-                </a>
-              </h5>
-            </div>
-
-            <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-              <div class="card-block">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div> <!-- third content block closing -->
-            </div> <!-- third collapse div  closing-->
-          </div> <!-- third card closing --> -->
-
-
-
-
-
-
-
-<!--
-      {% for post in site.posts  %}
+{% for post in site.posts  %}
+      {%increment counter %}
+      {% capture count-tag %}{{ "#collapse" | counter }}{% endcapture %}
       {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
       {% capture this_month %}{{ post.date | date: "%B" }}{% endcapture %}
       {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
@@ -211,45 +111,60 @@
         <div class="card">
           <div class="card-header" role="tab" id="headingOne">
             <h2 id="{{ this_year }}-ref" class="mb-0">
-              <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">{{this_year}}
+              <a data-toggle="collapse" href={{count-tag}} aria-expanded="false" aria-controls="collapseExample">{{this_year}}
               </h2>
             </a>
           </div>
-          <div id="collapse{{ this_year }}" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-            <div class="card-block">
-              <h3 id="{{ this_year }}-{{ this_month }}-ref">{{ this_month }}</h3>
+          <div class="card-block">
+            <h3 id="{{ this_year }}-{{ this_month }}-ref">{{ this_month }}</h3>
+            <div id="{{count-tag}}" class="collapse " role="tabpanel" aria-labelledby="headingOne">
+
               <ul>
-                {% endif %}
+      {% endif %}
                 <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-                {% if forloop.last %}
+      {% if forloop.last %}
               </ul>
             </div>
-            {% else %}
-            {% if this_year != next_year %}
-          </ul>
-          <h2 id="{{ next_year }}-ref">{{next_year}}</h2>
-          <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><h3 id="{{ next_year }}-{{ next_month }}-ref">{{ next_month }}</h3></a>
-          <ul>
-            {% else %}
-            {% if this_month != next_month %}
-          </ul>
-          <h3 id="{{ this_year }}-{{ next_month }}-ref">{{ next_month }}</h3>
+          </div>
+    {% else %}
+      {% if this_year != next_year %}
         </ul>
-            {% endif %}
-            {% endif %}
-            {% endif %}
-            {% endfor %}
+      </div>
+      <div class="card">
+        <div class="card-header" role="tab" id="heading{{counter}}">
+        <h2 id="{{ next_year }}-ref">{{next_year}}</h2>
+        <!--  -->
+        {% capture count-id %}{{ "collapse" | counter }}{% endcapture %}
+        <a data-toggle="collapse" href={{count-tag}} aria-expanded="false" aria-controls="{{count-tag}}"><h3 id="{{ next_year }}-{{ next_month }}-ref">{{ next_month }}</h3></a>
+      </div>
+        <div id="{{count-tag}}" class="collapse " role="tabpanel" aria-labelledby="headingOne">
 
+          <ul>
+  {% else %}
+      {% if this_month != next_month %}
+          </ul>
         </div>
-      </div>
-      </div>
- -->
 
- </div>  <!-- row blog content -->
+        <a data-toggle="collapse" href="{{count-tag}}" aria-expanded="false"><h3 id="{{ this_year }}-{{ next_month }}-ref">{{ next_month }}</h3></a>
+      </ul>
+<!-- </div> -->
+</div>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+
+    </div>
+  </div>
+
+
+</div>  <!-- row blog content -->
 
 
 </div>  <!-- div class container-fluid-->
 
 </body>
 {% include footer.html %}
+{% include footer-scripts.html %}
 </html>

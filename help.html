@@ -1,0 +1,2593 @@
+
+<!DOCTYPE html>
+<html class='v2' dir='ltr' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<link href='https://www.blogger.com/static/v1/widgets/3213516723-css_bundle_v2.css' rel='stylesheet' type='text/css'/>
+<meta content='width=1100' name='viewport'/>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<meta content='blogger' name='generator'/>
+<link href='http://blog.kubernetes.io/favicon.ico' rel='icon' type='image/x-icon'/>
+<link href='http://blog.kubernetes.io/' rel='canonical'/>
+<link rel="alternate" type="application/atom+xml" title="Kubernetes - Atom" href="http://blog.kubernetes.io/feeds/posts/default" />
+<link rel="alternate" type="application/rss+xml" title="Kubernetes - RSS" href="http://blog.kubernetes.io/feeds/posts/default?alt=rss" />
+<link rel="service.post" type="application/atom+xml" title="Kubernetes - Atom" href="https://www.blogger.com/feeds/112706738355446097/posts/default" />
+<link rel="openid.server" href="https://www.blogger.com/openid-server.g" />
+<link rel="openid.delegate" href="http://blog.kubernetes.io/" />
+<!--[if IE]><script type="text/javascript" src="https://www.blogger.com/static/v1/jsbin/771816573-ieretrofit.js"></script>
+<![endif]-->
+<meta content='The official Kubernetes blog.' name='description'/>
+<meta content='http://blog.kubernetes.io/' property='og:url'/>
+<meta content='Kubernetes' property='og:title'/>
+<meta content='The official Kubernetes blog.' property='og:description'/>
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<title>Kubernetes</title>
+<style id='page-skin-1' type='text/css'><!--
+/*
+-----------------------------------------------
+Blogger Template Style
+Name:     Simple
+Designer: Blogger
+URL:      www.blogger.com
+----------------------------------------------- */
+
+/* Content
+----------------------------------------------- */
+body {
+font: normal normal 12px 'Trebuchet MS', Trebuchet, Verdana, sans-serif;
+color: #666666;
+background: #ffffff none repeat scroll top left;
+padding: 0 0 0 0;
+}
+html body .region-inner {
+min-width: 0;
+max-width: 100%;
+width: auto;
+}
+h2 {
+font-size: 22px;
+}
+a:link {
+text-decoration:none;
+color: #2288bb;
+}
+a:visited {
+text-decoration:none;
+color: #888888;
+}
+a:hover {
+text-decoration:underline;
+color: #33aaff;
+}
+.body-fauxcolumn-outer .fauxcolumn-inner {
+background: transparent none repeat scroll top left;
+_background-image: none;
+}
+.body-fauxcolumn-outer .cap-top {
+position: absolute;
+z-index: 1;
+height: 400px;
+width: 100%;
+}
+.body-fauxcolumn-outer .cap-top .cap-left {
+width: 100%;
+background: transparent none repeat-x scroll top left;
+_background-image: none;
+}
+.content-outer {
+-moz-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-goog-ms-box-shadow: 0 0 0 #333333;
+box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+margin-bottom: 1px;
+}
+.content-inner {
+padding: 10px 40px;
+}
+.content-inner {
+background-color: #ffffff;
+}
+/* Header
+----------------------------------------------- */
+.header-outer {
+background: transparent none repeat-x scroll 0 -400px;
+_background-image: none;
+}
+.Header h1 {
+font: normal normal 40px 'Trebuchet MS',Trebuchet,Verdana,sans-serif;
+color: #000000;
+text-shadow: 0 0 0 rgba(0, 0, 0, .2);
+}
+.Header h1 a {
+color: #000000;
+}
+.Header .description {
+font-size: 18px;
+color: #000000;
+}
+.header-inner .Header .titlewrapper {
+padding: 22px 0;
+}
+.header-inner .Header .descriptionwrapper {
+padding: 0 0;
+}
+/* Tabs
+----------------------------------------------- */
+.tabs-inner .section:first-child {
+border-top: 0 solid #dddddd;
+}
+.tabs-inner .section:first-child ul {
+margin-top: -1px;
+border-top: 1px solid #dddddd;
+border-left: 1px solid #dddddd;
+border-right: 1px solid #dddddd;
+}
+.tabs-inner .widget ul {
+background: transparent none repeat-x scroll 0 -800px;
+_background-image: none;
+border-bottom: 1px solid #dddddd;
+margin-top: 0;
+margin-left: -30px;
+margin-right: -30px;
+}
+.tabs-inner .widget li a {
+display: inline-block;
+padding: .6em 1em;
+font: normal normal 12px 'Trebuchet MS', Trebuchet, Verdana, sans-serif;
+color: #000000;
+border-left: 1px solid #ffffff;
+border-right: 1px solid #dddddd;
+}
+.tabs-inner .widget li:first-child a {
+border-left: none;
+}
+.tabs-inner .widget li.selected a, .tabs-inner .widget li a:hover {
+color: #000000;
+background-color: #eeeeee;
+text-decoration: none;
+}
+/* Columns
+----------------------------------------------- */
+.main-outer {
+border-top: 0 solid transparent;
+}
+.fauxcolumn-left-outer .fauxcolumn-inner {
+border-right: 1px solid transparent;
+}
+.fauxcolumn-right-outer .fauxcolumn-inner {
+border-left: 1px solid transparent;
+}
+/* Headings
+----------------------------------------------- */
+div.widget > h2,
+div.widget h2.title {
+margin: 0 0 1em 0;
+font: normal bold 11px 'Trebuchet MS',Trebuchet,Verdana,sans-serif;
+color: #000000;
+}
+/* Widgets
+----------------------------------------------- */
+.widget .zippy {
+color: #999999;
+text-shadow: 2px 2px 1px rgba(0, 0, 0, .1);
+}
+.widget .popular-posts ul {
+list-style: none;
+}
+/* Posts
+----------------------------------------------- */
+h2.date-header {
+font: normal bold 11px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+}
+.date-header span {
+background-color: #bbbbbb;
+color: #ffffff;
+padding: 0.4em;
+letter-spacing: 3px;
+margin: inherit;
+}
+.main-inner {
+padding-top: 35px;
+padding-bottom: 65px;
+}
+.main-inner .column-center-inner {
+padding: 0 0;
+}
+.main-inner .column-center-inner .section {
+margin: 0 1em;
+}
+.post {
+margin: 0 0 45px 0;
+}
+h3.post-title, .comments h4 {
+font: normal normal 22px 'Trebuchet MS',Trebuchet,Verdana,sans-serif;
+margin: .75em 0 0;
+}
+.post-body {
+font-size: 110%;
+line-height: 1.4;
+position: relative;
+}
+.post-body img, .post-body .tr-caption-container, .Profile img, .Image img,
+.BlogList .item-thumbnail img {
+padding: 2px;
+background: #ffffff;
+border: 1px solid #eeeeee;
+-moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
+-webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
+box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
+}
+.post-body img, .post-body .tr-caption-container {
+padding: 5px;
+}
+.post-body .tr-caption-container {
+color: #666666;
+}
+.post-body .tr-caption-container img {
+padding: 0;
+background: transparent;
+border: none;
+-moz-box-shadow: 0 0 0 rgba(0, 0, 0, .1);
+-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .1);
+box-shadow: 0 0 0 rgba(0, 0, 0, .1);
+}
+.post-header {
+margin: 0 0 1.5em;
+line-height: 1.6;
+font-size: 90%;
+}
+.post-footer {
+margin: 20px -2px 0;
+padding: 5px 10px;
+color: #666666;
+background-color: #eeeeee;
+border-bottom: 1px solid #eeeeee;
+line-height: 1.6;
+font-size: 90%;
+}
+#comments .comment-author {
+padding-top: 1.5em;
+border-top: 1px solid transparent;
+background-position: 0 1.5em;
+}
+#comments .comment-author:first-child {
+padding-top: 0;
+border-top: none;
+}
+.avatar-image-container {
+margin: .2em 0 0;
+}
+#comments .avatar-image-container img {
+border: 1px solid #eeeeee;
+}
+/* Comments
+----------------------------------------------- */
+.comments .comments-content .icon.blog-author {
+background-repeat: no-repeat;
+background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEgAACxIB0t1+/AAAAAd0SU1FB9sLFwMeCjjhcOMAAAD+SURBVDjLtZSvTgNBEIe/WRRnm3U8RC1neQdsm1zSBIU9VVF1FkUguQQsD9ITmD7ECZIJSE4OZo9stoVjC/zc7ky+zH9hXwVwDpTAWWLrgS3QAe8AZgaAJI5zYAmc8r0G4AHYHQKVwII8PZrZFsBFkeRCABYiMh9BRUhnSkPTNCtVXYXURi1FpBDgArj8QU1eVXUzfnjv7yP7kwu1mYrkWlU33vs1QNu2qU8pwN0UpKoqokjWwCztrMuBhEhmh8bD5UDqur75asbcX0BGUB9/HAMB+r32hznJgXy2v0sGLBcyAJ1EK3LFcbo1s91JeLwAbwGYu7TP/3ZGfnXYPgAVNngtqatUNgAAAABJRU5ErkJggg==);
+}
+.comments .comments-content .loadmore a {
+border-top: 1px solid #999999;
+border-bottom: 1px solid #999999;
+}
+.comments .comment-thread.inline-thread {
+background-color: #eeeeee;
+}
+.comments .continue {
+border-top: 2px solid #999999;
+}
+/* Accents
+---------------------------------------------- */
+.section-columns td.columns-cell {
+border-left: 1px solid transparent;
+}
+.blog-pager {
+background: transparent url(//www.blogblog.com/1kt/simple/paging_dot.png) repeat-x scroll top center;
+}
+.blog-pager-older-link, .home-link,
+.blog-pager-newer-link {
+background-color: #ffffff;
+padding: 5px;
+}
+.footer-outer {
+border-top: 1px dashed #bbbbbb;
+}
+/* Mobile
+----------------------------------------------- */
+body.mobile  {
+background-size: auto;
+}
+.mobile .body-fauxcolumn-outer {
+background: transparent none repeat scroll top left;
+}
+.mobile .body-fauxcolumn-outer .cap-top {
+background-size: 100% auto;
+}
+.mobile .content-outer {
+-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+}
+.mobile .tabs-inner .widget ul {
+margin-left: 0;
+margin-right: 0;
+}
+.mobile .post {
+margin: 0;
+}
+.mobile .main-inner .column-center-inner .section {
+margin: 0;
+}
+.mobile .date-header span {
+padding: 0.1em 10px;
+margin: 0 -10px;
+}
+.mobile h3.post-title {
+margin: 0;
+}
+.mobile .blog-pager {
+background: transparent none no-repeat scroll top center;
+}
+.mobile .footer-outer {
+border-top: none;
+}
+.mobile .main-inner, .mobile .footer-inner {
+background-color: #ffffff;
+}
+.mobile-index-contents {
+color: #666666;
+}
+.mobile-link-button {
+background-color: #2288bb;
+}
+.mobile-link-button a:link, .mobile-link-button a:visited {
+color: #ffffff;
+}
+.mobile .tabs-inner .section:first-child {
+border-top: none;
+}
+.mobile .tabs-inner .PageList .widget-content {
+background-color: #eeeeee;
+color: #000000;
+border-top: 1px solid #dddddd;
+border-bottom: 1px solid #dddddd;
+}
+.mobile .tabs-inner .PageList .widget-content .pagelist-arrow {
+border-left: 1px solid #dddddd;
+}
+* {font-family: Roboto, sans-serif}
+div.total-page-wrapper {
+position: static;
+width: 1408px;
+margin: 0 auto;
+}
+header#topHeader {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 180px;
+background-color: #333;
+background-image: url(http://kub.unitedcreations.xyz/images/texture.png);
+background-position: center center;
+}
+#headerWrapper {
+position: relative;
+width: 1408px;
+margin: 0px auto;
+overflow: hidden;
+}
+div.header-title {
+position: relative;
+float: left;
+width: 980px;
+margin: 0 auto;
+padding: 40px 0 0 20px;
+}
+div.header-title h6 {
+margin: 0;
+padding-left: 108px;
+font-weight: normal;
+font-size: 18px;
+color: white;
+}
+div.header-try {
+width: 384px;
+float: right;
+color: white;
+padding-top: 70px;
+}
+div.header-try h6 {
+font-size: 16px;
+margin: 0 0 20px;
+color: transparent;
+}
+div.header-try a {
+display: inline-block;
+font-size: 16px;
+padding: 10px 40px;
+background: none;
+border: 0;
+background-color:  #326DE6;
+border-radius: 6px;
+color: white;
+outline: none;
+cursor: pointer;
+}
+.content {
+margin-top: 160px;
+}
+.content header {
+display: none;
+}
+.main-inner .column-right-outer {
+width: 320px;
+margin-right: -320px;
+}
+.sidebar .widget a.widget-link:link,
+.sidebar .widget a.widget-link:visited,
+.sidebar .widget a.widget-link:hover,
+.sidebar .widget a.widget-link:active {
+color: #326DE6;
+font-size: 22px;
+}
+.widget-link {
+position: relative;
+display: block;
+box-sizing: border-box;
+padding: 0 0 0 55px;
+margin: 10px 0;
+line-height: 40px;
+white-space: nowrap;
+font-family: Roboto, sans-serif;
+}
+.widget-link .fa {
+position: absolute;
+left: 0; top: 0;
+width: 40px; height: 40px;
+color: white;
+background-color: #326DE6;
+border-radius: 6px;
+font-size: 30px;
+text-align: center;
+line-height: 40px;
+}
+h2.date-header {
+font-family: Roboto-Bold;
+font-weight: bold;
+font-style: normal;
+font-size: 16px;
+}
+h2.date-header span {
+background: none;
+color: #222;
+}
+h3.post-title {
+font-size: 30px;
+color: #326DE6;
+}
+* a:link,
+* a:visited,
+* a:hover,
+* a:active {
+color: #326DE6;
+}
+.widget.BlogArchive {
+font-size: 16px;
+}
+.widget.BlogArchive h2 {
+font-size: 16px;
+margin: 40px 0;
+}
+.widget .zippy {
+color: #326DE6;
+text-shadow: none;
+}
+.post {
+margin-right: 80px;
+}
+div.post-footer {
+display: none;
+}
+.post-body {
+font-family: Roboto-Light;
+font-size: 16px;
+line-height: 1.5;
+}
+--></style>
+<style id='template-skin-1' type='text/css'><!--
+body {
+min-width: 1200px;
+}
+.content-outer, .content-fauxcolumn-outer, .region-inner {
+min-width: 1200px;
+max-width: 1200px;
+_width: 1200px;
+}
+.main-inner .columns {
+padding-left: 0px;
+padding-right: 310px;
+}
+.main-inner .fauxcolumn-center-outer {
+left: 0px;
+right: 310px;
+/* IE6 does not respect left and right together */
+_width: expression(this.parentNode.offsetWidth -
+parseInt("0px") -
+parseInt("310px") + 'px');
+}
+.main-inner .fauxcolumn-left-outer {
+width: 0px;
+}
+.main-inner .fauxcolumn-right-outer {
+width: 310px;
+}
+.main-inner .column-left-outer {
+width: 0px;
+right: 100%;
+margin-left: -0px;
+}
+.main-inner .column-right-outer {
+width: 310px;
+margin-right: -310px;
+}
+#layout {
+min-width: 0;
+}
+#layout .content-outer {
+min-width: 0;
+width: 800px;
+}
+#layout .region-inner {
+min-width: 0;
+width: auto;
+}
+--></style>
+<script type='text/javascript'>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-98841695-2', 'auto', 'blogger');
+        ga('blogger.send', 'pageview');
+      </script>
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'/>
+<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' rel='stylesheet'/>
+<link href='https://www.blogger.com/dyn-css/authorization.css?targetBlogID=112706738355446097&amp;zx=59dbfffd-5af4-4be2-8192-2da5cd3fcd90' media='none' onload='if(media!=&#39;all&#39;)media=&#39;all&#39;' rel='stylesheet'/><noscript><link href='https://www.blogger.com/dyn-css/authorization.css?targetBlogID=112706738355446097&amp;zx=59dbfffd-5af4-4be2-8192-2da5cd3fcd90' rel='stylesheet'/></noscript>
+</head>
+<body class='loading variant-simplysimple'>
+<div class='navbar no-items section' id='navbar' name='Navbar'>
+</div>
+<div class='total-page-wrapper'>
+<header id='topHeader'>
+<div id='headerWrapper'>
+<div class='header-title'>
+<a href='http://kubernetes.io/'><img src='http://kubernetes.io/images/nav_logo.svg' style='height:80px; margin-top: 10px'/></a>
+<h6>An open source system for automating deployment, scaling, and operations of applications.</h6>
+</div>
+<div class='header-try'>
+<h6> . </h6>
+<a href='http://kubernetes.io/docs/'>Learn about Kubernetes</a>
+</div>
+</div>
+</header>
+<div itemscope='itemscope' itemtype='http://schema.org/Blog' style='display: none;'>
+<meta content='Kubernetes' itemprop='name'/>
+<meta content='The official Kubernetes blog.' itemprop='description'/>
+</div>
+<div class='body-fauxcolumns'>
+<div class='fauxcolumn-outer body-fauxcolumn-outer'>
+<div class='cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left'>
+<div class='fauxborder-right'></div>
+<div class='fauxcolumn-inner'>
+</div>
+</div>
+<div class='cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+</div>
+<div class='content'>
+<div class='content-fauxcolumns'>
+<div class='fauxcolumn-outer content-fauxcolumn-outer'>
+<div class='cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left'>
+<div class='fauxborder-right'></div>
+<div class='fauxcolumn-inner'>
+</div>
+</div>
+<div class='cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+</div>
+<div class='content-outer'>
+<div class='content-cap-top cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left content-fauxborder-left'>
+<div class='fauxborder-right content-fauxborder-right'></div>
+<div class='content-inner'>
+<header>
+<div class='header-outer'>
+<div class='header-cap-top cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left header-fauxborder-left'>
+<div class='fauxborder-right header-fauxborder-right'></div>
+<div class='region-inner header-inner'>
+<div class='header section' id='header' name='Header'><div class='widget Header' data-version='1' id='Header1'>
+<div id='header-inner'>
+<div class='titlewrapper'>
+<h1 class='title'>
+Kubernetes
+</h1>
+</div>
+<div class='descriptionwrapper'>
+<p class='description'><span>Kubernetes is an open source system for automating deployment, scaling, and operations of containerized applications.</span></p>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+<div class='header-cap-bottom cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+</header>
+<div class='tabs-outer'>
+<div class='tabs-cap-top cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left tabs-fauxborder-left'>
+<div class='fauxborder-right tabs-fauxborder-right'></div>
+<div class='region-inner tabs-inner'>
+<div class='tabs no-items section' id='crosscol' name='Cross-Column'></div>
+<div class='tabs no-items section' id='crosscol-overflow' name='Cross-Column 2'></div>
+</div>
+</div>
+<div class='tabs-cap-bottom cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+<div class='main-outer'>
+<div class='main-cap-top cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left main-fauxborder-left'>
+<div class='fauxborder-right main-fauxborder-right'></div>
+<div class='region-inner main-inner'>
+<div class='columns fauxcolumns'>
+<div class='fauxcolumn-outer fauxcolumn-center-outer'>
+<div class='cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left'>
+<div class='fauxborder-right'></div>
+<div class='fauxcolumn-inner'>
+</div>
+</div>
+<div class='cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+<div class='fauxcolumn-outer fauxcolumn-left-outer'>
+<div class='cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left'>
+<div class='fauxborder-right'></div>
+<div class='fauxcolumn-inner'>
+</div>
+</div>
+<div class='cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+<div class='fauxcolumn-outer fauxcolumn-right-outer'>
+<div class='cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left'>
+<div class='fauxborder-right'></div>
+<div class='fauxcolumn-inner'>
+</div>
+</div>
+<div class='cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+<!-- corrects IE6 width calculation -->
+<div class='columns-inner'>
+<div class='column-center-outer'>
+<div class='column-center-inner'>
+<div class='main section' id='main' name='Main'><div class='widget Blog' data-version='1' id='Blog1'>
+<div class='blog-posts hfeed'>
+
+          <div class="date-outer">
+        
+<h2 class='date-header'><span>Friday, January 12, 2018</span></h2>
+
+          <div class="date-posts">
+        
+<div class='post-outer'>
+<div class='post hentry uncustomized-post-template' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+<meta content='112706738355446097' itemprop='blogId'/>
+<meta content='3319898632672834188' itemprop='postId'/>
+<a name='3319898632672834188'></a>
+<h3 class='post-title entry-title' itemprop='name'>
+<a href='http://blog.kubernetes.io/2018/01/introducing-client-go-version-6.html'>Introducing client-go version 6</a>
+</h3>
+<div class='post-header'>
+<div class='post-header-line-1'></div>
+</div>
+<div class='post-body entry-content' id='post-body-3319898632672834188' itemprop='articleBody'>
+<div>The Kubernetes API server <a href="https://blog.openshift.com/tag/api-server/">exposes a REST interface</a> consumable by any client. <a href="https://github.com/kubernetes/client-go">client-go</a> is the official client library for the Go programming language. It is used both internally by Kubernetes itself (for example, inside kubectl) as well as by <a href="https://github.com/search?q=k8s.io%2Fclient-go&amp;type=Code&amp;utf8=%E2%9C%93">numerous external consumers</a>:operators like the <a href="https://github.com/coreos/etcd-operator">etcd-operator</a> or <a href="https://github.com/coreos/prometheus-operator">prometheus-operator; </a>higher level frameworks like <a href="https://github.com/kubeless/kubeless">KubeLess</a> and <a href="https://openshift.io/">OpenShift</a>; and many more.<br />
+<br />
+The version 6 update to client-go adds support for Kubernetes 1.9, allowing access to the latest Kubernetes features. While the <a href="https://github.com/kubernetes/client-go/blob/master/CHANGELOG.md">changelog</a> contains all the gory details, this blog post highlights the most prominent changes and intends to guide on how to upgrade from version 5.<br />
+<br />
+This blog post is one of a number of efforts to make client-go more accessible to third party consumers. Easier access is a joint effort by a number of people from numerous companies, all meeting in the #client-go-docs channel of the <a href="http://slack.k8s.io/">Kubernetes Slack</a>. We are happy to hear feedback and ideas for further improvement, and of course appreciate anybody who wants to contribute.<br />
+<br />
+<div>
+<h2>
+API group changes</h2>
+<div>
+The following API group promotions are part of Kubernetes 1.9:<br />
+<ul>
+<li>Workload objects (Deployments, DaemonSets, ReplicaSets, and StatefulSets) have been <a href="https://kubernetes.io/docs/reference/workloads-18-19/">promoted to the <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">apps/v1</span> API group in Kubernetes 1.9</a>. client-go follows this transition and allows developers to use the latest version by importing the <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">k8s.io/api/apps/v1</span> package instead of <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">k8s.io/api/apps/v1beta</span>1 and by using <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">Clientset.AppsV1()</span>.</li>
+<li>Admission Webhook Registration has been promoted to the <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">admissionregistration.k8s.io/v1beta1</span> API group in Kubernetes 1.9. The former <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">ExternalAdmissionHookConfiguration</span> type has been replaced by the incompatible <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">ValidatingWebhookConfiguration</span> and <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">MutatingWebhookConfiguration</span> types. Moreover, the webhook admission payload type <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">AdmissionReview</span> in <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">admission.k8s.io</span> has been promoted to v1beta1. Note that versioned objects are now passed to webhooks. Refer to the admission webhook <a href="https://kubernetes.io/docs/admin/extensible-admission-controllers/#external-admission-webhooks">documentation</a> for details.</li>
+</ul>
+<div>
+<br /></div>
+</div>
+<div>
+<h2>
+Validation for CustomResources</h2>
+In Kubernetes 1.8 we introduced CustomResourceDefinitions (CRD) <a href="https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation">pre-persistence schema validation</a> as an alpha feature. With 1.9, the feature got promoted to beta and will be enabled by default. As a client-go user, you will find the API types at <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1</span>.<br />
+<br />
+The <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject">OpenAPI v3 schema</a> can be defined in the CRD spec as:<br />
+<span style="font-family: Courier New, Courier, monospace;"><br /></span>
+<div>
+<div dir="ltr" style="margin-left: 0pt;">
+<table style="border-collapse: collapse; border: none;"><colgroup><col width="602"></col></colgroup><tbody>
+<tr style="height: 76pt;"><td style="border-color: rgb(0, 0, 0); border-style: solid; border-width: 1pt; padding: 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.44; margin-bottom: 0pt; margin-top: 0pt;">
+<div style="margin: 0px;">
+<span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">apiVersion: apiextensions.k8s.io/v1beta1</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">kind: CustomResourceDefinition</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">metadata: ...</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">spec:</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;...</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;validation:</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;&nbsp;&nbsp;openAPIV3Schema:</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;properties:</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spec:</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;properties:</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;version:</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type: string</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enum:</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- "v1.0.0"</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- "v1.0.1"</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;replicas:</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type: integer</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minimum: 1</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maximum: 10</span></div>
+</div>
+</td></tr>
+</tbody></table>
+</div>
+</div>
+<br />
+The schema in the above CRD applies following validations for the instance:<br />
+<ol>
+<li><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">spec.version</span> must be a string and must be either &#8220;v1.0.0&#8221; or &#8220;v1.0.1&#8221;.</li>
+<li><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">spec.replicas</span> must be an integer and must have a minimum value of 1 and a maximum value of 10.</li>
+</ol>
+A CustomResource with invalid values for <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">spec.version</span> (v1.0.2) and <span style="font-family: &quot;courier new&quotquot; , &quot;courier&quot; , monospace;">spec.replicas</span> (15) will be rejected:<br />
+<span id="docs-internal-guid-3ad84808-c885-2528-9284-8fc4ee27b626"></span>
+
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><span id="docs-internal-guid-3ad84808-c885-2528-9284-8fc4ee27b626" style="font-family: Times;"></span></span><br />
+<div>
+<div dir="ltr" style="margin-left: 0pt;">
+<table style="border-collapse: collapse; border: none;"><colgroup><col width="602"></col></colgroup><tbody>
+<tr style="height: 76pt;"><td style="border-color: rgb(0, 0, 0); border-style: solid; border-width: 1pt; padding: 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.44; margin-bottom: 0pt; margin-top: 0pt;">
+<div style="margin: 0px;">
+<span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">apiVersion: mygroup.example.com/v1</span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">kind: App</span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">metadata:</span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;name: example-app</span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">spec:</span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;version: "v1.0.2"</span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;replicas: 15</span></div>
+</div>
+</td></tr>
+</tbody></table>
+</div>
+</div>
+<span id="docs-internal-guid-3ad84808-c885-2528-9284-8fc4ee27b626"><div>
+
+<div dir="ltr" style="margin-left: 0pt;">
+<table style="border-collapse: collapse; border: none;"><colgroup><col width="602"></col></colgroup><tbody>
+<tr style="height: 76pt;"><td style="border-bottom: solid #000000 1pt; border-left: solid #000000 1pt; border-right: solid #000000 1pt; border-top: solid #000000 1pt; padding: 5pt 5pt 5pt 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.44; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-family: &quot;courier new&quot;; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">$ kubectl create -f app.yaml</span></div>
+<div dir="ltr" style="line-height: 1.44; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-family: &quot;courier new&quot;; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">The App "example-app" is invalid: []: Invalid value: map[string]interface {}{"apiVersion":"mygroup.example.com/v1", "kind":"App", "metadata":map[string]interface {}{"creationTimestamp":"2017-08-31T20:52:54Z", "uid":"5c674651-8e8e-11e7-86ad-f0761cb232d1", "selfLink":"", "clusterName":"", "name":"example-app", "namespace":"default", "deletionTimestamp":interface {}(nil), "deletionGracePeriodSeconds":(*int64)(nil)}, "spec":map[string]interface {}{"replicas":15, "version":"v1.0.2"}}:</span><span style="font-family: &quot;courier new&quot;; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;courier new&quot;; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">validation failure list:</span><span style="font-family: &quot;courier new&quot;; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;courier new&quot;; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">spec.replicas in body should be less than or equal to 10</span><span style="font-family: &quot;courier new&quot;; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-family: &quot;courier new&quot;; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">spec.version in body should be one of [v1.0.0 v1.0.1]</span></div>
+</td></tr>
+</tbody></table>
+</div>
+<span id="docs-internal-guid-3ad84808-c885-501a-76b6-769929ccbba1"> </span></div>
+</span><div>
+<br /></div>
+Note that with <a href="https://kubernetes.io/docs/admin/extensible-admission-controllers/#external-admission-webhooks">Admission Webhooks</a>, Kubernetes 1.9 provides another beta feature to validate objects before they are created or updated. Starting with 1.9, these webhooks also allow mutation of objects (for example, to set defaults or to inject values). Of course, webhooks work with CRDs as well. Moreover, webhooks can be used to implement validations that are not easily expressible with CRD validation. Note that webhooks are harder to implement than CRD validation, so for many purposes, CRD validation is the right tool.</div>
+<div>
+<br /></div>
+<div>
+<h2>
+Creating namespaced informers</h2>
+Often objects in one namespace or only with certain labels are to be processed in a controller. Informers <a href="https://github.com/kubernetes/kubernetes/pull/54660">now allow</a> you to tweak the ListOptions used to query the API server to list and watch objects. Uninitialized objects (for consumption by <a href="https://kubernetes.io/docs/admin/extensible-admission-controllers/#what-are-initializers">initializers</a>) can be made visible by setting <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">IncludeUnitialized</span> to true. All this can be done using the new <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">NewFilteredSharedInformerFactory</span> constructor for shared informers:<br />
+<div>
+<div dir="ltr" style="margin-left: 0pt;">
+<table style="border-collapse: collapse; border: none;"><colgroup><col width="602"></col></colgroup><tbody>
+<tr style="height: 76pt;"><td style="border-color: rgb(0, 0, 0); border-style: solid; border-width: 1pt; padding: 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.44; margin-bottom: 0pt; margin-top: 0pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 10pt;">
+<span id="docs-internal-guid-3ad84808-c885-e0f8-a864-ed42e15f3d85"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace; font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;">import &#8220;k8s.io/client-go/informers&#8221;</span></span></span></div>
+<span id="docs-internal-guid-3ad84808-c885-e0f8-a864-ed42e15f3d85"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">...</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">sharedInformers := informers.NewFilteredSharedInformerFactory(</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span class="Apple-tab-span" style="white-space: pre;"> </span></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">client,</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span class="Apple-tab-span" style="white-space: pre;"> </span></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">30*time.Minute, </span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span class="Apple-tab-span" style="white-space: pre;"> </span></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">&#8220;some-namespace&#8221;,</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span class="Apple-tab-span" style="white-space: pre;"> </span></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">func(opt *metav1.ListOptions) {</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span class="Apple-tab-span" style="white-space: pre;"> </span></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span class="Apple-tab-span" style="white-space: pre;"> </span></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">opt.LabelSelector = &#8220;foo=bar&#8221;</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span class="Apple-tab-span" style="white-space: pre;"> </span></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">},</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">)</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;</span></span></span></div>
+</td></tr>
+</tbody></table>
+</div>
+</div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 10pt;">
+<br /></div>
+Note that the corresponding lister will only know about the objects matching the namespace and the given <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">ListOptions</span>. Note that the same restrictions apply for a List or Watch call on a client.<br />
+<br />
+This <a href="https://github.com/jetstack/cert-manager/blob/b978faa28c9f0fb0414b5d7293fab7bde65bde76/cmd/controller/app/controller.go#L123">production code example</a> of a cert-manager demonstrates how namespace informers can be used in real code.</div>
+<div>
+<br /></div>
+<div>
+<h2>
+Polymorphic scale client</h2>
+Historically, only types in the extensions API group would work with autogenerated Scale clients. Furthermore, different API groups use different <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">Scale</span> types for their <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">/scale</span> subresources. To remedy these issues, <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">k8s.io/client-go/scale</span> provides a <a href="https://github.com/kubernetes/client-go/tree/master/scale">polymorphic scale client</a> to scale different resources in different API groups in a coherent way:<br />
+
+
+<br class="Apple-interchange-newline" />
+<table style="border-collapse: collapse; border: none;"><colgroup><col width="602"></col></colgroup><tbody>
+<tr style="height: 76pt;"><td style="border-color: rgb(0, 0, 0); border-style: solid; border-width: 1pt; padding: 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.44; margin-bottom: 0pt; margin-top: 0pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 10pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span id="docs-internal-guid-3ad84808-c886-e536-7ce9-516828641a43"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">import (</span></span></span></div>
+<span id="docs-internal-guid-3ad84808-c886-e536-7ce9-516828641a43"></span><br />
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt; text-indent: 36pt;">
+<span id="docs-internal-guid-3ad84808-c886-e536-7ce9-516828641a43"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">apimeta "k8s.io/apimachinery/pkg/api/meta"</span></span></span></div>
+<span id="docs-internal-guid-3ad84808-c886-e536-7ce9-516828641a43"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span class="Apple-tab-span" style="white-space: pre;"> </span></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">discocache "k8s.io/client-go/discovery/cached"</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span class="Apple-tab-span" style="white-space: pre;"> </span></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">"k8s.io/client-go/discovery"</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt; text-indent: 36pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">"k8s.io/client-go/dynamic"</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt; text-indent: 36pt;">
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">&#8220;k8s.io/client-go/scale&#8221;</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">)</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">...</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">cachedDiscovery := discocache.NewMemCacheClient(client.Discovery())</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">restMapper := discovery.NewDeferredDiscoveryRESTMapper(</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt; text-indent: 36pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">cachedDiscovery, </span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt; text-indent: 36pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">apimeta.InterfacesForUnstructured,</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">)</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">scaleKindResolver := scale.NewDiscoveryScaleKindResolver(</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt; text-indent: 36pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">client.Discovery(),</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">)</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">scaleClient, err := scale.NewForConfig(</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">client, restMapper,</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">dynamic.LegacyAPIPathResolverFunc, </span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">scaleKindResolver,</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">)</span></span></div>
+</span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; white-space: pre-wrap;">scale, err := scaleClient.Scales("default").Get(groupResource, "foo")</span><span style="font-family: &quot;courier new&quot;, courier, monospace; font-size: 11pt; white-space: pre-wrap;">&nbsp;</span></div>
+</div>
+</td></tr>
+</tbody></table>
+<span id="docs-internal-guid-3ad84808-c886-e536-7ce9-516828641a43"><div>
+<br /></div>
+</span>The returned scale object is generic and is exposed as the <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">autoscaling/v1.Scale</span> object. It is backed by an internal <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">Scale</span> type, with conversions defined to and from all the special <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">Scale</span> types in the API groups supporting scaling. We planto <a href="https://github.com/kubernetes/kubernetes/pull/55168">extend this to CustomResources in 1.10</a>.<br />
+<br />
+If you&#8217;re implementing support for the scale subresource, we recommend that you expose the <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">autoscaling/v1.Scale</span> object.</div>
+<div>
+<br />
+<h2>
+Type-safe DeepCopy</h2>
+Deeply copying an object formerly required a call to <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">Scheme.Copy(Object)</span> with the notable disadvantage of losing type safety. A typical piece of code from client-go version 5 required type casting:<br />
+<br />
+<table style="border-collapse: collapse; border: none;"><colgroup><col width="602"></col></colgroup><tbody>
+<tr style="height: 76pt;"><td style="border-color: rgb(0, 0, 0); border-style: solid; border-width: 1pt; padding: 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.44; margin-bottom: 0pt; margin-top: 0pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 10pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span id="docs-internal-guid-3ad84808-c887-d759-b4b2-e60896ee04bb"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">newObj, err := runtime.NewScheme().Copy(node)</span></span></span></div>
+<span id="docs-internal-guid-3ad84808-c887-d759-b4b2-e60896ee04bb"></span><br />
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span id="docs-internal-guid-3ad84808-c887-d759-b4b2-e60896ee04bb"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">if err != nil {</span></span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"> &nbsp;&nbsp;&nbsp;return fmt.Errorf("failed to copy node %v: %s&#8221;, node, err)</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">}</span></span></div>
+<span id="docs-internal-guid-3ad84808-c887-d759-b4b2-e60896ee04bb"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><br /></span></span>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">newNode, ok := newObj.(*v1.Node)</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">if !ok {</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"> &nbsp;&nbsp;&nbsp;return fmt.Errorf("failed to type-assert node %v", newObj)</span></span></div>
+<br />
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<div style="margin: 0px;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">}</span></span></div>
+</div>
+</div>
+</div>
+</div>
+</td></tr>
+</tbody></table>
+<span id="docs-internal-guid-3ad84808-c887-d759-b4b2-e60896ee04bb"></span><br />
+<span id="docs-internal-guid-3ad84808-c887-d759-b4b2-e60896ee04bb"> </span><br />
+Thanks to <a href="https://github.com/kubernetes/code-generator">k8s.io/code-generator</a>, <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">Copy</span> has now been replaced by a type-safe <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">DeepCopy</span> method living on each object, allowing you to simplify code significantly both in terms of volume and API error surface:<br />
+<br />
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">newNode := node.DeepCopy()</span><br />
+<br />
+No error handling is necessary: this call never fails. If and only if the node is nil does DeepCopy() return nil.<br />
+<br />
+To copy <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">runtime.Objects</span> there is an additional <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">DeepCopyObject()</span> method in the <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">runtime.Object</span> interface.<br />
+<br />
+With the old method gone for good, clients need to update their copy invocations accordingly.<br />
+<br /></div>
+<div>
+<h2>
+Code generation and CustomResources</h2>
+Using client-go&#8217;s dynamic client to access CustomResources is discouraged and superseded by type-safe code using the generators in <a href="https://github.com/kubernetes/code-generator">k8s.io/code-generator</a>. Check out the <a href="https://blog.openshift.com/kubernetes-deep-dive-code-generation-customresources/">Deep Dive on the Open Shift blog</a> to learn about using code generation with client-go.<br />
+<br /></div>
+<div>
+<h3>
+Comment Blocks</h3>
+You can now place tags in the comment block just above a type or function, or in the second block above. There is no distinction anymore between these two comment blocks. This used to a be a source of <a href="https://github.com/kubernetes/kubernetes/issues/53893">subtle errors when using the generators</a>:<br />
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><br class="Apple-interchange-newline" /></span>
+<span style="font-family: &quot;courier new&quot;, courier, monospace;">// second block above</span><br style="font-family: &quot;courier new&quot;, courier, monospace;" /><span style="font-family: &quot;courier new&quot;, courier, monospace;">// +k8s:some-tag</span><br style="font-family: &quot;courier new&quot;, courier, monospace;" /><br style="font-family: &quot;courier new&quot;, courier, monospace;" /><span style="font-family: &quot;courier new&quot;, courier, monospace;">// first block above</span><br style="font-family: &quot;courier new&quot;, courier, monospace;" /><span style="font-family: &quot;courier new&quot;, courier, monospace;">// +k8s:another-tag</span><br style="font-family: &quot;courier new&quot;, courier, monospace;" /><span style="font-family: &quot;courier new&quot;, courier, monospace;">type Foo struct {}</span></div>
+<div>
+<span style="font-family: &quot;courier new&quot;, courier, monospace;"><br /></span></div>
+<div>
+<h3>
+Custom Client Methods</h3>
+You can now use extended tag definitions to create custom verbs . This lets you expand beyond the verbs defined by HTTP. This opens the door to higher levels of customization.<br />
+<br />
+For example, this block leads to the generation of the method <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">UpdateScale(s *autoscaling.Scale) (*autoscaling.Scale, error)</span>:<br />
+<br />
+<span style="font-family: &quot;courier new&quot;, courier, monospace;">// genclient:method=UpdateScale,verb=update,subresource=scale,input=k8s.io/kubernetes/pkg/apis/autoscaling.Scale,result=k8s.io/kubernetes/pkg/apis/autoscaling.Scale</span></div>
+<div>
+<span style="font-family: &quot;courier new&quot;, courier, monospace;"><br /></span></div>
+<div>
+<h3>
+Resolving Golang Naming Conflicts</h3>
+In more complex API groups it&#8217;s possible for Kinds, the group name, the Go package name, and the Go group alias name to conflict. This was not handled correctly prior to 1.9. The following tags resolve naming conflicts and make the generated code prettier:<br />
+<br />
+<div style="-webkit-text-stroke-width: 0px; color: black; font-family: Times; font-size: medium; font-style: normal; font-variant-caps: normal; font-variant-ligatures: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-decoration-color: initial; text-decoration-style: initial; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;">
+</div>
+<br />
+<div style="-webkit-text-stroke-width: 0px; color: black; font-family: Times; font-size: medium; font-style: normal; font-variant-caps: normal; font-variant-ligatures: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-decoration-color: initial; text-decoration-style: initial; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;">
+<span style="font-family: &quot;courier new&quot;, courier, monospace;">// +groupName=example2.example.com</span><br style="font-family: &quot;courier new&quot;, courier, monospace;" /><span style="font-family: &quot;courier new&quot;, courier, monospace;">// +groupGoName=SecondExample</span></div>
+<br />
+These are usually <a href="https://github.com/kubernetes/code-generator/blob/release-1.9/_examples/crd/apis/example2/v1/doc.go#L18">in the doc.go file of an API package</a>. The first is used as the CustomResource group name when RESTfully speaking to the API server using HTTP. The second is used in the generated Golang code (for example, in the clientset) to access the group version:<br />
+<br />
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">clientset.SecondExampleV1()</span><br />
+<br />
+It&#8217;s finally possible to have dots in Go package names. In this section&#8217;s example, you would put the groupName snippet into the <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">pkg/apis/example2.example.com</span> directory of your project.<br />
+<br /></div>
+<div>
+<h2>
+Example projects</h2>
+Kubernetes 1.9 includes a number of example projects which can serve as a blueprint for your own projects:<br />
+<ul>
+<li><a href="https://github.com/kubernetes/sample-apiserver">k8s.io/sample-apiserver</a> is a simple user-provided API server that is integrated into a cluster via <a href="https://kubernetes.io/docs/concepts/api-extension/apiserver-aggregation/">API aggregation</a>.</li>
+<li><a href="https://github.com/kubernetes/sample-controller">k8s.io/sample-controller</a> is a full-featured <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/controllers.md">controller</a> (also called an operator) with shared informers and a workqueue to process created, changed or deleted objects. It is based on CustomResourceDefinitions and uses <a href="https://github.com/kubernetes/code-generator">k8s.io/code-generator</a> to generate deepcopy functions, typed clientsets, informers, and listers.</li>
+</ul>
+<div>
+<br /></div>
+<h2>
+Vendoring</h2>
+In order to update from the previous version 5 to version 6 of client-go, the library itself as well as certain third-party dependencies must be updated. Previously, this process had been tedious due to the fact that a lot of code got refactored or relocated within the existing package layout across releases. Fortunately, far less code had to move in the latest version, which should ease the upgrade procedure for most users.</div>
+<div>
+<br />
+<h3>
+State of the published repositories</h3>
+In the past <a href="https://github.com/kubernetes/client-go">k8s.io/client-go</a>, <a href="https://github.com/kubernetes/api">k8s.io/api</a>, and <a href="https://github.com/kubernetes/apimachinery">k8s.io/apimachinery</a> were updated infrequently. Tags (for example, <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">v4.0.0)</span> were created quite some time after the Kubernetes releases. With the 1.9 release we resumed running a nightly bot that updates all the repositories for public consumption, even before manual tagging. This includes the branches:<br />
+<ul>
+<li>master</li>
+<li>release-1.8 / release-5.0</li>
+<li>release-1.9 / release-6.0&nbsp;</li>
+</ul>
+Kubernetes tags (for example, <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">v1.9.1-beta1</span>) are also applied automatically to the published repositories, prefixed with <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">kubernetes-</span> (for example, <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">kubernetes-1.9.1-beta1</span>).<br />
+<br />
+These tags have limited test coverage, but can be used by early adopters of client-go and the other libraries. Moreover, they help to vendor the correct version of <a href="https://github.com/kubernetes/api">k8s.io/api</a> and <a href="https://github.com/kubernetes/apimachinery">k8s.io/apimachinery</a>. Note that we only create a <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">v6.0.3</span>-like semantic versioning tag on <a href="https://github.com/kubernetes/client-go">k8s.io/client-go</a>. The corresponding tag for k8s.io/api and k8s.io/apimachinery is <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">kubernetes-1.9.3</span>.<br />
+<br />
+Also note that only these tags correspond to tested releases of Kubernetes. If you depend on the release branch, e.g., <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">release-1.9</span>, your client is running on unreleased Kubernetes code.<br />
+<br /></div>
+<div>
+<h3>
+State of vendoring of client-go</h3>
+In general, the list of which dependencies to vendor is automatically generated and written to the file <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">Godeps/Godeps.json</span>. Only the revisions listed there are tested. This means especially that we do not and cannot test the code-base against master branches of our dependencies. This puts us in the following situation depending on the used vendoring tool:<br />
+<ul>
+<li><a href="https://github.com/tools/godep">godep</a> reads <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">Godeps/Godeps.json</span> by running <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">godep restore</span> from k8s.io/client-go in your <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">GOPATH</span>. Then use <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">godep save</span> to vendor in your project. godep will choose the correct versions from your <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">GOPATH</span>.</li>
+<li><a href="https://github.com/Masterminds/glide">glide</a> reads <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">Godeps/Godeps.json</span> automatically from its dependencies including from k8s.io/client-go, both on <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">init</span> and on <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">update</span>. Hence, glide should be mostly automatic as long as there are no conflicts.</li>
+<li><a href="https://github.com/golang/dep">dep</a> does not currently respect <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">Godeps/Godeps.json</span> in a consistent way, especially not on updates. It is crucial to specify client-go dependencies manually as constraints or overrides, also for non <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">k8s.io/*</span> dependencies. Without those, dep simply chooses the dependency master branches, which can cause problems as they are updated frequently.</li>
+<li>The Kubernetes and golang/dep community are aware of the problems [<a href="https://github.com/golang/dep/issues/1124">issue #1124</a>, <a href="https://github.com/golang/dep/issues/1236">issue #1236</a>] and <a href="https://github.com/kubernetes-dep-experiment/client-go">are working together on solutions</a>. Until then special care must be taken.</li>
+</ul>
+Please see client-go&#8217;s <a href="https://github.com/kubernetes/client-go/blob/master/INSTALL.md">INSTALL.md</a> for more details.<br />
+<br /></div>
+<div>
+<h3>
+Updating dependencies &#8211; golang/dep</h3>
+Even with the deficiencies of golang/dep today, dep is slowly becoming the de-facto standard in the Go ecosystem. With the necessary care and the awareness of the missing features, dep can be (and is!) used successfully. Here&#8217;s a demonstration of how to update a project with client-go 5 to the latest version 6 using dep:<br />
+<br />
+(If you are still running client-go version 4 and want to play it safe by not skipping a release, now is a good time to check out <a href="https://medium.com/@andy.goldstein/upgrading-kubernetes-client-go-from-v4-to-v5-bbd5025fe381">this excellent blog post</a> describing how to upgrade to version 5, put together by our friends at Heptio.)<br />
+<br />
+Before starting, it is important to understand that client-go depends on two other Kubernetes projects: <a href="https://github.com/kubernetes/apimachinery">k8s.io/apimachinery</a> and <a href="https://github.com/kubernetes/api">k8s.io/api</a>. In addition, if you are using CRDs, you probably also depend on <a href="https://github.com/kubernetes/apiextensions-apiserver">k8s.io/apiextensions-apiserver</a> for the CRD client. The first exposes lower-level API mechanics (such as schemes, serialization, and type conversion), the second holds API definitions, and the third provides APIs related to CustomResourceDefinitions. In order for client-go to operate correctly, it needs to have its companion libraries vendored in correspondingly matching versions. Each library repository provides a branch named release-<i>&lt;version&gt;</i> where <i>&lt;version&gt;</i> refers to a particular Kubernetes version; for client-go version 6, it is imperative to refer to the <i>release</i>-1.9 branch on each repository.<br />
+<br />
+Assuming the latest version 5 patch release of client-go being vendored through dep, the <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">Gopkg.</span><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">toml</span> manifest file should look something like this (possibly using branches instead of versions):<br />
+<div>
+<br class="Apple-interchange-newline" /><table style="border-collapse: collapse; border: none;"><colgroup><col width="602"></col></colgroup><tbody>
+<tr style="height: 76pt;"><td style="border-color: rgb(0, 0, 0); border-style: solid; border-width: 1pt; padding: 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.44; margin-bottom: 0pt; margin-top: 0pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 10pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<br />
+<div>
+</div>
+<br />
+<div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span id="docs-internal-guid-3ad84808-c88f-32b2-63d4-a26518337e6d"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">[[constraint]]</span></span></span></div>
+<span id="docs-internal-guid-3ad84808-c88f-32b2-63d4-a26518337e6d" style="font-family: Courier New, Courier, monospace;"></span><br />
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span id="docs-internal-guid-3ad84808-c88f-32b2-63d4-a26518337e6d"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;name = "k8s.io/api"</span></span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-family: Courier New, Courier, monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; font-weight: 700; vertical-align: baseline; white-space: pre-wrap;">version = "kubernetes-1.8.1"</span></span></div>
+<span id="docs-internal-guid-3ad84808-c88f-32b2-63d4-a26518337e6d"><span style="font-family: Courier New, Courier, monospace;"><br /></span></span>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">[[constraint]]</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;name = "k8s.io/apimachinery"</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-family: Courier New, Courier, monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; font-weight: 700; vertical-align: baseline; white-space: pre-wrap;">version = "kubernetes-1.8.1"</span></span></div>
+<span style="font-family: Courier New, Courier, monospace;"><br /></span>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">[[constraint]]</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;name = "k8s.io/apiextensions-apiserver"</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-family: Courier New, Courier, monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; font-weight: 700; vertical-align: baseline; white-space: pre-wrap;">version = "kubernetes-1.8.1"</span></span></div>
+<span style="font-family: Courier New, Courier, monospace;"><br /></span>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">[[constraint]]</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;name = "k8s.io/client-go"</span></span></div>
+<br />
+<div>
+</div>
+<br />
+<div dir="ltr" style="-webkit-text-stroke-width: 0px; color: black; font-size: medium; font-style: normal; font-variant-caps: normal; font-variant-ligatures: normal; font-weight: 400; letter-spacing: normal; line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt; orphans: 2; text-align: start; text-decoration-color: initial; text-decoration-style: initial; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;">
+<div style="margin: 0px;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; font-weight: 700; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;version = "5.0.1"</span></span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</td></tr>
+</tbody></table>
+</div>
+<br /><span id="docs-internal-guid-3ad84808-c88f-32b2-63d4-a26518337e6d"></span>
+Note that some of the libraries could be missing if they are not actually needed by the client.<br />
+<br />
+Upgrading to client-go version 6 means bumping the version and tag identifiers as following (<b>emphasis</b> given):<br />
+<span id="docs-internal-guid-3ad84808-c88f-6bdd-6432-51e48ff896b9"></span><br />
+<div>
+<br class="Apple-interchange-newline" /><table style="border-collapse: collapse; border: none;"><colgroup><col width="602"></col></colgroup><tbody>
+<tr style="height: 76pt;"><td style="border-color: rgb(0, 0, 0); border-style: solid; border-width: 1pt; padding: 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.44; margin-bottom: 0pt; margin-top: 0pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 10pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<br />
+<div>
+</div>
+<br />
+<div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span id="docs-internal-guid-3ad84808-c88f-6bdd-6432-51e48ff896b9"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">[constraint]]</span></span></span></div>
+<span id="docs-internal-guid-3ad84808-c88f-6bdd-6432-51e48ff896b9"></span><br />
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span id="docs-internal-guid-3ad84808-c88f-6bdd-6432-51e48ff896b9"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"> &nbsp;name = "k8s.io/api"</span></span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; font-weight: 700; vertical-align: baseline; white-space: pre-wrap;">version = "kubernetes-1.9.0"</span></span></div>
+<span id="docs-internal-guid-3ad84808-c88f-6bdd-6432-51e48ff896b9"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><br /></span></span>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">[[constraint]]</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"> &nbsp;name = "k8s.io/apimachinery"</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; font-weight: 700; vertical-align: baseline; white-space: pre-wrap;">version = "kubernetes-1.9.0"</span></span></div>
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><br /></span>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">[[constraint]]</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"> &nbsp;name = "k8s.io/apiextensions-apiserver"</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; font-weight: 700; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"> &nbsp;version = "kubernetes-1.9.0"</span></span></div>
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><br /></span>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">[[constraint]]</span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"> &nbsp;name = "k8s.io/client-go"</span></span></div>
+<br />
+<div>
+</div>
+<br />
+<div dir="ltr" style="-webkit-text-stroke-width: 0px; color: black; font-family: Times; font-size: medium; font-style: normal; font-variant-caps: normal; font-variant-ligatures: normal; font-weight: 400; letter-spacing: normal; line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt; orphans: 2; text-align: start; text-decoration-color: initial; text-decoration-style: initial; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;">
+<div style="margin: 0px;">
+<span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; font-weight: 700; vertical-align: baseline; white-space: pre-wrap;">version = "6.0.0"</span></span></div>
+</div>
+</div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<div>
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; font-weight: 700; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;"><br /></span></span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</td></tr>
+</tbody></table>
+</div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<br /></div>
+The result of the upgrade can be found <a href="https://github.com/ncdc/client-go-4-to-5/tree/v5-to-v6">here</a>.<br />
+<br />
+A note of caution: dep cannot capture the complete set of dependencies in a reliable and reproducible fashion as described above. This means that for a 100% future-proof project you have to add constraints (or even overrides) to many other packages listed in client-go&#8217;s <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">Godeps/Godeps.json</span>. Be prepared to add them if something breaks. We are working with the golang/dep community to make this an easier and more smooth experience.<br />
+<br />
+Finally, we need to tell dep to upgrade to the specified versions by executing <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">dep ensure.</span> If everything goes well, the output of the command invocation should be empty, with the only indication that it was successful being a number of updated files inside the <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">vendor</span> folder.<br />
+<br />
+If you are using CRDs, you probably also use code-generation. The following block for <span style="font-family: &quot;courier new&quot; , &quot;courier&quot; , monospace;">Gopkg.toml&nbsp;</span>will add the required code-generation packages to your project:<br />
+<br />
+<div style="-webkit-text-stroke-width: 0px; color: black; font-size: medium; font-style: normal; font-variant-caps: normal; font-variant-ligatures: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-decoration-color: initial; text-decoration-style: initial; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;">
+<table style="border-collapse: collapse; border: none;"><colgroup><col width="602"></col></colgroup><tbody>
+<tr style="height: 76pt;"><td style="border-color: rgb(0, 0, 0); border-style: solid; border-width: 1pt; padding: 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.44; margin-bottom: 0pt; margin-top: 0pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 10pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<div style="margin: 0px;">
+</div>
+<div>
+</div>
+<div style="margin: 0px;">
+</div>
+<div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span id="docs-internal-guid-3ad84808-c890-4c60-cc10-ed4cbd0644ee"><span style="font-family: Courier New, Courier, monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">required = [</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;"k8s.io/code-generator/cmd/client-gen",</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;"k8s.io/code-generator/cmd/conversion-gen",</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;"k8s.io/code-generator/cmd/deepcopy-gen",</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;"k8s.io/code-generator/cmd/defaulter-gen",</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;"k8s.io/code-generator/cmd/informer-gen",</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;"k8s.io/code-generator/cmd/lister-gen",</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;">]</span></span></span></div>
+<span id="docs-internal-guid-3ad84808-c890-4c60-cc10-ed4cbd0644ee"><span style="font-family: Courier New, Courier, monospace;"><br /></span></span>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span id="docs-internal-guid-3ad84808-c890-4c60-cc10-ed4cbd0644ee"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">[[constraint]]</span></span></span></div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="font-family: Courier New, Courier, monospace;"><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"> &nbsp;</span><span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; font-weight: 700; vertical-align: baseline; white-space: pre-wrap;">branch = "kubernetes-1.9.0"</span></span></div>
+<span id="docs-internal-guid-3ad84808-c890-4c60-cc10-ed4cbd0644ee" style="font-family: Courier New, Courier, monospace;"></span><br />
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<div style="margin: 0px;">
+<span style="font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;name = "k8s.io/code-generator"</span></span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</td></tr>
+</tbody></table>
+</div>
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<br /></div>
+<span id="docs-internal-guid-3ad84808-c890-4c60-cc10-ed4cbd0644ee"> </span><br />
+Whether you would also like to prune unneeded packages (such as test files) through dep or commit the changes into the VCS at this point is up to you -- but from an upgrade perspective, you should now be ready to harness all the fancy new features that Kubernetes 1.9 brings through client-go.</div>
+</div>
+</div>
+<div style='clear: both;'></div>
+</div>
+<div class='post-footer'>
+<div class='post-footer-line post-footer-line-1'>
+<span class='post-author vcard'>
+Posted by
+<span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+<meta content='https://www.blogger.com/profile/00141726840828335732' itemprop='url'/>
+<a class='g-profile' href='https://www.blogger.com/profile/00141726840828335732' rel='author' title='author profile'>
+<span itemprop='name'>kbarnard</span>
+</a>
+</span>
+</span>
+<span class='post-timestamp'>
+at
+<meta content='http://blog.kubernetes.io/2018/01/introducing-client-go-version-6.html' itemprop='url'/>
+<a class='timestamp-link' href='http://blog.kubernetes.io/2018/01/introducing-client-go-version-6.html' rel='bookmark' title='permanent link'><abbr class='published' itemprop='datePublished' title='2018-01-12T09:00:00-08:00'>9:00 AM</abbr></a>
+</span>
+<span class='reaction-buttons'>
+</span>
+<span class='post-comment-link'>
+<a class='comment-link' href='http://blog.kubernetes.io/2018/01/introducing-client-go-version-6.html#comment-form' onclick=''>
+No comments:
+    </a>
+</span>
+<span class='post-backlinks post-comment-link'>
+</span>
+<span class='post-icons'>
+<span class='item-control blog-admin pid-1956825343'>
+<a href='https://www.blogger.com/post-edit.g?blogID=112706738355446097&postID=3319898632672834188&from=pencil' title='Edit Post'>
+<img alt='' class='icon-action' height='18' src='https://resources.blogblog.com/img/icon18_edit_allbkg.gif' width='18'/>
+</a>
+</span>
+</span>
+<div class='post-share-buttons goog-inline-block'>
+<a class='goog-inline-block share-button sb-email' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=3319898632672834188&target=email' target='_blank' title='Email This'><span class='share-button-link-text'>Email This</span></a><a class='goog-inline-block share-button sb-blog' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=3319898632672834188&target=blog' onclick='window.open(this.href, "_blank", "height=270,width=475"); return false;' target='_blank' title='BlogThis!'><span class='share-button-link-text'>BlogThis!</span></a><a class='goog-inline-block share-button sb-twitter' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=3319898632672834188&target=twitter' target='_blank' title='Share to Twitter'><span class='share-button-link-text'>Share to Twitter</span></a><a class='goog-inline-block share-button sb-facebook' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=3319898632672834188&target=facebook' onclick='window.open(this.href, "_blank", "height=430,width=640"); return false;' target='_blank' title='Share to Facebook'><span class='share-button-link-text'>Share to Facebook</span></a><a class='goog-inline-block share-button sb-pinterest' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=3319898632672834188&target=pinterest' target='_blank' title='Share to Pinterest'><span class='share-button-link-text'>Share to Pinterest</span></a><div class='goog-inline-block google-plus-share-container'><g:plusone source='blogger:blog:plusone' href='http://blog.kubernetes.io/2018/01/introducing-client-go-version-6.html' size='medium' width='300' annotation='inline'/></div>
+</div>
+</div>
+<div class='post-footer-line post-footer-line-2'>
+<span class='post-labels'>
+</span>
+</div>
+<div class='post-footer-line post-footer-line-3'>
+<span class='post-location'>
+</span>
+</div>
+</div>
+</div>
+</div>
+
+          </div></div>
+        
+
+          <div class="date-outer">
+        
+<h2 class='date-header'><span>Thursday, January 11, 2018</span></h2>
+
+          <div class="date-posts">
+        
+<div class='post-outer'>
+<div class='post hentry uncustomized-post-template' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+<meta content='https://2.bp.blogspot.com/-p8WGg2BATsY/WlfywbD_tAI/AAAAAAAAAJw/mDqZV0dB4_Y0gXXQp_1tQ7CtMRSd6lHVwCK4BGAYYCw/s640/Screen%2BShot%2B2018-01-11%2Bat%2B3.22.07%2BPM.png' itemprop='image_url'/>
+<meta content='112706738355446097' itemprop='blogId'/>
+<meta content='8047856645491476978' itemprop='postId'/>
+<a name='8047856645491476978'></a>
+<h3 class='post-title entry-title' itemprop='name'>
+<a href='http://blog.kubernetes.io/2018/01/extensible-admission-is-beta.html'>Extensible Admission is Beta</a>
+</h3>
+<div class='post-header'>
+<div class='post-header-line-1'></div>
+</div>
+<div class='post-body entry-content' id='post-body-8047856645491476978' itemprop='articleBody'>
+<div>In this post we review a feature, available in the Kubernetes API server, that allows you to implement arbitrary control decisions and which has matured considerably in Kubernetes 1.9.<br />
+<br />
+The admission stage of API server processing is one of the most powerful tools for securing a Kubernetes cluster by restricting the objects that can be created, but it has always been limited to compiled code. In 1.9, we promoted webhooks for admission to beta, allowing you to leverage admission from outside the API server process.<br />
+<div>
+<br />
+<h2>
+What is Admission?</h2>
+<a href="https://kubernetes.io/docs/admin/admission-controllers/#what-are-they">Admission</a> is the phase of <a href="https://blog.openshift.com/kubernetes-deep-dive-api-server-part-1/">handling an API server request</a> that happens before a resource is persisted, but after authorization. Admission gets access to the same information as authorization (user, URL, etc) and the complete body of an API request (for most requests).<br />
+<br />
+<a href="http://2.bp.blogspot.com/-p8WGg2BATsY/WlfywbD_tAI/AAAAAAAAAJw/mDqZV0dB4_Y0gXXQp_1tQ7CtMRSd6lHVwCK4BGAYYCw/s1600/Screen%2BShot%2B2018-01-11%2Bat%2B3.22.07%2BPM.png" imageanchor="1"><img border="0" height="138" src="https://2.bp.blogspot.com/-p8WGg2BATsY/WlfywbD_tAI/AAAAAAAAAJw/mDqZV0dB4_Y0gXXQp_1tQ7CtMRSd6lHVwCK4BGAYYCw/s640/Screen%2BShot%2B2018-01-11%2Bat%2B3.22.07%2BPM.png" width="640" /></a><br />
+<br />
+The admission phase is composed of individual plugins, each of which are narrowly focused and have semantic knowledge of what they are inspecting. Examples include: PodNodeSelector (influences scheduling decisions), PodSecurityPolicy (prevents escalating containers), and ResourceQuota (enforces resource allocation per namespace).<br />
+<br />
+Admission is split into two phases:<br />
+<ol>
+<li>Mutation, which allows modification of the body content itself as well as rejection of an API request.</li>
+<li>Validation, which allows introspection queries and rejection of an API request.</li>
+</ol>
+An admission plugin can be in both phases, but all mutation happens before validation.</div>
+<div>
+<br /></div>
+<div>
+<h3>
+Mutation</h3>
+The mutation phase of admission allows modification of the resource content before it is persisted. Because the same field can be mutated multiple times while in the admission chain, the order of the admission plugins in the mutation matters.<br />
+<br />
+One example of a mutating admission plugin is the `PodNodeSelector` plugin, which uses an annotation on a namespace `namespace.annotations[&#8220;scheduler.alpha.kubernetes.io/node-selector&#8221;]` to find a label selector and add it to the `pod.spec.nodeselector` field. This positively restricts which nodes the pods in a particular namespace can land on, as opposed to taints, which provide negative restriction (also with an admission plugin).</div>
+<div>
+<br />
+<h3>
+Validation</h3>
+The validation phase of admission allows the enforcement of invariants on particular API resources. The validation phase runs after all mutators finish to ensure that the resource isn&#8217;t going to change again.<br />
+<br />
+One example of a validation admission plugin is also the `PodNodeSelector` plugin, which ensures that all pods&#8217; `spec.nodeSelector` fields are constrained by the node selector restrictions on the namespace. Even if a mutating admission plugin tries to change the `spec.nodeSelector` field after the PodNodeSelector runs in the mutating chain, the PodNodeSelector in the validating chain prevents the API resource from being created because it fails validation.<br />
+<br />
+<h2>
+What are admission webhooks?</h2>
+Admission webhooks allow a Kubernetes installer or a cluster-admin to add mutating and validating admission plugins to the admission chain of `kube-apiserver` as well as any extensions apiserver based on k8s.io/apiserver 1.9, like <a href="https://github.com/kubernetes/metrics">metrics</a>, <a href="https://github.com/kubernetes-incubator/service-catalog">service-catalog</a>, or <a href="https://github.com/openshift/kube-projects">kube-projects</a>, without recompiling them. Both kinds of admission webhooks run at the end of their respective chains and have the same powers and limitations as compiled admission plugins.<br />
+<br />
+<h3>
+What are they good for?</h3>
+Webhook admission plugins allow for mutation and validation of any resource on any API server, so the possible applications are vast. Some common use-cases include:<br />
+<ol>
+<li>Mutation of resources like pods. Istio has talked about doing this to inject side-car containers into pods. You could also write a plugin which forcefully resolves image tags into image SHAs.</li>
+<li>Name restrictions. On multi-tenant systems, reserving namespaces has emerged as a use-case.</li>
+<li>Complex CustomResource validation. Because the entire object is visible, a clever admission plugin can perform complex validation on dependent fields (A requires B) and even external resources (compare to LimitRanges).</li>
+<li>Security response. If you forced image tags into image SHAs, you could write an admission plugin that prevents certain SHAs from running.</li>
+</ol>
+</div>
+<div>
+<h3>
+Registration</h3>
+Webhook admission plugins of both types are registered in the API, and all API servers (kube-apiserver and all extension API servers) share a common config for them. During the registration process, a webhook admission plugin describes:<br />
+<br />
+<ol>
+<li>How to connect to the webhook admission server</li>
+<li>How to verify the webhook admission server (Is it really the server I expect?)</li>
+<li>Where to send the data at that server (which URL path)</li>
+<li>Which resources and which HTTP verbs it will handle</li>
+<li>What an API server should do on connection failures (for example, if the admission webhook server goes down)</li>
+</ol>
+<div>
+<span id="docs-internal-guid-e40e417b-c87b-6d08-f61d-b2799aaeb012"><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">1 apiVersion: admissionregistration.k8s.io/v1beta1</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">2 kind: ValidatingWebhookConfiguration</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">3 metadata:</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">4 &nbsp;&nbsp;name: namespacereservations.admission.online.openshift.io</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">5 webhooks:</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">6 - name: namespacereservations.admission.online.openshift.io</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">7 &nbsp;&nbsp;clientConfig:</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">8 &nbsp;&nbsp;&nbsp;&nbsp;service:</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">9 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;namespace: default</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">10 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: kubernetes</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">11 &nbsp;&nbsp;&nbsp;&nbsp;path: /apis/admission.online.openshift.io/v1alpha1/namespacereservations</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">12 &nbsp;&nbsp;&nbsp;caBundle: KUBE_CA_HERE</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">13 &nbsp;rules:</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">14 &nbsp;- operations:</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">15 &nbsp;&nbsp;&nbsp;- CREATE</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">16 &nbsp;&nbsp;&nbsp;apiGroups:</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">17 &nbsp;&nbsp;&nbsp;- ""</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">18 &nbsp;&nbsp;&nbsp;apiVersions:</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">19 &nbsp;&nbsp;&nbsp;- "*"</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">20 &nbsp;&nbsp;&nbsp;resources:</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">21 &nbsp;&nbsp;&nbsp;- namespaces</span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;"><br class="kix-line-break" /></span><span style="background-color: #efefef; font-family: &quot;courier new&quot;; font-size: 10pt; vertical-align: baseline; white-space: pre-wrap;">22 &nbsp;failurePolicy: Fail</span></span></div>
+<br />
+Line 6: `name` - the name for the webhook itself. For mutating webhooks, these are sorted to provide ordering.<br />
+Line 7: `clientConfig` - provides information about how to connect to, trust, and send data to the webhook admission server.<br />
+Line 13: `rules` - describe when an API server should call this admission plugin. In this case, only for creates of namespaces. You can specify any resource here so specifying creates of `serviceinstances.servicecatalog.k8s.io` is also legal.<br />
+Line 22: `failurePolicy` - says what to do if the webhook admission server is unavailable. Choices are &#8220;Ignore&#8221; (fail open) or &#8220;Fail&#8221; (fail closed). Failing open makes for unpredictable behavior for all clients.</div>
+<div>
+<br />
+<h3>
+Authentication and trust</h3>
+<br />
+Because webhook admission plugins have a lot of power (remember, they get to see the API resource content of any request sent to them and might modify them for mutating plugins), it is important to consider:<br />
+<ul>
+<li>How individual API servers verify their connection to the webhook admission server&nbsp;</li>
+<li>How the webhook admission server authenticates precisely which API server is contacting it</li>
+<li>Whether that particular API server has authorization to make the request</li>
+</ul>
+There are three major categories of connection:<br />
+<ol>
+<li>From kube-apiserver or extension-apiservers to externally hosted admission webhooks (webhooks not hosted in the cluster)</li>
+<li>From kube-apiserver to self-hosted admission webhooks</li>
+<li>From extension-apiservers to self-hosted admission webhooks</li>
+</ol>
+To support these categories, the webhook admission plugins accept a kubeconfig file which describes how to connect to individual servers. For interacting with externally hosted admission webhooks, there is really no alternative to configuring that file manually since the authentication/authorization and access paths are owned by the server you&#8217;re hooking to.<br />
+<br />
+For the self-hosted category, a cleverly built webhook admission server and topology can take advantage of the safe defaulting built into the admission plugin and have a secure, portable, zero-config topology that works from any API server.</div>
+<div>
+<br />
+<h3>
+Simple, secure, portable, zero-config topology</h3>
+If you build your webhook admission server to also be an extension API server, it becomes possible to aggregate it as a normal API server. This has a number of advantages:<br />
+<ul>
+<li>Your webhook becomes available like any other API under default kube-apiserver service `kubernetes.default.svc` (e.g. <a href="https://kuberentes.default.svc/apis/admission.example.com/v1/mymutatingadmissionreviews">https://kubernetes.default.svc/apis/admission.example.com/v1/mymutatingadmissionreviews</a>). Among other benefits, you can test using `kubectl`.</li>
+<li>Your webhook automatically (without any config) makes use of the in-cluster authentication and authorization provided by kube-apiserver. You can restrict access to your webhook with normal RBAC rules.</li>
+<li>Your extension API servers and kube-apiserver automatically (without any config) make use of their in-cluster credentials to communicate with the webhook.</li>
+<li>Extension API servers do not leak their service account token to your webhook because they go through kube-apiserver, which is a secure front proxy.</li>
+</ul>
+<br />
+<img height="369" src="https://lh6.googleusercontent.com/FeXoJLmbhf5exSBQu6Wxd2sIEqzkKPbRA_iv6T2QmJbhRsO4FyPtgAAbHdAmuTrE0jVEUzftfxcPndN8ACzstfsX9XTFdQFrioS1srvYgVP3l99R6x-vvd3RfBA4eWttaKRWj6iA" width="640" /><br />
+<i>Source: <a href="https://drive.google.com/a/redhat.com/file/d/12nC9S2fWCbeX_P8nrmL6NgOSIha4HDNp">https://drive.google.com/a/redhat.com/file/d/12nC9S2fWCbeX_P8nrmL6NgOSIha4HDNp</a> </i><br />
+<br />
+In short: a secure topology makes use of all security mechanisms of API server aggregation and additionally requires no additional configuration.<br />
+<br />
+Other topologies are possible but require additional manual configuration as well as a lot of effort to create a secure setup, especially when extension API servers like service catalog come into play. The topology above is zero-config and portable to every Kubernetes cluster.</div>
+<div>
+<br /></div>
+<div>
+<h3>
+How do I write a webhook admission server?</h3>
+Writing a full server complete with authentication and authorization can be intimidating. To make it easier, there are projects based on Kubernetes 1.9 that provide a library for building your webhook admission server in 200 lines or less. Take a look at the <a href="https://github.com/openshift/generic-admission-server">generic-admission-apiserver</a> and the <a href="https://github.com/openshift/kubernetes-namespace-reservation">kubernetes-namespace-reservation</a> projects for the library and an example of how to build your own secure and portable webhook admission server.<br />
+<br />
+With the admission webhooks introduced in 1.9 we&#8217;ve made Kubernetes even more adaptable to your needs. We hope this work, driven by both Red Hat and Google, will enable many more workloads and support ecosystem components. (Istio is one example.) Now is a good time to give it a try!<br />
+<br />
+If you&#8217;re interested in giving feedback or contributing to this area, join us in the <a href="https://github.com/kubernetes/community/tree/master/sig-api-machinery">SIG API machinery</a>.</div>
+</div>
+<div style='clear: both;'></div>
+</div>
+<div class='post-footer'>
+<div class='post-footer-line post-footer-line-1'>
+<span class='post-author vcard'>
+Posted by
+<span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+<meta content='https://www.blogger.com/profile/00141726840828335732' itemprop='url'/>
+<a class='g-profile' href='https://www.blogger.com/profile/00141726840828335732' rel='author' title='author profile'>
+<span itemprop='name'>kbarnard</span>
+</a>
+</span>
+</span>
+<span class='post-timestamp'>
+at
+<meta content='http://blog.kubernetes.io/2018/01/extensible-admission-is-beta.html' itemprop='url'/>
+<a class='timestamp-link' href='http://blog.kubernetes.io/2018/01/extensible-admission-is-beta.html' rel='bookmark' title='permanent link'><abbr class='published' itemprop='datePublished' title='2018-01-11T09:00:00-08:00'>9:00 AM</abbr></a>
+</span>
+<span class='reaction-buttons'>
+</span>
+<span class='post-comment-link'>
+<a class='comment-link' href='http://blog.kubernetes.io/2018/01/extensible-admission-is-beta.html#comment-form' onclick=''>
+No comments:
+    </a>
+</span>
+<span class='post-backlinks post-comment-link'>
+</span>
+<span class='post-icons'>
+<span class='item-control blog-admin pid-1956825343'>
+<a href='https://www.blogger.com/post-edit.g?blogID=112706738355446097&postID=8047856645491476978&from=pencil' title='Edit Post'>
+<img alt='' class='icon-action' height='18' src='https://resources.blogblog.com/img/icon18_edit_allbkg.gif' width='18'/>
+</a>
+</span>
+</span>
+<div class='post-share-buttons goog-inline-block'>
+<a class='goog-inline-block share-button sb-email' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=8047856645491476978&target=email' target='_blank' title='Email This'><span class='share-button-link-text'>Email This</span></a><a class='goog-inline-block share-button sb-blog' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=8047856645491476978&target=blog' onclick='window.open(this.href, "_blank", "height=270,width=475"); return false;' target='_blank' title='BlogThis!'><span class='share-button-link-text'>BlogThis!</span></a><a class='goog-inline-block share-button sb-twitter' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=8047856645491476978&target=twitter' target='_blank' title='Share to Twitter'><span class='share-button-link-text'>Share to Twitter</span></a><a class='goog-inline-block share-button sb-facebook' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=8047856645491476978&target=facebook' onclick='window.open(this.href, "_blank", "height=430,width=640"); return false;' target='_blank' title='Share to Facebook'><span class='share-button-link-text'>Share to Facebook</span></a><a class='goog-inline-block share-button sb-pinterest' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=8047856645491476978&target=pinterest' target='_blank' title='Share to Pinterest'><span class='share-button-link-text'>Share to Pinterest</span></a><div class='goog-inline-block google-plus-share-container'><g:plusone source='blogger:blog:plusone' href='http://blog.kubernetes.io/2018/01/extensible-admission-is-beta.html' size='medium' width='300' annotation='inline'/></div>
+</div>
+</div>
+<div class='post-footer-line post-footer-line-2'>
+<span class='post-labels'>
+</span>
+</div>
+<div class='post-footer-line post-footer-line-3'>
+<span class='post-location'>
+</span>
+</div>
+</div>
+</div>
+</div>
+
+          </div></div>
+        
+
+          <div class="date-outer">
+        
+<h2 class='date-header'><span>Wednesday, January 10, 2018</span></h2>
+
+          <div class="date-posts">
+        
+<div class='post-outer'>
+<div class='post hentry uncustomized-post-template' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+<meta content='112706738355446097' itemprop='blogId'/>
+<meta content='1149372500574051828' itemprop='postId'/>
+<a name='1149372500574051828'></a>
+<h3 class='post-title entry-title' itemprop='name'>
+<a href='http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html'>Introducing Container Storage Interface (CSI) Alpha for Kubernetes</a>
+</h3>
+<div class='post-header'>
+<div class='post-header-line-1'></div>
+</div>
+<div class='post-body entry-content' id='post-body-1149372500574051828' itemprop='articleBody'>
+<div>One of the key differentiators for Kubernetes has been a powerful <a href="https://kubernetes.io/docs/concepts/storage/volumes/">volume plugin system</a> that enables many different types of storage systems to:<br /><ol>
+<li>Automatically create storage when required.</li>
+<li>Make storage available to containers wherever they&#8217;re scheduled.</li>
+<li>Automatically delete the storage when no longer needed.</li>
+</ol>
+Adding support for new storage systems to Kubernetes, however, has been challenging. <br /><br />Kubernetes 1.9 introduces an <a href="https://github.com/kubernetes/features/issues/178">alpha implementation of the Container Storage Interface (CSI)</a> which makes installing new volume plugins as easy as deploying a pod. It also enables third-party storage providers to develop solutions without the need to add to the core Kubernetes codebase.<br /><br />Because the feature is alpha in 1.9, it must be explicitly enabled. Alpha features are not recommended for production usage, but are a good indication of the direction the project is headed (in this case, towards a more extensible and standards based Kubernetes storage ecosystem).<br /><br /><h3>
+Why Kubernetes CSI?</h3>
+Kubernetes volume plugins are currently &#8220;in-tree&#8221;, meaning they&#8217;re linked, compiled, built, and shipped with the core kubernetes binaries. Adding support for a new storage system to Kubernetes (a volume plugin) requires checking code into the core Kubernetes repository. But aligning with the Kubernetes release process is painful for many plugin developers.<br /><br />The existing <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md">Flex Volume plugin</a> attempted to address this pain by exposing an exec based API for external volume plugins. Although it enables third party storage vendors to write drivers out-of-tree, in order to deploy the third party driver files it requires access to the root filesystem of node and master machines.<br /><br />In addition to being difficult to deploy, Flex did not address the pain of plugin dependencies: Volume plugins tend to have many external requirements (on mount and filesystem tools, for example). These dependencies are assumed to be available on the underlying host OS which is often not the case (and installing them requires access to the root filesystem of node machine).<br /><br />CSI addresses all of these issues by enabling storage plugins to be developed out-of-tree, containerized, deployed via standard Kubernetes primitives, and consumed through the Kubernetes storage primitives users know and love <span style="font-family: Courier New, Courier, monospace;">(PersistentVolumeClaims, PersistentVolumes, StorageClasses)</span>.<br /><br /><h3>
+What is CSI?</h3>
+The goal of CSI is to establish a standardized mechanism for Container Orchestration Systems (COs) to expose arbitrary storage systems to their containerized workloads. The CSI specification emerged from cooperation between community members from various Container Orchestration Systems (COs)--including Kubernetes, Mesos, Docker, and Cloud Foundry. The specification is developed, independent of Kubernetes, and maintained at <a href="https://github.com/container-storage-interface/spec/blob/master/spec.md">https://github.com/container-storage-interface/spec/blob/master/spec.md</a>.<br /><br />Kubernetes v1.9 exposes an alpha implementation of the CSI specification enabling CSI compatible volume drivers to be deployed on Kubernetes and consumed by Kubernetes workloads.<br /><br /><h3>
+How do I deploy a CSI driver on a Kubernetes Cluster?</h3>
+CSI plugin authors will provide their own instructions for deploying their plugin on Kubernetes.<br /><br /><h3>
+How do I use a CSI Volume?</h3>
+Assuming a CSI storage plugin is already deployed on your cluster, you can use it through the familiar Kubernetes storage primitives: <span style="font-family: Courier New, Courier, monospace;">PersistentVolumeClaims</span>, <span style="font-family: Courier New, Courier, monospace;">PersistentVolumes</span>, and <span class="" style="font-family: Courier New, Courier, monospace;">StorageClasses</span>.<br /><br />CSI is an alpha feature in Kubernetes v1.9. To enable it, set the following flags:<div>
+<span id="docs-internal-guid-e552c2b9-c821-ca68-4031-7e53ac872b4f"><br /><div dir="ltr" style="margin-left: 0pt;">
+<table style="border-collapse: collapse; border: none; width: 468pt;"><colgroup><col width="*"></col></colgroup><tbody>
+<tr style="height: 0pt;"><td style="background-color: #ffe599; border-bottom: solid #ffffff 1pt; border-left: solid #ffffff 1pt; border-right: solid #ffffff 1pt; border-top: solid #ffffff 1pt; padding: 5pt 5pt 5pt 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: inherit;">CSI is an alpha feature in Kubernetes v1.9. To enable it, set the following flags:</span></span></div>
+<ul style="margin-bottom: 0pt; margin-top: 0pt;">
+<li dir="ltr" style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; list-style-type: disc; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: inherit;">API server binary:</span></span></div>
+</li>
+<ul style="margin-bottom: 0pt; margin-top: 0pt;">
+<li dir="ltr" style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; list-style-type: circle; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">--feature-gates=CSIPersistentVolume=true</span></span></div>
+</li>
+<li dir="ltr" style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; list-style-type: circle; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">--runtime-config=storage.k8s.io/v1alpha1=true</span></span></div>
+</li>
+</ul>
+<li dir="ltr" style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; list-style-type: disc; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: inherit;">API server binary and kubelet binaries:</span></span></div>
+</li>
+<ul style="margin-bottom: 0pt; margin-top: 0pt;">
+<li dir="ltr" style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; list-style-type: circle; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">--feature-gates=MountPropagation=true</span></span></div>
+</li>
+<li dir="ltr" style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; list-style-type: circle; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">--allow-privileged=true</span></span></div>
+</li>
+</ul>
+</ul>
+</td></tr>
+</tbody></table>
+</div>
+</span><h3>
+<br /></h3>
+<h3>
+Dynamic Provisioning</h3>
+You can enable automatic creation/deletion of volumes for CSI Storage plugins that support dynamic provisioning by creating a <span style="font-family: Courier New, Courier, monospace;">StorageClass</span> pointing to the CSI plugin.<br /><br />The following <span style="font-family: Courier New, Courier, monospace;">StorageClass</span>, for example, enables dynamic creation of &#8220;fast-storage&#8221; volumes by a CSI volume plugin called &#8220;<span style="font-family: Courier New, Courier, monospace;">com.example.team/csi-driver</span>&#8221;. <br /><span id="docs-internal-guid-e552c2b9-c821-1625-2b05-10d8f56c95d3"><br /><div dir="ltr" style="margin-left: 0pt;">
+<table style="border-collapse: collapse; border: none; width: 468pt;"><colgroup><col width="*"></col></colgroup><tbody>
+<tr style="height: 0pt;"><td style="background-color: #efefef; border-bottom: solid #ffffff 1pt; border-left: solid #ffffff 1pt; border-right: solid #ffffff 1pt; border-top: solid #ffffff 1pt; padding: 5pt 5pt 5pt 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">kind: StorageClass</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">apiVersion: storage.k8s.io/v1</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">metadata:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;name: fast-storage</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">provisioner: com.example.team/csi-driver</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">parameters:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;type: pd-ssd</span></span></div>
+</td></tr>
+</tbody></table>
+</div>
+</span><br />To trigger dynamic provisioning, create a <span style="font-family: Courier New, Courier, monospace;">PersistentVolumeClaim</span> object. The following <span style="font-family: Courier New, Courier, monospace;">PersistentVolumeClaim</span>, for example, triggers dynamic provisioning using the <span style="font-family: Courier New, Courier, monospace;">StorageClass</span> above.<br /><span id="docs-internal-guid-e552c2b9-c822-96c6-d517-5f2d01604084"><br /><div dir="ltr" style="margin-left: 0pt;">
+<table style="border-collapse: collapse; border: none; width: 468pt;"><colgroup><col width="*"></col></colgroup><tbody>
+<tr style="height: 0pt;"><td style="background-color: #efefef; border-bottom: solid #ffffff 1pt; border-left: solid #ffffff 1pt; border-right: solid #ffffff 1pt; border-top: solid #ffffff 1pt; padding: 5pt 5pt 5pt 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">apiVersion: v1</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">kind: PersistentVolumeClaim</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">metadata:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;name: my-request-for-storage</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">spec:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;accessModes:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;- ReadWriteOnce</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;resources:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;requests:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;storage: 5Gi</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;storageClassName: fast-storage</span></span></div>
+</td></tr>
+</tbody></table>
+</div>
+</span><br />When volume provisioning is invoked, the parameter &#8220;<span style="font-family: Courier New, Courier, monospace;">type: pd-ssd</span>&#8221; is passed to the CSI plugin &#8220;com.example.team/csi-driver&#8221; via a &#8220;<span style="font-family: Courier New, Courier, monospace;">CreateVolume</span>&#8221; call. In response, the external volume plugin provisions a new volume and then automatically create a <span class="" style="font-family: Courier New, Courier, monospace;">PersistentVolume</span> object to represent the new volume. Kubernetes then binds the new <span style="font-family: Courier New, Courier, monospace;">PersistentVolume</span> object to the <span style="font-family: Courier New, Courier, monospace;">PersistentVolumeClaim</span>, making it ready to use.<br /><br />If the &#8220;<span style="font-family: Courier New, Courier, monospace;">fast-storage</span>&#8221; StorageClass is marked default, there is no need to include the <span style="font-family: Courier New, Courier, monospace;">storageClassName&nbsp;</span>in the <span style="font-family: Courier New, Courier, monospace;">PersistentVolumeClaim</span>, it will be used by default.<br /><br /><h3>
+Pre-Provisioned Volumes</h3>
+You can always expose a pre-existing volume in Kubernetes by manually creating a <span style="font-family: Courier New, Courier, monospace;">PersistentVolume</span> object to represent the existing volume. The following <span class="" style="font-family: Courier New, Courier, monospace;">PersistentVolume</span>, for example, exposes a volume with the name &#8220;<span style="font-family: Courier New, Courier, monospace;">existingVolumeName</span>&#8221; belonging to a CSI storage plugin called &#8220;<span style="font-family: Courier New, Courier, monospace;">com.example.team/csi-driver</span>&#8221;.<br /><span id="docs-internal-guid-e552c2b9-c824-32b3-f0d2-5c728d0308d4"><br /><div dir="ltr" style="margin-left: 0pt;">
+<table style="border-collapse: collapse; border: none; width: 468pt;"><colgroup><col width="*"></col></colgroup><tbody>
+<tr style="height: 0pt;"><td style="background-color: #efefef; border-bottom: solid #ffffff 1pt; border-left: solid #ffffff 1pt; border-right: solid #ffffff 1pt; border-top: solid #ffffff 1pt; padding: 5pt 5pt 5pt 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">apiVersion: v1</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">kind: PersistentVolume</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">metadata:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;name: my-manually-created-pv</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">spec:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;capacity:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;storage: 5Gi</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;accessModes:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;- ReadWriteOnce</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;persistentVolumeReclaimPolicy: Retain</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;csi:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;driver: com.example.team/csi-driver</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;volumeHandle: existingVolumeName</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;readOnly: false</span></span></div>
+</td></tr>
+</tbody></table>
+</div>
+</span><br /><h3>
+Attaching and Mounting</h3>
+You can reference a <span style="font-family: Courier New, Courier, monospace;">PersistentVolumeClaim</span> that is bound to a CSI volume in any pod or pod template.<br /><span id="docs-internal-guid-e552c2b9-c824-d7d8-e696-cd257e382583"><span style="font-family: Courier New, Courier, monospace;"><br /></span><div dir="ltr" style="margin-left: 0pt;">
+<table style="border-collapse: collapse; border: none; width: 468pt;"><colgroup><col width="*"></col></colgroup><tbody>
+<tr style="height: 0pt;"><td style="background-color: #efefef; border-bottom: solid #ffffff 1pt; border-left: solid #ffffff 1pt; border-right: solid #ffffff 1pt; border-top: solid #ffffff 1pt; padding: 5pt 5pt 5pt 5pt; vertical-align: top;"><div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">kind: Pod</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">apiVersion: v1</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">metadata:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;name: my-pod</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;">spec:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;containers:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;- name: my-frontend</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image: dockerfile/nginx</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;volumeMounts:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- mountPath: "/var/www/html"</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: my-csi-volume</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;volumes:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;- name: my-csi-volume</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistentVolumeClaim:</span></span></div>
+<div dir="ltr" style="line-height: 1.2; margin-bottom: 0pt; margin-top: 0pt;">
+<span style="background-color: transparent; font-size: 11pt; font-variant-east-asian: normal; font-variant-numeric: normal; vertical-align: baseline; white-space: pre-wrap;"><span style="font-family: Courier New, Courier, monospace;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;claimName: my-request-for-storage</span></span></div>
+</td></tr>
+</tbody></table>
+</div>
+</span><br />When the pod referencing a CSI volume is scheduled, Kubernetes will trigger the appropriate operations against the external CSI plugin (<span style="font-family: Courier New, Courier, monospace;">ControllerPublishVolume</span>, <span style="font-family: Courier New, Courier, monospace;">NodePublishVolume</span>, etc.) to ensure the specified volume is attached, mounted, and ready to use by the containers in the pod.<br /><br />For more details please see the CSI implementation <a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md">design doc</a> and <a href="https://github.com/kubernetes-csi/docs/wiki/Setup">documentation</a>.<br /><br /><h3>
+How do I create a CSI driver?</h3>
+Kubernetes is as minimally prescriptive on the packaging and deployment of a CSI Volume Driver as possible. The minimum requirements for deploying a CSI Volume Driver on Kubernetes are documented <a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#third-party-csi-volume-drivers">here</a>.<br /><br />The minimum requirements document also contains a <a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#recommended-mechanism-for-deploying-csi-drivers-on-kubernetes">section</a> outlining the suggested mechanism for deploying an arbitrary containerized CSI driver on Kubernetes. This mechanism can be used by a Storage Provider to simplify deployment of containerized CSI compatible volume drivers on Kubernetes. <br /><br />As part of this recommended deployment process, the Kubernetes team provides the following sidecar (helper) containers:<br /><br /><ul>
+<li><a href="https://github.com/kubernetes-csi/external-attacher">external-attacher</a></li>
+<ul>
+<li>Sidecar container that watches Kubernetes VolumeAttachment objects and triggers <span style="font-family: Courier New, Courier, monospace;">ControllerPublish</span> and <span style="font-family: Courier New, Courier, monospace;">ControllerUnpublish</span> operations against a CSI endpoint.</li>
+</ul>
+<li><a href="https://github.com/kubernetes-csi/external-provisioner">external-provisioner</a></li>
+<ul>
+<li>Sidecar container that watches Kubernetes <span style="font-family: Courier New, Courier, monospace;">PersistentVolumeClaim</span> objects and triggers <span style="font-family: Courier New, Courier, monospace;">CreateVolume</span> and <span style="font-family: Courier New, Courier, monospace;">DeleteVolume</span> operations against a CSI endpoint.</li>
+</ul>
+<li><a href="https://github.com/kubernetes-csi/driver-registrar">driver-registrar</a></li>
+<ul>
+<li>Sidecar container that registers the CSI driver with kubelet (in the future), and adds the drivers custom <span style="font-family: Courier New, Courier, monospace;">NodeId</span> (retrieved via <span style="font-family: Courier New, Courier, monospace;">GetNodeID</span> call against the CSI endpoint) to an annotation on the Kubernetes Node API Object</li>
+</ul>
+</ul>
+</div>
+<div>
+Storage vendors can build Kubernetes deployments for their plugins using these components, while leaving their CSI driver completely unaware of Kubernetes.<br /><br /><h3>
+Where can I find CSI drivers?</h3>
+CSI drivers are developed and maintained by third-parties. You can find example CSI drivers <a href="https://github.com/kubernetes-csi/drivers">here</a>, but these are provided purely for illustrative purposes, and are not intended to be used for production workloads.</div>
+<div>
+<br /><h3>
+What about Flex?</h3>
+The <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md">Flex Volume plugin</a> exists as an exec based mechanism to create &#8220;out-of-tree&#8221; volume plugins. Although it has some drawbacks (mentioned above), the Flex volume plugin coexists with the new CSI Volume plugin. SIG Storage will continue to maintain the Flex API so that existing third-party Flex drivers (already deployed in production clusters) continue to work. In the future, new volume features will only be added to CSI, not Flex.<br /><br /><h3>
+What will happen to the in-tree volume plugins?</h3>
+Once CSI reaches stability, we plan to migrate most of the in-tree volume plugins to CSI. Stay tuned for more details as the Kubernetes CSI implementation approaches stable.</div>
+<div>
+<br /><h3>
+What are the limitations of alpha?</h3>
+The alpha implementation of CSI has the following limitations:<br /><ul>
+<li>The credential fields in <span style="font-family: Courier New, Courier, monospace;">CreateVolume</span>, <span style="font-family: Courier New, Courier, monospace;">NodePublishVolume</span>, and <span style="font-family: Courier New, Courier, monospace;">ControllerPublishVolume</span> calls are not supported.</li>
+<li>Block volumes are not supported; only file.</li>
+<li>Specifying filesystems is not supported, and defaults to <span style="font-family: Courier New, Courier, monospace;">ext4</span>.</li>
+<li>CSI drivers must be deployed with the provided &#8220;<span style="font-family: Courier New, Courier, monospace;">external-attacher</span>,&#8221; even if they don&#8217;t implement &#8220;<span style="font-family: Courier New, Courier, monospace;">ControllerPublishVolume</span>&#8221;.</li>
+<li>Kubernetes scheduler topology awareness is not supported for CSI volumes: in short, sharing information about where a volume is provisioned (zone, regions, etc.) to allow k8s scheduler to make smarter scheduling decisions.</li>
+</ul>
+<div>
+<br /></div>
+<h3>
+What&#8217;s next?</h3>
+Depending on feedback and adoption, the Kubernetes team plans to push the CSI implementation to beta in either 1.10 or 1.11.<br /><br /><h3>
+How Do I Get Involved?</h3>
+This project, like all of Kubernetes, is the result of hard work by many contributors from diverse backgrounds working together. A huge thank you to Vladimir Vivien (<a href="https://github.com/vladimirvivien">vladimirvivien</a>), Jan Šafránek (<a href="https://github.com/jsafrane">jsafrane</a>), Chakravarthy Nelluri (<a href="https://github.com/chakri-nelluri">chakri-nelluri</a>), Bradley Childs (<a href="https://github.com/childsb">childsb</a>), Luis Pabón (<a href="https://github.com/lpabon">lpabon</a>), and Saad Ali (<a href="https://github.com/saad-ali">saad-ali</a>) for their tireless efforts in bringing CSI to life in Kubernetes.<br /><br />If you&#8217;re interested in getting involved with the design and development of CSI or any part of the Kubernetes Storage system, join the <a href="https://github.com/kubernetes/community/tree/master/sig-storage">Kubernetes Storage Special-Interest-Group</a> (SIG). We&#8217;re rapidly growing and always welcome new contributors.</div>
+</div>
+<div style='clear: both;'></div>
+</div>
+<div class='post-footer'>
+<div class='post-footer-line post-footer-line-1'>
+<span class='post-author vcard'>
+Posted by
+<span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+<meta content='https://www.blogger.com/profile/00141726840828335732' itemprop='url'/>
+<a class='g-profile' href='https://www.blogger.com/profile/00141726840828335732' rel='author' title='author profile'>
+<span itemprop='name'>kbarnard</span>
+</a>
+</span>
+</span>
+<span class='post-timestamp'>
+at
+<meta content='http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html' itemprop='url'/>
+<a class='timestamp-link' href='http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html' rel='bookmark' title='permanent link'><abbr class='published' itemprop='datePublished' title='2018-01-10T09:00:00-08:00'>9:00 AM</abbr></a>
+</span>
+<span class='reaction-buttons'>
+</span>
+<span class='post-comment-link'>
+<a class='comment-link' href='http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html#comment-form' onclick=''>
+No comments:
+    </a>
+</span>
+<span class='post-backlinks post-comment-link'>
+</span>
+<span class='post-icons'>
+<span class='item-control blog-admin pid-1956825343'>
+<a href='https://www.blogger.com/post-edit.g?blogID=112706738355446097&postID=1149372500574051828&from=pencil' title='Edit Post'>
+<img alt='' class='icon-action' height='18' src='https://resources.blogblog.com/img/icon18_edit_allbkg.gif' width='18'/>
+</a>
+</span>
+</span>
+<div class='post-share-buttons goog-inline-block'>
+<a class='goog-inline-block share-button sb-email' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=1149372500574051828&target=email' target='_blank' title='Email This'><span class='share-button-link-text'>Email This</span></a><a class='goog-inline-block share-button sb-blog' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=1149372500574051828&target=blog' onclick='window.open(this.href, "_blank", "height=270,width=475"); return false;' target='_blank' title='BlogThis!'><span class='share-button-link-text'>BlogThis!</span></a><a class='goog-inline-block share-button sb-twitter' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=1149372500574051828&target=twitter' target='_blank' title='Share to Twitter'><span class='share-button-link-text'>Share to Twitter</span></a><a class='goog-inline-block share-button sb-facebook' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=1149372500574051828&target=facebook' onclick='window.open(this.href, "_blank", "height=430,width=640"); return false;' target='_blank' title='Share to Facebook'><span class='share-button-link-text'>Share to Facebook</span></a><a class='goog-inline-block share-button sb-pinterest' href='https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=1149372500574051828&target=pinterest' target='_blank' title='Share to Pinterest'><span class='share-button-link-text'>Share to Pinterest</span></a><div class='goog-inline-block google-plus-share-container'><g:plusone source='blogger:blog:plusone' href='http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html' size='medium' width='300' annotation='inline'/></div>
+</div>
+</div>
+<div class='post-footer-line post-footer-line-2'>
+<span class='post-labels'>
+</span>
+</div>
+<div class='post-footer-line post-footer-line-3'>
+<span class='post-location'>
+</span>
+</div>
+</div>
+</div>
+</div>
+
+        </div></div>
+      
+</div>
+<div class='blog-pager' id='blog-pager'>
+<span id='blog-pager-older-link'>
+<a class='blog-pager-older-link' href='http://blog.kubernetes.io/search?updated-max=2018-01-10T09:00:00-08:00&max-results=7' id='Blog1_blog-pager-older-link' title='Older Posts'>Older Posts</a>
+</span>
+<a class='home-link' href='http://blog.kubernetes.io/'>Home</a>
+</div>
+<div class='clear'></div>
+<div class='blog-feeds'>
+<div class='feed-links'>
+Subscribe to:
+<a class='feed-link' href='http://blog.kubernetes.io/feeds/posts/default' target='_blank' type='application/atom+xml'>Posts (Atom)</a>
+</div>
+</div>
+<script type='text/javascript'>
+    window.___gcfg = { 'lang': 'en' };
+  </script>
+</div></div>
+</div>
+</div>
+<div class='column-left-outer'>
+<div class='column-left-inner'>
+<aside>
+</aside>
+</div>
+</div>
+<div class='column-right-outer'>
+<div class='column-right-inner'>
+<aside>
+<div class='sidebar section' id='sidebar-right-1'><div class='widget Subscribe' data-version='1' id='Subscribe1'>
+<div style='white-space:nowrap'>
+<h2 class='title'>Subscribe To Blog</h2>
+<div class='widget-content'>
+<div class='subscribe-wrapper subscribe-type-POST'>
+<div class='subscribe expanded subscribe-type-POST' id='SW_READER_LIST_Subscribe1POST' style='display:none;'>
+<div class='top'>
+<span class='inner' onclick='return(_SW_toggleReaderList(event, "Subscribe1POST"));'>
+<img class='subscribe-dropdown-arrow' src='https://img2.blogblog.com/img/widgets/arrow_dropdown.gif'/>
+<img align='absmiddle' alt='' border='0' class='feed-icon' src='https://img1.blogblog.com/img/icon_feed12.png'/>
+Posts
+</span>
+<div class='feed-reader-links'>
+<a class='feed-reader-link' href='https://www.netvibes.com/subscribe.php?url=http%3A%2F%2Fblog.kubernetes.io%2Ffeeds%2Fposts%2Fdefault' target='_blank'>
+<img src='https://img1.blogblog.com/img/widgets/subscribe-netvibes.png'/>
+</a>
+<a class='feed-reader-link' href='https://add.my.yahoo.com/content?url=http%3A%2F%2Fblog.kubernetes.io%2Ffeeds%2Fposts%2Fdefault' target='_blank'>
+<img src='https://img1.blogblog.com/img/widgets/subscribe-yahoo.png'/>
+</a>
+<a class='feed-reader-link' href='http://blog.kubernetes.io/feeds/posts/default' target='_blank'>
+<img align='absmiddle' class='feed-icon' src='https://img1.blogblog.com/img/icon_feed12.png'/>
+                  Atom
+                </a>
+</div>
+</div>
+<div class='bottom'></div>
+</div>
+<div class='subscribe' id='SW_READER_LIST_CLOSED_Subscribe1POST' onclick='return(_SW_toggleReaderList(event, "Subscribe1POST"));'>
+<div class='top'>
+<span class='inner'>
+<img class='subscribe-dropdown-arrow' src='https://img2.blogblog.com/img/widgets/arrow_dropdown.gif'/>
+<span onclick='return(_SW_toggleReaderList(event, "Subscribe1POST"));'>
+<img align='absmiddle' alt='' border='0' class='feed-icon' src='https://img1.blogblog.com/img/icon_feed12.png'/>
+Posts
+</span>
+</span>
+</div>
+<div class='bottom'></div>
+</div>
+</div>
+<div class='subscribe-wrapper subscribe-type-COMMENT'>
+<div class='subscribe expanded subscribe-type-COMMENT' id='SW_READER_LIST_Subscribe1COMMENT' style='display:none;'>
+<div class='top'>
+<span class='inner' onclick='return(_SW_toggleReaderList(event, "Subscribe1COMMENT"));'>
+<img class='subscribe-dropdown-arrow' src='https://img2.blogblog.com/img/widgets/arrow_dropdown.gif'/>
+<img align='absmiddle' alt='' border='0' class='feed-icon' src='https://img1.blogblog.com/img/icon_feed12.png'/>
+All Comments
+</span>
+<div class='feed-reader-links'>
+<a class='feed-reader-link' href='https://www.netvibes.com/subscribe.php?url=http%3A%2F%2Fblog.kubernetes.io%2Ffeeds%2Fcomments%2Fdefault' target='_blank'>
+<img src='https://img1.blogblog.com/img/widgets/subscribe-netvibes.png'/>
+</a>
+<a class='feed-reader-link' href='https://add.my.yahoo.com/content?url=http%3A%2F%2Fblog.kubernetes.io%2Ffeeds%2Fcomments%2Fdefault' target='_blank'>
+<img src='https://img1.blogblog.com/img/widgets/subscribe-yahoo.png'/>
+</a>
+<a class='feed-reader-link' href='http://blog.kubernetes.io/feeds/comments/default' target='_blank'>
+<img align='absmiddle' class='feed-icon' src='https://img1.blogblog.com/img/icon_feed12.png'/>
+                  Atom
+                </a>
+</div>
+</div>
+<div class='bottom'></div>
+</div>
+<div class='subscribe' id='SW_READER_LIST_CLOSED_Subscribe1COMMENT' onclick='return(_SW_toggleReaderList(event, "Subscribe1COMMENT"));'>
+<div class='top'>
+<span class='inner'>
+<img class='subscribe-dropdown-arrow' src='https://img2.blogblog.com/img/widgets/arrow_dropdown.gif'/>
+<span onclick='return(_SW_toggleReaderList(event, "Subscribe1COMMENT"));'>
+<img align='absmiddle' alt='' border='0' class='feed-icon' src='https://img1.blogblog.com/img/icon_feed12.png'/>
+All Comments
+</span>
+</span>
+</div>
+<div class='bottom'></div>
+</div>
+</div>
+<div style='clear:both'></div>
+</div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=112706738355446097&widgetType=Subscribe&widgetId=Subscribe1&action=editWidget&sectionId=sidebar-right-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("Subscribe1"));' target='configSubscribe1' title='Edit'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' data-version='1' id='HTML2'>
+<div class='widget-content'>
+<a class="widget-link" href="https://twitter.com/kubernetesio"><span class="fa fa-twitter"></span>@Kubernetesio</a>
+<a class="widget-link" href="https://github.com/kubernetes/kubernetes"><span class="fa fa-github"></span>View on GitHub</a>
+<a class="widget-link" href="http://slack.k8s.io/"><span class="fa fa-slack"></span>#kubernetes-users</a>
+<a class="widget-link" href="http://stackoverflow.com/questions/tagged/kubernetes"><span class="fa fa-stack-overflow"></span>Stack Overflow</a>
+<a class="widget-link" href="http://get.k8s.io/"><span class="fa fa-stack-overflow"></span>Download Kubernetes</a>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=112706738355446097&widgetType=HTML&widgetId=HTML2&action=editWidget&sectionId=sidebar-right-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML2"));' target='configHTML2' title='Edit'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget BlogArchive' data-version='1' id='BlogArchive1'>
+<h2>Blog Archive</h2>
+<div class='widget-content'>
+<div id='ArchiveList'>
+<div id='BlogArchive1_ArchiveList'>
+<ul class='hierarchy'>
+<li class='archivedate expanded'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy toggle-open'>
+
+        &#9660;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2018/'>
+2018
+</a>
+<span class='post-count' dir='ltr'>(5)</span>
+<ul class='hierarchy'>
+<li class='archivedate expanded'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy toggle-open'>
+
+        &#9660;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2018/01/'>
+January
+</a>
+<span class='post-count' dir='ltr'>(5)</span>
+<ul class='posts'>
+<li><a href='http://blog.kubernetes.io/2018/01/introducing-client-go-version-6.html'>Introducing client-go version 6</a></li>
+<li><a href='http://blog.kubernetes.io/2018/01/extensible-admission-is-beta.html'>Extensible Admission is Beta</a></li>
+<li><a href='http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html'>Introducing Container Storage Interface (CSI) Alph...</a></li>
+<li><a href='http://blog.kubernetes.io/2018/01/kubernetes-v19-beta-windows-support.html'>Kubernetes v1.9 releases beta support for Windows ...</a></li>
+<li><a href='http://blog.kubernetes.io/2018/01/five-days-of-kubernetes-19.html'>Five Days of Kubernetes 1.9</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2017/'>
+2017
+</a>
+<span class='post-count' dir='ltr'>(53)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2017/12/'>
+December
+</a>
+<span class='post-count' dir='ltr'>(4)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2017/11/'>
+November
+</a>
+<span class='post-count' dir='ltr'>(6)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2017/10/'>
+October
+</a>
+<span class='post-count' dir='ltr'>(8)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2017/09/'>
+September
+</a>
+<span class='post-count' dir='ltr'>(4)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2017/08/'>
+August
+</a>
+<span class='post-count' dir='ltr'>(3)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2017/07/'>
+July
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2017/06/'>
+June
+</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2017/05/'>
+May
+</a>
+<span class='post-count' dir='ltr'>(5)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2017/04/'>
+April
+</a>
+<span class='post-count' dir='ltr'>(3)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2017/03/'>
+March
+</a>
+<span class='post-count' dir='ltr'>(6)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2017/02/'>
+February
+</a>
+<span class='post-count' dir='ltr'>(5)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2017/01/'>
+January
+</a>
+<span class='post-count' dir='ltr'>(6)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2016/'>
+2016
+</a>
+<span class='post-count' dir='ltr'>(91)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2016/12/'>
+December
+</a>
+<span class='post-count' dir='ltr'>(8)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2016/11/'>
+November
+</a>
+<span class='post-count' dir='ltr'>(6)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2016/10/'>
+October
+</a>
+<span class='post-count' dir='ltr'>(7)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2016/09/'>
+September
+</a>
+<span class='post-count' dir='ltr'>(7)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2016/08/'>
+August
+</a>
+<span class='post-count' dir='ltr'>(6)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2016/07/'>
+July
+</a>
+<span class='post-count' dir='ltr'>(19)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2016/06/'>
+June
+</a>
+<span class='post-count' dir='ltr'>(3)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2016/05/'>
+May
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2016/04/'>
+April
+</a>
+<span class='post-count' dir='ltr'>(9)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2016/03/'>
+March
+</a>
+<span class='post-count' dir='ltr'>(13)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2016/02/'>
+February
+</a>
+<span class='post-count' dir='ltr'>(7)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2016/01/'>
+January
+</a>
+<span class='post-count' dir='ltr'>(4)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2015/'>
+2015
+</a>
+<span class='post-count' dir='ltr'>(44)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2015/12/'>
+December
+</a>
+<span class='post-count' dir='ltr'>(3)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2015/11/'>
+November
+</a>
+<span class='post-count' dir='ltr'>(5)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2015/10/'>
+October
+</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2015/09/'>
+September
+</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2015/08/'>
+August
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2015/07/'>
+July
+</a>
+<span class='post-count' dir='ltr'>(7)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2015/06/'>
+June
+</a>
+<span class='post-count' dir='ltr'>(4)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2015/05/'>
+May
+</a>
+<span class='post-count' dir='ltr'>(8)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2015/04/'>
+April
+</a>
+<span class='post-count' dir='ltr'>(9)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://blog.kubernetes.io/2015/03/'>
+March
+</a>
+<span class='post-count' dir='ltr'>(4)</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=112706738355446097&widgetType=BlogArchive&widgetId=BlogArchive1&action=editWidget&sectionId=sidebar-right-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("BlogArchive1"));' target='configBlogArchive1' title='Edit'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div><div class='widget HTML' data-version='1' id='HTML1'>
+<div class='widget-content'>
+<script>
+
+(function(){
+	window.addEventListener("DOMContentLoaded", init);
+
+	function init(){
+		window.removeEventListener("DOMContentLoaded", init);
+
+		var yah = location.href;
+		var archiveLinks = document.querySelectorAll(".widget.BlogArchive a");
+
+		for (var i = 0; i < archiveLinks.length; i++) {
+			var thisLink = archiveLinks[i];
+			if (thisLink.href == yah) {
+				thisLink.style.color = "black";
+			}
+		}
+	}
+})();
+
+</script>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=112706738355446097&widgetType=HTML&widgetId=HTML1&action=editWidget&sectionId=sidebar-right-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML1"));' target='configHTML1' title='Edit'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div></div>
+</aside>
+</div>
+</div>
+</div>
+<div style='clear: both'></div>
+<!-- columns -->
+</div>
+<!-- main -->
+</div>
+</div>
+<div class='main-cap-bottom cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+<footer>
+<div class='footer-outer'>
+<div class='footer-cap-top cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left footer-fauxborder-left'>
+<div class='fauxborder-right footer-fauxborder-right'></div>
+<div class='region-inner footer-inner'>
+<div class='foot no-items section' id='footer-1'></div>
+<table border='0' cellpadding='0' cellspacing='0' class='section-columns columns-2'>
+<tbody>
+<tr>
+<td class='first columns-cell'>
+<div class='foot no-items section' id='footer-2-1'></div>
+</td>
+<td class='columns-cell'>
+<div class='foot no-items section' id='footer-2-2'></div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- outside of the include in order to lock Attribution widget -->
+<div class='foot section' id='footer-3' name='Footer'><div class='widget Attribution' data-version='1' id='Attribution1'>
+<div class='widget-content' style='text-align: center;'>
+Simple theme. Powered by <a href='https://www.blogger.com' target='_blank'>Blogger</a>.
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=112706738355446097&widgetType=Attribution&widgetId=Attribution1&action=editWidget&sectionId=footer-3' onclick='return _WidgetManager._PopupConfig(document.getElementById("Attribution1"));' target='configAttribution1' title='Edit'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div></div>
+</div>
+</div>
+<div class='footer-cap-bottom cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+</footer>
+<!-- content -->
+</div>
+</div>
+<div class='content-cap-bottom cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+</div>
+<script type='text/javascript'>
+    window.setTimeout(function() {
+        document.body.className = document.body.className.replace('loading', '');
+      }, 10);
+  </script>
+</div>
+<!-- /end of total-page-wrapper -->
+<script src='https://apis.google.com/js/plusone.js' type='text/javascript'></script>
+
+<script type="text/javascript" src="https://www.blogger.com/static/v1/widgets/3538524853-widgets.js"></script>
+<script type='text/javascript'>
+window['__wavt'] = 'AOuZoY7AkYllbhl_eoBmKnkxYFsBcg_KSQ:1515805638016';_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d112706738355446097','//blog.kubernetes.io/','112706738355446097');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'blogId': '112706738355446097', 'title': 'Kubernetes', 'url': 'http://blog.kubernetes.io/', 'canonicalUrl': 'http://blog.kubernetes.io/', 'homepageUrl': 'http://blog.kubernetes.io/', 'searchUrl': 'http://blog.kubernetes.io/search', 'canonicalHomepageUrl': 'http://blog.kubernetes.io/', 'blogspotFaviconUrl': 'http://blog.kubernetes.io/favicon.ico', 'bloggerUrl': 'https://www.blogger.com', 'hasCustomDomain': true, 'httpsEnabled': false, 'enabledCommentProfileImages': true, 'gPlusViewType': 'FILTERED_POSTMOD', 'adultContent': false, 'analyticsAccountNumber': 'UA-98841695-2', 'encoding': 'UTF-8', 'locale': 'en', 'localeUnderscoreDelimited': 'en', 'languageDirection': 'ltr', 'isPrivate': false, 'isMobile': false, 'isMobileRequest': false, 'mobileClass': '', 'isPrivateBlog': false, 'feedLinks': '\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22Kubernetes - Atom\x22 href\x3d\x22http://blog.kubernetes.io/feeds/posts/default\x22 /\x3e\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/rss+xml\x22 title\x3d\x22Kubernetes - RSS\x22 href\x3d\x22http://blog.kubernetes.io/feeds/posts/default?alt\x3drss\x22 /\x3e\n\x3clink rel\x3d\x22service.post\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22Kubernetes - Atom\x22 href\x3d\x22https://www.blogger.com/feeds/112706738355446097/posts/default\x22 /\x3e\n', 'meTag': '', 'openIdOpTag': '\x3clink rel\x3d\x22openid.server\x22 href\x3d\x22https://www.blogger.com/openid-server.g\x22 /\x3e\n\x3clink rel\x3d\x22openid.delegate\x22 href\x3d\x22http://blog.kubernetes.io/\x22 /\x3e\n', 'adsenseHostId': 'ca-host-pub-1556223355139109', 'adsenseHasAds': false, 'ieCssRetrofitLinks': '\x3c!--[if IE]\x3e\x3cscript type\x3d\x22text/javascript\x22 src\x3d\x22https://www.blogger.com/static/v1/jsbin/771816573-ieretrofit.js\x22\x3e\x3c/script\x3e\n\x3c![endif]--\x3e', 'view': '', 'dynamicViewsCommentsSrc': '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js', 'dynamicViewsScriptSrc': '//www.blogblog.com/dynamicviews/1e5097b803aa99ac', 'plusOneApiSrc': 'https://apis.google.com/js/plusone.js', 'sharing': {'platforms': [{'name': 'Get link', 'key': 'link', 'shareMessage': 'Get link', 'target': ''}, {'name': 'Facebook', 'key': 'facebook', 'shareMessage': 'Share to Facebook', 'target': 'facebook'}, {'name': 'BlogThis!', 'key': 'blogThis', 'shareMessage': 'BlogThis!', 'target': 'blog'}, {'name': 'Twitter', 'key': 'twitter', 'shareMessage': 'Share to Twitter', 'target': 'twitter'}, {'name': 'Pinterest', 'key': 'pinterest', 'shareMessage': 'Share to Pinterest', 'target': 'pinterest'}, {'name': 'Google+', 'key': 'googlePlus', 'shareMessage': 'Share to Google+', 'target': 'googleplus'}, {'name': 'Email', 'key': 'email', 'shareMessage': 'Email', 'target': 'email'}], 'googlePlusShareButtonWidth': 300, 'googlePlusBootstrap': '\x3cscript type\x3d\x22text/javascript\x22\x3ewindow.___gcfg \x3d {\x27lang\x27: \x27en\x27};\x3c/script\x3e'}, 'hasCustomJumpLinkMessage': false, 'jumpLinkMessage': 'Read more', 'pageType': 'index', 'pageName': '', 'pageTitle': 'Kubernetes', 'metaDescription': 'The official Kubernetes blog.'}}, {'name': 'features', 'data': {'lazy_images': 'false', 'unsupported_browser_message': 'false', 'sharing_get_link_dialog': 'true', 'sharing_native': 'false'}}, {'name': 'messages', 'data': {'edit': 'Edit', 'linkCopiedToClipboard': 'Link copied to clipboard!', 'ok': 'Ok', 'postLink': 'Post Link'}}, {'name': 'template', 'data': {'name': 'custom', 'localizedName': 'Custom', 'isResponsive': false, 'isAlternateRendering': false, 'isCustom': true, 'variant': 'simplysimple', 'variantId': 'simplysimple'}}, {'name': 'view', 'data': {'classic': {'name': 'classic', 'url': '?view\x3dclassic'}, 'flipcard': {'name': 'flipcard', 'url': '?view\x3dflipcard'}, 'magazine': {'name': 'magazine', 'url': '?view\x3dmagazine'}, 'mosaic': {'name': 'mosaic', 'url': '?view\x3dmosaic'}, 'sidebar': {'name': 'sidebar', 'url': '?view\x3dsidebar'}, 'snapshot': {'name': 'snapshot', 'url': '?view\x3dsnapshot'}, 'timeslide': {'name': 'timeslide', 'url': '?view\x3dtimeslide'}, 'isMobile': false, 'title': 'Kubernetes', 'description': 'The official Kubernetes blog.', 'url': 'http://blog.kubernetes.io/', 'type': 'feed', 'isSingleItem': false, 'isMultipleItems': true, 'isError': false, 'isPage': false, 'isPost': false, 'isHomepage': true, 'isArchive': false, 'isLabelSearch': false}}]);
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'header', null, document.getElementById('Header1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'main', null, document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'useNgc': false, 'lightboxEnabled': true, 'lightboxModuleUrl': 'https://www.blogger.com/static/v1/jsbin/2508499427-lbx.js', 'lightboxCssUrl': 'https://www.blogger.com/static/v1/v-css/368954415-lightbox_bundle.css'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_SubscribeView', new _WidgetInfo('Subscribe1', 'sidebar-right-1', null, document.getElementById('Subscribe1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML2', 'sidebar-right-1', null, document.getElementById('HTML2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebar-right-1', null, document.getElementById('BlogArchive1'), {'languageDirection': 'ltr', 'loadingMessage': 'Loading\x26hellip;'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML1', 'sidebar-right-1', null, document.getElementById('HTML1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AttributionView', new _WidgetInfo('Attribution1', 'footer-3', null, document.getElementById('Attribution1'), {}, 'displayModeFull'));
+</script>
+</body>
+</html>
