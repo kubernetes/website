@@ -9,7 +9,7 @@ This page shows a couple of quick ways to create a Calico cluster on Kubernetes.
 {% endcapture %}
 
 {% capture prerequisites %}
-Decide whether you want to deploy a cloud or a local cluster.
+Decide whether you want to deploy a [cloud](#creating-a-calico-cluster-with-google-kubernetes-engine-gke) or [local](#creating-a-local-calico-cluster-with-kubeadm) cluster.
 {% endcapture %}
 
 {% capture steps %}
