@@ -54,7 +54,7 @@ To enable clients to build a model of the current state of a cluster, all Kubern
 
 For example:
 
-1. List all of the pods in a given namespace
+1. List all of the pods in a given namespace.
 
         GET /api/v1/namespaces/test/pods
         ---
@@ -67,7 +67,7 @@ For example:
           "items": [...]
         }
 
-2. Starting from resource version 10245, receive notifications of any creates, deletes, or updates as individual JSON objects
+2. Starting from resource version 10245, receive notifications of any creates, deletes, or updates as individual JSON objects.
 
         GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245
         ---
@@ -84,8 +84,7 @@ For example:
         }
         ...
 
-A given Kubernetes server will only preserve a historical list of changes for a limited time. On older clusters using etcd2 a maximum of 1000 changes will be preserved and on newer clusters using etcd3 changes in the last 5 minutes are preserved by default.  Clients must handle the case where the requested watch operations fails because the historical version of that resource is not available by recognizing the status code `410 Gone`, clearing their local cache, performing a list operation, and starting the watch from the `resourceVersion` returned by that new list operation. Most client libraries offer some form of standard tool for this logic (in Go this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package).
-
+A given Kubernetes server will only preserve a historical list of changes for a limited time. Older clusters using etcd2 preserve a maximum of 1000 changes. Newer clusters using etcd3 preserve changes in the last 5 minutes by default.  When the requested watch operations fail because the historical version of that resource is not available, clients must handle the case by recognizing the status code `410 Gone`, clearing their local cache, performing a list operation, and starting the watch from the `resourceVersion` returned by that new list operation. Most client libraries offer some form of standard tool for this logic. (In Go this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package.)
 
 ## Retrieving large results sets in chunks
 
@@ -95,9 +94,9 @@ To retrieve a single list in chunks, two new parameters `limit` and `continue` a
 
 Like a watch operation, a `continue` token will expire after a short amount of time (by default 5 minutes) and return a `410 Gone` if more results cannot be returned. In this case, the client will need to start from the beginning or omit the `limit` parameter.
 
-For example, if there are 1253 pods on the cluster, and the client wants to receive chunks of 500 pods at a time, they would request those chunks as follows:
+For example, if there are 1,253 pods on the cluster and the client wants to receive chunks of 500 pods at a time, they would request those chunks as follows:
 
-1. List all of the pods on a cluster, retrieving up to 500 pods each time
+1. List all of the pods on a cluster, retrieving up to 500 pods each time.
 
         GET /api/v1/pods?limit=500
         ---
@@ -114,7 +113,7 @@ For example, if there are 1253 pods on the cluster, and the client wants to rece
           "items": [...] // returns pods 1-500
         }
 
-2. Continue the previous call, retrieving the next set of 500 pods
+2. Continue the previous call, retrieving the next set of 500 pods.
 
         GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN
         ---
@@ -131,7 +130,7 @@ For example, if there are 1253 pods on the cluster, and the client wants to rece
           "items": [...] // returns pods 501-1000
         }
 
-3. Continue the previous call, retrieving the last 253 pods
+3. Continue the previous call, retrieving the last 253 pods.
 
         GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN_2
         ---
@@ -153,13 +152,13 @@ Note that the `resourceVersion` of the list remains constant across each request
 
 ## Alternate representations of resources
 
-By default Kubernetes returns objects serialized to JSON with content type `application/json`. This is the default serialization format for the API. However, clients may request the more efficient Protobuf representation of these objects for better performance at scale. The Kubernetes API implements standard HTTP content type negotation - passing an `Accept` header with a `GET` call will request that the server return objects in the provided content type, while sending an object in Protobuf to the server for a `PUT` or `POST` call takes the `Content-Type` header. The server will return a `Content-Type` header if the requested format is supported, or the `406 Not acceptable` error if an invalid content type is provided.
+By default Kubernetes returns objects serialized to JSON with content type `application/json`. This is the default serialization format for the API. However, clients may request the more efficient Protobuf representation of these objects for better performance at scale. The Kubernetes API implements standard HTTP content type negotation: passing an `Accept` header with a `GET` call will request that the server return objects in the provided content type, while sending an object in Protobuf to the server for a `PUT` or `POST` call takes the `Content-Type` header. The server will return a `Content-Type` header if the requested format is supported, or the `406 Not acceptable` error if an invalid content type is provided.
 
 See the API documentation for a list of supported content types for each API.
 
 For example:
 
-1. List all of the pods on a cluster in Protobuf format
+1. List all of the pods on a cluster in Protobuf format.
 
         GET /api/v1/pods
         Accept: application/vnd.kubernetes.protobuf
@@ -168,7 +167,7 @@ For example:
         Content-Type: application/vnd.kubernetes.protobuf
         ... binary encoded PodList object
 
-2. Create a pod by sending Protobuf encoded data to the server, but request a response in JSON
+2. Create a pod by sending Protobuf encoded data to the server, but request a response in JSON.
 
         POST /api/v1/namespaces/test/pods
         Content-Type: application/vnd.kubernetes.protobuf
@@ -224,8 +223,7 @@ An encoded Protobuf message with the following IDL:
   }
 ```
 
-Clients that receive a response in `application/vnd.kubernetes.protobuf` that does not match the expected prefix should reject the response since
-future versions may need to alter the serialization format in an incompatible way, and will do so by changing the prefix.
+Clients that receive a response in `application/vnd.kubernetes.protobuf` that does not match the expected prefix should reject the response, as future versions may need to alter the serialization format in an incompatible way and will do so by changing the prefix.
 
 {% endcapture %}
 
