@@ -7,7 +7,7 @@ title: Pods
 {:toc}
 
 
-_pods_ are the smallest deployable units of computing that can be created and
+_Pods_ are the smallest deployable units of computing that can be created and
 managed in Kubernetes.
 
 ## What is a Pod?
