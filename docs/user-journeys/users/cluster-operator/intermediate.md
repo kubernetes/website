@@ -14,15 +14,6 @@ If you're a cluster operator looking to expand your grasp of Kubernetes, this pa
 
 {% endcapture %}
 
-<!--
-Intermediate
-External services & Endpoints
-Autoscaling, taints, and tolerations to limit/expose resources in a cluster
-Ingress management
-External service discovery mechanisms/service broker
-Stateful sets, operators, Persistent Volume Claims
--->
-
 {% capture body %}
 
 ## Work with Ingress, Networking, Storage, Workloads
@@ -71,37 +62,46 @@ In Kubernetes, you configure access control:
 * [Authenticating](/docs/admin/authentication/)
 * [Using Admission Controllers](/docs/admin/admission-controllers/)
 
-You also configure authorization. That is, you determine not just how users and services authenticate to the API server, or whether they have access, but also what resources they have access to. Role-based access control (RBAC) is currently the recommended mechanism for controlling authorization to Kubernetes resources. Other authorization modes are available for more specific use cases. 
+You also configure authorization. That is, you determine not just how users and services authenticate to the API server, or whether they have access, but also what resources they have access to. Role-based access control (RBAC) is currently the recommended mechanism for controlling authorization to Kubernetes resources. Other authorization modes are available for more specific use cases.
 
-* [Authorization Overview](https://kubernetes.io/docs/admin/authorization/)
+* [Authorization Overview](/docs/admin/authorization/)
 * [Using RBAC Authorization](/docs/admin/authorization/rbac/)
 
 You should create Secrets to hold sensitive data such as passwords, tokens, or keys. Be aware, however, that there are limitations to the protections that a Secret can provide. See [the Risks section of the Secrets documentation](/docs/concepts/configuration/secret/#risks).
 
-TODO: Other security content?
+<!-- TODO: Other security content? -->
 
 ## Implement custom logging and monitoring
 
-Monitoring the health and state of your cluster is important. Kubernetes provides some basic logging structure, but you will almost certainly need third-party tools to help aggregate and analyze log data.
+Monitoring the health and state of your cluster is important. Collecting metrics, logging, and providing access to that information are common needs. Kubernetes provides some basic logging structure, but you will almost certainly want to use additional tools to help aggregate and analyze log data.
 
-Start with the [basics on Kubernetes logging](docs/concepts/cluster-administration/logging/).
+Start with the [basics on Kubernetes logging](/docs/concepts/cluster-administration/logging/) to understand how containers do logging and common patterns. You will probably want to add something to gather and aggregate those logs. See the following topics:
 
-You'll need to add tooling to support log capture and more. See the following topics:
+* [Logging Using Elasticsearch and Kibana](/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)
+* [Logging Using Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/)
 
-* [Logging Using Elasticsearch and Kibana](docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)
+Like log aggregation, many clusters utilize additional software to help capture metrics and display them. There is an overview at of tools at [Tools for Monitoring Compute, Storage, and Network Resources](/docs/tasks/debug-application-cluster/resource-usage-monitoring/).
+Kubernetes also supports a [core metrics pipeline](/docs/tasks/debug-application-cluster/core-metrics-pipeline/) which can be used by Horizontal Pod Autoscaler with custom metrics.
 
-Other third-party tools to support metrics capture, trends, and monitoring include:
+[Prometheus](https://prometheus.io/), which is another CNCF project, is a common choice to support capture and temporary collection of metrics. There are several options to installing Prometheus, including using the [stable/prometheus](https://github.com/kubernetes/charts/tree/master/stable/prometheus) [helm](https://helm.sh/) chart, and CoreOS provides a [prometheus operator](https://github.com/coreos/prometheus-operator) and [kube-prometheus](https://github.com/coreos/prometheus-operator/tree/master/contrib/kube-prometheus) which adds on Grafana dashboards and common configurations.
 
-* Prometheus
-* Influxdb
-* Datadog
+A common configuration on [minikube](https://github.com/kubernetes/minikube) and some kubernetes clusters used [Heapster](https://github.com/kubernetes/heapster)
+[along with InfluxDB and Grafana](https://github.com/kubernetes/heapster/blob/master/docs/influxdb.md).
+There is a [walkthrough of how to install this configuration in your cluster](https://blog.kublr.com/how-to-utilize-the-heapster-influxdb-grafana-stack-in-kubernetes-for-monitoring-pods-4a553f4d36c9).
+As of Kubernetes 1.9, the [sig-instrumentation](https://github.com/kubernetes/community/tree/master/sig-instrumentation) team is shifting away from an all-inclusive monitoring pattern with heapster, described in [Prometheus vs. Heapster vs. Kubernetes Metrics APIs](https://brancz.com/2018/01/05/prometheus-vs-heapster-vs-kubernetes-metrics-apis/).
 
-<!--Ancillary tooling to support distributed performance analysis -- does this maybe belong in advanced?
-? Opentracing, jaeger, zipkin-->
+Hosted data analytics services such as [Datadog](https://docs.datadoghq.com/integrations/kubernetes/) also offer Kubernetes integration.
 
 ## Additional resources
 
-TODO
+Cluster Administration:
+
+* [Troubleshoot Clusters](/docs/tasks/debug-application-cluster/debug-cluster/)
+* [Debug Pods and Replication Controllers](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/)
+* [Debug Init Containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* [Debug Stateful Sets](/docs/tasks/debug-application-cluster/debug-stateful-set/)
+* [Debug Applications](/docs/tasks/debug-application-cluster/debug-application/)
+* [Using explorer to investigate your cluster](https://github.com/kubernetes/examples/blob/master/staging/explorer/README.md)
 
 {% endcapture %}
 
