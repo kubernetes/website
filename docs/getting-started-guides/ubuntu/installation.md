@@ -169,18 +169,18 @@ mkdir -p ~/.kube
 Copy the kubeconfig file to the default location.
 
 ```
-juju scp kubernetes-master/0:config ~/.kube/config
+sudo juju scp kubernetes-master/0:/home/ubuntu/config ~/.kube/config
 ```
 
-Fetch a binary for the architecture you have deployed. If your client is a
-different architecture you will need to get the appropriate `kubectl` binary
-through other means. In this example we copy kubectl to `~/bin` for convenience,
-by default this should be in your $PATH.
+The next step is to install the kubectl client on your local machine. The recommended way to do this on Ubuntu is using the kubectl snap ([https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu)).
+
+The following command should be run on the machine you wish to use to control the kubernetes cluster: 
 
 ```
-mkdir -p ~/bin
-juju scp kubernetes-master/0:kubectl ~/bin/kubectl
+sudo snap install kubectl --classic
 ```
+
+This will install and deploy the kubectl binary. You may need to restart your terminal as your $PATH may have been updated.
 
 Query the cluster:
 
