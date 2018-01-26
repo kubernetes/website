@@ -179,7 +179,7 @@ Appears In:
 </tr>
 <tr>
 <td>ports <br /> <em><a href="#containerport-v1-core">ContainerPort</a> array</em>  <br /> <strong>patch type</strong>: <em>merge</em>  <br /> <strong>patch merge key</strong>: <em>containerPort</em></td>
-<td>List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default &quot;0.0.0.0&quot; address inside a container will be accessible from the network. Cannot be updated.</td>
+<td>List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default &#34;0.0.0.0&#34; address inside a container will be accessible from the network. Cannot be updated.</td>
 </tr>
 <tr>
 <td>readinessProbe <br /> <em><a href="#probe-v1-core">Probe</a></em></td>
@@ -245,7 +245,7 @@ Appears In:
 <tbody>
 <tr>
 <td>containerID <br /> <em>string</em></td>
-<td>Container&#39;s ID in the format &#39;docker://<container_id>&#39;.</td>
+<td>Container&#39;s ID in the format &#39;docker://&lt;container_id&gt;&#39;.</td>
 </tr>
 <tr>
 <td>image <br /> <em>string</em></td>
@@ -354,7 +354,7 @@ Appears In:
 <tbody>
 <tr>
 <td>concurrencyPolicy <br /> <em>string</em></td>
-<td>Specifies how to treat concurrent executions of a Job. Valid values are: - &quot;Allow&quot; (default): allows CronJobs to run concurrently; - &quot;Forbid&quot;: forbids concurrent runs, skipping next run if previous run hasn&#39;t finished yet; - &quot;Replace&quot;: cancels currently running job and replaces it with a new one</td>
+<td>Specifies how to treat concurrent executions of a Job. Valid values are: - &#34;Allow&#34; (default): allows CronJobs to run concurrently; - &#34;Forbid&#34;: forbids concurrent runs, skipping next run if previous run hasn&#39;t finished yet; - &#34;Replace&#34;: cancels currently running job and replaces it with a new one</td>
 </tr>
 <tr>
 <td>failedJobsHistoryLimit <br /> <em>integer</em></td>
@@ -520,16 +520,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -712,12 +712,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -1774,12 +1774,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#cronjob-v1beta1-batch">CronJob</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -2235,16 +2235,16 @@ spec:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -2427,12 +2427,12 @@ spec:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -3498,12 +3498,12 @@ $ curl -X GET http:<span class="hljs-regexp">//</span><span class="hljs-number">
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#daemonset-v1-apps">DaemonSet</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -3763,7 +3763,7 @@ Appears In:
 </tr>
 <tr>
 <td>type <br /> <em>string</em></td>
-<td>Type of deployment. Can be &quot;Recreate&quot; or &quot;RollingUpdate&quot;. Default is RollingUpdate.</td>
+<td>Type of deployment. Can be &#34;Recreate&#34; or &#34;RollingUpdate&#34;. Default is RollingUpdate.</td>
 </tr>
 </tbody>
 </table>
@@ -3785,7 +3785,7 @@ Appears In:
 <tbody>
 <tr>
 <td>maxSurge</td>
-<td>The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new RC can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.</td>
+<td>The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new RC can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be scaled up further, ensuring that total number of pods running at any time during the update is atmost 130% of desired pods.</td>
 </tr>
 <tr>
 <td>maxUnavailable</td>
@@ -5979,12 +5979,12 @@ $</span><span class="bash"> kubectl proxy</span>
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#deployment-v1-apps">Deployment</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#deployment-v1-apps">Deployment</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#deployment-v1-apps">Deployment</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -8135,7 +8135,7 @@ Appears In:
 </tr>
 <tr>
 <td>dnsPolicy <br /> <em>string</em></td>
-<td>Set DNS policy for the pod. Defaults to &quot;ClusterFirst&quot;. Valid values are &#39;ClusterFirstWithHostNet&#39;, &#39;ClusterFirst&#39;, &#39;Default&#39; or &#39;None&#39;. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to &#39;ClusterFirstWithHostNet&#39;. Note that &#39;None&#39; policy is an alpha feature introduced in v1.9 and CustomPodDNS feature gate must be enabled to use it.</td>
+<td>Set DNS policy for the pod. Defaults to &#34;ClusterFirst&#34;. Valid values are &#39;ClusterFirstWithHostNet&#39;, &#39;ClusterFirst&#39;, &#39;Default&#39; or &#39;None&#39;. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to &#39;ClusterFirstWithHostNet&#39;. Note that &#39;None&#39; policy is an alpha feature introduced in v1.9 and CustomPodDNS feature gate must be enabled to use it.</td>
 </tr>
 <tr>
 <td>hostAliases <br /> <em><a href="#hostalias-v1-core">HostAlias</a> array</em>  <br /> <strong>patch type</strong>: <em>merge</em>  <br /> <strong>patch merge key</strong>: <em>ip</em></td>
@@ -8179,7 +8179,7 @@ Appears In:
 </tr>
 <tr>
 <td>priorityClassName <br /> <em>string</em></td>
-<td>If specified, indicates the pod&#39;s priority. &quot;SYSTEM&quot; is a special keyword which indicates the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.</td>
+<td>If specified, indicates the pod&#39;s priority. &#34;SYSTEM&#34; is a special keyword which indicates the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.</td>
 </tr>
 <tr>
 <td>restartPolicy <br /> <em>string</em></td>
@@ -8203,7 +8203,7 @@ Appears In:
 </tr>
 <tr>
 <td>subdomain <br /> <em>string</em></td>
-<td>If specified, the fully qualified Pod hostname will be &quot;<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>&quot;. If not specified, the pod will not have a domainname at all.</td>
+<td>If specified, the fully qualified Pod hostname will be &#34;&lt;hostname&gt;.&lt;subdomain&gt;.&lt;pod namespace&gt;.svc.&lt;cluster domain&gt;&#34;. If not specified, the pod will not have a domainname at all.</td>
 </tr>
 <tr>
 <td>terminationGracePeriodSeconds <br /> <em>integer</em></td>
@@ -9643,12 +9643,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#pod-v1-core">Pod</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#pod-v1-core">Pod</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#pod-v1-core">Pod</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -12765,12 +12765,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#replicaset-v1-apps">ReplicaSet</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#replicaset-v1-apps">ReplicaSet</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#replicaset-v1-apps">ReplicaSet</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -13068,16 +13068,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#replicationcontroller-v1-core">ReplicationController</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#replicationcontroller-v1-core">ReplicationController</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#replicationcontroller-v1-core">ReplicationController</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#replicationcontroller-v1-core">ReplicationController</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -14429,7 +14429,7 @@ Appears In:
 </tr>
 <tr>
 <td>serviceName <br /> <em>string</em></td>
-<td>serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &quot;pod-specific-string&quot; is managed by the StatefulSet controller.</td>
+<td>serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &#34;pod-specific-string&#34; is managed by the StatefulSet controller.</td>
 </tr>
 <tr>
 <td>template <br /> <em><a href="#podtemplatespec-v1-core">PodTemplateSpec</a></em></td>
@@ -14611,16 +14611,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#statefulset-v1-apps">StatefulSet</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#statefulset-v1-apps">StatefulSet</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#statefulset-v1-apps">StatefulSet</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#statefulset-v1-apps">StatefulSet</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -14803,12 +14803,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#statefulset-v1-apps">StatefulSet</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#statefulset-v1-apps">StatefulSet</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#statefulset-v1-apps">StatefulSet</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -15904,15 +15904,15 @@ Workloads can be accessed via proxy through the api master using the <code>kubec
 </tbody>
 </table>
 <p>Endpoints is a collection of endpoints that implement the actual service. Example:
-  Name: &quot;mysvc&quot;,
+  Name: &#34;mysvc&#34;,
   Subsets: [
     {
-      Addresses: [{&quot;ip&quot;: &quot;10.10.1.1&quot;}, {&quot;ip&quot;: &quot;10.10.2.2&quot;}],
-      Ports: [{&quot;name&quot;: &quot;a&quot;, &quot;port&quot;: 8675}, {&quot;name&quot;: &quot;b&quot;, &quot;port&quot;: 309}]
+      Addresses: [{&#34;ip&#34;: &#34;10.10.1.1&#34;}, {&#34;ip&#34;: &#34;10.10.2.2&#34;}],
+      Ports: [{&#34;name&#34;: &#34;a&#34;, &#34;port&#34;: 8675}, {&#34;name&#34;: &#34;b&#34;, &#34;port&#34;: 309}]
     },
     {
-      Addresses: [{&quot;ip&quot;: &quot;10.10.3.3&quot;}],
-      Ports: [{&quot;name&quot;: &quot;a&quot;, &quot;port&quot;: 93}, {&quot;name&quot;: &quot;b&quot;, &quot;port&quot;: 76}]
+      Addresses: [{&#34;ip&#34;: &#34;10.10.3.3&#34;}],
+      Ports: [{&#34;name&#34;: &#34;a&#34;, &#34;port&#34;: 93}, {&#34;name&#34;: &#34;b&#34;, &#34;port&#34;: 76}]
     },
  ]</p>
 <aside class="notice">
@@ -16060,16 +16060,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>201 <br /> <em><a href="#endpoints-v1-core">Endpoints</a></em></td>
+<td>Created</td>
+</tr>
+<tr>
 <td>202 <br /> <em><a href="#endpoints-v1-core">Endpoints</a></em></td>
 <td>Accepted</td>
 </tr>
 <tr>
 <td>200 <br /> <em><a href="#endpoints-v1-core">Endpoints</a></em></td>
 <td>OK</td>
-</tr>
-<tr>
-<td>201 <br /> <em><a href="#endpoints-v1-core">Endpoints</a></em></td>
-<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -17468,12 +17468,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#ingress-v1beta1-extensions">Ingress</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#ingress-v1beta1-extensions">Ingress</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#ingress-v1beta1-extensions">Ingress</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -18661,7 +18661,7 @@ Appears In:
 <tbody>
 <tr>
 <td>clusterIP <br /> <em>string</em></td>
-<td>clusterIP is the IP address of the service and is usually assigned randomly by the master. If an address is specified manually and is not in use by others, it will be allocated to the service; otherwise, creation of the service will fail. This field can not be changed through updates. Valid values are &quot;None&quot;, empty string (&quot;&quot;), or a valid IP address. &quot;None&quot; can be specified for headless services when proxying is not required. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: <a href="https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies">https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies</a></td>
+<td>clusterIP is the IP address of the service and is usually assigned randomly by the master. If an address is specified manually and is not in use by others, it will be allocated to the service; otherwise, creation of the service will fail. This field can not be changed through updates. Valid values are &#34;None&#34;, empty string (&#34;&#34;), or a valid IP address. &#34;None&#34; can be specified for headless services when proxying is not required. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: <a href="https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies">https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies</a></td>
 </tr>
 <tr>
 <td>externalIPs <br /> <em>string array</em></td>
@@ -18673,7 +18673,7 @@ Appears In:
 </tr>
 <tr>
 <td>externalTrafficPolicy <br /> <em>string</em></td>
-<td>externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. &quot;Local&quot; preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. &quot;Cluster&quot; obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.</td>
+<td>externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. &#34;Local&#34; preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. &#34;Cluster&#34; obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.</td>
 </tr>
 <tr>
 <td>healthCheckNodePort <br /> <em>integer</em></td>
@@ -18685,7 +18685,7 @@ Appears In:
 </tr>
 <tr>
 <td>loadBalancerSourceRanges <br /> <em>string array</em></td>
-<td>If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature.&quot; More info: <a href="https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/">https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/</a></td>
+<td>If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature.&#34; More info: <a href="https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/">https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/</a></td>
 </tr>
 <tr>
 <td>ports <br /> <em><a href="#serviceport-v1-core">ServicePort</a> array</em>  <br /> <strong>patch type</strong>: <em>merge</em>  <br /> <strong>patch merge key</strong>: <em>port</em></td>
@@ -18701,7 +18701,7 @@ Appears In:
 </tr>
 <tr>
 <td>sessionAffinity <br /> <em>string</em></td>
-<td>Supports &quot;ClientIP&quot; and &quot;None&quot;. Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: <a href="https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies">https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies</a></td>
+<td>Supports &#34;ClientIP&#34; and &#34;None&#34;. Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: <a href="https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies">https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies</a></td>
 </tr>
 <tr>
 <td>sessionAffinityConfig <br /> <em><a href="#sessionaffinityconfig-v1-core">SessionAffinityConfig</a></em></td>
@@ -18709,7 +18709,7 @@ Appears In:
 </tr>
 <tr>
 <td>type <br /> <em>string</em></td>
-<td>type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. &quot;ExternalName&quot; maps to the specified externalName. &quot;ClusterIP&quot; allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is &quot;None&quot;, no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. &quot;NodePort&quot; builds on ClusterIP and allocates a port on every node which routes to the clusterIP. &quot;LoadBalancer&quot; builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: <a href="https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services---service-types">https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services---service-types</a></td>
+<td>type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. &#34;ExternalName&#34; maps to the specified externalName. &#34;ClusterIP&#34; allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is &#34;None&#34;, no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. &#34;NodePort&#34; builds on ClusterIP and allocates a port on every node which routes to the clusterIP. &#34;LoadBalancer&#34; builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: <a href="https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services---service-types">https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services---service-types</a></td>
 </tr>
 </tbody>
 </table>
@@ -22959,16 +22959,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -23151,12 +23151,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#secret-v1-core">Secret</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -24207,16 +24207,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#persistentvolumeclaim-v1-core">PersistentVolumeClaim</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>202 <br /> <em><a href="#persistentvolumeclaim-v1-core">PersistentVolumeClaim</a></em></td>
 <td>Accepted</td>
 </tr>
 <tr>
 <td>200 <br /> <em><a href="#persistentvolumeclaim-v1-core">PersistentVolumeClaim</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#persistentvolumeclaim-v1-core">PersistentVolumeClaim</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -25461,12 +25461,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#persistentvolumeclaim-v1-core">PersistentVolumeClaim</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#persistentvolumeclaim-v1-core">PersistentVolumeClaim</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#persistentvolumeclaim-v1-core">PersistentVolumeClaim</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -25526,7 +25526,7 @@ Appears In:
 </tr>
 <tr>
 <td>mountOptions <br /> <em>string array</em></td>
-<td>Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. [&quot;ro&quot;, &quot;soft&quot;]. Not validated - mount of the PVs will simply fail if one is invalid.</td>
+<td>Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.</td>
 </tr>
 <tr>
 <td>parameters <br /> <em>object</em></td>
@@ -26761,16 +26761,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#volumeattachment-v1alpha1-storage">VolumeAttachment</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#volumeattachment-v1alpha1-storage">VolumeAttachment</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#volumeattachment-v1alpha1-storage">VolumeAttachment</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#volumeattachment-v1alpha1-storage">VolumeAttachment</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -27693,16 +27693,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#controllerrevision-v1-apps">ControllerRevision</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#controllerrevision-v1-apps">ControllerRevision</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#controllerrevision-v1-apps">ControllerRevision</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#controllerrevision-v1-apps">ControllerRevision</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -27885,12 +27885,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#controllerrevision-v1-apps">ControllerRevision</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#controllerrevision-v1-apps">ControllerRevision</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#controllerrevision-v1-apps">ControllerRevision</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -28906,16 +28906,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#customresourcedefinition-v1beta1-apiextensions">CustomResourceDefinition</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#customresourcedefinition-v1beta1-apiextensions">CustomResourceDefinition</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#customresourcedefinition-v1beta1-apiextensions">CustomResourceDefinition</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#customresourcedefinition-v1beta1-apiextensions">CustomResourceDefinition</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -29970,16 +29970,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#event-v1-core">Event</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#event-v1-core">Event</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#event-v1-core">Event</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#event-v1-core">Event</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -30162,12 +30162,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#event-v1-core">Event</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#event-v1-core">Event</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#event-v1-core">Event</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -33645,12 +33645,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#horizontalpodautoscaler-v1-autoscaling">HorizontalPodAutoscaler</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -33803,16 +33803,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#initializerconfiguration-v1alpha1-admissionregistration">InitializerConfiguration</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#initializerconfiguration-v1alpha1-admissionregistration">InitializerConfiguration</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#initializerconfiguration-v1alpha1-admissionregistration">InitializerConfiguration</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#initializerconfiguration-v1alpha1-admissionregistration">InitializerConfiguration</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -35603,16 +35603,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#validatingwebhookconfiguration-v1beta1-admissionregistration">ValidatingWebhookConfiguration</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#validatingwebhookconfiguration-v1beta1-admissionregistration">ValidatingWebhookConfiguration</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#validatingwebhookconfiguration-v1beta1-admissionregistration">ValidatingWebhookConfiguration</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#validatingwebhookconfiguration-v1beta1-admissionregistration">ValidatingWebhookConfiguration</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -36559,16 +36559,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#podtemplate-v1-core">PodTemplate</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#podtemplate-v1-core">PodTemplate</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#podtemplate-v1-core">PodTemplate</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#podtemplate-v1-core">PodTemplate</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -37629,11 +37629,11 @@ Appears In:
 <tbody>
 <tr>
 <td>maxUnavailable</td>
-<td>An eviction is allowed if at most &quot;maxUnavailable&quot; pods selected by &quot;selector&quot; are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with &quot;minAvailable&quot;.</td>
+<td>An eviction is allowed if at most &#34;maxUnavailable&#34; pods selected by &#34;selector&#34; are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with &#34;minAvailable&#34;.</td>
 </tr>
 <tr>
 <td>minAvailable</td>
-<td>An eviction is allowed if at least &quot;minAvailable&quot; pods selected by &quot;selector&quot; will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying &quot;100%&quot;.</td>
+<td>An eviction is allowed if at least &#34;minAvailable&#34; pods selected by &#34;selector&#34; will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying &#34;100%&#34;.</td>
 </tr>
 <tr>
 <td>selector <br /> <em><a href="#labelselector-v1-meta">LabelSelector</a></em></td>
@@ -37795,16 +37795,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#poddisruptionbudget-v1beta1-policy">PodDisruptionBudget</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#poddisruptionbudget-v1beta1-policy">PodDisruptionBudget</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#poddisruptionbudget-v1beta1-policy">PodDisruptionBudget</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#poddisruptionbudget-v1beta1-policy">PodDisruptionBudget</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -39405,12 +39405,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#priorityclass-v1alpha1-scheduling">PriorityClass</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#priorityclass-v1alpha1-scheduling">PriorityClass</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#priorityclass-v1alpha1-scheduling">PriorityClass</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -40372,12 +40372,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#podpreset-v1alpha1-settings">PodPreset</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#podpreset-v1alpha1-settings">PodPreset</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#podpreset-v1alpha1-settings">PodPreset</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -41254,7 +41254,7 @@ Appears In:
 </tr>
 <tr>
 <td>allowedFlexVolumes <br /> <em><a href="#allowedflexvolume-v1beta1-extensions">AllowedFlexVolume</a> array</em></td>
-<td>AllowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &quot;Volumes&quot; field.</td>
+<td>AllowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;Volumes&#34; field.</td>
 </tr>
 <tr>
 <td>allowedHostPaths <br /> <em><a href="#allowedhostpath-v1beta1-extensions">AllowedHostPath</a> array</em></td>
@@ -41415,16 +41415,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#podsecuritypolicy-v1beta1-extensions">PodSecurityPolicy</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#podsecuritypolicy-v1beta1-extensions">PodSecurityPolicy</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#podsecuritypolicy-v1beta1-extensions">PodSecurityPolicy</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#podsecuritypolicy-v1beta1-extensions">PodSecurityPolicy</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -42187,7 +42187,7 @@ Appears In:
 </tr>
 </tbody>
 </table>
-<p>APIService represents a server for a particular GroupVersion. Name must be &quot;version.group&quot;.</p>
+<p>APIService represents a server for a particular GroupVersion. Name must be &#34;version.group&#34;.</p>
 <aside class="notice">
 Appears In:
 
@@ -42263,7 +42263,7 @@ Appears In:
 </tr>
 <tr>
 <td>version <br /> <em>string</em></td>
-<td>Version is the API version this server hosts.  For example, &quot;v1&quot;</td>
+<td>Version is the API version this server hosts.  For example, &#34;v1&#34;</td>
 </tr>
 <tr>
 <td>versionPriority <br /> <em>integer</em></td>
@@ -43365,16 +43365,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#binding-v1-core">Binding</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#binding-v1-core">Binding</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#binding-v1-core">Binding</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#binding-v1-core">Binding</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -43599,16 +43599,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#certificatesigningrequest-v1beta1-certificates">CertificateSigningRequest</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#certificatesigningrequest-v1beta1-certificates">CertificateSigningRequest</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#certificatesigningrequest-v1beta1-certificates">CertificateSigningRequest</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#certificatesigningrequest-v1beta1-certificates">CertificateSigningRequest</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -43783,12 +43783,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#certificatesigningrequest-v1beta1-certificates">CertificateSigningRequest</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#certificatesigningrequest-v1beta1-certificates">CertificateSigningRequest</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#certificatesigningrequest-v1beta1-certificates">CertificateSigningRequest</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -45683,12 +45683,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#clusterrolebinding-v1-rbac">ClusterRoleBinding</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#clusterrolebinding-v1-rbac">ClusterRoleBinding</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#clusterrolebinding-v1-rbac">ClusterRoleBinding</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -46623,16 +46623,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#localsubjectaccessreview-v1-authorization">LocalSubjectAccessReview</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#localsubjectaccessreview-v1-authorization">LocalSubjectAccessReview</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#localsubjectaccessreview-v1-authorization">LocalSubjectAccessReview</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#localsubjectaccessreview-v1-authorization">LocalSubjectAccessReview</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -47017,12 +47017,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#namespace-v1-core">Namespace</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#namespace-v1-core">Namespace</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#namespace-v1-core">Namespace</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -47835,7 +47835,7 @@ Appears In:
 </tr>
 <tr>
 <td>providerID <br /> <em>string</em></td>
-<td>ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID></td>
+<td>ID of the node assigned by the cloud provider in the format: &lt;ProviderName&gt;://&lt;ProviderSpecificNodeID&gt;</td>
 </tr>
 <tr>
 <td>taints <br /> <em><a href="#taint-v1-core">Taint</a> array</em></td>
@@ -48999,12 +48999,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#node-v1-core">Node</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#node-v1-core">Node</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#node-v1-core">Node</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -50387,7 +50387,7 @@ Appears In:
 </tr>
 <tr>
 <td>mountOptions <br /> <em>string array</em></td>
-<td>A list of mount options, e.g. [&quot;ro&quot;, &quot;soft&quot;]. Not validated - mount will simply fail if one is invalid. More info: <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options">https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options</a></td>
+<td>A list of mount options, e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount will simply fail if one is invalid. More info: <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options">https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options</a></td>
 </tr>
 <tr>
 <td>nfs <br /> <em><a href="#nfsvolumesource-v1-core">NFSVolumeSource</a></em></td>
@@ -50746,12 +50746,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#persistentvolume-v1-core">PersistentVolume</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#persistentvolume-v1-core">PersistentVolume</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#persistentvolume-v1-core">PersistentVolume</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -51980,12 +51980,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#resourcequota-v1-core">ResourceQuota</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#resourcequota-v1-core">ResourceQuota</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#resourcequota-v1-core">ResourceQuota</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -53218,16 +53218,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>201 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
+<td>Created</td>
+</tr>
+<tr>
 <td>202 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
 <td>Accepted</td>
 </tr>
 <tr>
 <td>200 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
 <td>OK</td>
-</tr>
-<tr>
-<td>201 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
-<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -53410,12 +53410,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#role-v1-rbac">Role</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -55386,7 +55386,7 @@ Appears In:
 <aside class="notice">Other api versions of this object exist: <a href="#selfsubjectaccessreview-v1beta1-authorization">v1beta1</a> </aside>
 
 
-<p>SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means &quot;in all namespaces&quot;.  Self is a special case, because users should always be able to check whether they can perform an action</p>
+<p>SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means &#34;in all namespaces&#34;.  Self is a special case, because users should always be able to check whether they can perform an action</p>
 <table>
 <thead>
 <tr>
@@ -55855,16 +55855,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#serviceaccount-v1-core">ServiceAccount</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#serviceaccount-v1-core">ServiceAccount</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#serviceaccount-v1-core">ServiceAccount</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#serviceaccount-v1-core">ServiceAccount</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -56047,12 +56047,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#serviceaccount-v1-core">ServiceAccount</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#serviceaccount-v1-core">ServiceAccount</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#serviceaccount-v1-core">ServiceAccount</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -56942,7 +56942,7 @@ Appears In:
 </tr>
 <tr>
 <td>user <br /> <em>string</em></td>
-<td>User is the user you&#39;re testing for. If you specify &quot;User&quot; but not &quot;Groups&quot;, then is it interpreted as &quot;What if User were not a member of any groups</td>
+<td>User is the user you&#39;re testing for. If you specify &#34;User&#34; but not &#34;Groups&#34;, then is it interpreted as &#34;What if User were not a member of any groups</td>
 </tr>
 </tbody>
 </table>
@@ -57052,16 +57052,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#subjectaccessreview-v1-authorization">SubjectAccessReview</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#subjectaccessreview-v1-authorization">SubjectAccessReview</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#subjectaccessreview-v1-authorization">SubjectAccessReview</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#subjectaccessreview-v1-authorization">SubjectAccessReview</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -57337,7 +57337,7 @@ Appears In:
 </tr>
 <tr>
 <td>policyTypes <br /> <em>string array</em></td>
-<td>List of rule types that the NetworkPolicy relates to. Valid options are Ingress, Egress, or Ingress,Egress. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &quot;Egress&quot; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &quot;Egress&quot; (since such a policy would not include an Egress section and would otherwise default to just [ &quot;Ingress&quot; ]). This field is beta-level in 1.8</td>
+<td>List of rule types that the NetworkPolicy relates to. Valid options are Ingress, Egress, or Ingress,Egress. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &#34;Egress&#34; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &#34;Egress&#34; (since such a policy would not include an Egress section and would otherwise default to just [ &#34;Ingress&#34; ]). This field is beta-level in 1.8</td>
 </tr>
 </tbody>
 </table>
@@ -58549,7 +58549,7 @@ Appears In:
 </tr>
 <tr>
 <td>group <br /> <em>string</em></td>
-<td>group is the preferred group of the resource.  Empty implies the group of the containing resource list. For subresources, this may have a different value, for example: Scale&quot;.</td>
+<td>group is the preferred group of the resource.  Empty implies the group of the containing resource list. For subresources, this may have a different value, for example: Scale&#34;.</td>
 </tr>
 <tr>
 <td>kind <br /> <em>string</em></td>
@@ -58577,7 +58577,7 @@ Appears In:
 </tr>
 <tr>
 <td>version <br /> <em>string</em></td>
-<td>version is the preferred version of the resource.  Empty implies the version of the containing resource list For subresources, this may have a different value, for example: v1 (while inside a v1beta1 version of the core resource&#39;s group)&quot;.</td>
+<td>version is the preferred version of the resource.  Empty implies the version of the containing resource list For subresources, this may have a different value, for example: v1 (while inside a v1beta1 version of the core resource&#39;s group)&#34;.</td>
 </tr>
 </tbody>
 </table>
@@ -58716,15 +58716,15 @@ Appears In:
 <tbody>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore">https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</a></td>
+<td>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore">https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</a></td>
 </tr>
 <tr>
 <td>partition <br /> <em>integer</em></td>
-<td>The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as &quot;1&quot;. Similarly, the volume partition for /dev/sda is &quot;0&quot; (or you can leave the property empty).</td>
+<td>The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as &#34;1&#34;. Similarly, the volume partition for /dev/sda is &#34;0&#34; (or you can leave the property empty).</td>
 </tr>
 <tr>
 <td>readOnly <br /> <em>boolean</em></td>
-<td>Specify &quot;true&quot; to force and set the ReadOnly property in VolumeMounts to &quot;true&quot;. If omitted, the default is &quot;false&quot;. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore">https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</a></td>
+<td>Specify &#34;true&#34; to force and set the ReadOnly property in VolumeMounts to &#34;true&#34;. If omitted, the default is &#34;false&#34;. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore">https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</a></td>
 </tr>
 <tr>
 <td>volumeID <br /> <em>string</em></td>
@@ -58989,7 +58989,7 @@ Appears In:
 </tr>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</td>
+<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified.</td>
 </tr>
 <tr>
 <td>kind <br /> <em>string</em></td>
@@ -59393,7 +59393,7 @@ Appears In:
 <tbody>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: <a href="https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md">https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md</a></td>
+<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified. More info: <a href="https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md">https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md</a></td>
 </tr>
 <tr>
 <td>readOnly <br /> <em>boolean</em></td>
@@ -59440,7 +59440,7 @@ Appears In:
 <tbody>
 <tr>
 <td>timeoutSeconds <br /> <em>integer</em></td>
-<td>timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be &gt;0 &amp;&amp; &lt;=86400(for 1 day) if ServiceAffinity == &quot;ClientIP&quot;. Default value is 10800(for 3 hours).</td>
+<td>timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be &gt;0 &amp;&amp; &lt;=86400(for 1 day) if ServiceAffinity == &#34;ClientIP&#34;. Default value is 10800(for 3 hours).</td>
 </tr>
 </tbody>
 </table>
@@ -59487,11 +59487,11 @@ Appears In:
 </tr>
 <tr>
 <td>status <br /> <em>string</em></td>
-<td>Status of the condition for a component. Valid values for &quot;Healthy&quot;: &quot;True&quot;, &quot;False&quot;, or &quot;Unknown&quot;.</td>
+<td>Status of the condition for a component. Valid values for &#34;Healthy&#34;: &#34;True&#34;, &#34;False&#34;, or &#34;Unknown&#34;.</td>
 </tr>
 <tr>
 <td>type <br /> <em>string</em></td>
-<td>Type of condition for a component. Valid value: &quot;Healthy&quot;</td>
+<td>Type of condition for a component. Valid value: &#34;Healthy&#34;</td>
 </tr>
 </tbody>
 </table>
@@ -59721,7 +59721,7 @@ Appears In:
 <tbody>
 <tr>
 <td>names <br /> <em>string array</em></td>
-<td>Names by which this image is known. e.g. [&quot;k8s.gcr.io/hyperkube:v1.0.7&quot;, &quot;dockerhub.io/google_containers/hyperkube:v1.0.7&quot;]</td>
+<td>Names by which this image is known. e.g. [&#34;gcr.io/google_containers/hyperkube:v1.0.7&#34;, &#34;dockerhub.io/google_containers/hyperkube:v1.0.7&#34;]</td>
 </tr>
 <tr>
 <td>sizeBytes <br /> <em>integer</em></td>
@@ -59780,7 +59780,7 @@ Appears In:
 </tr>
 <tr>
 <td>protocol <br /> <em>string</em></td>
-<td>Protocol for port. Must be UDP or TCP. Defaults to &quot;TCP&quot;.</td>
+<td>Protocol for port. Must be UDP or TCP. Defaults to &#34;TCP&#34;.</td>
 </tr>
 </tbody>
 </table>
@@ -59905,7 +59905,7 @@ Appears In:
 <tbody>
 <tr>
 <td>containerID <br /> <em>string</em></td>
-<td>Container&#39;s ID in the format &#39;docker://<container_id>&#39;</td>
+<td>Container&#39;s ID in the format &#39;docker://&lt;container_id&gt;&#39;</td>
 </tr>
 <tr>
 <td>exitCode <br /> <em>integer</em></td>
@@ -60017,7 +60017,7 @@ Appears In:
 </tr>
 <tr>
 <td>kind <br /> <em>string</em></td>
-<td>Kind of the referent; More info: <a href="https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds">https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds</a>&quot;</td>
+<td>Kind of the referent; More info: <a href="https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds&amp;#34">https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds&amp;#34</a>;</td>
 </tr>
 <tr>
 <td>name <br /> <em>string</em></td>
@@ -60120,7 +60120,7 @@ Appears In:
 </tr>
 <tr>
 <td>listKind <br /> <em>string</em></td>
-<td>ListKind is the serialized kind of the list for this resource.  Defaults to <kind>List.</td>
+<td>ListKind is the serialized kind of the list for this resource.  Defaults to &lt;kind&gt;List.</td>
 </tr>
 <tr>
 <td>plural <br /> <em>string</em></td>
@@ -60132,7 +60132,7 @@ Appears In:
 </tr>
 <tr>
 <td>singular <br /> <em>string</em></td>
-<td>Singular is the singular name of the resource.  It must be all lowercase  Defaults to lowercased <kind></td>
+<td>Singular is the singular name of the resource.  It must be all lowercase  Defaults to lowercased &lt;kind&gt;</td>
 </tr>
 </tbody>
 </table>
@@ -60308,11 +60308,11 @@ Appears In:
 <tbody>
 <tr>
 <td>rollingUpdate <br /> <em><a href="#rollingupdatedaemonset-v1-apps">RollingUpdateDaemonSet</a></em></td>
-<td>Rolling update config params. Present only if type = &quot;RollingUpdate&quot;.</td>
+<td>Rolling update config params. Present only if type = &#34;RollingUpdate&#34;.</td>
 </tr>
 <tr>
 <td>type <br /> <em>string</em></td>
-<td>Type of daemon set update. Can be &quot;RollingUpdate&quot; or &quot;OnDelete&quot;. Default is RollingUpdate.</td>
+<td>Type of daemon set update. Can be &#34;RollingUpdate&#34; or &#34;OnDelete&#34;. Default is RollingUpdate.</td>
 </tr>
 </tbody>
 </table>
@@ -60363,7 +60363,7 @@ Appears In:
 </tr>
 <tr>
 <td>orphanDependents <br /> <em>boolean</em></td>
-<td>Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the &quot;orphan&quot; finalizer will be added to/removed from the object&#39;s finalizers list. Either this field or PropagationPolicy may be set, but not both.</td>
+<td>Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the &#34;orphan&#34; finalizer will be added to/removed from the object&#39;s finalizers list. Either this field or PropagationPolicy may be set, but not both.</td>
 </tr>
 <tr>
 <td>preconditions <br /> <em><a href="#preconditions-v1-meta">Preconditions</a></em></td>
@@ -60605,7 +60605,7 @@ Appears In:
 <tbody>
 <tr>
 <td>medium <br /> <em>string</em></td>
-<td>What type of storage medium should back this directory. The default is &quot;&quot; which means to use the node&#39;s default medium. Must be an empty string (default) or Memory. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#emptydir">https://kubernetes.io/docs/concepts/storage/volumes#emptydir</a></td>
+<td>What type of storage medium should back this directory. The default is &#34;&#34; which means to use the node&#39;s default medium. Must be an empty string (default) or Memory. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#emptydir">https://kubernetes.io/docs/concepts/storage/volumes#emptydir</a></td>
 </tr>
 <tr>
 <td>sizeLimit <br /> <em><a href="#quantity-resource-core">Quantity</a></em></td>
@@ -60730,8 +60730,8 @@ Appears In:
 </table>
 <p>EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
   {
-    Addresses: [{&quot;ip&quot;: &quot;10.10.1.1&quot;}, {&quot;ip&quot;: &quot;10.10.2.2&quot;}],
-    Ports:     [{&quot;name&quot;: &quot;a&quot;, &quot;port&quot;: 8675}, {&quot;name&quot;: &quot;b&quot;, &quot;port&quot;: 309}]
+    Addresses: [{&#34;ip&#34;: &#34;10.10.1.1&#34;}, {&#34;ip&#34;: &#34;10.10.2.2&#34;}],
+    Ports:     [{&#34;name&#34;: &#34;a&#34;, &#34;port&#34;: 8675}, {&#34;name&#34;: &#34;b&#34;, &#34;port&#34;: 309}]
   }
 The resulting set of endpoints can be viewed as:
     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
@@ -60853,7 +60853,7 @@ Appears In:
 </tr>
 <tr>
 <td>value <br /> <em>string</em></td>
-<td>Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to &quot;&quot;.</td>
+<td>Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to &#34;&#34;.</td>
 </tr>
 <tr>
 <td>valueFrom <br /> <em><a href="#envvarsource-v1-core">EnvVarSource</a></em></td>
@@ -61022,7 +61022,7 @@ Appears In:
 </tr>
 </tbody>
 </table>
-<p>Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.</p>
+<p>Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/&lt;pod name&gt;/evictions.</p>
 <table>
 <thead>
 <tr>
@@ -61066,7 +61066,7 @@ Appears In:
 </tr>
 </tbody>
 </table>
-<p>ExecAction describes a &quot;run in container&quot; action.</p>
+<p>ExecAction describes a &#34;run in container&#34; action.</p>
 <aside class="notice">
 Appears In:
 
@@ -61169,7 +61169,7 @@ Appears In:
 <tbody>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</td>
+<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified.</td>
 </tr>
 <tr>
 <td>lun <br /> <em>integer</em></td>
@@ -61272,7 +61272,7 @@ Appears In:
 </tr>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. The default filesystem depends on FlexVolume script.</td>
+<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. The default filesystem depends on FlexVolume script.</td>
 </tr>
 <tr>
 <td>options <br /> <em>object</em></td>
@@ -61369,11 +61369,11 @@ Appears In:
 <tbody>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk">https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk</a></td>
+<td>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk">https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk</a></td>
 </tr>
 <tr>
 <td>partition <br /> <em>integer</em></td>
-<td>The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as &quot;1&quot;. Similarly, the volume partition for /dev/sda is &quot;0&quot; (or you can leave the property empty). More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk">https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk</a></td>
+<td>The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as &#34;1&#34;. Similarly, the volume partition for /dev/sda is &#34;0&#34; (or you can leave the property empty). More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk">https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk</a></td>
 </tr>
 <tr>
 <td>pdName <br /> <em>string</em></td>
@@ -61497,7 +61497,7 @@ Appears In:
 </tr>
 </tbody>
 </table>
-<p>GroupVersion contains the &quot;group/version&quot; and &quot;version&quot; string of a version. It is made a struct to keep extensibility.</p>
+<p>GroupVersion contains the &#34;group/version&#34; and &#34;version&#34; string of a version. It is made a struct to keep extensibility.</p>
 <aside class="notice">
 Appears In:
 
@@ -61515,11 +61515,11 @@ Appears In:
 <tbody>
 <tr>
 <td>groupVersion <br /> <em>string</em></td>
-<td>groupVersion specifies the API group and version in the form &quot;group/version&quot;</td>
+<td>groupVersion specifies the API group and version in the form &#34;group/version&#34;</td>
 </tr>
 <tr>
 <td>version <br /> <em>string</em></td>
-<td>version specifies the version in the form of &quot;version&quot;. This is to save the clients the trouble of splitting the GroupVersion.</td>
+<td>version specifies the version in the form of &#34;version&#34;. This is to save the clients the trouble of splitting the GroupVersion.</td>
 </tr>
 </tbody>
 </table>
@@ -61559,7 +61559,7 @@ Appears In:
 <tbody>
 <tr>
 <td>host <br /> <em>string</em></td>
-<td>Host name to connect to, defaults to the pod IP. You probably want to set &quot;Host&quot; in httpHeaders instead.</td>
+<td>Host name to connect to, defaults to the pod IP. You probably want to set &#34;Host&#34; in httpHeaders instead.</td>
 </tr>
 <tr>
 <td>httpHeaders <br /> <em><a href="#httpheader-v1-core">HTTPHeader</a> array</em></td>
@@ -61661,7 +61661,7 @@ Appears In:
 </tr>
 <tr>
 <td>path <br /> <em>string</em></td>
-<td>Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional &quot;path&quot; part of a URL as defined by RFC 3986. Paths must begin with a &#39;/&#39;. If unspecified, the path defaults to a catch all sending traffic to the backend.</td>
+<td>Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional &#34;path&#34; part of a URL as defined by RFC 3986. Paths must begin with a &#39;/&#39;. If unspecified, the path defaults to a catch all sending traffic to the backend.</td>
 </tr>
 </tbody>
 </table>
@@ -61682,7 +61682,7 @@ Appears In:
 </tr>
 </tbody>
 </table>
-<p>HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -&gt; backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last &#39;/&#39; and before the first &#39;?&#39; or &#39;#&#39;.</p>
+<p>HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: <a href="http://&lt;host&gt;/&lt;path&gt;?&lt;searchpart&amp;gt">http://&lt;host&gt;/&lt;path&gt;?&lt;searchpart&amp;gt</a>; -&gt; backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last &#39;/&#39; and before the first &#39;?&#39; or &#39;#&#39;.</p>
 <aside class="notice">
 Appears In:
 
@@ -61889,7 +61889,7 @@ Appears In:
 </tr>
 <tr>
 <td>type <br /> <em>string</em></td>
-<td>Type for HostPath Volume Defaults to &quot;&quot; More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#hostpath">https://kubernetes.io/docs/concepts/storage/volumes#hostpath</a></td>
+<td>Type for HostPath Volume Defaults to &#34;&#34; More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#hostpath">https://kubernetes.io/docs/concepts/storage/volumes#hostpath</a></td>
 </tr>
 </tbody>
 </table>
@@ -62000,7 +62000,7 @@ Appears In:
 </table>
 <aside class="notice">Other api versions of this object exist: <a href="#ipblock-v1beta1-extensions">v1beta1</a> </aside>
 
-<p>IPBlock describes a particular CIDR (Ex. &quot;192.168.1.1/24&quot;) that is allowed to the pods matched by a NetworkPolicySpec&#39;s podSelector. The except entry describes CIDRs that should not be included within this rule.</p>
+<p>IPBlock describes a particular CIDR (Ex. &#34;192.168.1.1/24&#34;) that is allowed to the pods matched by a NetworkPolicySpec&#39;s podSelector. The except entry describes CIDRs that should not be included within this rule.</p>
 <aside class="notice">
 Appears In:
 
@@ -62018,11 +62018,11 @@ Appears In:
 <tbody>
 <tr>
 <td>cidr <br /> <em>string</em></td>
-<td>CIDR is a string representing the IP Block Valid examples are &quot;192.168.1.1/24&quot;</td>
+<td>CIDR is a string representing the IP Block Valid examples are &#34;192.168.1.1/24&#34;</td>
 </tr>
 <tr>
 <td>except <br /> <em>string array</em></td>
-<td>Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &quot;192.168.1.1/24&quot; Except values will be rejected if they are outside the CIDR range</td>
+<td>Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.1/24&#34; Except values will be rejected if they are outside the CIDR range</td>
 </tr>
 </tbody>
 </table>
@@ -62069,11 +62069,11 @@ Appears In:
 </tr>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#iscsi">https://kubernetes.io/docs/concepts/storage/volumes#iscsi</a></td>
+<td>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#iscsi">https://kubernetes.io/docs/concepts/storage/volumes#iscsi</a></td>
 </tr>
 <tr>
 <td>initiatorName <br /> <em>string</em></td>
-<td>Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.</td>
+<td>Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be created for the connection.</td>
 </tr>
 <tr>
 <td>iqn <br /> <em>string</em></td>
@@ -62148,11 +62148,11 @@ Appears In:
 </tr>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#iscsi">https://kubernetes.io/docs/concepts/storage/volumes#iscsi</a></td>
+<td>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#iscsi">https://kubernetes.io/docs/concepts/storage/volumes#iscsi</a></td>
 </tr>
 <tr>
 <td>initiatorName <br /> <em>string</em></td>
-<td>Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.</td>
+<td>Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be created for the connection.</td>
 </tr>
 <tr>
 <td>iqn <br /> <em>string</em></td>
@@ -62263,7 +62263,7 @@ Appears In:
 <tbody>
 <tr>
 <td>host <br /> <em>string</em></td>
-<td>Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the &quot;host&quot; part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the       IP in the Spec of the parent Ingress. 2. The <code>:</code> delimiter is not respected because ports are not allowed.       Currently the port of an Ingress is implicitly :80 for http and       :443 for https. Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.</td>
+<td>Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the &#34;host&#34; part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the       IP in the Spec of the parent Ingress. 2. The <code>:</code> delimiter is not respected because ports are not allowed.       Currently the port of an Ingress is implicitly :80 for http and       :443 for https. Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.</td>
 </tr>
 <tr>
 <td>http <br /> <em><a href="#httpingressrulevalue-v1beta1-extensions">HTTPIngressRuleValue</a></em></td>
@@ -62310,7 +62310,7 @@ Appears In:
 </tr>
 <tr>
 <td>secretName <br /> <em>string</em></td>
-<td>SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener conflicts with the &quot;Host&quot; header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.</td>
+<td>SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener conflicts with the &#34;Host&#34; header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.</td>
 </tr>
 </tbody>
 </table>
@@ -62923,7 +62923,7 @@ Appears In:
 </tr>
 <tr>
 <td>matchLabels <br /> <em>object</em></td>
-<td>matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is &quot;key&quot;, the operator is &quot;In&quot;, and the values array contains only &quot;value&quot;. The requirements are ANDed.</td>
+<td>matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is &#34;key&#34;, the operator is &#34;In&#34;, and the values array contains only &#34;value&#34;. The requirements are ANDed.</td>
 </tr>
 </tbody>
 </table>
@@ -63400,7 +63400,7 @@ Appears In:
 </tr>
 <tr>
 <td>resource <br /> <em><a href="#resourcemetricsource-v2beta1-autoscaling">ResourceMetricSource</a></em></td>
-<td>resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &quot;pods&quot; source.</td>
+<td>resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &#34;pods&#34; source.</td>
 </tr>
 <tr>
 <td>type <br /> <em>string</em></td>
@@ -63451,7 +63451,7 @@ Appears In:
 </tr>
 <tr>
 <td>resource <br /> <em><a href="#resourcemetricstatus-v2beta1-autoscaling">ResourceMetricStatus</a></em></td>
-<td>resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &quot;pods&quot; source.</td>
+<td>resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &#34;pods&#34; source.</td>
 </tr>
 <tr>
 <td>type <br /> <em>string</em></td>
@@ -63811,7 +63811,7 @@ Appears In:
 <tbody>
 <tr>
 <td>preferredDuringSchedulingIgnoredDuringExecution <br /> <em><a href="#preferredschedulingterm-v1-core">PreferredSchedulingTerm</a> array</em></td>
-<td>The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding &quot;weight&quot; to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.</td>
+<td>The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding &#34;weight&#34; to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.</td>
 </tr>
 <tr>
 <td>requiredDuringSchedulingIgnoredDuringExecution <br /> <em><a href="#nodeselector-v1-core">NodeSelector</a></em></td>
@@ -64248,11 +64248,11 @@ Appears In:
 <tbody>
 <tr>
 <td>nonResourceURLs <br /> <em>string array</em></td>
-<td>NonResourceURLs is a set of partial urls that a user should have access to.  <em>s are allowed, but only as the full, final step in the path.  &quot;</em>&quot; means all.</td>
+<td>NonResourceURLs is a set of partial urls that a user should have access to.  <em>s are allowed, but only as the full, final step in the path.  &#34;</em>&#34; means all.</td>
 </tr>
 <tr>
 <td>verbs <br /> <em>string array</em></td>
-<td>Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  &quot;*&quot; means all.</td>
+<td>Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  &#34;*&#34; means all.</td>
 </tr>
 </tbody>
 </table>
@@ -64292,7 +64292,7 @@ Appears In:
 <tbody>
 <tr>
 <td>apiVersion <br /> <em>string</em></td>
-<td>Version of the schema the FieldPath is written in terms of, defaults to &quot;v1&quot;.</td>
+<td>Version of the schema the FieldPath is written in terms of, defaults to &#34;v1&#34;.</td>
 </tr>
 <tr>
 <td>fieldPath <br /> <em>string</em></td>
@@ -64463,7 +64463,7 @@ Appears In:
 </tr>
 <tr>
 <td>namespace <br /> <em>string</em></td>
-<td>Namespace defines the space within each name must be unique. An empty namespace is equivalent to the &quot;default&quot; namespace, but &quot;default&quot; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.  Must be a DNS_LABEL. Cannot be updated. More info: <a href="http://kubernetes.io/docs/user-guide/namespaces">http://kubernetes.io/docs/user-guide/namespaces</a></td>
+<td>Namespace defines the space within each name must be unique. An empty namespace is equivalent to the &#34;default&#34; namespace, but &#34;default&#34; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.  Must be a DNS_LABEL. Cannot be updated. More info: <a href="http://kubernetes.io/docs/user-guide/namespaces">http://kubernetes.io/docs/user-guide/namespaces</a></td>
 </tr>
 <tr>
 <td>ownerReferences <br /> <em><a href="#ownerreference-v1-meta">OwnerReference</a> array</em>  <br /> <strong>patch type</strong>: <em>merge</em>  <br /> <strong>patch merge key</strong>: <em>uid</em></td>
@@ -64625,7 +64625,7 @@ Appears In:
 </tr>
 <tr>
 <td>fieldPath <br /> <em>string</em></td>
-<td>If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: &quot;spec.containers{name}&quot; (where &quot;name&quot; refers to the name of the container that triggered the event) or if no container name is specified &quot;spec.containers[2]&quot; (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object.</td>
+<td>If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: &#34;spec.containers{name}&#34; (where &#34;name&#34; refers to the name of the container that triggered the event) or if no container name is specified &#34;spec.containers[2]&#34; (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object.</td>
 </tr>
 <tr>
 <td>kind <br /> <em>string</em></td>
@@ -64688,7 +64688,7 @@ Appears In:
 </tr>
 <tr>
 <td>blockOwnerDeletion <br /> <em>boolean</em></td>
-<td>If true, AND if the owner has the &quot;foregroundDeletion&quot; finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs &quot;delete&quot; permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.</td>
+<td>If true, AND if the owner has the &#34;foregroundDeletion&#34; finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs &#34;delete&#34; permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.</td>
 </tr>
 <tr>
 <td>controller <br /> <em>boolean</em></td>
@@ -64786,7 +64786,7 @@ Appears In:
 </tr>
 <tr>
 <td>reason <br /> <em>string</em></td>
-<td>Unique, this should be a short, machine understandable string that gives the reason for condition&#39;s last transition. If it reports &quot;ResizeStarted&quot; that means the underlying persistent volume is being resized.</td>
+<td>Unique, this should be a short, machine understandable string that gives the reason for condition&#39;s last transition. If it reports &#34;ResizeStarted&#34; that means the underlying persistent volume is being resized.</td>
 </tr>
 <tr>
 <td>status <br /> <em>string</em></td>
@@ -64877,7 +64877,7 @@ Appears In:
 <tbody>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</td>
+<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified.</td>
 </tr>
 <tr>
 <td>pdID <br /> <em>string</em></td>
@@ -64920,7 +64920,7 @@ Appears In:
 <tbody>
 <tr>
 <td>preferredDuringSchedulingIgnoredDuringExecution <br /> <em><a href="#weightedpodaffinityterm-v1-core">WeightedPodAffinityTerm</a> array</em></td>
-<td>The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding &quot;weight&quot; to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.</td>
+<td>The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding &#34;weight&#34; to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.</td>
 </tr>
 <tr>
 <td>requiredDuringSchedulingIgnoredDuringExecution <br /> <em><a href="#podaffinityterm-v1-core">PodAffinityTerm</a> array</em></td>
@@ -64945,7 +64945,7 @@ Appears In:
 </tr>
 </tbody>
 </table>
-<p>Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running</p>
+<p>Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key &lt;topologyKey&gt; matches that of any node on which a pod of the set of pods is running</p>
 <aside class="notice">
 Appears In:
 
@@ -64969,7 +64969,7 @@ Appears In:
 </tr>
 <tr>
 <td>namespaces <br /> <em>string array</em></td>
-<td>namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means &quot;this pod&#39;s namespace&quot;</td>
+<td>namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means &#34;this pod&#39;s namespace&#34;</td>
 </tr>
 <tr>
 <td>topologyKey <br /> <em>string</em></td>
@@ -65012,7 +65012,7 @@ Appears In:
 <tbody>
 <tr>
 <td>preferredDuringSchedulingIgnoredDuringExecution <br /> <em><a href="#weightedpodaffinityterm-v1-core">WeightedPodAffinityTerm</a> array</em></td>
-<td>The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding &quot;weight&quot; to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.</td>
+<td>The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding &#34;weight&#34; to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.</td>
 </tr>
 <tr>
 <td>requiredDuringSchedulingIgnoredDuringExecution <br /> <em><a href="#podaffinityterm-v1-core">PodAffinityTerm</a> array</em></td>
@@ -65352,7 +65352,7 @@ Appears In:
 </tr>
 <tr>
 <td>nonResourceURLs <br /> <em>string array</em></td>
-<td>NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &quot;pods&quot; or &quot;secrets&quot;) or non-resource URL paths (such as &quot;/api&quot;),  but not both.</td>
+<td>NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &#34;pods&#34; or &#34;secrets&#34;) or non-resource URL paths (such as &#34;/api&#34;),  but not both.</td>
 </tr>
 <tr>
 <td>resourceNames <br /> <em>string array</em></td>
@@ -65404,7 +65404,7 @@ Appears In:
 <tbody>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</td>
+<td>FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. &#34;ext4&#34;, &#34;xfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified.</td>
 </tr>
 <tr>
 <td>readOnly <br /> <em>boolean</em></td>
@@ -65743,7 +65743,7 @@ Appears In:
 <tbody>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#rbd">https://kubernetes.io/docs/concepts/storage/volumes#rbd</a></td>
+<td>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#rbd">https://kubernetes.io/docs/concepts/storage/volumes#rbd</a></td>
 </tr>
 <tr>
 <td>image <br /> <em>string</em></td>
@@ -65810,7 +65810,7 @@ Appears In:
 <tbody>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#rbd">https://kubernetes.io/docs/concepts/storage/volumes#rbd</a></td>
+<td>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes#rbd">https://kubernetes.io/docs/concepts/storage/volumes#rbd</a></td>
 </tr>
 <tr>
 <td>image <br /> <em>string</em></td>
@@ -65992,31 +65992,31 @@ Appears In:
 <tbody>
 <tr>
 <td>group <br /> <em>string</em></td>
-<td>Group is the API Group of the Resource.  &quot;*&quot; means all.</td>
+<td>Group is the API Group of the Resource.  &#34;*&#34; means all.</td>
 </tr>
 <tr>
 <td>name <br /> <em>string</em></td>
-<td>Name is the name of the resource being requested for a &quot;get&quot; or deleted for a &quot;delete&quot;. &quot;&quot; (empty) means all.</td>
+<td>Name is the name of the resource being requested for a &#34;get&#34; or deleted for a &#34;delete&#34;. &#34;&#34; (empty) means all.</td>
 </tr>
 <tr>
 <td>namespace <br /> <em>string</em></td>
-<td>Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces &quot;&quot; (empty) is defaulted for LocalSubjectAccessReviews &quot;&quot; (empty) is empty for cluster-scoped resources &quot;&quot; (empty) means &quot;all&quot; for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview</td>
+<td>Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces &#34;&#34; (empty) is defaulted for LocalSubjectAccessReviews &#34;&#34; (empty) is empty for cluster-scoped resources &#34;&#34; (empty) means &#34;all&#34; for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview</td>
 </tr>
 <tr>
 <td>resource <br /> <em>string</em></td>
-<td>Resource is one of the existing resource types.  &quot;*&quot; means all.</td>
+<td>Resource is one of the existing resource types.  &#34;*&#34; means all.</td>
 </tr>
 <tr>
 <td>subresource <br /> <em>string</em></td>
-<td>Subresource is one of the existing resource types.  &quot;&quot; means none.</td>
+<td>Subresource is one of the existing resource types.  &#34;&#34; means none.</td>
 </tr>
 <tr>
 <td>verb <br /> <em>string</em></td>
-<td>Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  &quot;*&quot; means all.</td>
+<td>Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  &#34;*&#34; means all.</td>
 </tr>
 <tr>
 <td>version <br /> <em>string</em></td>
-<td>Version is the API Version of the Resource.  &quot;*&quot; means all.</td>
+<td>Version is the API Version of the Resource.  &#34;*&#34; means all.</td>
 </tr>
 </tbody>
 </table>
@@ -66060,7 +66060,7 @@ Appears In:
 </tr>
 <tr>
 <td>divisor <br /> <em><a href="#quantity-resource-core">Quantity</a></em></td>
-<td>Specifies the output format of the exposed resources, defaults to &quot;1&quot;</td>
+<td>Specifies the output format of the exposed resources, defaults to &#34;1&#34;</td>
 </tr>
 <tr>
 <td>resource <br /> <em>string</em></td>
@@ -66085,7 +66085,7 @@ Appears In:
 </tr>
 </tbody>
 </table>
-<p>ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &quot;pods&quot; source.  Only one &quot;target&quot; type should be set.</p>
+<p>ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &#34;pods&#34; source.  Only one &#34;target&#34; type should be set.</p>
 <aside class="notice">
 Appears In:
 
@@ -66111,7 +66111,7 @@ Appears In:
 </tr>
 <tr>
 <td>targetAverageValue <br /> <em><a href="#quantity-resource-core">Quantity</a></em></td>
-<td>targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the &quot;pods&quot; metric source type.</td>
+<td>targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the &#34;pods&#34; metric source type.</td>
 </tr>
 </tbody>
 </table>
@@ -66132,7 +66132,7 @@ Appears In:
 </tr>
 </tbody>
 </table>
-<p>ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &quot;pods&quot; source.</p>
+<p>ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &#34;pods&#34; source.</p>
 <aside class="notice">
 Appears In:
 
@@ -66154,7 +66154,7 @@ Appears In:
 </tr>
 <tr>
 <td>currentAverageValue <br /> <em><a href="#quantity-resource-core">Quantity</a></em></td>
-<td>currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the &quot;pods&quot; metric source type. It will always be set, regardless of the corresponding metric specification.</td>
+<td>currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the &#34;pods&#34; metric source type. It will always be set, regardless of the corresponding metric specification.</td>
 </tr>
 <tr>
 <td>name <br /> <em>string</em></td>
@@ -66243,19 +66243,19 @@ Appears In:
 <tbody>
 <tr>
 <td>apiGroups <br /> <em>string array</em></td>
-<td>APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  &quot;*&quot; means all.</td>
+<td>APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  &#34;*&#34; means all.</td>
 </tr>
 <tr>
 <td>resourceNames <br /> <em>string array</em></td>
-<td>ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.  &quot;*&quot; means all.</td>
+<td>ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.  &#34;*&#34; means all.</td>
 </tr>
 <tr>
 <td>resources <br /> <em>string array</em></td>
-<td>Resources is a list of resources this rule applies to.  &quot;<em>&quot; means all in the specified apiGroups.  &quot;</em>/foo&quot; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.</td>
+<td>Resources is a list of resources this rule applies to.  &#34;<em>&#34; means all in the specified apiGroups.  &#34;</em>/foo&#34; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.</td>
 </tr>
 <tr>
 <td>verbs <br /> <em>string array</em></td>
-<td>Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  &quot;*&quot; means all.</td>
+<td>Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  &#34;*&#34; means all.</td>
 </tr>
 </tbody>
 </table>
@@ -66712,7 +66712,7 @@ Appears In:
 <tbody>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</td>
+<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified.</td>
 </tr>
 <tr>
 <td>gateway <br /> <em>string</em></td>
@@ -66787,7 +66787,7 @@ Appears In:
 <tbody>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</td>
+<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified.</td>
 </tr>
 <tr>
 <td>gateway <br /> <em>string</em></td>
@@ -67218,7 +67218,7 @@ Appears In:
 </tr>
 <tr>
 <td>protocol <br /> <em>string</em></td>
-<td>The IP protocol for this port. Supports &quot;TCP&quot; and &quot;UDP&quot;. Default is TCP.</td>
+<td>The IP protocol for this port. Supports &#34;TCP&#34; and &#34;UDP&#34;. Default is TCP.</td>
 </tr>
 <tr>
 <td>targetPort</td>
@@ -67473,11 +67473,11 @@ Appears In:
 </tr>
 <tr>
 <td>reason <br /> <em>string</em></td>
-<td>A machine-readable description of why this operation is in the &quot;Failure&quot; status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.</td>
+<td>A machine-readable description of why this operation is in the &#34;Failure&#34; status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.</td>
 </tr>
 <tr>
 <td>status <br /> <em>string</em></td>
-<td>Status of the operation. One of: &quot;Success&quot; or &quot;Failure&quot;. More info: <a href="https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status">https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status</a></td>
+<td>Status of the operation. One of: &#34;Success&#34; or &#34;Failure&#34;. More info: <a href="https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status">https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status</a></td>
 </tr>
 </tbody>
 </table>
@@ -67516,7 +67516,7 @@ Appears In:
 <tbody>
 <tr>
 <td>field <br /> <em>string</em></td>
-<td>The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.  Examples:   &quot;name&quot; - the field &quot;name&quot; on the current resource   &quot;items[0].name&quot; - the field &quot;name&quot; on the first array entry in &quot;items&quot;</td>
+<td>The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.  Examples:   &#34;name&#34; - the field &#34;name&#34; on the current resource   &#34;items[0].name&#34; - the field &#34;name&#34; on the first array entry in &#34;items&#34;</td>
 </tr>
 <tr>
 <td>message <br /> <em>string</em></td>
@@ -67622,7 +67622,7 @@ Appears In:
 <tbody>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</td>
+<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified.</td>
 </tr>
 <tr>
 <td>readOnly <br /> <em>boolean</em></td>
@@ -67638,7 +67638,7 @@ Appears In:
 </tr>
 <tr>
 <td>volumeNamespace <br /> <em>string</em></td>
-<td>VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod&#39;s namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to &quot;default&quot; if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.</td>
+<td>VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod&#39;s namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to &#34;default&#34; if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.</td>
 </tr>
 </tbody>
 </table>
@@ -67677,7 +67677,7 @@ Appears In:
 <tbody>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</td>
+<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified.</td>
 </tr>
 <tr>
 <td>readOnly <br /> <em>boolean</em></td>
@@ -67693,7 +67693,7 @@ Appears In:
 </tr>
 <tr>
 <td>volumeNamespace <br /> <em>string</em></td>
-<td>VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod&#39;s namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to &quot;default&quot; if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.</td>
+<td>VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod&#39;s namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to &#34;default&#34; if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.</td>
 </tr>
 </tbody>
 </table>
@@ -67735,11 +67735,11 @@ Appears In:
 <tbody>
 <tr>
 <td>apiGroup <br /> <em>string</em></td>
-<td>APIGroup holds the API group of the referenced subject. Defaults to &quot;&quot; for ServiceAccount subjects. Defaults to &quot;rbac.authorization.k8s.io&quot; for User and Group subjects.</td>
+<td>APIGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.</td>
 </tr>
 <tr>
 <td>kind <br /> <em>string</em></td>
-<td>Kind of object being referenced. Values defined by this API group are &quot;User&quot;, &quot;Group&quot;, and &quot;ServiceAccount&quot;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.</td>
+<td>Kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.</td>
 </tr>
 <tr>
 <td>name <br /> <em>string</em></td>
@@ -67747,7 +67747,7 @@ Appears In:
 </tr>
 <tr>
 <td>namespace <br /> <em>string</em></td>
-<td>Namespace of the referenced object.  If the object kind is non-namespace, such as &quot;User&quot; or &quot;Group&quot;, and this value is not empty the Authorizer should report an error.</td>
+<td>Namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.</td>
 </tr>
 </tbody>
 </table>
@@ -67908,7 +67908,7 @@ Appears In:
 </tr>
 </tbody>
 </table>
-<p>The node this Taint is attached to has the &quot;effect&quot; on any pod that does not tolerate the Taint.</p>
+<p>The node this Taint is attached to has the &#34;effect&#34; on any pod that does not tolerate the Taint.</p>
 <aside class="notice">
 Appears In:
 
@@ -68030,7 +68030,7 @@ Appears In:
 </tr>
 </tbody>
 </table>
-<p>The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.</p>
+<p>The pod this Toleration is attached to tolerates any taint that matches the triple &lt;key,value,effect&gt; using the matching operator &lt;operator&gt;.</p>
 <aside class="notice">
 Appears In:
 
@@ -68298,7 +68298,7 @@ Appears In:
 </tr>
 <tr>
 <td>subPath <br /> <em>string</em></td>
-<td>Path within the volume from which the container&#39;s volume should be mounted. Defaults to &quot;&quot; (volume&#39;s root).</td>
+<td>Path within the volume from which the container&#39;s volume should be mounted. Defaults to &#34;&#34; (volume&#39;s root).</td>
 </tr>
 </tbody>
 </table>
@@ -68385,7 +68385,7 @@ Appears In:
 <tbody>
 <tr>
 <td>fsType <br /> <em>string</em></td>
-<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</td>
+<td>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &#34;ext4&#34;, &#34;xfs&#34;, &#34;ntfs&#34;. Implicitly inferred to be &#34;ext4&#34; if unspecified.</td>
 </tr>
 <tr>
 <td>storagePolicyID <br /> <em>string</em></td>
@@ -68481,11 +68481,11 @@ Appears In:
 </tr>
 <tr>
 <td>name <br /> <em>string</em></td>
-<td>The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where &quot;imagepolicy&quot; is the name of the webhook, and kubernetes.io is the name of the organization. Required.</td>
+<td>The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where &#34;imagepolicy&#34; is the name of the webhook, and kubernetes.io is the name of the organization. Required.</td>
 </tr>
 <tr>
 <td>namespaceSelector <br /> <em><a href="#labelselector-v1-meta">LabelSelector</a></em></td>
-<td>NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is other cluster scoped resource, it is not subjected to the webhook.  For example, to run the webhook on any objects whose namespace is not associated with &quot;runlevel&quot; of &quot;0&quot; or &quot;1&quot;;  you will set the selector as follows: &quot;namespaceSelector&quot;: {   &quot;matchExpressions&quot;: [     {       &quot;key&quot;: &quot;runlevel&quot;,       &quot;operator&quot;: &quot;NotIn&quot;,       &quot;values&quot;: [         &quot;0&quot;,         &quot;1&quot;       ]     }   ] }  If instead you want to only run the webhook on any objects whose namespace is associated with the &quot;environment&quot; of &quot;prod&quot; or &quot;staging&quot;; you will set the selector as follows: &quot;namespaceSelector&quot;: {   &quot;matchExpressions&quot;: [     {       &quot;key&quot;: &quot;environment&quot;,       &quot;operator&quot;: &quot;In&quot;,       &quot;values&quot;: [         &quot;prod&quot;,         &quot;staging&quot;       ]     }   ] }  See <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/">https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/</a> for more examples of label selectors.  Default to the empty LabelSelector, which matches everything.</td>
+<td>NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is other cluster scoped resource, it is not subjected to the webhook.  For example, to run the webhook on any objects whose namespace is not associated with &#34;runlevel&#34; of &#34;0&#34; or &#34;1&#34;;  you will set the selector as follows: &#34;namespaceSelector&#34;: {   &#34;matchExpressions&#34;: [     {       &#34;key&#34;: &#34;runlevel&#34;,       &#34;operator&#34;: &#34;NotIn&#34;,       &#34;values&#34;: [         &#34;0&#34;,         &#34;1&#34;       ]     }   ] }  If instead you want to only run the webhook on any objects whose namespace is associated with the &#34;environment&#34; of &#34;prod&#34; or &#34;staging&#34;; you will set the selector as follows: &#34;namespaceSelector&#34;: {   &#34;matchExpressions&#34;: [     {       &#34;key&#34;: &#34;environment&#34;,       &#34;operator&#34;: &#34;In&#34;,       &#34;values&#34;: [         &#34;prod&#34;,         &#34;staging&#34;       ]     }   ] }  See <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/">https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/</a> for more examples of label selectors.  Default to the empty LabelSelector, which matches everything.</td>
 </tr>
 <tr>
 <td>rules <br /> <em><a href="#rulewithoperations-v1beta1-admissionregistration">RuleWithOperations</a> array</em></td>
@@ -68536,7 +68536,7 @@ Appears In:
 </tr>
 <tr>
 <td>url <br /> <em>string</em></td>
-<td><code>url</code> gives the location of the webhook, in standard URL form (<code>[scheme://]host:port/path</code>). Exactly one of <code>url</code> or <code>service</code> must be specified.  The <code>host</code> should not refer to a service running in the cluster; use the <code>service</code> field instead. The host might be resolved via external DNS in some apiservers (e.g., <code>kube-apiserver</code> cannot resolve in-cluster DNS as that would be a layering violation). <code>host</code> may also be an IP address.  Please note that using <code>localhost</code> or <code>127.0.0.1</code> as a <code>host</code> is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.  The scheme must be &quot;https&quot;; the URL must begin with &quot;https://&quot;.  A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.  Attempting to use a user or basic auth e.g. &quot;user:password@&quot; is not allowed. Fragments (&quot;#...&quot;) and query parameters (&quot;?...&quot;) are not allowed, either.</td>
+<td><code>url</code> gives the location of the webhook, in standard URL form (<code>[scheme://]host:port/path</code>). Exactly one of <code>url</code> or <code>service</code> must be specified.  The <code>host</code> should not refer to a service running in the cluster; use the <code>service</code> field instead. The host might be resolved via external DNS in some apiservers (e.g., <code>kube-apiserver</code> cannot resolve in-cluster DNS as that would be a layering violation). <code>host</code> may also be an IP address.  Please note that using <code>localhost</code> or <code>127.0.0.1</code> as a <code>host</code> is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.  The scheme must be &#34;https&#34;; the URL must begin with &#34;<a href="https://&amp;#34">https://&amp;#34</a>;.  A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.  Attempting to use a user or basic auth e.g. &#34;user:password@&#34; is not allowed. Fragments (&#34;#...&#34;) and query parameters (&#34;?...&#34;) are not allowed, either.</td>
 </tr>
 </tbody>
 </table>
@@ -69727,16 +69727,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#clusterrole-v1alpha1-rbac">ClusterRole</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>202 <br /> <em><a href="#clusterrole-v1alpha1-rbac">ClusterRole</a></em></td>
 <td>Accepted</td>
 </tr>
 <tr>
 <td>200 <br /> <em><a href="#clusterrole-v1alpha1-rbac">ClusterRole</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#clusterrole-v1alpha1-rbac">ClusterRole</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -70626,16 +70626,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#clusterrolebinding-v1beta1-rbac">ClusterRoleBinding</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#clusterrolebinding-v1beta1-rbac">ClusterRoleBinding</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#clusterrolebinding-v1beta1-rbac">ClusterRoleBinding</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#clusterrolebinding-v1beta1-rbac">ClusterRoleBinding</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -70810,12 +70810,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#clusterrolebinding-v1beta1-rbac">ClusterRoleBinding</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#clusterrolebinding-v1beta1-rbac">ClusterRoleBinding</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#clusterrolebinding-v1beta1-rbac">ClusterRoleBinding</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -71709,12 +71709,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#clusterrolebinding-v1alpha1-rbac">ClusterRoleBinding</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#clusterrolebinding-v1alpha1-rbac">ClusterRoleBinding</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#clusterrolebinding-v1alpha1-rbac">ClusterRoleBinding</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -72439,16 +72439,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#controllerrevision-v1beta2-apps">ControllerRevision</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>202 <br /> <em><a href="#controllerrevision-v1beta2-apps">ControllerRevision</a></em></td>
 <td>Accepted</td>
 </tr>
 <tr>
 <td>200 <br /> <em><a href="#controllerrevision-v1beta2-apps">ControllerRevision</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#controllerrevision-v1beta2-apps">ControllerRevision</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -73606,16 +73606,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#controllerrevision-v1beta1-apps">ControllerRevision</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#controllerrevision-v1beta1-apps">ControllerRevision</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#controllerrevision-v1beta1-apps">ControllerRevision</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#controllerrevision-v1beta1-apps">ControllerRevision</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -74679,7 +74679,7 @@ Appears In:
 <tbody>
 <tr>
 <td>concurrencyPolicy <br /> <em>string</em></td>
-<td>Specifies how to treat concurrent executions of a Job. Valid values are: - &quot;Allow&quot; (default): allows CronJobs to run concurrently; - &quot;Forbid&quot;: forbids concurrent runs, skipping next run if previous run hasn&#39;t finished yet; - &quot;Replace&quot;: cancels currently running job and replaces it with a new one</td>
+<td>Specifies how to treat concurrent executions of a Job. Valid values are: - &#34;Allow&#34; (default): allows CronJobs to run concurrently; - &#34;Forbid&#34;: forbids concurrent runs, skipping next run if previous run hasn&#39;t finished yet; - &#34;Replace&#34;: cancels currently running job and replaces it with a new one</td>
 </tr>
 <tr>
 <td>failedJobsHistoryLimit <br /> <em>integer</em></td>
@@ -74845,16 +74845,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#cronjob-v2alpha1-batch">CronJob</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#cronjob-v2alpha1-batch">CronJob</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#cronjob-v2alpha1-batch">CronJob</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#cronjob-v2alpha1-batch">CronJob</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -76153,7 +76153,7 @@ Appears In:
 </tr>
 <tr>
 <td>kind <br /> <em>string</em></td>
-<td>Kind of the referent; More info: <a href="https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds">https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds</a>&quot;</td>
+<td>Kind of the referent; More info: <a href="https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds&amp;#34">https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds&amp;#34</a>;</td>
 </tr>
 <tr>
 <td>name <br /> <em>string</em></td>
@@ -76553,16 +76553,16 @@ spec:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#daemonset-v1beta2-apps">DaemonSet</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#daemonset-v1beta2-apps">DaemonSet</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#daemonset-v1beta2-apps">DaemonSet</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#daemonset-v1beta2-apps">DaemonSet</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -78221,16 +78221,16 @@ spec:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -78413,12 +78413,12 @@ spec:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#daemonset-v1beta1-extensions">DaemonSet</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -79650,11 +79650,11 @@ Appears In:
 <tbody>
 <tr>
 <td>rollingUpdate <br /> <em><a href="#rollingupdatedaemonset-v1beta2-apps">RollingUpdateDaemonSet</a></em></td>
-<td>Rolling update config params. Present only if type = &quot;RollingUpdate&quot;.</td>
+<td>Rolling update config params. Present only if type = &#34;RollingUpdate&#34;.</td>
 </tr>
 <tr>
 <td>type <br /> <em>string</em></td>
-<td>Type of daemon set update. Can be &quot;RollingUpdate&quot; or &quot;OnDelete&quot;. Default is RollingUpdate.</td>
+<td>Type of daemon set update. Can be &#34;RollingUpdate&#34; or &#34;OnDelete&#34;. Default is RollingUpdate.</td>
 </tr>
 </tbody>
 </table>
@@ -79698,11 +79698,11 @@ Appears In:
 <tbody>
 <tr>
 <td>rollingUpdate <br /> <em><a href="#rollingupdatedaemonset-v1beta1-extensions">RollingUpdateDaemonSet</a></em></td>
-<td>Rolling update config params. Present only if type = &quot;RollingUpdate&quot;.</td>
+<td>Rolling update config params. Present only if type = &#34;RollingUpdate&#34;.</td>
 </tr>
 <tr>
 <td>type <br /> <em>string</em></td>
-<td>Type of daemon set update. Can be &quot;RollingUpdate&quot; or &quot;OnDelete&quot;. Default is OnDelete.</td>
+<td>Type of daemon set update. Can be &#34;RollingUpdate&#34; or &#34;OnDelete&#34;. Default is OnDelete.</td>
 </tr>
 </tbody>
 </table>
@@ -79914,7 +79914,7 @@ Appears In:
 </tr>
 <tr>
 <td>type <br /> <em>string</em></td>
-<td>Type of deployment. Can be &quot;Recreate&quot; or &quot;RollingUpdate&quot;. Default is RollingUpdate.</td>
+<td>Type of deployment. Can be &#34;Recreate&#34; or &#34;RollingUpdate&#34;. Default is RollingUpdate.</td>
 </tr>
 </tbody>
 </table>
@@ -80126,16 +80126,16 @@ spec:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#deployment-v1beta2-apps">Deployment</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#deployment-v1beta2-apps">Deployment</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#deployment-v1beta2-apps">Deployment</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#deployment-v1beta2-apps">Deployment</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -82351,7 +82351,7 @@ Appears In:
 </tr>
 <tr>
 <td>type <br /> <em>string</em></td>
-<td>Type of deployment. Can be &quot;Recreate&quot; or &quot;RollingUpdate&quot;. Default is RollingUpdate.</td>
+<td>Type of deployment. Can be &#34;Recreate&#34; or &#34;RollingUpdate&#34;. Default is RollingUpdate.</td>
 </tr>
 </tbody>
 </table>
@@ -84819,7 +84819,7 @@ Appears In:
 </tr>
 <tr>
 <td>type <br /> <em>string</em></td>
-<td>Type of deployment. Can be &quot;Recreate&quot; or &quot;RollingUpdate&quot;. Default is RollingUpdate.</td>
+<td>Type of deployment. Can be &#34;Recreate&#34; or &#34;RollingUpdate&#34;. Default is RollingUpdate.</td>
 </tr>
 </tbody>
 </table>
@@ -85062,16 +85062,16 @@ spec:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#deployment-v1beta1-extensions">Deployment</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#deployment-v1beta1-extensions">Deployment</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#deployment-v1beta1-extensions">Deployment</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#deployment-v1beta1-extensions">Deployment</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -87066,12 +87066,12 @@ $</span><span class="bash"> kubectl proxy</span>
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#deployment-v1beta1-extensions">Deployment</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#deployment-v1beta1-extensions">Deployment</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#deployment-v1beta1-extensions">Deployment</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -88969,12 +88969,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#horizontalpodautoscaler-v2beta1-autoscaling">HorizontalPodAutoscaler</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#horizontalpodautoscaler-v2beta1-autoscaling">HorizontalPodAutoscaler</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#horizontalpodautoscaler-v2beta1-autoscaling">HorizontalPodAutoscaler</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -90061,7 +90061,7 @@ Appears In:
 <aside class="notice">Other api versions of this object exist: <a href="#ipblock-v1-networking">v1</a> </aside>
 
 
-<p>DEPRECATED 1.9 - This group version of IPBlock is deprecated by networking/v1/IPBlock. IPBlock describes a particular CIDR (Ex. &quot;192.168.1.1/24&quot;) that is allowed to the pods matched by a NetworkPolicySpec&#39;s podSelector. The except entry describes CIDRs that should not be included within this rule.</p>
+<p>DEPRECATED 1.9 - This group version of IPBlock is deprecated by networking/v1/IPBlock. IPBlock describes a particular CIDR (Ex. &#34;192.168.1.1/24&#34;) that is allowed to the pods matched by a NetworkPolicySpec&#39;s podSelector. The except entry describes CIDRs that should not be included within this rule.</p>
 <aside class="notice">
 Appears In:
 
@@ -90079,11 +90079,11 @@ Appears In:
 <tbody>
 <tr>
 <td>cidr <br /> <em>string</em></td>
-<td>CIDR is a string representing the IP Block Valid examples are &quot;192.168.1.1/24&quot;</td>
+<td>CIDR is a string representing the IP Block Valid examples are &#34;192.168.1.1/24&#34;</td>
 </tr>
 <tr>
 <td>except <br /> <em>string array</em></td>
-<td>Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &quot;192.168.1.1/24&quot; Except values will be rejected if they are outside the CIDR range</td>
+<td>Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.1/24&#34; Except values will be rejected if they are outside the CIDR range</td>
 </tr>
 </tbody>
 </table>
@@ -90126,7 +90126,7 @@ Appears In:
 <tbody>
 <tr>
 <td>name <br /> <em>string</em></td>
-<td>Name is the identifier of the initializer. It will be added to the object that needs to be initialized. Name should be fully qualified, e.g., alwayspullimages.kubernetes.io, where &quot;alwayspullimages&quot; is the name of the webhook, and kubernetes.io is the name of the organization. Required</td>
+<td>Name is the identifier of the initializer. It will be added to the object that needs to be initialized. Name should be fully qualified, e.g., alwayspullimages.kubernetes.io, where &#34;alwayspullimages&#34; is the name of the webhook, and kubernetes.io is the name of the organization. Required</td>
 </tr>
 <tr>
 <td>rules <br /> <em><a href="#rule-v1alpha1-admissionregistration">Rule</a> array</em></td>
@@ -90318,16 +90318,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>200 <br /> <em><a href="#localsubjectaccessreview-v1beta1-authorization">LocalSubjectAccessReview</a></em></td>
+<td>OK</td>
+</tr>
+<tr>
 <td>201 <br /> <em><a href="#localsubjectaccessreview-v1beta1-authorization">LocalSubjectAccessReview</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#localsubjectaccessreview-v1beta1-authorization">LocalSubjectAccessReview</a></em></td>
 <td>Accepted</td>
-</tr>
-<tr>
-<td>200 <br /> <em><a href="#localsubjectaccessreview-v1beta1-authorization">LocalSubjectAccessReview</a></em></td>
-<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -90416,7 +90416,7 @@ Appears In:
 </tr>
 <tr>
 <td>policyTypes <br /> <em>string array</em></td>
-<td>List of rule types that the NetworkPolicy relates to. Valid options are Ingress, Egress, or Ingress,Egress. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &quot;Egress&quot; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &quot;Egress&quot; (since such a policy would not include an Egress section and would otherwise default to just [ &quot;Ingress&quot; ]). This field is beta-level in 1.8</td>
+<td>List of rule types that the NetworkPolicy relates to. Valid options are Ingress, Egress, or Ingress,Egress. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &#34;Egress&#34; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &#34;Egress&#34; (since such a policy would not include an Egress section and would otherwise default to just [ &#34;Ingress&#34; ]). This field is beta-level in 1.8</td>
 </tr>
 </tbody>
 </table>
@@ -90532,16 +90532,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>201 <br /> <em><a href="#networkpolicy-v1beta1-extensions">NetworkPolicy</a></em></td>
+<td>Created</td>
+</tr>
+<tr>
 <td>202 <br /> <em><a href="#networkpolicy-v1beta1-extensions">NetworkPolicy</a></em></td>
 <td>Accepted</td>
 </tr>
 <tr>
 <td>200 <br /> <em><a href="#networkpolicy-v1beta1-extensions">NetworkPolicy</a></em></td>
 <td>OK</td>
-</tr>
-<tr>
-<td>201 <br /> <em><a href="#networkpolicy-v1beta1-extensions">NetworkPolicy</a></em></td>
-<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -91809,11 +91809,11 @@ Appears In:
 <tbody>
 <tr>
 <td>nonResourceURLs <br /> <em>string array</em></td>
-<td>NonResourceURLs is a set of partial urls that a user should have access to.  <em>s are allowed, but only as the full, final step in the path.  &quot;</em>&quot; means all.</td>
+<td>NonResourceURLs is a set of partial urls that a user should have access to.  <em>s are allowed, but only as the full, final step in the path.  &#34;</em>&#34; means all.</td>
 </tr>
 <tr>
 <td>verbs <br /> <em>string array</em></td>
-<td>Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  &quot;*&quot; means all.</td>
+<td>Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  &#34;*&#34; means all.</td>
 </tr>
 </tbody>
 </table>
@@ -91861,7 +91861,7 @@ Appears In:
 </tr>
 <tr>
 <td>nonResourceURLs <br /> <em>string array</em></td>
-<td>NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &quot;pods&quot; or &quot;secrets&quot;) or non-resource URL paths (such as &quot;/api&quot;),  but not both.</td>
+<td>NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &#34;pods&#34; or &#34;secrets&#34;) or non-resource URL paths (such as &#34;/api&#34;),  but not both.</td>
 </tr>
 <tr>
 <td>resourceNames <br /> <em>string array</em></td>
@@ -91921,7 +91921,7 @@ Appears In:
 </tr>
 <tr>
 <td>nonResourceURLs <br /> <em>string array</em></td>
-<td>NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path This name is intentionally different than the internal type so that the DefaultConvert works nicely and because the ordering may be different. Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &quot;pods&quot; or &quot;secrets&quot;) or non-resource URL paths (such as &quot;/api&quot;),  but not both.</td>
+<td>NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path This name is intentionally different than the internal type so that the DefaultConvert works nicely and because the ordering may be different. Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &#34;pods&#34; or &#34;secrets&#34;) or non-resource URL paths (such as &#34;/api&#34;),  but not both.</td>
 </tr>
 <tr>
 <td>resourceNames <br /> <em>string array</em></td>
@@ -92184,16 +92184,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#replicaset-v1beta2-apps">ReplicaSet</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#replicaset-v1beta2-apps">ReplicaSet</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#replicaset-v1beta2-apps">ReplicaSet</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#replicaset-v1beta2-apps">ReplicaSet</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -92376,12 +92376,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>201 <br /> <em><a href="#replicaset-v1beta2-apps">ReplicaSet</a></em></td>
-<td>Created</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#replicaset-v1beta2-apps">ReplicaSet</a></em></td>
 <td>OK</td>
+</tr>
+<tr>
+<td>201 <br /> <em><a href="#replicaset-v1beta2-apps">ReplicaSet</a></em></td>
+<td>Created</td>
 </tr>
 </tbody>
 </table>
@@ -93438,12 +93438,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#replicaset-v1beta2-apps">ReplicaSet</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#replicaset-v1beta2-apps">ReplicaSet</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#replicaset-v1beta2-apps">ReplicaSet</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -93694,16 +93694,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#replicaset-v1beta1-extensions">ReplicaSet</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#replicaset-v1beta1-extensions">ReplicaSet</a></em></td>
 <td>Created</td>
 </tr>
 <tr>
 <td>202 <br /> <em><a href="#replicaset-v1beta1-extensions">ReplicaSet</a></em></td>
 <td>Accepted</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#replicaset-v1beta1-extensions">ReplicaSet</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -95115,31 +95115,31 @@ Appears In:
 <tbody>
 <tr>
 <td>group <br /> <em>string</em></td>
-<td>Group is the API Group of the Resource.  &quot;*&quot; means all.</td>
+<td>Group is the API Group of the Resource.  &#34;*&#34; means all.</td>
 </tr>
 <tr>
 <td>name <br /> <em>string</em></td>
-<td>Name is the name of the resource being requested for a &quot;get&quot; or deleted for a &quot;delete&quot;. &quot;&quot; (empty) means all.</td>
+<td>Name is the name of the resource being requested for a &#34;get&#34; or deleted for a &#34;delete&#34;. &#34;&#34; (empty) means all.</td>
 </tr>
 <tr>
 <td>namespace <br /> <em>string</em></td>
-<td>Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces &quot;&quot; (empty) is defaulted for LocalSubjectAccessReviews &quot;&quot; (empty) is empty for cluster-scoped resources &quot;&quot; (empty) means &quot;all&quot; for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview</td>
+<td>Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces &#34;&#34; (empty) is defaulted for LocalSubjectAccessReviews &#34;&#34; (empty) is empty for cluster-scoped resources &#34;&#34; (empty) means &#34;all&#34; for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview</td>
 </tr>
 <tr>
 <td>resource <br /> <em>string</em></td>
-<td>Resource is one of the existing resource types.  &quot;*&quot; means all.</td>
+<td>Resource is one of the existing resource types.  &#34;*&#34; means all.</td>
 </tr>
 <tr>
 <td>subresource <br /> <em>string</em></td>
-<td>Subresource is one of the existing resource types.  &quot;&quot; means none.</td>
+<td>Subresource is one of the existing resource types.  &#34;&#34; means none.</td>
 </tr>
 <tr>
 <td>verb <br /> <em>string</em></td>
-<td>Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  &quot;*&quot; means all.</td>
+<td>Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  &#34;*&#34; means all.</td>
 </tr>
 <tr>
 <td>version <br /> <em>string</em></td>
-<td>Version is the API Version of the Resource.  &quot;*&quot; means all.</td>
+<td>Version is the API Version of the Resource.  &#34;*&#34; means all.</td>
 </tr>
 </tbody>
 </table>
@@ -95182,19 +95182,19 @@ Appears In:
 <tbody>
 <tr>
 <td>apiGroups <br /> <em>string array</em></td>
-<td>APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  &quot;*&quot; means all.</td>
+<td>APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  &#34;*&#34; means all.</td>
 </tr>
 <tr>
 <td>resourceNames <br /> <em>string array</em></td>
-<td>ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.  &quot;*&quot; means all.</td>
+<td>ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.  &#34;*&#34; means all.</td>
 </tr>
 <tr>
 <td>resources <br /> <em>string array</em></td>
-<td>Resources is a list of resources this rule applies to.  &quot;<em>&quot; means all in the specified apiGroups.  &quot;</em>/foo&quot; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.</td>
+<td>Resources is a list of resources this rule applies to.  &#34;<em>&#34; means all in the specified apiGroups.  &#34;</em>/foo&#34; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.</td>
 </tr>
 <tr>
 <td>verbs <br /> <em>string array</em></td>
-<td>Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  &quot;*&quot; means all.</td>
+<td>Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  &#34;*&#34; means all.</td>
 </tr>
 </tbody>
 </table>
@@ -96712,12 +96712,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#role-v1alpha1-rbac">Role</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#role-v1alpha1-rbac">Role</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#role-v1alpha1-rbac">Role</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -97679,16 +97679,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>202 <br /> <em><a href="#rolebinding-v1beta1-rbac">RoleBinding</a></em></td>
-<td>Accepted</td>
-</tr>
-<tr>
 <td>200 <br /> <em><a href="#rolebinding-v1beta1-rbac">RoleBinding</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#rolebinding-v1beta1-rbac">RoleBinding</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>202 <br /> <em><a href="#rolebinding-v1beta1-rbac">RoleBinding</a></em></td>
+<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -98838,16 +98838,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#rolebinding-v1alpha1-rbac">RoleBinding</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#rolebinding-v1alpha1-rbac">RoleBinding</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#rolebinding-v1alpha1-rbac">RoleBinding</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#rolebinding-v1alpha1-rbac">RoleBinding</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -100390,7 +100390,7 @@ Appears In:
 <aside class="notice">Other api versions of this object exist: <a href="#selfsubjectaccessreview-v1-authorization">v1</a> </aside>
 
 
-<p>SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means &quot;in all namespaces&quot;.  Self is a special case, because users should always be able to check whether they can perform an action</p>
+<p>SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means &#34;in all namespaces&#34;.  Self is a special case, because users should always be able to check whether they can perform an action</p>
 <table>
 <thead>
 <tr>
@@ -100674,16 +100674,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#selfsubjectrulesreview-v1beta1-authorization">SelfSubjectRulesReview</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#selfsubjectrulesreview-v1beta1-authorization">SelfSubjectRulesReview</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#selfsubjectrulesreview-v1beta1-authorization">SelfSubjectRulesReview</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#selfsubjectrulesreview-v1beta1-authorization">SelfSubjectRulesReview</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -100829,7 +100829,7 @@ Appears In:
 </tr>
 <tr>
 <td>serviceName <br /> <em>string</em></td>
-<td>serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &quot;pod-specific-string&quot; is managed by the StatefulSet controller.</td>
+<td>serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &#34;pod-specific-string&#34; is managed by the StatefulSet controller.</td>
 </tr>
 <tr>
 <td>template <br /> <em><a href="#podtemplatespec-v1-core">PodTemplateSpec</a></em></td>
@@ -101203,12 +101203,12 @@ Appears In:
 </thead>
 <tbody>
 <tr>
-<td>200 <br /> <em><a href="#statefulset-v1beta2-apps">StatefulSet</a></em></td>
-<td>OK</td>
-</tr>
-<tr>
 <td>201 <br /> <em><a href="#statefulset-v1beta2-apps">StatefulSet</a></em></td>
 <td>Created</td>
+</tr>
+<tr>
+<td>200 <br /> <em><a href="#statefulset-v1beta2-apps">StatefulSet</a></em></td>
+<td>OK</td>
 </tr>
 </tbody>
 </table>
@@ -102372,7 +102372,7 @@ Appears In:
 </tr>
 <tr>
 <td>serviceName <br /> <em>string</em></td>
-<td>serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &quot;pod-specific-string&quot; is managed by the StatefulSet controller.</td>
+<td>serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &#34;pod-specific-string&#34; is managed by the StatefulSet controller.</td>
 </tr>
 <tr>
 <td>template <br /> <em><a href="#podtemplatespec-v1-core">PodTemplateSpec</a></em></td>
@@ -102554,16 +102554,16 @@ Appears In:
 </thead>
 <tbody>
 <tr>
+<td>202 <br /> <em><a href="#statefulset-v1beta1-apps">StatefulSet</a></em></td>
+<td>Accepted</td>
+</tr>
+<tr>
 <td>200 <br /> <em><a href="#statefulset-v1beta1-apps">StatefulSet</a></em></td>
 <td>OK</td>
 </tr>
 <tr>
 <td>201 <br /> <em><a href="#statefulset-v1beta1-apps">StatefulSet</a></em></td>
 <td>Created</td>
-</tr>
-<tr>
-<td>202 <br /> <em><a href="#statefulset-v1beta1-apps">StatefulSet</a></em></td>
-<td>Accepted</td>
 </tr>
 </tbody>
 </table>
@@ -104085,7 +104085,7 @@ Appears In:
 </tr>
 <tr>
 <td>mountOptions <br /> <em>string array</em></td>
-<td>Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. [&quot;ro&quot;, &quot;soft&quot;]. Not validated - mount of the PVs will simply fail if one is invalid.</td>
+<td>Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.</td>
 </tr>
 <tr>
 <td>parameters <br /> <em>object</em></td>
@@ -104993,11 +104993,11 @@ Appears In:
 <tbody>
 <tr>
 <td>apiGroup <br /> <em>string</em></td>
-<td>APIGroup holds the API group of the referenced subject. Defaults to &quot;&quot; for ServiceAccount subjects. Defaults to &quot;rbac.authorization.k8s.io&quot; for User and Group subjects.</td>
+<td>APIGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.</td>
 </tr>
 <tr>
 <td>kind <br /> <em>string</em></td>
-<td>Kind of object being referenced. Values defined by this API group are &quot;User&quot;, &quot;Group&quot;, and &quot;ServiceAccount&quot;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.</td>
+<td>Kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.</td>
 </tr>
 <tr>
 <td>name <br /> <em>string</em></td>
@@ -105005,7 +105005,7 @@ Appears In:
 </tr>
 <tr>
 <td>namespace <br /> <em>string</em></td>
-<td>Namespace of the referenced object.  If the object kind is non-namespace, such as &quot;User&quot; or &quot;Group&quot;, and this value is not empty the Authorizer should report an error.</td>
+<td>Namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.</td>
 </tr>
 </tbody>
 </table>
@@ -105049,11 +105049,11 @@ Appears In:
 <tbody>
 <tr>
 <td>apiVersion <br /> <em>string</em></td>
-<td>APIVersion holds the API group and version of the referenced subject. Defaults to &quot;v1&quot; for ServiceAccount subjects. Defaults to &quot;rbac.authorization.k8s.io/v1alpha1&quot; for User and Group subjects.</td>
+<td>APIVersion holds the API group and version of the referenced subject. Defaults to &#34;v1&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io/v1alpha1&#34; for User and Group subjects.</td>
 </tr>
 <tr>
 <td>kind <br /> <em>string</em></td>
-<td>Kind of object being referenced. Values defined by this API group are &quot;User&quot;, &quot;Group&quot;, and &quot;ServiceAccount&quot;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.</td>
+<td>Kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.</td>
 </tr>
 <tr>
 <td>name <br /> <em>string</em></td>
@@ -105061,7 +105061,7 @@ Appears In:
 </tr>
 <tr>
 <td>namespace <br /> <em>string</em></td>
-<td>Namespace of the referenced object.  If the object kind is non-namespace, such as &quot;User&quot; or &quot;Group&quot;, and this value is not empty the Authorizer should report an error.</td>
+<td>Namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.</td>
 </tr>
 </tbody>
 </table>
@@ -105156,7 +105156,7 @@ Appears In:
 </tr>
 <tr>
 <td>user <br /> <em>string</em></td>
-<td>User is the user you&#39;re testing for. If you specify &quot;User&quot; but not &quot;Group&quot;, then is it interpreted as &quot;What if User were not a member of any groups</td>
+<td>User is the user you&#39;re testing for. If you specify &#34;User&#34; but not &#34;Group&#34;, then is it interpreted as &#34;What if User were not a member of any groups</td>
 </tr>
 </tbody>
 </table>
