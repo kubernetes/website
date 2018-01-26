@@ -20,7 +20,7 @@ As a result, the app developer "user journey" is *not* a comprehensive overview 
 
 
 {% capture body %}
-## Get a cluster
+## Get started with a cluster
 
 #### Web-based Environment
 
