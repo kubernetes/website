@@ -114,7 +114,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 ## Install with Powershell from PSGallery
 
-1. If you are on Windows and using [Powershell Gallery](https://https://www.powershellgallery.com/) package manager, you can install and update with:
+1. If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update with:
 
        Install-Script -Name install-kubectl -Scope CurrentUser -Force     
        install-kubectl.ps1 [-DownloadLocation <path>]
