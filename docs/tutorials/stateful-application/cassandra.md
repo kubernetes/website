@@ -158,7 +158,7 @@ Use `kubectl edit` to modify the size of of a Cassandra StatefulSet.
         # and an empty file will abort the edit. If an error occurs while saving this file will be
         # reopened with the relevant failures.
         #
-        apiVersion: apps/v1beta2
+        apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
         kind: StatefulSet
         metadata:
          creationTimestamp: 2016-08-13T18:40:58Z
@@ -168,7 +168,7 @@ Use `kubectl edit` to modify the size of of a Cassandra StatefulSet.
          name: cassandra
          namespace: default
          resourceVersion: "323"
-         selfLink: /apis/apps/v1beta1/namespaces/default/statefulsets/cassandra
+         selfLink: /apis/apps/v1/namespaces/default/statefulsets/cassandra
          uid: 7a219483-6185-11e6-a910-42010a8a0fc0
         spec:
          replicas: 3
