@@ -199,7 +199,7 @@ But, when it tries to evict `pod-d`, it will be refused because that would leave
 one pod available for the deployment.
 
 The deployment creates a replacement for `pod-b` called `pod-e`.
-However, not there are not enough resources in the cluster to schedule
+However, note there are not enough resources in the cluster to schedule
 `pod-e`.  So, the drain will again block.  The cluster may end up in this
 state:
 
