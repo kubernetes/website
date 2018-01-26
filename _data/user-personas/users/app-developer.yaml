@@ -16,13 +16,13 @@ foundational:
     icon: fa-book
     url: /docs/user-journeys/users/application-developer/foundational#section-4
 intermediate:
-  - label: Learn more workload patterns (beyond Deployments)
+  - label: Learn additional workload patterns
     icon: fa-cogs
     url: /docs/user-journeys/users/application-developer/intermediate
-  - label: Extend the Kubernetes API
+  - label: Deploy a production-ready workload
     icon: fa-pencil-square-o
     url: /docs/user-journeys/users/application-developer/intermediate#section-2
-  - label: Deploy a production-ready workload
+  - label: Improve your dev workflow with tooling
     icon: fa-cube
     url: /docs/user-journeys/users/application-developer/intermediate#section-3
   - label: Explore additional resources
