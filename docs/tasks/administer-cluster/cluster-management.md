@@ -124,6 +124,10 @@ gcloud container clusters update mytestcluster --enable-autoscaling --min-nodes=
 
 **Cluster autoscaler expects that nodes have not been manually modified (e.g. by adding labels via kubectl) as those properties would not be propagated to the new nodes within the same instance group.**
 
+For more details about how the cluster autoscaler decides whether, when and how
+to scale a cluster, please refer to the [FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
+documentation from the autoscaler project.
+
 ## Maintenance on a Node
 
 If you need to reboot a node (such as for a kernel upgrade, libc upgrade, hardware repair, etc.), and the downtime is
