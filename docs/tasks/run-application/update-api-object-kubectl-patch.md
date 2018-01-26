@@ -261,10 +261,10 @@ and
 
 {% capture whatsnext %}
 
-* [Kubernetes Object Management](/docs/tutorials/object-management-kubectl/object-management/)
-* [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
-* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
-* [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/)
+* [Kubernetes Object Management](/docs/concepts/overview/object-management-kubectl/overview/)
+* [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
+* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/overview/object-management-kubectl/imperative-config/)
+* [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/overview/object-management-kubectl/declarative-config/)
 
 {% endcapture %}
 

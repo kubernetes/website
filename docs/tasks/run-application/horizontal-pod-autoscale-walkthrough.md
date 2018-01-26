@@ -4,14 +4,14 @@ approvers:
 - jszczepkowski
 - justinsb
 - directxman12
-title: Horizontal Pod Autoscaling Walkthrough
+title: Horizontal Pod Autoscaler Walkthrough
 ---
 
-Horizontal Pod Autoscaling automatically scales the number of pods
+Horizontal Pod Autoscaler automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization
 (or, with beta support, on some other, application-provided metrics).
 
-This document walks you through an example of enabling Horizontal Pod Autoscaling for the php-apache server.  For more information on how Horizontal Pod Autoscaling behaves, see the [Horizontal Pod Autoscaling user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
+This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.  For more information on how Horizontal Pod Autoscaler behaves, see the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
 ## Prerequisites
 
@@ -24,7 +24,7 @@ heapster monitoring will be turned-on by default).
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
 and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
 must be able to communicate with the API server providing the custom metrics API.
-See the [Horizontal Pod Autoscaling user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
+See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
 
 ## Step One: Run & expose php-apache server
 
@@ -35,7 +35,7 @@ It defines an [index.php](/docs/user-guide/horizontal-pod-autoscaling/image/inde
 First, we will start a deployment running the image and expose it as a service:
 
 ```shell
-$ kubectl run php-apache --image=gcr.io/google_containers/hpa-example --requests=cpu=200m --expose --port=80
+$ kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
 service "php-apache" created
 deployment "php-apache" created
 ```
@@ -304,36 +304,23 @@ For this HorizontalPodAutoscaler, we can see several conditions in a healthy sta
 whether or not any backoff-related conditions would prevent scaling.  The second, `ScalingActive`,
 indicates whether or not the HPA is enabled (i.e. the replica count of the target is not zero) and
 is able to calculate desired scales. When it is `False`, it generally indicates problems with
-fetching metrics.  Finally, the last condition, `ScalingLimitted`, indicates that the desired scale
+fetching metrics.  Finally, the last condition, `ScalingLimited`, indicates that the desired scale
 was capped by the maximum or minimum of the HorizontalPodAutoscaler.  This is an indication that
 you may wish to raise or lower the minimum or maximum replica count constraints on your
 HorizontalPodAutoscaler.
 
 ## Appendix: Other possible scenarios
 
-### Creating the autoscaler from a .yaml file
+### Creating the autoscaler declaratively
 
-Instead of using `kubectl autoscale` command we can use the [hpa-php-apache.yaml](/docs/user-guide/horizontal-pod-autoscaling/hpa-php-apache.yaml) file, which looks like this:
+Instead of using `kubectl autoscale` command to create a HorizontalPodAutoscaler imperatively we
+can use the following file to create it declaratively:
 
-```yaml
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: php-apache
-  namespace: default
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1beta1
-    kind: Deployment
-    name: php-apache
-  minReplicas: 1
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 50
-```
+{% include code.html language="yaml" file="hpa-php-apache.yaml" ghlink="/docs/tasks/run-application/hpa-php-apache.yaml" %}
 
 We will create the autoscaler by executing the following command:
 
 ```shell
-$ kubectl create -f docs/user-guide/horizontal-pod-autoscaling/hpa-php-apache.yaml
+$ kubectl create -f https://k8s.io/docs/tasks/run-application/hpa-php-apache.yaml
 horizontalpodautoscaler "php-apache" created
 ```

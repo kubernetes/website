@@ -214,12 +214,10 @@ nginx-deployment-1564180365-z9gth   1/1       Running   0          14s
 Next time we want to update these Pods, we only need to update the Deployment's pod template again.
 
 Deployment can ensure that only a certain number of Pods may be down while they are being updated. By
-default, it ensures that at least 1 less than the desired number of Pods are up (1 max unavailable).
+default, it ensures that at least 25% less than the desired number of Pods are up (25% max unavailable).
 
 Deployment can also ensure that only a certain number of Pods may be created above the desired number of
-Pods. By default, it ensures that at most 1 more than the desired number of Pods are up (1 max surge).
-
-In a future version of Kubernetes, the defaults will change from 1-1 to 25%-25%.
+Pods. By default, it ensures that at most 25% more than the desired number of Pods are up (25% max surge).
 
 For example, if you look at the above Deployment closely, you will see that it first created a new Pod,
 then deleted some old Pods and created new ones. It does not kill old Pods until a sufficient number of
@@ -228,41 +226,42 @@ It makes sure that number of available Pods is at least 2 and the number of tota
 
 ```shell
 $ kubectl describe deployments
-Name:           nginx-deployment
-Namespace:      default
-CreationTimestamp:  Tue, 15 Mar 2016 12:01:06 -0700
-Labels:         app=nginx
-Annotations:    deployment.kubernetes.io/revision=2
-Selector:       app=nginx
-Replicas:       3 desired | 3 updated | 3 total | 3 available | 0 unavailable
-StrategyType:       RollingUpdate
-MinReadySeconds:    0
-RollingUpdateStrategy:  1 max unavailable, 1 max surge
+Name:                   nginx-deployment
+Namespace:              default
+CreationTimestamp:      Thu, 30 Nov 2017 10:56:25 +0000
+Labels:                 app=nginx
+Annotations:            deployment.kubernetes.io/revision=2
+Selector:               app=nginx
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
 Pod Template:
-  Labels:       app=nginx
+  Labels:  app=nginx
   Containers:
    nginx:
-    Image:              nginx:1.9.1
-    Port:               80/TCP
-    Environment:        <none>
-    Mounts:             <none>
-  Volumes:              <none>
+    Image:        nginx:1.9.1
+    Port:         80/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
 Conditions:
-  Type          Status  Reason
-  ----          ------  ------
-  Available     True    MinimumReplicasAvailable
-  Progressing   True    NewReplicaSetAvailable
-OldReplicaSets:     <none>
-NewReplicaSet:      nginx-deployment-1564180365 (3/3 replicas created)
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   nginx-deployment-1564180365 (3/3 replicas created)
 Events:
-  FirstSeen LastSeen    Count   From                     SubobjectPath   Type        Reason              Message
-  --------- --------    -----   ----                     -------------   --------    ------              -------
-  36s       36s         1       {deployment-controller }                 Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-2035384211 to 3
-  23s       23s         1       {deployment-controller }                 Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 1
-  23s       23s         1       {deployment-controller }                 Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-2035384211 to 2
-  23s       23s         1       {deployment-controller }                 Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 2
-  21s       21s         1       {deployment-controller }                 Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-2035384211 to 0
-  21s       21s         1       {deployment-controller }                 Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 3
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  2m    deployment-controller  Scaled up replica set nginx-deployment-2035384211 to 3
+  Normal  ScalingReplicaSet  24s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 1
+  Normal  ScalingReplicaSet  22s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 2
+  Normal  ScalingReplicaSet  22s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 2
+  Normal  ScalingReplicaSet  19s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 1
+  Normal  ScalingReplicaSet  19s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 3
+  Normal  ScalingReplicaSet  14s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 0
 ```
 
 Here we see that when we first created the Deployment, it created a ReplicaSet (nginx-deployment-2035384211)
@@ -296,7 +295,7 @@ It is generally discouraged to make label selector updates and it is suggested t
 In any case, if you need to perform a label selector update, exercise great caution and make sure you have grasped
 all of the implications.
 
-**Note:** In API version `apps/v1beta2`, a Deployment's label selector is immutable after it gets created.
+**Note:** In API version `apps/v1`, a Deployment's label selector is immutable after it gets created.
 {: .note}
 
 * Selector additions require the pod template labels in the Deployment spec to be updated with the new label too,
@@ -835,7 +834,7 @@ can create multiple Deployments, one for each release, following the canary patt
 
 As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, and `metadata` fields.
 For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
-configuring containers, and [using kubectl to manage resources](/docs/tutorials/object-management-kubectl/object-management/) documents.
+configuring containers, and [using kubectl to manage resources](/docs/concepts/overview/object-management-kubectl/overview/) documents.
 
 A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
@@ -863,7 +862,7 @@ for the Pods targeted by this deployment.
 
 `.spec.selector` must match `.spec.template.metadata.labels`, or it will be rejected by the API.
 
-In API version `apps/v1beta2`, `.spec.selector` and `.metadata.labels` no longer default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation of the Deployment in `apps/v1beta2`.
+In API version `apps/v1`, `.spec.selector` and `.metadata.labels` do not default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation of the Deployment in `apps/v1`.
 
 A Deployment may terminate Pods whose labels match the selector if their template is different
 from `.spec.template` or if the total number of such Pods exceeds `.spec.replicas`. It brings up new
@@ -937,7 +936,7 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 
 ### Rollback To
 
-Field `.spec.rollbackTo` has been deprecated in API versions `extensions/v1beta1` and `apps/v1beta1`, and is no longer supported in API version `apps/v1beta2`. Instead, `kubectl rollout undo` as introduced in [Rolling Back to a Previous Revision](#rolling-back-to-a-previous-revision) should be used.
+Field `.spec.rollbackTo` has been deprecated in API versions `extensions/v1beta1` and `apps/v1beta1`, and is no longer supported in API versions starting `apps/v1beta2`. Instead, `kubectl rollout undo` as introduced in [Rolling Back to a Previous Revision](#rolling-back-to-a-previous-revision) should be used.
 
 ### Revision History Limit
 

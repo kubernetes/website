@@ -28,6 +28,7 @@ administrator to control the following:
 | Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
 | Usage of volume types                               | [`volumes`](#volumes-and-file-systems)      |
 | Usage of the host filesystem                        | [`allowedHostPaths`](#volumes-and-file-systems) |
+| Usage of FlexVolume drivers                         | [`allowedFlexVolumes`](#flexvolume-drivers) |
 | Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
 | Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
 | The user and group IDs of the container             | [`runAsUser`, `supplementalGroups`](#users-and-groups) |
@@ -127,7 +128,7 @@ paired with system groups to grant access to all pods run in the namespace:
 ```
 
 For more examples of RBAC bindings, see [Role Binding
-Examples](docs/admin/authorization/rbac/#role-binding-examples). For a complete
+Examples](/docs/admin/authorization/rbac#role-binding-examples). For a complete
 example of authorizing a PodSecurityPolicy, see
 [below](#example).
 
@@ -140,7 +141,7 @@ have superuser permissions. Otherwise requests would bypass authentication and
 authorization modules, all PodSecurityPolicy objects would be allowed, and users
 would be able to create privileged containers. For more details on configuring
 Controller Manager authorization, see [Controller
-Roles](docs/admin/authorization/rbac/#controller-roles).
+Roles](/docs/admin/authorization/rbac/#controller-roles).
 
 ## Policy Order
 
@@ -416,6 +417,20 @@ containers, and abusing the credentials of system services, such as Kubelet._
 
 **ReadOnlyRootFilesystem** - Requires that containers must run with a read-only
 root filesystem (i.e. no writeable layer).
+
+### FlexVolume drivers
+
+When the [`Volumes`](#volumes-and-file-systems) field contains `flexVolume` in
+its list value, the cluster admin can further specify which driver(s) is permitted
+by setting the `allowedFlexVolumes` field.
+
+**AllowedFlexVolumes** - Provides a whitelist of allowed FlexVolumes. Empty or
+nil indicates that all FlexVolume drivers may be used. For example, the following
+setting only permits the `examle/fast_cache` driver to be used on nodes:
+
+```yaml
+allowedFlexVolumes: [ "example/fast_cache" ]
+```
 
 ### Users and groups
 

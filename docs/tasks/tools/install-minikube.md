@@ -23,7 +23,8 @@ If you do not already have a hypervisor installed, install one now.
 * For OS X, install
 [xhyve driver](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver),
 [VirtualBox](https://www.virtualbox.org/wiki/Downloads), or
-[VMware Fusion](https://www.vmware.com/products/fusion).
+[VMware Fusion](https://www.vmware.com/products/fusion), or
+[HyperKit](https://github.com/moby/hyperkit).
 
 * For Linux, install
 [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or

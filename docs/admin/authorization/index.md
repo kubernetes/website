@@ -8,20 +8,34 @@ title: Overview
 ---
 
 {% capture overview %}
-Learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules.
+Learn more about Kubernetes authorization, including details about creating
+policies using the supported authorization modules.
 {% endcapture %}
 
 {% capture body %}
-In Kubernetes, you must be authenticated (logged in) before your request can be authorized (granted permission to access). For information about authentication, see [Accessing Control Overview](/docs/admin/accessing-the-api/).
+In Kubernetes, you must be authenticated (logged in) before your request can be
+authorized (granted permission to access). For information about authentication,
+see [Accessing Control Overview](/docs/admin/accessing-the-api/).
 
-Kubernetes expects attributes that are common to REST API requests. This means that Kubernetes authorization works with existing organization-wide or cloud-provider-wide access control systems which may handle other APIs besides the Kubernetes API.
+Kubernetes expects attributes that are common to REST API requests. This means
+that Kubernetes authorization works with existing organization-wide or
+cloud-provider-wide access control systems which may handle other APIs besides
+the Kubernetes API.
 
 ## Determine Whether a Request is Allowed or Denied
-Kubernetes authorizes API requests using the API server. It evaluates all of the request attributes against all policies and allows or denies the request. All parts of an API request must be allowed by some policy in order to proceed. This means that permissions are denied by default.
+Kubernetes authorizes API requests using the API server. It evaluates all of the
+request attributes against all policies and allows or denies the request. All
+parts of an API request must be allowed by some policy in order to proceed. This
+means that permissions are denied by default.
 
-(Although Kubernetes uses the API server, access controls and policies that depend on specific fields of specific kinds of objects are handled by Admission Controllers.)
+(Although Kubernetes uses the API server, access controls and policies that
+depend on specific fields of specific kinds of objects are handled by Admission
+Controllers.)
 
-When multiple authorization modules are configured, each is checked in sequence, and if any module authorizes the request, then the request can proceed. If all modules deny the request, then the request is denied (HTTP status code 403).
+When multiple authorization modules are configured, each is checked in sequence.
+If any authorizer approves or denies a request, that decision is immediately
+returned and no other authorizer is consulted. If all modules have no opinion on
+the request, then the request is denied. A deny returns an HTTP status code 403.
 
 ## Review Your Request Attributes
 Kubernetes reviews only the following API request attributes:
@@ -33,14 +47,15 @@ Kubernetes reviews only the following API request attributes:
  * **Request path** - Path to miscellaneous non-resource endpoints like `/api` or `/healthz`.
  * **API request verb** - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests. To determine the request verb for a resource API endpoint, see **Determine the request verb** below.
  * **HTTP request verb** - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests.
- * **Resource** - The ID or name of the resource that is being accessed (for resource requests only)
---* For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
+ * **Resource** - The ID or name of the resource that is being accessed (for resource requests only) -- For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
  * **Subresource** - The subresource that is being accessed (for resource requests only).
  * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only).
  * **API group** - The API group being accessed (for resource requests only). An empty string designates the [core API group](/docs/concepts/overview/kubernetes-api/).
 
 ## Determine the Request Verb
-To determine the request verb for a resource API endpoint, review the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:
+To determine the request verb for a resource API endpoint, review the HTTP verb
+used and whether or not the request acts on an individual resource or a
+collection of resources:
 
 HTTP verb | request verb
 ----------|---------------
@@ -59,7 +74,7 @@ of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authoriz
 
 ## Authorization Modules
  * **Node** - A special-purpose authorizer that grants permissions to kubelets based on the pods they are scheduled to run. To learn more about using the Node authorization mode, see [Node Authorization](/docs/admin/authorization/node/).
- * **ABAC** - Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes etc). To learn more about using the ABAC mode, see [ABAC Mode](/docs/admin/authorization/abac/).
+ * **ABAC** - Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes, etc). To learn more about using the ABAC mode, see [ABAC Mode](/docs/admin/authorization/abac/).
  * **RBAC** - Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise. In this context, access is the ability of an individual user to perform a specific task, such as view, create, or modify a file. To learn more about using the RBAC mode, see [RBAC Mode](/docs/admin/authorization/rbac/)
    * When specified "RBAC" (Role-Based Access Control) uses the "rbac.authorization.k8s.io" API group to drive authorization decisions, allowing admins to dynamically configure permission policies through the Kubernetes API.
    * To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.
@@ -87,8 +102,9 @@ $ kubectl auth can-i list secrets --namespace dev --as dave
 no
 ```
 
-`SelfSubjectAccessReview` is part of the `authorization.k8s.io` API group, which exposes the
-API server authorization to external services. Other resources in this group include:
+`SelfSubjectAccessReview` is part of the `authorization.k8s.io` API group, which
+exposes the API server authorization to external services. Other resources in
+this group include:
 
 * `SubjectAccessReview` - Access review for any user, not just the current one. Useful for delegating authorization decisions to the API server. For example, the kubelet and extension API servers use this to determine user access to their own APIs.
 * `LocalSubjectAccessReview` - Like `SubjectAccessReview` but restricted to a specific namespace.
@@ -121,11 +137,13 @@ spec:
     verb: create
 status:
   allowed: true
+  denied: false
 ```
 
 ## Using Flags for Your Authorization Module
 
-You must include a flag in your policy to indicate which authorization module your policies include:
+You must include a flag in your policy to indicate which authorization module
+your policies include:
 
 The following flags can be used:
 
@@ -136,12 +154,8 @@ The following flags can be used:
   * `--authorization-mode=AlwaysDeny` This flag blocks all requests. Use this flag only for testing.
   * `--authorization-mode=AlwaysAllow` This flag allows all requests. Use this flag only if you do not require authorization for your API requests.
 
-You can choose more than one authorization module. If one of the modes is `AlwaysAllow`, then it overrides the other modes and all API requests are allowed. 
-
-## Versioning
-For version 1.2, clusters created by kube-up.sh are configured so that no authorization is required for any request.
-
-As of version 1.3, clusters created by kube-up.sh are configured so that the ABAC authorization modules are enabled. However, its input file is initially set to allow all users to do all operations. The cluster administrator needs to edit that file, or configure a different authorizer to restrict what users can do.
+You can choose more than one authorization module. Modules are checked in order
+so an earlier module has higher priority to allow or deny a request.
 
 {% endcapture %}
 {% capture whatsnext %}
@@ -153,7 +167,16 @@ As of version 1.3, clusters created by kube-up.sh are configured so that the A
 
 ## Privilege escalation via pod creation
 
-Users who have ability to create pods in a namespace can potentially escalate their privileges within that namespace.  They can create pods that access secrets the user cannot themselves read, or that run under a service account with different/greater permissions.
+Users who have the ability to create pods in a namespace can potentially
+escalate their privileges within that namespace.  They can create pods that
+access their privileges within that namespace. They can create pods that access
+secrets the user cannot themselves read, or that run under a service account
+with different/greater permissions.
 
-**Caution:** System administrators, use care when granting access to pod creation.  A user granted permission to create pods (or controllers that create pods) in the namespace can: read all secrets in the namespace; read all config maps in the namespace; and impersonate any service account in the namespace and take any action the account could take. This applies regardless of authorization mode.
+**Caution:** System administrators, use care when granting access to pod
+creation.  A user granted permission to create pods (or controllers that create
+pods) in the namespace can: read all secrets in the namespace; read all config
+maps in the namespace; and impersonate any service account in the namespace and
+take any action the account could take. This applies regardless of authorization
+mode.
 {: .caution}

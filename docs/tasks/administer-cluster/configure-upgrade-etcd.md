@@ -5,7 +5,7 @@ approvers:
 title: Operating etcd clusters for Kubernetes
 ---
 
-etcd is a strong, consistent, and highly-available key value store which Kubernetes uses for persistent storage of all of its API objects. This documentation provides specific instruction on operating, upgrading, and rolling back etcd clusters for Kubernetes. For in-depth information on etcd, see [etcd documentation](https://github.com/coreos/etcd/blob/master/Documentation/docs.md).
+{% glossary_definition term_id="etcd" length="all" prepend="etcd is a "%}
 
 <!-- TODO(mml): Write this doc.
 
@@ -374,7 +374,7 @@ STORAGE_MEDIA_TYPE=application/json
 ### Default configuration
 
 The default setup scripts use kubelet's file-based static pods feature to run etcd in a
-[pod](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/etcd/etcd.manifest). This manifest should only
+[pod](http://releases.k8s.io/{{page.githubbranch}}/cluster/gce/manifests/etcd.manifest). This manifest should only
 be run on master VMs. The default location that kubelet scans for manifests is
 `/etc/kubernetes/manifests/`.
 

@@ -1,10 +1,12 @@
 # Custom Jekyll Plugins
 
-This directory contains `*.rb` files that extend the original Jekyll classes and provide custom formatting for the docs site:
+This directory contains `*.rb` files that extend the original Jekyll
+classes and provide custom formatting for the docs site:
 
 ### `glossary_tags.rb`
 
-A full list of glossary terms is available on the [Standardized Glossary](https://kubernetes.io/docs/reference/glossary/?fundamental=true) page. For further information about term schemas, see the [README](../_includes/templates/glossary/README.md) and the provided [`_example.yml`](../_data/glossary/_example.yml).
+A full list of glossary terms is available on the [Standardized Glossary](https://kubernetes.io/docs/reference/glossary/?fundamental=true) page.
+For further information about term schemas, see the [README](../_includes/templates/glossary/README.md) and the provided [`_example.yml`](../_data/glossary/_example.yml).
 
 *NOTE: The "tags" referenced here are Liquid tags like `{% include %}`, **not** the glossary canonical tags that are used to categorize terms.*
 
@@ -25,6 +27,7 @@ This renders the definition of the glossary term inside a `<div>`, preserving Ma
 | --- | --- | --- |
 | `term_id` | N/A (Required) | The `id` of the glossary term whose definition will be used. (This `id` is the same as the filename of the term, i.e. `_data/glossary/<ID>.yml`.) |
 | `length` | "short" | Specifies which term definition should be used ("short" for the `short-definition`, "long" for `long-description`, "all" when both should be included). |
+| `prepend` | "Service Catalog is" | A prefix which can be attached in front of a term's short definition (which is one or more sentence fragments). |
 
 #### (2) `glossary_tooltip` tag
 

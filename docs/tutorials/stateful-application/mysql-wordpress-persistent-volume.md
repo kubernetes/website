@@ -7,18 +7,18 @@ approvers:
 {% capture overview %}
 This tutorial shows you how to deploy a WordPress site and a MySQL database using Minikube. Both applications use PersistentVolumes and PersistentVolumeClaims to store data. 
 
-A [PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV) is a piece of storage in the cluster that has been provisioned by an administrator, and a [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVC) is a set amount of storage in a PV. PersistentVolumes and PersistentVolumeClaims are independent from Pod lifecycles and preserve data through restarting, rescheduling, and even deleting Pods. 
+A [PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV) is a piece of storage in the cluster that has been manually provisioned by an administrator, or dynamically provisioned by Kubernetes using a [StorageClass](/docs/concepts/storage/storage-classes).  A [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVC) is a request for storage by a user that can be fulfilled by a PV. PersistentVolumes and PersistentVolumeClaims are independent from Pod lifecycles and preserve data through restarting, rescheduling, and even deleting Pods.
 
 **Warning:**  This deployment is not suitable for production use cases, as it uses single instance WordPress and MySQL Pods. Consider using [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress) to deploy WordPress in production.
 {: .warning}
 
-**Note:** The files provided in this tutorial are using beta Deployment APIs and are specific to kubernetes version 1.8. If you wish to use this tutorial with an earlier version of Kubernetes, please update the beta API appropriately, or reference earlier versions of this tutorial.
+**Note:** The files provided in this tutorial are using GA Deployment APIs and are specific to kubernetes version 1.9 and later. If you wish to use this tutorial with an earlier version of Kubernetes, please update the API version appropriately, or reference earlier versions of this tutorial.
 {: .note}
 
 {% endcapture %}
 
 {% capture objectives %}
-* Create a PersistentVolume
+* Create PersistentVolumeClaims and PersistentVolumes
 * Create a Secret
 * Deploy MySQL
 * Deploy WordPress
@@ -32,8 +32,6 @@ A [PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV) is a piece
 
 Download the following configuration files:
 
-1. [local-volumes.yaml](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/local-volumes.yaml)
-
 1. [mysql-deployment.yaml](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/mysql-deployment.yaml)
 
 1. [wordpress-deployment.yaml](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/wordpress-deployment.yaml)
@@ -42,38 +40,22 @@ Download the following configuration files:
 
 {% capture lessoncontent %} 
 
-## Create a PersistentVolume
+## Create PersistentVolumeClaims and PersistentVolumes
 
-MySQL and Wordpress each use a PersistentVolume to store data. While Kubernetes supports many different [types of PersistentVolumes](/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes), this tutorial covers [hostPath](/docs/concepts/storage/volumes/#hostpath).
+MySQL and Wordpress each require a PersistentVolume to store data.  Their PersistentVolumeClaims will be created at the deployment step.
+
+Many cluster environments have a default StorageClass installed.  When a StorageClass is not specified in the PersistentVolumeClaim, the cluster's default StorageClass is used instead.
+
+When a PersistentVolumeClaim is created, a PersistentVolume is dynamically provisioned based on the StorageClass configuration.
+
+**Warning:** In local clusters, the default StorageClass uses the `hostPath` provisioner.  `hostPath` volumes are only suitable for development and testing. With `hostPath` volumes, your data lives in `/tmp` on the node the Pod is scheduled onto and does not move between nodes. If a Pod dies and gets scheduled to another node in the cluster, or the node is rebooted, the data is lost.
+{: .warning}
+
+**Note:** If you are bringing up a cluster that needs to use the `hostPath` provisioner, the `--enable-hostpath-provisioner` flag must be set in the `controller-manager` component.
+{: .note}
 
 **Note:** If you have a Kubernetes cluster running on Google Kubernetes Engine, please follow [this guide](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk).
 {: .note}
-
-### Setting up a hostPath Volume
-
-A `hostPath` mounts a file or directory from the host node’s filesystem into your Pod. 
-
-**Warning:** Only use `hostPath` for developing and testing. With hostPath, your data lives on the node the Pod is scheduled onto and does not move between nodes. If a Pod dies and gets scheduled to another node in the cluster, the data is lost. 
-{: .warning}
-
-1. Launch a terminal window in the directory you downloaded the manifest files.
-
-2. Create two PersistentVolumes from the `local-volumes.yaml` file:
-
-       kubectl create -f local-volumes.yaml
-
-{% include code.html language="yaml" file="mysql-wordpress-persistent-volume/local-volumes.yaml" ghlink="/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/local-volumes.yaml" %}
-
-{:start="3"} 
-3. Run the following command to verify that two 20GiB PersistentVolumes are available:
-
-       kubectl get pv
-
-   The response should be like this:
-
-       NAME         CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS      CLAIM     STORAGECLASS   REASON    AGE
-       local-pv-1   20Gi       RWO           Retain          Available                                      1m
-       local-pv-2   20Gi       RWO           Retain          Available                                      1m
 
 ## Create a Secret for MySQL Password
 
@@ -108,7 +90,19 @@ The following manifest describes a single-instance MySQL Deployment. The MySQL c
 
        kubectl create -f mysql-deployment.yaml
 
-2. Verify that the Pod is running by running the following command:
+2. Verify that a PersistentVolume got dynamically provisioned:
+
+       kubectl get pvc
+
+   **Note:** It can take up to a few minutes for the PVs to be provisioned and bound.
+   {: .note}
+
+   The response should be like this:
+
+       NAME             STATUS    VOLUME                                     CAPACITY ACCESS MODES   STORAGECLASS   AGE
+       mysql-pv-claim   Bound     pvc-91e44fbf-d477-11e7-ac6a-42010a800002   20Gi     RWO            standard       29s
+
+3. Verify that the Pod is running by running the following command:
 
        kubectl get pods
 
@@ -130,7 +124,19 @@ The following manifest describes a single-instance WordPress Deployment and Serv
 
        kubectl create -f wordpress-deployment.yaml
 
-2. Verify that the Service is running by running the following command:
+2. Verify that a PersistentVolume got dynamically provisioned:
+
+       kubectl get pvc
+
+   **Note:** It can take up to a few minutes for the PVs to be provisioned and bound.
+   {: .note}
+
+   The response should be like this:
+
+       NAME             STATUS    VOLUME                                     CAPACITY ACCESS MODES   STORAGECLASS   AGE
+       wp-pv-claim      Bound     pvc-e69d834d-d477-11e7-ac6a-42010a800002   20Gi     RWO            standard       7s
+
+3. Verify that the Service is running by running the following command:
 
        kubectl get services wordpress
 
@@ -142,7 +148,7 @@ The following manifest describes a single-instance WordPress Deployment and Serv
    **Note:** Minikube can only expose Services through `NodePort`. <br/><br/>The `EXTERNAL-IP` is always `<pending>`.
    {: .note}
 
-3. Run the following command to get the IP Address for the WordPress Service:
+4. Run the following command to get the IP Address for the WordPress Service:
 
        minikube service wordpress --url
 
@@ -150,7 +156,7 @@ The following manifest describes a single-instance WordPress Deployment and Serv
 
        http://1.2.3.4:32406
 
-4. Copy the IP address, and load the page in your browser to view your site.
+5. Copy the IP address, and load the page in your browser to view your site.
 
    You should see the WordPress set up page similar to the following screenshot.
 
@@ -172,13 +178,9 @@ The following manifest describes a single-instance WordPress Deployment and Serv
        kubectl delete deployment -l app=wordpress
        kubectl delete service -l app=wordpress
 
-3. Run the following commands to delete the PersistentVolumeClaims and the PersistentVolumes:
+3. Run the following commands to delete the PersistentVolumeClaims.  The dynamically provisioned PersistentVolumes will be automatically deleted.
 
        kubectl delete pvc -l app=wordpress
-       kubectl delete pv local-pv-1 local-pv-2
-       
-   **Note:** Any other Type of PersistentVolume would allow you to recreate the Deployments and Services at this point without losing data, but `hostPath` loses the data as soon as the Pod stops running.
-   {: .note}         
 
 {% endcapture %}
 

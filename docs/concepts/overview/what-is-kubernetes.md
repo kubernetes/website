@@ -105,7 +105,7 @@ Kubernetes:
 * Does not provide middleware (e.g., message buses), data-processing frameworks (for example, Spark), databases (e.g., mysql), nor cluster storage systems (e.g., Ceph) as built-in services. Such applications run on Kubernetes.
 * Does not have a click-to-deploy service marketplace.
 * Does not deploy source code and does not build your application. Continuous Integration (CI) workflow is an area where different users and projects have their own requirements and preferences, so it supports layering CI workflows on Kubernetes but doesn't dictate how layering should work.
-* Allows users to choose their logging, monitoring, and alerting systems. (It provides some integrations as proof of concept.)
+* Does not dictate logging, monitoring, or alerting decisions, but allows users to choose their own solutions. (It provides some integrations as proof of concept.)
 * Does not provide nor mandate a comprehensive application configuration language/system (for example, [jsonnet](https://github.com/google/jsonnet)).
 * Does not provide nor adopt any comprehensive machine configuration, maintenance, management, or self-healing systems.
 

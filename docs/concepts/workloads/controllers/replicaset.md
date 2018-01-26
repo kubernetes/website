@@ -3,7 +3,7 @@ approvers:
 - Kashomon
 - bprashanth
 - madhusudancs
-title: Replica Sets
+title: ReplicaSet
 ---
 
 {% capture overview %}
@@ -96,7 +96,7 @@ frontend-qhloh   1/1       Running   0          1m
 ## Writing a ReplicaSet Spec
 
 As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.  For
-general information about working with manifests, see [Object Management](/docs/concepts/tools/kubectl/object-management-overview/).
+general information about working with manifests, see [object management using kubectl](/docs/concepts/overview/object-management-kubectl/overview/).
 
 A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
@@ -126,7 +126,7 @@ deleted. This allows the ReplicaSet to be replaced without affecting the running
 The `.spec.template.metadata.labels` must match the `.spec.selector`, or it will
 be rejected by the API.
 
-In Kubernetes 1.8 the API version `apps/v1beta2` on the ReplicaSet kind is the current version and is enabled by default. The API version `extensions/v1beta1` is deprecated. In API version `apps/v1beta2`, `.spec.selector` and `.metadata.labels` no longer default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation starting in API version `apps/v1beta2`.
+In Kubernetes 1.9 the API version `apps/v1` on the ReplicaSet kind is the current version and is enabled by default. The API version `apps/v1beta2` is deprecated.
 
 Also you should not normally create any pods whose labels match this selector, either directly, with 
 another ReplicaSet, or with another controller such as a Deployment. If you do so, the ReplicaSet thinks that it 

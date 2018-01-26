@@ -11,8 +11,8 @@
 			type: 0,
 			name: 'Puppet',
 			logo: 'puppet',
-			link: 'https://puppet.com/blog/managing-kubernetes-configuration-puppet',
-			blurb: 'The Puppet module for Kubernetes makes it easy to manage Pods, Replication Controllers, Services and more in Kubernetes, and to build domain-specific interfaces to one\'s Kubernetes configuration.'
+			link: 'https://puppet.com/blog/announcing-kream-and-new-kubernetes-helm-and-docker-modules',
+			blurb: 'We\'ve developed tools and products to make your adoption of Kubernetes as efficient as possible, covering your full workflow cycle from development to production. And now Puppet Pipelines for Containers is your complete DevOps dashboard for Kubernetes.'
 		},
 		{
 			type: 0,
@@ -43,7 +43,7 @@
 			blurb: 'Powering the GIFEE (Google’s Infrastructure for Everyone Else), to run OpenStack deployments on Kubernetes.'
 		},
 		{
-			type: 0,
+			type: 3,
 			name: 'Platform9',
 			logo: 'platform9',
 			link: 'https://platform9.com/products/kubernetes/',
@@ -104,35 +104,56 @@
 			logo: 'diamanti',
 			link: 'https://www.diamanti.com/products/',
 			blurb: 'Diamanti deploys containers with guaranteed performance using Kubernetes in the first hyperconverged appliance purpose built for containerized applications.'
-		},
+				},
 		{
 			type: 0,
 			name: 'Aporeto',
 			logo: 'aporeto',
 			link: 'https://aporeto.com/trireme',
 			blurb: 'Aporeto makes cloud-native applications secure by default without impacting developer velocity and works at any scale, on any cloud.'
-		},
+				},
 		{
   		type: 2,
  			name: 'Giant Swarm',
  			logo: 'giant_swarm',
  			link: 'https://giantswarm.io',
  			blurb: 'Giant Swarm provides fully-managed Kubernetes Clusters in your location of choice, so you can focus on your product.'
- 		},
+ 				},
+		{
+		 	type: 3,
+		 	name: 'Giant Swarm',
+		 	logo: 'giant_swarm',
+		 	link: 'https://giantswarm.io/product/',
+		 	blurb: 'Giant Swarm - Managed Kubernetes on AWS'
+		 		},
+		{
+		 	type: 3,
+			name: 'Hasura',
+			logo: 'hasura',
+			link: 'https://hasura.io',
+			blurb: 'Hasura is a Kubernetes-based PaaS and a Postgres-based BaaS that accelerates app development with ready-to-use components.'
+				},
 		{
  			type: 3,
  			name: 'Mirantis',
  			logo: 'mirantis',
  			link: 'https://www.mirantis.com/software/kubernetes/',
  			blurb: 'Mirantis - Mirantis Cloud Platform'
- 		},
+ 				},
+		{
+		 	type: 2,
+		 	name: 'Mirantis',
+		 	logo: 'mirantis',
+		 	link: 'https://content.mirantis.com/Containerizing-OpenStack-on-Kubernetes-Video-Landing-Page.html',
+		 	blurb: 'Mirantis builds and manages private clouds with open source software such as OpenStack, deployed as containers orchestrated by Kubernetes.'
+		 		},
 		{
  			type: 0,
  			name: 'Kubernetic',
  			logo: 'kubernetic',
  			link: 'https://kubernetic.com/',
  			blurb: 'Kubernetic is a Kubernetes Desktop client that simplifies and democratizes cluster management for DevOps.'
- 		},
+ 				},
 		{
 			type: 1,
 			name: 'Reactive Ops',
@@ -196,6 +217,13 @@
  			link: 'http://www.inwinstack.com/index.php/en/solutions-en/',
  			blurb: 'Our container service leverages OpenStack-based infrastructure and its container orchestration engine Magnum to manage Kubernetes clusters.'
   		},
+	{
+	 	type: 3,
+	 	name: 'InwinSTACK',
+	 	logo: 'inwinstack',
+	 	link: 'https://github.com/inwinstack/kube-ansible',
+	 	blurb: 'inwinSTACK - kube-ansible'
+	  	},
 		{
  			type: 1,
  			name: 'Semantix',
@@ -428,12 +456,47 @@
 			blurb: 'Kenzan is a software engineering and full-service consulting firm that provides customized, end-to-end solutions that drive change through digital transformation.'
 			},
 		{
-			type: 0,
+			type: 3,
 			name: 'Kublr',
 			logo: 'kublr',
 			link: 'http://kublr.com',
-			blurb: 'Simplify and speed up the management of your containerized applications at scale.'
+			blurb: 'Kublr - Accelerate and control the deployment, scaling, monitoring and management of your containerized applications.'
 			},
+		{
+			type: 1,
+			name: 'ControlPlane',
+			logo: 'controlplane',
+			link: 'https://control-plane.io',
+			blurb: 'We are a London-based Kubernetes consultancy with a focus on security and continuous delivery. We offer consulting & training.'
+			},
+		{
+			type: 3,
+			name: 'Nirmata',
+			logo: 'nirmata',
+			link: 'https://www.nirmata.com/',
+			blurb: 'Nirmata - Nirmata Managed Kubernetes'
+				},
+		{
+			type: 2,
+			name: 'Nirmata',
+			logo: 'nirmata',
+			link: 'https://www.nirmata.com/',
+			blurb: 'Nirmata is a software platform that helps DevOps teams deliver enterprise-grade and cloud-provider agnostic Kubernetes based container management solutions.'
+				},
+		{
+			type: 3,
+			name: 'TenxCloud',
+			logo: 'tenxcloud',
+			link: 'https://tenxcloud.com',
+			blurb: 'TenxCloud - TenxCloud Container Engine (TCE)'
+				},
+		{
+			type: 0,
+			name: 'Twistlock',
+			logo: 'twistlock',
+			link: 'https://www.twistlock.com/',
+			blurb: 'Security at Kubernetes Scale: Twistlock allows you to deploy fearlessly with assurance that your images and containers are free of vulnerabilities and protected at runtime.'
+				},
 		{
 			type: 0,
 			name: 'Endocode AG',
@@ -470,7 +533,7 @@
 			blurb: 'CloudKite.io helps companies build and maintain highly automated, resilient, and impressively performing software on Kubernetes.'
 			},
 		{
-			type: 1,
+			type: 2,
 			name: 'CloudOps',
 			logo: 'CloudOps',
 			link: 'https://www.cloudops.com/services/docker-and-kubernetes-workshops/',
@@ -478,6 +541,13 @@
 			},
 		{
 			type: 2,
+			name: 'Ghostcloud',
+			logo: 'ghostcloud',
+			link: 'https://www.ghostcloud.cn/ecos-kubernetes',
+			blurb: 'EcOS is an enterprise-grade PaaS / CaaS based on Docker and Kubernetes, which makes it easier to configure, deploy and manage containerized applications.'
+			},
+		{
+			type: 3,
 			name: 'Ghostcloud',
 			logo: 'ghostcloud',
 			link: 'https://www.ghostcloud.cn/ecos-kubernetes',
@@ -654,7 +724,7 @@
 		{
 			type: 3,
 			name: 'Google Kubernetes Engine',
-			logo: 'gcp',
+			logo: 'google',
 			link: 'https://cloud.google.com/kubernetes-engine/',
 			blurb: 'Google - Google Kubernetes Engine'
 				},
@@ -684,6 +754,13 @@
 			name: 'Canonical',
 			logo: 'canonical',
 			link: 'https://www.ubuntu.com/kubernetes',
+			blurb: 'The Canonical Distribution of Kubernetes enables you to operate Kubernetes clusters on demand on any major public cloud and private infrastructure.'
+				},
+		{
+			type: 2,
+			name: 'Canonical',
+			logo: 'canonical',
+			link: 'https://www.ubuntu.com/kubernetes',
 			blurb: 'Canonical Ltd. - Canonical Distribution of Kubernetes'
 				},
 		{
@@ -708,6 +785,13 @@
 			blurb: 'IBM - IBM Cloud Container Service'
 				},
 		{
+			type: 2,
+			name: 'IBM',
+			logo: 'ibm',
+			link: 'https://www.ibm.com/cloud-computing/bluemix/containers',
+			blurb: 'The IBM Bluemix Container Service combines Docker and Kubernetes to deliver powerful tools, an intuitive user experiences, and built-in security and isolation to enable rapid delivery of applications all while leveraging Cloud Services including cognitive capabilities from Watson.'
+				},
+		{
 			type: 3,
 			name: 'Samsung',
 			logo: 'samsung_sds',
@@ -723,10 +807,24 @@
 				},
 		{
 			type: 3,
+			name: 'Kinvolk',
+			logo: 'kinvolk',
+			link: 'https://github.com/kinvolk/kube-spawn',
+			blurb: 'Kinvolk - kube-spawn'
+				},
+		{
+			type: 3,
 			name: 'Heptio',
 			logo: 'heptio',
 			link: 'https://aws.amazon.com/quickstart/architecture/heptio-kubernetes',
 			blurb: 'Heptio - AWS-Quickstart'
+				},
+		{
+			type: 2,
+			name: 'Heptio',
+			logo: 'heptio',
+			link: 'http://heptio.com',
+			blurb: 'Heptio helps businesses of all sizes get closer to the vibrant Kubernetes community.'
 				},
 		{
 			type: 3,
@@ -734,6 +832,13 @@
 			logo: 'stackpoint',
 			link: 'https://stackpoint.io',
 			blurb: 'StackPointCloud - StackPointCloud'
+				},
+		{
+			type: 2,
+			name: 'StackPointCloud',
+			logo: 'stackpoint',
+			link: 'https://stackpoint.io',
+			blurb: 'StackPointCloud offers a wide range of support plans for managed Kubernetes clusters built through its universal control plane for Kubernetes Anywhere.'
 				},
 		{
 			type: 3,
@@ -771,9 +876,16 @@
 			blurb: 'Huawei - Huawei Cloud Container Engine'
 				},
 		{
+			type: 2,
+			name: 'Huawei',
+			logo: 'huawei',
+			link: 'http://developer.huawei.com/ict/en/site-paas',
+			blurb: 'FusionStage is an enterprise-grade Platform as a Service product, the core of which is based on mainstream open source container technology including Kubernetes and Docker.'
+				},
+		{
 			type: 3,
 			name: 'Google',
-			logo: 'gcp',
+			logo: 'google',
 			link: 'https://github.com/kubernetes/kubernetes/tree/master/cluster',
 			blurb: 'Google - kube-up.sh on Google Compute Engine'
 				},
@@ -792,11 +904,25 @@
 			blurb: 'Netease - Netease Container Service Dedicated'
 				},
 		{
+			type: 2,
+			name: 'Loodse',
+			logo: 'loodse',
+			link: 'https://loodse.com',
+			blurb: 'Loodse provides Kubernetes training & consulting, and host related events regularly across Europe.'
+				},
+		{
 			type: 3,
 			name: 'Loodse',
 			logo: 'loodse',
 			link: 'https://loodse.com',
 			blurb: 'Loodse - Kubermatic Container Engine'
+				},
+		{
+			type: 1,
+			name: 'LTI',
+			logo: 'lti',
+			link: 'https://www.lntinfotech.com/',
+			blurb: 'LTI helps enterprises architect, develop and support scalable cloud native apps using Docker and Kubernetes for private or public cloud.'
 				},
 		{
 			type: 3,
@@ -862,6 +988,13 @@
 			blurb: 'CoreOS - bootkube'
 				},
 		{
+			type: 2,
+			name: 'CoreOS',
+			logo: 'coreos',
+			link: 'https://coreos.com/',
+			blurb: 'Tectonic is the enterprise-ready Kubernetes product, by CoreOS. It adds key features to allow you to manage, update, and control clusters in production.'
+				},
+		{
 			type: 3,
 			name: 'Weaveworks',
 			logo: 'weave_works',
@@ -870,10 +1003,24 @@
 				},
 		{
 			type: 3,
+			name: 'Joyent',
+			logo: 'joyent',
+			link: 'https://github.com/joyent/triton-kubernetes',
+			blurb: 'Joyent - Triton Kubernetes'
+				},
+		{
+			type: 3,
 			name: 'Wise2c',
 			logo: 'wise2c',
 			link: 'http://www.wise2c.com/solution',
 			blurb: 'Wise2C Technology - WiseCloud'
+				},
+		{
+			type: 2,
+			name: 'Wise2c',
+			logo: 'wise2c',
+			link: 'http://www.wise2c.com',
+			blurb: 'Using Kubernetes to providing IT continuous delivery and Enterprise grade container management solution to Financial Industry.'
 				},
 		{
 			type: 3,
@@ -888,6 +1035,13 @@
 			logo: 'daocloud',
 			link: 'http://www.daocloud.io/dce',
 			blurb: 'DaoCloud - DaoCloud Enterprise'
+				},
+		{
+			type: 2,
+			name: 'Daocloud',
+			logo: 'daocloud',
+			link: 'http://www.daocloud.io/dce',
+			blurb: 'We provide enterprise-level cloud native application platform that supports both Kubernetes and Docker Swarm.'
 				},
 		{
 			type: 3,
@@ -909,6 +1063,20 @@
 			logo: 'vmware',
 			link: 'https://cloud.vmware.com/pivotal-container-service',
 			blurb: 'Pivotal/VMware - Pivotal Container Service (PKS)'
+				},
+		{
+			type: 3,
+			name: 'Alauda',
+			logo: 'alauda',
+			link: 'http://www.alauda.cn/product/detail/id/68.html',
+			blurb: 'Alauda - Alauda EE'
+				},
+		{
+			type: 3,
+			name: 'EasyStack',
+			logo: 'easystack',
+			link: 'https://easystack.cn/eks/',
+			blurb: 'EasyStack - EasyStack Kubernetes Service (EKS)'
 				},
 		{
 			type: 3,
@@ -1007,6 +1175,13 @@
 			logo: 'dataspine',
 			link: 'http://dataspine.xyz/',
 			blurb: 'Dataspine is building a secure, elastic and serverless deployment platform for production ML/AI workloads on top of k8s.'
+				},
+		{
+			type: 1,
+			name: 'CloudBourne',
+			logo: 'cloudbourne',
+			link: 'https://cloudbourne.com/kubernetes-enterprise-hybrid-cloud/',
+			blurb: 'Want to achieve maximum build, deploy and monitoring automation using Kubernetes? We can help.'
 				},
 		{
 			type: 0,

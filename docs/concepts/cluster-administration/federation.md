@@ -99,7 +99,8 @@ The following guides explain some of the resources in detail:
 * [Secrets](/docs/tasks/administer-federation/secret/)
 * [Services](/docs/concepts/cluster-administration/federation-service-discovery/)
 
-[API reference docs](/docs/reference/federation/) lists all the
+
+The [API reference docs](/docs/reference/generated/federation/) list all the
 resources supported by federation apiserver.
 
 ## Cascading deletion
@@ -178,4 +179,3 @@ clusters up to 5000 nodes. See [Building Large Clusters](/docs/admin/cluster-lar
 {% endcapture %}
 
 {% include templates/concept.md %}
-
