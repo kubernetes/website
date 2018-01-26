@@ -188,6 +188,7 @@ In order to copy certs between machines, you must enable SSH access for `scp`.
     scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/ca-key.pem .
     scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client.pem .
     scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client-key.pem .
+    scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/ca-config.json .
     ```
 
     Where `<etcd0-ip-address>` corresponds to the public or private IPv4 of `etcd0`.
