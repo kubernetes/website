@@ -3,13 +3,13 @@ name: Application Developer
 glossary_id: application-developer
 index: 0
 foundational:
-  - label: Set up a development environment
+  - label: Get a cluster
     icon: fa-television
     url: /docs/user-journeys/users/application-developer/foundational
-  - label: Deploy, scale, and update an application
+  - label: Deploy an application
     icon: fa-retweet
     url: /docs/user-journeys/users/application-developer/foundational#section-2
-  - label: Understand how Kubernetes works
+  - label: Understand basic Kubernetes architecture
     icon: fa-cog
     url: /docs/user-journeys/users/application-developer/foundational#section-3
   - label: Explore additional resources

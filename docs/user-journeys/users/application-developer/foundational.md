@@ -42,6 +42,8 @@ Minikube can be installed locally, and runs a simple, single-node Kubernetes clu
 
 * [Install Minikube](/docs/tasks/tools/install-minikube/){:target="_blank"}.
 
+* [Install kubectl](/docs/tasks/tools/install-kubectl/){:target="_blank"}. ({% glossary_tooltip text="What is kubectl?" term_id="kubectl" %})
+
 * *(Optional)* [Install Docker](/docs/setup/independent/install-kubeadm/#installing-docker){:target="_blank"} if you plan to run your Minikube cluster as part of a local development environment.
 
    Minikube includes a Docker daemon, but if you're developing applications locally, you'll want an independent Docker instance to support your workflow. This allows you to create {% glossary_tooltip text="containers" term_id="container" %} and push them to a container registry. *Note that version 1.12 is recommended for full compatibility with Kubernetes, but a few other versions are tested and known to work.*
@@ -141,10 +143,15 @@ As an app developer, you don't need to know everything about the inner workings 
 Say that your team is deploying an ordinary Rails application. You've run some calculations and determined that you need five instances of your app running at any given time, in order to handle external traffic.
 
 If you're not running Kubernetes or a similar automated system, you might find the following scenario familiar:
+
+<div class="emphasize-box" markdown="1">
+
 1. One instance of your app (a complete machine instance or just a container) goes down.
 2. Because your team has monitoring set up, this pages the person on call.
 3. The on-call person has to go in, investigate, and manually spin up a new instance.
 4. Depending how your team handles DNS/networking, the on-call person may also need to also update the service discovery mechanism to point at the IP of the new Rails instance rather than the old.
+
+</div>
 
 This process can be tedious and also inconvenient, especially if (2) happens in the early hours of the morning!
 

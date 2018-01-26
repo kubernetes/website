@@ -85,6 +85,8 @@ Aenean suscipit arcu ac leo tincidunt tempus. Donec maximus tellus libero, ac ul
 
 ## Additional resources
 
+* [Kubernetes Client Libraries](/docs/reference/client-libraries/){:target="_blank"}
+
 ### What's next
 Congrats on completing the Application Developer user journey!
 
