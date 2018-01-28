@@ -1,0 +1,55 @@
+digraph G {
+    node[shape=rectangle]
+    compound=true;
+    node[style=filled]
+
+    subgraph cluster_client {
+        label="Client"
+       fontname="Helvetica bold"
+        kubectl
+    }
+
+    subgraph cluster_master {
+        label="Master"
+         fontname="Helvetica bold"
+        "kube-scheduler:10251"
+        "kube-controller-manager:10252"
+        "api-server:6443"
+        "cloud-controller-manager:10253"
+    }
+
+    subgraph cluster_worker {
+        label="Cluster"
+        fontname="Helvetica bold"
+        subgraph cluster_kubelet {
+            label=""
+            "cadvisor:4194"
+            "healthz:10248"
+            "kubelet:10250"
+        }
+        "kube-proxy"
+        "iptables/ipvs/userspace"[style=dashed]
+        "CRI"[style=filled, shape=ellipse]
+        "docker/rkt"[style=dashed]
+        "calico/flannel/weave"[style=dashed]
+        "CNI"[style=filled, shape=ellipse]
+        "manifests"[style=dashed]
+    }
+
+
+    "api-server:6443" -> "etcd:2379"
+    "api-server:6443" -> "kubelet:10250" [lhead=cluster_kubelet, dir=both]
+    "kubectl" -> "api-server:6443"
+    "kubelet:10250" -> "kube-proxy" [ltail=cluster_kubelet]
+    "kube-proxy" -> "iptables/ipvs/userspace"
+    "manifests" ->   "kubelet:10250" [lhead=cluster_kubelet]
+    "kubelet:10250" -> "CRI" [ltail=cluster_kubelet]
+    "kubelet:10250" -> "CNI" [ltail=cluster_kubelet]
+    CRI -> "docker/rkt"
+    CNI -> "calico/flannel/weave"
+    "api-server:6443" -> "kube-scheduler:10251"
+    "api-server:6443" -> "kube-controller-manager:10252"
+    "api-server:6443" -> "cloud-controller-manager:10253"
+    "kube-scheduler:10251" -> "kube-controller-manager:10252" -> "cloud-controller-manager:10253" [style=invis]
+
+}
