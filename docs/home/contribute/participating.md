@@ -9,14 +9,15 @@ SIG-DOCS is one of the [special interest groups](https://github.com/kubernetes/c
 
 {% capture body %}
 
-You can get an overview of [SIG-DOCS from the community github repo](https://github.com/kubernetes/community/tree/master/sig-docs). The SIG-DOCS group has two teams defined:
+You can get an overview of [SIG-DOCS from the community github repo](https://github.com/kubernetes/community/tree/master/sig-docs). The SIG-DOCS group has two teams defined on github:
  - [@kubernetes/sig-docs-maintainers](https://github.com/orgs/kubernetes/teams/sig-docs-maintainers)
  - [@kubernetes/sig-docs-pr-reviews](https://github.com/orgs/kubernetes/teams/sig-docs-pr-reviews)
 
-These groups are used for access to the [website repository](https://github.com/kubernetes/website), which houses the content that hosted at this site.
+These groups are used for access to the [website repository](https://github.com/kubernetes/website), which houses the content that hosted at this site. Both can be referenced with their `@name` in github comments to communicate with everyone in that group.
 
-These groups are also used by the github automation tooling that Kubernetes uses as a project.
-https://github.com/kubernetes/community/blob/master/contributors/devel/owners.md
+These groups overlap, but aren't identical, to the automation tooling that Kubernetes uses as a project. For assignment of issues, pul requests, and to support PR approvals, the automation uses an OWNERS file for the repository. 
+
+[Documentation on the OWNERS](https://github.com/kubernetes/community/blob/master/contributors/devel/owners.md) file is available, and explains the groupings, intentions, and how to maintain this file for each repository that has it enabled.
 
 Our repo uses the blunderbuss and approve plugins of prow
  - repo config for Prow https://github.com/kubernetes/test-infra/blob/master/prow/plugins.yaml#L210, which in turn use the [OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) and [OWNERS_ALIAS](https://github.com/kubernetes/website/blob/master/OWNERS_ALIAS) files in our repo for configuration.
