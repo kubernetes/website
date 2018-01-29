@@ -49,13 +49,6 @@ toc:
   landing_page: /docs/tutorials/configuration/configure-redis-using-configmap/
   section:
   - docs/tutorials/configuration/configure-redis-using-configmap.md
-- title: Object Management Using kubectl
-  landing_page: /docs/tutorials/object-management-kubectl/object-management/
-  section:
-  - docs/tutorials/object-management-kubectl/object-management.md
-  - docs/tutorials/object-management-kubectl/imperative-object-management-command.md
-  - docs/tutorials/object-management-kubectl/imperative-object-management-configuration.md
-  - docs/tutorials/object-management-kubectl/declarative-object-management-configuration.md
 - title: Stateless Applications
   landing_page: /docs/tutorials/stateless-application/guestbook/
   section:

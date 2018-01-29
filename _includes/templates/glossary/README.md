@@ -6,6 +6,8 @@ To write a glossary snippet, start with a copy of the template, [`/_data/glossar
   * This field must match the name of the glossary file itself (without the `*.yml` extension). It is *not* intended to be displayed to users, and is only used programmatically.
 * (Required) `name`
   * The name of the term.
+* (Optional) `full-link`
+  * The link to any specific long-form documentation, starting with `https://` if not within the website repo, and `/docs/...` if within the repo.
 * (Required) `tags`
   * Must be one of the tags listed in the [tags directory in the website repository](https://github.com/kubernetes/website/tree/master/_data/canonical-tags).
 * (Required) `short description`

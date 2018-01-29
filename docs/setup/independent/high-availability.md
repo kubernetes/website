@@ -188,6 +188,7 @@ In order to copy certs between machines, you must enable SSH access for `scp`.
     scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/ca-key.pem .
     scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client.pem .
     scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client-key.pem .
+    scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/ca-config.json .
     ```
 
     Where `<etcd0-ip-address>` corresponds to the public or private IPv4 of `etcd0`.
@@ -486,7 +487,7 @@ Next provision and set up the worker nodes. To do this, you will need to provisi
 
 ## Configure workers
 
-Reconfigure kube-proxy to access kube-apiserver via the load balancer:
+1. Reconfigure kube-proxy to access kube-apiserver via the load balancer:
 
     ```shell
     kubectl get configmap -n kube-system kube-proxy -o yaml > kube-proxy.yaml
@@ -496,7 +497,7 @@ Reconfigure kube-proxy to access kube-apiserver via the load balancer:
     kubectl delete pod -n kube-system -l k8s-app=kube-proxy
     ```
 
-Reconfigure the kubelet to access kube-apiserver via the load balancer:
+1. Reconfigure the kubelet to access kube-apiserver via the load balancer:
 
     ```shell
     sudo sed -i 's#server:.*#server: https://<masterLoadBalancerFQDN>:6443#g' /etc/kubernetes/kubelet.conf

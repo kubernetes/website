@@ -22,16 +22,19 @@ the same VM, and do not run user containers on this VM. See
 
 ### kube-apiserver
 
-[kube-apiserver](/docs/admin/kube-apiserver/) exposes the Kubernetes API. It is the front-end for the
-Kubernetes control plane. It is designed to scale horizontally -- that is, it scales by deploying more instances. See [Building High-Availability Clusters](/docs/admin/high-availability/).
+{% glossary_definition term_id="kube-apiserver" length="all" %}
 
 ### etcd
 
-[etcd](/docs/tasks/administer-cluster/configure-upgrade-etcd/) is used as Kubernetes' backing store. All cluster data is stored here. Always have a backup plan for etcd's data for your Kubernetes cluster.
+{% glossary_definition term_id="etcd" length="all" %}
+
+### kube-scheduler
+
+{% glossary_definition term_id="kube-scheduler" length="all" %}
 
 ### kube-controller-manager
 
-[kube-controller-manager](/docs/admin/kube-controller-manager/) runs controllers, which are the background threads that handle routine tasks in the cluster. Logically, each controller is a separate process, but to reduce complexity, they are all compiled into a single binary and run in a single process.
+{% glossary_definition term_id="kube-controller-manager" length="all" %}
 
 These controllers include:
 
@@ -55,11 +58,6 @@ The following controllers have cloud provider dependencies:
   * Route Controller: For setting up routes in the underlying cloud infrastructure
   * Service Controller: For creating, updating and deleting cloud provider load balancers
   * Volume Controller: For creating, attaching, and mounting volumes, and interacting with the cloud provider to orchestrate volumes
-
-### kube-scheduler
-
-[kube-scheduler](/docs/admin/kube-scheduler/) watches newly created pods that
-are not assigned to any node, and selects a node for them to run on.
 
 ### addons
 

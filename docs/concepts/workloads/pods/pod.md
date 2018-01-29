@@ -7,7 +7,7 @@ title: Pods
 {:toc}
 
 
-_pods_ are the smallest deployable units of computing that can be created and
+_Pods_ are the smallest deployable units of computing that can be created and
 managed in Kubernetes.
 
 ## What is a Pod?
@@ -139,7 +139,13 @@ simplified management.
 
 Pods aren't intended to be treated as durable entities. They won't survive scheduling failures, node failures, or other evictions, such as due to lack of resources, or in the case of node maintenance.
 
-In general, users shouldn't need to create pods directly. They should almost always use controllers (e.g., [Deployments](/docs/concepts/workloads/controllers/deployment/)), even for singletons.  Controllers provide self-healing with a cluster scope, as well as replication and rollout management.
+In general, users shouldn't need to create pods directly. They should almost
+always use controllers even for singletons, for example,
+[Deployments](/docs/concepts/workloads/controllers/deployment/)).
+Controllers provide self-healing with a cluster scope, as well as replication
+and rollout management.
+Controllers like [StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)
+can also provide support to stateful pods.
 
 The use of collective APIs as the primary user-facing primitive is relatively common among cluster scheduling systems, including [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), and [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
 
@@ -151,8 +157,6 @@ Pod is exposed as a primitive in order to facilitate:
 * decoupling of controllers and services &mdash; the endpoint controller just watches pods
 * clean composition of Kubelet-level functionality with cluster-level functionality &mdash; Kubelet is effectively the "pod controller"
 * high-availability applications, which will expect pods to be replaced in advance of their termination and certainly in advance of deletion, such as in the case of planned evictions, image prefetching, or live pod migration [#3949](http://issue.k8s.io/3949)
-
-There is new first-class support for stateful pods with the [StatefulSet](/docs/concepts/workloads/controllers/statefulset.md) controller (currently in beta). The feature was alpha in 1.4 and was called PetSet. For prior versions of Kubernetes, best practice for having stateful pods is to create a replication controller with `replicas` equal to `1` and a corresponding service, see [this MySQL deployment example](/docs/tutorials/stateful-application/run-stateful-application/).
 
 ## Termination of Pods
 

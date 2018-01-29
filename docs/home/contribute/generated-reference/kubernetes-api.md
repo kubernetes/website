@@ -38,7 +38,7 @@ information, see
 Updating the Kubernetes API reference documentation is a two-stage process:
 
 1. Generate an OpenAPI spec from the Kubernetes source code. The tools for
-this stage are at [kubernetes/kubernetes/hack](https://github.com/kubernetes/kubernetes/hack).
+this stage are at [kubernetes/kubernetes/hack](https://github.com/kubernetes/kubernetes/tree/master/hack).
 
 1. Generate an HTML file from the OpenAPI spec. The tools for this stage are at
 [kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs).

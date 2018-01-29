@@ -292,8 +292,7 @@ many distinct files to make:
   1. Different credentials for every kubelet, etc.
     - We are working on this but all the pieces are not ready yet.
 
-You can make the files by copying the `$HOME/.kube/config`, by following the code
-in `cluster/gce/configure-vm.sh` or by using the following template:
+You can make the files by copying the `$HOME/.kube/config` or by using the following template:
 
 ```yaml
 apiVersion: v1
@@ -538,7 +537,7 @@ availability.
 
 To run an etcd instance:
 
-1. Copy `cluster/saltbase/salt/etcd/etcd.manifest`
+1. Copy [`cluster/gce/manifests/etcd.manifest`](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/manifests/etcd.manifest)
 1. Make any modifications needed
 1. Start the pod by putting it into the kubelet manifest directory
 
@@ -685,7 +684,6 @@ Some cloud providers require a config file. If so, you need to put config file i
 - Cloud config file syntax is [Gcfg](https://code.google.com/p/gcfg/).
 - AWS format defined by type [AWSCloudConfig](https://releases.k8s.io/{{page.githubbranch}}/pkg/cloudprovider/providers/aws/aws.go)
 - There is a similar type in the corresponding file for other cloud providers.
-- GCE example: search for `gce.conf` in [this file](https://releases.k8s.io/{{page.githubbranch}}/cluster/gce/configure-vm.sh)
 
 #### Scheduler pod template
 
