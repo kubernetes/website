@@ -650,6 +650,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: scopes-impersonator
+rules:
 # Can set "Impersonate-Extra-scopes" header.
 - apiGroups: ["authentication.k8s.io"]
   resources: ["userextras/scopes"]
@@ -674,7 +675,7 @@ rules:
 # Can impersonate the groups "developers" and "admins"
 - apiGroups: [""]
   resources: ["groups"]
-- verbs: ["impersonate"]
+  verbs: ["impersonate"]
   resourceNames: ["developers","admins"]
 
 # Can impersonate the extras field "scopes" with the values "view" and "development"
