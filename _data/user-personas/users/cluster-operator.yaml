@@ -29,9 +29,15 @@ intermediate:
     icon: fa-book
     url: /docs/user-journeys/users/cluster-operator/intermediate#section-4
 advanced:
-  - label: "c1: advanced stuff"
-    url: "#"
-  - label: "c2: advanced stuff"
-    url: "#"
-  - label: "c3: advanced stuff"
-    url: "#"
+  - label: "Connect to managed services using Service Catalog"
+    icon: fa-puzzle-piece
+    url: "/docs/concepts/service-catalog/"
+  - label: "Extend a Kubernetes cluster"
+    icon: fa-arrows
+    url: "/docs/concepts/overview/extending/"
+  - label: "Create a Pod Security Policy"
+    icon: fa-lock
+    url: "/docs/concepts/policy/pod-security-policy/"
+  - label: "Define a Resource Quota"
+    icon: fa-tachometer
+    url: "/docs/concepts/policy/resource-quotas/"
