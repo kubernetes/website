@@ -271,6 +271,8 @@ See [joining-your-nodes](https://kubernetes.io/docs/setup/independent/create-clu
 
 ## Supported Features
 
+The examples listed below assume running Windows nodes on Windows Server 1709. If you are running Windows Server 2016, the examples will need the image updated to specify `image: microsoft/windowsservercore`. This is due to the requirement for container images to match the host operating system version when using process isolation.
+
 ### Secrets and ConfigMaps
 Secrets and ConfigMaps can be utilized in Windows Server Containers, but must be used as environment variables. See limitations section below for additional details.
 
@@ -292,11 +294,11 @@ Secrets and ConfigMaps can be utilized in Windows Server Containers, but must be
     apiVersion: v1
     kind: Pod
     metadata:
-      name: mypod-secret
+      name: my-secret-pod
     spec:
       containers:
-      - name: mypod-secret
-        image: redis:3.0-nanoserver
+      - name: my-secret-pod
+        image: microsoft/windowsservercore:1709
         env:
           - name: USERNAME
             valueFrom:
@@ -328,11 +330,11 @@ data:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: configmap-pod
+  name: my-configmap-pod
 spec:
   containers:
-  - name: configmap-redis
-    image: redis:3.0-nanoserver
+  - name: my-configmap-pod
+    image: microsoft/windowsservercore:1709
     env:
       - name: EXAMPLE_PROPERTY_1
         valueFrom:
@@ -360,19 +362,19 @@ Persistent Volume Claims are supported for supported volume types.
  apiVersion: v1
  kind: Pod
  metadata:
-   name: hostpath-volume-pod
+   name: my-hostpath-volume-pod
  spec:
    containers:
-   - name: hostpath-redis
-     image: redis:3.0-nanoserver
+   - name: my-hostpath-volume-pod
+     image: microsoft/windowsservercore:1709
      volumeMounts:
-     - name: blah
+     - name: foo
        mountPath: "C:\\etc\\foo"
        readOnly: true
    nodeSelector:
      beta.kubernetes.io/os: windows
    volumes:
-   - name: blah
+   - name: foo
      hostPath:
        path: "C:\\etc\\foo"
  ```
@@ -383,11 +385,11 @@ Persistent Volume Claims are supported for supported volume types.
  apiVersion: v1
  kind: Pod
  metadata:
-   name: empty-dir-pod
+   name: my-empty-dir-pod
  spec:
    containers:
-   - image: redis:3.0-nanoserver
-     name: empty-dir-redis
+   - image: microsoft/windowsservercore:1709
+     name: my-empty-dir-pod
      volumeMounts:
      - mountPath: /cache
        name: cache-volume
@@ -401,7 +403,31 @@ Persistent Volume Claims are supported for supported volume types.
    nodeSelector:
      beta.kubernetes.io/os: windows
  ```
- 
+
+### DaemonSets
+
+DaemonSets are supported
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: my-DaemonSet
+  labels:
+    app: foo
+spec:
+  template:
+    metadata:
+      labels:
+        app: foo
+    spec:
+      containers:
+      - name: foo
+        image: microsoft/windowsservercore:1709
+      nodeSelector:
+        beta.kubernetes.io/os: windows
+```
+
 ### Metrics
 
 Windows Stats use a hybrid model: pod and container level stats come from CRI (via dockershim), while node level stats come from the "winstats" package that exports cadvisor like datastructures using windows specific perf counters from the node.
