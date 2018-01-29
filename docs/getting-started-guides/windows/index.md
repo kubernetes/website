@@ -259,7 +259,7 @@ Because your cluster has both Linux and Windows nodes, you must explicitly set t
     "containers": [
       {
         "name": "iis",
-        "image": "microsoft/iis",
+        "image": "microsoft/iis:windowsservercore-1709",
         "ports": [
           {
             "containerPort": 80
@@ -273,6 +273,7 @@ Because your cluster has both Linux and Windows nodes, you must explicitly set t
   }
 }
 ```
+**Note:** this example assumes you are running on Windows Server 1709, so uses the image tag to support that. If you are on a different version, you will need to update the tag. For example, if on Windows Server 2016, update to use `"image": "microsoft/iis"` which will default to that OS version.
 
 ### Secrets and ConfigMaps
 Secrets and ConfigMaps can be utilized in Windows Server Containers, but must be used as environment variables. See limitations section below for additional details.
