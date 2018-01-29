@@ -19,7 +19,7 @@ The Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) co
 ## Get Windows Binaries
 We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases/latest](https://github.com/kubernetes/kubernetes/releases/latest). Under the CHANGELOG you can find the Node Binaries link for Windows-amd64, which will include kubeadm, kubectl, kubelet and kube-proxy. 
 
-If you wish to build the code yourself, please refer to detailed build instructions [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md).
+If you wish to build the code yourself, please refer to detailed build instructions [here](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries).
 
 ## Prerequisites
 In Kubernetes version 1.9 or later, Windows Server Containers for Kubernetes are supported using the following:
@@ -84,7 +84,7 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 
 
 1. Windows Server container host running the required Windows Server and Docker versions. Follow the setup instructions outlined by this help topic: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server.
-2. [Get Windows Binaries](#Get-Windows-Binaries) kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions
+2. [Get Windows Binaries](#get-windows-binaries) kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions
 3. Copy Node spec file (kube config) from Linux master node with X.509 keys
 4. Create the HNS Network, ensure the correct CNI network config, and start kubelet.exe using this script [start-kubelet.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1)
 5. Start kube-proxy using this script [start-kubeproxy.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubeproxy.ps1)
@@ -240,10 +240,10 @@ See [joining-your-nodes](https://kubernetes.io/docs/setup/independent/create-clu
 
 ## Supported Features
 
-The examples listed below assume running Windows nodes on Windows Server 1709. If you are running Windows Server 2016, the examples will need the image updated to specify `image: microsoft/windowsservercore`. This is due to the requirement for container images to match the host operating system version when using process isolation.
+The examples listed below assume running Windows nodes on Windows Server 1709. If you are running Windows Server 2016, the examples will need the image updated to specify `image: microsoft/windowsservercore:ltsc2016`. This is due to the requirement for container images to match the host operating system version when using process isolation. Not specifying a tag will implicitly use the `:latest` tag which can lead to surprising behaviors. Please consult with [https://hub.docker.com/r/microsoft/windowsservercore/](https://hub.docker.com/r/microsoft/windowsservercore/) for additional information on Windows Server Core image tagging.
 
-## Scheduling Pods on Windows
-Because your cluster has both Linux and Windows nodes, you must explicitly set the nodeSelector constraint to be able to schedule pods to Windows nodes. You must set nodeSelector with the label beta.kubernetes.io/os to the value windows; see the following example:
+### Scheduling Pods on Windows
+Because your cluster has both Linux and Windows nodes, you must explicitly set the `nodeSelector` constraint to be able to schedule pods to Windows nodes. You must set nodeSelector with the label `beta.kubernetes.io/os` to the value `windows`; see the following example:
 
 ```yaml
 {
@@ -448,4 +448,5 @@ Some of these limitations will be addressed by the community in future releases 
 
 ## Next steps and resources
 
-Support for Windows is in Beta as of v1.9 and your feedback is welcomed. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
+- Support for Windows is in Beta as of v1.9 and your feedback is welcomed. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
+- Troubleshooting and Common Problems: [Link](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/common-problems)
