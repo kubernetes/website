@@ -465,7 +465,7 @@ In one terminal window, patch the `web` StatefulSet to change the container
 image again.
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.8"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.8"}]'
 statefulset "web" patched
 ```
 
