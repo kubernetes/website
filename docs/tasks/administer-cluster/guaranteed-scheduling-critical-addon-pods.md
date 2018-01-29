@@ -64,4 +64,4 @@ To be considered critical, the pod has to run in the `kube-system` namespace (co
 
 or
 
-* have the `scheduler.alpha.kubernetes.io/critical-pod` annotation set to empty string(This will be deprecated too).
+* have the `scheduler.alpha.kubernetes.io/critical-pod` annotation set to empty string(This will be deprecated too). This ensures that the pod gets "system-cluster-critical" priority.
