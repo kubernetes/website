@@ -3,6 +3,7 @@ abstract: "Instructions for setting up a Kubernetes cluster."
 landing_page: /docs/setup/index/
 toc:
 - docs/setup/index.md
+- docs/setup/pick-right-solution.md
 
 - title: Downloading Kubernetes
   landing_page: /docs/imported/release/notes/
