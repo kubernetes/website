@@ -61,7 +61,36 @@ a:hover {
 }
 
 .blog-content {
-  padding-left: 50px;
+  padding-left: 150px;
+
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -4em;
+  margin-left: -4em;
+}
+
+.col {
+  flex-grow: 1;
+  padding-right: 4em;
+  padding-left: 4em;
+}
+
+.container {
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+/******************************/
+
+.col-inner {
+  padding: 1em;
+  background: #efefef;
+}
+ .text {
+  word-wrap: normal;
+  overflow-wrap: break-word;
 }
 /* Header
 ----------------------------------------------- */

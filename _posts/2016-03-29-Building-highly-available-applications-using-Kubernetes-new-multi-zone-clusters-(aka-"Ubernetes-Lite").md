@@ -9,7 +9,7 @@ _Editor's note: this is the third post in a [series of in-depth posts](http://bl
 
 
 ### Introduction&nbsp;
-One of the most frequently-requested features for Kubernetes is the ability to run applications across multiple zones. And with good reason — developers need to deploy applications across multiple domains, to improve availability in the advent of a single zone outage.  
+One of the most frequently-requested features for Kubernetes is the ability to run applications across multiple zones. And with good reason — developers need to deploy applications across multiple domains, to improve availability in thxe advent of a single zone outage.  
 
 [Kubernetes 1.2](http://blog.kubernetes.io/2016/03/Kubernetes-1.2-even-more-performance-upgrades-plus-easier-application-deployment-and-management-.html), released two weeks ago, adds support for running a single cluster across multiple failure zones (GCP calls them simply "zones," Amazon calls them "availability zones," here we'll refer to them as "zones"). This is the first step in a broader effort to allow federating multiple Kubernetes clusters together (sometimes referred to by the affectionate nickname "[Ubernetes](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/federation.md)"). This initial version (referred to as "Ubernetes Lite") offers improved application availability by spreading applications across multiple zones within a single cloud provider.  
 

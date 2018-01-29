@@ -67,7 +67,7 @@
     <button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
   </div>
 </header>
-<!-- <header id='topHeader'> -->
+
 <div class="container-fluid">
 
   <div id="blog-hero" class="light-text">
@@ -88,81 +88,54 @@
 
 
   <div class="row blog-content" >
-    <!-- row-offcanvas row-offcanvas-right  -->
-    <div class="col-xs-12 col-sm-9 col-lg-8">
+   <div class="col-xs-12 col-sm-9 col-lg-9 text">
 
-      <h6 class="date-header">{{ page.date | date: '%B %-d, %Y' }} </h6>
+       <h6 class="date-header">{{ page.date | date: '%B %-d, %Y' }} </h6>
 
       <h3 class="post-title entry-title">  {{page.title}} </h3>
-      {{content}}
+      {{ content }}
     </div>
 
-    <div class="col-xs-6 col-sm-3 col-sm-3">
-{% for post in site.posts  %}
-      {%increment counter %}
-      {% capture count-tag %}{{ "#collapse" | counter }}{% endcapture %}
-      {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
-      {% capture this_month %}{{ post.date | date: "%B" }}{% endcapture %}
-      {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
-      {% capture next_month %}{{ post.previous.date | date: "%B" }}{% endcapture %}
 
-      {% if forloop.first %}
-      <div id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="card">
-          <div class="card-header" role="tab" id="headingOne">
-            <h2 id="{{ this_year }}-ref" class="mb-0">
-              <a data-toggle="collapse" href={{count-tag}} aria-expanded="false" aria-controls="collapseExample">{{this_year}}
-              </h2>
-            </a>
-          </div>
-          <div class="card-block">
-            <h3 id="{{ this_year }}-{{ this_month }}-ref">{{ this_month }}</h3>
-            <div id="{{count-tag}}" class="collapse " role="tabpanel" aria-labelledby="headingOne">
+    <div class="col-xs-6 col-sm-3 col-sm-3 col-lg-3 text">
+    <!-- TEMPORARY static sidebar -->
+    {% for post in site.posts  %}
+    {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+    {% capture this_month %}{{ post.date | date: "%B" }}{% endcapture %}
+    {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
+    {% capture next_month %}{{ post.previous.date | date: "%B" }}{% endcapture %}
 
-              <ul>
-      {% endif %}
-                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-      {% if forloop.last %}
-              </ul>
-            </div>
-          </div>
-    {% else %}
-      {% if this_year != next_year %}
-        </ul>
-      </div>
-      <div class="card">
-        <div class="card-header" role="tab" id="heading{{counter}}">
-        <h2 id="{{ next_year }}-ref">{{next_year}}</h2>
-        <!--  -->
-        {% capture count-id %}{{ "collapse" | counter }}{% endcapture %}
-        <a data-toggle="collapse" href={{count-tag}} aria-expanded="false" aria-controls="{{count-tag}}"><h3 id="{{ next_year }}-{{ next_month }}-ref">{{ next_month }}</h3></a>
-      </div>
-        <div id="{{count-tag}}" class="collapse " role="tabpanel" aria-labelledby="headingOne">
-
-          <ul>
-  {% else %}
-      {% if this_month != next_month %}
-          </ul>
-        </div>
-
-        <a data-toggle="collapse" href="{{count-tag}}" aria-expanded="false"><h3 id="{{ this_year }}-{{ next_month }}-ref">{{ next_month }}</h3></a>
-      </ul>
-<!-- </div> -->
-</div>
-      {% endif %}
+    {% if forloop.first %}
+    <h2 id="{{ this_year }}-ref">{{this_year}}</h2>
+    <h3 id="{{ this_year }}-{{ this_month }}-ref">{{ this_month }}</h3>
+    <ul>
     {% endif %}
-  {% endif %}
+
+    <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+
+    {% if forloop.last %}
+    </ul>
+    {% else %}
+        {% if this_year != next_year %}
+        </ul>
+        <h2 id="{{ next_year }}-ref">{{next_year}}</h2>
+        <h3 id="{{ next_year }}-{{ next_month }}-ref">{{ next_month }}</h3>
+        <ul>
+        {% else %}
+            {% if this_month != next_month %}
+            </ul>
+            <h3 id="{{ this_year }}-{{ next_month }}-ref">{{ next_month }}</h3>
+            <ul>
+            {% endif %}
+        {% endif %}
+    {% endif %}
 {% endfor %}
 
-
-    </div>
-  </div>
+</div>
 
 
-</div>  <!-- row blog content -->
+</div>
 
-
-</div>  <!-- div class container-fluid-->
 
 </body>
 {% include footer.html %}

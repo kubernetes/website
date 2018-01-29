@@ -1,16 +1,11 @@
 ---
 layout: blog
 ---
-
-
-
-<section class="here">
-
-  <!-- This loops through the paginated posts -->
+<div class="pagination">
   {% for post in paginator.posts %}
     <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
     <p class="author">
-      <span class="date">{{ post.date | date: '%B %-d, %Y' }}</span>
+      <span class="date">{{ post.date |  date: "%B %d %Y"}}</span>
     </p>
     <div class="content">
       {{ post.content | markdownify }}
@@ -18,20 +13,17 @@ layout: blog
   {% endfor %}
 
   <!-- Pagination links -->
-  <div class="pagination">
+<span>
     {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path }}" class="previous">Previous</a>
+     <a href="{{ paginator.previous_page_path }}" class="previous">  <h2>Previous</h2></a>
     {% else %}
-      <span class="previous">Previous</span>
+    <span class="previous">  <h2>Previous</h2></span>
     {% endif %}
     <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
     {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path }}" class="next">Next</a>
+      <a href="{{ paginator.next_page_path }}" class="next"><h2>Next</h2></a>
     {% else %}
-      <span class="next ">Next</span>
+      <h2><span class="next ">Next</span></h2>
     {% endif %}
-  </div>
-
-</section>
-</body>
-</html>
+</span>
+</div>
