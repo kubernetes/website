@@ -52,9 +52,7 @@ Windows supports the CNI network model and uses plugins to interface with the Wi
 #### Upstream L3 Routing Topology
 In this topology, networking is achieved using L3 routing with static IP routes configured in an upstream Top of Rack (ToR) switch/router. Each cluster node is connected to the management network with a host IP. Additionally, each node uses a local 'l2bridge' network with a pod CIDR assigned. All pods on a given worker node will be connected to the pod CIDR subnet ('l2bridge' network). In order to enable network communication between pods running on different nodes, the upstream router has static routes configured with pod CIDR prefix => Host IP.
 
-Each Window Server node should have the following configuration:
-
-The following diagram illustrates the Windows Server networking setup for Kubernetes using Upstream L3 Routing Setup:
+The following example diagram illustrates the Windows Server networking setup for Kubernetes using Upstream L3 Routing Setup:
 ![K8s Cluster using L3 Routing with ToR](UpstreamRouting.png)
 
 #### Host-Gateway Topology
@@ -95,7 +93,7 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 More detailed instructions can be found [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows.md).
 
 **Windows CNI Config Example**  
-Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file.
+Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file. This is based on the ToR example diagram shown above, specifying the configuration to apply to Windows node-1. Of special interest is Windows node-1 pod CIDR (10.10.187.64/26) and the associated gateway of cbr0 (10.10.187.66). The exception list is specifying the Service CIDR (11.0.0.0/8), Cluster CIDR (10.10.0.0/16), and Management (or Host) CIDR (10.127.132.128/25).
 
 Note: this file assumes that a user previous created 'l2bridge' host networks on each Windows node using `<Verb>-HNSNetwork` cmdlets as shown in the `start-kubelet.ps1` and `start-kubeproxy.ps1` scripts linked above
 
@@ -414,7 +412,12 @@ Some of these limitations will be addressed by the community in future releases 
 - Using Secrets and ConfigMaps as volume mounts is not supported 
 - The StatefulSet functionality for stateful applications is not supported
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
-- Hyper-V Containers are not supported
+- Hyper-V isolated containers are not supported. 
+- Windows container OS must match the Host OS. If it does not, the pod will get stuck in a crash loop.
+- Under the networking models of L3 or Host GW, Kubernetes Services are inaccessible to Windows nodes due to a Windows issue. This is not an issue if using OVN/OVS for networking.
+- Windows kubelet.exe may fail to start when running on Windows Server under VMWare Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
+- Flannel and Weavenet are not yet supported
 
+## Next steps and resources
 
-> As of this writing, the Kube-proxy binary requires a pending Kubernetes [pull request](https://github.com/kubernetes/kubernetes/pull/56529) to work properly. You may need to [build](#build) the binaries manually to work around this. 
+Support for Windows is in Beta as of v1.9 and your feedback is welcomed. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
