@@ -12,7 +12,7 @@ SIG-DOCS is one of the [special interest groups](https://github.com/kubernetes/c
 
 Everyone is encouraged to provide content and reviews to support the Kubernetes project documentation. Anyone may open a pull request, and anyone is welcome to provide their opinions and feedback on those pull requests.
 
-Within the Kubernetes project, you may also become a member, reviewer, or approver - and these levels confer additional privileges when it comes to approving or committing changes. You may also read [community-membership](https://github.com/kubernetes/community/blob/master/community-membership.md) for more details on how membership works within the Kubernetes community.
+Within the Kubernetes project, you may also become a member, reviewer, or approver. These levels confer additional privileges when it comes to approving and committing changes. You may also want to read [community-membership](https://github.com/kubernetes/community/blob/master/community-membership.md) for more details on how membership works within the Kubernetes community.
 
 ## Roles and Responsibilities
 
@@ -22,11 +22,11 @@ Anyone who is a member of the Kubernetes organization can provide a review for a
 
 - Reviewers
 
-Reviewers are people who have volunteered to provide their time to review documentation pull requests. You become a reviewer by adding your github handle to the [OWNERS file](https://github.com/kubernetes/community/blob/master/contributors/devel/owners.md) within the [website repo](https://github.com/kubernetes/website).
+Reviewers are individuals who have volunteered to provide their time to review documentation pull requests. You become a reviewer by adding your github handle to the [OWNERS file](https://github.com/kubernetes/community/blob/master/contributors/devel/owners.md) within the [website repo](https://github.com/kubernetes/website).
 
-Our automation plugins will suggest your name for reviews on pull requests, and a contributor may request your review with an `/assign [your_github_handle]` comment in the pull request. To indicate your approval of a pull request, a reviewer should add an `/approve` comment to the pull request. A reviewer may also use add a `/hold` comment on the pull request to prevent the pull request from being merged. Another reviewer or approver may also remove that hold with the comment `/hold cancel`.
+Our automation will reviewers to use for reviews on pull requests, and a contributor may request your review with an `/assign [your_github_handle]` comment in the pull request. To indicate your approval of a pull request, a reviewer should add an `/approve` comment to the pull request. A reviewer may also use add a `/hold` comment on the pull request to prevent the pull request from being merged. Another reviewer or approver may also remove that hold with the comment `/hold cancel`.
 
-When a reviewer is assigned a pull request to review it is not a sole responsibility, and any other reviewer may also offer their opinions on the pull request.
+When a reviewer is assigned a pull request to review it is not a sole responsibility, and any other reviewer may also offer their opinions on the pull request. If a reviewer is requested, it is generally expected that the PR will be left to that reviewer to do their editorial pass on the content. For small and/or trivial pull requests, the assigned reviewer may be skipped if an approver thinks the content is sufficient and well understood. 
 
 - Approvers
 
@@ -42,7 +42,9 @@ You can get an overview of [SIG-DOCS from the community github repo](https://git
 
 These groups are used for access to the [website repository](https://github.com/kubernetes/website), which houses the content that hosted at this site. Both can be referenced with their `@name` in github comments to communicate with everyone in that group.
 
-These groups overlap, but aren't identical, to the automation tooling that Kubernetes uses as a project. For assignment of issues, pul requests, and to support PR approvals, the automation uses an OWNERS file for the repository. 
+These groups overlap, but aren't identical, to the automation tooling that Kubernetes uses as a project. For assignment of issues, pul requests, and to support PR approvals, the automation uses an OWNERS file for the repository. The approvers and reviewers for PR assignment and automation tooling work from the OWNERS file. 
+
+If you wish to volunteer to be a reviewer or an approver, make a pull request and add your github handle to the relevant section in the OWNERS file.
 
 [Documentation on the OWNERS](https://github.com/kubernetes/community/blob/master/contributors/devel/owners.md) file is available, and explains the groupings, intentions, and how to maintain this file for each repository that has it enabled.
 
