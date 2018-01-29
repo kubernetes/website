@@ -80,7 +80,7 @@ When using kubectl to update your Kubernetes objects, it's important to be aware
 * [Imperative with local configuration files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/){:target="_blank"} (typically YAML)
 * [Declarative with local configuration files](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/){:target="_blank"} (typically YAML)
 
-There are pros and cons to each approach, though the *declarative approach* (e.g. `kubectl apply -f`) may be most helpful in production. With this approach, you rely on local YAML files as the source of truth about your desired state. This enables you to track and version control your configuration.
+There are pros and cons to each approach, though the *declarative approach* (e.g. `kubectl apply -f`) may be most helpful in production. With this approach, you rely on local YAML files as the source of truth about your desired state. This enables you to version control your configuration, which is helpful for code reviews and audit tracking.
 
 For additional configuration best practices, familiarize yourself with [this guide](/docs/concepts/configuration/overview/){:target="_blank"}.
 
@@ -117,9 +117,8 @@ As an app developer, you'll likely encounter the following tools in your workflo
 `kubectl` is a command-line tool that allows you to easily read or modify your Kubernetes cluster. It provides convenient, short commands for common operations like scaling app instances and getting node info. How does kubectl do this? It's basically just a user-friendly wrapper for making API requests. It's written using [client-go](https://github.com/kubernetes/client-go/#client-go){:target="_blank"}, the Go library for the Kubernetes API.
 
 To learn about the most commonly used kubectl commands, check out the [kubectl cheatsheet](/docs/reference/kubectl/cheatsheet/){:target="_blank"}. It explains topics such as the following:
-* [kubeconfig files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/){:target="_blank"} - Your kubeconfig file tells kubectl what cluster to talk to, and can reference multiple clusters. Using the `kubectl config` subcommands, you can use this to switch between your dev, test, and prod clusters.
-
-* [The various output formats available](/docs/reference/kubectl/cheatsheet/#formatting-output){:target="_blank"} - This is useful to know when you are using `kubectl get` to list information about certain API objects. As an exercise, you can compare the results of `kubectl get <arguments> -o yaml` and `kubectl describe`. Both are ways of getting rich info about your API objects.
+* [kubeconfig files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/){:target="_blank"} - Your kubeconfig file tells kubectl what cluster to talk to, and can reference multiple clusters (such as dev and prod).
+* [The various output formats available](/docs/reference/kubectl/cheatsheet/#formatting-output){:target="_blank"} - This is useful to know when you are using `kubectl get` to list information about certain API objects.
 
 * [The JSONPath output format](/docs/reference/kubectl/jsonpath/){:target="_blank"} - This is related to the output formats above. JSONPath is especially useful for parsing specific subfields out of `kubectl get` output (such as the URL of a {% glossary_tooltip text="Service" term_id="service" %}).
 
@@ -142,6 +141,7 @@ Now that you're fairly familiar with Kubernetes, you may find it useful to brows
 
 * [Commonly used `kubectl` commands](/docs/reference/kubectl/cheatsheet/){:target="_blank"}
 * [Kubernetes API reference]({{ reference_docs_url }}){:target="_blank"}
+* [Standardized Glossary](/docs/reference/glossary/){:target="_blank"}
 
 In addition, [the Kubernetes blog](http://blog.kubernetes.io/){:target="_blank"} often has helpful posts on Kubernetes design patterns and case studies.
 

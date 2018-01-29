@@ -10,12 +10,42 @@ track: "USERS › APPLICATION DEVELOPER › ADVANCED"
 
 {% capture overview %}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id felis non enim faucibus lacinia. Aliquam massa mauris, interdum a ex ut, sagittis rutrum nulla. In pellentesque est at molestie fringilla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec eu mi at velit lacinia venenatis ac nec sem. In volutpat pellentesque dui ut commodo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis sollicitudin eleifend felis non facilisis. Pellentesque leo urna, congue id auctor non, varius a nunc. Duis ultrices, odio ut hendrerit suscipit, nisi mauris dignissim mauris, nec bibendum ante neque ut augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam condimentum libero sit amet rutrum fermentum. Proin posuere condimentum odio. Aenean volutpat, ex vel tincidunt tincidunt, massa odio condimentum lectus, vel iaculis libero dolor in nisi.
+*This page assumes that you're familiar with core Kubernetes concepts, and are comfortable deploying your own apps. If not, we recommend reviewing the [Intermediate App Developer](/docs/user-journeys/users/application-developer/intermediate/){:target="_blank"} topics first.*
+
+After checking out the current page and its linked sections, you should have a better understanding of the following:
+* Advanced features that you can leverage in your application
+* The various ways of extending the Kubernetes API
 
 {% endcapture %}
 
 
 {% capture body %}
+
+## Deploy an application with advanced features
+
+Now you know the set of API objects that Kubernetes provides. Understanding the difference between a DaemonSet and a Deployment is oftentimes sufficient for app deployment. That being said, it's also worth familiarizing yourself with Kubernetes's lesser known features. They can be quite powerful when applied to the right use cases.
+
+#### Container-level features
+
+As you may know, it's an *antipattern* to migrate an entire app (e.g. containerized Rails app, MySQL database, and all) into a single Pod. That being said, there are some very useful patterns that go beyond a 1:1 correspondence between a container and its Pod:
+* **Sidecar container**: Although your Pod should still have a single "main" container, you can add a secondary container that acts as a helper (see a [logging example](/docs/concepts/cluster-administration/logging/#using-a-sidecar-container-with-the-logging-agent){:target="_blank"}). Two containers within a single Pod can communicate [via a shared volume](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/){:target="_blank"}.
+* **Init containers**: "Init containers" run before any of a Pod's "app containers" (such as main and sidecar containers). [Read more](/docs/concepts/workloads/pods/init-containers/){:target="_blank"}, see them applied to an [nginx server example](/docs/tasks/configure-pod-container/configure-pod-initialization/){:target="_blank"}, and [learn how to debug these containers](/docs/tasks/debug-application-cluster/debug-init-containers/){:target="_blank"}.
+
+#### Pod configuration
+
+Usually, you use {% glossary_tooltip text="labels" term_id="labels" %} and {% glossary_tooltip text="annotations" term_id="annotation" %} to attach metadata to your resources. To inject data into your resources, you'd likely create {% glossary_tooltip text="ConfigMaps" term_id="configmap" %} (for nonconfidential data) or {% glossary_tooltip text="Secrets" term_id="secret" %} (for confidential data).
+
+Below are some other, lesser-known ways of configuring your resources' Pods:
+
+* **Taints and Tolerations** - These provide a way for nodes to "attract" or "repel" your Pods. They are often used when an application needs to be deployed onto specific hardware, such as GPUs for scientific computing. [Read more](/docs/concepts/configuration/taint-and-toleration/){:target="_blank"}.
+* **Downward API** - This allows your containers to consume information about themselves or the cluster, without being overly coupled to the Kubernetes API server. This can be achieved with [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/){:target="_blank"} or [DownwardAPIVolumeFiles](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/){:target="_blank"}.
+* **Pod Presets** - Normally, to mount runtime requirements (such as environmental variables, ConfigMaps, and Secrets) into a resource, you specify them in the resource's configuration file. [PodPresets](/docs/concepts/workloads/pods/podpreset/) allow you to dynamically inject these requirements instead, when the resource is created. This allows team A to mount any number of new Secrets into the resources created by teams B and C, without requiring action from B and C. [See an example](/docs/tasks/inject-data-application/podpreset/).
+
+#### Additional API Objects
+
+* **{% glossary_tooltip text="Horizontal Pod Autoscaler (HPA)" term_id="horizontal-pod-autoscaler" %}** - These resources are a great way to automate the process of scaling your application when CPU usage or other [custom metrics](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md) spike. [See an example](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) to understand how HPAs are set up. *NOTE: Before setting up an HPA, check to see if this task is the responsibility of your organization's {% glossary_tooltip text="cluster operators" term_id="cluster-operator" %}.*
+* **Federated cluster objects** - If you are running an application on multiple Kubernetes clusters using *federation*, you need to deploy the federated version of the standard Kubernetes API objects. For reference, check out the guides for setting up [Federated ConfigMaps](/docs/tasks/administer-federation/configmap/) and [Federated Deployments](/docs/tasks/administer-federation/deployment/).
+
 ## Extend the Kubernetes API
 
 Kubernetes is designed with extensibility in mind. If the API resources and features mentioned above are not enough for your needs, there are ways to customize its behavior *without* having to modify core Kubernetes code.
@@ -37,6 +67,8 @@ Although Deployments and Secrets may seem quite different, the following concept
 
   These states are obtained from the Kubernetes API.
 
+
+{: .note yo }
 (*Note that not all Kubernetes objects need to have a Controller. Though Deployments trigger the cluster to "do things", ConfigMaps act purely as storage.*)
 
 #### Create Custom Resources
@@ -54,40 +86,16 @@ You may also find the following info helpful:
 * [How to decide between CRDs and API aggregation](/docs/concepts/api-extension/custom-resources/#choosing-a-method-for-adding-custom-resources){:target="_blank"}
 * [Other points of extensibility within Kubernetes](/docs/concepts/overview/extending/){:target="_blank"}
 
+#### Service Catalog
 
-## Deploy an application with advanced features
-
-#### Containers
-
-As you may know, it's an *antipattern* to migrate an entire app (e.g. containerized Rails app, MySQL database, and all) into a single Pod. That being said, you can leverage some powerful patterns that go beyond a 1:1 correspondence between a container and its Pod:
-* **Sidecar container**: Although your Pod should still have a single "main" container, you can add a secondary container that acts as a helper (see a [logging example](/docs/concepts/cluster-administration/logging/#using-a-sidecar-container-with-the-logging-agent){:target="_blank"}). Two containers within a single Pod can communicate [via a shared volume](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/){:target="_blank"}.
-* **Init containers**: "Init containers" run before any of a Pod's "app containers" (e.g. main and sidecar containers). [Read more](/docs/concepts/workloads/pods/init-containers/){:target="_blank"}, [see an example](/docs/tasks/configure-pod-container/configure-pod-initialization/){:target="_blank"}, and [learn how to debug them](/docs/tasks/debug-application-cluster/debug-init-containers/){:target="_blank"}.
-
-#### Configuration
-
-Kubernetes provides ways to attach metadata or inject data into your resources:
-* **Taints and Tolerations** - These provide a way for nodes to "attract" or "repel" your Pods. [Read more](/docs/concepts/configuration/taint-and-toleration/){:target="_blank"}.
-* **Downward API** - This allows your containers to consume information about themselves or the cluster, without being overly coupled to the Kubernetes API server. This can be achieved with [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/){:target="_blank"} or [DownwardAPIVolumeFiles](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/){:target="_blank"}.
-* **ConfigMaps** - This was mentioned in the beginner section, and is worth another highlight because it is a common way to decouple runtime-specific parameters from your container images. [Read more](/docs/tasks/configure-pod-container/configure-pod-configmap/){:target="_blank"}.
-## Explore advanced topics
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id felis non enim faucibus lacinia. Aliquam massa mauris, interdum a ex ut, sagittis rutrum nulla. In pellentesque est at molestie fringilla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec eu mi at velit lacinia venenatis ac nec sem. In volutpat pellentesque dui ut commodo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis sollicitudin eleifend felis non facilisis. Pellentesque leo urna, congue id auctor non, varius a nunc. Duis ultrices, odio ut hendrerit suscipit, nisi mauris dignissim mauris, nec bibendum ante neque ut augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam condimentum libero sit amet rutrum fermentum. Proin posuere condimentum odio. Aenean volutpat, ex vel tincidunt tincidunt, massa odio condimentum lectus, vel iaculis libero dolor in nisi.
-
-Curabitur bibendum tempor mi, vel lacinia nisi vulputate ac. Nulla dignissim consectetur nisl nec tincidunt. Etiam pharetra facilisis sapien, non gravida velit fermentum sed. Ut ac ultrices nunc, in vestibulum urna. Suspendisse accumsan euismod felis, sit amet rhoncus neque volutpat luctus. Aliquam tincidunt pellentesque mauris, sed tempus diam. Mauris in elit eget justo tempor suscipit.
-
-Aenean suscipit arcu ac leo tincidunt tempus. Donec maximus tellus libero, ac ullamcorper magna lobortis ac. Integer mollis nisl vitae magna gravida, nec ornare ex consectetur. Sed mattis tincidunt nisi, at consequat tellus malesuada non. Integer vel semper nisi, ut fringilla velit. Nam felis ex, congue non dui vitae, sollicitudin convallis turpis. Phasellus porttitor maximus turpis, in varius nibh fermentum aliquam. Cras finibus lacus non diam porttitor porttitor. Nulla fringilla sagittis nibh nec condimentum. Duis egestas mauris nec dolor hendrerit ullamcorper sit amet in mi. Phasellus sollicitudin justo diam.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id felis non enim faucibus lacinia. Aliquam massa mauris, interdum a ex ut, sagittis rutrum nulla. In pellentesque est at molestie fringilla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec eu mi at velit lacinia venenatis ac nec sem. In volutpat pellentesque dui ut commodo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis sollicitudin eleifend felis non facilisis. Pellentesque leo urna, congue id auctor non, varius a nunc. Duis ultrices, odio ut hendrerit suscipit, nisi mauris dignissim mauris, nec bibendum ante neque ut augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam condimentum libero sit amet rutrum fermentum. Proin posuere condimentum odio. Aenean volutpat, ex vel tincidunt tincidunt, massa odio condimentum lectus, vel iaculis libero dolor in nisi.
-
-Curabitur bibendum tempor mi, vel lacinia nisi vulputate ac. Nulla dignissim consectetur nisl nec tincidunt. Etiam pharetra facilisis sapien, non gravida velit fermentum sed. Ut ac ultrices nunc, in vestibulum urna. Suspendisse accumsan euismod felis, sit amet rhoncus neque volutpat luctus. Aliquam tincidunt pellentesque mauris, sed tempus diam. Mauris in elit eget justo tempor suscipit.
-
-Aenean suscipit arcu ac leo tincidunt tempus. Donec maximus tellus libero, ac ullamcorper magna lobortis ac. Integer mollis nisl vitae magna gravida, nec ornare ex consectetur. Sed mattis tincidunt nisi, at consequat tellus malesuada non. Integer vel semper nisi, ut fringilla velit. Nam felis ex, congue non dui vitae, sollicitudin convallis turpis. Phasellus porttitor maximus turpis, in varius nibh fermentum aliquam. Cras finibus lacus non diam porttitor porttitor. Nulla fringilla sagittis nibh nec condimentum. Duis egestas mauris nec dolor hendrerit ullamcorper sit amet in mi. Phasellus sollicitudin justo diam.
+...
 
 ## Additional resources
 
+
 * [Kubernetes Client Libraries](/docs/reference/client-libraries/){:target="_blank"}
 
-### What's next
+#### What's next
 Congrats on completing the Application Developer user journey!
 
 If you are interested in learning more about the inner workings of Kubernetes (e.g. networking), consider checking out the [Cluster Operator journey](/docs/user-journeys/users/cluster-operator/foundational/){:target="_blank"}
