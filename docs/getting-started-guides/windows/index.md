@@ -16,35 +16,10 @@ The Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) co
 **Note:** Windows Server Containers on Kubernetes is a Beta feature in Kubernetes v1.9
 {: .note}
 
-## Build
-We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases). Look for the Node Binaries section by visiting the binary downloads link. 
+## Get Windows Binaries
+We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases/latest](https://github.com/kubernetes/kubernetes/releases/latest). Under the CHANGELOG you can find the Node Binaries link for Windows-amd64, which will include kubeadm, kubectl, kubelet and kube-proxy. 
 
-If you wish to build the code yourself, please follow the next instructions:
-
-1. Install the pre-requisites on a Linux host:
-
-    ```
-    sudo apt-get install curl git build-essential docker.io conntrack
-    ```  
-2. Run the following commands to build kubelet and kube-proxy:
-
-    ```bash
-    K8SREPO="github.com/kubernetes/kubernetes"
-    go get -d $K8SREPO
-    # Note: the above command may spit out a message about 
-    #       "no Go files in...", but it can be safely ignored!
-
-    cd $GOPATH/src/k8s.io/kubernetes
-    # Build the kubelet
-    KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kubelet
-
-    # Build the kube-proxy
-    KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kube-proxy
-
-    # You will find the output binaries under the folder _output/local/bin/windows/
-```
-
-More detailed build instructions will be maintained and kept up to date [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md).
+If you wish to build the code yourself, please refer to detailed build instructions [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md).
 
 ## Prerequisites
 In Kubernetes version 1.9 or later, Windows Server Containers for Kubernetes are supported using the following:
@@ -111,7 +86,7 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 
 
 1. Windows Server container host running the required Windows Server and Docker versions. Follow the setup instructions outlined by this help topic: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server.
-2. [Build](#Build) or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions
+2. [Get Windows Binaries](#Get-Windows-Binaries) kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions
 3. Copy Node spec file (kube config) from Linux master node with X.509 keys
 4. Create the HNS Network, ensure the correct CNI network config, and start kubelet.exe using this script [start-kubelet.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1)
 5. Start kube-proxy using this script [start-kubeproxy.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubeproxy.ps1)
