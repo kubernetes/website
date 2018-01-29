@@ -41,16 +41,15 @@ while the other pods shouldn't tolerate the taint. The taint is removed once the
 
 *Warning:* currently there is no guarantee which node is chosen and which pods are being killed
 in order to schedule critical pods, so if rescheduler is enabled your pods might be occasionally
-killed for this purpose. Please ensure that rescheduler should not enabled along with priorities & preemptions in default scheduler as it may cause unwanted side-effects.
+killed for this purpose. Please ensure that rescheduler is enabled along with priorities & preemptions in default-scheduler as it may have unwanted side-effects.
 
 ## Config
 
-Rescheduler should be enabled by default(unless you enabled priorities & preemption). It doesn't have any user facing configuration (component config) or API.
-Rescheduler may also be disabled.
+Rescheduler doesn't have any user facing configuration (component config) or API.
 
 ### Marking pod as critical when using Rescheduler(This will be deprecated).
 
-To be critical an add-on has to run in `kube-system` namespace (configurable via flag) and
+To be considered critical, the pod has to run in the `kube-system` namespace (configurable via flag) and
 
 * have the `scheduler.alpha.kubernetes.io/critical-pod` annotation set to empty string, and
 * have the PodSpec's `tolerations` field set to `[{"key":"CriticalAddonsOnly", "operator":"Exists"}]`.
@@ -59,15 +58,10 @@ The first one marks a pod a critical. The second one is required by Rescheduler 
 
 ### Marking pod as critical when priorites are enabled.
 
-To be critical an add-on has to run in `kube-system` namespace (configurable via flag) and
+To be considered critical, the pod has to run in the `kube-system` namespace (configurable via flag) and
 
 * have the priorityClass set as "system-cluster-critical" or "system-node-critical", the latter being the highest for entire cluster.
 
 or
 
 * have the `scheduler.alpha.kubernetes.io/critical-pod` annotation set to empty string(This will be deprecated too).
-
-
-
-
-
