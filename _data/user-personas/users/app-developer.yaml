@@ -30,10 +30,10 @@ intermediate:
     url: /docs/user-journeys/users/application-developer/intermediate#section-4
 advanced:
   - label: Deploy an application with advanced features
-    icon: fa-plus-square
+    icon: fa-sliders
     url: /docs/user-journeys/users/application-developer/advanced
   - label: Extend the Kubernetes API
-    icon: fa-pencil-square-o
+    icon: fa-arrows
     url: /docs/user-journeys/users/application-developer/advanced#section-2
   - label: Explore additional resources
     icon: fa-book
