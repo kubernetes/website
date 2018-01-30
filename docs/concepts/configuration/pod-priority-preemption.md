@@ -207,7 +207,7 @@ Node is preempted. Here's an example:
 
 * Pod P is being considered for Node N.
 * Pod Q is running on another Node in the same zone as Node N.
-* Pod P has anit-affinity with Pod Q.
+* Pod P has anti-affinity with Pod Q.
 * There are no other cases of anti-affinity between Pod P and other Pods in the zone.
 * In order to schedule Pod P on Node N, Pod Q should be preempted, but scheduler
 does not perform cross-node preemption. So, Pod P will be deemed unschedulable
