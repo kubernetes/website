@@ -1,0 +1,40 @@
+id: app-developer
+name: Application Developer
+glossary_id: application-developer
+index: 0
+foundational:
+  - label: Get started with a cluster
+    icon: fa-television
+    url: /docs/user-journeys/users/application-developer/foundational
+  - label: Deploy an application
+    icon: fa-retweet
+    url: /docs/user-journeys/users/application-developer/foundational#section-2
+  - label: Understand basic Kubernetes architecture
+    icon: fa-cog
+    url: /docs/user-journeys/users/application-developer/foundational#section-3
+  - label: Explore additional resources
+    icon: fa-book
+    url: /docs/user-journeys/users/application-developer/foundational#section-4
+intermediate:
+  - label: Learn additional workload patterns
+    icon: fa-cogs
+    url: /docs/user-journeys/users/application-developer/intermediate
+  - label: Deploy a production-ready workload
+    icon: fa-retweet
+    url: /docs/user-journeys/users/application-developer/intermediate#section-2
+  - label: Improve your dev workflow with tooling
+    icon: fa-scissors
+    url: /docs/user-journeys/users/application-developer/intermediate#section-3
+  - label: Explore additional resources
+    icon: fa-book
+    url: /docs/user-journeys/users/application-developer/intermediate#section-4
+advanced:
+  - label: Deploy an application with advanced features
+    icon: fa-sliders
+    url: /docs/user-journeys/users/application-developer/advanced
+  - label: Extend the Kubernetes API
+    icon: fa-arrows
+    url: /docs/user-journeys/users/application-developer/advanced#section-2
+  - label: Explore additional resources
+    icon: fa-book
+    url: /docs/user-journeys/users/application-developer/advanced#section-3

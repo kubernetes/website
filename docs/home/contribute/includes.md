@@ -103,7 +103,7 @@ kubectl apply -f "https://git.io/weave-kube"
 
 ### Example Liquid template code for tabs
 
-Below is the [Liquid](https://shopify.github.io/liquid/) template code for the tabs demo above to illustrate how to specify the contents of each tab. The [`/_includes/tabs.md`](https://git.k8s.io/kubernetes.github.io/_includes/tabs.md) file included at the end then uses those elements to render the actual tab set.
+Below is the [Liquid](https://shopify.github.io/liquid/) template code for the tabs demo above to illustrate how to specify the contents of each tab. The [`/_includes/tabs.md`](https://git.k8s.io/website/_includes/tabs.md) file included at the end then uses those elements to render the actual tab set.
 
 The following sections break down each of the individual features used.
 
