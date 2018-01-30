@@ -528,10 +528,19 @@ If the pod's namespace does not have any associated default or whitelist of
 tolerations, then the cluster-level default or whitelist of tolerations are used
 instead if specified.
 
-Tolerations to a namespace are assigned via the
-`scheduler.alpha.kubernetes.io/defaultTolerations` and
-`scheduler.alpha.kubernetes.io/tolerationsWhitelist`
-annotation keys.
+1. First, the default tolerations for a given namespace are determined:
+   
+   i. If the namespace contains an annotation with the key `scheduler.alpha.kubernetes.io/default-tolerations`
+      and a non-empty, the value of the annotation will be considered as the default tolerations for the namespace.
+   
+   ii. If the namespace lacks an annotation with the key `scheduler.alpha.kubernetes.io/default-tolerations`, then
+       the cluster defaults will be used as the default tolerations for the namespace.
+   
+   ii. If the namespace contains an annotation with the key `scheduler.alpha.kubernetes.io/default-tolerations` 
+       with an empty value, it will be considered to override the cluster's default tolerations.
+
+2. The pod tolerations (merged with the namespace default tolerations from step 1) are evaluated against a whitelist.
+   The same logic is used for determining the whitelist, but with the annotation key `scheduler.alpha.kubernetes.io/tolerations-whitelist`.
 
 ### Priority
 
