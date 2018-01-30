@@ -77,6 +77,12 @@ toc:
   - title: Configuring DNS for a Cluster
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
 
+- title: Troubleshoot
+  landing_page: docs/tasks/debug-application-cluster/troubleshooting.md
+  section:
+  - docs/tasks/debug-application-cluster/debug-cluster.md
+  - docs/tasks/debug-application-cluster/debug-application.md
+
 - title: Monitor, Log, and Debug
   section:
   - docs/tasks/debug-application-cluster/core-metrics-pipeline.md
@@ -90,8 +96,6 @@ toc:
   - docs/tasks/debug-application-cluster/debug-init-containers.md
   - docs/tasks/debug-application-cluster/debug-pod-replication-controller.md
   - docs/tasks/debug-application-cluster/debug-service.md
-  - docs/tasks/debug-application-cluster/debug-cluster.md
-  - docs/tasks/debug-application-cluster/debug-application.md
   - docs/tasks/debug-application-cluster/debug-stateful-set.md
   - docs/tasks/debug-application-cluster/debug-application-introspection.md
   - docs/tasks/debug-application-cluster/audit.md
