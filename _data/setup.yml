@@ -4,6 +4,12 @@ toc:
 - docs/setup/index.md
 - docs/setup/pick-right-solution.md
 
+- title: Downloading Kubernetes
+  landing_page: /docs/imported/release/notes/
+  section:
+  - docs/imported/release/notes.md
+  - docs/setup/building-from-source.md
+
 - title: Independent Solutions
   section:
   - docs/getting-started-guides/minikube.md
@@ -13,6 +19,7 @@ toc:
     - docs/setup/independent/install-kubeadm.md
     - docs/setup/independent/create-cluster-kubeadm.md
     - docs/setup/independent/troubleshooting-kubeadm.md
+    - docs/setup/independent/high-availability.md
 
   - docs/getting-started-guides/scratch.md
   - docs/getting-started-guides/alternatives.md
@@ -48,16 +55,13 @@ toc:
     - docs/getting-started-guides/kubespray.md
     - docs/getting-started-guides/running-cloud-controller.md
 
-  - title: On-Premise VMs
+  - title: On-Premises VMs
     section:
     - docs/getting-started-guides/coreos/index.md
     - docs/getting-started-guides/cloudstack.md
     - docs/getting-started-guides/vsphere.md
-    - docs/getting-started-guides/photon-controller.md
     - docs/getting-started-guides/dcos.md
-    - docs/getting-started-guides/libvirt-coreos.md
     - docs/getting-started-guides/ovirt.md
-    - docs/getting-started-guides/openstack-heat.md
 
     - title: rkt
       section:
@@ -100,9 +104,17 @@ toc:
 
   - docs/admin/node-conformance.md
 
-- docs/concepts/cluster-administration/addons.md
-- docs/admin/salt.md
-- docs/admin/cluster-large.md
-- docs/admin/multiple-zones.md
-- docs/admin/high-availability/index.md
-- docs/getting-started-guides/binary_release.md
+- title: Installing Addons
+  path: /docs/concepts/cluster-administration/addons/
+
+- title: Configuring Kubernetes with Salt
+  path: /docs/admin/salt/
+
+- title: Building Large Clusters
+  path: /docs/admin/cluster-large/
+
+- title: Running in Multiple Zones
+  path: /docs/admin/multiple-zones/
+
+- title: Building High-Availability Clusters
+  path: /docs/admin/high-availability/

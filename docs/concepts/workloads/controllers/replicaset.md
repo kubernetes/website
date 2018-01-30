@@ -96,7 +96,7 @@ frontend-qhloh   1/1       Running   0          1m
 ## Writing a ReplicaSet Spec
 
 As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.  For
-general information about working with manifests, see [Object Management](/docs/concepts/tools/kubectl/object-management-overview/).
+general information about working with manifests, see [object management using kubectl](/docs/concepts/overview/object-management-kubectl/overview/).
 
 A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 

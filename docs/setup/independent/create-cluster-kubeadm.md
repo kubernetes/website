@@ -35,7 +35,7 @@ scope.
 You can install _kubeadm_ very easily on operating systems that support
 installing deb or rpm packages. The responsible SIG for kubeadm,
 [SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), provides these packages pre-built for you,
-but you may also on other OSes. 
+but you may also on other OSes.
 
 
 ### kubeadm Maturity
@@ -47,7 +47,7 @@ but you may also on other OSes.
 | Config file API           | alpha          |
 | Self-hosting              | alpha          |
 | kubeadm alpha subcommands | alpha          |
-| CoreDNS                   | alpha          | 
+| CoreDNS                   | alpha          |
 | DynamicKubeletConfig      | alpha          |
 
 
@@ -123,15 +123,15 @@ kubeadm init
 **Notes:**
 
 - Please refer to the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm/) if you want to
-read more about the flags `kubeadm init` provides. You can also specify a 
+read more about the flags `kubeadm init` provides. You can also specify a
 [configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) instead of using flags.
 - You need to choose a Pod Network Plugin in the next step. Depending on what
 third-party provider you choose, you might have to set the `--pod-network-cidr` to
 something provider-specific. The tabs below will contain a notice about what flags
 on `kubeadm init` are required.
-- Unless otherwise specified, kubeadm uses the default gateway's network interface 
-to advertise the master's IP. If you want to use a different network interface, specify 
-`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you must specify an IPv6, e.g. `--apiserver-advertise-address=fd00::101` 
+- Unless otherwise specified, kubeadm uses the default gateway's network interface
+to advertise the master's IP. If you want to use a different network interface, specify
+`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you must specify an IPv6, e.g. `--apiserver-advertise-address=fd00::101`
 - If you would like to customise control plane components including optional IPv6 assignment to liveness probe for control plane components and etcd server, you can do so by providing extra args to each one, as documented [here](/docs/admin/kubeadm#custom-args).
 - `kubeadm init` will first run a series of prechecks to ensure that the machine
 is ready to run Kubernetes. It will expose warnings and exit on errors. It
@@ -292,7 +292,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documen
 ```
 
  - For more information about `flannel`, please see [here](https://github.com/coreos/flannel).
- 
+
 {% endcapture %}
 
 {% capture kube-router %}
@@ -496,7 +496,7 @@ control of your Kubernetes cluster.
 
 ## What's next {#whats-next}
 
-* Learn about kubeadm's advanced usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/)
+* Learn about kubeadm's advanced usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/kubeadm)
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
 * Configure log rotation. You can use **logrotate** for that. When using Docker, you can specify log rotation options for Docker daemon, for example `--log-driver=json-file --log-opt=max-size=10m --log-opt=max-file=5`. See [Configure and troubleshoot the Docker daemon](https://docs.docker.com/engine/admin/) for more details.
 

@@ -23,6 +23,7 @@ toc:
     - docs/admin/authorization/rbac.md
     - docs/admin/authorization/node.md
     - docs/admin/authorization/webhook.md
+  - docs/reference/api-concepts.md
   - docs/reference/deprecation-policy.md
   - docs/reference/workloads-18-19.md
 
@@ -68,7 +69,8 @@ toc:
     - docs/reference/setup-tools/kubeadm/kubeadm-reset.md
     - docs/reference/setup-tools/kubeadm/kubeadm-token.md
     - docs/reference/setup-tools/kubeadm/kubeadm-version.md
-    - docs/reference/setup-tools/kubeadm/kubeadm-alpha.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-alpha.md 
+    - docs/reference/setup-tools/kubeadm/implementation-details.md 
   - title: Kubefed
     section:
     - docs/reference/generated/kubefed.md
@@ -80,6 +82,7 @@ toc:
 
 - title: Command-line Tools Reference
   section:
+  - docs/reference/feature-gates.md
   - docs/reference/generated/kubelet.md
   - docs/admin/kubelet-authentication-authorization.md
   - docs/reference/generated/kube-apiserver.md

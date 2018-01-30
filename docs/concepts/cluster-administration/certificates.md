@@ -8,26 +8,7 @@ title: Certificates
 ## Creating Certificates
 
 When using client certificate authentication, you can generate certificates
-using an existing deployment script or manually through `easyrsa`, `openssl`
-or `cfssl`.
-
-### Using an Existing Deployment Script
-
-**Using an existing deployment script** is implemented at
-`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.
-
-Execute this script with two parameters. The first is the IP address
-of API server. The second is a list of subject alternate names in the form `IP:<ip-address> or DNS:<dns-name>`.
-
-The script generates three files: `ca.crt`, `server.crt`, and `server.key`.
-
-Finally, add the following parameters into API server start parameters:
-
-```
---client-ca-file=/srv/kubernetes/ca.crt
---tls-cert-file=/srv/kubernetes/server.crt
---tls-private-key-file=/srv/kubernetes/server.key
-```
+manually through `easyrsa`, `openssl` or `cfssl`.
 
 ### easyrsa
 

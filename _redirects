@@ -7,7 +7,6 @@
 /api-ref/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /concepts/containers/container-lifecycle-hooks/     /docs/concepts/containers/container-lifecycle-hooks/ 301
 /docs/     /docs/home/ 301
-/docs/abstractions/controllers/petset/     /docs/concepts/workloads/controllers/statefulset/ 301
 
 /docs/admin/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
 /docs/admin/add-ons/     /docs/concepts/cluster-administration/addons/ 301
@@ -81,7 +80,6 @@
 /docs/api-reference/v1/operations/     /docs/api-reference/v1.9/ 301
 
 /docs/concepts/abstractions/controllers/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
-/docs/concepts/abstractions/controllers/petsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/abstractions/init-containers/     /docs/concepts/workloads/pods/init-containers/ 301
 /docs/concepts/abstractions/overview/     /docs/concepts/overview/working-with-objects/kubernetes-objects/ 301
@@ -114,18 +112,16 @@
 /docs/concepts/services-networking/networkpolicies/     /docs/concepts/services-networking/network-policies/ 301
 /docs/concepts/storage/etcd-store-api-object/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/concepts/storage/volumes/emptyDirapiVersion/     /docs/concepts/storage/volumes/#emptydir/ 301
-/docs/concepts/tools/kubectl/object-management-overview/     /docs/tutorials/object-management-kubectl/object-management/ 301
-/docs/concepts/tools/kubectl/object-management-using-commands/     /docs/tutorials/object-management-kubectl/imperative-object-management-command/ 301
-/docs/concepts/tools/kubectl/object-management-using-declarative-config/     /docs/tutorials/object-management-kubectl/declarative-object-management-configuration/ 301
-/docs/concepts/tools/kubectl/object-management-using-imperative-commands/     /docs/tutorials/object-management-kubectl/imperative-object-management-command/ 301
-/docs/concepts/tools/kubectl/object-management-using-imperative-config/     /docs/tutorials/object-management-kubectl/imperative-object-management-configuration/ 301
+/docs/concepts/tools/kubectl/object-management-overview/     /docs/concepts/overview/object-management-kubectl/overview/ 301
+/docs/concepts/tools/kubectl/object-management-using-commands/     /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
+/docs/concepts/tools/kubectl/object-management-using-declarative-config/     /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
+/docs/concepts/tools/kubectl/object-management-using-imperative-commands/     /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
+/docs/concepts/tools/kubectl/object-management-using-imperative-config/     /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
 /docs/concepts/workloads/controllers/cron-jobs/deployment/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
 /docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
 /docs/concepts/workloads/controllers/deployment.md     /docs/concepts/workloads/controllers/deployment/ 301
 /docs/concepts/workloads/controllers/job/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
-/docs/concepts/workloads/controllers/petset/     /docs/concepts/workloads/controllers/statefulset/ 301
-/docs/concepts/workloads/controllers/petsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/pods/init-containers/Kubernetes/     /docs/concepts/workloads/pods/init-containers/ 301
@@ -160,6 +156,7 @@
 
 /docs/getting-started-guide/*     /docs/setup/ 301
 /docs/getting-started-guides/     /docs/setup/pick-right-solution/ 301
+/docs/getting-started-guides/binary_release/    /docs/setup/building-from-source/ 301
 /docs/getting-started-guides/coreos/azure/     /docs/getting-started-guides/coreos/ 301
 /docs/getting-started-guides/coreos/bare_metal_calico/     /docs/getting-started-guides/coreos/ 301
 /docs/getting-started-guides/docker-multinode/*     /docs/setup/independent/create-cluster-kubeadm/ 301
@@ -192,6 +189,8 @@
 /docs/reference/federation/v1beta1/definitions/     /docs/reference/federation/extensions/v1beta1/definitions/ 301
 /docs/reference/federation/v1beta1/operations/     /docs/reference/federation/extensions/v1beta1/operations/ 301
 /docs/reference/generated/kubectl/kubectl-options/     /docs/reference/generated/kubectl/kubectl/ 301
+/docs/reference/generated/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
+
 /docs/reporting-security-issues/     /security/ 301
 
 /docs/resources-reference/1_5/*     /docs/resources-reference/v1.5/ 301
@@ -272,6 +271,10 @@
 /docs/tutorials/getting-started/scale-intro/     /docs/tutorials/kubernetes-basics/scale-intro/ 301
 /docs/tutorials/getting-started/update-interactive/     /docs/tutorials/kubernetes-basics/update-interactive/ 301
 /docs/tutorials/getting-started/update-intro/     /docs/tutorials/kubernetes-basics/ 301
+/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/      /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
+/docs/tutorials/object-management-kubectl/imperative-object-management-command/      /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
+/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/      /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
+/docs/tutorials/object-management-kubectl/object-management/      /docs/concepts/overview/object-management-kubectl/overview/ 301
 /docs/tutorials/stateful-application/run-replicated-stateful-application/     /docs/tasks/run-application/run-replicated-stateful-application/ 301
 /docs/tutorials/stateful-application/run-stateful-application/     /docs/tasks/run-application/run-single-instance-stateful-application/ 301
 /docs/tutorials/stateless-application/expose-external-ip-address-service/     /docs/tasks/access-application-cluster/service-access-application-cluster/ 301
@@ -366,8 +369,6 @@
 /docs/user-guide/persistent-volumes/index     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/index.md     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/walkthrough/     /docs/tasks/configure-pod-container/configure-persistent-volume-storage/ 301
-/docs/user-guide/petset/     /docs/concepts/workloads/controllers/statefulset/ 301
-/docs/user-guide/petset/bootstrapping/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/user-guide/pod-preset/     /docs/tasks/inject-data-application/podpreset/ 301
 /docs/user-guide/pod-security-policy/     /docs/concepts/policy/pod-security-policy/ 301
 /docs/user-guide/pod-states/     /docs/concepts/workloads/pods/pod-lifecycle/ 301
@@ -390,7 +391,7 @@
 /docs/user-guide/secrets/walkthrough/     /docs/tasks/inject-data-application/distribute-credentials-secure/ 301
 /docs/user-guide/security-context/     /docs/tasks/configure-pod-container/security-context/ 301
 /docs/user-guide/service-accounts/     /docs/tasks/configure-pod-container/configure-service-account/ 301
-/docs/user-guide/service-accounts/working-with-resources/     /docs/tutorials/object-management-kubectl/object-management/ 301
+/docs/user-guide/service-accounts/working-with-resources/     /docs/concepts/overview/object-management-kubectl/overview/ 301
 /docs/user-guide/services/     /docs/concepts/services-networking/service/ 301
 /docs/user-guide/services-firewalls/     /docs/tasks/access-application-cluster/configure-cloud-provider-firewall/ 301
 /docs/user-guide/services/operations/     /docs/tasks/access-application-cluster/connecting-frontend-backend/ 301
@@ -404,7 +405,7 @@
 /docs/user-guide/update-demo/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
 /docs/user-guide/volumes/     /docs/concepts/storage/volumes/ 301
 
-/docs/user-guide/working-with-resources/     /docs/tutorials/object-management-kubectl/object-management/ 301
+/docs/user-guide/working-with-resources/     /docs/concepts/overview/object-management-kubectl/overview/ 301
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301
 /events/     /docs/community     301

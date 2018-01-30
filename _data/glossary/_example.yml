@@ -1,6 +1,6 @@
 id: _example
 name: Example K8s Term
-full-link: kubernetes.io/docs/link-to-long-dedicated-docs-page
+full-link: /docs/link-to-long-dedicated-docs-page
 aka:
 - Slang K8s Term
 - Misnomer

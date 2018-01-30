@@ -25,7 +25,7 @@ cannot be added to a cluster through an API call.
 In contrast, service accounts are users managed by the Kubernetes API. They are
 bound to specific namespaces, and created automatically by the API server or
 manually through API calls. Service accounts are tied to a set of credentials
-stored as `Secrets`, which are mounted into pods allowing in cluster processes
+stored as `Secrets`, which are mounted into pods allowing in-cluster processes
 to talk to the Kubernetes API.
 
 API requests are tied to either a normal user or a service account, or are treated
@@ -178,7 +178,7 @@ If unspecified, the API server's TLS private key will be used.
 Service accounts are usually created automatically by the API server and
 associated with pods running in the cluster through the `ServiceAccount`
 [Admission Controller](/docs/admin/admission-controllers/). Bearer tokens are
-mounted into pods at well known locations, and allow in cluster processes to
+mounted into pods at well-known locations, and allow in-cluster processes to
 talk to the API server. Accounts may be explicitly associated with pods using the
 `serviceAccountName` field of a `PodSpec`.
 
@@ -422,9 +422,8 @@ contexts:
 
 When a client attempts to authenticate with the API server using a bearer token
 as discussed [above](#putting-a-bearer-token-in-a-request),
-the authentication webhook
-queries the remote service with a review object containing the token. Kubernetes
-will not challenge a request that lacks such a header.
+the authentication webhook POSTs a JSON-serialized `authentication.k8s.io/v1beta1` `TokenReview` object containing the token
+to the remote service. Kubernetes will not challenge a request that lacks such a header.
 
 Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
 as other Kubernetes API objects. Implementers should be aware of looser
@@ -432,7 +431,7 @@ compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API server must
 enable the `authentication.k8s.io/v1beta1` API extensions group (`--runtime-config=authentication.k8s.io/v1beta1=true`).
 
-The request body will be of the following format:
+The POST body will be of the following format:
 
 ```json
 {

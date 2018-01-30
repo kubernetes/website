@@ -242,35 +242,43 @@ The following table includes a list of all the supported resource types and thei
 
 Resource type   | Abbreviated alias
 -------------------- | --------------------
-`clusters` |
+`all` |
+`certificatesigningrequests` |`csr`
+`clusterrolebindings` |
+`clusterroles` |
 `componentstatuses` |`cs`
 `configmaps` |`cm`
+`controllerrevisions` |
+`cronjobs` |
+`customresourcedefinition` |`crd`
 `daemonsets` |`ds`
 `deployments` |`deploy`
 `endpoints` |`ep`
-`event` |`ev`
+`events` |`ev`
 `horizontalpodautoscalers` |`hpa`
 `ingresses` |`ing`
 `jobs` |
 `limitranges` |`limits`
 `namespaces` |`ns`
-`networkpolicies` |
+`networkpolicies` |`netpol`
 `nodes` |`no`
-`statefulsets` |
 `persistentvolumeclaims` |`pvc`
 `persistentvolumes` |`pv`
+`poddisruptionbudgets` |`pdb`
+`podpreset` |
 `pods` |`po`
 `podsecuritypolicies` |`psp`
 `podtemplates` |
 `replicasets` |`rs`
 `replicationcontrollers` |`rc`
 `resourcequotas` |`quota`
-`cronjob` |
+`rolebindings` |
+`roles` |
 `secrets` |
 `serviceaccount` |`sa`
 `services` |`svc`
-`storageclasses` |
-`thirdpartyresources` |
+`statefulsets` |`sts`
+`storageclasses` |`sc`
 
 ### Formatting output
 
@@ -301,4 +309,5 @@ Verbosity | Description
 `--v=6` | Display requested resources.
 `--v=7` | Display HTTP request headers.
 `--v=8` | Display HTTP request contents.
+`--v=9` | Display HTTP request contents without truncation of contents.
 

@@ -63,7 +63,7 @@ Create the development namespace using kubectl.
 $ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/namespace-dev.json
 ```
 
-Save the following contents into file [`namespace-prod.json`](/docs/admin/namespaces/namespace-prod.json) which describes a production namespace:
+Save the following contents into file [`namespace-prod.json`](/docs/tasks/administer-cluster/namespace-prod.json) which describes a production namespace:
 
 {% include code.html language="json" file="namespace-prod.json" ghlink="/docs/tasks/administer-cluster/namespace-prod.json" %}
 
@@ -177,7 +177,7 @@ users:
   user:
     password: h5M0FtUUIflBSdI7
     username: admin
-
+```
 
 Let's switch to operate in the development namespace.
 

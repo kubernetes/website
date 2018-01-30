@@ -106,7 +106,7 @@ between pods.
 **Important:** You must create an EBS volume using `aws ec2 create-volume` or the AWS API before you can use it.
 {: .caution}
 
-There are some restrictions when using an awsElasticBlockStore volume:
+There are some restrictions when using an `awsElasticBlockStore` volume:
 
 * the nodes on which pods are running must be AWS EC2 instances
 * those instances need to be in the same region and availability-zone as the EBS volume
@@ -174,7 +174,7 @@ See the [CephFS example](https://github.com/kubernetes/examples/tree/{{page.gith
 
 ### configMap
 
-The [`configMap`](/docs/tasks/configure-pod-container/configmap/) resource
+The [`configMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/) resource
 provides a way to inject configuration data into Pods.
 The data stored in a `ConfigMap` object can be referenced in a volume of type
 `configMap` and then consumed by containerized applications running in a Pod.
@@ -432,8 +432,8 @@ For example, some uses for a `hostPath` are:
 
 * running a container that needs access to Docker internals; use a `hostPath`
   of `/var/lib/docker`
-* running cAdvisor in a container; use a `hostPath` of `/dev/cgroups`
-* allowing a pod to specify whether a given hostPath should exist prior to the
+* running cAdvisor in a container; use a `hostPath` of `/sys`
+* allowing a pod to specify whether a given `hostPath` should exist prior to the
   pod running, whether it should be created, and what it should exist as
 
 In addition to the required `path` property, user can optionally specify a `type` for a `hostPath` volume.
@@ -520,7 +520,7 @@ partition or directory.
 
 Local volumes can only be used as a statically created PersistentVolume.
 
-Compared to HostPath volumes, local volumes can be used in a durable manner
+Compared to `hostPath` volumes, local volumes can be used in a durable manner
 without manually scheduling pods to nodes, as the system is aware of the volume's
 node constraints by looking at the node affinity on the PersistentVolume.
 
@@ -1020,8 +1020,8 @@ When enabled, the `volumeMounts` field of a Container has a new
    In addition, all volume mounts created by the Container will be propagated
    back to the host and to all Containers of all Pods that use the same volume.
 
-   A typical use case for this mode is a Pod with a Flex volume driver or
-   a Pod that needs to mount something on the host using a HostPath volume.
+   A typical use case for this mode is a Pod with a `FlexVolume` driver or
+   a Pod that needs to mount something on the host using a `hostPath` volume.
 
    This mode is equal to `rshared` mount propagation as described in the
    [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)

@@ -68,13 +68,14 @@ Claims will remain unbound indefinitely if a matching volume does not exist. Cla
 
 Pods use claims as volumes. The cluster inspects the claim to find the bound volume and mounts that volume for a pod. For volumes which support multiple access modes, the user specifies which mode desired when using their claim as a volume in a pod.
 
-Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a persistentVolumeClaim in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
+Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a `persistentVolumeClaim` in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
 
 ### Persistent Volume Claim Protection
 {% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
 The purpose of the PVC protection is to ensure that PVCs in active use by a pod are not removed from the system as this may result in data loss.
 
-Note: PVC is in active use by a pod when the the pod status is `Pending` and the pod is assigned to a node or the pod status is `Running`.
+**Note:** PVC is in active use by a pod when the the pod status is `Pending` and the pod is assigned to a node or the pod status is `Running`.
+{: .note}
 
 When the [PVC protection alpha feature](/docs/tasks/administer-cluster/pvc-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods.
 
@@ -211,7 +212,7 @@ resizing to take place. Also, file system resizing is only supported for followi
 * ScaleIO Volumes
 * StorageOS
 
-** Raw Block Support exists for these plugins only.
+Raw Block Support exists for these plugins only.
 
 ## Persistent Volumes
 
@@ -246,7 +247,7 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 
 ### Volume Mode
 
-Prior to v1.9, the default behavior for all volume plugins was to create a filesystem on the persistent volume. With v1.9, the user can specify a volumeMode which will now support raw block devices in addition to file systems. Valid values for volumeMode are "Filesystem" or "Block". If left unspecified, volumeMode defaults to "Filesystem" internally. This is an optional API parameter. 
+Prior to v1.9, the default behavior for all volume plugins was to create a filesystem on the persistent volume. With v1.9, the user can specify a `volumeMode` which will now support raw block devices in addition to file systems. Valid values for `volumeMode` are "Filesystem" or "Block". If left unspecified, `volumeMode` defaults to "Filesystem" internally. This is an optional API parameter. 
 
 **Note:** This feature is alpha in v1.9 and may change in the future. 
 {: .note}
@@ -396,8 +397,8 @@ Claims, like pods, can request specific quantities of a resource.  In this case,
 
 Claims can specify a [label selector](/docs/concepts/overview/working-with-objects/labels/#label-selectors) to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim. The selector can consist of two fields:
 
-* matchLabels - the volume must have a label with this value
-* matchExpressions - a list of requirements made by specifying key, list of values, and operator that relates the key and values. Valid operators include In, NotIn, Exists, and DoesNotExist.
+* `matchLabels` - the volume must have a label with this value
+* `matchExpressions` - a list of requirements made by specifying key, list of values, and operator that relates the key and values. Valid operators include In, NotIn, Exists, and DoesNotExist.
 
 All of the requirements, from both `matchLabels` and `matchExpressions` are ANDed together – they must all be satisfied in order to match.
 
@@ -475,7 +476,7 @@ spec:
 Static provisioning support for Raw Block Volumes is included as an alpha feature for v1.9. With this change are some new API fields that need to be used to facilitate this functionality. Currently, Fibre Channel is the only supported plugin for this feature.
 
 ### Persistent Volumes using a Raw Block Volume
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -493,7 +494,7 @@ spec:
     readOnly: false
 ```
 ### Persistent Volume Claim requesting a Raw Block Volume
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -507,7 +508,7 @@ spec:
       storage: 10Gi
 ```
 ### Pod specification adding Raw Block Device path in container
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -532,7 +533,7 @@ spec:
 
 ### Binding Block Volumes
 
-If a user requests a raw block volume by indicating this using the volumeMode field in the PersistentVolumeClaim spec, the binding rules differ slighty from previous releases that didn't consider this mode as part of the spec.
+If a user requests a raw block volume by indicating this using the `volumeMode` field in the `PersistentVolumeClaim` spec, the binding rules differ slighty from previous releases that didn't consider this mode as part of the spec.
 Listed is a table of possible combinations the user and admin might specify for requesting a raw block device. The table indicates if the volume will be bound or not given the combinations:
 Volume binding matrix for statically provisioned volumes:
 

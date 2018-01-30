@@ -41,12 +41,6 @@ toc:
 - title: Configuration
   section:
   - docs/tutorials/configuration/configure-redis-using-configmap.md
-- title: Object Management Using kubectl
-  section:
-  - docs/tutorials/object-management-kubectl/object-management.md
-  - docs/tutorials/object-management-kubectl/imperative-object-management-command.md
-  - docs/tutorials/object-management-kubectl/imperative-object-management-configuration.md
-  - docs/tutorials/object-management-kubectl/declarative-object-management-configuration.md
 - title: Stateless Applications
   section:
   - docs/tasks/run-application/run-stateless-application-deployment.md
