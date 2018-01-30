@@ -52,7 +52,7 @@ different Kubernetes components.
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `HugePages` | `false` | Alpha | 1.8 | |
 | `Initializers` | `false` | Alpha | 1.7 | |
-| `KubeletConfigFile` | `false` | Alpha | 1.8 | |
+| `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | |
 | `MountContainers` | `false` | Alpha | 1.9 | |
 | `MountPropagation` | `false` | Alpha | 1.8 | |
