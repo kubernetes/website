@@ -60,7 +60,7 @@ toc:
     - docs/getting-started-guides/kubespray.md
     - docs/getting-started-guides/running-cloud-controller.md
 
-  - title: On-Premise VMs
+  - title: On-Premises VMs
     section:
     - docs/getting-started-guides/coreos/index.md
     - docs/getting-started-guides/cloudstack.md

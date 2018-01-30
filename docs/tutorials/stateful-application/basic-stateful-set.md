@@ -615,7 +615,7 @@ k8s.gcr.io/nginx-slim:0.7
 ```
 
 When you changed the `partition`, the StatefulSet controller automatically 
-updated the `web-2` Pod because the Pod's ordinal was less than or equal to 
+updated the `web-2` Pod because the Pod's ordinal was greater than or equal to 
 the `partition`.
 
 Delete the `web-1` Pod.
