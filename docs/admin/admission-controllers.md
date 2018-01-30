@@ -457,7 +457,7 @@ plugins:
 ```
 
 #### Configuration Annotation Format
-PodNodeSelector uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign node selectors to namespaces.
+PodNodeSelector uses the annotation key `scheduler.kubernetes.io/node-selector` to assign node selectors to namespaces.
 
 ```yaml
 apiVersion: v1
@@ -467,6 +467,18 @@ metadata:
     scheduler.alpha.kubernetes.io/node-selector: <node-selectors-labels>
   name: namespace3
 ```
+
+#### Internal Behavior
+This admission controller has the following behavior:
+  1. If the namespace has an annotation with a key `scheduler.kubernetes.io/nodeSelector`, use its value as the
+     namespace node selector.
+  2. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the plugin
+     configuration file as the namespace node selector.
+  3. Evaluate the pod's node selector against the namespace node selector for conflicts. Conflicts result in rejection.
+  4. Evaluate the pod's node selector against the namespace-specific whitelist defined the plugin configuration file.
+     Conflicts result in rejection.
+
+Note: PodTolerationRestriction is more versatile and powerful than PodNodeSelector and can encompass the scenarios supported by PodNodeSelector.
 
 ### PersistentVolumeClaimResize
 
