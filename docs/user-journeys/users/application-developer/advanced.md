@@ -11,7 +11,7 @@ track: "USERS › APPLICATION DEVELOPER › ADVANCED"
 {% capture overview %}
 
 {: .note }
-This page assumes that you're familiar with core Kubernetes concepts, and are comfortable deploying your own apps. If not, we recommend reviewing the [Intermediate App Developer](/docs/user-journeys/users/application-developer/intermediate/){:target="_blank"} topics first.
+This page assumes that you're familiar with core Kubernetes concepts, and are comfortable deploying your own apps. If not, you should review the [Intermediate App Developer](/docs/user-journeys/users/application-developer/intermediate/){:target="_blank"} topics first.
 
 After checking out the current page and its linked sections, you should have a better understanding of the following:
 * Advanced features that you can leverage in your application
@@ -44,10 +44,10 @@ Below are some other, lesser-known ways of configuring your resources' Pods:
 
 #### Additional API Objects
 
-* **{% glossary_tooltip text="Horizontal Pod Autoscaler (HPA)" term_id="horizontal-pod-autoscaler" %}** - These resources are a great way to automate the process of scaling your application when CPU usage or other [custom metrics](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md){:target="_blank"} spike. [See an example](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/){:target="_blank"} to understand how HPAs are set up.
+{: .note }
+Before setting up the following resources, check to see if they are the responsibility of your organization's {% glossary_tooltip text="cluster operators" term_id="cluster-operator" %}.
 
-  {: .note }
-  Before setting up an HPA, check to see if this task is the responsibility of your organization's {% glossary_tooltip text="cluster operators" term_id="cluster-operator" %}
+* **{% glossary_tooltip text="Horizontal Pod Autoscaler (HPA)" term_id="horizontal-pod-autoscaler" %}** - These resources are a great way to automate the process of scaling your application when CPU usage or other [custom metrics](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md){:target="_blank"} spike. [See an example](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/){:target="_blank"} to understand how HPAs are set up.
 
 * **Federated cluster objects** - If you are running an application on multiple Kubernetes clusters using *federation*, you need to deploy the federated version of the standard Kubernetes API objects. For reference, check out the guides for setting up [Federated ConfigMaps](/docs/tasks/administer-federation/configmap/){:target="_blank"} and [Federated Deployments](/docs/tasks/administer-federation/deployment/){:target="_blank"}.
 
@@ -103,7 +103,7 @@ If you do not have a {% glossary_tooltip text="cluster operator" term_id="cluste
 
 The following topics are also useful for building more complex applications:
 * [Other points of extensibility within Kubernetes](/docs/concepts/overview/extending/){:target="_blank"} -  A conceptual overview of where you can hook into the Kubernetes architecture.
-* [Kubernetes Client Libraries](/docs/reference/client-libraries/){:target="_blank"} - Useful for building apps that need to interact with the Kubernetes API.
+* [Kubernetes Client Libraries](/docs/reference/client-libraries/){:target="_blank"} - Useful for building apps that need to interact heavily with the Kubernetes API.
 
 #### What's next
 Congrats on completing the Application Developer user journey! You've covered the majority of features that Kubernetes has to offer. What now?

@@ -12,7 +12,7 @@ track: "USERS › APPLICATION DEVELOPER › INTERMEDIATE"
 {% capture overview %}
 
 {: .note }
-  This page assumes that you've experimented with Kubernetes before. At this point, you should have basic experience interacting with a Kubernetes cluster (locally with Minikube, or elsewhere), and using API objects like Deployments to run your applications.<br><br>If not, we recommend reviewing the [Beginner App Developer](/docs/user-journeys/users/application-developer/foundational/){:target="_blank"} topics first.
+  This page assumes that you've experimented with Kubernetes before. At this point, you should have basic experience interacting with a Kubernetes cluster (locally with Minikube, or elsewhere), and using API objects like Deployments to run your applications.<br><br>If not, you should review the [Beginner App Developer](/docs/user-journeys/users/application-developer/foundational/){:target="_blank"} topics first.
 
 After checking out the current page and its linked sections, you should have a better understanding of the following:
 * Additional Kubernetes workload patterns, beyond Deployments
@@ -68,11 +68,11 @@ In contrast to Deployments, these API objects are finite. They stop once the spe
 
 For more info, you can check out [a list of additional Kubernetes resource types](/docs/reference/kubectl/overview/#resource-types){:target="_blank"} as well as the [API reference docs]({{ reference_docs_url }}){:target="_blank"}.
 
-There may be additional features not mentioned here that you may find useful. For that, we recommend searching or browsing through the [full Kubernetes documentation](/docs/home/#browsedocs){:target="_blank"}.
+There may be additional features not mentioned here that you may find useful, which are covered in the [full Kubernetes documentation](/docs/home/?path=browse){:target="_blank"}.
 
 ## Deploy a production-ready workload
 
-The beginner tutorials on this sitem such as the [Guestbook app](/docs/tutorials/stateless-application/guestbook/){:target="_blank"}, are geared towards getting workloads up and running on your cluster. This prototyping is great for building your intuition around Kubernetes! However, in order to reliably and securely promote your workloads to production, you'll need to follow some additional best practices.
+The beginner tutorials on this site, such as the [Guestbook app](/docs/tutorials/stateless-application/guestbook/){:target="_blank"}, are geared towards getting workloads up and running on your cluster. This prototyping is great for building your intuition around Kubernetes! However, in order to reliably and securely promote your workloads to production, you'll need to follow some additional best practices.
 
 #### Declarative configuration
 

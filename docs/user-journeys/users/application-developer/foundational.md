@@ -12,7 +12,7 @@ track: "USERS › APPLICATION DEVELOPER › FOUNDATIONAL"
 If you're a developer looking to run applications on Kubernetes, this page and its linked topics can help you get started with the fundamentals. Though this page primarily describes development workflows, [the subsequent page in the series](/docs/home/?path=users&persona=app-developer&level=intermediate){:target="_blank"} cover more advanced, production setups.
 
 {: .note }
-**A quick note**<br>Generally, app developers can focus more on *what* they're deploying to Kubernetes, rather than *how* the underlying infrastructure works. Though it's possible for a single person to manage both, in many organizations, it’s common to assign the latter to a dedicated {% glossary_tooltip text="cluster operator" term_id="cluster-operator" %}. The cluster operator takes on the responsibility of setting up and maintaining Kubernetes clusters.<br><br>As a result, the app developer "user journey" is *not* a comprehensive overview of Kubernetes. It does, however, highlight the aspects of cluster operation that are relevant to development, testing, and deployment of applications.
+**A quick note**<br>This app developer "user journey" is *not* a comprehensive overview of Kubernetes. It focuses more on *what* you develop, test, and deploy to Kubernetes, rather than *how* the underlying infrastructure works.<br><br>Though it's possible for a single person to manage both, in many organizations, it’s common to assign the latter to a dedicated {% glossary_tooltip text="cluster operator" term_id="cluster-operator" %}.
 
 {% endcapture %}
 
