@@ -78,7 +78,7 @@ Some additional resources for getting information about your cluster and how it 
 * [Core metrics pipeline](/docs/tasks/debug-application-cluster/core-metrics-pipeline/)
   * [Metrics](/docs/concepts/cluster-administration/controller-metrics/)
 
-## Additional introductory resources
+## Explore additional resources
 
 ### Tutorials
 

@@ -3,41 +3,38 @@ name: Application Developer
 glossary_id: application-developer
 index: 0
 foundational:
-  - label: Set up a development environment
+  - label: Get started with a cluster
     icon: fa-television
     url: /docs/user-journeys/users/application-developer/foundational
-  - label: Deploy, scale, and update an application
+  - label: Deploy an application
     icon: fa-retweet
     url: /docs/user-journeys/users/application-developer/foundational#section-2
-  - label: Understand Kubernetes basics
+  - label: Understand basic Kubernetes architecture
     icon: fa-cog
     url: /docs/user-journeys/users/application-developer/foundational#section-3
   - label: Explore additional resources
     icon: fa-book
     url: /docs/user-journeys/users/application-developer/foundational#section-4
 intermediate:
-  - label: Setup a full-featured or production environment.
-    icon: fa-cube
-    url: /docs/user-journeys/users/application-developer/intermediate
-  - label: Work with commonly used features, such as Service Discovery, Networking, and ReplicaSets.
-    icon: fa-pencil-square-o
-    url: /docs/user-journeys/users/application-developer/intermediate#section-2
-  - label: Understand key concepts, such as the API/Controller pattern, Schedulers, and Node Affinity.
+  - label: Learn additional workload patterns
     icon: fa-cogs
+    url: /docs/user-journeys/users/application-developer/intermediate
+  - label: Deploy a production-ready workload
+    icon: fa-retweet
+    url: /docs/user-journeys/users/application-developer/intermediate#section-2
+  - label: Improve your dev workflow with tooling
+    icon: fa-scissors
     url: /docs/user-journeys/users/application-developer/intermediate#section-3
-  - label: Additional resources.
+  - label: Explore additional resources
     icon: fa-book
     url: /docs/user-journeys/users/application-developer/intermediate#section-4
 advanced:
-  - label: Setup federated clusters.
-    icon: fa-cubes
+  - label: Deploy an application with advanced features
+    icon: fa-plus-square
     url: /docs/user-journeys/users/application-developer/advanced
-  - label: Deploy an application with advanced features, such as StatefulSets, DaemonSets, and Jobs.
-    icon: fa-share
+  - label: Extend the Kubernetes API
+    icon: fa-pencil-square-o
     url: /docs/user-journeys/users/application-developer/advanced#section-2
-  - label: Explore advanced topics, such as Storage Solutions, Custom Resources, and Pod Disruptions.
-    icon: fa-search
-    url: /docs/user-journeys/users/application-developer/advanced#section-3
-  - label: Additional resources.
+  - label: Explore additional resources
     icon: fa-book
-    url: /docs/user-journeys/users/application-developer/advanced#section-4
+    url: /docs/user-journeys/users/application-developer/advanced#section-3
