@@ -6,7 +6,12 @@
     {% if item.section %}
       {% include tocsearch.html tree=item.section toc=include.toc %}
     {% else %}
-      {% if item == page.path %}
+      {% if item.path %}
+        {% assign filename = item.path | replace: '/', ' ' | strip | replace: ' ', '/' | append: '.md' %}
+      {% else %}
+        {% assign filename = item %}
+      {% endif %}
+      {% if filename == page.path %}
         {% assign found_toc = include.toc %}
         {% break %}
       {% endif %}

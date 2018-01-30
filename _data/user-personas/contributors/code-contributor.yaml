@@ -1,0 +1,19 @@
+id: code-contributor
+name: Code Contributor
+glossary_id: code-contributor
+index: 0
+foundational:
+  - label: "Read the Developer Guide"
+    icon: fa-book
+    url: "/docs/imported/community/devel/"
+intermediate:
+  - label: "Learn about the Kubernetes Enhancement Proposal (KEP) process"
+    icon: fa-upload
+    url: "/docs/imported/community/keps/"
+  - label: "Understand the API conventions"
+    icon: fa-map-o
+    url: "https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md"
+advanced:
+  - label: "Learn about the release process"
+    icon: fa-code-fork
+    url: "https://github.com/kubernetes/release/blob/master/README.md"
