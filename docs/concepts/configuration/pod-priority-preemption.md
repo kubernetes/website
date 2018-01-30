@@ -207,13 +207,14 @@ Node is preempted. Here's an example:
 
 * Pod P is being considered for Node N.
 * Pod Q is running on another Node in the same zone as Node N.
-* Pod P has anti-affinity with Pod Q.
-* There are no other cases of anti-affinity between Pod P and other Pods in the zone.
-* In order to schedule Pod P on Node N, Pod Q should be preempted, but scheduler
-does not perform cross-node preemption. So, Pod P will be deemed unschedulable
-on Node N.
+* Pod P has pod affinity with Pod Q.
+* There are no other cases of affinity or anti-affinity between Pod P and other 
+Pods in the zone.
+* In order to schedule Pod P on Node N, Pod Q can be preempted (and potentially 
+scheduled on N latert on), but scheduler does not perform cross-node preemption. 
+So, Pod P will be deemed unschedulable on Node N.
 
-If Pod Q were removed from its Node, the anti-affinity violation would be gone,
+If Pod Q were removed from its Node, the pod affinity violation would be gone,
 and Pod P could possibly be scheduled on Node N.
 
 We may consider adding cross Node preemption in future versions if we find an
