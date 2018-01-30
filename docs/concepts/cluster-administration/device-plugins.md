@@ -62,8 +62,17 @@ metadata:
   name: demo-pod
 spec:
   containers:
+<<<<<<< HEAD
     - name: demo-container-1
       image: k8s.gcr.io/pause:2.0
+||||||| merged common ancestors
+    -
+      name: demo-container-1
+      image: gcr.io/google_containers/pause:2.0
+=======
+    - name: demo-container-1
+      image: gcr.io/google_containers/pause:2.0
+>>>>>>> 1.10 update (#7151)
       resources:
         limits:
           vendor-domain/resource: 2 # requesting 2 vendor-domain/resource

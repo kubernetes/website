@@ -220,11 +220,23 @@ can be scheduled on N. P might become feasible on N only if a Pod on another
 Node is preempted. Here's an example:
 
 * Pod P is being considered for Node N.
+<<<<<<< HEAD
 * Pod Q is running on another Node in the same Zone as Node N.
 * Pod P has Zone-wide anti-affinity with Pod Q
 (`topologyKey: failure-domain.beta.kubernetes.io/zone`).
 * There are no other cases of anti-affinity between Pod P and other Pods in the Zone.
 * In order to schedule Pod P on Node N, Pod Q can be preempted, but scheduler
+||||||| merged common ancestors
+* Pod Q is running on another Node in the same zone as Node N.
+* Pod P has anit-affinity with Pod Q.
+* There are no other cases of anti-affinity between Pod P and other Pods in the zone.
+* In order to schedule Pod P on Node N, Pod Q should be preempted, but scheduler
+=======
+* Pod Q is running on another Node in the same zone as Node N.
+* Pod P has anti-affinity with Pod Q.
+* There are no other cases of anti-affinity between Pod P and other Pods in the zone.
+* In order to schedule Pod P on Node N, Pod Q should be preempted, but scheduler
+>>>>>>> 1.10 update (#7151)
 does not perform cross-node preemption. So, Pod P will be deemed unschedulable
 on Node N.
 
