@@ -61,8 +61,7 @@ metadata:
   name: demo-pod
 spec:
   containers:
-    -
-      name: demo-container-1
+    - name: demo-container-1
       image: gcr.io/google_containers/pause:2.0
       resources:
         limits:
