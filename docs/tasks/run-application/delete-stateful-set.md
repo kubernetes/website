@@ -5,7 +5,7 @@ approvers:
 - foxish
 - janetkuo
 - smarterclayton
-title: Delete a Stateful Set
+title: Delete a StatefulSet
 ---
 
 {% capture overview %}
