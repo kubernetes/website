@@ -38,7 +38,7 @@ parameters:
   type: pd-standard
 ```
 
-There are two scenarios: a PVC deleted by a user is either in active use or not in active use by a pod.
+Verification scenarios follow below.
 
 ### Scenario 1: The PVC is not in active use by a pod
 
@@ -133,6 +133,90 @@ Events:
 ```
 -  Wait until the pod status is `Terminated` (either delete the pod or wait until it finishes). Afterwards, check that the PVC is removed.
 
+### Scenario 3: A pod starts using a PVC that is in Terminating state
+
+- Again, create the same PVC.
+- Create a first pod that uses the PVC:
+
+```yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: app1
+spec:
+  containers:
+  - name: test-pod
+    image: k8s.gcr.io/busybox:1.24
+    command:
+      - "/bin/sh"
+    args:
+      - "-c"
+      - "date > /mnt/app1.txt; sleep 600 && exit 0 || exit 1"
+    volumeMounts:
+      - name: path-pvc
+        mountPath: "/mnt"
+  restartPolicy: "Never"
+  volumes:
+    - name: path-pvc
+      persistentVolumeClaim:
+        claimName: slzc
+```
+
+- Wait until the pod status is `Running`, i.e. the PVC becomes in active use.
+- Delete the PVC that is now in active use by a pod and verify that the PVC is not removed but its status is `Terminating`:
+
+```shell
+Name:          slzc
+Namespace:     default
+StorageClass:  slow
+Status:        Terminating (since Fri, 01 Dec 2017 14:47:55 +0000)
+Volume:        pvc-803a1f4d-d6a6-11e7-9af0-42010a800002
+Labels:        <none>
+Annotations:   pv.kubernetes.io/bind-completed=yes
+               pv.kubernetes.io/bound-by-controller=yes
+               volume.beta.kubernetes.io/storage-provisioner=kubernetes.io/gce-pd
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      4Gi
+Access Modes:  RWO
+Events:
+  Type    Reason                 Age   From                         Message
+  ----    ------                 ----  ----                         -------
+  Normal  ProvisioningSucceeded  52s   persistentvolume-controller  Successfully provisioned volume pvc-803a1f4d-d6a6-11e7-9af0-42010a800002 using kubernetes.io/gce-pd
+```
+
+- Create a second pod that uses the same PVC:
+
+```
+kind: Pod
+apiVersion: v1
+metadata:
+  name: app2
+spec:
+  containers:
+  - name: test-pod
+    image: gcr.io/google_containers/busybox:1.24
+    command:
+      - "/bin/sh"
+    args:
+      - "-c"
+      - "date > /mnt/app1.txt; sleep 600 && exit 0 || exit 1"
+    volumeMounts:
+      - name: path-pvc
+        mountPath: "/mnt"
+  restartPolicy: "Never"
+  volumes:
+    - name: path-pvc
+      persistentVolumeClaim:
+        claimName: slzc
+```
+
+- Verify that the scheduling of the second pod fails with the below warning:
+
+```
+Warning  FailedScheduling  18s (x4 over 21s)  default-scheduler  persistentvolumeclaim "slzc" is being deleted
+```
+
+-  Wait until the pod status of both pods is `Terminated` (either delete the pods or wait until they finish). Afterwards, check that the PVC is removed.
 
 {% endcapture %}
 
