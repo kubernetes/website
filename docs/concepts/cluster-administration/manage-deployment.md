@@ -49,7 +49,7 @@ It is a recommended practice to put resources related to the same microservice o
 A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into github:
 
 ```shell
-$ kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/master/docs/user-guide/nginx-deployment.yaml
+$ kubectl create -f https://raw.githubusercontent.com/kubernetes/website/master/docs/user-guide/nginx-deployment.yaml
 deployment "nginx-deployment" created
 ```
 
@@ -85,7 +85,7 @@ NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   10.0.0.208   <pending>     80/TCP       0s
 ```
 
-With the above commands, we first create resources under docs/user-guide/nginx/ and print the resources created with `-o name` output format
+With the above commands, we first create resources under `docs/user-guide/nginx/` and print the resources created with `-o name` output format
 (print each resource as resource/name). Then we `grep` only the "service", and then print it with `kubectl get`.
 
 If you happen to organize your resources across several subdirectories within a particular directory, you can recursively perform the operations on the subdirectories also, by specifying `--recursive` or `-R` alongside the `--filename,-f` flag.
@@ -328,6 +328,7 @@ Currently, resources are created without this annotation, so the first invocatio
 All subsequent calls to `kubectl apply`, and other commands that modify the configuration, such as `kubectl replace` and `kubectl edit`, will update the annotation, allowing subsequent calls to `kubectl apply` to detect and perform deletions using a three-way diff.
 
 **Note:** To use apply, always create resource initially with either `kubectl apply` or `kubectl create --save-config`.
+{: .note}
 
 ### kubectl edit
 
