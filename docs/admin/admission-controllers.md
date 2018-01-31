@@ -517,30 +517,78 @@ for more information.
 
 ### PodTolerationRestriction
 
-This admission controller first verifies any conflict between a pod's tolerations and its
-namespace's tolerations, and rejects the pod request if there is a conflict.
-It then merges the namespace's tolerations into the pod's tolerations.
-The resulting tolerations are checked against the namespace's whitelist of
-tolerations. If the check succeeds, the pod request is admitted otherwise
-rejected.
+This admission controller defaults and limits what tolerations may be used on Pods in a given namespace.
+The plugin will build a list of defaults, and a whitelist of allows tolerations based on annotations on the namespace.
+When the namespace does not specify defaults, the cluster defaults from the plugin configuration are used.
+When the namespace does not specify a whitelist, the namespace-specifc whitelist from the plugin configuration are used.
 
-If the pod's namespace does not have any associated default or whitelist of
-tolerations, then the cluster-level default or whitelist of tolerations are used
-instead if specified.
+**Note:** If the annotations are specified, but empty, they are considered to override the cluster-level defaults.
+{: .note}
 
-1. First, the default tolerations for a given namespace are determined:
-   
-   i. If the namespace contains an annotation with the key `scheduler.alpha.kubernetes.io/default-tolerations`
-      and a non-empty, the value of the annotation will be considered as the default tolerations for the namespace.
-   
-   ii. If the namespace lacks an annotation with the key `scheduler.alpha.kubernetes.io/default-tolerations`, then
-       the cluster defaults will be used as the default tolerations for the namespace.
-   
-   ii. If the namespace contains an annotation with the key `scheduler.alpha.kubernetes.io/default-tolerations` 
-       with an empty value, it will be considered to override the cluster's default tolerations.
+#### Configuration File Format
 
-2. The pod tolerations (merged with the namespace default tolerations from step 1) are evaluated against a whitelist.
-   The same logic is used for determining the whitelist, but with the annotation key `scheduler.alpha.kubernetes.io/tolerations-whitelist`.
+PodTolerationRestriction uses a configuration file to define:
+
+1. A cluster-wide default node selector (this is used if the `` annotation is not present on the target Namespace)
+
+2. Namespace-specific default whitelists (these are used if the `` annotation is not present on the target Namespace)
+
+Note that the configuration file format will move to a versioned file in a future release.
+This file may be json or yaml and has the following format:
+
+```yaml
+apiVersion: podtolerationrestriction.admission.k8s.io/v1alpha1
+      kind: Configuration
+      default:
+        - key: key1
+          operator: Equal
+          value: value1
+      whitelist:
+        - key: key1
+          operator: Equal
+          value: value1
+        - key: key2
+          value: value2
+```
+
+Reference the PodNodeSelector configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
+
+```yaml
+kind: AdmissionConfiguration
+apiVersion: apiserver.k8s.io/v1alpha1
+plugins:
+- name: PodTolerationRestriction
+  path: podtolerationrestriction.yaml
+...
+```
+
+#### Internal Logic
+
+1. Determine the `Pod`'s effective tolerations:
+   
+   i. If the `Namespace` lacks an annotation with the key `scheduler.alpha.kubernetes.io/default-tolerations`, then
+       the cluster defaults from the `PodTolerationRestriction` plugin configuration will be used as the
+       default tolerations for the `Namespace`.
+
+   i. If the `Namespace` contains an annotation with the key `scheduler.alpha.kubernetes.io/default-tolerations`,
+      the value of the annotation will be considered as the default tolerations for the namespace. An empty value is
+      respected, and can be used as a way of overriding the cluster-wide default tolerations.
+
+   i. The Pods effective tolerations are the result of merging the default annotations with the pod's specified tolerations.
+      Any conflicts result in admission failure.
+
+1. Determine the Namespace's effective whitelist:
+
+   i. If the namespace lacks an annotation with the key `scheduler.alpha.kubernetes.io/tolerations-whitelist`, then
+       the `Namespace`-specific defaults from the `PodTolerationRestriction` plugin configuration will be used as the tolerations
+       whitelist for the namespace.
+
+   i. If the namespace contains an annotation with the key `scheduler.alpha.kubernetes.io/tolerations-whitelist`,
+      the value of the annotation will be considered as the tolerations whitelist for the namespace. An empty value is
+      respected, and overrides the `Namespace`-specific whitelist.
+   
+1. Evaluate the `Pod`'s effective tolerations against the `Namespace`'s effective whitelist. Any conflicts result in
+   admission failure.
 
 ### Priority
 
