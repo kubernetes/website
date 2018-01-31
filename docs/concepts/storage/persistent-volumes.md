@@ -171,10 +171,10 @@ parameters:
 allowVolumeExpansion: true
 ```
 
-Once both feature gate and aforementioned admission plug-in are turned on, an user can request larger volume for their `PersistentVolumeClaim`
-by simply editing the claim and requesting bigger size.  This in turn will trigger expansion of volume that is backing underlying `PersistentVolume`.
+Once both feature gate and the aforementioned admission plug-in are turned on, an user can request larger volume for their `PersistentVolumeClaim`
+by simply editing the claim and requesting a larger size.  This in turn will trigger expansion of the volume that is backing the underlying `PersistentVolume`.
 
-Under no circumstances a new `PersistentVolume` gets created to satisfy the claim. Kubernetes will attempt to resize existing volume to satisfy the claim.
+Under no circumstances will a new `PersistentVolume` be created to satisfy the claim—Kubernetes will instead attempt to resize the existing volume.
 
 For expanding volumes containing a file system, file system resizing is only performed when a new Pod is started using the `PersistentVolumeClaim` in
 ReadWrite mode. In other words, if a volume being expanded is used in a pod or deployment, you will need to delete and recreate the pod for file system
