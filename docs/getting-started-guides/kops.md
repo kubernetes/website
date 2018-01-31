@@ -147,7 +147,7 @@ for production clusters!
 
 ### Explore other add-ons
 
-See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
+See the [list of add-ons](/docs/concepts/cluster-administration/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
 
 ## What's next
 
