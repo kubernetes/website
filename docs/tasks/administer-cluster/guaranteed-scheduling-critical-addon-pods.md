@@ -47,7 +47,8 @@ killed for this purpose. Please ensure that rescheduler is enabled along with pr
 
 Rescheduler doesn't have any user facing configuration (component config) or API.
 
-### Marking pod as critical when using Rescheduler(This will be deprecated).
+### Marking pod as critical when using Rescheduler. 
+** Marking pod as critical when using Rescheduler.
 
 To be considered critical, the pod has to run in the `kube-system` namespace (configurable via flag) and
 
@@ -60,8 +61,4 @@ The first one marks a pod a critical. The second one is required by Rescheduler 
 
 To be considered critical, the pod has to run in the `kube-system` namespace (configurable via flag) and
 
-* have the priorityClass set as "system-cluster-critical" or "system-node-critical", the latter being the highest for entire cluster.
-
-or
-
-* have the `scheduler.alpha.kubernetes.io/critical-pod` annotation set to empty string(This will be deprecated too). This ensures that the pod gets "system-cluster-critical" priority.
+* Have the priorityClass set as "system-cluster-critical" or "system-node-critical", the latter being the highest for entire cluster and `scheduler.alpha.kubernetes.io/critical-pod` annotation set to empty string(This will be deprecated too).
