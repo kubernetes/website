@@ -65,7 +65,7 @@ Node components run on every node, maintaining running pods and providing the Ku
 
 ### kubelet
 
-{% glossary_definition term_id="Kubelet" length="all" %}
+{% glossary_definition term_id="kubelet" length="all" %}
 
 ### kube-proxy
 
