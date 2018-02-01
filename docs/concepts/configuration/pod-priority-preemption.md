@@ -148,7 +148,21 @@ that satisfies all the specified requirements of the Pod, preemption logic is tr
 for the pending Pod. Let's call the pending pod P. Preemption logic tries to find a Node
 where removal of one or more Pods with lower priority than P would enable P to be scheduled
 on that Node. If such a Node is found, one or more lower priority Pods get
-deleted from the Node. After the Pods are gone, P can be scheduled on the Node. 
+deleted from the Node. After the Pods are gone, P can be scheduled on the Node.
+
+### User exposed information
+
+When Pod P preempts one or more pods on Node N, `nominatedNodeName` field of Pod P's status is set to 
+the name of Node N. This field helps scheduler track resources reserved for Pod P and also gives
+users information about preemptions in their clusters.
+
+Please note that Pod P is not necessarily scheduled on the "nominated Node". After victim Pods are
+preempted, they get their graceful termination period. If another node becomes available while 
+scheduler is waiting for the victim Pods to terminate, scheduler will use the other node to schedule
+Pod P. As a result `nominatedNodeName` and `nodeName` of Pod spec are not always the same. Also, if
+scheduler preempts pods on Node N, but then a higher priority Pod than Pod P arrives, scheduler may
+give Node N to the new higher priority Pod. In such a case, scheduler clears `nominatedNodeName` of
+Pod P. By doing this, scheduler makes Pod P eligible to preempt Pods on another Node.
 
 ### Limitations of preemption
 
