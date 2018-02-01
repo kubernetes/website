@@ -213,7 +213,7 @@ spec:
 Warning  FailedScheduling  18s (x4 over 21s)  default-scheduler  persistentvolumeclaim "slzc" is being deleted
 ```
 
--  Wait until the pod status of both pods is `Terminated` (either delete the pods or wait until they finish). Afterwards, check that the PVC is removed.
+-  Wait until the pod status of both pods is `Terminated` or `Completed` (either delete the pods or wait until they finish). Afterwards, check that the PVC is removed.
 
 {% endcapture %}
 
