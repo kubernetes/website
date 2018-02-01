@@ -60,11 +60,14 @@ the name of the master server:
 KUBE_MASTER="--master=http://fed-master:8080"
 ```
 
-* Disable the firewall on both the master and node, as docker does not play well with other firewall rule managers.  Please note that iptables-services does not exist on default fedora server install.
+* Disable the firewall on both the master and node, as Docker does not play well with other firewall rule managers.  Please note that iptables.service does not exist on the default Fedora Server install.
 
 ```shell
-systemctl disable iptables-services firewalld
-systemctl stop iptables-services firewalld
+systemctl mask firewalld.service
+systemctl stop firewalld.service
+
+systemctl disable iptables.service
+systemctl stop iptables.service
 ```
 
 **Configure the Kubernetes services on the master.**
