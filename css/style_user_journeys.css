@@ -889,3 +889,14 @@ th, td {
 th {
   font-weight: normal;
 }
+
+
+@media screen and (min-width: 580px) {
+  
+.browsecolumn { 
+  width:95%;  
+    
+  }  
+  
+  
+}
