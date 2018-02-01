@@ -57,7 +57,7 @@ In a Declarative API, typically:
 
 Imperative APIs are not declarative.
 Signs that your API might not be declarative include:
- - The client says "do this", and then gets a synchornous response back when it is done.
+ - The client says "do this", and then gets a synchronous response back when it is done.
  - The client says "do this", and then gets an operation ID back, and has to check a separate Operation objects to determine completion of the request.
  - You talk about Remote Procedure Calls (RPCs).
  - Directly storing large amounts of data (e.g. > a few kB per object, or >1000s of objects).
