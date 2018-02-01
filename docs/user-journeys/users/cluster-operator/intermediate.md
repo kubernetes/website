@@ -41,16 +41,16 @@ Pods
 * [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/)
   * [Init Containers](/docs/concepts/workloads/pods/init-containers/)
   * [Pod Presets](/docs/concepts/workloads/pods/podpreset/)
-  * [Container Lifecycle Hooks](docs/concepts/containers/container-lifecycle-hooks/)
+  * [Container Lifecycle Hooks](/docs/concepts/containers/container-lifecycle-hooks/)
 
 And how Pods work with scheduling, priority, disruptions:
 
 * [Taints and Tolerations](/docs/concepts/configuration/taint-and-toleration/)
 * [Pods and Priority](/docs/concepts/configuration/pod-priority-preemption/)
 * [Disruptions](/docs/concepts/workloads/pods/disruptions/)
-* [Assigning Pods to Nodes](docs/concepts/configuration/assign-pod-node/)
-* [Managing compute resources for containers](docs/concepts/configuration/manage-compute-resources-container/)
-* [Configuration best practices](docs/concepts/configuration/overview/)
+* [Assigning Pods to Nodes](/docs/concepts/configuration/assign-pod-node/)
+* [Managing compute resources for containers](/docs/concepts/configuration/manage-compute-resources-container/)
+* [Configuration best practices](/docs/concepts/configuration/overview/)
 
 ## Implement security best practices
 
@@ -58,7 +58,7 @@ Securing your cluster includes work beyond the scope of Kubernetes itself. (TODO
 
 In Kubernetes, you configure access control:
 
-* [Controlling Access to the Kubernetes API](docs/admin/accessing-the-api/)
+* [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api/)
 * [Authenticating](/docs/admin/authentication/)
 * [Using Admission Controllers](/docs/admin/admission-controllers/)
 
