@@ -889,3 +889,37 @@ th, td {
 th {
   font-weight: normal;
 }
+
+
+
+@media screen and (max-width: 580px) { 
+
+.browsecolumn { 
+width: 95%; 
+
+}
+
+.paths {
+
+margin-top : 10%;
+padding:4%;
+
+}
+
+.navButton {
+padding:2%;
+
+}
+
+.buttons {
+padding:4%;
+}
+
+.whitebar {
+padding:5%;
+
+}
+
+
+}  
+
