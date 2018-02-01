@@ -15,9 +15,9 @@ deliver a functioning Kubernetes cluster.
 Master components provide the cluster's control plane. Master components make global decisions about the
 cluster (for example, scheduling), and detecting and responding to cluster events (starting up a new pod when a replication controller's 'replicas' field is unsatisfied).
 
-Master components can be run on any node in the cluster. However,
+Master components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all master components on
-the same VM, and do not run user containers on this VM. See
+the same machine, and do not run user containers on this machine. See
 [Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
 
 ### kube-apiserver
@@ -46,7 +46,7 @@ These controllers include:
 
 ### cloud-controller-manager
 
-cloud-controller-manager runs controllers that interact with the underlying cloud providers. The cloud-controller-manager binary is an alpha feature introduced in Kubernetes release 1.6.
+[cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) runs controllers that interact with the underlying cloud providers. The cloud-controller-manager binary is an alpha feature introduced in Kubernetes release 1.6.
 
 cloud-controller-manager runs cloud-provider-specific controller loops only. You must disable these controller loops in the kube-controller-manager. You can disable the controller loops by setting the `--cloud-provider` flag to `external` when starting the kube-controller-manager.
 
@@ -59,65 +59,29 @@ The following controllers have cloud provider dependencies:
   * Service Controller: For creating, updating and deleting cloud provider load balancers
   * Volume Controller: For creating, attaching, and mounting volumes, and interacting with the cloud provider to orchestrate volumes
 
-### addons
-
-Addons are pods and services that implement cluster features. The pods may be managed
-by Deployments, ReplicationControllers, and so on. Namespaced addon objects are created in
-the `kube-system` namespace.
-
-Addon manager creates and maintains addon resources. See [here](http://releases.k8s.io/HEAD/cluster/addons) for more details.
-
-#### DNS
-
-While the other addons are not strictly required, all Kubernetes clusters should have [cluster DNS](/docs/concepts/services-networking/dns-pod-service/), as many examples rely on it.
-
-Cluster DNS is a DNS server, in addition to the other DNS server(s) in your environment, which serves DNS records for Kubernetes services.
-
-Containers started by Kubernetes automatically include this DNS server in their DNS searches.
-
-#### Web UI (Dashboard)
-
-[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications running in the cluster, as well as the cluster itself.
-
-
-#### Container Resource Monitoring
-
-[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) records generic time-series metrics
-about containers in a central database, and provides a UI for browsing that data.
-
-#### Cluster-level Logging
-
-A [Cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
-saving container logs to a central log store with search/browsing interface.
-
-## Node components
+## Node Components
 
 Node components run on every node, maintaining running pods and providing the Kubernetes runtime environment.
 
 ### kubelet
 
-[kubelet](/docs/admin/kubelet/) is the primary node agent. It watches for pods that have been assigned to its node (either by apiserver or via local configuration file) and:
-
-  * Mounts the pod's required volumes.
-  * Downloads the pod's secrets.
-  * Runs the pod's containers via docker (or, experimentally, rkt).
-  * Periodically executes any requested container liveness probes.
-  * Reports the status of the pod back to the rest of the system, by creating a *mirror pod* if necessary.
-  * Reports the status of the node back to the rest of the system.
+{% glossary_definition term_id="Kubelet" length="all" %}
 
 ### kube-proxy
 
 [kube-proxy](/docs/admin/kube-proxy/) enables the Kubernetes service abstraction by maintaining
 network rules on the host and performing connection forwarding.
 
+### Container Runtime
 
-### docker
+Container Runtime is a software that is responsible for running containers.
 
-`docker` is used for running containers.
+#### docker
+[Docker](http://www.docker.com) is a platform that can be used for the above purpose.
 
-### rkt
+#### rkt
 
-`rkt` is supported experimentally for running containers as an alternative to docker.
+[rkt](https://coreos.com/rkt/) is supported experimentally as an alternative to docker.
 
 ### supervisord
 
@@ -127,6 +91,37 @@ running.
 ### fluentd
 
 `fluentd` is a daemon which helps provide [cluster-level logging](#cluster-level-logging).
+
+## Addons
+
+Addons are pods and services that implement cluster features. The pods may be managed
+by Deployments, ReplicationControllers, and so on. Namespaced addon objects are created in
+the `kube-system` namespace.
+
+Addon manager creates and maintains addon resources. Selected addons are described below, for extended list of available addons please see [Addons](/docs/concepts/cluster-administration/addons/) page.
+
+### DNS
+
+While the other addons are not strictly required, all Kubernetes clusters should have [cluster DNS](/docs/concepts/services-networking/dns-pod-service/), as many examples rely on it.
+
+Cluster DNS is a DNS server, in addition to the other DNS server(s) in your environment, which serves DNS records for Kubernetes services.
+
+Containers started by Kubernetes automatically include this DNS server in their DNS searches.
+
+### Web UI (Dashboard)
+
+[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications running in the cluster, as well as the cluster itself.
+
+### Container Resource Monitoring
+
+[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) records generic time-series metrics
+about containers in a central database, and provides a UI for browsing that data.
+
+### Cluster-level Logging
+
+A [Cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
+saving container logs to a central log store with search/browsing interface.
+
 {% endcapture %}
 
 {% include templates/concept.md %}
