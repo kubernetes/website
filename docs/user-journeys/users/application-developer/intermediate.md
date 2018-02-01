@@ -89,7 +89,7 @@ For additional configuration best practices, familiarize yourself with [this gui
 
 #### Security
 
-You may be familiar with the *principle of least privilege*---if you are too generous with permissions when writing or using software, the negative effects of a compromise can escalate out of control. Would you be cautious handing out `sudo` privileges to software on your OS? If so, you should be just as careful when granting your workload permissions to the {% glossary_tooltip text="Kuberetes API" term_id="kubernetes-api" %} server! The API server is the gateway for your cluster's source of truth; it provides endpoints to read or modify cluster state.
+You may be familiar with the *principle of least privilege*---if you are too generous with permissions when writing or using software, the negative effects of a compromise can escalate out of control. Would you be cautious handing out `sudo` privileges to software on your OS? If so, you should be just as careful when granting your workload permissions to the {% glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" %} server! The API server is the gateway for your cluster's source of truth; it provides endpoints to read or modify cluster state.
 
 You (or your {% glossary_tooltip text="cluster operator" term_id="cluster-operator" %}) can lock down API access with the following:
 * **{% glossary_tooltip text="ServiceAccounts" term_id="service-account" %}** - An "identity" that your Pods can be tied to
