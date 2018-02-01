@@ -8,14 +8,13 @@ title: Persistent Volume Claim Protection
 {% capture overview %}
 {% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
 
-As of Kubernetes 1.10, persistent volume claims (PVCs) that are in active use by a pod can be protected from pre-mature removal.
+Persistent volume claims (PVCs) that are in active use by a pod can be protected from pre-mature removal.
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
-- A v1.10 or higher Kubernetes must be installed.
-- The PVC Protection feature is enabled by default in Kubernetes v1.10 so it does not have to be enabled manually.
+- The PVC Protection feature is enabled in a version of Kubernetes in which it is supported.
 
 {% endcapture %}
 
