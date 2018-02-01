@@ -50,7 +50,7 @@ These resources are covered in a number of articles within the Kubernetes docume
   * [Deployments](/docs/concepts/workloads/controllers/deployment/)
   * [Garbage Collection](/docs/concepts/workloads/controllers/garbage-collection/)
   * [Container Images](/docs/concepts/containers/images/)
-  * [Container Environment Variables](docs/concepts/containers/container-environment-variables/)
+  * [Container Environment Variables](/docs/concepts/containers/container-environment-variables/)
 * [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/)
 * [Namespaces](/docs/concepts/overview/working-with-objects/namespaces/)
   * [Namespaces Walkthrough](/docs/tasks/administer-cluster/namespaces-walkthrough/)
