@@ -5,10 +5,10 @@ repos:
   gen-absolute-links: true
   files:
   - src: contributors/devel/README.md
-    dst: docs/imported/community/devel.md
+    dst: docs/community/devel/README.md
   - src: contributors/guide/README.md
-    dst: docs/imported/community/guide.md
+    dst: docs/community/guide.md
   - src: mentoring/README.md
-    dst: docs/imported/community/mentoring.md
-  - src: keps/1-kubernetes-enhancement-proposal-process.md
-    dst: docs/imported/community/keps.md
+    dst: docs/community/mentoring.md
+  - src: keps/0001-kubernetes-enhancement-proposal-process.md
+    dst: docs/community/keps.md
