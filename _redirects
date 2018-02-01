@@ -290,9 +290,9 @@
 /docs/user-guide/application-troubleshooting/     /docs/tasks/debug-application-cluster/debug-application/ 301
 /docs/user-guide/compute-resources/     /docs/concepts/configuration/manage-compute-resources-container/ 301
 /docs/user-guide/config-best-practices/     /docs/concepts/configuration/overview/ 301
-/docs/user-guide/configmap/     /docs/tasks/configure-pod-container/configmap/ 301
+/docs/user-guide/configmap/     /docs/tasks/configure-pod-container/configure-pod-configmap/ 301
 /docs/user-guide/configmap/README/     /docs/tasks/configure-pod-container/configure-pod-configmap/ 301
-/docs/user-guide/configuring-containers/     /docs/tasks/configure-pod-container/configmap/ 301
+/docs/user-guide/configuring-containers/     /docs/tasks/configure-pod-container/configure-pod-configmap/ 301
 /docs/user-guide/connecting-applications/     /docs/concepts/services-networking/connect-applications-service/ 301
 /docs/user-guide/connecting-to-applications-port-forward/     /docs/tasks/access-application-cluster/port-forward-access-application-cluster/ 301
 /docs/user-guide/connecting-to-applications-proxy/     /docs/tasks/access-kubernetes-api/http-proxy-access-api/ 301
