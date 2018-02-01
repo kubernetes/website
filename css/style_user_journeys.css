@@ -889,3 +889,17 @@ th, td {
 th {
   font-weight: normal;
 }
+
+
+@media screen and (max-width: 580px) { 
+  
+  .browsecolumn: width:95%; 
+
+
+} 
+
+
+
+
+
+
