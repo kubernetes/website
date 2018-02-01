@@ -8,7 +8,7 @@ The cloud controller manager (CCM) concept (not to be confused with the binary) 
 
 The cloud controller manager's design is based on a plugin mechanism that allows new cloud providers to integrate with Kubernetes easily by using plugins. There are plans in place for on-boarding new cloud providers on Kubernetes, and for migrating cloud provider from the old model to the new CCM model.
 
-This document discusses the concepts behind the the cloud controller manager, and gives details about its associated functions.
+This document discusses the concepts behind the cloud controller manager, and gives details about its associated functions.
 
 Here's the architecture of a Kubernetes cluster without the cloud controller manager:
 
