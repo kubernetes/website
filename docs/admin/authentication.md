@@ -185,7 +185,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 NOTE: `serviceAccountName` is usually omitted because this is done automatically.
 
 ```
-apiVersion: apps/v1beta2
+apiVersion: apps/v1 # this apiVersion is relevant as of Kubernetes 1.9
 kind: Deployment
 metadata:
   name: nginx-deployment
