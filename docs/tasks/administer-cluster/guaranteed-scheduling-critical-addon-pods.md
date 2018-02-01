@@ -41,7 +41,7 @@ while the other pods shouldn't tolerate the taint. The taint is removed once the
 
 *Warning:* currently there is no guarantee which node is chosen and which pods are being killed
 in order to schedule critical pods, so if rescheduler is enabled your pods might be occasionally
-killed for this purpose. Please ensure that rescheduler is enabled along with priorities & preemptions in default-scheduler as it may have unwanted side-effects.
+killed for this purpose. Please ensure that rescheduler is not enabled along with priorities & preemptions in default-scheduler as rescheduler is oblivious to priorities and it may evict high priority pods, instead of low priority ones.
 
 ## Config
 
