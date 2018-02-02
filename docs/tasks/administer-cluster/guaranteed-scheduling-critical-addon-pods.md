@@ -20,7 +20,7 @@ vacated by the evicted critical add-on pod or the amount of resources available 
 
 ## Rescheduler: guaranteed scheduling of critical add-ons
 
-NOTE: [Rescheduler is being retired in Kubernetes 1.10](https://groups.google.com/forum/#!msg/kubernetes-dev/UmW0iNRLEO0/FmDNUhyLDQAJ) and is replaced by [Priority and Preemption](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/#enabling-priority-and-preemption). In Kubernetes 1.10, you should give your critical add-on Pods high enough priority to ensure they are scheduled properly when the cluster is unser resource pressure.
+NOTE: [Rescheduler is being retired in Kubernetes 1.10](https://groups.google.com/forum/#!msg/kubernetes-dev/UmW0iNRLEO0/FmDNUhyLDQAJ) and is replaced by [Priority and Preemption](/docs/concepts/configuration/pod-priority-preemption/#enabling-priority-and-preemption). In Kubernetes 1.10, you should give your critical add-on Pods high enough priority to ensure they are scheduled properly when the cluster is unser resource pressure.
 
 Rescheduler ensures that critical add-ons are always scheduled
 (assuming the cluster has enough resources to run the critical add-on pods in the absence of regular pods).
