@@ -1,0 +1,22 @@
+bigheader: "Documentation Home"
+abstract: "Documentation for using and learning about Kubernetes."
+toc:
+- docs/home/index.md
+
+- title: Release Notes
+  path: https://git.k8s.io/kubernetes/CHANGELOG.md
+- title: Release Roadmap
+  path: https://github.com/kubernetes/kubernetes/milestones/
+
+- docs/tasks/debug-application-cluster/troubleshooting.md
+
+- title: Contributing to the Kubernetes Docs
+  section:
+  - editdocs.md
+  - docs/home/contribute/create-pull-request.md
+  - docs/home/contribute/write-new-topic.md
+  - docs/home/contribute/stage-documentation-changes.md
+  - docs/home/contribute/page-templates.md
+  - docs/home/contribute/review-issues.md
+  - docs/home/contribute/style-guide.md
+  - docs/home/contribute/includes.md

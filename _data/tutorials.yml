@@ -1,0 +1,69 @@
+bigheader: "Tutorials"
+abstract: "Detailed walkthroughs of common Kubernetes operations and workflows."
+toc:
+- docs/tutorials/index.md
+- title: Kubernetes Basics
+  section:
+  - docs/tutorials/kubernetes-basics/index.html
+  - title: 1. Create a Cluster
+    section:
+    - docs/tutorials/kubernetes-basics/cluster-intro.html
+    - docs/tutorials/kubernetes-basics/cluster-interactive.html
+  - title: 2. Deploy an App
+    section:
+    - docs/tutorials/kubernetes-basics/deploy-intro.html
+    - docs/tutorials/kubernetes-basics/deploy-interactive.html
+  - title: 3. Explore Your App
+    section:
+    - docs/tutorials/kubernetes-basics/explore-intro.html
+    - docs/tutorials/kubernetes-basics/explore-interactive.html
+  - title: 4. Expose Your App Publicly
+    section:
+    - docs/tutorials/kubernetes-basics/expose-intro.html
+    - docs/tutorials/kubernetes-basics/expose-interactive.html
+  - title: 5. Scale Your App
+    section:
+    - docs/tutorials/kubernetes-basics/scale-intro.html
+    - docs/tutorials/kubernetes-basics/scale-interactive.html
+  - title: 6. Update Your App
+    section:
+    - docs/tutorials/kubernetes-basics/update-intro.html
+    - docs/tutorials/kubernetes-basics/update-interactive.html
+- title: Online Training Courses
+  section:
+  - title: Scalable Microservices with Kubernetes (Udacity)
+    path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
+  - title: Introduction to Kubernetes (edX)
+    path: https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#
+- docs/tutorials/stateless-application/hello-minikube.md
+- docs/user-guide/walkthrough/index.md
+- docs/user-guide/walkthrough/k8s201.md
+- title: Configuration
+  section:
+  - docs/tutorials/configuration/configure-redis-using-configmap.md
+- title: Object Management Using kubectl
+  section:
+  - docs/tutorials/object-management-kubectl/object-management.md
+  - docs/tutorials/object-management-kubectl/imperative-object-management-command.md
+  - docs/tutorials/object-management-kubectl/imperative-object-management-configuration.md
+  - docs/tutorials/object-management-kubectl/declarative-object-management-configuration.md
+- title: Stateless Applications
+  section:
+  - docs/tasks/run-application/run-stateless-application-deployment.md
+  - docs/tutorials/stateless-application/guestbook.md
+  - docs/tasks/access-application-cluster/service-access-application-cluster.md
+  - docs/tutorials/stateless-application/expose-external-ip-address.md
+- title: Stateful Applications
+  section:
+  - docs/tutorials/stateful-application/basic-stateful-set.md
+  - docs/tasks/run-application/run-single-instance-stateful-application.md
+  - docs/tasks/run-application/run-replicated-stateful-application.md
+  - docs/tutorials/stateful-application/mysql-wordpress-persistent-volume.md
+  - docs/tutorials/stateful-application/cassandra.md
+  - docs/tutorials/stateful-application/zookeeper.md
+- title: Clusters
+  section:
+  - docs/tutorials/clusters/apparmor.md
+- title: Services
+  section:
+  - docs/tutorials/services/source-ip.md

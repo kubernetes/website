@@ -1,0 +1,108 @@
+bigheader: "Setup"
+abstract: "Instructions for setting up a Kubernetes cluster."
+toc:
+- docs/setup/index.md
+- docs/setup/pick-right-solution.md
+
+- title: Independent Solutions
+  section:
+  - docs/getting-started-guides/minikube.md
+
+  - title: Bootstrapping Clusters with kubeadm
+    section:
+    - docs/setup/independent/install-kubeadm.md
+    - docs/setup/independent/create-cluster-kubeadm.md
+    - docs/setup/independent/troubleshooting-kubeadm.md
+
+  - docs/getting-started-guides/scratch.md
+  - docs/getting-started-guides/alternatives.md
+
+- title: Hosted Solutions
+  section:
+  - title: Running Kubernetes on Google Kubernetes Engine
+    path: https://cloud.google.com/kubernetes-engine/docs/before-you-begin/
+  - title: Running Kubernetes on Azure Container Service
+    path: https://docs.microsoft.com/en-us/azure/container-service/container-service-kubernetes-walkthrough
+  - title: Running Kubernetes on IBM Cloud Container Service
+    path: https://console.bluemix.net/docs/containers/container_index.html
+
+- title: Turn-key Cloud Solutions
+  section:
+  - docs/getting-started-guides/gce.md
+  - docs/getting-started-guides/aws.md
+  - docs/getting-started-guides/azure.md
+  - docs/getting-started-guides/alibaba-cloud.md
+  - docs/getting-started-guides/clc.md
+  - title: Running Kubernetes on IBM Cloud
+    path: https://github.com/patrocinio/kubernetes-softlayer
+  - docs/getting-started-guides/stackpoint.md
+
+- title: Custom Solutions
+
+  section:
+  - title: Custom Cloud Solutions
+    section:
+    - docs/getting-started-guides/coreos/index.md
+    - docs/getting-started-guides/ubuntu/index.md
+    - docs/getting-started-guides/kops.md
+    - docs/getting-started-guides/kubespray.md
+    - docs/getting-started-guides/running-cloud-controller.md
+
+  - title: On-Premise VMs
+    section:
+    - docs/getting-started-guides/coreos/index.md
+    - docs/getting-started-guides/cloudstack.md
+    - docs/getting-started-guides/vsphere.md
+    - docs/getting-started-guides/photon-controller.md
+    - docs/getting-started-guides/dcos.md
+    - docs/getting-started-guides/libvirt-coreos.md
+    - docs/getting-started-guides/ovirt.md
+    - docs/getting-started-guides/openstack-heat.md
+
+    - title: rkt
+      section:
+      - docs/getting-started-guides/rkt/index.md
+      - docs/getting-started-guides/rkt/notes.md
+
+    - docs/getting-started-guides/mesos/index.md
+    - docs/getting-started-guides/mesos-docker.md
+
+    - title: Bare Metal
+      section:
+      - docs/getting-started-guides/coreos/bare_metal_offline.md
+      - docs/getting-started-guides/fedora/fedora_ansible_config.md
+      - docs/getting-started-guides/fedora/fedora_manual_config.md
+      - docs/getting-started-guides/fedora/flannel_multi_node_cluster.md
+      - docs/getting-started-guides/centos/centos_manual_config.md
+      - docs/getting-started-guides/coreos/index.md
+      - docs/getting-started-guides/ubuntu/index.md
+
+      - title: Ubuntu
+        section:
+        - docs/getting-started-guides/ubuntu/index.md
+        - docs/getting-started-guides/ubuntu/validation.md
+        - docs/getting-started-guides/ubuntu/backups.md
+        - docs/getting-started-guides/ubuntu/upgrades.md
+        - docs/getting-started-guides/ubuntu/scaling.md
+        - docs/getting-started-guides/ubuntu/installation.md
+        - docs/getting-started-guides/ubuntu/monitoring.md
+        - docs/getting-started-guides/ubuntu/networking.md
+        - docs/getting-started-guides/ubuntu/security.md
+        - docs/getting-started-guides/ubuntu/storage.md
+        - docs/getting-started-guides/ubuntu/troubleshooting.md
+        - docs/getting-started-guides/ubuntu/decommissioning.md
+        - docs/getting-started-guides/ubuntu/operational-considerations.md
+        - docs/getting-started-guides/ubuntu/glossary.md
+        - docs/getting-started-guides/ubuntu/local.md
+        - docs/getting-started-guides/ubuntu/logging.md
+
+    - docs/getting-started-guides/windows/index.md
+
+  - docs/admin/node-conformance.md
+
+- docs/concepts/cluster-administration/addons.md
+- docs/admin/salt.md
+- docs/admin/cluster-large.md
+- docs/admin/multiple-zones.md
+- docs/admin/high-availability/index.md
+- docs/getting-started-guides/binary_release.md
