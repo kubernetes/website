@@ -19,7 +19,7 @@ version and state of the documented feature.
 
 ### Feature state demo
 
-Below is a demo of the feature state snippet. Here it is used to display the feature as stable in Kuberentes version 1.6.
+Below is a demo of the feature state snippet. Here it is used to display the feature as stable in Kubernetes version 1.6.
 
 {% assign for_k8s_version = "1.6" %}
 {% include feature-state-stable.md %}
