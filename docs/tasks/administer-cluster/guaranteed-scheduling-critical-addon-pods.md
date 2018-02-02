@@ -24,7 +24,7 @@ accordance with the [deprecation policy](/docs/reference/deprecation-policy) for
 
 **To avoid eviction of critical pods, you must
 [enable priorities in scheduler](docs/concepts/configuration/pod-priority-preemption/)
-before upgrading to Kubernetes 1.8 or higher.**
+before upgrading to Kubernetes 1.10 or higher.**
 
 Rescheduler ensures that critical add-ons are always scheduled
 (assuming the cluster has enough resources to run the critical add-on pods in the absence of regular pods).
