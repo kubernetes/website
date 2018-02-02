@@ -1,9 +1,6 @@
 ---
 title: 使用 Minikube 创建一个集群
 ---
-
-<!DOCTYPE html>
-
 <html lang="en">
 
 <body>

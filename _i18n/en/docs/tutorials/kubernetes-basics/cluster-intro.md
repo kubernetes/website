@@ -1,9 +1,6 @@
 ---
 title: Using Minikube to Create a Cluster
 ---
-
-<!DOCTYPE html>
-
 <html lang="en">
 
 <body>
