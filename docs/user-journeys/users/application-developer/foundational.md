@@ -9,7 +9,7 @@ track: "USERS › APPLICATION DEVELOPER › FOUNDATIONAL"
 ---
 
 {% capture overview %}
-If you're a developer looking to run applications on Kubernetes, this page and its linked topics can help you get started with the fundamentals. Though this page primarily describes development workflows, [the subsequent page in the series](/docs/home/?path=users&persona=app-developer&level=intermediate){:target="_blank"} cover more advanced, production setups.
+If you're a developer looking to run applications on Kubernetes, this page and its linked topics can help you get started with the fundamentals. Though this page primarily describes development workflows, [the subsequent page in the series](/docs/home/?path=users&persona=app-developer&level=intermediate){:target="_blank"} covers more advanced, production setups.
 
 {: .note }
 **A quick note**<br>This app developer "user journey" is *not* a comprehensive overview of Kubernetes. It focuses more on *what* you develop, test, and deploy to Kubernetes, rather than *how* the underlying infrastructure works.<br><br>Though it's possible for a single person to manage both, in many organizations, it’s common to assign the latter to a dedicated {% glossary_tooltip text="cluster operator" term_id="cluster-operator" %}.
@@ -20,7 +20,7 @@ If you're a developer looking to run applications on Kubernetes, this page and i
 {% capture body %}
 ## Get started with a cluster
 
-#### Web-based Environment
+#### Web-based environment
 
 If you're brand new to Kubernetes and simply want to experiment without setting up a full development environment, *web-based environments* are a good place to start:
 
@@ -32,7 +32,7 @@ If you're brand new to Kubernetes and simply want to experiment without setting 
 * [Play with Kubernetes](http://labs.play-with-k8s.com/){:target="_blank"} - A less structured environment than the *Katacoda* playground, for those who are more comfortable with Kubernetes concepts and want to explore further. It supports the ability to spin up multiple nodes.
 
 
-#### Minikube (Recommended)
+#### Minikube (recommended)
 
 Web-based environments are easy to access, but are not persistent. If you want to continue exploring Kubernetes in a workspace that you can come back to and change, *Minikube* is a good option.
 
@@ -54,12 +54,12 @@ You can get basic information about your cluster with the commands `kubectl clus
 
 ## Deploy an application
 
-#### Basic Workloads
+#### Basic workloads
 
 The following examples demonstrate the fundamentals of deploying Kubernetes apps:
-  * **Stateless Apps**: [Deploy a simple nginx server](/docs/tasks/run-application/run-stateless-application-deployment/){:target="_blank"}.
+  * **Stateless apps**: [Deploy a simple nginx server](/docs/tasks/run-application/run-stateless-application-deployment/){:target="_blank"}.
 
-  * **Stateful Apps**: [Deploy a MySQL database](/docs/tasks/run-application/run-single-instance-stateful-application/){:target="_blank"}.
+  * **Stateful apps**: [Deploy a MySQL database](/docs/tasks/run-application/run-single-instance-stateful-application/){:target="_blank"}.
 
 Through these deployment tasks, you'll gain familiarity with the following:
 * General concepts
@@ -156,13 +156,13 @@ If you're not running Kubernetes or a similar automated system, you might find t
 
 This process can be tedious and also inconvenient, especially if (2) happens in the early hours of the morning!
 
-**If you have Kubernetes set up, however, manual intervention is not as necessary.** The Kubernetes [control plane](/docs/concepts/overview/components/#master-components){:target="_blank"}, which runs on your cluster's master node, will gracefully handle (3) and (4) on your behalf. As a a result, Kubernetes is often referred to as a *self-healing* system.
+**If you have Kubernetes set up, however, manual intervention is not as necessary.** The Kubernetes [control plane](/docs/concepts/overview/components/#master-components){:target="_blank"}, which runs on your cluster's master node, gracefully handles (3) and (4) on your behalf. As a a result, Kubernetes is often referred to as a *self-healing* system.
 
 There are two key parts of the control plane that facilitate this behavior: the *Kubernetes API server* and the *Controllers*.
 
-#### Kubernetes API Server
+#### Kubernetes API server
 
-For Kubernetes to be useful, it needs to know *what* sort of cluster state you want it to maintain. Your YAML of JSON *configuration files* declare this desired state in terms of one or more API objects, such as {% glossary_tooltip text="Deployments" term_id="deployment" %}. To make updates to your cluster's state, you submit these files to the {% glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" %} server (`kube-apiserver`).
+For Kubernetes to be useful, it needs to know *what* sort of cluster state you want it to maintain. Your YAML or JSON *configuration files* declare this desired state in terms of one or more API objects, such as {% glossary_tooltip text="Deployments" term_id="deployment" %}. To make updates to your cluster's state, you submit these files to the {% glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" %} server (`kube-apiserver`).
 
 Examples of state include but are not limited to the following:
 
