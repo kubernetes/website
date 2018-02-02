@@ -13,7 +13,7 @@ title: Pod Priority and Preemption
 indicates the importance of a Pod relative to other Pods. When a Pod cannot be scheduled,
 the scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible. In Kubernetes 1.9 and later, Priority also affects scheduling
-order of pods and out-of-resource eviction ordering on the Node.
+order of Pods and out-of-resource eviction ordering on the Node.
 
 {% endcapture %}
 
@@ -134,10 +134,10 @@ spec:
 ### Effect of Pod priority on scheduling order
 
 In Kubernetes 1.9 and later, when Pod priority is enabled, scheduler orders pending
-pods by their priority and a pending Pod is placed ahead of other pending Pods with
-lower priority in the scheduling queue. As a result, the higher priority pod may
-by scheduled sooner that pods with lower priority if its scheduling requirements
-are met. If such pod cannot be scheduled, scheduler will continue and tries to
+Pods by their priority and a pending Pod is placed ahead of other pending Pods with
+lower priority in the scheduling queue. As a result, the higher priority Pod may
+by scheduled sooner that Pods with lower priority if its scheduling requirements
+are met. If such Pod cannot be scheduled, scheduler will continue and tries to
 schedule other lower priority Pods. 
 
 ## Preemption
@@ -145,22 +145,22 @@ schedule other lower priority Pods.
 When Pods are created, they go to a queue and wait to be scheduled. The scheduler
 picks a Pod from the queue and tries to schedule it on a Node. If no Node is found
 that satisfies all the specified requirements of the Pod, preemption logic is triggered 
-for the pending Pod. Let's call the pending pod P. Preemption logic tries to find a Node
+for the pending Pod. Let's call the pending Pod P. Preemption logic tries to find a Node
 where removal of one or more Pods with lower priority than P would enable P to be scheduled
 on that Node. If such a Node is found, one or more lower priority Pods get
 deleted from the Node. After the Pods are gone, P can be scheduled on the Node.
 
 ### User exposed information
 
-When Pod P preempts one or more pods on Node N, `nominatedNodeName` field of Pod P's status is set to 
+When Pod P preempts one or more Pods on Node N, `nominatedNodeName` field of Pod P's status is set to 
 the name of Node N. This field helps scheduler track resources reserved for Pod P and also gives
 users information about preemptions in their clusters.
 
-Please note that Pod P is not necessarily scheduled on the "nominated Node". After victim Pods are
+Please note that Pod P is not necessarily scheduled to the "nominated Node". After victim Pods are
 preempted, they get their graceful termination period. If another node becomes available while 
 scheduler is waiting for the victim Pods to terminate, scheduler will use the other node to schedule
 Pod P. As a result `nominatedNodeName` and `nodeName` of Pod spec are not always the same. Also, if
-scheduler preempts pods on Node N, but then a higher priority Pod than Pod P arrives, scheduler may
+scheduler preempts Pods on Node N, but then a higher priority Pod than Pod P arrives, scheduler may
 give Node N to the new higher priority Pod. In such a case, scheduler clears `nominatedNodeName` of
 Pod P. By doing this, scheduler makes Pod P eligible to preempt Pods on another Node.
 
@@ -177,7 +177,7 @@ scheduled on the Node (N). In the meantime, the scheduler keeps scheduling other
 pending Pods. As victims exit or get terminated, the scheduler tries to schedule
 Pods in the pending queue. Therefore, there is usually a time gap between the point 
 that scheduler preempts victims and the time that Pod P is scheduled. In order to
-minimize this gap, one can set graceful termination period of lower priority pods
+minimize this gap, one can set graceful termination period of lower priority Pods
 to zero or a small number.
 
 #### PodDisruptionBudget is supported, but not guaranteed!
@@ -185,7 +185,7 @@ to zero or a small number.
 A [Pod Disruption Budget (PDB)](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/)
 allows application owners to limit the number Pods of a replicated application that
 are down simultaneously from voluntary disruptions. Kubernetes 1.9 supports PDB
-when preempting pods, but respecting PDB is best effort. The Scheduler tries to
+when preempting Pods, but respecting PDB is best effort. The Scheduler tries to
 find victims whose PDB are not violated by preemption, but if no such victims are
 found, preemption will still happen, and lower priority Pods will be removed
 despite their PDBs  being violated.
@@ -194,11 +194,11 @@ despite their PDBs  being violated.
 
 A Node is considered for preemption only when
 the answer to this question is yes: "If all the Pods with lower priority than
-the pending Pod are removed from the Node, can the pending pod be scheduled on
+the pending Pod are removed from the Node, can the pending Pod be scheduled on
 the Node?"
 
 **Note:** Preemption does not necessarily remove all lower-priority Pods. If the 
-pending pod can be scheduled by removing fewer than all lower-priority Pods, then
+pending Pod can be scheduled by removing fewer than all lower-priority Pods, then
 only a portion of the lower-priority Pods are removed. Even so, the answer to the
 preceding question must be yes. If the answer is no, the Node is not considered
 for preemption.
@@ -211,7 +211,7 @@ Node. Instead, it looks for another Node. The scheduler might find a suitable No
 or it might not. There is no guarantee that the pending Pod can be scheduled.
 
 Our recommended solution for this problem is to create inter-Pod affinity only towards
-equal or higher priority pods.
+equal or higher priority Pods.
 
 #### Cross node preemption
 
