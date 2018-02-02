@@ -83,15 +83,6 @@ Container Runtime is a software that is responsible for running containers.
 
 [rkt](https://coreos.com/rkt/) is supported experimentally as an alternative to docker.
 
-### supervisord
-
-`supervisord` is a lightweight process monitor and control system that can be used to keep kubelet and docker
-running.
-
-### fluentd
-
-`fluentd` is a daemon which helps provide [cluster-level logging](#cluster-level-logging).
-
 ## Addons
 
 Addons are pods and services that implement cluster features. The pods may be managed
