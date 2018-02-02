@@ -33,7 +33,7 @@ a Kubernetes cluster from scratch.
 
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
 
-* [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for development and test scenarios. Scales to full multi-node cluster. 
+* [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for development and test scenarios. Scales to full multi-node cluster.
 
 # Hosted Solutions
 
@@ -135,8 +135,6 @@ These solutions are combinations of cloud providers and operating systems not co
 
 These solutions provide integration with third-party schedulers, resource managers, and/or lower level platforms.
 
-* [Kubernetes on Mesos](/docs/getting-started-guides/mesos/)
-  * Instructions specify GCE, but are generic enough to be adapted to most existing Mesos clusters
 * [DCOS](/docs/getting-started-guides/dcos/)
   * Community Edition DCOS uses AWS
   * Enterprise Edition DCOS supports cloud hosting, on-premises VMs, and bare metal
