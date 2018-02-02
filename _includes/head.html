@@ -1,29 +1,30 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="{{ site.url }}{{ site.baseurl }}/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
-    {% if page.case_study_styles %}<link rel="stylesheet" type="text/css" href="/css/case_study_styles.css"><!-- custom case_study_styles on -->{% else %}<link rel="stylesheet" type="text/css" href="/css/styles.css"><!-- default styles.css on -->{% endif %}
-    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/sweetalert.css">
-    <link rel="stylesheet" type="text/css" href="/css/callouts.css">
-    <link rel="stylesheet" type="text/css" href="/css/custom-jekyll/tags.css">
-    {% if page.deprecated %}<link rel="stylesheet" type="text/css" href="/css/deprecation-warning.css">{% endif %}
-    {% if page.class == "gridPage" %}<link rel="stylesheet" type="text/css" href="/css/gridpage.css">{% endif %}
+    {% if page.case_study_styles %}<link rel="stylesheet" type="text/css" href="{{ site.url }}{{ site.baseurl }}/css/case_study_styles.css"><!-- custom case_study_styles on -->{% else %}<link rel="stylesheet" type="text/css" href="{{ site.url }}{{ site.baseurl }}/css/styles.css"><!-- default styles.css on -->{% endif %}
+    <link rel="stylesheet" type="text/css" href="{{ site.url }}{{ site.baseurl }}/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ site.url }}{{ site.baseurl }}/css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="{{ site.url }}{{ site.baseurl }}/css/callouts.css">
+    <link rel="stylesheet" type="text/css" href="{{ site.url }}{{ site.baseurl }}/css/custom-jekyll/tags.css">
+    {% if page.deprecated %}<link rel="stylesheet" type="text/css" href="{{ site.url }}{{ site.baseurl }}/css/deprecation-warning.css">{% endif %}
+    {% if page.class == "gridPage" %}<link rel="stylesheet" type="text/css" href="{{ site.url }}{{ site.baseurl }}/css/gridpage.css">{% endif %}
     {% if page.css %}<link rel="stylesheet" type="text/css" href="{{ page.css }}"><!-- custom css added -->{% else %}<!-- no custom css detected -->{% endif %}
 
-    {% if page.description %}
-    <meta name="description" content="{{ page.description }}" />
+    {% if site.description %}
+    <meta name="description" content="{% t site.description %}" />
     {% else %}
-    <meta name="description" content="{{ page.title }}" />
+    <meta name="description" content="{% t site.name %}" />
     {% endif %}
+    <title>{% t site.name %} - {% t site.tagline %}</title>
 
-    <script src="/js/jquery-2.2.0.min.js"></script>
-    <script src="/js/jquery-ui.min.js"></script>
-    <script src="/js/script.js"></script>
-    <script src="/js/sweetalert.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/custom-jekyll/tags.js"></script>
+    <script src="{{ site.url }}{{ site.baseurl }}/js/jquery-2.2.0.min.js"></script>
+    <script src="{{ site.url }}{{ site.baseurl }}/js/jquery-ui.min.js"></script>
+    <script src="{{ site.url }}{{ site.baseurl }}/js/script.js"></script>
+    <script src="{{ site.url }}{{ site.baseurl }}/js/sweetalert.min.js"></script>
+    <script src="{{ site.url }}{{ site.baseurl }}/js/bootstrap.min.js"></script>
+    <script src="{{ site.url }}{{ site.baseurl }}/js/custom-jekyll/tags.js"></script>
     {% seo %}
 </head>

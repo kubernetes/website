@@ -5,8 +5,9 @@ approvers:
 - mikedanese
 no_issue: true
 title: Setup
+
+permalink: /docs/setup/
+permalink_cn: /docs/setup/
 ---
 
-This section provides instructions for installing Kubernetes and setting
-up a Kubernetes cluster. For an overview of the different options, see
-[Picking the Right Solution](/docs/setup/pick-right-solution/).
+{% tf docs/setup/index.md %}

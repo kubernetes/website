@@ -1,6 +1,22 @@
-name: Kubernetes
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
 title: Kubernetes
 url: https://kubernetes.io
+host: localhost
+port: 7200
 description: Production-Grade Container Orchestration
 markdown: kramdown
 kramdown:
@@ -12,7 +28,6 @@ incremental: true
 
 safe: false
 lsi: false
-
 defaults:
   -
     scope:
@@ -27,7 +42,7 @@ defaults:
           version: "v1.9"
           githubbranch: "v1.9.0"
           docsbranch: "release-1.9"
-          url: https://kubernetes.io/docs/home/
+          url: https://kubernetes.io/_i18n/en/docs/home/
         - fullversion: "v1.8.4"
           version: "v1.8"
           githubbranch: "v1.8.4"
@@ -53,27 +68,41 @@ defaults:
       nextUrl: http://kubernetes-io-vnext-staging.netlify.com/
   -
     scope:
-      path: "docs"
+      path: "_i18n/en/docs"
     values:
       layout: docwithnav
       showedit: true
 
 permalink: pretty
+#description: >- # this means to ignore newlines until "baseurl:"
+ # Write an awesome description for your new site here. You can edit this
+  #line in _config.yml. It will appear in your document head meta (for
+  #Google search results) and in your feed.xml site description.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_username: jekyllrb
+github_username:  jekyll
 
+# Build settings
+markdown: kramdown
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-include-cache
-# disabled gems
-#  - jekyll-redirect-from
+  - jekyll-multiple-languages-plugin
 
-include: [_redirects,_headers]
-
-# SEO
-logo: /images/favicon.png
-twitter:
-  username: kubernetesio
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
 
 # empty array for tabs
 emptyArray: []
@@ -88,3 +117,11 @@ tocs:
   - reference
   - samples
   - search
+
+# Jekyll Multilanguage config
+languages: ["en", "cn"]
+exclude_from_localizations: ["assets", "robots.txt"]
+defaultLang: en
+languageNames:
+  cn: Chinese
+  en: English
