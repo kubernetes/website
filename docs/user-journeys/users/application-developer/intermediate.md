@@ -30,7 +30,7 @@ As your Kubernetes use cases become more complex, you may find it helpful to fam
 
 The following API objects provide functionality for additional workload types, whether they are *persistent* or *terminating*.
 
-#### Persistent Workloads
+#### Persistent workloads
 
 Like Deployments, these API objects run indefinitely on a cluster until they are manually terminated. They are best for long-running applications.
 
@@ -47,7 +47,7 @@ Like Deployments, these API objects run indefinitely on a cluster until they are
     | **When a Pod dies** | Reschedule on *any* node, with new name `example-a51z` | Reschedule on same node, as `example-0` |
     | **When a node becomes unreachable** | Pod(s) are scheduled onto new node, with new names | Pod(s) are marked as "Unknown", and aren't rescheduled unless the Node object is forcefully deleted |
 
-     In practice, this means that StatefulSets are best suited for scenarios where replicas (Pods) need to coordinate their workloads in a strongly consistent manner. Guaranteeing an identity for each Pod helps avoid [split brain](https://en.wikipedia.org/wiki/Split-brain_(computing)){:target="_blank"} side-effects in the case when a node becomes unreachable ([network partition](https://en.wikipedia.org/wiki/Network_partition){:target="_blank"}). This makes StatefulSets a great fit for distributed datastores like Cassandra or Elasticsearch.
+     In practice, this means that StatefulSets are best suited for scenarios where replicas (Pods) need to coordinate their workloads in a strongly consistent manner. Guaranteeing an identity for each Pod helps avoid [split-brain](https://en.wikipedia.org/wiki/Split-brain_(computing)){:target="_blank"} side effects in the case when a node becomes unreachable ([network partition](https://en.wikipedia.org/wiki/Network_partition){:target="_blank"}). This makes StatefulSets a great fit for distributed datastores like Cassandra or Elasticsearch.
 
 
 * **{% glossary_tooltip text="DaemonSets" term_id="daemonset" %}** - DaemonSets run continuously on every node in your cluster, even as nodes are added or swapped in. This guarantee is particularly useful for setting up global behavior across your cluster, such as:
@@ -56,7 +56,7 @@ Like Deployments, these API objects run indefinitely on a cluster until they are
   * Network proxy or [service mesh](https://www.linux.com/news/whats-service-mesh-and-why-do-i-need-one){:target="_blank"}
 
 
-#### Terminating Workloads
+#### Terminating workloads
 
 In contrast to Deployments, these API objects are finite. They stop once the specified number of Pods have completed successfully.
 
@@ -64,7 +64,7 @@ In contrast to Deployments, these API objects are finite. They stop once the spe
 
 * **{% glossary_tooltip text="CronJobs" term_id="cronjob" %}** - These are similar to Jobs, but allow you to schedule their execution for a specific time or for periodic recurrence. You might use CronJobs to send reminder emails or to run backup jobs. They are set up with a similar syntax as *crontab*.
 
-#### Other Resources
+#### Other resources
 
 For more info, you can check out [a list of additional Kubernetes resource types](/docs/reference/kubectl/overview/#resource-types){:target="_blank"} as well as the [API reference docs]({{ reference_docs_url }}){:target="_blank"}.
 
@@ -72,7 +72,7 @@ There may be additional features not mentioned here that you may find useful, wh
 
 ## Deploy a production-ready workload
 
-The beginner tutorials on this site, such as the [Guestbook app](/docs/tutorials/stateless-application/guestbook/){:target="_blank"}, are geared towards getting workloads up and running on your cluster. This prototyping is great for building your intuition around Kubernetes! However, in order to reliably and securely promote your workloads to production, you'll need to follow some additional best practices.
+The beginner tutorials on this site, such as the [Guestbook app](/docs/tutorials/stateless-application/guestbook/){:target="_blank"}, are geared towards getting workloads up and running on your cluster. This prototyping is great for building your intuition around Kubernetes! However, in order to reliably and securely promote your workloads to production, you need to follow some additional best practices.
 
 #### Declarative configuration
 
