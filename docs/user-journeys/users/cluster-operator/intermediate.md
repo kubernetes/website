@@ -10,7 +10,7 @@ track: "USERS > CLUSTER OPERATOR > INTERMEDIATE"
 
 {% capture overview %}
 
-If you're a cluster operator looking to expand your grasp of Kubernetes, this page and its linked topics extend the information provided on the [foundational cluster operator page](/docs/user-journeys/users/cluster-operator/foundational). Here we'll get you going on key Kubernetes tasks that you need to manage a complete production cluster.
+If you are a cluster operator looking to expand your grasp of Kubernetes, this page and its linked topics extend the information provided on the [foundational cluster operator page](/docs/user-journeys/users/cluster-operator/foundational). From this page you can get information on key Kubernetes tasks needed to manage a complete production cluster.
 
 {% endcapture %}
 
@@ -73,9 +73,9 @@ You should create Secrets to hold sensitive data such as passwords, tokens, or k
 
 ## Implement custom logging and monitoring
 
-Monitoring the health and state of your cluster is important. Collecting metrics, logging, and providing access to that information are common needs. Kubernetes provides some basic logging structure, but you will almost certainly want to use additional tools to help aggregate and analyze log data.
+Monitoring the health and state of your cluster is important. Collecting metrics, logging, and providing access to that information are common needs. Kubernetes provides some basic logging structure and you may want to use additional tools to help aggregate and analyze log data.
 
-Start with the [basics on Kubernetes logging](/docs/concepts/cluster-administration/logging/) to understand how containers do logging and common patterns. You will probably want to add something to gather and aggregate those logs. See the following topics:
+Start with the [basics on Kubernetes logging](/docs/concepts/cluster-administration/logging/) to understand how containers do logging and common patterns. Cluster operators often want to add something to gather and aggregate those logs. See the following topics:
 
 * [Logging Using Elasticsearch and Kibana](/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)
 * [Logging Using Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/)
