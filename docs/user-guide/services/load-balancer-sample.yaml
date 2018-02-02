@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+spec:
+  ports:
+  - port: 8765
+    targetPort: 9376
+  selector:
+    app: example
+  type: LoadBalancer
+  loadBalancerSourceRanges:
+  - 10.180.0.0/16
+  - 10.245.0.0/24
