@@ -10,8 +10,8 @@ track: "USERS › CLUSTER OPERATOR › FOUNDATIONAL"
 
 {% capture overview %}
 
-If you want to learn how to get started managing and operating a Kubernetes cluster, this page and the linked topics will introduce you to foundational concepts and tasks.
-The concepts introduce you to a Kubernetes cluster and key concepts to understand and manage it, favoring focusing on the cluster itself over the software running within the cluster.
+If you want to learn how to get started managing and operating a Kubernetes cluster, this page and the linked topics introduce you to the foundational concepts and tasks.
+This page introduces you to a Kubernetes cluster and key concepts to understand and manage it. The content focuses primarily on the cluster itself rather than the software running within the cluster.
 
 {% endcapture %}
 
@@ -25,7 +25,7 @@ Metrics
 
 ## Get an overview of Kubernetes
 
-If you have not already done so, start your understanding by reading through [What is Kubernetes?](/docs/concepts/overview/what-is-kubernetes/), which will introduce you to a number of basic concepts and terms.
+If you have not already done so, start your understanding by reading through [What is Kubernetes?](/docs/concepts/overview/what-is-kubernetes/), which introduces a number of basic concepts and terms.
 
 Kubernetes is quite flexible, and can a cluster can be run in a wide variety of places. You can interact with Kubernetes entirely on your own laptop or local development machine with it running within a virtual machine. Kubernetes can also run on virtual machines hosted either locally or in a cloud provider, and you can run a kubernetes cluster on bare metal.
 
