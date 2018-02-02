@@ -16,7 +16,7 @@ If you are a cluster operator looking to expand your grasp of Kubernetes, this p
 
 {% capture body %}
 
-## Work with Ingress, Networking, Storage, Workloads
+## Work with ingress, networking, storage, and workloads
 
 Introductions to Kubernetes typically discuss simple stateless applications. As you move into more complex development, testing, and production environments, you need to consider more complex cases:
 
