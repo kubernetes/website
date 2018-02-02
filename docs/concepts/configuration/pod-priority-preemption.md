@@ -26,9 +26,9 @@ To use priority and preemption in Kubernetes 1.8 and later, follow these steps:
 
 1. Add one or more PriorityClasses.
 
-1. Create Pods with `PriorityClassName` set to one of the added PriorityClasses.
+1. Create Pods with `priorityClassName` set to one of the added PriorityClasses.
 Of course you do not need to create the Pods directly; normally you would add 
-`PriorityClassName` to the Pod template of a collection object like a Deployment.
+`priorityClassName` to the Pod template of a collection object like a Deployment.
 
 The following sections provide more information about these steps.
 
@@ -49,13 +49,13 @@ Also enable scheduling.k8s.io/v1alpha1 API and Priority [admission controller](/
 ```
 
 After the feature is enabled, you can create [PriorityClasses](#priorityclass)
-and create Pods with [`PriorityClassName`](#pod-priority) set.
+and create Pods with [`priorityClassName`](#pod-priority) set.
 
 If you try the feature and then decide to disable it, you must remove the PodPriority
 command-line flag or set it to false, and then restart the API server and
 scheduler. After the feature is disabled, the existing Pods keep their priority
 fields, but preemption is disabled, and priority fields are ignored, and you
-cannot set PriorityClassName in new Pods.
+cannot set `priorityClassName` in new Pods.
 
 ## PriorityClass
 
@@ -71,9 +71,9 @@ object for each such mapping that they want.
 
 PriorityClass also has two optional fields: `globalDefault` and `description`.
 The `globalDefault` field indicates that the value of this PriorityClass should
-be used for Pods without a `PriorityClassName`. Only one PriorityClass with
+be used for Pods without a `priorityClassName`. Only one PriorityClass with
 `globalDefault`  set to true can exist in the system. If there is no PriorityClass
-with `globalDefault` set, the priority of Pods with no `PriorityClassName` is zero.
+with `globalDefault` set, the priority of Pods with no `priorityClassName` is zero.
 
 The `description` field is an arbitrary string. It is meant to tell users of
 the cluster when they should use this PriorityClass.
