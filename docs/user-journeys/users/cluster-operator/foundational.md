@@ -10,7 +10,7 @@ track: "USERS › CLUSTER OPERATOR › FOUNDATIONAL"
 
 {% capture overview %}
 
-If you want to learn how to get started managing and operating a Kubernetes cluster, this page and the linked topics introduces you to foundational concepts and tasks.
+If you want to learn how to get started managing and operating a Kubernetes cluster, this page and the linked topics introduce you to the foundational concepts and tasks.
 This page introduces you to a Kubernetes cluster and key concepts to understand and manage it. The content focuses primarily on the cluster itself rather than the software running within the cluster.
 
 {% endcapture %}
