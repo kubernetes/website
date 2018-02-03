@@ -10,7 +10,7 @@ Kubernetes can run on various platforms: from your laptop, to VMs on a cloud pro
 bare metal servers. The effort required to set up a cluster varies from running a single command to
 crafting your own customized cluster. Use this guide to choose a solution that fits your needs.
 
-If you just want to "kick the tires" on Kubernetes, use the [local Docker-based solution using MiniKube](#local-machine-solutions).
+If you just want to "kick the tires" on Kubernetes, use the [local Docker-based solutions](#local-machine-solutions).
 
 When you are ready to scale up to more machines and higher availability, a [hosted solution](#hosted-solutions) is the easiest to create and maintain.
 
@@ -47,7 +47,7 @@ a Kubernetes cluster from scratch.
 
 * [AppsCode.com](https://appscode.com/products/cloud-deployment/) provides managed Kubernetes clusters for various public clouds, including AWS and Google Cloud Platform.
 
-* [KUBE2GO.io](https://kube2go.io) get started with highly available Kubernetes clusters on multiple public clouds along with useful tools for development, debugging, monitoring.
+* [KUBE2GO.io](https://kube2go.io) get started with highly available Kubernetes clusters on multiple public clouds along with useful tools for development, debugging, monitoring. (Kube2go has moved to Platform9 Sandbox.)
 
 * [Madcore.Ai](https://madcore.ai) is devops-focused CLI tool for deploying Kubernetes infrastructure in AWS. Master, auto-scaling group nodes with spot-instances, ingress-ssl-lego, Heapster, and Grafana.
 
