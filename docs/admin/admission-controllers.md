@@ -331,7 +331,7 @@ The annotations added contain the information on what compute resources were aut
 
 See the [InitialResouces proposal](https://git.k8s.io/community/contributors/design-proposals/autoscaling/initial-resources.md) for more details.
 
-### LimitPodHardAntiAffinity
+### LimitPodHardAntiAffinityTopology
 
 This admission controller denies any pod that defines `AntiAffinity` topology key other than
 `kubernetes.io/hostname` in `requiredDuringSchedulingRequiredDuringExecution`.
