@@ -2,7 +2,7 @@
 approvers:
 - msau42
 - jsafrane
-title: Persistent Volume Claim Protection
+title: Storage Protection
 ---
 
 {% capture overview %}
@@ -14,13 +14,13 @@ Persistent volume claims (PVCs) that are in active use by a pod can be protected
 
 {% capture prerequisites %}
 
-- The PVC Protection feature is enabled in a version of Kubernetes in which it is supported.
+- The Storage Protection feature is enabled in a version of Kubernetes in which it is supported.
 
 {% endcapture %}
 
 {% capture steps %}
 
-## PVC Protection Verification
+## Storage Protection feature used for PVC Protection
 
 The example below uses a GCE PD `StorageClass`, however, similar steps can be performed for any volume type.
 

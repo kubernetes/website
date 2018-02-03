@@ -414,9 +414,9 @@ This admission controller also protects the access to `metadata.ownerReferences[
 of an object, so that only users with "update" permission to the `finalizers`
 subresource of the referenced *owner* can change it.
 
-### Persistent Volume Claim Protection (beta)
+### Storage Protection (beta)
 {% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
-The `PVCProtection` plugin adds the `kubernetes.io/pvc-protection` finalizer to newly created Persistent Volume Claims (PVCs). In case a user deletes a PVC the PVC is not removed until the finalizer is removed from the PVC by PVC Protection Controller. Refer to the [PVC Protection](/docs/concepts/storage/persistent-volumes/#persistent-volume-claim-protection) for more detailed information.
+The `StorageProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection` finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV). In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed from the PVC or PV by PVC or PV Protection Controller. Refer to the [PVC Protection](/docs/concepts/storage/persistent-volumes/#persistent-volume-claim-protection) for more detailed information.
 
 ### PersistentVolumeLabel
 
