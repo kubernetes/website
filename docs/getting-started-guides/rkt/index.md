@@ -4,9 +4,9 @@ approvers:
 title: Running Kubernetes with rkt
 ---
 
-This document describes how to run Kubernetes using [rkt](https://github.com/coreos/rkt) as the container runtime. 
+This document describes how to run Kubernetes using [rkt](https://github.com/coreos/rkt) as the container runtime.
 
-*Note*: This document describes how to use what is known as "rktnetes". In future, Kubernetes will support the rkt runtime through the Container Runtime Interface (CRI). At present the [rkt shim for the CRI](https://github.com/kubernetes-incubator/rktlet) is considered "experimental", but if you wish to use it you will find instructions in the [kubeadm reference](/docs/admin/kubeadm/#use-kubeadm-with-other-cri-runtimes). 
+*Note*: This document describes how to use what is known as "rktnetes". In future, Kubernetes will support the rkt runtime through the Container Runtime Interface (CRI). At present the [rkt shim for the CRI](https://github.com/kubernetes-incubator/rktlet) is considered "experimental", but if you wish to use it you will find instructions in the [kubeadm reference](/docs/admin/kubeadm/#use-kubeadm-with-other-cri-runtimes).
 
 * TOC
 {:toc}
@@ -19,13 +19,13 @@ This document describes how to run Kubernetes using [rkt](https://github.com/cor
 
 * The [rkt API service](https://coreos.com/rkt/docs/latest/subcommands/api-service.html) must be running on the node.
 
-* You will need [kubelet](/docs/getting-started-guides/scratch/#kubelet) installed on the node, and it's recommended that you run [kube-proxy](/docs/getting-started-guides/scratch/#kube-proxy) on all nodes. This document describes how to set the parameters for kubelet so that it uses rkt as the runtime. 
+* You will need [kubelet](/docs/getting-started-guides/scratch/#kubelet) installed on the node, and it's recommended that you run [kube-proxy](/docs/getting-started-guides/scratch/#kube-proxy) on all nodes. This document describes how to set the parameters for kubelet so that it uses rkt as the runtime.
 
 ## Pod networking in rktnetes
 
 ### Kubernetes CNI networking
 
-You can configure Kubernetes pod networking with the usual Container Network Interface (CNI) [network plugins](/docs/concepts/cluster-administration/network-plugins/) by setting the kubelet's `--network-plugin` and `--network-plugin-dir` options appropriately. Configured in this fashion, the rkt container engine will be unaware of network details, and expects to connect pods to the provided subnet.
+You can configure Kubernetes pod networking with the usual Container Network Interface (CNI) [network plugins](/docs/concepts/cluster-administration/network-plugins/) by setting the kubelet's `--network-plugin` and `--cni-bin-dir` options appropriately. Configured in this fashion, the rkt container engine will be unaware of network details, and expects to connect pods to the provided subnet.
 
 #### kubenet: Google Compute Engine (GCE) network
 
