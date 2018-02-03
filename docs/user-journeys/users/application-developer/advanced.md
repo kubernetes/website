@@ -29,7 +29,7 @@ Now you know the set of API objects that Kubernetes provides. Understanding the 
 #### Container-level features
 
 As you may know, it's an antipattern to migrate an entire app (e.g. containerized Rails app, MySQL database, and all) into a single Pod. That being said, there are some very useful patterns that go beyond a 1:1 correspondence between a container and its Pod:
-* **Sidecar container**: Although your Pod should still have a single main container, you can add a secondary container that acts as a helper (see a [logging example](/docs/concepts/cluster-administration/logging/#using-a-sidecar-container-with-the-logging-agent){:target="_blank"}). Two containers within a single Pod can communicate [via a shared volume](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/){:target="_blank"}.
+* **Sidecar container**: Although your Pod should still have a single main container, you can add a secondary container that acts as a helper (see a [logging example](/docs/concepts/cluster-administration/logging/#sidecar-container-with-a-logging-agent){:target="_blank"}). Two containers within a single Pod can communicate [via a shared volume](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/){:target="_blank"}.
 * **Init containers**: *Init containers* run before any of a Pod's *app containers* (such as main and sidecar containers). [Read more](/docs/concepts/workloads/pods/init-containers/){:target="_blank"}, see an [nginx server example](/docs/tasks/configure-pod-container/configure-pod-initialization/){:target="_blank"}, and [learn how to debug these containers](/docs/tasks/debug-application-cluster/debug-init-containers/){:target="_blank"}.
 
 #### Pod configuration
