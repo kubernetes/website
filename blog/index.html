@@ -1,0 +1,29 @@
+---
+layout: blog
+---
+<div class="pagination">
+  {% for post in paginator.posts %}
+    <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+    <p class="author">
+      <h2><span class="date-header">{{ post.date |  date: "%B %d %Y"}}</span></h2>
+    </p>
+    <div class="content">
+      {{ post.content | markdownify }}
+    </div>
+  {% endfor %}
+
+  <!-- Pagination links -->
+<span class="pagination">
+    {% if paginator.previous_page %}
+     <a href="{{ paginator.previous_page_path }}" class="previous">  <h4>Previous</h4></a>
+    {% else %}
+      <h4><span class="previous">Previous</span></h4>
+    {% endif %}
+    <span class="page_number">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path }}" class="next"><h4>Next</h4></a>
+    {% else %}
+      <h4><span class="next ">Next</span></h4>
+    {% endif %}
+</span>
+</div>
