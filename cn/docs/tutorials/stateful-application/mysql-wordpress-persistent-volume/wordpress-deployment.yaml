@@ -25,7 +25,7 @@ spec:
     requests:
       storage: 20Gi
 ---
-apiVersion: apps/v1beta2
+apiVersion: apps/v1beta2 # the version value can be different depending upon Kubernetes release
 kind: Deployment
 metadata:
   name: wordpress

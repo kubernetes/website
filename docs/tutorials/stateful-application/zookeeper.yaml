@@ -27,7 +27,7 @@ spec:
   selector:
     app: zk
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1beta1 # the version value can be different depending upon Kubernetes release
 kind: PodDisruptionBudget
 metadata:
   name: zk-pdb
@@ -37,7 +37,7 @@ spec:
       app: zk
   maxUnavailable: 1
 ---
-apiVersion: apps/v1
+apiVersion: apps/v1 # the version value can be different depending upon Kubernetes release
 kind: StatefulSet
 metadata:
   name: zk

@@ -1,4 +1,4 @@
-apiVersion: "apps/v1beta1"
+apiVersion: "apps/v1beta1" # the version value can be different depending upon Kubernetes release
 kind: StatefulSet
 metadata:
   name: cassandra
@@ -86,7 +86,7 @@ spec:
           storage: 1Gi
 ---
 kind: StorageClass
-apiVersion: storage.k8s.io/v1
+apiVersion: storage.k8s.io/v1 # the version value can be different depending upon Kubernetes release
 metadata:
   name: fast
 provisioner: k8s.io/minikube-hostpath

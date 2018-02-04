@@ -1,4 +1,4 @@
-apiVersion: batch/v1
+apiVersion: batch/v1 # the version value can be different depending upon Kubernetes release
 kind: Job
 metadata:
   name: job-wq-2

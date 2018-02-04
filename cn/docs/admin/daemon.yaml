@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1 
+apiVersion: extensions/v1beta1 # the version value can be different depending upon Kubernetes release
 kind: DaemonSet
 metadata:
   name: prometheus-node-exporter

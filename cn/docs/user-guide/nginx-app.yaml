@@ -11,7 +11,7 @@ spec:
   selector:
     app: nginx
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1beta1 # the version value can be different depending upon Kubernetes release
 kind: Deployment
 metadata:
   name: my-nginx

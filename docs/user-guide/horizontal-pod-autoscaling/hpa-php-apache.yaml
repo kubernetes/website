@@ -1,11 +1,11 @@
-apiVersion: autoscaling/v1
+apiVersion: autoscaling/v1 # the version value can be different depending upon Kubernetes release
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
   namespace: default
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1beta1
+    apiVersion: apps/v1beta1 # the version value can be different depending upon Kubernetes release
     kind: Deployment
     name: php-apache
   minReplicas: 1
