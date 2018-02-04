@@ -193,7 +193,7 @@ in cluster bootstrapping cases.  Also, static Pods may be deprecated in the futu
 
 ### Deployments
 
-DaemonSets are similar to [Deployments](/docs/concepts/workloads/controllers/deployment.md) in that
+DaemonSets are similar to [Deployments](/docs/concepts/workloads/controllers/deployment/) in that
 they both create Pods, and those Pods have processes which are not expected to terminate (e.g. web servers,
 storage servers).
 
