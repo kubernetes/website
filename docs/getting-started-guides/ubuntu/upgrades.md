@@ -39,7 +39,7 @@ your support plan on the upgrade frequency. Important operational considerations
 and changes in behaviour will always be documented in the release notes.
 
 You can use `juju status` to see if an upgrade is available.
-There may be an upgrade available for kubernetes, ectd, or both.
+There may be an upgrade available for kubernetes, etcd, or both.
 
 ### Upgrade etcd
 
