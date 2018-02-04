@@ -120,7 +120,7 @@ StatefulSet controller create the StatefulSet's Pods.
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CRTL-C` to  terminate kubectl.
+Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to  terminate kubectl.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
@@ -365,7 +365,7 @@ Watch the termination of the Pods in the StatefulSet.
 kubectl get pods -w -l app=zk
 ```
 
-When `zk-0` if fully terminated, use `CRTL-C` to terminate kubectl.
+When `zk-0` if fully terminated, use `CTRL-C` to terminate kubectl.
 
 ```shell
 zk-2      1/1       Terminating   0         9m
@@ -396,7 +396,7 @@ Watch the StatefulSet controller recreate the StatefulSet's Pods.
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CRTL-C` to terminate kubectl.
+Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to terminate kubectl.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1075,7 +1075,7 @@ There are pending pods when an error occurred: Cannot evict pod as it would viol
 pod/zk-2
 {% endraw %}```
 
-Use `CRTL-C` to terminate to kubectl. 
+Use `CTRL-C` to terminate to kubectl. 
 
 You can not drain the third node because evicting `zk-2` would violate `zk-budget`. However, 
 the node will remain cordoned.

@@ -112,6 +112,19 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
+## Install with Powershell from PSGallery
+
+1. If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update with:
+
+       Install-Script -Name install-kubectl -Scope CurrentUser -Force     
+       install-kubectl.ps1 [-DownloadLocation <path>]
+       
+If no Downloadlocation is specified, kubectl will be installed in users temp Directory   
+2. The installer creates $HOME/.kube and instucts to create a config file  
+3. Updating
+re-run Install-Script to update the installer
+re-run install-kubectl.ps1 to install latest binaries
+
 ## Install with Chocolatey on Windows
 
 1. If you are on Windows and using [Chocolatey](https://chocolatey.org) package manager, you can install with:

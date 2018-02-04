@@ -11,7 +11,7 @@ title: CronJob
 
 ## What is a cron job?
 
-A _Cron Job_ manages time based [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), namely:
+A _Cron Job_ manages time based [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/), namely:
 
 * Once at a specified point in time
 * Repeatedly at a specified point in time
@@ -158,8 +158,8 @@ string, e.g. `0 * * * *` or `@hourly`, as schedule time of its jobs to be create
 ### Job Template
 
 The `.spec.jobTemplate` is another required field of the `.spec`. It is a job template. It has exactly the same schema
-as a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/), except it is nested and does not have an `apiVersion` or `kind`, see
-[Writing a Job Spec](/docs/concepts/jobs/run-to-completion-finite-workloads/#writing-a-job-spec).
+as a [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/), except it is nested and does not have an `apiVersion` or `kind`, see
+[Writing a Job Spec](/docs/concepts/workloads/controllers/jobs-run-to-completion/#writing-a-job-spec).
 
 ### Starting Deadline Seconds
 

@@ -1,5 +1,6 @@
 id: cluster-operator
 name: Cluster Operator
+full-link: docs/user-journeys/users/cluster-operator/foundational/
 aka:
   - Cluster Administrator
 related:

@@ -39,7 +39,7 @@ When creating a new API, consider whether to [aggregate your API with the Kubern
 |-|-|
 | Your API is [Declarative](#declarative-apis). | Your API does not fit the [Declarative](#declarative-apis) model. |
 | You want your new types to be readable and writable using `kubectl`.| `kubectl` support is not required |
-| You want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types. | Kuberetes UI support is not required. |
+| You want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types. | Kubernetes UI support is not required. |
 | You are developing a new API. | You already have program that serves your API and works well. |
 | You are willing to accept the format restriction that Kubernetes puts on REST resource paths, such as API Groups and Namespaces. (See the [API Overview](/docs/concepts/overview/kubernetes-api/).) | You need to have specific REST paths to be compatible with an already defined REST API. |
 | Your resources are naturally scoped to a cluster or to namespaces of a cluster. | Cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths. |
@@ -57,7 +57,7 @@ In a Declarative API, typically:
 
 Imperative APIs are not declarative.
 Signs that your API might not be declarative include:
- - The client says "do this", and then gets a synchornous response back when it is done.
+ - The client says "do this", and then gets a synchronous response back when it is done.
  - The client says "do this", and then gets an operation ID back, and has to check a separate Operation objects to determine completion of the request.
  - You talk about Remote Procedure Calls (RPCs).
  - Directly storing large amounts of data (e.g. > a few kB per object, or >1000s of objects).
@@ -182,7 +182,7 @@ When you create a custom resource, either via a CRDs or an AA, you get many feat
 | Admission Webhooks | Set default values and validate extension resources during any create/update/delete operation. |
 | UI/CLI Display | Kubectl, dashboard can display extension resources. |
 | Unset vs Empty | Clients can distinguish unset fields from zero-valued fields. |
-| Client Libraries Generation | Kubernetes provides generic clent libraries, as well as tools to generate type-specific client libraries. |
+| Client Libraries Generation | Kubernetes provides generic client libraries, as well as tools to generate type-specific client libraries. |
 | Labels and annotations | Common metadata across objects that tools know how to edit for core and custom resources. |
 
 ## Preparing to install a custom resource
