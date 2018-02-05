@@ -94,7 +94,7 @@ You can also specify custom information about your Kubernetes API objects by att
 
 You'll also want to think about storage. Kubernetes provides different types of storage API objects for different storage needs:
 
-* **{% glossary_tooltip text="Volumes" term_id="volume" %}** -  Let you define storage for your cluster that is tied to the lifecycle of a Pod. It is therefore more persistent than container storage. Learn [how to configure volume storage](/docs/tasks/configure-pod-container/configure-volume-storage/){:target="_blank"}, or [read more about about volume storage](/docs/concepts/storage/volumes/){:target="_blank"}.
+* **{% glossary_tooltip text="Volumes" term_id="volume" %}** -  Let you define storage for your cluster that is tied to the lifecycle of a Pod. It is therefore more persistent than container storage. Learn [how to configure volume storage](/docs/tasks/configure-pod-container/configure-volume-storage/){:target="_blank"}, or [read more about volume storage](/docs/concepts/storage/volumes/){:target="_blank"}.
 
 * **{% glossary_tooltip text="PersistentVolumes" term_id="persistent-volume" %}** and **{% glossary_tooltip text="PersistentVolumeClaims" term_id="persistent-volume-claim" %}** - Let you define storage at the cluster level. Typically a cluster operator defines the PersistentVolume objects for the cluster, and cluster users (application developers, you) define the PersistentVolumeClaim objects that your application requires. Learn [how to set up persistent storage for your cluster](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/){:target="_blank"} or [read more about persistent volumes](/docs/concepts/storage/persistent-volumes/){:target="_blank"}.
 
@@ -156,7 +156,7 @@ If you're not running Kubernetes or a similar automated system, you might find t
 
 This process can be tedious and also inconvenient, especially if (2) happens in the early hours of the morning!
 
-**If you have Kubernetes set up, however, manual intervention is not as necessary.** The Kubernetes [control plane](/docs/concepts/overview/components/#master-components){:target="_blank"}, which runs on your cluster's master node, gracefully handles (3) and (4) on your behalf. As a a result, Kubernetes is often referred to as a *self-healing* system.
+**If you have Kubernetes set up, however, manual intervention is not as necessary.** The Kubernetes [control plane](/docs/concepts/overview/components/#master-components){:target="_blank"}, which runs on your cluster's master node, gracefully handles (3) and (4) on your behalf. As a result, Kubernetes is often referred to as a *self-healing* system.
 
 There are two key parts of the control plane that facilitate this behavior: the *Kubernetes API server* and the *Controllers*.
 

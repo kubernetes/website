@@ -789,7 +789,7 @@ In order from most secure to least secure, the approaches are:
    If you want all applications in a namespace to have a role, no matter what service account they use,
    you can grant a role to the service account group for that namespace.
 
-   For example, grant read-only permission within "my-namespace" to to all service accounts in that namespace:
+   For example, grant read-only permission within "my-namespace" to all service accounts in that namespace:
    
    ```shell
    kubectl create rolebinding serviceaccounts-view \
