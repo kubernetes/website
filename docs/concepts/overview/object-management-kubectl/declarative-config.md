@@ -517,7 +517,7 @@ Primitive fields are replaced or cleared.
 
 ### Merging changes to map fields
 
-Fields that represent maps are merged by comparing each of the subfields or elements of of the map:
+Fields that represent maps are merged by comparing each of the subfields or elements of the map:
 
 **Note:** '-' is used for "not applicable" because the value is not used.
 

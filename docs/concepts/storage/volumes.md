@@ -239,7 +239,7 @@ A CSI persistent volume has the following fields for users to specify:
   name can have '`.`', '`-`', '`_`' or digits in it.
 - `volumeHandle`: A string value that uniquely identify the volume name returned
   from the CSI volume plugin's `CreateVolume` call. The volume handle is then
-  used in all subsequent calls to the the volume driver for referencing the volume.
+  used in all subsequent calls to the volume driver for referencing the volume.
 - `readOnly`: An optional boolean value indicating whether the volume is to be
   published as read only. Default is false.
 

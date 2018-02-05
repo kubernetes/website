@@ -152,7 +152,7 @@ This should result in `client.pem` and `client-key.pem` being created.
 
 In order to copy certs between machines, you must enable SSH access for `scp`.
 
-1. First, open new new tabs in your shell for `etcd1` and `etcd2`. Ensure you are SSHed into all three machines and then run the following (it will be a lot quicker if you use tmux syncing - to do this in iTerm enter `cmd+shift+i`):
+1. First, open new tabs in your shell for `etcd1` and `etcd2`. Ensure you are SSHed into all three machines and then run the following (it will be a lot quicker if you use tmux syncing - to do this in iTerm enter `cmd+shift+i`):
 
     ```shell
     export PEER_NAME=$(hostname)
