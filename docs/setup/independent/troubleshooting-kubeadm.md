@@ -23,7 +23,7 @@ If your cluster is in an error state, you may have trouble in the configuration 
 
 {% endcapture %}
 
-#### `ebtables` or executable not found during installation
+#### `ebtables` or some similar executable not found during installation
 
 If you see the following warnings while running `kubeadm init`
 
@@ -58,11 +58,18 @@ This may be caused by a number of problems. The most common are:
 
   There are two common ways to fix the cgroup driver problem:
   
- 1. Install docker again following instructions
+ 1. Install docker again following intstructions
   [here](/docs/setup/independent/install-kubeadm/#installing-docker).
  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
-    [Errors on CentOS when setting up masters](#errors-on-centos-when-setting-up-masters)
+    [Configure cgroup driver used by kubelet on Master Node](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
     for detailed instructions.
+    The `kubectl describe pod` or `kubectl logs` commands can help you diagnose errors. For example:
+
+```bash
+kubectl -n ${NAMESPACE} describe pod ${POD_NAME}
+
+kubectl -n ${NAMESPACE} logs ${POD_NAME} -c ${CONTAINER_NAME}
+```
   
 - control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
 
@@ -132,40 +139,6 @@ mv  $HOME/.kube $HOME/.kube.bak
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
-```
-
-#### Errors on CentOS when setting up masters
-
-If you are using CentOS and encounter difficulty while setting up the master node，
-verify that your Docker cgroup driver matches the kubelet config:
-
-```bash
-docker info | grep -i cgroup
-cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-```
-
-If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver. The
-flag you need to change is `--cgroup-driver`. If it's already set, you can update like so:
-
-```bash
-sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-```
-
-Otherwise, you will need to open the systemd file and add the flag to an existing environment line.
-
-Then restart kubelet:
-
-```bash
-systemctl daemon-reload
-systemctl restart kubelet
-```
-
-The `kubectl describe pod` or `kubectl logs` commands can help you diagnose errors. For example:
-
-```bash
-kubectl -n ${NAMESPACE} describe pod ${POD_NAME}
-
-kubectl -n ${NAMESPACE} logs ${POD_NAME} -c ${CONTAINER_NAME}
 ```
 
 ### Default NIC When using flannel as the pod network in Vagrant
