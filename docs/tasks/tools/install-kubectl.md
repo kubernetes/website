@@ -120,7 +120,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
        install-kubectl.ps1 [-DownloadLocation <path>]
        
 If no Downloadlocation is specified, kubectl will be installed in users temp Directory   
-2. The installer creates $HOME/.kube and instructs to create a config file  
+2. The installer creates $HOME/.kube and instructs it to create a config file  
 3. Updating
 re-run Install-Script to update the installer
 re-run install-kubectl.ps1 to install latest binaries
