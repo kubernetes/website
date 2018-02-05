@@ -89,7 +89,7 @@ Addons are pods and services that implement cluster features. The pods may be ma
 by Deployments, ReplicationControllers, and so on. Namespaced addon objects are created in
 the `kube-system` namespace.
 
-Addon manager creates and maintains addon resources. Selected addons are described below, for extended list of available addons please see [Addons](/docs/concepts/cluster-administration/addons/) page.
+Selected addons are described below, for extended list of available addons please see [Addons](/docs/concepts/cluster-administration/addons/) page.
 
 ### DNS
 
