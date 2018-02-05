@@ -179,6 +179,9 @@
 /docs/getting-started-guides/vagrant/     /docs/getting-started-guides/alternatives/ 301
 /docs/getting-started-guides/windows/While/     /docs/getting-started-guides/windows/ 301
 
+/docs/getting-started-guides/centos/* /docs/setup/independent/create-cluster-kubeadm/ 301
+/cn/docs/getting-started-guides/centos/* /docs/setup/independent/create-cluster-kubeadm/ 301
+
 /docs/hellonode/     /docs/tutorials/stateless-application/hello-minikube/ 301
 /docs/home/coreos/     /docs/getting-started-guides/coreos/ 301
 /docs/home/deprecation-policy/     /docs/reference/deprecation-policy/ 301
