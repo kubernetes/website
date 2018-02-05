@@ -73,8 +73,6 @@ toc:
       - docs/getting-started-guides/rkt/index.md
       - docs/getting-started-guides/rkt/notes.md
 
-    - docs/getting-started-guides/mesos-docker.md
-
     - title: Bare Metal
       section:
       - docs/getting-started-guides/coreos/bare_metal_offline.md
