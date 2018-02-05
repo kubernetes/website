@@ -191,7 +191,7 @@ Metadata items:
   * The SIG that is most closely associated with this KEP. If there is code or
     other artifacts that will result from this KEP, then it is expected that
     this SIG will take responsiblity for the bulk of those artifacts.
-  * Sigs are listed as `sig-abc-def` where the name matches up with the
+  * SIGs are listed as `sig-abc-def` where the name matches up with the
     directory in the `kubernetes/community` repo.
 * **participating-sigs** Optional
   * A list of SIGs that are involved or impacted by this KEP.
