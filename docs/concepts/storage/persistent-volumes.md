@@ -74,7 +74,7 @@ Once a user has a claim and that claim is bound, the bound PV belongs to the use
 {% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
 The purpose of the PVC protection is to ensure that PVCs in active use by a pod are not removed from the system as this may result in data loss.
 
-**Note:** PVC is in active use by a pod when the the pod status is `Pending` and the pod is assigned to a node or the pod status is `Running`.
+**Note:** PVC is in active use by a pod when the pod status is `Pending` and the pod is assigned to a node or the pod status is `Running`.
 {: .note}
 
 When the [PVC protection alpha feature](/docs/tasks/administer-cluster/pvc-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods.
