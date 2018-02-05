@@ -40,7 +40,7 @@ Kubespray provides the following utilities to help provision your environment:
 * [kubespray-cli](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md)
 
 **Note:** kubespray-cli is no longer actively maintained.
-{. :note}
+{: .note}
 
 ### (2/5) Compose an inventory file
 
