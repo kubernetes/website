@@ -99,7 +99,7 @@ token,user,uid,"group1,group2,group3"
 
 #### Putting a Bearer Token in a Request
 
-When using bearer token authentication from an http client, the API
+When using bearer token authentication from a http client, the API
 server expects an `Authorization` header with a value of `Bearer
 THETOKEN`.  The bearer token must be a character sequence that can be
 put in an HTTP header value using no more than the encoding and
