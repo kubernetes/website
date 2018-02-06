@@ -92,6 +92,7 @@ aliases:
     - bradamant3
     - steveperry-53
     - zacharysarah
+    - bradtopol
   sig-federation: #Team: Federation; e.g. Federated Clusters
     - csbell
   sig-gcp: #Google Cloud Platform; GH: sig-gcp-pr-reviews
