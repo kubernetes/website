@@ -282,7 +282,7 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8
 
  - For `flannel` to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
  - `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on a platform other than
-`amd64` you have to manually download the manifest and replace `amd64` occurences with your chosen platform.
+`amd64` you have to manually download the manifest and replace `amd64` occurrences with your chosen platform.
  - Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
 please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
