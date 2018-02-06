@@ -139,7 +139,9 @@ systemctl enable docker && systemctl start docker
 {% endcapture %}
 
 **Note**: Make sure that the cgroup driver used by kubelet is the same as the one used by 
-Docker. To ensure compatibility you can either update Docker, like so:
+
+Docker. By default the Kubelet leverage `cgroupfs` on Debian/Ubuntu/OpenSUSE and `systemd` on Fedora/CentOS/RHEL. 
+Docker using `cgroupfs` as its default cgroup driver, if your are using RHEL derivates you must update the Docker daemon, like so:
 
 ```bash
 cat << EOF > /etc/docker/daemon.json
@@ -149,8 +151,9 @@ cat << EOF > /etc/docker/daemon.json
 EOF
 ```
 
-and restart Docker. Or ensure the `--cgroup-driver` kubelet flag is set to the same value 
-as Docker (e.g. `cgroupfs`).
+and restart Docker. Finally ensure that `--cgroup-driver` kubelet flag is set to the same value 
+as Docker (e.g. `systemd`).
+
 
 {% assign tab_set_name = "docker_install" %}
 {% assign tab_names = "Ubuntu, Debian or HypriotOS;CentOS, RHEL or Fedora; Container Linux" | split: ';' | compact %}
