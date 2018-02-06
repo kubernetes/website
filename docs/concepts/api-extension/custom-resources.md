@@ -40,7 +40,7 @@ When creating a new API, consider whether to [aggregate your API with the Kubern
 | Your API is [Declarative](#declarative-apis). | Your API does not fit the [Declarative](#declarative-apis) model. |
 | You want your new types to be readable and writable using `kubectl`.| `kubectl` support is not required |
 | You want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types. | Kubernetes UI support is not required. |
-| You are developing a new API. | You already have programed that serves your API and works well. |
+| You are developing a new API. | You already have a program that serves your API and works well. |
 | You are willing to accept the format restriction that Kubernetes puts on REST resource paths, such as API Groups and Namespaces. (See the [API Overview](/docs/concepts/overview/kubernetes-api/).) | You need to have specific REST paths to be compatible with an already defined REST API. |
 | Your resources are naturally scoped to a cluster or to namespaces of a cluster. | Cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths. |
 | You want to reuse [Kubernetes API support features](#common-features).  | You don't need those features. |
