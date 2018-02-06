@@ -67,7 +67,7 @@ For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd
     cd /etc/kubernetes/pki/etcd
     ```
     ```shell
-    cat >ca-config.json <<EOL
+    cat >ca-config.json <<EOF
     {
         "signing": {
             "default": {
@@ -103,10 +103,10 @@ For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd
             }
         }
     }
-    EOL
+    EOF
     ```
     ```shell
-    cat >ca-csr.json <<EOL
+    cat >ca-csr.json <<EOF
     {
         "CN": "etcd",
         "key": {
@@ -114,7 +114,7 @@ For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd
             "size": 2048
         }
     }
-    EOL
+    EOF
     ```
 
     Ensure that the `names` section in `ca-csr.json` matches your own company or personal address, or that you use a suitable default.
@@ -132,7 +132,7 @@ For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd
    While on `etcd0`, run the following:
 
     ```shell
-    cat >client.json <<EOL
+    cat >client.json <<EOF
     {
         "CN": "client",
         "key": {
@@ -140,7 +140,7 @@ For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd
             "size": 256
         }
     }
-    EOL
+    EOF
     ```
     ```shell
     cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=client client.json | cfssljson -bare client
@@ -243,7 +243,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 1. Now copy the systemd unit file like so:
 
     ```shell
-    cat >/etc/systemd/system/etcd.service <<EOL
+    cat >/etc/systemd/system/etcd.service <<EOF
     [Unit]
     Description=etcd
     Documentation=https://github.com/coreos/etcd
@@ -278,7 +278,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 
     [Install]
     WantedBy=multi-user.target
-    EOL
+    EOF
     ```
 
     Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses.
@@ -304,7 +304,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 1. The first step is to run the following to generate the manifest file:
 
     ```shell
-    cat >/etc/kubernetes/manifests/etcd.yaml <<EOL
+    cat >/etc/kubernetes/manifests/etcd.yaml <<EOF
     apiVersion: v1
     kind: Pod
     metadata:
@@ -369,7 +369,7 @@ Please select one of the tabs to see installation instructions for the respectiv
     - hostPath:
         path: /etc/kubernetes/pki/etcd
         name: certs
-    EOL
+    EOF
     ```
 
     Make sure you replace:
@@ -415,7 +415,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
 1. In order for kubeadm to run, you first need to write a configuration file:
 
     ```shell
-    cat >config.yaml <<EOL
+    cat >config.yaml <<EOF
     apiVersion: kubeadm.k8s.io/v1alpha1
     kind: MasterConfiguration
     api:
@@ -434,7 +434,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
     - <load-balancer-ip>
     apiServerExtraArgs:
       apiserver-count: 3
-    EOL
+    EOF
     ```
 
     Ensure that the following placeholders are replaced:
