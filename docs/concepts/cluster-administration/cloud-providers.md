@@ -216,7 +216,7 @@ form `http://foo.bar/volume` while a port based endpoint is of the form
 `http://foo.bar:xxx`.
 
 In environments that use path based endpoints and Kubernetes is using the older
-auto-detection logic a `BS API version autodetection failed.` error will be
+auto-detection logic a `BS API version autodetection failed.` Error will be
 returned on attempting volume detachment. To workaround this issue it is
 possible to force the use of Cinder API version 2 by adding this to the cloud
 provider configuration:
