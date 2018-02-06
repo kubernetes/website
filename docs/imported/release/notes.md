@@ -859,7 +859,7 @@ This release passes 129/145 Kubernetes e2e conformance tests.
 *   Apply algorithm in scheduler by feature gates. ([#52723](https://github.com/kubernetes/kubernetes/pull/52723),[ @k82cn](https://github.com/k82cn))
 *   A new priority function ResourceLimitsPriorityMap (disabled by default and behind alpha feature gate and not part of the scheduler's default priority functions list) that assigns a lowest possible score of 1 to a node that satisfies one or both of input pod's cpu and memory limits, mainly to break ties between nodes with same scores. ([#55906](https://github.com/kubernetes/kubernetes/pull/55906),[ @aveshagarwal](https://github.com/aveshagarwal))
 *   Kubelet evictions now take pod priority into account ([#53542](https://github.com/kubernetes/kubernetes/pull/53542),[ @dashpole](https://github.com/dashpole))
-*   PodTolerationRestriction admisson plugin: if namespace level tolerations are empty, now they override cluster level tolerations. ([#54812](https://github.com/kubernetes/kubernetes/pull/54812),[ @aveshagarwal](https://github.com/aveshagarwal))
+*   PodTolerationRestriction admission plugin: if namespace level tolerations are empty, now they override cluster level tolerations. ([#54812](https://github.com/kubernetes/kubernetes/pull/54812),[ @aveshagarwal](https://github.com/aveshagarwal))
 
 ### **Storage**
 
