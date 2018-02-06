@@ -39,7 +39,7 @@ In future releases, the node authorizer may add or remove permissions to ensure 
 have the minimal set of permissions required to operate correctly.
 
 In order to be authorized by the Node authorizer, kubelets must use a credential that identifies them as 
-being in the `system:nodes` group, with a username of `system:node:<nodeName>`.
+being in the `system:nodes` group, with an username of `system:node:<nodeName>`.
 This group and user name format match the identity created for each kubelet as part of 
 [kubelet TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/).
 
@@ -59,7 +59,7 @@ The node admission plugin would not restrict requests from these kubelets.
 
 In some deployments, kubelets have credentials that place them in the `system:nodes` group,
 but do not identify the particular node they are associated with,
-because they do not have a username in the `system:node:...` format.
+because they do not have an username in the `system:node:...` format.
 These kubelets would not be authorized by the `Node` authorization mode,
 and would need to continue to be authorized via whatever mechanism currently authorizes them.
 
