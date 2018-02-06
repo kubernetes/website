@@ -403,7 +403,7 @@ Claims can specify a [label selector](/docs/concepts/overview/working-with-objec
 * `matchLabels` - the volume must have a label with this value
 * `matchExpressions` - a list of requirements made by specifying key, list of values, and operator that relates the key and values. Valid operators include In, NotIn, Exists, and DoesNotExist.
 
-All of the requirements, from both `matchLabels` and `matchExpressions` are ANDed together – they must all be satisfied in order to match.
+All of the requirements, from both `matchLabels` and `matchExpressions` are added together – they must all be satisfied in order to match.
 
 ### Class
 
@@ -438,7 +438,7 @@ Depending on installation method, a default StorageClass may be deployed
 to Kubernetes cluster by addon manager during installation.
 
 When a PVC specifies a `selector` in addition to requesting a `StorageClass`,
-the requirements are ANDed together: only a PV of the requested class and with
+the requirements are added together: only a PV of the requested class and with
 the requested labels may be bound to the PVC.
 
 **Note:** Currently, a PVC with a non-empty `selector` can't have a PV dynamically provisioned for it.

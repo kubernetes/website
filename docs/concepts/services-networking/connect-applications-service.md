@@ -21,7 +21,7 @@ This guide uses a simple nginx server to demonstrate proof of concept. The same 
 
 ## Exposing pods to the cluster
 
-We did this in a previous example, but let's do it once again and focus on the networking perspective. Create an nginx pod, and note that it has a container port specification:
+We did this in a previous example, but let's do it once again and focus on the networking perspective. Create a nginx pod, and note that it has a container port specification:
 
 {% include code.html language="yaml" file="run-my-nginx.yaml" ghlink="/docs/concepts/services-networking/run-my-nginx.yaml" %}
 
@@ -167,7 +167,7 @@ Address 1: 10.0.162.149
 Till now we have only accessed the nginx server from within the cluster. Before exposing the Service to the internet, you want to make sure the communication channel is secure. For this, you will need:
 
 * Self signed certificates for https (unless you already have an identity certificate)
-* An nginx server configured to use the certificates
+* A nginx server configured to use the certificates
 * A [secret](/docs/concepts/configuration/secret/) that makes the certificates accessible to pods
 
 You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the  manual steps later. In short:

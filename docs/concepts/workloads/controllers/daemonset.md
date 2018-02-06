@@ -78,7 +78,7 @@ The `spec.selector` is an object consisting of two fields:
 * `matchExpressions` - allows to build more sophisticated selectors by specifying key,
   list of values and an operator that relates the key and values.
 
-When the two are specified the result is ANDed.
+When the two are specified the result is added.
 
 If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`. Config with these not matching will be rejected by the API.
 

@@ -142,7 +142,7 @@ $ kubectl get endpoints ${SERVICE_NAME}
 ```
 
 Make sure that the endpoints match up with the number of containers that you expect to be a member of your service.
-For example, if your Service is for an nginx container with 3 replicas, you would expect to see three different
+For example, if your Service is for a nginx container with 3 replicas, you would expect to see three different
 IP addresses in the Service's endpoints.
 
 #### My service is missing endpoints
