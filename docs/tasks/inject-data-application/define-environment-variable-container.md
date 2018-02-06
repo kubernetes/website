@@ -60,8 +60,13 @@ Pod:
         HOSTNAME=envar-demo
         ...
         DEMO_GREETING=Hello from the environment
+        DEMO_FAREWELL=Such a sweet sorrow
 
 1. To exit the shell, enter `exit`.
+
+**Note:** The environment variables set using the `env` or `envFrom` field
+will override any environment variables specified in the container image.
+{: .note}
 
 {% endcapture %}
 

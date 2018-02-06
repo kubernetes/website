@@ -69,6 +69,7 @@ Kubernetes supports several types of Volumes:
    * `azureDisk`
    * `azureFile`
    * `cephfs`
+   * `configMap`
    * `csi`
    * `downwardAPI`
    * `emptyDir`
@@ -105,7 +106,7 @@ between pods.
 **Important:** You must create an EBS volume using `aws ec2 create-volume` or the AWS API before you can use it.
 {: .caution}
 
-There are some restrictions when using an awsElasticBlockStore volume:
+There are some restrictions when using an `awsElasticBlockStore` volume:
 
 * the nodes on which pods are running must be AWS EC2 instances
 * those instances need to be in the same region and availability-zone as the EBS volume
@@ -131,7 +132,7 @@ metadata:
   name: test-ebs
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-ebs
@@ -171,6 +172,45 @@ writers simultaneously.
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/cephfs/) for more details.
 
+### configMap
+
+The [`configMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/) resource
+provides a way to inject configuration data into Pods.
+The data stored in a `ConfigMap` object can be referenced in a volume of type
+`configMap` and then consumed by containerized applications running in a Pod.
+
+When referencing a `configMap` object, you can simply provide its name in the
+volume to reference it. You can also customize the path to use for a specific
+entry in the ConfigMap.
+For example, to mount the `log-config` ConfigMap onto a Pod called `configmap-pod`,
+you might use the YAML below:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-pod
+spec:
+  containers:
+    - name: test
+      image: busybox
+      volumeMounts:
+        - name: config-vol
+          mountPath: /etc/config
+  volumes:
+    - name: config-vol
+      configMap:
+        name: log-config
+        items:
+          - key: log_level
+            path: log_level
+```
+
+The `log-config` ConfigMap is mounted as a volume, and all contents stored in
+its `log_level` entry are mounted into the Pod at path "`/etc/config/log_level`".
+Note that this path is derived from the volume's `mountPath` and the `path`
+keyed with `log_level`.
+
 ### csi
 
 CSI stands for [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md),
@@ -199,7 +239,7 @@ A CSI persistent volume has the following fields for users to specify:
   name can have '`.`', '`-`', '`_`' or digits in it.
 - `volumeHandle`: A string value that uniquely identify the volume name returned
   from the CSI volume plugin's `CreateVolume` call. The volume handle is then
-  used in all subsequent calls to the the volume driver for referencing the volume.
+  used in all subsequent calls to the volume driver for referencing the volume.
 - `readOnly`: An optional boolean value indicating whether the volume is to be
   published as read only. Default is false.
 
@@ -246,7 +286,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /cache
@@ -326,7 +366,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-pd
@@ -392,8 +432,8 @@ For example, some uses for a `hostPath` are:
 
 * running a container that needs access to Docker internals; use a `hostPath`
   of `/var/lib/docker`
-* running cAdvisor in a container; use a `hostPath` of `/dev/cgroups`
-* allowing a pod to specify whether a given hostPath should exist prior to the
+* running cAdvisor in a container; use a `hostPath` of `/sys`
+* allowing a pod to specify whether a given `hostPath` should exist prior to the
   pod running, whether it should be created, and what it should exist as
 
 In addition to the required `path` property, user can optionally specify a `type` for a `hostPath` volume.
@@ -432,7 +472,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-pd
@@ -480,7 +520,7 @@ partition or directory.
 
 Local volumes can only be used as a statically created PersistentVolume.
 
-Compared to HostPath volumes, local volumes can be used in a durable manner
+Compared to `hostPath` volumes, local volumes can be used in a durable manner
 without manually scheduling pods to nodes, as the system is aware of the volume's
 node constraints by looking at the node affinity on the PersistentVolume.
 
@@ -665,7 +705,7 @@ metadata:
   name: test-portworx-volume-pod
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /mnt
@@ -736,7 +776,7 @@ metadata:
   name: pod-0
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: pod-0
     volumeMounts:
     - mountPath: /test-pd
@@ -866,7 +906,7 @@ metadata:
   name: test-vmdk
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-vmdk
@@ -953,13 +993,14 @@ redesigned or even removed in future releases.
 Mount propagation allows for sharing volumes mounted by a Container to
 other Containers in the same Pod, or even to other Pods on the same node.
 
-If the MountPropagation feature is disabled, volume mounts in pods are not propagated.
+If the "`MountPropagation`" feature is disabled, volume mounts in pods are not propagated.
 That is, Containers run with `private` mount propagation as described in the
 [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt).
 
 To enable this feature, specify `MountPropagation=true` in the
-`--feature-gates` command line option. When enabled, the `volumeMounts` field
-of a Container has a new `mountPropagation` subfield. Its values are:
+`--feature-gates` command line option for the API server and kubelets.
+When enabled, the `volumeMounts` field of a Container has a new
+`mountPropagation` subfield. Its values are:
 
  * `HostToContainer` - This volume mount will receive all subsequent mounts
    that are mounted to this volume or any of its subdirectories. This is
@@ -979,8 +1020,8 @@ of a Container has a new `mountPropagation` subfield. Its values are:
    In addition, all volume mounts created by the Container will be propagated
    back to the host and to all Containers of all Pods that use the same volume.
 
-   A typical use case for this mode is a Pod with a Flex volume driver or
-   a Pod that needs to mount something on the host using a HostPath volume.
+   A typical use case for this mode is a Pod with a `FlexVolume` driver or
+   a Pod that needs to mount something on the host using a `hostPath` volume.
 
    This mode is equal to `rshared` mount propagation as described in the
    [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)

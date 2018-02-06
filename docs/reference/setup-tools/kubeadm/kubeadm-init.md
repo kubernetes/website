@@ -31,6 +31,13 @@ following steps:
    API server, each with its own identity, as well as an additional
    kubeconfig file for administration named `admin.conf`.
 
+1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
+   it writes the kubelet init configuration into the `/var/lib/kubelet/config/init/kubelet` file.
+   See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
+   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/) 
+   for more information about Dynamic Kubelet Configuration.
+   This functionality is now by default disabled as it is behind a feature gate, but is expected to be a default in future versions.
+
 1. Generates static Pod manifests for the API server,
    controller manager and scheduler. In case an external etcd is not provided,
    an additional static Pod manifest are generated for etcd.
@@ -40,7 +47,13 @@ following steps:
 
    Once control plane Pods are up and running, the `kubeadm init` sequence can continue.
 
-1. Apply labels and taints to the master node so that no additional workloads will 
+1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
+   it completes the kubelet dynamic configuration by creating a ConfigMap and some RBAC rules that enable
+   kubelets to access to it, and updates the node by pointing `Node.spec.configSource` to the
+   newly-created ConfigMap.
+   This functionality is now by default disabled as it is behind a feature gate, but is expected to be a default in future versions.
+
+1. Apply labels and taints to the master node so that no additional workloads will
    run there.
 
 1. Generates the token that additional nodes can use to register
@@ -62,7 +75,7 @@ following steps:
 
    See [kubeadm join](kubeadm-join.md) for additional info.
 
-1. Installs the internal DNS server and the kube-proxy addon components via the API server.  
+1. Installs the internal DNS server (kube-dns) and the kube-proxy addon components via the API server. If kubeadm is invoked with --feature-gates=CoreDNS=true, then [CoreDNS](https://coredns.io/) will be installed as the default internal DNS server instead of kube-dns.  
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 
 1. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
@@ -98,6 +111,9 @@ etcd:
     <argument>: <value|string>
     <argument>: <value|string>
   image: <string>
+kubeProxy:
+  config:
+    mode: <value|string>
 networking:
   dnsDomain: <string>
   serviceSubnet: <cidr>
@@ -120,6 +136,18 @@ controllerManagerExtraArgs:
 schedulerExtraArgs:
   <argument>: <value|string>
   <argument>: <value|string>
+apiServerExtraVolumes:
+- name: <value|string>
+  hostPath: <value|string>
+  mountPath: <value|string>
+controllerManagerExtraVolumes:
+- name: <value|string>
+  hostPath: <value|string>
+  mountPath: <value|string>
+schedulerExtraVolumes:
+- name: <value|string>
+  hostPath: <value|string>
+  mountPath: <value|string>
 apiServerCertSANs:
 - <name1|string>
 - <name2|string>
@@ -133,11 +161,11 @@ featureGates:
 
 ### Passing custom arguments to control plane components {#custom-args}
 
-If you would like to override or extend the behaviour of a control plane component, you can provide 
-extra arguments to kubeadm. When the component is deployed, these additional arguments are added to 
-the Pod command itself. 
+If you would like to override or extend the behaviour of a control plane component, you can provide
+extra arguments to kubeadm. When the component is deployed, these additional arguments are added to
+the Pod command itself.
 
-For example, to add additional feature-gate arguments to the API server, your [configuration file](#config-file) 
+For example, to add additional feature-gate arguments to the API server, your [configuration file](#config-file)
 will need to look like this:
 
 ```
@@ -156,7 +184,7 @@ More information on custom arguments can be found here:
 
 ### Using custom images {#custom-images}
 
-By default, kubeadm pulls images from `gcr.io/google_containers`, unless
+By default, kubeadm pulls images from `k8s.gcr.io`, unless
 the requested Kubernetes version is a CI version. In this case,
 `gcr.io/kubernetes-ci-images` is used.
 
@@ -164,9 +192,9 @@ You can override this behavior by using [kubeadm with a configuration file](#con
 Allowed customization are:
 
 * To provide an alternative `imageRepository` to be used instead of
-  `gcr.io/google_containers`.
+  `k8s.gcr.io`.
 * To provide a `unifiedControlPlaneImage` to be used instead of different images for control plane components.
-* To provide a specific `etcd.image` to be used instead of the image available at`gcr.io/google_containers`.
+* To provide a specific `etcd.image` to be used instead of the image available at`k8s.gcr.io`.
 
 
 ### Using custom certificates {#custom-certificates}
@@ -181,14 +209,14 @@ is `/etc/kubernetes/pki`.
 If a given certificate and private key pair exists, kubeadm skips the
 generation step and existing files are used for the prescribed
 use case. This means you can, for example, copy an existing CA into `/etc/kubernetes/pki/ca.crt`
-and `/etc/kubernetes/pki/ca.key`, and kubeadm will use this CA for signing the rest 
+and `/etc/kubernetes/pki/ca.key`, and kubeadm will use this CA for signing the rest
 of the certs.
 
 #### External CA mode {#external-ca-mode}
 
-It is also possible to provide just the `ca.crt` file and not the 
-`ca.key` file (this is only available for the root CA file, not other cert pairs). 
-If all other certificates and kubeconfig files are in place, kubeadm recognizes 
+It is also possible to provide just the `ca.crt` file and not the
+`ca.key` file (this is only available for the root CA file, not other cert pairs).
+If all other certificates and kubeconfig files are in place, kubeadm recognizes
 this condition and activates the "External CA" mode. kubeadm will proceed without the
 CA key on disk.
 
@@ -213,20 +241,19 @@ Environment="KUBELET_DNS_ARGS=--cluster-dns=10.96.0.10 --cluster-domain=cluster.
 Environment="KUBELET_AUTHZ_ARGS=--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
 Environment="KUBELET_CADVISOR_ARGS=--cadvisor-port=0"
 Environment="KUBELET_CERTIFICATE_ARGS=--rotate-certificates=true --cert-dir=/var/lib/kubelet/pki"
-ExecStart=
 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $KUBELET_NETWORK_ARGS $KUBELET_DNS_ARGS $KUBELET_AUTHZ_ARGS $KUBELET_CADVISOR_ARGS $KUBELET_CERTIFICATE_ARGS $KUBELET_EXTRA_ARGS
 ```
 
 Here's a breakdown of what/why:
 
-* `--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf` path to a kubeconfig 
-   file that is used to get client certificates for kubelet during node join. 
-   On success, a kubeconfig file is written to the path specified by `--kubeconfig`. 
+* `--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf` path to a kubeconfig
+   file that is used to get client certificates for kubelet during node join.
+   On success, a kubeconfig file is written to the path specified by `--kubeconfig`.
 * `--kubeconfig=/etc/kubernetes/kubelet.conf` points to the kubeconfig file that
    tells the kubelet where the API server is. This file also has the kubelet's
    credentials.
 * `--pod-manifest-path=/etc/kubernetes/manifests` specifies from where to read
-   static Pod manifests used for starting the control plane the control plane.
+   static Pod manifests used for starting the control plane.
 * `--allow-privileged=true` allows this kubelet to run privileged Pods.
 * `--network-plugin=cni` uses CNI networking.
 * `--cni-conf-dir=/etc/cni/net.d` specifies where to look for the
@@ -250,7 +277,7 @@ Here's a breakdown of what/why:
    systemctl daemon-reload
    systemctl restart kubelet
    ```
-* `--rotate-certificates` auto rotate the kubelet client certificates by requesting new 
+* `--rotate-certificates` auto rotate the kubelet client certificates by requesting new
    certificates from the `kube-apiserver` when the certificate expiration approaches.
 * `--cert-dir`the directory where the TLS certs are located.
 
@@ -315,7 +342,7 @@ a future version. To create a self-hosted cluster, pass the `--feature-gates=Sel
 flag to `kubeadm init`.
 {: .caution}
 
-**Warning:** see self-hosted caveats and limitations. 
+**Warning:** see self-hosted caveats and limitations.
 {: .warning}
 
 #### Caveats
@@ -349,14 +376,14 @@ In summary, `kubeadm init --feature-gates=SelfHosting=true` works as follows:
 
   1. Uses the static control plane Pod manifests to construct a set of
     DaemonSet manifests that will run the self-hosted control plane.
-    It also modifies these manifests where necessary, for example adding new volumes 
+    It also modifies these manifests where necessary, for example adding new volumes
     for secrets.
 
   1. Creates DaemonSets in the `kube-system` namespace and waits for the
      resulting Pods to be running.
 
-  1. Once self-hosted Pods are operational, it's associated static Pods are deleted 
-     and kubeadm moves on to install the next component. This triggers kubelet to 
+  1. Once self-hosted Pods are operational, their associated static Pods are deleted
+     and kubeadm moves on to install the next component. This triggers kubelet to
      stop those static Pods.
 
   1. When the original static control plane stops, the new self-hosted control
@@ -370,21 +397,21 @@ For running kubeadm without an internet connection you have to pre-pull the requ
 
 | Image Name                                               | v1.8 release branch version | v1.9 release branch version |
 |----------------------------------------------------------|-----------------------------|-----------------------------|
-| gcr.io/google_containers/kube-apiserver-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| gcr.io/google_containers/kube-controller-manager-${ARCH} | v1.8.x                      | v1.9.x                      |
-| gcr.io/google_containers/kube-scheduler-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| gcr.io/google_containers/kube-proxy-${ARCH}              | v1.8.x                      | v1.9.x                      |
-| gcr.io/google_containers/etcd-${ARCH}                    | 3.0.17                      | 3.1.10                      |
-| gcr.io/google_containers/pause-${ARCH}                   | 3.0                         | 3.0                         |
-| gcr.io/google_containers/k8s-dns-sidecar-${ARCH}         | 1.14.5                      | 1.14.7                      |
-| gcr.io/google_containers/k8s-dns-kube-dns-${ARCH}        | 1.14.5                      | 1.14.7                      |
-| gcr.io/google_containers/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.5                      | 1.14.7                      |
+| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.8.x                      | v1.9.x                      |
+| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.8.x                      | v1.9.x                      |
+| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.8.x                      | v1.9.x                      |
+| k8s.gcr.io/kube-proxy-${ARCH}              | v1.8.x                      | v1.9.x                      |
+| k8s.gcr.io/etcd-${ARCH}                    | 3.0.17                      | 3.1.10                      |
+| k8s.gcr.io/pause-${ARCH}                   | 3.0                         | 3.0                         |
+| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.5                      | 1.14.7                      |
+| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.5                      | 1.14.7                      |
+| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.5                      | 1.14.7                      |
 
 Here `v1.8.x` means the "latest patch release of the v1.8 branch".
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
-If using `--feature-gates=CoreDNS` image `coredns/coredns:1.0.0` is required (instead of the three `k8s-dns-*` images).
+If using `--feature-gates=CoreDNS=true` image `coredns/coredns:1.0.2` is required (instead of the three `k8s-dns-*` images).
 
 ### Automating kubeadm
 

@@ -172,7 +172,7 @@ v1/ServiceAccount:
 针对CCM的RBAC ClusterRole如下所示：
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cloud-controller-manager

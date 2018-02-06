@@ -9,7 +9,7 @@ title: kubeadm alpha
  from the community. Please try it out and give us feedback!
 {: .caution}
 
-In v1.8.0, kubeadm introduced the `kubeadm alpha phase` command with the aim of making kubeadm more modular. This modularity enables you to invoke atomic sub-steps of the boostrap process; you can let kubeadm do some parts and fill in yourself where you need customizations.
+In v1.8.0, kubeadm introduced the `kubeadm alpha phase` command with the aim of making kubeadm more modular. This modularity enables you to invoke atomic sub-steps of the bootstrap process; you can let kubeadm do some parts and fill in yourself where you need customizations.
 
 `kubeadm alpha phase` is consistent with [kubeadm init workflow](kubeadm-init.md#init-workflow), 
 and behind the scene both use the same code.
@@ -223,6 +223,8 @@ Alternatively, you can use [kubeadm config](kubeadm-config.md).
 
 You can install all the available addons with the `all` subcommand, or 
 install them selectively.
+
+Please note that if kubeadm is invoked with `--feature-gates=CoreDNS=true`,  [CoreDNS](https://coredns.io/) is installed instead of `kube-dns`.
 
 {% capture addon-all %}
 {% include_relative generated/kubeadm_alpha_phase_addon_all.md %}

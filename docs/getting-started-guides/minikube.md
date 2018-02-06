@@ -35,7 +35,8 @@ the following drivers:
 * virtualbox
 * vmwarefusion
 * kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
-* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver))
+* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
 
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 
@@ -46,7 +47,7 @@ Running pre-create checks...
 Creating machine...
 Starting local Kubernetes cluster...
 
-$ kubectl run hello-minikube --image=gcr.io/google_containers/echoserver:1.4 --port=8080
+$ kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.4 --port=8080
 deployment "hello-minikube" created
 $ kubectl expose deployment hello-minikube --type=NodePort
 service "hello-minikube" exposed
@@ -160,7 +161,7 @@ This command also configures your [kubectl](/docs/user-guide/kubectl-overview/) 
 If you are behind a web proxy, you will need to pass this information in e.g. via
 
 ```
-https_proxy=<my proxy> minikube start --docker-env HTTP_PROXY=<my proxy> --docker-env HTTPS_PROXY=<my proxy> --docker-env NO_PROXY=192.168.99.0/24
+https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
 ```
 
 Unfortunately just setting the environment variables will not work.
@@ -211,7 +212,7 @@ To change the `MaxPods` setting to 5 on the Kubelet, pass this flag: `--extra-co
 
 This feature also supports nested structs. To change the `LeaderElection.LeaderElect` setting to `true` on the scheduler, pass this flag: `--extra-config=scheduler.LeaderElection.LeaderElect=true`.
 
-To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--extra-config=apiserver.AuthorizationMode=RBAC`.
+To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--extra-config=apiserver.Authorization.Mode=RBAC`.
 
 ### Stopping a Cluster
 The `minikube stop` command can be used to stop your cluster.
@@ -325,8 +326,8 @@ To do this, pass the required environment variables as flags during `minikube st
 For example:
 
 ```shell
-$ minikube start --docker-env HTTP_PROXY=http://$YOURPROXY:PORT \
-                 --docker-env HTTPS_PROXY=https://$YOURPROXY:PORT
+$ minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
+                 --docker-env https_proxy=https://$YOURPROXY:PORT
 ```
 
 If your Virtual Machine address is 192.168.99.100, then chances are your proxy settings will prevent kubectl from directly reaching it.

@@ -150,7 +150,7 @@ The output is similar to this:
 A list of Kubernetes-specific terms and words to be used consistently across the site.
 
 <table>
-  <tr><th>Term</th><th>Useage</th></tr>
+  <tr><th>Term</th><th>Usage</th></tr>
   <tr><td>TBD</td><td>TBD</td></tr>
 </table>{% endcomment %}
 

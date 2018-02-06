@@ -2,7 +2,7 @@
 approvers:
 - bowei
 - zihongz
-title: Configure DNS Service
+title: Customizing DNS Service
 ---
 
 {% capture overview %}
@@ -73,9 +73,9 @@ metadata:
   namespace: kube-system
 data:
   stubDomains: |
-    {“acme.local”: [“1.2.3.4”]}
+    {"acme.local": ["1.2.3.4"]}
   upstreamNameservers: |
-    [“8.8.8.8”, “8.8.4.4”]
+    ["8.8.8.8", "8.8.4.4"]
 ```
 
 As specified, DNS requests with the “.acme.local” suffix
@@ -158,7 +158,7 @@ metadata:
   namespace: kube-system
 data:
   stubDomains: |
-    {“consul.local”: [“10.150.0.1”]}
+    {"consul.local": ["10.150.0.1"]}
 ```
 
 Note that the cluster administrator did not wish to override the node’s
@@ -180,7 +180,7 @@ metadata:
   namespace: kube-system
 data:
   upstreamNameservers: |
-    [“172.16.0.1”]
+    ["172.16.0.1"]
 ```
 
 ## Debugging DNS resolution

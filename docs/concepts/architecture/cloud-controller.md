@@ -8,7 +8,7 @@ The cloud controller manager (CCM) concept (not to be confused with the binary) 
 
 The cloud controller manager's design is based on a plugin mechanism that allows new cloud providers to integrate with Kubernetes easily by using plugins. There are plans in place for on-boarding new cloud providers on Kubernetes, and for migrating cloud provider from the old model to the new CCM model.
 
-This document discusses the concepts behind the the cloud controller manager, and gives details about its associated functions.
+This document discusses the concepts behind the cloud controller manager, and gives details about its associated functions.
 
 Here's the architecture of a Kubernetes cluster without the cloud controller manager:
 
@@ -97,7 +97,7 @@ The Node controller contains the cloud-dependent functionality of the kubelet. P
 
 In this new model, the kubelet initializes a node without cloud-specific information. However, it adds a taint to the newly created node that makes the node unschedulable until the CCM initializes the node with cloud-specific information, and then removes this taint. 
 
-### 3. Kubernets API server
+### 3. Kubernetes API server
 
 The PersistentVolumeLabels controller moves the cloud-dependent functionality of the Kubernetes API server to the CCM as described in the preceding sections.
 
@@ -174,7 +174,7 @@ v1/ServiceAccount:
 The RBAC ClusterRole for the CCM looks like this:
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cloud-controller-manager

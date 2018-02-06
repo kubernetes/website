@@ -103,6 +103,11 @@ as an introduction to various technologies and serves as a jumping-off point.
 The following networking options are sorted alphabetically - the order does not
 imply any preferential status.
 
+### ACI
+
+[Cisco Application Centric Infrastructure](https://www.cisco.com/c/en/us/solutions/data-center-virtualization/application-centric-infrastructure/index.html) offers an integrated overlay and underlay SDN solution that supports containers, virtual machines, and bare metal servers. [ACI](https://www.github.com/noironetworks/aci-containers) provides container networking integration for ACI. An overview of the integration is provided [here](https://www.cisco.com/c/dam/en/us/solutions/collateral/data-center-virtualization/application-centric-infrastructure/solution-overview-c22-739493.pdf).
+ 
+
 ### Cilium
 
 [Cilium](https://github.com/cilium/cilium) is open source software for
@@ -128,7 +133,7 @@ people have reported success with Flannel and Kubernetes.
 ### Google Compute Engine (GCE)
 
 For the Google Compute Engine cluster configuration scripts, we use [advanced
-routing](https://cloud.google.com/compute/docs/networking#routing) to
+routing](https://cloud.google.com/vpc/docs/routes) to
 assign each VM a subnet (default is `/24` - 254 IPs).  Any traffic bound for that
 subnet will be routed directly to the VM by the GCE network fabric.  This is in
 addition to the "main" IP address assigned to the VM, which is NAT'ed for

@@ -139,20 +139,20 @@ One pattern this organization could follow is to partition the Kubernetes cluste
 
 Let's create two new namespaces to hold our work.
 
-Use the file [`namespace-dev.json`](/docs/admin/namespaces/namespace-dev.json) which describes a development namespace:
+Use the file [`namespace-dev.json`](/docs/tasks/administer-cluster/namespace-dev.json) which describes a development namespace:
 
-{% include code.html language="json" file="namespace-dev.json" ghlink="/docs/admin/namespaces/namespace-dev.json" %}
+{% include code.html language="json" file="namespace-dev.json" ghlink="/docs/tasks/administer-cluster/namespace-dev.json" %}
 
 Create the development namespace using kubectl.
 
 ```shell
-$ kubectl create -f docs/admin/namespaces/namespace-dev.json
+$ kubectl create -f docs/tasks/administer-cluster/namespace-dev.json
 ```
 
 And then let's create the production namespace using kubectl.
 
 ```shell
-$ kubectl create -f docs/admin/namespaces/namespace-prod.json
+$ kubectl create -f docs/tasks/administer-cluster/namespace-prod.json
 ```
 
 To be sure things are right, list all of the namespaces in our cluster.

@@ -39,12 +39,8 @@ killed for this purpose.
 
 ## Config
 
-Rescheduler should be [enabled by default as a static pod](https://git.k8s.io/kubernetes/cluster/saltbase/salt/rescheduler/rescheduler.manifest).
-It doesn't have any user facing configuration (component config) or API and can be disabled:
-
-* during cluster setup by setting `ENABLE_RESCHEDULER` flag to `false`
-* on running cluster by deleting its manifest from master node
-(default path `/etc/kubernetes/manifests/rescheduler.manifest`)
+Rescheduler should be enabled by default. It doesn't have any user facing configuration (component config) or API.
+Rescheduler may also be disabled.
 
 ### Marking add-on as critical
 

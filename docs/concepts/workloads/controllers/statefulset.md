@@ -87,7 +87,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: nginx
-        image: gcr.io/google_containers/nginx-slim:0.8
+        image: k8s.gcr.io/nginx-slim:0.8
         ports:
         - containerPort: 80
           name: web
@@ -116,7 +116,7 @@ regardless of which node it's (re)scheduled on.
 ### Ordinal Index
 
 For a StatefulSet with N replicas, each Pod in the StatefulSet will be
-assigned an integer ordinal, in the range [0,N), that is unique over the Set.
+assigned an integer ordinal, in the range [0,N], that is unique over the Set.
 
 ### Stable Network ID
 

@@ -33,9 +33,8 @@ This task assumes that you have met the following prerequisites:
 You can use `kubectl drain` to safely evict all of your pods from a
 node before you perform maintenance on the node (e.g. kernel upgrade,
 hardware maintenance, etc.). Safe evictions allow the pod's containers
-to
-[gracefully terminate](/docs/tasks/#lifecycle-hooks-and-termination-notice) and
-will respect the `PodDisruptionBudgets` you have specified.
+to [gracefully terminate](/docs/concepts/workloads/pods/pod/#termination-of-pods)
+and will respect the `PodDisruptionBudgets` you have specified.
 
 **Note:** By default `kubectl drain` will ignore certain system pods on the node
 that cannot be killed; see
@@ -98,8 +97,8 @@ You should first be familiar with using [Kubernetes language clients](/docs/task
 
 The eviction subresource of a
 pod can be thought of as a kind of policy-controlled DELETE operation on the pod
-itself.  To attempt an eviction (perhaps more REST-precisely, to attempt to
-*create* an eviction), you POST an attempted operation.  Here's an example:
+itself. To attempt an eviction (perhaps more REST-precisely, to attempt to
+*create* an eviction), you POST an attempted operation. Here's an example:
 
 ```json
 {
@@ -123,7 +122,7 @@ The API can respond in one of three ways:
 - If the eviction is granted, then the pod is deleted just as if you had sent
   a `DELETE` request to the pod's URL and you get back `200 OK`.
 - If the current state of affairs wouldn't allow an eviction by the rules set
-  forth in the budget, you get back `429 Too Many Requests`.  This is
+  forth in the budget, you get back `429 Too Many Requests`. This is
   typically used for generic rate limiting of *any* requests, but here we mean
   that this request isn't allowed *right now* but it may be allowed later.
   Currently, callers do not get any `Retry-After` advice, but they may in
@@ -131,21 +130,21 @@ The API can respond in one of three ways:
 - If there is some kind of misconfiguration, like multiple budgets pointing at
   the same pod, you will get `500 Internal Server Error`.
 
-For a given eviction request, there are two cases.
+For a given eviction request, there are two cases:
 
-- There is no budget that matches this pod.  In this case, the server always
+- There is no budget that matches this pod. In this case, the server always
   returns `200 OK`.
-- There is at least one budget.  In this case, any of the three above responses may
+- There is at least one budget. In this case, any of the three above responses may
  apply.
 
 In some cases, an application may reach a broken state where it will never return anything
-other than 429 or 500.  This can happen, for example, if the replacement pod created by the
+other than 429 or 500. This can happen, for example, if the replacement pod created by the
 application's controller does not become ready, or if the last pod evicted has a very long
 termination grace period.
 
 In this case, there are two potential solutions:
 
-- Abort or pause the automated operation.  Investigate the reason for the stuck application, and restart the automation.
+- Abort or pause the automated operation. Investigate the reason for the stuck application, and restart the automation.
 - After a suitably long wait, `DELETE` the pod instead of using the eviction API.
 
 Kubernetes does not specify what the behavior should be in this case; it is up to the

@@ -120,7 +120,7 @@ StatefulSet controller create the StatefulSet's Pods.
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CRTL-C` to  terminate kubectl.
+Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to  terminate kubectl.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
@@ -200,7 +200,7 @@ for i in 0 1 2; do kubectl exec zk-$i -- hostname -f; done
 ```
 
 The `zk-hs` Service creates a domain for all of the Pods, 
-`zk-headless.default.svc.cluster.local`.
+`zk-hs.default.svc.cluster.local`.
 
 ```shell
 zk-0.zk-hs.default.svc.cluster.local
@@ -236,9 +236,9 @@ minSessionTimeout= 4000
 maxSessionTimeout= 40000
 autopurge.snapRetainCount=3
 autopurge.purgeInterval=0
-server.1=zk-0.zk-headless.default.svc.cluster.local:2888:3888
-server.2=zk-1.zk-headless.default.svc.cluster.local:2888:3888
-server.3=zk-2.zk-headless.default.svc.cluster.local:2888:3888
+server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
+server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
+server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 ```
 
 ### Achieving Consensus
@@ -287,7 +287,7 @@ represents a correctly configured ensemble.
 ```shell
 server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
 server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
-server.3=zk-2.zk-hsdefault.svc.cluster.local:2888:3888
+server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 ```
 
 When the servers use the Zab protocol to attempt to commit a value, they will 
@@ -365,7 +365,7 @@ Watch the termination of the Pods in the StatefulSet.
 kubectl get pods -w -l app=zk
 ```
 
-When `zk-0` if fully terminated, use `CRTL-C` to terminate kubectl.
+When `zk-0` if fully terminated, use `CTRL-C` to terminate kubectl.
 
 ```shell
 zk-2      1/1       Terminating   0         9m
@@ -396,7 +396,7 @@ Watch the StatefulSet controller recreate the StatefulSet's Pods.
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CRTL-C` to terminate kubectl.
+Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to terminate kubectl.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1075,7 +1075,7 @@ There are pending pods when an error occurred: Cannot evict pod as it would viol
 pod/zk-2
 {% endraw %}```
 
-Use `CRTL-C` to terminate to kubectl. 
+Use `CTRL-C` to terminate to kubectl. 
 
 You can not drain the third node because evicting `zk-2` would violate `zk-budget`. However, 
 the node will remain cordoned.

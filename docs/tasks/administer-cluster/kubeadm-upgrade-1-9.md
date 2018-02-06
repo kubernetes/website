@@ -23,6 +23,9 @@ Before proceeding:
 - `kubeadm upgrade` now allows you to upgrade etcd. `kubeadm upgrade` will also upgrade of etcd to 3.1.10 as part of upgrading from v1.8 to v1.9 by default. This is due to the fact that etcd 3.1.10 is the officially validated etcd version for Kubernetes v1.9. The upgrade is handled automatically by kubeadm for you.
 - Note that `kubeadm upgrade` will not touch any of your workloads, only Kubernetes-internal components. As a best-practice you should back up what's important to you. For example, any app-level state, such as a database an app might depend on (like MySQL or MongoDB) must be backed up beforehand.
 
+**Caution:** All the containers will get restarted after the upgrade, due to container spec hash value gets changed.
+{: .caution}
+
 Also, note that only one minor version upgrade is supported. For example, you can only upgrade from 1.8 to 1.9, not from 1.7 to 1.9.
 
 {% endcapture %}
@@ -114,6 +117,8 @@ _____________________________________________________________________
 
 The `kubeadm upgrade plan` checks that your cluster is upgradeable and fetches the versions available to upgrade to in an user-friendly way.
 
+To check CoreDNS version, include the `--feature-gates=CoreDNS=true` flag to verify the CoreDNS version which will be installed in place of kube-dns.
+
 3. Pick a version to upgrade to and run. For example:
 
 ```shell
@@ -162,6 +167,7 @@ $ kubeadm upgrade apply v1.9.0
 [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets in turn.
 ```
 
+To upgrade the cluster with CoreDNS as the default internal DNS, invoke `kubeadm upgrade apply` with the `--feature-gates=CoreDNS=true` flag.
 `kubeadm upgrade apply` does the following:
 
 - Checks that your cluster is in an upgradeable state:
@@ -172,6 +178,7 @@ $ kubeadm upgrade apply v1.9.0
 - Makes sure the control plane images are available or available to pull to the machine.
 - Upgrades the control plane components or rollbacks if any of them fails to come up.
 - Applies the new `kube-dns` and `kube-proxy` manifests and enforces that all necessary RBAC rules are created.
+- Creates new certificate and key files of apiserver and backs up old files if they're about to expire in 180 days.
 
 4. Manually upgrade your Software Defined Network (SDN).
 

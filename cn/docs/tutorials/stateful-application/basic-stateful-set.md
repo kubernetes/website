@@ -434,7 +434,7 @@ Kubernetes 1.7 版本的 StatefulSet 控制器支持自动更新。更新策略�
 Patch `web` StatefulSet 的容器镜像。 
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.7"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.7"}]'
 "web" patched
 ```
 
@@ -470,9 +470,9 @@ web-0     1/1       Running   0         3s
 
 ```shell{% raw %}
 kubectl get pod -l app=nginx -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
-web-0   gcr.io/google_containers/nginx-slim:0.7
-web-1   gcr.io/google_containers/nginx-slim:0.8
-web-2   gcr.io/google_containers/nginx-slim:0.8
+web-0   k8s.gcr.io/nginx-slim:0.7
+web-1   k8s.gcr.io/nginx-slim:0.8
+web-2   k8s.gcr.io/nginx-slim:0.8
 {% endraw %}```
 
 `web-0` has had its image updated, but `web-0` and `web-1` still have the original 
@@ -513,9 +513,9 @@ web-2     1/1       Running   0         36s
 
 ```shell{% raw %}
 kubectl get pod -l app=nginx -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
-web-0   gcr.io/google_containers/nginx-slim:0.7
-web-1   gcr.io/google_containers/nginx-slim:0.7
-web-2   gcr.io/google_containers/nginx-slim:0.7
+web-0   k8s.gcr.io/nginx-slim:0.7
+web-1   k8s.gcr.io/nginx-slim:0.7
+web-2   k8s.gcr.io/nginx-slim:0.7
 {% endraw %}
 ```
 
@@ -539,7 +539,7 @@ statefulset "web" patched
 在一个终端窗口中 patch `web` StatefulSet 来再次的改变容器镜像。
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.8"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.8"}]'
 statefulset "web" patched
 ```
 
@@ -589,9 +589,9 @@ StatefulSet 里的 Pod 采用和序号相反的顺序更新。在更新下一个
 
 ```shell{% raw %}
 for p in 0 1 2; do kubectl get po web-$p --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
-gcr.io/google_containers/nginx-slim:0.8
-gcr.io/google_containers/nginx-slim:0.8
-gcr.io/google_containers/nginx-slim:0.8
+k8s.gcr.io/nginx-slim:0.8
+k8s.gcr.io/nginx-slim:0.8
+k8s.gcr.io/nginx-slim:0.8
 {% endraw %}
 ```
 
@@ -617,7 +617,7 @@ statefulset "web" patched
 再次 Patch StatefulSet 来改变容器镜像。
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.7"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.7"}]'
 statefulset "web" patched
 ```
 
@@ -646,7 +646,7 @@ web-2     1/1       Running   0         18s
 
 ```shell{% raw %}
 get po web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
-gcr.io/google_containers/nginx-slim:0.8
+k8s.gcr.io/nginx-slim:0.8
 {% endraw %}
 ```
 
@@ -683,7 +683,7 @@ web-2     1/1       Running   0         18s
 
 ```shell{% raw %}
 kubectl get po web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
-gcr.io/google_containers/nginx-slim:0.7
+k8s.gcr.io/nginx-slim:0.7
 {% endraw %}
 ```
 
@@ -721,7 +721,7 @@ web-1     1/1       Running   0         18s
 
 ```shell{% raw %}
 get po web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
-gcr.io/google_containers/nginx-slim:0.8
+k8s.gcr.io/nginx-slim:0.8
 {% endraw %}
 ```
 
@@ -767,9 +767,9 @@ web-0     1/1       Running   0         3s
 
 ```shell{% raw %}
 for p in 0 1 2; do kubectl get po web-$p --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
-gcr.io/google_containers/nginx-slim:0.7
-gcr.io/google_containers/nginx-slim:0.7
-gcr.io/google_containers/nginx-slim:0.7
+k8s.gcr.io/nginx-slim:0.7
+k8s.gcr.io/nginx-slim:0.7
+k8s.gcr.io/nginx-slim:0.7
 {% endraw %}
 ```
 

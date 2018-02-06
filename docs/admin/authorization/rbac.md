@@ -789,7 +789,7 @@ In order from most secure to least secure, the approaches are:
    If you want all applications in a namespace to have a role, no matter what service account they use,
    you can grant a role to the service account group for that namespace.
 
-   For example, grant read-only permission within "my-namespace" to to all service accounts in that namespace:
+   For example, grant read-only permission within "my-namespace" to all service accounts in that namespace:
    
    ```shell
    kubectl create rolebinding serviceaccounts-view \
@@ -851,7 +851,7 @@ You can use that information to determine which roles need to be granted to whic
 Once you have [granted roles to service accounts](#service-account-permissions) and workloads are running with no RBAC denial messages
 in the server logs, you can remove the ABAC authorizer.
 
-### Permissive RBAC Permissions
+## Permissive RBAC Permissions
 
 You can replicate a permissive policy using RBAC role bindings.
 

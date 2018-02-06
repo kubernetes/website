@@ -40,8 +40,6 @@ Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the o
 
 If this fails with an "invalid command" error, you're likely using an older version of kubectl that doesn't have the `label` command. In that case, see the [previous version](https://github.com/kubernetes/kubernetes/blob/a053dbc313572ed60d89dae9821ecab8bfd676dc/examples/node-selection/README.md) of this guide for instructions on how to manually set labels on a node.
 
-Also, note that label keys must be in the form of DNS labels (as described in the [identifiers doc](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)), meaning that they are not allowed to contain any upper-case letters.
-
 You can verify that it worked by re-running `kubectl get nodes --show-labels` and checking that the node now has a label.
 
 ### Step Two: Add a nodeSelector field to your pod configuration
@@ -212,7 +210,7 @@ must be satisfied for the pod to schedule onto a node.
 
 #### More Practical Use-cases
 
-Interpod Affinity and AnitAffinity can be even more useful when they are used with higher
+Interpod Affinity and AntiAffinity can be even more useful when they are used with higher
 level collections such as ReplicaSets, Statefulsets, Deployments, etc.  One can easily configure that a set of workloads should
 be co-located in the same defined topology, eg., the same node.
 
@@ -296,7 +294,7 @@ If we create the above two deployments, our three node cluster should look like 
 As you can see, all the 3 replicas of the `web-server` are automatically co-located with the cache as expected.
 
 ```
-$kubectl get pods -o wide
+$ kubectl get pods -o wide
 NAME                           READY     STATUS    RESTARTS   AGE       IP           NODE
 redis-cache-1450370735-6dzlj   1/1       Running   0          8m        10.192.4.2   kube-node-3
 redis-cache-1450370735-j2j96   1/1       Running   0          8m        10.192.2.2   kube-node-1

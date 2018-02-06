@@ -34,13 +34,38 @@ If you see the following warnings while running `kubeadm init`
 
 Then you may be missing `ebtables`, `ethtool` or a similar executable on your Linux machine. You can install them with the following commands: 
 
-```
-# For ubuntu/debian users, try 
-apt install ebtables ethtool
+- For ubuntu/debian users, run `apt install ebtables ethtool`.
+- For CentOS/Fedora users, run `yum install ebtables ethtool`.
 
-# For CentOS/Fedora users, try 
-yum install ebtables ethtool
+#### kubeadm blocks waiting for control plane during installation
+
+If you notice that `kubeadm init` hangs after printing out the following line:
+
 ```
+[apiclient] Created API client, waiting for the control plane to become ready                          
+```
+
+This may be caused by a number of problems. The most common are:
+
+- network connection problems. Check that your machine has full network connectivity before continuing.
+- the default cgroup driver configuration for the kubelet differs from that used by Docker.
+  Check the system log file (e.g. `/var/log/message`) or examine the output from `journalctl -u kubelet`. If you see something like the following:
+
+  ```shell
+  error: failed to run Kubelet: failed to create kubelet: 
+  misconfiguration: kubelet cgroup driver: "systemd" is different from docker cgroup driver: "cgroupfs"
+  ```
+
+  There are two common ways to fix the cgroup driver problem:
+  
+ 1. Install docker again following instructions
+  [here](/docs/setup/independent/install-kubeadm/#installing-docker).
+ 1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
+    [Errors on CentOS when setting up masters](#errors-on-centos-when-setting-up-masters)
+    for detailed instructions.
+  
+- control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
+
 
 #### Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
 
@@ -142,3 +167,17 @@ kubectl -n ${NAMESPACE} describe pod ${POD_NAME}
 
 kubectl -n ${NAMESPACE} logs ${POD_NAME} -c ${CONTAINER_NAME}
 ```
+
+### Default NIC When using flannel as the pod network in Vagrant
+
+The following error might indicate that something was wrong in the pod network:
+
+```
+Error from server (NotFound): the server could not find the requested resource
+```
+
+If you're using flannel as the pod network inside vagrant, then you will have to specify the default interface name for flannel.
+
+Vagrant typically assigns two interfaces to all VMs. The first, for which all hosts are assigned the IP address `10.0.2.15`, is for external traffic that gets NATed.
+
+This may lead to problems with flannel. By default, flannel selects the first interface on a host. This leads to all hosts thinking they have the same public IP address. To prevent this issue, pass the `--iface eth1` flag to flannel so that the second interface is chosen.

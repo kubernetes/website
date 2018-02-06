@@ -4,7 +4,7 @@ title: Installing kubeadm
 
 {% capture overview %}
 
-This page shows how to use install the `kubeadm` toolbox.
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified_kubernetes_color.png" align="right" width="150px">This page shows how to install the `kubeadm` toolbox.
 For information how to create a cluster with kubeadm once you have performed this installation process,
 see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-cluster-kubeadm/) page.
 
@@ -19,6 +19,7 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
   - RHEL 7
   - Fedora 25/26 (best-effort)
   - HypriotOS v1.0.1+
+  - Container Linux (tested with 1576.4.0)
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
 * 2 CPUs or more 
 * Full network connectivity between all machines in the cluster (public or private network is fine)
@@ -127,8 +128,18 @@ systemctl enable docker && systemctl start docker
 
 {% endcapture %}
 
+{% capture docker_coreos %}
+
+Enable and start Docker:
+
+```bash
+systemctl enable docker && systemctl start docker
+```
+
+{% endcapture %}
+
 **Note**: Make sure that the cgroup driver used by kubelet is the same as the one used by 
-Docker. To ensure compatability you can either update Docker, like so:
+Docker. To ensure compatibility you can either update Docker, like so:
 
 ```bash
 cat << EOF > /etc/docker/daemon.json
@@ -142,8 +153,8 @@ and restart Docker. Or ensure the `--cgroup-driver` kubelet flag is set to the s
 as Docker (e.g. `cgroupfs`).
 
 {% assign tab_set_name = "docker_install" %}
-{% assign tab_names = "Ubuntu, Debian or HypriotOS;CentOS, RHEL or Fedora" | split: ';' | compact %}
-{% assign tab_contents = site.emptyArray | push: docker_ubuntu | push: docker_centos %}
+{% assign tab_names = "Ubuntu, Debian or HypriotOS;CentOS, RHEL or Fedora; Container Linux" | split: ';' | compact %}
+{% assign tab_contents = site.emptyArray | push: docker_ubuntu | push: docker_centos | push: docker_coreos %}
 
 {% include tabs.md %}
 
@@ -220,9 +231,42 @@ systemctl enable kubelet && systemctl start kubelet
 
 {% endcapture %}
 
+{% capture coreos %}
+
+Install CNI plugins (required for most pod network):
+
+```bash
+CNI_VERSION="v0.6.0"
+mkdir -p /opt/cni/bin
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
+```
+
+Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
+
+```bash
+RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
+
+mkdir -p /opt/bin
+cd /opt/bin
+curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
+chmod +x {kubeadm,kubelet,kubectl}
+
+curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/kubelet.service" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service
+mkdir -p /etc/systemd/system/kubelet.service.d
+curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/10-kubeadm.conf" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+```
+
+Enable and start `kubelet`:
+
+```bash
+systemctl enable kubelet && systemctl start kubelet
+```
+
+{% endcapture %}
+
 {% assign tab_set_name = "k8s_install" %}
-{% assign tab_names = "Ubuntu, Debian or HypriotOS;CentOS, RHEL or Fedora" | split: ';' | compact %}
-{% assign tab_contents = site.emptyArray | push: ubuntu | push: centos %}
+{% assign tab_names = "Ubuntu, Debian or HypriotOS;CentOS, RHEL or Fedora;Container Linux" | split: ';' | compact %}
+{% assign tab_contents = site.emptyArray | push: ubuntu | push: centos | push: coreos %}
 
 {% include tabs.md %}
 

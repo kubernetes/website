@@ -143,7 +143,7 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
        UN  172.17.0.6  84.74 KiB  32           67.1%             a6a1e8c2-3dc5-4417-b1a0-26507af2aaad  Rack1-K8Demo
 
 ## Modifying the Cassandra StatefulSet
-Use `kubectl edit` to modify the size of of a Cassandra StatefulSet. 
+Use `kubectl edit` to modify the size of a Cassandra StatefulSet. 
 
 1. Run the following command:
 
@@ -158,7 +158,7 @@ Use `kubectl edit` to modify the size of of a Cassandra StatefulSet.
         # and an empty file will abort the edit. If an error occurs while saving this file will be
         # reopened with the relevant failures.
         #
-        apiVersion: apps/v1beta2
+        apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
         kind: StatefulSet
         metadata:
          creationTimestamp: 2016-08-13T18:40:58Z
@@ -168,7 +168,7 @@ Use `kubectl edit` to modify the size of of a Cassandra StatefulSet.
          name: cassandra
          namespace: default
          resourceVersion: "323"
-         selfLink: /apis/apps/v1beta1/namespaces/default/statefulsets/cassandra
+         selfLink: /apis/apps/v1/namespaces/default/statefulsets/cassandra
          uid: 7a219483-6185-11e6-a910-42010a8a0fc0
         spec:
          replicas: 3

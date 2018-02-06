@@ -66,7 +66,7 @@ probably debugging your own `Service` you can substitute your own details, or yo
 can follow along and get a second data point.
 
 ```shell
-$ kubectl run hostnames --image=gcr.io/google_containers/serve_hostname \
+$ kubectl run hostnames --image=k8s.gcr.io/serve_hostname \
                         --labels=app=hostnames \
                         --port=9376 \
                         --replicas=3
@@ -93,7 +93,7 @@ spec:
     spec:
       containers:
       - name: hostnames
-        image: gcr.io/google_containers/serve_hostname
+        image: k8s.gcr.io/serve_hostname
         ports:
         - containerPort: 9376
           protocol: TCP
@@ -233,7 +233,7 @@ passed into `kubelet` with the `--cluster-dns` flag.
 
 The `search` line must include an appropriate suffix for you to find the
 `Service` name.  In this case it is looking for `Services` in the local
-`Namespace` (`default.svc.cluster.local), `Services` in all `Namespaces`
+`Namespace` (`default.svc.cluster.local`), `Services` in all `Namespaces`
 (`svc.cluster.local`), and the cluster (`cluster.local`).  Depending on your own
 install you might have additional records after that (up to 6 total).  The
 cluster suffix is passed into `kubelet` with the `--cluster-domain` flag.  We

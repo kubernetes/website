@@ -5,7 +5,7 @@ approvers:
 - foxish
 - janetkuo
 - kow3ns
-title: Daemon Sets
+title: DaemonSet
 ---
 
 * TOC
@@ -45,7 +45,7 @@ kubectl create -f daemonset.yaml
 
 As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications/),
-[configuring containers](/docs/tasks/), and [working with resources](/docs/concepts/tools/kubectl/object-management-overview/) documents.
+[configuring containers](/docs/tasks/), and [object management using kubectl](/docs/concepts/overview/object-management-kubectl/overview/) documents.
 
 A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) section.
 
@@ -193,7 +193,7 @@ in cluster bootstrapping cases.  Also, static Pods may be deprecated in the futu
 
 ### Deployments
 
-DaemonSets are similar to [Deployments](/docs/concepts/workloads/controllers/deployment.md) in that
+DaemonSets are similar to [Deployments](/docs/concepts/workloads/controllers/deployment/) in that
 they both create Pods, and those Pods have processes which are not expected to terminate (e.g. web servers,
 storage servers).
 
