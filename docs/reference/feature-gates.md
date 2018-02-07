@@ -61,9 +61,17 @@ different Kubernetes components.
 | `HugePages` | `true` | Beta| 1.10 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
 | `Initializers` | `false` | Alpha | 1.7 | |
+<<<<<<< HEAD
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta| 1.10 | |
+||||||| merged common ancestors
+| `KubeletConfigFile` | `false` | Alpha | 1.8 | |
+| `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | |
+=======
+| `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
+| `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | |
+>>>>>>> Document the removal of the KubeletConfigFile feature gate (#7140)
 | `MountContainers` | `false` | Alpha | 1.9 | |
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
 | `MountPropagation` | `true` | Beta | 1.10 | |

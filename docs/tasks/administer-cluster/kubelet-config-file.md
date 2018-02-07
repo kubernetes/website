@@ -51,6 +51,7 @@ For a trick to generate a configuration file from a live node, see
 
 ## Start a Kubelet process configured via the config file
 
+<<<<<<< HEAD
 Start the Kubelet with the `--config` flag set to the path of the Kubelet's config file.
 The Kubelet will then load its config from this file.
 
@@ -65,6 +66,18 @@ Note that some default values differ between command-line flags and the Kubelet 
 If `--config` is provided and the values are not specified via the command line, the
 defaults for the `KubeletConfiguration` version apply.
 In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
+||||||| merged common ancestors
+Start the Kubelet with the `KubeletConfigFile` feature gate enabled and the 
+Kubelet's `--init-config-dir` flag set to the location of the directory
+containing the `kubelet` file. The Kubelet will then load the parameters defined
+by `KubeletConfiguration` from the `kubelet` file, rather than from their 
+associated command-line flags.
+=======
+Start the Kubelet with the `--init-config-dir` flag set to the location of the directory
+containing the `kubelet` file. The Kubelet will then load the parameters defined
+by `KubeletConfiguration` from the `kubelet` file, rather than from their 
+associated command-line flags.
+>>>>>>> Document the removal of the KubeletConfigFile feature gate (#7140)
 
 {% endcapture %}
 
