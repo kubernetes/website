@@ -70,28 +70,28 @@ The output is similar to this:
 
     apiVersion: v1
     data:
-      .dockercfg: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
+      .dockerconfigjson: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
     kind: Secret
     metadata:
       ...
       name: regsecret
       ...
-    type: kubernetes.io/dockercfg
+    type: kubernetes.io/dockerconfigjson
 
-The value of the `.dockercfg` field is a base64 representation of your secret data.
+The value of the `.dockerconfigjson` field is a base64 representation of your secret data.
 
 Copy the base64 representation of the secret data into a file named `secret64`.
 
 **Important**: Make sure there are no line breaks in your `secret64` file.
 
-To understand what is in the `.dockercfg` field, convert the secret data to a
+To understand what is in the `.dockerconfigjson` field, convert the secret data to a
 readable format:
 
     base64 -d secret64
 
 The output is similar to this:
 
-    {"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}
+    {"auths":{"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}}
 
 Notice that the secret data contains the authorization token from your
 `config.json` file.
