@@ -100,7 +100,7 @@ or more comments in the Kubernetes source code.
 will be different in your situation.
 {: .note}
 
-Here's an example of editing the a comment in the Kubernetes source code.
+Here's an example of editing a comment in the Kubernetes source code.
 
 In your local kubernetes/kubernetes repository, check out the master branch,
 and make sure it is up to date:
