@@ -41,8 +41,7 @@ For a trick to generate a configuration file from a live node, see
 
 ## Start a Kubelet process configured via the config file
 
-Start the Kubelet with the `KubeletConfigFile` feature gate enabled and the 
-Kubelet's `--init-config-dir` flag set to the location of the directory
+Start the Kubelet with the `--init-config-dir` flag set to the location of the directory
 containing the `kubelet` file. The Kubelet will then load the parameters defined
 by `KubeletConfiguration` from the `kubelet` file, rather than from their 
 associated command-line flags.
