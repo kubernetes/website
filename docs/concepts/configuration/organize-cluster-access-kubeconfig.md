@@ -62,7 +62,7 @@ required. If the `KUBECONFIG` environment variable doesn't exist,
 
 If the `KUBECONFIG` environment variable does exist, `kubectl` uses
 an effective configuration that is the result of merging the files
-listed in the `KUBECONFIG` evironment variable.
+listed in the `KUBECONFIG` environment variable.
 
 ## Merging kubeconfig files
 
@@ -82,7 +82,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 
    Otherwise, if the `KUBECONFIG` environment variable is set, use it as a
    list of files that should be merged.
-   Merge the files listed in the `KUBECONFIG` envrionment variable
+   Merge the files listed in the `KUBECONFIG` environment variable
    according to these rules:
 
    * Ignore empty filenames.
@@ -151,4 +151,3 @@ are stored absolutely.
 {% endcapture %}
 
 {% include templates/concept.md %}
-
