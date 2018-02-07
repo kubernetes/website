@@ -136,8 +136,8 @@ spec:
 In Kubernetes 1.9 and later, when Pod priority is enabled, scheduler orders pending
 Pods by their priority and a pending Pod is placed ahead of other pending Pods with
 lower priority in the scheduling queue. As a result, the higher priority Pod may
-by scheduled sooner that Pods with lower priority if its scheduling requirements
-are met. If such Pod cannot be scheduled, scheduler will continue and tries to
+be scheduled sooner that Pods with lower priority if its scheduling requirements
+are met. If such Pod cannot be scheduled, scheduler will continue and try to
 schedule other lower priority Pods. 
 
 ## Preemption
