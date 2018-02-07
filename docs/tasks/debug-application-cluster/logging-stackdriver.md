@@ -50,7 +50,7 @@ Stackdriver Logging agents to the running cluster.
     Kubernetes version 1.6 or higher. If the cluster was created with Stackdriver Logging
     configured and node has version 1.5.X or lower, it will have fluentd as static pod. Node
     cannot have more than one instance of fluentd, therefore only apply labels to the nodes
-    that don't have fluentd pod allocated already. You can ensure that your node is labelled
+    that don't have fluentd pod allocated already. You can ensure that your node is labeled
     properly by running `kubectl describe` as follows:
 
     ```
