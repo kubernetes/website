@@ -5,6 +5,7 @@ related:
 - deployment
 - pod
 tags:
+- fundamental
 - core-object
 - workload
 - storage

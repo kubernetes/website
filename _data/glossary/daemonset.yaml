@@ -3,6 +3,7 @@ name: DaemonSet
 full-link: /docs/concepts/workloads/controllers/daemonset
 tags:
 - fundamental
+- core-object
 - workload
 short-description: >
   Ensures a copy of a {% glossary_tooltip text="Pod" term_id="pod" %} is running across a set of nodes in a {% glossary_tooltip text="cluster" term_id="cluster" %}.
