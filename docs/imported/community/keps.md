@@ -183,14 +183,14 @@ Metadata items:
   * Must be one of `Draft`, `Deferred`, `Approved`, `Rejected`, `Withdrawn`,
     `Final`, `Replaced`.
 * **authors** Required
-  * A list of authors for the KEP.  We require a name (which can be a psuedonym)
+  * A list of authors for the KEP.  We require a name (which can be a pseudonym)
     along with a github ID.  Other ways to contact the author is strongly
     encouraged.  This is a list of maps.  Subkeys of each item: `name`,
     `github`, `email` (optional), `slack` (optional).
 * **owning-sig** Required
   * The SIG that is most closely associated with this KEP. If there is code or
     other artifacts that will result from this KEP, then it is expected that
-    this SIG will take responsiblity for the bulk of those artifacts.
+    this SIG will take responsibility for the bulk of those artifacts.
   * SIGs are listed as `sig-abc-def` where the name matches up with the
     directory in the `kubernetes/community` repo.
 * **participating-sigs** Optional
