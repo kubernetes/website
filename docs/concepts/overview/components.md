@@ -74,14 +74,7 @@ network rules on the host and performing connection forwarding.
 
 ### Container Runtime
 
-Container Runtime is a software that is responsible for running containers.
-
-#### docker
-[Docker](http://www.docker.com) is a platform that can be used for the above purpose.
-
-#### rkt
-
-[rkt](https://coreos.com/rkt/) is supported experimentally as an alternative to docker.
+The container runtime is the software that is responsible for running containers. Kubernetes supports two runtimes: [Docker](http://www.docker.com) and [rkt](https://coreos.com/rkt/).
 
 ## Addons
 
@@ -89,7 +82,7 @@ Addons are pods and services that implement cluster features. The pods may be ma
 by Deployments, ReplicationControllers, and so on. Namespaced addon objects are created in
 the `kube-system` namespace.
 
-Selected addons are described below, for extended list of available addons please see [Addons](/docs/concepts/cluster-administration/addons/) page.
+Selected addons are described below, for an extended list of available addons please see [Addons](/docs/concepts/cluster-administration/addons/) page.
 
 ### DNS
 
