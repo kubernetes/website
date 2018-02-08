@@ -312,7 +312,7 @@ To facilitate this scenario, the `kubelet` would be launched as follows:
 Implicit in this configuration is the understanding that "System reserved" should include the amount of memory
 covered by the eviction threshold.
 
-To reach that capacity, either some Pod is using more than its request, or the system is using more than `500Mi`.
+To reach that capacity, either some Pod is using more than its request, or the system is using more than `1.5Gi - 500Mi = 1Gi`.
 
 This configuration ensures that the scheduler does not place Pods on a node that immediately induce memory pressure
 and trigger eviction assuming those Pods use less than their configured request.
