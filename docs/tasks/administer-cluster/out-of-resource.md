@@ -80,7 +80,7 @@ where:
 
 * `eviction-signal` is an eviction signal token as defined in the previous table.
 * `operator` is the desired relational operator, such as `<` (less than).
-* `quantity` is the eviction threshhold quantity, such as `1Gi`. These tokens must
+* `quantity` is the eviction threshold quantity, such as `1Gi`. These tokens must
 match the quantity representation used by Kubernetes. An eviction threshold can also
 be expressed as a percentage using the `%` token.
 
