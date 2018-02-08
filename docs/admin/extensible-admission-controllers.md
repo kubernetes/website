@@ -81,7 +81,7 @@ perform its assigned task and remove its name from the list.
 *Initializers* is an alpha feature, so it is disabled by default. To turn it on,
 you need to:
 
-* Include "Initializers" in the `--admission-control` flag when starting
+* Include "Initializers" in the `--enable-admission-plugins` flag when starting
   `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all should
   have the same flag setting.
 
