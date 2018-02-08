@@ -47,11 +47,11 @@ are on the same machine (and thus the same virtual bridge).  Containers on
 different machines can not reach each other - in fact they may end up with the
 exact same network ranges and IP addresses.
 
-In order for Docker containers to communicate across nodes, they must be
-allocated ports on the machine's own IP address, which are then forwarded or
-proxied to the containers.  This obviously means that containers must either
-coordinate which ports they use very carefully or else be allocated ports
-dynamically.
+In order for Docker containers to communicate across nodes, there must
+be allocated ports on the machine’s own IP address, which are then
+forwarded or proxied to the containers. This obviously means that
+containers must either coordinate which ports they use very carefully
+or ports must be allocated dynamically.
 
 ## Kubernetes model
 
