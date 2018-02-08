@@ -486,6 +486,9 @@ An unsuccessful request would return:
 
 HTTP status codes can be used to supply additional error context.
 
+#### Using OpenStack Keystone authentication Webhook
+
+[TODO]
 
 ### Authenticating Proxy
 
@@ -535,30 +538,6 @@ checked.
 
 * `--requestheader-client-ca-file` Required. PEM-encoded certificate bundle. A valid client certificate must be presented and validated against the certificate authorities in the specified file before the request headers are checked for user names.
 * `--requestheader-allowed-names` Optional.  List of common names (cn). If set, a valid client certificate with a Common Name (cn) in the specified list must be presented before the request headers are checked for user names. If empty, any Common Name is allowed.
-
-
-### Keystone Password
-
-Keystone authentication is enabled by passing the `--experimental-keystone-url=<AuthURL>`
-option to the API server during startup. The plugin is implemented in
-`plugin/pkg/auth/authenticator/password/keystone/keystone.go` and currently uses
-basic auth to verify user by username and password.
-
-If you have configured self-signed certificates for the Keystone server,
-you may need to set the `--experimental-keystone-ca-file=SOMEFILE` option when
-starting the Kubernetes API server. If you set the option, the Keystone
-server's certificate is verified by one of the authorities in the
-`experimental-keystone-ca-file`. Otherwise, the certificate is verified by
-the host's root Certificate Authority.
-
-For details on how to use keystone to manage projects and users, refer to the
-[Keystone documentation](http://docs.openstack.org/developer/keystone/). Please
-note that this plugin is still experimental, under active development, and likely
-to change in subsequent releases.
-
-Please refer to the [discussion](https://github.com/kubernetes/kubernetes/pull/11798#issuecomment-129655212),
-[blueprint](https://github.com/kubernetes/kubernetes/issues/11626) and [proposed
-changes](https://github.com/kubernetes/kubernetes/pull/25536) for more details.
 
 ## Anonymous requests
 
