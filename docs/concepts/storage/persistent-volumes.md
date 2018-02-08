@@ -536,7 +536,7 @@ spec:
 
 ### Binding Block Volumes
 
-If a user requests a raw block volume by indicating this using the `volumeMode` field in the `PersistentVolumeClaim` spec, the binding rules differ slighty from previous releases that didn't consider this mode as part of the spec.
+If a user requests a raw block volume by indicating this using the `volumeMode` field in the `PersistentVolumeClaim` spec, the binding rules differ slightly from previous releases that didn't consider this mode as part of the spec.
 Listed is a table of possible combinations the user and admin might specify for requesting a raw block device. The table indicates if the volume will be bound or not given the combinations:
 Volume binding matrix for statically provisioned volumes:
 
