@@ -134,7 +134,8 @@ In some cases, the list is replaced, not merged.
 
 With a strategic merge patch, a list is either replaced or merged depending it its
 patch strategy. The patch strategy is specified by the value of the `patchStrategy` key
-in a field tag. For example, the `Containers` field of PodSpec has a `patchStrategy` of `merge`:
+in a field tag in the Kubernetes soucce code. For example, the `Containers` field of `PodSpec`
+struct has a `patchStrategy` of `merge`:
 
 ```shell
 type PodSpec struct {
@@ -157,12 +158,7 @@ You can also see the patch strategy in the
 ```
 
 And you can see the patch strategy in the
-[Kubernetes API documentation](/docs/reference/generated/kubernetes-api/v1.9/#podspec-v1-core):
-
-containers
-*Container array* 
-**patch type**: *merge*
-**patch merge key**: *name*
+[Kubernetes API documentation](/docs/reference/generated/kubernetes-api/v1.9/#podspec-v1-core).
 
 Create a file named `patch-file-tolerations.yaml` that has this content:
 
@@ -191,7 +187,10 @@ kubectl get deployment patch-demo --output yaml
 The output shows that the PodSpec in the Deployment has only one Toleration:
 
 ```shell
-TODO
+tolerations:
+      - effect: NoSchedule
+        key: disktype
+        value: ssd
 ```
 
 Notice that the `tolerations` list in the PodSpec was replaced, not merged. This is because
@@ -314,7 +313,7 @@ kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"co
 
 ## Summary
 
-In this exercise, you `kubectl patch` to change the live configuration
+In this exercise, you used `kubectl patch` to change the live configuration
 of a Deployment object. You did not change the configuration file that you originally used to
 create the Deployment object. Other commands for updating API objects include
 [kubectl annotate](/docs/user-guide/kubectl/{{page.version}}/#annotate),
