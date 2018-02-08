@@ -74,7 +74,7 @@ the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce f
 permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from
 Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
 
-Version 1.8 introduces an alpha feature that automatically creates
+Version 1.8 introduced an alpha feature that automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
 To enable this behavior, pass an additional feature gate flag `--feature-gates=...,TaintNodesByCondition=true`
 to the API server, controller manager, and scheduler.
