@@ -241,7 +241,7 @@ Other API server flags that are set unconditionally are:
     - [`ServiceAccount`](/docs/admin/admission-controllers/#serviceaccount) to enforce service account automation
     - [`PersistentVolumeLabel`](/docs/admin/admission-controllers/#persistentvolumelabel) attaches region or zone labels to
       PersistentVolumes as defined by the cloud provider (This admission controller is deprecated and will be removed in a future version. 
-      It is not deployed by kubeadm by default with v1.9 onwards when not explicitely opting into using `gce` or `aws` as cloud providers)
+      It is not deployed by kubeadm by default with v1.9 onwards when not explicitly opting into using `gce` or `aws` as cloud providers)
     - [`DefaultStorageClass`](/docs/admin/admission-controllers/#defaultstorageclass) to enforce default storage class on `PersistentVolumeClaim` objects
     - [`DefaultTolerationSeconds`](/docs/admin/admission-controllers/#defaulttolerationseconds) 
     - [`NodeRestriction`](/docs/admin/admission-controllers/#noderestriction) to limit what a kubelet can modify 
