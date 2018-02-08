@@ -28,7 +28,7 @@ systems of different kinds (e.g. Terraform, Ansible, etc.).
 
 kubeadm is designed to be a simple way for new users to start trying
 Kubernetes out, possibly for the first time, a way for existing users to
-test their application on and stich together a cluster easily, and also to be
+test their application on and stitch together a cluster easily, and also to be
 a building block in other ecosystem and/or installer tool with a larger
 scope.
 
