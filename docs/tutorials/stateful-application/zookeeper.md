@@ -798,7 +798,9 @@ The Pod `template` for the `zk` StatefulSet specifies a liveness probe.
  livenessProbe:
           exec:
             command:
-            - "zkOk.sh"
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
           initialDelaySeconds: 15
           timeoutSeconds: 5
 ```
