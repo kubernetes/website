@@ -333,7 +333,7 @@ condition's message reverts to either `using current (default)` or
 
 ### Deauthorize your Node fom reading the old ConfigMap
 
-Once you know your Node is using the default configuraiton again, it is a good
+Once you know your Node is using the default configuration again, it is a good
 idea to deauthorize the node from reading the old ConfigMap. Run the following
 commands to remove the RoleBinding and Role:
 
