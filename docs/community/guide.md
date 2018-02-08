@@ -1,6 +1,9 @@
 ---
 title: Kubernetes Contributor Guide
 ---
+---
+title: Kubernetes Contributor Guide
+---
 
 # Kubernetes Contributor Guide
 
@@ -16,10 +19,10 @@ Welcome to Kubernetes! This document is the single source of truth for how to co
 
 -   [Before you get started](#before-you-get-started)
     -   [Sign the CLA](#sign-the-cla)
+    -   [Code of Conduct](#code-of-conduct)
     -   [Setting up your development
         environment](#setting-up-your-development-environment)
     -   [Community Expectations](#community-expectations)
-        -   [Code of Conduct](#code-of-conduct)
         -   [Thanks](#thanks)
 -   [Your First Contribution](#your-first-contribution)
     -   [Find something to work on](#find-something-to-work-on)
@@ -36,9 +39,9 @@ Welcome to Kubernetes! This document is the single source of truth for how to co
     -   [Documentation](#documentation)
     -   [Issues Management or Triage](#issues-management-or-triage)
 -   [Community](#community)
+    -   [Communication](#communication-1)
     -   [Events](#events)
         -   [Meetups](#meetups)
-        -   [KubeCon](#kubecon)
     -   [Mentorship](#mentorship)
 
 # Before you get started
@@ -98,13 +101,16 @@ show up to one of the [bi-weekly meetings](https://docs.google.com/document/d/1q
 
 #### Find a SIG that is related to your contribution
 
-Finding the appropriate SIG for your contribution will help you ask questions in the correct place and give your contribution higher visibility and a faster community response.
+Finding the appropriate SIG for your contribution and adding a SIG label will help you ask questions in the correct place and give your contribution higher visibility and a faster community response.
 
 For Pull Requests, the automatically assigned reviewer will add a SIG label if you haven't done so. See [Open A Pull Request](#open-a-pull-request) below.
 
 For Issues, we are still working on a more automated workflow. Since SIGs do not directly map onto Kubernetes subrepositories, it may be difficult to find which SIG your contribution belongs in. Here is the [list of SIGs](https://github.com/kubernetes/community/tree/master/sig-list.md). Determine which is most likely related to your contribution.
 
-*Example:* if you are filing a cni issue, you should choose SIG-networking.
+*Example:* if you are filing a cni issue, you should choose the [Network SIG](http://git.k8s.io/community/sig-network). Add the SIG label in a comment like so:
+```
+/sig network
+```
 
 Follow the link in the SIG name column to reach each SIGs README. Most SIGs will have a set of GitHub Teams with tags that can be mentioned in a comment on issues and pull requests for higher visibility. If you are not sure about the correct SIG for an issue, you can try SIG-contributor-experience [here](https://github.com/kubernetes/community/tree/master/sig-contributor-experience#github-teams), or [ask in Slack](http://slack.k8s.io/).
 
@@ -216,10 +222,8 @@ Kubernetes is the main focus of CloudNativeCon/KubeCon, held twice per year in E
 
 ### Meetups
 
-* Please help write this section.
-
-### KubeCon
+We follow the general [Cloud Native Computing Foundation guidelines](https://github.com/cncf/meetups) for Meetups. You may also contact Paris Pittman via direct message on Kubernetes Slack (@paris) or by email (parispittman@google.com)
 
 ## Mentorship
 
-* Please help write this section.
+Please learn about our mentoring initiatives [here](http://git.k8s.io/community/mentoring/README.md).
