@@ -876,7 +876,9 @@ probe from the `zookeeper.yaml` manifest is identical to the liveness probe.
  readinessProbe:
           exec:
             command:
-            - "zkOk.sh"
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
           initialDelaySeconds: 15
           timeoutSeconds: 5
 ```
