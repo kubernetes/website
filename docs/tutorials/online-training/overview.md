@@ -12,7 +12,7 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Scalable Microservices with Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
 
-* [Introduction to Kubernetes (edX)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
+* [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x)
 
 {% endcapture %}
 
