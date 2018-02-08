@@ -381,7 +381,7 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-Optionally, remove the Docker images created:
+Optionally, force removal of the Docker images created:
 
 ```shell
 docker rmi hello-node:v1 hello-node:v2 -f
