@@ -832,7 +832,7 @@ In another window, delete the `zkOk.sh` script from the file system of Pod `zk-0
 
 
 ```shell
-kubectl exec zk-0 -- rm /opt/zookeeper/bin/zkOk.sh
+kubectl exec zk-0 -- rm /usr/bin/zookeeper-ready
 ```
 
 
