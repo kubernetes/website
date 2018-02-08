@@ -486,6 +486,21 @@ An unsuccessful request would return:
 
 HTTP status codes can be used to supply additional error context.
 
+#### Using OpenStack Keystone authentication Webhook
+
+There are two parts to authentication with OpenStack Keystone. On the client-side, you can use `--auth-provider=openstack` option to reuse the `OS_*` environment variables:
+```
+kubectl config set-credentials openstackuser --auth-provider=openstack
+```
+Note that you will also need to use `kubectl config set-context` and `kubectl config use-context` to activate the context. Please make sure you have `OS_DOMAIN_NAME` to use Keystone V3 API.
+
+On the server-side, one choice is to use the webhook from:   
+https://github.com/dims/openstack-cloud-controller-manager/blob/master/cmd/k8s-keystone-auth/main.go
+
+Documentation for the webhook is at  
+https://github.com/dims/openstack-cloud-controller-manager/blob/master/docs/using-keystone-webhook-authenticator-and-authorizer.md
+
+This webhook from folks in the OpenStack community is just one option. Other webhooks may be available with alternative user mappings in the future. 
 
 ### Authenticating Proxy
 
@@ -535,30 +550,6 @@ checked.
 
 * `--requestheader-client-ca-file` Required. PEM-encoded certificate bundle. A valid client certificate must be presented and validated against the certificate authorities in the specified file before the request headers are checked for user names.
 * `--requestheader-allowed-names` Optional.  List of common names (cn). If set, a valid client certificate with a Common Name (cn) in the specified list must be presented before the request headers are checked for user names. If empty, any Common Name is allowed.
-
-
-### Keystone Password
-
-Keystone authentication is enabled by passing the `--experimental-keystone-url=<AuthURL>`
-option to the API server during startup. The plugin is implemented in
-`plugin/pkg/auth/authenticator/password/keystone/keystone.go` and currently uses
-basic auth to verify user by username and password.
-
-If you have configured self-signed certificates for the Keystone server,
-you may need to set the `--experimental-keystone-ca-file=SOMEFILE` option when
-starting the Kubernetes API server. If you set the option, the Keystone
-server's certificate is verified by one of the authorities in the
-`experimental-keystone-ca-file`. Otherwise, the certificate is verified by
-the host's root Certificate Authority.
-
-For details on how to use keystone to manage projects and users, refer to the
-[Keystone documentation](http://docs.openstack.org/developer/keystone/). Please
-note that this plugin is still experimental, under active development, and likely
-to change in subsequent releases.
-
-Please refer to the [discussion](https://github.com/kubernetes/kubernetes/pull/11798#issuecomment-129655212),
-[blueprint](https://github.com/kubernetes/kubernetes/issues/11626) and [proposed
-changes](https://github.com/kubernetes/kubernetes/pull/25536) for more details.
 
 ## Anonymous requests
 
