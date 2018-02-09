@@ -7,10 +7,10 @@ approvers:
 {% capture overview %}
 {% glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" %}  
 
-A *Service Broker*, as defined by the [Open Service Broker API spec](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md), is an endpoint for a set of Managed Services offered and maintained by a third-party, which could be a cloud provider such as AWS, GCP, or Azure.
-Some examples of *Managed Services* are Microsoft Azure Cloud Queue, Amazon Simple Queue Service, and Google Cloud Pub/Sub, but they can be any software offering that can be used by an application.
+A Service Broker, as defined by the [Open Service Broker API spec](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md), is an endpoint for a set of Managed Services offered and maintained by a third-party, which could be a cloud provider such as AWS, GCP, or Azure.
+Some examples of Managed Services are Microsoft Azure Cloud Queue, Amazon Simple Queue Service, and Google Cloud Pub/Sub, but they can be any software offering that can be used by an application.
 
-Using Service Catalog, a {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can browse the list of {% glossary_tooltip text="Managed Services" term_id="managed-service" %} offered by a {% glossary_tooltip text="Service Brokers" term_id="service-broker" %}, provision an instance of a Managed Service, and bind with it to make it available to an application within the Kubernetes cluster.
+Using Service Catalog, a {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can browse the list of Managed Services offered by a Service Broker, provision an instance of a Managed Service, and bind with it to make it available to an application within the Kubernetes cluster.
 
 {% endcapture %}
 
@@ -20,10 +20,10 @@ Using Service Catalog, a {% glossary_tooltip text="Cluster Operator" term_id="cl
 
 An {% glossary_tooltip text="Application Developer" term_id="application-developer" %} wants to use message queuing as part of their application running in a Kubernetes cluster.
 However, they do not want to deal with the overhead of setting such a service up and administering it themselves.
-Fortunately, there is a cloud provider that offers message queuing as a *Managed Service* through their *Service Broker*.
+Fortunately, there is a cloud provider that offers message queuing as a Managed Service through their Service Broker.
 
-A {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can setup Service Catalog and use it to communicate with the cloud provider's {% glossary_tooltip text="Service Broker" term_id="service-broker" %} to provision an instance of the message queuing service and make it available to the application within the Kubernetes cluster.
-The {% glossary_tooltip text="Application Developer" term_id="application-developer" %} therefore does not need to concern themselves with the implementation details or management of the message queue.
+A Cluster Operator can setup Service Catalog and use it to communicate with the cloud provider's Service Broker to provision an instance of the message queuing service and make it available to the application within the Kubernetes cluster.
+The Application Developer therefore does not need to concern themselves with the implementation details or management of the message queue.
 Their application can simply use it as a service.
 
 ## Architecture
@@ -62,7 +62,7 @@ Service Catalog supports these methods of authentication:
 
 ## Usage
 
-A {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can use the Service Catalog API Resources to provision Managed Services and make them available within a Kubernetes cluster. The steps involved are:
+A Cluster Operator can use the Service Catalog API Resources to provision Managed Services and make them available within a Kubernetes cluster. The steps involved are:
 
 1. Listing the Managed Services and Service Plans available from a Service Broker.
 1. Provisioning a new instance of the Managed Service.
@@ -71,7 +71,7 @@ A {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can 
 
 ### Listing Managed Services and Service Plans
 
-First, a {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} must create a `ClusterServiceBroker` resource within the `servicecatalog.k8s.io` group. This resource contains the URL and connection details necessary to access a Service Broker endpoint.
+First, a Cluster Operator must create a `ClusterServiceBroker` resource within the `servicecatalog.k8s.io` group. This resource contains the URL and connection details necessary to access a Service Broker endpoint.
 
 This is an example of a `ClusterServiceBroker` resource:
 
@@ -95,7 +95,7 @@ The following is a sequence diagram illustrating the steps involved in listing M
 
 1. Once the `ClusterServiceBroker` resource is added to Service Catalog, it triggers a *List Services* call to the external Service Broker.
 1. The Service Broker returns a list of available Managed Services and Service Plans, which are cached locally in `ClusterServiceClass` and `ClusterServicePlan` resources.
-1. A {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can then get the list of available Managed Services using the following command:
+1. A Cluster Operator can then get the list of available Managed Services using the following command:
 
         kubectl get clusterserviceclasses -o=custom-columns=SERVICE\ NAME:.metadata.name,EXTERNAL\ NAME:.spec.externalName
 
@@ -118,7 +118,7 @@ The following is a sequence diagram illustrating the steps involved in listing M
 
 ### Provisioning a new instance
 
-A {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can initiate the provisioning of a new instance by creating a `ServiceInstance` resource.
+A Cluster Operator can initiate the provisioning of a new instance by creating a `ServiceInstance` resource.
 
 This is an example of a `ServiceInstance` resource:
 
@@ -144,11 +144,11 @@ The following sequence diagram illustrates the steps involved in provisioning a 
 
 1. When the `ServiceInstance` resource is created, Service Catalog initiates a *Provision Instance* call to the external Service Broker.
 1. The Service Broker creates a new instance of the Managed Service and returns an HTTP response.
-1. A {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can then check the status of the instance to see if it is ready.
+1. A Cluster Operator can then check the status of the instance to see if it is ready.
 
 ### Binding to a Managed Service
 
-After a new instance has been provisioned, a {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} must bind to the Managed Service to get the connection credentials and service account details necessary for the application to use the service. This is done by creating a `ServiceBinding` resource.
+After a new instance has been provisioned, a Cluster Operator must bind to the Managed Service to get the connection credentials and service account details necessary for the application to use the service. This is done by creating a `ServiceBinding` resource.
 
 The following is an example of a `ServiceBinding` resource:
 
