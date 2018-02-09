@@ -115,7 +115,7 @@ Components that must be upgraded manually after you've upgraded the control plan
 COMPONENT   CURRENT      AVAILABLE
 Kubelet     1 x v1.7.1   v1.8.0
 
-Upgrade to the latest experimental version:
+Upgrade to the latest stable version:
 
 COMPONENT            CURRENT   AVAILABLE
 API Server           v1.7.1    v1.8.0
