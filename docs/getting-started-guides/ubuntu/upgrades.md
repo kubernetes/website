@@ -45,7 +45,7 @@ There may be an upgrade available for kubernetes, etcd, or both.
 
 Backing up etcd requires an export and snapshot, refer to the
 [backup documentation](/docs/getting-started-guides/ubuntu/backups) to create a snapshot.
-After the snapshot upgrade the etcd service with:
+After the snapshot, upgrade the etcd service with:
 
     juju upgrade-charm etcd
 
@@ -76,7 +76,7 @@ First you need to upgrade the masters:
 
     juju upgrade-charm kubernetes-master
 
-**Node:** Always upgrade the masters before the workers.
+**Note:** Always upgrade the masters before the workers.
 {: .note}
 
 Once the latest charm is deployed, the channel for Kubernetes can be selected by issuing the following:
@@ -102,7 +102,7 @@ but is a safer upgrade route.
 
 Given a deployment where the workers are named kubernetes-alpha.
 
-Deploy new worker(s): 
+Deploy new workers: 
 
     juju deploy kubernetes-beta
 
@@ -141,7 +141,7 @@ to ensure that the cluster upgrade has successfully completed.
 ### Upgrade Flannel
 
 Upgrading flannel can be done at any time, it is independent of Kubernetes upgrades.
-Be advised that networking is interrupted during the upgrade. You can initiate a flannel upgrade:
+Be advised that networking is interrupted during the upgrade:
 
     juju upgrade-charm flannel
 
