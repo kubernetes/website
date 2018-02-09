@@ -220,11 +220,14 @@ In a three node cluster, a web application has in-memory cache such as redis. We
 Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`. The deployment has `PodAntiAffinity` configured to ensure the scheduler does not co-locate replicas on a single node.
 
 ```yaml
-apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-cache
 spec:
+  selector:
+    matchLabels:
+      app: store
   replicas: 3
   template:
     metadata:
@@ -249,11 +252,14 @@ spec:
 The below yaml snippet of the webserver deployment has `podAntiAffinity` and `podAffinity` configured. This informs the scheduler that all its replicas are to be co-located with pods that have selector label `app=store`. This will also ensure that each web-server replica does not co-locate on a single node.
 
 ```yaml
-apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-server
 spec:
+  selector:
+    matchLabels:
+      app: web-store
   replicas: 3
   template:
     metadata:
