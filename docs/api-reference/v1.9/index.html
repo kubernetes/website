@@ -3513,13 +3513,16 @@ $ curl -X GET http:<span class="hljs-regexp">//</span><span class="hljs-number">
 <p> Deployment Config to run 3 nginx instances (max rollback set to 10 revisions).</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-yaml">
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   # Unique key of the Deployment<span class="hljs-built_in"> instance
 </span>  name: deployment-example
 spec:
   # 3 Pods should exist at all times.
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   template:
     metadata:
@@ -3537,13 +3540,16 @@ spec:
 <p> Deployment Config to run 3 nginx instances (max rollback set to 10 revisions).</p>
 </blockquote>
 <pre class="code-block curl"><code class="lang-yaml">
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   # Unique key of the Deployment<span class="hljs-built_in"> instance
 </span>  name: deployment-example
 spec:
   # 3 Pods should exist at all times.
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   template:
     metadata:
@@ -3800,11 +3806,14 @@ Appears In:
 <p> <code>kubectl</code> Command</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-shell">
-$ echo 'apiVersion: apps/v1beta1
+$ echo 'apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -3825,11 +3834,14 @@ spec:
 <pre class="code-block curl"><code class="lang-shell">
 <span class="hljs-variable">$ </span>kubectl proxy
 <span class="hljs-variable">$ </span>curl -X POST -H <span class="hljs-string">'Content-Type: application/yaml'</span> --data <span class="hljs-string">'
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -4158,11 +4170,14 @@ $ curl -X PATCH -H 'Content-Type: application/strategic-<span class="hljs-keywor
 <p> <code>kubectl</code> Command</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-shell">
-$ echo 'apiVersion: apps/v1beta1
+$ echo 'apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -4183,11 +4198,14 @@ spec:
 <pre class="code-block curl"><code class="lang-shell">
 <span class="hljs-variable">$ </span>kubectl proxy
 <span class="hljs-variable">$ </span>curl -X PUT -H <span class="hljs-string">'Content-Type: application/yaml'</span> --data <span class="hljs-string">'
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -77449,12 +77467,15 @@ Appears In:
 <p> Deployment Config to run 3 nginx instances (max rollback set to 10 revisions).</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-yaml">
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   # Unique key of the Deployment<span class="hljs-built_in"> instance
 </span>  name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   # 3 Pods should exist at all times.
   replicas: 3
   template:
@@ -77473,7 +77494,7 @@ spec:
 <p> Deployment Config to run 3 nginx instances (max rollback set to 10 revisions).</p>
 </blockquote>
 <pre class="code-block curl"><code class="lang-yaml">
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   # Unique key of the Deployment<span class="hljs-built_in"> instance
@@ -77481,6 +77502,9 @@ metadata:
 spec:
   # 3 Pods should exist at all times.
   replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
   template:
     metadata:
       labels:
@@ -77736,11 +77760,14 @@ Appears In:
 <p> <code>kubectl</code> Command</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-shell">
-$ echo 'apiVersion: apps/v1beta1
+$ echo 'apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -77761,11 +77788,14 @@ spec:
 <pre class="code-block curl"><code class="lang-shell">
 <span class="hljs-variable">$ </span>kubectl proxy
 <span class="hljs-variable">$ </span>curl -X POST -H <span class="hljs-string">'Content-Type: application/yaml'</span> --data <span class="hljs-string">'
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -78094,11 +78124,14 @@ $ curl -X PATCH -H 'Content-Type: application/strategic-<span class="hljs-keywor
 <p> <code>kubectl</code> Command</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-shell">
-$ echo 'apiVersion: apps/v1beta1
+$ echo 'apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -78119,11 +78152,14 @@ spec:
 <pre class="code-block curl"><code class="lang-shell">
 <span class="hljs-variable">$ </span>kubectl proxy
 <span class="hljs-variable">$ </span>curl -X PUT -H <span class="hljs-string">'Content-Type: application/yaml'</span> --data <span class="hljs-string">'
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -80204,11 +80240,14 @@ Appears In:
 <p> <code>kubectl</code> Command</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-shell">
-$ echo 'apiVersion: apps/v1beta1
+$ echo 'apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -80229,11 +80268,14 @@ spec:
 <pre class="code-block curl"><code class="lang-shell">
 <span class="hljs-variable">$ </span>kubectl proxy
 <span class="hljs-variable">$ </span>curl -X POST -H <span class="hljs-string">'Content-Type: application/yaml'</span> --data <span class="hljs-string">'
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -80562,11 +80604,14 @@ $ curl -X PATCH -H 'Content-Type: application/strategic-<span class="hljs-keywor
 <p> <code>kubectl</code> Command</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-shell">
-$ echo 'apiVersion: apps/v1beta1
+$ echo 'apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -80587,11 +80632,14 @@ spec:
 <pre class="code-block curl"><code class="lang-shell">
 <span class="hljs-variable">$ </span>kubectl proxy
 <span class="hljs-variable">$ </span>curl -X PUT -H <span class="hljs-string">'Content-Type: application/yaml'</span> --data <span class="hljs-string">'
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -82672,11 +82720,14 @@ Appears In:
 <p> <code>kubectl</code> Command</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-shell">
-$ echo 'apiVersion: apps/v1beta1
+$ echo 'apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -82697,11 +82748,14 @@ spec:
 <pre class="code-block curl"><code class="lang-shell">
 <span class="hljs-variable">$ </span>kubectl proxy
 <span class="hljs-variable">$ </span>curl -X POST -H <span class="hljs-string">'Content-Type: application/yaml'</span> --data <span class="hljs-string">'
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -83030,11 +83084,14 @@ $ curl -X PATCH -H 'Content-Type: application/strategic-<span class="hljs-keywor
 <p> <code>kubectl</code> Command</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-shell">
-$ echo 'apiVersion: apps/v1beta1
+$ echo 'apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
@@ -83055,11 +83112,14 @@ spec:
 <pre class="code-block curl"><code class="lang-shell">
 <span class="hljs-variable">$ </span>kubectl proxy
 <span class="hljs-variable">$ </span>curl -X PUT -H <span class="hljs-string">'Content-Type: application/yaml'</span> --data <span class="hljs-string">'
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-example
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 3
   revisionHistoryLimit: 10
   template:
