@@ -78,13 +78,14 @@ Note that this is the same as if you had started the `Deployment` with
 the following YAML:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hostnames
 spec:
   selector:
-    app: hostnames
+    matchLabels:
+      app: hostnames
   replicas: 3
   template:
     metadata:
