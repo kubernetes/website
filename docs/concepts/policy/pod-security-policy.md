@@ -273,7 +273,7 @@ Error from server (Forbidden): error when creating "STDIN": pods "privileged" is
 Delete the pod before moving on:
 
 ```shell
-$ kubectl-user delete pause
+$ kubectl-user delete pod pause
 ```
 
 ### Run another pod
