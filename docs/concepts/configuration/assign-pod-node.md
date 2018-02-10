@@ -186,7 +186,7 @@ rule says that the pod prefers to not schedule onto a node if that node is alrea
 having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
 it would mean that the pod cannot schedule onto a node if that node is in the same zone as a pod with
 label having key "security" and value "S2".) See the [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
-for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
+For many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
 flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 
 The legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`.
