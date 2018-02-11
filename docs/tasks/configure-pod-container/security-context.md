@@ -131,7 +131,7 @@ exit
 
 To specify security settings for a Container, include the `securityContext` field
 in the Container manifest. The `securityContext` field is a
-[SecurityContext](/docs/api-reference/{{page.version}}/#securitycontext-v1-core) object.
+[SecurityContext](/docs/reference/generated/kubernetes-api/{{page.version}}/#securitycontext-v1-core) object.
 Security settings that you specify for a Container apply only to
 the individual Container, and they override settings made at the Pod level when
 there is overlap. Container settings do not affect the Pod's Volumes.
