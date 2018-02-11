@@ -23,10 +23,8 @@ kubeadm init
       --feature-gates string                    A set of key=value pairs that describe feature gates for various features. Options are:
 CoreDNS=true|false (ALPHA - default=false)
 DynamicKubeletConfig=true|false (ALPHA - default=false)
-HighAvailability=true|false (ALPHA - default=false)
-SelfHosting=true|false (BETA - default=false)
+SelfHosting=true|false (ALPHA - default=false)
 StoreCertsInSecrets=true|false (ALPHA - default=false)
-SupportIPVSProxyMode=true|false (ALPHA - default=false)
       --ignore-checks-errors stringSlice        A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
       --kubernetes-version string               Choose a specific Kubernetes version for the control plane. (default "stable-1.8")
       --node-name string                        Specify the node name.
