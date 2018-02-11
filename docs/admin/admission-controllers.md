@@ -72,9 +72,9 @@ server if Kubernetes is deployed in a self-hosted way.
 
 ## What does each admission controller do?
 
-### AlwaysAdmit
+### AlwaysAdmit (DEPRECATED)
 
-Use this admission controller by itself to pass-through all requests.
+Use this admission controller by itself to pass-through all requests. AlwaysAdmit is DEPRECATED as no real meaning.
 
 ### AlwaysPullImages
 
@@ -86,9 +86,9 @@ scheduled onto the right node), without any authorization check against the imag
 is enabled, images are always pulled prior to starting containers, which means valid credentials are
 required.
 
-### AlwaysDeny
+### AlwaysDeny (DEPRECATED)
 
-Rejects all requests.  Used for testing.
+Rejects all requests. AlwaysDeny is DEPRECATED as no real meaning.
 
 ### DefaultStorageClass
 
@@ -418,7 +418,7 @@ subresource of the referenced *owner* can change it.
 {% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
 The `PVCProtection` plugin adds the `kubernetes.io/pvc-protection` finalizer to newly created Persistent Volume Claims (PVCs). In case a user deletes a PVC the PVC is not removed until the finalizer is removed from the PVC by PVC Protection Controller. Refer to the [PVC Protection](/docs/concepts/storage/persistent-volumes/#persistent-volume-claim-protection) for more detailed information.
 
-### PersistentVolumeLabel
+### PersistentVolumeLabel (DEPRECATED)
 
 This admission controller automatically attaches region or zone labels to PersistentVolumes
 as defined by the cloud provider (for example, GCE or AWS).
@@ -426,7 +426,7 @@ It helps ensure the Pods and the PersistentVolumes mounted are in the same
 region and/or zone.
 If the admission controller doesn't support automatic labelling your PersistentVolumes, you
 may need to add the labels manually to prevent pods from mounting volumes from
-a different zone.
+a different zone. PersistentVolumeLabel is DEPRECATED in favor of NewPersistentVolumeLabelController in CCM.
 
 ### PodNodeSelector
 
