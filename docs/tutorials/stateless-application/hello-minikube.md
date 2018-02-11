@@ -291,6 +291,12 @@ Build a new version of your image:
 docker build -t hello-node:v2 .
 ```
 
+Remove your previous Deployment:
+
+```shell
+kubectl delete deployment hello-node
+```
+
 Update the image of your Deployment:
 
 ```shell
