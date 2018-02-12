@@ -76,6 +76,8 @@ Determine whether you can access sites like [https://cloud.google.com/container-
 curl --proxy "" https://cloud.google.com/container-registry/
 ```
 
+Make sure that the Docker daemon is started.
+
 If NO proxy is required, start the Minikube cluster:
 
 ```shell
