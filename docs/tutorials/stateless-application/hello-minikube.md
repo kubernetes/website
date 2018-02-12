@@ -78,6 +78,10 @@ curl --proxy "" https://cloud.google.com/container-registry/
 
 Make sure that the Docker daemon is started.
 
+```shell
+docker images
+```
+
 If NO proxy is required, start the Minikube cluster:
 
 ```shell
