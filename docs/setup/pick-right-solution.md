@@ -78,7 +78,7 @@ few commands. These solutions are actively developed and have active community s
 * [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
 * [KUBE2GO.io](https://kube2go.io/)
 * [Madcore.Ai](https://madcore.ai/)
-* [Kubermatic](https://kubermatic.io/)
+* [Kubermatic](https://cloud.kubermatic.io)
 
 # On-Premises turnkey cloud solutions
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
