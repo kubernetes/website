@@ -11,7 +11,7 @@ title: Creating HA clusters with kubeadm
 
 This guide shows you how to install and set up a highly available Kubernetes cluster using kubeadm.
 
-This document shows you how to perform setup tasks that kubeadm doesn't perform: provision hardware; configure multiple systems; and load balancing. 
+This document shows you how to perform setup tasks that kubeadm doesn't perform: provision hardware; configure multiple systems; and load balancing.
 
 **Note:** This guide is only one potential solution, and there are many ways to configure a highly available cluster. If a better solution works for you, please use it. If you find a better solution that can be adopted by the community, feel free to contribute it back.
 {: .note}
@@ -22,7 +22,7 @@ This document shows you how to perform setup tasks that kubeadm doesn't perform:
 
 - Three machines that meet [kubeadm's minimum requirements](https://kubernetes.io/docs/setup/independent/install-kubeadm/#before-you-begin) for the masters
 - Three machines that meet [kubeadm's minimum requirements](https://kubernetes.io/docs/setup/independent/install-kubeadm/#before-you-begin) for the workers
-- **Optional:** At least three machines that meet [kubeadm's minimum requirements](https://kubernetes.io/docs/setup/independent/install-kubeadm/#before-you-begin) 
+- **Optional:** At least three machines that meet [kubeadm's minimum requirements](https://kubernetes.io/docs/setup/independent/install-kubeadm/#before-you-begin)
    if you intend to host etcd on dedicated nodes (see information below)
 - 1GB or more of RAM per machine (any less will leave little room for your apps)
 - Full network connectivity between all machines in the cluster (public or
@@ -45,8 +45,7 @@ For highly available setups, you will need to decide how to host your etcd clust
 
 While the first option provides more performance and better hardware isolation, it is also more expensive and requires an additional support burden.
 
-For **Option 1**: create 3 virtual machines that follow [CoreOS's hardware recommendations](https://coreos.com/etcd/docs/latest/op-guide/hardware.html). For the sake of simplicity, we 
-will refer to them as `etcd0`, `etcd1` and `etcd2`.
+For **Option 1**: create 3 virtual machines that follow [CoreOS's hardware recommendations](https://coreos.com/etcd/docs/latest/op-guide/hardware.html). For the sake of simplicity, we will refer to them as `etcd0`, `etcd1` and `etcd2`.
 
 For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd1` and `etcd2` throughout this guide should be replaced with `master0`, `master1` and `master2` accordingly, since your master nodes host etcd.
 
@@ -127,7 +126,7 @@ For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd
 
 ### Generate etcd client certs
 
-1. Generate the client certificates. 
+1. Generate the client certificates.
 
    While on `etcd0`, run the following:
 
@@ -199,7 +198,7 @@ In order to copy certs between machines, you must enable SSH access for `scp`.
    cfssl print-defaults csr > config.json
    sed -i '0,/CN/{s/example\.net/'"$PEER_NAME"'/}' config.json
    sed -i 's/www\.example\.net/'"$PRIVATE_IP"'/' config.json
-   sed -i 's/example\.net/'"$PUBLIC_IP"'/' config.json
+   sed -i 's/example\.net/'"$PEER_NAME"'/' config.json
 
    cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=server config.json | cfssljson -bare server
    cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=peer config.json | cfssljson -bare peer
@@ -212,7 +211,7 @@ This will result in the following files: `peer.pem`, `peer-key.pem`, `server.pem
 
 ### Run etcd
 
-Now that all the certificates have been generated, you will now install and set up etcd on each machine. 
+Now that all the certificates have been generated, you will now install and set up etcd on each machine.
 
 {% capture choose %}
 Please select one of the tabs to see installation instructions for the respective way to run etcd.
@@ -443,7 +442,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
    - `<etcd0-ip>`, `<etcd1-ip>` and `<etcd2-ip>` with the IP addresses of your three etcd nodes
    - `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
 
-   **Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type=lease`. For more information, see [the documentation](https://kubernetes.io/docs/admin/high-availability/#endpoint-reconciler).
+   **Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`. For more information, see [the documentation](https://kubernetes.io/docs/admin/high-availability/#endpoint-reconciler).
 
 1. When this is done, run kubeadm like so:
 
@@ -457,7 +456,7 @@ Before running kubeadm on the other masters, you need to first copy the K8s CA c
 
 #### Option 1: Copy with scp
 
-1. Follow the steps in the [create ssh access](#create-ssh-access) section, but instead of adding to `etcd0`'s `authorized_keys` file, add them to `master0`. 
+1. Follow the steps in the [create ssh access](#create-ssh-access) section, but instead of adding to `etcd0`'s `authorized_keys` file, add them to `master0`.
 1. Once you've done this, run:
 
    ```shell
