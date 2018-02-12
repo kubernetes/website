@@ -76,7 +76,7 @@ Determine whether you can access sites like [https://cloud.google.com/container-
 curl --proxy "" https://cloud.google.com/container-registry/
 ```
 
-Make sure that the Docker daemon is started.
+Make sure that the Docker daemon is started. You can determine if docker is running by using a command such as:
 
 ```shell
 docker images
