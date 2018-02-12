@@ -122,6 +122,12 @@ Verify that `kubectl` is configured to communicate with your cluster:
 kubectl cluster-info
 ```
 
+Open the kubernetes dashboard GUI in browser:
+
+```shell
+minikube dashboard
+```
+
 ## Create your Node.js application
 
 The next step is to write the application. Save this code in a folder named `hellonode`
