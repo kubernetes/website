@@ -198,6 +198,10 @@ $( document ).ready(function() {
       urlParamHash.set("path", type);
       urlParamHash.set("persona", null);
       urlParamHash.set("level", null);
+
+      // record Google Analytics event
+      ga('send', 'event', 'user-journeys', 'click', 'path', type);
+
     }
 
     // (2) HTML behavior
@@ -215,6 +219,10 @@ $( document ).ready(function() {
       if (!fromPageload) {
         var persona = targetElt.getAttribute('data-button');
         urlParamHash.set('persona', persona);
+
+        // record Google Analytics event
+        ga('send', 'event', 'user-journeys', 'click', 'persona', persona);
+
       }
       // Use default level if not specified, in order to display the proper
       // path-persona-level content
@@ -240,6 +248,10 @@ $( document ).ready(function() {
       var level = targetElt.getAttribute('data-name');
       if (!fromPageload) {
         urlParamHash.set('level', level);
+
+        // record Google Analytics event
+        ga('send', 'event', 'user-journeys', 'click', 'level', level);
+
       }
 
       // (2) HTML behavior
