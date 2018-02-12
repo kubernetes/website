@@ -141,7 +141,7 @@ kubectl cluster-info
 ```
 If you see a URL response, kubectl is correctly configured to access your cluster.
 
-If you see a message similar to the following, kubectl is not correctly configured or not able to connect to a Kubernetes cluster locally or remotely.
+If you see a message similar to the following, kubectl is not correctly configured or not able to connect to a Kubernetes cluster.
 
 ```shell
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
