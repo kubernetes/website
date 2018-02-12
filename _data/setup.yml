@@ -68,11 +68,6 @@ toc:
     - docs/getting-started-guides/dcos.md
     - docs/getting-started-guides/ovirt.md
 
-    - title: rkt
-      section:
-      - docs/getting-started-guides/rkt/index.md
-      - docs/getting-started-guides/rkt/notes.md
-
     - title: Bare Metal
       section:
       - docs/getting-started-guides/coreos/bare_metal_offline.md
