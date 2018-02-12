@@ -8,9 +8,6 @@ title: Managing Resources
 
 You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features that we will discuss in more depth are [configuration files](/docs/concepts/configuration/overview/) and [labels](/docs/concepts/overview/working-with-objects/labels/).
 
-You can find all the files for this example [in our docs
-repo here](https://github.com/kubernetes/website/tree/{{page.docsbranch}}/docs/concepts/cluster-administration/).
-
 * TOC
 {:toc}
 
@@ -23,7 +20,7 @@ Many applications require multiple resources to be created, such as a Deployment
 Multiple resources can be created the same way as a single resource:
 
 ```shell
-$ kubectl create -f docs/concepts/cluster-administration/nginx-app.yaml
+$ kubectl create -f https://k8s.io/docs/concepts/cluster-administration/nginx-app.yaml
 service "my-nginx-svc" created
 deployment "my-nginx" created
 ```
@@ -33,13 +30,13 @@ The resources will be created in the order they appear in the file. Therefore, i
 `kubectl create` also accepts multiple `-f` arguments:
 
 ```shell
-$ kubectl create -f docs/concepts/cluster-administration/concepts/cluster-administration/nginx/nginx-svc.yaml -f docs/concepts/cluster-administration/nginx/nginx-deployment.yaml
+$ kubectl create -f https://k8s.io/docs/concepts/cluster-administration/nginx/nginx-svc.yaml -f https://k8s.io/docs/concepts/cluster-administration/nginx/nginx-deployment.yaml
 ```
 
 And a directory can be specified rather than or in addition to individual files:
 
 ```shell
-$ kubectl create -f docs/concepts/cluster-administration/nginx/
+$ kubectl create -f https://k8s.io/docs/concepts/cluster-administration/nginx/
 ```
 
 `kubectl` will read any files with suffixes `.yaml`, `.yml`, or `.json`.
@@ -58,7 +55,7 @@ deployment "nginx-deployment" created
 Resource creation isn't the only operation that `kubectl` can perform in bulk. It can also extract resource names from configuration files in order to perform other operations, in particular to delete the same resources you created:
 
 ```shell
-$ kubectl delete -f docs/concepts/cluster-administration/nginx/
+$ kubectl delete -f https://k8s.io/docs/concepts/cluster-administration/nginx/
 deployment "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
