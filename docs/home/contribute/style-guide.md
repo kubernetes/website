@@ -144,12 +144,12 @@ The output is similar to this:
 
 ### Versioning Kubernetes examples
 
-Code examples and configuration examples that include version information should be consistent with the accompanying text. Identify the Kubernetes version in the Before you begin section.
+Code examples and configuration examples that include version information should be consistent with the accompanying text. Identify the Kubernetes version in the **Before you begin** section.
 
 To specify the Kubernetes version for a task or tutorial page:
 
 - Include `min-kubernetes-server-version` in the front matter of the page.
-- In the **Before you begin** section, use `{{ "{% include tasks-tutorial-prereqs.md "}} %}`
+- In the **Before you begin** section, use `{{ "{% include tasks-tutorial-prereqs.md "}} %}`.
 
 If the example YAML is in a standalone file, find and review the topics that include it as a reference.
 Verify that any topics using the standalone YAML have the appropriate version information defined.
