@@ -533,9 +533,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"mount-file-pod": {&api.Pod{}},
 			"volume-pod":     {&api.Pod{}},
 		},
-		"../docs/user-guide/configmap/redis": {
-			"redis-pod": {&api.Pod{}},
-		},
 		"../docs/user-guide/downward-api": {
 			"dapi-pod":                 {&api.Pod{}},
 			"dapi-container-resources": {&api.Pod{}},
