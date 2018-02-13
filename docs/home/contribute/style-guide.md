@@ -144,24 +144,27 @@ The output is similar to this:
 
 ### Versioning Kubernetes examples
 
-Example that include version specific information should be matched with accompanying text and the relevant Kubernetes version identified.
-This can be done by verifying the relevant page has the Jekyll include statement:
+Code examples and configuration examples that include version information should be consistent with the accompanying text. Identify the Kubernetes version in the Before you begin section.
 
-    `{% include task-tutorial-prereqs.md %}`
+To specify the Kubernetes version for a task or tutorial page:
 
-And the front-matter YAML of the document includes the key `min-kubernetes-server-version` set to the relevant version.
+- Include `min-kubernetes-server-version` in the front matter of the page.
+- In the **Before you begin** section, use `{% include tasks-tutorial-prereqs.md %}`.
 
-If the example YAML is in a standalone file, please review the markdown that includes it as a reference and verify that file has the appropriate version information.
-For example, if you are writing a tutorial that is relevant to Kubernetes version 1.5, the front-matter of your markdown file should look something like:
+If the example YAML is in a standalone file, find and review the topics that include it as a reference.
+Verify that any topics using the standalone YAML has the appropriate version information defined.
+If a stand-alone YAML file is not referenced from any topics, consider deleting it instead of updating it.
+
+For example, if you are writing a tutorial that is relevant to Kubernetes version 1.8, the front-matter of your markdown file should look something like:
 
 ```yaml
 ---
 title: <your tutorial title here>
-min-kubernetes-server-version: v1.5
+min-kubernetes-server-version: v1.8
 ---
 ```
 
-Examples are not expected to reference alternative version.
+In code and configuration examples, do not include comments about alternative versions.
 Be careful to not include incorrect statements in your examples as comments, such as:
 
 ```yaml
@@ -182,13 +185,13 @@ A list of Kubernetes-specific terms and words to be used consistently across the
 </table>{% endcomment %}
 
 ## Callout Formatting
-Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: **Note:** {: .note}, **Caution:** {: .caution}, and **Warning:** {: .warning}. 
+Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: **Note:** {: .note}, **Caution:** {: .caution}, and **Warning:** {: .warning}.
 
 1. Start each callout with the appropriate prefix.
 
 2. Use the following syntax to apply a style:
 
-       **Note:** The prefix you use is the same text you use in the tag. 
+       **Note:** The prefix you use is the same text you use in the tag.
        {: .note} <!-- This tag must appear on a new line. -->
 
 The output is:
@@ -202,7 +205,7 @@ Use {: .note} to highlight a tip or a piece of information that may be helpful t
 
 For example:
 
-    **Note:** You can _still_ use Markdown inside these callouts. 
+    **Note:** You can _still_ use Markdown inside these callouts.
     {: .note}
 
 The output is:
@@ -216,12 +219,12 @@ Use {: .caution} to call attention to an important piece of information to avoid
 
 For example:
 
-    **Caution:** The callout style only applies to the line directly above the tag. 
+    **Caution:** The callout style only applies to the line directly above the tag.
     {: .caution}
 
 The output is:
 
-**Caution:** The callout style only applies to the line directly above the tag. 
+**Caution:** The callout style only applies to the line directly above the tag.
 {: .caution}
 
 ### Warning
@@ -230,7 +233,7 @@ Use {: .warning} to indicate danger or a piece of information that is crucial to
 
 For example:
 
-    **Warning:** Beware. 
+    **Warning:** Beware.
     {: .warning}
 
 The output is:
@@ -261,14 +264,14 @@ The output is:
 **Note:** This is my note. Use `<br/>` to create multiple lines. <br/> <br/> You can still use _Markdown_ to **format** text!
 {: .note}
 
-Typing multiple lines does **not** work. The callout style only applies to the line directly above the tag. 
+Typing multiple lines does **not** work. The callout style only applies to the line directly above the tag.
 
-    **Note:** This is my note. 
+    **Note:** This is my note.
 
     I didn't read the style guide.
     {: .note}
 
-**Note:** This is my note. 
+**Note:** This is my note.
 
 I didn't read the style guide.
 {: .note}
@@ -283,7 +286,7 @@ For example:
 
     1. Prepare the batter, and pour into springform pan.
 
-       **Note:** Grease the pan for best results. 
+       **Note:** Grease the pan for best results.
        {: .note}
 
     1. Bake for 20-25 minutes or until set.
@@ -294,7 +297,7 @@ The output is:
 
 1. Prepare the batter, and pour into springform pan.
 
-   **Note:** Grease the pan for best results. 
+   **Note:** Grease the pan for best results.
    {: .note}
 
 1. Bake for 20-25 minutes or until set.
