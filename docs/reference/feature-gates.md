@@ -50,7 +50,8 @@ different Kubernetes components.
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.8 |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
-| `HugePages` | `false` | Alpha | 1.8 | |
+| `HugePages` | `false` | Alpha | 1.8 | 1.9 |
+| `HugePages` | `true` | Beta| 1.10 | |
 | `Initializers` | `false` | Alpha | 1.7 | |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | |
