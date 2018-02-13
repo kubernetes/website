@@ -26,7 +26,7 @@ The current state of cluster upgrades is provider dependent, and some releases m
 ### Upgrading an Azure Kubernetes Service (AKS) cluster
 
 Azure Kubernetes Service enables easy self-service upgrades of the control plane and nodes in your cluster. The process is
-currently user-initiated and is described in the [Azure AKS documentation](https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster)
+currently user-initiated and is described in the [Azure AKS documentation](https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster).
 
 ### Upgrading Google Compute Engine clusters
 
