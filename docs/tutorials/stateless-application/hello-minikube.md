@@ -122,7 +122,7 @@ Verify that `kubectl` is configured to communicate with your cluster:
 kubectl cluster-info
 ```
 
-Open the kubernetes dashboard GUI in browser:
+Open the Kubernetes dashboard in a browser:
 
 ```shell
 minikube dashboard
