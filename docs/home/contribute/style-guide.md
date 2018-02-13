@@ -18,11 +18,9 @@ docs, follow the instructions on
 **Note:** Kubernetes documentation uses [GitHub Flavored Markdown](https://github.github.com/gfm/).
 {: .note}
 
-
 ## Language
 
 Kubernetes documentation uses US English.
-
 
 ## Documentation formatting standards
 
@@ -171,7 +169,7 @@ The output is:
 
 ### Note
 
-Use {: .note} to highlight a tip or a piece of information that may be helpful to know. 
+Use {: .note} to highlight a tip or a piece of information that may be helpful to know.
 
 For example:
 
@@ -185,7 +183,7 @@ The output is:
 
 ### Caution
 
-Use {: .caution} to call attention to an important piece of information to avoid pitfalls.  
+Use {: .caution} to call attention to an important piece of information to avoid pitfalls.
 
 For example:
 
@@ -208,7 +206,7 @@ For example:
 
 The output is:
 
-**Warning:** Beware. 
+**Warning:** Beware.
 {: .warning}
 
 ## Common Callout Issues
@@ -253,25 +251,24 @@ Callouts will interrupt numbered lists unless you indent three spaces before the
 For example:
 
     1. Preheat oven to 350˚F
-       
+
     1. Prepare the batter, and pour into springform pan.
-          
+
        **Note:** Grease the pan for best results. 
        {: .note}
-          
+
     1. Bake for 20-25 minutes or until set.
-       
+
 The output is:
 
 1. Preheat oven to 350˚F
-       
+
 1. Prepare the batter, and pour into springform pan.
-          
+
    **Note:** Grease the pan for best results. 
    {: .note}
-          
-1. Bake for 20-25 minutes or until set.
 
+1. Bake for 20-25 minutes or until set.
 
 ## Content best practices
 
@@ -372,12 +369,13 @@ considered new in a few months.
 
 {% endcapture %}
 
-
 {% capture whatsnext %}
+
 * Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
 * Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
 * Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
+
 {% endcapture %}
 
 {% include templates/concept.md %}
