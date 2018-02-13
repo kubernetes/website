@@ -9,6 +9,7 @@ build: ## Build site with production settings and put deliverables in _site.
 	bundle exec jekyll build
 
 build-preview: ## Build site with drafts and future posts enabled.
+	export JEKYLL_LOG_LEVEL=debug
 	bundle exec jekyll build --drafts --future
 
 serve: ## Boot the development server.
