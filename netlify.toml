@@ -1,2 +1,2 @@
 [context.deploy-preview]
-  command = "JEKYLL_LOG_LEVEL=debug make build-preview"
+  command = "make build-preview"
