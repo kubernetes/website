@@ -170,7 +170,7 @@ kind: Pod
 ...
 ```
 
-## Kubernetes.io word list
+{% comment %}## Kubernetes.io word list
 
 A list of Kubernetes-specific terms and words to be used consistently across the site.
 
@@ -179,7 +179,7 @@ A list of Kubernetes-specific terms and words to be used consistently across the
   <tr><td>Kubernetes</td><td>Kubernetes should always be capitalized.</td></tr>
   <tr><td>Docker</td><td>Docker should always be capitalized.</td></tr>
   <tr><td>SIG Docs</td><td>SIG Docs rather than SIG-DOCS or other variations.</td></tr>
-</table>
+</table>{% endcomment %}
 
 ## Callout Formatting
 Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: **Note:** {: .note}, **Caution:** {: .caution}, and **Warning:** {: .warning}. 
