@@ -147,7 +147,9 @@ To check out code to work on, please refer to [this guide](https://github.com/ku
 
 ## Open a Pull Request
 
-Pull requests are often called simply "PR".  Kubernetes generally follows the standard [github pull request](https://help.github.com/articles/about-pull-requests/) process, but there is a layer of additional kubernetes specific (and sometimes SIG specific) differences.
+Pull requests are often called simply "PR".  Kubernetes generally follows the standard [github pull request](https://help.github.com/articles/about-pull-requests/) process, but there is a layer of additional kubernetes specific (and sometimes SIG specific) differences:
+
+- [Kubernetes-specific github workflow](https://github.com/kubernetes/community/tree/master/contributors/guide/pull-requests.md#the-testing-and-merge-workflow).
 
 The first difference you'll see is that a bot will begin applying structured labels to your PR.
 
@@ -158,8 +160,7 @@ Common new contributor PR issues are:
 * not having correctly signed the CLA ahead of your first PR (see [Sign the CLA](#sign-the-cla) section)
 * finding the right SIG or reviewer(s) for the PR (see [Code Review](#code-review) section) and following any SIG specific contributing guidelines
 * dealing with test cases which fail on your PR, unrelated to the changes you introduce (see [Test Flakes](http://velodrome.k8s.io/dashboard/db/bigquery-metrics?orgId=1))
-
-The pull request workflow is described in detail [here](https://github.com/kubernetes/community/tree/master/contributors/devel/pull-requests.md#the-testing-and-merge-workflow).
+* Not following [scalability good practices](https://github.com/kubernetes/community/tree/master/contributors/guide/scalability-good-practices.md)
 
 ## Code Review
 
@@ -201,8 +202,7 @@ sig-testing is responsible for that official infrastructure and CI.  The associa
 
 ## Documentation
 
-
-* Please help write this section.
+- [Contributing to Documentation](https://kubernetes.io/editdocs/)
 
 ## Issues Management or Triage
 
@@ -227,3 +227,9 @@ We follow the general [Cloud Native Computing Foundation guidelines](https://git
 ## Mentorship
 
 Please learn about our mentoring initiatives [here](http://git.k8s.io/community/mentoring/README.md).
+
+# Advanced Topics
+
+This section includes things that need to be documented, but typical contributors do not need to interact with regularly.
+
+- [OWNERS files](https://github.com/kubernetes/community/tree/master/contributors/guide/owners.md) - The Kubernetes organizations are managed with OWNERS files, which outline which parts of the code are owned by what groups. 
