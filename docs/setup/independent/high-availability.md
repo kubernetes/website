@@ -117,7 +117,9 @@ For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd
    EOF
    ```
 
-   Ensure that the `names` section in `ca-csr.json` matches your own company or personal address, or that you use a suitable default.
+   **Optional:** You can modify `ca-csr.json` to add a section for `names`.
+   See [the CFSSL wiki](https://github.com/cloudflare/cfssl/wiki/Creating-a-new-CSR) for an example.
+   {: .note}
 
 1. Next, generate the CA certs like so:
 
