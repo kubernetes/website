@@ -142,15 +142,20 @@ The output is similar to this:
     NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
     nginx    1/1       Running   0          13s    10.200.0.4   worker0
 
+### Versioning Kubernetes examples
 
-{% comment %}## Kubernetes.io word list
+
+
+## Kubernetes.io word list
 
 A list of Kubernetes-specific terms and words to be used consistently across the site.
 
 <table>
   <tr><th>Term</th><th>Usage</th></tr>
-  <tr><td>TBD</td><td>TBD</td></tr>
-</table>{% endcomment %}
+  <tr><td>Kubernetes</td><td>Kubernetes should always be capitalized.</td></tr>
+  <tr><td>Docker</td><td>Docker should always be capitalized.</td></tr>
+  <tr><td>SIG Docs</td><td>SIG Docs rather than `SIG-DOCS` or other variations.</td></tr>
+</table>
 
 ## Callout Formatting
 Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: **Note:** {: .note}, **Caution:** {: .caution}, and **Warning:** {: .warning}. 
