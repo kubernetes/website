@@ -931,12 +931,12 @@ This is because the Pods in the `zk` StatefulSet have a PodAntiAffinity specifie
                   - key: "app"
                     operator: In
                     values: 
-                    - zk-headless
+                    - zk-hs
               topologyKey: "kubernetes.io/hostname"
 ```
 
 The `requiredDuringSchedulingIgnoredDuringExecution` field tells the 
-Kubernetes Scheduler that it should never co-locate two Pods from the `zk-headless`
+Kubernetes Scheduler that it should never co-locate two Pods from the `zk-hs`
 Service in the domain defined by the `topologyKey`. The `topologyKey`
 `kubernetes.io/hostname` indicates that the domain is an individual node. Using 
 different rules, labels, and selectors, you can extend this technique to spread 
