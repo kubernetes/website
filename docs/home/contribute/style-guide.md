@@ -144,7 +144,31 @@ The output is similar to this:
 
 ### Versioning Kubernetes examples
 
+Example that include version specific information should be matched with accompanying text and the relevant Kubernetes version identified.
+This can be done by verifying the relevant page has the Jekyll include statement:
 
+    `{% include task-tutorial-prereqs.md %}`
+
+And the front-matter YAML of the document includes the key `min-kubernetes-server-version` set to the relevant version.
+
+If the example YAML is in a standalone file, please review the markdown that includes it as a reference and verify that file has the appropriate version information.
+For example, if you are writing a tutorial that is relevant to Kubernetes version 1.5, the front-matter of your markdown file should look something like:
+
+```yaml
+---
+title: <your tutorial title here>
+min-kubernetes-server-version: v1.5
+---
+```
+
+Examples are not expected to reference alternative version.
+Be careful to not include incorrect statements in your examples as comments, such as:
+
+```yaml
+apiVersion: v1 # earlier versions use...
+kind: Pod
+...
+```
 
 ## Kubernetes.io word list
 
@@ -154,7 +178,7 @@ A list of Kubernetes-specific terms and words to be used consistently across the
   <tr><th>Term</th><th>Usage</th></tr>
   <tr><td>Kubernetes</td><td>Kubernetes should always be capitalized.</td></tr>
   <tr><td>Docker</td><td>Docker should always be capitalized.</td></tr>
-  <tr><td>SIG Docs</td><td>SIG Docs rather than `SIG-DOCS` or other variations.</td></tr>
+  <tr><td>SIG Docs</td><td>SIG Docs rather than SIG-DOCS or other variations.</td></tr>
 </table>
 
 ## Callout Formatting
