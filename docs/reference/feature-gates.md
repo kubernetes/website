@@ -25,8 +25,16 @@ different Kubernetes components.
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
+<<<<<<< HEAD
 | `Accelerators` | `false` | Alpha | 1.6 | 1.10 |
 | `AdvancedAuditing` | `false` | Alpha | 1.7 | 1.7 |
+||||||| merged common ancestors
+| `Accelerators` | `false` | Alpha | 1.6 | |
+| `AdvancedAuditing` | `false` | Alpha | 1.7 | |
+=======
+| `Accelerators` | `false` | Alpha | 1.6 | 1.10 |
+| `AdvancedAuditing` | `false` | Alpha | 1.7 | |
+>>>>>>> Document the removal of Accelerators feature gate (#7389)
 | `AdvancedAuditing` | `true` | Beta | 1.8 | |
 | `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 |
 | `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
