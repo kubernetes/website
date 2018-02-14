@@ -550,9 +550,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"show-rc":     {&api.ReplicationController{}},
 			"show-srv":    {&api.Service{}},
 		},
-		"../docs/user-guide/horizontal-pod-autoscaling": {
-			"hpa-php-apache": {&autoscaling.HorizontalPodAutoscaler{}},
-		},
 		"../docs/user-guide/jobs/work-queue-1": {
 			"job": {&batch.Job{}},
 		},
