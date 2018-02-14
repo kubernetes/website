@@ -25,7 +25,7 @@ different Kubernetes components.
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
-| `Accelerators` | `false` | Alpha | 1.6 | |
+| `Accelerators` | `false` | Alpha | 1.6 | 1.10 |
 | `AdvancedAuditing` | `false` | Alpha | 1.7 | |
 | `AdvancedAuditing` | `true` | Beta | 1.8 | |
 | `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 |
