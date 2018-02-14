@@ -378,6 +378,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 
 {% endcapture %}
 
+{% assign tab_set_name = "etcd_mode" %}
 {% assign tab_names = "Choose one...,systemd,Static Pods" | split: ',' | compact %}
 {% assign tab_contents = site.emptyArray | push: choose | push: systemd | push: static_pods %}
 
@@ -472,6 +473,7 @@ In an on-site environment there may not be a physical load balancer available. I
 
 {% endcapture %}
 
+{% assign tab_set_name = "lb_mode" %}
 {% assign tab_names = "Choose one...,Cloud,On-Site" | split: ',' | compact %}
 {% assign tab_contents = site.emptyArray | push: choose | push: cloud | push: onsite %}
 
