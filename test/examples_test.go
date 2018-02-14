@@ -473,6 +473,9 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"hello-apparmor-pod": {&api.Pod{}},
 			"my-scheduler":       {&extensions.Deployment{}},
 		},
+		"../docs/tutorials/configuration/configmap/redis": {
+			"redis-pod": {&api.Pod{}},
+		},
 		"../docs/concepts/overview/object-management-kubectl": {
 			"simple_deployment": {&extensions.Deployment{}},
 			"update_deployment": {&extensions.Deployment{}},
@@ -532,9 +535,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"env-pod":        {&api.Pod{}},
 			"mount-file-pod": {&api.Pod{}},
 			"volume-pod":     {&api.Pod{}},
-		},
-		"../docs/user-guide/configmap/redis": {
-			"redis-pod": {&api.Pod{}},
 		},
 		"../docs/user-guide/downward-api": {
 			"dapi-pod":                 {&api.Pod{}},
