@@ -144,34 +144,27 @@ The output is similar to this:
 
 ### Versioning Kubernetes examples
 
-Code examples and configuration examples that include version information should be consistent with the accompanying text. Identify the Kubernetes version in the **Before you begin** section.
+Make sure that code examples and configuration examples that include version information are consistent with the accompanying text. Identify the Kubernetes version in the **Before you begin** section.
 
 To specify the Kubernetes version for a task or tutorial page:
 
 - Include `min-kubernetes-server-version` in the front matter of the page.
-- In the **Before you begin** section, use `{{ "{% include tasks-tutorial-prereqs.md "}} %}`.
+- In the **Before you begin** section, add `{{ "{% include tasks-tutorial-prereqs.md "}} %}`.
 
-If the example YAML is in a standalone file, find and review the topics that include it as a reference.
-Verify that any topics using the standalone YAML have the appropriate version information defined.
+If the YAML sample is in a standalone file, find and review all topics that include it as a reference.
+Verify that any topics using the standalone YAML define the appropriate version information.
 If a stand-alone YAML file is not referenced from any topics, consider deleting it instead of updating it.
 
-For example, if you are writing a tutorial that is relevant to Kubernetes version 1.8, the front-matter of your markdown file should look something like:
+For example, if you are writing a tutorial that is relevant to Kubernetes version 1.9, the front-matter of your markdown file should look something like:
 
 ```yaml
 ---
 title: <your tutorial title here>
-min-kubernetes-server-version: v1.8
+min-kubernetes-server-version: v1.9
 ---
 ```
 
 In code and configuration examples, do not include comments about alternative versions.
-Be careful to not include incorrect statements in your examples as comments, such as:
-
-```yaml
-apiVersion: v1 # earlier versions use...
-kind: Pod
-...
-```
 
 ## Kubernetes.io word list
 
@@ -179,8 +172,8 @@ A list of Kubernetes-specific terms and words to be used consistently across the
 
 <table>
   <tr><th>Term</th><th>Usage</th></tr>
-  <tr><td>Kubernetes</td><td>Kubernetes should always be capitalized.</td></tr>
-  <tr><td>Docker</td><td>Docker should always be capitalized.</td></tr>
+  <tr><td>Kubernetes</td><td>Capitalize Kubernetes.</td></tr>
+  <tr><td>Docker</td><td>Capitalize Docker.</td></tr>
   <tr><td>SIG Docs</td><td>SIG Docs rather than SIG-DOCS or other variations.</td></tr>
 </table>
 
@@ -264,7 +257,7 @@ The output is:
 **Note:** This is my note. Use `<br/>` to create multiple lines. <br/> <br/> You can still use _Markdown_ to **format** text!
 {: .note}
 
-Typing multiple lines does **not** work. The callout style only applies to the line directly above the tag.
+Callouts do not support multiple lines. Callout styles apply only to the line directly above the tag.
 
     **Note:** This is my note.
 
