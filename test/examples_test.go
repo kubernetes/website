@@ -544,12 +544,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"dapi-volume":           {&api.Pod{}},
 			"dapi-volume-resources": {&api.Pod{}},
 		},
-		"../docs/user-guide/environment-guide": {
-			"backend-rc":  {&api.ReplicationController{}},
-			"backend-srv": {&api.Service{}},
-			"show-rc":     {&api.ReplicationController{}},
-			"show-srv":    {&api.Service{}},
-		},
 		"../docs/user-guide/jobs/work-queue-1": {
 			"job": {&batch.Job{}},
 		},
