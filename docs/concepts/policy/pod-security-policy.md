@@ -426,7 +426,7 @@ by setting the `allowedFlexVolumes` field.
 
 **AllowedFlexVolumes** - Provides a whitelist of allowed FlexVolumes. Empty or
 nil indicates that all FlexVolume drivers may be used. For example, the following
-setting only permits the `examle/fast_cache` driver to be used on nodes:
+setting only permits the `example/fast_cache` driver to be used on nodes:
 
 ```yaml
 allowedFlexVolumes: [ "example/fast_cache" ]
