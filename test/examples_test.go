@@ -298,9 +298,14 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"counter-pod":                             {&api.Pod{}},
 			"fluentd-sidecar-config":                  {&api.ConfigMap{}},
 			"nginx-app":                               {&api.Service{}, &extensions.Deployment{}},
+			"nginx-deployment":                        {&extensions.Deployment{}},
 			"two-files-counter-pod":                   {&api.Pod{}},
 			"two-files-counter-pod-agent-sidecar":     {&api.Pod{}},
 			"two-files-counter-pod-streaming-sidecar": {&api.Pod{}},
+		},
+		"../docs/concepts/cluster-administration/nginx": {
+			"nginx-deployment": {&extensions.Deployment{}},
+			"nginx-svc":        {&api.Service{}},
 		},
 		"../docs/concepts/configuration": {
 			"commands": {&api.Pod{}},
@@ -516,7 +521,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"multi-pod":                  {&api.Pod{}, &api.Pod{}},
 			"new-nginx-deployment":       {&extensions.Deployment{}},
 			"nginx-app":                  {&api.Service{}, &extensions.Deployment{}},
-			"nginx-deployment":           {&extensions.Deployment{}},
 			"nginx-init-containers":      {&api.Pod{}},
 			"nginx-lifecycle-deployment": {&extensions.Deployment{}},
 			"nginx-probe-deployment":     {&extensions.Deployment{}},
@@ -556,10 +560,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"exec-liveness":            {&api.Pod{}},
 			"http-liveness":            {&api.Pod{}},
 			"http-liveness-named-port": {&api.Pod{}},
-		},
-		"../docs/user-guide/nginx": {
-			"nginx-deployment": {&extensions.Deployment{}},
-			"nginx-svc":        {&api.Service{}},
 		},
 		"../docs/user-guide/node-selection": {
 			"pod": {&api.Pod{}},
