@@ -540,14 +540,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"mount-file-pod": {&api.Pod{}},
 			"volume-pod":     {&api.Pod{}},
 		},
-		"../docs/user-guide/downward-api": {
-			"dapi-pod":                 {&api.Pod{}},
-			"dapi-container-resources": {&api.Pod{}},
-		},
-		"../docs/user-guide/downward-api/volume": {
-			"dapi-volume":           {&api.Pod{}},
-			"dapi-volume-resources": {&api.Pod{}},
-		},
 		"../docs/user-guide/jobs/work-queue-1": {
 			"job": {&batch.Job{}},
 		},
