@@ -109,9 +109,11 @@ imply any preferential status.
 
 ### Big Cloud Fabric from Big Switch Networks
  
-[Big Cloud Fabric](https://www.bigswitch.com/container-network-automation) is a next-generation data center switching fabric using software controls and a leaf-spine Clos architecture delivered on open networking hardware.
- 
-Big Cloud Fabric [integrates with the Kubernetes](https://www.youtube.com/watch?v=y46rZWz_DWc) to provide automated policy-based networking for containers in container-only and heterogeneous environments. It also enhances troubleshooting and visibility for container workloads. 
+[Big Cloud Fabric](https://www.bigswitch.com/container-network-automation) is a cloud native networking architecture, designed to run Kubernetes in private cloud/on-premise environments. Using unified physical & virtual SDN, Big Cloud Fabric tackles inherent container networking problems such as load balancing, visibility, troubleshooting, security policies & container traffic monitoring. 
+
+With the help of the Big Cloud Fabric's virtual pod multi-tenant architecture, container orchestration systems such as Kubernetes, RedHat Openshift, Mesosphere DC/OS & Docker Swarm will be natively integrated along side with VM orchestration systems such as VMware, OpenStack & Nutanix. Customers will be able to securely inter-connect any number of these clusters and enable inter-tenant communication between them if needed. 
+
+BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](http://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html). One of the BCF Kubernetes on premise deployments (which includes Kubernetes, DC/OS & VMware running on multiple DCs across different geographic regions) is also referenced [here](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/).
 
 ### Cilium
 
