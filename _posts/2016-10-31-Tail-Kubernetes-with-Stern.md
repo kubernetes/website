@@ -2,7 +2,8 @@
 layout: blog
 title: " Tail Kubernetes with Stern "
 date:  Tuesday, October 31, 2016
-
+pagination:
+  enabled: true
 ---
 _Editor’s note: today’s post is by Antti Kupila, Software Engineer, at Wercker, about building a tool to tail multiple pods and containers on Kubernetes._  
 

@@ -2,7 +2,8 @@
 layout: blog
 title: " Kubernetes Community Meeting Notes - 20160218 "
 date:  Wednesday, February 23, 2016
-
+pagination:
+  enabled: true
 ---
 #####  February 18th - kmachine demo, clusterops SIG formed, new k8s.io website preview, 1.2 update and planning 1.3
 The Kubernetes contributing community meets most Thursdays at 10:00PT to discuss the project's status via videoconference. Here are the notes from the latest meeting.
@@ -35,7 +36,7 @@ The Kubernetes contributing community meets most Thursdays at 10:00PT to discuss
 
 To get involved in the Kubernetes community consider joining our [Slack channel][3], taking a look at the [Kubernetes project][4] on GitHub, or join the [Kubernetes-dev Google group][5]. If you're really excited, you can do all of the above and join us for the next community conversation — February 25th, 2016. Please add yourself or a topic you want to know about to the [agenda][6] and get a calendar invitation by joining [this group][7].    
 
-{% youtube "https://youtu.be/L5BgX2VJhlY?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ" %}
+ "https://youtu.be/L5BgX2VJhlY?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ"
 
 _\-- Kubernetes Community_
 

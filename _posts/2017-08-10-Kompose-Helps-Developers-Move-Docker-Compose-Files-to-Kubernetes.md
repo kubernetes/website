@@ -2,7 +2,8 @@
 layout: blog
 title: " Kompose Helps Developers Move Docker Compose Files to Kubernetes "
 date:  Friday, August 10, 2017
-
+pagination:
+  enabled: true
 ---
 _Editor's note: today's post is by Charlie Drage, Software Engineer at Red Hat giving an update about the Kubernetes project Kompose._  
 

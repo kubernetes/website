@@ -2,6 +2,8 @@
 layout: blog
 title: " Bringing End-to-End Kubernetes Testing to Azure (Part 1) "
 date:  Tuesday, June 06, 2016
+pagination:
+  enabled: true
 ---
 
 _Today’s guest post is by Travis Newhouse, Chief Architect at AppFormix, writing about their experiences bringing Kubernetes to Azure._  

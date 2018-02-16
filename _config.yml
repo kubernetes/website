@@ -14,8 +14,9 @@ safe: false
 lsi: false
 
 latest: "v1.9"
+
 paginate: 7
-paginate_path: "blog/page:num"
+paginate_path: "/blog/page:num/"
 
 defaults:
   -

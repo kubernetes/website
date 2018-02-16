@@ -2,6 +2,8 @@
 layout: blog
 title: "Core Workloads API GA"
 date:  Tuesday, January 15, 2018
+pagination:
+  enabled: true
 ---
 
 ## DaemonSet, Deployment, ReplicaSet, and StatefulSet are GA

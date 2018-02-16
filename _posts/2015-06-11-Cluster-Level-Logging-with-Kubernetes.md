@@ -2,7 +2,8 @@
 layout: blog
 title: " Cluster Level Logging with Kubernetes "
 date:  Friday, June 11, 2015
-
+pagination:
+  enabled: true
 ---
 
 

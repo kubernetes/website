@@ -2,7 +2,8 @@
 layout: blog
 title: " State of the Container World, January 2016 "
 date:  Tuesday, February 01, 2016
-
+pagination:
+  enabled: true
 ---
 At the start of the new year, we sent out a survey to gauge the state of the container world. We’re ready to send the [February edition](https://docs.google.com/forms/d/13yxxBqb5igUhwrrnDExLzZPjREiCnSs-AH-y4SSZ-5c/viewform), but before we do, let’s take a look at the January data from the 119 responses (thank you for participating!).  
 

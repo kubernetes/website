@@ -2,7 +2,8 @@
 layout: blog
 title: " Enforcing Network Policies in Kubernetes "
 date:  Tuesday, October 30, 2017
-
+pagination:
+  enabled: true
 ---
 _**Editor's note: this post is part of a [series of in-depth articles](http://blog.kubernetes.io/2017/10/five-days-of-kubernetes-18.html) on what's new in Kubernetes 1.8. Today’s post comes from Ahmet Alp Balkan, Software Engineer, Google.**_  
 

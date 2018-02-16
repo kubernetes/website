@@ -2,7 +2,8 @@
 layout: blog
 title: " Run Deep Learning with PaddlePaddle on Kubernetes "
 date:  Thursday, February 08, 2017
-
+pagination:
+  enabled: true
 ---
 
 _Editor's note: Today's post is a joint post from the deep learning team at Baidu and the etcd team at CoreOS._  

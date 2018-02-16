@@ -8,6 +8,7 @@
 .container-fluid {
   padding: 0px;
   margin: 0px;
+  padding-left: .01 em;
 }
 body {
   font: normal normal 16px 'Trebuchet MS', Trebuchet, Verdana, sans-serif;
@@ -67,11 +68,68 @@ a:hover {
   padding-left: 50px;
 }
 
+
+header#topHeader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 160px;
+  background-color: #333;
+  background-image: url(http://kub.unitedcreations.xyz/images/texture.png);
+  background-position: center center;
+}
+#headerWrapper {
+  position: relative;
+  width: 1408px;
+  margin: 0px auto;
+  overflow: hidden;
+}
+div.header-title {
+  position: relative;
+  float: left;
+  width: 980px;
+  margin: 0 auto;
+  padding: 40px 0 0 20px;
+  border: true;
+}
+div.header-title h6 {
+  margin: 0;
+  padding-left: 108px;
+  font-weight: normal;
+  font-size: 18px;
+  color: white;
+}
+div.header-try {
+  width: 384px;
+  float: right;
+  color: white;
+  padding-top: 70px;
+}
+div.header-try h6 {
+  font-size: 16px;
+  margin: 0 0 20px;
+  color: transparent;
+}
+div.header-try a {
+  display: inline-block;
+  font-size: 16px;
+  padding: 10px 40px;
+  background: none;
+  border: 0;
+  background-color:  #326DE6;
+  border-radius: 6px;
+  color: white;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Tabs
+----------------------------------------------- */
 .blog-title {
   clear: left
 }
-/* Tabs
------------------------------------------------ */
+
 .tabs-inner .section:first-child {
   border-top: 0 solid #dddddd;
 }
@@ -83,13 +141,35 @@ a:hover {
 }
 
 
+/* Pagination Links */
+.pagination h4, h3{
+display: inline-block;
+}
+
+.pagination a {
+  text-decoration: none;
+}
+span.pagination {
+text-align: center;
+align-self: center;
+}
+
+
 /* Columns
 ----------------------------------------------- */
 .main-outer {
   border-top: 0 solid transparent;
 }
-.blog-content {
-  padding-left: 100px;
+@media (min-width: 500px) {
+  .blog-content {
+    padding-left: 100px;
+  }
+}
+
+@media (max-width: 499px) {
+  .blog-content {
+    padding-left: 20px;
+  }
 }
 .fauxcolumn-left-outer .fauxcolumn-inner {
   border-right: 1px solid transparent;
@@ -97,28 +177,20 @@ a:hover {
 .fauxcolumn-right-outer .fauxcolumn-inner {
   border-left: 1px solid transparent;
 }
+
 /* Headings
 ----------------------------------------------- */
 div.widget > h2,
 div.widget h2.title {
   margin: 0 0 1em 0;
-  font: normal bold 11px 'Trebuchet MS',Trebuchet,Verdana,sans-serif;
+  font: normal bold 11px 'Roboto',,sans-serif;
   color: #000000;
 }
 
-/* Pagination Links */
-.pagination h4{
-  display: inline-block;
-}
-
-span.pagination {
-text-align: center;
-align-self: center;
-}
 /* Posts
 ----------------------------------------------- */
 h2.date-header {
-  font: normal bold 11px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+  font: normal bold 11px 'Roboto', Tahoma, Helvetica, FreeSans, sans-serif;
 }
 .date-header span {
   background-color: #bbbbbb;
@@ -191,127 +263,6 @@ h3.post-title{
 
 /* Mobile
 ----------------------------------------------- */
-body.mobile  {
-  background-size: auto;
-}
-.mobile .body-fauxcolumn-outer {
-  background: transparent none repeat scroll top left;
-}
-.mobile .body-fauxcolumn-outer .cap-top {
-  background-size: 100% auto;
-}
-.mobile .content-outer {
-  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .15);
-  box-shadow: 0 0 3px rgba(0, 0, 0, .15);
-}
-.mobile .tabs-inner .widget ul {
-  margin-left: 0;
-  margin-right: 0;
-}
-.mobile .post {
-  margin: 0;
-}
-.mobile .main-inner .column-center-inner .section {
-  margin: 0;
-}
-.mobile .date-header span {
-  padding: 0.1em 10px;
-  margin: 0 -10px;
-}
-.mobile h3.post-title {
-  margin: 0;
-}
-.mobile .blog-pager {
-  background: transparent none no-repeat scroll top center;
-}
-.mobile .footer-outer {
-  border-top: none;
-}
-.mobile .main-inner, .mobile .footer-inner {
-  background-color: #ffffff;
-}
-.mobile-index-contents {
-  color: #666666;
-}
-.mobile-link-button {
-  background-color: #2288bb;
-}
-.mobile-link-button a:link, .mobile-link-button a:visited {
-  color: #ffffff;
-}
-.mobile .tabs-inner .section:first-child {
-  border-top: none;
-}
-.mobile .tabs-inner .PageList .widget-content {
-  background-color: #eeeeee;
-  color: #000000;
-  border-top: 1px solid #dddddd;
-  border-bottom: 1px solid #dddddd;
-}
-.mobile .tabs-inner .PageList .widget-content .pagelist-arrow {
-  border-left: 1px solid #dddddd;
-}
-* {font-family: Roboto, sans-serif}
-div.total-page-wrapper {
-  position: static;
-  width: 1408px;
-  margin: 0 auto;
-}
-header#topHeader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 160px;
-  background-color: #333;
-  background-image: url(http://kub.unitedcreations.xyz/images/texture.png);
-  background-position: center center;
-}
-#headerWrapper {
-  position: relative;
-  width: 1408px;
-  margin: 0px auto;
-  overflow: hidden;
-}
-div.header-title {
-  position: relative;
-  float: left;
-  width: 980px;
-  margin: 0 auto;
-  padding: 40px 0 0 20px;
-  border: true;
-}
-div.header-title h6 {
-  margin: 0;
-  padding-left: 108px;
-  font-weight: normal;
-  font-size: 18px;
-  color: white;
-}
-div.header-try {
-  width: 384px;
-  float: right;
-  color: white;
-  padding-top: 70px;
-}
-div.header-try h6 {
-  font-size: 16px;
-  margin: 0 0 20px;
-  color: transparent;
-}
-div.header-try a {
-  display: inline-block;
-  font-size: 16px;
-  padding: 10px 40px;
-  background: none;
-  border: 0;
-  background-color:  #326DE6;
-  border-radius: 6px;
-  color: white;
-  outline: none;
-  cursor: pointer;
-}
-
 .main-inner .column-right-outer {
   width: 320px;
   margin-right: -320px;
@@ -507,8 +458,8 @@ ul {
    transform: rotate(90deg);
 }
 
-.heading-year-toggle-checkbox:checked ~ .collapsible-year-body,
-.heading-month-toggle-checkbox:checked ~ .collapsible-posts-list{
+.heading-year-toggle-checkbox:checked + .collapsible-year-heading-label + .collapsible-year-body,
+.heading-month-toggle-checkbox:checked + .collapsible-month-heading-label + .collapsible-posts-list{
   display: block;
 }
 
@@ -532,4 +483,8 @@ table.post-table ,.post-table tr, .post-table td, .post-table th {
 
 img.big-img {
   width: 125%;
+}
+
+.content img {
+max-width: 100%;
 }

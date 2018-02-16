@@ -2,7 +2,8 @@
 layout: blog
 title: " Kubernetes and the Mesosphere DCOS "
 date:  Thursday, April 22, 2015
-
+pagination:
+  enabled: true
 ---
 
 # Kubernetes and the Mesosphere DCOS

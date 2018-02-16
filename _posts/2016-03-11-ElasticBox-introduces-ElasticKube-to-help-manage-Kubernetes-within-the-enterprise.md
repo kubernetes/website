@@ -1,8 +1,9 @@
 ---
 layout: blog
 title: " ElasticBox introduces ElasticKube to help manage Kubernetes within the enterprise "
-date:  Saturday, March 11, 2016 
-
+date:  Saturday, March 11, 2016
+pagination:
+  enabled: true
 ---
 Today’s guest post is brought to you by Brannan Matherson, from ElasticBox, who’ll discuss a new open source project to help standardize container deployment and management in enterprise environments. This highlights the advantages of authentication and user management for containerized applications
 
@@ -16,39 +17,39 @@ Fundamentally, ElasticKube delivers a web console for which compliments Kubernet
 
 ElasticKube enables organizations to accelerate adoption by developers, application operations and traditional IT operations teams and shares a mutual goal of increasing developer productivity, driving efficiency in container management and promoting the use of microservices as a modern application delivery methodology. When leveraging ElasticKube in your environment, users need to ensure the following technologies are configured appropriately to guarantee everything runs correctly:
 
-- 
-Configure Google Container Engine (GKE) for cluster installation and management 
+-
+Configure Google Container Engine (GKE) for cluster installation and management
 
-- 
+-
 Use Kubernetes to provision the infrastructure and clusters for containers &nbsp;
 
-- 
+-
 Use your existing tools of choice to actually build your containers
-- 
+-
 
 Use ElasticKube to run, deploy and manage your containers and services
 
 [![](http://cl.ly/0i3M2L3Q030z/Image%202016-03-11%20at%209.49.12%20AM.png)](http://cl.ly/0i3M2L3Q030z/Image%202016-03-11%20at%209.49.12%20AM.png)
-  
-  
+
+
 
 Getting Started with Kubernetes and ElasticKube  
-  
 
-  
+
+
 
 (this is a 3min walk through video with the following topics)
 
-1. 
+1.
 Deploy ElasticKube to a Kubernetes cluster
-2. 
+2.
 Configuration
-3. 
+3.
 Admin: Setup and invite a user
-4. 
+4.
 Deploy an instance
 
-  
+
 
 Hear What Others are Saying
 
@@ -56,9 +57,6 @@ Hear What Others are Saying
 
 _~Alberto Arias Maestro, Co-founder and Chief Technology Officer, ElasticBox_
 
-  
+
 
 _-- Brannan Matherson, Head of Product Marketing, ElasticBox_
-
-  
-

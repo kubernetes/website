@@ -15,15 +15,15 @@ layout: blog
   <!-- Pagination links -->
 <span class="pagination">
     {% if paginator.previous_page %}
-     <a href="{{ paginator.previous_page_path }}" class="previous">  <h4>Previous</h4></a>
+     <a href="{{ paginator.previous_page_path }}" class="previous button">  <h4>Previous</h4></a>
     {% else %}
       <h4><span class="previous">Previous</span></h4>
     {% endif %}
-    <span class="page_number">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+    <h3><span class="page_number">   Page: {{ paginator.page }} of {{ paginator.total_pages }}   </span></h3>
     {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path }}" class="next"><h4>Next</h4></a>
+      <a href="{{ paginator.next_page_path }}" class="next button"><h4>Next</h4></a>
     {% else %}
-      <h4><span class="next ">Next</span></h4>
+      <h4><span class="next">Next</span></h4>
     {% endif %}
 </span>
 </div>

@@ -2,6 +2,8 @@
 layout: blog
 title: Using eBPF in Kubernetes
 date:  Friday, December 07, 2017
+pagination:
+  enabled: true
 ---
 
 ## Introduction

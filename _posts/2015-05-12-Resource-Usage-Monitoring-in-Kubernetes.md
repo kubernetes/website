@@ -2,6 +2,8 @@
 layout: blog
 title:  Resource Usage Monitoring in Kubernetes
 date:  Wednesday, May 12, 2015
+pagination:
+  enabled: true
 ---
 
 Understanding how an application behaves when deployed is crucial to scaling the application and providing a reliable service. In a Kubernetes cluster, application performance can be examined at many different levels: containers, [pods](http://kubernetes.io/docs/user-guide/pods), [services](http://kubernetes.io/docs/user-guide/services), and whole clusters. As part of Kubernetes we want to provide users with detailed resource usage information about their running applications at all these levels. This will give users deep insights into how their applications are performing and where possible application bottlenecks may be found. In comes [Heapster](https://github.com/kubernetes/heapster), a project meant to provide a base monitoring platform on Kubernetes.  
@@ -56,7 +58,8 @@ The Grafana container serves Grafana’s UI which provides an easy to configure 
 
 Here is a video showing how to monitor a Kubernetes cluster using heapster, InfluxDB and Grafana:
 
-{% youtube "https://youtube.com/embed/SZgqjMrxo3g" %}
+
+ [![](https://img.youtube.com/vi/SZgqjMrxo3g/0.jpg)](https://www.youtube.com/watch?SZgqjMrxo3g)
 
 
 
@@ -80,7 +83,7 @@ Google Cloud Monitoring is a hosted monitoring service that allows you to visual
 
 
 Here is a video showing how to setup and run a Google Cloud Monitoring backed Heapster:
-{% youtube "https://youtube.com/embed/xSMNR2fcoLs"%}
+"https://youtube.com/embed/xSMNR2fcoLs"
 Here is a snapshot of the a Google Cloud Monitoring dashboard showing cluster-wide resource usage.
 
 
