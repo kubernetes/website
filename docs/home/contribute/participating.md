@@ -20,32 +20,35 @@ See [community-membership](https://github.com/kubernetes/community/blob/master/c
 
 - Members
 
-Any member of the [Kubernetes organization](https://github.com/kubernetes) can review a pull request, and SIG Docs team members frequently request reviews from other SIG members for technical accuracy. 
+Any member of the [Kubernetes organization](https://github.com/kubernetes) can review a pull request, and SIG Docs team members frequently request reviews from members of other SIGs for technical accuracy.
+SIG Docs also welcomes reviews and feedback regardless of Kubernetes org membership.
 You can indicate your approval by adding a comment of `/lgtm` to a pull request.
 
 - Reviewers
 
 Reviewers are individuals who review documentation pull requests. You can become a reviewer by adding your github handle to the [OWNERS file](https://github.com/kubernetes/community/blob/master/contributors/devel/owners.md) within the [website repo](https://github.com/kubernetes/website).
-(Additions to the OWNERS file require contributors to meet certain requirements. See the [Kubernetes community repo](https://github.com/kubernetes/community/blob/master/community-membership.md) for more information.
+To be added to the OWNERS file, you must meet certain requirements. See the [Kubernetes community repo](https://github.com/kubernetes/community/blob/master/community-membership.md) for more information.
 
-Our automation assigns reviewers to pull requests, and contributors can request your review with a comment on the pull request: `/assign [your_github_handle]`. To indicate that a pull request requires no further changes, a reviewer adds a comment to the pull request `/lgtm`.
+Our automation assigns reviewers to pull requests, and contributors can request your review with a comment on the pull request: `/assign [your_github_handle]`.
+To indicate that a pull request requires no further changes, a reviewer should add comment to the pull request `/lgtm`.
 
-Approvers can indicate their approval with a comment: `/approve`.
+Approvers can indicate their approval with a comment to the pull request: `/approve`.
 
 Reviewers and approvers can add a `/hold` comment to prevent the pull request from being merged. Another reviewer or approver can remove a hold with the comment: `/hold cancel`.
 
-When both of a `lgtm` and `approval` tag have been added, and there are no `hold` tags, the automation on the repository will merge the pull request.
+The automation reads the /hold, /lgtm, and /approve comments and sets labels on the pull request.
+When both the lgtm and approve labels exist, and there are no hold labels, the automation on the repository merges the pull request.
 
 **Note:** There is a special case when an approver uses the comment: `/lgtm`. In these cases, the automation will add both `lgtm` and `approve` tags, skipping any further review.
 {: .note }
- 
-When a reviewer is assigned a pull request to review it is not a sole responsibility, and any other reviewer may also offer their opinions on the pull request. 
-If a reviewer is requested, it is generally expected that the PR will be left to that reviewer to do their editorial pass on the content. 
-For small and/or trivial pull requests, the assigned reviewer may be skipped if an approver thinks the content is sufficient and well understood. 
+
+When a reviewer is assigned a pull request to review it is not a sole responsibility, and any other reviewer may also offer their opinions on the pull request.
+If a reviewer is requested, it is generally expected that the PR will be left to that reviewer to do their editorial pass on the content.
+For small and/or trivial pull requests, the assigned reviewer may be skipped if an approver thinks the content is sufficient and well understood.
 
 - Approvers
 
-Approvers have the ability to merge a PR. 
+Approvers have the ability to merge a PR.
 An approver can indicate `/lgtm` or `/approve` in a PR comment to have a pull request merged, and all pull requests require at least one approver to provide their vote in order for the PR to be merged.
 
 For PRs that require no review (typos or otherwise trivial changes), approvers can enter an `lgtm` comment, indicating no need for further review and flagging the PR with approval to merge.
@@ -61,7 +64,8 @@ The SIG Docs group defines two teams on Github:
 These groups maintain the [Kubernetes website repository](https://github.com/kubernetes/website), which houses the content hosted at this site.
 Both can be referenced with their `@name` in github comments to communicate with everyone in that group.
 
-These groups overlap, but aren't identical, to the automation tooling that Kubernetes uses as a project. For assignment of issues, pull requests, and to support PR approvals, the automation uses an OWNERS file for the repository. The approvers and reviewers for PR assignment and automation tooling work from the OWNERS file. 
+These teams overlap, but do not exactly match, the groups used by the automation tooling.
+For assignment of issues, pull requests, and to support PR approvals, the automation uses information from the OWNERS file.
 
 To volunteer as a reviewer or approver, make a pull request and add your Github handle to the relevant section in the OWNERS file.
 
