@@ -9,6 +9,6 @@ tags:
 - extension
 full-link: docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/
 short-description: >
-  A custom resource definition is the representation of a customization of a particular Kubernetes installation.
+  Custom code that defines a resource to add to your Kubernetes API server without building a complete custom server.
 long-description: >
-  A resource definition that defines the endpoint in the Kubernetes API that stores a collection of API objects of a certain kind that is specified.
+  Custom Resource Definitions let you extend the Kubernetes API for your environment if the publicly supported API resources can't meet your needs. 
