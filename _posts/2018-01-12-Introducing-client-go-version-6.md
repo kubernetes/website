@@ -213,33 +213,32 @@ Using client-go’s dynamic client to access CustomResources is discouraged and 
 
 ### Comment Blocks
 You can now place tags in the comment block just above a type or function, or in the second block above. There is no distinction anymore between these two comment blocks. This used to a be a source of [subtle errors when using the generators](https://github.com/kubernetes/kubernetes/issues/53893):  
-
+```
 // second block above  
 // +k8s:some-tag  
 
 // first block above  
 // +k8s:another-tag  
 type Foo struct {}
-
+```
 
 
 ### Custom Client Methods
 You can now use extended tag definitions to create custom verbs . This lets you expand beyond the verbs defined by HTTP. This opens the door to higher levels of customization.  
 
 For example, this block leads to the generation of the method UpdateScale(s \*autoscaling.Scale) (\*autoscaling.Scale, error):  
-
+```
 // genclient:method=UpdateScale,verb=update,subresource=scale,input=k8s.io/kubernetes/pkg/apis/autoscaling.Scale,result=k8s.io/kubernetes/pkg/apis/autoscaling.Scale
-
+```
 
 
 ### Resolving Golang Naming Conflicts
 In more complex API groups it’s possible for Kinds, the group name, the Go package name, and the Go group alias name to conflict. This was not handled correctly prior to 1.9. The following tags resolve naming conflicts and make the generated code prettier:  
 
-
-
-
+```
 // +groupName=example2.example.com  
 // +groupGoName=SecondExample
+```
 
 These are usually [in the doc.go file of an API package](https://github.com/kubernetes/code-generator/blob/release-1.9/_examples/crd/apis/example2/v1/doc.go#L18). The first is used as the CustomResource group name when RESTfully speaking to the API server using HTTP. The second is used in the generated Golang code (for example, in the clientset) to access the group version:  
 
