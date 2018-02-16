@@ -26,8 +26,7 @@ You can indicate your approval by adding a comment of `/lgtm` to a pull request.
 
 - Reviewers
 
-Reviewers are individuals who review documentation pull requests. You can become a reviewer by adding your github handle to the [OWNERS file](https://github.com/kubernetes/community/blob/master/contributors/devel/owners.md) within the [website repo](https://github.com/kubernetes/website).
-To be added to the OWNERS file, you must meet certain requirements. See the [Kubernetes community repo](https://github.com/kubernetes/community/blob/master/community-membership.md) for more information.
+Reviewers are individuals who review documentation pull requests. 
 
 Our automation assigns reviewers to pull requests, and contributors can request your review with a comment on the pull request: `/assign [your_github_handle]`.
 To indicate that a pull request requires no further changes, a reviewer should add comment to the pull request `/lgtm`.
@@ -53,10 +52,9 @@ An approver can indicate `/lgtm` or `/approve` in a PR comment to have a pull re
 
 For PRs that require no review (typos or otherwise trivial changes), approvers can enter an `lgtm` comment, indicating no need for further review and flagging the PR with approval to merge.
 
+### Teams and groups within SIG Docs
 
-### Teams and groups within SIG-DOCS
-
-You can get an overview of [SIG-DOCS from the community github repo](https://github.com/kubernetes/community/tree/master/sig-docs). 
+You can get an overview of [SIG Docs from the community github repo](https://github.com/kubernetes/community/tree/master/sig-docs). 
 The SIG Docs group defines two teams on Github:
  - [@kubernetes/sig-docs-maintainers](https://github.com/orgs/kubernetes/teams/sig-docs-maintainers)
  - [@kubernetes/sig-docs-pr-reviews](https://github.com/orgs/kubernetes/teams/sig-docs-pr-reviews)
@@ -67,10 +65,11 @@ Both can be referenced with their `@name` in github comments to communicate with
 These teams overlap, but do not exactly match, the groups used by the automation tooling.
 For assignment of issues, pull requests, and to support PR approvals, the automation uses information from the OWNERS file.
 
-To volunteer as a reviewer or approver, make a pull request and add your Github handle to the relevant section in the OWNERS file.
+To volunteer as a reviewer or approver, make a pull request and add your Github handle to the relevant section in the [OWNERS file](https://github.com/kubernetes/community/blob/master/contributors/devel/owners.md).
 
-**Note:** Reviewers and approvers must meet requirements for participation. 
+**Note:** Reviewers and approvers must meet requirements for participation.
 For more information, see the [Kubernetes community](https://github.com/kubernetes/community/blob/master/community-membership.md#membership) repository.
+{: .note }
 
 Documentation for the [OWNERS](https://github.com/kubernetes/community/blob/master/contributors/devel/owners.md) explains how to maintain OWNERS for each repository that enables it.
 
@@ -85,7 +84,7 @@ These two plugins use the [OWNERS](https://github.com/kubernetes/website/blob/ma
 {% capture whatsnext %}
 For more information about contributing to the Kubernetes documentation, see:
 
-* Review the SIG-DOCS [Style Guide](/docs/home/contribute/style-guide/).
+* Review the SIG Docs [Style Guide](/docs/home/contribute/style-guide/).
 * Learn how to [stage your documentation changes](/docs/home/contribute/stage-documentation-changes/).
 * Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
