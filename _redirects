@@ -71,12 +71,10 @@
 /docs/api-reference/policy/v1beta1/definitions/     https://v1-4.docs.kubernetes.io/docs/api-reference/policy/v1beta1/definitions/ 301
 /docs/api-reference/README/     https://v1-4.docs.kubernetes.io/docs/api-reference/README/ 301
 /docs/api-reference/storage.k8s.io/v1beta1/operations/     https://v1-4.docs.kubernetes.io/docs/api-reference/storage.k8s.io/v1beta1/operations/ 301
-/docs/api-reference/v1.4/*     https://v1-4.docs.kubernetes.io/docs/reference/ 301
-/docs/api-reference/1_5/*     https://v1-5.docs.kubernetes.io/docs/reference/ 301
-/docs/api-reference/v1.5/*     https://v1-5.docs.kubernetes.io/docs/reference/ 301
 /docs/api-reference/v1.6/*     https://v1-6.docs.kubernetes.io/docs/reference/ 301
 /docs/api-reference/v1.7/*     https://v1-7.docs.kubernetes.io/docs/reference/ 301
 /docs/api-reference/v1.8/*     https://v1-8.docs.kubernetes.io/docs/api-reference/v1.8/:splat 301
+/docs/api-reference/v1.9/     /docs/reference/generated/kubernetes-api/v1.9/ 301
 /docs/api-reference/v1/definitions/     /docs/api-reference/v1.9/ 301
 /docs/api-reference/v1/operations/     /docs/api-reference/v1.9/ 301
 
@@ -178,6 +176,7 @@
 /docs/getting-started-guides/ubuntu/calico/     /docs/getting-started-guides/ubuntu/ 301
 /docs/getting-started-guides/vagrant/     /docs/getting-started-guides/alternatives/ 301
 /docs/getting-started-guides/windows/While/     /docs/getting-started-guides/windows/ 301
+/docs/getting-started-guides/centos/* /docs/setup/independent/create-cluster-kubeadm/ 301
 
 /docs/hellonode/     /docs/tutorials/stateless-application/hello-minikube/ 301
 /docs/home/coreos/     /docs/getting-started-guides/coreos/ 301
@@ -193,9 +192,6 @@
 
 /docs/reporting-security-issues/     /security/ 301
 
-/docs/resources-reference/1_5/*     /docs/resources-reference/v1.5/ 301
-/docs/resources-reference/1_5/*     https://v1-5.docs.kubernetes.io/docs/resources-reference/v1.5/ 301
-/docs/resources-reference/v1.5/node_modules/*     https://v1-5.docs.kubernetes.io/docs/resources-reference/v1.5/ 301
 /docs/resources-reference/1_6/*     /docs/resources-reference/v1.6/ 301
 /docs/resources-reference/1_7/*     /docs/resources-reference/v1.7/ 301
 /docs/resources-reference/v1.8/*     /docs/api-reference/v1.8/:splat 301
@@ -347,9 +343,7 @@
 /docs/user-guide/kubectl/v1.9/*     /docs/reference/generated/kubectl/kubectl-commands/:splat 301
 /docs/user-guide/kubectl-conventions/     /docs/reference/kubectl/conventions/
 /docs/user-guide/kubectl-cheatsheet/     /docs/reference/kubectl/cheatsheet/  
-/docs/user-guide/kubectl/1_5/*     https://v1-5.docs.kubernetes.io/docs/user-guide/kubectl/v1.5/ 301
 /docs/user-guide/kubectl/kubectl_*/     /docs/reference/generated/kubectl/kubectl-commands#:splat 301
-/docs/user-guide/kubectl/v1.5/node_modules/*     https://v1-5.docs.kubernetes.io/docs/user-guide/kubectl/v1.5/ 301
 /docs/user-guide/kubectl/v1.6/node_modules/*     https://v1-6.docs.kubernetes.io/docs/user-guide/kubectl/v1.6/ 301
 /docs/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
 /docs/user-guide/liveness/     /docs/tasks/configure-pod-container/configure-liveness-readiness-probes/ 301

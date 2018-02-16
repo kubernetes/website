@@ -498,11 +498,11 @@ servers' WALs, and all of their snapshots, remain durable.
 ## Ensuring Consistent Configuration
 
 As noted in the [Facilitating Leader Election](#facilitating-leader-election) and
-[Achieving Consensus](#achieving-consensus) sections, the servers in a 
-ZooKeeper ensemble require consistent configuration in order to elect a leader 
+[Achieving Consensus](#achieving-consensus) sections, the servers in a
+ZooKeeper ensemble require consistent configuration in order to elect a leader
 and form a quorum. They also require consistent configuration of the Zab protocol
-in order for the protocol to work correctly over a network. In our example we 
-achive consistent configuration by embedding the configuration directly into 
+in order for the protocol to work correctly over a network. In our example we
+achieve consistent configuration by embedding the configuration directly into
 the manifest.
 
 Get the `zk` StatefulSet.
@@ -798,7 +798,9 @@ The Pod `template` for the `zk` StatefulSet specifies a liveness probe.
  livenessProbe:
           exec:
             command:
-            - "zkOk.sh"
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
           initialDelaySeconds: 15
           timeoutSeconds: 5
 ```
@@ -809,8 +811,7 @@ word to test the server's health.
 
 
 ```bash
-ZK_CLIENT_PORT=${ZK_CLIENT_PORT:-2181}
-OK=$(echo ruok | nc 127.0.0.1 $ZK_CLIENT_PORT)
+OK=$(echo ruok | nc 127.0.0.1 $1)
 if [ "$OK" == "imok" ]; then
     exit 0
 else
@@ -831,7 +832,7 @@ In another window, delete the `zkOk.sh` script from the file system of Pod `zk-0
 
 
 ```shell
-kubectl exec zk-0 -- rm /opt/zookeeper/bin/zkOk.sh
+kubectl exec zk-0 -- rm /usr/bin/zookeeper-ready
 ```
 
 
@@ -875,7 +876,9 @@ probe from the `zookeeper.yaml` manifest is identical to the liveness probe.
  readinessProbe:
           exec:
             command:
-            - "zkOk.sh"
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
           initialDelaySeconds: 15
           timeoutSeconds: 5
 ```
