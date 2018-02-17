@@ -10,6 +10,7 @@ toc:
   landing_page: /editdocs/
   section:
   - editdocs.md
+  - docs/home/contribute/participating.md
   - docs/home/contribute/create-pull-request.md
   - docs/home/contribute/write-new-topic.md
   - docs/home/contribute/stage-documentation-changes.md
