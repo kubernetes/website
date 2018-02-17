@@ -59,7 +59,7 @@ a Kubernetes cluster from scratch.
 
 * [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
 
-* [Kubermatic](https://kubermatic.io) provides managed Kubernetes clusters for various public clouds, including AWS and Digital Ocean, as well as on-premises with OpenStack integration.
+* [Kubermatic](https://www.loodse.com) provides managed Kubernetes clusters for various public clouds, including AWS and Digital Ocean, as well as on-premises with OpenStack integration.
 
 # Turnkey Cloud Solutions
 
@@ -82,7 +82,7 @@ These solutions allow you to create Kubernetes clusters on your internal, secure
 few commands.
 
 * [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
-* [Kubermatic](https://kubermatic.io/)
+* [Kubermatic](https://www.loodse.com)
 
 # Custom Solutions
 
