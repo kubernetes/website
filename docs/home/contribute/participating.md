@@ -18,6 +18,10 @@ See [community-membership](https://github.com/kubernetes/community/blob/master/c
 
 ## Roles and Responsibilities
 
+The automation reads `/hold`, `/lgtm`, and `/approve` comments and sets labels on the pull request.
+When a pull request has the `lgtm` and `approve` labels without any `hold` labels, the pull request merges automatically.
+Kubernetes org members, and reviewers and approvers for SIG Docs can add comments to control the merge automation.
+
 - Members
 
 Any member of the [Kubernetes organization](https://github.com/kubernetes) can review a pull request, and SIG Docs team members frequently request reviews from members of other SIGs for technical accuracy.
@@ -28,25 +32,32 @@ You can indicate your approval by adding a comment of `/lgtm` to a pull request.
 
 Reviewers are individuals who review documentation pull requests. 
 
-Our automation assigns reviewers to pull requests, and contributors can request your review with a comment on the pull request: `/assign [your_github_handle]`.
+Automation assigns reviewers to pull requests, and contributors can request a review with a comment on the pull request: `/assign [@_github_handle]`.
 To indicate that a pull request requires no further changes, a reviewer should add comment to the pull request `/lgtm`.
+A reviewer indicates technical accuracy with a `lgtm` comment.
 
-Approvers can indicate their approval with a comment to the pull request: `/approve`.
-
-Reviewers and approvers can add a `/hold` comment to prevent the pull request from being merged. Another reviewer or approver can remove a hold with the comment: `/hold cancel`.
-
-The automation reads the /hold, /lgtm, and /approve comments and sets labels on the pull request.
-When a pull request has the `lgtm` and `approve` labels without any `hold` labels, the pull request merges automatically.
+Reviewers can add a `/hold` comment to prevent the pull request from being merged.
+Another reviewer or approver can remove a hold with the comment: `/hold cancel`.
 
 When a reviewer is assigned a pull request to review it is not a sole responsibility, and any other reviewer may also offer their opinions on the pull request.
 If a reviewer is requested, it is generally expected that the PR will be left to that reviewer to do their editorial pass on the content.
 If a PR author or SIG Docs maintainer requests a review, refrain from merging or closing the PR until the requested reviewer completes their review.
-Approvers may skip further reviews for small pull requests if the proposed changes appear trivial and/or well-understood.
 
 - Approvers
 
 Approvers have the ability to merge a PR.
+
+Approvers can indicate their approval with a comment to the pull request: `/approve`.
+An approver is indicating editorial approval with the an `/approve` comment.
+
+Approvers can add a `/hold` comment to prevent the pull request from being merged.
+Another reviewer or approver can remove a hold with the comment: `/hold cancel`.
+
+Approvers may skip further reviews for small pull requests if the proposed changes appear trivial and/or well-understood.
 An approver can indicate `/lgtm` or `/approve` in a PR comment to have a pull request merged, and all pull requests require at least one approver to provide their vote in order for the PR to be merged.
+
+**Note:** There is a special case when an approver uses the comment: `/lgtm`. In these cases, the automation will add both `lgtm` and `approve` tags, skipping any further review.
++{: .note }
 
 For PRs that require no review (typos or otherwise trivial changes), approvers can enter an `lgtm` comment, indicating no need for further review and flagging the PR with approval to merge.
 
