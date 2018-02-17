@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bowei
 - zihongz
 title: Customizing DNS Service

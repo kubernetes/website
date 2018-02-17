@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bryk
 - mikedanese
 - rf232

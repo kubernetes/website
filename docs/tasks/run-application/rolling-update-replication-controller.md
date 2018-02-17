@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - janetkuo
 title: Perform Rolling Update Using a Replication Controller
 ---

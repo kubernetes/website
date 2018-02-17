@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - pipejakob
 - luxas
 - roberthbailey

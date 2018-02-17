@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - fgrzadkowski
 - jszczepkowski
 - directxman12
