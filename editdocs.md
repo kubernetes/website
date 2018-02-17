@@ -58,3 +58,8 @@ For more information about contributing to the Kubernetes documentation, see:
 * [Staging Your Documentation Changes](/docs/home/contribute/stage-documentation-changes/)
 * [Using Page Templates](/docs/home/contribute/page-templates/)
 * [Documentation Style Guide](/docs/home/contribute/style-guide/)
+* How to work with generated documentation
+  * [Generating Reference Documentation for Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
+  * [Generating Reference Documentation for kubectl Commands](/docs/home/contribute/generated-reference/kubectl/)
+  * [Generating Reference Documentation for the Kubernetes API](/docs/home/contribute/generated-reference/kubernetes-api/)
+  * [Generating Reference Pages for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/)
