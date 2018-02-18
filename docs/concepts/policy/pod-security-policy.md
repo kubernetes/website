@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - pweil-
 - tallclair
 title: Pod Security Policies

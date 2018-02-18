@@ -1,6 +1,6 @@
 ---
 title: Service Catalog
-approvers:
+reviewers:
 - chenopis
 ---
 

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 - janetkuo
 title: ReplicationController

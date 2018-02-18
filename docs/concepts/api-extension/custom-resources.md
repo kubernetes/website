@@ -1,6 +1,6 @@
 ---
 title: Custom Resources
-approvers:
+reviewers:
 - enisoc
 - deads2k
 ---
