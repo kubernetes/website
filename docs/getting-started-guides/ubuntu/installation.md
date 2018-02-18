@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - caesarxuchao
 - erictune
 title: Setting up Kubernetes with Juju
