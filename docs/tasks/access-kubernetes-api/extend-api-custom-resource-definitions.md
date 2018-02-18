@@ -356,7 +356,6 @@ When the status subresource is enabled, the `/status` subresource for the custom
 - `PUT` requests to the `/status` subresource only validate the status stanza of the custom resource.
 - `PUT`/`POST`/`PATCH` requests to the custom resource ignore changes to the status stanza.
 - Any changes to the spec stanza increments the value at `.metadata.generation`.
-- Only the `properties` construct is allowed in the root schema for custom resource validation.
 
 #### Scale subresource
 
