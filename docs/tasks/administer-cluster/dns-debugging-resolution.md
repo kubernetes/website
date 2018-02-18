@@ -2,7 +2,7 @@
 approvers:
 - bowei
 - zihongz
-title:  Debugging DNS resolution
+title:  Debugging DNS Resolution
 ---
 
 {% capture overview %}

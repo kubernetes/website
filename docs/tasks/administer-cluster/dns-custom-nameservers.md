@@ -184,7 +184,7 @@ data:
 ```
 
 ## What's next
-- [Debugging DNS resolution](/docs/tasks/administer-cluster/dns-debugging-resolution/).
+- [Debugging DNS Resolution](/docs/tasks/administer-cluster/dns-debugging-resolution/).
 
 {% endcapture %}
 
