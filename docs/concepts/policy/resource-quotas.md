@@ -108,6 +108,9 @@ are supported:
 | `services.nodeports` | The total number of services of type node port that can exist in the namespace. |
 | `secrets` | The total number of secrets that can exist in the namespace. |
 
+Additionally, generic object count quota is supported on all standard resources
+using the `count/<resource>.<group>` syntax.
+
 For example, `pods` quota counts and enforces a maximum on the number of `pods`
 created in a single namespace.
 
@@ -216,6 +219,30 @@ replicationcontrollers  0       20
 secrets                 1       10
 services                0       10
 services.loadbalancers  0       2
+```
+
+Kubectl also supports object count quota for all namespaced resources
+using the syntax `count/<resource>.<group>`:
+
+```shell
+$ kubectl create namespace myspace
+namespace "myspace" created
+
+$ kubectl create quota test --hard=count/deployments.extensions=2,count/replicasets.extensions=4,count/pods=3,count/secrets=4 --namespace=myspace
+resourcequota "test" created
+
+$ kubectl run nginx --image=nginx --replicas=2 --namespace=myspace
+deployment "nginx" created
+
+$ kubectl describe quota --namespace=myspace
+Name:                         test
+Namespace:                    myspace
+Resource                      Used  Hard
+--------                      ----  ----
+count/deployments.extensions  1     2
+count/pods                    2     3
+count/replicasets.extensions  1     4
+count/secrets                 1     4
 ```
 
 ## Quota and Cluster Capacity
