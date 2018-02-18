@@ -82,10 +82,9 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: cassandra-data
-      annotations:
-        volume.beta.kubernetes.io/storage-class: fast
     spec:
       accessModes: [ "ReadWriteOnce" ]
+      storageClassName: fast
       resources:
         requests:
           storage: 1Gi
