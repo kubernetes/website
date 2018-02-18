@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - crassirostris
 - piosz
 title: Events in Stackdriver

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - madhusudancs
 title: Set up Cluster Federation with Kubefed
 ---

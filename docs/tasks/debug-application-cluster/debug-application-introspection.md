@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - janetkuo
 - thockin
 title: Application Introspection and Debugging
