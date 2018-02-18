@@ -250,7 +250,7 @@ Resource type   | Abbreviated alias
 `configmaps` |`cm`
 `controllerrevisions` |
 `cronjobs` |
-`customresourcedefinition` |`crd`
+`customresourcedefinition` |`crd`, `crds`
 `daemonsets` |`ds`
 `deployments` |`deploy`
 `endpoints` |`ep`
