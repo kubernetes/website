@@ -42,6 +42,7 @@ different Kubernetes components.
 | `CustomPodDNS` | `false` | Alpha | 1.9 | |
 | `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
 | `CustomResourceValidation` | `true` | Beta | 1.9 | |
+| `CustomResourceSubresources` | `false` | Alpha | 1.10 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
@@ -130,6 +131,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
    Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
    for more details.
 - `CustomeResourceValidation`: Enable schema based validation on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+- `CustomResourceSubresources`: Enable `/status` and `/scale` subresources
+on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
   based resource provisioning on nodes.
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
