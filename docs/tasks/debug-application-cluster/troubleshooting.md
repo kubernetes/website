@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - brendandburns
 - davidopp
 title: Troubleshooting

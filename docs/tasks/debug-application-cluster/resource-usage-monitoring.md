@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 title: Tools for Monitoring Compute, Storage, and Network Resources
 ---

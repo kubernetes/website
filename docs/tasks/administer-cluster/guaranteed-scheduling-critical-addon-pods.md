@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - davidopp
 - filipg
 - piosz
