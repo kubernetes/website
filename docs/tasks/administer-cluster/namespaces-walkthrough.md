@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - derekwaynecarr
 - janetkuo
 title: Namespaces Walkthrough

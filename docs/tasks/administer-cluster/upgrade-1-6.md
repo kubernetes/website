@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mml
 title: Cluster Management Guide for Version 1.6
 ---

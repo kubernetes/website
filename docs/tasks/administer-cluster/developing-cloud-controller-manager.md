@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - luxas
 - thockin
 - wlan0
