@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - timstclair
 - deads2k
 - liggitt

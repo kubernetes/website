@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - deads2k
 - liggitt

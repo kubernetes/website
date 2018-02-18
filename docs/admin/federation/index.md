@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - madhusudancs
 - mml
 - nikhiljindal
