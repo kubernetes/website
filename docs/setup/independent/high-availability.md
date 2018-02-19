@@ -379,6 +379,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 
 {% endcapture %}
 
+{% assign tab_set_name = "etcd_mode" %}
 {% assign tab_names = "Choose one...,systemd,Static Pods" | split: ',' | compact %}
 {% assign tab_contents = site.emptyArray | push: choose | push: systemd | push: static_pods %}
 
@@ -386,7 +387,14 @@ Please select one of the tabs to see installation instructions for the respectiv
 
 ## Set up master Load Balancer
 
-The next step is to create a Load Balancer that sits in front of your master nodes. How you do this depends on your environment; you could, for example, leverage a cloud provider Load Balancer, or set up your own using nginx, keepalived, or HAproxy. Some examples of cloud provider solutions are:
+The next step is to create a Load Balancer that sits in front of your master nodes. How you do this depends on your environment; you could, for example, leverage a cloud provider Load Balancer, or set up your own using nginx, keepalived, or HAproxy.
+
+{% capture choose %}
+Please select one of the tabs to see installation instructions for information on load balancing in the respective environment.
+{% endcapture %}
+
+{% capture cloud %}
+Some examples of cloud provider solutions are:
 
 * [AWS Elastic Load Balancer](https://aws.amazon.com/elasticloadbalancing/)
 * [GCE Load Balancing](https://cloud.google.com/compute/docs/load-balancing/)
@@ -395,6 +403,82 @@ The next step is to create a Load Balancer that sits in front of your master nod
 You will need to ensure that the load balancer routes to **just `master0` on port 6443**. This is because kubeadm will perform health checks using the load balancer IP. Since `master0` is set up individually first, the other masters will not have running apiservers, which will result in kubeadm hanging indefinitely.
 
 If possible, use a smart load balancing algorithm like "least connections", and use health checks so unhealthy nodes can be removed from circulation. Most providers will provide these features.
+{% endcapture %}
+
+{% capture onsite %}
+In an on-site environment there may not be a physical load balancer available. Instead, keepalived can be used to setup a virtual IP pointing to a healthy master node. The configuration shown here provides an _active/passive_ setup rather than _real_ load balancing, but it can be extended for this purpose quite easily by setting up HAProxy, nginx or similar on the master nodes (not covered here). 
+
+1. Install keepalived, e.g. using your distribution's package manager. The configuration shown here works with version 1.3.5 and supposedly many others. Make sure to have it enabled (chkconfig, systemd, ...) so that it starts automatically when the respective node comes up.
+
+2. Create the following configuration file _/etc/keepalived/keepalived.conf_ on all master nodes:
+
+    ```shell
+    ! Configuration File for keepalived
+    global_defs {
+      router_id LVS_DEVEL
+    }
+    
+    vrrp_script check_apiserver {
+      script "/etc/keepalived/check_apiserver.sh"
+      interval 3
+      weight -2
+      fall 10
+      rise 2
+    }
+    
+    vrrp_instance VI_1 {
+        state <STATE>
+        interface <INTERFACE>
+        virtual_router_id 51
+        priority <PRIORITY>
+        authentication {
+            auth_type PASS
+            auth_pass 4be37dc3b4c90194d1600c483e10ad1d
+        }
+        virtual_ipaddress {
+            <VIRTUAL-IP>
+        }
+        track_script {
+            check_apiserver
+        }
+    }
+    ```
+
+    In the section `vrrp_instance VI_1`, change few lines depending on your setup:
+
+    * `state` is either `MASTER` (on the first master nodes) or `BACKUP` (the other master nodes).
+    * `interface` is the name of an existing public interface to bind the virtual IP to (usually the primary interface).
+    * `priority` should be higher for the first master node, e.g. 101, and lower for the others, e.g. 100.
+    * `auth_pass` use any random string here.
+    * `virtual_ipaddresses` should contain the virtual IP for the master nodes.
+
+3. Install the following health check script to _/etc/keepalived/check_apiserver.sh_ on all master nodes:
+
+    ```shell
+    #!/bin/sh
+
+    errorExit() {
+        echo "*** $*" 1>&2
+        exit 1
+    }
+
+    curl --silent --max-time 2 --insecure https://localhost:6443/ -o /dev/null || errorExit "Error GET https://localhost:6443/"
+    if ip addr | grep -q <VIRTUAL-IP>; then
+        curl --silent --max-time 2 --insecure https://<VIRTUAL-IP>:6443/ -o /dev/null || errorExit "Error GET https://<VIRTUAL-IP>:6443/"
+    fi
+    ```
+    
+    Replace the `<VIRTUAL-IP>` by your chosen virtual IP.
+
+4. Restart keepalived. While no Kubernetes services are up yet it will log health check fails on all master nodes. This will stop as soon as the first master node has been bootstrapped.
+
+{% endcapture %}
+
+{% assign tab_set_name = "lb_mode" %}
+{% assign tab_names = "Choose one...,Cloud,On-Site" | split: ',' | compact %}
+{% assign tab_contents = site.emptyArray | push: choose | push: cloud | push: onsite %}
+
+{% include tabs.md %}
 
 ## Acquire etcd certs
 
@@ -434,7 +518,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
    apiServerCertSANs:
    - <load-balancer-ip>
    apiServerExtraArgs:
-     apiserver-count: 3
+     apiserver-count: "3"
    EOF
    ```
 
@@ -468,7 +552,7 @@ Before running kubeadm on the other masters, you need to first copy the K8s CA c
 
 #### Option 2: Copy paste
 
-1. Copy the contents of `/etc/kubernetes/pki/ca.crt` and `/etc/kubernetes/pki/ca.key` and create these files manually on `master1` and `master2`.
+1. Copy the contents of `/etc/kubernetes/pki/ca.crt`, `/etc/kubernetes/pki/ca.key`, `/etc/kubernetes/pki/sa.key` and `/etc/kubernetes/pki/sa.pub` and create these files manually on `master1` and `master2`.
 
 When this is done, you can follow the [previous step](#kubeadm-init-master0) to install the control plane with kubeadm.
 
