@@ -56,7 +56,7 @@ some caveats:
   on the side of safety and avoiding multi-cluster outage.
 * Maturity: The federation project is relatively new and is not very mature.
   Not all resources are available and many are still alpha. [Issue
-  38893](https://github.com/kubernetes/kubernetes/issues/38893) enumerates
+  88](https://github.com/kubernetes/federation/issues/88) enumerates
   known issues with the system that the team is busy solving.
 
 ### Hybrid cloud capabilities

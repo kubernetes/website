@@ -156,7 +156,7 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 ## Cleanup
 
-* To delete you cluster: `kops delete cluster useast1.dev.example.com --yes`
+* To delete your cluster: `kops delete cluster useast1.dev.example.com --yes`
 
 ## Feedback
 

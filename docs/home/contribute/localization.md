@@ -28,7 +28,7 @@ Source files reside in the `/docs/` directory.
 
 ### Repository
 
-A l10n team will have a repository specifically dedicated to its work, for example: [kubernetes/kubernetes-docs/cn](https://github.com/kubernetes/kubernetes-docs-cn).
+A l10n team will have a repository specifically dedicated to its work, for example: [kubernetes/kubernetes-docs-cn](https://github.com/kubernetes/kubernetes-docs-cn).
 
 **Note:** To open a l10n repository, [contact the SIG docs lead](https://kubernetes.slack.com/messages/C1J0BPD2M) on Slack for assistance.
 {: .note}
@@ -42,7 +42,7 @@ Projects must include columns for:
 - In progress
 - Done
 
-For example: the [Chinese localization project](For example: https://github.com/kubernetes/kubernetes-docs-cn/projects/1).
+For example: the [Chinese localization project](https://github.com/kubernetes/kubernetes-docs-cn/projects/1).
 
 ### Team function
 

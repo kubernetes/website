@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 - enisoc
 - erictune
@@ -798,7 +798,9 @@ The Pod `template` for the `zk` StatefulSet specifies a liveness probe.
  livenessProbe:
           exec:
             command:
-            - "zkOk.sh"
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
           initialDelaySeconds: 15
           timeoutSeconds: 5
 ```
@@ -809,8 +811,7 @@ word to test the server's health.
 
 
 ```bash
-ZK_CLIENT_PORT=${ZK_CLIENT_PORT:-2181}
-OK=$(echo ruok | nc 127.0.0.1 $ZK_CLIENT_PORT)
+OK=$(echo ruok | nc 127.0.0.1 $1)
 if [ "$OK" == "imok" ]; then
     exit 0
 else
@@ -831,7 +832,7 @@ In another window, delete the `zkOk.sh` script from the file system of Pod `zk-0
 
 
 ```shell
-kubectl exec zk-0 -- rm /opt/zookeeper/bin/zkOk.sh
+kubectl exec zk-0 -- rm /usr/bin/zookeeper-ready
 ```
 
 
@@ -875,7 +876,9 @@ probe from the `zookeeper.yaml` manifest is identical to the liveness probe.
  readinessProbe:
           exec:
             command:
-            - "zkOk.sh"
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
           initialDelaySeconds: 15
           timeoutSeconds: 5
 ```
@@ -931,12 +934,12 @@ This is because the Pods in the `zk` StatefulSet have a PodAntiAffinity specifie
                   - key: "app"
                     operator: In
                     values: 
-                    - zk-headless
+                    - zk-hs
               topologyKey: "kubernetes.io/hostname"
 ```
 
 The `requiredDuringSchedulingIgnoredDuringExecution` field tells the 
-Kubernetes Scheduler that it should never co-locate two Pods from the `zk-headless`
+Kubernetes Scheduler that it should never co-locate two Pods from the `zk-hs`
 Service in the domain defined by the `topologyKey`. The `topologyKey`
 `kubernetes.io/hostname` indicates that the domain is an individual node. Using 
 different rules, labels, and selectors, you can extend this technique to spread 

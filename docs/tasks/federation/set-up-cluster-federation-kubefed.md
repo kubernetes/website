@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - madhusudancs
 title: Set up Cluster Federation with Kubefed
 ---
@@ -483,7 +483,7 @@ federation control plane's etcd. You can delete the federation
 namespace by running the following command:
 
 ```
-kubectl delete ns federation-system --host-cluster-context=rivendell
+kubectl delete ns federation-system --context=rivendell
 ```
 
 Note that `rivendell` is the host cluster name, replace that with the

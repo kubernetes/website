@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - vishh
 title: Schedule GPUs
 ---
