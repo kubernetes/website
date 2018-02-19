@@ -320,7 +320,7 @@ If the PodSecurityPolicy extension is enabled, cluster-wide AppArmor restriction
 enable the PodSecurityPolicy, the following flag must be set on the `apiserver`:
 
 ```
---admission-control=PodSecurityPolicy[,others...]
+--enable-admission-plugins=PodSecurityPolicy[,others...]
 ```
 
 The AppArmor options can be specified as annotations on the PodSecurityPolicy:
