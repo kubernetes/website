@@ -40,8 +40,6 @@ Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the o
 
 If this fails with an "invalid command" error, you're likely using an older version of kubectl that doesn't have the `label` command. In that case, see the [previous version](https://github.com/kubernetes/kubernetes/blob/a053dbc313572ed60d89dae9821ecab8bfd676dc/examples/node-selection/README.md) of this guide for instructions on how to manually set labels on a node.
 
-Also, note that label keys must be in the form of DNS labels (as described in the [identifiers doc](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)), meaning that they are not allowed to contain any upper-case letters.
-
 You can verify that it worked by re-running `kubectl get nodes --show-labels` and checking that the node now has a label.
 
 ### Step Two: Add a nodeSelector field to your pod configuration
@@ -188,7 +186,7 @@ rule says that the pod prefers to not schedule onto a node if that node is alrea
 having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
 it would mean that the pod cannot schedule onto a node if that node is in the same zone as a pod with
 label having key "security" and value "S2".) See the [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
-for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
+For many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
 flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 
 The legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`.
@@ -196,10 +194,10 @@ The legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exist
 In principle, the `topologyKey` can be any legal label-key. However,
 for performance and security reasons, there are some constraints on topologyKey:
 
-1. For affinity and for `RequiredDuringScheduling` pod anti-affinity,
+1. For affinity and for `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity,
 empty `topologyKey` is not allowed.
-2. For `RequiredDuringScheduling` pod anti-affinity, the admission controller `LimitPodHardAntiAffinityTopology` was introduced to limit `topologyKey` to `kubernetes.io/hostname`. If you want to make it available for custom topologies, you may modify the admission controller, or simply disable it.
-3. For `PreferredDuringScheduling` pod anti-affinity, empty `topologyKey` is interpreted as "all topologies" ("all topologies" here is now limited to the combination of `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` and `failure-domain.beta.kubernetes.io/region`).
+2. For `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, the admission controller `LimitPodHardAntiAffinityTopology` was introduced to limit `topologyKey` to `kubernetes.io/hostname`. If you want to make it available for custom topologies, you may modify the admission controller, or simply disable it.
+3. For `preferredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, empty `topologyKey` is interpreted as "all topologies" ("all topologies" here is now limited to the combination of `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` and `failure-domain.beta.kubernetes.io/region`).
 4. Except for the above cases, the `topologyKey` can be any legal label-key.
 
 In addition to `labelSelector` and `topologyKey`, you can optionally specify a list `namespaces`
@@ -212,7 +210,7 @@ must be satisfied for the pod to schedule onto a node.
 
 #### More Practical Use-cases
 
-Interpod Affinity and AnitAffinity can be even more useful when they are used with higher
+Interpod Affinity and AntiAffinity can be even more useful when they are used with higher
 level collections such as ReplicaSets, Statefulsets, Deployments, etc.  One can easily configure that a set of workloads should
 be co-located in the same defined topology, eg., the same node.
 
@@ -222,11 +220,14 @@ In a three node cluster, a web application has in-memory cache such as redis. We
 Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`. The deployment has `PodAntiAffinity` configured to ensure the scheduler does not co-locate replicas on a single node.
 
 ```yaml
-apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-cache
 spec:
+  selector:
+    matchLabels:
+      app: store
   replicas: 3
   template:
     metadata:
@@ -251,11 +252,14 @@ spec:
 The below yaml snippet of the webserver deployment has `podAntiAffinity` and `podAffinity` configured. This informs the scheduler that all its replicas are to be co-located with pods that have selector label `app=store`. This will also ensure that each web-server replica does not co-locate on a single node.
 
 ```yaml
-apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-server
 spec:
+  selector:
+    matchLabels:
+      app: web-store
   replicas: 3
   template:
     metadata:
@@ -296,7 +300,7 @@ If we create the above two deployments, our three node cluster should look like 
 As you can see, all the 3 replicas of the `web-server` are automatically co-located with the cache as expected.
 
 ```
-$kubectl get pods -o wide
+$ kubectl get pods -o wide
 NAME                           READY     STATUS    RESTARTS   AGE       IP           NODE
 redis-cache-1450370735-6dzlj   1/1       Running   0          8m        10.192.4.2   kube-node-3
 redis-cache-1450370735-j2j96   1/1       Running   0          8m        10.192.2.2   kube-node-1
@@ -316,7 +320,7 @@ Highly Available database statefulset has one master and three replicas, one may
 |:--------------------:|:-------------------:|:------------------:|:------------------:|
 | *DB-MASTER*          | *DB-REPLICA-1*      | *DB-REPLICA-2*     | *DB-REPLICA-3*     |
 
-[Here](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) is an example of zookeper statefulset configured with anti-affinity for high availability.
+[Here](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) is an example of Zookeeper statefulset configured with anti-affinity for high availability.
 
 For more information on inter-pod affinity/anti-affinity, see the design doc
 [here](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).

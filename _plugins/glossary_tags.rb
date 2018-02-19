@@ -1,3 +1,4 @@
+require 'pry'
 # See /_plugins/README.md for full documentation of these custom Jekyll tags
 module Jekyll
   module GlossaryTags
@@ -55,11 +56,17 @@ module Jekyll
     class Definition < Base
       VALID_PARAM_NAMES = [
         :term_id,
-        :length
+        :length,
+        :prepend,
       ].freeze
 
       def render(context)
-        include_snippet(context)
+        text = include_snippet(context)
+        if @args[:prepend]
+          text.sub(/<p>(.)/) { "<p>#{@args[:prepend]} #{$1.downcase}" }
+        else
+          text
+        end
       end
     end
 
@@ -83,7 +90,7 @@ module Jekyll
           gsub(NESTED_MARKDOWN_LINKS, '\2').
           strip
 
-        "<a class='glossary-tooltip' href='#{external_link}'>" \
+        "<a class='glossary-tooltip' href='#{external_link}' target='_blank'>" \
         "#{@args[:text] || term_info["name"]}" \
         "<span class='tooltip-text'>" \
         "#{tooltip}" \

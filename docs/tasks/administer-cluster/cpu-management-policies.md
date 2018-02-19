@@ -1,6 +1,12 @@
 ---
 title: Control CPU Management Policies on the Node
+reviewers:
+- sjenning
+- ConnorDoyle
+- balajismaniam
 ---
+
+{% include feature-state-beta.md %}
 
 * TOC
 {:toc}

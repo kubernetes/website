@@ -49,7 +49,7 @@ The output contains a section similar to this:
 
 ## Create a Secret in the cluster that holds your authorization token
 
-In a Kubernetes cluster, it authenticates with a registry in order to pull a private image using the Secret of `docker-registry` type.
+A Kubernetes cluster uses the Secret of `docker-registry` type to authenticate with a container registry to pull a private image.
 
 Create this Secret, naming it `regcred`:
 
@@ -74,23 +74,24 @@ The output is similar to this:
 
     apiVersion: v1
     data:
-      .dockercfg: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
+      .dockerconfigjson: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
     kind: Secret
     metadata:
       ...
       name: regcred
       ...
-    type: kubernetes.io/dockercfg
+    type: kubernetes.io/dockerconfigjson
 
-The value of the `.dockercfg` field is a base64 representation of your sensitive Docker credentials.
+The value of the `.dockerconfigjson` field is a base64 representation of your Docker credentials.
 
-Decode the `dockercfg` field to a readable format to see what is in it:
+To understand what is in the `.dockerconfigjson` field, convert the secret data to a
+readable format:
 
-    kubectl get secret regcred --output="jsonpath={.data.\.dockercfg}" | base64 -d
+    kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 -d
 
 The output is similar to this:
 
-    {"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}
+    {"auths":{"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}}
 
 Notice that the Secret data contains the authorization token similar to your local `~/.docker/config.json` file.
 

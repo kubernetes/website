@@ -728,7 +728,7 @@ spec:
               name: jmx
             - containerPort: 9042
               name: cql
-              # If you need it it is going away in C* 4.0
+              # If you need it, it will go away in C* 4.0.
               #- containerPort: 9160
               #  name: thrift
           resources:

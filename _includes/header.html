@@ -16,10 +16,13 @@
                 </a>
                 <ul>
                 {% for version in page.versions %}
-                  <li><a href="{{ version.url }}">{{ version.version }}</a></li>
+                    {% if page.versionedurl contains version.version %}
+                    <li><a href="{{ version.url }}{{ page.versionedurl[version.version] }}">{{ version.version }}</a></li>
+                    {% else  %}
+                    <li><a href="{{ version.url }}{{ page.url }}">{{ version.version }}</a></li>
+                    {% endif %}
                 {% endfor %}
                 </ul>
-              </li>
             </li>
         </ul>
         <!-- <a href="/docs/home" class="button" id="viewDocs" data-auto-burger-exclude>View Documentation</a> -->

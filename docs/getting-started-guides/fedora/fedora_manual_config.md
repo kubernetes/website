@@ -60,11 +60,14 @@ the name of the master server:
 KUBE_MASTER="--master=http://fed-master:8080"
 ```
 
-* Disable the firewall on both the master and node, as docker does not play well with other firewall rule managers.  Please note that iptables-services does not exist on default fedora server install.
+* Disable the firewall on both the master and node, as Docker does not play well with other firewall rule managers.  Please note that iptables.service does not exist on the default Fedora Server install.
 
 ```shell
-systemctl disable iptables-services firewalld
-systemctl stop iptables-services firewalld
+systemctl mask firewalld.service
+systemctl stop firewalld.service
+
+systemctl disable iptables.service
+systemctl stop iptables.service
 ```
 
 **Configure the Kubernetes services on the master.**
@@ -100,40 +103,6 @@ for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler; do
     systemctl status $SERVICES
 done
 ```
-
-* Addition of nodes:
-
-* Create following node.json file on Kubernetes master node:
-
-```json
-{
-    "apiVersion": "v1",
-    "kind": "Node",
-    "metadata": {
-        "name": "fed-node",
-        "labels":{ "name": "fed-node-label"}
-    },
-    "spec": {
-        "externalID": "fed-node"
-    }
-}
-```
-
-Now create a node object internally in your Kubernetes cluster by running:
-
-```shell
-$ kubectl create -f ./node.json
-
-$ kubectl get nodes
-NAME            STATUS        AGE      VERSION
-fed-node        Unknown       4h
-```
-
-Please note that in the above, it only creates a representation for the node
-_fed-node_ internally. It does not provision the actual _fed-node_. Also, it
-is assumed that _fed-node_ (as specified in `name`) can be resolved and is
-reachable from Kubernetes master node. This guide will discuss how to provision
-a Kubernetes node (fed-node) below.
 
 **Configure the Kubernetes services on the node.**
 

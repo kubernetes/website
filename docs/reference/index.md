@@ -8,10 +8,11 @@ approvers:
 
 * [Kubernetes API Overview](/docs/reference/api-overview/) - Overview of the API for Kubernetes.
 * Kubernetes API Versions
-  * [1.8](/docs/api-reference/v1.8/)
-  * [1.7](/docs/api-reference/v1.7/)
-  * [1.6](/docs/api-reference/v1.6/)
-  * [1.5](/docs/api-reference/v1.5/)
+  * [1.9](/docs/reference/generated/kubernetes-api/v1.9/)
+  * [1.8](https://v1-8.docs.kubernetes.io/docs/reference/)
+  * [1.7](https://v1-7.docs.kubernetes.io/docs/reference/)
+  * [1.6](https://v1-6.docs.kubernetes.io/docs/reference/)
+  * [1.5](https://v1-5.docs.kubernetes.io/docs/reference/)
 
 ## API Client Libraries
 
@@ -20,7 +21,7 @@ To call the Kubernetes API from a programming language, you can use
 client libraries:
 
 - [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
-- [Kubernetes Python client libary](https://github.com/kubernetes-incubator/client-python)
+- [Kubernetes Python client library](https://github.com/kubernetes-incubator/client-python)
 
 ## CLI Reference
 

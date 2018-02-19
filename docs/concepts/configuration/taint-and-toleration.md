@@ -31,6 +31,12 @@ kubectl taint nodes node1 key=value:NoSchedule
 
 places a taint on node `node1`. The taint has key `key`, value `value`, and taint effect `NoSchedule`.
 This means that no pod will be able to schedule onto `node1` unless it has a matching toleration.
+
+To remove the taint added by the command above, you can run:
+```shell
+kubectl taint nodes node1 key:NoSchedule-
+```
+
 You specify a toleration for a pod in the PodSpec. Both of the following tolerations "match" the
 taint created by the `kubectl taint` line above, and thus a pod with either toleration would be able
 to schedule onto `node1`:
@@ -171,7 +177,7 @@ the special nodes and hence the admission controller should add the toleration.
 To ensure that the pods that need
 the special hardware *only* schedule onto the nodes that have the special hardware, you will need some
 additional mechanism, e.g. you could represent the special resource using
-[opaque integer resources](/docs/concepts/configuration/manage-compute-resources-container/#opaque-integer-resources-alpha-feature)
+[extended resources](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
 and request it as a resource in the PodSpec, or you could label the nodes that have
 the special hardware and use node affinity on the pods that need the hardware.
 

@@ -399,10 +399,10 @@ You can manually create an imagePullSecret, and reference it from
 a serviceAccount.  Any pods created with that serviceAccount
 or that default to use that serviceAccount, will get their imagePullSecret
 field set to that of the service account.
-See [Adding ImagePullSecrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#adding-imagepullsecrets-to-a-service-account)
+See [Add ImagePullSecrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
  for a detailed explanation of that process.
 
-#### Automatic Mounting of Manually Created Secrets
+### Automatic Mounting of Manually Created Secrets
 
 Manually created secrets (e.g. one containing a token for accessing a github account)
 can be automatically attached to pods based on their service account.
@@ -618,7 +618,7 @@ spec:
       secretName: dotfile-secret
   containers:
   - name: dotfile-test-container
-    image: gcr.io/google_containers/busybox
+    image: k8s.gcr.io/busybox
     command:
     - ls
     - "-l"
@@ -675,7 +675,7 @@ render those assumptions invalid.
 
 For these reasons `watch` and `list` requests for secrets within a namespace are
 extremely powerful capabilities and should be avoided, since listing secrets allows
-the clients to inspect the values if all secrets are in that namespace. The ability to
+the clients to inspect the values of all secrets that are in that namespace. The ability to
 `watch` and `list` all secrets in a cluster should be reserved for only the most
 privileged, system-level components.
 

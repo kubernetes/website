@@ -5,7 +5,7 @@ approvers:
 ---
 
 {% capture overview %}
-{% glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is " %}  
+{% glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" %}  
 
 A *Service Broker*, as defined by the [Open Service Broker API spec](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md), is an endpoint for a set of Managed Services offered and maintained by a third-party, which could be a cloud provider such as AWS, GCP, or Azure.
 Some examples of *Managed Services* are Microsoft Azure Cloud Queue, Amazon Simple Queue Service, and Google Cloud Pub/Sub, but they can be any software offering that can be used by an application.
@@ -55,7 +55,7 @@ Upon creation, the Service Catalog controller will create a Kubernetes `Secret` 
 
 ### Authentication
 
-Service Catalog supports these methods of authentication: 
+Service Catalog supports these methods of authentication:
 
 * Basic (username/password)
 * [OAuth 2.0 Bearer Token](https://tools.ietf.org/html/rfc6750)
@@ -118,7 +118,7 @@ The following is a sequence diagram illustrating the steps involved in listing M
 
 ### Provisioning a new instance
 
-A {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can initiate the provisioning of a new instance by creating a `ServiceInstance` resource. 
+A {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} can initiate the provisioning of a new instance by creating a `ServiceInstance` resource.
 
 This is an example of a `ServiceInstance` resource:
 
@@ -133,7 +133,7 @@ spec:
   clusterServiceClassExternalName: cloud-provider-service
   clusterServicePlanExternalName: service-plan-name
   #####
-  # Additional parameters can be added here, 
+  # Additional parameters can be added here,
   # which may be used by the Service Broker.
   #####
 ```
@@ -148,7 +148,7 @@ The following sequence diagram illustrates the steps involved in provisioning a 
 
 ### Binding to a Managed Service
 
-After a new instance has been provisioned, a {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} must bind to the Managed Service to get the connection credentials and service account details necessary for the application to use the service. This is done by creating a `ServiceBinding` resource. 
+After a new instance has been provisioned, a {% glossary_tooltip text="Cluster Operator" term_id="cluster-operator" %} must bind to the Managed Service to get the connection credentials and service account details necessary for the application to use the service. This is done by creating a `ServiceBinding` resource.
 
 The following is an example of a `ServiceBinding` resource:
 
@@ -162,7 +162,7 @@ spec:
   instanceRef:
     name: cloud-queue-instance
   #####
-  # Additional information can be added here, such as a secretName or 
+  # Additional information can be added here, such as a secretName or
   # service account parameters, which may be used by the Service Broker.
   #####
 ```
@@ -188,7 +188,7 @@ These pieces of information are stored in secrets that the application in the cl
 
 One method to perform this mapping is to use a declarative Pod configuration.
 
-The following example describes how to map service account credentials into the application. A key called `sa-key` is stored in a volume named `provider-cloud-key`, and the application mounts this volume at `/var/secrets/provider/key.json`. The environment variable `GOOGLE_APPLICATION_CREDENTIALS` is mapped from the value of the mounted file.
+The following example describes how to map service account credentials into the application. A key called `sa-key` is stored in a volume named `provider-cloud-key`, and the application mounts this volume at `/var/secrets/provider/key.json`. The environment variable `PROVIDER_APPLICATION_CREDENTIALS` is mapped from the value of the mounted file.
 
 ```yaml
 ...

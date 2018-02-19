@@ -28,6 +28,7 @@ administrator to control the following:
 | Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
 | Usage of volume types                               | [`volumes`](#volumes-and-file-systems)      |
 | Usage of the host filesystem                        | [`allowedHostPaths`](#volumes-and-file-systems) |
+| White list of FlexVolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
 | Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
 | Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
 | The user and group IDs of the container             | [`runAsUser`, `supplementalGroups`](#users-and-groups) |
@@ -127,7 +128,7 @@ paired with system groups to grant access to all pods run in the namespace:
 ```
 
 For more examples of RBAC bindings, see [Role Binding
-Examples](docs/admin/authorization/rbac/#role-binding-examples). For a complete
+Examples](/docs/admin/authorization/rbac#role-binding-examples). For a complete
 example of authorizing a PodSecurityPolicy, see
 [below](#example).
 
@@ -140,7 +141,7 @@ have superuser permissions. Otherwise requests would bypass authentication and
 authorization modules, all PodSecurityPolicy objects would be allowed, and users
 would be able to create privileged containers. For more details on configuring
 Controller Manager authorization, see [Controller
-Roles](docs/admin/authorization/rbac/#controller-roles).
+Roles](/docs/admin/authorization/rbac/#controller-roles).
 
 ## Policy Order
 
@@ -272,7 +273,7 @@ Error from server (Forbidden): error when creating "STDIN": pods "privileged" is
 Delete the pod before moving on:
 
 ```shell
-$ kubectl-user delete pause
+$ kubectl-user delete pod pause
 ```
 
 ### Run another pod
@@ -416,6 +417,29 @@ containers, and abusing the credentials of system services, such as Kubelet._
 
 **ReadOnlyRootFilesystem** - Requires that containers must run with a read-only
 root filesystem (i.e. no writeable layer).
+
+### FlexVolume drivers
+
+This specifies a whiltelist of flex volume drivers that are allowed to be used
+by flexVolume. An empty list or nil means there is no restriction on the drivers.
+Please make sure [`volumes`](#volumes-and-file-systems) field  contains the
+`flexVolume` volume type, no FlexVolume driver is allowed otherwise.
+
+For example:
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: allow-flex-volumes
+spec:
+  # ... other spec fields
+  volumes:
+    - flexVolume
+  allowedFlexVolumes: 
+    - driver: example/lvm
+    - driver: example/cifs
+```
 
 ### Users and groups
 
