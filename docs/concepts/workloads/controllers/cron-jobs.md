@@ -11,7 +11,7 @@ title: CronJob
 
 ## What is a cron job?
 
-A _Cron Job_ manages time based [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), namely:
+A _Cron Job_ manages time based [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/), namely:
 
 * Once at a specified point in time
 * Repeatedly at a specified point in time
@@ -137,7 +137,7 @@ be down from `08:29:00` to `08:42:00`, the job will not start.
 Set a longer `startingDeadlineSeconds` if starting later is better than not
 starting at all.
 
-The job is only responsible for creating Jobs that match its schedule, and the
+The Cronjob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
 
 ## Writing a Cron Job Spec
@@ -158,8 +158,8 @@ string, e.g. `0 * * * *` or `@hourly`, as schedule time of its jobs to be create
 ### Job Template
 
 The `.spec.jobTemplate` is another required field of the `.spec`. It is a job template. It has exactly the same schema
-as a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/), except it is nested and does not have an `apiVersion` or `kind`, see
-[Writing a Job Spec](/docs/concepts/jobs/run-to-completion-finite-workloads/#writing-a-job-spec).
+as a [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/), except it is nested and does not have an `apiVersion` or `kind`, see
+[Writing a Job Spec](/docs/concepts/workloads/controllers/jobs-run-to-completion/#writing-a-job-spec).
 
 ### Starting Deadline Seconds
 

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - madhusudancs
 title: Set up Cluster Federation with Kubefed
 ---
@@ -473,7 +473,6 @@ command with the cluster name and the federation's
 kubefed unjoin gondor --host-cluster-context=rivendell
 ```
 
-
 ## Turning down the federation control plane
 
 Proper cleanup of federation control plane is not fully implemented in
@@ -487,5 +486,5 @@ namespace by running the following command:
 kubectl delete ns federation-system --context=rivendell
 ```
 
-Note that `rivendell` is the host cluster name, replace that with the appropriate name in your configuration.
-
+Note that `rivendell` is the host cluster name, replace that with the
+appropriate name in your configuration.

@@ -1125,7 +1125,7 @@
 			name: 'Pure Storage',
 			logo: 'pure_storage',
 			link: 'https://hub.docker.com/r/purestorage/k8s/',
-			blurb: 'Our flexvol driver and dynamic provisioner allow FlashArray/Flashblade storage devices to be consumed as first class persistent storage from within Kuberentes.'
+			blurb: 'Our flexvol driver and dynamic provisioner allow FlashArray/Flashblade storage devices to be consumed as first class persistent storage from within Kubernetes.'
 				},
 		{
 			type: 0,

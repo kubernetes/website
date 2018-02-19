@@ -3,7 +3,7 @@ title: Upgrades
 ---
 
 {% capture overview %}
-This page will outline how to manage and execute a Kubernetes upgrade. 
+This page will outline how to manage and execute a Kubernetes upgrade.
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -39,13 +39,13 @@ your support plan on the upgrade frequency. Important operational considerations
 and changes in behaviour will always be documented in the release notes.
 
 You can use `juju status` to see if an upgrade is available.
-There may be an upgrade available for kubernetes, ectd, or both.
+There may be an upgrade available for kubernetes, etcd, or both.
 
 ### Upgrade etcd
 
 Backing up etcd requires an export and snapshot, refer to the
 [backup documentation](/docs/getting-started-guides/ubuntu/backups) to create a snapshot.
-After the snapshot upgrade the etcd service with:
+After the snapshot, upgrade the etcd service with:
 
     juju upgrade-charm etcd
 
@@ -72,11 +72,11 @@ There is no guarantee that edge snaps will work with the current charms.
 
 ### Master Upgrades
 
-First you need to upgrade the masters: 
+First you need to upgrade the masters:
 
     juju upgrade-charm kubernetes-master
 
-**Node:** Always upgrade the masters before the workers.
+**Note:** Always upgrade the masters before the workers.
 {: .note}
 
 Once the latest charm is deployed, the channel for Kubernetes can be selected by issuing the following:
@@ -102,19 +102,19 @@ but is a safer upgrade route.
 
 Given a deployment where the workers are named kubernetes-alpha.
 
-Deploy new worker(s): 
+Deploy new workers:
 
     juju deploy kubernetes-beta
 
-Pause the old workers so your workload migrates: 
+Pause the old workers so your workload migrates:
 
     juju run-action kubernetes-alpha/# pause
 
-Verify old workloads have migrated with: 
+Verify old workloads have migrated with:
 
     kubectl get pod -o wide
 
-Tear down old workers with: 
+Tear down old workers with:
 
     juju remove-application kubernetes-alpha
 
@@ -133,7 +133,7 @@ run the upgrade action on each worker:
 
 ### Verify upgrade
 
-`kubectl version` should return the newer version. 
+`kubectl version` should return the newer version.
 
 It is recommended to rerun a [cluster validation](/docs/getting-started-guides/ubuntu/validation)
 to ensure that the cluster upgrade has successfully completed.
@@ -141,7 +141,7 @@ to ensure that the cluster upgrade has successfully completed.
 ### Upgrade Flannel
 
 Upgrading flannel can be done at any time, it is independent of Kubernetes upgrades.
-Be advised that networking is interrupted during the upgrade. You can initiate a flannel upgrade:
+Be advised that networking is interrupted during the upgrade. You can initiate a flannel upgrade with:
 
     juju upgrade-charm flannel
 

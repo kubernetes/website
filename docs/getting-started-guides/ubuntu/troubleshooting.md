@@ -190,7 +190,7 @@ This is caused by the API load balancer not forwarding ports in the context of t
 
    Note that the default port used by CDK for the Kubernetes Master API is 6443 while the port exposed by the load balancer is 443.
 
-1. Start helming again!
+1. Start helm again!
 
    ```
    helm install <chart> --debug

@@ -27,7 +27,7 @@ group :jekyll_plugins do
    gem "jekyll-github-metadata", "~> 2.2"
    gem "jekyll-optional-front-matter", "~> 0.1"
    gem "jekyll-readme-index", "0.0.3"
-   gem "jekyll-redirect-from", "~> 0.11"
+   gem "jekyll-redirect-from", "~> 0.13"
    gem "jekyll-relative-links", "~> 0.2"
    gem "jekyll-swiss", "~> 0.4"
    gem "jekyll-theme-architect", "0.0.3"

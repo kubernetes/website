@@ -31,8 +31,8 @@ The data source corresponds to a key-value pair in the ConfigMap, where
 * key = the file name or the key you provided on the command line, and
 * value = the file contents or the literal value you provided on the command line.
 
-You can use [`kubectl describe`](/docs/user-guide/kubectl/{{page.version}}/#describe) or
-[`kubectl get`](/docs/user-guide/kubectl/{{page.version}}/#get) to retrieve information
+You can use [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe) or
+[`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to retrieve information
 about a ConfigMap.
 
 ### Create ConfigMaps from directories
@@ -42,13 +42,13 @@ You can use `kubectl create configmap` to create a ConfigMap from multiple files
 For example:
 
 ```shell
-kubectl create configmap game-config --from-file=docs/user-guide/configmap/kubectl
+kubectl create configmap game-config --from-file=https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl
 ```
 
-combines the contents of the `docs/user-guide/configmap/kubectl/` directory
+combines the contents of the `docs/tasks/configure-pod-container/configmap/kubectl/` directory
 
 ```shell
-ls docs/user-guide/configmap/kubectl/
+ls docs/tasks/configure-pod-container/configmap/kubectl/
 game.properties
 ui.properties
 ```
@@ -68,7 +68,7 @@ game.properties:        158 bytes
 ui.properties:          83 bytes
 ```
 
-The `game.properties` and `ui.properties` files in the `docs/user-guide/configmap/kubectl/` directory are represented in the `data` section of the ConfigMap.
+The `game.properties` and `ui.properties` files in the `docs/tasks/configure-pod-container/configmap/kubectl/` directory are represented in the `data` section of the ConfigMap.
 
 ```shell
 kubectl get configmaps game-config -o yaml
@@ -107,7 +107,7 @@ You can use `kubectl create configmap` to create a ConfigMap from an individual 
 For example,
 
 ```shell
-kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties
+kubectl create configmap game-config-2 --from-file=https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/game.properties
 ```
 
 would produce the following ConfigMap:
@@ -127,7 +127,7 @@ game.properties:        158 bytes
 You can pass in the  `--from-file` argument multiple times to create a ConfigMap from multiple data sources.
 
 ```shell
-kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties --from-file=docs/user-guide/configmap/kubectl/ui.properties
+kubectl create configmap game-config-2 --from-file=https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/game.properties --from-file=https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/ui.properties
 ```
 
 ```shell
@@ -156,7 +156,7 @@ where `<my-key-name>` is the key you want to use in the ConfigMap and `<path-to-
 For example:
 
 ```shell
-kubectl create configmap game-config-3 --from-file=game-special-key=docs/user-guide/configmap/kubectl/game.properties
+kubectl create configmap game-config-3 --from-file=game-special-key=https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/game.properties
 
 kubectl get configmaps game-config-3 -o yaml
 ```

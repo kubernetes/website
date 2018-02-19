@@ -24,7 +24,7 @@ Before choosing a guide, here are some considerations:
  - **If you are configuring Kubernetes on-premises**, consider which [networking model](/docs/concepts/cluster-administration/networking/) fits best. One option for custom networking is [*OpenVSwitch GRE/VxLAN networking*](/docs/admin/ovs-networking/), which uses OpenVSwitch to set up networking between pods across Kubernetes nodes.
  - Will you be running Kubernetes on **"bare metal" hardware** or on **virtual machines (VMs)**?
  - Do you **just want to run a cluster**, or do you expect to do **active development of Kubernetes project code**? If the
-   latter, choose a actively-developed distro. Some distros only use binary releases, but
+   latter, choose an actively-developed distro. Some distros only use binary releases, but
    offer a greater variety of choices.
  - Familiarize yourself with the [components](/docs/admin/cluster-components/) needed to run a cluster.
 

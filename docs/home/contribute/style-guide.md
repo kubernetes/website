@@ -18,11 +18,9 @@ docs, follow the instructions on
 **Note:** Kubernetes documentation uses [GitHub Flavored Markdown](https://github.github.com/gfm/) along with a few [local jekyll includes](/docs/home/contribute/includes/) to support glossary entries, tabs, and representing feature state.
 {: .note}
 
-
 ## Language
 
 Kubernetes documentation uses US English.
-
 
 ## Documentation formatting standards
 
@@ -144,15 +142,47 @@ The output is similar to this:
     NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
     nginx    1/1       Running   0          13s    10.200.0.4   worker0
 
+### Versioning Kubernetes examples
 
-{% comment %}## Kubernetes.io word list
+Code examples and configuration examples that include version information should be consistent with the accompanying text. Identify the Kubernetes version in the **Before you begin** section.
+
+To specify the Kubernetes version for a task or tutorial page:
+
+- Include `min-kubernetes-server-version` in the front matter of the page.
+- In the **Before you begin** section, use `{{ "{% include tasks-tutorial-prereqs.md "}} %}`.
+
+If the example YAML is in a standalone file, find and review the topics that include it as a reference.
+Verify that any topics using the standalone YAML have the appropriate version information defined.
+If a stand-alone YAML file is not referenced from any topics, consider deleting it instead of updating it.
+
+For example, if you are writing a tutorial that is relevant to Kubernetes version 1.8, the front-matter of your markdown file should look something like:
+
+```yaml
+---
+title: <your tutorial title here>
+min-kubernetes-server-version: v1.8
+---
+```
+
+In code and configuration examples, do not include comments about alternative versions.
+Be careful to not include incorrect statements in your examples as comments, such as:
+
+```yaml
+apiVersion: v1 # earlier versions use...
+kind: Pod
+...
+```
+
+## Kubernetes.io word list
 
 A list of Kubernetes-specific terms and words to be used consistently across the site.
 
 <table>
   <tr><th>Term</th><th>Usage</th></tr>
-  <tr><td>TBD</td><td>TBD</td></tr>
-</table>{% endcomment %}
+  <tr><td>Kubernetes</td><td>Kubernetes should always be capitalized.</td></tr>
+  <tr><td>Docker</td><td>Docker should always be capitalized.</td></tr>
+  <tr><td>SIG Docs</td><td>SIG Docs rather than SIG-DOCS or other variations.</td></tr>
+</table>
 
 ## Callout Formatting
 Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: **Note:** {: .note}, **Caution:** {: .caution}, and **Warning:** {: .warning}.
@@ -272,7 +302,6 @@ The output is:
 
 1. Bake for 20-25 minutes or until set.
 
-
 ## Content best practices
 
 This section contains suggested best practices for clear, concise, and consistent content.
@@ -372,12 +401,13 @@ considered new in a few months.
 
 {% endcapture %}
 
-
 {% capture whatsnext %}
+
 * Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
 * Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
 * Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
+
 {% endcapture %}
 
 {% include templates/concept.md %}

@@ -7,7 +7,8 @@ title: ReplicationController
 
 {% capture overview %}
 
-NOTE: A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
+**NOTE:** A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
+{: .note}
 
 A _ReplicationController_ ensures that a specified number of pod replicas are running at any one
 time. In other words, a ReplicationController makes sure that a pod or a homogeneous set of pods is
@@ -100,7 +101,7 @@ specifies an expression that just gets the name from each pod in the returned li
 ## Writing a ReplicationController Spec
 
 As with all other Kubernetes config, a ReplicationController needs `apiVersion`, `kind`, and `metadata` fields.
-For general information about working with config files, see [Object Management](/docs/concepts/tools/kubectl/object-management-overview/).
+For general information about working with config files, see [object management ](/docs/concepts/overview/object-management-kubectl/overview/).
 
 A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 

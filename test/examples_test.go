@@ -298,9 +298,14 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"counter-pod":                             {&api.Pod{}},
 			"fluentd-sidecar-config":                  {&api.ConfigMap{}},
 			"nginx-app":                               {&api.Service{}, &extensions.Deployment{}},
+			"nginx-deployment":                        {&extensions.Deployment{}},
 			"two-files-counter-pod":                   {&api.Pod{}},
 			"two-files-counter-pod-agent-sidecar":     {&api.Pod{}},
 			"two-files-counter-pod-streaming-sidecar": {&api.Pod{}},
+		},
+		"../docs/concepts/cluster-administration/nginx": {
+			"nginx-deployment": {&extensions.Deployment{}},
+			"nginx-svc":        {&api.Service{}},
 		},
 		"../docs/concepts/configuration": {
 			"commands": {&api.Pod{}},
@@ -473,7 +478,10 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"hello-apparmor-pod": {&api.Pod{}},
 			"my-scheduler":       {&extensions.Deployment{}},
 		},
-		"../docs/tutorials/object-management-kubectl": {
+		"../docs/tutorials/configuration/configmap/redis": {
+			"redis-pod": {&api.Pod{}},
+		},
+		"../docs/concepts/overview/object-management-kubectl": {
 			"simple_deployment": {&extensions.Deployment{}},
 			"update_deployment": {&extensions.Deployment{}},
 		},
@@ -513,7 +521,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"multi-pod":                  {&api.Pod{}, &api.Pod{}},
 			"new-nginx-deployment":       {&extensions.Deployment{}},
 			"nginx-app":                  {&api.Service{}, &extensions.Deployment{}},
-			"nginx-deployment":           {&extensions.Deployment{}},
 			"nginx-init-containers":      {&api.Pod{}},
 			"nginx-lifecycle-deployment": {&extensions.Deployment{}},
 			"nginx-probe-deployment":     {&extensions.Deployment{}},
@@ -533,26 +540,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"mount-file-pod": {&api.Pod{}},
 			"volume-pod":     {&api.Pod{}},
 		},
-		"../docs/user-guide/configmap/redis": {
-			"redis-pod": {&api.Pod{}},
-		},
-		"../docs/user-guide/downward-api": {
-			"dapi-pod":                 {&api.Pod{}},
-			"dapi-container-resources": {&api.Pod{}},
-		},
-		"../docs/user-guide/downward-api/volume": {
-			"dapi-volume":           {&api.Pod{}},
-			"dapi-volume-resources": {&api.Pod{}},
-		},
-		"../docs/user-guide/environment-guide": {
-			"backend-rc":  {&api.ReplicationController{}},
-			"backend-srv": {&api.Service{}},
-			"show-rc":     {&api.ReplicationController{}},
-			"show-srv":    {&api.Service{}},
-		},
-		"../docs/user-guide/horizontal-pod-autoscaling": {
-			"hpa-php-apache": {&autoscaling.HorizontalPodAutoscaler{}},
-		},
 		"../docs/user-guide/jobs/work-queue-1": {
 			"job": {&batch.Job{}},
 		},
@@ -565,10 +552,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"exec-liveness":            {&api.Pod{}},
 			"http-liveness":            {&api.Pod{}},
 			"http-liveness-named-port": {&api.Pod{}},
-		},
-		"../docs/user-guide/nginx": {
-			"nginx-deployment": {&extensions.Deployment{}},
-			"nginx-svc":        {&api.Service{}},
 		},
 		"../docs/user-guide/node-selection": {
 			"pod": {&api.Pod{}},

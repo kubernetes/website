@@ -1,11 +1,11 @@
 ---
-approvers:
+reviewers:
 - mml
 - wojtek-t
 title: Operating etcd clusters for Kubernetes
 ---
 
-etcd is a strong, consistent, and highly-available key value store which Kubernetes uses for persistent storage of all of its API objects. This documentation provides specific instruction on operating, upgrading, and rolling back etcd clusters for Kubernetes. For in-depth information on etcd, see [etcd documentation](https://github.com/coreos/etcd/blob/master/Documentation/docs.md).
+{% glossary_definition term_id="etcd" length="all" prepend="etcd is a "%}
 
 <!-- TODO(mml): Write this doc.
 
