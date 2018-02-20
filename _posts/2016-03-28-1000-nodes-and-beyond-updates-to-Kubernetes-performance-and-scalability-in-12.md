@@ -2,7 +2,8 @@
 layout: blog
 title: " 1000 nodes and beyond: updates to Kubernetes performance and scalability in 1.2 "
 date:  Tuesday, March 28, 2016
-
+pagination:
+  enabled: true
 ---
 _Editor's&nbsp;note: this is the first in a [series of in-depth posts](http://blog.kubernetes.io/2016/03/five-days-of-kubernetes-12.html) on what's new in Kubernetes 1.2_  
 

@@ -2,7 +2,8 @@
 layout: blog
 title: " Helm Charts: making it simple to package and deploy common applications on Kubernetes "
 date:  Tuesday, October 10, 2016
-
+pagination:
+  enabled: true
 ---
 There are thousands of people and companies packaging their applications for deployment on Kubernetes. This usually involves crafting a few different Kubernetes resource definitions that configure the application runtime, as well as defining the mechanism that users and other apps leverage to communicate with the application. There are some very common applications that users regularly look for guidance on deploying, such as databases, CI tools, and content management systems. These types of applications are usually not ones that are developed and iterated on by end users, but rather their configuration is customized to fit a specific use case. Once that application is deployed users can link it to their existing systems or leverage their functionality to solve their pain points.  
 

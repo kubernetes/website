@@ -2,7 +2,8 @@
 layout: blog
 title: " Create a Couchbase cluster using Kubernetes "
 date:  Tuesday, August 15, 2016
-
+pagination:
+  enabled: true
 ---
 _Editor’s note: today’s guest post is by Arun Gupta, Vice President Developer Relations at Couchbase, showing how to setup a Couchbase cluster with Kubernetes._  
 

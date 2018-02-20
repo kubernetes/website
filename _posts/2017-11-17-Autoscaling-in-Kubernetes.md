@@ -2,7 +2,8 @@
 layout: blog
 title: " Autoscaling in Kubernetes "
 date:  Saturday, November 17, 2017
-
+pagination:
+  enabled: true
 ---
 
 

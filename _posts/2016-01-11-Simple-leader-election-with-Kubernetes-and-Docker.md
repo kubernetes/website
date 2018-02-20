@@ -2,7 +2,8 @@
 layout: blog
 title: " Simple leader election with Kubernetes and Docker "
 date:  Tuesday, January 11, 2016
-
+pagination:
+  enabled: true
 ---
 
 ####  Overview

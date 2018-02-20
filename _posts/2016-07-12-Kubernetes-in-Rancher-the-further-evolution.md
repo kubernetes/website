@@ -2,6 +2,8 @@
 layout: blog
 title: " Kubernetes in Rancher: the further evolution "
 date:  Wednesday, July 12, 2016
+pagination:
+  enabled: true
 ---
 _Editor’s note: today's guest post is from Alena Prokharchyk, Principal Software Engineer at Rancher Labs, who’ll share how they are incorporating new Kubernetes features into their platform._  
 

@@ -2,6 +2,8 @@
 layout: blog
 title: " Weekly Kubernetes Community Hangout Notes - July 10 2015 "
 date:  Tuesday, July 13, 2015
+pagination:
+  enabled: true
 ---
 
 Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.

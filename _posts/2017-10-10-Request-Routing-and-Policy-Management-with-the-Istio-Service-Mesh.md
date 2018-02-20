@@ -2,7 +2,8 @@
 layout: blog
 title: " Request Routing and Policy Management with the Istio Service Mesh "
 date:  Wednesday, October 10, 2017
-
+pagination:
+  enabled: true
 ---
  **_Editor's note: Today’s post by Frank Budinsky, Software Engineer, IBM, Andra Cismaru, Software Engineer, Google, and Israel Shalom, Product Manager, Google, is the second post in a three-part series on Istio. It offers a closer look at request routing and policy management._**  
 

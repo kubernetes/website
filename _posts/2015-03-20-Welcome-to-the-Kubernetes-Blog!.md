@@ -2,7 +2,8 @@
 layout: blog
 title: " Welcome to the Kubernetes Blog! "
 date:  Saturday, March 20, 2015
-
+pagination:
+  enabled: true
 ---
 Welcome to the new Kubernetes blog. Follow this blog to learn about the Kubernetes Open Source project. We plan to post release notes, how-to articles, events, and maybe even some off topic fun here from time to time.
 
@@ -21,7 +22,7 @@ To start things off, here's a roundup of recent Kubernetes posts from other site
 - [An introduction to containers, Kubernetes, and the trajectory of modern cloud computing](http://googlecloudplatform.blogspot.com/2015/01/in-coming-weeks-we-will-be-publishing.html)
 - [What is Kubernetes and how to use it?](http://www.centurylinklabs.com/what-is-kubernetes-and-how-to-use-it/)
 - [OpenShift V3, Docker and Kubernetes Strategy](https://blog.openshift.com/v3-docker-kubernetes-interview/)
-- [An Introduction to Kubernetes](https://www.digitalocean.com/community/tutorials/an-introduction-to-kubernetes) 
+- [An Introduction to Kubernetes](https://www.digitalocean.com/community/tutorials/an-introduction-to-kubernetes)
 
 
 Happy cloud computing!

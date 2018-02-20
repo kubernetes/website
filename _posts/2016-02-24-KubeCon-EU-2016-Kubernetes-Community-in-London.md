@@ -2,6 +2,8 @@
 layout: blog
 title: " KubeCon EU 2016: Kubernetes Community in London "
 date:  Thursday, February 24, 2016
+pagination:
+  enabled: true
 ---
 
 KubeCon EU 2016 is the inaugural [European Kubernetes](http://kubernetes.io/) community conference that follows on the American launch in November 2015. KubeCon is fully dedicated to education and community engagement for[Kubernetes](http://kubernetes.io/) enthusiasts, production users and the surrounding ecosystem.

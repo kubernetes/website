@@ -2,6 +2,8 @@
 layout: blog
 title: " One million requests per second: Dependable and dynamic distributed systems at scale "
 date:  Thursday, November 11, 2015
+pagination:
+  enabled: true
 ---
 
 Recently, I’ve gotten in the habit of telling people that building a reliable service isn’t that hard. If you give me two Compute Engine virtual machines, a Cloud Load balancer, supervisord and nginx, I can create you a static web service that will serve a static web page, effectively forever.  
@@ -28,7 +30,7 @@ If you want to try this out on your own cluster (or use the load test framework 
 I hope I’ve shown you how Kubernetes can enable developers of distributed systems to achieve both reliability and agility at scale, and as always, if you’re interested in learning more, head over to [kubernetes.io](http://kubernetes.io/) or [github](https://github.com/kubernetes/kubernetes) and connect with the community on our [Slack](http://slack.kubernetes.io/) channel.&nbsp;  
 
 
-{% youtube "https://www.youtube.com/embed/7TOWLerX0Ps" %}
+ "https://www.youtube.com/embed/7TOWLerX0Ps"
 
 
 

@@ -2,6 +2,8 @@
 layout: blog
 title: "Introducing client-go version 6"
 date:  Saturday, January 12, 2018
+pagination:
+  enabled: true
 ---
 
 The Kubernetes API server [exposes a REST interface](https://blog.openshift.com/tag/api-server/) consumable by any client. [client-go](https://github.com/kubernetes/client-go) is the official client library for the Go programming language. It is used both internally by Kubernetes itself (for example, inside kubectl) as well as by [numerous external consumers](https://github.com/search?q=k8s.io%2Fclient-go&type=Code&utf8=%E2%9C%93):operators like the [etcd-operator](https://github.com/coreos/etcd-operator) or [prometheus-operator;](https://github.com/coreos/prometheus-operator)higher level frameworks like [KubeLess](https://github.com/kubeless/kubeless) and [OpenShift](https://openshift.io/); and many more.  

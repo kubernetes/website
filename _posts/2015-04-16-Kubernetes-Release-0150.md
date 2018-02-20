@@ -2,7 +2,8 @@
 layout: blog
 title: " Kubernetes Release: 0.15.0 "
 date:  Friday, April 16, 2015
-
+pagination:
+  enabled: true
 ---
 
 Release Notes:

@@ -2,7 +2,8 @@
 layout: blog
 title: " Kubernetes Community Meeting Notes - 20160114 "
 date:  Friday, January 28, 2016
-
+pagination:
+  enabled: true
 ---
 #####  January 14 - RackN demo, testing woes, and KubeCon EU CFP.
 ---

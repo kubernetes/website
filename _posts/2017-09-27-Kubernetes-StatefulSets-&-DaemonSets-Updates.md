@@ -2,7 +2,8 @@
 layout: blog
 title: " Kubernetes StatefulSets & DaemonSets Updates "
 date:  Thursday, September 27, 2017
-
+pagination:
+  enabled: true
 ---
 Editor's note: today's post is by Janet Kuo and Kenneth Owens, Software Engineers at Google.
 

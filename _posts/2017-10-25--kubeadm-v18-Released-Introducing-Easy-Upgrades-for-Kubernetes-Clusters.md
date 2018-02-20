@@ -2,7 +2,8 @@
 layout: blog
 title: "  kubeadm v1.8 Released: Introducing Easy Upgrades for Kubernetes Clusters "
 date:  Thursday, October 25, 2017
-
+pagination:
+  enabled: true
 ---
 **_Editor’s note: this post is part of a [series of in-depth articles](http://blog.kubernetes.io/2017/10/five-days-of-kubernetes-18.html) on what's new in Kubernetes 1.8_**  
 

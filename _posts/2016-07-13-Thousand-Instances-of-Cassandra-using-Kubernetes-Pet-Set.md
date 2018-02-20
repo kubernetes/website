@@ -2,6 +2,8 @@
 layout: blog
 title: " Thousand Instances of Cassandra using Kubernetes Pet Set "
 date:  Thursday, July 13, 2016
+pagination:
+  enabled: true
 ---
 
 _Editor’s note: this post is part of a [series of in-depth articles](http://blog.kubernetes.io/2016/07/five-days-of-kubernetes-1.3.html) on what's new in Kubernetes 1.3_    

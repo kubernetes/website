@@ -2,6 +2,8 @@
 layout: blog
 title: " Kubernetes Community Meeting Notes - 20160211 "
 date:  Wednesday, February 16, 2016
+pagination:
+  enabled: true
 ---
 
 #####  February 11th - Pangaea Demo, #AWS SIG formed, release automation and documentation team introductions. 1.2 update and planning 1.3.
