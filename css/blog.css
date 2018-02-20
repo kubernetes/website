@@ -8,6 +8,7 @@
 .container-fluid {
   padding: 0px;
   margin: 0px;
+  padding-left: .01 em;
 }
 body {
   font: normal normal 16px 'Trebuchet MS', Trebuchet, Verdana, sans-serif;
@@ -139,6 +140,33 @@ div.header-try a {
   border-right: 1px solid #dddddd;
 }
 
+
+/* Pagination Links */
+.pagination h4{
+display: inline-block;
+}
+
+span.pagination {
+text-align: center;
+align-self: center;
+}
+
+
+/* Columns
+----------------------------------------------- */
+.main-outer {
+  border-top: 0 solid transparent;
+}
+.blog-content {
+  padding-left: 100px;
+}
+.fauxcolumn-left-outer .fauxcolumn-inner {
+  border-right: 1px solid transparent;
+}
+.fauxcolumn-right-outer .fauxcolumn-inner {
+  border-left: 1px solid transparent;
+}
+
 /* Headings
 ----------------------------------------------- */
 div.widget > h2,
@@ -224,8 +252,6 @@ h3.post-title{
 
 /* Mobile
 ----------------------------------------------- */
-
-
 .main-inner .column-right-outer {
   width: 320px;
   margin-right: -320px;
