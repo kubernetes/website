@@ -3,6 +3,6 @@ name: Init Container
 tags:
 - fundamental
 short-description: >
-  A multiple set of containers that are ensure to run to completion before the app Container is run. 
+  One or more initialization containers that must run to completion before any app containers run. 
 long-description: >
-  Init Containers are exactly like app Container that are guaranteed to run to completion before the app Container can be started. Each of these containers must be run to completion before the next init container is run.  
+  Initialization (init) containers are like regular app containers, with one difference: init containers must run to completion before any app containers can start. Init containers run in series: each init container must run to completion before the next init container is run.  
