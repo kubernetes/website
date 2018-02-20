@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - jbeda
 title: VMware vSphere
