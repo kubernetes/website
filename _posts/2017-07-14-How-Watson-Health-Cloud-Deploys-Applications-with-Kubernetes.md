@@ -2,7 +2,8 @@
 layout: blog
 title: " How Watson Health Cloud Deploys Applications with Kubernetes "
 date:  Saturday, July 14, 2017
-
+pagination:
+  enabled: true
 ---
 Today’s post is by [Sandhya Kapoor](https://www.linkedin.com/in/sandhyakapoor/), Senior Technologist, Watson Platform for Health, IBM
 

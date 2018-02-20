@@ -2,7 +2,8 @@
 layout: blog
 title: " Kubernetes Community Meeting Notes - 20160128 "
 date:  Wednesday, February 02, 2016
-
+pagination:
+  enabled: true
 ---
 ##### January 28 - 1.2 release update, Deis demo, flaky test surge and SIGs
 

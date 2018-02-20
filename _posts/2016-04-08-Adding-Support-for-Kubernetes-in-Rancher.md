@@ -2,7 +2,8 @@
 layout: blog
 title: " Adding Support for Kubernetes in Rancher "
 date:  Saturday, April 08, 2016
-
+pagination:
+  enabled: true
 ---
 _Today’s guest post is written by Darren Shepherd, Chief Architect at Rancher Labs, an open-source software platform for managing containers._  
 

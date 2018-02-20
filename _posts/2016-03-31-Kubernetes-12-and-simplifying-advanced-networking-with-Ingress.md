@@ -2,7 +2,8 @@
 layout: blog
 title: " Kubernetes 1.2 and simplifying advanced networking with Ingress "
 date:  Friday, March 31, 2016
-
+pagination:
+  enabled: true
 ---
 _Editor's note: This is the sixth post in a [series of in-depth posts](http://blog.kubernetes.io/2016/03/five-days-of-kubernetes-12.html) on what's new in Kubernetes 1.2._  
 _Ingress is currently in beta and under active development._  

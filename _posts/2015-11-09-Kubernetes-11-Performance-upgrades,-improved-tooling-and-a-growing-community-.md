@@ -1,13 +1,14 @@
 ---
 layout: blog
 title: " Kubernetes 1.1 Performance upgrades, improved tooling and a growing community  "
-date:  Tuesday, November 09, 2015 
-
+date:  Tuesday, November 09, 2015
+pagination:
+  enabled: true
 ---
 Since the Kubernetes 1.0 release in July, we’ve seen tremendous adoption by companies building distributed systems to manage their container clusters. We’re also been humbled by the rapid growth of the community who help make Kubernetes better everyday. We have seen commercial offerings such as Tectonic by CoreOS and RedHat Atomic Host emerge to deliver deployment and support of Kubernetes. And a growing ecosystem has added Kubernetes support including tool vendors such as Sysdig and Project Calico.  
-  
+
 With the help of hundreds of contributors, we’re proud to announce the availability of Kubernetes 1.1, which offers major performance upgrades, improved tooling, and new features that make applications even easier to build and deploy.  
-  
+
 Some of the work we’d like to highlight includes:
 
 - **Substantial performance improvements** : We have architected Kubernetes from day one to handle Google-scale workloads, and our customers have put it through their paces. In Kubernetes 1.1, we have made further investments to ensure that you can run in extremely high-scale environments; later this week, we will be sharing examples of running thousand node clusters, and running over a million QPS against a single cluster.&nbsp;
@@ -26,10 +27,10 @@ Some of the work we’d like to highlight includes:
 
 - And many more. For a complete list of updates, see the [1.1. release](https://github.com/kubernetes/kubernetes/releases) notes on GitHub&nbsp;
 
-  
+
 
 Today, we’re also proud to mark the inaugural Kubernetes conference, [KubeCon](https://kubecon.io/), where some 400 community members along with dozens of vendors are in attendance supporting the Kubernetes project.  
-  
+
 We’d love to highlight just a few of the many partners making Kubernetes better:  
 
 > “We are betting our major product, Tectonic – which enables any company to deploy, manage and secure its containers anywhere – on Kubernetes because we believe it is the future of the data center. The release of Kubernetes 1.1 is another major milestone that will create more widespread adoption of distributed systems and containers, and puts us on a path that will inevitably lead to a whole new generation of products and services.” – Alex Polvi, CEO, CoreOS.
@@ -38,7 +39,7 @@ We’d love to highlight just a few of the many partners making Kubernetes bette
 
 > “The tremendous customer demand we’re seeing to run containers at scale with Kubernetes is a critical element driving growth in our professional services business at Redapt. As a trusted advisor, it’s great to have a tool like Kubernetes in our tool belt to help our customers achieve their objectives.” – Paul Welch, SR VP Cloud Solutions, Redapt
 
-> 
+>
 
 As we mentioned above, we would love your help:  
 
@@ -47,7 +48,7 @@ As we mentioned above, we would love your help:
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates&nbsp;
 - Post questions (or answer questions) on Stackoverflow&nbsp;
 - Get started running, deploying, and using Kubernetes [guides](http://kubernetes.io/gettingstarted/)&nbsp;
-  
+
 But, most of all, just let us know how you are transforming your business using Kubernetes, and how we can help you do it even faster. Thank you for your support!  
-  
+
 &nbsp;- David Aronchick, Senior Product Manager for Kubernetes and Google Container Engine

@@ -2,7 +2,8 @@
 layout: blog
 title: " How Qbox Saved 50% per Month on AWS Bills Using Kubernetes and Supergiant "
 date:  Wednesday, September 27, 2016
-
+pagination:
+  enabled: true
 ---
 _Editor’s Note: Today’s post is by the team at Qbox, a hosted Elasticsearch provider sharing their experience with Kubernetes and how it helped save them fifty-percent off their cloud bill.&nbsp;_  
 

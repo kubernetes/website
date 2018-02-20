@@ -2,6 +2,8 @@
 layout: blog
 title: " Using Deployment objects with Kubernetes 1.2 "
 date:  Saturday, April 01, 2016
+pagination:
+  enabled: true
 ---
 _Editor's note: this is the seventh post in a [series of in-depth posts](http://blog.kubernetes.io/2016/03/five-days-of-kubernetes-12.html) on what's new in Kubernetes 1.2_  
 

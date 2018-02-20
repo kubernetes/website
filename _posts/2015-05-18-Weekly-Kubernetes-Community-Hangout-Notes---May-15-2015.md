@@ -2,7 +2,8 @@
 layout: blog
 title: " Weekly Kubernetes Community Hangout Notes - May 15 2015 "
 date:  Tuesday, May 18, 2015
-
+pagination:
+  enabled: true
 ---
 Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.  
 
@@ -79,5 +80,3 @@ Every week the Kubernetes contributing community meet virtually over Google Hang
     * Kit to send more info in next couple weeks
 
 [1]: https://github.com/GoogleCloudPlatform/kubernetes/issues/7018
-
-  

@@ -2,7 +2,8 @@
 layout: blog
 title: " Steering an Automation Platform at Wercker with Kubernetes "
 date:  Saturday, July 15, 2016
-
+pagination:
+  enabled: true
 ---
 _Editor’s note: today’s guest post is by Andy Smith, the CTO of Wercker, sharing how Kubernetes helps them save time and speed up development. &nbsp;_  
 

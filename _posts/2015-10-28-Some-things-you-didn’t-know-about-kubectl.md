@@ -2,7 +2,8 @@
 layout: blog
 title: " Some things you didn’t know about kubectl "
 date:  Thursday, October 28, 2015
-
+pagination:
+  enabled: true
 ---
 [kubectl](https://github.com/kubernetes/kubernetes/blob/master/docs/user-guide/kubectl-overview.md) is the command line tool for interacting with Kubernetes clusters. Many people use it every day to deploy their container workloads into production clusters. But there’s more to kubectl than just `kubectl create -f or kubectl rolling-update`. kubectl is a veritable multi-tool of container orchestration and management. Below we describe some of the features of kubectl that you may not have seen.   
 
@@ -140,7 +141,7 @@ Not sure what clusters are available? You can view currently configured clusters
 Phew, that outputs a lot of text. To restrict it down to only the things we’re interested in, we can use a JSONPath template:  
 
             $> kubectl config view -o jsonpath="{.context[*].name}"
-            
+
 Ahh, that’s better.
 
 

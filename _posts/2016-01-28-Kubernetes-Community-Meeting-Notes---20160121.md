@@ -2,6 +2,8 @@
 layout: blog
 title: Kubernetes Community Meeting Notes - 20160121
 date: Thursday, January 28, 2016
+pagination:
+  enabled: true
 ---
 #### January 21 - Configuration, Federation and Testing, oh my.&nbsp;
 

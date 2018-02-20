@@ -2,7 +2,8 @@
 layout: blog
 title: " State of the Container World, February 2016 "
 date:  Wednesday, March 01, 2016
-
+pagination:
+  enabled: true
 ---
 Hello, and welcome to the second installment of the Kubernetes state of the container world survey. At the beginning of February we sent out a survey about people’s usage of containers, and wrote about the [results from the January survey](http://blog.kubernetes.io/2016/02/state-of-container-world-january-2016.html). Here we are again, as before, while we try to reach a large and representative set of respondents, this survey was publicized across the social media account of myself and others on the Kubernetes team, so I expect some pro-container and Kubernetes bias in the data.We continue to try to get as large an audience as possible, and in that vein, please go and take the [March survey](https://docs.google.com/a/google.com/forms/d/1hlOEyjuN4roIbcAAUbDhs7xjNMoM8r-hqtixf6zUsp4/viewform) and share it with your friends and followers everywhere! Without further ado, the numbers...
 

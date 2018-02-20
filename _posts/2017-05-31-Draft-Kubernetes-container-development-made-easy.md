@@ -2,7 +2,8 @@
 layout: blog
 title: " Draft: Kubernetes container development made easy "
 date:  Thursday, May 31, 2017
-
+pagination:
+  enabled: true
 ---
 _Today's post is by __Brendan Burns, Director of Engineering at Microsoft Azure and Kubernetes co-founder._  
 

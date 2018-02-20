@@ -2,7 +2,8 @@
 layout: blog
 title: " Introducing Software Certification for Kubernetes "
 date:  Friday, October 19, 2017
-
+pagination:
+  enabled: true
 ---
 
 _**Editor's Note: Today's post is by William Denniss, Product Manager, Google Cloud on the new Certified Kubernetes Conformance Program.**_    

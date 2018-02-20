@@ -2,7 +2,8 @@
 layout: blog
 title: " Visualize Kubelet Performance with Node Dashboard "
 date:  Friday, November 17, 2016
-
+pagination:
+  enabled: true
 ---
 
 In Kubernetes 1.4, we introduced a new node performance analysis tool, called the _node performance dashboard_, to visualize and explore the behavior of the Kubelet in much richer details. This new feature will make it easy to understand and improve code performance for Kubelet developers, and lets cluster maintainer set configuration according to provided Service Level Objectives (SLOs).  

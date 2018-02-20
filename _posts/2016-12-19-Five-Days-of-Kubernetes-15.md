@@ -2,7 +2,8 @@
 layout: blog
 title: " Five Days of Kubernetes 1.5 "
 date:  Tuesday, December 19, 2016
-
+pagination:
+  enabled: true
 ---
 With the help of our growing community of 1,000 contributors, we pushed some 5,000 commits to extend support for production workloads and deliver [Kubernetes 1.5](http://blog.kubernetes.io/2016/12/kubernetes-1.5-supporting-production-workloads.html). While many improvements and new features have been added, we selected few to highlight in a series of in-depths posts listed below.&nbsp;  
 

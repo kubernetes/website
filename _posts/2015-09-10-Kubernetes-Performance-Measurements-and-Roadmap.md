@@ -2,7 +2,8 @@
 layout: blog
 title: " Kubernetes Performance Measurements and Roadmap "
 date:  Friday, September 10, 2015
-
+pagination:
+  enabled: true
 ---
 No matter how flexible and reliable your container orchestration system is, ultimately, you have some work to be done, and you want it completed quickly. For big problems, a common answer is to just throw more machines at the problem. After all, more compute = faster, right?
 

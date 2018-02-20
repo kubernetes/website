@@ -2,6 +2,8 @@
 layout: blog
 title: " Monitoring Kubernetes with Sysdig "
 date:  Friday, November 19, 2015
+pagination:
+  enabled: true
 ---
 _Today we’re sharing a guest post by Chris Crane from Sysdig about their monitoring integration into Kubernetes.&nbsp;_  
 

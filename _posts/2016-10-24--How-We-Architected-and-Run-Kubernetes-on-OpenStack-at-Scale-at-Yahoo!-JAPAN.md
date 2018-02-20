@@ -2,7 +2,8 @@
 layout: blog
 title: "  How We Architected and Run Kubernetes on OpenStack at Scale at Yahoo! JAPAN "
 date:  Tuesday, October 24, 2016
-
+pagination:
+  enabled: true
 ---
 
 _Editor’s note: today’s post is by the Infrastructure Engineering team at Yahoo! JAPAN, talking about how they run OpenStack on Kubernetes. This post has been translated and edited for context with permission -- originally published on the [Yahoo! JAPAN engineering blog](http://techblog.yahoo.co.jp/infrastructure/os_n_k8s/).&nbsp;_  

@@ -2,6 +2,8 @@
 layout: blog
 title: Kubernetes v1.9 releases beta support for Windows Server Containers
 date:  Wednesday, January 09, 2018
+pagination:
+  enabled: true
 ---
 
 With the release of Kubernetes v1.9, our mission of ensuring Kubernetes works well everywhere and for everyone takes a great step forward. We’ve advanced support for Windows Server to beta along with continued feature and functional advancements on both the Kubernetes and Windows platforms. SIG-Windows has been working since March of 2016 to open the door for many Windows-specific applications and workloads to run on Kubernetes, significantly expanding the implementation scenarios and the enterprise reach of Kubernetes.  
