@@ -1,0 +1,11 @@
+id: volumeplugin
+name: Volume Plugin
+tags:
+- core-object
+- storage
+short-description: >
+  A Volume Plugin enables integration of storage to be used within a {% glossary_tooltip text="Pod" term_id="pod" %}.
+long-description: >
+  A Volume Plugin allows to attach and mount storage volumes to be used by {% glossary_tooltip text="Pod" term_id="pod" %}.
+  The plugins can be in tree or out of tree. In tree plugins are part of kubernetes code repository and follow its release cycle. While out of tree plugins are not part of kubernetes repository and can follow their own release cycle.
+
