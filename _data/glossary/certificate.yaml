@@ -1,0 +1,16 @@
+id: certificate
+name: Certificate
+full-link: https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/
+tags:
+- security
+short-description: >
+  A crytographicly secure file used to validate access to the
+  kubernetes cluster
+long-description: >
+  Certificates are used to enable applications within a kubernetes
+  cluster to access the kubernetes API securely. They validate that
+  clients are allowed to access the API.
+
+  The process of creating a valid certificate includes creating a
+  Certificate Signing Request, and having that approved by the
+  kubernetes adminstrator using the ``kubectl certificate`` command.
