@@ -1,0 +1,11 @@
+id: storageclass
+name: Storage Class
+full-link: /docs/concepts/storage/storage-classes
+tags:
+- core-object
+- storage
+short-description: >
+  A StorageClass provides a way for administrators to describe the different flavors of storage they offer.
+long-description: >
+  Different classes might map to quality-of-service levels, or to backup policies, or to arbitrary policies determined by the cluster administrators.
+  Each StorageClass contains the fields provisioner, parameters, and reclaimPolicy, which are used when a {% glossary_tooltip text="Persistent Volume" term_id="persistent-volume" %}  belonging to the class needs to be dynamically provisioned. The name of a StorageClass object is significant, and is how users can request a particular class.
