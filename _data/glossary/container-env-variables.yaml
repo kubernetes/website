@@ -1,0 +1,9 @@
+id: container-env-variables
+name: Container Environment Variables
+full-link: /docs/concepts/containers/container-environment-variables.md
+tags:
+- fundamental
+short-description: >
+  Container environment variables are name/value pairs that provide useful information into container runtime.
+long-description: >
+  Container environment variables provide important resources to [Containers] {% glossary_tooltip text="Containers" term_id="container" %} such as file system, information about container itslef and other cluster resources.
