@@ -434,7 +434,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
    apiServerCertSANs:
    - <load-balancer-ip>
    apiServerExtraArgs:
-     apiserver-count: 3
+     apiserver-count: "3"
    EOF
    ```
 
@@ -468,7 +468,7 @@ Before running kubeadm on the other masters, you need to first copy the K8s CA c
 
 #### Option 2: Copy paste
 
-1. Copy the contents of `/etc/kubernetes/pki/ca.crt` and `/etc/kubernetes/pki/ca.key` and create these files manually on `master1` and `master2`.
+1. Copy the contents of `/etc/kubernetes/pki/ca.crt`, `/etc/kubernetes/pki/ca.key`, `/etc/kubernetes/pki/sa.key` and `/etc/kubernetes/pki/sa.pub` and create these files manually on `master1` and `master2`.
 
 When this is done, you can follow the [previous step](#kubeadm-init-master0) to install the control plane with kubeadm.
 
