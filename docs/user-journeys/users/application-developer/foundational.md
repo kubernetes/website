@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - chenopis
 layout: docsportal
 css: /css/style_user_journeys.css, https://fonts.googleapis.com/icon?family=Material+Icons
