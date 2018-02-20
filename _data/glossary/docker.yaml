@@ -1,0 +1,10 @@
+id: docker
+name: Docker
+tags:
+- fundamental
+short-description: >
+  Docker is container runtime that manages both images and containers.
+long-description: >
+  Kubernetes supports many runtimes including Docker. Kublet communicates with container runtime like Docker over Unix sockers.
+
+
