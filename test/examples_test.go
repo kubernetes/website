@@ -540,14 +540,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"mount-file-pod": {&api.Pod{}},
 			"volume-pod":     {&api.Pod{}},
 		},
-		"../docs/user-guide/jobs/work-queue-1": {
-			"job": {&batch.Job{}},
-		},
-		"../docs/user-guide/jobs/work-queue-2": {
-			"job":           {&batch.Job{}},
-			"redis-pod":     {&api.Pod{}},
-			"redis-service": {&api.Service{}},
-		},
 		"../docs/user-guide/liveness": {
 			"exec-liveness":            {&api.Pod{}},
 			"http-liveness":            {&api.Pod{}},
