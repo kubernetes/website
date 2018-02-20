@@ -1,0 +1,8 @@
+id: init-container
+name: Init Container
+tags:
+- fundamental
+short-description: >
+  A multiple set of containers that are ensure to run to completion before the app Container is run. 
+long-description: >
+  Init Containers are exactly like app Container that are guaranteed to run to completion before the app Container can be started. Each of these containers must be run to completion before the next init container is run.  
