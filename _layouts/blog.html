@@ -74,12 +74,9 @@
     <button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
   </nav>
 </div>
-<div class="clear" style="clear: both"></div>
-
 </header>
 
 <div class="container-fluid">
-
   <div id="blog-hero" class="light-text">
       <a class= 'logo' href='http://kubernetes.io/'></a>
   <div class='blog-title'>
@@ -103,18 +100,15 @@
 
 
     <div class="col-xs-1 col-sm-1 col-sm-3 col-lg-3 text">
-
-
-
-        <div ="widget-content">
-          <link href='http://kubernetes.io/feed.xml' rel='alternate' type='application/atom+xml'>
-          <a class="widget-link" href="https://kubernetes.io/feed.xml"> <i class="fas fa-rss"> </i> </a>
-          <a class="widget-link" href="https://twitter.com/kubernetesio"> <i class="fab fa-twitter-square"> </i> @Kubernetesio</a>
-          <a class="widget-link" href="https://github.com/kubernetes/kubernetes"> <i class="fab fa-github-square"></i> View on Github </a>
-          <a class="widget-link" href="http://slack.k8s.io"><i class='fab fa-slack'> </i> #kubernetes-users </a>
-          <a class="widget-link" href="http://stackoverflow.com/questions/tagged/kubernetes"><i class="fab fa-stack-overflow"></i>Stack Overflow</a>
-          <a class="widget-link" href="http://get.k8s.io/"><i class="fab fa-stack-overflow"></i>Download Kubernetes</a>
-        </div>
+      <div ="widget-content">
+        <link href='http://kubernetes.io/feed.xml' rel='alternate' type='application/atom+xml'>
+        <a class="widget-link" href="https://kubernetes.io/feed.xml"> <i class="fas fa-rss"> </i> </a>
+        <a class="widget-link" href="https://twitter.com/kubernetesio"> <i class="fab fa-twitter-square"> </i> @Kubernetesio</a>
+        <a class="widget-link" href="https://github.com/kubernetes/kubernetes"> <i class="fab fa-github-square"></i> View on Github </a>
+        <a class="widget-link" href="http://slack.k8s.io"><i class='fab fa-slack'> </i> #kubernetes-users </a>
+        <a class="widget-link" href="http://stackoverflow.com/questions/tagged/kubernetes"><i class="fab fa-stack-overflow"></i>Stack Overflow</a>
+        <a class="widget-link" href="http://get.k8s.io/"><i class="fab fa-stack-overflow"></i>Download Kubernetes</a>
+      </div>
 
 <!-- Begin Sidebar  Loop -->
     {% for post in site.posts  %}
@@ -133,15 +127,14 @@
         <li><a href="{{ post.url }}">{{ post.title }}</a></li>
       {% if forloop.last %}  <!-- This section closes the entire div and ul at the final iteration-->
       </ul>
-
     </div>
   </div>     <!-- end of final conditional -->
     {% else %}
         {% if this_year != next_year %}
-
           </ul>
-
+          <!-- this closes the collapsible year body -->
         </div>
+        <!-- this closes the sidebar-previous-year opened below -->
       </div>
       <div class="sidebar-previous-year">
         <input type="checkbox" id="{{ next_year }}-ref-checkbox" class="heading-year-toggle-checkbox"/>
@@ -171,7 +164,6 @@
             {% endif %}
         {% endif %}
     {% endif %}
-
 {% endfor %}
 
 </div>
