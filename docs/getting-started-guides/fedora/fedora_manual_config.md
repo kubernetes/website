@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - aveshagarwal
 - eparis
 - thockin
