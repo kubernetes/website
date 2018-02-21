@@ -14,8 +14,6 @@ safe: false
 lsi: false
 
 latest: "v1.9"
-paginate: 7
-paginate_path: "blog/page:num"
 
 defaults:
   -
@@ -97,31 +95,19 @@ tocs:
   - imported
   - blog
 
-  pagination:
-    enabled: true
-
-    # Set to 'true' to enable pagination debugging. This can be enabled in the site config or only for individual pagination pages
-    debug: false
-
-    # The default document collection to paginate if nothing is specified ('posts' is default)
-    collection: 'posts'
-
-    # How many objects per paginated page, used to be `paginate` (default: 0, means all)
-    per_page: 10
-
-    # The permalink structure for the paginated pages (this can be any level deep)
-    permalink: '/page/:num/' # Pages are index.html inside this folder (default)
-    #permalink: '/page/:num.html' # Pages are simple html files
-    #permalink: '/page/:num' # Pages are html files, linked jekyll extensionless permalink style.
-
-    # Optional the title format for the paginated pages (supports :title for original page title, :num for pagination page number, :max for total number of pages)
-    title: ':title - page :num'
-
-    # Limit how many pagenated pages to create (default: 0, means all)
-    limit: 0
-
-    # Optional, defines the field that the posts should be sorted on (omit to default to 'date')
-    sort_field: 'date'
-
-    # Optional, sorts the posts in reverse order (omit to default decending or sort_reverse: true)
-    sort_reverse: true
+pagination:
+  enabled: true
+  # Set to 'true' to enable pagination debugging. This can be enabled in the site config or only for individual pagination pages
+  debug: false
+  # The default document collection to paginate if nothing is specified ('posts' is default)
+  collection: 'posts'
+  # How many objects per paginated page, used to be `paginate` (default: 0, means all)
+  per_page: 10
+  # The permalink structure for the paginated pages (this can be any level deep)
+  permalink: '/blog/page:num/' # Pages are index.html inside this folder (default)
+# Limit how many pagenated pages to create (default: 0, means all)
+  limit: 0
+  # Optional, defines the field that the posts should be sorted on (omit to default to 'date')
+  sort_field: 'date'
+  # Optional, sorts the posts in reverse order (omit to default decending or sort_reverse: true)
+  sort_reverse: true
