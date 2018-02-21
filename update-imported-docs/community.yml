@@ -10,5 +10,5 @@ repos:
     dst: docs/imported/community/guide.md
   - src: mentoring/README.md
     dst: docs/imported/community/mentoring.md
-  - src: keps/1-kubernetes-enhancement-proposal-process.md
+  - src: keps/0001-kubernetes-enhancement-proposal-process.md
     dst: docs/imported/community/keps.md
