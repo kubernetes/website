@@ -150,6 +150,7 @@ toc:
   - docs/tasks/administer-cluster/reserve-compute-resources.md
   - docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods.md
   - docs/tasks/administer-cluster/declare-network-policy.md
+  - docs/tasks/administer-cluster/kms-provider.md      
   - title: Install Network Policy Provider
     section:
     - docs/tasks/administer-cluster/calico-network-policy.md
