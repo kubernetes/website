@@ -507,68 +507,70 @@ See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{page.githu
 
 ### local
 
-{% assign for_k8s_version="v1.7" %}{% include feature-state-alpha.md %}
-
-This alpha feature requires the `PersistentLocalVolumes` feature gate to be
-enabled.
-
-**Note:** Starting in 1.9, the `VolumeScheduling` feature gate must also be enabled.
-{: .note}
+{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
 
 A `local` volume represents a mounted local storage device such as a disk,
 partition or directory.
 
-Local volumes can only be used as a statically created PersistentVolume.
+Local volumes can only be used as a statically created PersistentVolume. Dynamic
+provisioning is not supported yet.
 
-Compared to `hostPath` volumes, local volumes can be used in a durable manner
-without manually scheduling pods to nodes, as the system is aware of the volume's
-node constraints by looking at the node affinity on the PersistentVolume.
+Compared to `hostPath` volumes, local volumes can be used in a durable and
+portable manner without manually scheduling pods to nodes, as the system is aware
+of the volume's node constraints by looking at the node affinity on the PersistentVolume.
 
 However, local volumes are still subject to the availability of the underlying
-node and are not suitable for all applications.
+node and are not suitable for all applications. If a node becomes unhealthy,
+then the local volume will also become inaccessible, and a pod using it will not
+be able to run. Applications using local volumes must be able to tolerate this
+reduced availability, as well as potential data loss, depending on the
+durability characteristics of the underlying disk.
 
-The following is an example PersistentVolume spec using a `local` volume:
+The following is an example PersistentVolume spec using a `local` volume and
+`nodeAffinity`:
 
 ``` yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: example-pv
-  annotations:
-        "volume.alpha.kubernetes.io/node-affinity": '{
-            "requiredDuringSchedulingIgnoredDuringExecution": {
-                "nodeSelectorTerms": [
-                    { "matchExpressions": [
-                        { "key": "kubernetes.io/hostname",
-                          "operator": "In",
-                          "values": ["example-node"]
-                        }
-                    ]}
-                 ]}
-              }'
 spec:
-    capacity:
-      storage: 100Gi
-    accessModes:
-    - ReadWriteOnce
-    persistentVolumeReclaimPolicy: Delete
-    storageClassName: local-storage
-    local:
-      path: /mnt/disks/ssd1
+  capacity:
+    storage: 100Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+  local:
+    path: /mnt/disks/ssd1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+          key: kubernetes.io/hostname
+          operator: In
+          values:
+          - example-node
 ```
 
-**Note:** The local PersistentVolume cleanup and deletion requires manual intervention without the external provisioner.
+PV `nodeAffinity` is required when using local volumes. It enables
+the Kubernetes scheduler to correctly schedule pods using local volumes to the
+correct node.
+
+**Note:** The local PV cleanup and deletion requires manual
+intervention if the external static provisioner is not used to manage the volumes.
 {: .note}
 
-Starting in 1.9, local volume binding can be delayed until pod scheduling by
+When using local volumes, PVC binding should be delayed until pod scheduling by
 creating a StorageClass with `volumeBindingMode` set to `WaitForFirstConsumer`.
 See the [example](storage-classes.md#local). Delaying volume binding ensures
-that the volume binding decision will also be evaluated with any other node
+that the PVC binding decision will also be evaluated with any other node
 constraints the pod may have, such as node resource requirements, node
 selectors, pod affinity, and pod anti-affinity.
 
-For details on the `local` volume type, see the [Local Persistent Storage
-user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).
+An external static provisioner can be run separately for improved management of
+the local volume lifecycle. For details on how to run the external provisioner,
+see the [local volume provisioner user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).
 
 ### nfs
 
