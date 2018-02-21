@@ -1,11 +1,11 @@
-bigheader: "Imported Docs"
+bigheader: "Community Docs"
 abstract: "Docs imported from other Kubernetes SIGs and repos."
 toc:
-- docs/imported/index.md
+- docs/index.md
 
 - title: Community
   section:
-  - docs/imported/community/guide.md
-  - docs/imported/community/devel.md
-  - docs/imported/community/mentoring.md
-  - docs/imported/community/keps.md
+  - docs/community/guide.md
+  - docs/community/devel.md
+  - docs/community/mentoring.md
+  - docs/community/keps.md

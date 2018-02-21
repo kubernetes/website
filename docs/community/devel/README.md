@@ -1,6 +1,8 @@
 ---
-title: Kubernetes Developer Guide
+Title: Kubernetes Developer Guide
 ---
+
+# Kubernetes Developer Guide
 
 The developer guide is for anyone wanting to either write code which directly accesses the
 Kubernetes API, or to contribute directly to the Kubernetes project.
@@ -39,7 +41,7 @@ Guide](http://kubernetes.io/docs/admin/).
   ([instrumentation.md](https://github.com/kubernetes/community/tree/master/contributors/devel/instrumentation.md)): How to add a new metrics to the
   Kubernetes code base.
 
-* **Coding Conventions** ([coding-conventions.md](https://github.com/kubernetes/community/tree/master/contributors/devel/coding-conventions.md)):
+* **Coding Conventions** ([coding-conventions.md](https://github.com/kubernetes/community/tree/master/contributors/devel/../guide/coding-conventions.md)):
   Coding style advice for contributors.
 
 * **Document Conventions** ([how-to-doc.md](https://github.com/kubernetes/community/tree/master/contributors/devel/how-to-doc.md))
@@ -78,4 +80,3 @@ Guide](http://kubernetes.io/docs/admin/).
 ## Building releases
 
 See the [kubernetes/release](https://github.com/kubernetes/release) repository for details on creating releases and related tools and helper scripts.
-ed tools and helper scripts.
