@@ -58,6 +58,7 @@ their authors, not the Kubernetes team.
 | Scala                | [github.com/doriordan/skuber](https://github.com/doriordan/skuber) |
 | dotNet               | [https://github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen)
 | DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet)
+| Elixir               | [github.com/obmarg/kazan](https://github.com/obmarg/kazan/)
 {% endcapture %}
 
 {% include templates/concept.md %}
