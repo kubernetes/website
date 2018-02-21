@@ -6,4 +6,4 @@ pagination:
   enabled: true
 ---
 Check out Brendan Burns racing Kubernetes.
-https://www.youtube.com/embed/7vZ9dRKRMyc
+[![Check out Brendan Burns racing Kubernetes](https://img.youtube.com/vi/7vZ9dRKRMyc/0.jpg)](https://www.youtube.com/watch?v=?7vZ9dRKRMyc)

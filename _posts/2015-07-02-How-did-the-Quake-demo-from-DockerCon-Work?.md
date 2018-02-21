@@ -167,7 +167,8 @@ The LPC demo was done with a simple container that did not require network conne
 
 #### Current Status of Container C/R
 
-In May 2015, the criu branch of libcontainer was merged into master.  Using the newly-introduced lightweight [runC](https://blog.docker.com/2015/06/runc/) container runtime, container migration was demo’ed at DockerCon15.  In this [demo](https://www.youtube.com/watch?v=mL9AFkJJAq0) (minute 23:00), a container running Quake was checkpointed and restored on a different machine, effectively implementing container migration.
+In May 2015, the criu branch of libcontainer was merged into master.  Using the newly-introduced lightweight [runC](https://blog.docker.com/2015/06/runc/) container runtime, container migration was demo’ed at DockerCon15.  In this
+[![demo](https://img.youtube.com/vi/7vZ9dRKRMyc/0.jpg)](https://www.youtube.com/watch?v=?mL9AFkJJAq0) (minute 23:00), a container running Quake was checkpointed and restored on a different machine, effectively implementing container migration.
 
 At the time of this writing, there are two repos on Github that have native C/R support in Docker:
 - [Docker 1.5](https://github.com/SaiedKazemi/docker/tree/cr) (old libcontainer, relatively stable)

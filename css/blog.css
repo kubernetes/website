@@ -157,8 +157,16 @@ align-self: center;
 .main-outer {
   border-top: 0 solid transparent;
 }
-.blog-content {
-  padding-left: 100px;
+@media (min-width: 500px) {
+  .blog-content {
+    padding-left: 100px;
+  }
+}
+
+@media (max-width: 499px) {
+  .blog-content {
+    padding-left: 20px;
+  }
 }
 .fauxcolumn-left-outer .fauxcolumn-inner {
   border-right: 1px solid transparent;
@@ -472,4 +480,8 @@ table.post-table ,.post-table tr, .post-table td, .post-table th {
 
 img.big-img {
   width: 125%;
+}
+
+.content img {
+max-width: 100%;
 }

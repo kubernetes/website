@@ -58,7 +58,8 @@ The Grafana container serves Grafana’s UI which provides an easy to configure 
 
 Here is a video showing how to monitor a Kubernetes cluster using heapster, InfluxDB and Grafana:
 
- "https://youtube.com/embed/SZgqjMrxo3g"
+
+ [![](https://img.youtube.com/vi/SZgqjMrxo3g/0.jpg)](https://www.youtube.com/watch?SZgqjMrxo3g)
 
 
 

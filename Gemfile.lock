@@ -44,8 +44,7 @@ GEM
       jekyll (~> 3.3)
     jekyll-optional-front-matter (0.3.0)
       jekyll (~> 3.0)
-    jekyll-paginate-v2 (1.9.4)
-      jekyll (~> 3.0)
+    jekyll-paginate (1.1.0)
     jekyll-readme-index (0.0.3)
       jekyll (~> 3.0)
     jekyll-redirect-from (0.13.0)
@@ -150,7 +149,7 @@ DEPENDENCIES
   jekyll-github-metadata (~> 2.2)
   jekyll-include-cache (~> 0.1)
   jekyll-optional-front-matter (~> 0.1)
-  jekyll-paginate-v2
+  jekyll-paginate (= 1.1.0)
   jekyll-readme-index (= 0.0.3)
   jekyll-redirect-from (~> 0.13)
   jekyll-relative-links (~> 0.2)
