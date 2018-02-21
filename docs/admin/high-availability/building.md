@@ -100,13 +100,13 @@ for `${NODE_IP}` on each machine.
 Once you copy this into all three nodes, you should have a clustered etcd set up.  You can validate on master with
 
 ```shell
-kubectl exec < pod_name > etcdctl member list
+kubectl exec <pod_name> etcdctl member list
 ```
 
 and
 
 ```shell
-kubectl exec < pod_name > etcdctl cluster-health
+kubectl exec <pod_name> etcdctl cluster-health
 ```
 
 You can also validate that this is working with `etcdctl set foo bar` on one node, and `etcdctl get foo`
