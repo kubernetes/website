@@ -386,7 +386,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 
 ## Set up master Load Balancer
 
-The next step is to create a Load Balancer that sits in front of your master nodes. How you do this depends on your environment; you could, for example, leverage a cloud provider Load Balancer, or set up your own using nginx, keepalived, or HAproxy.
+The next step is to create a Load Balancer that sits in front of your master nodes. How you do this depends on your environment; you could, for example, leverage a cloud provider Load Balancer, or set up your own using NGINX, keepalived, or HAproxy.
 
 {% capture choose %}
 Please select one of the tabs to see installation instructions for information on load balancing in the respective environment.
@@ -405,7 +405,9 @@ If possible, use a smart load balancing algorithm like "least connections", and 
 {% endcapture %}
 
 {% capture onsite %}
-In an on-site environment there may not be a physical load balancer available. Instead, keepalived can be used to setup a virtual IP pointing to a healthy master node. The configuration shown here provides an _active/passive_ setup rather than _real_ load balancing, but it can be extended for this purpose quite easily by setting up HAProxy, nginx or similar on the master nodes (not covered here). 
+In an on-site environment there may not be a physical load balancer available. Instead, a virtual IP pointing to a healthy master node can be used. There are a number of solutions for this including keepalived, Pacemaker and probably many others, some with and some without load balancing.
+
+As an example we outline a simple setup based on keepalived. Depending on environment and requirements people may prefer different solutions. The configuration shown here provides an _active/passive_ failover without load balancing. If required, load balancing can by added quite easily by setting up HAProxy, NGINX or similar on the master nodes (not covered in this guide). 
 
 1. Install keepalived, e.g. using your distribution's package manager. The configuration shown here works with version 1.3.5 and supposedly many others. Make sure to have it enabled (chkconfig, systemd, ...) so that it starts automatically when the respective node comes up.
 
