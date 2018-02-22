@@ -409,7 +409,7 @@ In an on-site environment there may not be a physical load balancer available. I
 
 As an example we outline a simple setup based on keepalived. Depending on environment and requirements people may prefer different solutions. The configuration shown here provides an _active/passive_ failover without load balancing. If required, load balancing can by added quite easily by setting up HAProxy, NGINX or similar on the master nodes (not covered in this guide). 
 
-1. Install keepalived, e.g. using your distribution's package manager. The configuration shown here works with version 1.3.5 and supposedly many others. Make sure to have it enabled (chkconfig, systemd, ...) so that it starts automatically when the respective node comes up.
+1. Install keepalived, e.g. using your distribution's package manager. The configuration shown here works with version `1.3.5` but is expected to work with may other versions. Make sure to have it enabled (chkconfig, systemd, ...) so that it starts automatically when the respective node comes up.
 
 2. Create the following configuration file _/etc/keepalived/keepalived.conf_ on all master nodes:
 
