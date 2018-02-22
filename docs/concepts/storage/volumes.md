@@ -520,6 +520,7 @@ kind: PersistentVolume
 metadata:
   name: example-pv
 spec:
+<<<<<<< HEAD
   capacity:
     storage: 100Gi
   # volumeMode field requires BlockVolume Alpha feature gate to be enabled.
@@ -538,8 +539,36 @@ spec:
           operator: In
           values:
           - example-node
+||||||| merged common ancestors
+    capacity:
+      storage: 100Gi
+    accessModes:
+    - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: local-storage
+    local:
+      path: /mnt/disks/ssd1
+=======
+  capacity:
+    storage: 100Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+  local:
+    path: /mnt/disks/ssd1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - example-node
+>>>>>>> Update local storage docs for beta (#7473)
 ```
 
+<<<<<<< HEAD
 PersistentVolume `nodeAffinity` is required when using local volumes. It enables
 the Kubernetes scheduler to correctly schedule pods using local volumes to the
 correct node.
@@ -547,6 +576,14 @@ correct node.
 PersistentVolume `volumeMode` can now be set to "Block" (instead of the default
 value "Filesystem") to expose the local volume as a raw block device. The
 `volumeMode` field requires `BlockVolume` Alpha feature gate to be enabled.
+||||||| merged common ancestors
+**Note:** The local PersistentVolume cleanup and deletion requires manual intervention without the external provisioner.
+{: .note}
+=======
+PersistentVolume `nodeAffinity` is required when using local volumes. It enables
+the Kubernetes scheduler to correctly schedule pods using local volumes to the
+correct node.
+>>>>>>> Update local storage docs for beta (#7473)
 
 When using local volumes, it is recommended to create a StorageClass with
 `volumeBindingMode` set to `WaitForFirstConsumer`. See the
