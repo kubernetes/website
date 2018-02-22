@@ -9,5 +9,5 @@ short-description: >
   Allows users to filter a list of resources based on labels.
 long-description: >
   Selectors are applied when querying lists of resources to filter
-  them by {% glossary_tooltip text="Labels" term_id="labels"
+  them by {% glossary_tooltip text="Labels" term_id="label"
   %}.
