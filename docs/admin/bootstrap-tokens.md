@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jbeda
 title: Authenticating with Bootstrap Tokens
 ---
