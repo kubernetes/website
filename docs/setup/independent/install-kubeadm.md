@@ -148,7 +148,7 @@ systemctl enable docker && systemctl start docker
 Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
 for more information.
 
-### Installing kubeadm, kubelet and kubectl
+## Installing kubeadm, kubelet and kubectl
 
 You will install these packages on all of your machines:
 
