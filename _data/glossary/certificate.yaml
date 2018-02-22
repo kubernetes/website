@@ -1,6 +1,6 @@
 id: certificate
 name: Certificate
-full-link: https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/
+full-link: /docs/tasks/tls/managing-tls-in-a-cluster/
 tags:
 - security
 short-description: >
