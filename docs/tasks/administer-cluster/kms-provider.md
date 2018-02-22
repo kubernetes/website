@@ -15,23 +15,22 @@ This page shows how to configure a Key Management Service (KMS) provider and plu
 
 * etcd v3 or later is required
 
-*The KMS provider is alpha in Kubernetes version 1.10.0, which means that it may change without notice. You may be required to decrypt your data prior to upgrading to 1.11.0
+{% assign for_k8s_version="v1.10" %}{% include feature-state-alpha.md %}
 
 {% endcapture %}
 
 {% capture steps %}
 
-The KMS encryption provider uses an envelope encryption scheme to encrypt data in etcd. The Key encryption keys (KEKs) are 
-stored and managed in a remote KMS. The KMS provider uses gRPC to communicate with a specific KMS 
+The KMS encryption provider uses an envelope encryption scheme to encrypt data in etcd. The data is encrypted using a data encryption key (DEK); a new DEK is generated for each encryption. The DEKs are encrypted with a key encryption key (KEK) that is stored and managed in a remote KMS. The KMS provider uses gRPC to communicate with a specific KMS 
 plugin. The KMS plugin, which is implemented as a gRPC server and deployed on the same host(s) as the Kubernetes master(s), is responsible for all communication with the remote KMS.
 
 ## Configuring the KMS provider
 
-To configure a KMS provider on the API server, include a provider of type kms in the providers array in the encryption configuration file and set the following properties:
+To configure a KMS provider on the API server, include a provider of type ```kms``` in the providers array in the encryption configuration file and set the following properties:
 
   * `name`: Display name of the KMS plugin.
-  * `endpoint`: Listen address of the gRPC server (KMS plugin). The endpoint is a UNIX domain socket connection.
-  * `cachesize`: Number of data encryption keys (DEKs) to be cached in the clear. DEKs are used in Envelope encryption. 
+  * `endpoint`: Listen address of the gRPC server (KMS plugin). The endpoint is a UNIX domain socket.
+  * `cachesize`: Number of data encryption keys (DEKs) to be cached in the clear. When cached, DEKs can be used without another call to the KMS; whereas DEKs that are not cached require a call to the KMS to unwrap.. 
 
 See [Understanding the encryption at rest configuration.](/docs/tasks/administer-cluster/encrypt-data)
 
@@ -76,7 +75,7 @@ Ensure that the KMS plugin runs on the same host(s) as the Kubernetes master(s).
 ## Encrypting your data with the KMS provider
 To encrypt the data:
 
-1. Create a new encryption configuration file using the appropriate properties for the KMS provider:
+1. Create a new encryption configuration file using the appropriate properties for the `kms` provider:
 
 ```yaml
 kind: EncryptionConfig
@@ -86,9 +85,9 @@ resources:
     - secrets
     providers:
     - kms:
-        name: <display name of the KMS plugin>
-        endpoint: <UNIX domain socket listen address of the gRPC server (KMS plugin)>
-        cachesize: <number of data encryption keys (DEKs) to be cached in the clear>
+        name: myKmsPlugin
+        endpoint: unix:///tmp/socketfile.sock
+        cachesize: 100
    - identity: {}
 ```
 
@@ -106,9 +105,9 @@ kubectl create secret generic secret1 -n default --from-literal=mykey=mydata
 ```
 ETCDCTL_API=3 etcdctl get /kubernetes.io/secrets/default/secret1 [...] | hexdump -C
 ```
- where [...] must be the additional arguments for connecting to the etcd server.
+ where `[...]` must be the additional arguments for connecting to the etcd server.
 
-3. Verify the stored secret is prefixed with `k8s:enc:kms:v1:`, which indicates that the KMS provider has encrypted the resulting data.
+3. Verify the stored secret is prefixed with `k8s:enc:kms:v1:`, which indicates that the `kms` provider has encrypted the resulting data.
 
 4. Verify that the secret is correctly decrypted when retrieved via the API:
 ```
@@ -125,9 +124,9 @@ kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 
 ## Switching from a local encryption provider to the KMS provider
-To switch from a local encryption provider to the KMS provider and re-encrypt all of the secrets:
+To switch from a local encryption provider to the `kms` provider and re-encrypt all of the secrets:
 
-1. Add the KMS provider as the first entry in the configuration file as shown in the following example.
+1. Add the `kms` provider as the first entry in the configuration file as shown in the following example.
 
 ```yaml
 kind: EncryptionConfig
@@ -137,9 +136,9 @@ resources:
     - secrets
     providers:
     - kms:
-        name : <display name of the KMS plugin>
-        endpoint: <UNIX domain socket listen address of the gRPC server (KMS plugin)>
-        cachesize: <number of data encryption keys (DEKs) to be cached in the clear>
+        name : myKmsPlugin
+        endpoint: unix:///tmp/socketfile.sock
+        cachesize: 100
     - aescbc:
          keys:
          - name: key1
@@ -148,16 +147,16 @@ resources:
 
 2. Restart all kube-apiserver processes.
 
-3. Run the following command to force all secrets to be re-encrypted using the KMS provider.
+3. Run the following command to force all secrets to be re-encrypted using the `kms` provider.
 
 ```
 kubectl get secrets --all-namespaces -o json| kubectl replace -f -
 ```
 
-## Decrypting your data
+## Disabling encryption at rest
 To disable encryption at rest:
 
-1. Place the identity provider as the first entry in the configuration file: 
+1. Place the `identity` provider as the first entry in the configuration file: 
 
 ```yaml
 kind: EncryptionConfig
@@ -168,9 +167,9 @@ resources:
     providers:
     - identity: {}
     - kms:
-        name : <display name for the KMS plugin>
-        endpoint: <unix domain socket listen address of the gRPC server (KMS plugin)>
-        cachesize: <number of data encryption keys (DEKs) to be cached in clear>
+        name : myKmsPlugin
+        endpoint: unix:///tmp/socketfile.sock
+        cachesize: 100
 ```
 2.  Restart all kube-apiserver processes. 
 3. Run the following command to force all secrets to be decrypted.
