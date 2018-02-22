@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - thockin
 title: Kubernetes OpenVSwitch GRE/VxLAN networking
 ---
