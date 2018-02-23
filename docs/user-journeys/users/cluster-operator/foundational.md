@@ -44,7 +44,7 @@ Katacoda provides a browser-based connection to a single-node cluster, using min
 You interact with Kubernetes either through a dashboard, an API, or using a command-line tool (such as `kubectl`) that interacts with the Kubernetes API.
 Be familiar with [Organizing Cluster Access](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) by using configuration files.
 The Kubernetes API exposes a number of resources that provide the building blocks and abstractions that are used to run software on Kubernetes.
-Learn more about these resources at [Understanding Kubernetes Objects](/docs/concepts/overview/kubernetes-objects).
+Learn more about these resources at [Understanding Kubernetes Objects](/docs/concepts/overview/working-with-objects/kubernetes-objects).
 These resources are covered in a number of articles within the Kubernetes documentation.
 
 * [Pod Overview](/docs/concepts/workloads/pods/pod-overview/)
