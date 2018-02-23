@@ -34,7 +34,7 @@ As you may know, it's an antipattern to migrate an entire app (e.g. containerize
 
 #### Pod configuration
 
-Usually, you use {% glossary_tooltip text="labels" term_id="labels" %} and {% glossary_tooltip text="annotations" term_id="annotation" %} to attach metadata to your resources. To inject data into your resources, you'd likely create {% glossary_tooltip text="ConfigMaps" term_id="configmap" %} (for nonconfidential data) or {% glossary_tooltip text="Secrets" term_id="secret" %} (for confidential data).
+Usually, you use {% glossary_tooltip text="labels" term_id="label" %} and {% glossary_tooltip text="annotations" term_id="annotation" %} to attach metadata to your resources. To inject data into your resources, you'd likely create {% glossary_tooltip text="ConfigMaps" term_id="configmap" %} (for nonconfidential data) or {% glossary_tooltip text="Secrets" term_id="secret" %} (for confidential data).
 
 Below are some other, lesser-known ways of configuring your resources' Pods:
 
