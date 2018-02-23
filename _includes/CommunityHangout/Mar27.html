@@ -1,0 +1,176 @@
+<!-- Copied Nested List HTML from blogger site to force appropriate render in jekyll -->
+<!-- See Kramdown Issue for details on existing issue with nested list in kramdown :https://github.com/gettalong/kramdown/issues/368  -->
+
+<div class="nested-list">
+  <div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: transparent; color: black; font-family: 'Open Sans'; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.</span></div>
+  <div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: transparent; color: black; font-family: 'Open Sans'; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;"><br /></span></div>
+  <div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: transparent; color: black; font-family: 'Open Sans'; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Agenda:</span></div>
+  <div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">- Andy - demo remote execution and port forwarding</span></div>
+  <div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">- Quinton - Cluster federation - Postponed</span></div>
+  <div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">- Clayton - UI code sharing and collaboration around Kubernetes</span></div>
+  <div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;"><br /></span></div>
+  <div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Notes from meeting:</span></div>
+  <div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">1. Andy from RedHat:</span></div>
+      <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: transparent; color: black; font-family: 'Open Sans'; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: transparent; color: black; font-family: 'Open Sans'; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Demo remote execution</span></div>
+  </li>
+  <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: transparent; color: black; font-family: 'Open Sans'; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">kubectl exec -p $POD -- $CMD</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Makes a connection to the master as proxy, figures out which node the pod is on, proxies connection to kubelet, which does the interesting bit. &nbsp;via nsenter.</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Multiplexed streaming over HTTP using SPDY</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Also interactive mode:</span></div>
+  </li>
+  <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: square; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;"> kubectl exec -p $POD -it -- bash -il</span></div>
+  </li>
+  </ul>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Assumes first container. &nbsp;Can use -c $CONTAINER to pick a particular one.</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">If have gdb pre-installed in container, then can interactively attach it to running process</span></div>
+  </li>
+  <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: square; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">backtrace, symbol tbles, print, etc. &nbsp;Most things you can do with gdb.</span></div>
+  </li>
+  </ul>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Can also with careful flag crafting run rsync over this or set up sshd inside container.</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Some feedback via chat:</span></div>
+  </li>
+  <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: square; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">UI feedback: things like kubectl log do not take a -p/-c they just expect it to be there.....</span></div>
+  </li>
+  <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.3499999999999999; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">right</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.3499999999999999; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">i think we would remove -p eventually</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.3499999999999999; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">we were just trying to be cautious because we knew we needed to support CLI args afterwards</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.3499999999999999; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">and everyone gets that wrong the first time</span></div>
+  </li>
+  </ul>
+  <li dir="ltr" style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: square; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">-- is hard</span></div>
+  </li>
+  <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.3499999999999999; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">cobra had bugs with it</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.3499999999999999; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">but that's what we support</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.3499999999999999; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #222222; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">also we want to bypass shell args in some cases</span></div>
+  </li>
+  </ul>
+  </ul>
+  </ul>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Andy also demoed port forwarding</span></div>
+  </li>
+  <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">kubectl port-forward -p $POD $LOCALPORT:$REMOTEPORT &amp;</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">localhost% http :$LOCALPORT</span></div>
+  </li>
+  </ul>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">nsenter vs. docker exec</span></div>
+  </li>
+  <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">want to inject a binary under control of the host, similar to pre-start hooks</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">socat, nsenter, whatever the pre-start hook needs</span></div>
+  </li>
+  </ul>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">would be nice to blog post on this</span></div>
+  </li>
+  <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">how to use it. &nbsp;or even a screencast?</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">we have a youtube channel and a blog for kubernetes.io</span></div>
+  </li>
+  </ul>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">version of nginx in wheezy is too old to support needed master-proxy functionality</span></div>
+  </li>
+  <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: circle; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">but wheezy-backports seems to have an ok version, so we should pull that in.</span></div>
+  </li>
+  </ul>
+  </ul>
+  <div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">2. Clayton: where are we wrt a community organization for e.g. kubernetes UI components?</span></div>
+  <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">google-containers-ui IRC channel, mailing list.</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Tim: google-containers prefix is historical, should just do &#8220;kubernetes-ui&#8221;</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">also want to put design resources in, and bower expects its own repo.</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">General agreement</span></div>
+  </li>
+  </ul>
+  <div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">3. Brian Grant:</span></div>
+  <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Testing v1beta3, getting that ready to go in.</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Paul working on changes to commandline stuff.</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Early to mid next week, try to enable v1beta3 by default?</span></div>
+  </li>
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">For any other changes, file issue and CC thockin.</span></div>
+  </li>
+  </ul>
+  <div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;">
+  <span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">4. General consensus that 30 minutes is better than 60</span></div>
+  <br />
+  <ul style="margin-bottom: 0pt; margin-top: 0pt;">
+  <li dir="ltr" style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; list-style-type: disc; text-decoration: none; vertical-align: baseline;"><span style="background-color: white; color: #212121; font-family: Arial; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Shouldn&#8217;t artificially try to extend just to fill time.</span></li>
+  </ul>
+</div>

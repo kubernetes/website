@@ -20,6 +20,7 @@ group :jekyll_plugins do
    gem "jekyll-sitemap"
    gem "jekyll-gist"
    gem "jekyll-paginate", "1.1.0"
+   gem "jekyll-include-cache", "~> 0.1"
    gem "jekyll-seo-tag"
    gem "jekyll-avatar", "~> 0.4"
    gem "jekyll-coffeescript", "~> 1.0"
@@ -44,9 +45,8 @@ group :jekyll_plugins do
    gem "jekyll-theme-tactile", "0.0.3"
    gem "jekyll-theme-time-machine", "0.0.3"
    gem "jekyll-titles-from-headings", "~> 0.1"
+   gem 'jekyll-youtube', '~> 1.0'
 end
-
-gem "jekyll-include-cache", "~> 0.1"
 
 gem "kramdown", "~> 1.11"
 gem "rouge", "~> 2.0"
