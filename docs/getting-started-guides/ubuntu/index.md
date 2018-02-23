@@ -59,6 +59,8 @@ These are more in-depth guides for users choosing to run Kubernetes in productio
 
 We're normally following the following Slack channels:
 
+- [kubernetes-users](https://kubernetes.slack.com/messages/kubernetes-users/)
+- [kubernetes-novice](https://kubernetes.slack.com/messages/kubernetes-novice/)
 - [sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
 - [sig-cluster-ops](https://kubernetes.slack.com/messages/sig-cluster-ops/)
 - [sig-onprem](https://kubernetes.slack.com/messages/sig-onprem/)
