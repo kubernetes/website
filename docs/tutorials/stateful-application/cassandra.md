@@ -11,9 +11,9 @@ Deploying stateful distributed applications, like Cassandra, within a clustered 
 
 **Cassandra Docker**
 
-The Pods use the [`gcr.io/google-samples/cassandra:v12`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
+The Pods use the [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
 image from Google's [container registry](https://cloud.google.com/container-registry/docs/).
-The docker is based on `debian:jessie` and includes OpenJDK 8. This image includes a standard Cassandra installation from the Apache Debian repo.  By using environment variables you can change values that are inserted into `cassandra.yaml`.
+The docker image above is based on [debian-base](https://github.com/kubernetes/kubernetes/tree/master/build/debian-base) and includes OpenJDK 8. This image includes a standard Cassandra installation from the Apache Debian repo.  By using environment variables you can change values that are inserted into `cassandra.yaml`.
 
 | ENV VAR       | DEFAULT VALUE  |
 | ------------- |:-------------: |
