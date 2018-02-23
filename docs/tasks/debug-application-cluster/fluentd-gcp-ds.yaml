@@ -55,7 +55,7 @@ spec:
           readOnly: true
         - name: config-volume
           mountPath: /etc/fluent/config.d
-        # Liveness probe is aimed to help in situarions where fluentd
+        # Liveness probe is aimed to help in situations where fluentd
         # silently hangs for no apparent reasons until manual restart.
         # The idea of this probe is that if fluentd is not queueing or
         # flushing chunks for 5 minutes, something is not right. If
