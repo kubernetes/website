@@ -64,10 +64,17 @@ different Kubernetes components.
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.8 |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
+<<<<<<< HEAD
 | `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | |
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
 | `HugePages` | `true` | Beta| 1.10 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
+||||||| merged common ancestors
+| `HugePages` | `false` | Alpha | 1.8 | |
+=======
+| `HugePages` | `false` | Alpha | 1.8 | 1.9 |
+| `HugePages` | `true` | Beta| 1.10 | |
+>>>>>>> Document that HugePages feature gate is Beta (#7387)
 | `Initializers` | `false` | Alpha | 1.7 | |
 <<<<<<< HEAD
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
