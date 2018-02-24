@@ -29,7 +29,7 @@ redirect_from:
 Kubernetes 对象是 “目标性记录” —— 一旦创建对象，Kubernetes 系统将持续工作以确保对象存在。通过创建对象，本质上是在告知 Kubernetes 系统，所需要的集群工作负载看起来是什么样子的，这就是 Kubernetes 集群的 **期望状态（Desired State）**。
 
 操作 Kubernetes 对象 —— 是否创建、修改，或者删除 —— 需要使用 [Kubernetes API](https://git.k8s.io/community/contributors/devel/api-conventions.md)。比如，当使用 `kubectl` 命令行接口时，CLI 会执行必要的 Kubernetes API 调用，也可以在程序中直接调用 Kubernetes API。为了实现该目标，Kubernetes 当前提供了一个 `golang` [客户端库](https://github.com/kubernetes/client-go) 
-，其它语言库（例如[Python](https://github.com/kubernetes-incubator/client-python)）也正在开发中。
+，其它语言库（例如[Python](https://github.com/kubernetes-client/python)）也正在开发中。
 
 
 
