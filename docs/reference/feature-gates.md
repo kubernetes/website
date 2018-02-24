@@ -74,7 +74,12 @@ different Kubernetes components.
 =======
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
 | `HugePages` | `true` | Beta| 1.10 | |
+<<<<<<< HEAD
 >>>>>>> Document that HugePages feature gate is Beta (#7387)
+||||||| merged common ancestors
+=======
+| `HyperVContainer` | `false` | Alpha | 1.10 | |
+>>>>>>> Add HyperVContainer feature gates (#7502)
 | `Initializers` | `false` | Alpha | 1.7 | |
 <<<<<<< HEAD
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
