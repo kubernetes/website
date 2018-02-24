@@ -7,5 +7,5 @@ spec:
   - name: private-reg-container
     image: <your-private-image>
   imagePullSecrets:
-  - name: regsecret
+  - name: regcred
 
