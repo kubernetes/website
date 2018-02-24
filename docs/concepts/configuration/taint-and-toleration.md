@@ -195,7 +195,7 @@ running on the node as follows
  * pods that tolerate the taint with a specified `tolerationSeconds` remain
    bound for the specified amount of time
 
-The above behavior is a beta feature. In addition, Kubernetes 1.6 has alpha
+In addition, Kubernetes 1.6 has alpha
 support for representing node problems. In other words, the node controller
 automatically taints a node when certain condition is true. The built-in taints
 currently include:
