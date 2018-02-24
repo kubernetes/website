@@ -52,6 +52,7 @@ different Kubernetes components.
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
 | `HugePages` | `true` | Beta| 1.10 | |
+| `HyperVContainer` | `false` | Alpha | 1.10 | |
 | `Initializers` | `false` | Alpha | 1.7 | |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | |
@@ -144,6 +145,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
    capabilities (e.g. `MKNODE`, `SYS_MODULE` etc.). This should only be enabled
    if user namespace remapping is enabled in the Docker daemon.
 - `HugePages`: Enable the allocation and consumption of pre-allocated [huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/).
+- `HyperVContainer`: Enable [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) for Windows containers.
 - `Intializers`: Enable the [dynamic admission control](/docs/admin/extensible-admission-controllers/)
   as an extension to the built-in [admission controllers](/docs/admin/admission-controllers/).
   When the `Initializers` admission controller is enabled, this feature is automatically enabled.
