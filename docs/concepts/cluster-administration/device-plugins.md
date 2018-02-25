@@ -4,7 +4,7 @@ title: Device Plugins
 description: Use the Kubernetes device plugin framework to implement plugins for GPUs, NICs, FPGAs, InfiniBand, and similar resources that require vendor-specific setup.
 ---
 
-{% include feature-state-alpha.md %}
+{% include feature-state-beta.md %}
 
 {% capture overview %}
 Starting in version 1.8, Kubernetes provides a
@@ -20,8 +20,9 @@ that may require vendor specific initialization and setup.
 
 ## Device plugin registration
 
-The device plugins feature is gated by the `DevicePlugins` feature gate and is disabled by default.
-When the device plugins feature is enabled, the kubelet exports a `Registration` gRPC service:
+The device plugins feature is gated by the `DevicePlugins` feature gate which
+is disabled by default before 1.10.  When the device plugins feature is enabled,
+the kubelet exports a `Registration` gRPC service:
 
 ```gRPC
 service Registration {
