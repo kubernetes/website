@@ -29,7 +29,7 @@ Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery
 | Language | Client Library | Sample Programs |
 |----------|----------------|-----------------|
 | Go       | [github.com/kubernetes/client-go/](https://github.com/kubernetes/client-go/) | [browse](https://github.com/kubernetes/client-go/tree/master/examples)
-| Python       | [github.com/kubernetes-incubator/client-python/](https://github.com/kubernetes-incubator/client-python/) | [browse](https://github.com/kubernetes-incubator/client-python/tree/master/examples)
+| Python       | [github.com/kubernetes-client/python/](https://github.com/kubernetes-client/python/) | [browse](https://github.com/kubernetes-client/python/tree/master/examples)
 | Java     | [github.com/kubernetes-client/java](https://github.com/kubernetes-client/java/) | [browse](https://github.com/kubernetes-client/java#installation)
 | dotnet   | [github.com/kubernetes-client/csharp](https://github.com/kubernetes-client/csharp) | [browse](https://github.com/kubernetes-client/csharp/tree/master/examples/simple)
 
