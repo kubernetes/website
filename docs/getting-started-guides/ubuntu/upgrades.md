@@ -17,7 +17,7 @@ Refer to the [backup documentation](/docs/getting-started-guides/ubuntu/backups)
 {% endcapture %}
 
 {% capture steps %}
-## Patch kubernetes upgrades eg 1.9.0 -> 1.9.1
+## Patch kubernetes upgrades for example 1.9.0 -> 1.9.1
 
 Clusters are transparently upgraded to the latest Kubernetes patch release.
 To be clear, a cluster deployed using the 1.9/stable channel
@@ -31,7 +31,7 @@ Once a patch release passes internal testing and is deemed safe for upgrade,
 it is packaged in snap format and pushed to the stable channel.
 
 
-## Upgrading a minor Kubernetes release eg 1.8.1 -> 1.9.0
+## Upgrading a minor Kubernetes release for example 1.8.1 -> 1.9.0
 
 
 The Kubernetes charms follow the Kubernetes releases. Please consult
