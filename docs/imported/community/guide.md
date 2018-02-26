@@ -1,9 +1,7 @@
 ---
 title: Kubernetes Contributor Guide
 owner: sig-contributor-experience
----
----
-title: Kubernetes Contributor Guide
+notitle: true
 ---
 
 # Kubernetes Contributor Guide
