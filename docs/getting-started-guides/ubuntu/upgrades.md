@@ -52,7 +52,7 @@ This will handle upgrades between minor versions of etcd. Instructions on how to
 
 The Kubernetes Charms use snap channels to drive payloads.
 The channels are defined by `X.Y/channel` where `X.Y` is the `major.minor` release
-of Kubernetes (e.g. 1.9) and `channel` is one of the four following channels:
+of Kubernetes (for example 1.9) and `channel` is one of the four following channels:
 
 | Channel name        | Description  |
 | ------------------- | ------------ |
