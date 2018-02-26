@@ -543,6 +543,7 @@ metadata:
 spec:
   capacity:
     storage: 100Gi
+  volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
@@ -562,6 +563,9 @@ spec:
 PersistentVolume `nodeAffinity` is required when using local volumes. It enables
 the Kubernetes scheduler to correctly schedule pods using local volumes to the
 correct node.
+
+PersistentVolume `volumeMode` can now be set to "Block" (instead of the default
+value "Filesystem") to expose the local volume as a raw block device.
 
 When using local volumes, it is recommended to create a StorageClass with
 `volumeBindingMode` set to `WaitForFirstConsumer`. See the
