@@ -405,7 +405,6 @@ Arguments to consider:
   - `--docker-root=`
   - `--root-dir=`
   - `--pod-cidr=` The CIDR to use for pod IP addresses, only used in standalone mode.  In cluster mode, this is obtained from the master.
-  - `--configure-cbr0=` (described below)
   - `--register-node` (described in [Node](/docs/admin/node/) documentation.)
 
 ### kube-proxy
@@ -440,38 +439,6 @@ needs an address from `$NODE_X_POD_CIDR` - by convention the first IP.  Call
 this `NODE_X_BRIDGE_ADDR`.  For example, if `NODE_X_POD_CIDR` is `10.0.0.0/16`,
 then `NODE_X_BRIDGE_ADDR` is `10.0.0.1/16`.  NOTE: this retains the `/16` suffix
 because of how this is used later.
-
-- Recommended, automatic approach:
-
-  1. Set `--configure-cbr0=true` option in kubelet init script and restart kubelet service.  Kubelet will configure cbr0 automatically.
-     It will wait to do this until the node controller has set Node.Spec.PodCIDR.  Since you have not setup apiserver and node controller
-     yet, the bridge will not be setup immediately.
-- Alternate, manual approach:
-
-  1. Set `--configure-cbr0=false` on kubelet and restart.
-  1. Create a bridge.
-
-        ```
-        ip link add name cbr0 type bridge
-        ```
-
-  1. Set appropriate MTU. NOTE: the actual value of MTU will depend on your network environment
-
-        ```
-        ip link set dev cbr0 mtu 1460
-        ```
-
-  1. Add the node's network to the bridge (docker will go on other side of bridge).
-
-        ```
-        ip addr add $NODE_X_BRIDGE_ADDR dev cbr0
-        ```
-
-  1. Turn it on
-
-        ```
-        ip link set dev cbr0 up
-        ```
 
 If you have turned off Docker's IP masquerading to allow pods to talk to each
 other, then you may need to do masquerading just for destination IPs outside
