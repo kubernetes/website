@@ -64,18 +64,18 @@ For support level information on all solutions, see the [Table of solutions](/do
 
 ## Installation options
 
-You can launch a cluster in one of two ways: [conjure-up](#conjure-up) or [juju deploy](#juju). Conjure-up is just a convenience wrapper over juju and simplifies the installation. As such, it is the preferred method of install.
+You can launch a cluster in one of two ways: [conjure-up](#conjure-up) or [juju deploy](#juju-deploy). Conjure-up is just a convenience wrapper over juju and simplifies the installation. As such, it is the preferred method of install.
 
 Deployment of the cluster is [supported on a wide variety of public clouds](#cloud-compatibility), private OpenStack clouds, or raw bare metal clusters. Bare metal deployments are supported via [MAAS](http://maas.io/).
 
-## <a name="conjure-up"></a>Conjure-up
+## Conjure-up
 To install Kubernetes with conjure-up, you need only to run the following commands and then follow the prompts:
 
 ```
 sudo snap install conjure-up --classic
 conjure-up kubernetes
 ```
-## <a name="juju"></a>Juju deploy
+## Juju deploy
 
 ### Configure Juju to use your cloud provider
 
