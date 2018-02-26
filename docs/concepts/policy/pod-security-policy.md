@@ -23,7 +23,7 @@ administrator to control the following:
 
 | Control Aspect                                      | Field Names                                 |
 | ----------------------------------------------------| ------------------------------------------- |
-| Running of privileged containers                    | `privileged`                                |
+| Running of privileged containers                    | [`privileged`](#privileged)                                |
 | Usage of the root namespaces                        | [`hostPID`, `hostIPC`](#host-namespaces)    |
 | Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
 | Usage of volume types                               | [`volumes`](#volumes-and-file-systems)      |
@@ -353,6 +353,15 @@ several security mechanisms.
 {% include code.html language="yaml" file="restricted-psp.yaml" ghlink="/docs/concepts/policy/restricted-psp.yaml" %}
 
 ## Policy Reference
+
+### Privileged
+
+**Privileged** - determines if any container in a pod can enable privileged mode.
+By default a container is not allowed to access any devices on the host, but a 
+"privileged" container is given access to all devices on the host. This allows
+the container nearly all the same access as processes running on the host.
+This is useful for containers that want to use linux capabilities like
+manipulating the network stack and accessing devices.
 
 ### Host namespaces
 
