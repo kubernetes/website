@@ -1,8 +1,6 @@
 ---
 title: Kubernetes Mentoring Initiatives 
----
----
-Title: Kubernetes Mentoring Initiative
+notitle: true
 ---
 
 # Kubernetes Mentoring Initiatives
