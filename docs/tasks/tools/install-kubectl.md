@@ -137,7 +137,7 @@ re-run install-kubectl.ps1 to install latest binaries
        cd C:\users\yourusername (Or wherever your %HOME% directory is)
        mkdir .kube
        cd .kube
-       touch config
+       New-Item config -type file
 
 Edit the config file with a text editor of your choice, such as Notepad for example.
 
