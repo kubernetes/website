@@ -2,28 +2,25 @@
 reviewers:
 - msau42
 - jsafrane
-title: Persistent Volume Claim Protection
+title: Storage Protection
 ---
 
 {% capture overview %}
-{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
+{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
 
-As of Kubernetes 1.9, persistent volume claims (PVCs) that are in active use by a pod can be protected from pre-mature removal.
+Persistent volume claims (PVCs) that are in active use by a pod can be protected from pre-mature removal.
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
-- A v1.9 or higher Kubernetes must be installed.
-- As PVC Protection is a Kubernetes v1.9 alpha feature it must be enabled:
-1. [Admission controller](/docs/admin/admission-controllers/) must be started with the [PVC Protection plugin](/docs/admin/admission-controllers/#persistent-volume-claim-protection-alpha).
-2. All Kubernetes components must be started with the `PVCProtection` alpha features enabled.
+- The Storage Protection feature is enabled in a version of Kubernetes in which it is supported.
 
 {% endcapture %}
 
 {% capture steps %}
 
-## PVC Protection Verification
+## Storage Protection feature used for PVC Protection
 
 The example below uses a GCE PD `StorageClass`, however, similar steps can be performed for any volume type.
 
@@ -216,7 +213,7 @@ spec:
 Warning  FailedScheduling  18s (x4 over 21s)  default-scheduler  persistentvolumeclaim "slzc" is being deleted
 ```
 
--  Wait until the pod status of both pods is `Terminated` (either delete the pods or wait until they finish). Afterwards, check that the PVC is removed.
+-  Wait until the pod status of both pods is `Terminated` or `Completed` (either delete the pods or wait until they finish). Afterwards, check that the PVC is removed.
 
 {% endcapture %}
 
