@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - dcbw
 - freehan
 - thockin
