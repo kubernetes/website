@@ -180,6 +180,7 @@ toc:
   - docs/tasks/administer-cluster/configure-multiple-schedulers.md
   - docs/tasks/administer-cluster/ip-masq-agent.md
   - docs/tasks/administer-cluster/dns-custom-nameservers.md
+  - docs/tasks/administer-cluster/dns-debugging-resolution.md
   - docs/tasks/administer-cluster/pvc-protection.md
 
 - title: Federation - Run an App on Multiple Clusters
