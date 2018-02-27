@@ -55,7 +55,12 @@ different Kubernetes components.
 | `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
 | `CustomResourceValidation` | `true` | Beta | 1.9 | |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | `DebugContainers` | `false` | Alpha | 1.10 | |
+||||||| merged common ancestors
+=======
+| `CustomResourceSubresources` | `false` | Alpha | 1.10 | |
+>>>>>>> Add docs for CRD features for 1.10 (#7439)
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
 ||||||| merged common ancestors
@@ -187,12 +192,20 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
    Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
    for more details.
+<<<<<<< HEAD
 - `CustomResourceSubresources`: Enable `/status` and `/scale` subresources
   on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 - `CustomResourceValidation`: Enable schema based validation on resources created from
   [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 - `DebugContainers`: Enable running a "debugging" container in a Pod's namespace to 
   troubleshoot a running Pod.
+||||||| merged common ancestors
+- `CustomeResourceValidation`: Enable schema based validation on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+=======
+- `CustomeResourceValidation`: Enable schema based validation on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+- `CustomResourceSubresources`: Enable `/status` and `/scale` subresources
+on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+>>>>>>> Add docs for CRD features for 1.10 (#7439)
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
   based resource provisioning on nodes.
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
