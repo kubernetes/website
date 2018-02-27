@@ -49,7 +49,7 @@ volume type used.
 
 To use a volume, a pod specifies what volumes to provide for the pod (the
 `spec.volumes`
-field) and where to mount those into containers(the
+field) and where to mount those into containers (the
 `spec.containers.volumeMounts`
 field).
 
