@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - thockin
 title: Cluster Networking
 ---

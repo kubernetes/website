@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - lavalamp
 title: Kubernetes Components
 ---
