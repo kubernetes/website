@@ -323,7 +323,7 @@ This means that when you roll back to an earlier revision, only the Deployment's
 rolled back.
 {: .note}
 
-Suppose that we made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
+Suppose that we made a typo while updating the Deployment, by putting the image name as `nginx:1.9.1` instead of `nginx:1.9.1`:
 
 ```shell
 $ kubectl set image deployment/nginx-deployment nginx=nginx:1.91
