@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - davidopp
 - wojtek-t
 title: Pod Priority and Preemption

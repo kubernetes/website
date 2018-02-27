@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - Kashomon
 - bprashanth
 - madhusudancs
