@@ -42,7 +42,8 @@ different Kubernetes components.
 | `CustomPodDNS` | `false` | Alpha | 1.9 | |
 | `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
 | `CustomResourceValidation` | `true` | Beta | 1.9 | |
-| `DevicePlugins` | `false` | Alpha | 1.8 | |
+| `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
+| `DevicePlugins` | `true` | Beta | 1.10 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
