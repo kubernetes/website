@@ -479,7 +479,13 @@ plugins:
 ```
 
 #### Configuration Annotation Format
+<<<<<<< HEAD
 `PodNodeSelector` uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign node selectors to namespaces.
+||||||| merged common ancestors
+PodNodeSelector uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign node selectors to namespaces.
+=======
+`PodNodeSelector` uses the annotation key `scheduler.kubernetes.io/node-selector` to assign node selectors to namespaces.
+>>>>>>> promote PodNodeSelector to stable; document detailed behavior (#7134)
 
 ```yaml
 apiVersion: v1
@@ -490,6 +496,7 @@ metadata:
   name: namespace3
 ```
 
+<<<<<<< HEAD
 #### Internal Behavior
 This admission controller has the following behavior:
   1. If the `Namespace` has an annotation with a key `scheduler.alpha.kubernetes.io/node-selector`, use its value as the
@@ -504,6 +511,22 @@ This admission controller has the following behavior:
 admission plugin, which allows preventing pods from running on specifically tainted nodes.
 {: .note}
 
+||||||| merged common ancestors
+=======
+#### Internal Behavior
+This admission controller has the following behavior:
+  1. If the `Namespace` has an annotation with a key `scheduler.kubernetes.io/nodeSelector`, use its value as the
+     node selector.
+  1. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the `PodNodeSelector`
+     plugin configuration file as the node selector.
+  1. Evaluate the pod's node selector against the namespace node selector for conflicts. Conflicts result in rejection.
+  1. Evaluate the pod's node selector against the namespace-specific whitelist defined the plugin configuration file.
+     Conflicts result in rejection.
+
+**Note:** `PodTolerationRestriction` is more versatile and powerful than `PodNodeSelector` and can encompass the scenarios supported by `PodNodeSelector`.
+{: .note}
+
+>>>>>>> promote PodNodeSelector to stable; document detailed behavior (#7134)
 ### PersistentVolumeClaimResize
 
 This admission controller implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
