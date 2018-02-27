@@ -99,7 +99,7 @@ spec:
       name: www
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: my-storage-class
+      storageClassName: "my-storage-class"
       resources:
         requests:
           storage: 1Gi
