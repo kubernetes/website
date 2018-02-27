@@ -438,6 +438,7 @@ Windows Stats use a hybrid model: pod and container level stats come from CRI (v
 Some of these limitations will be addressed by the community in future releases of Kubernetes
 - Shared network namespace (compartment) with multiple Windows Server containers (shared kernel) per pod is only supported on Windows Server 1709 or later
 - Using Secrets and ConfigMaps as volume mounts is not supported 
+- Mount propagation is not supported on Windows
 - The StatefulSet functionality for stateful applications is not supported
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
 - Hyper-V isolated containers are not supported. 
@@ -448,5 +449,5 @@ Some of these limitations will be addressed by the community in future releases 
 
 ## Next steps and resources
 
-- Support for Windows is in Beta as of v1.9 and your feedback is welcomed. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
+- Support for Windows is in Beta as of v1.9 and your feedback is welcome. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
 - Troubleshooting and Common Problems: [Link](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/common-problems)
