@@ -68,9 +68,9 @@ This will automatically ssh you to the easyrsa unit.
 
 ## Collecting debug information
 
-Sometimes it is useful to collect all the information from a cluster to share with a developer so problems can be identified. This section will deal on how to use the [CDK Field Agent](https://github.com/juju-solutions/cdk-field-agent) to collect this information.
+Sometimes it is useful to collect all the information from a cluster to share with a developer to identify problems. This is best accomplished with [CDK Field Agent](https://github.com/juju-solutions/cdk-field-agent).
 
-Download and execute the collect.py script from [CDK Field Agent](https://github.com/juju-solutions/cdk-field-agent) on a box that has Juju configured such that the current controller and model are pointed at your CDK deployment of interest.
+Download and execute the collect.py script from [CDK Field Agent](https://github.com/juju-solutions/cdk-field-agent) on a box that has a Juju client configured with the current controller and model pointing at the CDK deployment of interest.
 
 Running the script will generate a tarball of system information and includes basic information such as systemctl status, Juju logs, charm unit data, etc. Additional application-specific information may be included as well.
 
