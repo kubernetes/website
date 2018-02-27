@@ -54,9 +54,16 @@ different Kubernetes components.
 | `CustomResourceSubresources` | `false` | Alpha | 1.10 | |
 | `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
 | `CustomResourceValidation` | `true` | Beta | 1.9 | |
+<<<<<<< HEAD
 | `DebugContainers` | `false` | Alpha | 1.10 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
+||||||| merged common ancestors
+| `DevicePlugins` | `false` | Alpha | 1.8 | |
+=======
+| `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
+| `DevicePlugins` | `true` | Beta | 1.10 | |
+>>>>>>> Document that Device Plugin feature is Beta (1.10) (#7512)
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
