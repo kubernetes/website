@@ -2,7 +2,7 @@ id: cloud-controller-manager
 name: Cloud Controller Manager
 full-link: https://kubernetes.io/docs/tasks/administer-cluster/running-cloud-controller/
 tags:
-- core object
+- core-object
 - architecture
 - operation
 short-description: >
