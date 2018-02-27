@@ -211,6 +211,10 @@ its `log_level` entry are mounted into the Pod at path "`/etc/config/log_level`"
 Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 
+**Note:** A container using a ConfigMap as a [subPath](#using-subpath) volume mount will not
+receive ConfigMap updates.
+{: .note}
+
 ### csi
 
 CSI stands for [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md),
@@ -247,6 +251,10 @@ A CSI persistent volume has the following fields for users to specify:
 
 A `downwardAPI` volume is used to make downward API data available to applications.
 It mounts a directory and writes the requested data in plain text files.
+
+**Note:** A container using Downward API as a [subPath](#using-subpath) volume mount will not
+receive Downward API updates.
+{: .note}
 
 See the [`downwardAPI` volume example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)  for more details.
 
@@ -687,6 +695,10 @@ parameters are nearly the same with two exceptions:
   volume source. However, as illustrated above, you can explicitly set the `mode`
   for each individual projection.
 
+**Note:** A container using a projected volume source as a [subPath](#using-subpath) volume mount will not
+receive updates for those volume sources.
+{: .note}
+
 ### portworxVolume
 
 A `portworxVolume` is an elastic block storage layer that runs hyperconverged with
@@ -806,6 +818,10 @@ non-volatile storage.
 
 **Important:** You must create a secret in the Kubernetes API before you can use it.
 {: .caution}
+
+**Note:** A container using a Secret as a [subPath](#using-subpath) volume mount will not
+receive Secret updates.
+{: .note}
 
 Secrets are described in more detail [here](/docs/user-guide/secrets).
 
