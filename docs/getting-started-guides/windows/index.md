@@ -42,7 +42,7 @@ If you wish to build the code yourself, please follow the next instructions:
     KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kube-proxy
 
     # You will find the output binaries under the folder _output/local/bin/windows/
-```
+    ```
 
 More detailed build instructions will be maintained and kept up to date [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md).
 
