@@ -573,6 +573,7 @@ PersistentVolume `nodeAffinity` is required when using local volumes. It enables
 the Kubernetes scheduler to correctly schedule pods using local volumes to the
 correct node.
 
+<<<<<<< HEAD
 PersistentVolume `volumeMode` can now be set to "Block" (instead of the default
 value "Filesystem") to expose the local volume as a raw block device. The
 `volumeMode` field requires `BlockVolume` Alpha feature gate to be enabled.
@@ -585,6 +586,13 @@ the Kubernetes scheduler to correctly schedule pods using local volumes to the
 correct node.
 >>>>>>> Update local storage docs for beta (#7473)
 
+||||||| merged common ancestors
+=======
+PersistentVolume `volumeMode` can now be set to "Block" (instead of the default
+value "Filesystem") to expose the local volume as a raw block device. The
+`volumeMode` field requires `BlockVolume` Alpha feature gate to be enabled.
+
+>>>>>>> Adding block volumeMode documentation for local volumes. (#7531)
 When using local volumes, it is recommended to create a StorageClass with
 `volumeBindingMode` set to `WaitForFirstConsumer`. See the
 [example](storage-classes.md#local). Delaying volume binding ensures
