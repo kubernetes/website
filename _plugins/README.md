@@ -3,6 +3,9 @@
 This directory contains `*.rb` files that extend the original Jekyll
 classes and provide custom formatting for the docs site:
 
+Notes:
+N/A: Not Available/ Not applicable
+
 ### `glossary_tags.rb`
 
 A full list of glossary terms is available on the [Standardized Glossary](https://kubernetes.io/docs/reference/glossary/?fundamental=true) page.
