@@ -15,7 +15,7 @@ Kubernetes API.
 You need to have these tools installed:
 
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-* [Golang](https://golang.org/doc/install) version 1.8 or later
+* [Golang](https://golang.org/doc/install) version 1.9.1 or later
 * [Docker](https://docs.docker.com/engine/installation/)
 * [etcd](https://github.com/coreos/etcd/)
 
