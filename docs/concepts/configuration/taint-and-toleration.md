@@ -37,6 +37,11 @@ To remove the taint added by the command above, you can run:
 kubectl taint nodes node1 key:NoSchedule-
 ```
 
+Additional example, if you want to schedule pods on the master(s), the key will be "node-role.kubernetes.io", so you will run:
+```shell
+kubectl taint nodes yourmaster node-role.kubernetes.io/master:NoSchedule-
+```
+
 You specify a toleration for a pod in the PodSpec. Both of the following tolerations "match" the
 taint created by the `kubectl taint` line above, and thus a pod with either toleration would be able
 to schedule onto `node1`:
