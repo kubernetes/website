@@ -178,11 +178,21 @@ kind: Pod
 A list of Kubernetes-specific terms and words to be used consistently across the site.
 
 <table>
+<<<<<<< HEAD
   <tr><th>Term</th><th>Usage</th></tr>
   <tr><td>Kubernetes</td><td>Kubernetes should always be capitalized.</td></tr>
   <tr><td>Docker</td><td>Docker should always be capitalized.</td></tr>
   <tr><td>SIG Docs</td><td>SIG Docs rather than SIG-DOCS or other variations.</td></tr>
 </table>
+||||||| merged common ancestors
+  <tr><th>Term</th><th>Useage</th></tr>
+  <tr><td>TBD</td><td>TBD</td></tr>
+</table>{% endcomment %}
+=======
+  <tr><th>Term</th><th>Usage</th></tr>
+  <tr><td>TBD</td><td>TBD</td></tr>
+</table>{% endcomment %}
+>>>>>>> fix description about contribute style guide (#7592)
 
 ## Callout Formatting
 Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: **Note:** {: .note}, **Caution:** {: .caution}, and **Warning:** {: .warning}.
