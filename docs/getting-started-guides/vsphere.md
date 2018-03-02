@@ -187,7 +187,39 @@ Below is summary of supported parameters in the `vsphere.conf` file
 
 Manifest files for API server and controller-manager are generally located at `/etc/kubernetes/manifests`.
 
-**Step-7** Restart Kubelet on all nodes.
+**Step-7** Add ClusterRole and ClusterRoleBinding.
+If using RBAC in your cluster, you must add a cluster role and cluster role binding for the vsphere-cloud-provider service account.
+
+* Add following to a local file called `vsphere-rbac.yml`: 
+
+```
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: vsphere-cloud-provider
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: vsphere-cloud-provider
+  namespace: kube-system
+roleRef:  
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vsphere-cloud-provider
+subjects:
+- kind: ServiceAccount
+  name: vsphere-cloud-provider
+  namespace: kube-system
+```
+
+* Issue `kubectl create -f vsphere-rbac.yml` to create the resources shown above.
+
+**Step-8** Restart Kubelet on all nodes.
 
 * Reload kubelet systemd unit file using ```systemctl daemon-reload```
 * Restart kubelet service using ```systemctl restart kubelet.service```
