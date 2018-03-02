@@ -636,7 +636,7 @@ and referenced with the `adminSecretNamespace` parameter. Secrets used by
 pre-provisioned volumes must be created in the same namespace as the PVC that
 references it.
 
-#### Local
+### Local
 
 {% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
 
