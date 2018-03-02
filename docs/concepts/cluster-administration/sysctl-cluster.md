@@ -124,3 +124,22 @@ any node which has not enabled those two _unsafe_ sysctls explicitly. As with
 _node-level_ sysctls it is recommended to use [_taints and toleration_
 feature](/docs/user-guide/kubectl/{{page.version}}/#taint) or [taints on nodes](/docs/concepts/configuration/taint-and-toleration/)
 to schedule those pods onto the right nodes.
+
+## PodSecurityPolicy Annotations
+
+The use of sysctl in pods can be controlled via annotations on the PodSecurityPolicy.
+
+Here is an example, it authorizes binding user creating pod with corresponding
+_safe_ and _unsafe_ sysctls.
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: sysctl-psp
+  annotations:
+    security.alpha.kubernetes.io/sysctls: 'kernel.shm_rmid_forced'
+    security.alpha.kubernetes.io/unsafe-sysctls: 'net.ipv4.route.*,kernel.msg*'
+spec:
+ ...
+```

@@ -37,6 +37,7 @@ administrator to control the following:
 | The SELinux context of the container                | [`seLinux`](#selinux)                       |
 | The AppArmor profile used by containers             | [annotations](#apparmor)                    |
 | The seccomp profile used by containers              | [annotations](#seccomp)                     |
+| The sysctl profile used by containers               | [annotations](#sysctl)                      |
 
 
 ## Enabling Pod Security Policies
@@ -554,3 +555,8 @@ specifies which values are allowed for the pod seccomp annotations. Specified as
 a comma-delimited list of allowed values. Possible values are those listed
 above, plus `*` to allow all profiles. Absence of this annotation means that the
 default cannot be changed.
+
+### Sysctl
+
+Controlled via annotations on the PodSecurityPolicy. Refer to the [Sysctl documentation](
+/docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy-annotations).
