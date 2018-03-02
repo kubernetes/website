@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - derekwaynecarr
 - janetkuo
 title: Namespaces Walkthrough
@@ -28,7 +28,7 @@ This example assumes the following:
 By default, a Kubernetes cluster will instantiate a default namespace when provisioning the cluster to hold the default set of Pods,
 Services, and Deployments used by the cluster.
 
-Assuming you have a fresh cluster, you can introspect the available namespace's by doing the following:
+Assuming you have a fresh cluster, you can inspect the available namespaces by doing the following:
 
 ```shell
 $ kubectl get namespaces
@@ -63,7 +63,7 @@ Create the development namespace using kubectl.
 $ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/namespace-dev.json
 ```
 
-Save the following contents into file [`namespace-prod.json`](/docs/admin/namespaces/namespace-prod.json) which describes a production namespace:
+Save the following contents into file [`namespace-prod.json`](/docs/tasks/administer-cluster/namespace-prod.json) which describes a production namespace:
 
 {% include code.html language="json" file="namespace-prod.json" ghlink="/docs/tasks/administer-cluster/namespace-prod.json" %}
 
@@ -177,7 +177,7 @@ users:
   user:
     password: h5M0FtUUIflBSdI7
     username: admin
-
+```
 
 Let's switch to operate in the development namespace.
 

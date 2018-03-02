@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jpeeler
 - pmorie
 title: Configure a Pod to Use a Projected Volume for Storage
@@ -57,7 +57,7 @@ the Pod:
 
 {% capture whatsnext %}
 * Learn more about [`projected`](/docs/concepts/storage/volumes/#projected) volumes.
-* Read the the [all-in-one volume](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/node/all-in-one-volume.md) design document.
+* Read the [all-in-one volume](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/node/all-in-one-volume.md) design document.
 {% endcapture %}
 
 {% include templates/task.md %}

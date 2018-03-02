@@ -13,6 +13,7 @@ incremental: true
 safe: false
 lsi: false
 
+latest: "v1.9"
 defaults:
   -
     scope:
@@ -88,3 +89,4 @@ tocs:
   - reference
   - samples
   - search
+  - imported

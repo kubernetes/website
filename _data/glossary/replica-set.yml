@@ -4,8 +4,9 @@ full-link: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 related:
 - replication-controller
 tags:
+- fundamental
 - core-object
-- architecture
+- workload
 short-description: >
   ReplicaSet is the next-generation Replication Controller.
 long-description: >

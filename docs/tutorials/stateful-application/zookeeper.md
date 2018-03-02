@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 - enisoc
 - erictune
@@ -120,7 +120,7 @@ StatefulSet controller create the StatefulSet's Pods.
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CRTL-C` to  terminate kubectl.
+Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to  terminate kubectl.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
@@ -365,7 +365,7 @@ Watch the termination of the Pods in the StatefulSet.
 kubectl get pods -w -l app=zk
 ```
 
-When `zk-0` if fully terminated, use `CRTL-C` to terminate kubectl.
+When `zk-0` if fully terminated, use `CTRL-C` to terminate kubectl.
 
 ```shell
 zk-2      1/1       Terminating   0         9m
@@ -396,7 +396,7 @@ Watch the StatefulSet controller recreate the StatefulSet's Pods.
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CRTL-C` to terminate kubectl.
+Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to terminate kubectl.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
@@ -498,11 +498,11 @@ servers' WALs, and all of their snapshots, remain durable.
 ## Ensuring Consistent Configuration
 
 As noted in the [Facilitating Leader Election](#facilitating-leader-election) and
-[Achieving Consensus](#achieving-consensus) sections, the servers in a 
-ZooKeeper ensemble require consistent configuration in order to elect a leader 
+[Achieving Consensus](#achieving-consensus) sections, the servers in a
+ZooKeeper ensemble require consistent configuration in order to elect a leader
 and form a quorum. They also require consistent configuration of the Zab protocol
-in order for the protocol to work correctly over a network. In our example we 
-achive consistent configuration by embedding the configuration directly into 
+in order for the protocol to work correctly over a network. In our example we
+achieve consistent configuration by embedding the configuration directly into
 the manifest.
 
 Get the `zk` StatefulSet.
@@ -798,7 +798,9 @@ The Pod `template` for the `zk` StatefulSet specifies a liveness probe.
  livenessProbe:
           exec:
             command:
-            - "zkOk.sh"
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
           initialDelaySeconds: 15
           timeoutSeconds: 5
 ```
@@ -809,8 +811,7 @@ word to test the server's health.
 
 
 ```bash
-ZK_CLIENT_PORT=${ZK_CLIENT_PORT:-2181}
-OK=$(echo ruok | nc 127.0.0.1 $ZK_CLIENT_PORT)
+OK=$(echo ruok | nc 127.0.0.1 $1)
 if [ "$OK" == "imok" ]; then
     exit 0
 else
@@ -831,7 +832,7 @@ In another window, delete the `zkOk.sh` script from the file system of Pod `zk-0
 
 
 ```shell
-kubectl exec zk-0 -- rm /opt/zookeeper/bin/zkOk.sh
+kubectl exec zk-0 -- rm /usr/bin/zookeeper-ready
 ```
 
 
@@ -875,7 +876,9 @@ probe from the `zookeeper.yaml` manifest is identical to the liveness probe.
  readinessProbe:
           exec:
             command:
-            - "zkOk.sh"
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
           initialDelaySeconds: 15
           timeoutSeconds: 5
 ```
@@ -931,12 +934,12 @@ This is because the Pods in the `zk` StatefulSet have a PodAntiAffinity specifie
                   - key: "app"
                     operator: In
                     values: 
-                    - zk-headless
+                    - zk-hs
               topologyKey: "kubernetes.io/hostname"
 ```
 
 The `requiredDuringSchedulingIgnoredDuringExecution` field tells the 
-Kubernetes Scheduler that it should never co-locate two Pods from the `zk-headless`
+Kubernetes Scheduler that it should never co-locate two Pods from the `zk-hs`
 Service in the domain defined by the `topologyKey`. The `topologyKey`
 `kubernetes.io/hostname` indicates that the domain is an individual node. Using 
 different rules, labels, and selectors, you can extend this technique to spread 
@@ -1075,7 +1078,7 @@ There are pending pods when an error occurred: Cannot evict pod as it would viol
 pod/zk-2
 {% endraw %}```
 
-Use `CRTL-C` to terminate to kubectl. 
+Use `CTRL-C` to terminate to kubectl. 
 
 You can not drain the third node because evicting `zk-2` would violate `zk-budget`. However, 
 the node will remain cordoned.

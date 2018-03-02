@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - davidopp
 title: Configuring Kubernetes with Salt
 ---
@@ -99,7 +99,3 @@ When configuring default arguments for processes, it's best to avoid the use of 
 Per pod IP configuration is provider-specific, so when making networking changes, it's important to sandbox these as all providers may not use the same mechanisms (iptables, openvswitch, etc.)
 
 We should define a grains.conf key that captures more specifically what network configuration environment is being used to avoid future confusion across providers.
-
-## Further reading
-
-The [cluster/saltbase](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/) tree has more details on the current SaltStack configuration.

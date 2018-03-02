@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - smugcloud
 title: Kubernetes on DCOS
 ---

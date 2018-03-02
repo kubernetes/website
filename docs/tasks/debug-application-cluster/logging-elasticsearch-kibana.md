@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - crassirostris
 - piosz
 title: Logging Using Elasticsearch and Kibana

@@ -135,7 +135,7 @@ system:serviceaccount:<namespace>:default
 {"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*"}}
 ```
 
-需要重新启动 apitorver 以获取新的策略行.
+需要重新启动 apiserver 以获取新的策略行.
 
 {% endcapture %}
 {% include templates/concept.md %}

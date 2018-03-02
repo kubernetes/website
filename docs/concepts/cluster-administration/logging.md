@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - crassirostris
 - piosz
 title: Logging Architecture
@@ -74,6 +74,7 @@ up logging for COS image on GCP in the corresponding [script]
 When you run [`kubectl logs`](/docs/user-guide/kubectl/{{page.version}}/#logs) as in
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file, returning the contents in the response.
+
 **Note:** currently, if some external system has performed the rotation,
 only the contents of the latest log file will be available through
 `kubectl logs`. E.g. if there's a 10MB file, `logrotate` performs

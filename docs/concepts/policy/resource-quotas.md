@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - derekwaynecarr
 title: Resource Quotas
 ---
@@ -47,8 +47,7 @@ enabled when the apiserver `--admission-control=` flag has `ResourceQuota` as
 one of its arguments.
 
 Resource Quota is enforced in a particular namespace when there is a
-`ResourceQuota` object in that namespace.  There should be at most one
-`ResourceQuota` object in a namespace.
+`ResourceQuota` object in that namespace.
 
 ## Compute Resource Quota
 
@@ -93,8 +92,34 @@ In release 1.8, quota support for local ephemeral storage is added as alpha feat
 
 ## Object Count Quota
 
-The number of objects of a given type can be restricted.  The following types
-are supported:
+The 1.9 release added support to quota all standard namespaced resource types using the following syntax:
+
+* `count/<resource>.<group>`
+
+Here is an example set of resources users may want to put under object count quota:
+
+* `count/persistentvolumeclaims`
+* `count/services`
+* `count/secrets`
+* `count/configmaps`
+* `count/replicationcontrollers`
+* `count/deployments.apps`
+* `count/replicasets.apps`
+* `count/statefulsets.apps`
+* `count/jobs.batch`
+* `count/cronjobs.batch`
+* `count/deployments.extensions`
+
+When using `count/*` resource quota, an object is charged against the quota if it exists in server storage.
+These types of quotas are useful to protect against exhaustion of storage resources.  For example, you may
+want to quota the number of secrets in a server given their large size.  Too many secrets in a cluster can
+actually prevent servers and controllers from starting!  You may choose to quota jobs to protect against
+a poorly configured cronjob creating too many jobs in a namespace causing a denial of service.
+
+Prior to the 1.9 release, it was possible to do generic object count quota on a limited set of resources.
+In addition, it is possible to further constrain quota for particular resources by their type.
+
+The following types are supported:
 
 | Resource Name | Description |
 | ------------------------------- | ------------------------------------------------- |
@@ -109,11 +134,9 @@ are supported:
 | `secrets` | The total number of secrets that can exist in the namespace. |
 
 For example, `pods` quota counts and enforces a maximum on the number of `pods`
-created in a single namespace.
-
-You might want to set a pods quota on a namespace
-to avoid the case where a user creates many small pods and exhausts the cluster's
-supply of Pod IPs.
+created in a single namespace that are not terminal.  You might want to set a `pods` 
+quota on a namespace to avoid the case where a user creates many small pods and 
+exhausts the cluster's supply of Pod IPs.
 
 ## Quota Scopes
 
@@ -156,9 +179,9 @@ then it requires that every incoming container specifies an explicit limit for t
 Kubectl supports creating, updating, and viewing quotas:
 
 ```shell
-$ kubectl create namespace myspace
+kubectl create namespace myspace
 
-$ cat <<EOF > compute-resources.yaml
+cat <<EOF > compute-resources.yaml
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -171,9 +194,9 @@ spec:
     limits.cpu: "2"
     limits.memory: 2Gi
 EOF
-$ kubectl create -f ./compute-resources.yaml --namespace=myspace
+kubectl create -f ./compute-resources.yaml --namespace=myspace
 
-$ cat <<EOF > object-counts.yaml
+cat <<EOF > object-counts.yaml
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -187,14 +210,14 @@ spec:
     services: "10"
     services.loadbalancers: "2"
 EOF
-$ kubectl create -f ./object-counts.yaml --namespace=myspace
+kubectl create -f ./object-counts.yaml --namespace=myspace
 
-$ kubectl get quota --namespace=myspace
+kubectl get quota --namespace=myspace
 NAME                    AGE
 compute-resources       30s
 object-counts           32s
 
-$ kubectl describe quota compute-resources --namespace=myspace
+kubectl describe quota compute-resources --namespace=myspace
 Name:                  compute-resources
 Namespace:             myspace
 Resource               Used Hard
@@ -205,7 +228,7 @@ pods                   0    4
 requests.cpu           0    1
 requests.memory        0    1Gi
 
-$ kubectl describe quota object-counts --namespace=myspace
+kubectl describe quota object-counts --namespace=myspace
 Name:                   object-counts
 Namespace:              myspace
 Resource                Used    Hard
@@ -216,6 +239,27 @@ replicationcontrollers  0       20
 secrets                 1       10
 services                0       10
 services.loadbalancers  0       2
+```
+
+Kubectl also supports object count quota for all standard namespaced resources
+using the syntax `count/<resource>.<group>`:
+
+```shell
+kubectl create namespace myspace
+
+kubectl create quota test --hard=count/deployments.extensions=2,count/replicasets.extensions=4,count/pods=3,count/secrets=4 --namespace=myspace
+
+kubectl run nginx --image=nginx --replicas=2 --namespace=myspace
+
+kubectl describe quota --namespace=myspace
+Name:                         test
+Namespace:                    myspace
+Resource                      Used  Hard
+--------                      ----  ----
+count/deployments.extensions  1     2
+count/pods                    2     3
+count/replicasets.extensions  1     4
+count/secrets                 1     4
 ```
 
 ## Quota and Cluster Capacity

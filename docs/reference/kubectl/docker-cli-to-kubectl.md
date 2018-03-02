@@ -53,6 +53,8 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 ```
 
 Unlike `docker run ...`, if `--attach` is specified, we attach to `stdin`, `stdout` and `stderr`, there is no ability to control which streams are attached (`docker -a ...`).
+To detach from the container, you can type the escape sequence which is Ctrl+P
+followed by Ctrl+Q.
 
 Because we start a Deployment for your container, it will be restarted if you terminate the attached process (e.g. `ctrl-c`), this is different from `docker run -it`.
 To destroy the Deployment (and its pods) you need to run `kubectl delete deployment <name>`.
@@ -104,6 +106,9 @@ nginx-app-5jyvm   1/1       Running   0          10m
 $ kubectl attach -it nginx-app-5jyvm
 ...
 ```
+
+To detach from the container, you can type the escape sequence which is Ctrl+P
+followed by Ctrl+Q.
 
 #### docker exec
 
@@ -283,7 +288,7 @@ With kubectl:
 $ kubectl cluster-info
 Kubernetes master is running at https://108.59.85.141
 KubeDNS is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/kube-dns/proxy
-KubeUI is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/kube-ui/proxy
+kubernetes-dashboard is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy
 Grafana is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
 Heapster is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 InfluxDB is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy

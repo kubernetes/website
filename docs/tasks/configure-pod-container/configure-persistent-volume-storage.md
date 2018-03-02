@@ -37,13 +37,13 @@ Open a shell to the Node in your cluster. How you open a shell depends on how
 you set up your cluster. For example, if you are using Minikube, you can open a
 shell to your Node by entering `minikube ssh`.
 
-In your shell, create a `/tmp/data` directory:
+In your shell, create a `/mnt/data` directory:
 
-    mkdir /tmp/data
+    mkdir /mnt/data
 
-In the `/tmp/data` directory, create an `index.html` file:
+In the `/mnt/data` directory, create an `index.html` file:
 
-    echo 'Hello from Kubernetes storage' > /tmp/data/index.html
+    echo 'Hello from Kubernetes storage' > /mnt/data/index.html
 
 ## Create a PersistentVolume
 
@@ -54,7 +54,7 @@ PersistentVolume uses a file or directory on the Node to emulate network-attache
 In a production cluster, you would not use hostPath. Instead a cluster administrator
 would provision a network resource like a Google Compute Engine persistent disk,
 an NFS share, or an Amazon Elastic Block Store volume. Cluster administrators can also
-use [StorageClasses](/docs/resources-reference/{{page.version}}/#storageclass-v1-storage)
+use [StorageClasses](/docs/api-reference/{{page.version}}/#storageclass-v1-storage)
 to set up
 [dynamic provisioning](http://blog.kubernetes.io/2016/10/dynamic-provisioning-and-storage-in-kubernetes.html).
 
@@ -62,8 +62,8 @@ Here is the configuration file for the hostPath PersistentVolume:
 
 {% include code.html language="yaml" file="task-pv-volume.yaml" ghlink="/docs/tasks/configure-pod-container/task-pv-volume.yaml" %}
 
-The configuration file specifies that the volume is at `/tmp/data` on the
-the cluster's Node. The configuration also specifies a size of 10 gibibytes and
+The configuration file specifies that the volume is at `/mnt/data` on the
+cluster's Node. The configuration also specifies a size of 10 gibibytes and
 an access mode of `ReadWriteOnce`, which means the volume can be mounted as
 read-write by a single Node. It defines the [StorageClass name](/docs/concepts/storage/persistent-volumes/#class)
 `manual` for the PersistentVolume, which will be used to bind
@@ -172,14 +172,14 @@ with a GID. Then the GID is automatically added to any Pod that uses the
 PersistentVolume.
 
 Use the `pv.beta.kubernetes.io/gid` annotation as follows:
-
-    kind: PersistentVolume
-    apiVersion: v1
-    metadata:
-      name: pv1
-      annotations:
-        pv.beta.kubernetes.io/gid: "1234"
-
+```yaml
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv1
+  annotations:
+    pv.beta.kubernetes.io/gid: "1234"
+```
 When a Pod consumes a PersistentVolume that has a GID annotation, the annotated GID
 is applied to all Containers in the Pod in the same way that GIDs specified in the
 Pod’s security context are. Every GID, whether it originates from a PersistentVolume

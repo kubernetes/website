@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 - janetkuo
 title: ReplicationController
@@ -7,7 +7,8 @@ title: ReplicationController
 
 {% capture overview %}
 
-NOTE: A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
+**NOTE:** A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
+{: .note}
 
 A _ReplicationController_ ensures that a specified number of pod replicas are running at any one
 time. In other words, a ReplicationController makes sure that a pod or a homogeneous set of pods is
@@ -100,7 +101,7 @@ specifies an expression that just gets the name from each pod in the returned li
 ## Writing a ReplicationController Spec
 
 As with all other Kubernetes config, a ReplicationController needs `apiVersion`, `kind`, and `metadata` fields.
-For general information about working with config files, see [Object Management](/docs/concepts/tools/kubectl/object-management-overview/).
+For general information about working with config files, see [object management ](/docs/concepts/overview/object-management-kubectl/overview/).
 
 A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
@@ -221,7 +222,7 @@ A ReplicationController will never terminate on its own, but it isn't expected t
 
 ## Writing programs for Replication
 
-Pods created by a ReplicationController are intended to be fungible and semantically identical, though their configurations may become heterogeneous over time. This is an obvious fit for replicated stateless servers, but ReplicationControllers can also be used to maintain availability of master-elected, sharded, and worker-pool applications. Such applications should use dynamic work assignment mechanisms, such as the [etcd lock module](https://coreos.com/docs/distributed-configuration/etcd-modules/) or [RabbitMQ work queues](https://www.rabbitmq.com/tutorials/tutorial-two-python.html), as opposed to static/one-time customization of the configuration of each pod, which is considered an anti-pattern. Any pod customization performed, such as vertical auto-sizing of resources (for example, cpu or memory), should be performed by another online controller process, not unlike the ReplicationController itself.
+Pods created by a ReplicationController are intended to be fungible and semantically identical, though their configurations may become heterogeneous over time. This is an obvious fit for replicated stateless servers, but ReplicationControllers can also be used to maintain availability of master-elected, sharded, and worker-pool applications. Such applications should use dynamic work assignment mechanisms, such as the [RabbitMQ work queues](https://www.rabbitmq.com/tutorials/tutorial-two-python.html), as opposed to static/one-time customization of the configuration of each pod, which is considered an anti-pattern. Any pod customization performed, such as vertical auto-sizing of resources (for example, cpu or memory), should be performed by another online controller process, not unlike the ReplicationController itself.
 
 ## Responsibilities of the ReplicationController
 

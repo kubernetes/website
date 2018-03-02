@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - saad-ali
 title: Dynamic Volume Provisioning
 ---
@@ -30,7 +30,7 @@ that provisioner when provisioning.
 A cluster administrator can define and expose multiple flavors of storage (from
 the same or different storage systems) within a cluster, each with a custom set
 of parameters. This design also ensures that end users don’t have to worry
-about the the complexity and nuances of how storage is provisioned, but still
+about the complexity and nuances of how storage is provisioned, but still
 have the ability to select from multiple storage options.
 
 More information on storage classes can be found
