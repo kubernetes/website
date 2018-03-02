@@ -139,7 +139,7 @@ systemctl enable docker && systemctl start docker
 {% endcapture %}
 
 **Note**: Make sure that the cgroup driver used by kubelet is the same as the one used by 
-Docker. To ensure compatability you can either update Docker, like so:
+Docker. To ensure compatibility you can either update Docker, like so:
 
 ```bash
 cat << EOF > /etc/docker/daemon.json
