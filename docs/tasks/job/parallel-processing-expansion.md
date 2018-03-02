@@ -85,7 +85,7 @@ do not care to see.)
 We can check on the pods as well using the same label selector:
 
 ```shell
-$ kubectl get pods -l jobgroup=jobexample --show-all
+$ kubectl get pods -l jobgroup=jobexample
 NAME                        READY     STATUS      RESTARTS   AGE
 process-item-apple-kixwv    0/1       Completed   0          4m
 process-item-banana-wrsf7   0/1       Completed   0          4m
@@ -96,7 +96,7 @@ There is not a single command to check on the output of all jobs at once,
 but looping over all the pods is pretty easy:
 
 ```shell
-$ for p in $(kubectl get pods -l jobgroup=jobexample --show-all -o name)
+$ for p in $(kubectl get pods -l jobgroup=jobexample -o name)
 do
   kubectl logs $p
 done
