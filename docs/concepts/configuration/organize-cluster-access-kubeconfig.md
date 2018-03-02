@@ -82,7 +82,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 
    Otherwise, if the `KUBECONFIG` environment variable is set, use it as a
    list of files that should be merged.
-   Merge the files listed in the `KUBECONFIG` envrionment variable
+   Merge the files listed in the `KUBECONFIG` environment variable
    according to these rules:
 
    * Ignore empty filenames.
