@@ -193,5 +193,6 @@ If you wish to remove rancher from the cluster, we can do it using kubectl. Dele
   # If you used the nodeport example change the yaml filename if you used the ingress example. 
   kubectl delete -f cdk-rancher-nodeport.yaml
 ```
+{% endcapture %}
 
 {% include templates/task.md %}
