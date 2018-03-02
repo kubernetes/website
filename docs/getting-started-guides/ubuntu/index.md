@@ -51,6 +51,11 @@ These are more in-depth guides for users choosing to run Kubernetes in productio
   - [Operational Considerations](/docs/getting-started-guides/ubuntu/operational-considerations/)
   - [Glossary](/docs/getting-started-guides/ubuntu/glossary/)
 
+
+## Third-party Product Integrations
+
+  - [Rancher](/docs/getting-started-guides/ubuntu/rancher/)
+
 ## Developer Guides
 
   - [Localhost using LXD](/docs/getting-started-guides/ubuntu/local/)
