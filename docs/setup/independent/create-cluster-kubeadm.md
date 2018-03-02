@@ -144,7 +144,6 @@ see [Tear Down](#tear-down).
 The output should look like:
 
 ```
-[kubeadm] WARNING: kubeadm is in beta, please do not use it for production clusters.
 [init] Using Kubernetes version: v1.8.0
 [init] Using Authorization modes: [Node RBAC]
 [preflight] Running pre-flight checks
@@ -394,7 +393,6 @@ kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert
 The output should look something like:
 
 ```
-[kubeadm] WARNING: kubeadm is in beta, please do not use it for production clusters.
 [preflight] Running pre-flight checks
 [discovery] Trying to connect to API Server "10.138.0.4:6443"
 [discovery] Created cluster-info discovery client, requesting info from "https://10.138.0.4:6443"
