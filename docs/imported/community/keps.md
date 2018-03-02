@@ -25,8 +25,6 @@ status: implementable
 ## Table of Contents
 
 * [Kubernetes Enhancement Proposal Process](#kubernetes-enhancement-proposal-process)
-  * [Metadata](#metadata)
-  * [Table of Contents](#table-of-contents)
   * [Summary](#summary)
   * [Motivation](#motivation)
   * [Reference-level explanation](#reference-level-explanation)
@@ -38,7 +36,6 @@ status: implementable
       * [KEP Editor Role](#kep-editor-role)
       * [Important Metrics](#important-metrics)
       * [Prior Art](#prior-art)
-  * [Graduation Criteria](#graduation-criteria)
   * [Drawbacks](#drawbacks)
   * [Alternatives](#alternatives)
   * [Unresolved Questions](#unresolved-questions)
