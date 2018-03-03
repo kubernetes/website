@@ -118,5 +118,5 @@ Heapster的资源限制是基于集群的初始规模动态设置的 (参考 [#1
 
 因为种种原因 (详见 [#18969](https://github.com/kubernetes/kubernetes/issues/18969))，在 `NUM_NODES` 值很大的情况下执行
 `kube-up.sh`， 可能因为其中一小部分节点没有正常启动而失败。
-这时我们有两种选择：重启集群 (`kube-down.sh` 然后再 `kube-up.sh`），或者在执行 `kube-up.sh`之前，
+这时我们有两种选择：重启集群 (`kube-down.sh` 然后再 `kube-up.sh`)，或者在执行 `kube-up.sh`之前，
 将环境变量 `ALLOWED_NOTREADY_NODES` 设置为合适的值。 这将允许 `kube-up.sh` 以少于 `NUM_NODES` 的节点数量启动集群。 依据失败的具体原因，另外的节点可能在后面加入集群，或者集群节点数量将保持在 `NUM_NODES - ALLOWED_NOTREADY_NODES`。
