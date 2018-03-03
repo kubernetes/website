@@ -18,15 +18,15 @@ Resource quotas work like this:
 
 - Different teams work in different namespaces.  Currently this is voluntary, but
   support for making this mandatory via ACLs is planned.
-- The administrator creates one or more Resource Quota objects for each namespace.
+- The administrator creates one or more `ResourceQuotas` for each namespace.
 - Users create resources (pods, services, etc.) in the namespace, and the quota system
-  tracks usage to ensure it does not exceed hard resource limits defined in a Resource Quota.
+  tracks usage to ensure it does not exceed hard resource limits defined in a `ResourceQuota`.
 - If creating or updating a resource violates a quota constraint, the request will fail with HTTP
   status code `403 FORBIDDEN` with a message explaining the constraint that would have been violated.
 - If quota is enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
   requests or limits for those values; otherwise, the quota system may reject pod creation.  Hint: Use
   the LimitRange admission controller to force defaults for pods that make no compute resource requirements.
-  See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example to avoid this problem.
+  See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example of how to avoid this problem.
 
 Examples of policies that could be created using namespaces and quotas are:
 
@@ -42,12 +42,12 @@ Neither contention nor changes to quota will affect already created resources.
 
 ## Enabling Resource Quota
 
-Resource Quota support is enabled by default for many Kubernetes distributions.  It is
+Resource quota support is enabled by default for many Kubernetes distributions.  It is
 enabled when the apiserver `--admission-control=` flag has `ResourceQuota` as
 one of its arguments.
 
-Resource Quota is enforced in a particular namespace when there is a
-`ResourceQuota` object in that namespace.
+A resource quota is enforced in a particular namespace when there is a
+`ResourceQuota` in that namespace.
 
 ## Compute Resource Quota
 
@@ -83,7 +83,7 @@ define a quota as follows:
 * `gold.storageclass.storage.k8s.io/requests.storage: 500Gi`
 * `bronze.storageclass.storage.k8s.io/requests.storage: 100Gi`
 
-In release 1.8, quota support for local ephemeral storage is added as alpha feature
+In release 1.8, quota support for local ephemeral storage is added as an alpha feature:
 
 | Resource Name | Description |
 | ------------------------------- |----------------------------------------------------------- |
@@ -134,7 +134,7 @@ The following types are supported:
 | `secrets` | The total number of secrets that can exist in the namespace. |
 
 For example, `pods` quota counts and enforces a maximum on the number of `pods`
-created in a single namespace that are not terminal.  You might want to set a `pods` 
+created in a single namespace that are not terminal. You might want to set a `pods` 
 quota on a namespace to avoid the case where a user creates many small pods and 
 exhausts the cluster's supply of Pod IPs.
 
@@ -264,7 +264,7 @@ count/secrets                 1     4
 
 ## Quota and Cluster Capacity
 
-Resource Quota objects are independent of the Cluster Capacity. They are
+`ResourceQuotas` are independent of the cluster capacity. They are
 expressed in absolute units.  So, if you add nodes to your cluster, this does *not*
 automatically give each namespace the ability to consume more resources.
 
@@ -275,8 +275,8 @@ Sometimes more complex policies may be desired, such as:
     limit to prevent accidental resource exhaustion.
   - Detect demand from one namespace, add nodes, and increase quota.
 
-Such policies could be implemented using ResourceQuota as a building-block, by
-writing a 'controller' which watches the quota usage and adjusts the quota
+Such policies could be implemented using `ResourceQuotas` as building blocks, by
+writing a "controller" that watches the quota usage and adjusts the quota
 hard limits of each namespace according to other signals.
 
 Note that resource quota divides up aggregate cluster resources, but it creates no
