@@ -34,7 +34,7 @@ Download kops from the [releases page](https://github.com/kubernetes/kops/releas
 On MacOS:
 
 ```
-wget https://github.com/kubernetes/kops/releases/download/1.8.0/kops-darwin-amd64
+curl -OL https://github.com/kubernetes/kops/releases/download/1.8.0/kops-darwin-amd64
 chmod +x kops-darwin-amd64
 mv kops-darwin-amd64 /usr/local/bin/kops
 # you can also install using Homebrew
