@@ -320,7 +320,14 @@ If the PodSecurityPolicy extension is enabled, cluster-wide AppArmor restriction
 enable the PodSecurityPolicy, the following flag must be set on the `apiserver`:
 
 ```
+<<<<<<< HEAD
 --enable-admission-plugins=PodSecurityPolicy[,others...]
+||||||| merged common ancestors
+--admission-control=PodSecurityPolicy[,others...]
+--runtime-config=extensions/v1beta1/podsecuritypolicy[,others...]
+=======
+--admission-control=PodSecurityPolicy[,others...]
+>>>>>>> Use PSP from policy API group. (#7562)
 ```
 
 The AppArmor options can be specified as annotations on the PodSecurityPolicy:
