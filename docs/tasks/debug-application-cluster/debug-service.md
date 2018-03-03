@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - thockin
 - bowei
 title: Debug Services
@@ -233,7 +233,7 @@ passed into `kubelet` with the `--cluster-dns` flag.
 
 The `search` line must include an appropriate suffix for you to find the
 `Service` name.  In this case it is looking for `Services` in the local
-`Namespace` (`default.svc.cluster.local), `Services` in all `Namespaces`
+`Namespace` (`default.svc.cluster.local`), `Services` in all `Namespaces`
 (`svc.cluster.local`), and the cluster (`cluster.local`).  Depending on your own
 install you might have additional records after that (up to 6 total).  The
 cluster suffix is passed into `kubelet` with the `--cluster-domain` flag.  We

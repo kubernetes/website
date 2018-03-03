@@ -15,7 +15,7 @@ Kubernetes API.
 You need to have these tools installed:
 
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-* [Golang](https://golang.org/doc/install) version 1.8 or later
+* [Golang](https://golang.org/doc/install) version 1.9.1 or later
 * [Docker](https://docs.docker.com/engine/installation/)
 * [etcd](https://github.com/coreos/etcd/)
 
@@ -38,7 +38,7 @@ information, see
 Updating the Kubernetes API reference documentation is a two-stage process:
 
 1. Generate an OpenAPI spec from the Kubernetes source code. The tools for
-this stage are at [kubernetes/kubernetes/hack](https://github.com/kubernetes/kubernetes/hack).
+this stage are at [kubernetes/kubernetes/hack](https://github.com/kubernetes/kubernetes/tree/master/hack).
 
 1. Generate an HTML file from the OpenAPI spec. The tools for this stage are at
 [kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs).
@@ -100,7 +100,7 @@ or more comments in the Kubernetes source code.
 will be different in your situation.
 {: .note}
 
-Here's an example of editing the a comment in the Kubernetes source code.
+Here's an example of editing a comment in the Kubernetes source code.
 
 In your local kubernetes/kubernetes repository, check out the master branch,
 and make sure it is up to date:

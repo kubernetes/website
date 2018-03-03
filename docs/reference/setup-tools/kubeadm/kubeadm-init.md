@@ -241,7 +241,6 @@ Environment="KUBELET_DNS_ARGS=--cluster-dns=10.96.0.10 --cluster-domain=cluster.
 Environment="KUBELET_AUTHZ_ARGS=--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
 Environment="KUBELET_CADVISOR_ARGS=--cadvisor-port=0"
 Environment="KUBELET_CERTIFICATE_ARGS=--rotate-certificates=true --cert-dir=/var/lib/kubelet/pki"
-ExecStart=
 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $KUBELET_NETWORK_ARGS $KUBELET_DNS_ARGS $KUBELET_AUTHZ_ARGS $KUBELET_CADVISOR_ARGS $KUBELET_CERTIFICATE_ARGS $KUBELET_EXTRA_ARGS
 ```
 
@@ -290,6 +289,7 @@ The container runtime used by default is Docker, which is enabled through the bu
 
 Other CRI-based runtimes include:
 
+- [cri-containerd](https://github.com/containerd/cri-containerd)
 - [cri-o](https://github.com/kubernetes-incubator/cri-o)
 - [frakti](https://github.com/kubernetes/frakti)
 - [rkt](https://github.com/kubernetes-incubator/rktlet)
@@ -383,7 +383,7 @@ In summary, `kubeadm init --feature-gates=SelfHosting=true` works as follows:
   1. Creates DaemonSets in the `kube-system` namespace and waits for the
      resulting Pods to be running.
 
-  1. Once self-hosted Pods are operational, it's associated static Pods are deleted
+  1. Once self-hosted Pods are operational, their associated static Pods are deleted
      and kubeadm moves on to install the next component. This triggers kubelet to
      stop those static Pods.
 

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jlowdermilk
 - justinsb
 - quinton-hoole

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - janetkuo
 - thockin
 title: Application Introspection and Debugging
@@ -41,7 +41,7 @@ Namespace:	default
 Node:		kubernetes-node-wul5/10.240.0.9
 Start Time:	Thu, 24 Mar 2016 01:39:49 +0000
 Labels:		app=nginx,pod-template-hash=1006230814
-Annotations:    kubernetes.io/created-by={"kind":"SerializedReference","apiVersion":"v1","reference":{"kind"                           :"ReplicaSet","namespace":"default","name":"nginx-deployment-1956810328","uid":"14e607e7-8ba1-11e7-b5cb-fa16                             ...
+Annotations:    kubernetes.io/created-by={"kind":"SerializedReference","apiVersion":"v1","reference":{"kind"                           :"ReplicaSet","namespace":"default","name":"nginx-deployment-1956810328","uid":"14e607e7-8ba1-11e7-b5cb-fa16"                             ...
 Status:		Running
 IP:		10.244.0.6
 Controllers:	ReplicaSet/nginx-deployment-1006230814
@@ -174,7 +174,7 @@ To see events from all namespaces, you can use the `--all-namespaces` argument.
 In addition to `kubectl describe pod`, another way to get extra information about a pod (beyond what is provided by `kubectl get pod`) is to pass the `-o yaml` output format flag to `kubectl get pod`. This will give you, in YAML format, even more information than `kubectl describe pod`--essentially all of the information the system has about the Pod. Here you will see things like annotations (which are key-value metadata without the label restrictions, that is used internally by Kubernetes system components), restart policy, ports, and volumes.
 
 ```yaml
-$kubectl get pod nginx-deployment-1006230814-6winp -o yaml
+$ kubectl get pod nginx-deployment-1006230814-6winp -o yaml
 apiVersion: v1
 kind: Pod
 metadata:

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - lavalamp
 - deads2k
@@ -74,7 +74,7 @@ of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authoriz
 
 ## Authorization Modules
  * **Node** - A special-purpose authorizer that grants permissions to kubelets based on the pods they are scheduled to run. To learn more about using the Node authorization mode, see [Node Authorization](/docs/admin/authorization/node/).
- * **ABAC** - Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes etc). To learn more about using the ABAC mode, see [ABAC Mode](/docs/admin/authorization/abac/).
+ * **ABAC** - Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes, etc). To learn more about using the ABAC mode, see [ABAC Mode](/docs/admin/authorization/abac/).
  * **RBAC** - Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise. In this context, access is the ability of an individual user to perform a specific task, such as view, create, or modify a file. To learn more about using the RBAC mode, see [RBAC Mode](/docs/admin/authorization/rbac/)
    * When specified "RBAC" (Role-Based Access Control) uses the "rbac.authorization.k8s.io" API group to drive authorization decisions, allowing admins to dynamically configure permission policies through the Kubernetes API.
    * To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.

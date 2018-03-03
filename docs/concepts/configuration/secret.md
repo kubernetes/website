@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 title: Secrets
 ---
@@ -338,6 +338,11 @@ However, it is using its local ttl-based cache for getting the current value of 
 As a result, the total delay from the moment when the secret is updated to the moment when new keys are
 projected to the pod can be as long as kubelet sync period + ttl of secrets cache in kubelet.
 
+**Note:** A container using a Secret as a
+[subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive
+Secret updates.
+{: .note}
+
 #### Using Secrets as Environment Variables
 
 To use a secret in an environment variable in a pod:
@@ -675,7 +680,7 @@ render those assumptions invalid.
 
 For these reasons `watch` and `list` requests for secrets within a namespace are
 extremely powerful capabilities and should be avoided, since listing secrets allows
-the clients to inspect the values if all secrets are in that namespace. The ability to
+the clients to inspect the values of all secrets that are in that namespace. The ability to
 `watch` and `list` all secrets in a cluster should be reserved for only the most
 privileged, system-level components.
 

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 - luxas
 - errordeveloper
@@ -9,7 +9,7 @@ title: Using kubeadm to Create a Cluster
 
 {% capture overview %}
 
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified_kubernetes_color.png" align="right" width="150px">**kubeadm** is a toolkit that helps you bootstrap a best-practice Kubernetes
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** is a toolkit that helps you bootstrap a best-practice Kubernetes
 cluster in an easy, reasonably secure and extensible way. It also supports
 managing [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for you and upgrading/downgrading clusters.
 
@@ -28,7 +28,7 @@ systems of different kinds (e.g. Terraform, Ansible, etc.).
 
 kubeadm is designed to be a simple way for new users to start trying
 Kubernetes out, possibly for the first time, a way for existing users to
-test their application on and stich together a cluster easily, and also to be
+test their application on and stitch together a cluster easily, and also to be
 a building block in other ecosystem and/or installer tool with a larger
 scope.
 
@@ -144,7 +144,6 @@ see [Tear Down](#tear-down).
 The output should look like:
 
 ```
-[kubeadm] WARNING: kubeadm is in beta, please do not use it for production clusters.
 [init] Using Kubernetes version: v1.8.0
 [init] Using Authorization modes: [Node RBAC]
 [preflight] Running pre-flight checks
@@ -257,7 +256,7 @@ Refer to the Calico documentation for a [kubeadm quickstart](https://docs.projec
  - Calico works on `amd64` only.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v2.6/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
 ```
 {% endcapture %}
 
@@ -282,7 +281,7 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8
 
  - For `flannel` to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
  - `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on a platform other than
-`amd64` you have to manually download the manifest and replace `amd64` occurences with your chosen platform.
+`amd64` you have to manually download the manifest and replace `amd64` occurrences with your chosen platform.
  - Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
 please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
@@ -394,7 +393,6 @@ kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert
 The output should look something like:
 
 ```
-[kubeadm] WARNING: kubeadm is in beta, please do not use it for production clusters.
 [preflight] Running pre-flight checks
 [discovery] Trying to connect to API Server "10.138.0.4:6443"
 [discovery] Created cluster-info discovery client, requesting info from "https://10.138.0.4:6443"

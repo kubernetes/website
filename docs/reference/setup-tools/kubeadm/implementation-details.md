@@ -59,7 +59,7 @@ in a majority of cases, and the most intuitive location; other constants paths a
     - `apiserver.crt`, `apiserver.key` for the API server certificate
     - `apiserver-kubelet-client.crt`, `apiserver-kubelet-client.key` for the client certificate used by the API server to connect to the kubelets securely
     - `sa.pub`, `sa.key` for the key used by the controller manager when signing ServiceAccount
-    - `front-proxy-ca.crt`, `front-proxy-ca.key` for the the front proxy certificate authority
+    - `front-proxy-ca.crt`, `front-proxy-ca.key` for the front proxy certificate authority
     - `front-proxy-client.crt`, `front-proxy-client.key` for the front proxy client
 
 ## kubeadm init workflow internal design
@@ -200,7 +200,7 @@ Static Pod manifest share a set of common properties:
 - Leader election is enabled for both the controller-manager and the scheduler
 - Controller-manager and the scheduler will reference kubeconfig files with their respective, unique identities
 - All static Pods gets any extra flags specified by the user as described in [passing custom arguments to control plane components](kubeadm-init.md/#custom-args)
-- All static Pods gets any extra extra Volumes specified by the user (Host path)
+- All static Pods gets any extra Volumes specified by the user (Host path)
 
 Please note that:
 
@@ -241,7 +241,7 @@ Other API server flags that are set unconditionally are:
     - [`ServiceAccount`](/docs/admin/admission-controllers/#serviceaccount) to enforce service account automation
     - [`PersistentVolumeLabel`](/docs/admin/admission-controllers/#persistentvolumelabel) attaches region or zone labels to
       PersistentVolumes as defined by the cloud provider (This admission controller is deprecated and will be removed in a future version. 
-      It is not deployed by kubeadm by default with v1.9 onwards when not explicitely opting into using `gce` or `aws` as cloud providers)
+      It is not deployed by kubeadm by default with v1.9 onwards when not explicitly opting into using `gce` or `aws` as cloud providers)
     - [`DefaultStorageClass`](/docs/admin/admission-controllers/#defaultstorageclass) to enforce default storage class on `PersistentVolumeClaim` objects
     - [`DefaultTolerationSeconds`](/docs/admin/admission-controllers/#defaulttolerationseconds) 
     - [`NodeRestriction`](/docs/admin/admission-controllers/#noderestriction) to limit what a kubelet can modify 
@@ -401,7 +401,7 @@ RBAC role `system:node-bootstrapper`.
 
 #### Setup auto approval for new bootstrap tokens
 
-Kubeadm ensures that the Boostrap Token will get its CSR request automatically approved by the the csrapprover controller.
+Kubeadm ensures that the Boostrap Token will get its CSR request automatically approved by the csrapprover controller.
 
 This is implemented by creating ClusterRoleBinding named `kubeadm:node-autoapprove-bootstrap` between 
 the  `system:bootstrappers:kubeadm:default-node-token` group and the default role `system:certificates.k8s.io:certificatesigningrequests:nodeclient`.
@@ -412,7 +412,7 @@ POST permission to `/apis/certificates.k8s.io/certificatesigningrequests/nodecli
 #### Setup nodes certificate rotation with auto approval
 
 Kubeadm ensures that certificate rotation is enabled for nodes, and that new certificate request for nodes will get its CSR request 
-automatically approved by the the csrapprover controller.
+automatically approved by the csrapprover controller.
 
 This is implemented by creating ClusterRoleBinding named `kubeadm:node-autoapprove-certificate-rotation` between the  `system:nodes` group 
 and the default role `system:certificates.k8s.io:certificatesigningrequests:selfnodeclient`.
@@ -570,7 +570,7 @@ If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig`:
 1. Read the kubelet base configuration from the `kubelet-base-config-v1.9` ConfigMap in the `kube-system` namespace  using the
    Bootstrap Token credentials, and write it to disk as kubelet init configuration file  `/var/lib/kubelet/config/init/kubelet`
 2. As soon as kubelet starts with the Node's own credential (`/etc/kubernetes/kubelet.conf`), update current node configuration 
-   specifying that the the source for the node/kubelet configuration is the above ConfigMap.
+   specifying that the source for the node/kubelet configuration is the above ConfigMap.
 
 Please note that:
 

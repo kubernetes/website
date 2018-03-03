@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - lavalamp
 - ericchiang
@@ -25,7 +25,7 @@ cannot be added to a cluster through an API call.
 In contrast, service accounts are users managed by the Kubernetes API. They are
 bound to specific namespaces, and created automatically by the API server or
 manually through API calls. Service accounts are tied to a set of credentials
-stored as `Secrets`, which are mounted into pods allowing in cluster processes
+stored as `Secrets`, which are mounted into pods allowing in-cluster processes
 to talk to the Kubernetes API.
 
 API requests are tied to either a normal user or a service account, or are treated
@@ -178,14 +178,14 @@ If unspecified, the API server's TLS private key will be used.
 Service accounts are usually created automatically by the API server and
 associated with pods running in the cluster through the `ServiceAccount`
 [Admission Controller](/docs/admin/admission-controllers/). Bearer tokens are
-mounted into pods at well known locations, and allow in cluster processes to
+mounted into pods at well-known locations, and allow in-cluster processes to
 talk to the API server. Accounts may be explicitly associated with pods using the
 `serviceAccountName` field of a `PodSpec`.
 
 NOTE: `serviceAccountName` is usually omitted because this is done automatically.
 
 ```
-apiVersion: apps/v1beta2
+apiVersion: apps/v1 # this apiVersion is relevant as of Kubernetes 1.9
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -650,6 +650,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: scopes-impersonator
+rules:
 # Can set "Impersonate-Extra-scopes" header.
 - apiGroups: ["authentication.k8s.io"]
   resources: ["userextras/scopes"]
@@ -674,7 +675,7 @@ rules:
 # Can impersonate the groups "developers" and "admins"
 - apiGroups: [""]
   resources: ["groups"]
-- verbs: ["impersonate"]
+  verbs: ["impersonate"]
   resourceNames: ["developers","admins"]
 
 # Can impersonate the extras field "scopes" with the values "view" and "development"

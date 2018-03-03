@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - enisoc
 - erictune
 - foxish
@@ -465,7 +465,7 @@ In one terminal window, patch the `web` StatefulSet to change the container
 image again.
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.8"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.8"}]'
 statefulset "web" patched
 ```
 
@@ -615,7 +615,7 @@ k8s.gcr.io/nginx-slim:0.7
 ```
 
 When you changed the `partition`, the StatefulSet controller automatically 
-updated the `web-2` Pod because the Pod's ordinal was less than or equal to 
+updated the `web-2` Pod because the Pod's ordinal was greater than or equal to 
 the `partition`.
 
 Delete the `web-1` Pod.

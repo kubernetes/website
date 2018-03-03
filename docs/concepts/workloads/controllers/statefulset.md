@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - enisoc
 - erictune
 - foxish
@@ -99,7 +99,7 @@ spec:
       name: www
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: my-storage-class
+      storageClassName: "my-storage-class"
       resources:
         requests:
           storage: 1Gi
@@ -116,7 +116,7 @@ regardless of which node it's (re)scheduled on.
 ### Ordinal Index
 
 For a StatefulSet with N replicas, each Pod in the StatefulSet will be
-assigned an integer ordinal, in the range [0,N), that is unique over the Set.
+assigned an integer ordinal, from 0 up through N-1, that is unique over the Set.
 
 ### Stable Network ID
 
@@ -207,8 +207,7 @@ annotations for the Pods in a StatefulSet.
 
 ### On Delete
 
-The `OnDelete` update strategy implements the legacy (1.6 and prior) behavior. It is the default
-strategy when `spec.updateStrategy` is left unspecified. When a StatefulSet's
+The `OnDelete` update strategy implements the legacy (1.6 and prior) behavior. When a StatefulSet's
 `.spec.updateStrategy.type` is set to `OnDelete`, the StatefulSet controller will not automatically
 update the Pods in a StatefulSet. Users must manually delete Pods to cause the controller to
 create new Pods that reflect modifications made to a StatefulSet's `.spec.template`.
@@ -216,7 +215,7 @@ create new Pods that reflect modifications made to a StatefulSet's `.spec.templa
 ### Rolling Updates
 
 The `RollingUpdate` update strategy implements automated, rolling update for the Pods in a
-StatefulSet. When a StatefulSet's `.spec.updateStrategy.type` is set to `RollingUpdate`, the
+StatefulSet. It is the default strategy when `spec.updateStrategy` is left unspecified. When a StatefulSet's `.spec.updateStrategy.type` is set to `RollingUpdate`, the
 StatefulSet controller will delete and recreate each Pod in the StatefulSet. It will proceed
 in the same order as Pod termination (from the largest ordinal to the smallest), updating
 each Pod one at a time. It will wait until an updated Pod is Running and Ready prior to

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - smarterclayton
 - liggitt
 - ericchiang
@@ -39,7 +39,7 @@ potentially unsecured traffic.
 
 Choose an authentication mechanism for the API servers to use that matches the common access patterns 
 when you install a cluster. For instance, small single user clusters may wish to use a simple certificate 
-or static Bearer token approach. Larger clusters may wish to integrate an existing or OIDC or LDAP server that
+or static Bearer token approach. Larger clusters may wish to integrate an existing OIDC or LDAP server that
 allow users to be subdivided into groups. 
 
 All API clients must be authenticated, even those that are part of the infrastructure like nodes,

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - liggitt
 title: Kubelet authentication/authorization
 ---

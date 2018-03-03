@@ -91,7 +91,7 @@ Kubernetes 提供了很多的功能，总会有新的场景受益于新特性。
 
 [Label](/docs/user-guide/labels/) 允许用户按照自己的方式组织管理对应的资源。 [注解](/docs/user-guide/annotations/) 使用户能够以自定义的描述信息来修饰资源，以适用于自己的工作流，并为管理工具提供检查点状态的简单方法。
 
-此外，[Kubernetes 控制面 (Controll Plane)](/docs/admin/cluster-components) 是构建在相同的 [APIs](/docs/api/) 上面，开发人员和用户都可以用。用户可以编写自己的控制器， [调度器](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/scheduler.md)等等，如果这么做，根据新加的[自定义 API](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md) ，可以扩展当前的通用 [CLI 命令行工具](/docs/user-guide/kubectl-overview/)。
+此外，[Kubernetes 控制面 (Control Plane)](/docs/admin/cluster-components) 是构建在相同的 [APIs](/docs/api/) 上面，开发人员和用户都可以用。用户可以编写自己的控制器， [调度器](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/scheduler.md)等等，如果这么做，根据新加的[自定义 API](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md) ，可以扩展当前的通用 [CLI 命令行工具](/docs/user-guide/kubectl-overview/)。
 
 这种 [设计](https://git.k8s.io/community/contributors/design-proposals/architecture/principles.md) 使得许多其他系统可以构建在 Kubernetes 之上。
 

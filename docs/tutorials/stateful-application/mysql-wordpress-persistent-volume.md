@@ -1,6 +1,6 @@
 ---
 title: "Example: Deploying WordPress and MySQL with Persistent Volumes"
-approvers:
+reviewers:
 - ahmetb
 ---
 
@@ -12,7 +12,7 @@ A [PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV) is a piece
 **Warning:**  This deployment is not suitable for production use cases, as it uses single instance WordPress and MySQL Pods. Consider using [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress) to deploy WordPress in production.
 {: .warning}
 
-**Note:** The files provided in this tutorial are using beta Deployment APIs and are specific to kubernetes version 1.8. If you wish to use this tutorial with an earlier version of Kubernetes, please update the beta API appropriately, or reference earlier versions of this tutorial.
+**Note:** The files provided in this tutorial are using GA Deployment APIs and are specific to kubernetes version 1.9 and later. If you wish to use this tutorial with an earlier version of Kubernetes, please update the API version appropriately, or reference earlier versions of this tutorial.
 {: .note}
 
 {% endcapture %}

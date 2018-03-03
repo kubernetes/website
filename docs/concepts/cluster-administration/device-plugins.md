@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 title: Device Plugins
 description: Use the Kubernetes device plugin framework to implement plugins for GPUs, NICs, FPGAs, InfiniBand, and similar resources that require vendor-specific setup.
 ---
@@ -61,8 +61,7 @@ metadata:
   name: demo-pod
 spec:
   containers:
-    -
-      name: demo-container-1
+    - name: demo-container-1
       image: gcr.io/google_containers/pause:2.0
       resources:
         limits:

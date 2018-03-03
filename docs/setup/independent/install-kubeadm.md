@@ -4,7 +4,7 @@ title: Installing kubeadm
 
 {% capture overview %}
 
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified_kubernetes_color.png" align="right" width="150px">This page shows how to install the `kubeadm` toolbox.
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">This page shows how to install the `kubeadm` toolbox.
 For information how to create a cluster with kubeadm once you have performed this installation process,
 see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-cluster-kubeadm/) page.
 
@@ -139,7 +139,7 @@ systemctl enable docker && systemctl start docker
 {% endcapture %}
 
 **Note**: Make sure that the cgroup driver used by kubelet is the same as the one used by 
-Docker. To ensure compatability you can either update Docker, like so:
+Docker. To ensure compatibility you can either update Docker, like so:
 
 ```bash
 cat << EOF > /etc/docker/daemon.json

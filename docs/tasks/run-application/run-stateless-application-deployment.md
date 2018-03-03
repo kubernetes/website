@@ -1,6 +1,6 @@
 ---
 title: Run a Stateless Application Using a Deployment
-min-kubernetes-server-version: v1.8
+min-kubernetes-server-version: v1.9
 ---
 
 {% capture overview %}

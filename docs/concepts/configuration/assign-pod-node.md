@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - davidopp
 - kevin-wangzefeng
 - bsalamat
@@ -39,8 +39,6 @@ This example assumes that you have a basic understanding of Kubernetes pods and 
 Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the one that you want to add a label to, and then run `kubectl label nodes <node-name> <label-key>=<label-value>` to add a label to the node you've chosen. For example, if my node name is 'kubernetes-foo-node-1.c.a-robinson.internal' and my desired label is 'disktype=ssd', then I can run `kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd`.
 
 If this fails with an "invalid command" error, you're likely using an older version of kubectl that doesn't have the `label` command. In that case, see the [previous version](https://github.com/kubernetes/kubernetes/blob/a053dbc313572ed60d89dae9821ecab8bfd676dc/examples/node-selection/README.md) of this guide for instructions on how to manually set labels on a node.
-
-Also, note that label keys must be in the form of DNS labels (as described in the [identifiers doc](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)), meaning that they are not allowed to contain any upper-case letters.
 
 You can verify that it worked by re-running `kubectl get nodes --show-labels` and checking that the node now has a label.
 
@@ -188,7 +186,7 @@ rule says that the pod prefers to not schedule onto a node if that node is alrea
 having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
 it would mean that the pod cannot schedule onto a node if that node is in the same zone as a pod with
 label having key "security" and value "S2".) See the [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
-for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
+For many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
 flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 
 The legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`.
@@ -196,10 +194,10 @@ The legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exist
 In principle, the `topologyKey` can be any legal label-key. However,
 for performance and security reasons, there are some constraints on topologyKey:
 
-1. For affinity and for `RequiredDuringScheduling` pod anti-affinity,
+1. For affinity and for `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity,
 empty `topologyKey` is not allowed.
-2. For `RequiredDuringScheduling` pod anti-affinity, the admission controller `LimitPodHardAntiAffinityTopology` was introduced to limit `topologyKey` to `kubernetes.io/hostname`. If you want to make it available for custom topologies, you may modify the admission controller, or simply disable it.
-3. For `PreferredDuringScheduling` pod anti-affinity, empty `topologyKey` is interpreted as "all topologies" ("all topologies" here is now limited to the combination of `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` and `failure-domain.beta.kubernetes.io/region`).
+2. For `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, the admission controller `LimitPodHardAntiAffinityTopology` was introduced to limit `topologyKey` to `kubernetes.io/hostname`. If you want to make it available for custom topologies, you may modify the admission controller, or simply disable it.
+3. For `preferredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, empty `topologyKey` is interpreted as "all topologies" ("all topologies" here is now limited to the combination of `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` and `failure-domain.beta.kubernetes.io/region`).
 4. Except for the above cases, the `topologyKey` can be any legal label-key.
 
 In addition to `labelSelector` and `topologyKey`, you can optionally specify a list `namespaces`
@@ -222,11 +220,14 @@ In a three node cluster, a web application has in-memory cache such as redis. We
 Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`. The deployment has `PodAntiAffinity` configured to ensure the scheduler does not co-locate replicas on a single node.
 
 ```yaml
-apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-cache
 spec:
+  selector:
+    matchLabels:
+      app: store
   replicas: 3
   template:
     metadata:
@@ -251,11 +252,14 @@ spec:
 The below yaml snippet of the webserver deployment has `podAntiAffinity` and `podAffinity` configured. This informs the scheduler that all its replicas are to be co-located with pods that have selector label `app=store`. This will also ensure that each web-server replica does not co-locate on a single node.
 
 ```yaml
-apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-server
 spec:
+  selector:
+    matchLabels:
+      app: web-store
   replicas: 3
   template:
     metadata:

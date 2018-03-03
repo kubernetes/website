@@ -1,6 +1,6 @@
 ---
 title: Example Task Template
-approvers:
+reviewers:
 - chenopis
 ---
 
