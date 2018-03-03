@@ -349,7 +349,7 @@ To fix this, we need to rollback to a previous revision of Deployment that is st
 
 ### Checking Rollout History of a Deployment
 
-First, check the revisions of this deployment:
+First, check the revisions of this Deployment:
 
 ```shell
 $ kubectl rollout history deployment/nginx-deployment
@@ -809,7 +809,7 @@ allowed, which is the default if not specified.
 ### Selector
 
 `.spec.selector` is an optional field that specifies a [label selector](/docs/concepts/overview/working-with-objects/labels/)
-for the Pods targeted by this deployment.
+for the Pods targeted by this Deployment.
 
 If specified, `.spec.selector` must match `.spec.template.metadata.labels`, or it will be rejected by
 the API.  If `.spec.selector` is unspecified, `.spec.selector.matchLabels` defaults to
