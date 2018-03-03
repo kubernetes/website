@@ -418,6 +418,7 @@ subresource of the referenced *owner* can change it.
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### PersistentVolumeLabel (DEPRECATED)
 ||||||| merged common ancestors
 ### Persistent Volume Claim Protection (alpha)
@@ -439,6 +440,13 @@ The `PVCProtection` plugin adds the `kubernetes.io/pvc-protection` finalizer to 
 The `StorageProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection` finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV). In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed from the PVC or PV by PVC or PV Protection Controller. Refer to the [PVC Protection](/docs/concepts/storage/persistent-volumes/#persistent-volume-claim-protection) for more detailed information.
 >>>>>>> Bring PVC Protection Feature to Beta (#7165)
 
+||||||| merged common ancestors
+### Storage Protection (beta)
+{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
+The `StorageProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection` finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV). In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed from the PVC or PV by PVC or PV Protection Controller. Refer to the [PVC Protection](/docs/concepts/storage/persistent-volumes/#persistent-volume-claim-protection) for more detailed information.
+
+=======
+>>>>>>> Storage Protection was renamed to Storage Object in Use Protection (#7576)
 ### PersistentVolumeLabel (DEPRECATED)
 >>>>>>> deprecate three admission controller (#7363)
 
