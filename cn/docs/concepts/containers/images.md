@@ -123,7 +123,7 @@ Docker将私有仓库的密钥存放在`$HOME/.dockercfg`或`$HOME/.docker/confi
 
 推荐如下步骤来为node配置私有仓库。以下示例在PC或笔记本电脑中操作
 
-   1.对于想要使用的每一种凭证，运行 `docker login [server]`，它会更新`$HOME/.docker/config.json`。
+   1.对于想要使用的每一种凭证，运行 `docker login [server]`，它会更新`$HOME/.docker/config.json`
    1.使用编辑器查看`$HOME/.docker/config.json`，保证文件中包含了想要使用的凭证
    1.获取node列表，例如
      - 如果使用node名称，`nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
@@ -269,13 +269,13 @@ spec:
 
 配置私有仓库有多种方案，以下是一些常用场景和建议的解决方案。
 
-1. 集群运行非专有（例如 开源镜像）镜像。镜像不需要隐藏。
+1. 集群运行非专有（例如 开源镜像）镜像。镜像不需要隐藏
    - 使用Docker hub上的公有镜像
     - 无需配置
     - 在GCE/GKE上会自动使用高稳定性和高速的Docker hub的本地mirror
 1. 集群运行一些专有镜像，这些镜像对外部公司需要隐藏，对集群用户可见
-   - 使用自主的私有[Docker registry](https://docs.docker.com/registry/).
-     - 可以放置在[Docker Hub](https://hub.docker.com/account/signup/),或者其他地方。
+   - 使用自主的私有[Docker registry](https://docs.docker.com/registry/)
+     - 可以放置在[Docker Hub](https://hub.docker.com/account/signup/),或者其他地方
 	 - 按照上面的描述，在每个节点手动配置.docker/config.json
    - 或者，在防火墙内运行一个内置的私有仓库，并开放读取权限
      - 不需要配置Kubenretes
