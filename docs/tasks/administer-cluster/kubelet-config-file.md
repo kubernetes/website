@@ -52,6 +52,7 @@ For a trick to generate a configuration file from a live node, see
 ## Start a Kubelet process configured via the config file
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Start the Kubelet with the `--config` flag set to the path of the Kubelet's config file.
 The Kubelet will then load its config from this file.
 
@@ -78,6 +79,27 @@ containing the `kubelet` file. The Kubelet will then load the parameters defined
 by `KubeletConfiguration` from the `kubelet` file, rather than from their 
 associated command-line flags.
 >>>>>>> Document the removal of the KubeletConfigFile feature gate (#7140)
+||||||| merged common ancestors
+Start the Kubelet with the `--init-config-dir` flag set to the location of the directory
+containing the `kubelet` file. The Kubelet will then load the parameters defined
+by `KubeletConfiguration` from the `kubelet` file, rather than from their 
+associated command-line flags.
+=======
+Start the Kubelet with the `--config` flag set to the path of the Kubelet's config file.
+The Kubelet will then load its config from this file.
+
+Note that command line flags which target the same value as a config file will override that value.
+This helps ensure backwards compatibility with the command-line API.
+
+Note that relative file paths in the Kubelet config file are resolved relative to the
+location of the Kubelet config file, whereas relative paths in command line flags are resolved
+relative to the Kubelet's current working directory.
+
+Note that some default values differ between command-line flags and the Kubelet config file.
+If `--config` is provided and the values are not specified via the command line, the
+defaults for the `KubeletConfiguration` version apply.
+In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
+>>>>>>> update kubeletconfig docs for v1.10, beta (#7561)
 
 {% endcapture %}
 
