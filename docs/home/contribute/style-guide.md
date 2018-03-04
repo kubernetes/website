@@ -15,7 +15,7 @@ docs, follow the instructions on
 
 {% capture body %}
 
-**Note:** Kubernetes documentation uses [GitHub Flavored Markdown](https://github.github.com/gfm/).
+**Note:** Kubernetes documentation uses [GitHub Flavored Markdown](https://github.github.com/gfm/) along with a few [local jekyll includes](/docs/home/contribute/includes/) to support glossary entries, tabs, and representing feature state.
 {: .note}
 
 ## Language
