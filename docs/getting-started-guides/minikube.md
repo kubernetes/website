@@ -57,7 +57,7 @@ service "hello-minikube" exposed
 # To check whether the pod is up and running we can use the following:
 $ kubectl get pod
 NAME                              READY     STATUS              RESTARTS   AGE
-hello-minikube-3383150820-vctvh   1/1       ContainerCreating   0          3s
+hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
 # We can see that the pod is still being created from the ContainerCreating status
 $ kubectl get pod
 NAME                              READY     STATUS    RESTARTS   AGE
