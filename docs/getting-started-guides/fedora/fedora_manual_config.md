@@ -121,10 +121,27 @@ KUBELET_ADDRESS="--address=0.0.0.0"
 KUBELET_HOSTNAME="--hostname-override=fed-node"
 
 # location of the api-server
-KUBELET_API_SERVER="--api-servers=http://fed-master:8080"
+KUBELET_ARGS="--cgroup-driver=systemd --kubeconfig=/etc/kubernetes/master-kubeconfig.yaml --require-kubeconfig"
 
 # Add your own!
-#KUBELET_ARGS=""
+KUBELET_ARGS=""
+
+```
+
+```yaml
+kind: Config
+clusters:
+- name: local
+  cluster:
+    server: http://fed-master:8080
+users:
+- name: kubelet
+contexts:
+- context:
+    cluster: local
+    user: kubelet
+  name: kubelet-context
+current-context: kubelet-context
 ```
 
 * Start the appropriate services on the node (fed-node).
