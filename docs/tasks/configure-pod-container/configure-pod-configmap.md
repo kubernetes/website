@@ -143,7 +143,7 @@ game.properties:        158 bytes
 ui.properties:          83 bytes
 ```
 
-You can pass in the `--from-env-file` to create a ConfigMap from an env-file (i.e. a Docker .env file), for example:
+Use the option `--from-env-file` to create a ConfigMap from an env-file, for example:
 ```shell
 # Env-files contain a list of environment variables.
 # These syntax rules apply:
@@ -185,7 +185,7 @@ metadata:
   uid: d9d1ca5b-eb34-11e7-887b-42010a8002b8
 ```
 
-Note that when passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used:
+When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used:
 
 ```shell
 kubectl create configmap config-multi-env-files \
