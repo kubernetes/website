@@ -628,6 +628,7 @@ These roles include:
 * system:controller:node-controller
 * system:controller:persistent-volume-binder
 * system:controller:pod-garbage-collector
+* system:controller:pv-protection-controller
 * system:controller:pvc-protection-controller
 * system:controller:replicaset-controller
 * system:controller:replication-controller

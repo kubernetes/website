@@ -8,7 +8,7 @@ title: Storage Object in Use Protection
 {% capture overview %}
 {% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
 
-Persistent volume claims (PVCs) that are in active use by a pod can be protected from pre-mature removal.
+Persistent volume claims (PVCs) that are in active use by a pod and persistent volumes (PVs) that are bound to PVCs can be protected from pre-mature removal.
 
 {% endcapture %}
 
@@ -56,8 +56,9 @@ spec:
 ```
 
 - Check that the PVC has the finalizer `kubernetes.io/pvc-protection` set:
+
 ```shell
-$ kubectl describe pvc slzc
+kubectl describe pvc slzc
 Name:          slzc
 Namespace:     default
 StorageClass:  slow
@@ -214,6 +215,95 @@ Warning  FailedScheduling  18s (x4 over 21s)  default-scheduler  persistentvolum
 ```
 
 -  Wait until the pod status of both pods is `Terminated` or `Completed` (either delete the pods or wait until they finish). Afterwards, check that the PVC is removed.
+
+## Storage Object in Use Protection feature used for PV Protection
+
+The example below uses a `HostPath` PV.
+
+Verification scenarios follow below.
+
+### Scenario 1: The PV is not bound to a PVC
+
+- Create a PV:
+
+```yaml
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: task-pv-volume
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: standard
+  hostPath:
+    path: "/tmp/data"
+```
+
+- Check that the PV has the finalizer `kubernetes.io/pv-protection` set:
+
+```shell
+Name:            task-pv-volume
+Labels:          type=local
+Annotations:     pv.kubernetes.io/bound-by-controller=yes
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    standard
+Status:          Terminating (lasts 1m)
+Claim:           default/task-pv-claim
+Reclaim Policy:  Delete
+Access Modes:    RWO
+Capacity:        1Gi
+Message:         
+Source:
+    Type:          HostPath (bare host directory volume)
+    Path:          /tmp/data
+    HostPathType:  
+Events:            <none>
+```
+
+- Delete the PV and check that the PV (not bound to a PVC) is removed successfully.
+
+### Scenario 2: The PV is bound to a PVC
+
+- Again, create the same PV.
+
+- Create a PVC
+
+```yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: task-pv-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+```
+
+- Wait until the PV and PVC are bound to each other.
+- Delete the PV and verify that the PV is not removed but its status is `Terminating`:
+
+```shell
+NAME             CAPACITY     ACCESS MODES   RECLAIM POLICY   STATUS        CLAIM                   STORAGECLASS   REASON    AGE
+task-pv-volume   1Gi          RWO            Delete           Terminating   default/task-pv-claim   standard                 59s
+
+```
+-  Delete the PVC and verify that the PV is removed too.
+
+```shell
+kubectl delete pvc task-pv-claim
+persistentvolumeclaim "task-pv-claim" deleted
+$ kubectl get pvc
+No resources found.
+$ kubectl get pv
+No resources found.
+```
 
 {% endcapture %}
 
