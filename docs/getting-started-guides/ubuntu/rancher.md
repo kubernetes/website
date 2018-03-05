@@ -281,7 +281,6 @@ spec:
  tls:
    - hosts:
      - rancher.34.244.118.135.xip.io
-   - secretName: tls-certificate      
  rules:
    - host: rancher.34.244.118.135.xip.io
      http:
@@ -292,38 +291,7 @@ spec:
              servicePort: 443
 ```
 
-As Rancher is using SSL/TLS, we also need to setup and configure an SSL certificate for the ingress rule, which will be deployed as a secret in the cluster. First generate a new SSL certificate and private key using OpenSSL, for a production deployment a CA signed certificate is recommended: 
-
-```
-calvinh@ubuntu-ws:~/Documents/Rancher$ openssl req -newkey rsa:4096 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem
-Generating a 4096 bit RSA private key
-.....................................................................................................................................................................................................................................................................................................++
-............................................................................................................................................................................................++
-writing new private key to 'key.pem'
------
-You are about to be asked to enter information that will be incorporated
-into your certificate request.
-What you are about to enter is what is called a Distinguished Name or a DN.
-There are quite a few fields but you can leave some blank
-For some fields there will be a default value,
-If you enter '.', the field will be left blank.
------
-Country Name (2 letter code) [AU]:UK
-State or Province Name (full name) [Some-State]:London
-Locality Name (eg, city) []:London
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:Canonical LTD
-Organizational Unit Name (eg, section) []:CPE
-Common Name (e.g. server FQDN or YOUR name) []:rancher.34.241.213.199.xip.io
-Email Address []:calvin.hartwell@canonical.com
-```
-
-Next, create a secret within Kubernetes to store the certificate and key: 
-
-```
-  kubectl create secret tls tls-certificate --key key.pem --cert certificate.pem
-```
-
-The hostname in the example should be changed to reflect a resolvable DNS entry for your workers.  It is generally recommended that you create a DNS entry for each of the worker nodes in your cluster. For example, if you have three worker nodes and you own the domain example.com, you could create three A records, one for each worker in the cluster.
+It is generally recommended that you create a DNS entry for each of the worker nodes in your cluster. For example, if you have three worker nodes and you own the domain example.com, you could create three A records, one for each worker in the cluster.
 
 As creating DNS entries is outside of the scope of this tutorial, we will use the freely available xip.io service which can return A records for an IP address which is part of the domain name. For example, if you have the domain rancher.35.178.130.245.xip.io, the xip.io service will automatically return the IP address 35.178.130.245 as an A record which is useful for testing purposes.  
 
