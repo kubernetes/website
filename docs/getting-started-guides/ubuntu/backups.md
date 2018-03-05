@@ -21,10 +21,9 @@ The `snapshot` action of the etcd charm allows the operator to snapshot
 a running cluster's data for use in cloning,
 backing up, or migrating to a new cluster.
 
-    juju run-action etcd/0 snapshot target=/mnt/etcd-backups
+    juju run-action etcd/0 snapshot 
 
-- **param** target: destination directory to save the resulting snapshot archive.
-
+This will create a snapshot in `/home/ubuntu/etcd-snapshots` by default.
 
 ## Restore etcd data
 
