@@ -94,7 +94,7 @@ toc:
         - docs/getting-started-guides/ubuntu/glossary.md
         - docs/getting-started-guides/ubuntu/local.md
         - docs/getting-started-guides/ubuntu/logging.md
-
+        - docs/getting-started-guides/ubuntu/rancher.md
     - docs/getting-started-guides/windows/index.md
 
   - docs/admin/node-conformance.md
