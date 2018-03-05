@@ -22,7 +22,13 @@ To call the Kubernetes API from a programming language, you can use
 client libraries:
 
 - [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
+<<<<<<< HEAD
 - [Kubernetes Python client library](https://github.com/kubernetes-client/python)
+||||||| merged common ancestors
+- [Kubernetes Python client libary](https://github.com/kubernetes-incubator/client-python)
+=======
+- [Kubernetes Python client library](https://github.com/kubernetes-incubator/client-python)
+>>>>>>> fix description about client library (#7634)
 
 ## CLI Reference
 
