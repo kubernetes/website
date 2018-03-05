@@ -57,8 +57,6 @@ As a result, the default operating mode for connections from the cluster
 (nodes and pods running on the nodes) to the master is secured by default
 and can run over untrusted and/or public networks.
 
-## Master -> etcd
-
 ## Master -> Cluster
 
 There are two primary communication paths from the master (apiserver) to the
@@ -118,6 +116,8 @@ GCE network in which the cluster is running.
 > A note on the difference between specifying 0.0.0.0 or 127.0.0.1 as a bind `--address`. *0.0.0.0* will bind to ALL interfaces on the host. *127.0.0.1* will ONLY bind to localhost.
 
 
+
+
 ### kube-apiserver
 
 | Argument                       | Default           | Description                              |
@@ -132,10 +132,12 @@ GCE network in which the cluster is running.
 | --service-node-port-range      | 30000-32767       | A port range to reserve for services with NodePort visibility. |
 
 
+### Communicating / Authenticating with the API Servers
+All services will use the following arguments to specify how to communicate with the API servers.
 | Argument     | Default                     | Description                              |
 | ------------ | --------------------------- | ---------------------------------------- |
 | --master     |                             | The address of the Kubernetes API server (overrides any value in kubeconfig) |
-| --kubeconfig | /var/lib/kubelet/kubeconfig | Path to a kubeconfig file, specifying how to connect to the API server. |
+| --kubeconfig | /var/lib/kubelet/kubeconfig | Path to a kubeconfig file, specifying how to connect / authenticate to the API server. |
 
 ### kube-controler-manager
 
