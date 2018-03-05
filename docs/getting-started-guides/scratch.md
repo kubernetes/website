@@ -96,7 +96,7 @@ to implement one of the above options:
   - This can be done by manually running commands, or through a set of externally maintained scripts.
   - You have to implement this yourself, but it can give you an extra degree of flexibility.
 
-You will need to select an address range for the Pod IPs. Note that IPv6 is not yet supported for Pod IPs.
+You will need to select an address range for the Pod IPs.
 
 - Various approaches:
   - GCE: each project has its own `10.0.0.0/8`.  Carve off a `/16` for each
