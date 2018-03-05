@@ -186,9 +186,15 @@ toc:
   - docs/tasks/administer-cluster/configure-multiple-schedulers.md
   - docs/tasks/administer-cluster/ip-masq-agent.md
   - docs/tasks/administer-cluster/dns-custom-nameservers.md
+<<<<<<< HEAD
   - docs/tasks/administer-cluster/dns-debugging-resolution.md
   - docs/tasks/administer-cluster/pvc-protection.md
   - docs/tasks/administer-cluster/storage-object-in-use-protection.md
+||||||| merged common ancestors
+  - docs/tasks/administer-cluster/pvc-protection.md
+=======
+  - docs/tasks/administer-cluster/storage-object-in-use-protection.md
+>>>>>>> add pv protection description (#7620)
 
 - title: Federation - Run an App on Multiple Clusters
   landing_page: /docs/tasks/federation/set-up-cluster-federation-kubefed/

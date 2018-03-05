@@ -74,6 +74,7 @@ Once a user has a claim and that claim is bound, the bound PV belongs to the use
 <<<<<<< HEAD
 ### Storage Object in Use Protection
 {% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
+<<<<<<< HEAD
 The purpose of the Storage Object in Use Protection feature is to ensure that Persistent Volume Claims (PVCs) in active use by a pod and Persistent Volume (PVs) that are bound to PVCs are not removed from the system as this may result in data loss.
 ||||||| merged common ancestors
 ### Persistent Volume Claim Protection
@@ -95,10 +96,16 @@ The purpose of the Storage Protection feature is to ensure that Persistent Volum
 =======
 The purpose of the Storage Object in Use Protection feature is to ensure that Persistent Volume Claims (PVCs) in active use by a pod are not removed from the system as this may result in data loss.
 >>>>>>> Storage Protection was renamed to Storage Object in Use Protection (#7576)
+||||||| merged common ancestors
+The purpose of the Storage Object in Use Protection feature is to ensure that Persistent Volume Claims (PVCs) in active use by a pod are not removed from the system as this may result in data loss.
+=======
+The purpose of the Storage Object in Use Protection feature is to ensure that Persistent Volume Claims (PVCs) in active use by a pod and Persistent Volume (PVs) that are bound to PVCs are not removed from the system as this may result in data loss.
+>>>>>>> add pv protection description (#7620)
 
 **Note:** PVC is in active use by a pod when the pod status is `Pending` and the pod is assigned to a node or the pod status is `Running`.
 {: .note}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 When the [Storage Object in Use Protection beta feature](/docs/tasks/administer-cluster/storage-object-in-use-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods, and also if admin deletes a PV that is bound to a PVC, the PV is not removed immediately. PV removal is postponed until the PV is not bound to a PVC any more.
@@ -112,6 +119,11 @@ When the [Storage Protection beta feature](/docs/tasks/administer-cluster/pvc-pr
 =======
 When the [Storage Object in Use Protection beta feature](/docs/tasks/administer-cluster/pvc-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods.
 >>>>>>> Storage Protection was renamed to Storage Object in Use Protection (#7576)
+||||||| merged common ancestors
+When the [Storage Object in Use Protection beta feature](/docs/tasks/administer-cluster/pvc-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods.
+=======
+When the [Storage Object in Use Protection beta feature](/docs/tasks/administer-cluster/storage-object-in-use-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods, and also if admin deletes a PV that is bound to a PVC, the PV is not removed immediately. PV removal is postponed until the PV is not bound to a PVC any more.
+>>>>>>> add pv protection description (#7620)
 
 You can see that a PVC is protected when the PVC's status is `Terminating` and the `Finalizers` list includes `kubernetes.io/pvc-protection`:
 
