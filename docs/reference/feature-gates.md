@@ -102,8 +102,15 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | |
 =======
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
+<<<<<<< HEAD
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | |
 >>>>>>> Document the removal of the KubeletConfigFile feature gate (#7140)
+||||||| merged common ancestors
+| `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | |
+=======
+| `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
+| `LocalStorageCapacityIsolation` | `true` | Beta| 1.10 | |
+>>>>>>> Document that LocalStorageCapacityIsolation is beta (#7635)
 | `MountContainers` | `false` | Alpha | 1.9 | |
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
 | `MountPropagation` | `true` | Beta | 1.10 | |
