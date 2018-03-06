@@ -64,7 +64,8 @@ toc:
     section:
     - docs/getting-started-guides/coreos/index.md
     - docs/getting-started-guides/cloudstack.md
-    - docs/getting-started-guides/vsphere.md
+    - title: VMware vSphere
+      path: https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/
     - docs/getting-started-guides/dcos.md
     - docs/getting-started-guides/ovirt.md
 
