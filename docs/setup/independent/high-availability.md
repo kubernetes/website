@@ -331,7 +331,7 @@ Please select one of the tabs to see installation instructions for the respectiv
        - --peer-key-file=/certs/peer-key.pem \
        - --peer-client-cert-auth \
        - --peer-trusted-ca-file=/certs/ca.pem \
-       - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd1=https://<etcd2-ip-address>:2380 \
+       - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 \
        - --initial-cluster-token my-etcd-token \
        - --initial-cluster-state new
        image: gcr.io/google_containers/etcd-amd64:3.1.0
