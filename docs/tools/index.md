@@ -4,13 +4,7 @@ approvers:
 title: Tools
 ---
 
-Kubernetes contains several built-in tools to help you work with the Kubernetes system, and also supports third-party tooling.
-
-## Native Tools
-
-Kubernetes contains the following built-in tools:
-
-#### Kubectl 
+#### Kubectl
 
 [`kubectl`](/docs/user-guide/kubectl/) is the command line tool for Kubernetes. It controls the Kubernetes cluster manager.
 
