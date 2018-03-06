@@ -24,8 +24,8 @@ heapster monitoring will be turned-on by default).
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
 and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
 must be able to communicate with the API server providing the custom metrics API. Finally, to use metrics
-not related to any Kubernetes object you must have a Kubernetes cluster at version 1.10 or later and
-must be able to communicate with the API server providing external metrics API.
+not related to any Kubernetes object you must have a Kubernetes cluster at version 1.10 or later, and
+you must be able to communicate with the API server that provides the external metrics API.
 See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
 
 ## Step One: Run & expose php-apache server
@@ -271,18 +271,19 @@ Ingress were serving a total of 10000 requests per second.
 
 ### Autoscaling on metrics not related to Kubernetes objects
 
-Applications running on Kubernetes may need to autoscale based on metrics that doesn't have obvious
-relationsip to any object within Kubernetes cluster, such as metrics describing hosted service used
-by Pods. In Kubernetes 1.10 and later this use-case can be addressed with *external metrics*.
+Applications running on Kubernetes may need to autoscale based on metrics that don't have an obvious
+relationship to any object in the Kubernetes cluster, such as metrics describing a hosted service used
+by Pods. In Kubernetes 1.10 and later, you can address this use case with *external metrics*.
 
-Using *external metrics* requires a certain level of knowledge of your monitoring system and a cluster
-monitoring setup similar to one required for using *custom metrics*. With *external metrics* you can autoscale
-based on any metric available in your monitoring system by simply providing `metricName`. Additionally
-you can use `metricSelector` to limit which metrics' time series you want to use for autoscaling.
-If multiple time series are matched by `metricSelector` the sum of their values will be used by HorizontalPodAutoscaler.
+Using external metrics requires a certain level of knowledge of your monitoring system, and it requires a cluster
+monitoring setup similar to one required for using custom metrics. With external metrics, you can autoscale
+based on any metric available in your monitoring system by providing a `metricName` field in your
+HorizontalPodAutoscaler manifest. Additionally you can use a `metricSelector` field to limit which
+metrics' time series you want to use for autoscaling. If multiple time series are matched by `metricSelector`,
+the sum of their values is used by the HorizontalPodAutoscaler.
 
-For example if your application processed tasks from a hosted queue service you could add the following
-section to HorizontalPodAutoscaler definition to specify that you need one worker per 30 outstanding tasks.
+For example if your application processes tasks from a hosted queue service, you could add the following
+section to your HorizontalPodAutoscaler manifest to specify that you need one worker per 30 outstanding tasks.
 
 ```yaml
 - type: External
@@ -294,7 +295,8 @@ section to HorizontalPodAutoscaler definition to specify that you need one worke
     targetAverageValue: 30
 ```
 
-Instead of using `targetAverageValue` field you could define a desired value of external metric by using `targetValue` field.
+Instead of using the `targetAverageValue` field, you could use the `targetValue` to define a desired
+value of your external metric.
 
 ## Appendix: Horizontal Pod Autoscaler Status Conditions
 
