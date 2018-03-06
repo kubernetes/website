@@ -436,17 +436,17 @@ Windows Stats use a hybrid model: pod and container level stats come from CRI (v
 
 ## Known Limitations for Windows Server Containers with v1.9
 Some of these limitations will be addressed by the community in future releases of Kubernetes
-- Shared network namespace (compartment) with multiple Windows Server containers (shared kernel) per pod is only supported on Windows Server 1709 or later
-- Using Secrets and ConfigMaps as volume mounts is not supported 
-- Mount propagation is not supported on Windows
-- The StatefulSet functionality for stateful applications is not supported
-- Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
-- Hyper-V isolated containers are not supported. 
+- Shared network namespace (compartment) with multiple Windows Server containers (shared kernel) per pod is only supported on Windows Server 1709 or later.
+- Using Secrets and ConfigMaps as volume mounts is not supported.
+- Mount propagation is not supported on Windows.
+- The StatefulSet functionality for stateful applications is not supported.
+- Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end.
+- Hyper-V isolated containers are not supported.
 - Windows container OS must match the Host OS. If it does not, the pod will get stuck in a crash loop.
 - Under the networking models of L3 or Host GW, Kubernetes Services are inaccessible to Windows nodes due to a Windows issue. This is not an issue if using OVN/OVS for networking.
-- Windows kubelet.exe may fail to start when running on Windows Server under VMWare Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
-- Flannel and Weavenet are not yet supported
-
+- Windows kubelet.exe may fail to start when running on Windows Server under VMWare Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124).
+- Flannel and Weavenet are not yet supported.
+- Some .Net Core applications expect environment variables with a colon (`:`) in the name.  Kubernetes currently does not allow this.  Replace colon (`:`) with  double underscore (`__`) as documented [here](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration#configuration-by-environment).
 ## Next steps and resources
 
 - Support for Windows is in Beta as of v1.9 and your feedback is welcome. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
