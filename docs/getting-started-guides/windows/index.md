@@ -440,6 +440,7 @@ Some of these limitations will be addressed by the community in future releases 
 - The StatefulSet functionality for stateful applications is not supported
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
 - Hyper-V Containers are not supported
+- Some .Net Core applications expect environment variables with a colon (`:`) in the name.  Kubernetes currently does not allow this.  Replace colon (`:`) with  double underscore (`__`) as documented [here](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration#configuration-by-environment).
 
 
 > As of this writing, the Kube-proxy binary requires a pending Kubernetes [pull request](https://github.com/kubernetes/kubernetes/pull/56529) to work properly. You may need to [build](#build) the binaries manually to work around this. 
