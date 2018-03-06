@@ -273,7 +273,7 @@ If the Docker cgroup driver and the kubelet config don't match, change the kubel
 flag you need to change is `--cgroup-driver`. If it's already set, you can update like so:
 
 ```bash
-sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
 Otherwise, you will need to open the systemd file and add the flag to an existing environment line.
