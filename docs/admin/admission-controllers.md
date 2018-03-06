@@ -72,9 +72,9 @@ server if Kubernetes is deployed in a self-hosted way.
 
 ## What does each admission controller do?
 
-### AlwaysAdmit
+### AlwaysAdmit (DEPRECATED)
 
-Use this admission controller by itself to pass-through all requests.
+Use this admission controller by itself to pass-through all requests. AlwaysAdmit is DEPRECATED as no real meaning.
 
 ### AlwaysPullImages
 
@@ -86,9 +86,9 @@ scheduled onto the right node), without any authorization check against the imag
 is enabled, images are always pulled prior to starting containers, which means valid credentials are
 required.
 
-### AlwaysDeny
+### AlwaysDeny (DEPRECATED)
 
-Rejects all requests.  Used for testing.
+Rejects all requests. AlwaysDeny is DEPRECATED as no real meaning.
 
 ### DefaultStorageClass
 
@@ -331,7 +331,7 @@ The annotations added contain the information on what compute resources were aut
 
 See the [InitialResouces proposal](https://git.k8s.io/community/contributors/design-proposals/autoscaling/initial-resources.md) for more details.
 
-### LimitPodHardAntiAffinity
+### LimitPodHardAntiAffinityTopology
 
 This admission controller denies any pod that defines `AntiAffinity` topology key other than
 `kubernetes.io/hostname` in `requiredDuringSchedulingRequiredDuringExecution`.
@@ -414,11 +414,7 @@ This admission controller also protects the access to `metadata.ownerReferences[
 of an object, so that only users with "update" permission to the `finalizers`
 subresource of the referenced *owner* can change it.
 
-### Persistent Volume Claim Protection (alpha)
-{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
-The `PVCProtection` plugin adds the `kubernetes.io/pvc-protection` finalizer to newly created Persistent Volume Claims (PVCs). In case a user deletes a PVC the PVC is not removed until the finalizer is removed from the PVC by PVC Protection Controller. Refer to the [PVC Protection](/docs/concepts/storage/persistent-volumes/#persistent-volume-claim-protection) for more detailed information.
-
-### PersistentVolumeLabel
+### PersistentVolumeLabel (DEPRECATED)
 
 This admission controller automatically attaches region or zone labels to PersistentVolumes
 as defined by the cloud provider (for example, GCE or AWS).
@@ -426,7 +422,7 @@ It helps ensure the Pods and the PersistentVolumes mounted are in the same
 region and/or zone.
 If the admission controller doesn't support automatic labelling your PersistentVolumes, you
 may need to add the labels manually to prevent pods from mounting volumes from
-a different zone.
+a different zone. PersistentVolumeLabel is DEPRECATED and labeling persistent volumes has been taken over by [cloud controller manager](/docs/tasks/administer-cluster/running-cloud-controller/).
 
 ### PodNodeSelector
 
@@ -434,7 +430,7 @@ This admission controller defaults and limits what node selectors may be used wi
 
 #### Configuration File Format
 
-PodNodeSelector uses a configuration file to set options for the behavior of the backend.
+`PodNodeSelector` uses a configuration file to set options for the behavior of the backend.
 Note that the configuration file format will move to a versioned file in a future release.
 This file may be json or yaml and has the following format:
 
@@ -445,7 +441,7 @@ podNodeSelectorPluginConfig:
  namespace2: <node-selectors-labels>
 ```
 
-Reference the PodNodeSelector configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
+Reference the `PodNodeSelector` configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
 
 ```yaml
 kind: AdmissionConfiguration
@@ -457,7 +453,7 @@ plugins:
 ```
 
 #### Configuration Annotation Format
-PodNodeSelector uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign node selectors to namespaces.
+`PodNodeSelector` uses the annotation key `scheduler.kubernetes.io/node-selector` to assign node selectors to namespaces.
 
 ```yaml
 apiVersion: v1
@@ -467,6 +463,19 @@ metadata:
     scheduler.alpha.kubernetes.io/node-selector: <node-selectors-labels>
   name: namespace3
 ```
+
+#### Internal Behavior
+This admission controller has the following behavior:
+  1. If the `Namespace` has an annotation with a key `scheduler.kubernetes.io/nodeSelector`, use its value as the
+     node selector.
+  1. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the `PodNodeSelector`
+     plugin configuration file as the node selector.
+  1. Evaluate the pod's node selector against the namespace node selector for conflicts. Conflicts result in rejection.
+  1. Evaluate the pod's node selector against the namespace-specific whitelist defined the plugin configuration file.
+     Conflicts result in rejection.
+
+**Note:** `PodTolerationRestriction` is more versatile and powerful than `PodNodeSelector` and can encompass the scenarios supported by `PodNodeSelector`.
+{: .note}
 
 ### PersistentVolumeClaimResize
 
@@ -556,6 +565,10 @@ This admission controller will deny any pod that attempts to set certain escalat
 
 This admission controller implements automation for [serviceAccounts](/docs/user-guide/service-accounts).
 We strongly recommend using this admission controller if you intend to make use of Kubernetes `ServiceAccount` objects.
+
+### Storage Object in Use Protection (beta)
+{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
+The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection` finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV). In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed from the PVC or PV by PVC or PV Protection Controller. Refer to the [Storage Object in Use Protection](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection) for more detailed information.
 
 ### ValidatingAdmissionWebhook (alpha in 1.8; beta in 1.9)
 
