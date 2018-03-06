@@ -6,7 +6,7 @@ title: Set Kubelet parameters via a config file
 ---
 
 {% capture overview %}
-{% include feature-state-alpha.md %}
+{% include feature-state-beta.md %}
 
 As of Kubernetes 1.8, a subset of the Kubelet's configuration parameters may be
 set via an on-disk config file, as a substitute for command-line flags. In the
@@ -27,7 +27,7 @@ providing parameters via a config file, which simplifies node deployment.
 
 The subset of the Kubelet's configuration that can be configured via a file
 is defined by the `KubeletConfiguration` struct
-[here (v1alpha1)](https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/apis/kubeletconfig/v1alpha1/types.go).
+[here (v1beta1)](https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/apis/kubeletconfig/v1beta1/types.go).
 The configuration file must be a JSON or YAML representation of the parameters
 in this struct. Note that this structure, and thus the config file API,
 is still considered alpha and is not subject to stability guarantees.
