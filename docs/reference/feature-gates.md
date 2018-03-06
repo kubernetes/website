@@ -56,7 +56,8 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | |
 | `MountContainers` | `false` | Alpha | 1.9 | |
 | `MountPropagation` | `false` | Alpha | 1.8 | |
-| `PersistentLocalVolumes` | `false` | Alpha | 1.7 | |
+| `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
+| `PersistentLocalVolumes` | `true` | Beta | 1.10 | |
 | `PodPriority` | `false` | Alpha | 1.8 | |
 | `PVCProtection` | `false` | Alpha | 1.9 | |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
@@ -67,7 +68,8 @@ different Kubernetes components.
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | |
 | `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
-| `VolumeScheduling` | `false` | Alpha | 1.9 | |
+| `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
+| `VolumeScheduling` | `true` | Beta | 1.10 | |
 
 ## Using a Feature
 
