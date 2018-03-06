@@ -25,7 +25,7 @@ Every cloud has their own set of requirements for running their own cloud provid
 
 * cloud authentication/authorization: your cloud may require a token or IAM rules to allow access to their APIs
 * kubernetes authentication/authorization: cloud-controller-manager may need RBAC rules set to speak to the kubernetes apiserver
-* high availabilty: like kube-controller-manager, you may want a high available setup for cloud controller manager using leader election (on by default).
+* high availability: like kube-controller-manager, you may want a high available setup for cloud controller manager using leader election (on by default).
 
 ### Running cloud-controller-manager
 
