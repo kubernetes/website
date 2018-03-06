@@ -34,16 +34,12 @@ development and testing purposes.
 [Dashboard](/docs/tasks/web-ui-dashboard/), the web-based user interface of Kubernetes, allows you to deploy containerized applications
 to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself. 
 
-## Third-Party Tools
-
-Kubernetes supports various third-party tools. These include, but are not limited to:
-
 #### Helm
 
 [Kubernetes Helm](https://github.com/kubernetes/helm) is a tool for managing packages of pre-configured
 Kubernetes resources, aka Kubernetes charts.
 
-Use Helm to: 
+Use Helm to:
 
 * Find and use popular software packaged as Kubernetes charts
 * Share your own applications as Kubernetes charts
@@ -51,9 +47,9 @@ Use Helm to:
 * Intelligently manage your Kubernetes manifest files
 * Manage releases of Helm packages
 
-#### Kompose 
+#### Kompose
 
-[Kompose](https://github.com/kubernetes-incubator/kompose) is a tool to help Docker Compose users move to Kubernetes. 
+[Kompose](https://github.com/kubernetes-incubator/kompose) is a tool to help Docker Compose users move to Kubernetes.
 
 Use Kompose to:
 
