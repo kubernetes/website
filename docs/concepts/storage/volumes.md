@@ -1002,9 +1002,7 @@ More details can be found [here](https://github.com/kubernetes/community/blob/ma
 
 ## Mount propagation
 
-**Note:** Mount propagation is an alpha feature in Kubernetes 1.8 and may be
-redesigned or even removed in future releases.
-{: .note}
+{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
 
 Mount propagation allows for sharing volumes mounted by a Container to
 other Containers in the same Pod, or even to other Pods on the same node.
@@ -1013,14 +1011,12 @@ If the "`MountPropagation`" feature is disabled, volume mounts in pods are not p
 That is, Containers run with `private` mount propagation as described in the
 [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt).
 
-To enable this feature, specify `MountPropagation=true` in the
-`--feature-gates` command line option for the API server and kubelets.
-When enabled, the `volumeMounts` field of a Container has a new
-`mountPropagation` subfield. Its values are:
+Mount propagation of a volume is controlled by `mountPropagation` field in Container.volumeMounts.
+Its values are:
 
  * `HostToContainer` - This volume mount will receive all subsequent mounts
    that are mounted to this volume or any of its subdirectories. This is
-   the default mode when the MountPropagation feature is enabled.
+   the default mode.
 
    In other words, if the host mounts anything inside the volume mount, the
    Container will see it mounted there.

@@ -61,6 +61,7 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolation` | `true` | Beta| 1.10 | |
 | `MountContainers` | `false` | Alpha | 1.9 | |
 | `MountPropagation` | `false` | Alpha | 1.8 | |
+| `MountPropagation` | `true` | Beta | 1.10 | |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | |
 | `PodPriority` | `false` | Alpha | 1.8 | |
 | `PVCProtection` | `false` | Alpha | 1.9 | |
