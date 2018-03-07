@@ -1,5 +1,5 @@
 id: vmware-openstack
-name: Migrating from VMWare and/or OpenStack
+name: Migrating from VMware and/or OpenStack
 index: 0
 foundational:
   - label: "a1: foundational stuff"

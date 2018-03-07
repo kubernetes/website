@@ -298,7 +298,7 @@ Some drivers will mount a host folder within the VM so that you can easily share
 | VirtualBox | Linux | /home | /hosthome |
 | VirtualBox | OSX | /Users | /Users |
 | VirtualBox | Windows | C://Users | /c/Users |
-| VMWare Fusion | OSX | /Users | /Users |
+| VMware Fusion | OSX | /Users | /Users |
 | Xhyve | OSX | /Users | /Users |
 
 
