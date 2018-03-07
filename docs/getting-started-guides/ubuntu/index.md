@@ -11,7 +11,7 @@ There are multiple ways to run a Kubernetes cluster with Ubuntu. These pages exp
 
 - [The Canonical Distribution of Kubernetes](https://www.ubuntu.com/cloud/kubernetes)
 
-The latest version of Kubernetes with upstream binaries. Supports AWS, GCE, Azure, Joyent, OpenStack, VMWare, Bare Metal and localhost deployments.
+The latest version of Kubernetes with upstream binaries. Supports AWS, GCE, Azure, Joyent, OpenStack, VMware, Bare Metal and localhost deployments.
 
 ### Quick Start
 

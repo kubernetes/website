@@ -848,7 +848,7 @@ For more information including Dynamic Provisioning and Persistent Volume Claims
 ### vsphereVolume
 
 **Prerequisite:** Kubernetes with vSphere Cloud Provider configured. For cloudprovider
-configuration please refer [vSphere getting started guide](/docs/getting-started-guides/vsphere/).
+configuration please refer [vSphere getting started guide](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/).
 {: .note}
 
 A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
