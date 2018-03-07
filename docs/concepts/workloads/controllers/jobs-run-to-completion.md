@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - soltysh
 title: Jobs - Run to Completion

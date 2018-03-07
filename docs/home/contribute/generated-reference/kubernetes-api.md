@@ -15,7 +15,7 @@ Kubernetes API.
 You need to have these tools installed:
 
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-* [Golang](https://golang.org/doc/install) version 1.8 or later
+* [Golang](https://golang.org/doc/install) version 1.9.1 or later
 * [Docker](https://docs.docker.com/engine/installation/)
 * [etcd](https://github.com/coreos/etcd/)
 
@@ -100,7 +100,7 @@ or more comments in the Kubernetes source code.
 will be different in your situation.
 {: .note}
 
-Here's an example of editing the a comment in the Kubernetes source code.
+Here's an example of editing a comment in the Kubernetes source code.
 
 In your local kubernetes/kubernetes repository, check out the master branch,
 and make sure it is up to date:

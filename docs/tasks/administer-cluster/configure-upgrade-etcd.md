@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mml
 - wojtek-t
 title: Operating etcd clusters for Kubernetes

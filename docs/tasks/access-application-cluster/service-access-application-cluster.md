@@ -71,6 +71,8 @@ provides load balancing for an application that has two running instances.
         Type:                   NodePort
         IP:                     10.32.0.16
         Port:                   <unset> 8080/TCP
+        TargetPort:             8080/TCP
+        NodePort:               <unset> 31496/TCP
         Endpoints:              10.200.1.4:8080,10.200.2.5:8080
         Session Affinity:       None
         Events:                 <none>

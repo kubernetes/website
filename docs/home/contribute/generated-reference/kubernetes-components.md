@@ -72,7 +72,7 @@ The remaining steps refer to your base directory as `<k8s-base>`.
 **Note:**
 If you only need to generate, but not change, the reference docs, you don't need to
 manually get the `kubernetes/kubernetes` repository. When you run the `update-imported-docs`
-tool, it automatically clones the the `kubernetes/kubernetes` repository.
+tool, it automatically clones the `kubernetes/kubernetes` repository.
 {: .note}
 
 ## Editing the Kubernetes source code

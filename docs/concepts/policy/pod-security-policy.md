@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - pweil-
 - tallclair
 title: Pod Security Policies
@@ -23,12 +23,12 @@ administrator to control the following:
 
 | Control Aspect                                      | Field Names                                 |
 | ----------------------------------------------------| ------------------------------------------- |
-| Running of privileged containers                    | `privileged`                                |
+| Running of privileged containers                    | [`privileged`](#privileged)                                |
 | Usage of the root namespaces                        | [`hostPID`, `hostIPC`](#host-namespaces)    |
 | Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
 | Usage of volume types                               | [`volumes`](#volumes-and-file-systems)      |
 | Usage of the host filesystem                        | [`allowedHostPaths`](#volumes-and-file-systems) |
-| Usage of FlexVolume drivers                         | [`allowedFlexVolumes`](#flexvolume-drivers) |
+| White list of FlexVolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
 | Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
 | Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
 | The user and group IDs of the container             | [`runAsUser`, `supplementalGroups`](#users-and-groups) |
@@ -273,7 +273,7 @@ Error from server (Forbidden): error when creating "STDIN": pods "privileged" is
 Delete the pod before moving on:
 
 ```shell
-$ kubectl-user delete pause
+$ kubectl-user delete pod pause
 ```
 
 ### Run another pod
@@ -354,6 +354,15 @@ several security mechanisms.
 
 ## Policy Reference
 
+### Privileged
+
+**Privileged** - determines if any container in a pod can enable privileged mode.
+By default a container is not allowed to access any devices on the host, but a 
+"privileged" container is given access to all devices on the host. This allows
+the container nearly all the same access as processes running on the host.
+This is useful for containers that want to use linux capabilities like
+manipulating the network stack and accessing devices.
+
 ### Host namespaces
 
 **HostPID** - Controls whether the pod containers can share the host process ID
@@ -420,16 +429,25 @@ root filesystem (i.e. no writeable layer).
 
 ### FlexVolume drivers
 
-When the [`Volumes`](#volumes-and-file-systems) field contains `flexVolume` in
-its list value, the cluster admin can further specify which driver(s) is permitted
-by setting the `allowedFlexVolumes` field.
+This specifies a whiltelist of flex volume drivers that are allowed to be used
+by flexVolume. An empty list or nil means there is no restriction on the drivers.
+Please make sure [`volumes`](#volumes-and-file-systems) field  contains the
+`flexVolume` volume type, no FlexVolume driver is allowed otherwise.
 
-**AllowedFlexVolumes** - Provides a whitelist of allowed FlexVolumes. Empty or
-nil indicates that all FlexVolume drivers may be used. For example, the following
-setting only permits the `examle/fast_cache` driver to be used on nodes:
+For example:
 
 ```yaml
-allowedFlexVolumes: [ "example/fast_cache" ]
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: allow-flex-volumes
+spec:
+  # ... other spec fields
+  volumes:
+    - flexVolume
+  allowedFlexVolumes: 
+    - driver: example/lvm
+    - driver: example/cifs
 ```
 
 ### Users and groups

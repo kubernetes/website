@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - stclair
 title: AppArmor
 ---

@@ -2,7 +2,9 @@ id: job
 name: Job
 full-link: /docs/concepts/workloads/controllers/jobs-run-to-completion
 tags:
+- fundamental
 - core-object
+- workload
 short-description: >
   A finite or batch task that runs to completion.
 long-description: >

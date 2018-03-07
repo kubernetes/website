@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jsafrane
 - mikedanese
 - saad-ali
@@ -476,7 +476,9 @@ parameters:
   When `kind` is `shared`, all unmanaged disks are created in a few shared
   storage accounts in the same resource group as the cluster. When `kind` is
   `dedicated`, a new dedicated storage account will be created for the new
-  unmanaged disk in the same resource group as the cluster.
+  unmanaged disk in the same resource group as the cluster. When `kind` is 
+  `managed`, all managed disks are created in the same resource group as 
+  the cluster.
 
 - Premium VM can attach both Standard_LRS and Premium_LRS disks, while Standard
   VM can only attach Standard_LRS disks.
@@ -636,7 +638,7 @@ and referenced with the `adminSecretNamespace` parameter. Secrets used by
 pre-provisioned volumes must be created in the same namespace as the PVC that
 references it.
 
-#### Local
+### Local
 
 {% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
 
