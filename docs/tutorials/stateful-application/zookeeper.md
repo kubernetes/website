@@ -32,11 +32,7 @@ Kubernetes concepts.
 * [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
 * [kubectl CLI](/docs/user-guide/kubectl/)
 
-You will require a cluster with at least four nodes, and each node will require
-at least 2 CPUs and 4 GiB of memory. In this tutorial you will cordon and
-drain the cluster's nodes. **This means that the cluster will terminate and evict all Pods on it's nodes, and the nodes will, temporarily, become unschedulable.** You should use a dedicated cluster for this tutorial, or you
-should ensure that the disruption you cause will not interfere with other
-tenants.
+You will require a cluster with at least four nodes, and each node requires at least 2 CPUs and 4 GiB of memory. In this tutorial you will cordon and drain the cluster's nodes. **This means that the cluster will terminate and evict all Pods on its nodes, and the nodes will temporarily become unschedulable.** You should use a dedicated cluster for this tutorial, or you should ensure that the disruption you cause will not interfere with other tenants.
 
 This tutorial assumes that you have configured your cluster to dynamically provision
 PersistentVolumes. If your cluster is not configured to do so, you
@@ -66,12 +62,7 @@ are atomic and sequentially consistent. ZooKeeper ensures this by using the
 [Zab](https://pdfs.semanticscholar.org/b02c/6b00bd5dbdbd951fddb00b906c82fa80f0b3.pdf)
 consensus protocol to replicate a state machine across all servers in the ensemble.
 
-The ensemble uses the Zab protocol to elect a leader, and the ensemble cannot write data until it elects a leader. Once it elects a leader, the ensemble uses Zab to ensure that it replicates all writes to a
-quorum before it acknowledges and makes them visible to clients. Without respect
-to weighted quorums, a quorum is a majority component of the ensemble containing
-the current leader. For instance, if the ensemble has three servers, a component
-that contains the leader and one other server constitutes a quorum. If the
-ensemble can not achieve a quorum, the ensemble data can not write data.
+The ensemble uses the Zab protocol to elect a leader, and the ensemble cannot write data until that election is complete. Once complete, the ensemble uses Zab to ensure that it replicates all writes to a quorum before it acknowledges and makes them visible to clients. Without respect to weighted quorums, a quorum is a majority component of the ensemble containing the current leader. For instance, if the ensemble has three servers, a component that contains the leader and one other server constitutes a quorum. If the ensemble can not achieve a quorum, the ensemble cannot write data.
 
 ZooKeeper servers keep their entire state machine in memory, and write every mutation to a durable WAL (Write Ahead Log) on storage media. When a server crashes, it can recover its previous state by replaying the WAL. To prevent the WAL from growing without bound, ZooKeeper servers will periodically snapshot their in memory state to storage media. These snapshots can be loaded directly into memory, and all WAL entries that preceded the snapshot may be discarded.
 
@@ -136,11 +127,7 @@ a [ZooKeeper](http://www-us.apache.org/dist/zookeeper/stable/) server.
 
 ### Facilitating Leader Election
 
-As there is no terminating algorithm for electing a leader in an anonymous
-network, Zab requires explicit membership configuration to perform
-leader election. Each server in the ensemble needs to have a unique
-identifier, all servers need to know the global set of identifiers, and each
-identifier needs to be associated with a network address.
+Because there is no terminating algorithm for electing a leader in an anonymous network, Zab requires explicit membership configuration to perform leader election. Each server in the ensemble needs to have a unique identifier, all servers need to know the global set of identifiers, and each identifier needs to be associated with a network address.
 
 Use [`kubectl exec`](/docs/user-guide/kubectl/{{page.version}}/#exec) to get the hostnames
 of the Pods in the `zk` StatefulSet.
@@ -149,10 +136,7 @@ of the Pods in the `zk` StatefulSet.
 for i in 0 1 2; do kubectl exec zk-$i -- hostname; done
 ```
 
-The StatefulSet controller provides each Pod with a unique hostname based on its
-ordinal index. The hostnames take the form of `<statefulset name>-<ordinal index>`.
-As the `replicas` field of the `zk` StatefulSet is set to `3`, the Set's
-controller creates three Pods with their hostnames set to `zk-0`, `zk-1`, and
+The StatefulSet controller provides each Pod with a unique hostname based on its ordinal index. The hostnames take the form of `<statefulset name>-<ordinal index>`. Because the `replicas` field of the `zk` StatefulSet is set to `3`, the Set's controller creates three Pods with their hostnames set to `zk-0`, `zk-1`, and
 `zk-2`.
 
 ```shell
@@ -161,9 +145,7 @@ zk-1
 zk-2
 ```
 
-The servers in a ZooKeeper ensemble use natural numbers as unique identifiers, and
-stores each server's identifier in a file called `myid` in the server's
-data directory.
+The servers in a ZooKeeper ensemble use natural numbers as unique identifiers, and store each server's identifier in a file called `myid` in the server's data directory.
 
 To examine the contents of the `myid` file for each server use the following command.
 
@@ -171,8 +153,7 @@ To examine the contents of the `myid` file for each server use the following com
 for i in 0 1 2; do echo "myid zk-$i";kubectl exec zk-$i -- cat /var/lib/zookeeper/data/myid; done
 ```
 
-As the identifiers are natural numbers and the ordinal indices are non-negative
-integers, you can generate an identifier by adding 1 to the ordinal.
+Because the identifiers are natural numbers and the ordinal indices are non-negative integers, you can generate an identifier by adding 1 to the ordinal.
 
 ```shell
 myid zk-0
@@ -197,12 +178,9 @@ zk-1.zk-hs.default.svc.cluster.local
 zk-2.zk-hs.default.svc.cluster.local
 ```
 
-The A records in [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) resolve the FQDNs to the Pods' IP addresses.
-If Kubernetes reschedules the Pods, it will update the A records will with the Pods' new IP
-addresses, but the A record's names will not change.
+The A records in [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) resolve the FQDNs to the Pods' IP addresses. If Kubernetes reschedules the Pods, it will update the A records with the Pods' new IP addresses, but the A records names will not change.
 
-ZooKeeper stores its application configuration in a file named `zoo.cfg`. Use
-`kubectl exec` to view the contents of the `zoo.cfg` file in the `zk-0` Pod.
+ZooKeeper stores its application configuration in a file named `zoo.cfg`. Use `kubectl exec` to view the contents of the `zoo.cfg` file in the `zk-0` Pod.
 
 ```shell
 kubectl exec zk-0 -- cat /opt/zookeeper/conf/zoo.cfg
@@ -232,11 +210,7 @@ server.3=zk-2.zk-headless.default.svc.cluster.local:2888:3888
 
 ### Achieving Consensus
 
-Consensus protocols require that the identifiers of each participant be
-unique. No two participants in the Zab protocol should claim the same unique
-identifier. This is necessary to allow the processes in the system to agree on
-which processes have committed which data. If Kubernetes launches two Pods with the
-same ordinal, two ZooKeeper servers would both identify themselves as the same server.
+Consensus protocols require that the identifiers of each participant be unique. No two participants in the Zab protocol should claim the same unique identifier. This is necessary to allow the processes in the system to agree on which processes have committed which data. If two Pods are launched with the same ordinal, two ZooKeeper servers would both identify themselves as the same server.
 
 ```shell
 kubectl get pods -w -l app=zk
@@ -279,10 +253,7 @@ server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
 server.3=zk-2.zk-hsdefault.svc.cluster.local:2888:3888
 ```
 
-When the servers use the Zab protocol to attempt to commit a value, they will
-either achieve consensus and commit the value (if leader election has succeeded
-and at least two of the Pods are Running and Ready), or they will fail to do so
-(if either of the conditions are not met). No state will arise where one server acknowledges a write on behalf of another.
+When the servers use the Zab protocol to attempt to commit a value, they will either achieve consensus and commit the value (if leader election has succeeded and at least two of the Pods are Running and Ready), or they will fail to do so (if either of the conditions are not met). No state will arise where one server acknowledges a write on behalf of another.
 
 ### Sanity Testing the Ensemble
 
@@ -371,8 +342,7 @@ Reapply the manifest in `zookeeper.yaml`.
 kubectl apply -f https://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
 ```
 
-This creates the `zk` StatefulSet, but, as they already exist, the other API
-Objects in the manifest are not modified.
+This creates the `zk` StatefulSet object, but the other API objects in the manifest are not modified because they already exist.
 
 Watch the StatefulSet controller recreate the StatefulSet's Pods.
 
@@ -401,7 +371,7 @@ zk-2      0/1       Running   0         19s
 zk-2      1/1       Running   0         40s
 ```
 
-Use th command below to get the value you entered during the [sanity test](#sanity-testing-the-ensemble),
+Use the command below to get the value you entered during the [sanity test](#sanity-testing-the-ensemble),
 from the `zk-2` Pod.
 
 ```shell
@@ -428,8 +398,7 @@ dataLength = 5
 numChildren = 0
 ```
 
-The `volumeClaimTemplates` field of the `zk` StatefulSet's `spec` specifies a
-PersistentVolume that Kubernetes provisions for each Pod.
+The `volumeClaimTemplates` field of the `zk` StatefulSet's `spec` specifies a PersistentVolume provisioned for each Pod.
 
 ```yaml
 volumeClaimTemplates:
@@ -454,7 +423,7 @@ Use the following command to get the `StatefulSet`'s `PersistentVolumeClaims`.
 kubectl get pvc -l app=zk
 ```
 
-When the `StatefulSet` recreated its Pods, it remounts the Pods' `PersistentVolumes`.
+When the `StatefulSet` recreated its Pods, it remounts the Pods' persistent volumes`.
 
 ```shell
 NAME           STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
@@ -463,7 +432,7 @@ datadir-zk-1   Bound     pvc-bedd27d2-bcb1-11e6-994f-42010a800002   20Gi       R
 datadir-zk-2   Bound     pvc-bee0817e-bcb1-11e6-994f-42010a800002   20Gi       RWO           1h
 ```
 
-The `volumeMounts` section of the `StatefulSet`'s container `template` mounts the `PersistentVolumes` in the ZooKeeper servers' data directories.
+The `volumeMounts` section of the `StatefulSet`'s container `template` mounts the persistent volumes in the ZooKeeper servers' data directories.
 
 ```shell
 volumeMounts:
@@ -542,11 +511,7 @@ log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
 log4j.appender.CONSOLE.layout.ConversionPattern=%d{ISO8601} [myid:%X{myid}] - %-5p [%t:%C{1}@%L] - %m%n
 ```
 
-This is the simplest possible way to safely log inside the container. As the
-applications write logs to standard out, Kubernetes will handle
-log rotation for you. Kubernetes also implements a sane retention policy that
-ensures application logs written to standard out and standard error do not
-exhaust local storage media.
+This is the simplest possible way to safely log inside the container. Because the applications write logs to standard out, Kubernetes will handle log rotation for you. Kubernetes also implements a sane retention policy that ensures application logs written to standard out and standard error do not exhaust local storage media.
 
 Use [`kubectl logs`](/docs/user-guide/kubectl/{{page.version}}/#logs) to retrieve the last 20 log lines from one of the Pods.
 
@@ -619,9 +584,7 @@ F S UID        PID  PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
 0 S zookeep+    27     1  0  80   0 - 1155556 -    20:46 ?        00:00:19 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dzookeeper.log.dir=/var/log/zookeeper -Dzookeeper.root.logger=INFO,CONSOLE -cp /usr/bin/../build/classes:/usr/bin/../build/lib/*.jar:/usr/bin/../share/zookeeper/zookeeper-3.4.9.jar:/usr/bin/../share/zookeeper/slf4j-log4j12-1.6.1.jar:/usr/bin/../share/zookeeper/slf4j-api-1.6.1.jar:/usr/bin/../share/zookeeper/netty-3.10.5.Final.jar:/usr/bin/../share/zookeeper/log4j-1.2.16.jar:/usr/bin/../share/zookeeper/jline-0.9.94.jar:/usr/bin/../src/java/lib/*.jar:/usr/bin/../etc/zookeeper: -Xmx2G -Xms2G -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=false org.apache.zookeeper.server.quorum.QuorumPeerMain /usr/bin/../etc/zookeeper/zoo.cfg
 ```
 
-By default, when Kubernetes mounts the Pod's `PersistentVolume` to the ZooKeeper server's
-data directory, it is only accessible by the root user. This configuration
-prevents the ZooKeeper process from writing to its WAL and storing its snapshots.
+By default, when the Pod's persistent volume is mounted to the ZooKeeper server's data directory, it is only accessible by the root user. This configuration prevents the ZooKeeper process from writing to its WAL and storing its snapshots.
 
 Use the command below to get the file permissions of the ZooKeeper data directory on the `zk-0` Pod.
 
@@ -629,9 +592,7 @@ Use the command below to get the file permissions of the ZooKeeper data director
 kubectl exec -ti zk-0 -- ls -ld /var/lib/zookeeper/data
 ```
 
-As the `fsGroup` field of the `securityContext` object is set to 1000,
-the ownership of the Pods' `PersistentVolumes` is set to the zookeeper group,
-and the ZooKeeper process is able to read and write its data.
+Because the `fsGroup` field of the `securityContext` object is set to 1000, the ownership of the Pods' persistent volume is set to the zookeeper group, and the ZooKeeper process is able to read and write its data.
 
 ```shell
 drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
@@ -726,14 +687,13 @@ In another terminal watch the Pods in the `zk` `StatefulSet` with the following 
 kubectl get pod -w -l app=zk
 ```
 
-In another terminal, kill the ZooKeeper process in Pod `zk-0` with the following command.
+In another terminal, terminate the ZooKeeper process in Pod `zk-0` with the following command.
 
 ```shell
 kubectl exec zk-0 -- pkill java
 ```
 
-The termination of the ZooKeeper process caused its parent process to terminate. As
-the `RestartPolicy` of the container is Always, it restarted the parent process.
+The termination of the ZooKeeper process caused its parent process to terminate. Because the `RestartPolicy` of the container is Always, it restarted the parent process.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
@@ -849,10 +809,7 @@ domains to ensure availability. To avoid an outage, due to the loss of an
 individual machine, best practices preclude co-locating multiple instances of the
 application on the same machine.
 
-By default, Kubernetes may co-locate Pods in a `StatefulSet` on the same node.
-For the three server ensemble you created, if two servers are on the same
-node, and that node fails, the clients of your ZooKeeper service will experience
-an outage until it can reschedule at least one of the Pods.
+By default, Kubernetes may co-locate Pods in a `StatefulSet` on the same node. For the three server ensemble you created, if two servers are on the same node, and that node fails, the clients of your ZooKeeper service will experience an outage until at least one of the Pods can be rescheduled.
 
 You should always provision additional capacity to allow the processes of critical
 systems to be rescheduled in the event of node failures. If you do so, then the
@@ -991,9 +948,7 @@ pod "zk-1" deleted
 node "kubernetes-minion-group-ixsl" drained
 ```
 
-You cannot schedule the `zk-1` Pod. As the `zk` `StatefulSet` contains a
-`PodAntiAffinity` rule preventing co-location of the Pods, and as only
-two nodes are schedulable, the Pod will remain in a Pending state.
+The `zk-1` Pod cannot be scheduled because the `zk` `StatefulSet` contains a `PodAntiAffinity` rule preventing co-location of the Pods, and as only two nodes are schedulable, the Pod will remain in a Pending state.
 
 ```shell
 kubectl get pods -w -l app=zk
@@ -1033,10 +988,9 @@ There are pending pods when an error occurred: Cannot evict pod as it would viol
 pod/zk-2
 ```
 
-Use `CRTL-C` to terminate to kubectl.
+Use `CRTL-C` to terminate kubectl.
 
-You can not drain the third node because evicting `zk-2` would violate `zk-budget`. However,
-the node will remain cordoned.
+You cannot drain the third node because evicting `zk-2` would violate `zk-budget`. However, the node will remain cordoned.
 
 Use `zkCli.sh` to retrieve the value you entered during the sanity test from `zk-0`.
 
@@ -1123,11 +1077,7 @@ kubectl uncordon kubernetes-minion-group-ixsl
 node "kubernetes-minion-group-ixsl" uncordoned
 ```
 
-You can use `kubectl drain` in conjunction with `PodDisruptionBudgets` to ensure that your service
-remains available during maintenance. If drain is used to cordon nodes and evict pods prior to
-taking the node offline for maintenance, services that express a disruption budget will have that
-budget respected. You should always allocate additional capacity for critical services so that
-their Pods can be immediately rescheduled.
+You can use `kubectl drain` in conjunction with `PodDisruptionBudgets` to ensure that your services remain available during maintenance. If drain is used to cordon nodes and evict pods prior to taking the node offline for maintenance, services that express a disruption budget will have that budget respected. You should always allocate additional capacity for critical services so that their Pods can be immediately rescheduled.
 
 {% endcapture %}
 
