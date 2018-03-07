@@ -112,10 +112,19 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolation` | `true` | Beta| 1.10 | |
 >>>>>>> Document that LocalStorageCapacityIsolation is beta (#7635)
 | `MountContainers` | `false` | Alpha | 1.9 | |
+<<<<<<< HEAD
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
 | `MountPropagation` | `true` | Beta | 1.10 | |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | |
+||||||| merged common ancestors
+| `MountPropagation` | `false` | Alpha | 1.8 | |
+| `PersistentLocalVolumes` | `false` | Alpha | 1.7 | |
+=======
+| `MountPropagation` | `false` | Alpha | 1.8 | |
+| `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
+| `PersistentLocalVolumes` | `true` | Beta | 1.10 | |
+>>>>>>> Update feature gates move to beta (#7662)
 | `PodPriority` | `false` | Alpha | 1.8 | |
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
@@ -134,9 +143,16 @@ different Kubernetes components.
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | |
 | `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
+<<<<<<< HEAD
 | `TokenRequest` | `false` | Alpha | 1.10 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | |
+||||||| merged common ancestors
+| `VolumeScheduling` | `false` | Alpha | 1.9 | |
+=======
+| `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
+| `VolumeScheduling` | `true` | Beta | 1.10 | |
+>>>>>>> Update feature gates move to beta (#7662)
 
 ## Using a Feature
 
