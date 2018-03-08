@@ -175,7 +175,7 @@ mkdir -p ~/.kube
 Copy the kubeconfig file to the default location.
 
 ```
-juju scp kubernetes-master/0:/home/ubuntu/config ~/.kube/config
+sudo juju scp kubernetes-master/0:/home/ubuntu/config ~/.kube/config
 ```
 
 The next step is to install the kubectl client on your local machine. The recommended way to do this on Ubuntu is using the kubectl snap ([https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu)).
