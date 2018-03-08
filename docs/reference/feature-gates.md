@@ -113,6 +113,7 @@ different Kubernetes components.
 >>>>>>> Document that LocalStorageCapacityIsolation is beta (#7635)
 | `MountContainers` | `false` | Alpha | 1.9 | |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
 | `MountPropagation` | `true` | Beta | 1.10 | |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
@@ -122,6 +123,12 @@ different Kubernetes components.
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | |
 =======
 | `MountPropagation` | `false` | Alpha | 1.8 | |
+||||||| merged common ancestors
+| `MountPropagation` | `false` | Alpha | 1.8 | |
+=======
+| `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
+| `MountPropagation` | `true` | Beta | 1.10 | |
+>>>>>>> Documentation for MountPropagation beta (#7655)
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | |
 >>>>>>> Update feature gates move to beta (#7662)
