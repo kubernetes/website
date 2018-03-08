@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - smarterclayton
 - lavalamp
 - whitlockjc

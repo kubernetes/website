@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - sttts
 title: Using Sysctls in a Kubernetes Cluster
 ---
@@ -70,6 +70,9 @@ For Kubernetes 1.4, the following sysctls are supported in the _safe_ set:
 - `net.ipv4.ip_local_port_range`,
 - `net.ipv4.tcp_syncookies`.
 
+**Note**: The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.
+{: .note}
+
 This list will be extended in future Kubernetes versions when the kubelet
 supports better isolation mechanisms.
 
@@ -124,3 +127,22 @@ any node which has not enabled those two _unsafe_ sysctls explicitly. As with
 _node-level_ sysctls it is recommended to use [_taints and toleration_
 feature](/docs/user-guide/kubectl/{{page.version}}/#taint) or [taints on nodes](/docs/concepts/configuration/taint-and-toleration/)
 to schedule those pods onto the right nodes.
+
+## PodSecurityPolicy Annotations
+
+The use of sysctl in pods can be controlled via annotations on the PodSecurityPolicy.
+
+Here is an example, it authorizes binding user creating pod with corresponding
+_safe_ and _unsafe_ sysctls.
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: sysctl-psp
+  annotations:
+    security.alpha.kubernetes.io/sysctls: 'kernel.shm_rmid_forced'
+    security.alpha.kubernetes.io/unsafe-sysctls: 'net.ipv4.route.*,kernel.msg*'
+spec:
+ ...
+```

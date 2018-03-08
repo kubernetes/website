@@ -4,11 +4,11 @@ title: Concepts Underlying the Cloud Controller Manager
 
 ## Cloud Controller Manager
 
-The cloud controller manager (CCM) concept (not to be confused with the binary) was originally created to allow cloud specific vendor code and the Kubernetes core to evolve independent of one another. The cloud controller manager runs alongside other master components such as the Kubernetes controller manager, the API server, and scheduler. It can also be started as a Kubernetes addon, in which case, it runs on top of Kubernetes.
+The cloud controller manager (CCM) concept (not to be confused with the binary) was originally created to allow cloud specific vendor code and the Kubernetes core to evolve independent of one another. The cloud controller manager runs alongside other master components such as the Kubernetes controller manager, the API server, and scheduler. It can also be started as a Kubernetes addon, in which case it runs on top of Kubernetes.
 
-The cloud controller manager's design is based on a plugin mechanism that allows new cloud providers to integrate with Kubernetes easily by using plugins. There are plans in place for on-boarding new cloud providers on Kubernetes, and for migrating cloud provider from the old model to the new CCM model.
+The cloud controller manager's design is based on a plugin mechanism that allows new cloud providers to integrate with Kubernetes easily by using plugins. There are plans in place for on-boarding new cloud providers on Kubernetes and for migrating cloud providers from the old model to the new CCM model.
 
-This document discusses the concepts behind the the cloud controller manager, and gives details about its associated functions.
+This document discusses the concepts behind the cloud controller manager and gives details about its associated functions.
 
 Here's the architecture of a Kubernetes cluster without the cloud controller manager:
 
@@ -35,7 +35,7 @@ The CCM breaks away some of the functionality of Kubernetes controller manager (
  * Route controller
  * Service controller
 
-In version 1.8, the CCM currently runs the following controllers from the preceding list:
+In version 1.9, the CCM runs the following controllers from the preceding list:
 
 * Node controller
 * Route controller 
@@ -50,11 +50,9 @@ The original plan to support volumes using CCM was to use Flex volumes to suppor
 
 Considering these dynamics, we decided to have an intermediate stop gap measure until CSI becomes ready.
 
-Work is in progress by the cloud provider working group (wg-cloud-provider) to enable PersistentVolume support using CCM. See [kubernetes/kubernetes#52371](https://github.com/kubernetes/kubernetes/pull/52371).
-
 ## Functions of the CCM
 
-The CCM inherits its functions from components of Kubernetes that are dependent on a cloud provider. This section is structured based on the components from which CCM inherits its functions.
+The CCM inherits its functions from components of Kubernetes that are dependent on a cloud provider. This section is structured based on those components.
 
 ### 1. Kubernetes controller manager
 
@@ -81,13 +79,13 @@ The Route controller is responsible for configuring routes in the cloud appropri
 
 #### Service Controller
 
-The Service controller is responsible for listening to service create, update, and delete events. Based on the current state of the services in Kubernetes, it configures cloud load balancers (such as ELB, or Google LB) to reflect the state of the services in Kubernetes. Additionally, it ensures that service backends for cloud load balancers are up to date.
+The Service controller is responsible for listening to service create, update, and delete events. Based on the current state of the services in Kubernetes, it configures cloud load balancers (such as ELB or Google LB) to reflect the state of the services in Kubernetes. Additionally, it ensures that service backends for cloud load balancers are up to date.
 
 #### PersistentVolumeLabels controller
 
-The PersistentVolumeLabels controller applies labels on AWS EBS, GCE PD volumes when they are created. This removes the need for users to manually set the labels on these volumes. 
+The PersistentVolumeLabels controller applies labels on AWS EBS/GCE PD volumes when they are created. This removes the need for users to manually set the labels on these volumes. 
 
-These labels are essential for the scheduling of pods, as these volumes are constrained to work only within the region/zone that they are in, and therefore any Pod using these volumes needs to be scheduled in the same region/zone.
+These labels are essential for the scheduling of pods as these volumes are constrained to work only within the region/zone that they are in. Any Pod using these volumes needs to be scheduled in the same region/zone.
 
 The PersistentVolumeLabels controller was created specifically for the CCM; that is, it did not exist before the CCM was created. This was done to move the PV labelling logic in the Kubernetes API server (it was an admission controller) to the CCM. It does not run on the KCM.
 
@@ -95,7 +93,7 @@ The PersistentVolumeLabels controller was created specifically for the CCM; that
 
 The Node controller contains the cloud-dependent functionality of the kubelet. Prior to the introduction of the CCM, the kubelet was responsible for initializing a node with cloud-specific details such as IP addresses, region/zone labels and instance type information. The introduction of the CCM has moved this initialization operation from the kubelet into the CCM. 
 
-In this new model, the kubelet initializes a node without cloud-specific information. However, it adds a taint to the newly created node that makes the node unschedulable until the CCM initializes the node with cloud-specific information, and then removes this taint. 
+In this new model, the kubelet initializes a node without cloud-specific information. However, it adds a taint to the newly created node that makes the node unschedulable until the CCM initializes the node with cloud-specific information. It then removes this taint.
 
 ### 3. Kubernetes API server
 
@@ -103,13 +101,11 @@ The PersistentVolumeLabels controller moves the cloud-dependent functionality of
 
 ## Plugin mechanism
 
-The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in. Specifically, it uses the CloudProvider Interface defined [here](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/cloud.go)
+The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in. Specifically, it uses the CloudProvider Interface defined [here](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/cloud.go).
 
-The implementation of the four shared controllers highlighted above, and some scaffolding along with the shared cloudprovider interface, will stay in the Kubernetes core, but implementations specific to cloud providers will
-be built outside of the core, and implement interfaces defined in the core.
+The implementation of the four shared controllers highlighted above, and some scaffolding along with the shared cloudprovider interface, will stay in the Kubernetes core. Implementations specific to cloud providers will be built outside of the core and implement interfaces defined in the core.
 
-For more information about developing plugins, see
-[Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
+For more information about developing plugins, see [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
 
 ## Authorization
 
@@ -126,6 +122,7 @@ v1/Node:
 - Update
 - Patch
 - Watch
+- Delete
 
 ### Route controller
 
@@ -151,7 +148,7 @@ v1/Service:
 
 ### PersistentVolumeLabels controller
 
-The PersistentVolumeLabels controller listens on PersistentVolume (PV) create events and then updates them. This controller requires access to list, watch, get and update PVs.
+The PersistentVolumeLabels controller listens on PersistentVolume (PV) create events and then updates them. This controller requires access to get and update PVs.
 
 v1/PersistentVolume:
 - Get
@@ -237,13 +234,13 @@ rules:
 
 ## Vendor Implementations
 
-The following cloud providers have implemented CCMs for their own clouds.  
+The following cloud providers have implemented CCMs: 
 
-* [Digital Ocean]()
-* [Oracle]()
-* [Azure]()
-* [GCE]()
-* [AWS]()
+* Digital Ocean
+* Oracle
+* Azure
+* GCE
+* AWS
 
 ## Cluster Administration
 

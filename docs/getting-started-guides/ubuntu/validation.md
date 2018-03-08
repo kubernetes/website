@@ -25,6 +25,8 @@ The primary objectives of the e2e tests are to ensure a consistent and reliable
 behavior of the kubernetes code base, and to catch hard-to-test bugs before
 users do, when unit and integration tests are insufficient.
 
+End-to-end tests will pass on a properly running CDK cluster outside of bugs in the tests.
+
 ### Deploy kubernetes-e2e charm
 
 To deploy the end-to-end test suite, you need to relate the `kubernetes-e2e` charm

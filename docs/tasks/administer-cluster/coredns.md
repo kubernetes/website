@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - johnbelamaric
 title: Using CoreDNS for Service Discovery
 min-kubernetes-server-version: v1.9

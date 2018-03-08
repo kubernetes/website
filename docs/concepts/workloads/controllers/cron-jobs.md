@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - soltysh
 - janetkuo
@@ -124,7 +124,7 @@ are certain circumstances where two jobs might be created, or no job might be cr
 but do not completely prevent them. Therefore, jobs should be _idempotent_.
 
 If `startingDeadlineSeconds` is set to a large value or left unset (the default)
-and if `concurrentPolicy` is set to `AllowConcurrent`, the jobs will always run
+and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
 at least once.
 
 Jobs may fail to run if the CronJob controller is not running or broken for a

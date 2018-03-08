@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 - janetkuo
 title: ReplicationController
@@ -7,7 +7,8 @@ title: ReplicationController
 
 {% capture overview %}
 
-NOTE: A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
+**NOTE:** A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
+{: .note}
 
 A _ReplicationController_ ensures that a specified number of pod replicas are running at any one
 time. In other words, a ReplicationController makes sure that a pod or a homogeneous set of pods is

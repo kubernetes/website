@@ -2,19 +2,15 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: memory-demo-3
+  namespace: mem-example
 spec:
   containers:
   - name: memory-demo-3-ctr
-    image: vish/stress
+    image: polinux/stress
     resources:
       limits:
         memory: "1000Gi"
       requests:
         memory: "1000Gi"
-    args:
-    - -mem-total
-    - 150Mi
-    - -mem-alloc-size
-    - 10Mi
-    - -mem-alloc-sleep
-    - 1s
+    command: ["stress"]
+    args: ["--vm", "1", "--vm-bytes", "150M", "--vm-hang", "1"]
