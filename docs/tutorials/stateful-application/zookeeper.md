@@ -22,15 +22,15 @@ and [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-an
 Before starting this tutorial, you should be familiar with the following
 Kubernetes concepts.
 
-* [Pods](/docs/user-guide/pods/single-container/)
-* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
-* [PersistentVolumes](/docs/concepts/storage/volumes/)
-* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
-* [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
-* [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
-* [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
-* [kubectl CLI](/docs/user-guide/kubectl/)
+-   [Pods](/docs/user-guide/pods/single-container/)
+-   [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
+-   [Headless Services](/docs/concepts/services-networking/service/#headless-services)
+-   [PersistentVolumes](/docs/concepts/storage/volumes/)
+-   [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
+-   [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
+-   [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
+-   [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
+-   [kubectl CLI](/docs/user-guide/kubectl/)
 
 You will require a cluster with at least four nodes, and each node requires at least 2 CPUs and 4 GiB of memory. In this tutorial you will cordon and drain the cluster's nodes. **This means that the cluster will terminate and evict all Pods on its nodes, and the nodes will temporarily become unschedulable.** You should use a dedicated cluster for this tutorial, or you should ensure that the disruption you cause will not interfere with other tenants.
 
@@ -43,11 +43,11 @@ tutorial.
 {% capture objectives %}
 After this tutorial, you will know the following.
 
-* How to deploy a ZooKeeper ensemble using StatefulSet.
-* How to consistently configure the ensemble using ConfigMaps.
-* How to spread the deployment of ZooKeeper servers in the ensemble.
-* How to use PodDisruptionBudgets to ensure service availability during planned maintenance.
-{% endcapture %}
+-   How to deploy a ZooKeeper ensemble using StatefulSet.
+-   How to consistently configure the ensemble using ConfigMaps.
+-   How to spread the deployment of ZooKeeper servers in the ensemble.
+-   How to use PodDisruptionBudgets to ensure service availability during planned maintenance.
+    {% endcapture %}
 
 {% capture lessoncontent %}
 
@@ -170,7 +170,7 @@ To get the Fully Qualified Domain Name (FQDN) of each Pod in the `zk` StatefulSe
 for i in 0 1 2; do kubectl exec zk-$i -- hostname -f; done
 ```
 
-The `zk-hs` Service creates a domain for all of the Pods, 
+The `zk-hs` Service creates a domain for all of the Pods,
 `zk-hs.default.svc.cluster.local`.
 
 ```shell
@@ -337,6 +337,7 @@ zk-0      0/1       Terminating   0         11m
 zk-0      0/1       Terminating   0         11m
 zk-0      0/1       Terminating   0         11m
 ```
+
 Reapply the manifest in `zookeeper.yaml`.
 
 ```shell
@@ -414,7 +415,6 @@ volumeClaimTemplates:
           storage: 20Gi
 ```
 
-
 The `StatefulSet` controller generates a `PersistentVolumeClaim` for each Pod in
 the `StatefulSet`.
 
@@ -424,7 +424,7 @@ Use the following command to get the `StatefulSet`'s `PersistentVolumeClaims`.
 kubectl get pvc -l app=zk
 ```
 
-When the `StatefulSet` recreated its Pods, it remounts the Pods' persistent volumes`.
+When the `StatefulSet` recreated its Pods, it remounts the Pods' persistent volumes\`.
 
 ```shell
 NAME           STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
@@ -650,6 +650,7 @@ REVISION
 1
 2
 ```
+
 Use the `kubectl rollout undo` command to roll back the modification.
 
 ```shell
@@ -674,7 +675,6 @@ kubectl exec zk-0 -- ps -ef
 
 The command used as the container's entry point has PID 1, and
 the ZooKeeper process, a child of the entry point, has PID 23.
-
 
 ```shell
 UID        PID  PPID  C STIME TTY          TIME CMD
@@ -722,6 +722,7 @@ that your application's processes are unhealthy and it should restart them.
 
 The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
 ``
+
 ```yaml
  livenessProbe:
           exec:
@@ -732,7 +733,6 @@ The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
           initialDelaySeconds: 15
           timeoutSeconds: 5
 ```
-
 
 The probe calls a bash script that uses the ZooKeeper `ruok` four letter
 word to test the server's health.
@@ -1086,10 +1086,11 @@ You can use `kubectl drain` in conjunction with `PodDisruptionBudgets` to ensure
 {% endcapture %}
 
 {% capture cleanup %}
-* Use `kubectl uncordon` to uncordon all the nodes in your cluster.
-* You will need to delete the persistent storage media for the PersistentVolumes
-used in this tutorial. Follow the necessary steps, based on your environment,
-storage configuration, and provisioning method, to ensure that all storage is
-reclaimed.
-{% endcapture %}
-{% include templates/tutorial.md %}
+
+-   Use `kubectl uncordon` to uncordon all the nodes in your cluster.
+-   You will need to delete the persistent storage media for the PersistentVolumes
+    used in this tutorial. Follow the necessary steps, based on your environment,
+    storage configuration, and provisioning method, to ensure that all storage is
+    reclaimed.
+    {% endcapture %}
+    {% include templates/tutorial.md %}
