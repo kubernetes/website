@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - ericchiang
 - mikedanese
 - jcbsmpsn
@@ -198,7 +198,6 @@ When starting the kubelet, if the file specified by `--kubeconfig` does not exis
 **Note:** The following flags are required to enable this bootstrapping when starting the kubelet:
 
 ```
---require-kubeconfig
 --bootstrap-kubeconfig="/path/to/bootstrap/kubeconfig"
 ```
 

@@ -1,6 +1,6 @@
 ---
 title: Custom Resources
-approvers:
+reviewers:
 - enisoc
 - deads2k
 ---
@@ -39,8 +39,8 @@ When creating a new API, consider whether to [aggregate your API with the Kubern
 |-|-|
 | Your API is [Declarative](#declarative-apis). | Your API does not fit the [Declarative](#declarative-apis) model. |
 | You want your new types to be readable and writable using `kubectl`.| `kubectl` support is not required |
-| You want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types. | Kuberetes UI support is not required. |
-| You are developing a new API. | You already have program that serves your API and works well. |
+| You want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types. | Kubernetes UI support is not required. |
+| You are developing a new API. | You already have a program that serves your API and works well. |
 | You are willing to accept the format restriction that Kubernetes puts on REST resource paths, such as API Groups and Namespaces. (See the [API Overview](/docs/concepts/overview/kubernetes-api/).) | You need to have specific REST paths to be compatible with an already defined REST API. |
 | Your resources are naturally scoped to a cluster or to namespaces of a cluster. | Cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths. |
 | You want to reuse [Kubernetes API support features](#common-features).  | You don't need those features. |
@@ -57,7 +57,7 @@ In a Declarative API, typically:
 
 Imperative APIs are not declarative.
 Signs that your API might not be declarative include:
- - The client says "do this", and then gets a synchornous response back when it is done.
+ - The client says "do this", and then gets a synchronous response back when it is done.
  - The client says "do this", and then gets an operation ID back, and has to check a separate Operation objects to determine completion of the request.
  - You talk about Remote Procedure Calls (RPCs).
  - Directly storing large amounts of data (e.g. > a few kB per object, or >1000s of objects).
@@ -134,7 +134,7 @@ CRDs are easier to use. Aggregated APIs are more flexible. Choose the method tha
 
 Typically, CRDs are a good fit if:
 
-* You are have a handful of fields
+* You have a handful of fields
 * You are using the resource within your company, or as part of a small open-source project (as opposed to a commercial product)
 
 #### Comparing ease of use
@@ -154,12 +154,12 @@ Aggregated APIs offer more advanced API features and customization of other feat
 
 | Feature | Description | CRDs | Aggregated API |
 |-|-|-|-|
-| Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Alpha feature of CRDs in v1.8. Checks limited to what is supported by OpenAPI v3.0. | Yes, arbitrary validation checks |
+| Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Beta feature of CRDs in v1.9. Checks limited to what is supported by OpenAPI v3.0. | Yes, arbitrary validation checks |
 | Defaulting | See above | No, but can achieve the same effect with an Initializer (requires programming) | Yes |
 | Multi-versioning | Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions. | No | Yes |
 | Custom Storage | If you need storage with a different performance mode (for example, time-series database instead of key-value store) or isolation for security (for example, encryption secrets or different | No | Yes |
 | Custom Business Logic | Perform arbitrary checks or actions when creating, reading, updating or deleting an object | No, but can get some of the same effects with Initializers or Finalizers (requires programming) | Yes |
-| Subresources | {::nomarkdown}<ul><li>Add extra operations other than CRUD, such as "scale" or "exec"</li><li>Allows systems like like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource</li><li>Finer-grained access control: user writes spec section, controller writes status section.</li><li>Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource)</li></ul>{:/} | No but planned | Yes, any Subresource |
+| Subresources | {::nomarkdown}<ul><li>Add extra operations other than CRUD, such as "scale" or "exec"</li><li>Allows systems like like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource</li><li>Finer-grained access control: user writes spec section, controller writes status section.</li><li>Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource)</li></ul>{:/} | `status` and `scale` subresources are supported | Yes, any Subresource |
 | strategic-merge-patch | The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. For more information, see ["Update API Objects in Place Using kubectl patch"](/docs/tasks/run-application/update-api-object-kubectl-patch/) | No | Yes |
 | Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |
 | OpenAPI Schema | Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server? Is the user protected from misspelling field names by ensuring only allowed fields are set? Are types enforced (in other words, don't put an `int` in a `string` field?) | No but planned | Yes |
@@ -182,7 +182,7 @@ When you create a custom resource, either via a CRDs or an AA, you get many feat
 | Admission Webhooks | Set default values and validate extension resources during any create/update/delete operation. |
 | UI/CLI Display | Kubectl, dashboard can display extension resources. |
 | Unset vs Empty | Clients can distinguish unset fields from zero-valued fields. |
-| Client Libraries Generation | Kubernetes provides generic clent libraries, as well as tools to generate type-specific client libraries. |
+| Client Libraries Generation | Kubernetes provides generic client libraries, as well as tools to generate type-specific client libraries. |
 | Labels and annotations | Common metadata across objects that tools know how to edit for core and custom resources. |
 
 ## Preparing to install a custom resource
@@ -217,7 +217,7 @@ When you add a custom resource, you can access it using:
   - kubectl
   - The kubernetes dynamic client.
   - A REST client that you write.
-  - A client generated using Kubernetes client generation tools (generating one is an advanced undertaking, but some projects may provide a client along with the CRD or AA).
+  - A client generated using [Kubernetes client generation tools](https://github.com/kubernetes/code-generator) (generating one is an advanced undertaking, but some projects may provide a client along with the CRD or AA).
 
 {% endcapture %}
 

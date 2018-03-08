@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - dlorenc
 - r2d4
 - aaron-prindle
@@ -57,7 +57,7 @@ service "hello-minikube" exposed
 # To check whether the pod is up and running we can use the following:
 $ kubectl get pod
 NAME                              READY     STATUS              RESTARTS   AGE
-hello-minikube-3383150820-vctvh   1/1       ContainerCreating   0          3s
+hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
 # We can see that the pod is still being created from the ContainerCreating status
 $ kubectl get pod
 NAME                              READY     STATUS    RESTARTS   AGE
@@ -298,7 +298,7 @@ Some drivers will mount a host folder within the VM so that you can easily share
 | VirtualBox | Linux | /home | /hosthome |
 | VirtualBox | OSX | /Users | /Users |
 | VirtualBox | Windows | C://Users | /c/Users |
-| VMWare Fusion | OSX | /Users | /Users |
+| VMware Fusion | OSX | /Users | /Users |
 | Xhyve | OSX | /Users | /Users |
 
 

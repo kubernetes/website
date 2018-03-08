@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - thockin
 - bowei
 title: Debug Services

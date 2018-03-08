@@ -30,7 +30,7 @@ reference page, see
 installed.
 
 * You need to have
-[Golang](https://golang.org/doc/install) version 1.8 or later installed,
+[Golang](https://golang.org/doc/install) version 1.9.1 or later installed,
 and your `$GOPATH` environment variable must be set.
 
 * You need to have

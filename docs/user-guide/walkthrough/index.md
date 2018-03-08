@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - eparis
 - mikedanese
 title: Kubernetes 101

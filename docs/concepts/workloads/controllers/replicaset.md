@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - Kashomon
 - bprashanth
 - madhusudancs
@@ -181,7 +181,7 @@ from service for debugging, data recovery, etc. Pods that are removed in this wa
 ### Scaling a ReplicaSet
 
 A ReplicaSet can be easily scaled up or down by simply updating the `.spec.replicas` field. The ReplicaSet controller
-ensures that that a desired number of pods with a matching label selector are available and operational.
+ensures that a desired number of pods with a matching label selector are available and operational.
 
 ### ReplicaSet as an Horizontal Pod Autoscaler Target
 

@@ -1,10 +1,10 @@
 ---
-approvers:
+reviewers:
 title: Device Plugins
 description: Use the Kubernetes device plugin framework to implement plugins for GPUs, NICs, FPGAs, InfiniBand, and similar resources that require vendor-specific setup.
 ---
 
-{% include feature-state-alpha.md %}
+{% include feature-state-beta.md %}
 
 {% capture overview %}
 Starting in version 1.8, Kubernetes provides a
@@ -20,8 +20,9 @@ that may require vendor specific initialization and setup.
 
 ## Device plugin registration
 
-The device plugins feature is gated by the `DevicePlugins` feature gate and is disabled by default.
-When the device plugins feature is enabled, the kubelet exports a `Registration` gRPC service:
+The device plugins feature is gated by the `DevicePlugins` feature gate which
+is disabled by default before 1.10.  When the device plugins feature is enabled,
+the kubelet exports a `Registration` gRPC service:
 
 ```gRPC
 service Registration {
@@ -61,8 +62,7 @@ metadata:
   name: demo-pod
 spec:
   containers:
-    -
-      name: demo-container-1
+    - name: demo-container-1
       image: gcr.io/google_containers/pause:2.0
       resources:
         limits:
@@ -138,6 +138,7 @@ For examples of device plugin implementations, see:
 * The official [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
     * it requires using [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker) which allows you to run GPU enabled docker containers
 * The [NVIDIA GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu).
+* The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 
 {% endcapture %}
 

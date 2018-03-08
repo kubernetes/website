@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - fgrzadkowski
 - piosz
 title: Core metrics pipeline

@@ -1,6 +1,6 @@
 ---
 title: Extending your Kubernetes Cluster
-approvers:
+reviewers:
 - erictune
 - lavalamp
 - cheftako
@@ -151,7 +151,7 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 
 ### Dynamic Admission Control
 
-After a request is authorized, if it is a write operation, it also t goes through [Admission Control](/docs/admin/admission-controllers/) steps. In addition to the built-in steps, there are several extensions:
+After a request is authorized, if it is a write operation, it also goes through [Admission Control](/docs/admin/admission-controllers/) steps. In addition to the built-in steps, there are several extensions:
 
 *   The [Image Policy webhook](/docs/admin/admission-controllers/#imagepolicywebhook) restricts what images can be run in containers.
 *   To make arbitrary admission control decisions, a general [Admission webhook](/docs/admin/extensible-admission-controllers/#external-admission-webhooks) can be used. Admission Webhooks can reject creations or updates.
@@ -181,7 +181,7 @@ Different networking fabrics can be supported via node-level [Network Plugins](/
 ### Scheduler Extensions
 
 The scheduler is a special type of controller that watches pods, and assigns
-pods to nodes. The default scheduler can be be replaced entirely, while
+pods to nodes. The default scheduler can be replaced entirely, while
 continuing to use other Kubernetes components, or [multiple
 schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
 can run at the same time.

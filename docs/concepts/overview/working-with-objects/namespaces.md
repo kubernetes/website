@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - derekwaynecarr
 - mikedanese
 - thockin

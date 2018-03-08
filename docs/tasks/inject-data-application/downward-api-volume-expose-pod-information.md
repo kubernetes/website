@@ -135,6 +135,11 @@ written to a new temporary directory, and the `..data` symlink is updated
 atomically using
 [rename(2)](http://man7.org/linux/man-pages/man2/rename.2.html).
 
+**Note:** A container using Downward API as a
+[subPath](/docs/concepts/storage/volumes/#using-subpath) volume mount will not
+receive Downward API updates.
+{: .note}
+
 Exit the shell:
 
 ```shell

@@ -1,6 +1,6 @@
 ---
 title: Setup an extension API server
-approvers:
+reviewers:
 - lavalamp
 - cheftako
 - chenopis
