@@ -45,7 +45,7 @@ Also enable scheduling.k8s.io/v1alpha1 API and Priority [admission controller](/
 
 
 ```
---runtime-config=scheduling.k8s.io/v1alpha1=true --admission-control=Controller-Foo,Controller-Bar,...,Priority
+--runtime-config=scheduling.k8s.io/v1alpha1=true --enable-admission-plugins=Controller-Foo,Controller-Bar,...,Priority
 ```
 
 After the feature is enabled, you can create [PriorityClasses](#priorityclass)
