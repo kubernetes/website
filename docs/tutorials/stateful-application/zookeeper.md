@@ -424,7 +424,7 @@ Use the following command to get the `StatefulSet`'s `PersistentVolumeClaims`.
 kubectl get pvc -l app=zk
 ```
 
-When the `StatefulSet` recreated its Pods, it remounts the Pods' persistent volumes\`.
+When the `StatefulSet` recreated its Pods, it remounts the Pods' PersistentVolumes.
 
 ```shell
 NAME           STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
@@ -433,7 +433,7 @@ datadir-zk-1   Bound     pvc-bedd27d2-bcb1-11e6-994f-42010a800002   20Gi       R
 datadir-zk-2   Bound     pvc-bee0817e-bcb1-11e6-994f-42010a800002   20Gi       RWO           1h
 ```
 
-The `volumeMounts` section of the `StatefulSet`'s container `template` mounts the persistent volumes in the ZooKeeper servers' data directories.
+The `volumeMounts` section of the `StatefulSet`'s container `template` mounts the PersistentVolumes in the ZooKeeper servers' data directories.
 
 ```shell
 volumeMounts:
@@ -585,7 +585,7 @@ F S UID        PID  PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
 0 S zookeep+    27     1  0  80   0 - 1155556 -    20:46 ?        00:00:19 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dzookeeper.log.dir=/var/log/zookeeper -Dzookeeper.root.logger=INFO,CONSOLE -cp /usr/bin/../build/classes:/usr/bin/../build/lib/*.jar:/usr/bin/../share/zookeeper/zookeeper-3.4.9.jar:/usr/bin/../share/zookeeper/slf4j-log4j12-1.6.1.jar:/usr/bin/../share/zookeeper/slf4j-api-1.6.1.jar:/usr/bin/../share/zookeeper/netty-3.10.5.Final.jar:/usr/bin/../share/zookeeper/log4j-1.2.16.jar:/usr/bin/../share/zookeeper/jline-0.9.94.jar:/usr/bin/../src/java/lib/*.jar:/usr/bin/../etc/zookeeper: -Xmx2G -Xms2G -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=false org.apache.zookeeper.server.quorum.QuorumPeerMain /usr/bin/../etc/zookeeper/zoo.cfg
 ```
 
-By default, when the Pod's persistent volume is mounted to the ZooKeeper server's data directory, it is only accessible by the root user. This configuration prevents the ZooKeeper process from writing to its WAL and storing its snapshots.
+By default, when the Pod's PersistentVolumes is mounted to the ZooKeeper server's data directory, it is only accessible by the root user. This configuration prevents the ZooKeeper process from writing to its WAL and storing its snapshots.
 
 Use the command below to get the file permissions of the ZooKeeper data directory on the `zk-0` Pod.
 
@@ -593,7 +593,7 @@ Use the command below to get the file permissions of the ZooKeeper data director
 kubectl exec -ti zk-0 -- ls -ld /var/lib/zookeeper/data
 ```
 
-Because the `fsGroup` field of the `securityContext` object is set to 1000, the ownership of the Pods' persistent volume is set to the zookeeper group, and the ZooKeeper process is able to read and write its data.
+Because the `fsGroup` field of the `securityContext` object is set to 1000, the ownership of the Pods' PersistentVolumes is set to the zookeeper group, and the ZooKeeper process is able to read and write its data.
 
 ```shell
 drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
