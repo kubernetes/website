@@ -151,16 +151,6 @@ The requested parallelism (`.spec.parallelism`) can be set to any non-negative v
 If it is unspecified, it defaults to 1.
 If it is specified as 0, then the Job is effectively paused until it is increased.
 
-A job can be scaled up using the `kubectl scale` command.  For example, the following
-command sets `.spec.parallelism` of a job called `myjob` to 10:
-
-```shell
-$ kubectl scale  --replicas=10 jobs/myjob
-job "myjob" scaled
-```
-
-You can also use the `scale` subresource of the Job resource.
-
 Actual parallelism (number of pods running at any instant) may be more or less than requested
 parallelism, for a variety of reasons:
 
