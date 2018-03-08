@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bboreham
 title: Weave Net for NetworkPolicy
 ---

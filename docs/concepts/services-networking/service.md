@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 title: Services
 ---
@@ -151,9 +151,9 @@ its pods, add appropriate selectors or endpoints and change the service `type`.
 Every node in a Kubernetes cluster runs a `kube-proxy`.  `kube-proxy` is
 responsible for implementing a form of virtual IP for `Services` of type other
 than `ExternalName`.
-In Kubernetes v1.0, `Services` are a "layer 4" (TCP/UDP over IP) construct, the 
+In Kubernetes v1.0, `Services` are a "layer 4" (TCP/UDP over IP) construct, the
 proxy was purely in userspace.  In Kubernetes v1.1, the `Ingress` API was added
-(beta) to represent "layer 7"(HTTP) services, iptables proxy was added too, 
+(beta) to represent "layer 7"(HTTP) services, iptables proxy was added too,
 and become the default operating mode since Kubernetes v1.2. In Kubernetes v1.8.0-beta.0,
 ipvs proxy was added.
 
@@ -167,7 +167,7 @@ will be proxied to one of the `Service`'s backend `Pods` (as reported in
 `SessionAffinity` of the `Service`.  Lastly, it installs iptables rules which
 capture traffic to the `Service`'s `clusterIP` (which is virtual) and `Port`
 and redirects that traffic to the proxy port which proxies the backend `Pod`.
-By default, the choice of backend is round robin. 
+By default, the choice of backend is round robin.
 
 ![Services overview diagram for userspace proxy](/images/docs/services-userspace-overview.svg)
 
@@ -180,7 +180,7 @@ removal of `Service` and `Endpoints` objects. For each `Service`, it installs
 iptables rules which capture traffic to the `Service`'s `clusterIP` (which is
 virtual) and `Port` and redirects that traffic to one of the `Service`'s
 backend sets.  For each `Endpoints` object, it installs iptables rules which
-select a backend `Pod`.By default, the choice of backend is random.  
+select a backend `Pod`. By default, the choice of backend is random.
 
 Obviously, iptables need not switch back between userspace and kernelspace, it should be
 faster and more reliable than the userspace proxy. However, unlike the
@@ -222,13 +222,13 @@ it's not installed kube-proxy will fall back to iptables proxy mode.
 
 ![Services overview diagram for ipvs proxy](/images/docs/services-ipvs-overview.svg)
 
-In any of proxy model, any traffic bound for the Service’s IP:Port is 
-proxied to an appropriate backend without the clients knowing anything 
-about Kubernetes or Services or Pods. Client-IP based session affinity 
-can be selected by setting `service.spec.sessionAffinity` to "ClientIP" 
-(the default is "None"), and you can set the max session sticky time by 
-setting the field `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` 
-if you have already set `service.spec.sessionAffinity` to "ClientIP" 
+In any of these proxy model, any traffic bound for the Service’s IP:Port is
+proxied to an appropriate backend without the clients knowing anything
+about Kubernetes or Services or Pods. Client-IP based session affinity
+can be selected by setting `service.spec.sessionAffinity` to "ClientIP"
+(the default is "None"), and you can set the max session sticky time by
+setting the field `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds`
+if you have already set `service.spec.sessionAffinity` to "ClientIP"
 (the default is “10800”).
 
 ## Multi-Port Services
@@ -318,7 +318,7 @@ variables will not be populated.  DNS does not have this restriction.
 ### DNS
 
 An optional (though strongly recommended) [cluster
-add-on](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md) is a DNS server.  The
+add-on](/docs/concepts/cluster-administration/addons/) is a DNS server.  The
 DNS server watches the Kubernetes API for new `Services` and creates a set of
 DNS records for each.  If DNS has been enabled throughout the cluster then all
 `Pods` should be able to do name resolution of `Services` automatically.
@@ -602,6 +602,93 @@ annotation:
 Since version 1.3.0 the use of this annotation applies to all ports proxied by the ELB
 and cannot be configured otherwise.
 
+#### ELB Access Logs on AWS
+
+There are several annotations to manage access logs for ELB services on AWS.
+
+The annotation `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled`
+controls whether access logs are enabled.
+
+The annotation `service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval`
+controls the interval in minutes for publishing the access logs. You can specify
+an interval of either 5 or 60.
+
+The annotation `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name`
+controls the name of the Amazon S3 bucket where load balancer access logs are
+stored.
+
+The annotation `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix`
+specifies the logical hierarchy you created for your Amazon S3 bucket.
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "true"
+        # Specifies whether access logs are enabled for the load balancer
+        service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "60"
+        # The interval for publishing the access logs. You can specify an interval of either 5 or 60 (minutes).
+        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: "my-bucket"
+        # The name of the Amazon S3 bucket where the access logs are stored
+        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "my-bucket-prefix/prod"
+        # The logical hierarchy you created for your Amazon S3 bucket, for example `my-bucket-prefix/prod`
+```
+
+#### Connection Draining on AWS
+
+Connection draining for Classic ELBs can be managed with the annotation
+`service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled` set
+to the value of `"true"`. The annotation
+`service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout` can
+also be used to set maximum time, in seconds, to keep the existing connections open before deregistering the instances.
+
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled: "true"
+        service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout: "60"
+```
+
+#### Other ELB annotations
+
+There are other annotations to manage Classic Elastic Load Balancers that are described below.
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
+        # The time, in seconds, that the connection is allowed to be idle (no data has been sent over the connection) before it is closed by the load balancer
+
+        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+        # Specifies whether cross-zone load balancing is enabled for the load balancer
+
+        service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "environment=prod,owner=devops"
+        # A comma-separated list of key-value pairs which will be recorded as
+        # additional tags in the ELB.
+
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: ""
+        # The number of successive successful health checks required for a backend to
+        # be considered healthy for traffic. Defaults to 2, must be between 2 and 10
+
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: "3"
+        # The number of unsuccessful health checks required for a backend to be
+        # considered unhealthy for traffic. Defaults to 6, must be between 2 and 10
+
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
+        # The approximate interval, in seconds, between health checks of an
+        # individual instance. Defaults to 10, must be between 5 and 300
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
+        # The amount of time, in seconds, during which no response means a failed
+        # health check. This value must be less than the service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval
+        # value. Defaults to 5, must be between 2 and 60
+
+        service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
+        # A list of additional security groups to be added to ELB
+```
+
 #### Network Load Balancer support on AWS [alpha]
 
 **Warning:** This is an alpha feature and not recommended for production clusters yet.
@@ -617,7 +704,7 @@ with the value set to `nlb`.
         service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
 ```
 
-Unlike classic Elastic Load Balancers, Network Load Balancers (NLBs) forward the
+Unlike Classic Elastic Load Balancers, Network Load Balancers (NLBs) forward the
 client's IP through to the node. If a service's `spec.externalTrafficPolicy` is
 set to `Cluster`, the client's IP address will not be propagated to the end
 pods.
@@ -647,7 +734,7 @@ groups are modified with the following IP rules:
 Be aware that if `spec.loadBalancerSourceRanges` is not set, Kubernetes will
 allow traffic from `0.0.0.0/0` to the Node Security Group(s). If nodes have
 public IP addresses, be aware that non-NLB traffic can also reach all instances
-in those modified security groups. IPv6 is not yet supported for source ranges.
+in those modified security groups.
 
 In order to limit which client IP's can access the Network Load Balancer,
 specify `loadBalancerSourceRanges`.

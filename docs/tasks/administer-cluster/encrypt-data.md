@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - smarterclayton
 title: Encrypting Secret Data at Rest
 ---

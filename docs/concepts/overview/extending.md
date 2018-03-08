@@ -1,6 +1,6 @@
 ---
 title: Extending your Kubernetes Cluster
-approvers:
+reviewers:
 - erictune
 - lavalamp
 - cheftako
@@ -181,7 +181,7 @@ Different networking fabrics can be supported via node-level [Network Plugins](/
 ### Scheduler Extensions
 
 The scheduler is a special type of controller that watches pods, and assigns
-pods to nodes. The default scheduler can be be replaced entirely, while
+pods to nodes. The default scheduler can be replaced entirely, while
 continuing to use other Kubernetes components, or [multiple
 schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
 can run at the same time.

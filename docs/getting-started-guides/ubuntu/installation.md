@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - caesarxuchao
 - erictune
 title: Setting up Kubernetes with Juju
@@ -54,7 +54,7 @@ Microsoft Azure             | Juju         | Ubuntu | flannel     | [docs](/docs
 Google Compute Engine (GCE) | Juju         | Ubuntu | flannel, calico     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
 Joyent                      | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
 Rackspace                   | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
-VMWare vSphere              | Juju         | Ubuntu | flannel, calico     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
+VMware vSphere              | Juju         | Ubuntu | flannel, calico     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
 Bare Metal (MAAS)           | Juju         | Ubuntu | flannel, calico     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
 
 
@@ -90,8 +90,14 @@ juju bootstrap aws/us-east-2
 or, another example, this time on Azure:
 
 ```
-juju bootstrap azure/centralus
+juju bootstrap azure/westus2
 ```
+
+If you receive this error, it is likely that the default Azure VM size (Standard D1 v2 [1 vcpu, 3.5 GB memory]) is not available in the Azure location:
+```
+ERROR failed to bootstrap model: instance provisioning failed (Failed)
+```
+
 
 You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.2/controllers) for more information.
 

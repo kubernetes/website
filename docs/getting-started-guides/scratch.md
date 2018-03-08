@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - lavalamp
 - thockin
@@ -91,12 +91,12 @@ to implement one of the above options:
   - You can also write your own.
 - **Compile support directly into Kubernetes**
   - This can be done by implementing the "Routes" interface of a Cloud Provider module.
-  - The Google Compute Engine ([GCE](/docs/getting-started-guides/gce/)/) and [AWS](/docs/getting-started-guides/aws/) guides use this approach.
+  - The Google Compute Engine ([GCE](/docs/getting-started-guides/gce/)) and [AWS](/docs/getting-started-guides/aws/) guides use this approach.
 - **Configure the network external to Kubernetes**
   - This can be done by manually running commands, or through a set of externally maintained scripts.
   - You have to implement this yourself, but it can give you an extra degree of flexibility.
 
-You will need to select an address range for the Pod IPs. Note that IPv6 is not yet supported for Pod IPs.
+You will need to select an address range for the Pod IPs.
 
 - Various approaches:
   - GCE: each project has its own `10.0.0.0/8`.  Carve off a `/16` for each
@@ -116,7 +116,7 @@ You will need to select an address range for the Pod IPs. Note that IPv6 is not 
 Kubernetes also allocates an IP to each [service](/docs/concepts/services-networking/service/).  However,
 service IPs do not necessarily need to be routable.  The kube-proxy takes care
 of translating Service IPs to Pod IPs before traffic leaves the node.  You do
-need to Allocate a block of IPs for services.  Call this
+need to allocate a block of IPs for services.  Call this
 `SERVICE_CLUSTER_IP_RANGE`.  For example, you could set
 `SERVICE_CLUSTER_IP_RANGE="10.0.0.0/16"`, allowing 65534 distinct services to
 be active at once.  Note that you can grow the end of this range, but you
@@ -405,7 +405,6 @@ Arguments to consider:
   - `--docker-root=`
   - `--root-dir=`
   - `--pod-cidr=` The CIDR to use for pod IP addresses, only used in standalone mode.  In cluster mode, this is obtained from the master.
-  - `--configure-cbr0=` (described below)
   - `--register-node` (described in [Node](/docs/admin/node/) documentation.)
 
 ### kube-proxy
@@ -440,38 +439,6 @@ needs an address from `$NODE_X_POD_CIDR` - by convention the first IP.  Call
 this `NODE_X_BRIDGE_ADDR`.  For example, if `NODE_X_POD_CIDR` is `10.0.0.0/16`,
 then `NODE_X_BRIDGE_ADDR` is `10.0.0.1/16`.  NOTE: this retains the `/16` suffix
 because of how this is used later.
-
-- Recommended, automatic approach:
-
-  1. Set `--configure-cbr0=true` option in kubelet init script and restart kubelet service.  Kubelet will configure cbr0 automatically.
-     It will wait to do this until the node controller has set Node.Spec.PodCIDR.  Since you have not setup apiserver and node controller
-     yet, the bridge will not be setup immediately.
-- Alternate, manual approach:
-
-  1. Set `--configure-cbr0=false` on kubelet and restart.
-  1. Create a bridge.
-
-        ```
-        ip link add name cbr0 type bridge
-        ```
-
-  1. Set appropriate MTU. NOTE: the actual value of MTU will depend on your network environment
-
-        ```
-        ip link set dev cbr0 mtu 1460
-        ```
-
-  1. Add the node's network to the bridge (docker will go on other side of bridge).
-
-        ```
-        ip addr add $NODE_X_BRIDGE_ADDR dev cbr0
-        ```
-
-  1. Turn it on
-
-        ```
-        ip link set dev cbr0 up
-        ```
 
 If you have turned off Docker's IP masquerading to allow pods to talk to each
 other, then you may need to do masquerading just for destination IPs outside

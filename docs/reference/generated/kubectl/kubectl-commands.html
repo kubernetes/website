@@ -7653,7 +7653,7 @@ applications.</p>
 <pre class="code-block example"><code class="lang-shell">kubectl alpha diff -f pod<span class="hljs-selector-class">.json</span> -f service<span class="hljs-selector-class">.yaml</span> LAST LOCAL
 </code></pre>
 <p>Diff configurations specified by filename or stdin between their local, last-applied, live and/or &quot;merged&quot; versions. </p>
-<p>LOCAL and LIVE versions are diffed by default. Other availble keywords are MERGED and LAST. </p>
+<p>LOCAL and LIVE versions are diffed by default. Other available keywords are MERGED and LAST. </p>
 <p>Output is always YAML. </p>
 <p>KUBERNETES EXTERNAL DIFF environment variable can be used to select your own diff command. By default, the &quot;diff&quot; command available in your path will be run with &quot;-u&quot; (unicode) and &quot;-N&quot; (treat new files as empty) options.</p>
 <h3 id="usage">Usage</h3>
@@ -7728,7 +7728,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl</span> completion zsh &gt; <span class="hljs-string">"<span class="hljs-variable">${fpath[1]}</span>/_kubectl"</span>
 </code></pre>
-<p>Output shell completion code for the specified shell (bash or zsh). The shell code must be evalutated to provide interactive completion of kubectl commands.  This can be done by sourcing it from the .bash _profile. </p>
+<p>Output shell completion code for the specified shell (bash or zsh). The shell code must be evaluated to provide interactive completion of kubectl commands.  This can be done by sourcing it from the .bash _profile. </p>
 <p>Detailed instructions on how to do this are available here: <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion">https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion</a> </p>
 <p>Note for zsh users: [1] zsh completions are only supported in versions of zsh &gt;= 5.2</p>
 <h3 id="usage">Usage</h3>

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - aveshagarwal
 - eparis
 - thockin
@@ -60,11 +60,14 @@ the name of the master server:
 KUBE_MASTER="--master=http://fed-master:8080"
 ```
 
-* Disable the firewall on both the master and node, as docker does not play well with other firewall rule managers.  Please note that iptables-services does not exist on default fedora server install.
+* Disable the firewall on both the master and node, as Docker does not play well with other firewall rule managers.  Please note that iptables.service does not exist on the default Fedora Server install.
 
 ```shell
-systemctl disable iptables-services firewalld
-systemctl stop iptables-services firewalld
+systemctl mask firewalld.service
+systemctl stop firewalld.service
+
+systemctl disable iptables.service
+systemctl stop iptables.service
 ```
 
 **Configure the Kubernetes services on the master.**
@@ -118,10 +121,27 @@ KUBELET_ADDRESS="--address=0.0.0.0"
 KUBELET_HOSTNAME="--hostname-override=fed-node"
 
 # location of the api-server
-KUBELET_API_SERVER="--api-servers=http://fed-master:8080"
+KUBELET_ARGS="--cgroup-driver=systemd --kubeconfig=/etc/kubernetes/master-kubeconfig.yaml --require-kubeconfig"
 
 # Add your own!
-#KUBELET_ARGS=""
+KUBELET_ARGS=""
+
+```
+
+```yaml
+kind: Config
+clusters:
+- name: local
+  cluster:
+    server: http://fed-master:8080
+users:
+- name: kubelet
+contexts:
+- context:
+    cluster: local
+    user: kubelet
+  name: kubelet-context
+current-context: kubelet-context
 ```
 
 * Start the appropriate services on the node (fed-node).

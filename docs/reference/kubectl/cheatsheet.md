@@ -136,6 +136,9 @@ $ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.
 
 # List all Secrets currently in use by a pod
 $ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
+
+# List Events sorted by timestamp
+$ kubectl get events --sort-by=.metadata.creationTimestamp
 ```
 
 ## Updating Resources
