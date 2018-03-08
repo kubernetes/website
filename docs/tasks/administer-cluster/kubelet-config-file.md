@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mtaufen
 - dawnchen
 title: Set Kubelet parameters via a config file

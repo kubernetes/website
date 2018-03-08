@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - derekwaynecarr
 - janetkuo
 title: Namespaces Walkthrough
@@ -28,7 +28,7 @@ This example assumes the following:
 By default, a Kubernetes cluster will instantiate a default namespace when provisioning the cluster to hold the default set of Pods,
 Services, and Deployments used by the cluster.
 
-Assuming you have a fresh cluster, you can introspect the available namespace's by doing the following:
+Assuming you have a fresh cluster, you can inspect the available namespaces by doing the following:
 
 ```shell
 $ kubectl get namespaces

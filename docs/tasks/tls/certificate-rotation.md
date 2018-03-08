@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jcbsmpsn
 - mikedanese
 title: Certificate Rotation

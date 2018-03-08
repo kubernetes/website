@@ -15,7 +15,7 @@ Guide](http://kubernetes.io/docs/admin/).
 
 * **GitHub Issues** ([issues.md](https://github.com/kubernetes/community/tree/master/contributors/devel/issues.md)): How incoming issues are triaged.
 
-* **Pull Request Process** ([pull-requests.md](https://github.com/kubernetes/community/tree/master/contributors/devel/pull-requests.md)): When and why pull requests are closed.
+* **Pull Request Process** ([/contributors/guide/pull-requests.md](https://github.com/kubernetes/community/tree/master/contributors/guide/pull-requests.md)): When and why pull requests are closed.
 
 * **Getting Recent Builds** ([getting-builds.md](https://github.com/kubernetes/community/tree/master/contributors/devel/getting-builds.md)): How to get recent builds including the latest builds that pass CI.
 
@@ -39,7 +39,7 @@ Guide](http://kubernetes.io/docs/admin/).
   ([instrumentation.md](https://github.com/kubernetes/community/tree/master/contributors/devel/instrumentation.md)): How to add a new metrics to the
   Kubernetes code base.
 
-* **Coding Conventions** ([coding-conventions.md](https://github.com/kubernetes/community/tree/master/contributors/devel/coding-conventions.md)):
+* **Coding Conventions** ([coding-conventions.md](https://github.com/kubernetes/community/tree/master/contributors/devel/../guide/coding-conventions.md)):
   Coding style advice for contributors.
 
 * **Document Conventions** ([how-to-doc.md](https://github.com/kubernetes/community/tree/master/contributors/devel/how-to-doc.md))
@@ -78,4 +78,3 @@ Guide](http://kubernetes.io/docs/admin/).
 ## Building releases
 
 See the [kubernetes/release](https://github.com/kubernetes/release) repository for details on creating releases and related tools and helper scripts.
-ed tools and helper scripts.

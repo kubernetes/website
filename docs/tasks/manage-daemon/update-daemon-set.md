@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - janetkuo
 title: Perform a Rolling Update on a DaemonSet
 ---

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - lavalamp
 - davidopp
 - derekwaynecarr
@@ -31,8 +31,7 @@ controllers may modify the objects they admit; validating controllers may not.
 The admission control process proceeds in two phases. In the first phase,
 mutating admission controllers are run. In the second phase, validating
 admission controllers are run. Note again that some of the controllers are
-both. In both phases, the controllers are run in the order specified by the
-`--admission-control` flag of `kube-apiserver`.
+both.
 
 If any of the controllers in either phase reject the request, the entire
 request is rejected immediately and an error is returned to the end-user.
@@ -54,13 +53,12 @@ support all the features you expect.
 
 ## How do I turn on an admission controller?
 
-The Kubernetes API server supports a flag, `admission-control` that takes a comma-delimited,
-ordered list of admission control choices to invoke prior to modifying objects in the cluster.
-For example, the following command line turns on the `NamespaceLifecycle` and the `LimitRanger`
-admission controller:
+The Kubernetes API server flag `enable-admission-plugins` takes a comma-delimited list of admission control plugins to invoke prior to modifying objects in the cluster.
+For example, the following command line enables the `NamespaceLifecycle` and the `LimitRanger`
+admission control plugins:
 
 ```shell
-kube-apiserver --admission-control=NamespaceLifecyle,LimitRanger ...
+kube-apiserver --enable-admission-plugins=NamespaceLifecyle,LimitRanger ...
 ```
 
 **Note**: Depending on the way your Kubernetes cluster is deployed and how the
@@ -69,6 +67,14 @@ For example, you may have to modify the systemd unit file if the API server is
 deployed as a systemd service, you may modify the manifest file for the API
 server if Kubernetes is deployed in a self-hosted way.
 {: .note}
+
+## How do I turn off an admission controller?
+
+The Kubernetes API server flag `disable-admission-plugins` takes a comma-delimited list of admission control plugins to be disabled, even if they are in the list of plugins enabled by default.
+
+```shell
+kube-apiserver --disable-admission-plugins=PodNodeSelector,AlwaysDeny ...
+```
 
 ## What does each admission controller do?
 
@@ -134,7 +140,7 @@ enabling this admission controller.
 
 ### EventRateLimit (alpha)
 
-This admission controller is introduced in v1.9 to mitigate the problem where the API server gets flooded by
+This admission controller mitigates the problem where the API server gets flooded by
 event requests. The cluster admin can specify event rate limits by:
 
  * Ensuring that `eventratelimit.admission.k8s.io/v1alpha1=true` is included in the
@@ -180,7 +186,7 @@ for more details.
 
 ### ExtendedResourceToleration
 
-This plug-in is introduced in v1.9 to facilitate creation of dedicated nodes with extended resources.
+This plug-in facilitates creation of dedicated nodes with extended resources.
 If operators want to create dedicated nodes with extended resources (like GPUs, FPGAs etc.), they are expected to
 taint the node with the extended resource name as the key. This admission controller, if enabled, automatically
 adds tolerations for such taints to pods requesting extended resources, so users don't have to manually
@@ -188,11 +194,7 @@ add these tolerations.
 
 ### ImagePolicyWebhook
 
-The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions. You enable this admission controller by setting the admission-control option as follows:
-
-```shell
---admission-control=ImagePolicyWebhook
-```
+The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions. 
 
 #### Configuration File Format
 
@@ -314,7 +316,6 @@ In any case, the annotations are provided by the user and are not validated by K
 
 ### Initializers (alpha)
 
-This admission controller is introduced in v1.7.
 The admission controller determines the initializers of a resource based on the existing
 `InitializerConfiguration`s. It sets the pending initializers by modifying the
 metadata of the resource to be created.
@@ -554,8 +555,6 @@ objects in your Kubernetes deployment, you MUST use this admission controller to
 
 See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 
-It is strongly encouraged that this admission controller is configured last in the sequence of admission controllers.  This is
-so that quota is not prematurely incremented only for the request to be rejected later in admission control.
 
 ### SecurityContextDeny
 
@@ -590,7 +589,7 @@ versions >= 1.9).
 ## Is there a recommended set of admission controllers to use?
 
 Yes.
-For Kubernetes >= 1.9.0, we strongly recommend running the following set of admission controllers (order matters):
+For Kubernetes >= 1.9.0, we strongly recommend running the following set of admission controllers (order matters for 1.9 but not >1.10):
 
 ```shell
 --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota

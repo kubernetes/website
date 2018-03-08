@@ -1,11 +1,11 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 - erictune
 - foxish
 - janetkuo
 - smarterclayton
-title: Delete a Stateful Set
+title: Delete a StatefulSet
 ---
 
 {% capture overview %}
@@ -40,7 +40,8 @@ You may need to delete the associated headless service separately after the Stat
 kubectl delete service <service-name>
 ```
 
-Deleting a StatefulSet through kubectl will scale it down to 0, thereby deleting all pods that are a part of it. If you want to delete just the StatefulSet and not the pods, use `--cascade=false`.
+Deleting a StatefulSet through kubectl will scale it down to 0, thereby deleting all pods that are a part of it. 
+If you want to delete just the StatefulSet and not the pods, use `--cascade=false`.
 
 ```shell
 kubectl delete -f <file.yaml> --cascade=false

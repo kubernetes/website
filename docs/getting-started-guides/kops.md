@@ -34,7 +34,7 @@ Download kops from the [releases page](https://github.com/kubernetes/kops/releas
 On MacOS:
 
 ```
-wget https://github.com/kubernetes/kops/releases/download/1.8.0/kops-darwin-amd64
+curl -OL https://github.com/kubernetes/kops/releases/download/1.8.0/kops-darwin-amd64
 chmod +x kops-darwin-amd64
 mv kops-darwin-amd64 /usr/local/bin/kops
 # you can also install using Homebrew
@@ -156,7 +156,7 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 ## Cleanup
 
-* To delete you cluster: `kops delete cluster useast1.dev.example.com --yes`
+* To delete your cluster: `kops delete cluster useast1.dev.example.com --yes`
 
 ## Feedback
 

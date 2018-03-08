@@ -63,7 +63,7 @@ Here is the configuration file for the hostPath PersistentVolume:
 {% include code.html language="yaml" file="task-pv-volume.yaml" ghlink="/docs/tasks/configure-pod-container/task-pv-volume.yaml" %}
 
 The configuration file specifies that the volume is at `/mnt/data` on the
-the cluster's Node. The configuration also specifies a size of 10 gibibytes and
+cluster's Node. The configuration also specifies a size of 10 gibibytes and
 an access mode of `ReadWriteOnce`, which means the volume can be mounted as
 read-write by a single Node. It defines the [StorageClass name](/docs/concepts/storage/persistent-volumes/#class)
 `manual` for the PersistentVolume, which will be used to bind

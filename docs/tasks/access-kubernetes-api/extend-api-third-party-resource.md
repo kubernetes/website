@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - enisoc
 - IanLewis
 title: Extend the Kubernetes API with ThirdPartyResources
