@@ -1,5 +1,13 @@
 ---
+<<<<<<< HEAD
 reviewers:
+||||||| merged common ancestors
+approvers:
+- crassirostris
+=======
+reviewers:
+- crassirostris
+>>>>>>> merge master to 1.10, with fixes (#7682)
 - piosz
 - x13n
 title: Logging Using Stackdriver

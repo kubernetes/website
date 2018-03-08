@@ -62,13 +62,34 @@ where:
 * `<your-pword>` is your Docker password.
 * `<your-email>` is your Docker email.
 
+<<<<<<< HEAD
 You have successfully set your Docker credentials in the cluster as a Secret called `regcred`.
 
 ## Inspecting the Secret `regcred`
+||||||| merged common ancestors
+## Understanding your Secret
+=======
+You have successfully set your Docker credentials in the cluster as a Secret called `regcred`.
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
+<<<<<<< HEAD
+To understand the contents of the `regcred` Secret you just created, start by viewing the Secret in YAML format:
+||||||| merged common ancestors
+To understand what's in the Secret you just created, start by viewing the
+Secret in YAML format:
+=======
+## Inspecting the Secret `regcred`
+>>>>>>> merge master to 1.10, with fixes (#7682)
+
+<<<<<<< HEAD
+    kubectl get secret regcred --output=yaml
+||||||| merged common ancestors
+    kubectl get secret regsecret --output=yaml
+=======
 To understand the contents of the `regcred` Secret you just created, start by viewing the Secret in YAML format:
 
     kubectl get secret regcred --output=yaml
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 The output is similar to this:
 
@@ -80,21 +101,50 @@ The output is similar to this:
       ...
       name: regcred
       ...
+<<<<<<< HEAD
     type: kubernetes.io/dockerconfigjson
 
 The value of the `.dockerconfigjson` field is a base64 representation of your Docker credentials.
+||||||| merged common ancestors
+    type: kubernetes.io/dockercfg
+
+The value of the `.dockercfg` field is a base64 representation of your secret data.
+=======
+    type: kubernetes.io/dockerconfigjson
+>>>>>>> merge master to 1.10, with fixes (#7682)
+
+<<<<<<< HEAD
+To understand what is in the `.dockerconfigjson` field, convert the secret data to a
+||||||| merged common ancestors
+Copy the base64 representation of the secret data into a file named `secret64`.
+
+**Important**: Make sure there are no line breaks in your `secret64` file.
+
+To understand what is in the `.dockercfg` field, convert the secret data to a
+=======
+The value of the `.dockerconfigjson` field is a base64 representation of your Docker credentials.
 
 To understand what is in the `.dockerconfigjson` field, convert the secret data to a
+>>>>>>> merge master to 1.10, with fixes (#7682)
 readable format:
 
     kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 -d
 
 The output is similar to this:
 
+<<<<<<< HEAD
     {"auths":{"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}}
 
 To understand what is in the `auth` field, convert the base64-encoded data to a readable format:
+||||||| merged common ancestors
+    {"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}
+=======
+    {"auths":{"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}}
 
+Notice that the Secret data contains the authorization token similar to your local `~/.docker/config.json` file.
+>>>>>>> merge master to 1.10, with fixes (#7682)
+
+<<<<<<< HEAD
     echo "c3R...zE2" | base64 -d
 
 The output, username and password concatenated with a `:`, is similar to this:
@@ -104,6 +154,12 @@ The output, username and password concatenated with a `:`, is similar to this:
 Notice that the Secret data contains the authorization token similar to your local `~/.docker/config.json` file.
 
 You have successfully set your Docker credentials as a Secret called `regcred` in the cluster.
+||||||| merged common ancestors
+Notice that the secret data contains the authorization token from your
+`config.json` file.
+=======
+You have successfully set your Docker credentials as a Secret called `regcred` in the cluster.
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 ## Create a Pod that uses your Secret
 
@@ -134,8 +190,17 @@ Create a Pod that uses your Secret, and verify that the Pod is running:
 * Learn more about [Secrets](/docs/concepts/configuration/secret/).
 * Learn more about [using a private registry](/docs/concepts/containers/images/#using-a-private-registry).
 * See [kubectl create secret docker-registry](/docs/user-guide/kubectl/{{page.version}}/#-em-secret-docker-registry-em-).
+<<<<<<< HEAD
 * See [Secret](/docs/reference/generated/kubernetes-api/{{page.version}}/#secret-v1-core).
 * See the `imagePullSecrets` field of [PodSpec](/docs/reference/generated/kubernetes-api/{{page.version}}/#podspec-v1-core).
+||||||| merged common ancestors
+* See [Secret](/docs/api-reference/{{page.version}}/#secret-v1-core)
+* See the `imagePullSecrets` field of
+[PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core).
+=======
+* See [Secret](/docs/api-reference/{{page.version}}/#secret-v1-core).
+* See the `imagePullSecrets` field of [PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core).
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 {% endcapture %}
 

@@ -60,6 +60,7 @@ changed by setting the <code>for_k8s_version</code> variable.
 {{ "{% include feature-state-deprecated.md " }}%}
 ````
 
+<<<<<<< HEAD
 ## Glossary
 
 You can reference glossary terms with an inclusion that will automatically update and replace content with the relevant links from [our glossary](/docs/reference/glossary/). When the term is moused-over by someone
@@ -75,6 +76,24 @@ For example, the following include within the markdown will render to {% glossar
 {{ "{% glossary_tooltip text=" }}"cluster" term_id="cluster" %}
 ````
 
+||||||| merged common ancestors
+=======
+## Glossary
+
+You can reference glossary terms with an inclusion that will automatically update and replace content with the relevant links from [our glossary](docs/reference/glossary/). When the term is moused-over by someone
+using the online documentation, the glossary entry will display a tooltip.
+
+The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/master/_data/glossary](https://github.com/kubernetes/website/tree/master/_data/glossary), with a YAML file for each glossary term.
+
+### Glossary Demo
+
+For example, the following include within the markdown will render to {% glossary_tooltip text="cluster" term_id="cluster" %} with a tooltip:
+
+````liquid
+{{ "{% glossary_tooltip text=" }}"cluster" term_id="cluster" %}
+````
+
+>>>>>>> merge master to 1.10, with fixes (#7682)
 ## Tabs
 
 In a markdown page (`.md` file) on this site, you can add a tab set to display multiple flavors of a given solution.

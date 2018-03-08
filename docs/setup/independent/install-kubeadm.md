@@ -140,6 +140,7 @@ systemctl enable docker && systemctl start docker
 {% endcapture %}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ||||||| merged common ancestors
 **Note**: Make sure that the cgroup driver used by kubelet is the same as the one used by 
 Docker. To ensure compatability you can either update Docker, like so:
@@ -171,6 +172,23 @@ and restart Docker. Or ensure the `--cgroup-driver` kubelet flag is set to the s
 as Docker (e.g. `cgroupfs`).
 
 >>>>>>> fix description about kubeadm (#7594)
+||||||| merged common ancestors
+**Note**: Make sure that the cgroup driver used by kubelet is the same as the one used by 
+Docker. To ensure compatibility you can either update Docker, like so:
+
+```bash
+cat << EOF > /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}
+EOF
+```
+
+and restart Docker. Or ensure the `--cgroup-driver` kubelet flag is set to the same value 
+as Docker (e.g. `cgroupfs`).
+
+=======
+>>>>>>> merge master to 1.10, with fixes (#7682)
 {% assign tab_set_name = "docker_install" %}
 {% assign tab_names = "Ubuntu, Debian or HypriotOS;CentOS, RHEL or Fedora; Container Linux" | split: ';' | compact %}
 {% assign tab_contents = site.emptyArray | push: docker_ubuntu | push: docker_centos | push: docker_coreos %}

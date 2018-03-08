@@ -502,6 +502,7 @@ As noted in the [Facilitating Leader Election](#facilitating-leader-election) an
 ZooKeeper ensemble require consistent configuration in order to elect a leader
 and form a quorum. They also require consistent configuration of the Zab protocol
 <<<<<<< HEAD
+<<<<<<< HEAD
 in order for the protocol to work correctly over a network. In our example we
 achieve consistent configuration by embedding the configuration directly into
 ||||||| merged common ancestors
@@ -511,6 +512,13 @@ achive consistent configuration by embedding the configuration directly into
 in order for the protocol to work correctly over a network. In our example we 
 achieve consistent configuration by embedding the configuration directly into 
 >>>>>>> fix description about zookeeper (#7598)
+||||||| merged common ancestors
+in order for the protocol to work correctly over a network. In our example we 
+achieve consistent configuration by embedding the configuration directly into 
+=======
+in order for the protocol to work correctly over a network. In our example we
+achieve consistent configuration by embedding the configuration directly into
+>>>>>>> merge master to 1.10, with fixes (#7682)
 the manifest.
 
 Get the `zk` StatefulSet.

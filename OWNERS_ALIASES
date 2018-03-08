@@ -90,8 +90,13 @@ aliases:
     - bradamant3
     - steveperry-53
     - zacharysarah
+<<<<<<< HEAD
     - bradtopol
     - heckj
+||||||| merged common ancestors
+=======
+    - bradtopol
+>>>>>>> merge master to 1.10, with fixes (#7682)
   sig-federation: #Team: Federation; e.g. Federated Clusters
     - csbell
   sig-gcp: #Google Cloud Platform; GH: sig-gcp-pr-reviews

@@ -10,7 +10,13 @@ Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [in
 
 * a highly available cluster
 * composable attributes
+<<<<<<< HEAD
 * support for most popular Linux distributions (CoreOS, Debian Jessie, Ubuntu 16.04, CentOS/RHEL 7, Fedora/CentOS Atomic)
+||||||| merged common ancestors
+* support for most popular Linux distributions
+=======
+* support for most popular Linux distributions (CoreOS, Debian Jessie, Ubuntu 16.04, CentOS/RHEL 7)
+>>>>>>> merge master to 1.10, with fixes (#7682)
 * continuous integration tests
 
 To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/comparisons.md) to [kubeadm](/docs/admin/kubeadm/) and [kops](../kops).

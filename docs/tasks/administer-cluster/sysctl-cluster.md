@@ -1,4 +1,12 @@
 ---
+<<<<<<< HEAD:docs/tasks/administer-cluster/sysctl-cluster.md
+||||||| merged common ancestors
+approvers:
+- sttts
+=======
+reviewers:
+- sttts
+>>>>>>> merge master to 1.10, with fixes (#7682):docs/concepts/cluster-administration/sysctl-cluster.md
 title: Using Sysctls in a Kubernetes Cluster
 reviewers:
 - sttts
@@ -139,6 +147,7 @@ is recommended to use
 [_taints and toleration_ feature](/docs/user-guide/kubectl/{{page.version}}/#taint) or
 [taints on nodes](/docs/concepts/configuration/taint-and-toleration/)
 to schedule those pods onto the right nodes.
+<<<<<<< HEAD:docs/tasks/administer-cluster/sysctl-cluster.md
 
 ## PodSecurityPolicy Annotations
 
@@ -164,3 +173,25 @@ spec:
 {% endcapture %}
 
 {% include templates/task.md %}
+||||||| merged common ancestors
+=======
+
+## PodSecurityPolicy Annotations
+
+The use of sysctl in pods can be controlled via annotations on the PodSecurityPolicy.
+
+Here is an example, it authorizes binding user creating pod with corresponding
+_safe_ and _unsafe_ sysctls.
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: sysctl-psp
+  annotations:
+    security.alpha.kubernetes.io/sysctls: 'kernel.shm_rmid_forced'
+    security.alpha.kubernetes.io/unsafe-sysctls: 'net.ipv4.route.*,kernel.msg*'
+spec:
+ ...
+```
+>>>>>>> merge master to 1.10, with fixes (#7682):docs/concepts/cluster-administration/sysctl-cluster.md

@@ -18,8 +18,13 @@ toc:
   - docs/home/contribute/review-issues.md
   - docs/home/contribute/style-guide.md
   - docs/home/contribute/includes.md
+<<<<<<< HEAD
   - docs/home/contribute/localization.md
   - docs/home/contribute/blog-post.md
+||||||| merged common ancestors
+=======
+  - docs/home/contribute/localization.md
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
   - title: Updating Automatically Generated Reference Pages
     section:

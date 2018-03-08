@@ -59,6 +59,7 @@ The following controllers have cloud provider dependencies:
   * Service Controller: For creating, updating and deleting cloud provider load balancers
   * Volume Controller: For creating, attaching, and mounting volumes, and interacting with the cloud provider to orchestrate volumes
 
+<<<<<<< HEAD
 ## Node Components
 
 Node components run on every node, maintaining running pods and providing the Kubernetes runtime environment.
@@ -77,6 +78,28 @@ network rules on the host and performing connection forwarding.
 The container runtime is the software that is responsible for running containers. Kubernetes supports several runtimes: [Docker](http://www.docker.com), [rkt](https://coreos.com/rkt/), [runc](https://github.com/opencontainers/runc) and any OCI [runtime-spec](https://github.com/opencontainers/runtime-spec) implementation.
 
 ## Addons
+||||||| merged common ancestors
+### addons
+=======
+## Node Components
+
+Node components run on every node, maintaining running pods and providing the Kubernetes runtime environment.
+
+### kubelet
+
+{% glossary_definition term_id="kubelet" length="all" %}
+
+### kube-proxy
+
+[kube-proxy](/docs/admin/kube-proxy/) enables the Kubernetes service abstraction by maintaining
+network rules on the host and performing connection forwarding.
+
+### Container Runtime
+
+The container runtime is the software that is responsible for running containers. Kubernetes supports two runtimes: [Docker](http://www.docker.com) and [rkt](https://coreos.com/rkt/).
+
+## Addons
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 Addons are pods and services that implement cluster features. The pods may be managed
 by Deployments, ReplicationControllers, and so on. Namespaced addon objects are created in

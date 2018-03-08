@@ -105,16 +105,34 @@ juju bootstrap aws/us-east-2
 or, another example, this time on Azure:
 
 ```
+<<<<<<< HEAD
 juju bootstrap azure/westus2
 ```
 
+If you receive this error, it is likely that the default Azure VM size (Standard D1 v2 [1 vcpu, 3.5 GB memory]) is not available in the Azure location:
+||||||| merged common ancestors
+juju bootstrap azure/centralus
+=======
+juju bootstrap azure/westus2
+>>>>>>> merge master to 1.10, with fixes (#7682)
+```
+ERROR failed to bootstrap model: instance provisioning failed (Failed)
+```
+
+
+<<<<<<< HEAD
+You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.3/controllers) for more information.
+||||||| merged common ancestors
+You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.2/controllers) for more information.
+=======
 If you receive this error, it is likely that the default Azure VM size (Standard D1 v2 [1 vcpu, 3.5 GB memory]) is not available in the Azure location:
 ```
 ERROR failed to bootstrap model: instance provisioning failed (Failed)
 ```
 
 
-You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.3/controllers) for more information.
+You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.2/controllers) for more information.
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 Note that each controller can host multiple Kubernetes clusters in a given cloud or region.
 

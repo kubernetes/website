@@ -243,6 +243,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 
 1. Now copy the systemd unit file like so:
 
+<<<<<<< HEAD
    ```shell
    cat >/etc/systemd/system/etcd.service <<EOF
    [Unit]
@@ -283,6 +284,89 @@ Please select one of the tabs to see installation instructions for the respectiv
    ```
 
    Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses. Also, make sure that you replace `<etcd0>`, `<etcd1>` and `<etcd2>` with real hostnames of each machine. These machines must be able to reach every other using DNS or make sure that records are added to `/etc/hosts`.
+||||||| merged common ancestors
+    ```shell
+    cat >/etc/systemd/system/etcd.service <<EOL
+    [Unit]
+    Description=etcd
+    Documentation=https://github.com/coreos/etcd
+    Conflicts=etcd.service
+    Conflicts=etcd2.service
+
+    [Service]
+    EnvironmentFile=/etc/etcd.env
+    Type=notify
+    Restart=always
+    RestartSec=5s
+    LimitNOFILE=40000
+    TimeoutStartSec=0
+
+    ExecStart=/usr/local/bin/etcd --name ${PEER_NAME} \
+        --data-dir /var/lib/etcd \
+        --listen-client-urls https://${PRIVATE_IP}:2379 \
+        --advertise-client-urls https://${PRIVATE_IP}:2379 \
+        --listen-peer-urls https://${PRIVATE_IP}:2380 \
+        --initial-advertise-peer-urls https://${PRIVATE_IP}:2380 \
+        --cert-file=/etc/kubernetes/pki/etcd/server.pem \
+        --key-file=/etc/kubernetes/pki/etcd/server-key.pem \
+        --client-cert-auth \
+        --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem \
+        --peer-cert-file=/etc/kubernetes/pki/etcd/peer.pem \
+        --peer-key-file=/etc/kubernetes/pki/etcd/peer-key.pem \
+        --peer-client-cert-auth \
+        --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem \
+        --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 \
+        --initial-cluster-token my-etcd-token \
+        --initial-cluster-state new
+
+    [Install]
+    WantedBy=multi-user.target
+    EOL
+    ```
+
+    Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses.
+=======
+   ```shell
+   cat >/etc/systemd/system/etcd.service <<EOF
+   [Unit]
+   Description=etcd
+   Documentation=https://github.com/coreos/etcd
+   Conflicts=etcd.service
+   Conflicts=etcd2.service
+
+   [Service]
+   EnvironmentFile=/etc/etcd.env
+   Type=notify
+   Restart=always
+   RestartSec=5s
+   LimitNOFILE=40000
+   TimeoutStartSec=0
+
+   ExecStart=/usr/local/bin/etcd --name ${PEER_NAME} \
+       --data-dir /var/lib/etcd \
+       --listen-client-urls https://${PRIVATE_IP}:2379 \
+       --advertise-client-urls https://${PRIVATE_IP}:2379 \
+       --listen-peer-urls https://${PRIVATE_IP}:2380 \
+       --initial-advertise-peer-urls https://${PRIVATE_IP}:2380 \
+       --cert-file=/etc/kubernetes/pki/etcd/server.pem \
+       --key-file=/etc/kubernetes/pki/etcd/server-key.pem \
+       --client-cert-auth \
+       --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem \
+       --peer-cert-file=/etc/kubernetes/pki/etcd/peer.pem \
+       --peer-key-file=/etc/kubernetes/pki/etcd/peer-key.pem \
+       --peer-client-cert-auth \
+       --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem \
+       --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 \
+       --initial-cluster-token my-etcd-token \
+       --initial-cluster-state new
+
+   [Install]
+   WantedBy=multi-user.target
+   EOF
+   ```
+
+   Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses.
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 1. Finally, launch etcd like so:
 
@@ -304,6 +388,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 
 1. The first step is to run the following to generate the manifest file:
 
+<<<<<<< HEAD
    ```shell
    cat >/etc/kubernetes/manifests/etcd.yaml <<EOF
    apiVersion: v1
@@ -376,6 +461,153 @@ Please select one of the tabs to see installation instructions for the respectiv
    Make sure you replace:
    * `<podname>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
    * `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the public IPv4s of the other machines that host etcd.
+||||||| merged common ancestors
+    ```shell
+    cat >/etc/kubernetes/manifests/etcd.yaml <<EOL
+    apiVersion: v1
+    kind: Pod
+    metadata:
+    labels:
+        component: etcd
+        tier: control-plane
+    name: <podname>
+    namespace: kube-system
+    spec:
+    containers:
+    - command:
+        - etcd --name ${PEER_NAME} \
+        - --data-dir /var/lib/etcd \
+        - --listen-client-urls https://${PRIVATE_IP}:2379 \
+        - --advertise-client-urls https://${PRIVATE_IP}:2379 \
+        - --listen-peer-urls https://${PRIVATE_IP}:2380 \
+        - --initial-advertise-peer-urls https://${PRIVATE_IP}:2380 \
+        - --cert-file=/certs/server.pem \
+        - --key-file=/certs/server-key.pem \
+        - --client-cert-auth \
+        - --trusted-ca-file=/certs/ca.pem \
+        - --peer-cert-file=/certs/peer.pem \
+        - --peer-key-file=/certs/peer-key.pem \
+        - --peer-client-cert-auth \
+        - --peer-trusted-ca-file=/certs/ca.pem \
+        - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd1=https://<etcd2-ip-address>:2380 \
+        - --initial-cluster-token my-etcd-token \
+        - --initial-cluster-state new
+        image: gcr.io/google_containers/etcd-amd64:3.1.0
+        livenessProbe:
+        httpGet:
+            path: /health
+            port: 2379
+            scheme: HTTP
+        initialDelaySeconds: 15
+        timeoutSeconds: 15
+        name: etcd
+        env:
+        - name: PUBLIC_IP
+        valueFrom:
+            fieldRef:
+            fieldPath: status.hostIP
+        - name: PRIVATE_IP
+        valueFrom:
+            fieldRef:
+            fieldPath: status.podIP
+        - name: PEER_NAME
+        valueFrom:
+            fieldRef:
+            fieldPath: metadata.name
+        volumeMounts:
+        - mountPath: /var/lib/etcd
+        name: etcd
+        - mountPath: /certs
+        name: certs
+    hostNetwork: true
+    volumes:
+    - hostPath:
+        path: /var/lib/etcd
+        type: DirectoryOrCreate
+        name: etcd
+    - hostPath:
+        path: /etc/kubernetes/pki/etcd
+        name: certs
+    EOL
+    ```
+
+    Make sure you replace:
+    * `<podname>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
+    * `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the public IPv4s of the other machines that host etcd.
+=======
+   ```shell
+   cat >/etc/kubernetes/manifests/etcd.yaml <<EOF
+   apiVersion: v1
+   kind: Pod
+   metadata:
+   labels:
+       component: etcd
+       tier: control-plane
+   name: <podname>
+   namespace: kube-system
+   spec:
+   containers:
+   - command:
+       - etcd --name ${PEER_NAME} \
+       - --data-dir /var/lib/etcd \
+       - --listen-client-urls https://${PRIVATE_IP}:2379 \
+       - --advertise-client-urls https://${PRIVATE_IP}:2379 \
+       - --listen-peer-urls https://${PRIVATE_IP}:2380 \
+       - --initial-advertise-peer-urls https://${PRIVATE_IP}:2380 \
+       - --cert-file=/certs/server.pem \
+       - --key-file=/certs/server-key.pem \
+       - --client-cert-auth \
+       - --trusted-ca-file=/certs/ca.pem \
+       - --peer-cert-file=/certs/peer.pem \
+       - --peer-key-file=/certs/peer-key.pem \
+       - --peer-client-cert-auth \
+       - --peer-trusted-ca-file=/certs/ca.pem \
+       - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 \
+       - --initial-cluster-token my-etcd-token \
+       - --initial-cluster-state new
+       image: gcr.io/google_containers/etcd-amd64:3.1.0
+       livenessProbe:
+       httpGet:
+           path: /health
+           port: 2379
+           scheme: HTTP
+       initialDelaySeconds: 15
+       timeoutSeconds: 15
+       name: etcd
+       env:
+       - name: PUBLIC_IP
+       valueFrom:
+           fieldRef:
+           fieldPath: status.hostIP
+       - name: PRIVATE_IP
+       valueFrom:
+           fieldRef:
+           fieldPath: status.podIP
+       - name: PEER_NAME
+       valueFrom:
+           fieldRef:
+           fieldPath: metadata.name
+       volumeMounts:
+       - mountPath: /var/lib/etcd
+       name: etcd
+       - mountPath: /certs
+       name: certs
+   hostNetwork: true
+   volumes:
+   - hostPath:
+       path: /var/lib/etcd
+       type: DirectoryOrCreate
+       name: etcd
+   - hostPath:
+       path: /etc/kubernetes/pki/etcd
+       name: certs
+   EOF
+   ```
+
+   Make sure you replace:
+   * `<podname>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
+   * `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the public IPv4s of the other machines that host etcd.
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 {% endcapture %}
 
@@ -408,13 +640,20 @@ If possible, use a smart load balancing algorithm like "least connections", and 
 {% capture onsite %}
 In an on-site environment there may not be a physical load balancer available. Instead, a virtual IP pointing to a healthy master node can be used. There are a number of solutions for this including keepalived, Pacemaker and probably many others, some with and some without load balancing.
 
+<<<<<<< HEAD
 As an example we outline a simple setup based on keepalived. Depending on environment and requirements people may prefer different solutions. The configuration shown here provides an _active/passive_ failover without load balancing. If required, load balancing can by added quite easily by setting up HAProxy, NGINX or similar on the master nodes (not covered in this guide).
+||||||| merged common ancestors
+Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). If you are hosting etcd on the masters (**Option 2**), you can skip this step since you've already generated the etcd certificates on the masters.
+=======
+As an example we outline a simple setup based on keepalived. Depending on environment and requirements people may prefer different solutions. The configuration shown here provides an _active/passive_ failover without load balancing. If required, load balancing can by added quite easily by setting up HAProxy, NGINX or similar on the master nodes (not covered in this guide). 
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 1. Install keepalived, e.g. using your distribution's package manager. The configuration shown here works with version `1.3.5` but is expected to work with may other versions. Make sure to have it enabled (chkconfig, systemd, ...) so that it starts automatically when the respective node comes up.
 
 2. Create the following configuration file _/etc/keepalived/keepalived.conf_ on all master nodes:
 
     ```shell
+<<<<<<< HEAD
     ! Configuration File for keepalived
     global_defs {
       router_id LVS_DEVEL
@@ -444,6 +683,42 @@ As an example we outline a simple setup based on keepalived. Depending on enviro
             check_apiserver
         }
     }
+||||||| merged common ancestors
+    mkdir -p /etc/kubernetes/pki/etcd
+    scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/ca.pem /etc/kubernetes/pki/etcd
+    scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client.pem /etc/kubernetes/pki/etcd
+    scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client-key.pem /etc/kubernetes/pki/etcd
+=======
+    ! Configuration File for keepalived
+    global_defs {
+      router_id LVS_DEVEL
+    }
+    
+    vrrp_script check_apiserver {
+      script "/etc/keepalived/check_apiserver.sh"
+      interval 3
+      weight -2
+      fall 10
+      rise 2
+    }
+    
+    vrrp_instance VI_1 {
+        state <STATE>
+        interface <INTERFACE>
+        virtual_router_id 51
+        priority <PRIORITY>
+        authentication {
+            auth_type PASS
+            auth_pass 4be37dc3b4c90194d1600c483e10ad1d
+        }
+        virtual_ipaddress {
+            <VIRTUAL-IP>
+        }
+        track_script {
+            check_apiserver
+        }
+    }
+>>>>>>> merge master to 1.10, with fixes (#7682)
     ```
 
     In the section `vrrp_instance VI_1`, change few lines depending on your setup:
@@ -469,11 +744,28 @@ As an example we outline a simple setup based on keepalived. Depending on enviro
         curl --silent --max-time 2 --insecure https://<VIRTUAL-IP>:6443/ -o /dev/null || errorExit "Error GET https://<VIRTUAL-IP>:6443/"
     fi
     ```
-
+    
     Replace the `<VIRTUAL-IP>` by your chosen virtual IP.
 
+<<<<<<< HEAD
+    Replace the `<VIRTUAL-IP>` by your chosen virtual IP.
+||||||| merged common ancestors
+    Ensure that the following placeholders are replaced:
+=======
 4. Restart keepalived. While no Kubernetes services are up yet it will log health check fails on all master nodes. This will stop as soon as the first master node has been bootstrapped.
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
+<<<<<<< HEAD
+4. Restart keepalived. While no Kubernetes services are up yet it will log health check fails on all master nodes. This will stop as soon as the first master node has been bootstrapped.
+||||||| merged common ancestors
+    - `<private-ip>` with the private IPv4 of the master server.
+    - `<etcd0-ip>`, `<etcd1-ip>` and `<etcd2-ip>` with the IP addresses of your three etcd nodes
+    - `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
+=======
+{% endcapture %}
+>>>>>>> merge master to 1.10, with fixes (#7682)
+
+<<<<<<< HEAD
 {% endcapture %}
 
 {% assign tab_set_name = "lb_mode" %}
@@ -531,6 +823,65 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
    - `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
 
    **Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`. For more information, see [the documentation](https://kubernetes.io/docs/admin/high-availability/#endpoint-reconciler).
+||||||| merged common ancestors
+    **Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type=lease`. For more information, see [the documentation](https://kubernetes.io/docs/admin/high-availability/#endpoint-reconciler).
+=======
+{% assign tab_set_name = "lb_mode" %}
+{% assign tab_names = "Choose one...,Cloud,On-Site" | split: ',' | compact %}
+{% assign tab_contents = site.emptyArray | push: choose | push: cloud | push: onsite %}
+
+{% include tabs.md %}
+
+## Acquire etcd certs
+
+Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). If you are hosting etcd on the masters (**Option 2**), you can skip this step since you've already generated the etcd certificates on the masters.
+
+1. Generate SSH keys for each of the master nodes by following the steps in the [create ssh access](#create-ssh-access) section. After doing this, each master will have an SSH key in `~/.ssh/id_rsa.pub` and an entry in `etcd0`'s `~/.ssh/authorized_keys` file.
+
+1. Run the following:
+
+   ```shell
+   mkdir -p /etc/kubernetes/pki/etcd
+   scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/ca.pem /etc/kubernetes/pki/etcd
+   scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client.pem /etc/kubernetes/pki/etcd
+   scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client-key.pem /etc/kubernetes/pki/etcd
+   ```
+
+## Run `kubeadm init` on `master0` {#kubeadm-init-master0}
+
+1. In order for kubeadm to run, you first need to write a configuration file:
+
+   ```shell
+   cat >config.yaml <<EOF
+   apiVersion: kubeadm.k8s.io/v1alpha1
+   kind: MasterConfiguration
+   api:
+     advertiseAddress: <private-ip>
+   etcd:
+     endpoints:
+     - https://<etcd0-ip-address>:2379
+     - https://<etcd1-ip-address>:2379
+     - https://<etcd2-ip-address>:2379
+     caFile: /etc/kubernetes/pki/etcd/ca.pem
+     certFile: /etc/kubernetes/pki/etcd/client.pem
+     keyFile: /etc/kubernetes/pki/etcd/client-key.pem
+   networking:
+     podSubnet: <podCIDR>
+   apiServerCertSANs:
+   - <load-balancer-ip>
+   apiServerExtraArgs:
+     apiserver-count: "3"
+   EOF
+   ```
+
+   Ensure that the following placeholders are replaced:
+
+   - `<private-ip>` with the private IPv4 of the master server.
+   - `<etcd0-ip>`, `<etcd1-ip>` and `<etcd2-ip>` with the IP addresses of your three etcd nodes
+   - `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
+
+   **Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`. For more information, see [the documentation](https://kubernetes.io/docs/admin/high-availability/#endpoint-reconciler).
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 1. When this is done, run kubeadm like so:
 
@@ -547,10 +898,22 @@ Before running kubeadm on the other masters, you need to first copy the K8s CA c
 1. Follow the steps in the [create ssh access](#create-ssh-access) section, but instead of adding to `etcd0`'s `authorized_keys` file, add them to `master0`.
 1. Once you've done this, run:
 
+<<<<<<< HEAD
    ```shell
    scp root@<master0-ip-address>:/etc/kubernetes/pki/* /etc/kubernetes/pki
    rm apiserver.*
    ```
+||||||| merged common ancestors
+    ```shell
+    scp root@<master0-ip-address>:/etc/kubernetes/pki/* /etc/kubernetes/pki
+    rm apiserver.crt
+    ```
+=======
+   ```shell
+   scp root@<master0-ip-address>:/etc/kubernetes/pki/* /etc/kubernetes/pki
+   rm apiserver.crt
+   ```
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 #### Option 2: Copy paste
 
@@ -576,6 +939,7 @@ Next provision and set up the worker nodes. To do this, you will need to provisi
 
 1. Reconfigure kube-proxy to access kube-apiserver via the load balancer:
 
+<<<<<<< HEAD
    ```shell
    kubectl get configmap -n kube-system kube-proxy -o yaml > kube-proxy-cm.yaml
    sed -i 's#server:.*#server: https://<masterLoadBalancerFQDN>:6443#g' kube-proxy-cm.yaml
@@ -583,6 +947,23 @@ Next provision and set up the worker nodes. To do this, you will need to provisi
    # restart all kube-proxy pods to ensure that they load the new configmap
    kubectl delete pod -n kube-system -l k8s-app=kube-proxy
    ```
+||||||| merged common ancestors
+    ```shell
+    kubectl get configmap -n kube-system kube-proxy -o yaml > kube-proxy.yaml
+    sudo sed -i 's#server:.*#server: https://<masterLoadBalancerFQDN>:6443#g' kube-proxy.cm
+    kubectl apply -f kube-proxy.cm --force
+    # restart all kube-proxy pods to ensure that they load the new configmap
+    kubectl delete pod -n kube-system -l k8s-app=kube-proxy
+    ```
+=======
+   ```shell
+   kubectl get configmap -n kube-system kube-proxy -o yaml > kube-proxy-сm.yaml
+   sed -i 's#server:.*#server: https://<masterLoadBalancerFQDN>:6443#g' kube-proxy-cm.yaml
+   kubectl apply -f kube-proxy-cm.yaml --force
+   # restart all kube-proxy pods to ensure that they load the new configmap
+   kubectl delete pod -n kube-system -l k8s-app=kube-proxy
+   ```
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 1. Reconfigure the kubelet to access kube-apiserver via the load balancer:
 

@@ -187,12 +187,18 @@ toc:
   - docs/tasks/administer-cluster/ip-masq-agent.md
   - docs/tasks/administer-cluster/dns-custom-nameservers.md
 <<<<<<< HEAD
+<<<<<<< HEAD
   - docs/tasks/administer-cluster/dns-debugging-resolution.md
   - docs/tasks/administer-cluster/pvc-protection.md
   - docs/tasks/administer-cluster/storage-object-in-use-protection.md
 ||||||| merged common ancestors
   - docs/tasks/administer-cluster/pvc-protection.md
 =======
+||||||| merged common ancestors
+=======
+  - docs/tasks/administer-cluster/dns-debugging-resolution.md
+  - docs/tasks/administer-cluster/pvc-protection.md
+>>>>>>> merge master to 1.10, with fixes (#7682)
   - docs/tasks/administer-cluster/storage-object-in-use-protection.md
 >>>>>>> add pv protection description (#7620)
 

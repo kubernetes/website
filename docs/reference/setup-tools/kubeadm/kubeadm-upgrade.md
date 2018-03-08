@@ -21,9 +21,15 @@ Please check these documents out for more detailed how-to-upgrade guidance:
  * [1.7.x to 1.7.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
  * [1.7 to 1.8 upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
  * [1.8.x to 1.8.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
+<<<<<<< HEAD
  * [1.8.x to 1.9.x upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
  * [1.9.x to 1.9.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
  * [1.9.x to 1.9.y HA cluster upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-ha/)
+||||||| merged common ancestors
+=======
+ * [1.8.x to 1.9.x upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
+ * [1.9.x to 1.9.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 ## kubeadm upgrade plan {#cmd-upgrade-plan}
 {% include_relative generated/kubeadm_upgrade_plan.md %}

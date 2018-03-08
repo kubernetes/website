@@ -16,8 +16,16 @@ The Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) co
 **Note:** Windows Server Containers on Kubernetes is a Beta feature in Kubernetes v1.9
 {: .note}
 
+<<<<<<< HEAD
 ## Get Windows Binaries
 We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases/latest](https://github.com/kubernetes/kubernetes/releases/latest). Under the CHANGELOG you can find the Node Binaries link for Windows-amd64, which will include kubeadm, kubectl, kubelet and kube-proxy.
+||||||| merged common ancestors
+## Build
+We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases). Look for the Node Binaries section by visiting the binary downloads link. 
+=======
+## Get Windows Binaries
+We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases/latest](https://github.com/kubernetes/kubernetes/releases/latest). Under the CHANGELOG you can find the Node Binaries link for Windows-amd64, which will include kubeadm, kubectl, kubelet and kube-proxy. 
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 If you wish to build the code yourself, please refer to detailed build instructions [here](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries).
 
@@ -92,8 +100,16 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 
 More detailed instructions can be found [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows.md).
 
+<<<<<<< HEAD
 **Windows CNI Config Example**
 Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file. This is based on the ToR example diagram shown above, specifying the configuration to apply to Windows node-1. Of special interest is Windows node-1 pod CIDR (10.10.187.64/26) and the associated gateway of cbr0 (10.10.187.66). The exception list is specifying the Service CIDR (11.0.0.0/8), Cluster CIDR (10.10.0.0/16), and Management (or Host) CIDR (10.127.132.128/25).
+||||||| merged common ancestors
+**Windows CNI Config Example**  
+Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file.
+=======
+**Windows CNI Config Example**  
+Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file. This is based on the ToR example diagram shown above, specifying the configuration to apply to Windows node-1. Of special interest is Windows node-1 pod CIDR (10.10.187.64/26) and the associated gateway of cbr0 (10.10.187.66). The exception list is specifying the Service CIDR (11.0.0.0/8), Cluster CIDR (10.10.0.0/16), and Management (or Host) CIDR (10.127.132.128/25).
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 Note: this file assumes that a user previous created 'l2bridge' host networks on each Windows node using `<Verb>-HNSNetwork` cmdlets as shown in the `start-kubelet.ps1` and `start-kubeproxy.ps1` scripts linked above
 
@@ -227,6 +243,7 @@ To start your cluster, you'll need to start both the Linux-based Kubernetes cont
 ## Starting the Linux-based Control Plane
 Use your preferred method to start Kubernetes cluster on Linux. Please note that Cluster CIDR might need to be updated.
 
+<<<<<<< HEAD
 ## Support for kubeadm join
 
 If your cluster has been created by [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/),
@@ -244,6 +261,28 @@ The examples listed below assume running Windows nodes on Windows Server 1709. I
 
 ### Scheduling Pods on Windows
 Because your cluster has both Linux and Windows nodes, you must explicitly set the `nodeSelector` constraint to be able to schedule pods to Windows nodes. You must set nodeSelector with the label `beta.kubernetes.io/os` to the value `windows`; see the following example:
+||||||| merged common ancestors
+## Scheduling Pods on Windows
+Because your cluster has both Linux and Windows nodes, you must explicitly set the nodeSelector constraint to be able to schedule pods to Windows nodes. You must set nodeSelector with the label beta.kubernetes.io/os to the value windows; see the following example:
+=======
+## Support for kubeadm join
+
+If your cluster has been created by [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/), 
+and your networking is setup correctly using one of the methods listed above (networking is setup outside of kubeadm), you can use kubeadm to add a Windows node to your cluster. At a high level, you first have to initialize the master with kubeadm (Linux), then set up the CNI based networking (outside of kubeadm), and finally start joining Windows or Linux worker nodes to the cluster. For additional documentation and reference material, visit the kubeadm link above.
+
+The kubeadm binary can be found at [Kubernetes Releases](https://github.com/kubernetes/kubernetes/releases), inside the node binaries archive. Adding a Windows node is not any different than adding a Linux node:
+
+`kubeadm.exe join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
+
+See [joining-your-nodes](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#44-joining-your-nodes) for more details.
+
+## Supported Features
+
+The examples listed below assume running Windows nodes on Windows Server 1709. If you are running Windows Server 2016, the examples will need the image updated to specify `image: microsoft/windowsservercore:ltsc2016`. This is due to the requirement for container images to match the host operating system version when using process isolation. Not specifying a tag will implicitly use the `:latest` tag which can lead to surprising behaviors. Please consult with [https://hub.docker.com/r/microsoft/windowsservercore/](https://hub.docker.com/r/microsoft/windowsservercore/) for additional information on Windows Server Core image tagging.
+
+### Scheduling Pods on Windows
+Because your cluster has both Linux and Windows nodes, you must explicitly set the `nodeSelector` constraint to be able to schedule pods to Windows nodes. You must set nodeSelector with the label `beta.kubernetes.io/os` to the value `windows`; see the following example:
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 ```yaml
 {
@@ -432,6 +471,7 @@ spec:
 
 ### Metrics
 
+<<<<<<< HEAD
 Windows Stats use a hybrid model: pod and container level stats come from CRI (via dockershim), while node level stats come from the "winstats" package that exports cadvisor like data structures using windows specific perf counters from the node.
 
 ### Container Resources
@@ -485,14 +525,27 @@ spec:
         ports:
         - containerPort: 80
 ```
+||||||| merged common ancestors
+Windows Stats use a hybrid model: pod and container level stats come from CRI (via dockershim), while node level stats come from the "winstats" package that exports cadvisor like datastructures using windows specific perf counters from the node.
+=======
+Windows Stats use a hybrid model: pod and container level stats come from CRI (via dockershim), while node level stats come from the "winstats" package that exports cadvisor like data structures using windows specific perf counters from the node.
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 ## Known Limitations for Windows Server Containers with v1.9
 Some of these limitations will be addressed by the community in future releases of Kubernetes
 - Shared network namespace (compartment) with multiple Windows Server containers (shared kernel) per pod is only supported on Windows Server 1709 or later
+<<<<<<< HEAD
 - Using Secrets and ConfigMaps as volume mounts is not supported
 - Mount propagation is not supported on Windows
+||||||| merged common ancestors
+- Using Secrets and ConfigMaps as volume mounts is not supported 
+=======
+- Using Secrets and ConfigMaps as volume mounts is not supported 
+- Mount propagation is not supported on Windows
+>>>>>>> merge master to 1.10, with fixes (#7682)
 - The StatefulSet functionality for stateful applications is not supported
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
+<<<<<<< HEAD
 <<<<<<< HEAD
 - Hyper-V isolated containers are not supported. 
 - Windows container OS must match the Host OS. If it does not, the pod will get stuck in a crash loop.
@@ -504,11 +557,21 @@ Some of these limitations will be addressed by the community in future releases 
 - Hyper-V Containers are not supported
 =======
 - Hyper-V Containers are not supported
+||||||| merged common ancestors
+- Hyper-V Containers are not supported
+=======
+- Hyper-V isolated containers are not supported. 
+- Windows container OS must match the Host OS. If it does not, the pod will get stuck in a crash loop.
+- Under the networking models of L3 or Host GW, Kubernetes Services are inaccessible to Windows nodes due to a Windows issue. This is not an issue if using OVN/OVS for networking.
+- Windows kubelet.exe may fail to start when running on Windows Server under VMware Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
+- Flannel and Weavenet are not yet supported
+>>>>>>> merge master to 1.10, with fixes (#7682)
 - Some .Net Core applications expect environment variables with a colon (`:`) in the name.  Kubernetes currently does not allow this.  Replace colon (`:`) with  double underscore (`__`) as documented [here](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration#configuration-by-environment).
 >>>>>>> Added the inability to use colon ':' character as environment variable names and described workaround (#7657)
 
 ## Next steps and resources
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 - Support for Windows is in Beta as of v1.9 and your feedback is welcome. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
 - Troubleshooting and Common Problems: [Link](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/common-problems)
@@ -517,3 +580,9 @@ Some of these limitations will be addressed by the community in future releases 
 =======
 > As of this writing, the Kube-proxy binary requires a pending Kubernetes [pull request](https://github.com/kubernetes/kubernetes/pull/56529) to work properly. You may need to [build](#build) the binaries manually to work around this. 
 >>>>>>> Added the inability to use colon ':' character as environment variable names and described workaround (#7657)
+||||||| merged common ancestors
+> As of this writing, the Kube-proxy binary requires a pending Kubernetes [pull request](https://github.com/kubernetes/kubernetes/pull/56529) to work properly. You may need to [build](#build) the binaries manually to work around this. 
+=======
+- Support for Windows is in Beta as of v1.9 and your feedback is welcome. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
+- Troubleshooting and Common Problems: [Link](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/common-problems)
+>>>>>>> merge master to 1.10, with fixes (#7682)

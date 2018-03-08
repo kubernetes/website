@@ -23,12 +23,18 @@ client libraries:
 
 - [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
 <<<<<<< HEAD
+<<<<<<< HEAD
 - [Kubernetes Python client library](https://github.com/kubernetes-client/python)
 ||||||| merged common ancestors
 - [Kubernetes Python client libary](https://github.com/kubernetes-incubator/client-python)
 =======
 - [Kubernetes Python client library](https://github.com/kubernetes-incubator/client-python)
 >>>>>>> fix description about client library (#7634)
+||||||| merged common ancestors
+- [Kubernetes Python client library](https://github.com/kubernetes-incubator/client-python)
+=======
+- [Kubernetes Python client library](https://github.com/kubernetes-client/python)
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 ## CLI Reference
 

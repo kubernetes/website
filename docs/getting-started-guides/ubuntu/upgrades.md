@@ -46,6 +46,7 @@ After the snapshot, upgrade the etcd service with:
 
     juju upgrade-charm etcd
 
+<<<<<<< HEAD
 This will handle upgrades between minor versions of etcd. Instructions on how to upgrade from 2.x to 3.x can be found [here](https://github.com/juju-solutions/bundle-canonical-kubernetes/wiki/Etcd-2.3-to-3.x-upgrade) in the juju-solutions wiki.
 
 ### Upgrade kubeapi-load-balancer
@@ -55,6 +56,12 @@ The Kubernetes Charms are generally all updated and released at the same time. A
 To upgrade the charm run:
 
     juju upgrade-charm kubeapi-load-balancer
+||||||| merged common ancestors
+This will handle upgrades between minor versions of etcd. Major upgrades from
+etcd 2.x to 3.x are currently unsupported. Instead, data will be run in etcdv2 stores over the etcdv3 api.
+=======
+This will handle upgrades between minor versions of etcd. Instructions on how to upgrade from 2.x to 3.x can be found [here](https://github.com/juju-solutions/bundle-canonical-kubernetes/wiki/Etcd-2.3-to-3.x-upgrade) in the juju-solutions wiki.
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 ### Upgrade Kubernetes
 

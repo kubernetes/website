@@ -25,8 +25,16 @@ Resource quotas work like this:
   status code `403 FORBIDDEN` with a message explaining the constraint that would have been violated.
 - If quota is enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
   requests or limits for those values; otherwise, the quota system may reject pod creation.  Hint: Use
+<<<<<<< HEAD
   the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
   See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example of how to avoid this problem.
+||||||| merged common ancestors
+  the LimitRange admission controller to force defaults for pods that make no compute resource requirements.
+  See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example to avoid this problem.
+=======
+  the LimitRange admission controller to force defaults for pods that make no compute resource requirements.
+  See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example of how to avoid this problem.
+>>>>>>> merge master to 1.10, with fixes (#7682)
 
 Examples of policies that could be created using namespaces and quotas are:
 
@@ -42,8 +50,16 @@ Neither contention nor changes to quota will affect already created resources.
 
 ## Enabling Resource Quota
 
+<<<<<<< HEAD
 Resource Quota support is enabled by default for many Kubernetes distributions.  It is
 enabled when the apiserver `--enable-admission-plugins=` flag has `ResourceQuota` as
+||||||| merged common ancestors
+Resource Quota support is enabled by default for many Kubernetes distributions.  It is
+enabled when the apiserver `--admission-control=` flag has `ResourceQuota` as
+=======
+Resource quota support is enabled by default for many Kubernetes distributions.  It is
+enabled when the apiserver `--admission-control=` flag has `ResourceQuota` as
+>>>>>>> merge master to 1.10, with fixes (#7682)
 one of its arguments.
 
 A resource quota is enforced in a particular namespace when there is a
@@ -235,6 +251,7 @@ NAME                    AGE
 compute-resources       30s
 object-counts           32s
 
+<<<<<<< HEAD
 kubectl describe quota compute-resources --namespace=myspace
 Name:                    compute-resources
 Namespace:               myspace
@@ -249,6 +266,33 @@ requests.nvidia.com/gpu  0     4
 
 
 kubectl describe quota object-counts --namespace=myspace
+||||||| merged common ancestors
+$ kubectl describe quota compute-resources --namespace=myspace
+Name:                  compute-resources
+Namespace:             myspace
+Resource               Used Hard
+--------               ---- ----
+limits.cpu             0    2
+limits.memory          0    2Gi
+pods                   0    4
+requests.cpu           0    1
+requests.memory        0    1Gi
+
+$ kubectl describe quota object-counts --namespace=myspace
+=======
+kubectl describe quota compute-resources --namespace=myspace
+Name:                  compute-resources
+Namespace:             myspace
+Resource               Used Hard
+--------               ---- ----
+limits.cpu             0    2
+limits.memory          0    2Gi
+pods                   0    4
+requests.cpu           0    1
+requests.memory        0    1Gi
+
+kubectl describe quota object-counts --namespace=myspace
+>>>>>>> merge master to 1.10, with fixes (#7682)
 Name:                   object-counts
 Namespace:              myspace
 Resource                Used    Hard

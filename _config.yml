@@ -13,11 +13,16 @@ incremental: true
 safe: false
 lsi: false
 
+<<<<<<< HEAD
 latest: "v1.10"
 
 paginate: 7
 paginate_path: "/blog/page:num/"
 
+||||||| merged common ancestors
+=======
+latest: "v1.9"
+>>>>>>> merge master to 1.10, with fixes (#7682)
 defaults:
   -
     scope:
