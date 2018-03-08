@@ -321,6 +321,7 @@ enable the PodSecurityPolicy, the following flag must be set on the `apiserver`:
 
 ```
 <<<<<<< HEAD
+<<<<<<< HEAD
 --enable-admission-plugins=PodSecurityPolicy[,others...]
 ||||||| merged common ancestors
 --admission-control=PodSecurityPolicy[,others...]
@@ -328,6 +329,11 @@ enable the PodSecurityPolicy, the following flag must be set on the `apiserver`:
 =======
 --admission-control=PodSecurityPolicy[,others...]
 >>>>>>> Use PSP from policy API group. (#7562)
+||||||| merged common ancestors
+--admission-control=PodSecurityPolicy[,others...]
+=======
+--enable-admission-plugins=PodSecurityPolicy[,others...]
+>>>>>>> Flag names changed (s/admission-control/enable-admission-plugins); disable-admissions-plugin entry added; removed reference to admission controller/plugins requiring set order (for v1.10), redundant example enabling specific plugin, and redundant version-specific info (#7449)
 ```
 
 The AppArmor options can be specified as annotations on the PodSecurityPolicy:

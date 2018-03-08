@@ -51,6 +51,7 @@ Neither contention nor changes to quota will affect already created resources.
 ## Enabling Resource Quota
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Resource Quota support is enabled by default for many Kubernetes distributions.  It is
 enabled when the apiserver `--enable-admission-plugins=` flag has `ResourceQuota` as
 ||||||| merged common ancestors
@@ -60,6 +61,13 @@ enabled when the apiserver `--admission-control=` flag has `ResourceQuota` as
 Resource quota support is enabled by default for many Kubernetes distributions.  It is
 enabled when the apiserver `--admission-control=` flag has `ResourceQuota` as
 >>>>>>> merge master to 1.10, with fixes (#7682)
+||||||| merged common ancestors
+Resource quota support is enabled by default for many Kubernetes distributions.  It is
+enabled when the apiserver `--admission-control=` flag has `ResourceQuota` as
+=======
+Resource Quota support is enabled by default for many Kubernetes distributions.  It is
+enabled when the apiserver `--enable-admission-plugins=` flag has `ResourceQuota` as
+>>>>>>> Flag names changed (s/admission-control/enable-admission-plugins); disable-admissions-plugin entry added; removed reference to admission controller/plugins requiring set order (for v1.10), redundant example enabling specific plugin, and redundant version-specific info (#7449)
 one of its arguments.
 
 A resource quota is enforced in a particular namespace when there is a
