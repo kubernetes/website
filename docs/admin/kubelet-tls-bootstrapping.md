@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - ericchiang
 - mikedanese
 - jcbsmpsn

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - deads2k
 - liggitt
@@ -138,7 +138,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
-  name: secret-reader
+  name: secret-reader
   apiGroup: rbac.authorization.k8s.io
 ```
 
@@ -188,8 +188,78 @@ rules:
 
 Notably, if `resourceNames` are set, then the verb must not be list, watch, create, or deletecollection.
 Because resource names are not present in the URL for create, list, watch, and deletecollection API requests,
-those verbs would not be allowed by a rule with resourceNames set, since the resourceNames portion of the
+those verbs would not be allowed by a rule with `resourceNames` set, since the `resourceNames` portion of the
 rule would not match the request.
+
+### Aggregated ClusterRoles
+
+As of 1.9, ClusterRoles can be created by combining other ClusterRoles using an `aggregationRule`. The
+permissions of aggregated ClusterRoles are controller-managed, and filled in by unioning the rules of any
+ClusterRole that matches the provided label selector. An example aggregated ClusterRole:
+
+```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: monitoring
+aggregationRule:
+  clusterRoleSelectors:
+  - matchLabels:
+      rbac.example.com/aggregate-to-monitoring: "true"
+rules: [] # Rules are automatically filled in by the controller manager.
+```
+
+Creating a ClusterRole that matches the label selector will add rules to the aggregated ClusterRole. In this case
+rules can be added to the "monitoring" ClusterRole by creating another ClusterRole that has the label
+`rbac.example.com/aggregate-to-monitoring: true`.
+
+```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: monitoring-endpoints
+  labels:
+    rbac.example.com/aggregate-to-monitoring: "true"
+# These rules will be added to the "monitoring" role.
+rules:
+- apiGroups: [""]
+  Resources: ["services", "endpoints", "pods"]
+  verbs: ["get", "list", "watch"]
+```
+
+The default user-facing roles (described below) use ClusterRole aggregation. This lets admins include rules
+for custom resources, such as those served by CustomResourceDefinitions or Aggregated API servers, on the
+default roles.
+
+For example, the following ClusterRoles let the "admin" and "edit" default roles manage the custom resource
+"CronTabs" and the "view" role perform read-only actions on the resource.
+
+```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: aggregate-cron-tabs-edit
+  labels:
+    # Add these permissions to the "admin" and "edit" default roles.
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+rules:
+- apiGroups: ["stable.example.com"]
+  resources: ["crontabs"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: aggregate-cron-tabs-view
+  labels:
+    # Add these permissions to the "view" default role.
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+rules:
+- apiGroups: ["stable.example.com"]
+  resources: ["crontabs"]
+  verbs: ["get", "list", "watch"]
+```
 
 #### Role Examples
 
@@ -402,6 +472,18 @@ They include super-user roles (`cluster-admin`),
 roles intended to be granted cluster-wide using ClusterRoleBindings (`cluster-status`),
 and roles intended to be granted within particular namespaces using RoleBindings (`admin`, `edit`, `view`).
 
+As of 1.9, user-facing roles use [ClusterRole Aggregation](#aggregated-clusterroles) to allow admins to include
+rules for custom resources on these roles. To add rules to the "admin", "edit", or "view" role, create a
+ClusterRole with one or more of the following labels:
+
+```yaml
+metadata:
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+```
+
 <table>
 <colgroup><col width="25%"><col width="25%"><col></colgroup>
 <tr>
@@ -546,6 +628,7 @@ These roles include:
 * system:controller:node-controller
 * system:controller:persistent-volume-binder
 * system:controller:pod-garbage-collector
+* system:controller:pvc-protection-controller
 * system:controller:replicaset-controller
 * system:controller:replication-controller
 * system:controller:resourcequota-controller
@@ -679,7 +762,7 @@ In order from most secure to least secure, the approaches are:
 
    If an application does not specify a `serviceAccountName`, it uses the "default" service account.
 
-   NOTE: Permissions given to the "default" service account are available to any pod in the namespace that does not specify a `serviceAccountName`.
+   **NOTE:** Permissions given to the "default" service account are available to any pod in the namespace that does not specify a `serviceAccountName`.
 
    For example, grant read-only permission within "my-namespace" to the "default" service account:
    
@@ -693,7 +776,7 @@ In order from most secure to least secure, the approaches are:
    Many [add-ons](/docs/concepts/cluster-administration/addons/) currently run as the "default" service account in the "kube-system" namespace.
    To allow those add-ons to run with super-user access, grant cluster-admin permissions to the "default" service account in the "kube-system" namespace.
    
-   NOTE: Enabling this means the "kube-system" namespace contains secrets that grant super-user access to the API.
+   **NOTE:** Enabling this means the "kube-system" namespace contains secrets that grant super-user access to the API.
    
    ```shell
    kubectl create clusterrolebinding add-on-cluster-admin \
@@ -706,7 +789,7 @@ In order from most secure to least secure, the approaches are:
    If you want all applications in a namespace to have a role, no matter what service account they use,
    you can grant a role to the service account group for that namespace.
 
-   For example, grant read-only permission within "my-namespace" to to all service accounts in that namespace:
+   For example, grant read-only permission within "my-namespace" to all service accounts in that namespace:
    
    ```shell
    kubectl create rolebinding serviceaccounts-view \
@@ -731,7 +814,7 @@ In order from most secure to least secure, the approaches are:
 
    If you don't care about partitioning permissions at all, you can grant super-user access to all service accounts.
 
-   WARNING: This allows any user with read access to secrets or the ability to create a pod to access super-user credentials.
+   **WARNING:** This allows any user with read access to secrets or the ability to create a pod to access super-user credentials.
 
    ```shell
    kubectl create clusterrolebinding serviceaccounts-cluster-admin \
@@ -768,14 +851,15 @@ You can use that information to determine which roles need to be granted to whic
 Once you have [granted roles to service accounts](#service-account-permissions) and workloads are running with no RBAC denial messages
 in the server logs, you can remove the ABAC authorizer.
 
-### Permissive RBAC Permissions
+## Permissive RBAC Permissions
 
 You can replicate a permissive policy using RBAC role bindings.
 
-**WARNING: The following policy allows ALL service accounts to act as cluster administrators.
+**WARNING:** The following policy allows **ALL** service accounts to act as cluster administrators.
 Any application running in a container receives service account credentials automatically,
 and could perform any action against the API, including viewing secrets and modifying permissions.
-This is not a recommended policy.**
+This is not a recommended policy.
+{: .warning}
 
 ```
 kubectl create clusterrolebinding permissive-binding \

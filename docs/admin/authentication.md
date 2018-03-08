@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - lavalamp
 - ericchiang
@@ -25,7 +25,7 @@ cannot be added to a cluster through an API call.
 In contrast, service accounts are users managed by the Kubernetes API. They are
 bound to specific namespaces, and created automatically by the API server or
 manually through API calls. Service accounts are tied to a set of credentials
-stored as `Secrets`, which are mounted into pods allowing in cluster processes
+stored as `Secrets`, which are mounted into pods allowing in-cluster processes
 to talk to the Kubernetes API.
 
 API requests are tied to either a normal user or a service account, or are treated
@@ -178,14 +178,14 @@ If unspecified, the API server's TLS private key will be used.
 Service accounts are usually created automatically by the API server and
 associated with pods running in the cluster through the `ServiceAccount`
 [Admission Controller](/docs/admin/admission-controllers/). Bearer tokens are
-mounted into pods at well known locations, and allow in cluster processes to
+mounted into pods at well-known locations, and allow in-cluster processes to
 talk to the API server. Accounts may be explicitly associated with pods using the
 `serviceAccountName` field of a `PodSpec`.
 
 NOTE: `serviceAccountName` is usually omitted because this is done automatically.
 
 ```
-apiVersion: apps/v1beta2
+apiVersion: apps/v1 # this apiVersion is relevant as of Kubernetes 1.9
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -196,10 +196,10 @@ spec:
     metadata:
     # ...
     spec:
+      serviceAccountName: bob-the-bot
       containers:
       - name: nginx
         image: nginx:1.7.9
-        serviceAccountName: bob-the-bot
 ```
 
 Service account bearer tokens are perfectly valid to use outside the cluster and
@@ -317,7 +317,7 @@ For an identity provider to work with Kubernetes it must:
 3.  Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
 
 A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST have your identity provider's web server certificate signed by a certificate with the `CA` flag set to `TRUE`, even if it is self signed.  This is due to GoLang's TLS client implementation being very strict to the standards around certificate validation.  If you don't have a CA handy, you can use [this script](https://github.com/coreos/dex/blob/1ee5920c54f5926d6468d2607c728b71cfe98092/examples/k8s/gencert.sh) from the CoreOS team to create a simple CA and a signed certificate and key pair.
-Or you can use [this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/makecerts.sh) that generates SHA256 certs with a longer life and larger key size.
+Or you can use [this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh) that generates SHA256 certs with a longer life and larger key size.
 
 Setup instructions for specific systems:
 
@@ -422,9 +422,8 @@ contexts:
 
 When a client attempts to authenticate with the API server using a bearer token
 as discussed [above](#putting-a-bearer-token-in-a-request),
-the authentication webhook
-queries the remote service with a review object containing the token. Kubernetes
-will not challenge a request that lacks such a header.
+the authentication webhook POSTs a JSON-serialized `authentication.k8s.io/v1beta1` `TokenReview` object containing the token
+to the remote service. Kubernetes will not challenge a request that lacks such a header.
 
 Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
 as other Kubernetes API objects. Implementers should be aware of looser
@@ -432,7 +431,7 @@ compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API server must
 enable the `authentication.k8s.io/v1beta1` API extensions group (`--runtime-config=authentication.k8s.io/v1beta1=true`).
 
-The request body will be of the following format:
+The POST body will be of the following format:
 
 ```json
 {
@@ -651,6 +650,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: scopes-impersonator
+rules:
 # Can set "Impersonate-Extra-scopes" header.
 - apiGroups: ["authentication.k8s.io"]
   resources: ["userextras/scopes"]
@@ -675,7 +675,7 @@ rules:
 # Can impersonate the groups "developers" and "admins"
 - apiGroups: [""]
   resources: ["groups"]
-- verbs: ["impersonate"]
+  verbs: ["impersonate"]
   resourceNames: ["developers","admins"]
 
 # Can impersonate the extras field "scopes" with the values "view" and "development"

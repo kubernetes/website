@@ -10,7 +10,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: event-exporter-rb
-  namespace: default
   labels:
     app: event-exporter
 roleRef:
@@ -22,7 +21,7 @@ subjects:
   name: event-exporter-sa
   namespace: default
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: event-exporter-v0.1.0
@@ -30,6 +29,9 @@ metadata:
   labels:
     app: event-exporter
 spec:
+  selector:
+    matchLabels:
+      app: event-exporter
   replicas: 1
   template:
     metadata:

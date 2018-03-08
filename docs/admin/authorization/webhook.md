@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - lavalamp
 - deads2k
@@ -54,8 +54,8 @@ contexts:
 
 ## Request Payloads
 
-When faced with an authorization decision, the API Server POSTs a JSON
-serialized api.authorization.v1beta1.SubjectAccessReview object describing the
+When faced with an authorization decision, the API Server POSTs a JSON-
+serialized `authorization.k8s.io/v1beta1` `SubjectAccessReview` object describing the
 action. This object contains fields describing the user attempting to make the
 request, and either details about the resource being accessed or requests
 attributes.

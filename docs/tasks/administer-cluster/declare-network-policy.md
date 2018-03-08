@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - caseydavenport
 - danwinship
 title: Declare Network Policy

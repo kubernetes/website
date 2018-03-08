@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bgrant0607
 - mikedanese
 title: Install and Set Up kubectl
@@ -112,6 +112,19 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
+## Install with Powershell from PSGallery
+
+1. If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update with:
+
+       Install-Script -Name install-kubectl -Scope CurrentUser -Force     
+       install-kubectl.ps1 [-DownloadLocation <path>]
+       
+If no Downloadlocation is specified, kubectl will be installed in users temp Directory   
+2. The installer creates $HOME/.kube and instructs it to create a config file  
+3. Updating
+re-run Install-Script to update the installer
+re-run install-kubectl.ps1 to install latest binaries
+
 ## Install with Chocolatey on Windows
 
 1. If you are on Windows and using [Chocolatey](https://chocolatey.org) package manager, you can install with:
@@ -124,7 +137,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
        cd C:\users\yourusername (Or wherever your %HOME% directory is)
        mkdir .kube
        cd .kube
-       touch config
+       New-Item config -type file
 
 Edit the config file with a text editor of your choice, such as Notepad for example.
 
@@ -141,11 +154,15 @@ kubectl cluster-info
 ```
 If you see a URL response, kubectl is correctly configured to access your cluster.
 
-If you see a message similar to the following, kubectl is not correctly configured:
+If you see a message similar to the following, kubectl is not correctly configured or not able to connect to a Kubernetes cluster.
 
 ```shell
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
+
+For example, if you are intending to run a Kubernetes cluster on your laptop (locally), you will need a tool like minikube to be installed first and then re-run the commands stated above. 
+
+
 If kubectl cluster-info returns the url response but you can't access your cluster, to check whether it is configured properly, use:
 
 ```shell

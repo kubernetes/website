@@ -40,7 +40,7 @@ In the configuration file, you can see that the Pod has a `downwardAPI` Volume,
 and the Container mounts the Volume at `/etc`.
 
 Look at the `items` array under `downwardAPI`. Each element of the array is a
-[DownwardAPIVolumeFile](/docs/resources-reference/{{page.version}}/#downwardapivolumefile-v1-core).
+[DownwardAPIVolumeFile](/docs/api-reference/{{page.version}}/#downwardapivolumefile-v1-core).
 The first element specifies that the value of the Pod's
 `metadata.labels` field should be stored in a file named `labels`.
 The second element specifies that the value of the Pod's `annotations`
@@ -134,6 +134,11 @@ Using symbolic links enables dynamic atomic refresh of the metadata; updates are
 written to a new temporary directory, and the `..data` symlink is updated
 atomically using
 [rename(2)](http://man7.org/linux/man-pages/man2/rename.2.html).
+
+**Note:** A container using Downward API as a
+[subPath](/docs/concepts/storage/volumes/#using-subpath) volume mount will not
+receive Downward API updates.
+{: .note}
 
 Exit the shell:
 
@@ -234,11 +239,11 @@ inject the Pod's name into the well-known environment variable.
 
 {% capture whatsnext %}
 
-* [PodSpec](/docs/resources-reference/{{page.version}}/#podspec-v1-core)
-* [Volume](/docs/resources-reference/{{page.version}}/#volume-v1-core)
-* [DownwardAPIVolumeSource](/docs/resources-reference/{{page.version}}/#downwardapivolumesource-v1-core)
-* [DownwardAPIVolumeFile](/docs/resources-reference/{{page.version}}/#downwardapivolumefile-v1-core)
-* [ResourceFieldSelector](/docs/resources-reference/{{page.version}}/#resourcefieldselector-v1-core)
+* [PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core)
+* [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core)
+* [DownwardAPIVolumeSource](/docs/api-reference/{{page.version}}/#downwardapivolumesource-v1-core)
+* [DownwardAPIVolumeFile](/docs/api-reference/{{page.version}}/#downwardapivolumefile-v1-core)
+* [ResourceFieldSelector](/docs/api-reference/{{page.version}}/#resourcefieldselector-v1-core)
 
 {% endcapture %}
 

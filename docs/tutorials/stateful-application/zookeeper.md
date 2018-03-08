@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 - enisoc
 - erictune
@@ -101,7 +101,7 @@ StatefulSet controller create the StatefulSet's Pods.
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CRTL-C` to  terminate kubectl.
+Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to  terminate kubectl.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
@@ -170,7 +170,8 @@ To get the Fully Qualified Domain Name (FQDN) of each Pod in the `zk` StatefulSe
 for i in 0 1 2; do kubectl exec zk-$i -- hostname -f; done
 ```
 
-The `zk-hs` Service creates a domain for all of the Pods.
+The `zk-hs` Service creates a domain for all of the Pods, 
+`zk-hs.default.svc.cluster.local`.
 
 ```shell
 zk-0.zk-hs.default.svc.cluster.local
@@ -203,9 +204,9 @@ minSessionTimeout= 4000
 maxSessionTimeout= 40000
 autopurge.snapRetainCount=3
 autopurge.purgeInterval=0
-server.1=zk-0.zk-headless.default.svc.cluster.local:2888:3888
-server.2=zk-1.zk-headless.default.svc.cluster.local:2888:3888
-server.3=zk-2.zk-headless.default.svc.cluster.local:2888:3888
+server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
+server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
+server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 ```
 
 ### Achieving Consensus
@@ -250,7 +251,7 @@ represents a correctly configured ensemble.
 ```shell
 server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
 server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
-server.3=zk-2.zk-hsdefault.svc.cluster.local:2888:3888
+server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 ```
 
 When the servers use the Zab protocol to attempt to commit a value, they will either achieve consensus and commit the value (if leader election has succeeded and at least two of the Pods are Running and Ready), or they will fail to do so (if either of the conditions are not met). No state will arise where one server acknowledges a write on behalf of another.
@@ -320,7 +321,7 @@ Watch the termination of the Pods in the StatefulSet.
 kubectl get pods -w -l app=zk
 ```
 
-When `zk-0` if fully terminated, use `CRTL-C` to terminate kubectl.
+When `zk-0` if fully terminated, use `CTRL-C` to terminate kubectl.
 
 ```shell
 zk-2      1/1       Terminating   0         9m
@@ -350,7 +351,7 @@ Watch the StatefulSet controller recreate the StatefulSet's Pods.
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CRTL-C` to terminate kubectl.
+Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to terminate kubectl.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
@@ -725,7 +726,9 @@ The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
  livenessProbe:
           exec:
             command:
-            - "zkOk.sh"
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
           initialDelaySeconds: 15
           timeoutSeconds: 5
 ```
@@ -735,8 +738,7 @@ The probe calls a bash script that uses the ZooKeeper `ruok` four letter
 word to test the server's health.
 
 ```bash
-ZK_CLIENT_PORT=${ZK_CLIENT_PORT:-2181}
-OK=$(echo ruok | nc 127.0.0.1 $ZK_CLIENT_PORT)
+OK=$(echo ruok | nc 127.0.0.1 $1)
 if [ "$OK" == "imok" ]; then
     exit 0
 else
@@ -753,7 +755,7 @@ kubectl get pod -w -l app=zk
 In another window, using the following command to delete the `zkOk.sh` script from the file system of Pod `zk-0`.
 
 ```shell
-kubectl exec zk-0 -- rm /opt/zookeeper/bin/zkOk.sh
+kubectl exec zk-0 -- rm /usr/bin/zookeeper-ready
 ```
 
 When the liveness probe for the ZooKeeper process fails, Kubernetes will
@@ -791,7 +793,9 @@ probe from the `zookeeper.yaml` manifest is identical to the liveness probe.
  readinessProbe:
           exec:
             command:
-            - "zkOk.sh"
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
           initialDelaySeconds: 15
           timeoutSeconds: 5
 ```
@@ -842,12 +846,12 @@ This is because the Pods in the `zk` `StatefulSet` have a `PodAntiAffinity` spec
                   - key: "app"
                     operator: In
                     values:
-                    - zk-headless
+                    - zk-hs
               topologyKey: "kubernetes.io/hostname"
 ```
 
 The `requiredDuringSchedulingIgnoredDuringExecution` field tells the
-Kubernetes Scheduler that it should never co-locate two Pods from the `zk-headless`
+Kubernetes Scheduler that it should never co-locate two Pods from the `zk-hs`
 Service in the domain defined by the `topologyKey`. The `topologyKey`
 `kubernetes.io/hostname` indicates that the domain is an individual node. Using
 different rules, labels, and selectors, you can extend this technique to spread
@@ -988,7 +992,7 @@ There are pending pods when an error occurred: Cannot evict pod as it would viol
 pod/zk-2
 ```
 
-Use `CRTL-C` to terminate kubectl.
+Use `CTRL-C` to terminate to kubectl.
 
 You cannot drain the third node because evicting `zk-2` would violate `zk-budget`. However, the node will remain cordoned.
 

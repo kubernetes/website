@@ -32,7 +32,7 @@ kube-controller-manager
       --cidr-allocator-type string                                        Type of CIDR allocator to use (default "RangeAllocator")
       --cloud-config string                                               The path to the cloud provider configuration file.  Empty string for no configuration file.
       --cloud-provider string                                             The provider for cloud services.  Empty string for no provider.
-      --cluster-cidr string                                               CIDR Range for Pods in cluster.
+      --cluster-cidr string                                               CIDR Range for Pods in cluster. Requires --allocate-node-cidrs to be true
       --cluster-name string                                               The instance prefix for the cluster (default "kubernetes")
       --cluster-signing-cert-file string                                  Filename containing a PEM-encoded X509 CA certificate used to issue cluster-scoped certificates (default "/etc/kubernetes/ca/ca.pem")
       --cluster-signing-key-file string                                   Filename containing a PEM-encoded RSA or ECDSA private key used to sign cluster-scoped certificates (default "/etc/kubernetes/ca/ca.key")
@@ -49,7 +49,7 @@ kube-controller-manager
       --contention-profiling                                              Enable lock contention profiling, if profiling is enabled
       --controller-start-interval duration                                Interval between starting controller managers.
       --controllers stringSlice                                           A list of controllers to enable.  '*' enables all on-by-default controllers, 'foo' enables the controller named 'foo', '-foo' disables the controller named 'foo'.
-All controllers: attachdetach, bootstrapsigner, cronjob, csrapproving, csrsigning, daemonset, deployment, disruption, endpoint, garbagecollector, horizontalpodautoscaling, job, namespace, node, persistentvolume-binder, persistentvolume-expander, podgc, replicaset, replicationcontroller, resourcequota, route, service, serviceaccount, serviceaccount-token, statefulset, tokencleaner, ttl
+All controllers: attachdetach, bootstrapsigner, clusterrole-aggregation, cronjob, csrapproving, csrcleaner, csrsigning, daemonset, deployment, disruption, endpoint, garbagecollector, horizontalpodautoscaling, job, namespace, node, persistentvolume-binder, persistentvolume-expander, podgc, pvc-protection, replicaset, replicationcontroller, resourcequota, route, service, serviceaccount, serviceaccount-token, statefulset, tokencleaner, ttl
 Disabled-by-default controllers: bootstrapsigner, tokencleaner (default [*])
       --deployment-controller-sync-period duration                        Period for syncing the deployments. (default 30s)
       --disable-attach-detach-reconcile-sync                              Disable volume attach detach reconciler sync. Disabling this may cause volumes to be mismatched with pods. Use wisely.
@@ -59,15 +59,18 @@ Disabled-by-default controllers: bootstrapsigner, tokencleaner (default [*])
       --enable-taint-manager                                              WARNING: Beta feature. If set to true enables NoExecute Taints and will evict all not-tolerating Pod running on Nodes tainted with this kind of Taints. (default true)
       --experimental-cluster-signing-duration duration                    The length of duration signed certificates will be given. (default 8760h0m0s)
       --feature-gates mapStringBool                                       A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
-APIListChunking=true|false (ALPHA - default=false)
+APIListChunking=true|false (BETA - default=true)
 APIResponseCompression=true|false (ALPHA - default=false)
 Accelerators=true|false (ALPHA - default=false)
 AdvancedAuditing=true|false (BETA - default=true)
 AllAlpha=true|false (ALPHA - default=false)
 AllowExtTrafficLocalEndpoints=true|false (default=true)
 AppArmor=true|false (BETA - default=true)
+BlockVolume=true|false (ALPHA - default=false)
 CPUManager=true|false (ALPHA - default=false)
-CustomResourceValidation=true|false (ALPHA - default=false)
+CSIPersistentVolume=true|false (ALPHA - default=false)
+CustomPodDNS=true|false (ALPHA - default=false)
+CustomResourceValidation=true|false (BETA - default=true)
 DebugContainers=true|false (ALPHA - default=false)
 DevicePlugins=true|false (ALPHA - default=false)
 DynamicKubeletConfig=true|false (ALPHA - default=false)
@@ -79,21 +82,27 @@ HugePages=true|false (ALPHA - default=false)
 Initializers=true|false (ALPHA - default=false)
 KubeletConfigFile=true|false (ALPHA - default=false)
 LocalStorageCapacityIsolation=true|false (ALPHA - default=false)
+MountContainers=true|false (ALPHA - default=false)
 MountPropagation=true|false (ALPHA - default=false)
+PVCProtection=true|false (ALPHA - default=false)
 PersistentLocalVolumes=true|false (ALPHA - default=false)
 PodPriority=true|false (ALPHA - default=false)
+ResourceLimitsPriorityFunction=true|false (ALPHA - default=false)
 RotateKubeletClientCertificate=true|false (BETA - default=true)
 RotateKubeletServerCertificate=true|false (ALPHA - default=false)
+ServiceNodeExclusion=true|false (ALPHA - default=false)
 StreamingProxyRedirects=true|false (BETA - default=true)
-SupportIPVSProxyMode=true|false (ALPHA - default=false)
+SupportIPVSProxyMode=true|false (BETA - default=false)
 TaintBasedEvictions=true|false (ALPHA - default=false)
 TaintNodesByCondition=true|false (ALPHA - default=false)
+VolumeScheduling=true|false (ALPHA - default=false)
       --flex-volume-plugin-dir string                                     Full path of the directory in which the flex volume plugin should search for additional third party volume plugins. (default "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/")
       --google-json-key string                                            The Google Cloud Platform Service Account JSON Key to use for authentication.
       --horizontal-pod-autoscaler-downscale-delay duration                The period since last downscale, before another downscale can be performed in horizontal pod autoscaler. (default 5m0s)
       --horizontal-pod-autoscaler-sync-period duration                    The period for syncing the number of pods in horizontal pod autoscaler. (default 30s)
+      --horizontal-pod-autoscaler-tolerance float                         The minimum change (from 1.0) in the desired-to-actual metrics ratio for the horizontal pod autoscaler to consider scaling. (default 0.1)
       --horizontal-pod-autoscaler-upscale-delay duration                  The period since last upscale, before another upscale can be performed in horizontal pod autoscaler. (default 3m0s)
-      --horizontal-pod-autoscaler-use-rest-clients                        WARNING: alpha feature.  If set to true, causes the horizontal pod autoscaler controller to use REST clients through the kube-aggregator, instead of using the legacy metrics client through the API server proxy.  This is required for custom metrics support in the horizontal pod autoscaler.
+      --horizontal-pod-autoscaler-use-rest-clients                        WARNING: alpha feature.  If set to true, causes the horizontal pod autoscaler controller to use REST clients through the kube-aggregator, instead of using the legacy metrics client through the API server proxy.  This is required for custom metrics support in the horizontal pod autoscaler. (default true)
       --insecure-experimental-approve-all-kubelet-csrs-for-group string   This flag does nothing.
       --kube-api-burst int32                                              Burst to use while talking with kubernetes apiserver (default 30)
       --kube-api-content-type string                                      Content type of requests sent to apiserver. (default "application/vnd.kubernetes.protobuf")
@@ -103,7 +112,7 @@ TaintNodesByCondition=true|false (ALPHA - default=false)
       --leader-elect                                                      Start a leader election client and gain leadership before executing the main loop. Enable this when running replicated components for high availability. (default true)
       --leader-elect-lease-duration duration                              The duration that non-leader candidates will wait after observing a leadership renewal until attempting to acquire leadership of a led but unrenewed leader slot. This is effectively the maximum duration that a leader can be stopped before it is replaced by another candidate. This is only applicable if leader election is enabled. (default 15s)
       --leader-elect-renew-deadline duration                              The interval between attempts by the acting master to renew a leadership slot before it stops leading. This must be less than or equal to the lease duration. This is only applicable if leader election is enabled. (default 10s)
-      --leader-elect-resource-lock endpoints                              The type of resource object that is used for locking during leader election. Supported options are endpoints (default) and `configmap`. (default "endpoints")
+      --leader-elect-resource-lock endpoints                              The type of resource object that is used for locking during leader election. Supported options are endpoints (default) and `configmaps`. (default "endpoints")
       --leader-elect-retry-period duration                                The duration the clients should wait between attempting acquisition and renewal of a leadership. This is only applicable if leader election is enabled. (default 2s)
       --master string                                                     The address of the Kubernetes API server (overrides any value in kubeconfig)
       --min-resync-period duration                                        The resync period in reflectors will be random between MinResyncPeriod and 2*MinResyncPeriod (default 12h0m0s)
@@ -128,7 +137,7 @@ TaintNodesByCondition=true|false (ALPHA - default=false)
       --route-reconciliation-period duration                              The period for reconciling routes created for Nodes by cloud provider. (default 10s)
       --secondary-node-eviction-rate float32                              Number of nodes per second on which pods are deleted in case of node failure when a zone is unhealthy (see --unhealthy-zone-threshold for definition of healthy/unhealthy). Zone refers to entire cluster in non-multizone clusters. This value is implicitly overridden to 0 if the cluster size is smaller than --large-cluster-size-threshold. (default 0.01)
       --service-account-private-key-file string                           Filename containing a PEM-encoded private RSA or ECDSA key used to sign service account tokens.
-      --service-cluster-ip-range string                                   CIDR Range for Services in cluster.
+      --service-cluster-ip-range string                                   CIDR Range for Services in cluster. Requires --allocate-node-cidrs to be true
       --service-sync-period duration                                      The period for syncing services with their external load balancers (default 5m0s)
       --terminated-pod-gc-threshold int32                                 Number of terminated pods that can exist before the terminated pod garbage collector starts deleting terminated pods. If <= 0, the terminated pod garbage collector is disabled. (default 12500)
       --unhealthy-zone-threshold float32                                  Fraction of Nodes in a zone which needs to be not Ready (minimum 3) for zone to be treated as unhealthy.  (default 0.55)
@@ -136,4 +145,4 @@ TaintNodesByCondition=true|false (ALPHA - default=false)
       --version version[=true]                                            Print version information and quit
 ```
 
-###### Auto generated by spf13/cobra on 27-Sep-2017
+###### Auto generated by spf13/cobra on 12-Dec-2017

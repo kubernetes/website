@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - soltysh
 title: Jobs - Run to Completion
@@ -240,8 +240,6 @@ spec:
   backoffLimit: 5
   activeDeadlineSeconds: 100
   template:
-    metadata:
-      name: pi
     spec:
       containers:
       - name: pi

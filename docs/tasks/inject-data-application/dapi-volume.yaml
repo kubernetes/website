@@ -12,19 +12,19 @@ metadata:
 spec:
   containers:
     - name: client-container
-      image: gcr.io/google_containers/busybox
+      image: k8s.gcr.io/busybox
       command: ["sh", "-c"]
       args:
       - while true; do
-          if [[ -e /etc/labels ]]; then 
-            echo -en '\n\n'; cat /etc/labels; fi;
-          if [[ -e /etc/annotations ]]; then
-            echo -en '\n\n'; cat /etc/annotations; fi;
+          if [[ -e /etc/podinfo/labels ]]; then
+            echo -en '\n\n'; cat /etc/podinfo/labels; fi;
+          if [[ -e /etc/podinfo/annotations ]]; then
+            echo -en '\n\n'; cat /etc/podinfo/annotations; fi;
           sleep 5;
         done;
       volumeMounts:
         - name: podinfo
-          mountPath: /etc
+          mountPath: /etc/podinfo
           readOnly: false
   volumes:
     - name: podinfo

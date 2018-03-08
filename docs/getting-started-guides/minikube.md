@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - dlorenc
 - r2d4
 - aaron-prindle
@@ -18,7 +18,7 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
   * NodePorts
   * ConfigMaps and Secrets
   * Dashboards
-  * Container Runtime: Docker, and [rkt](https://github.com/coreos/rkt)
+  * Container Runtime: Docker, [rkt](https://github.com/rkt/rkt) and [CRI-O](https://github.com/kubernetes-incubator/cri-o)
   * Enabling CNI (Container Network Interface)
   * Ingress
 
@@ -35,7 +35,8 @@ the following drivers:
 * virtualbox
 * vmwarefusion
 * kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
-* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver))
+* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
 
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 
@@ -46,7 +47,7 @@ Running pre-create checks...
 Creating machine...
 Starting local Kubernetes cluster...
 
-$ kubectl run hello-minikube --image=gcr.io/google_containers/echoserver:1.4 --port=8080
+$ kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.4 --port=8080
 deployment "hello-minikube" created
 $ kubectl expose deployment hello-minikube --type=NodePort
 service "hello-minikube" exposed
@@ -56,7 +57,7 @@ service "hello-minikube" exposed
 # To check whether the pod is up and running we can use the following:
 $ kubectl get pod
 NAME                              READY     STATUS              RESTARTS   AGE
-hello-minikube-3383150820-vctvh   1/1       ContainerCreating   0          3s
+hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
 # We can see that the pod is still being created from the ContainerCreating status
 $ kubectl get pod
 NAME                              READY     STATUS    RESTARTS   AGE
@@ -75,15 +76,38 @@ Stopping local Kubernetes cluster...
 Stopping "minikube"...
 ```
 
-### Using rkt container engine
+### Alternative Container Runtimes
 
-To use [rkt](https://github.com/coreos/rkt) as the container runtime run:
+#### CRI-O
+
+To use [CRI-O](https://github.com/kubernetes-incubator/cri-o) as the container runtime, run:
+
+```bash
+$ minikube start \
+    --network-plugin=cni \
+    --container-runtime=cri-o \
+    --bootstrapper=kubeadm
+```
+
+Or you can use the extended version:
+
+```bash
+$ minikube start \
+    --network-plugin=cni \
+    --extra-config=kubelet.container-runtime=remote \
+    --extra-config=kubelet.container-runtime-endpoint=/var/run/crio.sock \
+    --extra-config=image-service-endpoint=/var/run/crio.sock \
+    --bootstrapper=kubeadm
+```
+
+#### rkt container engine
+
+To use [rkt](https://github.com/rkt/rkt) as the container runtime run:
 
 ```shell
 $ minikube start \
     --network-plugin=cni \
-    --container-runtime=rkt \
-    --iso-url=https://github.com/coreos/minikube-iso/releases/download/v0.0.5/minikube-v0.0.5.iso
+    --container-runtime=rkt
 ```
 
 This will use an alternative minikube ISO image containing both rkt, and Docker, and enable CNI networking.
@@ -137,7 +161,7 @@ This command also configures your [kubectl](/docs/user-guide/kubectl-overview/) 
 If you are behind a web proxy, you will need to pass this information in e.g. via
 
 ```
-https_proxy=<my proxy> minikube start --docker-env HTTP_PROXY=<my proxy> --docker-env HTTPS_PROXY=<my proxy> --docker-env NO_PROXY=192.168.99.0/24
+https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
 ```
 
 Unfortunately just setting the environment variables will not work.
@@ -188,7 +212,7 @@ To change the `MaxPods` setting to 5 on the Kubelet, pass this flag: `--extra-co
 
 This feature also supports nested structs. To change the `LeaderElection.LeaderElect` setting to `true` on the scheduler, pass this flag: `--extra-config=scheduler.LeaderElection.LeaderElect=true`.
 
-To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--extra-config=apiserver.AuthorizationMode=RBAC`.
+To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--extra-config=apiserver.Authorization.Mode=RBAC`.
 
 ### Stopping a Cluster
 The `minikube stop` command can be used to stop your cluster.
@@ -274,7 +298,7 @@ Some drivers will mount a host folder within the VM so that you can easily share
 | VirtualBox | Linux | /home | /hosthome |
 | VirtualBox | OSX | /Users | /Users |
 | VirtualBox | Windows | C://Users | /c/Users |
-| VMWare Fusion | OSX | /Users | /Users |
+| VMware Fusion | OSX | /Users | /Users |
 | Xhyve | OSX | /Users | /Users |
 
 
@@ -302,8 +326,8 @@ To do this, pass the required environment variables as flags during `minikube st
 For example:
 
 ```shell
-$ minikube start --docker-env HTTP_PROXY=http://$YOURPROXY:PORT \
-                 --docker-env HTTPS_PROXY=https://$YOURPROXY:PORT
+$ minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
+                 --docker-env https_proxy=https://$YOURPROXY:PORT
 ```
 
 If your Virtual Machine address is 192.168.99.100, then chances are your proxy settings will prevent kubectl from directly reaching it.

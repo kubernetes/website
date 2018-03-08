@@ -108,7 +108,7 @@ spec:
   containers:
   - args:
     - /server
-    image: gcr.io/google_containers/liveness
+    image: k8s.gcr.io/liveness
     livenessProbe:
       httpGet:
         # when "host" is not defined, "PodIP" will be used

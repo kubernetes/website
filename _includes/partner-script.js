@@ -11,8 +11,8 @@
 			type: 0,
 			name: 'Puppet',
 			logo: 'puppet',
-			link: 'https://puppet.com/blog/managing-kubernetes-configuration-puppet',
-			blurb: 'The Puppet module for Kubernetes makes it easy to manage Pods, Replication Controllers, Services and more in Kubernetes, and to build domain-specific interfaces to one\'s Kubernetes configuration.'
+			link: 'https://puppet.com/blog/announcing-kream-and-new-kubernetes-helm-and-docker-modules',
+			blurb: 'We\'ve developed tools and products to make your adoption of Kubernetes as efficient as possible, covering your full workflow cycle from development to production. And now Puppet Pipelines for Containers is your complete DevOps dashboard for Kubernetes.'
 		},
 		{
 			type: 0,
@@ -43,7 +43,7 @@
 			blurb: 'Powering the GIFEE (Google’s Infrastructure for Everyone Else), to run OpenStack deployments on Kubernetes.'
 		},
 		{
-			type: 0,
+			type: 3,
 			name: 'Platform9',
 			logo: 'platform9',
 			link: 'https://platform9.com/products/kubernetes/',
@@ -131,7 +131,7 @@
 			name: 'Hasura',
 			logo: 'hasura',
 			link: 'https://hasura.io',
-			blurb: 'Hasura - Hasura'
+			blurb: 'Hasura is a Kubernetes-based PaaS and a Postgres-based BaaS that accelerates app development with ready-to-use components.'
 				},
 		{
  			type: 3,
@@ -463,11 +463,25 @@
 			blurb: 'Kublr - Accelerate and control the deployment, scaling, monitoring and management of your containerized applications.'
 			},
 		{
+			type: 1,
+			name: 'ControlPlane',
+			logo: 'controlplane',
+			link: 'https://control-plane.io',
+			blurb: 'We are a London-based Kubernetes consultancy with a focus on security and continuous delivery. We offer consulting & training.'
+			},
+		{
 			type: 3,
 			name: 'Nirmata',
 			logo: 'nirmata',
 			link: 'https://www.nirmata.com/',
 			blurb: 'Nirmata - Nirmata Managed Kubernetes'
+				},
+		{
+			type: 2,
+			name: 'Nirmata',
+			logo: 'nirmata',
+			link: 'https://www.nirmata.com/',
+			blurb: 'Nirmata is a software platform that helps DevOps teams deliver enterprise-grade and cloud-provider agnostic Kubernetes based container management solutions.'
 				},
 		{
 			type: 3,
@@ -477,11 +491,11 @@
 			blurb: 'TenxCloud - TenxCloud Container Engine (TCE)'
 				},
 		{
-			type: 3,
+			type: 0,
 			name: 'Twistlock',
 			logo: 'twistlock',
 			link: 'https://www.twistlock.com/',
-			blurb: 'Twistlock - Twistlock'
+			blurb: 'Security at Kubernetes Scale: Twistlock allows you to deploy fearlessly with assurance that your images and containers are free of vulnerabilities and protected at runtime.'
 				},
 		{
 			type: 0,
@@ -519,7 +533,7 @@
 			blurb: 'CloudKite.io helps companies build and maintain highly automated, resilient, and impressively performing software on Kubernetes.'
 			},
 		{
-			type: 1,
+			type: 2,
 			name: 'CloudOps',
 			logo: 'CloudOps',
 			link: 'https://www.cloudops.com/services/docker-and-kubernetes-workshops/',
@@ -527,6 +541,13 @@
 			},
 		{
 			type: 2,
+			name: 'Ghostcloud',
+			logo: 'ghostcloud',
+			link: 'https://www.ghostcloud.cn/ecos-kubernetes',
+			blurb: 'EcOS is an enterprise-grade PaaS / CaaS based on Docker and Kubernetes, which makes it easier to configure, deploy and manage containerized applications.'
+			},
+		{
+			type: 3,
 			name: 'Ghostcloud',
 			logo: 'ghostcloud',
 			link: 'https://www.ghostcloud.cn/ecos-kubernetes',
@@ -561,7 +582,7 @@
 			blurb: 'Container security solution for small-to-medium size enterprises who plan to run Kubernetes on shared infrastructure.'
 				},
 		{
-			type: 1,
+			type: 2,
 			name: 'Creationline, Inc.',
 			logo: 'creationline',
 			link: 'https://www.creationline.com/ci',
@@ -684,7 +705,7 @@
 			name: 'Codefresh',
 			logo: 'codefresh',
 			link: 'https://codefresh.io/kubernetes-deploy/',
-			blurb: 'Codefresh is a complete tool chain for delivering containers to Kubernetes.'
+			blurb: 'Codefresh is a complete DevOps platform built for containers and Kubernetes. With CI/CD pipelines, image management, and deep integrations into Kubernetes and Helm.'
 				},
 		{
 			type: 0,
@@ -703,7 +724,7 @@
 		{
 			type: 3,
 			name: 'Google Kubernetes Engine',
-			logo: 'gcp',
+			logo: 'google',
 			link: 'https://cloud.google.com/kubernetes-engine/',
 			blurb: 'Google - Google Kubernetes Engine'
 				},
@@ -864,7 +885,7 @@
 		{
 			type: 3,
 			name: 'Google',
-			logo: 'gcp',
+			logo: 'google',
 			link: 'https://github.com/kubernetes/kubernetes/tree/master/cluster',
 			blurb: 'Google - kube-up.sh on Google Compute Engine'
 				},
@@ -883,11 +904,25 @@
 			blurb: 'Netease - Netease Container Service Dedicated'
 				},
 		{
+			type: 2,
+			name: 'Loodse',
+			logo: 'loodse',
+			link: 'https://loodse.com',
+			blurb: 'Loodse provides Kubernetes training & consulting, and host related events regularly across Europe.'
+				},
+		{
 			type: 3,
 			name: 'Loodse',
 			logo: 'loodse',
 			link: 'https://loodse.com',
 			blurb: 'Loodse - Kubermatic Container Engine'
+				},
+		{
+			type: 1,
+			name: 'LTI',
+			logo: 'lti',
+			link: 'https://www.lntinfotech.com/',
+			blurb: 'LTI helps enterprises architect, develop and support scalable cloud native apps using Docker and Kubernetes for private or public cloud.'
 				},
 		{
 			type: 3,
@@ -902,7 +937,7 @@
 			logo: 'microsoft',
 			link: 'https://docs.microsoft.com/en-us/azure/aks/',
 			blurb: 'Microsoft - Azure Container Service AKS'
-						},
+			  },
 		{
 			type: 3,
 			name: 'Oracle',
@@ -968,6 +1003,13 @@
 				},
 		{
 			type: 3,
+			name: 'Joyent',
+			logo: 'joyent',
+			link: 'https://github.com/joyent/triton-kubernetes',
+			blurb: 'Joyent - Triton Kubernetes'
+				},
+		{
+			type: 3,
 			name: 'Wise2c',
 			logo: 'wise2c',
 			link: 'http://www.wise2c.com/solution',
@@ -993,6 +1035,13 @@
 			logo: 'daocloud',
 			link: 'http://www.daocloud.io/dce',
 			blurb: 'DaoCloud - DaoCloud Enterprise'
+				},
+		{
+			type: 2,
+			name: 'Daocloud',
+			logo: 'daocloud',
+			link: 'http://www.daocloud.io/dce',
+			blurb: 'We provide enterprise-level cloud native application platform that supports both Kubernetes and Docker Swarm.'
 				},
 		{
 			type: 3,
@@ -1076,7 +1125,7 @@
 			name: 'Pure Storage',
 			logo: 'pure_storage',
 			link: 'https://hub.docker.com/r/purestorage/k8s/',
-			blurb: 'Our flexvol driver and dynamic provisioner allow FlashArray/Flashblade storage devices to be consumed as first class persistent storage from within Kuberentes.'
+			blurb: 'Our flexvol driver and dynamic provisioner allow FlashArray/Flashblade storage devices to be consumed as first class persistent storage from within Kubernetes.'
 				},
 		{
 			type: 0,
@@ -1089,7 +1138,7 @@
 			type: 0,
 			name: 'Portworx',
 			logo: 'portworx',
-			link: 'https://docs.portworx.com/scheduler/kubernetes/install.html',
+			link: 'https://portworx.com/use-case/kubernetes-storage/',
 			blurb: 'With Portworx, you can manage any database or stateful service on any infrastructure using Kubernetes. You get a single data management layer for all of your stateful services, no matter where they run.'
 				},
 		{
@@ -1126,6 +1175,181 @@
 			logo: 'dataspine',
 			link: 'http://dataspine.xyz/',
 			blurb: 'Dataspine is building a secure, elastic and serverless deployment platform for production ML/AI workloads on top of k8s.'
+				},
+		{
+			type: 1,
+			name: 'CloudBourne',
+			logo: 'cloudbourne',
+			link: 'https://cloudbourne.com/kubernetes-enterprise-hybrid-cloud/',
+			blurb: 'Want to achieve maximum build, deploy and monitoring automation using Kubernetes? We can help.'
+				},
+		{
+			type: 0,
+			name: 'CloudBourne',
+			logo: 'cloudbourne',
+			link: 'https://cloudbourne.com/',
+			blurb: 'Our AppZ Hybrid Cloud Platform can help you achieve your digital transformation goals using the powerful Kubernetes.'
+				},
+		{
+			type: 3,
+			name: 'BoCloud',
+			logo: 'bocloud',
+			link: 'http://www.bocloud.com.cn/en/index.html',
+			blurb: 'BoCloud - BeyondcentContainer'
+				},
+		{
+			type: 2,
+			name: 'Naitways',
+			logo: 'naitways',
+			link: 'https://www.naitways.com/',
+			blurb: 'Naitways is an Operator (AS57119), Integrator and Cloud Services Provider (our own !). We aim to provide value-added services through our mastering of the whole value chain (Infrastructure, Network, Human skills). Private and Public Cloud is available through Kubernetes managed or unmanaged.'
+				},
+		{
+			type: 2,
+			name: 'Kinvolk',
+			logo: 'kinvolk',
+			link: 'https://kinvolk.io/kubernetes/',
+			blurb: 'Kinvolk offers Kubernetes engineering & operations support from cluster to kernel. Leading cloud-native organizations turn to Kinvolk for deep-stack Linux expertise.'
+				},
+		{
+			type: 1,
+			name: 'Cascadeo Corporation',
+			logo: 'cascadeo',
+			link: 'http://www.cascadeo.com/',
+			blurb: 'Cascadeo designs, implements, and manages containerized workloads with Kubernetes, for both existing applications and greenfield development projects.'
+				},
+		{
+			type: 1,
+			name: 'Elastisys AB',
+			logo: 'elastisys',
+			link: 'https://elastisys.com/services/#kubernetes',
+			blurb: 'We design, build, and operate Kubernetes clusters. We are experts in highly available and self-optimizing Kubernetes infrastructures'
+				},
+		{
+			type: 1,
+			name: 'Greenfield Guild',
+			logo: 'greenfield',
+			link: 'http://greenfieldguild.com/',
+			blurb: 'The Greenfield Guild builds quality open source solutions on, and offers training and support for, Kubernetes in any environment.'
+				},
+		{
+			type: 1,
+			name: 'PolarSeven',
+			logo: 'polarseven',
+			link: 'https://polarseven.com/what-we-do/kubernetes/',
+			blurb: 'To get started up and running with Kubernetes (K8s) our PolarSeven consultants can help you with creating a fully functional dockerized environment to run and deploy your applications.'
+				},
+		{
+			type: 1,
+			name: 'Kloia',
+			logo: 'kloia',
+			link: 'https://devops-as-a-service.kloia.com/',
+			blurb: 'Kloia is DevOps and Microservices Consultancy company that helps its customers to migrate their environment to cloud platforms for enabling more scalable and secure environments. We use Kubernetes to provide our customers all-in-one solutions in an cloud-agnostic way.'
+				},
+		{
+			type: 0,
+			name: 'Bluefyre',
+			logo: 'bluefyre',
+			link: 'https://www.bluefyre.io',
+			blurb: 'Bluefyre offers a developer-first security platform that is native to Kubernetes. Bluefyre helps your development team ship secure code on Kubernetes faster!'
+				},
+		{
+			type: 0,
+			name: 'Harness',
+			logo: 'harness',
+			link: 'https://harness.io/harness-continuous-delivery/secret-sauce/smart-automation/',
+			blurb: 'Harness offers Continuous Delivery As-A-Service will full support for containerized apps and Kubernetes clusters.'
+				},
+		{
+			type: 0,
+			name: 'VMware - Wavefront',
+			logo: 'wavefront',
+			link: 'https://www.wavefront.com/solutions/container-monitoring/',
+			blurb: 'The Wavefront platform provides metrics-driven analytics and monitoring for  Kubernetes and container dashboards for DevOps and developer teams delivering visibility into high-level services as well as granular container metrics.'
+				},
+		{
+			type: 0,
+			name: 'Bloombase, Inc.',
+			logo: 'bloombase',
+			link: 'https://www.bloombase.com/go/kubernetes',
+			blurb: 'Bloombase provides high bandwidth, defense-in-depth data-at-rest encryption to lock down Kubernetes crown-jewels at scale.'
+				},
+		{
+			type: 0,
+			name: 'Kloia',
+			logo: 'kloia',
+			link: 'https://docs.codefresh.io/docs/codefresh-kubernetes-integration-beta',
+			blurb: 'Kloia is DevOps and Microservices Consultancy company that helps its customers to migrate their environment to cloud platforms for enabling more scalable and secure environments. We use Kubernetes to provide our customers all-in-one solutions in an cloud-agnostic way.'
+				},
+		{
+			type: 0,
+			name: 'Kasten',
+			logo: 'kasten',
+			link: 'https://kasten.io/product/',
+			blurb: 'Kasten provides enterprise solutions specifically built to address the operational complexity of data management in cloud-native environments.'
+				},
+		{
+			type: 0,
+			name: 'Humio',
+			logo: 'humio',
+			link: 'https://humio.com',
+			blurb: 'Humio is a log aggregation database. We offer a Kubernetes integration that will give you insights to your logs across apps and instances.'
+				},
+		{
+			type: 0,
+			name: 'Outcold Solutions LLC',
+			logo: 'outcold',
+			link: 'https://www.outcoldsolutions.com/#monitoring-kubernetes',
+			blurb: 'Powerful Certified Splunk applications for Monitoring OpenShift, Kubernetes and Docker.'
+				},
+		{
+			type: 0,
+			name: 'SysEleven GmbH',
+			logo: 'syseleven',
+			link: 'http://www.syseleven.de/',
+			blurb: 'Enterprise Customers who are in need of bulletproof operations (High Performance E-Commerce and Enterprise Portals)'
+				},
+		{
+			type: 0,
+			name: 'Landoop',
+			logo: 'landoop',
+			link: 'http://lenses.stream',
+			blurb: 'Lenses for Apache Kafka, to deploy, manage and operate with confidence data streaming pipelines and topologies at scale with confidence and native Kubernetes integration.'
+				},
+		{
+			type: 0,
+			name: 'Redis Labs',
+			logo: 'redis',
+			link: 'https://redislabs.com/blog/getting-started-with-kubernetes-and-redis-using-redis-enterprise/',
+			blurb: 'Redis Enterprise extends open source Redis and delivers stable high performance and linear scaling required for building microservices on the Kubernetes platform.'
+				},
+		{
+			type: 3,
+			name: 'Diamanti',
+			logo: 'diamanti',
+			link: 'https://diamanti.com/',
+			blurb: 'Diamanti - Diamanti-D10'
+				},
+		{
+			type: 3,
+			name: 'Eking',
+			logo: 'eking',
+			link: 'http://www.eking-tech.com/',
+			blurb: 'Hainan eKing Technology Co. - eKing Cloud Container Platform'
+				},
+		{
+			type: 3,
+			name: 'Harmony Cloud',
+			logo: 'harmony',
+			link: 'http://harmonycloud.cn/products/rongqiyun/',
+			blurb: 'Harmonycloud - Harmonycloud Container Platform'
+				},
+		{
+			type: 3,
+			name: 'ZTE',
+			logo: 'zte',
+			link: 'https://sdnfv.zte.com.cn/zh-CN/home',
+			blurb: 'ZTE - TECS OpenPalette'
 				},
 		{
 			type: 0,

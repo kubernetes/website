@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jsafrane
 - mikedanese
 - saad-ali
@@ -49,7 +49,7 @@ volume type used.
 
 To use a volume, a pod specifies what volumes to provide for the pod (the
 `spec.volumes`
-field) and where to mount those into containers(the
+field) and where to mount those into containers (the
 `spec.containers.volumeMounts`
 field).
 
@@ -69,6 +69,8 @@ Kubernetes supports several types of Volumes:
    * `azureDisk`
    * `azureFile`
    * `cephfs`
+   * `configMap`
+   * `csi`
    * `downwardAPI`
    * `emptyDir`
    * `fc` (fibre channel)
@@ -104,7 +106,7 @@ between pods.
 **Important:** You must create an EBS volume using `aws ec2 create-volume` or the AWS API before you can use it.
 {: .caution}
 
-There are some restrictions when using an awsElasticBlockStore volume:
+There are some restrictions when using an `awsElasticBlockStore` volume:
 
 * the nodes on which pods are running must be AWS EC2 instances
 * those instances need to be in the same region and availability-zone as the EBS volume
@@ -130,7 +132,7 @@ metadata:
   name: test-ebs
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-ebs
@@ -170,10 +172,57 @@ writers simultaneously.
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/volumes/cephfs/) for more details.
 
+### configMap
+
+The [`configMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/) resource
+provides a way to inject configuration data into Pods.
+The data stored in a `ConfigMap` object can be referenced in a volume of type
+`configMap` and then consumed by containerized applications running in a Pod.
+
+When referencing a `configMap` object, you can simply provide its name in the
+volume to reference it. You can also customize the path to use for a specific
+entry in the ConfigMap.
+For example, to mount the `log-config` ConfigMap onto a Pod called `configmap-pod`,
+you might use the YAML below:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-pod
+spec:
+  containers:
+    - name: test
+      image: busybox
+      volumeMounts:
+        - name: config-vol
+          mountPath: /etc/config
+  volumes:
+    - name: config-vol
+      configMap:
+        name: log-config
+        items:
+          - key: log_level
+            path: log_level
+```
+
+The `log-config` ConfigMap is mounted as a volume, and all contents stored in
+its `log_level` entry are mounted into the Pod at path "`/etc/config/log_level`".
+Note that this path is derived from the volume's `mountPath` and the `path`
+keyed with `log_level`.
+
+**Note:** A container using a ConfigMap as a [subPath](#using-subpath) volume mount will not
+receive ConfigMap updates.
+{: .note}
+
 ### downwardAPI
 
 A `downwardAPI` volume is used to make downward API data available to applications.
 It mounts a directory and writes the requested data in plain text files.
+
+**Note:** A container using Downward API as a [subPath](#using-subpath) volume mount will not
+receive Downward API updates.
+{: .note}
 
 See the [`downwardAPI` volume example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)  for more details.
 
@@ -213,7 +262,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /cache
@@ -293,7 +342,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-pd
@@ -359,8 +408,8 @@ For example, some uses for a `hostPath` are:
 
 * running a container that needs access to Docker internals; use a `hostPath`
   of `/var/lib/docker`
-* running cAdvisor in a container; use a `hostPath` of `/dev/cgroups`
-* allowing a pod to specify whether a given hostPath should exist prior to the
+* running cAdvisor in a container; use a `hostPath` of `/sys`
+* allowing a pod to specify whether a given `hostPath` should exist prior to the
   pod running, whether it should be created, and what it should exist as
 
 In addition to the required `path` property, user can optionally specify a `type` for a `hostPath` volume.
@@ -399,7 +448,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-pd
@@ -434,16 +483,22 @@ See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{page.githu
 
 ### local
 
-This volume type is alpha in 1.7.
+{% assign for_k8s_version="v1.7" %}{% include feature-state-alpha.md %}
+
+This alpha feature requires the `PersistentLocalVolumes` feature gate to be
+enabled.
+
+**Note:** Starting in 1.9, the `VolumeScheduling` feature gate must also be enabled.
+{: .note}
 
 A `local` volume represents a mounted local storage device such as a disk,
 partition or directory.
 
 Local volumes can only be used as a statically created PersistentVolume.
 
-Compared to HostPath volumes, local volumes can be used in a durable manner
+Compared to `hostPath` volumes, local volumes can be used in a durable manner
 without manually scheduling pods to nodes, as the system is aware of the volume's
-node constraints.
+node constraints by looking at the node affinity on the PersistentVolume.
 
 However, local volumes are still subject to the availability of the underlying
 node and are not suitable for all applications.
@@ -480,6 +535,13 @@ spec:
 
 **Note:** The local PersistentVolume cleanup and deletion requires manual intervention without the external provisioner.
 {: .note}
+
+Starting in 1.9, local volume binding can be delayed until pod scheduling by
+creating a StorageClass with `volumeBindingMode` set to `WaitForFirstConsumer`.
+See the [example](storage-classes.md#local). Delaying volume binding ensures
+that the volume binding decision will also be evaluated with any other node
+constraints the pod may have, such as node resource requirements, node
+selectors, pod affinity, and pod anti-affinity.
 
 For details on the `local` volume type, see the [Local Persistent Storage
 user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).
@@ -601,6 +663,10 @@ parameters are nearly the same with two exceptions:
   volume source. However, as illustrated above, you can explicitly set the `mode`
   for each individual projection.
 
+**Note:** A container using a projected volume source as a [subPath](#using-subpath) volume mount will not
+receive updates for those volume sources.
+{: .note}
+
 ### portworxVolume
 
 A `portworxVolume` is an elastic block storage layer that runs hyperconverged with
@@ -619,7 +685,7 @@ metadata:
   name: test-portworx-volume-pod
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /mnt
@@ -690,7 +756,7 @@ metadata:
   name: pod-0
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: pod-0
     volumeMounts:
     - mountPath: /test-pd
@@ -720,6 +786,10 @@ non-volatile storage.
 
 **Important:** You must create a secret in the Kubernetes API before you can use it.
 {: .caution}
+
+**Note:** A container using a Secret as a [subPath](#using-subpath) volume mount will not
+receive Secret updates.
+{: .note}
 
 Secrets are described in more detail [here](/docs/user-guide/secrets).
 
@@ -778,7 +848,7 @@ For more information including Dynamic Provisioning and Persistent Volume Claims
 ### vsphereVolume
 
 **Prerequisite:** Kubernetes with vSphere Cloud Provider configured. For cloudprovider
-configuration please refer [vSphere getting started guide](/docs/getting-started-guides/vsphere/).
+configuration please refer [vSphere getting started guide](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/).
 {: .note}
 
 A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
@@ -820,7 +890,7 @@ metadata:
   name: test-vmdk
 spec:
   containers:
-  - image: gcr.io/google_containers/test-webserver
+  - image: k8s.gcr.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-vmdk
@@ -888,15 +958,49 @@ several media types.
 ## Out-of-Tree Volume Plugins
 In addition to the previously listed volume types, storage vendors may create
 custom plugins without adding it to the Kubernetes repository. This can be
-achieved by using the `FlexVolume` plugin.
+achieved by using either the `CSI` plugin or the `FlexVolume` plugin.
 
+For storage vendors looking to create an out-of-tree volume plugin, [please refer to this FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md) for choosing between the plugin options.
+
+### CSI
+
+CSI stands for [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md),
+a specification attempting to establish an industry standard interface that
+container orchestration systems can use to expose arbitrary storage systems
+to their container workloads.
+Please read
+[CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for further information.
+
+<!-- TODO: add link to the kubernetes extension section -->
+The `csi` volume type is an in-tree CSI volume plugin for Pods to interact
+with external CSI volume drivers running on the same node.
+After having deployed a CSI compatible volume driver, users can use `csi` as the
+volume type to mount the storage provided by the driver.
+
+CSI persistent volume support is an alpha feature in Kubernetes v1.9 and requires a
+cluster administrator to enable it. To enable CSI persistent volume support, the
+cluster administrator adds `CSIPersistentVolume=true` to the `--feature-gates` flag
+for apiserver, controller-manager, and kubelet.
+
+The following fields are available to storage administrators to configure a CSI
+persistent volume:
+
+- `driver`: A string value that specifies the name of the volume driver to use.
+  It has to be less than 63 characters and starts with a character. The driver
+  name can have '`.`', '`-`', '`_`' or digits in it.
+- `volumeHandle`: A string value that uniquely identify the volume name returned
+  from the CSI volume plugin's `CreateVolume` call. The volume handle is then
+  used in all subsequent calls to the volume driver for referencing the volume.
+- `readOnly`: An optional boolean value indicating whether the volume is to be
+  published as read only. Default is false.
+
+### FlexVolume
 `FlexVolume` enables users to mount vendor volumes into a pod. The vendor plugin
 is implemented using a driver, an executable supporting a list of volume commands
 defined by the `FlexVolume` API. Drivers must be installed in a pre-defined
-volume plugin path on each node. This is an alpha feature and may change in future.
+volume plugin path on each node. Pods interact with FlexVolume drivers through the `flexVolume` in-tree plugin.
 
 More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md).
-
 
 ## Mount propagation
 
@@ -907,13 +1011,14 @@ redesigned or even removed in future releases.
 Mount propagation allows for sharing volumes mounted by a Container to
 other Containers in the same Pod, or even to other Pods on the same node.
 
-If the MountPropagation feature is disabled, volume mounts in pods are not propagated.
+If the "`MountPropagation`" feature is disabled, volume mounts in pods are not propagated.
 That is, Containers run with `private` mount propagation as described in the
 [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt).
 
 To enable this feature, specify `MountPropagation=true` in the
-`--feature-gates` command line option. When enabled, the `volumeMounts` field
-of a Container has a new `mountPropagation` subfield. Its values are:
+`--feature-gates` command line option for the API server and kubelets.
+When enabled, the `volumeMounts` field of a Container has a new
+`mountPropagation` subfield. Its values are:
 
  * `HostToContainer` - This volume mount will receive all subsequent mounts
    that are mounted to this volume or any of its subdirectories. This is
@@ -933,8 +1038,8 @@ of a Container has a new `mountPropagation` subfield. Its values are:
    In addition, all volume mounts created by the Container will be propagated
    back to the host and to all Containers of all Pods that use the same volume.
 
-   A typical use case for this mode is a Pod with a Flex volume driver or
-   a Pod that needs to mount something on the host using a HostPath volume.
+   A typical use case for this mode is a Pod with a `FlexVolume` driver or
+   a Pod that needs to mount something on the host using a `hostPath` volume.
 
    This mode is equal to `rshared` mount propagation as described in the
    [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)

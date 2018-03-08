@@ -34,7 +34,6 @@ why you might want multiple clusters are:
 * Fault isolation: It might be better to have multiple small clusters rather
   than a single large  cluster for fault isolation (for example: multiple
   clusters in different availability zones of a cloud provider).
-  See [Multi cluster guide](/docs/concepts/cluster-administration/federation/) for details.
 * Scalability: There are scalability limits to a single kubernetes cluster (this
   should not be the case for most users. For more details:
   [Kubernetes Scaling and Performance Goals](https://git.k8s.io/community/sig-scalability/goals.md)).
@@ -57,18 +56,14 @@ some caveats:
   on the side of safety and avoiding multi-cluster outage.
 * Maturity: The federation project is relatively new and is not very mature.
   Not all resources are available and many are still alpha. [Issue
-  38893](https://github.com/kubernetes/kubernetes/issues/38893) enumerates
+  88](https://github.com/kubernetes/federation/issues/88) enumerates
   known issues with the system that the team is busy solving.
 
 ### Hybrid cloud capabilities
 
 Federations of Kubernetes Clusters can include clusters running in
 different cloud providers (e.g. Google Cloud, AWS), and on-premises
-(e.g. on OpenStack). Simply create all of the clusters that you
-require, in the appropriate cloud providers and/or locations, and
-register each cluster's API endpoint and credentials with your
-Federation API Server (See the
-[federation admin guide](/docs/admin/federation/) for details).
+(e.g. on OpenStack). [Kubefed](https://kubernetes.io/docs/tasks/federation/set-up-cluster-federation-kubefed/) is the recommended way to deploy federated clusters.
 
 Thereafter, your [API resources](#api-resources) can span different clusters
 and cloud providers.
@@ -99,7 +94,8 @@ The following guides explain some of the resources in detail:
 * [Secrets](/docs/tasks/administer-federation/secret/)
 * [Services](/docs/concepts/cluster-administration/federation-service-discovery/)
 
-[API reference docs](/docs/reference/federation/) lists all the
+
+The [API reference docs](/docs/reference/generated/federation/) list all the
 resources supported by federation apiserver.
 
 ## Cascading deletion
@@ -131,8 +127,9 @@ We suggest that all the VMs in a Kubernetes cluster should be in the same availa
   - when the Kubernetes developers are designing the system (e.g. making assumptions about latency, bandwidth, or
     correlated failures) they are assuming all the machines are in a single data center, or otherwise closely connected.
 
-It is okay to have multiple clusters per availability zone, though on balance we think fewer is better.
-Reasons to prefer fewer clusters are:
+It is recommended to run fewer clusters with more VMs per availability zone; but it is possible to run multiple clusters per availability zones.
+
+Reasons to prefer fewer clusters per availability zone are:
 
   - improved bin packing of Pods in some cases with more nodes in one cluster (less resource fragmentation).
   - reduced operational overhead (though the advantage is diminished as ops tooling and processes mature).
@@ -175,7 +172,7 @@ clusters up to 5000 nodes. See [Building Large Clusters](/docs/admin/cluster-lar
   proposal](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/multicluster/federation.md).
 * See this [setup guide](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) for cluster federation.
 * See this [Kubecon2016 talk on federation](https://www.youtube.com/watch?v=pq9lbkmxpS8)
+* See this [Kubecon2017 Europe update on federation](https://www.youtube.com/watch?v=kwOvOLnFYck)
 {% endcapture %}
 
 {% include templates/concept.md %}
-
