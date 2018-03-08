@@ -702,7 +702,7 @@ As of 1.10 only bearer tokens are supported. Support for client certs may be add
 ### Example use case
 
 In a hypothetical use case, an organization would run an external service that exchanges LDAP credentials
-for user specific, signed tokens. The service would also be capibile of responding to [webhook token
+for user specific, signed tokens. The service would also be capable of responding to [webhook token
 authenticator](#webhook-token-authentication) requests to validate the tokens. Users would be required
 to install a credential plugin on their workstation.
 
