@@ -75,6 +75,7 @@ different Kubernetes components.
 | `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | |
+| `ScheduleDaemonSetPods` | `false` | Alpha | 1.10 | |
 
 ## Using a Feature
 

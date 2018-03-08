@@ -208,6 +208,7 @@ currently include:
  * `node.kubernetes.io/memory-pressure`: Node has memory pressure.
  * `node.kubernetes.io/disk-pressure`: Node has disk pressure.
  * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
+ * `node.kubernetes.io/unschedulable`: Node is unschedulable. (1.10 or later)
  * `node.cloudprovider.kubernetes.io/uninitialized`: When kubelet is started
    with "external" cloud provider, it sets this taint on a node to mark it
    as unusable. When a controller from the cloud-controller-manager initializes
@@ -273,6 +274,7 @@ To make sure that turning on this feature doesn't break DaemonSets, starting in 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
   * `node.kubernetes.io/out-of-disk` (*only for critical pods*)
+  * `node.kubernetes.io/unschedulable` (1.10 or later)
 
 The above settings ensure backward compatibility, but we understand they may not fit all user's needs, which is why
 cluster admin may choose to add arbitrary tolerations to DaemonSets.

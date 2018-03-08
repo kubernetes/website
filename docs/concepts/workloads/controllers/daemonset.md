@@ -98,14 +98,49 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 
 ## How Daemon Pods are Scheduled
 
-Normally, the machine that a Pod runs on is selected by the Kubernetes scheduler.  However, Pods
+### Scheduled by DaemonSet controller (default)
+
+Normally, the machine that a Pod runs on is selected by the Kubernetes scheduler. However, Pods
 created by the DaemonSet controller have the machine already selected (`.spec.nodeName` is specified
-when the Pod is created, so it is ignored by the scheduler).  Therefore:
+when the Pod is created, so it is ignored by the scheduler). Therefore:
 
  - The [`unschedulable`](/docs/admin/node/#manual-node-administration) field of a node is not respected
    by the DaemonSet controller.
  - The DaemonSet controller can make Pods even when the scheduler has not been started, which can help cluster
    bootstrap.
+
+### Scheduled by default scheduler (with ScheduleDaemonSetPods alpha feature)
+
+In version 1.10, `ScheduleDaemonSetPods` was introduced as an alpha feature. With this feature,
+ DaemonSet Pods are scheduled by default scheduler, instead of Daemonset controller.
+
+When this feature is enabled, the `NodeAffinity` term (instead of `.spec.nodeName`) is added to the DaemonSet Pods,
+as in the following example. This enables the default scheduler to bind the Pod to the target host. If the `kubernetes.io/hostname`
+ node affinity of DaemonSet Pod already exists, it will be replaced. DaemonSet controller will only perform these operations
+ when creating DaemonSet Pods; and those operations will only modify the Pods of DaemonSet, no chagnes are made to
+ the `spec.template` of DaemonSet.
+
+```
+nodeAffinity:
+  requiredDuringSchedulingIgnoredDuringExecution:
+    nodeSelectorTerms:
+    - matchExpressions:
+      - key: kubernetes.io/hostname
+        operator: In
+        values:
+        - target-host-name
+```
+
+When this feature is enabled, `node.kubernetes.io/unschedulable:NoSchedule` toleration is added automatically to
+ DaemonSet Pods. DaemonSet controller was ignoring `unschedulable` Nodes when scheduling DaemonSet Pods.
+ In order to ensure that default scheduler keeps the same behavior and schedules DaemonSet Pods on `unschedulable` nodes,
+ `TaintNodesByCondition` must be enabled.
+
+When this feature and `TaintNodesByCondition` are enabled together, `node.kubernetes.io/network-unavailable:NoSchedule`
+ toleration is required to DaemonSet pods that using host network.
+
+
+### Taints and Tolerations
 
 Daemon Pods do respect [taints and tolerations](/docs/concepts/configuration/taint-and-toleration),
 but they are created with `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
@@ -118,18 +153,22 @@ they will not be evicted when there are node problems such as a network partitio
 `TaintBasedEvictions` feature is not enabled, they are also not evicted in these scenarios, but
 due to hard-coded behavior of the NodeController rather than due to tolerations).
 
- They also tolerate following `NoSchedule` taints:
+They also tolerate following `NoSchedule` taints:
 
- - `node.kubernetes.io/memory-pressure`
  - `node.kubernetes.io/disk-pressure`
+ - `node.kubernetes.io/memory-pressure`
+ - `node.kubernetes.io/unschedulable` (after version 1.10)
 
 When the support to critical pods is enabled and the pods in a DaemonSet are
 labelled as critical, the Daemon pods are created with an additional
 `NoSchedule` toleration for the `node.kubernetes.io/out-of-disk` taint.
 
-Note that all above `NoSchedule` taints above are created only in version 1.8 or later if the alpha feature `TaintNodesByCondition` is enabled.
+Note that all above `NoSchedule` taints are created only in version 1.8 or later
+ if the alpha feature `TaintNodesByCondition` is enabled.
 
-Also note that the `node-role.kubernetes.io/master` `NoSchedule` toleration specified in the above example is needed on 1.6 or later to schedule on *master* nodes as this is not a default toleration.
+Also note that the `node-role.kubernetes.io/master` `NoSchedule` toleration specified in the above example
+ is needed in version 1.6 or later to schedule on *master* nodes, because this is not a default toleration.
+
 
 ## Communicating with Daemon Pods
 
