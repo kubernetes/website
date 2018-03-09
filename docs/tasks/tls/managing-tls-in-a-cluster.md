@@ -102,7 +102,7 @@ metadata:
 spec:
   groups:
   - system:authenticated
-  request: $(cat server.csr | base64 | tr -d '\n')
+  request: $(base64 -w0 < server.csr)
   usages:
   - digital signature
   - key encipherment
