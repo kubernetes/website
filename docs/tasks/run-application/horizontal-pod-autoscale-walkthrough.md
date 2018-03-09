@@ -272,8 +272,9 @@ Ingress were serving a total of 10000 requests per second.
 ### Autoscaling on metrics not related to Kubernetes objects
 
 Applications running on Kubernetes may need to autoscale based on metrics that don't have an obvious
-relationship to any object in the Kubernetes cluster, such as metrics describing a hosted service used
-by Pods. In Kubernetes 1.10 and later, you can address this use case with *external metrics*.
+relationship to any object in the Kubernetes cluster, such as metrics describing a hosted service with
+no direct correlation to Kubernetes namespaces. In Kubernetes 1.10 and later, you can address this use case
+with *external metrics*.
 
 Using external metrics requires a certain level of knowledge of your monitoring system, and it requires a cluster
 monitoring setup similar to one required for using custom metrics. With external metrics, you can autoscale
@@ -295,8 +296,9 @@ section to your HorizontalPodAutoscaler manifest to specify that you need one wo
     targetAverageValue: 30
 ```
 
-Instead of using the `targetAverageValue` field, you could use the `targetValue` to define a desired
-value of your external metric.
+If your metric describes work or resources that can be divided between autoscaled pods the `targetAverageValue`
+field describes how much of that work each pod can handle. Instead of using the `targetAverageValue` field, you could use the
+`targetValue` to define a desired value of your external metric.
 
 ## Appendix: Horizontal Pod Autoscaler Status Conditions
 
