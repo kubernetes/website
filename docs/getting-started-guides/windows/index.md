@@ -24,8 +24,14 @@ We recommend using the release binaries that can be found at [https://github.com
 We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases). Look for the Node Binaries section by visiting the binary downloads link. 
 =======
 ## Get Windows Binaries
+<<<<<<< HEAD
 We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases/latest](https://github.com/kubernetes/kubernetes/releases/latest). Under the CHANGELOG you can find the Node Binaries link for Windows-amd64, which will include kubeadm, kubectl, kubelet and kube-proxy. 
 >>>>>>> merge master to 1.10, with fixes (#7682)
+||||||| merged common ancestors
+We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases/latest](https://github.com/kubernetes/kubernetes/releases/latest). Under the CHANGELOG you can find the Node Binaries link for Windows-amd64, which will include kubeadm, kubectl, kubelet and kube-proxy. 
+=======
+We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases/latest](https://github.com/kubernetes/kubernetes/releases/latest). Under the CHANGELOG you can find the Node Binaries link for Windows-amd64, which will include kubeadm, kubectl, kubelet and kube-proxy.
+>>>>>>> Update docs for windows container resources (#7653)
 
 If you wish to build the code yourself, please refer to detailed build instructions [here](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries).
 
@@ -101,6 +107,7 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 More detailed instructions can be found [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows.md).
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 **Windows CNI Config Example**
 Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file. This is based on the ToR example diagram shown above, specifying the configuration to apply to Windows node-1. Of special interest is Windows node-1 pod CIDR (10.10.187.64/26) and the associated gateway of cbr0 (10.10.187.66). The exception list is specifying the Service CIDR (11.0.0.0/8), Cluster CIDR (10.10.0.0/16), and Management (or Host) CIDR (10.127.132.128/25).
 ||||||| merged common ancestors
@@ -108,6 +115,11 @@ Today, Windows CNI plugin is based on wincni.exe code with the following example
 Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file.
 =======
 **Windows CNI Config Example**  
+||||||| merged common ancestors
+**Windows CNI Config Example**  
+=======
+**Windows CNI Config Example**
+>>>>>>> Update docs for windows container resources (#7653)
 Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file. This is based on the ToR example diagram shown above, specifying the configuration to apply to Windows node-1. Of special interest is Windows node-1 pod CIDR (10.10.187.64/26) and the associated gateway of cbr0 (10.10.187.66). The exception list is specifying the Service CIDR (11.0.0.0/8), Cluster CIDR (10.10.0.0/16), and Management (or Host) CIDR (10.127.132.128/25).
 >>>>>>> merge master to 1.10, with fixes (#7682)
 
@@ -267,7 +279,7 @@ Because your cluster has both Linux and Windows nodes, you must explicitly set t
 =======
 ## Support for kubeadm join
 
-If your cluster has been created by [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/), 
+If your cluster has been created by [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/),
 and your networking is setup correctly using one of the methods listed above (networking is setup outside of kubeadm), you can use kubeadm to add a Windows node to your cluster. At a high level, you first have to initialize the master with kubeadm (Linux), then set up the CNI based networking (outside of kubeadm), and finally start joining Windows or Linux worker nodes to the cluster. For additional documentation and reference material, visit the kubeadm link above.
 
 The kubeadm binary can be found at [Kubernetes Releases](https://github.com/kubernetes/kubernetes/releases), inside the node binaries archive. Adding a Windows node is not any different than adding a Linux node:
@@ -531,9 +543,62 @@ Windows Stats use a hybrid model: pod and container level stats come from CRI (v
 Windows Stats use a hybrid model: pod and container level stats come from CRI (via dockershim), while node level stats come from the "winstats" package that exports cadvisor like data structures using windows specific perf counters from the node.
 >>>>>>> merge master to 1.10, with fixes (#7682)
 
+### Container Resources
+
+Container resources (CPU and memory) could be set now for windows containers in v1.10.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iis
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: iis
+    spec:
+      containers:
+      - name: iis
+        image: microsoft/iis
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: 2
+        ports:
+        - containerPort: 80
+```
+
+### Hyper-V Containers
+
+Hyper-V containers are supported as experimental in v1.10. To create a Hyper-V container, kubelet should be started with feature gates `HyperVContainer=true` and Pod should include annotation `experimental.windows.kubernetes.io/isolation-type=hyperv`.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iis
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: iis
+      annotations:
+        experimental.windows.kubernetes.io/isolation-type: hyperv
+    spec:
+      containers:
+      - name: iis
+        image: microsoft/iis
+        ports:
+        - containerPort: 80
+```
+
 ## Known Limitations for Windows Server Containers with v1.9
 Some of these limitations will be addressed by the community in future releases of Kubernetes
 - Shared network namespace (compartment) with multiple Windows Server containers (shared kernel) per pod is only supported on Windows Server 1709 or later
+<<<<<<< HEAD
 <<<<<<< HEAD
 - Using Secrets and ConfigMaps as volume mounts is not supported
 - Mount propagation is not supported on Windows
@@ -541,13 +606,23 @@ Some of these limitations will be addressed by the community in future releases 
 - Using Secrets and ConfigMaps as volume mounts is not supported 
 =======
 - Using Secrets and ConfigMaps as volume mounts is not supported 
+||||||| merged common ancestors
+- Using Secrets and ConfigMaps as volume mounts is not supported 
+=======
+- Using Secrets and ConfigMaps as volume mounts is not supported
+>>>>>>> Update docs for windows container resources (#7653)
 - Mount propagation is not supported on Windows
 >>>>>>> merge master to 1.10, with fixes (#7682)
 - The StatefulSet functionality for stateful applications is not supported
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 - Hyper-V isolated containers are not supported. 
+||||||| merged common ancestors
+- Hyper-V isolated containers are not supported. 
+=======
+>>>>>>> Update docs for windows container resources (#7653)
 - Windows container OS must match the Host OS. If it does not, the pod will get stuck in a crash loop.
 - Under the networking models of L3 or Host GW, Kubernetes Services are inaccessible to Windows nodes due to a Windows issue. This is not an issue if using OVN/OVS for networking.
 - Windows kubelet.exe may fail to start when running on Windows Server under VMware Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
