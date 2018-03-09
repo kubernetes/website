@@ -44,12 +44,38 @@ choose the
 [page type](/docs/home/contribute/page-templates/)
 that is the best fit for your content.
 
+## Spell Checking
+
+Check the spelling of any proposed changes. Verify any changes made by an automated spellchecker.
+
+You can check typos with the help of [Misspell](https://github.com/client9/misspell), which has been used in Kubernetes and Community project.
+
+1. If you use Go, you can install the misspell tool by entering this command:
+    ```
+    go get -u github.com/client9/misspell/cmd/misspell
+    ```
+   This will place the `misspell` binary in your workspace's `bin` directory.
+   For more information about [install Go](https://golang.org/doc/install#install).
+   Or you can install the tool [in other ways](https://github.com/client9/misspell#install).
+
+2. Then you can run this command under the root directory of your `kubernetes/website` repository:  
+    ```
+    git ls-files | grep -v generated |grep -v vendor | grep -v imported | grep -v api-reference | grep -v _advanced | xargs misspell
+    ```
+   In order to run the command exactly the same as above, you have to make sure that `misspell` is on your path,
+   or you have to specify the full path to the misspell command: `... | xargs ~/bin/missspell`.
+   If your PR only changes some particular files, you can write a command like this:
+    ```
+    misspell modifiedDirectory anotherModifiedDirectory aModifiedFile
+    ```
+   For more information, see `misspell -h`
+
 ## Viewing your changes locally
 
 When you submit a pull request, you can see a preview of your changes at
 [Netlify](https://www.netlify.com/). If you prefer to see a preview of your changes
 before you submit a pull request, you can build a preview locally. For more information, see
-[Staging locally](/docs/home/contribute/stage-documentation-changes/#staging-locally-without-docker). 
+[Staging locally](/docs/home/contribute/stage-documentation-changes/#staging-locally-without-docker).
 
 ## Submitting a pull request to the master branch (Current Release)
 
