@@ -62,7 +62,7 @@ changed by setting the <code>for_k8s_version</code> variable.
 
 ## Glossary
 
-You can reference glossary terms with an inclusion that will automatically update and replace content with the relevant links from [our glossary](docs/reference/glossary/). When the term is moused-over by someone
+You can reference glossary terms with an inclusion that will automatically update and replace content with the relevant links from [our glossary](/docs/reference/glossary/). When the term is moused-over by someone
 using the online documentation, the glossary entry will display a tooltip.
 
 The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/master/_data/glossary](https://github.com/kubernetes/website/tree/master/_data/glossary), with a YAML file for each glossary term.
