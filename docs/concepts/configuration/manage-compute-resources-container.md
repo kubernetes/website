@@ -306,7 +306,8 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 You can see that the Container was terminated because of `reason:OOM Killed`,
 where `OOM` stands for Out Of Memory.
 
-## Local ephemeral storage (alpha feature)
+## Local ephemeral storage
+{% include feature-state-beta.md %}
 
 Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managing local ephemeral storage. In each Kubernetes node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This partition is also shared and consumed by pods via EmptyDir volumes, container logs, image layers and container writable layers.
 
