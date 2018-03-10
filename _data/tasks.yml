@@ -32,6 +32,7 @@ toc:
   - docs/tasks/configure-pod-container/configure-pod-initialization.md
   - docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md
   - docs/tasks/configure-pod-container/configure-pod-configmap.md
+  - docs/tasks/configure-pod-container/share-process-namespace.md
   - docs/tools/kompose/user-guide.md
 
 - title: Inject Data Into Applications
