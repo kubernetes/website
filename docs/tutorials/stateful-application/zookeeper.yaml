@@ -63,7 +63,7 @@ spec:
                   - key: "app"
                     operator: In
                     values:
-                    - zk-hs
+                    - zk
               topologyKey: "kubernetes.io/hostname"
       containers:
       - name: kubernetes-zookeeper
