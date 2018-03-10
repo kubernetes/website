@@ -133,9 +133,16 @@ different Kubernetes components.
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | |
 >>>>>>> Update feature gates move to beta (#7662)
 | `PodPriority` | `false` | Alpha | 1.8 | |
+<<<<<<< HEAD
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `ReadOnlyAPIDataVolumes` | `true` | Deprecated | 1.10 | |
+||||||| merged common ancestors
+| `PVCProtection` | `false` | Alpha | 1.9 | |
+=======
+| `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
+| `PVCProtection` | `false` | Alpha | 1.9 | |
+>>>>>>> Create a task describing Pod process namespace sharing (#7489)
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | |
