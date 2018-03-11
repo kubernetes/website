@@ -30,7 +30,7 @@ you can do one of the following:
 If you did not specify tag of your image, it will be assumed as `:latest`, with
 pull image policy of `Always` correspondingly.
 
-Note that you should avoid using `:latest` tag, see [Best Practices for Configuration](/docs/concepts/configuration/overview.md/#container-images) for more information.
+Note that you should avoid using `:latest` tag, see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images) for more information.
 
 ## Using a Private Registry
 
