@@ -122,8 +122,8 @@ $ kubectl get pods --selector=app=cassandra rc -o \
 # Get all running pods in the namespace
 $ kubectl get pods --field-selector=status.phase=Running
 
-# Get ExternalIPs of all nodes
-$ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
+# Get InternalIPs of all nodes
+$ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}'
 
 # List Names of Pods that belong to Particular RC
 # "jq" command useful for transformations that are too complex for jsonpath, it can be found at https://stedolan.github.io/jq/
