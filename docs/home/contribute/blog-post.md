@@ -29,7 +29,7 @@ YYYY-MM-DD-Title.md
 ```
 For example:
 ```
-2015-03-20-Welcome-to-the-Kubernetes-Blog!.md
+2015-03-20-Welcome-to-the-Kubernetes-Blog.md
 ```
 
 ## Add front matter to the file
@@ -91,9 +91,37 @@ Unsuitable Content:
 
 ## Add images
 
-Add any image files the post contains to `/images/`. The preferred
-image format is SVG.
+Add any image files the post contains to `/images/blog/`.
+
+### Image format
+
+The preferred image format is SVG.
+
+### Naming image files
+
+Add the proposed date of your blog post to the title of any image files the post contains:
+```
+YYYY-MM-DD-image.svg
+```
+For example:
+```
+2018-03-01-cncf-color.svg
+```
+
+### Including images
+
+Please use [reference-style image links][ref-style] to keep posts readable.
+
+Here's an example of how to include an image in a blog post:
+
+```
+Check out the ![CNCF logo][cncf-logo].
+
+[cncf-logo]: /images/blog/2018-03-01-cncf-color.svg
+```
 
 {% endcapture %}
 
 {% include templates/task.md %}
+
+[ref-style]: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images
