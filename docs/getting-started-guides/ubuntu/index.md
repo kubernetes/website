@@ -11,7 +11,7 @@ There are multiple ways to run a Kubernetes cluster with Ubuntu. These pages exp
 
 - [The Canonical Distribution of Kubernetes](https://www.ubuntu.com/cloud/kubernetes)
 
-The latest version of Kubernetes with upstream binaries. Supports AWS, GCE, Azure, Joyent, OpenStack, VMWare, Bare Metal and localhost deployments.
+The latest version of Kubernetes with upstream binaries. Supports AWS, GCE, Azure, Joyent, OpenStack, VMware, Bare Metal and localhost deployments.
 
 ### Quick Start
 
@@ -50,6 +50,11 @@ These are more in-depth guides for users choosing to run Kubernetes in productio
   - [Decommissioning](/docs/getting-started-guides/ubuntu/decommissioning/)
   - [Operational Considerations](/docs/getting-started-guides/ubuntu/operational-considerations/)
   - [Glossary](/docs/getting-started-guides/ubuntu/glossary/)
+
+
+## Third-party Product Integrations
+
+  - [Rancher](/docs/getting-started-guides/ubuntu/rancher/)
 
 ## Developer Guides
 

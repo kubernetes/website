@@ -46,7 +46,7 @@ During normal operation the Workload should read `active`, the Agent column (whi
 
 Status can become unwieldy for large clusters, it is then recommended to check status on individual services, for example to check the status on the workers only:
 
-    juju status kubernetes-workers
+    juju status kubernetes-worker
 
 or just on the etcd cluster:
 
