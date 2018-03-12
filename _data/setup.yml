@@ -27,7 +27,7 @@ toc:
   - docs/getting-started-guides/alternatives.md
 
 - title: Hosted Solutions
-  landing_page: /docs/setup/pick-right-solution/#hosted-solutions/
+  landing_page: /docs/setup/pick-right-solution/#hosted-solutions
   section:
   - title: Running Kubernetes on Google Kubernetes Engine
     path: https://cloud.google.com/kubernetes-engine/docs/before-you-begin/
