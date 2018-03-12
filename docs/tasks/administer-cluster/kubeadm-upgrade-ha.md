@@ -57,18 +57,18 @@ If the prerequisites are met you'll get a summary of the software versions kubea
     Kube DNS             1.14.5    1.14.7
     Etcd                 3.2.7     3.1.11
 
-**Caution:** Currently the only supported configuration for kubeadm HA clusters requires the use of an externally managed etcd cluster upgrading etcd is not supported as a part of the upgrade. If necessary you will have to upgrade the etcd cluster according to [etcd's upgrade instructions](/docs/tasks/administer-cluster/configure-upgrade-etcd/), which is beyond the scope of these instructions.
+**Caution:** Currently the only supported configuration for kubeadm HA clusters requires the use of an externally managed etcd cluster. Upgrading etcd is not supported as a part of the upgrade. If necessary you will have to upgrade the etcd cluster according to [etcd's upgrade instructions](/docs/tasks/administer-cluster/configure-upgrade-etcd/), which is beyond the scope of these instructions.
 {: .caution}
 
 ## Upgrading your control plane
 
 The following procedure must be applied on a single master node and repeated for each subsequent master node sequentially.
 
-Before initiating the upgrade with `kubeadm` `configmap/kubeadm-config` needs to be modified for the current master host. Replace any hard reference to a master host FQDN with the current master hosts' FQDN:
+Before initiating the upgrade with `kubeadm` `configmap/kubeadm-config` needs to be modified for the current master host. Replace any hard reference to a master host name with the current master hosts' name:
 
 ```shell
 kubectl get configmap -n kube-system kubeadm-config -o yaml >/tmp/kubeadm-config-cm.yaml
-sed -i 's/^\([ \t]*nodeName:\).*/\1 <CURRENT-MASTER-FQDN>/' /tmp/kubeadm-config-cm.yaml
+sed -i 's/^\([ \t]*nodeName:\).*/\1 <CURRENT-MASTER-NAME>/' /tmp/kubeadm-config-cm.yaml
 kubectl apply -f /tmp/kubeadm-config-cm.yaml --force
 ```
 
@@ -82,19 +82,7 @@ If the operation was successful you’ll get a message like this:
 
     [upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.9.2". Enjoy!
 
-    To upgrade the cluster with CoreDNS as the default internal DNS, invoke `kubeadm upgrade apply` with the `--feature-gates=CoreDNS=true` flag.
-
-`kubeadm upgrade apply` does the following:
-
-- Checks that your cluster is in an upgradeable state:
-  - The API server is reachable,
-  - All nodes are in the `Ready` state
-  - The control plane is healthy
-- Enforces the version skew policies.
-- Makes sure the control plane images are available or available to pull to the machine.
-- Upgrades the control plane components or rollbacks if any of them fails to come up.
-- Applies the new `kube-dns` and `kube-proxy` manifests and enforces that all necessary RBAC rules are created.
-- Creates new certificate and key files of apiserver and backs up old files if they're about to expire in 180 days.
+To upgrade the cluster with CoreDNS as the default internal DNS, invoke `kubeadm upgrade apply` with the `--feature-gates=CoreDNS=true` flag.
 
 Next, manually upgrade your CNI provider
 
@@ -105,52 +93,21 @@ Your Container Network Interface (CNI) provider may have its own upgrade instruc
 
 ## Upgrade base software packages
 
-At this point all the static pod manifests in your cluster, for example API Server, Controller Manager, Scheduler, Kube Proxy have been upgraded, however the base software, for example `kubelet`, `kubectl`, `kubeadm` installed on your nodes’ OS are still of the old version. For upgrading the base software packages on all nodes we will `cordon` them if master and `drain` if worker node, upgrade and then `uncordon` them again one by one. 
-
-First, the master nodes are upgraded (run `kubectl cordon` / `kubectl uncordon` from whatever machine you have set up to issue `kubectl` commands):
+At this point all the static pod manifests in your cluster, for example API Server, Controller Manager, Scheduler, Kube Proxy have been upgraded, however the base software, for example `kubelet`, `kubectl`, `kubeadm` installed on your nodes’ OS are still of the old version. For upgrading the base software packages we will upgrade them and restart services on all nodes one by one:
 
 ```shell
-kubectl cordon <MASTER-NODE-FQDN>
-systemctl stop keepalived kubelet docker
 # use your distro's package manager, e.g. 'yum' on RH-based systems
 # for the versions stick to kubeadm's output (see above)
 yum install -y kubelet-<NEW-K8S-VERSION> kubectl-<NEW-K8S-VERSION> kubeadm-<NEW-K8S-VERSION> kubernetes-cni-<NEW-CNI-VERSION>
-systemctl start `echo keepalived kubelet docker | tac`
-kubectl uncordon <MASTER-NODE-FQDN>
+systemctl restart kubelet
 ```
 
 In this example an _rpm_-based system is assumed and `yum` is used for installing the upgraded software. On _deb_-based systems it will be `apt-get update` and then `apt-get install <PACKAGE>=<NEW-K8S-VERSION>` for all packages.
-
-On the worker nodes there is no keepalived to stop and start and all processes need to be moved to other nodes cleanly before shutting anything down, hence `drain` is used instead of `cordon`. In this process all containers will get moved from one node to another at least once. If some of them keep local data you will need some strategy for this scenario. This really depends on the application(s) running in the cluster, and there is no simple, generic solution to this.
-
-On the master (or wherever you run `kubectl` commands):
-
-```shell
-kubectl drain --delete-local-data --ignore-daemonsets <WORKER-NODE-FQDN>
-```
-
-On the respective worker node:
-
-```shell
-systemctl stop keepalived kubelet docker
-# use your distro's package manager, e.g. 'yum' on RH-based systems
-# for the versions stick to kubeadm's output (see above)
-yum install -y kubelet-<NEW-K8S-VERSION> kubectl-<NEW-K8S-VERSION> kubeadm-<NEW-K8S-VERSION> kubernetes-cni-<NEW-CNI-VERSION>
-systemctl start `echo keepalived kubelet docker | tac`
-```
-
-Like above, for _deb_-based systems use `apt-get install <PACKAGE>=version` to upgrade the packages to the respective desired versions.
 
 Now the new version of the `kubelet` should be running on the host. Verify this using the following command on the respective host:
 
 ```shell
 systemctl status kubelet
-```
-
-If everything was successful, again on the master (or wherever you run `kubectl` commands):
-
-```shell
-kubectl uncordon <WORKER-NODE-FQDN>
 ```
 
 Verify that the upgraded node is available again by executing the following from wherever you run `kubectl` commands:
