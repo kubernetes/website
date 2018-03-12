@@ -9,7 +9,9 @@ title: Picking the Right Solution
 
 Certified Kubernetes Platforms and Distributions
 
+We recommend choosing from a [Kubernetes Certified Service Partner]() or [Kubernetes Certified Platform or Distribution]().
 
+If you want to test Kubernetes in a local environment, you can get started with [Minikube]().
 
 Kubernetes can run on various platforms: from your laptop, to VMs on a cloud provider, to a rack of
 bare metal servers. The effort required to set up a cluster varies from running a single command to
