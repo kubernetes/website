@@ -282,7 +282,7 @@ Please select one of the tabs to see installation instructions for the respectiv
    EOF
    ```
 
-   Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses. Also, make sure that you changed `<etcd0>`, `<etcd1>` and `<etcd2>` with real hostnames of each machine and that these machines are able to reach each other using DNS or add records to `/etc/hosts`.
+   Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses. Also, make sure that you replace `<etcd0>`, `<etcd1>` and `<etcd2>` with real hostnames of each machine. These machines must be able to reach every other using DNS or make sure that records are added to `/etc/hosts`.
 
 1. Finally, launch etcd like so:
 
