@@ -70,6 +70,7 @@ Kubernetes supports several types of Volumes:
    * `azureFile`
    * `cephfs`
    * `configMap`
+   * `csi`
    * `downwardAPI`
    * `emptyDir`
    * `fc` (fibre channel)

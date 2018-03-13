@@ -493,6 +493,11 @@ Some of these limitations will be addressed by the community in future releases 
 - Mount propagation is not supported on Windows
 - The StatefulSet functionality for stateful applications is not supported
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
+- Hyper-V isolated containers are not supported. 
+- Windows container OS must match the Host OS. If it does not, the pod will get stuck in a crash loop.
+- Under the networking models of L3 or Host GW, Kubernetes Services are inaccessible to Windows nodes due to a Windows issue. This is not an issue if using OVN/OVS for networking.
+- Windows kubelet.exe may fail to start when running on Windows Server under VMware Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
+- Flannel and Weavenet are not yet supported
 - Windows container OS must match the Host OS. If it does not, the pod will get stuck in a crash loop.
 - Under the networking models of L3 or Host GW, Kubernetes Services are inaccessible to Windows nodes due to a Windows issue. This is not an issue if using OVN/OVS for networking.
 - Windows kubelet.exe may fail to start when running on Windows Server under VMware Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
