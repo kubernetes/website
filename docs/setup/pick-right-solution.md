@@ -62,7 +62,7 @@ a Kubernetes cluster from scratch.
 * [Kubermatic](https://www.loodse.com) provides managed Kubernetes clusters for various public clouds, including AWS and Digital Ocean, as well as on-premises with OpenStack integration.
 
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service) provides enterprise-grade Kubernetes for both on-premises and public clouds.  PKS enables on-demand provisioning of Kubernetes clusters, multi-tenancy and fully automated day-2 operations.
-`
+
 # Turnkey Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
