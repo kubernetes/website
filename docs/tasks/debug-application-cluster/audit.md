@@ -47,6 +47,10 @@ server because some context required for auditing is stored for each request.
 Additionally, memory consumption depends on the audit logging configuration.
 {: .note}
 
+**Note,** that audit logging feature increases apiserver memory consumption, since some context
+required for auditing is stored for each request. Additionally, memory consumption depends on the
+audit logging configuration.
+
 ## Audit Policy
 
 Audit policy defines rules about what events should be recorded and what data
