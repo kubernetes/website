@@ -70,7 +70,6 @@ Kubernetes supports several types of Volumes:
    * `azureFile`
    * `cephfs`
    * `configMap`
-   * `csi`
    * `downwardAPI`
    * `emptyDir`
    * `fc` (fibre channel)
@@ -1059,6 +1058,7 @@ several media types.
 
 ## Out-of-Tree Volume Plugins
 <<<<<<< HEAD
+<<<<<<< HEAD
 The Out-of-tree volume plugins include the Container Storage Interface (`CSI`)
 and `FlexVolume`. They enable storage vendors to create custom storage plugins
 without adding them to the Kubernetes repository. 
@@ -1070,10 +1070,31 @@ achieved by using the `FlexVolume` plugin.
 In addition to the previously listed volume types, storage vendors may create
 custom plugins without adding it to the Kubernetes repository. This can be
 achieved by using either the `CSI` plugin or the `FlexVolume` plugin.
+||||||| merged common ancestors
+In addition to the previously listed volume types, storage vendors may create
+custom plugins without adding it to the Kubernetes repository. This can be
+achieved by using either the `CSI` plugin or the `FlexVolume` plugin.
+=======
+The Out-of-tree volume plugins include the Container Storage Interface (`CSI`)
+and `FlexVolume`. They enable storage vendors to create custom storage plugins
+without adding them to the Kubernetes repository. 
+>>>>>>> CSI Docs for K8s v1.10 (#7698)
 
-For storage vendors looking to create an out-of-tree volume plugin, [please refer to this FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md) for choosing between the plugin options.
+Before the introduction of `CSI` and `FlexVolume`, all volume plugins (like
+volume types listed above) were "in-tree" meaning they were built, linked,
+compiled, and shipped with the core Kubernetes binaries and extend the core
+Kubernetes API. This meant that adding a new storage system to Kubernetes (a
+volume plugin) required checking code into the core Kubernetes code repository.
+
+Both `CSI` and `FlexVolume` allow volume plugins to be developed independent of
+the Kubernetes code base, and deployed (installed) on Kubernetes clusters as
+extensions.
+
+For storage vendors looking to create an out-of-tree volume plugin, please refer
+to [this FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
 ### CSI
+<<<<<<< HEAD
 >>>>>>> merge master to 1.10, with fixes (#7682)
 
 <<<<<<< HEAD
@@ -1094,31 +1115,84 @@ container orchestration systems can use to expose arbitrary storage systems
 to their container workloads.
 Please read
 [CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for further information.
+||||||| merged common ancestors
 
-<!-- TODO: add link to the kubernetes extension section -->
-The `csi` volume type is an in-tree CSI volume plugin for Pods to interact
-with external CSI volume drivers running on the same node.
-After having deployed a CSI compatible volume driver, users can use `csi` as the
-volume type to mount the storage provided by the driver.
+CSI stands for [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md),
+a specification attempting to establish an industry standard interface that
+container orchestration systems can use to expose arbitrary storage systems
+to their container workloads.
+Please read
+[CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for further information.
+=======
 
-CSI persistent volume support is an alpha feature in Kubernetes v1.9 and requires a
-cluster administrator to enable it. To enable CSI persistent volume support, the
-cluster administrator adds `CSIPersistentVolume=true` to the `--feature-gates` flag
-for apiserver, controller-manager, and kubelet.
+{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
+
+[Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI)
+defines a standard interface for container orchestration systems (like
+Kubernetes) to expose arbitrary storage systems to their container workloads.
+>>>>>>> CSI Docs for K8s v1.10 (#7698)
+
+Please read the [CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for more information.
+
+CSI support was introduced as alpha in Kubernetes v1.9 and moved to beta in
+Kubernets v1.10.
+
+Once a CSI compatible volume driver is deployed on a Kubernetes cluster, users
+may use the `csi` volume type to attach, mount, etc. the volumes exposed by the
+CSI driver.
+
+The `csi` volume type does not support direct reference from pod and may only be
+referenced in a pod via a `PersistentVolumeClaim` object.
 
 The following fields are available to storage administrators to configure a CSI
 persistent volume:
 
 - `driver`: A string value that specifies the name of the volume driver to use.
-  It has to be less than 63 characters and starts with a character. The driver
-  name can have '`.`', '`-`', '`_`' or digits in it.
-- `volumeHandle`: A string value that uniquely identify the volume name returned
-  from the CSI volume plugin's `CreateVolume` call. The volume handle is then
-  used in all subsequent calls to the volume driver for referencing the volume.
+  This value must corespond to the value returned in the `GetPluginInfoResponse`
+  by the CSI driver as defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#getplugininfo).
+  It is used by Kubernetes to identify which CSI driver to call out to, and by
+  CSI driver components to identify which PV objects belong to the CSI driver.
+- `volumeHandle`: A string value that uniquely identifies the volume. This value
+  must correspond to the value returned in the `volume.id` field of the
+  `CreateVolumeResponse` by the CSI driver as defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume).
+  The value is passed as `volume_id` on all calls to the CSI volume driver when
+  referencing the volume.
 - `readOnly`: An optional boolean value indicating whether the volume is to be
-  published as read only. Default is false.
+  "ControllerPublished" (attached) as read only. Default is false. This value is
+  passed to the CSI driver via the `readonly` field in the
+  `ControllerPublishVolumeRequest`.
+- `fsType`: If the PV's `VolumeMode` is `Filesystem` then this field may be used
+  to specify the filesystem that should be used to mount the volume. If the
+  volume has not been formated and formating is supported, this value will be
+  used to format the volume. If a value is not specified, `ext4` is assumed.
+  This value is passed to the CSI driver via the `VolumeCapability` field of
+  `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, and
+  `NodePublishVolumeRequest`.
+- `volumeAttributes`: A map of string to string that specifies static properties
+  of a volume. This map must corespond to the map returned in the
+  `volume.attributes` field of the `CreateVolumeResponse` by the CSI driver as
+  defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume).
+  The map is passed to the CSI driver via the `volume_attributes` field in the
+  `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, and
+  `NodePublishVolumeRequest`.
+- `controllerPublishSecretRef`: A reference to the secret object containing
+  sensitive information to pass to the CSI driver to complete the CSI
+  `ControllerPublishVolume` and `ControllerUnpublishVolume` calls. This field is
+  optional, and  may be empty if no secret is required. If the secret object
+  contains more than one secret, all secrets are passed.
+- `nodeStageSecretRef`: A reference to the secret object containing
+  sensitive information to pass to the CSI driver to complete the CSI
+  `NodeStageVolume` call. This field is optional, and  may be empty if no secret
+  is required. If the secret object contains more than one secret, all secrets
+  are passed.
+- `nodePublishSecretRef`: A reference to the secret object containing
+  sensitive information to pass to the CSI driver to complete the CSI
+  `NodePublishVolume` call. This field is optional, and  may be empty if no
+  secret is required. If the secret object contains more than one secret, all
+  secrets are passed.
 
 ### FlexVolume
+<<<<<<< HEAD
 `FlexVolume` enables users to mount vendor volumes into a pod. The vendor plugin
 is implemented using a driver, an executable supporting a list of volume commands
 defined by the `FlexVolume` API. Drivers must be installed in a pre-defined
@@ -1139,7 +1213,15 @@ to [this FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/vo
 [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI)
 defines a standard interface for container orchestration systems (like
 Kubernetes) to expose arbitrary storage systems to their container workloads.
+||||||| merged common ancestors
+`FlexVolume` enables users to mount vendor volumes into a pod. The vendor plugin
+is implemented using a driver, an executable supporting a list of volume commands
+defined by the `FlexVolume` API. Drivers must be installed in a pre-defined
+volume plugin path on each node. Pods interact with FlexVolume drivers through the `flexVolume` in-tree plugin.
+=======
+>>>>>>> CSI Docs for K8s v1.10 (#7698)
 
+<<<<<<< HEAD
 Please read the [CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for more information.
 
 <<<<<<< HEAD
@@ -1208,6 +1290,15 @@ drivers. FlexVolume driver binaries must be installed in a pre-defined volume
 plugin path on each node (and in some cases master).
 
 Pods interact with FlexVolume drivers through the `flexVolume` in-tree plugin.
+||||||| merged common ancestors
+=======
+`FlexVolume` is an out-of-tree plugin interface that has existed in Kubernetes
+since version 1.2 (before CSI). It uses an exec-based model to interface with
+drivers. FlexVolume driver binaries must be installed in a pre-defined volume
+plugin path on each node (and in some cases master).
+
+Pods interact with FlexVolume drivers through the `flexVolume` in-tree plugin.
+>>>>>>> CSI Docs for K8s v1.10 (#7698)
 More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md).
 
 ||||||| merged common ancestors
