@@ -184,11 +184,6 @@ If you have a large number of job objects, you may find that:
 - Even using labels, managing so many Job objects is cumbersome.
 - You exceed resource quota when creating all the Jobs at once,
   and do not want to wait to create them incrementally.
-- You need a way to easily scale the number of pods running
-  concurrently.  One reason would be to avoid using too many
-  compute resources.  Another would be to limit the number of
-  concurrent requests to a shared resource, such as a database,
-  used by all the pods in the job.
 - Very large numbers of jobs created at once overload the
   Kubernetes apiserver, controller, or scheduler.
 
