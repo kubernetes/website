@@ -151,16 +151,6 @@ The requested parallelism (`.spec.parallelism`) can be set to any non-negative v
 If it is unspecified, it defaults to 1.
 If it is specified as 0, then the Job is effectively paused until it is increased.
 
-A job can be scaled up using the `kubectl scale` command.  For example, the following
-command sets `.spec.parallelism` of a job called `myjob` to 10:
-
-```shell
-$ kubectl scale  --replicas=10 jobs/myjob
-job "myjob" scaled
-```
-
-You can also use the `scale` subresource of the Job resource.
-
 Actual parallelism (number of pods running at any instant) may be more or less than requested
 parallelism, for a variety of reasons:
 
@@ -267,8 +257,7 @@ The tradeoffs are:
 
 - One Job object for each work item, vs. a single Job object for all work items.  The latter is
   better for large numbers of work items.  The former creates some overhead for the user and for the
-  system to manage large numbers of Job objects.  Also, with the latter, the resource usage of the job
-  (number of concurrently running pods) can be easily adjusted using the `kubectl scale` command.
+  system to manage large numbers of Job objects.
 - Number of pods created equals number of work items, vs. each pod can process multiple work items.
   The former typically requires less modification to existing code and containers.  The latter
   is better for large numbers of work items, for similar reasons to the previous bullet.

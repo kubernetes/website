@@ -45,7 +45,7 @@ This group and user name format match the identity created for each kubelet as p
 
 To enable the Node authorizer, start the apiserver with `--authorization-mode=Node`.
 
-To limit the API objects kubelets are able to write, enable the [NodeRestriction](/docs/admin/admission-controllers#NodeRestriction) admission plugin by starting the apiserver with `--admission-control=...,NodeRestriction,...`
+To limit the API objects kubelets are able to write, enable the [NodeRestriction](/docs/admin/admission-controllers#NodeRestriction) admission plugin by starting the apiserver with `--enable-admission-plugins=...,NodeRestriction,...`
 
 ## Migration considerations
 
