@@ -31,7 +31,7 @@ In Kubernetes version 1.9 or later, Windows Server Containers for Kubernetes are
 
 ## Networking
 There are several supported network configurations with Kubernetes v1.9 on Windows, including both Layer-3 routed and overlay topologies using third-party network plugins.
- 
+
 1. [Upstream L3 Routing](#upstream-l3-routing-topology) - IP routes configured in upstream ToR
 2. [Host-Gateway](#host-gateway-topology) - IP routes configured on each host
 3. [Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay](#using-ovn-with-ovs) - overlay networks (supports STT and Geneve tunneling types)
@@ -47,7 +47,7 @@ An additional two CNI plugins [win-l2bridge (host-gateway) and win-overlay (vxla
 The above networking approaches are already supported on Linux using a bridge interface, which essentially creates a private network local to the node. Similar to the Windows side, routes to all other pod CIDRs must be created in order to send packets via the "public" NIC.
 
 ### Windows
-Windows supports the CNI network model and uses plugins to interface with the Windows Host Networking Service (HNS) to configure host networking and policy. At the time of this writing, the only publicly available CNI plugin from Microsoft is built from a private repo and available here [wincni.exe](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/cni/wincni.exe). It uses an l2bridge network created through the Windows Host Networking Service (HNS) by an administrator using HNS PowerShell commands on each node as documented in the [Windows Host Setup](#windows-host-setup) section below. Source code for the future CNI plugins will be made available publicly. 
+Windows supports the CNI network model and uses plugins to interface with the Windows Host Networking Service (HNS) to configure host networking and policy. At the time of this writing, the only publicly available CNI plugin from Microsoft is built from a private repo and available here [wincni.exe](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/cni/wincni.exe). It uses an l2bridge network created through the Windows Host Networking Service (HNS) by an administrator using HNS PowerShell commands on each node as documented in the [Windows Host Setup](#windows-host-setup) section below. Source code for the future CNI plugins will be made available publicly.
 
 #### Upstream L3 Routing Topology
 In this topology, networking is achieved using L3 routing with static IP routes configured in an upstream Top of Rack (ToR) switch/router. Each cluster node is connected to the management network with a host IP. Additionally, each node uses a local 'l2bridge' network with a pod CIDR assigned. All pods on a given worker node will be connected to the pod CIDR subnet ('l2bridge' network). In order to enable network communication between pods running on different nodes, the upstream router has static routes configured with pod CIDR prefix => Host IP.
@@ -65,7 +65,7 @@ The following diagram gives a general overview of the architecture and interacti
 
 (The above image is from [https://github.com/openvswitch/ovn-kubernetes#overlay-mode-architecture-diagram](https://github.com/openvswitch/ovn-kubernetes#overlay-mode-architecture-diagram))
 
-Due to its architecture, OVN has a central component which stores your networking intent in a database. Other components i.e. kube-apiserver, kube-controller-manager, kube-scheduler etc. can be deployed on that central node as well. 
+Due to its architecture, OVN has a central component which stores your networking intent in a database. Other components i.e. kube-apiserver, kube-controller-manager, kube-scheduler etc. can be deployed on that central node as well.
 
 ## Setting up Windows Server Containers on Kubernetes
 To run Windows Server Containers on Kubernetes, you'll need to set up both your host machines and the Kubernetes node components for Windows. Depending on your network topology, routes may need to be set up for pod communication on different nodes.
@@ -76,7 +76,7 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 
 ##### Linux Host Setup
 
-1. Linux hosts should be setup according to their respective distro documentation and the requirements of the Kubernetes version you will be using. 
+1. Linux hosts should be setup according to their respective distro documentation and the requirements of the Kubernetes version you will be using.
 2. Configure Linux Master node using steps [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/creating-a-linux-master.md)
 3. [Optional] CNI network plugin installed.
 
@@ -290,9 +290,9 @@ Secrets and ConfigMaps can be utilized in Windows Server Containers, but must be
     data:
       username: YWRtaW4=
       password: MWYyZDFlMmU2N2Rm
-    
+
     ---
-    
+
     apiVersion: v1
     kind: Pod
     metadata:
@@ -315,7 +315,7 @@ Secrets and ConfigMaps can be utilized in Windows Server Containers, but must be
       nodeSelector:
         beta.kubernetes.io/os: windows
 ```
- 
+
  Windows pod with configMap values mapped to environment variables
 
 ```yaml
@@ -351,14 +351,14 @@ spec:
   nodeSelector:
     beta.kubernetes.io/os: windows
 ```
- 
+
 ### Volumes
 Some supported Volume Mounts are local, emptyDir, hostPath.  One thing to remember is that paths must either be escaped, or use forward slashes, for example `mountPath: "C:\\etc\\foo"` or `mountPath: "C:/etc/foo"`.
 
 Persistent Volume Claims are supported for supported volume types.
 
 **Examples:**
- 
+
  Windows pod with a hostPath volume
  ```yaml
  apiVersion: v1
@@ -380,9 +380,9 @@ Persistent Volume Claims are supported for supported volume types.
      hostPath:
        path: "C:\\etc\\foo"
  ```
- 
+
  Windows pod with multiple emptyDir volumes
- 
+
  ```yaml
  apiVersion: v1
  kind: Pod
@@ -446,6 +446,7 @@ Some of these limitations will be addressed by the community in future releases 
 - Under the networking models of L3 or Host GW, Kubernetes Services are inaccessible to Windows nodes due to a Windows issue. This is not an issue if using OVN/OVS for networking.
 - Windows kubelet.exe may fail to start when running on Windows Server under VMware Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
 - Flannel and Weavenet are not yet supported
+- Some .Net Core applications expect environment variables with a colon (`:`) in the name.  Kubernetes currently does not allow this.  Replace colon (`:`) with  double underscore (`__`) as documented [here](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration#configuration-by-environment).
 
 ## Next steps and resources
 

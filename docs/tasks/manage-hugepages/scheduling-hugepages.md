@@ -5,10 +5,10 @@ title: Manage HugePages
 ---
 
 {% capture overview %}
-{% include feature-state-alpha.md %}
+{% include feature-state-beta.md %}
 
 Kubernetes supports the allocation and consumption of pre-allocated huge pages
-by applications in a Pod as an **alpha** feature. This page describes how users
+by applications in a Pod as a **beta** feature. This page describes how users
 can consume huge pages and the current limitations.
 
 {% endcapture %}
@@ -18,8 +18,6 @@ can consume huge pages and the current limitations.
 1. Kubernetes nodes must pre-allocate huge pages in order for the node to report
    its huge page capacity. A node may only pre-allocate huge pages for a single
    size.
-1. A special **alpha** feature gate `HugePages` has to be set to true across the
-   system: `--feature-gates=HugePages=true`.
 
 The nodes will automatically discover and report all huge page resources as a
 schedulable resource.

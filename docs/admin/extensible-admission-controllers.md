@@ -20,7 +20,7 @@ the following:
 * They need to be compiled into kube-apiserver.
 * They are only configurable when the apiserver starts up.
 
-1.7 introduces two alpha features, *Initializers* and *External Admission
+1.7 introduced two alpha features, *Initializers* and *External Admission
 Webhooks*, that address these limitations. These features allow admission
 controllers to be developed out-of-tree and configured at runtime.
 
@@ -81,7 +81,7 @@ perform its assigned task and remove its name from the list.
 *Initializers* is an alpha feature, so it is disabled by default. To turn it on,
 you need to:
 
-* Include "Initializers" in the `--admission-control` flag when starting
+* Include "Initializers" in the `--enable-admission-plugins` flag when starting
   `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all should
   have the same flag setting.
 
@@ -184,7 +184,7 @@ admission request.
 *External Admission Webhooks* is an alpha feature, so it is disabled by default.
 To turn it on, you need to
 
-* Include "GenericAdmissionWebhook" in the `--admission-control` flag when
+* Include "GenericAdmissionWebhook" in the `--enable-admission-plugins` flag when
   starting the apiserver. If you have multiple `kube-apiserver` replicas, all
   should have the same flag setting.
 
@@ -278,7 +278,7 @@ differences:
 Make sure that all expansions of the `<apiGroup, apiVersions,resources>` tuple
 in a `rule` are valid. If they are not, separate them to different `rules`.
 
-You can also specify the `failurePolicy`. In 1.7, the system supports `Ignore`
+You can also specify the `failurePolicy`. As of 1.7, the system supports `Ignore`
 and `Fail` policies, meaning that upon a communication error with the webhook
 admission controller, the `GenericAdmissionWebhook` can admit or reject the
 operation based on the configured policy.
