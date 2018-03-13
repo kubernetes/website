@@ -29,6 +29,10 @@ of its execution generates an event, which is then pre-processed according to
 a certain policy and written to a backend. You can find more details about the
 pipeline in the [design proposal][auditing-proposal].
 
+**Note,** that audit logging feature increases apiserver memory consumption, since some context
+required for auditing is stored for each request. Additionally, memory consumption depends on the
+audit logging configuration.
+
 ## Audit Policy
 
 Audit policy defines rules about what events should be recorded and what data
