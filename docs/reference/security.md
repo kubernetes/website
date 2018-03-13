@@ -19,7 +19,7 @@ We’re extremely grateful for security researchers and users that report vulner
 
 To make a report, please email the private [kubernetes-security@googlegroups.com](mailto:kubernetes-security@googlegroups.com) list with the security details and the details expected for [all Kubernetes bug reports](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE.md).
 
-You may encrypt your email to this list using the GPG keys of the [Product Security Team members](https://git.k8s.io/community/contributors/devel/security-release-process.md#product-security-team-pst). Encryption using GPG is NOT required to make a disclosure.
+You may encrypt your email to this list using the GPG keys of the [Product Security Team members](https://git.k8s.io/sig-release/security-release-process-documentation/security-release-process.md#product-security-team-pst). Encryption using GPG is NOT required to make a disclosure.
 
 ### When Should I Report a Vulnerability?
 
@@ -35,7 +35,7 @@ You may encrypt your email to this list using the GPG keys of the [Product Secur
 
 ## Security Vulnerability Response
 
-Each report is acknowledged and analyzed by Product Security Team members within 3 working days. This will set off the [Security Release Process](https://git.k8s.io/community/contributors/devel/security-release-process.md#product-security-team-pst).
+Each report is acknowledged and analyzed by Product Security Team members within 3 working days. This will set off the [Security Release Process](https://git.k8s.io/sig-release/security-release-process-documentation/security-release-process.md#disclosures).
 
 Any vulnerability information shared with Product Security Team stays within Kubernetes project and will not be disseminated to other projects unless it is necessary to get the issue fixed.
 
