@@ -29,7 +29,7 @@
 /docs/admin/ha-master-gce/     /docs/tasks/administer-cluster/highly-available-master/ 301
 /docs/admin/ha-master-gce.md/     /docs/tasks/administer-cluster/highly-available-master/ 301
 /docs/admin/high-availability/      /docs/admin/high-availability/building/ 301
-/docs/admin/kubeadm-upgrade-1-7/     /docs/tasks/administer-cluster/kubeadm-upgrade-1-7/ 301
+/docs/admin/kubeadm-upgrade-1-7/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-7/ 301
 /docs/admin/limitrange/     /docs/tasks/administer-cluster/cpu-memory-limit/ 301
 /docs/admin/limitrange/Limits/     /docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage/ 301
 /docs/admin/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
@@ -51,8 +51,8 @@
 /docs/admin/resourcequota/walkthrough/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/admin/static-pods/     /docs/tasks/administer-cluster/static-pod/ 301
 /docs/admin/sysctls/     /docs/tasks/administer-cluster/sysctl-cluster/ 301
-/docs/admin/upgrade-1-6/     /docs/tasks/administer-cluster/upgrade-1-6/ 301
 /docs/admin/resource-quota/     /docs/concepts/policy/resource-quotas/     301
+/docs/admin/upgrade-1-6/     /docs/tasks/administer-cluster/upgrade-downgrade/upgrade-1-6/ 301
 
 /docs/api/     /docs/concepts/overview/kubernetes-api/ 301
 
@@ -215,11 +215,16 @@
 /docs/tasks/administer-cluster/default-cpu-request-limit/     /docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit/ 301
 /docs/tasks/administer-cluster/default-memory-request-limit/     /docs/tasks/configure-pod-container/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit/ 301
 /docs/tasks/administer-cluster/developing-cloud-controller-manager.md     /docs/tasks/administer-cluster/developing-cloud-controller-manager/ 301
+/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-7/ 301
+/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-8/ 301
+/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-9/ 301
+/docs/tasks/administer-cluster/kubeadm-upgrade-ha/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-ha9/ 301
 /docs/tasks/administer-cluster/out-of-resource/memory-available.sh     /docs/tasks/administer-cluster/memory-available.sh 301
 /docs/tasks/administer-cluster/overview/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
 /docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/tasks/administer-cluster/out-of-resource/ 301
 /docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
 /docs/tasks/administer-cluster/share-configuration/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
+/docs/tasks/administer-cluster/upgrade-1-6/      /docs/tasks/administer-cluster/upgrade-downgrade/upgrade-1-6/ 301
 /docs/tasks/configure-pod-container/apply-resource-quota-limit/     /docs/tasks/administer-cluster/apply-resource-quota-limit/ 301
 /docs/tasks/configure-pod-container/assign-cpu-ram-container/     /docs/tasks/configure-pod-container/assign-memory-resource/ 301
 /docs/tasks/configure-pod-container/calico-network-policy/     /docs/tasks/administer-cluster/calico-network-policy/ 301
