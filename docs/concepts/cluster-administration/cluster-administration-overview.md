@@ -54,7 +54,7 @@ If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](
 
 * [Using Admission Controllers](/docs/admin/admission-controllers/) explains plug-ins which intercepts requests to the Kubernetes API server after authentication and authorization.
 
-* [Using Sysctls in a Kubernetes Cluster](/docs/concepts/cluster-administration/sysctl-cluster/) describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters .
+* [Using Sysctl in a Kubernetes Cluster](/docs/concepts/cluster-administration/sysctl-cluster/) describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters .
 
 * [Auditing](/docs/tasks/debug-application-cluster/audit/) describes how to interact with Kubernetes' audit logs.
 
