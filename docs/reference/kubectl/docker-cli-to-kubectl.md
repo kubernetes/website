@@ -13,7 +13,7 @@ You can use the Kubernetes command line tool kubectl to interact with the api. Y
 
 #### docker run
 
-To run an nginx Deployment and expose the Deployment, see [kubectl run](/docs/user-guide/kubectl/{{page.version}}/#run).
+To run an nginx Deployment and expose the Deployment, see [kubectl run](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#run).
 
 docker:
 
@@ -34,8 +34,6 @@ $ kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
 deployment "nginx-app" created
 ```
 
-On a Kubernetes cluster version 1.2,`kubectl run` command creates a Deployment named "nginx-app". If you are running older versions of Kubernetes cluster, then `kubectl run` command creates replication controllers.
-On a Kubernetes cluster version 1.2, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/{{page.version}}/#run) for more information.
 **Note:** `kubectl` commands print the type and name of the resource created or mutated, which can then be used in subsequent commands. You can expose a new Service after a Deployment is created.
 
 ```shell
@@ -44,23 +42,23 @@ $ kubectl expose deployment nginx-app --port=80 --name=nginx-http
 service "nginx-http" exposed
 ```
 
-By using kubectl, you can create a [Deployment](/docs/concepts/workloads/controllers/deployment/) to ensure sure that N pods are running nginx, where N is the number of replicas stated in the spec and defaults to 1. You can also create a [service](/docs/user-guide/services) with a selector that matches the selector of the Deployment. For more information, see the [Quick start](/docs/user-guide/quick-start).
+By using kubectl, you can create a [Deployment](/docs/concepts/workloads/controllers/deployment/) to ensure that N pods are running nginx, where N is the number of replicas stated in the spec and defaults to 1. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
 
-By default images run in the background, similar to `docker run -d ...`, to run things in the foreground, use:
+By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use:
 
 ```shell
 kubectl run [-i] [--tty] --attach <name> --image=<image>
 ```
 
-Unlike `docker run ...`, if you specify `--attach`, then you have attach to `stdin`, `stdout` and `stderr`. You cannot control which streams are attached (`docker -a ...`).
+Unlike `docker run ...`, if you specify `--attach`, then you attach `stdin`, `stdout` and `stderr`. You cannot control which streams are attached (`docker -a ...`).
 To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q.
 
-Because kubectl run command starts a Deployment for the container, the Deployment restarts if you terminate the attached process by using `ctrl-c`. Thus different from `docker run -it`.
+Because kubectl run command starts a Deployment for the container, the Deployment restarts if you terminate the attached process by using Ctrl+C unlike `docker run -it`.
 To destroy the Deployment and its pods you need to run `kubectl delete deployment <name>`.
 
 #### docker ps
 
-To list what is currently running, see [kubectl get](/docs/user-guide/kubectl/{{page.version}}/#get).
+To list what is currently running, see [kubectl get](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#get).
 
 docker:
 
@@ -82,7 +80,7 @@ ubuntu                      0/1       Completed   0          20s
 
 #### docker attach
 
-To attach a process that is already running in a container, see [kubectl attach](/docs/user-guide/kubectl/{{page.version}}/#attach).
+To attach a process that is already running in a container, see [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#attach).
 
 docker:
 
@@ -110,7 +108,7 @@ To detach from the container, you can type the escape sequence Ctrl+P followed b
 
 #### docker exec
 
-To execute a command in a container, see [kubectl exec](/docs/user-guide/kubectl/{{page.version}}/#exec).
+To execute a command in a container, see [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#exec).
 
 docker:
 
@@ -151,11 +149,11 @@ $ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
-For more information, see [Getting a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
+For more information, see [Get a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
 
 #### docker logs
 
-To follow stdout/stderr of a process that is running, see [kubectl logs](/docs/user-guide/kubectl/{{page.version}}/#logs).
+To follow stdout/stderr of a process that is running, see [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#logs).
 
 
 docker:
@@ -182,11 +180,11 @@ $ kubectl logs --previous nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
 
-For more information, see [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/).
+For more information, see [Logging Architecture](docs/concepts/cluster-administration/logging/).
 
 #### docker stop and docker rm
 
-To stop and delete a running process, see [kubectl delete](/docs/user-guide/kubectl/{{page.version}}/#delete).
+To stop and delete a running process, see [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#delete).
 
 docker:
 
@@ -220,7 +218,7 @@ $ kubectl get po -l run=nginx-app
 # Return nothing
 ```
 
-**Note** When you use kubectl, you don't delete the pod directly.You have to fiirst delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
+**Note:** When you use kubectl, you don't delete the pod directly.You have to fiirst delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
 
 #### docker login
 
@@ -228,7 +226,7 @@ There is no direct analog of `docker login` in kubectl. If you are interested in
 
 #### docker version
 
-To get the version of client and server, see [kubectl version](/docs/user-guide/kubectl/{{page.version}}/#version).
+To get the version of client and server, see [kubectl version](/docs/reference/generated/kubectl/kubectl-commands{{page.version}}/#version).
 
 docker:
 
@@ -256,7 +254,7 @@ Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4
 
 #### docker info
 
-To get miscellaneous information about the environment and configuration, see [kubectl cluster-info](/docs/user-guide/kubectl/{{page.version}}/#cluster-info).
+To get miscellaneous information about the environment and configuration, see [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#cluster-info).
 
 docker:
 
