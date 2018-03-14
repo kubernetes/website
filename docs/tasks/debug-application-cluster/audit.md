@@ -144,6 +144,7 @@ audit backend using the following kube-apiserver flags:
 The webhook config file uses the kubeconfig format to specify the remote address of
 the service and credentials used to connect to it.
 
+<<<<<<< HEAD
 ### Batching
 
 Both log and webhook backends support batching. Using webhook as an example, here's the list of
@@ -194,6 +195,59 @@ same format as described above to the aggregated apiserver and set up the log in
 to pick up audit logs. Different apiservers can have different audit configurations and different
 audit policies.
 
+||||||| merged common ancestors
+=======
+### Batching
+
+Both log and webhook backends support batching. Using webhook as an example, here's the list of
+available flags. To get the same flag for log backend, replace `webhook` with `log` in the flag
+name. By default, batching is enabled in `webhook` and disabled in `log`. Similarly, by default
+throttling is enabled in `webhook` and disabled in `log`.
+
+- `--audit-webhook-mode` defines the buffering strategy. One of the following:
+  - `batch` - buffer events and asynchronously process them in batches. This is the default.
+  - `blocking` - block API server responses on processing each individual event.
+
+The following flags are used only in the `batch` mode.
+
+- `--audit-webhook-batch-buffer-size` defines the number of events to buffer before batching.
+  If the rate of incoming events overflows the buffer, events are dropped.
+- `--audit-webhook-batch-max-size` defines the maximum number of events in one batch.
+- `--audit-webhook-batch-max-wait` defines the maximum amount of time to wait before unconditionally
+  batching events in the queue.
+- `--audit-webhook-batch-throttle-qps` defines the maximum average number of batches generated
+  per second.
+- `--audit-webhook-batch-throttle-burst` defines the maximum number of batches generated at the same
+  moment if the allowed QPS was underutilized previously.
+
+#### Parameter tuning
+
+Parameters should be set to accommodate the load on the apiserver.
+
+For example, if kube-apiserver receives 100 requests each second, and each request is audited only
+on `StageResponseStarted` and `StageResponseComplete` stages, you should account for ~200 audit
+events being generated each second. Assuming that there are up to 100 events in a batch,
+you should set throttling level at at least 2 QPS. Assuming that the backend can take up to
+5 seconds to write events, you should set the buffer size to hold up to 5 seconds of events, i.e.
+10 batches, i.e. 1000 events.
+
+In most cases however, the default parameters should be sufficient and you don't have to worry about
+setting them manually. You can look at the following Prometheus metrics exposed by kube-apiserver
+and in the logs to monitor the state of the auditing subsystem.
+
+- `apiserver_audit_event_total` metric contains the total number of audit events exported.
+- `apiserver_audit_error_total` metric contains the total number of events dropped due to an error
+  during exporting.
+
+## Multi-cluster setup
+
+If you're extending the Kubernetes API with the [aggregation layer][kube-aggregator], you can also
+set up audit logging for the aggregated apiserver. To do this, pass the configuration options in the
+same format as described above to the aggregated apiserver and set up the log ingesting pipeline
+to pick up audit logs. Different apiservers can have different audit configurations and different
+audit policies.
+
+>>>>>>> Update Audit Logging documentation for 1.10 (#7679)
 ## Log Collector Examples
 
 ### Use fluentd to collect and distribute audit events from log file
@@ -345,9 +399,19 @@ plugin which supports full-text search and analytics.
 
 ## Legacy Audit
 
+<<<<<<< HEAD
 __Note:__ Legacy Audit is deprecated and is disabled by default since 1.8 and 
 will be removed in 1.12. To fallback to this legacy audit, disable the advanced
 auditing feature using the `AdvancedAuditing` feature gate in [kube-apiserver][kube-apiserver]:
+||||||| merged common ancestors
+__Note:__ Legacy Audit is deprecated and is disabled by default since Kubernetes 1.8.
+To fallback to this legacy audit, disable the advanced auditing feature
+using the `AdvancedAuditing` feature gate in [kube-apiserver][kube-apiserver]:
+=======
+__Note:__ Legacy Audit is deprecated and is disabled by default since Kubernetes 1.8. Legacy Audit
+will be removed in 1.12. To fallback to this legacy audit, disable the advanced auditing feature
+using the `AdvancedAuditing` feature gate in [kube-apiserver][kube-apiserver]:
+>>>>>>> Update Audit Logging documentation for 1.10 (#7679)
 
 ```
 --feature-gates=AdvancedAuditing=false
