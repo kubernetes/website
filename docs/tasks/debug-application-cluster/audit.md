@@ -225,7 +225,7 @@ The following flags are used only in the `batch` mode.
 Parameters should be set to accommodate the load on the apiserver.
 
 For example, if kube-apiserver receives 100 requests each second, and each request is audited only
-on `StageResponseStarted` and `StageResponseComplete` stages, you should account for ~200 audit
+on `ResponseStarted` and `ResponseComplete` stages, you should account for ~200 audit
 events being generated each second. Assuming that there are up to 100 events in a batch,
 you should set throttling level at at least 2 QPS. Assuming that the backend can take up to
 5 seconds to write events, you should set the buffer size to hold up to 5 seconds of events, i.e.
