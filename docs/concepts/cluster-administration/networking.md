@@ -216,7 +216,7 @@ The Nuage platform uses overlays to provide seamless policy-based networking bet
 
 ### OpenVSwitch
 
-[OpenVSwitch](/docs/admin/ovs-networking) is a somewhat more mature but also
+[OpenVSwitch](https://www.openvswitch.org/) is a somewhat more mature but also
 complicated way to build an overlay network.  This is endorsed by several of the
 "Big Shops" for networking.
 
