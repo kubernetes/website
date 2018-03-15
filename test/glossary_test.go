@@ -27,7 +27,7 @@ import (
 // Not unmarshaling short-description and long-description fields
 // (for simplicity)
 type GlossaryTerm struct {
-  Id string          `yaml: "id"`
+  ID string          `yaml: "id"`
   Name string        `yaml: "name"`
   Aka []string       `yaml: "aka"`
   Related []string   `yaml: "related"`
@@ -36,7 +36,7 @@ type GlossaryTerm struct {
 
 // Not unmarshaling other fields (for simplicity)
 type CanonicalTag struct {
-  Id string          `yaml: "id"`
+  ID string          `yaml: "id"`
 }
 
 // Checks that all glossary files (../_data/glossary/*) contain valid tags
@@ -64,7 +64,7 @@ func TestCanonicalTags(t *testing.T) {
       continue
     }
 
-    canonicalTagsSet[tag.Id] = true
+    canonicalTagsSet[tag.ID] = true
   }
 
   glossaryDir := "../_data/glossary"
