@@ -185,10 +185,10 @@ Following are the manual steps to follow in case you run into problems running m
 
 ```shell
 #create a public private key pair
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=nginxsvc/O=nginxsvc"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
 #convert the keys to base64 encoding
-cat /d/tmp/nginx.crt | base 64
-cat /d/tmp/nginx.key | base 64
+cat /d/tmp/nginx.crt | base64
+cat /d/tmp/nginx.key | base64
 ```
 Use the output from the previous commands to create a yaml file as follows. The base64 encoded value should all be on a single line.
 
