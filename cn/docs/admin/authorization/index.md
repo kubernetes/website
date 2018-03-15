@@ -71,7 +71,7 @@ Kubernetes 有时会使用专门的动词检查授权以获得额外的权限。
 * **自定义模块**  - 您可以创建使用Kubernetes的自定义模块. 要了解更多信息，请参阅下面的**自定义模块**。
 
 ### 自定义模块
-可以相当容易地开发其他实现,APIserver 调用 Authorizer 接口：
+可以相当容易地开发其他实现,APIServer 调用 Authorizer 接口：
 
 ```go
 type Authorizer interface {
