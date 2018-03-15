@@ -23,7 +23,7 @@ vacated by the evicted critical add-on pod or the amount of resources available 
 accordance with the [deprecation policy](/docs/reference/deprecation-policy) for beta features.**
 
 **To avoid eviction of critical pods, you must
-[enable priorities in scheduler](docs/concepts/configuration/pod-priority-preemption/)
+[enable priorities in scheduler](/docs/concepts/configuration/pod-priority-preemption/)
 before upgrading to Kubernetes 1.10 or higher.**
 
 Rescheduler ensures that critical add-ons are always scheduled

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 - luxas
 - errordeveloper
@@ -9,7 +9,7 @@ title: Using kubeadm to Create a Cluster
 
 {% capture overview %}
 
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified_kubernetes_color.png" align="right" width="150px">**kubeadm** is a toolkit that helps you bootstrap a best-practice Kubernetes
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** is a toolkit that helps you bootstrap a best-practice Kubernetes
 cluster in an easy, reasonably secure and extensible way. It also supports
 managing [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for you and upgrading/downgrading clusters.
 
@@ -144,7 +144,6 @@ see [Tear Down](#tear-down).
 The output should look like:
 
 ```
-[kubeadm] WARNING: kubeadm is in beta, please do not use it for production clusters.
 [init] Using Kubernetes version: v1.8.0
 [init] Using Authorization modes: [Node RBAC]
 [preflight] Running pre-flight checks
@@ -394,7 +393,6 @@ kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert
 The output should look something like:
 
 ```
-[kubeadm] WARNING: kubeadm is in beta, please do not use it for production clusters.
 [preflight] Running pre-flight checks
 [discovery] Trying to connect to API Server "10.138.0.4:6443"
 [discovery] Created cluster-info discovery client, requesting info from "https://10.138.0.4:6443"
@@ -487,6 +485,7 @@ Instructions for upgrading kubeadm clusters are available for:
  * [1.8.x to 1.8.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
  * [1.8 to 1.9 upgrades/downgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
  * [1.9.x to 1.9.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
+ * [1.9.x to 1.9.y HA cluster upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-ha/)
 
 ## Explore other add-ons {#other-addons}
 

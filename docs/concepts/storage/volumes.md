@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jsafrane
 - mikedanese
 - saad-ali
@@ -49,7 +49,7 @@ volume type used.
 
 To use a volume, a pod specifies what volumes to provide for the pod (the
 `spec.volumes`
-field) and where to mount those into containers(the
+field) and where to mount those into containers (the
 `spec.containers.volumeMounts`
 field).
 
@@ -211,42 +211,18 @@ its `log_level` entry are mounted into the Pod at path "`/etc/config/log_level`"
 Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 
-### csi
-
-CSI stands for [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md),
-a specification attempting to establish an industry standard interface that
-Container Orchestration Systems (COs) can use to expose arbitrary storage systems
-to their container workloads.
-For more information about the details, please check the
-[design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md).
-
-<!-- TODO: add link to the kubernetes extension section -->
-The `csi` volume type is an in-tree CSI volume plugin for Pods to interact
-with external CSI volume drivers running on the same node.
-After having deployed a CSI compatible volume driver, users can use `csi` as the
-volume type to mount the storage provided by the driver.
-
-CSI persistent volume support is introduced in Kubernetes v1.9 as an alpha feature
-which has to be explicitly enabled by the cluster administrator. In other words,
-the cluster administrator needs to add "`CSIPersistentVolume=true`" to the
-"`--feature-gates=`" flag for the apiserver, the controller-manager and the kubelet
-components.
-
-A CSI persistent volume has the following fields for users to specify:
-
-- `driver`: A string value that specifies the name of the volume driver to use.
-  It has to be less than 63 characters and starts with a character. The driver
-  name can have '`.`', '`-`', '`_`' or digits in it.
-- `volumeHandle`: A string value that uniquely identify the volume name returned
-  from the CSI volume plugin's `CreateVolume` call. The volume handle is then
-  used in all subsequent calls to the volume driver for referencing the volume.
-- `readOnly`: An optional boolean value indicating whether the volume is to be
-  published as read only. Default is false.
+**Note:** A container using a ConfigMap as a [subPath](#using-subpath) volume mount will not
+receive ConfigMap updates.
+{: .note}
 
 ### downwardAPI
 
 A `downwardAPI` volume is used to make downward API data available to applications.
 It mounts a directory and writes the requested data in plain text files.
+
+**Note:** A container using Downward API as a [subPath](#using-subpath) volume mount will not
+receive Downward API updates.
+{: .note}
 
 See the [`downwardAPI` volume example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)  for more details.
 
@@ -687,6 +663,10 @@ parameters are nearly the same with two exceptions:
   volume source. However, as illustrated above, you can explicitly set the `mode`
   for each individual projection.
 
+**Note:** A container using a projected volume source as a [subPath](#using-subpath) volume mount will not
+receive updates for those volume sources.
+{: .note}
+
 ### portworxVolume
 
 A `portworxVolume` is an elastic block storage layer that runs hyperconverged with
@@ -807,6 +787,10 @@ non-volatile storage.
 **Important:** You must create a secret in the Kubernetes API before you can use it.
 {: .caution}
 
+**Note:** A container using a Secret as a [subPath](#using-subpath) volume mount will not
+receive Secret updates.
+{: .note}
+
 Secrets are described in more detail [here](/docs/user-guide/secrets).
 
 ### storageOS
@@ -864,7 +848,7 @@ For more information including Dynamic Provisioning and Persistent Volume Claims
 ### vsphereVolume
 
 **Prerequisite:** Kubernetes with vSphere Cloud Provider configured. For cloudprovider
-configuration please refer [vSphere getting started guide](/docs/getting-started-guides/vsphere/).
+configuration please refer [vSphere getting started guide](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/).
 {: .note}
 
 A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
@@ -974,15 +958,49 @@ several media types.
 ## Out-of-Tree Volume Plugins
 In addition to the previously listed volume types, storage vendors may create
 custom plugins without adding it to the Kubernetes repository. This can be
-achieved by using the `FlexVolume` plugin.
+achieved by using either the `CSI` plugin or the `FlexVolume` plugin.
 
+For storage vendors looking to create an out-of-tree volume plugin, [please refer to this FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md) for choosing between the plugin options.
+
+### CSI
+
+CSI stands for [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md),
+a specification attempting to establish an industry standard interface that
+container orchestration systems can use to expose arbitrary storage systems
+to their container workloads.
+Please read
+[CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for further information.
+
+<!-- TODO: add link to the kubernetes extension section -->
+The `csi` volume type is an in-tree CSI volume plugin for Pods to interact
+with external CSI volume drivers running on the same node.
+After having deployed a CSI compatible volume driver, users can use `csi` as the
+volume type to mount the storage provided by the driver.
+
+CSI persistent volume support is an alpha feature in Kubernetes v1.9 and requires a
+cluster administrator to enable it. To enable CSI persistent volume support, the
+cluster administrator adds `CSIPersistentVolume=true` to the `--feature-gates` flag
+for apiserver, controller-manager, and kubelet.
+
+The following fields are available to storage administrators to configure a CSI
+persistent volume:
+
+- `driver`: A string value that specifies the name of the volume driver to use.
+  It has to be less than 63 characters and starts with a character. The driver
+  name can have '`.`', '`-`', '`_`' or digits in it.
+- `volumeHandle`: A string value that uniquely identify the volume name returned
+  from the CSI volume plugin's `CreateVolume` call. The volume handle is then
+  used in all subsequent calls to the volume driver for referencing the volume.
+- `readOnly`: An optional boolean value indicating whether the volume is to be
+  published as read only. Default is false.
+
+### FlexVolume
 `FlexVolume` enables users to mount vendor volumes into a pod. The vendor plugin
 is implemented using a driver, an executable supporting a list of volume commands
 defined by the `FlexVolume` API. Drivers must be installed in a pre-defined
-volume plugin path on each node.
+volume plugin path on each node. Pods interact with FlexVolume drivers through the `flexVolume` in-tree plugin.
 
 More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md).
-
 
 ## Mount propagation
 

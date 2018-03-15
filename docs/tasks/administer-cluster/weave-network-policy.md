@@ -38,7 +38,7 @@ The output is similar to this:
 
 ```
 NAME                                    READY     STATUS    RESTARTS   AGE       IP              NODE
-weave-net-1t1qg                         2/2       Running   0          9d        192.168.2.10    workndoe3
+weave-net-1t1qg                         2/2       Running   0          9d        192.168.2.10    worknode3
 weave-net-231d7                         2/2       Running   1          7d        10.2.0.17       worknodegpu
 weave-net-7nmwt                         2/2       Running   3          9d        192.168.2.131   masternode
 weave-net-pmw8w                         2/2       Running   0          9d        192.168.2.216   worknode2

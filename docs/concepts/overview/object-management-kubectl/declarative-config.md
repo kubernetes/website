@@ -86,15 +86,19 @@ metadata:
     # This is the json representation of simple_deployment.yaml
     # It was written by kubectl apply when the object was created
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"apps/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
-      "spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},
+      "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
   # ...
   minReadySeconds: 5
+  selector:
+    matchLabels:
+      # ...
+      app: nginx
   template:
     metadata:
       # ...
@@ -157,15 +161,19 @@ metadata:
     # This is the json representation of simple_deployment.yaml
     # It was written by kubectl apply when the object was created
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"apps/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
-      "spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},
+      "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
   # ...
   minReadySeconds: 5
+  selector:
+    matchLabels:
+      # ...
+      app: nginx
   template:
     metadata:
       # ...
@@ -201,7 +209,7 @@ The output shows that the `replicas` field has been set to 2, and the `last-appl
 annotation does not contain a `replicas` field:
 
 ```
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
@@ -209,9 +217,9 @@ metadata:
     # note that the annotation does not contain replicas
     # because it was not updated through apply
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"apps/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
-      "spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},
+      "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
@@ -219,6 +227,10 @@ spec:
   replicas: 2 # written by scale
   # ...
   minReadySeconds: 5
+  selector:
+    matchLabels:
+      # ...
+      app: nginx
   template:
     metadata:
       # ...
@@ -261,7 +273,7 @@ The output shows the following changes to the live configuration:
 - The `last-applied-configuration` annotation no longer contains the `minReadySeconds` field.
 
 ```shell
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
@@ -269,9 +281,9 @@ metadata:
     # The annotation contains the updated image to nginx 1.11.9,
     # but does not contain the updated replicas to 2
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"apps/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
-      "spec":{"template":{"metadata":{"labels":{"app":"nginx"}},
+      "spec":{"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
     # ...
@@ -279,6 +291,10 @@ spec:
   replicas: 2 # Set by `kubectl scale`.  Ignored by `kubectl apply`.
   # minReadySeconds cleared by `kubectl apply`
   # ...
+  selector:
+    matchLabels:
+      # ...
+      app: nginx
   template:
     metadata:
       # ...
@@ -388,7 +404,7 @@ Here's an example. Suppose this is the configuration file for a Deployment objec
 Also, suppose this is the live configuration for the same Deployment object:
 
 ```shell
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
@@ -396,9 +412,9 @@ metadata:
     # note that the annotation does not contain replicas
     # because it was not updated through apply
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"apps/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
-      "spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},
+      "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
@@ -406,6 +422,10 @@ spec:
   replicas: 2 # written by scale
   # ...
   minReadySeconds: 5
+  selector:
+    matchLabels:
+      # ...
+      app: nginx
   template:
     metadata:
       # ...
@@ -439,7 +459,7 @@ Here are the merge calculations that would be performed by `kubectl apply`:
 Here is the live configuration that is the result of the merge:
 
 ```shell
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
@@ -447,13 +467,17 @@ metadata:
     # The annotation contains the updated image to nginx 1.11.9,
     # but does not contain the updated replicas to 2
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"apps/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
-      "spec":{"template":{"metadata":{"labels":{"app":"nginx"}},
+      "spec":{"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
     # ...
 spec:
+  selector:
+    matchLabels:
+      # ...
+      app: nginx
   replicas: 2 # Set by `kubectl scale`.  Ignored by `kubectl apply`.
   # minReadySeconds cleared by `kubectl apply`
   # ...
@@ -686,10 +710,13 @@ The output shows that the API server set several fields to default values in the
 configuration. These fields were not specified in the configuration file.
 
 ```shell
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 # ...
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   minReadySeconds: 5
   replicas: 1 # defaulted by apiserver
   selector:

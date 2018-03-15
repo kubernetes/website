@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - enisoc
 - erictune
 - foxish
@@ -99,7 +99,7 @@ spec:
       name: www
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: my-storage-class
+      storageClassName: "my-storage-class"
       resources:
         requests:
           storage: 1Gi
@@ -116,7 +116,7 @@ regardless of which node it's (re)scheduled on.
 ### Ordinal Index
 
 For a StatefulSet with N replicas, each Pod in the StatefulSet will be
-assigned an integer ordinal, in the range [0,N], that is unique over the Set.
+assigned an integer ordinal, from 0 up through N-1, that is unique over the Set.
 
 ### Stable Network ID
 

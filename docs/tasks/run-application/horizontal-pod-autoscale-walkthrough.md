@@ -7,6 +7,9 @@ reviewers:
 title: Horizontal Pod Autoscaler Walkthrough
 ---
 
+* TOC
+{:toc}
+
 Horizontal Pod Autoscaler automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization
 (or, with beta support, on some other, application-provided metrics).

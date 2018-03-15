@@ -1,6 +1,6 @@
 ---
 title: Custom Resources
-approvers:
+reviewers:
 - enisoc
 - deads2k
 ---
@@ -134,7 +134,7 @@ CRDs are easier to use. Aggregated APIs are more flexible. Choose the method tha
 
 Typically, CRDs are a good fit if:
 
-* You are have a handful of fields
+* You have a handful of fields
 * You are using the resource within your company, or as part of a small open-source project (as opposed to a commercial product)
 
 #### Comparing ease of use

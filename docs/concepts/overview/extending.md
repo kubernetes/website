@@ -1,6 +1,6 @@
 ---
 title: Extending your Kubernetes Cluster
-approvers:
+reviewers:
 - erictune
 - lavalamp
 - cheftako

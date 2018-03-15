@@ -71,7 +71,7 @@ Through these deployment tasks, you'll gain familiarity with the following:
 * Common workload objects
   * **{% glossary_tooltip text="Deployment" term_id="deployment" %}** - The most common way of running *X* copies (Pods) of your application. Supports rolling updates to your container images.
 
-  * **{% glossary_tooltip text="Service" term_id="deployment" %}** - By itself, a Deployment can't receive traffic. Setting up a Service is one of the simplest ways to configure a Deployment to receive and loadbalance requests. Depending on the `type` of Service used, these requests can come from external client apps or be limited to apps within the same cluster. A Service is tied to a specific Deployment using {% glossary_tooltip text="label" term_id="labels" %} selection.
+  * **{% glossary_tooltip text="Service" term_id="deployment" %}** - By itself, a Deployment can't receive traffic. Setting up a Service is one of the simplest ways to configure a Deployment to receive and loadbalance requests. Depending on the `type` of Service used, these requests can come from external client apps or be limited to apps within the same cluster. A Service is tied to a specific Deployment using {% glossary_tooltip text="label" term_id="label" %} selection.
 
 The subsequent topics are also useful to know for basic application deployment.
 
@@ -79,7 +79,7 @@ The subsequent topics are also useful to know for basic application deployment.
 
 You can also specify custom information about your Kubernetes API objects by attaching key/value fields. Kubernetes provides two ways of doing this:
 
-* **{% glossary_tooltip text="Labels" term_id="labels" %}** - Identifying metadata that you can use to sort and select sets of API objects. Labels have many applications, including the following:
+* **{% glossary_tooltip text="Labels" term_id="label" %}** - Identifying metadata that you can use to sort and select sets of API objects. Labels have many applications, including the following:
 
   * *To keep the right number of replicas (Pods) running in a Deployment.* The specified label (`app: nginx` in the [stateless app example](/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment){:target="_blank"}) is used to stamp the Deployment's newly created Pods (as the value of the `spec.template.labels` configuration field), and to query which Pods it already manages (as the value of `spec.selector.matchLabels`).
 

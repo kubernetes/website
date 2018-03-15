@@ -17,11 +17,11 @@ Refer to the [backup documentation](/docs/getting-started-guides/ubuntu/backups)
 {% endcapture %}
 
 {% capture steps %}
-## Patch kubernetes upgrades eg 1.7.0 -> 1.7.1
+## Patch kubernetes upgrades for example 1.9.0 -> 1.9.1
 
 Clusters are transparently upgraded to the latest Kubernetes patch release.
-To be clear, a cluster deployed using the 1.7/stable channel
-will transparently receive unattended upgrades for the 1.7.X Kubernetes
+To be clear, a cluster deployed using the 1.9/stable channel
+will transparently receive unattended upgrades for the 1.9.X Kubernetes
 releases.
 The upgrade causes no disruption to the operation of the cluster and requires
 no intervention from a cluster administrator.
@@ -31,15 +31,12 @@ Once a patch release passes internal testing and is deemed safe for upgrade,
 it is packaged in snap format and pushed to the stable channel.
 
 
-## Upgrading a minor Kubernetes release eg 1.7.1 -> 1.8.0
+## Upgrading a minor Kubernetes release for example 1.8.1 -> 1.9.0
 
 
 The Kubernetes charms follow the Kubernetes releases. Please consult
 your support plan on the upgrade frequency. Important operational considerations
 and changes in behaviour will always be documented in the release notes.
-
-You can use `juju status` to see if an upgrade is available.
-There may be an upgrade available for kubernetes, etcd, or both.
 
 ### Upgrade etcd
 
@@ -49,14 +46,13 @@ After the snapshot, upgrade the etcd service with:
 
     juju upgrade-charm etcd
 
-This will handle upgrades between minor versions of etcd. Major upgrades from
-etcd 2.x to 3.x are currently unsupported. Instead, data will be run in etcdv2 stores over the etcdv3 api.
+This will handle upgrades between minor versions of etcd. Instructions on how to upgrade from 2.x to 3.x can be found [here](https://github.com/juju-solutions/bundle-canonical-kubernetes/wiki/Etcd-2.3-to-3.x-upgrade) in the juju-solutions wiki.
 
 ### Upgrade Kubernetes
 
 The Kubernetes Charms use snap channels to drive payloads.
 The channels are defined by `X.Y/channel` where `X.Y` is the `major.minor` release
-of Kubernetes (e.g. 1.6) and `channel` is one of the four following channels:
+of Kubernetes (for example 1.9) and `channel` is one of the four following channels:
 
 | Channel name        | Description  |
 | ------------------- | ------------ |
@@ -66,7 +62,7 @@ of Kubernetes (e.g. 1.6) and `channel` is one of the four following channels:
 | edge                | Nightly builds of that minor release of Kubernetes |
 
 If a release isn't available, the next highest channel is used.
-For example, 1.6/beta will load `/candidate` or `/stable` depending on availability of release.
+For example, 1.9/beta will load `/candidate` or `/stable` depending on availability of release.
 Development versions of Kubernetes are available in the edge channel for each minor release.
 There is no guarantee that edge snaps will work with the current charms.
 
@@ -83,7 +79,7 @@ Once the latest charm is deployed, the channel for Kubernetes can be selected by
 
     juju config kubernetes-master channel=1.x/stable
 
-Where `x` is the minor version of Kubernetes. For example, `1.6/stable`. See above for Channel definitions.
+Where `x` is the minor version of Kubernetes. For example, `1.9/stable`. See above for Channel definitions.
 Once you've configured kubernetes-master with the appropriate channel, run the upgrade action on each master:
 
     juju run-action kubernetes-master/0 upgrade
@@ -123,7 +119,7 @@ Tear down old workers with:
     juju upgrade-charm kubernetes-worker
     juju config kubernetes-worker channel=1.x/stable
 
-Where `x` is the minor version of Kubernetes. For example, `1.6/stable`.
+Where `x` is the minor version of Kubernetes. For example, `1.9/stable`.
 See above for Channel definitions. Once you've configured kubernetes-worker with the appropriate channel,
 run the upgrade action on each worker:
 

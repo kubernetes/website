@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - thockin
 title: Cluster Networking
 ---
@@ -20,15 +20,15 @@ default.  There are 4 distinct networking problems to solve:
 ## Summary
 
 Kubernetes assumes that pods can communicate with other pods, regardless of
-which host they land on.  We give every pod its own IP address so you do not
+which host they land on.  Every pod gets its own IP address so you do not
 need to explicitly create links between pods and you almost never need to deal
 with mapping container ports to host ports.  This creates a clean,
 backwards-compatible model where pods can be treated much like VMs or physical
 hosts from the perspectives of port allocation, naming, service discovery, load
 balancing, application configuration, and migration.
 
-To achieve this we must impose some requirements on how you set up your cluster
-networking.
+There are requirements imposed on how you set up your cluster networking to
+achieve this.
 
 ## Docker model
 
@@ -84,8 +84,8 @@ applies IP addresses at the `Pod` scope - containers within a `Pod` share their
 network namespaces - including their IP address.  This means that containers
 within a `Pod` can all reach each other's ports on `localhost`. This does imply
 that containers within a `Pod` must coordinate port usage, but this is no
-different than processes in a VM.  We call this the "IP-per-pod" model.  This
-is implemented in Docker as a "pod container" which holds the network namespace
+different than processes in a VM.  This is called the "IP-per-pod" model.  This
+is implemented, using Docker, as a "pod container" which holds the network namespace
 open while "app containers" (the things the user specified) join that namespace
 with Docker's `--net=container:<id>` function.
 
@@ -139,15 +139,15 @@ people have reported success with Flannel and Kubernetes.
 
 ### Google Compute Engine (GCE)
 
-For the Google Compute Engine cluster configuration scripts, we use [advanced
-routing](https://cloud.google.com/vpc/docs/routes) to
+For the Google Compute Engine cluster configuration scripts, [advanced
+routing](https://cloud.google.com/vpc/docs/routes) is used to
 assign each VM a subnet (default is `/24` - 254 IPs).  Any traffic bound for that
 subnet will be routed directly to the VM by the GCE network fabric.  This is in
 addition to the "main" IP address assigned to the VM, which is NAT'ed for
 outbound internet access.  A linux bridge (called `cbr0`) is configured to exist
 on that subnet, and is passed to docker's `--bridge` flag.
 
-We start Docker with:
+Docker is started with:
 
 ```shell
 DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
@@ -161,8 +161,8 @@ each other and `Nodes` over the `cbr0` bridge.  Those IPs are all routable
 within the GCE project network.
 
 GCE itself does not know anything about these IPs, though, so it will not NAT
-them for outbound internet traffic.  To achieve that we use an iptables rule to
-masquerade (aka SNAT - to make it seem as if packets came from the `Node`
+them for outbound internet traffic.  To achieve that an iptables rule is used 
+to masquerade (aka SNAT - to make it seem as if packets came from the `Node`
 itself) traffic that is bound for IPs outside the GCE project network
 (10.0.0.0/8).
 
@@ -170,7 +170,7 @@ itself) traffic that is bound for IPs outside the GCE project network
 iptables -t nat -A POSTROUTING ! -d 10.0.0.0/8 -o eth0 -j MASQUERADE
 ```
 
-Lastly we enable IP forwarding in the kernel (so the kernel will process
+Lastly IP forwarding is enabled in the kernel (so the kernel will process
 packets for bridged containers):
 
 ```shell

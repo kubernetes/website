@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 title: Ingress
 ---
@@ -60,7 +60,7 @@ kind: Ingress
 metadata:
   name: test-ingress
   annotations:
-    ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - http:

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - davidopp
 - thockin
 title: DNS for Services and Pods

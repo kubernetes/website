@@ -47,7 +47,7 @@ GEM
     jekyll-paginate (1.1.0)
     jekyll-readme-index (0.0.3)
       jekyll (~> 3.0)
-    jekyll-redirect-from (0.12.1)
+    jekyll-redirect-from (0.13.0)
       jekyll (~> 3.3)
     jekyll-relative-links (0.5.1)
       jekyll (~> 3.3)
@@ -145,7 +145,7 @@ DEPENDENCIES
   jekyll-optional-front-matter (~> 0.1)
   jekyll-paginate (= 1.1.0)
   jekyll-readme-index (= 0.0.3)
-  jekyll-redirect-from (~> 0.11)
+  jekyll-redirect-from (~> 0.13)
   jekyll-relative-links (~> 0.2)
   jekyll-seo-tag
   jekyll-sitemap
