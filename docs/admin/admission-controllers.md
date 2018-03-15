@@ -329,7 +329,7 @@ When the admission controller sets a compute resource request, it does this by *
 the pod spec rather than mutating the `container.resources` fields.
 The annotations added contain the information on what compute resources were auto-populated.
 
-See the [InitialResouces proposal](https://git.k8s.io/community/contributors/design-proposals/autoscaling/initial-resources.md) for more details.
+See the [InitialResources proposal](https://git.k8s.io/community/contributors/design-proposals/autoscaling/initial-resources.md) for more details.
 
 ### LimitPodHardAntiAffinity
 
