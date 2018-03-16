@@ -47,7 +47,7 @@ Below are some others, lesser-known ways of configuring your resources' Pods:
 {: .note }
 Before setting up the following resources, check to see if they are the responsibility of your organization's {% glossary_tooltip text="cluster operators" term_id="cluster-operator" %}.
 
-* **{% glossary_tooltip text="Horizontal Pod Autoscaler (HPA)" term_id="horizontal-pod-autoscaler" %}** - These resources are a great way to automate the process of scaling your application when CPU usage or other [custom metrics](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md){:target="_blank"} spike. [See an example](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/){:target="_blank"} to understand how HPAs are set up.
+* **{% glossary_tooltip text="Horizontal Pod Autoscaler (HPA)" term_id="horizontal-pod-autoscaler" %}** - These resources are some great ways to automate the process of scaling your application when CPU usage or other [custom metrics](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md){:target="_blank"} spike. [See an example](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/){:target="_blank"} to understand how HPAs are set up.
 
 * **Federated cluster objects** - If you are running an application on multiple Kubernetes clusters using *federation*, you need to deploy the federated version of the standard Kubernetes API objects. For reference, check out the guides for setting up [Federated ConfigMaps](/docs/tasks/administer-federation/configmap/){:target="_blank"} and [Federated Deployments](/docs/tasks/administer-federation/deployment/){:target="_blank"}.
 
@@ -94,7 +94,7 @@ You may also find the following info helpful:
 
 If you want to consume or provide complete services (rather than individual resources), **{% glossary_tooltip text="Service Catalog" term_id="service-catalog" %}** provides a [specification](https://github.com/openservicebrokerapi/servicebroker){:target="_blank"} for doing so. These services are registered using {% glossary_tooltip text="Service Brokers" term_id="service-broker" %} (see [some examples](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#example-service-brokers){:target="_blank"}).
 
-If you do not have a {% glossary_tooltip text="cluster operator" term_id="cluster-operator" %} to manage the installation of Service Catalog, you can do so using [Helm](/docs/tasks/service-catalog/install-service-catalog-using-helm/){:target="_blank"} or an [installer binary](/docs/tasks/service-catalog/install-service-catalog-using-sc/){:target="_blank"}.
+If you do not have a {% glossary_tooltip text="cluster operator" term_id="cluster-operator" %} to manage the installation of Service Catalog, you can do so using [Helm](/docs/tasks/service-catalog/install-service-catalog-using-helm/){:target="_blank"} or a [installer binary](/docs/tasks/service-catalog/install-service-catalog-using-sc/){:target="_blank"}.
 
 
 ## Explore additional resources
