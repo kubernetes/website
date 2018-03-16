@@ -454,7 +454,7 @@ plugins:
 ```
 
 #### Configuration Annotation Format
-`PodNodeSelector` uses the annotation key `scheduler.kubernetes.io/node-selector` to assign node selectors to namespaces.
+`PodNodeSelector` uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign node selectors to namespaces.
 
 ```yaml
 apiVersion: v1
@@ -467,7 +467,7 @@ metadata:
 
 #### Internal Behavior
 This admission controller has the following behavior:
-  1. If the `Namespace` has an annotation with a key `scheduler.kubernetes.io/nodeSelector`, use its value as the
+  1. If the `Namespace` has an annotation with a key `scheduler.alpha.kubernetes.io/node-selector`, use its value as the
      node selector.
   1. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the `PodNodeSelector`
      plugin configuration file as the node selector.
