@@ -25,7 +25,7 @@ Resource quotas work like this:
   status code `403 FORBIDDEN` with a message explaining the constraint that would have been violated.
 - If quota is enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
   requests or limits for those values; otherwise, the quota system may reject pod creation.  Hint: Use
-  the LimitRange admission controller to force defaults for pods that make no compute resource requirements.
+  the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
   See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example of how to avoid this problem.
 
 Examples of policies that could be created using namespaces and quotas are:

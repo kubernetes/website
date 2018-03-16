@@ -27,9 +27,8 @@ toc:
   - docs/getting-started-guides/alternatives.md
 
 - title: Hosted Solutions
-  landing_page: /docs/setup/hosted-solutions/overview/
+  landing_page: /docs/setup/pick-right-solution/#hosted-solutions
   section:
-  - docs/setup/hosted-solutions/overview.md
   - title: Running Kubernetes on Google Kubernetes Engine
     path: https://cloud.google.com/kubernetes-engine/docs/before-you-begin/
   - title: Running Kubernetes on Azure Container Service

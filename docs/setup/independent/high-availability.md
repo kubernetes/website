@@ -273,7 +273,7 @@ Please select one of the tabs to see installation instructions for the respectiv
        --peer-key-file=/etc/kubernetes/pki/etcd/peer-key.pem \
        --peer-client-cert-auth \
        --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem \
-       --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 \
+       --initial-cluster <etcd0>=https://<etcd0-ip-address>:2380,<etcd1>=https://<etcd1-ip-address>:2380,<etcd2>=https://<etcd2-ip-address>:2380 \
        --initial-cluster-token my-etcd-token \
        --initial-cluster-state new
 
@@ -282,7 +282,7 @@ Please select one of the tabs to see installation instructions for the respectiv
    EOF
    ```
 
-   Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses.
+   Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses. Also, make sure that you replace `<etcd0>`, `<etcd1>` and `<etcd2>` with real hostnames of each machine. These machines must be able to reach every other using DNS or make sure that records are added to `/etc/hosts`.
 
 1. Finally, launch etcd like so:
 
