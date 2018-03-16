@@ -21,8 +21,8 @@ title: 使用节点授权
 
 写入操作:
 
-* nodes and node status (enable the `NodeRestriction` admission plugin to limit a kubelet to modify its own node)
-* pods and pod status (enable the `NodeRestriction` admission plugin to limit a kubelet to modify pods bound to itself)
+* nodes and node status (启用 `NodeRestriction` 准入插件以限制一个kubelet修改自己的节点)
+* pods and pod status (启用`NodeRestriction` 准入插件限制一个kubelet修改绑定到它自己的pod)
 * events
 
 与 Auth 相关的操作:
@@ -37,7 +37,7 @@ title: 使用节点授权
 
 要启用节点授权，需要使用`--authorization-mode=Node`参数来启动 api服务器。
 
-要限制kubelets能够写入的API对象，在启动api服务器时使用`--admission-control=...,NodeRestriction,...`启用准入插件 [NodeRestriction](/docs/admin/admission-controllers#NodeRestriction)
+要限制kubelets能够写入的API对象，在启动api服务器时使用`--admission-control=...,NodeRestriction,...`来启用准入插件 [NodeRestriction](/docs/admin/admission-controllers#NodeRestriction)
 
 ## 迁移注意事项
 
@@ -46,7 +46,7 @@ title: 使用节点授权
 并且需要通过当前授权它们的机制继续授权。
 节点准入插件不会限制来自这些kubelets的请求。
 
-## 具有未分化用户名的 Kubelets
+## 具有未分化用户名(undifferentiated usernames)的 Kubelets
 
 在某些部署中，虽然kubelets具有将它们放置在`system：nodes`组中的标记，
 但不会标识与它们相关联的特定节点，因为它们没有`system：node：...`格式的用户名。 
