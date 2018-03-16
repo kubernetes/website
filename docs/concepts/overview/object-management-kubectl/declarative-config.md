@@ -617,7 +617,7 @@ by `name`.
 # configuration file value
     containers:
     - name: nginx
-      image: nginx:1.11
+      image: nginx:1.11 # value: ngingx:1.11; will be updated in result
     - name: nginx-helper-b
       image: helper:1.3
     - name: nginx-helper-c # key: nginx-helper-c; will be added in result
@@ -638,7 +638,7 @@ by `name`.
 # result after merge
     containers:
     - name: nginx
-      image: nginx:1.10
+      image: nginx:1.11 # image value from configuration file
       # Element nginx-helper-a was deleted
     - name: nginx-helper-b
       image: helper:1.3
@@ -650,7 +650,12 @@ by `name`.
 ```
 
 **Explanation:**
-
+- The container named "nginx" image's value was changed to "ngingx:1.11"
+  because `kubectl apply` identified the updated value in the configuration
+  file. The `patchMergeKey` field value (name) "nginx" was identical 
+  in the live, last applied and local file configurations, therefore referring
+  to the same container. Since their image had different values,
+  the local configuration's value was used.
 - The container named "nginx-helper-a" was deleted because no container
   named "nginx-helper-a" appeared in the configuration file.
 - The container named "nginx-helper-b" retained the changes to `args`
