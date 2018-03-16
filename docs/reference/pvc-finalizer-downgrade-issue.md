@@ -11,20 +11,15 @@ When enabled, [Storage Object in Use Protection](/docs/admin/admission-controlle
 
 ## Downgrading issue
 
-After downgrading from Kubernetes 1.10 to 1.9, PV/PVCs that contain finalizers cannot be removed until their finalizers are removed.
+In Kubernetes 1.9, `PVCProtection` feature is turned off by default. After downgrading from Kubernetes 1.10 to 1.9, PV/PVCs that contain finalizers cannot be removed until their finalizers are removed.
 
 ## Workaround
 
-Currently the pv-protection and pvc-protection finalizers must be removed manually before you downgrade so that PVs and PVCs can be removed after you downgrade to version 1.9. Here's what to do:
+Currently the pv-protection and pvc-protection finalizers must be removed manually after you downgrade so that PVs and PVCs can be removed. 
 
+If `PVCProtection` feature is turned off in Kubernetes 1.9, here is what do do:
 
-Before downgrading to Kubernetes 1.9, disable `StorageObjectInUseProtection` plugin by using apiserver command line option `--disable-admission-plugins=StorageObjectInUseProtection` and restart apiserver:
-
-- if apiserver is managed by systemd, stop it using `systemd stop <apiserver service name>`. Modify apiserver service unit service file, reload the service, and start it using `systemd start` command
-- if apiserver is started through command line, kill the process and run the command again with the above command line option
-
-
-Then patch PV/PVC (e.g. `pv1`) using the following command:
+Patch PV/PVC (e.g. `pv1`) using the following command:
 
 - Patch the PV or PVC, as in the following command, where `pv1` is the name of the PV to patch:
 
@@ -40,4 +35,4 @@ Then patch PV/PVC (e.g. `pv1`) using the following command:
 
     The result should be empty.
 
-- You can now safely downgrade to version 1.9.
+- Then the PV and PVC can be removed.
