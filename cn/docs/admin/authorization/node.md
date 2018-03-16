@@ -33,7 +33,7 @@ title: 使用节点授权
 在未来的发行版中，节点授权也许会 加入 或 删除 permissions 来确保 kubelets 所需的最小权限集能够正常工作。
 
 为了能够得到节点授权者的授权，kebelets 必须使用一个带有用户名`system:node:<nodeName>`的标记以识别它们在`system:nodes`组，
-该组和用户名格式与为每个kubelet创建的作为[kubelet TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/)的标记相匹配
+该组和用户名格式与为每个kubelet创建的作为[kubelet TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/)的标记相匹配。
 
 要启用节点授权，需要使用`--authorization-mode=Node`参数来启动 api服务器。
 
@@ -43,6 +43,7 @@ title: 使用节点授权
 
 ### 组`system:nodes`外的Kubelets
 
+`system：nodes`组之外的Kubelets不会被`Node`授权模式授权，
 并且需要通过当前授权它们的机制继续授权。
 节点准入插件不会限制来自这些kubelets的请求。
 
