@@ -36,7 +36,7 @@ As you may know, it's an antipattern to migrate an entire app (e.g. containerize
 
 Usually, you use {% glossary_tooltip text="labels" term_id="label" %} and {% glossary_tooltip text="annotations" term_id="annotation" %} to attach metadata to your resources. To inject data into your resources, you'd likely create {% glossary_tooltip text="ConfigMaps" term_id="configmap" %} (for nonconfidential data) or {% glossary_tooltip text="Secrets" term_id="secret" %} (for confidential data).
 
-Below are some other, lesser-known ways of configuring your resources' Pods:
+Below are some others, lesser-known ways of configuring your resources' Pods:
 
 * **Taints and Tolerations** - These provide a way for nodes to "attract" or "repel" your Pods. They are often used when an application needs to be deployed onto specific hardware, such as GPUs for scientific computing. [Read more](/docs/concepts/configuration/taint-and-toleration/){:target="_blank"}.
 * **Downward API** - This allows your containers to consume information about themselves or the cluster, without being overly coupled to the Kubernetes API server. This can be achieved with [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/){:target="_blank"} or [DownwardAPIVolumeFiles](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/){:target="_blank"}.
