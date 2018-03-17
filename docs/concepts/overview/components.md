@@ -74,7 +74,7 @@ network rules on the host and performing connection forwarding.
 
 ### Container Runtime
 
-The container runtime is the software that is responsible for running containers. Kubernetes supports two runtimes: [Docker](http://www.docker.com) and [rkt](https://coreos.com/rkt/).
+The container runtime is the software that is responsible for running containers. Kubernetes supports several runtimes: [Docker](http://www.docker.com), [rkt](https://coreos.com/rkt/), [runc](https://github.com/opencontainers/runc) and any OCI [runtime-spec](https://github.com/opencontainers/runtime-spec) implementation.
 
 ## Addons
 
