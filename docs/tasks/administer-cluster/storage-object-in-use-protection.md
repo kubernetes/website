@@ -6,7 +6,6 @@ title: Storage Object in Use Protection
 ---
 
 {% capture overview %}
-{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
 
 Persistent volume claims (PVCs) that are in active use by a pod and persistent volumes (PVs) that are bound to PVCs can be protected from pre-mature removal.
 
