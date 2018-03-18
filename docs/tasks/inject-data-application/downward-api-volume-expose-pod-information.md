@@ -37,7 +37,7 @@ Here is the configuration file for the Pod:
 {% include code.html language="yaml" file="dapi-volume.yaml" ghlink="/docs/tasks/inject-data-application/dapi-volume.yaml" %}
 
 In the configuration file, you can see that the Pod has a `downwardAPI` Volume,
-and the Container mounts the Volume at `/etc`.
+and the Container mounts the Volume at `/etc/podinfo`.
 
 Look at the `items` array under `downwardAPI`. Each element of the array is a
 [DownwardAPIVolumeFile](/docs/api-reference/{{page.version}}/#downwardapivolumefile-v1-core).
