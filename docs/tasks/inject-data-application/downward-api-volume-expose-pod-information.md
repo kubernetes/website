@@ -155,7 +155,7 @@ file for a Pod that has one Container:
 {% include code.html language="yaml" file="dapi-volume-resources.yaml" ghlink="/docs/tasks/inject-data-application/dapi-volume-resources.yaml" %}
 
 In the configuration file, you can see that the Pod has a `downwardAPI` Volume,
-and the Container mounts the Volume at `/etc`.
+and the Container mounts the Volume at `/etc/podinfo`.
 
 Look at the `items` array under `downwardAPI`. Each element of the array is a
 DownwardAPIVolumeFile.
@@ -179,7 +179,7 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 In your shell, view the `cpu_limit` file:
 
 ```shell
-/# cat /etc/cpu_limit
+/# cat /etc/podinfo/cpu_limit
 ```
 You can use similar commands to view the `cpu_request`, `mem_limit` and
 `mem_request` files.
