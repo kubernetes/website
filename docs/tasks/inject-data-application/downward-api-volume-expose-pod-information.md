@@ -88,7 +88,7 @@ kubectl exec -it kubernetes-downwardapi-volume-example -- sh
 In your shell, view the `labels` file:
 
 ```shell
-/# cat /etc/labels
+/# cat /etc/podinfo/labels
 ```
 
 The output shows that all of the Pod's labels have been written
@@ -103,19 +103,19 @@ zone="us-est-coast"
 Similarly, view the `annotations` file:
 
 ```shell
-/# cat /etc/annotations
+/# cat /etc/podinfo/annotations
 ```
 
-View the files in the `/etc` directory:
+View the files in the `/etc/podinfo` directory:
 
 ```shell
-/# ls -laR /etc
+/# ls -laR /etc/podinfo
 ```
 
 In the output, you can see that the `labels` and `annotations` files
 are in a temporary subdirectory: in this example,
-`..2982_06_02_21_47_53.299460680`. In the `/etc` directory, `..data` is
-a symbolic link to the temporary subdirectory. Also in  the `/etc` directory,
+`..2982_06_02_21_47_53.299460680`. In the `/etc/podinfo` directory, `..data` is
+a symbolic link to the temporary subdirectory. Also in  the `/etc/podinfo` directory,
 `labels` and `annotations` are symbolic links.
 
 ```
