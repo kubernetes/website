@@ -173,7 +173,7 @@ parameters:
 allowVolumeExpansion: true
 ```
 
-Once both feature gate and the aforementioned admission plug-in are turned on, an user can request larger volume for their `PersistentVolumeClaim`
+Once both feature gate and the aforementioned admission plug-in are turned on, a user can request larger volume for their `PersistentVolumeClaim`
 by simply editing the claim and requesting a larger size.  This in turn will trigger expansion of the volume that is backing the underlying `PersistentVolume`.
 
 Under no circumstances will a new `PersistentVolume` be created to satisfy the claim. Kubernetes will instead attempt to resize the existing volume.
