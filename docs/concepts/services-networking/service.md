@@ -400,7 +400,7 @@ The default is `ClusterIP`.
 
 If you set the `type` field to `"NodePort"`, the Kubernetes master will
 allocate a port from a flag-configured range (default: 30000-32767), and each
-`Node` will proxy that port (the same port number on every Node) into your `Service`.
+`Node` will proxy that port (the same port number on every `Node`) into your `Service`.
 That port will be reported in your `Service`'s `spec.ports[*].nodePort` field.
 
 If you want a specific port number, you can specify a value in the `nodePort`
