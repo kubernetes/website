@@ -157,7 +157,7 @@ KUBERNETES_SERVICE_PORT_HTTPS=443
 
 
 注意，还没有谈及到 Service。这是因为创建副本先于 Service。
-这样做的另一个缺点是，调度器可能在同一个机器上放置所有 Pod，如果该机器宕机则所有的 Service 都会挂掉。
+这样做的另一个缺点是，调度器可能在同一个机器上放置所有 Pod，如果该机器宕机则所有的 Pod 都会挂掉。
 正确的做法是，我们杀掉 2 个 Pod，等待 Deployment 去创建它们。
 这次 Service 会 *先于* 副本存在。这将实现调度器级别的 Service，能够使 Pod 分散创建（假定所有的 Node 都具有同样的容量），以及正确的环境变量：
 
@@ -353,7 +353,7 @@ $ curl https://<EXTERNAL-IP> -k
 
 
 
-在 `EXTERNAL-IP` 列指定的 IP 地址是在公网上可用的。`CLUSTER-IP` 只在集群/私有云网络中可用。
+在 `EXTERNAL-IP` 列指定的 IP 地址是在公网上可用的。`CLUSTER-IP` 只在 Kubernetes 集群中可用。
 
 注意，在 AWS 上类型 `LoadBalancer` 创建一个 ELB，它使用主机名（比较长），而不是 IP。
 它太长以至于不能适配标准 `kubectl get svc` 的输出，事实上需要通过执行 `kubectl describe service my-nginx` 命令来查看它。
