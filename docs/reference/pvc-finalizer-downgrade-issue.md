@@ -19,18 +19,20 @@ Currently the pv-protection and pvc-protection finalizers must be removed manual
 
 If `PVCProtection` feature is turned off in Kubernetes 1.9, here is what do do:
 
-Patch PV/PVC (e.g. `pv1`) using the following command:
+Patch PV/PVC (e.g. `pv1` and `pvc1`) using the following command:
 
-- Patch the PV or PVC, as in the following command, where `pv1` is the name of the PV to patch:
+- Patch the PV or PVC, as in the following command, where `pv1` is the name of the PV to patch, and `pvc1` is the name of the PVC to patch:
 
      ```bash
-    kubectl patch pv pv1 --type=json -p='[{"op": "remove", "path": "/metadata/finalizers"}]'
+    kubectl patch pv  pv1  --type=json -p='[{"op": "remove", "path": "/metadata/finalizers", "value": "kubernetes.io/pv-protection"}]'
+    kubectl patch pvc pvc1 --type=json -p='[{"op": "remove", "path": "/metadata/finalizers", "value": "kubernetes.io/pvc-protection"}]'
     ````
 
 - Verify the finalizers are removed:
 
     ```bash
     kubectl get pv pv1 -o yaml |grep finalizer
+    kubectl get pvc pvc1 -o yaml |grep finalizer
     ```
 
     The result should be empty.
