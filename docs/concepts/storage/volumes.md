@@ -286,7 +286,7 @@ See the [FC example](https://github.com/kubernetes/examples/tree/{{page.githubbr
 
 ### flocker
 
-[Flocker](https://clusterhq.com/flocker) is an open-source clustered container data volume manager. It provides management
+[Flocker](https://github.com/ClusterHQ/flocker) is an open-source clustered container data volume manager. It provides management
 and orchestration of data volumes backed by a variety of storage backends.
 
 A `flocker` volume allows a Flocker dataset to be mounted into a pod. If the
