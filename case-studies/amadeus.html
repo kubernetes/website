@@ -29,12 +29,14 @@ css: /css/style_amadeus.css
 </div>
 </div>
 </section>
+
 <div class="banner2">
   <div class="banner2text">
     "We want multi-data center capabilities, and we want them for our mainstream system as well. We didn’t think that we could achieve them with our existing system. We need new automation, things that Kubernetes and OpenShift bring."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Eric Mountain, Senior Expert, Distributed Systems at Amadeus IT Group</span>
   </div>
 </div>
 <section class="section2">
+
 <div class="fullcol">
     <h2>In his two decades at Amadeus, Eric Mountain has been the migrations guy. </h2>
     Back in the day, he worked on the company’s move from Unix to Linux, and now he’s overseeing the journey to cloud native. "Technology just keeps changing, and we embrace it," he says. "We are celebrating our 30 years this year, and we continue evolving and innovating to stay cost-efficient and enhance everyone’s travel experience, without interrupting workflows for the customers who depend on our technology."<br><br>
@@ -43,11 +45,13 @@ css: /css/style_amadeus.css
     More generally, the company was interested in leveling up on high availability, increasing automation in managing infrastructure, optimizing the distribution of workloads and using data center resources more efficiently. "We have thousands and thousands of servers," says Mountain. "These servers are assigned roles, so even if the setup is highly automated, the machine still has a given role. It’s wasteful on many levels. For instance, an application doesn’t necessarily use the machine very optimally. Virtualization can help a bit, but it’s not a silver bullet. If that machine breaks, you still want to repair it because it has that role and you can’t simply say, ‘Well, I’ll bring in another machine and give it that role.’ It’s not fast. It’s not efficient. So we wanted the next level of automation."<br><br>
 </div>
 </section>
+
 <div class="banner3">
   <div class="banner3text">
     "We hope that if we build on what others have built, what we do might actually be upstream-able. As Kubernetes and OpenShift progress, we see that we are indeed able to remove some of the additional layers we implemented to compensate for gaps we perceived earlier."
   </div>
 </div>
+
 <section class="section3">
 <div class="fullcol">
   While mainly a C++ and Java shop, Amadeus also wanted to be able to adopt new technologies more easily. Some of its developers had started using languages like <a href="https://www.python.org/">Python</a> and databases like <a href="https://www.couchbase.com/">Couchbase</a>, but Mountain wanted still more options, he says, "in order to better adapt our technical solutions to the products we offer, and open up entirely new possibilities to our developers." Working with recent technologies and cool new things would also make it easier to attract new talent.
@@ -61,11 +65,13 @@ css: /css/style_amadeus.css
   The hope was that those particular features would eventually be built into Kubernetes, and, in the case of security, Mountain feels that has happened. "We realize that there’s always a certain amount of automation that we will probably have to develop ourselves to compensate for certain gaps," says Mountain. "The less we do that, the better for us. We hope that if we build on what others have built, what we do might actually be upstream-able. As Kubernetes and OpenShift progress, we see that we are indeed able to remove some of the additional layers we implemented to compensate for gaps we perceived earlier."
 </div>
 </section>
+
 <div class="banner4">
   <div class="banner4text">
     "It’s not a migration of an existing workload; it’s a whole new workload that we couldn’t have done otherwise. [This platform] gives us access to market opportunities that we didn’t have before."
   </div>
 </div>
+
 <section class="section4">
 <div class="fullcol">
   The first project the team tackled was one that they knew had to run outside the data center in Germany. Because of the project’s needs, "We couldn’t rely only on the built-in Kubernetes service discovery; we had to layer on top of that an extra service discovery level that allows us to load balance at the operation level within our system," says Mountain. They also built a stream dedicated to monitoring, which at the time wasn’t offered in the Kubernetes or OpenShift ecosystem. Now that <a href="https://www.prometheus.io/">Prometheus</a> and other products are available, Mountain says the company will likely re-evaluate their monitoring system: "We obviously always like to leverage what Kubernetes and OpenShift can offer."
@@ -77,11 +83,13 @@ css: /css/style_amadeus.css
   The first order of business, then, is to pick one or two applications to demonstrate that the technology works. Rather than choosing a high-impact, high-risk project, Mountain’s team selected a smaller application that was representative of all the company’s other applications in its complexity: "We just made sure we picked something that’s complex enough, and we showed that it can be done."
 </div>
 </section>
+
 <div class="banner5">
   <div class="banner5text">
     "The bottom line is we want these multi-data center capabilities, and we want them as well for our mainstream system," he says. "And we don’t think that we can implement them with our previous system. We need the new automation, homogeneity, and scale that Kubernetes and OpenShift bring."
   </div>
 </div>
+
 <section class="section5">
 <div class="fullcol">
   Next comes convincing people. "On the operations side and on the R&D side, there will be people who say quite rightly, ‘There is a system, and it works, so why change?’" Mountain says. "The only thing that really convinces people is showing them the value." For Amadeus, people realized that the Airline Cloud Availability product could not have been made available on the public cloud with the company’s existing system. The question then became, he says, "Do we go into a full-blown migration? Is that something that is justified?"
