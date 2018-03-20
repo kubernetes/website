@@ -27,6 +27,7 @@ different Kubernetes components.
 |---------|---------|-------|-------|-------|
 <<<<<<< HEAD
 | `Accelerators` | `false` | Alpha | 1.6 | 1.10 |
+<<<<<<< HEAD
 | `AdvancedAuditing` | `false` | Alpha | 1.7 | 1.7 |
 ||||||| merged common ancestors
 | `Accelerators` | `false` | Alpha | 1.6 | |
@@ -35,6 +36,11 @@ different Kubernetes components.
 | `Accelerators` | `false` | Alpha | 1.6 | 1.10 |
 | `AdvancedAuditing` | `false` | Alpha | 1.7 | |
 >>>>>>> Document the removal of Accelerators feature gate (#7389)
+||||||| merged common ancestors
+| `AdvancedAuditing` | `false` | Alpha | 1.7 | |
+=======
+| `AdvancedAuditing` | `false` | Alpha | 1.7 | 1.7 |
+>>>>>>> Feature gate update for release 1.10 (#7742)
 | `AdvancedAuditing` | `true` | Beta | 1.8 | |
 | `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 |
 | `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
@@ -56,11 +62,17 @@ different Kubernetes components.
 | `CustomResourceValidation` | `true` | Beta | 1.9 | |
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 | `DebugContainers` | `false` | Alpha | 1.10 | |
 ||||||| merged common ancestors
 =======
 | `CustomResourceSubresources` | `false` | Alpha | 1.10 | |
 >>>>>>> Add docs for CRD features for 1.10 (#7439)
+||||||| merged common ancestors
+| `CustomResourceSubresources` | `false` | Alpha | 1.10 | |
+=======
+| `DebugContainers` | `false` | Alpha | 1.10 | |
+>>>>>>> Feature gate update for release 1.10 (#7742)
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
 ||||||| merged common ancestors
@@ -77,7 +89,12 @@ different Kubernetes components.
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | |
+||||||| merged common ancestors
+=======
+| `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | |
+>>>>>>> Feature gate update for release 1.10 (#7742)
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
 | `HugePages` | `true` | Beta| 1.10 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
@@ -141,8 +158,15 @@ different Kubernetes components.
 | `PVCProtection` | `false` | Alpha | 1.9 | |
 =======
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
+<<<<<<< HEAD
 | `PVCProtection` | `false` | Alpha | 1.9 | |
 >>>>>>> Create a task describing Pod process namespace sharing (#7489)
+||||||| merged common ancestors
+| `PVCProtection` | `false` | Alpha | 1.9 | |
+=======
+| `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
+| `ReadOnlyAPIDataVolumes` | `true` | Deprecated | 1.10 | |
+>>>>>>> Feature gate update for release 1.10 (#7742)
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | |
@@ -158,12 +182,17 @@ different Kubernetes components.
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | |
 | `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | `TokenRequest` | `false` | Alpha | 1.10 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | |
 ||||||| merged common ancestors
 | `VolumeScheduling` | `false` | Alpha | 1.9 | |
 =======
+||||||| merged common ancestors
+=======
+| `TokenRequest` | `false` | Alpha | 1.10 | |
+>>>>>>> Feature gate update for release 1.10 (#7742)
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | |
 >>>>>>> Update feature gates move to beta (#7662)
@@ -230,6 +259,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
    Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
    for more details.
 <<<<<<< HEAD
+<<<<<<< HEAD
 - `CustomResourceSubresources`: Enable `/status` and `/scale` subresources
   on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 - `CustomResourceValidation`: Enable schema based validation on resources created from
@@ -240,9 +270,23 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CustomeResourceValidation`: Enable schema based validation on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 =======
 - `CustomeResourceValidation`: Enable schema based validation on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+||||||| merged common ancestors
+- `CustomeResourceValidation`: Enable schema based validation on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+=======
+>>>>>>> Feature gate update for release 1.10 (#7742)
 - `CustomResourceSubresources`: Enable `/status` and `/scale` subresources
+<<<<<<< HEAD
 on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 >>>>>>> Add docs for CRD features for 1.10 (#7439)
+||||||| merged common ancestors
+on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+=======
+  on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+- `CustomResourceValidation`: Enable schema based validation on resources created from
+  [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+- `DebugContainers`: Enable running a "debugging" container in a Pod's namespace to 
+  troubleshoot a running Pod.
+>>>>>>> Feature gate update for release 1.10 (#7742)
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
   based resource provisioning on nodes.
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
