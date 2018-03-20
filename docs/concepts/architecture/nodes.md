@@ -245,7 +245,7 @@ the machine even if it is being drained of applications in preparation for a reb
 
 ### Node capacity
 
-The capacity of the node (number of cpus and amount of memory) is part of the node object.
+The capacity of the node (numbers of cpu and amount of memory) is part of the node object.
 Normally, nodes register themselves and report their capacity when creating the node object. If
 you are doing [manual node administration](#manual-node-administration), then you need to set node
 capacity when adding a node.
