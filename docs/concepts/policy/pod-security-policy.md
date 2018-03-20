@@ -523,9 +523,8 @@ for the default list of capabilities when using the Docker runtime.
 
 ### SELinux
 
-- *MustRunAs* - Requires `seLinuxOptions` to be configured if not using
-pre-allocated values. Uses `seLinuxOptions` as the default. Validates against
-`seLinuxOptions`.
+- *MustRunAs* - Requires `seLinuxOptions` to be configured. Uses
+`seLinuxOptions` as the default. Validates against `seLinuxOptions`.
 - *RunAsAny* - No default provided. Allows any `seLinuxOptions` to be
 specified.
 
