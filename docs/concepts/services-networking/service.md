@@ -198,7 +198,7 @@ Note that in the above diagram, `clusterIP` is shown as `ServiceIP`.
 
 In this mode, `kube-proxy` watches the Kubernetes master for the addition and
 removal of Service and Endpoint objects. For each Service, it creates
-ipvs rules. `kube-proxy` periodically syncs ipvs rules with Kubernetes
+ipvs rules. `kube-proxy` periodically syncronizes ipvs rules with Kubernetes
 Services and Endpoints to make sure ipvs status is
 consistent with the Service and Endpoint objects. When a Service is accessed, traffic will
 be redirected to one of the backend Pods.
