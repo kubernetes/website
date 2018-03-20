@@ -35,6 +35,7 @@ deployment "nginx-app" created
 ```
 
 **Note:** `kubectl` commands print the type and name of the resource created or mutated, which can then be used in subsequent commands. You can expose a new Service after a Deployment is created.
+{: .note}
 
 ```shell
 # expose a port through with a service
@@ -53,7 +54,7 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 Unlike `docker run ...`, if you specify `--attach`, then you attach `stdin`, `stdout` and `stderr`. You cannot control which streams are attached (`docker -a ...`).
 To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q.
 
-Because kubectl run command starts a Deployment for the container, the Deployment restarts if you terminate the attached process by using Ctrl+C unlike `docker run -it`.
+Because the kubectl run command starts a Deployment for the container, the Deployment restarts if you terminate the attached process by using Ctrl+C, unlike `docker run -it`.
 To destroy the Deployment and its pods you need to run `kubectl delete deployment <name>`.
 
 #### docker ps
@@ -219,6 +220,7 @@ $ kubectl get po -l run=nginx-app
 ```
 
 **Note:** When you use kubectl, you don't delete the pod directly.You have to fiirst delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
+{: .note}
 
 #### docker login
 
