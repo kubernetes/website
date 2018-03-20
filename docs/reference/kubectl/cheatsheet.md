@@ -7,7 +7,7 @@ approvers:
 title: kubectl Cheat Sheet
 ---
 
-See also: [Kubectl Overview](/docs/user-guide/kubectl-overview/) and [JsonPath Guide](/docs/user-guide/jsonpath).
+See also: [Kubectl Overview](/docs/reference/kubectl/overview.md/) and [JsonPath Guide](/docs/reference/kubectl/jsonpath.md).
 
 ## Kubectl Autocomplete
 
@@ -19,7 +19,7 @@ $ source <(kubectl completion zsh)  # setup autocomplete in zsh
 ## Kubectl Context and Configuration
 
 Set which Kubernetes cluster `kubectl` communicates with and modifies configuration
-information. See [Authenticating Across Clusters with kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation for
+information. See [Authenticating Across Clusters with kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters.md) documentation for
 detailed config file information.
 
 ```console
