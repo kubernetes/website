@@ -285,7 +285,7 @@
  			name: 'Kumina',
  			logo: 'kumina',
  			link: 'https://www.kumina.nl/managed_kubernetes',
- 			blurb: 'Kumina creates Kubernetes solutions on your choice of infrastructure with around-the-clock management and unlimited support.'
+ 			blurb: 'Kumina combines the power of Kubernetes with 10+ years of experience in IT operations. We create, build and support fully managed Kubernetes solutions on your choice of infrastructure. We also provide consulting and training.'
   		},
 		{
  			type: 0,
