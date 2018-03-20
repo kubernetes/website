@@ -26,7 +26,7 @@ different Kubernetes components.
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
 | `Accelerators` | `false` | Alpha | 1.6 | 1.10 |
-| `AdvancedAuditing` | `false` | Alpha | 1.7 | |
+| `AdvancedAuditing` | `false` | Alpha | 1.7 | 1.7 |
 | `AdvancedAuditing` | `true` | Beta | 1.8 | |
 | `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 |
 | `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
@@ -38,11 +38,15 @@ different Kubernetes components.
 | `BlockVolume` | `false` | Alpha | 1.9 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
-| `CSIPersistentVolume` | `false` | Alpha | 1.9 | |
-| `CustomPodDNS` | `false` | Alpha | 1.9 | |
+| `CRIContainerLogRotation` | `false` | Alpha | 1.10 | |
+| `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
+| `CSIPersistentVolume` | `true` | Beta | 1.10 | |
+| `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
+| `CustomPodDNS` | `true` | Beta| 1.10 | |
+| `CustomResourceSubresources` | `false` | Alpha | 1.10 | |
 | `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
 | `CustomResourceValidation` | `true` | Beta | 1.9 | |
-| `CustomResourceSubresources` | `false` | Alpha | 1.10 | |
+| `DebugContainers` | `false` | Alpha | 1.10 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | |
@@ -52,6 +56,7 @@ different Kubernetes components.
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.8 |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
+| `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | |
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
 | `HugePages` | `true` | Beta| 1.10 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
@@ -66,15 +71,23 @@ different Kubernetes components.
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | |
 | `PodPriority` | `false` | Alpha | 1.8 | |
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
-| `PVCProtection` | `false` | Alpha | 1.9 | |
+| `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
+| `ReadOnlyAPIDataVolumes` | `true` | Deprecated | 1.10 | |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | |
+| `RunAsGroup` | `false` | Alpha | 1.10 | |
+| `ScheduleDaemonSetPods` | `false` | Alpha | 1.10 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
+| `StorageObjectInUseProtection` | `true` | Beta | 1.10 | |
 | `StreamingProxyRedirects` | `true` | Beta | 1.5 | |
-| `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | |
+| `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
+| `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
+| `SupportIPVSProxyMode` | `true` | Beta | 1.10 | |
+| `SupportPodPidsLimit` | `false` | Alpha | 1.10 | |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | |
 | `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
+| `TokenRequest` | `false` | Alpha | 1.10 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | |
 
@@ -131,6 +144,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
    See [Raw Block Volume Support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
    for more details.
 - `CPUManager`: Enable container level CPU affinity support, see [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
+- `CRIContainerLogRotation`: Enable container log rotation for cri container runtime.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
   compatible volume plugin.
@@ -138,9 +152,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
    Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
    for more details.
-- `CustomeResourceValidation`: Enable schema based validation on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 - `CustomResourceSubresources`: Enable `/status` and `/scale` subresources
-on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+  on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+- `CustomResourceValidation`: Enable schema based validation on resources created from
+  [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+- `DebugContainers`: Enable running a "debugging" container in a Pod's namespace to 
+  troubleshoot a running Pod.
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
   based resource provisioning on nodes.
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
@@ -153,6 +170,7 @@ on resources created from [CustomResourceDefinition](/docs/concepts/api-extensio
    host mounts, or containers that are privileged or using specific non-namespaced
    capabilities (e.g. `MKNODE`, `SYS_MODULE` etc.). This should only be enabled
    if user namespace remapping is enabled in the Docker daemon.
+- `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
 - `HugePages`: Enable the allocation and consumption of pre-allocated [huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/).
 - `HyperVContainer`: Enable [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) for Windows containers.
 - `Intializers`: Enable the [dynamic admission control](/docs/admin/extensible-admission-controllers/)
@@ -170,6 +188,8 @@ on resources created from [CustomResourceDefinition](/docs/concepts/api-extensio
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
   More details can be found [here](/docs/tasks/administer-cluster/pvc-protection/).
+- `ReadOnlyAPIDataVolumes`: Set Secret, ConfigMap, DownwardAPI and projected volumes to be mounted in read-only mode.
+  This gate exists only for backward compatibility. It will be removed in 1.11 release.
 - `ResourceLimitsPriorityFunction`: Enable a scheduler priority function that
   assigns a lowest possible score of 1 to a node that satisfies at least one of
   the input Pod's cpu and memory limits. The intent is to break ties between
@@ -178,16 +198,22 @@ on resources created from [CustomResourceDefinition](/docs/concepts/api-extensio
   See [kubelet configuration](/docs/admin/kubelet-tls-bootstrapping/#kubelet-configuration) for more details.
 - `RotateKubeletServerCertificate`: Enable the rotation of the server TLS certificate on the kubelet.
   See [kubelet configuration](/docs/admin/kubelet-tls-bootstrapping/#kubelet-configuration) for more details.
+- `RunAsGroup`: Enable control over the primary group ID set on the init processes of containers.
+- `ScheduleDaemonSetPods`: Enable DaemonSet Pods to be scheduled by the default scheduler instead of the DaemonSet controller.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers created by a cloud provider.
   A node is eligible for exclusion if annotated with "`alpha.service-controller.kubernetes.io/exclude-balancer`" key.
+- `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or 
+  PersistentVolumeClaim objects if they are still being used.
 - `StreamingProxyRedirects`: Instructs the API server to intercept (and follow)
    redirects from the backend (kubelet) for streaming requests.
   Examples of streaming requests include the `exec`, `attach` and `port-forward` requests.
 - `SupportIPVSProxyMode`: Enable providing in-cluster service load balancing using IPVS.
   See [service proxies](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies) for more details.
+- `SupportPodPidsLimit`: Enable the support to limiting PIDs in Pods.
 - `TaintBasedEvictions`: Enable evicting pods from nodes based on taints on nodes and tolerations on Pods.
   See [taints and tolerations](/docs/concepts/configuration/taint-and-toleration/) for more details.
 - `TaintNodesByCondition`: Enable automatic tainting nodes based on [node conditions](/docs/concepts/architecture/nodes/#condition).
+- `TokenRequest`: Enable the `TokenRequest` endpoint on service account resources.
 - `VolumeScheduling`: Enable volume topology aware scheduling and make the
   PersistentVolumeClaim (PVC) binding aware of scheduling decisions. It also
   enables the usage of [`local`](/docs/concepts/storage/volumes/#local) volume
