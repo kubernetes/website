@@ -350,8 +350,12 @@ user._ If there is an error encountered when calling an external admission
 webhook, that request is ignored and will not be used to approve/deny the
 admission request.
 
-**Note:** The admission chain depends solely on the order of the
-`--admission-control` option passed to `kube-apiserver`.
+**Note** In kubernetes versions earlier than v1.10, the admission chain depends
+only on the order of the `--admission-control` option passed to `kube-apiserver`.
+In versions v1.10 and later, the `--admission-control` option is replaced by the
+`--enable-admission-plugins` and the `--disable-admission-plugins` options.
+The order of plugins for these two options no longer matters.
+{: .note}
 
 ### Enable external admission webhooks
 
