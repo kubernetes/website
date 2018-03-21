@@ -77,6 +77,11 @@ with a standard set of labels. As of Kubernetes v1.4 these labels are
 * `beta.kubernetes.io/os`
 * `beta.kubernetes.io/arch`
 
+**Note:** The value of these labels is cloud provider specific and is not guaranteed to be reliable.
+For example, the value of `kubernetes.io/hostname` may be the same as the Node name in some environments
+and a different value in other environments.
+{: .note}
+
 ## Affinity and anti-affinity
 
 `nodeSelector` provides a very simple way to constrain pods to nodes with particular labels. The affinity/anti-affinity

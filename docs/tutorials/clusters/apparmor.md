@@ -317,14 +317,13 @@ node with the required profile.
 ### Restricting profiles with the PodSecurityPolicy
 
 If the PodSecurityPolicy extension is enabled, cluster-wide AppArmor restrictions can be applied. To
-enable the PodSecurityPolicy, two flags must be set on the `apiserver`:
+enable the PodSecurityPolicy, the following flag must be set on the `apiserver`:
 
 ```
---admission-control=PodSecurityPolicy[,others...]
---runtime-config=extensions/v1beta1/podsecuritypolicy[,others...]
+--enable-admission-plugins=PodSecurityPolicy[,others...]
 ```
 
-With the extension enabled, the AppArmor options can be specified as annotations on the PodSecurityPolicy:
+The AppArmor options can be specified as annotations on the PodSecurityPolicy:
 
 ```yaml
 apparmor.security.beta.kubernetes.io/defaultProfileName: <profile_ref>

@@ -45,7 +45,7 @@ title: 通过配置文件设置 Kubelet 参数
 ## 启动通过配置文件配置的 Kubelet 进程
 
 
-启动 Kubelet，需要打开 `KubeletConfigFile` 特性开关（feature gate）并将其 `--init-config-dir` 标志设置为包含 `kubelet` 文件的文件夹路径。Kubelet 将从 `kubelet` 文件中读取由 `KubeletConfiguration` 定义的参数，而不是从参数相关的命令行标志中读取。
+启动 Kubelet 需要将其 `--init-config-dir` 标志设置为包含 `kubelet` 文件的文件夹路径。Kubelet 将从 `kubelet` 文件中读取由 `KubeletConfiguration` 定义的参数，而不是从参数相关的命令行标志中读取。
 
 {% endcapture %}
 

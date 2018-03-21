@@ -640,15 +640,13 @@ references it.
 
 ### Local
 
-{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
-
-This feature requires the `VolumeScheduling` feature gate to be enabled.
+{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
 
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: local-fast
+  name: local-storage
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 ```
@@ -656,3 +654,7 @@ volumeBindingMode: WaitForFirstConsumer
 Local volumes do not support dynamic provisioning yet, however a StorageClass
 should still be created to delay volume binding until pod scheduling. This is
 specified by the `WaitForFirstConsumer` volume binding mode.
+
+Delaying volume binding allows the scheduler to consider all of a pod's
+scheduling constraints when choosing an appropriate PersistentVolume for a
+PersistentVolumeClaim.
