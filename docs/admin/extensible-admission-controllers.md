@@ -116,7 +116,7 @@ webhooks:
     service:
       namespace: <namespace of the front-end service>
       name: <name of the front-end service>
-    caBundle: <pem encoded ca cert that signs the server cert used by the webhook>
+    caBundle: <pem encoded ca cert that signs the server cert (CN: <svc_name>.<svc_namespace>.svc) used by the webhook>
 ```
 
 When an apiserver receives a request that matches one of the `rules`, the
@@ -227,7 +227,7 @@ all `spec.initializers[].name`s are appended to the new object's
 
 An initializer controller should list and watch for uninitialized objects, by
 using the query parameter `?includeUninitialized=true`. If using client-go, just
-set 
+set
 [listOptions.includeUninitialized](https://github.com/kubernetes/kubernetes/blob/v1.7.0-rc.1/staging/src/k8s.io/apimachinery/pkg/apis/meta/v1/types.go#L315)
 to true.
 
