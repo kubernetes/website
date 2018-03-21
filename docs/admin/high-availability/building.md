@@ -186,7 +186,7 @@ This code is called the "reconciler," because it reconciles the list of
 endpoints stored in etcd, and the list of endpoints that are actually up
 and running.
 
-Prior Kubernetes 1.9, the reconciler expects you to provide the
+Prior to Kubernetes 1.9, the reconciler expects you to provide the
 number of endpoints (i.e., the number of apiserver replicas) through
 a command-line flag (e.g. `--apiserver-count=3`). If more replicas
 are available, the reconciler trims down the list of endpoints.
