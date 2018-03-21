@@ -1369,7 +1369,7 @@
 			type: 3,
 			name: 'ZTE',
 			logo: 'zte',
-			link: 'https://sdnfv.zte.com.cn/zh-CN/home',
+			link: 'https://sdnfv.zte.com.cn/en/home',
 			blurb: 'ZTE - TECS OpenPalette'
 				},
 		{
