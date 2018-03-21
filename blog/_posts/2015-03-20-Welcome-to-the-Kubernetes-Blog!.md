@@ -1,9 +1,7 @@
 ---
 layout: blog
-title: " Welcome to the Kubernetes Blog! "
+title: Welcome to the Kubernetes Blog! 
 date:  Saturday, March 20, 2015
-pagination:
-  enabled: true
 ---
 Welcome to the new Kubernetes blog. Follow this blog to learn about the Kubernetes Open Source project. We plan to post release notes, how-to articles, events, and maybe even some off topic fun here from time to time.
 
