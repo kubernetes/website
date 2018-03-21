@@ -141,15 +141,15 @@ div.header-try a {
 }
 
 
-/* Pagination Links */
-.pagination h4, h3{
+/* Pagination Next/Prev Links */
+.pager h4, h3{
 display: inline-block;
 }
 
-.pagination a {
+.pager a {
   text-decoration: none;
 }
-span.pagination {
+span.pager {
 text-align: center;
 align-self: center;
 }
@@ -261,7 +261,7 @@ h3.post-title{
   font-size: 90%;
 }
 
-/* Mobile
+/* Mobile/
 ----------------------------------------------- */
 .main-inner .column-right-outer {
   width: 320px;
@@ -284,17 +284,7 @@ h3.post-title{
   white-space: nowrap;
   font-family: Roboto, sans-serif;
 }
-.widget-link .fa {
-  position: absolute;
-  left: 0; top: 0;
-  width: 40px; height: 40px;
-  color: white;
-  background-color: #326DE6;
-  border-radius: 6px;
-  font-size: 30px;
-  text-align: center;
-  line-height: 40px;
-}
+
 h2.date-header {
   font-family: Roboto-Bold;
   font-weight: bold;
@@ -407,7 +397,7 @@ ul {
 }
 /* Sidebar Icon Styles */
 .widget-link svg {
-  font-size: 48px;
+  font-size: 33px;
   color:#326DE6;
 }
 

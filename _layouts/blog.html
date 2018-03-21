@@ -90,8 +90,7 @@
   <div class="row blog-content" >
    <div class="col-xs-10 col-sm-9 col-lg-9 text">
 
-       <h6 class="date-header">{{ page.date | date: '%B %-d, %Y' }} </h6>
-
+       <h4 class="date-header">{{ page.date | date: ' %A, %B %-d, %Y' }} </h4>
       <h3 class="post-title entry-title">  {{page.title}} </h3>
       {{ content }}
     </div>
@@ -100,12 +99,12 @@
     <div class="col-xs-1 col-sm-1 col-sm-3 col-lg-3 text">
       <div ="widget-content">
         <link href='http://kubernetes.io/feed.xml' rel='alternate' type='application/atom+xml'>
-        <a class="widget-link" href="https://kubernetes.io/feed.xml"> <i class="fas fa-rss"> </i> </a>
-        <a class="widget-link" href="https://twitter.com/kubernetesio"> <i class="fab fa-twitter-square"> </i> @Kubernetesio</a>
-        <a class="widget-link" href="https://github.com/kubernetes/kubernetes"> <i class="fab fa-github-square"></i> View on Github </a>
-        <a class="widget-link" href="http://slack.k8s.io"><i class='fab fa-slack'> </i> #kubernetes-users </a>
-        <a class="widget-link" href="http://stackoverflow.com/questions/tagged/kubernetes"><i class="fab fa-stack-overflow"></i>Stack Overflow</a>
-        <a class="widget-link" href="http://get.k8s.io/"><i class="fab fa-stack-overflow"></i>Download Kubernetes</a>
+        <a class="widget-link" href="https://kubernetes.io/feed.xml"> <i class="fas fa-rss fab-icon"> </i> </a>
+        <a class="widget-link" href="https://twitter.com/kubernetesio"> <i class="fab fa-twitter-square fab-icon"> </i> @Kubernetesio</a>
+        <a class="widget-link" href="https://github.com/kubernetes/kubernetes"> <i class="fab fa-github-square fab-icon"></i> View on Github </a>
+        <a class="widget-link" href="http://slack.k8s.io"><i class="fab fa-slack fab-icon"> </i> #kubernetes-users </a>
+        <a class="widget-link" href="http://stackoverflow.com/questions/tagged/kubernetes"><i class="fab fa-stack-overflow fab-icon"></i>Stack Overflow</a>
+        <a class="widget-link" href="http://get.k8s.io/"><i class="fab fa-stack-overflow fab-icon"></i>Download Kubernetes</a>
       </div>
 
 <!-- Begin Sidebar  Loop -->
