@@ -7,7 +7,7 @@ title: Downgrading issue from Kubernetes 1.10 to 1.9 due to StorageObjectInUsePr
 
 ## Storage Object in Use Protection in Kubernetes 1.10
 
-When enabled, [Storage Object in Use Protection](/docs/admin/admission-controllers.md#storage-object-in-use-protection-beta) prevents PV/PVC from being removed when the finalizers are still present. 
+When enabled, [Storage Object in Use Protection](/docs/admin/admission-controllers.md#storage-object-in-use-protection-beta) prevents PersistentVolume and PersistentVolumeClaim objects from being removed if the finalizers are still present. 
 
 ## Downgrading issue
 
@@ -17,7 +17,7 @@ In Kubernetes 1.9, `PVCProtection` feature is turned off by default. After downg
 
 Currently the pv-protection and pvc-protection finalizers must be removed manually after you downgrade so that PVs and PVCs can be removed. 
 
-If `PVCProtection` feature is turned off in Kubernetes 1.9, here is what do do:
+If the `PVCProtection` feature is turned off in Kubernetes 1.9, here is what do do:
 
 Patch PV/PVC (e.g. `pv1` and `pvc1`) using the following command:
 
