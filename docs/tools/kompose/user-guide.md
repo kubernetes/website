@@ -16,7 +16,7 @@ redirect_from:
 
 What's Kompose? It's a conversion tool for all things compose (namely Docker Compose) to container orchestrators (Kubernetes or OpenShift).
 
-More information can be found our website at [http://kompose.io](http://kompose.io)
+More information can be found on the Kompose website at [http://kompose.io](http://kompose.io).
 
 In three simple steps, we'll take you from Docker Compose to Kubernetes.
 

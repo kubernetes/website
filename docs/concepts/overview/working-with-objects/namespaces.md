@@ -86,5 +86,4 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are
 in some namespaces.  However namespace resources are not themselves in a namespace.
 And low-level resources, such as [nodes](/docs/admin/node) and
-persistentVolumes, are not in any namespace. Events are an exception: they may or may not
-have a namespace, depending on the object the event is about.
+persistentVolumes, are not in any namespace.
