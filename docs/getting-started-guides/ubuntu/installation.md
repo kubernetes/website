@@ -131,8 +131,14 @@ ERROR failed to bootstrap model: instance provisioning failed (Failed)
 ```
 
 
+<<<<<<< HEAD
 You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.2/controllers) for more information.
 >>>>>>> merge master to 1.10, with fixes (#7682)
+||||||| merged common ancestors
+You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.2/controllers) for more information.
+=======
+You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.3/controllers) for more information.
+>>>>>>> Pvcprotection toc (#7807)
 
 Note that each controller can host multiple Kubernetes clusters in a given cloud or region.
 

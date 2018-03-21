@@ -16,8 +16,15 @@ Use a version of kubectl that is the same version as your server or later. Using
 ## Install kubectl
 
 Here are a few methods to install kubectl.
+<<<<<<< HEAD
 
+||||||| merged common ancestors
+=======
+Pick the one that suits your environment best.
+
+>>>>>>> Pvcprotection toc (#7807)
 {% capture steps %}
+<<<<<<< HEAD
 
 ## Install kubectl binary via native package management
 
@@ -117,6 +124,11 @@ kubectl can be installed as part of the Google Cloud SDK.
 3. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
 ## Install kubectl binary via curl
+||||||| merged common ancestors
+## Install kubectl binary via curl
+=======
+### Install kubectl binary via curl
+>>>>>>> Pvcprotection toc (#7807)
 
 {% capture macos %}
 1. Download the latest release with the command:
@@ -185,6 +197,7 @@ kubectl can be installed as part of the Google Cloud SDK.
 {% include tabs.md %}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ||||||| merged common ancestors
 ## Download as part of the Google Cloud SDK
 
@@ -246,6 +259,11 @@ Edit the config file with a text editor of your choice, such as Notepad for exam
 
 =======
 ## Download as part of the Google Cloud SDK
+||||||| merged common ancestors
+## Download as part of the Google Cloud SDK
+=======
+### Download as part of the Google Cloud SDK
+>>>>>>> Pvcprotection toc (#7807)
 
 kubectl can be installed as part of the Google Cloud SDK.
 
@@ -256,7 +274,7 @@ kubectl can be installed as part of the Google Cloud SDK.
 
 3. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
-## Install with snap on Ubuntu
+### Install with snap on Ubuntu
 
 kubectl is available as a [snap](https://snapcraft.io/) application.
 
@@ -266,7 +284,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
-## Install with Homebrew on macOS
+### Install with Homebrew on macOS
 
 1. If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install with:
 
@@ -274,7 +292,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
-## Install with Powershell from PSGallery
+### Install with Powershell from PSGallery
 
 1. If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update with:
 
@@ -287,7 +305,7 @@ If no Downloadlocation is specified, kubectl will be installed in users temp Dir
 re-run Install-Script to update the installer
 re-run install-kubectl.ps1 to install latest binaries
 
-## Install with Chocolatey on Windows
+### Install with Chocolatey on Windows
 
 1. If you are on Windows and using [Chocolatey](https://chocolatey.org) package manager, you can install with:
 

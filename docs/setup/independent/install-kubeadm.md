@@ -240,7 +240,13 @@ apt-get install -y kubelet kubeadm kubectl
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
+<<<<<<< HEAD
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+||||||| merged common ancestors
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+=======
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-$basearch
+>>>>>>> Pvcprotection toc (#7807)
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1

@@ -262,6 +262,7 @@ allowVolumeExpansion: true
 ```
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Once both feature gate and the aforementioned admission plug-in are turned on, a user can request larger volume for their `PersistentVolumeClaim`
 by simply editing the claim and requesting a larger size.  This in turn will trigger expansion of the volume that is backing the underlying `PersistentVolume`.
 ||||||| merged common ancestors
@@ -269,6 +270,11 @@ Once both feature gate and aforementioned admission plug-in are turned on, an us
 by simply editing the claim and requesting bigger size.  This in turn will trigger expansion of volume that is backing underlying `PersistentVolume`.
 =======
 Once both feature gate and the aforementioned admission plug-in are turned on, an user can request larger volume for their `PersistentVolumeClaim`
+||||||| merged common ancestors
+Once both feature gate and the aforementioned admission plug-in are turned on, an user can request larger volume for their `PersistentVolumeClaim`
+=======
+Once both feature gate and the aforementioned admission plug-in are turned on, a user can request larger volume for their `PersistentVolumeClaim`
+>>>>>>> Pvcprotection toc (#7807)
 by simply editing the claim and requesting a larger size.  This in turn will trigger expansion of the volume that is backing the underlying `PersistentVolume`.
 >>>>>>> merge master to 1.10, with fixes (#7682)
 

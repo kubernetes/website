@@ -957,7 +957,7 @@ Next provision and set up the worker nodes. To do this, you will need to provisi
     ```
 =======
    ```shell
-   kubectl get configmap -n kube-system kube-proxy -o yaml > kube-proxy-сm.yaml
+   kubectl get configmap -n kube-system kube-proxy -o yaml > kube-proxy-cm.yaml
    sed -i 's#server:.*#server: https://<masterLoadBalancerFQDN>:6443#g' kube-proxy-cm.yaml
    kubectl apply -f kube-proxy-cm.yaml --force
    # restart all kube-proxy pods to ensure that they load the new configmap
