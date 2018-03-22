@@ -502,6 +502,9 @@ special.level
 special.type
 ```
 
+**Caution:** If there are some files in the `/etc/config/` directory, they will be deleted.
+{: .caution}
+
 ### Add ConfigMap data to a specific path in the Volume
 
 Use the `path` field to specify the desired file path for specific ConfigMap items. 
