@@ -50,7 +50,7 @@
 /docs/admin/resourcequota/limitstorageconsumption/     /docs/tasks/administer-cluster/limit-storage-consumption/ 301
 /docs/admin/resourcequota/walkthrough/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/admin/static-pods/     /docs/tasks/administer-cluster/static-pod/ 301
-/docs/admin/sysctls/     /docs/concepts/cluster-administration/sysctl-cluster/ 301
+/docs/admin/sysctls/     /docs/tasks/administer-cluster/sysctl-cluster/ 301
 /docs/admin/upgrade-1-6/     /docs/tasks/administer-cluster/upgrade-1-6/ 301
 /docs/admin/resource-quota/     /docs/concepts/policy/resource-quotas/     301
 
@@ -97,6 +97,7 @@
 /docs/concepts/cluster-administration/multiple-clusters/     /docs/concepts/cluster-administration/federation/ 301
 /docs/concepts/cluster-administration/out-of-resource/     /docs/tasks/administer-cluster/out-of-resource/ 301
 /docs/concepts/cluster-administration/resource-usage-monitoring /docs/tasks/debug-application-cluster/resource-usage-monitoring/ 301
+/docs/concepts/cluster-administration/sysctl-cluster/ /docs/tasks/administer-cluster/sysctl-cluster/ 301
 /docs/concepts/cluster-administration/static-pod/     /docs/tasks/administer-cluster/static-pod/ 301
 /docs/concepts/clusters/logging/     /docs/concepts/cluster-administration/logging/ 301
 /docs/concepts/configuration/container-command-arg/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
