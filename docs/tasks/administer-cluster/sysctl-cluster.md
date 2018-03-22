@@ -1,15 +1,25 @@
 ---
 <<<<<<< HEAD:docs/tasks/administer-cluster/sysctl-cluster.md
+<<<<<<< HEAD:docs/tasks/administer-cluster/sysctl-cluster.md
 ||||||| merged common ancestors
 approvers:
 - sttts
 =======
+||||||| merged common ancestors
+=======
+title: Using Sysctls in a Kubernetes Cluster
+>>>>>>> Release 1.10 (#7818):docs/tasks/administer-cluster/sysctl-cluster.md
 reviewers:
 - sttts
+<<<<<<< HEAD:docs/tasks/administer-cluster/sysctl-cluster.md
 >>>>>>> merge master to 1.10, with fixes (#7682):docs/concepts/cluster-administration/sysctl-cluster.md
 title: Using Sysctls in a Kubernetes Cluster
 reviewers:
 - sttts
+||||||| merged common ancestors
+title: Using Sysctls in a Kubernetes Cluster
+=======
+>>>>>>> Release 1.10 (#7818):docs/tasks/administer-cluster/sysctl-cluster.md
 ---
 
 {% capture overview %}
@@ -127,10 +137,39 @@ metadata:
 spec:
   ...
 ```
+<<<<<<< HEAD:docs/tasks/administer-cluster/sysctl-cluster.md
 {% endcapture %}
 
 {% capture discussion %}
 
+**Warning**: Due to their nature of being _unsafe_, the use of _unsafe_ sysctls
+is at-your-own-risk and can lead to severe problems like wrong behavior of
+containers, resource shortage or complete breakage of a node.
+{: .warning}
+||||||| merged common ancestors
+=======
+{% endcapture %}
+
+{% capture discussion %}
+>>>>>>> Release 1.10 (#7818):docs/tasks/administer-cluster/sysctl-cluster.md
+
+<<<<<<< HEAD:docs/tasks/administer-cluster/sysctl-cluster.md
+It is good practice to consider nodes with special sysctl settings as
+_tainted_ within a cluster, and only schedule pods onto them which need those
+sysctl settings. It is suggested to use the Kubernetes [_taints and toleration_
+feature](/docs/user-guide/kubectl/{{page.version}}/#taint) to implement this.
+
+A pod with the _unsafe_ sysctls will fail to launch on any node which has not
+enabled those two _unsafe_ sysctls explicitly. As with _node-level_ sysctls it
+is recommended to use
+[_taints and toleration_ feature](/docs/user-guide/kubectl/{{page.version}}/#taint) or
+[taints on nodes](/docs/concepts/configuration/taint-and-toleration/)
+||||||| merged common ancestors
+**Note**: a pod with the _unsafe_ sysctls specified above will fail to launch on
+any node which has not enabled those two _unsafe_ sysctls explicitly. As with
+_node-level_ sysctls it is recommended to use [_taints and toleration_
+feature](/docs/user-guide/kubectl/{{page.version}}/#taint) or [taints on nodes](/docs/concepts/configuration/taint-and-toleration/)
+=======
 **Warning**: Due to their nature of being _unsafe_, the use of _unsafe_ sysctls
 is at-your-own-risk and can lead to severe problems like wrong behavior of
 containers, resource shortage or complete breakage of a node.
@@ -146,6 +185,7 @@ enabled those two _unsafe_ sysctls explicitly. As with _node-level_ sysctls it
 is recommended to use
 [_taints and toleration_ feature](/docs/user-guide/kubectl/{{page.version}}/#taint) or
 [taints on nodes](/docs/concepts/configuration/taint-and-toleration/)
+>>>>>>> Release 1.10 (#7818):docs/tasks/administer-cluster/sysctl-cluster.md
 to schedule those pods onto the right nodes.
 <<<<<<< HEAD:docs/tasks/administer-cluster/sysctl-cluster.md
 
@@ -169,6 +209,7 @@ metadata:
 spec:
  ...
 ```
+<<<<<<< HEAD:docs/tasks/administer-cluster/sysctl-cluster.md
 
 {% endcapture %}
 
@@ -195,3 +236,10 @@ spec:
  ...
 ```
 >>>>>>> merge master to 1.10, with fixes (#7682):docs/concepts/cluster-administration/sysctl-cluster.md
+||||||| merged common ancestors
+=======
+
+{% endcapture %}
+
+{% include templates/task.md %}
+>>>>>>> Release 1.10 (#7818):docs/tasks/administer-cluster/sysctl-cluster.md

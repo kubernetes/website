@@ -1519,7 +1519,7 @@
 			type: 1,
 			name: 'Kloia',
 			logo: 'kloia',
-			link: 'https://devops-as-a-service.kloia.com/',
+			link: 'https://kloia.com/kubernetes/',
 			blurb: 'Kloia is DevOps and Microservices Consultancy company that helps its customers to migrate their environment to cloud platforms for enabling more scalable and secure environments. We use Kubernetes to provide our customers all-in-one solutions in an cloud-agnostic way.'
 				},
 		{
@@ -1549,13 +1549,6 @@
 			logo: 'bloombase',
 			link: 'https://www.bloombase.com/go/kubernetes',
 			blurb: 'Bloombase provides high bandwidth, defense-in-depth data-at-rest encryption to lock down Kubernetes crown-jewels at scale.'
-				},
-		{
-			type: 0,
-			name: 'Kloia',
-			logo: 'kloia',
-			link: 'https://docs.codefresh.io/docs/codefresh-kubernetes-integration-beta',
-			blurb: 'Kloia is DevOps and Microservices Consultancy company that helps its customers to migrate their environment to cloud platforms for enabling more scalable and secure environments. We use Kubernetes to provide our customers all-in-one solutions in an cloud-agnostic way.'
 				},
 		{
 			type: 0,
@@ -1622,10 +1615,101 @@
 				},
 		{
 			type: 3,
+			name: 'Woqutech',
+			logo: 'woqutech',
+			link: 'http://www.woqutech.com/product/product-16-247.html#sss',
+			blurb: 'Woqutech - QFusion'
+				},
+		{
+			type: 3,
+			name: 'Baidu',
+			logo: 'baidu',
+			link: 'https://cloud.baidu.com/product/cce.html',
+			blurb: 'Baidu Cloud - Baidu Cloud Container Engine'
+				},
+		{
+			type: 3,
 			name: 'ZTE',
 			logo: 'zte',
-			link: 'https://sdnfv.zte.com.cn/zh-CN/home',
+			link: 'https://sdnfv.zte.com.cn/en/home',
 			blurb: 'ZTE - TECS OpenPalette'
+				},
+		{
+			type: 1,
+			name: 'Automatic Server AG',
+			logo: 'asag',
+			link: 'http://www.automatic-server.com/paas.html',
+			blurb: 'We install and operate Kubernetes in big enterprises, create deployment workflows and help to migrate.'
+				},
+		{
+			type: 1,
+			name: 'Circulo Siete',
+			logo: 'circulo',
+			link: 'https://circulosiete.com/consultoria/kubernetes/',
+			blurb: 'We are a Mexico based company offering training, consulting and support to migrate your workloads to Kubernetes, Cloud Native Microservices & Devops.'
+				},
+		{
+			type: 1,
+			name: 'DevOpsGuru',
+			logo: 'devopsguru',
+			link: 'http://devopsguru.ca/workshop',
+			blurb: 'DevOpsGuru work with small business to transform from physical to virtual to containerization.'
+				},
+		{
+			type: 1,
+			name: 'EIN Intelligence Co., Ltd',
+			logo: 'ein',
+			link: 'https://ein.io',
+			blurb: 'Startups and agile enterprises in South Korea.'
+				},
+		{
+			type: 0,
+			name: 'GuardiCore',
+			logo: 'guardicore',
+			link: 'https://www.guardicore.com/',
+			blurb: 'GuardiCore provided process level visibility and network policy enforcement on containerized assets on the Kubernetes platform.'
+				},
+		{
+			type: 0,
+			name: 'Hedvig',
+			logo: 'hevig',
+			link: 'https://www.hedviginc.com/blog/provisioning-hedvig-storage-with-kubernetes',
+			blurb: 'Hedvig is software-defined storage that uses NFS or iSCSI for persistent volumes for provisioning shared storage for pods and containers.'
+				},
+		{
+			type: 0,
+			name: 'Hewlett Packard Enterprise',
+			logo: 'hpe',
+			link: ' https://www.hpe.com/us/en/storage/containers.html',
+			blurb: 'Persistent Storage that makes data as easy to manage as containers: dynamic provisioning, policy-based performance & protection, QoS, & more.'
+				},
+		{
+			type: 0,
+			name: 'JetBrains',
+			logo: 'jetbrains',
+			link: 'https://blog.jetbrains.com/teamcity/2017/10/teamcity-kubernetes-support-plugin/',
+			blurb: 'Run TeamCity cloud build agents in a Kubernetes cluster. Provides Helm support as a build step.'
+				},
+		{
+			type: 2,
+			name: 'Opensense',
+			logo: 'opensense',
+			link: 'http://www.opensense.fr/en/kubernetes-en/',
+			blurb: 'We provide Kubernetes services (integration, operation, training) as well as development of banking microservices based on our extended experience with cloud of containers, microservices, data management and financial sector.'
+				},
+		{
+			type: 2,
+			name: 'SAP SE',
+			logo: 'sap',
+			link: 'https://cloudplatform.sap.com',
+			blurb: 'The SAP Cloud Platform provides in-memory capabilities and unique business services for building and extending applications. With open sourced Project Gardener, SAP utilizes the power of Kubernetes to enable an open, robust, multi-cloud experience for our customers. You can use simple, modern cloud native design principles and leverage skills your organization already has to deliver agile and transformative applications, while integrating with the latest SAP Leonardo business features.'
+				},
+		{
+			type: 1,
+			name: 'Mobilise Cloud Services Limited',
+			logo: 'mobilise',
+			link: 'http://www.mobilise.cloud/services/serverless-application-delivery',
+			blurb: 'Mobilise helps organisations adopt Kubernetes and integrate with their CI/CD tooling.'
 				},
 		{
 			type: 0,

@@ -59,7 +59,15 @@
 /docs/admin/resourcequota/limitstorageconsumption/     /docs/tasks/administer-cluster/limit-storage-consumption/ 301
 /docs/admin/resourcequota/walkthrough/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/admin/static-pods/     /docs/tasks/administer-cluster/static-pod/ 301
+<<<<<<< HEAD
 /docs/admin/sysctls/     /docs/tasks/administer-cluster/sysctl-cluster/ 301
+||||||| merged common ancestors
+/docs/admin/sysctls/     /docs/concepts/cluster-administration/sysctl-cluster/ 301
+/docs/admin/upgrade-1-6/     /docs/tasks/administer-cluster/upgrade-1-6/ 301
+=======
+/docs/admin/sysctls/     /docs/tasks/administer-cluster/sysctl-cluster/ 301
+/docs/admin/upgrade-1-6/     /docs/tasks/administer-cluster/upgrade-1-6/ 301
+>>>>>>> Release 1.10 (#7818)
 /docs/admin/resource-quota/     /docs/concepts/policy/resource-quotas/     301
 /docs/admin/upgrade-1-6/     /docs/tasks/administer-cluster/upgrade-downgrade/upgrade-1-6/ 301
 

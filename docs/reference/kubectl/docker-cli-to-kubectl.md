@@ -13,7 +13,13 @@ You can use the Kubernetes command line tool kubectl to interact with the api. Y
 
 #### docker run
 
+<<<<<<< HEAD
 To run an nginx Deployment and expose the Deployment, see [kubectl run](/docs/user-guide/kubectl/{{page.version}}/#run).
+||||||| merged common ancestors
+How do I run an nginx Deployment and expose it to the world? Checkout [kubectl run](/docs/user-guide/kubectl/{{page.version}}/#run).
+=======
+To run an nginx Deployment and expose the Deployment, see [kubectl run](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#run).
+>>>>>>> Release 1.10 (#7818)
 
 docker:
 
@@ -59,7 +65,13 @@ To destroy the Deployment and its pods you need to run `kubectl delete deploymen
 
 #### docker ps
 
+<<<<<<< HEAD
 To list what is currently running, see [kubectl get](/docs/user-guide/kubectl/{{page.version}}/#get).
+||||||| merged common ancestors
+How do I list what is currently running? Checkout [kubectl get](/docs/user-guide/kubectl/{{page.version}}/#get).
+=======
+To list what is currently running, see [kubectl get](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#get).
+>>>>>>> Release 1.10 (#7818)
 
 docker:
 
@@ -81,7 +93,13 @@ ubuntu                      0/1       Completed   0          20s
 
 #### docker attach
 
+<<<<<<< HEAD
 To attach a process that is already running in a container, see [kubectl attach](/docs/user-guide/kubectl/{{page.version}}/#attach).
+||||||| merged common ancestors
+How do I attach to a process that is already running in a container?  Checkout [kubectl attach](/docs/user-guide/kubectl/{{page.version}}/#attach).
+=======
+To attach a process that is already running in a container, see [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#attach).
+>>>>>>> Release 1.10 (#7818)
 
 docker:
 
@@ -109,7 +127,13 @@ To detach from the container, you can type the escape sequence Ctrl+P followed b
 
 #### docker exec
 
+<<<<<<< HEAD
 To execute a command in a container, see [kubectl exec](/docs/user-guide/kubectl/{{page.version}}/#exec).
+||||||| merged common ancestors
+How do I execute a command in a container? Checkout [kubectl exec](/docs/user-guide/kubectl/{{page.version}}/#exec).
+=======
+To execute a command in a container, see [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#exec).
+>>>>>>> Release 1.10 (#7818)
 
 docker:
 
@@ -154,7 +178,13 @@ For more information, see [Get a Shell to a Running Container](/docs/tasks/debug
 
 #### docker logs
 
+<<<<<<< HEAD
 To follow stdout/stderr of a process that is running, see [kubectl logs](/docs/user-guide/kubectl/{{page.version}}/#logs).
+||||||| merged common ancestors
+How do I follow stdout/stderr of a running process? Checkout [kubectl logs](/docs/user-guide/kubectl/{{page.version}}/#logs).
+=======
+To follow stdout/stderr of a process that is running, see [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#logs).
+>>>>>>> Release 1.10 (#7818)
 
 
 docker:
@@ -181,11 +211,23 @@ $ kubectl logs --previous nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
 
+<<<<<<< HEAD
 For more information, see [Logging Architecture](/docs/concepts/cluster-administration/logging/).
+||||||| merged common ancestors
+See [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/) for more information.
+=======
+For more information, see [Logging Architecture](docs/concepts/cluster-administration/logging/).
+>>>>>>> Release 1.10 (#7818)
 
 #### docker stop and docker rm
 
+<<<<<<< HEAD
 To stop and delete a running process, see [kubectl delete](/docs/user-guide/kubectl/{{page.version}}/#delete).
+||||||| merged common ancestors
+How do I stop and delete a running process? Checkout [kubectl delete](/docs/user-guide/kubectl/{{page.version}}/#delete).
+=======
+To stop and delete a running process, see [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#delete).
+>>>>>>> Release 1.10 (#7818)
 
 docker:
 
@@ -228,7 +270,13 @@ There is no direct analog of `docker login` in kubectl. If you are interested in
 
 #### docker version
 
+<<<<<<< HEAD
 To get the version of client and server, see [kubectl version](/docs/user-guide/kubectl/{{page.version}}/#version).
+||||||| merged common ancestors
+How do I get the version of my client and server? Checkout [kubectl version](/docs/user-guide/kubectl/{{page.version}}/#version).
+=======
+To get the version of client and server, see [kubectl version](/docs/reference/generated/kubectl/kubectl-commands{{page.version}}/#version).
+>>>>>>> Release 1.10 (#7818)
 
 docker:
 
@@ -256,7 +304,13 @@ Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4
 
 #### docker info
 
+<<<<<<< HEAD
 To get miscellaneous information about the environment and configuration, see [kubectl cluster-info](/docs/user-guide/kubectl/{{page.version}}/#cluster-info).
+||||||| merged common ancestors
+How do I get miscellaneous info about my environment and configuration? Checkout [kubectl cluster-info](/docs/user-guide/kubectl/{{page.version}}/#cluster-info).
+=======
+To get miscellaneous information about the environment and configuration, see [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#cluster-info).
+>>>>>>> Release 1.10 (#7818)
 
 docker:
 
