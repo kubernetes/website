@@ -40,7 +40,7 @@ Use a single-node etcd cluster only for testing purpose.
 
 1. Run the following:
 
-        ./etcd --client-listen-urls=http://$PRIVATE_IP:2379 --client-advertise-urls=http://$PRIVATE_IP:2379
+        ./etcd --listen-client-urls=http://$PRIVATE_IP:2379 --advertise-client-urls=http://$PRIVATE_IP:2379
 
 2. Start Kubernetes API server with the flag `--etcd-servers=$PRIVATE_IP:2379`.
 
