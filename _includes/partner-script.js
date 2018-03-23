@@ -491,6 +491,13 @@
 			blurb: 'TenxCloud - TenxCloud Container Engine (TCE)'
 				},
 		{
+			type: 2,
+			name: 'TenxCloud',
+			logo: 'tenxcloud',
+			link: 'https://www.tenxcloud.com/',
+			blurb: 'Founded in October 2014, TenxCloud is a leading enterprise container cloud computing service provider in China, covering the areas such as container PaaS cloud platform, micro-service management, DevOps, development test, AIOps and so on. Provide private cloud PaaS products and solutions for financial, energy, operator, manufacturing, education and other industry customers.'
+				},
+		{
 			type: 0,
 			name: 'Twistlock',
 			logo: 'twistlock',
@@ -1410,7 +1417,7 @@
 		{
 			type: 0,
 			name: 'Hedvig',
-			logo: 'hevig',
+			logo: 'hedvig',
 			link: 'https://www.hedviginc.com/blog/provisioning-hedvig-storage-with-kubernetes',
 			blurb: 'Hedvig is software-defined storage that uses NFS or iSCSI for persistent volumes for provisioning shared storage for pods and containers.'
 				},
