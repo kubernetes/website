@@ -24,7 +24,6 @@ toc:
     - docs/setup/independent/high-availability.md
 
   - docs/getting-started-guides/scratch.md
-  - docs/getting-started-guides/alternatives.md
 
 - title: Hosted Solutions
   landing_page: /docs/setup/pick-right-solution/#hosted-solutions

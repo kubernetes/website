@@ -6,11 +6,18 @@ reviewers:
 title: Picking the Right Solution
 ---
 
+
+Certified Kubernetes Platforms and Distributions
+
+We recommend choosing from a [Kubernetes Certified Service Partner]() or [Kubernetes Certified Platform or Distribution]().
+
+If you want to test Kubernetes in a local environment, you can get started with [Minikube]().
+
 Kubernetes can run on various platforms: from your laptop, to VMs on a cloud provider, to a rack of
 bare metal servers. The effort required to set up a cluster varies from running a single command to
 crafting your own customized cluster. Use this guide to choose a solution that fits your needs.
 
-If you just want to "kick the tires" on Kubernetes, use the [local Docker-based solutions](#local-machine-solutions).
+If you just want to "kick the tires" on Kubernetes, use the [local Docker-based solutions](#running-kubernetes-locally).
 
 When you are ready to scale up to more machines and higher availability, a [hosted solution](#hosted-solutions) is the easiest to create and maintain.
 
@@ -25,7 +32,9 @@ a Kubernetes cluster from scratch.
 * TOC
 {:toc}
 
-# Local-machine Solutions
+# Certified Kubernetes Platforms and Distributions
+
+# Running Kubernetes locally
 
 * [Minikube](/docs/getting-started-guides/minikube/) is the recommended method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
@@ -35,7 +44,7 @@ a Kubernetes cluster from scratch.
 
 * [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for development and test scenarios. Scales to full multi-node cluster.
 
-# Hosted Solutions
+# Hosted solutions
 
 * [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) offers managed Kubernetes clusters.
 
