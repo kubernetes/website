@@ -117,9 +117,7 @@ data:
   password: MWYyZDFlMmU2N2Rm
 ```
 
-The data field is a map.  Its keys must match
-[`DNS_SUBDOMAIN`](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md), except that leading dots are also
-allowed.  The values are arbitrary data, encoded using base64.
+The data field is a map.  Its keys must consist of alphanumeric characters, '-', '_' or '.'.  The values are arbitrary data, encoded using base64.
 
 Create the secret using [`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create):
 
