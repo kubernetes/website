@@ -55,7 +55,7 @@ deployment "nginx-deployment" created
 Resource creation isn't the only operation that `kubectl` can perform in bulk. It can also extract resource names from configuration files in order to perform other operations, in particular to delete the same resources you created:
 
 ```shell
-$ kubectl delete -f https://k8s.io/docs/concepts/cluster-administration/nginx/
+$ kubectl delete -f https://k8s.io/docs/concepts/cluster-administration/nginx-app.yaml
 deployment "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
