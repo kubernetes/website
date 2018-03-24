@@ -61,7 +61,7 @@ Here's a summary of each level:
 **Note:** Try the beta features and provide feedback. After the features exit beta, it may not be practical to make more changes.
  {: .note} 
   
-Stable:
+- Stable:
   - The version name is `vX` where `X` is an integer.
   - The stable versions of features appear in released software for many subsequent versions.
 
