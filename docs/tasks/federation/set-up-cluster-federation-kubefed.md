@@ -371,6 +371,9 @@ kubefed init fellowship \
     --dns-provider-config="$HOME/coredns-provider.conf"
 ```
 
+For more information see
+[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tasks/federation/set-up-coredns-provider-federation/).
+
 #### AWS Route53 support
 
 It is possible to utilize AWS Route53 as a cloud DNS provider when the
@@ -407,9 +410,6 @@ kubectl -n federation-system patch deployment controller-manager --patch "$(cat 
 ```
 
 Where `<patch-file-name>` is the name of the file you created above.
-
-For more information see
-[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tasks/federation/set-up-coredns-provider-federation/).
 
 ## Adding a cluster to a federation
 
