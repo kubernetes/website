@@ -375,7 +375,7 @@ kubefed init fellowship \
 
 It is possible to utilize AWS Route53 as a cloud DNS provider when the
 federation control plane is run on-premise. The control-manager
-deployment must be configured with AWS credentials since it cannot implicity
+Deployment must be configured with AWS credentials since it cannot implicity
 gather them from a VM running on AWS.
 
 Currently, `kubefed init` does not read AWS Route53 credentials from the
@@ -385,7 +385,7 @@ Specify AWS Route53 as your DNS provider when initializing your on-premise
 federation control plane by passing the flag `--dns-provider="aws-route53"`
 to `kubefed init`.
 
-Create a patch file with your AWS credentials named `federation-controller-manager-patch.yml`:
+Create a patch file with your AWS credentials:
 
 ```yaml
 spec:
@@ -400,11 +400,13 @@ spec:
           value: "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 ```
 
-Patch the deployment:
+Patch the Deployment:
 
 ```shell
-kubectl -n federation-system patch deployment controller-manager --patch "$(cat federation-controller-manager-patch.yml)"
+kubectl -n federation-system patch deployment controller-manager --patch "$(cat <patch-file-name>.yml)"
 ```
+
+Where `<patch-file-name>` is the name of the file you created above.
 
 For more information see
 [Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tasks/federation/set-up-coredns-provider-federation/).
