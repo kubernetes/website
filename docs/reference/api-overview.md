@@ -34,9 +34,7 @@ The version is set at the API level rather than at the resource or field level t
 - Ensure that the API presents a clear and consistent view of system resources and behavior.
 - Enable control access to end-of-life and/or experimental APIs.
 
-The JSON and Protobuf serialization schemas follow the same guidelines for schema changes.
-
-The following descriptions cover both formats:
+The JSON and Protobuf serialization schemas follow the same guidelines for schema changes. The following descriptions cover both formats.
 
 **Note:** the API versioning and software versioning are indirectly related.  The [API and release
 versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) describes the relationship between API versioning and software versioning.
@@ -58,9 +56,9 @@ Here's a summary of each level:
   - The support for a feature will not be dropped, though the details may change.
   - The schema and/or semantics of objects may change in incompatible ways in a subsequent beta or stable release. When this happens, migration instructions are provided.  This may require deleting, editing, and re-creating
     API objects. The editing process may require some thought. This may require downtime for applications that rely on the feature.
-  - The software is recommended for only non-business-critical uses because of potential for incompatible changes in subsequent releases. If you have multiple clusters which can be upgraded independently, you may be able to relax this restriction.</br>
+  - The software is recommended for only non-business-critical uses because of potential for incompatible changes in subsequent releases. If you have multiple clusters which can be upgraded independently, you may be able to relax this restriction.
   
-  **Note:** Try the beta features and provide feedback. After the features exit beta, it may not be practical to make more changes.
+**Note:** Try the beta features and provide feedback. After the features exit beta, it may not be practical to make more changes.
  {: .note} 
   
 Stable:
