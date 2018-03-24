@@ -374,7 +374,7 @@ kubefed init fellowship \
 #### AWS Route53 support
 
 It is possible to utilize AWS Route53 as a cloud DNS provider when the
-federation control plane is run on-premise. The control-manager
+federation controller-manager is run on-premise. The controller-manager
 Deployment must be configured with AWS credentials since it cannot implicity
 gather them from a VM running on AWS.
 
@@ -382,7 +382,7 @@ Currently, `kubefed init` does not read AWS Route53 credentials from the
 `--dns-provider-config` flag, so a patch must be applied.
 
 Specify AWS Route53 as your DNS provider when initializing your on-premise
-federation control plane by passing the flag `--dns-provider="aws-route53"`
+federation controller-manager by passing the flag `--dns-provider="aws-route53"`
 to `kubefed init`.
 
 Create a patch file with your AWS credentials:
