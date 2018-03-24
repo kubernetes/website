@@ -381,6 +381,10 @@ gather them from a VM running on AWS.
 Currently, `kubefed init` does not read AWS Route53 credentials from the
 `--dns-provider-config` flag, so a patch must be applied.
 
+Specify AWS Route53 as your DNS provider when initializing your on-premise
+federation control plane by passing the flag `--dns-provider="aws-route53"`
+to `kubefed init`.
+
 Create a patch file with your AWS credentials named `federation-controller-manager-patch.yml`:
 
 ```yaml
