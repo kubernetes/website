@@ -14,9 +14,10 @@ consume GPUs across different Kubernetes versions and the current limitations.
 **From 1.8 onwards, the recommended way to consume GPUs is to use [device
 plugins](/docs/concepts/cluster-administration/device-plugins).**
 
-To enable GPU support through device plugins, a special **alpha** feature gate
-`DevicePlugins` has to be set to true across the system:
-`--feature-gates="DevicePlugins=true"`.
+To enable GPU support through device plugins before 1,10, the `DevicePlugins`
+feature gate has to be explicitly set to true across the system:
+`--feature-gates="DevicePlugins=true"`. This is no longer required starting
+from 1.10.
 
 Then you have to install NVIDIA drivers on the nodes and run an NVIDIA GPU device
 plugin ([see below](#deploying-nvidia-gpu-device-plugin)).

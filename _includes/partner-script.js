@@ -1417,7 +1417,7 @@
 		{
 			type: 0,
 			name: 'Hedvig',
-			logo: 'hedvig',
+			logo: 'hevig',
 			link: 'https://www.hedviginc.com/blog/provisioning-hedvig-storage-with-kubernetes',
 			blurb: 'Hedvig is software-defined storage that uses NFS or iSCSI for persistent volumes for provisioning shared storage for pods and containers.'
 				},
