@@ -219,8 +219,7 @@ When a Job completes, no more Pods are created, but the Pods are not deleted eit
 they don't show up with `kubectl get pods`, but they will show up with `kubectl get pods -a`.  Keeping them around
 allows you to still view the logs of completed pods to check for errors, warnings, or other diagnostic output.
 The job object also remains after it is completed so that you can view its status.  It is up to the user to delete
-old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`).
-When you delete the job using `kubectl`, all the pods it created are deleted too.
+old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`). When you delete the job using `kubectl`, all the pods it created are deleted too.
 
 By default, a Job will run uninterrupted unless a Pod fails, at which point the Job defers to the
 `.spec.backoffLimit` described above. Another way to terminate a Job is by setting an active deadline.
@@ -229,8 +228,6 @@ Do this by setting the `.spec.activeDeadlineSeconds` field of the Job to a numbe
 When `activeDeadlineSeconds` is set, the Job will terminate the active Pod once the deadline is reached.
 If the Job is in a failing (backoff) state, no additional Pods will be created even if the Job has not yet
 reached its `backoffLimit`. In both cases, once the `activeDeadlineSeconds` is reached, the Job will have a status with `reason: DeadlineExceeded`.
-
-Note that both the Job Spec and the [Pod Template Spec](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/#detailed-behavior) within the Job have an `activeDeadlineSeconds` field. Ensure that you set this field at the proper level.
 
 Example:
 
@@ -250,6 +247,9 @@ spec:
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
 ```
+
+Note that both the Job Spec and the [Pod Template Spec](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/#detailed-behavior) within the Job have an `activeDeadlineSeconds` field. Ensure that you set this field at the proper level.
+
 
 ## Job Patterns
 
