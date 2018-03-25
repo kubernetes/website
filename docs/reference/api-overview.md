@@ -79,8 +79,7 @@ The two paths that support to extend the API with [custom resources](/docs/conce
 
  - [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
    for basic CRUD needs.
- - The full set of Kubernetes API semantics to implement their own apiserver
-   and use the [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md) that makes it seamless for clients.
+ - [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md) for a full set of Kubernetes API semantics to implement their own apiserver.
  
 
 ## Enabling API groups
