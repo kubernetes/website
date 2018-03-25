@@ -35,6 +35,8 @@ a Kubernetes cluster from scratch.
 
 * [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for development and test scenarios. Scales to full multi-node cluster.
 
+* [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers) is a Terraform/Packer/BASH based IaC to create a seven node (1 Boot, 1 Master, 1 Management, 1 Proxy and 3 Workers) LXD cluster on  Linux Host.
+
 # Hosted Solutions
 
 * [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) offers managed Kubernetes clusters.
