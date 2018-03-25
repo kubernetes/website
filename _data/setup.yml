@@ -75,7 +75,6 @@ toc:
 
     - title: Bare Metal
       section:
-      - docs/getting-started-guides/coreos/bare_metal_offline.md
       - docs/getting-started-guides/fedora/fedora_manual_config.md
       - docs/getting-started-guides/fedora/flannel_multi_node_cluster.md
       - docs/getting-started-guides/coreos/index.md
