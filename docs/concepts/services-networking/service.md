@@ -453,7 +453,8 @@ cloud provider does not support the feature, the field will be ignored.
 
 **Special notes for Azure**: To use user-specified public type `loadBalancerIP`, a static type
 public IP address resource needs to be created first, and it should be in the same resource
-group of the cluster. Then you could specify the assigned IP address as `loadBalancerIP`.
+group of the cluster. Specify the assigned IP address as loadBalancerIP. Verify you have 
+securityGroupName in the cloud provider configuration file.
 
 #### Internal load balancer
 In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC.
