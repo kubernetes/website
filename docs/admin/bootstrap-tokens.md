@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jbeda
 title: Authenticating with Bootstrap Tokens
 ---
@@ -93,8 +93,8 @@ stringData:
   expiration: 2017-03-10T03:22:11Z
 
   # Allowed usages.
-  usage-bootstrap-authentication: true
-  usage-bootstrap-signing: true
+  usage-bootstrap-authentication: "true"
+  usage-bootstrap-signing: "true"
 
   # Extra groups to authenticate the token as. Must start with "system:bootstrappers:"
   auth-extra-groups: system:bootstrappers:worker,system:bootstrappers:ingress

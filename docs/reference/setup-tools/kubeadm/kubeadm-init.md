@@ -32,9 +32,9 @@ following steps:
    kubeconfig file for administration named `admin.conf`.
 
 1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
-   it writes the kubelet init configuration into the `/var/lib/kubelet/config/init/kubelet` file. 
-   See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file.md) 
-   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet.md) 
+   it writes the kubelet init configuration into the `/var/lib/kubelet/config/init/kubelet` file.
+   See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
+   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/) 
    for more information about Dynamic Kubelet Configuration.
    This functionality is now by default disabled as it is behind a feature gate, but is expected to be a default in future versions.
 
@@ -49,11 +49,11 @@ following steps:
 
 1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
    it completes the kubelet dynamic configuration by creating a ConfigMap and some RBAC rules that enable
-   kubelets to access to it, and updates the node by pointing `Node.spec.configSource` to the 
-   newly-created ConfigMap. 
+   kubelets to access to it, and updates the node by pointing `Node.spec.configSource` to the
+   newly-created ConfigMap.
    This functionality is now by default disabled as it is behind a feature gate, but is expected to be a default in future versions.
 
-1. Apply labels and taints to the master node so that no additional workloads will 
+1. Apply labels and taints to the master node so that no additional workloads will
    run there.
 
 1. Generates the token that additional nodes can use to register
@@ -111,6 +111,9 @@ etcd:
     <argument>: <value|string>
     <argument>: <value|string>
   image: <string>
+kubeProxy:
+  config:
+    mode: <value|string>
 networking:
   dnsDomain: <string>
   serviceSubnet: <cidr>
@@ -158,11 +161,11 @@ featureGates:
 
 ### Passing custom arguments to control plane components {#custom-args}
 
-If you would like to override or extend the behaviour of a control plane component, you can provide 
-extra arguments to kubeadm. When the component is deployed, these additional arguments are added to 
-the Pod command itself. 
+If you would like to override or extend the behaviour of a control plane component, you can provide
+extra arguments to kubeadm. When the component is deployed, these additional arguments are added to
+the Pod command itself.
 
-For example, to add additional feature-gate arguments to the API server, your [configuration file](#config-file) 
+For example, to add additional feature-gate arguments to the API server, your [configuration file](#config-file)
 will need to look like this:
 
 ```
@@ -206,14 +209,14 @@ is `/etc/kubernetes/pki`.
 If a given certificate and private key pair exists, kubeadm skips the
 generation step and existing files are used for the prescribed
 use case. This means you can, for example, copy an existing CA into `/etc/kubernetes/pki/ca.crt`
-and `/etc/kubernetes/pki/ca.key`, and kubeadm will use this CA for signing the rest 
+and `/etc/kubernetes/pki/ca.key`, and kubeadm will use this CA for signing the rest
 of the certs.
 
 #### External CA mode {#external-ca-mode}
 
-It is also possible to provide just the `ca.crt` file and not the 
-`ca.key` file (this is only available for the root CA file, not other cert pairs). 
-If all other certificates and kubeconfig files are in place, kubeadm recognizes 
+It is also possible to provide just the `ca.crt` file and not the
+`ca.key` file (this is only available for the root CA file, not other cert pairs).
+If all other certificates and kubeconfig files are in place, kubeadm recognizes
 this condition and activates the "External CA" mode. kubeadm will proceed without the
 CA key on disk.
 
@@ -238,20 +241,19 @@ Environment="KUBELET_DNS_ARGS=--cluster-dns=10.96.0.10 --cluster-domain=cluster.
 Environment="KUBELET_AUTHZ_ARGS=--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
 Environment="KUBELET_CADVISOR_ARGS=--cadvisor-port=0"
 Environment="KUBELET_CERTIFICATE_ARGS=--rotate-certificates=true --cert-dir=/var/lib/kubelet/pki"
-ExecStart=
 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $KUBELET_NETWORK_ARGS $KUBELET_DNS_ARGS $KUBELET_AUTHZ_ARGS $KUBELET_CADVISOR_ARGS $KUBELET_CERTIFICATE_ARGS $KUBELET_EXTRA_ARGS
 ```
 
 Here's a breakdown of what/why:
 
-* `--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf` path to a kubeconfig 
-   file that is used to get client certificates for kubelet during node join. 
-   On success, a kubeconfig file is written to the path specified by `--kubeconfig`. 
+* `--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf` path to a kubeconfig
+   file that is used to get client certificates for kubelet during node join.
+   On success, a kubeconfig file is written to the path specified by `--kubeconfig`.
 * `--kubeconfig=/etc/kubernetes/kubelet.conf` points to the kubeconfig file that
    tells the kubelet where the API server is. This file also has the kubelet's
    credentials.
 * `--pod-manifest-path=/etc/kubernetes/manifests` specifies from where to read
-   static Pod manifests used for starting the control plane the control plane.
+   static Pod manifests used for starting the control plane.
 * `--allow-privileged=true` allows this kubelet to run privileged Pods.
 * `--network-plugin=cni` uses CNI networking.
 * `--cni-conf-dir=/etc/cni/net.d` specifies where to look for the
@@ -275,7 +277,7 @@ Here's a breakdown of what/why:
    systemctl daemon-reload
    systemctl restart kubelet
    ```
-* `--rotate-certificates` auto rotate the kubelet client certificates by requesting new 
+* `--rotate-certificates` auto rotate the kubelet client certificates by requesting new
    certificates from the `kube-apiserver` when the certificate expiration approaches.
 * `--cert-dir`the directory where the TLS certs are located.
 
@@ -287,6 +289,7 @@ The container runtime used by default is Docker, which is enabled through the bu
 
 Other CRI-based runtimes include:
 
+- [cri-containerd](https://github.com/containerd/cri-containerd)
 - [cri-o](https://github.com/kubernetes-incubator/cri-o)
 - [frakti](https://github.com/kubernetes/frakti)
 - [rkt](https://github.com/kubernetes-incubator/rktlet)
@@ -340,7 +343,7 @@ a future version. To create a self-hosted cluster, pass the `--feature-gates=Sel
 flag to `kubeadm init`.
 {: .caution}
 
-**Warning:** see self-hosted caveats and limitations. 
+**Warning:** see self-hosted caveats and limitations.
 {: .warning}
 
 #### Caveats
@@ -374,14 +377,14 @@ In summary, `kubeadm init --feature-gates=SelfHosting=true` works as follows:
 
   1. Uses the static control plane Pod manifests to construct a set of
     DaemonSet manifests that will run the self-hosted control plane.
-    It also modifies these manifests where necessary, for example adding new volumes 
+    It also modifies these manifests where necessary, for example adding new volumes
     for secrets.
 
   1. Creates DaemonSets in the `kube-system` namespace and waits for the
      resulting Pods to be running.
 
-  1. Once self-hosted Pods are operational, it's associated static Pods are deleted 
-     and kubeadm moves on to install the next component. This triggers kubelet to 
+  1. Once self-hosted Pods are operational, their associated static Pods are deleted
+     and kubeadm moves on to install the next component. This triggers kubelet to
      stop those static Pods.
 
   1. When the original static control plane stops, the new self-hosted control

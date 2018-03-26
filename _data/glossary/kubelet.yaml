@@ -1,6 +1,6 @@
 id: kubelet
 name: Kubelet
-full-link: docs/reference/generated/kubelet
+full-link: /docs/reference/generated/kubelet
 tags:
 - fundamental
 - core-object

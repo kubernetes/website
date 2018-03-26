@@ -1,6 +1,6 @@
 ---
 title: Install Service Catalog using Helm
-approvers:
+reviewers:
 - chenopis
 ---
 
@@ -52,7 +52,7 @@ svc-cat/catalog 0.0.1   service-catalog API server and controller-manag...
 
 Your Kubernetes cluster must have RBAC enabled, which requires your Tiller Pod(s) to have `cluster-admin` access.
 
-If you are using {% glossary_tooltip text="Minikube" term_id="minikube" %}, run the `minikube start` command with the following flag:
+If you are using Minikube, run the `minikube start` command with the following flag:
 
 ```shell
 minikube start --extra-config=apiserver.Authorization.Mode=RBAC

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 - thockin
 title: Container Lifecycle Hooks

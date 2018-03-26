@@ -1,6 +1,11 @@
 reviewers:
-- a-mccarthy
-- abiogenesis-now
+- tengqm
+- zhangxiaoyu-zidif
+- xiangpengzhao
+approvers:
+- heckj
 - bradamant3
+- bradtopol
 - steveperry-53
 - zacharysarah
+- chenopis

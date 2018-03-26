@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - crassirostris
 - piosz
 title: Logging Using Stackdriver
@@ -10,7 +10,7 @@ with the [overview of logging in Kubernetes](/docs/concepts/cluster-administrati
 
 **Note:** By default, Stackdriver logging collects only your container's standard output and
 standard error streams. To collect any logs your application writes to a file (for example),
-see the [sidecar approach](/docs/concepts/cluster-administration/logging#using-a-sidecar-container-with-the-logging-agent)
+see the [sidecar approach](/docs/concepts/cluster-administration/logging#sidecar-container-with-a-logging-agent)
 in the Kubernetes logging overview.
 
 ## Deploying

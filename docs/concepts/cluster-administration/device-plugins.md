@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 title: Device Plugins
 description: Use the Kubernetes device plugin framework to implement plugins for GPUs, NICs, FPGAs, InfiniBand, and similar resources that require vendor-specific setup.
 ---
@@ -61,8 +61,7 @@ metadata:
   name: demo-pod
 spec:
   containers:
-    -
-      name: demo-container-1
+    - name: demo-container-1
       image: gcr.io/google_containers/pause:2.0
       resources:
         limits:
@@ -138,7 +137,8 @@ For examples of device plugin implementations, see:
 * The official [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
     * it requires using [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker) which allows you to run GPU enabled docker containers
 * The [NVIDIA GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu).
-
+* The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
+* The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 {% endcapture %}
 
 {% include templates/concept.md %}

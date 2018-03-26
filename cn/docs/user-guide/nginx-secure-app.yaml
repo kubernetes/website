@@ -17,11 +17,14 @@ spec:
   selector:
     run: my-nginx
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-nginx
 spec:
+  selector:
+    matchLabels:
+      run: my-nginx
   replicas: 1
   template:
     metadata:

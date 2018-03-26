@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - davidopp
 title: Troubleshoot Clusters
 ---

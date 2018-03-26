@@ -1,3 +1,6 @@
+>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> For 1.10 Features: set Milestone to 1.10 and Base Branch to release-1.10
+>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 > NOTE: After opening the PR, please *un-check and re-check* the ["Allow edits from maintainers"](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/) box so that maintainers can work on your patch and speed up the review process. This is a temporary workaround to address a known issue with GitHub.> 
 >
 > Please delete this note before submitting the pull request.

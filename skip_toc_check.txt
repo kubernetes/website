@@ -67,3 +67,4 @@ docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade_apply.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade_plan.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_version.md
+docs/user-journeys/users/cluster-operator/_advanced.md

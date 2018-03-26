@@ -37,7 +37,7 @@ Here is the configuration file for the Pod:
 {% include code.html language="yaml" file="dapi-volume.yaml" ghlink="/docs/tasks/inject-data-application/dapi-volume.yaml" %}
 
 In the configuration file, you can see that the Pod has a `downwardAPI` Volume,
-and the Container mounts the Volume at `/etc`.
+and the Container mounts the Volume at `/etc/podinfo`.
 
 Look at the `items` array under `downwardAPI`. Each element of the array is a
 [DownwardAPIVolumeFile](/docs/api-reference/{{page.version}}/#downwardapivolumefile-v1-core).
@@ -88,7 +88,7 @@ kubectl exec -it kubernetes-downwardapi-volume-example -- sh
 In your shell, view the `labels` file:
 
 ```shell
-/# cat /etc/labels
+/# cat /etc/podinfo/labels
 ```
 
 The output shows that all of the Pod's labels have been written
@@ -103,19 +103,19 @@ zone="us-est-coast"
 Similarly, view the `annotations` file:
 
 ```shell
-/# cat /etc/annotations
+/# cat /etc/podinfo/annotations
 ```
 
-View the files in the `/etc` directory:
+View the files in the `/etc/podinfo` directory:
 
 ```shell
-/# ls -laR /etc
+/# ls -laR /etc/podinfo
 ```
 
 In the output, you can see that the `labels` and `annotations` files
 are in a temporary subdirectory: in this example,
-`..2982_06_02_21_47_53.299460680`. In the `/etc` directory, `..data` is
-a symbolic link to the temporary subdirectory. Also in  the `/etc` directory,
+`..2982_06_02_21_47_53.299460680`. In the `/etc/podinfo` directory, `..data` is
+a symbolic link to the temporary subdirectory. Also in  the `/etc/podinfo` directory,
 `labels` and `annotations` are symbolic links.
 
 ```
@@ -135,6 +135,11 @@ written to a new temporary directory, and the `..data` symlink is updated
 atomically using
 [rename(2)](http://man7.org/linux/man-pages/man2/rename.2.html).
 
+**Note:** A container using Downward API as a
+[subPath](/docs/concepts/storage/volumes/#using-subpath) volume mount will not
+receive Downward API updates.
+{: .note}
+
 Exit the shell:
 
 ```shell
@@ -150,7 +155,7 @@ file for a Pod that has one Container:
 {% include code.html language="yaml" file="dapi-volume-resources.yaml" ghlink="/docs/tasks/inject-data-application/dapi-volume-resources.yaml" %}
 
 In the configuration file, you can see that the Pod has a `downwardAPI` Volume,
-and the Container mounts the Volume at `/etc`.
+and the Container mounts the Volume at `/etc/podinfo`.
 
 Look at the `items` array under `downwardAPI`. Each element of the array is a
 DownwardAPIVolumeFile.
@@ -174,7 +179,7 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 In your shell, view the `cpu_limit` file:
 
 ```shell
-/# cat /etc/cpu_limit
+/# cat /etc/podinfo/cpu_limit
 ```
 You can use similar commands to view the `cpu_request`, `mem_limit` and
 `mem_request` files.

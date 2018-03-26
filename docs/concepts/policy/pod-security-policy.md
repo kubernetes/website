@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - pweil-
 - tallclair
 title: Pod Security Policies
@@ -23,11 +23,12 @@ administrator to control the following:
 
 | Control Aspect                                      | Field Names                                 |
 | ----------------------------------------------------| ------------------------------------------- |
-| Running of privileged containers                    | `privileged`                                |
+| Running of privileged containers                    | [`privileged`](#privileged)                                |
 | Usage of the root namespaces                        | [`hostPID`, `hostIPC`](#host-namespaces)    |
 | Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
 | Usage of volume types                               | [`volumes`](#volumes-and-file-systems)      |
 | Usage of the host filesystem                        | [`allowedHostPaths`](#volumes-and-file-systems) |
+| White list of FlexVolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
 | Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
 | Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
 | The user and group IDs of the container             | [`runAsUser`, `supplementalGroups`](#users-and-groups) |
@@ -36,6 +37,7 @@ administrator to control the following:
 | The SELinux context of the container                | [`seLinux`](#selinux)                       |
 | The AppArmor profile used by containers             | [annotations](#apparmor)                    |
 | The seccomp profile used by containers              | [annotations](#seccomp)                     |
+| The sysctl profile used by containers               | [annotations](#sysctl)                      |
 
 
 ## Enabling Pod Security Policies
@@ -140,7 +142,7 @@ have superuser permissions. Otherwise requests would bypass authentication and
 authorization modules, all PodSecurityPolicy objects would be allowed, and users
 would be able to create privileged containers. For more details on configuring
 Controller Manager authorization, see [Controller
-Roles](docs/admin/authorization/rbac/#controller-roles).
+Roles](/docs/admin/authorization/rbac/#controller-roles).
 
 ## Policy Order
 
@@ -272,7 +274,7 @@ Error from server (Forbidden): error when creating "STDIN": pods "privileged" is
 Delete the pod before moving on:
 
 ```shell
-$ kubectl-user delete pause
+$ kubectl-user delete pod pause
 ```
 
 ### Run another pod
@@ -353,6 +355,15 @@ several security mechanisms.
 
 ## Policy Reference
 
+### Privileged
+
+**Privileged** - determines if any container in a pod can enable privileged mode.
+By default a container is not allowed to access any devices on the host, but a 
+"privileged" container is given access to all devices on the host. This allows
+the container nearly all the same access as processes running on the host.
+This is useful for containers that want to use linux capabilities like
+manipulating the network stack and accessing devices.
+
 ### Host namespaces
 
 **HostPID** - Controls whether the pod containers can share the host process ID
@@ -416,6 +427,29 @@ containers, and abusing the credentials of system services, such as Kubelet._
 
 **ReadOnlyRootFilesystem** - Requires that containers must run with a read-only
 root filesystem (i.e. no writeable layer).
+
+### FlexVolume drivers
+
+This specifies a whiltelist of flex volume drivers that are allowed to be used
+by flexVolume. An empty list or nil means there is no restriction on the drivers.
+Please make sure [`volumes`](#volumes-and-file-systems) field  contains the
+`flexVolume` volume type, no FlexVolume driver is allowed otherwise.
+
+For example:
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: allow-flex-volumes
+spec:
+  # ... other spec fields
+  volumes:
+    - flexVolume
+  allowedFlexVolumes: 
+    - driver: example/lvm
+    - driver: example/cifs
+```
 
 ### Users and groups
 
@@ -489,9 +523,8 @@ for the default list of capabilities when using the Docker runtime.
 
 ### SELinux
 
-- *MustRunAs* - Requires `seLinuxOptions` to be configured if not using
-pre-allocated values. Uses `seLinuxOptions` as the default. Validates against
-`seLinuxOptions`.
+- *MustRunAs* - Requires `seLinuxOptions` to be configured. Uses
+`seLinuxOptions` as the default. Validates against `seLinuxOptions`.
 - *RunAsAny* - No default provided. Allows any `seLinuxOptions` to be
 specified.
 
@@ -521,3 +554,8 @@ specifies which values are allowed for the pod seccomp annotations. Specified as
 a comma-delimited list of allowed values. Possible values are those listed
 above, plus `*` to allow all profiles. Absence of this annotation means that the
 default cannot be changed.
+
+### Sysctl
+
+Controlled via annotations on the PodSecurityPolicy. Refer to the [Sysctl documentation](
+/docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy-annotations).

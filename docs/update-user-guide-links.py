@@ -12,7 +12,7 @@ def find_documents_to_rewrite():
     rewrites = []
     for doc in moved_docs:
         location = doc_location(doc)
-        destinations = get_desinations_for_doc(doc)
+        destinations = get_destinations_for_doc(doc)
 
         if len(destinations) == 0:
             print("Unable to get possible destinations for %s" % doc)
@@ -35,7 +35,7 @@ def doc_location(filename):
 
 REDIRECT_REGEX = re.compile("^.*\[(.*)\]\((.*)\)$")
 
-def get_desinations_for_doc(filename):
+def get_destinations_for_doc(filename):
     destination_paths = []
     with open(filename) as f:
         lines = [line.rstrip('\n').rstrip('\r') for line in f.readlines()]

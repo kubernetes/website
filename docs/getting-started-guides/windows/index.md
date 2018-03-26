@@ -16,35 +16,10 @@ The Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) co
 **Note:** Windows Server Containers on Kubernetes is a Beta feature in Kubernetes v1.9
 {: .note}
 
-## Build
-We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases). Look for the Node Binaries section by visiting the binary downloads link. 
+## Get Windows Binaries
+We recommend using the release binaries that can be found at [https://github.com/kubernetes/kubernetes/releases/latest](https://github.com/kubernetes/kubernetes/releases/latest). Under the CHANGELOG you can find the Node Binaries link for Windows-amd64, which will include kubeadm, kubectl, kubelet and kube-proxy. 
 
-If you wish to build the code yourself, please follow the next instructions:
-
-1. Install the pre-requisites on a Linux host:
-
-    ```
-    sudo apt-get install curl git build-essential docker.io conntrack
-    ```  
-2. Run the following commands to build kubelet and kube-proxy:
-
-    ```bash
-    K8SREPO="github.com/kubernetes/kubernetes"
-    go get -d $K8SREPO
-    # Note: the above command may spit out a message about 
-    #       "no Go files in...", but it can be safely ignored!
-
-    cd $GOPATH/src/k8s.io/kubernetes
-    # Build the kubelet
-    KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kubelet
-
-    # Build the kube-proxy
-    KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kube-proxy
-
-    # You will find the output binaries under the folder _output/local/bin/windows/
-```
-
-More detailed build instructions will be maintained and kept up to date [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries.md).
+If you wish to build the code yourself, please refer to detailed build instructions [here](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/compiling-kubernetes-binaries).
 
 ## Prerequisites
 In Kubernetes version 1.9 or later, Windows Server Containers for Kubernetes are supported using the following:
@@ -77,9 +52,7 @@ Windows supports the CNI network model and uses plugins to interface with the Wi
 #### Upstream L3 Routing Topology
 In this topology, networking is achieved using L3 routing with static IP routes configured in an upstream Top of Rack (ToR) switch/router. Each cluster node is connected to the management network with a host IP. Additionally, each node uses a local 'l2bridge' network with a pod CIDR assigned. All pods on a given worker node will be connected to the pod CIDR subnet ('l2bridge' network). In order to enable network communication between pods running on different nodes, the upstream router has static routes configured with pod CIDR prefix => Host IP.
 
-Each Window Server node should have the following configuration:
-
-The following diagram illustrates the Windows Server networking setup for Kubernetes using Upstream L3 Routing Setup:
+The following example diagram illustrates the Windows Server networking setup for Kubernetes using Upstream L3 Routing Setup:
 ![K8s Cluster using L3 Routing with ToR](UpstreamRouting.png)
 
 #### Host-Gateway Topology
@@ -111,7 +84,7 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 
 
 1. Windows Server container host running the required Windows Server and Docker versions. Follow the setup instructions outlined by this help topic: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server.
-2. [Build](#Build) or download kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions
+2. [Get Windows Binaries](#get-windows-binaries) kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions
 3. Copy Node spec file (kube config) from Linux master node with X.509 keys
 4. Create the HNS Network, ensure the correct CNI network config, and start kubelet.exe using this script [start-kubelet.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1)
 5. Start kube-proxy using this script [start-kubeproxy.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubeproxy.ps1)
@@ -120,7 +93,7 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 More detailed instructions can be found [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows.md).
 
 **Windows CNI Config Example**  
-Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file.
+Today, Windows CNI plugin is based on wincni.exe code with the following example, configuration file. This is based on the ToR example diagram shown above, specifying the configuration to apply to Windows node-1. Of special interest is Windows node-1 pod CIDR (10.10.187.64/26) and the associated gateway of cbr0 (10.10.187.66). The exception list is specifying the Service CIDR (11.0.0.0/8), Cluster CIDR (10.10.0.0/16), and Management (or Host) CIDR (10.127.132.128/25).
 
 Note: this file assumes that a user previous created 'l2bridge' host networks on each Windows node using `<Verb>-HNSNetwork` cmdlets as shown in the `start-kubelet.ps1` and `start-kubeproxy.ps1` scripts linked above
 
@@ -254,8 +227,23 @@ To start your cluster, you'll need to start both the Linux-based Kubernetes cont
 ## Starting the Linux-based Control Plane
 Use your preferred method to start Kubernetes cluster on Linux. Please note that Cluster CIDR might need to be updated.
 
-## Scheduling Pods on Windows
-Because your cluster has both Linux and Windows nodes, you must explicitly set the nodeSelector constraint to be able to schedule pods to Windows nodes. You must set nodeSelector with the label beta.kubernetes.io/os to the value windows; see the following example:
+## Support for kubeadm join
+
+If your cluster has been created by [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/), 
+and your networking is setup correctly using one of the methods listed above (networking is setup outside of kubeadm), you can use kubeadm to add a Windows node to your cluster. At a high level, you first have to initialize the master with kubeadm (Linux), then set up the CNI based networking (outside of kubeadm), and finally start joining Windows or Linux worker nodes to the cluster. For additional documentation and reference material, visit the kubeadm link above.
+
+The kubeadm binary can be found at [Kubernetes Releases](https://github.com/kubernetes/kubernetes/releases), inside the node binaries archive. Adding a Windows node is not any different than adding a Linux node:
+
+`kubeadm.exe join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
+
+See [joining-your-nodes](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#44-joining-your-nodes) for more details.
+
+## Supported Features
+
+The examples listed below assume running Windows nodes on Windows Server 1709. If you are running Windows Server 2016, the examples will need the image updated to specify `image: microsoft/windowsservercore:ltsc2016`. This is due to the requirement for container images to match the host operating system version when using process isolation. Not specifying a tag will implicitly use the `:latest` tag which can lead to surprising behaviors. Please consult with [https://hub.docker.com/r/microsoft/windowsservercore/](https://hub.docker.com/r/microsoft/windowsservercore/) for additional information on Windows Server Core image tagging.
+
+### Scheduling Pods on Windows
+Because your cluster has both Linux and Windows nodes, you must explicitly set the `nodeSelector` constraint to be able to schedule pods to Windows nodes. You must set nodeSelector with the label `beta.kubernetes.io/os` to the value `windows`; see the following example:
 
 ```yaml
 {
@@ -271,7 +259,7 @@ Because your cluster has both Linux and Windows nodes, you must explicitly set t
     "containers": [
       {
         "name": "iis",
-        "image": "microsoft/iis",
+        "image": "microsoft/iis:windowsservercore-1709",
         "ports": [
           {
             "containerPort": 80
@@ -285,18 +273,7 @@ Because your cluster has both Linux and Windows nodes, you must explicitly set t
   }
 }
 ```
-## Support for kubeadm join
-
-If your cluster has been created by [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/), 
-and your networking is setup correctly using one of the methods listed above (networking is setup outside of kubeadm), you can use kubeadm to add a Windows node to your cluster. At a high level, you first have to initialize the master with kubeadm (Linux), then set up the CNI based networking (outside of kubeadm), and finally start joining Windows or Linux worker nodes to the cluster. For additional documentation and reference material, visit the kubeadm link above.
-
-The kubeadm binary can be found at [Kubernetes Releases](https://github.com/kubernetes/kubernetes/releases), inside the node binaries archive. Adding a Windows node is not any different than adding a Linux node:
-
-`kubeadm.exe join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
-
-See [joining-your-nodes](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#44-joining-your-nodes) for more details.
-
-## Supported Features
+**Note:** this example assumes you are running on Windows Server 1709, so uses the image tag to support that. If you are on a different version, you will need to update the tag. For example, if on Windows Server 2016, update to use `"image": "microsoft/iis"` which will default to that OS version.
 
 ### Secrets and ConfigMaps
 Secrets and ConfigMaps can be utilized in Windows Server Containers, but must be used as environment variables. See limitations section below for additional details.
@@ -319,11 +296,11 @@ Secrets and ConfigMaps can be utilized in Windows Server Containers, but must be
     apiVersion: v1
     kind: Pod
     metadata:
-      name: mypod-secret
+      name: my-secret-pod
     spec:
       containers:
-      - name: mypod-secret
-        image: redis:3.0-nanoserver
+      - name: my-secret-pod
+        image: microsoft/windowsservercore:1709
         env:
           - name: USERNAME
             valueFrom:
@@ -355,11 +332,11 @@ data:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: configmap-pod
+  name: my-configmap-pod
 spec:
   containers:
-  - name: configmap-redis
-    image: redis:3.0-nanoserver
+  - name: my-configmap-pod
+    image: microsoft/windowsservercore:1709
     env:
       - name: EXAMPLE_PROPERTY_1
         valueFrom:
@@ -387,19 +364,19 @@ Persistent Volume Claims are supported for supported volume types.
  apiVersion: v1
  kind: Pod
  metadata:
-   name: hostpath-volume-pod
+   name: my-hostpath-volume-pod
  spec:
    containers:
-   - name: hostpath-redis
-     image: redis:3.0-nanoserver
+   - name: my-hostpath-volume-pod
+     image: microsoft/windowsservercore:1709
      volumeMounts:
-     - name: blah
+     - name: foo
        mountPath: "C:\\etc\\foo"
        readOnly: true
    nodeSelector:
      beta.kubernetes.io/os: windows
    volumes:
-   - name: blah
+   - name: foo
      hostPath:
        path: "C:\\etc\\foo"
  ```
@@ -410,11 +387,11 @@ Persistent Volume Claims are supported for supported volume types.
  apiVersion: v1
  kind: Pod
  metadata:
-   name: empty-dir-pod
+   name: my-empty-dir-pod
  spec:
    containers:
-   - image: redis:3.0-nanoserver
-     name: empty-dir-redis
+   - image: microsoft/windowsservercore:1709
+     name: my-empty-dir-pod
      volumeMounts:
      - mountPath: /cache
        name: cache-volume
@@ -428,18 +405,49 @@ Persistent Volume Claims are supported for supported volume types.
    nodeSelector:
      beta.kubernetes.io/os: windows
  ```
- 
+
+### DaemonSets
+
+DaemonSets are supported
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: my-DaemonSet
+  labels:
+    app: foo
+spec:
+  template:
+    metadata:
+      labels:
+        app: foo
+    spec:
+      containers:
+      - name: foo
+        image: microsoft/windowsservercore:1709
+      nodeSelector:
+        beta.kubernetes.io/os: windows
+```
+
 ### Metrics
 
-Windows Stats use a hybrid model: pod and container level stats come from CRI (via dockershim), while node level stats come from the "winstats" package that exports cadvisor like datastructures using windows specific perf counters from the node.
+Windows Stats use a hybrid model: pod and container level stats come from CRI (via dockershim), while node level stats come from the "winstats" package that exports cadvisor like data structures using windows specific perf counters from the node.
 
 ## Known Limitations for Windows Server Containers with v1.9
 Some of these limitations will be addressed by the community in future releases of Kubernetes
 - Shared network namespace (compartment) with multiple Windows Server containers (shared kernel) per pod is only supported on Windows Server 1709 or later
 - Using Secrets and ConfigMaps as volume mounts is not supported 
+- Mount propagation is not supported on Windows
 - The StatefulSet functionality for stateful applications is not supported
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
-- Hyper-V Containers are not supported
+- Hyper-V isolated containers are not supported. 
+- Windows container OS must match the Host OS. If it does not, the pod will get stuck in a crash loop.
+- Under the networking models of L3 or Host GW, Kubernetes Services are inaccessible to Windows nodes due to a Windows issue. This is not an issue if using OVN/OVS for networking.
+- Windows kubelet.exe may fail to start when running on Windows Server under VMware Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
+- Flannel and Weavenet are not yet supported
 
+## Next steps and resources
 
-> As of this writing, the Kube-proxy binary requires a pending Kubernetes [pull request](https://github.com/kubernetes/kubernetes/pull/56529) to work properly. You may need to [build](#build) the binaries manually to work around this. 
+- Support for Windows is in Beta as of v1.9 and your feedback is welcome. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
+- Troubleshooting and Common Problems: [Link](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/common-problems)

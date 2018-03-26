@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jlowdermilk
 - justinsb
 - quinton-hoole
@@ -36,7 +36,7 @@ zone information.
 
 Kubernetes will automatically spread the pods in a replication controller
 or service across nodes in a single-zone cluster (to reduce the impact of
-failures.)  With multiple-zone clusters, this spreading behaviour is
+failures.)  With multiple-zone clusters, this spreading behavior is
 extended across zones (to reduce the impact of zone failures.)  (This is
 achieved via `SelectorSpreadPriority`).  This is a best-effort
 placement, and so if the zones in your cluster are heterogeneous

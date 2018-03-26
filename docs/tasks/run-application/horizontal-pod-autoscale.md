@@ -1,10 +1,13 @@
 ---
-approvers:
+reviewers:
 - fgrzadkowski
 - jszczepkowski
 - directxman12
 title: Horizontal Pod Autoscaler
 ---
+
+* TOC
+{:toc}
 
 This document describes the current state of the Horizontal Pod Autoscaler in Kubernetes.
 

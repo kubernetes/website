@@ -1,11 +1,14 @@
 ---
-approvers:
+reviewers:
 - fgrzadkowski
 - jszczepkowski
 - justinsb
 - directxman12
 title: Horizontal Pod Autoscaler Walkthrough
 ---
+
+* TOC
+{:toc}
 
 Horizontal Pod Autoscaler automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization
@@ -29,8 +32,25 @@ See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horiz
 ## Step One: Run & expose php-apache server
 
 To demonstrate Horizontal Pod Autoscaler we will use a custom docker image based on the php-apache image.
-The Dockerfile can be found [here](/docs/user-guide/horizontal-pod-autoscaling/image/Dockerfile).
-It defines an [index.php](/docs/user-guide/horizontal-pod-autoscaling/image/index.php) page which performs some CPU intensive computations.
+The Dockerfile has the following content:
+
+```
+FROM php:5-apache
+ADD index.php /var/www/html/index.php
+RUN chmod a+rx index.php
+```
+
+It defines an index.php page which performs some CPU intensive computations:
+
+```
+<?php
+  $x = 0.0001;
+  for ($i = 0; $i <= 1000000; $i++) {
+    $x += sqrt($x);
+  }
+  echo "OK!";
+?>
+```
 
 First, we will start a deployment running the image and expose it as a service:
 
@@ -304,7 +324,7 @@ For this HorizontalPodAutoscaler, we can see several conditions in a healthy sta
 whether or not any backoff-related conditions would prevent scaling.  The second, `ScalingActive`,
 indicates whether or not the HPA is enabled (i.e. the replica count of the target is not zero) and
 is able to calculate desired scales. When it is `False`, it generally indicates problems with
-fetching metrics.  Finally, the last condition, `ScalingLimitted`, indicates that the desired scale
+fetching metrics.  Finally, the last condition, `ScalingLimited`, indicates that the desired scale
 was capped by the maximum or minimum of the HorizontalPodAutoscaler.  This is an indication that
 you may wish to raise or lower the minimum or maximum replica count constraints on your
 HorizontalPodAutoscaler.

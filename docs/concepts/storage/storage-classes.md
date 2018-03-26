@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jsafrane
 - mikedanese
 - saad-ali
@@ -205,9 +205,9 @@ parameters:
   a mandatory parameter for GlusterFS dynamic provisioner. If Heketi service is
   exposed as a routable service in openshift/kubernetes setup, this can have a
   format similar to `http://heketi-storage-project.cloudapps.mystorage.com`
-  where the fqdn is a resolvable heketi service url.
+  where the fqdn is a resolvable Heketi service url.
 * `restauthenabled` : Gluster REST service authentication boolean that enables
-  authentication to the REST server. If this value is 'true', `restuser` and
+  authentication to the REST server. If this value is `"true"`, `restuser` and
   `restuserkey` or `secretNamespace` + `secretName` have to be filled. This
   option is deprecated, authentication is enabled when any of `restuser`,
   `restuserkey`, `secretName` or `secretNamespace` is specified.
@@ -220,7 +220,7 @@ parameters:
   contains user password to use when talking to Gluster REST service. These
   parameters are optional, empty password will be used when both
   `secretNamespace` and `secretName` are omitted. The provided secret must have
-  type "kubernetes.io/glusterfs", e.g. created in this way:
+  type `"kubernetes.io/glusterfs"`, e.g. created in this way:
   ```
   kubectl create secret generic heketi-secret \
     --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
@@ -389,7 +389,7 @@ parameters:
   set `imageFormat` to "2". Currently supported features are `layering` only.
   Default is "", and no features are turned on.
 
-#### Quobyte
+### Quobyte
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -476,7 +476,9 @@ parameters:
   When `kind` is `shared`, all unmanaged disks are created in a few shared
   storage accounts in the same resource group as the cluster. When `kind` is
   `dedicated`, a new dedicated storage account will be created for the new
-  unmanaged disk in the same resource group as the cluster.
+  unmanaged disk in the same resource group as the cluster. When `kind` is 
+  `managed`, all managed disks are created in the same resource group as 
+  the cluster.
 
 - Premium VM can attach both Standard_LRS and Premium_LRS disks, while Standard
   VM can only attach Standard_LRS disks.
@@ -636,7 +638,7 @@ and referenced with the `adminSecretNamespace` parameter. Secrets used by
 pre-provisioned volumes must be created in the same namespace as the PVC that
 references it.
 
-#### Local
+### Local
 
 {% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
 

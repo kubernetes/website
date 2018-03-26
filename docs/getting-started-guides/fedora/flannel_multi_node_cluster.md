@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - dchen1107
 - erictune
 - thockin

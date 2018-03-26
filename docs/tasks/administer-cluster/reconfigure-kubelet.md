@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mtaufen
 - dawnchen
 title: Reconfigure a Node's Kubelet in a Live Cluster
@@ -290,7 +290,7 @@ configSource:
 ### Observe that the Kubelet is using the new configuration
 
 Once more, retrieve the Node with `kubectl get node ${NODE_NAME} -o yaml`, and
-look for the `ConfigOK` condition in `status.conditions`. You should the message
+look for the `ConfigOK` condition in `status.conditions`. You should see the message
 `Using current (UID: NEW_CONFIG_MAP_UID)` when the Kubelet starts using the
 new configuration.
 
@@ -333,7 +333,7 @@ condition's message reverts to either `using current (default)` or
 
 ### Deauthorize your Node fom reading the old ConfigMap
 
-Once you know your Node is using the default configuraiton again, it is a good
+Once you know your Node is using the default configuration again, it is a good
 idea to deauthorize the node from reading the old ConfigMap. Run the following
 commands to remove the RoleBinding and Role:
 

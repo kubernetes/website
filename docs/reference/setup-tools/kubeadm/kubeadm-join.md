@@ -13,7 +13,7 @@ title: kubeadm join
 
 ### The joining workflow
 
-`kubeadm join` bootstraps a Kubernetes worker node and joins it to the cluster. 
+`kubeadm join` bootstraps a Kubernetes worker node and joins it to the cluster.
 This action consists of the following steps:
 
 1. kubeadm downloads necessary cluster information from the API server.
@@ -23,9 +23,9 @@ This action consists of the following steps:
 
 1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
    it first retrieves the kubelet init configuration from the master and writes it to
-   the disk. When kubelet starts up, kubeadm updates the node `Node.spec.configSource` property of the node. 
-   See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file.md) 
-   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet.md) 
+   the disk. When kubelet starts up, kubeadm updates the node `Node.spec.configSource` property of the node.
+   See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
+   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/) 
    for more information about Dynamic Kubelet Configuration.
 
 1. Once the cluster information is known, kubelet can start the TLS bootstrapping
@@ -51,7 +51,7 @@ the cluster configuration (including root CA) and validates it using the token
 as well as validating that the root CA public key matches the provided hash and
 that the API server certificate is valid under the root CA.
 
-The CA key hash has the format `sha256:<hex_encoded_hash>`. By default, the hash value is returned in the `kubeadm join` command printed at the end of `kubeadm init` or in the output of `kubeadm token create --print-join-command`. It is in a standard format (see [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) and can also be calculated by 3rd party tools or provisioning systems. For example, using the OpenSSL CLI: 
+The CA key hash has the format `sha256:<hex_encoded_hash>`. By default, the hash value is returned in the `kubeadm join` command printed at the end of `kubeadm init` or in the output of `kubeadm token create --print-join-command`. It is in a standard format (see [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) and can also be calculated by 3rd party tools or provisioning systems. For example, using the OpenSSL CLI:
 
 ```bash
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'

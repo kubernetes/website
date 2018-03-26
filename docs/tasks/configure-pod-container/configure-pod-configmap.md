@@ -31,8 +31,8 @@ The data source corresponds to a key-value pair in the ConfigMap, where
 * key = the file name or the key you provided on the command line, and
 * value = the file contents or the literal value you provided on the command line.
 
-You can use [`kubectl describe`](/docs/user-guide/kubectl/{{page.version}}/#describe) or
-[`kubectl get`](/docs/user-guide/kubectl/{{page.version}}/#get) to retrieve information
+You can use [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe) or
+[`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to retrieve information
 about a ConfigMap.
 
 ### Create ConfigMaps from directories
@@ -42,13 +42,13 @@ You can use `kubectl create configmap` to create a ConfigMap from multiple files
 For example:
 
 ```shell
-kubectl create configmap game-config --from-file=docs/user-guide/configmap/kubectl
+kubectl create configmap game-config --from-file=https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl
 ```
 
-combines the contents of the `docs/user-guide/configmap/kubectl/` directory
+combines the contents of the `docs/tasks/configure-pod-container/configmap/kubectl/` directory
 
 ```shell
-ls docs/user-guide/configmap/kubectl/
+ls docs/tasks/configure-pod-container/configmap/kubectl/
 game.properties
 ui.properties
 ```
@@ -68,7 +68,7 @@ game.properties:        158 bytes
 ui.properties:          83 bytes
 ```
 
-The `game.properties` and `ui.properties` files in the `docs/user-guide/configmap/kubectl/` directory are represented in the `data` section of the ConfigMap.
+The `game.properties` and `ui.properties` files in the `docs/tasks/configure-pod-container/configmap/kubectl/` directory are represented in the `data` section of the ConfigMap.
 
 ```shell
 kubectl get configmaps game-config -o yaml
@@ -107,7 +107,7 @@ You can use `kubectl create configmap` to create a ConfigMap from an individual 
 For example,
 
 ```shell
-kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties
+kubectl create configmap game-config-2 --from-file=https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/game.properties
 ```
 
 would produce the following ConfigMap:
@@ -127,7 +127,7 @@ game.properties:        158 bytes
 You can pass in the  `--from-file` argument multiple times to create a ConfigMap from multiple data sources.
 
 ```shell
-kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties --from-file=docs/user-guide/configmap/kubectl/ui.properties
+kubectl create configmap game-config-2 --from-file=https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/game.properties --from-file=https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/ui.properties
 ```
 
 ```shell
@@ -143,6 +143,75 @@ game.properties:        158 bytes
 ui.properties:          83 bytes
 ```
 
+Use the option `--from-env-file` to create a ConfigMap from an env-file, for example:
+```shell
+# Env-files contain a list of environment variables.
+# These syntax rules apply:
+#   Each line in an env file has to be in VAR=VAL format.
+#   Lines beginning with # (i.e. comments) are ignored.
+#   Blank lines are ignored.
+#   There is no special handling of quotation marks (i.e. they will be part of the ConfigMap value)).
+
+
+cat docs/tasks/configure-pod-container/game-env-file.properties
+enemies=aliens
+lives=3
+allowed="true"
+
+# This comment and the empty line above it are ignored
+```
+
+```shell
+kubectl create configmap game-config-env-file \
+        --from-env-file=docs/tasks/configure-pod-container/game-env-file.properties
+```
+
+would produce the following ConfigMap:
+
+```shell
+kubectl get configmap game-config-env-file -o yaml
+apiVersion: v1
+data:
+  allowed: '"true"'
+  enemies: aliens
+  lives: "3"
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2017-12-27T18:36:28Z
+  name: game-config-env-file
+  namespace: default
+  resourceVersion: "809965"
+  selfLink: /api/v1/namespaces/default/configmaps/game-config-env-file
+  uid: d9d1ca5b-eb34-11e7-887b-42010a8002b8
+```
+
+When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used:
+
+```shell
+kubectl create configmap config-multi-env-files \
+        --from-env-file=docs/tasks/configure-pod-container/game-env-file.properties \
+        --from-env-file=docs/tasks/configure-pod-container/ui-env-file.properties
+```
+
+would produce the following ConfigMap:
+
+```
+kubectl get configmap config-multi-env-files -o yaml
+apiVersion: v1
+data:
+  color: purple
+  how: fairlyNice
+  textmode: "true"
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2017-12-27T18:38:34Z
+  name: config-multi-env-files
+  namespace: default
+  resourceVersion: "810136"
+  selfLink: /api/v1/namespaces/default/configmaps/config-multi-env-files
+  uid: 252c4572-eb35-11e7-887b-42010a8002b8
+```
+
 #### Define the key to use when creating a ConfigMap from a file
 
 You can define a key other than the file name to use in the `data` section of your ConfigMap when using the `--from-file` argument:
@@ -156,7 +225,7 @@ where `<my-key-name>` is the key you want to use in the ConfigMap and `<path-to-
 For example:
 
 ```shell
-kubectl create configmap game-config-3 --from-file=game-special-key=docs/user-guide/configmap/kubectl/game.properties
+kubectl create configmap game-config-3 --from-file=game-special-key=https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/game.properties
 
 kubectl get configmaps game-config-3 -o yaml
 ```
@@ -433,6 +502,9 @@ special.level
 special.type
 ```
 
+**Caution:** If there are some files in the `/etc/config/` directory, they will be deleted.
+{: .caution}
+
 ### Add ConfigMap data to a specific path in the Volume
 
 Use the `path` field to specify the desired file path for specific ConfigMap items. 
@@ -475,6 +547,11 @@ basis. The [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files
 ### Mounted ConfigMaps are updated automatically
 
 When a ConfigMap already being consumed in a volume is updated, projected keys are eventually updated as well. Kubelet is checking whether the mounted ConfigMap is fresh on every periodic sync. However, it is using its local ttl-based cache for getting the current value of the ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as kubelet sync period + ttl of ConfigMaps cache in kubelet.
+
+**Note:** A container using a ConfigMap as a
+[subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive
+ConfigMap updates.
+{: .note}
 
 {% endcapture %}
 

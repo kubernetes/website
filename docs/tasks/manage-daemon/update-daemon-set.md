@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - janetkuo
 title: Perform a Rolling Update on a DaemonSet
 ---
@@ -104,7 +104,7 @@ update. This can be done with several different `kubectl` commands.
 #### Declarative commands
 
 If you update DaemonSets using
-[configuration files](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/),
+[configuration files](/docs/concepts/overview/object-management-kubectl/declarative-config/),
 use `kubectl apply`:
 
 ```shell
@@ -114,7 +114,7 @@ kubectl apply -f ds-v2.yaml
 #### Imperative commands
 
 If you update DaemonSets using
-[imperative commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/),
+[imperative commands](/docs/concepts/overview/object-management-kubectl/imperative-command/),
 use `kubectl edit` or `kubectl patch`:
 
 ```shell

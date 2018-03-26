@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - thockin
 title: Images

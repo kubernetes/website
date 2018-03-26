@@ -67,7 +67,7 @@ for the Pod:
 {% include code.html language="yaml" file="memory-request-limit.yaml" ghlink="/docs/tasks/configure-pod-container/memory-request-limit.yaml" %}
 
 In the configuration file, the `args` section provides arguments for the Container when it starts.
-The `-mem-total 150Mi` argument tells the Container to attempt to allocate 150 MiB of memory.
+The `"--vm-bytes", "150M"` arguments tell the Container to attempt to allocate 150 MiB of memory.
 
 Create the Pod:
 

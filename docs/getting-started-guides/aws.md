@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - justinsb
 - clove
 title: Running Kubernetes on AWS EC2

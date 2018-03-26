@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - murali-reddy
 title: Use Kube-router for NetworkPolicy
 ---

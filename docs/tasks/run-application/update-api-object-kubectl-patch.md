@@ -54,9 +54,9 @@ get terminated and replaced by new ones.
 At this point, each Pod has one Container that runs the nginx image. Now suppose
 you want each Pod to have two containers: one that runs nginx and one that runs redis.
 
-Create a file named `patch-file.yaml` that has this content:
+Create a file named `patch-file-containers.yaml` that has this content:
 
-```shell
+```yaml
 spec:
   template:
     spec:
@@ -68,7 +68,7 @@ spec:
 Patch your Deployment:
 
 ```shell
-kubectl patch deployment patch-demo --patch "$(cat patch-file.yaml)"
+kubectl patch deployment patch-demo --patch "$(cat patch-file-containers.yaml)"
 ```
 
 View the patched Deployment:
@@ -126,15 +126,82 @@ containers:
 
 ### Notes on the strategic merge patch
 
-With a patch, you do not have to specify an entire object; you specify only the portion
-of the object that you want to change. For example, in the preceding exercise, you specified
-one Container in the `containers` list in a `PodSpec`.
-
 The patch you did in the preceding exercise is called a *strategic merge patch*.
-With a strategic merge patch, you can update a list by specifying only the elements
-that you want to add to the list. The existing list elements remain, and the new elements
-are merged with the existing elements. In the preceding exercise, the resulting `containers`
-list has both the original nginx Container and the new redis Container.
+Notice that the patch did not replace the `containers` list. Instead it added a new
+Container to the list. In other words, the list in the patch was merged with the
+existing list. This is not always what happens when you use a strategic merge patch on a list.
+In some cases, the list is replaced, not merged.
+
+With a strategic merge patch, a list is either replaced or merged depending on its
+patch strategy. The patch strategy is specified by the value of the `patchStrategy` key
+in a field tag in the Kubernetes source code. For example, the `Containers` field of `PodSpec`
+struct has a `patchStrategy` of `merge`:
+
+```go
+type PodSpec struct {
+  ...
+  Containers []Container `json:"containers" patchStrategy:"merge" patchMergeKey:"name" ...`
+```
+
+You can also see the patch strategy in the
+[OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json):
+
+```json
+"io.k8s.api.core.v1.PodSpec": {
+    ...
+     "containers": {
+      "description": "List of containers belonging to the pod. ...
+      },
+      "x-kubernetes-patch-merge-key": "name",
+      "x-kubernetes-patch-strategy": "merge"
+     },
+```
+
+And you can see the patch strategy in the
+[Kubernetes API documentation](/docs/reference/generated/kubernetes-api/v1.9/#podspec-v1-core).
+
+Create a file named `patch-file-tolerations.yaml` that has this content:
+
+```yaml
+spec:
+  template:
+    spec:
+      tolerations:
+      - effect: NoSchedule
+        key: disktype
+        value: ssd
+```
+
+Patch your Deployment:
+
+```shell
+kubectl patch deployment patch-demo --patch "$(cat patch-file-tolerations.yaml)"
+```
+
+View the patched Deployment:
+
+```shell
+kubectl get deployment patch-demo --output yaml
+```
+
+The output shows that the PodSpec in the Deployment has only one Toleration:
+
+```shell
+tolerations:
+      - effect: NoSchedule
+        key: disktype
+        value: ssd
+```
+
+Notice that the `tolerations` list in the PodSpec was replaced, not merged. This is because
+the Tolerations field of PodSpec does not have a `patchStrategy` key in its field tag. So the
+strategic merge patch uses the default patch strategy, which is `replace`.
+
+```go
+type PodSpec struct {
+  ...
+  Tolerations []Toleration `json:"tolerations,omitempty" protobuf:"bytes,22,opt,name=tolerations"`
+```
 
 ## Use a JSON merge patch to update a Deployment
 
@@ -162,7 +229,7 @@ did a strategic merge patch.
 Next, do a JSON merge patch on your same Deployment. Create a file named `patch-file-2.yaml`
 that has this content:
 
-```shell
+```yaml
 spec:
   template:
     spec:
@@ -216,7 +283,7 @@ directly on the command line.
 
 Create a file named `patch-file.json` that has this content:
 
-```shell
+```json
 {
    "spec": {
       "template": {
@@ -246,7 +313,7 @@ kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"co
 
 ## Summary
 
-In this exercise, you `kubectl patch` to change the live configuration
+In this exercise, you used `kubectl patch` to change the live configuration
 of a Deployment object. You did not change the configuration file that you originally used to
 create the Deployment object. Other commands for updating API objects include
 [kubectl annotate](/docs/user-guide/kubectl/{{page.version}}/#annotate),
@@ -261,10 +328,10 @@ and
 
 {% capture whatsnext %}
 
-* [Kubernetes Object Management](/docs/tutorials/object-management-kubectl/object-management/)
-* [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
-* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
-* [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/)
+* [Kubernetes Object Management](/docs/concepts/overview/object-management-kubectl/overview/)
+* [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
+* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/overview/object-management-kubectl/imperative-config/)
+* [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/overview/object-management-kubectl/declarative-config/)
 
 {% endcapture %}
 

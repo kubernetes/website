@@ -10,7 +10,7 @@ Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [in
 
 * a highly available cluster
 * composable attributes
-* support for most popular Linux distributions
+* support for most popular Linux distributions (CoreOS, Debian Jessie, Ubuntu 16.04, CentOS/RHEL 7, Fedora/CentOS Atomic)
 * continuous integration tests
 
 To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/comparisons.md) to [kubeadm](/docs/admin/kubeadm/) and [kops](../kops).
@@ -21,7 +21,7 @@ To choose a tool which best fits your use case, read [this comparison](https://g
 
 Provision servers with the following requirements:
 
-* `Ansible v2.3` (or newer)
+* `Ansible v2.4` (or newer)
 * `Jinja 2.9` (or newer)
 * `python-netaddr` installed on the machine that running Ansible commands
 * Target servers must have access to the Internet in order to pull docker images
@@ -37,10 +37,6 @@ Kubespray provides the following utilities to help provision your environment:
 * [Terraform](https://www.terraform.io/) scripts for the following cloud providers:
   * [AWS](https://github.com/kubernetes-incubator/kubespray/tree/master/contrib/terraform/aws)
   * [OpenStack](https://github.com/kubernetes-incubator/kubespray/tree/master/contrib/terraform/openstack)
-* [kubespray-cli](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md)
-
-**Note:** kubespray-cli is no longer actively maintained.
-{. :note}
 
 ### (2/5) Compose an inventory file
 
@@ -62,15 +58,14 @@ Kubespray customizations can be made to a [variable file](http://docs.ansible.co
 
 ### (4/5) Deploy a Cluster
 
-Next, deploy your cluster with one of two methods:
+Next, deploy your cluster:
 
-* [ansible-playbook](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
-* [kubespray-cli tool](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md)
+Cluster deployment using [ansible-playbook](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
+```console
+ansible-playbook -i your/inventory/hosts.ini cluster.yml -b -v \
+  --private-key=~/.ssh/private_key
+```
 
-**Note:** kubespray-cli is no longer actively maintained.
-{: .note}
-
-Both methods run the default [cluster definition file](https://github.com/kubernetes-incubator/kubespray/blob/master/cluster.yml).
 
 Large deployments (100+ nodes) may require [specific adjustments](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/large-deployments.md) for best results.
 
@@ -84,7 +79,8 @@ Kubespray provides additional playbooks to manage your cluster: _scale_ and _upg
 
 ### Scale your cluster
 
-You can scale your cluster by running the scale playbook. For more information, see "[Adding nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#adding-nodes)".
+You can add worker nodes from your cluster by running the scale playbook. For more information, see "[Adding nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#adding-nodes)".
+You can remove worker nodes from your cluster by running the remove-node playbook. For more information, see "[Remove nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#remove-nodes)".
 
 ### Upgrade your cluster
 

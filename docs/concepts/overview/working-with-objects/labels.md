@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 title: Labels and Selectors
 ---
@@ -58,6 +58,7 @@ An empty label selector (that is, one with zero requirements) selects every obje
 A null label selector (which is only possible for optional selector fields) selects no objects.
 
 **Note**: the label selectors of two controllers must not overlap within a namespace, otherwise they will fight with each other.
+{: .note}
 
 ### _Equality-based_ requirement
 

@@ -8,26 +8,7 @@ title: Certificates
 ## Creating Certificates
 
 When using client certificate authentication, you can generate certificates
-using an existing deployment script or manually through `easyrsa`, `openssl`
-or `cfssl`.
-
-### Using an Existing Deployment Script
-
-**Using an existing deployment script** is implemented at
-`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.
-
-Execute this script with two parameters. The first is the IP address
-of API server. The second is a list of subject alternate names in the form `IP:<ip-address> or DNS:<dns-name>`.
-
-The script generates three files: `ca.crt`, `server.crt`, and `server.key`.
-
-Finally, add the following parameters into API server start parameters:
-
-```
---client-ca-file=/srv/kubernetes/ca.crt
---tls-cert-file=/srv/kubernetes/server.crt
---tls-private-key-file=/srv/kubernetes/server.key
-```
+manually through `easyrsa`, `openssl` or `cfssl`.
 
 ### easyrsa
 
@@ -35,7 +16,7 @@ Finally, add the following parameters into API server start parameters:
 
 1.  Download, unpack, and initialize the patched version of easyrsa3.
 
-        curl -L -O https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
+        curl -LO https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
         tar xzf easy-rsa.tar.gz
         cd easy-rsa-master/easyrsa3
         ./easyrsa init-pki
@@ -51,7 +32,7 @@ Finally, add the following parameters into API server start parameters:
     The sample below also assume that you are using `cluster.local` as the default
     DNS domain name.
 
-        ./easyrsa --subject-alt-name="IP:${MASTER_IP}"\
+        ./easyrsa --subject-alt-name="IP:${MASTER_IP},"\
         "IP:${MASTER_CLUSTER_IP},"\
         "DNS:kubernetes,"\
         "DNS:kubernetes.default,"\

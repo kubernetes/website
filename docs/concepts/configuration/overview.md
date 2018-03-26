@@ -1,96 +1,90 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 title: Configuration Best Practices
 ---
 
 {% capture overview %}
-This document highlights and consolidates configuration best practices that are introduced throughout the user-guide, getting-started documentation and examples.
+This document highlights and consolidates configuration best practices that are introduced throughout the user guide, Getting Started documentation, and examples.
 
 This is a living document. If you think of something that is not on this list but might be useful to others, please don't hesitate to file an issue or submit a PR.
 {% endcapture %}
 
 {% capture body %}
-## General Config Tips
+## General Configuration Tips
 
-- When defining configurations, specify the latest stable API version (currently v1).
+- When defining configurations, specify the latest stable API version.
 
-- Configuration files should be stored in version control before being pushed to the cluster. This allows quick roll-back of a configuration if needed. It also aids with cluster re-creation and restoration if necessary.
+- Configuration files should be stored in version control before being pushed to the cluster. This allows you to quickly roll back a configuration change if necessary. It also aids cluster re-creation and restoration.
 
 - Write your configuration files using YAML rather than JSON. Though these formats can be used interchangeably in almost all scenarios, YAML tends to be more user-friendly.
 
 - Group related objects into a single file whenever it makes sense. One file is often easier to manage than several. See the [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/all-in-one/guestbook-all-in-one.yaml) file as an example of this syntax.
 
-  Note also that many `kubectl` commands can be called on a directory, so you can also call `kubectl create` on a directory of config files. See below for more details.
+- Note also that many `kubectl` commands can be called on a directory. For example, you can call `kubectl create` on a directory of config files.
 
-- Don't specify default values unnecessarily -- simple and minimal configs will reduce errors.
+- Don't specify default values unnecessarily: simple, minimal configuration will make errors less likely.
 
-- Put an object description in an annotation to allow better introspection.
+- Put object descriptions in annotations, to allow better introspection.
 
 
-## "Naked" Pods vs Replication Controllers and Jobs
+## "Naked" Pods vs ReplicaSets, Deployments, and Jobs
 
-- If there is a viable alternative to naked pods (in other words: pods not bound to a [replication controller](/docs/user-guide/replication-controller)), go with the alternative. Naked pods will not be rescheduled in the event of node failure.
+- Don't use naked Pods (that is, Pods not bound to a [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) or [Deployment](/docs/concepts/workloads/controllers/deployment/)) if you can avoid it. Naked Pods will not be rescheduled in the event of a node failure.
 
-  Replication controllers are almost always preferable to creating pods, except for some explicit [`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) scenarios. A [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) object (currently in Beta) may also be appropriate.
+  A Deployment, which both creates a ReplicaSet to ensure that the desired number of Pods is always available, and specifies a strategy to replace Pods (such as [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), is almost always preferable to creating Pods directly, except for some explicit [`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) scenarios. A [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) may also be appropriate.
 
 
 ## Services
 
-- It's typically best to create a [service](/docs/concepts/services-networking/service/) before the corresponding [replication controllers](/docs/concepts/workloads/controllers/replicationcontroller/). This lets the scheduler spread the pods that comprise the service.
+- Create a [Service](/docs/concepts/services-networking/service/) before its corresponding backend workloads (Deployments or ReplicaSets), and before any workloads that need to access it. When Kubernetes starts a container, it provides environment variables pointing to all the Services which were running when the container was started. For example, if a Service named `foo` exists, all containers will get the following variables in their initial environment:
 
-- Don't use `hostPort` unless it is absolutely necessary (for example: for a node daemon).
-  It specifies the port number to expose on the host.
-  When you bind a Pod to a `hostPort`, there are a limited number of places to schedule a pod due to port conflicts.
-  The conflict comes from the requirement of an unique <hostIP,hostPort,protocol> combination.
-  Different <hostIP,hostPort,protocol> combinations mean different requirements.
-  For example, a pod that binds to host port 80 on 127.0.0.1 with TCP protocol has no conflict with another Pod that binds to host port 80 on 127.0.0.2 with TCP protocol.
-  
-  *Special notes on hostIP and protocol*: If you don't specify the hostIP and protocol explicitly,
-  kubernetes will use 0.0.0.0 and TCP as the default hostIP and protocol, 
-  where "0.0.0.0" is a wildcard IP that will match all <*,hostPort,protocol> on the node the pod is scheduled on.
-  Specifically, it will match all <IP,hostPort,protocol> tuples for all IPs on the host.
+  ```shell
+  FOO_SERVICE_HOST=<the host the Service is running on>
+  FOO_SERVICE_PORT=<the port the Service is running on>
+  ```
 
-  If you only need access to the port for debugging purposes, you can use the [kubectl proxy and apiserver proxy](/docs/tasks/access-kubernetes-api/http-proxy-access-api/) or [kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
-  You can use a [Service](/docs/concepts/services-networking/service/) object for external service access.
+  If you are writing code that talks to a Service, don't use these environment variables; use the [DNS name of the Service](/docs/concepts/services-networking/dns-pod-service/) instead. Service environment variables are provided only for older software which can't be modified to use DNS lookups, and are a much less flexible way of accessing Services.
 
-  If you explicitly need to expose a pod's port on the host machine, consider using a [NodePort](/docs/concepts/services-networking/service/#type-nodeport) service before resorting to `hostPort`.
+- Don't specify a `hostPort` for a Pod unless it is absolutely necessary. When you bind a Pod to a `hostPort`, it limits the number of places the Pod can be scheduled, because each <`hostIP`, `hostPort`, `protocol`> combination must be unique. If you don't specify the `hostIP` and `protocol` explicitly, Kubernetes will use `0.0.0.0` as the default `hostIP` and `TCP` as the default `protocol`.
+
+  If you only need access to the port for debugging purposes, you can use the [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls) or [`kubectl port-forward`](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
+
+  If you explicitly need to expose a Pod's port on the node, consider using a [NodePort](/docs/concepts/services-networking/service/#type-nodeport) Service before resorting to `hostPort`.
 
 - Avoid using `hostNetwork`, for the same reasons as `hostPort`.
 
-- Use _headless services_ for easy service discovery when you don't need kube-proxy load balancing. See [headless services](/docs/concepts/services-networking/service/#headless-services).
+- Use [headless Services](/docs/concepts/services-networking/service/#headless-
+services) (which have a `ClusterIP` of `None`) for easy service discovery when you don't need `kube-proxy` load balancing.
 
 ## Using Labels
 
-- Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or deployment. For example, instead of attaching a label to a set of pods to explicitly represent some service (For example, `service: myservice`), or explicitly representing the replication controller managing the pods  (for example, `controller: mycontroller`), attach labels that identify semantic attributes, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. This will let you select the object groups appropriate to the context— for example, a service for all "tier: frontend" pods, or all "test" phase components of app "myapp". See the [guestbook](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) app for an example of this approach.
+- Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or Deployment, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the appropriate Pods for other resources; for example, a Service that selects all `tier: frontend` Pods, or all `phase: test` components of `app: myapp`. See the [guestbook](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) app for examples of this approach.
 
-  A service can be made to span multiple deployments, such as is done across [rolling updates](/docs/tasks/run-application/rolling-update-replication-controller/), by simply omitting release-specific labels from its selector, rather than updating a service's selector to match the replication controller's selector fully.
+A Service can be made to span multiple Deployments by omitting release-specific labels from its selector. [Deployments](/docs/concepts/workloads/controllers/deployment/) make it easy to update a running service without downtime.
 
-- To facilitate rolling updates, include version info in replication controller names, for example as a suffix to the name. It is useful to set a `version` label as well. The rolling update creates a new controller as opposed to modifying the existing controller. So, there will be issues with version-agnostic controller names. See the [documentation](/docs/tasks/run-application/rolling-update-replication-controller/) on the rolling-update command for more detail.
+A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate.
 
-  Note that the [Deployment](/docs/concepts/workloads/controllers/deployment/) object obviates the need to manage replication controller `version names`. A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate. (Deployment objects are currently part of the [`extensions` API Group](/docs/concepts/overview/kubernetes-api/#api-groups).)
-
-- You can manipulate labels for debugging. Because Kubernetes replication controllers and services match to pods using labels, this allows you to remove a pod from being considered by a controller, or served traffic by a service, by removing the relevant selector labels. If you remove the labels of an existing pod, its controller will create a new pod to take its place. This is a useful way to debug a previously "live" pod in a quarantine environment. See the [`kubectl label`](/docs/concepts/overview/working-with-objects/labels/) command.
+- You can manipulate labels for debugging. Because Kubernetes controllers (such as ReplicaSet) and Services match to Pods using selector labels, removing the relevant labels from a Pod will stop it from being considered by a controller or from being served traffic by a Service. If you remove the labels of an existing Pod, its controller will create a new Pod to take its place. This is a useful way to debug a previously "live" Pod in a "quarantine" environment. To interactively remove or add labels, use [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label).
 
 ## Container Images
 
-- The [default container image pull policy](/docs/concepts/containers/images/) is `IfNotPresent`, which causes the [Kubelet](/docs/admin/kubelet/) to not pull an image if it already exists. If you would like to always force a pull, you must specify a pull image policy of `Always` in your .yaml file (`imagePullPolicy: Always`) or specify a `:latest` tag on your image.
+- The default [imagePullPolicy](/docs/concepts/containers/images/#updating-images) for a container is `IfNotPresent`, which causes the [kubelet](/docs/admin/kubelet/) to pull an image only if it does not already exist locally. If you want the image to be pulled every time Kubernetes starts the container, specify `imagePullPolicy: Always`.
 
-  That is, if you're specifying an image with other than the `:latest` tag, for example `myimage:v1`, and there is an image update to that same tag, the Kubelet won't pull the updated image. You can address this by ensuring that any updates to an image bump the image tag as well (for example, `myimage:v2`), and ensuring that your configs point to the correct version.
+  An alternative, but deprecated way to have Kubernetes always pull the image is to use the `:latest` tag, which will implicitly set the `imagePullPolicy` to `Always`.
 
-  **Note:** You should avoid using `:latest` tag when deploying containers in production, because this makes it hard to track which version of the image is running and hard to roll back.
+  **Note:** You should avoid using the `:latest` tag when deploying containers in production, because this makes it hard to track which version of the image is running and hard to roll back.
+{: .note}
 
-- To work only with a specific version of an image, you can specify an image with its digest (SHA256). This approach guarantees that the image will never update. For detailed information about working with image digests, see [the Docker documentation](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier).
+- To make sure the container always uses the same version of the image, you can specify its [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier) (for example `sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`). This uniquely identifies a specific version of the image, so it will never be updated by Kubernetes unless you change the digest value.
 
 ## Using kubectl
 
-- Use `kubectl create -f <directory>` where possible. This looks for config objects in all `.yaml`, `.yml`, and `.json` files in `<directory>` and passes them to `create`.
+- Use `kubectl apply -f <directory>` or `kubectl create -f <directory>`. This looks for Kubernetes configuration in all `.yaml`, `.yml`, and `.json` files in `<directory>` and passes it to `apply` or `create`.
 
-- Use `kubectl delete` rather than `stop`. `Delete` has a superset of the functionality of `stop`, and `stop` is deprecated.
+- Use label selectors for `get` and `delete` operations instead of specific object names. See the sections on [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) and [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
 
-- Use kubectl bulk operations (via files and/or labels) for get and delete. See [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) and [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
-
-- Use `kubectl run` and `expose` to quickly create and expose single container Deployments. See the [quick start guide](/docs/user-guide/quick-start/) for an example.
+- Use `kubectl run` and `kubectl expose` to quickly create single-container Deployments and Services. See [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) for an example.
 
 {% endcapture %}
 

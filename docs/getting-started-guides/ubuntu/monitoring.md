@@ -102,7 +102,7 @@ Follow the above instructions on connect topbeat and filebeat to the application
 
 ## Connecting Nagios
 
-Nagios utilizes the Nagions Remote Execution Protocol (NRPE) as an agent on each node to derive machine level details of the health and applications.
+Nagios utilizes the Nagios Remote Plugin Executor protocol (NRPE protocol) as an agent on each node to derive machine level details of the health and applications.
 
 ### New install of Nagios
 
