@@ -1111,6 +1111,21 @@ In addition, any volume mounts created by Containers in Pods must be destroyed
 (unmounted) by the Containers on termination.
 {: .caution}
 
+### Configuration
+Before mount propagation can work properly on some deployments (CoreOS, 
+RedHat/Centos, Ubuntu) mount share must be configured correctly in
+Docker as shown below.
+
+Edit your Docker's `systemd` service file.  Set `MountFlags` as follows:
+```shell
+MountFlags=shared
+```
+Or, remove `MountFlags=slave` if present.  Then restart the Docker daemon:
+```shell
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
+```
+
 {% endcapture %}
 
 {% capture whatsnext %}
