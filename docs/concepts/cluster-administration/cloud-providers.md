@@ -138,7 +138,8 @@ file:
   connotation, a deployment can use a geographical name for a region identifier
   such as `us-east`. Available regions are found under the `/v3/regions`
   endpoint of the Keystone API.
-* `ca-file` (Optional): TODO
+* `ca-file` (Optional): Used to specify the path to your custom CA file. 
+
 
 When using Keystone V3 - which changes tenant to project - the `tenant-id` value
 is automatically mapped to the project construct in the API.

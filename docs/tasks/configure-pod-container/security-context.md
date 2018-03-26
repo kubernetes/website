@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - mikedanese
 - thockin
@@ -43,7 +43,7 @@ For more information about security mechanisms in Linux, see
 
 To specify security settings for a Pod, include the `securityContext` field
 in the Pod specification. The `securityContext` field is a
-[PodSecurityContext](/docs/api-reference/{{page.version}}/#podsecuritycontext-v1-core) object.
+[PodSecurityContext](/docs/reference/generated/kubernetes-api/{{page.version}}/#podsecuritycontext-v1-core) object.
 The security settings that you specify for a Pod apply to all Containers in the Pod.
 Here is a configuration file for a Pod that has a `securityContext` and an `emptyDir` volume:
 
@@ -131,7 +131,7 @@ exit
 
 To specify security settings for a Container, include the `securityContext` field
 in the Container manifest. The `securityContext` field is a
-[SecurityContext](/docs/api-reference/{{page.version}}/#securitycontext-v1-core) object.
+[SecurityContext](/docs/reference/generated/kubernetes-api/{{page.version}}/#securitycontext-v1-core) object.
 Security settings that you specify for a Container apply only to
 the individual Container, and they override settings made at the Pod level when
 there is overlap. Container settings do not affect the Pod's Volumes.

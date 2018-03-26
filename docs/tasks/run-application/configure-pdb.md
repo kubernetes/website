@@ -90,7 +90,7 @@ It can be either an absolute number or a percentage.
 
 **Note:** For versions 1.8 and earlier: When creating a `PodDisruptionBudget`
 object using the `kubectl` command line tool, the `minAvailable` field has a
-default value of 1 if neither `minAvailable` nor `maxAvailable` is specified.
+default value of 1 if neither `minAvailable` nor `maxUnavailable` is specified.
 {: .note}
 
 You can specify only one of `maxUnavailable` and `minAvailable` in a single `PodDisruptionBudget`. 

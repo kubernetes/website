@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - lavalamp
 - davidopp
 - derekwaynecarr
@@ -98,8 +98,8 @@ This way, users that do not request any special storage class do not need to car
 will get the default one.
 
 This admission controller does not do anything when no default storage class is configured. When more than one storage
-class is marked as default, it rejects any creation of `PersistentVolumeClaim` with an error and administrator
-must revisit `StorageClass` objects and mark only one as default.
+class is marked as default, it rejects any creation of `PersistentVolumeClaim` with an error and an administrator
+must revisit their `StorageClass` objects and mark only one as default.
 This admission controller ignores any `PersistentVolumeClaim` updates; it acts only on creation.
 
 See [persistent volume](/docs/concepts/storage/persistent-volumes/) documentation about persistent volume claims and
@@ -140,8 +140,17 @@ event requests. The cluster admin can specify event rate limits by:
  * Ensuring that `eventratelimit.admission.k8s.io/v1alpha1=true` is included in the
    `--runtime-config` flag for the API server;
  * Enabling the `EventRateLimit` admission controller;
- * Including a `EventRateLimit` configuration in the file provided to the API
-   server's command line flag `--admission-control-config-file`.
+ * Referencing an `EventRateLimit` configuration file from the file provided to the API
+   server's command line flag `--admission-control-config-file`:
+
+```yaml
+kind: AdmissionConfiguration
+apiVersion: apiserver.k8s.io/v1alpha1
+plugins:
+- name: EventRateLimit
+  path: eventconfig.yaml
+...
+```
 
 There are four types of limits that can be specified in the configuration:
 
@@ -151,18 +160,19 @@ There are four types of limits that can be specified in the configuration:
  * `SourceAndObject`: A bucket is assigned by each combination of source and
    involved object of the event.
 
-Below is a sample snippet for such a configuration:
+Below is a sample `eventconfig.yaml` for such a configuration:
 
 ```yaml
-EventRateLimit:
-  limits:
-  - type: Namespace
-    qps: 50
-    burst: 100
-    cacheSize: 2000
-  - type: User
-    qps: 10
-    burst: 50
+kind: Configuration
+apiVersion: eventratelimit.admission.k8s.io/v1alpha1
+limits:
+- type: Namespace
+  qps: 50
+  burst: 100
+  cacheSize: 2000
+- type: User
+  qps: 10
+  burst: 50
 ```
 
 See the [EventRateLimit proposal](https://git.k8s.io/community/contributors/design-proposals/api-machinery/admission_control_event_rate_limit.md)
@@ -185,21 +195,35 @@ The ImagePolicyWebhook admission controller allows a backend webhook to make adm
 ```
 
 #### Configuration File Format
-ImagePolicyWebhook uses the admission config file `--admission-control-config-file` to set configuration options for the behavior of the backend. This file may be json or yaml and has the following format:
 
-```javascript
-{
-  "imagePolicy": {
-     "kubeConfigFile": "path/to/kubeconfig/for/backend",
-     "allowTTL": 50,           // time in s to cache approval
-     "denyTTL": 50,            // time in s to cache denial
-     "retryBackoff": 500,      // time in ms to wait between retries
-     "defaultAllow": true      // determines behavior if the webhook backend fails
-  }
-}
+ImagePolicyWebhook uses a configuration file to set options for the behavior of the backend.
+This file may be json or yaml and has the following format:
+
+```yaml
+imagePolicy:
+  kubeConfigFile: /path/to/kubeconfig/for/backend
+  # time in s to cache approval
+  allowTTL: 50
+  # time in s to cache denial
+  denyTTL: 50 
+  # time in ms to wait between retries
+  retryBackoff: 500
+  # determines behavior if the webhook backend fails
+  defaultAllow: true
 ```
 
-The config file must reference a [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
+Reference the ImagePolicyWebhook configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
+
+```yaml
+kind: AdmissionConfiguration
+apiVersion: apiserver.k8s.io/v1alpha1
+plugins:
+- name: ImagePolicyWebhook
+  path: imagepolicyconfig.yaml
+...
+```
+
+The ImagePolicyWebhook config file must reference a [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
 
 The kubeconfig file's cluster field must point to the remote service, and the user field must contain the returned authorizer.
 
@@ -222,7 +246,7 @@ For additional HTTP configuration, refer to the [kubeconfig](/docs/concepts/clus
 
 #### Request Payloads
 
-When faced with an admission decision, the API Server POSTs a JSON serialized api.imagepolicy.v1alpha1.ImageReview object describing the action. This object contains fields describing the containers being admitted, as well as any pod annotations that match `*.image-policy.k8s.io/*`.
+When faced with an admission decision, the API Server POSTs a JSON serialized `imagepolicy.k8s.io/v1alpha1` `ImageReview` object describing the action. This object contains fields describing the containers being admitted, as well as any pod annotations that match `*.image-policy.k8s.io/*`.
 
 Note that webhook API objects are subject to the same versioning compatibility rules as other Kubernetes API objects. Implementers should be aware of looser compatibility promises for alpha objects and check the "apiVersion" field of the request to ensure correct deserialization. Additionally, the API Server must enable the imagepolicy.k8s.io/v1alpha1 API extensions group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
 
@@ -305,7 +329,7 @@ When the admission controller sets a compute resource request, it does this by *
 the pod spec rather than mutating the `container.resources` fields.
 The annotations added contain the information on what compute resources were auto-populated.
 
-See the [InitialResouces proposal](https://git.k8s.io/community/contributors/design-proposals/autoscaling/initial-resources.md) for more details.
+See the [InitialResources proposal](https://git.k8s.io/community/contributors/design-proposals/autoscaling/initial-resources.md) for more details.
 
 ### LimitPodHardAntiAffinity
 
@@ -330,7 +354,7 @@ webhooks are called in serial; each one may modify the object if it desires.
 This admission controller (as implied by the name) only runs in the mutating phase.
 
 If a webhook called by this has side effects (for example, decrementing quota) it
-*must* have a reconcilation system, as it is not guaranteed that subsequent
+*must* have a reconciliation system, as it is not guaranteed that subsequent
 webhooks or validating admission controllers will permit the request to finish.
 
 If you disable the MutatingAdmissionWebhook, you must also disable the
@@ -409,10 +433,9 @@ a different zone.
 This admission controller defaults and limits what node selectors may be used within a namespace by reading a namespace annotation and a global configuration.
 
 #### Configuration File Format
-PodNodeSelector uses the admission config file `--admission-control-config-file` to set configuration options for the behavior of the backend.
 
+PodNodeSelector uses a configuration file to set options for the behavior of the backend.
 Note that the configuration file format will move to a versioned file in a future release.
-
 This file may be json or yaml and has the following format:
 
 ```yaml
@@ -420,6 +443,17 @@ podNodeSelectorPluginConfig:
  clusterDefaultNodeSelector: <node-selectors-labels>
  namespace1: <node-selectors-labels>
  namespace2: <node-selectors-labels>
+```
+
+Reference the PodNodeSelector configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
+
+```yaml
+kind: AdmissionConfiguration
+apiVersion: apiserver.k8s.io/v1alpha1
+plugins:
+- name: PodNodeSelector
+  path: podnodeselector.yaml
+...
 ```
 
 #### Configuration Annotation Format
@@ -531,7 +565,7 @@ fails. This admission controller only runs in the validation phase; the webhooks
 mutate the object, as opposed to the webhooks called by the `MutatingAdmissionWebhook` admission controller.
 
 If a webhook called by this has side effects (for example, decrementing quota) it
-*must* have a reconcilation system, as it is not guaranteed that subsequent
+*must* have a reconciliation system, as it is not guaranteed that subsequent
 webhooks or other validating admission controllers will permit the request to finish.
 
 If you disable the ValidatingAdmissionWebhook, you must also disable the
@@ -546,14 +580,14 @@ Yes.
 For Kubernetes >= 1.9.0, we strongly recommend running the following set of admission controllers (order matters):
 
 ```shell
---admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ValidatingAdmissionWebhook,ResourceQuota,DefaultTolerationSeconds,MutatingAdmissionWebhook
+--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota
 ```
 
 It's worth reiterating that in 1.9 and up, these happen in a mutating phase
 and a validating phase, and that e.g. `ResourceQuota` runs in the validating
 phase, and therefore is the last admission controller to run.
-`DefaultTolerationSeconds` and `MutatingAdmissionWebhook` appear after it in this
-list, but they run in the mutating phase.
+`MutatingAdmissionWebhook` appears before it in this list, because it runs
+in the mutating phase.
 
 For earlier versions, there was no concept of validating vs mutating and the
 admission controllers ran in the exact order specified.

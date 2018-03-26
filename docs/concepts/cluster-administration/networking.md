@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - thockin
 title: Cluster Networking
 ---
@@ -20,15 +20,15 @@ default.  There are 4 distinct networking problems to solve:
 ## Summary
 
 Kubernetes assumes that pods can communicate with other pods, regardless of
-which host they land on.  We give every pod its own IP address so you do not
+which host they land on.  Every pod gets its own IP address so you do not
 need to explicitly create links between pods and you almost never need to deal
 with mapping container ports to host ports.  This creates a clean,
 backwards-compatible model where pods can be treated much like VMs or physical
 hosts from the perspectives of port allocation, naming, service discovery, load
 balancing, application configuration, and migration.
 
-To achieve this we must impose some requirements on how you set up your cluster
-networking.
+There are requirements imposed on how you set up your cluster networking to
+achieve this.
 
 ## Docker model
 
@@ -47,11 +47,11 @@ are on the same machine (and thus the same virtual bridge).  Containers on
 different machines can not reach each other - in fact they may end up with the
 exact same network ranges and IP addresses.
 
-In order for Docker containers to communicate across nodes, they must be
-allocated ports on the machine's own IP address, which are then forwarded or
-proxied to the containers.  This obviously means that containers must either
-coordinate which ports they use very carefully or else be allocated ports
-dynamically.
+In order for Docker containers to communicate across nodes, there must
+be allocated ports on the machine’s own IP address, which are then
+forwarded or proxied to the containers. This obviously means that
+containers must either coordinate which ports they use very carefully
+or ports must be allocated dynamically.
 
 ## Kubernetes model
 
@@ -84,8 +84,8 @@ applies IP addresses at the `Pod` scope - containers within a `Pod` share their
 network namespaces - including their IP address.  This means that containers
 within a `Pod` can all reach each other's ports on `localhost`. This does imply
 that containers within a `Pod` must coordinate port usage, but this is no
-different than processes in a VM.  We call this the "IP-per-pod" model.  This
-is implemented in Docker as a "pod container" which holds the network namespace
+different than processes in a VM.  This is called the "IP-per-pod" model.  This
+is implemented, using Docker, as a "pod container" which holds the network namespace
 open while "app containers" (the things the user specified) join that namespace
 with Docker's `--net=container:<id>` function.
 
@@ -102,6 +102,18 @@ as an introduction to various technologies and serves as a jumping-off point.
 
 The following networking options are sorted alphabetically - the order does not
 imply any preferential status.
+
+### ACI
+
+[Cisco Application Centric Infrastructure](https://www.cisco.com/c/en/us/solutions/data-center-virtualization/application-centric-infrastructure/index.html) offers an integrated overlay and underlay SDN solution that supports containers, virtual machines, and bare metal servers. [ACI](https://www.github.com/noironetworks/aci-containers) provides container networking integration for ACI. An overview of the integration is provided [here](https://www.cisco.com/c/dam/en/us/solutions/collateral/data-center-virtualization/application-centric-infrastructure/solution-overview-c22-739493.pdf).
+
+### Big Cloud Fabric from Big Switch Networks
+ 
+[Big Cloud Fabric](https://www.bigswitch.com/container-network-automation) is a cloud native networking architecture, designed to run Kubernetes in private cloud/on-premise environments. Using unified physical & virtual SDN, Big Cloud Fabric tackles inherent container networking problems such as load balancing, visibility, troubleshooting, security policies & container traffic monitoring. 
+
+With the help of the Big Cloud Fabric's virtual pod multi-tenant architecture, container orchestration systems such as Kubernetes, RedHat Openshift, Mesosphere DC/OS & Docker Swarm will be natively integrated along side with VM orchestration systems such as VMware, OpenStack & Nutanix. Customers will be able to securely inter-connect any number of these clusters and enable inter-tenant communication between them if needed. 
+
+BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](http://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html). One of the BCF Kubernetes on premise deployments (which includes Kubernetes, DC/OS & VMware running on multiple DCs across different geographic regions) is also referenced [here](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/).
 
 ### Cilium
 
@@ -127,15 +139,15 @@ people have reported success with Flannel and Kubernetes.
 
 ### Google Compute Engine (GCE)
 
-For the Google Compute Engine cluster configuration scripts, we use [advanced
-routing](https://cloud.google.com/vpc/docs/routes) to
+For the Google Compute Engine cluster configuration scripts, [advanced
+routing](https://cloud.google.com/vpc/docs/routes) is used to
 assign each VM a subnet (default is `/24` - 254 IPs).  Any traffic bound for that
 subnet will be routed directly to the VM by the GCE network fabric.  This is in
 addition to the "main" IP address assigned to the VM, which is NAT'ed for
 outbound internet access.  A linux bridge (called `cbr0`) is configured to exist
 on that subnet, and is passed to docker's `--bridge` flag.
 
-We start Docker with:
+Docker is started with:
 
 ```shell
 DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
@@ -149,8 +161,8 @@ each other and `Nodes` over the `cbr0` bridge.  Those IPs are all routable
 within the GCE project network.
 
 GCE itself does not know anything about these IPs, though, so it will not NAT
-them for outbound internet traffic.  To achieve that we use an iptables rule to
-masquerade (aka SNAT - to make it seem as if packets came from the `Node`
+them for outbound internet traffic.  To achieve that an iptables rule is used 
+to masquerade (aka SNAT - to make it seem as if packets came from the `Node`
 itself) traffic that is bound for IPs outside the GCE project network
 (10.0.0.0/8).
 
@@ -158,7 +170,7 @@ itself) traffic that is bound for IPs outside the GCE project network
 iptables -t nat -A POSTROUTING ! -d 10.0.0.0/8 -o eth0 -j MASQUERADE
 ```
 
-Lastly we enable IP forwarding in the kernel (so the kernel will process
+Lastly IP forwarding is enabled in the kernel (so the kernel will process
 packets for bridged containers):
 
 ```shell
@@ -204,7 +216,7 @@ The Nuage platform uses overlays to provide seamless policy-based networking bet
 
 ### OpenVSwitch
 
-[OpenVSwitch](/docs/admin/ovs-networking) is a somewhat more mature but also
+[OpenVSwitch](https://www.openvswitch.org/) is a somewhat more mature but also
 complicated way to build an overlay network.  This is endorsed by several of the
 "Big Shops" for networking.
 
@@ -238,7 +250,7 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 
 ### CNI-Genie from Huawei
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultanously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
 
 CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
 

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - pipejakob
 - luxas
 - roberthbailey
@@ -36,10 +36,10 @@ You have to carry out the following steps by executing these commands on your ma
 1. Install the most recent version of `kubeadm` using `curl` like so:
 
 ```shell
-$ export VERSION=$(curl -sSL https://dl.k8s.io/release/stable.txt) # or manually specify a released Kubernetes version
-$ export ARCH=amd64 # or: arm, arm64, ppc64le, s390x
-$ curl -sSL https://dl.k8s.io/release/${VERSION}/bin/linux/${ARCH}/kubeadm > /usr/bin/kubeadm
-$ chmod a+rx /usr/bin/kubeadm
+export VERSION=$(curl -sSL https://dl.k8s.io/release/stable.txt) # or manually specify a released Kubernetes version
+export ARCH=amd64 # or: arm, arm64, ppc64le, s390x
+curl -sSL https://dl.k8s.io/release/${VERSION}/bin/linux/${ARCH}/kubeadm > /usr/bin/kubeadm
+chmod a+rx /usr/bin/kubeadm
 ```
 **Caution:** Upgrading the `kubeadm` package on your system prior to
 upgrading the control plane causes a failed upgrade. Even though 
@@ -51,7 +51,7 @@ this limitation.
 Verify that this download of kubeadm works, and has the expected version:
 
 ```shell
-$ kubeadm version
+kubeadm version
 ```
 
 2. If this the first time you use `kubeadm upgrade`, in order to preserve the configuration for future upgrades, do:
@@ -61,7 +61,7 @@ Note that for below you will need to recall what CLI args you passed to `kubeadm
 If you used flags, do:
 
 ```shell
-$ kubeadm config upload from-flags [flags]
+kubeadm config upload from-flags [flags]
 ```
 
 Where `flags` can be empty.
@@ -69,7 +69,7 @@ Where `flags` can be empty.
 If you used a config file, do:
 
 ```shell
-$ kubeadm config upload from-file --config [config]
+kubeadm config upload from-file --config [config]
 ```
 
 Where the `config` is mandatory.
@@ -77,7 +77,12 @@ Where the `config` is mandatory.
 3. On the master node, run the following:
 
 ```shell
-$ kubeadm upgrade plan
+kubeadm upgrade plan
+```
+
+You should see output similar to this:
+
+```shell
 [preflight] Running pre-flight checks
 [upgrade] Making sure the cluster is healthy:
 [upgrade/health] Checking API Server health: Healthy
@@ -115,7 +120,7 @@ Components that must be upgraded manually after you've upgraded the control plan
 COMPONENT   CURRENT      AVAILABLE
 Kubelet     1 x v1.7.1   v1.8.0
 
-Upgrade to the latest experimental version:
+Upgrade to the latest stable version:
 
 COMPONENT            CURRENT   AVAILABLE
 API Server           v1.7.1    v1.8.0
@@ -138,7 +143,12 @@ The `kubeadm upgrade plan` checks that your cluster is in an upgradeable state a
 4. Pick a version to upgrade to and run, for example, `kubeadm upgrade apply` as follows:
 
 ```shell
-$ kubeadm upgrade apply v1.8.0
+kubeadm upgrade apply v1.8.0
+```
+
+You should see output similar to this:
+
+```shell
 [preflight] Running pre-flight checks
 [upgrade] Making sure the cluster is healthy:
 [upgrade/health] Checking API Server health: Healthy
@@ -211,7 +221,7 @@ $ kubeadm upgrade apply v1.8.0
 6. Add RBAC permissions for automated certificate rotation. In the future, kubeadm will perform this step automatically:
 
 ```shell
-$ kubectl create clusterrolebinding kubeadm:node-autoapprove-certificate-rotation --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient --group=system:nodes
+kubectl create clusterrolebinding kubeadm:node-autoapprove-certificate-rotation --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient --group=system:nodes
 ```
 
 ## Upgrading your master and node packages
@@ -221,7 +231,7 @@ For each host (referred to as `$HOST` below) in your cluster, upgrade `kubelet` 
 1. Prepare the host for maintenance, marking it unschedulable and evicting the workload:
 
 ```shell
-$ kubectl drain $HOST --ignore-daemonsets
+kubectl drain $HOST --ignore-daemonsets
 ```
 
 When running this command against the master host, this error is expected and can be safely ignored (since there are static pods running on the master):
@@ -236,32 +246,32 @@ error: pods not managed by ReplicationController, ReplicaSet, Job, DaemonSet or 
 If the host is running a Debian-based distro such as Ubuntu, run:
 
 ```shell
-$ apt-get update
-$ apt-get upgrade
+apt-get update
+apt-get upgrade
 ```
 
 If the host is running CentOS or the like, run:
 
 ```shell
-$ yum update
+yum update
 ```
 
 Now the new version of the `kubelet` should be running on the host. Verify this using the following command on `$HOST`:
 
 ```shell
-$ systemctl status kubelet
+systemctl status kubelet
 ```
 
 3. Bring the host back online by marking it schedulable:
 
 ```shell
-$ kubectl uncordon $HOST
+kubectl uncordon $HOST
 ```
 
 4. After upgrading `kubelet` on each host in your cluster, verify that all nodes are available again by executing the following (from anywhere, for example, from outside the cluster):
 
 ```shell
-$ kubectl get nodes
+kubectl get nodes
 ```
 
 If the `STATUS` column of the above command shows `Ready` for all of your hosts, you are done.

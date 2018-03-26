@@ -32,6 +32,7 @@ ga('send', 'pageview');
 
     function hideNav(toc){
         if (!toc) toc = document.querySelector('#docsToc')
+        if (!toc) return
             var container = toc.querySelector('.container')
 
                 // container is built dynamically, so it may not be present on the first runloop

@@ -44,6 +44,13 @@ choose the
 [page type](/docs/home/contribute/page-templates/)
 that is the best fit for your content.
 
+## Viewing your changes locally
+
+When you submit a pull request, you can see a preview of your changes at
+[Netlify](https://www.netlify.com/). If you prefer to see a preview of your changes
+before you submit a pull request, you can build a preview locally. For more information, see
+[Staging locally](/docs/home/contribute/stage-documentation-changes/#staging-locally-without-docker). 
+
 ## Submitting a pull request to the master branch (Current Release)
 
 If you want your change to be published in the released version Kubernetes docs,

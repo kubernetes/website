@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 title: Init Containers
 ---

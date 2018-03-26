@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - davidopp
 - kevin-wangzefeng
 - bsalamat
@@ -31,6 +31,12 @@ kubectl taint nodes node1 key=value:NoSchedule
 
 places a taint on node `node1`. The taint has key `key`, value `value`, and taint effect `NoSchedule`.
 This means that no pod will be able to schedule onto `node1` unless it has a matching toleration.
+
+To remove the taint added by the command above, you can run:
+```shell
+kubectl taint nodes node1 key:NoSchedule-
+```
+
 You specify a toleration for a pod in the PodSpec. Both of the following tolerations "match" the
 taint created by the `kubectl taint` line above, and thus a pod with either toleration would be able
 to schedule onto `node1`:

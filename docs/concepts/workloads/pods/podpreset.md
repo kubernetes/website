@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jessfraz
 title: Pod Preset
 ---

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - derekwaynecarr
 - janetkuo
 title: Namespaces Walkthrough
@@ -28,7 +28,7 @@ This example assumes the following:
 By default, a Kubernetes cluster will instantiate a default namespace when provisioning the cluster to hold the default set of Pods,
 Services, and Deployments used by the cluster.
 
-Assuming you have a fresh cluster, you can introspect the available namespace's by doing the following:
+Assuming you have a fresh cluster, you can inspect the available namespaces by doing the following:
 
 ```shell
 $ kubectl get namespaces
@@ -53,20 +53,24 @@ One pattern this organization could follow is to partition the Kubernetes cluste
 
 Let's create two new namespaces to hold our work.
 
-Use the file [`namespace-dev.json`](/docs/admin/namespaces/namespace-dev.json) which describes a development namespace:
+Use the file [`namespace-dev.json`](/docs/tasks/administer-cluster/namespace-dev.json) which describes a development namespace:
 
 {% include code.html language="json" file="namespace-dev.json" ghlink="/docs/tasks/administer-cluster/namespace-dev.json" %}
 
 Create the development namespace using kubectl.
 
 ```shell
-$ kubectl create -f docs/admin/namespaces/namespace-dev.json
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/namespace-dev.json
 ```
+
+Save the following contents into file [`namespace-prod.json`](/docs/tasks/administer-cluster/namespace-prod.json) which describes a production namespace:
+
+{% include code.html language="json" file="namespace-prod.json" ghlink="/docs/tasks/administer-cluster/namespace-prod.json" %}
 
 And then let's create the production namespace using kubectl.
 
 ```shell
-$ kubectl create -f docs/tasks/administer-cluster/namespace-prod.json
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/namespace-prod.json
 ```
 
 To be sure things are right, let's list all of the namespaces in our cluster.
@@ -123,12 +127,57 @@ lithe-cocoa-92103_kubernetes
 The next step is to define a context for the kubectl client to work in each namespace. The value of "cluster" and "user" fields are copied from the current context.
 
 ```shell
-$ kubectl config set-context dev --namespace=development --cluster=lithe-cocoa-92103_kubernetes --user=lithe-cocoa-92103_kubernetes
-$ kubectl config set-context prod --namespace=production --cluster=lithe-cocoa-92103_kubernetes --user=lithe-cocoa-92103_kubernetes
+$ kubectl config set-context dev --namespace=development \
+  --cluster=lithe-cocoa-92103_kubernetes \
+  --user=lithe-cocoa-92103_kubernetes
+$ kubectl config set-context prod --namespace=production \
+  --cluster=lithe-cocoa-92103_kubernetes \
+  --user=lithe-cocoa-92103_kubernetes
 ```
 
-The above commands provided two request contexts you can alternate against depending on what namespace you
-wish to work against.
+By default, the above commands adds two contexts that are saved into file
+`.kube/config`. You can now view the contexts and alternate against the two
+new request contexts depending on which namespace you wish to work against.
+
+To view the new contexts:
+
+```shell
+$ kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: REDACTED
+    server: https://130.211.122.180
+  name: lithe-cocoa-92103_kubernetes
+contexts:
+- context:
+    cluster: lithe-cocoa-92103_kubernetes
+    user: lithe-cocoa-92103_kubernetes
+  name: lithe-cocoa-92103_kubernetes
+- context:
+    cluster: lithe-cocoa-92103_kubernetes
+    namespace: development
+    user: lithe-cocoa-92103_kubernetes
+  name: dev
+- context:
+    cluster: lithe-cocoa-92103_kubernetes
+    namespace: production
+    user: lithe-cocoa-92103_kubernetes
+  name: prod
+current-context: lithe-cocoa-92103_kubernetes
+kind: Config
+preferences: {}
+users:
+- name: lithe-cocoa-92103_kubernetes
+  user:
+    client-certificate-data: REDACTED
+    client-key-data: REDACTED
+    token: 65rZW78y8HbwXXtSXuUw9DbP4FLjHi4b
+- name: lithe-cocoa-92103_kubernetes-basic-auth
+  user:
+    password: h5M0FtUUIflBSdI7
+    username: admin
+```
 
 Let's switch to operate in the development namespace.
 

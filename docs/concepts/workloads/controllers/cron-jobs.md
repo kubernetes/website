@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - soltysh
 - janetkuo
@@ -11,7 +11,7 @@ title: CronJob
 
 ## What is a cron job?
 
-A _Cron Job_ manages time based [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), namely:
+A _Cron Job_ manages time based [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/), namely:
 
 * Once at a specified point in time
 * Repeatedly at a specified point in time
@@ -123,8 +123,22 @@ A cron job creates a job object _about_ once per execution time of its schedule.
 are certain circumstances where two jobs might be created, or no job might be created. We attempt to make these rare,
 but do not completely prevent them. Therefore, jobs should be _idempotent_.
 
-The job is responsible for retrying pods, parallelism among pods it creates, and determining the success or failure
-of the set of pods. A cron job does not examine pods at all.
+If `startingDeadlineSeconds` is set to a large value or left unset (the default)
+and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
+at least once.
+
+Jobs may fail to run if the CronJob controller is not running or broken for a
+span of time from before the start time of the CronJob to start time plus
+`startingDeadlineSeconds`, or if the span covers multiple start times and
+`concurrencyPolicy` does not allow concurrency.
+For example, suppose a cron job is set to start at exactly `08:30:00` and its 
+`startingDeadlineSeconds` is set to 10, if the CronJob controller happens to
+be down from `08:29:00` to `08:42:00`, the job will not start.
+Set a longer `startingDeadlineSeconds` if starting later is better than not
+starting at all.
+
+The Cronjob is only responsible for creating Jobs that match its schedule, and
+the Job in turn is responsible for the management of the Pods it represents.
 
 ## Writing a Cron Job Spec
 
@@ -144,8 +158,8 @@ string, e.g. `0 * * * *` or `@hourly`, as schedule time of its jobs to be create
 ### Job Template
 
 The `.spec.jobTemplate` is another required field of the `.spec`. It is a job template. It has exactly the same schema
-as a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/), except it is nested and does not have an `apiVersion` or `kind`, see
-[Writing a Job Spec](/docs/concepts/jobs/run-to-completion-finite-workloads/#writing-a-job-spec).
+as a [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/), except it is nested and does not have an `apiVersion` or `kind`, see
+[Writing a Job Spec](/docs/concepts/workloads/controllers/jobs-run-to-completion/#writing-a-job-spec).
 
 ### Starting Deadline Seconds
 

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - dchen1107
 - roberthbailey
 - liggitt
@@ -43,13 +43,7 @@ The `kubernetes` service (in all namespaces) is configured with a virtual IP
 address that is redirected (via kube-proxy) to the HTTPS endpoint on the
 apiserver.
 
-The master components communicate with the cluster apiserver over the
-insecure (not encrypted or authenticated) port. This port is typically only
-exposed on the localhost interface of the master machine, so that the master
-components, all running on the same machine, can communicate with the
-cluster apiserver. Over time, the master components will be migrated to use
-the secure port with authentication and authorization (see
-[#13598](https://github.com/kubernetes/kubernetes/issues/13598)).
+The master components also communicate with the cluster apiserver over the secure port.
 
 As a result, the default operating mode for connections from the cluster
 (nodes and pods running on the nodes) to the master is secured by default

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - caesarxuchao
 - dchen1107
 title: Nodes
@@ -52,13 +52,14 @@ The `conditions` field describes the status of all `Running` nodes.
 | `MemoryPressure`    | `True` if pressure exists on the node memory -- that is, if the node memory is low; otherwise `False` |
 | `DiskPressure`    | `True` if pressure exists on the disk size -- that is, if the disk capacity is low; otherwise `False` |
 | `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
+| `ConfigOK`    | `True` if the kubelet is correctly configured, otherwise `False` |
 
 The node condition is represented as a JSON object. For example, the following response describes a healthy node.
 
 ```json
 "conditions": [
   {
-    "kind": "Ready",
+    "type": "Ready",
     "status": "True"
   }
 ]
@@ -73,7 +74,7 @@ the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce f
 permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from
 Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
 
-Version 1.8 introduces an alpha feature that automatically creates
+Version 1.8 introduced an alpha feature that automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
 To enable this behavior, pass an additional feature gate flag `--feature-gates=...,TaintNodesByCondition=true`
 to the API server, controller manager, and scheduler.
@@ -101,7 +102,7 @@ The information is gathered by Kubelet from the node.
 
 ## Management
 
-Unlike [pods](/docs/concepts/workloads/pods/pod/) and [services](/docs/concepts/workloads/pods/pod/),
+Unlike [pods](/docs/concepts/workloads/pods/pod/) and [services](/docs/concepts/services-networking/service/),
 a node is not inherently created by Kubernetes: it is created externally by cloud
 providers like Google Compute Engine, or exists in your pool of physical or virtual
 machines. What this means is that when Kubernetes creates a node, it is really

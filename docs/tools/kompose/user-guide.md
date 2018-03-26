@@ -16,7 +16,7 @@ redirect_from:
 
 What's Kompose? It's a conversion tool for all things compose (namely Docker Compose) to container orchestrators (Kubernetes or OpenShift).
 
-More information can be found our website at [http://kompose.io](http://kompose.io)
+More information can be found on the Kompose website at [http://kompose.io](http://kompose.io).
 
 In three simple steps, we'll take you from Docker Compose to Kubernetes.
 
@@ -127,7 +127,7 @@ $ curl http://123.45.67.89
 
 # Installation
 
-We have multiple ways to install Kompose. Our prefered method is downloading the binary from the latest GitHub release.
+We have multiple ways to install Kompose. Our preferred method is downloading the binary from the latest GitHub release.
 
 #### GitHub release
 
@@ -427,7 +427,7 @@ $ kompose up --provider openshift --build build-config
 
 ## Alternative Conversions
 
-The default `kompose` transformation will generate Kubernetes [Deployments](http://kubernetes.io/docs/user-guide/deployments/) and [Services](http://kubernetes.io/docs/concepts/services-networking/service/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](http://kubernetes.io/docs/user-guide/replication-controller/) objects, [Deamon Sets](http://kubernetes.io/docs/admin/daemons/), or [Helm](https://github.com/helm/helm) charts.
+The default `kompose` transformation will generate Kubernetes [Deployments](http://kubernetes.io/docs/user-guide/deployments/) and [Services](http://kubernetes.io/docs/concepts/services-networking/service/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](http://kubernetes.io/docs/user-guide/replication-controller/) objects, [Daemon Sets](http://kubernetes.io/docs/admin/daemons/), or [Helm](https://github.com/helm/helm) charts.
 
 ```sh
 $ kompose convert -j
@@ -537,7 +537,7 @@ The currently supported options are:
 
 ## Restart
 
-If you want to create normal pods without controllers you can use `restart` construct of docker-compose to define that. Follow table below to see what heppens on the `restart` value.
+If you want to create normal pods without controllers you can use `restart` construct of docker-compose to define that. Follow table below to see what happens on the `restart` value.
 
 | `docker-compose` `restart` | object created    | Pod `restartPolicy` |
 |----------------------------|-------------------|---------------------|

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - enisoc
 - erictune
 - foxish
@@ -45,7 +45,7 @@ kubectl create -f daemonset.yaml
 
 As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications/),
-[configuring containers](/docs/tasks/), and [working with resources](/docs/concepts/tools/kubectl/object-management-overview/) documents.
+[configuring containers](/docs/tasks/), and [object management using kubectl](/docs/concepts/overview/object-management-kubectl/overview/) documents.
 
 A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) section.
 
@@ -124,7 +124,7 @@ due to hard-coded behavior of the NodeController rather than due to tolerations)
  - `node.kubernetes.io/disk-pressure`
 
 When the support to critical pods is enabled and the pods in a DaemonSet are
-labelled as critical, the Daemon pods are created with an additional
+labeled as critical, the Daemon pods are created with an additional
 `NoSchedule` toleration for the `node.kubernetes.io/out-of-disk` taint.
 
 Note that all above `NoSchedule` taints above are created only in version 1.8 or later if the alpha feature `TaintNodesByCondition` is enabled.
@@ -193,7 +193,7 @@ in cluster bootstrapping cases.  Also, static Pods may be deprecated in the futu
 
 ### Deployments
 
-DaemonSets are similar to [Deployments](/docs/concepts/workloads/controllers/deployment.md) in that
+DaemonSets are similar to [Deployments](/docs/concepts/workloads/controllers/deployment/) in that
 they both create Pods, and those Pods have processes which are not expected to terminate (e.g. web servers,
 storage servers).
 

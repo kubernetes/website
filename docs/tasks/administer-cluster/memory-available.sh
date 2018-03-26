@@ -10,7 +10,7 @@ memory_capacity_in_bytes=$((memory_capacity_in_kb * 1024))
 memory_usage_in_bytes=$(cat /sys/fs/cgroup/memory/memory.usage_in_bytes)
 memory_total_inactive_file=$(cat /sys/fs/cgroup/memory/memory.stat | grep total_inactive_file | awk '{print $2}')
 
-memory_working_set=$memory_usage_in_bytes
+memory_working_set=${memory_usage_in_bytes}
 if [ "$memory_working_set" -lt "$memory_total_inactive_file" ];
 then
     memory_working_set=0

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 title: Ingress
 ---
@@ -16,7 +16,7 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 * Node: A single virtual or physical machine in a Kubernetes cluster.
 * Cluster: A group of nodes firewalled from the internet, that are the primary compute resources managed by Kubernetes.
 * Edge router: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware.
-* Cluster network: A set of links, logical or physical, that facilitate communication within a cluster according to the [Kubernetes networking model](/docs/concepts/cluster-administration/networking/). Examples of a Cluster network include Overlays such as [flannel](https://github.com/coreos/flannel#flannel) or SDNs such as [OVS](/docs/admin/ovs-networking/).
+* Cluster network: A set of links, logical or physical, that facilitate communication within a cluster according to the [Kubernetes networking model](/docs/concepts/cluster-administration/networking/). Examples of a Cluster network include Overlays such as [flannel](https://github.com/coreos/flannel#flannel) or SDNs such as [OVS](https://www.openvswitch.org/).
 * Service: A Kubernetes [Service](/docs/concepts/services-networking/service/) that identifies a set of pods using label selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
 
 ## What is Ingress?
@@ -60,7 +60,7 @@ kind: Ingress
 metadata:
   name: test-ingress
   annotations:
-    ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - http:
@@ -297,7 +297,6 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#type-loadbalancer)
 * Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
 * Use a [Port Proxy](https://git.k8s.io/contrib/for-demos/proxy-to-service)
-* Deploy the [Service loadbalancer](https://git.k8s.io/contrib/service-loadbalancer). This allows you to share a single IP among multiple Services and achieve more advanced loadbalancing through Service Annotations.
 {% endcapture %}
 
 {% include templates/concept.md %}

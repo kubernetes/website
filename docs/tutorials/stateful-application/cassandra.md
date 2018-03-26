@@ -1,6 +1,6 @@
 ---
 title: "Example: Deploying Cassandra with Stateful Sets"
-approvers:
+reviewers:
 - ahmetb
 ---
 
@@ -11,9 +11,9 @@ Deploying stateful distributed applications, like Cassandra, within a clustered 
 
 **Cassandra Docker**
 
-The Pods use the [`gcr.io/google-samples/cassandra:v12`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
+The Pods use the [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
 image from Google's [container registry](https://cloud.google.com/container-registry/docs/).
-The docker is based on `debian:jessie` and includes OpenJDK 8. This image includes a standard Cassandra installation from the Apache Debian repo.  By using environment variables you can change values that are inserted into `cassandra.yaml`.
+The docker image above is based on [debian-base](https://github.com/kubernetes/kubernetes/tree/master/build/debian-base) and includes OpenJDK 8. This image includes a standard Cassandra installation from the Apache Debian repo.  By using environment variables you can change values that are inserted into `cassandra.yaml`.
 
 | ENV VAR       | DEFAULT VALUE  |
 | ------------- |:-------------: |
@@ -143,7 +143,7 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
        UN  172.17.0.6  84.74 KiB  32           67.1%             a6a1e8c2-3dc5-4417-b1a0-26507af2aaad  Rack1-K8Demo
 
 ## Modifying the Cassandra StatefulSet
-Use `kubectl edit` to modify the size of of a Cassandra StatefulSet. 
+Use `kubectl edit` to modify the size of a Cassandra StatefulSet. 
 
 1. Run the following command:
 
@@ -158,7 +158,7 @@ Use `kubectl edit` to modify the size of of a Cassandra StatefulSet.
         # and an empty file will abort the edit. If an error occurs while saving this file will be
         # reopened with the relevant failures.
         #
-        apiVersion: apps/v1beta2
+        apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
         kind: StatefulSet
         metadata:
          creationTimestamp: 2016-08-13T18:40:58Z
@@ -168,7 +168,7 @@ Use `kubectl edit` to modify the size of of a Cassandra StatefulSet.
          name: cassandra
          namespace: default
          resourceVersion: "323"
-         selfLink: /apis/apps/v1beta1/namespaces/default/statefulsets/cassandra
+         selfLink: /apis/apps/v1/namespaces/default/statefulsets/cassandra
          uid: 7a219483-6185-11e6-a910-42010a8a0fc0
         spec:
          replicas: 3

@@ -11,7 +11,7 @@ There are multiple ways to run a Kubernetes cluster with Ubuntu. These pages exp
 
 - [The Canonical Distribution of Kubernetes](https://www.ubuntu.com/cloud/kubernetes)
 
-Supports AWS, GCE, Azure, Joyent, OpenStack, VMWare, Bare Metal and localhost deployments.
+The latest version of Kubernetes with upstream binaries. Supports AWS, GCE, Azure, Joyent, OpenStack, VMware, Bare Metal and localhost deployments.
 
 ### Quick Start
 
@@ -51,6 +51,11 @@ These are more in-depth guides for users choosing to run Kubernetes in productio
   - [Operational Considerations](/docs/getting-started-guides/ubuntu/operational-considerations/)
   - [Glossary](/docs/getting-started-guides/ubuntu/glossary/)
 
+
+## Third-party Product Integrations
+
+  - [Rancher](/docs/getting-started-guides/ubuntu/rancher/)
+
 ## Developer Guides
 
   - [Localhost using LXD](/docs/getting-started-guides/ubuntu/local/)
@@ -59,6 +64,8 @@ These are more in-depth guides for users choosing to run Kubernetes in productio
 
 We're normally following the following Slack channels:
 
+- [kubernetes-users](https://kubernetes.slack.com/messages/kubernetes-users/)
+- [kubernetes-novice](https://kubernetes.slack.com/messages/kubernetes-novice/)
 - [sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
 - [sig-cluster-ops](https://kubernetes.slack.com/messages/sig-cluster-ops/)
 - [sig-onprem](https://kubernetes.slack.com/messages/sig-onprem/)

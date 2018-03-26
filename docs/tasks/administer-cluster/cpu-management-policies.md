@@ -1,6 +1,6 @@
 ---
 title: Control CPU Management Policies on the Node
-approvers:
+reviewers:
 - sjenning
 - ConnorDoyle
 - balajismaniam

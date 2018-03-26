@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - davidopp
 - lavalamp
 title: Building Large Clusters

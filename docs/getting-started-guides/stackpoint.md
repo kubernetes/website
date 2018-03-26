@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - baldwinspc
 title: Running Kubernetes on Multiple Clouds with Stackpoint.io
 ---

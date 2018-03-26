@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - msau42
 - jsafrane
 title: Persistent Volume Claim Protection

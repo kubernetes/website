@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - madhusudancs
 - mml
 - nikhiljindal
@@ -115,7 +115,7 @@ $ KUBE_REGISTRY="gcr.io/myrepository" federation/develop/develop.sh push
 Note: This is going to overwrite the values you might have set for
 `apiserverRegistry`, `apiserverVersion`, `controllerManagerRegistry` and
 `controllerManagerVersion` in your `${FEDERATION_OUTPUT_ROOT}/values.yaml`
-file. Hence, it is not recommend to customize these values in
+file. Hence, it is not recommended to customize these values in
 `${FEDERATION_OUTPUT_ROOT}/values.yaml` if you are building the
 images from source.
 

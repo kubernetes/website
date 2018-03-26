@@ -4,7 +4,7 @@ title: Installing kubeadm
 
 {% capture overview %}
 
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified_kubernetes_color.png" align="right" width="150px">This page shows how to install the `kubeadm` toolbox.
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">This page shows how to install the `kubeadm` toolbox.
 For information how to create a cluster with kubeadm once you have performed this installation process,
 see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-cluster-kubeadm/) page.
 
@@ -23,8 +23,8 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
 * 2 CPUs or more 
 * Full network connectivity between all machines in the cluster (public or private network is fine)
-* Unique hostname, MAC address, and product_uuid for every node
-* Certain ports are open on your machines. See the section below for more details
+* Unique hostname, MAC address, and product_uuid for every node. See [here](https://kubernetes.io/docs/setup/independent/install-kubeadm/#verify-the-mac-address-and-product_uuid-are-unique-for-every-node) for more details.
+* Certain ports are open on your machines. See [here](/docs/setup/independent/install-kubeadm/#check-required-ports) for more details.
 * Swap disabled. You **MUST** disable swap in order for the kubelet to work properly. 
 
 {% endcapture %}
@@ -39,7 +39,7 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
 It is very likely that hardware devices will have unique addresses, although some virtual machines may have
 identical values. Kubernetes uses these values to uniquely identify the nodes in the cluster.
 If these values are not unique to each node, the installation process
-[may fail](https://github.com/kubernetes/kubeadm/issues/31).
+may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 
 ## Check network adapters
 
@@ -87,7 +87,8 @@ Versions 17.06+ _might work_, but have not yet been tested and verified by the K
 
 Please proceed with executing the following commands based on your OS as root. You may become the root user by executing `sudo -i` after SSH-ing to each host.
 
-You can use the following commands to install Docker on your system:
+If you already have the required versions of the Docker installed, you can move on to next section.
+If not, you can use the following commands to install Docker on your system:
 
 {% capture docker_ubuntu %}
 
@@ -137,20 +138,6 @@ systemctl enable docker && systemctl start docker
 ```
 
 {% endcapture %}
-
-**Note**: Make sure that the cgroup driver used by kubelet is the same as the one used by 
-Docker. To ensure compatability you can either update Docker, like so:
-
-```bash
-cat << EOF > /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"]
-}
-EOF
-```
-
-and restart Docker. Or ensure the `--cgroup-driver` kubelet flag is set to the same value 
-as Docker (e.g. `cgroupfs`).
 
 {% assign tab_set_name = "docker_install" %}
 {% assign tab_names = "Ubuntu, Debian or HypriotOS;CentOS, RHEL or Fedora; Container Linux" | split: ';' | compact %}
@@ -203,7 +190,7 @@ apt-get install -y kubelet kubeadm kubectl
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-$basearch
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
@@ -272,6 +259,31 @@ systemctl enable kubelet && systemctl start kubelet
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
+
+## Configure cgroup driver used by kubelet on Master Node
+
+Make sure that the cgroup driver used by kubelet is the same as the one used by Docker. Verify that your Docker cgroup driver matches the kubelet config:
+
+```bash
+docker info | grep -i cgroup
+cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+```
+
+If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver. The
+flag you need to change is `--cgroup-driver`. If it's already set, you can update like so:
+
+```bash
+sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+```
+
+Otherwise, you will need to open the systemd file and add the flag to an existing environment line.
+
+Then restart kubelet:
+
+```bash
+systemctl daemon-reload
+systemctl restart kubelet
+```
 
 ## Troubleshooting
 

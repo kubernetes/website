@@ -1,6 +1,6 @@
 ---
 title: Extending your Kubernetes Cluster
-approvers:
+reviewers:
 - erictune
 - lavalamp
 - cheftako
@@ -96,7 +96,7 @@ This diagram shows the extension points in a Kubernetes system.
 
 1.   Users often interact with the Kubernetes API using `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) extend the kubectl binary. They only affect the individual user's local environment, and so cannot enforce site-wide policies.
 2.   The apiserver handles all requests. Several types of extension points in the apiserver allow authenticating requests, or blocking them based on their content, editing content, and handling deletion. These are described in the [API Access Extensions](/docs/concepts/overview/extending#api-access-extensions) section.
-3.   The apiserver serves various kinds of *resources*. *Built-in resource kinds*, like `pods`, are defined by the Kubernetes project and can't be changed. You can also add resources that you define, or that other projects have defined, called *Custom Resources*, as explained in the [Custom Resources](/docs/concepts/overview/extending#custom-resources) section. Custom Resources are often used with API Access Extensions.
+3.   The apiserver serves various kinds of *resources*. *Built-in resource kinds*, like `pods`, are defined by the Kubernetes project and can't be changed. You can also add resources that you define, or that other projects have defined, called *Custom Resources*, as explained in the [Custom Resources](/docs/concepts/overview/extending#user-defined-types) section. Custom Resources are often used with API Access Extensions.
 4.   The Kubernetes scheduler decides which nodes to place pods on. There are several ways to extend scheduling. These are described in the [Scheduler Extensions](/docs/concepts/overview/extending#scheduler-extensions) section.
 5.   Much of the behavior of Kubernetes is implemented by programs called Controllers which are clients of the API-Server. Controllers are often used in conjunction with Custom Resources.
 6.   The kubelet runs on servers, and helps pods appear like virtual servers with their own IPs on the cluster network. [Network Plugins](/docs/concepts/overview/extending#network-plugins) allow for different implementations of pod networking.
@@ -151,7 +151,7 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 
 ### Dynamic Admission Control
 
-After a request is authorized, if it is a write operation, it also t goes through [Admission Control](/docs/admin/admission-controllers/) steps. In addition to the built-in steps, there are several extensions:
+After a request is authorized, if it is a write operation, it also goes through [Admission Control](/docs/admin/admission-controllers/) steps. In addition to the built-in steps, there are several extensions:
 
 *   The [Image Policy webhook](/docs/admin/admission-controllers/#imagepolicywebhook) restricts what images can be run in containers.
 *   To make arbitrary admission control decisions, a general [Admission webhook](/docs/admin/extensible-admission-controllers/#external-admission-webhooks) can be used. Admission Webhooks can reject creations or updates.
@@ -181,7 +181,7 @@ Different networking fabrics can be supported via node-level [Network Plugins](/
 ### Scheduler Extensions
 
 The scheduler is a special type of controller that watches pods, and assigns
-pods to nodes. The default scheduler can be be replaced entirely, while
+pods to nodes. The default scheduler can be replaced entirely, while
 continuing to use other Kubernetes components, or [multiple
 schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
 can run at the same time.

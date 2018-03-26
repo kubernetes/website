@@ -209,7 +209,7 @@ data:
     </source>
 
     # Example:
-    # I0204 06:55:31.872680       5 servicecontroller.go:277] LB already exists and doesn't need update for service kube-system/kube-ui
+    # I0204 06:55:31.872680       5 servicecontroller.go:277] LB already exists and doesn't need update for service kube-system/kubernetes-dashboard
     <source>
       type tail
       format multiline

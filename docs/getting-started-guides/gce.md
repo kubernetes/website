@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - brendandburns
 - jbeda
 - mikedanese
@@ -51,7 +51,7 @@ wget -q -O - https://get.k8s.io | bash
 
 Once this command completes, you will have a master VM and four worker VMs, running as a Kubernetes cluster.
 
-By default, some containers will already be running on your cluster. Containers like `fluentd` provide [logging](/docs/concepts/cluster-administration/logging/), while `heapster` provides [monitoring](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/README.md) services.
+By default, some containers will already be running on your cluster. Containers like `fluentd` provide [logging](/docs/concepts/cluster-administration/logging/), while `heapster` provides [monitoring](http://releases.k8s.io/master/cluster/addons/cluster-monitoring/README.md) services.
 
 The script run by the commands above creates a cluster with the name/prefix "kubernetes". It defines one specific cluster config, so you can't run it more than once.
 

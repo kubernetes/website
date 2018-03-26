@@ -19,7 +19,7 @@ version and state of the documented feature.
 
 ### Feature state demo
 
-Below is a demo of the feature state snippet. Here it is used to display the feature as stable in Kuberentes version 1.6.
+Below is a demo of the feature state snippet. Here it is used to display the feature as stable in Kubernetes version 1.6.
 
 {% assign for_k8s_version = "1.6" %}
 {% include feature-state-stable.md %}
@@ -60,9 +60,24 @@ changed by setting the <code>for_k8s_version</code> variable.
 {{ "{% include feature-state-deprecated.md " }}%}
 ````
 
+## Glossary
+
+You can reference glossary terms with an inclusion that will automatically update and replace content with the relevant links from [our glossary](/docs/reference/glossary/). When the term is moused-over by someone
+using the online documentation, the glossary entry will display a tooltip.
+
+The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/master/_data/glossary](https://github.com/kubernetes/website/tree/master/_data/glossary), with a YAML file for each glossary term.
+
+### Glossary Demo
+
+For example, the following include within the markdown will render to {% glossary_tooltip text="cluster" term_id="cluster" %} with a tooltip:
+
+````liquid
+{{ "{% glossary_tooltip text=" }}"cluster" term_id="cluster" %}
+````
+
 ## Tabs
 
-In a markdown page (.md file) on this site, you can add a tab set to display multiple flavors of a given solution. 
+In a markdown page (`.md` file) on this site, you can add a tab set to display multiple flavors of a given solution.
 
 ### Tabs demo
 
@@ -103,7 +118,7 @@ kubectl apply -f "https://git.io/weave-kube"
 
 ### Example Liquid template code for tabs
 
-Below is the [Liquid](https://shopify.github.io/liquid/) template code for the tabs demo above to illustrate how to specify the contents of each tab. The [`/_includes/tabs.md`](https://git.k8s.io/kubernetes.github.io/_includes/tabs.md) file included at the end then uses those elements to render the actual tab set.
+Below is the [Liquid](https://shopify.github.io/liquid/) template code for the tabs demo above to illustrate how to specify the contents of each tab. The [`/_includes/tabs.md`](https://git.k8s.io/website/_includes/tabs.md) file included at the end then uses those elements to render the actual tab set.
 
 The following sections break down each of the individual features used.
 
@@ -160,7 +175,7 @@ The `capture [variable_name]` tags store text or markdown content and assign the
 {{ "{% assign tab_names = 'Default,Calico,Flannel,Romana,Weave Net' | split: ',' | compact " }}%}
 ````
 
-The `assign tab_names` tag takes a list of labels to use for the tabs. Label text can include spaces. The given comma delimited string is split into an array and assigned to the `tab_names` variable. 
+The `assign tab_names` tag takes a list of labels to use for the tabs. Label text can include spaces. The given comma delimited string is split into an array and assigned to the `tab_names` variable.
 
 #### Assigning tab contents
 
