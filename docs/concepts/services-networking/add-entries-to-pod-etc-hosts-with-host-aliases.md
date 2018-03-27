@@ -53,7 +53,7 @@ This Pod can be started with the following commands:
 $ kubectl apply -f hostaliases-pod.yaml
 pod "hostaliases-pod" created
 
-$ kubectl get pod -a -o=wide
+$ kubectl get pod -o=wide
 NAME                           READY     STATUS      RESTARTS   AGE       IP              NODE
 hostaliases-pod                0/1       Completed   0          6s        10.244.135.10   node3
 ```
