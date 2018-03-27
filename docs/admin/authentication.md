@@ -828,7 +828,8 @@ Kubernetes API.
 
 Optionally, this output can include the expiry of the token formatted as a RFC3339 timestamp.
 If an expiry is omitted, the bearer token is cached until the server responds with a 401 HTTP
-status code.
+status code. Note that this caching is only for the duration of process and therefore triggered
+each time the tool using the auth is invoked.
 
 ```json
 {
