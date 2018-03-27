@@ -32,6 +32,7 @@ toc:
   - docs/tasks/configure-pod-container/configure-pod-initialization.md
   - docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md
   - docs/tasks/configure-pod-container/configure-pod-configmap.md
+  - docs/tasks/configure-pod-container/share-process-namespace.md
   - docs/tools/kompose/user-guide.md
 
 - title: Inject Data Into Applications
@@ -163,6 +164,7 @@ toc:
   - docs/tasks/administer-cluster/reserve-compute-resources.md
   - docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods.md
   - docs/tasks/administer-cluster/declare-network-policy.md
+  - docs/tasks/administer-cluster/kms-provider.md      
   - title: Install Network Policy Provider
     section:
     - docs/tasks/administer-cluster/calico-network-policy.md
@@ -184,6 +186,7 @@ toc:
   - docs/tasks/administer-cluster/dns-custom-nameservers.md
   - docs/tasks/administer-cluster/dns-debugging-resolution.md
   - docs/tasks/administer-cluster/pvc-protection.md
+  - docs/tasks/administer-cluster/storage-object-in-use-protection.md
 
 - title: Federation - Run an App on Multiple Clusters
   landing_page: /docs/tasks/federation/set-up-cluster-federation-kubefed/

@@ -306,7 +306,8 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 You can see that the Container was terminated because of `reason:OOM Killed`,
 where `OOM` stands for Out Of Memory.
 
-## Local ephemeral storage (alpha feature)
+## Local ephemeral storage
+{% include feature-state-beta.md %}
 
 Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managing local ephemeral storage. In each Kubernetes node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This partition is also shared and consumed by pods via EmptyDir volumes, container logs, image layers and container writable layers.
 
@@ -369,37 +370,35 @@ For container-level isolation, if a Container's writable layer and logs usage ex
 
 ## Extended Resources
 
-Kubernetes version 1.8 introduces Extended Resources. Extended Resources are
-fully-qualified resource names outside the `kubernetes.io` domain. Extended
-Resources allow cluster operators to advertise new node-level resources that
-would be otherwise unknown to the system. Extended Resource quantities must be
-integers and cannot be overcommitted.
+Extended Resources are fully-qualified resource names outside the
+`kubernetes.io` domain. They allow cluster operators to advertise and users to
+consume the non-Kubernetes-built-in resources.
 
-Users can consume Extended Resources in Pod specs just like CPU and memory.
-The scheduler takes care of the resource accounting so that no more than the
-available amount is simultaneously allocated to Pods.
+There are two steps required to use Extended Resources. First, the cluster
+operator must advertise an Extended Resource. Second, users must request the
+Extended Resource in Pods.
 
-The API server restricts quantities of Extended Resources to whole numbers.
-Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
-_invalid_ quantities are `0.5` and `1500m`.
+### Managing extended resources
 
-**Note:** Extended Resources replace Opaque Integer Resources.
-Users can use any domain name prefix other than "`kubernetes.io`" which is reserved.
-{: .note}
+#### Node-level extended resources
 
-There are two steps required to use Extended Resources. First, the
-cluster operator must advertise a per-node Extended Resource on one or more
-nodes. Second, users must request the Extended Resource in Pods.
+Node-level extended resources are tied to nodes.
 
-To advertise a new Extended Resource, the cluster operator should
+##### Device plugin managed resources
+See [Device
+Plugin](https://kubernetes.io/docs/concepts/cluster-administration/device-plugins/)
+for how to advertise device plugin managed resources on each node.
+
+##### Other resources
+To advertise a new node-level extended resource, the cluster operator can
 submit a `PATCH` HTTP request to the API server to specify the available
 quantity in the `status.capacity` for a node in the cluster. After this
 operation, the node's `status.capacity` will include a new resource. The
 `status.allocatable` field is updated automatically with the new resource
-asynchronously by the kubelet. Note that because the scheduler uses the
-node `status.allocatable` value when evaluating Pod fitness, there may
-be a short delay between patching the node capacity with a new resource and the
-first pod that requests the resource to be scheduled on that node.
+asynchronously by the kubelet. Note that because the scheduler uses the	node
+`status.allocatable` value when evaluating Pod fitness, there may be a short
+delay between patching the node capacity with a new resource and the first pod
+that requests the resource to be scheduled on that node.
 
 **Example:**
 
@@ -420,6 +419,58 @@ JSON-Pointer. For more details, see
 [IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3).
 {: .note}
 
+#### Cluster-level extended resources
+
+Cluster-level extended resources are not tied to nodes. They are usually managed
+by scheduler extenders, which handle the resource comsumption, quota and so on.
+
+You can specify the extended resources that are handled by scheduler extenders
+in [scheduler policy
+configuration](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/scheduler/api/v1/types.go#L31).
+
+**Example:**
+
+The following configuration for a scheduler policy indicates that the
+cluster-level extended resource "example.com/foo" is handled by scheduler
+extender.
+ - The scheduler sends a pod to the scheduler extender only if the pod requests
+   "example.com/foo".
+ - The `ignoredByScheduler` field specifies that the scheduler does not check
+   the "example.com/foo" resource in its `PodFitsResources` predicate.
+
+```json
+{
+  "kind": "Policy",
+  "apiVersion": "v1",
+  "extenders": [
+    {
+      "urlPrefix":"<extender-endpoint>",
+      "bindVerb": "bind",
+      "ManagedResources": [
+        {
+          "name": "example.com/foo",
+          "ignoredByScheduler": true
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Consuming extended resources
+
+Users can consume Extended Resources in Pod specs just like CPU and memory.
+The scheduler takes care of the resource accounting so that no more than the
+available amount is simultaneously allocated to Pods.
+
+The API server restricts quantities of Extended Resources to whole numbers.
+Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
+_invalid_ quantities are `0.5` and `1500m`.
+
+**Note:** Extended Resources replace Opaque Integer Resources.
+Users can use any domain name prefix other than "`kubernetes.io`" which is reserved.
+{: .note}
+
 To consume an Extended Resource in a Pod, include the resource name as a key
 in the `spec.containers[].resources.limits` map in the container spec.
 
@@ -427,14 +478,13 @@ in the `spec.containers[].resources.limits` map in the container spec.
 must be equal if both are present in a container spec.
 {: .note}
 
-The Pod is scheduled only if all of the resource requests are
-satisfied, including cpu, memory and any Extended Resources. The Pod will
-remain in the `PENDING` state as long as the resource request cannot be met by
-any node.
+A Pod is scheduled only if all of the resource requests are satisfied, including
+CPU, memory and any Extended Resources. The Pod remains in the `PENDING` state
+as long as the resource request cannot be satisfied.
 
 **Example:**
 
-The Pod below requests 2 cpus and 1 "example.com/foo" (an extended resource.)
+The Pod below requests 2 CPUs and 1 "example.com/foo" (an extended resource).
 
 ```yaml
 apiVersion: v1

@@ -164,7 +164,7 @@ following pod-specific DNS policies. These policies are specified in the
   for details on how DNS queries are handled in those cases.
 - "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, you should
   explicitly set its DNS policy "`ClusterFirstWithHostNet`".
-- "`None`": A new option value introduced in Kubernetes v1.9. This Alpha feature
+- "`None`": A new option value introduced in Kubernetes v1.9 (Beta in v1.10). It
   allows a Pod to ignore DNS settings from the Kubernetes environment. All DNS
   settings are supposed to be provided using the `dnsConfig` field in the Pod Spec.
   See [DNS config](#dns-config) subsection below.
@@ -198,8 +198,9 @@ spec:
 
 ### Pod's DNS Config
 
-Kubernetes v1.9 introduces an Alpha feature that allows users more control on
-the DNS settings for a Pod. To enable this feature, the cluster administrator
+Kubernetes v1.9 introduces an Alpha feature (Beta in v1.10) that allows users more
+control on the DNS settings for a Pod. This feature is enabled by default in v1.10.
+To enable this feature in v1.9, the cluster administrator
 needs to enable the `CustomPodDNS` feature gate on the apiserver and the kubelet,
 for example, "`--feature-gates=CustomPodDNS=true,...`".
 When the feature gate is enabled, users can set the `dnsPolicy` field of a Pod
@@ -237,8 +238,7 @@ in its `/etc/resolv.conf` file:
 ```
 nameserver 1.2.3.4
 search ns1.svc.cluster.local my.dns.search.suffix
-options ndots:2
-options edns0
+options ndots:2 edns0
 ```
 
 {% endcapture %}

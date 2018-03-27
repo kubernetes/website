@@ -160,12 +160,14 @@ To use custom metrics with your Horizontal Pod Autoscaler, you must set the nece
 
 * [Enable the API aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) if you have not already done so.
 
-* Register your resource metrics API and your
-custom metrics API with the API aggregation layer. Both of these API servers must be running *on* your cluster.
+* Register your resource metrics API, your
+custom metrics API and, optionally, external metrics API with the API aggregation layer. All of these API servers must be running *on* your cluster.
 
   * *Resource Metrics API*: You can use Heapster's implementation of the resource metrics API, by running Heapster with its `--api-server` flag set to true.
 
   * *Custom Metrics API*: This must be provided by a separate component. To get started with boilerplate code, see the [kubernetes-incubator/custom-metrics-apiserver](https://github.com/kubernetes-incubator/custom-metrics-apiserver) and the [k8s.io/metrics](https://github.com/kubernetes/metrics) repositories.
+
+  * *External Metrics API*: Starting from Kubernetes 1.10 you can use this API if you need to autoscale on metrics not related to any Kubernetes object. Similarly to *Custom Metrics API* this must be provided by a separate component.
 
 * Set the appropriate flags for kube-controller-manager:
 
