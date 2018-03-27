@@ -1,5 +1,5 @@
 ---
-title: Federtion API Reference
+title: Federation API Reference
 ---
 
 # API Reference
