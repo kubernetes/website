@@ -34,7 +34,7 @@ Reviewers are individuals who review documentation pull requests.
 
 Automation assigns reviewers to pull requests, and contributors can request a review with a comment on the pull request: `/assign [@_github_handle]`.
 To indicate that a pull request requires no further changes, a reviewer should add comment to the pull request `/lgtm`.
-A reviewer indicates technical accuracy with a `lgtm` comment.
+A reviewer indicates technical accuracy with a `/lgtm` comment.
 
 Reviewers can add a `/hold` comment to prevent the pull request from being merged.
 Another reviewer or approver can remove a hold with the comment: `/hold cancel`.
@@ -86,7 +86,7 @@ The [Kubernetes website repository](https://github.com/kubernetes/website) has t
 - blunderbuss
 - approve
 
-These two plugins use the [OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) and [OWNERS_ALIAS](https://github.com/kubernetes/website/blob/master/OWNERS_ALIAS) files in our repo for configuration.
+These two plugins use the [OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) and [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS_ALIASES) files in our repo for configuration.
 
 {% endcapture %}
 
