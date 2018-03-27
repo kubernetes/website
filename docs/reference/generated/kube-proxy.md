@@ -8,7 +8,6 @@ notitle: true
 
 ### Synopsis
 
-
 The Kubernetes network proxy runs on each node. This
 reflects services as defined in the Kubernetes API on each node and can do simple
 TCP and UDP stream forwarding or round robin TCP and UDP forwarding across a set of backends.
@@ -18,14 +17,14 @@ addon that provides cluster DNS for these cluster IPs. The user must create a se
 with the apiserver API to configure the proxy.
 
 ```
-kube-proxy
+kube-proxy [flags]
 ```
 
 ### Options
 
 ```
-      --azure-container-registry-config string       Path to the file container Azure container registry configuration information.
-      --bind-address ip                              The IP address for the proxy server to serve on (set to 0.0.0.0 for all interfaces) (default 0.0.0.0)
+      --azure-container-registry-config string       Path to the file containing Azure container registry configuration information.
+      --bind-address 0.0.0.0                         The IP address for the proxy server to serve on (set to 0.0.0.0 for all IPv4 interfaces and `::` for all IPv6 interfaces) (default 0.0.0.0)
       --cleanup                                      If true cleanup iptables and ipvs rules and exit.
       --cleanup-ipvs                                 If true make kube-proxy cleanup ipvs rules before running.  Default is true (default true)
       --cluster-cidr string                          The CIDR range of pods in the cluster. When configured, traffic sent to a Service cluster IP from outside this range will be masqueraded and traffic sent from pods to an external LoadBalancer IP will be directed to the respective cluster IP instead
@@ -41,41 +40,51 @@ APIResponseCompression=true|false (ALPHA - default=false)
 Accelerators=true|false (ALPHA - default=false)
 AdvancedAuditing=true|false (BETA - default=true)
 AllAlpha=true|false (ALPHA - default=false)
-AllowExtTrafficLocalEndpoints=true|false (default=true)
 AppArmor=true|false (BETA - default=true)
 BlockVolume=true|false (ALPHA - default=false)
-CPUManager=true|false (ALPHA - default=false)
-CSIPersistentVolume=true|false (ALPHA - default=false)
-CustomPodDNS=true|false (ALPHA - default=false)
+CPUManager=true|false (BETA - default=true)
+CRIContainerLogRotation=true|false (ALPHA - default=false)
+CSIPersistentVolume=true|false (BETA - default=true)
+CustomPodDNS=true|false (BETA - default=true)
+CustomResourceSubresources=true|false (ALPHA - default=false)
 CustomResourceValidation=true|false (BETA - default=true)
 DebugContainers=true|false (ALPHA - default=false)
-DevicePlugins=true|false (ALPHA - default=false)
+DevicePlugins=true|false (BETA - default=true)
 DynamicKubeletConfig=true|false (ALPHA - default=false)
 EnableEquivalenceClassCache=true|false (ALPHA - default=false)
 ExpandPersistentVolumes=true|false (ALPHA - default=false)
 ExperimentalCriticalPodAnnotation=true|false (ALPHA - default=false)
 ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)
-HugePages=true|false (ALPHA - default=false)
+GCERegionalPersistentDisk=true|false (BETA - default=true)
+HugePages=true|false (BETA - default=true)
+HyperVContainer=true|false (ALPHA - default=false)
 Initializers=true|false (ALPHA - default=false)
-KubeletConfigFile=true|false (ALPHA - default=false)
-LocalStorageCapacityIsolation=true|false (ALPHA - default=false)
+LocalStorageCapacityIsolation=true|false (BETA - default=true)
 MountContainers=true|false (ALPHA - default=false)
-MountPropagation=true|false (ALPHA - default=false)
-PVCProtection=true|false (ALPHA - default=false)
-PersistentLocalVolumes=true|false (ALPHA - default=false)
+MountPropagation=true|false (BETA - default=true)
+PersistentLocalVolumes=true|false (BETA - default=true)
 PodPriority=true|false (ALPHA - default=false)
+PodShareProcessNamespace=true|false (ALPHA - default=false)
+ReadOnlyAPIDataVolumes=true|false (DEPRECATED - default=true)
 ResourceLimitsPriorityFunction=true|false (ALPHA - default=false)
 RotateKubeletClientCertificate=true|false (BETA - default=true)
 RotateKubeletServerCertificate=true|false (ALPHA - default=false)
+RunAsGroup=true|false (ALPHA - default=false)
+ScheduleDaemonSetPods=true|false (ALPHA - default=false)
 ServiceNodeExclusion=true|false (ALPHA - default=false)
+ServiceProxyAllowExternalIPs=true|false (DEPRECATED - default=false)
+StorageObjectInUseProtection=true|false (BETA - default=true)
 StreamingProxyRedirects=true|false (BETA - default=true)
-SupportIPVSProxyMode=true|false (BETA - default=false)
+SupportIPVSProxyMode=true|false (BETA - default=true)
+SupportPodPidsLimit=true|false (ALPHA - default=false)
 TaintBasedEvictions=true|false (ALPHA - default=false)
 TaintNodesByCondition=true|false (ALPHA - default=false)
-VolumeScheduling=true|false (ALPHA - default=false)
-      --google-json-key string                       The Google Cloud Platform Service Account JSON Key to use for authentication.
-      --healthz-bind-address ip                      The IP address and port for the health check server to serve on (set to 0.0.0.0 for all interfaces) (default 0.0.0.0:10256)
+TokenRequest=true|false (ALPHA - default=false)
+VolumeScheduling=true|false (BETA - default=true)
+VolumeSubpath=true|false (default=true)
+      --healthz-bind-address 0.0.0.0                 The IP address and port for the health check server to serve on (set to 0.0.0.0 for all IPv4 interfaces and `::` for all IPv6 interfaces) (default 0.0.0.0:10256)
       --healthz-port int32                           The port to bind the health check server. Use 0 to disable. (default 10256)
+  -h, --help                                         help for kube-proxy
       --hostname-override string                     If non-empty, will use this string as identification instead of the actual hostname.
       --iptables-masquerade-bit int32                If using the pure iptables proxy, the bit of the fwmark space to mark packets requiring SNAT with.  Must be within the range [0, 31]. (default 14)
       --iptables-min-sync-period duration            The minimum interval of how often the iptables rules can be refreshed as endpoints and services change (e.g. '5s', '1m', '2h22m').
@@ -87,16 +96,18 @@ VolumeScheduling=true|false (ALPHA - default=false)
       --kube-api-content-type string                 Content type of requests sent to apiserver. (default "application/vnd.kubernetes.protobuf")
       --kube-api-qps float32                         QPS to use while talking with kubernetes apiserver (default 5)
       --kubeconfig string                            Path to kubeconfig file with authorization information (the master location is set by the master flag).
+      --log-flush-frequency duration                 Maximum number of seconds between log flushes (default 5s)
       --masquerade-all                               If using the pure iptables proxy, SNAT all traffic sent via Service cluster IPs (this not commonly needed)
       --master string                                The address of the Kubernetes API server (overrides any value in kubeconfig)
-      --metrics-bind-address ip                      The IP address and port for the metrics server to serve on (set to 0.0.0.0 for all interfaces) (default 127.0.0.1:10249)
+      --metrics-bind-address 0.0.0.0                 The IP address and port for the metrics server to serve on (set to 0.0.0.0 for all IPv4 interfaces and `::` for all IPv6 interfaces) (default 127.0.0.1:10249)
+      --nodeport-addresses strings                   A string slice of values which specify the addresses to use for NodePorts. Values may be valid IP blocks (e.g. 1.2.3.0/24, 1.2.3.4/32). The default empty string slice ([]) means to use all local addresses.
       --oom-score-adj int32                          The oom-score-adj value for kube-proxy process. Values must be within the range [-1000, 1000] (default -999)
       --profiling                                    If true enables profiling via web interface on /debug/pprof handler.
-      --proxy-mode ProxyMode                         Which proxy mode to use: 'userspace' (older) or 'iptables' (faster) or 'ipvs'(experimental)'. If blank, use the best-available proxy (currently iptables).  If the iptables proxy is selected, regardless of how, but the system's kernel or iptables versions are insufficient, this always falls back to the userspace proxy.
+      --proxy-mode ProxyMode                         Which proxy mode to use: 'userspace' (older) or 'iptables' (faster) or 'ipvs' (experimental). If blank, use the best-available proxy (currently iptables).  If the iptables proxy is selected, regardless of how, but the system's kernel or iptables versions are insufficient, this always falls back to the userspace proxy.
       --proxy-port-range port-range                  Range of host ports (beginPort-endPort, inclusive) that may be consumed in order to proxy service traffic. If unspecified (0-0) then ports will be randomly chosen.
       --udp-timeout duration                         How long an idle UDP connection will be kept open (e.g. '250ms', '2s').  Must be greater than 0. Only applicable for proxy-mode=userspace (default 250ms)
       --version version[=true]                       Print version information and quit
       --write-config-to string                       If set, write the default configuration values to this file and exit.
 ```
 
-###### Auto generated by spf13/cobra on 12-Dec-2017
+###### Auto generated by spf13/cobra on 25-Mar-2018

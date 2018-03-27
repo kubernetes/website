@@ -4,5 +4,5 @@ repos:
   branch: master
   gen-absolute-links: true
   files:
-  - src: CHANGELOG-1.9.md
+  - src: CHANGELOG-1.10.md
     dst: docs/imported/release/notes.md
