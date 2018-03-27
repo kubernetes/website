@@ -9,7 +9,7 @@ title: 基于Replication Controller执行滚动升级
 
 ## 概述
 
-**注**: 创建副本应用的首选方法是使用[Deployment](/docs/api-reference/{{page.version}}/#deployment-v1beta1-apps)，Deployment使用[ReplicaSet](/docs/api-reference/{{page.version}}/#replicaset-v1beta1-extensions)来进行副本控制。
+**注**: 创建副本应用的首选方法是使用[Deployment](/docs/reference/generated/kubernetes-api/{{page.version}}/#deployment-v1beta1-apps)，Deployment使用[ReplicaSet](/docs/reference/generated/kubernetes-api/{{page.version}}/#replicaset-v1beta1-extensions)来进行副本控制。
 更多信息, 查看[使用Deployment运行一个无状态应用](/docs/tasks/run-application/run-stateless-application-deployment/)。
 
 为了在更新服务的同时不中断业务， `kubectl` 支持['滚动更新'](/docs/user-guide/kubectl/v1.6/#rolling-update)，它一次更新一个pod，而不是同时停止整个服务。 有关更多信息，请参阅 [滚动更新设计文档](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) 和 [滚动更新示例](/docs/tasks/run-application/rolling-update-replication-controller/)。

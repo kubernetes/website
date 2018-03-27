@@ -304,7 +304,7 @@ for definitions of the capability constants.
 To assign SELinux labels to a Container, include the `seLinuxOptions` field in
 the `securityContext` section of your Pod or Container manifest. The
 `seLinuxOptions` field is an
-[SELinuxOptions](/docs/api-reference/{{page.version}}/#selinuxoptions-v1-core)
+[SELinuxOptions](/docs/reference/generated/kubernetes-api/{{page.version}}/#selinuxoptions-v1-core)
 object. Here's an example that applies an SELinux level:
 
 ```yaml
@@ -341,8 +341,8 @@ label given to all Containers in the Pod as well as the Volumes.
 
 {% capture whatsnext %}
 
-* [PodSecurityContext](/docs/api-reference/{{page.version}}/#podsecuritycontext-v1-core)
-* [SecurityContext](/docs/api-reference/{{page.version}}/#securitycontext-v1-core)
+* [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{page.version}}/#podsecuritycontext-v1-core)
+* [SecurityContext](/docs/reference/generated/kubernetes-api/{{page.version}}/#securitycontext-v1-core)
 * [Tuning Docker with the newest security enhancements](https://opensource.com/business/15/3/docker-security-tuning)
 * [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
 * [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)

@@ -71,10 +71,10 @@ title: 更改 PersistentVolume 的回收策略
 
 ### 参考
 
-* [PersistentVolume](/docs/api-reference/{{page.version}}/#persistentvolume-v1-core)
-* [PersistentVolumeClaim](/docs/api-reference/{{page.version}}/#persistentvolumeclaim-v1-core)
+* [PersistentVolume](/docs/reference/generated/kubernetes-api/{{page.version}}/#persistentvolume-v1-core)
+* [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{page.version}}/#persistentvolumeclaim-v1-core)
 
-* 查阅  [PersistentVolumeSpec](/docs/api-reference/{{page.version}}/#persistentvolumeclaim-v1-core) 的 `persistentVolumeReclaimPolicy` 字段。
+* 查阅  [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{page.version}}/#persistentvolumeclaim-v1-core) 的 `persistentVolumeReclaimPolicy` 字段。
 {% endcapture %}
 
 {% include templates/task.md %}

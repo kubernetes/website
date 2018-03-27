@@ -14,7 +14,7 @@ title: 应用连接到 Service
 ## Kubernetes 连接容器模型
 
 既然有了一个持续运行、可复制的应用，我们就能够将它暴露到网络上。
-在讨论 Kubernetes 网络连接的方式之前，非常值得与 Docker 中 “正常” 方式的网络进行对比。 
+在讨论 Kubernetes 网络连接的方式之前，非常值得与 Docker 中 “正常” 方式的网络进行对比。
 
 
 
@@ -97,7 +97,7 @@ service "my-nginx" exposed
 
 
 上述规约将创建一个 Service，对应具有标签 `run: my-nginx` 的 Pod，目标 TCP 端口 80，并且在一个抽象的 Service 端口（`targetPort`：容器接收流量的端口；`port`：抽象的 Service 端口，可以使任何其它 Pod 访问该 Service 的端口）上暴露。
-查看 [Service API 对象](/docs/api-reference/{{page.version}}/#service-v1-core) 了解 Service 定义支持的字段列表。
+查看 [Service API 对象](/docs/reference/generated/kubernetes-api/{{page.version}}/#service-v1-core) 了解 Service 定义支持的字段列表。
 
 ```shell
 $ kubectl get svc my-nginx

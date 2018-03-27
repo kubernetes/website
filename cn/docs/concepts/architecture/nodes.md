@@ -231,4 +231,4 @@ spec:
 
 
 Node 是 Kubernetes REST API 的顶级资源。更多关于 API 对象的细节可以在这里找到： [Node API
-object](/docs/api-reference/{{page.version}}/#node-v1-core).``
+object](/docs/reference/generated/kubernetes-api/{{page.version}}/#node-v1-core).``

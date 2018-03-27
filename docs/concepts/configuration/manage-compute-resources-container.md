@@ -239,7 +239,7 @@ the node.
 
 The amount of resources available to Pods is less than the node capacity, because
 system daemons use a portion of the available resources. The `allocatable` field
-[NodeStatus](/docs/api-reference/{{page.version}}/#nodestatus-v1-core)
+[NodeStatus](/docs/reference/generated/kubernetes-api/{{page.version}}/#nodestatus-v1-core)
 gives the amount of resources that are available to Pods. For more information, see
 [Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
 
@@ -534,9 +534,9 @@ consistency across providers and platforms.
 
 * Get hands-on experience [assigning CPU resources to containers and pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 
-* [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
+* [Container](/docs/reference/generated/kubernetes-api/{{page.version}}/#container-v1-core)
 
-* [ResourceRequirements](/docs/api-reference/{{page.version}}/#resourcerequirements-v1-core)
+* [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{page.version}}/#resourcerequirements-v1-core)
 
 {% endcapture %}
 

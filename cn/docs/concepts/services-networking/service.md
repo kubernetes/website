@@ -622,7 +622,7 @@ Kubernetes 最主要的哲学之一，是用户不应该暴露那些能够导致
 
 ## API 对象
 
-在 Kubernetes REST API 中，Service 是 top-level 资源。关于 API 对象的更多细节可以查看：[Service API 对象](/docs/api-reference/{{page.version}}/#service-v1-core)。
+在 Kubernetes REST API 中，Service 是 top-level 资源。关于 API 对象的更多细节可以查看：[Service API 对象](/docs/reference/generated/kubernetes-api/{{page.version}}/#service-v1-core)。
 
 
 

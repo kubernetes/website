@@ -196,7 +196,7 @@ will be restarted.
 ## Use a named port
 
 You can use a named
-[ContainerPort](/docs/api-reference/{{page.version}}/#containerport-v1-core)
+[ContainerPort](/docs/reference/generated/kubernetes-api/{{page.version}}/#containerport-v1-core)
 for HTTP or TCP liveness checks:
 
 ```yaml
@@ -247,7 +247,7 @@ for it, and that containers are restarted when they fail.
 Eventually, some of this section could be moved to a concept topic.
 {% endcomment %}
 
-[Probes](/docs/api-reference/{{page.version}}/#probe-v1-core) have a number of fields that
+[Probes](/docs/reference/generated/kubernetes-api/{{page.version}}/#probe-v1-core) have a number of fields that
 you can use to more precisely control the behavior of liveness and readiness
 checks:
 
@@ -264,7 +264,7 @@ liveness. Minimum value is 1.
 try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the Pod. In case of readiness probe the Pod will be marked Unready.
 Defaults to 3. Minimum value is 1.
 
-[HTTP probes](/docs/api-reference/{{page.version}}/#httpgetaction-v1-core)
+[HTTP probes](/docs/reference/generated/kubernetes-api/{{page.version}}/#httpgetaction-v1-core)
 have additional fields that can be set on `httpGet`:
 
 * `host`: Host name to connect to, defaults to the pod IP. You probably want to
@@ -294,9 +294,9 @@ case, you should not use `host`, but rather set the `Host` header in `httpHeader
 
 ### Reference
 
-* [Pod](/docs/api-reference/{{page.version}}/#pod-v1-core)
-* [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
-* [Probe](/docs/api-reference/{{page.version}}/#probe-v1-core)
+* [Pod](/docs/reference/generated/kubernetes-api/{{page.version}}/#pod-v1-core)
+* [Container](/docs/reference/generated/kubernetes-api/{{page.version}}/#container-v1-core)
+* [Probe](/docs/reference/generated/kubernetes-api/{{page.version}}/#probe-v1-core)
 
 {% endcapture %}
 
