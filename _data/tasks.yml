@@ -129,6 +129,13 @@ toc:
 - title: Administer a Cluster
   landing_page: /docs/tasks/administer-cluster/memory-default-namespace/
   section:
+  - title: Upgrading or downgrading Kubernetes
+    section:
+    - docs/tasks/administer-cluster/upgrade-downgrade/upgrade-1-6.md
+    - docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-7.md
+    - docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-8.md
+    - docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-9.md
+    - docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-ha.md
   - title: Manage Memory, CPU, and API Resources
     section:
     - docs/tasks/administer-cluster/memory-default-namespace.md
@@ -149,11 +156,6 @@ toc:
   - docs/tasks/administer-cluster/configure-upgrade-etcd.md
   - docs/tasks/administer-cluster/static-pod.md
   - docs/tasks/administer-cluster/cluster-management.md
-  - docs/tasks/administer-cluster/upgrade-1-6.md
-  - docs/tasks/administer-cluster/kubeadm-upgrade-1-7.md
-  - docs/tasks/administer-cluster/kubeadm-upgrade-1-8.md
-  - docs/tasks/administer-cluster/kubeadm-upgrade-1-9.md
-  - docs/tasks/administer-cluster/kubeadm-upgrade-ha.md
   - docs/tasks/administer-cluster/namespaces.md
   - docs/tasks/administer-cluster/namespaces-walkthrough.md
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
