@@ -414,6 +414,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"security-context-2":      {&api.Pod{}},
 			"security-context-3":      {&api.Pod{}},
 			"security-context-4":      {&api.Pod{}},
+			"share-process-namespace": {&api.Pod{}},
 			"task-pv-claim":           {&api.PersistentVolumeClaim{}},
 			"task-pv-pod":             {&api.Pod{}},
 			"task-pv-volume":          {&api.PersistentVolume{}},
@@ -589,6 +590,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 	capabilities.SetForTests(capabilities.Capabilities{
 		AllowPrivileged: true,
 	})
+	// PodShareProcessNamespace needed for example share-process-namespace.yaml
+	utilfeature.DefaultFeatureGate.Set("PodShareProcessNamespace=true")
 
 	for path, expected := range cases {
 		tested := 0

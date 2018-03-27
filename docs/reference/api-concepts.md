@@ -150,6 +150,63 @@ For example, if there are 1,253 pods on the cluster and the client wants to rece
 Note that the `resourceVersion` of the list remains constant across each request, indicating the server is showing us a consistent snapshot of the pods. Pods that are created, updated, or deleted after version `10245` would not be shown unless the user makes a list request without the `continue` token.  This allows clients to break large requests into smaller chunks and then perform a watch operation on the full set without missing any updates.
 
 
+## Receiving resources as Tables
+
+`kubectl get` is a simple tabular representation of one or more instances of a particular resource type. In the past, clients were required to reproduce the tabular and describe output implemented in `kubectl` to perform simple lists of objects.
+A few limitations of that approach include non-trivial logic when dealing with certain objects. Additionally, types provided by API aggregation or third party rersources are not known at compile time. This means that generic implementations had to be in place for types unrecognized by a client.
+
+In order to avoid potential limitations as described above, clients may request the Table representation of objects, delegating specific details of printing to the server. The Kubernetes API implements standard HTTP content type negotiation: passing an `Accept` header containing a value of `application/json;as=Table;g=meta.k8s.io;v=v1beta1` with a `GET` call will request that the server return objects in the Table content type.
+
+For example:
+
+1. List all of the pods on a cluster in the Table format.
+
+        GET /api/v1/pods
+        Accept: application/json;as=Table;v=meta.k8s.io;g=v1beta1
+        ---
+        200 OK
+        Content-Type: application/json
+        {
+            "kind": "Table",
+            "apiVersion": "meta.k8s.io/v1beta1",
+            ...
+            "columnDefinitions": [
+                ...
+            ]
+        }
+
+For API resource types that do not have a custom Table definition on the server, a default Table response is returned by the server, consisting of the resource's `name` and `creationTimestamp` fields.
+
+        GET /apis/crd.example.com/v1alpha1/namespaces/default/resources
+        ---
+        200 OK
+        Content-Type: application/json
+        ...
+        {
+            "kind": "Table",
+            "apiVersion": "meta.k8s.io/v1beta1",
+            ...
+            "columnDefinitions": [
+                {
+                    "name": "Name",
+                    "type": "string",
+                    ...
+                },
+                {
+                    "name": "Created At",
+                    "type": "date",
+                    ...
+                }
+            ]
+        }
+
+Table responses are available beginning in version 1.10 of the kube-apiserver. As such, not all API resource types will support a Table response, specifically when using a client against older clusters. Clients that must work against all resource types, or can potentially deal with older clusters, should specify multiple content types in their `Accept` header to support fallback to non-Tabular JSON:
+
+```
+Accept: application/json;as=Table;v=meta.k8s.io;g=v1beta1, application/json
+```
+
+
 ## Alternate representations of resources
 
 By default Kubernetes returns objects serialized to JSON with content type `application/json`. This is the default serialization format for the API. However, clients may request the more efficient Protobuf representation of these objects for better performance at scale. The Kubernetes API implements standard HTTP content type negotiation: passing an `Accept` header with a `GET` call will request that the server return objects in the provided content type, while sending an object in Protobuf to the server for a `PUT` or `POST` call takes the `Content-Type` header. The server will return a `Content-Type` header if the requested format is supported, or the `406 Not acceptable` error if an invalid content type is provided.
