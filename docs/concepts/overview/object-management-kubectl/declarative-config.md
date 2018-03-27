@@ -617,7 +617,7 @@ by `name`.
 # configuration file value
     containers:
     - name: nginx
-      image: nginx:1.11
+      image: nginx:1.10
     - name: nginx-helper-b
       image: helper:1.3
     - name: nginx-helper-c # key: nginx-helper-c; will be added in result

@@ -62,7 +62,7 @@ a Kubernetes cluster from scratch.
 * [Kubermatic](https://www.loodse.com) provides managed Kubernetes clusters for various public clouds, including AWS and Digital Ocean, as well as on-premises with OpenStack integration.
 
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service) provides enterprise-grade Kubernetes for both on-premises and public clouds.  PKS enables on-demand provisioning of Kubernetes clusters, multi-tenancy and fully automated day-2 operations.
-`
+
 # Turnkey Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
@@ -125,7 +125,6 @@ These solutions are combinations of cloud providers and operating systems not co
 
 ## Bare Metal
 
-* [Offline](/docs/getting-started-guides/coreos/bare_metal_offline/) (no internet required.  Uses CoreOS and Flannel)
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
@@ -164,9 +163,9 @@ DCOS                 | Marathon   | CoreOS/Alpine | custom | [docs](/docs/gettin
 AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/aws/)                                 |  Community
 GCE                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/)                                 |  Community ([@pires](https://github.com/pires))
 Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/)                                 |  Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
-Bare-metal (Offline) | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/bare_metal_offline/)              |  Community ([@jeffbean](https://github.com/jeffbean))
 CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/getting-started-guides/cloudstack/)                             |  Community ([@sebgoa](https://github.com/sebgoa))
 VMware vSphere       | any          | multi-support | multi-support     | [docs](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)  |  [Community](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/contactus.html)
+Bare-metal           | custom       | CentOS | flannel      | [docs](/docs/getting-started-guides/centos/centos_manual_config/)            |  Community ([@coolsvap](https://github.com/coolsvap))
 lxd                  | Juju         | Ubuntu | flannel/canal            | [docs](/docs/getting-started-guides/ubuntu/local/)              |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
 AWS                  | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
 Azure                | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)

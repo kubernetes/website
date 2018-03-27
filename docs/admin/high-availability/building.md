@@ -186,7 +186,7 @@ This code is called the "reconciler," because it reconciles the list of
 endpoints stored in etcd, and the list of endpoints that are actually up
 and running.
 
-Prior Kubernetes 1.9, the reconciler expects you to provide the
+Prior to Kubernetes 1.9, the reconciler expects you to provide the
 number of endpoints (i.e., the number of apiserver replicas) through
 a command-line flag (e.g. `--apiserver-count=3`). If more replicas
 are available, the reconciler trims down the list of endpoints.
@@ -219,7 +219,7 @@ endpoints. You can switch to the new reconciler by adding the flag
 {% include feature-state-alpha.md %}
 
 If you want to know more, you can check the following resources:
-- [issue kubernetes/kuberenetes#22609](https://github.com/kubernetes/kubernetes/issues/22609),
+- [issue kubernetes/kubernetes#22609](https://github.com/kubernetes/kubernetes/issues/22609),
   which gives additional context
 - [master/reconcilers/mastercount.go](https://github.com/kubernetes/kubernetes/blob/dd9981d038012c120525c9e6df98b3beb3ef19e1/pkg/master/reconcilers/mastercount.go#L63),
   the implementation of the master count reconciler

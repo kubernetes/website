@@ -54,7 +54,7 @@ dynamic provisioning for themselves.
 To enable dynamic storage provisioning based on storage class, the cluster administrator
 needs to enable the `DefaultStorageClass` [admission controller](/docs/admin/admission-controllers/#defaultstorageclass)
 on the API server. This can be done, for example, by ensuring that `DefaultStorageClass` is
-among the comma-delimited, ordered list of values for the `--admission-control` flag of
+among the comma-delimited, ordered list of values for the `--enable-admission-plugins` flag of
 the API server component. For more information on API server command line flags,
 please check [kube-apiserver](/docs/admin/kube-apiserver/) documentation.
 
@@ -70,16 +70,17 @@ Pods use claims as volumes. The cluster inspects the claim to find the bound vol
 
 Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a `persistentVolumeClaim` in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
 
-### Persistent Volume Claim Protection
-{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
-The purpose of the PVC protection is to ensure that PVCs in active use by a pod are not removed from the system as this may result in data loss.
+### Storage Object in Use Protection
+{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
+The purpose of the Storage Object in Use Protection feature is to ensure that Persistent Volume Claims (PVCs) in active use by a pod and Persistent Volume (PVs) that are bound to PVCs are not removed from the system as this may result in data loss.
 
 **Note:** PVC is in active use by a pod when the pod status is `Pending` and the pod is assigned to a node or the pod status is `Running`.
 {: .note}
 
-When the [PVC protection alpha feature](/docs/tasks/administer-cluster/pvc-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods.
+When the [Storage Object in Use Protection beta feature](/docs/tasks/administer-cluster/storage-object-in-use-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods, and also if admin deletes a PV that is bound to a PVC, the PV is not removed immediately. PV removal is postponed until the PV is not bound to a PVC any more.
 
 You can see that a PVC is protected when the PVC's status is `Terminating` and the `Finalizers` list includes `kubernetes.io/pvc-protection`:
+
 ```shell
 kubectl describe pvc hostpath
 Name:          hostpath
@@ -92,6 +93,28 @@ Annotations:   volume.beta.kubernetes.io/storage-class=example-hostpath
                volume.beta.kubernetes.io/storage-provisioner=example.com/hostpath
 Finalizers:    [kubernetes.io/pvc-protection]
 ...
+```
+
+You can see that a PV is protected when the PV's status is `Terminating` and the `Finalizers` list includes `kubernetes.io/pv-protection` too:
+
+```shell
+kubectl describe pv task-pv-volume
+Name:            task-pv-volume
+Labels:          type=local
+Annotations:     <none>
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    standard
+Status:          Available
+Claim:           
+Reclaim Policy:  Delete
+Access Modes:    RWO
+Capacity:        1Gi
+Message:         
+Source:
+    Type:          HostPath (bare host directory volume)
+    Path:          /tmp/data
+    HostPathType:  
+Events:            <none>
 ```
 
 ### Reclaiming
@@ -173,7 +196,7 @@ parameters:
 allowVolumeExpansion: true
 ```
 
-Once both feature gate and the aforementioned admission plug-in are turned on, an user can request larger volume for their `PersistentVolumeClaim`
+Once both feature gate and the aforementioned admission plug-in are turned on, a user can request larger volume for their `PersistentVolumeClaim`
 by simply editing the claim and requesting a larger size.  This in turn will trigger expansion of the volume that is backing the underlying `PersistentVolume`.
 
 Under no circumstances will a new `PersistentVolume` be created to satisfy the claim. Kubernetes will instead attempt to resize the existing volume.
@@ -475,7 +498,7 @@ spec:
 
 ## Raw Block Volume Support
 
-Static provisioning support for Raw Block Volumes is included as an alpha feature for v1.9. With this change are some new API fields that need to be used to facilitate this functionality. Currently, Fibre Channel is the only supported plugin for this feature.
+Static provisioning support for Raw Block Volumes is included as an alpha feature for v1.9. With this change are some new API fields that need to be used to facilitate this functionality. Kubernetes v1.10 supports only Fibre Channel and Local Volume plugins for this feature.
 
 ### Persistent Volumes using a Raw Block Volume
 ```yaml

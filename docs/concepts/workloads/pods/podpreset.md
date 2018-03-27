@@ -68,7 +68,7 @@ In order to use Pod Presets in your cluster you must ensure the following:
     example, this can be done by including `settings.k8s.io/v1alpha1=true` in
     the `--runtime-config` option for the API server. 
 1.  You have enabled the admission controller `PodPreset`. One way to doing this
-    is to include `PodPreset` in the `--admission-control` option value specified
+    is to include `PodPreset` in the `--enable-admission-plugins` option value specified
     for the API server.
 1.  You have defined your Pod Presets by creating `PodPreset` objects in the
     namespace you will use.

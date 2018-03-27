@@ -154,7 +154,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 
 | Feature | Description | CRDs | Aggregated API |
 |-|-|-|-|
-| Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Alpha feature of CRDs in v1.8. Checks limited to what is supported by OpenAPI v3.0. | Yes, arbitrary validation checks |
+| Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Beta feature of CRDs in v1.9. Checks limited to what is supported by OpenAPI v3.0. | Yes, arbitrary validation checks |
 | Defaulting | See above | No, but can achieve the same effect with an Initializer (requires programming) | Yes |
 | Multi-versioning | Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions. | No | Yes |
 | Custom Storage | If you need storage with a different performance mode (for example, time-series database instead of key-value store) or isolation for security (for example, encryption secrets or different | No | Yes |
@@ -217,7 +217,7 @@ When you add a custom resource, you can access it using:
   - kubectl
   - The kubernetes dynamic client.
   - A REST client that you write.
-  - A client generated using Kubernetes client generation tools (generating one is an advanced undertaking, but some projects may provide a client along with the CRD or AA).
+  - A client generated using [Kubernetes client generation tools](https://github.com/kubernetes/code-generator) (generating one is an advanced undertaking, but some projects may provide a client along with the CRD or AA).
 
 {% endcapture %}
 

@@ -403,6 +403,8 @@ allocate a port from a flag-configured range (default: 30000-32767), and each
 Node will proxy that port (the same port number on every Node) into your `Service`.
 That port will be reported in your `Service`'s `spec.ports[*].nodePort` field.
 
+If you want to specify particular IP(s) to proxy the port, you can set the `--nodeport-addresses` flag in kube-proxy to particular IP block(s) (which is supported since Kubernetes v1.10). A comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 1.2.3.4/32) is used to filter addresses local to this node. For example, if you start kube-proxy with flag `--nodeport-addresses=127.0.0.0/8`, kube-proxy will select only the loopback interface for NodePort Services. The `--nodeport-addresses` is defaulted to empty (`[]`), which means select all available interfaces and is in compliance with current NodePort behaviors.
+
 If you want a specific port number, you can specify a value in the `nodePort`
 field, and the system will allocate you that port or else the API transaction
 will fail (i.e. you need to take care about possible port collisions yourself).
@@ -413,7 +415,7 @@ configure environments that are not fully supported by Kubernetes, or
 even to just expose one or more nodes' IPs directly.
 
 Note that this Service will be visible as both `<NodeIP>:spec.ports[*].nodePort`
-and `spec.clusterIP:spec.ports[*].port`.
+and `spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
 
 ### Type LoadBalancer
 
@@ -453,7 +455,8 @@ cloud provider does not support the feature, the field will be ignored.
 
 **Special notes for Azure**: To use user-specified public type `loadBalancerIP`, a static type
 public IP address resource needs to be created first, and it should be in the same resource
-group of the cluster. Then you could specify the assigned IP address as `loadBalancerIP`.
+group of the cluster. Specify the assigned IP address as loadBalancerIP. Verify you have 
+securityGroupName in the cloud provider configuration file.
 
 #### Internal load balancer
 In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC.

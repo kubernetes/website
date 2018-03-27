@@ -286,7 +286,7 @@ See the [FC example](https://github.com/kubernetes/examples/tree/{{page.githubbr
 
 ### flocker
 
-[Flocker](https://clusterhq.com/flocker) is an open-source clustered container data volume manager. It provides management
+[Flocker](https://github.com/ClusterHQ/flocker) is an open-source clustered container data volume manager. It provides management
 and orchestration of data volumes backed by a variety of storage backends.
 
 A `flocker` volume allows a Flocker dataset to be mounted into a pod. If the
@@ -483,68 +483,84 @@ See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{page.githu
 
 ### local
 
-{% assign for_k8s_version="v1.7" %}{% include feature-state-alpha.md %}
+{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
 
-This alpha feature requires the `PersistentLocalVolumes` feature gate to be
-enabled.
-
-**Note:** Starting in 1.9, the `VolumeScheduling` feature gate must also be enabled.
+**Note:** The alpha PersistentVolume NodeAffinity annotation has been deprecated
+and will be removed in a future release. Existing PersistentVolumes using this
+annotation must be updated by the user to use the new PersistentVolume
+`NodeAffinity` field.
 {: .note}
 
 A `local` volume represents a mounted local storage device such as a disk,
 partition or directory.
 
-Local volumes can only be used as a statically created PersistentVolume.
+Local volumes can only be used as a statically created PersistentVolume. Dynamic
+provisioning is not supported yet.
 
-Compared to `hostPath` volumes, local volumes can be used in a durable manner
-without manually scheduling pods to nodes, as the system is aware of the volume's
-node constraints by looking at the node affinity on the PersistentVolume.
+Compared to `hostPath` volumes, local volumes can be used in a durable and
+portable manner without manually scheduling pods to nodes, as the system is aware
+of the volume's node constraints by looking at the node affinity on the PersistentVolume.
 
 However, local volumes are still subject to the availability of the underlying
-node and are not suitable for all applications.
+node and are not suitable for all applications. If a node becomes unhealthy,
+then the local volume will also become inaccessible, and a pod using it will not
+be able to run. Applications using local volumes must be able to tolerate this
+reduced availability, as well as potential data loss, depending on the
+durability characteristics of the underlying disk.
 
-The following is an example PersistentVolume spec using a `local` volume:
+The following is an example PersistentVolume spec using a `local` volume and
+`nodeAffinity`:
 
 ``` yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: example-pv
-  annotations:
-        "volume.alpha.kubernetes.io/node-affinity": '{
-            "requiredDuringSchedulingIgnoredDuringExecution": {
-                "nodeSelectorTerms": [
-                    { "matchExpressions": [
-                        { "key": "kubernetes.io/hostname",
-                          "operator": "In",
-                          "values": ["example-node"]
-                        }
-                    ]}
-                 ]}
-              }'
 spec:
-    capacity:
-      storage: 100Gi
-    accessModes:
-    - ReadWriteOnce
-    persistentVolumeReclaimPolicy: Delete
-    storageClassName: local-storage
-    local:
-      path: /mnt/disks/ssd1
+  capacity:
+    storage: 100Gi
+  # volumeMode field requires BlockVolume Alpha feature gate to be enabled.
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+  local:
+    path: /mnt/disks/ssd1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - example-node
 ```
 
-**Note:** The local PersistentVolume cleanup and deletion requires manual intervention without the external provisioner.
-{: .note}
+PersistentVolume `nodeAffinity` is required when using local volumes. It enables
+the Kubernetes scheduler to correctly schedule pods using local volumes to the
+correct node.
 
-Starting in 1.9, local volume binding can be delayed until pod scheduling by
-creating a StorageClass with `volumeBindingMode` set to `WaitForFirstConsumer`.
-See the [example](storage-classes.md#local). Delaying volume binding ensures
-that the volume binding decision will also be evaluated with any other node
-constraints the pod may have, such as node resource requirements, node
+PersistentVolume `volumeMode` can now be set to "Block" (instead of the default
+value "Filesystem") to expose the local volume as a raw block device. The
+`volumeMode` field requires `BlockVolume` Alpha feature gate to be enabled.
+
+When using local volumes, it is recommended to create a StorageClass with
+`volumeBindingMode` set to `WaitForFirstConsumer`. See the
+[example](storage-classes.md#local). Delaying volume binding ensures
+that the PersistentVolumeClaim binding decision will also be evaluated with any
+other node constraints the pod may have, such as node resource requirements, node
 selectors, pod affinity, and pod anti-affinity.
 
-For details on the `local` volume type, see the [Local Persistent Storage
-user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).
+An external static provisioner can be run separately for improved management of
+the local volume lifecycle. Note that this provisioner does not support dynamic
+provisioning yet. For an example on how to run an external local provisioner,
+see the [local volume provisioner user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).
+
+**Note:** The local PersistentVolume requires manual cleanup and deletion by the
+user if the external static provisioner is not used to manage the volume
+lifecycle.
+{: .note}
 
 ### nfs
 
@@ -956,57 +972,103 @@ specification, and to select the type of media to use, for clusters that have
 several media types.
 
 ## Out-of-Tree Volume Plugins
-In addition to the previously listed volume types, storage vendors may create
-custom plugins without adding it to the Kubernetes repository. This can be
-achieved by using either the `CSI` plugin or the `FlexVolume` plugin.
+The Out-of-tree volume plugins include the Container Storage Interface (`CSI`)
+and `FlexVolume`. They enable storage vendors to create custom storage plugins
+without adding them to the Kubernetes repository. 
 
-For storage vendors looking to create an out-of-tree volume plugin, [please refer to this FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md) for choosing between the plugin options.
+Before the introduction of `CSI` and `FlexVolume`, all volume plugins (like
+volume types listed above) were "in-tree" meaning they were built, linked,
+compiled, and shipped with the core Kubernetes binaries and extend the core
+Kubernetes API. This meant that adding a new storage system to Kubernetes (a
+volume plugin) required checking code into the core Kubernetes code repository.
+
+Both `CSI` and `FlexVolume` allow volume plugins to be developed independent of
+the Kubernetes code base, and deployed (installed) on Kubernetes clusters as
+extensions.
+
+For storage vendors looking to create an out-of-tree volume plugin, please refer
+to [this FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
 ### CSI
 
-CSI stands for [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md),
-a specification attempting to establish an industry standard interface that
-container orchestration systems can use to expose arbitrary storage systems
-to their container workloads.
-Please read
-[CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for further information.
+{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
 
-<!-- TODO: add link to the kubernetes extension section -->
-The `csi` volume type is an in-tree CSI volume plugin for Pods to interact
-with external CSI volume drivers running on the same node.
-After having deployed a CSI compatible volume driver, users can use `csi` as the
-volume type to mount the storage provided by the driver.
+[Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI)
+defines a standard interface for container orchestration systems (like
+Kubernetes) to expose arbitrary storage systems to their container workloads.
 
-CSI persistent volume support is an alpha feature in Kubernetes v1.9 and requires a
-cluster administrator to enable it. To enable CSI persistent volume support, the
-cluster administrator adds `CSIPersistentVolume=true` to the `--feature-gates` flag
-for apiserver, controller-manager, and kubelet.
+Please read the [CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for more information.
+
+CSI support was introduced as alpha in Kubernetes v1.9 and moved to beta in
+Kubernets v1.10.
+
+Once a CSI compatible volume driver is deployed on a Kubernetes cluster, users
+may use the `csi` volume type to attach, mount, etc. the volumes exposed by the
+CSI driver.
+
+The `csi` volume type does not support direct reference from pod and may only be
+referenced in a pod via a `PersistentVolumeClaim` object.
 
 The following fields are available to storage administrators to configure a CSI
 persistent volume:
 
 - `driver`: A string value that specifies the name of the volume driver to use.
-  It has to be less than 63 characters and starts with a character. The driver
-  name can have '`.`', '`-`', '`_`' or digits in it.
-- `volumeHandle`: A string value that uniquely identify the volume name returned
-  from the CSI volume plugin's `CreateVolume` call. The volume handle is then
-  used in all subsequent calls to the volume driver for referencing the volume.
+  This value must corespond to the value returned in the `GetPluginInfoResponse`
+  by the CSI driver as defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#getplugininfo).
+  It is used by Kubernetes to identify which CSI driver to call out to, and by
+  CSI driver components to identify which PV objects belong to the CSI driver.
+- `volumeHandle`: A string value that uniquely identifies the volume. This value
+  must correspond to the value returned in the `volume.id` field of the
+  `CreateVolumeResponse` by the CSI driver as defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume).
+  The value is passed as `volume_id` on all calls to the CSI volume driver when
+  referencing the volume.
 - `readOnly`: An optional boolean value indicating whether the volume is to be
-  published as read only. Default is false.
+  "ControllerPublished" (attached) as read only. Default is false. This value is
+  passed to the CSI driver via the `readonly` field in the
+  `ControllerPublishVolumeRequest`.
+- `fsType`: If the PV's `VolumeMode` is `Filesystem` then this field may be used
+  to specify the filesystem that should be used to mount the volume. If the
+  volume has not been formated and formating is supported, this value will be
+  used to format the volume. If a value is not specified, `ext4` is assumed.
+  This value is passed to the CSI driver via the `VolumeCapability` field of
+  `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, and
+  `NodePublishVolumeRequest`.
+- `volumeAttributes`: A map of string to string that specifies static properties
+  of a volume. This map must corespond to the map returned in the
+  `volume.attributes` field of the `CreateVolumeResponse` by the CSI driver as
+  defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume).
+  The map is passed to the CSI driver via the `volume_attributes` field in the
+  `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, and
+  `NodePublishVolumeRequest`.
+- `controllerPublishSecretRef`: A reference to the secret object containing
+  sensitive information to pass to the CSI driver to complete the CSI
+  `ControllerPublishVolume` and `ControllerUnpublishVolume` calls. This field is
+  optional, and  may be empty if no secret is required. If the secret object
+  contains more than one secret, all secrets are passed.
+- `nodeStageSecretRef`: A reference to the secret object containing
+  sensitive information to pass to the CSI driver to complete the CSI
+  `NodeStageVolume` call. This field is optional, and  may be empty if no secret
+  is required. If the secret object contains more than one secret, all secrets
+  are passed.
+- `nodePublishSecretRef`: A reference to the secret object containing
+  sensitive information to pass to the CSI driver to complete the CSI
+  `NodePublishVolume` call. This field is optional, and  may be empty if no
+  secret is required. If the secret object contains more than one secret, all
+  secrets are passed.
 
 ### FlexVolume
-`FlexVolume` enables users to mount vendor volumes into a pod. The vendor plugin
-is implemented using a driver, an executable supporting a list of volume commands
-defined by the `FlexVolume` API. Drivers must be installed in a pre-defined
-volume plugin path on each node. Pods interact with FlexVolume drivers through the `flexVolume` in-tree plugin.
 
+`FlexVolume` is an out-of-tree plugin interface that has existed in Kubernetes
+since version 1.2 (before CSI). It uses an exec-based model to interface with
+drivers. FlexVolume driver binaries must be installed in a pre-defined volume
+plugin path on each node (and in some cases master).
+
+Pods interact with FlexVolume drivers through the `flexVolume` in-tree plugin.
 More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md).
 
 ## Mount propagation
 
-**Note:** Mount propagation is an alpha feature in Kubernetes 1.8 and may be
-redesigned or even removed in future releases.
-{: .note}
+{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
 
 Mount propagation allows for sharing volumes mounted by a Container to
 other Containers in the same Pod, or even to other Pods on the same node.
@@ -1015,14 +1077,12 @@ If the "`MountPropagation`" feature is disabled, volume mounts in pods are not p
 That is, Containers run with `private` mount propagation as described in the
 [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt).
 
-To enable this feature, specify `MountPropagation=true` in the
-`--feature-gates` command line option for the API server and kubelets.
-When enabled, the `volumeMounts` field of a Container has a new
-`mountPropagation` subfield. Its values are:
+Mount propagation of a volume is controlled by `mountPropagation` field in Container.volumeMounts.
+Its values are:
 
  * `HostToContainer` - This volume mount will receive all subsequent mounts
    that are mounted to this volume or any of its subdirectories. This is
-   the default mode when the MountPropagation feature is enabled.
+   the default mode.
 
    In other words, if the host mounts anything inside the volume mount, the
    Container will see it mounted there.
@@ -1050,6 +1110,21 @@ Containers. Familiarity with Linux kernel behavior is strongly recommended.
 In addition, any volume mounts created by Containers in Pods must be destroyed
 (unmounted) by the Containers on termination.
 {: .caution}
+
+### Configuration
+Before mount propagation can work properly on some deployments (CoreOS, 
+RedHat/Centos, Ubuntu) mount share must be configured correctly in
+Docker as shown below.
+
+Edit your Docker's `systemd` service file.  Set `MountFlags` as follows:
+```shell
+MountFlags=shared
+```
+Or, remove `MountFlags=slave` if present.  Then restart the Docker daemon:
+```shell
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
+```
 
 {% endcapture %}
 

@@ -43,7 +43,6 @@ toc:
     section:
     - docs/concepts/cluster-administration/network-plugins.md
     - docs/concepts/cluster-administration/device-plugins.md
-    - docs/concepts/cluster-administration/sysctl-cluster.md
   - docs/concepts/service-catalog/index.md
 
 - title: Containers

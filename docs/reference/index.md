@@ -8,7 +8,8 @@ approvers:
 
 * [Kubernetes API Overview](/docs/reference/api-overview/) - Overview of the API for Kubernetes.
 * Kubernetes API Versions
-  * [1.9](/docs/reference/generated/kubernetes-api/v1.9/)
+  * [1.10](/docs/reference/generated/kubernetes-api/v1.10/)
+  * [1.9](https://v1-9.docs.kubernetes.io/docs/reference/)
   * [1.8](https://v1-8.docs.kubernetes.io/docs/reference/)
   * [1.7](https://v1-7.docs.kubernetes.io/docs/reference/)
   * [1.6](https://v1-6.docs.kubernetes.io/docs/reference/)

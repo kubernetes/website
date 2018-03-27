@@ -341,7 +341,7 @@ Output:
 - ingress: disabled
 ```
 
-Minikube must be running for these command to take effect. To enable `heapster` addon, for example:
+Minikube must be running for these commands to take effect. To enable `heapster` addon, for example:
 
 ```shell
 minikube addons enable heapster

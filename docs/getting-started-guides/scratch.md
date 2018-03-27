@@ -607,7 +607,7 @@ Here are some apiserver flags you may need to set:
 - `--etcd-servers=http://127.0.0.1:4001`
 - `--tls-cert-file=/srv/kubernetes/server.cert`
 - `--tls-private-key-file=/srv/kubernetes/server.key`
-- `--admission-control=$RECOMMENDED_LIST`
+- `--enable-admission-plugins=$RECOMMENDED_LIST`
   - See [admission controllers](/docs/admin/admission-controllers/) for recommended arguments.
 - `--allow-privileged=true`, only if you trust your cluster user to run pods as root.
 
