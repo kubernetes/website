@@ -684,3 +684,159 @@ rules:
   verbs: ["impersonate"]
   resourceNames: ["view", "development"]
 ```
+
+## client-go credential plugins
+
+{% assign for_k8s_version="v1.10" %}{% include feature-state-alpha.md %}
+
+`k8s.io/client-go` and tools using it such as `kubectl` and `kubelet` are able to execute an
+external command to receive user credentials.
+
+This feature is intended for client side integrations with authentication protocols not natively
+supported by `k8s.io/client-go` (LDAP, Kerberos, OAuth2, SAML, etc.). The plugin implements the
+protocol specific logic, then returns opaque credentials to use. Almost all credential plugin
+use cases require a server side component with support for the [webhook token authenticator](#webhook-token-authentication)
+to interpret the credential format produced by the client plugin.
+
+As of 1.10 only bearer tokens are supported. Support for client certs may be added in a future release.
+
+### Example use case
+
+In a hypothetical use case, an organization would run an external service that exchanges LDAP credentials
+for user specific, signed tokens. The service would also be capable of responding to [webhook token
+authenticator](#webhook-token-authentication) requests to validate the tokens. Users would be required
+to install a credential plugin on their workstation.
+
+To authenticate against the API:
+
+* The user issues a `kubectl` command.
+* Credential plugin prompts the user for LDAP credentials, exchanges credentials with external service for a token.
+* Credential plugin returns token to client-go, which uses it as a bearer token against the API server.
+* API server uses the [webhook token authenticator](#webhook-token-authentication) to submit a `TokenReview` to the external service.
+* External service verifies the signature on the token and returns the user's username and groups.
+
+### Configuration
+
+Credential plugins are configured through [`kubectl` config files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+as part of the user fields.
+
+```yaml
+apiVersion: v1
+kind: Config
+users:
+- name: my-user
+  user:
+    exec:
+      # Command to execute. Required.
+      command: "example-client-go-exec-plugin"
+
+      # API version to use when encoding and decoding the ExecCredentials
+      # resource. Required.
+      #
+      # The API version returned by the plugin MUST match the version encoded.
+      apiVersion: "client.authentication.k8s.io/v1alpha1"
+
+      # Environment variables to set when executing the plugin. Optional.
+      env:
+      - name: "FOO"
+        value: "bar"
+
+      # Arguments to pass when executing the plugin. Optional.
+      args:
+      - "arg1"
+      - "arg2"
+clusters:
+- name: my-cluster
+  cluster:
+    server: "https://172.17.4.100:6443"
+    certificate-authority: "/etc/kubernetes/ca.pem"
+contexts:
+- name: my-cluster
+  context:
+    cluster: my-cluster
+    user: my-user
+current-context: my-cluster
+```
+
+Relative command paths are interpreted as relative to the directory of the config file. If
+KUBECONFIG is set to `/home/jane/kubeconfig` and the exec command is `./bin/example-client-go-exec-plugin`,
+the binary `/home/jane/bin/example-client-go-exec-plugin` is executed.
+
+```yaml
+- name: my-user
+  user:
+    exec:
+      # Path relative to the directory of the kubeconfig
+      command: "./bin/example-client-go-exec-plugin"
+      apiVersion: "client.authentication.k8s.io/v1alpha1"
+```
+
+### Input and output formats
+
+When executing the command, `k8s.io/client-go` sets the `KUBERNETES_EXEC_INFO` environment
+variable to a JSON serialized [`ExecCredential`](
+https://github.com/kubernetes/client-go/blob/master/pkg/apis/clientauthentication/v1alpha1/types.go)
+resource.
+
+```
+KUBERNETES_EXEC_INFO='{
+  "apiVersion": "client.authentication.k8s.io/v1alpha1",
+  "kind": "ExecCredential",
+  "spec": {
+    "interactive": true
+  }
+}'
+```
+
+When plugins are executed from an interactive session, `stdin` and `stderr` are directly
+exposed to the plugin so it can prompt the user for input for interactive logins.
+
+When responding to a 401 HTTP status code (indicating invalid credentials), this object will
+include metadata about the response.
+
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1alpha1",
+  "kind": "ExecCredential",
+  "spec": {
+    "response": {
+      "code": 401,
+      "header": {
+        "WWW-Authenticate": [
+          "Bearer realm=ldap.example.com"
+        ]
+      },
+    },
+    "interactive": true
+  }
+}
+```
+
+The executed command is expected to print an `ExceCredential` to `stdout`. `k8s.io/client-go`
+will then use the returned bearer token in the `status` when authenticating against the
+Kubernetes API.
+
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1alpha1",
+  "kind": "ExecCredential",
+  "status": {
+    "token": "my-bearer-token"
+  }
+}
+```
+
+Optionally, this output can include the expiry of the token formatted as a RFC3339 timestamp.
+If an expiry is omitted, the bearer token is cached until the server responds with a 401 HTTP
+status code.
+
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1alpha1",
+  "kind": "ExecCredential",
+  "status": {
+    "token": "my-bearer-token",
+    "expirationTimestamp": "2018-03-05T17:30:20-08:00"
+  }
+}
+```

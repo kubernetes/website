@@ -192,6 +192,26 @@ NAME           RSRC
 submit-queue   610995
 ```
 
+#### Server-side columns
+
+`kubectl` supports receiving specific column information from the server about objects.
+This means that for any given resource, the server will return columns and rows relevant to that resource, for the client to print.
+This allows for consistent human-readable output across clients used against the same cluster, by having the server encapsulate the details of printing.
+
+To output object information using this feature, you can add the `--experimental-server-print` flag to a supported `kubectl` command.
+
+##### Examples
+
+```shell
+$ kubectl get pods <pod-name> --experimental-server-print
+```
+
+The result of running this command is:
+
+```shell
+NAME       READY     STATUS              RESTARTS   AGE
+pod-name   1/1       Running             0          1m
+
 ### Sorting list objects
 
 To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag to a supported `kubectl` command. Sort your objects by specifying any numeric or string field with the `--sort-by` flag. To specify a field, use a [jsonpath](/docs/user-guide/jsonpath) expression.
@@ -245,6 +265,9 @@ $ kubectl get ds --include-uninitialized
 
 // List all pods running on node server01
 $ kubectl get pods --field-selector=spec.nodeName=server01
+
+// List all pods in plain-text output format, delegating the details of printing to the server
+$ kubectl get pods --experimental-server-print
 ```
 
 `kubectl describe` - Display detailed state of one or more resources, including the uninitialized ones by default.

@@ -32,10 +32,10 @@ toc:
   - docs/reference/workloads-18-19.md
 
 - title: API Reference
-  landing_page: /docs/api-reference/v1.8/
+  landing_page: /docs/api-reference/v1.10/
   section:
-  - title: v1.9
-    path: /docs/reference/generated/kubernetes-api/v1.9/
+  - title: v1.10
+    path: /docs/reference/generated/kubernetes-api/v1.10/
   - docs/reference/labels-annotations-taints.md
   - title: OpenAPI and Swagger
     section:
