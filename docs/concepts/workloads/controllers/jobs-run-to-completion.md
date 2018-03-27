@@ -225,9 +225,11 @@ By default, a Job will run uninterrupted unless a Pod fails, at which point the 
 `.spec.backoffLimit` described above. Another way to terminate a Job is by setting an active deadline.
 Do this by setting the `.spec.activeDeadlineSeconds` field of the Job to a number of seconds.
 
-When `activeDeadlineSeconds` is set, the Job will terminate the active Pod once the deadline is reached.
-If the Job is in a failing (backoff) state, no additional Pods will be created even if the Job has not yet
-reached its `backoffLimit`. In both cases, once the `activeDeadlineSeconds` is reached, the Job will have a status with `reason: DeadlineExceeded`.
+The `activeDeadlineSeconds` applies to the duration of the job, no matter how many Pods are created.
+Once a Job reaches `activeDeadlineSeconds`, the Job and all of its Pods are terminated.
+The result is that the job has a status with `reason: DeadlineExceeded`. 
+
+Note that a Job's `.spec.activeDeadlineSeconds` takes precedence over its `.spec.backoffLimit`. Therefore, a Job that is retrying one or more failed Pods will not deploy additional Pods once it reaches the time limit specified by `activeDeadlineSeconds`, even if the `backoffLimit` is not yet reached.
 
 Example:
 
