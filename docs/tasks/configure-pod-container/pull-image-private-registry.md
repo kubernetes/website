@@ -57,7 +57,7 @@ Create this Secret, naming it `regcred`:
 
 where:
 
-* `<your-registry-server>` is your Private Docker Registry FQDN.
+* `<your-registry-server>` is your Private Docker Registry FQDN. (https://index.docker.io/v1/ for DockerHub)
 * `<your-name>` is your Docker username.
 * `<your-pword>` is your Docker password.
 * `<your-email>` is your Docker email.
