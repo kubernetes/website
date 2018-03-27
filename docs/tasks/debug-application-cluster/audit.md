@@ -29,6 +29,10 @@ of its execution generates an event, which is then pre-processed according to
 a certain policy and written to a backend. You can find more details about the
 pipeline in the [design proposal][auditing-proposal].
 
+**Note,** that audit logging feature increases apiserver memory consumption, since some context
+required for auditing is stored for each request. Additionally, memory consumption depends on the
+audit logging configuration.
+
 ## Audit Policy
 
 Audit policy defines rules about what events should be recorded and what data
@@ -72,6 +76,24 @@ In both cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
 [`v1beta1`][auditing-api].
 
+**Note:** In case of patches, request body is a JSON array with patch operations, not a JSON object
+with an appropriate Kubernetes API object. For example, the following request body is a valid patch
+request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`.
+
+```json
+[
+  {
+    "op": "replace",
+    "path": "/spec/parallelism",
+    "value": 0
+  },
+  {
+    "op": "remove",
+    "path": "/spec/template/spec/containers/0/terminationMessagePolicy"
+  }
+]
+```
+
 ### Log backend
 
 Log backend writes audit events to a file in JSON format. You can configure
@@ -91,13 +113,61 @@ audit backend using the following kube-apiserver flags:
 
 - `--audit-webhook-config-file` specifies the path to a file with a webhook
   configuration. Webhook configuration is effectively a [kubeconfig][kubeconfig].
-- `--audit-webhook-mode` define the buffering strategy, one of the following:
-  - `batch` - buffer events and asynchronously send the set of events to the external service
-    This is the default
-  - `blocking` - block API server responses on sending each event to the external service
+- `--audit-webhook-initial-backoff` specifies the amount of time to wait after the first failed
+  request before retrying. Subsequent requests are retried with exponential backoff.
 
 The webhook config file uses the kubeconfig format to specify the remote address of
 the service and credentials used to connect to it.
+
+### Batching
+
+Both log and webhook backends support batching. Using webhook as an example, here's the list of
+available flags. To get the same flag for log backend, replace `webhook` with `log` in the flag
+name. By default, batching is enabled in `webhook` and disabled in `log`. Similarly, by default
+throttling is enabled in `webhook` and disabled in `log`.
+
+- `--audit-webhook-mode` defines the buffering strategy. One of the following:
+  - `batch` - buffer events and asynchronously process them in batches. This is the default.
+  - `blocking` - block API server responses on processing each individual event.
+
+The following flags are used only in the `batch` mode.
+
+- `--audit-webhook-batch-buffer-size` defines the number of events to buffer before batching.
+  If the rate of incoming events overflows the buffer, events are dropped.
+- `--audit-webhook-batch-max-size` defines the maximum number of events in one batch.
+- `--audit-webhook-batch-max-wait` defines the maximum amount of time to wait before unconditionally
+  batching events in the queue.
+- `--audit-webhook-batch-throttle-qps` defines the maximum average number of batches generated
+  per second.
+- `--audit-webhook-batch-throttle-burst` defines the maximum number of batches generated at the same
+  moment if the allowed QPS was underutilized previously.
+
+#### Parameter tuning
+
+Parameters should be set to accommodate the load on the apiserver.
+
+For example, if kube-apiserver receives 100 requests each second, and each request is audited only
+on `ResponseStarted` and `ResponseComplete` stages, you should account for ~200 audit
+events being generated each second. Assuming that there are up to 100 events in a batch,
+you should set throttling level at at least 2 QPS. Assuming that the backend can take up to
+5 seconds to write events, you should set the buffer size to hold up to 5 seconds of events, i.e.
+10 batches, i.e. 1000 events.
+
+In most cases however, the default parameters should be sufficient and you don't have to worry about
+setting them manually. You can look at the following Prometheus metrics exposed by kube-apiserver
+and in the logs to monitor the state of the auditing subsystem.
+
+- `apiserver_audit_event_total` metric contains the total number of audit events exported.
+- `apiserver_audit_error_total` metric contains the total number of events dropped due to an error
+  during exporting.
+
+## Multi-cluster setup
+
+If you're extending the Kubernetes API with the [aggregation layer][kube-aggregator], you can also
+set up audit logging for the aggregated apiserver. To do this, pass the configuration options in the
+same format as described above to the aggregated apiserver and set up the log ingesting pipeline
+to pick up audit logs. Different apiservers can have different audit configurations and different
+audit policies.
 
 ## Log Collector Examples
 
@@ -250,8 +320,8 @@ plugin which supports full-text search and analytics.
 
 ## Legacy Audit
 
-__Note:__ Legacy Audit is deprecated and is disabled by default since Kubernetes 1.8.
-To fallback to this legacy audit, disable the advanced auditing feature
+__Note:__ Legacy Audit is deprecated and is disabled by default since Kubernetes 1.8. Legacy Audit
+will be removed in 1.12. To fallback to this legacy audit, disable the advanced auditing feature
 using the `AdvancedAuditing` feature gate in [kube-apiserver][kube-apiserver]:
 
 ```
@@ -299,3 +369,4 @@ and `audit-log-maxage` options.
 [fluentd_install_doc]: http://docs.fluentd.org/v0.12/articles/quickstart#step1-installing-fluentd
 [logstash]: https://www.elastic.co/products/logstash
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
+[kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation

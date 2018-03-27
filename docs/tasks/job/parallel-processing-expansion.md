@@ -85,7 +85,7 @@ do not care to see.)
 We can check on the pods as well using the same label selector:
 
 ```shell
-$ kubectl get pods -l jobgroup=jobexample --show-all
+$ kubectl get pods -l jobgroup=jobexample
 NAME                        READY     STATUS      RESTARTS   AGE
 process-item-apple-kixwv    0/1       Completed   0          4m
 process-item-banana-wrsf7   0/1       Completed   0          4m
@@ -96,7 +96,7 @@ There is not a single command to check on the output of all jobs at once,
 but looping over all the pods is pretty easy:
 
 ```shell
-$ for p in $(kubectl get pods -l jobgroup=jobexample --show-all -o name)
+$ for p in $(kubectl get pods -l jobgroup=jobexample -o name)
 do
   kubectl logs $p
 done
@@ -184,11 +184,6 @@ If you have a large number of job objects, you may find that:
 - Even using labels, managing so many Job objects is cumbersome.
 - You exceed resource quota when creating all the Jobs at once,
   and do not want to wait to create them incrementally.
-- You need a way to easily scale the number of pods running
-  concurrently.  One reason would be to avoid using too many
-  compute resources.  Another would be to limit the number of
-  concurrent requests to a shared resource, such as a database,
-  used by all the pods in the job.
 - Very large numbers of jobs created at once overload the
   Kubernetes apiserver, controller, or scheduler.
 

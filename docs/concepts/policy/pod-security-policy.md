@@ -50,7 +50,7 @@ controller](/docs/admin/admission-controllers/#how-do-i-turn-on-an-admission-con
 but doing so without authorizing any policies **will prevent any pods from being
 created** in the cluster.
 
-Since the pod security policy API (`extensions/v1beta1/podsecuritypolicy`) is
+Since the pod security policy API (`policy/v1beta1/podsecuritypolicy`) is
 enabled independently of the admission controller, for existing clusters it is
 recommended that policies are added and authorized before enabling the admission
 controller.
@@ -85,7 +85,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: <role name>
 rules:
-- apiGroups: ['extensions']
+- apiGroups: ['policy']
   resources: ['podsecuritypolicies']
   verbs:     ['use']
   resourceNames:
