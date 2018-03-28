@@ -4,7 +4,6 @@ Run this on any machine you wish to join an existing cluster
 ### Synopsis
 
 
-
 When joining a kubeadm initialized cluster, we need to establish
 bidirectional trust. This is split into discovery (having the Node
 trust the Kubernetes Master) and TLS bootstrap (having the Kubernetes
@@ -58,16 +57,16 @@ kubeadm join [flags]
       --cri-socket string                             Specify the CRI socket to connect to. (default "/var/run/dockershim.sock")
       --discovery-file string                         A file or url from which to load cluster information.
       --discovery-token string                        A token used to validate cluster information fetched from the master.
-      --discovery-token-ca-cert-hash stringSlice      For token-based discovery, validate that the root CA public key matches this hash (format: "<type>:<value>").
+      --discovery-token-ca-cert-hash strings          For token-based discovery, validate that the root CA public key matches this hash (format: "<type>:<value>").
       --discovery-token-unsafe-skip-ca-verification   For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.
       --feature-gates string                          A set of key=value pairs that describe feature gates for various features. Options are:
-CoreDNS=true|false (ALPHA - default=false)
+Auditing=true|false (ALPHA - default=false)
+CoreDNS=true|false (BETA - default=false)
 DynamicKubeletConfig=true|false (ALPHA - default=false)
-HighAvailability=true|false (ALPHA - default=false)
-SelfHosting=true|false (BETA - default=false)
+SelfHosting=true|false (ALPHA - default=false)
 StoreCertsInSecrets=true|false (ALPHA - default=false)
-SupportIPVSProxyMode=true|false (ALPHA - default=false)
-      --ignore-checks-errors stringSlice              A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
+  -h, --help                                          help for join
+      --ignore-preflight-errors strings               A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
       --node-name string                              Specify the node name.
       --tls-bootstrap-token string                    A token used for TLS bootstrapping.
       --token string                                  Use this token for both discovery-token and tls-bootstrap-token.

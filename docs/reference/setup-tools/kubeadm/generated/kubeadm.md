@@ -4,7 +4,6 @@ kubeadm: easily bootstrap a secure Kubernetes cluster
 ### Synopsis
 
 
-
 kubeadm: easily bootstrap a secure Kubernetes cluster.
 
     ┌──────────────────────────────────────────────────────────┐
@@ -36,4 +35,10 @@ Example usage:
     You can then repeat the second step on as many other machines as you like.
 
 
+
+### Options
+
+```
+  -h, --help   help for kubeadm
+```
 

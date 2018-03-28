@@ -3,11 +3,16 @@ Upload configuration about the current state, so that 'kubeadm upgrade' can late
 
 ### Synopsis
 
-
 Upload configuration about the current state, so that 'kubeadm upgrade' can later know how to configure the upgraded cluster.
 
 ```
-kubeadm config upload
+kubeadm config upload [flags]
+```
+
+### Options
+
+```
+  -h, --help   help for upload
 ```
 
 ### Options inherited from parent commands
