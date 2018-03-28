@@ -141,19 +141,23 @@ div.header-try a {
 }
 
 
-/* Pagination Next/Prev Links */
-.pager h4, h3{
-display: inline-block;
+/* Pagination Links */
+@media (max-width: 449px) {
+  div.pagination {
+  position: relative;
+  left: 30%;
+  }
+  .pagination a {
+    margin-right: 30%;
+  }
 }
 
-.pager a {
-  text-decoration: none;
+@media (min-width: 450px) {
+  h4.pagination {
+  position: relative;
+  left: 30%;
+  }
 }
-span.pager {
-text-align: center;
-align-self: center;
-}
-
 
 /* Columns
 ----------------------------------------------- */
@@ -261,7 +265,7 @@ h3.post-title{
   font-size: 90%;
 }
 
-/* Mobile/
+/* Mobile
 ----------------------------------------------- */
 .main-inner .column-right-outer {
   width: 320px;
@@ -284,7 +288,17 @@ h3.post-title{
   white-space: nowrap;
   font-family: Roboto, sans-serif;
 }
-
+.widget-link .fa {
+  position: absolute;
+  left: 0; top: 0;
+  width: 40px; height: 40px;
+  color: white;
+  background-color: #326DE6;
+  border-radius: 6px;
+  font-size: 30px;
+  text-align: center;
+  line-height: 40px;
+}
 h2.date-header {
   font-family: Roboto-Bold;
   font-weight: bold;
@@ -370,9 +384,9 @@ body {
     margin-left: 1em;
   }
 
-  .blog-content .pagination {
+  /* .blog-content .pagination {
     width: inherit;
-  }
+  } */
 
   .button {
     border-radius: 6px;
@@ -397,7 +411,7 @@ ul {
 }
 /* Sidebar Icon Styles */
 .widget-link svg {
-  font-size: 33px;
+  font-size: 48px;
   color:#326DE6;
 }
 
@@ -462,7 +476,6 @@ table.post-table ,.post-table tr, .post-table td, .post-table th {
   padding: 5px;
 }
 
-
 .yaml-scale code {
   font-size: small;
 }
@@ -475,6 +488,6 @@ img.big-img {
   width: 100%;
 }
 
-.content img {
+/* .content img {
 max-width: 100%;
-}
+} */

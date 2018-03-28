@@ -93,6 +93,24 @@
        <h4 class="date-header">{{ page.date | date: ' %A, %B %-d, %Y' }} </h4>
       <h3 class="post-title entry-title">  {{page.title}} </h3>
       {{ content }}
+
+        <div class="PageNavigation">
+          <div class="pagerButton left">
+            {% if page.next.url %}
+              <h4><a class=" button" href="{{page.next.url}}"> &laquo; Next </a></h4>
+            {% endif %}
+          </div>
+
+          <div class="pagerButton right">
+            {% if page.previous.url %}
+              <h4><a class=" button" href="{{page.previous.url}}"> Prev &raquo;</a></h4>
+            {% endif %}
+          </div>
+
+
+
+
+        </div>
     </div>
 
 

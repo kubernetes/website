@@ -1,7 +1,7 @@
 ---
 layout: blog
 ---
-<div class=" pagination">
+
   {% for post in paginator.posts %}
     <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
     <p class="author">
@@ -13,19 +13,16 @@ layout: blog
   {% endfor %}
 
   <!-- Pagination links -->
-  <!-- <div class="col-xs-3 col-lg-10 "> -->
-<span class="pager">
+  <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10 pagination">
     {% if paginator.previous_page %}
-     <a href="{{ paginator.previous_page_path }}" class="previous button">  <h4>Previous</h4></a>
+     <a href="{{ paginator.previous_page_path }}" class="previous button pagerButton left">  <h4>  &laquo; Prev</h4></a>
     {% else %}
-      <h4><span class="previous">Previous</span></h4>
+      <h4><span class="previous"> &laquo; Prev</span></h4>
     {% endif %}
-    <h3><span class="page_number">   Page {{ paginator.page }} of {{ paginator.total_pages }}   </span></h3>
+    <h4 class="pagination" ><span class="page_number">   Page {{ paginator.page }} of {{ paginator.total_pages }}   </span></h4>
     {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path }}" class="next button"><h4>Next</h4></a>
+      <a href="{{ paginator.next_page_path }}" class="next button pagerButton right"><h4>Next  &raquo;</h4></a>
     {% else %}
-      <h4><span class="next">Next</span></h4>
+      <h4><span class="next">Next &raquo; </span></h4>
     {% endif %}
-  <!-- </div> -->
-</span>
-</div>
+  </div>
