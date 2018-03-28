@@ -175,10 +175,10 @@ Pod 能有多个容器的主要原因是为了支持辅助应用（helper applic
 * 参见 [配置一个使用存储卷的 Pod](/docs/tasks/configure-pod-container/configure-volume-storage/)。
 
 
-* 参见 [卷](/docs/api-reference/{{page.version}}/#volume-v1-core)。
+* 参见 [卷](/docs/reference/generated/kubernetes-api/{{page.version}}/#volume-v1-core)。
 
 
-* 参见 [Pod](/docs/api-reference/{{page.version}}/#pod-v1-core).
+* 参见 [Pod](/docs/reference/generated/kubernetes-api/{{page.version}}/#pod-v1-core).
 
 {% endcapture %}
 

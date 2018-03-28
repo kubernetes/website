@@ -289,7 +289,7 @@ Kubernetes 通过支持通过多级别的 [服务质量](http://issue.k8s.io/168
 {% capture whatsnext %}
 
 - 获取将 [CPU 和内存资源分配给容器](/docs/tasks/configure-pod-container/assign-cpu-ram-container/) 的实践经验
-- [容器](/docs/api-reference/{{page.version}}/#container-v1-core)
+- [容器](/docs/reference/generated/kubernetes-api/{{page.version}}/#container-v1-core)
 - [ResourceRequirements](/docs/resources-reference/{{page.version}}/#resourcerequirements-v1-core)
 
 {% endcapture %}

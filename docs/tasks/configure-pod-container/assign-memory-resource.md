@@ -321,7 +321,7 @@ could use all of the memory available on the Node where it is running.
 
 * The Container is running in a namespace that has a default memory limit, and the
 Container is automatically assigned the default limit. Cluster administrators can use a
-[LimitRange](https://kubernetes.io/docs/api-reference/{{page.version}}/#limitrange-v1-core)
+[LimitRange](https://kubernetes.io/docs/reference/generated/kubernetes-api/{{page.version}}/#limitrange-v1-core)
 to specify a default value for the memory limit.
 
 ## Motivation for memory requests and limits

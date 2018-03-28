@@ -24,7 +24,7 @@ for a discussion of the advantages and disadvantage of each kind of object manag
 ## How to create objects
 
 You can use `kubectl create -f` to create an object from a configuration file.
-Refer to the [kubernetes API reference](/docs/api-reference/{{page.version}}/)
+Refer to the [kubernetes API reference](/docs/reference/generated/kubernetes-api/{{page.version}}/)
 for details.
 
 - `kubectl create -f <filename|url>`
@@ -131,7 +131,7 @@ template:
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/concepts/overview/object-management-kubectl/declarative-config/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/{{page.version}}/)
-- [Kubernetes API Reference](/docs/api-reference/{{page.version}}/)
+- [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{page.version}}/)
 {% endcapture %}
 
 {% include templates/concept.md %}

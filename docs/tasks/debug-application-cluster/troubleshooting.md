@@ -28,7 +28,7 @@ practical instructions for getting started. [Tasks](/docs/tasks/) show how to
 accomplish commonly used tasks, and [Tutorials](/docs/tutorials/) are more
 comprehensive walkthroughs of real-world, industry-specific, or end-to-end
 development scenarios. The [Reference](/docs/reference/) section provides
-detailed documentation on the [Kubernetes API](/docs/api-reference/{{page.version}}/)
+detailed documentation on the [Kubernetes API](/docs/reference/generated/kubernetes-api/{{page.version}}/)
 and command-line interfaces (CLIs), such as [`kubectl`](/docs/user-guide/kubectl-overview/).
 
 You may also find the Stack Overflow topics relevant:

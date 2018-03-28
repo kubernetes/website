@@ -72,9 +72,9 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 
 ### Reference
 
-* [PersistentVolume](/docs/api-reference/{{page.version}}/#persistentvolume-v1-core)
-* [PersistentVolumeClaim](/docs/api-reference/{{page.version}}/#persistentvolumeclaim-v1-core)
-* See the `persistentVolumeReclaimPolicy` field of [PersistentVolumeSpec](/docs/api-reference/{{page.version}}/#persistentvolumeclaim-v1-core).
+* [PersistentVolume](/docs/reference/generated/kubernetes-api/{{page.version}}/#persistentvolume-v1-core)
+* [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{page.version}}/#persistentvolumeclaim-v1-core)
+* See the `persistentVolumeReclaimPolicy` field of [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{page.version}}/#persistentvolumeclaim-v1-core).
 {% endcapture %}
 
 {% include templates/task.md %}

@@ -47,7 +47,7 @@ and reports two healthy devices on a node, the node status is updated
 to advertise 2 `vendor-domain/foo`.
 
 Then, users can request devices in a
-[Container](/docs/api-reference/{{page.version}}/#container-v1-core)
+[Container](/docs/reference/generated/kubernetes-api/{{page.version}}/#container-v1-core)
 specification as they request other types of resources, with the following limitations:
   * Extended resources are only supported as integer resources and cannot be overcommitted.
   * Devices cannot be shared among Containers.
@@ -118,9 +118,9 @@ The canonical directory `/var/lib/kubelet/device-plugins` requires privileged ac
 so a device plugin must run in a privileged security context.
 If a device plugin is running as a DaemonSet, `/var/lib/kubelet/device-plugins`
 must be mounted as a
-[Volume](/docs/api-reference/{{page.version}}/#volume-v1-core)
+[Volume](/docs/reference/generated/kubernetes-api/{{page.version}}/#volume-v1-core)
 in the plugin's
-[PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core).
+[PodSpec](/docs/reference/generated/kubernetes-api/{{page.version}}/#podspec-v1-core).
 
 Kubernetes device plugin support is still in alpha. As development continues, its API version can
 change in incompatible ways. We recommend that device plugin developers do the following:

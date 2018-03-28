@@ -32,7 +32,7 @@ Init Containers are exactly like regular Containers, except:
 If an Init Container fails for a Pod, Kubernetes restarts the Pod repeatedly until the Init
 Container succeeds. However, if the Pod has a `restartPolicy` of Never, it is not restarted.
 
-To specify a Container as an Init Container, add the `initContainers` field on the PodSpec as a JSON array of objects of type [v1.Container](/docs/api-reference/{{page.version}}/#container-v1-core) alongside the app `containers` array.
+To specify a Container as an Init Container, add the `initContainers` field on the PodSpec as a JSON array of objects of type [v1.Container](/docs/reference/generated/kubernetes-api/{{page.version}}/#container-v1-core) alongside the app `containers` array.
 The status of the init containers is returned in `status.initContainerStatuses`
 field as an array of the container statuses (similar to the `status.containerStatuses`
 field).

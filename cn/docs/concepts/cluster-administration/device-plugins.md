@@ -41,7 +41,7 @@ service Registration {
 例如， 设备插件注册 `vendor-domain/foo` 到 kubelet ，
 并上报了节点上的两个健康的设备后，节点状态将更新， 发布2个 `vendor-domain/foo` 。
 
-然后，开发者可以在 [容器](/docs/api-reference/{{page.version}}/#container-v1-core)
+然后，开发者可以在 [容器](/docs/reference/generated/kubernetes-api/{{page.version}}/#container-v1-core)
 规格中通过使用与
 [不透明整数型资源](/docs/tasks/configure-pod-container/opaque-integer-resource/)
 中同样的流程来请求使用设备。
@@ -84,7 +84,7 @@ Kubernetes能够重新启动 Pods 。 否则就需要额外的设备插件故障
 目录 `/var/lib/kubelet/device-plugins` 需要访问特权，
 所以设备插件必须在特权的安全上下文环境下运行。
 如果设备插件以 DaemonSet 形式运行， `/var/lib/kubelet/device-plugins`
-目录必须在插件的 [PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core) 中以 [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core) 的形式挂载。
+目录必须在插件的 [PodSpec](/docs/reference/generated/kubernetes-api/{{page.version}}/#podspec-v1-core) 中以 [Volume](/docs/reference/generated/kubernetes-api/{{page.version}}/#volume-v1-core) 的形式挂载。
 
 ## 示例
 
