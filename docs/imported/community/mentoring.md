@@ -41,9 +41,5 @@ Thanks to:
 * the many contributors who reviewed and participated in brainstorming,  
 * founding mentees for their willingness to try this out,  
 * founding Pilots (@chrislovecnm, @luxas, @kow3ns)
-
-We welcome PRs, suggestions, and help!
- try this out,  
-* founding Pilots (@chrislovecnm, @luxas, @kow3ns)
   
 We welcome PRs, suggestions, and help!
