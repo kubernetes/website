@@ -4,7 +4,6 @@ Generate and print a bootstrap token, but do not create it on the server.
 ### Synopsis
 
 
-
 This command will print out a randomly-generated bootstrap token that can be used with
 the "init" and "join" commands.
 
@@ -17,7 +16,13 @@ generate and print one for you.
 
 
 ```
-kubeadm token generate
+kubeadm token generate [flags]
+```
+
+### Options
+
+```
+  -h, --help   help for generate
 ```
 
 ### Options inherited from parent commands
