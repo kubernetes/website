@@ -6,10 +6,10 @@ date: Thursday, March 15, 2018
 
 It's possible nowadays to put almost any application in a container and run it. Creating cloud-native applications, however—containerized applications that are automated and orchestrated effectively by a cloud-native platform such as Kubernetes—requires additional effort. Cloud-native applications anticipate failure; they run and scale reliably even when their infrastructure experiences outages. To offer such capabilities, cloud-native platforms like Kubernetes impose a set of contracts and constraints on applications. These contracts ensure that applications they run conform to certain constraints and allow the platform to automate application management.
 
-I've outlined [seven principles][1] for containerized applications to follow in order to be fully cloud-native.   
+I've outlined [seven principles][1]for containerized applications to follow in order to be fully cloud-native.   
 
 | ----- |
-| ![][2] |
+| ![][2]{: .big-img}  |
 | Container Design Principles |
 
 

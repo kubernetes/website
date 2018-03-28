@@ -21,7 +21,7 @@ Let's demonstrate how to manage a MySQL sharding cluster.
 MySQL Sharding Cluster is a scale-out database architecture. Based on the hash algorithm, the architecture distributes data across all the shards of the cluster. Sharding is entirely transparent to clients: Proxy is able to connect to any Shards in the cluster and issue queries to the correct shards directly.
 
 | ----- |
-| ![][1] |
+| ![][1]{: .big-img} |
 |
 
 Note: Each shard corresponds to a single MySQL instance. Currently, WQ-RDS supports a maximum of 64 shards.

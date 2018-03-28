@@ -472,7 +472,7 @@ table.post-table ,.post-table tr, .post-table td, .post-table th {
 }
 
 img.big-img {
-  width: 125%;
+  width: 100%;
 }
 
 .content img {
