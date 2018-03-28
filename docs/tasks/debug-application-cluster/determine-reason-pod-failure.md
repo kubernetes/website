@@ -111,7 +111,7 @@ is empty and the container exited with an error. The log output is limited to
 {% capture whatsnext %}
 
 * See the `terminationMessagePath` field in
-  [Container](/docs/api-reference/{{page.version}}/#container-v1-core).
+  [Container](/docs/reference/generated/kubernetes-api/{{page.version}}/#container-v1-core).
 * Learn about [retrieving logs](/docs/concepts/cluster-administration/logging/).
 * Learn about [Go templates](https://golang.org/pkg/text/template/).
 
