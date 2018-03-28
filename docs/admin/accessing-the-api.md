@@ -126,30 +126,19 @@ for the corresponding API object, and then written to the object store (shown as
 ## API Server Ports and IPs
 
 The previous discussion applies to requests sent to the secure port of the API server
-(the typical case).  The API server can actually serve on 2 ports:
+(the typical case). In versions earlier than v1.10, the API server can serve
+the localhost by listening to an insecure port. This support has been removed
+since version 1.10.
 
-By default the Kubernetes API server serves HTTP on 2 ports:
+A cluster administrator can customize how the API server serves HTTPS requests:
 
-  1. `Localhost Port`:
-
-          - is intended for testing and bootstrap, and for other components of the master node
-            (scheduler, controller-manager) to talk to the API
-          - no TLS
-          - default is port 8080, change with `--insecure-port` flag.
-          - default IP is localhost, change with `--insecure-bind-address` flag.
-          - request **bypasses** authentication and authorization modules.
-          - request handled by admission control module(s).
-          - protected by need to have host access
-
-  2. `Secure Port`:
-
-          - use whenever possible
-          - uses TLS.  Set cert with `--tls-cert-file` and key with `--tls-private-key-file` flag.
-          - default is port 6443, change with `--secure-port` flag.
-          - default IP is first non-localhost network interface, change with `--bind-address` flag.
-          - request handled by authentication and authorization modules.
-          - request handled by admission control module(s).
-          - authentication and authorization modules run.
+- Set the TLS cert with `--tls-cert-file` and key with `--tls-private-key-file` flag.
+- Change the port to listen on (default to 6443) using the `--secure-port` flag.
+- Change the IP address to use by setting the `--bind-address` flag.
+  The default IP is obtained from the first non-localhost network interface.
+- Change the IP address to advertise to users by setting the `--advertise-address` flag.
+  This flag is typically used in a high-availability environment where the API
+  server clusters serve requests behind a loadbalancer with the advertised address.
 
 When the cluster is created by `kube-up.sh`, on Google Compute Engine (GCE),
 and on several other cloud providers, the API server serves on port 443.  On
