@@ -171,7 +171,7 @@ eval $(minikube docker-env)
 **Note:** Later, when you no longer wish to use the Minikube host, you can undo
 this change by running `eval $(minikube docker-env -u)`.
 
-Build your Docker image, using the Minikube Docker daemon:
+Build your Docker image, using the Minikube Docker daemon (mind the trailing dot):
 
 ```shell
 docker build -t hello-node:v1 .
@@ -297,7 +297,7 @@ response.end('Hello World Again!');
 
 ```
 
-Build a new version of your image:
+Build a new version of your image (mind the trailing dot):
 
 ```shell
 docker build -t hello-node:v2 .
@@ -341,7 +341,7 @@ Output:
 - ingress: disabled
 ```
 
-Minikube must be running for these command to take effect. To enable `heapster` addon, for example:
+Minikube must be running for these commands to take effect. To enable `heapster` addon, for example:
 
 ```shell
 minikube addons enable heapster

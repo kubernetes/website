@@ -11,6 +11,11 @@ toc:
   - docs/imported/release/notes.md
   - docs/setup/building-from-source.md
 
+- title: Version 1.10 Troubleshooting
+  landing page: /docs/reference/pvc-finalizer-downgrade-issue/
+  section:
+  - docs/reference/pvc-finalizer-downgrade-issue.md
+
 - title: Independent Solutions
   landing_page: /docs/getting-started-guides/minikube/
   section:
@@ -27,9 +32,8 @@ toc:
   - docs/getting-started-guides/alternatives.md
 
 - title: Hosted Solutions
-  landing_page: /docs/setup/hosted-solutions/overview/
+  landing_page: /docs/setup/pick-right-solution/#hosted-solutions
   section:
-  - docs/setup/hosted-solutions/overview.md
   - title: Running Kubernetes on Google Kubernetes Engine
     path: https://cloud.google.com/kubernetes-engine/docs/before-you-begin/
   - title: Running Kubernetes on Azure Container Service
@@ -71,7 +75,6 @@ toc:
 
     - title: Bare Metal
       section:
-      - docs/getting-started-guides/coreos/bare_metal_offline.md
       - docs/getting-started-guides/fedora/fedora_manual_config.md
       - docs/getting-started-guides/fedora/flannel_multi_node_cluster.md
       - docs/getting-started-guides/coreos/index.md

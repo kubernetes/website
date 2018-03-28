@@ -31,8 +31,7 @@ controllers may modify the objects they admit; validating controllers may not.
 The admission control process proceeds in two phases. In the first phase,
 mutating admission controllers are run. In the second phase, validating
 admission controllers are run. Note again that some of the controllers are
-both. In both phases, the controllers are run in the order specified by the
-`--admission-control` flag of `kube-apiserver`.
+both.
 
 If any of the controllers in either phase reject the request, the entire
 request is rejected immediately and an error is returned to the end-user.
@@ -54,13 +53,12 @@ support all the features you expect.
 
 ## How do I turn on an admission controller?
 
-The Kubernetes API server supports a flag, `admission-control` that takes a comma-delimited,
-ordered list of admission control choices to invoke prior to modifying objects in the cluster.
-For example, the following command line turns on the `NamespaceLifecycle` and the `LimitRanger`
-admission controller:
+The Kubernetes API server flag `enable-admission-plugins` takes a comma-delimited list of admission control plugins to invoke prior to modifying objects in the cluster.
+For example, the following command line enables the `NamespaceLifecycle` and the `LimitRanger`
+admission control plugins:
 
 ```shell
-kube-apiserver --admission-control=NamespaceLifecyle,LimitRanger ...
+kube-apiserver --enable-admission-plugins=NamespaceLifecyle,LimitRanger ...
 ```
 
 **Note**: Depending on the way your Kubernetes cluster is deployed and how the
@@ -70,11 +68,19 @@ deployed as a systemd service, you may modify the manifest file for the API
 server if Kubernetes is deployed in a self-hosted way.
 {: .note}
 
+## How do I turn off an admission controller?
+
+The Kubernetes API server flag `disable-admission-plugins` takes a comma-delimited list of admission control plugins to be disabled, even if they are in the list of plugins enabled by default.
+
+```shell
+kube-apiserver --disable-admission-plugins=PodNodeSelector,AlwaysDeny ...
+```
+
 ## What does each admission controller do?
 
-### AlwaysAdmit
+### AlwaysAdmit (DEPRECATED)
 
-Use this admission controller by itself to pass-through all requests.
+Use this admission controller by itself to pass-through all requests. AlwaysAdmit is DEPRECATED as no real meaning.
 
 ### AlwaysPullImages
 
@@ -86,9 +92,9 @@ scheduled onto the right node), without any authorization check against the imag
 is enabled, images are always pulled prior to starting containers, which means valid credentials are
 required.
 
-### AlwaysDeny
+### AlwaysDeny (DEPRECATED)
 
-Rejects all requests.  Used for testing.
+Rejects all requests. AlwaysDeny is DEPRECATED as no real meaning.
 
 ### DefaultStorageClass
 
@@ -134,7 +140,7 @@ enabling this admission controller.
 
 ### EventRateLimit (alpha)
 
-This admission controller is introduced in v1.9 to mitigate the problem where the API server gets flooded by
+This admission controller mitigates the problem where the API server gets flooded by
 event requests. The cluster admin can specify event rate limits by:
 
  * Ensuring that `eventratelimit.admission.k8s.io/v1alpha1=true` is included in the
@@ -180,7 +186,7 @@ for more details.
 
 ### ExtendedResourceToleration
 
-This plug-in is introduced in v1.9 to facilitate creation of dedicated nodes with extended resources.
+This plug-in facilitates creation of dedicated nodes with extended resources.
 If operators want to create dedicated nodes with extended resources (like GPUs, FPGAs etc.), they are expected to
 taint the node with the extended resource name as the key. This admission controller, if enabled, automatically
 adds tolerations for such taints to pods requesting extended resources, so users don't have to manually
@@ -188,11 +194,7 @@ add these tolerations.
 
 ### ImagePolicyWebhook
 
-The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions. You enable this admission controller by setting the admission-control option as follows:
-
-```shell
---admission-control=ImagePolicyWebhook
-```
+The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions. 
 
 #### Configuration File Format
 
@@ -314,7 +316,6 @@ In any case, the annotations are provided by the user and are not validated by K
 
 ### Initializers (alpha)
 
-This admission controller is introduced in v1.7.
 The admission controller determines the initializers of a resource based on the existing
 `InitializerConfiguration`s. It sets the pending initializers by modifying the
 metadata of the resource to be created.
@@ -329,9 +330,9 @@ When the admission controller sets a compute resource request, it does this by *
 the pod spec rather than mutating the `container.resources` fields.
 The annotations added contain the information on what compute resources were auto-populated.
 
-See the [InitialResouces proposal](https://git.k8s.io/community/contributors/design-proposals/autoscaling/initial-resources.md) for more details.
+See the [InitialResources proposal](https://git.k8s.io/community/contributors/design-proposals/autoscaling/initial-resources.md) for more details.
 
-### LimitPodHardAntiAffinity
+### LimitPodHardAntiAffinityTopology
 
 This admission controller denies any pod that defines `AntiAffinity` topology key other than
 `kubernetes.io/hostname` in `requiredDuringSchedulingRequiredDuringExecution`.
@@ -414,11 +415,7 @@ This admission controller also protects the access to `metadata.ownerReferences[
 of an object, so that only users with "update" permission to the `finalizers`
 subresource of the referenced *owner* can change it.
 
-### Persistent Volume Claim Protection (alpha)
-{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
-The `PVCProtection` plugin adds the `kubernetes.io/pvc-protection` finalizer to newly created Persistent Volume Claims (PVCs). In case a user deletes a PVC the PVC is not removed until the finalizer is removed from the PVC by PVC Protection Controller. Refer to the [PVC Protection](/docs/concepts/storage/persistent-volumes/#persistent-volume-claim-protection) for more detailed information.
-
-### PersistentVolumeLabel
+### PersistentVolumeLabel (DEPRECATED)
 
 This admission controller automatically attaches region or zone labels to PersistentVolumes
 as defined by the cloud provider (for example, GCE or AWS).
@@ -426,7 +423,7 @@ It helps ensure the Pods and the PersistentVolumes mounted are in the same
 region and/or zone.
 If the admission controller doesn't support automatic labelling your PersistentVolumes, you
 may need to add the labels manually to prevent pods from mounting volumes from
-a different zone.
+a different zone. PersistentVolumeLabel is DEPRECATED and labeling persistent volumes has been taken over by [cloud controller manager](/docs/tasks/administer-cluster/running-cloud-controller/).
 
 ### PodNodeSelector
 
@@ -434,7 +431,7 @@ This admission controller defaults and limits what node selectors may be used wi
 
 #### Configuration File Format
 
-PodNodeSelector uses a configuration file to set options for the behavior of the backend.
+`PodNodeSelector` uses a configuration file to set options for the behavior of the backend.
 Note that the configuration file format will move to a versioned file in a future release.
 This file may be json or yaml and has the following format:
 
@@ -445,7 +442,7 @@ podNodeSelectorPluginConfig:
  namespace2: <node-selectors-labels>
 ```
 
-Reference the PodNodeSelector configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
+Reference the `PodNodeSelector` configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
 
 ```yaml
 kind: AdmissionConfiguration
@@ -457,7 +454,7 @@ plugins:
 ```
 
 #### Configuration Annotation Format
-PodNodeSelector uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign node selectors to namespaces.
+`PodNodeSelector` uses the annotation key `scheduler.kubernetes.io/node-selector` to assign node selectors to namespaces.
 
 ```yaml
 apiVersion: v1
@@ -467,6 +464,19 @@ metadata:
     scheduler.alpha.kubernetes.io/node-selector: <node-selectors-labels>
   name: namespace3
 ```
+
+#### Internal Behavior
+This admission controller has the following behavior:
+  1. If the `Namespace` has an annotation with a key `scheduler.kubernetes.io/nodeSelector`, use its value as the
+     node selector.
+  1. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the `PodNodeSelector`
+     plugin configuration file as the node selector.
+  1. Evaluate the pod's node selector against the namespace node selector for conflicts. Conflicts result in rejection.
+  1. Evaluate the pod's node selector against the namespace-specific whitelist defined the plugin configuration file.
+     Conflicts result in rejection.
+
+**Note:** `PodTolerationRestriction` is more versatile and powerful than `PodNodeSelector` and can encompass the scenarios supported by `PodNodeSelector`.
+{: .note}
 
 ### PersistentVolumeClaimResize
 
@@ -545,8 +555,6 @@ objects in your Kubernetes deployment, you MUST use this admission controller to
 
 See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 
-It is strongly encouraged that this admission controller is configured last in the sequence of admission controllers.  This is
-so that quota is not prematurely incremented only for the request to be rejected later in admission control.
 
 ### SecurityContextDeny
 
@@ -556,6 +564,10 @@ This admission controller will deny any pod that attempts to set certain escalat
 
 This admission controller implements automation for [serviceAccounts](/docs/user-guide/service-accounts).
 We strongly recommend using this admission controller if you intend to make use of Kubernetes `ServiceAccount` objects.
+
+### Storage Object in Use Protection (beta)
+{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
+The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection` finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV). In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed from the PVC or PV by PVC or PV Protection Controller. Refer to the [Storage Object in Use Protection](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection) for more detailed information.
 
 ### ValidatingAdmissionWebhook (alpha in 1.8; beta in 1.9)
 
@@ -577,7 +589,7 @@ versions >= 1.9).
 ## Is there a recommended set of admission controllers to use?
 
 Yes.
-For Kubernetes >= 1.9.0, we strongly recommend running the following set of admission controllers (order matters):
+For Kubernetes >= 1.9.0, we strongly recommend running the following set of admission controllers (order matters for 1.9 but not >1.10):
 
 ```shell
 --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota

@@ -48,6 +48,14 @@ After the snapshot, upgrade the etcd service with:
 
 This will handle upgrades between minor versions of etcd. Instructions on how to upgrade from 2.x to 3.x can be found [here](https://github.com/juju-solutions/bundle-canonical-kubernetes/wiki/Etcd-2.3-to-3.x-upgrade) in the juju-solutions wiki.
 
+### Upgrade kubeapi-load-balancer
+
+The Kubernetes Charms are generally all updated and released at the same time. A core part of a cluster on Ubuntu is the kubeapi-load-balancer component. Incorrect or missing changes there can have an effect on API availability and access controls. To ensure API service continuity for the master and workers when they are updated, this upgrade needs to precede them.
+
+To upgrade the charm run:
+
+    juju upgrade-charm kubeapi-load-balancer
+
 ### Upgrade Kubernetes
 
 The Kubernetes Charms use snap channels to drive payloads.

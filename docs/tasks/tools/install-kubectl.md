@@ -13,9 +13,13 @@ Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to d
 Use a version of kubectl that is the same version as your server or later. Using an older kubectl with a newer server might produce validation errors.
 {% endcapture %}
 
+## Install kubectl
+
 Here are a few methods to install kubectl.
+Pick the one that suits your environment best.
+
 {% capture steps %}
-## Install kubectl binary via curl
+### Install kubectl binary via curl
 
 {% capture macos %}
 1. Download the latest release with the command:
@@ -83,7 +87,7 @@ Here are a few methods to install kubectl.
 
 {% include tabs.md %}
 
-## Download as part of the Google Cloud SDK
+### Download as part of the Google Cloud SDK
 
 kubectl can be installed as part of the Google Cloud SDK.
 
@@ -94,7 +98,7 @@ kubectl can be installed as part of the Google Cloud SDK.
 
 3. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
-## Install with snap on Ubuntu
+### Install with snap on Ubuntu
 
 kubectl is available as a [snap](https://snapcraft.io/) application.
 
@@ -104,7 +108,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
-## Install with Homebrew on macOS
+### Install with Homebrew on macOS
 
 1. If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install with:
 
@@ -112,7 +116,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
-## Install with Powershell from PSGallery
+### Install with Powershell from PSGallery
 
 1. If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update with:
 
@@ -125,7 +129,7 @@ If no Downloadlocation is specified, kubectl will be installed in users temp Dir
 re-run Install-Script to update the installer
 re-run install-kubectl.ps1 to install latest binaries
 
-## Install with Chocolatey on Windows
+### Install with Chocolatey on Windows
 
 1. If you are on Windows and using [Chocolatey](https://chocolatey.org) package manager, you can install with:
 

@@ -233,7 +233,7 @@ Other API server flags that are set unconditionally are:
  - `--enable-bootstrap-token-auth=true` to enable the `BootstrapTokenAuthenticator` authentication module. see [TLS Bootstrapping](/docs/admin/kubelet-tls-bootstrapping.md) for more details
  - `--allow-privileged` to `true` (required e.g. by kube proxy)
  - `--requestheader-client-ca-file` to `front-proxy-ca.crt`
- - `--admission-control` to:
+ - `--enable-admission-plugins` to:
     - [`Initializers`](/docs/admin/admission-controllers/#initializers-alpha) to enable [Dynamic Admission Control](/docs/admin/extensible-admission-controllers/).
     - [`NamespaceLifecycle`](/docs/admin/admission-controllers/#namespacelifecycle) e.g. to avoid deletion of 
       system reserved namespaces

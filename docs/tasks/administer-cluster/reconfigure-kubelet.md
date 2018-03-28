@@ -42,21 +42,21 @@ The basic workflow for configuring a Kubelet in a live cluster is as follows:
 1. Write a YAML or JSON configuration file containing the
 Kubelet's configuration.
 2. Wrap this file in a ConfigMap and save it to the Kubernetes control plane.
-3. Update the Kubelet's correspoinding Node object to use this ConfigMap.
+3. Update the Kubelet's corresponding Node object to use this ConfigMap.
 
 Each Kubelet watches a configuration reference on its respective Node object.
-When this reference changes, the Kubelet downloads the new configuration and
-exits. For the feature to work correctly, you must be running a process manager
+When this reference changes, the Kubelet downloads the new configuration,
+updates a local reference to refer to the file, and exits.
+For the feature to work correctly, you must be running a process manager
 (like systemd) which will restart the Kubelet when it exits. When the Kubelet is
 restarted, it will begin using the new configuration.
 
-The new configuration completely overrides the old configuration; unspecified
-fields in the new configuration will receive their canonical default values.
-Some CLI flags do not have an associated configuration field, and will not be
-affected by the new configuration. These fields are defined by the KubeletFlags
-structure, [here](https://github.com/kubernetes/kubernetes/blob/master/cmd/kubelet/app/options/options.go).
+The new configuration completely overrides configuration provided by `--config`,
+and is overridden by command-line flags. Unspecified values in the new configuration
+will receive default values appropriate to the configuration version
+(e.g. `kubelet.config.k8s.io/v1beta1`), unless overridden by flags.
 
-The status of the Node's Kubelet configuration is reported via the `ConfigOK`
+The status of the Node's Kubelet configuration is reported via the `KubeletConfigOK`
 condition in the Node status. Once you have updated a Node to use the new
 ConfigMap, you can observe this condition to confirm that the Node is using the
 intended configuration. A table describing the possible conditions can be found
@@ -95,13 +95,13 @@ and you will simply edit a copy of this file (which, as a best practice, should
 live in version control) while creating the first Kubelet ConfigMap. Today,
 however, the Kubelet is still bootstrapped with command-line flags. Fortunately,
 there is a dirty trick you can use to generate a config file containing a Node's
-current configuration. The trick involves hitting the Kubelet server's `configz`
+current configuration. The trick involves accessing the Kubelet server's `configz`
 endpoint via the kubectl proxy. This endpoint, in its current implementation, is
 intended to be used only as a debugging aid, which is part of why this is a
-dirty trick. There is ongoing work to improve the endpoint, and in the future
-this will be a less "dirty" operation. This trick also requires the `jq` command
-to be installed on your machine, for unpacking and editing the JSON response
-from the endpoint.
+dirty trick. The endpoint may be improved in the future, but until then
+it should not be relied on for production scenarios.
+This trick also requires the `jq` command to be installed on your machine,
+for unpacking and editing the JSON response from the endpoint.
 
 Do the following to generate the file:
 
@@ -112,12 +112,12 @@ configz endpoint:
 
 ```
 $ export NODE_NAME=the-name-of-the-node-you-are-reconfiguring
-$ curl -sSL http://localhost:8001/api/v1/proxy/nodes/${NODE_NAME}/configz | jq '.kubeletconfig|.kind="KubeletConfiguration"|.apiVersion="kubeletconfig/v1alpha1"' > kubelet_configz_${NODE_NAME}
+$ curl -sSL http://localhost:8001/api/v1/proxy/nodes/${NODE_NAME}/configz | jq '.kubeletconfig|.kind="KubeletConfiguration"|.apiVersion="kubelet.config.k8s.io/v1beta1"' > kubelet_configz_${NODE_NAME}
 ```
 
 Note that we have to manually add the `kind` and `apiVersion` to the downloaded
 object, as these are not reported by the configz endpoint. This is one of the
-limitations of the endpoint that is planned to be fixed in the future.
+limitations of the endpoint.
 
 ### Edit the configuration file
 
@@ -209,29 +209,29 @@ Be sure to specify all three of `name`, `namespace`, and `uid`.
 ### Observe that the Node begins using the new configuration
 
 Retrieve the Node with `kubectl get node ${NODE_NAME} -o yaml`, and look for the
-`ConfigOK` condition in `status.conditions`. You should see the message
+`KubeletConfigOK` condition in `status.conditions`. You should see the message
 `Using current (UID: CONFIG_MAP_UID)` when the Kubelet starts using the new
 configuration.
 
 For convenience, you can use the following command (using `jq`) to filter down
-to the `ConfigOK` condition:
+to the `KubeletConfigOK` condition:
 
 ```
-$ kubectl get no ${NODE_NAME} -o json | jq '.status.conditions|map(select(.type=="ConfigOK"))'
+$ kubectl get no ${NODE_NAME} -o json | jq '.status.conditions|map(select(.type=="KubeletConfigOK"))'
 [
   {
     "lastHeartbeatTime": "2017-09-20T18:08:29Z",
     "lastTransitionTime": "2017-09-20T18:08:17Z",
-    "message": "using current (UID: \"2ebc8d1a-9e2a-11e7-a8dd-42010a800006\")",
+    "message": "using current: /api/v1/namespaces/kube-system/configmaps/my-node-config-gkt4c2m4b2",
     "reason": "passing all checks",
     "status": "True",
-    "type": "ConfigOK"
+    "type": "KubeletConfigOK"
   }
 ]
 ```
 
 If something goes wrong, you may see one of several different error conditions,
-detailed in the Table of ConfigOK Conditions, below. When this happens, you
+detailed in the table of KubeletConfigOK conditions, below. When this happens, you
 should check the Kubelet's log for more details.
 
 ### Edit the configuration file again
@@ -282,16 +282,16 @@ the following, with `name` and `uid` substituted as necessary:
 ```
 configSource:
     configMapRef:
-        name: NEW_CONFIG_MAP_NAME
+        name: ${NEW_CONFIG_MAP_NAME}
         namespace: kube-system
-        uid: NEW_CONFIG_MAP_UID
+        uid: ${NEW_CONFIG_MAP_UID}
 ```
 
 ### Observe that the Kubelet is using the new configuration
 
 Once more, retrieve the Node with `kubectl get node ${NODE_NAME} -o yaml`, and
-look for the `ConfigOK` condition in `status.conditions`. You should see the message
-`Using current (UID: NEW_CONFIG_MAP_UID)` when the Kubelet starts using the
+look for the `KubeletConfigOK` condition in `status.conditions`. You should see the message
+`using current: /api/v1/namespaces/kube-system/configmaps/${NEW_CONFIG_MAP_NAME}` when the Kubelet starts using the
 new configuration.
 
 ### Deauthorize your Node fom reading the old ConfigMap
@@ -327,9 +327,8 @@ remove the `spec.configSource` subfield.
 
 ### Observe that the Node is using its local default configuration
 
-After removing this subfield, you should eventually observe that the ConfigOK
-condition's message reverts to either `using current (default)` or
-`using current (init)`, depending on how the Node was provisioned.
+After removing this subfield, you should eventually observe that the KubeletConfigOK
+condition's message reverts to `using current: local`.
 
 ### Deauthorize your Node fom reading the old ConfigMap
 
@@ -366,9 +365,9 @@ Here is an example command that uses `kubectl patch`:
 kubectl patch node ${NODE_NAME} -p "{\"spec\":{\"configSource\":{\"configMapRef\":{\"name\":\"${CONFIG_MAP_NAME}\",\"namespace\":\"kube-system\",\"uid\":\"${CONFIG_MAP_UID}\"}}}}"
 ```
 
-## Understanding ConfigOK Conditions
+## Understanding KubeletConfigOK Conditions
 
-The following table describes several of the `ConfigOK` Node conditions you
+The following table describes several of the `KubeletConfigOK` Node conditions you
 might encounter in a cluster that has Dynamic Kubelet Config enabled. If you
 observe a condition with `status=False`, you should check the Kubelet log for
 more error details by searching for the message or reason text.
@@ -383,49 +382,33 @@ more error details by searching for the message or reason text.
     <th>Status</th>
 </tr>
 <tr>
-    <td><p>using current (default)</p></td>
-    <td><p>current is set to the local default, and no init config was provided</p></td>
+    <td><p>using current: local</p></td>
+    <td><p>when the config source is nil, the Kubelet uses its local config</p></td>
     <td><p>True</p></td>
 </tr>
 <tr>
-    <td><p>using current (init)</p></td>
-    <td><p>current is set to the local default, and an init config was provided</p></td>
-    <td><p>True</p></td>
-</tr>
-<tr>
-    <td><p>using current (UID: CURRENT_CONFIG_MAP_UID)</p></td>
+    <td><p>using current: /api/v1/namespaces/${CURRENT_CONFIG_MAP_NAMESPACE}/configmaps/${CURRENT_CONFIG_MAP_NAME}</p></td>
     <td><p>passing all checks</p></td>
     <td><p>True</p></td>
 </tr>
 <tr>
-    <td><p>using last-known-good (default)</p></td>
+    <td><p>using last-known-good: local</p></td>
     <td>
         <ul>
-            <li>failed to load current (UID: CURRENT_CONFIG_MAP_UID)</li>
-            <li>failed to parse current (UID: CURRENT_CONFIG_MAP_UID)</li>
-            <li>failed to validate current (UID: CURRENT_CONFIG_MAP_UID)</li>
+            <li>failed to load current: /api/v1/namespaces/${CURRENT_CONFIG_MAP_NAMESPACE}/configmaps/${CURRENT_CONFIG_MAP_NAME}</li>
+            <li>failed to parse current: /api/v1/namespaces/${CURRENT_CONFIG_MAP_NAMESPACE}/configmaps/${CURRENT_CONFIG_MAP_NAME}</li>
+            <li>failed to validate current: /api/v1/namespaces/${CURRENT_CONFIG_MAP_NAMESPACE}/configmaps/${CURRENT_CONFIG_MAP_NAME}</li>
         </ul>
     </td>
     <td><p>False</p></td>
 </tr>
 <tr>
-    <td><p>using last-known-good (init)</p></td>
+    <td><p>using last-known-good: /api/v1/namespaces/${LAST_KNOWN_GOOD_CONFIG_MAP_NAMESPACE}/configmaps/${LAST_KNOWN_GOOD_CONFIG_MAP_NAME}</p></td>
     <td>
         <ul>
-            <li>failed to load current (UID: CURRENT_CONFIG_MAP_UID)</li>
-            <li>failed to parse current (UID: CURRENT_CONFIG_MAP_UID)</li>
-            <li>failed to validate current (UID: CURRENT_CONFIG_MAP_UID)</li>
-        </ul>
-    </td>
-    <td><p>False</p></td>
-</tr>
-<tr>
-    <td><p>using last-known-good (UID: LAST_KNOWN_GOOD_CONFIG_MAP_UID)</p></td>
-    <td>
-        <ul>
-            <li>failed to load current (UID: CURRENT_CONFIG_MAP_UID)</li>
-            <li>failed to parse current (UID: CURRENT_CONFIG_MAP_UID)</li>
-            <li>failed to validate current (UID: CURRENT_CONFIG_MAP_UID)</li>
+            <li>failed to load current: /api/v1/namespaces/${CURRENT_CONFIG_MAP_NAMESPACE}/configmaps/${CURRENT_CONFIG_MAP_NAME}</li>
+            <li>failed to parse current: /api/v1/namespaces/${CURRENT_CONFIG_MAP_NAMESPACE}/configmaps/${CURRENT_CONFIG_MAP_NAME}</li>
+            <li>failed to validate current: /api/v1/namespaces/${CURRENT_CONFIG_MAP_NAMESPACE}/configmaps/${CURRENT_CONFIG_MAP_NAME}</li>
         </ul>
     </td>
     <td><p>False</p></td>
@@ -451,15 +434,15 @@ more error details by searching for the message or reason text.
     <p>failed to sync, reason:</p>
     <ul>
         <li>failed to read Node from informer object cache</li>
-        <li>failed to reset to local (default or init) config</li>
+        <li>failed to reset to local config</li>
         <li>invalid NodeConfigSource, exactly one subfield must be non-nil, but all were nil</li>
         <li>invalid ObjectReference, all of UID, Name, and Namespace must be specified</li>
-        <li>invalid ObjectReference, UID SOME_UID does not match UID of downloaded ConfigMap SOME_OTHER_UID</li>
-        <li>failed to determine whether object with UID SOME_UID was already checkpointed</li>
-        <li>failed to download ConfigMap with name SOME_NAME from namespace SOME_NAMESPACE</li>
-        <li>failed to save config checkpoint for object with UID SOME_UID</li>
-        <li>failed to set current config checkpoint to default</li>
-        <li>failed to set current config checkpoint to object with UID SOME_UID</li>
+        <li>invalid ConfigSource.ConfigMapRef.UID: ${UID} does not match ${API_PATH}.UID: ${UID_OF_CONFIG_MAP_AT_API_PATH}</li>
+        <li>failed to determine whether object ${API_PATH} with UID ${UID} was already checkpointed</li>
+        <li>failed to download ConfigMap with name ${NAME} from namespace ${NAMESPACE}</li>
+        <li>failed to save config checkpoint for object ${API_PATH} with UID ${UID}</li>
+        <li>failed to set current config checkpoint to local config</li>
+        <li>failed to set current config checkpoint to object ${API_PATH} with UID ${UID}</li>
     </ul>
     </td>
     <td><p>False</p></td>

@@ -10,15 +10,17 @@ Ubuntu 16.04 introduced the [Canonical Distribution of Kubernetes](https://www.u
 {% endcapture %}
 
 {% capture prerequisites %}
-- A working [Juju client](https://jujucharms.com/docs/2.2/reference-install); this does not have to be a Linux machine, it can also be Windows or OSX.
+- A working [Juju client](https://jujucharms.com/docs/2.3/reference-install); this does not have to be a Linux machine, it can also be Windows or OSX.
 - A [supported cloud](#cloud-compatibility).
   - Bare Metal deployments are supported via [MAAS](http://maas.io). Refer to the [MAAS documentation](http://maas.io/docs/) for configuration instructions.
   - OpenStack deployments are currently only tested on Icehouse and newer.
-- Network access to the following domains
-  - *.jujucharms.com
-  - gcr.io
-  - github.com
-  - Access to an Ubuntu mirror (public or private)
+- One of the following:
+  - Network access to the following domains
+    - *.jujucharms.com
+    - gcr.io
+    - github.com
+    - Access to an Ubuntu mirror (public or private)
+  - Offline deployment prepared with [these](https://github.com/juju-solutions/bundle-canonical-kubernetes/wiki/Running-CDK-in-a-restricted-environment) instructions.
 {% endcapture %}
 
 
@@ -27,7 +29,7 @@ Ubuntu 16.04 introduced the [Canonical Distribution of Kubernetes](https://www.u
 Out of the box the deployment comes with the following components on 9 machines:
 
 - Kubernetes (automated deployment, operations, and scaling)
-     - Three node Kubernetes cluster with one master and two worker nodes.
+     - Four node Kubernetes cluster with one master and three worker nodes.
      - TLS used for communication between units for security.
      - Flannel Software Defined Network (SDN) plugin
      - A load balancer for HA kubernetes-master (Experimental)
@@ -60,13 +62,26 @@ Bare Metal (MAAS)           | Juju         | Ubuntu | flannel, calico     | [doc
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 
-## Configure Juju to use your cloud provider
+## Installation options
+
+You can launch a cluster in one of two ways: [conjure-up](#conjure-up) or [juju deploy](#juju-deploy). Conjure-up is just a convenience wrapper over juju and simplifies the installation. As such, it is the preferred method of install.
 
 Deployment of the cluster is [supported on a wide variety of public clouds](#cloud-compatibility), private OpenStack clouds, or raw bare metal clusters. Bare metal deployments are supported via [MAAS](http://maas.io/).
 
+## Conjure-up
+To install Kubernetes with conjure-up, you need only to run the following commands and then follow the prompts:
+
+```
+sudo snap install conjure-up --classic
+conjure-up kubernetes
+```
+## Juju deploy
+
+### Configure Juju to use your cloud provider
+
 After deciding which cloud to deploy to, follow the [cloud setup page](https://jujucharms.com/docs/devel/getting-started) to configure deploying to that cloud.
 
-Load your [cloud credentials](https://jujucharms.com/docs/2.2/credentials) for each
+Load your [cloud credentials](https://jujucharms.com/docs/2.3/credentials) for each
 cloud provider you would like to use.
 
 In this example
@@ -99,11 +114,11 @@ ERROR failed to bootstrap model: instance provisioning failed (Failed)
 ```
 
 
-You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.2/controllers) for more information.
+You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.3/controllers) for more information.
 
 Note that each controller can host multiple Kubernetes clusters in a given cloud or region.
 
-## Launch a Kubernetes cluster
+### Launch a Kubernetes cluster
 
 The following command will deploy the initial 9-node starter cluster. The speed of execution is very dependent of the performance of the cloud you're deploying to:
 
@@ -122,50 +137,64 @@ The `juju status` command provides information about each unit in the cluster. U
 Output:
 
 ```
-Model    Controller     Cloud/Region   Version
-default  aws-us-east-2  aws/us-east-2  2.0.1
+Model                         Controller          Cloud/Region   Version  SLA
+conjure-canonical-kubern-f48  conjure-up-aws-650  aws/us-east-2  2.3.2    unsupported
 
-App                    Version  Status       Scale  Charm                  Store       Rev  OS      Notes
-easyrsa                3.0.1    active           1  easyrsa                jujucharms    3  ubuntu  
-etcd                   3.1.2    active           3  etcd                   jujucharms   14  ubuntu  
-flannel                0.6.1    maintenance      4  flannel                jujucharms    5  ubuntu  
-kubeapi-load-balancer  1.10.0   active           1  kubeapi-load-balancer  jujucharms    3  ubuntu  exposed
-kubernetes-master      1.6.1    active           1  kubernetes-master      jujucharms    6  ubuntu  
-kubernetes-worker      1.6.1    active           3  kubernetes-worker      jujucharms    8  ubuntu  exposed
-topbeat                         active           3  topbeat                jujucharms    5  ubuntu  
+App                    Version  Status  Scale  Charm                  Store       Rev  OS      Notes
+easyrsa                3.0.1    active      1  easyrsa                jujucharms   27  ubuntu  
+etcd                   2.3.8    active      3  etcd                   jujucharms   63  ubuntu  
+flannel                0.9.1    active      4  flannel                jujucharms   40  ubuntu  
+kubeapi-load-balancer  1.10.3   active      1  kubeapi-load-balancer  jujucharms   43  ubuntu  exposed
+kubernetes-master      1.9.3    active      1  kubernetes-master      jujucharms   13  ubuntu  
+kubernetes-worker      1.9.3    active      3  kubernetes-worker      jujucharms   81  ubuntu  exposed
 
-Unit                      Workload     Agent  Machine  Public address  Ports            Message
-easyrsa/0*                active       idle   0        52.15.95.92                      Certificate Authority connected.
-etcd/0                    active       idle   3        52.15.79.127    2379/tcp         Healthy with 3 known peers.
-etcd/1*                   active       idle   4        52.15.111.66    2379/tcp         Healthy with 3 known peers. (leader)
-etcd/2                    active       idle   5        52.15.144.25    2379/tcp         Healthy with 3 known peers.
-kubeapi-load-balancer/0*  active       idle   7        52.15.84.179    443/tcp          Loadbalancer ready.
-kubernetes-master/0*      active       idle   8        52.15.106.225   6443/tcp         Kubernetes master services ready.
-  flannel/3               active       idle            52.15.106.225                    Flannel subnet 10.1.48.1/24
-kubernetes-worker/0*      active       idle   9        52.15.153.246                    Kubernetes worker running.
-  flannel/2               active       idle            52.15.153.246                    Flannel subnet 10.1.53.1/24
-kubernetes-worker/1       active       idle   10       52.15.52.103                     Kubernetes worker running.
-  flannel/0*              active       idle            52.15.52.103                     Flannel subnet 10.1.31.1/24
-kubernetes-worker/2       active       idle   11       52.15.104.181                    Kubernetes worker running.
-  flannel/1               active       idle            52.15.104.181                    Flannel subnet 10.1.83.1/24
+Unit                      Workload  Agent  Machine  Public address  Ports           Message
+easyrsa/0*                active    idle   3        18.219.190.99                   Certificate Authority connected.
+etcd/0                    active    idle   5        18.219.56.23    2379/tcp        Healthy with 3 known peers
+etcd/1*                   active    idle   0        18.219.212.151  2379/tcp        Healthy with 3 known peers
+etcd/2                    active    idle   6        13.59.240.210   2379/tcp        Healthy with 3 known peers
+kubeapi-load-balancer/0*  active    idle   1        18.222.61.65    443/tcp         Loadbalancer ready.
+kubernetes-master/0*      active    idle   4        18.219.105.220  6443/tcp        Kubernetes master running.
+  flannel/3               active    idle            18.219.105.220                  Flannel subnet 10.1.78.1/24
+kubernetes-worker/0       active    idle   2        18.219.221.98   80/tcp,443/tcp  Kubernetes worker running.
+  flannel/1               active    idle            18.219.221.98                   Flannel subnet 10.1.38.1/24
+kubernetes-worker/1*      active    idle   7        18.219.249.103  80/tcp,443/tcp  Kubernetes worker running.
+  flannel/2               active    idle            18.219.249.103                  Flannel subnet 10.1.68.1/24
+kubernetes-worker/2       active    idle   8        52.15.89.16     80/tcp,443/tcp  Kubernetes worker running.
+  flannel/0*              active    idle            52.15.89.16                     Flannel subnet 10.1.73.1/24
 
-Machine  State    DNS            Inst id              Series  AZ
-0        started  52.15.95.92    i-06e66414008eca61c  xenial  us-east-2c
-3        started  52.15.79.127   i-0038186d2c5103739  xenial  us-east-2b
-4        started  52.15.111.66   i-0ac66c86a8ec93b18  xenial  us-east-2a
-5        started  52.15.144.25   i-078cfe79313d598c9  xenial  us-east-2c
-7        started  52.15.84.179   i-00fd70321a51b658b  xenial  us-east-2c
-8        started  52.15.106.225  i-0109a5fc942c53ed7  xenial  us-east-2b
-9        started  52.15.153.246  i-0ab63e34959cace8d  xenial  us-east-2b
-10       started  52.15.52.103   i-0108a8cc0978954b5  xenial  us-east-2a
-11       started  52.15.104.181  i-0f5562571c649f0f2  xenial  us-east-2c
+Machine  State    DNS             Inst id              Series  AZ          Message
+0        started  18.219.212.151  i-065eab4eabc691b25  xenial  us-east-2a  running
+1        started  18.222.61.65    i-0b332955f028d6281  xenial  us-east-2b  running
+2        started  18.219.221.98   i-0879ef1ed95b569bc  xenial  us-east-2a  running
+3        started  18.219.190.99   i-08a7b364fc008fc85  xenial  us-east-2c  running
+4        started  18.219.105.220  i-0f92d3420b01085af  xenial  us-east-2a  running
+5        started  18.219.56.23    i-0271f6448cebae352  xenial  us-east-2c  running
+6        started  13.59.240.210   i-0789ef5837e0669b3  xenial  us-east-2b  running
+7        started  18.219.249.103  i-02f110b0ab042f7ac  xenial  us-east-2b  running
+8        started  52.15.89.16     i-086852bf1bee63d4e  xenial  us-east-2c  running
+
+Relation provider                    Requirer                             Interface         Type         Message
+easyrsa:client                       etcd:certificates                    tls-certificates  regular      
+easyrsa:client                       kubeapi-load-balancer:certificates   tls-certificates  regular      
+easyrsa:client                       kubernetes-master:certificates       tls-certificates  regular      
+easyrsa:client                       kubernetes-worker:certificates       tls-certificates  regular      
+etcd:cluster                         etcd:cluster                         etcd              peer         
+etcd:db                              flannel:etcd                         etcd              regular      
+etcd:db                              kubernetes-master:etcd               etcd              regular      
+kubeapi-load-balancer:loadbalancer   kubernetes-master:loadbalancer       public-address    regular      
+kubeapi-load-balancer:website        kubernetes-worker:kube-api-endpoint  http              regular      
+kubernetes-master:cni                flannel:cni                          kubernetes-cni    subordinate  
+kubernetes-master:kube-api-endpoint  kubeapi-load-balancer:apiserver      http              regular      
+kubernetes-master:kube-control       kubernetes-worker:kube-control       kube-control      regular      
+kubernetes-worker:cni                flannel:cni                          kubernetes-cni    subordinate  
 ```
 
 ## Interacting with the cluster
 
 After the cluster is deployed you may assume control over the cluster from any kubernetes-master, or kubernetes-worker node.
 
-First you need to download the credentials and client application to your local workstation:
+If you didn't use conjure-up, you will first need to download the credentials and client application to your local workstation:
 
 Create the kubectl config directory.
 
@@ -211,7 +240,7 @@ resources from Juju by using **constraints**. You can increase the amount of
 CPU or memory (RAM) in any of the systems requested by Juju. This allows you
 to fine tune the Kubernetes cluster to fit your workload. Use flags on the
 bootstrap command or as a separate `juju constraints` command. Look to the
-[Juju documentation for machine](https://jujucharms.com/docs/2.2/charms-constraints)
+[Juju documentation for machine](https://jujucharms.com/docs/2.3/charms-constraints)
 details.
 
 ## Scale out cluster
@@ -243,8 +272,7 @@ It is strongly recommended to run an odd number of units for quorum.
 
 ## Tear down cluster
 
-If you want stop the servers you can destroy the Juju model or the
-controller. Use the `juju switch` command to get the current controller name:  
+If you used conjure-up to create your cluster, you can tear it down with `conjure-down`. If you used juju directly, you can tear it down by destroying the Juju model or the controller. Use the `juju switch` command to get the current controller name:
 
 ```shell
 juju switch
