@@ -17,7 +17,7 @@ This page describes the lifecycle of a Pod.
 ## Pod phase
 
 A Pod's `status` field is a
-[PodStatus](/docs/api-reference/{{page.version}}/#podstatus-v1-core)
+[PodStatus](/docs/reference/generated/kubernetes-api/{{page.version}}/#podstatus-v1-core)
 object, which has a `phase` field.
 
 The phase of a Pod is a simple, high-level summary of where the Pod is in its
@@ -52,7 +52,7 @@ Here are the possible values for `phase`:
 ## Pod conditions
 
 A Pod has a PodStatus, which has an array of
-[PodConditions](/docs/api-reference/{{page.version}}/#podcondition-v1-core). Each element
+[PodConditions](/docs/reference/generated/kubernetes-api/{{page.version}}/#podcondition-v1-core). Each element
 of the PodCondition array has a `type` field and a `status` field. The `type`
 field is a string, with possible values PodScheduled, Ready, Initialized, and
 Unschedulable. The `status` field is a string, with possible values True, False,
@@ -60,22 +60,22 @@ and Unknown.
 
 ## Container probes
 
-A [Probe](/docs/api-reference/{{page.version}}/#probe-v1-core) is a diagnostic
+A [Probe](/docs/reference/generated/kubernetes-api/{{page.version}}/#probe-v1-core) is a diagnostic
 performed periodically by the [kubelet](/docs/admin/kubelet/)
 on a Container. To perform a diagnostic,
 the kubelet calls a
 [Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) implemented by
 the Container. There are three types of handlers:
 
-* [ExecAction](/docs/api-reference/{{page.version}}/#execaction-v1-core):
+* [ExecAction](/docs/reference/generated/kubernetes-api/{{page.version}}/#execaction-v1-core):
   Executes a specified command inside the Container. The diagnostic
   is considered successful if the command exits with a status code of 0.
 
-* [TCPSocketAction](/docs/api-reference/{{page.version}}/#tcpsocketaction-v1-core):
+* [TCPSocketAction](/docs/reference/generated/kubernetes-api/{{page.version}}/#tcpsocketaction-v1-core):
   Performs a TCP check against the Container's IP address on
   a specified port. The diagnostic is considered successful if the port is open.
 
-* [HTTPGetAction](/docs/api-reference/{{page.version}}/#httpgetaction-v1-core):
+* [HTTPGetAction](/docs/reference/generated/kubernetes-api/{{page.version}}/#httpgetaction-v1-core):
   Performs an HTTP Get request against the Container's IP
   address on a specified port and path. The diagnostic is considered successful
   if the response has a status code greater than or equal to 200 and less than 400.
@@ -129,11 +129,11 @@ to stop.
 ## Pod and Container status
 
 For detailed information about Pod Container status, see
-[PodStatus](/docs/api-reference/{{page.version}}/#podstatus-v1-core)
+[PodStatus](/docs/reference/generated/kubernetes-api/{{page.version}}/#podstatus-v1-core)
 and
-[ContainerStatus](/docs/api-reference/{{page.version}}/#containerstatus-v1-core).
+[ContainerStatus](/docs/reference/generated/kubernetes-api/{{page.version}}/#containerstatus-v1-core).
 Note that the information reported as Pod status depends on the current
-[ContainerState](/docs/api-reference/{{page.version}}/#containerstatus-v1-core).
+[ContainerState](/docs/reference/generated/kubernetes-api/{{page.version}}/#containerstatus-v1-core).
 
 ## Restart policy
 

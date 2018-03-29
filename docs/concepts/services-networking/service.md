@@ -889,8 +889,8 @@ Iptables operations slow down dramatically in large scale cluster e.g 10,000 Ser
 ## API Object
 
 Service is a top-level resource in the Kubernetes REST API. More details about the
-API object can be found at: [Service API
-object](/docs/api-reference/{{page.version}}/#service-v1-core).
+API object can be found at:
+[Service API object](/docs/reference/generated/kubernetes-api/{{page.version}}/#service-v1-core).
 
 ## For More Information
 

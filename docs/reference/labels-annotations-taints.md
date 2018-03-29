@@ -105,9 +105,6 @@ pods from mounting volumes in a different zone.  If your infrastructure doesn't 
 need to add the zone labels to the volumes at all.
 
 
-
-
-
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/api-reference/labels-annotations-taints.md?pixel)]()
+[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/reference/labels-annotations-taints.md?pixel)]()
 <!-- END MUNGE: GENERATED_ANALYTICS -->

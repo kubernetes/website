@@ -9,7 +9,7 @@ reviewers:
 This page shows how to install a
 [custom resource](/docs/concepts/api-extension/custom-resources/)
 into the Kubernetes API by creating a
-[CustomResourceDefinition](/docs/api-reference/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions).
+[CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions).
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -544,7 +544,7 @@ crontabs/my-new-cron-object   3s
 
 {% capture whatsnext %}
 * Learn how to [Migrate a ThirdPartyResource to CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/).
-* See [CustomResourceDefinition](/docs/api-reference/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions).
+* See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions).
 {% endcapture %}
 
 {% include templates/task.md %}
