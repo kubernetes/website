@@ -13,7 +13,7 @@ incremental: true
 safe: false
 lsi: false
 
-latest: "v1.9"
+latest: "v1.10"
 
 paginate: 7
 paginate_path: "/blog/page:num/"
