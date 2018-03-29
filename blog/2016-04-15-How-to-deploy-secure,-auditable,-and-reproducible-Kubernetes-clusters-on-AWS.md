@@ -80,7 +80,7 @@ routeTableId: rtb-xxxxx
 
 userdata/cloud-config-worker
 
-
+{% raw %}
 ```
 #cloud-config
 
@@ -90,7 +90,7 @@ coreos:
     interrface: $private\_ipv4  
     etcd\_endpoints: {{ .ETCDEndpoints }}
  ```
-
+{% endraw %}
 
 
  $ kube-aws validate
