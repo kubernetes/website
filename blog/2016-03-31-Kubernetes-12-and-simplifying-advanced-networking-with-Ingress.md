@@ -22,15 +22,20 @@ Please take a minute to look over the known limitations of existing controllers 
 ### TLS termination and HTTP load-balancing
 Since the Ingress spans Services, it’s particularly suited for load balancing and centralized security configuration. If you’re familiar with the go programming language, Ingress is like [net/http’s “Server”](https://golang.org/pkg/net/http/#Server) for your entire cluster. The following example shows you how to configure TLS termination. Load balancing is not optional when dealing with ingress traffic, so simply creating the object will configure a load balancer.  
 
-First create a test Service. We’ll run a simple echo server for this example so you know exactly what’s going on. The source is [here](https://github.com/kubernetes/contrib/tree/master/ingress/echoheaders).  
+First create a test Service. We’ll run a simple echo server for this example so you know exactly what’s going on. The source is [here](https://github.com/kubernetes/contrib/tree/master/ingress/echoheaders).
+
+{% raw %}  
 ```  
 $ kubectl run echoheaders   
 --image=gcr.io/google\_containers/echoserver:1.3 --port=8080  
 $ kubectl expose deployment echoheaders --target-port=8080   
 --type=NodePort  
 ```
+{% endraw %}
+
 If you’re on a cloud-provider, make sure you can reach the Service from outside the cluster through its node port.  
 
+{% raw %}
 ```
 $ NODE_IP=$(kubectl get node `kubectl get po -l run=echoheaders 
 --template '{{range .items}}{{.spec.nodeName}}{{end}}'` --template
@@ -40,9 +45,13 @@ $ NODE_PORT=$(kubectl get svc echoheaders --template '{{range $i, $e 
 := .spec.ports}}{{$e.nodePort}}{{end}}')
 $ curl $NODE_IP:$NODE_PORT
 ```
+{% endraw %}
+
 This is a sanity check that things are working as expected. If the last step hangs, you might need a [firewall rule](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/gce/BETA_LIMITATIONS.md#creating-the-firewall-rule-for-glbc-health-checks).  
 
-Now lets create our TLS secret:  
+Now lets create our TLS secret:
+
+{% raw %}  
 ```
 $ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout   
 
@@ -58,8 +67,11 @@ data:
   tls.key: `base64 -w 0 /tmp/tls.key`  
 " | kubectl create -f   
 ```  
+{% endraw %}
+
 And the Ingress:  
 
+{% raw %}
 ```
 $ echo "
 
@@ -81,19 +93,29 @@ spec:
     servicePort: 8080  
 " | kubectl create -f -  
 ```  
-You should get a load balanced IP soon:  
+{% endraw %}
+
+You should get a load balanced IP soon:
+
+{% raw %}
 ```  
 $ kubectl get ing   
 NAME      RULE      BACKEND            ADDRESS         AGE  
 test      -         echoheaders:8080   130.X.X.X     4m  
 ```  
-And if you wait till the Ingress controller marks your backends as healthy, you should see requests to that IP on :80 getting redirected to :443 and terminated using the given TLS certificates.  
+{% endraw %}
+
+And if you wait till the Ingress controller marks your backends as healthy, you should see requests to that IP on :80 getting redirected to :443 and terminated using the given TLS certificates.
+
+{% raw %}
 ```
 $ curl 130.X.X.X  
 \<html\>  
 \<head\>\<title\>301 Moved Permanently\</title\>\</head\>\<body bgcolor="white"\>\<center\>\<h1\>301 Moved Permanently\</h1\>\</center\>  
 ```  
+{% endraw %}
 
+{% raw %}
 ```
 $ curl https://130.X.X.X -kCLIENT VALUES:client\_address=10.48.0.1command=GETreal path=/  
 
@@ -102,6 +124,8 @@ $ curl 130.X.X.X -Lk
 
 CLIENT VALUES:client\_address=10.48.0.1command=GETreal path=/
 ```
+{% endraw %}
+
 ### Future work
 You can read more about the [Ingress API](http://kubernetes.io/docs/user-guide/ingress/) or controllers by following the links. The Ingress is still in beta, and we would love your input to grow it. You can contribute by writing controllers or evolving the API. All things related to the meaning of the word “[ingress](https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=ingress%20meaning)” are in scope, this includes DNS, different TLS modes, SNI, load balancing at layer 4, content caching, more algorithms, better health checks; the list goes on.  
 
