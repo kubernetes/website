@@ -200,10 +200,10 @@ PersistentVolume are not present on the Pod resource itself.
 
 ### Reference
 
-* [PersistentVolume](/docs/api-reference/{{page.version}}/#persistentvolume-v1-core)
-* [PersistentVolumeSpec](/docs/api-reference/{{page.version}}/#persistentvolumespec-v1-core)
-* [PersistentVolumeClaim](/docs/api-reference/{{page.version}}/#persistentvolumeclaim-v1-core)
-* [PersistentVolumeClaimSpec](/docs/api-reference/{{page.version}}/#persistentvolumeclaimspec-v1-core)
+* [PersistentVolume](/docs/reference/generated/kubernetes-api/{{page.version}}/#persistentvolume-v1-core)
+* [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{page.version}}/#persistentvolume-v1-core)
+* [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{page.version}}/#persistentvolumeclaim-v1-core)
+* [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{page.version}}/#persistentvolumeclaim-v1-core)
 
 {% endcapture %}
 
