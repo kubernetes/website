@@ -59,7 +59,7 @@ Every snippet must include at least the short description. The long description 
 
 * **Think of the short description as it would appear in a tooltip.** Is it sufficient to get the reader started? Is it short enough to be read inside a small UI element?
 
-  *Tip*: look at the API reference doc content (for example, https://kubernetes.io/docs/api-reference/v1.7/). Note, however, that this content should be used with care. The concept docs for Pod, for example, are clearer than the reference docs.
+  *Tip*: look at the API reference doc content (for example, https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.10/). Note, however, that this content should be used with care. The concept docs for Pod, for example, are clearer than the reference docs.
 
 * **The long description should follow the short description to make a complete introduction to a topic.** (This is the content that appears at the top of the content, before any generated TOC.) Does it provide information that's not already clear from the short description? Does it provide information that readers should have a general sense of before they dive into the details of the topic it helps introduce?
 

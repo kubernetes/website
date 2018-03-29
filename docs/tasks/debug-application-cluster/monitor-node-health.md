@@ -13,7 +13,7 @@ title: Monitor Node Health
 *Node problem detector* is a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) monitoring the
 node health. It collects node problems from various daemons and reports them
 to the apiserver as [NodeCondition](/docs/concepts/architecture/nodes/#condition)
-and [Event](/docs/api-reference/{{page.version}}/#event-v1-core).
+and [Event](/docs/reference/generated/kubernetes-api/{{page.version}}/#event-v1-core).
 
 It supports some known kernel issue detection now, and will detect more and
 more node problems over time.

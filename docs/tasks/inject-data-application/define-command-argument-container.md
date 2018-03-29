@@ -132,7 +132,7 @@ Here are some examples:
 * Learn more about [containers and commands](/docs/user-guide/containers/).
 * Learn more about [configuring pods and containers](/docs/tasks/).
 * Learn more about [running commands in a container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
-* See [Container](/docs/api-reference/{{page.version}}/#container-v1-core).
+* See [Container](/docs/reference/generated/kubernetes-api/{{page.version}}/#container-v1-core).
 
 {% endcapture %}
 

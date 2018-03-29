@@ -131,7 +131,7 @@ during application updates is configured in the controller spec.
 (Learn about [updating a deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment).)
 
 When a pod is evicted using the eviction API, it is gracefully terminated (see
-`terminationGracePeriodSeconds` in [PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core).)
+`terminationGracePeriodSeconds` in [PodSpec](/docs/reference/generated/kubernetes-api/{{page.version}}/#podspec-v1-core).)
 
 ## PDB Example
 
