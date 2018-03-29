@@ -98,7 +98,7 @@ external IP address.
 
     Make a note of the external IP address (`LoadBalancer Ingress`) exposed by
     your service. In this example, the external IP address is 104.198.205.71.
-    Also note the value of `Port` and `NodePort`. In this example, the `Port` is
+    Also note the value of `Port` and `NodePort`. In this example, the `Port`
     is 8080 and the `NodePort` is 32377.
 
 1. In the preceding output, you can see that the service has several endpoints:

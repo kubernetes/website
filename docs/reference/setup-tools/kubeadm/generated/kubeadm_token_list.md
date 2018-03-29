@@ -4,12 +4,17 @@ List bootstrap tokens on the server.
 ### Synopsis
 
 
-
 This command will list all bootstrap tokens for you.
 
 
 ```
-kubeadm token list
+kubeadm token list [flags]
+```
+
+### Options
+
+```
+  -h, --help   help for list
 ```
 
 ### Options inherited from parent commands

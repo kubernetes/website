@@ -182,8 +182,8 @@ $ kubectl get pods <pod-name> -o=custom-columns-file=template.txt
 where the `template.txt` file contains:
 
 ```
-NAME                    RSRC
-      metadata.name           metadata.resourceVersion
+NAME          RSRC
+metadata.name metadata.resourceVersion
 ```
 The result of running either command is:
 
