@@ -108,7 +108,7 @@ kubectl proxy
 In another command window, get the CPU usage rate from the heapster service:
 
 ```
-curl http://localhost:8001/api/v1/proxy/namespaces/kube-system/services/heapster/api/v1/model/namespaces/cpu-example/pods/cpu-demo/metrics/cpu/usage_rate
+curl http://localhost:8001/api/v1/namespaces/kube-system/services/heapster/proxy/api/v1/model/namespaces/cpu-example/pods/cpu-demo/metrics/cpu/usage_rate
 ```
 
 The output shows that the Pod is using 974 millicpu, which is just a bit less than

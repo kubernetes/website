@@ -110,7 +110,7 @@ kubectl proxy
 In another command window, get the memory usage from the Heapster service:
 
 ```
-curl http://localhost:8001/api/v1/proxy/namespaces/kube-system/services/heapster/api/v1/model/namespaces/mem-example/pods/memory-demo/metrics/memory/usage
+curl http://localhost:8001/api/v1/namespaces/kube-system/services/heapster/proxy/api/v1/model/namespaces/mem-example/pods/memory-demo/metrics/memory/usage
 ```
 
 The output shows that the Pod is using about 162,900,000 bytes of memory, which
