@@ -139,6 +139,4 @@ $ kubectl get crontab -o json
 
 * [Migrate a ThirdPartyResource to a CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/)
 * [Extend the Kubernetes API with CustomResourceDefinitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
-* [ThirdPartyResource](/docs/api-reference/v1.7/#thirdpartyresource-v1beta1-extensions)
-
-
+* [ThirdPartyResource](https://v1-7.docs.kubernetes.io/docs/reference/v1.7/#thirdpartyresource-v1beta1-extensions)

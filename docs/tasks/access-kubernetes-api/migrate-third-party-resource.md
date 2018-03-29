@@ -7,7 +7,7 @@ reviewers:
 
 {% capture overview %}
 This page shows how to migrate data stored in a ThirdPartyResource (TPR) to a
-[CustomResourceDefinition](/docs/api-reference/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions) (CRD).
+[CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions) (CRD).
 
 Kubernetes does not automatically migrate existing TPRs.
 This is due to API changes introduced as part of
@@ -163,7 +163,7 @@ you **on a best-effort basis**.
 {% capture whatsnext %}
 * Learn more about [custom resources](/docs/concepts/api-extension/custom-resources/).
 * Learn more about [using CustomResourceDefinitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
-* See [CustomResourceDefinition](/docs/api-reference/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions).
+* See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions).
 {% endcapture %}
 
 {% include templates/task.md %}

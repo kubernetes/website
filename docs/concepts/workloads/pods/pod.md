@@ -197,5 +197,5 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 ## API Object
 
 Pod is a top-level resource in the Kubernetes REST API. More details about the
-API object can be found at: [Pod API
-object](/docs/api-reference/{{page.version}}/#pod-v1-core).
+API object can be found at:
+[Pod API object](/docs/reference/generated/kubernetes-api/{{page.version}}/#pod-v1-core).

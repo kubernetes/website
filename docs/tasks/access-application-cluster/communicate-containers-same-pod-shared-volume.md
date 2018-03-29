@@ -139,9 +139,9 @@ the shared Volume is lost.
 * See
 [Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
 
-* See [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core).
+* See [Volume](/docs/reference/generated/kubernetes-api/{{page.version}}/#volume-v1-core).
 
-* See [Pod](/docs/api-reference/{{page.version}}/#pod-v1-core).
+* See [Pod](/docs/reference/generated/kubernetes-api/{{page.version}}/#pod-v1-core).
 
 {% endcapture %}
 
