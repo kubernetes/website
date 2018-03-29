@@ -98,6 +98,7 @@ apiVersion: kubeadm.k8s.io/v1alpha1
 kind: MasterConfiguration
 api:
   advertiseAddress: <address|string>
+  controlPlaneEndpoint: <string>
   bindPort: <int>
 etcd:
   endpoints:
