@@ -83,8 +83,8 @@ how to [authenticate apiservers](#authenticate-apiservers).
 ### Deploy the admission webhook service
 
 The webhook server in the e2e test is deployed in the Kubernetes cluster, via
-the [deployment API](/docs/api-reference/{{page.version}}/#deployment-v1beta1-apps).
-The test also creates a [service](/docs/api-reference/{{page.version}}/#service-v1-core)
+the [deployment API](/docs/reference/generated/kubernetes-api/{{page.version}}/#deployment-v1beta1-apps).
+The test also creates a [service](/docs/reference/generated/kubernetes-api/{{page.version}}/#service-v1-core)
 as the front-end of the webhook server. See
 [code](https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/test/e2e/apimachinery/webhook.go#L196).
 
@@ -259,7 +259,7 @@ you need to:
 ### Deploy an initializer controller
 
 You should deploy an initializer controller via the [deployment
-API](/docs/api-reference/{{page.version}}/#deployment-v1beta1-apps).
+API](/docs/reference/generated/kubernetes-api/{{page.version}}/#deployment-v1beta1-apps).
 
 ### Configure initializers on the fly
 
@@ -390,9 +390,9 @@ See [caesarxuchao/example-webhook-admission-controller deployment](https://githu
 for an example deployment.
 
 The webhook admission controller should be deployed via the
-[deployment API](/docs/api-reference/{{page.version}}/#deployment-v1beta1-apps).
+[deployment API](/docs/reference/generated/kubernetes-api/{{page.version}}/#deployment-v1beta1-apps).
 You also need to create a
-[service](/docs/api-reference/{{page.version}}/#service-v1-core) as the
+[service](/docs/reference/generated/kubernetes-api/{{page.version}}/#service-v1-core) as the
 front-end of the deployment.
 
 ### Configure webhook admission controller on the fly
