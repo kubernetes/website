@@ -40,7 +40,7 @@ The JSON and Protobuf serialization schemas follow the same guidelines for schem
 versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) describes the relationship between API versioning and software versioning.
 {: .note}
 
-Different API versions imply different levels of stability and support. You can find more information about the criteria for each level in the [API Changes documentation](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions).  
+Different API versions indicate different levels of stability and support. You can find more information about the criteria for each level in the [API Changes documentation](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions).  
 
 Here's a summary of each level:
 - Alpha:
@@ -75,7 +75,7 @@ Currently, there are several API groups in use:
 *  The named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
    (for example, `apiVersion: batch/v1`). You can find the full list of supported API groups in [Kubernetes API reference](/docs/reference/).
 
-The two paths that support to extend the API with [custom resources](/docs/concepts/api-extension/custom-resources/) are:
+The two paths that support extending the API with [custom resources](/docs/concepts/api-extension/custom-resources/) are:
 
  - [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
    for basic CRUD needs.
@@ -85,12 +85,12 @@ The two paths that support to extend the API with [custom resources](/docs/conce
 ## Enabling API groups
 
 Certain resources and API groups are enabled by default. You can enable or disable them by setting `--runtime-config`
-on apiserver. `--runtime-config` accepts comma separated values. For example:
+on the apiserver. `--runtime-config` accepts comma separated values. For example:
  - to disable batch/v1, set `--runtime-config=batch/v1=false`
  - to enable batch/v2alpha1, set `--runtime-config=batch/v2alpha1`
 The flag accepts comma separated set of key=value pairs describing runtime configuration of the apiserver.
 
-**Note:** When you enable or disable groups or resources you need to restart the apiserver and controller-manager
+**Note:** When you enable or disable groups or resources, you need to restart the apiserver and controller-manager
 to pick up the `--runtime-config` changes.
 {: .note}
 
