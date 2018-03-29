@@ -752,7 +752,7 @@ And point to the file using the --config flag, as in
 
 * `kubectl scale` can now scale any resource (kube, CRD, aggregate) conforming to the standard scale endpoint ([#58298](https://github.com/kubernetes/kubernetes/pull/58298), [@p0lyn0mial](https://github.com/p0lyn0mial))
 
-* Cluster Autoscaler has been updated to Version 1.2.0, which includes fixes around GPUs and base image change. See [https://github.com/kubernetes/autoscaler/releases/tag/cluster-autoscaler-](https://github.com/kubernetes/autoscaler/releases/tag/cluster-autoscaler-1.1.2)1.2.0for details. ([#60842](https://github.com/kubernetes/kubernetes/pull/60842), [@mwielgus](https://github.com/mwielgus))
+* Cluster Autoscaler has been updated to Version 1.2.0, which includes fixes around GPUs and base image change. See [https://github.com/kubernetes/autoscaler/releases/tag/cluster-autoscaler-](https://github.com/kubernetes/autoscaler/releases/tag/cluster-autoscaler-1.1.2)1.2.0 for details. ([#60842](https://github.com/kubernetes/kubernetes/pull/60842), [@mwielgus](https://github.com/mwielgus))
 
 * Allows HorizontalPodAutoscaler to use global metrics not associated with any Kubernetes object (for example metrics from a hosting service running outside of the Kubernetes cluster). ([#60096](https://github.com/kubernetes/kubernetes/pull/60096), [@MaciekPytel](https://github.com/MaciekPytel))
 
@@ -804,7 +804,7 @@ And point to the file using the --config flag, as in
 
 * The apiregistration.k8s.io (aggregation) is now generally available. Users should transition from the v1beta1 API to the v1 API. ([#58393](https://github.com/kubernetes/kubernetes/pull/58393), [@deads2k](https://github.com/deads2k))
 
-* Fixes an issue where the resourceVersion of an object in a DELETE watch event was not the resourceVersion of the delete itself, but of the last update to the object. This could disrupt the ability of clients clients to re-establish watches properly. ([#58547](https://github.com/kubernetes/kubernetes/pull/58547), [@liggitt](https://github.com/liggitt))
+* Fixes an issue where the resourceVersion of an object in a DELETE watch event was not the resourceVersion of the delete itself, but of the last update to the object. This could disrupt the ability of clients to re-establish watches properly. ([#58547](https://github.com/kubernetes/kubernetes/pull/58547), [@liggitt](https://github.com/liggitt))
 
 * kube-apiserver: requests to endpoints handled by unavailable extension API servers (as indicated by an `Available` condition of `false` in the registered APIService) now return `503` errors instead of `404` errors. ([#58070](https://github.com/kubernetes/kubernetes/pull/58070), [@weekface](https://github.com/weekface))
 
