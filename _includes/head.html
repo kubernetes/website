@@ -29,4 +29,5 @@
     {% if page.js %}{% assign jslist = page.js | split: ',' | compact %}{% for jsurl in jslist %}<script src="{{ jsurl | strip }}"></script>
     {% endfor %}<!-- custom js added -->{% else %}<!-- no custom js detected -->{% endif %}
     {% seo %}
+    {% feed_meta %} 
 </head>
