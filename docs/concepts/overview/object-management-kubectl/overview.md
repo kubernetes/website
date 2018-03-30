@@ -14,6 +14,7 @@ approaches.
 
 **Warning:** A Kubernetes object should be managed using only one technique. Mixing
 and matching techniques for the same object results in undefined behavior.
+{: .warning}
 
 | Management technique             | Operates on          |Recommended environment | Supported writers  | Learning curve |
 |----------------------------------|----------------------|------------------------|--------------------|----------------|
