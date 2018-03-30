@@ -149,7 +149,7 @@ Finally, add the same parameters into the API server start parameters.
                   "signing",
                   "key encipherment",
                   "server auth",
-                  "client auth",
+                  "client auth"
                 ],
                 "expiry": "8760h"
               }
@@ -171,7 +171,7 @@ Finally, add the same parameters into the API server start parameters.
             "ST": "<state>",
             "L": "<city>",
             "O": "<organization>",
-            "OU": "<organization unit>",
+            "OU": "<organization unit>"
           }]
         }
 1.  Generate CA key (`ca-key.pem`) and certificate (`ca.pem`):
