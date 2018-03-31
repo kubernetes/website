@@ -5,8 +5,7 @@ reviewers:
 - aaron-prindle
 title: Running Kubernetes Locally via Minikube
 ---
-
-Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
+If you want to try Kubernetes or develop by using Kubernetes on a day-to-day basis,then install minikube. You can run Kubernetes locally by using minikube. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop.
 
 * TOC
 {:toc}
@@ -24,21 +23,22 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
 
 ## Installation
 
-See [Installing Minikube](/docs/tasks/tools/install-minikube/).
+For information about installing minikube, see [Install Minikube](/docs/tasks/tools/install-minikube/).
 
 ## Quickstart
 
-Here's a brief demo of minikube usage.
+Here's a quick demo of how to use minikube.
 If you want to change the VM driver add the appropriate `--vm-driver=xxx` flag to `minikube start`. Minikube supports
 the following drivers:
 
 * virtualbox
 * vmwarefusion
-* kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
-* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
+* [KVM driver](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver)
+* [Hyperkit driver](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* [xhyve driver](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
 
-Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
+**Note:** The IP addresses listed here are dynamic. You can retrieve the IP addresses using `minikube ip`.
+{: .note}
 
 ```shell
 $ minikube start
@@ -114,8 +114,7 @@ This will use an alternative minikube ISO image containing both rkt, and Docker,
 
 ### Driver plugins
 
-See [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) for details on supported drivers and how to install
-plugins, if required.
+For more information about the supported drivers and the plugins required, see [Driver plugin installation](https://git.k8s.io/minikube/docs/drivers.md).
 
 ### Reusing the Docker daemon
 
@@ -156,23 +155,21 @@ Remember to turn off the imagePullPolicy:Always, as otherwise Kubernetes won't u
 
 The `minikube start` command can be used to start your cluster.
 This command creates and configures a virtual machine that runs a single-node Kubernetes cluster.
-This command also configures your [kubectl](/docs/user-guide/kubectl-overview/) installation to communicate with this cluster.
+This command also configures your [kubectl](/docs/reference/kubectl/overview/) installation to communicate with this cluster.
 
-If you are behind a web proxy, you will need to pass this information in e.g. via
+If you on a network that is configured to use a web proxy, you will need set the following environment variables:
 
 ```
 https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
 ```
 
-Unfortunately just setting the environment variables will not work.
-
-Minikube will also create a "minikube" context, and set it to default in kubectl.
-To switch back to this context later, run this command: `kubectl config use-context minikube`.
+However, minikube will also create a "minikube" context, and set it to default in kubectl.
+To switch back to this context later, run the command: `kubectl config use-context minikube`.
 
 #### Specifying the Kubernetes version
 
 Minikube supports running multiple different versions of Kubernetes. You can
-access a list of all available versions via
+access a list of all available versions using the following:
 
 ```
 minikube get-k8s-versions
@@ -180,7 +177,7 @@ minikube get-k8s-versions
 
 You can specify the specific version of Kubernetes for Minikube to use by
 adding the `--kubernetes-version` string to the `minikube start` command. For
-example, to run version `v1.7.3`, you would run the following:
+example, to run version `v1.7.3`, run the following:
 
 ```
 minikube start --kubernetes-version v1.7.3
@@ -188,8 +185,8 @@ minikube start --kubernetes-version v1.7.3
 
 ### Configuring Kubernetes
 
-Minikube has a "configurator" feature that allows users to configure the Kubernetes components with arbitrary values.
-To use this feature, you can use the `--extra-config` flag on the `minikube start` command.
+Minikube has a "configurator" feature that allows you to configure the Kubernetes components with arbitrary values.
+To use this feature, use the `--extra-config` flag on the `minikube start` command.
 
 This flag is repeated, so you can pass it several times with several different values to set multiple options.
 
@@ -199,9 +196,9 @@ configuration struct and `value` is the value to set.
 Valid keys can be found by examining the documentation for the Kubernetes `componentconfigs` for each component.
 Here is the documentation for each supported configuration:
 
-* [kubelet](https://godoc.org/k8s.io/kubernetes/pkg/apis/componentconfig#KubeletConfiguration)
-* [apiserver](https://godoc.org/k8s.io/kubernetes/cmd/kube-apiserver/app/options#APIServer)
-* [proxy](https://godoc.org/k8s.io/kubernetes/pkg/apis/componentconfig#KubeProxyConfiguration)
+* [kubelet](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/kubeletconfig#KubeletConfiguration)
+* [apiserver](https://godoc.org/k8s.io/kubernetes/test/e2e_node/services#APIServer)
+* [proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/kubeproxyconfig#KubeProxyConfiguration)
 * [controller-manager](https://godoc.org/k8s.io/kubernetes/pkg/apis/componentconfig#KubeControllerManagerConfiguration)
 * [etcd](https://godoc.org/github.com/coreos/etcd/etcdserver#ServerConfig)
 * [scheduler](https://godoc.org/k8s.io/kubernetes/pkg/apis/componentconfig#KubeSchedulerConfiguration)
@@ -238,7 +235,7 @@ Or pass the context on each command like this: `kubectl get pods --context=minik
 
 ### Dashboard
 
-To access the [Kubernetes Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/), run this command in a shell after starting minikube to get the address:
+To access the Kubernetes [Web UI (Dashboard)](/docs/tasks/access-application-cluster/web-ui-dashboard/), run this command in a shell after starting minikube to get the address:
 
 ```shell
 minikube dashboard
@@ -304,9 +301,9 @@ Some drivers will mount a host folder within the VM so that you can easily share
 
 ## Private Container Registries
 
-To access a private container registry, follow the steps on [this page](/docs/concepts/containers/images/).
+To access a private container registry, see [Using a Private Registry](https://kubernetes.io/docs/concepts/containers/images/#using-a-private-registry).
 
-We recommend you use `ImagePullSecrets`, but if you would like to configure access on the minikube VM you can place the `.dockercfg` in the `/home/docker` directory or the `config.json` in the `/home/docker/.docker` directory.
+Kubernetes recommends that you use `ImagePullSecrets`, but if you would like to configure access on the minikube VM you can place the `.dockercfg` in the `/home/docker` directory or the `config.json` in the `/home/docker/.docker` directory.
 
 ## Add-ons
 
