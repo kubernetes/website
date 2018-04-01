@@ -193,7 +193,6 @@ template needs to include the `.docker/config.json` or mount a drive that contai
 All pods will have read access to images in any private registry once private
 registry keys are added to the `.docker/config.json`.
 
-
 ### Pre-pulling Images
 
 **Note:** if you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
