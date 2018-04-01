@@ -193,8 +193,6 @@ template needs to include the `.docker/config.json` or mount a drive that contai
 All pods will have read access to images in any private registry once private
 registry keys are added to the `.docker/config.json`.
 
-**This was tested with a private docker repository as of 26 June with Kubernetes version v1.9.3.
-It should also work for a private registry such as quay.io, but that has not been tested.**
 
 ### Pre-pulling Images
 
