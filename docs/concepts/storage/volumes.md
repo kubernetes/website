@@ -325,6 +325,8 @@ simultaneous writers allowed.
 Using a PD on a pod controlled by a ReplicationController will fail unless
 the PD is read-only or the replica count is 0 or 1.
 
+Support for Regional Persistent Disks (TODO (verult) link) was introduced to Kubernetes v1.8 as alpha and moved to beta in Kubernetes v1.10. This feature allows the creation of Persistent Disks that are available in two zones within the same region. In order to use this feature, the volume must be provisioned as a PersistentVolume; referencing the volume directly from a pod is not supported.
+
 #### Creating a PD
 
 Before you can use a GCE PD with a pod, you need to create it.
@@ -353,6 +355,33 @@ spec:
     gcePersistentDisk:
       pdName: my-data-disk
       fsType: ext4
+```
+
+#### Manually provisioning a Regional PD PersistentVolume (beta feature)
+Dynamic provisioning is possible using a [StorageClass for GCE PD](/docs/concepts/storage/storage-classes/#gce).
+Before creating a PersistentVolume, you must create the PD:
+```shell
+gcloud beta compute disks create --size=500GB my-data-disk
+    --region us-central1
+    --replica-zones us-central1-a,us-central1-b
+```
+Example PersistentVolume spec:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: test-volume
+  annotations:
+    failure-domain.beta.kubernetes.io/zone: us-central1-a__us-central1-b
+spec:
+  capacity:
+    storage: 400Gi
+  accessModes:
+  - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: my-data-disk
+    fsType: ext4
 ```
 
 ### gitRepo
