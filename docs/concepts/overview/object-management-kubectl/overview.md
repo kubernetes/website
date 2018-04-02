@@ -76,6 +76,7 @@ the configuration file.  This approach should not be used with resource
 types whose specs are updated independently of the configuration file.
 Services of type `LoadBalancer`, for example, have their `externalIPs` field updated
 independently from the configuration by the cluster.
+{: .warning}
 
 ### Examples
 
