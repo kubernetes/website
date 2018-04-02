@@ -453,7 +453,7 @@ You can now access the API Server locally at `http://localhost:8001/api/v1`
 ## Tear down {#tear-down}
 
 To undo what kubeadm did, you should first [drain the
-node](/docs/user-guide/kubectl/{{page.version}}/#drain) and make
+node](/docs/reference/generated/kubectl/kubectl-commands#drain) and make
 sure that the node is empty before shutting it down.
 
 Talking to the master with the appropriate credentials, run:
