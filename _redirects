@@ -60,7 +60,7 @@
 /docs/api-reference/v1.6/*     https://v1-6.docs.kubernetes.io/docs/reference/ 301
 /docs/api-reference/v1.7/*     https://v1-7.docs.kubernetes.io/docs/reference/ 301
 /docs/api-reference/v1.8/*     https://v1-8.docs.kubernetes.io/docs/api-reference/v1.8/:splat 301
-/docs/api-reference/v1.9/     /docs/reference/generated/kubernetes-api/v1.9/ 301
+/docs/api-reference/v1.9/      https://v1-9.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.9/ 301
 /docs/api-reference/v1/definitions/    /docs/reference/generated/kubernetes-api/v1.10/ 301
 /docs/api-reference/v1/definitions.html /docs/reference/generated/kubernetes-api/v1.10/ 301
 /docs/api-reference/v1/operations/     /docs/reference/generated/kubernetes-api/v1.10/ 301
