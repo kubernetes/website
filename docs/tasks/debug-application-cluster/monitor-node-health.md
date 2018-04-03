@@ -56,46 +56,8 @@ customized node problems.
 
 * **Step 1:** Create `node-problem-detector.yaml`:
 
-```yaml
-apiVersion: extensions/v1beta1
-kind: DaemonSet
-metadata:
-  name: node-problem-detector-v0.1
-  namespace: kube-system
-  labels:
-    k8s-app: node-problem-detector
-    version: v0.1
-    kubernetes.io/cluster-service: "true"
-spec:
-  template:
-    metadata:
-      labels:
-        k8s-app: node-problem-detector
-        version: v0.1
-        kubernetes.io/cluster-service: "true"
-    spec:
-      hostNetwork: true
-      containers:
-      - name: node-problem-detector
-        image: k8s.gcr.io/node-problem-detector:v0.1
-        securityContext:
-          privileged: true
-        resources:
-          limits:
-            cpu: "200m"
-            memory: "100Mi"
-          requests:
-            cpu: "20m"
-            memory: "20Mi"
-        volumeMounts:
-        - name: log
-          mountPath: /log
-          readOnly: true
-      volumes:
-      - name: log
-        hostPath:
-          path: /var/log/
-```
+{% include code.html language="yaml" file="node-problem-detector.yaml" ghlink="/docs/tasks/debug-application-cluster/node-problem-detector.yaml" %}
+
 
 ***Notice that you should make sure the system log directory is right for your
 OS distro.***
@@ -103,7 +65,7 @@ OS distro.***
 * **Step 2:** Start node problem detector with `kubectl`:
 
 ```shell
-kubectl create -f node-problem-detector.yaml
+$ kubectl create -f node-problem-detector.yaml
 ```
 
 ### Addon Pod
@@ -128,58 +90,14 @@ following the steps:
 node-problem-detector-config --from-file=config/`.
 * **Step 3:** Change the `node-problem-detector.yaml` to use the ConfigMap:
 
-```yaml
-apiVersion: extensions/v1beta1
-kind: DaemonSet
-metadata:
-  name: node-problem-detector-v0.1
-  namespace: kube-system
-  labels:
-    k8s-app: node-problem-detector
-    version: v0.1
-    kubernetes.io/cluster-service: "true"
-spec:
-  template:
-    metadata:
-      labels:
-        k8s-app: node-problem-detector
-        version: v0.1
-        kubernetes.io/cluster-service: "true"
-    spec:
-      hostNetwork: true
-      containers:
-      - name: node-problem-detector
-        image: k8s.gcr.io/node-problem-detector:v0.1
-        securityContext:
-          privileged: true
-        resources:
-          limits:
-            cpu: "200m"
-            memory: "100Mi"
-          requests:
-            cpu: "20m"
-            memory: "20Mi"
-        volumeMounts:
-        - name: log
-          mountPath: /log
-          readOnly: true
-        - name: config # Overwrite the config/ directory with ConfigMap volume
-          mountPath: /config
-          readOnly: true
-      volumes:
-      - name: log
-        hostPath:
-          path: /var/log/
-      - name: config # Define ConfigMap volume
-        configMap:
-          name: node-problem-detector-config
-```
+{% include code.html language="yaml" file="node-problem-detector-configmap.yaml" ghlink="/docs/tasks/debug-application-cluster/node-problem-detector-configmap.yaml" %}
+
 
 * **Step 4:** Re-create the node problem detector with the new yaml file:
 
 ```shell
-kubectl delete -f node-problem-detector.yaml # If you have a node-problem-detector running
-kubectl create -f node-problem-detector.yaml
+$ kubectl delete -f node-problem-detector.yaml # If you have a node-problem-detector running
+$ kubectl create -f node-problem-detector-configmap.yaml
 ```
 
 ***Notice that this approach only applies to node problem detector started with `kubectl`.***
