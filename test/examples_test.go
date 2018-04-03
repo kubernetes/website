@@ -428,7 +428,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-dep":             {&extensions.Deployment{}},
 			"shell-demo":            {&api.Pod{}},
 			"node-problem-detector":        {&extensions.DaemonSet{}},
-			"node-problem-detector-configmap":        {&api.ConfigMap{}},
+			"node-problem-detector-configmap":        {&extensions.DaemonSet{}},
 			"termination":           {&api.Pod{}},
 		},
 		// TODO: decide whether federation examples should be added
