@@ -24,8 +24,9 @@ of Container Storage Interface (CSI) and persistent local volumes to beta.
 
 Let’s dive into the key features of this release:
 
-## Storage - CSI and Local Storage move to betaThis is an impactful release
-for [the Storage Special Interest Group
+## Storage - CSI and Local Storage move to beta
+
+This is an impactful release for [the Storage Special Interest Group
 (SIG)](https://github.com/kubernetes/community/tree/master/sig-storage),
 marking the culmination of their work on multiple features. The [Kubernetes
 implementation](https://github.com/kubernetes/features/issues/178) of the
@@ -49,7 +50,9 @@ deletion of a Persistent Volume that is bound to a Persistent Volume Claim
 ](https://github.com/kubernetes/features/issues/499)(beta). This helps ensure
 that storage API objects are deleted in the correct order.
 
-## Security - External credential providers (alpha)Kubernetes, which is
+## Security - External credential providers (alpha)
+
+Kubernetes, which is
 already highly extensible, gains another extension point in 1.10 with
 [external kubectl credential
 providers](https://github.com/kubernetes/features/issues/541) (alpha). Cloud
@@ -60,7 +63,9 @@ in-tree, such as Active Directory. This complements the [Cloud Controller
 Manager](https://kubernetes.io/docs/tasks/administer-cluster/running-cloud-controller/)
 feature added in 1.9.
 
-## Networking - CoreDNS as a DNS provider (beta)The ability to [switch the DNS
+## Networking - CoreDNS as a DNS provider (beta)
+
+The ability to [switch the DNS
 service](https://github.com/kubernetes/website/pull/7638) to CoreDNS at
 [install time](https://kubernetes.io/docs/tasks/administer-cluster/coredns/)
 is now in beta. CoreDNS has fewer moving parts: it’s a single executable and a
@@ -72,19 +77,25 @@ specialty areas. For a complete list of inclusions by SIG, please visit the
 [release
 notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#110-release-notes).
 
-## AvailabilityKubernetes 1.10 is available for [download on
+## Availability
+
+Kubernetes 1.10 is available for [download on
 GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.10.0). To get
 started with Kubernetes, check out these i[nteractive
 tutorials](https://kubernetes.io/docs/tutorials/).
 
-## 2 Day Features Blog SeriesIf you’re interested in exploring these features
+## 2 Day Features Blog Series
+
+If you’re interested in exploring these features
 more in depth, check back next week for our 2 Days of Kubernetes series where
 we’ll highlight detailed walkthroughs of the following features:
 
 Day 1 - Container Storage Interface (CSI) for Kubernetes going Beta
 Day 2 - Local Persistent Volumes for Kubernetes going Beta
 
-## Release teamThis release is made possible through the effort of hundreds of
+## Release team
+
+This release is made possible through the effort of hundreds of
 individuals who contributed both technical and non-technical content. Special
 thanks to the [release
 team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.10/release_team.md)
@@ -98,7 +109,9 @@ Kubernetes continues to gain new users at a rapid clip. This growth creates a
 positive feedback cycle where more contributors commit code creating a more
 vibrant ecosystem.
 
-## Project VelocityThe CNCF has continued refining an ambitious project to
+## Project Velocity
+
+The CNCF has continued refining an ambitious project to
 visualize the myriad contributions that go into the project. [K8s
 DevStats](https://devstats.k8s.io/) illustrates the breakdown of contributions
 from major company contributors, as well as an impressive set of preconfigured
@@ -108,7 +121,9 @@ was only slightly higher than it was at the beginning. This marks a major
 shift toward issue manageability. With 75,000+ comments, Kubernetes remains
 one of the most actively discussed projects on GitHub.
 
-## User HighlightsAccording to a [recent CNCF
+## User Highlights
+
+According to a [recent CNCF
 survey](https://www.cncf.io/blog/2018/03/26/cncf-survey-china/), more than 49%
 of Asia-based respondents use Kubernetes in production, with another 49%
 evaluating it for use in production. Established, global organizations are
@@ -136,7 +151,9 @@ Is Kubernetes helping your team? [Share your
 story](https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform)
 with the community.
 
-## Ecosystem Updates1. The CNCF is expanding its certification offerings to
+## Ecosystem Updates
+
+1. The CNCF is expanding its certification offerings to
 include a Certified Kubernetes Application Developer exam. The CKAD exam
 certifies an individual's ability to design, build, configure, and expose
 cloud native applications for Kubernetes. The CNCF is looking for beta testers
@@ -151,7 +168,9 @@ specific to cluster admins and application developers.
 training](https://www.cncf.io/certification/training/) that teaches the skills
 needed to create and configure a real-world Kubernetes cluster.
 
-## KubeConThe world’s largest Kubernetes gathering, [KubeCon +
+## KubeCon
+
+The world’s largest Kubernetes gathering, [KubeCon +
 CloudNativeCon](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2018/)
 is coming to Copenhagen from May 2-4, 2018 and will feature technical
 sessions, case studies, developer deep dives, salons and more! Check out the
@@ -160,12 +179,16 @@ of speakers and
 [register](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2018/attend/register/)
 today!
 
-## WebinarJoin members of the Kubernetes 1.10 release team on April 10th at
+## Webinar
+
+Join members of the Kubernetes 1.10 release team on April 10th at
 10am PDT to learn about the major features in this release including Local
 Persistent Volumes and the Container Storage Interface (CSI). Register
 [here](https://www.cncf.io/event/webinar-kubernetes-1-10/).
 
-## Get Involved:The simplest way to get involved with Kubernetes is by joining
+## Get Involved
+
+The simplest way to get involved with Kubernetes is by joining
 one of the many [Special Interest
 Groups](https://github.com/kubernetes/community/blob/master/sig-list.md)
 (SIGs) that align with your interests. Have something you’d like to broadcast
