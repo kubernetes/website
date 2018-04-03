@@ -44,9 +44,9 @@ group :jekyll_plugins do
    gem "jekyll-theme-tactile", "0.0.3"
    gem "jekyll-theme-time-machine", "0.0.3"
    gem "jekyll-titles-from-headings", "~> 0.1"
+   gem "jekyll-include-cache", "~> 0.1"
+   gem 'jekyll-youtube', '~> 1.0'
 end
-
-gem "jekyll-include-cache", "~> 0.1"
 
 gem "kramdown", "~> 1.11"
 gem "rouge", "~> 2.0"
