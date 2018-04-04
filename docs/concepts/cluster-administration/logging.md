@@ -43,7 +43,7 @@ $ kubectl logs counter
 ...
 ```
 
-You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/user-guide/kubectl/{{page.version}}/#logs) for more details.
+You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#logs) for more details.
 
 ## Logging at the node level
 
@@ -71,7 +71,7 @@ As an example, you can find detailed information about how `kube-up.sh` sets
 up logging for COS image on GCP in the corresponding [script]
 [cosConfigureHelper].
 
-When you run [`kubectl logs`](/docs/user-guide/kubectl/{{page.version}}/#logs) as in
+When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#logs) as in
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file, returning the contents in the response.
 
