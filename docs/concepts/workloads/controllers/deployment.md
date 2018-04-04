@@ -964,7 +964,7 @@ it is created.
 
 ### kubectl rolling update
 
-[Kubectl rolling update](/docs/user-guide/kubectl/{{page.version}}/#rolling-update) updates Pods and ReplicationControllers
+[Kubectl rolling update](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#rolling-update) updates Pods and ReplicationControllers
 in a similar fashion. But Deployments are recommended, since they are declarative, server side, and have
 additional features, such as rolling back to any previous revision even after the rolling update is done.
 
