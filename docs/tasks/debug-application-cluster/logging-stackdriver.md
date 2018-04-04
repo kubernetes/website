@@ -80,7 +80,7 @@ Stackdriver Logging agents to the running cluster.
 1. Deploy a `ConfigMap` with the logging agent configuration by running the following command:
 
     ```
-    kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-configmap.yaml
+    kubectl create --namespace=kube-system -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-configmap.yaml
     ```
 
     The command creates the `ConfigMap` in the `default` namespace. You can download the file
@@ -89,7 +89,7 @@ Stackdriver Logging agents to the running cluster.
 1. Deploy the logging agent `DaemonSet` by running the following command:
 
     ```
-    kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-ds.yaml
+    kubectl create --namespace=kube-system -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-ds.yaml
     ```
 
     You can download and edit this file before using it as well.
@@ -108,7 +108,7 @@ If you have 3 nodes in the cluster, the output should looks similar to this:
 ```
 NAMESPACE     NAME               DESIRED   CURRENT   READY     NODE-SELECTOR                              AGE
 ...
-kube-system   fluentd-gcp-v2.0   3         3         3         beta.kubernetes.io/fluentd-ds-ready=true   6d
+kube-system   fluentd-gcp-v2.0   3         3         3         beta.kubernetes.io/fluentd-ds-ready=true   1m
 ...
 ```
 
@@ -276,7 +276,7 @@ Then edit resource requirements in the spec file and update the `DaemonSet` obje
 in the apiserver using the following command:
 
 ```shell
-kubectl replace -f fluentd-gcp-ds.yaml
+kubectl replace --namespace=kube-system -f fluentd-gcp-ds.yaml
 ```
 
 After some time, Stackdriver Logging agent pods will be restarted with the new configuration.
