@@ -146,7 +146,7 @@ are stored absolutely.
 {% capture whatsnext %}
 
 * [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
-* [kubectl config](/docs/reference/generated/kubectl/kubectl/)
+* [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
 {% endcapture %}
 
