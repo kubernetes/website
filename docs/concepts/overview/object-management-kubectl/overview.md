@@ -135,6 +135,7 @@ writers, even if the changes are not merged back to the object configuration fil
 This is possible by using the `patch` API operation to write only
 observed differences, instead of using the `replace`
 API operation to replace the entire object configuration.
+{: .note}
 
 ### Examples
 
