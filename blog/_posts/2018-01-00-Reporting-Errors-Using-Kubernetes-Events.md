@@ -13,7 +13,7 @@ At [Box](https://www.box.com/), we manage several large scale Kubernetes cluster
 One use case of Box’s control plane is [public key infrastructure](https://en.wikipedia.org/wiki/Public_key_infrastructure) (_PKI_) processing. In our infrastructure, applications needing a new SSL certificate also need to trigger some processing in the control plane. The majority of our applications are not allowed to generate new SSL certificates due to security reasons. The control plane has a different security boundary and network access, and is therefore allowed to generate certificates.  
 
 
-| ![](https://docs.google.com/a/linuxfoundation.org/drawings/d/snd-Vdn8h65V5wEBwU0KIqg/image?w=624&h=554&rev=303&ac=1) |
+| ![](https://docs.google.com/a/linuxfoundation.org/drawings/d/snd-Vdn8h65V5wEBwU0KIqg/image?w=624&h=554&rev=303&ac=1){: .big-img}  |
 | Figure1: Block Diagram of the PKI flow |
 
 
