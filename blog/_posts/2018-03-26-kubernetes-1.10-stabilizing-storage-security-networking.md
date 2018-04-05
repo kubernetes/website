@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: blog
 title: 'Kubernetes 1.10: Stabilizing Storage, Security, and Networking '
 date: '2018-03-26T17:20:00.000-07:00'
 author: kbarnard
