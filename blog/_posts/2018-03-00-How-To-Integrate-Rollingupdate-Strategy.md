@@ -91,11 +91,11 @@ WQ-RDS handles MySQL instance crashes while protecting against data loss.
 
 When killing clustershard-c0, WQ-RDS will detect that clustershard-c0 is unavailable and replace clustershard-c0 on failed machine, taking about 35 seconds on average.
 
-![][2]
+![][2]{:.big-img}
 
 zero data loss at same time.
 
-![][3]  
+![][3]{:.big-img}  
 
 
 ###  Feature : RollingUpdate Strategy
@@ -130,7 +130,7 @@ Because TPR (currently CRD) does not support the rolling upgrade strategy, we ne
 * **MySQL Sharding Cluster has ****changed**: Each StatefulSet has its corresponding ControllerRevision, which records all the revision data and order (like git). Whenever StatefulSet is syncing, StatefulSet Controller will firstly compare it's spec to the latest corresponding ControllerRevision data (similar to git diff). If changed, a new ControllerrRevision will be generated, and the revision number will be incremented by 1. WQ-RDS borrows the process, MySQL Sharding Cluster object will record all the revision and order in ControllerRevision.
 * **How to initialize MySQL Sharding Cluster to meet request ****replicas**: Statefulset supports two [Pod management policies][4]: Parallel and OrderedReady. Because MySQL Sharding Cluster doesn't require ordered creation for its initial processes, we use the Parallel policy to accelerate the initialization of the cluster.
 * **How to perform a Rolling ****Upgrade**: Statefulset recreates pods in strictly decreasing order. The difference is that WQ-RDS updates shards instead of recreating them, as shown below:
-![][6]  
+![][6]{: .big-img}
 
 * **When RollingUpdate ends**: Kubernetes signals termination clearly. A rolling update completes when all of a set's Pods have been updated to the updateRevision. The status's currentRevision is set to updateRevision and its updateRevision is set to the empty string. The status's currentReplicas is set to updateReplicas and its updateReplicas are set to 0.
 
@@ -208,25 +208,25 @@ Finally, We can now update "clustershard-c" to update configuration "innodb_buff
 
 The process takes 480 seconds.
 
-![][7]
+![][7]{: .big-img}
 
 The upgrade is in monotonically decreasing manner:
 
-![][8]
+![][8]{: .big-img}
 
-![][9]
+![][9]{: .big-img}
 
-![][10]
+![][10]{: .big-img}
 
-![][11]
+![][11]{: .big-img}
 
-![][12]
+![][12]{: .big-img}
 
-![][13]
+![][13]{: .big-img}
 
-![][14]
+![][14]{: .big-img}
 
-![][15]
+![][15]{: .big-img} 
 
 ###  Conclusion
 
