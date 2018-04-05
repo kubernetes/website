@@ -1,7 +1,44 @@
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(iconfont/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url('../fonts/MaterialIcons-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/MaterialIcons-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/MaterialIcons-Regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/MaterialIcons-Regular.svg#MaterialIcons-Regular') format('svg'), /* Legacy iOS */
+       url('../fonts/MaterialIcons-Regular.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+
+.material-icons {
+ font-family: 'Material Icons';
+ font-weight: normal;
+ font-style: normal;
+ font-size: 24px;  /* Preferred icon size */
+ display: inline-block;
+ line-height: 1;
+ text-transform: none;
+ letter-spacing: normal;
+ word-wrap: normal;
+ white-space: nowrap;
+ direction: ltr;
+
+ /* Support for all WebKit browsers. */
+ -webkit-font-smoothing: antialiased;
+ /* Support for Safari and Chrome. */
+ text-rendering: optimizeLegibility;
+
+ /* Support for Firefox. */
+ -moz-osx-font-smoothing: grayscale;
+
+ /* Support for IE. */
+ font-feature-settings: 'liga';
+}
+
 body {
-
   margin:0 auto;
-
 }
 
 .infobarWrapper a {
@@ -9,10 +46,8 @@ body {
 }
 
 #encyclopedia {
-padding: 0px !important;
-
+  padding: 0px !important;
 }
-
 
 span .editthispage {
 display: -webkit-inline-box !important;
