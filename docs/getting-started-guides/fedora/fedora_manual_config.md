@@ -127,6 +127,7 @@ KUBELET_ARGS="--cgroup-driver=systemd --kubeconfig=/etc/kubernetes/master-kubeco
 KUBELET_ARGS=""
 
 ```
+* Create the file `/etc/kubernetes/master-kubeconfig.yaml` with the contents:
 
 ```yaml
 kind: Config
