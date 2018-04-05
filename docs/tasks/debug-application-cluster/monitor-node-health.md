@@ -54,7 +54,7 @@ provides more flexible management, such as overwriting the default
 configuration to fit it into your environment or detect
 customized node problems.
 
-* **Step 1:** Create `node-problem-detector.yaml`:
+* **Step 1:** `node-problem-detector.yaml`:
 
 {% include code.html language="yaml" file="node-problem-detector.yaml" ghlink="/docs/tasks/debug-application-cluster/node-problem-detector.yaml" %}
 
@@ -65,7 +65,7 @@ OS distro.***
 * **Step 2:** Start node problem detector with `kubectl`:
 
 ```shell
-$ kubectl create -f node-problem-detector.yaml
+ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/node-problem-detector.yaml
 ```
 
 ### Addon Pod
@@ -96,8 +96,8 @@ node-problem-detector-config --from-file=config/`.
 * **Step 4:** Re-create the node problem detector with the new yaml file:
 
 ```shell
-$ kubectl delete -f node-problem-detector.yaml # If you have a node-problem-detector running
-$ kubectl create -f node-problem-detector-configmap.yaml
+ kubectl delete -f https://k8s.io/docs/tasks/debug-application-cluster/node-problem-detector.yaml # If you have a node-problem-detector running
+ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/node-problem-detector-configmap.yaml
 ```
 
 ***Notice that this approach only applies to node problem detector started with `kubectl`.***
