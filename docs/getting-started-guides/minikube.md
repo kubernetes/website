@@ -69,6 +69,8 @@ client_address=192.168.99.1
 command=GET
 real path=/
 ...
+$ kubectl delete services hello-minikube
+service "hello-minikube" deleted
 $ kubectl delete deployment hello-minikube
 deployment "hello-minikube" deleted
 $ minikube stop
@@ -96,7 +98,7 @@ $ minikube start \
     --network-plugin=cni \
     --extra-config=kubelet.container-runtime=remote \
     --extra-config=kubelet.container-runtime-endpoint=/var/run/crio.sock \
-    --extra-config=image-service-endpoint=/var/run/crio.sock \
+    --extra-config=kubelet.image-service-endpoint=/var/run/crio.sock \
     --bootstrapper=kubeadm
 ```
 

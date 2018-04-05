@@ -25,7 +25,7 @@ Pods become isolated by having a NetworkPolicy that selects them. Once there is 
 
 ## The `NetworkPolicy` Resource
 
-See the [api-reference](/docs/api-reference/{{page.version}}/#networkpolicy-v1-networking) for a full definition of the resource.
+See the [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{page.version}}/#networkpolicy-v1-networking) for a full definition of the resource.
 
 An example `NetworkPolicy` might look like this:
 
@@ -162,6 +162,8 @@ spec:
   podSelector: {}
   egress:
   - {}
+  policyTypes:
+  - Egress
 ```
 
 ### Default deny all ingress and all egress traffic

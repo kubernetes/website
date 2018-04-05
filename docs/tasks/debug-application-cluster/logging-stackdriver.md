@@ -1,7 +1,7 @@
 ---
 reviewers:
-- crassirostris
 - piosz
+- x13n
 title: Logging Using Stackdriver
 ---
 

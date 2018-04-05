@@ -26,8 +26,8 @@ This renders the definition of the glossary term inside a `<div>`, preserving Ma
 | Name | Default | Description |
 | --- | --- | --- |
 | `term_id` | Not Applicable (Required) | The `id` of the glossary term whose definition will be used. (This `id` is the same as the filename of the term, i.e. `_data/glossary/<ID>.yml`.) |
-| `length` | "short" | Specifies which term definition should be used ("short" for the `short-definition`, "long" for `long-description`, "all" when both should be included). |
-| `prepend` | "Service Catalog is" | A prefix which can be attached in front of a term's short definition (which is one or more sentence fragments). |
+| `length` | "short" | Specifies which term definition should be used ("short" for the `short-description`, "long" for `long-description`, "all" when both should be included). |
+| `prepend` | "Service Catalog is" | A prefix which can be attached in front of a term's short description (which is one or more sentence fragments). |
 
 #### (2) `glossary_tooltip` tag
 
@@ -48,7 +48,7 @@ This renders the following:
 
 | Name | Default | Description |
 | --- | --- | --- |
-| `text` | the `name` of the glossary term | The text that the user will hover over to display the glossary definition. **You should include this if using the tooltip inside of a glossary term's YAML short-definition.** |
+| `text` | the `name` of the glossary term | The text that the user will hover over to display the glossary definition. **You should include this if using the tooltip inside of a glossary term's YAML short-description.** |
 | `term_id` | Not Applicable (Required) | The `id` of the associated glossary term. (This `id` is the same as the filename of the term, i.e. `_data/glossary/<ID>.yml`.) |
 
 #### (3) `glossary_injector` tag
@@ -75,4 +75,4 @@ This renders the following:
 | `text` | the `name` of the glossary term | The text that the user will hover over to display the glossary definition. |
 | `term_id` | Not Applicable (Required) | The `id` of the glossary term whose definition will be used. (This `id` is the same as the filename of the term, i.e. `_data/glossary/<ID>.yml`.) |
 | `placeholder_id` | Not Applicable (Required) | The `id` of  the HTML element whose contents will be populated with the definition of `term_id` |
-| `length` | "short" | Specifies which term definition should be used ("short" for the `short-definition`, "long" for `long-description`, "all" when both should be included). |
+| `length` | "short" | Specifies which term definition should be used ("short" for the `short-description`, "long" for `long-description`, "all" when both should be included). |

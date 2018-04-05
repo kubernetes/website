@@ -1,8 +1,7 @@
 
-Generates front proxy CA client certificate and key for a Kubernetes cluster
+Generates a front proxy CA client certificate and key for a Kubernetes cluster
 
 ### Synopsis
-
 
 Generates the front proxy client certificate and key and saves them into front-proxy-client.crt and front-proxy-client.key files. 
 
@@ -11,7 +10,7 @@ If both files already exist, kubeadm skips the generation step and existing file
 Alpha Disclaimer: this command is currently alpha.
 
 ```
-kubeadm alpha phase certs front-proxy-client
+kubeadm alpha phase certs front-proxy-client [flags]
 ```
 
 ### Options
@@ -19,5 +18,6 @@ kubeadm alpha phase certs front-proxy-client
 ```
       --cert-dir string   The path where to save the certificates (default "/etc/kubernetes/pki")
       --config string     Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)
+  -h, --help              help for front-proxy-client
 ```
 

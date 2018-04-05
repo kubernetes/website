@@ -22,12 +22,12 @@
   <h5>{{ toc.abstract }}</h5>
   <div id="vendorStrip" class="light-text">
     <ul>
-      <li><a href="/docs/home/" {% if toc.bigheader == "Kubernetes Documentation" %}class="YAH"{% endif %}>HOME</a></li>
+      <li><a href="/docs/home/" {% if toc.bigheader == nil %}class="YAH"{% endif %}>HOME</a></li>
       <li><a href="/docs/setup/" {% if toc.bigheader == "Setup" %}class="YAH"{% endif %}>SETUP</a></li>
       <li><a href="/docs/concepts/" {% if toc.bigheader == "Concepts" %}class="YAH"{% endif %}>CONCEPTS</a></li>
       <li><a href="/docs/tasks/" {% if toc.bigheader == "Tasks" %}class="YAH"{% endif %}>TASKS</a></li>
       <li><a href="/docs/tutorials/" {% if toc.bigheader == "Tutorials" %}class="YAH"{% endif %}>TUTORIALS</a></li>
-      <li><a href="/docs/reference/" {% if toc.bigheader == "Reference Documentation" %}class="YAH"{% endif %}>REFERENCE</a></li>
+      <li><a href="/docs/reference/" {% if toc.bigheader == "Reference" %}class="YAH"{% endif %}>REFERENCE</a></li>
     </ul>
     <div id="searchBox">
       <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/search/?q=' + this.value)" autofocus="autofocus">

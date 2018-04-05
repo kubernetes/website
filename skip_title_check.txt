@@ -22,9 +22,14 @@ docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_bootstrap-token
 docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_bootstrap-token_node_allow-post-csrs.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_all.md
+docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_apiserver-etcd-client.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_apiserver-kubelet-client.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_apiserver.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_ca.md
+docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_etcd-ca.md
+docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_etcd-healthcheck-client.md 
+docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_etcd-peer.md
+docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_etcd-server.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_front-proxy-ca.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_front-proxy-client.md
 docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_sa.md

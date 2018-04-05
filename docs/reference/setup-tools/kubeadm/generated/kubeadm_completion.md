@@ -4,7 +4,6 @@ Output shell completion code for the specified shell (bash or zsh).
 ### Synopsis
 
 
-
 Output shell completion code for the specified shell (bash or zsh).
 The shell code must be evaluated to provide interactive
 completion of kubeadm commands. This can be done by sourcing it from
@@ -23,7 +22,7 @@ following line to the .bash_profile
 Note for zsh users: [1] zsh completions are only supported in versions of zsh >= 5.2
 
 ```
-kubeadm completion SHELL
+kubeadm completion SHELL [flags]
 ```
 
 ### Examples
@@ -45,5 +44,11 @@ source $HOME/.bash_profile
 
 # Load the kubeadm completion code for zsh[1] into the current shell
 source <(kubeadm completion zsh)
+```
+
+### Options
+
+```
+  -h, --help   help for completion
 ```
 

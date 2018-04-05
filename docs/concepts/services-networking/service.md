@@ -7,7 +7,7 @@ title: Services
 Kubernetes [`Pods`](/docs/concepts/workloads/pods/pod/) are mortal. They are born and when they die, they
 are not resurrected.  [`ReplicationControllers`](/docs/concepts/workloads/controllers/replicationcontroller/) in
 particular create and destroy `Pods` dynamically (e.g. when scaling up or down
-or when doing [rolling updates](/docs/user-guide/kubectl/{{page.version}}/#rolling-update)).  While each `Pod` gets its own IP address, even
+or when doing [rolling updates](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#rolling-update)).  While each `Pod` gets its own IP address, even
 those IP addresses cannot be relied upon to be stable over time. This leads to
 a problem: if some set of `Pods` (let's call them backends) provides
 functionality to other `Pods` (let's call them frontends) inside the Kubernetes
@@ -889,8 +889,8 @@ Iptables operations slow down dramatically in large scale cluster e.g 10,000 Ser
 ## API Object
 
 Service is a top-level resource in the Kubernetes REST API. More details about the
-API object can be found at: [Service API
-object](/docs/api-reference/{{page.version}}/#service-v1-core).
+API object can be found at:
+[Service API object](/docs/reference/generated/kubernetes-api/{{page.version}}/#service-v1-core).
 
 ## For More Information
 

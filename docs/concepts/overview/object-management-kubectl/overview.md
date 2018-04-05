@@ -14,6 +14,7 @@ approaches.
 
 **Warning:** A Kubernetes object should be managed using only one technique. Mixing
 and matching techniques for the same object results in undefined behavior.
+{: .warning}
 
 | Management technique             | Operates on          |Recommended environment | Supported writers  | Learning curve |
 |----------------------------------|----------------------|------------------------|--------------------|----------------|
@@ -66,7 +67,7 @@ operation (create, replace, etc.), optional flags and at least one file
 name. The file specified must contain a full definition of the object
 in YAML or JSON format.
 
-See the [API reference](/docs/api-reference/{{page.version}}/)
+See the [API reference](/docs/reference/generated/kubernetes-api/{{page.version}}/)
 for more details on object definitions.
 
 **Warning:** The imperative `replace` command replaces the existing
@@ -75,6 +76,7 @@ the configuration file.  This approach should not be used with resource
 types whose specs are updated independently of the configuration file.
 Services of type `LoadBalancer`, for example, have their `externalIPs` field updated
 independently from the configuration by the cluster.
+{: .warning}
 
 ### Examples
 
@@ -133,6 +135,7 @@ writers, even if the changes are not merged back to the object configuration fil
 This is possible by using the `patch` API operation to write only
 observed differences, instead of using the `replace`
 API operation to replace the entire object configuration.
+{: .note}
 
 ### Examples
 
@@ -167,8 +170,8 @@ Disadvantages compared to imperative object configuration:
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/concepts/overview/object-management-kubectl/imperative-config/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/concepts/overview/object-management-kubectl/declarative-config/)
-- [Kubectl Command Reference](/docs/user-guide/kubectl/{{page.version}}/)
-- [Kubernetes API Reference](/docs/api-reference/{{page.version}}/)
+- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/)
+- [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{page.version}}/)
 
 {% comment %}
 {% endcomment %}
