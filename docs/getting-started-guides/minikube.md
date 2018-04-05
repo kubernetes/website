@@ -5,7 +5,7 @@ reviewers:
 - aaron-prindle
 title: Running Kubernetes Locally via Minikube
 ---
-If you want to try Kubernetes or develop by using Kubernetes on a day-to-day basis,then install minikube. You can run Kubernetes locally by using minikube. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop.
+If you want to try Kubernetes or develop by using Kubernetes in a local environment, then install minikube. You can run Kubernetes locally by using minikube. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop.
 
 * TOC
 {:toc}
@@ -157,13 +157,13 @@ The `minikube start` command can be used to start your cluster.
 This command creates and configures a virtual machine that runs a single-node Kubernetes cluster.
 This command also configures your [kubectl](/docs/reference/kubectl/overview/) installation to communicate with this cluster.
 
-If you on a network that is configured to use a web proxy, you will need set the following environment variables:
+If you are on a network that is configured to use a web proxy, you need to set the following environment variables:
 
 ```
 https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
 ```
 
-However, minikube will also create a "minikube" context, and set it to default in kubectl.
+However, minikube also creates a "minikube" context, and sets it to default in kubectl.
 To switch back to this context later, run the command: `kubectl config use-context minikube`.
 
 #### Specifying the Kubernetes version
@@ -301,7 +301,7 @@ Some drivers will mount a host folder within the VM so that you can easily share
 
 ## Private Container Registries
 
-To access a private container registry, see [Using a Private Registry](https://kubernetes.io/docs/concepts/containers/images/#using-a-private-registry).
+To access a private container registry, see [Using a Private Registry](/docs/concepts/containers/images/#using-a-private-registry).
 
 Kubernetes recommends that you use `ImagePullSecrets`, but if you would like to configure access on the minikube VM you can place the `.dockercfg` in the `/home/docker` directory or the `config.json` in the `/home/docker/.docker` directory.
 
