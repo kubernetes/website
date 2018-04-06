@@ -203,7 +203,7 @@ metadata:
 spec:
   containers:
     - name:  pause
-      image: gcr.io/google-containers/pause
+      image: k8s.gcr.io/pause
 EOF
 Error from server (Forbidden): error when creating "STDIN": pods "pause" is forbidden: unable to validate against any pod security policy: []
 ```
@@ -247,7 +247,7 @@ metadata:
 spec:
   containers:
     - name:  pause
-      image: gcr.io/google-containers/pause
+      image: k8s.gcr.io/pause
 EOF
 pod "pause" created
 ```
@@ -264,7 +264,7 @@ metadata:
 spec:
   containers:
     - name:  pause
-      image: gcr.io/google-containers/pause
+      image: k8s.gcr.io/pause
       securityContext:
         privileged: true
 EOF
@@ -282,7 +282,7 @@ $ kubectl-user delete pod pause
 Let's try that again, slightly differently:
 
 ```shell
-$ kubectl-user run pause --image=gcr.io/google-containers/pause
+$ kubectl-user run pause --image=k8s.gcr.io/pause
 deployment "pause" created
 $ kubectl-user get pods
 No resources found.
