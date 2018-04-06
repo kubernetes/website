@@ -57,7 +57,7 @@ List all pods:
 $ kubectl get pods
 ```
 
-On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. For more information, see [Get a Shell to a Running Container](docs/tasks/debug-application-cluster/get-shell-running-container/).
+On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. For more information, see [Get a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
 
 If the IP of the pod is accessible, you can access its http endpoint with wget on port 80:
 
