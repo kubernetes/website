@@ -88,7 +88,7 @@ metadata:
   namespace: default
 subjects:
 - kind: User
-  name: jane
+  name: jane # Name is case sensitive
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
@@ -102,7 +102,7 @@ This allows administrators to define a set of common roles for the entire cluste
 then reuse them within multiple namespaces.
 
 For instance, even though the following `RoleBinding` refers to a `ClusterRole`,
-"dave" (the subject) will only be able to read secrets in the "development"
+"dave" (the subject, case sensitive) will only be able to read secrets in the "development"
 namespace (the namespace of the `RoleBinding`).
 
 ```yaml
@@ -114,7 +114,7 @@ metadata:
   namespace: development # This only grants permissions within the "development" namespace.
 subjects:
 - kind: User
-  name: dave
+  name: dave # Name is case sensitive
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
@@ -134,7 +134,7 @@ metadata:
   name: read-secrets-global
 subjects:
 - kind: Group
-  name: manager
+  name: manager # Name is case sensitive
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
