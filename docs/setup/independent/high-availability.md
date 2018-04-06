@@ -334,7 +334,7 @@ Please select one of the tabs to see installation instructions for the respectiv
        - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 \
        - --initial-cluster-token my-etcd-token \
        - --initial-cluster-state new
-       image: gcr.io/google_containers/etcd-amd64:3.1.0
+       image: gcr.io/google_containers/etcd-amd64:3.1.10
        livenessProbe:
        httpGet:
            path: /health
