@@ -151,7 +151,7 @@ in a pod spec. It's a comma-separated list of plain sysctl names or sysctl patte
 Here is an example, it authorizes binding user creating pod with corresponding sysctls.
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
   name: sysctl-psp
