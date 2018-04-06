@@ -63,7 +63,7 @@ metadata:
 spec:
   containers:
     - name: demo-container-1
-      image: gcr.io/google_containers/pause:2.0
+      image: k8s.gcr.io/pause:2.0
       resources:
         limits:
           vendor-domain/resource: 2 # requesting 2 vendor-domain/resource
