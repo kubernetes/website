@@ -41,7 +41,7 @@ spec:
       serviceAccountName: event-exporter-sa
       containers:
       - name: event-exporter
-        image: gcr.io/google-containers/event-exporter:v0.1.0
+        image: k8s.gcr.io/event-exporter:v0.1.0
         command:
         - '/event-exporter'
       terminationGracePeriodSeconds: 30
