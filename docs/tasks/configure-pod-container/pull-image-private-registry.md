@@ -93,6 +93,14 @@ The output is similar to this:
 
     {"auths":{"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}}
 
+To understand what is in the `auth` field, convert the base64-encoded data to a readable format:
+
+    echo "c3R...zE2" | base64 -d
+
+The output, username and password concatenated with a `:`, is similar to this:
+
+    janedoe:xxxxxxxxxxx
+
 Notice that the Secret data contains the authorization token similar to your local `~/.docker/config.json` file.
 
 You have successfully set your Docker credentials as a Secret called `regcred` in the cluster.
