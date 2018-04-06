@@ -1,185 +1,228 @@
 ---
 reviewers:
-- aveshagarwal
-- eparis
-- thockin
-title: Fedora (Single Node)
+- chrisnegus
+title: Kubernetes on Fedora (Single Node)
 ---
 
 * TOC
 {:toc}
 
+To try out Kubernetes on Fedora, you have a few choices:
+
+* **kubeadm** - The kubeadm command provides a toolkit to bootstrap a Kubernetes cluster that is reasonable secure, extensible, and upgradable. See this document for details on using kubeadm with flannel networking to set up Kubernetes in Fedora (either as a single-node or multi-node configuration).
+* **minikube** - With minikube, you run a single-node Kubernetes cluster in a virtual machine on your laptop or desktop system. See [Running Kubernetes Locally via Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) for details. See [Alternative Container Runtimes](https://kubernetes.io/docs/getting-started-guides/minikube/#alternative-container-runtimes) to replace Docker with CRI-O or rkt runtimes for minikube.
+
+OpenShift implementations of Kubernetes are also available with Fedora:
+
+* **minishift** - Like minikube, **minishift** runs a virtual machine to start up a single-node Kubernetes cluster. With minishift, however, OpenShift is the platform set up to manage Kubernetes. Use instructions from [Installing Minishift](https://docs.openshift.org/latest/minishift/getting-started/installing.html), being sure to set up the [KVM driver](https://docs.openshift.org/latest/minishift/getting-started/setting-up-driver-plugin.html#kvm-driver-fedora) before starting minishift.
+
+* **oc cluster up** - A quick way to directly set up an OpenShift cluster on Fedora is to install a few required packages, then run **oc cluster up**, as described in [Start a local OpenShift all-in-one cluster](https://developer.fedoraproject.org/deployment/openshift/about.html).
+
+* **openshift-ansible** - Use ansible playbooks to set up OpenShift in a single-node cluster directly on a Fedora system. Ansible playbooks for running OpenShift are available from the [Kubespray](https://github.com/kubernetes-incubator/kubespray) Github site.
+
+The description here for running Kubernetes using kubeadm has been tested on Fedora and Fedora Atomic distributions. The resulting Kubernetes configuration has these attributes:
+
+* Single node Kubernetes cluster (continue to Kubernetes Multi-node Setup to add nodes)
+* Flannel networking
+* Pod address range of 10.244.0.0/16
+* For the single-node setup, master and node are on a single system, so the master is allowed to run pods
+
+
 ## Prerequisites
 
-1. You need 2 or more machines with Fedora installed. These can be either bare metal machines or virtual machines.
+Get and set up the latest Fedora or Fedora Atomic on any cloud, virtualization, or bare metal environment. To do that, you can obtain appropriate media and instructions for:
 
-## Instructions
+* [Fedora Server Download](https://getfedora.org/en/server/download/) or
+* [Fedora Atomic Host Download](https://getfedora.org/en/atomic/download/)
 
-This is a getting started guide for Fedora.  It is a manual configuration so you understand all the underlying packages / services / ports, etc...
+Follow these steps to prepare the system:
 
-This guide will only get ONE node (previously minion) working.  Multiple nodes require a functional [networking configuration](/docs/concepts/cluster-administration/networking/) done outside of Kubernetes.  Although the additional Kubernetes configuration requirements should be obvious.
+1. Make sure that operating system software is up to date. On Fedora Atomic, type:
 
-The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, kube-controller-manager, kubelet, kube-proxy.  These services are managed by systemd and the configuration resides in a central location: `/etc/kubernetes`.  We will break the services up between the hosts.  The first host, fed-master, will be the Kubernetes master.  This host will run the kube-apiserver, kube-controller-manager, and kube-scheduler.  In addition, the master will also run _etcd_ (not needed if _etcd_ runs on a different host but this guide assumes that _etcd_ and Kubernetes master run on the same host).  The remaining host, fed-node will be the node and run kubelet, proxy and docker.
+    <pre><tt># <b>atomic host upgrade</b>
+   # <b>systemctl reboot</b>
+    </tt></pre>
 
-**System Information:**
+   On a Fedora Server or Fedora Workstation system, type:
 
-Hosts:
+    <pre><tt># <b>dnf update -y</b>
+   # <b>systemctl reboot</b>
+    </tt></pre>
 
-```conf
-fed-master = 192.168.121.9
-fed-node = 192.168.121.65
-```
+    Once the system comes up, log in again and run the next steps.
 
-**Prepare the hosts:**
+2. Disable swap. Comment out (#) any swap areas from /etc/fstab. For example, a commented out swap line in /etc/fstab might appear as follows:
 
-* Install Kubernetes on all hosts - fed-{master,node}.  This will also pull in docker. Also install etcd on fed-master.  This guide has been tested with Kubernetes-0.18 and beyond.
-* Running on AWS EC2 with RHEL 7.2, you need to enable "extras" repository for yum by editing `/etc/yum.repos.d/redhat-rhui.repo` and changing the `enable=0` to `enable=1` for extras.
+    <pre><tt>
+    <b>#</b> /dev/mapper/fedora--atomic-swap swap  swap  defaults  0 0
+    </tt></pre>
 
-```shell
-dnf -y install kubernetes
-```
+3. Disable selinux. Change the SELINUX type in /etc/sysconfig/selinux to permissive, so it appears as follows:
 
-* Install etcd
+        SELINUX=permissive
 
-```shell
-dnf -y install etcd
-```
+4. Immediately disable swap and SELinux:
 
-* Add master and node to `/etc/hosts` on all machines (not needed if hostnames already in DNS). Make sure that communication works between fed-master and fed-node by using a utility such as ping.
+    <pre><tt>
+    # <b>swapoff -a</b>
+    # <b>setenforce 0</b>
+    </tt></pre>
 
-```shell
-echo "192.168.121.9    fed-master
-192.168.121.65    fed-node" >> /etc/hosts
-```
+5. Disable firewalld. On Fedora Server or Workstation only (firewalld is no on Fedora Atomic by default), type the following.
 
-* Edit `/etc/kubernetes/config` (which should be the same on all hosts) to set
-the name of the master server:
+    <pre><tt>
+    # <b>systemctl stop firewalld</b>
+    # <b>systemctl disable firewalld</b>
+    </tt></pre>
 
-```shell
-# Comma separated list of nodes in the etcd cluster
-KUBE_MASTER="--master=http://fed-master:8080"
-```
+**WARNING**: Although disabling security features, such as SELinux and Firewalld, are currently needed to get this procedure to work properly, disabling them is not good practice when using Kubernetes in production. For that reason, this procedure is best used for trying and learning about Kubernetes in non-production environments.
 
-* Disable the firewall on both the master and node, as Docker does not play well with other firewall rule managers.  Please note that iptables.service does not exist on the default Fedora Server install.
+## Set up Kubernetes
 
-```shell
-systemctl mask firewalld.service
-systemctl stop firewalld.service
+1. Install kubernetes-kubeadm for your OS:
 
-systemctl disable iptables.service
-systemctl stop iptables.service
-```
+    Fedora Atomic Host
 
-**Configure the Kubernetes services on the master.**
+    <pre><tt># <b>rpm-ostree install kubernetes-kubeadm ethtool ebtables -r</b>
+    <i>Log in again after automatic reboot</i>
+    </tt></pre>
 
-* Edit `/etc/kubernetes/apiserver` to appear as such.  The service-cluster-ip-range IP addresses must be an unused block of addresses, not used anywhere else.  They do not need to be routed or assigned to anything.
+    Fedora Workstation or Server
 
-```shell
-# The address on the local server to listen to.
-KUBE_API_ADDRESS="--address=0.0.0.0"
+    <pre><tt># <b>dnf install kubernetes-kubeadm ethtool ebtables -y</b>
+    </tt></pre>
 
-# Comma separated list of nodes in the etcd cluster
-KUBE_ETCD_SERVERS="--etcd-servers=http://127.0.0.1:2379"
+2. Enable kubelet service, which manages pods on each node. (The kubelet service will start automatically after you run kubeadm init in the next step.)
 
-# Address range to use for services
-KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
+    <pre><tt># <b>systemctl enable --now kubelet</b>
+    </tt></pre>
 
-# Add your own!
-KUBE_API_ARGS=""
-```
+3. Initialize Kubernetes. Options choose a set of IP addresses used for pods on the node and skips checks that will fail because of a later docker version:
 
-* Edit `/etc/etcd/etcd.conf` to let etcd listen on all available IPs instead of 127.0.0.1. If you have not done this, you might see an error such as "connection refused".
+    <pre><tt># <b>kubeadm init --pod-network-cidr=10.244.0.0/16 \
+        --ignore-preflight-errors=SystemVerification</b>
+    ...
+    </tt></pre>
 
-```shell
-ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
-```
+    Your Kubernetes master has initialized successfully!
 
-* Start the appropriate services on master:
+    **IMPORTANT**: The output from kubeadm init shows commands to run next. To add another node later, be sure to save the kubeadm join command line, which included token information you need to connect to the master.
 
-```shell
-for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler; do
-    systemctl restart $SERVICES
-    systemctl enable $SERVICES
-    systemctl status $SERVICES
-done
-```
+4. Create a .kube directory in your home directory, add a configuration file, and change ownership (to be able to use kubectl later as a regular user, login as that user and append sudo to the cp and chown commands here):
 
-**Configure the Kubernetes services on the node.**
+    <pre><tt># <b>mkdir -p $HOME/.kube</b>
+   # <b>cp -i /etc/kubernetes/admin.conf $HOME/.kube/config</b>
+   # <b>chown $(id -u):$(id -g) $HOME/.kube/config</b>
+    </tt></pre>
 
-***We need to configure the kubelet on the node.***
+5. Apply the flannel network plugin:
 
-* Edit `/etc/kubernetes/kubelet` to appear as such:
+    <pre><tt># <b>kubectl apply \
+        -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</b>
+    clusterrole "flannel" created
+    clusterrolebinding "flannel" created
+    serviceaccount "flannel" created
+    configmap "kube-flannel-cfg" created
+    daemonset "kube-flannel-ds" created
+    </tt></pre>
 
-```shell
-###
-# Kubernetes kubelet (node) config
+6. Allow pods to run on the master. Pods do not run on the master by default, for security reasons. For single-node clusters, you must override the default. If you plan to add a node, this is not required:
 
-# The address for the info server to serve on (set to 0.0.0.0 or "" for all interfaces)
-KUBELET_ADDRESS="--address=0.0.0.0"
+    <pre><tt># <b>kubectl taint nodes --all node-role.kubernetes.io/master-</b>
+    node "fedoraatomic27" untainted
+    </tt></pre>
 
-# You may leave this blank to use the actual hostname
-KUBELET_HOSTNAME="--hostname-override=fed-node"
+7. Check that the etcd and all kube- services are running:
 
-# location of the api-server
-KUBELET_ARGS="--cgroup-driver=systemd --kubeconfig=/etc/kubernetes/master-kubeconfig.yaml --require-kubeconfig"
+    <pre><tt># <b>kubectl get pods --all-namespaces</b>
+    NAMESPACE   NAME                                  READ STATUS RESTARTS AGE
+    kube-system etcd-fedoraatomic27                    1/1 Running  7      56m
+    kube-system kube-apiserver-fedoraatomic2           1/1 Running  8      56m
+    kube-system kube-controller-manager-fedoraatomic27 1/1 Running  0      56m
+    kube-system kube-dns-6f4fd4bdf-krfvt               3/3 Running  0      56m
+    kube-system kube-flannel-ds-dwgw8                  1/1 Running  0       7m
+    kube-system kube-proxy-t9pdb                       1/1 Running  0      56m
+    kube-system kube-scheduler-fedoraatomic27          1/1 Running  0      56m
+    </tt></pre>
 
-# Add your own!
-KUBELET_ARGS=""
+At this point, you have a working kubernetes single-node cluster. Next try running a pod.
 
-```
+## Try Kubernetes with an nginx pod
+To make sure your Kubernetes cluster is working, try running an Nginx (Web server and reverse proxy server) from a pod.
 
-```yaml
-kind: Config
-clusters:
-- name: local
-  cluster:
-    server: http://fed-master:8080
-users:
-- name: kubelet
-contexts:
-- context:
-    cluster: local
-    user: kubelet
-  name: kubelet-context
-current-context: kubelet-context
-```
+1. Get and run three replicas of the nginx pod, opening port 80 to access its content:
 
-* Start the appropriate services on the node (fed-node).
+    <pre><tt># <b>kubectl run nginx --image=nginx --port=80 --replicas=3</b>
+    deployment "nginx" created
+    </tt></pre>
 
-```shell
-for SERVICES in kube-proxy kubelet docker; do 
-    systemctl restart $SERVICES
-    systemctl enable $SERVICES
-    systemctl status $SERVICES 
-done
-```
+2. List information about running pods. The first set of output shows nginx pods being created; the second shows them running:
 
-* Check to make sure now the cluster can see the fed-node on fed-master, and its status changes to _Ready_.
+    <pre><tt># <b>kubectl get pods -o wide</b>
+    NAME                 READY STATUS     RESTARTS   AGE IP     NODE
+    nginx-7587c6fdb6-6mvmt 0/1 ContainerCreating 0   10s <none> fedoraatomic27
+    nginx-7587c6fdb6-6nzq8 0/1 ContainerCreating 0   10s <none> fedoraatomic27
+    nginx-7587c6fdb6-7xssr 0/1 ContainerCreating 0   10s <none> fedoraatomic27
+    # <b>kubectl get pods -o wide</b>
+    NAME                 READY STATUS   RESTARTS AGE IP         NODE
+    nginx-7587c6fdb6-6mvmt 0/1 Running  0        10s 10.244.0.3 fedoraatomic27
+    nginx-7587c6fdb6-6nzq8 0/1 Running  0        10s 10.244.0.4 fedoraatomic27
+    nginx-7587c6fdb6-7xssr 0/1 Running  0        10s 10.244.0.5 fedoraatomic27
+    </tt></pre>
 
-```shell
-kubectl get nodes
-NAME            STATUS      AGE      VERSION
-fed-node        Ready       4h
-```
+3. Expose nginx ports to they are accessible from the host:
 
-* Deletion of nodes:
+    <pre><tt># <b>kubectl expose deployment nginx --type NodePort</b>
+    service "nginx" exposed
+    # kubectl get svc</b>
+    NAME       TYPE        CLUSTER-IP      EXTERNAL-IP  PORT(S)       AGE
+    kubernetes ClusterIP   10.96.0.1       <none>       443/TCP       1h
+    nginx      NodePort    10.102.237.87   <none>       80:30361/TCP  20s
+    </tt></pre>
 
-To delete _fed-node_ from your Kubernetes cluster, one should run the following on fed-master (Please do not do it, it is just for information):
+4. Check that nginx service is accessible (using the CLUSTER-IP from your output above or the exposed port from the local host). If you are running the service from a cloud or virtual machine, the exposed port lets you access the service from your local system using the VM’s name or IP address:
 
-```shell
-kubectl delete -f ./node.json
-```
+    <pre><tt># <b>curl http://10.102.237.87:80</b>
+    &lt;h1&gt;Welcome to nginx!&lt;h1&gt;
+    &lt;p&gt;If you see this page, the nginx web server is successfully installed and working.
+    Further configuration is required.&lt;p&gt;
 
-*You should be finished!*
+    # <b>curl http://myfedoravm:30361</b>
+    &lt;h1&gt;Welcome to nginx!&lt;h1&gt; ...
+    </tt></pre>
 
-**The cluster should be running! Launch a test pod.**
+5. Add optional packages. As you use kubernetes, there are other tools available with Fedora you might find useful for working with containers. These include:
+
+    * **[buildah](https://github.com/projectatomic/buildah)** - Used to build containers without the docker command or service.
+    * **[skopeo](https://github.com/projectatomic/skopeo)** - Uset to interact with local and remote container images and registries.
+    * **[runc](https://github.com/projectatomic/runc)** - Runs containers without requiring an active runtime environment.
+
+    To install these packages for your OS:
+
+    Fedora Atomic Host
+    
+    <pre><tt># <b>rpm-ostree -r buildah skopeo runc</b>
+    <i>Log in again after automatic reboot</i>
+    </tt></pre>
+
+    Fedora Workstation or Server
+    
+    <pre><tt># <b>dnf install buildah skopeo runc</b>
+    </tt></pre>
+
+At this point, your Kubernetes cluster is ready to use
+
+To add other systems to expand Kubernetes from a single-node to a multi-node cluster, refer to [Kubernetes on Fedora - Multi-node](https://kubernetes.io/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) for details.
+
 
 ## Support Level
 
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/getting-started-guides/fedora/fedora_manual_config)            |          | Project
+Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_manual_config/)      |          | Community
+libvirt              | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_manual_config/)      |          | Community
+KVM                  | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_manual_config/)      |          | Community
+
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
-
