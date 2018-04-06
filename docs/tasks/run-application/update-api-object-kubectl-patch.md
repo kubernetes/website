@@ -158,7 +158,7 @@ You can also see the patch strategy in the
 ```
 
 And you can see the patch strategy in the
-[Kubernetes API documentation](/docs/reference/generated/kubernetes-api/v1.9/#podspec-v1-core).
+[Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{page.version}}/#podspec-v1-core).
 
 Create a file named `patch-file-tolerations.yaml` that has this content:
 
