@@ -228,7 +228,7 @@ There is no direct analog of `docker login` in kubectl. If you are interested in
 
 #### docker version
 
-To get the version of client and server, see [kubectl version](/docs/reference/generated/kubectl/kubectl-commands{{page.version}}/#version).
+To get the version of client and server, see [kubectl version](/docs/user-guide/kubectl/{{page.version}}/#version).
 
 docker:
 
