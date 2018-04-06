@@ -315,7 +315,8 @@ official release images or you can build from HEAD.
 
 #### Using official release images
 
-As part of every release, images are pushed to `k8s.gcr.io`. To use
+As part of every release, images are pushed to `staging-k8s.gcr.io`, which are
+re-published through `k8s.gcr.io` (which is globally replicated). To use
 these images, set env var `FEDERATION_PUSH_REPO_BASE=k8s.gcr.io`
 This will always use the latest image.
 To use the hyperkube image which includes federation-apiserver and
