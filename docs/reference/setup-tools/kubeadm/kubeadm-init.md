@@ -305,6 +305,7 @@ these two additional steps:
 
 ```shell
 cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
+[Service]
 Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --container-runtime-endpoint=$RUNTIME_ENDPOINT"
 EOF
 systemctl daemon-reload
