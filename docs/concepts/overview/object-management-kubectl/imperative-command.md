@@ -94,6 +94,7 @@ You can use the `delete` command to delete an object from a cluster:
 configuration. The difference is in the arguments passed to the command. To use
 `kubectl delete` as an imperative command, pass the object to be deleted as
 an argument. Here's an example that passes a Deployment object named nginx:
+{: .note}
 
 ```shell
 kubectl delete deployment/nginx
