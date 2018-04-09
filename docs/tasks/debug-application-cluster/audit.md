@@ -26,28 +26,49 @@ answer the following questions:
 
 [Kube-apiserver][kube-apiserver] performs auditing. Each request on each stage
 of its execution generates an event, which is then pre-processed according to
-a certain policy and written to a backend. You can find more details about the
-pipeline in the [design proposal][auditing-proposal].
+a certain policy and written to a backend. The policy determines what's recorded
+and the backends persist the records. The current backend implementations
+include logs files and webhooks.
 
-**Note,** that audit logging feature increases apiserver memory consumption, since some context
-required for auditing is stored for each request. Additionally, memory consumption depends on the
-audit logging configuration.
+Each request can be recorded with an associated "stage". The known stages are:
+
+- `RequestReceived` - The stage for events generated as soon as the audit
+  handler receives the request, and before it is delegated down the handler
+  chain.
+- `ResponseStarted` - Once the response headers are sent, but before the
+  response body is sent. This stage is only generated for long-running requests
+  (e.g. watch).
+- `ResponseComplete` - The response body has been completed and no more bytes
+  will be sent.
+- `Panic` - Events generated when a panic occurred.
+
+**Note** The audit logging feature increases the memory consumption of the API
+server because some context required for auditing is stored for each request.
+Additionally, memory consumption depends on the audit logging configuration.
+{: .note}
 
 ## Audit Policy
 
 Audit policy defines rules about what events should be recorded and what data
-they should include. When an event is processed, it's compared against the list
-of rules in order. The first matching rule sets the [audit level][auditing-level]
-of the event. The audit policy object structure is defined in the
-[`audit.k8s.io` API group][auditing-api].
+they should include. The audit policy object structure is defined in the
+[`audit.k8s.io` API group][auditing-api]. When an event is processed, it's
+compared against the list of rules in order. The first matching rule sets the
+"audit level" of the event. The known audit levels are:
+
+- `None` - don't log events that match this rule.
+- `Metadata` - log request metadata (requesting user, timestamp, resource,
+  verb, etc.) but not request or response body.
+- `Request` - log event metadata and request body but not response body.
+  This does not apply for non-resource requests.
+- `RequestResponse` - log event metadata, request and response bodies.
+  This does not apply for non-resource requests.
 
 You can pass a file with the policy to [kube-apiserver][kube-apiserver]
 using the `--audit-policy-file` flag. If the flag is omitted, no events are logged.
-__Note:__ `kind` and `apiVersion` fields along with `rules` __must__ be provided
-in the audit policy file. A policy with no (0) rules, or a policy that doesn't
-provide valid `apiVersion` and `kind` values is treated as illegal.
+Note that the `rules` field __must__ be provided in the audit policy file.
+A policy with no (0) rules is treated as illegal.
 
-Some example audit policy files:
+Below is an example audit policy file:
 
 {% include code.html language="yaml" file="audit-policy.yaml" ghlink="/docs/tasks/debug-application-cluster/audit-policy.yaml" %}
 
@@ -66,7 +87,7 @@ admins constructing their own audit profiles.
 
 ## Audit backends
 
-Audit backends implement exporting audit events to an external storage.
+Audit backends persist audit events to an external storage.
 [Kube-apiserver][kube-apiserver] out of the box provides two backends:
 
 - Log backend, which writes events to a disk
@@ -320,9 +341,9 @@ plugin which supports full-text search and analytics.
 
 ## Legacy Audit
 
-__Note:__ Legacy Audit is deprecated and is disabled by default since Kubernetes 1.8. Legacy Audit
-will be removed in 1.12. To fallback to this legacy audit, disable the advanced auditing feature
-using the `AdvancedAuditing` feature gate in [kube-apiserver][kube-apiserver]:
+__Note:__ Legacy Audit is deprecated and is disabled by default since 1.8 and 
+will be removed in 1.12. To fallback to this legacy audit, disable the advanced
+auditing feature using the `AdvancedAuditing` feature gate in [kube-apiserver][kube-apiserver]:
 
 ```
 --feature-gates=AdvancedAuditing=false
@@ -330,7 +351,9 @@ using the `AdvancedAuditing` feature gate in [kube-apiserver][kube-apiserver]:
 
 In legacy format, each audit log entry contains two lines:
 
-1. The request line containing a unique ID to match the response and request metadata, such as the source IP, requesting user, impersonation information, resource being requested, etc.
+1. The request line containing a unique ID to match the response and request
+   metadata, such as the source IP, requesting user, impersonation information,
+   resource being requested, etc.
 2. The response line containing a unique ID matching the request line and the response code.
 
 Example output for `admin` user listing pods in the `default` namespace:
@@ -361,7 +384,6 @@ and `audit-log-maxage` options.
 
 [kube-apiserver]: /docs/admin/kube-apiserver
 [auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
-[auditing-level]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md#levels
 [auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1beta1/types.go
 [gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/cluster/gce/gci/configure-helper.sh#L735
 [kubeconfig]: https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/
