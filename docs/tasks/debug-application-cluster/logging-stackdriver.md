@@ -83,7 +83,7 @@ Stackdriver Logging agents to the running cluster.
     kubectl create --namespace=kube-system -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-configmap.yaml
     ```
 
-    The command creates the `ConfigMap` in the `default` namespace. You can download the file
+    The command creates the `ConfigMap` in the `kube-system` namespace. You can download the file
     manually and change it before creating the `ConfigMap` object.
 
 1. Deploy the logging agent `DaemonSet` by running the following command:
