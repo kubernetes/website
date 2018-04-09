@@ -75,6 +75,7 @@ Setting this aspect may set different fields for different object types:
 
 **Note**: In Kubernetes version 1.5, not every verb-driven command has an
 associated aspect-driven command.
+{: .note}
 
 The `kubectl` tool supports these additional ways to update a live object directly,
 however they require a better understanding of the Kubernetes object schema.
