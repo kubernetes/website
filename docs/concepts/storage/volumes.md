@@ -211,7 +211,7 @@ its `log_level` entry are mounted into the Pod at path "`/etc/config/log_level`"
 Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 
-**Important:** You must create the [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/) first before you can use it.
+**Important:** You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) before you can use it.
 {: .caution}
 
 **Note:** A container using a ConfigMap as a [subPath](#using-subpath) volume mount will not
