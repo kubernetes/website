@@ -117,8 +117,11 @@ subsets:
       - port: 9376
 ```
 
-**NOTE:** Endpoint IPs may not be loopback (127.0.0.0/8), link-local
-(169.254.0.0/16), or link-local multicast (224.0.0.0/24).
+**NOTE** The endpoint IPs may not be loopback (127.0.0.0/8), link-local
+(169.254.0.0/16), or link-local multicast (224.0.0.0/24). They cannot be the
+cluster IPs of other Kubernetes services either because the `kube-proxy`
+component doesn't support virtual IPs as destination yet.
+{: .note}
 
 Accessing a `Service` without a selector works the same as if it had a selector.
 The traffic will be routed to endpoints defined by the user (`1.2.3.4:9376` in
