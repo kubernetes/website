@@ -112,7 +112,7 @@ configz endpoint:
 
 ```
 $ export NODE_NAME=the-name-of-the-node-you-are-reconfiguring
-$ curl -sSL http://localhost:8001/api/v1/proxy/nodes/${NODE_NAME}/configz | jq '.kubeletconfig|.kind="KubeletConfiguration"|.apiVersion="kubelet.config.k8s.io/v1beta1"' > kubelet_configz_${NODE_NAME}
+$ curl -sSL http://localhost:8001/api/v1/nodes/${NODE_NAME}/proxy/configz | jq '.kubeletconfig|.kind="KubeletConfiguration"|.apiVersion="kubelet.config.k8s.io/v1beta1"' > kubelet_configz_${NODE_NAME}
 ```
 
 Note that we have to manually add the `kind` and `apiVersion` to the downloaded
