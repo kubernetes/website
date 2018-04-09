@@ -22,7 +22,7 @@ a Pod or Container. Security context settings include:
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/): Use program profiles to restrict the capabilities of individual programs.
 
-* [Seccomp](https://en.wikipedia.org/wiki/Seccomp): Limit a process's access to open file descriptors.
+* [Seccomp](https://en.wikipedia.org/wiki/Seccomp): Filter a process's system calls.
 
 * AllowPrivilegeEscalation: Controls whether a process can gain more privileges than its parent process. This bool directly controls whether the [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt) flag gets set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged OR 2) has `CAP_SYS_ADMIN`.
 
