@@ -200,7 +200,7 @@ secrets:
 $ vi sa.yaml
 [editor session not shown]
 [delete line with key "resourceVersion"]
-[add lines with "imagePullSecret:"]
+[add lines with "imagePullSecrets:"]
 $ cat sa.yaml
 apiVersion: v1
 kind: ServiceAccount
