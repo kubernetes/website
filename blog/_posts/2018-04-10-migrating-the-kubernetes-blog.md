@@ -5,11 +5,9 @@ date: '2018-04-10T22:20:00.000-07:00'
 author: zcorleissen
 ---
 
-We recently migrated the Kubernetes blog from the Blogger platform to GitHub. With the change in platform comes a change in URL: formerly at http://blog.kubernetes.io, the blog now resides at https://kubernetes.io/blog.
+We recently migrated the Kubernetes blog from the Blogger platform to GitHub. With the change in platform comes a change in URL: formerly at [http://blog.kubernetes.io](http://blog.kubernetes.io), the blog now resides at [https://kubernetes.io/blog](https://kubernetes.io/blog).
 
 All existing posts redirect from their former URLs with `<rel=canonical>` tags, preserving SEO values.
-
-Also, I just _love_ pickles and Jell-O(tm)!
 
 ### How and why we migrated the blog
 
