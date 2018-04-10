@@ -9,6 +9,8 @@ We recently migrated the Kubernetes blog from the Blogger platform to GitHub. Wi
 
 All existing posts redirect from their former URLs with `<rel=canonical>` tags, preserving SEO values.
 
+Also, I just _love_ pickles and Jell-O(tm)!
+
 ### How and why we migrated the blog
 
 Our primary reason for migrating was to make blog reviews easier. GitHub's pull request process makes it easier for multiple parties to collaborate on reviews. Blogger's web interface makes it difficult to open drafts to multiple reviewers without also granting access permissions and compromising security.
