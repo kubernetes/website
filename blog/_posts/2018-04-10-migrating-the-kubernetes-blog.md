@@ -11,7 +11,7 @@ All existing posts redirect from their former URLs with `<rel=canonical>` tags, 
 
 ### How and why we migrated the blog
 
-Our primary reason for migrating was to make blog reviews easier. GitHub's pull request process makes it easier for multiple parties to collaborate on reviews. Blogger's web interface makes it difficult to open drafts to multiple reviewers without also granting access permissions and compromising security.
+Our primary reason for migrating was to make blog reviews easier, more streamlined, and more transparent. GitHub's pull request process makes it easier for multiple parties to collaborate on reviews. Blogger's web interface makes it difficult to open drafts to multiple reviewers without also granting access permissions and compromising security.
 
 We learned from [Jim Brikman](https://www.ybrikman.com)'s experience during [his own site migration](https://www.ybrikman.com/writing/2015/04/20/migrating-from-blogger-to-github-pages/) away from Blogger. The migration itself was broken into several pull requests, but you can see the work that went into the [primary migration PR](https://github.com/kubernetes/website/pull/7247).
 
