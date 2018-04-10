@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Migrating the Kubernetes blog'
-date: '2018-04-11T22:20:00.000-07:00'
+date: '2018-04-10T22:20:00.000-07:00'
 author: zcorleissen
 ---
 
@@ -33,4 +33,4 @@ If you have a post that you want to remain confidential until your publish date,
 
 ### Call for reviewers
 
-The Kubernetes blog needs more reviewers! If you're interested in contributing to the Kubernetes project and can participate on a regular, weekly basis, send an introductory email to k8s-blog@linuxfoundation.org.
+The Kubernetes blog needs more reviewers! If you're interested in contributing to the Kubernetes project and can participate on a regular, weekly basis, send an introductory email to [k8sblog@linuxfoundation.org](k8sblog@linuxfoundation.org).
