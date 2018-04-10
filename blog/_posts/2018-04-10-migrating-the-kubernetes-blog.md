@@ -15,6 +15,14 @@ Our primary reason for migrating was to make blog reviews easier, more streamlin
 
 We learned from [Jim Brikman](https://www.ybrikman.com)'s experience during [his own site migration](https://www.ybrikman.com/writing/2015/04/20/migrating-from-blogger-to-github-pages/) away from Blogger. The migration itself was broken into several pull requests, but you can see the work that went into the [primary migration PR](https://github.com/kubernetes/website/pull/7247).
 
-### Confidentiality
+### How to Submit a Blog Post
 
-Our workflow hasn't changed for confidential advance drafts. Additionally, we'll coordinate publishing for time sensitive posts to ensure that information isn't released prematurely through an open pull request.
+You can submit a blog post for consideration one of two ways: 
+
+* Submit a Google Doc through the [blog submission form](https://docs.google.com/forms/d/e/1FAIpQLSch_phFYMTYlrTDuYziURP6nLMijoXx_f7sLABEU5gWBtxJHQ/viewform) 
+* Open a pull request against the [website repository](https://github.com/kubernetes/website/tree/master/blog) as described [here](/docs/home/contribute/create-pull-request/)
+
+If you have a post that you want to remain confidential until your publish date, please submit your post via the Google form. Otherwise, you can choose your submission process based on your comfort level and preferred workflow.
+
+**Note:** Our workflow hasn't changed for confidential advance drafts. Additionally, we'll coordinate publishing for time sensitive posts to ensure that information isn't released prematurely through an open pull request.
+{: .note}
