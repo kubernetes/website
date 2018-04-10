@@ -140,7 +140,7 @@ Note that the information reported as Pod status depends on the current
 A PodSpec has a `restartPolicy` field with possible values Always, OnFailure,
 and Never. The default value is Always.
 `restartPolicy` applies to all Containers in the Pod. `restartPolicy` only
-refers to restarts of the Containers by the kubelet on the same node. Failed
+refers to restarts of the Containers by the kubelet on the same node. Terminated
 Containers that are restarted by the kubelet are restarted with an exponential
 back-off delay (10s, 20s, 40s ...) capped at five minutes, and is reset after ten
 minutes of successful execution. As discussed in the
