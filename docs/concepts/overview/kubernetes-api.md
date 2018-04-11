@@ -32,8 +32,8 @@ Requested format is specified by setting HTTP headers:
 
 Header | Possible Values
 -- | --
-Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf`
-Accept-Encoding | `gzip`
+Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` (the default content-type is `application/json` for `*/*` or not passing this header)
+Accept-Encoding | `gzip` (not passing this header is acceptable)
 
 **Examples of getting OpenAPI spec**:
 
