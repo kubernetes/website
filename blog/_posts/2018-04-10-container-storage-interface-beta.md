@@ -4,8 +4,10 @@ title: Container Storage Interface (CSI) for Kubernetes Going Beta
 date: Tuesday, April 10, 2018
 ---
 
+<p align="center">
 ![Kubernetes Logo](/images/blog-logging/2018-04-10-container-storage-interface-beta/csi-kubernetes.png)
 ![CSI Logo](/images/blog-logging/2018-04-10-container-storage-interface-beta/csi-logo.png)
+</p>
 
 The Kubernetes implementation of the Container Storage Interface (CSI) is now beta in Kubernetes v1.10. CSI was [introduced as alpha](http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html) in Kubernetes v1.9.
 
@@ -167,7 +169,7 @@ Storage vendors can build Kubernetes deployments for their plugins using these c
 
 ## Where can I find CSI drivers?
 
-CSI drivers are developed and maintained by third parties. You can a non-definitive list of some sample and production CSI drivers [here](https://kubernetes-csi.github.io/docs/Drivers.html).
+CSI drivers are developed and maintained by third parties. You can a non-definitive list of some [sample and production CSI drivers] (https://kubernetes-csi.github.io/docs/Drivers.html).
 
 ## What about FlexVolumes?
 
@@ -177,7 +179,7 @@ In addition to being difficult to deploy, Flex did not address the pain of plugi
 
 CSI addresses these issues by not only enabling storage plugins to be developed out-of-tree, but also containerized and deployed via standard Kubernetes primitives.
 
-If you still have questions about in-tree volumes vs CSI vs Flex, please see the FAQ [here](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+If you still have questions about in-tree volumes vs CSI vs Flex, please see the [Volume Plugin FAQ] (https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
 ## What will happen to the in-tree volume plugins?
 
