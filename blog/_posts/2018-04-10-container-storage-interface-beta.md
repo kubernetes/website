@@ -167,7 +167,7 @@ Storage vendors can build Kubernetes deployments for their plugins using these c
 
 ## Where can I find CSI drivers?
 
-CSI drivers are developed and maintained by third parties. You can a non-definitive list of some [sample and production CSI drivers] (https://kubernetes-csi.github.io/docs/Drivers.html).
+CSI drivers are developed and maintained by third parties. You can a non-definitive list of some [sample and production CSI drivers](https://kubernetes-csi.github.io/docs/Drivers.html).
 
 ## What about FlexVolumes?g
 
@@ -177,7 +177,7 @@ In addition to being difficult to deploy, Flex did not address the pain of plugi
 
 CSI addresses these issues by not only enabling storage plugins to be developed out-of-tree, but also containerized and deployed via standard Kubernetes primitives.
 
-If you still have questions about in-tree volumes vs CSI vs Flex, please see the [Volume Plugin FAQ] (https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+If you still have questions about in-tree volumes vs CSI vs Flex, please see the [Volume Plugin FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
 ## What will happen to the in-tree volume plugins?
 
