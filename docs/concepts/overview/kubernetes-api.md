@@ -26,7 +26,24 @@ What constitutes a compatible change and how to change the API are detailed by t
 
 Complete API details are documented using [Swagger v1.2](http://swagger.io/) and [OpenAPI](https://www.openapis.org/). The Kubernetes apiserver (aka "master") exposes an API that can be used to retrieve the Swagger v1.2 Kubernetes API spec located at `/swaggerapi`.
 
-Starting with Kubernetes 1.4, OpenAPI spec is also available at [`/swagger.json`](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json). While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
+Starting with Kubernetes 1.10, OpenAPI spec is served in a single `/openapi/v2` endpoint. The format-separated endpoints (`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`) are deprecated and will get removed in Kubernetes 1.14.
+
+Requested format is specified by setting HTTP headers:
+
+Header | Possible Values
+-- | --
+Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf`
+Accept-Encoding | `gzip`
+
+**Examples of getting OpenAPI spec**:
+
+Before 1.10 | Starting with Kubernetes 1.10
+-- | --
+GET /swagger.json | GET /openapi/v2 **Accept**: application/json
+GET /swagger-2.0.0.pb-v1 | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf
+GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf **Accept-Encoding**: gzip
+
+**[DEPRECATED]** Starting with Kubernetes 1.4, OpenAPI spec is also available at [`/swagger.json`](https://git.k8s.io/kubernetes/api/openapi-spec/swagger.json). While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
 
 Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
 
