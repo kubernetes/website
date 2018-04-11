@@ -4,8 +4,8 @@ title: Container Storage Interface (CSI) for Kubernetes Going Beta
 date: Tuesday, April 10, 2018
 ---
 
-![Kubernetes Logo](/images/2018-04-10-container-storage-interface-beta/csi-kubernetes.png)
-![CSI Logo](/images/2018-04-10-container-storage-interface-beta/csi-logo.png)
+![Kubernetes Logo](/images/blog-logging/2018-04-10-container-storage-interface-beta/csi-kubernetes.png)
+![CSI Logo](/images/blog-logging/2018-04-10-container-storage-interface-beta/csi-logo.png)
 
 The Kubernetes implementation of the Container Storage Interface (CSI) is now beta in Kubernetes v1.10. CSI was [introduced as alpha](http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html) in Kubernetes v1.9.
 
