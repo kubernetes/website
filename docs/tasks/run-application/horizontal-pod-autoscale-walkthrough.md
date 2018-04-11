@@ -169,7 +169,7 @@ metadata:
   namespace: default
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1beta1
+    apiVersion: apps/v1
     kind: Deployment
     name: php-apache
   minReplicas: 1
@@ -250,7 +250,7 @@ metadata:
   namespace: default
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1beta1
+    apiVersion: apps/v1
     kind: Deployment
     name: php-apache
   minReplicas: 1
