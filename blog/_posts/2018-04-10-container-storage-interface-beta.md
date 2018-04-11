@@ -4,10 +4,8 @@ title: Container Storage Interface (CSI) for Kubernetes Going Beta
 date: Tuesday, April 10, 2018
 ---
 
-<p align="center">
 ![Kubernetes Logo](/images/blog-logging/2018-04-10-container-storage-interface-beta/csi-kubernetes.png)
 ![CSI Logo](/images/blog-logging/2018-04-10-container-storage-interface-beta/csi-logo.png)
-</p>
 
 The Kubernetes implementation of the Container Storage Interface (CSI) is now beta in Kubernetes v1.10. CSI was [introduced as alpha](http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html) in Kubernetes v1.9.
 
@@ -171,7 +169,7 @@ Storage vendors can build Kubernetes deployments for their plugins using these c
 
 CSI drivers are developed and maintained by third parties. You can a non-definitive list of some [sample and production CSI drivers] (https://kubernetes-csi.github.io/docs/Drivers.html).
 
-## What about FlexVolumes?
+## What about FlexVolumes?g
 
 As mentioned in the [alpha release blog post](http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html), [FlexVolume plugin](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md) was an earlier attempt to make the Kubernetes volume plugin system extensible. Although it enables third party storage vendors to write drivers “out-of-tree”, because it is an exec based API, FlexVolumes requires files for third party driver binaries (or scripts) to be copied to a special plugin directory on the root filesystem of every node (and, in some cases, master) machine. This requires a cluster admin to have write access to the host filesystem for each node and some external mechanism to ensure that the driver file is recreated if deleted, just to deploy a volume plugin.
 
