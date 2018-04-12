@@ -352,7 +352,7 @@ nginx-deployment-5d5cfdbd5f   1         1         0       20s
 nginx-deployment-6c54bd5869   0         0         0       3m
 ```
 
-Looking at the Pods created, you will see that the 1 Pods created by new ReplicaSet are stuck in an image pull loop.
+Looking at the Pods created, you will see that one Pod created by new ReplicaSet is stuck in an image pull loop.
 
 ```shell
 $ kubectl get pods
