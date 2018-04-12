@@ -116,6 +116,8 @@ as the liveness probe, but the existence of the readiness probe in the spec mean
 that the Pod will start without receiving any traffic and only start receiving
 traffic after the probe starts succeeding.
 
+If your Container needs to work on loading large data, configuration files, or migrations during startup, specify a readiness probe.
+
 If you want your Container to be able to take itself down for maintenance, you
 can specify a readiness probe that checks an endpoint specific to readiness that
 is different from the liveness probe.
