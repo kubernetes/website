@@ -64,6 +64,23 @@ The following resource types are supported:
 | `requests.cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
 | `requests.memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
 
+### Resource Quota For Extended Resources
+
+In addition to the resources mentioned above, in release 1.10, quota support for
+[extended resources](/docs/concepts/configuration/manage-compute-resources-container.md#extended-resources) is added.
+
+As overcommit is not allowed for extended resources, it makes no sense to specify both `requests`
+and `limits` for the same extended resource in a quota. So for extended resources, only quota items
+with prefix `requests.` is allowed for now.
+
+Take the GPU resource as an example, if the resource name is `nvidia.com/gpu`, and you want to
+limit the total number of GPUs requested in a namespace to 4, you can define a quota as follows:
+
+* `requests.nvidia.com/gpu: 4`
+
+See [Viewing and Setting Quotas](#viewing-and-setting-quotas) for more detail information.
+
+
 ## Storage Resource Quota
 
 You can limit the total sum of [storage resources](/docs/concepts/storage/persistent-volumes/) that can be requested in a given namespace.
@@ -193,6 +210,7 @@ spec:
     requests.memory: 1Gi
     limits.cpu: "2"
     limits.memory: 2Gi
+    requests.nvidia.com/gpu: 4
 EOF
 kubectl create -f ./compute-resources.yaml --namespace=myspace
 
@@ -218,15 +236,17 @@ compute-resources       30s
 object-counts           32s
 
 kubectl describe quota compute-resources --namespace=myspace
-Name:                  compute-resources
-Namespace:             myspace
-Resource               Used Hard
---------               ---- ----
-limits.cpu             0    2
-limits.memory          0    2Gi
-pods                   0    4
-requests.cpu           0    1
-requests.memory        0    1Gi
+Name:                    compute-resources
+Namespace:               myspace
+Resource                 Used  Hard
+--------                 ----  ----
+limits.cpu               0     2
+limits.memory            0     2Gi
+pods                     0     4
+requests.cpu             0     1
+requests.memory          0     1Gi
+requests.nvidia.com/gpu  0     4
+
 
 kubectl describe quota object-counts --namespace=myspace
 Name:                   object-counts
