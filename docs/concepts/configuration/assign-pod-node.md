@@ -144,6 +144,8 @@ If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, 
 
 If you remove or change the label of the node where the pod is scheduled, the pod won't be removed. In other words, the affinity selection works only at the time of scheduling the pod.
 
+The `weight` field in `preferredDuringSchedulingIgnoredDuringExecution` is in the range 1-100. For each node that meets all of the scheduling requirements (resource request, RequiredDuringScheduling affinity expressions, etc.), the scheduler will compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding MatchExpressions. This score is then combined with the scores of other priority functions for the node. The node(s) with the highest total score are the most preferred.
+
 For more information on node affinity, see the design doc
 [here](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md).
 
