@@ -53,13 +53,13 @@ $( document ).ready(function() {
 
 For more information about contributing to the Kubernetes documentation, see:
 
-* [Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/)
-* [Writing a New Topic](/docs/home/contribute/write-new-topic/)
-* [Staging Your Documentation Changes](/docs/home/contribute/stage-documentation-changes/)
-* [Using Page Templates](/docs/home/contribute/page-templates/)
-* [Documentation Style Guide](/docs/home/contribute/style-guide/)
+* [Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request.md)
+* [Writing a New Topic](/docs/home/contribute/write-new-topic.md)
+* [Staging Your Documentation Changes](/docs/home/contribute/stage-documentation-changes.md)
+* [Using Page Templates](/docs/home/contribute/page-templates.md)
+* [Documentation Style Guide](/docs/home/contribute/style-guide.md)
 * How to work with generated documentation
-  * [Generating Reference Documentation for Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
-  * [Generating Reference Documentation for kubectl Commands](/docs/home/contribute/generated-reference/kubectl/)
-  * [Generating Reference Documentation for the Kubernetes API](/docs/home/contribute/generated-reference/kubernetes-api/)
-  * [Generating Reference Pages for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/)
+  * [Generating Reference Documentation for Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api.md)
+  * [Generating Reference Documentation for kubectl Commands](/docs/home/contribute/generated-reference/kubectl.md)
+  * [Generating Reference Documentation for the Kubernetes API](/docs/home/contribute/generated-reference/kubernetes-api.md)
+  * [Generating Reference Pages for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components.md)
