@@ -81,6 +81,7 @@ Kubernetes supports several types of Volumes:
    * `hostPath`
    * `iscsi`
    * `local`
+   * `maprfs`
    * `nfs`
    * `persistentVolumeClaim`
    * `projected`
@@ -564,6 +565,20 @@ see the [local volume provisioner user guide](https://github.com/kubernetes-incu
 user if the external static provisioner is not used to manage the volume
 lifecycle.
 {: .note}
+
+### mapr
+
+A `maprfs` volume allows a [MapR](http://www.mapr.com) Volume to be mounted into your pod.
+Unlike `emptyDir`, which is erased when a Pod is removed, the contents of a
+`maprfs` volume are preserved and the volume is merely unmounted.  This
+means that a maprfs volume can be pre-populated with data, and that data can
+be "handed off" between pods.  MapRFS can be mounted by multiple writers
+simultaneously.
+
+**Important:** You must have your own MapRFS installation running before you can use it.
+{: .caution}
+
+See the [MapR Data Fabric for Kubernetes documentation](https://maprdocs.mapr.com/home/PersistentStorage/kdf_overview.html) for more details.
 
 ### nfs
 
