@@ -132,7 +132,7 @@ program to retrieve the contents of your secret.
 2. Using the etcdctl commandline, read that secret out of etcd:
 
     ```
-    ETCDCTL_API=3 etcdctl get /kubernetes.io/secrets/default/secret1 [...] | hexdump -C
+    ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
     ```
 
     where `[...]` must be the additional arguments for connecting to the etcd server. 
