@@ -372,8 +372,6 @@ might encounter in a cluster that has Dynamic Kubelet Config enabled. If you
 observe a condition with `status=False`, you should check the Kubelet log for
 more error details by searching for the message or reason text.
 
-<table>
-
 
 <table align="left">
 <tr>
