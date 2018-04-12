@@ -10,9 +10,9 @@ title: Perform Rolling Update Using a Replication Controller
 ## Overview
 
 **Note**: The preferred way to create a replicated application is to use a
-[Deployment](/docs/reference/generated/kubernetes-api/{{page.version}}/#deployment-v1beta1-apps),
+[Deployment](/docs/reference/generated/kubernetes-api/{{page.version}}/#deployment-v1-apps),
 which in turn uses a
-[ReplicaSet](/docs/reference/generated/kubernetes-api/{{page.version}}/#replicaset-v1beta1-extensions).
+[ReplicaSet](/docs/reference/generated/kubernetes-api/{{page.version}}/#replicaset-v1-apps).
 For more information, see
 [Running a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
 {: .note}
