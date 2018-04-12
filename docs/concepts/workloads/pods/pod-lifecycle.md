@@ -128,6 +128,8 @@ puts itself into an unready state regardless of whether the readiness probe exis
 The Pod remains in the unready state while it waits for the Containers in the Pod
 to stop.
 
+For more information about how to set up a liveness or readiness probe, see [Configure Liveness and Readiness Probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+
 ## Pod and Container status
 
 For detailed information about Pod Container status, see
