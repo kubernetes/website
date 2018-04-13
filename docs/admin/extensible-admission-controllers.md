@@ -119,6 +119,9 @@ webhooks:
     caBundle: <pem encoded ca cert that signs the server cert used by the webhook>
 ```
 
+*Note*: When using `clientConfig.service`, the server cert must be valid for
+`<svc_name>.<svc_namespace>.svc`.
+
 When an apiserver receives a request that matches one of the `rules`, the
 apiserver sends an `admissionReview` request to webhook as specified in the
 `clientConfig`.
