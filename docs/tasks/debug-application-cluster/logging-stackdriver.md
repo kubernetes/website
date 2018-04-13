@@ -41,6 +41,10 @@ The `DaemonSet` and `ConfigMap` are configured as addons. If you're not using `k
 consider starting a cluster without a pre-configured logging solution and then deploying
 Stackdriver Logging agents to the running cluster.
 
+**Warning:** The Stackdriver logging daemon has known issues on platforms other
+than Google Kubernetes Engine. Proceed at your own risk.
+{: .note}
+
 ### Deploying to an existing cluster
 
 1. Apply a label on each node, if not already present.
@@ -108,7 +112,7 @@ If you have 3 nodes in the cluster, the output should looks similar to this:
 ```
 NAMESPACE     NAME               DESIRED   CURRENT   READY     NODE-SELECTOR                              AGE
 ...
-kube-system   fluentd-gcp-v2.0   3         3         3         beta.kubernetes.io/fluentd-ds-ready=true   6d
+default       fluentd-gcp-v2.0   3         3         3         beta.kubernetes.io/fluentd-ds-ready=true   5m
 ...
 ```
 
