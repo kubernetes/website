@@ -188,7 +188,8 @@ for more details.
 
 This plug-in facilitates creation of dedicated nodes with extended resources.
 If operators want to create dedicated nodes with extended resources (like GPUs, FPGAs etc.), they are expected to
-taint the node with the extended resource name as the key. This admission controller, if enabled, automatically
+[taint the node](/docs/concepts/configuration/taint-and-toleration/#example-use-cases) with the extended resource
+name as the key. This admission controller, if enabled, automatically
 adds tolerations for such taints to pods requesting extended resources, so users don't have to manually
 add these tolerations.
 
@@ -454,7 +455,7 @@ plugins:
 ```
 
 #### Configuration Annotation Format
-`PodNodeSelector` uses the annotation key `scheduler.kubernetes.io/node-selector` to assign node selectors to namespaces.
+`PodNodeSelector` uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign node selectors to namespaces.
 
 ```yaml
 apiVersion: v1
@@ -467,7 +468,7 @@ metadata:
 
 #### Internal Behavior
 This admission controller has the following behavior:
-  1. If the `Namespace` has an annotation with a key `scheduler.kubernetes.io/nodeSelector`, use its value as the
+  1. If the `Namespace` has an annotation with a key `scheduler.alpha.kubernetes.io/node-selector`, use its value as the
      node selector.
   1. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the `PodNodeSelector`
      plugin configuration file as the node selector.
@@ -475,12 +476,14 @@ This admission controller has the following behavior:
   1. Evaluate the pod's node selector against the namespace-specific whitelist defined the plugin configuration file.
      Conflicts result in rejection.
 
-**Note:** `PodTolerationRestriction` is more versatile and powerful than `PodNodeSelector` and can encompass the scenarios supported by `PodNodeSelector`.
+**Note:** PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction 
+admission plugin, which allows preventing pods from running on specifically tainted nodes.
 {: .note}
 
 ### PersistentVolumeClaimResize
 
 This admission controller implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
+
 **Note:** Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
 to `true` to enable resizing.
 {: .note}

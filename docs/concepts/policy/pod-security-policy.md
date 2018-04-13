@@ -203,7 +203,7 @@ metadata:
 spec:
   containers:
     - name:  pause
-      image: gcr.io/google-containers/pause
+      image: k8s.gcr.io/pause
 EOF
 Error from server (Forbidden): error when creating "STDIN": pods "pause" is forbidden: unable to validate against any pod security policy: []
 ```
@@ -247,7 +247,7 @@ metadata:
 spec:
   containers:
     - name:  pause
-      image: gcr.io/google-containers/pause
+      image: k8s.gcr.io/pause
 EOF
 pod "pause" created
 ```
@@ -264,7 +264,7 @@ metadata:
 spec:
   containers:
     - name:  pause
-      image: gcr.io/google-containers/pause
+      image: k8s.gcr.io/pause
       securityContext:
         privileged: true
 EOF
@@ -282,7 +282,7 @@ $ kubectl-user delete pod pause
 Let's try that again, slightly differently:
 
 ```shell
-$ kubectl-user run pause --image=gcr.io/google-containers/pause
+$ kubectl-user run pause --image=k8s.gcr.io/pause
 deployment "pause" created
 $ kubectl-user get pods
 No resources found.
@@ -480,14 +480,10 @@ from changing the effective user ID, and prevent files from enabling extra
 capabilities (e.g. it will prevent the use of the `ping` tool). This behavior is
 required to effectively enforce `MustRunAsNonRoot`.
 
-It defaults to `nil`. The default behavior of `nil` allows privilege escalation
-so as to not break setuid binaries. Setting it to `false` ensures that no child
-process of a container can gain more privileges than its parent.
-
 **AllowPrivilegeEscalation** - Gates whether or not a user is allowed to set the
 security context of a container to `allowPrivilegeEscalation=true`. This
-defaults to allowed. When set to false, the container's
-`allowPrivilegeEscalation` is defaulted to false.
+defaults to allowed so as to not break setuid binaries. Setting it to `false`
+ensures that no child process of a container can gain more privileges than its parent.
 
 **DefaultAllowPrivilegeEscalation** - Sets the default for the
 `allowPrivilegeEscalation` option. The default behavior without this is to allow

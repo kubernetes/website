@@ -182,7 +182,7 @@ we recommend that you run these as containers, so you need an image to be built.
 You have several choices for Kubernetes images:
 
 - Use images hosted on Google Container Registry (GCR):
-  - For example `gcr.io/google-containers/hyperkube:$TAG`, where `TAG` is the latest
+  - For example `k8s.gcr.io/hyperkube:$TAG`, where `TAG` is the latest
     release tag, which can be found on the [latest releases page](https://github.com/kubernetes/kubernetes/releases/latest).
   - Ensure $TAG is the same tag as the release tag you are using for kubelet and kube-proxy.
   - The [hyperkube](https://releases.k8s.io/{{page.githubbranch}}/cmd/hyperkube) binary is an all in one binary
@@ -197,7 +197,7 @@ You have several choices for Kubernetes images:
 
 For etcd, you can:
 
-- Use images hosted on Google Container Registry (GCR), such as `gcr.io/google-containers/etcd:2.2.1`
+- Use images hosted on Google Container Registry (GCR), such as `k8s.gcr.io/etcd:2.2.1`
 - Use images hosted on [Docker Hub](https://hub.docker.com/search/?q=etcd) or [Quay.io](https://quay.io/repository/coreos/etcd), such as `quay.io/coreos/etcd:v2.2.1`
 - Use etcd binary included in your OS distro.
 - Build your own image
@@ -209,8 +209,8 @@ The recommended version number can also be found as the value of `TAG` in `kuber
 
 The remainder of the document assumes that the image identifiers have been chosen and stored in corresponding env vars.  Examples (replace with latest tags and appropriate registry):
 
-  - `HYPERKUBE_IMAGE=gcr.io/google-containers/hyperkube:$TAG`
-  - `ETCD_IMAGE=gcr.io/google-containers/etcd:$ETCD_VERSION`
+  - `HYPERKUBE_IMAGE=k8s.gcr.io/hyperkube:$TAG`
+  - `ETCD_IMAGE=k8s.gcr.io/etcd:$ETCD_VERSION`
 
 ### Security Models
 
@@ -782,7 +782,7 @@ Use `ps` or `docker ps` to verify that each process has started.  For example, v
 
 ```shell
 $ sudo docker ps | grep apiserver
-5783290746d5        gcr.io/google-containers/kube-apiserver:e36bf367342b5a80d7467fd7611ad873            "/bin/sh -c '/usr/lo'"    10 seconds ago      Up 9 seconds                              k8s_kube-apiserver.feb145e7_kube-apiserver-kubernetes-master_default_eaebc600cf80dae59902b44225f2fc0a_225a4695
+5783290746d5        k8s.gcr.io/kube-apiserver:e36bf367342b5a80d7467fd7611ad873            "/bin/sh -c '/usr/lo'"    10 seconds ago      Up 9 seconds                              k8s_kube-apiserver.feb145e7_kube-apiserver-kubernetes-master_default_eaebc600cf80dae59902b44225f2fc0a_225a4695
 ```
 
 Then try to connect to the apiserver:

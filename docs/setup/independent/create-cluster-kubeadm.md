@@ -14,7 +14,7 @@ cluster in an easy, reasonably secure and extensible way. It also supports
 managing [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for you and upgrading/downgrading clusters.
 
 kubeadm aims to set up a minimum viable cluster that pass the
-[Kubernetes Conformance tests](http://blog.kubernetes.io/2017/10/software-conformance-certification.html), but installing other addons than
+[Kubernetes Conformance tests](http://blog.kubernetes.io/2017/10/software-conformance-certification), but installing other addons than
 really necessary for a functional cluster is out of scope.
 
 It by design does not install a networking solution for you, which means you
@@ -72,6 +72,7 @@ timeframe; which also applies to `kubeadm`.
 | v1.7.x             | June 2017      | March 2018        |
 | v1.8.x             | September 2017 | June 2018         |
 | v1.9.x             | December 2017  | September 2018    |
+| v1.10.x            | March 2018     | December 2018     |
 
 {% endcapture %}
 
@@ -453,7 +454,7 @@ You can now access the API Server locally at `http://localhost:8001/api/v1`
 ## Tear down {#tear-down}
 
 To undo what kubeadm did, you should first [drain the
-node](/docs/user-guide/kubectl/{{page.version}}/#drain) and make
+node](/docs/reference/generated/kubectl/kubectl-commands#drain) and make
 sure that the node is empty before shutting it down.
 
 Talking to the master with the appropriate credentials, run:
@@ -485,7 +486,7 @@ Instructions for upgrading kubeadm clusters are available for:
  * [1.8.x to 1.8.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
  * [1.8 to 1.9 upgrades/downgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
  * [1.9.x to 1.9.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
- * [1.9.x to 1.9.y HA cluster upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-ha/)
+ * [1.9.x to 1.9.y HA cluster upgrades](/docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-ha/)
 
 ## Explore other add-ons {#other-addons}
 

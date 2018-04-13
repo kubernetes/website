@@ -11,7 +11,7 @@ For Kubernetes 101, we will cover kubectl, pods, volumes, and multiple container
 
 {% include task-tutorial-prereqs.md %}
 
-In order for the kubectl usage examples to work, make sure you have an example directory locally, either from [a release](https://github.com/kubernetes/kubernetes/releases) or [the source](https://github.com/kubernetes/kubernetes).
+In order for the kubectl usage examples to work, make sure you have an example directory locally, either from [a release](https://github.com/kubernetes/kubernetes/releases) or the latest .yaml files located at: https://github.com/kubernetes/website/tree/master/docs/user-guide/walkthrough.
 
 * TOC
 {:toc}
@@ -19,28 +19,28 @@ In order for the kubectl usage examples to work, make sure you have an example d
 
 ## Kubectl CLI
 
-The easiest way to interact with Kubernetes is via the [kubectl](/docs/user-guide/kubectl-overview/) command-line interface.
+The easiest way to interact with Kubernetes is through the [kubectl](/docs/reference/kubectl/overview/) command-line interface.
 
-For more info about kubectl, including its usage, commands, and parameters, see the [kubectl CLI reference](/docs/user-guide/kubectl-overview/).
+For more info about kubectl, including its usage, commands, and parameters, see [Overview of kubectl](/docs/reference/kubectl/overview/).
 
-If you haven't installed and configured kubectl, finish [installing kubectl](/docs/tasks/kubectl/install/) before continuing.
+For more information about installing and configuring kubectl, see [Install and Set Up kubectl](/docs/tasks/tools/install-kubectl/).
 
 ## Pods
 
 In Kubernetes, a group of one or more containers is called a _pod_. Containers in a pod are deployed together, and are started, stopped, and replicated as a group.
 
-See [pods](/docs/concepts/workloads/pods/pod/) for more details.
+For more information, see [Pods](/docs/concepts/workloads/pods/pod/).
 
 
 #### Pod Definition
 
-The simplest pod definition describes the deployment of a single container.  For example, an nginx web server pod might be defined as such:
+The simplest pod definition describes the deployment of a single container.  For example, an nginx web server pod might be defined as:
 
 {% include code.html language="yaml" file="pod-nginx.yaml" ghlink="/docs/user-guide/walkthrough/pod-nginx.yaml" %}
 
-A pod definition is a declaration of a _desired state_.  Desired state is a very important concept in the Kubernetes model.  Many things present a desired state to the system, and it is Kubernetes' responsibility to make sure that the current state matches the desired state.  For example, when you create a Pod, you declare that you want the containers in it to be running.  If the containers happen to not be running (e.g. program failure, ...), Kubernetes will continue to (re-)create them for you in order to drive them to the desired state. This process continues until the Pod is deleted.
+A pod definition is a declaration of a _desired state_.  Desired state is a very important concept in the Kubernetes model.  Many things present a desired state to the system, and Kubernetes' ensures that the current state matches the desired state.  For example, when you create a pod and declare that the containers in it to be running. If the containers happen not to be running because of a program failure, Kubernetes continues to (re-)create the pod in order to drive the pod to the desired state. This process continues until you delete the pod.
 
-See the [design document](https://git.k8s.io/community/contributors/design-proposals/README.md) for more details.
+For more information, see [Kubernetes Design Documents and Proposals](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/README.md).
 
 
 #### Pod Management
@@ -57,9 +57,9 @@ List all pods:
 $ kubectl get pods
 ```
 
-On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/tasks/debug-application-cluster/get-shell-running-container/) for details.
+On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. For more information, see [Get a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
 
-Provided the pod IP is accessible, you should be able to access its http endpoint with wget on port 80:
+If the IP of the pod is accessible, you can access its http endpoint with wget on port 80:
 
 ```shell
 {% raw %}
@@ -70,7 +70,7 @@ $ kubectl delete pod busybox # Clean up the pod we created with "kubectl run"
 {% endraw %}
 ```
 
-Delete the pod by name:
+To delete a pod named nginx:
 
 ```shell
 $ kubectl delete pod nginx
@@ -83,7 +83,7 @@ That's great for a simple static web server, but what about persistent storage?
 
 The container file system only lives as long as the container does. So if your app's state needs to survive relocation, reboots, and crashes, you'll need to configure some persistent storage.
 
-For this example we'll be creating a Redis pod with a named volume and volume mount that defines the path to mount the volume.
+In this example you can create a Redis pod with a named volume, and a volume mount that defines the path to mount the volume.
 
 1. Define a volume:
 
@@ -103,21 +103,23 @@ volumeMounts:
       mountPath: /data/redis
 ```
 
-Example Redis pod definition with a persistent storage volume ([pod-redis.yaml](/docs/user-guide/walkthrough/pod-redis.yaml)):
+
+Here is an example of Redis pod definition with a persistent storage volume ([pod-redis.yaml](/docs/user-guide/walkthrough/pod-redis.yaml)):
+
 
 {% include code.html language="yaml" file="pod-redis.yaml" ghlink="/docs/user-guide/walkthrough/pod-redis.yaml" %}
 
-Notes:
+Where:
 
 - The `volumeMounts` `name` is a reference to a specific  `volumes` `name`.
 - The `volumeMounts` `mountPath` is the path to mount the volume within the container.
 
 ##### Volume Types
 
-- **EmptyDir**: Creates a new directory that will exist as long as the Pod is running on the node, but it can persist across container failures and restarts.
-- **HostPath**: Mounts an existing directory on the node's file system (e.g. `/var/logs`).
+- **EmptyDir**: Creates a new directory that exists as long as the pod is running on the node, but it can persist across container failures and restarts.
+- **HostPath**: Mounts an existing directory on the node's file system. For example (`/var/logs`).
 
-See [volumes](/docs/concepts/storage/volumes/) for more details.
+For more information, see [Volumes](/docs/concepts/storage/volumes/).
 
 
 #### Multiple Containers

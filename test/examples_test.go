@@ -427,6 +427,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"fluentd-gcp-ds":        {&extensions.DaemonSet{}},
 			"nginx-dep":             {&extensions.Deployment{}},
 			"shell-demo":            {&api.Pod{}},
+			"node-problem-detector":        {&extensions.DaemonSet{}},
+			"node-problem-detector-configmap":        {&extensions.DaemonSet{}},
 			"termination":           {&api.Pod{}},
 		},
 		// TODO: decide whether federation examples should be added

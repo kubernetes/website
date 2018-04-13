@@ -204,7 +204,7 @@ Static Pod manifest share a set of common properties:
 
 Please note that:
 
-1. All the images, for the  `--kubernetes-version`/current architecture, will be pulled from `gcr.io/google_containers`; 
+1. All the images, for the  `--kubernetes-version`/current architecture, will be pulled from `k8s.gcr.io`; 
    In case an alternative image repository or CI image repository is specified this one will be used; In case a specific container image 
    should be used for all control plane components, this one will be used. see [using custom images](kubeadm-init.md/#custom-images) 
    for more details
@@ -301,7 +301,7 @@ a local etcd instance running in a Pod with following attributes:
 
 Please note that:
 
-1. The etcd image will be pulled from `gcr.io/google_containers`. In case an alternative image repository is specified this one will be used; 
+1. The etcd image will be pulled from `k8s.gcr.io`. In case an alternative image repository is specified this one will be used; 
    In case an alternative image name is specified, this one will be used. see [using custom images](kubeadm-init.md/#custom-images) for more details
 2. in case of kubeadm is executed in the `--dry-run` mode, the etcd static Pod manifest is written in a temporary folder
 3. Static Pod manifest generation for local etcd can be invoked individually with the [`kubeadm alpha phase etcd local`](kubeadm-alpha.md/#cmd-phase-etcd) command

@@ -126,7 +126,7 @@ kind: Ingress
 metadata:
   name: test
   annotations:
-    ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - host: foo.bar.com

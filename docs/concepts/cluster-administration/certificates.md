@@ -124,11 +124,11 @@ Finally, add the same parameters into the API server start parameters.
     Note that you may need to adapt the sample commands based on the hardware
     architecture and cfssl version you are using.
 
-        curl -LO https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 -o cfssl
+        curl -L https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 -o cfssl
         chmod +x cfssl
-        curl -LO https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 -o cfssljson
+        curl -L https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 -o cfssljson
         chmod +x cfssljson
-        curl -LO https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64 -o cfssl-certinfo
+        curl -L https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64 -o cfssl-certinfo
         chmod +x cfssl-certinfo
 1.  Create a directory to hold the artifacts and initialize cfssl:
 

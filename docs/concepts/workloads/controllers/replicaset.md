@@ -23,12 +23,12 @@ whereas a Replication Controller only supports equality-based selector requireme
 
 Most [`kubectl`](/docs/user-guide/kubectl/) commands that support
 Replication Controllers also support ReplicaSets. One exception is the
-[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#rolling-update) command. If
+[`rolling-update`](docs/reference/generated/kubectl/kubectl-commands#rolling-update) command. If
 you want the rolling update functionality please consider using Deployments
 instead. Also, the
-[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#rolling-update) command is
+[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) command is
 imperative whereas Deployments are declarative, so we recommend using Deployments
-through the [`rollout`](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#rollout) command.
+through the [`rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout) command.
 
 While ReplicaSets can be used independently, today it's mainly used by
 [Deployments](/docs/concepts/workloads/controllers/deployment/) as a mechanism to orchestrate pod
@@ -154,7 +154,7 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 ### Deleting a ReplicaSet and its Pods
 
 To delete a ReplicaSet and all its pods, use [`kubectl
-delete`](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#delete). Kubectl will scale the ReplicaSet to zero and wait
+delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). Kubectl will scale the ReplicaSet to zero and wait
 for it to delete each pod before deleting the ReplicaSet itself. If this kubectl command is interrupted, it can
 be restarted.
 
@@ -163,7 +163,7 @@ When using the REST API or go client library, you need to do the steps explicitl
 
 ### Deleting just a ReplicaSet
 
-You can delete a ReplicaSet without affecting any of its pods, using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#delete) with the `--cascade=false` option.
+You can delete a ReplicaSet without affecting any of its pods, using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) with the `--cascade=false` option.
 
 When using the REST API or go client library, simply delete the ReplicaSet object.
 

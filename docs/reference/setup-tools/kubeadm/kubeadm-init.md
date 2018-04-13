@@ -98,6 +98,7 @@ apiVersion: kubeadm.k8s.io/v1alpha1
 kind: MasterConfiguration
 api:
   advertiseAddress: <address|string>
+  controlPlaneEndpoint: <string>
   bindPort: <int>
 etcd:
   endpoints:
@@ -305,6 +306,7 @@ these two additional steps:
 
 ```shell
 cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
+[Service]
 Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --container-runtime-endpoint=$RUNTIME_ENDPOINT"
 EOF
 systemctl daemon-reload

@@ -8,6 +8,8 @@
 /concepts/containers/container-lifecycle-hooks/     /docs/concepts/containers/container-lifecycle-hooks/ 301
 /docs/     /docs/home/ 301
 
+/blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/27/kubernetes-1.10-stabilizing-storage-security-networking/     301
+
 /docs/admin/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
 /docs/admin/add-ons/     /docs/concepts/cluster-administration/addons/ 301
 /docs/admin/addons/     /docs/concepts/cluster-administration/addons/ 301
@@ -331,10 +333,11 @@
 /docs/user-guide/kubeconfig-file/     /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
 /docs/user-guide/kubectl-overview/     /docs/reference/kubectl/overview/
 /docs/user-guide/kubectl/     /docs/reference/generated/kubectl/kubectl-options/
-/docs/user-guide/kubectl/v1.8/*     https://v1-8.docs.kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/:splat 301    
-/docs/user-guide/kubectl/v1.9/*     /docs/reference/generated/kubectl/kubectl-commands/:splat 301
+/docs/user-guide/kubectl/v1.8/*     https://v1-8.docs.kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/:splat 301
+/docs/user-guide/kubectl/v1.9/*     https://v1-9.docs.kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/:splat 301
+/docs/user-guide/kubectl/v1.10/*     /docs/reference/generated/kubectl/kubectl-commands/:splat 301
 /docs/user-guide/kubectl-conventions/     /docs/reference/kubectl/conventions/
-/docs/user-guide/kubectl-cheatsheet/     /docs/reference/kubectl/cheatsheet/  
+/docs/user-guide/kubectl-cheatsheet/     /docs/reference/kubectl/cheatsheet/
 /docs/user-guide/kubectl/kubectl_*/     /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/user-guide/kubectl/v1.6/node_modules/*     https://v1-6.docs.kubernetes.io/docs/user-guide/kubectl/v1.6/ 301
 /docs/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
@@ -424,10 +427,10 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/admin/federation-controller-manager/    /docs/reference/generated/federation-controller-manager/ 301
 /docs/admin/federation-apiserver/      /docs/reference/generated/federation-apiserver/ 301
 /docs/admin/kubefed/     /docs/reference/generated/kubefed/ 301
-/docs/admin/kubefed_init/    /docs/reference/generated/kubefed_init/ 301 
+/docs/admin/kubefed_init/    /docs/reference/generated/kubefed_init/ 301
 /docs/admin/kubefed_join/    /docs/reference/generated/kubefed_join/ 301
 /docs/admin/kubefed_options/    /docs/reference/generated/kubefed_options/ 301
-/docs/admin/kubefed_unjoin/     /docs/reference/generated/kubefed_unjoin/ 301 
-/docs/admin/kubefed_version/    /docs/reference/generated/kubefed_version/ 301    
+/docs/admin/kubefed_unjoin/     /docs/reference/generated/kubefed_unjoin/ 301
+/docs/admin/kubefed_version/    /docs/reference/generated/kubefed_version/ 301
 
 /docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/kubeadm/ 301

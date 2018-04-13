@@ -36,7 +36,7 @@ be updated once they are created.
 
 Administrators can specify a default `StorageClass` just for PVCs that don't
 request any particular class to bind to: see the
-[`PersistentVolumeClaim` section](#persistentvolumeclaims)
+[`PersistentVolumeClaim` section](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#class-1)
 for details.
 
 ```yaml
@@ -111,8 +111,8 @@ Persistent Volumes that are dynamically created by a storage class will have the
 mount options specified in the `mountOptions` field of the class.
 
 If the volume plugin does not support mount options but mount options are
-specified, provisioning will fail. Mount options are not validated on neither
-the class nor PV, so mount of the PV will simply fail if one is invalid.
+specified, provisioning will fail. Mount options are not validated on either
+the class or PV, so mount of the PV will simply fail if one is invalid.
 
 ## Parameters
 

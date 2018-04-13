@@ -119,7 +119,7 @@ data:
 
 The data field is a map.  Its keys must consist of alphanumeric characters, '-', '_' or '.'.  The values are arbitrary data, encoded using base64.
 
-Create the secret using [`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#create):
+Create the secret using [`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands#create):
 
 ```shell
 $ kubectl create -f ./secret.yaml

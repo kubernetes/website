@@ -334,7 +334,7 @@ Please select one of the tabs to see installation instructions for the respectiv
        - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 \
        - --initial-cluster-token my-etcd-token \
        - --initial-cluster-state new
-       image: gcr.io/google_containers/etcd-amd64:3.1.0
+       image: k8s.gcr.io/etcd-amd64:3.1.10
        livenessProbe:
        httpGet:
            path: /health
@@ -408,7 +408,7 @@ If possible, use a smart load balancing algorithm like "least connections", and 
 {% capture onsite %}
 In an on-site environment there may not be a physical load balancer available. Instead, a virtual IP pointing to a healthy master node can be used. There are a number of solutions for this including keepalived, Pacemaker and probably many others, some with and some without load balancing.
 
-As an example we outline a simple setup based on keepalived. Depending on environment and requirements people may prefer different solutions. The configuration shown here provides an _active/passive_ failover without load balancing. If required, load balancing can by added quite easily by setting up HAProxy, NGINX or similar on the master nodes (not covered in this guide). 
+As an example we outline a simple setup based on keepalived. Depending on environment and requirements people may prefer different solutions. The configuration shown here provides an _active/passive_ failover without load balancing. If required, load balancing can by added quite easily by setting up HAProxy, NGINX or similar on the master nodes (not covered in this guide).
 
 1. Install keepalived, e.g. using your distribution's package manager. The configuration shown here works with version `1.3.5` but is expected to work with may other versions. Make sure to have it enabled (chkconfig, systemd, ...) so that it starts automatically when the respective node comes up.
 
@@ -419,7 +419,7 @@ As an example we outline a simple setup based on keepalived. Depending on enviro
     global_defs {
       router_id LVS_DEVEL
     }
-    
+
     vrrp_script check_apiserver {
       script "/etc/keepalived/check_apiserver.sh"
       interval 3
@@ -427,7 +427,7 @@ As an example we outline a simple setup based on keepalived. Depending on enviro
       fall 10
       rise 2
     }
-    
+
     vrrp_instance VI_1 {
         state <STATE>
         interface <INTERFACE>
@@ -469,7 +469,7 @@ As an example we outline a simple setup based on keepalived. Depending on enviro
         curl --silent --max-time 2 --insecure https://<VIRTUAL-IP>:6443/ -o /dev/null || errorExit "Error GET https://<VIRTUAL-IP>:6443/"
     fi
     ```
-    
+
     Replace the `<VIRTUAL-IP>` by your chosen virtual IP.
 
 4. Restart keepalived. While no Kubernetes services are up yet it will log health check fails on all master nodes. This will stop as soon as the first master node has been bootstrapped.
@@ -549,7 +549,7 @@ Before running kubeadm on the other masters, you need to first copy the K8s CA c
 
    ```shell
    scp root@<master0-ip-address>:/etc/kubernetes/pki/* /etc/kubernetes/pki
-   rm apiserver.crt
+   rm apiserver.*
    ```
 
 #### Option 2: Copy paste

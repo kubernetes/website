@@ -135,6 +135,7 @@ writers, even if the changes are not merged back to the object configuration fil
 This is possible by using the `patch` API operation to write only
 observed differences, instead of using the `replace`
 API operation to replace the entire object configuration.
+{: .note}
 
 ### Examples
 
@@ -169,7 +170,7 @@ Disadvantages compared to imperative object configuration:
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/concepts/overview/object-management-kubectl/imperative-config/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/concepts/overview/object-management-kubectl/declarative-config/)
-- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/)
+- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{page.version}}/)
 
 {% comment %}

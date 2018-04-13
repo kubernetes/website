@@ -7,7 +7,7 @@ title: Services
 Kubernetes [`Pods`](/docs/concepts/workloads/pods/pod/) are mortal. They are born and when they die, they
 are not resurrected.  [`ReplicationControllers`](/docs/concepts/workloads/controllers/replicationcontroller/) in
 particular create and destroy `Pods` dynamically (e.g. when scaling up or down
-or when doing [rolling updates](/docs/reference/generated/kubectl/kubectl-commands/{{page.version}}/#rolling-update)).  While each `Pod` gets its own IP address, even
+or when doing [rolling updates](/docs/reference/generated/kubectl/kubectl-commands#rolling-update)).  While each `Pod` gets its own IP address, even
 those IP addresses cannot be relied upon to be stable over time. This leads to
 a problem: if some set of `Pods` (let's call them backends) provides
 functionality to other `Pods` (let's call them frontends) inside the Kubernetes
@@ -117,8 +117,11 @@ subsets:
       - port: 9376
 ```
 
-**NOTE:** Endpoint IPs may not be loopback (127.0.0.0/8), link-local
-(169.254.0.0/16), or link-local multicast (224.0.0.0/24).
+**NOTE** The endpoint IPs may not be loopback (127.0.0.0/8), link-local
+(169.254.0.0/16), or link-local multicast (224.0.0.0/24). They cannot be the
+cluster IPs of other Kubernetes services either because the `kube-proxy`
+component doesn't support virtual IPs as destination yet.
+{: .note}
 
 Accessing a `Service` without a selector works the same as if it had a selector.
 The traffic will be routed to endpoints defined by the user (`1.2.3.4:9376` in
