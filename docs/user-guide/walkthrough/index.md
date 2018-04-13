@@ -73,7 +73,7 @@ $ kubectl delete pod busybox # Clean up the pod we created with "kubectl run"
 To delete a pod named nginx:
 
 ```shell
-$ kubectl delete pod nginx
+$ kubectl delete pod -l app=nginx
 ```
 
 
