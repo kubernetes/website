@@ -204,7 +204,7 @@
 /docs/tasks/administer-cluster/kubeadm-upgrade-1-7/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-7/ 301
 /docs/tasks/administer-cluster/kubeadm-upgrade-1-8/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-8/ 301
 /docs/tasks/administer-cluster/kubeadm-upgrade-1-9/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-9/ 301
-/docs/tasks/administer-cluster/kubeadm-upgrade-ha/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-ha9/ 301
+/docs/tasks/administer-cluster/kubeadm-upgrade-ha/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-ha/ 301
 /docs/tasks/administer-cluster/out-of-resource/memory-available.sh     /docs/tasks/administer-cluster/memory-available.sh 301
 /docs/tasks/administer-cluster/overview/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
 /docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/tasks/administer-cluster/out-of-resource/ 301
