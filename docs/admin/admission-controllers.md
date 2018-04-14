@@ -327,7 +327,7 @@ For more information, please check [Dynamic Admission Control](/docs/admin/exten
 This admission controller observes pod creation requests. If a container omits compute resource requests and limits,
 then the admission controller auto-populates a compute resource request based on historical usage of containers running the same image.
 If there is not enough data to make a decision the Request is left unchanged.
-When the admission controller sets a compute resource request, it does this by *annotating* the
+When the admission controller sets a compute resource request, it does this by *annotating* 
 the pod spec rather than mutating the `container.resources` fields.
 The annotations added contain the information on what compute resources were auto-populated.
 
