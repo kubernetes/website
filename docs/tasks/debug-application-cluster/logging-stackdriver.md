@@ -43,7 +43,7 @@ Stackdriver Logging agents to the running cluster.
 
 **Warning:** The Stackdriver logging daemon has known issues on platforms other
 than Google Kubernetes Engine. Proceed at your own risk.
-{: .note}
+{: .warning}
 
 ### Deploying to an existing cluster
 
