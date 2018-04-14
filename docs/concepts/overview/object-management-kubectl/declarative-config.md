@@ -347,7 +347,7 @@ configuration files have been removed from the directory. Apply with `--prune`
 queries the API server for all objects matching a set of labels, and attempts
 to match the returned live object configurations against the object
 configuration files. If an object matches the query, and it does not have a
-configuration file in the directory, and it does not have a `last-applied-configuration` annotation,
+configuration file in the directory, and it has a `last-applied-configuration` annotation,
 it is deleted.
 
 {% comment %}
@@ -975,7 +975,7 @@ template:
 {% capture whatsnext %}
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
 - [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/overview/object-management-kubectl/imperative-config/)
-- [Kubectl Command Reference](/docs/user-guide/kubectl/{{page.version}}/)
+- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{page.version}}/)
 {% endcapture %}
 
