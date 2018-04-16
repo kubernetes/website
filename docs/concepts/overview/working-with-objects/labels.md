@@ -10,9 +10,11 @@ Labels can be used to organize and to select subsets of objects.  Labels can be 
 Each object can have a set of key/value labels defined.  Each Key must be unique for a given object.
 
 ```json
-"labels": {
-  "key1" : "value1",
-  "key2" : "value2"
+"metadata": {
+  "labels": {
+    "key1" : "value1",
+    "key2" : "value2"
+  }
 }
 ```
 
