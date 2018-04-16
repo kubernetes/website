@@ -90,8 +90,8 @@ VolumeSubpath=true|false (default=true)
       --lock-object-namespace string             Define the namespace of the lock object. (default "kube-system")
       --log-flush-frequency duration             Maximum number of seconds between log flushes (default 5s)
       --master string                            The address of the Kubernetes API server (overrides any value in kubeconfig)
-      --policy-config-file string                File with scheduler policy configuration. This file is used if policy ConfigMap is not provided or --use-legacy-policy-config==true
-      --policy-configmap string                  Name of the ConfigMap object that contains scheduler's policy configuration. It must exist in the system namespace before scheduler initialization if --use-legacy-policy-config==false. The config must be provided as the value of an element in 'Data' map with the key='policy.cfg'
+      --policy-config-file string                File with scheduler policy configuration. This file is used if policy ConfigMap is not provided or --use-legacy-policy-config=true
+      --policy-configmap string                  Name of the ConfigMap object that contains scheduler's policy configuration. It must exist in the system namespace before scheduler initialization if --use-legacy-policy-config=false. The config must be provided as the value of an element in 'Data' map with the key='policy.cfg'
       --policy-configmap-namespace string        The namespace where policy ConfigMap is located. The system namespace will be used if this is not provided or is empty.
       --port int32                               The port that the scheduler's http service runs on (default 10251)
       --profiling                                Enable profiling via web interface host:port/debug/pprof/
