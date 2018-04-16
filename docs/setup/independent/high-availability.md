@@ -224,7 +224,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 1. First you will install etcd binaries like so:
 
    ```shell
-   export ETCD_VERSION=v3.1.10
+   export ETCD_VERSION=v3.1.12
    curl -sSL https://github.com/coreos/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz | tar -xzv --strip-components=1 -C /usr/local/bin/
    rm -rf etcd-$ETCD_VERSION-linux-amd64*
    ```
