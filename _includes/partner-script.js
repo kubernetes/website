@@ -1362,7 +1362,7 @@
 			type: 3,
 			name: 'Woqutech',
 			logo: 'woqutech',
-			link: 'http://www.woqutech.com/product/product-16-247.html#sss',
+			link: 'http://woqutech.com/product_qfusion.html',
 			blurb: 'Woqutech - QFusion'
 				},
 		{
