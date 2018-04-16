@@ -183,8 +183,6 @@ A list of Kubernetes-specific terms and words to be used consistently across the
   <tr><td>Kubernetes</td><td>Kubernetes should always be capitalized.</td></tr>
   <tr><td>kubectl</td><td>kubectl should always not be capitalized.</td></tr>
   <tr><td>Minikube</td><td>Minikube should always be capitalized.</td></tr>
-  <tr><td>Persistent Volumes</td><td>Persistent Volumes should always be capitalized.</td></tr>
-  <tr><td>Salt</td><td>Salt should always be capitalized.</td></tr>
   <tr><td>SIG Docs</td><td>SIG Docs rather than SIG-DOCS or other variations.</td></tr>
 </table>
 
