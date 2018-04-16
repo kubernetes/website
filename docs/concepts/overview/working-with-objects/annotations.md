@@ -19,10 +19,14 @@ include characters not permitted by labels.
 
 Annotations, like labels, are key/value maps:
 
-    "annotations": {
-      "key1" : "value1",
-      "key2" : "value2"
-    }
+```json
+"metadata": {
+  "annotations": {
+    "key1" : "value1",
+    "key2" : "value2"
+  }
+}
+```
 
 Here are some examples of information that could be recorded in annotations:
 
