@@ -167,7 +167,7 @@ Storage vendors can build Kubernetes deployments for their plugins using these c
 
 ## Where can I find CSI drivers?
 
-CSI drivers are developed and maintained by third parties. You can a non-definitive list of some [sample and production CSI drivers] (https://kubernetes-csi.github.io/docs/Drivers.html).
+CSI drivers are developed and maintained by third parties. You can find a non-definitive list of some [sample and production CSI drivers](https://kubernetes-csi.github.io/docs/Drivers.html).
 
 ## What about FlexVolumes?
 
