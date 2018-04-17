@@ -123,7 +123,7 @@ external IP address.
        curl http://<external-ip>:<port>
 
     where `<external-ip>` is the external IP address (`LoadBalancer Ingress`)
-    of your Service, and `<port>` is the value of `NodePort` in your Service
+    of your Service, and `<port>` is the value of `Port` in your Service
     description.
     If you are using minikube, typing `minikube service my-service` will
     automatically open the Hello World application in a browser.
