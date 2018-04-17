@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: Local Persistent Volumes for Kubernetes Goess Beta
+title: Local Persistent Volumes for Kubernetes Goes Beta
 date: Friday, April 13, 2018
 ---
 
