@@ -374,7 +374,7 @@ the `/scale` subresource will return an error on GET.
 - `StatusReplicasPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Replicas`.
 
   - It is a required value.
-  - Only JSONPaths under `.status` and with the dotation are allowed.
+  - Only JSONPaths under `.status` and with the dot notation are allowed.
   - If there is no value under the `StatusReplicasPath` in the custom resource,
 the status replica value in the `/scale` subresource will default to 0.
 
@@ -382,7 +382,7 @@ the status replica value in the `/scale` subresource will default to 0.
 
   - It is an optional value.
   - It must be set to work with HPA.
-  - Only JSONPaths under `.status` and with the dotation are allowed.
+  - Only JSONPaths under `.status` and with the dot notation are allowed.
   - If there is no value under the `LabelSelectorPath` in the custom resource,
 the status selector value in the `/scale` subresource will default to the empty string.
 
