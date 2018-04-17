@@ -23,7 +23,7 @@ whereas a Replication Controller only supports equality-based selector requireme
 
 Most [`kubectl`](/docs/user-guide/kubectl/) commands that support
 Replication Controllers also support ReplicaSets. One exception is the
-[`rolling-update`](docs/reference/generated/kubectl/kubectl-commands#rolling-update) command. If
+[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) command. If
 you want the rolling update functionality please consider using Deployments
 instead. Also, the
 [`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) command is

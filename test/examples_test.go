@@ -173,8 +173,8 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = ext_validation.ValidateIngress(t)
-	case *extensions.PodSecurityPolicy:
-		errors = ext_validation.ValidatePodSecurityPolicy(t)
+	case *policy.PodSecurityPolicy:
+		errors = policy_validation.ValidatePodSecurityPolicy(t)
 	case *extensions.ReplicaSet:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -317,9 +317,9 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-deployment": {&extensions.Deployment{}},
 		},
 		"../docs/concepts/policy": {
-			"privileged-psp": {&extensions.PodSecurityPolicy{}},
-			"restricted-psp": {&extensions.PodSecurityPolicy{}},
-			"example-psp":    {&extensions.PodSecurityPolicy{}},
+			"privileged-psp": {&policy.PodSecurityPolicy{}},
+			"restricted-psp": {&policy.PodSecurityPolicy{}},
+			"example-psp":    {&policy.PodSecurityPolicy{}},
 		},
 		"../docs/concepts/services-networking": {
 			"curlpod":          {&extensions.Deployment{}},
