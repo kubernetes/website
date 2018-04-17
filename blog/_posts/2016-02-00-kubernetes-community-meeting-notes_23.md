@@ -24,7 +24,7 @@ The Kubernetes contributing community meets most Thursdays at 10:00PT to discuss
     * Rob suggested moving the regular meeting up a little
 * k8s.io website preview [John Mulhausen] [:27]
     * using github for docs.  you can fork and do a pull request against the site
-    * will be it's own kubernetes organization BUT not in the code repo
+    * will be its own kubernetes organization BUT not in the code repo
     * Google will offer a "doc bounty" where you can get GCP credits for working on docs
     * Uses Jekyll to generate the site (e.g. the ToC)
     * Principle will be to 100% GitHub Pages; no script trickery or plugins, just fork/clone, edit, and push
