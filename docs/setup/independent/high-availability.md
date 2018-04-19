@@ -529,6 +529,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
    - `<private-ip>` with the private IPv4 of the master server.
    - `<etcd0-ip>`, `<etcd1-ip>` and `<etcd2-ip>` with the IP addresses of your three etcd nodes
    - `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
+   - `<load-balancer-ip>` with the virtual IP set up in the load balancer. Please read [setting up a master load balancer](https://kubernetes.io/docs/setup/independent/high-availability/#set-up-master-load-balancer) section of the docs for more information.
 
    **Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`. For more information, see [the documentation](https://kubernetes.io/docs/admin/high-availability/#endpoint-reconciler).
 
