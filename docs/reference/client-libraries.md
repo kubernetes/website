@@ -58,9 +58,10 @@ their authors, not the Kubernetes team.
 | Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
 | Ruby                 | [github.com/abonas/kubeclient](https://github.com/abonas/kubeclient) |
 | Scala                | [github.com/doriordan/skuber](https://github.com/doriordan/skuber) |
-| dotNet               | [https://github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen)
-| DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet)
-| Elixir               | [github.com/obmarg/kazan](https://github.com/obmarg/kazan/)
+| dotNet               | [github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen) |
+| DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet) |
+| Elixir               | [github.com/obmarg/kazan](https://github.com/obmarg/kazan/) |
+| Haskell              | [github.com/soundcloud/haskell-kubernetes](https://github.com/soundcloud/haskell-kubernetes) |
 {% endcapture %}
 
 {% include templates/concept.md %}
