@@ -499,7 +499,7 @@ Some of these limitations will be addressed by the community in future releases 
 - Windows kubelet.exe may fail to start when running on Windows Server under VMware Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
 - Flannel and Weavenet are not yet supported
 - Some .Net Core applications expect environment variables with a colon (`:`) in the name.  Kubernetes currently does not allow this.  Replace colon (`:`) with  double underscore (`__`) as documented [here](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration#configuration-by-environment).
-
+- As cgroups are not supported on windows, kubelet.exe should be started with the following additional arguments `--cgroups-per-qos=false --enforce-node-allocatable=""` [issue 61716](https://github.com/kubernetes/kubernetes/issues/61716)
 ## Next steps and resources
 
 - Support for Windows is in Beta as of v1.9 and your feedback is welcome. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
