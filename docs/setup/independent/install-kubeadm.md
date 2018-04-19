@@ -278,6 +278,12 @@ sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/ku
 
 Otherwise, you will need to open the systemd file and add the flag to an existing environment line.
 
+If you are not able see the entry related to "cgroup-driver=cgroupfs" in /etc/systemd/system/kubelet.service.d/10-kubeadm.conf, add the below entry to the bottom of the file.
+
+```bash
+Environment="KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs"
+```
+
 Then restart kubelet:
 
 ```bash
