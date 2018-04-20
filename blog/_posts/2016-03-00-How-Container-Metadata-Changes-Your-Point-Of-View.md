@@ -48,7 +48,7 @@ But in a Kubernetes world, achieving that high utilization means a service’s c
 
 
 ### Paint me a picture&nbsp;
-Let’s look at a quick example to make this more concrete: monitoring your application. Let’s work with a small, 3 node deployment running on GKE. For visualizing the environment we’ll use Sysdig Cloud. Here’s a list of the the nodes — note the “gke” prepended to the name of each host. We see some basic performance details like CPU, memory and network.  
+Let’s look at a quick example to make this more concrete: monitoring your application. Let’s work with a small, 3 node deployment running on GKE. For visualizing the environment we’ll use Sysdig Cloud. Here’s a list of the nodes — note the “gke” prepended to the name of each host. We see some basic performance details like CPU, memory and network.  
 
 
 [![](https://1.bp.blogspot.com/-NSkvJcEj0L0/VvmM1eWSlLI/AAAAAAAAA5w/YupjdMPz8aEmXjSt8xyZJVOoa4osyLYBg/s640/sysdig1.png)](https://1.bp.blogspot.com/-NSkvJcEj0L0/VvmM1eWSlLI/AAAAAAAAA5w/YupjdMPz8aEmXjSt8xyZJVOoa4osyLYBg/s1600/sysdig1.png)
