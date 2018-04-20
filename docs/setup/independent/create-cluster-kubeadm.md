@@ -432,7 +432,7 @@ kubectl --kubeconfig ./admin.conf get nodes
    case, you can copy the `admin.conf` file to be accessible by some other user
    and `scp` using that other user instead.
  - The `admin.conf` file gives the user _superuser_ privileges over the cluster.
-   This file should be used sparsingly. For normal users, it's recommended to
+   This file should be used sparingly. For normal users, it's recommended to
    generate an unique credential to which you whitelist privileges. You can do
    this with the `kubeadm alpha phase kubeconfig user --client-name <CN>`
    command. That command will print out a KubeConfig file to STDOUT which you
