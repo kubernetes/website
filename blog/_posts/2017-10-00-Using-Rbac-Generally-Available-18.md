@@ -139,7 +139,7 @@ rules:
   ```
 
 
-Verbs correspond to the HTTP verb of the request, while the resource and API groups refer to the the resource being referenced. Consider the following Ingress resource:  
+Verbs correspond to the HTTP verb of the request, while the resource and API groups refer to the resource being referenced. Consider the following Ingress resource:  
 
 
  ```  
