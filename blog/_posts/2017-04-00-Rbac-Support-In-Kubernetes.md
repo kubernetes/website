@@ -9,7 +9,7 @@ pagination:
 _Editor’s note: this post is part of a [series of in-depth articles](http://blog.kubernetes.io/2017/03/five-days-of-kubernetes-1.6.html) on what's new in Kubernetes 1.6_  
 
 
-One of the highlights of the [Kubernetes 1.6](http://blog.kubernetes.io/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale.html) release is the RBAC authorizer feature moving to _beta_. RBAC, Role-based access control, is an an authorization mechanism for managing permissions around Kubernetes resources. RBAC allows configuration of flexible authorization policies that can be updated without cluster restarts.  
+One of the highlights of the [Kubernetes 1.6](http://blog.kubernetes.io/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale.html) release is the RBAC authorizer feature moving to _beta_. RBAC, Role-based access control, is an authorization mechanism for managing permissions around Kubernetes resources. RBAC allows configuration of flexible authorization policies that can be updated without cluster restarts.  
 
 The focus of this post is to highlight some of the interesting new capabilities and best practices.  
 
