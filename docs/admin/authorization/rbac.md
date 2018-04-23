@@ -837,7 +837,8 @@ Here are two approaches for managing this transition:
 
 ### Parallel Authorizers
 
-Run both the RBAC and ABAC authorizers, and include the legacy ABAC policy:
+Run both the RBAC and ABAC authorizers, and specify a policy file that contains
+[the legacy ABAC policy](/docs/admin/authorization/abac#policy-file-format):
 
 ```
 --authorization-mode=RBAC,ABAC --authorization-policy-file=mypolicy.json
