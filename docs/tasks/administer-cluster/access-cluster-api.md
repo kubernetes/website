@@ -177,7 +177,7 @@ libraries can automatically discover the API server and authenticate.
 
 While running in a Pod, the Kubernetes apiserver is accessible via a Service named
 `kubernetes` in the `default` namespace. Therefore, Pods can use the 
-`kubernetes.default` hostname to query the API server. Official client libraries
+`kubernetes.default.svc` hostname to query the API server. Official client libraries
 do this automatically.
 
 From within a Pod, the recommended way to authenticate to the API server is with a
