@@ -249,7 +249,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 
 {% capture calico %}
 
-Refer to the Calico documentation for a [kubeadm quickstart](https://docs.projectcalico.org/latest/getting-started/kubernetes/), a [kubeadm installation guide](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/), and other resources.
+Refer to the Calico documentation for a [kubeadm quickstart](https://docs.projectcalico.org/latest/getting-started/kubernetes/) and other resources.
 
 **Note:**
 
@@ -257,7 +257,7 @@ Refer to the Calico documentation for a [kubeadm quickstart](https://docs.projec
  - Calico works on `amd64` only.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
 ```
 {% endcapture %}
 
