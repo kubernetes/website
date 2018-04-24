@@ -3,6 +3,9 @@ title: Federated Namespaces
 ---
 
 {% capture overview %}
+
+{% include federation-current-state.md %}
+
 This guide explains how to use Namespaces in Federation control plane.
 
 Namespaces in federation control plane (referred to as "federated Namespaces" in

@@ -3,6 +3,9 @@ title: Federated ReplicaSets
 ---
 
 {% capture overview %}
+
+{% include federation-current-state.md %}
+
 This guide explains how to use ReplicaSets in the Federation control plane.
 
 ReplicaSets in the federation control plane (referred to as "federated ReplicaSets" in

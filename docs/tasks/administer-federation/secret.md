@@ -2,6 +2,8 @@
 title: Federated Secrets
 ---
 
+{% include federation-current-state.md %}
+
 This guide explains how to use secrets in Federation control plane.
 
 * TOC
