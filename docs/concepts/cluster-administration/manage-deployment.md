@@ -253,7 +253,7 @@ my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 
 This outputs all "app=nginx" pods, with an additional label column of pods' tier (specified with `-L` or `--label-columns`).
 
-For more information, please see [labels](/docs/concepts/overview/working-with-objects/labels/) and [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
+For more information, please see [labels](/docs/concepts/overview/working-with-objects/labels/) and [kubectl label](/docs/user-guide/kubectl/{{page.version}}/#label).
 
 ## Updating annotations
 
@@ -270,7 +270,7 @@ metadata:
 ...
 ```
 
-For more information, please see [annotations](/docs/concepts/overview/working-with-objects/annotations/) and [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate) document.
+For more information, please see [annotations](/docs/concepts/overview/working-with-objects/annotations/) and [kubectl annotate](/docs/user-guide/kubectl/{{page.version}}/#annotate) document.
 
 ## Scaling your application
 
@@ -298,7 +298,7 @@ deployment "my-nginx" autoscaled
 
 Now your nginx replicas will be scaled up and down as needed, automatically.
 
-For more information, please see [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands/#scale), [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) and [horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) document.
+For more information, please see [kubectl scale](/docs/user-guide/kubectl/{{page.version}}/#scale), [kubectl autoscale](/docs/user-guide/kubectl/{{page.version}}/#autoscale) and [horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) document.
 
 
 ## In-place updates of resources
@@ -309,7 +309,7 @@ Sometimes it's necessary to make narrow, non-disruptive updates to resources you
 
 It is suggested to maintain a set of configuration files in source control (see [configuration as code](http://martinfowler.com/bliki/InfrastructureAsCode.html)),
 so that they can be maintained and versioned along with the code for the resources they configure.
-Then, you can use [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) to push your configuration changes to the cluster.
+Then, you can use [kubectl apply](/docs/user-guide/kubectl/{{page.version}}/#apply) to push your configuration changes to the cluster.
 
 This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
 
@@ -348,7 +348,7 @@ $ rm /tmp/nginx.yaml
 
 This allows you to do more significant changes more easily. Note that you can specify the editor with your `EDITOR` or `KUBE_EDITOR` environment variables.
 
-For more information, please see [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit) document.
+For more information, please see [kubectl edit](/docs/user-guide/kubectl/{{page.version}}/#edit) document.
 
 ### kubectl patch
 
@@ -356,7 +356,7 @@ You can use `kubectl patch` to update API objects in place. This command support
 JSON merge patch, and strategic merge patch. See
 [Update API Objects in Place Using kubectl patch](/docs/tasks/run-application/update-api-object-kubectl-patch/)
 and
-[kubectl patch](/docs/reference/generated/kubectl/kubectl-commands/#patch).
+[kubectl patch](/docs/user-guide/kubectl/{{page.version}}/#patch).
 
 ## Disruptive updates
 
