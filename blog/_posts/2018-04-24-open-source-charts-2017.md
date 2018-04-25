@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: Kubernetes Community - Top of the Open Source Charts in 2017
-date: Friday, April 13, 2018
+date: Wednesday, April 25, 2018
 ---
 
 2017 was a huge year for Kubernetes, and GitHub’s latest [Octoverse report](https://octoverse.github.com) illustrates just how much attention this project has been getting.
