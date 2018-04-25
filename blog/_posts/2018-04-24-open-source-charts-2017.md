@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: Kubernetes Community: Top of the Open Source Charts in 2017
+title: Kubernetes Community - Top of the Open Source Charts in 2017
 date: Friday, April 13, 2018
 ---
 
