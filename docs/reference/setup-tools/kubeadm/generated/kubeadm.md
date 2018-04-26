@@ -4,6 +4,7 @@ kubeadm: easily bootstrap a secure Kubernetes cluster
 ### Synopsis
 
 
+
 kubeadm: easily bootstrap a secure Kubernetes cluster.
 
     ┌──────────────────────────────────────────────────────────┐
@@ -38,7 +39,22 @@ Example usage:
 
 ### Options
 
-```
-  -h, --help   help for kubeadm
-```
+<table style="width: 100%;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">help for kubeadm</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
 

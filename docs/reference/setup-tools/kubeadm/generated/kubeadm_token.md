@@ -4,6 +4,7 @@ Manage bootstrap tokens.
 ### Synopsis
 
 
+
 This command manages bootstrap tokens. It is optional and needed only for advanced use cases.
 
 In short, bootstrap tokens are used for establishing bidirectional trust between a client and a server.
@@ -28,9 +29,36 @@ kubeadm token [flags]
 
 ### Options
 
-```
-      --dry-run             Whether to enable dry-run mode or not
-  -h, --help                help for token
-      --kubeconfig string   The KubeConfig file to use when talking to the cluster (default "/etc/kubernetes/admin.conf")
-```
+<table style="width: 100%;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--dry-run</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Whether to enable dry-run mode or not</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">help for token</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The KubeConfig file to use when talking to the cluster</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
 
