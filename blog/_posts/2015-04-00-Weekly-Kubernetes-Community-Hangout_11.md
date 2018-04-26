@@ -108,7 +108,7 @@ Agenda:
 * one proposal is to use pre-start hook. another is precondition probe - pre-start hook could do a probe. does anything respond when i hit this svc address or ip, then probe fails. could be implemented in pre-start hook. more useful than post-start. is part of rkt spec. has stages 0, 1, 2. hard to do in docker today, easy in rocket.
 * pre-start hook in container: how will affect readiness probe since the container might have a lock until some arbitrary condition is met if you implement with prestart hook. there has to be some compensation on when kubelet runs readiness/liveness probes if you have a hook. systemd has timeouts around the stages of process lifecycle.
 * if we go to black box model of container pre-start makes sense; if container spec becomes more descriptive of process model like systemd, then does kubelet need to know more about process model to do the right thing
-* ideally msg from inside the container to say i've done all of my pre-start actions. sdnotify for systemd does this. you tell systemd that you're done, it will communicate to to other deps that you're alive.
+* ideally msg from inside the container to say i've done all of my pre-start actions. sdnotify for systemd does this. you tell systemd that you're done, it will communicate to other deps that you're alive.
 * but... someone could just implement preconds inside their container. makes it easier to adapt an app w/o having to change their image. alternative is just have a pattern how they do it themselves but we don't do it for them.
 
 [1]: http://metadata.name/

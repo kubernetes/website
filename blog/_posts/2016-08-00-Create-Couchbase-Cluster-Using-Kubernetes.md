@@ -270,7 +270,7 @@ This RC also creates a single replica of Couchbase using the same arungupta/couc
 
 - TYPE environment variable is set to WORKER. This adds a worker Couchbase node to be added to the cluster.
 - COUCHBASE\_MASTER environment variable is passed the value of couchbase-master-service. This uses the service discovery mechanism built into Kubernetes for pods in the worker and the master to communicate.
-- AUTO\_REBALANCE environment variable is set to false. This ensures that the node is only added to the cluster but the cluster itself is not rebalanced. Rebalancing is required to to re-distribute data across multiple nodes of the cluster. This is the recommended way as multiple nodes can be added first, and then cluster can be manually rebalanced using the Web Console.
+- AUTO\_REBALANCE environment variable is set to false. This ensures that the node is only added to the cluster but the cluster itself is not rebalanced. Rebalancing is required to re-distribute data across multiple nodes of the cluster. This is the recommended way as multiple nodes can be added first, and then cluster can be manually rebalanced using the Web Console.
 Let’s create a worker:
 
 
