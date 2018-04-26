@@ -96,7 +96,7 @@ and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 {% include code.html language="yaml" file="zookeeper.yaml" ghlink="/docs/tutorials/stateful-application/zookeeper.yaml" %}
 
 Open a command terminal, and use 
-[`kubectl apply`](/docs/user-guide/kubectl/{{page.version}}/#apply) to create the 
+[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) to create the 
 manifest.
 
 ```shell
@@ -113,7 +113,7 @@ poddisruptionbudget "zk-pdb" created
 statefulset "zk" created
 ```
 
-Use [`kubectl get`](/docs/user-guide/kubectl/{{page.version}}/#get)  to watch the
+Use [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get)  to watch the
 StatefulSet controller create the StatefulSet's Pods.
 
 ```shell
@@ -152,7 +152,7 @@ leader election. Each server in the ensemble needs to have a unique
 identifier, all servers need to know the global set of identifiers, and each
 identifier needs to be associated with a network address.
 
-Use [`kubectl exec`](/docs/user-guide/kubectl/{{page.version}}/#exec) to get the hostnames 
+Use [`kubectl exec`](/docs/reference/generated/kubectl/kubectl-commands/#exec) to get the hostnames 
 of the Pods in the `zk` StatefulSet.
 
 ```shell
@@ -351,7 +351,7 @@ in memory state, to storage media. Using WALs to provide durability is a common
 technique for applications that use consensus protocols to achieve a replicated
 state machine and for storage applications in general.
 
-Use [`kubectl delete`](/docs/user-guide/kubectl/{{page.version}}/#delete) to delete the 
+Use [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) to delete the 
 `zk` StatefulSet.
 
 ```shell
@@ -568,7 +568,7 @@ log rotation for you. Kubernetes also implements a sane retention policy that
 ensures application logs written to standard out and standard error do not 
 exhaust local storage media.
 
-Use [`kubectl logs`](/docs/user-guide/kubectl/{{page.version}}/#logs) to retrieve the last 
+Use [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands/#logs) to retrieve the last 
 few log lines from one of the Pods.
 
 ```shell
@@ -960,7 +960,7 @@ Get the nodes in your cluster.
 kubectl get nodes
 ```
 
-Use [`kubectl cordon`](/docs/user-guide/kubectl/{{page.version}}/#cordon) to 
+Use [`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon) to 
 cordon all but four of the nodes in your cluster.
 
 ```shell{% raw %}
@@ -997,7 +997,7 @@ kubernetes-minion-group-i4c4
 {% endraw %}
 ```
 
-Use [`kubectl drain`](/docs/user-guide/kubectl/{{page.version}}/#drain) to cordon and 
+Use [`kubectl drain`](/docs/reference/generated/kubectl/kubectl-commands/#drain) to cordon and 
 drain the node on which the `zk-0` Pod is scheduled.
 
 ```shell {% raw %}
@@ -1107,7 +1107,7 @@ dataLength = 5
 numChildren = 0
 ```
 
-Use [`kubectl uncordon`](/docs/user-guide/kubectl/{{page.version}}/#uncordon) to uncordon the first node.
+Use [`kubectl uncordon`](/docs/reference/generated/kubectl/kubectl-commands/#uncordon) to uncordon the first node.
 
 ```shell
 kubectl uncordon kubernetes-minion-group-pb41
