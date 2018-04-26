@@ -59,6 +59,27 @@ scheduler. After the feature is disabled, the existing Pods keep their priority
 fields, but preemption is disabled, and priority fields are ignored, and you
 cannot set `priorityClassName` in new Pods.
 
+## How to disable preemption
+
+In Kubernetes 1.11 and later, preemption is controlled by a kube-scheduler flag `disablePreemption`, which is set to `false` by default.
+
+If you want to disable preemption, just set `disablePreemption` to true. This will keep pod priority enabled while preemption is disabled. Here is a sample configuration:
+
+```yaml
+apiVersion: componentconfig/v1alpha1
+kind: KubeSchedulerConfiguration
+algorithmSource:
+  provider: DefaultProvider
+
+...
+
+disablePreemption: true
+
+```
+
+Please note: although preemption of scheduler is enabled by default, preemption will not happen if `PodPriority` feature is not available.
+
+
 ## PriorityClass
 
 A PriorityClass is a non-namespaced object that defines a mapping from a priority
