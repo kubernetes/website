@@ -11,8 +11,8 @@ notitle: true
 
 The Kubernetes network proxy runs on each node. This
 reflects services as defined in the Kubernetes API on each node and can do simple
-TCP,UDP stream forwarding or round robin TCP,UDP forwarding across a set of backends.
-Service cluster ips and ports are currently found through Docker-links-compatible
+TCP and UDP stream forwarding or round robin TCP and UDP forwarding across a set of backends.
+Service cluster IPs and ports are currently found through Docker-links-compatible
 environment variables specifying ports opened by the service proxy. There is an optional
 addon that provides cluster DNS for these cluster IPs. The user must create a service
 with the apiserver API to configure the proxy.
@@ -27,6 +27,7 @@ kube-proxy
       --azure-container-registry-config string       Path to the file container Azure container registry configuration information.
       --bind-address ip                              The IP address for the proxy server to serve on (set to 0.0.0.0 for all interfaces) (default 0.0.0.0)
       --cleanup                                      If true cleanup iptables and ipvs rules and exit.
+      --cleanup-ipvs                                 If true make kube-proxy cleanup ipvs rules before running.  Default is true (default true)
       --cluster-cidr string                          The CIDR range of pods in the cluster. When configured, traffic sent to a Service cluster IP from outside this range will be masqueraded and traffic sent from pods to an external LoadBalancer IP will be directed to the respective cluster IP instead
       --config string                                The path to the configuration file.
       --config-sync-period duration                  How often configuration from the apiserver is refreshed.  Must be greater than 0. (default 15m0s)
@@ -35,15 +36,18 @@ kube-proxy
       --conntrack-tcp-timeout-close-wait duration    NAT timeout for TCP connections in the CLOSE_WAIT state (default 1h0m0s)
       --conntrack-tcp-timeout-established duration   Idle timeout for established TCP connections (0 to leave as-is) (default 24h0m0s)
       --feature-gates mapStringBool                  A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
-APIListChunking=true|false (ALPHA - default=false)
+APIListChunking=true|false (BETA - default=true)
 APIResponseCompression=true|false (ALPHA - default=false)
 Accelerators=true|false (ALPHA - default=false)
 AdvancedAuditing=true|false (BETA - default=true)
 AllAlpha=true|false (ALPHA - default=false)
 AllowExtTrafficLocalEndpoints=true|false (default=true)
 AppArmor=true|false (BETA - default=true)
+BlockVolume=true|false (ALPHA - default=false)
 CPUManager=true|false (ALPHA - default=false)
-CustomResourceValidation=true|false (ALPHA - default=false)
+CSIPersistentVolume=true|false (ALPHA - default=false)
+CustomPodDNS=true|false (ALPHA - default=false)
+CustomResourceValidation=true|false (BETA - default=true)
 DebugContainers=true|false (ALPHA - default=false)
 DevicePlugins=true|false (ALPHA - default=false)
 DynamicKubeletConfig=true|false (ALPHA - default=false)
@@ -55,15 +59,20 @@ HugePages=true|false (ALPHA - default=false)
 Initializers=true|false (ALPHA - default=false)
 KubeletConfigFile=true|false (ALPHA - default=false)
 LocalStorageCapacityIsolation=true|false (ALPHA - default=false)
+MountContainers=true|false (ALPHA - default=false)
 MountPropagation=true|false (ALPHA - default=false)
+PVCProtection=true|false (ALPHA - default=false)
 PersistentLocalVolumes=true|false (ALPHA - default=false)
 PodPriority=true|false (ALPHA - default=false)
+ResourceLimitsPriorityFunction=true|false (ALPHA - default=false)
 RotateKubeletClientCertificate=true|false (BETA - default=true)
 RotateKubeletServerCertificate=true|false (ALPHA - default=false)
+ServiceNodeExclusion=true|false (ALPHA - default=false)
 StreamingProxyRedirects=true|false (BETA - default=true)
-SupportIPVSProxyMode=true|false (ALPHA - default=false)
+SupportIPVSProxyMode=true|false (BETA - default=false)
 TaintBasedEvictions=true|false (ALPHA - default=false)
 TaintNodesByCondition=true|false (ALPHA - default=false)
+VolumeScheduling=true|false (ALPHA - default=false)
       --google-json-key string                       The Google Cloud Platform Service Account JSON Key to use for authentication.
       --healthz-bind-address ip                      The IP address and port for the health check server to serve on (set to 0.0.0.0 for all interfaces) (default 0.0.0.0:10256)
       --healthz-port int32                           The port to bind the health check server. Use 0 to disable. (default 10256)
@@ -73,8 +82,8 @@ TaintNodesByCondition=true|false (ALPHA - default=false)
       --iptables-sync-period duration                The maximum interval of how often iptables rules are refreshed (e.g. '5s', '1m', '2h22m').  Must be greater than 0. (default 30s)
       --ipvs-min-sync-period duration                The minimum interval of how often the ipvs rules can be refreshed as endpoints and services change (e.g. '5s', '1m', '2h22m').
       --ipvs-scheduler string                        The ipvs scheduler type when proxy mode is ipvs
-      --ipvs-sync-period duration                    The maximum interval of how often ipvs rules are refreshed (e.g. '5s', '1m', '2h22m').  Must be greater than 0.
-      --kube-api-burst int                           Burst to use while talking with kubernetes apiserver (default 10)
+      --ipvs-sync-period duration                    The maximum interval of how often ipvs rules are refreshed (e.g. '5s', '1m', '2h22m').  Must be greater than 0. (default 30s)
+      --kube-api-burst int32                         Burst to use while talking with kubernetes apiserver (default 10)
       --kube-api-content-type string                 Content type of requests sent to apiserver. (default "application/vnd.kubernetes.protobuf")
       --kube-api-qps float32                         QPS to use while talking with kubernetes apiserver (default 5)
       --kubeconfig string                            Path to kubeconfig file with authorization information (the master location is set by the master flag).
@@ -90,4 +99,4 @@ TaintNodesByCondition=true|false (ALPHA - default=false)
       --write-config-to string                       If set, write the default configuration values to this file and exit.
 ```
 
-###### Auto generated by spf13/cobra on 27-Sep-2017
+###### Auto generated by spf13/cobra on 12-Dec-2017
