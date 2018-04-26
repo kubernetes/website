@@ -50,8 +50,8 @@ username and password that the pods should use is in the files
 
 ```shell
 # Create files needed for rest of example.
-$ echo -n "admin" > ./username.txt
-$ echo -n "1f2d1e2e67df" > ./password.txt
+$ echo -n 'admin' > ./username.txt
+$ echo -n '1f2d1e2e67df' > ./password.txt
 ```
 
 The `kubectl create secret` command
@@ -98,9 +98,9 @@ in json or yaml format, and then create that object.
 Each item must be base64 encoded:
 
 ```shell
-$ echo -n "admin" | base64
+$ echo -n 'admin' | base64
 YWRtaW4=
-$ echo -n "1f2d1e2e67df" | base64
+$ echo -n '1f2d1e2e67df' | base64
 MWYyZDFlMmU2N2Rm
 ```
 
@@ -157,7 +157,7 @@ type: Opaque
 Decode the password field:
 
 ```shell
-$ echo "MWYyZDFlMmU2N2Rm" | base64 --decode
+$ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 1f2d1e2e67df
 ```
 
