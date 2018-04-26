@@ -1,0 +1,99 @@
+name: Kubernetes
+title: Kubernetes
+url: https://kubernetes.io
+description: Production-Grade Container Orchestration
+markdown: kramdown
+kramdown:
+  input: GFM
+  html_to_native: true
+  hard_wrap: false
+  syntax_highlighter: rouge
+incremental: true
+
+safe: false
+lsi: false
+
+latest: "v1.10"
+
+paginate: 7
+paginate_path: "/blog/page:num/"
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      fullversion: "v1.10.0"
+      version: "v1.10"
+      githubbranch: "master"
+      docsbranch: "master"
+      versions:
+        - fullversion: "v1.10.0"
+          version: "v1.10"
+          githubbranch: "v1.10.0"
+          docsbranch: "release-1.10"
+          url: https://kubernetes.io
+        - fullversion: "v1.9.0"
+          version: "v1.9"
+          githubbranch: "v1.9.0"
+          docsbranch: "release-1.9"
+          url: https://v1-9.docs.kubernetes.io
+        - fullversion: "v1.8.4"
+          version: "v1.8"
+          githubbranch: "v1.8.4"
+          docsbranch: "release-1.8"
+          url: https://v1-8.docs.kubernetes.io
+        - fullversion: "v1.7.6"
+          version: "v1.7"
+          githubbranch: "v1.7.6"
+          docsbranch: "release-1.7"
+          url: https://v1-7.docs.kubernetes.io
+        - fullversion: "v1.6.8"
+          version: "v1.6"
+          githubbranch: "v1.6.8"
+          docsbranch: "release-1.6"
+          url: https://v1-6.docs.kubernetes.io
+      deprecated: false
+      currentUrl: https://kubernetes.io/docs/home/
+      nextUrl: http://kubernetes-io-vnext-staging.netlify.com/
+  -
+    scope:
+      path: "docs"
+    values:
+      layout: docwithnav
+      showedit: true
+
+permalink: pretty
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-include-cache
+  - jekyll-paginate
+  - jekyll-youtube
+# disabled gems
+#  - jekyll-redirect-from
+
+include: [_redirects,_headers]
+
+# SEO
+logo: /images/favicon.png
+twitter:
+  username: kubernetesio
+
+# empty array for tabs
+emptyArray: []
+
+# Tables of contents, stored in the _data folder, that control the sidebar nav
+tocs:
+  - docs-home
+  - setup
+  - tasks
+  - tutorials
+  - concepts
+  - reference
+  - samples
+  - search
+  - imported
+  - blog

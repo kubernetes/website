@@ -1,0 +1,20 @@
+{% capture whitespace %}
+  {% for item in include.tree %}
+    {% if found_toc %}
+      {% break %}
+    {% endif %}
+    {% if item.section %}
+      {% include tocsearch.html tree=item.section toc=include.toc %}
+    {% else %}
+      {% if item.path %}
+        {% assign filename = item.path | replace: '/', ' ' | strip | replace: ' ', '/' | append: '.md' %}
+      {% else %}
+        {% assign filename = item %}
+      {% endif %}
+      {% if filename == page.path %}
+        {% assign found_toc = include.toc %}
+        {% break %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
