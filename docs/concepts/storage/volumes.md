@@ -1076,16 +1076,24 @@ More details can be found [here](https://github.com/kubernetes/community/blob/ma
 Mount propagation allows for sharing volumes mounted by a Container to
 other Containers in the same Pod, or even to other Pods on the same node.
 
-If the "`MountPropagation`" feature is disabled, volume mounts in pods are not propagated.
-That is, Containers run with `private` mount propagation as described in the
-[Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt).
+If the "`MountPropagation`" feature is disabled or a Pod does not explicitly
+specify specific mount propagation, volume mounts in the Pod's Containers are
+not propagated. That is, Containers run with `private` mount propagation as
+described in the [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt).
 
 Mount propagation of a volume is controlled by `mountPropagation` field in Container.volumeMounts.
 Its values are:
 
+ * `None` - This volume mount will not receive any subsequent mounts
+   that are mounted to this volume or any of its subdirectories by the host.
+   In similar fashion, no mounts created by the Container will be visible on
+   the host. This is the default mode.
+
+   This mode is equal to `private` mount propagation as described in the
+   [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+
  * `HostToContainer` - This volume mount will receive all subsequent mounts
-   that are mounted to this volume or any of its subdirectories. This is
-   the default mode.
+   that are mounted to this volume or any of its subdirectories.
 
    In other words, if the host mounts anything inside the volume mount, the
    Container will see it mounted there.
@@ -1101,7 +1109,7 @@ Its values are:
    In addition, all volume mounts created by the Container will be propagated
    back to the host and to all Containers of all Pods that use the same volume.
 
-   A typical use case for this mode is a Pod with a `FlexVolume` driver or
+   A typical use case for this mode is a Pod with a `FlexVolume` or `CSI` driver or
    a Pod that needs to mount something on the host using a `hostPath` volume.
 
    This mode is equal to `rshared` mount propagation as described in the
