@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - akshaisarathy
 title: Running Platform9 Managed Kubernetes on Public Cloud
 ---
