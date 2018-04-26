@@ -8,7 +8,7 @@ And we add three functions in addition to the original JSONPath syntax:
 1. The `$` operator is optional since the expression always starts from the root object by default.
 2. We can use `""` to quote text inside JSONPath expressions.
 3. We can use `range` operator to iterate lists.
-4. We can use negative slice indices to step backwards through a list. Negative indices do not "wrap around" a list. They are valid as long as `-index + listLenght >= 0`.
+4. We can use negative slice indices to step backwards through a list. Negative indices do not "wrap around" a list. They are valid as long as `-index + listLength >= 0`.
 
 The result object is printed as its String() function.
 
