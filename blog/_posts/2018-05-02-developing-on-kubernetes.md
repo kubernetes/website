@@ -4,6 +4,9 @@ title: Developing on Kubernetes
 date: Wednesday, May 2, 2018
 ---
 
+**Authors**: [Michael Hausenblas](https://twitter.com/mhausenblas) (Red Hat), [Ilya Dmitrichenko](https://twitter.com/errordeveloper) (Weaveworks)
+
+
 How do you develop a Kubernetes app? That is, how do you write and test an app that is supposed to run on Kubernetes? This article focuses on the challenges, tools and methods you might want to be aware of to successfully write Kubernetes apps alone or in a team setting.
 
 We’re assuming you are a developer, you have a favorite programming language, editor/IDE, and a testing framework available. The overarching goal is to introduce minimal changes to your current workflow when developing the app for Kubernetes. For example, if you’re a Node.js developer and are used to a hot-reload setup—that is, on save in your editor the running app gets automagically updated—then dealing with containers and container images, with container registries, Kubernetes deployments, triggers, and more can not only be overwhelming but really take all the fun out if it.
@@ -23,7 +26,7 @@ A number of tools support pure offline development including Minikube, Docker fo
 * You already have Minikube installed and running
 * You prefer to wait until Docker ships a stable package
 * You’re a Linux desktop user
-* You are a Windows users who doesn’t have Windows 10 Pro with Hyper-V
+* You are a Windows user who doesn’t have Windows 10 Pro with Hyper-V
 
 Running a local cluster allows folks to work offline and that you don’t have to pay for using cloud resources. Cloud provider costs are often rather affordable and free tiers exists, however some folks prefer to avoid having to approve those costs with their manager as well as potentially incur unexpected costs, for example, when leaving cluster running over the weekend.
 
@@ -37,19 +40,19 @@ Now that you have a basic idea of the options around the runtime environment, le
 
 We are now going to review tooling allowing you to develop apps on Kubernetes with the focus on having minimal impact on your existing workflow. We strive to provide an unbiased description including implications of using each of the tools in general terms.
 
-Note that this is a tricky area since even for established technologies such as, for example, JSON vs YAML vs XML or REST vs gRPC vs SOAP a lot depends on your background, your preferences and organizational settings. It’s even harder to compare tooling in the Kubernetes ecosystem as things evolve very rapidly and new tools are announced almost on a weekly basis; during the preparation of this post alone, for example, [Gitkube](https://gitkube.sh/) and [Watchpod](https://github.com/MinikubeAddon/watchpod) came out. To cover these new tools as well as related, existing tooling such as Weave Flux and OpenShift’s [S2I](https://docs.openshift.com/container-platform/3.9/creating_images/s2i.html) we are planning a follow-up blog post to the one you’re reading.
+Note that this is a tricky area since even for established technologies such as, for example, JSON vs YAML vs XML or REST vs gRPC vs SOAP a lot depends on your background, your preferences and organizational settings. It’s even harder to compare tooling in the Kubernetes ecosystem as things evolve very rapidly and new tools are announced almost on a weekly basis; during the preparation of this post alone, for example, [Gitkube](https://gitkube.sh/) and [Watchpod](https://github.com/MinikubeAddon/watchpod) came out. To cover these new tools as well as related, existing tooling such as [Weave Flux](https://github.com/weavework/flux) and OpenShift’s [S2I](https://docs.openshift.com/container-platform/3.9/creating_images/s2i.html) we are planning a follow-up blog post to the one you’re reading.
 
 ### Draft
 
 [Draft](https://github.com/Azure/draft) aims to help you get started deploying any app to Kubernetes. It is capable of applying heuristics as to what programming language your app is written in and generates a Dockerfile along with a Helm chart. It then runs the build for you and deploys resulting image to the target cluster via the Helm chart. It also allows user to setup port forwarding to localhost very easily.
 
 Implications:
-* User can provide customise the chart and Dockerfile templates however they like, or even provide custom templates for future use
+* User can customise the chart and Dockerfile templates however they like, or even create a [custom pack](https://github.com/Azure/draft/blob/master/docs/reference/dep-003.md) (with Dockerfile, the chart and more) for future use
 * It’s not very simple to guess how just any app is supposed to be built, in some cases user may need to tweak Dockerfile and the Helm chart that Draft generates
-* With [Draft version 0.11.0](https://github.com/Azure/draft/releases/tag/v0.12.0) or older, every time user wants to test a change, they need to wait for Draft to copy the code to the cluster, then run the build, push the image and release updated chart; this can timely, but it results in an image being for every single change made by the user (whether it was committed to git or not)
+* With [Draft version 0.12.0](https://github.com/Azure/draft/releases/tag/v0.12.0) or older, every time user wants to test a change, they need to wait for Draft to copy the code to the cluster, then run the build, push the image and release updated chart; this can timely, but it results in an image being for every single change made by the user (whether it was committed to git or not)
 * As of Draft version 0.12.0, builds are executed locally
 * User doesn’t have an option to choose something other than Helm for deployment
-* It can watch local changes and trigger deployments, but this is feature is not enabled by default
+* It can watch local changes and trigger deployments, but this feature is not enabled by default
 * It allows developer to use either local or remote Kubernetes cluster
 * Deploying to production is up to the user, Draft authors recommend their other project – Brigade
 * Can be used instead of Skaffold, and along the side of Squash
@@ -63,7 +66,7 @@ More info:
 [Skaffold](https://github.com/GoogleCloudPlatform/skaffold) is a tool that aims to provide portability for CI integrations with different build system, image registry and deployment tools. It is different from Draft, yet somewhat comparable. It has a basic capability for generating manifests, but it’s not a prominent feature. Skaffold is extendible and lets user pick tools for use in each of the steps in building and deploying their app.
 
 Implications:
-* Modular and design
+* Modular by design
 * Works independently of CI vendor, user doesn’t need Docker or Kubernetes plugin
 * Works without CI as such, i.e. from the developer’s laptop
 * It can watch local changes and trigger deployments
@@ -79,7 +82,7 @@ More info:
 [Squash](https://github.com/solo-io/squash) consists of a debug server that is fully integrated with Kubernetes, and a IDE plugin. It allows you to insert breakpoints and do all the fun stuff you are used to doing when debugging an application using an IDE. It bridges IDE debugging experience with your Kubernetes cluster by allowing you to attach the debugger to a pod running in your Kubernetes cluster.
 
 Implications:
-* Can be use independently of other tools you chose
+* Can be used independently of other tools you chose
 * Requires a privileged DaemonSet
 * Integrates with popular IDEs
 * Supports Go, Python, Node.js, Java and gdb
@@ -88,8 +91,8 @@ Implications:
 * It can be used with either local or remote Kubernetes cluster
 
 More info:
-* Squash: A Debugger for Kubernetes Apps
-* Getting Started Guide
+* [Squash: A Debugger for Kubernetes Apps](https://www.youtube.com/watch?v=5TrV3qzXlgI)
+* [Getting Started Guide](https://github.com/solo-io/squash/blob/master/docs/getting-started.md):w
 
 ### Telepresence
 
@@ -186,7 +189,7 @@ With that we should be able to consume the `stock-con` service from our local ma
 $ watch curl localhost:9898/healthz
 ```
 
-Now change the code in the `ksync/stock-con`directory, for example update the [/healthz endpoint code in service.js](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52) by adding a field to the JSON response and observe how the pod gets updated and the response of the `curl localhost:9898/healthz` command changes. Overall you should have something like the following in the end:
+Now change the code in the `ksync/stock-con`directory, for example update the [`/healthz` endpoint code in `service.js`](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52) by adding a field to the JSON response and observe how the pod gets updated and the response of the `curl localhost:9898/healthz` command changes. Overall you should have something like the following in the end:
 
 ![Preview](/images/blog-logging/2018-04-25-developing-on-kubernetes/dok-ksync_preview.png)
 
@@ -215,7 +218,7 @@ $ kubectl get -n dok po --selector=app=stock-con  \
 $ watch curl localhost:9898/healthz
 ```
 
-Now change the code in the `stock-con`directory, for example, update the []/healthz endpoint code in service.js](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52) by adding a field to the JSON response. Once you’re done with your code update, the last step is to build a new container image and kick off a new deployment like shown below:
+Now change the code in the `stock-con`directory, for example, update the [`/healthz` endpoint code in `service.js`](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52) by adding a field to the JSON response. Once you’re done with your code update, the last step is to build a new container image and kick off a new deployment like shown below:
 
 ```
 $ docker build -t stock-con:dev -f Dockerfile .
@@ -342,7 +345,7 @@ $ kubectl get -n dok po --selector=app=stock-con  \
 $ watch curl localhost:9898/healthz
 ```
 
-If you now change the code in the `stock-con`directory, for example, by updating the []/healthz endpoint code in service.js](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52) by adding a field to the JSON response, you should see Skaffold noticing the change and create a new image as well as deploy it. The resulting screen would look something like this:
+If you now change the code in the `stock-con`directory, for example, by updating the [`/healthz` endpoint code in `service.js`](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52) by adding a field to the JSON response, you should see Skaffold noticing the change and create a new image as well as deploy it. The resulting screen would look something like this:
 
 ![Skaffold Preview](/images/blog-logging/2018-04-25-developing-on-kubernetes/dok-skaffold_preview.png)
 
