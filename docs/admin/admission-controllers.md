@@ -592,7 +592,16 @@ versions >= 1.9).
 ## Is there a recommended set of admission controllers to use?
 
 Yes.
-For Kubernetes >= 1.9.0, we strongly recommend running the following set of admission controllers (order matters for 1.9 but not >1.10):
+
+For Kubernetes >= 1.10.0, we strongly recommend running the following set of admission controllers (order doesn't matter).
+
+Note: ```--admission-control``` was deprecated in 1.10 and replaced with ```--enable-admission-plugins```.
+
+```shell
+--enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota
+```
+
+For Kubernetes >= 1.9.0, we strongly recommend running the following set of admission controllers (order matters).
 
 ```shell
 --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota
