@@ -30,7 +30,7 @@ The running Kubernetes DNS pod holds 3 containers:
   in Services and Endpoints, and maintains in-memory lookup structures to serve
   DNS requests.
 - "`dnsmasq`": The `dnsmasq` container adds DNS caching to improve performance.
-- "`healthz`": The `healthz` container provides a single health check endpoint
+- "`sidecar`": The `sidecar` container provides a single health check endpoint
   while performing dual healthchecks (for `dnsmasq` and `kubedns`).
 
 The DNS pod is exposed as a Kubernetes Service with a static IP. Once assigned
