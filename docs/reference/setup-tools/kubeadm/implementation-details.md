@@ -83,7 +83,7 @@ In any case the user can skip specific preflight checks (or eventually all prefl
     - [error] if required cgroups subsystem aren't in set up
   - if using docker:
     - [warning/error] if Docker service does not  exists, if it is disabled, if it is not active.
-    - [error] if Docker endpoint does not exists or does not work
+    - [error] if Docker endpoint does not exist or does not work
     - [warning] if docker version >17.03
   - If using other cri engine:
     - [error] if crictl socket does not answer
@@ -92,12 +92,12 @@ In any case the user can skip specific preflight checks (or eventually all prefl
 - [warning] if the host name cannot be reached via network lookup
 - [error] if kubelet version is lower that the minimum kubelet version supported by kubeadm (current minor -1)
 - [error] if kubelet version is at least one minor higher than the required controlplane version (unsupported version skew)
-- [warning] if kubelet service does not exists or if it is disabled
+- [warning] if kubelet service does not exist or if it is disabled
 - [warning] if firewalld is active
 - [error] if API server bindPort or ports 10250/10251/10252 are used
 - [Error] if `/etc/kubernetes/manifest` folder already exists and it is not empty
-- [Error] if `/proc/sys/net/bridge/bridge-nf-call-iptables` file does not exists/does not contains 1
-- [Error] if advertise address is ipv6 and `/proc/sys/net/bridge/bridge-nf-call-ip6tables` does not exists/does not contains 1.
+- [Error] if `/proc/sys/net/bridge/bridge-nf-call-iptables` file does not exist/does not contain 1
+- [Error] if advertise address is ipv6 and `/proc/sys/net/bridge/bridge-nf-call-ip6tables` does not exist/does not contain 1.
 - [Error] if swap is on
 - [Error] if `ip`, `iptables`,  `mount`, `nsenter` commands are not present in the command path
 - [warning] if `ebtables`, `ethtool`, `socat`, `tc`, `touch`, `crictl` commands are not present in the command path
@@ -112,9 +112,9 @@ In any case the user can skip specific preflight checks (or eventually all prefl
   - [Error] if ports 2379 is used
   - [Error] if Etcd.DataDir folder already exists and it is not empty
 - If authorization mode is ABAC:
-  - [Error] if abac_policy.json does not exists
+  - [Error] if abac_policy.json does not exist
 - If authorization mode is WebHook
-  - [Error] if webhook_authz.conf does not exists
+  - [Error] if webhook_authz.conf does not exist
 
 Please note that:
 
