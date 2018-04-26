@@ -1,0 +1,12 @@
+{% if page.deprecated %}
+<section id="deprecationWarning">
+  <main>
+    <div class="content deprecation-warning">
+      <h3>
+        Documentation for Kubernetes {{ page.version}} is no longer actively maintained. The version you are currently viewing is a static snapshot.
+        For up-to-date documentation, see the <a href="{{ page.currentUrl }}">latest</a> version.
+      </h3>
+    </div>
+  </main>
+</section>
+{% endif %}

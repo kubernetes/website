@@ -1,0 +1,113 @@
+---
+title: Using a Service to Expose Your App
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+			<div class="col-md-8">
+    		<h3>Objectives</h3>
+				<ul>
+					<li>Learn about a Service in Kubernetes</li>
+					<li>Understand how labels and LabelSelector objects relate to a Service</li>
+					<li>Expose an application outside a Kubernetes cluster using a Service</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+			<h3>Overview of Kubernetes Services</h3>
+
+			<p>Kubernetes <a href="/docs/concepts/workloads/pods/pod-overview/">Pods</a> are mortal. Pods in fact have a <a href="/docs/concepts/workloads/pods/pod-lifecycle/">lifecycle</a>. When a worker node dies, the Pods running on the Node are also lost. A <a href="/docs/user-guide/replication-controller/#what-is-a-replicationcontroller">ReplicationController</a> might then dynamically drive the cluster back to desired state via creation of new Pods to keep your application running. As another example, consider an image-processing backend with 3 replicas. Those replicas are fungible; the front-end system should not care about backend replicas or even if a Pod is lost and recreated. That said, each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same Node, so there needs to be a way of automatically reconciling changes among Pods so that your applications continue to function.</p>
+			
+			<p>A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them. Services enable a loose coupling between dependent Pods. A Service is defined using YAML <a href="/docs/concepts/configuration/overview/#general-config-tips">(preferred)</a> or JSON, like all Kubernetes objects. The set of Pods targeted by a Service is usually determined by a <i>LabelSelector</i> (see below for why you might want a Service without including <code>selector</code> in the spec).</p>
+
+			<p>Although each Pod has a unique IP address, those IPs are not exposed outside the cluster without a Service. Services allow your applications to receive traffic. Services can be exposed in different ways by specifying a <code>type</code> in the ServiceSpec:</p>
+			<ul>
+				<li><i>ClusterIP</i> (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.</li>
+				<li><i>NodePort</i> - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Superset of ClusterIP.</li>
+				<li><i>LoadBalancer</i> - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.</li>
+				<li><i>ExternalName</i> - Exposes the Service using an arbitrary name (specified by <code>externalName</code> in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of <code>kube-dns</code>.</li>
+			</ul>
+			<p>More information about the different types of Services can be found in the <a href="/docs/tutorials/services/source-ip/">Using Source IP</a> tutorial. Also see <a href="/docs/concepts/services-networking/connect-applications-service">Connecting Applications with Services</a>.</p>
+			<p>Additionally, note that there are some use cases with Services that involve not defining <code>selector</code> in the spec. A Service created without <code>selector</code> will also not create the corresponding Endpoints object. This allows users to manually map a Service to specific endpoints. Another possibility why there may be no selector is you are strictly using <code>type: ExternalName</code>.</p>
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>Summary</h3>
+					<ul>
+						<li>Exposing Pods to external traffic</li>
+						<li>Load balancing traffic across multiple Pods</li>
+						<li>Using labels</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+						<p><i>A Kubernetes Service is an abstraction layer which defines a logical set of Pods and enables external traffic exposure, load balancing and service discovery for those Pods.</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h3>Services and Labels</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg" width="150%" height="150%"></p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p>A Service routes traffic across a set of Pods. Services are the abstraction that allow pods to die and replicate in Kubernetes without impacting your application. Discovery and routing among dependent Pods (such as the frontend and backend components in an application) is handled by Kubernetes Services.</p>
+				<p>Services match a set of Pods using <a href="/docs/concepts/overview/working-with-objects/labels">labels and selectors</a>, a grouping primitive that allows logical operation on objects in Kubernetes. Labels are key/value pairs attached to objects and can be used in any number of ways:</p>
+				<ul>
+					<li>Designate objects for development, test, and production</li>
+					<li>Embed version tags</li>
+					<li>Classify an object using tags</li>
+				</ul>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_fill">
+					<p><i>You can create a Service at the same time you create a Deployment by using<br><code>--expose</code> in kubectl.</i></p>
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg"></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<p>Labels can be attached to objects at creation time or later on. They can be modified at any time. Let's expose our application now using a Service and apply some labels.</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/expose-interactive/" role="button">Start Interactive Tutorial<span class="btn__next">›</span></a>
+			</div>
+		</div>
+	</main>
+</div>
+
+</body>
+</html>
