@@ -20,8 +20,7 @@ The top two most-discussed repos of 2017 are both based on Kubernetes:
 
 ![Most Discussed](/images/blog-logging/2018-04-24-open-source-charts-2017/most-discussed.png)
 
-Of all the open source repositories on GitHub, none received more issue comments than [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes/). [OpenShift](http://openshift.com/), a [CNCF certified distribution of Kubernetes](https://blog.openshift.com/kubernetes-and-openshift-community-standards-and-certifications/
-https://www.cncf.io/announcement/2017/11/13/cloud-native-computing-foundation-launches-certified-kubernetes-program-32-conformant-distributions-platforms/), took second place.  
+Of all the open source repositories on GitHub, none received more issue comments than [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes/). [OpenShift](http://openshift.com/), a [CNCF certified distribution of Kubernetes](https://www.cncf.io/announcement/2017/11/13/cloud-native-computing-foundation-launches-certified-kubernetes-program-32-conformant-distributions-platforms/), took second place.  
 
 Open discussion with ample time for community feedback and review helps build shared infrastructure and establish new standards for cloud native computing.
 
