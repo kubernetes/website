@@ -20,9 +20,9 @@ This document shows you how to perform setup tasks that kubeadm doesn't perform:
 
 {% capture prerequisites %}
 
-- Three machines that meet [kubeadm's minimum requirements](https://kubernetes.io/docs/setup/independent/install-kubeadm/#before-you-begin) for the masters
-- Three machines that meet [kubeadm's minimum requirements](https://kubernetes.io/docs/setup/independent/install-kubeadm/#before-you-begin) for the workers
-- **Optional:** At least three machines that meet [kubeadm's minimum requirements](https://kubernetes.io/docs/setup/independent/install-kubeadm/#before-you-begin)
+- Three machines that meet [kubeadm's minimum requirements](/docs/setup/independent/install-kubeadm/#before-you-begin) for the masters
+- Three machines that meet [kubeadm's minimum requirements](/docs/setup/independent/install-kubeadm/#before-you-begin) for the workers
+- **Optional:** At least three machines that meet [kubeadm's minimum requirements](/docs/setup/independent/install-kubeadm/#before-you-begin)
    if you intend to host etcd on dedicated nodes (see information below)
 - 1GB or more of RAM per machine (any less will leave little room for your apps)
 - Full network connectivity between all machines in the cluster (public or
@@ -528,10 +528,10 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
 
    - `<private-ip>` with the private IPv4 of the master server.
    - `<etcd0-ip>`, `<etcd1-ip>` and `<etcd2-ip>` with the IP addresses of your three etcd nodes
-   - `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
-   - `<load-balancer-ip>` with the virtual IP set up in the load balancer. Please read [setting up a master load balancer](https://kubernetes.io/docs/setup/independent/high-availability/#set-up-master-load-balancer) section of the docs for more information.
+   - `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
+   - `<load-balancer-ip>` with the virtual IP set up in the load balancer. Please read [setting up a master load balancer](/docs/setup/independent/high-availability/#set-up-master-load-balancer) section of the docs for more information.
 
-   **Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`. For more information, see [the documentation](https://kubernetes.io/docs/admin/high-availability/#endpoint-reconciler).
+   **Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`. For more information, see [the documentation](/docs/admin/high-availability/#endpoint-reconciler).
 
 1. When this is done, run kubeadm like so:
 
@@ -571,7 +571,7 @@ Follow the instructions [here](/docs/setup/independent/create-cluster-kubeadm/#p
 
 Next provision and set up the worker nodes. To do this, you will need to provision at least 3 Virtual Machines.
 
-1. To configure the worker nodes, [follow the same steps](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#44-joining-your-nodes) as non-HA workloads.
+1. To configure the worker nodes, [follow the same steps](/docs/setup/independent/create-cluster-kubeadm/#44-joining-your-nodes) as non-HA workloads.
 
 ## Configure workers
 
