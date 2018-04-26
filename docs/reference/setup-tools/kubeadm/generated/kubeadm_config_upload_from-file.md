@@ -4,6 +4,7 @@ Upload a configuration file to the in-cluster ConfigMap for kubeadm configuratio
 ### Synopsis
 
 
+
 Using this command, you can upload configuration to the ConfigMap in the cluster using the same config file you gave to 'kubeadm init'.
 If you initialized your cluster using a v1.7.x or lower kubeadm client and used the --config option, you need to run this command with the
 same config file before upgrading to v1.8 using 'kubeadm upgrade'.
@@ -17,14 +18,50 @@ kubeadm config upload from-file [flags]
 
 ### Options
 
-```
-      --config string   Path to a kubeadm config file. WARNING: Usage of a configuration file is experimental.
-  -h, --help            help for from-file
-```
+<table style="width: 100%;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--config string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Path to a kubeadm config file. WARNING: Usage of a configuration file is experimental.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">help for from-file</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
 
 ### Options inherited from parent commands
 
-```
-      --kubeconfig string   The KubeConfig file to use when talking to the cluster. (default "/etc/kubernetes/admin.conf")
-```
+<table style="width: 100%;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The KubeConfig file to use when talking to the cluster.</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
 

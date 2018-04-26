@@ -3,6 +3,7 @@ Generates all static Pod manifest files necessary to establish the control plane
 
 ### Synopsis
 
+
 Generates all static Pod manifest files necessary to establish the control plane. 
 
 Alpha Disclaimer: this command is currently alpha.
@@ -24,23 +25,99 @@ kubeadm alpha phase controlplane all [flags]
 
 ### Options
 
-```
-      --apiserver-advertise-address string              The IP address of the API server is accessible on
-      --apiserver-bind-port int32                       The port the API server is accessible on (default 6443)
-      --apiserver-extra-args mapStringString            A set of extra flags to pass to the API Server or override default ones in form of <flagname>=<value>
-      --cert-dir string                                 The path where certificates are stored (default "/etc/kubernetes/pki")
-      --config string                                   Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)
-      --controller-manager-extra-args mapStringString   A set of extra flags to pass to the Controller Manager or override default ones in form of <flagname>=<value>
-      --feature-gates string                            A set of key=value pairs that describe feature gates for various features. Options are:
-Auditing=true|false (ALPHA - default=false)
-CoreDNS=true|false (BETA - default=false)
-DynamicKubeletConfig=true|false (ALPHA - default=false)
-SelfHosting=true|false (ALPHA - default=false)
-StoreCertsInSecrets=true|false (ALPHA - default=false)
-  -h, --help                                            help for all
-      --kubernetes-version string                       Choose a specific Kubernetes version for the control plane (default "stable-1.10")
-      --pod-network-cidr string                         The range of IP addresses used for the Pod network
-      --scheduler-extra-args mapStringString            A set of extra flags to pass to the Scheduler or override default ones in form of <flagname>=<value>
-      --service-cidr string                             The range of IP address used for service VIPs (default "10.96.0.0/12")
-```
+<table style="width: 100%;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--apiserver-advertise-address string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The IP address of the API server is accessible on</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The port the API server is accessible on</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--apiserver-extra-args mapStringString</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">A set of extra flags to pass to the API Server or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The path where certificates are stored</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--config string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--controller-manager-extra-args mapStringString</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">A set of extra flags to pass to the Controller Manager or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--feature-gates string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">A set of key=value pairs that describe feature gates for various features. Options are:<br/>Auditing=true|false (ALPHA - default=false)<br/>CoreDNS=true|false (BETA - default=false)<br/>DynamicKubeletConfig=true|false (ALPHA - default=false)<br/>SelfHosting=true|false (ALPHA - default=false)<br/>StoreCertsInSecrets=true|false (ALPHA - default=false)</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">help for all</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1.10"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Choose a specific Kubernetes version for the control plane</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--pod-network-cidr string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The range of IP addresses used for the Pod network</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--scheduler-extra-args mapStringString</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "10.96.0.0/12"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The range of IP address used for service VIPs</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
 

@@ -4,6 +4,7 @@ Create bootstrap tokens on the server.
 ### Synopsis
 
 
+
 This command will create a bootstrap token for you.
 You can specify the usages for this token, the "time to live" and an optional human friendly description.
 
@@ -18,20 +19,92 @@ kubeadm token create [token]
 
 ### Options
 
-```
-      --config string        Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)
-      --description string   A human friendly description of how this token is used.
-      --groups strings       Extra groups that this token will authenticate as when used for authentication. Must match "system:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]". (default [system:bootstrappers:kubeadm:default-node-token])
-  -h, --help                 help for create
-      --print-join-command   Instead of printing only the token, print the full 'kubeadm join' flag needed to join the cluster using the token.
-      --ttl duration         The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set to '0', the token will never expire. (default 24h0m0s)
-      --usages strings       Describes the ways in which this token can be used. You can pass --usages multiple times or provide a comma separated list of options. Valid options: [signing,authentication]. (default [signing,authentication])
-```
+<table style="width: 100%;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--config string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--description string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">A human friendly description of how this token is used.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--groups stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [system:bootstrappers:kubeadm:default-node-token]</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Extra groups that this token will authenticate as when used for authentication. Must match "system:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]".</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">help for create</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--print-join-command</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Instead of printing only the token, print the full 'kubeadm join' flag needed to join the cluster using the token.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 24h0m0s</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set to '0', the token will never expire.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--usages stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [signing,authentication]</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Describes the ways in which this token can be used. You can pass --usages multiple times or provide a comma separated list of options. Valid options: [signing,authentication].</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
 
 ### Options inherited from parent commands
 
-```
-      --dry-run             Whether to enable dry-run mode or not
-      --kubeconfig string   The KubeConfig file to use when talking to the cluster (default "/etc/kubernetes/admin.conf")
-```
+<table style="width: 100%;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--dry-run</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Whether to enable dry-run mode or not</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The KubeConfig file to use when talking to the cluster</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
 

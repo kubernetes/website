@@ -4,6 +4,7 @@ Output shell completion code for the specified shell (bash or zsh).
 ### Synopsis
 
 
+
 Output shell completion code for the specified shell (bash or zsh).
 The shell code must be evaluated to provide interactive
 completion of kubeadm commands. This can be done by sourcing it from
@@ -48,7 +49,22 @@ source <(kubeadm completion zsh)
 
 ### Options
 
-```
-  -h, --help   help for completion
-```
+<table style="width: 100%;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">help for completion</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
 
