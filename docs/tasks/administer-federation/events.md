@@ -2,6 +2,8 @@
 title: Federated Events
 ---
 
+{% include federation-current-state.md %}
+
 This guide explains how to use events in federation control plane to help in debugging.
 
 

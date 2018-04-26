@@ -4,6 +4,8 @@ title: Federated ConfigMap
 
 {% capture overview %}
 
+{% include federation-current-state.md %}
+
 This guide explains how to use ConfigMaps in a Federation control plane.
 
 Federated ConfigMaps are very similar to the traditional [Kubernetes

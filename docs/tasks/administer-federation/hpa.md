@@ -6,6 +6,8 @@ title: Federated Horizontal Pod Autoscalers (HPA)
 
 {% include feature-state-alpha.md %}
 
+{% include federation-current-state.md %}
+
 This guide explains how to use federated horizontal pod autoscalers (HPAs) in the federation control plane.
 
 HPAs in the federation control plane are similar to the traditional [Kubernetes

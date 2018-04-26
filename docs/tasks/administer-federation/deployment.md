@@ -3,6 +3,9 @@ title: Federated Deployment
 ---
 
 {% capture overview %}
+
+{% include federation-current-state.md %}
+
 This guide explains how to use Deployments in the Federation control plane.
 
 Deployments in the federation control plane (referred to as "Federated Deployments" in
