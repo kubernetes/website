@@ -1,6 +1,8 @@
 ---
 title: Documentation Style Guide
+linktitle: Style guide
 content_template: templates/concept
+weight: 10
 ---
 
 
@@ -12,14 +14,15 @@ propose changes to this document in a pull request.
 
 For additional information on creating new content for the Kubernetes
 docs, follow the instructions on
-[using page templates](/docs/home/contribute/page-templates/) and
-[creating a documentation pull request](/docs/home/contribute/create-pull-request/).
+[using page templates](/docs/contribute/style/page-templates/) and
+[creating a documentation pull request](/docs/contribute/start/#improve-existing-content).
 {{% /capture %}}
 
 {{% capture body %}}
 
 {{< note >}}
-**Note:** Kubernetes documentation uses [Blackfriday Markdown Renderer](https://github.com/russross/blackfriday) along with a few [Hugo Shortcodes](/docs/home/contribute/includes/) to support glossary entries, tabs, and representing feature state.
+**Note:** Kubernetes documentation uses [Blackfriday Markdown Renderer](https://github.com/russross/blackfriday) along with a few [Hugo Shortcodes](/docs/home/contribute/includes/) to support glossary entries, tabs,
+and representing feature state.
 {{< /note >}}
 
 ## Language

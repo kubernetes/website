@@ -1,8 +1,7 @@
 ---
-title: Content Organization
-date: 2018-04-30
+title: Content organization
 content_template: templates/concept
-weight: 42
+weight: 40
 ---
 
 {{< toc >}}
@@ -135,8 +134,8 @@ The `SASS` source of the stylesheets for this site is stored below `src/sass` an
 
 {{% capture whatsnext %}}
 
-* [Custom Hugo Shortcodes](/docs/home/contribute/includes)
-* [Style Guide](/docs/home/contribute/style-guide)
+* [Custom Hugo shortcodes](/docs/contribute/style/hugo_shortcodes)
+* [Style guide](/docs/contribute/style/style-guide)
 
 {{% /capture %}}
 
