@@ -29,7 +29,7 @@
 			blurb: 'CockroachDB is a distributed SQL database whose built-in replication and survivability model pair with Kubernetes to truly make data easy.'
 		},
 		{
-			type: 0,
+			type: 2,
 			name: 'Weaveworks',
 			logo: 'weave_works',
 			link: ' https://weave.works/kubernetes',
@@ -1455,6 +1455,13 @@
 			logo: 'mobilise',
 			link: 'http://www.mobilise.cloud/services/serverless-application-delivery',
 			blurb: 'Mobilise helps organisations adopt Kubernetes and integrate with their CI/CD tooling.'
+				},
+		{
+			type: 3,
+			name: 'AWS',
+			logo: 'aws',
+			link: 'https://aws.amazon.com/eks/',
+			blurb: 'Amazon Elastic Container Service for Kubernetes (Amazon EKS) is a managed service that makes it easy for you to run Kubernetes on AWS without needing to install and operate your own Kubernetes clusters.'
 				},
 		{
 			type: 0,
