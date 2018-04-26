@@ -147,8 +147,8 @@ If you remove or change the label of the node where the pod is scheduled, the po
 
 The `weight` field in `preferredDuringSchedulingIgnoredDuringExecution` is in the range 1-100. For each node that meets all of the scheduling requirements (resource request, RequiredDuringScheduling affinity expressions, etc.), the scheduler will compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding MatchExpressions. This score is then combined with the scores of other priority functions for the node. The node(s) with the highest total score are the most preferred.
 
-For more information on node affinity, see the design doc
-[here](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md).
+For more information on node affinity, see the 
+[design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md).
 
 ### Inter-pod affinity and anti-affinity (beta feature)
 
@@ -193,8 +193,9 @@ value V that is running a pod that has a label with key "security" and value "S1
 rule says that the pod prefers not to be scheduled onto a node if that node is already running a pod with label
 having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
 it would mean that the pod cannot be scheduled onto a node if that node is in the same zone as a pod with
-label having key "security" and value "S2".) See the [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
-For many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
+label having key "security" and value "S2".) See the 
+[design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
+for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
 flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 
 The legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`.
@@ -219,7 +220,7 @@ must be satisfied for the pod to be scheduled onto a node.
 #### More Practical Use-cases
 
 Interpod Affinity and AntiAffinity can be even more useful when they are used with higher
-level collections such as ReplicaSets, Statefulsets, Deployments, etc.  One can easily configure that a set of workloads should
+level collections such as ReplicaSets, StatefulSets, Deployments, etc.  One can easily configure that a set of workloads should
 be co-located in the same defined topology, eg., the same node.
 
 ##### Always co-located in the same node
@@ -318,20 +319,15 @@ web-server-1287567482-6f7v5    1/1       Running   0          7m        10.192.4
 web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3.2   kube-node-2
 ```
 
-Best practice is to configure these highly available stateful workloads such as redis with AntiAffinity rules for more guaranteed spreading.
-
 ##### Never co-located in the same node
 
-Highly Available database statefulset has one master and three replicas, one may prefer none of the database instances to be co-located in the same node.
+The above example uses `PodAntiAffinity` rule with `topologyKey: "kubernetes.io/hostname"` to deploy the redis cluster so that 
+no two instances are located on the same host. 
+See [ZooKeeper tutorial](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) 
+for an example of a StatefulSet configured with anti-affinity for high availability, using the same technique.
 
-|       node-1         |       node-2        |       node-3       |       node-4       |
-|:--------------------:|:-------------------:|:------------------:|:------------------:|
-| *DB-MASTER*          | *DB-REPLICA-1*      | *DB-REPLICA-2*     | *DB-REPLICA-3*     |
-
-[Here](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) is an example of Zookeeper statefulset configured with anti-affinity for high availability.
-
-For more information on inter-pod affinity/anti-affinity, see the design doc
-[here](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
+For more information on inter-pod affinity/anti-affinity, see the 
+[design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
 
 You may want to check [Taints](/docs/concepts/configuration/taint-and-toleration/)
 as well, which allow a *node* to *repel* a set of pods.
