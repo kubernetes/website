@@ -1,20 +1,22 @@
 language: go
 go:
-  - 1.8.3
+  - 1.9.3
 
 # Don't want default ./... here:
 install:
 - export PATH=$GOPATH/bin:$PATH
 - mkdir -p $HOME/gopath/src/k8s.io
-- mv $TRAVIS_BUILD_DIR $HOME/gopath/src/k8s.io/website
-
-# (1) Fetch dependencies for us to run the tests in test/examples_test.go
+- mv $TRAVIS_BUILD_DIR $HOME/gopath/src/k8s.io/website && cd $HOME/gopath/src/k8s.io/website
+# Fetch dependencies for us to run the tests in test/examples_test.go
 - go get -t -v k8s.io/website/test
+# Make sure we are testing against the correct branch
+- pushd $GOPATH/src/k8s.io/kubernetes && git checkout release-1.10 && popd
 
 # Simplified deduplication of dependencies.
 - cp -L -R $GOPATH/src/k8s.io/kubernetes/vendor/ $GOPATH/src/
 - rm -r $GOPATH/src/k8s.io/kubernetes/vendor/
 
 script:
+# Run test
 - go test -v k8s.io/website/test
 - ./verify-docs-format.sh
