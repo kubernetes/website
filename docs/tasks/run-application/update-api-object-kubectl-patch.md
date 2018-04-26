@@ -206,7 +206,7 @@ type PodSpec struct {
 ## Use a JSON merge patch to update a Deployment
 
 A strategic merge patch is different from a
-[JSON merge patch](https://tools.ietf.org/html/rfc6902).
+[JSON merge patch](https://tools.ietf.org/html/rfc7386).
 With a JSON merge patch, if you
 want to update a list, you have to specify the entire new list. And the new list completely
 replaces the existing list.
