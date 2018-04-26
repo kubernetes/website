@@ -241,6 +241,15 @@ search ns1.svc.cluster.local my.dns.search.suffix
 options ndots:2 edns0
 ```
 
+For IPv6 setup, search path and name server should be setup like this:
+
+```
+$ kubectl exec -it busybox -- cat /etc/resolv.conf
+nameserver fd00:79:30::a
+search default.svc.cluster.local svc.cluster.local cluster.local
+options ndots:5
+```
+
 {% endcapture %}
 
 {% capture whatsnext %}
