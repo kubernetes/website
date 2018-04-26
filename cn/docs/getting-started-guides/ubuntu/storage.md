@@ -1,30 +1,27 @@
 ---
+title: 存储
 cn-assignees:
 - Tony-CCIE
 ---
+
 <!--
 ---
 title: Storage
 ---
-
+-->
 {% capture overview %}
-This page explains how to install and configure persistent storage on a cluster.
+<!-- This page explains how to install and configure persistent storage on a cluster. -->
+
+本页面阐述了如何在 Kubernetes 集群上安装和配置持久化存储。
+
 {% endcapture %}
 {% capture prerequisites %}
-This page assumes you have a working Juju deployed cluster.
+<!-- This page assumes you have a working Juju deployed cluster. -->
+
+本文前提假设你已经通过 Juju 部署好了一个 Kubernetes 集群
 {% endcapture %}
 
 {% capture steps %}
--->
----
-title: 存储
----
-
-{% capture overview %}
-本页面阐述了如何在 Kubernetes 集群上安装和配置持久化存储。
-{% endcapture %}
-{% capture prerequisite %}
-本文前提假设你已经通过 Juju 部署好了一个 Kubernetes 集群
 
 <!--
 ## Ceph Persistent Volumes

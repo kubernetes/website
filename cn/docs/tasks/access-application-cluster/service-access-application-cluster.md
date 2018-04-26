@@ -142,37 +142,33 @@ provides load balancing for an application that has two running instances.
 
 1. 在集群中运行 Hello World 应用程序：
 
-   ```
-   kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
-   ```
+        kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
 
    上述命令创建一个 [Deployment](/docs/concepts/workloads/controllers/deployment/) 对象和一个相关联的 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 对象。该 ReplicaSet 有两个 [Pod](/docs/concepts/workloads/pods/pod/)，每个 Pod 中都运行一个 Hello World 应用程序。
 
 2. 显示关于该 Deployment 的信息：
 
-   ```
-   kubectl get deployments hello-world
-   kubectl describe deployments hello-world
-   ```
+
+        kubectl get deployments hello-world
+        kubectl describe deployments hello-world
 
 3. 显示 ReplicaSet 的信息：
 
-   ```
-   kubectl get replicasets
-   kubectl describe replicasets
-   ```
+
+        kubectl get replicasets
+        kubectl describe replicasets
 
 4. 创建一个暴露该 Deployment 的 Service 对象：
 
-   ```
-    kubectl expose deployment hello-world --type=NodePort --name=example-service
-   ```
+
+        kubectl expose deployment hello-world --type=NodePort --name=example-service
+
 
 5. 显示该 Service 的信息：
 
-   ```
-    kubectl describe services example-service
-   ```
+
+        kubectl describe services example-service
+
 
    输出类似于：
 
@@ -233,32 +229,6 @@ provides load balancing for an application that has two running instances.
 As an alternative to using `kubectl expose`, you can use a
 [service configuration file](/docs/user-guide/services/operations)
 to create a Service.
-
-{% endcapture %}
-
-
-{% capture cleanup %}
-
-To delete the Service, enter this command:
-
-    kubectl delete services example-service
-
-To delete the Deployment, the ReplicaSet, and the Pods that are running
-the Hello World application, enter this command:
-
-    kubectl delete deployment hello-world
-
-{% endcapture %}
-
-
-{% capture whatsnext %}
-
-Learn more about
-[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
-{% endcapture %}
-
-{% include templates/tutorial.md %}
-
 -->
 
 ## 使用 Service 配置文件
@@ -267,23 +237,38 @@ Learn more about
 
 {% endcapture %}
 
+
 {% capture cleanup %}
+<!--
+To delete the Service, enter this command:
+
+    kubectl delete services example-service
+
+To delete the Deployment, the ReplicaSet, and the Pods that are running
+the Hello World application, enter this command:
+
+    kubectl delete deployment hello-world
+-->
 
 要删除 Service，输入以下命令：
 
-```
-kubectl delete services example-service
-```
+
+    kubectl delete services example-service
+
 
 删除 Deployment、ReplicaSet 和正运行在 Pod 中的 Hello World 应用程序，输入以下命令：
 
-```
-kubectl delete deployment hello-world
-```
+    kubectl delete deployment hello-world
 
 {% endcapture %}
 
+
+
 {% capture whatsnext %}
+
+
+<!-- Learn more about
+[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/). -->
 
 了解更多关于 [使用 service 连接应用程序](/docs/concepts/services-networking/connect-applications-service/)。
 

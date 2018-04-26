@@ -1219,7 +1219,7 @@ A `storageos` volume allows an existing [StorageOS](https://www.storageos.com)
 volume to be mounted into your pod.
 
 StorageOS runs as a container within your Kubernetes environment, making local
-or attached storage accessible from any node within the Kubernetes cluster. 
+or attached storage accessible from any node within the Kubernetes cluster.
 Data can be replicated to protect against node failure. Thin provisioning and
 compression can improve utilization and reduce cost.
 
@@ -1420,7 +1420,7 @@ spec:
       image: mysql
       env:
       - name: MYSQL_ROOT_PASSWORD
-        value: "rootpasswd" 
+        value: "rootpasswd"
       volumeMounts:
       - mountPath: /var/lib/mysql
         name: site-data
@@ -1579,11 +1579,10 @@ In addition, any volume mounts created by Containers in Pods must be destroyed
 <!--
 
 * Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
-  {% endcapture %}
 
 -->
-
 - 参照[使用持久化卷来部署 WordPress 和 MySQL](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)。
-  {% endcapture %}
+
+{% endcapture %}
 
 {% include templates/concept.md %}
