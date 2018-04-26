@@ -57,7 +57,7 @@ I realize we need to perform a rolling update to a newer version of that app tha
 
  ![](https://lh4.googleusercontent.com/RdA8N8LPDwnAb-RDX4MHNmHvxc8YRlID79-5WmGJQb7NYuz8oZseVorzATQZWOTTQ_-yp8roniNKuBqmQewzYzyvBRdHcQf_VENm2Qqde0v6LW9-L1FLmqsUx8h9Z5RYfpD_alXx){:.big-img}
 
-Now that that Replica Set’s been created, I can open the logs for one of its pods to confirm that it’s been successfully connected to the API server.  
+Now that Replica Set’s been created, I can open the logs for one of its pods to confirm that it’s been successfully connected to the API server.  
 
 
 

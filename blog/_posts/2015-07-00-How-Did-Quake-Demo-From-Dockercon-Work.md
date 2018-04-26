@@ -50,7 +50,7 @@ The first phase of this effort invoking CRIU directly to dump a process tree run
 
 Docker sets up /etc/{hostname,hosts,resolv.conf} as targets with source files outside the container's mount namespace.
 
-The --ext-mount-map command line option was added to CRIU to specify the path of the external bind mounts.  For example, assuming default Docker configuration, /etc/hostname in the container's mount namespace is bind mounted from the source at /var/lib/docker/containers/\<container-id\>/hostname.  When checkpointing, we tell CRIU to record /etc/hostname's "map" as, say, etc\_hostname. When restoring, we tell CRIU that that the file previously recorded as etc\_hostname should be mapped from the external bind mount at /var/lib/docker/containers/\<container-id\>/hostname.
+The --ext-mount-map command line option was added to CRIU to specify the path of the external bind mounts.  For example, assuming default Docker configuration, /etc/hostname in the container's mount namespace is bind mounted from the source at /var/lib/docker/containers/\<container-id\>/hostname.  When checkpointing, we tell CRIU to record /etc/hostname's "map" as, say, etc\_hostname. When restoring, we tell CRIU that the file previously recorded as etc\_hostname should be mapped from the external bind mount at /var/lib/docker/containers/\<container-id\>/hostname.
 
 
 
