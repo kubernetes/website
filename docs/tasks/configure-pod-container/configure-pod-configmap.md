@@ -170,6 +170,9 @@ would produce the following ConfigMap:
 
 ```shell
 kubectl get configmap game-config-env-file -o yaml
+```
+
+```yaml
 apiVersion: v1
 data:
   allowed: '"true"'
@@ -195,8 +198,11 @@ kubectl create configmap config-multi-env-files \
 
 would produce the following ConfigMap:
 
-```
+```shell
 kubectl get configmap config-multi-env-files -o yaml
+```
+
+```yaml
 apiVersion: v1
 data:
   color: purple
