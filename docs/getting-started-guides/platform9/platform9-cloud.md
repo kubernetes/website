@@ -12,7 +12,7 @@ title: Running Platform9 Managed Kubernetes on Public Cloud
 
 Through the following tutorial, you will learn to install [Platform9 Managed Kubernetes](https://platform9.com/managed-kubernetes/?utm_source=k8sio) on Amazon Web Services. Platform9 Managed Kubernetes provides auto-deploy functionality on AWS, making it easy for you to install Kubernetes.
 
-Auto-deploy for Google Cloud Platform and Microsoft Azure will be available in 2018. For installation on other clouds and on-premises, please follow the steps for [manual installation](kubernetes.io/platform9/platform9-on-prem/). Please reach us at support@platform9.com if you need an alternative installer.
+Auto-deploy for Google Cloud Platform and Microsoft Azure will be available in 2018. For installation on other clouds and on-premises, please follow the steps for [manual installation](/docs/getting-started-guides/platform9/platform9-on-prem). Please reach us at support@platform9.com if you need an alternative installer.
 
 
 ## Cluster Deployment
