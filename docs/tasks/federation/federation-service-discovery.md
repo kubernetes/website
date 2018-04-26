@@ -1,9 +1,11 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 - quinton-hoole
 title: Cross-cluster Service Discovery using Federated Services
 ---
+
+{% include federation-current-state.md %}
 
 This guide explains how to use Kubernetes Federated Services to deploy
 a common Service across multiple Kubernetes clusters. This makes it
@@ -109,6 +111,7 @@ $kubectl --context=federation-cluster describe services nginx
 Name:                   nginx
 Namespace:              default
 Labels:                 run=nginx
+Annotations:            <none>
 Selector:               run=nginx
 Type:                   LoadBalancer
 IP:                     10.63.250.98
@@ -116,7 +119,7 @@ LoadBalancer Ingress:   104.197.246.190, 130.211.57.243, 104.196.14.231, 104.199
 Port:                   http    80/TCP
 Endpoints:              <none>
 Session Affinity:       None
-No events.
+Events:                 <none>
 ```
 
 Note the 'LoadBalancer Ingress' addresses of your Federated Service

@@ -135,10 +135,10 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 
 #### Python client
 
-To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes`. See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
+To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes`. See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py).
+as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-client/python/tree/master/examples/example1.py).
 
 #### Other languages
 
@@ -151,11 +151,11 @@ When accessing the API from a pod, locating and authenticating
 to the apiserver are somewhat different.
 
 The recommended way to locate the apiserver within the pod is with
-the `kubernetes` DNS name, which resolves to a Service IP which in turn
+the `kubernetes.default.svc` DNS name, which resolves to a Service IP which in turn
 will be routed to an apiserver.
 
 The recommended way to authenticate to the apiserver is with a
-[service account](/docs/tasks/configure-pod-container/configure-service-account/) credential.  By kube-system, a pod
+[service account](/docs/tasks/configure-pod-container/configure-service-account/) credential. By kube-system, a pod
 is associated with a service account, and a credential (token) for that
 service account is placed into the filesystem tree of each container in that pod,
 at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
@@ -169,16 +169,14 @@ at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
 
 From within a pod the recommended ways to connect to API are:
 
-  - run a kubectl proxy as one of the containers in the pod, or as a background
-    process within a container.  This proxies the
+  - run `kubectl proxy` in a sidecar container in the pod, or as a background
+    process within the container. This proxies the
     Kubernetes API to the localhost interface of the pod, so that other processes
-    in any container of the pod can access it.  See this [example of using kubectl proxy
-    in a pod](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/kubectl-container/).
+    in any container of the pod can access it.
   - use the Go client library, and create a client using the `rest.InClusterConfig()` and `kubernetes.NewForConfig()` functions.
     They handle locating and authenticating to the apiserver. [example](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)
 
 In each case, the credentials of the pod are used to communicate securely with the apiserver.
-
 
 ## Accessing services running on the cluster
 

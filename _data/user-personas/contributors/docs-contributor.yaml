@@ -1,0 +1,40 @@
+id: docs-contributor
+name: Docs Contributor
+short_desc: A person who writes documentation for the Kubernetes project (e.g. this site).
+index: 2
+foundational:
+  - label: "Contribute to the Kubernetes documentation"
+    icon: fa-users
+    url: "/editdocs/"
+  - label: "Learn about documentation style"
+    icon: fa-book
+    url: "/docs/home/contribute/style-guide/"
+  - label: "Review documentation issues"
+    icon: fa-bug
+    url: "/docs/home/contribute/review-issues/"
+  - label: "Create a documentation pull request (PR)"
+    icon: fa-pencil-square-o
+    url: "/docs/home/contribute/create-pull-request/"
+  - label: "Stage documentation changes"
+    icon: fa-eye
+    url: "/docs/home/contribute/stage-documentation-changes/#staging-a-pull-request"
+intermediate:
+  - label: "Write a new topic"
+    icon: fa-plus-circle
+    url: "/docs/home/contribute/write-new-topic/"
+  - label: "Stage documentation changes locally"
+    icon: fa-cloud-download
+    url: "/docs/home/contribute/stage-documentation-changes/#staging-locally-using-docker"
+  - label: "Apply page templates"
+    icon: fa-clone
+    url: "/docs/home/contribute/page-templates/"
+  - label: "Add callout formatting"
+    icon: fa-exclamation-circle
+    url: "/docs/home/contribute/style-guide/#callout-formatting"
+advanced:
+  - label: "Add feature state tags"
+    icon: fa-tag
+    url: "/docs/home/contribute/includes/#feature-state"
+  - label: "Add tabs to display multiple flavors of content"
+    icon: fa-folder-o
+    url: "/docs/home/contribute/includes/#tabs"

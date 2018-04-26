@@ -145,10 +145,10 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 
 #### Python client
 
-To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
+To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py):
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/python/tree/master/examples/example1.py):
 
 ```python
 from kubernetes import client, config
@@ -177,7 +177,7 @@ libraries can automatically discover the API server and authenticate.
 
 While running in a Pod, the Kubernetes apiserver is accessible via a Service named
 `kubernetes` in the `default` namespace. Therefore, Pods can use the 
-`kubernetes.default` hostname to query the API server. Official client libraries
+`kubernetes.default.svc` hostname to query the API server. Official client libraries
 do this automatically.
 
 From within a Pod, the recommended way to authenticate to the API server is with a

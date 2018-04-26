@@ -9,7 +9,7 @@ Run node pre-flight checks, functionally equivalent to what implemented by kubea
 Alpha Disclaimer: this command is currently alpha.
 
 ```
-kubeadm alpha phase preflight node
+kubeadm alpha phase preflight node [flags]
 ```
 
 ### Examples
@@ -18,4 +18,25 @@ kubeadm alpha phase preflight node
   # Run node pre-flight checks.
   kubeadm alpha phase preflight node
 ```
+
+### Options
+
+<table style="width: 100%;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">help for node</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
 

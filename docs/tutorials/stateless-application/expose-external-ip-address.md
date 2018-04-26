@@ -96,9 +96,10 @@ external IP address.
         Session Affinity:   None
         Events:         <none>
 
-    Make a note of the external IP address exposed by your service. In this
-    example, the external IP address is 104.198.205.71. Also note
-    the value of Port. In this example, the port is 8080.
+    Make a note of the external IP address (`LoadBalancer Ingress`) exposed by
+    your service. In this example, the external IP address is 104.198.205.71.
+    Also note the value of `Port` and `NodePort`. In this example, the `Port`
+    is 8080 and the `NodePort` is 32377.
 
 1. In the preceding output, you can see that the service has several endpoints:
    10.0.0.6:8080,10.0.1.6:8080,10.0.1.7:8080 + 2 more. These are internal
@@ -116,12 +117,16 @@ external IP address.
         hello-world-2895499144-o4z13 ...  10.0.1.7   gke-cluster-1-default-pool-e0b8d269-1afc
         hello-world-2895499144-segjf ...  10.0.2.5   gke-cluster-1-default-pool-e0b8d269-cpuc
 
-1. Use the external IP address to access the Hello World application:
+1. Use the external IP address (`LoadBalancer Ingress`) to access the Hello
+   World application:
 
        curl http://<external-ip>:<port>
 
-    where `<external-ip>` is the external IP address of your Service,
-    and `<port>` is the value of `Port` in your Service description.
+    where `<external-ip>` is the external IP address (`LoadBalancer Ingress`)
+    of your Service, and `<port>` is the value of `Port` in your Service
+    description.
+    If you are using minikube, typing `minikube service my-service` will
+    automatically open the Hello World application in a browser.
 
     The response to a successful request is a hello message:
 

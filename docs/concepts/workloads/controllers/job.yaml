@@ -4,8 +4,6 @@ metadata:
   name: pi
 spec:
   template:
-    metadata:
-      name: pi
     spec:
       containers:
       - name: pi

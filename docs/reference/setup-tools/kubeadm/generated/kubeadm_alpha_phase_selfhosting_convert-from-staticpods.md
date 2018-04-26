@@ -11,7 +11,7 @@ See the documentation for self-hosting limitations.
 Alpha Disclaimer: this command is currently alpha.
 
 ```
-kubeadm alpha phase selfhosting convert-from-staticpods
+kubeadm alpha phase selfhosting convert-from-staticpods [flags]
 ```
 
 ### Examples
@@ -26,16 +26,50 @@ kubeadm alpha phase selfhosting convert-from-staticpods
 
 ### Options
 
-```
-      --cert-dir string        The path where certificates are stored (default "/etc/kubernetes/pki")
-      --config string          Path to a kubeadm config file. WARNING: Usage of a configuration file is experimental!
-      --feature-gates string   A set of key=value pairs that describe feature gates for various features. Options are:
-CoreDNS=true|false (ALPHA - default=false)
-DynamicKubeletConfig=true|false (ALPHA - default=false)
-HighAvailability=true|false (ALPHA - default=false)
-SelfHosting=true|false (BETA - default=false)
-StoreCertsInSecrets=true|false (ALPHA - default=false)
-SupportIPVSProxyMode=true|false (ALPHA - default=false)
-      --kubeconfig string      The KubeConfig file to use when talking to the cluster (default "/etc/kubernetes/admin.conf")
-```
+<table style="width: 100%;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The path where certificates are stored</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--config string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Path to a kubeadm config file. WARNING: Usage of a configuration file is experimental!</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--feature-gates string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">A set of key=value pairs that describe feature gates for various features. Options are:<br/>Auditing=true|false (ALPHA - default=false)<br/>CoreDNS=true|false (BETA - default=false)<br/>DynamicKubeletConfig=true|false (ALPHA - default=false)<br/>SelfHosting=true|false (ALPHA - default=false)<br/>StoreCertsInSecrets=true|false (ALPHA - default=false)</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">help for convert-from-staticpods</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The KubeConfig file to use when talking to the cluster</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
 

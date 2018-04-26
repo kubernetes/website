@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -7,6 +7,10 @@ metadata:
   name: my-scheduler
   namespace: kube-system
 spec:
+  selector:
+    matchLabels:
+      component: scheduler
+      tier: control-plane
   replicas: 1
   template:
     metadata:

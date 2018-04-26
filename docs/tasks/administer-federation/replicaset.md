@@ -3,6 +3,9 @@ title: Federated ReplicaSets
 ---
 
 {% capture overview %}
+
+{% include federation-current-state.md %}
+
 This guide explains how to use ReplicaSets in the Federation control plane.
 
 ReplicaSets in the federation control plane (referred to as "federated ReplicaSets" in
@@ -60,11 +63,37 @@ By default, replicas are spread equally in all the underlying clusters. For exam
 if you have 3 registered clusters and you create a federated ReplicaSet with
 `spec.replicas = 9`, then each ReplicaSet in the 3 clusters will have
 `spec.replicas=3`.
-To modify the number of replicas in each cluster, you can specify
-[FederatedReplicaSetPreference](https://github.com/kubernetes/federation/blob/{{page.githubbranch}}/apis/federation/types.go)
-as an annotation with key `federation.kubernetes.io/replica-set-preferences`
-on the federated ReplicaSet.
+To modify the number of replicas in each cluster, you can add an annotation with
+key `federation.kubernetes.io/replica-set-preferences` to the federated ReplicaSet.
+The value of the annoation is a serialized JSON that contains fields shown in
+the following example:
 
+```
+{
+  "rebalance": true,
+  "clusters": {
+    "foo": {
+      "minReplicas": 10,
+      "maxReplicas": 50,
+      "weight": 100
+    },
+    "bar": {
+      "minReplicas": 10,
+      "maxReplicas": 100,
+      "weight": 200
+    }
+  }
+}
+```
+
+The `rebalance` boolean field specifies whether replicas already scheduled and running
+may be moved in order to match current state to the specified preferences.
+The `clusters` object field contains a map where users can specify the constraints
+for replica placement across the clusters (`foo` and `bar` in the example).
+For each cluster, you can specify the minimum number of replicas that should be
+assigned to it (default is zero), the maximum number of replicas the cluster can
+accept (default is unbounded) and a number expressing the relative weight of
+preferences to place additional replicas to that cluster.
 
 ## Updating a Federated ReplicaSet
 

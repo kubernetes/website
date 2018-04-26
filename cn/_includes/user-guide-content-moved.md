@@ -1,2 +1,3 @@
-Kubernetes 文档的 [用户指南](/docs/user-guide/) 部分中的主题将被移动到 [任务](/docs/tasks/)、[教程](/docs/tutorials/)和
-[概念](/docs/concepts) 部分。 本主题的内容已转移到:
+The topics in the [User Guide](/docs/user-guide/) section of the Kubernetes docs
+are being moved to the [Tasks](/docs/tasks/), [Tutorials](/docs/tutorials/), and
+[Concepts](/docs/concepts) sections. The content in this topic has moved to:

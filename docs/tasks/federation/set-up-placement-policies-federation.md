@@ -4,6 +4,8 @@ title: Set up placement policies in Federation
 
 {% capture overview %}
 
+{% include federation-current-state.md %}
+
 This page shows how to enforce policy-based placement decisions over Federated
 resources using an external policy engine.
 
@@ -51,10 +53,10 @@ Admission Controller.
 
 Update the Federation API server command line arguments to enable the Admission
 Controller and mount the ConfigMap into the container. If there's an existing
-`--admission-control` flag, append `,SchedulingPolicy` instead of adding
+`--enable-admission-plugins` flag, append `,SchedulingPolicy` instead of adding
 another line.
 
-    --admission-control=SchedulingPolicy
+    --enable-admission-plugins=SchedulingPolicy
     --admission-control-config-file=/etc/kubernetes/admission/config.yml
 
 Add the following volume to the Federation API server pod:

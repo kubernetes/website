@@ -1,33 +1,33 @@
 ---
-approvers:
+reviewers:
 - erictune
 - thockin
 title: Offline
 ---
 
-本文档介绍了如何在CoreOS系统上部署Kubernetes。主要针对需要在离线环境下部署的场景，无论您是真实部署前的POC测试还是由于应用程序受限必须在离线环境中使用，本文档都是适用的。
+Deploy a CoreOS running Kubernetes environment. This particular guide is made to help those in an OFFLINE system, whether for testing a POC before the real deal, or you are restricted to be totally offline for your applications.
 
 * TOC
 {:toc}
 
 
-## 前提条件
+## Prerequisites
 
-1. 安装了 *CentOS 6* 系统的PXE服务器
-2. 集群中需要至少两台物理裸机节点
+1. Installed *CentOS 6* for PXE server
+2. At least two bare metal nodes to work with
 
-## 概要设计
+## High Level Design
 
-1. 管理tftp目录
+1. Manage the tftp directory
   * /tftpboot/(coreos)(centos)(RHEL)
-  * /tftpboot/pxelinux.0/(MAC) -> 链接到Linux镜像配置文件
-2. 安装时更新pxelinux链接
-3. 更新DHCP配置，添加所需要部署的主机的相关信息
-4. 创建一个etcd集群
-5. 确保集群处于离线环境[etcd discovery tool](https://discovery.etcd.io/).
-6. 安装配置CoreOS slave节点作为Kubernetes节点
+  * /tftpboot/pxelinux.0/(MAC) -> linked to Linux image config file
+2. Update per install the link for pxelinux
+3. Update the DHCP config to reflect the host needing deployment
+4. Setup nodes to deploy CoreOS creating an etcd cluster.
+5. Have no access to the public [etcd discovery tool](https://discovery.etcd.io/).
+6. Installing the CoreOS slaves to become Kubernetes nodes.
 
-## 本文档定义的一些变量
+## This Guides variables
 
 | Node Description              | MAC               | IP          |
 | :---------------------------- | :---------------: | :---------: |
@@ -36,178 +36,158 @@ title: Offline
 | CoreOS Slave 2                | d0:00:67:13:0d:02 | 10.20.30.42 |
 
 
-## 设置PXELINUX CentOS
+## Setup PXELINUX CentOS
 
-请参阅[这篇指南](http://docs.fedoraproject.org/en-US/Fedora/7/html/Installation_Guide/ap-pxe-server.html)以了解完整的CentOS PXELINUX环境设置步骤。本节内容仅是上述指南文档的概要缩写版本。
+To setup CentOS PXELINUX environment there is a complete [guide here](http://docs.fedoraproject.org/en-US/Fedora/7/html/Installation_Guide/ap-pxe-server.html). This section is the abbreviated version.
 
-1. 安装CentOS上所需要的相关软件包
+1. Install packages needed on CentOS
 
-```shell
-sudo yum install tftp-server dhcp syslinux
-```
+        sudo yum install tftp-server dhcp syslinux
 
-2. 编辑`/etc/xinetd.d/tftp`文件以启用tftp服务
+2. `vi /etc/xinetd.d/tftp` to enable tftp service and change disable to 'no'
 
-```conf
-disable = no
-```
+        -disable = no
 
-3. 拷贝所需的syslinux镜像文件
+3. Copy over the syslinux images we will need.
 
-```shell
-su -
-mkdir -p /tftpboot
-cd /tftpboot
-cp /usr/share/syslinux/pxelinux.0 /tftpboot
-cp /usr/share/syslinux/menu.c32 /tftpboot
-cp /usr/share/syslinux/memdisk /tftpboot
-cp /usr/share/syslinux/mboot.c32 /tftpboot
-cp /usr/share/syslinux/chain.c32 /tftpboot
+        su -
+        mkdir -p /tftpboot
+        cd /tftpboot
+        cp /usr/share/syslinux/pxelinux.0 /tftpboot
+        cp /usr/share/syslinux/menu.c32 /tftpboot
+        cp /usr/share/syslinux/memdisk /tftpboot
+        cp /usr/share/syslinux/mboot.c32 /tftpboot
+        cp /usr/share/syslinux/chain.c32 /tftpboot
 
-/sbin/service dhcpd start
-/sbin/service xinetd start
-/sbin/chkconfig tftp on
-```
+        /sbin/service dhcpd start
+        /sbin/service xinetd start
+        /sbin/chkconfig tftp on
 
-4. 设置默认引导菜单
+4. Setup default boot menu
 
-```shell
-mkdir /tftpboot/pxelinux.cfg
-touch /tftpboot/pxelinux.cfg/default
-```
+        mkdir /tftpboot/pxelinux.cfg
+        touch /tftpboot/pxelinux.cfg/default
 
-5. 编辑默认引导菜单`/tftpboot/pxelinux.cfg/default`
+5. Edit the menu `vi /tftpboot/pxelinux.cfg/default`
 
-```conf
-default menu.c32
-prompt 0
-timeout 15
-ONTIMEOUT local
-display boot.msg
+        default menu.c32
+        prompt 0
+        timeout 15
+        ONTIMEOUT local
+        display boot.msg
 
-MENU TITLE Main Menu
+        MENU TITLE Main Menu
 
-LABEL local
-        MENU LABEL Boot local hard drive
-        LOCALBOOT 0
-```
+        LABEL local
+                MENU LABEL Boot local hard drive
+                LOCALBOOT 0
 
-至此，您应当已经配置好一个可用的PXELINUX环境用来运行CoreOS节点了。您可以使用VirtualBox或者在物理裸机上对PXELINUX环境所提供的服务进行验证。
+Now you should have a working PXELINUX setup to image CoreOS nodes. You can verify the services by using VirtualBox locally or with bare metal servers.
 
-## 添加CoreOS至PXE
+## Adding CoreOS to PXE
 
-本节描述在已有PXELINUX环境的前提下，如何配置CoreOS镜像与之并存。
+This section describes how to setup the CoreOS images to live alongside a pre-existing PXELINUX environment.
+1. Find or create the TFTP root directory that everything will be based on.
+   - For this document we will assume `/tftpboot/` is our root directory.       
+2. Once we know and have our tftp root directory we will create a new directory structure for our CoreOS images.     
+3. Download the CoreOS PXE files provided by the CoreOS team.
 
-1. 查找或者创建TFTP根目录，后续所有步骤都将基于此目录。
-    * 本文中我们假设`/tftpboot`是根目录。
-2. tftp根目录准备好后，我们将为CoreOS镜像创建一个新的目录结构。
-3. 下载由CoreOS团队提供的CoreOS PXE相关文件。
+        MY_TFTPROOT_DIR=/tftpboot
+        mkdir -p $MY_TFTPROOT_DIR/images/coreos/
+        cd $MY_TFTPROOT_DIR/images/coreos/
+        wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz
+        wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz.sig
+        wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz
+        wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz.sig
+        gpg --verify coreos_production_pxe.vmlinuz.sig
+        gpg --verify coreos_production_pxe_image.cpio.gz.sig
 
-```shell
-MY_TFTPROOT_DIR=/tftpboot
-mkdir -p $MY_TFTPROOT_DIR/images/coreos/
-cd $MY_TFTPROOT_DIR/images/coreos/
-wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz
-wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz.sig
-wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz
-wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz.sig
-gpg --verify coreos_production_pxe.vmlinuz.sig
-gpg --verify coreos_production_pxe_image.cpio.gz.sig
-```
+4. Edit the menu `vi /tftpboot/pxelinux.cfg/default` again
 
-4. 再次编辑菜单`/tftpboot/pxelinux.cfg/default`
+        default menu.c32
+        prompt 0
+        timeout 300
+        ONTIMEOUT local
+        display boot.msg
 
-```conf
-default menu.c32
-prompt 0
-timeout 300
-ONTIMEOUT local
-display boot.msg
+        MENU TITLE Main Menu
 
-MENU TITLE Main Menu
+        LABEL local
+                MENU LABEL Boot local hard drive
+                LOCALBOOT 0
 
-LABEL local
-        MENU LABEL Boot local hard drive
-        LOCALBOOT 0
+        MENU BEGIN CoreOS Menu
 
-MENU BEGIN CoreOS Menu
+            LABEL coreos-master
+                MENU LABEL CoreOS Master
+                KERNEL images/coreos/coreos_production_pxe.vmlinuz
+                APPEND initrd=images/coreos/coreos_production_pxe_image.cpio.gz cloud-config-url=http://<xxx.xxx.xxx.xxx>/pxe-cloud-config-single-master.yml
 
-    LABEL coreos-master
-        MENU LABEL CoreOS Master
-        KERNEL images/coreos/coreos_production_pxe.vmlinuz
-        APPEND initrd=images/coreos/coreos_production_pxe_image.cpio.gz cloud-config-url=http://<xxx.xxx.xxx.xxx>/pxe-cloud-config-single-master.yml
+            LABEL coreos-slave
+                MENU LABEL CoreOS Slave
+                KERNEL images/coreos/coreos_production_pxe.vmlinuz
+                APPEND initrd=images/coreos/coreos_production_pxe_image.cpio.gz cloud-config-url=http://<xxx.xxx.xxx.xxx>/pxe-cloud-config-slave.yml
+        MENU END
 
-    LABEL coreos-slave
-        MENU LABEL CoreOS Slave
-        KERNEL images/coreos/coreos_production_pxe.vmlinuz
-        APPEND initrd=images/coreos/coreos_production_pxe_image.cpio.gz cloud-config-url=http://<xxx.xxx.xxx.xxx>/pxe-cloud-config-slave.yml
-MENU END
-```
+This configuration file will now boot from local drive but have the option to PXE image CoreOS.
 
-此文件配置了系统将从本地磁盘引导，但添加了从PXE CoreOS镜像引导的选项。
+## DHCP configuration
 
-## DHCP配置
+This section covers configuring the DHCP server to hand out our new images. In this case we are assuming that there are other servers that will boot alongside other images.
+1. Add the `filename` to the _host_ or _subnet_ sections.
 
-本节将介绍如何配置DHCP服务器分发新的镜像。这里我们假设集群中有其他的服务器需要从不同的CoreOS镜像引导。
+        filename "/tftpboot/pxelinux.0";
 
-1. 添加`filename`字段到 _host_ 或者 _subnet_ 部分。
+2. At this point we want to make pxelinux configuration files that will be the templates for the different CoreOS deployments.
 
-```conf
-filename "/tftpboot/pxelinux.0";
-```
+        subnet 10.20.30.0 netmask 255.255.255.0 {
+                next-server 10.20.30.242;
+                option broadcast-address 10.20.30.255;
+                filename "<other default image>";
 
-2. 现在，我们可以创建pxelinux配置文件，这些配置将来也可以作为其他不同CoreOS部署的模版。
-
-```conf
-subnet 10.20.30.0 netmask 255.255.255.0 {
-        next-server 10.20.30.242;
-        option broadcast-address 10.20.30.255;
-        filename "<other default image>";
-
-        ...
-        # http://www.syslinux.org/wiki/index.php/PXELINUX
-        host core_os_master {
-                hardware ethernet d0:00:67:13:0d:00;
-                option routers 10.20.30.1;
-                fixed-address 10.20.30.40;
-                option domain-name-servers 10.20.30.242;
-                filename "/pxelinux.0";
+                ...
+                # http://www.syslinux.org/wiki/index.php/PXELINUX
+                host core_os_master {
+                        hardware ethernet d0:00:67:13:0d:00;
+                        option routers 10.20.30.1;
+                        fixed-address 10.20.30.40;
+                        option domain-name-servers 10.20.30.242;
+                        filename "/pxelinux.0";
+                }
+                host core_os_slave {
+                        hardware ethernet d0:00:67:13:0d:01;
+                        option routers 10.20.30.1;
+                        fixed-address 10.20.30.41;
+                        option domain-name-servers 10.20.30.242;
+                        filename "/pxelinux.0";
+                }
+                host core_os_slave2 {
+                        hardware ethernet d0:00:67:13:0d:02;
+                        option routers 10.20.30.1;
+                        fixed-address 10.20.30.42;
+                        option domain-name-servers 10.20.30.242;
+                        filename "/pxelinux.0";
+                }
+                ...
         }
-        host core_os_slave {
-                hardware ethernet d0:00:67:13:0d:01;
-                option routers 10.20.30.1;
-                fixed-address 10.20.30.41;
-                option domain-name-servers 10.20.30.242;
-                filename "/pxelinux.0";
-        }
-        host core_os_slave2 {
-                hardware ethernet d0:00:67:13:0d:02;
-                option routers 10.20.30.1;
-                fixed-address 10.20.30.42;
-                option domain-name-servers 10.20.30.242;
-                filename "/pxelinux.0";
-        }
-        ...
-}
-```
 
-稍后我们将介绍节点的配置。
+We will be specifying the node configuration later in the guide.
 
 ## Kubernetes
 
-部署以上配置前，需要首先创建一个`etcd`主节点(master)。为了做到这一点，我们需要使用一个特殊的cloud-config.yaml来pxe CoreOS，可以有两种方式：
-1. 第一种方式是将云配置文件模版化，然后通过编程的方式为不同的集群提供不同的配置。
-2. 第二种方式是运行一个服务发现协议从而可以在云环境中做服务的自动发现。
+To deploy our configuration we need to create an `etcd` master. To do so we want to pxe CoreOS with a specific cloud-config.yml. There are two options we have here.
+1. Is to template the cloud config file and programmatically create new static configs for different cluster setups.
+2. Have a service discovery protocol running in our stack to do auto discovery.
 
-在本示例中，我们将通过静态方式创建一个etcd服务器，用于运行Kubernetes主控组件，并用作etcd主节点。
+This demo we just make a static single `etcd` server to host our Kubernetes and `etcd` master servers.
 
-由于我们的集群处于一个离线的环境中，所以大部分的CoreOS和Kubernetes帮助进程是受限的。为了完成部署，我们需要下载Kubernetes的各个可执行文件到本地然后再启动运行。
+Since we are OFFLINE here most of the helping processes in CoreOS and Kubernetes are then limited. To do our setup we will then have to download and serve up our binaries for Kubernetes in our local environment.
 
-一种简单的方案是在DHCP/TFTP主机上搭建一个简易的web服务器，从而环境中的CoreOS PXE机器可以从其上下载各个可执行文件。
+An easy solution is to host a small web server on the DHCP/TFTP host for all our binaries to make them available to the local CoreOS PXE machines.
 
-为了达到这一目标，我们将启动一个`apache`服务器并提供运行Kubernetes所需要的各个可执行文件。
+To get this up and running we are going to setup a simple `apache` server to serve our binaries needed to bootstrap Kubernetes.
 
-以下脚本运行在上文中准备好的PXE服务器上：
+This is on the PXE server from the previous section:
 
 ```shell
 rm /etc/httpd/conf.d/welcome.conf
@@ -225,27 +205,27 @@ wget https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux
 wget -O flanneld https://storage.googleapis.com/k8s/flanneld
 ```
 
-以上脚本将准备好运行Kubernetes所需的所有可执行文件。未来这些文件将可通过互联网直接进行更新。
+This sets up our binaries we need to run Kubernetes. This would need to be enhanced to download from the Internet for updates in the future.
 
-现在可以开始准备部署了！
+Now for the good stuff!
 
-## 云平台配置
+## Cloud Configs
 
-以下Kubernetes离线版本部署配置文件经过了一定的裁减。
+The following config files are tailored for the OFFLINE version of a Kubernetes deployment.
 
-以下内容基于配置文件: [master.yml](/docs/getting-started-guides/coreos/cloud-configs/master.yaml), 以及[node.yml](/docs/getting-started-guides/coreos/cloud-configs/node.yaml)
+These are based on the work found here: [master.yml](/docs/getting-started-guides/coreos/cloud-configs/master.yaml), [node.yml](/docs/getting-started-guides/coreos/cloud-configs/node.yaml)
 
-将文件中的一些占位字段做如下修改：
+To make the setup work, you need to replace a few placeholders:
 
- - 使用您的PXE服务器的ip地址替换文件中的`<PXE_SERVER_IP>` (例如10.20.30.242)
- - 使用Kubernetes master节点的ip地址替换文件中的`<MASTER_SERVER_IP>` (例如10.20.30.40)
- - 如果您使用私有docker镜像仓库，请使用您的镜像仓库DNS名字替换文件中的`rdocker.example.com`
- - 如果您使用代理，请用代理服务器地址（包含端口）替换文件中的`rproxy.example.com`
- - 在配置文件最后添加您的SSH公钥
+ - Replace `<PXE_SERVER_IP>` with your PXE server ip address (e.g. 10.20.30.242)
+ - Replace `<MASTER_SERVER_IP>` with the Kubernetes master ip address (e.g. 10.20.30.40)
+ - If you run a private docker registry, replace `rdocker.example.com` with your docker registry dns name.
+ - If you use a proxy, replace `rproxy.example.com` with your proxy server (and port)
+ - Add your own SSH public key(s) to the cloud config at the end
 
 ### master.yml
 
-在PXE服务器上创建并编辑文件`/var/www/html/coreos/pxe-cloud-config-master.yml`。
+On the PXE server make and fill in the variables `vi /var/www/html/coreos/pxe-cloud-config-master.yml`.
 
 ```yaml
 #cloud-config
@@ -466,7 +446,7 @@ ssh_authorized_keys:
 
 ### node.yml
 
-在PXE服务器上创建并编辑文件`/var/www/html/coreos/pxe-cloud-config-slave.yml`。
+On the PXE server make and fill in the variables `vi /var/www/html/coreos/pxe-cloud-config-slave.yml`.
 
 ```yaml
 #cloud-config
@@ -600,9 +580,9 @@ ssh_authorized_keys:
   - ssh-rsa AAAAB3NzaC1yc2EAAAAD...
 ```
 
-## 创建pxelinux.cfg相关文件
+## New pxelinux.cfg file
 
-为 _slave_ 节点创建一个pxelinux目标文件： `vi /tftpboot/pxelinux.cfg/coreos-node-slave`
+Create a pxelinux target file for a _slave_ node: `vi /tftpboot/pxelinux.cfg/coreos-node-slave`
 
 ```conf
 default coreos
@@ -617,7 +597,7 @@ label coreos
     append initrd=images/coreos/coreos_production_pxe_image.cpio.gz cloud-config-url=http://<pxe-host-ip>/coreos/pxe-cloud-config-slave.yml console=tty0 console=ttyS0 coreos.autologin=tty1 coreos.autologin=ttyS0
 ```
 
-为 _master_ 节点也创建一个： `vi /tftpboot/pxelinux.cfg/coreos-node-master`
+And one for the _master_ node: `vi /tftpboot/pxelinux.cfg/coreos-node-master`
 
 ```conf
 default coreos
@@ -632,11 +612,11 @@ label coreos
     append initrd=images/coreos/coreos_production_pxe_image.cpio.gz cloud-config-url=http://<pxe-host-ip>/coreos/pxe-cloud-config-master.yml console=tty0 console=ttyS0 coreos.autologin=tty1 coreos.autologin=ttyS0
 ```
 
-## 指定pxelinux目标
+## Specify the pxelinux targets
 
-在上一步骤中我们已经设置了master和slave节点的目标, 我们需要将特定的主机配置为这些目标。为实现这一点，我们可以通过将指定的MAC地址配置到指定的pxelinux.cfg文件的方法来解决。
+Now that we have our new targets setup for master and slave we want to configure the specific hosts to those targets. We will do this by using the pxelinux mechanism of setting a specific MAC addresses to a specific pxelinux.cfg file.
 
-参照本文开始时的MAC地址列表，可以做出下文中的修改。更多细节信息请参阅[相关文档](http://www.syslinux.org/wiki/index.php/PXELINUX).
+Refer to the MAC address table in the beginning of this guide. Documentation for more details can be found [here](http://www.syslinux.org/wiki/index.php/PXELINUX).
 
 ```shell
 cd /tftpboot/pxelinux.cfg
@@ -645,31 +625,31 @@ ln -s coreos-node-slave 01-d0-00-67-13-0d-01
 ln -s coreos-node-slave 01-d0-00-67-13-0d-02
 ```
 
-重启这些服务器令这些镜像PXE化并准备开始运行容器！
+Reboot these servers to get the images PXEd and ready for running containers!
 
-## 创建测试pod
+## Creating test pod
 
-现在，Kubernetes已经成功部署在CoreOS上了，我们可以创建一些pod来测试部署。
+Now that the CoreOS with Kubernetes installed is up and running lets spin up some Kubernetes pods to demonstrate the system.
 
-请参考[一个简单的nginx样例部署](/docs/user-guide/simple-nginx)来测试集群环境。
+See [a simple nginx example](/docs/user-guide/simple-nginx/) to try out your new cluster.
 
-更多完整的应用程序示例，请参阅[示例目录](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/)中的各种例子。
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/).
 
-## 一些用于调试的帮助命令
+## Helping commands for debugging
 
-列出etcd中的所有关键字：
+List all keys in etcd:
 
 ```shell
 etcdctl ls --recursive
 ```
 
-列出所有fleet集群中的机器：
+List fleet machines
 
 ```shell
 fleetctl list-machines
 ```
 
-查阅master节点上各种Kubernetes服务的系统状态：
+Check system status of services on master:
 
 ```shell
 systemctl status kube-apiserver
@@ -678,31 +658,31 @@ systemctl status kube-scheduler
 systemctl status kube-register
 ```
 
-查阅集群节点上各种服务的系统状态：
+Check system status of services on a node:
 
 ```shell
 systemctl status kube-kubelet
 systemctl status docker.service
 ```
 
-列举Kubernetes环境中的各种对象：
+List Kubernetes
 
 ```shell
 kubectl get pods
 kubectl get nodes
 ```
 
-结束Kubernetes中的所有pod：
+Kill all pods:
 
 ```shell
 for i in `kubectl get pods | awk '{print $1}'`; do kubectl delete pod $i; done
 ```
 
-## 支持级别
+## Support Level
 
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Bare-metal (Offline) | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/bare_metal_offline)              |          | Community ([@jeffbean](https://github.com/jeffbean))
+Bare-metal (Offline) | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/bare_metal_offline/)              |          | Community ([@jeffbean](https://github.com/jeffbean))
 
-有关所有解决方案的支持级别信息，请参阅[解决方案列表](/docs/getting-started-guides/#table-of-solutions)。
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions/) chart.

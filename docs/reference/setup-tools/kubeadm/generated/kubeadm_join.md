@@ -53,23 +53,99 @@ kubeadm join [flags]
 
 ### Options
 
-```
-      --config string                                 Path to kubeadm config file.
-      --cri-socket string                             Specify the CRI socket to connect to. (default "/var/run/dockershim.sock")
-      --discovery-file string                         A file or url from which to load cluster information.
-      --discovery-token string                        A token used to validate cluster information fetched from the master.
-      --discovery-token-ca-cert-hash stringSlice      For token-based discovery, validate that the root CA public key matches this hash (format: "<type>:<value>").
-      --discovery-token-unsafe-skip-ca-verification   For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.
-      --feature-gates string                          A set of key=value pairs that describe feature gates for various features. Options are:
-CoreDNS=true|false (ALPHA - default=false)
-DynamicKubeletConfig=true|false (ALPHA - default=false)
-HighAvailability=true|false (ALPHA - default=false)
-SelfHosting=true|false (BETA - default=false)
-StoreCertsInSecrets=true|false (ALPHA - default=false)
-SupportIPVSProxyMode=true|false (ALPHA - default=false)
-      --ignore-checks-errors stringSlice              A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
-      --node-name string                              Specify the node name.
-      --tls-bootstrap-token string                    A token used for TLS bootstrapping.
-      --token string                                  Use this token for both discovery-token and tls-bootstrap-token.
-```
+<table style="width: 100%;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--config string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Path to kubeadm config file.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--cri-socket string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/var/run/dockershim.sock"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Specify the CRI socket to connect to.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--discovery-file string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">A file or url from which to load cluster information.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--discovery-token string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">A token used to validate cluster information fetched from the master.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--discovery-token-ca-cert-hash stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">For token-based discovery, validate that the root CA public key matches this hash (format: "&lt;type&gt;:&lt;value&gt;").</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--discovery-token-unsafe-skip-ca-verification</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--feature-gates string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">A set of key=value pairs that describe feature gates for various features. Options are:<br/>Auditing=true|false (ALPHA - default=false)<br/>CoreDNS=true|false (BETA - default=false)<br/>DynamicKubeletConfig=true|false (ALPHA - default=false)<br/>SelfHosting=true|false (ALPHA - default=false)<br/>StoreCertsInSecrets=true|false (ALPHA - default=false)</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">help for join</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--ignore-preflight-errors stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--node-name string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Specify the node name.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--tls-bootstrap-token string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">A token used for TLS bootstrapping.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--token string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Use this token for both discovery-token and tls-bootstrap-token.</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
 

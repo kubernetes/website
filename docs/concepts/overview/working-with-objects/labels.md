@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 title: Labels and Selectors
 ---
@@ -10,9 +10,11 @@ Labels can be used to organize and to select subsets of objects.  Labels can be 
 Each object can have a set of key/value labels defined.  Each Key must be unique for a given object.
 
 ```json
-"labels": {
-  "key1" : "value1",
-  "key2" : "value2"
+"metadata": {
+  "labels": {
+    "key1" : "value1",
+    "key2" : "value2"
+  }
 }
 ```
 
@@ -58,6 +60,7 @@ An empty label selector (that is, one with zero requirements) selects every obje
 A null label selector (which is only possible for optional selector fields) selects no objects.
 
 **Note**: the label selectors of two controllers must not overlap within a namespace, otherwise they will fight with each other.
+{: .note}
 
 ### _Equality-based_ requirement
 
@@ -73,6 +76,25 @@ The former selects all resources with key equal to `environment` and value equal
 The latter selects all resources with key equal to `tier` and value distinct from `frontend`, and all resources with no labels with the `tier` key.
 One could filter for resources in `production` excluding `frontend` using the comma operator: `environment=production,tier!=frontend`
 
+One usage scenario for equality-based label requirement is for Pods to specify
+node selection criteria. For example, the sample Pod below selects nodes with
+the label "`accelerator=nvidia-tesla-p100`".
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cuda-test
+spec:
+  containers:
+    - name: cuda-test
+      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      resources:
+        limits:
+          nvidia.com/gpu: 1
+  nodeSelector:
+    accelerator: nvidia-tesla-p100
+```
 
 ### _Set-based_ requirement
 

@@ -1,9 +1,9 @@
 ---
-approvers:
+reviewers:
 - jsafrane
-- mikedanese
 - saad-ali
 - thockin
+- msau42
 title: Persistent Volumes
 ---
 
@@ -54,7 +54,7 @@ dynamic provisioning for themselves.
 To enable dynamic storage provisioning based on storage class, the cluster administrator
 needs to enable the `DefaultStorageClass` [admission controller](/docs/admin/admission-controllers/#defaultstorageclass)
 on the API server. This can be done, for example, by ensuring that `DefaultStorageClass` is
-among the comma-delimited, ordered list of values for the `--admission-control` flag of
+among the comma-delimited, ordered list of values for the `--enable-admission-plugins` flag of
 the API server component. For more information on API server command line flags,
 please check [kube-apiserver](/docs/admin/kube-apiserver/) documentation.
 
@@ -66,21 +66,23 @@ Claims will remain unbound indefinitely if a matching volume does not exist. Cla
 
 ### Using
 
-Pods use claims as volumes. The cluster inspects the claim to find the bound volume and mounts that volume for a pod. For volumes which support multiple access modes, the user specifies which mode desired when using their claim as a volume in a pod.
+Pods use claims as volumes. The cluster inspects the claim to find the bound volume and mounts that volume for a pod. For volumes which support multiple access modes, the user specifies which mode is desired when using their claim as a volume in a pod.
 
-Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a persistentVolumeClaim in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
+Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a `persistentVolumeClaim` in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
 
-### Persistent Volume Claim Protection
-{% assign for_k8s_version="v1.9" %}{% include feature-state-alpha.md %}
-The purpose of the PVC protection is to ensure that PVCs in active use by a pod are not removed from the system as this may result in data loss.
+### Storage Object in Use Protection
+{% assign for_k8s_version="v1.10" %}{% include feature-state-beta.md %}
+The purpose of the Storage Object in Use Protection feature is to ensure that Persistent Volume Claims (PVCs) in active use by a pod and Persistent Volume (PVs) that are bound to PVCs are not removed from the system as this may result in data loss.
 
-Note: PVC is in active use by a pod when the the pod status is `Pending` and the pod is assigned to a node or the pod status is `Running`.
+**Note:** PVC is in active use by a pod when the pod status is `Pending` and the pod is assigned to a node or the pod status is `Running`.
+{: .note}
 
-When the [PVC protection alpha feature](/docs/tasks/administer-cluster/pvc-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods.
+When the [Storage Object in Use Protection beta feature](/docs/tasks/administer-cluster/storage-object-in-use-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods, and also if admin deletes a PV that is bound to a PVC, the PV is not removed immediately. PV removal is postponed until the PV is not bound to a PVC any more.
 
 You can see that a PVC is protected when the PVC's status is `Terminating` and the `Finalizers` list includes `kubernetes.io/pvc-protection`:
+
 ```shell
-kubectl described pvc hostpath
+kubectl describe pvc hostpath
 Name:          hostpath
 Namespace:     default
 StorageClass:  example-hostpath
@@ -93,21 +95,50 @@ Finalizers:    [kubernetes.io/pvc-protection]
 ...
 ```
 
+You can see that a PV is protected when the PV's status is `Terminating` and the `Finalizers` list includes `kubernetes.io/pv-protection` too:
+
+```shell
+kubectl describe pv task-pv-volume
+Name:            task-pv-volume
+Labels:          type=local
+Annotations:     <none>
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    standard
+Status:          Available
+Claim:           
+Reclaim Policy:  Delete
+Access Modes:    RWO
+Capacity:        1Gi
+Message:         
+Source:
+    Type:          HostPath (bare host directory volume)
+    Path:          /tmp/data
+    HostPathType:  
+Events:            <none>
+```
+
 ### Reclaiming
 
 When a user is done with their volume, they can delete the PVC objects from the API which allows reclamation of the resource. The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released of its claim. Currently, volumes can either be Retained, Recycled or Deleted.
 
-#### Retaining
+#### Retain
 
-The Retain reclaim policy allows for manual reclamation of the resource. When the `PersistentVolumeClaim` is deleted, the `PersistentVolume` still exists and the volume is considered "released". But it is not yet available for another claim because the previous claimant's data remains on the volume. An administrator can manually reclaim the volume with the following steps.
+The `Retain` reclaim policy allows for manual reclamation of the resource. When the `PersistentVolumeClaim` is deleted, the `PersistentVolume` still exists and the volume is considered "released". But it is not yet available for another claim because the previous claimant's data remains on the volume. An administrator can manually reclaim the volume with the following steps.
 
 1. Delete the `PersistentVolume`. The associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume) still exists after the PV is deleted.
 1. Manually clean up the data on the associated storage asset accordingly.
 1. Manually delete the associated storage asset, or if you want to reuse the same storage asset, create a new `PersistentVolume` with the storage asset definition.
 
-#### Recycling
+#### Delete
 
-If supported by appropriate volume plugin, recycling performs a basic scrub (`rm -rf /thevolume/*`) on the volume and makes it available again for a new claim.
+For volume plugins that support the `Delete` reclaim policy, deletion removes both the `PersistentVolume` object from Kubernetes, as well as the associated storage asset in the external infrastructure, such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume. Volumes that were dynamically provisioned inherit the [reclaim policy of their `StorageClass`](#reclaim-policy), which defaults to `Delete`. The administrator should configure the `StorageClass` according to users' expectations, otherwise the PV must be edited or patched after it is created. See [Change the Reclaim Policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
+
+#### Recycle
+
+**Warning:** The `Recycle` reclaim policy is deprecated. Instead, the recommended approach is to use dynamic provisioning.
+{: .warning}
+
+If supported by the underlying volume plugin, the `Recycle` reclaim policy performs a basic scrub (`rm -rf /thevolume/*`) on the volume and makes it available again for a new claim.
 
 However, an administrator can configure a custom recycler pod template using the Kubernetes controller manager command line arguments as described [here](/docs/admin/kube-controller-manager/). The custom recycler pod template must contain a `volumes` specification, as shown in the example below:
 
@@ -125,7 +156,7 @@ spec:
       path: /any/path/it/will/be/replaced
   containers:
   - name: pv-recycler
-    image: "gcr.io/google_containers/busybox"
+    image: "k8s.gcr.io/busybox"
     command: ["/bin/sh", "-c", "test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z \"$(ls -A /scrub)\" || exit 1"]
     volumeMounts:
     - name: vol
@@ -133,11 +164,6 @@ spec:
 ```
 
 However, the particular path specified in the custom recycler pod template in the `volumes` part is replaced with the particular path of the volume that is being recycled.
-
-#### Deleting
-
-For volume plugins that support the Delete reclaim policy, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in the external infrastructure, such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume. Volumes that were dynamically provisioned inherit the [reclaim policy of their `StorageClass`](#reclaim-policy), which defaults to Delete. The administrator should configure the `StorageClass` according to users' expectations, otherwise the PV must be edited or patched after it is created. See [Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
-
 
 ### Expanding Persistent Volumes Claims
 
@@ -170,10 +196,10 @@ parameters:
 allowVolumeExpansion: true
 ```
 
-Once both feature gate and aforementioned admission plug-in are turned on, an user can request larger volume for their `PersistentVolumeClaim`
-by simply editing the claim and requesting bigger size.  This in turn will trigger expansion of volume that is backing underlying `PersistentVolume`.
+Once both feature gate and the aforementioned admission plug-in are turned on, a user can request larger volume for their `PersistentVolumeClaim`
+by simply editing the claim and requesting a larger size.  This in turn will trigger expansion of the volume that is backing the underlying `PersistentVolume`.
 
-Under no circumstances a new `PersistentVolume` gets created to satisfy the claim. Kubernetes will attempt to resize existing volume to satisfy the claim.
+Under no circumstances will a new `PersistentVolume` be created to satisfy the claim. Kubernetes will instead attempt to resize the existing volume.
 
 For expanding volumes containing a file system, file system resizing is only performed when a new Pod is started using the `PersistentVolumeClaim` in
 ReadWrite mode. In other words, if a volume being expanded is used in a pod or deployment, you will need to delete and recreate the pod for file system
@@ -211,31 +237,31 @@ resizing to take place. Also, file system resizing is only supported for followi
 * ScaleIO Volumes
 * StorageOS
 
-** Raw Block Support exists for these plugins only.
+Raw Block Support exists for these plugins only.
 
 ## Persistent Volumes
 
 Each PV contains a spec and status, which is the specification and status of the volume.
 
 ```yaml
-  apiVersion: v1
-  kind: PersistentVolume
-  metadata:
-    name: pv0003
-  spec:
-    capacity:
-      storage: 5Gi
-    volumeMode: Filesystem
-    accessModes:
-      - ReadWriteOnce
-    persistentVolumeReclaimPolicy: Recycle
-    storageClassName: slow
-    mountOptions:
-      - hard
-      - nfsvers=4.1
-    nfs:
-      path: /tmp
-      server: 172.17.0.2
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv0003
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: slow
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /tmp
+    server: 172.17.0.2
 ```
 
 ### Capacity
@@ -246,7 +272,7 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 
 ### Volume Mode
 
-Prior to v1.9, the default behavior for all volume plugins was to create a filesystem on the persistent volume. With v1.9, the user can specify a volumeMode which will now support raw block devices in addition to file systems. Valid values for volumeMode are "Filesystem" or "Block". If left unspecified, volumeMode defaults to "Filesystem" internally. This is an optional API parameter. 
+Prior to v1.9, the default behavior for all volume plugins was to create a filesystem on the persistent volume. With v1.9, the user can specify a `volumeMode` which will now support raw block devices in addition to file systems. Valid values for `volumeMode` are "Filesystem" or "Block". If left unspecified, `volumeMode` defaults to "Filesystem" internally. This is an optional API parameter. 
 
 **Note:** This feature is alpha in v1.9 and may change in the future. 
 {: .note}
@@ -396,8 +422,8 @@ Claims, like pods, can request specific quantities of a resource.  In this case,
 
 Claims can specify a [label selector](/docs/concepts/overview/working-with-objects/labels/#label-selectors) to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim. The selector can consist of two fields:
 
-* matchLabels - the volume must have a label with this value
-* matchExpressions - a list of requirements made by specifying key, list of values, and operator that relates the key and values. Valid operators include In, NotIn, Exists, and DoesNotExist.
+* `matchLabels` - the volume must have a label with this value
+* `matchExpressions` - a list of requirements made by specifying key, list of values, and operator that relates the key and values. Valid operators include In, NotIn, Exists, and DoesNotExist.
 
 All of the requirements, from both `matchLabels` and `matchExpressions` are ANDed together – they must all be satisfied in order to match.
 
@@ -472,10 +498,10 @@ spec:
 
 ## Raw Block Volume Support
 
-Static provisioning support for Raw Block Volumes is included as an alpha feature for v1.9. With this change are some new API fields that need to be used to facilitate this functionality. Currently, Fibre Channel is the only supported plugin for this feature.
+Static provisioning support for Raw Block Volumes is included as an alpha feature for v1.9. With this change are some new API fields that need to be used to facilitate this functionality. Kubernetes v1.10 supports only Fibre Channel and Local Volume plugins for this feature.
 
 ### Persistent Volumes using a Raw Block Volume
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -493,7 +519,7 @@ spec:
     readOnly: false
 ```
 ### Persistent Volume Claim requesting a Raw Block Volume
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -507,7 +533,7 @@ spec:
       storage: 10Gi
 ```
 ### Pod specification adding Raw Block Device path in container
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -532,7 +558,7 @@ spec:
 
 ### Binding Block Volumes
 
-If a user requests a raw block volume by indicating this using the volumeMode field in the PersistentVolumeClaim spec, the binding rules differ slighty from previous releases that didn't consider this mode as part of the spec.
+If a user requests a raw block volume by indicating this using the `volumeMode` field in the `PersistentVolumeClaim` spec, the binding rules differ slightly from previous releases that didn't consider this mode as part of the spec.
 Listed is a table of possible combinations the user and admin might specify for requesting a raw block device. The table indicates if the volume will be bound or not given the combinations:
 Volume binding matrix for statically provisioned volumes:
 

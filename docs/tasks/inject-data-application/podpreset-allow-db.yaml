@@ -8,7 +8,7 @@ spec:
       role: frontend
   env:
     - name: DB_PORT
-      value: 6379
+      value: "6379"
     - name: duplicate_key
       value: FROM_ENV
     - name: expansion

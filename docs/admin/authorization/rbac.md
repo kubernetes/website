@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - deads2k
 - liggitt
@@ -88,7 +88,7 @@ metadata:
   namespace: default
 subjects:
 - kind: User
-  name: jane
+  name: jane # Name is case sensitive
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
@@ -102,7 +102,7 @@ This allows administrators to define a set of common roles for the entire cluste
 then reuse them within multiple namespaces.
 
 For instance, even though the following `RoleBinding` refers to a `ClusterRole`,
-"dave" (the subject) will only be able to read secrets in the "development"
+"dave" (the subject, case sensitive) will only be able to read secrets in the "development"
 namespace (the namespace of the `RoleBinding`).
 
 ```yaml
@@ -114,7 +114,7 @@ metadata:
   namespace: development # This only grants permissions within the "development" namespace.
 subjects:
 - kind: User
-  name: dave
+  name: dave # Name is case sensitive
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
@@ -134,11 +134,11 @@ metadata:
   name: read-secrets-global
 subjects:
 - kind: Group
-  name: manager
+  name: manager # Name is case sensitive
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
-  name: secret-reader
+  name: secret-reader
   apiGroup: rbac.authorization.k8s.io
 ```
 
@@ -188,7 +188,7 @@ rules:
 
 Notably, if `resourceNames` are set, then the verb must not be list, watch, create, or deletecollection.
 Because resource names are not present in the URL for create, list, watch, and deletecollection API requests,
-those verbs would not be allowed by a rule with resourceNames set, since the resourceNames portion of the
+those verbs would not be allowed by a rule with `resourceNames` set, since the `resourceNames` portion of the
 rule would not match the request.
 
 ### Aggregated ClusterRoles
@@ -628,6 +628,7 @@ These roles include:
 * system:controller:node-controller
 * system:controller:persistent-volume-binder
 * system:controller:pod-garbage-collector
+* system:controller:pv-protection-controller
 * system:controller:pvc-protection-controller
 * system:controller:replicaset-controller
 * system:controller:replication-controller
@@ -762,7 +763,7 @@ In order from most secure to least secure, the approaches are:
 
    If an application does not specify a `serviceAccountName`, it uses the "default" service account.
 
-   NOTE: Permissions given to the "default" service account are available to any pod in the namespace that does not specify a `serviceAccountName`.
+   **NOTE:** Permissions given to the "default" service account are available to any pod in the namespace that does not specify a `serviceAccountName`.
 
    For example, grant read-only permission within "my-namespace" to the "default" service account:
    
@@ -776,7 +777,7 @@ In order from most secure to least secure, the approaches are:
    Many [add-ons](/docs/concepts/cluster-administration/addons/) currently run as the "default" service account in the "kube-system" namespace.
    To allow those add-ons to run with super-user access, grant cluster-admin permissions to the "default" service account in the "kube-system" namespace.
    
-   NOTE: Enabling this means the "kube-system" namespace contains secrets that grant super-user access to the API.
+   **NOTE:** Enabling this means the "kube-system" namespace contains secrets that grant super-user access to the API.
    
    ```shell
    kubectl create clusterrolebinding add-on-cluster-admin \
@@ -789,7 +790,7 @@ In order from most secure to least secure, the approaches are:
    If you want all applications in a namespace to have a role, no matter what service account they use,
    you can grant a role to the service account group for that namespace.
 
-   For example, grant read-only permission within "my-namespace" to to all service accounts in that namespace:
+   For example, grant read-only permission within "my-namespace" to all service accounts in that namespace:
    
    ```shell
    kubectl create rolebinding serviceaccounts-view \
@@ -814,7 +815,7 @@ In order from most secure to least secure, the approaches are:
 
    If you don't care about partitioning permissions at all, you can grant super-user access to all service accounts.
 
-   WARNING: This allows any user with read access to secrets or the ability to create a pod to access super-user credentials.
+   **WARNING:** This allows any user with read access to secrets or the ability to create a pod to access super-user credentials.
 
    ```shell
    kubectl create clusterrolebinding serviceaccounts-cluster-admin \
@@ -836,7 +837,8 @@ Here are two approaches for managing this transition:
 
 ### Parallel Authorizers
 
-Run both the RBAC and ABAC authorizers, and include the legacy ABAC policy:
+Run both the RBAC and ABAC authorizers, and specify a policy file that contains
+[the legacy ABAC policy](/docs/admin/authorization/abac#policy-file-format):
 
 ```
 --authorization-mode=RBAC,ABAC --authorization-policy-file=mypolicy.json
@@ -851,14 +853,15 @@ You can use that information to determine which roles need to be granted to whic
 Once you have [granted roles to service accounts](#service-account-permissions) and workloads are running with no RBAC denial messages
 in the server logs, you can remove the ABAC authorizer.
 
-### Permissive RBAC Permissions
+## Permissive RBAC Permissions
 
 You can replicate a permissive policy using RBAC role bindings.
 
-**WARNING: The following policy allows ALL service accounts to act as cluster administrators.
+**WARNING:** The following policy allows **ALL** service accounts to act as cluster administrators.
 Any application running in a container receives service account credentials automatically,
 and could perform any action against the API, including viewing secrets and modifying permissions.
-This is not a recommended policy.**
+This is not a recommended policy.
+{: .warning}
 
 ```
 kubectl create clusterrolebinding permissive-binding \

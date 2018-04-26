@@ -3,6 +3,9 @@ title: Federated Ingress
 ---
 
 {% capture overview %}
+
+{% include federation-current-state.md %}
+
 This page explains how to use Kubernetes Federated Ingress to deploy
 a common HTTP(S) virtual IP load balancer across a federated service running in
 multiple Kubernetes clusters.  As of v1.4, clusters hosted in Google
@@ -204,7 +207,7 @@ supported across Google Cloud clusters.
 
 ## Discovering a federated ingress
 
-Ingress objects (in both plain Kubernets clusters, and in federations
+Ingress objects (in both plain Kubernetes clusters, and in federations
 of clusters) expose one or more IP addresses (via
 the Status.Loadbalancer.Ingress field) that remains static for the lifetime
 of the Ingress object (in future, automatically managed DNS names

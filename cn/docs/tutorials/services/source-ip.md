@@ -1,11 +1,19 @@
 ---
-
 title: 使用 Source IP
 ---
 
+<!--
+title: Using Source IP
+-->
+
 {% capture overview %}
 
-
+<!--
+Applications running in a Kubernetes cluster find and communicate with each
+other, and the outside world, through the Service abstraction. This document
+explains what happens to the source IP of packets sent to different types
+of Services, and how you can toggle this behavior according to your needs.
+-->
 Kubernetes 集群中运行的应用通过抽象的 Service 查找彼此，相互通信和连接外部世界。本文揭示了发送到不同类型 Services 的数据包源 IP 的内幕，你可以根据需求改变这个行为。
 
 {% endcapture %}
@@ -14,10 +22,20 @@ Kubernetes 集群中运行的应用通过抽象的 Service 查找彼此，相互
 
 {% include task-tutorial-prereqs.md %}
 
-
+<!--
+## Terminology
+-->
 ## 术语表
 
+<!--
+This document makes use of the following terms:
 
+* [NAT](https://en.wikipedia.org/wiki/Network_address_translation): network address translation
+* [Source NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT): replacing the source IP on a packet, usually with a node's IP
+* [Destination NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT): replacing the destination IP on a packet, usually with a pod IP
+* [VIP](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): a virtual IP, such as the one assigned to every Kubernetes Service
+* [Kube-proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): a network daemon that orchestrates Service VIP management on every node
+-->
 本文使用了下列术语：
 
 * [NAT](https://en.wikipedia.org/wiki/Network_address_translation): 网络地址转换
@@ -26,10 +44,16 @@ Kubernetes 集群中运行的应用通过抽象的 Service 查找彼此，相互
 * [VIP](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): 一个虚拟 IP, 例如分配给每个 Kubernetes Service 的 IP
 * [Kube-proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): 一个网络守护程序，在每个节点上协调 Service VIP 管理
 
-
+<!--
+## Prerequisites
+-->
 ## 准备工作
 
-
+<!--
+You must have a working Kubernetes 1.5 cluster to run the examples in this
+document. The examples use a small nginx webserver that echoes back the source
+IP of requests it receives through an HTTP header. You can create it as follows:
+-->
 你必须拥有一个正常工作的 Kubernetes 1.5 集群，用来运行本文中的示例。该示例使用一个简单的 nginx webserver 回送它接收到的请求的 HTTP 头中的源 IP 地址。你可以像下面这样创建它：
 
 ```console
@@ -41,8 +65,12 @@ deployment "source-ip-app" created
 
 {% capture objectives %}
 
-
-* 通过多种类型的 Services 暴露一个简单应用
+<!--
+* Expose a simple application through various types of Services
+* Understand how each Service type handles source IP NAT
+* Understand the tradeoffs involved in preserving source IP
+-->
+* 通过多种类型的 Service 暴露一个简单应用
 * 理解每种 Service 类型如何处理源 IP NAT
 * 理解保留源 IP 的折中
 
@@ -51,10 +79,17 @@ deployment "source-ip-app" created
 
 {% capture lessoncontent %}
 
-
+<!--
+## Source IP for Services with Type=ClusterIP
+-->
 ## Type=ClusterIP 类型 Services 的 Source IP
 
-
+<!--
+Packets sent to ClusterIP from within the cluster are never source NAT'd if
+you're running kube-proxy in [iptables mode](/docs/user-guide/services/#proxy-mode-iptables),
+which is the default since Kubernetes 1.2. Kube-proxy exposes its mode through
+a `proxyMode` endpoint:
+-->
 如果你的 kube-proxy 运行在 [iptables 模式](/docs/user-guide/services/#proxy-mode-iptables)下，从集群内部发送到 ClusterIP 的包永远不会进行源地址 NAT，这从 Kubernetes 1.2 开始是默认选项。Kube-proxy 通过一个 `proxyMode` endpoint 暴露它的模式。
 
 ```console
@@ -68,7 +103,9 @@ kubernetes-minion-group-6jst $ curl localhost:10249/proxyMode
 iptables
 ```
 
-
+<!--
+You can test source IP preservation by creating a Service over the source IP app:
+-->
 你可以通过在 source IP 应用上创建一个服务来测试源 IP 保留。
 
 ```console
@@ -80,7 +117,9 @@ NAME         CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
 clusterip    10.0.170.92   <none>        80/TCP    51s
 ```
 
-
+<!--
+And hitting the `ClusterIP` from a pod in the same cluster:
+-->
 从相同集群中的一个 pod 访问这个 `ClusterIP`：
 
 ```console
@@ -108,13 +147,20 @@ client_address=10.244.3.8
 command=GET
 ...
 ```
-
+<!--
+If the client pod and server pod are in the same node, the client_address is the client pod's IP address. However, if the client pod and server pod are in different nodes, the client_address is the client pod's node flannel IP address.
+-->
 如果客户端 pod 和 服务端 pod 在相同的节点上，client_address 就是客户端 pod 的 IP 地址。但是，如果它们在不同的节点上， client_address 将会是客户端 pod 所在节点的 flannel IP 地址。
 
-
+<!--
+## Source IP for Services with Type=NodePort
+-->
 ## Type=NodePort 类型 Services 的 Source IP
 
-
+<!--
+As of Kubernetes 1.5, packets sent to Services with [Type=NodePort](/docs/user-guide/services/#type-nodeport)
+are source NAT'd by default. You can test this by creating a `NodePort` Service:
+-->
 对于 Kubernetes 1.5，发送给类型为 [Type=NodePort](/docs/user-guide/services/#type-nodeport) Services 的数据包默认进行源地址 NAT。你可以创建一个 `NodePort` Service 来进行测试：
 
 ```console
@@ -124,7 +170,12 @@ service "nodeport" exposed
 $ NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
 $ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
 ```
-
+<!--
+if you're running on a cloudprovider, you may need to open up a firewall-rule
+for the `nodes:nodeport` reported above.
+Now you can try reaching the Service from outside the cluster through the node
+port allocated above.
+-->
 如果你的集群运行在一个云服务上，你可能需要为上面报告的 `nodes:nodeport` 开启一条防火墙规则。
 现在，你可以通过上面分配的节点端口从外部访问这个 Service。
 
@@ -134,7 +185,16 @@ client_address=10.180.1.1
 client_address=10.240.0.5
 client_address=10.240.0.3
 ```
+<!--
+Note that these are not the correct client IPs, they're cluster internal IPs. This is what happens:
 
+* Client sends packet to `node2:nodePort`
+* `node2` replaces the source IP address (SNAT) in the packet with its own IP address
+* `node2` replaces the destination IP on the packet with the pod IP
+* packet is routed to node 1, and then to the endpoint
+* the pod's reply is routed back to node2
+* the pod's reply is sent back to the client
+-->
 请注意，这些并不是正确的客户端 IP，它们是集群的内部 IP。这是所发生的事情：
 
 * 客户端发送数据包到 `node2:nodePort`
@@ -144,7 +204,9 @@ client_address=10.240.0.3
 * Pod 的回复被路由回 node2
 * Pod 的回复被发送回给客户端
 
-
+<!--
+Visually:
+-->
 形象的：
 
 ```
@@ -159,18 +221,31 @@ client_address=10.240.0.3
  endpoint
 ```
 
-
+<!--
+To avoid this, Kubernetes has a feature to preserve the client source IP
+[(check here for feature availability)](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip).
+Setting `service.spec.externalTrafficPolicy` to the value `Local` will only
+proxy requests to local endpoints, never forwarding traffic to other nodes
+and thereby preserving the original source IP address. If there are no
+local endpoints, packets sent to the node are dropped, so you can rely
+on the correct source-ip in any packet processing rules you might apply a
+packet that make it through to the endpoint.
+-->
 为了防止这种情况发生，Kubernetes 提供了一个特性来保留客户端的源 IP 地址[(点击此处查看可用特性)](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)。设置 `service.spec.externalTrafficPolicy` 的值为 `Local`，请求就只会被代理到本地 endpoints 而不会被转发到其它节点。这样就保留了最初的源 IP 地址。如果没有本地 endpoints，发送到这个节点的数据包将会被丢弃。这样在应用到数据包的任何包处理规则下，你都能依赖这个正确的 source-ip 使数据包通过并到达 endpoint。
 
-
-设置 `service.spec.externalTrafficPolicy` 字段如下： 
+<!--
+Set the `service.spec.externalTrafficPolicy` field as follows:
+-->
+设置 `service.spec.externalTrafficPolicy` 字段如下：
 
 ```console
 $ kubectl patch svc nodeport -p '{"spec":{"externalTrafficPolicy":"Local"}}'
 service "nodeport" patched
 ```
 
-
+<!--
+Now, re-run the test:
+-->
 现在，重新运行测试：
 
 ```console
@@ -178,10 +253,20 @@ $ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i c
 client_address=104.132.1.79
 ```
 
-
+<!--
+Note that you only got one reply, with the *right* client IP, from the one node on which the endpoint pod
+is running on.
+-->
 请注意，你只从 endpoint pod 运行的那个节点得到了一个回复，这个回复有*正确的*客户端 IP。
 
+<!--
+This is what happens:
 
+* client sends packet to `node2:nodePort`, which doesn't have any endpoints
+* packet is dropped
+* client sends packet to `node1:nodePort`, which *does* have endpoints
+* node1 routes packet to endpoint with the correct source IP
+-->
 这是发生的事情：
 
 * 客户端发送数据包到 `node2:nodePort`，它没有任何 endpoints
@@ -189,7 +274,9 @@ client_address=104.132.1.79
 * 客户端发送数据包到 `node1:nodePort`，它*有*endpoints
 * node1 使用正确的源 IP 地址将数据包路由到 endpoint
 
-
+<!--
+Visually:
+-->
 形象的：
 
 ```
@@ -205,13 +292,24 @@ client_address=104.132.1.79
 ```
 
 
-
+<!--
+## Source IP for Services with Type=LoadBalancer
+-->
 ## Type=LoadBalancer 类型 Services 的 Source IP
 
-
+<!--
+As of Kubernetes 1.5, packets sent to Services with [Type=LoadBalancer](/docs/user-guide/services/#type-loadbalancer) are
+source NAT'd by default, because all schedulable Kubernetes nodes in the
+`Ready` state are eligible for loadbalanced traffic. So if packets arrive
+at a node without an endpoint, the system proxies it to a node *with* an
+endpoint, replacing the source IP on the packet with the IP of the node (as
+described in the previous section).
+-->
 对于 Kubernetes 1.5，发送给类型为 [Type=LoadBalancer](/docs/user-guide/services/#type-nodeport) Services 的数据包默认进行源地址 NAT，这是由于所有处于 `Ready` 状态的 Kubernetes 节点对于负载均衡的流量都是符合条件的。所以如果数据包到达一个没有 endpoint 的节点，系统将把这个包代理到*有* endpoint 的节点，并替换数据包的源 IP 为节点的 IP（如前面章节所述）。
 
-
+<!--
+You can test this by exposing the source-ip-app through a loadbalancer
+-->
 你可以通过在一个 loadbalancer 上暴露这个 source-ip-app 来进行测试。
 
 ```console
@@ -228,10 +326,17 @@ client_address=10.240.0.5
 ...
 ```
 
+<!--
+However, if you're running on GKE/GCE, setting the same `service.spec.externalTrafficPolicy`
+field to `Local` forces nodes *without* Service endpoints to remove
+themselves from the list of nodes eligible for loadbalanced traffic by
+deliberately failing health checks.
+-->
+然而，如果你的集群运行在 GKE/GCE 上，设置 `service.spec.externalTrafficPolicy` 字段值为 `Local` 可以强制使*没有* endpoints 的节点把他们自己从负载均衡流量的可选节点名单中删除。这是通过故意使它们健康检查失败达到的。
 
-然而，如果你的集群运行在 Google Kubernetes Engine/GCE 上，设置 `service.spec.externalTrafficPolicy` 字段值为 `Local` 可以强制使*没有* endpoints 的节点把他们自己从负载均衡流量的可选节点名单中删除。这是通过故意使它们健康检查失败达到的。
-
-
+<!--
+Visually:
+-->
 形象的：
 
 ```
@@ -246,14 +351,19 @@ health check --->   node 1   node 2 <--- health check
                  endpoint
 ```
 
-
+<!--
+You can test this by setting the annotation:
+-->
 你可以设置 annotation 来进行测试：
 
 ```console
 $ kubectl patch svc loadbalancer -p '{"spec":{"externalTrafficPolicy":"Local"}}'
 ```
 
-
+<!--
+You should immediately see the `service.spec.healthCheckNodePort` field allocated
+by Kubernetes:
+-->
 你应该能够立即看到 Kubernetes 分配的 `service.spec.healthCheckNodePort` 字段：
 
 ```console
@@ -261,7 +371,10 @@ $ kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
   healthCheckNodePort: 32122
 ```
 
-
+<!--
+The `service.spec.healthCheckNodePort` field points to a port on every node
+serving the health check at `/healthz`. You can test this:
+-->
 `service.spec.healthCheckNodePort` 字段指向每个节点在 `/healthz` 路径上提供的用于健康检查的端口。你可以这样测试：
 
 ```
@@ -276,7 +389,12 @@ kubernetes-minion-group-jj1t $ curl localhost:32122/healthz
 No Service Endpoints Found
 ```
 
-
+<!--
+A service controller running on the master is responsible for allocating the cloud
+loadbalancer, and when it does so, it also allocates HTTP health checks
+pointing to this port/path on each node. Wait about 10 seconds for the 2 nodes
+without endpoints to fail health checks, then curl the lb ip:
+-->
 主节点运行的 service 控制器负责分配 cloud loadbalancer。在这样做的同时，它也会分配指向每个节点的 HTTP 健康检查的 port/path。等待大约 10 秒钟之后，没有 endpoints 的两个节点的健康检查会失败，然后 curl 负载均衡器的 ip：
 
 ```console
@@ -286,18 +404,41 @@ client_address=104.132.1.79
 ...
 ```
 
-
+<!--
+__Cross platform support__
+-->
 __跨平台支持__
 
-
+<!--
+As of Kubernetes 1.5 support for source IP preservation through Services
+with Type=LoadBalancer is only implemented in a subset of cloudproviders
+(GCP and Azure). The cloudprovider you're running on might fulfill the
+request for a loadbalancer in a few different ways:
+-->
 由于 Kubernetes 1.5 在类型为 Type=LoadBalancer 的 Services 中支持源 IP 保存的特性仅在 cloudproviders 的子集中实现（GCP and Azure）。你的集群运行的 cloudprovider 可能以某些不同的方式满足 loadbalancer 的要求：
 
+<!--
+1. With a proxy that terminates the client connection and opens a new connection
+to your nodes/endpoints. In such cases the source IP will always be that of the
+cloud LB, not that of the client.
 
+2. With a packet forwarder, such that requests from the client sent to the
+loadbalancer VIP end up at the node with the source IP of the client, not
+an intermediate proxy.
+-->
 1. 使用一个代理终止客户端连接并打开一个到你的 nodes/endpoints 的新连接。在这种情况下，源 IP 地址将永远是云负载均衡器的地址而不是客户端的。
 
 2. 使用一个包转发器，因此从客户端发送到负载均衡器 VIP 的请求在拥有客户端源 IP 地址的节点终止，而不被中间代理。
 
-
+<!--
+Loadbalancers in the first category must use an agreed upon
+protocol between the loadbalancer and backend to communicate the true client IP
+such as the HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For)
+header, or the [proxy protocol](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt).
+Loadbalancers in the second category can leverage the feature described above
+by simply creating a HTTP health check pointing at the port stored in
+the `service.spec.healthCheckNodePort` field on the Service.
+-->
 第一类负载均衡器必须使用一种它和后端之间约定的协议来和真实的客户端 IP 通信，例如 HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For) 头，或者 [proxy 协议](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)。
 第二类负载均衡器可以通过简单的在保存于 Service 的 `service.spec.healthCheckNodePort` 字段上创建一个 HTTP 健康检查点来使用上面描述的特性。
 
@@ -305,14 +446,18 @@ __跨平台支持__
 
 {% capture cleanup %}
 
-
+<!--
+Delete the Services:
+-->
 删除服务：
 
 ```console
 $ kubectl delete svc -l run=source-ip-app
 ```
 
-
+<!--
+Delete the Deployment, ReplicaSet and Pod:
+-->
 删除 Deployment、ReplicaSet 和 Pod：
 
 ```console
@@ -322,7 +467,10 @@ $ kubectl delete deployment source-ip-app
 {% endcapture %}
 
 {% capture whatsnext %}
-
+<!--
+* Learn more about [connecting applications via services](/docs/concepts/services-networking/connect-applications-service/)
+* Learn more about [loadbalancing](/docs/user-guide/load-balancer)
+-->
 * 学习更多关于 [通过 services 连接应用](/docs/concepts/services-networking/connect-applications-service/)
 * 学习更多关于 [负载均衡](/docs/user-guide/load-balancer)
 {% endcapture %}

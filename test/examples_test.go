@@ -34,6 +34,8 @@ import (
 	"k8s.io/apimachinery/pkg/util/yaml"
 	utilfeature "k8s.io/apiserver/pkg/util/feature"
 	"k8s.io/kubernetes/pkg/api/testapi"
+	"k8s.io/kubernetes/pkg/apis/admissionregistration"
+	ar_validation "k8s.io/kubernetes/pkg/apis/admissionregistration/validation"
 	"k8s.io/kubernetes/pkg/apis/apps"
 	apps_validation "k8s.io/kubernetes/pkg/apis/apps/validation"
 	"k8s.io/kubernetes/pkg/apis/autoscaling"
@@ -45,36 +47,49 @@ import (
 	"k8s.io/kubernetes/pkg/apis/extensions"
 	ext_validation "k8s.io/kubernetes/pkg/apis/extensions/validation"
 	"k8s.io/kubernetes/pkg/apis/policy"
-	policyvalidation "k8s.io/kubernetes/pkg/apis/policy/validation"
+	policy_validation "k8s.io/kubernetes/pkg/apis/policy/validation"
+	"k8s.io/kubernetes/pkg/apis/rbac"
+	rbac_validation "k8s.io/kubernetes/pkg/apis/rbac/validation"
+	"k8s.io/kubernetes/pkg/apis/settings"
+	settings_validation "k8s.io/kubernetes/pkg/apis/settings/validation"
 	"k8s.io/kubernetes/pkg/apis/storage"
-	storagevalidation "k8s.io/kubernetes/pkg/apis/storage/validation"
+	storage_validation "k8s.io/kubernetes/pkg/apis/storage/validation"
 	"k8s.io/kubernetes/pkg/capabilities"
 	"k8s.io/kubernetes/pkg/registry/batch/job"
-	schedulerapilatest "k8s.io/kubernetes/plugin/pkg/scheduler/api/latest"
+	schedulerapilatest "k8s.io/kubernetes/pkg/scheduler/api/latest"
 )
 
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	// Enable CustomPodDNS for testing
 	utilfeature.DefaultFeatureGate.Set("CustomPodDNS=true")
 	switch t := obj.(type) {
-	case *api.ReplicationController:
+	case *admissionregistration.InitializerConfiguration:
+		// cluster scope resource
+		errors = ar_validation.ValidateInitializerConfiguration(t)
+	case *api.ConfigMap:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidateReplicationController(t)
-	case *api.ReplicationControllerList:
-		for i := range t.Items {
-			errors = append(errors, validateObject(&t.Items[i])...)
-		}
-	case *api.Service:
+		errors = validation.ValidateConfigMap(t)
+	case *api.Endpoints:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidateService(t)
-	case *api.ServiceList:
-		for i := range t.Items {
-			errors = append(errors, validateObject(&t.Items[i])...)
+		errors = validation.ValidateEndpoints(t)
+	case *api.LimitRange:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
 		}
+		errors = validation.ValidateLimitRange(t)
+	case *api.Namespace:
+		errors = validation.ValidateNamespace(t)
+	case *api.PersistentVolume:
+		errors = validation.ValidatePersistentVolume(t)
+	case *api.PersistentVolumeClaim:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = validation.ValidatePersistentVolumeClaim(t)
 	case *api.Pod:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -84,55 +99,54 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		for i := range t.Items {
 			errors = append(errors, validateObject(&t.Items[i])...)
 		}
-	case *api.PersistentVolume:
-		errors = validation.ValidatePersistentVolume(t)
-	case *api.PersistentVolumeClaim:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = validation.ValidatePersistentVolumeClaim(t)
 	case *api.PodTemplate:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = validation.ValidatePodTemplate(t)
-	case *api.Endpoints:
+	case *api.ReplicationController:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidateEndpoints(t)
-	case *api.Namespace:
-		errors = validation.ValidateNamespace(t)
-	case *api.Secret:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
+		errors = validation.ValidateReplicationController(t)
+	case *api.ReplicationControllerList:
+		for i := range t.Items {
+			errors = append(errors, validateObject(&t.Items[i])...)
 		}
-		errors = validation.ValidateSecret(t)
-	case *api.LimitRange:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = validation.ValidateLimitRange(t)
 	case *api.ResourceQuota:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = validation.ValidateResourceQuota(t)
+	case *api.Secret:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = validation.ValidateSecret(t)
+	case *api.Service:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = validation.ValidateService(t)
+	case *api.ServiceAccount:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = validation.ValidateServiceAccount(t)
+	case *api.ServiceList:
+		for i := range t.Items {
+			errors = append(errors, validateObject(&t.Items[i])...)
+		}
+	case *apps.StatefulSet:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = apps_validation.ValidateStatefulSet(t)
 	case *autoscaling.HorizontalPodAutoscaler:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = autoscaling_validation.ValidateHorizontalPodAutoscaler(t)
-	case *extensions.Deployment:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = ext_validation.ValidateDeployment(t)
-	case *extensions.ReplicaSet:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = ext_validation.ValidateReplicaSet(t)
 	case *batch.Job:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -140,42 +154,53 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		// Job needs generateSelector called before validation, and job.Validate does this.
 		// See: https://github.com/kubernetes/kubernetes/issues/20951#issuecomment-187787040
 		t.ObjectMeta.UID = types.UID("fakeuid")
-		errors = job.Strategy.Validate(nil, t)
-	case *extensions.Ingress:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
+		if strings.Index(t.ObjectMeta.Name, "$") > -1 {
+			t.ObjectMeta.Name = "skip-for-good"
 		}
-		errors = ext_validation.ValidateIngress(t)
+		errors = job.Strategy.Validate(nil, t)
 	case *extensions.DaemonSet:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = ext_validation.ValidateDaemonSet(t)
+	case *extensions.Deployment:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = ext_validation.ValidateDeployment(t)
+	case *extensions.Ingress:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = ext_validation.ValidateIngress(t)
 	case *extensions.PodSecurityPolicy:
 		errors = ext_validation.ValidatePodSecurityPolicy(t)
+	case *extensions.ReplicaSet:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = ext_validation.ValidateReplicaSet(t)
 	case *batch.CronJob:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = batch_validation.ValidateCronJob(t)
-	case *api.ConfigMap:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = validation.ValidateConfigMap(t)
-	case *apps.StatefulSet:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = apps_validation.ValidateStatefulSet(t)
 	case *policy.PodDisruptionBudget:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = policyvalidation.ValidatePodDisruptionBudget(t)
+		errors = policy_validation.ValidatePodDisruptionBudget(t)
+	case *rbac.ClusterRoleBinding:
+		// clusterolebinding does not accept namespace
+		errors = rbac_validation.ValidateClusterRoleBinding(t)
+	case *settings.PodPreset:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = settings_validation.ValidatePodPreset(t)
 	case *storage.StorageClass:
 		// storageclass does not accept namespace
-		errors = storagevalidation.ValidateStorageClass(t)
+		errors = storage_validation.ValidateStorageClass(t)
 	default:
 		errors = field.ErrorList{}
 		errors = append(errors, field.InternalError(field.NewPath(""), fmt.Errorf("no validation defined for %#v", obj)))
@@ -261,10 +286,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pod2":         {&api.Pod{}},
 			"pod3":         {&api.Pod{}},
 		},
-		"../docs/admin/namespaces": {
-			"namespace-dev":  {&api.Namespace{}},
-			"namespace-prod": {&api.Namespace{}},
-		},
 		"../docs/admin/resourcequota": {
 			"best-effort":       {&api.ResourceQuota{}},
 			"compute-resources": {&api.ResourceQuota{}},
@@ -277,9 +298,14 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"counter-pod":                             {&api.Pod{}},
 			"fluentd-sidecar-config":                  {&api.ConfigMap{}},
 			"nginx-app":                               {&api.Service{}, &extensions.Deployment{}},
+			"nginx-deployment":                        {&extensions.Deployment{}},
 			"two-files-counter-pod":                   {&api.Pod{}},
 			"two-files-counter-pod-agent-sidecar":     {&api.Pod{}},
 			"two-files-counter-pod-streaming-sidecar": {&api.Pod{}},
+		},
+		"../docs/concepts/cluster-administration/nginx": {
+			"nginx-deployment": {&extensions.Deployment{}},
+			"nginx-svc":        {&api.Service{}},
 		},
 		"../docs/concepts/configuration": {
 			"commands": {&api.Pod{}},
@@ -297,7 +323,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"../docs/concepts/services-networking": {
 			"curlpod":          {&extensions.Deployment{}},
-			"custom-dns":		{&api.Pod{}},
+			"custom-dns":       {&api.Pod{}},
 			"hostaliases-pod":  {&api.Pod{}},
 			"ingress":          {&extensions.Ingress{}},
 			"nginx-secure-app": {&api.Service{}, &extensions.Deployment{}},
@@ -314,6 +340,124 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-deployment": {&extensions.Deployment{}},
 			"replication":      {&api.ReplicationController{}},
 		},
+		"../docs/tasks/access-application-cluster": {
+			"frontend":          {&api.Service{}, &extensions.Deployment{}},
+			"hello-service":     {&api.Service{}},
+			"hello":             {&extensions.Deployment{}},
+			"redis-master":      {&api.Pod{}},
+			"two-container-pod": {&api.Pod{}},
+		},
+		"../docs/tasks/administer-cluster": {
+			"busybox": {&api.Pod{}},
+			"cloud-controller-manager-daemonset-example": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.DaemonSet{}},
+			"cpu-constraints":                            {&api.LimitRange{}},
+			"cpu-constraints-pod":                        {&api.Pod{}},
+			"cpu-constraints-pod-2":                      {&api.Pod{}},
+			"cpu-constraints-pod-3":                      {&api.Pod{}},
+			"cpu-constraints-pod-4":                      {&api.Pod{}},
+			"cpu-defaults":                               {&api.LimitRange{}},
+			"cpu-defaults-pod":                           {&api.Pod{}},
+			"cpu-defaults-pod-2":                         {&api.Pod{}},
+			"cpu-defaults-pod-3":                         {&api.Pod{}},
+			"dns-horizontal-autoscaler":                  {&extensions.Deployment{}},
+			"memory-constraints":                         {&api.LimitRange{}},
+			"memory-constraints-pod":                     {&api.Pod{}},
+			"memory-constraints-pod-2":                   {&api.Pod{}},
+			"memory-constraints-pod-3":                   {&api.Pod{}},
+			"memory-constraints-pod-4":                   {&api.Pod{}},
+			"memory-defaults":                            {&api.LimitRange{}},
+			"memory-defaults-pod":                        {&api.Pod{}},
+			"memory-defaults-pod-2":                      {&api.Pod{}},
+			"memory-defaults-pod-3":                      {&api.Pod{}},
+			"my-scheduler":                               {&extensions.Deployment{}},
+			"namespace-dev":                              {&api.Namespace{}},
+			"namespace-prod":                             {&api.Namespace{}},
+			"persistent-volume-label-initializer-config": {&admissionregistration.InitializerConfiguration{}},
+			"pod1":                 {&api.Pod{}},
+			"pod2":                 {&api.Pod{}},
+			"pod3":                 {&api.Pod{}},
+			"quota-mem-cpu":        {&api.ResourceQuota{}},
+			"quota-mem-cpu-pod":    {&api.Pod{}},
+			"quota-mem-cpu-pod-2":  {&api.Pod{}},
+			"quota-objects":        {&api.ResourceQuota{}},
+			"quota-objects-pvc":    {&api.PersistentVolumeClaim{}},
+			"quota-objects-pvc-2":  {&api.PersistentVolumeClaim{}},
+			"quota-pod":            {&api.ResourceQuota{}},
+			"quota-pod-deployment": {&extensions.Deployment{}},
+			"quota-pvc-2":          {&api.PersistentVolumeClaim{}},
+		},
+		"../docs/tasks/configure-pod-container": {
+			"cpu-request-limit":       {&api.Pod{}},
+			"cpu-request-limit-2":     {&api.Pod{}},
+			"exec-liveness":           {&api.Pod{}},
+			"extended-resource-pod":   {&api.Pod{}},
+			"extended-resource-pod-2": {&api.Pod{}},
+			"http-liveness":           {&api.Pod{}},
+			"init-containers":         {&api.Pod{}},
+			"lifecycle-events":        {&api.Pod{}},
+			"mem-limit-range":         {&api.LimitRange{}},
+			"memory-request-limit":    {&api.Pod{}},
+			"memory-request-limit-2":  {&api.Pod{}},
+			"memory-request-limit-3":  {&api.Pod{}},
+			"oir-pod":                 {&api.Pod{}},
+			"oir-pod-2":               {&api.Pod{}},
+			"pod":                     {&api.Pod{}},
+			"pod-redis":               {&api.Pod{}},
+			"private-reg-pod":         {&api.Pod{}},
+			"projected-volume":        {&api.Pod{}},
+			"qos-pod":                 {&api.Pod{}},
+			"qos-pod-2":               {&api.Pod{}},
+			"qos-pod-3":               {&api.Pod{}},
+			"qos-pod-4":               {&api.Pod{}},
+			"rq-compute-resources":    {&api.ResourceQuota{}},
+			"security-context":        {&api.Pod{}},
+			"security-context-2":      {&api.Pod{}},
+			"security-context-3":      {&api.Pod{}},
+			"security-context-4":      {&api.Pod{}},
+			"share-process-namespace": {&api.Pod{}},
+			"task-pv-claim":           {&api.PersistentVolumeClaim{}},
+			"task-pv-pod":             {&api.Pod{}},
+			"task-pv-volume":          {&api.PersistentVolume{}},
+			"tcp-liveness-readiness":  {&api.Pod{}},
+		},
+		"../docs/tasks/debug-application-cluster": {
+			"counter-pod":           {&api.Pod{}},
+			"event-exporter-deploy": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
+			"fluentd-gcp-configmap": {&api.ConfigMap{}},
+			"fluentd-gcp-ds":        {&extensions.DaemonSet{}},
+			"nginx-dep":             {&extensions.Deployment{}},
+			"shell-demo":            {&api.Pod{}},
+			"node-problem-detector":        {&extensions.DaemonSet{}},
+			"node-problem-detector-configmap":        {&extensions.DaemonSet{}},
+			"termination":           {&api.Pod{}},
+		},
+		// TODO: decide whether federation examples should be added
+		"../docs/tasks/inject-data-application": {
+			"commands":                    {&api.Pod{}},
+			"dapi-envars-container":       {&api.Pod{}},
+			"dapi-envars-pod":             {&api.Pod{}},
+			"dapi-volume":                 {&api.Pod{}},
+			"dapi-volume-resources":       {&api.Pod{}},
+			"envars":                      {&api.Pod{}},
+			"podpreset-allow-db":          {&settings.PodPreset{}},
+			"podpreset-allow-db-merged":   {&api.Pod{}},
+			"podpreset-configmap":         {&api.ConfigMap{}},
+			"podpreset-conflict-pod":      {&api.Pod{}},
+			"podpreset-conflict-preset":   {&settings.PodPreset{}},
+			"podpreset-merged":            {&api.Pod{}},
+			"podpreset-multi-merged":      {&api.Pod{}},
+			"podpreset-pod":               {&api.Pod{}},
+			"podpreset-preset":            {&settings.PodPreset{}},
+			"podpreset-proxy":             {&settings.PodPreset{}},
+			"podpreset-replicaset-merged": {&api.Pod{}},
+			"podpreset-replicaset":        {&extensions.ReplicaSet{}},
+			"secret":                      {&api.Secret{}},
+			"secret-envars-pod":           {&api.Pod{}},
+			"secret-pod":                  {&api.Pod{}},
+		},
+		"../docs/tasks/job": {
+			"job": {&batch.Job{}},
+		},
 		"../docs/tasks/job/coarse-parallel-processing-work-queue": {
 			"job": {&batch.Job{}},
 		},
@@ -322,84 +466,54 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-pod":     {&api.Pod{}},
 			"redis-service": {&api.Service{}},
 		},
-		"../docs/tutorials/stateful-application": {
-			"gce-volume":            {&api.PersistentVolume{}},
+		"../docs/tasks/run-application": {
+			"deployment":            {&extensions.Deployment{}},
+			"deployment-patch-demo": {&extensions.Deployment{}},
+			"deployment-scale":      {&extensions.Deployment{}},
+			"deployment-update":     {&extensions.Deployment{}},
+			"hpa-php-apache":        {&autoscaling.HorizontalPodAutoscaler{}},
+			"mysql-configmap":       {&api.ConfigMap{}},
 			"mysql-deployment":      {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
 			"mysql-services":        {&api.Service{}, &api.Service{}},
-			"mysql-configmap":       {&api.ConfigMap{}},
 			"mysql-statefulset":     {&apps.StatefulSet{}},
-			"cassandra-service":     {&api.Service{}},
-			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
+		},
+		"../docs/tutorials/clusters": {
+			"hello-apparmor-pod": {&api.Pod{}},
+			"my-scheduler":       {&extensions.Deployment{}},
+		},
+		"../docs/tutorials/configuration/configmap/redis": {
+			"redis-pod": {&api.Pod{}},
+		},
+		"../docs/concepts/overview/object-management-kubectl": {
+			"simple_deployment": {&extensions.Deployment{}},
+			"update_deployment": {&extensions.Deployment{}},
+		},
+		"../docs/tutorials/stateful-application": {
 			"web":       {&api.Service{}, &apps.StatefulSet{}},
 			"webp":      {&api.Service{}, &apps.StatefulSet{}},
 			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
-		"../docs/user-guide": {
-			"bad-nginx-deployment":       {&extensions.Deployment{}},
-			"counter-pod":                {&api.Pod{}},
-			"curlpod":                    {&extensions.Deployment{}},
-			"deployment":                 {&extensions.Deployment{}},
-			"ingress":                    {&extensions.Ingress{}},
-			"job":                        {&batch.Job{}},
-			"multi-pod":                  {&api.Pod{}, &api.Pod{}},
-			"new-nginx-deployment":       {&extensions.Deployment{}},
-			"nginx-app":                  {&api.Service{}, &extensions.Deployment{}},
-			"nginx-deployment":           {&extensions.Deployment{}},
-			"nginx-init-containers":      {&api.Pod{}},
-			"nginx-lifecycle-deployment": {&extensions.Deployment{}},
-			"nginx-probe-deployment":     {&extensions.Deployment{}},
-			"nginx-secure-app":           {&api.Service{}, &extensions.Deployment{}},
-			"nginx-svc":                  {&api.Service{}},
-			"pod":                        {&api.Pod{}},
-			"pod-w-message":              {&api.Pod{}},
-			"redis-deployment":           {&extensions.Deployment{}},
-			"redis-resource-deployment":  {&extensions.Deployment{}},
-			"redis-secret-deployment":    {&extensions.Deployment{}},
-			"run-my-nginx":               {&extensions.Deployment{}},
-			"cronjob":                    {&batch.CronJob{}},
+		"../docs/tutorials/stateful-application/cassandra": {
+			"cassandra-service":     {&api.Service{}},
+			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
 		},
-		"../docs/user-guide/downward-api": {
-			"dapi-pod":                 {&api.Pod{}},
-			"dapi-container-resources": {&api.Pod{}},
+		"../docs/tutorials/stateful-application/mysql-wordpress-persistent-volume": {
+			"local-volumes":        {&api.PersistentVolume{}, &api.PersistentVolume{}},
+			"mysql-deployment":     {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
+			"wordpress-deployment": {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
 		},
-		"../docs/user-guide/downward-api/volume/": {
-			"dapi-volume":           {&api.Pod{}},
-			"dapi-volume-resources": {&api.Pod{}},
+		"../docs/tutorials/stateless-application": {
+			"deployment":        {&extensions.Deployment{}},
+			"deployment-scale":  {&extensions.Deployment{}},
+			"deployment-update": {&extensions.Deployment{}},
 		},
-		"../docs/user-guide/liveness": {
-			"exec-liveness":            {&api.Pod{}},
-			"http-liveness":            {&api.Pod{}},
-			"http-liveness-named-port": {&api.Pod{}},
-		},
-		"../docs/user-guide/node-selection": {
-			"pod": {&api.Pod{}},
-			"pod-with-node-affinity": {&api.Pod{}},
-			"pod-with-pod-affinity":  {&api.Pod{}},
-		},
-		"../docs/user-guide/persistent-volumes/volumes": {
-			"local-01": {&api.PersistentVolume{}},
-			"local-02": {&api.PersistentVolume{}},
-			"gce":      {&api.PersistentVolume{}},
-			"nfs":      {&api.PersistentVolume{}},
-		},
-		"../docs/user-guide/persistent-volumes/claims": {
-			"claim-01": {&api.PersistentVolumeClaim{}},
-			"claim-02": {&api.PersistentVolumeClaim{}},
-			"claim-03": {&api.PersistentVolumeClaim{}},
-		},
-		"../docs/user-guide/persistent-volumes/simpletest": {
-			"namespace": {&api.Namespace{}},
-			"pod":       {&api.Pod{}},
-			"service":   {&api.Service{}},
-		},
-		"../docs/user-guide/secrets": {
-			"secret-pod":     {&api.Pod{}},
-			"secret":         {&api.Secret{}},
-			"secret-env-pod": {&api.Pod{}},
-		},
-		"../docs/user-guide/update-demo": {
-			"kitten-rc":   {&api.ReplicationController{}},
-			"nautilus-rc": {&api.ReplicationController{}},
+		"../docs/tutorials/stateless-application/guestbook": {
+			"frontend-deployment":     {&extensions.Deployment{}},
+			"frontend-service":        {&api.Service{}},
+			"redis-master-deployment": {&extensions.Deployment{}},
+			"redis-master-service":    {&api.Service{}},
+			"redis-slave-deployment":  {&extensions.Deployment{}},
+			"redis-slave-service":     {&api.Service{}},
 		},
 		"../docs/user-guide/walkthrough": {
 			"deployment":                      {&extensions.Deployment{}},
@@ -409,14 +523,20 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pod-redis":                       {&api.Pod{}},
 			"pod-with-http-healthcheck":       {&api.Pod{}},
 			"pod-with-tcp-socket-healthcheck": {&api.Pod{}},
-			"podtemplate":                     {&api.PodTemplate{}},
 			"service":                         {&api.Service{}},
 		},
 	}
 
+	filesIgnore := map[string]map[string]bool{
+		"../docs/tasks/debug-application-cluster": {
+			"audit-policy": true,
+		},
+	}
 	capabilities.SetForTests(capabilities.Capabilities{
 		AllowPrivileged: true,
 	})
+	// PodShareProcessNamespace needed for example share-process-namespace.yaml
+	utilfeature.DefaultFeatureGate.Set("PodShareProcessNamespace=true")
 
 	for path, expected := range cases {
 		tested := 0
@@ -424,6 +544,12 @@ func TestExampleObjectSchemas(t *testing.T) {
 		err := walkConfigFiles(path, func(name, path string, docs [][]byte) {
 			expectedTypes, found := expected[name]
 			if !found {
+				p := filepath.Dir(path)
+				if files, ok := filesIgnore[p]; ok {
+					if files[name] {
+						return
+					}
+				}
 				t.Errorf("%s: %s does not have a test case defined", path, name)
 				return
 			}
@@ -486,7 +612,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 // 6) Look for #5 followed by a newline followed by ``` (end of the code block)
 //
 // This could probably be simplified, but is already too delicate.  Before any
-// real changes, we should have a testscase that just tests this regex.
+// real changes, we should have a test case that just tests this regex.
 var sampleRegexp = regexp.MustCompile("(?ms)^```(?:(?P<type>yaml)\\w*\\n(?P<content>.+?)|\\w*\\n(?P<content>\\{.+?\\}))\\n^```")
 var subsetRegexp = regexp.MustCompile("(?ms)\\.{3}")
 

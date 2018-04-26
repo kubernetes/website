@@ -7,27 +7,26 @@ title: CentOS
 * TOC
 {:toc}
 
-## 警告
+**Caution:** This guide was originally written for Kubernetes 1.1.0 and [is deprecated](https://github.com/kubernetes/website/issues/1613) and is replaced by [kubeadm](/docs/admin/kubeadm/).
+{: .caution}
 
-本文档适用于Kubernetes 1.1.0，目前已经被[废弃](https://github.com/kubernetes/website/issues/1613)。相关内容请参阅最新版[指南](/docs/getting-started-guides/kubeadm/)。
+## Prerequisites
 
-## 前提条件
+To configure Kubernetes with CentOS, you'll need a machine to act as a master, and one or more CentOS 7 hosts to act as cluster nodes.
 
-在CentOS上部署和配置Kubernetes，您需要在集群中拥有一台机器作为master节点，并拥有至少一台运行CentOS 7系统的主机作为集群节点（node）。
+## Starting a cluster
 
-## 启动一个集群
+This is a getting started guide for CentOS.  It is a manual configuration so you understand all the underlying packages / services / ports, etc...
 
-本文档是一篇基于CentOS系统部署和配置Kubernetes的入门指南，内容涵盖一个手工的配置，以便于您了解所有的底层软件包、服务以及端口等信息。
+The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, kube-controller-manager, kubelet, kube-proxy.  These services are managed by systemd and the configuration resides in a central location: /etc/kubernetes. We will break the services up between the hosts.  The first host, centos-master, will be the Kubernetes master.  This host will run the kube-apiserver, kube-controller-manager and kube-scheduler.  In addition, the master will also run _etcd_.  The remaining hosts, centos-minion-n will be the nodes and run kubelet, proxy, cadvisor and docker.
 
-Kubernetes由一系列服务构成，包括kube-apiserver、kube-scheduler、kube-controller-manager、kubelet以及kube-proxy等。这些服务由systemd管理，配置集中位于/etc/kubernetes。我们将在集群中的不同主机上部署不同的服务。其中，第一台主机，即centos-master，将被部署成为Kubernetes集群中的master节点。这台主机上将运行kube-apiserver、kube-controller-manager和kube-scheduler。 此外，master节点还将运行 _etcd_。集群中剩余的主机，即centos-minion-n节点，将运行kubelet、proxy、cadvisor和docker。
+All of them run flanneld as networking overlay.
 
-集群中的所有节点将运行flanneld来构建网络（networking overlay）。
+**System Information:**
 
-**系统信息：**
+Hosts:
 
-主机：
-
-请使用您真实环境中的信息替换以下配置中的各个主机IP
+Please replace host IP with your environment.
 
 ```conf
 centos-master = 192.168.121.9
@@ -36,9 +35,9 @@ centos-minion-2 = 192.168.121.66
 centos-minion-3 = 192.168.121.67
 ```
 
-**配置主机环境：**
+**Prepare the hosts:**
 
-* 在集群所有节点上——centos-{master,minion-n}，创建包含以下配置信息的/etc/yum.repos.d/virt7-docker-common-release.repo文件。
+* Create a /etc/yum.repos.d/virt7-docker-common-release.repo on all hosts - centos-{master,minion-n} with following information.
 
 ```conf
 [virt7-docker-common-release]
@@ -47,13 +46,13 @@ baseurl=http://cbs.centos.org/repos/virt7-docker-common-release/x86_64/os/
 gpgcheck=0
 ```
 
-* 在集群所有节点上——centos-{master,minion-n}，安装Kubernetes、etcd和flanneld。这一过程也将同时在节点上安装docker和cadvisor。
+* Install Kubernetes, etcd and flannel on all hosts - centos-{master,minion-n}. This will also pull in docker and cadvisor.
 
 ```shell
 yum -y install --enablerepo=virt7-docker-common-release kubernetes etcd flannel
 ```
 
-* 将master节点和其他节点的主机名——IP映射添加到所有集群节点的/etc/hosts文件中（如果主机名已经在DNS中记录，则可略过此步）
+* Add master and node to /etc/hosts on all machines (not needed if hostnames already in DNS)
 
 ```shell
 echo "192.168.121.9    centos-master
@@ -62,23 +61,24 @@ echo "192.168.121.9    centos-master
 192.168.121.67  centos-minion-3" >> /etc/hosts
 ```
 
-* 编辑/etc/kubernetes/config文件以保证在集群所有主机上都包含以下内容：
+* Edit /etc/kubernetes/config which will be the same on all hosts to contain:
 
 ```shell
-# logging to stderr意为从systemd journal获取日志
+# logging to stderr means we get it in the systemd journal
 KUBE_LOGTOSTDERR="--logtostderr=true"
 
-# journal消息级别, 0代表debug
+# journal message level, 0 is debug
 KUBE_LOG_LEVEL="--v=0"
 
-# 是否允许集群运行privileged docker containers
+# Should this cluster be allowed to run privileged docker containers
 KUBE_ALLOW_PRIV="--allow-privileged=false"
 
-# 配置replication conrtoller和scheduler所需的kube-apiserver地址
+# How the replication controller and scheduler find the kube-apiserver
 KUBE_MASTER="--master=http://centos-master:8080"
 ```
 
-* 由于docker与一些防火墙规则不兼容，需要在master节点及其他集群节点上禁用防火墙。在CentOS系统上，需要首先禁用SELinux，进而才能禁用防火墙。
+* Disable the firewall on the master and all the nodes, as docker does not play well with other firewall rule managers. CentOS won't let you disable the firewall as long as SELinux is enforcing, so that needs to be disabled first.
+* If you disable SELinux, make sure you reboot your machine before continuing to more steps.
 
 ```shell
 setenforce 0
@@ -86,9 +86,9 @@ systemctl disable iptables-services firewalld
 systemctl stop iptables-services firewalld
 ```
 
-**配置master节点上的Kubernetes服务**
+**Configure the Kubernetes services on the master.**
 
-* 编辑/etc/etcd/etcd.conf文件内容如下：
+* Edit /etc/etcd/etcd.conf to appear as such:
 
 ```shell
 # [member]
@@ -100,30 +100,30 @@ ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
 ETCD_ADVERTISE_CLIENT_URLS="http://0.0.0.0:2379"
 ```
 
-* 编辑/etc/kubernetes/apiserver文件内容如下：
+* Edit /etc/kubernetes/apiserver to appear as such:
 
 ```shell
-# 本地服务器监听地址
+# The address on the local server to listen to.
 KUBE_API_ADDRESS="--address=0.0.0.0"
 
-# 本地服务器监听端口
+# The port on the local server to listen on.
 KUBE_API_PORT="--port=8080"
 
-# Kubelet监听端口
+# Port kubelets listen on
 KUBELET_PORT="--kubelet-port=10250"
 
-# 以逗号间隔的etcd集群中各个节点的地址
+# Comma separated list of nodes in the etcd cluster
 KUBE_ETCD_SERVERS="--etcd-servers=http://centos-master:2379"
 
-# Kubernetes服务IP地址网段
+# Address range to use for services
 KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
 
-# 请添加您需要的Kubernetes API Server启动参数
+# Add your own!
 KUBE_API_ARGS=""
 ```
 
-* 启动ETCD并保存master节点的网络设置（network overlay configuration）：
-**警告** 请根据您的真实环境配置网络信息！在本文环境中，`172.30.0.0/16`网段是可用的。
+* Start ETCD and configure it to hold the network overlay configuration on master:
+**Warning** This network must be unused in your network infrastructure! `172.30.0.0/16` is free in our network.
 
 ```shell
 systemctl start etcd
@@ -131,23 +131,23 @@ etcdctl mkdir /kube-centos/network
 etcdctl mk /kube-centos/network/config "{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }"
 ```
 
-* 在master节点上配置/etc/sysconfig/flanneld文件使用flannel覆盖Docker网络 (需要在其他集群节点上完成相同配置，详见下文):
+* Configure flannel to overlay Docker network in /etc/sysconfig/flanneld on the master (also in the nodes as we'll see):
 
 ```shell
-# Flanneld配置选项
+# Flanneld configuration options
 
-# etcd url地址，指向运行etcd的服务器
+# etcd url location.  Point this to the server where etcd runs
 FLANNEL_ETCD_ENDPOINTS="http://centos-master:2379"
 
-# etcd配置秘钥，即flannel查询的配置秘钥
-# 用于网段分配
+# etcd config key.  This is the configuration key that flannel queries
+# For address range assignment
 FLANNEL_ETCD_PREFIX="/kube-centos/network"
 
-# 其它需要的Flannel启动参数
+# Any additional options that you want to pass
 #FLANNEL_OPTIONS=""
 ```
 
-* 在master节点上启动相关服务：
+* Start the appropriate services on master:
 
 ```shell
 for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler flanneld; do
@@ -157,47 +157,47 @@ for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler flann
 done
 ```
 
-**在集群其他节点上配置Kubernetes服务**
+**Configure the Kubernetes services on the nodes.**
 
-***我们需要在集群其他节点上配置kubelet，启动kubelet和proxy服务***
+***We need to configure the kubelet and start the kubelet and proxy***
 
-* 编辑/etc/kubernetes/kubelet文件内容如下：
+* Edit /etc/kubernetes/kubelet to appear as such:
 
 ```shell
-# info server的服务地址
+# The address for the info server to serve on
 KUBELET_ADDRESS="--address=0.0.0.0"
 
-# info server的监听端口
+# The port for the info server to serve on
 KUBELET_PORT="--port=10250"
 
-# 本字段可以设置空值以使用真实的主机名
-# 注意节点序号（n）
+# You may leave this blank to use the actual hostname
+# Check the node number!
 KUBELET_HOSTNAME="--hostname-override=centos-minion-n"
 
-# api-server地址
+# Location of the api-server
 KUBELET_API_SERVER="--api-servers=http://centos-master:8080"
 
-# 添加您所需要的Kubelet参数
+# Add your own!
 KUBELET_ARGS=""
 ```
 
-* 在所有节点上配置/etc/sysconfig/flanneld文件设置使用flannel覆盖Docker网络：
+* Configure flannel to overlay Docker network in /etc/sysconfig/flanneld (in all the nodes)
 
 ```shell
-# Flanneld配置选项
+# Flanneld configuration options
 
-# etcd url地址，指向运行etcd的服务器
+# etcd url location.  Point this to the server where etcd runs
 FLANNEL_ETCD_ENDPOINTS="http://centos-master:2379"
 
-# etcd配置秘钥，即flannel查询的配置秘钥
-# 用于网段分配
+# etcd config key.  This is the configuration key that flannel queries
+# For address range assignment
 FLANNEL_ETCD_PREFIX="/kube-centos/network"
 
-# 其他需要配置的选项
+# Any additional options that you want to pass
 #FLANNEL_OPTIONS=""
 ```
 
-* 在节点上启动相关服务（centos-minion-n）
+* Start the appropriate services on node (centos-minion-n).
 
 ```shell
 for SERVICES in kube-proxy kubelet flanneld docker; do
@@ -206,7 +206,7 @@ for SERVICES in kube-proxy kubelet flanneld docker; do
     systemctl status $SERVICES
 done
 ```
-* 配置kubectl
+* Configure kubectl
 
 ```shell
 kubectl config set-cluster default-cluster --server=http://centos-master:8080
@@ -214,25 +214,25 @@ kubectl config set-context default-context --cluster=default-cluster --user=defa
 kubectl config use-context default-context
 ```
 
-*至此，Kubernetes在CentOS集群中的部署已经完成 ！*
+*You should be finished!*
 
-* 在centos-master节点上通过kubectl命令检查所有的Kubernetes节点已经到位
+* Check to make sure the cluster can see the node (on centos-master)
 
 ```shell
 $ kubectl get nodes
 NAME                   STATUS     AGE     VERSION
 centos-minion-1        Ready      3d      v1.6.0+fff5156
-centos-minion-2        Ready      3d      v1.6.0+fff5156   
+centos-minion-2        Ready      3d      v1.6.0+fff5156
 centos-minion-3        Ready      3d      v1.6.0+fff5156
 ```
 
-**现在，Kubernetes集群已经正常运行！可以创建测试pod验证集群了！**
+**The cluster should be running! Launch a test pod.**
 
-## 支持级别
+## Support Level
 
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 Bare-metal           | custom       | CentOS | flannel     | [docs](/docs/getting-started-guides/centos/centos_manual_config)            |          | Community ([@coolsvap](https://github.com/coolsvap))
 
-有关所有解决方案的支持级别信息，请参阅[解决方案列表](/docs/getting-started-guides/#table-of-solutions)。
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.

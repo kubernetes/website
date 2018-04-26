@@ -14,7 +14,7 @@
 
 
 **Page to Update:**
-http://kubernetes.io/...
+https://kubernetes.io/...
 
 <!--Optional Information (remove the comment tags around information you would like to include)-->
 <!--Kubernetes Version:-->

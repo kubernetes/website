@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - davidopp
 - thockin
 title: DNS for Services and Pods
@@ -7,9 +7,6 @@ title: DNS for Services and Pods
 {% capture overview %}
 This page provides an overview of DNS support by Kubernetes.
 {% endcapture %}
-
-* TOC
-{:toc}
 
 {% capture body %}
 
@@ -161,13 +158,13 @@ following pod-specific DNS policies. These policies are specified in the
   for more details.
 - "`ClusterFirst`": Any DNS query that does not match the configured cluster
   domain suffix, such as "`www.kubernetes.io`", is forwarded to the upstream
-  nameserver inherited from the node. Cluster aministrators may have extra
+  nameserver inherited from the node. Cluster administrators may have extra
   stub-domain and upstream DNS servers configured.
   See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers/#impacts-on-pods)
   for details on how DNS queries are handled in those cases.
 - "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, you should
   explicitly set its DNS policy "`ClusterFirstWithHostNet`".
-- "`None`": A new option value introduced in Kubernetes v1.9. This Alpha feature
+- "`None`": A new option value introduced in Kubernetes v1.9 (Beta in v1.10). It
   allows a Pod to ignore DNS settings from the Kubernetes environment. All DNS
   settings are supposed to be provided using the `dnsConfig` field in the Pod Spec.
   See [DNS config](#dns-config) subsection below.
@@ -201,8 +198,9 @@ spec:
 
 ### Pod's DNS Config
 
-Kubernetes v1.9 introduces an Alpha feature that allows users more control on
-the DNS settings for a Pod. To enable this feature, the cluster aministrator
+Kubernetes v1.9 introduces an Alpha feature (Beta in v1.10) that allows users more
+control on the DNS settings for a Pod. This feature is enabled by default in v1.10.
+To enable this feature in v1.9, the cluster administrator
 needs to enable the `CustomPodDNS` feature gate on the apiserver and the kubelet,
 for example, "`--feature-gates=CustomPodDNS=true,...`".
 When the feature gate is enabled, users can set the `dnsPolicy` field of a Pod
@@ -241,6 +239,7 @@ in its `/etc/resolv.conf` file:
 nameserver 1.2.3.4
 search ns1.svc.cluster.local my.dns.search.suffix
 options ndots:2 edns0
+```
 
 For IPv6 setup, search path and name server should be setup like this:
 

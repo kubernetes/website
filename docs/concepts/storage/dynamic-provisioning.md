@@ -1,6 +1,9 @@
 ---
-approvers:
+reviewers:
 - saad-ali
+- jsafrane
+- thockin
+- msau42
 title: Dynamic Volume Provisioning
 ---
 
@@ -30,7 +33,7 @@ that provisioner when provisioning.
 A cluster administrator can define and expose multiple flavors of storage (from
 the same or different storage systems) within a cluster, each with a custom set
 of parameters. This design also ensures that end users don’t have to worry
-about the the complexity and nuances of how storage is provisioned, but still
+about the complexity and nuances of how storage is provisioned, but still
 have the ability to select from multiple storage options.
 
 More information on storage classes can be found
@@ -116,7 +119,7 @@ When a default `StorageClass` exists in a cluster and a user creates a
 `storageClassName` field pointing to the default storage class.
 
 Note that there can be at most one *default* storage class on a cluster, or
-a `PersistentVolumeClaim` with `storageClassName` explicitly specified cannot
+a `PersistentVolumeClaim` without `storageClassName` explicitly specified cannot
 be created.
 
 {% endcapture %}
