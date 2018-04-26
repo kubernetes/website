@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 title: Running Platform9 Managed Kubernetes On-Premises
 ---
 
