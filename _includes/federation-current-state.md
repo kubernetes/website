@@ -5,4 +5,3 @@ a dedicated federation API apart from the Kubernetes API. The details can be fou
 [sig-multicluster community page](https://github.com/kubernetes/community/tree/master/sig-multicluster).
 {: .note}
 
-<br>
