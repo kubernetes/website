@@ -4,6 +4,8 @@ reviewers:
 title: Set up Cluster Federation with Kubefed
 ---
 
+{% include federation-current-state.md %}
+
 * TOC
 {:toc}
 

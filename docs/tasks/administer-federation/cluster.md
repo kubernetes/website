@@ -4,6 +4,8 @@ title: Federated Cluster
 
 {% capture overview %}
 
+{% include federation-current-state.md %}
+
 This guide explains how to use Clusters API resource in a Federation control plane.
 
 Different than other Kubernetes resources, such as Deployments, Services and ConfigMaps,
