@@ -179,6 +179,7 @@ kubectl can be installed as part of the Google Cloud SDK.
 
 {% endcapture %}
 
+{% assign tab_set_name = "kubectl_install_curl" %}
 {% assign tab_names = "macOS,Linux,Windows" | split: ',' | compact %}
 {% assign tab_contents = site.emptyArray | push: macos | push: linux | push: win %}
 
