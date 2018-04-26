@@ -1,0 +1,25 @@
+{% for item in include.tree %}
+  {% if item.section %}
+    <div class="item" data-title="{{ item.title }}">
+      <div class="container">
+        {% include_cached tree.html tree=item.section %}
+      </div>
+    </div>
+  {% else %}
+
+    {% capture whitespace %}
+      {% if item.path %}
+        {% assign path   = item.path %}
+        {% assign title  = item.title %}
+      {% else %}
+        {% assign found_page = site.pages | where: "path", item | first %}
+        {% assign title = found_page.title %}
+        {% assign path  = found_page.url %}
+      {% endif %}
+    {% endcapture %}
+
+    {% if path %}
+      <a class="item" data-title="{{ title }}" href="{{ path }}"></a>
+    {% endif %}
+  {% endif %}
+{% endfor %}

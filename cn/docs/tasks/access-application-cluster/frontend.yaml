@@ -1,5 +1,5 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: frontend
 spec:
@@ -12,11 +12,16 @@ spec:
     targetPort: 80
   type: LoadBalancer
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
 spec:
+  selector:
+    matchLabels:
+      app: hello
+      tier: frontend
+      track: stable
   replicas: 1
   template:
     metadata:

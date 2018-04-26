@@ -1,0 +1,111 @@
+bigheader: "Reference"
+abstract: "Design docs, concept definitions, and references for APIs and CLIs."
+landing_page: /docs/reference/index/
+toc:
+- docs/reference/index.md
+
+- title: Standardized Glossary
+  path: /docs/reference/glossary/
+
+- title: Using the API
+  landing_page: /docs/reference/api-overview/
+  section:
+  - docs/reference/api-overview.md
+  - docs/reference/client-libraries.md
+  - title: Accessing the API
+    section:
+    - docs/admin/accessing-the-api.md
+    - docs/admin/authentication.md
+    - docs/admin/bootstrap-tokens.md
+    - docs/admin/admission-controllers.md
+    - docs/admin/extensible-admission-controllers.md
+    - docs/admin/service-accounts-admin.md
+  - title: Authorization
+    section:
+    - docs/admin/authorization/index.md
+    - docs/admin/authorization/abac.md
+    - docs/admin/authorization/rbac.md
+    - docs/admin/authorization/node.md
+    - docs/admin/authorization/webhook.md
+  - docs/reference/api-concepts.md
+  - docs/reference/deprecation-policy.md
+  - docs/reference/workloads-18-19.md
+
+- title: API Reference
+  landing_page: /docs/reference/generated/kubernetes-api/v1.10/
+  section:
+  - title: v1.10
+    path: /docs/reference/generated/kubernetes-api/v1.10/
+  - docs/reference/labels-annotations-taints.md
+  - title: OpenAPI and Swagger
+    section:
+    - title: OpenAPI Spec
+      path: https://git.k8s.io/kubernetes/api/openapi-spec/
+    - title: Swagger Spec
+      path: https://git.k8s.io/kubernetes/api/swagger-spec/
+
+- title: Federation API
+  landing_page: /docs/reference/federation/v1/operations/
+  section:
+    - docs/reference/generated/federation/v1/operations.html
+    - docs/reference/generated/federation/v1/definitions.html
+    - docs/reference/generated/federation/extensions/v1beta1/operations.html
+    - docs/reference/generated/federation/extensions/v1beta1/definitions.html
+
+- title: kubectl CLI
+  landing_page: /docs/user-guide/kubectl-overview/
+  section:
+  - docs/reference/kubectl/overview.md
+  - docs/reference/generated/kubectl/kubectl.md
+  - title: kubectl Commands
+    path: /docs/reference/generated/kubectl/kubectl-commands.html
+  - docs/reference/kubectl/docker-cli-to-kubectl.md
+  - docs/reference/kubectl/conventions.md
+  - docs/reference/kubectl/jsonpath.md
+  - docs/reference/kubectl/cheatsheet.md
+
+- title: Setup Tools Reference
+  landing_page: /docs/reference/setup-tools/kubeadm/kubeadm/
+  section:
+  - title: Kubeadm
+    section:
+    - docs/reference/setup-tools/kubeadm/kubeadm.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-init.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-join.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-upgrade.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-config.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-reset.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-token.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-version.md
+    - docs/reference/setup-tools/kubeadm/kubeadm-alpha.md 
+    - docs/reference/setup-tools/kubeadm/implementation-details.md 
+  - title: Kubefed
+    section:
+    - docs/reference/generated/kubefed.md
+    - docs/reference/generated/kubefed_options.md
+    - docs/reference/generated/kubefed_init.md
+    - docs/reference/generated/kubefed_join.md
+    - docs/reference/generated/kubefed_unjoin.md
+    - docs/reference/generated/kubefed_version.md
+
+- title: Command-line Tools Reference
+  landing_page: /docs/admin/kubelet/
+  section:
+  - docs/reference/feature-gates.md
+  - docs/reference/generated/kubelet.md
+  - docs/admin/kubelet-authentication-authorization.md
+  - docs/reference/generated/kube-apiserver.md
+  - docs/reference/generated/kube-controller-manager.md
+  - docs/reference/generated/kube-proxy.md
+  - docs/reference/generated/kube-scheduler.md
+  - docs/admin/kubelet-tls-bootstrapping.md
+  - docs/reference/generated/cloud-controller-manager.md
+  - docs/reference/generated/federation-apiserver.md
+  - docs/reference/generated/federation-controller-manager.md
+
+- title: Kubernetes Issues and Security
+  landing_page: https://github.com/kubernetes/kubernetes/issues/
+  section:
+  - title: Kubernetes Issue Tracker on GitHub
+    path: https://github.com/kubernetes/kubernetes/issues/
+  - docs/reference/security.md

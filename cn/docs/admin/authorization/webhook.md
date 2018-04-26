@@ -1,5 +1,5 @@
 ---
-approvers:
+assignees:
 - erictune
 - lavalamp
 - deads2k
@@ -8,21 +8,58 @@ title: Webhook Mode
 ---
 
 {% capture overview %}
+<!-- A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen. -->
+
 WebHook 是一种 HTTP 回调：某些条件下触发的 HTTP POST 请求；通过 HTTP POST 发送的简单事件通知。一个基于 web 应用实现的 WebHook 会在特定事件发生时把消息发送给特定的 URL 。
 {% endcapture %}
 
 {% capture body %}
+<!-- When specified, mode `Webhook` causes Kubernetes to query an outside REST
+service when determining user privileges. -->
+
 具体来说，当在判断用户权限时，`Webhook` 模式会使 Kubernetes 查询外部的 REST 服务。
 
+<!-- ## Configuration File Format -->
 ## 配置文件格式
 
+<!-- Mode `Webhook` requires a file for HTTP configuration, specify by the
+`--authorization-webhook-config-file=SOME_FILENAME` flag. -->
 `Webhook` 模式需要一个 HTTP 配置文件，通过 `--authorization-webhook-config-file=SOME_FILENAME` 的参数声明。
 
+<!-- The configuration file uses the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+file format. Within the file "users" refers to the API Server webhook and
+"clusters" refers to the remote service. -->
 配置文件的格式使用 [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)。
 在文件中，"users" 代表着 API 服务器的 webhook，而 "cluster" 代表着远程服务。
 
+<!-- A configuration example which uses HTTPS client auth: -->
 使用 HTTPS 客户端认证的配置例子：
 
+<!--
+```yaml
+# clusters refers to the remote service.
+clusters:
+  - name: name-of-remote-authz-service
+    cluster:
+      certificate-authority: /path/to/ca.pem      # CA for verifying the remote service.
+      server: https://authz.example.com/authorize # URL of remote service to query. Must use 'https'.
+
+# users refers to the API Server's webhook configuration.
+users:
+  - name: name-of-api-server
+    user:
+      client-certificate: /path/to/cert.pem # cert for the webhook plugin to use
+      client-key: /path/to/key.pem          # key matching the cert
+
+# kubeconfig files require a context. Provide one for the API Server.
+current-context: webhook
+contexts:
+- context:
+    cluster: name-of-remote-authz-service
+    user: name-of-api-server
+  name: webhook
+```
+-->
 ```yaml
 # clusters 代表远程服务。
 clusters:
@@ -47,16 +84,27 @@ contexts:
   name: webhook
 ```
 
-
+<!-- ## Request Payloads -->
 ## 请求载荷
 
-在做认证决策时，API 服务器会 POST 一个 JSON 序列化的 api.authorization.v1beta1.SubjectAccessReview 对象来描述这个动作。这个对象包含了描述用户请求的字段，同时也包含了需要被访问资源或者请求特征的具体信息。
+<!-- When faced with an authorization decision, the API Server POSTs a JSON
+serialized api.authorization.v1beta1.SubjectAccessReview object describing the
+action. This object contains fields describing the user attempting to make the
+request, and either details about the resource being accessed or requests
+attributes. -->
+在做认证决策时，API 服务器会 POST 一个 JSON 序列化的 api.authorization.v1beta1.SubjectAccessReview
+对象来描述这个动作。这个对象包含了描述用户请求的字段，同时也包含了需要被访问资源或者请求特征的具体信息。
 
+<!-- Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/api/)
+as other Kubernetes API objects. Implementers should be aware of looser
+compatibility promises for beta objects and check the "apiVersion" field of the
+request to ensure correct deserialization. Additionally, the API Server must
+enable the `authorization.k8s.io/v1beta1` API extensions group (`--runtime-config=authorization.k8s.io/v1beta1=true`). -->
 需要注意的是 webhook API 对象与其他 Kubernetes API 对象一样都同样都服从 [版本兼容规则](/docs/api/) 。
 实施人员应该了解 beta 对象的更宽松的兼容性承诺，同时确认请求的 "apiVersion" 字段以确保能被正确地反序列化。
 此外，API 服务器还必须启用 `authorization.k8s.io/v1beta1` API 扩展组(`--runtime-config=authorization.k8s.io/v1beta1=true`)。
 
-
+<!-- An example request body: -->
 一个请求内容的例子：
 
 ```json
@@ -79,6 +127,9 @@ contexts:
 }
 ```
 
+<!-- The remote service is expected to fill the SubjectAccessReviewStatus field of
+the request and respond to either allow or disallow access. The response body's
+"spec" field is ignored and may be omitted. A permissive response would return: -->
 远程服务被预期能填写请求和反馈的 SubjectAccessReviewStatus 字段，无论是允许访问还是拒绝访问。
 反馈内容的 "spec" 字段是被忽略的，也是可以被省略的。当请求是被允许的时候，返回的响应如下例所示：
 
@@ -92,7 +143,7 @@ contexts:
 }
 ```
 
-
+<!-- To disallow access, the remote service would return: -->
 如拒绝，远程服务器会返回：
 
 ```json
@@ -106,7 +157,7 @@ contexts:
 }
 ```
 
-
+<!-- Access to non-resource paths are sent as: -->
 对于非资源的路径访问是这么发送的：
 
 ```json
@@ -127,13 +178,19 @@ contexts:
 }
 ```
 
-
+<!-- Non-resource paths include: `/api`, `/apis`, `/metrics`, `/resetMetrics`,
+`/logs`, `/debug`, `/healthz`, `/swagger-ui/`, `/swaggerapi/`, `/ui`, and
+`/version.` Clients require access to `/api`, `/api/*`, `/apis`, `/apis/*`,
+and `/version` to discover what resources and versions are present on the server.
+Access to other non-resource paths can be disallowed without restricting access
+to the REST api. -->
 非资源类的路径包括：`/api`, `/apis`, `/metrics`, `/resetMetrics`,
 `/logs`, `/debug`, `/healthz`, `/swagger-ui/`, `/swaggerapi/`, `/ui`, and
 `/version`。 客户端需要访问 `/api`, `/api/*`, `/apis`, `/apis/*`, 和 `/version` 以便
 能发现服务器上有什么资源和版本。对于其他非资源类的路径访问在没有 REST API 访问限制的情况下拒绝。
-
-
+<!--
+For further documentation refer to the authorization.v1beta1 API objects and
+[webhook.go](https://git.k8s.io/kubernetes/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go). -->
 更多信息可以参考 uthorization.v1beta1 API 对象和
 [webhook.go](https://git.k8s.io/kubernetes/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).
 

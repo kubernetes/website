@@ -1,0 +1,54 @@
+<button class="flyout-button" onclick="kub.toggleToc()"></button>
+
+<style>
+.cse .gsc-control-cse, .gsc-control-cse, {
+    padding: 0;
+}
+  .gsc-control-cse table, .gsc-control-cse-en table {
+      margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+      border-bottom: 0;
+  }
+</style>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-36037335-10', 'auto');
+ga('send', 'pageview');
+
+// hide docs nav area if no nav is present, or if nav only contains a link to the current page
+(function () {
+    window.addEventListener('DOMContentLoaded', init)
+
+        // play nice with our neighbors
+        function init() {
+            window.removeEventListener('DOMContentLoaded', init)
+                hideNav()
+        }
+
+    function hideNav(toc){
+        if (!toc) toc = document.querySelector('#docsToc')
+        if (!toc) return
+            var container = toc.querySelector('.container')
+
+                // container is built dynamically, so it may not be present on the first runloop
+                if (container) {
+                    if (container.childElementCount === 0 || toc.querySelectorAll('a.item').length === 1) {
+                        toc.style.display = 'none'
+                            document.getElementById('docsContent').style.width = '100%'
+                    }
+                } else {
+                    requestAnimationFrame(function () {
+                        hideNav(toc)
+                    })
+                }
+    }
+})();
+</script>
+
+<!-- Commenting out AnswerDash for now; we need to work on our list of questions/answers/design first
+    <!-- Start of AnswerDash script <script>var AnswerDash;!function(e,t,n,s,a){if(!t.getElementById(s)){var i,r=t.createElement(n),c=t.getElementsByTagName(n)[0];e[a]||(i=e[a]=function(){i.__oninit.push(arguments)},i.__oninit=[]),r.type="text/javascript",r.async=!0,r.src="https://p1.answerdash.com/answerdash.min.js?siteid=756",r.setAttribute("id",s),c.parentNode.insertBefore(r,c)}}(window,document,"script","answerdash-script","AnswerDash");</script> <!-- End of AnswerDash script -->

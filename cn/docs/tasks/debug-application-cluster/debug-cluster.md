@@ -1,14 +1,37 @@
 ---
-title: 集群故障排查
+cn-approvers:
+- tianshapjq
+reviewers:
+- davidopp
+title: 集群故障排除
 ---
+<!--
+---
+reviewers:
+- davidopp
+title: Troubleshoot Clusters
+---
+-->
 
-本篇文档是介绍集群故障排查的；我们假设对于你碰到的问题，你已经排除了是由应用程序造成的。  
-对于应用的调试，请参阅[应用故障排查指南](/cn/docs/tasks/debug-application-cluster/debug-application)。
-你也可以访问[troubleshooting document](/docs/troubleshooting/)来获取更多的信息。
+<!--
+This doc is about cluster troubleshooting; we assume you have already ruled out your application as the root cause of the
+problem you are experiencing. See
+the [application troubleshooting guide](/docs/tasks/debug-application-cluster/debug-application) for tips on application debugging.
+You may also visit [troubleshooting document](/docs/troubleshooting/) for more information.
+-->
+本文档描述如何排除集群故障；这里我们假设您已经排除根本原因是因为您的应用程序导致的。有关应用程序调试的提示，请参阅 [应用程序故障排除指南](/docs/tasks/debug-application-cluster/debug-application)。
+您也可以访问 [疑难解答文档](/docs/troubleshooting/) 以获取更多信息。
 
-## 显示出集群的节点列表
+<!--
+## Listing your cluster
 
-调试的第一步是查看所有的节点是否都正确的注册。
+The first thing to debug in your cluster is if your nodes are all registered correctly.
+
+Run
+-->
+## 列出您的节点
+
+在集群中调试的第一件事是确认您的节点是否都已正确注册。
 
 运行
 
@@ -16,99 +39,193 @@ title: 集群故障排查
 kubectl get nodes
 ```
 
-接下来，验证你的所有节点都能够显示出来，并且都处于`Ready`状态。
+<!--
+And verify that all of the nodes you expect to see are present and that they are all in the `Ready` state.
+-->
+并验证您期望的所有节点都存在，并且它们都处于 `就绪` 状态。
 
-## 查看logs
+<!--
+## Looking at logs
 
-现在，挖掘出集群更深层的信息就需要登录到相关的机器上。下面是相关log文件所在的位置。  
-(注意，对于基于systemd的系统，你可能需要使用`journalctl`)
+For now, digging deeper into the cluster requires logging into the relevant machines.  Here are the locations
+of the relevant log files.  (note that on systemd-based systems, you may need to use `journalctl` instead)
+-->
+## 查看日志
 
+目前，深入挖掘集群问题需要登录对应的机器。以下是相关日志文件的位置。（请注意，在基于 systemd 的系统上，您可能需要使用 `journalctl` 来代替）
 
 ### Master
 
-   * /var/log/kube-apiserver.log - API Server, 提供API服务
-   * /var/log/kube-scheduler.log - Scheduler, 负责调度决策
-   * /var/log/kube-controller-manager.log - 管理replication controllers的控制器
+<!--
+   * /var/log/kube-apiserver.log - API Server, responsible for serving the API
+   * /var/log/kube-scheduler.log - Scheduler, responsible for making scheduling decisions
+   * /var/log/kube-controller-manager.log - Controller that manages replication controllers
+-->
+   * /var/log/kube-apiserver.log - API Server, 负责提供 API 服务
+   * /var/log/kube-scheduler.log - Scheduler，负责调度决策
+   * /var/log/kube-controller-manager.log - 管理副本的控制器
 
+<!--
 ### Worker Nodes
 
-   * /var/log/kubelet.log - Kubelet, 管控节点上运行的容器
-   * /var/log/kube-proxy.log - Kube Proxy, 负责服务的负载均衡
+   * /var/log/kubelet.log - Kubelet, responsible for running containers on the node
+   * /var/log/kube-proxy.log - Kube Proxy, responsible for service load balancing
+-->
+### 工作节点
 
-## 集群故障模式的概述
+   * /var/log/kubelet.log - Kubelet，负责在节点上运行容器
+   * /var/log/kube-proxy.log - Kube Proxy，负责服务的负载均衡
 
-下面是一个不完整的列表，列举了一些可能出错的场景，以及通过调整集群配置来解决相关问题的方法。
+<!--
+## A general overview of cluster failure modes
 
+This is an incomplete list of things that could go wrong, and how to adjust your cluster setup to mitigate the problems.
+-->
+## 集群故障模式的总体概述
+
+这是一个可能出错的事件列表（列表并没有包含所有错误），以及如何调整集群设置以解决问题。
+
+<!--
+Root causes:
+
+  - VM(s) shutdown
+  - Network partition within cluster, or between cluster and users
+  - Crashes in Kubernetes software
+  - Data loss or unavailability of persistent storage (e.g. GCE PD or AWS EBS volume)
+  - Operator error, e.g. misconfigured Kubernetes software or application software
+-->
 根本原因：
 
-  - VM(s)关机
-  - 集群之间，或者集群和用户之间网络分裂
-  - Kubernetes软件本身崩溃了
-  - 数据丢失或者持久化存储不可用(如:GCE PD 或 AWS EBS卷)
-  - 操作错误，如：Kubernetes或者应用程序配置错误
+  - 虚拟机关闭
+  - 网络分区在集群内，或在集群和用户之间
+  - Kubernetes 软件崩溃
+  - 数据丢失或永久存储不可用（例如，GCE PD 或 AWS EBS 卷）
+  - 操作员操作错误，例如错误配置的 Kubernetes 软件或应用软件
 
-具体情况:
+<!--
+Specific scenarios:
 
-  - Apiserver所在的VM关机或者apiserver崩溃
+  - Apiserver VM shutdown or apiserver crashing
+    - Results
+      - unable to stop, update, or start new pods, services, replication controller
+      - existing pods and services should continue to work normally, unless they depend on the Kubernetes API
+  - Apiserver backing storage lost
+    - Results
+      - apiserver should fail to come up
+      - kubelets will not be able to reach it but will continue to run the same pods and provide the same service proxying
+      - manual recovery or recreation of apiserver state necessary before apiserver is restarted
+  - Supporting services (node controller, replication controller manager, scheduler, etc) VM shutdown or crashes
+    - currently those are colocated with the apiserver, and their unavailability has similar consequences as apiserver
+    - in future, these will be replicated as well and may not be co-located
+    - they do not have their own persistent state
+  - Individual node (VM or physical machine) shuts down
+    - Results
+      - pods on that Node stop running
+  - Network partition
+    - Results
+      - partition A thinks the nodes in partition B are down; partition B thinks the apiserver is down. (Assuming the master VM ends up in partition A.)
+  - Kubelet software fault
+    - Results
+      - crashing kubelet cannot start new pods on the node
+      - kubelet might delete the pods or not
+      - node marked unhealthy
+      - replication controllers start new pods elsewhere
+  - Cluster operator error
+    - Results
+      - loss of pods, services, etc
+      - lost of apiserver backing store
+      - users unable to read API
+      - etc.
+-->
+特定场景：
+
+  - Apiserver 虚拟机关闭或者 apiserver 崩溃
     - 结果
-      - 不能停止，更新，或者启动新的pods，services，replication controller
-      - 现有的pods和services在不依赖Kubernetes API的情况下应该能继续正常工作
+      - 无法停止、更新或启动新的 Pod、服务或者副本控制器
+      - 现有的 Pod 和服务应继续正常工作，除非它们依赖于 Kubernetes API
   - Apiserver 后端存储丢失
     - 结果
-      - apiserver应该不能起来
-      - kubelets将不能访问它，但是能够继续运行之前的Pods和提供相同的服务代理
-      - 在apiserver重启之前，需要手动恢复或者重创apiserver的状态
-	    
-  - Kubernetes服务组件(节点控制器，副本控制器，调度器等等)所在的VM关机或者崩溃
-    - 当前，这些控制器是和apiserver共存的，它们不可用的现象是与apiserver类似的
-    - 将来，这些控制器也会复制为多份，并且可能为非共存的
+      - apiserver 无法启动
+      - kubelets 将无法连接到 apiserver，但是仍然能够运行 pod 并提供服务
+      - 在重启 apiserver 之前需要手动恢复或者重建 apiserver 的状态
+  - 提供服务支持的虚拟机（节点控制器，副本控制器，scheduler 等等）关闭或者崩溃
+    - 目前这些都和 apiserver 集成在一起，如果它们不可用将会和 apiserver 有相同的后果
+    - 将来这些将会复制并独立出去
     - 它们没有自己的持久状态
-  - 单个节点(VM或者物理机)关机
+  - 独立节点（虚拟机或者物理机）关闭
     - 结果
-      - 此节点上的所有Pods都停止运行
-  - 网络分裂(Network partition)
+      - 在这个节点上运行的 Pod 都停止运行
+  - 网络分区
     - 结果
-      - partition A认为partition B中所有的节点都down掉了；partition B认为apiserver是down掉了(假定master所在的VM位于partition A内)。
-  - Kubelet软件故障
+      - 分区 A 认为分区 B 中的节点关闭；分区 B 认为 apiserver 已关闭。（假设主虚拟机在分区 A 中结束）
+  - Kubelet 软件错误
     - 结果
-      - 崩溃的kubelet就不能在其所在的节点上启动新的pods
-      - kubelet可能删掉pods或者不删
-      - 节点被标识为非健康态
-      - 副本控制器会在其它的节点上启动新的pods
-  - 集群操作错误
+      - 已崩溃的 kubelet 不能在节点上启动新的 pod
+      - kubelet 可能（也可能不）删除 pod
+      - 节点被标记为 unhealthy
+      - 副本控制器在其它地方启动新的 pod
+  - 集群操作员错误错误
     - 结果
-      - 丢失pods，服务等等
-      - 丢失apiserver后端存储
-      - 用户无法读取API
+      - pod 或者服务丢失等等
+      - apiserver 后端存储丢失
+      - 用户无法访问 API
       - 等等
 
-缓解措施:
+<!--
+Mitigations:
 
-- 措施：对于IaaS上的VMs，使用IaaS的自动VM重启功能
-  - 缓解：Apiserver VM关机或apiserver崩溃
-  - 缓解：Kubernetes服务组件所在的VM关机或崩溃
+- Action: Use IaaS provider's automatic VM restarting feature for IaaS VMs
+  - Mitigates: Apiserver VM shutdown or apiserver crashing
+  - Mitigates: Supporting services VM shutdown or crashes
 
-- 措施: 对于具有apiserver+etcd的VM，使用IaaS提供的可靠的存储（例如GCE PD或者AWS EBS卷）
-  - 缓解：Apiserver后端存储的丢失
+- Action: Use IaaS providers reliable storage (e.g. GCE PD or AWS EBS volume) for VMs with apiserver+etcd
+  - Mitigates: Apiserver backing storage lost
 
-- 措施：使用（实验）[高可用性](/docs/admin/high-availability)的配置
-  - 缓解：master VM关机或者master组件(scheduler, API server, controller-managing)崩馈
-    - 将容许一个或多个节点或组件同时出现故障
-  - 缓解：apiserver后端存储(例如etcd的数据目录)丢失
-    - 假定你使用了集群化的etcd。
+- Action: Use (experimental) [high-availability](/docs/admin/high-availability) configuration
+  - Mitigates: Master VM shutdown or master components (scheduler, API server, controller-managing) crashing
+    - Will tolerate one or more simultaneous node or component failures
+  - Mitigates: Apiserver backing storage (i.e., etcd's data directory) lost
+    - Assuming you used clustered etcd.
 
-- 措施：定期的对apiserver的PDs/EBS卷进行快照
-  - 缓解：apiserver后端存储丢失
-  - 缓解：一些操作错误的场景
-  - 缓解：一些Kubernetes软件本身故障的场景
+- Action: Snapshot apiserver PDs/EBS-volumes periodically
+  - Mitigates: Apiserver backing storage lost
+  - Mitigates: Some cases of operator error
+  - Mitigates: Some cases of Kubernetes software fault
 
-- 措施：在pods的前面使用副本控制器或服务
-  - 缓解：节点关机
-  - 缓解：Kubelet软件故障
+- Action: use replication controller and services in front of pods
+  - Mitigates: Node shutdown
+  - Mitigates: Kubelet software fault
 
-- 措施：应用（容器）设计成容许异常重启
-  - 缓解：节点关机
-  - 缓解：Kubelet软件故障
+- Action: applications (containers) designed to tolerate unexpected restarts
+  - Mitigates: Node shutdown
+  - Mitigates: Kubelet software fault
 
-- 措施：[多个独立的集群](/docs/admin/multi-cluster)(并且避免一次性地对所有的集群进行有风险性的修改)
-  - 缓解：以上列出的所有情况
+- Action: [Multiple independent clusters](/docs/concepts/cluster-administration/federation/) (and avoid making risky changes to all clusters at once)
+  - Mitigates: Everything listed above.
+-->
+解决方法：
+
+- 动作: 为 IaaS 虚拟机使用 IaaS 提供商的自动重启虚拟机功能
+  - 解决: Apiserver 虚拟机关闭或者 apiserver 崩溃
+  - 解决: 提供服务支持的虚拟机关闭或者崩溃
+
+- 动作: 为 apiserver+etcd 的虚拟机使用 IaaS 提供商的可靠存储（例如 GCE PD 或者 AWS EBS 卷）
+  - 解决: Apiserver 后端存储丢失
+
+- 动作: 使用 [高可用](/docs/admin/high-availability) 配置（实验阶段）
+  - 解决: Master 虚拟机关闭或者 master 组件（scheduler、API server、controller-managing）崩溃
+    - 能够容忍一个或者多个节点（或组件）故障
+  - 解决: Apiserver 后端存储（例如，etcd 的数据目录）丢失
+    - 假设您使用了 etcd 集群。
+
+- 动作: 周期性为 Apiserver PDs/EBS-volumes 制作快照
+  - 解决: Apiserver 后端存储丢失
+  - 解决: 一些操作员的错误
+  - 解决: 一些 Kubernetes 软件错误
+
+- 动作: 使用副本控制器和服务来管理和使用 pod
+  - 解决: 节点关闭
+  - 解决: Kubelet 软件错误
+
+- 动作: [多个独立的集群](/docs/concepts/cluster-administration/federation/) (注意避免一次在所有集群上进行有风险的修改)
+  - 解决: 以上列出的所有事件。

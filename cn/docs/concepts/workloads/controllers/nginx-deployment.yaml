@@ -1,9 +1,14 @@
-apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
+  labels:
+    app: nginx
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
   template:
     metadata:
       labels:

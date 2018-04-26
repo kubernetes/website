@@ -1,122 +1,208 @@
 ---
-approvers:
+assignees:
 - davidopp
 - lavalamp
-title: 创建大规模集群
+<!-- title: Building Large Clusters -->
+title: 搭建大型集群
 ---
 
-## 支持规格
+<!-- ## Support -->
+## 支持
 
-在 {{page.version}}，Kubernetes支持最多5000节点规模的集群。 更具体地说，我们支持满足以下 *所有* 标准的配置：
+<!-- At {{page.version}}, Kubernetes supports clusters with up to 1000 nodes. More specifically, we support configurations that meet *all* of the following criteria: -->
+在 {{page.version}} 版本中，Kubernetes 支持集群节点（node）数可达1000个。更具体地说，我们配置能够支持*所有*如下条件：
 
-* 不超过5000节点
-* 总共不超过15000个pod
-* 总共不超过300000个容器
-* 每个节点不超过100个pod
+<!-- * No more than 2000 nodes
+* No more than 60000 total pods
+* No more than 120000 total containers
+* No more than 100 pods per node -->
+* 不超过2000个节点
+* 不超过总共6000个 pod
+* 不超过总共12000个 container
+* 单节点不超过100个 pod
 
 <br>
 
 * TOC
 {:toc}
 
-## 创建
+<!-- ## Setup -->
+## 安装
 
-集群是一组运行Kubernetes代理组件的节点(物理或虚拟机)，它们被 "master" (集群管理平面)所管理。
+<!-- A cluster is a set of nodes (physical or virtual machines) running Kubernetes agents, managed by a "master" (the cluster-level control plane). -->
+集群是一组运行着 Kubernetes 代理的节点（物理或者虚机），被 "主服务器" （集群层面的控制台）所管理。
 
-一般来说，集群的节点数量通过平台相关的 `config-default.sh` 文件中的 `NUM_NODES` 值来控制，(例如，详见 [GCE's `config-default.sh`](http://releases.k8s.io/{{page.githubbranch}}/cluster/gce/config-default.sh))。
+<!-- Normally the number of nodes in a cluster is controlled by the the value NUM_NODES` in the platform-specific `config-default.sh` file (for example, see [GCE's `config-default.sh`](http://releases.k8s.io/{{page.githubbranch}}/cluster/gce/config-default.sh)). -->
+通常来说，集群中的节点数是通过平台特定的 `config-default.sh` 文件（例子参考 [GCE's `config-default.sh`](http://releases.k8s.io/{{page.githubbranch}}/cluster/gce/config-default.sh) ）中的 `NUM_NODES` 值控制的。
 
-对很多云提供商来说，单纯地修改`NUM_NODES` 为一个非常大的值，可能会导致集群的创建脚本失败。 例如，在GCE中部署时，会因配额不足，导致集群启动失败。
+<!-- Simpl changing that value to something very large, however, may cause the setup script to fail for many cloud providers. A GCE deployment, for example, will run in to quota issues and fail to bring the cluster up. -->
+然而，单单把这个值更改到很大的数值会导致安装脚本在许多云服务商平台上运行失败。例如 GCE 部署，会有配额问题导致集群启动失败。
 
-当建立一个大型的Kubernetes集群，以下几个问题必须考虑。
+<!-- When setting up a large Kubernetes cluster, the following issues must be considered. -->
+当需要建立大规模 Kubernetes 集群时，必须考虑下列问题：
 
+<!-- ### Quota Issues -->
 ### 配额问题
 
-为了避免出现配额问题，当创建包含大量节点的集群时，考虑：
+<!-- To avoid running into cloud provider quota issues, when creating a cluster with many nodes, consider: -->
+为了避免在云服务商平台上发生配额问题，当创建一个许多节点的集群时，要考虑：
 
-* 提高相关配额，如CPU，IP等。
-  * 如，在 [GCE](https://cloud.google.com/compute/docs/resource-quotas)中，你可能需要提高以下资源的配额：
+<!-- * Increase the quota for things like CPU, IPs, etc.
+  * In [GCE, for example,](https://cloud.google.com/compute/docs/resource-quotas) you'll want to increase the quota for:
+    * CPUs
+    * VM instances
+    * Total persistent disk reserved
+    * In-use IP addresses
+    * Firewall Rules
+    * Forwarding rules
+    * Routes
+    * Target pools
+* Gating the setup script so that it brings up new node VMs in smaller batches with waits in between, because some cloud providers rate limit the creation of VMs. -->
+* 增加这些资源的配额，比如 CPU ，IP 地址等等。
+  * 在 [GCE 中，举个例子](https://cloud.google.com/compute/docs/resource-quotas) 你会需要增加：
     * CPU
-    * 虚机实例
-    * 磁盘
-    * 使用的IP地址
+    * 虚拟机实例
+    * 永久磁盘的预留总量
+    * 在使用的 IP 地址
     * 防火墙规则
     * 转发规则
     * 路由
-    * 对象池
-* 设置创建脚本，使其以较小的规模分批次拉起新的节点，并在其间设置一定的等待时间，因为一些云供应商可能对虚机的创建速率进行了限制。
+    * 目标池
+* 调整好安装脚本，让它能够在创建虚拟机节点的批处理中有等待时间，因为很多云服务商平台对于虚拟机的创建频率有限制。
 
-### Etcd存储
+<!-- ### Etcd storage -->
+### Etcd 存储
 
-为了提升大规模集群的性能，我们将事件对象存储到独立的etcd实例中。
+<!-- To improve performance of large clusters, we store events in a separate dedicated etcd instance. -->
+为了提高大规模集群的性能，我们将 event 存储在一个独立的 etcd 实例中。
 
-创建集群时，当前的salt脚本：
+<!-- When creating a cluster, existing salt scripts: -->
+当创建一个集群时，现有的 salt 脚本会：
 
-* 启动并配置额外的etcd实例
-* 配置api-server，将该etcd实例用于事件对象的存储
+<!-- * start and configure additional etcd instance -->
+<!-- * configure api-server to use it for storing events -->
+* 启动并配置额外的 etcd 实例
+* 配置 api-server 用于储存 event
 
-### 管理节点和组件的规格
+<!-- ### Size of master and master components -->
+### 主服务器和主服务器组件的规格
 
-在 GCE/Google Kubernetes Engine 或 AWS平台中， `kube-up` 会根据集群的节点规模合理地设置管理节点的规格。 在其他云平台上，用户需要手动配置。 作为参考，GCE使用的规格为：
+<!-- On GCE/GKE and AWS, `kube-up` automatically configures the proper VM size for your master depending on the number of nodes
+in your cluster. On other providers, you will need to configure it manually. For reference, the sizes we use on GCE are -->
+在 GCE/GKE 和 AWS 上，`kube-up` 自动为你的主服务器配置合适的虚拟机规格，规格取决于集群中的节点数量。
+对于其他云服务商平台，你需要手工配置。作为参考，我们在 GCE 上使用的规格是：
 
-* 1-5 节点： n1-standard-1
-* 6-10 节点： n1-standard-2
-* 11-100 节点： n1-standard-4
-* 101-250 节点： n1-standard-8
-* 251-500 节点： n1-standard-16
-* 500节点以上： n1-standard-32
+<!-- * 1-5 nodes: n1-standard-1
+* 6-10 nodes: n1-standard-2
+* 11-100 nodes: n1-standard-4
+* 101-250 nodes: n1-standard-8
+* 251-500 nodes: n1-standard-16
+* more than 500 nodes: n1-standard-32 -->
+* 1-5 节点: n1-standard-1
+* 6-10 节点: n1-standard-2
+* 11-100 节点: n1-standard-4
+* 101-250 节点: n1-standard-8
+* 251-500 节点: n1-standard-16
+* 超过 500 节点: n1-standard-32
 
-AWS使用的规格为：
+<!-- And the sizes we use on AWS are -->
+在 AWS 上我们使用的规格：
 
-* 1-5 节点： m3.medium
-* 6-10 节点： m3.large
-* 11-100 节点： m3.xlarge
-* 101-250 节点： m3.2xlarge
-* 251-500 节点： c4.4xlarge
-* 500节点以上： c4.8xlarge
+<!-- * 1-5 nodes: m3.medium
+* 6-10 nodes: m3.large
+* 11-100 nodes: m3.xlarge
+* 101-250 nodes: m3.2xlarge
+* 251-500 nodes: c4.4xlarge
+* more than 500 nodes: c4.8xlarge -->
+* 1-5 节点: m3.medium
+* 6-10 节点: m3.large
+* 11-100 节点: m3.xlarge
+* 101-250 节点: m3.2xlarge
+* 251-500 节点: c4.4xlarge
+* 超过 500 节点: c4.8xlarge
 
-注意，管理节点的规格只会在集群创建时进行设置，后续集群规模发生变化 (如 手动增删节点或集群自动扩缩容)后不会再调整。
+<!-- Note that these master node sizes are currently only set at cluster startup time, and are not adjusted if you later scale your cluster up or down (e.g. manually removing or adding nodes, or using a cluster autoscaler). -->
+注意，主服务器节点规格只能在集群启动时设置，如果后续对于集群扩容或者缩容（比如，使用手工或集群自动扩展器进行增加或删除节点），规格是不会调整的。
 
-### 插件的资源占用
+<!-- ### Addon Resources -->
+### 插件（Addon）资源
 
-为防止 [集群插件](https://releases.k8s.io/{{page.githubbranch}}/cluster/addons) 耗尽节点资源引起内存泄漏或其他资源问题， Kubernetes 设置了插件容器资源的上限，来限制其对CPU和内存资源的占用 (参考 PR [#10653](http://pr.k8s.io/10653/files) 和 [#10778](http://pr.k8s.io/10778/files))。
+<!-- To prevent memory leaks or other resource issues in [cluster addons](https://releases.k8s.io/{{page.githubbranch}}/cluster/addons) from consuming all the resources available on a node, Kubernetes sets resource limits on addon containers to limit the CPU and Memory resources they can consume (See PR [#10653](http://pr.k8s.io/10653/files) and [#10778](http://pr.k8s.io/10778/files)). -->
+为了防止 [集群插件](https://releases.k8s.io/{{page.githubbranch}}/cluster/addons) 内存泄漏或者其他资源问题导致消耗完节点的所有资源，Kubernetes 对插件容器设定了资源限制，以限制他们使用 CPU 和内存资源。（参见 PR [#10653](http://pr.k8s.io/10653/files) 和 [#10778](http://pr.k8s.io/10778/files)）
 
-例如：
+<!-- For example:
 
 ```yaml
   containers:
   - name: fluentd-cloud-logging
-    image: k8s.gcr.io/fluentd-gcp:1.16
+    image: gcr.io/google_containers/fluentd-gcp:1.16
+    resources:
+      limits:
+        cpu: 100m
+        memory: 200Mi
+``` -->
+举例:
+
+```yaml
+  containers:
+  - name: fluentd-cloud-logging
+    image: gcr.io/google_containers/fluentd-gcp:1.16
     resources:
       limits:
         cpu: 100m
         memory: 200Mi
 ```
 
-除 Heapster 外，这些限制是静态的，基于4个节点规模的集群上运行的插件所采集的数据 (详见 [#10335](http://issue.k8s.io/10335#issuecomment-117861225))。 而实际大规模集群中插件所消耗的资源要多得多 (详见 [#5880](http://issue.k8s.io/5880#issuecomment-113984085))。 所以如果部署大规模集群时不对这些值进行调整，插件可能会因为资源占用达到上限而不断被杀死。
+<!-- Except for Heapster, these limits are static and are based on data we collected from addons running on 4-node clusters (see [#10335](http://issue.k8s.io/10335#issuecomment-117861225)). The addons consume a lot more resources when running on large deployment clusters (see [#5880](http://issue.k8s.io/5880#issuecomment-113984085)). So, if a large cluster is deployed without adjusting these values, the addons may continuously get killed because they keep hitting the limits. -->
+除了 Heapster 之外，这些限制是固定的，并且是基于我们对于插件运行在4节点集群的采样数据（见 [#10335](http://issue.k8s.io/10335#issuecomment-117861225)）。运行在大规模集群上时，插件会消耗更多的资源（见 [#5880](http://issue.k8s.io/5880#issuecomment-113984085)）。所以，如果大规模集群没有调整这些参数时，插件容器可能会被持续杀死，因为他们总是达到限制。
 
-为了避免集群插件的资源问题，创建多节点的集群时，考虑以下几点：
+<!-- To avoid running into cluster addon resource issues, when creating a cluster with many nodes, consider the following: -->
+为了避免集群的插件资源问题出现，当创建一个许多节点的集群时，考虑如下问题：
 
-* 当扩大集群规模时，如果涉及，相应扩大以下插件的内存和CPU限制 (通过一个实例处理整个集群，因此其内存和CPU使用量往往与集群的大小/负载成比例增长)：
-  * [InfluxDB 和 Grafana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
-  * [kubedns, dnsmasq, 和 sidecar](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/kubedns-controller.yaml.in)
-  * [Kibana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/kibana-controller.yaml)
-* 当扩大集群规模时，如果涉及，相应扩大以下插件副本数 (每个组件有多个副本，因此增加副本将有助于处理增加的负载，但是，由于每个副本的负载也略有增加，也应考虑提高CPU /内存上限)：
-  * [elasticsearch](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/es-controller.yaml)
-* 当扩大集群规模时，如果涉及，略微扩大以下插件的内存和CPU限制 (每个节点一个副本， 但是CPU/内存使用随集群的大小/负载增长变化不明显)：
-  * [FluentD with ElasticSearch Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
-  * [FluentD with GCP Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
+<!--   * Scale memory and CPU limits for each of the following addons, if used, as you scale up the size of cluster (there is one replica of each handling the entire cluster so memory and CPU usage tends to grow proportionally with size/load on cluster):
+     * [InfluxDB and Grafana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
+     * [kubedns, dnsmasq, and sidecar](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/kubedns-controller.yaml.in)
+     * [Kibana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/kibana-controller.yaml)
+   * Scale number of replicas for the following addons, if used, along with the size of cluster (there are multiple replicas of each so increasing replicas should help handle increased load, but, since load per replica also increases slightly, also consider increasing CPU/memory limits):
+     * [elasticsearch](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/es-controller.yaml)
+   * Increase memory and CPU limits slightly for each of the following addons, if used, along with the size of cluster (there is one replica per node but CPU/memory usage increases slightly along with cluster load/size as well):
+     * [FluentD with ElasticSearch Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
+     * [FluentD with GCP Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml) -->
+ * 为以下每个插件调整内存和 CPU 限制，使用时，随着你的集群扩容（每个插件有一个 replica 来处理整个集群，所以 CPU/内存 使用量会随着集群的 规模/负载 按比例增加）:
+    * [InfluxDB and Grafana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
+    * [kubedns, dnsmasq, and sidecar](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/kubedns-controller.yaml.in)
+    * [Kibana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/kibana-controller.yaml)
+ * 为以下这些插件调整 replicas 数量, 使用时, 随着集群规模数量一起调整（每个插件会有多个 replicas, 所以增加 replicas 应该能帮助处理增加的负载，但是，由于每个 replica 的负载也稍稍增加, 同时需要考虑增加 CPU/内存 限制）:
+    * [elasticsearch](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/es-controller.yaml)
+ * 为以下这些插件稍稍增加内存和 CPU 使用限制, 使用时, 随着集群规模数量一起调整（每个节点有一个 replica，但是 CPU/内存 使用量随着集群的 负载/规模 会稍稍增加）:
+    * [FluentD with ElasticSearch Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
+    * [FluentD with GCP Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
 
-Heapster的资源限制是基于集群的初始规模动态设置的 (参考 [#16185](http://issue.k8s.io/16185)
-和 [#22940](http://issue.k8s.io/22940))。 当发现Heapster资源耗尽，应考虑调整计算Heapster内存请求的公式 (参考上述PR)。
+<!-- Heapster's resource limits are set dynamically based on the initial size of your cluster (see [#16185](http://issue.k8s.io/16185)
+and [#22940](http://issue.k8s.io/22940)). If you find that Heapster is running
+out of resources, you should adjust the formulas that compute heapster memory request (see those PRs for details). -->
+Heapster 的资源限制是基于集群的初始规模动态配置的（见 [#16185](http://issue.k8s.io/16185) 和 [#22940](http://issue.k8s.io/22940)）。
+如果你发现 Heapster 的资源不够，你应该调整 Heapster 对于内存的请求的计算公式（详见这些 PRs）。
 
-关于如何检测插件是否达到资源上限 参考 [计算资源的故障排除章节](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting)。
+<!-- For directions on how to detect if addon containers are hitting resource limits, see the [Troubleshooting section of Compute Resources](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting). -->
+对于如何检查插件容器是否达到了资源使用限制，参考 [计算资源的问题排查章节](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting)。
 
-[将来](http://issue.k8s.io/13048)，我们期望基于集群规模来设置集群插件的资源限制，并且在集群规模增长或缩小时能够动态调整。
-欢迎提出PR来实现这些特性。
+<!-- In the [future](http://issue.k8s.io/13048), we anticipate to set all cluster addon resource limits based on cluster size, and to dynamically adjust them if you grow or shrink your cluster.
+We welcome PRs that implement those features. -->
+在 [未来](http://issue.k8s.io/13048)，我们预期会基于集群规模来设置所有集群插件的资源限制，并且会在你的集群扩容或缩容时进行动态调整。
+我们欢迎致力于实现这些功能的 PR 。
 
-### 启动时允许部分失败
+<!-- ### Allowing minor node failure at startup -->
+### 允许少数节点在启动时失败
 
-因为种种原因 (详见 [#18969](https://github.com/kubernetes/kubernetes/issues/18969))，在 `NUM_NODES` 值很大的情况下执行
-`kube-up.sh`， 可能因为其中一小部分节点没有正常启动而失败。
-这时我们有两种选择：重启集群 (`kube-down.sh` 然后再 `kube-up.sh`），或者在执行 `kube-up.sh`之前，
-将环境变量 `ALLOWED_NOTREADY_NODES` 设置为合适的值。 这将允许 `kube-up.sh` 以少于 `NUM_NODES` 的节点数量启动集群。 依据失败的具体原因，另外的节点可能在后面加入集群，或者集群节点数量将保持在 `NUM_NODES - ALLOWED_NOTREADY_NODES`。
+<!-- For various reasons (see [#18969](https://github.com/kubernetes/kubernetes/issues/18969) for more details) running
+`kube-up.sh` with a very large `NUM_NODES` may fail due to a very small number of nodes not coming up properly.
+Currently you have two choices: restart the cluster (`kube-down.sh` and then `kube-up.sh` again), or before
+running `kube-up.sh` set the environment variable `ALLOWED_NOTREADY_NODES` to whatever value you feel comfortable
+with. This will allow `kube-up.sh` to succeed with fewer than `NUM_NODES` coming up. Depending on the
+reason for the failure, those additional nodes may join later or the cluster may remain at a size of
+`NUM_NODES - ALLOWED_NOTREADY_NODES`. -->
+由于各种原因 (详细信息见 [#18969](https://github.com/kubernetes/kubernetes/issues/18969))，运行 `kube-up.sh` 建立非常大
+的 `NUM_NODES` 数量的集群会由于个别的节点的启动失败而失败。目前你有两个选择：重启集群（再次运行 `kube-down.sh` 和 `kube-up.sh`），
+或者，在运行 `kube-up.sh` 之前，将 `ALLOWED_NOTREADY_NODES` 环境变量设置成合适的值。这会让 `kube-up.sh` 在少于 `NUM_NODES`
+节点启动的时候成功完成。根据不同的失败原因，这些额外的节点可以在稍后再加入集群，或者集群可以保持在 `NUM_NODES - ALLOWED_NOTREADY_NODES` 的规模。
