@@ -133,7 +133,7 @@ among nodes that meet that criteria, nodes with a label whose key is `another-no
 value is `another-node-label-value` should be preferred.
 
 You can see the operator `In` being used in the example. The new node affinity syntax supports the following operators: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
-You can use `NotIn` and `DoesNotExist` achieve node anti-affinity behavior, or use 
+You can use `NotIn` and `DoesNotExist` to achieve node anti-affinity behavior, or use 
 [node taints](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/) to repel pods from specific nodes.
 
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
