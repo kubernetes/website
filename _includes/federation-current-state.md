@@ -5,4 +5,4 @@ There however is effort ongoing to implement a dedicated federation API, differe
 from k8s API (`Federation V2` as we like to call it); the details of which can be 
 found at [sig-multicluster community page](https://github.com/kubernetes/community/tree/master/sig-multicluster).
 
-----
+<br>
