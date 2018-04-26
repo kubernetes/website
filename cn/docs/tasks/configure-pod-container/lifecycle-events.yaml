@@ -6,7 +6,6 @@ spec:
   containers:
   - name: lifecycle-demo-container
     image: nginx
-
     lifecycle:
       postStart:
         exec:

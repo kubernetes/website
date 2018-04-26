@@ -1,0 +1,27 @@
+id: _example
+name: Example K8s Term
+full-link: /docs/link-to-long-dedicated-docs-page
+aka:
+- Slang K8s Term
+- Misnomer
+- Formerly Known as Prince
+related:
+- id-of-less-fancy-k8s-term
+- id-of-tangential-term
+- id-of-commonly-used-with-term
+tags:
+- Some Tag
+short-description: >
+  Required.
+  Markdown allowed (e.g. for cross-linking).
+  One or two lines that provide a minimum definition.
+  Do not repeat the term.
+  Prefer fragments.
+  End with a period.
+long-description: >
+  Optional.
+  Markdown allowed.
+  Longer additional text to appear after (in conjunction with) short description.
+  Provide where the short description is not sufficient as the intro paragraph to a topic.
+  Write complete but concise sentences.
+  **See /_includes/templates/glossary/README.md for the official style guide.**

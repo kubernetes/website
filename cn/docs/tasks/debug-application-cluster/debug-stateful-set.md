@@ -1,76 +1,74 @@
 ---
-title: 调试StatefulSet
+approvers:
+- bprashanth
+- enisoc
+- erictune
+- foxish
+- janetkuo
+- kow3ns
+- smarterclayton
+title: 调试 StatefulSet
+cn-approvers:
+- chentao1596
 ---
+<!--
+title: Debug a StatefulSet
+-->
 
 {% capture overview %}
 
-此任务展示如何调试StatefulSet。
+<!--
+This task shows you how to debug a StatefulSet.
+-->
+本任务展示如何调试 StatefulSet。
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
-
-* 你需要有一个Kubernetes集群，通过必要的配置使kubectl命令行工具与您的集群进行通信。
-* 你应该有一个运行中的StatefulSet，以便用于调试。
+<!--
+* You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster.
+* You should have a StatefulSet running that you want to investigate.
+-->
+* 您需要有一个 Kubernetes 集群，必须配置 kubectl 命令行工具，用以跟您的集群进行通信。
+* 您应该有一个您想要进行调试的运行中的 StatefulSet。
 
 {% endcapture %}
 
 {% capture steps %}
 
-## 调试StatefulSet
+<!--
+## Debugging a StatefulSet
+-->
+## 调试 StatefulSet
 
-由于StatefulSet在创建时设置了`app=myapp`标签，列出仅属于该StatefulSet的所有pod时，可以使用以下命令：
+<!--
+In order to list all the pods which belong to a StatefulSet, which have a label `app=myapp` set on them,
+you can use the following:
+-->
+为了列出属于一个 StatefulSet 并且设置了标签 `app=myapp` 的所有 pod，您可以使用以下命令：
 
 ```shell
 kubectl get pods -l app=myapp
 ```
 
-如果您发现列出的任何Pods长时间处于`Unknown` 或`Terminating`状态，关于如何处理它们的说明任务,请参阅[删除 StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/)。您可以参考[调试 Pods](/docs/user-guide/debugging-pods-and-replication-controllers/#debugging-pods)指南来调试StatefulSet中的各个Pod。
-
-StatefulSets提供调试机制，可以使用注解来暂停所有控制器在Pod上的操作。在任何StatefulSet Pod上设置`pod.alpha.kubernetes.io/initialized`注解为`"false"`将*暂停* StatefulSet的所有操作。暂停时，StatefulSet将不执行任何伸缩操作。一旦调试钩子设置完成后，就可以在StatefulSet pod的容器内执行命令，而不会造成伸缩操作的干扰。您可以通过执行以下命令将注解设置为`"false"`：
-
-```shell
-kubectl annotate pods <pod-name> pod.alpha.kubernetes.io/initialized="false" --overwrite
-```
-
-当注解设置为`"false"`时，StatefulSet在其Pods变得不健康或不可用时将不会响应。StatefulSet不会创建副本Pod直到每个Pod上删除注解或将注解设置为`"true"`。
-
-### 逐步初始化
-
-创建StatefulSet之前，您可以通过使用和上文相同的注解，即将yaml文件中`.spec.template.metadata.annotations`里的`pod.alpha.kubernetes.io/initialized`字段设置为`"false"`，对竞态条件的StatefulSet进行调试。
-
-```yaml
-apiVersion: apps/v1beta1
-kind: StatefulSet
-metadata:
-  name: my-app
-spec:
-  serviceName: "my-app"
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: my-app
-      annotations:
-        pod.alpha.kubernetes.io/initialized: "false"
-...
-...
-...
-
-```
-
-设置注解后，如果创建了StatefulSet，您可以等待每个Pod来验证它是否正确初始化。StatefulSet将不会创建任何后续的Pods，直到在已经创建的每个Pod上将调试注解设置为`"true"` (或删除)。 您可以通过执行以下命令将注解设置为`"true"`：
-
-```shell
-kubectl annotate pods <pod-name> pod.alpha.kubernetes.io/initialized="true" --overwrite
-```
+<!--
+If you find that any Pods listed are in `Unknown` or `Terminating` state for an extended period of time,
+refer to the [Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/) task for
+instructions on how to deal with them.
+You can debug individual Pods in a StatefulSet using the
+[Debugging Pods](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/) guide.
+-->
+如果您发现列出的任何 pod 在很长一段时间内处于 `Unknown` 或者 `Terminating` 状态，请参阅 [删除 StatefulSet Pod](/docs/tasks/manage-stateful-set/delete-pods/) 以获得有关如何处理它们的说明。您还可以使用 [调试 Pod](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/) 指南去调试 StatefulSet 中的单个 pod。
 
 {% endcapture %}
 
 {% capture whatsnext %}
 
-点击链接[调试init-container](/docs/tasks/troubleshoot/debug-init-containers/)，了解更多信息。
+<!--
+Learn more about [debugging an init-container](/docs/tasks/debug-application-cluster/debug-init-containers/).
+-->
+了解有关 [调试一个 init-container](/docs/tasks/debug-application-cluster/debug-init-containers/) 的更多信息。
 
 {% endcapture %}
 

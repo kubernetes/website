@@ -1,64 +1,114 @@
 ---
 approvers:
 title: 设备插件
-description: 使用 Kubernetes 设备插件框架来为 GPUs、 NICs、 FPGAs、 InfiniBand 和其他类似的需要供应商特别设置的资源开发插件。
+description: 通过 Kubernetes 的设备插件框架，能够实现如 GPU、NIC、FPGA、InfiniBand 等需要第三方特定设置的插件接入。
+cn-approvers:
+- tianshapjq
 ---
+<!--
+---
+approvers:
+title: Device Plugins
+description: Use the Kubernetes device plugin framework to implement plugins for GPUs, NICs, FPGAs, InfiniBand, and similar resources that require vendor-specific setup.
+---
+-->
 
 {% include feature-state-alpha.md %}
 
 {% capture overview %}
-从1.8版本开始，Kubernetes 提供了一套
-[设备插件框架](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)，
-使得供应商能够在不改动 Kubernetes 核心代码的情况下，向 kubelet 发布它们的资源。
-供应商可以实现一个手动或以 DaemonSet 形式部署的插件，而不是编写自定义的 Kubernetes 代码。
-插件的目标设备包括 GPUs、 高性能 NICs、 FPGAs、 InfiniBand
-和其他类似的可能需要供应商特定的初始化和设置的计算资源。
+<!--
+Starting in version 1.8, Kubernetes provides a
+[device plugin framework](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)
+for vendors to advertise their resources to the kubelet without changing Kubernetes core code.
+Instead of writing custom Kubernetes code, vendors can implement a device plugin that can
+be deployed manually or as a DaemonSet. The targeted devices include GPUs,
+High-performance NICs, FPGAs, InfiniBand, and other similar computing resources
+that may require vendor specific initialization and setup.
+-->
+从1.8版本开始，Kubernetes 提供一种 [设备插件框架](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)，该框架能够让第三方设备资源开发者在不修改 Kubernetes 核心代码的前提下将设备接入 Kubernetes，从而使得 Kubernetes 能够使用第三方设备资源。通过该框架，第三方开发者可以实现一种通过手工或者 DaemonSet 部署的设备插件。这些设备一般包括如 GPU、高性能NIC、FPGA 和 InfiniBand 等需要第三方开发者进行特定初始化和设置的计算资源。
 {% endcapture %}
 
 {% capture body %}
 
-## 设备插件注册
+<!--
+## Device plugin registration
+-->
+## 设备插件的注册
 
-设备插件功能通过 `DevicePlugins` 功能入口控制， 该功能默认是禁用的。
-当设备插件功能被启用时，kubelet 会对外提供一个 `Registration` gRPC 服务：
+<!--
+The device plugins feature is gated by the `DevicePlugins` feature gate and is disabled by default.
+When the device plugins feature is enabled, the kubelet exports a `Registration` gRPC service:
+-->
+设备插件特性由 feature gate 中的 `DevicePlugins` 特性开关控制，该特性默认关闭。当启用该框架后，kubelet 将会对外暴露一个名为 Registration 的 gRPC 服务。服务描述如下：
 
 ```gRPC
 service Registration {
 	rpc Register(RegisterRequest) returns (Empty) {}
 }
 ```
-设备插件通过该 gRPC 服务将自身注册到 kubelet 。
-注册过程中，设备插件需要发送:
+<!--
+A device plugin can register itself with the kubelet through this gRPC service.
+During the registration, the device plugin needs to send:
 
-  * 它的 Unix 套接字名称。
-  * 所基于的设备插件 API 版本。
-  * 希望发布的 `ResourceName` 。 这里的 `ResourceName` 需要符合
-    [扩展资源命名方案](https://github.com/kubernetes/kubernetes/pull/48922)，
-    形如 `vendor-domain/resource` 。
-    例如，Nvidia GPU 资源被发布为 `nvidia.com/gpu` 。
+  * The name of its Unix socket.
+  * The Device Plugin API version against which it was built.
+  * The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
+    [extended resource naming scheme](https://github.com/kubernetes/kubernetes/pull/48922)
+    as `vendor-domain/resource`.
+    For example, an Nvidia GPU is advertised as `nvidia.com/gpu`.
+-->
+通过这个 gRPC 服务，设备插件就能向 kubelet 进行注册。在发起注册时，设备插件还需要发送以下内容：
 
-注册成功后，设备插件将其管理的设备列表发送至 kubelet ，然后 kubelet 负责将这些资源作为 kubelet 节点状态更新的一部分，通知 apiserver 。
-例如， 设备插件注册 `vendor-domain/foo` 到 kubelet ，
-并上报了节点上的两个健康的设备后，节点状态将更新， 发布2个 `vendor-domain/foo` 。
+  * 设备的 Unix Socket 文件名。
+  * 设备插件开发时对应的 Kubernetes API 版本。
+  * 将要注册的 `ResourceName`。这里的 `ResourceName` 应该遵循 [可扩展资源命名规则](https://github.com/kubernetes/kubernetes/pull/48922)，一般采用 `第三方域名/资源名` 的方式。如 Nvidia GPU 的命名为 `nvidia.com/gpu`。
 
-然后，开发者可以在 [容器](/docs/api-reference/{{page.version}}/#container-v1-core)
-规格中通过使用与
-[不透明整数型资源](/docs/tasks/configure-pod-container/opaque-integer-resource/)
-中同样的流程来请求使用设备。
-在1.8版本中， 扩展资源仅支持整型的资源，且容器规格中声明的 `limit` 与 `request` 必须相等。
+<!--
+Following a successful registration, the device plugin sends the kubelet the
+list of devices it manages, and the kubelet is then in charge of advertising those
+resources to the API server as part of the kubelet node status update.
+For example, after a device plugin registers `vendor-domain/foo` with the kubelet
+and reports two healthy devices on a node, the node status is updated
+to advertise 2 `vendor-domain/foo`.
+-->
+当成功注册资源后，设备插件还需要向 kubelet 发送其可用设备的列表，之后 kubelet 会将这些资源作为节点状态的一部分上报给 API server。例如，有一个名为 `vendor-domain/foo` 的设备插件向 kubelet 进行注册，并发送两个可用设备的列表，这时候查看 node status 就能看到有两个可用的 `vendor-domain/foo` 设备了。
 
-## 设备插件实现
+<!--
+Then, developers can request devices in a
+[Container](/docs/api-reference/{{page.version}}/#container-v1-core)
+specification by using the same process that is used for
+[opaque integer resources](/docs/tasks/configure-pod-container/opaque-integer-resource/).
+In version 1.8, extended resources are spported only as integer resources and must have
+`limit` equal to `request` in the Container specification.
+-->
+然后，开发人员可以在申请 [容器资源](/docs/api-reference/{{page.version}}/#container-v1-core) 时使用和 [不透明整数资源](/docs/tasks/configure-pod-container/opaque-integer-resource/) 相同的过程来请求第三方设备资源。在1.8版本中，可扩展资源只支持按整数分配，并且在容器规格定义中的 `limit` 必须和 `request` 相等。
 
-设备插件的工作流程一般包括以下步骤:
+<!--
+## Device plugin implementation
+-->
+## 设备插件的实现
 
-* 初始化。 在这个阶段，设备插件执行供应商特定的初始化和设置，以确保设备处于就绪状态。
+<!--
+The general workflow of a device plugin includes the following steps:
+-->
+设备插件的一般实现流程包括下列步骤：
 
-* 插件通过主机路径 `/var/lib/kubelet/device-plugins/` 下的一个 Unix 套接字启动 gRPC 服务，该服务实现了以下接口：
+<!--
+* Initialization. During this phase, the device plugin performs vendor specific
+  initialization and setup to make sure the devices are in a ready state.
+-->
+* 初始化。在这个阶段，设备插件将执行自身特定的初始化和配置操作，以确保设备正常运行。
+
+<!--
+* The plugin starts a gRPC service, with a Unix socket under host path
+  `/var/lib/kubelet/device-plugins/`, that implements the following interfaces:
+-->
+* 插件将启动一个gRPC服务，并将其监听的 Unix Socket 文件放在宿主机的 `/var/lib/kubelet/device-plugins/` 目录，该服务需要实现以下接口：
 
   ```gRPC
   service DevicePlugin {
         // ListAndWatch returns a stream of List of Devices
-        // Whenever a Device state change or a Device disappears, ListAndWatch
+        // Whenever a Device state change or a Device disapears, ListAndWatch
         // returns the new list
         rpc ListAndWatch(Empty) returns (stream ListAndWatchResponse) {}
 
@@ -69,27 +119,60 @@ service Registration {
   }
   ```
 
-* 插件通过主机路径 `/var/lib/kubelet/device-plugins/kubelet.sock` 下的 Unix 套接字将自身注册到 kubelet 。
+<!--
+* The plugin registers itself with the kubelet through the Unix socket at host
+  path `/var/lib/kubelet/device-plugins/kubelet.sock`.
+-->
+* 插件通过宿主机的 Unix Socket 文件向 kubelet 注册，该文件位于：`/var/lib/kubelet/device-plugins/kubelet.sock`。
 
-* 注册成功之后，设备插件以服务模式运行，其间持续监测设备健康状态，并在任何设备状态变化时上报到 kubelet 。
-插件也负责服务 `Allocate` gRPC 请求。 在 `Allocate` 过程中，插件可能会做设备特定的准备动作； 如 GPU 清理 或 QRNG 初始化。
-如操作成功，设备插件会返回一个 `AllocateResponse` ，它包含了用于访问分配的设备的容器运行时配置信息。 kubelet 将该信息传递到容器运行时。
+<!--
+* After successfully registering itself, the device plugin runs in serving mode, during which it keeps
+monitoring device health and reports back to the kubelet upon any device state changes.
+It is also responsible for serving `Allocate` gRPC requests. During `Allocate`, the device plugin may
+do device-specific preparation; for example, GPU cleanup or QRNG initialization.
+If the operations succeed, the device plugin returns an `AllocateResponse` that contains container
+runtime configurations for accessing the allocated devices. The kubelet passes this information
+to the container runtime.
+-->
+* 当注册成功后，设备插件需要处于服务模式，在此期间需要监控设备的健康状态并且将设备状态的变动上报给 kubelet。同时，设备插件还负责处理 `Allocate` gRPC 请求。在 `Allocate` 过程中，设备插件可能会进行一些特定的准备工作，例如 GPU 的清理或者 QRNG 初始化等等。当 `Allocate` 操作成功后，第三方资源返回一个 `AllocateResponse` 给 kubelet，该返回包括能够访问设备的容器运行平台配置，然后 kubelet 将这些信息发送给容器运行平台。
 
-我们期望设备插件能够监测到 kubelet 重启，并将自身重新注册到新的 kubelet 实例中。 在1.8版本中，新的 kubelet 实例启动时，会清理当前 `/var/lib/kubelet/device-plugins` 路径下已存在的 Unix 套接字。 通过这一事件，设备插件能够监测到其 Unix 套接字被删除，并重新对自身进行注册。
+<!--
+A device plugin is expected to detect kubelet restarts and re-register itself with the new
+kubelet instance. In version 1.8, a new kubelet instance cleans up all the existing Unix sockets
+under `/var/lib/kubelet/device-plugins` when it starts. A device plugin can monitor the deletion
+of its Unix socket and re-register itself upon such an event.
+-->
+当 kubelet 重启时，设备插件必须能够感知并且重新发起注册。在1.8版本中，kubelet 启动时将会清空 `/var/lib/kubelet/device-plugins` 目录下的所有 Unix Socket 文件，设备插件可以通过监控自己的 Unix Socket 文件是否被删除从而重新发起注册。
 
-## 设备插件部署
+<!--
+## Device plugin deployment
+-->
+## 设备插件的部署
 
-设备插件可以手动部署，也可以作为 DaemonSet 进行部署。 以 DaemonSet 形式部署的好处是设备插件故障时，
-Kubernetes能够重新启动 Pods 。 否则就需要额外的设备插件故障恢复机制。
-目录 `/var/lib/kubelet/device-plugins` 需要访问特权，
-所以设备插件必须在特权的安全上下文环境下运行。
-如果设备插件以 DaemonSet 形式运行， `/var/lib/kubelet/device-plugins`
-目录必须在插件的 [PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core) 中以 [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core) 的形式挂载。
+<!--
+A device plugin can be deployed manually or as a DaemonSet. Being deployed as a DaemonSet has
+the benefit that Kubernetes can restart the device plugin if it fails.
+Otherwise, an extra mechanism is needed to recover from device plugin failures.
+The canonical directory `/var/lib/kubelet/device-plugins` requires privileged access,
+so a device plugin must run in a privileged security context.
+If a device plugin is running as a DaemonSet, `/var/lib/kubelet/device-plugins`
+must be mounted as a
+[Volume](/docs/api-reference/{{page.version}}/#volume-v1-core)
+in the plugin's
+[PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core).
+-->
+设备插件能够通过手工或者 DaemonSet 部署。通过 DaemonSet 部署的优势在于，当设备插件自身运行出错时，Kubernetes 将会自动重启该设备插件。否则，设备插件需要实现额外的机制来确保其自身的错误恢复。同时，对于指定的 `/var/lib/kubelet/device-plugins` 目录需要特定的访问权限，所以设备插件需要确保拥有这些访问权限。如果以 DaemonSet 的模式部署，`/var/lib/kubelet/device-plugins` 目录必须要在 [PodSpec](/docs/api-reference/{{page.version}}/#podspec-v1-core) 中以 [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core) 方式进行挂载。
 
-## 示例
+<!--
+## Examples
+-->
+## 案例
 
-设备插件实现的示例，参考
-[基于 COS 操作系统的 nvidia GPU 设备插件](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)。
+<!--
+For an example device plugin implementation, see
+[nvidia GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu).
+-->
+具体案例可见 [基于 COS 操作系统的 nvidia GPU 设备插件](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)。
 
 {% endcapture %}
 
