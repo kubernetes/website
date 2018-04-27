@@ -74,7 +74,7 @@ resource (in the case of the example above, a replication controller named
 `example`).
 
 For more information, including optional flags, refer to the
-[`kubectl expose` reference](/docs/user-guide/kubectl/{{page.version}}/#expose).
+[`kubectl expose` reference](/docs/reference/generated/kubectl/kubectl-commands/#expose).
 
 ## Finding your IP address
 

@@ -132,7 +132,7 @@ The support to UDP protocol is being tracked in
 
 
 {% capture whatsnext %}
-Learn more about [kubectl port-forward](/docs/user-guide/kubectl/{{page.version}}/#port-forward).
+Learn more about [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward).
 {% endcapture %}
 
 
