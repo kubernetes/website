@@ -211,4 +211,4 @@ You can use `kubectl convert` command to convert config files between different 
 kubectl convert -f pod.yaml --output-version v1
 ```
 
-For more options, please refer to the usage of [kubectl convert](/docs/user-guide/kubectl/{{page.version}}/#convert) command.
+For more options, please refer to the usage of [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands/#convert) command.
