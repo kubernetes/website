@@ -55,7 +55,7 @@ Run it like this:
 $ kubectl proxy --port=8080 &
 ```
 
-See [kubectl proxy](/docs/user-guide/kubectl/{{page.version}}/#proxy) for more details.
+See [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands/#proxy) for more details.
 
 Then you can explore the API with curl, wget, or a browser, like so:
 

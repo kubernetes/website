@@ -27,7 +27,7 @@ You have several options for connecting to nodes, pods and services from outside
   - Access services through public IPs.
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
       the cluster.  See the [services](/docs/user-guide/services) and
-      [kubectl expose](/docs/user-guide/kubectl/{{page.version}}/#expose) documentation.
+      [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) documentation.
     - Depending on your cluster environment, this may just expose the service to your corporate network,
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
       Does it do its own authentication?
@@ -43,7 +43,7 @@ You have several options for connecting to nodes, pods and services from outside
     - Only works for HTTP/HTTPS.
     - Described [here](#manually-constructing-apiserver-proxy-urls).
   - Access from a node or pod in the cluster.
-    - Run a pod, and then connect to a shell in it using [kubectl exec](/docs/user-guide/kubectl/{{page.version}}/#exec).
+    - Run a pod, and then connect to a shell in it using [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec).
       Connect to other nodes, pods, and services from that shell.
     - Some clusters may allow you to ssh to a node in the cluster. From there you may be able to
       access cluster services. This is a non-standard method, and will work on some clusters but

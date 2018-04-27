@@ -316,12 +316,12 @@ kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"co
 In this exercise, you used `kubectl patch` to change the live configuration
 of a Deployment object. You did not change the configuration file that you originally used to
 create the Deployment object. Other commands for updating API objects include
-[kubectl annotate](/docs/user-guide/kubectl/{{page.version}}/#annotate),
-[kubectl edit](/docs/user-guide/kubectl/{{page.version}}/#edit),
-[kubectl replace](/docs/user-guide/kubectl/{{page.version}}/#replace),
-[kubectl scale](/docs/user-guide/kubectl/{{page.version}}/#scale),
+[kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate),
+[kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit),
+[kubectl replace](/docs/reference/generated/kubectl/kubectl-commands/#replace),
+[kubectl scale](/docs/reference/generated/kubectl/kubectl-commands/#scale),
 and
-[kubectl apply](/docs/user-guide/kubectl/{{page.version}}/#apply).
+[kubectl apply](/docs/reference/generated/kubectl/kubectl-commands/#apply).
 
 {% endcapture %}
 

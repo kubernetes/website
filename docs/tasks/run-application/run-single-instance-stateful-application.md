@@ -181,7 +181,7 @@ underlying resource upon deleting the PersistentVolume.
 
 * Learn more about [Deploying applications](/docs/user-guide/deploying-applications/)
 
-* [kubectl run documentation](/docs/user-guide/kubectl/{{page.version}}/#run)
+* [kubectl run documentation](/docs/reference/generated/kubectl/kubectl-commands/#run)
 
 * [Volumes](/docs/concepts/storage/volumes/) and [Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 

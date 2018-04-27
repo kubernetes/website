@@ -95,7 +95,7 @@ In addition, there is a special `kubectl autoscale` command for easy creation of
 For instance, executing `kubectl autoscale rc foo --min=2 --max=5 --cpu-percent=80`
 will create an autoscaler for replication controller *foo*, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
-The detailed documentation of `kubectl autoscale` can be found [here](/docs/user-guide/kubectl/{{page.version}}/#autoscale).
+The detailed documentation of `kubectl autoscale` can be found [here](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 
 
 ## Autoscaling during rolling update
@@ -182,5 +182,5 @@ custom metrics API and, optionally, external metrics API with the API aggregatio
 ## Further reading
 
 * Design documentation: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
-* kubectl autoscale command: [kubectl autoscale](/docs/user-guide/kubectl/{{page.version}}/#autoscale).
+* kubectl autoscale command: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * Usage example of [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
