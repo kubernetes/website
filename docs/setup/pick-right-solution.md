@@ -87,6 +87,8 @@ few commands.
 
 * [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
 * [Kubermatic](https://www.loodse.com)
+* [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
+* [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
 
 # Custom Solutions
 
