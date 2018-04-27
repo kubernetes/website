@@ -126,7 +126,10 @@ would trigger a Pod eviction.
 
 The `kubelet` has the following default hard eviction threshold:
 
-* `--eviction-hard=memory.available<100Mi`
+* `memory.available<100Mi`
+* `nodefs.available<10%`
+* `nodefs.inodesFree<5%`
+* `imagefs.available<15%`
 
 ### Eviction Monitoring Interval
 
