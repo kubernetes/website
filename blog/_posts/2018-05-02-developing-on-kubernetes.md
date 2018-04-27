@@ -17,7 +17,7 @@ In the following, we’ll first discuss the overall development setup, then revi
 
 As a developer you want to think about where the Kubernetes cluster you’re developing against runs as well as where the development environment sits. Conceptually there are four development modes:
 
-![Dev Modes](/images/blog-logging/2018-05-02-developing-on-kubernetes/dok-devmodes_preview.png)
+![Dev Modes](/images/blog/2018-05-02-developing-on-kubernetes/dok-devmodes_preview.png)
 
 A number of tools support pure offline development including Minikube, Docker for Mac/Windows, Minishift, and the ones we discuss in detail below. Sometimes, for example, in a microservices setup where certain microservices already run in the cluster, a proxied setup (forwarding traffic into and from the cluster) is preferable and Telepresence is an example tool in this category. The live mode essentially means you’re building and/or deploying against a remote cluster and, finally, the pure online mode means both your development environment and the cluster are remote, as this is the case with, for example, [Eclipse Che](https://www.eclipse.org/che/docs/kubernetes-single-user.html) or [Cloud 9](https://github.com/errordeveloper/k9c). Let’s now have a closer look at the basics of offline development: running Kubernetes locally.
 
@@ -140,7 +140,7 @@ The app we will be using for the hands-on walkthroughs of the tools in the follo
 
 Overall, the default setup of the app looks as follows:
 
-![Default Setup](/images/blog-logging/2018-05-02-developing-on-kubernetes/dok-architecture_preview.png)
+![Default Setup](/images/blog/2018-05-02-developing-on-kubernetes/dok-architecture_preview.png)
 
 In the following we’ll do a hands-on walkthrough for a representative selection of tools discussed above: ksync, Minikube with local build, as well as Skaffold. For each of the tools we do the following:
 
@@ -191,7 +191,7 @@ $ watch curl localhost:9898/healthz
 
 Now change the code in the `ksync/stock-con`directory, for example update the [`/healthz` endpoint code in `service.js`](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52) by adding a field to the JSON response and observe how the pod gets updated and the response of the `curl localhost:9898/healthz` command changes. Overall you should have something like the following in the end:
 
-![Preview](/images/blog-logging/2018-05-02-developing-on-kubernetes/dok-ksync_preview.png)
+![Preview](/images/blog/2018-05-02-developing-on-kubernetes/dok-ksync_preview.png)
 
 ### Walkthrough: Minikube with local build
 
@@ -226,7 +226,7 @@ $ kubectl -n dok set image deployment/stock-con *=stock-con:dev
 ```
 Overall you should have something like the following in the end:
 
-![Local Preview](/images/blog-logging/2018-05-02-developing-on-kubernetes/dok-minikube-localdev_preview.png)
+![Local Preview](/images/blog/2018-05-02-developing-on-kubernetes/dok-minikube-localdev_preview.png)
 
 ### Walkthrough: Skaffold
 
@@ -347,7 +347,7 @@ $ watch curl localhost:9898/healthz
 
 If you now change the code in the `stock-con`directory, for example, by updating the [`/healthz` endpoint code in `service.js`](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52) by adding a field to the JSON response, you should see Skaffold noticing the change and create a new image as well as deploy it. The resulting screen would look something like this:
 
-![Skaffold Preview](/images/blog-logging/2018-05-02-developing-on-kubernetes/dok-skaffold_preview.png)
+![Skaffold Preview](/images/blog/2018-05-02-developing-on-kubernetes/dok-skaffold_preview.png)
 
 By now you should have a feeling how different tools enable you to develop apps on Kubernetes and if you’re interested to learn more about tools and or methods, check out the following resources:
 
