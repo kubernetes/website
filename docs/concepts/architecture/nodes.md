@@ -22,7 +22,6 @@ architecture design doc for more details.
 A node's status contains the following information:
 
 * [Addresses](#addresses)
-* ~~[Phase](#phase)~~ **deprecated**
 * [Condition](#condition)
 * [Capacity](#capacity)
 * [Info](#info)
@@ -37,9 +36,6 @@ The usage of these fields varies depending on your cloud provider or bare metal 
 * ExternalIP: Typically the IP address of the node that is externally routable (available from outside the cluster).
 * InternalIP: Typically the IP address of the node that is routable only within the cluster.
 
-### Phase
-
-Deprecated: node phase is no longer used.
 
 ### Condition
 
