@@ -71,7 +71,7 @@ Through these deployment tasks, you'll gain familiarity with the following:
 * Common workload objects
   * **{% glossary_tooltip text="Deployment" term_id="deployment" %}** - The most common way of running *X* copies (Pods) of your application. Supports rolling updates to your container images.
 
-  * **{% glossary_tooltip text="Service" term_id="deployment" %}** - By itself, a Deployment can't receive traffic. Setting up a Service is one of the simplest ways to configure a Deployment to receive and loadbalance requests. Depending on the `type` of Service used, these requests can come from external client apps or be limited to apps within the same cluster. A Service is tied to a specific Deployment using {% glossary_tooltip text="label" term_id="label" %} selection.
+  * **{% glossary_tooltip text="Service" term_id="service" %}** - By itself, a Deployment can't receive traffic. Setting up a Service is one of the simplest ways to configure a Deployment to receive and loadbalance requests. Depending on the `type` of Service used, these requests can come from external client apps or be limited to apps within the same cluster. A Service is tied to a specific Deployment using {% glossary_tooltip text="label" term_id="label" %} selection.
 
 The subsequent topics are also useful to know for basic application deployment.
 
