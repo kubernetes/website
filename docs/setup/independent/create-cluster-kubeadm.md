@@ -14,7 +14,7 @@ cluster in an easy, reasonably secure and extensible way. It also supports
 managing [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for you and upgrading/downgrading clusters.
 
 kubeadm aims to set up a minimum viable cluster that pass the
-[Kubernetes Conformance tests](http://blog.kubernetes.io/2017/10/software-conformance-certification), but installing other addons than
+[Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification), but installing other addons than
 really necessary for a functional cluster is out of scope.
 
 It by design does not install a networking solution for you, which means you
