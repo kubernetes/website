@@ -47,7 +47,7 @@ While the first option provides more performance and better hardware isolation, 
 
 For **Option 1**: create 3 virtual machines that follow [CoreOS's hardware recommendations](https://coreos.com/etcd/docs/latest/op-guide/hardware.html). For the sake of simplicity, we will refer to them as `etcd0`, `etcd1` and `etcd2`.
 
-For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd1` and `etcd2` throughout this guide should be replaced with `master0`, `master1` and `master2` accordingly, since your master nodes host etcd.
+For **Option 2**: do not create machines for `etcd0`, `etcd1` and `etcd2`. Any reference to `etcd0`, `etcd1` and `etcd2` throughout this guide should be replaced with `master0`, `master1` and `master2` accordingly, since your master nodes host etcd.
 
 ### Create etcd CA certs
 
