@@ -3,51 +3,26 @@ cn-approvers:
 - lichuqiang
 title: 证书
 ---
-<!--
----
-title: Certificates
----
--->
 
 * TOC
 {:toc}
 
-<!--
-## Creating Certificates
-
-When using client certificate authentication, you can generate certificates
-using an existing deployment script or manually through `easyrsa`, `openssl`
-or `cfssl`.
--->
 ## 创建证书
 
 当使用客户端证书进行认证时，用户可以使用现有部署脚本，或者通过 `easyrsa`、`openssl` 或
 `cfssl` 手动生成证书。
 
-<!--
-### Using an Existing Deployment Script
-
-**Using an existing deployment script** is implemented at
-`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.
-
-Execute this script with two parameters. The first is the IP address
-of API server. The second is a list of subject alternate names in the form `IP:<ip-address> or DNS:<dns-name>`.
-
-The script generates three files: `ca.crt`, `server.crt`, and `server.key`.
-
-Finally, add the following parameters into API server start parameters:
--->
 ### 使用现有部署脚本
 
 **现有部署脚本** 位于
 `cluster/saltbase/salt/generate-cert/make-ca-cert.sh`。
 
-执行该脚本时需传入两个参数。 第一个参数为 API server 的 IP 地址，第二个参数为对象的候补名称列表，
+执行该脚本时需传入两个参数。 第一个参数为 API 服务器的 IP 地址，第二个参数为对象的候补名称列表，
 形如 `IP:<ip地址> 或 DNS:<dns名称>`。
 
 脚本生成三个文件： `ca.crt`、`server.crt` 和 `server.key`。
 
-最后，将以下参数加入到  API server 的启动参数中：
+最后，将以下参数加入到  API 服务器的启动参数中：
 
 ```
 --client-ca-file=/srv/kubernetes/ca.crt
@@ -55,13 +30,6 @@ Finally, add the following parameters into API server start parameters:
 --tls-private-key-file=/srv/kubernetes/server.key
 ```
 
-<!--
-### easyrsa
-
-**easyrsa** can manually generate certificates for your cluster.
-
-1.  Download, unpack, and initialize the patched version of easyrsa3.
--->
 ### easyrsa
 
 使用 **easyrsa** 能够手动地为集群生成证书。
@@ -72,26 +40,14 @@ Finally, add the following parameters into API server start parameters:
         tar xzf easy-rsa.tar.gz
         cd easy-rsa-master/easyrsa3
         ./easyrsa init-pki
-<!--
-1.  Generate a CA. (`--batch` set automatic mode. `--req-cn` default CN to use.)
--->
-1.  生成 CA（通过 `--batch` 参数设置自动模式。 通过 `--req-cn` 设置默认使用的 CN）。
+1.  生成 CA（通过 `--batch` 参数设置自动模式。 通过 `--req-cn` 设置默认使用的 CN）
 
         ./easyrsa --batch "--req-cn=${MASTER_IP}@`date +%s`" build-ca nopass
-<!--
-1.  Generate server certificate and key.
-    The argument `--subject-alt-name` sets the possible IPs and DNS names the API server will
-    be accessed with. The `MASTER_CLUSTER_IP` is usually the first IP from the service CIDR
-    that is specified as the `--service-cluster-ip-range` argument for both the API server and
-    the controller manager component. The argument `--days` is used to set the number of days
-    after which the certificate expires.
-    The sample below also assume that you are using `cluster.local` as the default
-    DNS domain name.
--->
 1.  生成服务器证书和密钥。
-    参数 `--subject-alt-name` 设置了访问 API server 时可能使用的 IP 和 DNS 名称。 `MASTER_CLUSTER_IP`
-    通常为 `--service-cluster-ip-range` 参数中指定的服务 CIDR 的 首个 IP 地址，`--service-cluster-ip-range`同时用于 API server 和 controller manager 组件。  `--days` 参数用于设置证书的有效期限。
-    下面的示例还假设用户使用 `cluster.local` 作为默认的 DNS 域名：
+    参数 `--subject-alt-name` 设置了访问 API 服务器时可能使用的 IP 和 DNS 名称。 `MASTER_CLUSTER_IP`
+    通常为 `--service-cluster-ip-range` 参数中指定的服务 CIDR 的 首个 IP 地址，`--service-cluster-ip-range`同时用于
+    API 服务器和控制器管理器组件。  `--days` 参数用于设置证书的有效期限。
+    下面的示例还假设用户使用 `cluster.local` 作为默认的 DNS 域名。
 
         ./easyrsa --subject-alt-name="IP:${MASTER_IP}"\
         "IP:${MASTER_CLUSTER_IP},"\
@@ -102,59 +58,30 @@ Finally, add the following parameters into API server start parameters:
         "DNS:kubernetes.default.svc.cluster.local" \
         --days=10000 \
         build-server-full server nopass
-<!--
-1.  Copy `pki/ca.crt`, `pki/issued/server.crt`, and `pki/private/server.key` to your directory.
--->
 1.  拷贝 `pki/ca.crt`、 `pki/issued/server.crt` 和 `pki/private/server.key` 至您的目录。
-<!--
-1.  Fill in and add the following parameters into the API server start parameters:
--->
-1.  填充并在 API server 的启动参数中添加以下参数：
+1.  填充并在 API 服务器的启动参数中添加以下参数：
 
         --client-ca-file=/yourdirectory/ca.crt
         --tls-cert-file=/yourdirectory/server.crt
         --tls-private-key-file=/yourdirectory/server.key
 
-<!--
-### openssl
-
-**openssl** can manually generate certificates for your cluster.
--->
 ### openssl
 
 使用 **openssl** 能够手动地为集群生成证书。
 
-<!--
-1.  Generate a ca.key with 2048bit:
--->
-1.  生成密钥位数为 2048bit 的 ca.key：
+1.  生成密钥位数为 2048 的 ca.key：
 
         openssl genrsa -out ca.key 2048
-<!--
-1.  According to the ca.key generate a ca.crt (use -days to set the certificate effective time):
--->
 1.  依据 ca.key 生成 ca.crt （使用 -days 参数来设置证书有效时间）：
 
         openssl req -x509 -new -nodes -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt
-<!--
-1.  Generate a server.key with 2048bit:
--->
-1.  生成密钥位数为 2048bit 的 server.key：
+1.  生成密钥位数为 2048 的 server.key：
 
         openssl genrsa -out server.key 2048
-<!--
-1.  Create a config file for generating a Certificate Signing Request (CSR).
-    Be sure to substitute the values marked with angle brackets (e.g. `<MASTER_IP>`)
-    with real values before saving this to a file (e.g. `csr.conf`).
-    Note that the value for `MASTER_CLUSTER_IP` is the service cluster IP for the
-    API server as described in previous subsection.
-    The sample below also assume that you are using `cluster.local` as the default
-    DNS domain name.
--->
 1.  创建用于生成证书签名请求（CSR）的配置文件。
     确保在将其保存至文件（如`csr.conf`）之前将尖括号标记的值（如`<MASTER_IP>`）
-    替换为你想使用的真实值。 注意：`MASTER_CLUSTER_IP` 是前面小节中描述的 API server 服务的集群 IP
-    (service cluster IP)。 下面的示例也假设用户使用 `cluster.local` 作为默认的 DNS 域名：
+    替换为你想使用的真实值。 注意：`MASTER_CLUSTER_IP` 是前面小节中描述的 API 服务器的服务集群 IP
+    (service cluster IP)。 下面的示例也假设用户使用 `cluster.local` 作为默认的 DNS 域名。
 
         [ req ]
         default_bits = 2048
@@ -189,46 +116,24 @@ Finally, add the following parameters into API server start parameters:
         keyUsage=keyEncipherment,dataEncipherment
         extendedKeyUsage=serverAuth,clientAuth
         subjectAltName=@alt_names
-<!--
-1.  Generate the certificate signing request based on the config file:
--->
 1.  基于配置文件生成证书签名请求：
 
         openssl req -new -key server.key -out server.csr -config csr.conf
-<!--
-1.  Generate the server certificate using the ca.key, ca.crt and server.csr:
--->
 1.  使用 ca.key、ca.crt 和 server.csr 生成服务器证书：
 
         openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key \
         -CAcreateserial -out server.crt -days 10000 \
         -extensions v3_ext -extfile csr.conf
-<!--
-1.  View the certificate:
--->
 1.  查看证书：
 
         openssl x509  -noout -text -in ./server.crt
 
-<!--
-Finally, add the same parameters into the API server start parameters.
--->
-最后，添加同样的参数到  API server 的启动参数中。
+最后，添加同样的参数到  API 服务器的启动参数中。
 
-<!--
-### cfssl
-
-**cfssl** is another tool for certificate generation.
--->
 ### cfssl
 
 **cfssl** 是另一种用来生成证书的工具。
 
-<!--
-1.  Download, unpack and prepare the command line tools as shown below.
-    Note that you may need to adapt the sample commands based on the hardware
-    architecture and cfssl version you are using.
--->
 1.  按如下所示的方式下载、解压并准备命令行工具。
     注意：你可能需要基于硬件架构和你所使用的 cfssl 版本对示例命令进行修改。
 
@@ -238,18 +143,12 @@ Finally, add the same parameters into the API server start parameters.
         chmod +x cfssljson
         curl -LO https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64 -o cfssl-certinfo
         chmod +x cfssl-certinfo
-<!--
-1.  Create a directory to hold the artifacts and initialize cfssl:
--->
 1.  创建目录来存放物料，并初始化 cfssl：
 
         mkdir cert
         cd cert
         ../cfssl print-defaults config > config.json
         ../cfssl print-defaults csr > csr.json
-<!--
-1.  Create a JSON config file for generating the CA file, for example, `ca-config.json`:
--->
 1.  创建用来生成 CA 文件的 JSON 配置文件，例如 `ca-config.json`：
 
         {
@@ -270,11 +169,6 @@ Finally, add the same parameters into the API server start parameters.
             }
           }
         }
-<!--
-1.  Create a JSON config file for CA certificate signing request (CSR), for example,
-    `ca-csr.json`. Be sure the replace the values marked with angle brackets with
-    real values you want to use.
--->
 1.  创建用来生成 CA 证书签名请求（CSR）的 JSON 配置文件，例如 `ca-csr.json`。
     确保将尖括号标记的值替换为你想使用的真实值。
 
@@ -292,23 +186,12 @@ Finally, add the same parameters into the API server start parameters.
             "OU": "<organization unit>",
           }]
         }
-<!--
-1.  Generate CA key (`ca-key.pem`) and certificate (`ca.pem`):
--->
 1.  生成 CA 密钥（`ca-key.pem`）和证书（`ca.pem`）：
 
         ../cfssl gencert -initca ca-csr.json | ../cfssljson -bare ca
-<!--
-1.  Create a JSON config file for generating keys and certificates for the API
-    server as shown below. Be sure to replace the values in angle brackets with
-    real values you want to use. The `MASTER_CLUSTER_IP` is the service cluster
-    IP for the API server as described in previous subsection.
-    The sample below also assume that you are using `cluster.local` as the default
-    DNS domain name.
--->
-1.  按如下所示的方式创建用来为 API server 生成密钥和证书的 JSON 配置文件。
+1.  按如下所示的方式创建用来为 API 服务器生成密钥和证书的 JSON 配置文件。
     确保将尖括号标记的值替换为你想使用的真实值。 `MASTER_CLUSTER_IP` 是前面小节中描述的
-    API server 服务的集群 IP。 下面的示例也假设用户使用 `cluster.local` 作为默认的 DNS 域名：
+    API 服务器的服务集群 IP。 下面的示例也假设用户使用 `cluster.local` 作为默认的 DNS 域名。
 
         {
           "CN": "kubernetes",
@@ -333,12 +216,8 @@ Finally, add the same parameters into the API server start parameters.
             "O": "<organization>",
             "OU": "<organization unit>"
           }]
-        }
-<!--
-1.  Generate the key and certificate for the API server, which are by default
-    saved into file `server-key.pem` and `server.pem` respectively:
--->
-1.  为 API server 生成密钥和证书，生成的秘钥和证书分别默认保存在文件 `server-key.pem`
+        } 
+1.  为 API 服务器生成密钥和证书，生成的秘钥和证书分别默认保存在文件 `server-key.pem`
     和 `server.pem` 中：
 
         ../cfssl gencert -ca=ca.pem -ca-key=ca-key.pem \
@@ -346,20 +225,10 @@ Finally, add the same parameters into the API server start parameters.
         server-csr.json | ../cfssljson -bare server
 
 
-<!--
-## Distributing Self-Signed CA Certificate
-
-A client node may refuse to recognize a self-signed CA certificate as valid.
-For a non-production deployment, or for a deployment that runs behind a company
-firewall, you can distribute a self-signed CA certificate to all clients and
-refresh the local list for valid certificates.
-
-On each client, perform the following operations:
--->
 ## 分发自签名 CA 证书
 
 客户端节点可能拒绝承认自签名 CA 证书有效。
-对于非生产环境的部署，或运行在企业防火墙后的部署，用户可以向所有客户端分发自签名CA证书，
+对于非生产环境的部署，或运行在企业防火墙后的部署，用户可以向所有客户端分发自签名 CA 证书，
 并刷新本地的有效证书列表。
 
 在每个客户端上执行以下操作：
@@ -367,19 +236,12 @@ On each client, perform the following operations:
 ```bash
 $ sudo cp ca.crt /usr/local/share/ca-certificates/kubernetes.crt
 $ sudo update-ca-certificates
-pdating certificates in /etc/ssl/certs...
+Updating certificates in /etc/ssl/certs...
 1 added, 0 removed; done.
 Running hooks in /etc/ca-certificates/update.d....
 done.
 ```
 
-<!--
-## Certificates API
-
-You can use the `certificates.k8s.io` API to provision
-x509 certificates to use for authentication as documented
-[here](/docs/tasks/tls/managing-tls-in-a-cluster).
--->
 ## 证书 API
 
 您可以按照[这里](/docs/tasks/tls/managing-tls-in-a-cluster)记录的方式，

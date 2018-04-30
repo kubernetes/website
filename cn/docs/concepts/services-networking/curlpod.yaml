@@ -1,11 +1,8 @@
-apiVersion: apps/v1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: curl-deployment
 spec:
-  selector:
-    matchLabels:
-      app: curlpod
   replicas: 1
   template:
     metadata:

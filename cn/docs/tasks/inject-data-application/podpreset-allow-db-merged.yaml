@@ -10,7 +10,7 @@ metadata:
 spec:
   containers:
     - name: website
-      image: nginx
+      image: ecorp/website
       volumeMounts:
         - mountPath: /cache
           name: cache-volume
@@ -28,7 +28,7 @@ spec:
           value: $(REPLACE_ME)
       envFrom:
         - configMapRef:
-            name: etcd-env-config
+          name: etcd-env-config
   volumes:
     - name: cache-volume
       emptyDir: {}

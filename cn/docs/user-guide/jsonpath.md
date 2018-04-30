@@ -1,32 +1,9 @@
 ---
 title: JSONPath 支持
-cn-approvers:
-- rootsongjc
-cn-reviewers:
-- rootsongjc
 ---
 
-<!--
-
-JSONPath template is composed of JSONPath expressions enclosed by {}.
-And we add three functions in addition to the original JSONPath syntax:
-
--->
-
-JSONPath 模板由 {} 括起来的 JSONPath 表达式组成。
+JSONPath 模板由 {} 包起来的 JSONPath 表达式组成。
 除了原始的 JSONPath 语法之外，我们还添加了三个函数：
-
-<!--
-
-1. The `$` operator is optional since the expression always starts from the root object by default.
-2. We can use `""` to quote text inside JSONPath expressions.
-3. We can use `range` operator to iterate lists.
-
-The result object is printed as its String() function.
-
-Given the input:
-
--->
 
 1. `$` 运算符是可选的，因为表达式默认情况下始终从根对象开始。
 2. 我们可以使用 `""` 来引用 JSONPath 表达式中的文本。
@@ -72,20 +49,6 @@ Given the input:
   ]
 }
 ```
-<!--
-| Function          | Description               | Example                                  | Result                                   |
-| ----------------- | ------------------------- | ---------------------------------------- | ---------------------------------------- |
-| text              | the plain text            | kind is {.kind}                          | kind is List                             |
-| @                 | the current object        | {@}                                      | the same as input                        |
-| . or []           | child operator            | {.kind} or {['kind']}                    | List                                     |
-| ..                | recursive descent         | {..name}                                 | 127.0.0.1 127.0.0.2 myself e2e           |
-| *                 | wildcard. Get all objects | {.items[*].metadata.name}                | [127.0.0.1 127.0.0.2]                    |
-| [start:end :step] | subscript operator        | {.users[0].name}                         | myself                                   |
-| [,]               | union operator            | {.items[*]['metadata.name', 'status.capacity']} | 127.0.0.1 127.0.0.2 map[cpu:4] map[cpu:8] |
-| ?()               | filter                    | {.users[?(@.name=="e2e")].user.password} | secret                                   |
-| range, end        | iterate list              | {range .items[*]}[{.metadata.name}, {.status.capacity}] {end} | [127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]] |
-| ""                | quote interpreted string  | {range .items[*]}{.metadata.name}{"\t"}{end} | 127.0.0.1    127.0.0.2                   |
--->
 | 函数                | 描述         | 示例                                       | 结果                                       |
 | ----------------- | ---------- | ---------------------------------------- | ---------------------------------------- |
 | text              | 纯文本        | kind is {.kind}                          | kind is List                             |
