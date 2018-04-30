@@ -129,6 +129,12 @@ apiserver sends an `admissionReview` request to webhook as specified in the
 After you create the webhook configuration, the system will take a few seconds
 to honor the new configuration.
 
+**Note** When the webhook plugin is deployed into the Kubernetes cluster as a
+service, it has to expose its service on the 443 port. The communication
+between the API server and the webhook service may fail if a different port
+is used.
+{: .note}
+
 ### Authenticate apiservers
 
 If your admission webhooks require authentication, you can configure the
