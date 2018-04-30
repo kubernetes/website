@@ -57,6 +57,11 @@ EOF
     ```
 
     Instructions for other distributions or Kubernetes installations may vary.
+For ubuntu 16.04 ensure `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` to include this line:
+
+    ```
+    Environment="KUBELET_SYSTEM_PODS_ARGS=--pod-manifest-path=/etc/kubelet.d/ --allow-privileged=true"
+    ```
 
 4. Restart kubelet. On Fedora, this is:
 
