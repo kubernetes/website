@@ -1,43 +1,44 @@
 ---
-reviewers:
+approvers:
 - eparis
 - pmorie
-title: Configuring Redis using a ConfigMap
+title: 使用ConfigMap来配置Redis
 ---
 
 {% capture overview %}
 
-This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
+这篇文档基于[使用ConfigMap来配置Containers](/docs/tasks/configure-pod-container/configure-pod-configmap/) 这个任务，提供了一个使用ConfigMap来配置Redis的真实案例。
 
 {% endcapture %}
 
 {% capture objectives %}
 
-* Create a ConfigMap.
-* Create a pod specification using the ConfigMap.
-* Create the pod.
-* Verify that the configuration was correctly applied.
+* 创建一个ConfigMap。
+* 使用ConfigMap来配置pod参数。
+* 创建pod。
+* 验证是否配置成功。
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
 * {% include task-tutorial-prereqs.md %}
-* Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+* 理解[使用ConfigMap来配置Containers](/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
 {% endcapture %}
 
 {% capture lessoncontent %}
 
 
-## Real World Example: Configuring Redis using a ConfigMap
+## 真实世界的案例：使用ConfigMap来配置Redis
 
-You can follow the steps below to configure a Redis cache using data stored in a ConfigMap.
+按照下面的步骤，您可以使用ConfigMap中的数据来配置Redis缓存。
 
-1. Create a ConfigMap from the `docs/tutorials/configuration/configmap/redis/redis-config` file:
+1. 根据`docs/user-guide/configmap/redis/redis-config`来创建一个ConfigMap：
 
    ```shell
-   kubectl create configmap example-redis-config --from-file=https://k8s.io/docs/tutorials/configuration/configmap/redis/redis-config
+   kubectl create configmap example-redis-config --from-file=docs/user-guide/configmap/redis/redis-config
+
    kubectl get configmap example-redis-config -o yaml
    ```
 
@@ -57,7 +58,7 @@ You can follow the steps below to configure a Redis cache using data stored in a
      uid: 460a2b6e-f6a3-11e5-8ae5-42010af00002
    ```
 
-1. Create a pod specification that uses the config data stored in the ConfigMap:
+1. 使用ConfigMap来配置pod参数：
 
    ```yaml
    apiVersion: v1
@@ -91,10 +92,10 @@ You can follow the steps below to configure a Redis cache using data stored in a
            - key: redis-config
              path: redis.conf
    ```
-1. Create the pod:
+1. 创建pod:
 
    ```shell
-   kubectl create -f https://k8s.io/tutorials/configuration/configmap/redis/redis-pod.yaml
+   kubectl create -f docs/user-guide/configmap/redis/redis-pod.yaml
    ```
 
    In the example, the config volume is mounted at `/redis-master`.
@@ -102,7 +103,7 @@ You can follow the steps below to configure a Redis cache using data stored in a
    The file path for the redis config, therefore, is `/redis-master/redis.conf`.
    This is where the image will look for the config file for the redis master.
 
-1. Use `kubectl exec` to enter the pod and run the `redis-cli` tool to verify that the configuration was correctly applied:
+1. 使用`kubectl exec`命令进入pod后运行 `redis-cli` 工具来验证配置是否成功：
 
    ```shell
    kubectl exec -it redis redis-cli
@@ -118,7 +119,7 @@ You can follow the steps below to configure a Redis cache using data stored in a
 
 {% capture whatsnext %}
 
-* Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+* 了解关于[ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)的更多知识。
 
 {% endcapture %}
 

@@ -1,2 +1,0 @@
-[context.deploy-preview]
-  command = "make build-preview"

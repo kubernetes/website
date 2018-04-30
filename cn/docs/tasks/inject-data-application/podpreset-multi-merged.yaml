@@ -11,7 +11,7 @@ metadata:
 spec:
   containers:
     - name: website
-      image: nginx
+      image: ecorp/website
       volumeMounts:
         - mountPath: /cache
           name: cache-volume

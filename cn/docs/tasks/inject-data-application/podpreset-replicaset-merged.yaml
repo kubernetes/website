@@ -1,10 +1,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: frontend
   labels:
     app: guestbook
-    role: frontend
+    tier: frontend
   annotations:
     podpreset.admission.kubernetes.io/podpreset-allow-database: "resource version"
 spec:

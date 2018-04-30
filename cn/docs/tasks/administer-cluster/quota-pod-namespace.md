@@ -1,18 +1,12 @@
-<!-----
-title: Configure a Pod Quota for a Namespace
------>
+﻿---
+title: 配置命名空间下pod总数
 ---
-title: 为名字空间配置Pod配额
----
+
 
 {% capture overview %}
 
-This page shows how to set a quota for the total number of Pods that can run
-in a namespace. You specify quotas in a
-[ResourceQuota](/docs/api-reference/v1.7/#resourcequota-v1-core)
-object.
-本任务展示了如何为某一名字空间（namespace）设置Pod配额以限制可以在名字空间中运行的Pod数量。
-配额通过[ResourceQuota](/docs/api-reference/v1.7/#resourcequota-v1-core)对象设置。
+本文主要描述如何配置一个命名空间下可运行的pod总数。资源配额详细信息可查看：[资源配额](/docs/api-reference/v1.7/#resourcequota-v1-core)
+。
 
 {% endcapture %}
 
@@ -26,42 +20,33 @@ object.
 
 {% capture steps %}
 
-<!--## Create a namespace-->
-## 创建名字空间
+## 创建一个命名空间
 
-<!--Create a namespace so that the resources you create in this exercise are
-isolated from the rest of your cluster.-->
-创建一个单独的名字空间，以便于隔离您在本练习中创建的资源与集群的其他资源。
+首先创建一个命名空间，这样可以将本次操作中创建的资源与集群其他资源隔离开来。
 
 ```shell
 kubectl create namespace quota-pod-example
 ```
 
-<!--## Create a ResourceQuota-->
-## 创建ResourceQuota对象
+## 创建资源配额
 
-<!--Here is the configuration file for a ResourceQuota object:-->
-以下展示了ResourceQuota对象的配置文件内容：
+下面是一个资源配额的配置文件：
 
 {% include code.html language="yaml" file="quota-pod.yaml" ghlink="/docs/tasks/administer-cluster/quota-pod.yaml" %}
 
-<!--Create the ResourceQuota:-->
-下面，首先创建ResourceQuota对象
+创建这个资源配额：
 
 ```shell
 kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-pod.yaml --namespace=quota-pod-example
 ```
 
-<!--View detailed information about the ResourceQuota:-->
-然后可以通过以下命令查看ResourceQuota对象的详细信息：
+查看资源配额的详细信息：
 
 ```shell
 kubectl get resourcequota pod-demo --namespace=quota-pod-example --output=yaml
 ```
 
-<!--The output shows that the namespace has a quota of two Pods, and that currently there are
-no Pods; that is, none of the quota is used.-->
-命令输出显示了这个名字空间的Pod配额是2，由于目前没有Pod运行，所有配额并没有被使用。
+从输出的信息我们可以看到，该命名空间下pod的配额是2个，目前创建的pods数为0，配额使用率为0。
 
 ```yaml
 spec:
@@ -74,31 +59,25 @@ status:
     pods: "0"
 ```
 
-<!--Here is the configuration file for a Deployment:-->
-下面展示的是一个Deployment的配置文件：
+下面是一个Deployment的配置文件：
 
 {% include code.html language="yaml" file="quota-pod-deployment.yaml" ghlink="/docs/tasks/administer-cluster/quota-pod-deployment.yaml" %}
 
-<!--In the configuration file, `replicas: 3` tells Kubernetes to attempt to create three Pods, all running the same application.-->
-从配置文件可以看到，`replicas: 3`将令Kubernetes尝试创建3个Pod，所有的Pod实例都将运行同样的应用程序。
+在配置文件中， `replicas: 3` 告诉kubernetes尝试创建三个pods，且运行相同的应用。
 
-<!--Create the Deployment:-->
-接下来尝试创建这个Deployment：
+创建这个Deployment：
 
 ```shell
 kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-pod-deployment.yaml --namespace=quota-pod-example
 ```
 
-<!--View detailed information about the Deployment:-->
-并通过以下命令查看Deployment的详细信息：
+查看Deployment的详细信息：
 
 ```shell
 kubectl get deployment pod-quota-demo --namespace=quota-pod-example --output=yaml
 ```
 
-<!--The output shows that even though the Deployment specifies three replicas, only two
-Pods were created because of the quota.-->
-从命令输出可以看到尽管在Deployment中我们设置了需要启动3个Pod实例，但由于配额的存在，只有两个Pod被成功创建。
+从输出的信息我们可以看到，尽管尝试创建三个pod，但是由于配额的限制，只有两个pod能被成功创建。
 
 ```yaml
 spec:
@@ -113,11 +92,9 @@ lastUpdateTime: 2017-07-07T20:57:05Z
       exceeded quota: pod-demo, requested: pods=1, used: pods=2, limited: pods=2'
 ```
 
-<!--## Clean up-->
-## 练习环境的清理
+## 清理
 
-<!--Delete your namespace:-->
-通过删除名字空间即可完成环境的清理：
+删除命名空间：
 
 ```shell
 kubectl delete namespace quota-pod-example
@@ -127,40 +104,31 @@ kubectl delete namespace quota-pod-example
 
 {% capture whatsnext %}
 
-<!--### For cluster administrators-->
-### 集群管理员可以参考的配置配额方面的文档
+### 对于集群管理
 
-<!--* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/default-memory-request-limit/)-->
-* [为名字空间配置默认的内存请求和限制](/docs/tasks/administer-cluster/default-memory-request-limit/)
+* [配置命名空间下，内存默认的request值和limit值](/docs/tasks/administer-cluster/memory-default-namespace/)
 
-<!--* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/default-cpu-request-limit/)-->
-* [为名字空间配置默认的CPU请求和限制](/docs/tasks/administer-cluster/default-cpu-request-limit/)
+* [配置命名空间下，CPU默认的request值和limit值](/docs/tasks/administer-cluster/cpu-default-namespace/)
 
-<!--* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)-->
-* [为名字空间配置最小和最大的内存约束](/docs/tasks/administer-cluster/memory-constraint-namespace/)
+* [配置命名空间下，内存的最小值和最大值](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 
-<!--* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)-->
-* [为名字空间配置最小和最大的CPU约束](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+* [配置命名空间下，CPU的最小值和最大值](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
 
-<!--* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)-->
-* [为名字空间配置内存和CPU配额](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [配置命名空间下，内存和CPU的配额](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
 
-<!--* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)-->
-* [为API对象配置配额](/docs/tasks/administer-cluster/quota-api-object/)
+* [配置命名空间下，API对象的配额](/docs/tasks/administer-cluster/quota-api-object/)
 
-<!--### For app developers-->
-### 应用开发者可以参考的配置配额方面的文档
+### 对于应用开发
 
-<!--* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)-->
-* [为容器和Pod分配内存资源](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [给容器和pod分配内存资源](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-<!--* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)-->
-* [为容器和Pod分配CPU资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [给容器和pod分配CPU资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-<!--* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)-->
-* [为Pod配置服务质量要求（Quality of Service）](/docs/tasks/configure-pod-container/quality-service-pod/)
+* [配置pod的QoS](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 {% endcapture %}
 
 
 {% include templates/task.md %}
+
+

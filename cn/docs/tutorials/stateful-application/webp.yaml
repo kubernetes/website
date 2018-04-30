@@ -12,7 +12,7 @@ spec:
   selector:
     app: nginx
 ---
-apiVersion: apps/v1
+apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
   name: web
@@ -20,9 +20,6 @@ spec:
   serviceName: "nginx"
   podManagementPolicy: "Parallel"
   replicas: 2
-  selector:
-    matchLabels:
-      app: nginx
   template:
     metadata:
       labels:

@@ -7,9 +7,9 @@ metadata:
 spec:
   containers:
   - name: liveness
-    image: k8s.gcr.io/liveness
     args:
     - /server
+    image: k8s.gcr.io/liveness
     livenessProbe:
       httpGet:
         path: /healthz

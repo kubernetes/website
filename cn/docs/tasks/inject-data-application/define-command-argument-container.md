@@ -1,11 +1,10 @@
 ---
-title: Define a Command and Arguments for a Container
+title: 为容器设置启动时要执行的命令及其入参
 ---
 
 {% capture overview %}
 
-This page shows how to define commands and arguments when you run a container
-in a {% glossary_tooltip term_id="pod" %}.
+本页将展示如何为Kubernetes Pod下的容器设置启动时要执行的命令及其入参。
 
 {% endcapture %}
 
@@ -19,51 +18,43 @@ in a {% glossary_tooltip term_id="pod" %}.
 
 {% capture steps %}
 
-## Define a command and arguments when you create a Pod
+## 创建Pod时为其下的容器设置启动时要执行的命令及其入参
 
-When you create a Pod, you can define a command and arguments for the
-containers that run in the Pod. To define a command, include the `command`
-field in the configuration file. To define arguments for the command, include
-the `args` field in the configuration file. The command and arguments that
-you define cannot be changed after the Pod is created.
+创建Pod时，可以为其下的容器设置启动时要执行的命令及其入参。如果要设置命令，就
+填写在配置文件的`command`字段下，如果要设置命令的入参，就填写在配置文件的`args
+`字段下。一旦Pod创建完成，该命令及其入参就无法再进行更改了。
 
-The command and arguments that you define in the configuration file
-override the default command and arguments provided by the container image.
-If you define args, but do not define a command, the default command is used
-with your new arguments.
+如果在配置文件中设置了容器启动时要执行的命令及其入参，那么容器镜像中自带的命令
+与入参将会被覆盖而不再执行。如果配置文件中只是设置了入参，却没有设置其对应的命
+令，那么容器镜像中自带的命令会使用该新入参作为其执行时的入参。
 
-In this exercise, you create a Pod that runs one container. The configuration
-file for the Pod defines a command and two arguments:
+本示例中，将创建一个只包含单个容器的Pod。在Pod配置文件中设置了一个命令与两个入参：
 
-{% include code.html language="yaml" file="commands.yaml" ghlink="/docs/tasks/inject-data-application/commands.yaml" %}
+{% include code.html language="yaml" file="commands.yaml" ghlink="/cn/docs/tasks/inject-data-application/commands.yaml" %}
 
-1. Create a Pod based on the YAML configuration file:
+1. 基于YAML文件创建一个Pod：
 
        kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
 
-1. List the running Pods:
+1. 获取一下当前正在运行的Pods信息：
 
        kubectl get pods
 
-    The output shows that the container that ran in the command-demo Pod has
-    completed.
+    查询结果显示在command-demo这个Pod下运行的容器已经启动完成
 
-1. To see the output of the command that ran in the container, view the logs
-from the Pod:
+1. 如果要获取容器启动时执行命令的输出结果，可以通过Pod的日志进行查看
 
        kubectl logs command-demo
 
-    The output shows the values of the HOSTNAME and KUBERNETES_PORT environment
-    variables:
+    日志中显示了HOSTNAME 与KUBERNETES_PORT 这两个环境变量的值：
 
         command-demo
         tcp://10.3.240.1:443
 
-## Use environment variables to define arguments
+## 使用环境变量来设置入参
 
-In the preceding example, you defined the arguments directly by
-providing strings. As an alternative to providing strings directly,
-you can define arguments by using environment variables:
+在上面的示例中，我们直接将一串字符作为命令的入参。除此之外，我们还可以
+将环境变量作为命令的入参。
 
     env:
     - name: MESSAGE
@@ -71,51 +62,48 @@ you can define arguments by using environment variables:
     command: ["/bin/echo"]
     args: ["$(MESSAGE)"]
 
-This means you can define an argument for a Pod using any of
-the techniques available for defining environment variables, including
-[ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
-and
+这样一来，我们就可以将那些用来设置环境变量的方法应用于设置命令的入参，其
+中包括了[ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
+与
 [Secrets](/docs/concepts/configuration/secret/).
 
-**Note:** The environment variable appears in parentheses, `"$(VAR)"`. This is
-required for the variable to be expanded in the `command` or `args` field.
+**注意：** 环境变量需要加上括号，类似于`"$(VAR)"`。这是在`command` 
+或 `args`字段使用变量的格式要求。
 {: .note}
 
-## Run a command in a shell
+## 通过shell来执行命令
 
-In some cases, you need your command to run in a shell. For example, your
-command might consist of several commands piped together, or it might be a shell
-script. To run your command in a shell, wrap it like this:
+有时候，需要通过shell来执行命令。 例如，命令可能由多个命令组合而成，抑或包含
+在一个shell脚本中。这时，就可以通过如下方式在shell中执行命令：
 
     command: ["/bin/sh"]
     args: ["-c", "while true; do echo hello; sleep 10;done"]
 
-## Notes
+## 注意
 
-This table summarizes the field names used by Docker and Kubernetes.
+下表给出了Docker 与 Kubernetes中对应的字段名称。
 
 |              Description               |    Docker field name   | Kubernetes field name |
 |----------------------------------------|------------------------|-----------------------|
 |  The command run by the container      |   Entrypoint           |      command          |
 |  The arguments passed to the command   |   Cmd                  |      args             |
 
-When you override the default Entrypoint and Cmd, these rules apply:
+如果要覆盖默认的Entrypoint 与 Cmd，需要遵循如下规则：
 
-* If you do not supply `command` or `args` for a Container, the defaults defined
-in the Docker image are used.
+* 如果在容器配置中没有设置`command` 或者 `args`，那么将使用Docker镜像自带的命
+令及其入参。
 
-* If you supply a `command` but no `args` for a Container, only the supplied
-`command` is used. The default EntryPoint and the default Cmd defined in the Docker
-image are ignored.
+* 如果在容器配置中只设置了`command`但是没有设置`args`,那么容器启动时只会执行该
+命令，Docker镜像中自带的命令及其入参会被忽略。
 
-* If you supply only `args` for a Container, the default Entrypoint defined in
-the Docker image is run with the `args` that you supplied.
+* 如果在容器配置中只设置了`args`,那么Docker镜像中自带的命令会使用该新入参作为
+其执行时的入参。
 
-* If you supply a `command` and `args`, the default Entrypoint and the default
-Cmd defined in the Docker image are ignored. Your `command` is run with your
-`args`.
+* 如果在容器配置中同时设置了`command` 与 `args`，那么Docker镜像中自带的命令及
+其入参会被忽略。容器启动时只会执行配置中设置的命令，并使用配置中设置的入参作为
+命令的入参。
 
-Here are some examples:
+下表涵盖了各类设置场景：
 
 | Image Entrypoint   |    Image Cmd     | Container command   |  Container args    |    Command run   |
 |--------------------|------------------|---------------------|--------------------|------------------|
@@ -129,10 +117,10 @@ Here are some examples:
 
 {% capture whatsnext %}
 
-* Learn more about [containers and commands](/docs/user-guide/containers/).
-* Learn more about [configuring pods and containers](/docs/tasks/).
-* Learn more about [running commands in a container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
-* See [Container](/docs/reference/generated/kubernetes-api/{{page.version}}/#container-v1-core).
+* 获取更多资讯可参考 [containers and commands](/docs/user-guide/containers/).
+* 获取更多资讯可参考 [configuring pods and containers](/docs/tasks/).
+* 获取更多资讯可参考 [running commands in a container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
+* 参考 [Container](/docs/api-reference/{{page.version}}/#container-v1-core).
 
 {% endcapture %}
 
