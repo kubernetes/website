@@ -1,5 +1,5 @@
 ---
-assignees:
+approvers:
 - davidopp
 - thockin
 title: DNS Pod 与 Service
@@ -8,17 +8,7 @@ redirect_from:
 - "/docs/admin/dns.html"
 ---
 
-<!--
 
-## Introduction
-
-As of Kubernetes 1.3, DNS is a built-in service launched automatically using the addon manager [cluster add-on](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md).
-
-Kubernetes DNS schedules a DNS Pod and Service on the cluster, and configures
-the kubelets to tell individual containers to use the DNS Service's IP to
-resolve DNS names.
-
--->
 
 ## 介绍
 
@@ -27,89 +17,38 @@ Kubernetes 从 1.3 版本起， DNS 是内置的服务，通过插件管理器 [
 Kubernetes DNS 在集群中调度 DNS Pod 和 Service ，配置 kubelet 以通知个别容器使用 DNS Service 的 IP 解析 DNS 名字。
 
 
-<!--
 
-## What things get DNS names?
-
-Every Service defined in the cluster (including the DNS server itself) is
-assigned a DNS name.  By default, a client Pod's DNS search list will
-include the Pod's own namespace and the cluster's default domain.  This is best
-illustrated by example:
-
-Assume a Service named `foo` in the Kubernetes namespace `bar`.  A Pod running
-in namespace `bar` can look up this service by simply doing a DNS query for
-`foo`.  A Pod running in namespace `quux` can look up this service by doing a
-DNS query for `foo.bar`.
-
--->
 
 ## 怎样获取 DNS 名字?
 
-在集群中定义的每个 Service（包括 DNS 服务器自身）都会被指派一个 DNS 名称。默认，一个客户端 Pod 的 DNS 搜索列表将包含该 Pod 自己的 Namespace 和集群默认域。可以通过如下示例进行说明：
+在集群中定义的每个 Service（包括 DNS 服务器自身）都会被指派一个 DNS 名称。
+默认，一个客户端 Pod 的 DNS 搜索列表将包含该 Pod 自己的 Namespace 和集群默认域。
+通过如下示例可以很好地说明：
 
-假设在 Kubernetes 集群的 Namespace `bar` 中，定义了一个Service `foo`。运行在Namespace `bar` 中的一个 Pod，可以简单地通过 DNS 查询 `foo` 来找到该 Service。运行在 Namespace `quux` 中的一个 Pod 可以通过 DNS 查询 `foo.bar` 找到该 Service。
+假设在 Kubernetes 集群的 Namespace `bar` 中，定义了一个Service `foo`。
+运行在Namespace `bar` 中的一个 Pod，可以简单地通过 DNS 查询 `foo` 来找到该 Service。
+运行在 Namespace `quux` 中的一个 Pod 可以通过 DNS 查询 `foo.bar` 找到该 Service。
 
-<!--
 
-## Supported DNS schema
-
-The following sections detail the supported record types and layout that is
-supported.  Any other layout or names or queries that happen to work are
-considered implementation details and are subject to change without warning.
-
--->
 
 ## 支持的 DNS 模式
 
-下面各段详细说明支持的记录类型和布局。如果任何其它的布局、名称或查询，碰巧也能够使用，这就需要研究下它们的实现细节，以免后续修改它们又不能使用了。
+下面各段详细说明支持的记录类型和布局。
+如果任何其它的布局、名称或查询，碰巧也能够使用，这就需要研究下它们的实现细节，以免后续修改它们又不能使用了。
 
-<!--
 
-### Services
-
-#### A records
-
-"Normal" (not headless) Services are assigned a DNS A record for a name of the
-form `my-svc.my-namespace.svc.cluster.local`.  This resolves to the cluster IP
-of the Service.
-
-"Headless" (without a cluster IP) Services are also assigned a DNS A record for
-a name of the form `my-svc.my-namespace.svc.cluster.local`.  Unlike normal
-Services, this resolves to the set of IPs of the pods selected by the Service.
-Clients are expected to consume the set or else use standard round-robin
-selection from the set.
-
--->
 
 ### Service
 
 #### A 记录
 
-“正常” Service（除了Headless Service）会以 `my-svc.my-namespace.svc.cluster.local` 这种名字的形式被指派一个 DNS A 记录。这会解析成该 Service 的 Cluster IP。
+“正常” Service（除了 Headless Service）会以 `my-svc.my-namespace.svc.cluster.local` 这种名字的形式被指派一个 DNS A 记录。这会解析成该 Service 的 Cluster IP。
 
-“Headless” Service（没有Cluster IP）也会以 `my-svc.my-namespace.svc.cluster.local` 这种名字的形式被指派一个 DNS A 记录。不像正常 Service，它会解析成该 Service 选择的一组 Pod 的 IP。希望客户端能够使用这一组 IP，否则就使用标准的 round-robin 策略从这一组 IP 中进行选择。
+“Headless” Service（没有Cluster IP）也会以 `my-svc.my-namespace.svc.cluster.local` 这种名字的形式被指派一个 DNS A 记录。
+不像正常 Service，它会解析成该 Service 选择的一组 Pod 的 IP。
+希望客户端能够使用这一组 IP，否则就使用标准的 round-robin 策略从这一组 IP 中进行选择。
 
-<!--
 
-#### SRV records
-
-SRV Records are created for named ports that are part of normal or [Headless
-Services](/docs/concepts/services-networking/service/#headless-services).
-For each named port, the SRV record would have the form
-`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`.
-For a regular service, this resolves to the port number and the CNAME:
-`my-svc.my-namespace.svc.cluster.local`.
-For a headless service, this resolves to multiple answers, one for each pod
-that is backing the service, and contains the port number and a CNAME of the pod
-of the form `auto-generated-name.my-svc.my-namespace.svc.cluster.local`.
-
-#### Backwards compatibility
-
-Previous versions of kube-dns made names of the form
-`my-svc.my-namespace.cluster.local` (the 'svc' level was added later).  This
-is no longer supported.
-
--->
 
 #### SRV 记录
 
@@ -117,23 +56,13 @@ is no longer supported.
 Services](/docs/concepts/services-networking/service/#headless-services) 的一部分。
 对每个命名端口，SRV 记录具有 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local` 这种形式。
 对普通 Service，这会被解析成端口号和 CNAME：`my-svc.my-namespace.svc.cluster.local`。
-对 Headless Service，这会被解析成多个结果，Service 对应的每个 backend Pod各一个，包含 `auto-generated-name.my-svc.my-namespace.svc.cluster.local` 这种形式 Pod 的端口号和 CNAME。
+对 Headless Service，这会被解析成多个结果，Service 对应的每个 backend Pod 各一个，包含 `auto-generated-name.my-svc.my-namespace.svc.cluster.local` 这种形式 Pod 的端口号和 CNAME。
 
 #### 后向兼容性
 
 上一版本的 kube-dns 使用 `my-svc.my-namespace.cluster.local` 这种形式的名字（后续会增加 'svc' 这一级），以后这将不再被支持。
 
-<!--
 
-### Pods
-
-#### A Records
-
-When enabled, pods are assigned a DNS A record in the form of `pod-ip-address.my-namespace.pod.cluster.local`.
-
-For example, a pod with IP `1.2.3.4` in the namespace `default` with a DNS name of `cluster.local` would have an entry: `1-2-3-4.default.pod.cluster.local`.
-
--->
 
 ### Pod
 
@@ -143,17 +72,7 @@ For example, a pod with IP `1.2.3.4` in the namespace `default` with a DNS name 
 
 例如，`default` Namespace 具有 DNS 名字  `cluster.local`，在该 Namespace 中一个 IP 为 `1.2.3.4` 的 Pod 将具有一个条目：`1-2-3-4.default.pod.cluster.local`。
 
-<!--
 
-#### A Records and hostname based on Pod's hostname and subdomain fields
-
-Currently when a pod is created, its hostname is the Pod's `metadata.name` value.
-
-With v1.2, users can specify a Pod annotation, `pod.beta.kubernetes.io/hostname`, to specify what the Pod's hostname should be.
-The Pod annotation, if specified, takes precedence over the Pod's name, to be the hostname of the pod.
-For example, given a Pod with annotation `pod.beta.kubernetes.io/hostname: my-pod-name`, the Pod will have its hostname set to "my-pod-name".
-
--->
 
 #### 基于 Pod hostname、subdomain 字段的 A 记录和主机名
 
@@ -163,32 +82,17 @@ For example, given a Pod with annotation `pod.beta.kubernetes.io/hostname: my-po
 如果为 Pod 配置了 annotation，会优先使用 Pod 的名称作为主机名。
 例如，给定一个 Pod，它具有 annotation `pod.beta.kubernetes.io/hostname: my-pod-name`，该 Pod 的主机名被设置为 “my-pod-name”。
 
-<!--
 
-With v1.3, the PodSpec has a `hostname` field, which can be used to specify the Pod's hostname. This field value takes precedence over the
-`pod.beta.kubernetes.io/hostname` annotation value.
-
-v1.2 introduces a beta feature where the user can specify a Pod annotation, `pod.beta.kubernetes.io/subdomain`, to specify the Pod's subdomain.
-The final domain will be "<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>".
-For example, a Pod with the hostname annotation set to "foo", and the subdomain annotation set to "bar", in namespace "my-namespace", will have the FQDN "foo.bar.my-namespace.svc.cluster.local"
-
--->
 
 在 v1.3 版本中，PodSpec 具有 `hostname` 字段，可以用来指定 Pod 的主机名。这个字段的值优先于 annotation `pod.beta.kubernetes.io/hostname`。
 在 v1.2 版本中引入了 beta 特性，用户可以为 Pod 指定 annotation，其中 `pod.beta.kubernetes.io/subdomain` 指定了 Pod 的子域名。
 最终的域名将是 “<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>”。
 举个例子，Pod 的主机名 annotation 设置为 “foo”，子域名 annotation 设置为 “bar”，在 Namespace “my-namespace” 中对应的 FQDN 为 “foo.bar.my-namespace.svc.cluster.local”。 
 
-<!--
 
-With v1.3, the PodSpec has a `subdomain` field, which can be used to specify the Pod's subdomain. This field value takes precedence over the
-`pod.beta.kubernetes.io/subdomain` annotation value.
 
-Example:
-
--->
-
-在 v1.3 版本中，PodSpec 具有  `subdomain` 字段，可以用来指定 Pod 的子域名。这个字段的值优先于 annotation `pod.beta.kubernetes.io/subdomain` 的值。
+在 v1.3 版本中，PodSpec 具有 `subdomain` 字段，可以用来指定 Pod 的子域名。
+这个字段的值优先于 annotation `pod.beta.kubernetes.io/subdomain` 的值。
 
 ```yaml
 apiVersion: v1
@@ -237,53 +141,31 @@ spec:
     name: busybox
 ```
 
-<!--
 
-If there exists a headless service in the same namespace as the pod and with the same name as the subdomain, the cluster's KubeDNS Server also returns an A record for the Pod's fully qualified hostname.
-Given a Pod with the hostname set to "busybox-1" and the subdomain set to "default-subdomain", and a headless Service named "default-subdomain" in the same namespace, the pod will see it's own FQDN as "busybox-1.default-subdomain.my-namespace.svc.cluster.local". DNS serves an A record at that name, pointing to the Pod's IP. Both pods "busybox1" and "busybox2" can have their distinct A records. 
 
--->
+如果 Headless Service 与 Pod 在同一个 Namespace 中，它们具有相同的子域名，集群的 KubeDNS 服务器也会为该 Pod 的完整合法主机名返回 A 记录。
+在同一个 Namespace 中，给定一个主机名为 “busybox-1” 的 Pod，子域名设置为 “default-subdomain”，名称为 “default-subdomain” 的 Headless Service ，Pod 将看到自己的 FQDN 为 “busybox-1.default-subdomain.my-namespace.svc.cluster.local”。
+DNS 会为那个名字提供一个 A 记录，指向该 Pod 的 IP。
+“busybox1” 和 “busybox2” 这两个 Pod 分别具有它们自己的 A 记录。
 
-如果 Headless Service 与 Pod 在同一个 Namespace 中，它们具有相同的子域名，集群的 KubeDNS 服务器也会为该 Pod 的完整合法主机名返回 A 记录。在同一个 Namespace 中，给定一个主机名为 “busybox-1” 的 Pod，子域名设置为 “default-subdomain”，名称为 “default-subdomain” 的 Headless Service ，Pod 将看到自己的 FQDN 为 “busybox-1.default-subdomain.my-namespace.svc.cluster.local”。DNS 会为那个名字提供一个 A 记录，指向该 Pod 的 IP。“busybox1” 和 “busybox2” 这两个 Pod 分别具有它们自己的 A 记录。
 
-<!--
 
-As of Kubernetes v1.2, the Endpoints object also has the annotation `endpoints.beta.kubernetes.io/hostnames-map`. Its value is the json representation of map[string(IP)][endpoints.HostRecord], for example: '{"10.245.1.6":{HostName: "my-webserver"}}'.
-If the Endpoints are for a headless service, an A record is created with the format <hostname>.<service name>.<pod namespace>.svc.<cluster domain>
-For the example json, if endpoints are for a headless service named "bar", and one of the endpoints has IP "10.245.1.6", an A record is created with the name "my-webserver.bar.my-namespace.svc.cluster.local" and the A record lookup would return "10.245.1.6".
-This endpoints annotation generally does not need to be specified by end-users, but can used by the internal service controller to deliver the aforementioned feature.
+在Kubernetes v1.2 版本中，`Endpoints` 对象也具有 annotation `endpoints.beta.kubernetes.io/hostnames-map`。
+它的值是 map[string(IP)][endpoints.HostRecord] 的 JSON 格式，例如： '{"10.245.1.6":{HostName: "my-webserver"}}'。
 
--->
+如果是 Headless Service 的 `Endpoints`，会以  <hostname>.<service name>.<pod namespace>.svc.<cluster domain> 的格式创建 A 记录。
+对示例中的 JSON 字符串，如果 `Endpoints` 是为名称为 “bar” 的 Headless Service 而创建的，其中一个 `Endpoints`  的 IP 是 “10.245.1.6”，则会创建一个名称为 “my-webserver.bar.my-namespace.svc.cluster.local” 的 A 记录，该 A 记录查询将返回 “10.245.1.6”。
 
-在Kubernetes v1.2 版本中，`Endpoints` 对象也具有 annotation `endpoints.beta.kubernetes.io/hostnames-map`。它的值是 map[string(IP)][endpoints.HostRecord] 的 JSON 格式，例如： '{"10.245.1.6":{HostName: "my-webserver"}}'。
+`Endpoints` annotation 通常没必要由最终用户指定，但可以被内部的 Service Controller 用来提供上述功能。
 
-如果是 Headless Service 的 `Endpoints`，会以  <hostname>.<service name>.<pod namespace>.svc.<cluster domain> 的格式创建 A 记录。对示例中的 JSON 字符串，如果 `Endpoints` 是为名称为 “bar” 的 Headless Service 而创建的，其中一个 `Endpoints`  的 IP 是 “10.245.1.6”，则会创建一个名称为 “my-webserver.bar.my-namespace.svc.cluster.local” 的 A 记录，该 A 记录查询将返回 “10.245.1.6”。
 
- `Endpoints` annotation 通常没必要由最终用户指定，但可以被内部的 Service Controller 用来提供上述功能。
 
-<!--
-
-With v1.3, The Endpoints object can specify the `hostname` for any endpoint, along with its IP. The hostname field takes precedence over the hostname value
-that might have been specified via the  `endpoints.beta.kubernetes.io/hostnames-map` annotation.
-
-With v1.3, the following annotations are deprecated: `pod.beta.kubernetes.io/hostname`, `pod.beta.kubernetes.io/subdomain`, `endpoints.beta.kubernetes.io/hostnames-map`
-
--->
-
-在 v1.3 版本中，`Endpoints` 对象可以为任何 endpoint 指定 `hostname` 和 IP。`hostname` 字段优先于通过 `endpoints.beta.kubernetes.io/hostnames-map` annotation 指定的主机名。
+在 v1.3 版本中，`Endpoints` 对象可以为任何 endpoint 指定 `hostname` 和 IP。
+`hostname` 字段优先于通过 `endpoints.beta.kubernetes.io/hostnames-map` annotation 指定的主机名。
 
 在 v1.3 版本中，下面的 annotation 是过时的：`pod.beta.kubernetes.io/hostname`、`pod.beta.kubernetes.io/subdomain`、`endpoints.beta.kubernetes.io/hostnames-map`。
 
-<!--
 
-## How do I test if it is working?
-
-### Create a simple Pod to use as a test environment
-
-Create a file named busybox.yaml with the
-following contents:
-
--->
 
 ## 如何测试它是否可以使用?
 
@@ -308,11 +190,7 @@ spec:
   restartPolicy: Always
 ```
 
-<!--
 
-Then create a pod using this file:
-
--->
 
 然后，用该文件创建一个 Pod：
 
@@ -320,13 +198,7 @@ Then create a pod using this file:
 kubectl create -f busybox.yaml
 ```
 
-<!--
 
-### Wait for this pod to go into the running state
-
-You can get its status with:
-
--->
 
 ### 等待这个 Pod 变成运行状态
 
@@ -336,11 +208,7 @@ You can get its status with:
 kubectl get pods busybox
 ```
 
-<!--
 
-You should see:
-
--->
 
 可以看到如下内容：
 
@@ -349,13 +217,7 @@ NAME      READY     STATUS    RESTARTS   AGE
 busybox   1/1       Running   0          <some-time>
 ```
 
-<!--
 
-### Validate that DNS is working
-
-Once that pod is running, you can exec nslookup in that environment:
-
--->
 
 ### 验证 DNS 已经生效
 
@@ -365,11 +227,7 @@ Once that pod is running, you can exec nslookup in that environment:
 kubectl exec -ti busybox -- nslookup kubernetes.default
 ```
 
-<!--
 
-You should see something like:
-
--->
 
 可以看到类似如下的内容：
 
@@ -381,18 +239,7 @@ Name:      kubernetes.default
 Address 1: 10.0.0.1
 ```
 
-<!--
 
-If you see that, DNS is working correctly.
-
-### Troubleshooting Tips
-
-If the nslookup command fails, check the following:
-
-#### Check the local DNS configuration first
-Take a look inside the resolv.conf file. (See "Inheriting DNS from the node" and "Known issues" below for more information)
-
--->
 
 如果看到了，说明 DNS 已经可以正确工作了。
 
@@ -408,11 +255,7 @@ Take a look inside the resolv.conf file. (See "Inheriting DNS from the node" and
 kubectl exec busybox cat /etc/resolv.conf
 ```
 
-<!--
 
-Verify that the search path and name server are set up like the following (note that search path may vary for different cloud providers):
-
--->
 
 按照如下方法（注意搜索路径可能会因为云提供商不同而变化）验证搜索路径和 Name Server 的建立：
 
@@ -422,13 +265,7 @@ nameserver 10.0.0.10
 options ndots:5
 ```
 
-<!--
 
-#### Quick diagnosis
-
-Errors such as the following indicate a problem with the kube-dns add-on or associated Services:
-
--->
 
 #### 快速诊断
 
@@ -442,11 +279,7 @@ Address 1: 10.0.0.10
 nslookup: can't resolve 'kubernetes.default'
 ```
 
-<!--
 
-or
-
--->
 
 或者
 
@@ -458,13 +291,7 @@ Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 nslookup: can't resolve 'kubernetes.default'
 ```
 
-<!--
 
-#### Check if the DNS pod is running
-
-Use the kubectl get pods command to verify that the DNS pod is running.
-
--->
 
 #### 检查是否 DNS Pod 正在运行
 
@@ -474,11 +301,7 @@ Use the kubectl get pods command to verify that the DNS pod is running.
 kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
 ```
 
-<!--
 
-You should see something like:
-
--->
 
 应该能够看到类似如下信息：
 
@@ -489,15 +312,7 @@ kube-dns-v19-ezo1y                                         3/3       Running   0
 ...
 ```
 
-<!--
 
-If you see that no pod is running or that the pod has failed/completed, the DNS add-on may not be deployed by default in your current environment and you will have to deploy it manually.
-
-#### Check for Errors in the DNS pod
-
-Use `kubectl logs` command to see logs for the DNS daemons.
-
--->
 
 如果看到没有 Pod 运行，或 Pod 失败/结束，DNS 插件不能默认部署到当前的环境，必须手动部署。
 
@@ -511,15 +326,7 @@ kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system 
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c healthz
 ```
 
-<!--
 
-See if there is any suspicious log. W, E, F letter at the beginning represent Warning, Error and Failure. Please search for entries that have these as the logging level and use [kubernetes issues](https://github.com/kubernetes/kubernetes/issues) to report unexpected errors.
-
-#### Is DNS service up?
-
-Verify that the DNS service is up by using the `kubectl get service` command.
-
--->
 
 查看是否有任何可疑的日志。在行开头的字母 W、E、F 分别表示 警告、错误、失败。请搜索具有这些日志级别的日志行，通过  [Kubernetes 问题](https://github.com/kubernetes/kubernetes/issues) 报告意外的错误。
 
@@ -531,11 +338,7 @@ Verify that the DNS service is up by using the `kubectl get service` command.
 kubectl get svc --namespace=kube-system
 ```
 
-<!--
 
-You should see:
-
--->
 
 应该能够看到：
 
@@ -546,15 +349,7 @@ kube-dns                10.0.0.10      <none>        53/UDP,53/TCP        1h
 ...
 ```
 
-<!--
 
-If you have created the service or in the case it should be created by default but it does not appear, see this [debugging services page](/docs/tasks/debug-application-cluster/debug-service/) for more information.
-
-#### Are DNS endpoints exposed?
-
-You can verify that DNS endpoints are exposed by using the `kubectl get endpoints` command.
-
--->
 
 如果服务已经创建，或在这个例子中默认被创建，但是并没有看到，可以查看 [调试 Service 页面](/docs/tasks/debug-application-cluster/debug-service/) 获取更多信息。
 
@@ -562,11 +357,7 @@ You can verify that DNS endpoints are exposed by using the `kubectl get endpoint
 kubectl get ep kube-dns --namespace=kube-system
 ```
 
-<!--
 
-You should see something like:
-
--->
 
 应该能够看到类似如下信息：
 
@@ -575,23 +366,7 @@ NAME       ENDPOINTS                       AGE
 kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 ```
 
-<!--
 
-If you do not see the endpoints, see endpoints section in the [debugging services documentation](/docs/tasks/debug-application-cluster/debug-service/).
-
-For additional Kubernetes DNS examples, see the [cluster-dns examples](https://git.k8s.io/kubernetes/examples/cluster-dns) in the Kubernetes GitHub repository.
-
-## Kubernetes Federation (Multiple Zone support)
-
-Release 1.3 introduced Cluster Federation support for multi-site
-Kubernetes installations. This required some minor
-(backward-compatible) changes to the way
-the Kubernetes cluster DNS server processes DNS queries, to facilitate
-the lookup of federated services (which span multiple Kubernetes clusters).
-See the [Cluster Federation Administrators' Guide](/docs/concepts/cluster-administration/federation/) for more
-details on Cluster Federation and multi-site support.
-
--->
 
 如果没有看到 Endpoint，查看 [调试 Service 文档](/docs/tasks/debug-application-cluster/debug-service/) 中的 Endpoint 段内容。
 
@@ -601,27 +376,7 @@ details on Cluster Federation and multi-site support.
 
 在1.3 发行版本中，为多站点 Kubernetes 安装引入了集群 Federation 支持。这需要对 Kubernetes 集群 DNS 服务器处理 DNS 查询的方式，做出一些微小（后向兼容）改变，从而便利了对联合 Service 的查询（跨多个 Kubernetes 集群）。参考 [集群 Federation 管理员指南](/docs/concepts/cluster-administration/federation/) 获取更多关于集群 Federation 和多站点支持的细节。
 
-<!--
 
-## How it Works
-
-The running Kubernetes DNS pod holds 3 containers - kubedns, dnsmasq and a health check called healthz.
-The kubedns process watches the Kubernetes master for changes in Services and Endpoints, and maintains
-in-memory lookup structures to service DNS requests. The dnsmasq container adds DNS caching to improve
-performance. The healthz container provides a single health check endpoint while performing dual healthchecks
-(for dnsmasq and kubedns).
-
-The DNS pod is exposed as a Kubernetes Service with a static IP. Once assigned the
-kubelet passes DNS configured using the `--cluster-dns=10.0.0.10` flag to each
-container.
-
-DNS names also need domains. The local domain is configurable, in the kubelet using
-the flag `--cluster-domain=<default local domain>`
-
-The Kubernetes cluster DNS server (based off the [SkyDNS](https://github.com/skynetservices/skydns) library)
-supports forward lookups (A records), service lookups (SRV records) and reverse IP address lookups (PTR records).
-
--->
 
 ## 工作原理
 
@@ -634,47 +389,14 @@ DNS 名字也需要域名，本地域名是可配置的，在 kubelet 中使用 
 
 Kubernetes 集群 DNS 服务器（根据 [SkyDNS](https://github.com/skynetservices/skydns) 库）支持正向查询（A 记录），Service 查询（SRV 记录）和反向 IP 地址查询（PTR 记录）。
 
-<!--
 
-## Inheriting DNS from the node
-When running a pod, kubelet will prepend the cluster DNS server and search
-paths to the node's own DNS settings.  If the node is able to resolve DNS names
-specific to the larger environment, pods should be able to, also.  See "Known
-issues" below for a caveat.
-
-If you don't want this, or if you want a different DNS config for pods, you can
-use the kubelet's `--resolv-conf` flag.  Setting it to "" means that pods will
-not inherit DNS.  Setting it to a valid file path means that kubelet will use
-this file instead of `/etc/resolv.conf` for DNS inheritance.
-
--->
 
 ## 从 Node 继承 DNS
 当运行 Pod 时，kubelet 将集群 DNS 服务器和搜索路径追加到 Node 自己的 DNS 设置中。如果 Node 能够在大型环境中解析 DNS 名字，Pod 也应该没问题。参考下面 "已知问题” 中给出的更多说明。
 
 如果不想这样，或者希望 Pod 有一个不同的 DNS 配置，可以使用 kubelet 的 `--resolv-conf` 标志。设置为 "" 表示 Pod 将不继承自 DNS。设置为一个合法的文件路径，表示 kubelet 将使用这个文件而不是 `/etc/resolv.conf` 。
 
-<!--
 
-## Known issues
-Kubernetes installs do not configure the nodes' resolv.conf files to use the
-cluster DNS by default, because that process is inherently distro-specific.
-This should probably be implemented eventually.
-
-Linux's libc is impossibly stuck ([see this bug from
-2005](https://bugzilla.redhat.com/show_bug.cgi?id=168253)) with limits of just
-3 DNS `nameserver` records and 6 DNS `search` records.  Kubernetes needs to
-consume 1 `nameserver` record and 3 `search` records.  This means that if a
-local installation already uses 3 `nameserver`s or uses more than 3 `search`es,
-some of those settings will be lost.  As a partial workaround, the node can run
-`dnsmasq` which will provide more `nameserver` entries, but not more `search`
-entries.  You can also use kubelet's `--resolv-conf` flag.
-
-If you are using Alpine version 3.3 or earlier as your base image, DNS may not
-work properly owing to a known issue with Alpine. Check [here](https://github.com/kubernetes/kubernetes/issues/30215)
-for more information.
-
--->
 
 ## 已知问题
 
@@ -684,25 +406,13 @@ Linux libc 在限制为3个 DNS `nameserver` 记录和3个 DNS `search` 记录�
 
 如果使用 3.3 版本的 Alpine 或更早版本作为 base 镜像，由于 Alpine 的一个已知问题，DNS 可能不会正确工作。查看 [这里](https://github.com/kubernetes/kubernetes/issues/30215) 获取更多信息。
 
-<!--
 
-## References
-
-- [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md)
-
--->
 
 ## 参考
 
 - [DNS 集群插件文档](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md)
 
-<!--
 
-## What's next
-
-- [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
-
--->
 
 ## 下一步
 

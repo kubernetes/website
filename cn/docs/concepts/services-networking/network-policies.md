@@ -1,63 +1,33 @@
 ---
-assignees:
+approvers:
 - thockin
 - caseydavenport
 - danwinship
-title: Network Policies
-redirect_from:
-- "/docs/user-guide/networkpolicies/"
-- "/docs/user-guide/networkpolicies.html"
+title: 网络策略
 ---
 
 * TOC
 {:toc}
 
-<!--
-A network policy is a specification of how groups of pods are allowed to communicate with each other and other network endpoints.
+网络策略（NetworkPolicy）是一种关于pod间及pod与其他网络端点间所允许的通信规则的规范。
 
-`NetworkPolicy` resources use labels to select pods and define rules which specify what traffic is allowed to the selected pods.
--->
+`NetworkPolicy` 资源使用标签选择pod，并定义选定pod所允许的通信规则。
 
-网络策略说明了，一组 `Pod` 之间是如何被允许互相通信，以及与其它网络 Endpoint 进行通信。
-`NetworkPolicy` 资源使用标签来选择 `Pod`，并定义了一些规则，这些规则指明了什么流量被允许进入到选中的 `Pod` 上。
+## 前提
 
-<!--
-## Prerequisites
+网络策略通过网络插件来实现，所以用户必须使用支持 `NetworkPolicy` 的网络解决方案 - 简单地创建资源对象，而没有控制器来使它生效的话，是没有任何作用的。
 
-Network policies are implemented by the network plugin, so you must be using a networking solution which supports `NetworkPolicy` - simply creating the resource without a controller to implement it will have no effect.
--->
+## 隔离和非隔离的Pod
 
-## 前提条件
+默认情况下，Pod是非隔离的，它们接受任何来源的流量。
 
-网络策略通过网络插件来实现，所以必须使用一种支持 `NetworkPolicy` 的网络方案 —— 不使用 Controller 来实现该资源的创建，是不起作用的。
-
-<!--
-## Isolated and Non-isolated Pods
-
-By default, pods are non-isolated; they accept traffic from any source.
-
-Pods become isolated by having a NetworkPolicy that selects them. Once there is any NetworkPolicy in a Namespace selecting a particular pod, that pod will reject any connections that are not allowed by any NetworkPolicy. (Other pods in the Namespace that are not selected by any NetworkPolicy will continue to accept all traffic.)
--->
-
-## 隔离的与未隔离的 Pod
-
-默认 Pod 是未隔离的，它们可以从任何的源接收请求。
-具有一个可以选择 Pod 的网络策略后，Pod 就会变成隔离的。
-一旦 Namespace 中配置的网络策略能够选择一个特定的 Pod，这个 Pod 将拒绝任何该网络策略不允许的连接。（Namespace 中其它未被网络策略选中的 Pod 将继续接收所有流量）
-
-<!--
-## The `NetworkPolicy` Resource
-
-See the [api-reference](/docs/api-reference/v1.7/#networkpolicy-v1-networking) for a full definition of the resource.
-
-An example `NetworkPolicy` might look like this:
--->
+Pod可以通过相关的网络策略进行隔离。一旦命名空间中有网络策略选择了特定的Pod，该Pod会拒绝网络策略所不允许的连接。 (命名空间下其他未被网络策略所选择的Pod会继续接收所有的流量)
 
 ## `NetworkPolicy` 资源
 
-查看 [API参考](/docs/api-reference/v1.7/#networkpolicy-v1-networking) 可以获取该资源的完整定义。
+通过[api参考](/docs/api-reference/{{page.version}}/#networkpolicy-v1-networking)来了解资源定义。
 
-一个 `NetworkPolicy` 的例子看起来可能是这样的：
+下面是一个 `NetworkPolicy` 的示例:
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -82,55 +52,27 @@ spec:
       port: 6379
 ```
 
-<!--
-*POSTing this to the API server will have no effect unless your chosen networking solution supports network policy.*
+除非选择支持网络策略的网络解决方案，否则将上述示例发送到API服务器没有任何效果。
 
-__Mandatory Fields__: As with all other Kubernetes config, a `NetworkPolicy` needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [here](/docs/user-guide/simple-yaml), [here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
+__必填字段__: 与所有其他的Kubernetes配置一样，`NetworkPolicy` 需要 `apiVersion`、 `kind`和 `metadata` 字段。 关于配置文件操作的一般信息，请参考 [这里](/docs/user-guide/simple-yaml)、 [这里](/docs/user-guide/configuring-containers)和 [这里](/docs/user-guide/working-with-resources)。
 
-__spec__: `NetworkPolicy` [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) has all the information needed to define a particular network policy in the given namespace.
+__spec__: `NetworkPolicy` [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) 中包含了在一个命名空间中定义特定网络策略所需的所有信息
 
-__podSelector__: Each `NetworkPolicy` includes a `podSelector` which selects the grouping of pods to which the policy applies. Since `NetworkPolicy` currently only supports definining `ingress` rules, this `podSelector` essentially defines the "destination pods" for the policy. The example policy selects pods with the label "role=db". An empty `podSelector` selects all pods in the namespace.
+__podSelector__: 每个 `NetworkPolicy` 都包括一个 `podSelector` ，它对该策略所应用的一组Pod进行选择。因为 `NetworkPolicy` 目前只支持定义 `ingress` 规则，这里的 `podSelector` 本质上是为该策略定义 "目标pod" 。示例中的策略选择带有 "role=db" 标签的pod。空的 `podSelector` 选择命名空间下的所有pod。
 
-__ingress__: Each `NetworkPolicy` includes a list of whitelist `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port, from either of two sources, the first specified via a `namespaceSelector` and the second specified via a `podSelector`.
--->
+__ingress__: 每个 `NetworkPolicy` 包含一个 `ingress` 规则的白名单列表。 （其中的）规则允许同时匹配 `from` 和 `ports` 部分的流量。示例策略中包含一条简单的规则： 它匹配一个单一的端口，来自两个来源中的一个， 第一个通过 `namespaceSelector` 指定，第二个通过 `podSelector` 指定。
 
-*将上面配置 POST 到 API Server 将不起任何作用，除非选择的网络方案支持网络策略。*
+所以，示例网络策略:
 
-__必选字段__：像所有其它 Kubernetes 配置一样， `NetworkPolicy` 需要 `apiVersion`、`kind` 和 `metadata` 这三个字段，关于如何使用配置文件的基本信息，可以查看 [这里](/docs/user-guide/simple-yaml)，[这里](/docs/user-guide/configuring-containers) 和 [这里](/docs/user-guide/working-with-resources)。
+1. 隔离 "default" 命名空间下 "role=db" 的pod (如果它们不是已经被隔离的话)。
+2. 允许从 "default" 命名空间下带有 "role=frontend" 标签的pod到 "default" 命名空间下的pod的6379 TCP端口的连接。
+3. 允许从带有 "project=myproject" 标签的命名空间下的任何pod到 "default" 命名空间下的pod的6379 TCP端口的连接。
 
-__spec__：`NetworkPolicy` [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) 具有在给定 Namespace 中定义特定网络的全部信息。
-
-__podSelector__：每个 `NetworkPolicy` 包含一个 `podSelector`，它可以选择一组应用了网络策略的 Pod。由于 `NetworkPolicy` 当前只支持定义 `ingress` 规则，这个 `podSelector` 实际上为该策略定义了一组 “目标Pod”。示例中的策略选择了标签为 “role=db” 的 Pod。一个空的 `podSelector` 选择了该 Namespace 中的所有 Pod。
-
-__ingress__：每个`NetworkPolicy` 包含了一个白名单 `ingress` 规则列表。每个规则只允许能够匹配上 `from` 和 `ports` 配置段的流量。示例策略包含了单个规则，它从这两个源中匹配在单个端口上的流量，第一个是通过`namespaceSelector` 指定的，第二个是通过 `podSelector` 指定的。
-
-<!--
-So, the example NetworkPolicy:
-
-1. isolates "role=db" pods in the "default" namespace (if they weren't already isolated)
-2. allows connections to tcp port 6379 of "role=db" pods in the "default" namespace from any pod in the "default" namespace with the label "role=frontend"
-3. allows connections to tcp port 6379 of "role=db" pods in the "default" namespace from any pod in a namespace with the label "project=myproject"
-
-See the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) for further examples.
--->
-
-因此，上面示例的 NetworkPolicy：
-
-1. 在 “default” Namespace中 隔离了标签 “role=db” 的 Pod（如果他们还没有被隔离）
-2. 在 “default” Namespace中，允许任何具有 “role=frontend” 的 Pod，连接到标签为 “role=db” 的 Pod 的 TCP 端口 6379
-3. 允许在 Namespace 中任何具有标签 “project=myproject” 的 Pod，连接到 “default” Namespace 中标签为 “role=db” 的 Pod 的 TCP 端口 6379
-
-查看 [NetworkPolicy 入门指南](/docs/getting-started-guides/network-policy/walkthrough) 给出的更进一步的例子。
-
-<!--
-## Default policies
-
-You can create a "default" isolation policy for a Namespace by creating a NetworkPolicy that selects all pods but does not allow any traffic:
--->
+查看 [网络策略入门指南](/docs/getting-started-guides/network-policy/walkthrough) 了解更多示例。
 
 ## 默认策略
 
-通过创建一个可以选择所有 Pod 但不允许任何流量的 NetworkPolicy，你可以为一个 Namespace 创建一个 “默认的” 隔离策略，如下所示：
+用户可以通过创建一个选择所有Pod，但是不允许任何通信的网络策略，来为一个命名空间创建 "默认的" 隔离策略：
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -141,15 +83,9 @@ spec:
   podSelector:
 ```
 
-<!--
-This ensures that even pods that aren't selected by any other NetworkPolicy will still be isolated.
+这可以确保即使Pod在未被其他任何网络策略所选择的情况下仍能被隔离。
 
-Alternatively, if you want to allow all traffic for all pods in a Namespace (even if policies are added that cause some pods to be treated as "isolated"), you can create a policy that explicitly allows all traffic:
--->
-
-这确保了即使是没有被任何 NetworkPolicy 选中的 Pod，将仍然是被隔离的。
-
-可选地，在 Namespace 中，如果你想允许所有的流量进入到所有的 Pod（即使已经添加了某些策略，使一些 Pod 被处理为 “隔离的”），你可以通过创建一个策略来显式地指定允许所有流量：
+或者，如果用户希望允许一个命名空间下的所有Pod的所有通信 (即使已经添加了策略，使得一些pod被 "隔离")，仍可以创建一个明确允许所有通信的策略：
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -162,13 +98,7 @@ spec:
   - {}
 ```
 
-<!--
-## What's next?
-
-- See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
-  walkthrough for further examples.
-  -->
-
 ## 下一步呢？
 
-查看 [声明网络策略](/docs/tasks/administer-cluster/declare-network-policy/) 学习进阶的例子。
+- 查看 [声明网络策略](/docs/tasks/administer-cluster/declare-network-policy/)
+  来进行更多的示例演练

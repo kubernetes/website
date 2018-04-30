@@ -1,5 +1,5 @@
 ---
-reviewers:
+approvers:
 - bprashanth
 - enisoc
 - erictune
@@ -7,94 +7,82 @@ reviewers:
 - janetkuo
 - kow3ns
 - smarterclayton
-title: Scale a StatefulSet
+title: 弹缩StatefulSet
 ---
 
 {% capture overview %}
-This page shows how to scale a StatefulSet.
+本文介绍如何弹缩StatefulSet.
 {% endcapture %}
 
 {% capture prerequisites %}
 
-* StatefulSets are only available in Kubernetes version 1.5 or later.
-* **Not all stateful applications scale nicely.** You need to understand your StatefulSets well before continuing. If you're unsure, remember that it might not be safe to scale your StatefulSets.
-* You should perform scaling only when you're sure that your stateful application
-  cluster is completely healthy.
+* StatefulSets仅适用于Kubernetes1.5及以上版本.
+* **不是所有Stateful应用都适合弹缩.** 在弹缩前您的应用前. 您必须充分了解您的应用, 不适当的弹缩StatefulSet或许会造成应用自身功能的不稳定.
+* 仅当您确定该Stateful应用的集群是完全健康才可执行弹缩操作.
 
 {% endcapture %}
 
 {% capture steps %}
 
-## Use `kubectl` to scale StatefulSets
+## 使用 `kubectl` 弹缩StatefulSets
 
-Make sure you have `kubectl` upgraded to Kubernetes version 1.5 or later before
-continuing. If you're unsure, run `kubectl version` and check `Client Version`
-for which kubectl you're using.
+弹缩请确认 `kubectl` 已经升级到Kubernetes1.5及以上版本. 如果不确定, 执行 `kubectl version` 命令并检查使用的 `Client Version`.
 
-### `kubectl scale`
+### `kubectl 弹缩`
 
-First, find the StatefulSet you want to scale. Remember, you need to first understand if you can scale it or not.
+首先, 找到您想要弹缩的StatefulSet. 记住, 您需先清楚是否能弹缩该应用.
 
 ```shell
 kubectl get statefulsets <stateful-set-name>
 ```
 
-Change the number of replicas of your StatefulSet:
+改变StatefulSet副本数量:
 
 ```shell
 kubectl scale statefulsets <stateful-set-name> --replicas=<new-replicas>
 ```
 
-### Alternative: `kubectl apply` / `kubectl edit` / `kubectl patch`
+### 可使用其他命令: `kubectl apply` / `kubectl edit` / `kubectl patch`
 
-Alternatively, you can do [in-place updates](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) on your StatefulSets.
+另外, 您可以 [in-place updates](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) StatefulSets.
 
-If your StatefulSet was initially created with `kubectl apply` or `kubectl create --save-config`,
-update `.spec.replicas` of the StatefulSet manifests, and then do a `kubectl apply`:
+如果您的StatefulSet开始由 `kubectl apply` 或 `kubectl create --save-config` 创建,更新StatefulSet manifests中的 `.spec.replicas`, 然后执行命令 `kubectl apply`:
 
 ```shell
 kubectl apply -f <stateful-set-file-updated>
 ```
 
-Otherwise, edit that field with `kubectl edit`:
+除此之外, 可以通过命令 `kubectl edit` 编辑该字段:
 
 ```shell
 kubectl edit statefulsets <stateful-set-name>
 ```
 
-Or use `kubectl patch`:
+或使用 `kubectl patch`:
 
 ```shell
 kubectl patch statefulsets <stateful-set-name> -p '{"spec":{"replicas":<new-replicas>}}'
 ```
 
-## Troubleshooting
+## 排查故障
 
-### Scaling down doesn't work right
+### 缩容工作不正常
 
-You cannot scale down a StatefulSet when any of the stateful Pods it manages is unhealthy. Scaling down only takes place
-after those stateful Pods become running and ready.
+当Stateful管理下的任何一个Pod不健康时您不能缩容该StatefulSet. 仅当Stateful下的所有Pods都处于运行和ready状态后才可缩容.
 
-With a StatefulSet of size > 1, if there is an unhealthy Pod, there is no way
-for Kubernetes to know (yet) if it is due to a permanent fault or a transient
-one (upgrade/maintenance/node reboot). If the Pod is unhealthy due to a permanent fault, scaling
-without correcting the fault may lead to a state where the StatefulSet membership
-drops below a certain minimum number of "replicas" that are needed to function
-correctly. This may cause your StatefulSet to become unavailable.
+当一个StatefulSet的size > 1, 如果有一个Pod不健康, 没有办法让Kubernetes知道是否是由于永久性故障还是瞬态(升级/维护/节点重启)导致. 如果该Pod不健康是由于永久性
+故障导致, 则在不纠正该故障的情况下进行缩容可能会导致一种状态， 即StatefulSet下的Pod数量低于应正常运行的副本数. 这也许会导致StatefulSet不可用.
 
-If the Pod is unhealthy due to a transient fault and the Pod might become available again,
-the transient error may interfere with your scale-up/scale-down operation. Some distributed
-databases have issues when nodes join and leave at the same time. It is better
-to reason about scaling operations at the application level in these cases, and
-perform scaling only when you're sure that your stateful application cluster is
-completely healthy.
+如果由于瞬态故障而导致Pod不健康,并且Pod可能再次可用，那么瞬态错误可能会干扰您对
+StatefulSet的扩容/缩容操作. 一些分布式数据库在节点加入和同时离开时存在问题. 在
+这些情况下，最好是在应用级别进行弹缩操作, 并且只有在您确保Stateful应用的集群是完全健康时才执行弹缩.
 
 
 {% endcapture %}
 
 {% capture whatsnext %}
 
-Learn more about [deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/).
+了解更多 [deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/).
 
 {% endcapture %}
 

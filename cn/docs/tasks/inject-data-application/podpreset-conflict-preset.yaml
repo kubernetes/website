@@ -2,6 +2,7 @@ apiVersion: settings.k8s.io/v1alpha1
 kind: PodPreset
 metadata:
   name: allow-database
+  namespace: myns
 spec:
   selector:
     matchLabels:
