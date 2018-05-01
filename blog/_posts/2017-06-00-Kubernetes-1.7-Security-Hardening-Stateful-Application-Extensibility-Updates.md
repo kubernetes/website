@@ -34,7 +34,7 @@ Stateful workloads:
 Extensibility:  
 
 - [API aggregation](https://kubernetes.io/docs/concepts/api-extension/apiserver-aggregation/) at runtime is the most powerful extensibility features in this release, allowing power users to add Kubernetes-style pre-built, 3rd party or user-created APIs to their cluster.
-- [Container Runtime Interface](https://github.com/kubernetes/community/blob/master/contributors/devel/container-runtime-interface.md) (CRI) has been enhanced with New RPC calls to retrieve container metrics from the runtime. [Validation tests for the CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/cri-validation.md) have been published and Alpha integration with [containerd](http://containerd.io/), which supports basic pod lifecycle and image management is now available. Read our previous [in-depth post introducing CRI](http://blog.kubernetes.io/2016/12/container-runtime-interface-cri-in-kubernetes.html).
+- [Container Runtime Interface](https://github.com/kubernetes/community/blob/master/contributors/devel/container-runtime-interface.md) (CRI) has been enhanced with New RPC calls to retrieve container metrics from the runtime. [Validation tests for the CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/cri-validation.md) have been published and Alpha integration with [containerd](http://containerd.io/), which supports basic pod lifecycle and image management is now available. Read our previous [in-depth post introducing CRI](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes).
 
 Additional Features:  
 
@@ -55,7 +55,7 @@ Kubernetes adoption has been coming from every sector across the world. Recent u
 
 
 - GolfNow, a member of the NBC Sports Group, migrated their application to Kubernetes giving them better resource utilization and[slashing their infrastructure costs in half](https://kubernetes.io/case-studies/golfnow).
-- Bitmovin, provider of video infrastructure solutions, showed us how they’re using Kubernetes to do [multi-stage canary deployments](http://blog.kubernetes.io/2017/04/multi-stage-canary-deployments-with-kubernetes-in-the-cloud-onprem.html) in the cloud and on-prem.
+- Bitmovin, provider of video infrastructure solutions, showed us how they’re using Kubernetes to do [multi-stage canary deployments](https://kubernetes.io/blog/2017/04/multi-stage-canary-deployments-with-kubernetes-in-the-cloud-onprem) in the cloud and on-prem.
 - Ocado, world’s largest online supermarket, uses Kubernetes to create a distributed data center for their smart warehouses. Read about their full setup [here](http://ocadotechnology.com/blog/creating-a-distributed-data-centre-architecture-using-kubernetes-and-containers/).
 - Is Kubernetes helping your team? [Share your story](https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform) with the community. See our growing resource of user case studies and learn from great companies like [Box](https://kubernetes.io/case-studies/box) that have adopted Kubernetes in their organization.&nbsp;
 

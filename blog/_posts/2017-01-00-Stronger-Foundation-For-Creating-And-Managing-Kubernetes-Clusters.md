@@ -8,7 +8,7 @@ pagination:
 ---
 _Editor's note: Today’s post is by Lucas Käldström an independent Kubernetes maintainer and SIG-Cluster-Lifecycle member, sharing what the group has been building and what’s upcoming.&nbsp;_  
 
-Last time you heard from us was in September, when we announced [kubeadm](http://blog.kubernetes.io/2016/09/how-we-made-kubernetes-easy-to-install.html). The work on making kubeadm a first-class citizen in the Kubernetes ecosystem has continued and evolved. Some of us also met before KubeCon and had a very productive meeting where we talked about what the scopes for our SIG, kubeadm, and kops are.&nbsp;  
+Last time you heard from us was in September, when we announced [kubeadm](https://kubernetes.io/blog/2016/09/how-we-made-kubernetes-easy-to-install). The work on making kubeadm a first-class citizen in the Kubernetes ecosystem has continued and evolved. Some of us also met before KubeCon and had a very productive meeting where we talked about what the scopes for our SIG, kubeadm, and kops are.&nbsp;  
 
 **Continuing to Define SIG-Cluster-Lifecycle**  
 

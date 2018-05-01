@@ -12,7 +12,7 @@ In this release the community’s focus is on scale and automation, to help you 
 
 **What’s New**  
 
-**Scale and Federation** : Large enterprise users looking for proof of at-scale performance will be pleased to know that Kubernetes’ stringent scalability [SLO](http://blog.kubernetes.io/2016/03/1000-nodes-and-beyond-updates-to-Kubernetes-performance-and-scalability-in-12.html) now supports 5,000 node (150,000 pod) clusters. This 150% increase in total cluster size, powered by a new version of [etcd v3](https://coreos.com/blog/etcd3-a-new-etcd.html) by CoreOS, is great news if you are deploying applications such as search or games which can grow to consume larger clusters.  
+**Scale and Federation** : Large enterprise users looking for proof of at-scale performance will be pleased to know that Kubernetes’ stringent scalability [SLO](https://kubernetes.io/blog/2016/03/1000-nodes-and-beyond-updates-to-Kubernetes-performance-and-scalability-in-12) now supports 5,000 node (150,000 pod) clusters. This 150% increase in total cluster size, powered by a new version of [etcd v3](https://coreos.com/blog/etcd3-a-new-etcd.html) by CoreOS, is great news if you are deploying applications such as search or games which can grow to consume larger clusters.  
 
 For users who want to scale beyond 5,000 nodes or spread across multiple regions or clouds, [federation](https://kubernetes.io/docs/concepts/cluster-administration/federation/) lets you combine multiple Kubernetes clusters and address them through a single API endpoint. In this release, the [kubefed](https://kubernetes.io//docs/tutorials/federation/set-up-cluster-federation-kubefed) command line utility graduated to _beta_ - with improved support for on-premise clusters. kubefed now [automatically configures](https://kubernetes.io//docs/tutorials/federation/set-up-cluster-federation-kubefed.md#kube-dns-configuration) kube-dns on joining clusters and can pass arguments to federated components.  
 
@@ -69,7 +69,7 @@ In addition, we have expanded the range of storage supported overall including:
 These are just some of the highlights in our first release for the year. For a complete list please visit the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v160).  
 
 **Community**  
-This release is possible thanks to our vast and open community. Together, we’ve pushed nearly 5,000 commits by some 275 authors. To bring our many advocates together, the community has launched a new program called [K8sPort](http://k8sport.org/), an online hub where the community can participate in gamified challenges and get credit for their contributions. Read more about the program [here](http://blog.kubernetes.io/2017/03/k8sport-engaging-the-kubernetes-community.html).
+This release is possible thanks to our vast and open community. Together, we’ve pushed nearly 5,000 commits by some 275 authors. To bring our many advocates together, the community has launched a new program called [K8sPort](http://k8sport.org/), an online hub where the community can participate in gamified challenges and get credit for their contributions. Read more about the program [here](https://kubernetes.io/blog/2017/03/k8sport-engaging-the-kubernetes-community).
 
 
 **Release Process**
@@ -83,7 +83,7 @@ A big thanks goes out to the [release team](https://github.com/kubernetes/featur
 We’re continuing to see rapid adoption of Kubernetes in all sectors and sizes of businesses. Furthermore, adoption is coming from across the globe, from a startup in Tennessee, USA to a Fortune 500 company in China.&nbsp;
 
 
-- JD.com, one of China's largest internet companies, uses Kubernetes in conjunction with their OpenStack deployment. They’ve move 20% of their applications thus far on Kubernetes and are already running 20,000 pods daily. Read more about their setup [here](http://blog.kubernetes.io/2017/02/inside-jd-com-shift-to-kubernetes-from-openstack.html).&nbsp;
+- JD.com, one of China's largest internet companies, uses Kubernetes in conjunction with their OpenStack deployment. They’ve move 20% of their applications thus far on Kubernetes and are already running 20,000 pods daily. Read more about their setup [here](https://kubernetes.io/blog/2017/02/inside-jd-com-shift-to-kubernetes-from-openstack).&nbsp;
 - Spire, a startup based in Tennessee, witnessed their public cloud provider experience an outage, but suffered zero downtime because Kubernetes was able to move their workloads to different zones. Read their full experience [here](https://medium.com/spire-labs/mitigating-an-aws-instance-failure-with-the-magic-of-kubernetes-128a44d44c14).
 
 > _“With Kubernetes, there was never a moment of panic, just a sense of awe watching the automatic mitigation as it happened.”_
@@ -111,4 +111,4 @@ Many thanks for your contributions and advocacy!
 
 _-- Aparna Sinha, Senior Product Manager,&nbsp;Kubernetes, Google_  
 
-_**PS: read this [series of in-depth articles](http://blog.kubernetes.io/2017/03/five-days-of-kubernetes-1.6.html) on what's new in Kubernetes 1.6**_  
+_**PS: read this [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1.6) on what's new in Kubernetes 1.6**_  

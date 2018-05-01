@@ -6,9 +6,9 @@ date:  Wednesday, April 04, 2017
 pagination:
   enabled: true
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](http://blog.kubernetes.io/2017/03/five-days-of-kubernetes-1.6.html) on what's new in Kubernetes 1.6_  
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1.6) on what's new in Kubernetes 1.6_  
 
-Many users have existing domain name zones that they would like to integrate into their Kubernetes DNS namespace. For example, hybrid-cloud users may want to resolve their internal “.corp” domain addresses within the cluster. Other users may have a zone populated by a non-Kubernetes service discovery system (like Consul). We’re pleased to announce that, in [Kubernetes 1.6](http://blog.kubernetes.io/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale.html), [kube-dns](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/) adds support for configurable private DNS zones (often called “stub domains”) and external upstream DNS nameservers. In this blog post, we describe how to configure and use this feature.  
+Many users have existing domain name zones that they would like to integrate into their Kubernetes DNS namespace. For example, hybrid-cloud users may want to resolve their internal “.corp” domain addresses within the cluster. Other users may have a zone populated by a non-Kubernetes service discovery system (like Consul). We’re pleased to announce that, in [Kubernetes 1.6](https://kubernetes.io/blog/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale), [kube-dns](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/) adds support for configurable private DNS zones (often called “stub domains”) and external upstream DNS nameservers. In this blog post, we describe how to configure and use this feature.  
 
 **Default lookup flow**  
 
@@ -137,7 +137,7 @@ If you’d like to contribute or simply help provide feedback and drive the road
 
 - Chat with us on the Kubernetes [Slack network channel](https://kubernetes.slack.com/messages/sig-network/)
 - Join our Special Interest Group, [SIG-Network](https://github.com/kubernetes/community/wiki/SIG-Network), which meets on Tuesdays at 14:00 PT
-Thanks for your support and contributions. Read more in-depth posts on what's new in Kubernetes 1.6 [here](http://blog.kubernetes.io/2017/03/five-days-of-kubernetes-1.6.html).  
+Thanks for your support and contributions. Read more in-depth posts on what's new in Kubernetes 1.6 [here](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1.6).  
 
 
 

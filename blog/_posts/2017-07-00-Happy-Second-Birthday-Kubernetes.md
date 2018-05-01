@@ -29,18 +29,18 @@ Kubernetes has also earned the trust of many [Fortune 500 companies](https://kub
 July 2016
 
 -
-Kubernauts celebrated its [first anniversary](http://blog.kubernetes.io/2016/07/happy-k8sbday-1.html) of the Kubernetes 1.0 launch with 20 [#k8sbday](https://twitter.com/search?q=k8sbday&src=typd) parties hosted worldwide
+Kubernauts celebrated its [first anniversary](https://kubernetes.io/blog/2016/07/happy-k8sbday-1) of the Kubernetes 1.0 launch with 20 [#k8sbday](https://twitter.com/search?q=k8sbday&src=typd) parties hosted worldwide
 -
-Kubernetes [v1.3 release](http://blog.kubernetes.io/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads.html)
+Kubernetes [v1.3 release](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads)
 
 
 
 September 2016
 
 -
-Kubernetes [v1.4 release](http://blog.kubernetes.io/2016/09/kubernetes-1.4-making-it-easy-to-run-on-kuberentes-anywhere.html)
+Kubernetes [v1.4 release](https://kubernetes.io/blog/2016/09/kubernetes-1.4-making-it-easy-to-run-on-kuberentes-anywhere)
 -
-Launch of [kubeadm](http://blog.kubernetes.io/2016/09/how-we-made-kubernetes-easy-to-install.html), a tool that makes Kubernetes dramatically easier to install
+Launch of [kubeadm](https://kubernetes.io/blog/2016/09/how-we-made-kubernetes-easy-to-install), a tool that makes Kubernetes dramatically easier to install
 -
 [Pokemon Go](https://www.sdxcentral.com/articles/news/google-dealt-pokemon-go-traffic-50-times-beyond-expectations/2016/09/) - one of the largest installs of Kubernetes ever
 
@@ -49,7 +49,7 @@ Launch of [kubeadm](http://blog.kubernetes.io/2016/09/how-we-made-kubernetes-eas
 October 2016
 
 -
-Introduced [Kubernetes service partners program](http://blog.kubernetes.io/2016/10/kubernetes-service-technology-partners-program.html) and a redesigned [partners page](https://kubernetes.io/partners/)
+Introduced [Kubernetes service partners program](https://kubernetes.io/blog/2016/10/kubernetes-service-technology-partners-program) and a redesigned [partners page](https://kubernetes.io/partners/)
 
 
 
@@ -65,7 +65,7 @@ Cloud Native Computing Foundation partners with The Linux Foundation to launch a
 December 2016
 
 -
-Kubernetes [v1.5 release](http://blog.kubernetes.io/2016/12/kubernetes-1.5-supporting-production-workloads.html)
+Kubernetes [v1.5 release](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads)
 
 
 
@@ -81,7 +81,7 @@ March 2017
 -
 CloudNativeCon/KubeCon [Europe](https://www.cncf.io/blog/2017/04/17/highlights-cloudnativecon-kubecon-europe-2017/)
 -
-Kubernetes[v1.6 release](http://blog.kubernetes.io/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale.html)
+Kubernetes[v1.6 release](https://kubernetes.io/blog/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale)
 
 
 
@@ -104,7 +104,7 @@ Stutterstock and Kubernetes appear in [The Wall Street Journal](https://blogs.ws
 June 2017
 
 -
-Kubernetes [v1.7 release](http://blog.kubernetes.io/2017/06/kubernetes-1.7-security-hardening-stateful-application-extensibility-updates.html)
+Kubernetes [v1.7 release](https://kubernetes.io/blog/2017/06/kubernetes-1.7-security-hardening-stateful-application-extensibility-updates)
 -
 [Survey](https://www.cncf.io/blog/2017/06/28/survey-shows-kubernetes-leading-orchestration-platform/) from CloudNativeCon + KubeCon Europe shows Kubernetes leading as the orchestration platform of choice
 -

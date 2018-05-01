@@ -26,7 +26,7 @@ What does this mean for the application developer? At last, Kubernetes has gaine
 
 
 
-Defense in depth has long been recommended as best [practice](http://blog.kubernetes.io/2016/08/security-best-practices-kubernetes-deployment.html). This kind of isolation between different parts or layers of an application is easily achieved on AWS and OpenStack by applying security groups to VMs.
+Defense in depth has long been recommended as best [practice](https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment). This kind of isolation between different parts or layers of an application is easily achieved on AWS and OpenStack by applying security groups to VMs.
 
 
 

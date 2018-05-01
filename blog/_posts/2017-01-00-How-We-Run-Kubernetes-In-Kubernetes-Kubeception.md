@@ -16,7 +16,7 @@ As we insist on running all our underlying infrastructure components in containe
 
 However, fleet is just a distributed init and not a complete scheduling and orchestration system. Next to a lot of work on our tooling, it required significant improvements in terms of communication between peers, its reconciliation loop, and stability that we had to work on. Also the uptake in Kubernetes usage would ensure that issues are found and fixed faster.  
 
-As we had made good experience with introducing Kubernetes on the user side and with recent developments like [rktnetes](http://blog.kubernetes.io/2016/07/rktnetes-brings-rkt-container-engine-to-Kubernetes.html) and [stackanetes](https://github.com/stackanetes/stackanetes) it felt like time for us to also move our base layer to Kubernetes.  
+As we had made good experience with introducing Kubernetes on the user side and with recent developments like [rktnetes](https://kubernetes.io/blog/2016/07/rktnetes-brings-rkt-container-engine-to-Kubernetes) and [stackanetes](https://github.com/stackanetes/stackanetes) it felt like time for us to also move our base layer to Kubernetes.  
 
 
 

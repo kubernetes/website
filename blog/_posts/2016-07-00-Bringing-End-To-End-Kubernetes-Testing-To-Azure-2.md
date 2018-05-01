@@ -6,7 +6,7 @@ date:  Tuesday, July 18, 2016
 pagination:
   enabled: true
 ---
-_Editor’s Note: Today’s guest post is Part II from a [series](http://blog.kubernetes.io/2016/06/bringing-end-to-end-testing-to-azure.html) by Travis Newhouse, Chief Architect at AppFormix, writing about their contributions to Kubernetes._  
+_Editor’s Note: Today’s guest post is Part II from a [series](https://kubernetes.io/blog/2016/06/bringing-end-to-end-testing-to-azure) by Travis Newhouse, Chief Architect at AppFormix, writing about their contributions to Kubernetes._  
 
 Historically, Kubernetes testing has been hosted by Google, running e2e tests on [Google Compute Engine](https://cloud.google.com/compute/) (GCE) and [Google Container Engine](https://cloud.google.com/container-engine/) (GKE). In fact, the gating checks for the submit-queue are a subset of tests executed on these test platforms. Federated testing aims to expand test coverage by enabling organizations to host test jobs for a variety of platforms and contribute test results to benefit the Kubernetes project. Members of the Kubernetes test team at Google and SIG-Testing have created a [Kubernetes test history dashboard](http://storage.googleapis.com/kubernetes-test-history/static/index.html) that publishes the results from all federated test jobs (including those hosted by Google).  
 
@@ -14,7 +14,7 @@ In this blog post, we describe extending the e2e test jobs for Azure, and show h
 
 **END-TO-END INTEGRATION TESTS FOR AZURE**  
 
-After successfully implementing [“development distro” scripts to automate deployment of Kubernetes on Azure](http://blog.kubernetes.io/2016/06/bringing-end-to-end-testing-to-azure.html), our next goal was to run e2e integration tests and share the results with the Kubernetes community.  
+After successfully implementing [“development distro” scripts to automate deployment of Kubernetes on Azure](https://kubernetes.io/blog/2016/06/bringing-end-to-end-testing-to-azure), our next goal was to run e2e integration tests and share the results with the Kubernetes community.  
 
 We automated our workflow for executing e2e tests of Kubernetes on Azure by defining a nightly job in our private Jenkins server. Figure 2 shows the workflow that uses kube-up.sh to deploy Kubernetes on Ubuntu virtual machines running in Azure, then executes the e2e tests. On completion of the tests, the job uploads the test results and logs to a Google Cloud Storage directory, in a format that can be processed by the [scripts that produce the test history dashboard](https://github.com/kubernetes/test-infra/tree/master/jenkins/test-history). Our Jenkins job uses the hack/jenkins/e2e-runner.sh and hack/jenkins/upload-to-gcs.sh scripts to produce the results in the correct format.  
 

@@ -6,17 +6,17 @@ date:  Tuesday, December 19, 2016
 pagination:
   enabled: true
 ---
-With the help of our growing community of 1,000 contributors, we pushed some 5,000 commits to extend support for production workloads and deliver [Kubernetes 1.5](http://blog.kubernetes.io/2016/12/kubernetes-1.5-supporting-production-workloads.html). While many improvements and new features have been added, we selected few to highlight in a series of in-depths posts listed below.&nbsp;  
+With the help of our growing community of 1,000 contributors, we pushed some 5,000 commits to extend support for production workloads and deliver [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads). While many improvements and new features have been added, we selected few to highlight in a series of in-depths posts listed below.&nbsp;  
 
 This progress is our commitment in continuing to make Kubernetes best way to manage your production workloads at scale.  
 
 | | Five Days of Kubernetes 1.5 |
 |--|--|
-| Day 1 |  [Introducing Container Runtime Interface (CRI) in Kubernetes](http://blog.kubernetes.io/2016/12/container-runtime-interface-cri-in-kubernetes.html) |
-| Day 2 |  [StatefulSet: Run and Scale Stateful Applications Easily in Kubernetes](http://blog.kubernetes.io/2016/12/statefulset-run-scale-stateful-applications-in-kubernetes.html) |
-| Day 3 |  [Windows Server Support Comes to Kubernetes](http://blog.kubernetes.io/2016/12/windows-server-support-kubernetes.html) |
-| Day 4 |  [Cluster Federation in Kubernetes 1.5](http://blog.kubernetes.io/2016/12/cluster-federation-in-kubernetes-1.5.html)  |
-| Day 5 |  [Kubernetes supports OpenAPI](http://blog.kubernetes.io/2016/12/kubernetes-supports-openapi.html) |
+| Day 1 |  [Introducing Container Runtime Interface (CRI) in Kubernetes](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes) |
+| Day 2 |  [StatefulSet: Run and Scale Stateful Applications Easily in Kubernetes](https://kubernetes.io/blog/2016/12/statefulset-run-scale-stateful-applications-in-kubernetes) |
+| Day 3 |  [Windows Server Support Comes to Kubernetes](https://kubernetes.io/blog/2016/12/windows-server-support-kubernetes) |
+| Day 4 |  [Cluster Federation in Kubernetes 1.5](https://kubernetes.io/blog/2016/12/cluster-federation-in-kubernetes-1.5)  |
+| Day 5 |  [Kubernetes supports OpenAPI](https://kubernetes.io/blog/2016/12/kubernetes-supports-openapi) |
 {: .post-table }
 
 

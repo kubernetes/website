@@ -6,15 +6,15 @@ date:  Friday, March 30, 2017
 pagination:
   enabled: true
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](http://blog.kubernetes.io/2017/03/five-days-of-kubernetes-1.6.html) on what's new in Kubernetes 1.6_  
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1.6) on what's new in Kubernetes 1.6_  
 
-Last summer we [shared](http://blog.kubernetes.io/2016/07/kubernetes-updates-to-performance-and-scalability-in-1.3.html) updates on Kubernetes scalability, since then we’ve been working hard and are proud to announce that [Kubernetes 1.6](http://blog.kubernetes.io/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale.html) can handle 5,000-node clusters with up to 150,000 pods. Moreover, those cluster have even better end-to-end pod startup time than the previous 2,000-node clusters in the 1.3 release; and latency of the API calls are within the one-second SLO.  
+Last summer we [shared](https://kubernetes.io/blog/2016/07/kubernetes-updates-to-performance-and-scalability-in-1.3) updates on Kubernetes scalability, since then we’ve been working hard and are proud to announce that [Kubernetes 1.6](https://kubernetes.io/blog/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale) can handle 5,000-node clusters with up to 150,000 pods. Moreover, those cluster have even better end-to-end pod startup time than the previous 2,000-node clusters in the 1.3 release; and latency of the API calls are within the one-second SLO.  
 
 In this blog post we review what metrics we monitor in our tests and describe our performance results from Kubernetes 1.6. We also discuss what changes we made to achieve the improvements, and our plans for upcoming releases in the area of system scalability.  
 
 **X-node clusters - what does it mean?**  
 
-Now that Kubernetes 1.6 is released, it is a good time to review what it means when we say we “support” X-node clusters. As described in detail in a [previous blog post](http://blog.kubernetes.io/2016/03/1000-nodes-and-beyond-updates-to-Kubernetes-performance-and-scalability-in-12.html), we currently have two performance-related [Service Level Objectives (SLO)](https://en.wikipedia.org/wiki/Service_level_objective):  
+Now that Kubernetes 1.6 is released, it is a good time to review what it means when we say we “support” X-node clusters. As described in detail in a [previous blog post](https://kubernetes.io/blog/2016/03/1000-nodes-and-beyond-updates-to-Kubernetes-performance-and-scalability-in-12), we currently have two performance-related [Service Level Objectives (SLO)](https://en.wikipedia.org/wiki/Service_level_objective):  
 
 - **API-responsiveness** : 99% of all API calls return in less than 1s
 - **Pod startup time** : 99% of pods and their containers (with pre-pulled images) start within 5s.
@@ -80,7 +80,7 @@ If you are interested in scalability and performance, please join our community 
 
 - Chat with us in the Kubernetes Slack [scalability channel](https://kubernetes.slack.com/messages/sig-scale/):&nbsp;
 - Join our Special Interest Group, [SIG-Scalability](https://github.com/kubernetes/community/blob/master/sig-scalability/README.md), which meets every Thursday at 9:00 AM PST
-Thanks for the support and contributions! Read more in-depth posts on what's new in Kubernetes 1.6 [here](http://blog.kubernetes.io/2017/03/five-days-of-kubernetes-1.6.html).  
+Thanks for the support and contributions! Read more in-depth posts on what's new in Kubernetes 1.6 [here](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1.6).  
 
 _-- Wojciech Tyczynski, Software Engineer, Google_  
 
