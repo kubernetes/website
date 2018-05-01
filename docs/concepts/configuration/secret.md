@@ -266,15 +266,14 @@ spec:
   - name: foo
     secret:
       secretName: mysecret
-      defaultMode: 256
+      defaultMode: 0400
 ```
 
 Then, the secret will be mounted on `/etc/foo` and all the files created by the
 secret volume mount will have permission `0400`.
 
-Note that the JSON spec doesn't support octal notation, so use the value 256 for
-0400 permissions. If you use yaml instead of json for the pod, you can use octal
-notation to specify permissions in a more natural way.
+Note that the JSON spec doesn't support octal notation, so if you use json instead
+of yaml for the pod, use the value 256 for 0400 permissions.
 
 You can also use mapping, as in the previous example, and specify different
 permission for different files like this:
@@ -298,12 +297,11 @@ spec:
       items:
       - key: username
         path: my-group/my-username
-        mode: 511
+        mode: 0777
 ```
 
 In this case, the file resulting in `/etc/foo/my-group/my-username` will have
-permission value of `0777`. Owing to JSON limitations, you must specify the mode
-in decimal notation.
+permission value of `0777`.
 
 Note that this permission value might be displayed in decimal notation if you
 read it later.
