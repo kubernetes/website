@@ -670,7 +670,7 @@ spec:
           items:
             - key: password
               path: my-group/my-password
-              mode: 511
+              mode: 0777
 ```
 
 Each projected volume source is listed in the spec under `sources`. The
