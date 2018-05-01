@@ -27,8 +27,8 @@ Pods in a Kubernetes cluster can be used in two main ways:
 
 The [Kubernetes Blog](http://blog.kubernetes.io) has some additional information on Pod use cases. For more information, see:
 
-* [The Distributed System Toolkit: Patterns for Composite Containers](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html)
-* [Container Design Patterns](http://blog.kubernetes.io/2016/06/container-design-patterns.html)
+* [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
+* [Container Design Patterns](https://kubernetes.io/blog/2016/06/container-design-patterns)
 
 Each Pod is meant to run a single instance of a given application. If you want to scale your application horizontally (e.g., run multiple instances), you should use multiple Pods, one for each instance. In Kubernetes, this is generally referred to as _replication_. Replicated Pods are usually created and managed as a group by an abstraction called a Controller. See [Pods and Controllers](#pods-and-controllers) for more information.
 

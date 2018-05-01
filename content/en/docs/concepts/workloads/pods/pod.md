@@ -109,7 +109,7 @@ application, in general.
 
 For a longer explanation, see [The Distributed System ToolKit: Patterns for
 Composite
-Containers](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html).
+Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
 
 ## Alternatives considered
 

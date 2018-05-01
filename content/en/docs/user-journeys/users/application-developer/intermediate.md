@@ -154,7 +154,7 @@ Now that you're fairly familiar with Kubernetes, you may find it useful to brows
 * {{< link text="Kubernetes API reference" url="{{ reference_docs_url }}" >}}
 * {{< link text="Standardized Glossary" url="/docs/reference/glossary/" >}}
 
-In addition, {{< link text="the Kubernetes blog" url="http://blog.kubernetes.io/" >}} often has helpful posts on Kubernetes design patterns and case studies.
+In addition, {{< link text="the Kubernetes Blog" url="https://kubernetes.io/blog/" >}} often has helpful posts on Kubernetes design patterns and case studies.
 
 #### What's next
 If you feel fairly comfortable with the topics on this page and want to learn more, check out the following user journeys:
