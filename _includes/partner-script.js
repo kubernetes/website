@@ -115,16 +115,16 @@
 		{
   		type: 2,
  			name: 'Giant Swarm',
- 			logo: 'giant_swarm',
+ 			logo: 'giantswarm',
  			link: 'https://giantswarm.io',
- 			blurb: 'Giant Swarm provides fully-managed Kubernetes Clusters in your location of choice, so you can focus on your product.'
+ 			blurb: 'Giant Swarm enables you to simply and rapidly create and use Kubernetes clusters on-demand either on-premises or in the cloud. Contact Giant Swarm to learn about the best way to run cloud native applications anywhere.'
  				},
 		{
 		 	type: 3,
 		 	name: 'Giant Swarm',
-		 	logo: 'giant_swarm',
+		 	logo: 'giantswarm',
 		 	link: 'https://giantswarm.io/product/',
-		 	blurb: 'Giant Swarm - Managed Kubernetes on AWS'
+		 	blurb: 'Giant Swarm enables you to simply and rapidly create and use Kubernetes clusters on-demand either on-premises or in the cloud. Contact Giant Swarm to learn about the best way to run cloud native applications anywhere.'
 		 		},
 		{
 		 	type: 3,
@@ -183,6 +183,13 @@
 			blurb: 'Container Solutions is a premium software consultancy that focuses on programmable infrastructure, offering our expertise in software development, strategy and operations to help you innovate at speed and scale.'
 		},
 		{
+			type: 4,
+			name: 'Container Solutions',
+			logo: 'container_solutions',
+			link: 'http://container-solutions.com/resources/kubernetes/',
+			blurb: 'Container Solutions is a premium software consultancy that focuses on programmable infrastructure, offering our expertise in software development, strategy and operations to help you innovate at speed and scale.'
+		},
+		{
 			type: 2,
 			name: 'Jetstack',
 			logo: 'jetstack',
@@ -217,6 +224,13 @@
  			link: 'http://www.inwinstack.com/index.php/en/solutions-en/',
  			blurb: 'Our container service leverages OpenStack-based infrastructure and its container orchestration engine Magnum to manage Kubernetes clusters.'
   		},
+	{
+			type: 4,
+			name: 'InwinSTACK',
+			logo: 'inwinstack',
+			link: 'http://www.inwinstack.com/index.php/en/solutions-en/',
+			blurb: 'Our container service leverages OpenStack-based infrastructure and its container orchestration engine Magnum to manage Kubernetes clusters.'
+			},
 		{
 	 		type: 3,
 	 		name: 'InwinSTACK',
@@ -264,8 +278,15 @@
  			name: 'RX-M',
  			logo: 'rxm',
  			link: 'http://rx-m.com/training/kubernetes-training/',
- 			blurb: 'Market neutral Kubernetes Dev, DevOps and Production training and consulting services'
+ 			blurb: 'Market neutral Kubernetes Dev, DevOps and Production training and consulting services.'
   		},
+		{
+	 		type: 4,
+	 		name: 'RX-M',
+	 		logo: 'rxm',
+	 		link: 'http://rx-m.com/training/kubernetes-training/',
+	 		blurb: 'Market neutral Kubernetes Dev, DevOps and Production training and consulting services.'
+	  	},
 		{
  			type: 1,
  			name: 'Emerging Technology Advisors',
@@ -449,11 +470,25 @@
 			blurb: 'Fluentd Enterprise brings smart, secure logging to Kubernetes, and brings integrations with backends such as Splunk, Kafka, or AWS S3.'
 			},
 		{
-			type: 1,
+			type: 2,
 			name: 'Kenzan',
 			logo: 'Kenzan',
 			link: 'http://kenzan.com/?ref=kubernetes',
-			blurb: 'Kenzan is a software engineering and full-service consulting firm that provides customized, end-to-end solutions that drive change through digital transformation.'
+			blurb: 'We provide custom consulting services leveraging Kubernetes as our foundation. This involves the platform development, delivery pipelines, and the application development within Kubernetes.'
+			},
+		{
+			type: 2,
+			name: 'New Context',
+			logo: 'newcontext',
+			link: 'https://www.newcontext.com/devsecops-infrastructure-automation-orchestration/',
+			blurb: 'New Context builds and uplifts secure Kubernetes implementations and migrations, from initial design to infrastructure automation and management.'
+			},
+		{
+			type: 2,
+			name: 'Banzai',
+			logo: 'banzai',
+			link: 'https://banzaicloud.com/platform/',
+			blurb: 'Banzai Cloud brings cloud native to the enterprise and simplifies the transition to microservices on Kubernetes.'
 			},
 		{
 			type: 3,
@@ -925,6 +960,20 @@
 			blurb: 'Loodse provides Kubernetes training & consulting, and host related events regularly across Europe.'
 				},
 		{
+			type: 4,
+			name: 'Loodse',
+			logo: 'loodse',
+			link: 'https://loodse.com',
+			blurb: 'Loodse provides Kubernetes training & consulting, and host related events regularly across Europe.'
+				},
+		{
+			type: 4,
+			name: 'LF Training',
+			logo: 'lf-training',
+			link: 'https://training.linuxfoundation.org/',
+			blurb: 'The Linux Foundation’s training program combines the broad, foundational knowledge with the networking opportunities that attendees need to thrive in their careers today.'
+				},
+		{
 			type: 3,
 			name: 'Loodse',
 			logo: 'loodse',
@@ -1052,6 +1101,13 @@
 				},
 		{
 			type: 2,
+			name: 'Daocloud',
+			logo: 'daocloud',
+			link: 'http://www.daocloud.io/dce',
+			blurb: 'We provide enterprise-level cloud native application platform that supports both Kubernetes and Docker Swarm.'
+				},
+		{
+			type: 4,
 			name: 'Daocloud',
 			logo: 'daocloud',
 			link: 'http://www.daocloud.io/dce',
@@ -1453,7 +1509,7 @@
 			type: 1,
 			name: 'Mobilise Cloud Services Limited',
 			logo: 'mobilise',
-			link: 'http://www.mobilise.cloud/services/serverless-application-delivery',
+			link: 'https://www.mobilise.cloud/en/services/serverless-application-delivery/',
 			blurb: 'Mobilise helps organisations adopt Kubernetes and integrate with their CI/CD tooling.'
 				},
 		{
@@ -1463,6 +1519,13 @@
 			link: 'https://aws.amazon.com/eks/',
 			blurb: 'Amazon Elastic Container Service for Kubernetes (Amazon EKS) is a managed service that makes it easy for you to run Kubernetes on AWS without needing to install and operate your own Kubernetes clusters.'
 				},
+		{
+			type: 3,
+			name: 'Kontena',
+			logo: 'kontena',
+			link: 'https://pharos.sh',
+			blurb: 'Kontena Pharos - The simple, solid, certified Kubernetes distribution that just works.'
+					},
 		{
 			type: 0,
 			name: 'Logdna',
@@ -1474,6 +1537,7 @@
 
 	var kcspContainer = document.getElementById('kcspContainer')
 	var distContainer = document.getElementById('distContainer')
+	var ktpContainer = document.getElementById('ktpContainer')
 	var isvContainer = document.getElementById('isvContainer')
 	var servContainer = document.getElementById('servContainer')
 
@@ -1515,6 +1579,8 @@
       container = kcspContainer;
 		} else if (obj.type === 3) {
 			container = distContainer;
+		} else if (obj.type === 4) {
+			container = ktpContainer;
 		}
 
 		container.appendChild(box)
