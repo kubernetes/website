@@ -11,11 +11,6 @@ toc:
   - docs/imported/release/notes.md
   - docs/setup/building-from-source.md
 
-- title: Version 1.10 Troubleshooting
-  landing page: /docs/reference/pvc-finalizer-downgrade-issue/
-  section:
-  - docs/reference/pvc-finalizer-downgrade-issue.md
-
 - title: Independent Solutions
   landing_page: /docs/getting-started-guides/minikube/
   section:
