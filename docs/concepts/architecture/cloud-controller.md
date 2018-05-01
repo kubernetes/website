@@ -75,7 +75,7 @@ If the node has been deleted from the cloud, delete the Kubernetes Node object.
 
 #### Route controller
 
-The Route controller is responsible for configuring routes in the cloud appropriately so that containers on different nodes in the Kubernetes cluster can communicate with each other. The route controller is only applicable for Google Compute Engine clusters.
+The Route controller is responsible for configuring routes in the cloud appropriately so that containers on different nodes in the Kubernetes cluster can communicate with each other.
 
 #### Service Controller
 
