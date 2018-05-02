@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes Application Survey 2018 Results'
+title: 'Zero-downtime Deployment in Kubernetes with Jenkins'
 date: Monday, April 30, 2018
 author: kbarnard
 ---
