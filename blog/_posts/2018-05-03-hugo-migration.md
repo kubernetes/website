@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Going from Jekyll to Hugo'
+title: 'Docs are Migrating from Jekyll to Hugo'
 date: '2018-05-03T22:20:00.000-07:00'
 author: zcorleissen
 ---
