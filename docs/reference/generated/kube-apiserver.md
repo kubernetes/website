@@ -15,24 +15,17 @@ others. The API Server services REST operations and provides the frontend to the
 cluster's shared state through which all other components interact.
 
 ```
-kube-apiserver
+kube-apiserver [flags]
 ```
 
 ### Options
 
 <table style="width: 100%;">
   <colgroup>
-    <col span="1" style="width: 10px;">
-    <col span="1">
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
   </colgroup>
   <tbody>
-
-    <tr>
-      <td colspan="2">--admission-control stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [AlwaysAdmit]</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">Admission is divided into two phases. In the first phase, only mutating admission plugins run. In the second phase, only validating admission plugins run. The names in the below list may represent a validating plugin, a mutating plugin, or both. Within each phase, the plugins will run in the order in which they are passed to this flag. Comma-delimited list of: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, DefaultStorageClass, DefaultTolerationSeconds, DenyEscalatingExec, DenyExecOnPrivileged, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, InitialResources, Initializers, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PVCProtection, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodPreset, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, SecurityContextDeny, ServiceAccount, ValidatingAdmissionWebhook.</td>
-    </tr>
 
     <tr>
       <td colspan="2">--admission-control-config-file string</td>
@@ -70,6 +63,48 @@ kube-apiserver
     </tr>
 
     <tr>
+      <td colspan="2">--audit-log-batch-buffer-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10000</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The size of the buffer to store events before batching and writing. Only used in batch mode.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--audit-log-batch-max-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 400</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The maximum size of a batch. Only used in batch mode.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--audit-log-batch-max-wait duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 30s</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The amount of time to wait before force writing the batch that hadn't reached the max size. Only used in batch mode.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--audit-log-batch-throttle-burst int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 15</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Maximum number of requests sent at the same moment if ThrottleQPS was not utilized before. Only used in batch mode.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--audit-log-batch-throttle-enable</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Whether batching throttling is enabled. Only used in batch mode.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--audit-log-batch-throttle-qps float32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Maximum average number of batches per second. Only used in batch mode.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--audit-log-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "json"</td>
     </tr>
     <tr>
@@ -98,6 +133,13 @@ kube-apiserver
     </tr>
 
     <tr>
+      <td colspan="2">--audit-log-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "blocking"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Strategy for sending audit events. Blocking indicates sending events should block server responses. Batch causes the backend to buffer and write events asynchronously. Known modes are batch,blocking.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--audit-log-path string</td>
     </tr>
     <tr>
@@ -115,28 +157,21 @@ kube-apiserver
       <td colspan="2">--audit-webhook-batch-buffer-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10000</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">The size of the buffer to store events before batching and sending to the webhook. Only used in batch mode.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--audit-webhook-batch-initial-backoff duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10s</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">The amount of time to wait before retrying the first failed requests. Only used in batch mode.</td>
+      <td></td><td style="line-height: 130%">The size of the buffer to store events before batching and writing. Only used in batch mode.</td>
     </tr>
 
     <tr>
       <td colspan="2">--audit-webhook-batch-max-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 400</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">The maximum size of a batch sent to the webhook. Only used in batch mode.</td>
+      <td></td><td style="line-height: 130%">The maximum size of a batch. Only used in batch mode.</td>
     </tr>
 
     <tr>
       <td colspan="2">--audit-webhook-batch-max-wait duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 30s</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">The amount of time to wait before force sending the batch that hadn't reached the max size. Only used in batch mode.</td>
+      <td></td><td style="line-height: 130%">The amount of time to wait before force writing the batch that hadn't reached the max size. Only used in batch mode.</td>
     </tr>
 
     <tr>
@@ -147,10 +182,17 @@ kube-apiserver
     </tr>
 
     <tr>
+      <td colspan="2">--audit-webhook-batch-throttle-enable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Whether batching throttling is enabled. Only used in batch mode.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--audit-webhook-batch-throttle-qps float32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">Maximum average number of requests per second. Only used in batch mode.</td>
+      <td></td><td style="line-height: 130%">Maximum average number of batches per second. Only used in batch mode.</td>
     </tr>
 
     <tr>
@@ -161,10 +203,17 @@ kube-apiserver
     </tr>
 
     <tr>
+      <td colspan="2">--audit-webhook-initial-backoff duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10s</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The amount of time to wait before retrying the first failed request.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--audit-webhook-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "batch"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">Strategy for sending audit events. Blocking indicates sending events should block server responses. Batch causes the webhook to buffer and send events asynchronously. Known modes are batch,blocking.</td>
+      <td></td><td style="line-height: 130%">Strategy for sending audit events. Blocking indicates sending events should block server responses. Batch causes the backend to buffer and write events asynchronously. Known modes are batch,blocking.</td>
     </tr>
 
     <tr>
@@ -220,7 +269,7 @@ kube-apiserver
       <td colspan="2">--azure-container-registry-config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">Path to the file container Azure container registry configuration information.</td>
+      <td></td><td style="line-height: 130%">Path to the file containing Azure container registry configuration information.</td>
     </tr>
 
     <tr>
@@ -234,7 +283,7 @@ kube-apiserver
       <td colspan="2">--bind-address ip&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 0.0.0.0</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">The IP address on which to listen for the --secure-port port. The associated interface(s) must be reachable by the rest of the cluster, and by CLI/web clients. If blank, all interfaces will be used (0.0.0.0).</td>
+      <td></td><td style="line-height: 130%">The IP address on which to listen for the --secure-port port. The associated interface(s) must be reachable by the rest of the cluster, and by CLI/web clients. If blank, all interfaces will be used (0.0.0.0 for all IPv4 interfaces and :: for all IPv6 interfaces).</td>
     </tr>
 
     <tr>
@@ -301,6 +350,20 @@ kube-apiserver
     </tr>
 
     <tr>
+      <td colspan="2">--disable-admission-plugins stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">admission plugins that should be disabled although they are in the default enabled plugins list. Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, DefaultStorageClass, DefaultTolerationSeconds, DenyEscalatingExec, DenyExecOnPrivileged, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, InitialResources, Initializers, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodPreset, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--enable-admission-plugins stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">admission plugins that should be enabled in addition to default enabled ones. Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, DefaultStorageClass, DefaultTolerationSeconds, DenyEscalatingExec, DenyExecOnPrivileged, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, InitialResources, Initializers, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodPreset, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--enable-aggregator-routing</td>
     </tr>
     <tr>
@@ -364,6 +427,13 @@ kube-apiserver
     </tr>
 
     <tr>
+      <td colspan="2">--etcd-count-metric-poll-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1m0s</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Frequency of polling etcd for number of resources per type. 0 disables the metric collection.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--etcd-keyfile string</td>
     </tr>
     <tr>
@@ -406,20 +476,6 @@ kube-apiserver
     </tr>
 
     <tr>
-      <td colspan="2">--experimental-keystone-ca-file string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">If set, the Keystone server's certificate will be verified by one of the authorities in the experimental-keystone-ca-file, otherwise the host's root CA set will be used.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--experimental-keystone-url string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">If passed, activates the keystone authentication plugin.</td>
-    </tr>
-
-    <tr>
       <td colspan="2">--external-hostname string</td>
     </tr>
     <tr>
@@ -430,28 +486,21 @@ kube-apiserver
       <td colspan="2">--feature-gates mapStringBool</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:<br/>APIListChunking=true|false (BETA - default=true)<br/>APIResponseCompression=true|false (ALPHA - default=false)<br/>Accelerators=true|false (ALPHA - default=false)<br/>AdvancedAuditing=true|false (BETA - default=true)<br/>AllAlpha=true|false (ALPHA - default=false)<br/>AllowExtTrafficLocalEndpoints=true|false (default=true)<br/>AppArmor=true|false (BETA - default=true)<br/>BlockVolume=true|false (ALPHA - default=false)<br/>CPUManager=true|false (BETA - default=true)<br/>CSIPersistentVolume=true|false (ALPHA - default=false)<br/>CustomPodDNS=true|false (ALPHA - default=false)<br/>CustomResourceValidation=true|false (BETA - default=true)<br/>DebugContainers=true|false (ALPHA - default=false)<br/>DevicePlugins=true|false (ALPHA - default=false)<br/>DynamicKubeletConfig=true|false (ALPHA - default=false)<br/>EnableEquivalenceClassCache=true|false (ALPHA - default=false)<br/>ExpandPersistentVolumes=true|false (ALPHA - default=false)<br/>ExperimentalCriticalPodAnnotation=true|false (ALPHA - default=false)<br/>ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>HugePages=true|false (BETA - default=true)<br/>Initializers=true|false (ALPHA - default=false)<br/>KubeletConfigFile=true|false (ALPHA - default=false)<br/>LocalStorageCapacityIsolation=true|false (ALPHA - default=false)<br/>MountContainers=true|false (ALPHA - default=false)<br/>MountPropagation=true|false (ALPHA - default=false)<br/>PVCProtection=true|false (ALPHA - default=false)<br/>PersistentLocalVolumes=true|false (ALPHA - default=false)<br/>PodPriority=true|false (ALPHA - default=false)<br/>ResourceLimitsPriorityFunction=true|false (ALPHA - default=false)<br/>RotateKubeletClientCertificate=true|false (BETA - default=true)<br/>RotateKubeletServerCertificate=true|false (ALPHA - default=false)<br/>ServiceNodeExclusion=true|false (ALPHA - default=false)<br/>StreamingProxyRedirects=true|false (BETA - default=true)<br/>SupportIPVSProxyMode=true|false (BETA - default=false)<br/>TaintBasedEvictions=true|false (ALPHA - default=false)<br/>TaintNodesByCondition=true|false (ALPHA - default=false)<br/>VolumeScheduling=true|false (ALPHA - default=false)</td>
+      <td></td><td style="line-height: 130%">A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:<br/>APIListChunking=true|false (BETA - default=true)<br/>APIResponseCompression=true|false (ALPHA - default=false)<br/>Accelerators=true|false (ALPHA - default=false)<br/>AdvancedAuditing=true|false (BETA - default=true)<br/>AllAlpha=true|false (ALPHA - default=false)<br/>AppArmor=true|false (BETA - default=true)<br/>BlockVolume=true|false (ALPHA - default=false)<br/>CPUManager=true|false (BETA - default=true)<br/>CRIContainerLogRotation=true|false (ALPHA - default=false)<br/>CSIPersistentVolume=true|false (BETA - default=true)<br/>CustomPodDNS=true|false (BETA - default=true)<br/>CustomResourceSubresources=true|false (ALPHA - default=false)<br/>CustomResourceValidation=true|false (BETA - default=true)<br/>DebugContainers=true|false (ALPHA - default=false)<br/>DevicePlugins=true|false (BETA - default=true)<br/>DynamicKubeletConfig=true|false (ALPHA - default=false)<br/>EnableEquivalenceClassCache=true|false (ALPHA - default=false)<br/>ExpandPersistentVolumes=true|false (ALPHA - default=false)<br/>ExperimentalCriticalPodAnnotation=true|false (ALPHA - default=false)<br/>ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>GCERegionalPersistentDisk=true|false (BETA - default=true)<br/>HugePages=true|false (BETA - default=true)<br/>HyperVContainer=true|false (ALPHA - default=false)<br/>Initializers=true|false (ALPHA - default=false)<br/>LocalStorageCapacityIsolation=true|false (BETA - default=true)<br/>MountContainers=true|false (ALPHA - default=false)<br/>MountPropagation=true|false (BETA - default=true)<br/>PersistentLocalVolumes=true|false (BETA - default=true)<br/>PodPriority=true|false (ALPHA - default=false)<br/>PodShareProcessNamespace=true|false (ALPHA - default=false)<br/>ReadOnlyAPIDataVolumes=true|false (DEPRECATED - default=true)<br/>ResourceLimitsPriorityFunction=true|false (ALPHA - default=false)<br/>RotateKubeletClientCertificate=true|false (BETA - default=true)<br/>RotateKubeletServerCertificate=true|false (ALPHA - default=false)<br/>RunAsGroup=true|false (ALPHA - default=false)<br/>ScheduleDaemonSetPods=true|false (ALPHA - default=false)<br/>ServiceNodeExclusion=true|false (ALPHA - default=false)<br/>ServiceProxyAllowExternalIPs=true|false (DEPRECATED - default=false)<br/>StorageObjectInUseProtection=true|false (BETA - default=true)<br/>StreamingProxyRedirects=true|false (BETA - default=true)<br/>SupportIPVSProxyMode=true|false (BETA - default=true)<br/>SupportPodPidsLimit=true|false (ALPHA - default=false)<br/>TaintBasedEvictions=true|false (ALPHA - default=false)<br/>TaintNodesByCondition=true|false (ALPHA - default=false)<br/>TokenRequest=true|false (ALPHA - default=false)<br/>VolumeScheduling=true|false (BETA - default=true)<br/>VolumeSubpath=true|false (default=true)</td>
     </tr>
 
     <tr>
-      <td colspan="2">--google-json-key string</td>
+      <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">The Google Cloud Platform Service Account JSON Key to use for authentication.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--insecure-bind-address ip&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 127.0.0.1</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">The IP address on which to serve the --insecure-port (set to 0.0.0.0 for all interfaces).</td>
+      <td></td><td style="line-height: 130%">help for kube-apiserver</td>
     </tr>
 
     <tr>
-      <td colspan="2">--insecure-port int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 8080</td>
+      <td colspan="2">--http2-max-streams-per-connection int</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">The port on which to serve unsecured, unauthenticated access. It is assumed that firewall rules are set up such that this port is not reachable from outside of the cluster and that port 443 on the cluster's public address is proxied to this port. This is performed by nginx in the default setup. Set to zero to disable</td>
+      <td></td><td style="line-height: 130%">The limit that the server gives to clients for the maximum number of streams in an HTTP/2 connection. Zero means to use golang's default.</td>
     </tr>
 
     <tr>
@@ -508,6 +557,13 @@ kube-apiserver
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">If non-zero, the Kubernetes master service (which apiserver creates/maintains) will be of type NodePort, using this as the value of the port. If zero, the Kubernetes master service will be of type ClusterIP.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5s</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Maximum number of seconds between log flushes</td>
     </tr>
 
     <tr>
@@ -581,6 +637,13 @@ kube-apiserver
     </tr>
 
     <tr>
+      <td colspan="2">--oidc-signing-algs stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [RS256]</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Comma-separated list of allowed JOSE asymmetric signing algorithms. JWTs with a 'alg' header value not in this list will be rejected. Values are defined by RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--oidc-username-claim string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "sub"</td>
     </tr>
     <tr>
@@ -605,7 +668,7 @@ kube-apiserver
       <td colspan="2">--proxy-client-cert-file string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">Client certificate used to prove the identity of the aggregator or kube-apiserver when it must call out during a request. This includes proxying requests to a user api-server and calling out to webhook admission plugins. It is expected that this cert includes a signature from the CA in the --requestheader-client-ca-file flag. That CA is published in the 'extension-apiserver-authentication' configmap in the kube-system namespace. Components recieving calls from kube-aggregator should use that CA to perform their half of the mutual TLS verification.</td>
+      <td></td><td style="line-height: 130%">Client certificate used to prove the identity of the aggregator or kube-apiserver when it must call out during a request. This includes proxying requests to a user api-server and calling out to webhook admission plugins. It is expected that this cert includes a signature from the CA in the --requestheader-client-ca-file flag. That CA is published in the 'extension-apiserver-authentication' configmap in the kube-system namespace. Components receiving calls from kube-aggregator should use that CA to perform their half of the mutual TLS verification.</td>
     </tr>
 
     <tr>
@@ -668,7 +731,7 @@ kube-apiserver
       <td colspan="2">--runtime-config mapStringString</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">A set of key=value pairs that describe runtime configuration that may be passed to apiserver. <group>/<version> (or <version> for the core group) key can be used to turn on/off specific api versions. <grouop>/<version>/<resource> (or <version>/<resource> for the core group) can be used to turn on/off specific resources. api/all and api/legacy are special keys to control all and legacy api versions respectively.</td>
+      <td></td><td style="line-height: 130%">A set of key=value pairs that describe runtime configuration that may be passed to apiserver. &lt;group&gt;/&lt;version&gt; (or &lt;version&gt; for the core group) key can be used to turn on/off specific api versions. &lt;group&gt;/&lt;version&gt;/&lt;resource&gt; (or &lt;version&gt;/&lt;resource&gt; for the core group) can be used to turn on/off specific resources. api/all and api/legacy are special keys to control all and legacy api versions respectively.</td>
     </tr>
 
     <tr>
@@ -679,10 +742,24 @@ kube-apiserver
     </tr>
 
     <tr>
+      <td colspan="2">--service-account-api-audiences stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Identifiers of the API. The service account token authenticator will validate that tokens used against the API are bound to at least one of these audiences.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--service-account-issuer string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Identifier of the service account token issuer. The issuer will assert this identifier in "iss" claim of issued tokens. This value is a string or URI.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--service-account-key-file stringArray</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">File containing PEM-encoded x509 RSA or ECDSA private or public keys, used to verify ServiceAccount tokens. If unspecified, --tls-private-key-file is used. The specified file can contain multiple keys, and the flag can be specified multiple times with different files.</td>
+      <td></td><td style="line-height: 130%">File containing PEM-encoded x509 RSA or ECDSA private or public keys, used to verify ServiceAccount tokens. The specified file can contain multiple keys, and the flag can be specified multiple times with different files. If unspecified, --tls-private-key-file is used. Must be specified when --service-account-signing-key is provided</td>
     </tr>
 
     <tr>
@@ -693,7 +770,14 @@ kube-apiserver
     </tr>
 
     <tr>
-      <td colspan="2">--service-cluster-ip-range ipNet</td>
+      <td colspan="2">--service-account-signing-key-file string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Path to the file that contains the current private key of the service account token issuer. The issuer will sign issued ID tokens with this private key. (Ignored unless alpha TokenRequest is enabled</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--service-cluster-ip-range ipNet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10.0.0.0/24</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">A CIDR notation IP range from which to assign service cluster IPs. This must not overlap with any IP ranges assigned to nodes for pods.</td>
@@ -721,7 +805,7 @@ kube-apiserver
     </tr>
 
     <tr>
-      <td colspan="2">--storage-versions string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "admission.k8s.io/v1beta1,<br />admissionregistration.k8s.io/v1beta1,<br />apps/v1beta1,<br />authentication.k8s.io/v1,<br />authorization.k8s.io/v1,<br />autoscaling/v1,<br />batch/v1,<br />certificates.k8s.io/v1beta1,<br />componentconfig/v1alpha1,<br />events.k8s.io/v1beta1,<br />extensions/v1beta1,<br />imagepolicy.k8s.io/v1alpha1,<br />kubeadm.k8s.io/v1alpha1,<br />networking.k8s.io/v1,<br />policy/v1beta1,<br />rbac.authorization.k8s.io/v1,<br />scheduling.k8s.io/v1alpha1,<br />settings.k8s.io/v1alpha1,<br />storage.k8s.io/v1,<br />v1"</td>
+      <td colspan="2">--storage-versions string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "admission.k8s.io/v1beta1,<br />admissionregistration.k8s.io/v1beta1,<br />apps/v1,<br />authentication.k8s.io/v1,<br />authorization.k8s.io/v1,<br />autoscaling/v1,<br />batch/v1,<br />certificates.k8s.io/v1beta1,<br />componentconfig/v1alpha1,<br />events.k8s.io/v1beta1,<br />extensions/v1beta1,<br />imagepolicy.k8s.io/v1alpha1,<br />kubeadm.k8s.io/v1alpha1,<br />networking.k8s.io/v1,<br />policy/v1beta1,<br />rbac.authorization.k8s.io/v1,<br />scheduling.k8s.io/v1alpha1,<br />settings.k8s.io/v1alpha1,<br />storage.k8s.io/v1,<br />v1"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">The per-group version to store resources in. Specified in the format "group1/version1,group2/version2,...". In the case where objects are moved from one group to the other, you may specify the format "group1=group2/v1beta1,group3/v1beta1,...". You only need to pass the groups you wish to change from the defaults. It defaults to a list of preferred versions of all registered groups, which is derived from the KUBE_API_VERSIONS environment variable.</td>
@@ -735,17 +819,24 @@ kube-apiserver
     </tr>
 
     <tr>
-      <td colspan="2">--tls-ca-file string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">If set, this certificate authority will used for secure access from Admission Controllers. This must be a valid PEM-encoded CA bundle. Altneratively, the certificate authority can be appended to the certificate provided by --tls-cert-file.</td>
-    </tr>
-
-    <tr>
       <td colspan="2">--tls-cert-file string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">File containing the default x509 Certificate for HTTPS. (CA cert, if any, concatenated after server cert). If HTTPS serving is enabled, and --tls-cert-file and --tls-private-key-file are not provided, a self-signed certificate and key are generated for the public address and saved to the directory specified by --cert-dir.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--tls-cipher-suites stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Comma-separated list of cipher suites for the server. Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants). If omitted, the default Go cipher suites will be used</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--tls-min-version string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Minimum TLS version supported. Value must match version names from https://golang.org/pkg/crypto/tls/#pkg-constants.</td>
     </tr>
 
     <tr>
@@ -787,7 +878,11 @@ kube-apiserver
       <td colspan="2">--watch-cache-sizes stringSlice</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">List of watch cache sizes for every resource (pods, nodes, etc.), comma separated. The individual override format: resource#size, where size is a number. It takes effect when watch-cache is enabled.</td>
+      <td></td><td style="line-height: 130%">List of watch cache sizes for every resource (pods, nodes, etc.), comma separated. The individual override format: resource[.group]#size, where resource is lowercase plural (no version), group is optional, and size is a number. It takes effect when watch-cache is enabled. Some resources (replicationcontrollers, endpoints, nodes, pods, services, apiservices.apiregistration.k8s.io) have system defaults set by heuristics, others default to default-watch-cache-size</td>
     </tr>
+
+  </tbody>
+</table>
+
 
 

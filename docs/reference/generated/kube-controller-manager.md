@@ -19,15 +19,15 @@ Kubernetes today are the replication controller, endpoints controller, namespace
 controller, and serviceaccounts controller.
 
 ```
-kube-controller-manager
+kube-controller-manager [flags]
 ```
 
 ### Options
 
 <table style="width: 100%;">
   <colgroup>
-    <col span="1" style="width: 10px;">
-    <col span="1">
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
   </colgroup>
   <tbody>
 
@@ -35,7 +35,7 @@ kube-controller-manager
       <td colspan="2">--address ip&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 0.0.0.0</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">The IP address to serve on (set to 0.0.0.0 for all interfaces).</td>
+      <td></td><td style="line-height: 130%">DEPRECATED: the IP address on which to listen for the --port port. See --bind-address instead.</td>
     </tr>
 
     <tr>
@@ -56,7 +56,21 @@ kube-controller-manager
       <td colspan="2">--azure-container-registry-config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">Path to the file container Azure container registry configuration information.</td>
+      <td></td><td style="line-height: 130%">Path to the file containing Azure container registry configuration information.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--bind-address ip&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 0.0.0.0</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The IP address on which to listen for the --secure-port port. The associated interface(s) must be reachable by the rest of the cluster, and by CLI/web clients. If blank, all interfaces will be used (0.0.0.0 for all IPv4 interfaces and :: for all IPv6 interfaces).</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/var/run/kubernetes"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The directory where the TLS certs are located. If --tls-cert-file and --tls-private-key-file are provided, this flag will be ignored.</td>
     </tr>
 
     <tr>
@@ -196,7 +210,7 @@ kube-controller-manager
       <td colspan="2">--controllers stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [*]</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">A list of controllers to enable.  '*' enables all on-by-default controllers, 'foo' enables the controller named 'foo', '-foo' disables the controller named 'foo'.<br/>All controllers: attachdetach, bootstrapsigner, clusterrole-aggregation, cronjob, csrapproving, csrcleaner, csrsigning, daemonset, deployment, disruption, endpoint, garbagecollector, horizontalpodautoscaling, job, namespace, nodeipam, nodelifecycle, persistentvolume-binder, persistentvolume-expander, podgc, pvc-protection, replicaset, replicationcontroller, resourcequota, route, service, serviceaccount, serviceaccount-token, statefulset, tokencleaner, ttl<br/>Disabled-by-default controllers: bootstrapsigner, tokencleaner</td>
+      <td></td><td style="line-height: 130%">A list of controllers to enable.  '*' enables all on-by-default controllers, 'foo' enables the controller named 'foo', '-foo' disables the controller named 'foo'.<br/>All controllers: attachdetach, bootstrapsigner, clusterrole-aggregation, cronjob, csrapproving, csrcleaner, csrsigning, daemonset, deployment, disruption, endpoint, garbagecollector, horizontalpodautoscaling, job, namespace, nodeipam, nodelifecycle, persistentvolume-binder, persistentvolume-expander, podgc, pv-protection, pvc-protection, replicaset, replicationcontroller, resourcequota, route, service, serviceaccount, serviceaccount-token, statefulset, tokencleaner, ttl<br/>Disabled-by-default controllers: bootstrapsigner, tokencleaner</td>
     </tr>
 
     <tr>
@@ -259,7 +273,7 @@ kube-controller-manager
       <td colspan="2">--feature-gates mapStringBool</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:<br/>APIListChunking=true|false (BETA - default=true)<br/>APIResponseCompression=true|false (ALPHA - default=false)<br/>Accelerators=true|false (ALPHA - default=false)<br/>AdvancedAuditing=true|false (BETA - default=true)<br/>AllAlpha=true|false (ALPHA - default=false)<br/>AllowExtTrafficLocalEndpoints=true|false (default=true)<br/>AppArmor=true|false (BETA - default=true)<br/>BlockVolume=true|false (ALPHA - default=false)<br/>CPUManager=true|false (BETA - default=true)<br/>CSIPersistentVolume=true|false (ALPHA - default=false)<br/>CustomPodDNS=true|false (ALPHA - default=false)<br/>CustomResourceValidation=true|false (BETA - default=true)<br/>DebugContainers=true|false (ALPHA - default=false)<br/>DevicePlugins=true|false (ALPHA - default=false)<br/>DynamicKubeletConfig=true|false (ALPHA - default=false)<br/>EnableEquivalenceClassCache=true|false (ALPHA - default=false)<br/>ExpandPersistentVolumes=true|false (ALPHA - default=false)<br/>ExperimentalCriticalPodAnnotation=true|false (ALPHA - default=false)<br/>ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>HugePages=true|false (BETA - default=true)<br/>Initializers=true|false (ALPHA - default=false)<br/>KubeletConfigFile=true|false (ALPHA - default=false)<br/>LocalStorageCapacityIsolation=true|false (ALPHA - default=false)<br/>MountContainers=true|false (ALPHA - default=false)<br/>MountPropagation=true|false (ALPHA - default=false)<br/>PVCProtection=true|false (ALPHA - default=false)<br/>PersistentLocalVolumes=true|false (ALPHA - default=false)<br/>PodPriority=true|false (ALPHA - default=false)<br/>ResourceLimitsPriorityFunction=true|false (ALPHA - default=false)<br/>RotateKubeletClientCertificate=true|false (BETA - default=true)<br/>RotateKubeletServerCertificate=true|false (ALPHA - default=false)<br/>ServiceNodeExclusion=true|false (ALPHA - default=false)<br/>StreamingProxyRedirects=true|false (BETA - default=true)<br/>SupportIPVSProxyMode=true|false (BETA - default=false)<br/>TaintBasedEvictions=true|false (ALPHA - default=false)<br/>TaintNodesByCondition=true|false (ALPHA - default=false)<br/>VolumeScheduling=true|false (ALPHA - default=false)</td>
+      <td></td><td style="line-height: 130%">A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:<br/>APIListChunking=true|false (BETA - default=true)<br/>APIResponseCompression=true|false (ALPHA - default=false)<br/>Accelerators=true|false (ALPHA - default=false)<br/>AdvancedAuditing=true|false (BETA - default=true)<br/>AllAlpha=true|false (ALPHA - default=false)<br/>AppArmor=true|false (BETA - default=true)<br/>BlockVolume=true|false (ALPHA - default=false)<br/>CPUManager=true|false (BETA - default=true)<br/>CRIContainerLogRotation=true|false (ALPHA - default=false)<br/>CSIPersistentVolume=true|false (BETA - default=true)<br/>CustomPodDNS=true|false (BETA - default=true)<br/>CustomResourceSubresources=true|false (ALPHA - default=false)<br/>CustomResourceValidation=true|false (BETA - default=true)<br/>DebugContainers=true|false (ALPHA - default=false)<br/>DevicePlugins=true|false (BETA - default=true)<br/>DynamicKubeletConfig=true|false (ALPHA - default=false)<br/>EnableEquivalenceClassCache=true|false (ALPHA - default=false)<br/>ExpandPersistentVolumes=true|false (ALPHA - default=false)<br/>ExperimentalCriticalPodAnnotation=true|false (ALPHA - default=false)<br/>ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>GCERegionalPersistentDisk=true|false (BETA - default=true)<br/>HugePages=true|false (BETA - default=true)<br/>HyperVContainer=true|false (ALPHA - default=false)<br/>Initializers=true|false (ALPHA - default=false)<br/>LocalStorageCapacityIsolation=true|false (BETA - default=true)<br/>MountContainers=true|false (ALPHA - default=false)<br/>MountPropagation=true|false (BETA - default=true)<br/>PersistentLocalVolumes=true|false (BETA - default=true)<br/>PodPriority=true|false (ALPHA - default=false)<br/>PodShareProcessNamespace=true|false (ALPHA - default=false)<br/>ReadOnlyAPIDataVolumes=true|false (DEPRECATED - default=true)<br/>ResourceLimitsPriorityFunction=true|false (ALPHA - default=false)<br/>RotateKubeletClientCertificate=true|false (BETA - default=true)<br/>RotateKubeletServerCertificate=true|false (ALPHA - default=false)<br/>RunAsGroup=true|false (ALPHA - default=false)<br/>ScheduleDaemonSetPods=true|false (ALPHA - default=false)<br/>ServiceNodeExclusion=true|false (ALPHA - default=false)<br/>ServiceProxyAllowExternalIPs=true|false (DEPRECATED - default=false)<br/>StorageObjectInUseProtection=true|false (BETA - default=true)<br/>StreamingProxyRedirects=true|false (BETA - default=true)<br/>SupportIPVSProxyMode=true|false (BETA - default=true)<br/>SupportPodPidsLimit=true|false (ALPHA - default=false)<br/>TaintBasedEvictions=true|false (ALPHA - default=false)<br/>TaintNodesByCondition=true|false (ALPHA - default=false)<br/>TokenRequest=true|false (ALPHA - default=false)<br/>VolumeScheduling=true|false (BETA - default=true)<br/>VolumeSubpath=true|false (default=true)</td>
     </tr>
 
     <tr>
@@ -270,10 +284,10 @@ kube-controller-manager
     </tr>
 
     <tr>
-      <td colspan="2">--google-json-key string</td>
+      <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">The Google Cloud Platform Service Account JSON Key to use for authentication.</td>
+      <td></td><td style="line-height: 130%">help for kube-controller-manager</td>
     </tr>
 
     <tr>
@@ -309,6 +323,13 @@ kube-controller-manager
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">WARNING: alpha feature.  If set to true, causes the horizontal pod autoscaler controller to use REST clients through the kube-aggregator, instead of using the legacy metrics client through the API server proxy.  This is required for custom metrics support in the horizontal pod autoscaler.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--http2-max-streams-per-connection int</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The limit that the server gives to clients for the maximum number of streams in an HTTP/2 connection. Zero means to use golang's default.</td>
     </tr>
 
     <tr>
@@ -389,6 +410,13 @@ kube-controller-manager
     </tr>
 
     <tr>
+      <td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5s</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Maximum number of seconds between log flushes</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--master string</td>
     </tr>
     <tr>
@@ -452,10 +480,10 @@ kube-controller-manager
     </tr>
 
     <tr>
-      <td colspan="2">--port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10252</td>
+      <td colspan="2">--port int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10252</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">The port that the controller-manager's http service runs on.</td>
+      <td></td><td style="line-height: 130%">DEPRECATED: the port on which to serve HTTP insecurely without authentication and authorization. If 0, don't serve HTTPS at all. See --secure-port instead.</td>
     </tr>
 
     <tr>
@@ -543,6 +571,13 @@ kube-controller-manager
     </tr>
 
     <tr>
+      <td colspan="2">--secure-port int</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">The port on which to serve HTTPS with authentication and authorization. If 0, don't serve HTTPS at all.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--service-account-private-key-file string</td>
     </tr>
     <tr>
@@ -557,17 +592,45 @@ kube-controller-manager
     </tr>
 
     <tr>
-      <td colspan="2">--service-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5m0s</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">The period for syncing services with their external load balancers</td>
-    </tr>
-
-    <tr>
       <td colspan="2">--terminated-pod-gc-threshold int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 12500</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">Number of terminated pods that can exist before the terminated pod garbage collector starts deleting terminated pods. If <= 0, the terminated pod garbage collector is disabled.</td>
+      <td></td><td style="line-height: 130%">Number of terminated pods that can exist before the terminated pod garbage collector starts deleting terminated pods. If &lt;= 0, the terminated pod garbage collector is disabled.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--tls-cert-file string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">File containing the default x509 Certificate for HTTPS. (CA cert, if any, concatenated after server cert). If HTTPS serving is enabled, and --tls-cert-file and --tls-private-key-file are not provided, a self-signed certificate and key are generated for the public address and saved to the directory specified by --cert-dir.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--tls-cipher-suites stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Comma-separated list of cipher suites for the server. Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants). If omitted, the default Go cipher suites will be used</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--tls-min-version string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">Minimum TLS version supported. Value must match version names from https://golang.org/pkg/crypto/tls/#pkg-constants.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--tls-private-key-file string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">File containing the default x509 private key matching --tls-cert-file.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--tls-sni-cert-key namedCertKey&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: []</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%">A pair of x509 certificate and private key file paths, optionally suffixed with a list of domain patterns which are fully qualified domain names, possibly with prefixed wildcard segments. If no domain patterns are provided, the names of the certificate are extracted. Non-wildcard matches trump over wildcard matches, explicit domain patterns trump over extracted names. For multiple key/certificate pairs, use the --tls-sni-cert-key multiple times. Examples: "example.crt,example.key" or "foo.crt,foo.key:*.foo.com,foo.com".</td>
     </tr>
 
     <tr>
@@ -590,5 +653,9 @@ kube-controller-manager
     <tr>
       <td></td><td style="line-height: 130%">Print version information and quit</td>
     </tr>
+
+  </tbody>
+</table>
+
 
 
