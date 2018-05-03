@@ -1,9 +1,8 @@
 ---
 title: Managing Compute Resources for Containers
-content_template: templates/concept
 ---
 
-{{% capture overview %}}
+{% capture overview %}
 
 When you specify a [Pod](/docs/concepts/workloads/pods/pod/), you can optionally specify how
 much CPU and memory (RAM) each Container needs. When Containers have resource
@@ -13,10 +12,10 @@ resources on a node can be handled in a specified manner. For more details about
 the difference between requests and limits, see
 [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
 
-{{% /capture %}}
+{% endcapture %}
 
 
-{{% capture body %}}
+{% capture body %}
 
 ## Resource types
 
@@ -143,9 +142,8 @@ When using Docker:
   multiplied by 100. The resulting value is the total amount of CPU time that a container can use
   every 100ms. A container cannot use more than its share of CPU time during this interval.
 
-  {{< note >}}
   **Note**: The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.
-  {{< /note >}}
+  {: .note}
 
 - The `spec.containers[].resources.limits.memory` is converted to an integer, and
   used as the value of the
@@ -170,7 +168,7 @@ resource limits, see the
 
 The resource usage of a Pod is reported as part of the Pod status.
 
-If [optional monitoring](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/README.md)
+If [optional monitoring](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/README.md)
 is configured for your cluster, then Pod resource usage can be retrieved from
 the monitoring system.
 
@@ -208,12 +206,10 @@ $ kubectl describe nodes e2e-test-minion-group-4lw4
 Name:            e2e-test-minion-group-4lw4
 [ ... lines removed for clarity ...]
 Capacity:
- alpha.kubernetes.io/nvidia-gpu:    0
  cpu:                               2
  memory:                            7679792Ki
  pods:                              110
 Allocatable:
- alpha.kubernetes.io/nvidia-gpu:    0
  cpu:                               1800m
  memory:                            7474992Ki
  pods:                              110
@@ -241,7 +237,7 @@ the node.
 
 The amount of resources available to Pods is less than the node capacity, because
 system daemons use a portion of the available resources. The `allocatable` field
-[NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)
+[NodeStatus](/docs/reference/generated/kubernetes-api/{{page.version}}/#nodestatus-v1-core)
 gives the amount of resources that are available to Pods. For more information, see
 [Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
 
@@ -299,25 +295,24 @@ Container in the Pod was terminated and restarted five times.
 You can call `kubectl get pod` with the `-o go-template=...` option to fetch the status
 of previously terminated Containers:
 
-```shell
+```shell{% raw %}
 [13:59:01] $ kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
 Container Name: simmemleak
-LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]
+LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]{% endraw %}
 ```
 
 You can see that the Container was terminated because of `reason:OOM Killed`,
 where `OOM` stands for Out Of Memory.
 
 ## Local ephemeral storage
-{{< feature-state state="beta" >}}
+{% include feature-state-beta.md %}
 
 Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managing local ephemeral storage. In each Kubernetes node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This partition is also shared and consumed by pods via EmptyDir volumes, container logs, image layers and container writable layers.
 
 This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
 
-{{< note >}}
 **Note:** If an optional runtime partition is used, root partition will not hold any image layer or writable layers.
-{{< /note >}}
+{: .note}
 
 ### Requests and limits setting for local ephemeral storage
 Each Container of a Pod can specify one or more of the following:
@@ -416,12 +411,11 @@ curl --header "Content-Type: application/json-patch+json" \
 http://k8s-master:8080/api/v1/nodes/k8s-node-1/status
 ```
 
-{{< note >}}
 **Note**: In the preceding request, `~1` is the encoding for the character `/`
 in the patch path. The operation path value in JSON-Patch is interpreted as a
 JSON-Pointer. For more details, see
 [IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3).
-{{< /note >}}
+{: .note}
 
 #### Cluster-level extended resources
 
@@ -471,18 +465,16 @@ The API server restricts quantities of Extended Resources to whole numbers.
 Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
 _invalid_ quantities are `0.5` and `1500m`.
 
-{{< note >}}
 **Note:** Extended Resources replace Opaque Integer Resources.
 Users can use any domain name prefix other than "`kubernetes.io`" which is reserved.
-{{< /note >}}
+{: .note}
 
 To consume an Extended Resource in a Pod, include the resource name as a key
 in the `spec.containers[].resources.limits` map in the container spec.
 
-{{< note >}}
 **Note:** Extended resources cannot be overcommitted, so request and limit
 must be equal if both are present in a container spec.
-{{< /note >}}
+{: .note}
 
 A Pod is scheduled only if all of the resource requests are satisfied, including
 CPU, memory and any Extended Resources. The Pod remains in the `PENDING` state
@@ -519,7 +511,7 @@ all Containers in a Pod, such as
 Kubernetes version 1.5 only supports Container requests and limits for CPU and
 memory. It is planned to add new resource types, including a node disk space
 resource, and a framework for adding custom
-[resource types](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/scheduling/resources.md).
+[resource types](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/scheduling/resources.md).
 
 Kubernetes supports overcommitment of resources by supporting multiple levels of
 [Quality of Service](http://issue.k8s.io/168).
@@ -531,19 +523,19 @@ For example, on AWS, the capacity of a node is reported in
 cores. We plan to revise the definition of the cpu resource to allow for more
 consistency across providers and platforms.
 
-{{% /capture %}}
+{% endcapture %}
 
 
-{{% capture whatsnext %}}
+{% capture whatsnext %}
 
 * Get hands-on experience [assigning Memory resources to containers and pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
 
 * Get hands-on experience [assigning CPU resources to containers and pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 
-* [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
+* [Container](/docs/reference/generated/kubernetes-api/{{page.version}}/#container-v1-core)
 
-* [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core)
+* [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{page.version}}/#resourcerequirements-v1-core)
 
-{{% /capture %}}
+{% endcapture %}
 
-
+{% include templates/concept.md %}

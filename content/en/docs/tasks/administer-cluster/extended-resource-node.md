@@ -1,28 +1,27 @@
 ---
 title: Advertise Extended Resources for a Node
-content_template: templates/task
 ---
 
 
-{{% capture overview %}}
+{% capture overview %}
 
 This page shows how to specify extended resources for a Node.
 Extended resources allow cluster administrators to advertise node-level
 resources that would otherwise be unknown to Kubernetes.
 
-{{< feature-state state="stable" >}}
+{% include feature-state-stable.md %}
 
-{{% /capture %}}
-
-
-{{% capture prerequisites %}}
-
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-{{% /capture %}}
+{% endcapture %}
 
 
-{{% capture steps %}}
+{% capture prerequisites %}
+
+{% include task-tutorial-prereqs.md %}
+
+{% endcapture %}
+
+
+{% capture steps %}
 
 ## Get the names of your Nodes
 
@@ -83,7 +82,6 @@ The output shows that the Node has a capacity of 4 dongles:
 
 ```
 "capacity": {
-  "alpha.kubernetes.io/nvidia-gpu": "0",
   "cpu": "2",
   "memory": "2049008Ki",
   "example.com/dongle": "4",
@@ -99,7 +97,6 @@ Once again, the output shows the dongle resource:
 
 ```yaml
 Capacity:
- alpha.kubernetes.io/nvidia-gpu:  0
  cpu:  2
  memory:  2049008Ki
  example.com/dongle:  4
@@ -189,10 +186,10 @@ Verify that the dongle advertisement has been removed:
 kubectl describe node <your-node-name> | grep dongle
 ```
 
-{{% /capture %}}
+{% endcapture %}
 
 
-{{% capture whatsnext %}}
+{% capture whatsnext %}
 
 ### For application developers
 
@@ -204,7 +201,7 @@ kubectl describe node <your-node-name> | grep dongle
 * [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
 
 
-{{% /capture %}}
+{% endcapture %}
 
 
-
+{% include templates/task.md %}
