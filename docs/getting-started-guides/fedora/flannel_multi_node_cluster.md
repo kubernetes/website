@@ -1,193 +1,142 @@
 ---
 reviewers:
-- dchen1107
-- erictune
-- thockin
-title: Fedora (Multi Node)
+- chrisnegus
+title: Kubernetes on Fedora (Multi Node)
 ---
 
 * TOC
 {:toc}
 
-This document describes how to deploy Kubernetes on multiple hosts to set up a multi-node cluster and networking with flannel. Follow fedora [getting started guide](/docs/getting-started-guides/fedora/fedora_manual_config/) to setup 1 master (fed-master) and 2 or more nodes. Make sure that all nodes have different names (fed-node1, fed-node2 and so on) and labels (fed-node1-label, fed-node2-label, and so on) to avoid any conflict. Also make sure that the Kubernetes master host is running etcd, kube-controller-manager, kube-scheduler, and kube-apiserver services, and the nodes are running docker, kube-proxy and kubelet services. Now install flannel on Kubernetes nodes. Flannel on each node configures an overlay network that docker uses. Flannel runs on each node to setup a unique class-C container network.
+
+To set up a multi-node Kubernetes cluster on Fedora using **kubeadm**, do the following:
+
+* **Set up the master**: Follow the [Kubernetes on Fedora - Single-node](https://kubernetes.io/docs/getting-started-guides/fedora/fedora_manual_config/) instructions to set up a Kubernetes Master. After running **kubeadm init** on the master, copy the **kubeadm join** line from the output. This includes token information needed to connect the node to the master.
+* **Set up nodes**: Use the instruction below to configure each additional node.
 
 ## Prerequisites
 
-You need 2 or more machines with Fedora installed.
+For each node you want to add, follow the Prerequisites and these steps from the Setup section of the [Kubernetes on Fedora - Single-node](https://kubernetes.io/docs/getting-started-guides/fedora/fedora_manual_config/) instructions:
 
-## Master Setup
+* Prerequisites
+* Install kubernetes-kubeadm and other software
+* Enable kubelet
 
-**Perform following commands on the Kubernetes master**
+## Set up Nodes
 
-* Configure flannel by creating a `flannel-config.json` in your current directory on fed-master. Flannel provides udp and vxlan among other overlay networking backend options. In this guide, we choose kernel based vxlan backend. The contents of the json are:
+1. Fix kubelet issue. On each node, you must correct a problem in the /etc/systemd/system/kubelet.service.d/kubeadm.conf file. (Follow [Bug 1542476](https://bugzilla.redhat.com/show_bug.cgi?id=1542476) to see if this gets fixed.) Make sure that the **--bootstrap-kubeconfig** option is added to the KUBELET_KUBECONFIG_ARGS value so it appears as follows (all on one line):
 
-```json
-{
-    "Network": "18.16.0.0/16",
-    "SubnetLen": 24,
-    "Backend": {
-        "Type": "vxlan",
-        "VNI": 1
-     }
-}
-```
+    <pre><tt>Environment="KUBELET_KUBECONFIG_ARGS=--kubeconfig=/etc/kubernetes/kubelet.conf --fail-swap-on=false --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf"
+    </tt></pre>
 
-**NOTE:** Choose an IP range that is *NOT* part of the public IP address range.
+2. Join node to the cluster. Using the output from the **kubeadm init** command you ran earlier on the master, run the **kubeadm join** command. The basic structure of the command is as follows:
 
-Add the configuration to the etcd server on fed-master.
+    **IMPORTANT**: You may need the **--ignore-preflight-errors=all** option.
 
-```shell
-etcdctl set /coreos.com/network/config < flannel-config.json
-```
+    <pre><tt><b>kubeadm join --ignore-preflight-errors=all  \
+        --token xxxxxx.xxxxxxxxxxxxxxxx \
+        hostname:6443 --discovery-token-ca-cert-hash   \
+        sha256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</b>
+    </tt></pre>
 
-* Verify that the key exists in the etcd server on fed-master.
+    For example:
 
-```shell
-etcdctl get /coreos.com/network/config
-```
+    <pre><tt># <b>kubeadm join --ignore-preflight-errors=all \
+         --token e50a48.61b21631a693c840 \
+         192.168.122.238:6443 \
+         --discovery-token-ca-cert-hash \
+         sha256:5bdcd80b15c68e9afd4c52f0346e7c7013634f3ca...</b>
+    ...
+    [discovery] Trying to connect to API Server "192.168.122.238:6443"
+    [discovery] Created cluster-info discovery client, requesting info from "https://192.168.122.238:6443"
+    [discovery] Requesting info from "https://192.168.122.238:6443" again to validate TLS against the pinned public key
+    [discovery] Cluster info signature and contents are valid and TLS certificate validates against pinned roots, will use API Server "192.168.122.238:6443"
+    [discovery] Successfully established connection with API Server "192.168.122.238:6443"
 
-## Node Setup
+    This node has joined the cluster:
+    * Certificate signing request was sent to master and a response
+      was received.
+    * The Kubelet was informed of the new secure connection details.
 
-**Perform following commands on all Kubernetes nodes**
+    Run 'kubectl get nodes' on the master to see this node join the cluster.
+    </tt></pre>
 
-Install the flannel package
+3. Return to the master and check that the node has joined.
 
-```shell
-# dnf -y install flannel
-```
-
-Edit the flannel configuration file /etc/sysconfig/flanneld as follows:
-
-```shell
-# Flanneld configuration options
-
-# etcd url location.  Point this to the server where etcd runs
-FLANNEL_ETCD="http://fed-master:2379"
-
-# etcd config key.  This is the configuration key that flannel queries
-# For address range assignment
-FLANNEL_ETCD_KEY="/coreos.com/network"
-
-# Any additional options that you want to pass
-FLANNEL_OPTIONS=""
-```
-
-**Note:** By default, flannel uses the interface for the default route. If you have multiple interfaces and would like to use an interface other than the default route one, you could add "-iface=" to FLANNEL_OPTIONS. For additional options, run `flanneld --help` on command line.
-
-Enable the flannel service.
-
-```shell
-systemctl enable flanneld
-```
-
-If docker is not running, then starting flannel service is enough and skip the next step.
-
-```shell
-systemctl start flanneld
-```
-
-If docker is already running, then stop docker, delete docker bridge (docker0), start flanneld and restart docker as follows. Another alternative is to just reboot the system (`systemctl reboot`).
-
-```shell
-systemctl stop docker
-ip link delete docker0
-systemctl start flanneld
-systemctl start docker
-```
+    <pre><tt># <b>kubectl get node</b>
+    NAME            STATUS    ROLES     AGE       VERSION
+    fedora27iso     Ready     master    2d        v1.9.1
+    fedora27iso02   Ready     &lt;none&gt;    4m        v1.9.1
+    </tt></pre>
 
 
-## **Test the cluster and flannel configuration**
+The node is now available to be used in the Kubernetes cluster.
 
-Now check the interfaces on the nodes. Notice there is now a flannel.1 interface, and the ip addresses of docker0 and flannel.1 interfaces are in the same network. You will notice that docker0 is assigned a subnet (18.16.29.0/24 as shown below) on each Kubernetes node out of the IP range configured above. A working output should look like this:
+## Troubleshooting Nodes
 
-```shell
-# ip -4 a|grep inet
-    inet 127.0.0.1/8 scope host lo
-    inet 192.168.122.77/24 brd 192.168.122.255 scope global dynamic eth0
-    inet 18.16.29.0/16 scope global flannel.1
-    inet 18.16.29.1/24 scope global docker0
-```
+If you were unable to join the cluster, here are a few things to try:
 
-From any node in the cluster, check the cluster members by issuing a query to etcd server via curl (only partial output is shown using `grep -E "\{|\}|key|value"`). If you set up a 1 master and 3 nodes cluster, you should see one block for each node showing the subnets they have been assigned. You can associate those subnets to each node by the MAC address (VtepMAC) and IP address (Public IP) that is listed in the output.
+### Reset
 
-```shell
-curl -s http://fed-master:2379/v2/keys/coreos.com/network/subnets | python -mjson.tool
-```
+If you find that you have made some mistakes while setting up the node, you can always reset Kubernetes on the node by typing:
 
-```json
-{
-    "node": {
-        "key": "/coreos.com/network/subnets",
-            {
-                "key": "/coreos.com/network/subnets/18.16.29.0-24",
-                "value": "{\"PublicIP\":\"192.168.122.77\",\"BackendType\":\"vxlan\",\"BackendData\":{\"VtepMAC\":\"46:f1:d0:18:d0:65\"}}"
-            },
-            {
-                "key": "/coreos.com/network/subnets/18.16.83.0-24",
-                "value": "{\"PublicIP\":\"192.168.122.36\",\"BackendType\":\"vxlan\",\"BackendData\":{\"VtepMAC\":\"ca:38:78:fc:72:29\"}}"
-            },
-            {
-                "key": "/coreos.com/network/subnets/18.16.90.0-24",
-                "value": "{\"PublicIP\":\"192.168.122.127\",\"BackendType\":\"vxlan\",\"BackendData\":{\"VtepMAC\":\"92:e2:80:ba:2d:4d\"}}"
-            }
-    }
-}
-```
+<pre><tt># <b>kubeadm reset</b>
+</tt></pre>
 
-From all nodes, review the `/run/flannel/subnet.env` file.  This file was generated automatically by flannel.
 
-```shell
-# cat /run/flannel/subnet.env
-FLANNEL_SUBNET=18.16.29.1/24
-FLANNEL_MTU=1450
-FLANNEL_IPMASQ=false
-```
+After that, run kubeadm init again. To get everything working, you may need to restart the kubelet service again as well (**systemctl restart kubelet**).
 
-At this point, we have etcd running on the Kubernetes master, and flannel / docker running on Kubernetes nodes. Next steps are for testing cross-host container communication which will confirm that docker and flannel are configured properly.
+### Token expired
 
-Issue the following commands on any 2 nodes:
+If the token on the master has been changed or expired, you could see an error relating to a token problem when you try to join the cluster. For example:
 
-```shell
-# docker run -it fedora:latest bash
-bash-4.3# 
-```
+    There is no JWS signed token in the cluster-info ConfigMap
 
-This will place you inside the container. Install iproute and iputils packages to install ip and ping utilities. Due to a [bug](https://bugzilla.redhat.com/show_bug.cgi?id=1142311), it is required to modify capabilities of ping binary to work around "Operation not permitted" error.
+To correct a problem with tokens, you can generate a new token on the master, then apply that information to each node when you join. For example:
 
-```shell
-bash-4.3# dnf -y install iproute iputils
-bash-4.3# setcap cap_net_raw-ep /usr/bin/ping
-```
+On the Master:
 
-Now note the IP address on the first node:
+<pre><tt># <b>kubeadm token create</b>
+e50a48.61b21631a693c840
+</tt></pre>
 
-```shell
-bash-4.3# ip -4 a l eth0 | grep inet
-    inet 18.16.29.4/24 scope global eth0
-```
 
-And also note the IP address on the other node:
+On the Node (be sure to use the new token):
 
-```shell
-bash-4.3# ip a l eth0 | grep inet
-    inet 18.16.90.4/24 scope global eth0
-```
-Now ping from the first node to the other node:
+<pre><tt># <b>kubeadm join --ignore-preflight-errors=all --token \
+  <i>e50a48.61b21631a693c840</i> 192.168.122.238:6443 \
+  --discovery-token-ca-cert-hash \
+  sha256:5bdcd80b15c68e9afd4c52f0346e7c7013634f3ca3727b3610d9a308380a9444</b>
+</tt></pre>
 
-```shell
-bash-4.3# ping 18.16.90.4
-PING 18.16.90.4 (18.16.90.4) 56(84) bytes of data.
-64 bytes from 18.16.90.4: icmp_seq=1 ttl=62 time=0.275 ms
-64 bytes from 18.16.90.4: icmp_seq=2 ttl=62 time=0.372 ms
-```
 
-Now Kubernetes multi-node cluster is set up with overlay networking set up by flannel.
+### Kubelet won’t start (bad token)
+
+If you find that you can join the cluster, but kubelet is not able to connect to the master, the node won’t appear when you type **kubectl get node**. This failure may occur because the kubelet.conf file contains an old token. To fix this, edit /etc/kubernetes/bootstrap-kubelet.conf and change the token value. For example:
+
+<pre><tt>kind: Config
+preferences: {}
+users:
+- name: tls-bootstrap-token-user
+  user:
+    token: <b>e50a48.61b21631a693c840</b>
+</tt></pre>
+
+### Check that the node is working properly
+
+Once the node is working properly, you should see that new containers have started. These should include flannel, kube-proxy, and pause-amd64. Run the following on the node to check that:
+
+<pre><tt># <b>docker ps</b>
+CONTAINER ID IMAGE                     COMMAND              CREATED         STATUS        PORTS  NAMES
+e2a80db5a3d6 quay.io/coreos/flannel... "/opt/bin/flanneld"  12 minutes ago  Up 12 minutes        k8s_kube-proxy_kube-proxy-r9shd_kube-system_198a1c85-2dcf-11e8-adbb-5254003effb8_0
+gcr.io/google_containers/kube-proxy... "/usr/local/bin/ku"  12 minutes ago  Up 12 minutes        k8s_kube-proxy_kube-proxy-r9shd_kube-system_198a1c85-2dcf-11e8-adbb-5254003effb8_0
+f4e8f1cdf9ad gcr.io/google_contain...  "/pause"             14 minutes ago  Up 14 minutes        k8s_POD_kube-proxy-r9shd_kube-system_198a1c85-2dcf-11e8-adbb-5254003effb8_0
+ef8821b8757d gcr.io/google_contain...  "/pause"             14 minutes ago  Up 14 minutes        k8s_POD_kube-flannel-ds-84bfh_kube-system_1966574d-2dcf-11e8-adbb-5254003effb8_0
+</tt></pre>
 
 ## Support Level
 
-
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |          | Community ([@aveshagarwal](https://github.com/aveshagarwal))
-libvirt              | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |          | Community ([@aveshagarwal](https://github.com/aveshagarwal))
-KVM                  | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |          | Community ([@aveshagarwal](https://github.com/aveshagarwal))
+Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |          | Community
+libvirt              | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |          | Community
+KVM                  | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |          | Community
