@@ -190,12 +190,12 @@ or selectively configure single elements.
 {% include_relative generated/kubeadm_alpha_phase_bootstrap-token_cluster-info.md %}
 {% endcapture %}
 
-{% capture bootstrap-token_node_allow-auto-approve %}
-{% include_relative generated/kubeadm_alpha_phase_bootstrap-token_node_allow-auto-approve.md %}
-{% endcapture %}
-
 {% capture bootstrap-token_node_allow-post-csrs %}
 {% include_relative generated/kubeadm_alpha_phase_bootstrap-token_node_allow-post-csrs.md %}
+{% endcapture %}
+
+{% capture bootstrap-token_node_allow-auto-approve %}
+{% include_relative generated/kubeadm_alpha_phase_bootstrap-token_node_allow-auto-approve.md %}
 {% endcapture %}
 
 {% assign tab_set_name = "tab-bootstrap-token" %}
