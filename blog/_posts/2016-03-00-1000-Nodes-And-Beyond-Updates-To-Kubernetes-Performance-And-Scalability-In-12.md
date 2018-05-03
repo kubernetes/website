@@ -59,7 +59,7 @@ While we could have decreased the “pod startup time” substantially by exclud
 
 ### Metrics from Kubernetes 1.2&nbsp;
 
-So what was the result?We run our tests on Google Compute Engine, setting the size of the master VM based on on the size of the Kubernetes cluster. In particular for 1000-node clusters we use a n1-standard-32 VM for the master (32 cores, 120GB RAM).  
+So what was the result?We run our tests on Google Compute Engine, setting the size of the master VM based on the size of the Kubernetes cluster. In particular for 1000-node clusters we use a n1-standard-32 VM for the master (32 cores, 120GB RAM).  
 
 
 #### API responsiveness&nbsp;
