@@ -384,6 +384,19 @@ Some readers speak English as a second language. Avoid jargon and idioms to help
     <tr><td>Create a new cluster.</td><td>Turn up a new cluster.</td></tr>
 </table>
 
+### Avoid verbs, demonstrative adjectives or pronouns in link text
+
+When calling the user to action, use brief but meaningful link text that provides some information when read out of context, explains what the link offers.
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>To clean up older ReplicaSets that you don't need anymore, see [Clean up Policy](/docs/concepts/workloads/controllers/deployment/#clean-up-policy)</td><td> [Clean up older ReplicaSets](/docs/concepts/workloads/controllers/deployment/#clean-up-policy) that you don't need anymore.</td></tr>
+    <tr><td>Download the latest release of kubectl from [kubernetes-release](https://storage.googleapis.com/kubernetes-release/release/{{page.fullversion}}/bin/windows/amd64/kubectl.exe) Bucket.</td><td>Download the latest release v1.10.0 from [this link](https://storage.googleapis.com/kubernetes-release/release/{{page.fullversion}}/bin/windows/amd64/kubectl.exe).</td></tr>
+  <tr><td>For more information about stuck rollouts, see [Deployment status](/docs/concepts/workloads/controllers/deployment/#deployment-status).</td><td>For more information about stuck rollouts, [read more here](/docs/concepts/workloads/controllers/deployment/#deployment-status).</td></tr>
+  
+  </table>
+
+ 
 ### Avoid statements about the future
 
 Avoid making promises or giving hints about the future. If you need to talk about
