@@ -488,6 +488,14 @@ img.big-img {
   width: 100%;
 }
 
+.blog-content img {
+  max-width: 100%;
+}
+
+.blog-content .content {
+  overflow-x: scroll;
+}
+
 /* .content img {
 max-width: 100%;
 } */
