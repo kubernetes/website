@@ -190,26 +190,30 @@ You can use similar commands to view the `cpu_request`, `mem_limit` and
 
 ## Capabilities of the Downward API
 
-The following information is available to Containers through environment
-variables and DownwardAPIVolumeFiles:
+The following information is available to containers through environment
+variables and `downwardAPI` volumes:
 
-* The Node’s name
-* The Node's IP
-* The Pod’s name
-* The Pod’s namespace
-* The Pod’s IP address
-* The Pod’s service account name
-* The Pod’s UID
-* A Container’s CPU limit
-* A Container’s CPU request
-* A Container’s memory limit
-* A Container’s memory request
+* Information available via `fieldRef`:
+  * `spec.nodeName` - the node’s name
+  * `status.hostIP` - the node's IP
+  * `metadata.name` - the pod’s name
+  * `metadata.namespace` - the pod’s namespace
+  * `status.podIP` - the pod’s IP address
+  * `spec.serviceAccountName` - the pod’s service account name
+  * `metadata.uid` - the pod’s UID
+  * `metadata.labels['<KEY>']` - the value of the pod’s label `<KEY>` (for example, `metadata.labels['mylabel']`); available in Kubernetes 1.9+
+  * `metadata.annotations['<KEY>']` - the value of the pod’s annotation `<KEY>` (for example, `metadata.annotations['myannotation']`); available in Kubernetes 1.9+
+* Information available via `resourceFieldRef`:
+  * A Container’s CPU limit
+  * A Container’s CPU request
+  * A Container’s memory limit
+  * A Container’s memory request
 
 In addition, the following information is available through
-DownwardAPIVolumeFiles.
+`downwardAPI` volume `fieldRef`:
 
-* The Pod's labels
-* The Pod's annotations
+* `metadata.labels` - all of the pod’s labels, formatted as `label-key="escaped-label-value"` with one label per line
+* `metadata.annotations` - all of the pod’s annotations, formatted as `annotation-key="escaped-annotation-value"` with one annotation per line
 
 **Note:** If CPU and memory limits are not specified for a Container, the
 Downward API defaults to the node allocatable value for CPU and memory.
