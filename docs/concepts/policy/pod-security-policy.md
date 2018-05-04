@@ -153,10 +153,10 @@ controller selects policies in the following order:
 
 1. If any policies successfully validate the pod without altering it, they are
    used.
-2. If it is a pod creation request then the first valid policy in alphabetical
-   order is used otherwise.
-3. If it is a pod update request, the error is returned because pod mutations
-   disallowed during update operations.
+2. If it is a pod creation request, then the first valid policy in alphabetical
+   order is used.
+3. Otherwise, if it is a pod update request, an error is returned, because pod mutations
+   are disallowed during update operations.
 
 ## Example
 
