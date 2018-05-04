@@ -181,9 +181,9 @@ In order to make it easier to work through these examples, we did not verify tha
 pods were actually scheduled using the desired schedulers. We can verify that by
 changing the order of pod and deployment config submissions above. If we submit all the
 pod configs to a Kubernetes cluster before submitting the scheduler deployment config,
-we see that the pod `second-scheduler` remains in "Pending" state forever
+we see that the pod `annotation-second-scheduler` remains in "Pending" state forever
 while the other two pods get scheduled. Once we submit the scheduler deployment config
-and our new scheduler starts running, the `second-scheduler` pod gets
+and our new scheduler starts running, the `annotation-second-scheduler` pod gets
 scheduled as well.
 
 Alternatively, one could just look at the "Scheduled" entries in the event logs to
