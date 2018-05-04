@@ -172,6 +172,17 @@ apiVersion: v1 # earlier versions use...
 kind: Pod
 ...
 ```
+## Accessibility Guidelines
+By law in many countries, content must be accessible to people who have disabilities, such as visual impairments. Anything that the reader must know or do needs to be in text, too, not just in images.
+
+<table>
+  <tr><th>Content</th><th>Usage</th></tr>
+  <tr><td>Illustrations</td><td> Include figure tags &lt;figure&gt; and alternative text tags &lt;alt&gt;. Introduce illustrations or code listings with a clear lead-in sentence. Provide detailed instructions and explanations after the image or code example.</td></tr>
+  <tr><td>Code</td><td>Do not use screen captures or other graphics to show code, commands, or screen output that readers must do something with or know about. Ensure that all code is in code font so that it is readable by software for the vision-impaired.</td></tr>
+  <tr><td>Tables</td><td>Avoid rowspan or colspan (span tags) if possible. Use simple tables.</td></tr>
+    <tr><td>Date</td><td>Spell out months, as in 20 November 2018, rather than 20 Nov 2018.</td></tr>
+    <tr><td>Text</td><td>Do not use red or green text or highlighting anywhere, because colorblind people cannot distinguish it from other text or elements.</td></tr>
+</table>
 
 ## Kubernetes.io word list
 
