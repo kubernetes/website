@@ -169,6 +169,7 @@ provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-standard
   zones: us-central1-a, us-central1-b
+  replication-type: none
 ```
 
 * `type`: `pd-standard` or `pd-ssd`. Default: `pd-standard`
@@ -179,6 +180,15 @@ parameters:
   is specified, volumes are generally round-robin-ed across all active zones
   where Kubernetes cluster has a node. `zone` and `zones` parameters must not
   be used at the same time.
+* `replication-type`: `none` or `regional-pd`. Default: `none`.
+
+If `replication-type` is set to `regional-pd`, a Regional Persistent Disk (TODO (verult) link) will be
+provisioned. In this case, users must use `zones` instead of `zone` to specify
+the desired replication zones. If exactly two zones are specified, the Regional
+PD will be provisioned in those zones. If more than two zones are specified,
+Kubernetes will arbitrarily choose among the specified zones. If the `zones`
+parameter is omitted, Kubernetes will arbitrarily choose among zones managed by
+the cluster.
 
 ### Glusterfs
 
