@@ -10,7 +10,7 @@ At Devoxx Belgium and Devoxx Morocco, Ray Tsang and I showed a Raspberry Pi clus
 
 ### Wait! Why the heck build a Raspberry Pi cluster running Kubernetes?&nbsp;
 
-We had two big reasons to build the Pi cluster at Quintor. First of all we wanted to experiment with container technology at scale on real hardware. You can try out container technology using virtual machines, but Kubernetes runs great on on bare metal too. To explore what that’d be like, we built a Raspberry Pi cluster just like we would build a cluster of machines in a production datacenter. This allowed us to understand and simulate how Kubernetes would work when we move it to our data centers.  
+We had two big reasons to build the Pi cluster at Quintor. First of all we wanted to experiment with container technology at scale on real hardware. You can try out container technology using virtual machines, but Kubernetes runs great on bare metal too. To explore what that’d be like, we built a Raspberry Pi cluster just like we would build a cluster of machines in a production datacenter. This allowed us to understand and simulate how Kubernetes would work when we move it to our data centers.  
 
 Secondly, we did not want to blow the budget to do this exploration. And what is cheaper than a Raspberry Pi! If you want to build a cluster comprising many nodes, each node should have a good cost to performance ratio. Our Pi cluster has 20 CPU cores, which is more than many servers, yet cost us less than $400. Additionally, the total power consumption is low and the form factor is small, which is great for these kind of demo systems.  
 
