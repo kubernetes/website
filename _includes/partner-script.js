@@ -271,7 +271,7 @@
  			name: 'Emerging Technology Advisors',
  			logo: 'eta',
  			link: 'https://www.emergingtechnologyadvisors.com/services/kubernetes.html',
- 			blurb: 'ETA helps companies architect, implement, and manage scalable applications using Kubernetes on on public or private cloud.'
+ 			blurb: 'ETA helps companies architect, implement, and manage scalable applications using Kubernetes on public or private cloud.'
   		},
 		{
  			type: 0,
