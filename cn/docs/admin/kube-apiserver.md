@@ -88,6 +88,8 @@ kube-apiserver
 
       --enable-swagger-ui                                       在apiserver的/swagger-ui路径启用swagger ui。
 
+      --encryption-provider-config string                       包含加密提供程序的配置的文件，该加密提供程序被用于在etcd中保存密钥。
+
       --etcd-cafile string                                      用于保护etcd通信的SSL CA文件。
 
       --etcd-certfile string                                    用于保护etcd通信的的SSL证书文件。
@@ -106,7 +108,6 @@ kube-apiserver
 
       --experimental-bootstrap-token-auth                       启用此选项以允许'kube-system'命名空间中的'bootstrap.kubernetes.io/token'类型密钥可以被用于TLS的启动认证。
 
-      --experimental-encryption-provider-config string          包含加密提供程序的配置的文件，该加密提供程序被用于在etcd中保存密钥。
 
       --experimental-keystone-ca-file string                    如果设置该值，将会使用experimental-keystone-ca-file中的一个authority对Keystone服务的证书进行验证，否则将会使用主机的根CA进行验证。
 

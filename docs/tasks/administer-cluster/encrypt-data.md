@@ -16,7 +16,7 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 * etcd v3 or later is required
 
-* Encryption at rest is alpha in 1.7.0 which means it may change without notice. Users may be required to decrypt their data prior to upgrading to 1.8.0.
+* Encryption at rest is beta in 1.11.0.
 
 {% endcapture %}
 
@@ -24,7 +24,7 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 ## Configuration and determining whether encryption at rest is already enabled
 
-The `kube-apiserver` process accepts an argument `--experimental-encryption-provider-config`
+The `kube-apiserver` process accepts an argument `--encryption-provider-config`
 that controls how API data is encrypted in etcd. An example configuration
 is provided below.
 
