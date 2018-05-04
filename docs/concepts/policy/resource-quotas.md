@@ -12,7 +12,7 @@ Resource quotas are a tool for administrators to address this concern.
 A resource quota, defined by a `ResourceQuota` object, provides constraints that limit
 aggregate resource consumption per namespace.  It can limit the quantity of objects that can
 be created in a namespace by type, as well as the total amount of compute resources that may
-be consumed by resources in that project.
+be consumed by resources in that namespace.
 
 Resource quotas work like this:
 
