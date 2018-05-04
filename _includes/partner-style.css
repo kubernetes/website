@@ -34,24 +34,29 @@
     zoom:1; /* For IE 6/7 */
 }
 
-/*  GRID OF FOUR  */
-.span_4_of_4 {
-	width: 23%;
+/*  GRID OF FIVE  */
+.span_5_of_5 {
+	width: 18%;
 	background-color: #f9f9f9;
 	padding: 20px;
 }
-.span_3_of_4 {
-	width: 23%;
+.span_4_of_5 {
+	width: 18%;
 	background-color: #f9f9f9;
 	padding: 20px;
 }
-.span_2_of_4 {
-	width: 23%;
+.span_3_of_5 {
+	width: 18%;
 	background-color: #f9f9f9;
 	padding: 20px;
 }
-.span_1_of_4 {
-	width: 23%;
+.span_2_of_5 {
+	width: 18%;
+	background-color: #f9f9f9;
+	padding: 20px;
+}
+.span_1_of_5 {
+	width: 18%;
 	background-color: #f9f9f9;
 	padding: 20px;
 }
@@ -64,7 +69,7 @@
 
 .col-nav {
     display: table-cell; /* Make elements inside the container behave like table cells */
-		width: 25%;
+		width: 18%;
 		background-color: #f9f9f9;
 		padding: 20px;
 		border: 5px solid white;
@@ -101,7 +106,7 @@ h5 {
 	background-color: #f9f9f9;
 }
 
-#distContainer, #kcspContainer, #isvContainer, #servContainer {
+#ktpContainer, #distContainer, #kcspContainer, #isvContainer, #servContainer {
 	position: relative;
 	width: 100%;
 	display: flex;
@@ -118,6 +123,10 @@ h5 {
 }
 
 #distContainer {
+	margin-bottom: 80px;
+}
+
+#ktpContainer {
 	margin-bottom: 80px;
 }
 
@@ -158,7 +167,7 @@ h5 {
 }
 
 @media screen and (max-width: 568px) {
-	#distContainter, #kcspContainer, #isvContainer, #servContainer {
+	#ktpContainer, #distContainter, #kcspContainer, #isvContainer, #servContainer {
 		justify-content: center;
 	}
 
@@ -176,7 +185,7 @@ h5 {
 }
 
 @media screen and (max-width: 568px) {
-	#distContainer, #kcspContainer, #isvContainer, #servContainer {
+	#ktpContainer, #distContainer, #kcspContainer, #isvContainer, #servContainer {
 		justify-content: center;
 	}
 
