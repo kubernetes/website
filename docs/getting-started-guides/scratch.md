@@ -614,7 +614,6 @@ Here are some apiserver flags you may need to set:
 If you are following the firewall-only security approach, then use these arguments:
 
 - `--token-auth-file=/dev/null`
-- `--insecure-bind-address=$MASTER_IP`
 - `--advertise-address=$MASTER_IP`
 
 If you are using the HTTPS approach, then set:
