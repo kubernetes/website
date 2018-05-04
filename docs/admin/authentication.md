@@ -812,7 +812,7 @@ include metadata about the response.
 }
 ```
 
-The executed command is expected to print an `ExceCredential` to `stdout`. `k8s.io/client-go`
+The executed command is expected to print an `ExecCredential` to `stdout`. `k8s.io/client-go`
 will then use the returned bearer token in the `status` when authenticating against the
 Kubernetes API.
 
