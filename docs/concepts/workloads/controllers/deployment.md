@@ -122,18 +122,18 @@ To see the ReplicaSet (`rs`) created by the deployment, run `kubectl get rs`:
 
 ```shell
 NAME                          DESIRED   CURRENT   READY   AGE
-nginx-deployment-2035384211   3         3         3       18s
+nginx-deployment-6c54bd5869   3         3         3       15s
 ```
 
-Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[POD-TEMPLATE-HASH-VALUE]`. The hash value is automatically generated when the Deployment is created.
+Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[ENCODED POD-TEMPLATE-HASH-VALUE]` (the format is `[DEPLOYMENT-NAME]-[POD-TEMPLATE-HASH-VALUE]` for Kubernetes v1.7 and before). The hash value is automatically generated when the Deployment is created.
 
 To see the labels automatically generated for each pod, run `kubectl get pods --show-labels`. The following output is returned:
 
 ```shell
 NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-nginx-deployment-2035384211-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=2035384211
-nginx-deployment-2035384211-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=2035384211
-nginx-deployment-2035384211-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=2035384211
+nginx-deployment-6c54bd5869-b4lmr   1/1       Running   0          29s       app=nginx,pod-template-hash=2710681425
+nginx-deployment-6c54bd5869-s5nfr   1/1       Running   0          29s       app=nginx,pod-template-hash=2710681425
+nginx-deployment-6c54bd5869-xp44p   1/1       Running   0          29s       app=nginx,pod-template-hash=2710681425
 ```
 
 The created ReplicaSet ensures that there are three `nginx` Pods running at all times.
@@ -199,8 +199,8 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
 ```shell
 $ kubectl get rs
 NAME                          DESIRED   CURRENT   READY   AGE
-nginx-deployment-1564180365   3         3         3       6s
-nginx-deployment-2035384211   0         0         0       36s
+nginx-deployment-5964dfd755   3         3         3       7s
+nginx-deployment-6c54bd5869   0         0         0       1m
 ```
 
 Running `get pods` should now show only the new Pods:
@@ -208,9 +208,9 @@ Running `get pods` should now show only the new Pods:
 ```shell
 $ kubectl get pods
 NAME                                READY     STATUS    RESTARTS   AGE
-nginx-deployment-1564180365-khku8   1/1       Running   0          14s
-nginx-deployment-1564180365-nacti   1/1       Running   0          14s
-nginx-deployment-1564180365-z9gth   1/1       Running   0          14s
+nginx-deployment-5964dfd755-2r59l   1/1       Running   0          15s
+nginx-deployment-5964dfd755-69j95   1/1       Running   0          13s
+nginx-deployment-5964dfd755-chhvs   1/1       Running   0          14s
 ```
 
 Next time we want to update these Pods, we only need to update the Deployment's pod template again.
@@ -230,9 +230,10 @@ It makes sure that number of available Pods is at least 2 and the number of tota
 $ kubectl describe deployments
 Name:                   nginx-deployment
 Namespace:              default
-CreationTimestamp:      Thu, 30 Nov 2017 10:56:25 +0000
+CreationTimestamp:      Mon, 05 Mar 2018 14:30:38 +0800
 Labels:                 app=nginx
 Annotations:            deployment.kubernetes.io/revision=2
+                        kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1
 Selector:               app=nginx
 Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
 StrategyType:           RollingUpdate
@@ -253,22 +254,22 @@ Conditions:
   Available      True    MinimumReplicasAvailable
   Progressing    True    NewReplicaSetAvailable
 OldReplicaSets:  <none>
-NewReplicaSet:   nginx-deployment-1564180365 (3/3 replicas created)
+NewReplicaSet:   nginx-deployment-5964dfd755 (3/3 replicas created)
 Events:
   Type    Reason             Age   From                   Message
   ----    ------             ----  ----                   -------
-  Normal  ScalingReplicaSet  2m    deployment-controller  Scaled up replica set nginx-deployment-2035384211 to 3
-  Normal  ScalingReplicaSet  24s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 1
-  Normal  ScalingReplicaSet  22s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 2
-  Normal  ScalingReplicaSet  22s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 2
-  Normal  ScalingReplicaSet  19s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 1
-  Normal  ScalingReplicaSet  19s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 3
-  Normal  ScalingReplicaSet  14s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 0
+  Normal  ScalingReplicaSet  2m    deployment-controller  Scaled up replica set nginx-deployment-6c54bd5869 to 3
+  Normal  ScalingReplicaSet  38s   deployment-controller  Scaled up replica set nginx-deployment-5964dfd755 to 1
+  Normal  ScalingReplicaSet  37s   deployment-controller  Scaled down replica set nginx-deployment-6c54bd5869 to 2
+  Normal  ScalingReplicaSet  37s   deployment-controller  Scaled up replica set nginx-deployment-5964dfd755 to 2
+  Normal  ScalingReplicaSet  36s   deployment-controller  Scaled down replica set nginx-deployment-6c54bd5869 to 1
+  Normal  ScalingReplicaSet  36s   deployment-controller  Scaled up replica set nginx-deployment-5964dfd755 to 3
+  Normal  ScalingReplicaSet  32s   deployment-controller  Scaled down replica set nginx-deployment-6c54bd5869 to 0
 ```
 
-Here we see that when we first created the Deployment, it created a ReplicaSet (nginx-deployment-2035384211)
+Here we see that when we first created the Deployment, it created a ReplicaSet (nginx-deployment-6c54bd5869)
 and scaled it up to 3 replicas directly. When we updated the Deployment, it created a new ReplicaSet
-(nginx-deployment-1564180365) and scaled it up to 1 and then scaled down the old ReplicaSet to 2, so that at
+(nginx-deployment-5964dfd755) and scaled it up to 1 and then scaled down the old ReplicaSet to 2, so that at
 least 2 Pods were available and at most 4 Pods were created at all times. It then continued scaling up and down
 the new and the old ReplicaSet, with the same rolling update strategy. Finally, we'll have 3 available replicas
 in the new ReplicaSet, and the old ReplicaSet is scaled down to 0.
@@ -346,20 +347,20 @@ nginx-deployment-2035384211) and new replicas (nginx-deployment-3066724191) are 
 ```shell
 $ kubectl get rs
 NAME                          DESIRED   CURRENT   READY   AGE
-nginx-deployment-1564180365   2         2         0       25s
-nginx-deployment-2035384211   0         0         0       36s
-nginx-deployment-3066724191   2         2         2       6s
+nginx-deployment-5964dfd755   3         3         3       1m
+nginx-deployment-5d5cfdbd5f   1         1         0       20s
+nginx-deployment-6c54bd5869   0         0         0       3m
 ```
 
-Looking at the Pods created, you will see that the 2 Pods created by new ReplicaSet are stuck in an image pull loop.
+Looking at the Pods created, you will see that one Pod created by new ReplicaSet is stuck in an image pull loop.
 
 ```shell
 $ kubectl get pods
 NAME                                READY     STATUS             RESTARTS   AGE
-nginx-deployment-1564180365-70iae   1/1       Running            0          25s
-nginx-deployment-1564180365-jbqqo   1/1       Running            0          25s
-nginx-deployment-3066724191-08mng   0/1       ImagePullBackOff   0          6s
-nginx-deployment-3066724191-eocby   0/1       ImagePullBackOff   0          6s
+nginx-deployment-5964dfd755-2r59l   1/1       Running            0          2m
+nginx-deployment-5964dfd755-69j95   1/1       Running            0          2m
+nginx-deployment-5964dfd755-chhvs   1/1       Running            0          2m
+nginx-deployment-5d5cfdbd5f-txv2s   0/1       ImagePullBackOff   0          44s
 ```
 
 **Note:** The Deployment controller will stop the bad rollout automatically, and will stop scaling up the new
@@ -371,29 +372,44 @@ version.
 
 ```shell
 $ kubectl describe deployment
-Name:           nginx-deployment
-Namespace:      default
-CreationTimestamp:  Tue, 15 Mar 2016 14:48:04 -0700
-Labels:         app=nginx
-Selector:       app=nginx
-Replicas:       2 updated | 3 total | 2 available | 2 unavailable
-StrategyType:       RollingUpdate
-MinReadySeconds:    0
-RollingUpdateStrategy:  1 max unavailable, 1 max surge
-OldReplicaSets:     nginx-deployment-1564180365 (2/2 replicas created)
-NewReplicaSet:      nginx-deployment-3066724191 (2/2 replicas created)
+Name:                   nginx-deployment
+Namespace:              default
+CreationTimestamp:      Mon, 05 Mar 2018 14:30:38 +0800
+Labels:                 app=nginx
+Annotations:            deployment.kubernetes.io/revision=3
+                        kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.91
+Selector:               app=nginx
+Replicas:               3 desired | 1 updated | 4 total | 3 available | 1 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=nginx
+  Containers:
+   nginx:
+    Image:        nginx:1.91
+    Port:         80/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  nginx-deployment-5964dfd755 (3/3 replicas created)
+NewReplicaSet:   nginx-deployment-5d5cfdbd5f (1/1 replicas created)
 Events:
-  FirstSeen LastSeen    Count   From                    SubobjectPath   Type        Reason              Message
-  --------- --------    -----   ----                    -------------   --------    ------              -------
-  1m        1m          1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-2035384211 to 3
-  22s       22s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 1
-  22s       22s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-2035384211 to 2
-  22s       22s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 2
-  21s       21s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-2035384211 to 0
-  21s       21s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 3
-  13s       13s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-3066724191 to 1
-  13s       13s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-1564180365 to 2
-  13s       13s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-3066724191 to 2
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  4m    deployment-controller  Scaled up replica set nginx-deployment-6c54bd5869 to 3
+  Normal  ScalingReplicaSet  2m    deployment-controller  Scaled up replica set nginx-deployment-5964dfd755 to 1
+  Normal  ScalingReplicaSet  2m    deployment-controller  Scaled down replica set nginx-deployment-6c54bd5869 to 2
+  Normal  ScalingReplicaSet  2m    deployment-controller  Scaled up replica set nginx-deployment-5964dfd755 to 2
+  Normal  ScalingReplicaSet  2m    deployment-controller  Scaled down replica set nginx-deployment-6c54bd5869 to 1
+  Normal  ScalingReplicaSet  2m    deployment-controller  Scaled up replica set nginx-deployment-5964dfd755 to 3
+  Normal  ScalingReplicaSet  2m    deployment-controller  Scaled down replica set nginx-deployment-6c54bd5869 to 0
+  Normal  ScalingReplicaSet  56s   deployment-controller  Scaled up replica set nginx-deployment-5d5cfdbd5f to 1
 ```
 
 To fix this, we need to rollback to a previous revision of Deployment that is stable.
@@ -418,19 +434,18 @@ To further see the details of each revision, run:
 
 ```shell
 $ kubectl rollout history deployment/nginx-deployment --revision=2
-deployments "nginx-deployment" revision 2
+deployments "nginx-deployment" with revision #2
+Pod Template:
   Labels:       app=nginx
-          pod-template-hash=1159050644
+        pod-template-hash=1520898311
   Annotations:  kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1
   Containers:
    nginx:
     Image:      nginx:1.9.1
     Port:       80/TCP
-     QoS Tier:
-        cpu:      BestEffort
-        memory:   BestEffort
-    Environment Variables:      <none>
-  No volumes.
+    Environment:        <none>
+    Mounts:     <none>
+  Volumes:      <none>
 ```
 
 ### Rolling Back to a Previous Revision
@@ -460,31 +475,46 @@ NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   3         3         3            3           30m
 
 $ kubectl describe deployment
-Name:           nginx-deployment
-Namespace:      default
-CreationTimestamp:  Tue, 15 Mar 2016 14:48:04 -0700
-Labels:         app=nginx
-Selector:       app=nginx
-Replicas:       3 updated | 3 total | 3 available | 0 unavailable
-StrategyType:       RollingUpdate
-MinReadySeconds:    0
-RollingUpdateStrategy:  1 max unavailable, 1 max surge
-OldReplicaSets:     <none>
-NewReplicaSet:      nginx-deployment-1564180365 (3/3 replicas created)
+Name:                   nginx-deployment
+Namespace:              default
+CreationTimestamp:      Mon, 05 Mar 2018 14:30:38 +0800
+Labels:                 app=nginx
+Annotations:            deployment.kubernetes.io/revision=4
+                        kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1
+Selector:               app=nginx
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=nginx
+  Containers:
+   nginx:
+    Image:        nginx:1.9.1
+    Port:         80/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   nginx-deployment-5964dfd755 (3/3 replicas created)
 Events:
-  FirstSeen LastSeen    Count   From                    SubobjectPath   Type        Reason              Message
-  --------- --------    -----   ----                    -------------   --------    ------              -------
-  30m       30m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-2035384211 to 3
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 1
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-2035384211 to 2
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 2
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-2035384211 to 0
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-3066724191 to 2
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-3066724191 to 1
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-1564180365 to 2
-  2m        2m          1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-3066724191 to 0
-  2m        2m          1       {deployment-controller }                Normal      DeploymentRollback  Rolled back deployment "nginx-deployment" to revision 2
-  29m       2m          2       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 3
+  Type    Reason              Age   From                   Message
+  ----    ------              ----  ----                   -------
+  Normal  ScalingReplicaSet   5m    deployment-controller  Scaled up replica set nginx-deployment-6c54bd5869 to 3
+  Normal  ScalingReplicaSet   3m    deployment-controller  Scaled up replica set nginx-deployment-5964dfd755 to 1
+  Normal  ScalingReplicaSet   3m    deployment-controller  Scaled down replica set nginx-deployment-6c54bd5869 to 2
+  Normal  ScalingReplicaSet   3m    deployment-controller  Scaled up replica set nginx-deployment-5964dfd755 to 2
+  Normal  ScalingReplicaSet   3m    deployment-controller  Scaled down replica set nginx-deployment-6c54bd5869 to 1
+  Normal  ScalingReplicaSet   3m    deployment-controller  Scaled up replica set nginx-deployment-5964dfd755 to 3
+  Normal  ScalingReplicaSet   3m    deployment-controller  Scaled down replica set nginx-deployment-6c54bd5869 to 0
+  Normal  ScalingReplicaSet   2m    deployment-controller  Scaled up replica set nginx-deployment-5d5cfdbd5f to 1
+  Normal  DeploymentRollback  15s   deployment-controller  Rolled back deployment "nginx-deployment" to revision 2
+  Normal  ScalingReplicaSet   15s   deployment-controller  Scaled down replica set nginx-deployment-5d5cfdbd5f to 0
 ```
 
 ## Scaling a Deployment
@@ -533,8 +563,8 @@ The image update starts a new rollout with ReplicaSet nginx-deployment-198919819
 ```shell
 $ kubectl get rs
 NAME                          DESIRED   CURRENT   READY     AGE
-nginx-deployment-1989198191   5         5         0         9s
-nginx-deployment-618515232    8         8         8         1m
+nginx-deployment-6c54bd5869   8         8         8         1m
+nginx-deployment-d76f6548     5         5         0         13s
 ```
 
 Then a new scaling request for the Deployment comes along. The autoscaler increments the Deployment replicas
@@ -554,8 +584,8 @@ NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment     15        18        7            8           7m
 $ kubectl get rs
 NAME                          DESIRED   CURRENT   READY     AGE
-nginx-deployment-1989198191   7         7         0         7m
-nginx-deployment-618515232    11        11        11        7m
+nginx-deployment-6c54bd5869   11        11        11        3m
+nginx-deployment-d76f6548     7         7         0         1m
 ```
 
 ## Pausing and Resuming a Deployment
@@ -567,11 +597,11 @@ For example, with a Deployment that was just created:
 
 ```shell
 $ kubectl get deploy
-NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-nginx     3         3         3            3           1m
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   3         3         3            3           21s
 $ kubectl get rs
-NAME               DESIRED   CURRENT   READY     AGE
-nginx-2142116321   3         3         3         1m
+NAME                          DESIRED   CURRENT   READY     AGE
+nginx-deployment-6c54bd5869   3         3         3         27s
 ```
 
 Pause by running the following command:
@@ -592,13 +622,13 @@ Notice that no new rollout started:
 
 ```shell
 $ kubectl rollout history deploy/nginx-deployment
-deployments "nginx"
+deployments "nginx-deployment"
 REVISION  CHANGE-CAUSE
 1   <none>
 
 $ kubectl get rs
-NAME               DESIRED   CURRENT   READY     AGE
-nginx-2142116321   3         3         3         2m
+NAME                          DESIRED   CURRENT   READY     AGE
+nginx-deployment-6c54bd5869   3         3         3         1m
 ```
 
 You can make as many updates as you wish, for example, update the resources that will be used:
@@ -615,28 +645,36 @@ Eventually, resume the Deployment and observe a new ReplicaSet coming up with al
 
 ```shell
 $ kubectl rollout resume deploy/nginx-deployment
-deployment "nginx" resumed
+deployment "nginx-deployment" resumed
 $ kubectl get rs -w
-NAME               DESIRED   CURRENT   READY     AGE
-nginx-2142116321   2         2         2         2m
-nginx-3926361531   2         2         0         6s
-nginx-3926361531   2         2         1         18s
-nginx-2142116321   1         2         2         2m
-nginx-2142116321   1         2         2         2m
-nginx-3926361531   3         2         1         18s
-nginx-3926361531   3         2         1         18s
-nginx-2142116321   1         1         1         2m
-nginx-3926361531   3         3         1         18s
-nginx-3926361531   3         3         2         19s
-nginx-2142116321   0         1         1         2m
-nginx-2142116321   0         1         1         2m
-nginx-2142116321   0         0         0         2m
-nginx-3926361531   3         3         3         20s
+NAME                          DESIRED   CURRENT   READY     AGE
+nginx-deployment-6c54bd5869   3         3         3         1m
+nginx-deployment-7956fc4bf9   1         0         0         0s
+nginx-deployment-7956fc4bf9   1         0         0         0s
+nginx-deployment-7956fc4bf9   1         1         0         0s
+nginx-deployment-7956fc4bf9   1         1         1         2s
+nginx-deployment-6c54bd5869   2         3         3         1m
+nginx-deployment-6c54bd5869   2         3         3         1m
+nginx-deployment-7956fc4bf9   2         1         1         2s
+nginx-deployment-6c54bd5869   2         2         2         1m
+nginx-deployment-7956fc4bf9   2         1         1         3s
+nginx-deployment-7956fc4bf9   2         2         1         3s
+nginx-deployment-7956fc4bf9   2         2         2         3s
+nginx-deployment-6c54bd5869   1         2         2         1m
+nginx-deployment-6c54bd5869   1         2         2         1m
+nginx-deployment-7956fc4bf9   3         2         2         3s
+nginx-deployment-6c54bd5869   1         1         1         1m
+nginx-deployment-7956fc4bf9   3         2         2         4s
+nginx-deployment-7956fc4bf9   3         3         2         4s
+nginx-deployment-7956fc4bf9   3         3         3         7s
+nginx-deployment-6c54bd5869   0         1         1         2m
+nginx-deployment-6c54bd5869   0         1         1         2m
+nginx-deployment-6c54bd5869   0         0         0         2m
 ^C
 $ kubectl get rs
-NAME               DESIRED   CURRENT   READY     AGE
-nginx-2142116321   0         0         0         2m
-nginx-3926361531   3         3         3         28s
+NAME                          DESIRED   CURRENT   READY     AGE
+nginx-deployment-6c54bd5869   0         0         0         2m
+nginx-deployment-7956fc4bf9   3         3         3         23s
 ```
 
 **Note:** You cannot rollback a paused Deployment until you resume it.
@@ -673,7 +711,7 @@ successfully, `kubectl rollout status` returns a zero exit code.
 ```shell
 $ kubectl rollout status deploy/nginx-deployment
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
-deployment "nginx" successfully rolled out
+deployment "nginx-deployment" successfully rolled out
 $ echo $?
 0
 ```
