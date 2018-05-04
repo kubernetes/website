@@ -195,6 +195,7 @@ var kub = (function () {
 
     function handleKeystrokes(e) {
         switch (e.which) {
+            // react to the escape key being pressed
             case 27: {
                 if (html.hasClass('open-nav')) {
                     toggleMenu();
