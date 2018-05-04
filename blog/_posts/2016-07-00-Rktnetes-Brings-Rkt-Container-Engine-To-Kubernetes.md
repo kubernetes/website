@@ -6,9 +6,9 @@ date:  Tuesday, July 11, 2016
 pagination:
   enabled: true
 ---
-_Editor’s note: this post is part of&nbsp;a [series of in-depth articles](http://blog.kubernetes.io/2016/07/five-days-of-kubernetes-1.3.html) on what's new in Kubernetes 1.3&nbsp;_  
+_Editor’s note: this post is part of&nbsp;a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1.3) on what's new in Kubernetes 1.3&nbsp;_  
 
-As part of [Kubernetes 1.3](http://blog.kubernetes.io/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads.html), we’re happy to report that our work to bring interchangeable container engines to Kubernetes is bearing early fruit. What we affectionately call “rktnetes” is included in the version 1.3 Kubernetes release, and is ready for development use. rktnetes integrates support for [CoreOS rkt](https://coreos.com/rkt/) into Kubernetes as the container runtime on cluster nodes, and is now part of the mainline Kubernetes source code. Today it’s easier than ever for developers and ops pros with container portability in mind to try out running Kubernetes with a different container engine.  
+As part of [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), we’re happy to report that our work to bring interchangeable container engines to Kubernetes is bearing early fruit. What we affectionately call “rktnetes” is included in the version 1.3 Kubernetes release, and is ready for development use. rktnetes integrates support for [CoreOS rkt](https://coreos.com/rkt/) into Kubernetes as the container runtime on cluster nodes, and is now part of the mainline Kubernetes source code. Today it’s easier than ever for developers and ops pros with container portability in mind to try out running Kubernetes with a different container engine.  
 
 "We find CoreOS’s rkt a compelling container engine in Kubernetes because of how rkt is composed with the underlying systemd,” said Mark Petrovic, senior MTS and architect at Xoom, a PayPal service. “The rkt runtime assumes only the responsibility it needs to, then delegates to other system services where appropriate. This separation of concerns is important to us.”  
 

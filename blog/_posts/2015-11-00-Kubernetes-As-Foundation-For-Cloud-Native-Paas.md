@@ -6,7 +6,7 @@ date:  Wednesday, November 03, 2015
 pagination:
   enabled: true
 ---
-With Kubernetes continuing to gain momentum as a critical tool for building and scaling container based applications, we’ve been thrilled to see a growing number of platform as a service (PaaS) offerings adopt it as a foundation. PaaS developers have been drawn to Kubernetes by its rapid rate of maturation, the soundness of its core architectural concepts, and the strength of its contributor community. The [Kubernetes ecosystem](http://blog.kubernetes.io/2015/07/the-growing-kubernetes-ecosystem.html) continues to grow, and these PaaS projects are great additions to it.
+With Kubernetes continuing to gain momentum as a critical tool for building and scaling container based applications, we’ve been thrilled to see a growing number of platform as a service (PaaS) offerings adopt it as a foundation. PaaS developers have been drawn to Kubernetes by its rapid rate of maturation, the soundness of its core architectural concepts, and the strength of its contributor community. The [Kubernetes ecosystem](https://kubernetes.io/blog/2015/07/the-growing-kubernetes-ecosystem) continues to grow, and these PaaS projects are great additions to it.
 
 [![](http://1.bp.blogspot.com/-xX93tnoIlGo/Vjj2fSc_CDI/AAAAAAAAAi0/lvTkT9jyFog/s400/k8%2Bipaas%2B1.png)](http://1.bp.blogspot.com/-xX93tnoIlGo/Vjj2fSc_CDI/AAAAAAAAAi0/lvTkT9jyFog/s1600/k8%2Bipaas%2B1.png)
 

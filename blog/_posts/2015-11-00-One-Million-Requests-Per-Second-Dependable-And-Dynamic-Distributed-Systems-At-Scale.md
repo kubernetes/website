@@ -24,7 +24,7 @@ What _is_ exciting is that while successfully handling 1 million HTTP requests p
 [![](http://2.bp.blogspot.com/-_96_QwNRHLo/VkO1oDAyLLI/AAAAAAAAAkk/B_y5Uh5ngPU/s640/image00.gif)](http://2.bp.blogspot.com/-_96_QwNRHLo/VkO1oDAyLLI/AAAAAAAAAkk/B_y5Uh5ngPU/s1600/image00.gif)
 
 
-This is only possible due to a large number of performance tweaks and enhancements that have gone into the [Kubernetes 1.1 release](http://blog.kubernetes.io/2015/11/Kubernetes-1-1-Performance-upgrades-improved-tooling-and-a-growing-community.html). I’m incredibly proud of all of the features that our community has built into this release. Indeed in addition to making it possible to serve 1 million requests per second, we’ve also added an auto-scaler, so that you won’t even have to wake up in the middle of the night to scale your service in response to load or memory pressures.  
+This is only possible due to a large number of performance tweaks and enhancements that have gone into the [Kubernetes 1.1 release](https://kubernetes.io/blog/2015/11/Kubernetes-1-1-Performance-upgrades-improved-tooling-and-a-growing-community). I’m incredibly proud of all of the features that our community has built into this release. Indeed in addition to making it possible to serve 1 million requests per second, we’ve also added an auto-scaler, so that you won’t even have to wake up in the middle of the night to scale your service in response to load or memory pressures.  
 
 If you want to try this out on your own cluster (or use the load test framework to test your own service) the code for the [demo is available on github](https://github.com/kubernetes/contrib/pull/226). And the [full video](https://www.youtube.com/watch?v=7TOWLerX0Ps) is available.  
 

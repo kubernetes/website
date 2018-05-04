@@ -120,7 +120,7 @@ This is by no means an exhaustive list. We will be adding new elements (or remov
 
 [1]: http://kubernetes.io/images/nav_logo.svg
 [2]: http://kubernetes.io/docs/
-[3]: http://blog.kubernetes.io/
+[3]: https://kubernetes.io/blog/
 [4]: http://www.nasa.gov/mission_pages/station/expeditions/expedition30/tryanny.html
 [5]: https://github.com/kubernetes/kubernetes
 [6]: https://lh4.googleusercontent.com/NrKLoz2iB-TNdOxISL7OcqquCKL-MijDBCokf-u4ASAqgmo6zT7ZU24mXDvIwUUlRsFSsL3KF17dEAfUT41TSgNPvId5HN5ELQTXJSSBF0dp9EOccx4Y4WZ9fC9v9B_kCA=s1600
@@ -129,7 +129,7 @@ This is by no means an exhaustive list. We will be adding new elements (or remov
 [9]: https://lh6.googleusercontent.com/It8dH6iM2ZPypZ99KSUo_kJY4DnR2QD8yGJj26TiZ3U4owyf-WXoxrDfBAc1hcSn3i3LuxE3KGlUzQOaPgH6XVjSAU9Z2zMfZCKFAxEGtuCQiKlJPX4vH2JgQf3h1BXMRJQ=s1600
 [10]: https://lh6.googleusercontent.com/6Gy-UKBZUoEwJ9iFytq-k_wrdvh6FsTJexSpn6nNnBwOvxv-Sp6PV7vmArCL22MUkz0tWH7MxhaIc-JE8YpEc0X4nDUMn-cKWF3ANHtgd2aJ5t3osoaezDe_xqjpi748Cbw=s1600
 [11]: https://kubernetes.slack.com/messages/sig-scale/
-[12]: http://blog.kubernetes.io/2015/09/kubernetes-performance-measurements-and.html "permanent link"
+[12]: https://kubernetes.io/blog/2015/09/kubernetes-performance-measurements-and "permanent link"
 [13]: https://resources.blogblog.com/img/icon18_edit_allbkg.gif
 [14]: https://www.blogger.com/post-edit.g?blogID=112706738355446097&postID=6564816295503649669&from=pencil "Edit Post"
 [15]: https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=6564816295503649669&target=email "Email This"
@@ -137,20 +137,20 @@ This is by no means an exhaustive list. We will be adding new elements (or remov
 [17]: https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=6564816295503649669&target=twitter "Share to Twitter"
 [18]: https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=6564816295503649669&target=facebook "Share to Facebook"
 [19]: https://www.blogger.com/share-post.g?blogID=112706738355446097&postID=6564816295503649669&target=pinterest "Share to Pinterest"
-[20]: http://blog.kubernetes.io/search/label/containers
-[21]: http://blog.kubernetes.io/search/label/k8s
-[22]: http://blog.kubernetes.io/search/label/kubernetes
-[23]: http://blog.kubernetes.io/search/label/performance
-[24]: http://blog.kubernetes.io/2015/10/some-things-you-didnt-know-about-kubectl_28.html "Newer Post"
-[25]: http://blog.kubernetes.io/2015/08/using-kubernetes-namespaces-to-manage.html "Older Post"
-[26]: http://blog.kubernetes.io/feeds/6564816295503649669/comments/default
+[20]: https://kubernetes.io/blog/search/label/containers
+[21]: https://kubernetes.io/blog/search/label/k8s
+[22]: https://kubernetes.io/blog/search/label/kubernetes
+[23]: https://kubernetes.io/blog/search/label/performance
+[24]: https://kubernetes.io/blog/2015/10/some-things-you-didnt-know-about-kubectl_28 "Newer Post"
+[25]: https://kubernetes.io/blog/2015/08/using-kubernetes-namespaces-to-manage "Older Post"
+[26]: https://kubernetes.io/blog/feeds/6564816295503649669/comments/default
 [27]: https://img2.blogblog.com/img/widgets/arrow_dropdown.gif
 [28]: https://img1.blogblog.com/img/icon_feed12.png
 [29]: https://img1.blogblog.com/img/widgets/subscribe-netvibes.png
 [30]: https://www.netvibes.com/subscribe.php?url=http%3A%2F%2Fblog.kubernetes.io%2Ffeeds%2Fposts%2Fdefault
 [31]: https://img1.blogblog.com/img/widgets/subscribe-yahoo.png
 [32]: https://add.my.yahoo.com/content?url=http%3A%2F%2Fblog.kubernetes.io%2Ffeeds%2Fposts%2Fdefault
-[33]: http://blog.kubernetes.io/feeds/posts/default
+[33]: https://kubernetes.io/blog/feeds/posts/default
 [34]: https://www.netvibes.com/subscribe.php?url=http%3A%2F%2Fblog.kubernetes.io%2Ffeeds%2F6564816295503649669%2Fcomments%2Fdefault
 [35]: https://add.my.yahoo.com/content?url=http%3A%2F%2Fblog.kubernetes.io%2Ffeeds%2F6564816295503649669%2Fcomments%2Fdefault
 [36]: https://resources.blogblog.com/img/icon18_wrench_allbkg.png

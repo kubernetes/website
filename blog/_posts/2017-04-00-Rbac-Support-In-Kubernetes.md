@@ -6,10 +6,10 @@ date:  Friday, April 06, 2017
 pagination:
   enabled: true
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](http://blog.kubernetes.io/2017/03/five-days-of-kubernetes-1.6.html) on what's new in Kubernetes 1.6_  
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1.6) on what's new in Kubernetes 1.6_  
 
 
-One of the highlights of the [Kubernetes 1.6](http://blog.kubernetes.io/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale.html) release is the RBAC authorizer feature moving to _beta_. RBAC, Role-based access control, is an authorization mechanism for managing permissions around Kubernetes resources. RBAC allows configuration of flexible authorization policies that can be updated without cluster restarts.  
+One of the highlights of the [Kubernetes 1.6](https://kubernetes.io/blog/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale) release is the RBAC authorizer feature moving to _beta_. RBAC, Role-based access control, is an authorization mechanism for managing permissions around Kubernetes resources. RBAC allows configuration of flexible authorization policies that can be updated without cluster restarts.  
 
 The focus of this post is to highlight some of the interesting new capabilities and best practices.  
 
@@ -114,7 +114,7 @@ If you’d like to contribute or simply help provide feedback and drive the road
 - Chat with us on the Kubernetes [Slack sig-auth channel](https://kubernetes.slack.com/messages/sig-auth/)
 - Join the biweekly [SIG-Auth meetings](https://github.com/kubernetes/community/blob/master/sig-auth/README.md) on Wednesday at 11:00 AM PT
 
-Thanks for your support and contributions. Read more in-depth posts on what's new in Kubernetes 1.6 [here](http://blog.kubernetes.io/2017/03/five-days-of-kubernetes-1.6.html).
+Thanks for your support and contributions. Read more in-depth posts on what's new in Kubernetes 1.6 [here](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1.6).
 
 
 

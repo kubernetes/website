@@ -87,7 +87,7 @@ It is not meant to reserve resources for system daemons that are run as pods.
 performance dashboard](http://node-perf-dash.k8s.io/#/builds) exposes `cpu` and
 `memory` usage profiles of `kubelet` and `docker engine` at multiple levels of
 pod density. [This blog
-post](http://blog.kubernetes.io/2016/11/visualize-kubelet-performance-with-node-dashboard.html)
+post](https://kubernetes.io/blog/2016/11/visualize-kubelet-performance-with-node-dashboard)
 explains how the dashboard can be interpreted to come up with a suitable
 `kube-reserved` reservation.
 

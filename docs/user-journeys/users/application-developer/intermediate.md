@@ -146,7 +146,7 @@ Now that you're fairly familiar with Kubernetes, you may find it useful to brows
 * [Kubernetes API reference]({{ reference_docs_url }}){:target="_blank"}
 * [Standardized Glossary](/docs/reference/glossary/){:target="_blank"}
 
-In addition, [the Kubernetes blog](http://blog.kubernetes.io/){:target="_blank"} often has helpful posts on Kubernetes design patterns and case studies.
+In addition, [the Kubernetes Blog](https://kubernetes.io/blog/){:target="_blank"} often has helpful posts on Kubernetes design patterns and case studies.
 
 #### What's next
 If you feel fairly comfortable with the topics on this page and want to learn more, check out the following user journeys:

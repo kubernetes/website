@@ -104,4 +104,4 @@ The team at AppFormix is pleased to contribute support for Azure to the Kubernet
 _Editor's Note: Want to _contribute to_ Kubernetes, get involved [here](https://github.com/kubernetes/kubernetes/issues?q=is%3Aopen+is%3Aissue+label%3Ahelp-wanted). Have your own Kubernetes story you’d like to tell, [let us know](https://docs.google.com/a/google.com/forms/d/1cHiRdmBCEmUH9ekHY2G-KDySk5YXRzALHcMNgzwXtPM/viewform)!_
 
 
-Part II is available [here](http://blog.kubernetes.io/2016/07/bringing-end-to-end-kubernetes-testing-to-azure-2.html).
+Part II is available [here](https://kubernetes.io/blog/2016/07/bringing-end-to-end-kubernetes-testing-to-azure-2).

@@ -111,7 +111,7 @@ In situations where confidentiality or compliance require complete opaqueness be
 
 
 
-Work is underway to provide (a) ACLs on Kubernetes Namespaces to be able to enforce security; (b) to provide Kubernetes [Cluster Federation](http://blog.kubernetes.io/2016/07/cross-cluster-services.html). Both mechanisms will address the reasons for the separate Kubernetes clusters in these anti-patterns.&nbsp;
+Work is underway to provide (a) ACLs on Kubernetes Namespaces to be able to enforce security; (b) to provide Kubernetes [Cluster Federation](https://kubernetes.io/blog/2016/07/cross-cluster-services). Both mechanisms will address the reasons for the separate Kubernetes clusters in these anti-patterns.&nbsp;
 
 
 

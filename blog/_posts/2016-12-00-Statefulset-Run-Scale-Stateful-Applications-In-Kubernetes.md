@@ -6,9 +6,9 @@ date:  Wednesday, December 20, 2016
 pagination:
   enabled: true
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](http://blog.kubernetes.io/2016/12/five-days-of-kubernetes-1.5.html) on what's new in Kubernetes 1.5_  
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1.5) on what's new in Kubernetes 1.5_  
 
-In the latest release, [Kubernetes 1.5](http://blog.kubernetes.io/2016/12/kubernetes-1.5-supporting-production-workloads.html), we’ve moved the feature formerly known as PetSet into beta as [StatefulSet](http://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/). There were no major changes to the API Object, other than the community selected name, but we added the semantics of “at most one pod per index” for deployment of the Pods in the set. Along with ordered deployment, ordered termination, unique network names, and persistent stable storage, we think we have the right primitives to support many containerized stateful workloads. We don’t claim that the feature is 100% complete (it is software after all), but we believe that it is useful in its current form, and that we can extend the API in a backwards-compatible way as we progress toward an eventual GA release.  
+In the latest release, [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads), we’ve moved the feature formerly known as PetSet into beta as [StatefulSet](http://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/). There were no major changes to the API Object, other than the community selected name, but we added the semantics of “at most one pod per index” for deployment of the Pods in the set. Along with ordered deployment, ordered termination, unique network names, and persistent stable storage, we think we have the right primitives to support many containerized stateful workloads. We don’t claim that the feature is 100% complete (it is software after all), but we believe that it is useful in its current form, and that we can extend the API in a backwards-compatible way as we progress toward an eventual GA release.  
 
 **When is StatefulSet the Right Choice for my Storage Application?**  
 

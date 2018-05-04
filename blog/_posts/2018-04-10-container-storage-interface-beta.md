@@ -7,7 +7,7 @@ date: Tuesday, April 10, 2018
 ![Kubernetes Logo](/images/blog-logging/2018-04-10-container-storage-interface-beta/csi-kubernetes.png)
 ![CSI Logo](/images/blog-logging/2018-04-10-container-storage-interface-beta/csi-logo.png)
 
-The Kubernetes implementation of the Container Storage Interface (CSI) is now beta in Kubernetes v1.10. CSI was [introduced as alpha](http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html) in Kubernetes v1.9.
+The Kubernetes implementation of the Container Storage Interface (CSI) is now beta in Kubernetes v1.10. CSI was [introduced as alpha](https://kubernetes.io/blog/2018/01/introducing-container-storage-interface) in Kubernetes v1.9.
 
 Kubernetes features are generally introduced as alpha and moved to beta (and eventually to stable/GA) over subsequent Kubernetes releases. This process allows Kubernetes developers to get feedback, discover and fix issues, iterate on the designs, and deliver high quality, production grade features.
 
@@ -171,7 +171,7 @@ CSI drivers are developed and maintained by third parties. You can find a non-de
 
 ## What about FlexVolumes?
 
-As mentioned in the [alpha release blog post](http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html), [FlexVolume plugin](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md) was an earlier attempt to make the Kubernetes volume plugin system extensible. Although it enables third party storage vendors to write drivers “out-of-tree”, because it is an exec based API, FlexVolumes requires files for third party driver binaries (or scripts) to be copied to a special plugin directory on the root filesystem of every node (and, in some cases, master) machine. This requires a cluster admin to have write access to the host filesystem for each node and some external mechanism to ensure that the driver file is recreated if deleted, just to deploy a volume plugin.
+As mentioned in the [alpha release blog post](https://kubernetes.io/blog/2018/01/introducing-container-storage-interface), [FlexVolume plugin](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md) was an earlier attempt to make the Kubernetes volume plugin system extensible. Although it enables third party storage vendors to write drivers “out-of-tree”, because it is an exec based API, FlexVolumes requires files for third party driver binaries (or scripts) to be copied to a special plugin directory on the root filesystem of every node (and, in some cases, master) machine. This requires a cluster admin to have write access to the host filesystem for each node and some external mechanism to ensure that the driver file is recreated if deleted, just to deploy a volume plugin.
 
 In addition to being difficult to deploy, Flex did not address the pain of plugin dependencies: Volume plugins tend to have many external requirements (on mount and filesystem tools, for example). These dependencies are assumed to be available on the underlying host OS, which is often not the case.
 
