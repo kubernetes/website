@@ -61,9 +61,19 @@ interest. For example, people new to Kubernetes may also want to join the
 There are also many country specific/local language channels. Feel free to join
 these channels for localized support and info:
 
+- China: `#cn-users`, `#cn-events`
 - France: `#fr-users`, `#fr-events`
 - Germany: `#de-users`, `#de-events`
+- India: `#in-users`, `#in-events`
+- Italy: `#it-users`, `#it-events`
 - Japan: `#jp-users`, `#jp-events`
+- Korea: `#kr-users`
+- Netherlands: `#nl-users`
+- Norway: `#norw-users`
+- Poland: `#pl-users`
+- Russia: `#ru-users`
+- Spain: `#es-users`
+- Turkey: `#tr-users`, `#tr-events`
 
 ### Mailing List
 
