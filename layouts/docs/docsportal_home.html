@@ -1,0 +1,96 @@
+{{ define "content" }}
+    {{ if not .Params.notitle }}
+	 <h1>{{ .Title }}</h1>
+    {{ end }}
+    {{ template "docs-portal-user-journey" . }}
+    {{ partial "docs/browse.html" (where .Parent.Sections ".Params.toc_hide" "!=" true) }}
+{{ end }}
+
+{{ define "content-id" }}content{{ end }}
+
+{{ define "docs-portal-user-journey" }}
+{{ $data := .Site.Data }}
+<div id="user-persona-data" class="hide">
+  {{ $user_personas := index $data "user-personas" }}
+  {{ $user_personas | jsonify }}
+</div>
+
+<div class="hide">
+{{  $skip_uj_paths := "migrators" }}
+{{ range $k, $v := $user_personas }}
+
+{{ if strings.Contains $skip_uj_paths $k }}
+{{ else }}
+  {{ range $kk, $vv := $v }}
+    <div class="persona-def-data" data-name="{{ $kk }}">
+    {{ $persona_info := $vv }}
+    {{ if $persona_info.short_desc }}
+    {{ $persona_info.short_desc }}
+    {{ end }}
+    </div>
+    {{ end }}
+{{ end }}
+
+{{ end }}
+</div>
+
+<div id='aboutWrapper'>
+  <div class="aboutsection" markdown="1">
+    Kubernetes is an open source system for managing <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">containerized applications</a> across multiple hosts, providing basic mechanisms for deployment, maintenance, and scaling of applications.
+    The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
+    <div class="aboutcolumn" markdown="1">
+      <a href="{{ "docs/imported/release/notes/" | relURL }}">Download Current Release</a>
+    </div>
+    <div class="aboutcolumn" markdown="1">
+      <a href="{{ "docs/home/supported-doc-versions/" | relURL }}">Supported Doc Versions</a>
+    </div>
+  </div>
+</div>
+
+<div class="paths">
+    <div class="navButton users">Users</div>
+    <div class="navButton contributors">Contributors</div>
+    <a> <div class="navButton browse">Browse Docs</div></a>
+</div>
+
+<div id="cardWrapper">
+  <div class="display-bar">I AM...</div>
+  <div class='cards' markdown="1">
+  <div class='docsection1' id='persona-definition'>.</div>
+  </div>
+</div>
+
+<div style='text-align: center;' class="applicationDeveloperContainer">
+	<div class="display-bar" id="subTitle">LEVEL</div>
+	<div class="levels">
+		<div class="level" data-name="foundational">
+			<i class="fa fa-sign-in" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
+			<br>
+			<div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
+				Foundational
+			</div>
+		</div>
+		<div class="level" data-name="intermediate">
+			<i class="fa fa-university" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
+			<br>
+			<div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
+				Intermediate
+			</div>
+		</div>
+		<div class="level" data-name="advanced">
+			<i class="fa fa-magic" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
+			<br>
+			<div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
+				Advanced Topics
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class='infobarWrapper'>
+    <div class="infobar">
+        <span style="padding-bottom: 3% ">I want to...</span>
+        <div id="infobarLinks"></div>
+    </div>
+</div>
+{{ end }}

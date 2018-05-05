@@ -1,0 +1,10 @@
+{{ $valid_states := "alpha, beta, deprecated, stable" }}
+{{ $state := .Get "state" }}
+{{ $for_k8s_version := .Get "for_k8s_version" }}
+{{ $width := .Get "width" }}
+{{ $is_valid := strings.Contains $valid_states $state }}
+{{ if not $is_valid }}
+{{ errorf "%q is not a valid feature-state, use one of %q" $valid_states }}
+{{ else }}
+{{ partial "templates/feature-state.html" (dict "ctx" . "page" .Page "state" $state "for_k8s_version" $for_k8s_version "width"  $width) }}
+{{ end }}

@@ -1,0 +1,8 @@
+{{ define "main" }}
+	{{ range (.Paginator 1).Pages }}
+	{{ .Render "post" }}
+	{{ end }}
+	<div class="PageNavigation">
+	{{ template "_internal/pagination.html" . }}
+	</div>
+{{ end }}
