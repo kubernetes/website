@@ -1,0 +1,123 @@
+---
+title: 运行应用程序的多个实例
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+
+     <div class="col-md-8">
+      	<h3>目标</h3>
+				<ul>
+					<li>使用 kubectl 伸缩应用程序</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+       <h3>应用程序伸缩</h3>
+
+			<p>在之前的模块中，我们创建了一个 <a href="http://kubernetes.io/docs/user-guide/deployments/"> Deployment</a>，然后通过 <a href="http://kubernetes.io/docs/user-guide/services/">Service</a>让应用程序外部可见。
+				Deployment 仅为我们的应用程序创建了一个 Pod。
+				当流量增加时，我们将需要扩展应用程序以跟上用户需求。</p>
+
+			<p><b>Scaling</b> 是通过更改 Deployment 中的副本数量实现的。</p>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>摘要:</h3>
+					<ul>
+						<li>Deployment 的伸缩</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+					<p><i> 您可以使用 kubectl run 命令的 --replicas 参数，在创建 Deployment 时指定多个实例。 </i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h2 style="color: #3771e3;">Scaling 概述</h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-8">
+				<div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+					<ol class="carousel-indicators">
+					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					    <li data-target="#myCarousel" data-slide-to="1"></li>
+					</ol>
+					  <div class="carousel-inner" role="listbox">
+					    <div class="item active">
+					      <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
+					    </div>
+
+					    <div class="item">
+					      <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+					    </div>
+					  </div>
+
+					  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+						<span class="sr-only ">Previous</span>
+					  </a>
+					  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+						<span class="sr-only">Next</span>
+					  </a>
+
+					</div>
+			</div>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+
+				<p>扩展 Deployment 将确保创建新的 Pods 并将其调度到拥有可用资源的 Node 节点上，收缩会保证 Pods 数量减少至新的所需状态。
+					Kubernetes 还支持 Pods 的 <a href="http://kubernetes.io/docs/user-guide/horizontal-pod-autoscaling/"> 自动缩放 </a> ，但不在本教程范围之内。收缩到零也是可以的，此时它将终止指定 Deployment 的所有 Pod。 </p>
+
+				<p>运行应用程序的多个实例需要一种将流量分发给所有实例的方法。服务有内置的负载均衡器，可将网络流量分配给 Deployment 暴露的所有 Pods。服务通过使用 endpoints 持续监控运行的 Pods，以确保流量仅发送到可用的 Pods。</p>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_fill">
+					<p><i>通过更改 Deployment 中的副本数可以实现伸缩应用程序。</i></p>
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p> 一旦您有应用程序的多个实例，您将能够滚动更新，而不会停止服务，我们将在下一个模块中介绍这些。现在，我们去在线终端对我们的应用程序进行伸缩。</p>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/scale-interactive/" role="button">启动互动教程 <span class="btn__next">›</span></a>
+			</div>
+		</div>
+
+	</main>
+
+</div>
+
+</body>
+</html>

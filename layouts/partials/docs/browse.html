@@ -1,0 +1,39 @@
+
+<div id='browsedocsWrapper'>
+<div class="browseheader" id="browsedocs">
+    <a name="browsedocs">Browse Docs</a>
+  </div>
+<div class="browsedocs">
+{{ range . }}
+{{ template "docs-browse-section"  . }}
+{{ end }}
+</div><!-- end browsedocs -->
+
+
+{{ define "docs-browse-section" }}
+<div class="browsesection">
+  <div class="docstitle">
+    <h3><a href="{{ .RelPermalink }}">{{ .Params.bigheader | default .Title }}</a></h3>
+  </div>
+  {{ $pages := .Pages | union .Sections }}
+  {{ $pages := where $pages ".Params.toc_hide" "!=" true }}
+  {{ if ge (len $pages) 1 }}
+  <div class="pages">
+  {{ $num_pages := len $pages }}
+  {{ if gt $num_pages 0 }}
+  {{ $column_size :=  (div $num_pages 3) | math.Ceil | int | default 1 }}
+  {{  range $i, $e := $pages.ByWeight }}
+    {{ $offset := mod $i $column_size |  add 1 }}
+    {{ if eq $offset 1 }}
+      <div class="browsecolumn">
+    {{ end }}
+    <a href="{{ .RelPermalink }}">{{ printf "%02d - %s" (add $i 1) .LinkTitle }}</a><br>
+    {{ if or (eq $offset $column_size) (eq (add $i 1) $num_pages)}}
+      </div>
+    {{ end }}
+  {{ end }}
+  {{ end }}
+  </div><!-- end pages -->
+  {{ end }}
+</div><!-- end browsesection -->
+{{ end }}

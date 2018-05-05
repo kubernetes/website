@@ -1,0 +1,142 @@
+---
+title: 查看 Pods 和节点
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+
+     <div class="col-md-8">
+      	<h3>目标</h3>
+				<ul>
+					<li>了解 Kubernetes Pods</li>
+					<li>了解 Kubernetes Nodes</li>
+					<li>已部署应用的故障排除</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+				<h2>Kubernetes Pods</h2>
+				<p>当您在模块 <a href="/docs/tutorials/kubernetes-basics/deploy-intro/">2</a>中创建部署时，Kubernetes 创建了一个 <b>Pod</b> 来托管您的应用程序实例。Pod 是一个 Kubernetes 的资源抽象，表示一个或多个应用容器 (例如 Docker 或 rkt) 组，以及一些用于这些容器的共享资源。这些资源包括:</p>
+				<ul>
+					<li>共享存储，如卷</li>
+					<li>网络，作为唯一的集群 IP 地址</li>
+					<li>每个容器如何运行的信息，例如容器镜像版本或要使用的特定端口</li>
+				</ul>
+				<p>Pod 模型可以理解为应用程序特定的 "逻辑主机"，并且可以包含相对紧密耦合的不同应用程序容器。例如，Pod 可能包含带有 Node.js 应用程序的容器以及另一个要吸收 Node.js Web 服务器提供的数据的不同容器。Pod 中的容器共享 IP 地址和端口空间，始终位于同一位置并且统一调度，并在相同的节点上运行，共享上下文环境。</p>
+
+			<p>Pods 是 Kubernetes 平台上原子级别的单元。当我们在 Kubernetes 上创建一个部署时，该部署将在其中创建包含容器的 Pod (而不是直接创建容器)。每个 Pod 都绑定到它被调度的节点，并且始终在那里，直到终止 (根据重启策略) 或删除。在节点故障的情况下，在集群中的其他可用节点上调度相同的 Pod。</p>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>概要:</h3>
+					<ul>
+						<li>Pods</li>
+						<li>节点</li>
+						<li>Kubectl 主要命令</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+						<p><i>
+							Pod是由一个或者多个应用程序容器构成的(例如 Docker 或 rkt)，包含共享存储 (卷)，IP 地址以及有关如何运行它们的信息。
+						</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h2 style="color: #3771e3;">Pods 概览</h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h2>节点</h2>
+				<p>Pod 总是运行在 <b>Node</b>上。Node 是 Kubernetes 的工作机器，可以是虚拟机或物理机，这取决于在集群的安装情况。每个节点由 Master 管理。一个节点上可以有多个 Pod, Kubernetes master 会自动处理调度集群各个节点上的 Pod。 Master 在自动调度时，会考虑每个 Node 上的可用资源。</p>
+
+				<p>每个 Kubernetes 节点至少运行以下组件:</p>
+				<ul>
+					<li>Kubelet 是负责 Kubernetes Master 和 所有节点之间通信的进程，它管理机器上运行的 Pod 和容器。</li>
+					<li>容器运行时(例如 Docker, rkt) 负责从镜像仓库中拉取容器镜像，解包容器并运行应用程序。</li>
+				</ul>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_fill">
+					<p><i> 如果一些容器属于强耦合并且需要共享资源(例如 磁盘)，那么这些容器应该放到单个 Pod 中一起调度。 </i></p>
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h2 style="color: #3771e3;">节点概述</h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h2>使用 kubectl 进行故障排除</h2>
+				<p>在模块 <a href="/docs/tutorials/kubernetes-basics/deploy-intro/">2</a>中，您使用了 Kubectl 命令行接口。您将在模块 3 中继续使用它来获取有关已部署应用程序及其环境的信息。最常见的操作可以通过以下 kubectl 命令完成:</p>
+				<ul>
+					<li><b>kubectl get</b> - 列出可用资源</li>
+					<li><b>kubectl describe</b> - 显示有关资源的详细信息</li>
+					<li><b>kubectl logs</b> - 从 Pod 中的容器打印日志</li>
+					<li><b>kubectl exec</b> - 在 Pod 中的容器执行命令</li>
+				</ul>
+
+				<p>您可以使用这些命令来查看应用程序部署的时间，它们当前的状态，运行的位置及其配置。</p>
+
+				<p>现在我们更多地了解了集群组件和命令行交互，接下来，一起来探索分析我们的应用程序。</p>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_fill">
+					<p><i> 节点是 Kubernetes 中的工作机器，可能是物理机或虚拟机，具体取决于集群的安装配置。多个 Pod 可以在一个节点上运行。 </i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/explore-interactive/" role="button">启动互动教程<span class="btn__next">›</span></a>
+			</div>
+		</div>
+
+	</main>
+
+</div>
+
+</body>
+</html>

@@ -384,6 +384,42 @@ body {
     margin-left: 1em;
   }
 
+  .blog-content img {
+    max-width: 90%;
+  }
+
+  /* blog post specific styling */
+  .blog-content table, tr, td, th {
+    font-size: 20px;
+    border: solid;
+    border-color: black;
+    border-width: .5px;
+    padding: 5px;
+  }
+
+  .blog-content table {
+    margin-bottom: 2em;
+    margin-top: 1em;
+  }
+
+  #blog-archive {
+    margin-top: 2em;
+  }
+
+  #blog-archive .panel-body {
+    padding: 0;
+  }
+
+  #blog-archive ul li {
+    margin-left: 0;
+  }
+
+  #blog-archive .date {
+    color: lightgrey;
+    font-style: italic;
+    padding-left: 5px;
+  }
+
   /* .blog-content .pagination {
     width: inherit;
   } */
@@ -465,15 +501,6 @@ ul {
 .heading-year-toggle-checkbox:checked + .collapsible-year-heading-label + .collapsible-year-body,
 .heading-month-toggle-checkbox:checked + .collapsible-month-heading-label + .collapsible-posts-list{
   display: block;
-}
-
-/* blog post specific styling */
-table.post-table ,.post-table tr, .post-table td, .post-table th {
-  font-size: 20px;
-  border: solid;
-  border-color: black;
-  border-width: .5px;
-  padding: 5px;
 }
 
 .yaml-scale code {

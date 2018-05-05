@@ -1,0 +1,902 @@
+# Tabs
+
+[[replacements]]
+filename = "content/en/docs/reference/setup-tools/kubeadm/kubeadm-alpha.md"
+matchRe = "(?s){{% capture preflight_master %}}.*?tab-preflight.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="tab-preflight" >}}
+{{< tab name="master" include="generated/kubeadm_alpha_phase_preflight_master.md" />}}
+{{< tab name="node" include="generated/kubeadm_alpha_phase_preflight_node.md" />}}
+{{< /tabs >}}
+"""
+
+[[replacements]]
+filename = "content/en/docs/reference/setup-tools/kubeadm/kubeadm-alpha.md"
+matchRe = "(?s){{% capture certs_all %}}.*?tab-certs.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="tab-certs" >}}
+{{< tab name="all" include="generated/kubeadm_alpha_phase_certs_all.md" />}}
+{{< tab name="ca" include="generated/kubeadm_alpha_phase_certs_ca.md" />}}
+{{< tab name="apiserver" include="generated/kubeadm_alpha_phase_certs_apiserver.md" />}}
+{{< tab name="apiserver-kubelet-client" include="generated/kubeadm_alpha_phase_certs_apiserver-kubelet-client.md" />}}
+{{< tab name="sa" include="generated/kubeadm_alpha_phase_certs_sa.md" />}}
+{{< tab name="front-proxy-ca" include="generated/kubeadm_alpha_phase_certs_front-proxy-ca.md" />}}
+{{< tab name="front-proxy-client" include="generated/kubeadm_alpha_phase_certs_front-proxy-client.md" />}}
+{{< /tabs >}}
+"""
+
+[[replacements]]
+filename = "content/en/docs/reference/setup-tools/kubeadm/kubeadm-alpha.md"
+matchRe = "(?s){{% capture kubeconfig_all %}}.*?tab-kubeconfig.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="tab-kubeconfig" >}}
+{{< tab name="all" include="generated/kubeadm_alpha_phase_kubeconfig_all.md" />}}
+{{< tab name="admin" include="generated/kubeadm_alpha_phase_kubeconfig_admin.md" />}}
+{{< tab name="kubelet" include="generated/kubeadm_alpha_phase_kubeconfig_kubelet.md" />}}
+{{< tab name="controller-manager" include="generated/kubeadm_alpha_phase_kubeconfig_controller-manager.md" />}}
+{{< tab name="scheduler" include="generated/kubeadm_alpha_phase_kubeconfig_scheduler.md" />}}
+{{< tab name="user" include="generated/kubeadm_alpha_phase_kubeconfig_user.md" />}}
+{{< /tabs >}}
+"""
+
+
+[[replacements]]
+filename = "content/en/docs/reference/setup-tools/kubeadm/kubeadm-alpha.md"
+matchRe = "(?s){{% capture controlplane_all %}}.*?tab-controlplane.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="tab-controlplane" >}}
+{{< tab name="all" include="generated/kubeadm_alpha_phase_controlplane_all.md" />}}
+{{< tab name="apiserver" include="generated/kubeadm_alpha_phase_controlplane_apiserver.md" />}}
+{{< tab name="controller-manager" include="generated/kubeadm_alpha_phase_controlplane_controller-manager.md" />}}
+{{< tab name="scheduler" include="generated/kubeadm_alpha_phase_controlplane_scheduler.md" />}}
+{{< /tabs >}}
+"""
+
+[[replacements]]
+filename = "content/en/docs/reference/setup-tools/kubeadm/kubeadm-alpha.md"
+matchRe = "(?s){{% capture etcd-local %}}.*?tab-etcd.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="tab-etcd" >}}
+{{< tab name="etcd local" include="generated/kubeadm_alpha_phase_etcd_local.md" />}}
+{{< /tabs >}}
+"""
+
+[[replacements]]
+filename = "content/en/docs/reference/setup-tools/kubeadm/kubeadm-alpha.md"
+matchRe = "(?s){{% capture mark-master %}}.*?tab-mark-master.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="tab-mark-master" >}}
+{{< tab name="mark-master" include="generated/kubeadm_alpha_phase_mark-master.md" />}}
+{{< /tabs >}}
+"""
+
+[[replacements]]
+filename = "content/en/docs/reference/setup-tools/kubeadm/kubeadm-alpha.md"
+matchRe = "(?s){{% capture bootstrap-token_all %}}.*?tab-bootstrap-token.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="tab-bootstrap-token" >}}
+{{< tab name="all" include="generated/kubeadm_alpha_phase_bootstrap-token_all.md" />}}
+{{< tab name="create" include="generated/kubeadm_alpha_phase_bootstrap-token_create.md" />}}
+{{< tab name="cluster-info" include="generated/kubeadm_alpha_phase_bootstrap-token_cluster-info.md " />}}
+{{< tab name="node allow-auto-approve" include="generated/kubeadm_alpha_phase_bootstrap-token_node_allow-auto-approve.md" />}}
+{{< tab name="node allow-post-csrs" include="generated/kubeadm_alpha_phase_bootstrap-token_node_allow-post-csrs.md" />}}
+{{< /tabs >}}
+"""
+
+
+[[replacements]]
+filename = "content/en/docs/reference/setup-tools/kubeadm/kubeadm-alpha.md"
+matchRe = "(?s){{% capture upload-config %}}.*?tab-upload-config.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="upload-config" >}}
+{{< tab name="mark-master" include="generated/kubeadm_alpha_phase_upload-config.md" />}}
+{{< /tabs >}}
+"""
+
+[[replacements]]
+filename = "content/en/docs/reference/setup-tools/kubeadm/kubeadm-alpha.md"
+matchRe = "(?s){{% capture self-hosting %}}.*?tab-self-hosting.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="tab-self-hosting" >}}
+{{< tab name="self-hosting" include="generated/kubeadm_alpha_phase_selfhosting_convert-from-staticpods.md" />}}
+{{< /tabs >}}
+"""
+
+[[replacements]]
+filename = "content/en/docs/reference/setup-tools/kubeadm/kubeadm-alpha.md"
+matchRe = "(?s){{% capture addon-all %}}.*?tab-addon.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="tab-addon" >}}
+{{< tab name="all" include="generated/kubeadm_alpha_phase_addon_all.md" />}}
+{{< tab name="kube-proxy" include="generated/kubeadm_alpha_phase_addon_kube-proxy.md" />}}
+{{< tab name="kube-dns" include="generated/kubeadm_alpha_phase_addon_kube-dns.md" />}}
+{{< /tabs >}}
+"""
+
+[[replacements]]
+filename = "content/en/docs/tasks/tools/install-kubectl.md"
+matchRe = "(?s){% capture ubuntu %}.*?kubectl_install.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="kubectl_install" >}}
+{{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
+apt-get update && apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+apt-get update
+apt-get install -y kubectl
+{{< /tab >}}
+{{< tab name="CentOS, RHEL or Fedora" codelang="bash" >}}cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+yum install -y kubectl
+{{< /tab >}}
+{{< /tabs >}}
+"""
+
+
+[[replacements]]
+filename = "content/en/docs/tasks/tools/install-kubectl.md"
+matchRe = "(?s){{% capture macos %}}.*?{{% capture win %}}.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="kubectl_install_curl" >}}
+{{% tab name="macos" %}}
+1. Download the latest release with the command:
+
+    ```		 
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
+    ```
+
+    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
+
+    For example, to download version {{< param "fullversion" >}} on MacOS, type:
+		  
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    ```
+
+2. Make the kubectl binary executable.
+
+    ```
+    chmod +x ./kubectl
+    ```
+
+3. Move the binary in to your PATH.
+
+    ```
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    ```
+{{% /tab %}}
+{{% tab name="linux" %}}
+
+1. Download the latest release with the command:
+
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    ```
+
+    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
+
+    For example, to download version {{< param "fullversion" >}} on Linux, type:
+    
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    ```
+
+2. Make the kubectl binary executable.
+
+    ```
+    chmod +x ./kubectl
+    ```
+
+3. Move the binary in to your PATH.
+
+    ```
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    ```
+{{% /tab %}}
+{{% tab  name="win" %}}
+1. Download the latest release {{< param "fullversion" >}} from [this link](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+
+    Or if you have `curl` installed, use this command:
+
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    ```
+
+    To find out the latest stable version (for example, for scripting), take a look at [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
+
+2. Add the binary in to your PATH.
+{{% /tab %}}
+{{< /tabs >}}
+
+"""
+
+[[replacements]]
+filename = "content/en/docs/setup/independent/install-kubeadm.md"
+matchRe = "(?s){% capture docker_ubuntu %}.*?docker_install.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="docker_install" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+Install Docker from Ubuntu's repositories:
+
+```bash
+apt-get update
+apt-get install -y docker.io
+```
+
+or install Docker CE 17.03 from Docker's repositories for Ubuntu or Debian:
+
+```bash
+apt-get update
+apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+add-apt-repository \
+   "deb https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+   $(lsb_release -cs) \
+   stable"
+apt-get update && apt-get install -y docker-ce=$(apt-cache madison docker-ce | grep 17.03 | head -1 | awk '{print $3}')
+```
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
+Install Docker using your operating system's bundled package:
+
+```bash
+yum install -y docker
+systemctl enable docker && systemctl start docker
+```
+{{% /tab %}}
+{{% tab name="Container Linux" %}}
+Enable and start Docker:
+
+```bash
+systemctl enable docker && systemctl start docker
+```
+{{% /tab %}}
+{{< /tabs >}}
+"""
+
+[[replacements]]
+filename = "content/en/docs/setup/independent/install-kubeadm.md"
+matchRe = "(?s){{% capture ubuntu %}}.*?k8s_install.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="k8s_install" >}}
+{{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
+apt-get update && apt-get install -y apt-transport-https curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+apt-get update
+apt-get install -y kubelet kubeadm kubectl
+{{< /tab >}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
+``
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\\$basearch
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+setenforce 0
+yum install -y kubelet kubeadm kubectl
+systemctl enable kubelet && systemctl start kubelet
+```
+
+  **Note:**
+
+  - Disabling SELinux by running `setenforce 0` is required to allow containers to access the host filesystem, which is required by pod networks for example.
+    You have to do this until SELinux support is improved in the kubelet.
+  - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure
+    `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
+  
+    ``` bash
+    cat <<EOF >  /etc/sysctl.d/k8s.conf
+    net.bridge.bridge-nf-call-ip6tables = 1
+    net.bridge.bridge-nf-call-iptables = 1
+    EOF
+    sysctl --system
+    ```
+{{% /tab %}}
+{{% tab name="Container Linux" %}}
+Install CNI plugins (required for most pod network):
+
+```bash
+CNI_VERSION="v0.6.0"
+mkdir -p /opt/cni/bin
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
+```
+
+Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
+
+```bash
+RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
+
+mkdir -p /opt/bin
+cd /opt/bin
+curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
+chmod +x {kubeadm,kubelet,kubectl}
+
+curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/kubelet.service" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service
+mkdir -p /etc/systemd/system/kubelet.service.d
+curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/10-kubeadm.conf" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+```
+
+Enable and start `kubelet`:
+
+```bash
+systemctl enable kubelet && systemctl start kubelet
+```
+{{% /tab %}}
+{{< /tabs >}}
+"""
+
+[[replacements]]
+filename = "content/en/docs/tasks/tools/install-kubectl.md"
+matchRe = "(?s){{% capture macos %}}.*?{{% capture win %}}.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="kubectl_install_curl" >}}
+{{% tab name="macos" %}}
+1. Download the latest release with the command:
+
+    ```		 
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
+    ```
+
+    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
+
+    For example, to download version {{< param "fullversion" >}} on MacOS, type:
+		  
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    ```
+
+2. Make the kubectl binary executable.
+
+    ```
+    chmod +x ./kubectl
+    ```
+
+3. Move the binary in to your PATH.
+
+    ```
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    ```
+{{% /tab %}}
+{{% tab name="linux" %}}
+
+1. Download the latest release with the command:
+
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    ```
+
+    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
+
+    For example, to download version {{< param "fullversion" >}} on Linux, type:
+    
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    ```
+
+2. Make the kubectl binary executable.
+
+    ```
+    chmod +x ./kubectl
+    ```
+
+3. Move the binary in to your PATH.
+
+    ```
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    ```
+{{% /tab %}}
+{{% tab  name="win" %}}
+1. Download the latest release {{< param "fullversion" >}} from [this link](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+
+    Or if you have `curl` installed, use this command:
+
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    ```
+
+    To find out the latest stable version (for example, for scripting), take a look at [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
+
+2. Add the binary in to your PATH.
+{{% /tab %}}
+{{< /tabs >}}
+
+"""
+
+[[replacements]]
+filename = "content/en/docs/setup/independent/install-kubeadm.md"
+matchRe = "(?s){% capture docker_ubuntu %}.*?docker_install.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="docker_install" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+Install Docker from Ubuntu's repositories:
+
+```bash
+apt-get update
+apt-get install -y docker.io
+```
+
+or install Docker CE 17.03 from Docker's repositories for Ubuntu or Debian:
+
+```bash
+apt-get update
+apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+add-apt-repository \
+   "deb https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+   $(lsb_release -cs) \
+   stable"
+apt-get update && apt-get install -y docker-ce=$(apt-cache madison docker-ce | grep 17.03 | head -1 | awk '{print $3}')
+```
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
+Install Docker using your operating system's bundled package:
+
+```bash
+yum install -y docker
+systemctl enable docker && systemctl start docker
+```
+{{% /tab %}}
+{{% tab name="Container Linux" %}}
+Enable and start Docker:
+
+```bash
+systemctl enable docker && systemctl start docker
+```
+{{% /tab %}}
+{{< /tabs >}}
+"""
+
+[[replacements]]
+filename = "content/en/docs/setup/independent/create-cluster-kubeadm.md"
+matchRe = "(?s){% capture choose %}.*?Calico,Canal,Flannel,Kube-router,Romana,Weave Net.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="tabs-pod-install" >}}
+{{% tab name="Choose one..." %}}
+Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
+{{% /tab %}}
+{{% tab name="Calico" %}}
+Refer to the Calico documentation for a [kubeadm quickstart](https://docs.projectcalico.org/latest/getting-started/kubernetes/), a [kubeadm installation guide](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/), and other resources.
+
+**Note:**
+
+ - In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`.
+ - Calico works on `amd64` only.
+
+```shell
+kubectl apply -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
+```
+{{% /tab %}}
+{{% tab name="Canal" %}}
+The official Canal set-up guide is [here](https://github.com/projectcalico/canal/tree/master/k8s-install).
+
+**Note:**
+
+ - For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
+ - Canal works on `amd64` only.
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/rbac.yaml
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/canal.yaml
+```
+{{% /tab %}}
+{{% tab name="Flannel" %}}
+**Note:**
+
+ - For `flannel` to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
+ - `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on a platform other than
+`amd64` you have to manually download the manifest and replace `amd64` occurrences with your chosen platform.
+ - Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
+```
+
+ - For more information about `flannel`, please see [here](https://github.com/coreos/flannel).
+{{% /tab %}}
+{{% tab name="Kube-router" %}}
+Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+
+Kube-router relies on kube-controller-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
+
+Kube-router provides pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
+
+For information on setting up Kubernetes cluster with Kube-router using kubeadm, please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/kubeadm.md).
+{{% /tab %}}
+{{% tab name="Romana" %}}
+Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+
+The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
+
+**Note:** Romana works on `amd64` only.
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containerize/specs/romana-kubeadm.yml
+```
+{{% /tab %}}
+{{% tab name="Weave Net" %}}
+Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
+please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+
+The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
+
+**Note:** Weave Net works on `amd64`, `arm`, `arm64` and `ppc64le` without any extra action required.
+Weave Net sets hairpin mode by default. This allows Pods to access themselves via their Service IP address
+if they don't know their PodIP.
+
+```shell
+export kubever=$(kubectl version | base64 | tr -d '\n')
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+```
+{{% /tab %}}
+{{< /tabs >}}
+"""
+
+
+[[replacements]]
+filename = "content/en/docs/setup/independent/high-availability.md"
+matchRe = "(?s)Run etcd.*?etcd_mode.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="etcd_mode" >}}
+{{% tab name="Choose one..." %}}
+Please select one of the tabs to see installation instructions for the respective way to run etcd.
+{{% /tab %}}
+{{% tab name="systemd" %}}
+1. First you will install etcd binaries like so:
+
+   ```shell
+   export ETCD_VERSION=v3.1.10
+   curl -sSL https://github.com/coreos/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz | tar -xzv --strip-components=1 -C /usr/local/bin/
+   rm -rf etcd-$ETCD_VERSION-linux-amd64*
+   ```
+
+   It is worth noting that etcd v3.1.10 is the preferred version for Kubernetes v1.9. For other versions of Kubernetes please consult [the changelog](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md).
+
+   Also, please realise that most distributions of Linux already have a version of etcd installed, so you will be replacing the system default.
+
+1. Next, generate the environment file that systemd will use:
+
+   ```
+   touch /etc/etcd.env
+   echo "PEER_NAME=$PEER_NAME" >> /etc/etcd.env
+   echo "PRIVATE_IP=$PRIVATE_IP" >> /etc/etcd.env
+   ```
+
+1. Now copy the systemd unit file like so:
+
+   ```shell
+   cat >/etc/systemd/system/etcd.service <<EOF
+   [Unit]
+   Description=etcd
+   Documentation=https://github.com/coreos/etcd
+   Conflicts=etcd.service
+   Conflicts=etcd2.service
+
+   [Service]
+   EnvironmentFile=/etc/etcd.env
+   Type=notify
+   Restart=always
+   RestartSec=5s
+   LimitNOFILE=40000
+   TimeoutStartSec=0
+
+   ExecStart=/usr/local/bin/etcd --name ${PEER_NAME} \
+       --data-dir /var/lib/etcd \
+       --listen-client-urls https://${PRIVATE_IP}:2379 \
+       --advertise-client-urls https://${PRIVATE_IP}:2379 \
+       --listen-peer-urls https://${PRIVATE_IP}:2380 \
+       --initial-advertise-peer-urls https://${PRIVATE_IP}:2380 \
+       --cert-file=/etc/kubernetes/pki/etcd/server.pem \
+       --key-file=/etc/kubernetes/pki/etcd/server-key.pem \
+       --client-cert-auth \
+       --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem \
+       --peer-cert-file=/etc/kubernetes/pki/etcd/peer.pem \
+       --peer-key-file=/etc/kubernetes/pki/etcd/peer-key.pem \
+       --peer-client-cert-auth \
+       --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem \
+       --initial-cluster <etcd0>=https://<etcd0-ip-address>:2380,<etcd1>=https://<etcd1-ip-address>:2380,<etcd2>=https://<etcd2-ip-address>:2380 \
+       --initial-cluster-token my-etcd-token \
+       --initial-cluster-state new
+
+   [Install]
+   WantedBy=multi-user.target
+   EOF
+   ```
+
+   Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses. Also, make sure that you replace `<etcd0>`, `<etcd1>` and `<etcd2>` with real hostnames of each machine. These machines must be able to reach every other using DNS or make sure that records are added to `/etc/hosts`.
+
+1. Finally, launch etcd like so:
+
+   ```shell
+   systemctl daemon-reload
+   systemctl start etcd
+   ```
+
+1. Check that it launched successfully:
+
+   ```shell
+   systemctl status etcd
+   ```
+{{% /tab %}}
+{{% tab name="Static Pods" %}}
+**Note**: This is only supported on nodes that have the all dependencies for the kubelet installed. If you are hosting etcd on the master nodes, this has already been set up. If you are hosting etcd on dedicated nodes, you should either use systemd or run the [installation guide](/docs/setup/independent/install-kubeadm/) on each dedicated etcd machine.
+
+1. The first step is to run the following to generate the manifest file:
+
+   ```shell
+   cat >/etc/kubernetes/manifests/etcd.yaml <<EOF
+   apiVersion: v1
+   kind: Pod
+   metadata:
+   labels:
+       component: etcd
+       tier: control-plane
+   name: <podname>
+   namespace: kube-system
+   spec:
+   containers:
+   - command:
+       - etcd --name ${PEER_NAME} \
+       - --data-dir /var/lib/etcd \
+       - --listen-client-urls https://${PRIVATE_IP}:2379 \
+       - --advertise-client-urls https://${PRIVATE_IP}:2379 \
+       - --listen-peer-urls https://${PRIVATE_IP}:2380 \
+       - --initial-advertise-peer-urls https://${PRIVATE_IP}:2380 \
+       - --cert-file=/certs/server.pem \
+       - --key-file=/certs/server-key.pem \
+       - --client-cert-auth \
+       - --trusted-ca-file=/certs/ca.pem \
+       - --peer-cert-file=/certs/peer.pem \
+       - --peer-key-file=/certs/peer-key.pem \
+       - --peer-client-cert-auth \
+       - --peer-trusted-ca-file=/certs/ca.pem \
+       - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 \
+       - --initial-cluster-token my-etcd-token \
+       - --initial-cluster-state new
+       image: k8s.gcr.io/etcd-amd64:3.1.10
+       livenessProbe:
+       httpGet:
+           path: /health
+           port: 2379
+           scheme: HTTP
+       initialDelaySeconds: 15
+       timeoutSeconds: 15
+       name: etcd
+       env:
+       - name: PUBLIC_IP
+       valueFrom:
+           fieldRef:
+           fieldPath: status.hostIP
+       - name: PRIVATE_IP
+       valueFrom:
+           fieldRef:
+           fieldPath: status.podIP
+       - name: PEER_NAME
+       valueFrom:
+           fieldRef:
+           fieldPath: metadata.name
+       volumeMounts:
+       - mountPath: /var/lib/etcd
+       name: etcd
+       - mountPath: /certs
+       name: certs
+   hostNetwork: true
+   volumes:
+   - hostPath:
+       path: /var/lib/etcd
+       type: DirectoryOrCreate
+       name: etcd
+   - hostPath:
+       path: /etc/kubernetes/pki/etcd
+       name: certs
+   EOF
+   ```
+
+   Make sure you replace:
+   * `<podname>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
+   * `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the public IPv4s of the other machines that host etcd.
+{{% /tab %}}
+{{< /tabs >}}
+"""
+
+[[replacements]]
+filename = "content/en/docs/setup/independent/high-availability.md"
+matchRe = "(?s)Set up master Load Balancer.*?lb_mode.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="lb_mode" >}}
+{{% tab name="Choose one..." %}}
+Please select one of the tabs to see installation instructions for the respective way to run etcd.
+{{% /tab %}}
+{{% tab name="Cloud" %}}
+Some examples of cloud provider solutions are:
+
+* [AWS Elastic Load Balancer](https://aws.amazon.com/elasticloadbalancing/)
+* [GCE Load Balancing](https://cloud.google.com/compute/docs/load-balancing/)
+* [Azure](https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-overview)
+
+You will need to ensure that the load balancer routes to **just `master0` on port 6443**. This is because kubeadm will perform health checks using the load balancer IP. Since `master0` is set up individually first, the other masters will not have running apiservers, which will result in kubeadm hanging indefinitely.
+
+If possible, use a smart load balancing algorithm like "least connections", and use health checks so unhealthy nodes can be removed from circulation. Most providers will provide these features.
+{{% /tab %}}
+{{% tab name="On-Site" %}}
+In an on-site environment there may not be a physical load balancer available. Instead, a virtual IP pointing to a healthy master node can be used. There are a number of solutions for this including keepalived, Pacemaker and probably many others, some with and some without load balancing.
+
+As an example we outline a simple setup based on keepalived. Depending on environment and requirements people may prefer different solutions. The configuration shown here provides an _active/passive_ failover without load balancing. If required, load balancing can by added quite easily by setting up HAProxy, NGINX or similar on the master nodes (not covered in this guide).
+
+1. Install keepalived, e.g. using your distribution's package manager. The configuration shown here works with version `1.3.5` but is expected to work with may other versions. Make sure to have it enabled (chkconfig, systemd, ...) so that it starts automatically when the respective node comes up.
+
+2. Create the following configuration file _/etc/keepalived/keepalived.conf_ on all master nodes:
+
+    ```shell
+    ! Configuration File for keepalived
+    global_defs {
+      router_id LVS_DEVEL
+    }
+
+    vrrp_script check_apiserver {
+      script "/etc/keepalived/check_apiserver.sh"
+      interval 3
+      weight -2
+      fall 10
+      rise 2
+    }
+
+    vrrp_instance VI_1 {
+        state <STATE>
+        interface <INTERFACE>
+        virtual_router_id 51
+        priority <PRIORITY>
+        authentication {
+            auth_type PASS
+            auth_pass 4be37dc3b4c90194d1600c483e10ad1d
+        }
+        virtual_ipaddress {
+            <VIRTUAL-IP>
+        }
+        track_script {
+            check_apiserver
+        }
+    }
+    ```
+
+    In the section `vrrp_instance VI_1`, change few lines depending on your setup:
+
+    * `state` is either `MASTER` (on the first master nodes) or `BACKUP` (the other master nodes).
+    * `interface` is the name of an existing public interface to bind the virtual IP to (usually the primary interface).
+    * `priority` should be higher for the first master node, e.g. 101, and lower for the others, e.g. 100.
+    * `auth_pass` use any random string here.
+    * `virtual_ipaddresses` should contain the virtual IP for the master nodes.
+
+3. Install the following health check script to _/etc/keepalived/check_apiserver.sh_ on all master nodes:
+
+    ```shell
+    #!/bin/sh
+
+    errorExit() {
+        echo "*** $*" 1>&2
+        exit 1
+    }
+
+    curl --silent --max-time 2 --insecure https://localhost:6443/ -o /dev/null || errorExit "Error GET https://localhost:6443/"
+    if ip addr | grep -q <VIRTUAL-IP>; then
+        curl --silent --max-time 2 --insecure https://<VIRTUAL-IP>:6443/ -o /dev/null || errorExit "Error GET https://<VIRTUAL-IP>:6443/"
+    fi
+    ```
+
+    Replace the `<VIRTUAL-IP>` by your chosen virtual IP.
+
+4. Restart keepalived. While no Kubernetes services are up yet it will log health check fails on all master nodes. This will stop as soon as the first master node has been bootstrapped.
+{{% /tab %}}
+{{< /tabs >}}
+"""
+
+
+[[replacements]]
+filename = "content/en/docs/concepts/storage/volumes.md"
+matchRe = "(?s){% capture vmkfstools %}.*?reate using vmkfstools,Create using vmware-vdiskmanager.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="tabs_volumes" >}}
+{{% tab name="Create using vmkfstools" %}}
+First ssh into ESX, then use the following command to create a VMDK:
+
+```shell
+vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
+```
+{{% /tab %}}
+{{% tab name="Create using vmware-vdiskmanager" %}}
+Use the following command to create a VMDK:
+
+```shell
+vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
+```
+{{% /tab %}}
+
+{{< /tabs >}}
+"""
+
+
+[[replacements]]
+filename = "content/en/docs/concepts/services-networking/service.md"
+matchRe = "(?s){{% capture default_tab %}}.*?Default,GCP,AWS,Azure,OpenStack.*?{% include tabs.md %}"
+replacement = """
+{{< tabs name="service_tabs" >}}
+{{% tab name="Decfault" %}}
+Select one of the tabs.
+{{% /tab %}}
+{{% tab name="GCP" %}}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        cloud.google.com/load-balancer-type: "Internal"
+[...]
+```
+Use `cloud.google.com/load-balancer-type: "internal"` for masters with version 1.7.0 to 1.7.3.
+For more information, see the [docs](https://cloud.google.com/kubernetes-engine/docs/internal-load-balancing).
+{{% /tab %}}
+{{% tab name="AWS" %}}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+[...]
+```
+{{% /tab %}}
+{{% tab name="Azure" %}}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+[...]
+```
+{{% /tab %}}
+{{% tab name="OpenStack" %}}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
+[...]
+```
+{{% /tab %}}
+{{< /tabs >}}
+"""
+
+
+
