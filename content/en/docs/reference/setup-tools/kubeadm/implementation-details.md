@@ -402,7 +402,7 @@ RBAC role `system:node-bootstrapper`.
 
 #### Setup auto approval for new bootstrap tokens
 
-Kubeadm ensures that the Boostrap Token will get its CSR request automatically approved by the csrapprover controller.
+Kubeadm ensures that the Bootstrap Token will get its CSR request automatically approved by the csrapprover controller.
 
 This is implemented by creating ClusterRoleBinding named `kubeadm:node-autoapprove-bootstrap` between 
 the  `system:bootstrappers:kubeadm:default-node-token` group and the default role `system:certificates.k8s.io:certificatesigningrequests:nodeclient`.

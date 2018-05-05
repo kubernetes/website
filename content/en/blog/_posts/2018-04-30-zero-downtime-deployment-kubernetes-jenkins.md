@@ -1,5 +1,5 @@
 ---
-title: 'Kubernetes Application Survey 2018 Results'
+title: 'Zero-downtime Deployment in Kubernetes with Jenkins'
 date: 2018-04-30
 author: kbarnard
 slug: zero-downtime-deployment-kubernetes-jenkins

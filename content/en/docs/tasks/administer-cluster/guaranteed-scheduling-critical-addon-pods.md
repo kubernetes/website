@@ -47,7 +47,6 @@ killed for this purpose. Please ensure that rescheduler is not enabled along wit
 Rescheduler doesn't have any user facing configuration (component config) or API.
 
 ### Marking pod as critical when using Rescheduler. 
-** Marking pod as critical when using Rescheduler.
 
 To be considered critical, the pod has to run in the `kube-system` namespace (configurable via flag) and
 

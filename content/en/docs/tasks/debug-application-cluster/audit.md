@@ -170,7 +170,7 @@ Parameters should be set to accommodate the load on the apiserver.
 For example, if kube-apiserver receives 100 requests each second, and each request is audited only
 on `ResponseStarted` and `ResponseComplete` stages, you should account for ~200 audit
 events being generated each second. Assuming that there are up to 100 events in a batch,
-you should set throttling level at at least 2 QPS. Assuming that the backend can take up to
+you should set throttling level at least 2 QPS. Assuming that the backend can take up to
 5 seconds to write events, you should set the buffer size to hold up to 5 seconds of events, i.e.
 10 batches, i.e. 1000 events.
 
