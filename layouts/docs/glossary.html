@@ -1,0 +1,56 @@
+{{ define "side-menu" }}
+{{ partial "docs/side-menu.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<h1>{{ .Title }}</h1>
+<link href="{{ "css/glossary.css" | relURL }}" rel="stylesheet">
+<script src="{{ "js/glossary.js" | relURL }}"></script>
+<p>This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to K8s, as well as more general terms that provide useful context.</p>
+<div id="tag-container">
+	<p>Filter terms according to their tags:</p>
+	<div class="tag-description invisible" id="placeholder">.</div>
+	{{ range (index .Site.Data "canonical-tags") }}
+	<div class="tag-description hide" id="{{ printf "tag-%s-description" .id  }}">
+		<i>{{ .description }}</i>
+	</div>
+	{{ end }}
+	{{ $sorted_tags := sort (index .Site.Data "canonical-tags") "name" }}
+	{{ range $sorted_tags }}
+	{{ $full_tag_name := printf "tag-%s" .id }}
+	<span id="{{ $full_tag_name  }}" class="tag-option canonical-tag" data-target="{{ $full_tag_name  }}">
+		<a href="javascript:void(0)">{{  .name  }}</a>
+	</span>
+	{{ end }}
+	<span class="tag-option"><a id="select-all-tags" href="javascript:void(0)">Select all</a></span>
+	<span class="tag-option"><a id="deselect-all-tags" href="javascript:void(0)">Deselect all</a></span>
+</div>
+<p>Click on the <a href="javascript:void(0)" class="no-underline">[+]</a> indicators below to get a longer explanation for any particular term.</p>
+{{ $glossary_terms :=  (.Site.GetPage "page" "docs/reference/glossary").Resources.ByType "page" }}
+{{ $glossary_terms := sort $glossary_terms "Title" "asc" }}
+<ul>
+	{{ range $glossary_terms }}
+	{{ $.Scratch.Set "tag_classes" "" }}
+	{{ range .Params.tags }}
+	{{ $.Scratch.Add "tag_classes" (printf "tag-%s " .)  }}
+	{{ end }}
+	{{ $term_identifier := (printf "term-%s" .Params.id) }}
+	
+	<li class="{{ $.Scratch.Get "tag_classes" }} hide" data-show-count="0">
+		<div id="{{ $term_identifier }}" class="term-anchor"></div>
+		<div>
+			<div class="term-name"><b>{{ .Title }}</b><a href="{{ printf "#%s" $term_identifier }}" class="permalink hide">LINK</a></div>
+			{{ with .Params.aka }}
+			Also known as: <i>{{ delimit . ", " }}</i>
+			<br>
+			{{ end }}
+			<span class="preview-text">{{ .Summary }} <a href="javascript:void(0)" class="click-controller no-underline" data-target="{{ .Params.id }}">[+]</a></span>
+			<div id="{{ .Params.id }}" class="hide">
+				{{ .Content | strings.TrimPrefix .Summary | safeHTML }}
+			</div>
+		</div>
+	</li>
+	{{ end }}
+</ul>
+{{ end }}
+

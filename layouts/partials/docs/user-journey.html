@@ -1,0 +1,22 @@
+<div class="track">{{ .Params.track }}</div>
+<div class="topheader">
+   Introduction
+</div>
+<div class="sections">sections in this doc</div>
+<div id="user-journeys-toc" class="tablebar">
+<!-- This TOC section is populated with Javascript, see js/user-journeys-toc.js -->
+</div>
+
+<div class="docsection1">
+
+{{ partial "insert-capture" (dict "ctx" . "id" "overview" )}}
+
+{{- with .Scratch.Get "__cid_body" -}}
+{{ $body := replace .   `<h2` `</div><h2` }}
+{{ $body := replace $body  `</h2>`  `</h2><div class="docsection1">` | safeHTML  }}
+{{-  $body -}}
+{{- end -}}
+
+</div>
+
+<script src="{{ "js/user-journeys/toc.js" | relURL }}"></script>

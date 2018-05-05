@@ -1,0 +1,21 @@
+<div class="panel-group" id="blog-archive">
+  {{ range $i, $e := .CurrentSection.Pages.GroupByPublishDate "2006" }}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#archive" href="#collapse-{{ .Key }}">
+      {{ .Key }}</a>
+      </h4>
+    </div>
+    <div id="collapse-{{ .Key }}" class="panel-collapse collapse{{ if eq $i 0 }} in{{ end }}">
+      <div class="panel-body">
+        <ul class="list-group">
+          {{ range .Pages }}
+          <li class="list-group-item"><a href="{{ .Permalink }}">{{ .LinkTitle }}</a> <span class="date">{{ .PublishDate.Format "Jan 2" }}</span> </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {{ end }}
+</div>

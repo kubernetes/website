@@ -1,0 +1,21 @@
+{{ $p := . }}
+{{ $home := .Site.Home }}
+{{ $docs := .Site.GetPage "section" "docs" }}
+{{ $menuSections := (where $docs.Sections ".Params.main_menu" true) }}
+{{ range $menuSections }}
+{{ if $p.IsDescendant . }}
+<h1>{{ if not (strings.Contains .Dir "home")}}{{ .Params.bigheader | default .Title }}{{ end }}</h1>
+<h5>{{ .Params.abstract }}</h5>
+{{ end }}
+{{ end }}
+<div id="vendorStrip" class="light-text">
+	<ul>
+		{{ range $menuSections }}
+		{{ $yah := $p.IsDescendant . }}
+		<li><a href="{{ .RelPermalink }}"{{ if $yah }} class="YAH"{{ end }}>{{ .LinkTitle | upper }}</a></li>
+		{{ end }}
+	</ul>
+	<div id="searchBox">
+		<input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/search/?q=' + this.value)" autofocus="autofocus">
+	</div>
+</div>
