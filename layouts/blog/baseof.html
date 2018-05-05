@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html id="blog" lang="en" class="gr__kubernetes_io fontawesome-i2svg-active fontawesome-i2svg-complete">
+	<head>
+		{{ partial "head.html" . }}
+		<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+		<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+		<link rel="stylesheet" type="text/css" href="{{ "css/blog.css" | relURL }}">
+	</head>
+	<body>
+		{{ partialCached "header.html" . "blog" }}
+		<section id="hero" class="light-text no-sub">
+			<h1>Kubernetes Blog</h1>
+		</section>
+		<div class="container-fluid" style="padding-top: 2em">
+			<div class="row blog-content">
+				<div class="col-xs-10 col-sm-9 col-lg-9 text">
+					{{ block "main" . }}{{ end }}
+				</div>
+				<div class="col-xs-1 col-sm-1 col-sm-3 col-lg-3 text">
+					<div class="widget-content">
+						{{ with .Site.Home.OutputFormats.Get "rss" -}}
+						<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ $.Site.Title }}">
+						<a class="widget-link" href="{{ .Permalink | safeURL }}"> <i class="fas fa-rss fab-icon"> </i> </a>
+						{{ end -}}
+						<a class="widget-link" href="https://twitter.com/kubernetesio"> <i class="fab fa-twitter-square fab-icon"> </i> @Kubernetesio</a>
+						<a class="widget-link" href="https://github.com/kubernetes/kubernetes"> <i class="fab fa-github-square fab-icon"></i> View on Github </a>
+						<a class="widget-link" href="http://slack.k8s.io"><i class="fab fa-slack fab-icon"> </i> #kubernetes-users </a>
+						<a class="widget-link" href="http://stackoverflow.com/questions/tagged/kubernetes"><i class="fab fa-stack-overflow fab-icon"></i> Stack Overflow</a>
+						<a class="widget-link" href="http://get.k8s.io/"><i class="fab fa-stack-overflow fab-icon"></i> Download Kubernetes</a>
+					</div>
+					{{ partialCached "blog/archive.html" . }}
+				</div>
+			</div>
+		</div>
+		{{ partialCached "footer.html" . }}
+		{{ partialCached "footer-scripts.html" . }}
+	</body>
+</html>

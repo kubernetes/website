@@ -1,8 +1,0 @@
-id: kk
-name: k/k
-tags:
-- community
-short-description: >
-  k/k is short for the kubernetes/kubernetes repo
-long-description: >
-  k/k is frequently used in communications to the community (comments, SIG meetings, etc.). It is a shortened moniker for the [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) core code repository.

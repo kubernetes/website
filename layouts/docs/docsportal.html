@@ -1,0 +1,12 @@
+{{ define "content" }}
+	{{ if not .Params.notitle }}
+	  <h1>{{ .Title }}</h1>
+	{{ end }}
+	{{ .Content }}
+	{{ if .Params.track }}
+	{{ partial "docs/user-journey.html" . }}
+	{{ end }}
+{{ end }}
+
+{{ define "content-id" }}content{{ end }}
+

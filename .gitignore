@@ -1,6 +1,5 @@
 **/.DS_Store
 **/desktop.ini
-.jekyll-metadata
 _site/**
 .sass-cache/**
 CNAME
@@ -24,3 +23,8 @@ Session.vim
 tags
 
 kubernetes.github.io.iml
+
+nohup.out
+
+# Hugo output
+public/

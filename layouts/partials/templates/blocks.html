@@ -1,0 +1,20 @@
+{{ .ctx.Scratch.Set "sections" slice }}
+<ul id="markdown-toc">
+{{ range .ctx.Scratch.Get "blocks" }}
+{{ if .content }}
+{{ $.ctx.Scratch.Set "section" .content }}
+{{ else}}
+{{ $.ctx.Scratch.Set "section" (partial "templates/block" .) }}
+{{ end }}
+{{ $section := $.ctx.Scratch.Get "section" }}
+{{ $headers := findRE "<h2.*?>(.|\n)*?</h2>" $section }}
+{{ range $headers }}
+{{ $header := . | replaceRE "</?h2.*?>" "" | htmlUnescape }}
+<li><a href="#{{ $header | anchorize }}">{{ $header }}</a></li>
+{{ end }}
+{{ $.ctx.Scratch.Add "sections" $section }}
+{{ end }}
+</ul>
+{{ range .ctx.Scratch.Get "sections" }}
+{{ . }}
+{{ end }}
