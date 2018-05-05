@@ -17,6 +17,6 @@ install:
 - rm -r $GOPATH/src/k8s.io/kubernetes/vendor/
 
 script:
-# Run test
-- go test -v k8s.io/website/test
-- ./verify-docs-format.sh
+# TODO(bep)
+#- go test -v k8s.io/website/test
+#- ./verify-docs-format.sh

@@ -1,0 +1,111 @@
+baseURL = "https://kubernetes.io"
+title = "Kubernetes"
+
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+enableRobotsTXT = true
+
+disableKinds = ["taxonomy", "taxonomyTerm"]
+
+ignoreFiles = [ "^OWNERS$", "README.md", "^node_modules$" ]
+
+contentDir = "content/en"
+
+timeout = 3000
+
+# Highlighting config.
+pygmentsCodeFences = true
+pygmentsUseClasses = false
+# See https://help.farbox.com/pygments.html
+pygmentsStyle = "emacs"
+
+[blackfriday]
+hrefTargetBlank = true
+fractions = false
+
+[frontmatter]
+date = ["date", ":filename", "publishDate", "lastmod"]
+
+[permalinks]
+  blog = "/:section/:year/:month/:day/:slug/"
+
+# Be explicit about the output formats. We (currently) only want an RSS feed for the home page.
+[outputs]
+home = [ "HTML", "RSS"]
+page = [ "HTML"]
+section = [ "HTML"]
+
+[outputFormats]
+[outputFormats.RSS]
+baseName = "feed"	
+
+[params]
+
+time_format_blog = "Monday, January 02, 2006"
+description = "Production-Grade Container Orchestration"
+showedit = true
+
+latest = "v1.10"
+
+fullversion = "v1.10.0"
+version = "v1.10"
+githubbranch = "master"
+docsbranch = "master"
+deprecated = false
+currentUrl = "https://kubernetes.io/docs/home/"
+nextUrl = "http://kubernetes-io-vnext-staging.netlify.com/"
+githubWebsiteRepo = "github.com/kubernetes/website"
+
+[[params.versions]]
+fullversion = "v1.10.0"
+version = "v1.10"
+githubbranch = "v1.10.0"
+docsbranch = "release-1.10"
+url = "https://kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.9.0"
+version = "v1.9"
+githubbranch = "v1.9.0"
+docsbranch = "release-1.9"
+url = "https://v1-9.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.8.4"
+version = "v1.8"
+githubbranch = "v1.8.4"
+docsbranch = "release-1.8"
+url = "https://v1-8.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.7.6"
+version = "v1.7"
+githubbranch = "v1.7.6"
+docsbranch = "release-1.7"
+url = "https://v1-7.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.6.8"
+version = "v1.6"
+githubbranch = "v1.6.8"
+docsbranch = "release-1.6"
+url = "https://v1-6.docs.kubernetes.io"
+
+
+# Language definitions.
+
+[languages]
+[languages.en]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName ="English"
+# Weight used for sorting.
+weight = 1
+[languages.cn]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName ="Chinese"
+weight = 2
+contentDir = "content/cn"
+
+

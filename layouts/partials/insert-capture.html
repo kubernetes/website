@@ -1,0 +1,4 @@
+{{- $capture_id := printf "__cid_%s" .id -}}
+{{- with .ctx.Scratch.Get $capture_id -}}
+{{- . -}}
+{{- end -}}
