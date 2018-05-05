@@ -1,8 +1,8 @@
 ---
-layout: blog
 title: 'Docs are Migrating from Jekyll to Hugo'
-date: '2018-05-05T00:20:00.000-07:00'
+date: 2018-05-05
 author: zcorleissen
+slug: hugo-migration
 ---
 
 After nearly a year of investigating how to enable multilingual support for Kubernetes docs, we've decided to migrate the site's static generator from Jekyll to [Hugo](https://gohugo.io/).
