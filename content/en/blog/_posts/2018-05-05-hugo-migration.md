@@ -4,6 +4,7 @@ date: 2018-05-05
 author: zcorleissen
 slug: hugo-migration
 ---
+# Changing the site framework
 
 After nearly a year of investigating how to enable multilingual support for Kubernetes docs, we've decided to migrate the site's static generator from Jekyll to [Hugo](https://gohugo.io/).
 
