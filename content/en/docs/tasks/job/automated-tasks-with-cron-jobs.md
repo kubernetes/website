@@ -13,8 +13,6 @@ These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks o
 Cron jobs are useful for creating periodic and recurring tasks, like running backups or sending emails.
 Cron jobs can also schedule individual tasks for a specific time, such as if you want to schedule a job for a low activity period.
 
-**Note:** The question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is, it stands for any of available value for a given field.
-
 **Note:** CronJob resource in `batch/v2alpha1` API group has been deprecated starting from cluster version 1.8.
 You should switch to using `batch/v1beta1`, instead, which is enabled by default in the API server.
 Examples in this document use `batch/v1beta1` in all examples.
@@ -130,6 +128,8 @@ A cron job config also needs a [`.spec` section](https://git.k8s.io/community/co
 
 The `.spec.schedule` is a required field of the `.spec`.
 It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 * * * *` or `@hourly`, as schedule time of its jobs to be created and executed.
+
+**Note:** The question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is, it stands for any of available value for a given field.
 
 ### Job Template
 
