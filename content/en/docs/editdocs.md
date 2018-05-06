@@ -11,10 +11,10 @@ $( document ).ready(function() {
     if(forwarding) {
         $("#generalInstructions").hide();
         $("#continueEdit").show();
-        $("#continueEditButton").text("Edit " + forwarding);
-        $("#continueEditButton").attr("href", "https://github.com/kubernetes/website/edit/{{< param "docsbranch" >}}/" + forwarding)
-        $("#viewOnGithubButton").text("View " + forwarding + " on GitHub");
-        $("#viewOnGithubButton").attr("href", "https://git.k8s.io/website/" + forwarding)
+        $("#continueEditButton").text("Edit " + "content/en/" + forwarding);
+        $("#continueEditButton").attr("href", "https://github.com/kubernetes/website/edit/{{< param "docsbranch" >}}/" + "content/en/" + forwarding)
+        $("#viewOnGithubButton").text("View " + "content/en/" + forwarding + " on GitHub");
+        $("#viewOnGithubButton").attr("href", "https://git.k8s.io/website/" + "content/en/" + forwarding)
     } else {
         $("#generalInstructions").show();
         $("#continueEdit").hide();
