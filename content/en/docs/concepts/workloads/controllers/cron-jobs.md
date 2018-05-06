@@ -18,7 +18,7 @@ A _Cron Job_ manages time based [Jobs](/docs/concepts/workloads/controllers/jobs
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
-For instructions on creating and working with cron jobs, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
+For instructions on creating and working with cron jobs, and for an example of a spec file for a cron job, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
 
 ## Cron Job Limitations
 
