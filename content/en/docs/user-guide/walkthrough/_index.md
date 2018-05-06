@@ -8,7 +8,7 @@ toc_hide: true
 
 ## Kubectl CLI and Pods
 
-For Kubernetes 101, we will cover kubectl, pods, volumes, and multiple containers
+For Kubernetes 101, we will cover kubectl, Pods, Volumes, and multiple containers.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -27,39 +27,39 @@ For more information about installing and configuring kubectl, see [Install and 
 
 ## Pods
 
-In Kubernetes, a group of one or more containers is called a _pod_. Containers in a pod are deployed together, and are started, stopped, and replicated as a group.
+In Kubernetes, a group of one or more containers is called a _Pod_. Containers in a Pod are deployed together, and are started, stopped, and replicated as a group.
 
 For more information, see [Pods](/docs/concepts/workloads/pods/pod/).
 
 
 #### Pod Definition
 
-The simplest pod definition describes the deployment of a single container.  For example, an nginx web server pod might be defined as:
+The simplest Pod definition describes the deployment of a single container.  For example, an nginx web server Pod might be defined as:
 
 {{< code file="pod-nginx.yaml" >}}
 
-A pod definition is a declaration of a _desired state_.  Desired state is a very important concept in the Kubernetes model.  Many things present a desired state to the system, and Kubernetes' ensures that the current state matches the desired state.  For example, when you create a pod and declare that the containers in it to be running. If the containers happen not to be running because of a program failure, Kubernetes continues to (re-)create the pod in order to drive the pod to the desired state. This process continues until you delete the pod.
+A Pod definition is a declaration of a _desired state_.  Desired state is a very important concept in the Kubernetes model.  Many things present a desired state to the system, and Kubernetes' ensures that the current state matches the desired state.  For example, when you create a Pod and declare that the containers in it to be running. If the containers happen not to be running because of a program failure, Kubernetes continues to (re-)create the Pod in order to drive the pod to the desired state. This process continues until you delete the Pod.
 
 For more information, see [Kubernetes Design Documents and Proposals](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/README.md).
 
 
 #### Pod Management
 
-Create a pod containing an nginx server ([pod-nginx.yaml](/docs/user-guide/walkthrough/pod-nginx.yaml)):
+Create a Pod containing an nginx server ([pod-nginx.yaml](/docs/user-guide/walkthrough/pod-nginx.yaml)):
 
 ```shell
 $ kubectl create -f docs/user-guide/walkthrough/pod-nginx.yaml
 ```
 
-List all pods:
+List all Pods:
 
 ```shell
 $ kubectl get pods
 ```
 
-On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. For more information, see [Get a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
+On most providers, the Pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox Pod and exec commands on it remotely. For more information, see [Get a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
 
-If the IP of the pod is accessible, you can access its http endpoint with wget on port 80:
+If the IP of the Pod is accessible, you can access its http endpoint with wget on port 80:
 
 ```shell
 $ kubectl run busybox --image=busybox --restart=Never --tty -i --generator=run-pod/v1 --env "POD_IP=$(kubectl get pod nginx -o go-template='{{.status.podIP}}')"
@@ -69,7 +69,7 @@ $ kubectl delete pod busybox # Clean up the pod we created with "kubectl run"
 
 ```
 
-To delete a pod named nginx:
+To delete a Pod named nginx:
 
 ```shell
 $ kubectl delete pod nginx
@@ -82,9 +82,9 @@ That's great for a simple static web server, but what about persistent storage?
 
 The container file system only lives as long as the container does. So if your app's state needs to survive relocation, reboots, and crashes, you'll need to configure some persistent storage.
 
-In this example you can create a Redis pod with a named volume, and a volume mount that defines the path to mount the volume.
+In this example you can create a Redis Pod with a named volume, and a volume mount that defines the path to mount the Volume.
 
-1. Define a volume:
+1. Define a Volume:
 
 ```yaml
 volumes:
@@ -92,7 +92,7 @@ volumes:
       emptyDir: {}
 ```
 
-2. Define a volume mount within a container definition:
+2. Define a Volume mount within a container definition:
 
 ```yaml
 volumeMounts:
@@ -103,7 +103,7 @@ volumeMounts:
 ```
 
 
-Here is an example of Redis pod definition with a persistent storage volume ([pod-redis.yaml](/docs/user-guide/walkthrough/pod-redis.yaml)):
+Here is an example of Redis Pod definition with a persistent storage volume ([pod-redis.yaml](/docs/user-guide/walkthrough/pod-redis.yaml)):
 
 
 {{< code file="pod-redis.yaml" >}}
@@ -115,7 +115,7 @@ Where:
 
 ##### Volume Types
 
-- **EmptyDir**: Creates a new directory that exists as long as the pod is running on the node, but it can persist across container failures and restarts.
+- **EmptyDir**: Creates a new directory that exists as long as the Pod is running on the node, but it can persist across container failures and restarts.
 - **HostPath**: Mounts an existing directory on the node's file system. For example (`/var/logs`).
 
 For more information, see [Volumes](/docs/concepts/storage/volumes/).
@@ -155,7 +155,7 @@ spec:
     emptyDir: {}
 ```
 
-Note that we have also added a volume here.  In this case, the volume is mounted into both containers.  It is marked `readOnly` in the web server's case, since it doesn't need to write to the directory.
+Note that we have also added a Volume here.  In this case, the Volume is mounted into both containers.  It is marked `readOnly` in the web server's case, since it doesn't need to write to the directory.
 
 Finally, we have also introduced an environment variable to the `git-monitor` container, which allows us to parameterize that container with the particular git repository that we want to track.
 
