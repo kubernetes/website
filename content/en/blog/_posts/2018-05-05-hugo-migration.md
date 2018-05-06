@@ -14,7 +14,7 @@ What does the Hugo migration mean for users and contributors?
 
 ### Things will break
 
-Hugo's Markdown parser is [stricter than Jekyll's](https://gohugo.io/getting-started/configuration/#configure-blackfriday). As a consequence, some Markdown formatting that rendered fine in Jekyll now produces some unexpected results: [strange left nav ordering](https://github.com/kubernetes/website/issues/8258), [vanishing tutorials](https://github.com/kubernetes/website/issues/8247), and [broken links](https://github.com/kubernetes/website/issues/8246), among others.
+Hugo's Markdown parser is [differently strict than Jekyll's](https://gohugo.io/getting-started/configuration/#configure-blackfriday). As a consequence, some Markdown formatting that rendered fine in Jekyll now produces some unexpected results: [strange left nav ordering](https://github.com/kubernetes/website/issues/8258), [vanishing tutorials](https://github.com/kubernetes/website/issues/8247), and [broken links](https://github.com/kubernetes/website/issues/8246), among others.
 
 If you encounter any site weirdness or broken formatting, please [open an issue](https://github.com/kubernetes/website/issues/new). You can see the list of issues that are [specific to Hugo migration](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+Hugo+label%3A%22Needs+Docs+Review%22).
 
