@@ -34,7 +34,7 @@ can see your changes.
 
 You can use the k8sdocs Docker image to run a local staging server. If you're
 interested, you can view the
-[Dockerfile](https://git.k8s.io/website/staging-container/Dockerfile){: target="_blank"}
+<a href="https://git.k8s.io/website/staging-container/Dockerfile" target="_blank" class="_">Dockerfile</a>
 for this image.
 
 1. Install Docker if you don't already have it.
@@ -54,9 +54,9 @@ web server:
 
 ## Staging locally without Docker
 
-1. [Install Ruby 2.2 or later](https://www.ruby-lang.org){: target="_blank"}.
+1. <a href="https://www.ruby-lang.org" target="_blank" class="_">Install Ruby 2.2 or later</a>.
 
-1. [Install RubyGems](https://rubygems.org){: target="_blank"}.
+1. <a href="https://rubygems.org" target="_blank" class="_">Install Ruby Gems</a>.
 
 1. Verify that Ruby and RubyGems are installed:
 

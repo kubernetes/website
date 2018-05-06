@@ -6,17 +6,17 @@ content_template: templates/task
 {{% capture overview %}}
 
 To contribute to the Kubernetes documentation, create a pull request against the
-[kubernetes/website](https://github.com/kubernetes/website){: target="_blank"}
+<a href="https://github.com/kubernetes/website" target="_blank" class="_">kubernetes/website</a>
 repository. This page shows how to create a pull request.
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-1. Create a [GitHub account](https://github.com){: target="_blank"}.
+1. Create a <a href="https://github.com/" target="_blank" class="_">Github account</a>.
 
 1. Sign the
-[Linux Foundation Contributor License Agreement](https://identity.linuxfoundation.org/projects/cncf){: target="_blank"}.
+  <a href="https://identity.linuxfoundation.org/projects/cncf" target="_blank" class="_">Linux Foundation Contributor License Agreement (CLA)</a>.
 
 Documentation will be published under the [CC BY SA 4.0](https://git.k8s.io/website/LICENSE) license.
 
@@ -27,8 +27,8 @@ Documentation will be published under the [CC BY SA 4.0](https://git.k8s.io/webs
 ## Creating a fork of the Kubernetes documentation repository
 
 1. Go to the
-[kubernetes/website](https://github.com/kubernetes/website){: target="_blank"}
-repository.
+   <a href="https://github.com/kubernetes/website" target="_blank" class="_">kubernetes/website</a>
+   repository.
 
 1. In the upper-right corner, click **Fork**. This creates a copy of the
 Kubernetes documentation repository in your GitHub account. The copy
