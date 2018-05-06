@@ -34,8 +34,8 @@ Together, these two ways of exposing Pod and Container fields are called the
 
 ## Use Pod fields as values for environment variables
 
-In this exercise, you create a Pod that has one Container. Here is the
-configuration file for the Pod:
+In this exercise, you create a Deployment that has one Container. Here is the
+configuration file for the Deployment:
 
 {{< code file="dapi-envars-pod.yaml" >}}
 
@@ -51,7 +51,7 @@ other environment variables get their names from Pod fields.
 Container in the Pod.
 {{< /note >}}
 
-Create the Pod:
+Create the Deployment:
 
 ```shell
 kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-envars-pod.yaml
