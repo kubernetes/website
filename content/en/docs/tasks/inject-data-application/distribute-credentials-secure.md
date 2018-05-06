@@ -5,7 +5,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 This page shows how to securely inject sensitive data, such as passwords and
-encryption keys, into Pods.
+encryption keys, using Deployments.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -75,39 +75,38 @@ username and password:
         password:   13 bytes
         username:   7 bytes
 
-## Create a Pod that has access to the secret data through a Volume
+## Create a Deployment that has access to the secret data through a Volume
 
-Here is a configuration file you can use to create a Pod:
+Here is a configuration file you can use to create a Deployment:
 
-{{< code file="secret-pod.yaml" >}}
+{{< code file="secret-deployment.yaml" >}}
 
-1. Create the Pod:
+1. Create the Deployment:
 
-       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-pod.yaml
+       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-deployment.yaml
 
-1. Verify that your Pod is running:
+1. Verify that your Deployment is running:
 
-       kubectl get pod secret-test-pod
+       kubectl get deployment secret-test
 
     Output:
 
-        NAME              READY     STATUS    RESTARTS   AGE
-        secret-test-pod   1/1       Running   0          42m
+        NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+        secret-test        2         2         2            2           12s
 
+1. Get a shell into the Container that is running in your Deployment:
 
-1. Get a shell into the Container that is running in your Pod:
-
-       kubectl exec -it secret-test-pod -- /bin/bash
+       kubectl exec -it secret-test -- /bin/bash
 
 1. The secret data is exposed to the Container through a Volume mounted under
 `/etc/secret-volume`. In your shell, go to the directory where the secret data
 is exposed:
 
-       root@secret-test-pod:/# cd /etc/secret-volume
+       root@secret-test:/# cd /etc/secret-volume
 
 1. In your shell, list the files in the `/etc/secret-volume` directory:
 
-       root@secret-test-pod:/etc/secret-volume# ls
+       root@secret-test:/etc/secret-volume# ls
 
     The output shows two files, one for each piece of secret data:
 
@@ -115,39 +114,39 @@ is exposed:
 
 1. In your shell, display the contents of the `username` and `password` files:
 
-       root@secret-test-pod:/etc/secret-volume# cat username; echo; cat password; echo
+       root@secret-test:/etc/secret-volume# cat username; echo; cat password; echo
 
     The output is your username and password:
 
         my-app
         39528$vdg7Jb
 
-## Create a Pod that has access to the secret data through environment variables
+## Create a Deployment that has access to the secret data through environment variables
 
-Here is a configuration file you can use to create a Pod:
+Here is a configuration file you can use to create a Deployment:
 
-{{< code file="secret-envars-pod.yaml" >}}
+{{< code file="secret-envars-deployment.yaml" >}}
 
-1. Create the Pod:
+1. Create the deployment:
 
-       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-envars-pod.yaml
+       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-envars-deployment.yaml
 
-1. Verify that your Pod is running:
+1. Verify that your Deployment is running:
 
-       kubectl get pod secret-envars-test-pod
+       kubectl get deployment secret-envars-test
 
     Output:
 
-        NAME                     READY     STATUS    RESTARTS   AGE
-        secret-envars-test-pod   1/1       Running   0          4m
+        NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+        secret-test        2         2         2            2           12s
+		
+1. Get a shell into the Container that is running in your Deployment:
 
-1. Get a shell into the Container that is running in your Pod:
-
-       kubectl exec -it secret-envars-test-pod -- /bin/bash
+       kubectl exec -it secret-envars-test -- /bin/bash
 
 1. In your shell, display the environment variables:
 
-        root@secret-envars-test-pod:/# printenv
+        root@secret-envars-test:/# printenv
 
     The output includes your username and password:
 
@@ -168,6 +167,7 @@ Here is a configuration file you can use to create a Pod:
 * [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
 * [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
 * [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
+* [Deployment](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps)
 
 {{% /capture %}}
 
