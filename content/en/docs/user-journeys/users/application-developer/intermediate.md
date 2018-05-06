@@ -42,7 +42,7 @@ Like Deployments, these API objects run indefinitely on a cluster until they are
   {{< /note  >}}
   However, StatefulSets can provide stronger guarantees about "recovery" behavior than Deployments. StatefulSets maintain a sticky, stable identity for their Pods. The following table provides some concrete examples of what this might look like:
 
-                                    | Deployment                                             | StatefulSet 
+⎈                                   | Deployment                                             | StatefulSet 
 ------------------------------------|--------------------------------------------------------|-------------
 **Example Pod name**                | `example-b1c4`                                         | `example-0` 
 **When a Pod dies**                 | Reschedule on *any* node, with new name `example-a51z` | Reschedule on same node, as `example-0`
