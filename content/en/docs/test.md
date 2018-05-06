@@ -24,11 +24,11 @@ This is in an H4 section.
 
 ##### H5
 
-This is in an H4 section.
+This is in an H5 section.
 
 ###### H6
 
-This is in an H4 section.
+This is in an H6 section.
 
 ## Inline elements
 
@@ -169,11 +169,6 @@ is in the parentheses at the end.
 You can also use HTML for images, but it is not preferred.
 
 <img src="/static/images/pencil.png" alt="pencil icon" />
-
-### Figures
-
-To group an image with text about it, use the following type of template:
-
 
 
 ## Tables
