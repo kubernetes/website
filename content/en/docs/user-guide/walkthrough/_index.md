@@ -12,7 +12,7 @@ For Kubernetes 101, we will cover kubectl, pods, volumes, and multiple container
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-In order for the kubectl usage examples to work, make sure you have an example directory locally, either from [a release](https://github.com/kubernetes/kubernetes/releases) or the latest `.yaml` files located [here](https://github.com/kubernetes/website/tree/master/docs/user-guide/walkthrough).
+In order for the kubectl usage examples to work, make sure you have an example directory locally, either from [a release](https://github.com/kubernetes/kubernetes/releases) or the latest `.yaml` files located [here](https://github.com/kubernetes/website/tree/master/content/en/docs/user-guide/walkthrough).
 
 {{< toc >}}
 
