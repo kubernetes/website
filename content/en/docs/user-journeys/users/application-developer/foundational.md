@@ -187,19 +187,17 @@ The standard controller processes are {{< link text="`kube-controller-manager`" 
 
 All of these controllers implement a *control loop*. For simplicity, you can think of this as the following:
 
-<div class="emphasize-box" markdown="1">
-<ol>
-<li>What is the current state of the cluster (X)?</li>
-<li>What is the desired state of the cluster (Y)?</li>
-<li>X == Y ?</li>
-<ul>
-   <li>`true` - Do nothing.</li>
-   <li>`false` - Perform tasks to get to Y (such as starting or restarting containers,
-   or scaling the number of replicas of a given application).</br>*(Return to 1)*</li>
-   </ul>
-   </li>
-   </ol>
-</div>
+{{< note >}}
+1. What is the current state of the cluster (X)?
+
+1. What is the desired state of the cluster (Y)?
+
+1. X == Y ?
+
+   * `true` - Do nothing.
+   * `false` - Perform tasks to get to Y (such as starting or restarting containers,
+   or scaling the number of replicas of a given application). *(Return to 1)*
+{{< /note >}}
 
 By continuously looping, these controllers ensure the cluster can pick up new updates and avoid drifting from the desired state. These ideas are covered in more detail {{< link text="here" url="https://kubernetes.io/docs/concepts/" >}}.
 
