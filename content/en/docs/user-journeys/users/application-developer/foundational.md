@@ -149,17 +149,15 @@ Say that your team is deploying an ordinary Rails application. You've run some c
 
 If you're not running Kubernetes or a similar automated system, you might find the following scenario familiar:
 
-<div class="emphasize-box" markdown="1">
+{{< note >}}
+1. One instance of your app (a complete machine instance or just a container) goes down.</li>
 
-1. One instance of your app (a complete machine instance or just a container) goes down.
+1. Because your team has monitoring set up, this pages the person on call.</li>
 
-2. Because your team has monitoring set up, this pages the person on call.
+1. The on-call person has to go in, investigate, and manually spin up a new instance.</li>
 
-3. The on-call person has to go in, investigate, and manually spin up a new instance.
-
-4. Depending how your team handles DNS/networking, the on-call person may also need to also update the service discovery mechanism to point at the IP of the new Rails instance rather than the old.
-
-</div>
+1. Depending how your team handles DNS/networking, the on-call person may also need to also update the service discovery mechanism to point at the IP of the new Rails instance rather than the old.</li>
+{{< /note >}}
 
 This process can be tedious and also inconvenient, especially if (2) happens in the early hours of the morning!
 
@@ -189,19 +187,17 @@ The standard controller processes are {{< link text="`kube-controller-manager`" 
 
 All of these controllers implement a *control loop*. For simplicity, you can think of this as the following:
 
-<div class="emphasize-box" markdown="1">
- 1. What is the current state of the cluster (X)?
- 
- 2. What is the desired state of the cluster (Y)?
- 
- 3. X == Y ?
- 
-   * `true` - Do nothing.
-   * `false` - Perform tasks to get to Y (such as starting or restarting containers,
-or scaling the number of replicas of a given application).<br>
+{{< note >}}
+1. What is the current state of the cluster (X)?
 
-      *(Return to 1)*
-</div>
+1. What is the desired state of the cluster (Y)?
+
+1. X == Y ?
+
+   * `true` - Do nothing.
+   * `false` - Perform tasks to get to Y, such as starting or restarting containers,
+   or scaling the number of replicas of a given application. Return to 1.
+{{< /note >}}
 
 By continuously looping, these controllers ensure the cluster can pick up new updates and avoid drifting from the desired state. These ideas are covered in more detail {{< link text="here" url="https://kubernetes.io/docs/concepts/" >}}.
 
