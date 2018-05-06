@@ -58,11 +58,13 @@ You can get basic information about your cluster with the commands `kubectl clus
 #### Basic workloads
 
 The following examples demonstrate the fundamentals of deploying Kubernetes apps:
+
   * **Stateless apps**: {{< link text="Deploy a simple nginx server" url="/docs/tasks/run-application/run-stateless-application-deployment/" >}}.
 
   * **Stateful apps**: {{< link text="Deploy a MySQL database" url="/docs/tasks/run-application/run-single-instance-stateful-application/" >}}.
 
 Through these deployment tasks, you'll gain familiarity with the following:
+
 * General concepts
 
   * **Configuration files** - Written in YAML or JSON, these files describe the desired state of your application in terms of Kubernetes API objects. A file can include one or more API object descriptions (*manifests*). (See [the example YAML](/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment) from the stateless app).
@@ -136,6 +138,7 @@ To avoid having to unnecessarily rebuild your container images, you should decou
 {{< note  >}}
 If you have any data that you want to keep private, you should be using a Secret. Otherwise there is nothing stopping that data from being exposed to malicious users.
 {{< /note  >}}
+
 ## Understand basic Kubernetes architecture
 
 As an app developer, you don't need to know everything about the inner workings of Kubernetes, but you may find it helpful to understand it at a high level.
@@ -149,8 +152,11 @@ If you're not running Kubernetes or a similar automated system, you might find t
 <div class="emphasize-box" markdown="1">
 
 1. One instance of your app (a complete machine instance or just a container) goes down.
+
 2. Because your team has monitoring set up, this pages the person on call.
+
 3. The on-call person has to go in, investigate, and manually spin up a new instance.
+
 4. Depending how your team handles DNS/networking, the on-call person may also need to also update the service discovery mechanism to point at the IP of the new Rails instance rather than the old.
 
 </div>
@@ -185,8 +191,11 @@ All of these controllers implement a *control loop*. For simplicity, you can thi
 
 <div class="emphasize-box" markdown="1">
  1. What is the current state of the cluster (X)?
+ 
  2. What is the desired state of the cluster (Y)?
+ 
  3. X == Y ?
+ 
    * `true` - Do nothing.
    * `false` - Perform tasks to get to Y (such as starting or restarting containers,
 or scaling the number of replicas of a given application).<br>
@@ -223,7 +232,9 @@ The Kubernetes documentation is rich in detail. Here's a curated list of resourc
 * {{< link text="Kubernetes object management" url="/docs/tutorials/object-management-kubectl/object-management/" >}}
 
 ### What's next
+
 If you feel fairly comfortable with the topics on this page and want to learn more, check out the following user journeys:
+
 * {{< link text="Intermediate App Developer" url="/docs/user-journeys/users/application-developer/intermediate/" >}} - Dive deeper, with the next level of this journey.
 * {{< link text="Foundational Cluster Operator" url="/docs/user-journeys/users/cluster-operator/foundational/" >}} - Build breadth, by exploring other journeys.
 
