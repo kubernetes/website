@@ -17,7 +17,7 @@ Cron jobs can also schedule individual tasks for a specific time, such as if you
 
 **Note:** CronJob resource in `batch/v2alpha1` API group has been deprecated starting from cluster version 1.8.
 You should switch to using `batch/v1beta1`, instead, which is enabled by default in the API server.
-Further in this document, we will use `batch/v1beta1` in all the examples.
+Examples in this document use `batch/v1beta1` in all examples.
 
 Cron jobs have limitations and idiosyncracies.
 For example, in certain circumstances, a single cron job can create multiple jobs.
