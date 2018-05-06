@@ -168,22 +168,3 @@ set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping none
 kind of jobs after they finish.
 
 {{% /capture %}}
-<!--
-{{% capture discussion %}}
-
-## Understanding ...
-**[Optional Section]**
-
-Here's an interesting thing to know about the steps you just did.
-
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-**[Optional Section]**
-
-* Learn more about [Writing a New Topic](/docs/home/contribute/write-new-topic/).
-* See [Using Page Templates - Task template](/docs/home/contribute/page-templates/#task_template) for how to use this template.
-
-{{% /capture %}}
--->
