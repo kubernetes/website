@@ -42,11 +42,11 @@ Like Deployments, these API objects run indefinitely on a cluster until they are
   {{< /note  >}}
   However, StatefulSets can provide stronger guarantees about "recovery" behavior than Deployments. StatefulSets maintain a sticky, stable identity for their Pods. The following table provides some concrete examples of what this might look like:
 
-                                         | Deployment                                             | StatefulSet 
-     ------------------------------------|--------------------------------------------------------|-------------
-     **Example Pod name**                | `example-b1c4`                                         | `example-0` 
-     **When a Pod dies**                 | Reschedule on *any* node, with new name `example-a51z` | Reschedule on same node, as `example-0`
-     **When a node becomes unreachable** | Pod(s) are scheduled onto new node, with new names     | Pod(s) are marked as "Unknown", and aren't rescheduled unless the Node object is forcefully deleted
+                                    | Deployment                                             | StatefulSet 
+------------------------------------|--------------------------------------------------------|-------------
+**Example Pod name**                | `example-b1c4`                                         | `example-0` 
+**When a Pod dies**                 | Reschedule on *any* node, with new name `example-a51z` | Reschedule on same node, as `example-0`
+**When a node becomes unreachable** | Pod(s) are scheduled onto new node, with new names     | Pod(s) are marked as "Unknown", and aren't rescheduled unless the Node object is forcefully deleted
 
      In practice, this means that StatefulSets are best suited for scenarios where replicas (Pods) need to coordinate their workloads in a strongly consistent manner. Guaranteeing an identity for each Pod helps avoid {{< link text="split-brain" url="https://en.wikipedia.org/wiki/Split-brain_(computing)" >}} side effects in the case when a node becomes unreachable ({{< link text="network partition" url="https://en.wikipedia.org/wiki/Network_partition" >}}). This makes StatefulSets a great fit for distributed datastores like Cassandra or Elasticsearch.
 
