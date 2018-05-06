@@ -7,6 +7,7 @@ title: kubeadm reset
 content_template: templates/concept
 ---
 {{% capture overview %}}
+This command reverts any changes made by ‘kubeadm init’ or ‘kubeadm join’.
 {{% /capture %}}
 
 {{% capture body %}}
