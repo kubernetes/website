@@ -7,9 +7,11 @@ title: kubeadm init
 content_template: templates/concept
 ---
 {{% capture overview %}}
+This command initializes a Kubernetes master node.
 {{% /capture %}}
 
 {{% capture body %}}
+
 {{< include "generated/kubeadm_init.md" >}}
 
 ### Init workflow {#init-workflow}
