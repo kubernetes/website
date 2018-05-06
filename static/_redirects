@@ -434,3 +434,5 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/admin/kubefed_version/    /docs/reference/generated/kubefed_version/ 301
 
 /docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/kubeadm/ 301
+
+/editdocs/     /docs/home/contribute/     301 
