@@ -49,6 +49,7 @@ You want to reuse [Kubernetes API support features](#common-features).  | You do
 #### Declarative APIs
 
 In a Declarative API, typically:
+
  - Your API consists of a relatively small number of relatively small objects (resources).
  - The objects define configuration of applications or infrastructure.
  - The objects are updated relatively infrequently.
@@ -58,6 +59,7 @@ In a Declarative API, typically:
 
 Imperative APIs are not declarative.
 Signs that your API might not be declarative include:
+
  - The client says "do this", and then gets a synchronous response back when it is done.
  - The client says "do this", and then gets an operation ID back, and has to check a separate Operation objects to determine completion of the request.
  - You talk about Remote Procedure Calls (RPCs).
@@ -144,8 +146,8 @@ Typically, CRDs are a good fit if:
 
 CRDs are easier to create than Aggregated APIs.
 
-Custom Resource Definitions | Aggregated API |
--|-|
+Custom Resource Definitions | Aggregated API
+-|-
 Do not require programming. Users can choose any language for a CRD controller. | Requires programming in Go and building binary and image. Users can choose any language for a CRD controller.
 No additional service to run; CRs are handled by API Server. | An additional service to create and that could fail.
 No ongoing support once the CRD is created. Any bug fixes are picked up as part of normal Kubernetes Master upgrades. | May need to periodically pickup bug fixes from upstream and rebuild and update the Aggregated APIserver.
@@ -217,6 +219,7 @@ Aggregated API servers may or may not use the same authentication, authorization
 Kubernetes [client libraries](/docs/reference/client-libraries/) can be used to access custom resources. Not all client libraries support custom resources. The go and python client libraries do.
 
 When you add a custom resource, you can access it using:
+
   - kubectl
   - The kubernetes dynamic client.
   - A REST client that you write.
@@ -225,6 +228,7 @@ When you add a custom resource, you can access it using:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+
 * Learn how to [Extend the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/).
 * Learn how to [Extend the Kubernetes API with CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
 * Learn how to [Migrate a ThirdPartyResource to CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/).
