@@ -1,67 +1,69 @@
 ---
-title: Expose Pod Information to Containers Through Files
-content_template: templates/task
+title: Exposing Deployment Information to Containers Through Files
+redirect_from:
+- "/docs/user-guide/downward-api/"
+- "/docs/user-guide/downward-api/index.html"
+- "/docs/user-guide/downward-api/volume/"
+- "/docs/user-guide/downward-api/volume/index.html"
+- "/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/"
+- "/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information.html"
 ---
 
-{{% capture overview %}}
+{% capture overview %}
 
-This page shows how a Pod can use a DownwardAPIVolumeFile to expose information
-about itself to Containers running in the Pod. A DownwardAPIVolumeFile can expose
-Pod fields and Container fields.
+This page shows how a Deployment can use a DownwardAPIVolumeFile to expose information about itself to Containers running in the Deployment. A DownwardAPIVolumeFile can expose Deployment fields and Container fields.
 
-{{% /capture %}}
+{% endcapture %}
 
 
-{{% capture prerequisites %}}
+{% capture prerequisites %}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{% include task-tutorial-prereqs.md %}
 
-{{% /capture %}}
+{% endcapture %}
 
-{{% capture steps %}}
+{% capture steps %}
 
 ## The Downward API
 
-There are two ways to expose Pod and Container fields to a running Container:
+There are two ways to expose Deployment and Container fields to a running Container:
 
 * [Environment variables](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/)
 * DownwardAPIVolumeFiles
 
-Together, these two ways of exposing Pod and Container fields are called the
+Together, these two ways of exposing Deployment and Container fields are called the
 *Downward API*.
 
-## Store Pod fields
+## Storing Deployment fields
 
-In this exercise, you create a Pod that has one Container.
-Here is the configuration file for the Pod:
+In this exercise, you create a Deployment that has one Container.
+Here is the configuration file for the Deployment:
 
-{{< code file="dapi-volume.yaml" >}}
+{% include code.html language="yaml" file="dapi-volume.yaml" ghlink="/docs/tasks/inject-data-application/dapi-volume.yaml" %}
 
-In the configuration file, you can see that the Pod has a `downwardAPI` Volume,
-and the Container mounts the Volume at `/etc/podinfo`.
+In the configuration file, you can see that the Deployment has a `downwardAPI` Volume,
+and the Container mounts the Volume at `/etc`.
 
 Look at the `items` array under `downwardAPI`. Each element of the array is a
-[DownwardAPIVolumeFile](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#downwardapivolumefile-v1-core).
-The first element specifies that the value of the Pod's
+[DownwardAPIVolumeFile](/docs/resources-reference/v1.6/#downwardapivolumefile-v1-core).
+The first element specifies that the value of the Deployment's
 `metadata.labels` field should be stored in a file named `labels`.
-The second element specifies that the value of the Pod's `annotations`
+The second element specifies that the value of the Deployment's `annotations`
 field should be stored in a file named `annotations`.
 
-{{< note >}}
-**Note:** The fields in this example are Pod fields. They are not
-fields of the Container in the Pod.
-{{< /note >}}
+**Note**: The fields in this example are Deployment fields. They are not
+fields of the Container in the Deployment.
 
-Create the Pod:
+Create the Deployment:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-volume.yaml
+kubectl create -f http://k8s.io/docs/tasks/inject-data-application/dapi-volume.yaml
 ```
 
-Verify that Container in the Pod is running:
+Verify that Container in the Deployment is running:
 
 ```shell
-kubectl get pods
+kubectl get deployments
 ```
 
 View the Container's logs:
@@ -81,7 +83,7 @@ build="two"
 builder="john-doe"
 ```
 
-Get a shell into the Container that is running in your Pod:
+Get a shell into the Container that is running in your Deployment:
 
 ```
 kubectl exec -it kubernetes-downwardapi-volume-example -- sh
@@ -90,10 +92,10 @@ kubectl exec -it kubernetes-downwardapi-volume-example -- sh
 In your shell, view the `labels` file:
 
 ```shell
-/# cat /etc/podinfo/labels
+/# cat /etc/labels
 ```
 
-The output shows that all of the Pod's labels have been written
+The output shows that all of the Deployment's labels have been written
 to the `labels` file:
 
 ```shell
@@ -105,19 +107,19 @@ zone="us-est-coast"
 Similarly, view the `annotations` file:
 
 ```shell
-/# cat /etc/podinfo/annotations
+/# cat /etc/annotations
 ```
 
-View the files in the `/etc/podinfo` directory:
+View the files in the `/etc` directory:
 
 ```shell
-/# ls -laR /etc/podinfo
+/# ls -laR /etc
 ```
 
 In the output, you can see that the `labels` and `annotations` files
 are in a temporary subdirectory: in this example,
-`..2982_06_02_21_47_53.299460680`. In the `/etc/podinfo` directory, `..data` is
-a symbolic link to the temporary subdirectory. Also in  the `/etc/podinfo` directory,
+`..2982_06_02_21_47_53.299460680`. In the `/etc` directory, `..data` is
+a symbolic link to the temporary subdirectory. Also in  the `/etc` directory,
 `labels` and `annotations` are symbolic links.
 
 ```
@@ -137,28 +139,22 @@ written to a new temporary directory, and the `..data` symlink is updated
 atomically using
 [rename(2)](http://man7.org/linux/man-pages/man2/rename.2.html).
 
-{{< note >}}
-**Note:** A container using Downward API as a
-[subPath](/docs/concepts/storage/volumes/#using-subpath) volume mount will not
-receive Downward API updates.
-{{< /note >}}
-
 Exit the shell:
 
 ```shell
 /# exit
 ```
 
-## Store Container fields
+## Storing Container fields
 
-The preceding exercise, you stored Pod fields in a DownwardAPIVolumeFile.
+The preceding exercise, you stored Deployment fields in a DownwardAPIVolumeFile.
 In this next exercise, you store Container fields. Here is the configuration
-file for a Pod that has one Container:
+file for a Deployment that has one Container:
 
-{{< code file="dapi-volume-resources.yaml" >}}
+{% include code.html language="yaml" file="dapi-volume-resources.yaml" ghlink="/docs/tasks/inject-data-application/dapi-volume-resources.yaml" %}
 
-In the configuration file, you can see that the Pod has a `downwardAPI` Volume,
-and the Container mounts the Volume at `/etc/podinfo`.
+In the configuration file, you can see that the Deployment has a `downwardAPI` Volume,
+and the Container mounts the Volume at `/etc`.
 
 Look at the `items` array under `downwardAPI`. Each element of the array is a
 DownwardAPIVolumeFile.
@@ -167,13 +163,13 @@ The first element specifies that in the Container named `client-container`,
 the value of the `limits.cpu` field
 should be stored in a file named `cpu_limit`.
 
-Create the Pod:
+Create the Deployment:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-volume-resources.yaml
+kubectl create -f http://k8s.io/docs/tasks/inject-data-application/dapi-volume-resources.yaml
 ```
 
-Get a shell into the Container that is running in your Pod:
+Get a shell into the Container that is running in your Deployment:
 
 ```
 kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
@@ -182,48 +178,40 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 In your shell, view the `cpu_limit` file:
 
 ```shell
-/# cat /etc/podinfo/cpu_limit
+/# cat /etc/cpu_limit
 ```
 You can use similar commands to view the `cpu_request`, `mem_limit` and
 `mem_request` files.
 
-{{% /capture %}}
+{% endcapture %}
 
-{{% capture discussion %}}
+{% capture discussion %}
 
 ## Capabilities of the Downward API
 
-The following information is available to containers through environment
-variables and `downwardAPI` volumes:
+The following information is available to Containers through environment
+variables and DownwardAPIVolumeFiles:
 
-* Information available via `fieldRef`:
-  * `spec.nodeName` - the node’s name
-  * `status.hostIP` - the node's IP
-  * `metadata.name` - the pod’s name
-  * `metadata.namespace` - the pod’s namespace
-  * `status.podIP` - the pod’s IP address
-  * `spec.serviceAccountName` - the pod’s service account name
-  * `metadata.uid` - the pod’s UID
-  * `metadata.labels['<KEY>']` - the value of the pod’s label `<KEY>` (for example, `metadata.labels['mylabel']`); available in Kubernetes 1.9+
-  * `metadata.annotations['<KEY>']` - the value of the pod’s annotation `<KEY>` (for example, `metadata.annotations['myannotation']`); available in Kubernetes 1.9+
-* Information available via `resourceFieldRef`:
-  * A Container’s CPU limit
-  * A Container’s CPU request
-  * A Container’s memory limit
-  * A Container’s memory request
+* The node’s name
+* The Deployment's name
+* The Deployment's namespace
+* The Deployment's IP address
+* The Deployment's service account name
+* A Container’s CPU limit
+* A container’s CPU request
+* A Container’s memory limit
+* A Container’s memory request
 
 In addition, the following information is available through
-`downwardAPI` volume `fieldRef`:
+DownwardAPIVolumeFiles.
 
-* `metadata.labels` - all of the pod’s labels, formatted as `label-key="escaped-label-value"` with one label per line
-* `metadata.annotations` - all of the pod’s annotations, formatted as `annotation-key="escaped-annotation-value"` with one annotation per line
+* The Deployment's labels
+* The Deployment's annotations
 
-{{< note >}}
-**Note:** If CPU and memory limits are not specified for a Container, the
+**Note**: If CPU and memory limits are not specified for a Container, the
 Downward API defaults to the node allocatable value for CPU and memory.
-{{< /note >}}
 
-## Project keys to specific paths and file permissions
+## Projecting keys to specific paths and file permissions
 
 You can project keys to specific paths and specific permissions on a per-file
 basis. For more information, see
@@ -239,21 +227,20 @@ or API server.
 An example is an existing application that assumes a particular well-known
 environment variable holds a unique identifier. One possibility is to wrap the
 application, but that is tedious and error prone, and it violates the goal of low
-coupling. A better option would be to use the Pod's name as an identifier, and
-inject the Pod's name into the well-known environment variable.
+coupling. A better option would be to use the Deployment's name as an identifier, and
+inject the Deployment's name into the well-known environment variable.
 
-{{% /capture %}}
-
-
-{{% capture whatsnext %}}
-
-* [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
-* [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
-* [DownwardAPIVolumeSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#downwardapivolumesource-v1-core)
-* [DownwardAPIVolumeFile](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#downwardapivolumefile-v1-core)
-* [ResourceFieldSelector](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcefieldselector-v1-core)
-
-{{% /capture %}}
+{% endcapture %}
 
 
+{% capture whatsnext %}
 
+* [PodSpec](/docs/resources-reference/v1.6/#podspec-v1-core)
+* [Volume](/docs/resources-reference/v1.6/#volume-v1-core)
+* [DownwardAPIVolumeSource](/docs/resources-reference/v1.6/#downwardapivolumesource-v1-core)
+* [DownwardAPIVolumeFile](/docs/resources-reference/v1.6/#downwardapivolumefile-v1-core)
+* [ResourceFieldSelector](/docs/resources-reference/v1.6/#resourcefieldselector-v1-core)
+
+{% endcapture %}
+
+{% include templates/task.md %}

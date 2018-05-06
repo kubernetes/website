@@ -1,58 +1,60 @@
 ---
-title: Define Environment Variables for a Container
-content_template: templates/task
+title: Defining Environment Variables for a Container
+redirect_from:
+- "/docs/tasks/configure-pod-container/define-environment-variable-container/"
+- "/docs/tasks/configure-pod-container/define-environment-variable-container.html"
 ---
 
-{{% capture overview %}}
+{% capture overview %}
 
-This page shows how to define environment variables for a container
-in a Kubernetes Pod.
+This page shows how to define environment variables when you run a container
+in a Kubernetes Deployment.
 
-{{% /capture %}}
-
-
-{{% capture prerequisites %}}
-
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-{{% /capture %}}
+{% endcapture %}
 
 
-{{% capture steps %}}
+{% capture prerequisites %}
 
-## Define an environment variable for a container
+{% include task-tutorial-prereqs.md %}
 
-When you create a Pod, you can set environment variables for the containers
-that run in the Pod. To set environment variables, include the `env` or
+{% endcapture %}
+
+
+{% capture steps %}
+
+## Defining an environment variable for a container
+
+When you create a Deployment, you can set environment variables for the containers
+that run in the Deployment. To set environment variables, include the `env` or
 `envFrom` field in the configuration file.
 
-In this exercise, you create a Pod that runs one container. The configuration
-file for the Pod defines an environment variable with name `DEMO_GREETING` and
+In this exercise, you create a Deployment that runs one container. The configuration
+file for the Deployment defines an environment variable with name `DEMO_GREETING` and
 value `"Hello from the environment"`. Here is the configuration file for the
-Pod:
+Deployment:
 
-{{< code file="envars.yaml" >}}
+{% include code.html language="yaml" file="envars.yaml" ghlink="/docs/tasks/inject-data-application/envars.yaml" %}
 
-1. Create a Pod based on the YAML configuration file:
+1. Create a Deployment based on the YAML configuration file:
 
-       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/envars.yaml
+        kubectl create -f http://k8s.io/docs/tasks/inject-data-application/envars.yaml
 
-1. List the running Pods:
+1. List the running Deployments:
 
-       kubectl get pods -l purpose=demonstrate-envars
+        kubectl get deployments -l name=demonstrate-envars
 
     The output is similar to this:
 
         NAME            READY     STATUS    RESTARTS   AGE
         envar-demo      1/1       Running   0          9s
 
-1. Get a shell to the container running in your Pod:
+1. Get a shell to the container running in your Deployment:
 
-       kubectl exec -it envar-demo -- /bin/bash
+        kubectl exec -it envar-demo -- /bin/bash
 
 1. In your shell, run the `printenv` command to list the environment variables.
 
-       root@envar-demo:/# printenv
+        root@envar-demo:/# printenv
 
     The output is similar to this:
 
@@ -61,24 +63,18 @@ Pod:
         HOSTNAME=envar-demo
         ...
         DEMO_GREETING=Hello from the environment
-        DEMO_FAREWELL=Such a sweet sorrow
 
 1. To exit the shell, enter `exit`.
 
-{{< note >}}
-**Note:** The environment variables set using the `env` or `envFrom` field
-will override any environment variables specified in the container image.
-{{< /note >}}
+{% endcapture %}
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+{% capture whatsnext %}
 
 * Learn more about [environment variables](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/).
 * Learn about [using secrets as environment variables](/docs/user-guide/secrets/#using-secrets-as-environment-variables).
-* See [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).
+* See [EnvVarSource](/docs/api-reference/v1.6/#envvarsource-v1-core).
 
-{{% /capture %}}
+{% endcapture %}
 
 
-
+{% include templates/task.md %}

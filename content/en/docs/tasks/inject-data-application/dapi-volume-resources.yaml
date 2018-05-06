@@ -1,23 +1,23 @@
 apiVersion: v1
-kind: Pod
+kind: Deployment
 metadata:
   name: kubernetes-downwardapi-volume-example-2
 spec:
   containers:
     - name: client-container
-      image: k8s.gcr.io/busybox:1.24
+      image: gcr.io/google_containers/busybox:1.24
       command: ["sh", "-c"]
       args:
       - while true; do
           echo -en '\n';
-          if [[ -e /etc/podinfo/cpu_limit ]]; then
-            echo -en '\n'; cat /etc/podinfo/cpu_limit; fi;
-          if [[ -e /etc/podinfo/cpu_request ]]; then
-            echo -en '\n'; cat /etc/podinfo/cpu_request; fi;
-          if [[ -e /etc/podinfo/mem_limit ]]; then
-            echo -en '\n'; cat /etc/podinfo/mem_limit; fi;
-          if [[ -e /etc/podinfo/mem_request ]]; then
-            echo -en '\n'; cat /etc/podinfo/mem_request; fi;
+          if [[ -e /etc/cpu_limit ]]; then
+            echo -en '\n'; cat /etc/cpu_limit; fi;
+          if [[ -e /etc/cpu_request ]]; then
+            echo -en '\n'; cat /etc/cpu_request; fi;
+          if [[ -e /etc/mem_limit ]]; then
+            echo -en '\n'; cat /etc/mem_limit; fi;
+          if [[ -e /etc/mem_request ]]; then
+            echo -en '\n'; cat /etc/mem_request; fi;
           sleep 5;
         done;
       resources:
@@ -29,10 +29,10 @@ spec:
           cpu: "250m"
       volumeMounts:
         - name: podinfo
-          mountPath: /etc/podinfo
+          mountPath: /etc
           readOnly: false
   volumes:
-    - name: podinfo
+    - name: deploymentInfo
       downwardAPI:
         items:
           - path: "cpu_limit"
@@ -51,4 +51,3 @@ spec:
             resourceFieldRef:
               containerName: client-container
               resource: requests.memory
-

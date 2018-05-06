@@ -1,58 +1,60 @@
 ---
-title: Define a Command and Arguments for a Container
-content_template: templates/task
+title: Defining a Command and Arguments for a Container
+redirect_from:
+- "/docs/concepts/configuration/container-command-args/"
+- "/docs/concepts/configuration/container-command-arg.html"
 ---
 
-{{% capture overview %}}
+{% capture overview %}
 
 This page shows how to define commands and arguments when you run a container
-in a {{< glossary_tooltip term_id="pod" >}}.
+in a Kubernetes Deployment.
 
-{{% /capture %}}
-
-
-{{% capture prerequisites %}}
-
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-{{% /capture %}}
+{% endcapture %}
 
 
-{{% capture steps %}}
+{% capture prerequisites %}
 
-## Define a command and arguments when you create a Pod
+{% include task-tutorial-prereqs.md %}
 
-When you create a Pod, you can define a command and arguments for the
-containers that run in the Pod. To define a command, include the `command`
+{% endcapture %}
+
+
+{% capture steps %}
+
+## Defining a command and arguments when you create a Deployment
+
+When you create a Deployment, you can define a command and arguments for the
+containers that run in the Deployment. To define a command, include the `command`
 field in the configuration file. To define arguments for the command, include
 the `args` field in the configuration file. The command and arguments that
-you define cannot be changed after the Pod is created.
+you define cannot be changed after the Deployment is created.
 
 The command and arguments that you define in the configuration file
 override the default command and arguments provided by the container image.
 If you define args, but do not define a command, the default command is used
 with your new arguments.
 
-In this exercise, you create a Pod that runs one container. The configuration
-file for the Pod defines a command and two arguments:
+In this exercise, you create a Deployment that runs one container. The configuration
+file for the Deployment defines a command and two arguments:
 
-{{< code file="commands.yaml" >}}
+{% include code.html language="yaml" file="commands.yaml" ghlink="/docs/tasks/inject-data-application/commands.yaml" %}
 
-1. Create a Pod based on the YAML configuration file:
+1. Create a Deployment based on the YAML configuration file:
 
-       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
+        kubectl create -f http://k8s.io/docs/tasks/inject-data-application/commands.yaml
 
-1. List the running Pods:
+1. List the running Deployments:
 
-       kubectl get pods
+        kubectl get deployments
 
-    The output shows that the container that ran in the command-demo Pod has
+    The output shows that the container that ran in the command-demo Deployment has
     completed.
 
 1. To see the output of the command that ran in the container, view the logs
-from the Pod:
+from the Deployment:
 
-       kubectl logs command-demo
+        kubectl logs command-demo
 
     The output shows the values of the HOSTNAME and KUBERNETES_PORT environment
     variables:
@@ -60,7 +62,7 @@ from the Pod:
         command-demo
         tcp://10.3.240.1:443
 
-## Use environment variables to define arguments
+## Using environment variables to define arguments
 
 In the preceding example, you defined the arguments directly by
 providing strings. As an alternative to providing strings directly,
@@ -72,18 +74,16 @@ you can define arguments by using environment variables:
     command: ["/bin/echo"]
     args: ["$(MESSAGE)"]
 
-This means you can define an argument for a Pod using any of
+This means you can define an argument for a Deployment using any of
 the techniques available for defining environment variables, including
-[ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
+[ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
 and
 [Secrets](/docs/concepts/configuration/secret/).
 
-{{< note >}}
-**Note:** The environment variable appears in parentheses, `"$(VAR)"`. This is
+NOTE: The environment variable appears in parentheses, `"$(VAR)"`. This is
 required for the variable to be expanded in the `command` or `args` field.
-{{< /note >}}
 
-## Run a command in a shell
+## Running a command in a shell
 
 In some cases, you need your command to run in a shell. For example, your
 command might consist of several commands piped together, or it might be a shell
@@ -127,16 +127,16 @@ Here are some examples:
 |     `[/ep-1]`      |   `[foo bar]`    |   `[/ep-2]`         |     `[zoo boo]`    | `[ep-2 zoo boo]` |
 
 
-{{% /capture %}}
+{% endcapture %}
 
-{{% capture whatsnext %}}
+{% capture whatsnext %}
 
 * Learn more about [containers and commands](/docs/user-guide/containers/).
-* Learn more about [configuring pods and containers](/docs/tasks/).
-* Learn more about [running commands in a container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
-* See [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
+* Learn more about [configuring containers](/docs/user-guide/configuring-containers/).
+* Learn more about [running commands in a container](/docs/tasks/kubectl/get-shell-running-container/).
+* See [Container](/docs/api-reference/v1.6/#container-v1-core).
 
-{{% /capture %}}
+{% endcapture %}
 
 
-
+{% include templates/task.md %}
