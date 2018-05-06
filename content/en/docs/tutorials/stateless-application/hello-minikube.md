@@ -25,8 +25,18 @@ Minikube provides a simple way of running Kubernetes on your local machine for f
 
 {{% capture prerequisites %}}
 
-* For OS X, you need [Homebrew](https://brew.sh) to install the `xhyve`
-driver.
+* For OS X, you need [Homebrew](https://brew.sh) to install the `xhyve` driver.
+
+  Note: If you see the following Homebrew error when you run `brew update` after you update your computer to MacOS 10.13:
+  ```
+  Error: /usr/local is not writable. You should change the ownership
+  and permissions of /usr/local back to your user account:
+  sudo chown -R $(whoami) /usr/local
+  ```
+  You can resolve the issue by reinstalling Homebrew:
+  ```
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  ```
 
 * [NodeJS](https://nodejs.org/en/) is required to run the sample application.
 
