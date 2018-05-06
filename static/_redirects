@@ -397,6 +397,9 @@
 /docs/user-guide/working-with-resources/     /docs/concepts/overview/object-management-kubectl/overview/ 301
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301
+
+/editdocs/     /docs/home/contribute/     301
+
 /events/     /docs/community     301
 /gettingstarted/     /docs/home/ 301
 /horizontal-pod-autoscaler/     /docs/tasks/run-application/horizontal-pod-autoscale/ 301
