@@ -170,4 +170,37 @@ You can also use HTML for images, but it is not preferred.
 
 <img src="/static/images/pencil.png" alt="pencil icon" />
 
+### Figures
+
+To group an image with text about it, use the following type of template:
+
+
+
+## Tables
+
+Simple tables have one row per line, and columns are separated by `|`
+characters. The header is separated from the body by cells containing nothing
+but at least three `-` characters. For ease of maintenance, try to keep all the
+cell separators even, even if you heed to use extra space.
+
+| Heading cell 1 | Heading cell 2 |
+|----------------|----------------|
+| Body cell 1    | Body cell 2    |
+
+The header is optional. Any text separated by `|` will render as a table.
+
+Markdown tables have a hard time with block-level elements within cells, such as
+list items, code blocks, or multiple paragraphs. For complex or very wide
+tables, use HTML instead.
+
+<table>
+<th>
+  <td>Heading cell 1</td>
+  <td>Heading cell 2</td>
+</th>
+<tr>
+  <td>Body cell 1</td>
+  <td>Body cell 2</td>
+</tr>
+</table>
 
