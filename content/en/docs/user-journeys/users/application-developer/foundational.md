@@ -149,16 +149,15 @@ Say that your team is deploying an ordinary Rails application. You've run some c
 
 If you're not running Kubernetes or a similar automated system, you might find the following scenario familiar:
 
-<div class="emphasize-box" markdown="1">
+{{< note >}}
+1. One instance of your app (a complete machine instance or just a container) goes down.</li>
 
-<ol>
-<li>One instance of your app (a complete machine instance or just a container) goes down.</li>
-<li>Because your team has monitoring set up, this pages the person on call.</li>
-<li>The on-call person has to go in, investigate, and manually spin up a new instance.</li>
-<li>Depending how your team handles DNS/networking, the on-call person may also need to also update the service discovery mechanism to point at the IP of the new Rails instance rather than the old.</li>
-</ol>
+1. Because your team has monitoring set up, this pages the person on call.</li>
 
-</div>
+1. The on-call person has to go in, investigate, and manually spin up a new instance.</li>
+
+1. Depending how your team handles DNS/networking, the on-call person may also need to also update the service discovery mechanism to point at the IP of the new Rails instance rather than the old.</li>
+{{< /note >}}
 
 This process can be tedious and also inconvenient, especially if (2) happens in the early hours of the morning!
 
