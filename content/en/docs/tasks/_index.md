@@ -68,7 +68,7 @@ Configure and schedule NVIDIA GPUs for use as a resource by nodes in a cluster.
 
 Configure and schedule huge pages as a schedulable resource in a cluster.
 
-### What's next
+#### What's next
 
 If you would like to write a task page, see
 [Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
