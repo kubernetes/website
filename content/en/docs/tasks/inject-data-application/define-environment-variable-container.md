@@ -5,7 +5,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-This page shows how to define environment variables when you run a container
+This page shows how to define environment variables for a container
 in a Kubernetes Pod.
 
 {{% /capture %}}
