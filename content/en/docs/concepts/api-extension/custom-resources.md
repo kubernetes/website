@@ -37,7 +37,7 @@ A *custom controller* is a controller that users can deploy and update on a runn
 When creating a new API, consider whether to [aggregate your API with the Kubernetes cluster APIs](/docs/concepts/api-extension/apiserver-aggregation/) or let your API stand alone.
 
 Consider API aggregation if: | Prefer a stand-alone API if:
--|-
+-----------------------------|------------------------------
 Your API is [Declarative](#declarative-apis). | Your API does not fit the [Declarative](#declarative-apis) model.
 You want your new types to be readable and writable using `kubectl`.| `kubectl` support is not required
 You want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types. | Kubernetes UI support is not required.
@@ -147,7 +147,7 @@ Typically, CRDs are a good fit if:
 CRDs are easier to create than Aggregated APIs.
 
 Custom Resource Definitions | Aggregated API
--|-
+----------------------------|-----------------
 Do not require programming. Users can choose any language for a CRD controller. | Requires programming in Go and building binary and image. Users can choose any language for a CRD controller.
 No additional service to run; CRs are handled by API Server. | An additional service to create and that could fail.
 No ongoing support once the CRD is created. Any bug fixes are picked up as part of normal Kubernetes Master upgrades. | May need to periodically pickup bug fixes from upstream and rebuild and update the Aggregated APIserver.
@@ -158,7 +158,7 @@ No need to handle multiple versions of your API. For example: when you control t
 Aggregated APIs offer more advanced API features and customization of other features, for example: the storage layer.
 
 Feature | Description | CRDs | Aggregated API
--|-|-|-
+--------|-------------|------|-----------------
 Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Beta feature of CRDs in v1.9. Checks limited to what is supported by OpenAPI v3.0. | Yes, arbitrary validation checks
 Defaulting | See above | No, but can achieve the same effect with an Initializer (requires programming) | Yes
 Multi-versioning | Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions. | No | Yes
@@ -174,7 +174,7 @@ OpenAPI Schema | Is there an OpenAPI (swagger) schema for the types that can be 
 When you create a custom resource, either via a CRDs or an AA, you get many features for your API, compared to implementing it outside the Kubernetes platform:
 
 Feature | What it does
--|-
+--------|--------------
 CRUD | The new endpoints support CRUD basic operations via HTTP and `kubectl`
 Watch | The new endpoints support Kubernetes Watch operations via HTTP
 Discovery | Clients like kubectl and dashboard automatically offer list, display, and field edit operations on your resources
