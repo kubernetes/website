@@ -64,6 +64,7 @@ toc:
 - title: Run Jobs
   landing_page: /docs/tasks/job/parallel-processing-expansion/
   section:
+  - docs/tasks/job/automated-tasks-with-cron-jobs.md
   - docs/tasks/job/parallel-processing-expansion.md
   - docs/tasks/job/coarse-parallel-processing-work-queue/index.md
   - docs/tasks/job/fine-parallel-processing-work-queue/index.md
