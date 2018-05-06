@@ -151,13 +151,12 @@ If you're not running Kubernetes or a similar automated system, you might find t
 
 <div class="emphasize-box" markdown="1">
 
-1. One instance of your app (a complete machine instance or just a container) goes down.
-
-2. Because your team has monitoring set up, this pages the person on call.
-
-3. The on-call person has to go in, investigate, and manually spin up a new instance.
-
-4. Depending how your team handles DNS/networking, the on-call person may also need to also update the service discovery mechanism to point at the IP of the new Rails instance rather than the old.
+<ol>
+<li>One instance of your app (a complete machine instance or just a container) goes down.</li>
+<li>Because your team has monitoring set up, this pages the person on call.</li>
+<li>The on-call person has to go in, investigate, and manually spin up a new instance.</li>
+<li>Depending how your team handles DNS/networking, the on-call person may also need to also update the service discovery mechanism to point at the IP of the new Rails instance rather than the old.</li>
+</ol>
 
 </div>
 
@@ -190,17 +189,17 @@ The standard controller processes are {{< link text="`kube-controller-manager`" 
 All of these controllers implement a *control loop*. For simplicity, you can think of this as the following:
 
 <div class="emphasize-box" markdown="1">
- 1. What is the current state of the cluster (X)?
- 
- 2. What is the desired state of the cluster (Y)?
- 
- 3. X == Y ?
- 
-   * `true` - Do nothing.
-   * `false` - Perform tasks to get to Y (such as starting or restarting containers,
-or scaling the number of replicas of a given application).<br>
-
-      *(Return to 1)*
+<ol>
+<li>What is the current state of the cluster (X)?</li>
+<li>What is the desired state of the cluster (Y)?</li>
+<li>X == Y ?</li>
+<ul>
+   <li>`true` - Do nothing.</li>
+   <li>`false` - Perform tasks to get to Y (such as starting or restarting containers,
+   or scaling the number of replicas of a given application).</br>*(Return to 1)*</li>
+   </ul>
+   </li>
+   </ol>
 </div>
 
 By continuously looping, these controllers ensure the cluster can pick up new updates and avoid drifting from the desired state. These ideas are covered in more detail {{< link text="here" url="https://kubernetes.io/docs/concepts/" >}}.
