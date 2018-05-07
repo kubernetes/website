@@ -420,15 +420,15 @@ To join clusters into the federation:
 
 1. Change the context:
 
-   ```shell
-   kubectl config use-context fellowship
-   ```
-   
+    ```shell
+    kubectl config use-context fellowship
+    ```
+
 1. If you are using a managed cluster service, allow the service to access the cluster. To do this, create a `clusterrolebinding` for the account associated with your cluster service:
 
-   ```shell
-   kubectl create clusterrolebinding <your_user>-cluster-admin-binding --clusterrole=cluster-admin --user=<your_user>@example.org --context=<joining_cluster_context>
-   ```
+    ```shell
+    kubectl create clusterrolebinding <your_user>-cluster-admin-binding --clusterrole=cluster-admin --user=<your_user>@example.org --context=<joining_cluster_context>
+    ```
 
 1. Join the cluster to the federation, using `kubefed join`, and make sure you provide the following:
 
