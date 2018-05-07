@@ -1,5 +1,5 @@
 ---
-title: "v1beta1"
+title: "extensions/v1beta1"
 weight: 10
 toc-hide: true
 ---
