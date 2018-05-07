@@ -164,7 +164,7 @@ apt-get update
 apt-get install -y kubelet kubeadm kubectl
 {{< /tab >}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
-``
+```
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
