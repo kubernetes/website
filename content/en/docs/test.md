@@ -207,12 +207,14 @@ tables, use HTML instead.
 
 ## Sidebars and Admonitions
 
+Sidebars and admonitions provide ways to add visual importance to text. Use
+them sparingly.
+
 ### Sidebars
 
 A sidebar offsets text visually, but without the visual prominence of
 [admonitions](#admonitions).
 
-```markdown
 > This is a sidebar.
 >
 > You can have paragraphs and block-level elements within a sidebar.
@@ -223,40 +225,23 @@ A sidebar offsets text visually, but without the visual prominence of
 > $ sudo dmesg
 > ```
 
+
 ### Admonitions
 
 Admonitions (notes, warnings, etc) use Hugo shortcodes.
 
-```markdown
 {{< note >}}
 **Note:** Notes catch the reader's attention without a sense of urgency.
 
 You can have multiple paragraphs and block-level elements inside an admonition.
 
 | Or | a | table |
-
 {{< /note >}}
-```
-
-{{< note >}}
-**Note:** Notes catch the reader's attention without a sense of urgency.
-{{< /note >}}
-
-```markdown
-{{< caution >}}
-**Caution:** The reader should proceed with caution.
-{{< /caution >}}
-```
 
 {{< caution >}}
 **Caution:** The reader should proceed with caution.
 {{< /caution >}}
 
-```markdown
-{{< warning >}}
-**Warning:** Warnings point out something that could cause harm if ignored.
-{{< /warning >}}
-```
 
 {{< warning >}}
 **Warning:** Warnings point out something that could cause harm if ignored.
