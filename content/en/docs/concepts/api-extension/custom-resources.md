@@ -198,11 +198,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
     </tr>
     <tr>
       <td>Subresources</td>
-      <td>
-		  <ul><li>Add extra operations other than CRUD, such as "scale" or "exec"</li> 
-			  <li>Allows systems like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource</li> 
-			  <li>Finer-grained access control: user writes spec section, controller writes status section.</li>
-			  <li>Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource)</li>
+      <td>Adds extra operations other than CRUD, such as "scale" or "exec". Allows systems like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource. Finer-grained access control: user writes spec section, controller writes status section. Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource)
 	 </td>
       <td>No but planned</td>
       <td>Yes, any Subresource</td>
