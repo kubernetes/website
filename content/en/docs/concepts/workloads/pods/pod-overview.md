@@ -38,7 +38,7 @@ Pods are designed to support multiple cooperating processes (as containers) that
 
 Note that grouping multiple co-located and co-managed containers in a single Pod is a relatively advanced use case. You should use this pattern only in specific instances in which your containers are tightly coupled. For example, you might have a container that acts as a web server for files in a shared volume, and a separate "sidecar" container that updates those files from a remote source, as in the following diagram:
 
-![pod diagram](/images/docs/pod.svg){: style="max-width: 50%" }
+<img src="/src/docs/pod.svg" width="50%" alttext="pod diagram" />
 
 Pods provide two kinds of shared resources for their constituent containers: *networking* and *storage*.
 
