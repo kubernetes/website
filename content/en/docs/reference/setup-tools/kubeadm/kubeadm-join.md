@@ -7,6 +7,7 @@ title: kubeadm join
 content_template: templates/concept
 ---
 {{% capture overview %}}
+This command initializes a Kubernetes worker node and joins it to the cluster. 
 {{% /capture %}}
 
 {{% capture body %}}
