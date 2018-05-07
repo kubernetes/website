@@ -63,7 +63,8 @@ culpa qui officia deserunt mollit anim id est laborum.
 * This is another list item in the same list
 - You can mix `-` and `*`
   - To make a sub-item, indent two spaces.
-    - And again
+    - This is a sub-sub-item.
+
 
 
 - This is a new list. It has two blank lines from the previous list, If it only
@@ -90,6 +91,7 @@ culpa qui officia deserunt mollit anim id est laborum.
     convention, we keep them in sync.
 3.  For single-digit numbered lists, using two spaces after the period makes
     interior block-level content line up better along tab-stops.
+
 
 
 1.  This is a new list. It has two blank lines from the previous list, If it only
@@ -158,13 +160,13 @@ character. The square brackets contain the image's alt text. Try to always use
 alt text so that people using screen readers can get some benefit from the
 image.
 
-![pencil icon](/static/images/pencil.png)
+![pencil icon](static/images/pencil.png)
 
 An image can also be a link. This time the pencil icon links to the Kubernetes
 website. Outer square brackets enclose the entire image tag, and the link target
 is in the parentheses at the end.
 
-[![pencil icon](/static/images/pencil.png)](https://kubernetes.io)
+[![pencil icon](static/images/pencil.png)](https://kubernetes.io)
 
 You can also use HTML for images, but it is not preferred.
 
@@ -189,13 +191,17 @@ list items, code blocks, or multiple paragraphs. For complex or very wide
 tables, use HTML instead.
 
 <table>
-<th>
-  <td>Heading cell 1</td>
-  <td>Heading cell 2</td>
-</th>
-<tr>
-  <td>Body cell 1</td>
-  <td>Body cell 2</td>
-</tr>
+<thead>
+  <th>
+    <td>Heading cell 1</td>
+    <td>Heading cell 2</td>
+  </th>
+</thead>
+<tbody>
+  <tr>
+    <td>Body cell 1</td>
+    <td>Body cell 2</td>
+  </tr>
+</tbody>
 </table>
 
