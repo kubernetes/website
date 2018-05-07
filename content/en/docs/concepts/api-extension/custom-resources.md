@@ -156,17 +156,77 @@ CRDs are easier to create than Aggregated APIs.
 
 Aggregated APIs offer more advanced API features and customization of other features, for example: the storage layer.
 
-| Feature | Description | CRDs | Aggregated API |
-| ------- | ----------- | ---- | -------------- |
-| Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Beta feature of CRDs in v1.9. Checks limited to what is supported by OpenAPI v3.0. | Yes, arbitrary validation checks |
-| Defaulting | See above | No, but can achieve the same effect with an Initializer (requires programming) | Yes |
-| Multi-versioning | Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions. | No | Yes |
-| Custom Storage | If you need storage with a different performance mode (for example, time-series database instead of key-value store) or isolation for security (for example, encryption secrets or different | No | Yes |
-| Custom Business Logic | Perform arbitrary checks or actions when creating, reading, updating or deleting an object | No, but can get some of the same effects with Initializers or Finalizers (requires programming) | Yes |
-| Subresources | * Add extra operations other than CRUD, such as "scale" or "exec" * Allows systems like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource * Finer-grained access control: user writes spec section, controller writes status section. * Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource) | No but planned | Yes, any Subresource |
-| strategic-merge-patch | The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. For more information, see ["Update API Objects in Place Using kubectl patch"](/docs/tasks/run-application/update-api-object-kubectl-patch/) | No | Yes |
-| Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |
-| OpenAPI Schema | Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server? Is the user protected from misspelling field names by ensuring only allowed fields are set? Are types enforced (in other words, don't put an `int` in a `string` field?) | No but planned | Yes |
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Description</th>
+      <th>CRDs</th>
+      <th>Aggregated API</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Validation</td>
+      <td>Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time.</td>
+      <td>Beta feature of CRDs in v1.9. Checks limited to what is supported by OpenAPI v3.0.</td>
+      <td>Yes, arbitrary validation checks</td>
+    </tr>
+    <tr>
+      <td>Defaulting</td>
+      <td>See above</td>
+      <td>No, but can achieve the same effect with an Initializer (requires programming)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Multi-versioning</td>
+      <td>Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions.</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Custom Storage</td>
+      <td>If you need storage with a different performance mode (for example, time-series database instead of key-value store) or isolation for security (for example, encryption secrets or different</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Custom Business Logic</td>
+      <td>Perform arbitrary checks or actions when creating, reading, updating or deleting an object</td>
+      <td>No, but can get some of the same effects with Initializers or Finalizers (requires programming)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Subresources</td>
+      <td>
+		  <ul><li>Add extra operations other than CRUD, such as "scale" or "exec"</li> 
+			  <li>Allows systems like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource</li> 
+			  <li>Finer-grained access control: user writes spec section, controller writes status section.</li>
+			  <li>Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource)</li>
+	 </td>
+      <td>No but planned</td>
+      <td>Yes, any Subresource</td>
+    </tr>
+    <tr>
+      <td>strategic-merge-patch</td>
+		<td>The new endpoints support PATCH with Content-Type: application/strategic-merge-patch+json. Useful for updating objects that may be modified both locally, and by the server. For more information, see <a href="https://github.com/paulbattagliag/kubernetes.github.io/blob/patch-7/docs/tasks/run-application/update-api-object-kubectl-patch">"Update API Objects in Place Using kubectl patch"</a></td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Protocol Buffers</td>
+      <td>The new resource supports clients that want to use Protocol Buffers</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>OpenAPI Schema</td>
+      <td>Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server? Is the user protected from misspelling field names by ensuring only allowed fields are set? Are types enforced (in other words, don't put an int in a string field?)</td>
+      <td>No but planned</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
 
 #### Common Features
 
