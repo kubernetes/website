@@ -1,5 +1,5 @@
 ---
 title: "Command line tools reference"
-weight: 10
+weight: 60
 toc_hide: true
 ---
