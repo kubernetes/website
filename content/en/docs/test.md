@@ -192,10 +192,10 @@ tables, use HTML instead.
 
 <table>
 <thead>
-  <th>
-    <td>Heading cell 1</td>
-    <td>Heading cell 2</td>
-  </th>
+  <tr>
+    <th>Heading cell 1</th>
+    <th>Heading cell 2</th>
+  </tr>
 </thead>
 <tbody>
   <tr>
