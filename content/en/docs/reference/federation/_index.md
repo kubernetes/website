@@ -1,5 +1,5 @@
 ---
-title: "Federation API reference"
+title: "Federation API"
 weight: 30
 toc-hide: true
 ---
