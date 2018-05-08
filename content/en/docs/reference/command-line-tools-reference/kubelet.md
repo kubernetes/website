@@ -42,217 +42,186 @@ kubelet
     <col span="1">
   </colgroup>
   <tbody>
-
     <tr>
       <td colspan="2">--address 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 0.0.0.0</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">The IP address for the Kubelet to serve on (set to 0.0.0.0 for all IPv4 interfaces and `::` for all IPv6 interfaces)</td>
     </tr>
-
     <tr>
       <td colspan="2">--allow-privileged</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">If true, allow containers to request privileged mode.</td>
     </tr>
-
     <tr>
       <td colspan="2">--anonymous-auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">Enables anonymous requests to the Kubelet server. Requests that are not rejected by another authentication method are treated as anonymous requests. Anonymous requests have a username of system:anonymous, and a group name of system:unauthenticated.</td>
     </tr>
-
     <tr>
       <td colspan="2">--authentication-token-webhook</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">Use the TokenReview API to determine authentication for bearer tokens.</td>
     </tr>
-
     <tr>
       <td colspan="2">--authentication-token-webhook-cache-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 2m0s</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">The duration to cache responses from the webhook token authenticator.</td>
     </tr>
-
     <tr>
       <td colspan="2">--authorization-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "AlwaysAllow"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">Authorization mode for Kubelet server. Valid options are AlwaysAllow or Webhook. Webhook mode uses the SubjectAccessReview API to determine authorization.</td>
     </tr>
-
     <tr>
       <td colspan="2">--authorization-webhook-cache-authorized-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5m0s</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">The duration to cache 'authorized' responses from the webhook authorizer.</td>
     </tr>
-
     <tr>
       <td colspan="2">--authorization-webhook-cache-unauthorized-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 30s</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">The duration to cache 'unauthorized' responses from the webhook authorizer.</td>
     </tr>
-
     <tr>
       <td colspan="2">--azure-container-registry-config string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">Path to the file container Azure container registry configuration information.</td>
     </tr>
-
     <tr>
       <td colspan="2">--bootstrap-checkpoint-path string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%"><Warning: Alpha feature> Path to to the directory where the checkpoints are stored</td>
     </tr>
-
     <tr>
       <td colspan="2">--bootstrap-kubeconfig string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">Path to a kubeconfig file that will be used to get client certificate for kubelet. If the file specified by --kubeconfig does not exist, the bootstrap kubeconfig is used to request a client certificate from the API server. On success, a kubeconfig file referencing the generated client certificate and key is written to the path specified by --kubeconfig. The client certificate and key file will be stored in the directory pointed by --cert-dir.</td>
     </tr>
-
     <tr>
       <td colspan="2">--cadvisor-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 4194</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">The port of the localhost cAdvisor endpoint (set to 0 to disable)</td>
     </tr>
-
     <tr>
       <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/var/lib/kubelet/pki"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">The directory where the TLS certs are located. If --tls-cert-file and --tls-private-key-file are provided, this flag will be ignored.</td>
     </tr>
-
     <tr>
       <td colspan="2">--cgroup-driver string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "cgroupfs"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">Driver that the kubelet uses to manipulate cgroups on the host.  Possible values: 'cgroupfs', 'systemd'</td>
     </tr>
-
     <tr>
       <td colspan="2">--cgroup-root string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">Optional root cgroup to use for pods. This is handled by the container runtime on a best effort basis. Default: '', which means use the container runtime default.</td>
     </tr>
-
     <tr>
       <td colspan="2">--cgroups-per-qos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">Enable creation of QoS cgroup hierarchy, if true top level QoS and pod cgroups are created.</td>
     </tr>
-
     <tr>
       <td colspan="2">--chaos-chance float</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">If > 0.0, introduce random client errors and latency. Intended for testing.</td>
     </tr>
-
     <tr>
       <td colspan="2">--client-ca-file string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">If set, any request presenting a client certificate signed by one of the authorities in the client-ca-file is authenticated with an identity corresponding to the CommonName of the client certificate.</td>
     </tr>
-
     <tr>
       <td colspan="2">--cloud-config string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">The path to the cloud provider configuration file.  Empty string for no configuration file.</td>
     </tr>
-
     <tr>
       <td colspan="2">--cloud-provider string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">The provider for cloud services. Specify empty string for running with no cloud provider.</td>
     </tr>
-
     <tr>
       <td colspan="2">--cluster-dns stringSlice</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">Comma-separated list of DNS server IP address.  This value is used for containers DNS server in case of Pods with "dnsPolicy=ClusterFirst". Note: all DNS servers appearing in the list MUST serve the same set of records otherwise name resolution within the cluster may not work correctly. There is no guarantee as to which DNS server may be contacted for name resolution.</td>
     </tr>
-
     <tr>
       <td colspan="2">--cluster-domain string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">Domain for this cluster.  If set, kubelet will configure all containers to search this domain in addition to the host's search domains</td>
     </tr>
-
     <tr>
       <td colspan="2">--cni-bin-dir string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%"><Warning: Alpha feature> The full path of the directory in which to search for CNI plugin binaries. Default: /opt/cni/bin</td>
     </tr>
-
     <tr>
       <td colspan="2">--cni-conf-dir string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%"><Warning: Alpha feature> The full path of the directory in which to search for CNI config files. Default: /etc/cni/net.d</td>
     </tr>
-
     <tr>
       <td colspan="2">--config string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">The Kubelet will load its initial configuration from this file. The path may be absolute or relative; relative paths start at the Kubelet's current working directory. Omit this flag to use the built-in default configuration values. You must also enable the KubeletConfigFile feature gate to pass this flag.</td>
     </tr>
-
     <tr>
       <td colspan="2">--container-runtime string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "docker"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">The container runtime to use. Possible values: 'docker', 'rkt'.</td>
     </tr>
-
     <tr>
       <td colspan="2">--container-runtime-endpoint string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "unix:///var/run/dockershim.sock"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">[Experimental] The endpoint of remote runtime service. Currently unix socket is supported on Linux, and tcp is supported on windows.  Examples:'unix:///var/run/dockershim.sock', 'tcp://localhost:3735'</td>
     </tr>
-
     <tr>
       <td colspan="2">--containerized</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">Experimental support for running kubelet in a container.  Intended for testing.</td>
     </tr>
-
     <tr>
       <td colspan="2">--contention-profiling</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">Enable lock contention profiling, if profiling is enabled</td>
     </tr>
-
     <tr>
       <td colspan="2">--cpu-cfs-quota&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">Enable CPU CFS quota enforcement for containers that specify CPU limits</td>
     </tr>
-
     <tr>
       <td colspan="2">--cpu-manager-policy string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "none"</td>
     </tr>
