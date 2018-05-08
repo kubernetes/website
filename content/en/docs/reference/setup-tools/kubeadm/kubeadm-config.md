@@ -5,9 +5,10 @@ approvers:
 - jbeda
 title: kubeadm config
 content_template: templates/concept
+weight: 50
 ---
 {{% capture overview %}}
-Beginning with v1.8.0, kubeadm uploads the configuration of your cluster to a ConfigMap called 
+Beginning with v1.8.0, kubeadm uploads the configuration of your cluster to a ConfigMap called
 `kubeadm-config` in the `kube-system` namespace, and later reads the ConfigMap when upgrading.
 This enables correct configuration of system components, and provides a seamless user experience.
 
@@ -31,4 +32,3 @@ may use `kubeadm upgrade`.
 {{% capture whatsnext %}}
 * [kubeadm upgrade](kubeadm-upgrade.md) to upgrade a Kubernetes cluster to a newer version
 {{% /capture %}}
-

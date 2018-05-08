@@ -5,6 +5,7 @@ approvers:
 - jbeda
 title: kubeadm init
 content_template: templates/concept
+weight: 20
 ---
 {{% capture overview %}}
 This command initializes a Kubernetes master node.
@@ -37,7 +38,7 @@ following steps:
 1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
    it writes the kubelet init configuration into the `/var/lib/kubelet/config/init/kubelet` file.
    See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
-   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/) 
+   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/)
    for more information about Dynamic Kubelet Configuration.
    This functionality is now by default disabled as it is behind a feature gate, but is expected to be a default in future versions.
 
@@ -458,5 +459,3 @@ provisioned). For details, see the [kubeadm join](kubeadm-join.md).
 * [kubeadm upgrade](kubeadm-upgrade.md) to upgrade a Kubernetes cluster to a newer version
 * [kubeadm reset](kubeadm-reset.md) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 {{% /capture %}}
-
-

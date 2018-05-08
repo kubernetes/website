@@ -4,6 +4,7 @@ approvers:
 - luxas
 - jbeda
 title: kubeadm alpha
+weight: 90
 ---
 {{< caution >}}
 `kubeadm alpha` provides a preview of a set of features made available for gathering feedback
@@ -12,7 +13,7 @@ title: kubeadm alpha
 
 In v1.8.0, kubeadm introduced the `kubeadm alpha phase` command with the aim of making kubeadm more modular. This modularity enables you to invoke atomic sub-steps of the bootstrap process; you can let kubeadm do some parts and fill in yourself where you need customizations.
 
-`kubeadm alpha phase` is consistent with [kubeadm init workflow](kubeadm-init.md#init-workflow), 
+`kubeadm alpha phase` is consistent with [kubeadm init workflow](kubeadm-init.md#init-workflow),
 and behind the scene both use the same code.
 
 * [kubeadm alpha phase preflight](#cmd-phase-preflight)
@@ -69,7 +70,7 @@ Additionally, the `user` subcommand supports the creation of kubeconfig files fo
 
 ## kubeadm alpha phase controlplane {#cmd-phase-controlplane}
 
-You can create all required static Pod files for the control plane components with the `all` subcommand, 
+You can create all required static Pod files for the control plane components with the `all` subcommand,
 or selectively create the files.
 
 {{< tabs name="tab-controlplane" >}}
@@ -101,7 +102,7 @@ Use the following command to label and taint the node with the `node-role.kubern
 ## kubeadm alpha phase bootstrap-token {#cmd-phase-bootstrap-token}
 
 Use the following actions to fully configure bootstrap tokens.
-You can fully configure bootstrap tokens with the `all` subcommand, 
+You can fully configure bootstrap tokens with the `all` subcommand,
 or selectively configure single elements.
 
 {{< tabs name="tab-bootstrap-token" >}}
@@ -125,7 +126,7 @@ Alternatively, you can use [kubeadm config](kubeadm-config.md).
 
 ## kubeadm alpha phase addon {#cmd-phase-addon}
 
-You can install all the available addons with the `all` subcommand, or 
+You can install all the available addons with the `all` subcommand, or
 install them selectively.
 
 Please note that if kubeadm is invoked with `--feature-gates=CoreDNS=true`,  [CoreDNS](https://coredns.io/) is installed instead of `kube-dns`.
