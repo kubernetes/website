@@ -729,7 +729,7 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
 
  - In the API server secret data is stored as plaintext in etcd; therefore:
    - Administrators should limit access to etcd to admin users
-   - Secret data in the API server is at rest on the disk that etcd uses; admins may want to wipe/shred disks
+   - Secret data in the API server is at risk on the disk that etcd uses; admins may want to wipe/shred disks
      used by etcd when no longer in use
  - If you configure the secret through a manifest (JSON or YAML) file which has
    the secret data encoded as base64, sharing this file or checking it in to a
