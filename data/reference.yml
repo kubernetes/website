@@ -92,13 +92,15 @@ toc:
   landing_page: /docs/admin/kubelet/
   section:
   - docs/reference/feature-gates.md
-  - docs/reference/generated/kubelet.md
   - docs/admin/kubelet-authentication-authorization.md
+  - docs/admin/kubelet-tls-bootstrapping.md
+
+- title: Config Reference
   - docs/reference/generated/kube-apiserver.md
   - docs/reference/generated/kube-controller-manager.md
-  - docs/reference/generated/kube-proxy.md
   - docs/reference/generated/kube-scheduler.md
-  - docs/admin/kubelet-tls-bootstrapping.md
+  - docs/reference/generated/kubelet.md
+  - docs/reference/generated/kube-proxy.md
   - docs/reference/generated/cloud-controller-manager.md
   - docs/reference/generated/federation-apiserver.md
   - docs/reference/generated/federation-controller-manager.md
