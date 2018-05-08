@@ -1,6 +1,7 @@
 ---
 title: kube-apiserver
 notitle: true
+weight: 40
 ---
 ## kube-apiserver
 
@@ -789,5 +790,3 @@ kube-apiserver
     <tr>
       <td></td><td style="line-height: 130%">List of watch cache sizes for every resource (pods, nodes, etc.), comma separated. The individual override format: resource#size, where size is a number. It takes effect when watch-cache is enabled.</td>
     </tr>
-
-

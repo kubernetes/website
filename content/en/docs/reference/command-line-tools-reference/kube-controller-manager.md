@@ -1,6 +1,7 @@
 ---
 title: kube-controller-manager
 notitle: true
+weight: 50
 ---
 ## kube-controller-manager
 
@@ -590,5 +591,3 @@ kube-controller-manager
     <tr>
       <td></td><td style="line-height: 130%">Print version information and quit</td>
     </tr>
-
-

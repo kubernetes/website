@@ -1,5 +1,6 @@
 ---
 title: Feature Gates
+weight: 10
 ---
 
 {% capture overview %}
@@ -156,7 +157,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 - `CustomResourceValidation`: Enable schema based validation on resources created from
   [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
-- `DebugContainers`: Enable running a "debugging" container in a Pod's namespace to 
+- `DebugContainers`: Enable running a "debugging" container in a Pod's namespace to
   troubleshoot a running Pod.
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
   based resource provisioning on nodes.
@@ -202,7 +203,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ScheduleDaemonSetPods`: Enable DaemonSet Pods to be scheduled by the default scheduler instead of the DaemonSet controller.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers created by a cloud provider.
   A node is eligible for exclusion if annotated with "`alpha.service-controller.kubernetes.io/exclude-balancer`" key.
-- `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or 
+- `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or
   PersistentVolumeClaim objects if they are still being used.
 - `StreamingProxyRedirects`: Instructs the API server to intercept (and follow)
    redirects from the backend (kubelet) for streaming requests.

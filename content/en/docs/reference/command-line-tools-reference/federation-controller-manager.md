@@ -1,6 +1,7 @@
 ---
 title: federation-controller-manager
 notitle: true
+weight: 110
 ---
 ## federation-controller-manager
 

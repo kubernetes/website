@@ -1,6 +1,7 @@
 ---
 title: kube-proxy
 notitle: true
+weight: 60
 ---
 ## kube-proxy
 
@@ -281,5 +282,3 @@ kube-proxy
     <tr>
       <td></td><td style="line-height: 130%">If set, write the default configuration values to this file and exit.</td>
     </tr>
-
-

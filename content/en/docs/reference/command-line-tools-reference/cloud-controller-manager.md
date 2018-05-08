@@ -1,6 +1,7 @@
 ---
 title: cloud-controller-manager
 notitle: true
+weight: 90
 ---
 ## cloud-controller-manager
 
@@ -248,5 +249,3 @@ cloud-controller-manager
     <tr>
       <td></td><td style="line-height: 130%">Print version information and quit</td>
     </tr>
-
-

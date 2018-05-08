@@ -1,6 +1,7 @@
 ---
 title: kubelet
 notitle: true
+weight: 20
 ---
 ## kubelet
 
@@ -923,5 +924,3 @@ kubelet
     <tr>
       <td></td><td style="line-height: 130%">Specifies interval for kubelet to calculate and cache the volume disk usage for all pods and volumes.  To disable volume calculations, set to 0.</td>
     </tr>
-
-
