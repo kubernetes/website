@@ -379,7 +379,7 @@ For more information see
 
 It is possible to utilize AWS Route53 as a cloud DNS provider when the
 federation controller-manager is run on-premise. The controller-manager
-Deployment must be configured with AWS credentials since it cannot implicity
+Deployment must be configured with AWS credentials since it cannot implicitly
 gather them from a VM running on AWS.
 
 Currently, `kubefed init` does not read AWS Route53 credentials from the
