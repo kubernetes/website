@@ -3,8 +3,9 @@ approvers:
 - mikedanese
 - luxas
 - jbeda
-title: kubeadm version 
+title: kubeadm version
 content_template: templates/concept
+weight: 80
 ---
 {{% capture overview %}}
 This command prints the verison of kubeadm.
@@ -13,5 +14,3 @@ This command prints the verison of kubeadm.
 {{% capture body %}}
 {{< include "generated/kubeadm_version.md" >}}
 {{% /capture %}}
-
-
