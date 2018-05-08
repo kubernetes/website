@@ -6,12 +6,6 @@ class: gridPage
 cid: partners
 ---
 
-<section id="hero" class="light-text">
-    <h1>Kubernetes Partners</h1>
-    <h5>Growing the Kubernetes ecosystem.</h5>
-    <!--<h5></h5>-->
-</section>
-
 <section id="users">
     <main>
         <h5>Kubernetes works with partners to create a strong, vibrant codebase that supports a spectrum of complementary platforms.</h5>
@@ -54,9 +48,9 @@ cid: partners
 </section>
 
 <style>
-    {% include partner-style.css %}
+    {{< include "partner-style.css" >}}
 </style>
 
 <script>
-    {% include partner-script.js %}
+    {{< include "partner-script.js" >}}
 </script>
