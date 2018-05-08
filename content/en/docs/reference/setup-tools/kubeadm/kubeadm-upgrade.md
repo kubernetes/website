@@ -5,6 +5,7 @@ approvers:
 - jbeda
 title: kubeadm upgrade
 content_template: templates/concept
+weight: 40
 ---
 {{% capture overview %}}
 `kubeadm upgrade` is a user-friendly command that wraps complex upgrading logic behind one command, with support
@@ -37,5 +38,3 @@ Please check these documents out for more detailed how-to-upgrade guidance:
 {{% capture whatsnext %}}
 * [kubeadm config](kubeadm-config.md) if you initialized your cluster using kubeadm v1.7.x or lower, to configure your cluster for `kubeadm upgrade`
 {{% /capture %}}
-
-

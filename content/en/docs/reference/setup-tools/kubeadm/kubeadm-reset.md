@@ -3,8 +3,9 @@ approvers:
 - mikedanese
 - luxas
 - jbeda
-title: kubeadm reset 
+title: kubeadm reset
 content_template: templates/concept
+weight: 60
 ---
 {{% capture overview %}}
 This command reverts any changes made by `kubeadm init` or `kubeadm join`.
@@ -15,7 +16,7 @@ This command reverts any changes made by `kubeadm init` or `kubeadm join`.
 
 ### External etcd clean up!
 
-`kubeadm reset` will not delete any etcd data if external etcd is used. This means that if you run `kubeadm init` again using the same etcd endpoints, you will see state from previous clusters. 
+`kubeadm reset` will not delete any etcd data if external etcd is used. This means that if you run `kubeadm init` again using the same etcd endpoints, you will see state from previous clusters.
 
 To wipe etcd data it is recommended you use a client like etcdctl, such as:
 
@@ -30,4 +31,3 @@ See the [etcd documentation](https://github.com/coreos/etcd/tree/master/etcdctl)
 * [kubeadm init](kubeadm-init.md) to bootstrap a Kubernetes master node
 * [kubeadm join](kubeadm-join.md) to bootstrap a Kubernetes worker node and join it to the cluster
 {{% /capture %}}
-

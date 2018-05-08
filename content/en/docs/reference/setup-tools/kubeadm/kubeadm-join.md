@@ -5,9 +5,10 @@ approvers:
 - jbeda
 title: kubeadm join
 content_template: templates/concept
+weight: 30
 ---
 {{% capture overview %}}
-This command initializes a Kubernetes worker node and joins it to the cluster. 
+This command initializes a Kubernetes worker node and joins it to the cluster.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -27,7 +28,7 @@ This action consists of the following steps:
    it first retrieves the kubelet init configuration from the master and writes it to
    the disk. When kubelet starts up, kubeadm updates the node `Node.spec.configSource` property of the node.
    See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
-   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/) 
+   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/)
    for more information about Dynamic Kubelet Configuration.
 
 1. Once the cluster information is known, kubelet can start the TLS bootstrapping
@@ -235,5 +236,3 @@ discoveryTokenUnsafeSkipCAVerification: <bool>
 * [kubeadm token](kubeadm-token.md) to manage tokens for `kubeadm join`
 * [kubeadm reset](kubeadm-reset.md) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 {{% /capture %}}
-
-
