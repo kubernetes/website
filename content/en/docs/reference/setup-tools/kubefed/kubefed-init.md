@@ -1,6 +1,7 @@
 ---
 title: kubefed init
 notitle: true
+weight: 30
 ---
 ## kubefed init
 
@@ -9,7 +10,7 @@ Initialize a federation control plane
 ### Synopsis
 
 
-Init initializes a federation control plane. 
+Init initializes a federation control plane.
 
     Federation control plane is hosted inside a Kubernetes
     cluster. The host cluster must be specified using the

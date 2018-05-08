@@ -1,6 +1,7 @@
 ---
 title: kubefed unjoin
 notitle: true
+weight: 50
 ---
 ## kubefed unjoin
 
@@ -9,7 +10,7 @@ Unjoin a cluster from a federation
 ### Synopsis
 
 
-Unjoin a cluster from a federation. 
+Unjoin a cluster from a federation.
 
     Current context is assumed to be a federation endpoint.
     Please use the --context flag otherwise.

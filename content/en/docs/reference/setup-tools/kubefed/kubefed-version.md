@@ -1,6 +1,7 @@
 ---
 title: kubefed version
 notitle: true
+weight: 60
 ---
 ## kubefed version
 

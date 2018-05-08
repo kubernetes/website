@@ -1,6 +1,7 @@
 ---
 title: kubefed options
 notitle: true
+weight: 20
 ---
 ## kubefed options
 

@@ -1,6 +1,7 @@
 ---
 title: kubefed join
 notitle: true
+weight: 40
 ---
 ## kubefed join
 
@@ -9,7 +10,7 @@ Join a cluster to a federation
 ### Synopsis
 
 
-Join adds a cluster to a federation. 
+Join adds a cluster to a federation.
 
     Current context is assumed to be a federation API
     server. Please use the --context flag otherwise.
