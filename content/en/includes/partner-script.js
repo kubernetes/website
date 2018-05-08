@@ -1536,7 +1536,7 @@
 		{
 			type: 2,
 			name: 'NTTData',
-			logo: 'ntttdata',
+			logo: 'nttdata',
 			link: 'http://de.nttdata.com/altemista-cloud',
 			blurb: 'NTT DATA, a member of the NTT Group, brings the power of the worlds leading infrastructure provider in the global K8s community.'
 					},
