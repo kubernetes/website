@@ -235,8 +235,8 @@ Please select one of the tabs to see installation instructions for the respectiv
 
    ```
    touch /etc/etcd.env
-   echo "PEER_NAME=" >> /etc/etcd.env
-   echo "PRIVATE_IP=" >> /etc/etcd.env
+   echo "PEER_NAME=${PEER_NAME}" >> /etc/etcd.env
+   echo "PRIVATE_IP=${PRIVATE_IP}" >> /etc/etcd.env
    ```
 
 1. Now copy the systemd unit file like so:
@@ -257,14 +257,14 @@ Please select one of the tabs to see installation instructions for the respectiv
    LimitNOFILE=40000
    TimeoutStartSec=0
 
-   ExecStart=/usr/local/bin/etcd --name  --data-dir /var/lib/etcd --listen-client-urls https://:2379 --advertise-client-urls https://:2379 --listen-peer-urls https://:2380 --initial-advertise-peer-urls https://:2380 --cert-file=/etc/kubernetes/pki/etcd/server.pem --key-file=/etc/kubernetes/pki/etcd/server-key.pem --client-cert-auth --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem --peer-cert-file=/etc/kubernetes/pki/etcd/peer.pem --peer-key-file=/etc/kubernetes/pki/etcd/peer-key.pem --peer-client-cert-auth --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem --initial-cluster <etcd0>=https://<etcd0-ip-address>:2380,<etcd1>=https://<etcd1-ip-address>:2380,<etcd2>=https://<etcd2-ip-address>:2380 --initial-cluster-token my-etcd-token --initial-cluster-state new
+   ExecStart=/usr/local/bin/etcd --name <name> --data-dir /var/lib/etcd --listen-client-urls http://localhost:2379 --advertise-client-urls http://localhost:2379 --listen-peer-urls http://localhost:2380 --initial-advertise-peer-urls http://localhost:2380 --cert-file=/etc/kubernetes/pki/etcd/server.pem --key-file=/etc/kubernetes/pki/etcd/server-key.pem --client-cert-auth --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem --peer-cert-file=/etc/kubernetes/pki/etcd/peer.pem --peer-key-file=/etc/kubernetes/pki/etcd/peer-key.pem --peer-client-cert-auth --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem --initial-cluster <etcd0>=https://<etcd0-ip-address>:2380,<etcd1>=https://<etcd1-ip-address>:2380,<etcd2>=https://<etcd2-ip-address>:2380 --initial-cluster-token my-etcd-token --initial-cluster-state new
 
    [Install]
    WantedBy=multi-user.target
    EOF
    ```
 
-   Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses. Also, make sure that you replace `<etcd0>`, `<etcd1>` and `<etcd2>` with real hostnames of each machine. These machines must be able to reach every other using DNS or make sure that records are added to `/etc/hosts`.
+   Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses. Replace `<name>` with the name of this etcd member. Modify the values of `--listen-client-urls`, `--advertise-client-urls`, `--listen-peer-urls` and `--initial-advertise-peer-urls` if needed. Replace `<etcd0>`, `<etcd1>` and `<etcd2>` with real hostnames of each machine. These machines must be able to reach every other using DNS or make sure that records are added to `/etc/hosts`.
 
 1. Finally, launch etcd like so:
 
@@ -297,7 +297,7 @@ Please select one of the tabs to see installation instructions for the respectiv
    spec:
    containers:
    - command:
-       - etcd --name  - --data-dir /var/lib/etcd - --listen-client-urls https://:2379 - --advertise-client-urls https://:2379 - --listen-peer-urls https://:2380 - --initial-advertise-peer-urls https://:2380 - --cert-file=/certs/server.pem - --key-file=/certs/server-key.pem - --client-cert-auth - --trusted-ca-file=/certs/ca.pem - --peer-cert-file=/certs/peer.pem - --peer-key-file=/certs/peer-key.pem - --peer-client-cert-auth - --peer-trusted-ca-file=/certs/ca.pem - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 - --initial-cluster-token my-etcd-token - --initial-cluster-state new
+       - etcd --name <name> - --data-dir /var/lib/etcd - --listen-client-urls http://localhost:2379 - --advertise-client-urls http://localhost:2379 - --listen-peer-urls http://localhost:2380 - --initial-advertise-peer-urls http://localhost:2380 - --cert-file=/certs/server.pem - --key-file=/certs/server-key.pem - --client-cert-auth - --trusted-ca-file=/certs/ca.pem - --peer-cert-file=/certs/peer.pem - --peer-key-file=/certs/peer-key.pem - --peer-client-cert-auth - --peer-trusted-ca-file=/certs/ca.pem - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 - --initial-cluster-token my-etcd-token - --initial-cluster-state new
        image: k8s.gcr.io/etcd-amd64:3.1.10
        livenessProbe:
        httpGet:
