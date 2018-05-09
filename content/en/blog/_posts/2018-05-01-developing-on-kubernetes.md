@@ -47,6 +47,7 @@ Note that this is a tricky area since even for established technologies such as,
 [Draft](https://github.com/Azure/draft) aims to help you get started deploying any app to Kubernetes. It is capable of applying heuristics as to what programming language your app is written in and generates a Dockerfile along with a Helm chart. It then runs the build for you and deploys resulting image to the target cluster via the Helm chart. It also allows user to setup port forwarding to localhost very easily.
 
 Implications:
+
 * User can customise the chart and Dockerfile templates however they like, or even create a [custom pack](https://github.com/Azure/draft/blob/master/docs/reference/dep-003.md) (with Dockerfile, the chart and more) for future use
 * It’s not very simple to guess how just any app is supposed to be built, in some cases user may need to tweak Dockerfile and the Helm chart that Draft generates
 * With [Draft version 0.12.0](https://github.com/Azure/draft/releases/tag/v0.12.0) or older, every time user wants to test a change, they need to wait for Draft to copy the code to the cluster, then run the build, push the image and release updated chart; this can timely, but it results in an image being for every single change made by the user (whether it was committed to git or not)
@@ -58,14 +59,16 @@ Implications:
 * Can be used instead of Skaffold, and along the side of Squash
 
 More info:
-[Draft: Kubernetes container development made easy](http://blog.kubernetes.io/2017/05/draft-kubernetes-container-development.html)
-[Getting Started Guide](https://github.com/Azure/draft/blob/master/docs/getting-started.md)
+
+* [Draft: Kubernetes container development made easy](http://blog.kubernetes.io/2017/05/draft-kubernetes-container-development.html)
+* [Getting Started Guide](https://github.com/Azure/draft/blob/master/docs/getting-started.md)
 
 ### Skaffold
 
 [Skaffold](https://github.com/GoogleCloudPlatform/skaffold) is a tool that aims to provide portability for CI integrations with different build system, image registry and deployment tools. It is different from Draft, yet somewhat comparable. It has a basic capability for generating manifests, but it’s not a prominent feature. Skaffold is extendible and lets user pick tools for use in each of the steps in building and deploying their app.
 
 Implications:
+
 * Modular by design
 * Works independently of CI vendor, user doesn’t need Docker or Kubernetes plugin
 * Works without CI as such, i.e. from the developer’s laptop
@@ -75,13 +78,16 @@ Implications:
 * Can be used instead of Draft, and along the side with most other tools
 
 More info:
+
 * [Introducing Skaffold: Easy and repeatable Kubernetes development](https://cloudplatform.googleblog.com/2018/03/introducing-Skaffold-Easy-and-repeatable-Kubernetes-development.html)
 * [Getting Started Guide](https://github.com/GoogleCloudPlatform/skaffold#getting-started-with-local-tooling)
 
 ### Squash
+
 [Squash](https://github.com/solo-io/squash) consists of a debug server that is fully integrated with Kubernetes, and a IDE plugin. It allows you to insert breakpoints and do all the fun stuff you are used to doing when debugging an application using an IDE. It bridges IDE debugging experience with your Kubernetes cluster by allowing you to attach the debugger to a pod running in your Kubernetes cluster.
 
 Implications:
+
 * Can be used independently of other tools you chose
 * Requires a privileged DaemonSet
 * Integrates with popular IDEs
@@ -91,14 +97,16 @@ Implications:
 * It can be used with either local or remote Kubernetes cluster
 
 More info:
+
 * [Squash: A Debugger for Kubernetes Apps](https://www.youtube.com/watch?v=5TrV3qzXlgI)
-* [Getting Started Guide](https://github.com/solo-io/squash/blob/master/docs/getting-started.md):w
+* [Getting Started Guide](https://github.com/solo-io/squash/blob/master/docs/getting-started.md)
 
 ### Telepresence
 
 [Telepresence](https://www.telepresence.io/) connects containers running on developer’s workstation with a remote Kubernetes cluster using a two-way proxy and emulates in-cluster environment as well as provides access to config maps and secrets. It aims to improve iteration time for container app development by eliminating the need for deploying app to the cluster and leverages local container to abstract network and filesystem interface in order to make it appear as if the app was running in the cluster.
 
 Implications:
+
 * It can be used independently of other tools you chose
 * Using together with Squash is possible, although Squash would have to be used for pods in the cluster, while conventional/local debugger would need to be used for debugging local container that’s connected to the cluster via Telepresence
 * Telepresence imposes some network latency
@@ -107,6 +115,7 @@ Implications:
 * It is most commonly used with a remote Kubernetes cluster, but can be used with a local one also
 
 More info:
+
 * [Telepresence: fast, realistic local development for Kubernetes microservices](https://www.telepresence.io/)
 * [Getting Started Guide](https://www.telepresence.io/tutorials/docker)
 * [How It Works](https://www.telepresence.io/discussion/how-it-works)
@@ -116,6 +125,7 @@ More info:
 [Ksync](https://github.com/vapor-ware/ksync) synchronizes application code (and configuration) between your local machine and the container running in Kubernetes, akin to what [oc rsync](https://docs.openshift.com/container-platform/3.9/dev_guide/copy_files_to_container.html) does in OpenShift. It aims to improve iteration time for app development by eliminating build and deployment steps.
 
 Implications:
+
 * It bypasses container image build and revision control
 * Compiled language users have to run builds inside the pod (TBC)
 * Two-way sync – remote files are copied to local directory
@@ -126,6 +136,7 @@ Implications:
 * Node has to use Docker with overlayfs2 – no other CRI implementations are supported at the time of writing
 
 More info:
+
 * [Getting Started Guide](https://github.com/vapor-ware/ksync#getting-started)
 * [How It Works](https://github.com/vapor-ware/ksync/blob/master/docs/architecture.md)
 * [Katacoda scenario to try out ksync in your browser](https://www.katacoda.com/vaporio/scenarios/ksync)
