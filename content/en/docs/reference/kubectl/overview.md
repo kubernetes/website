@@ -5,7 +5,7 @@ approvers:
 title: Overview of kubectl
 ---
 
-`kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
+`kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/tools/install-kubectl/).
 
 ## Syntax
 
@@ -79,8 +79,6 @@ Operation       | Syntax    |       Description
 `stop`        | `kubectl stop` | Deprecated: Instead, see `kubectl delete`.
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 
-Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
-
 ## Resource types
 
 The following table includes a list of all the supported resource types and their abbreviated aliases:
@@ -128,7 +126,7 @@ Resource type    | Abbreviated alias
 
 ## Output options
 
-Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
+Use the following sections for information about how you can format or sort the output of certain commands.
 
 ### Formatting output
 
@@ -147,8 +145,8 @@ Output format | Description
 `-o=custom-columns=<spec>` | Print a table using a comma separated list of [custom columns](#custom-columns).
 `-o=custom-columns-file=<filename>` | Print a table using the [custom columns](#custom-columns) template in the `<filename>` file.
 `-o=json`     | Output a JSON formatted API object.
-`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/user-guide/jsonpath) expression.
-`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/user-guide/jsonpath) expression in the `<filename>` file.
+`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
+`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath/) expression in the `<filename>` file.
 `-o=name`     | Print only the resource name and nothing else.
 `-o=wide`     | Output in the plain-text format with any additional information. For pods, the node name is included.
 `-o=yaml`     | Output a YAML formatted API object.
@@ -158,8 +156,6 @@ Output format | Description
 In this example, the following command outputs the details for a single pod as a YAML formatted object:
 
 `$ kubectl get pod web-pod-13je7 -o=yaml`
-
-Remember: See the [kubectl](/docs/user-guide/kubectl/) reference documentation for details about which output format is supported by each command.
 
 #### Custom columns
 
@@ -214,7 +210,7 @@ pod-name   1/1       Running             0          1m
 
 ### Sorting list objects
 
-To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag to a supported `kubectl` command. Sort your objects by specifying any numeric or string field with the `--sort-by` flag. To specify a field, use a [jsonpath](/docs/user-guide/jsonpath) expression.
+To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag to a supported `kubectl` command. Sort your objects by specifying any numeric or string field with the `--sort-by` flag. To specify a field, use a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
 
 #### Syntax
 
@@ -337,8 +333,3 @@ $ kubectl logs <pod-name>
 // Start streaming the logs from pod <pod-name>. This is similar to the 'tail -f' Linux command.
 $ kubectl logs -f <pod-name>
 ```
-
-
-## Next steps
-
-Start using the [kubectl](/docs/user-guide/kubectl/) commands.
