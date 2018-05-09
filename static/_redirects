@@ -170,10 +170,6 @@
 /docs/hellonode/     /docs/tutorials/stateless-application/hello-minikube/ 301
 /docs/home/coreos/     /docs/getting-started-guides/coreos/ 301
 /docs/home/deprecation-policy/     /docs/reference/deprecation-policy/ 301
-/docs/reference/federation/extensions/v1beta1/definitions/     /docs/reference/generated/federation/extensions/v1beta1/definitions/ 301
-/docs/reference/federation/extensions/v1beta1/operations/     /docs/reference/generated/federation/extensions/v1beta1/operations/ 301
-/docs/reference/federation/v1/definitions/     /docs/reference/generated/federation/v1/definitions/ 301
-/docs/reference/federation/v1/operations/     /docs/reference/generated/federation/v1/operations/ 301
 /docs/reference/federation/v1beta1/definitions/     /docs/reference/federation/extensions/v1beta1/definitions/ 301
 /docs/reference/federation/v1beta1/operations/     /docs/reference/federation/extensions/v1beta1/operations/ 301
 /docs/reference/generated/kubectl/kubectl-options/     /docs/reference/generated/kubectl/kubectl/ 301
