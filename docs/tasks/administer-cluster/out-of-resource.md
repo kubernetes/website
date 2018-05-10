@@ -300,7 +300,7 @@ Consider the following scenario:
 
 * Node memory capacity: `10Gi`
 * Operator wants to reserve 10% of memory capacity for system daemons (kernel, `kubelet`, etc.)
-* Operator wants to evict Pods at 95% memory utilization to reduce thrashing and incidence of system OOM.
+* Operator wants to evict Pods at 95% memory utilization to reduce incidence of system OOM.
 
 To facilitate this scenario, the `kubelet` would be launched as follows:
 
