@@ -79,6 +79,7 @@ few commands. These solutions are actively developed and have active community s
 * [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
 * [Madcore.Ai](https://madcore.ai/)
 * [Kubermatic](https://cloud.kubermatic.io)
+* [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 
 # On-Premises turnkey cloud solutions
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
@@ -88,6 +89,7 @@ few commands.
 * [Kubermatic](https://www.loodse.com)
 * [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
 * [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
+* [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 
 # Custom Solutions
 
@@ -115,6 +117,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [CoreOS on AWS or GCE](/docs/getting-started-guides/coreos/)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
 * [Kubespray](/docs/getting-started-guides/kubespray/)
+* [Rancher Kubernetes Engine (RKE)](https://github.com/rancher/rke)
 
 ## On-Premises VMs
 
@@ -183,6 +186,7 @@ Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/gettin
 oVirt                |              |        |             | [docs](/docs/getting-started-guides/ovirt/)                                  |  Community ([@simon3z](https://github.com/simon3z))
 any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch/)                                |  Community ([@erictune](https://github.com/erictune))
 any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
+any                  | RKE          | multi-support    | flannel or canal         | [docs](https://rancher.com/docs/rancher/v2.x/en/quick-start-guide/)                                |  [Commercial](https://rancher.com/what-is-rancher/overview/) and [Community](https://github.com/rancher/rancher)
 
 **Note**: The above table is ordered by version test/used in nodes, followed by support level.
 
