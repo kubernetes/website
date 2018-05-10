@@ -120,6 +120,8 @@ etcd:
 kubeProxy:
   config:
     mode: <value|string>
+    bindAddress: <address|string>
+    clusterCIDR: <cidr>
 networking:
   dnsDomain: <string>
   serviceSubnet: <cidr>
@@ -165,6 +167,11 @@ featureGates:
   <feature>: <bool>
 ```
 
+### Adding kube-proxy parameters {#kube-proxy}
+
+For information about kube-proxy parameters in the MasterConfiguration see:
+- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/kubeproxyconfig/v1alpha1#KubeProxyConfiguration)
+
 ### Passing custom arguments to control plane components {#custom-args}
 
 If you would like to override or extend the behaviour of a control plane component, you can provide
@@ -183,10 +190,8 @@ apiServerExtraArgs:
 
 To customize the scheduler or controller-manager, use `schedulerExtraArgs` and `controllerManagerExtraArgs` respectively.
 
-More information on custom arguments can be found here:
-- [kube-apiserver](/docs/admin/kube-apiserver/)
-- [kube-controller-manager](/docs/admin/kube-controller-manager/)
-- [kube-scheduler](/docs/admin/kube-scheduler/)
+For more information on parameters for the controller-manager and scheduler, see:
+- [high-availability](/docs/setup/independent/high-availability)
 
 ### Using custom images {#custom-images}
 
