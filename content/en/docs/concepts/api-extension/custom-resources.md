@@ -147,7 +147,7 @@ Typically, CRDs are a good fit if:
 CRDs are easier to create than Aggregated APIs.
 
 | Custom Resource Definitions | Aggregated API |
-|-|-|
+| --------------------------- | -------------- |
 | Do not require programming. Users can choose any language for a CRD controller. | Requires programming in Go and building binary and image. Users can choose any language for a CRD controller. |
 | No additional service to run; CRs are handled by API Server. | An additional service to create and that could fail. |
 | No ongoing support once the CRD is created. Any bug fixes are picked up as part of normal Kubernetes Master upgrades. | May need to periodically pickup bug fixes from upstream and rebuild and update the Aggregated APIserver. |
