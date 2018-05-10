@@ -3,12 +3,10 @@ title: cloud-controller-manager
 notitle: true
 weight: 90
 ---
+
 ## cloud-controller-manager
 
-
-
 ### Synopsis
-
 
 The Cloud controller manager is a daemon that embeds
 the cloud specific control loops shipped with Kubernetes.
