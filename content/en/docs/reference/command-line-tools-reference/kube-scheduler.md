@@ -219,3 +219,5 @@ kube-scheduler
     <tr>
       <td></td><td style="line-height: 130%">Print version information and quit</td>
     </tr>
+  </tbody>
+</table>
