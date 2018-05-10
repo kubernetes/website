@@ -3,6 +3,7 @@ title: Workloads API changes in versions 1.8 and 1.9
 approvers:
 - steveperry-53
 - kow3ns
+weight: 70
 ---
 
 ## Overview
