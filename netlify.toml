@@ -4,7 +4,7 @@ command = "hugo"
 
 [context.production.environment]
 HUGO_BASEURL = "https://kubernetes.io/"
-HUGO_VERSION = "0.40.2"
+HUGO_VERSION = "0.40.3"
 HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
 
@@ -12,11 +12,11 @@ HUGO_ENABLEGITINFO = "true"
 command = "hugo -b $DEPLOY_PRIME_URL"
 
 [context.deploy-preview.environment]
-HUGO_VERSION = "0.40.2"
+HUGO_VERSION = "0.40.3"
 
 [context.branch-deploy]
 command = "hugo -b $DEPLOY_PRIME_URL"
 
 [context.branch-deploy.environment]
-HUGO_VERSION = "0.40.2"
+HUGO_VERSION = "0.40.3"
 
