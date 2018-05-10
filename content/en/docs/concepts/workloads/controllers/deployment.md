@@ -70,7 +70,7 @@ The `template` field contains the following instructions:
 To create this Deployment, run the following command:
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/kubernetes/website/master/docs/concepts/workloads/controllers/nginx-deployment.yaml
+kubectl create -f  https://raw.githubusercontent.com/kubernetes/website/master/content/en/docs/concepts/workloads/controllers/nginx-deployment.yaml
 ```
 
 {{< note >}}
