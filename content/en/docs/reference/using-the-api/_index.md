@@ -1,4 +1,4 @@
 ---
-title: "Using the API"
+title: "Using the APIs"
 toc-hide: true
 ---
