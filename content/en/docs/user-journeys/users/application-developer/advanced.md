@@ -30,6 +30,7 @@ Now you know the set of API objects that Kubernetes provides. Understanding the 
 #### Container-level features
 
 As you may know, it's an antipattern to migrate an entire app (e.g. containerized Rails app, MySQL database, and all) into a single Pod. That being said, there are some very useful patterns that go beyond a 1:1 correspondence between a container and its Pod:
+
 * **Sidecar container**: Although your Pod should still have a single main container, you can add a secondary container that acts as a helper (see a {{< link text="logging example" url="/docs/concepts/cluster-administration/logging/#sidecar-container-with-a-logging-agent" >}}). Two containers within a single Pod can communicate {{< link text="via a shared volume" url="/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/" >}}.
 * **Init containers**: *Init containers* run before any of a Pod's *app containers* (such as main and sidecar containers). {{< link text="Read more" url="/docs/concepts/workloads/pods/init-containers/" >}}, see an {{< link text="nginx server example" url="/docs/tasks/configure-pod-container/configure-pod-initialization/" >}}, and {{< link text="learn how to debug these containers" url="/docs/tasks/debug-application-cluster/debug-init-containers/" >}}.
 
@@ -103,6 +104,7 @@ If you do not have a {{< glossary_tooltip text="cluster operator" term_id="clust
 #### References
 
 The following topics are also useful for building more complex applications:
+
 * {{< link text="Other points of extensibility within Kubernetes" url="/docs/concepts/overview/extending/" >}} -  A conceptual overview of where you can hook into the Kubernetes architecture.
 * {{< link text="Kubernetes Client Libraries" url="/docs/reference/client-libraries/" >}} - Useful for building apps that need to interact heavily with the Kubernetes API.
 
