@@ -41,7 +41,7 @@ external IP address.
 
 1. Run a Hello World application in your cluster:
 
-       kubectl run hello-world --replicas=5 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
+        kubectl run hello-world --replicas=5 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
 
     The preceding command creates a
     [Deployment](/docs/concepts/workloads/controllers/deployment/)
@@ -53,21 +53,21 @@ external IP address.
 
 1. Display information about the Deployment:
 
-       kubectl get deployments hello-world
-       kubectl describe deployments hello-world
+        kubectl get deployments hello-world
+        kubectl describe deployments hello-world
 
 1. Display information about your ReplicaSet objects:
 
-       kubectl get replicasets
-       kubectl describe replicasets
+        kubectl get replicasets
+        kubectl describe replicasets
 
 1. Create a Service object that exposes the deployment:
 
-       kubectl expose deployment hello-world --type=LoadBalancer --name=my-service
+        kubectl expose deployment hello-world --type=LoadBalancer --name=my-service
 
 1. Display information about the Service:
 
-       kubectl get services my-service
+        kubectl get services my-service
 
     The output is similar to this:
 
@@ -79,7 +79,7 @@ external IP address.
 
 1. Display detailed information about the Service:
 
-       kubectl describe services my-service
+        kubectl describe services my-service
 
     The output is similar to this:
 
@@ -121,7 +121,7 @@ external IP address.
 1. Use the external IP address (`LoadBalancer Ingress`) to access the Hello
    World application:
 
-       curl http://<external-ip>:<port>
+        curl http://<external-ip>:<port>
 
     where `<external-ip>` is the external IP address (`LoadBalancer Ingress`)
     of your Service, and `<port>` is the value of `Port` in your Service
@@ -140,12 +140,12 @@ external IP address.
 
 To delete the Service, enter this command:
 
-    kubectl delete services my-service
+        kubectl delete services my-service
 
 To delete the Deployment, the ReplicaSet, and the Pods that are running
 the Hello World application, enter this command:
 
-    kubectl delete deployment hello-world
+        kubectl delete deployment hello-world
 
 {{% /capture %}}
 
@@ -155,7 +155,3 @@ the Hello World application, enter this command:
 Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 {{% /capture %}}
-
-
-
-
