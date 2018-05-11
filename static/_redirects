@@ -172,6 +172,16 @@
 /docs/home/deprecation-policy/     /docs/reference/deprecation-policy/ 301
 /docs/reference/federation/v1beta1/definitions/     /docs/reference/federation/extensions/v1beta1/definitions/ 301
 /docs/reference/federation/v1beta1/operations/     /docs/reference/federation/extensions/v1beta1/operations/ 301
+
+/docs/reference/generated/cloud-controller-manager/     /docs/reference/command-line-tools-reference/cloud-controller-manager/ 301
+/docs/reference/generated/federation-apiserver/     /docs/reference/command-line-tools-reference/federation-apiserver/ 301
+/docs/reference/generated/federation-controller-manager/     /docs/reference/command-line-tools-reference/federation-controller-manager/ 301
+/docs/reference/generated/kubelet/     /docs/reference/command-line-tools-reference/kubelet/ 301
+/docs/reference/generated/kube-apiserver/     /docs/reference/command-line-tools-reference/kube-apiserver/ 301
+/docs/reference/generated/kube-controller-manager/     /docs/reference/command-line-tools-reference/kube-controller-manager/ 301
+/docs/reference/generated/kube-proxy/     /docs/reference/command-line-tools-reference/kube-proxy/ 301
+/docs/reference/generated/kube-scheduler/     /docs/reference/command-line-tools-reference/kube-scheduler/ 301
+
 /docs/reference/generated/kubectl/kubectl-options/     /docs/reference/generated/kubectl/kubectl/ 301
 /docs/reference/generated/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 
