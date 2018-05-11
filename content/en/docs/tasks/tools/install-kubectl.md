@@ -52,7 +52,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 1. If you are on Ubuntu or one of other Linux distributions that support [snap](https://snapcraft.io/docs/core/install) package manager, you can install with:
 
-       sudo snap install kubectl --classic
+        sudo snap install kubectl --classic
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
@@ -60,7 +60,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 1. If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install with:
 
-       brew install kubectl
+        brew install kubectl
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
@@ -68,8 +68,8 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 1. If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update with:
 
-       Install-Script -Name install-kubectl -Scope CurrentUser -Force
-       install-kubectl.ps1 [-DownloadLocation <path>]
+        Install-Script -Name install-kubectl -Scope CurrentUser -Force
+        install-kubectl.ps1 [-DownloadLocation <path>]
 
 If no Downloadlocation is specified, kubectl will be installed in users temp Directory
 2. The installer creates $HOME/.kube and instructs it to create a config file
@@ -81,15 +81,15 @@ re-run install-kubectl.ps1 to install latest binaries
 
 1. If you are on Windows and using [Chocolatey](https://chocolatey.org) package manager, you can install with:
 
-       choco install kubernetes-cli
+        choco install kubernetes-cli
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 3. Configure kubectl to use a remote Kubernetes cluster:
 
-       cd C:\users\yourusername (Or wherever your %HOME% directory is)
-       mkdir .kube
-       cd .kube
-       New-Item config -type file
+        cd C:\users\yourusername (Or wherever your %HOME% directory is)
+        mkdir .kube
+        cd .kube
+        New-Item config -type file
 
 Edit the config file with a text editor of your choice, such as Notepad for example.
 
@@ -100,7 +100,7 @@ kubectl can be installed as part of the Google Cloud SDK.
 1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
 2. Run the following command to install `kubectl`:
 
-       gcloud components install kubectl
+        gcloud components install kubectl
 
 3. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
