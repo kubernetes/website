@@ -1,9 +1,8 @@
 ---
+approvers:
+- sig-cluster-lifecycle-kubeadm-approvers
 reviewers:
-- mikedanese
-- luxas
-- errordeveloper
-- jbeda
+- sig-cluster-lifecycle-kubeadm-reviewers
 title: Creating HA clusters with kubeadm
 content_template: templates/task
 ---

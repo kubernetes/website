@@ -1,8 +1,8 @@
 ---
 approvers:
-- mikedanese
-- luxas
-- jbeda
+- sig-cluster-lifecycle-kubeadm-approvers
+reviewers:
+- sig-cluster-lifecycle-kubeadm-reviewers
 title: kubeadm join
 content_template: templates/concept
 weight: 30

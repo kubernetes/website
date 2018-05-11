@@ -1,9 +1,8 @@
 ---
+approvers:
+- sig-cluster-lifecycle-kubeadm-approvers
 reviewers:
-- mikedanese
-- luxas
-- errordeveloper
-- jbeda
+- sig-cluster-lifecycle-kubeadm-reviewers
 title: Using kubeadm to Create a Cluster
 content_template: templates/task
 ---
