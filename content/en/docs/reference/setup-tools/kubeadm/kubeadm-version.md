@@ -8,7 +8,7 @@ content_template: templates/concept
 weight: 80
 ---
 {{% capture overview %}}
-This command prints the verison of kubeadm.
+This command prints the version of kubeadm.
 {{% /capture %}}
 
 {{% capture body %}}
