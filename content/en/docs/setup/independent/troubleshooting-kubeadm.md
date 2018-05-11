@@ -73,6 +73,24 @@ kubectl -n ${NAMESPACE} logs ${POD_NAME} -c ${CONTAINER_NAME}
   
 - control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
 
+#### kubeadm blocks when removing managed containers
+
+The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
+
+```bash
+sudo kubeadm reset
+[preflight] Running pre-flight checks
+[reset] Stopping the kubelet service
+[reset] Unmounting mounted directories in "/var/lib/kubelet"
+[reset] Removing kubernetes-managed containers
+(block)
+```
+
+A possible solution is to restart the Docker service and then re-run `kubeadm reset`:
+```bash
+sudo systemctl restart docker.service
+sudo kubeadm reset
+```
 
 #### Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
 
