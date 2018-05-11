@@ -336,7 +336,7 @@ In order to set up a cluster where the master and worker nodes communicate with 
 
    `kubeadm init --apiserver-advertise-address=<private-master-ip>`
 
-2. When a worker node has been provisioned, add a flag to `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` that specifies the private IP of the worker node:
+2. When a master or worker node has been provisioned, add a flag to `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` that specifies the private IP of the worker node:
 
    `--node-ip=<private-node-ip>`
 
