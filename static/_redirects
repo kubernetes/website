@@ -174,10 +174,10 @@
 /docs/reference/federation/v1beta1/operations/     /docs/reference/federation/extensions/v1beta1/operations/ 301
 
 /docs/reference/generated/cloud-controller-manager/     /docs/reference/command-line-tools-reference/cloud-controller-manager/ 301
-/docs/reference/generated/federation-api-server/     /docs/reference/command-line-tools-reference/federation-api-server/ 301
+/docs/reference/generated/federation-apiserver/     /docs/reference/command-line-tools-reference/federation-apiserver/ 301
 /docs/reference/generated/federation-controller-manager/     /docs/reference/command-line-tools-reference/federation-controller-manager/ 301
 /docs/reference/generated/kubelet/     /docs/reference/command-line-tools-reference/kubelet/ 301
-/docs/reference/generated/kube-api-server/     /docs/reference/command-line-tools-reference/kube-api-server/ 301
+/docs/reference/generated/kube-apiserver/     /docs/reference/command-line-tools-reference/kube-apiserver/ 301
 /docs/reference/generated/kube-controller-manager/     /docs/reference/command-line-tools-reference/kube-controller-manager/ 301
 /docs/reference/generated/kube-proxy/     /docs/reference/command-line-tools-reference/kube-proxy/ 301
 /docs/reference/generated/kube-scheduler/     /docs/reference/command-line-tools-reference/kube-scheduler/ 301
