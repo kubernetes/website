@@ -563,7 +563,7 @@ value "Filesystem") to expose the local volume as a raw block device. The
 
 When using local volumes, it is recommended to create a StorageClass with
 `volumeBindingMode` set to `WaitForFirstConsumer`. See the
-[example](storage-classes.md#local). Delaying volume binding ensures
+[example](/docs/concepts/storage/storage-classes/#local). Delaying volume binding ensures
 that the PersistentVolumeClaim binding decision will also be evaluated with any
 other node constraints the Pod may have, such as node resource requirements, node
 selectors, Pod affinity, and Pod anti-affinity.
