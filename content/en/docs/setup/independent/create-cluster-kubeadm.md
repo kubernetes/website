@@ -115,7 +115,7 @@ The master is the machine where the control plane components run, including
 etcd (the cluster database) and the API server (which the kubectl CLI
 communicates with).
 
-To initialize the master, pick one of the machines you previously installed
+To initialize the master, first choose the pod network plugin you want and check if it requires any parameters to be passed to kubeadm while initializing the cluster. Pick one of the machines you previously installed
 kubeadm on, and run:
 
 ```bash
