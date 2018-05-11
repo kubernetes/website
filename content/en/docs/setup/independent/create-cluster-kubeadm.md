@@ -284,7 +284,7 @@ to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some
 please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
 ```
 
  - For more information about `flannel`, please see [here](https://github.com/coreos/flannel).
