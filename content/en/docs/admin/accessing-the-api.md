@@ -6,7 +6,7 @@ reviewers:
 title: Controlling Access to the Kubernetes API
 ---
 
-Users [access the API](/docs/user-guide/accessing-the-cluster) using `kubectl`,
+Users [access the API](docs/tasks/access-application-cluster/access-cluster/) using `kubectl`,
 client libraries, or by making REST requests.  Both human users and
 [Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/) can be
 authorized for API access.
@@ -132,24 +132,24 @@ By default the Kubernetes API server serves HTTP on 2 ports:
 
   1. `Localhost Port`:
 
-          - is intended for testing and bootstrap, and for other components of the master node
-            (scheduler, controller-manager) to talk to the API
-          - no TLS
-          - default is port 8080, change with `--insecure-port` flag.
-          - default IP is localhost, change with `--insecure-bind-address` flag.
-          - request **bypasses** authentication and authorization modules.
-          - request handled by admission control module(s).
-          - protected by need to have host access
+      - is intended for testing and bootstrap, and for other components of the master node
+        (scheduler, controller-manager) to talk to the API
+      - no TLS
+      - default is port 8080, change with `--insecure-port` flag.
+      - default IP is localhost, change with `--insecure-bind-address` flag.
+      - request **bypasses** authentication and authorization modules.
+      - request handled by admission control module(s).
+      - protected by need to have host access
 
   2. `Secure Port`:
 
-          - use whenever possible
-          - uses TLS.  Set cert with `--tls-cert-file` and key with `--tls-private-key-file` flag.
-          - default is port 6443, change with `--secure-port` flag.
-          - default IP is first non-localhost network interface, change with `--bind-address` flag.
-          - request handled by authentication and authorization modules.
-          - request handled by admission control module(s).
-          - authentication and authorization modules run.
+      - use whenever possible
+      - uses TLS.  Set cert with `--tls-cert-file` and key with `--tls-private-key-file` flag.
+      - default is port 6443, change with `--secure-port` flag.
+      - default IP is first non-localhost network interface, change with `--bind-address` flag.
+      - request handled by authentication and authorization modules.
+      - request handled by admission control module(s).
+      - authentication and authorization modules run.
 
 When the cluster is created by `kube-up.sh`, on Google Compute Engine (GCE),
 and on several other cloud providers, the API server serves on port 443.  On
