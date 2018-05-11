@@ -78,6 +78,8 @@ A `RoleBinding` may reference a `Role` in the same namespace.
 The following `RoleBinding` grants the "pod-reader" role to the user "jane" within the "default" namespace.
 This allows "jane" to read pods in the "default" namespace.
 
+`roleRef` is how you will actually create the binding.  The `kind` will be either `Role` or `ClusterRole`, and the `name` will reference the name of the specific `Role` or `ClusterRole` you want. In the example below, this RoleBinding is using `roleRef` to bind the user "jane" to the `Role` created above named `pod-reader`.
+
 ```yaml
 # This role binding allows "jane" to read pods in the "default" namespace.
 kind: RoleBinding
@@ -90,8 +92,8 @@ subjects:
   name: jane # Name is case sensitive
   apiGroup: rbac.authorization.k8s.io
 roleRef:
-  kind: Role
-  name: pod-reader
+  kind: Role #this must be Role or ClusterRole
+  name: pod-reader # this must match the name of the Role or ClusterRole you wish to bind to
   apiGroup: rbac.authorization.k8s.io
 ```
 
