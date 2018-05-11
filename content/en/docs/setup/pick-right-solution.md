@@ -64,6 +64,8 @@ a Kubernetes cluster from scratch.
 
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service) provides enterprise-grade Kubernetes for both on-premises and public clouds.  PKS enables on-demand provisioning of Kubernetes clusters, multi-tenancy and fully automated day-2 operations.
 
+* [Oracle Container Engine for Kubernetes](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengoverview.htm) is a fully-managed, scalable, and highly available service that you can use to deploy your containerized applications to the cloud.
+
 # Turnkey Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
@@ -80,6 +82,7 @@ few commands. These solutions are actively developed and have active community s
 * [Madcore.Ai](https://madcore.ai/)
 * [Kubermatic](https://cloud.kubermatic.io)
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
+* [Oracle Container Engine for K8s] (https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
 
 # On-Premises turnkey cloud solutions
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
