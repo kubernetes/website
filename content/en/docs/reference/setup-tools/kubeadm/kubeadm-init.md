@@ -117,6 +117,12 @@ etcd:
     <argument>: <value|string>
     <argument>: <value|string>
   image: <string>
+  serverCertSANs:
+  - <name1|string>
+  - <name2|string>
+  peerCertSANs:
+  - <name1|string>
+  - <name2|string>
 kubeProxy:
   config:
     mode: <value|string>
