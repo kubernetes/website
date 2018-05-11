@@ -346,7 +346,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 
 ## {{< tabs name="lb_mode" >}}
 {{% tab name="Choose one..." %}}
-Please select one of the tabs to see installation instructions for the respective way to run etcd.
+Please select one of the tabs to see installation instructions for the respective way to set up a virtual IP.
 {{% /tab %}}
 {{% tab name="Cloud" %}}
 Some examples of cloud provider solutions are:
@@ -455,7 +455,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
    apiVersion: kubeadm.k8s.io/v1alpha1
    kind: MasterConfiguration
    api:
-     advertiseAddress: <private-ip>
+     advertiseAddress: <virtual-ip>
    etcd:
      endpoints:
      - https://<etcd0-ip-address>:2379
@@ -467,7 +467,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
    networking:
      podSubnet: <podCIDR>
    apiServerCertSANs:
-   - <load-balancer-ip>
+   - <virtual-ip>
    apiServerExtraArgs:
      apiserver-count: "3"
    EOF
@@ -478,7 +478,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
    - `<private-ip>` with the private IPv4 of the master server.
    - `<etcd0-ip>`, `<etcd1-ip>` and `<etcd2-ip>` with the IP addresses of your three etcd nodes
    - `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
-   - `<load-balancer-ip>` with the virtual IP set up in the load balancer. Please read [setting up a master load balancer](/docs/setup/independent/high-availability/#set-up-master-load-balancer) section of the docs for more information.
+   - `<virtual-ip>` with the virtual IP. Please read [setting up a master load balancer](/docs/setup/independent/high-availability/#set-up-master-load-balancer) section of the docs for more information.
 
    **Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`. For more information, see [the documentation](/docs/admin/high-availability/#endpoint-reconciler).
 
@@ -511,6 +511,22 @@ When this is done, you can follow the [previous step](#kubeadm-init-master0) to 
 ## Add `master1` and `master2` to load balancer
 
 Once kubeadm has provisioned the other masters, you can add them to the load balancer pool.
+
+## Configure kubelet, kube-scheduler and kube-controller-manager to use the virtual IP
+
+After bootstrapping the master nodes using `kubeadm`, the services `kubelet`, `kube-scheduler` and `kube-controller-manager` still connect to local IPs for the API server rather than the virtual IP. This needs to be fixed in the local configuration files on the master nodes. Make sure you replace `<virtual-ip>` with the virtual IP. Patch the configuration files and restart `kubelet` on all master nodes:
+
+   ```shell
+   sudo sed -i 's#server:.*#server: https://<virtual-ip>:6443#g' /etc/kubernetes/kubelet.conf /etc/kubernetes/scheduler.conf /etc/kubernetes/controller-manager.conf
+   sudo systemctl restart kubelet
+   ```
+
+Now restart all instances of `kube-controller-manager` and `kube-scheduler`:
+
+   ```shell
+   kubectl delete pod -n kube-system -l component=kube-controller-manager
+   kubectl delete pod -n kube-system -l component=kube-scheduler
+   ```
 
 ## Install CNI network
 
