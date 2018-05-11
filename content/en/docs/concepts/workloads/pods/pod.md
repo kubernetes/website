@@ -58,7 +58,7 @@ that means that it exists as long as that pod (with that UID) exists. If that
 pod is deleted for any reason, even if an identical replacement is created, the
 related thing (e.g. volume) is also destroyed and created anew.
 
-{{< figure src="//images/docs/pod.svg" title="pod diagram" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" title="pod diagram" width="50%" >}}
 
 *A multi-container pod that contains a file puller and a
 web server that uses a persistent volume for shared storage between the containers.*
