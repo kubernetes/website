@@ -187,7 +187,7 @@ Summary of container benefits:
 * **Resource utilization**:
     High efficiency and density.
 
-## What does *Kubernetes* mean? K8s?
+## What does Kubernetes mean? K8s?
 
 The name **Kubernetes** originates from Greek, meaning *helmsman* or
 *pilot*, and is the root of *governor* and
