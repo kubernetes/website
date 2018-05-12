@@ -219,6 +219,7 @@ endpoints. You can switch to the new reconciler by adding the flag
 {{< feature-state state="alpha" >}}
 
 If you want to know more, you can check the following resources:
+
 - [issue kubernetes/kubernetes#22609](https://github.com/kubernetes/kubernetes/issues/22609),
   which gives additional context
 - [master/reconcilers/mastercount.go](https://github.com/kubernetes/kubernetes/blob/dd9981d038012c120525c9e6df98b3beb3ef19e1/pkg/master/reconcilers/mastercount.go#L63),
