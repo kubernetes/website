@@ -185,6 +185,13 @@
 /docs/reference/generated/kubectl/kubectl-options/     /docs/reference/generated/kubectl/kubectl/ 301
 /docs/reference/generated/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 
+/docs/reference/generated/kubefed/     /docs/reference/setup-tools/kubefed/kubefed/ 301
+/docs/reference/generated/kubefed_init/     /docs/reference/setup-tools/kubefed/kubefed_init/ 301
+/docs/reference/generated/kubefed_join/     /docs/reference/setup-tools/kubefed/kubefed_join/ 301
+/docs/reference/generated/kubefed_options/     /docs/reference/setup-tools/kubefed/kubefed_options/ 301
+/docs/reference/generated/kubefed_unjoin/     /docs/reference/setup-tools/kubefed/kubefed_unjoin/ 301
+/docs/reference/generated/kubefed_version/     /docs/reference/setup-tools/kubefed/kubefed_version/ 301
+
 /docs/reporting-security-issues/     /security/ 301
 
 /docs/resources-reference/1_6/*     /docs/resources-reference/v1.6/ 301
