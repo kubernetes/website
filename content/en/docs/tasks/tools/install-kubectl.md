@@ -107,7 +107,7 @@ kubectl can be installed as part of the Google Cloud SDK.
 ## Install kubectl binary via curl
 
 {{< tabs name="kubectl_install_curl" >}}
-{{% tab name="macos" %}}
+{{% tab name="macOS" %}}
 1. Download the latest release with the command:
 
     ```		 
@@ -134,7 +134,7 @@ kubectl can be installed as part of the Google Cloud SDK.
     sudo mv ./kubectl /usr/local/bin/kubectl
     ```
 {{% /tab %}}
-{{% tab name="linux" %}}
+{{% tab name="Linux" %}}
 
 1. Download the latest release with the command:
 
@@ -162,7 +162,7 @@ kubectl can be installed as part of the Google Cloud SDK.
     sudo mv ./kubectl /usr/local/bin/kubectl
     ```
 {{% /tab %}}
-{{% tab  name="win" %}}
+{{% tab  name="Windows" %}}
 1. Download the latest release {{< param "fullversion" >}} from [this link](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
 
     Or if you have `curl` installed, use this command:
