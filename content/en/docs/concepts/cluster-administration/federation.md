@@ -4,6 +4,9 @@ content_template: templates/concept
 ---
 
 {{% capture overview %}}
+
+{{< include "federation-current-state.md" >}}
+
 This page explains why and how to manage multiple Kubernetes clusters using
 federation.
 {{% /capture %}}
