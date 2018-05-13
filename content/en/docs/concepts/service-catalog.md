@@ -3,7 +3,6 @@ title: Service Catalog
 reviewers:
 - chenopis
 content_template: templates/concept
-toc_hide: true
 ---
 
 {{% capture overview %}}
