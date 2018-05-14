@@ -274,7 +274,7 @@ kubelet
       <td colspan="2">--enforce-node-allocatable stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [pods]</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptible options are 'pods', 'system-reserved' & 'kube-reserved'. If the latter two options are specified, '--system-reserved-cgroup' & '--kube-reserved-cgroup' must also be set respectively. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details.</td>
+      <td></td><td style="line-height: 130%">A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptable options are 'pods', 'system-reserved' & 'kube-reserved'. If the latter two options are specified, '--system-reserved-cgroup' & '--kube-reserved-cgroup' must also be set respectively. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details.</td>
     </tr>
     <tr>
       <td colspan="2">--event-burst int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10</td>
@@ -352,7 +352,7 @@ kubelet
       <td colspan="2">--experimental-check-node-capabilities-before-mount</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">[Experimental] if set true, the kubelet will check the underlying node for required componenets (binaries, etc.) before performing the mount</td>
+      <td></td><td style="line-height: 130%">[Experimental] if set true, the kubelet will check the underlying node for required components (binaries, etc.) before performing the mount</td>
     </tr>
     <tr>
       <td colspan="2">--experimental-kernel-memcg-notification</td>
