@@ -238,7 +238,7 @@ rules:
 The following cloud providers have implemented CCMs: 
 
 * Digital Ocean
-* Oracle
+* [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
 * Azure
 * GCE
 * AWS
