@@ -6,7 +6,7 @@ approvers:
 title: Kubernetes API访问控制
 ---
 
-用户通过 `kubectl`、客户端库或者通过发送REST请求[访问API](/docs/user-guide/accessing-the-cluster)。 用户（自然人）和[Kubernetes服务账户](/docs/tasks/configure-pod-container/configure-service-account/) 都可以被授权进行API访问。
+用户通过 `kubectl`、客户端库或者通过发送REST请求[访问API](/docs/tasks/access-application-cluster/access-cluster/)。 用户（自然人）和[Kubernetes服务账户](/docs/tasks/configure-pod-container/configure-service-account/) 都可以被授权进行API访问。
 请求到达API服务器后会经过几个阶段，具体说明如图：
 
 ![Diagram of request handling steps for Kubernetes API request](/images/docs/admin/access-control-overview.svg)
@@ -111,24 +111,24 @@ Kubernetes 支持多种授权模块，例如ABAC模式，RBAC模式和 Webhook�
 
   1. `Localhost Port`:
 
-          - 用于测试和启动，以及管理节点的其他组件
-            (scheduler, controller-manager)与API的交互
-          - 没有TLS
-          - 默认值为8080，可以通过 `--insecure-port` 标记来修改。
-          - 默认的IP地址为localhost， 可以通过 `--insecure-bind-address`标记来修改。
-          - 请求会 **绕过** 认证和鉴权模块。
-          - 请求会被准入控制模块处理。
-          - 其访问需要主机访问的权限。
+      - 用于测试和启动，以及管理节点的其他组件
+        (scheduler, controller-manager)与API的交互
+      - 没有TLS
+      - 默认值为8080，可以通过 `--insecure-port` 标记来修改。
+      - 默认的IP地址为localhost， 可以通过 `--insecure-bind-address`标记来修改。
+      - 请求会 **绕过** 认证和鉴权模块。
+      - 请求会被准入控制模块处理。
+      - 其访问需要主机访问的权限。
 
   2. `Secure Port`:
 
-          - 尽可能使用该端口访问
-          - 应用 TLS。 可以通过 `--tls-cert-file` 设置证书， 通过 `--tls-private-key-file` 设置私钥。
-          - 默认值为6443，可以通过 `--secure-port` 标记来修改。
-          - 默认IP是首个非本地的网络接口地址，可以通过 `--bind-address` 标记来修改。
-          - 请求会经过认证和鉴权模块处理。
-          - 请求会被准入控制模块处理。
-          - 要求认证和授权模块正常运行。
+      - 尽可能使用该端口访问
+      - 应用 TLS。 可以通过 `--tls-cert-file` 设置证书， 通过 `--tls-private-key-file` 设置私钥。
+      - 默认值为6443，可以通过 `--secure-port` 标记来修改。
+      - 默认IP是首个非本地的网络接口地址，可以通过 `--bind-address` 标记来修改。
+      - 请求会经过认证和鉴权模块处理。
+      - 请求会被准入控制模块处理。
+      - 要求认证和授权模块正常运行。
 
 通过 `kube-up.sh`创建集群时， 对 Google Compute Engine (GCE)
 和一些其他的云供应商来说， API通过443端口提供服务。 对
