@@ -1027,7 +1027,7 @@ Kubernetes) to expose arbitrary storage systems to their container workloads.
 Please read the [CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for more information.
 
 CSI support was introduced as alpha in Kubernetes v1.9 and moved to beta in
-Kubernets v1.10.
+Kubernetes v1.10.
 
 Once a CSI compatible volume driver is deployed on a Kubernetes cluster, users
 may use the `csi` volume type to attach, mount, etc. the volumes exposed by the
