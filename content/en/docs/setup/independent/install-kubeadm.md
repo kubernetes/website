@@ -1,4 +1,8 @@
 ---
+approvers:
+- sig-cluster-lifecycle-kubeadm-approvers
+reviewers:
+- sig-cluster-lifecycle-kubeadm-reviewers
 title: Installing kubeadm
 content_template: templates/task
 ---

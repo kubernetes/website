@@ -61,16 +61,25 @@ aliases:
     - smarterclayton
     - soltysh
     - sttts
-  sig-cluster-lifecycle: #GH: sig-cluster-lifecycle-pr-reviews
-    - jbeda
+  sig-cluster-lifecycle-kubeadm-approvers: # Approving changes to kubeadm documentation
     - timothysc
     - lukemarsden
-    - pipejakob
-    - dmmcquay
-    - mattmoyer
     - luxas
     - roberthbailey
-    - medinatiger
+    - fabriziopandini
+  sig-cluster-lifecycle-kubeadm-reviewers: # Reviewing kubeadm documentation
+    - timothysc
+    - lukemarsden
+    - luxas
+    - roberthbailey
+    - fabriziopandini
+    - kad
+    - xiangpengzhao
+    - stealthybox
+    - liztio
+    - chuckha
+    - detiber
+    - dixudx
   sig-cluster-ops:
     - zehicle
     - jdumars
