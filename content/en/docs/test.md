@@ -75,7 +75,7 @@ culpa qui officia deserunt mollit anim id est laborum.
   than the bullet itself.
 
   ```bash
-  $ ls -l
+  ls -l
   ```
   
   - And a sub-list after some block-level content
@@ -140,7 +140,7 @@ To specify the language for the code block, put it directly after the first
 grouping of back-ticks:
 
 ```bash
-$ ls -l
+ls -l
 ```
 
 ## Links
@@ -160,13 +160,13 @@ character. The square brackets contain the image's alt text. Try to always use
 alt text so that people using screen readers can get some benefit from the
 image.
 
-![pencil icon](static/images/pencil.png)
+![pencil icon](/static/images/pencil.png)
 
 An image can also be a link. This time the pencil icon links to the Kubernetes
 website. Outer square brackets enclose the entire image tag, and the link target
 is in the parentheses at the end.
 
-[![pencil icon](static/images/pencil.png)](https://kubernetes.io)
+[![pencil icon](/static/images/pencil.png)](https://kubernetes.io)
 
 You can also use HTML for images, but it is not preferred.
 
@@ -222,9 +222,9 @@ A sidebar offsets text visually, but without the visual prominence of
 > You can even have code blocks.
 >
 > ```bash
-> $ sudo dmesg
+> sudo dmesg
 > ```
-
+>
 
 ### Admonitions
 
