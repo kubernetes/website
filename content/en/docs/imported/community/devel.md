@@ -13,7 +13,7 @@ Guide](http://kubernetes.io/docs/admin/).
 * **Contributor Guide**
   ([Please start here](https://github.com/kubernetes/community/tree/master/contributors/guide/README.md)) to learn about how to contribute to Kubernetes
 
-* **GitHub Issues** ([issues.md](https://github.com/kubernetes/community/tree/master/contributors/devel/issues.md)): How incoming issues are triaged.
+* **GitHub Issues** ([issues-triage.md](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md)): How incoming issues are triaged.
 
 * **Pull Request Process** ([/contributors/guide/pull-requests.md](https://github.com/kubernetes/community/tree/master/contributors/guide/pull-requests.md)): When and why pull requests are closed.
 
@@ -59,7 +59,7 @@ Guide](http://kubernetes.io/docs/admin/).
 * **API Conventions** ([api-conventions.md](https://github.com/kubernetes/community/tree/master/contributors/devel/api-conventions.md)):
   Defining the verbs and resources used in the Kubernetes API.
 
-* **API Client Libraries** ([client-libraries.md](https://github.com/kubernetes/community/tree/master/contributors/devel/client-libraries.md)):
+* **API Client Libraries** ([client-libraries](/docs/reference/client-libraries/)):
   A list of existing client libraries, both supported and user-contributed.
 
 
