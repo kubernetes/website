@@ -588,47 +588,58 @@ webhooks or other validating admission controllers will permit the request to fi
 If you disable the ValidatingAdmissionWebhook, you must also disable the
 `ValidatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1beta1`
 group/version via the `--runtime-config` flag (both are on by default in
-versions >= 1.9).
+versions 1.9 and later).
 
 
 ## Is there a recommended set of admission controllers to use?
 
 Yes.
-For Kubernetes >= 1.9.0, we strongly recommend running the following set of admission controllers (order matters for 1.9 but not >1.10):
+
+For Kubernetes version 1.10 and later, we recommend running the following set of admission controllers using the ```--enable-admission-plugins``` flag (**order doesn't matter**).
+
+Note: ```--admission-control``` was deprecated in 1.10 and replaced with ```--enable-admission-plugins```.
 
 ```shell
---admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota
+--enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota
 ```
 
-It's worth reiterating that in 1.9 and up, these happen in a mutating phase
+For Kubernetes 1.9 and earlier, we recommend running the following set of admission controllers using the ```--admission-control``` flag (**order matters**).
+
+* v1.9
+
+  ```shell
+  --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota
+  ```
+
+  * It's worth reiterating that in 1.9, these happen in a mutating phase
 and a validating phase, and that e.g. `ResourceQuota` runs in the validating
 phase, and therefore is the last admission controller to run.
 `MutatingAdmissionWebhook` appears before it in this list, because it runs
 in the mutating phase.
 
-For earlier versions, there was no concept of validating vs mutating and the
+    For earlier versions, there was no concept of validating vs mutating and the
 admission controllers ran in the exact order specified.
 
-For Kubernetes >= 1.6.0, we strongly recommend running the following set of admission controllers (order matters):
+* v1.6 - v1.8
 
-```shell
---admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds
-```
+  ```shell
+  --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds
+  ```
 
-For Kubernetes >= 1.4.0, we strongly recommend running the following set of admission controllers (order matters):
+* v1.4 - v1.5
 
-```shell
---admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota
-```
+  ```shell
+  --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota
+  ```
 
-For Kubernetes >= 1.2.0, we strongly recommend running the following set of admission controllers (order matters):
+* v1.2 - v1.3
 
-```shell
---admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota
-```
+  ```shell
+  --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota
+  ```
 
-For Kubernetes >= 1.0.0, we strongly recommend running the following set of admission controllers (order matters):
+* v1.0 - v1.1
 
-```shell
---admission-control=NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,PersistentVolumeLabel,ResourceQuota
-```
+  ```shell
+  --admission-control=NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,PersistentVolumeLabel,ResourceQuota
+  ```
