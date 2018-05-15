@@ -370,31 +370,9 @@ spec:
 
 ### gitRepo
 
-A `gitRepo` volume is an example of what can be done as a volume plugin.  It
-mounts an empty directory and clones a git repository into it for your Pod to
-use.  In the future, such volumes may be moved to an even more decoupled model,
-rather than extending the Kubernetes API for every such use case.
-
-Here is an example for gitRepo volume:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: server
-spec:
-  containers:
-  - image: nginx
-    name: nginx
-    volumeMounts:
-    - mountPath: /mypath
-      name: git-volume
-  volumes:
-  - name: git-volume
-    gitRepo:
-      repository: "git@somewhere:me/my-git-repository.git"
-      revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
-```
+The `gitRepo` volume type is deprecated. See [_"Configure a Pod with a Git Repo"_](
+/docs/tasks/configure-pod-container/configure-git-repo/) for examples of
+accessing a repo from within a container.
 
 ### glusterfs
 
