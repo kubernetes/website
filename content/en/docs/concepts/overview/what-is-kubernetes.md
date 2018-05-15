@@ -22,7 +22,7 @@ production workloads at
 scale](https://research.google.com/pubs/pub43438.html), combined with
 best-of-breed ideas and practices from the community.
 
-#### Why do I need Kubernetes and what can it do?
+## Why do I need Kubernetes and what can it do?
 
 Kubernetes has a number of features. It can be thought of as:
 * a container platform
@@ -37,7 +37,7 @@ Platform as a Service (PaaS) with the flexibility of Infrastructure as
 a Service (IaaS), and enables portability across infrastructure
 providers.
 
-#### How is Kubernetes a platform?
+## How is Kubernetes a platform?
 
 Even though Kubernetes provides a lot of functionality, there are
 always new scenarios that would benefit from new
@@ -69,7 +69,7 @@ This
 [design](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)
 has enabled a number of other systems to build atop Kubernetes.
 
-#### What Kubernetes is not
+## What Kubernetes is not
 
 Kubernetes is not a traditional, all-inclusive PaaS (Platform as a
 Service) system. Since Kubernetes operates at the container level
@@ -117,7 +117,7 @@ shouldn't matter how you get from A to C. Centralized control is also
 not required. This results in a system that is easier to use and more
 powerful, robust, resilient, and extensible.
 
-#### Why containers?
+## Why containers?
 
 Looking for reasons why you should be using containers?
 
@@ -187,7 +187,7 @@ Summary of container benefits:
 * **Resource utilization**:
     High efficiency and density.
 
-#### What does *Kubernetes* mean? K8s?
+## What does Kubernetes mean? K8s?
 
 The name **Kubernetes** originates from Greek, meaning *helmsman* or
 *pilot*, and is the root of *governor* and
