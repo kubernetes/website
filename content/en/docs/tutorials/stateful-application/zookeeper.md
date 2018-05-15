@@ -9,6 +9,7 @@ reviewers:
 - smarterclayton
 title: Running ZooKeeper, A Distributed System Coordinator
 content_template: templates/tutorial
+weight: 40
 ---
 
 {{% capture overview %}}
