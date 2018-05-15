@@ -8,8 +8,10 @@ This section of the Kubernetes documentation contains tutorials.
 A tutorial shows how to accomplish a goal that is larger than a single
 [task](/docs/tasks/). Typically a tutorial has several sections,
 each of which has a sequence of steps.
-Before walking through each tutorial, you may want to bookmark the 
+Before walking through each tutorial, you may want to bookmark the
 [Standardized Glossary](/docs/reference/glossary/) page for later references.
+
+## Basics
 
 * [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) is an in-depth interactive tutorial that helps you understand the Kubernetes system and try out some basic Kubernetes features.
 
@@ -17,25 +19,21 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
-* [Hello Minikube](/docs/tutorials/stateless-application/hello-minikube/)
+* [Hello Minikube](/docs/tutorials/hello-minikube/)
 
-#### Stateless Applications
+## Configuration
 
-* [Running a Stateless Application Using a Deployment](/docs/tutorials/stateless-application/run-stateless-application-deployment/)
+* [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
-* [Example: PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
-
-* [Using a Service to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address-service/)
+## Stateless Applications
 
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-#### Stateful Applications
+* [Example: Deploying PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
+
+## Stateful Applications
 
 * [StatefulSet Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
-
-* [Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/)
-
-* [Running a Replicated Stateful Application](/docs/tasks/run-application/run-replicated-stateful-application/)
 
 * [Example: WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 
@@ -43,7 +41,7 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 
-#### CI/CD Pipeline
+## CI/CD Pipeline
 
 * [Set Up a CI/CD Pipeline with Kubernetes Part 1: Overview](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/5/set-cicd-pipeline-kubernetes-part-1-overview)
 
@@ -53,15 +51,15 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Set Up CI/CD for a Distributed Crossword Puzzle App on Kubernetes (Part 4)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
 
-#### Connecting Applications
+## Clusters
 
-* [Connecting a Front End to a Back End Using a Service](/docs/tutorials/connecting-apps/connecting-frontend-backend/)
+[AppArmor](/docs/tutorials/clusters/apparmor/)
 
-#### Services
+## Services
 
 * [Using Source IP](/docs/tutorials/services/source-ip/)
 
-### What's next
+## What's next
 
 If you would like to write a tutorial, see
 [Using Page Templates](/docs/home/contribute/page-templates/)
