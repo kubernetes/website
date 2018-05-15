@@ -181,7 +181,7 @@ The following sequence diagram illustrates the steps involved in binding to a ma
 After binding, the final step involves mapping the connection credentials and service-specific information into the application.
 These pieces of information are stored in secrets that the application in the cluster can access and use to connect directly with the managed service.
 
-<br>
+<br><br>
 
 ![Map connection credentials](/images/docs/service-catalog-map.svg)
 
