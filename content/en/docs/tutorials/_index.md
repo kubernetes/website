@@ -53,7 +53,7 @@ Before walking through each tutorial, you may want to bookmark the
 
 ## Clusters
 
-[AppArmor](/docs/tutorials/clusters/apparmor/)
+* [AppArmor](/docs/tutorials/clusters/apparmor/)
 
 ## Services
 

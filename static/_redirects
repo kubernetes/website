@@ -274,6 +274,19 @@
 /docs/tutorials/getting-started/scale-intro/     /docs/tutorials/kubernetes-basics/scale-intro/ 301
 /docs/tutorials/getting-started/update-interactive/     /docs/tutorials/kubernetes-basics/update-interactive/ 301
 /docs/tutorials/getting-started/update-intro/     /docs/tutorials/kubernetes-basics/ 301
+/docs/tutorials/kubernetes-basics/cluster-interactive/     /docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/ 301
+/docs/tutorials/kubernetes-basics/cluster-intro/     /docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/ 301
+/docs/tutorials/kubernetes-basics/deploy-interactive/     /docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/ 301
+/docs/tutorials/kubernetes-basics/deploy-intro/    /docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/ 301
+/docs/tutorials/kubernetes-basics/explore-interactive/     /docs/tutorials/kubernetes-basics/explore/explore-interactive/ 301
+/docs/tutorials/kubernetes-basics/explore-intro/     /docs/tutorials/kubernetes-basics/explore/explore-intro/ 301
+/docs/tutorials/kubernetes-basics/expose-interactive/     /docs/tutorials/kubernetes-basics/expose/expose-interactive/ 301
+/docs/tutorials/kubernetes-basics/expose-intro/     /docs/tutorials/kubernetes-basics/expose/expose-intro/ 301
+/docs/tutorials/kubernetes-basics/scale-interactive/     /docs/tutorials/kubernetes-basics/scale/scale-interactive/ 301
+/docs/tutorials/kubernetes-basics/scale-intro/     /docs/tutorials/kubernetes-basics/scale/scale-intro/ 301
+/docs/tutorials/kubernetes-basics/update-interactive/    /docs/tutorials/kubernetes-basics/update/update-interactive/ 301
+/docs/tutorials/kubernetes-basics/update-intro/     /docs/tutorials/kubernetes-basics/update/update-intro/ 301
+/docs/tutorials/example-tutorial-template.md -> /example-templates/example-tutorial-template.md 301
 /docs/tutorials/object-management-kubectl/declarative-object-management-configuration/      /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
 /docs/tutorials/object-management-kubectl/imperative-object-management-command/      /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
 /docs/tutorials/object-management-kubectl/imperative-object-management-configuration/      /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
@@ -281,6 +294,7 @@
 /docs/tutorials/stateful-application/run-replicated-stateful-application/     /docs/tasks/run-application/run-replicated-stateful-application/ 301
 /docs/tutorials/stateful-application/run-stateful-application/     /docs/tasks/run-application/run-single-instance-stateful-application/ 301
 /docs/tutorials/stateless-application/expose-external-ip-address-service/     /docs/tasks/access-application-cluster/service-access-application-cluster/ 301
+/docs/tutorials/stateless-application/hello-minikube/     /docs/tutorials/hello-minikube/ 301
 /docs/tutorials/stateless-application/run-stateless-ap-replication-controller/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/tutorials/stateless-application/run-stateless-application-deployment/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/tutorials/tasks/set-up-cluster-federation-kubefed/     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
