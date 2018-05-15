@@ -44,7 +44,7 @@ For more details, please read the GCR
 [documentation](https://cloud.google.com/container-registry/docs/).
 
 ```shell
-docker build -t my-kube-scheduler:1.0 .
+docker build -t gcr.io/my-gcp-project/my-kube-scheduler:1.0 .
 gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0
 ```
 
@@ -121,6 +121,14 @@ $ kubectl edit clusterrole system:kube-scheduler
     - get
     - patch
     - update
+```
+
+my-scheduler runs as the “default” service account in the “kube-system” namespace. To allow it run with super-user access, grant cluster-admin permissions to the “default” service account in the “kube-system” namespace.
+
+``` shell
+kubectl create clusterrolebinding my-scheduler-cluster-admin \
+  --clusterrole=cluster-admin \
+  --serviceaccount=kube-system:default
 ```
 
 ### 4. Specify schedulers for pods
