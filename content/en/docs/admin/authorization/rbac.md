@@ -224,7 +224,7 @@ metadata:
 # These rules will be added to the "monitoring" role.
 rules:
 - apiGroups: [""]
-  Resources: ["services", "endpoints", "pods"]
+  resources: ["services", "endpoints", "pods"]
   verbs: ["get", "list", "watch"]
 ```
 
