@@ -51,7 +51,7 @@ To complete this tutorial, you should already have a basic familiarity with [Pod
 **Caution:** [Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU which results in an insufficient resource errors during this tutorial. 
 {{< /caution >}}
 
-To avoid these errors, run minikube with:
+To avoid these errors, run minikube with the command below.  Note that you need to create a new minikube VM for the settings to take effect - you will have to `minikube delete` first if you have already run the minikube node with the default settings.
 
     minikube start --memory 5120 --cpus=4
  
