@@ -114,7 +114,6 @@ toc:
   section:
   - docs/tasks/access-kubernetes-api/http-proxy-access-api.md
   - docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions.md
-  - docs/tasks/access-kubernetes-api/extend-api-third-party-resource.md
   - docs/tasks/access-kubernetes-api/migrate-third-party-resource.md
   - docs/tasks/access-kubernetes-api/configure-aggregation-layer.md
   - docs/tasks/access-kubernetes-api/setup-extension-api-server.md
