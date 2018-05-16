@@ -68,10 +68,10 @@ a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
 As of Kubernetes 1.8, you must specify a pod selector that matches the labels of the
 `.spec.template`. The pod selector will no longer be defaulted when left empty. Selector
 defaulting was not compatible with `kubectl apply`. Also, once a DaemonSet is created,
-its `spec.selector` can not be mutated. Mutating the pod selector can lead to the
+its `.spec.selector` can not be mutated. Mutating the pod selector can lead to the
 unintentional orphaning of Pods, and it was found to be confusing to users.
 
-The `spec.selector` is an object consisting of two fields:
+The `.spec.selector` is an object consisting of two fields:
 
 * `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/).
 * `matchExpressions` - allows to build more sophisticated selectors by specifying key,
