@@ -77,7 +77,7 @@ following steps:
 
    - Configure auto-approval for new CSR requests.
 
-   See [kubeadm join](kubeadm-join.md) for additional info.
+   See [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) for additional info.
 
 1. Installs the internal DNS server (kube-dns) and the kube-proxy addon components via the API server. If kubeadm is invoked with --feature-gates=CoreDNS=true, then [CoreDNS](https://coredns.io/) will be installed as the default internal DNS server instead of kube-dns.  
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
@@ -461,12 +461,12 @@ at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
 Note that this style of bootstrap has some relaxed security guarantees because
 it does not allow the root CA hash to be validated with
 `--discovery-token-ca-cert-hash` (since it's not generated when the nodes are
-provisioned). For details, see the [kubeadm join](kubeadm-join.md).
+provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/).
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [kubeadm join](kubeadm-join.md) to bootstrap a Kubernetes worker node and join it to the cluster
-* [kubeadm upgrade](kubeadm-upgrade.md) to upgrade a Kubernetes cluster to a newer version
-* [kubeadm reset](kubeadm-reset.md) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
+* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 {{% /capture %}}
