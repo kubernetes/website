@@ -3,6 +3,7 @@ title: Service Catalog
 reviewers:
 - chenopis
 content_template: templates/concept
+weight: 40
 ---
 
 {{% capture overview %}}
