@@ -468,7 +468,7 @@ In a split-horizon DNS environment you would need two services to be able to rou
 This can be achieved by adding the following annotations to the service based on cloud provider.
 
 {{< tabs name="service_tabs" >}}
-{{% tab name="Decfault" %}}
+{{% tab name="Default" %}}
 Select one of the tabs.
 {{% /tab %}}
 {{% tab name="GCP" %}}
