@@ -63,7 +63,7 @@ following steps:
 1. Generates the token that additional nodes can use to register
    themselves with the master in the future.  Optionally, the user can provide a
    token via `--token`, as described in the
-   [kubeadm token](kubeadm-token.md) docs.
+   [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs.
 
 1. Makes all the necessary configurations for allowing node joining with the
    [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) and
