@@ -259,6 +259,7 @@
 /docs/tasks/web-ui-dashboard/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
 
 /docs/templatedemos/*     /docs/home/contribute/page-templates/ 301
+/docs/tools/kompose/user-guide/     /docs/tasks/configure-pod-container/translate-compose-kubernetes/ 301
 /docs/tools/kompose/     /docs/tools/kompose/user-guide/ 301
 /docs/troubleshooting/     /docs/tasks/debug-application-cluster/troubleshooting/ 301
 
