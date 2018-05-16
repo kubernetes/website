@@ -1,7 +1,7 @@
 ---
 reviewers:
 - chuckha
-title: Set up a High-Availablity Etcd Cluster With Kubeadm
+title: Set up a High-Availability Etcd Cluster With Kubeadm
 content_template: templates/task
 ---
 
