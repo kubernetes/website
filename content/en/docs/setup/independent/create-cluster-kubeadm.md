@@ -97,7 +97,7 @@ timeframe; which also applies to `kubeadm`.
 
 ## Instructions
 
-### (1/4) Installing kubeadm on your hosts
+### Installing kubeadm on your hosts
 
 See [Installing kubeadm](/docs/setup/independent/install-kubeadm/).
 
@@ -109,7 +109,7 @@ The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do. This crashloop is expected and normal, please
 proceed with the next step and the kubelet will start running normally.
 
-### (2/4) Initializing your master
+### Initializing your master
 
 The master is the machine where the control plane components run, including
 etcd (the cluster database) and the API server (which the kubectl CLI
@@ -220,7 +220,7 @@ token can add authenticated nodes to your cluster. These tokens can be listed,
 created and deleted with the `kubeadm token` command. See the
 [reference guide](/docs/reference/setup-tools/kubeadm/kubeadm-token/) for more details.
 
-### (3/4) Installing a pod network {#pod-network}
+### Installing a pod network {#pod-network}
 
 You **MUST** install a pod network add-on so that your pods can communicate with
 each other.
@@ -340,7 +340,7 @@ And once the kube-dns pod is up and running, you can continue by joining your no
 If your network is not working or kube-dns is not in the Running state, check
 out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
-#### Master Isolation
+### Master Isolation
 
 By default, your cluster will not schedule pods on the master for security
 reasons. If you want to be able to schedule pods on the master, e.g. for a
@@ -362,7 +362,7 @@ This will remove the `node-role.kubernetes.io/master` taint from any nodes that
 have it, including the master node, meaning that the scheduler will then be able
 to schedule pods everywhere.
 
-### (4/4) Joining your nodes
+### Joining your nodes
 
 The nodes are where your workloads (containers and pods, etc) run. To add new nodes to your cluster do the following for each machine:
 
