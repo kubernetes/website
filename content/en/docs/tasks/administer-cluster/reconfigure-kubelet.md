@@ -26,7 +26,7 @@ from alpha.
 {{% capture prerequisites %}}
 - A live Kubernetes cluster with both Master and Node at v1.8 or higher must be
 running, with the `DynamicKubeletConfig` feature gate enabled and the Kubelet's
-`--dynamic-config-dir` flag set to a writeable directory on the Node.
+`--dynamic-config-dir` flag set to a writable directory on the Node.
 This flag must be set to enable Dynamic Kubelet Configuration.
 - The kubectl command-line tool must be also v1.8 or higher, and must be
 configured to communicate with the cluster.
