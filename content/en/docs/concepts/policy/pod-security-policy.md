@@ -428,7 +428,7 @@ filesystem can escalate privileges, including reading data from other
 containers, and abusing the credentials of system services, such as Kubelet._
 
 **ReadOnlyRootFilesystem** - Requires that containers must run with a read-only
-root filesystem (i.e. no writeable layer).
+root filesystem (i.e. no writable layer).
 
 ### FlexVolume drivers
 
