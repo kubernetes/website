@@ -2,7 +2,7 @@
 approvers:
 - cdrage
 title: Translate a Docker Compose File to Kubernetes Resources
-weight: 160
+weight: 170
 ---
 
 {{< toc >}}
