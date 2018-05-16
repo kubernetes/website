@@ -327,7 +327,7 @@ if they don't know their PodIP.
 ```shell
 export kubever=$(kubectl version | base64 | tr -d '
 ')
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version="
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
 ```
 {{% /tab %}}
 {{< /tabs >}}
