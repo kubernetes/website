@@ -453,21 +453,22 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
       apiVersion: kubeadm.k8s.io/v1alpha1
       kind: MasterConfiguration
       api:
-      advertiseAddress: <virtual-ip>
+        advertiseAddress: <virtual-ip>
+        controlPlaneEndpoint: <virtual-ip>
       etcd:
-      endpoints:
-      - https://<etcd0-ip-address>:2379
-      - https://<etcd1-ip-address>:2379
-      - https://<etcd2-ip-address>:2379
-      caFile: /etc/kubernetes/pki/etcd/ca.pem
-      certFile: /etc/kubernetes/pki/etcd/client.pem
-      keyFile: /etc/kubernetes/pki/etcd/client-key.pem
+        endpoints:
+        - https://<etcd0-ip-address>:2379
+        - https://<etcd1-ip-address>:2379
+        - https://<etcd2-ip-address>:2379
+        caFile: /etc/kubernetes/pki/etcd/ca.pem
+        certFile: /etc/kubernetes/pki/etcd/client.pem
+        keyFile: /etc/kubernetes/pki/etcd/client-key.pem
       networking:
-      podSubnet: <podCIDR>
+        podSubnet: <podCIDR>
       apiServerCertSANs:
       - <virtual-ip>
       apiServerExtraArgs:
-      apiserver-count: "3"
+        apiserver-count: "3"
       EOF
 
 Ensure that the following placeholders are replaced:
@@ -506,22 +507,6 @@ When this is done, you can follow the [previous step](#kubeadm-init-master0) to 
 ## Add master1 and master2 to load balancer
 
 Once kubeadm has provisioned the other masters, you can add them to the load balancer pool.
-
-## Configure kubelet, kube-scheduler and kube-controller-manager to use the virtual IP
-
-After bootstrapping the master nodes using `kubeadm`, the services `kubelet`, `kube-scheduler` and `kube-controller-manager` still connect to local IPs for the API server rather than the virtual IP. This needs to be fixed in the local configuration files on the master nodes. Make sure you replace `<virtual-ip>` with the virtual IP. Patch the configuration files and restart `kubelet` on all master nodes:
-
-   ```shell
-   sudo sed -i 's#server:.*#server: https://<virtual-ip>:6443#g' /etc/kubernetes/kubelet.conf /etc/kubernetes/scheduler.conf /etc/kubernetes/controller-manager.conf
-   sudo systemctl restart kubelet
-   ```
-
-Now restart all instances of `kube-controller-manager` and `kube-scheduler`:
-
-   ```shell
-   kubectl delete pod -n kube-system -l component=kube-controller-manager
-   kubectl delete pod -n kube-system -l component=kube-scheduler
-   ```
 
 ## Install CNI network
 
