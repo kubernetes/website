@@ -590,6 +590,11 @@ This is commonly used by add-on API servers for unified authentication and autho
 <td>Role for the <a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a> component.</td>
 </tr>
 <tr>
+<td><b>system:kubelet-api-admin</b></td>
+<td>None</td>
+<td>Allows full access to the kubelet API.</td>
+</tr>  
+<tr>
 <td><b>system:node-bootstrapper</b></td>
 <td>None</td>
 <td>Allows access to the resources required to perform <a href="/docs/admin/kubelet-tls-bootstrapping/">Kubelet TLS bootstrapping</a>.</td>
