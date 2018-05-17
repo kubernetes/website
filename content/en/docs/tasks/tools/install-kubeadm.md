@@ -155,6 +155,7 @@ For more information on version skews, please read our
 
 {{< tabs name="k8s_install" >}}
 {{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
+```bash
 apt-get update && apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
@@ -162,9 +163,10 @@ deb http://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 apt-get update
 apt-get install -y kubelet kubeadm kubectl
+```
 {{< /tab >}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
-```
+```bash
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
@@ -186,7 +188,7 @@ systemctl enable kubelet && systemctl start kubelet
   - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure
     `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
   
-    ``` bash
+    ```bash
     cat <<EOF >  /etc/sysctl.d/k8s.conf
     net.bridge.bridge-nf-call-ip6tables = 1
     net.bridge.bridge-nf-call-iptables = 1
