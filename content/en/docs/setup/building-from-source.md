@@ -9,7 +9,7 @@ You can either build a release from source or download a pre-built release.  If 
 
 The Kubernetes source code can be downloaded from the [kubernetes/kubernetes repo](https://github.com/kubernetes/kubernetes).
 
-### Building from source
+## Building from source
 
 If you are simply building a release from source there is no need to set up a full golang environment as all building happens in a Docker container.
 
