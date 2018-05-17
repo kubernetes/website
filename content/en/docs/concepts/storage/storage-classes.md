@@ -69,7 +69,6 @@ for provisioning PVs. This field must be specified.
 | GCEPersistentDisk    | &#x2713;            | [GCE](#gce)                          |
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
-| PhotonPersistentDisk | &#x2713;            | -                                    |
 | Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
 | NFS                  | -                   | -                                    |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
