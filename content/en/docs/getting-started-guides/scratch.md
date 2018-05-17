@@ -493,12 +493,12 @@ You will need to run one or more instances of etcd.
     by durable storage (RAID, GCE PD).
     
     {{< note >}}
-    **Note:** May result in operations outages in case of instance outage.
+    May result in operations outages in case of instance outage.
     {{< /note >}}
   - Highly available - Run 3 or 5 etcd instances with non durable storage.
   
     {{< note >}}
-    **Note:** Log can be written to non-durable storage because storage is replicated.
+    Log can be written to non-durable storage because storage is replicated.
     {{< /note >}}
  See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting/) for more discussion on factors affecting cluster
 availability.
