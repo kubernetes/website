@@ -90,7 +90,7 @@ In order for the Ingress resource to work, the cluster must have an Ingress cont
 
 * We currently support and maintain [GCE](https://git.k8s.io/ingress-gce/README.md) and [nginx](https://git.k8s.io/ingress-nginx/README.md) controllers. 
 * F5 Networks provides [support and maintenance](https://support.f5.com/csp/article/K86859508) for the [F5 BIG-IP Controller for Kubernetes](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest). 
-* [Kong](https://konghq.com/) offers [community](https://discuss.konghq.com/c/kubernetes) or [commercial](https://konghq.com/api-customer-success/) support for the [Kong Ingress Controller for Kubernetes](https://konghq.com/blog/kubernetes-ingress-controller-for-kong/)
+* [Kong](https://konghq.com/) offers [community](https://discuss.konghq.com/c/kubernetes) or [commercial](https://konghq.com/api-customer-success/) support and maintenance for the [Kong Ingress Controller for Kubernetes](https://konghq.com/blog/kubernetes-ingress-controller-for-kong/)
 
 {{< note >}}
 Review the documentation for your controller to find its specific support policy.
