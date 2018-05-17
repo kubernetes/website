@@ -37,22 +37,23 @@ allow-database   1m
 
 The new PodPreset will act upon any pod that has label `role: frontend`.
 
-{{< code file="podpreset-pod.yaml" >}}
+{{< code file="podpreset-deployment.yaml" >}}
 
-Create a pod:
-
-```shell
-$ kubectl create -f https://k8s.io/docs/tasks/inject-data-application/podpreset-pod.yaml
-```
-
-List the running Pods:
+Create the Deployment:
 
 ```shell
-$ kubectl get pods
-NAME      READY     STATUS    RESTARTS   AGE
-website   1/1       Running   0          4m
+$ kubectl create -f https://k8s.io/docs/tasks/inject-data-application/podpreset-deployment.yaml
 ```
 
+List the running Deployments:
+
+       kubectl get deployments
+
+    Output:
+
+        NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+        secret-test        2         2         2            2           12s
+		
 **Pod spec after admission controller:**
 
 {{< code file="podpreset-merged.yaml" >}}

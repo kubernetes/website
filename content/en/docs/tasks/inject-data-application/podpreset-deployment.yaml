@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website
+  labels:
+    app: website
+    role: frontend
+spec:
+  containers:
+    - name: website
+      image: nginx
+      ports:
+        - containerPort: 80
+spec: # DeploymentSpec
+  selector:
+    matchLabels:
+      purpose: 
+  replicas: 2
+  template: # PodTemplateSpec
+    metadata:
+      labels:
+        purpose: 
+    spec: # PodSpec
+      containers:
+        - name: website
+          image: nginx
+          ports:
+            - containerPort: 80
