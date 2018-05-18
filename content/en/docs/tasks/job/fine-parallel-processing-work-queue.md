@@ -1,6 +1,6 @@
 ---
 title: Fine Parallel Processing Using a Work Queue
-toc_hide: true
+weight: 40
 ---
 
 {{< toc >}}
@@ -111,11 +111,11 @@ called rediswq.py ([Download](rediswq.py?raw=true)).
 The "worker" program in each Pod of the Job uses the work queue
 client library to get work.  Here it is:
 
-{{< code language="python" file="worker.py" >}}
+{{< code language="python" file="fine-parallel-processing-work-queue/worker.py" >}}
 
 If you are working from the source tree,
 change directory to the `docs/tasks/job/fine-parallel-processing-work-queue/` directory.
-Otherwise, download [`worker.py`](worker.py?raw=true), [`rediswq.py`](rediswq.py?raw=true), and [`Dockerfile`](Dockerfile?raw=true)
+Otherwise, download [`worker.py`](fine-parallel-processing-work-queue/worker.py?raw=true), [`rediswq.py`](fine-parallel-processing-work-queue/rediswq.py?raw=true), and [`Dockerfile`](fine-parallel-processing-work-queue/Dockerfile?raw=true)
 using above links. Then build the image:
 
 ```shell
