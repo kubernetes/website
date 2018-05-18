@@ -174,7 +174,7 @@ Disadvantages compared to imperative object configuration:
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/concepts/overview/object-management-kubectl/imperative-config/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/concepts/overview/object-management-kubectl/declarative-config/)
-- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
+- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
 {{< comment >}}

@@ -187,10 +187,9 @@
 /docs/reference/generated/kube-controller-manager/     /docs/reference/command-line-tools-reference/kube-controller-manager/ 301
 /docs/reference/generated/kube-proxy/     /docs/reference/command-line-tools-reference/kube-proxy/ 301
 /docs/reference/generated/kube-scheduler/     /docs/reference/command-line-tools-reference/kube-scheduler/ 301
-
-/docs/reference/generated/kubectl/kubectl-options/     /docs/reference/generated/kubectl/kubectl/ 301
+/docs/reference/generated/kubectl/kubectl-options/     /docs/reference/kubectl/kubectl/ 301
+/docs/reference/generated/kubectl/kubectl/     /docs/reference/generated/kubectl/kubectl-commands/ 301
 /docs/reference/generated/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
-
 /docs/reference/generated/kubefed/     /docs/reference/setup-tools/kubefed/kubefed/ 301
 /docs/reference/generated/kubefed_init/     /docs/reference/setup-tools/kubefed/kubefed-init/ 301
 /docs/reference/generated/kubefed_join/     /docs/reference/setup-tools/kubefed/kubefed-join/ 301
