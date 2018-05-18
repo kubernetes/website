@@ -1,5 +1,5 @@
 ---
 title: "Kubernetes Architecture"
-weight: 30
+weight: 20
 ---
 
