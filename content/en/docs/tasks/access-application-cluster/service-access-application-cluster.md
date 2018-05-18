@@ -1,6 +1,7 @@
 ---
 title: Use a Service to Access an Application in a Cluster
 content_template: templates/tutorial
+weight: 60
 ---
 
 {{% capture overview %}}
