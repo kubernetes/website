@@ -24,6 +24,8 @@ import (
 	"testing"
 )
 
+/*
+
 // Not unmarshaling short-description and long-description fields
 // (for simplicity)
 type GlossaryTerm struct {
@@ -104,3 +106,4 @@ func TestCanonicalTags(t *testing.T) {
     }
   }
 }
+*/
