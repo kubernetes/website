@@ -469,3 +469,6 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/kubeadm/ 301
 
 /editdocs/     /docs/home/contribute/     301 
+
+/docs/concepts/example-concept-template/    /docs/home/contribute/content-templates/example-concept-template/ 301
+/docs/tasks/example-task-template/    /docs/home/contribute/content-templates/example-task-template/ 301
