@@ -6,7 +6,14 @@ toc_hide: true
 **Note:** These instructions were recently updated based on Windows Server platform enhancements and the Kubernetes v1.9 release
 {{< /note >}}
 
-Kubernetes version 1.5 introduced Alpha support for Windows Server Containers based on the Windows Server 2016 operating system. With the release of Windows Server version 1709 and using Kubernetes v1.9 users are able to deploy a Kubernetes cluster either on-premises or in a private/public cloud using a number of different network topologies and CNI plugins. Some key feature improvements for Windows Server Containers on Kubernetes include:
+Kubernetes version 1.5 introduced Alpha support for Windows Server
+Containers based on the Windows Server 2016 operating system. With the
+release of Windows Server version 1709 and using Kubernetes v1.9 users
+are able to deploy a Kubernetes cluster either on-premises or in a
+private/public cloud using a number of different network topologies
+and CNI plugins. Some key feature improvements for Windows Server
+Containers on Kubernetes include:
+
 - Improved support for pods! Shared network namespace (compartment) with multiple Windows Server containers (shared kernel)
 - Reduced network complexity by using a single network endpoint per pod
 - Kernel-Based load-balancing using the Virtual Filtering Platform (VFP) Hyper-v Switch Extension (analogous to Linux iptables)
@@ -490,7 +497,9 @@ spec:
 ```
 
 ## Known Limitations for Windows Server Containers with v1.9
-Some of these limitations will be addressed by the community in future releases of Kubernetes
+
+Some of these limitations will be addressed by the community in future releases of Kubernetes:
+
 - Shared network namespace (compartment) with multiple Windows Server containers (shared kernel) per pod is only supported on Windows Server 1709 or later
 - Using Secrets and ConfigMaps as volume mounts is not supported
 - Mount propagation is not supported on Windows
@@ -503,6 +512,7 @@ Some of these limitations will be addressed by the community in future releases 
 - Flannel and Weavenet are not yet supported
 - Some .Net Core applications expect environment variables with a colon (`:`) in the name.  Kubernetes currently does not allow this.  Replace colon (`:`) with  double underscore (`__`) as documented [here](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration#configuration-by-environment).
 - As cgroups are not supported on windows, kubelet.exe should be started with the following additional arguments `--cgroups-per-qos=false --enforce-node-allocatable=""` [issue 61716](https://github.com/kubernetes/kubernetes/issues/61716)
+
 ## Next steps and resources
 
 - Support for Windows is in Beta as of v1.9 and your feedback is welcome. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
