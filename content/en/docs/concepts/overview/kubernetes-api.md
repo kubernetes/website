@@ -31,14 +31,14 @@ Starting with Kubernetes 1.10, OpenAPI spec is served in a single `/openapi/v2` 
 Requested format is specified by setting HTTP headers:
 
 Header | Possible Values
--- | --
+------ | --------------
 Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` (the default content-type is `application/json` for `*/*` or not passing this header)
 Accept-Encoding | `gzip` (not passing this header is acceptable)
 
 **Examples of getting OpenAPI spec**:
 
 Before 1.10 | Starting with Kubernetes 1.10
--- | --
+----------- | -----------------------------
 GET /swagger.json | GET /openapi/v2 **Accept**: application/json
 GET /swagger-2.0.0.pb-v1 | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf
 GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf **Accept-Encoding**: gzip
