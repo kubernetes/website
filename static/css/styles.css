@@ -426,15 +426,22 @@ dd { margin-bottom: 16px; }
 
 #docsContent .includecode pre { margin: 0 !important; }
 
-#docsContent ul li { list-style: disc; }
+/* These are being clobbered by line 37 and it is affecting <ul> nested inside <ol> */
+#docsContent ul>li { list-style: disc !important; }
 
-#docsContent ol li { list-style: decimal; }
+#docsContent ol>li { list-style: decimal !important; }
 
 #docsContent ul, #docsContent ol { margin: 20px 0; padding-left: 30px; font-weight: 300; }
+
+/* A little extra margin and visual separation for consecutive top-level lists */
+#docsContent>ul, #docsContent>ol { margin-bottom: 40px !important; border-bottom: 1px solid #eee !important; }
 
 #docsContent ul ul, #docsContent ol ol, #docsContent ul ol, #docsContent ol ul { margin: 0.75em 0; }
 
 #docsContent li { margin-bottom: 0.75em; font-size: 16px; line-height: 1.75em; }
+
+/* No bullets for checlists */
+#docsContent ul.task-list>li { list-style-type: none !important; }
 
 #docsContent table { width: 100%; border: 1px solid #ccc; border-spacing: 0; margin-top: 30px; margin-bottom: 30px; }
 
