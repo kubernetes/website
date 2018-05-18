@@ -3,6 +3,8 @@ reviewers:
 - brendandburns
 - davidopp
 title: Troubleshooting
+weight: 180
+parent: /content/en/docs/tasks/_index.md
 ---
 
 Sometimes things go wrong. This guide is aimed at making them right. It has
