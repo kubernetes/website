@@ -18,23 +18,22 @@ This document provide additional details on what happen under the hood, with the
 ## Core design principles
 
 The cluster that `kubeadm init` and `kubeadm join` set up should be:
- - Secure:
-   - It should adopt latest best-practices like:
-     - enforcing RBAC
-     - using the Node Authorizer
-     - using secure communication between the control plane components
-     - using secure communication between the API server and the kubelets
-     - lock-down the kubelet API
-     - locking down access to the API for system components like the kube-proxy and kube-dns
-     - locking down what a Bootstrap Token can access
-     - etc.
- - Easy to use:
-   - The user should not have to run anything more than a couple of commands:
-     - `kubeadm init`
-     - `export KUBECONFIG=/etc/kubernetes/admin.conf`
-     - `kubectl apply -f <network-of-choice.yaml>`
-     - `kubeadm join --token <token> <master-ip>:<master-port>`
- - Extendable:
+
+ - **Secure**: It should adopt latest best-practices like:
+   - enforcing RBAC
+   - using the Node Authorizer
+   - using secure communication between the control plane components
+   - using secure communication between the API server and the kubelets
+   - lock-down the kubelet API
+   - locking down access to the API for system components like the kube-proxy and kube-dns
+   - locking down what a Bootstrap Token can access
+   - etc.
+ - **Easy to use**: The user should not have to run anything more than a couple of commands:
+   - `kubeadm init`
+   - `export KUBECONFIG=/etc/kubernetes/admin.conf`
+   - `kubectl apply -f <network-of-choice.yaml>`
+   - `kubeadm join --token <token> <master-ip>:<master-port>`
+ - **Extendable**:
    - It should for example _not_ favor any network provider, instead configuring a network is out-of-scope
    - Should provide the possibility to use a config file for customizing various parameters
 
@@ -78,7 +77,7 @@ for creating custom clusters.
 Kubeadm executes a set of preflight checks before starting the init, with the aim to verify preconditions and avoid common cluster startup problems.
 In any case the user can skip specific preflight checks (or eventually all preflight checks) with the `--ignore-preflight-errors` option.
 
-- [warning] If the Kubernetes version to use (specified with the `--kubernetes-version` flag) is at least one minor version higher than the kubeadm CLI version
+- [warning] If the Kubernetes version to use (specified with the `--kubernetes-version` flag) is at least one minor version higher than the kubeadm CLI version.
 - Kubernetes system requirements:
   - if running on linux:
     - [error] if not Kernel 3.10+ or 4+ with specific KernelSpec
