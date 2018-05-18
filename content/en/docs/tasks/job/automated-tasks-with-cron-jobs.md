@@ -3,6 +3,7 @@ title: Running automated tasks with cron jobs
 reviewers:
 - chenopis
 content_template: templates/task
+weight: 10
 ---
 
 {{% capture overview %}}

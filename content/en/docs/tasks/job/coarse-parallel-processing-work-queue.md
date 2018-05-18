@@ -1,6 +1,6 @@
 ---
 title: Coarse Parallel Processing Using a Work Queue
-toc_hide: true
+weight: 30
 ---
 
 {{< toc >}}
@@ -167,13 +167,13 @@ We will use the `amqp-consume` utility to read the message
 from the queue and run our actual program.  Here is a very simple
 example program:
 
-{{< code language="python" file="worker.py" >}}
+{{< code language="python" file="coarse-parallel-processing-work-queue/worker.py" >}}
 
 Now, build an image.  If you are working in the source
 tree, then change directory to `examples/job/work-queue-1`.
 Otherwise, make a temporary directory, change to it,
-download the [Dockerfile](Dockerfile?raw=true),
-and [worker.py](worker.py?raw=true).  In either case,
+download the [Dockerfile](coarse-parallel-processing-work-queue/Dockerfile?raw=true),
+and [worker.py](coarse-parallel-processing-work-queue/worker.py?raw=true).  In either case,
 build the image with this command:
 
 ```shell
