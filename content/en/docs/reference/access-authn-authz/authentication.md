@@ -6,6 +6,7 @@ reviewers:
 - deads2k
 - liggitt
 title: Authenticating
+weight: 10
 ---
 
 {{< toc >}}

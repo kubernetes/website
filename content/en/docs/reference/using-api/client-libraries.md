@@ -3,6 +3,7 @@ title: Client Libraries
 reviewers:
 - ahmetb
 content_template: templates/concept
+weight: 30
 ---
 
 {{% capture overview %}}
