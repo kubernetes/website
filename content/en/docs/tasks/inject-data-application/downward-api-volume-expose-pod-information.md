@@ -1,28 +1,22 @@
 ---
-title: Exposing Deployment Information to Containers Through Files
-redirect_from:
-- "/docs/user-guide/downward-api/"
-- "/docs/user-guide/downward-api/index.html"
-- "/docs/user-guide/downward-api/volume/"
-- "/docs/user-guide/downward-api/volume/index.html"
-- "/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/"
-- "/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information.html"
+title: Exposing Pod Information to Containers Through Files
+content_template: templates/task
 ---
 
-{% capture overview %}
+{{% capture overview %}}
 
 This page shows how a Deployment can use a DownwardAPIVolumeFile to expose information about itself to Containers running in the Deployment. A DownwardAPIVolumeFile can expose Deployment fields and Container fields.
 
-{% endcapture %}
+{{% endcapture %}}
 
 
-{% capture prerequisites %}
+{{% capture prerequisites %}}
 
-{% include task-tutorial-prereqs.md %}
+{{% include task-tutorial-prereqs.md %}}
 
-{% endcapture %}
+{{% endcapture %}}
 
-{% capture steps %}
+{{% capture steps %}}
 
 ## The Downward API
 
@@ -39,7 +33,7 @@ Together, these two ways of exposing Deployment and Container fields are called 
 In this exercise, you create a Deployment that has one Container.
 Here is the configuration file for the Deployment:
 
-{% include code.html language="yaml" file="dapi-volume.yaml" ghlink="/docs/tasks/inject-data-application/dapi-volume.yaml" %}
+{{% include code.html language="yaml" file="dapi-volume.yaml" ghlink="/docs/tasks/inject-data-application/dapi-volume.yaml" %}
 
 In the configuration file, you can see that the Deployment has a `downwardAPI` Volume,
 and the Container mounts the Volume at `/etc`.
@@ -57,7 +51,7 @@ fields of the Container in the Deployment.
 Create the Deployment:
 
 ```shell
-kubectl create -f http://k8s.io/docs/tasks/inject-data-application/dapi-volume.yaml
+kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-volume.yaml
 ```
 
 Verify that Container in the Deployment is running:
@@ -92,7 +86,7 @@ kubectl exec -it kubernetes-downwardapi-volume-example -- sh
 In your shell, view the `labels` file:
 
 ```shell
-/# cat /etc/labels
+/
 ```
 
 The output shows that all of the Deployment's labels have been written
@@ -107,13 +101,13 @@ zone="us-est-coast"
 Similarly, view the `annotations` file:
 
 ```shell
-/# cat /etc/annotations
+/
 ```
 
 View the files in the `/etc` directory:
 
 ```shell
-/# ls -laR /etc
+/
 ```
 
 In the output, you can see that the `labels` and `annotations` files
@@ -142,7 +136,7 @@ atomically using
 Exit the shell:
 
 ```shell
-/# exit
+/
 ```
 
 ## Storing Container fields
@@ -151,7 +145,7 @@ The preceding exercise, you stored Deployment fields in a DownwardAPIVolumeFile.
 In this next exercise, you store Container fields. Here is the configuration
 file for a Deployment that has one Container:
 
-{% include code.html language="yaml" file="dapi-volume-resources.yaml" ghlink="/docs/tasks/inject-data-application/dapi-volume-resources.yaml" %}
+{{% include code.html language="yaml" file="dapi-volume-resources.yaml" ghlink="/docs/tasks/inject-data-application/dapi-volume-resources.yaml" %}}
 
 In the configuration file, you can see that the Deployment has a `downwardAPI` Volume,
 and the Container mounts the Volume at `/etc`.
@@ -166,7 +160,7 @@ should be stored in a file named `cpu_limit`.
 Create the Deployment:
 
 ```shell
-kubectl create -f http://k8s.io/docs/tasks/inject-data-application/dapi-volume-resources.yaml
+kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-volume-resources.yaml
 ```
 
 Get a shell into the Container that is running in your Deployment:
@@ -178,14 +172,13 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 In your shell, view the `cpu_limit` file:
 
 ```shell
-/# cat /etc/cpu_limit
 ```
 You can use similar commands to view the `cpu_request`, `mem_limit` and
 `mem_request` files.
 
-{% endcapture %}
+{{% endcapture %}}
 
-{% capture discussion %}
+{{% capture discussion %}}
 
 ## Capabilities of the Downward API
 
@@ -208,8 +201,10 @@ DownwardAPIVolumeFiles.
 * The Deployment's labels
 * The Deployment's annotations
 
+{{< note >}}
 **Note**: If CPU and memory limits are not specified for a Container, the
 Downward API defaults to the node allocatable value for CPU and memory.
+{{< /note >}}
 
 ## Projecting keys to specific paths and file permissions
 
@@ -230,10 +225,10 @@ application, but that is tedious and error prone, and it violates the goal of lo
 coupling. A better option would be to use the Deployment's name as an identifier, and
 inject the Deployment's name into the well-known environment variable.
 
-{% endcapture %}
+{{% endcapture %}}
 
 
-{% capture whatsnext %}
+{{% capture whatsnext %}}
 
 * [PodSpec](/docs/resources-reference/v1.6/#podspec-v1-core)
 * [Volume](/docs/resources-reference/v1.6/#volume-v1-core)
@@ -241,6 +236,6 @@ inject the Deployment's name into the well-known environment variable.
 * [DownwardAPIVolumeFile](/docs/resources-reference/v1.6/#downwardapivolumefile-v1-core)
 * [ResourceFieldSelector](/docs/resources-reference/v1.6/#resourcefieldselector-v1-core)
 
-{% endcapture %}
+{{% endcapture %}}
 
-{% include templates/task.md %}
+{{% include templates/task.md %}}

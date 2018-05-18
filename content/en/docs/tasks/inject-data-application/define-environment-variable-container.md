@@ -1,26 +1,24 @@
 ---
 title: Defining Environment Variables for a Container
-redirect_from:
-- "/docs/tasks/configure-pod-container/define-environment-variable-container/"
-- "/docs/tasks/configure-pod-container/define-environment-variable-container.html"
+content_template: templates/task
 ---
 
-{% capture overview %}
+{{% capture overview %}}
 
 This page shows how to define environment variables when you run a container
 in a Kubernetes Deployment.
 
-{% endcapture %}
+{{% endcapture %}}
 
 
-{% capture prerequisites %}
+{{% capture prerequisites %}}
 
-{% include task-tutorial-prereqs.md %}
+{{% include task-tutorial-prereqs.md %}}
 
-{% endcapture %}
+{{% endcapture %}}
 
 
-{% capture steps %}
+{{% capture steps %}}
 
 ## Defining an environment variable for a container
 
@@ -33,15 +31,15 @@ file for the Deployment defines an environment variable with name `DEMO_GREETING
 value `"Hello from the environment"`. Here is the configuration file for the
 Deployment:
 
-{% include code.html language="yaml" file="envars.yaml" ghlink="/docs/tasks/inject-data-application/envars.yaml" %}
+{{% include code.html language="yaml" file="envars.yaml" ghlink="/docs/tasks/inject-data-application/envars.yaml" %}}
 
 1. Create a Deployment based on the YAML configuration file:
 
-        kubectl create -f http://k8s.io/docs/tasks/inject-data-application/envars.yaml
+      kubectl create -f https://k8s.io/docs/tasks/inject-data-application/envars.yaml
 
 1. List the running Deployments:
 
-        kubectl get deployments -l name=demonstrate-envars
+      kubectl get deployments -l name=demonstrate-envars
 
     The output is similar to this:
 
@@ -50,11 +48,11 @@ Deployment:
 
 1. Get a shell to the container running in your Deployment:
 
-        kubectl exec -it envar-demo -- /bin/bash
+      kubectl exec -it envar-demo -- /bin/bash
 
 1. In your shell, run the `printenv` command to list the environment variables.
 
-        root@envar-demo:/# printenv
+      root@envar-demo:/# printenv
 
     The output is similar to this:
 
@@ -66,15 +64,15 @@ Deployment:
 
 1. To exit the shell, enter `exit`.
 
-{% endcapture %}
+{{% endcapture %}}
 
-{% capture whatsnext %}
+{{% capture whatsnext %}}
 
 * Learn more about [environment variables](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/).
 * Learn about [using secrets as environment variables](/docs/user-guide/secrets/#using-secrets-as-environment-variables).
 * See [EnvVarSource](/docs/api-reference/v1.6/#envvarsource-v1-core).
 
-{% endcapture %}
+{{% endcapture %}}
 
 
-{% include templates/task.md %}
+{{% include templates/task.md %}}
