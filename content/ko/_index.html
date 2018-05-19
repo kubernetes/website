@@ -1,0 +1,168 @@
+---
+title: "운영 수준의 컨테이너 오케스트레이션"
+abstract: "자동화된 컨테이너 배포, 스케일링과 관리"
+cid: home
+---
+
+{{< deprecationwarning >}}
+
+<!--  OCEAN NODES  -->
+<section id="oceanNodes">
+    <main>
+        <div class="image-wrapper"><img src="/images/flower.png"></div>
+        <div class="content">
+            <h3><a href="/docs/concepts/overview/what-is-kubernetes/">쿠버네티스</a>는 컨테이너화된 애플리케이션을 자동으로 배포, 스케일링 및 관리해주는 오픈소스 시스템입니다.</h3>
+            <p>It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds
+            upon <a href="http://queue.acm.org/detail.cfm?id=2898444">15 years of experience of running production workloads at Google</a>,
+            combined with best-of-breed ideas and practices from the community.</p>
+        </div>
+    </main>
+    <main>
+        <div class="image-wrapper"><img src="/images/scalable.png"></div>
+        <div class="content">
+            <h4>행성 규모 확장성</h4>
+            <p>Designed on the same principles that allows Google to run billions of containers a week, Kubernetes can scale without increasing your ops team.</p>
+        </div>
+    </main>
+    <main>
+        <div class="image-wrapper"><img src="/images/blocks.png"></div>
+        <div class="content">
+            <h4>몸이 커져도 작아지지 않는 옷</h4>
+            <p>Whether testing locally or running a global enterprise, Kubernetes flexibility grows with you to deliver your applications consistently and easily no matter how complex your need is.</p>
+        </div>
+    </main>
+    <main>
+        <div class="image-wrapper"><img src="/images/suitcase.png"></div>
+        <div class="content">
+            <h4>어디서나 동작</h4>
+            <p>Kubernetes is open source giving you the freedom to take advantage of on-premises, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.</p>
+        </div>
+    </main>
+</section>
+
+<section id="video">
+    <div class="light-text">
+        <h2>쿠버네티스: 드디어&hellip; 진정한 클라우드 플랫폼</h2>
+        <p>Sam Ghods, Co-Founder and Services Architect at Box, gives a passionate talk last year at KubeCon Seattle showing that with Kubernetes, we have for first time a universal interface that one can build real deployment tooling against.</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">Watch Video</button>
+        <br>
+        <br>
+        <a href="http://events.linuxfoundation.org/events/kubecon-and-cloudnativecon-europe" button id= "desktopKCButton">Attend KubeCon in Copenhagen on May 2-4, 2018</a>
+  </div>
+  <button id="mobileShowVideoButton" onclick="kub.showVideo()"></button>
+</section>
+
+<section id="features">
+    <main>
+        <h3 class="center">쿠버네티스 기능</h3>
+
+        <div class="feature-box">
+            <div>
+                <h4><a href="/docs/concepts/configuration/manage-compute-resources-container/">스케줄링</a></h4>
+                <p>Automatically places containers based on their resource requirements and other constraints, while not
+                    sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.</p>
+            </div>
+            <div>
+                <h4><a href="/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller">자가 치유</a></h4>
+                <p>Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers
+                    that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.</p>
+            </div>
+        </div>
+
+        <div class="feature-box">
+            <div>
+                <h4><a href="/docs/tasks/run-application/horizontal-pod-autoscale/">수평적 확장</a></h4>
+                <p>Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.</p>
+            </div>
+            <div>
+                <h4><a href="/docs/concepts/services-networking/service/">서비스 디스커버리 및 로드 밸런싱</a></h4>
+                <p>No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives
+                    containers their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.</p>
+            </div>
+        </div>
+
+        <div class="feature-box">
+            <div>
+                <h4><a href="/docs/concepts/workloads/controllers/deployment/#what-is-a-deployment">배포 및 롤백 자동화</a></h4>
+                <p>Kubernetes progressively rolls out changes to your application or its configuration, while monitoring
+                    application health to ensure it doesn't kill all your instances at the same time. If something goes
+                    wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.</p>
+            </div>
+            <div>
+                <h4><a href="/docs/concepts/configuration/secret/">시크릿</a> 및 <a href="/docs/tasks/configure-pod-container/configure-pod-configmap/">설정</a> 관리</h4>
+                <p>Deploy and update secrets and application configuration without rebuilding your image and without
+                    exposing secrets in your stack configuration.</p>
+            </div>
+        </div>
+
+        <div class="feature-box">
+            <div>
+                <h4><a href="/docs/concepts/storage/persistent-volumes/">스토리지 오케스트레이션</a></h4>
+                <p>Automatically mount the storage system of your choice, whether from local storage, a public cloud provider
+                such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="https://aws.amazon.com/products/storage/">AWS</a>, or a network storage system such as NFS, iSCSI,
+                Gluster, Ceph, Cinder, or Flocker.</p>
+            </div>
+            <div>
+                <h4><a href="/docs/concepts/workloads/controllers/jobs-run-to-completion/">일괄 처리</a></h4>
+                <p>In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.</p>
+            </div>
+        </div>
+
+    </main>
+</section>
+
+<section id="talkToUs">
+    <main>
+        <h3>사례 연구</h3>
+        <div id="caseStudiesWrapper">
+            <div>
+                <p>Using Kubernetes to reinvent the world's largest educational company</p>
+                <a href="/case-studies/pearson/">Read more</a>
+            </div>
+            <div>
+                <p>Kubernetes at Box: Microservices at Maximum Velocity</p>
+                <a href="https://blog.box.com/blog/kubernetes-box-microservices-maximum-velocity/">Read more</a>
+            </div>
+            <div>
+                <p>Inside eBay's shift to Kubernetes and containers atop OpenStack</p>
+                <a href="https://www.nextplatform.com/2015/11/12/inside-ebays-shift-to-kubernetes-and-containers-atop-openstack/">Read more</a>
+            </div>
+            <div>
+                <p>Migrating from a homegrown 'cluster' to Kubernetes</p>
+                <a href="https://www.youtube.com/watch?v=6XGUTu3WhBw">Watch the video</a>
+            </div>
+        </div>
+
+        <!--<div id="bigSocial">-->
+            <!--&lt;!&ndash;<div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<a href="https://youtu.be/OLwzSHBtxhI">Watch the video</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;<p>Creating Next Generation Kubernetes Infrastructure at Viacom</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--<div>-->
+                <!--<p>Using Kubernetes to reinvent the world's largest educational company</p>-->
+                <!--<a href="/case-studies/pearson/">Read more</a>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<p>Kubernetes at Box: Microservices at Maximum Velocity</p>-->
+                <!--<a href="https://blog.box.com/blog/kubernetes-box-microservices-maximum-velocity/">Read more</a>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<p>Inside eBay's shift to Kubernetes and containers atop OpenStack</p>-->
+                <!--<a href="http://www.nextplatform.com/2015/11/12/inside-ebays-shift-to-kubernetes-and-containers-atop-openstack/">Read the story</a>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<p>Migrating from a homegrown 'cluster' to Kubernetes</p>-->
+                <!--<a href="https://www.youtube.com/watch?v=6XGUTu3WhBw">Watch the video</a>-->
+            <!--</div>-->
+        <!--</div>-->
+        <h5 style="text-align: center"><a href="/case-studies/" style="color: #3371E3; font-weight: 400">사례 연구 전체 보기</a></h5>
+    </main>
+</section>
+
+
+
+
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/of45hYbkIZs?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
