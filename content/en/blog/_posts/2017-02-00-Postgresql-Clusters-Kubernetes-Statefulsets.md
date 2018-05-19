@@ -41,7 +41,7 @@ sudo chmod 777 /nfsfileshare/
 
 sudo vi /etc/exports
 
-sudo exports -r
+sudo exportfs -r
  ```
 
 
