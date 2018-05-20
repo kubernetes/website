@@ -6,6 +6,7 @@ reviewers:
 - smarterclayton
 title: Force Delete StatefulSet Pods
 content_template: templates/task
+weight: 70
 ---
 
 {{% capture overview %}}
