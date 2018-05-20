@@ -1,6 +1,7 @@
 ---
 title: Assign Pods to Nodes
 content_template: templates/task
+weight: 120
 ---
 
 {{% capture overview %}}

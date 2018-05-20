@@ -1,6 +1,7 @@
 ---
 title: Assign CPU Resources to Containers and Pods
 content_template: templates/task
+weight: 20
 ---
 
 {{% capture overview %}}

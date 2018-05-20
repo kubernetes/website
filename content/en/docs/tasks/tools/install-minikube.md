@@ -1,6 +1,7 @@
 ---
 title: Install Minikube
 content_template: templates/task
+weight: 20
 ---
 
 {{% capture overview %}}
