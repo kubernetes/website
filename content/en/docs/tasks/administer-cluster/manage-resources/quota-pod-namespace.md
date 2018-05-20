@@ -1,6 +1,7 @@
 ---
 title: Configure a Pod Quota for a Namespace
 content_template: templates/task
+weight: 60
 ---
 
 

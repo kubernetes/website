@@ -3,6 +3,7 @@ title: Example Task Template
 reviewers:
 - chenopis
 content_template: templates/task
+toc_hide: true
 ---
 
 {{% capture overview %}}

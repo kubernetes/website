@@ -1,6 +1,7 @@
 ---
 title: Configure Default CPU Requests and Limits for a Namespace
 content_template: templates/task
+weight: 20
 ---
 
 {{% capture overview %}}

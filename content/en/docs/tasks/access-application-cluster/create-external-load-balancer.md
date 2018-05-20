@@ -1,6 +1,7 @@
 ---
 title: Create an External Load Balancer
 content_template: templates/task
+weight: 80
 ---
 
 

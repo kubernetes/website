@@ -211,6 +211,7 @@
 /docs/tasks/access-application-cluster/access-cluster.md     /docs/tasks/access-application-cluster/access-cluster/ 301
 /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
 /docs/tasks/access-kubernetes-api/access-kubernetes-api/http-proxy-access-api/     /docs/tasks/access-kubernetes-api/http-proxy-access-api/ 301
+
 /docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/tasks/administer-cluster/assign-pods-nodes/     /docs/tasks/configure-pod-container/assign-pods-nodes/ 301
 /docs/tasks/administer-cluster/calico-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/ 301
@@ -218,6 +219,8 @@
 /docs/tasks/administer-cluster/cilium-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/ 301
 /docs/tasks/administer-cluster/configure-namespace-isolation/     /docs/concepts/services-networking/network-policies/ 301
 /docs/tasks/administer-cluster/configure-pod-disruption-budget/     /docs/tasks/run-application/configure-pdb/ 301
+/docs/tasks/administer-cluster/cpu-constraint-namespace/     /docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/ 301
+/docs/tasks/administer-cluster/cpu-default-namespace/     /docs/tasks/administer-cluster/manage-resources/cpu-default-namespace 301
 /docs/tasks/administer-cluster/cpu-memory-limit/     /docs/tasks/administer-cluster/memory-default-namespace/ 301
 /docs/tasks/administer-cluster/default-cpu-request-limit/     /docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit/ 301
 /docs/tasks/administer-cluster/default-memory-request-limit/     /docs/tasks/configure-pod-container/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit/ 301
@@ -227,8 +230,12 @@
 /docs/tasks/administer-cluster/kubeadm-upgrade-1-9/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-9/ 301
 /docs/tasks/administer-cluster/kubeadm-upgrade-ha/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-ha/ 301
 /docs/tasks/administer-cluster/kube-router-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/ 301
+/docs/tasks/administer-cluster/memory-constraint-namespace/     /docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/ 301
+/docs/tasks/administer-cluster/memory-default-namespace/     /docs/tasks/administer-cluster/manage-resources/memory-default-namespace/ 301
 /docs/tasks/administer-cluster/out-of-resource/memory-available.sh     /docs/tasks/administer-cluster/memory-available.sh 301
 /docs/tasks/administer-cluster/overview/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
+/docs/tasks/administer-cluster/quota-memory-cpu-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/ 301
+/docs/tasks/administer-cluster/quota-pod-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/ 301
 /docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/tasks/administer-cluster/out-of-resource/ 301
 /docs/tasks/administer-cluster/romana-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/ 301
 /docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
