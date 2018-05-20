@@ -1,6 +1,7 @@
 ---
 title: Configure Memory and CPU Quotas for a Namespace
 content_template: templates/task
+weight: 50
 ---
 
 
