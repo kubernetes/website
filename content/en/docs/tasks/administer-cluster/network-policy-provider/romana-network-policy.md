@@ -3,6 +3,7 @@ reviewers:
 - chrismarino
 title: Romana for NetworkPolicy
 content_template: templates/task
+weight: 40
 ---
 
 {{% capture overview %}}
