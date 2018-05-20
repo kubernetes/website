@@ -1,6 +1,7 @@
 ---
 title: Configure Minimum and Maximum CPU Constraints for a Namespace
 content_template: templates/task
+weight: 40
 ---
 
 
