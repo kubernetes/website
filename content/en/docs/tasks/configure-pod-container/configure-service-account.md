@@ -4,6 +4,7 @@ reviewers:
 - liggitt
 - thockin
 title: Configure Service Accounts for Pods
+weight: 90
 ---
 
 A service account provides an identity for processes that run in a Pod.

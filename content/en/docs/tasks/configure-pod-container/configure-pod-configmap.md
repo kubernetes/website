@@ -1,6 +1,7 @@
 ---
 title: Configure a Pod to Use a ConfigMap
 content_template: templates/task
+weight: 150
 ---
 
 {{% capture overview %}}
