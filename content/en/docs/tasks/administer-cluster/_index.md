@@ -1,5 +1,5 @@
 ---
-title: "Administer Cluster"
-weight: 100
+title: "Administer a Cluster"
+weight: 20
 ---
 
