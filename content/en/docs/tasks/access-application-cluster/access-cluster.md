@@ -1,5 +1,6 @@
 ---
 title: Accessing Clusters
+weight: 20
 ---
 
 {{< toc >}}
