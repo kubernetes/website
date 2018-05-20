@@ -1,4 +1,4 @@
 ---
-title: Install a Netork Policy Provider
+title: Install a Network Policy Provider
 weight: 30
 ---
