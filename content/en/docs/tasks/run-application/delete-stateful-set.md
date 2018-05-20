@@ -7,6 +7,7 @@ reviewers:
 - smarterclayton
 title: Delete a StatefulSet
 content_template: templates/task
+weight: 60
 ---
 
 {{% capture overview %}}

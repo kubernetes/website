@@ -1,6 +1,7 @@
 ---
 title: Specifying a Disruption Budget for your Application
 content_template: templates/task
+weight: 110
 ---
 
 {{% capture overview %}}

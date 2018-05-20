@@ -9,6 +9,7 @@ reviewers:
 - smarterclayton
 title: Scale a StatefulSet
 content_template: templates/task
+weight: 50
 ---
 
 {{% capture overview %}}
