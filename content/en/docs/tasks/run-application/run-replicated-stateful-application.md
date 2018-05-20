@@ -8,6 +8,7 @@ reviewers:
 - smarterclayton
 title: Run a Replicated Stateful Application
 content_template: templates/tutorial
+weight: 30
 ---
 
 {{% capture overview %}}
