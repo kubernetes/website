@@ -1,6 +1,7 @@
 ---
 title: Provide Load-Balanced Access to an Application in a Cluster
 content_template: templates/tutorial
+weight: 50
 ---
 
 {{% capture overview %}}
