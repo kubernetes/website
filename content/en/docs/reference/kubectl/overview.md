@@ -349,4 +349,4 @@ $ kubectl logs -f <pod-name>
 
 ## Next steps
 
-Start using the [kubectl](/docs/user-guide/kubectl/) commands.
+Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
