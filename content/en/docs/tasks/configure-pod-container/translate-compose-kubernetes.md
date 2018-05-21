@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - cdrage
 title: Translate a Docker Compose File to Kubernetes Resources
 weight: 170

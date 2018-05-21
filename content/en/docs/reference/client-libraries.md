@@ -1,6 +1,6 @@
 ---
 title: Client Libraries
-approvers:
+reviewers:
 - ahmetb
 content_template: templates/concept
 ---

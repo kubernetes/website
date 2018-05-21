@@ -1,7 +1,7 @@
 ---
 title: Share Process Namespace between Containers in a Pod
 min-kubernetes-server-version: v1.10
-approvers:
+reviewers:
 - verb
 - yujuhong
 - dchen1107

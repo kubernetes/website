@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bgrant0607
 - lavalamp
 - thockin

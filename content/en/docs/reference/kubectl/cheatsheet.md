@@ -1,10 +1,10 @@
 ---
-approvers:
+title: kubectl Cheat Sheet
+reviewers:
 - bgrant0607
 - erictune
 - krousey
 - clove
-title: kubectl Cheat Sheet
 ---
 
 See also: [Kubectl Overview](/docs/reference/kubectl/overview/) and [JsonPath Guide](/docs/reference/kubectl/jsonpath).

@@ -1,8 +1,8 @@
 ---
-approvers:
+title: kubectl Usage Conventions
+reviewers:
 - bgrant0607
 - janetkuo
-title: kubectl Usage Conventions
 ---
 
 {{< toc >}}
