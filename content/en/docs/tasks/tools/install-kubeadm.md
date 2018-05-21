@@ -155,7 +155,7 @@ For more information on version skews, please read our
 [version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy).
 
 {{< tabs name="k8s_install" >}}
-{{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
 ```bash
 apt-get update && apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -165,7 +165,7 @@ EOF
 apt-get update
 apt-get install -y kubelet kubeadm kubectl
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 ```bash
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
