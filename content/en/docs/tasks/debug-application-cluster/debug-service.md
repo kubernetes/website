@@ -459,8 +459,8 @@ One of the main responsibilities of `kube-proxy` is to write the `iptables`
 rules which implement `Services`.  Let's check that those rules are getting
 written.
 
-The kube-proxy can run in either "userspace" mode or "iptables" mode.
-Hopefully you are using the newer, faster, more stable "iptables" mode.  You
+The kube-proxy can run in "userspace" mode, "iptables" mode or "ipvs" mode.
+Hopefully you are using the "iptables" mode or "ipvs" mode.  You
 should see one of the following cases.
 
 #### Userspace
@@ -499,6 +499,22 @@ There should be 1 rule in `KUBE-SERVICES`, 1 or 2 rules per endpoint in
 `KUBE-SVC-(hash)` (depending on `SessionAffinity`), one `KUBE-SEP-(hash)` chain
 per endpoint, and a few rules in each `KUBE-SEP-(hash)` chain.  The exact rules
 will vary based on your exact config (including node-ports and load-balancers).
+
+#### IPVS
+
+```shell
+u@node$ ipvsadm -ln
+Prot LocalAddress:Port Scheduler Flags
+  -> RemoteAddress:Port           Forward Weight ActiveConn InActConn
+...
+TCP  10.0.1.175:80 rr
+  -> 10.244.0.5:9376               Masq    1      0          0
+  -> 10.244.0.6:9376               Masq    1      0          0
+  -> 10.244.0.7:9376               Masq    1      0          0
+...
+```
+
+IPVS proxy will create a virtual server for each service address(e.g. Cluster IP, External IP, NodePort IP, Load Balancer IP etc.) and some corresponding real servers for endpoints of the service, if any. In this example, service hostnames(`10.0.1.175:80`) has 3 endpoints(`10.244.0.5:9376`, `10.244.0.6:9376`, `10.244.0.7:9376`) and you'll get results similar to above.
 
 ### Is kube-proxy proxying?
 
