@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bgrant0607
 - hw-qiaolei
 title: Overview of kubectl
