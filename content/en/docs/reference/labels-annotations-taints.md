@@ -7,20 +7,6 @@ the well-known kubernetes.io labels and annotations.
 
 This document serves both as a reference to the values, and as a coordination point for assigning values.
 
-**Table of contents:**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Well-Known Labels, Annotations and Taints](#well-known-labels-annotations-and-taints)
-  - [beta.kubernetes.io/arch](#betakubernetesioarch)
-  - [beta.kubernetes.io/os](#betakubernetesioos)
-  - [kubernetes.io/hostname](#kubernetesiohostname)
-  - [beta.kubernetes.io/instance-type](#betakubernetesioinstance-type)
-  - [failure-domain.beta.kubernetes.io/region](#failure-domainbetakubernetesioregion)
-  - [failure-domain.beta.kubernetes.io/zone](#failure-domainbetakubernetesiozone)
-
-<!-- END MUNGE: GENERATED_TOC -->
-
-
 ## beta.kubernetes.io/arch
 
 Example: `beta.kubernetes.io/arch=amd64`
