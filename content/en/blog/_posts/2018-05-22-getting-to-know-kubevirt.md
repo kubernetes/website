@@ -15,7 +15,7 @@ Running VMs with Kubernetes involves a bit of an adjustment compared to using so
 
 In this post, we’ll talk about some of the components that are involved in KubeVirt at a high level. The components we’ll check out are CRDs, the KubeVirt virt-controller, virt-handler and virt-launcher components, libvirt, storage, and networking.
 
-## KubeVirt components
+## KubeVirt Components
 
 <img src="/images/blog/2018-05-22-getting-to-know-kubevirt/kubevirt-components.png" width="70%" alt="Kubevirt Components" />
 
