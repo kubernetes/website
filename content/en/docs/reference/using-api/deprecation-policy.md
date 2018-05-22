@@ -37,6 +37,8 @@ includes:
 
    * REST resources (aka API objects)
    * Fields of REST resources
+   * Annotations on REST resources, including "beta" annotations but not
+     including "alpha" annotations.
    * Enumerated or constant values
    * Component config structures
 
