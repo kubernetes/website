@@ -51,7 +51,7 @@ h1 {
   padding-left:10%;
   font-size:32px;
   background-size:100% auto;
-  background-repeat:no-repeat;
+
 }
 
 .banner2 {
@@ -109,6 +109,7 @@ h1 {
   letter-spacing:0.03em;
   line-height:35px;
   float:left;
+  width:100%;
   background-size:100% auto;
   background-color:#666666;
   background-repeat:no-repeat;
