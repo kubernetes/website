@@ -45,8 +45,10 @@ The first element specifies that the value of the Deployment's
 The second element specifies that the value of the Deployment's `annotations`
 field should be stored in a file named `annotations`.
 
+{{< note >}}
 **Note**: The fields in this example are Deployment fields. They are not
 fields of the Container in the Deployment.
+{{< /note >}}
 
 Create the Deployment:
 
@@ -86,6 +88,7 @@ kubectl exec -it kubernetes-downwardapi-volume-example -- sh
 In your shell, view the `labels` file:
 
 ```shell
+cat /etc/deploymentinfo/labels
 /
 ```
 
@@ -101,13 +104,13 @@ zone="us-est-coast"
 Similarly, view the `annotations` file:
 
 ```shell
-/
+/cat /etc/deploymentinfo/annotations
 ```
 
-View the files in the `/etc` directory:
+View the files in the `/etc/deployment info` directory:
 
 ```shell
-/
+/ls -laR /etc/deploymentinfo
 ```
 
 In the output, you can see that the `labels` and `annotations` files
@@ -136,6 +139,7 @@ atomically using
 Exit the shell:
 
 ```shell
+exit
 /
 ```
 
@@ -172,6 +176,7 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 In your shell, view the `cpu_limit` file:
 
 ```shell
+cat /etc/deploymentinfo/cpu_limit
 ```
 You can use similar commands to view the `cpu_request`, `mem_limit` and
 `mem_request` files.
