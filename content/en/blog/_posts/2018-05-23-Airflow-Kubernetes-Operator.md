@@ -17,8 +17,9 @@ To address this issue, we've utilized Kubernetes to allow users to launch arbitr
 ## What Is Airflow?
 
 Apache Airflow is one realization of the DevOps philosophy of "Code As Configuration." Airflow allows users to launch multi-step pipelines using a simple python object DAG (Directed Acyclic Graph). You can define dependencies, programmatically construct complex workflows, and monitor scheduled jobs in an easy to read UI.
- ![Airflow Dags](/images/blog/2018-05-01-developing-on-kubernetes/2018-05-23-airflow_dags.png)
- ![Airflow UI](/images/blog/2018-05-01-developing-on-kubernetes/2018-05-23-airflow.png)
+
+<img src="/images/blog/2018-05-01-developing-on-kubernetes/2018-05-23-airflow_dags.png" width="70%" alt="Airflow DAGs" />
+<img src="/images/blog/2018-05-01-developing-on-kubernetes/2018-05-23-airflow.png" width="70%" alt="Airflow UI" />
 
  Airflow comes with built-in operators for frameworks like Apache Spark, BigQuery, Hive, and EMR. It also offers a Plugins entrypoint that allows DevOps engineers to develop their own connectors.
  
@@ -41,7 +42,7 @@ Handling sensitive data is a core responsibility of any DevOps engineer. At ever
 
 # Architecture
 
-![Airflow Operator Architecture](/images/blog/2018-05-01-developing-on-kubernetes/2018-05-23-airflow-architecture.png)
+<img src="/images/blog/2018-05-01-developing-on-kubernetes/2018-05-23-airflow-architecture.png" width="70%" alt="Airflow Architecture" />
 
 The Kubernetes Operator uses the [Kubernetes Python Client](https://github.com/kubernetes-client/python) to generate a request that is processed by the APIServer (1). Kubernetes will then launch your pod with whatever specs you've defined (2). Images will be loaded with all the necessary environment variables, secrets and dependencies, enacting a single command. Once the job is launched, the operator only needs to monitor the health of track logs (3). Users will have the choice of gathering logs locally to the scheduler or to any distributed logging service currently in their Kubernetes cluster.
 
