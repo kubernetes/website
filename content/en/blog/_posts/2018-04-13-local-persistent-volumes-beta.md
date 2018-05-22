@@ -71,7 +71,8 @@ spec:
       - matchExpressions:
         - key: kubernetes.io/hostname
           operator: In
-          values: my-node
+          values:
+          - my-node
 ```          
 
 Note that there’s a new nodeAffinity field in the PersistentVolume object: this is how the Kubernetes scheduler understands that this PersistentVolume is tied to a specific node. nodeAffinity is a required field for local PersistentVolumes.
