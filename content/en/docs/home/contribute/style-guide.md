@@ -356,7 +356,7 @@ whether they're part of the "we" you're describing.
 
 ### Avoid jargon and idioms
 
-Some readers speak English as a second language. Avoid jargon and idioms to help make their understanding easier.
+Some readers speak English as a second language. Avoid jargon and idioms to help them understand better.
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
