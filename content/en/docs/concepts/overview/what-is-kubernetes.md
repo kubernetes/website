@@ -25,9 +25,9 @@ best-of-breed ideas and practices from the community.
 ## Why do I need Kubernetes and what can it do?
 
 Kubernetes has a number of features. It can be thought of as:
-* a container platform
-* a microservices platform
-* a portable cloud platform
+- a container platform
+- a microservices platform
+- a portable cloud platform
 and a lot more.
 
 Kubernetes provides a **container-centric** management environment. It
