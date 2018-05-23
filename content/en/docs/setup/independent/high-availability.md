@@ -222,13 +222,12 @@ Please select one of the tabs to see installation instructions for the respectiv
 1. First you will install etcd binaries like so:
 
    ```shell
-   ETCD_VERSION="v3.1.12" curl -sSL https://github.com/coreos/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz | tar -xzv --strip-components=1 -C /usr/local/bin/
-   rm -rf etcd--linux-amd64*
+   ETCD_VERSION="v3.1.12"; curl -sSL https://github.com/coreos/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz | tar -xzv --strip-components=1 -C /usr/local/bin/
    ```
 
-   It is worth noting that etcd v3.1.10 is the preferred version for Kubernetes v1.9. For other versions of Kubernetes please consult [the changelog](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md).
+   It is worth noting that etcd v3.1.12 is the preferred version for Kubernetes v1.10. For other versions of Kubernetes please consult [the changelog](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md).
 
-   Also, please realise that most distributions of Linux already have a version of etcd installed, so you will be replacing the system default.
+   Also, please realize that most distributions of Linux already have a version of etcd installed, so you will be replacing the system default.
 
 1. Next, generate the environment file that systemd will use:
 
