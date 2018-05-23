@@ -197,6 +197,8 @@
 /docs/reference/generated/kubefed_unjoin/     /docs/reference/setup-tools/kubefed/kubefed-unjoin/ 301
 /docs/reference/generated/kubefed_version/     /docs/reference/setup-tools/kubefed/kubefed-version/ 301
 
+/docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
+
 /docs/reporting-security-issues/     /security/ 301
 
 /docs/resources-reference/1_6/*     /docs/resources-reference/v1.6/ 301
