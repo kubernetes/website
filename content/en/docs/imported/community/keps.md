@@ -1,9 +1,6 @@
 ---
 title: Kubernetes Enhancement Proposal Process
----
----
 kep-number: 1
-title: Kubernetes Enhancement Proposal Process
 authors:
   - "@calebamiles"
   - "@jbeda"
