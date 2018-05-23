@@ -42,8 +42,8 @@ For each master that has been provisioned, follow the [installation guide](/docs
 
 For highly available setups, you will need to decide how to host your etcd cluster. A cluster is composed of at least 3 members. We recommend one of the following models:
 
-1. Hosting etcd cluster on separate compute nodes (Virtual Machines), or
-2. Hosting etcd cluster on the master nodes.
+- Hosting etcd cluster on separate compute nodes (Virtual Machines)
+- Hosting etcd cluster on the master nodes.
 
 While the first option provides more performance and better hardware isolation, it is also more expensive and requires an additional support burden.
 
