@@ -84,8 +84,9 @@ documentation for the plugins about what port(s) those need.
 ## Installing Docker
 
 On each of your machines, install Docker.
-Version v1.12 is recommended, but v1.11, v1.13 and 17.03 are known to work as well.
+Version 17.03 is recommended, but 1.11, 1.12 and 1.13 are known to work as well.
 Versions 17.06+ _might work_, but have not yet been tested and verified by the Kubernetes node team.
+Keep track of the latest verified Docker version in the Kubernetes release notes.
 
 Please proceed with executing the following commands based on your OS as root. You may become the root user by executing `sudo -i` after SSH-ing to each host.
 
