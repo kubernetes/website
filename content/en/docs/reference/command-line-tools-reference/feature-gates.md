@@ -79,7 +79,8 @@ different Kubernetes components.
 | `RunAsGroup` | `false` | Alpha | 1.10 | |
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.10 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
-| `StorageObjectInUseProtection` | `true` | Beta | 1.10 | |
+| `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
+| `StorageObjectInUseProtection` | `true` | GA | 1.11 | |
 | `StreamingProxyRedirects` | `true` | Beta | 1.5 | |
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
