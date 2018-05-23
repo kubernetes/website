@@ -172,8 +172,8 @@ example program:
 Now, build an image.  If you are working in the source
 tree, then change directory to `examples/job/work-queue-1`.
 Otherwise, make a temporary directory, change to it,
-download the [Dockerfile](coarse-parallel-processing-work-queue/Dockerfile?raw=true),
-and [worker.py](coarse-parallel-processing-work-queue/worker.py?raw=true).  In either case,
+download the [Dockerfile](Dockerfile?raw=true),
+and [worker.py](worker.py?raw=true).  In either case,
 build the image with this command:
 
 ```shell
@@ -205,7 +205,7 @@ Here is a job definition.  You'll need to make a copy of the Job and edit the
 image to match the name you used, and call it `./job.yaml`.
 
 
-{{< code file="job.yaml" >}}
+{{< code file="coarse-parallel-processing-work-queue/job.yaml" >}}
 
 In this example, each pod works on one item from the queue and then exits.
 So, the completion count of the Job corresponds to the number of work items
