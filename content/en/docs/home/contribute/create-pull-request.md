@@ -47,11 +47,12 @@ that is the best fit for your content.
 
 ## Viewing your changes locally
 
-You can use Hugo to see a a preview of your changes locally.
+You can use Hugo to see a preview of your changes locally.
 
 1. [Install Hugo](https://gohugo.io/getting-started/installing/).
 
-1. Enter this command:
+1. Go to the root directory of your clone of the Kubernetes docs, and
+enter this command:
 
         hugo server
 
