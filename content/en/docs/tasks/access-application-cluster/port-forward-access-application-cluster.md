@@ -28,32 +28,30 @@ for database debugging.
 
 1. Create a Redis deployment:
 
-       kubectl create -f https://k8s.io/docs/tutorials/stateless-application/guestbook/redis-master-deployment.yaml
+        kubectl create -f https://k8s.io/docs/tutorials/stateless-application/guestbook/redis-master-deployment.yaml
 
     The output of a successful command verifies that the deployment was created:
 
         deployment "redis-master" created
  
     When the pod is ready, you can get:
-       
-       kubectl get pods
 
+        $ kubectl get pods
         NAME                            READY     STATUS    RESTARTS   AGE
         redis-master-765d459796-258hz   1/1       Running   0          50s
 
-       kubectl get deployment
-       
+        $ kubectl get deployment
         NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
         redis-master 1         1         1            1           55s
 
-       kubectl get rs
+        $ kubectl get rs
         NAME                      DESIRED   CURRENT   READY     AGE
         redis-master-765d459796   1         1         1         1m
 
 
 2. Create a Redis service:
 
-       kubectl create -f https://k8s.io/docs/tutorials/stateless-application/guestbook/redis-master-service.yaml
+        kubectl create -f https://k8s.io/docs/tutorials/stateless-application/guestbook/redis-master-service.yaml
 
     The output of a successful command verifies that the service was created:
 
@@ -61,16 +59,14 @@ for database debugging.
 
     Check the service created:
 
-       kubectl get svc | grep redis
+        $ kubectl get svc | grep redis
 
         NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
         redis-master   ClusterIP   10.0.0.213   <none>        6379/TCP   27s
 
 3. Verify that the Redis server is running in the pod and listening on port 6379:
 
-        
-       kubectl get pods redis-master-765d459796-258hz --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
-        
+        kubectl get pods redis-master-765d459796-258hz --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
 
     The output displays the port:
 
