@@ -200,7 +200,7 @@ If you deployed this application to Minikube or a local cluster, you need to fin
 
 1. Run the following command to get the IP address for the frontend Service.
 
-       minikube service frontend --url
+       minikube service frontend --url (be sure to use a double hypen before "url" in case your browser is showing a single, copy and paste will fail)
 
    The response should be similar to this:
 
