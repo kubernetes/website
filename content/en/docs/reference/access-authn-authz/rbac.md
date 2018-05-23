@@ -4,6 +4,7 @@ reviewers:
 - deads2k
 - liggitt
 title: Using RBAC Authorization
+weight: 70
 ---
 
 {{< toc >}}

@@ -7,6 +7,7 @@ reviewers:
 - janetkuo
 - thockin
 title: Using Admission Controllers
+weight: 30
 ---
 
 {{< toc >}}

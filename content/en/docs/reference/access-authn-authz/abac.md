@@ -4,8 +4,9 @@ reviewers:
 - lavalamp
 - deads2k
 - liggitt
-title: ABAC Mode
+title: Using ABAC Authorization
 content_template: templates/concept
+weight: 80
 ---
 
 {{% capture overview %}}
