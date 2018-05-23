@@ -39,7 +39,8 @@ different Kubernetes components.
 | `BlockVolume` | `false` | Alpha | 1.9 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
-| `CRIContainerLogRotation` | `false` | Alpha | 1.10 | |
+| `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
+| `CRIContainerLogRotation` | `true` | Beta| 1.11 | |
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
 | `CSIPersistentVolume` | `true` | Beta | 1.10 | |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
