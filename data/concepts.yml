@@ -17,6 +17,7 @@ toc:
     - docs/concepts/overview/working-with-objects/namespaces.md
     - docs/concepts/overview/working-with-objects/labels.md
     - docs/concepts/overview/working-with-objects/annotations.md
+    - docs/concepts/overview/working-with-objects/common-labels-annotations.md
   - title: Object Management Using kubectl
     section:
     - docs/concepts/overview/object-management-kubectl/overview.md
