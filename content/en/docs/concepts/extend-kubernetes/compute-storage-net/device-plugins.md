@@ -51,8 +51,9 @@ to advertise 2 `vendor-domain/foo`.
 Then, users can request devices in a
 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 specification as they request other types of resources, with the following limitations:
-  * Extended resources are only supported as integer resources and cannot be overcommitted.
-  * Devices cannot be shared among Containers.
+
+* Extended resources are only supported as integer resources and cannot be overcommitted.
+* Devices cannot be shared among Containers.
 
 Suppose a Kubernetes cluster is running a device plugin that advertises resource `vendor-domain/resource`
 on certain nodes, here is an example user pod requesting this resource:
@@ -126,8 +127,9 @@ in the plugin's
 
 Kubernetes device plugin support is still in alpha. As development continues, its API version can
 change in incompatible ways. We recommend that device plugin developers do the following:
-  * Watch for changes in future releases.
-  * Support multiple versions of the device plugin API for backward/forward compatibility.
+
+* Watch for changes in future releases.
+* Support multiple versions of the device plugin API for backward/forward compatibility.
 
 If you enable the DevicePlugins feature and run device plugins on nodes that need to be upgraded to
 a Kubernetes release with a newer device plugin API version, upgrade your device plugins
@@ -137,6 +139,7 @@ ensure the continuous functioning of the device allocations during the upgrade.
 ## Examples
 
 For examples of device plugin implementations, see:
+
 * The official [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
     * it requires using [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker) which allows you to run GPU enabled docker containers
 * The [NVIDIA GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu).
