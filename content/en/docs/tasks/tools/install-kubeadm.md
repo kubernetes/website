@@ -249,13 +249,10 @@ flag you need to change is `--cgroup-driver`. If it's already set, you can updat
 sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
-Otherwise, you will need to open the systemd file and add the flag to an existing environment line.
-
-Then restart kubelet:
+Otherwise, you will need to open the systemd file and add the flag as below.
 
 ```bash
-systemctl daemon-reload
-systemctl restart kubelet
+Environment="KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs"
 ```
 
 ## Troubleshooting
