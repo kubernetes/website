@@ -35,7 +35,7 @@ provides load balancing for an application that has two running instances.
 
 1. Run a Hello World application in your cluster:
 
-       kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
+        kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
 
     The preceding command creates a
     [Deployment](/docs/concepts/workloads/controllers/deployment/)
@@ -47,21 +47,21 @@ provides load balancing for an application that has two running instances.
 
 1. Display information about the Deployment:
 
-       kubectl get deployments hello-world
-       kubectl describe deployments hello-world
+        kubectl get deployments hello-world
+        kubectl describe deployments hello-world
 
 1. Display information about your ReplicaSet objects:
 
-       kubectl get replicasets
-       kubectl describe replicasets
+        kubectl get replicasets
+        kubectl describe replicasets
 
 1. Create a Service object that exposes the deployment:
 
-       kubectl expose deployment hello-world --type=NodePort --name=example-service
+        kubectl expose deployment hello-world --type=NodePort --name=example-service
 
 1. Display information about the Service:
 
-       kubectl describe services example-service
+        kubectl describe services example-service
 
     The output is similar to this:
 
@@ -84,10 +84,10 @@ provides load balancing for an application that has two running instances.
 
 1. List the pods that are running the Hello World application:
 
-       kubectl get pods --selector="run=load-balancer-example" --output=wide
+        kubectl get pods --selector="run=load-balancer-example" --output=wide
 
     The output is similar to this:
-
+    
         NAME                           READY   STATUS    ...  IP           NODE
         hello-world-2895499144-bsbk5   1/1     Running   ...  10.200.1.4   worker1
         hello-world-2895499144-m1pwt   1/1     Running   ...  10.200.2.5   worker2
@@ -98,18 +98,18 @@ provides load balancing for an application that has two running instances.
    see the node address by running `kubectl cluster-info`. If you are
    using Google Compute Engine instances, you can use the
    `gcloud compute instances list` command to see the public addresses of your
-   nodes. For more information about this command, see the [GCE documentation](https://cloud.google.com/sdk/gcloud/reference/compute/instances/list). 
+   nodes. For more information about this command, see the [GCE documentation](https://cloud.google.com/sdk/gcloud/reference/compute/instances/list).
 
 1. On your chosen node, create a firewall rule that allows TCP traffic
    on your node port. For example, if your Service has a NodePort value of
-   31568, create a firewall rule that allows TCP traffic on port 31568. Different 
-   cloud providers offer different ways of configuring firewall rules. See [the 
-   GCE documentation on firewall rules](https://cloud.google.com/compute/docs/vpc/firewalls), 
+   31568, create a firewall rule that allows TCP traffic on port 31568. Different
+   cloud providers offer different ways of configuring firewall rules. See [the
+   GCE documentation on firewall rules](https://cloud.google.com/compute/docs/vpc/firewalls),
    for example.
 
 1. Use the node address and node port to access the Hello World application:
 
-       curl http://<public-node-ip>:<node-port>
+        curl http://<public-node-ip>:<node-port>
 
     where `<public-node-ip>` is the public IP address of your node,
     and `<node-port>` is the NodePort value for your service.
