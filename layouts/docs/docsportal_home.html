@@ -26,6 +26,10 @@
     {{ $persona_info := $vv }}
     {{ if $persona_info.short_desc }}
     {{ $persona_info.short_desc }}
+    {{ else if $persona_info.glossary_id }}
+    {{ with $persona_info.glossary_id | printf "%s.md" | ($.Site.GetPage "page" "docs/reference/glossary").Resources.GetMatch }}
+    {{ .Params.short_description }}
+    {{ end }}
     {{ end }}
     </div>
     {{ end }}
