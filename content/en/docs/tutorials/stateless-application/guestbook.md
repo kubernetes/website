@@ -49,25 +49,24 @@ The manifest file, included below, specifies a Deployment controller that runs a
 
 1. Launch a terminal window in the directory you downloaded the manifest files.
 2. Apply the Redis Master Deployment from the `redis-master-deployment.yaml` file:
-   ```
-   kubectl apply -f redis-master-deployment.yaml
-   ```   
+
+       kubectl apply -f redis-master-deployment.yaml
+        
    {{< code file="guestbook/redis-master-deployment.yaml" >}}
 
 3. Query the list of Pods to verify that the Redis Master Pod is running:
-   ```
-   kubectl get pods
-   ```
+
+       kubectl get pods
+
    The response should be similar to this:
-   ```
-   NAME                            READY     STATUS    RESTARTS   AGE
-   redis-master-1068406935-3lswp   1/1       Running   0          28s
-   ```
+
+       NAME                            READY     STATUS    RESTARTS   AGE
+       redis-master-1068406935-3lswp   1/1       Running   0          28s
 
 4. Run the following command to view the logs from the Redis Master Pod:
-   ```
-   kubectl logs -f POD-NAME
-   ```
+
+       kubectl logs -f POD-NAME
+
 {{< note >}}
 **Note:** Replace POD-NAME with the name of your Pod.
 {{< /note >}}
@@ -77,9 +76,9 @@ The manifest file, included below, specifies a Deployment controller that runs a
 The guestbook applications needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
 
 1. Apply the Redis Master Service from the following `redis-master-service.yaml` file: 
-   ```
-   kubectl apply -f redis-master-service.yaml
-   ```
+
+       kubectl apply -f redis-master-service.yaml
+
    {{< code file="guestbook/redis-master-service.yaml" >}}
 
 {{< note >}}
@@ -88,17 +87,13 @@ The guestbook applications needs to communicate to the Redis master to write its
 
 2. Query the list of Services to verify that the Redis Master Service is running:
 
-   ```
-   kubectl get service
-   ```
+       kubectl get service
 
    The response should be similar to this:
 
-   ```
-   NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-   kubernetes     10.0.0.1     <none>        443/TCP    1m
-   redis-master   10.0.0.151   <none>        6379/TCP   8s
-   ```
+       NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+       kubernetes     10.0.0.1     <none>        443/TCP    1m
+       redis-master   10.0.0.151   <none>        6379/TCP   8s
 
 ## Start up the Redis Slaves
 
@@ -112,26 +107,20 @@ If there are not any replicas running, this Deployment would start the two repli
 
 1. Apply the Redis Slave Deployment from the `redis-slave-deployment.yaml` file:
 
-   ```
-   kubectl apply -f redis-slave-deployment.yaml
-   ```
+       kubectl apply -f redis-slave-deployment.yaml
 
    {{< code file="guestbook/redis-slave-deployment.yaml" >}}
 
 2. Query the list of Pods to verify that the Redis Slave Pods are running:
 
-   ```
-   kubectl get pods
-   ```
+       kubectl get pods
 
    The response should be similar to this:
 
-   ```
-   NAME                            READY     STATUS              RESTARTS   AGE
-   redis-master-1068406935-3lswp   1/1       Running             0          1m
-   redis-slave-2005841000-fpvqc    0/1       ContainerCreating   0          6s
-   redis-slave-2005841000-phfv9    0/1       ContainerCreating   0          6s
-   ```
+       NAME                            READY     STATUS              RESTARTS   AGE
+       redis-master-1068406935-3lswp   1/1       Running             0          1m
+       redis-slave-2005841000-fpvqc    0/1       ContainerCreating   0          6s
+       redis-slave-2005841000-phfv9    0/1       ContainerCreating   0          6s
         
 ### Creating the Redis Slave Service
 
@@ -139,26 +128,20 @@ The guestbook application needs to communicate to Redis slaves to read data. To 
 
 1. Apply the Redis Slave Service from the following `redis-slave-service.yaml` file:
 
-   ```
-   kubectl apply -f redis-slave-service.yaml
-   ```
+       kubectl apply -f redis-slave-service.yaml
 
    {{< code file="guestbook/redis-slave-service.yaml" >}}
 
 2. Query the list of Services to verify that the Redis Slave Service is running:
 
-   ```
-   kubectl get services
-   ```
+       kubectl get services
 
    The response should be similar to this:
 
-   ```
-   NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-   kubernetes     10.0.0.1     <none>        443/TCP    2m
-   redis-master   10.0.0.151   <none>        6379/TCP   1m
-   redis-slave    10.0.0.223   <none>        6379/TCP   6s
-   ```
+       NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+       kubernetes     10.0.0.1     <none>        443/TCP    2m
+       redis-master   10.0.0.151   <none>        6379/TCP   1m
+       redis-slave    10.0.0.223   <none>        6379/TCP   6s
 
 ## Set up and Expose the Guestbook Frontend
 
@@ -168,26 +151,20 @@ The guestbook application has a web frontend serving the HTTP requests written i
 
 1. Apply the frontend Deployment from the following `frontend-deployment.yaml` file:
 
-   ```
-   kubectl apply -f frontend-deployment.yaml
-   ```
+       kubectl apply -f frontend-deployment.yaml
 
    {{< code file="guestbook/frontend-deployment.yaml" >}}
 
 2. Query the list of Pods to verify that the three frontend replicas are running:
 
-   ```
-   kubectl get pods -l app=guestbook -l tier=frontend
-   ```
+       kubectl get pods -l app=guestbook -l tier=frontend
 
    The response should be similar to this:
 
-   ```
-   NAME                        READY     STATUS    RESTARTS   AGE
-   frontend-3823415956-dsvc5   1/1       Running   0          54s
-   frontend-3823415956-k22zn   1/1       Running   0          54s
-   frontend-3823415956-w9gbt   1/1       Running   0          54s
-   ```
+       NAME                        READY     STATUS    RESTARTS   AGE
+       frontend-3823415956-dsvc5   1/1       Running   0          54s
+       frontend-3823415956-k22zn   1/1       Running   0          54s
+       frontend-3823415956-w9gbt   1/1       Running   0          54s
 
 ### Creating the Frontend Service
 
@@ -201,27 +178,21 @@ If you want guests to be able to access your guestbook, you must configure the f
 
 1. Apply the frontend Service from the following `frontend-service.yaml` file:
 
-   ```
-   kubectl apply -f frontend-service.yaml
-   ```
+       kubectl apply -f frontend-service.yaml
         
    {{< code file="guestbook/frontend-service.yaml" >}}
 
 2. Query the list of Services to verify that the frontend Service is running:
 
-   ```
-   kubectl get services 
-   ```
+       kubectl get services 
 
    The response should be similar to this:
 
-   ```
-   NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-   frontend       10.0.0.112   <none>       80:31323/TCP   6s
-   kubernetes     10.0.0.1     <none>        443/TCP        4m
-   redis-master   10.0.0.151   <none>        6379/TCP       2m
-   redis-slave    10.0.0.223   <none>        6379/TCP       1m
-   ```
+       NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
+       frontend       10.0.0.112   <none>       80:31323/TCP   6s
+       kubernetes     10.0.0.1     <none>        443/TCP        4m
+       redis-master   10.0.0.151   <none>        6379/TCP       2m
+       redis-slave    10.0.0.223   <none>        6379/TCP       1m
 
 ### Viewing the Frontend Service via `NodePort`
 
@@ -229,15 +200,11 @@ If you deployed this application to Minikube or a local cluster, you need to fin
 
 1. Run the following command to get the IP address for the frontend Service.
 
-   ```
-   minikube service frontend --url
-   ```
+       minikube service frontend --url
 
    The response should be similar to this:
 
-   ```
-   http://192.168.99.100:31323
-   ```
+       http://192.168.99.100:31323
 
 2. Copy the IP address, and load the page in your browser to view your guestbook.
 
@@ -247,16 +214,12 @@ If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer` y
 
 1. Run the following command to get the IP address for the frontend Service.
 
-   ```
-   kubectl get service frontend
-   ```
+       kubectl get service frontend
 
    The response should be similar to this:
 
-   ```
-   NAME       CLUSTER-IP      EXTERNAL-IP        PORT(S)        AGE
-   frontend   10.51.242.136   109.197.92.229     80:32372/TCP   1m
-   ```
+       NAME       CLUSTER-IP      EXTERNAL-IP        PORT(S)        AGE
+       frontend   10.51.242.136   109.197.92.229     80:32372/TCP   1m
 
 2. Copy the External IP address, and load the page in your browser to view your guestbook.
 
@@ -266,52 +229,40 @@ Scaling up or down is easy because your servers are defined as a Service that us
 
 1. Run the following command to scale up the number of frontend Pods:
 
-   ```
-   kubectl scale deployment frontend --replicas=5
-   ```
+       kubectl scale deployment frontend --replicas=5
 
 2. Query the list of Pods to verify the number of frontend Pods running:
 
-   ```
-   kubectl get pods
-   ```
+       kubectl get pods
 
    The response should look similar to this: 
 
-   ```
-   NAME                            READY     STATUS    RESTARTS   AGE
-   frontend-3823415956-70qj5       1/1       Running   0          5s
-   frontend-3823415956-dsvc5       1/1       Running   0          54m
-   frontend-3823415956-k22zn       1/1       Running   0          54m
-   frontend-3823415956-w9gbt       1/1       Running   0          54m
-   frontend-3823415956-x2pld       1/1       Running   0          5s
-   redis-master-1068406935-3lswp   1/1       Running   0          56m
-   redis-slave-2005841000-fpvqc    1/1       Running   0          55m
-   redis-slave-2005841000-phfv9    1/1       Running   0          55m
-   ```
+       NAME                            READY     STATUS    RESTARTS   AGE
+       frontend-3823415956-70qj5       1/1       Running   0          5s
+       frontend-3823415956-dsvc5       1/1       Running   0          54m
+       frontend-3823415956-k22zn       1/1       Running   0          54m
+       frontend-3823415956-w9gbt       1/1       Running   0          54m
+       frontend-3823415956-x2pld       1/1       Running   0          5s
+       redis-master-1068406935-3lswp   1/1       Running   0          56m
+       redis-slave-2005841000-fpvqc    1/1       Running   0          55m
+       redis-slave-2005841000-phfv9    1/1       Running   0          55m
 
 3. Run the following command to scale down the number of frontend Pods:
 
-   ```
-   kubectl scale deployment frontend --replicas=2
-   ```
+       kubectl scale deployment frontend --replicas=2
 
 4. Query the list of Pods to verify the number of frontend Pods running:
 
-   ```
-   kubectl get pods
-   ```
+       kubectl get pods
 
    The response should look similar to this:
 
-   ```
-   NAME                            READY     STATUS    RESTARTS   AGE
-   frontend-3823415956-k22zn       1/1       Running   0          1h
-   frontend-3823415956-w9gbt       1/1       Running   0          1h
-   redis-master-1068406935-3lswp   1/1       Running   0          1h
-   redis-slave-2005841000-fpvqc    1/1       Running   0          1h
-   redis-slave-2005841000-phfv9    1/1       Running   0          1h
-   ```
+       NAME                            READY     STATUS    RESTARTS   AGE
+       frontend-3823415956-k22zn       1/1       Running   0          1h
+       frontend-3823415956-w9gbt       1/1       Running   0          1h
+       redis-master-1068406935-3lswp   1/1       Running   0          1h
+       redis-slave-2005841000-fpvqc    1/1       Running   0          1h
+       redis-slave-2005841000-phfv9    1/1       Running   0          1h
         
 {{% /capture %}}
 
@@ -320,35 +271,27 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 
 1. Run the following commands to delete all Pods, Deployments, and Services.
 
-   ```
-   kubectl delete deployment -l app=redis
-   kubectl delete service -l app=redis
-   kubectl delete deployment -l app=guestbook
-   kubectl delete service -l app=guestbook
-   ```
+       kubectl delete deployment -l app=redis
+       kubectl delete service -l app=redis
+       kubectl delete deployment -l app=guestbook
+       kubectl delete service -l app=guestbook
 
    The responses should be:
 
-   ```
-   deployment "redis-master" deleted
-   deployment "redis-slave" deleted
-   service "redis-master" deleted
-   service "redis-slave" deleted
-   deployment "frontend" deleted    
-   service "frontend" deleted
-   ```
+       deployment "redis-master" deleted
+       deployment "redis-slave" deleted
+       service "redis-master" deleted
+       service "redis-slave" deleted
+       deployment "frontend" deleted    
+       service "frontend" deleted
        
 2. Query the list of Pods to verify that no Pods are running:
 
-   ```
-   kubectl get pods
-   ```
+       kubectl get pods
         
    The response should be this: 
 
-   ```
-   No resources found.
-   ```
+       No resources found.
         
 {{% /capture %}}
 
@@ -358,4 +301,5 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 * Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
 * Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
 {{% /capture %}}
+
 
