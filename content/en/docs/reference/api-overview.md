@@ -45,12 +45,13 @@ versioning proposal](https://git.k8s.io/community/contributors/design-proposals/
 Different API versions indicate different levels of stability and support. You can find more information about the criteria for each level in the [API Changes documentation](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions).  
 
 Here's a summary of each level:
+
 - Alpha:
   - The version names contain `alpha` (for example, `v1alpha1`).
   - The software may contain bugs. Enabling a feature may expose bugs. A feature may be disabled by default.
   - The support for a feature may be dropped at any time without notice.
   - The API may change in incompatible ways in a later software release without notice.
-  - The software is recommended for use only in short-lived testing clusters, due to increased risk of bugs and lack of   long-term support.
+  - The software is recommended for use only in short-lived testing clusters, due to increased risk of bugs and lack of  long-term support.
   
 - Beta:
   - The version names contain `beta` (for example, `v2beta3`).
