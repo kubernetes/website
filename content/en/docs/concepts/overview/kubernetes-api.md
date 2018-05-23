@@ -10,7 +10,7 @@ API endpoints, resource types and samples are described in [API Reference](/docs
 
 Remote access to the API is discussed in the [access doc](/docs/admin/accessing-the-api).
 
-The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [kubectl](/docs/user-guide/kubectl/) command-line tool can be used to create, update, delete, and get API objects.
+The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [kubectl](/docs/reference/kubectl/overview/) command-line tool can be used to create, update, delete, and get API objects.
 
 Kubernetes also stores its serialized state (currently in [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)) in terms of the API resources.
 
@@ -31,7 +31,7 @@ Starting with Kubernetes 1.10, OpenAPI spec is served in a single `/openapi/v2` 
 Requested format is specified by setting HTTP headers:
 
 Header | Possible Values
------- | --------------
+------ | ---------------
 Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` (the default content-type is `application/json` for `*/*` or not passing this header)
 Accept-Encoding | `gzip` (not passing this header is acceptable)
 
