@@ -6,6 +6,7 @@ reviewers:
 - lavalamp
 - liggitt
 content_template: templates/concept
+weight: 20
 ---
 
 {{% capture overview %}}

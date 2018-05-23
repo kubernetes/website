@@ -6,6 +6,7 @@ reviewers:
 - caesarxuchao
 - deads2k
 title: Dynamic Admission Control
+weight: 40
 ---
 
 {{< toc >}}

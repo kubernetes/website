@@ -484,3 +484,15 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/kubeadm/ 301
 
 /editdocs/     /docs/home/contribute/     301 
+
+/docs/admin/accessing-the-api/     /docs/reference/access-authn-authz/controlling-access/ 301
+/docs/admin/admission-controllers/     /docs/reference/access-authn-authz/admission-controllers/ 301
+/docs/admin/authentication/     /docs/reference/access-authn-authz/authentication/ 301
+/docs/admin/bootstrap-tokens/     /docs/reference/access-authn-authz/bootstrap-tokens/ 301
+/docs/admin/extensible-admission-controllers/     /docs/reference/access-authn-authz/extensible-admission-controllers/ 301
+/docs/admin/service-accounts-admin/     /docs/reference/access-authn-authz/service-accounts-admin/ 301
+/docs/admin/authorization/abac/     /docs/reference/access-authn-authz/abac/ 301
+/docs/admin/authorization/node/     /docs/reference/access-authn-authz/node/ 301
+/docs/admin/authorization/rbac/     /docs/reference/access-authn-authz/rbac/ 301
+/docs/admin/authorization/webhook/     /docs/reference/access-authn-authz/webhook/ 301
+/docs/admin/authorization/     /docs/reference/access-authn-authz/authorization/ 301

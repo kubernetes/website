@@ -6,6 +6,7 @@ reviewers:
 - liggitt
 title: Webhook Mode
 content_template: templates/concept
+weight: 95
 ---
 
 {{% capture overview %}}

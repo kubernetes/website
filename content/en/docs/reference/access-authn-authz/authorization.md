@@ -4,8 +4,9 @@ reviewers:
 - lavalamp
 - deads2k
 - liggitt
-title: Overview
+title: Authorization Overview
 content_template: templates/concept
+weight: 60
 ---
 
 {{% capture overview %}}

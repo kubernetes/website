@@ -4,6 +4,7 @@ reviewers:
 - lavalamp
 - thockin
 title: Kubernetes Deprecation Policy
+weight: 40
 ---
 
 Kubernetes is a large system with many components and many contributors.  As
