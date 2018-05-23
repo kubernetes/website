@@ -17,29 +17,7 @@ creation-date: 2017-08-22
 status: implementable
 ---
 
-# Kubernetes Enhancement Proposal Process
-
 ## Table of Contents
-
-* [Kubernetes Enhancement Proposal Process](#kubernetes-enhancement-proposal-process)
-  * [Metadata](#metadata)
-  * [Table of Contents](#table-of-contents)
-  * [Summary](#summary)
-  * [Motivation](#motivation)
-  * [Reference-level explanation](#reference-level-explanation)
-      * [What type of work should be tracked by a KEP](#what-type-of-work-should-be-tracked-by-a-kep)
-      * [KEP Template](#kep-template)
-      * [KEP Metadata](#kep-metadata)
-      * [KEP Workflow](#kep-workflow)
-      * [Git and GitHub Implementation](#git-and-github-implementation)
-      * [KEP Editor Role](#kep-editor-role)
-      * [Important Metrics](#important-metrics)
-      * [Prior Art](#prior-art)
-  * [Graduation Criteria](#graduation-criteria)
-  * [Drawbacks](#drawbacks)
-  * [Alternatives](#alternatives)
-  * [Unresolved Questions](#unresolved-questions)
-  * [Mentors](#mentors)
 
 ## Summary
 
@@ -148,7 +126,9 @@ This will be used to support tooling around filtering and display.  It is also
 critical to clearly communicate the status of a KEP.
 
 Metadata items:
+
 * **kep-number** Required
+
   * Each proposal has a number.  This is to make all references to proposals as
     clear as possible.  This is especially important as we create a network
     cross references between proposals.
@@ -159,31 +139,38 @@ Metadata items:
   * On acceptance a sequential dense number will be assigned.  This will be done
     by the editor and will be done in such a way as to minimize the chances of
     conflicts.  The final number for a KEP will have no prefix.
+
 * **title** Required
   * The title of the KEP in plain language.  The title will also be used in the
     KEP filename.  See the template for instructions and details.
+
 * **status** Required
   * The current state of the KEP.
   * Must be one of `provisional`, `implementable`, `implemented`, `deferred`, `rejected`, `withdrawn`, or `replaced`.
+
 * **authors** Required
   * A list of authors for the KEP.
     This is simply the github ID.
     In the future we may enhance this to include other types of identification.
+
 * **owning-sig** Required
   * The SIG that is most closely associated with this KEP. If there is code or
     other artifacts that will result from this KEP, then it is expected that
     this SIG will take responsibility for the bulk of those artifacts.
   * Sigs are listed as `sig-abc-def` where the name matches up with the
     directory in the `kubernetes/community` repo.
+
 * **participating-sigs** Optional
   * A list of SIGs that are involved or impacted by this KEP.
   * A special value of `kubernetes-wide` will indicate that this KEP has impact
     across the entire project.
+
 * **reviewers** Required
   * Reviewer(s) chosen after triage according to proposal process
   * If not yet chosen replace with `TBD`
   * Same name/contact scheme as `authors`
   * Reviewers should be a distinct set from authors.
+
 * **approvers** Required
   * Approver(s) chosen after triage according to proposal process
   * Approver(s) are drawn from the impacted SIGs.
@@ -194,24 +181,30 @@ Metadata items:
   * Approvers should be a distinct set from authors.
   * If not yet chosen replace with `TBD`
   * Same name/contact scheme as `authors`
+
 * **editor** Required
   * Someone to keep things moving forward.
   * If not yet chosen replace with `TBD`
   * Same name/contact scheme as `authors`
+
 * **creation-date** Required
   * The date that the KEP was first submitted in a PR.
   * In the form `yyyy-mm-dd`
   * While this info will also be in source control, it is helpful to have the set of KEP files stand on their own.
+
 * **last-updated** Optional
   * The date that the KEP was last changed significantly.
   * In the form `yyyy-mm-dd`
+
 * **see-also** Optional
   * A list of other KEPs that are relevant to this KEP.
   * In the form `KEP-123`
+
 * **replaces** Optional
   * A list of KEPs that this KEP replaces.  Those KEPs should list this KEP in
     their `superseded-by`.
   * In the form `KEP-123`
+
 * **superseded-by**
   * A list of KEPs that supersede this KEP. Use of this should be paired with
     this KEP moving into the `Replaced` status.
