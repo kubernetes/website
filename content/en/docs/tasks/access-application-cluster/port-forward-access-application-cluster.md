@@ -34,17 +34,30 @@ for database debugging.
 
         deployment "redis-master" created
  
-    When the pod is ready, you can get:
+    When the pod is ready, you can get pod:
 
-        $ kubectl get pods
+        kubectl get pods
+
+    The output displays the pod created:
+
         NAME                            READY     STATUS    RESTARTS   AGE
         redis-master-765d459796-258hz   1/1       Running   0          50s
 
-        $ kubectl get deployment
+    And you can get deployment:
+
+        kubectl get deployment
+
+    The output displays the deployment created:
+
         NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
         redis-master 1         1         1            1           55s
 
-        $ kubectl get rs
+    And you can get replicaset:
+
+        kubectl get rs
+
+    The output displays the replicaset created:
+
         NAME                      DESIRED   CURRENT   READY     AGE
         redis-master-765d459796   1         1         1         1m
 
@@ -59,7 +72,9 @@ for database debugging.
 
     Check the service created:
 
-        $ kubectl get svc | grep redis
+        kubectl get svc | grep redis
+
+    The output displays the service created:
 
         NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
         redis-master   ClusterIP   10.0.0.213   <none>        6379/TCP   27s
