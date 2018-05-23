@@ -78,7 +78,6 @@ disablePreemption: true
 
 Please note: although preemption of scheduler is enabled by default, preemption will not happen if `PodPriority` feature is not available.
 
-
 ## PriorityClass
 
 A PriorityClass is a non-namespaced object that defines a mapping from a priority
