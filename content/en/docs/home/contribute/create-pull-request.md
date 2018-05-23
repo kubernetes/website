@@ -49,7 +49,8 @@ that is the best fit for your content.
 
 You can use Hugo to see a preview of your changes locally.
 
-1. [Install Hugo](https://gohugo.io/getting-started/installing/).
+1. [Install Hugo](https://gohugo.io/getting-started/installing/)
+version 0.40.3 or later.
 
 1. Go to the root directory of your clone of the Kubernetes docs, and
 enter this command:
