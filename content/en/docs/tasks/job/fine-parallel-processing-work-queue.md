@@ -115,7 +115,7 @@ client library to get work.  Here it is:
 
 If you are working from the source tree,
 change directory to the `docs/tasks/job/fine-parallel-processing-work-queue/` directory.
-Otherwise, download [`worker.py`](fine-parallel-processing-work-queue/worker.py?raw=true), [`rediswq.py`](fine-parallel-processing-work-queue/rediswq.py?raw=true), and [`Dockerfile`](fine-parallel-processing-work-queue/Dockerfile?raw=true)
+Otherwise, download [`worker.py`](worker.py?raw=true), [`rediswq.py`](rediswq.py?raw=true), and [`Dockerfile`](Dockerfile?raw=true)
 using above links. Then build the image:
 
 ```shell
@@ -150,7 +150,7 @@ gcloud docker -- push gcr.io/<project>/job-wq-2
 
 Here is the job definition:
 
-{{< code file="job.yaml" >}}
+{{< code file="fine-parallel-processing-work-queue/job.yaml" >}}
 
 Be sure to edit the job template to
 change `gcr.io/myproject` to your own path.
