@@ -20,11 +20,6 @@ Apache Airflow is one realization of the DevOps philosophy of "Code As Configura
 <img src="/images/blog/2018-05-25-Airflow-Kubernetes-Operator/2018-05-25-airflow.png" width="85%" alt="Airflow UI" />
 
  Airflow comes with built-in operators for frameworks like Apache Spark, BigQuery, Hive, and EMR. It also offers a Plugins entrypoint that allows DevOps engineers to develop their own connectors.
- 
-## What is Kubernetes?
-
-Before we go any further, let's take a moment for a quick overview of Kubernetes. [Kubernetes](https://kubernetes.io/) is an open-source container deployment engine released by Google and open sourced under the Apache 2.0 licence. Based on Google's [Borg](http://blog.kubernetes.io/2015/04/borg-predecessor-to-kubernetes.html), Kubernetes allows for easy deployment of images using a highly flexible API. Using Kubernetes, you can [deploy Spark jobs](https://github.com/apache-spark-on-k8s/spark), launch end-to-end applications, or create multi-framework ETL pipelines using YAML, JSON, Python, Golang, or Java bindings. The Kubernetes API's programatic launching of containers seemed a perfect marriage with Airflow's "code as configuration" philosophy.
-
 
 ## The Kubernetes Operator
 
