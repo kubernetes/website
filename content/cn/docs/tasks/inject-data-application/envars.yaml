@@ -1,13 +1,22 @@
 apiVersion: v1
-kind: Pod
+kind: Deployment
 metadata:
-  name: envar-demo
-  labels:
-    purpose: demonstrate-envars
-spec:
-  containers:
-  - name: envar-demo-container
-    image: gcr.io/google-samples/node-hello:1.0
-    env:
-    - name: DEMO_GREETING
-      value: "Hello from the environment"
+  name: demonstrate-envars
+spec: # DeploymentSpec
+  selector:
+      matchLabels:
+        app: node-hello
+      replicas: 2
+      template: # PodTemplateSpec
+        metadata:
+            labels:
+              app: node-hello
+        spec: #PodSpec
+          containers:
+          - name: envar-demo-container
+            image: gcr.io/google-samples/node-hello:1.0
+            env:
+            - name: DEMO_GREETING
+              value: "Hello from the environment"
+            - name: DEMO_FAREWELL
+              value: "Such a sweet sorrow"
