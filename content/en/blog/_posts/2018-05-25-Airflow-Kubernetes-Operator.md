@@ -137,3 +137,5 @@ production_task = KubernetesPodOperator(namespace='default',
 # So when will I be able to use this?
 
 The Kubernetes Operator and Kubernetes Executor (article to come) have both been merged into the [1.10 release branch of Airflow](https://github.com/apache/incubator-airflow/tree/v1-10-test) (the executor in experimental mode). While this branch is still in the early stages, we hope to see it released for wide release in the next few months.
+
+For those interested in getting involved with this effort, Apache Airflow has an extremely active mailing list at dev@airflow.apache.org. On the kubernetes side, discussions about Airflow on k8s (as well as Spark, HDFS, and other big data technologies) take plase on the #SIG-BIG-DATA channel on https://kubernetes.slack.com.
