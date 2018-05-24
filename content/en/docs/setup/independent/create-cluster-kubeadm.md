@@ -249,7 +249,7 @@ kubectl apply -f <add-on.yaml>
 Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
 {{% /tab %}}
 {{% tab name="Calico" %}}
-Refer to the Calico documentation for a [kubeadm quickstart](https://docs.projectcalico.org/latest/getting-started/kubernetes/), a [kubeadm installation guide](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/), and other resources.
+For more information about using Calico, see [Quickstart for Calico on Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/), [Installing Calico for policy and networking](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico), and other related resources.
 
 **Note:**
 
@@ -257,11 +257,12 @@ Refer to the Calico documentation for a [kubeadm quickstart](https://docs.projec
  - Calico works on `amd64` only.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
 ```
 {{% /tab %}}
 {{% tab name="Canal" %}}
-The official Canal set-up guide is [here](https://github.com/projectcalico/canal/tree/master/k8s-install).
+Canal uses Calico for policy and Flannel for networking. Refer to the Calico documentation for the [official getting started guide](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/flannel).
 
 **Note:**
 
@@ -269,8 +270,8 @@ The official Canal set-up guide is [here](https://github.com/projectcalico/canal
  - Canal works on `amd64` only.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/rbac.yaml
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/canal/rbac.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/canal/canal.yaml
 ```
 {{% /tab %}}
 {{% tab name="Flannel" %}}
