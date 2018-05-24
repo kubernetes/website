@@ -1,27 +1,28 @@
 ---
 title: Advertise Extended Resources for a Node
+content_template: templates/task
 ---
 
 
-{% capture overview %}
+{{% capture overview %}}
 
 This page shows how to specify extended resources for a Node.
 Extended resources allow cluster administrators to advertise node-level
 resources that would otherwise be unknown to Kubernetes.
 
-{% include feature-state-stable.md %}
+{{< feature-state state="stable" >}}
 
-{% endcapture %}
-
-
-{% capture prerequisites %}
-
-{% include task-tutorial-prereqs.md %}
-
-{% endcapture %}
+{{% /capture %}}
 
 
-{% capture steps %}
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+
+{{% capture steps %}}
 
 ## Get the names of your Nodes
 
@@ -186,10 +187,10 @@ Verify that the dongle advertisement has been removed:
 kubectl describe node <your-node-name> | grep dongle
 ```
 
-{% endcapture %}
+{{% /capture %}}
 
 
-{% capture whatsnext %}
+{{% capture whatsnext %}}
 
 ### For application developers
 
@@ -201,7 +202,4 @@ kubectl describe node <your-node-name> | grep dongle
 * [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
 
 
-{% endcapture %}
-
-
-{% include templates/task.md %}
+{{% /capture %}}
