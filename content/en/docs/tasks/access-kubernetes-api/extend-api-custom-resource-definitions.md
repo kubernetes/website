@@ -333,17 +333,14 @@ crontab "my-new-cron-object" created
 ### Subresources
 
 Custom resources support `/status` and `/scale` subresources.
-This feature is __alpha__ in v1.10 and may change in backward incompatible ways.
+This feature is __beta__ in v1.11 and enabled by default.
 
-Enable this feature using the `CustomResourceSubresources` feature gate on
+You can disable this feature using the `CustomResourceSubresources` feature gate on
 the [kube-apiserver](/docs/admin/kube-apiserver):
 
 ```
---feature-gates=CustomResourceSubresources=true
+--feature-gates=CustomResourceSubresources=false
 ```
-
-When the `CustomResourceSubresources` feature gate is enabled, only the `properties` construct
-is allowed in the root schema for custom resource validation.
 
 The status and scale subresources can be optionally enabled by
 defining them in the CustomResourceDefinition.
@@ -357,6 +354,7 @@ When the status subresource is enabled, the `/status` subresource for the custom
 - `PUT` requests to the `/status` subresource only validate the status stanza of the custom resource.
 - `PUT`/`POST`/`PATCH` requests to the custom resource ignore changes to the status stanza.
 - Any changes to the spec stanza increments the value at `.metadata.generation`.
+- `Properties` and `Required` are the only constructs allowed in the root of the CRD OpenAPI validation schema.
 
 #### Scale subresource
 
