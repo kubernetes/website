@@ -65,10 +65,10 @@ in a majority of cases, and the most intuitive location; other constants paths a
 
 ## kubeadm init workflow internal design
 
-The `kubeadm init` [internal workflow](kubeadm-init.md/#init-workflow) consists of a sequence of atomic work tasks to perform,
+The `kubeadm init` [internal workflow](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow) consists of a sequence of atomic work tasks to perform,
 as described in `kubeadm init`.
 
-The [`kubeadm alpha phase`](kubeadm-alpha.md) command allows users to invoke individually each task, and ultimately offers a reusable and composable
+The [`kubeadm alpha phase`](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) command allows users to invoke individually each task, and ultimately offers a reusable and composable
 API/toolbox that can be used by other Kubernetes bootstrap tools, by any IT automation tool or by advanced user
 for creating custom clusters.
 
@@ -119,7 +119,7 @@ In any case the user can skip specific preflight checks (or eventually all prefl
 
 Please note that:
 
-1. Preflight checks can be invoked individually with the [`kubeadm alpha phase preflight`](kubeadm-alpha.md/#cmd-phase-preflight) command
+1. Preflight checks can be invoked individually with the [`kubeadm alpha phase preflight`](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-preflight) command
 
 ### Generate the necessary certificates
 
@@ -148,14 +148,14 @@ Certificates are stored by default in `/etc/kubernetes/pki`, but this directory 
 1. If a given certificate and private key pair both exist, and its content is evaluated compliant with the above specs, the existing files will
    be used and the generation phase for the given certificate skipped. This means the user can, for example, copy an existing CA to
    `/etc/kubernetes/pki/ca.{crt,key}`, and then kubeadm will use those files for signing the rest of the certs.
-   See also [using custom certificates](kubeadm-init.md/#custom-certificates)
+   See also [using custom certificates](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-certificates)
 2. Only for the CA, it is possible to provide the `ca.crt` file but not the `ca.key` file, if all other certificates and kubeconfig files
    already are in place kubeadm recognize this condition and activates the ExternalCA , which also implies the `csrsigner`controller in
    controller-manager won't be started
-3. If kubeadm is running in [ExternalCA mode](kubeadm-init.md/#external-ca-mode); all the certificates must be provided by the user,
+3. If kubeadm is running in [ExternalCA mode](/docs/reference/setup-tools/kubeadm/kubeadm-init/#external-ca-mode); all the certificates must be provided by the user,
    because kubeadm cannot generate them by itself
 4. In case of kubeadm is executed in the `--dry-run` mode, certificates files are written in a temporary folder
-5. Certificate generation can be invoked individually with the [`kubeadm alpha phase certs all`](kubeadm-alpha.md/#cmd-phase-certs) command
+5. Certificate generation can be invoked individually with the [`kubeadm alpha phase certs all`](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-certs) command
 
 ### Generate kubeconfig files for control plane components
 
@@ -181,9 +181,9 @@ Please note that:
 
 1. `ca.crt` certificate is embedded in all the kubeconfig files.
 2. If a given kubeconfig file exists, and its content is evaluated compliant with the above specs, the existing file will be used and the generation phase for the given kubeconfig skipped
-3. If kubeadm is running in [ExternalCA mode](kubeadm-init.md/#external-ca-mode), all the required kubeconfig must be provided by the user as well, because kubeadm cannot generate any of them by itself
+3. If kubeadm is running in [ExternalCA mode](/docs/reference/setup-tools/kubeadm/kubeadm-init/#external-ca-mode), all the required kubeconfig must be provided by the user as well, because kubeadm cannot generate any of them by itself
 4. In case of kubeadm is executed in the `--dry-run` mode, kubeconfig files are written in a temporary folder
-5. Kubeconfig files generation can be invoked individually with the [`kubeadm alpha phase kubeconfig all`](kubeadm-alpha.md/#cmd-phase-kubeconfig) command
+5. Kubeconfig files generation can be invoked individually with the [`kubeadm alpha phase kubeconfig all`](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-kubeconfig) command
 
 ### Generate static Pod manifests for control plane components
 
@@ -200,17 +200,17 @@ Static Pod manifest share a set of common properties:
   * If using a local etcd server, `etcd-servers` address  will be set to `127.0.0.1:2379`
 - Leader election is enabled for both the controller-manager and the scheduler
 - Controller-manager and the scheduler will reference kubeconfig files with their respective, unique identities
-- All static Pods gets any extra flags specified by the user as described in [passing custom arguments to control plane components](kubeadm-init.md/#custom-args)
+- All static Pods gets any extra flags specified by the user as described in [passing custom arguments to control plane components](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-args)
 - All static Pods gets any extra Volumes specified by the user (Host path)
 
 Please note that:
 
 1. All the images, for the  `--kubernetes-version`/current architecture, will be pulled from `k8s.gcr.io`;
    In case an alternative image repository or CI image repository is specified this one will be used; In case a specific container image
-   should be used for all control plane components, this one will be used. see [using custom images](kubeadm-init.md/#custom-images)
+   should be used for all control plane components, this one will be used. see [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)
    for more details
 2. In case of kubeadm is executed in the `--dry-run` mode, static Pods files are written in a temporary folder
-3. Static Pod manifest generation for master components can be invoked individually with the [`kubeadm alpha phase controlplane all`](kubeadm-alpha.md/#cmd-phase-controlplane) command
+3. Static Pod manifest generation for master components can be invoked individually with the [`kubeadm alpha phase controlplane all`](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-controlplane) command
 
 #### API server
 
@@ -303,9 +303,9 @@ a local etcd instance running in a Pod with following attributes:
 Please note that:
 
 1. The etcd image will be pulled from `k8s.gcr.io`. In case an alternative image repository is specified this one will be used;
-   In case an alternative image name is specified, this one will be used. see [using custom images](kubeadm-init.md/#custom-images) for more details
+   In case an alternative image name is specified, this one will be used. see [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images) for more details
 2. in case of kubeadm is executed in the `--dry-run` mode, the etcd static Pod manifest is written in a temporary folder
-3. Static Pod manifest generation for local etcd can be invoked individually with the [`kubeadm alpha phase etcd local`](kubeadm-alpha.md/#cmd-phase-etcd) command
+3. Static Pod manifest generation for local etcd can be invoked individually with the [`kubeadm alpha phase etcd local`](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-etcd) command
 
 ### (optional and alpha in v1.9) Write init kubelet configuration
 
@@ -321,7 +321,7 @@ Please note that:
 1. To make dynamic kubelet configuration work, flag `--dynamic-config-dir=/var/lib/kubelet/config/dynamic` should be specified
    in `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
 1. Kubelet init configuration can be changed by using kubeadm MasterConfiguration file by setting `.kubeletConfiguration.baseConfig`.
-   See [using kubeadm init with a configuration file](kubeadm-init.md/#config-file) for more detail
+   See [using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) for more detail
 
 ### Wait for the control plane to come up
 
@@ -353,9 +353,9 @@ state and make new decisions based on that data.
 Please note that:
 
 1. Before uploading, sensitive information like e.g. the token are stripped from the configuration
-2. Upload of master configuration can be invoked individually with the [`kubeadm alpha phase upload-config`](kubeadm-alpha.md/#cmd-phase-upload-config) command
+2. Upload of master configuration can be invoked individually with the [`kubeadm alpha phase upload-config`](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-upload-config) command
 3. If you initialized your cluster using kubeadm v1.7.x or lower, you must create manually the master configuration ConfigMap
-   before `kubeadm upgrade` to v1.8 . In order to facilitate this task, the [`kubeadm config upload (from-flags|from-file)`](kubeadm-config.md)
+   before `kubeadm upgrade` to v1.8 . In order to facilitate this task, the [`kubeadm config upload (from-flags|from-file)`](/docs/reference/setup-tools/kubeadm/kubeadm-config/)
    was implemented
 
 ### Mark master
@@ -367,7 +367,7 @@ As soon as the control plane is available, kubeadm executes following actions:
 
 Please note that:
 
-1. Mark master phase can be invoked individually with the [`kubeadm alpha phase mark-master`](kubeadm-alpha.md/#cmd-phase-mark-master) command
+1. Mark master phase can be invoked individually with the [`kubeadm alpha phase mark-master`](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-mark-master) command
 
 ### Configure TLS-Bootstrapping for node joining
 
@@ -378,7 +378,7 @@ existing cluster; for more details see also [design proposal](https://github.com
 setting API server and controller flags as already described in previous paragraphs.
 Please note that:
 
-1. TLS bootstrapping for nodes can be configured with the [`kubeadm alpha phase bootstrap-token all`](kubeadm-alpha.md/#cmd-phase-bootstrap-token)  
+1. TLS bootstrapping for nodes can be configured with the [`kubeadm alpha phase bootstrap-token all`](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-bootstrap-token)  
    command, executing all the configuration steps described in following paragraphs; alternatively, each step can be invoked individually
 
 #### Create a bootstrap token
@@ -390,7 +390,7 @@ Please note that:
 1. The default token created by `kubeadm init` will be used to validate temporary user during TLS bootstrap process; those users will
    be member of  `system:bootstrappers:kubeadm:default-node-token` group
 2. The token has a limited validity, default 24 hours (the interval may be changed with the `—token-ttl` flag)
-3. Additional tokens can be created with the [`kubeadm token`](kubeadm-token.md) command, that provide as well other useful functions
+3. Additional tokens can be created with the [`kubeadm token`](/docs/reference/setup-tools/kubeadm/kubeadm-token/) command, that provide as well other useful functions
    for token management
 
 #### Allow joining nodes to call CSR API
@@ -436,7 +436,7 @@ can handle to serving the `cluster-info` ConfigMap.
 Kubeadm installs the internal DNS server and the kube-proxy addon components via the API server.
 Please note that:
 
-1. This phase can be invoked individually with the [`kubeadm alpha phase addon all`](kubeadm-alpha.md/#cmd-phase-addon) command.
+1. This phase can be invoked individually with the [`kubeadm alpha phase addon all`](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-addon) command.
 
 #### proxy
 
@@ -479,7 +479,7 @@ following procedure for API server, scheduler and controller manager static Pods
 Please note that:
 
 1. Self hosting is not yet resilient to node restarts; this can be fixed with external checkpointing or with kubelet checkpointing
-   for the control plane Pods. See [self-hosting](kubeadm-init.md/#self-hosting) for more details.
+   for the control plane Pods. See [self-hosting](/docs/reference/setup-tools/kubeadm/kubeadm-init/#self-hosting) for more details.
 
 2. If invoked with `—features-gates=StoreCertsInSecrets`  following additional steps will be executed
 
@@ -489,7 +489,7 @@ Please note that:
    - Creation of `schedler.conf` and `controller-manager.conf` secrets in`kube-system` namespace with respective kubeconfig files
    - Mutation of all the Pod specs by replacing host path volumes with projected volumes from the secrets above
 
-3. This phase can be invoked individually with the [`kubeadm alpha phase selfhosting convert-from-staticpods`](kubeadm-alpha.md/#cmd-phase-self-hosting) command.
+3. This phase can be invoked individually with the [`kubeadm alpha phase selfhosting convert-from-staticpods`](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-self-hosting) command.
 
 ## kubeadm join phases internal design
 
@@ -542,7 +542,7 @@ Please note that:
 If `kubeadm join` is invoked with `--discovery-file`, file discovery is used; this file can be a local file or downloaded via an HTTPS URL; in case of HTTPS, the host installed CA bundle is used to verify the connection.
 
 With file discovery, the cluster CA certificates is provided into the file itself; in fact, the discovery file is a kubeconfig
-file with only `server` and `certificate-authority-data` attributes set, as described in [`kubeadm join`](/kubeadm-join.md/#file-or-https-based-discovery) reference doc;
+file with only `server` and `certificate-authority-data` attributes set, as described in [`kubeadm join`](/docs/reference/setup-tools/kubeadm/kubeadm-join/#file-or-https-based-discovery) reference doc;
 when the connection with the cluster is established, kubeadm try to access the `cluster-info` ConfigMap, and if available, uses it.
 
 ## TLS Bootstrap
