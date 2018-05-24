@@ -4,8 +4,6 @@ title:  The Kubernetes "Whatever-your-heart-desires" Operator
 date:   Wednesday, May 23rd 2018
 ---
 
-# The Kubernetes "Whatever-your-heart-desires" Operator
-
 ## Introduction
 
 Today, we are excited to announce the Kubernetes Airflow Operator; a new mechanism for launching containers using the Kubernetes cloud deployment framework. 
@@ -31,12 +29,14 @@ Before we go any further, let's take a moment for a quick overview of Kubernetes
 ## The Kubernetes Operator
 
 As DevOps pioneers, Airflow users are always looking for ways to make deployments and ETL pipelines simpler to manage. Any opportunity to decouple our pipeline steps, while increasing monitoring, can reduce future outages and fire-fights. The following is a list of benefits the Kubernetes Airflow Operator has in reducing an engineer's footprint
-* **Increased flexibility for deployments:**  
+
+ * **Increased flexibility for deployments:**  
 Airflow's plugin API has always offered a significant boon to engineers wishing to test new functionalities within their DAGs. On the downside, whenever a developer wanted to create a new operator, they had to develop an entirely new plugin. Now, any task that can be run within a Docker container is accessible through the exact same operator, with no extra Airflow code to maintain.
 
-* **Flexibility of configurations and dependencies:** 
+ * **Flexibility of configurations and dependencies:** 
 For operators that are run within static Airflow workers, dependency management can become quite difficult. If a developer wants to run one task that requires [SciPy](https://www.scipy.org) and another that requires [NumPy](http://www.numpy.org), the developer would have to either maintain both dependencies within all Airflow workers or offload the task to an external machine (which can cause bugs if that external machine changes in an untracked manner). Custom docker images allow users to ensure that the tasks environment, configuration, and dependencies are completely idempotent.  
-* **Usage of kubernetes secrets for added security:** 
+
+ * **Usage of kubernetes secrets for added security:** 
 Handling sensitive data is a core responsibility of any DevOps engineer. At every opportunity, Airflow users want to isolate any API keys, database passwords, and login credentials on a strict need-to-know basis. With the Kubernetes operator, users can utilize the Kubernetes Vault technology to store all sensitive data. This means that the Airflow workers will never have access to this information, and can simply request that pods be built with only the secrets they need.
 
 
@@ -104,7 +104,7 @@ passing.set_upstream(start)
 failing.set_upstream(start)
 ```
 
-![Basic DAG Run](/images/blog/2018-05-01-developing-on-kubernetes/2018-05-23-basic-dag-run.png)
+![Basic DAG Run](/images/blog/2018-05-23-Airflow-Kubernetes-Operator/2018-05-23-basic-dag-run.png)
 
 ## But how does this relate to my workflow?
 
