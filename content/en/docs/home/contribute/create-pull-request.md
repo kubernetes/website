@@ -47,11 +47,25 @@ that is the best fit for your content.
 
 ## Viewing your changes locally
 
-When you submit a pull request, you can see a preview of your changes at
-[Netlify](https://www.netlify.com/). If you prefer to see a preview of your changes
-before you submit a pull request, you can build a preview locally. For more information, see
-[Staging locally](/docs/home/contribute/stage-documentation-changes/#staging-locally-without-docker). 
+You can use Hugo to see a preview of your changes locally.
 
+1. [Install Hugo](https://gohugo.io/getting-started/installing/)
+version 0.40.3 or later.
+
+1. Go to the root directory of your clone of the Kubernetes docs, and
+enter this command:
+
+        hugo server
+
+1. In your browser's address bar, enter `localhost:1313`.
+
+## Viewing you changes in the Netlify preview
+
+When you submit a pull request, you can see a preview of your changes at
+[Netlify](https://www.netlify.com/). In your pull request, at the bottom,
+to the right of **deploy/netlify**, click **Details**. Also, there is often
+a link to the Netlify preview in the pull request comments.
+ 
 ## Submitting a pull request to the master branch (Current Release)
 
 If you want your change to be published in the released version Kubernetes docs,
