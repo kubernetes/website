@@ -26,7 +26,7 @@ is authenticated and authorized.  The controllers consist of the
 administrator. In that list, there are two special controllers:
 MutatingAdmissionWebhook and ValidatingAdmissionWebhook.  These execute the
 mutating and validating (respectively) [admission control
-webhooks](/docs/admin/extensible-admission-controllers/#external-admission-webhooks)
+webhooks](/docs/admin/extensible-admission-controllers.md#external-admission-webhooks)
 which are configured in the API.
 
 Admission controllers may be "validating", "mutating", or both. Mutating
@@ -148,6 +148,8 @@ enabling this admission controller.
 This admission controller mitigates the problem where the API server gets flooded by
 event requests. The cluster admin can specify event rate limits by:
 
+ * Ensuring that `eventratelimit.admission.k8s.io/v1alpha1=true` is included in the
+   `--runtime-config` flag for the API server;
  * Enabling the `EventRateLimit` admission controller;
  * Referencing an `EventRateLimit` configuration file from the file provided to the API
    server's command line flag `--admission-control-config-file`:
@@ -229,8 +231,7 @@ plugins:
 ...
 ```
 
-The ImagePolicyWebhook config file must reference a [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
-formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
+The ImagePolicyWebhook config file must reference a [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
 
 The kubeconfig file's cluster field must point to the remote service, and the user field must contain the returned authorizer.
 
@@ -249,7 +250,7 @@ users:
     client-certificate: /path/to/cert.pem # cert for the webhook admission controller to use
     client-key: /path/to/key.pem          # key matching the cert
 ```
-For additional HTTP configuration, refer to the [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation.
+For additional HTTP configuration, refer to the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) documentation.
 
 #### Request Payloads
 
@@ -324,18 +325,7 @@ In any case, the annotations are provided by the user and are not validated by K
 The admission controller determines the initializers of a resource based on the existing
 `InitializerConfiguration`s. It sets the pending initializers by modifying the
 metadata of the resource to be created.
-For more information, please check [Dynamic Admission Control](/docs/admin/extensible-admission-controllers/).
-
-### InitialResources (experimental) {#initialresources}
-
-This admission controller observes pod creation requests. If a container omits compute resource requests and limits,
-then the admission controller auto-populates a compute resource request based on historical usage of containers running the same image.
-If there is not enough data to make a decision the Request is left unchanged.
-When the admission controller sets a compute resource request, it does this by *annotating* 
-the pod spec rather than mutating the `container.resources` fields.
-The annotations added contain the information on what compute resources were auto-populated.
-
-See the [InitialResources proposal](https://git.k8s.io/community/contributors/design-proposals/autoscaling/initial-resources.md) for more details.
+For more information, please check [Dynamic Admission Control](/docs/admin/extensible-admission-controllers.md).
 
 ### LimitPodHardAntiAffinityTopology {#limitpodhardantiaffinitytopology}
 
@@ -350,7 +340,7 @@ your Kubernetes deployment, you MUST use this admission controller to enforce th
 be used to apply default resource requests to Pods that don't specify any; currently, the default LimitRanger
 applies a 0.1 CPU requirement to all Pods in the `default` namespace.
 
-See the [limitRange design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) and the [example of Limit Range](/docs/tasks/administer-cluster/memory-default-namespace/) for more details.
+See the [limitRange design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) and the [example of Limit Range](/docs/tasks/configure-pod-container/limit-range/) for more details.
 
 ### MutatingAdmissionWebhook (beta in 1.9) {#mutatingadmissionwebhook}
 
@@ -472,7 +462,6 @@ metadata:
 
 #### Internal Behavior
 This admission controller has the following behavior:
-
   1. If the `Namespace` has an annotation with a key `scheduler.alpha.kubernetes.io/node-selector`, use its value as the
      node selector.
   1. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the `PodNodeSelector`
@@ -568,14 +557,15 @@ See the [resourceQuota design doc](https://git.k8s.io/community/contributors/des
 
 ### SecurityContextDeny {#securitycontextdeny}
 
-This admission controller will deny any pod that attempts to set certain escalating [SecurityContext](/docs/tasks/configure-pod-container/security-context/) fields. This should be enabled if a cluster doesn't utilize [pod security policies](/docs/concepts/policy/pod-security-policy/) to restrict the set of values a security context can take.
+This admission controller will deny any pod that attempts to set certain escalating [SecurityContext](/docs/user-guide/security-context) fields. This should be enabled if a cluster doesn't utilize [pod security policies](/docs/user-guide/pod-security-policy) to restrict the set of values a security context can take.
 
 ### ServiceAccount {#serviceaccount}
 
-This admission controller implements automation for [serviceAccounts](/docs/tasks/configure-pod-container/configure-service-account/).
+This admission controller implements automation for [serviceAccounts](/docs/user-guide/service-accounts).
 We strongly recommend using this admission controller if you intend to make use of Kubernetes `ServiceAccount` objects.
 
 ### Storage Object in Use Protection
+
 The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection` finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV). In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed from the PVC or PV by PVC or PV Protection Controller. Refer to the [Storage Object in Use Protection](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection) for more detailed information.
 
 ### ValidatingAdmissionWebhook (alpha in 1.8; beta in 1.9) {#validatingadmissionwebhook}
