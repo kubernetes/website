@@ -30,54 +30,20 @@ Wait for the **deploy/netlify** check to complete. To the right of
 **deploy/netlify**, click **Details**. This opens a staging site where you
 can see your changes.
 
-## Staging locally using Docker
+## Staging locally
 
-You can use the k8sdocs Docker image to run a local staging server. If you're
-interested, you can view the
-<a href="https://git.k8s.io/website/staging-container/Dockerfile" target="_blank" class="_">Dockerfile</a>
-for this image.
-
-1. Install Docker if you don't already have it.
+1. <a href="https://gohugo.io/getting-started/installing/" target="_blank" class="_">Install Hugo 0.40.3 or later</a>.
 
 1. Clone your fork to your local development machine.
 
 1. In the root of your cloned repository, enter this command to start a local
 web server:
 
-       make stage
+    ```
+    make serve
+    ```
 
-   This will run the following command:
-
-       docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.1
-
-1. View your staged content at `http://localhost:4000`.
-
-## Staging locally without Docker
-
-1. <a href="https://www.ruby-lang.org" target="_blank" class="_">Install Ruby 2.2 or later</a>.
-
-1. <a href="https://rubygems.org" target="_blank" class="_">Install Ruby Gems</a>.
-
-1. Verify that Ruby and RubyGems are installed:
-
-       gem --version
-
-1. Install the GitHub Pages package, which includes Jekyll:
-
-       gem install github-pages
-
-1. Clone your fork to your local development machine.
-
-1. In the root of your cloned repository, enter this command to start a local
-web server:
-
-       jekyll serve
-
-1. View your staged content at `http://localhost:4000`.
-
-{{< note >}}
-**Note:** If you do not want Jekyll to interfere with your other globally installed gems, you can use `bundler`: <br /> <br /> ```gem install bundler``` <br /> ```bundle install``` <br /> ```bundler exec jekyll serve``` <br /> <br /> Regardless of whether you use `bundler` or not, your copy of the site will then be viewable at: http://localhost:4000
-{{< /note >}}
+1. View your staged content at `http://localhost:1313`.
 
 {{% /capture %}}
 
