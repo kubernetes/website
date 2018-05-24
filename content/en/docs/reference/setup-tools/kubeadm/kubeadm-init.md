@@ -154,14 +154,20 @@ apiServerExtraVolumes:
 - name: <value|string>
   hostPath: <value|string>
   mountPath: <value|string>
+  writable: <value|bool>
+  pathType: <value|string>
 controllerManagerExtraVolumes:
 - name: <value|string>
   hostPath: <value|string>
   mountPath: <value|string>
+  writable: <value|bool>
+  pathType: <value|string>
 schedulerExtraVolumes:
 - name: <value|string>
   hostPath: <value|string>
   mountPath: <value|string>
+  writable: <value|bool>
+  pathType: <value|string>
 apiServerCertSANs:
 - <name1|string>
 - <name2|string>
