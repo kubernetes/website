@@ -223,7 +223,7 @@ created and deleted with the `kubeadm token` command. See the
 ### Installing a pod network {#pod-network}
 
 You **MUST** install a pod network add-on so that your pods can communicate with
-each other.
+each other. Also it may be necessary to disable firewall on host machine.
 
 **The network must be deployed before any applications.  Also, kube-dns, an
 internal helper service, will not start up before a network is installed. kubeadm only
