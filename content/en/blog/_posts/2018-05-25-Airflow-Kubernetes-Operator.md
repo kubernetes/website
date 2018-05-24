@@ -136,6 +136,16 @@ production_task = KubernetesPodOperator(namespace='default',
                           
 # So when will I be able to use this?
 
-The Kubernetes Operator and Kubernetes Executor (article to come) have both been merged into the [1.10 release branch of Airflow](https://github.com/apache/incubator-airflow/tree/v1-10-test) (the executor in experimental mode). While this branch is still in the early stages, we hope to see it released for wide release in the next few months.
+ While this branch is still in the early stages, we hope to see it released for wide release in the next few months.
 
-For those interested in getting involved with this effort, Apache Airflow has an extremely active mailing list at dev@airflow.apache.org. On the kubernetes side, discussions about Airflow on k8s (as well as Spark, HDFS, and other big data technologies) take plase on the #SIG-BIG-DATA channel on https://kubernetes.slack.com.
+# Get Involved
+
+This feature is just the beginning of multiple major efforts to improves Apache Airflow integration into Kubernetes. The Kubernetes Operator has been merged into the [1.10 release branch of Airflow](https://github.com/apache/incubator-airflow/tree/v1-10-test) (the executor in experimental mode), along with a fully k8s native scheduler called the Kubernetes Executor (article to come). These features are still in a stage where early adopters/contributers can have a huge influence on the future of these features.
+
+For those interested in joining these efforts, I'd recommend checkint out these steps: 
+
+ * Join the airflow-dev mailing list at dev@airflow.apache.org.
+ * File an issue in [Apache Airflow JIRA](https://issues.apache.org/jira/projects/AIRFLOW/issues/)
+ * Join our SIG-BIG-DATA meetings on Wednesdays at 10am PT.
+
+I'd like to thank the Apache Spark and Kubernetes communities, particularly Grant Nicholas, Ben Goldberg, Anirudh Ramanathan, Fokko Dreisprong, and Bolke de Bruin, for your awesome help on these features as well as our future efforts.
