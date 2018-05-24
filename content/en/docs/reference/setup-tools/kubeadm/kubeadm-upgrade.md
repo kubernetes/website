@@ -36,5 +36,5 @@ Please check these documents out for more detailed how-to-upgrade guidance:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [kubeadm config](kubeadm-config.md) if you initialized your cluster using kubeadm v1.7.x or lower, to configure your cluster for `kubeadm upgrade`
+* [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/) if you initialized your cluster using kubeadm v1.7.x or lower, to configure your cluster for `kubeadm upgrade`
 {{% /capture %}}
