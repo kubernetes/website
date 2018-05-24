@@ -7,15 +7,16 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
-Persistent volume claims (PVCs) that are in active use by a pod and persistent volumes (PVs) that are bound to PVCs can be protected from pre-mature removal.
+Persistent volume claims (PVCs) that are in active use by a pod and persistent volumes (PVs) that are bound to PVCs can be protected from premature removal.
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-- The Storage Object in Use Protection feature is enabled in a version of Kubernetes in which it is supported.
+The Storage Object in Use Protection feature is enabled in one of the below Kubernetes versions:
+- {% assign for_k8s_version =  "1.10" %} {% include feature-state-beta.md %}
+- {% assign for_k8s_version =  "1.11" %} {% include feature-state-stable.md %}
 
 {{% /capture %}}
 
@@ -312,5 +313,3 @@ No resources found.
 
 
 {{% /capture %}}
-
-
