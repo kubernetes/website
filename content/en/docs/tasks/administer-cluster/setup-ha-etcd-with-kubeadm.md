@@ -196,7 +196,7 @@ cluster is healthy
 
 Once your have a working 3 member etcd cluster, you can continue [setting up an
 HA control plane using
-kubeadm](/docs/tasks/administer-cluster/highly-available-master/).
+kubeadm](/docs/setup/independent/high-availability/).
 
 {{% /capture %}}
 
