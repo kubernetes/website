@@ -159,7 +159,7 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-### Default NIC When using flannel as the pod network in Vagrant
+### Default NIC When using flannel as the pod network in Vagrant or if you have VirtualBox that use an only-host network interface
 
 The following error might indicate that something was wrong in the pod network:
 
