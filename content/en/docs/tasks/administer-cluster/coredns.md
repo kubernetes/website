@@ -6,11 +6,8 @@ min-kubernetes-server-version: v1.9
 content_template: templates/task
 ---
 
-{{< feature-state state="beta" >}}
-
 {{% capture overview %}}
-This page describes how to enable CoreDNS instead of kube-dns for service
-discovery.
+This page describes the CoreDNS upgrade process and how to install kube-dns instead of CoreDNS.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -19,41 +16,34 @@ discovery.
 
 {{% capture steps %}}
 
-## Installing CoreDNS with kubeadm
+## Installing kube-dns with kubeadm
 
-In Kubernetes 1.9, [CoreDNS](https://coredns.io) is available as an alpha feature, and
-in Kubernetes 1.10 it is available as a beta feature. In either case, you may install
-it during cluster creation by setting the `CoreDNS` feature gate to `true` during `kubeadm init`:
-
+In Kubernetes 1.11, [CoreDNS](https://coredns.io) has graduated to General Availability (GA)
+and is installed by default. To install kube-dns instead, set the `CoreDNS` feature gate
+value to `false`:
 ```
-kubeadm init --feature-gates=CoreDNS=true
-```
-
-This installs CoreDNS instead of kube-dns.
-
-## Using a custom CoreDNS image repository with kubeadm
-
-To use a custom image repository for the CoreDNS image, e.g. one located in your own Docker registry,
-you can execute the following command after kubeadm has deployed the CoreDNS manifest:
-
-```shell
-kubectl set image -n kube-system deploy/coredns coredns=prefix.example.com/coredns/coredns:1.0.6
+kubeadm init --feature-gates=CoreDNS=false
 ```
 
 ## Upgrading an Existing Cluster with kubeadm
 
-In Kubernetes 1.10, you can also move to CoreDNS when you use `kubeadm` to upgrade
+In Kubernetes version 1.10 and later, you can also move to CoreDNS when you use `kubeadm` to upgrade
 a cluster that is using `kube-dns`. In this case, `kubeadm` will generate the CoreDNS configuration
 ("Corefile") based upon the `kube-dns` ConfigMap, preserving configurations for federation,
 stub domains, and upstream name server.
 
-Note that if you are running CoreDNS in your cluster already, prior to upgrade, your existing Corefile will be
-**overwritten** by the one created during upgrade. **You should save your existing ConfigMap
-if you have customized it.** You may re-apply your customizations after the new ConfigMap is
-up and running.
+If you are moving from kube-dns to CoreDNS, make sure to set the `CoreDNS` feature gate to `true`
+during an upgrade. For example, here is what a `v1.11.0` upgrade would look like:
+```
+kubeadm upgrade apply v1.11.0 --feature-gates=CoreDNS=true
+```
 
-This process will be modified for the GA release of this feature, such that an existing
-Corefile will not be overwritten.
+In versions prior to 1.11 the Corefile will be **overwritten** by the one created during upgrade.
+**You should save your existing ConfigMap if you have customized it.** You may re-apply your
+customizations after the new ConfigMap is up and running.
+
+If you are running CoreDNS in Kubernetes version 1.11 and later, during upgrade,
+your existing Corefile will be retained.
 
 {{% /capture %}}
 
