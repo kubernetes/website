@@ -101,15 +101,12 @@ provides load balancing for an application that has two running instances.
    see the node address by running `kubectl cluster-info`. If you are
    using Google Compute Engine instances, you can use the
    `gcloud compute instances list` command to see the public addresses of your
-   nodes. For more information about this command, see the [GCE documentation](https://cloud.google.com/sdk/gcloud/
-reference/compute/instances/list).
+   nodes.
 
 1. On your chosen node, create a firewall rule that allows TCP traffic
    on your node port. For example, if your Service has a NodePort value of
    31568, create a firewall rule that allows TCP traffic on port 31568. Different
-   cloud providers offer different ways of configuring firewall rules. See [the
-   GCE documentation on firewall rules](https://cloud.google.com/compute/docs/vpc/firewalls),
-   for example.
+   cloud providers offer different ways of configuring firewall rules.
 
 1. Use the node address and node port to access the Hello World application:
    ```shell
