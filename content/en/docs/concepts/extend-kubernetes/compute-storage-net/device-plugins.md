@@ -147,5 +147,6 @@ For examples of device plugin implementations, see:
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 {{% /capture %}}
+* The [SRIOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
 
 
