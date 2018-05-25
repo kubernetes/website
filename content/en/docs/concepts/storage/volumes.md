@@ -885,7 +885,7 @@ spec:
 ```
 
 For more information including Dynamic Provisioning and Persistent Volume Claims, please see the
-[StorageOS examples](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/storageos).
+[StorageOS examples](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos).
 
 ### vsphereVolume
 
