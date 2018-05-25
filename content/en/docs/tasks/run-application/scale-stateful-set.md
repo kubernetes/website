@@ -35,7 +35,7 @@ for which kubectl you're using.
 
 ### `kubectl scale`
 
-First, find the StatefulSet you want to scale. Remember, you need to first understand if you can scale it or not. If you do not have a statefulSet, [create it first](https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#creating-a-statefulset).
+First, find the StatefulSet you want to scale. Remember, you need to first understand if you can scale it or not.
 
 ```shell
 kubectl get statefulsets <stateful-set-name>

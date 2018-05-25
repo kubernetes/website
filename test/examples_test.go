@@ -475,6 +475,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"hpa-php-apache":        {&autoscaling.HorizontalPodAutoscaler{}},
 			"mysql-configmap":       {&api.ConfigMap{}},
 			"mysql-deployment":      {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
+			"mysql-pv":      {&api.PersistentVolume{}, &api.PersistentVolumeClaim{}},
 			"mysql-services":        {&api.Service{}, &api.Service{}},
 			"mysql-statefulset":     {&apps.StatefulSet{}},
 		},

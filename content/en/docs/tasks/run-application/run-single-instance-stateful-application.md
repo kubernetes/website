@@ -49,6 +49,11 @@ Note: The password is defined in the config yaml, and this is insecure. See
 for a secure solution.
 
 {{< code file="mysql-deployment.yaml" >}}
+{{< code file="mysql-pv.yaml" >}}
+
+1. Deploy the pv and pvc of the YAML file:
+
+        kubectl create -f https://k8s.io/docs/tasks/run-application/mysql-pv.yaml
 
 1. Deploy the contents of the YAML file:
 
@@ -163,8 +168,8 @@ specific to stateful apps:
 Delete the deployed objects by name:
 
 ```
-kubectl delete deployment,svc mysql
-kubectl delete pvc mysql-pv-claim
+kubectl delete -f https://k8s.io/docs/tasks/run-application/mysql-deployment.yaml
+kubectl delete -f https://k8s.io/docs/tasks/run-application/mysql-pv.yaml
 ```
 
 If you manually provisioned a PersistentVolume, you also need to manually
