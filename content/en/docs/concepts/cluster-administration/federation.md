@@ -96,7 +96,7 @@ The following guides explain some of the resources in detail:
 * [Services](/docs/concepts/cluster-administration/federation-service-discovery/)
 
 
-The [API reference docs](/docs/reference/generated/federation/) list all the
+The [API reference docs](/docs/reference/federation/) list all the
 resources supported by federation apiserver.
 
 ## Cascading deletion
