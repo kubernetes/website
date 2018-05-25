@@ -497,7 +497,7 @@ Before running kubeadm on the other masters, you need to first copy the K8s CA c
 
    ```shell
    scp root@<master0-ip-address>:/etc/kubernetes/pki/* /etc/kubernetes/pki
-   rm apiserver.*
+   rm /etc/kubernetes/pki/apiserver*
    ```
 
 #### Option 2: Copy paste
