@@ -123,7 +123,7 @@ $ kubectl edit clusterrole system:kube-scheduler
     - update
 ```
 
-my-scheduler runs as the “default” service account in the “kube-system” namespace. To allow it run with super-user access, grant cluster-admin permissions to the “default” service account in the “kube-system” namespace.
+my-scheduler runs as the `default` service account in the `kube-system` namespace. To allow it run with super-user access, grant cluster-admin permissions to the `default` service account in the `kube-system` namespace.
 
 ``` shell
 kubectl create clusterrolebinding my-scheduler-cluster-admin \
