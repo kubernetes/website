@@ -34,7 +34,7 @@ provides load balancing for an application that has two running instances.
 ## Creating a service for an application running in two pods
 
 1. Run a Hello World application in your cluster:
-   ```
+   ```shell
    kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
    ```   
     The preceding command creates a
@@ -46,28 +46,28 @@ provides load balancing for an application that has two running instances.
     each of which runs the Hello World application.
 
 1. Display information about the Deployment:
-   ```
+   ```shell
    kubectl get deployments hello-world
    kubectl describe deployments hello-world
    ```
 
 1. Display information about your ReplicaSet objects:
-   ```
+   ```shell
    kubectl get replicasets
    kubectl describe replicasets
    ```
 
 1. Create a Service object that exposes the deployment:
-   ```
+   ```shell
    kubectl expose deployment hello-world --type=NodePort --name=example-service
    ```
 
 1. Display information about the Service:
-   ```
+   ```shell
    kubectl describe services example-service
    ```
    The output is similar to this:
-   ```
+   ```shell
    Name:                   example-service
    Namespace:              default
    Labels:                 run=load-balancer-example
@@ -86,11 +86,11 @@ provides load balancing for an application that has two running instances.
    in the preceding output, the NodePort value is 31496.
 
 1. List the pods that are running the Hello World application:
-   ```
+   ```shell
    kubectl get pods --selector="run=load-balancer-example" --output=wide
    ```
    The output is similar to this:
-   ```
+   ```shell
    NAME                           READY   STATUS    ...  IP           NODE
    hello-world-2895499144-bsbk5   1/1     Running   ...  10.200.1.4   worker1
    hello-world-2895499144-m1pwt   1/1     Running   ...  10.200.2.5   worker2
@@ -112,13 +112,13 @@ reference/compute/instances/list).
    for example.
 
 1. Use the node address and node port to access the Hello World application:
-   ```
+   ```shell
    curl http://<public-node-ip>:<node-port>
    ```
    where `<public-node-ip>` is the public IP address of your node,
    and `<node-port>` is the NodePort value for your service. The
    response to a successful request is a hello message:
-   ```
+   ```shell
    Hello Kubernetes!
    ```
 
