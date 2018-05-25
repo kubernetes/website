@@ -198,7 +198,7 @@ will be restarted.
 To try the TCP liveness check, create a Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/http-liveness.yaml
+kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/tcp-liveness-readiness.yaml
 ```
 
 After 15 seconds, view Pod events to verify that liveness probes:
