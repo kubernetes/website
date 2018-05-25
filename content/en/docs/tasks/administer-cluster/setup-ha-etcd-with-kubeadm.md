@@ -31,7 +31,9 @@ when using kubeadm to set up a kubernetes cluster.
 {{% capture steps %}}
 
 The general approach is to generate all certs on one node and only distribute
-the *necessary* files to the other nodes.
+the *necessary* files to the other nodes. Note that kubeadm contains all the necessary
+crytographic machinery to generate the certificates described below; no other cryptographic tooling 
+is required for this exercise.
 
 ## Create configuration files for kubeadm
 
