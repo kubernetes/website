@@ -18,7 +18,7 @@ To understand better where autoscaling would provide the most value, let’s sta
 
 The following instructions apply to GCE. For GKE please check the autoscaling section in cluster operations manual available [here](https://cloud.google.com/container-engine/docs/clusters/operations#create_a_cluster_with_autoscaling).  
 
-Before we begin, we need to have an active GCE project with Google Cloud Monitoring, Google Cloud Logging and Stackdriver enabled. For more information on project creation, please read our [Getting Started Guide](https://github.com/kubernetes/website/blob/master/content/en/docs/getting-started-guides/gce.md#prerequisites). We also need to download a recent version of Kubernetes project (version [v1.3.0](http://v1.3.0/) or later).
+Before we begin, we need to have an active GCE project with Google Cloud Monitoring, Google Cloud Logging and Stackdriver enabled. For more information on project creation, please read our [Getting Started Guide](/docs/getting-started-guides/gce#prerequisites). We also need to download a recent version of Kubernetes project (version [v1.3.0](http://v1.3.0/) or later).
 
 First, we set up a cluster with Cluster Autoscaler turned on. The number of nodes in the cluster will start at 2, and autoscale up to a maximum of 5. To implement this, we’ll export the following environment variables:  
 
