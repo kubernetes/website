@@ -246,7 +246,7 @@ The kubeadm binary can be found at [Kubernetes Releases](https://github.com/kube
 
 `kubeadm.exe join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
 
-See [joining-your-nodes](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#44-joining-your-nodes) for more details.
+See [joining-your-nodes](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#joining-your-nodes) for more details.
 
 ## Supported Features
 
