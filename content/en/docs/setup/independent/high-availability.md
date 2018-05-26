@@ -515,7 +515,7 @@ Follow the instructions [here](/docs/setup/independent/create-cluster-kubeadm/#p
 
 Next provision and set up the worker nodes. To do this, you will need to provision at least 3 Virtual Machines.
 
-1. To configure the worker nodes, [follow the same steps](/docs/setup/independent/create-cluster-kubeadm/#44-joining-your-nodes) as non-HA workloads.
+1. To configure the worker nodes, [follow the same steps](/docs/setup/independent/create-cluster-kubeadm/#joining-your-nodes) as non-HA workloads.
 
 ## Configure workers
 
