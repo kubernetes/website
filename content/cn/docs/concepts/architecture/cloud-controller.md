@@ -243,6 +243,6 @@ rules:
 * [GCE]()
 * [AWS]()
 
-## 群集管理
+## 集群管理
 
 [这里](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)提供了配置和运行CCM的完整说明。

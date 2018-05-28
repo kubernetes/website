@@ -380,7 +380,7 @@ LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT            
 $ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
 
-**安全性注意事项**：发送自己的 ssh 密钥之前要仔细思考：集群的其他用户可能有权访问该密钥。使用您想要共享 Kubernetes 群集的所有用户可以访问的服务帐户，如果它们遭到入侵，可以撤销。
+**安全性注意事项**：发送自己的 ssh 密钥之前要仔细思考：集群的其他用户可能有权访问该密钥。使用您想要共享 Kubernetes 集群的所有用户可以访问的服务帐户，如果它们遭到入侵，可以撤销。
 
 现在我们可以创建一个使用 ssh 密钥引用 secret 的pod，并在一个卷中使用它：
 
@@ -552,7 +552,7 @@ spec:
 
 Secret 中的值对于不同的环境来说重要性可能不同，例如对于 Kubernetes 集群内部（例如 service account 令牌）和集群外部来说就不一样。即使一个应用程序可以理解其期望的与之交互的 secret 有多大的能力，但是同一命名空间中的其他应用程序却可能不这样认为。
 
-由于这些原因，在命名空间中 `watch` 和 `list`  secret 的请求是非常强大的功能，应该避免这样的行为，因为列出 secret 可以让客户端检查所有 secret 是否在该命名空间中。在群集中`watch` 和 `list` 所有 secret 的能力应该只保留给最有特权的系统级组件。
+由于这些原因，在命名空间中 `watch` 和 `list`  secret 的请求是非常强大的功能，应该避免这样的行为，因为列出 secret 可以让客户端检查所有 secret 是否在该命名空间中。在集群中`watch` 和 `list` 所有 secret 的能力应该只保留给最有特权的系统级组件。
 
 需要访问 secrets API 的应用程序应该根据他们需要的 secret 执行 `get` 请求。这允许管理员限制对所有 secret 的访问，同时设置 [白名单访问](https://kubernetes.io/docs/admin/authorization/rbac/#referring-to-resources) 应用程序需要的各个实例。
 
