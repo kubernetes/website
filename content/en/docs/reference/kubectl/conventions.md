@@ -3,6 +3,7 @@ title: kubectl Usage Conventions
 reviewers:
 - bgrant0607
 - janetkuo
+weight: 50
 ---
 
 {{< toc >}}

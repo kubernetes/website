@@ -5,6 +5,7 @@ reviewers:
 - erictune
 - krousey
 - clove
+weight: 70
 ---
 
 See also: [Kubectl Overview](/docs/reference/kubectl/overview/) and [JsonPath Guide](/docs/reference/kubectl/jsonpath).
