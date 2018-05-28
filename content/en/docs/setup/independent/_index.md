@@ -1,5 +1,5 @@
 ---
 title: "Bootstrapping Clusters with kubeadm"
-weight: 20
+weight: 30
 ---
 

@@ -6,6 +6,7 @@ reviewers:
 - jbeda
 title: Using kubeadm to Create a Cluster
 content_template: templates/task
+weight: 10
 ---
 
 {{% capture overview %}}

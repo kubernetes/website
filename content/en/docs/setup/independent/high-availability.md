@@ -6,6 +6,7 @@ reviewers:
 - jbeda
 title: Creating HA clusters with kubeadm
 content_template: templates/task
+weight: 30
 ---
 
 {{% capture overview %}}
