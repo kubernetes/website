@@ -2,6 +2,7 @@
 reviewers:
 - mikedanese
 title: Secrets
+weight: 50
 ---
 
 Objects of type `secret` are intended to hold sensitive information, such as

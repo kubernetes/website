@@ -4,6 +4,7 @@ reviewers:
 - janetkuo
 title: Deployments
 content_template: templates/concept
+weight: 30
 ---
 
 {{% capture overview %}}

@@ -3,6 +3,7 @@ reviewers:
 - erictune
 title: Init Containers
 content_template: templates/concept
+weight: 40
 ---
 
 {{% capture overview %}}

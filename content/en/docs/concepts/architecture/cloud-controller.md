@@ -1,5 +1,6 @@
 ---
 title: Concepts Underlying the Cloud Controller Manager
+weight: 30
 ---
 
 ## Cloud Controller Manager

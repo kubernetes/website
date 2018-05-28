@@ -5,6 +5,7 @@ reviewers:
 - davidopp
 title: Disruptions
 content_template: templates/concept
+weight: 60
 ---
 
 {{% capture overview %}}

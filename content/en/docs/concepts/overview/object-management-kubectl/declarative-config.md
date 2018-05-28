@@ -1,6 +1,7 @@
 ---
 title: Declarative Management of Kubernetes Objects Using Configuration Files
 content_template: templates/concept
+weight: 40
 ---
 
 {{% capture overview %}}
