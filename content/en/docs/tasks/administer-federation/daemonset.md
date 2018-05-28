@@ -1,6 +1,7 @@
 ---
 title: Federated DaemonSet
 content_template: templates/task
+weight: 30
 ---
 
 {{% capture overview %}}

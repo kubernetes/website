@@ -1,6 +1,7 @@
 ---
 title: Federated ReplicaSets
 content_template: templates/task
+weight: 100
 ---
 
 {{% capture overview %}}

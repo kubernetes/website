@@ -1,6 +1,7 @@
 ---
 title: Access Clusters Using the Kubernetes API
 content_template: templates/task
+weight: 20
 ---
 
 {{% capture overview %}}

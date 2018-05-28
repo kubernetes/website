@@ -4,6 +4,7 @@ reviewers:
 - jsafrane
 title: Persistent Volume Claim Protection
 content_template: templates/task
+weight: 330
 ---
 
 {{% capture overview %}}

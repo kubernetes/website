@@ -1,6 +1,7 @@
 ---
 title: Set up CoreDNS as DNS provider for Cluster Federation
 content_template: templates/tutorial
+weight: 30
 ---
 
 {{% capture overview %}}

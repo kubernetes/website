@@ -2,6 +2,7 @@
 reviewers:
 - vishh
 title: Schedule GPUs
+weight: 170
 ---
 
 Kubernetes includes **experimental** support for managing NVIDIA GPUs spread

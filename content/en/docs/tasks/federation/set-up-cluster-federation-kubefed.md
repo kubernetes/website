@@ -2,6 +2,7 @@
 reviewers:
 - madhusudancs
 title: Set up Cluster Federation with Kubefed
+weight: 20
 ---
 
 {{< include "federation-current-state.md" >}}

@@ -3,6 +3,7 @@ reviewers:
 - derekwaynecarr
 title: Manage HugePages
 content_template: templates/task
+weight: 180
 ---
 
 {{% capture overview %}}

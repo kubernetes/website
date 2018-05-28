@@ -1,6 +1,7 @@
 ---
 title: Federated Namespaces
 content_template: templates/task
+weight: 90
 ---
 
 {{% capture overview %}}

@@ -1,6 +1,7 @@
 ---
 title: Set up placement policies in Federation
 content_template: templates/task
+weight: 40
 ---
 
 {{% capture overview %}}

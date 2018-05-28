@@ -1,6 +1,7 @@
 ---
 title: Limit Storage Consumption
 content_template: templates/task
+weight: 240
 ---
 
 {{% capture overview %}}

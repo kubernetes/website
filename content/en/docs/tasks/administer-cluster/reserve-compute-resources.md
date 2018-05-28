@@ -4,6 +4,7 @@ reviewers:
 - derekwaynecarr
 - dashpole
 title: Reserve Compute Resources for System Daemons
+weight: 170
 ---
 
 {{< toc >}}

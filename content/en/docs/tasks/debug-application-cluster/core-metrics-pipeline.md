@@ -3,6 +3,7 @@ reviewers:
 - fgrzadkowski
 - piosz
 title: Core metrics pipeline
+weight: 10
 ---
 
 Starting from Kubernetes 1.8, resource usage metrics, such as container CPU and memory usage,

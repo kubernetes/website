@@ -1,6 +1,7 @@
 ---
 title: Federated Horizontal Pod Autoscalers (HPA)
 content_template: templates/task
+weight: 60
 ---
 
 {{% capture overview %}}

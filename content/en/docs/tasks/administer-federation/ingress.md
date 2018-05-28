@@ -1,6 +1,7 @@
 ---
 title: Federated Ingress
 content_template: templates/task
+weight: 70
 ---
 
 {{% capture overview %}}

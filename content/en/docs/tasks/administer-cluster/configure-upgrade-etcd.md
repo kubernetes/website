@@ -3,6 +3,7 @@ reviewers:
 - mml
 - wojtek-t
 title: Operating etcd clusters for Kubernetes
+weight: 70
 ---
 
 {{< glossary_definition term_id="etcd" length="all" prepend="etcd is a ">}}

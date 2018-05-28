@@ -6,6 +6,7 @@ reviewers:
 - destijl
 title: Securing a Cluster
 content_template: templates/task
+weight: 40
 ---
 
 {{% capture overview %}}

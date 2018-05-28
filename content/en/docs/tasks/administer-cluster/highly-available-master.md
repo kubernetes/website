@@ -2,6 +2,7 @@
 reviewers:
 - jszczepkowski
 title: Set up High-Availability Kubernetes Masters
+weight: 280
 ---
 
 {{< toc >}}

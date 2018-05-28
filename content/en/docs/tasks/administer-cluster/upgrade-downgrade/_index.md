@@ -1,5 +1,5 @@
 ---
 title: "Upgrading or downgrading Kubernetes"
-weight: 10
+weight: 100
 ---
 

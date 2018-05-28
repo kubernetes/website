@@ -1,6 +1,7 @@
 ---
 title: Change the default StorageClass
 content_template: templates/task
+weight: 250
 ---
 
 {{% capture overview %}}

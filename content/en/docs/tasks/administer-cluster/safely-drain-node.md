@@ -6,6 +6,7 @@ reviewers:
 - kow3ns
 title: Safely Drain a Node while Respecting Application SLOs
 content_template: templates/task
+weight: 150
 ---
 
 {{% capture overview %}}

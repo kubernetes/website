@@ -4,6 +4,7 @@ reviewers:
 - fabianofranz
 description: With kubectl plugins, you can extend the functionality of the kubectl command by adding new subcommands.
 content_template: templates/task
+weight: 190
 ---
 
 {{% capture overview %}}

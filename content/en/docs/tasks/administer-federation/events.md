@@ -1,5 +1,6 @@
 ---
 title: Federated Events
+weight: 50
 ---
 
 {{< include "federation-current-state.md" >}}

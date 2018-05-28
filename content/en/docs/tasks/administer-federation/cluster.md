@@ -1,6 +1,7 @@
 ---
 title: Federated Cluster
 content_template: templates/task
+weight: 10
 ---
 
 {{% capture overview %}}

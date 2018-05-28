@@ -3,6 +3,7 @@ title: Install Service Catalog using Helm
 reviewers:
 - chenopis
 content_template: templates/task
+weight: 10
 ---
 
 {{% capture overview %}}

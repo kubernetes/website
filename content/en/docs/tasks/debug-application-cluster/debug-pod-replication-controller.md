@@ -2,6 +2,7 @@
 reviewers:
 - bprashanth
 title: Debug Pods and Replication Controllers
+weight: 100
 ---
 
 {{< toc >}}

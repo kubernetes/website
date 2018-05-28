@@ -3,6 +3,7 @@ reviewers:
 - derekwaynecarr
 - janetkuo
 title: Namespaces Walkthrough
+weight: 120
 ---
 
 Kubernetes _namespaces_ help different projects, teams, or customers to share a Kubernetes cluster.

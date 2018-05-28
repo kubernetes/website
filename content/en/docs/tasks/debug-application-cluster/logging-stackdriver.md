@@ -3,6 +3,7 @@ reviewers:
 - piosz
 - x13n
 title: Logging Using Stackdriver
+weight: 50
 ---
 
 Before reading this page, it's highly recommended to familiarize yourself

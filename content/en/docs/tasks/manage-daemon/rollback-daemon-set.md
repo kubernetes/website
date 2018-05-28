@@ -3,6 +3,7 @@ reviewers:
 - janetkuo
 title: Performing a Rollback on a DaemonSet
 content_template: templates/task
+weight: 20
 ---
 
 {{% capture overview %}}

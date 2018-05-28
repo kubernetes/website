@@ -1,6 +1,7 @@
 ---
 title: Change the Reclaim Policy of a PersistentVolume
 content_template: templates/task
+weight: 230
 ---
 
 {{% capture overview %}}

@@ -3,6 +3,7 @@ reviewers:
 - piosz
 - x13n
 title: Logging Using Elasticsearch and Kibana
+weight: 70
 ---
 
 On the Google Compute Engine (GCE) platform, the default logging support targets

@@ -3,6 +3,7 @@ reviewers:
 - smarterclayton
 title: Encrypting Secret Data at Rest
 content_template: templates/task
+weight: 60
 ---
 
 {{% capture overview %}}

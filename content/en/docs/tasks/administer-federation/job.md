@@ -1,6 +1,7 @@
 ---
 title: Federated Jobs
 content_template: templates/task
+weight: 80
 ---
 
 {{% capture overview %}}

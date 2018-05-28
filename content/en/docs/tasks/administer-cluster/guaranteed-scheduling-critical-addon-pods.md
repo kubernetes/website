@@ -4,6 +4,7 @@ reviewers:
 - filipg
 - piosz
 title: Guaranteed Scheduling For Critical Add-On Pods
+weight: 180
 ---
 
 {{< toc >}}
