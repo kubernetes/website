@@ -23,8 +23,9 @@ For those reasons, most applications should continue to use highly available, re
 Some use cases that are suitable for local storage include:
 
 * Caching of datasets that can leverage data gravity for fast processing
-* Distributed storage systems that shard or replicate data across multiple nodes
-  Examples include distributed datastores like Cassandra, or distributed file systems like Gluster or Ceph.
+* Distributed storage systems that shard or replicate data across multiple
+  nodes. Examples include distributed datastores like Cassandra, or distributed
+  file systems like Gluster or Ceph.
 
 Suitable workloads are tolerant of node failures, data unavailability, and data loss. They provide critical, latency-sensitive infrastructure services to the rest of the cluster, and should run with high priority compared to other workloads.
 
@@ -73,7 +74,7 @@ spec:
           operator: In
           values:
           - my-node
-```          
+```
 
 Note that there’s a new nodeAffinity field in the PersistentVolume object: this is how the Kubernetes scheduler understands that this PersistentVolume is tied to a specific node. nodeAffinity is a required field for local PersistentVolumes.
 
