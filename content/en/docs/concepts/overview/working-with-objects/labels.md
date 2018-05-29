@@ -51,6 +51,8 @@ Unlike [names and UIDs](/docs/user-guide/identifiers), labels do not provide uni
 
 Via a _label selector_, the client/user can identify a set of objects. The label selector is the core grouping primitive in Kubernetes.
 
+When a Kubernetes object contains a selector, the selector matches objects only in the same namespace as the object containing the selector.
+
 The API currently supports two types of selectors: _equality-based_ and _set-based_.
 A label selector can be made of multiple _requirements_ which are comma-separated. In the case of multiple requirements, all must be satisfied so the comma separator acts as a logical _AND_ (`&&`) operator.
 
