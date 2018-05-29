@@ -30,7 +30,7 @@ The steps involved are as follows:
 
 Here's what the system should look like when it's finished:
 
-![High availability Kubernetes diagram](/images/docs/ha.svg)
+![High availability Kubernetes diagram](/static/images/docs/ha.svg)
 
 ## Initial set-up
 
