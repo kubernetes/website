@@ -77,15 +77,17 @@ versions.  Beta API versions *may not* replace GA API versions.
 versions must be supported after their announced deprecation for a duration of
 no less than:**
 
-   * **GA: 1 year or 2 releases (whichever is longer)**
-   * **Beta: 6 months or 2 releases (whichever is longer)**
+   * **GA: 12 months or 3 releases (whichever is longer)**
+   * **Beta: 9 months or 3 releases (whichever is longer)**
    * **Alpha: 0 releases**
+
+This covers the maximum supported version skew of 2 releases.
 
 NOTE: Until [#52185](https://github.com/kubernetes/kubernetes/issues/52185) is
 resolved, no API versions may be removed.
 
 **Rule #4b: The "preferred" API version and the "storage version" for a given
-group may not advance util after a release has been made that supports both the
+group may not advance until after a release has been made that supports both the
 new version and the previous version**
 
 Users must be able to upgrade to a new release of Kubernetes and then roll back
@@ -153,11 +155,10 @@ API versions are supported in a series of subsequent releases.
     </tr>
     <tr>
       <td>X+5</td>
-      <td>v1, v1beta2 (deprecated)</td>
+      <td>v1, v1beta1 (deprecated), v1beta2 (deprecated)</td>
       <td>v1beta2</td>
       <td>
         <ul>
-          <li>v1beta1 is removed, "action required" relnote</li>
           <li>v1beta2 is deprecated, "action required" relnote</li>
         </ul>
       </td>
@@ -168,24 +169,25 @@ API versions are supported in a series of subsequent releases.
       <td>v1</td>
       <td>
         <ul>
+          <li>v1beta1 is removed, "action required" relnote</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+7</td>
+      <td>v1, v1beta2 (deprecated)</td>
       <td>v1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>X+8</td>
+      <td>v2alpha1, v1</td>
       <td>v1</td>
       <td>
         <ul>
           <li>v1beta2 is removed, "action required" relnote</li>
         </ul>
       </td>
-    </tr>
-    <tr>
-      <td>X+8</td>
-      <td>v2alpha1, v1</td>
-      <td>v1</td>
-      <td></td>
     </tr>
     <tr>
       <td>X+9</td>
@@ -230,6 +232,12 @@ API versions are supported in a series of subsequent releases.
     </tr>
     <tr>
       <td>X+13</td>
+      <td>v2, v2beta1 (deprecated), v2beta2 (deprecated), v1 (deprecated)</td>
+      <td>v2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>X+14</td>
       <td>v2, v2beta2 (deprecated), v1 (deprecated)</td>
       <td>v2</td>
       <td>
@@ -239,7 +247,7 @@ API versions are supported in a series of subsequent releases.
       </td>
     </tr>
     <tr>
-      <td>X+14</td>
+      <td>X+15</td>
       <td>v2, v1 (deprecated)</td>
       <td>v2</td>
       <td>
@@ -247,12 +255,6 @@ API versions are supported in a series of subsequent releases.
           <li>v2beta2 is removed, "action required" relnote</li>
         </ul>
       </td>
-    </tr>
-    <tr>
-      <td>X+15</td>
-      <td>v2, v1 (deprecated)</td>
-      <td>v2</td>
-      <td></td>
     </tr>
     <tr>
       <td>X+16</td>
@@ -324,7 +326,7 @@ follows:
 **Rule #5a: CLI elements of user-facing components (e.g. kubectl) must function
 after their announced deprecation for no less than:**
 
-   * **GA: 1 year or 2 releases (whichever is longer)**
+   * **GA: 12 months or 2 releases (whichever is longer)**
    * **Beta: 3 months or 1 release (whichever is longer)**
    * **Alpha: 0 releases**
 
