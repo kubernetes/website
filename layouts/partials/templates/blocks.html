@@ -9,7 +9,7 @@
 {{ $section := $.ctx.Scratch.Get "section" }}
 {{ $headers := findRE "<h2.*?>(.|\n)*?</h2>" $section }}
 {{ range $headers }}
-{{ $header := . | replaceRE "</?h2.*?>" "" | htmlUnescape }}
+{{ $header := . | replaceRE "</?h2.*?>" "" | htmlUnescape | safeHTML }}
 <li><a href="#{{ $header | anchorize }}">{{ $header }}</a></li>
 {{ end }}
 {{ $.ctx.Scratch.Add "sections" $section }}
