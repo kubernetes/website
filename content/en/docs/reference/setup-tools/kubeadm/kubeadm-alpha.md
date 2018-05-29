@@ -16,17 +16,6 @@ In v1.8.0, kubeadm introduced the `kubeadm alpha phase` command with the aim of 
 `kubeadm alpha phase` is consistent with [kubeadm init workflow](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow),
 and behind the scene both use the same code.
 
-* [kubeadm alpha phase preflight](#cmd-phase-preflight)
-* [kubeadm alpha phase certs](#cmd-phase-certs)
-* [kubeadm alpha phase kubeconfig](#cmd-phase-kubeconfig)
-* [kubeadm alpha phase controlplane](#cmd-phase-controlplane)
-* [kubeadm alpha phase etcd](#cmd-phase-etcd)
-* [kubeadm alpha phase mark-master](#cmd-phase-mark-master)
-* [kubeadm alpha phase bootstrap-token](#cmd-phase-bootstrap-token)
-* [kubeadm alpha phase upload-config](#cmd-phase-upload-config)
-* [kubeadm alpha phase addon](#cmd-phase-addon)
-* [kubeadm alpha phase selfhosting](#cmd-phase-self-hosting)
-
 ## kubeadm alpha phase preflight {#cmd-phase-preflight}
 
 You can execute preflight checks both for the master node, like in `kubeadm init`, or for the worker node
