@@ -6,6 +6,7 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
+{{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
 This document describes how sysctls are used within a Kubernetes cluster.
 
@@ -74,7 +75,7 @@ application tuning. _Unsafe_ sysctls are enabled on a node-by-node basis with a
 flag of the kubelet, e.g.:
 
 ```shell
-$ kubelet --experimental-allowed-unsafe-sysctls \
+$ kubelet --allowed-unsafe-sysctls \
   'kernel.msg*,net.ipv4.route.min_pmtu' ...
 ```
 
@@ -105,20 +106,27 @@ manually by the cluster admin, either by means of the underlying Linux
 distribution of the nodes (e.g. via `/etc/sysctls.conf`) or using a DaemonSet
 with privileged containers.
 
-The sysctl feature is an alpha API. Therefore, sysctls are set using annotations
-on pods. They apply to all containers in the same pod.
+The sysctls are set through pod security context on pods.
+They apply to all containers in the same pod.
 
-Here is an example, with different annotations for _safe_ and _unsafe_ sysctls:
+Here is an example of setting a safe sysctl `kernel.shm_rmid_forced` and two
+unsafe sysctls `net.ipv4.route.min_pmtu` and `kernel.msgmax` (notice there is no
+distinction between _safe_ and _unsafe_ sysctls on the spec level):
 
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
   name: sysctl-example
-  annotations:
-    security.alpha.kubernetes.io/sysctls: kernel.shm_rmid_forced=1
-    security.alpha.kubernetes.io/unsafe-sysctls: net.ipv4.route.min_pmtu=1000,kernel.msgmax=1 2 3
 spec:
+  securityContext:
+    sysctls:
+    - name: kernel.shm_rmid_forced
+      value: "1"
+    - name: net.ipv4.route.min_pmtu
+      value: "1000"
+    - name: kernel.msgmax
+      value: "1 2 3"
   ...
 ```
 {{% /capture %}}
@@ -143,27 +151,44 @@ is recommended to use
 [taints on nodes](/docs/concepts/configuration/taint-and-toleration/)
 to schedule those pods onto the right nodes.
 
-## PodSecurityPolicy Annotations
+## PodSecurityPolicy
 
-The use of sysctl in pods can be controlled via annotation on the PodSecurityPolicy.
+The use of sysctl in pods can be controlled through `forbiddenSysctls` and
+`allowedUnsafeSysctls` fields in the PodSecurityPolicy.
 
-Sysctl annotation represents a whitelist of allowed safe and unsafe sysctls
-in a pod spec. It's a comma-separated list of plain sysctl names or sysctl patterns
-(which end in `*`). The string `*` matches all sysctls.
+By default, all safe sysctls in the whitelist are allowed.
 
-Here is an example, it authorizes binding user creating pod with corresponding sysctls.
+Both `forbiddenSysctls` and `allowedUnsafeSysctls` are lists of plain sysctl names
+or sysctl patterns (which end with `*`). The string `*` matches all sysctls.
+
+The `forbiddenSysctls` field excludes sysctls from both safe and unsafe set (`*` means
+no sysctl allowed).
+Any unsafe sysctl specified in the `allowedUnsafeSysctls` field (and not in the `forbiddenSysctls`)
+is allowed by admission via the PodSecurityPolicy.
+The string `*` means all unsafe sysctls allowed which effectively translates into
+all unsafe sysctls allowed on the Kubelet side.
+Both `forbiddenSysctls` and `allowedUnsafeSysctls` must not overlap.
+
+{{< note >}}
+**Note**: Even though the `allowedUnsafeSysctls` field allows certain unsafe sysctls,
+if they are not allowed on the kubelet side (by setting the `--allowed-unsafe-sysctls` flag),
+the pod fails to start.
+{{< /note >}}
+
+Here is an example, it authorizes binding user creating pod with unsafe
+`kernel.msg`-prefixed sysctls and disallowing the `kernel.shm_rmid_forced` sysctl.
 
 ```yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
   name: sysctl-psp
-  annotations:
-    security.alpha.kubernetes.io/sysctls: 'net.ipv4.route.*,kernel.msg*'
 spec:
+  allowedUnsafeSysctls:
+  - kernel.msg*
+  forbiddenSysctls:
+  - kernel.shm_rmid_forced
  ...
 ```
 
 {{% /capture %}}
-
-
