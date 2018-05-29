@@ -6,7 +6,7 @@ reviewers:
 title: Kubernetes Cloud Controller Manager
 ---
 
-{{< feature-state state="alpha" >}}
+{{< feature-state state="beta" >}}
 
 {{< toc >}}
 
