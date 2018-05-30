@@ -1,7 +1,7 @@
 # Owned by Kubernetes blog reviewers.
 options:
   no_parent_owners: true
-# reviewers:
+reviewers:
   - kbarnard10
 approvers:
   - bobsky
