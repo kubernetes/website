@@ -295,7 +295,7 @@ look for the `KubeletConfigOK` condition in `status.conditions`. You should see 
 `using current: /api/v1/namespaces/kube-system/configmaps/${NEW_CONFIG_MAP_NAME}` when the Kubelet starts using the
 new configuration.
 
-### Deauthorize your Node fom reading the old ConfigMap
+### Deauthorize your Node from reading the old ConfigMap
 
 Once you know your Node is using the new configuration and are confident that
 the new configuration has not caused any problems, it is a good idea to
@@ -331,7 +331,7 @@ remove the `spec.configSource` subfield.
 After removing this subfield, you should eventually observe that the KubeletConfigOK
 condition's message reverts to `using current: local`.
 
-### Deauthorize your Node fom reading the old ConfigMap
+### Deauthorize your Node from reading the old ConfigMap
 
 Once you know your Node is using the default configuration again, it is a good
 idea to deauthorize the node from reading the old ConfigMap. Run the following
