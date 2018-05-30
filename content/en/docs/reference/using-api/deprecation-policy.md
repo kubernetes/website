@@ -84,7 +84,10 @@ no less than:**
 This covers the maximum supported version skew of 2 releases.
 
 NOTE: Until [#52185](https://github.com/kubernetes/kubernetes/issues/52185) is
-resolved, no API versions may be removed.
+resolved, no API versions that have been persisted to storage may be removed. 
+Serving REST endpoints for those versions may be disabled (subject to the 
+deprecation timelines in this document), but the API server must remain capable 
+of decoding/converting previously persisted data from storage.
 
 **Rule #4b: The "preferred" API version and the "storage version" for a given
 group may not advance until after a release has been made that supports both the
