@@ -127,7 +127,7 @@ The following manifest describes a single-instance MySQL Deployment. The MySQL c
 
 ## Deploy WordPress
 
-The following manifest describes a single-instance WordPress Deployment and Service. It uses many of the same features like a PVC for persistent storage and a Secret for the password. But it also uses a different setting: `type: NodePort`. This setting exposes WordPress to traffic from outside of the cluster.
+The following manifest describes a single-instance WordPress Deployment and Service. It uses many of the same features like a PVC for persistent storage and a Secret for the password. But it also uses a different setting: `type: LoadBalancer`. This setting exposes WordPress to traffic from outside of the cluster.
 
 {{< code file="mysql-wordpress-persistent-volume/wordpress-deployment.yaml" >}}
 
