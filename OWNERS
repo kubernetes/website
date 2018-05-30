@@ -1,7 +1,6 @@
 # Reviewers can /lgtm /approve but not sufficient for auto-merge without an
 # approver
 reviewers:
-- tengqm
 - zhangxiaoyu-zidif
 - xiangpengzhao
 # Approvers have all the ability of reviewers but their /approve makes
@@ -15,3 +14,4 @@ approvers:
 - zacharysarah
 - chenopis
 - mistyhacks
+- tengqm
