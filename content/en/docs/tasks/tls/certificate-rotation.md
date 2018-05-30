@@ -22,29 +22,40 @@ This page shows how to enable and configure certificate rotation for the kubelet
 
 ## Overview
 
-The kubelet uses certificates for authenticating to the Kubernetes API.  By
-default, these certificates are issued with one year expiration so that they do
-not need to be renewed too frequently.
+The kubelet uses certificates for authenticating to the Kubernetes API and for TLS connections
+serving its clients. By default, these certificates are issued with one year expiration
+so that they do not need to be renewed too frequently.
 
-Kubernetes 1.8 contains [kubelet certificate
-rotation](/docs/tasks/administer-cluster/certificate-rotation/), a beta feature
-that will automatically generate a new key and request a new certificate from
-the Kubernetes API as the current certificate approaches expiration. Once the
+Kubernetes contains kubelet client and server certificate rotation, features
+that will automatically request a new certificate from
+the Kubernetes `certificates` API as the current certificate approaches expiration. Once the
 new certificate is available, it will be used for authenticating connections to
-the Kubernetes API.
+the Kubernetes API or serving the clients.
 
 ## Enabling client certificate rotation
 
-The `kubelet` process accepts an argument `--rotate-certificates` that controls
-if the kubelet will automatically request a new certificate as the expiration of
-the certificate currently in use approaches.  Since certificate rotation is a
-beta feature, the feature flag must also be enabled with
-`--feature-gates=RotateKubeletClientCertificate=true`.
+The `kubelet` client certificate rotation can be enabled via the `RotateCertificates`
+field in the kubelet's [configuration file](/docs/tasks/administer-cluster/kubelet-config-file)
+(the `--rotate-certificates` flag is now deprecated and will be removed in the future releases).
+When enabled, the kubelet will automatically request a new certificate as the expiration of
+the certificate currently in use approaches.
 
+## Enabling server certificate rotation
 
-The `kube-controller-manager` process accepts an argument
-`--experimental-cluster-signing-duration` that controls how long certificates
-will be issued for.
+The server certificate rotation is disabled by default and must be enabled
+first via `RotateKubeletServerCertificate` feature gate by adding
+
+```
+--feature-gates=RotateKubeletServerCertificate=true
+```
+
+to the kubelet's parameters.
+
+Next, the feature can be toggled via the `ServerTLSBootstrap`
+field in the kubelet's [configuration file](/docs/tasks/administer-cluster/kubelet-config-file).
+When enabled, the kubelet will automatically request a certificate from the `certificates`
+API instead of using a self-signed certificate. The rotation also ensures a new certificate
+is requested as the expiration of the certificate currently in use approaches.
 
 ## Understanding the certificate rotation configuration
 

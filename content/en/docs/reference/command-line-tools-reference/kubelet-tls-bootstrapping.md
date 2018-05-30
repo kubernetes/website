@@ -27,10 +27,10 @@ controller. As this feature matures, you should ensure tokens are bound to a Rol
 
 While any authentication strategy can be used for the kubelet's initial bootstrap credentials, the following two authenticators are recommended for ease of provisioning.
 
-1. [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) - __beta__
+1. [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/)
 2. [Token authentication file](#token-authentication-file)
 
-Using bootstrap tokens is currently __beta__ and will simplify the management of bootstrap token management especially in a HA scenario.
+Using bootstrap tokens will simplify the management of bootstrap token management especially in a HA scenario.
 
 ### Token authentication file
 Tokens are arbitrary but should represent at least 128 bits of entropy derived from a secure random number
@@ -77,7 +77,7 @@ The kube-controller-manager flags are:
 
 In 1.7 the experimental "group auto approver" controller is dropped in favor of the new `csrapproving` controller
 that ships as part of [kube-controller-manager](/docs/admin/kube-controller-manager/) and is enabled by default.
-The controller uses the [`SubjectAccessReview` API](/docs/reference/access-authn-authz/authorization/#checking-api-access) to determine
+The controller uses the [`SubjectAccessReview`](/docs/reference/access-authn-authz/authorization/#checking-api-access) API to determine
 if a given user is authorized to request a CSR, then approves based on the authorization outcome. To prevent
 conflicts with other approvers, the builtin approver doesn't explicitly deny CSRs, only ignoring unauthorized requests.
 
@@ -207,18 +207,28 @@ When starting the kubelet, if the file specified by `--kubeconfig` does not exis
 ```
 {{< /note >}}
 
-Additionally, in 1.7 the kubelet implements __alpha__ features for enabling rotation of both its client and/or serving certs.
-These can be enabled through the respective `RotateKubeletClientCertificate` and `RotateKubeletServerCertificate` feature
-flags on the kubelet, but may change in backward incompatible ways in future releases.
+Additionally, a `ClusterRoleBinding` is necessary to allow bootstrap tokens to create CSRs:
 
-```
---feature-gates=RotateKubeletClientCertificate=true,RotateKubeletServerCertificate=true
+```yml
+# Authorize bootstrap tokens (in "system:bootstrappers") request CSRs
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: token-kubelet-bootstrap
+subjects:
+- kind: Group
+  name: system:bootstrappers
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: system:node-bootstrapper
+  apiGroup: rbac.authorization.k8s.io
 ```
 
-`RotateKubeletClientCertificate` causes the kubelet to rotate its client certificates by creating new CSRs as its existing
-credentials expire. `RotateKubeletServerCertificate` causes the kubelet to both request a serving certificate after
-bootstrapping its client credentials and rotate the certificate. The serving cert currently does not request DNS or IP
-SANs.
+The kubelet also implements features for enabling [rotation of both its client and/or serving certs](/docs/tasks/tls/certificate-rotation). The client certificate rotation feature causes the kubelet to rotate its client certificates by creating new
+CSRs as its existing credentials expire. The server certification rotation, in turn, causes the kubelet to both request a
+serving certificate after bootstrapping its client credentials and rotate the certificate. The serving cert currently does
+not request DNS or IP SANs.
 
 ## kubectl approval
 The signing controller does not immediately sign all certificate requests. Instead, it waits until they have been flagged with an
