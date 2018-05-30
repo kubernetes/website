@@ -4,15 +4,19 @@ reviewers:
 title: Tools for Monitoring Compute, Storage, and Network Resources
 ---
 
-Understanding how an application behaves when deployed is crucial to scaling the application and providing a reliable service. In a Kubernetes cluster, application performance can be examined at many different levels: containers, [pods](/docs/user-guide/pods), [services](/docs/user-guide/services), and whole clusters. As part of Kubernetes we want to provide users with detailed resource usage information about their running applications at all these levels. This will give users deep insights into how their applications are performing and where possible application bottlenecks may be found. In comes [Heapster](https://github.com/kubernetes/heapster), a project meant to provide a base monitoring platform on Kubernetes.
+Understanding how an application behaves when deployed is crucial to scaling the application and providing a reliable service. In a Kubernetes cluster, application performance can be examined at many different levels: containers, [pods](/docs/user-guide/pods), [services](/docs/user-guide/services), and whole clusters. As part of Kubernetes we want to provide users with detailed resource usage information about their running applications at all these levels. This will give users deep insights into how their applications are performing and where possible application bottlenecks may be found.
 
 ## Overview
 
-Heapster is a cluster-wide aggregator of monitoring and event data. It currently supports Kubernetes natively and works on all Kubernetes setups. Heapster runs as a pod in the cluster, similar to how any Kubernetes application would run. The Heapster pod discovers all nodes in the cluster and queries usage information from the nodes' [Kubelet](/docs/admin/kubelet/)s, the on-machine Kubernetes agent. The Kubelet itself fetches the data from [cAdvisor](https://github.com/google/cadvisor). Heapster groups the information by pod along with the relevant labels. This data is then pushed to a configurable backend for storage and visualization. Currently supported backends include [InfluxDB](http://influxdb.com/) (with [Grafana](http://grafana.org/) for visualization), [Google Cloud Monitoring](https://cloud.google.com/monitoring/) and many others described in more details [here](https://git.k8s.io/heapster/docs/sink-configuration.md). The overall architecture of the service can be seen below:
+Kubernetes monitoring is designed to be monitoring-solution agnostic.  On many clusters, monitoring is provided via two separate pipelines: the resource metrics pipeline, and full monitoring pipeline.
+The resource metrics pipeline provides a limitted set of metrics to cluster components such as the HorizontalPodAutoscaler controller, and `kubectl top`.  These metrics are generally collected by
+[metrics-server](https://github.com/kubernetes-incubator/metrics-server), and exposed via the `metrics.k8s.io` API.  metrics-server discovers all nodes on the cluster, and queries their
+[Kubelet](/docs/admin/kubelet)s for CPU and memory usage.  The Kubelet itself fetches the data from [cAdvisor](https://github.com/google/cadvisor).
 
-![overall monitoring architecture](/images/docs/monitoring-architecture.png)
-
-Let's look at some of the other components in more detail.
+For richer metrics and long-term storage, a full monitoring pipeline should be used.  Kubernetes does not prescribe a specific monitoring solution.  Instead, it exposes the
+relevant metrics via both the API used by metrics-server, as well as in Prometheus exposition format.  Monitoring agents can then collect these metrics.  Kubernetes defines
+two [APIs](https://github.com/kubernetes/metrics) (`custom.metrics.k8s.io` and `external.metrics.k8s.io`) that monitoring solutions may choose to implement to provide richer
+metrics to system components, such as the Horizontal Pod Autoscaler.
 
 ### cAdvisor
 
@@ -26,25 +30,23 @@ On most Kubernetes clusters, cAdvisor exposes a simple UI for on-machine contain
 
 The Kubelet acts as a bridge between the Kubernetes master and the nodes. It manages the pods and containers running on a machine. Kubelet translates each pod into its constituent containers and fetches individual container usage statistics from cAdvisor. It then exposes the aggregated pod resource usage statistics via a REST API.
 
-## Storage Backends
+## Metrics-Server
 
-### InfluxDB and Grafana
+metric-server acts as a short-term (single-data-point) in-memory store for CPU and memory metrics.  It's designed to be a lightweight solution for providing a small set of metrics to system components.
 
-A Grafana setup with InfluxDB is a very popular combination for monitoring in the open source world. InfluxDB exposes an easy to use API to write and fetch time series data. Heapster is setup to use this storage backend by default on most Kubernetes clusters. A detailed setup guide can be found [here](https://github.com/GoogleCloudPlatform/heapster/blob/master/docs/influxdb.md). InfluxDB and Grafana run in Pods. The pod exposes itself as a Kubernetes service which is how Heapster discovers it.
+## Full Metrics Pipelines
 
-The Grafana container serves Grafana's UI which provides an easy to configure dashboard interface. The default dashboard for Kubernetes contains an example dashboard that monitors resource usage of the cluster and the pods inside of it. This dashboard can easily be customized and expanded. Take a look at the storage schema for InfluxDB [here](https://github.com/GoogleCloudPlatform/heapster/blob/master/docs/storage-schema.md#metrics).
+Many full metrics solutions exist for Kubernetes. The following two are popular solutions:
 
-Here is a video showing how to monitor a Kubernetes cluster using heapster, InfluxDB and Grafana:
+### Prometheus
 
-[![How to monitor a Kubernetes cluster using heapster, InfluxDB and Grafana](http://img.youtube.com/vi/SZgqjMrxo3g/0.jpg)](http://www.youtube.com/watch?v=SZgqjMrxo3g)
-
-Here is a snapshot of the default Kubernetes Grafana dashboard that shows the CPU and Memory usage of the entire cluster, individual pods and containers:
-
-![snapshot of the default Kubernetes Grafana dashboard](/images/docs/influx.png)
+[Prometheus](https://prometheus.io) is able to natively monitor Prometheus, and the [Prometheus Operator](https://coreos.com/operators/prometheus/docs/latest/) can help simplify setup
+on Kubernetes.  It also has support for serving the custom metrics API via the [Prometheus adapter](https://github.com/directxman12/k8s-prometheus-adapter).  Prometheus itself provides
+a robust query language for examining your data, a built-in dashboard, and is also a [supported data source for Grafana](https://prometheus.io/docs/visualization/grafana/).
 
 ### Google Cloud Monitoring
 
-Google Cloud Monitoring is a hosted monitoring service that allows you to visualize and alert on important metrics in your application. Heapster can be setup to automatically push all collected metrics to Google Cloud Monitoring. These metrics are then available in the [Cloud Monitoring Console](https://app.google.stackdriver.com/). This storage backend is the easiest to setup and maintain. The monitoring console allows you to easily create and customize dashboards using the exported data.
+Google Cloud Monitoring is a hosted monitoring service that allows you to visualize and alert on important metrics in your application. It uses Heapster to automatically push all collected metrics to Google Cloud Monitoring. These metrics are then available in the [Cloud Monitoring Console](https://app.google.stackdriver.com/). This storage backend is the easiest to setup and maintain. The monitoring console allows you to easily create and customize dashboards using the exported data.
 
 Here is a video showing how to setup and run a Google Cloud Monitoring backed Heapster:
 
@@ -54,10 +56,3 @@ Here is a snapshot of the Google Cloud Monitoring dashboard showing cluster-wide
 
 ![Google Cloud Monitoring dashboard](/images/docs/gcm.png)
 
-## Try it out!
-
-Now that you've learned a bit about Heapster, feel free to try it out on your own clusters! The [Heapster repository](https://github.com/kubernetes/heapster) is available on GitHub. It contains detailed instructions to setup Heapster and its storage backends. Heapster runs by default on most Kubernetes clusters, so you may already have it! Feedback is always welcome. Please let us know if you run into any issues via the troubleshooting [channels](/docs/troubleshooting/).
-
-***
-*Authors: Vishnu Kannan and Victor Marmol, Google Software Engineers.*
-*This article was originally posted in [Kubernetes blog](http://blog.kubernetes.io/2015/05/resource-usage-monitoring-kubernetes.html).*

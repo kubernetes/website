@@ -19,10 +19,10 @@ This document walks you through an example of enabling Horizontal Pod Autoscaler
 ## Prerequisites
 
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
-[Heapster](https://github.com/kubernetes/heapster) monitoring needs to be deployed in the cluster
-as Horizontal Pod Autoscaler uses it to collect metrics
+[metrics-server](https://github.com/kubernetes/heapster) monitoring needs to be deployed in the cluster
+to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics
 (if you followed [getting started on GCE guide](/docs/getting-started-guides/gce.md),
-heapster monitoring will be turned-on by default).
+metrics-server monitoring will be turned-on by default).
 
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
 and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
@@ -196,7 +196,7 @@ Notice that the `targetCPUUtilizationPercentage` field has been replaced with an
 The CPU utilization metric is a *resource metric*, since it is represented as a percentage of a resource
 specified on pod containers.  Notice that you can specify other resource metrics besides CPU.  By default,
 the only other supported resource metric is memory.  These resources do not change names from cluster
-to cluster, and should always be available, as long as Heapster is deployed.
+to cluster, and should always be available, as long as the `metrics.k8s.io` API is available.
 
 You can also specify resource metrics in terms of direct values, instead of as percentages of the
 requested value.  To do so, use the `targetAverageValue` field instead of the `targetAverageUtilization`
