@@ -789,24 +789,16 @@ include metadata about the response.
 }
 ```
 
-The executed command is expected to print an `ExceCredential` to `stdout`. `k8s.io/client-go`
-will then use the returned bearer token in the `status` when authenticating against the
+The executed command is expected to print an `ExceCredential` to `stdout`.
+`k8s.io/client-go` will then use the returned bearer token and/or client TLS
+key and certificate from the `status` field when authenticating against the
 Kubernetes API.
 
-```json
-{
-  "apiVersion": "client.authentication.k8s.io/v1alpha1",
-  "kind": "ExecCredential",
-  "status": {
-    "token": "my-bearer-token"
-  }
-}
-```
-
-Optionally, this output can include the expiry of the token formatted as a RFC3339 timestamp.
-If an expiry is omitted, the bearer token is cached until the server responds with a 401 HTTP
-status code. Note that this caching is only for the duration of process and therefore the plugin 
-is triggered each time the tool using the plugin is invoked.
+- The returned status may contain `token`, `clientCertificateData` and
+  `clientKeyData`, or all three
+- `clientCertificateData` and `clientKeyData` must be provided together
+- `clientCertificateData` may contain additional intermediate certificates to
+  send to the server
 
 ```json
 {
@@ -814,6 +806,26 @@ is triggered each time the tool using the plugin is invoked.
   "kind": "ExecCredential",
   "status": {
     "token": "my-bearer-token",
+    "clientCertificateData": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+    "clientKeyData": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----"
+  }
+}
+```
+
+Optionally, this output can include the expiry of the token formatted as a
+RFC3339 timestamp. If an expiry is omitted, the bearer token and TLS
+credentials are cached until the server responds with a 401 HTTP status code.
+Note that this caching is only for the duration of process and therefore the
+plugin is triggered each time the tool using the plugin is invoked.
+
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1alpha1",
+  "kind": "ExecCredential",
+  "status": {
+    "token": "my-bearer-token",
+    "clientCertificateData": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+    "clientKeyData": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----",
     "expirationTimestamp": "2018-03-05T17:30:20-08:00"
   }
 }
