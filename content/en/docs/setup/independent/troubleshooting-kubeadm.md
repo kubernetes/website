@@ -174,7 +174,7 @@ Vagrant typically assigns two interfaces to all VMs. The first, for which all ho
 This may lead to problems with flannel. By default, flannel selects the first interface on a host. This leads to all hosts thinking they have the same public IP address. To prevent this issue, pass the `--iface eth1` flag to flannel so that the second interface is chosen.
 
 It could be fixed with the add of an extra row in this file: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-and add this extra arguments to kubernetes on the worker nodes that join to the cluster
+and add this extra arguments to kubernetes on the file of the worker nodes to join the cluster
 
 ...
 Environment="KUBELET_EXTRA_ARGS=--node-ip=<worker IP address>"
