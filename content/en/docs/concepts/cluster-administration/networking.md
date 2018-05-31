@@ -130,6 +130,14 @@ addressing.
 
 [Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), based on [OpenContrail](http://www.opencontrail.org), is a truly open, multi-cloud network virtualization and policy management platform. Contrail / OpenContrail is integrated with various orchestration systems such as Kubernetes, OpenShift, OpenStack and Mesos, and provides different isolation modes for virtual machines, containers/pods and bare metal workloads.
 
+### Cumulus Networks
+
+[Cumulus NetQ](https://cumulusnetworks.com/products/netq/enables) enables operational intelligence into the health of the network by providing actionable insight — from the host to the switch.  This holistic view of the data center comes by giving fabric-wide status checks and deep visibility, at both a historic and present viewpoint, from the network switches down to the container and container deployments on hosts. This view accelerates operational efficiency by giving you container service insight and providing the tools network and application engineers need to design, update, manage and troubleshoot your Kubernetes container network. 
+
+Cumulus NetQ is uniquely positioned as the only telemetry system that integrates with the Kubernetes API server and listens to Kubernetes events to help engineers make informed decisions.  Additionally, NetQ timestamps the telemetry data, including information about Kubernetes, so it can do a trace and show the changes to container infrastructure over time, including the ability to show a trace and state of Kubernetes in the past.
+
+To provide this unifying view, NetQ also listens to the Netlink interface into the Linux Kernel, and interacts with the Linux user space, to provide real-time access to Linux networking events across the data center fabric.  With this deep insight into Kubernetes, you can now view and monitor Kubernetes deployments, pods, daemon sets, etc. as they rapidly change in your network, affecting traffic patterns.
+
 ### Flannel
 
 [Flannel](https://github.com/coreos/flannel#flannel) is a very simple overlay
