@@ -198,15 +198,14 @@ status check.
 
 {{< note >}}
 **Note:** Due to a known issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870),
-when the `spec.template.spec.restartPolicy` field is set to "`OnFailure`", the
+when the `.spec.template.spec.restartPolicy` field is set to "`OnFailure`", the
 back-off limit may be ineffective. As a short-term workaround, set the restart
 policy for the embedded template to "`Never`".
 {{< /note >}}
 
 ## Job Termination and Cleanup
 
-When a Job completes, no more Pods are created, but the Pods are not deleted either.  Since they are terminated,
-they don't show up with `kubectl get pods`, but they will show up with `kubectl get pods -a`.  Keeping them around
+When a Job completes, no more Pods are created, but the Pods are not deleted either.  Keeping them around
 allows you to still view the logs of completed pods to check for errors, warnings, or other diagnostic output.
 The job object also remains after it is completed so that you can view its status.  It is up to the user to delete
 old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`). When you delete the job using `kubectl`, all the pods it created are deleted too.
@@ -299,12 +298,12 @@ Here, `W` is the number of work items.
 
 ### Specifying your own pod selector
 
-Normally, when you create a job object, you do not specify `spec.selector`.
+Normally, when you create a job object, you do not specify `.spec.selector`.
 The system defaulting logic adds this field when the job is created.
 It picks a selector value that will not overlap with any other jobs.
 
 However, in some cases, you might need to override this automatically set selector.
-To do this, you can specify the `spec.selector` of the job.
+To do this, you can specify the `.spec.selector` of the job.
 
 Be very careful when doing this.  If you specify a label selector which is not
 unique to the pods of that job, and which matches unrelated pods, then pods of the unrelated
@@ -312,7 +311,7 @@ job may be deleted, or this job may count other pods as completing it, or one or
 of the jobs may refuse to create pods or run to completion.  If a non-unique selector is
 chosen, then other controllers (e.g. ReplicationController) and their pods may behave
 in unpredictable ways too.  Kubernetes will not stop you from making a mistake when
-specifying `spec.selector`.
+specifying `.spec.selector`.
 
 Here is an example of a case when you might want to use this feature.
 

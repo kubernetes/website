@@ -1,6 +1,7 @@
 ---
 title: Specifying a Disruption Budget for your Application
 content_template: templates/task
+weight: 110
 ---
 
 {{% capture overview %}}
@@ -101,7 +102,7 @@ that have an associated controller managing them. In the examples below, "desire
 is the `scale` of the controller managing the pods being selected by the
 `PodDisruptionBudget`.
 
-Example 1: With a `minAvailable` of 5, evictions are be allowed as long as they leave behind
+Example 1: With a `minAvailable` of 5, evictions are allowed as long as they leave behind
 5 or more healthy pods among those selected by the PodDisruptionBudget's `selector`.
 
 Example 2: With a `minAvailable` of 30%, evictions are allowed as long as at least 30%

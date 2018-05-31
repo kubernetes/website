@@ -1,6 +1,7 @@
 ---
 title: Attach Handlers to Container Lifecycle Events
 content_template: templates/task
+weight: 140
 ---
 
 {{% capture overview %}}

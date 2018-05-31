@@ -42,8 +42,8 @@ For each master that has been provisioned, follow the [installation guide](/docs
 
 For highly available setups, you will need to decide how to host your etcd cluster. A cluster is composed of at least 3 members. We recommend one of the following models:
 
-1. Hosting etcd cluster on separate compute nodes (Virtual Machines), or
-2. Hosting etcd cluster on the master nodes.
+- Hosting etcd cluster on separate compute nodes (Virtual Machines)
+- Hosting etcd cluster on the master nodes.
 
 While the first option provides more performance and better hardware isolation, it is also more expensive and requires an additional support burden.
 
@@ -222,14 +222,12 @@ Please select one of the tabs to see installation instructions for the respectiv
 1. First you will install etcd binaries like so:
 
    ```shell
-   export ETCD_VERSION=v3.1.10
-   curl -sSL https://github.com/coreos/etcd/releases/download//etcd--linux-amd64.tar.gz | tar -xzv --strip-components=1 -C /usr/local/bin/
-   rm -rf etcd--linux-amd64*
+   ETCD_VERSION="v3.1.12"; curl -sSL https://github.com/coreos/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz | tar -xzv --strip-components=1 -C /usr/local/bin/
    ```
 
-   It is worth noting that etcd v3.1.10 is the preferred version for Kubernetes v1.9. For other versions of Kubernetes please consult [the changelog](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md).
+   It is worth noting that etcd v3.1.12 is the preferred version for Kubernetes v1.10. For other versions of Kubernetes please consult [the changelog](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md).
 
-   Also, please realise that most distributions of Linux already have a version of etcd installed, so you will be replacing the system default.
+   Also, please realize that most distributions of Linux already have a version of etcd installed, so you will be replacing the system default.
 
 1. Next, generate the environment file that systemd will use:
 
@@ -289,51 +287,67 @@ Please select one of the tabs to see installation instructions for the respectiv
    apiVersion: v1
    kind: Pod
    metadata:
-   labels:
+     labels:
        component: etcd
        tier: control-plane
-   name: <podname>
-   namespace: kube-system
+     name: <podname>
+     namespace: kube-system
    spec:
-   containers:
-   - command:
-       - etcd --name <name> - --data-dir /var/lib/etcd - --listen-client-urls http://localhost:2379 - --advertise-client-urls http://localhost:2379 - --listen-peer-urls http://localhost:2380 - --initial-advertise-peer-urls http://localhost:2380 - --cert-file=/certs/server.pem - --key-file=/certs/server-key.pem - --client-cert-auth - --trusted-ca-file=/certs/ca.pem - --peer-cert-file=/certs/peer.pem - --peer-key-file=/certs/peer-key.pem - --peer-client-cert-auth - --peer-trusted-ca-file=/certs/ca.pem - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 - --initial-cluster-token my-etcd-token - --initial-cluster-state new
+     containers:
+     - command:
+       - etcd --name <name> 
+       - --data-dir /var/lib/etcd 
+       - --listen-client-urls http://localhost:2379 
+       - --advertise-client-urls http://localhost:2379 
+       - --listen-peer-urls http://localhost:2380 
+       - --initial-advertise-peer-urls http://localhost:2380 
+       - --cert-file=/certs/server.pem 
+       - --key-file=/certs/server-key.pem 
+       - --client-cert-auth 
+       - --trusted-ca-file=/certs/ca.pem 
+       - --peer-cert-file=/certs/peer.pem 
+       - --peer-key-file=/certs/peer-key.pem 
+       - --peer-client-cert-auth 
+       - --peer-trusted-ca-file=/certs/ca.pem 
+       - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 
+       - --initial-cluster-token my-etcd-token 
+       - --initial-cluster-state new
        image: k8s.gcr.io/etcd-amd64:3.1.10
        livenessProbe:
-       httpGet:
+         httpGet:
            path: /health
            port: 2379
            scheme: HTTP
-       initialDelaySeconds: 15
-       timeoutSeconds: 15
+         initialDelaySeconds: 15
+         timeoutSeconds: 15
        name: etcd
        env:
        - name: PUBLIC_IP
-       valueFrom:
+         valueFrom:
            fieldRef:
            fieldPath: status.hostIP
        - name: PRIVATE_IP
-       valueFrom:
+         valueFrom:
            fieldRef:
-           fieldPath: status.podIP
+             fieldPath: status.podIP
        - name: PEER_NAME
-       valueFrom:
+         valueFrom:
            fieldRef:
-           fieldPath: metadata.name
+             fieldPath: metadata.name
        volumeMounts:
        - mountPath: /var/lib/etcd
-       name: etcd
+         name: etcd
        - mountPath: /certs
-       name: certs
+         name: certs
    hostNetwork: true
    volumes:
    - hostPath:
        path: /var/lib/etcd
        type: DirectoryOrCreate
-       name: etcd
+     name: etcd
    - hostPath:
        path: /etc/kubernetes/pki/etcd
-       name: certs
+     name: certs
    EOF
    ```
 

@@ -67,7 +67,7 @@ The following resource types are supported:
 ### Resource Quota For Extended Resources
 
 In addition to the resources mentioned above, in release 1.10, quota support for
-[extended resources](/docs/concepts/configuration/manage-compute-resources-container.md#extended-resources) is added.
+[extended resources](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources) is added.
 
 As overcommit is not allowed for extended resources, it makes no sense to specify both `requests`
 and `limits` for the same extended resource in a quota. So for extended resources, only quota items

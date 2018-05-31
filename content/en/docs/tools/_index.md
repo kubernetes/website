@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - janetkuo
 title: Tools
 ---

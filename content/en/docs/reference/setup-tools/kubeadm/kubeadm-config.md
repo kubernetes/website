@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 - luxas
 - jbeda
@@ -30,5 +30,5 @@ may use `kubeadm upgrade`.
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [kubeadm upgrade](kubeadm-upgrade.md) to upgrade a Kubernetes cluster to a newer version
+* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 {{% /capture %}}

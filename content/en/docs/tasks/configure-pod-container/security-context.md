@@ -5,6 +5,7 @@ reviewers:
 - thockin
 title: Configure a Security Context for a Pod or Container
 content_template: templates/task
+weight: 80
 ---
 
 {{% capture overview %}}

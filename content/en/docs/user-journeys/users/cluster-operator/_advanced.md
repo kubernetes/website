@@ -7,6 +7,7 @@ js: https://use.fontawesome.com/4bcc658a89.js, https://cdnjs.cloudflare.com/ajax
 title: Advanced Topics
 track: "USERS > CLUSTER OPERATOR > ADVANCED"
 content_template: templates/user-journey-content
+toc_hide: true
 ---
 
 {{% capture overview %}}

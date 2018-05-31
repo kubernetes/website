@@ -612,7 +612,7 @@ Currently, the following types of volume sources can be projected:
 
 - [`secret`](#secret)
 - [`downwardAPI`](#downwardapi)
-- `configMap`
+- [`configMap`](#configmap)
 
 All sources are required to be in the same namespace as the Pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
 
@@ -1040,7 +1040,7 @@ The following fields are available to storage administrators to configure a CSI
 persistent volume:
 
 - `driver`: A string value that specifies the name of the volume driver to use.
-  This value must corespond to the value returned in the `GetPluginInfoResponse`
+  This value must correspond to the value returned in the `GetPluginInfoResponse`
   by the CSI driver as defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#getplugininfo).
   It is used by Kubernetes to identify which CSI driver to call out to, and by
   CSI driver components to identify which PV objects belong to the CSI driver.
@@ -1055,13 +1055,13 @@ persistent volume:
   `ControllerPublishVolumeRequest`.
 - `fsType`: If the PV's `VolumeMode` is `Filesystem` then this field may be used
   to specify the filesystem that should be used to mount the volume. If the
-  volume has not been formatted and formating is supported, this value will be
+  volume has not been formatted and formatting is supported, this value will be
   used to format the volume. If a value is not specified, `ext4` is assumed.
   This value is passed to the CSI driver via the `VolumeCapability` field of
   `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, and
   `NodePublishVolumeRequest`.
 - `volumeAttributes`: A map of string to string that specifies static properties
-  of a volume. This map must corespond to the map returned in the
+  of a volume. This map must correspond to the map returned in the
   `volume.attributes` field of the `CreateVolumeResponse` by the CSI driver as
   defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume).
   The map is passed to the CSI driver via the `volume_attributes` field in the

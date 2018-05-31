@@ -2,6 +2,7 @@
 title: Update API Objects in Place Using kubectl patch
 description: Use kubectl patch to update Kubernetes API objects in place. Do a strategic merge patch or a JSON merge patch.
 content_template: templates/task
+weight: 40
 ---
 
 {{% capture overview %}}
@@ -306,7 +307,7 @@ The following commands are equivalent:
 
 ```shell
 kubectl patch deployment patch-demo --patch "$(cat patch-file.yaml)"
-kubectl patch deployment patch-demo --patch $'spec:\n template:\n  spec:\n   containers:\n   - name: patch-demo-ctr-2\n     image: redis'
+kubectl patch deployment patch-demo --patch 'spec:\n template:\n  spec:\n   containers:\n   - name: patch-demo-ctr-2\n     image: redis'
 
 kubectl patch deployment patch-demo --patch "$(cat patch-file.json)"
 kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"containers": [{"name": "patch-demo-ctr-2","image": "redis"}]}}}}'

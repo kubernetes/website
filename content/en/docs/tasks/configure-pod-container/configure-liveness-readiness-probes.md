@@ -1,6 +1,7 @@
 ---
 title: Configure Liveness and Readiness Probes
 content_template: templates/task
+weight: 110
 ---
 
 {{% capture overview %}}

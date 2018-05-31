@@ -691,7 +691,7 @@ is lost.
 The API server sets certain fields to default values in the live configuration if they are
 not specified when the object is created.
 
-Here's a configuration file for a Deployment. The file does not specify `strategy` or `selector`:
+Here's a configuration file for a Deployment. The file does not specify `strategy`:
 
 {{< code file="simple_deployment.yaml" >}}
 
@@ -721,7 +721,7 @@ spec:
   minReadySeconds: 5
   replicas: 1 # defaulted by apiserver
   selector:
-    matchLabels: # defaulted by apiserver - derived from template.metadata.labels
+    matchLabels:
       app: nginx
   strategy:
     rollingUpdate: # defaulted by apiserver - derived from strategy.type
@@ -749,10 +749,6 @@ spec:
       terminationGracePeriodSeconds: 30 # defaulted by apiserver
 # ...
 ```
-
-**Note:** Some of the fields' default values have been derived from
-the values of other fields that were specified in the configuration file,
-such as the `selector` field.
 
 In a patch request, defaulted fields are not re-defaulted unless they are explicitly cleared
 as part of a patch request. This can cause unexpected behavior for

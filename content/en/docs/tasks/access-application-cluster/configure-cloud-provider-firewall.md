@@ -3,6 +3,7 @@ reviewers:
 - bprashanth
 - davidopp
 title: Configure Your Cloud Provider's Firewalls
+weight: 90
 ---
 
 Many cloud providers (e.g. Google Compute Engine) define firewalls that help prevent inadvertent

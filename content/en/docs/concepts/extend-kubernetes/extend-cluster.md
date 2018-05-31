@@ -155,7 +155,7 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 After a request is authorized, if it is a write operation, it also goes through [Admission Control](/docs/admin/admission-controllers/) steps. In addition to the built-in steps, there are several extensions:
 
 *   The [Image Policy webhook](/docs/admin/admission-controllers/#imagepolicywebhook) restricts what images can be run in containers.
-*   To make arbitrary admission control decisions, a general [Admission webhook](/docs/admin/extensible-admission-controllers/#external-admission-webhooks) can be used. Admission Webhooks can reject creations or updates.
+*   To make arbitrary admission control decisions, a general [Admission webhook](/docs/admin/extensible-admission-controllers/#admission-webhooks) can be used. Admission Webhooks can reject creations or updates.
 *   [Initializers](/docs/admin/extensible-admission-controllers/#initializers) are controllers that can modify objects before they are created. Initializers can modify initial object creations but cannot affect updates to objects. Initializers can also reject objects.
 
 ## Infrastructure Extensions

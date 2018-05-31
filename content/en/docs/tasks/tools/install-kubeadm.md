@@ -1,6 +1,7 @@
 ---
 title: Installing kubeadm
 content_template: templates/task
+weight: 30
 ---
 
 {{% capture overview %}}
@@ -24,8 +25,8 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
 * 2 CPUs or more 
 * Full network connectivity between all machines in the cluster (public or private network is fine)
-* Unique hostname, MAC address, and product_uuid for every node. See [here](https://kubernetes.io/docs/setup/independent/install-kubeadm/#verify-the-mac-address-and-product_uuid-are-unique-for-every-node) for more details.
-* Certain ports are open on your machines. See [here](/docs/setup/independent/install-kubeadm/#check-required-ports) for more details.
+* Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-the-mac-address-and-product-uuid-are-unique-for-every-node) for more details.
+* Certain ports are open on your machines. See [here](#check-required-ports) for more details.
 * Swap disabled. You **MUST** disable swap in order for the kubelet to work properly. 
 
 {{% /capture %}}
@@ -83,8 +84,9 @@ documentation for the plugins about what port(s) those need.
 ## Installing Docker
 
 On each of your machines, install Docker.
-Version v1.12 is recommended, but v1.11, v1.13 and 17.03 are known to work as well.
+Version 17.03 is recommended, but 1.11, 1.12 and 1.13 are known to work as well.
 Versions 17.06+ _might work_, but have not yet been tested and verified by the Kubernetes node team.
+Keep track of the latest verified Docker version in the Kubernetes release notes.
 
 Please proceed with executing the following commands based on your OS as root. You may become the root user by executing `sudo -i` after SSH-ing to each host.
 
@@ -154,7 +156,7 @@ For more information on version skews, please read our
 [version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy).
 
 {{< tabs name="k8s_install" >}}
-{{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
 ```bash
 apt-get update && apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -164,7 +166,7 @@ EOF
 apt-get update
 apt-get install -y kubelet kubeadm kubectl
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 ```bash
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
