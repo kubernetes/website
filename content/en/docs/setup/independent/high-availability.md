@@ -129,24 +129,24 @@ For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd
 
 ### Generate etcd client certs
 
-1. Generate the client certificates.
+Generate the client certificates. While on `etcd0`, run the following:
 
-    While on `etcd0`, run the following:
-     ```bash
-     cat >client.json <<EOF
-     {
-        "CN": "client",
-        "key": {
-            "algo": "ecdsa",
-            "size": 256
-        }
-     }
-     EOF
-     ```
-     ```bash
-     cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=client client.json | cfssljson -bare client
-     ```
-    This results in `client.pem` and `client-key.pem` being created.
+```bash
+cat >client.json <<EOF
+{
+  "CN": "client",
+  "key": {
+      "algo": "ecdsa",
+      "size": 256
+  }
+}
+EOF
+```
+```bash
+cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=client client.json | cfssljson -bare client
+```
+
+Both `client.pem` and `client-key.pem` are created.
 
 ### Create SSH access
 
@@ -214,7 +214,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 {{% tab name="systemd" %}}
 1. First, install etcd binaries:
      ```bash
-     ETCD_VERSION="v3.1.12"; curl -sSL https://github.com/coreos/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz | tar -xzv --strip-components=1 -C /usr/local/bin/
+     ETCD_VERSION="v3.1.12" curl -sSL https://github.com/coreos/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz | tar -xzv --strip-components=1 -C /usr/local/bin/
      ```
 
     It is worth noting that etcd v3.1.12 is the preferred version for Kubernetes v1.10. For other versions of Kubernetes please consult [the changelog](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md).
@@ -269,9 +269,9 @@ Please select one of the tabs to see installation instructions for the respectiv
 {{% tab name="Static Pods" %}}
 **Note**: This is only supported on nodes that have the all dependencies for the kubelet installed. If you are hosting etcd on the master nodes, this has already been set up. If you are hosting etcd on dedicated nodes, you should either use systemd or run the [installation guide](/docs/setup/independent/install-kubeadm/) on each dedicated etcd machine.
 
-1. The first step is to run the following to generate the manifest file:
+Run the following to generate the manifest file:
 
-      ```shell
+<!-- Using indentation instead of code fencing because of https://github.com/russross/blackfriday/issues/239 -->
       cat >/etc/kubernetes/manifests/etcd.yaml <<EOF
       apiVersion: v1
       kind: Pod
@@ -338,11 +338,10 @@ Please select one of the tabs to see installation instructions for the respectiv
           path: /etc/kubernetes/pki/etcd
         name: certs
       EOF
-      ```
 
-   Make sure you replace:
-   * `<podname>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
-   * `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the public IPv4s of the other machines that host etcd.
+Make sure you replace:
+* `<podname>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
+* `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the public IPv4s of the other machines that host etcd.
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -501,7 +500,7 @@ Before running kubeadm on the other masters, you need to first copy the K8s CA c
 
 #### Option 2: Copy paste
 
-1. Copy the contents of `/etc/kubernetes/pki/ca.crt`, `/etc/kubernetes/pki/ca.key`, `/etc/kubernetes/pki/sa.key` and `/etc/kubernetes/pki/sa.pub` and create these files manually on `master1` and `master2`.
+Copy the contents of `/etc/kubernetes/pki/ca.crt`, `/etc/kubernetes/pki/ca.key`, `/etc/kubernetes/pki/sa.key` and `/etc/kubernetes/pki/sa.pub` and create these files manually on `master1` and `master2`.
 
 When this is done, you can follow the [previous step](#kubeadm-init-master0) to install the control plane with kubeadm.
 
