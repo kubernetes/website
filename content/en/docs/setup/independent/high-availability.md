@@ -448,6 +448,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
 ## Run `kubeadm init` on `master0` {#kubeadm-init-master0}
 
 1. In order for kubeadm to run, you first need to write a configuration file:
+
      ```bash
      cat >config.yaml <<EOF
      apiVersion: kubeadm.k8s.io/v1alpha1
