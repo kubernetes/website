@@ -85,6 +85,15 @@ timeframe; which also applies to `kubeadm`.
 1. 2 CPUs or more on the master
 1. Full network connectivity between all machines in the cluster (public or
    private network is fine)
+   
+{{< note >}}
+**Note:** This guide results in a Kubernetes cluster with one master and a
+number of nodes that you decide. A single master is not highly available. If
+you want to set up a multi-master cluster for high availability, you can
+follow
+[this guide instead](https://kubernetes.io/docs/setup/independent/high-availability/).
+{{< /note >}}
+ 
 {{% /capture %}}
 
 {{% capture steps %}}
