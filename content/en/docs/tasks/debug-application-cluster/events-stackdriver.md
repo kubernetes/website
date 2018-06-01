@@ -3,7 +3,6 @@ reviewers:
 - piosz
 - x13n
 title: Events in Stackdriver
-weight: 60
 ---
 
 

@@ -1,6 +1,5 @@
 ---
 title: Federated Secrets
-weight: 110
 ---
 
 {{< include "federation-current-state.md" >}}

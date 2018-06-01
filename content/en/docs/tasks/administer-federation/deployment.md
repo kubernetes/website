@@ -1,7 +1,6 @@
 ---
 title: Federated Deployment
 content_template: templates/task
-weight: 40
 ---
 
 {{% capture overview %}}

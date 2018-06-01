@@ -4,7 +4,6 @@ reviewers:
 - sttts
 - ericchiang
 title: Auditing
-weight: 160
 ---
 
 {{< toc >}}

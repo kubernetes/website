@@ -4,7 +4,6 @@ reviewers:
 - thockin
 - wlan0
 title: Developing Cloud Controller Manager
-weight: 270
 ---
 
 **Cloud Controller Manager is an alpha feature in 1.8. In upcoming releases it will

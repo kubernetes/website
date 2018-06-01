@@ -4,7 +4,6 @@ reviewers:
 - dawnchen
 title: Reconfigure a Node's Kubelet in a Live Cluster
 content_template: templates/task
-weight: 210
 ---
 
 {{% capture overview %}}

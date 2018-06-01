@@ -9,7 +9,6 @@ reviewers:
 - smarterclayton
 title: Debug a StatefulSet
 content_template: templates/task
-weight: 140
 ---
 
 {{% capture overview %}}

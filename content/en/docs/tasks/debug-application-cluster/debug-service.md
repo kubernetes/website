@@ -3,7 +3,6 @@ reviewers:
 - thockin
 - bowei
 title: Debug Services
-weight: 110
 ---
 
 An issue that comes up rather frequently for new installations of Kubernetes is

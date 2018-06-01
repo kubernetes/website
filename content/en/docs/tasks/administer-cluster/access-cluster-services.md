@@ -1,7 +1,6 @@
 ---
 title: Access Services Running on Clusters
 content_template: templates/task
-weight: 30
 ---
 
 {{% capture overview %}}

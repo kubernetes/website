@@ -2,7 +2,6 @@
 reviewers:
 - davidopp
 title: Troubleshoot Clusters
-weight: 120
 ---
 
 This doc is about cluster troubleshooting; we assume you have already ruled out your application as the root cause of the

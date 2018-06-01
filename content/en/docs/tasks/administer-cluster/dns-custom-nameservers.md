@@ -4,7 +4,6 @@ reviewers:
 - zihongz
 title: Customizing DNS Service
 content_template: templates/task
-weight: 310
 ---
 
 {{% capture overview %}}

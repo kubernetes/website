@@ -9,7 +9,6 @@ reviewers:
 - smarterclayton
 title: Debug Init Containers
 content_template: templates/task
-weight: 90
 ---
 
 {{% capture overview %}}

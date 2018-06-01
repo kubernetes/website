@@ -3,7 +3,6 @@ reviewers:
 - mikedanese
 - thockin
 title: Troubleshoot Applications
-weight: 130
 ---
 
 This guide is to help users debug applications that are deployed into Kubernetes and not behaving correctly.

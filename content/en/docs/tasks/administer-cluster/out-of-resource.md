@@ -4,7 +4,6 @@ reviewers:
 - vishh
 - timstclair
 title: Configure Out Of Resource Handling
-weight: 160
 ---
 
 {{< toc >}}

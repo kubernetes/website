@@ -3,7 +3,6 @@ reviewers:
 - pipejakob
 title: Upgrading kubeadm clusters from 1.6 to 1.7
 content_template: templates/task
-weight: 20
 ---
 
 {{% capture overview %}}

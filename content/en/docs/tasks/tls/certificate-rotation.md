@@ -4,7 +4,6 @@ reviewers:
 - mikedanese
 title: Certificate Rotation
 content_template: templates/task
-weight: 20
 ---
 
 {{% capture overview %}}

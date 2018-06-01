@@ -6,7 +6,6 @@ reviewers:
 - jbeda
 title: Upgrading kubeadm clusters from 1.7 to 1.8
 content_template: templates/task
-weight: 30
 ---
 
 {{% capture overview %}}

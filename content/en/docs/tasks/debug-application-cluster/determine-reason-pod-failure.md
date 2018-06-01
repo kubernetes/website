@@ -1,7 +1,6 @@
 ---
 title: Determine the Reason for Pod Failure
 content_template: templates/task
-weight: 80
 ---
 
 {{% capture overview %}}

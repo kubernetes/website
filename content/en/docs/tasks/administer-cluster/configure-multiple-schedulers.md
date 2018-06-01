@@ -3,7 +3,6 @@ reviewers:
 - davidopp
 - madhusudancs
 title: Configure Multiple Schedulers
-weight: 290
 ---
 
 Kubernetes ships with a default scheduler that is described [here](/docs/admin/kube-scheduler/).

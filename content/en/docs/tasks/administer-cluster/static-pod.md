@@ -2,7 +2,6 @@
 reviewers:
 - jsafrane
 title: Static Pods
-weight: 80
 ---
 
 **If you are running clustered Kubernetes and are using static pods to run a pod on every node, you should probably be using a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)!**

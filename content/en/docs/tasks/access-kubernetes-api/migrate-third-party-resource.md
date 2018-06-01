@@ -4,7 +4,6 @@ reviewers:
 - enisoc
 - deads2k
 content_template: templates/task
-weight: 30
 ---
 
 {{% capture overview %}}

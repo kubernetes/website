@@ -2,7 +2,6 @@
 reviewers:
 - mml
 title: Cluster Management Guide for Version 1.6
-weight: 10
 ---
 
 {{< toc >}}

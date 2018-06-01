@@ -1,7 +1,6 @@
 ---
 title: IP Masquerade Agent User Guide
 content_template: templates/task
-weight: 300
 ---
 
 {{% capture overview %}}

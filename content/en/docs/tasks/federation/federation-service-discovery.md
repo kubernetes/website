@@ -3,7 +3,6 @@ reviewers:
 - bprashanth
 - quinton-hoole
 title: Cross-cluster Service Discovery using Federated Services
-weight: 10
 ---
 
 {{< include "federation-current-state.md" >}}

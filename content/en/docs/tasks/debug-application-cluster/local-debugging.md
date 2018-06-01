@@ -1,7 +1,6 @@
 ---
 title: Developing and debugging services locally
 content_template: templates/task
-weight: 170
 ---
 
 {{% capture overview %}}

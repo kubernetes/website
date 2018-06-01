@@ -3,7 +3,6 @@ reviewers:
 - Random-Liu
 - dchen1107
 title: Monitor Node Health
-weight: 40
 ---
 
 {{< toc >}}

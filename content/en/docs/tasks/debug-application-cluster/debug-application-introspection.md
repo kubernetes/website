@@ -3,7 +3,6 @@ reviewers:
 - janetkuo
 - thockin
 title: Application Introspection and Debugging
-weight: 150
 ---
 
 Once your application is running, you'll inevitably need to debug problems with it.

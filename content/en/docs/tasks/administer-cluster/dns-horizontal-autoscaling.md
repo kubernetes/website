@@ -1,7 +1,6 @@
 ---
 title: Autoscale the DNS Service in a Cluster
 content_template: templates/task
-weight: 130
 ---
 
 {{% capture overview %}}
