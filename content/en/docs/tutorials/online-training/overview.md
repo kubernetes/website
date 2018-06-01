@@ -1,7 +1,6 @@
 ---
 title: Overview of Kubernetes Online Training
 content_template: templates/concept
-weight: 10
 ---
 
 {{% capture overview %}}

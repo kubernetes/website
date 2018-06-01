@@ -4,7 +4,6 @@ reviewers:
 - pmorie
 title: Configuring Redis using a ConfigMap
 content_template: templates/tutorial
-weight: 10
 ---
 
 {{% capture overview %}}
