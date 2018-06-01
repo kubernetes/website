@@ -203,15 +203,18 @@ submit-queue   610995
 This means that for any given resource, the server will return columns and rows relevant to that resource, for the client to print.
 This allows for consistent human-readable output across clients used against the same cluster, by having the server encapsulate the details of printing.
 
-This feature is enabled by default as of `kubectl` v1.11, and can be optionally disabled by adding the `--server-print=false` flag to `kubectl get`.
+This feature is enabled by default in `kubectl` 1.11 and higher. To disable it, add the
+`--server-print=false` flag to the `kubectl get` command.
 
 ##### Examples
 
+To print information about the status of a pod, use a command like the following:
+
 ```shell
-$ kubectl get pods <pod-name> --server-print=false
+kubectl get pods <pod-name> --server-print=false
 ```
 
-The result of running this command is:
+Output looks like this:
 
 ```shell
 NAME       READY     STATUS              RESTARTS   AGE
