@@ -326,9 +326,7 @@ Weave Net sets hairpin mode by default. This allows Pods to access themselves vi
 if they don't know their PodIP.
 
 ```shell
-export kubever=$(kubectl version | base64 | tr -d '
-')
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
 {{% /tab %}}
 {{< /tabs >}}
