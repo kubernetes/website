@@ -134,7 +134,7 @@ value is `another-node-label-value` should be preferred.
 
 You can see the operator `In` being used in the example. The new node affinity syntax supports the following operators: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
 You can use `NotIn` and `DoesNotExist` to achieve node anti-affinity behavior, or use 
-[node taints](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/) to repel pods from specific nodes.
+[node taints](/docs/concepts/configuration/taint-and-toleration/) to repel pods from specific nodes.
 
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
 to be scheduled onto a candidate node.
@@ -323,7 +323,7 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 
 The above example uses `PodAntiAffinity` rule with `topologyKey: "kubernetes.io/hostname"` to deploy the redis cluster so that 
 no two instances are located on the same host. 
-See [ZooKeeper tutorial](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) 
+See [ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) 
 for an example of a StatefulSet configured with anti-affinity for high availability, using the same technique.
 
 For more information on inter-pod affinity/anti-affinity, see the 

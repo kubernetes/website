@@ -174,8 +174,10 @@
 /docs/getting-started-guides/centos/* /docs/setup/independent/create-cluster-kubeadm/ 301
 
 /docs/hellonode/     /docs/tutorials/stateless-application/hello-minikube/ 301
+/docs/home/contribute/stage-documentation-changes/     /docs/home/contribute/create-pull-request/ 301
 /docs/home/coreos/     /docs/getting-started-guides/coreos/ 301
-/docs/home/deprecation-policy/     /docs/reference/deprecation-policy/ 301
+/docs/home/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
+/docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/reference/federation/v1beta1/definitions/     /docs/reference/federation/extensions/v1beta1/definitions/ 301
 /docs/reference/federation/v1beta1/operations/     /docs/reference/federation/extensions/v1beta1/operations/ 301
 
@@ -187,16 +189,17 @@
 /docs/reference/generated/kube-controller-manager/     /docs/reference/command-line-tools-reference/kube-controller-manager/ 301
 /docs/reference/generated/kube-proxy/     /docs/reference/command-line-tools-reference/kube-proxy/ 301
 /docs/reference/generated/kube-scheduler/     /docs/reference/command-line-tools-reference/kube-scheduler/ 301
-
-/docs/reference/generated/kubectl/kubectl-options/     /docs/reference/generated/kubectl/kubectl/ 301
+/docs/reference/generated/kubectl/kubectl-options/     /docs/reference/kubectl/kubectl/ 301
+/docs/reference/generated/kubectl/kubectl/     /docs/reference/generated/kubectl/kubectl-commands/ 301
 /docs/reference/generated/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
-
 /docs/reference/generated/kubefed/     /docs/reference/setup-tools/kubefed/kubefed/ 301
 /docs/reference/generated/kubefed_init/     /docs/reference/setup-tools/kubefed/kubefed-init/ 301
 /docs/reference/generated/kubefed_join/     /docs/reference/setup-tools/kubefed/kubefed-join/ 301
 /docs/reference/generated/kubefed_options/     /docs/reference/setup-tools/kubefed/kubefed-options/ 301
 /docs/reference/generated/kubefed_unjoin/     /docs/reference/setup-tools/kubefed/kubefed-unjoin/ 301
 /docs/reference/generated/kubefed_version/     /docs/reference/setup-tools/kubefed/kubefed-version/ 301
+/docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
+/docs/reference/workloads-18-19/     https://v1-9.docs.kubernetes.io/docs/reference/workloads-18-19/ 301
 
 /docs/reporting-security-issues/     /security/ 301
 
@@ -212,11 +215,16 @@
 /docs/tasks/access-application-cluster/access-cluster.md     /docs/tasks/access-application-cluster/access-cluster/ 301
 /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
 /docs/tasks/access-kubernetes-api/access-kubernetes-api/http-proxy-access-api/     /docs/tasks/access-kubernetes-api/http-proxy-access-api/ 301
+
 /docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/tasks/administer-cluster/assign-pods-nodes/     /docs/tasks/configure-pod-container/assign-pods-nodes/ 301
+/docs/tasks/administer-cluster/calico-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/ 301
 /docs/tasks/administer-cluster/certificate-rotation/     /docs/admin/kubelet-tls-bootstrapping/ 301
+/docs/tasks/administer-cluster/cilium-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/ 301
 /docs/tasks/administer-cluster/configure-namespace-isolation/     /docs/concepts/services-networking/network-policies/ 301
 /docs/tasks/administer-cluster/configure-pod-disruption-budget/     /docs/tasks/run-application/configure-pdb/ 301
+/docs/tasks/administer-cluster/cpu-constraint-namespace/     /docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/ 301
+/docs/tasks/administer-cluster/cpu-default-namespace/     /docs/tasks/administer-cluster/manage-resources/cpu-default-namespace 301
 /docs/tasks/administer-cluster/cpu-memory-limit/     /docs/tasks/administer-cluster/memory-default-namespace/ 301
 /docs/tasks/administer-cluster/default-cpu-request-limit/     /docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit/ 301
 /docs/tasks/administer-cluster/default-memory-request-limit/     /docs/tasks/configure-pod-container/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit/ 301
@@ -225,12 +233,19 @@
 /docs/tasks/administer-cluster/kubeadm-upgrade-1-8/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-8/ 301
 /docs/tasks/administer-cluster/kubeadm-upgrade-1-9/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-9/ 301
 /docs/tasks/administer-cluster/kubeadm-upgrade-ha/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-ha/ 301
+/docs/tasks/administer-cluster/kube-router-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/ 301
+/docs/tasks/administer-cluster/memory-constraint-namespace/     /docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/ 301
+/docs/tasks/administer-cluster/memory-default-namespace/     /docs/tasks/administer-cluster/manage-resources/memory-default-namespace/ 301
 /docs/tasks/administer-cluster/out-of-resource/memory-available.sh     /docs/tasks/administer-cluster/memory-available.sh 301
 /docs/tasks/administer-cluster/overview/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
+/docs/tasks/administer-cluster/quota-memory-cpu-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/ 301
+/docs/tasks/administer-cluster/quota-pod-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/ 301
 /docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/tasks/administer-cluster/out-of-resource/ 301
+/docs/tasks/administer-cluster/romana-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/ 301
 /docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
 /docs/tasks/administer-cluster/share-configuration/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
 /docs/tasks/administer-cluster/upgrade-1-6/      /docs/tasks/administer-cluster/upgrade-downgrade/upgrade-1-6/ 301
+/docs/tasks/administer-cluster/weave-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/ 301
 /docs/tasks/configure-pod-container/apply-resource-quota-limit/     /docs/tasks/administer-cluster/apply-resource-quota-limit/ 301
 /docs/tasks/configure-pod-container/assign-cpu-ram-container/     /docs/tasks/configure-pod-container/assign-memory-resource/ 301
 /docs/tasks/configure-pod-container/calico-network-policy/     /docs/tasks/administer-cluster/calico-network-policy/ 301
@@ -265,6 +280,7 @@
 /docs/tasks/web-ui-dashboard/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
 
 /docs/templatedemos/*     /docs/home/contribute/page-templates/ 301
+/docs/tools/kompose/user-guide/     /docs/tasks/configure-pod-container/translate-compose-kubernetes/ 301
 /docs/tools/kompose/     /docs/tools/kompose/user-guide/ 301
 /docs/troubleshooting/     /docs/tasks/debug-application-cluster/troubleshooting/ 301
 
@@ -470,3 +486,15 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/kubeadm/ 301
 
 /editdocs/     /docs/home/contribute/     301 
+
+/docs/admin/accessing-the-api/     /docs/reference/access-authn-authz/controlling-access/ 301
+/docs/admin/admission-controllers/     /docs/reference/access-authn-authz/admission-controllers/ 301
+/docs/admin/authentication/     /docs/reference/access-authn-authz/authentication/ 301
+/docs/admin/bootstrap-tokens/     /docs/reference/access-authn-authz/bootstrap-tokens/ 301
+/docs/admin/extensible-admission-controllers/     /docs/reference/access-authn-authz/extensible-admission-controllers/ 301
+/docs/admin/service-accounts-admin/     /docs/reference/access-authn-authz/service-accounts-admin/ 301
+/docs/admin/authorization/abac/     /docs/reference/access-authn-authz/abac/ 301
+/docs/admin/authorization/node/     /docs/reference/access-authn-authz/node/ 301
+/docs/admin/authorization/rbac/     /docs/reference/access-authn-authz/rbac/ 301
+/docs/admin/authorization/webhook/     /docs/reference/access-authn-authz/webhook/ 301
+/docs/admin/authorization/     /docs/reference/access-authn-authz/authorization/ 301

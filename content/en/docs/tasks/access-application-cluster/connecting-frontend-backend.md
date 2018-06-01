@@ -1,6 +1,7 @@
 ---
 title: Connect a Front End to a Back End Using a Service
 content_template: templates/tutorial
+weight: 70
 ---
 
 {{% capture overview %}}

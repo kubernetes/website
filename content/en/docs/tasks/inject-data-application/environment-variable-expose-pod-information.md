@@ -1,6 +1,7 @@
 ---
 title: Expose Pod Information to Containers Through Environment Variables
 content_template: templates/task
+weight: 30
 ---
 
 {{% capture overview %}}

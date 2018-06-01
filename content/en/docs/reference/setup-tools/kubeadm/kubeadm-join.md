@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 - luxas
 - jbeda
@@ -232,7 +232,7 @@ discoveryTokenUnsafeSkipCAVerification: <bool>
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [kubeadm init](kubeadm-init.md) to bootstrap a Kubernetes master node
-* [kubeadm token](kubeadm-token.md) to manage tokens for `kubeadm join`
-* [kubeadm reset](kubeadm-reset.md) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes master node
+* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 {{% /capture %}}

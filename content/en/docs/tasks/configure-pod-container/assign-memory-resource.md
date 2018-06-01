@@ -1,6 +1,7 @@
 ---
 title: Assign Memory Resources to Containers and Pods
 content_template: templates/task
+weight: 10
 ---
 
 {{% capture overview %}}

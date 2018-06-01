@@ -4,6 +4,7 @@ reviewers:
 - pmorie
 title: Configure a Pod to Use a Projected Volume for Storage
 content_template: templates/task
+weight: 70
 ---
 
 {{% capture overview %}}

@@ -1,6 +1,7 @@
 ---
 title: Distribute Credentials Securely Using Secrets
 content_template: templates/task
+weight: 50
 ---
 
 {{% capture overview %}}

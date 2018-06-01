@@ -1,6 +1,7 @@
 ---
 title: Use Port Forwarding to Access Applications in a Cluster
 content_template: templates/task
+weight: 40
 ---
 
 {{% capture overview %}}

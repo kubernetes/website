@@ -1,5 +1,6 @@
 ---
 title: Accessing Clusters
+weight: 20
 ---
 
 {{< toc >}}
@@ -141,7 +142,7 @@ as the kubectl CLI does to locate and authenticate to the apiserver. See this [e
 
 #### Other languages
 
-There are [client libraries](/docs/reference/client-libraries/) for accessing the API from other languages.
+There are [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages.
 See documentation for other libraries for how they authenticate.
 
 ### Accessing the API from a Pod

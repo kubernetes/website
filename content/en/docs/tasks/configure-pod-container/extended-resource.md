@@ -1,6 +1,7 @@
 ---
 title: Assign Extended Resources to a Container
 content_template: templates/task
+weight: 40
 ---
 
 {{% capture overview %}}

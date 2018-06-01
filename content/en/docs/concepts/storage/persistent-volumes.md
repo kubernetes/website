@@ -234,7 +234,6 @@ resizing to take place. Also, file system resizing is only supported for followi
 * VsphereVolume
 * Quobyte Volumes
 * HostPath (Single node testing only -- local storage is not supported in any way and WILL NOT WORK in a multi-node cluster)
-* VMware Photon
 * Portworx Volumes
 * ScaleIO Volumes
 * StorageOS
@@ -313,7 +312,6 @@ In the CLI, the access modes are abbreviated to:
 | Glusterfs            | &#x2713;     | &#x2713;    | &#x2713;     |
 | HostPath             | &#x2713;     | -           | -            |
 | iSCSI                | &#x2713;     | &#x2713;    | -            |
-| PhotonPersistentDisk | &#x2713;     | -           | -            |
 | Quobyte              | &#x2713;     | &#x2713;    | &#x2713;     |
 | NFS                  | &#x2713;     | &#x2713;    | &#x2713;     |
 | RBD                  | &#x2713;     | &#x2713;    | -            |
@@ -367,7 +365,6 @@ The following volume types support mount options:
 * Glusterfs
 * VsphereVolume
 * Quobyte Volumes
-* VMware Photon
 
 Mount options are not validated, so mount will simply fail if one is invalid.
 

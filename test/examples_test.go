@@ -267,26 +267,26 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 func TestExampleObjectSchemas(t *testing.T) {
 	// Please help maintain the alphabeta order in the map
 	cases := map[string]map[string][]runtime.Object{
-		"../docs/admin/high-availability": {
+		"docs/admin/high-availability": {
 			"etcd":                    {&api.Pod{}},
 			"kube-apiserver":          {&api.Pod{}},
 			"kube-controller-manager": {&api.Pod{}},
 			"kube-scheduler":          {&api.Pod{}},
 			"podmaster":               {&api.Pod{}},
 		},
-		"../docs/admin/limitrange": {
+		"docs/admin/limitrange": {
 			"invalid-pod": {&api.Pod{}},
 			"limits":      {&api.LimitRange{}},
 			"namespace":   {&api.Namespace{}},
 			"valid-pod":   {&api.Pod{}},
 		},
-		"../docs/admin/multiple-schedulers": {
+		"docs/admin/multiple-schedulers": {
 			"my-scheduler": {&extensions.Deployment{}},
 			"pod1":         {&api.Pod{}},
 			"pod2":         {&api.Pod{}},
 			"pod3":         {&api.Pod{}},
 		},
-		"../docs/admin/resourcequota": {
+		"docs/admin/resourcequota": {
 			"best-effort":       {&api.ResourceQuota{}},
 			"compute-resources": {&api.ResourceQuota{}},
 			"limits":            {&api.LimitRange{}},
@@ -294,7 +294,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"not-best-effort":   {&api.ResourceQuota{}},
 			"object-counts":     {&api.ResourceQuota{}},
 		},
-		"../docs/concepts/cluster-administration": {
+		"docs/concepts/cluster-administration": {
 			"counter-pod":                             {&api.Pod{}},
 			"fluentd-sidecar-config":                  {&api.ConfigMap{}},
 			"nginx-app":                               {&api.Service{}, &extensions.Deployment{}},
@@ -303,25 +303,25 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"two-files-counter-pod-agent-sidecar":     {&api.Pod{}},
 			"two-files-counter-pod-streaming-sidecar": {&api.Pod{}},
 		},
-		"../docs/concepts/cluster-administration/nginx": {
+		"docs/concepts/cluster-administration/nginx": {
 			"nginx-deployment": {&extensions.Deployment{}},
 			"nginx-svc":        {&api.Service{}},
 		},
-		"../docs/concepts/configuration": {
+		"docs/concepts/configuration": {
 			"commands": {&api.Pod{}},
 			"pod":      {&api.Pod{}},
 			"pod-with-node-affinity": {&api.Pod{}},
 			"pod-with-pod-affinity":  {&api.Pod{}},
 		},
-		"../docs/concepts/overview/working-with-objects": {
+		"docs/concepts/overview/working-with-objects": {
 			"nginx-deployment": {&extensions.Deployment{}},
 		},
-		"../docs/concepts/policy": {
+		"docs/concepts/policy": {
 			"privileged-psp": {&extensions.PodSecurityPolicy{}},
 			"restricted-psp": {&extensions.PodSecurityPolicy{}},
 			"example-psp":    {&extensions.PodSecurityPolicy{}},
 		},
-		"../docs/concepts/services-networking": {
+		"docs/concepts/services-networking": {
 			"curlpod":          {&extensions.Deployment{}},
 			"custom-dns":       {&api.Pod{}},
 			"hostaliases-pod":  {&api.Pod{}},
@@ -330,7 +330,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-svc":        {&api.Service{}},
 			"run-my-nginx":     {&extensions.Deployment{}},
 		},
-		"../docs/concepts/workloads/controllers": {
+		"docs/concepts/workloads/controllers": {
 			"cronjob":          {&batch.CronJob{}},
 			"daemonset":        {&extensions.DaemonSet{}},
 			"frontend":         {&extensions.ReplicaSet{}},
@@ -340,14 +340,14 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-deployment": {&extensions.Deployment{}},
 			"replication":      {&api.ReplicationController{}},
 		},
-		"../docs/tasks/access-application-cluster": {
+		"docs/tasks/access-application-cluster": {
 			"frontend":          {&api.Service{}, &extensions.Deployment{}},
 			"hello-service":     {&api.Service{}},
 			"hello":             {&extensions.Deployment{}},
 			"redis-master":      {&api.Pod{}},
 			"two-container-pod": {&api.Pod{}},
 		},
-		"../docs/tasks/administer-cluster": {
+		"docs/tasks/administer-cluster": {
 			"busybox": {&api.Pod{}},
 			"cloud-controller-manager-daemonset-example": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.DaemonSet{}},
 			"cpu-constraints":                            {&api.LimitRange{}},
@@ -386,7 +386,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"quota-pod-deployment": {&extensions.Deployment{}},
 			"quota-pvc-2":          {&api.PersistentVolumeClaim{}},
 		},
-		"../docs/tasks/configure-pod-container": {
+		"docs/tasks/configure-pod-container": {
 			"cpu-request-limit":       {&api.Pod{}},
 			"cpu-request-limit-2":     {&api.Pod{}},
 			"exec-liveness":           {&api.Pod{}},
@@ -420,19 +420,19 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"task-pv-volume":          {&api.PersistentVolume{}},
 			"tcp-liveness-readiness":  {&api.Pod{}},
 		},
-		"../docs/tasks/debug-application-cluster": {
-			"counter-pod":           {&api.Pod{}},
-			"event-exporter-deploy": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
-			"fluentd-gcp-configmap": {&api.ConfigMap{}},
-			"fluentd-gcp-ds":        {&extensions.DaemonSet{}},
-			"nginx-dep":             {&extensions.Deployment{}},
-			"shell-demo":            {&api.Pod{}},
-			"node-problem-detector":        {&extensions.DaemonSet{}},
-			"node-problem-detector-configmap":        {&extensions.DaemonSet{}},
-			"termination":           {&api.Pod{}},
+		"docs/tasks/debug-application-cluster": {
+			"counter-pod":                     {&api.Pod{}},
+			"event-exporter-deploy":           {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
+			"fluentd-gcp-configmap":           {&api.ConfigMap{}},
+			"fluentd-gcp-ds":                  {&extensions.DaemonSet{}},
+			"nginx-dep":                       {&extensions.Deployment{}},
+			"node-problem-detector":           {&extensions.DaemonSet{}},
+			"node-problem-detector-configmap": {&extensions.DaemonSet{}},
+			"shell-demo":                      {&api.Pod{}},
+			"termination":                     {&api.Pod{}},
 		},
 		// TODO: decide whether federation examples should be added
-		"../docs/tasks/inject-data-application": {
+		"docs/tasks/inject-data-application": {
 			"commands":                    {&api.Pod{}},
 			"dapi-envars-container":       {&api.Pod{}},
 			"dapi-envars-pod":             {&api.Pod{}},
@@ -455,18 +455,19 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"secret-envars-pod":           {&api.Pod{}},
 			"secret-pod":                  {&api.Pod{}},
 		},
-		"../docs/tasks/job": {
+		"docs/tasks/job": {
+			"cronjob": {&batch.CronJob{}},
+			"job":     {&batch.Job{}},
+		},
+		"docs/tasks/job/coarse-parallel-processing-work-queue": {
 			"job": {&batch.Job{}},
 		},
-		"../docs/tasks/job/coarse-parallel-processing-work-queue": {
-			"job": {&batch.Job{}},
-		},
-		"../docs/tasks/job/fine-parallel-processing-work-queue": {
+		"docs/tasks/job/fine-parallel-processing-work-queue": {
 			"job":           {&batch.Job{}},
 			"redis-pod":     {&api.Pod{}},
 			"redis-service": {&api.Service{}},
 		},
-		"../docs/tasks/run-application": {
+		"docs/tasks/run-application": {
 			"deployment":            {&extensions.Deployment{}},
 			"deployment-patch-demo": {&extensions.Deployment{}},
 			"deployment-scale":      {&extensions.Deployment{}},
@@ -477,37 +478,37 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"mysql-services":        {&api.Service{}, &api.Service{}},
 			"mysql-statefulset":     {&apps.StatefulSet{}},
 		},
-		"../docs/tutorials/clusters": {
+		"docs/tutorials/clusters": {
 			"hello-apparmor-pod": {&api.Pod{}},
 			"my-scheduler":       {&extensions.Deployment{}},
 		},
-		"../docs/tutorials/configuration/configmap/redis": {
+		"docs/tutorials/configuration/configmap/redis": {
 			"redis-pod": {&api.Pod{}},
 		},
-		"../docs/concepts/overview/object-management-kubectl": {
+		"docs/concepts/overview/object-management-kubectl": {
 			"simple_deployment": {&extensions.Deployment{}},
 			"update_deployment": {&extensions.Deployment{}},
 		},
-		"../docs/tutorials/stateful-application": {
+		"docs/tutorials/stateful-application": {
 			"web":       {&api.Service{}, &apps.StatefulSet{}},
 			"webp":      {&api.Service{}, &apps.StatefulSet{}},
 			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
-		"../docs/tutorials/stateful-application/cassandra": {
+		"docs/tutorials/stateful-application/cassandra": {
 			"cassandra-service":     {&api.Service{}},
 			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
 		},
-		"../docs/tutorials/stateful-application/mysql-wordpress-persistent-volume": {
+		"docs/tutorials/stateful-application/mysql-wordpress-persistent-volume": {
 			"local-volumes":        {&api.PersistentVolume{}, &api.PersistentVolume{}},
 			"mysql-deployment":     {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
 			"wordpress-deployment": {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
 		},
-		"../docs/tutorials/stateless-application": {
+		"docs/tutorials/stateless-application": {
 			"deployment":        {&extensions.Deployment{}},
 			"deployment-scale":  {&extensions.Deployment{}},
 			"deployment-update": {&extensions.Deployment{}},
 		},
-		"../docs/tutorials/stateless-application/guestbook": {
+		"docs/tutorials/stateless-application/guestbook": {
 			"frontend-deployment":     {&extensions.Deployment{}},
 			"frontend-service":        {&api.Service{}},
 			"redis-master-deployment": {&extensions.Deployment{}},
@@ -515,7 +516,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-slave-deployment":  {&extensions.Deployment{}},
 			"redis-slave-service":     {&api.Service{}},
 		},
-		"../docs/user-guide/walkthrough": {
+		"docs/user-guide/walkthrough": {
 			"deployment":                      {&extensions.Deployment{}},
 			"deployment-update":               {&extensions.Deployment{}},
 			"pod-nginx":                       {&api.Pod{}},
@@ -527,8 +528,9 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 	}
 
+	// Note a key in the following map has to be complete relative path
 	filesIgnore := map[string]map[string]bool{
-		"../docs/tasks/debug-application-cluster": {
+		"../content/en/docs/tasks/debug-application-cluster": {
 			"audit-policy": true,
 		},
 	}
@@ -538,9 +540,11 @@ func TestExampleObjectSchemas(t *testing.T) {
 	// PodShareProcessNamespace needed for example share-process-namespace.yaml
 	utilfeature.DefaultFeatureGate.Set("PodShareProcessNamespace=true")
 
-	for path, expected := range cases {
+	rootpath := "../content/en/"
+	for dir, expected := range cases {
 		tested := 0
 		numExpected := 0
+		path := rootpath + dir
 		err := walkConfigFiles(path, func(name, path string, docs [][]byte) {
 			expectedTypes, found := expected[name]
 			if !found {
@@ -616,12 +620,19 @@ func TestExampleObjectSchemas(t *testing.T) {
 var sampleRegexp = regexp.MustCompile("(?ms)^```(?:(?P<type>yaml)\\w*\\n(?P<content>.+?)|\\w*\\n(?P<content>\\{.+?\\}))\\n^```")
 var subsetRegexp = regexp.MustCompile("(?ms)\\.{3}")
 
+// Validates examples embedded in Markdown files.
 func TestReadme(t *testing.T) {
+	// BlockVolume required for local volume example
+	utilfeature.DefaultFeatureGate.Set("BlockVolume=true")
+
 	paths := []struct {
 		file         string
-		expectedType []runtime.Object
+		expectedType []runtime.Object // List of all valid types for the whole doc
 	}{
-		{"../docs/concepts/storage/volumes.md", []runtime.Object{&api.Pod{}}},
+		{"../content/en/docs/concepts/storage/volumes.md", []runtime.Object{
+			&api.Pod{},
+			&api.PersistentVolume{},
+		}},
 	}
 
 	for _, path := range paths {
@@ -635,7 +646,6 @@ func TestReadme(t *testing.T) {
 		if matches == nil {
 			continue
 		}
-		ix := 0
 		for _, match := range matches {
 			var content, subtype string
 			for i, name := range sampleRegexp.SubexpNames() {
@@ -651,21 +661,23 @@ func TestReadme(t *testing.T) {
 				continue
 			}
 
-			var expectedType runtime.Object
-			if len(path.expectedType) == 1 {
-				expectedType = path.expectedType[0]
-			} else {
-				expectedType = path.expectedType[ix]
-				ix++
-			}
 			json, err := yaml.ToJSON([]byte(content))
 			if err != nil {
 				t.Errorf("%s could not be converted to JSON: %v\n%s", path, err, string(content))
 			}
-			if err := runtime.DecodeInto(testapi.Default.Codec(), json, expectedType); err != nil {
+
+			var expectedType runtime.Object
+			for _, expectedType = range path.expectedType {
+				err = runtime.DecodeInto(testapi.Default.Codec(), json, expectedType)
+				if err == nil {
+					break
+				}
+			}
+			if err != nil {
 				t.Errorf("%s did not decode correctly: %v\n%s", path, err, string(content))
 				continue
 			}
+
 			if errors := validateObject(expectedType); len(errors) > 0 {
 				t.Errorf("%s did not validate correctly: %v", path, errors)
 			}

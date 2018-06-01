@@ -10,7 +10,7 @@ API endpoints, resource types and samples are described in [API Reference](/docs
 
 Remote access to the API is discussed in the [access doc](/docs/admin/accessing-the-api).
 
-The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [kubectl](/docs/user-guide/kubectl/) command-line tool can be used to create, update, delete, and get API objects.
+The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [kubectl](/docs/reference/kubectl/overview/) command-line tool can be used to create, update, delete, and get API objects.
 
 Kubernetes also stores its serialized state (currently in [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)) in terms of the API resources.
 
@@ -18,7 +18,7 @@ Kubernetes itself is decomposed into multiple components, which interact through
 
 ## API changes
 
-In our experience, any system that is successful needs to grow and change as new use cases emerge or existing ones change. Therefore, we expect the Kubernetes API to continuously change and grow. However, we intend to not break compatibility with existing clients, for an extended period of time. In general, new API resources and new resource fields can be expected to be added frequently. Elimination of resources or fields will require following the [API deprecation policy](https://kubernetes.io/docs/reference/deprecation-policy/).
+In our experience, any system that is successful needs to grow and change as new use cases emerge or existing ones change. Therefore, we expect the Kubernetes API to continuously change and grow. However, we intend to not break compatibility with existing clients, for an extended period of time. In general, new API resources and new resource fields can be expected to be added frequently. Elimination of resources or fields will require following the [API deprecation policy](/docs/reference/using-api/deprecation-policy/).
 
 What constitutes a compatible change and how to change the API are detailed by the [API change document](https://git.k8s.io/community/contributors/devel/api_changes.md).
 
@@ -31,14 +31,14 @@ Starting with Kubernetes 1.10, OpenAPI spec is served in a single `/openapi/v2` 
 Requested format is specified by setting HTTP headers:
 
 Header | Possible Values
--- | --
+------ | ---------------
 Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` (the default content-type is `application/json` for `*/*` or not passing this header)
 Accept-Encoding | `gzip` (not passing this header is acceptable)
 
 **Examples of getting OpenAPI spec**:
 
 Before 1.10 | Starting with Kubernetes 1.10
--- | --
+----------- | -----------------------------
 GET /swagger.json | GET /openapi/v2 **Accept**: application/json
 GET /swagger-2.0.0.pb-v1 | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf
 GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf **Accept-Encoding**: gzip

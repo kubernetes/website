@@ -1,6 +1,7 @@
 ---
 title: Run a Single-Instance Stateful Application
 content_template: templates/tutorial
+weight: 20
 ---
 
 {{% capture overview %}}

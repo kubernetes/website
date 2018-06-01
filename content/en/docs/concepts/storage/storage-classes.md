@@ -69,7 +69,6 @@ for provisioning PVs. This field must be specified.
 | GCEPersistentDisk    | &#x2713;            | [GCE](#gce)                          |
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
-| PhotonPersistentDisk | &#x2713;            | -                                    |
 | Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
 | NFS                  | -                   | -                                    |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
@@ -168,6 +167,7 @@ provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-standard
   zones: us-central1-a, us-central1-b
+  replication-type: none
 ```
 
 * `type`: `pd-standard` or `pd-ssd`. Default: `pd-standard`
@@ -178,6 +178,18 @@ parameters:
   is specified, volumes are generally round-robin-ed across all active zones
   where Kubernetes cluster has a node. `zone` and `zones` parameters must not
   be used at the same time.
+* `replication-type`: `none` or `regional-pd`. Default: `none`.
+
+If `replication-type` is set to `none`, a regular (zonal) PD will be provisioned.
+
+If `replication-type` is set to `regional-pd`, a
+[Regional Persistent Disk](https://cloud.google.com/compute/docs/disks/#repds)
+will be provisioned. In this case, users must use `zones` instead of `zone` to
+specify the desired replication zones. If exactly two zones are specified, the
+Regional PD will be provisioned in those zones. If more than two zones are
+specified, Kubernetes will arbitrarily choose among the specified zones. If the
+`zones` parameter is omitted, Kubernetes will arbitrarily choose among zones
+managed by the cluster.
 
 ### Glusterfs
 
