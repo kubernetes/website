@@ -2,6 +2,7 @@
 title: 'Kubernetes 1.10: Stabilizing Storage, Security, and Networking '
 author: kbarnard
 tags:
+date: 2018-03-26
 modified_time: '2018-03-27T11:01:39.569-07:00'
 blogger_id: tag:blogger.com,1999:blog-112706738355446097.post-6519705795358457586
 blogger_orig_url: http://blog.kubernetes.io/2018/03/kubernetes-1.10-stabilizing-storage-security-networking.html
