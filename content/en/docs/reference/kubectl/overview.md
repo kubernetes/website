@@ -203,12 +203,12 @@ submit-queue   610995
 This means that for any given resource, the server will return columns and rows relevant to that resource, for the client to print.
 This allows for consistent human-readable output across clients used against the same cluster, by having the server encapsulate the details of printing.
 
-To output object information using this feature, you can add the `--experimental-server-print` flag to a supported `kubectl` command.
+This feature is enabled by default as of `kubectl` v1.11, and can be optionally disabled by adding the `--server-print=false` flag to `kubectl get`.
 
 ##### Examples
 
 ```shell
-$ kubectl get pods <pod-name> --experimental-server-print
+$ kubectl get pods <pod-name> --server-print=false
 ```
 
 The result of running this command is:
