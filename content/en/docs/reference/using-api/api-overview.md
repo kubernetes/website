@@ -23,7 +23,7 @@ Most operations can be performed through the
 command-line tools, such as [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), which in turn use
 the API. However, you can also access the API directly using REST calls.
 
-Consider using one of the [client libraries](/docs/reference/client-libraries/)
+Consider using one of the [client libraries](/docs/reference/using-api/client-libraries/)
 if you are writing an application using the Kubernetes API.
 
 ## API versioning
