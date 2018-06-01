@@ -21,7 +21,7 @@ weight: 70
 ## API Client Libraries
 
 To call the Kubernetes API from a programming language, you can use
-[client libraries](/docs/reference/client-libraries/). Officially supported
+[client libraries](/docs/reference/using-api/client-libraries/). Officially supported
 client libraries:
 
 - [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
