@@ -48,7 +48,7 @@ but you may also on other OSes.
 | Config file API           | alpha          |
 | Self-hosting              | alpha          |
 | kubeadm alpha subcommands | alpha          |
-| CoreDNS                   | alpha          |
+| CoreDNS                   | GA             |
 | DynamicKubeletConfig      | alpha          |
 
 
@@ -74,6 +74,7 @@ timeframe; which also applies to `kubeadm`.
 | v1.8.x             | September 2017 | June 2018         |
 | v1.9.x             | December 2017  | September 2018    |
 | v1.10.x            | March 2018     | December 2018     |
+| v1.11.x            | June 2018      | March 2019        |
 
 {{% /capture %}}
 
@@ -176,7 +177,7 @@ The output should look like:
 [bootstraptoken] Configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
 [bootstraptoken] Configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
 [bootstraptoken] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
-[addons] Applied essential addon: kube-dns
+[addons] Applied essential addon: CoreDNS
 [addons] Applied essential addon: kube-proxy
 
 Your Kubernetes master has initialized successfully!
@@ -225,9 +226,8 @@ created and deleted with the `kubeadm token` command. See the
 You **MUST** install a pod network add-on so that your pods can communicate with
 each other.
 
-**The network must be deployed before any applications.  Also, kube-dns, an
-internal helper service, will not start up before a network is installed. kubeadm only
-supports Container Network Interface (CNI) based networks (and does not support kubenet).**
+**The network must be deployed before any applications. Also, CoreDNS will not start up before a network is installed.
+kubeadm only supports Container Network Interface (CNI) based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
 support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in 1.9.
@@ -334,10 +334,10 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
 
 
 Once a pod network has been installed, you can confirm that it is working by
-checking that the kube-dns pod is Running in the output of `kubectl get pods --all-namespaces`.
-And once the kube-dns pod is up and running, you can continue by joining your nodes.
+checking that the CoreDNS pod is Running in the output of `kubectl get pods --all-namespaces`.
+And once the CoreDNS pod is up and running, you can continue by joining your nodes.
 
-If your network is not working or kube-dns is not in the Running state, check
+If your network is not working or CoreDNS is not in the Running state, check
 out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
 ### Master Isolation
