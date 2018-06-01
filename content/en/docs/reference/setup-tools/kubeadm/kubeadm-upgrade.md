@@ -17,7 +17,7 @@ cluster if necessary.
 ## kubeadm upgrade guidance
 
 Every upgrade process might be a bit different, so we've documented each minor upgrade process individually.
-Please check these documents out for more detailed how-to-upgrade guidance:
+For more version-specific upgrade guidance, see the following resources:
 
  * [1.7.x to 1.7.y upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-8/)
  * [1.7 to 1.8 upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-8/)
@@ -26,11 +26,17 @@ Please check these documents out for more detailed how-to-upgrade guidance:
  * [1.9.x to 1.9.y upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-9/)
  * [1.9.x to 1.9.y HA cluster upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha/)
 
+In Kubernetes v1.11.0 and later, you can use `kubeadm upgrade diff` to see the changes that would be
+applied to static pod manifests.
+
 ## kubeadm upgrade plan {#cmd-upgrade-plan}
 {{< include "generated/kubeadm_upgrade_plan.md" >}}
 
 ## kubeadm upgrade apply  {#cmd-upgrade-apply}
 {{< include "generated/kubeadm_upgrade_apply.md" >}}
+
+## kubeadm upgrade diff {#cmd-upgrade-diff}
+{{< include "generated/kubeadm_upgrade_diff.md" >}}
 
 {{% /capture %}}
 
