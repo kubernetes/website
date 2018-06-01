@@ -224,7 +224,7 @@ Aggregated API servers may or may not use the same authentication, authorization
 
 ## Accessing a custom resource
 
-Kubernetes [client libraries](/docs/reference/client-libraries/) can be used to access custom resources. Not all client libraries support custom resources. The go and python client libraries do.
+Kubernetes [client libraries](/docs/reference/using-api/client-libraries/) can be used to access custom resources. Not all client libraries support custom resources. The go and python client libraries do.
 
 When you add a custom resource, you can access it using:
 
