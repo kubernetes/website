@@ -3,12 +3,12 @@ title: Feature Gates
 weight: 10
 ---
 
-{% capture overview %}
+{{% capture overview %}}
 This page contains an overview of the various feature gates an administrator
 can specify on different Kubernetes components.
-{% endcapture %}
+{{% /capture %}}
 
-{% capture body %}
+{{% capture body %}}
 
 ## Overview
 
