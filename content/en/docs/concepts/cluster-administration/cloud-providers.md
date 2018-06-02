@@ -9,11 +9,15 @@ cloud provider.
 {{% /capture %}}
 
 {{% capture body %}}
-# AWS
+## AWS
 This section describes all the possible configurations which can
 be used when running Kubernetes on Amazon Web Services.
 
-## Load Balancers
+### Node Name
+
+The AWS cloud provider uses the private DNS name of the AWS instance as the name of the Kubernetes Node object.
+
+### Load Balancers
 You can setup [external load balancers](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 to use specific features in AWS by configuring the annotations as shown below.
 
@@ -57,9 +61,39 @@ Different settings can be applied to a load balancer service in AWS using _annot
 
 The information for the annotations for AWS is taken from the comments on [aws.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/aws/aws.go)
 
-# OpenStack
+## Azure
+
+### Node Name
+
+The Azure cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
+Note that the Kubernetes Node name must match the Azure VM name.
+
+## CloudStack
+
+### Node Name
+
+The CloudStack cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
+Note that the Kubernetes Node name must match the CloudStack VM name.
+
+## GCE
+
+### Node Name
+
+The GCE cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
+Note that the first segment of the Kubernetes Node name must match the GCE instance name (e.g. a Node named `kubernetes-node-2.c.my-proj.internal` must correspond to an instance named `kubernetes-node-2`).
+
+## OpenStack
 This section describes all the possible configurations which can
-be used when using OpenStack with Kubernetes. The OpenStack cloud provider
+be used when using OpenStack with Kubernetes.
+
+### Node Name
+
+The OpenStack cloud provider uses the instance name (as determined from OpenStack metadata) as the name of the Kubernetes Node object.
+Note that the instance name must be a valid Kubernetes Node name in order for the kubelet to successfully register its Node object.
+
+### Services
+
+The OpenStack cloud provider
 implementation for Kubernetes supports the use of these OpenStack services from
 the underlying cloud, where available:
 
@@ -87,12 +121,12 @@ OpenStack services other than Keystone are not available and simply disclaim
 support for impacted features. Certain features are also enabled or disabled
 based on the list of extensions published by Neutron in the underlying cloud.
 
-## cloud.conf
+### cloud.conf
 Kubernetes knows how to interact with OpenStack via the file cloud.conf. It is
 the file that will provide Kubernetes with credentials and location for the OpenStack auth endpoint.
 You can create a cloud.conf file by specifying the following details in it
 
-### Typical configuration
+#### Typical configuration
 This is an example of a typical configuration that touches the values that most
 often need to be set. It points the provider at the OpenStack cloud's Keystone
 endpoint, provides details for how to authenticate with it, and configures the
@@ -110,7 +144,7 @@ domain-id=2a73b8f597c04551a0fdc8e95544be8a
 subnet-id=6937f8fa-858d-4bc9-a3a5-18d2c957166a
 ```
 
-#### Global
+##### Global
 These configuration options for the OpenStack provider pertain to its global
 configuration and should appear in the `[Global]` section of the `cloud.conf`
 file:
@@ -145,7 +179,7 @@ file:
 When using Keystone V3 - which changes tenant to project - the `tenant-id` value
 is automatically mapped to the project construct in the API.
 
-####  Load Balancer
+#####  Load Balancer
 These configuration options for the OpenStack provider pertain to the load
 balancer and should appear in the `[LoadBalancer]` section of the `cloud.conf`
 file:
@@ -189,7 +223,7 @@ file:
   `node-security-group` must also be supplied.
 * `node-security-group` (Optional): ID of the security group to manage.
 
-#### Block Storage
+##### Block Storage
 These configuration options for the OpenStack provider pertain to block storage
 and should appear in the `[BlockStorage]` section of the `cloud.conf` file:
 
@@ -227,7 +261,7 @@ provider configuration:
 bs-version=v2
 ```
 
-#### Metadata
+##### Metadata
 These configuration options for the OpenStack provider pertain to metadata and
 should appear in the `[Metadata]` section of the `cloud.conf` file:
 
@@ -249,7 +283,7 @@ should appear in the `[Metadata]` section of the `cloud.conf` file:
   both configuration drive and metadata service though and only one or the other
   may be available which is why the default is to check both.
 
-#### Router
+##### Router
 
 These configuration options for the OpenStack provider pertain to the [kubenet]
 Kubernetes network plugin and should appear in the `[Router]` section of the
@@ -266,4 +300,22 @@ Kubernetes network plugin and should appear in the `[Router]` section of the
 
 {{% /capture %}}
 
+## OVirt
 
+### Node Name
+
+The OVirt cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
+Note that the Kubernetes Node name must match the VM FQDN (reported by OVirt under `<vm><guest_info><fqdn>...</fqdn></guest_info></vm>`)
+
+## Photon
+
+### Node Name
+
+The Photon cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
+Note that the Kubernetes Node name must match the Photon VM name (or if `overrideIP` is set to true in the `--cloud-config`, the Kubernetes Node name must match the Photon VM IP address).
+
+## VSphere
+
+### Node Name
+
+The VSphere cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
