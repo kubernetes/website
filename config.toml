@@ -64,6 +64,8 @@ githubbranch = "v1.11.0"
 docsbranch = "release-1.11"
 url = "https://kubernetes.io"
 
+[[params.versions]]
+fullversion = "v1.10.3"
 version = "v1.10"
 githubbranch = "v1.10.3"
 docsbranch = "release-1.10"
