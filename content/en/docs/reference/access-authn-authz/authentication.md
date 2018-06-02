@@ -568,7 +568,7 @@ to the impersonated user info.
 
 * A user makes an API call with their credentials _and_ impersonation headers.
 * API server authenticates the user.
-* API server ensures the authenticated users has impersonation privileges.
+* API server ensures the authenticated users have impersonation privileges.
 * Request user info is replaced with impersonation values.
 * Request is evaluated, authorization acts on impersonated user info.
 
