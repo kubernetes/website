@@ -25,10 +25,13 @@ Kubernetes's default scheduler ships with predicates that limit following
 number of volumes attachable to a particular node:
 
 - **AWS Elastic Block Store**
+
   For AWS Elastic Block Store Kubernetes permits only 39 volumes to be attached to a node.
-- ** GCE-PD**
+- **GCE-PD**
+
   For GCE Persistent Disks Kubernetes permits only 16 volumes to be attached to a node.
-- ** Azure Disk**
+  
+- **Azure Disk**
   For Azure Disks Kubernetes permits only 16 volumes to be attached to a node.
 
 Kubernetes admin can change these limits by starting scheduler with environment variable
@@ -50,3 +53,10 @@ Currently this feature is only supported for following volume types:
 
 - AWS Elastic Block store
 - GCE Persistent Disks
+
+When this feature is enabled - for *EBS* disks on M5/C5 instance types Kubernetes will permit only
+25 volumes to be attached to a node. For other instance types on EC2 the default will still be 39.
+
+On GCE this will permit upto 128 persistent disks to be attached to a node.
+
+
