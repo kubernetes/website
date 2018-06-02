@@ -173,7 +173,7 @@ Pod P. By doing this, scheduler makes Pod P eligible to preempt Pods on another 
 #### Graceful termination of preemption victims
 
 When Pods are preempted, the victims get their
-[graceful termination period](https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods).
+[graceful termination period](/docs/concepts/workloads/pods/pod/#termination-of-pods).
 They have that much time to finish their work and exit. If they don't, they are
 killed. This graceful termination period creates a time gap between the point
 that the scheduler preempts Pods and the time when the pending Pod (P) can be
@@ -186,7 +186,7 @@ to zero or a small number.
 
 #### PodDisruptionBudget is supported, but not guaranteed!
 
-A [Pod Disruption Budget (PDB)](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/)
+A [Pod Disruption Budget (PDB)](/docs/concepts/workloads/pods/disruptions/)
 allows application owners to limit the number Pods of a replicated application that
 are down simultaneously from voluntary disruptions. Kubernetes 1.9 supports PDB
 when preempting Pods, but respecting PDB is best effort. The Scheduler tries to
