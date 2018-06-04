@@ -369,7 +369,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"memory-defaults-pod":                        {&api.Pod{}},
 			"memory-defaults-pod-2":                      {&api.Pod{}},
 			"memory-defaults-pod-3":                      {&api.Pod{}},
-			"my-scheduler":                               {&extensions.Deployment{}},
+			"my-scheduler":                               {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
 			"namespace-dev":                              {&api.Namespace{}},
 			"namespace-prod":                             {&api.Namespace{}},
 			"persistent-volume-label-initializer-config": {&admissionregistration.InitializerConfiguration{}},
