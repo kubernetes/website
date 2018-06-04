@@ -19,7 +19,7 @@ In order for the kubectl usage examples to work, make sure you have an example d
 
 ## Kubectl CLI
 
-The easiest way to interact with Kubernetes is through the [kubectl](/docs/reference/kubectl/overview/) command-line interface.
+The easiest way to interact with Kubernetes is through the kubectl command-line interface.
 
 For more info about kubectl, including its usage, commands, and parameters, see [Overview of kubectl](/docs/reference/kubectl/overview/).
 
