@@ -63,6 +63,9 @@ config. Save it as `my-scheduler.yaml`:
 An important thing to note here is that the name of the scheduler specified as an
 argument to the scheduler command in the container spec should be unique. This is the name that is matched against the value of the optional `spec.schedulerName` on pods, to determine whether this scheduler is responsible for scheduling a particular pod.
 
+Note also that we created a dedicated service account `my-scheduler` and bind the cluster role
+`system:kube-scheduler` to it so that it can acquire the same privileges as `kube-scheduler`.
+
 Please see the
 [kube-scheduler documentation](/docs/admin/kube-scheduler/) for
 detailed description of other command line arguments.
@@ -121,14 +124,6 @@ $ kubectl edit clusterrole system:kube-scheduler
     - get
     - patch
     - update
-```
-
-`my-scheduler` runs as the `default` service account in the `kube-system` namespace. Bind cluster role `system:kube-scheduler` to allow access to the resources required.
-
-``` shell
-kubectl create clusterrolebinding my-scheduler-kube-scheduler \
-  --clusterrole=system:kube-scheduler \
-  --serviceaccount=kube-system:default
 ```
 
 ### 4. Specify schedulers for pods
