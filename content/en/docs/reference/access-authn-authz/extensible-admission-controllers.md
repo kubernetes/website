@@ -33,9 +33,9 @@ This page describes how to use Admission Webhooks and Initializers.
 
 Admission webhooks are HTTP callbacks that receive admission requests and do
 something with them. You can define two types of admission webhooks,
-[validating admission Webhook](/docs/admin/admission-controllers.md#validatingadmissionwebhook-alpha-in-18-beta-in-19)
+[validating admission Webhook](/docs/admin/admission-controllers/#validatingadmissionwebhook-alpha-in-18-beta-in-19)
 and
-[mutating admission webhook](/docs/admin/admission-controllers.md#mutatingadmissionwebhook-beta-in-19).
+[mutating admission webhook](/docs/admin/admission-controllers/#mutatingadmissionwebhook-beta-in-19).
 With validating admission Webhooks, you may reject requests to enforce custom
 admission policies. With mutating admission Webhooks, you may change requests to
 enforce custom defaults.
