@@ -25,7 +25,7 @@ The Juju Controller:
 To bootstrap a controller with constraints run the following command: 
 
 ```
-juju bootstrap --contraints "mem=8GB cpu-cores=4 root-disk=128G"
+juju bootstrap --constraints "mem=8GB cpu-cores=4 root-disk=128G"
 ```
 
 Juju will select the cheapest instance type matching your constraints on your target cloud. You can also use the ```instance-type``` constraint in conjunction with ```root-disk``` for strict control. For more information about the constraints available, refer to the [official documentation](https://jujucharms.com/docs/stable/reference-constraints)
