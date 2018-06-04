@@ -221,7 +221,7 @@ resizing to take place. Also, file system resizing is only supported for followi
 * AWSElasticBlockStore
 * AzureFile
 * AzureDisk
-* FC (Fibre Channel)**
+* FC (Fibre Channel)
 * FlexVolume
 * Flocker
 * NFS
@@ -236,8 +236,6 @@ resizing to take place. Also, file system resizing is only supported for followi
 * Portworx Volumes
 * ScaleIO Volumes
 * StorageOS
-
-Raw Block Support exists for these plugins only.
 
 ## Persistent Volumes
 
@@ -272,11 +270,11 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 
 ### Volume Mode
 
-Prior to v1.9, the default behavior for all volume plugins was to create a filesystem on the persistent volume. With v1.9, the user can specify a `volumeMode` which will now support raw block devices in addition to file systems. Valid values for `volumeMode` are "Filesystem" or "Block". If left unspecified, `volumeMode` defaults to "Filesystem" internally. This is an optional API parameter. 
+{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
 
-{{< note >}}
-**Note:** This feature is alpha in v1.9 and may change in the future. 
-{{< /note >}}
+To enable this feature in v1.9, the cluster administrator needs to enable the `BlockVolume` feature gate on the apiserver, controller-manager and the kubelet.
+
+Prior to v1.9, the default behavior for all volume plugins was to create a filesystem on the persistent volume. With v1.9, the user can specify a `volumeMode` which will now support raw block devices in addition to file systems. Valid values for `volumeMode` are "Filesystem" or "Block". If left unspecified, `volumeMode` defaults to "Filesystem" internally. This is an optional API parameter.
 
 ### Access Modes
 
@@ -499,7 +497,19 @@ spec:
 
 ## Raw Block Volume Support
 
-Static provisioning support for Raw Block Volumes is included as an alpha feature for v1.9. With this change are some new API fields that need to be used to facilitate this functionality. Kubernetes v1.10 supports only Fibre Channel and Local Volume plugins for this feature.
+{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
+
+To enable this feature in v1.9, the cluster administrator needs to enable the `BlockVolume` feature gate on the apiserver, controller-manager and the kubelet.
+
+The following volume plugins support raw block volumes including dynamic provisioning where applicable:
+
+* AWSElasticBlockStore
+* AzureDisk
+* FC (Fibre Channel)
+* GCEPersistentDisk
+* iSCSI
+* Local volume
+* RBD (Ceph Block Device)
 
 ### Persistent Volumes using a Raw Block Volume
 ```yaml
