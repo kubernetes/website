@@ -1,14 +1,13 @@
 ---
 title: Feature Gates
 weight: 10
+notitle: true
 ---
 
-{% capture overview %}
+## Feature Gates
+
 This page contains an overview of the various feature gates an administrator
 can specify on different Kubernetes components.
-{% endcapture %}
-
-{% capture body %}
 
 ## Overview
 
@@ -120,9 +119,10 @@ A *Beta* feature means:
   incompatible changes in subsequent releases. If you have multiple clusters
   that can be upgraded independently, you may be able to relax this restriction.
 
+{{< note >}}
 **Note:** Please do try *Beta* features and give feedback on them!
 After they exit beta, it may not be practical for us to make more changes.
-{: .note}
+{{< /note >}}
 
 A *GA* feature is also referred to as a *stable* feature. It means:
 
@@ -220,6 +220,3 @@ Each feature gate is designed for enabling/disabling a specific feature:
   enables the usage of [`local`](/docs/concepts/storage/volumes/#local) volume
   type when used together with the `PersistentLocalVolumes` feature gate.
 
-{% endcapture %}
-
-{% include templates/concept.md %}
