@@ -167,20 +167,19 @@ However, the particular path specified in the custom recycler pod template in th
 
 ### Expanding Persistent Volumes Claims
 
-Kubernetes 1.8 added Alpha support for expanding persistent volumes. In v1.9, the following volume types support expanding Persistent volume claims:
+Kubernetes 1.8 added Alpha support for expanding persistent volumes. In Kubernetes 1.11 this feature has been moved to beta and will
+be enabled by default. Volume expansion is supported for following volume types:
 
 * gcePersistentDisk
 * awsElasticBlockStore
 * Cinder
 * glusterfs
 * rbd
+* Azure File
+* Azure Disk
+* Portworx
 
-Administrator can allow expanding persistent volume claims by setting `ExpandPersistentVolumes` feature gate to true. Administrator
-should also enable [`PersistentVolumeClaimResize` admission plugin](/docs/admin/admission-controllers/#persistentvolumeclaimresize)
-to perform additional validations of volumes that can be resized.
-
-Once `PersistentVolumeClaimResize` admission plug-in has been turned on, resizing will only be allowed for storage classes
-whose `allowVolumeExpansion` field is set to true.
+Volume expansion will only be allowed for `PersistentVolumeClaim` whose storage classes has `allowVolumeExpansion` field set to true.
 
 ``` yaml
 kind: StorageClass
@@ -196,17 +195,27 @@ parameters:
 allowVolumeExpansion: true
 ```
 
-Once both feature gate and the aforementioned admission plug-in are turned on, a user can request larger volume for their `PersistentVolumeClaim`
-by simply editing the claim and requesting a larger size.  This in turn will trigger expansion of the volume that is backing the underlying `PersistentVolume`.
+A user can request larger volume for their `PersistentVolumeClaim` by simply editing the claim and requesting a larger size.  This in turn will trigger expansion of the volume that is backing the underlying `PersistentVolume`.
 
 Under no circumstances will a new `PersistentVolume` be created to satisfy the claim. Kubernetes will instead attempt to resize the existing volume.
 
 For expanding volumes containing a file system, file system resizing is only performed when a new Pod is started using the `PersistentVolumeClaim` in
-ReadWrite mode. In other words, if a volume being expanded is used in a pod or deployment, you will need to delete and recreate the pod for file system
-resizing to take place. Also, file system resizing is only supported for following file system types:
+ReadWrite mode. In other words, if a volume being expanded is used in a pod or deployment, you will need to delete or recreate the pod after volume
+has been expanded by Cloud Provider in controller-manager. You can check status of resize operation by running command:
+
+```
+kubectl describe pvc <pvc_name>
+```
+
+And if `PersistentVolumeClaim` has status `FileSystemResizePending` then you can go ahead and recreate the pod that is using the PVC. Also, file system resizing is only supported for following file system types:
 
 * XFS
 * Ext3, Ext4
+
+Kubernetes 1.11 also ships with an alpha feature to enable expansion of in-use PVCs. If `ExpandInUsePersistentVolumes` feature gate is set to true
+then user no longer has to delete and recreate Pod that was using the PVC. Any in-use PVCs will automatically have their file system expanded and
+available for use within the pod. This feature however does not support expanding PVCs which are not in-use by a pod. User must create a pod with
+PVC to finish file system resize on volumes that were resized when not in-use by a pod.
 
 {{< note >}}
 **Note:** Expanding EBS volumes is a time consuming operation. Also, there is a per-volume quota of one modification every 6 hours.
