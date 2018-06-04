@@ -30,7 +30,7 @@ are allowed.
 
 Nodes should be provisioned with the public root certificate for the cluster
 such that they can connect securely to the apiserver along with valid client
-credentials. For example, on a default GCE deployment, the client credentials
+credentials. For example, on a default GKE deployment, the client credentials
 provided to the kubelet are in the form of a client certificate. See
 [kubelet TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) for
 automated provisioning of kubelet client certificates.
