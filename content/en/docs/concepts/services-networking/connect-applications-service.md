@@ -134,7 +134,7 @@ KUBERNETES_SERVICE_PORT_HTTPS=443
 
 ### DNS
 
-Kubernetes offers a DNS cluster addon Service that uses skydns to automatically assign dns names to other Services. You can check if it's running on your cluster:
+Kubernetes offers a DNS cluster addon Service that automatically assigns dns names to other Services. You can check if it's running on your cluster:
 
 ```shell
 $ kubectl get services kube-dns --namespace=kube-system

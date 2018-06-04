@@ -116,8 +116,8 @@ kubectl get crontab
 Should print a list like this:
 
 ```console
-NAME                 KIND
-my-new-cron-object   CronTab.v1.stable.example.com
+NAME                 AGE
+my-new-cron-object   6s
 ```
 
 Note that resource names are not case-sensitive when using kubectl,
@@ -545,7 +545,7 @@ crontabs/my-new-cron-object   3s
 
 {{% capture whatsnext %}}
 * Learn how to [Migrate a ThirdPartyResource to CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/).
-* See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions).
+* See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions-k8s-io).
 {{% /capture %}}
 
 

@@ -1,9 +1,0 @@
-id: image
-name: Image
-tags:
-- fundamental
-short-description: >
-  Stored instance of a container that holds a set of software needed to run an application.
-long-description: >
-  A way of packaging software that allows it to be stored in a container registry, pulled to a local system, and run as an application. Meta data is included in the image that can indicate what executable to run, who built it, and other information.
-

@@ -85,6 +85,15 @@ timeframe; which also applies to `kubeadm`.
 1. 2 CPUs or more on the master
 1. Full network connectivity between all machines in the cluster (public or
    private network is fine)
+   
+{{< note >}}
+**Note:** This guide results in a Kubernetes cluster with one master and a
+number of nodes that you decide. A single master is not highly available. If
+you want to set up a multi-master cluster for high availability, you can
+follow
+[this guide instead](https://kubernetes.io/docs/setup/independent/high-availability/).
+{{< /note >}}
+ 
 {{% /capture %}}
 
 {{% capture steps %}}
@@ -97,7 +106,7 @@ timeframe; which also applies to `kubeadm`.
 
 ## Instructions
 
-### (1/4) Installing kubeadm on your hosts
+### Installing kubeadm on your hosts
 
 See [Installing kubeadm](/docs/setup/independent/install-kubeadm/).
 
@@ -109,7 +118,7 @@ The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do. This crashloop is expected and normal, please
 proceed with the next step and the kubelet will start running normally.
 
-### (2/4) Initializing your master
+### Initializing your master
 
 The master is the machine where the control plane components run, including
 etcd (the cluster database) and the API server (which the kubectl CLI
@@ -220,7 +229,7 @@ token can add authenticated nodes to your cluster. These tokens can be listed,
 created and deleted with the `kubeadm token` command. See the
 [reference guide](/docs/reference/setup-tools/kubeadm/kubeadm-token/) for more details.
 
-### (3/4) Installing a pod network {#pod-network}
+### Installing a pod network {#pod-network}
 
 You **MUST** install a pod network add-on so that your pods can communicate with
 each other.
@@ -249,7 +258,7 @@ kubectl apply -f <add-on.yaml>
 Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
 {{% /tab %}}
 {{% tab name="Calico" %}}
-Refer to the Calico documentation for a [kubeadm quickstart](https://docs.projectcalico.org/latest/getting-started/kubernetes/), a [kubeadm installation guide](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/kubeadm/), and other resources.
+For more information about using Calico, see [Quickstart for Calico on Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/), [Installing Calico for policy and networking](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico), and other related resources.
 
 **Note:**
 
@@ -257,11 +266,12 @@ Refer to the Calico documentation for a [kubeadm quickstart](https://docs.projec
  - Calico works on `amd64` only.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
 ```
 {{% /tab %}}
 {{% tab name="Canal" %}}
-The official Canal set-up guide is [here](https://github.com/projectcalico/canal/tree/master/k8s-install).
+Canal uses Calico for policy and Flannel for networking. Refer to the Calico documentation for the [official getting started guide](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/flannel).
 
 **Note:**
 
@@ -269,8 +279,8 @@ The official Canal set-up guide is [here](https://github.com/projectcalico/canal
  - Canal works on `amd64` only.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/rbac.yaml
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.7/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/canal/rbac.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/canal/canal.yaml
 ```
 {{% /tab %}}
 {{% tab name="Flannel" %}}
@@ -298,7 +308,7 @@ Kube-router relies on kube-controller-manager to allocate pod CIDR for the nodes
 
 Kube-router provides pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
 
-For information on setting up Kubernetes cluster with Kube-router using kubeadm, please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/kubeadm.md).
+For information on setting up Kubernetes cluster with Kube-router using kubeadm, please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md).
 {{% /tab %}}
 {{% tab name="Romana" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
@@ -325,9 +335,7 @@ Weave Net sets hairpin mode by default. This allows Pods to access themselves vi
 if they don't know their PodIP.
 
 ```shell
-export kubever=$(kubectl version | base64 | tr -d '
-')
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version="
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -340,7 +348,7 @@ And once the kube-dns pod is up and running, you can continue by joining your no
 If your network is not working or kube-dns is not in the Running state, check
 out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
-#### Master Isolation
+### Master Isolation
 
 By default, your cluster will not schedule pods on the master for security
 reasons. If you want to be able to schedule pods on the master, e.g. for a
@@ -362,7 +370,7 @@ This will remove the `node-role.kubernetes.io/master` taint from any nodes that
 have it, including the master node, meaning that the scheduler will then be able
 to schedule pods everywhere.
 
-### (4/4) Joining your nodes
+### Joining your nodes
 
 The nodes are where your workloads (containers and pods, etc) run. To add new nodes to your cluster do the following for each machine:
 

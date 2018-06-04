@@ -10,7 +10,7 @@ Garbage collection is a helpful function of kubelet that will clean up unused im
 
 External garbage collection tools are not recommended as these tools can potentially break the behavior of kubelet by removing containers expected to exist.
 
-### Image Collection
+## Image Collection
 
 Kubernetes manages lifecycle of all images through imageManager, with the cooperation
 of cadvisor.
@@ -20,7 +20,7 @@ The policy for garbage collecting images takes two factors into consideration:
 will trigger garbage collection. The garbage collection will delete least recently used images until the low
 threshold has been met.
 
-### Container Collection
+## Container Collection
 
 The policy for garbage collecting containers considers three user-defined variables. `MinAge` is the minimum age at which a container can be garbage collected. `MaxPerPodContainer` is the maximum number of dead containers every single
 pod (UID, container name) pair is allowed to have. `MaxContainers` is the maximum number of total dead containers. These variables can be individually disabled by setting `MinAge` to zero and setting `MaxPerPodContainer` and `MaxContainers` respectively to less than zero.
@@ -29,7 +29,7 @@ Kubelet will act on containers that are unidentified, deleted, or outside of the
 
 Containers that are not managed by kubelet are not subject to container garbage collection.
 
-### User Configuration
+## User Configuration
 
 Users can adjust the following thresholds to tune image garbage collection with the following kubelet flags :
 
@@ -55,7 +55,7 @@ similar reason.
 See [this issue](https://github.com/kubernetes/kubernetes/issues/13287) for more details.
 
 
-### Deprecation
+## Deprecation
 
 Some kubelet Garbage Collection features in this doc will be replaced by kubelet eviction in the future.
 

@@ -1,6 +1,7 @@
 ---
 title: Configure a Pod to Use a Volume for Storage
 content_template: templates/task
+weight: 50
 ---
 
 {{% capture overview %}}

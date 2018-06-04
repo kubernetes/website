@@ -1,5 +1,5 @@
 ---
-title: "Manage Memory, CPU, and API Resources"
+title: "Administer a Cluster"
 weight: 20
 ---
 

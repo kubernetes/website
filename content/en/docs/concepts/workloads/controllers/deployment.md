@@ -374,7 +374,7 @@ nginx-deployment-3066724191-eocby   0/1       ImagePullBackOff   0          6s
 {{< note >}}
 **Note:** The Deployment controller will stop the bad rollout automatically, and will stop scaling up the new
 ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified.
-Kubernetes by default sets the value to 1 and `spec.replicas` to 1 so if you haven't cared about setting those
+Kubernetes by default sets the value to 1 and `.spec.replicas` to 1 so if you haven't cared about setting those
 parameters, your Deployment can have 100% unavailability by default! This will be fixed in Kubernetes in a future
 version.
 {{< /note >}}
@@ -702,7 +702,7 @@ due to some of the following factors:
 * Application runtime misconfiguration
 
 One way you can detect this condition is to specify a deadline parameter in your Deployment spec:
-([`spec.progressDeadlineSeconds`](#progress-deadline-seconds)). `spec.progressDeadlineSeconds` denotes the
+([`.spec.progressDeadlineSeconds`](#progress-deadline-seconds)). `.spec.progressDeadlineSeconds` denotes the
 number of seconds the Deployment controller waits before indicating (in the Deployment status) that the
 Deployment progress has stalled.
 
@@ -864,7 +864,7 @@ The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overv
 In addition to required fields for a Pod, a pod template in a Deployment must specify appropriate
 labels and an appropriate restart policy. For labels, make sure not to overlap with other controllers. See [selector](#selector)).
 
-Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/) equal to `Always` is
+Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Always` is
 allowed, which is the default if not specified.
 
 ### Replicas

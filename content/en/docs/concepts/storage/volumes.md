@@ -368,6 +368,38 @@ spec:
       fsType: ext4
 ```
 
+#### Regional Persistent Disks
+{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+
+The [Regional Persistent Disks](https://cloud.google.com/compute/docs/disks/#repds) feature allows the creation of Persistent Disks that are available in two zones within the same region. In order to use this feature, the volume must be provisioned as a PersistentVolume; referencing the volume directly from a pod is not supported.
+
+#### Manually provisioning a Regional PD PersistentVolume
+Dynamic provisioning is possible using a [StorageClass for GCE PD](/docs/concepts/storage/storage-classes/#gce).
+Before creating a PersistentVolume, you must create the PD:
+```shell
+gcloud beta compute disks create --size=500GB my-data-disk
+    --region us-central1
+    --replica-zones us-central1-a,us-central1-b
+```
+Example PersistentVolume spec:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: test-volume
+  labels:
+    failure-domain.beta.kubernetes.io/zone: us-central1-a__us-central1-b
+spec:
+  capacity:
+    storage: 400Gi
+  accessModes:
+  - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: my-data-disk
+    fsType: ext4
+```
+
 ### gitRepo
 
 A `gitRepo` volume is an example of what can be done as a volume plugin.  It
@@ -527,7 +559,7 @@ durability characteristics of the underlying disk.
 The following is an example PersistentVolume spec using a `local` volume and
 `nodeAffinity`:
 
-``` yaml
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -612,7 +644,7 @@ Currently, the following types of volume sources can be projected:
 
 - [`secret`](#secret)
 - [`downwardAPI`](#downwardapi)
-- `configMap`
+- [`configMap`](#configmap)
 
 All sources are required to be in the same namespace as the Pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
 
@@ -885,7 +917,7 @@ spec:
 ```
 
 For more information including Dynamic Provisioning and Persistent Volume Claims, please see the
-[StorageOS examples](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/storageos).
+[StorageOS examples](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos).
 
 ### vsphereVolume
 
@@ -1040,7 +1072,7 @@ The following fields are available to storage administrators to configure a CSI
 persistent volume:
 
 - `driver`: A string value that specifies the name of the volume driver to use.
-  This value must corespond to the value returned in the `GetPluginInfoResponse`
+  This value must correspond to the value returned in the `GetPluginInfoResponse`
   by the CSI driver as defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#getplugininfo).
   It is used by Kubernetes to identify which CSI driver to call out to, and by
   CSI driver components to identify which PV objects belong to the CSI driver.
@@ -1055,13 +1087,13 @@ persistent volume:
   `ControllerPublishVolumeRequest`.
 - `fsType`: If the PV's `VolumeMode` is `Filesystem` then this field may be used
   to specify the filesystem that should be used to mount the volume. If the
-  volume has not been formatted and formating is supported, this value will be
+  volume has not been formatted and formatting is supported, this value will be
   used to format the volume. If a value is not specified, `ext4` is assumed.
   This value is passed to the CSI driver via the `VolumeCapability` field of
   `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, and
   `NodePublishVolumeRequest`.
 - `volumeAttributes`: A map of string to string that specifies static properties
-  of a volume. This map must corespond to the map returned in the
+  of a volume. This map must correspond to the map returned in the
   `volume.attributes` field of the `CreateVolumeResponse` by the CSI driver as
   defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume).
   The map is passed to the CSI driver via the `volume_attributes` field in the

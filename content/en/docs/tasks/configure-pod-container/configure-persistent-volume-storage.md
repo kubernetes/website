@@ -1,6 +1,7 @@
 ---
 title: Configure a Pod to Use a PersistentVolume for Storage
 content_template: templates/task
+weight: 60
 ---
 
 {{% capture overview %}}

@@ -1,6 +1,7 @@
 ---
 title: Configure Pod Initialization
 content_template: templates/task
+weight: 130
 ---
 
 {{% capture overview %}}

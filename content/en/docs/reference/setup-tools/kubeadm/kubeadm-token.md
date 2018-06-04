@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 - luxas
 - jbeda
@@ -32,5 +32,5 @@ such a token and also to create and manage new ones.
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [kubeadm join](kubeadm-join.md) to bootstrap a Kubernetes worker node and join it to the cluster
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
 {{% /capture %}}

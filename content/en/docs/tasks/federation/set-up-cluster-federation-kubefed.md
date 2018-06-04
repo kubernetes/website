@@ -379,7 +379,7 @@ For more information see
 
 It is possible to utilize AWS Route53 as a cloud DNS provider when the
 federation controller-manager is run on-premise. The controller-manager
-Deployment must be configured with AWS credentials since it cannot implicity
+Deployment must be configured with AWS credentials since it cannot implicitly
 gather them from a VM running on AWS.
 
 Currently, `kubefed init` does not read AWS Route53 credentials from the
@@ -420,11 +420,15 @@ To join clusters into the federation:
 
 1. Change the context:
 
-       kubectl config use-context fellowship
+    ```shell
+    kubectl config use-context fellowship
+    ```
 
 1. If you are using a managed cluster service, allow the service to access the cluster. To do this, create a `clusterrolebinding` for the account associated with your cluster service:
 
-       kubectl create clusterrolebinding <your_user>-cluster-admin-binding --clusterrole=cluster-admin --user=<your_user>@example.org --context=<joining_cluster_context>
+    ```shell
+    kubectl create clusterrolebinding <your_user>-cluster-admin-binding --clusterrole=cluster-admin --user=<your_user>@example.org --context=<joining_cluster_context>
+    ```
 
 1. Join the cluster to the federation, using `kubefed join`, and make sure you provide the following:
 
@@ -433,7 +437,7 @@ To join clusters into the federation:
 
     For example, this command adds the cluster `gondor` to the federation running on host cluster `rivendell`:
 
-    ```
+    ```shell
     kubefed join gondor --host-cluster-context=rivendell
     ```
 
@@ -512,7 +516,7 @@ To remove a cluster from a federation, run the [`kubefed unjoin`](/docs/admin/ku
 command with the cluster name and the federation's
 `--host-cluster-context`:
 
-```
+```shell
 kubefed unjoin gondor --host-cluster-context=rivendell
 ```
 
@@ -525,7 +529,7 @@ the persistent storage volume dynamically provisioned for the
 federation control plane's etcd. You can delete the federation
 namespace by running the following command:
 
-```
+```shell
 kubectl delete ns federation-system --context=rivendell
 ```
 

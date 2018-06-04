@@ -1,5 +1,5 @@
 ---
 title: "Online Training Courses"
-weight: 30
+weight: 20
 ---
 

@@ -1,5 +1,5 @@
 ---
 title: "Stateful Applications"
-weight: 90
+weight: 50
 ---
 

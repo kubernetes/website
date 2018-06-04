@@ -109,7 +109,6 @@ _Pod 安全策略_ 由设置和策略组成，它们能够控制 Pod 访问的�
 1. configMap
 1. vsphereVolume
 1. quobyte
-1. photonPersistentDisk
 1. projected
 1. portworxVolume
 1. scaleIO

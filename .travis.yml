@@ -18,5 +18,5 @@ install:
 
 script:
 # TODO(bep)
-#- go test -v k8s.io/website/test
+- go test -v k8s.io/website/test #fixed by https://github.com/kubernetes/website/pull/8388
 #- ./verify-docs-format.sh

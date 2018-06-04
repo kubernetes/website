@@ -86,7 +86,11 @@ __Global Parameters__: For the sake of simplicity the example Ingress has no glo
 
 ## Ingress controllers
 
-In order for the Ingress resource to work, the cluster must have an Ingress controller running. This is unlike other types of controllers, which typically run as part of the `kube-controller-manager` binary, and which are typically started automatically as part of cluster creation. You need to choose the ingress controller implementation that is the best fit for your cluster, or implement one. We currently support and maintain [GCE](https://git.k8s.io/ingress-gce/README.md) and [nginx](https://git.k8s.io/ingress-nginx/README.md) controllers. F5 Networks provides [support and maintenance](https://support.f5.com/csp/article/K86859508) for the [F5 BIG-IP Controller for Kubernetes](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest). 
+In order for the Ingress resource to work, the cluster must have an Ingress controller running. This is unlike other types of controllers, which typically run as part of the `kube-controller-manager` binary, and which are typically started automatically as part of cluster creation. Choose the ingress controller implementation that best fits your cluster, or implement a new ingress controller. 
+
+* Kubernetes currently supports and maintains [GCE](https://git.k8s.io/ingress-gce/README.md) and [nginx](https://git.k8s.io/ingress-nginx/README.md) controllers. 
+* F5 Networks provides [support and maintenance](https://support.f5.com/csp/article/K86859508) for the [F5 BIG-IP Controller for Kubernetes](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest). 
+* [Kong](https://konghq.com/) offers [community](https://discuss.konghq.com/c/kubernetes) or [commercial](https://konghq.com/api-customer-success/) support and maintenance for the [Kong Ingress Controller for Kubernetes](https://konghq.com/blog/kubernetes-ingress-controller-for-kong/)
 
 {{< note >}}
 Review the documentation for your controller to find its specific support policy.
@@ -233,7 +237,7 @@ Note that there is a gap between TLS features supported by various Ingress contr
 
 ### Loadbalancing
 
-An Ingress controller is bootstrapped with some load balancing policy settings that it applies to all Ingress, such as the load balancing algorithm, backend weight scheme, and others. More advanced load balancing concepts (e.g.: persistent sessions, dynamic weights) are not yet exposed through the Ingress. You can still get these features through the [service loadbalancer](https://github.com/kubernetes/ingress-nginx/blob/master/docs/catalog.md). With time, we plan to distill load balancing patterns that are applicable cross platform into the Ingress resource.
+An Ingress controller is bootstrapped with some load balancing policy settings that it applies to all Ingress, such as the load balancing algorithm, backend weight scheme, and others. More advanced load balancing concepts (e.g.: persistent sessions, dynamic weights) are not yet exposed through the Ingress. You can still get these features through the [service loadbalancer](https://github.com/kubernetes/ingress-nginx/blob/master/docs/ingress-controller-catalog.md). With time, we plan to distill load balancing patterns that are applicable cross platform into the Ingress resource.
 
 It's also worth noting that even though health checks are not exposed directly through the Ingress, there exist parallel concepts in Kubernetes such as [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) which allow you to achieve the same end result. Please review the controller specific docs to see how they handle health checks ([nginx](https://git.k8s.io/ingress-nginx/README.md), [GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
 

@@ -3,6 +3,7 @@ title: "Example: Deploying Cassandra with Stateful Sets"
 reviewers:
 - ahmetb
 content_template: templates/tutorial
+weight: 30
 ---
 
 {{% capture overview %}}

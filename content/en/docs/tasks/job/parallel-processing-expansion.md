@@ -1,5 +1,6 @@
 ---
 title: Parallel Processing using Expansions
+weight: 20
 ---
 
 {{< toc >}}

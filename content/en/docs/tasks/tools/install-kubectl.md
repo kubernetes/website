@@ -4,6 +4,7 @@ reviewers:
 - mikedanese
 title: Install and Set Up kubectl
 content_template: templates/task
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -14,11 +15,12 @@ Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to d
 Use a version of kubectl that is the same version as your server or later. Using an older kubectl with a newer server might produce validation errors.
 {{% /capture %}}
 
+
+{{% capture steps %}}
+
 ## Install kubectl
 
 Here are a few methods to install kubectl.
-
-{{% capture steps %}}
 
 ## Install kubectl binary via native package management
 
@@ -260,7 +262,7 @@ Or when using [Oh-My-Zsh](http://ohmyz.sh/), edit the ~/.zshrc file and update t
 ```shell
 source <(kubectl completion zsh)
 ```
-
+{{% /capture %}}
 
 {{% capture whatsnext %}}
 [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)

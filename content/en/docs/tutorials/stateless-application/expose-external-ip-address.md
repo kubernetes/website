@@ -1,6 +1,7 @@
 ---
 title: Exposing an External IP Address to Access an Application in a Cluster
 content_template: templates/tutorial
+weight: 10
 ---
 
 {{% capture overview %}}

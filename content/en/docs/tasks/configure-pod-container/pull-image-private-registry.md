@@ -1,6 +1,7 @@
 ---
 title: Pull an Image from a Private Registry
 content_template: templates/task
+weight: 100
 ---
 
 {{% capture overview %}}

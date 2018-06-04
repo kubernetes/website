@@ -400,7 +400,7 @@ The default is `ClusterIP`.
 
 ### Type NodePort
 
-If you set the `type` field to `"NodePort"`, the Kubernetes master will
+If you set the `type` field to `NodePort`, the Kubernetes master will
 allocate a port from a flag-configured range (default: 30000-32767), and each
 Node will proxy that port (the same port number on every Node) into your `Service`.
 That port will be reported in your `Service`'s `spec.ports[*].nodePort` field.
@@ -422,7 +422,7 @@ and `spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in 
 ### Type LoadBalancer
 
 On cloud providers which support external load balancers, setting the `type`
-field to `"LoadBalancer"` will provision a load balancer for your `Service`.
+field to `LoadBalancer` will provision a load balancer for your `Service`.
 The actual creation of the load balancer happens asynchronously, and
 information about the provisioned balancer will be published in the `Service`'s
 `status.loadBalancer` field.  For example:
@@ -468,7 +468,7 @@ In a split-horizon DNS environment you would need two services to be able to rou
 This can be achieved by adding the following annotations to the service based on cloud provider.
 
 {{< tabs name="service_tabs" >}}
-{{% tab name="Decfault" %}}
+{{% tab name="Default" %}}
 Select one of the tabs.
 {{% /tab %}}
 {{% tab name="GCP" %}}
