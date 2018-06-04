@@ -6,8 +6,10 @@ title: Customizing DNS Service
 content_template: templates/task
 ---
 
+# Customizing kube-dns
+
 {{% capture overview %}}
-This page provides hints on configuring DNS Pod and guidance on customizing the
+This section provides hints on configuring DNS Pod and guidance on customizing the
 DNS resolution process.
 {{% /capture %}}
 
@@ -184,9 +186,101 @@ data:
     ["172.16.0.1"]
 ```
 
+{{% /capture %}}
+
+# Customizing CoreDNS
+
+This section provides with details on [CoreDNS](https://coredns.io/) as a service discovery.
+
+## Introduction
+
+CoreDNS is available as an option in Kubernetes starting from v1.9.
+It is currently a [GA feature](https://github.com/kubernetes/community/blob/master/keps/sig-network/0010-20180314-coredns-GA-proposal.md) and is on course to be [the default](https://github.com/kubernetes/community/blob/master/keps/sig-network/0012-20180518-coredns-default-proposal.md), replacing kube-dns.
+
+
+## ConfigMap options
+
+CoreDNS chains plugins and can be configured by maintaining a Corefile via the ConfigMap. CoreDNS supports all the functionalities and more that is provided by kube-dns.
+A ConfigMap created for kube-dns to support `StubDomains`and `upstreamnameserver` translates to the `proxy` plugin in CoreDNS.
+Similarly, the `Federation` plugin translates to the `federation` plugin in CoreDNS.
+
+### Example
+Below is an example ConfigMap of kube-dns with federations, stubdomains and upstreamnameservers configured.
+
+```yaml
+apiVersion: v1
+data:
+  federations: |
+    {"foo" : "foo.feddomain.com"}
+  stubDomains: |
+    {"abc.com" : ["1.2.3.4"], "my.cluster.local" : ["2.3.4.5"]}
+  upstreamNameservers: |
+    ["8.8.8.8", "8.8.4.4"]
+kind: ConfigMap
+```
+
+The equivalent configuration in CoreDNS translates to the following Corefile:
+* For federations:
+```yaml
+federation cluster.local {
+           foo foo.feddomain.com
+        }
+```
+
+* For StubDomains:
+```yaml
+abc.com:53 {
+        errors
+        cache 30
+        proxy . 1.2.3.4
+    }
+    my.cluster.local:53 {
+        errors
+        cache 30
+        proxy . 2.3.4.5
+    }
+```
+
+The complete Corefile along with the default plugins:
+
+```yaml
+.:53 {
+        errors
+        health
+        kubernetes cluster.local  in-addr.arpa ip6.arpa {
+           upstream  8.8.8.8 8.8.4.4
+           pods insecure
+           fallthrough in-addr.arpa ip6.arpa
+        }
+        federation cluster.local {
+           foo foo.feddomain.com
+        }
+        prometheus :9153
+        proxy .  8.8.8.8 8.8.4.4
+        cache 30
+    }
+    abc.com:53 {
+        errors
+        cache 30
+        proxy . 1.2.3.4
+    }
+    my.cluster.local:53 {
+        errors
+        cache 30
+        proxy . 2.3.4.5
+    }
+```
+
+Currently from Kubernetes 1.10, automatic translation of the CoreDNS configmap from kube-dns ConfigMap is supported via `kubeadm`.
+
+## Migration to CoreDNS
+
+Currently, a number of tools supports the installation of CoreDNS instead of kube-dns.
+If a user wants to migrate from kube-dns to CoreDNS, [a detailed blog](https://coredns.io/2018/05/21/migration-from-kube-dns-to-coredns/) is available to help users in adapting CoreDNS in place of kube-dns.
+
 ## What's next
 - [Debugging DNS Resolution](/docs/tasks/administer-cluster/dns-debugging-resolution/).
 
-{{% /capture %}}
+
 
 

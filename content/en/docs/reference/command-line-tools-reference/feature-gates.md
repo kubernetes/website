@@ -38,7 +38,8 @@ different Kubernetes components.
 | `BlockVolume` | `false` | Alpha | 1.9 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
-| `CRIContainerLogRotation` | `false` | Alpha | 1.10 | |
+| `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
+| `CRIContainerLogRotation` | `true` | Beta| 1.11 | |
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
 | `CSIPersistentVolume` | `true` | Beta | 1.10 | |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
@@ -53,7 +54,8 @@ different Kubernetes components.
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
-| `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.8 |
+| `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
+| `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | |
@@ -79,7 +81,8 @@ different Kubernetes components.
 | `RunAsGroup` | `false` | Alpha | 1.10 | |
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.10 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
-| `StorageObjectInUseProtection` | `true` | Beta | 1.10 | |
+| `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
+| `StorageObjectInUseProtection` | `true` | GA | 1.11 | |
 | `StreamingProxyRedirects` | `true` | Beta | 1.5 | |
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
