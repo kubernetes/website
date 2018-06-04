@@ -7,9 +7,6 @@ title: TLS bootstrapping
 weight: 80
 ---
 
-* TOC
-{:toc}
-
 ## Overview
 
 This document describes how to set up TLS client certificate bootstrapping for kubelets.
