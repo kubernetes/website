@@ -119,9 +119,10 @@ A *Beta* feature means:
   incompatible changes in subsequent releases. If you have multiple clusters
   that can be upgraded independently, you may be able to relax this restriction.
 
+{{< note >}}
 **Note:** Please do try *Beta* features and give feedback on them!
 After they exit beta, it may not be practical for us to make more changes.
-{: .note}
+{{< /note >}}
 
 A *GA* feature is also referred to as a *stable* feature. It means:
 
