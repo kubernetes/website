@@ -7,8 +7,7 @@ title: TLS bootstrapping
 weight: 80
 ---
 
-* TOC
-{:toc}
+{{< toc >}}
 
 ## Overview
 
