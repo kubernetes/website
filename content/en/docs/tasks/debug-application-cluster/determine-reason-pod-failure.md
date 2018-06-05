@@ -38,7 +38,7 @@ the container starts.
 
 1. Create a Pod based on the YAML configuration file:
 
-       kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/termination.yaml
+        kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/termination.yaml
 
     In the YAML file, in the `cmd` and `args` fields, you can see that the
     container sleeps for 10 seconds and then writes "Sleep expired" to
@@ -47,13 +47,13 @@ the container starts.
 
 1. Display information about the Pod:
 
-       kubectl get pod termination-demo
+        kubectl get pod termination-demo
 
     Repeat the preceding command until the Pod is no longer running.
 
 1. Display detailed information about the Pod:
 
-       kubectl get pod --output=yaml
+        kubectl get pod --output=yaml
 
     The output includes the "Sleep expired" message:
 
@@ -72,9 +72,7 @@ the container starts.
 1. Use a Go template to filter the output so that it includes
 only the termination message:
 
-```
-  kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
-```
+        kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
 
 ## Customizing the termination message
 
