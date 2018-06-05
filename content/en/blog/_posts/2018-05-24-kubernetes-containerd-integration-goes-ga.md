@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: Kubernetes Containerd Integration Goes GA
-date: Thursday, May 24, 2018
+date: 2018-05-24
 ---
 # Kubernetes Containerd Integration Goes GA
 **Authors**: Lantao Liu, Software Engineer, Google and Mike Brown, Open Source Developer Advocate, IBM

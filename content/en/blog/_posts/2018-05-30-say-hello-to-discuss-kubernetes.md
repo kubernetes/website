@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: Say Hello to Discuss Kubernetes
-date:  Wednesday, May 30, 2018
+date: 2018-05-30
 ---
 
 **Author**: Jorge Castro (Heptio)
