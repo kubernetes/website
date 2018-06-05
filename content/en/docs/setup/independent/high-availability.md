@@ -117,8 +117,7 @@ For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd
      EOF
      ```
 
-    {{< note >}}
-    **Optional:** You can modify `ca-csr.json` to add a section for `names`.
+    {{< note >}}**Optional:** You can modify `ca-csr.json` to add a section for `names`.
     See [the CFSSL wiki](https://github.com/cloudflare/cfssl/wiki/Creating-a-new-CSR) for an example.
     {{< /note >}}
 
@@ -368,7 +367,7 @@ As an example we outline a simple setup based on keepalived. Depending on enviro
 
 1. Install keepalived, e.g. using your distribution's package manager. The configuration shown here works with version `1.3.5` but is expected to work with may other versions. Make sure to have it enabled (chkconfig, systemd, ...) so that it starts automatically when the respective node comes up.
 
-2. Create the following configuration file _/etc/keepalived/keepalived.conf_ on all master nodes:
+2. Create the following configuration file `/etc/keepalived/keepalived.conf` on all master nodes:
      ```none
      ! Configuration File for keepalived
      global_defs {
@@ -409,7 +408,7 @@ As an example we outline a simple setup based on keepalived. Depending on enviro
     * `auth_pass` use any random string here.
     * `virtual_ipaddresses` should contain the virtual IP for the master nodes.
 
-3. Install the following health check script to _/etc/keepalived/check_apiserver.sh_ on all master nodes:
+3. Install the following health check script to `/etc/keepalived/check_apiserver.sh` on all master nodes:
      ```bash
      #!/bin/sh
 
