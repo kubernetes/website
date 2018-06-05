@@ -86,7 +86,8 @@ different Kubernetes components.
 | `StreamingProxyRedirects` | `true` | Beta | 1.5 | |
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
-| `SupportIPVSProxyMode` | `true` | Beta | 1.10 | |
+| `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
+| `SupportIPVSProxyMode` | `true` | GA | 1.11 | |
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | |
 | `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
