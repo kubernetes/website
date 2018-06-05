@@ -445,7 +445,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
      scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client-key.pem /etc/kubernetes/pki/etcd
      ```
 
-## Run `kubeadm init` on `master0` {#kubeadm-init-master0}
+## Run kubeadm init on master0 {#kubeadm-init-master0}
 
 1. In order for kubeadm to run, you first need to write a configuration file:
      ```bash
@@ -485,7 +485,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
      kubeadm init --config=config.yaml
      ```
 
-## Run `kubeadm init` on `master1` and `master2`
+## Run kubeadm init on master1 and master2
 
 Before running kubeadm on the other masters, you need to first copy the K8s CA cert from `master0`. To do this, you have two options:
 
@@ -504,7 +504,7 @@ Copy the contents of `/etc/kubernetes/pki/ca.crt`, `/etc/kubernetes/pki/ca.key`,
 
 When this is done, you can follow the [previous step](#kubeadm-init-master0) to install the control plane with kubeadm.
 
-## Add `master1` and `master2` to load balancer
+## Add master1 and master2 to load balancer
 
 Once kubeadm has provisioned the other masters, you can add them to the load balancer pool.
 
