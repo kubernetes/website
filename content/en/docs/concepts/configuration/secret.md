@@ -667,8 +667,8 @@ it to read a file.
 
 When deploying applications that interact with the secrets API, access should be
 limited using [authorization policies](
-https://kubernetes.io/docs/admin/authorization/) such as [RBAC](
-https://kubernetes.io/docs/admin/authorization/rbac/).
+/docs/reference/access-authn-authz/authorization/) such as [RBAC](
+/docs/reference/access-authn-authz/rbac/).
 
 Secrets often hold values that span a spectrum of importance, many of which can
 cause escalations within Kubernetes (e.g. service account tokens) and to
@@ -685,7 +685,7 @@ privileged, system-level components.
 Applications that need to access the secrets API should perform `get` requests on
 the secrets they need. This lets administrators restrict access to all secrets
 while [white-listing access to individual instances](
-https://kubernetes.io/docs/admin/authorization/rbac/#referring-to-resources) that
+/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
 the app needs.
 
 For improved performance over a looping `get`, clients can design resources that
@@ -748,5 +748,5 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
    single node.
   
 {{< note >}}
-**Note:** As of 1.7 [encryption of secret data at rest is supported](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/).
+**Note:** As of 1.7 [encryption of secret data at rest is supported](/docs/tasks/administer-cluster/encrypt-data/).
 {{< /note >}}
