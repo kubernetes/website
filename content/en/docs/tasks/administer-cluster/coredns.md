@@ -31,6 +31,8 @@ kubeadm init --feature-gates=CoreDNS=true
 
 This installs CoreDNS instead of kube-dns.
 
+In Kubernetes 1.11, it is available as a GA feature. `CoreDNS` will be enabled by default.
+
 ## Using a custom CoreDNS image repository with kubeadm
 
 To use a custom image repository for the CoreDNS image, e.g. one located in your own Docker registry,
