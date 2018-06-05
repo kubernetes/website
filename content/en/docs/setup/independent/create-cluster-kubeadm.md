@@ -48,7 +48,7 @@ but you may also on other OSes.
 | Config file API           | alpha          |
 | Self-hosting              | alpha          |
 | kubeadm alpha subcommands | alpha          |
-| CoreDNS                   | alpha          |
+| CoreDNS                   | GA             |
 | DynamicKubeletConfig      | alpha          |
 
 
