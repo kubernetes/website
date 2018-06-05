@@ -41,6 +41,8 @@ If you're a developer looking to run applications on Kubernetes, this page and i
 
     curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/proxy/
 
+    Hello World
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu nibh ultrices, fermentum dui a, rhoncus arcu. Aliquam sed ultricies est, quis rhoncus sapien. Aliquam at risus sed odio maximus rhoncus et et tellus. Vivamus euismod dui ac ligula iaculis, in facilisis nulla tincidunt. Ut consequat metus sed turpis tempus, vel fermentum mi lacinia. Vestibulum orci lacus, tincidunt sit amet aliquam at, venenatis vitae metus. Aenean molestie metus at dui mollis congue. Aliquam ac venenatis ante. Maecenas convallis viverra sapien ac imperdiet. Proin eget erat venenatis, mollis nunc at, facilisis metus.
 {{% /tab %}}
 {{< tab name="2. Expose" >}}
@@ -270,6 +272,3 @@ If you feel fairly comfortable with the topics on this page and want to learn mo
 * {{< link text="Foundational Cluster Operator" url="/docs/user-journeys/users/cluster-operator/foundational/" >}} - Build breadth, by exploring other journeys.
 
 {{% /capture %}}
-
-
-
