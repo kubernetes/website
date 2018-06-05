@@ -117,8 +117,7 @@ For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd
      EOF
      ```
 
-    {{< note >}}
-    **Optional:** You can modify `ca-csr.json` to add a section for `names`.
+    {{< note >}}**Optional:** You can modify `ca-csr.json` to add a section for `names`.
     See [the CFSSL wiki](https://github.com/cloudflare/cfssl/wiki/Creating-a-new-CSR) for an example.
     {{< /note >}}
 
@@ -368,7 +367,7 @@ As an example we outline a simple setup based on keepalived. Depending on enviro
 
 1. Install keepalived, e.g. using your distribution's package manager. The configuration shown here works with version `1.3.5` but is expected to work with may other versions. Make sure to have it enabled (chkconfig, systemd, ...) so that it starts automatically when the respective node comes up.
 
-2. Create the following configuration file _/etc/keepalived/keepalived.conf_ on all master nodes:
+2. Create the following configuration file `/etc/keepalived/keepalived.conf` on all master nodes:
      ```none
      ! Configuration File for keepalived
      global_defs {
@@ -409,7 +408,7 @@ As an example we outline a simple setup based on keepalived. Depending on enviro
     * `auth_pass` use any random string here.
     * `virtual_ipaddresses` should contain the virtual IP for the master nodes.
 
-3. Install the following health check script to _/etc/keepalived/check_apiserver.sh_ on all master nodes:
+3. Install the following health check script to `/etc/keepalived/check_apiserver.sh` on all master nodes:
      ```bash
      #!/bin/sh
 
@@ -445,7 +444,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
      scp root@<etcd0-ip-address>:/etc/kubernetes/pki/etcd/client-key.pem /etc/kubernetes/pki/etcd
      ```
 
-## Run `kubeadm init` on `master0` {#kubeadm-init-master0}
+## Run kubeadm init on master0 {#kubeadm-init-master0}
 
 1. In order for kubeadm to run, you first need to write a configuration file:
      ```bash
@@ -485,7 +484,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
      kubeadm init --config=config.yaml
      ```
 
-## Run `kubeadm init` on `master1` and `master2`
+## Run kubeadm init on master1 and master2
 
 Before running kubeadm on the other masters, you need to first copy the K8s CA cert from `master0`. To do this, you have two options:
 
@@ -504,7 +503,7 @@ Copy the contents of `/etc/kubernetes/pki/ca.crt`, `/etc/kubernetes/pki/ca.key`,
 
 When this is done, you can follow the [previous step](#kubeadm-init-master0) to install the control plane with kubeadm.
 
-## Add `master1` and `master2` to load balancer
+## Add master1 and master2 to load balancer
 
 Once kubeadm has provisioned the other masters, you can add them to the load balancer pool.
 

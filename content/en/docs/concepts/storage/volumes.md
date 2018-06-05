@@ -1115,6 +1115,18 @@ persistent volume:
   secret is required. If the secret object contains more than one secret, all
   secrets are passed.
 
+#### CSI raw block volume support
+
+{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+
+Starting with version 1.11, CSI introduced support for raw block volumes.  This work
+relies on the raw block volume feature that was introduced in previous versions of 
+Kubernetes.  Work is on the way for external CSI drivers to implement support for block
+volume support.
+
+Learn more about raw block volume support and see how to setup your PV/PVC 
+[here](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
+
 ### FlexVolume
 
 `FlexVolume` is an out-of-tree plugin interface that has existed in Kubernetes
