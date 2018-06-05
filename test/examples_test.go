@@ -267,13 +267,6 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 func TestExampleObjectSchemas(t *testing.T) {
 	// Please help maintain the alphabeta order in the map
 	cases := map[string]map[string][]runtime.Object{
-		"docs/admin/high-availability": {
-			"etcd":                    {&api.Pod{}},
-			"kube-apiserver":          {&api.Pod{}},
-			"kube-controller-manager": {&api.Pod{}},
-			"kube-scheduler":          {&api.Pod{}},
-			"podmaster":               {&api.Pod{}},
-		},
 		"docs/admin/limitrange": {
 			"invalid-pod": {&api.Pod{}},
 			"limits":      {&api.LimitRange{}},
