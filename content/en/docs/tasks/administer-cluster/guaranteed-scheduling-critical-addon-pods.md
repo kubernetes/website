@@ -57,8 +57,6 @@ The first one marks a pod a critical. The second one is required by Rescheduler 
 
 A pod could also be considered critical, if its priority is greater than or equal to system-critical-priority.
 
-
-
 ### Marking pod as critical when priorites are enabled.
 
 To be considered critical, the pod has to run in the `kube-system` namespace (configurable via flag) and
