@@ -5,6 +5,8 @@ title: Kubelet authentication/authorization
 weight: 30
 ---
 
+{{< toc >}}
+
 ## Overview
 
 A kubelet's HTTPS endpoint exposes APIs which give access to data of varying sensitivity,
