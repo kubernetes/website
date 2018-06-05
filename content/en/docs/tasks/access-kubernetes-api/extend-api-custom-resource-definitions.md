@@ -354,7 +354,7 @@ When the status subresource is enabled, the `/status` subresource for the custom
 - `PUT` requests to the `/status` subresource only validate the status stanza of the custom resource.
 - `PUT`/`POST`/`PATCH` requests to the custom resource ignore changes to the status stanza.
 - Any changes to the spec stanza increments the value at `.metadata.generation`.
-- `Properties` and `Required` are the only constructs allowed in the root of the CRD OpenAPI validation schema.
+- `properties`, `required` and `description` are the only constructs allowed in the root of the CRD OpenAPI validation schema.
 
 #### Scale subresource
 
