@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: Current State of Policy in Kubernetes
-date: Wednesday, May 2, 2018
+date: 2018-05-04
 ---
 
 Kubernetes has grown dramatically in its impact to the industry; and with rapid growth, we are beginning to see variations across components in how they define and apply policies.
