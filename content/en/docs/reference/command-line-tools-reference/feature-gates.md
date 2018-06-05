@@ -40,6 +40,7 @@ different Kubernetes components.
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
 | `CRIContainerLogRotation` | `true` | Beta| 1.11 | |
+| `CSIBlockVolume` | `false` | Alpha | 1.11 | 1.11 |
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
 | `CSIPersistentVolume` | `true` | Beta | 1.10 | |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
@@ -151,6 +152,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
    for more details.
 - `CPUManager`: Enable container level CPU affinity support, see [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 - `CRIContainerLogRotation`: Enable container log rotation for cri container runtime.
+- `CSIBlockVolume`: Enable external CSI volume drivers to support block storage. Check the [`csi` raw block volume support](/docs/concepts/storage/volumes/#csi-raw-block-volume-support) for detail.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
   compatible volume plugin.
