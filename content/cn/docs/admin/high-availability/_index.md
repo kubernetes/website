@@ -82,7 +82,7 @@ curl https://discovery.etcd.io/new?size=3
 ```
 
 
-在每个节点上，拷贝 [etcd.yaml](/docs/admin/high-availability/etcd.yaml) 文件到`/etc/kubernetes/manifests/etcd.yaml`。
+在每个节点上，拷贝 [etcd.yaml](/content/en/docs/admin/high-availability/etcd.yaml) 文件到`/etc/kubernetes/manifests/etcd.yaml`。
 
 
 每个节点上的kubelet会动态的监控这个文件夹的内容，并且会按照`etcd.yaml`里对pod的定义创建一个`etcd`服务的实例。
@@ -155,7 +155,7 @@ touch /var/log/kube-apiserver.log
 ### 启动API服务
 
 
-一旦这些文件已经存在了，拷贝 [kube-apiserver.yaml](/docs/admin/high-availability/kube-apiserver.yaml) 到每个主节点的 `/etc/kubernetes/manifests/`文件夹。
+一旦这些文件已经存在了，拷贝 [kube-apiserver.yaml](/content/en/docs/admin/high-availability/kube-apiserver.yaml) 到每个主节点的 `/etc/kubernetes/manifests/`文件夹。
 
 
 kubelet会监控这个文件夹，并且会按照文件里对pod的定义创建一个`kube-apiserver`容器。
@@ -199,7 +199,7 @@ touch /var/log/kube-controller-manager.log
 ```
 
 
-接下来，在每个节点上配置scheduler和controller manager pods的描述文件。拷贝 [kube-scheduler.yaml](/docs/admin/high-availability/kube-scheduler.yaml) 和 [kube-controller-manager.yaml](/docs/admin/high-availability/kube-controller-manager.yaml) 到`/etc/kubernetes/manifests/` 文件夹。
+接下来，在每个节点上配置scheduler和controller manager pods的描述文件。拷贝 [kube-scheduler.yaml](/content/en/docs/admin/high-availability/kube-scheduler.yaml) 和 [kube-controller-manager.yaml](/content/en/docs/admin/high-availability/kube-controller-manager.yaml) 到`/etc/kubernetes/manifests/` 文件夹。
 
 
 ## 结尾
