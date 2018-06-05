@@ -79,13 +79,14 @@ following steps:
 
    See [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) for additional info.
 
-1. Installs the internal DNS server (kube-dns) and the kube-proxy addon components via the API server. If kubeadm is invoked with `--feature-gates=CoreDNS=true`, then [CoreDNS](https://coredns.io/) will be installed as the default internal DNS server instead of kube-dns.  
+1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
+   In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
+   To install kube-dns instead of CoreDNS, kubeadm must be invoked with `--feature-gates=CoreDNS=false`.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 
 1. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
    (`--feature-gates=SelfHosting=true`), the static Pod based control plane is
    transformed into a [self-hosted control plane](#self-hosting).
-
 
 ### Using kubeadm init with a configuration file {#config-file}
 
@@ -438,7 +439,14 @@ Here `v1.8.x` means the "latest patch release of the v1.8 branch".
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
-If using `--feature-gates=CoreDNS=true` image `coredns/coredns:1.0.2` is required (instead of the three `k8s-dns-*` images).
+If you run Kubernetes version 1.10 or earlier, and if you set `--feature-gates=CoreDNS=true`,
+you must also use the image `coredns/coredns:1.0.2`, instead of the three `k8s-dns-*` images.
+
+In Kubernetes 1.11 and later, you can list and pull the images using the `kubeadm config images` sub-command:
+```
+kubeadm config images list
+kubeadm config images pull
+```
 
 ### Automating kubeadm
 
