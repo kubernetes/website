@@ -53,7 +53,7 @@ For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd
 
 ### Create etcd CA certs
 
-1. Install `cfssl` and `cfssljson`:
+1. Install `cfssl` and `cfssljson` on all etcd nodes:
 
      ```bash
      curl -o /usr/local/bin/cfssl https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
@@ -278,7 +278,7 @@ Run the following to generate the manifest file:
         labels:
           component: etcd
           tier: control-plane
-        name: <podname>
+        name: <name>
         namespace: kube-system
       spec:
         containers:
@@ -339,7 +339,7 @@ Run the following to generate the manifest file:
       EOF
 
 Make sure you replace:
-* `<podname>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
+* `<name>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
 * `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the public IPv4s of the other machines that host etcd.
 {{% /tab %}}
 {{< /tabs >}}
