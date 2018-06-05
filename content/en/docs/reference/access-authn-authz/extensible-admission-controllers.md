@@ -176,14 +176,18 @@ The schema of `admissionConfiguration` is defined
 apiVersion: v1
 kind: Config
 users:
-# DNS name of webhook service, i.e., <service name>.<namespace>.svc, or the URL
-# of the webhook server.
+# DNS name of webhook service, i.e., <service name>.<namespace>.svc.
 - name: 'webhook1.ns1.svc'
   user:
     client-certificate-data: <pem encoded certificate>
     client-key-data: <pem encoded key>
 # The `name` supports using * to wildmatch prefixing segments.
-- name: '*.webhook-company.org'
+- name: '*.webhook-company.org'   # This matches webhook URL https://webhook1.webhook-company.org/validatePods
+  user:
+    password: <password>
+    username: <name>
+# `port` is requried when the webhook url contains a port
+- name: '*.webhook-company.org:443'  # This matches webhook URL https://webhook1.webhook-company.org:443/validatePods
   user:
     password: <password>
     username: <name>
