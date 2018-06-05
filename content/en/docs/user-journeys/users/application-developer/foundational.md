@@ -19,6 +19,28 @@ If you're a developer looking to run applications on Kubernetes, this page and i
 
 
 {{% capture body %}}
+## Try it out
+
+<div id="terminal_simulator"
+  data-embed="kt-app"
+  data-url="https://www.gstatic.com/cloud-site-ux/kubernetes-terminal.min.html">
+</div>
+
+{{< tabs name="test_drive_k8s" >}}
+{{% tab name="1. Deploy" %}}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu nibh ultrices, fermentum dui a, rhoncus arcu. Aliquam sed ultricies est, quis rhoncus sapien. Aliquam at risus sed odio maximus rhoncus et et tellus. Vivamus euismod dui ac ligula iaculis, in facilisis nulla tincidunt. Ut consequat metus sed turpis tempus, vel fermentum mi lacinia. Vestibulum orci lacus, tincidunt sit amet aliquam at, venenatis vitae metus. Aenean molestie metus at dui mollis congue. Aliquam ac venenatis ante. Maecenas convallis viverra sapien ac imperdiet. Proin eget erat venenatis, mollis nunc at, facilisis metus.
+{{% /tab %}}
+{{< tab name="2. Expose" >}}
+Mauris sagittis nunc mi, eget dapibus sem sagittis sit amet. In ut massa dui. Etiam efficitur varius est egestas convallis. Aenean facilisis nisi vel arcu hendrerit sodales. Maecenas sed semper ipsum. Duis aliquam nunc ac erat pellentesque, vel cursus lectus consequat. Aenean condimentum rhoncus felis a venenatis. Aenean commodo odio id mi sollicitudin, nec accumsan sapien fermentum. Cras consectetur ligula ac nulla pretium, sit amet placerat nisl ultricies. Praesent fermentum venenatis tortor.
+{{< /tab >}}
+{{< tab name="3. Scale" >}}
+Integer sodales lacinia leo, venenatis accumsan justo consequat imperdiet. Proin sit amet ipsum ac neque tristique laoreet id eget nibh. Mauris in iaculis metus. Sed consectetur sit amet massa at interdum. Morbi a tempor quam, quis suscipit dui. Quisque eget fermentum mi. Nullam pretium lacus urna, in interdum dolor fermentum sed. Pellentesque sed accumsan risus. Nunc sed ipsum gravida enim volutpat faucibus ut id ligula. Integer eu viverra felis. In pellentesque dignissim efficitur. Praesent sed nulla tortor. Aenean tempor mi id augue finibus laoreet. Praesent justo sem, hendrerit et sodales vel, luctus sed orci.
+{{< /tab >}}
+{{< tab name="4. Update" >}}
+Cras eget orci sagittis, lacinia urna eleifend, sodales tortor. Praesent velit dui, tincidunt at molestie eu, porta a libero. Sed tincidunt laoreet arcu. Donec sed quam dui. Maecenas dignissim porta mauris, nec vehicula purus luctus sit amet. Nunc venenatis diam lorem, semper accumsan ligula ornare vitae. Fusce velit ex, commodo sed tincidunt sed, blandit ut nibh. Ut id urna felis. Duis ultrices dignissim libero, nec sodales felis. Duis a enim massa. Vivamus lobortis erat nec orci rutrum, sit amet viverra nunc posuere. Ut mattis suscipit sodales. Cras interdum convallis sodales. Quisque in mollis nunc.
+{{< /tab >}}
+{{< /tabs >}}
+
 ## Get started with a cluster
 
 #### Web-based environment
