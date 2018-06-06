@@ -50,6 +50,13 @@ If you're a developer looking to run applications on Kubernetes, this page and i
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu nibh ultrices, fermentum dui a, rhoncus arcu. Aliquam sed ultricies est, quis rhoncus sapien. Aliquam at risus sed odio maximus rhoncus et et tellus. Vivamus euismod dui ac ligula iaculis, in facilisis nulla tincidunt. Ut consequat metus sed turpis tempus, vel fermentum mi lacinia. Vestibulum orci lacus, tincidunt sit amet aliquam at, venenatis vitae metus. Aenean molestie metus at dui mollis congue. Aliquam ac venenatis ante. Maecenas convallis viverra sapien ac imperdiet. Proin eget erat venenatis, mollis nunc at, facilisis metus.
 {{% /tab %}}
 {{< tab name="2. Expose" >}}
+Step 1 Create a new service
+Let’s verify that our application is running. We’ll use the kubectl get command and look for existing Pods:
+
+  ```
+  kubectl get pods
+  ```
+
 Mauris sagittis nunc mi, eget dapibus sem sagittis sit amet. In ut massa dui. Etiam efficitur varius est egestas convallis. Aenean facilisis nisi vel arcu hendrerit sodales. Maecenas sed semper ipsum. Duis aliquam nunc ac erat pellentesque, vel cursus lectus consequat. Aenean condimentum rhoncus felis a venenatis. Aenean commodo odio id mi sollicitudin, nec accumsan sapien fermentum. Cras consectetur ligula ac nulla pretium, sit amet placerat nisl ultricies. Praesent fermentum venenatis tortor.
 {{< /tab >}}
 {{< tab name="3. Scale" >}}
