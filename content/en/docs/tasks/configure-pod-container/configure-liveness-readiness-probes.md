@@ -195,6 +195,18 @@ starts. Just like the readiness probe, this will attempt to connect to the
 `goproxy` container on port 8080. If the liveness probe fails, the container
 will be restarted.
 
+To try the TCP liveness check, create a Pod:
+
+```shell
+kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/tcp-liveness-readiness.yaml
+```
+
+After 15 seconds, view Pod events to verify that liveness probes:
+
+```shell
+kubectl describe pod goproxy
+```
+
 ## Use a named port
 
 You can use a named

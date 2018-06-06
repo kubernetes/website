@@ -369,7 +369,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"memory-defaults-pod":                        {&api.Pod{}},
 			"memory-defaults-pod-2":                      {&api.Pod{}},
 			"memory-defaults-pod-3":                      {&api.Pod{}},
-			"my-scheduler":                               {&extensions.Deployment{}},
+			"my-scheduler":                               {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
 			"namespace-dev":                              {&api.Namespace{}},
 			"namespace-prod":                             {&api.Namespace{}},
 			"persistent-volume-label-initializer-config": {&admissionregistration.InitializerConfiguration{}},
@@ -421,15 +421,15 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"tcp-liveness-readiness":  {&api.Pod{}},
 		},
 		"docs/tasks/debug-application-cluster": {
-			"counter-pod":           {&api.Pod{}},
-			"event-exporter-deploy": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
-			"fluentd-gcp-configmap": {&api.ConfigMap{}},
-			"fluentd-gcp-ds":        {&extensions.DaemonSet{}},
-			"nginx-dep":             {&extensions.Deployment{}},
-			"node-problem-detector":        {&extensions.DaemonSet{}},
-			"node-problem-detector-configmap":        {&extensions.DaemonSet{}},
-			"shell-demo":            {&api.Pod{}},
-			"termination":           {&api.Pod{}},
+			"counter-pod":                     {&api.Pod{}},
+			"event-exporter-deploy":           {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
+			"fluentd-gcp-configmap":           {&api.ConfigMap{}},
+			"fluentd-gcp-ds":                  {&extensions.DaemonSet{}},
+			"nginx-dep":                       {&extensions.Deployment{}},
+			"node-problem-detector":           {&extensions.DaemonSet{}},
+			"node-problem-detector-configmap": {&extensions.DaemonSet{}},
+			"shell-demo":                      {&api.Pod{}},
+			"termination":                     {&api.Pod{}},
 		},
 		// TODO: decide whether federation examples should be added
 		"docs/tasks/inject-data-application": {
@@ -456,8 +456,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"secret-pod":                  {&api.Pod{}},
 		},
 		"docs/tasks/job": {
-			"cronjob":	{&batch.CronJob{}},
-			"job":		{&batch.Job{}},
+			"cronjob": {&batch.CronJob{}},
+			"job":     {&batch.Job{}},
 		},
 		"docs/tasks/job/coarse-parallel-processing-work-queue": {
 			"job": {&batch.Job{}},
@@ -474,7 +474,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"deployment-update":     {&extensions.Deployment{}},
 			"hpa-php-apache":        {&autoscaling.HorizontalPodAutoscaler{}},
 			"mysql-configmap":       {&api.ConfigMap{}},
-			"mysql-deployment":      {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
+			"mysql-deployment":      {&api.Service{}, &extensions.Deployment{}},
+			"mysql-pv":      {&api.PersistentVolume{}, &api.PersistentVolumeClaim{}},
 			"mysql-services":        {&api.Service{}, &api.Service{}},
 			"mysql-statefulset":     {&apps.StatefulSet{}},
 		},
@@ -515,16 +516,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-master-service":    {&api.Service{}},
 			"redis-slave-deployment":  {&extensions.Deployment{}},
 			"redis-slave-service":     {&api.Service{}},
-		},
-		"docs/user-guide/walkthrough": {
-			"deployment":                      {&extensions.Deployment{}},
-			"deployment-update":               {&extensions.Deployment{}},
-			"pod-nginx":                       {&api.Pod{}},
-			"pod-nginx-with-label":            {&api.Pod{}},
-			"pod-redis":                       {&api.Pod{}},
-			"pod-with-http-healthcheck":       {&api.Pod{}},
-			"pod-with-tcp-socket-healthcheck": {&api.Pod{}},
-			"service":                         {&api.Service{}},
 		},
 	}
 
@@ -620,12 +611,19 @@ func TestExampleObjectSchemas(t *testing.T) {
 var sampleRegexp = regexp.MustCompile("(?ms)^```(?:(?P<type>yaml)\\w*\\n(?P<content>.+?)|\\w*\\n(?P<content>\\{.+?\\}))\\n^```")
 var subsetRegexp = regexp.MustCompile("(?ms)\\.{3}")
 
+// Validates examples embedded in Markdown files.
 func TestReadme(t *testing.T) {
+	// BlockVolume required for local volume example
+	utilfeature.DefaultFeatureGate.Set("BlockVolume=true")
+
 	paths := []struct {
 		file         string
-		expectedType []runtime.Object
+		expectedType []runtime.Object // List of all valid types for the whole doc
 	}{
-		{"../content/en/docs/concepts/storage/volumes.md", []runtime.Object{&api.Pod{}}},
+		{"../content/en/docs/concepts/storage/volumes.md", []runtime.Object{
+			&api.Pod{},
+			&api.PersistentVolume{},
+		}},
 	}
 
 	for _, path := range paths {
@@ -639,7 +637,6 @@ func TestReadme(t *testing.T) {
 		if matches == nil {
 			continue
 		}
-		ix := 0
 		for _, match := range matches {
 			var content, subtype string
 			for i, name := range sampleRegexp.SubexpNames() {
@@ -655,21 +652,23 @@ func TestReadme(t *testing.T) {
 				continue
 			}
 
-			var expectedType runtime.Object
-			if len(path.expectedType) == 1 {
-				expectedType = path.expectedType[0]
-			} else {
-				expectedType = path.expectedType[ix]
-				ix++
-			}
 			json, err := yaml.ToJSON([]byte(content))
 			if err != nil {
 				t.Errorf("%s could not be converted to JSON: %v\n%s", path, err, string(content))
 			}
-			if err := runtime.DecodeInto(testapi.Default.Codec(), json, expectedType); err != nil {
+
+			var expectedType runtime.Object
+			for _, expectedType = range path.expectedType {
+				err = runtime.DecodeInto(testapi.Default.Codec(), json, expectedType)
+				if err == nil {
+					break
+				}
+			}
+			if err != nil {
 				t.Errorf("%s did not decode correctly: %v\n%s", path, err, string(content))
 				continue
 			}
+
 			if errors := validateObject(expectedType); len(errors) > 0 {
 				t.Errorf("%s did not validate correctly: %v", path, errors)
 			}

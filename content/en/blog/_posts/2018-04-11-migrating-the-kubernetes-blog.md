@@ -1,7 +1,9 @@
 ---
 title: 'Migrating the Kubernetes blog'
 author: zcorleissen
+date: 2018-04-11
 slug: migrating-the-kubernetes-blog
+date: 2018-04-11
 ---
 
 We recently migrated the Kubernetes blog from the Blogger platform to GitHub. With the change in platform comes a change in URL: formerly at [http://blog.kubernetes.io](http://blog.kubernetes.io), the blog now resides at [https://kubernetes.io/blog](https://kubernetes.io/blog).
@@ -23,7 +25,7 @@ We hope that making blog submissions more accessible will encourage greater comm
 You can submit a blog post for consideration one of two ways:
 
 * Submit a Google Doc through the [blog submission form](https://docs.google.com/forms/d/e/1FAIpQLSch_phFYMTYlrTDuYziURP6nLMijoXx_f7sLABEU5gWBtxJHQ/viewform)
-* Open a pull request against the [website repository](https://github.com/kubernetes/website/tree/master/blog) as described [here](/docs/home/contribute/create-pull-request/)
+* Open a pull request against the [website repository](https://github.com/kubernetes/website/tree/master/content/en/blog/_posts) as described [here](/docs/home/contribute/create-pull-request/)
 
 If you have a post that you want to remain confidential until your publish date, please submit your post via the Google form. Otherwise, you can choose your submission process based on your comfort level and preferred workflow.
 

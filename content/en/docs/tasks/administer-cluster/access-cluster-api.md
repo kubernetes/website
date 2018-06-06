@@ -165,7 +165,7 @@ for i in ret.items:
 
 #### Other languages
 
-There are [client libraries](/docs/reference/client-libraries/) for accessing the API from other languages. See documentation for other libraries for how they authenticate.
+There are [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages. See documentation for other libraries for how they authenticate.
 
 ### Accessing the API from a Pod
 
@@ -173,7 +173,7 @@ When accessing the API from a Pod, locating and authenticating
 to the API server are somewhat different.
 
 The easiest way to use the Kubernetes API from a Pod is to use
-one of the official [client libraries](/docs/reference/client-libraries/). These
+one of the official [client libraries](/docs/reference/using-api/client-libraries/). These
 libraries can automatically discover the API server and authenticate.
 
 While running in a Pod, the Kubernetes apiserver is accessible via a Service named
@@ -196,7 +196,7 @@ at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
 
 From within a Pod, the recommended ways to connect to the Kubernetes API are:
 
-  - Use one of the official [client libraries](/docs/reference/client-libraries/)
+  - Use one of the official [client libraries](/docs/reference/using-api/client-libraries/)
     as they handle API host discovery and authentication automatically.
     For Go client, the `rest.InClusterConfig()` function assists with this.
     See [an example here](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go).
