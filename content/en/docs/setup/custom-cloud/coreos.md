@@ -1,6 +1,7 @@
 ---
-title: CoreOS
-toc_hide: true
+title: CoreOS on AWS or GCE
+reviewers:
+- errordeveloper
 ---
 
 {{< toc >}}
