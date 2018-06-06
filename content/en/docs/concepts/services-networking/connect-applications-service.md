@@ -4,6 +4,7 @@ reviewers:
 - lavalamp
 - thockin
 title: Connecting Applications with Services
+weight: 30
 ---
 
 {{< toc >}}

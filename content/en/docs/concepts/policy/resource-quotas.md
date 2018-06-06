@@ -2,6 +2,7 @@
 reviewers:
 - derekwaynecarr
 title: Resource Quotas
+weight: 10
 ---
 
 When several users or teams share a cluster with a fixed number of nodes,

@@ -1,6 +1,7 @@
 ---
 title: Federation
 content_template: templates/concept
+weight: 80
 ---
 
 {{% capture overview %}}

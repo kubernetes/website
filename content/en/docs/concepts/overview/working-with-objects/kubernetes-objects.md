@@ -1,6 +1,7 @@
 ---
 title: Understanding Kubernetes Objects
 content_template: templates/concept
+weight: 10
 ---
 
 {{% capture overview %}}
