@@ -169,7 +169,7 @@ Summary of container benefits:
     Create application container images at build/release time rather
     than deployment time, thereby decoupling applications from
     infrastructure.
-* **Observability**
+* **Observability**:
     Not only surfaces OS-level information and metrics, but also application
     health and other signals.
 * **Environmental consistency across development, testing, and production**:

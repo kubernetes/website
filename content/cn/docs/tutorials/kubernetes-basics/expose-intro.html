@@ -36,10 +36,10 @@ title: 使用服务发布您的应用程序
 				<p><i>服务</i>：Kubernetes 中的服务是一个抽象对象，它定义了一组逻辑的 Pods 和一个访问它们的策略。 服务让互相依赖的 Pod 之间的耦合松动。 服务像所有 Kubernetes 对象一样，由 YAML <a href="/docs/concepts/configuration/overview/#general-config-tips">(首选)</a> 或 JSON 定义。
 					针对服务的一组 Pod 通常由 <i>LabelSelector</i> 确定（参见下文，为什么您可能不希望将 <code>选择器</code> 包含在规范中）。</p>
 
-				<p>虽然每个 Pod 都有一个唯一的 IP 地址，但是这些 IP 不会在没有服务的情况下公开在群集之外。服务允许您的应用程序接收流量。 可以通过在 ServiceSpec 中指定<code>类型</code> 以不同方式显示服务：</p>
+				<p>虽然每个 Pod 都有一个唯一的 IP 地址，但是这些 IP 不会在没有服务的情况下公开在集群之外。服务允许您的应用程序接收流量。 可以通过在 ServiceSpec 中指定<code>类型</code> 以不同方式显示服务：</p>
 			<ul>
 				<li><i>ClusterIP</i>(默认) - 在集群中的内部IP上公开服务。此类型使服务只能从集群中访问。</li>
-				<li><i>NodePort</i> —— 使用NAT在群集中每个选定的节点的同一端口上显示该服务。使用 <code><NodeIP>:<NodePort></code>可以从群集外部访问服务。建立 ClusterIP 的超集。</li>
+				<li><i>NodePort</i> —— 使用NAT在集群中每个选定的节点的同一端口上显示该服务。使用 <code><NodeIP>:<NodePort></code>可以从集群外部访问服务。建立 ClusterIP 的超集。</li>
 				<li><i>LoadBalancer</i> —— 在当前云中创建外部负载平衡器(如果支持)，并为服务分配固定的外部IP。建立 NodePort 的超集。</li>
 				<li><i>ExternalName</i> —— 使用任意名称显示该服务(由规范中的<code>externalName</code> 指定)，本过程通过使用该名称返回 CNAME 记录达成。无须使用代理。这种类型需要 v1.7 或更高版本的 <code>kube-dns</code>.</li>
 			</ul>
