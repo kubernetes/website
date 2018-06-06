@@ -272,9 +272,12 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 
 {{< feature-state for_k8s_version="v1.9" state="alpha" >}}
 
-To enable this feature in v1.9, the cluster administrator needs to enable the `BlockVolume` feature gate on the apiserver, controller-manager and the kubelet.
+To enable this feature, enable the `BlockVolume` feature gate on the apiserver, controller-manager and the kubelet.
 
-Prior to v1.9, the default behavior for all volume plugins was to create a filesystem on the persistent volume. With v1.9, the user can specify a `volumeMode` which will now support raw block devices in addition to file systems. Valid values for `volumeMode` are "Filesystem" or "Block". If left unspecified, `volumeMode` defaults to "Filesystem" internally. This is an optional API parameter.
+Prior to Kubernetes 1.9, all volume plugins created a filesystem on the persistent volume.
+Now, you can set the value of `volumeMode` to `raw` to use a raw block device, or `filesystem`
+to use a filesystem. `filesystem` is the default if the value is omitted. This is an optional API
+parameter.
 
 ### Access Modes
 
@@ -499,17 +502,24 @@ spec:
 
 {{< feature-state for_k8s_version="v1.9" state="alpha" >}}
 
-To enable this feature in v1.9, the cluster administrator needs to enable the `BlockVolume` feature gate on the apiserver, controller-manager and the kubelet.
+To enable support for raw block volumes, enable the `BlockVolume` feature gate on the
+apiserver, controller-manager and the kubelet.
 
-The following volume plugins support raw block volumes including dynamic provisioning where applicable:
+The following volume plugins support raw block volumes, including dynamic provisioning where
+applicable.
 
 * AWSElasticBlockStore
 * AzureDisk
-* FC (Fibre Channel)
+* FC (Fiber Channel)
 * GCEPersistentDisk
 * iSCSI
 * Local volume
 * RBD (Ceph Block Device)
+
+{{< note >}}
+**Note**: Only FC and iSCSI volumes supported raw block volumes in Kubernetes 1.9.
+Support for the additional plugins was added in 1.10.
+{{< /note >}}
 
 ### Persistent Volumes using a Raw Block Volume
 ```yaml
