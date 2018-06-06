@@ -544,6 +544,11 @@ It does not allow viewing secrets, since those are escalating.</td>
 The permissions required by individual control loops are contained in the <a href="#controller-roles">controller roles</a>.</td>
 </tr>
 <tr>
+<td><b>system:cluster-autoscaler</b></td>
+<td><b>system:cluster-autoscaler</b> user</td>
+<td>Allows access to the resources required by the Cluster Autoscaler component.</td>
+</tr>
+<tr>
 <td><b>system:node</b></td>
 <td>None in 1.8+</td>
 <td>Allows access to resources required by the kubelet component, <b>including read access to all secrets, and write access to all pod status objects</b>.
