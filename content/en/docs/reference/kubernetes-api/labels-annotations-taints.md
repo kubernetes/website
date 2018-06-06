@@ -1,6 +1,5 @@
 ---
 title: Well-Known Labels, Annotations and Taints
-weight: 20
 ---
 
 Kubernetes reserves all labels and annotations in the kubernetes.io namespace.  This document describes

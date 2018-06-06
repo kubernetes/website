@@ -1,6 +1,5 @@
 ---
 title: JSONPath Support
-weight: 60
 ---
 
 JSONPath template is composed of JSONPath expressions enclosed by {}.

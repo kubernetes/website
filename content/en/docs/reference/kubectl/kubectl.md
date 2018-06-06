@@ -1,7 +1,6 @@
 ---
 title: kubectl
 notitle: true
-weight: 20
 ---
 ## kubectl
 
