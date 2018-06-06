@@ -149,6 +149,9 @@
 /docs/getting-started-guide/*     /docs/setup/ 301
 /docs/getting-started-guides/     /docs/setup/pick-right-solution/ 301
 /docs/getting-started-guides/binary_release/    /docs/setup/building-from-source/ 301
+/docs/getting-started-guides/coreos/     /docs/setup/custom-cloud/coreos/ 301
+/docs/getting-started-guides/kops/     /docs/setup/custom-cloud/kops/ 301
+/docs/getting-started-guides/kubespray/     /docs/setup/custom-cloud/kubespray/ 301
 /docs/getting-started-guides/coreos/azure/     /docs/getting-started-guides/coreos/ 301
 /docs/getting-started-guides/coreos/bare_metal_calico/     /docs/getting-started-guides/coreos/ 301
 /docs/getting-started-guides/docker-multinode/*     /docs/setup/independent/create-cluster-kubeadm/ 301
