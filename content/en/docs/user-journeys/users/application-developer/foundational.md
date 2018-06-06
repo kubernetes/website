@@ -57,6 +57,11 @@ Verify that our application is running. We’ll use the kubectl get command and 
   ```
   kubectl get pods
   ```
+  'kubectl'
+  
+  <pre><code>kubectl get pods</code></pre>
+  * I am unordered list.
+
 
 
 Mauris sagittis nunc mi, eget dapibus sem sagittis sit amet. In ut massa dui. Etiam efficitur varius est egestas convallis. Aenean facilisis nisi vel arcu hendrerit sodales. Maecenas sed semper ipsum. Duis aliquam nunc ac erat pellentesque, vel cursus lectus consequat. Aenean condimentum rhoncus felis a venenatis. Aenean commodo odio id mi sollicitudin, nec accumsan sapien fermentum. Cras consectetur ligula ac nulla pretium, sit amet placerat nisl ultricies. Praesent fermentum venenatis tortor.
