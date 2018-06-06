@@ -10,40 +10,49 @@ cid: partners
     <main>
         <h5>Kubernetes works with partners to create a strong, vibrant codebase that supports a spectrum of complementary platforms.</h5>
         <div class="col-container">
-          <div class="col-nav"><center><h5><b>Kubernetes Certified Service Providers</b></h5>Vetted service providers with deep experience helping enterprises successfully adopt Kubernetes.<br><br><a href="#kcsp" class="button">See KCSP Partners</a></center></div>
-          <div class="col-nav"><center><h5><b>Certified Platforms & Distributions</b></h5>Software conformance ensures that every vendor’s version of Kubernetes supports the required APIs.<br><br><a href="#dist" class="button">See Conformance Partners</a></center></div>
-          <div class="col-nav"><center><h5><b>Kubernetes Training Partners</b></h5>Vetted training providers who have deep experience in cloud native technology training.<br><br><a href="#ktp" class="button">See KTP Partners</a></center></div>
-          <div class="col-nav"><center><h5><b>Technology Partners</b></h5><br>Integrations and plugins that add features to Kubernetes applications.<br><br><br><br><a href="#technology" class="button">See Technology Partners</a></center></div>
-          <div class="col-nav"><center><h5><b>Service Partners</b></h5><br>Consulting or management services to help companies implement Kubernetes in commercial applications.<br><br><a href="#service" class="button">See Service Partners</a></center></div>
+          <div class="col-nav"><center><h5><b>Kubernetes Certified Service Providers</b></h5>Vetted service providers with deep experience helping enterprises successfully adopt Kubernetes.<br><br><button id="defaultIframe" class="button" onClick="updateSrc(this.id)">See KCSP Partners</button></center></div>
+          <div class="col-nav"><center><h5><b>Certified Platforms & Distributions</b></h5>Software conformance ensures that every vendor’s version of Kubernetes supports the required APIs.<br><br><button id="firstIframe" class="button" onClick="updateSrc(this.id)">See Conformance Partners</button></a></center></div>
+          <div class="col-nav"><center><h5><b>Kubernetes Training Partners</b></h5>Vetted training providers who have deep experience in cloud native technology training.<br><br><br><button id="secondIframe" class="button" onClick="updateSrc(this.id)">See KTP Partners</button></center></div>
         </div>
-        <div class="kscp_section">
-        <h3><a id="kcsp"></a>Kubernetes Certified Service Providers (KCSP)</h3>
-        <p>The KCSP program is a vetted tier of service providers who have deep experience helping enterprises successfully adopt Kubernetes. KCSP partners offer Kubernetes support, consulting, professional services and training for organizations embarking on their Kubernetes journey. Learn more about the program <b><a href="https://www.cncf.io/certification/kcsp/">here</a></b>.</p>
-        <p>Interested in becoming a KCSP? Please <b><a href="https://docs.google.com/forms/d/e/1FAIpQLScih8ZxHpqxPDfZgizhGx5ilRlQKV6X9NBFgAkEd3d-6djKuQ/viewform">fill out this form.</a></b></p>
-        <div id="kcspContainer"></div>
-        </div>
-        <div class="dist_section">
-        <h3><a id="dist"></a>Certified Platforms & Distributions</h3>
-        <p>This program gives end users the confidence that when they use a Certified Kubernetes product they can rely on a high level of common functionality. It gives Independent Software Vendors (ISVs) confidence that if their customer is using a Certified Kubernetes platform that their software will behave as expected.</p>
-        <p>Interested in becoming a Certified Certified Platform or Distribution? <b><a href="https://www.cncf.io/certification/software-conformance/">Learn more.</b></a></p>
-        <div id="distContainer"></div>
-        </div>
-        <div class="ktp_section">
-        <h3><a id="ktp"></a>Kubernetes Training Partners</h3>
-        <p>Individuals or corporations who are looking for specialized training that maps directly to the Certified Kubernetes Administrator (CKA) and Certified Kubernetes Application Developer (CKAD) exams can choose from a list of KTPs who have passed this rigorous qualification process. Learn more about the program <b><a href="https://www.cncf.io/certification/training/">here</a></b></p>
-        <p>Interested in becoming a Kubernetes Training Partner? Please <b><a href="https://goo.gl/forms/lwKx3U24oIumFXvM2">fill out this form.</b></a></p>
-        <div id="ktpContainer"></div>
-        </div>
-          <div  class="tech_section">
-        <h3><a id="technology"></a>Technology Partners</h3>
-        <p>Technology partners offer integrations and plugins that add features to Kubernetes applications.</p>
-        <div id="isvContainer"></div>
-        </div>
-       <div class="service_Section">
-        <h3><a id="service"></a>Service Partners</h3>
-        <p>Service Partners offer consulting or management services to help companies implement and use Kubernetes in commercial applications.</p>
-        <div id="servContainer"></div>
-        </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+			var defaultLink = "https://landscape.cncf.io/grouping=landscape&landscape=kubernetes-certified-service-provider&embed=true";
+			var firstLink = "https://landscape.cncf.io/grouping=landscape&landscape=certified-kubernetes-distribution,certified-kubernetes-hosted,certified-kubernetes-installer&embed=true";
+      var secondLink = "https://landscape.cncf.io/grouping=landscape&landscape=kubernetes-training-partner&embed=true";
+
+      function updateSrc(buttonId) {
+      	if (buttonId == "defaultIframe") {
+        		$("#landscape").attr("src",defaultLink);
+        }
+        if (buttonId == "firstIframe") {
+         		$("#landscape").attr("src",firstLink);
+        }
+        if (buttonId == "secondIframe") {
+        		$("#landscape").attr("src",secondLink);
+        }
+      }
+</script>
+</head>
+<body>
+    <div id="frameHolder">
+      <iframe id="landscape" frameBorder="0" scrolling="no" style="width: 1px; min-width: 100%" src="https://landscape.cncf.io/grouping=landscape&landscape=kubernetes-certified-service-provider&embed=true"></iframe>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.6.0/iframeResizer.js"></script>
+      <script>
+        iFrameResize({
+          log:true,
+          messageCallback         : function(messageData){ // Callback fn when message is received
+            if (messageData.message.type === 'showModal') {
+              document.querySelector('body').style.overflow = 'hidden';
+            }
+            if (messageData.message.type === 'hideModal') {
+              document.querySelector('body').style.overflow = 'auto';
+            }
+          },
+        }, '#landscape');
+      </script>
+    </div>
+</body>
     </main>
 </section>
 
