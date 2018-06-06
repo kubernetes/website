@@ -37,8 +37,8 @@ To specify a Container as an Init Container, add the `initContainers` field on t
 a JSON array of objects of type
 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 alongside the app `containers` array.
-The status of the init containers is returned in `status.initContainerStatuses`
-field as an array of the container statuses (similar to the `status.containerStatuses`
+The status of the init containers is returned in `.status.initContainerStatuses`
+field as an array of the container statuses (similar to the `.status.containerStatuses`
 field).
 
 ### Differences from regular Containers
@@ -310,15 +310,15 @@ reasons:
 ## Support and compatibility
 
 A cluster with Apiserver version 1.6.0 or greater supports Init Containers
-using the `spec.initContainers` field. Previous versions support Init Containers
-using the alpha or beta annotations. The `spec.initContainers` field is also mirrored
+using the `.spec.initContainers` field. Previous versions support Init Containers
+using the alpha or beta annotations. The `.spec.initContainers` field is also mirrored
 into alpha and beta annotations so that Kubelets version 1.3.0 or greater can execute
 Init Containers, and so that a version 1.6 apiserver can safely be rolled back to version
 1.5.x without losing Init Container functionality for existing created pods.
 
 In Apiserver and Kubelet versions 1.8.0 or greater, support for the alpha and beta annotations
 is removed, requiring a conversion from the deprecated annotations to the
-`spec.initContainers` field.
+`.spec.initContainers` field.
 
 {{% /capture %}}
 

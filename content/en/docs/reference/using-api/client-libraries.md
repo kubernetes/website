@@ -12,7 +12,7 @@ API from various programming languages.
 {{% /capture %}}
 
 {{% capture body %}}
-To write applications using the [Kubernetes REST API](/docs/reference/api-overview/),
+To write applications using the [Kubernetes REST API](/docs/reference/using-api/api-overview/),
 you do not need to implement the API calls and request/response types yourself.
 You can use a client library for the programming language you are using.
 

@@ -508,7 +508,7 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #video { height: 200px; }
 
-#video { width: 100%; position: relative; background-image: url(/images/kub_video_banner_box.jpg); background-position: center center; background-size: cover; }
+#video { width: 100%; position: relative; background-image: url(/images/kub_video_banner_homepage.jpg); background-position: center center; background-size: cover; }
 
 #video > .light-text { display: none; position: absolute; top: 50%; left: 75%; width: 525px; padding-right: 80px; transform: translate(-50%, -50%); color: white; }
 
@@ -859,7 +859,7 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
   #oceanNodes main:nth-child(1) h3, #oceanNodes main:nth-child(1) p { text-align: left; }
   #oceanNodes main:nth-child(1) .image-wrapper { position: absolute; max-width: 48%; transform: translateY(-50%); }
   #oceanNodes main:nth-child(1) .image-wrapper img { max-width: 425px; }
-  #video { height: 550px; position: relative; background-image: url(../images/kub_video_banner_box.jpg); background-position: center center; background-size: cover; }
+  #video { height: 550px; position: relative; background-image: url(../images/kub_video_banner_homepage.jpg); background-position: center center; background-size: cover; }
   #talkToUs h4 br { display: block; }
   #talkToUs #bigSocial div { width: calc(25% - 18px); }
   #talkToUs #bigSocial div + div { margin-left: 20px; }

@@ -496,6 +496,40 @@ spec:
         - containerPort: 80
 ```
 
+### Kubelet and kube-proxy can now run as Windows services
+
+Starting with kubernetes v1.11, kubelet and kube-proxy can run as Windows services.
+
+This means that you can now register them as Windows services via `sc` command. More details about how to create Windows services with `sc` can be found [here](https://support.microsoft.com/en-us/help/251192/how-to-create-a-windows-service-by-using-sc-exe).
+
+**Examples:**
+
+To create the service:
+```
+PS > sc.exe create <component_name> binPath= "<path_to_binary> --service <other_args>"
+CMD > sc create <component_name> binPath= "<path_to_binary> --service <other_args>"
+```
+Please note that if the arguments contain spaces, it must be escaped. Example:
+```
+PS > sc.exe create kubelet binPath= "C:\kubelet.exe --service --hostname-override 'minion' <other_args>"
+CMD > sc create kubelet binPath= "C:\kubelet.exe --service --hostname-override 'minion' <other_args>"
+```
+To start the service:
+```
+PS > Start-Service kubelet; Start-Service kube-proxy
+CMD > net start kubelet && net start kube-proxy
+```
+To stop the service:
+```
+PS > Stop-Service kubelet (-Force); Stop-Service kube-proxy (-Force)
+CMD > net stop kubelet && net stop kube-proxy
+```
+To query the service:
+```
+PS > Get-Service kubelet; Get-Service kube-proxy;
+CMD > sc.exe queryex kubelet && sc qc kubelet && sc.exe queryex kube-proxy && sc.exe qc kube-proxy
+```
+
 ## Known Limitations for Windows Server Containers with v1.9
 
 Some of these limitations will be addressed by the community in future releases of Kubernetes:

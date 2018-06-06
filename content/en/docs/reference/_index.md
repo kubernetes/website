@@ -9,7 +9,7 @@ weight: 70
 
 ## API Reference
 
-* [Kubernetes API Overview](/docs/reference/api-overview/) - Overview of the API for Kubernetes.
+* [Kubernetes API Overview](/docs/reference/using-api/api-overview/) - Overview of the API for Kubernetes.
 * Kubernetes API Versions
   * [1.10](/docs/reference/generated/kubernetes-api/v1.10/)
   * [1.9](https://v1-9.docs.kubernetes.io/docs/reference/)
@@ -21,7 +21,7 @@ weight: 70
 ## API Client Libraries
 
 To call the Kubernetes API from a programming language, you can use
-[client libraries](/docs/reference/client-libraries/). Officially supported
+[client libraries](/docs/reference/using-api/client-libraries/). Officially supported
 client libraries:
 
 - [Kubernetes Go client library](https://github.com/kubernetes/client-go/)

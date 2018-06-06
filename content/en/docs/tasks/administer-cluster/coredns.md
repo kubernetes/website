@@ -31,6 +31,15 @@ kubeadm init --feature-gates=CoreDNS=true
 
 This installs CoreDNS instead of kube-dns.
 
+## Using a custom CoreDNS image repository with kubeadm
+
+To use a custom image repository for the CoreDNS image, e.g. one located in your own Docker registry,
+you can execute the following command after kubeadm has deployed the CoreDNS manifest:
+
+```shell
+kubectl set image -n kube-system deploy/coredns coredns=prefix.example.com/coredns/coredns:1.0.6
+```
+
 ## Upgrading an Existing Cluster with kubeadm
 
 In Kubernetes 1.10, you can also move to CoreDNS when you use `kubeadm` to upgrade

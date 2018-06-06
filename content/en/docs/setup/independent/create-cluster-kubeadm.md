@@ -85,6 +85,15 @@ timeframe; which also applies to `kubeadm`.
 1. 2 CPUs or more on the master
 1. Full network connectivity between all machines in the cluster (public or
    private network is fine)
+   
+{{< note >}}
+**Note:** This guide results in a Kubernetes cluster with one master and a
+number of nodes that you decide. A single master is not highly available. If
+you want to set up a multi-master cluster for high availability, you can
+follow
+[this guide instead](https://kubernetes.io/docs/setup/independent/high-availability/).
+{{< /note >}}
+ 
 {{% /capture %}}
 
 {{% capture steps %}}
@@ -326,9 +335,7 @@ Weave Net sets hairpin mode by default. This allows Pods to access themselves vi
 if they don't know their PodIP.
 
 ```shell
-export kubever=$(kubectl version | base64 | tr -d '
-')
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
 {{% /tab %}}
 {{< /tabs >}}
