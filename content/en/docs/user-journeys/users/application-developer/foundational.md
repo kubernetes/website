@@ -58,6 +58,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu nibh ultrice
     kubectl scale deployment app --replicas 3
     ```
 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu nibh ultrices, fermentum dui a, rhoncus arcu.
+
 {{< /tab >}}
 {{< tab name="3. Expose" >}}
 
@@ -95,9 +97,8 @@ This is in an H6 section.
 
 
 
-  <pre><code>kubectl get pods</code></pre>
-  <li><ul> I am unordered list.</ul></li>
-
+<pre><code>kubectl get pods</code></pre>
+<ul><li>I am unordered list.</li></ul>
 
 
 
