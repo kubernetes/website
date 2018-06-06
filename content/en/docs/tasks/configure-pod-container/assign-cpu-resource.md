@@ -20,11 +20,10 @@ but is not allowed to use more CPU than its limit.
 
 Each node in your cluster must have at least 1 cpu.
 
-A few of the steps on this page require that
+A few of the steps on this page require you to run the
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server)
-service is running in your cluster. But if you don't have metrics-server
-running, you can do most of the steps, and it won't be a problem if you
-skip the metrics-server steps.
+service in your cluster. If you don't have metrics-server
+running, you can skip those steps.
 
 If you are running minikube, run the following command to enable
 metrics-server:
@@ -40,8 +39,9 @@ API, `metrics.k8s.io`) is running, enter this command:
 kubectl get apiservices
 ```
 
-If the resource metrics API is available, it will contain output similar
-to:
+If the resource metrics API is available, the output will include a
+reference to `metrics.k8s.io`.
+
 
 ```shell
 NAME      
