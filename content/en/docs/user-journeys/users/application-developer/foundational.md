@@ -76,12 +76,16 @@ This is in an H6 section.
     ```
     kubectl get pods
     ```
-
-
-
-
-  <pre><code>kubectl get pods</code></pre>
-  <li><ul> I am unordered list.</ul></li>
+**bold**
+_italic_
+    - ***bold italic***
+    - ~~strikethrough~~
+    - <u>underline</u>
+    - _<u>underline italic</u>_
+    - **<u>underline bold</u>**
+    - ***<u>underline bold italic</u>***
+    - `monospace text`
+    - **`monospace bold`**
 
 
 
