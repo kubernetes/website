@@ -31,19 +31,21 @@ If you're a developer looking to run applications on Kubernetes, this page and i
 
 1. Deploy a sample app.
 
+    ```
     kubectl run kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1 --port=8080
+    ```
 
 1. Verify the deployment.
 
+    ```
     kubectl get deployments
+    ```
 
 1. View the app deployment.
 
+    ```
     curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/proxy/
-
-    Hello World
-
-    Hello, there!
+    ```
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu nibh ultrices, fermentum dui a, rhoncus arcu. Aliquam sed ultricies est, quis rhoncus sapien. Aliquam at risus sed odio maximus rhoncus et et tellus. Vivamus euismod dui ac ligula iaculis, in facilisis nulla tincidunt. Ut consequat metus sed turpis tempus, vel fermentum mi lacinia. Vestibulum orci lacus, tincidunt sit amet aliquam at, venenatis vitae metus. Aenean molestie metus at dui mollis congue. Aliquam ac venenatis ante. Maecenas convallis viverra sapien ac imperdiet. Proin eget erat venenatis, mollis nunc at, facilisis metus.
 {{% /tab %}}
