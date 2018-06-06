@@ -2,6 +2,7 @@
 reviewers:
 - mikedanese
 title: Labels and Selectors
+weight: 40
 ---
 
 _Labels_ are key/value pairs that are attached to objects, such as pods.

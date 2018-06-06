@@ -1,5 +1,6 @@
 ---
 title: Certificates
+weight: 20
 ---
 
 {{< toc >}}
