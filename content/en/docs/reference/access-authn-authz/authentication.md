@@ -766,10 +766,10 @@ KUBERNETES_EXEC_INFO='{
 ```
 
 When plugins are executed from an interactive session, `stdin` and `stderr` are directly
-exposed to the plugin so it can prompt the user for input for interactive logins.
+exposed to the plugin so the user can provide input for interactive logins.
 
-When responding to a 401 HTTP status code (indicating invalid credentials), this object will
-include metadata about the response.
+When responding to a 401 HTTP status code, which indicates invalid credentials, this object
+includes metadata about the response.
 
 ```json
 {
@@ -789,16 +789,13 @@ include metadata about the response.
 }
 ```
 
-The executed command is expected to print an `ExceCredential` to `stdout`.
-`k8s.io/client-go` will then use the returned bearer token and/or client TLS
-key and certificate from the `status` field when authenticating against the
-Kubernetes API.
-
-- The returned status may contain `token`, `clientCertificateData` and
-  `clientKeyData`, or all three
-- `clientCertificateData` and `clientKeyData` must be provided together
-- `clientCertificateData` may contain additional intermediate certificates to
-  send to the server
+When the plugin prints `ExecCredential` to `stdout`, the `k8s.io/cient-go` library
+looks for a bearer token or client TLS key and certificate (or all three) in the
+`status` field and uses it to authenticate against the Kubernetes API. The library can
+use a bearer token on its own (`token`), a client TLS key and certificate
+(`clientKeyData` and `clientCertificateData`; both must be present), or a combination
+of both methods. `clientCertificateData` may contain additional intermediate
+certificates to send to the server.
 
 ```json
 {
@@ -814,9 +811,8 @@ Kubernetes API.
 
 Optionally, this output can include the expiry of the token formatted as a
 RFC3339 timestamp. If an expiry is omitted, the bearer token and TLS
-credentials are cached until the server responds with a 401 HTTP status code.
-Note that this caching is only for the duration of process and therefore the
-plugin is triggered each time the tool using the plugin is invoked.
+credentials are cached until the server responds with a 401 HTTP status code
+or until the process completes.
 
 ```json
 {
