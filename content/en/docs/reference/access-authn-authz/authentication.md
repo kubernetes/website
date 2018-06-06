@@ -809,10 +809,15 @@ certificates to send to the server.
 }
 ```
 
-Optionally, this output can include the expiry of the token formatted as a
-RFC3339 timestamp. If an expiry is omitted, the bearer token and TLS
-credentials are cached until the server responds with a 401 HTTP status code
-or until the process completes.
+Optionally, the response can include the expiry of the token formatted as a
+RFC3339 timestamp. Presence or absense of an expiry has the following impact:
+
+- If an expiry is included, the bearer token and TLS credentials are cached until
+  the expiry time is reached, or if the server responds with a 401 HTTP status code,
+  or when the process exits.
+- If an expiry is omitted, the bearer token and TLS credentials are cached until
+  the server responds with a 401 HTTP status code or until the process exits.
+
 
 ```json
 {
