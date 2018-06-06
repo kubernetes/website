@@ -104,7 +104,7 @@ Write your post using the following guidelines.
 
 ### Add images
 
-Add any image files the post contains to `/images/blog/`.
+Add any image files the post contains to `/static/images/blog/`.
 
 The preferred image format is SVG.
 
