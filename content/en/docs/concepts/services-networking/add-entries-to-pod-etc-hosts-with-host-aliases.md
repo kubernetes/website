@@ -3,6 +3,7 @@ reviewers:
 - rickypai
 - thockin
 title: Adding entries to Pod /etc/hosts with HostAliases
+weight: 60
 ---
 
 {{< toc >}}

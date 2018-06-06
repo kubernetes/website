@@ -6,6 +6,7 @@ reviewers:
 - msau42
 title: Dynamic Volume Provisioning
 content_template: templates/concept
+weight: 40
 ---
 
 {{% capture overview %}}

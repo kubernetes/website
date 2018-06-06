@@ -3,6 +3,7 @@ reviewers:
 - bprashanth
 title: Ingress
 content_template: templates/concept
+weight: 40
 ---
 
 {{% capture overview %}}
