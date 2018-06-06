@@ -3,7 +3,6 @@ reviewers:
 - david-mcmahon
 - jbeda
 title: Building from Source
-weight: 20
 ---
 
 You can either build a release from source or download a pre-built release.  If you do not plan on developing Kubernetes itself, we suggest using a pre-built version of the current release, which can be found in the [Release Notes](/docs/imported/release/notes/).
