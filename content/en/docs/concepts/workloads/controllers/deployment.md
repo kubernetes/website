@@ -714,7 +714,7 @@ $ kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSecond
 deployment "nginx-deployment" patched
 ```
 Once the deadline has been exceeded, the Deployment controller adds a DeploymentCondition with the following
-attributes to the Deployment's `status.conditions`:
+attributes to the Deployment's `.status.conditions`:
 
 * Type=Progressing
 * Status=False

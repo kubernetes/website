@@ -49,9 +49,9 @@ medium that backs it, and the contents of it are determined by the particular
 volume type used.
 
 To use a volume, a Pod specifies what volumes to provide for the Pod (the
-`spec.volumes`
+`.spec.volumes`
 field) and where to mount those into Containers (the
-`spec.containers.volumeMounts`
+`.spec.containers.volumeMounts`
 field).
 
 A process in a container sees a filesystem view composed from their Docker
