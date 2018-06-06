@@ -61,9 +61,9 @@ Markdown doesn't have strict rules about how to process lists. When we moved
 from Jekyll to Hugo, we broke some lists. To fix them, keep the following in
 mind:
 
-- Make sure you indent sub-list items **4 spaces** rather than 2 that you may be
-  used to. Counter-intuitively, you need to indent block-level content within a
-  list item an extra 4 spaces too.
+- Make sure you indent sub-list items **4 spaces** rather than the 2 that you
+  ma be yused to. Counter-intuitively, you need to indent block-level content
+  within a list item an extra 4 spaces too.
 
 - To end a list and start another, you need a HTML comment block on a new line
   between the lists, flush with the left-hand border. The first list won't end
@@ -75,7 +75,7 @@ mind:
 * This is another list item in the same list
 - You can mix `-` and `*`
     - To make a sub-item, indent two tabstops (4 spaces). **This is different
-      from Jekyll / Kramdown.**
+      from Jekyll and Kramdown.**
         - This is a sub-sub-item. Indent two more tabstops (4 more spaces).
     - Another sub-item.
 
@@ -85,7 +85,7 @@ mind:
   consecutive lists. **The HTML comment needs to be at the left margin.**
 - Bullet lists can have paragraphs or block elements within them.
 
-      Just indent the content to be one tab stop beyond the text of the bullet
+      Indent the content to be one tab stop beyond the text of the bullet
       point. **This paragraph and the code block line up with the second `l` in
       `Bullet` above.**
 
@@ -139,9 +139,18 @@ Checlists are technically bullet lists, but the bullets are suppressed by CSS.
 ## Code blocks
 
 You can create code blocks two different ways by surrounding the code block with
-three back-tick characters on lines before and after the code block. **Don't use
-the indentation method of creating code blocks, because it does not work
-reliably in all situations.**
+three back-tick characters on lines before and after the code block. **Only use
+back-ticks (code fences) for code blocks.** This allows you to specify the
+language of the enclosed code, which enables syntax highlighting. It is also more
+predictable than using indentation.
+
+{{< warning >}}
+There is one situation where you need to use indentation for code blocks: when
+the contents of the code block contain lines starting with `-` or `*` characters.
+This is due to
+[blackfriday issue #239](https://github.com/russross/blackfriday/issues/239).
+{{< /warning >}}
+
   
 ```
 this is a code block created by back-ticks
@@ -149,7 +158,7 @@ this is a code block created by back-ticks
 
 The back-tick method has some advantages.
 
-- It works every time
+- It works nearly every time
 - It is more compact when viewing the source code.
 - It allows you to specify what language the code block is in, for syntax
   highlighting.
@@ -162,6 +171,16 @@ grouping of back-ticks:
 ```bash
 ls -l
 ```
+
+Common languages used in Kubernetes documentation code blocks include:
+
+- `bash` / `shell` (both work the same)
+- `go`
+- `json`
+- `yaml`
+- `xml`
+- `none` (disables syntax highlighting for the block)
+
 
 ## Links
 
