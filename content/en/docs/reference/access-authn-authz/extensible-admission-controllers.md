@@ -91,7 +91,7 @@ You can dynamically configure what resources are subject to what admission
 webhooks via
 [ValidatingWebhookConfiguration](https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/staging/src/k8s.io/api/admissionregistration/v1beta1/types.go#L68)
 or
-[MutatingWebhookConifiguration](https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/staging/src/k8s.io/api/admissionregistration/v1beta1/types.go#L98).
+[MutatingWebhookConfiguration](https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/staging/src/k8s.io/api/admissionregistration/v1beta1/types.go#L98).
 
 The following is an example `validatingWebhookConfiguration`, a mutating webhook
 configuration is similar.
