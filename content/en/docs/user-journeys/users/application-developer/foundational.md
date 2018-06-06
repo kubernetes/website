@@ -51,12 +51,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu nibh ultrice
 {{% /tab %}}
 {{< tab name="2. Expose" >}}
 
-1. Create a new service
-
-    ```
-    kubectl get pods
-    ```
-
 ### H3
 
 This is in an H3 section.
@@ -74,6 +68,14 @@ This is in an H5 section.
 ###### H6
 
 This is in an H6 section.
+
+1. Create a new service
+
+    ```
+    kubectl get pods
+    ```
+
+
 
 
   <pre><code>kubectl get pods</code></pre>
