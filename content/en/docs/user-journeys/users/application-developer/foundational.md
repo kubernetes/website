@@ -52,15 +52,27 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu nibh ultrice
 {{< tab name="2. Expose" >}}
 1. Create a new service
 
-Verify that our application is running. We’ll use the kubectl get command and look for existing Pods:
+    ```
+    kubectl get pods
+    ```
+### H3
+This is in an H3 section.
 
-  ```
-  kubectl get pods
-  ```
-  'kubectl'
+#### H4
+
+This is in an H4 section.
+
+##### H5
+
+This is in an H5 section.
+
+###### H6
+
+This is in an H6 section.
+
 
   <pre><code>kubectl get pods</code></pre>
-  <li> I am unordered list.</li>
+  <li><ul> I am unordered list.</ul></li>
 
 
 
