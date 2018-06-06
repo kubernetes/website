@@ -789,7 +789,7 @@ includes metadata about the response.
 }
 ```
 
-When the plugin prints `ExecCredential` to `stdout`, the `k8s.io/cient-go` library
+After the plugin outputs an `ExecCredential` structure to `stdout`, the `k8s.io/cient-go` library
 looks for a bearer token or client TLS key and certificate (or all three) in the
 `status` field and uses it to authenticate against the Kubernetes API. The library can
 use a bearer token on its own (`token`), a client TLS key and certificate
