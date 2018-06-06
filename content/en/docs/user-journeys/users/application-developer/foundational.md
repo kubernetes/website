@@ -58,9 +58,10 @@ Verify that our application is running. We’ll use the kubectl get command and 
   kubectl get pods
   ```
   'kubectl'
-  
+
   <pre><code>kubectl get pods</code></pre>
-  * I am unordered list.
+  <li> I am unordered list.</li>
+
 
 
 
