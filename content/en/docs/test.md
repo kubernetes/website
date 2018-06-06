@@ -57,31 +57,47 @@ culpa qui officia deserunt mollit anim id est laborum.
 
 ## Lists
 
+Markdown doesn't have strict rules about how to process lists. When we moved
+from Jekyll to Hugo, we broke some lists. To fix them, keep the following in
+mind:
+
+- Make sure you indent sub-list items **4 spaces** rather than the 2 that you
+  ma be yused to. Counter-intuitively, you need to indent block-level content
+  within a list item an extra 4 spaces too.
+
+- To end a list and start another, you need a HTML comment block on a new line
+  between the lists, flush with the left-hand border. The first list won't end
+  otherwise, no matter how many blank lines you put between it and the second.
+
 ### Bullet lists
 
 - This is a list item
 * This is another list item in the same list
 - You can mix `-` and `*`
-  - To make a sub-item, indent two spaces.
-    - This is a sub-sub-item.
+    - To make a sub-item, indent two tabstops (4 spaces). **This is different
+      from Jekyll and Kramdown.**
+        - This is a sub-sub-item. Indent two more tabstops (4 more spaces).
+    - Another sub-item.
 
+<!-- separate lists -->
 
-
-- This is a new list. It has two blank lines from the previous list, If it only
-  had one blank line, it would still show up as part of the previous list.
+- This is a new list. With Hugo, you need to use a HTML comment to separate two
+  consecutive lists. **The HTML comment needs to be at the left margin.**
 - Bullet lists can have paragraphs or block elements within them.
 
-  Just indent the content to be even with the text of the bullet point, rather
-  than the bullet itself.
+      Indent the content to be one tab stop beyond the text of the bullet
+      point. **This paragraph and the code block line up with the second `l` in
+      `Bullet` above.**
 
-  ```bash
-  ls -l
-  ```
+      ```bash
+      ls -l
+      ```
   
-  - And a sub-list after some block-level content
+      - And a sub-list after some block-level content
+    
 - A bullet list item can contain a numbered list.
-  1.  Numbered sub-list item 1
-  2.  Numbered sub-list item 2
+    1.  Numbered sub-list item 1
+    2.  Numbered sub-list item 2
 
 ### Numbered lists
 
@@ -89,47 +105,60 @@ culpa qui officia deserunt mollit anim id est laborum.
 2.  This is another list item in the same list. The number you use in Markdown
     does not necessarily correlate to the number in the final output. By
     convention, we keep them in sync.
-3.  For single-digit numbered lists, using two spaces after the period makes
+3.  {{<note>}}
+    For single-digit numbered lists, using two spaces after the period makes
     interior block-level content line up better along tab-stops.
+    {{</note>}}
 
+<!-- separate lists -->
 
-
-1.  This is a new list. It has two blank lines from the previous list, If it only
-    had one blank line, it would still show up as part of the previous list.
+1.  This is a new list. With Hugo, you need to use a HTML comment to separate
+    two consecutive lists. **The HTML comment needs to be at the left margin.**
 2.  Numbered lists can have paragraphs or block elements within them.
 
-    Just indent the content to be even with the text of the bullet point, rather
-    than the bullet itself.
+      Just indent the content to be one tab stop beyond the text of the bullet
+      point. **This paragraph and the code block line up with the `m` in
+      `Numbered` above.**
 
-    ```bash
-    $ ls -l
-    ```
-  
-  - And a sub-list after some block-level content
+      ```bash
+      $ ls -l
+      ```
+      
+    - And a sub-list after some block-level content. This is at the same
+      "level" as the paragraph and code block above, despite being indented
+      more.
 
 
 ### Checklists
+
+Checlists are technically bullet lists, but the bullets are suppressed by CSS.
 
 - [ ] This is a checklist item
 - [x] This is a selected checklist item
 
 ## Code blocks
 
-You can create code blocks two different ways:
+You can create code blocks two different ways by surrounding the code block with
+three back-tick characters on lines before and after the code block. **Only use
+back-ticks (code fences) for code blocks.** This allows you to specify the
+language of the enclosed code, which enables syntax highlighting. It is also more
+predictable than using indentation.
 
-- by indenting the entire code block 4 spaces from the content
+{{< warning >}}
+There is one situation where you need to use indentation for code blocks: when
+the contents of the code block contain lines starting with `-` or `*` characters.
+This is due to
+[blackfriday issue #239](https://github.com/russross/blackfriday/issues/239).
+{{< /warning >}}
 
-      this is a code block created by indentation
-      
-- by surrounding the code block with three back-tick characters on lines before
-  and after the code block.
   
-  ```
-  this is a code block created by back-ticks
-  ```
+```
+this is a code block created by back-ticks
+```
 
 The back-tick method has some advantages.
 
+- It works nearly every time
 - It is more compact when viewing the source code.
 - It allows you to specify what language the code block is in, for syntax
   highlighting.
@@ -142,6 +171,16 @@ grouping of back-ticks:
 ```bash
 ls -l
 ```
+
+Common languages used in Kubernetes documentation code blocks include:
+
+- `bash` / `shell` (both work the same)
+- `go`
+- `json`
+- `yaml`
+- `xml`
+- `none` (disables syntax highlighting for the block)
+
 
 ## Links
 
