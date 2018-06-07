@@ -9,26 +9,26 @@ content_template: templates/task
 {{% capture overview %}}
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
-The [Dynamic Kubelet Configuration](https://github.com/kubernetes/features/issues/281)
-feature allows you to change the configuration of each Kubelet in a live Kubernetes
+[Dynamic Kubelet Configuration](https://github.com/kubernetes/features/issues/281)
+allows you to change the configuration of each Kubelet in a live Kubernetes
 cluster by deploying a ConfigMap and configuring each Node to use it.
 
-**Warning:** All Kubelet configuration parameters may be changed dynamically,
-but not all parameters are safe to change dynamically. This feature is intended
-for system experts who have a strong understanding of how configuration changes
-will affect behavior. In general, you should always carefully test config changes
-on a small set of nodes before rolling them out to your entire cluster.
-Additional per-config-field advice can be found in the inline `KubeletConfiguration`
+{{< warning >}}
+**Warning:** All Kubelet configuration parameters can be changed dynamically,
+but this is unsafe for some parameters. Before deciding to change a parameter
+dynamically, you need a strong understanding of how that change will affect your
+cluster's behavior. Always carefully test configuration changes on a small set
+of nodes before rolling them out cluster-wide. Advice on configuring specific
+fields is available in the inline `KubeletConfiguration`
 [type documentation](https://github.com/kubernetes/kubernetes/blob/release-1.11/pkg/kubelet/apis/kubeletconfig/v1beta1/types.go).
+{{< /warning >}}
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-- A live Kubernetes cluster with both Master and Node at v1.11 or higher must
-be running and the Kubelet's `--dynamic-config-dir` flag must be set to a
-writable directory on the Node.
-This flag must be set to enable Dynamic Kubelet Configuration.
-- The kubectl command-line tool must be v1.11 or higher, and must be
-configured to communicate with the cluster.
+- Kubernetes v1.11 or higher on both the Master and the Nodes
+- kubectl v1.11 or higher, configured to communicate with the cluster
+- The Kubelet's `--dynamic-config-dir` flag must be set to a writable
+  directory on the Node.
 {{% /capture %}}
 
 {{% capture steps %}}
@@ -68,17 +68,19 @@ example, which facilitate scripted workflows.
 This document only describes a single Node consuming each ConfigMap. Keep in
 mind that it is also valid for multiple Nodes to consume the same ConfigMap.
 
-**Warning:** Note that while it is *possible* to change the configuration by
-updating the ConfigMap in-place, this will cause all Kubelets configured with
+{{< warning >}}
+**Warning:** While it is *possible* to change the configuration by
+updating the ConfigMap in-place, this causes all Kubelets configured with
 that ConfigMap to update simultaneously. It is much safer to treat ConfigMaps
 as immutable by convention, aided by `kubectl`'s `--append-hash` option,
 and incrementally roll out updates to `Node.Spec.ConfigSource`.
+{{< /warning >}}
 
-### Note Regarding the Node Authorizer
+### Automatic RBAC rules for Node Authorizer
 
-Old versions of this document required users to manually create RBAC rules
-for Nodes to access their assigned ConfigMaps. The Node Authorizer now
-automatically configures these rules, so this step is no longer necessary.
+Previously, you were required to manually create RBAC rules
+to allow Nodes to access their assigned ConfigMaps. The Node Authorizer now
+automatically configures these rules.
 
 ### Generating a file that contains the current configuration
 
@@ -89,55 +91,58 @@ and debug issues. The compromise, however, is that you must start with knowledge
 of the existing configuration to ensure that you only change the fields you
 intend to change.
 
-In the future, the Kubelet will be bootstrapped from just a file on disk
+Ideally, the Kubelet would be bootstrapped from a file on disk
+and you could edit this file (which could also be version-controlled),
+to create the first Kubelet ConfigMap
 (see [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file)),
-and you will simply edit a copy of this file (which, as a best practice, should
-live in version control) while creating the first Kubelet ConfigMap. Today,
-however, the Kubelet is bootstrapped with a combination of this file and command-line flags
+Currently, the Kubelet is bootstrapped with **a combination of this file and command-line flags**
 that can override the configuration in the file.
-Fortunately, there is a dirty trick you can use to generate a config file containing a Node's
-current configuration. The trick involves accessing the Kubelet server's `configz`
+As a workaround, you can use to generate a config file containing a Node's
+current configuration by accessing the Kubelet server's `configz`
 endpoint via the kubectl proxy. This endpoint, in its current implementation, is
-intended to be used only as a debugging aid, which is part of why this is a
-dirty trick. The endpoint may be improved in the future, but until then
-it should not be relied on for production scenarios.
-This trick also requires the `jq` command to be installed on your machine,
-for unpacking and editing the JSON response from the endpoint.
+intended to be used only as a debugging aid. Do not rely on the behavior of this
+endpoint for production scenarios.
+The `jq` command needs to be installed on your system, to unpack and edit the
+JSON response from the endpoint.
 
-Do the following to generate the file:
+#### Generate the configuration file
 
-1. Pick a Node to reconfigure. We will refer to this Node's name as NODE_NAME.
-2. Start the kubectl proxy in the background with `kubectl proxy --port=8001 &`
+1. Pick a Node to reconfigure. In this example, this Node is named `NODE_NAME`.
+2. Start the kubectl proxy in the background using the following command: 
+    ```bash
+    kubectl proxy --port=8001 &
+    ```
 3. Run the following command to download and unpack the configuration from the
-configz endpoint:
+   `configz` endpoint. The command is long, so be careful when copying and
+   pasting.
 
-```
-$ export NODE_NAME=the-name-of-the-node-you-are-reconfiguring
-$ curl -sSL http://localhost:8001/api/v1/nodes/${NODE_NAME}/proxy/configz | jq '.kubeletconfig|.kind="KubeletConfiguration"|.apiVersion="kubelet.config.k8s.io/v1beta1"' > kubelet_configz_${NODE_NAME}
-```
+    ```bash
+    NODE_NAME=the-name-of-the-node-you-are-reconfiguring; curl -sSL http://localhost:8001/api/v1/nodes/${NODE_NAME}/proxy/configz | jq '.kubeletconfig|.kind="KubeletConfiguration"|.apiVersion="kubelet.config.k8s.io/v1beta1"' > kubelet_configz_${NODE_NAME}
+    ```
 
-Note that we have to manually add the `kind` and `apiVersion` to the downloaded
-object, as these are not reported by the configz endpoint. This is one of the
-limitations of the endpoint.
+{{< note >}}
+You need to manually add the `kind` and `apiVersion` to the downloaded
+object, because they are not reported by the `configz` endpoint.
+{{< /note >}}
 
-### Edit the configuration file
+#### Edit the configuration file
 
-Using your editor of choice, change one of the parameters in the
-`kubelet_configz_${NODE_NAME}` file from the previous step. A QPS parameter,
-`eventRecordQPS` for example, is a good candidate.
+Using a text editor, change one of the parameters in the
+file generated by the previous procedure. For example, you
+might add the QPS parameter `eventRecordQPS`.
 
-### Push the configuration file to the control plane
+#### Push the configuration file to the control plane
 
 Push the edited configuration file to the control plane with the
 following command:
 
-```
-$ kubectl -n kube-system create configmap my-node-config --from-file=kubelet=kubelet_configz_${NODE_NAME} --append-hash -o yaml
+```bash
+kubectl -n kube-system create configmap my-node-config --from-file=kubelet=kubelet_configz_${NODE_NAME} --append-hash -o yaml
 ```
 
-You should see a response similar to:
+This is an example of a valid response:
 
-```
+```none
 apiVersion: v1
 data:
   kubelet: |
@@ -152,27 +157,27 @@ metadata:
   uid: 946d785e-998a-11e7-a8dd-42010a800006
 ```
 
-We create the ConfigMap in the `kube-system` namespace, which is appropriate
-because this ConfigMap configures a Kubernetes system component - the Kubelet.
+The ConfigMap is created in the `kube-system` namespace because this
+ConfigMap configures a Kubelet, which is Kubernetes system component.
 
 The `--append-hash` option appends a short checksum of the ConfigMap contents
-to the name. This is convenient for an edit->push workflow, as it will
-automatically, yet deterministically, generate new names for new ConfigMaps.
-We will refer to the name that includes this generated hash as
-`CONFIG_MAP_NAME` below.
+to the name. This is convenient for an edit-then-push workflow, because it
+automatically, yet deterministically, generates new names for new ConfigMaps.
+The name that includes this generated hash is referred to as `CONFIG_MAP_NAME`
+in the following examples.
 
-### Set the Node to use the new configuration
+#### Set the Node to use the new configuration
 
 Edit the Node's reference to point to the new ConfigMap with the
 following command:
 
-```
+```bash
 kubectl edit node ${NODE_NAME}
 ```
 
-Once in your editor, add the following YAML under `spec`:
+In your text editor, add the following YAML under `spec`:
 
-```
+```yaml
 configSource:
     configMap:
         name: CONFIG_MAP_NAME
@@ -180,32 +185,38 @@ configSource:
         kubeletConfigKey: kubelet
 ```
 
-Be sure to specify all three of `name`, `namespace`, and `kubeletConfigKey`.
-The last parameter tells the Kubelet which key of the ConfigMap it can find
-its config in.
+You must specify all three of `name`, `namespace`, and `kubeletConfigKey`.
+The `kubeletConfigKey` parameter shows the Kubelet which key of the ConfigMap
+contains its config.
 
-### Observe that the Node begins using the new configuration
+#### Observe that the Node begins using the new configuration
 
-Retrieve the Node with `kubectl get node ${NODE_NAME} -o yaml`, and inspect
-`Node.Status.Config`. You should see the config sources corresponding to the `active`,
-`assigned`, and `lastKnownGood` configurations reported in the status. The `active`
-configuration is the version the Kubelet is currently running with, the `assigned`
-configuration is the latest version the Kubelet has resolved based on
-`Node.Spec.ConfigSource`, and the `lastKnownGood` configuration is the version the
-Kubelet will fall back to if an invalid config is assigned in `Node.Spec.ConfigSource`.
+Retrieve the Node using the `kubectl get node ${NODE_NAME} -o yaml` command and inspect
+`Node.Status.Config`. The config sources corresponding to the `active`,
+`assigned`, and `lastKnownGood` configurations are reported in the status.
 
-You might not see `lastKnownGood` appear in the status if it is set to its default value,
+- The `active` configuration is the version the Kubelet is currently running with.
+- The `assigned` configuration is the latest version the Kubelet has resolved based on
+  `Node.Spec.ConfigSource`.
+- The `lastKnownGood` configuration is the version the
+  Kubelet will fall back to if an invalid config is assigned in `Node.Spec.ConfigSource`.
+
+The`lastKnownGood` configuration might not be present if it is set to its default value,
 the local config deployed with the node. The status will update `lastKnownGood` to
 match a valid `assigned` config after the Kubelet becomes comfortable with the config. 
 The details of how the Kubelet determines a config should become the `lastKnownGood` are 
-not guaranteed by the API, though it may be useful, for debugging purposes, to know that
-this is presently implemented as a 10-minute grace period. 
+not guaranteed by the API, but is currently implemented as a 10-minute grace period.
 
-For convenience, you can use the following command (using `jq`) to filter down
+You can use the following command (using `jq`) to filter down
 to the config status:
 
+```bash
+kubectl get no ${NODE_NAME} -o json | jq '.status.config'
 ```
-$ kubectl get no ${NODE_NAME} -o json | jq '.status.config'
+
+The following is an example response:
+
+```json
 {
   "active": {
     "configMap": {
@@ -238,81 +249,51 @@ $ kubectl get no ${NODE_NAME} -o json | jq '.status.config'
 
 ```
 
-If something goes wrong, the Kubelet will report any configuration related errors
-in `Node.Status.Config.Error`. You may see one of several possible errors, which
-are detailed in a table at the end of this article. If you see any of these errors,
-you can search for the same error message in the Kubelet's log for additional details.
+If an error occurs, the Kubelet reports it in the `Node.Status.Config.Error`
+structure. Possible errors are listed in
+[Understanding Node.Status.Config.Error messages](#understanding-node-status-config-error-messages).
+If you see an error, you can search for it in the Kubelet's log for additional
+details.
 
-### Edit the configuration file again
+#### Make more changes
 
-To change the configuration again, we simply repeat the above workflow.
-Try editing the `kubelet_configz_${NODE_NAME}` file, changing the previously changed parameter to a
-new value.
+Follow the workflow above to make more changes and push them again. Each
+time you change the ConfigMap's contents, it gets a new name.
 
-### Push the newly edited configuration to the control plane
+#### Reset the Node to use its local default configuration
 
-Push the new configuration to the control plane in a new ConfigMap with the
-following command:
+To reset the Node to use the configuration it was provisioned with, edit the
+Node using `kubectl edit node ${NODE_NAME}` and remove the
+`Node.Spec.ConfigSource` field.
 
-```
-$ kubectl -n kube-system create configmap my-node-config --from-file=kubelet=kubelet_configz_${NODE_NAME} --append-hash -o yaml
-```
+#### Observe that the Node is using its local default configuration
 
-This new ConfigMap will get a new name, as we have changed the contents.
-We will refer to the new name as `NEW_CONFIG_MAP_NAME`.
-
-### Configure the Node to use the new configuration
-
-Once more, edit `Node.Spec.ConfigSource` via `kubectl edit node ${NODE_NAME}`.
-Your new `Node.Spec.ConfigSource` should look like the following,
-with `${NEW_CONFIG_MAP_NAME}` substituted as necessary:
-
-```
-configSource:
-    configMap:
-        name: ${NEW_CONFIG_MAP_NAME}
-        namespace: kube-system
-        kubeletConfigKey: kubelet
-```
-
-### Observe that the Kubelet is using the new configuration
-
-Once more, retrieve the Node with `kubectl get node ${NODE_NAME} -o yaml`, and
-look for a `Node.Status.Config` that reports the new configuration as `assigned`
-and `active`, with no errors.
-
-### Reset the Node to use its local default configuration
-
-Finally, if you wish to reset the Node to use the configuration it was
-provisioned with, simply edit the Node with `kubectl edit node ${NODE_NAME}` and
-remove the `Node.Spec.ConfigSource` field.
-
-### Observe that the Node is using its local default configuration
-
-After removing this subfield, you should eventually observe that `Node.Status.Config`
-has become empty, as all config sources have been reset to `nil` (indicating the local
+After removing this subfield, `Node.Status.Config` eventually becomes
+empty, since all config sources have been reset to `nil`, which indicates that the local
 default config is `assigned`, `active`, and `lastKnownGood`), and no error is reported.
 
 {{% /capture %}}
 
 {{% capture discussion %}}
 ## Kubectl Patch Example
-As mentioned above, there are many ways to change a Node's configSource.
-Here is an example command that uses `kubectl patch`:
 
-```
+You can change a Node's configSource using several different mechanisms.
+This example uses `kubectl patch`:
+
+```bash
 kubectl patch node ${NODE_NAME} -p "{\"spec\":{\"configSource\":{\"configMap\":{\"name\":\"${CONFIG_MAP_NAME}\",\"namespace\":\"kube-system\",\"kubeletConfigKey\":\"kubelet\"}}}}"
 ```
 
 ## Understanding how the Kubelet checkpoints config
 
 When a new config is assigned to the Node, the Kubelet downloads and unpacks the
-config payload as a set of files on local disk. The Kubelet also records metadata
+config payload as a set of files on the local disk. The Kubelet also records metadata
 that locally tracks the assigned and last-known-good config sources, so that the
 Kubelet knows which config to use across restarts, even if the API server becomes 
 unavailable. After checkpointing a config and the relevant metadata, the Kubelet 
-will exit if the assigned config has changed. When the Kubelet is restarted by the
-babysitter process, it will read the new metadata, and use the new config.
+exits if it detects that the assigned config has changed. When the Kubelet is
+restarted by the OS-level service manager (such as `systemd`), it reads the new
+metadata and uses the new config.
 
 The recorded metadata is fully resolved, meaning that it contains all necessary
 information to choose a specific config version - typically a `UID` and `ResourceVersion`.
@@ -320,10 +301,10 @@ This is in contrast to `Node.Spec.ConfigSource`, where the intended config is de
 via the idempotent `namespace/name` that identifies the target ConfigMap; the Kubelet 
 tries to use the latest version of this ConfigMap.
 
-It can sometimes be useful to inspect the Kubelet's config metadata and checkpoints
-when debugging a Node. The structure of the Kubelet's checkpointing directory is as follows:
+When you are debugging problems on a node, you can inspect the Kubelet's config
+metadata and checkpoints. The structure of the Kubelet's checkpointing directory is:
 
-```
+```none
 - --dynamic-config-dir (root for managing dynamic config)
 | - meta
   | - assigned (encoded kubeletconfig/v1beta1.SerializedNodeConfigSource object, indicating the assigned config)
@@ -337,10 +318,9 @@ when debugging a Node. The structure of the Kubelet's checkpointing directory is
 
 ## Understanding Node.Status.Config.Error messages
 
-The following table describes the error messages you might encounter
-when using Dynamic Kubelet Config. You can search for the same text
-as the error message in the Kubelet log for additional details
-on the error.
+The following table describes error messages that can occur
+when using Dynamic Kubelet Config. You can search for the identical text
+in the Kubelet log for additional details and context about the error.
 
 <table>
 <table align="left">
