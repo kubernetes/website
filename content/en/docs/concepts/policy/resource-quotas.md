@@ -143,7 +143,7 @@ The following types are supported:
 | ------------------------------- | ------------------------------------------------- |
 | `configmaps` | The total number of config maps that can exist in the namespace. |
 | `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
-| `pods` | The total number of pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `status.phase in (Failed, Succeeded)` is true.  |
+| `pods` | The total number of pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `.status.phase in (Failed, Succeeded)` is true.  |
 | `replicationcontrollers` | The total number of replication controllers that can exist in the namespace. |
 | `resourcequotas` | The total number of [resource quotas](/docs/admin/admission-controllers/#resourcequota) that can exist in the namespace. |
 | `services` | The total number of services that can exist in the namespace. |
@@ -166,8 +166,8 @@ Resources specified on the quota outside of the allowed set results in a validat
 
 | Scope | Description |
 | ----- | ----------- |
-| `Terminating` | Match pods where `spec.activeDeadlineSeconds >= 0` |
-| `NotTerminating` | Match pods where `spec.activeDeadlineSeconds is nil` |
+| `Terminating` | Match pods where `.spec.activeDeadlineSeconds >= 0` |
+| `NotTerminating` | Match pods where `.spec.activeDeadlineSeconds is nil` |
 | `BestEffort` | Match pods that have best effort quality of service. |
 | `NotBestEffort` | Match pods that do not have best effort quality of service. |
 

@@ -174,8 +174,8 @@ systems on your behalf.
 To consume a Secret in a volume in a Pod:
 
 1. Create a secret or use an existing one.  Multiple pods can reference the same secret.
-1. Modify your Pod definition to add a volume under `spec.volumes[]`.  Name the volume anything, and have a `spec.volumes[].secret.secretName` field equal to the name of the secret object.
-1. Add a `spec.containers[].volumeMounts[]` to each container that needs the secret.  Specify `spec.containers[].volumeMounts[].readOnly = true` and `spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the secrets to appear.
+1. Modify your Pod definition to add a volume under `.spec.volumes[]`.  Name the volume anything, and have a `.spec.volumes[].secret.secretName` field equal to the name of the secret object.
+1. Add a `.spec.containers[].volumeMounts[]` to each container that needs the secret.  Specify `.spec.containers[].volumeMounts[].readOnly = true` and `.spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the secrets to appear.
 1. Modify your image and/or command line so that the program looks for files in that directory.  Each key in the secret `data` map becomes the filename under `mountPath`.
 
 This is an example of a pod that mounts a secret in a volume:
@@ -199,17 +199,17 @@ spec:
       secretName: mysecret
 ```
 
-Each secret you want to use needs to be referred to in `spec.volumes`.
+Each secret you want to use needs to be referred to in `.spec.volumes`.
 
 If there are multiple containers in the pod, then each container needs its
-own `volumeMounts` block, but only one `spec.volumes` is needed per secret.
+own `volumeMounts` block, but only one `.spec.volumes` is needed per secret.
 
 You can package many files into one secret, or use many secrets, whichever is convenient.
 
 **Projection of secret keys to specific paths**
 
 We can also control the paths within the volume where Secret keys are projected.
-You can use `spec.volumes[].secret.items` field to change target path of each key:
+You can use `.spec.volumes[].secret.items` field to change target path of each key:
 
 ```yaml
 apiVersion: v1
@@ -238,7 +238,7 @@ What will happen:
 * `username` secret is stored under `/etc/foo/my-group/my-username` file instead of `/etc/foo/username`.
 * `password` secret is not projected
 
-If `spec.volumes[].secret.items` is used, only keys specified in `items` are projected.
+If `.spec.volumes[].secret.items` is used, only keys specified in `items` are projected.
 To consume all keys from the secret, all of them must be listed in the `items` field.
 All listed keys must exist in the corresponding secret. Otherwise, the volume is not created.
 
