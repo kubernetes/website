@@ -511,7 +511,7 @@ applicable.
 
 * AWSElasticBlockStore
 * AzureDisk
-* FC (Fiber Channel)
+* FC (Fibre Channel)
 * GCEPersistentDisk
 * iSCSI
 * Local volume
