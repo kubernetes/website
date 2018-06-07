@@ -188,7 +188,7 @@ for more details on Cluster Federation and multi-site support.
 ## References
 
 - [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/)
-- [Docs for the DNS cluster addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/README.md)
+- [Docs for the DNS cluster addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/README.md)
 
 ## What's next
 - [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
