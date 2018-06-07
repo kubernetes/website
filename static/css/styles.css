@@ -525,7 +525,7 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #video #desktopKCButton { position: relative; font-size: 18px; background-color: #303030; border-radius: 8px; color: #ffffff; padding: 20px 10px 20px 10px; }
 
-#video #desktopShowVideoButton { position: relative; font-size: 24px; background-color: white; border-radius: 8px; color: #3371e3; padding: 15px 30px 15px 80px; margin-bottom: 15px; }
+#video #desktopShowVideoButton { position: relative; font-size: 24px; background-color: white; border-radius: 8px; color: #3371e3; padding: 15px 30px 15px 80px; }
 
 #video #desktopShowVideoButton:before { content: ""; position: absolute; position: absolute; top: 50%; left: 40px; transform: translate(-50%, -50%); width: 0; height: 0; border-style: solid; border-width: 10px 0 10px 20px; border-color: transparent transparent transparent #3371e3; }
 
