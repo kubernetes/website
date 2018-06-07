@@ -447,28 +447,29 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
 ## Run kubeadm init on master0 {#kubeadm-init-master0}
 
 1. In order for kubeadm to run, you first need to write a configuration file:
-     ```bash
-     cat >config.yaml <<EOF
-     apiVersion: kubeadm.k8s.io/v1alpha1
-     kind: MasterConfiguration
-     api:
-      advertiseAddress: <private-ip>
-     etcd:
-      endpoints:
-      - https://<etcd0-ip-address>:2379
-      - https://<etcd1-ip-address>:2379
-      - https://<etcd2-ip-address>:2379
-      caFile: /etc/kubernetes/pki/etcd/ca.pem
-      certFile: /etc/kubernetes/pki/etcd/client.pem
-      keyFile: /etc/kubernetes/pki/etcd/client-key.pem
-     networking:
-      podSubnet: <podCIDR>
-     apiServerCertSANs:
-     - <load-balancer-ip>
-     apiServerExtraArgs:
-      apiserver-count: "3"
-     EOF
-     ```
+
+    {{< highlight bash >}}
+cat >config.yaml <<EOF
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+api:
+  advertiseAddress: <private-ip>
+etcd:
+  endpoints:
+  - https://<etcd0-ip-address>:2379
+  - https://<etcd1-ip-address>:2379
+  - https://<etcd2-ip-address>:2379
+  caFile: /etc/kubernetes/pki/etcd/ca.pem
+  certFile: /etc/kubernetes/pki/etcd/client.pem
+  keyFile: /etc/kubernetes/pki/etcd/client-key.pem
+networking:
+  podSubnet: <podCIDR>
+apiServerCertSANs:
+- <load-balancer-ip>
+apiServerExtraArgs:
+  apiserver-count: "3"
+EOF
+    {{< /highlight >}}
 
     Ensure that the following placeholders are replaced:
 
@@ -477,7 +478,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
     - `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
     - `<load-balancer-ip>` with the virtual IP set up in the load balancer. Please read [setting up a master load balancer](/docs/setup/independent/high-availability/#set-up-master-load-balancer) section of the docs for more information.
 
-    **Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`. For more information, see [the documentation](/docs/admin/high-availability/#endpoint-reconciler).
+    {{< note >}}**Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`. For more information, see [the documentation](/docs/admin/high-availability/#endpoint-reconciler).{{< /note >}}
 
 1. When this is done, run kubeadm:
      ```bash
