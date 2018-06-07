@@ -38,6 +38,9 @@ applied to static pod manifests.
 ## kubeadm upgrade diff {#cmd-upgrade-diff}
 {{< include "generated/kubeadm_upgrade_diff.md" >}}
 
+## kubeadm upgrade node config {#cmd-upgrade-node-config}
+{{< include "generated/kubeadm_upgrade_node_config.md" >}}
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
