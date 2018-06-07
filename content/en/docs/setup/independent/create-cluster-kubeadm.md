@@ -1,31 +1,18 @@
 ---
 reviewers:
-- mikedanese
-- luxas
-- errordeveloper
-- jbeda
-title: Using kubeadm to Create a Cluster
+- sig-cluster-lifecycle
+title: Creating a single master cluster with kubeadm
 content_template: templates/task
 ---
 
 {{% capture overview %}}
 
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** is a toolkit that helps you bootstrap a best-practice Kubernetes
-cluster in an easy, reasonably secure and extensible way. It also supports
-managing [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for you and upgrading/downgrading clusters.
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster 
+lifecycle functions, such as upgrades, downgrade, and managing [Bootstrap Tokens.](/docs/admin/bootstrap-tokens/) 
 
-kubeadm aims to set up a minimum viable cluster that pass the
-[Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification), but installing other addons than
-really necessary for a functional cluster is out of scope.
-
-It by design does not install a networking solution for you, which means you
-have to install a third-party CNI-compliant networking solution yourself
-using `kubectl apply`.
-
-kubeadm expects the user to bring a machine to execute on, the type doesn't
-matter, can be a Linux laptop, virtual machine, physical/cloud server or
-Raspberry Pi. This makes kubeadm well suited to integrate with provisioning
-systems of different kinds (e.g. Terraform, Ansible, etc.).
+Because you can install kubeadm on any type of machine (e.g. laptop, server, 
+Raspberry Pi, etc.), it's well suited for integration with provisioning systems 
+such as Terraform or Ansible.
 
 kubeadm is designed to be a simple way for new users to start trying
 Kubernetes out, possibly for the first time, a way for existing users to
@@ -33,47 +20,8 @@ test their application on and stitch together a cluster easily, and also to be
 a building block in other ecosystem and/or installer tool with a larger
 scope.
 
-You can install _kubeadm_ very easily on operating systems that support
-installing deb or rpm packages. The responsible SIG for kubeadm,
-[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), provides these packages pre-built for you,
-but you may also on other OSes.
-
-
-### kubeadm Maturity
-
-| Area                      | Maturity Level |
-|---------------------------|--------------- |
-| Command line UX           | beta           |
-| Implementation            | beta           |
-| Config file API           | alpha          |
-| Self-hosting              | alpha          |
-| kubeadm alpha subcommands | alpha          |
-| CoreDNS                   | alpha          |
-| DynamicKubeletConfig      | alpha          |
-
-
-kubeadm's overall feature state is **Beta** and will soon be graduated to
-**General Availability (GA)** during 2018. Some sub-features, like self-hosting
-or the configuration file API are still under active development. The
-implementation of creating the cluster may change slightly as the tool evolves,
-but the overall implementation should be pretty stable. Any commands under
-`kubeadm alpha` are by definition, supported on an alpha level.
-
-
-### Support timeframes
-
-Kubernetes releases are generally supported for nine months, and during that
-period a patch release may be issued from the release branch if a severe bug or
-security issue is found. Here are the latest Kubernetes releases and the support
-timeframe; which also applies to `kubeadm`.
-
-| Kubernetes version | Release month  | End-of-life-month |
-|--------------------|----------------|-------------------|
-| v1.6.x             | March 2017     | December 2017     |
-| v1.7.x             | June 2017      | March 2018        |
-| v1.8.x             | September 2017 | June 2018         |
-| v1.9.x             | December 2017  | September 2018    |
-| v1.10.x            | March 2018     | December 2018     |
+kubeadm's overall feature state is **Beta** and will be graduated to
+**General Availability (GA)** as soon as possible. 
 
 {{% /capture %}}
 
@@ -85,14 +33,6 @@ timeframe; which also applies to `kubeadm`.
 1. 2 CPUs or more on the master
 1. Full network connectivity between all machines in the cluster (public or
    private network is fine)
-   
-{{< note >}}
-**Note:** This guide results in a Kubernetes cluster with one master and a
-number of nodes that you decide. A single master is not highly available. If
-you want to set up a multi-master cluster for high availability, you can
-follow
-[this guide instead](https://kubernetes.io/docs/setup/independent/high-availability/).
-{{< /note >}}
  
 {{% /capture %}}
 
@@ -100,7 +40,8 @@ follow
 
 ## Objectives
 
-* Install a secure Kubernetes cluster on your machines
+* Install a single master Kubernetes cluster using recommended best practices. 
+  * **Note:** If you want to set up a high available cluster, follow [this guide instead](https://kubernetes.io/docs/setup/independent/high-availability/).
 * Install a Pod network on the cluster so that your Pods can
   talk to each other
 
@@ -110,7 +51,7 @@ follow
 
 See [Installing kubeadm](/docs/setup/independent/install-kubeadm/).
 
-**Note:** If you already have kubeadm installed, you should do a `apt-get update &&
+**Note:** If you already have kubeadm installed, run `apt-get update &&
 apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
 
@@ -124,69 +65,43 @@ The master is the machine where the control plane components run, including
 etcd (the cluster database) and the API server (which the kubectl CLI
 communicates with).
 
-To initialize the master, first choose the pod network plugin you want and check if it requires any parameters to be passed to kubeadm while initializing the cluster. Pick one of the machines you previously installed
-kubeadm on, and run:
+1. Choose a pod network add-on and verify if it requires any arguments to 
+be passed to kubeadm initialization. Depending on what
+third-party provider you choose, you might have to set the `--pod-network-cidr` to
+something provider-specific. The tabs below will contain a notice about what flags
+on `kubeadm init` are required.
+1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated 
+with the default gateway to advertise the master's IP. If you want to use a different 
+network interface, specify `--apiserver-advertise-address=<ip-address>` argument 
+to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you 
+must specify an IPv6, e.g. `--apiserver-advertise-address=fd00::101`
+
+Now run:
 
 ```bash
-kubeadm init
+kubeadm init <args> 
 ```
 
 **Notes:**
 
-- Please refer to the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm/) if you want to
-read more about the flags `kubeadm init` provides. You can also specify a
-[configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) instead of using flags.
-- You need to choose a Pod Network Plugin in the next step. Depending on what
-third-party provider you choose, you might have to set the `--pod-network-cidr` to
-something provider-specific. The tabs below will contain a notice about what flags
-on `kubeadm init` are required.
-- Unless otherwise specified, kubeadm uses the default gateway's network interface
-to advertise the master's IP. If you want to use a different network interface, specify
-`--apiserver-advertise-address=<ip-address>` argument to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you must specify an IPv6, e.g. `--apiserver-advertise-address=fd00::101`
+- For more information about `kubeadm init` arguments, see [kubeadm reference guide.](/docs/reference/setup-tools/kubeadm/kubeadm/) 
+- For a complete list of configuration options, see [configuration file documentation.](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
 - If you would like to customise control plane components including optional IPv6 assignment to liveness probe for control plane components and etcd server, you can do so by providing extra args to each one, as documented [here](/docs/admin/kubeadm#custom-args).
-- `kubeadm init` will first run a series of prechecks to ensure that the machine
+- You can't run `kubeadm init` twice without [tearing down the cluster.](#tear-down).
+
+`kubeadm init` will first run a series of prechecks to ensure that the machine
 is ready to run Kubernetes. It will expose warnings and exit on errors. It
-will then download and install the cluster database and control plane
-components. This may take several minutes.
-- You can't run `kubeadm init` twice without tearing down the cluster in between
-([unless you're upgrading from v1.6 to v1.7](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/)),
-see [Tear Down](#tear-down).
+will then download and install the cluster control plane components. 
+This may take several minutes.
+
 
 The output should look like:
 
 ```
-[init] Using Kubernetes version: v1.8.0
-[init] Using Authorization modes: [Node RBAC]
+[init] Using Kubernetes version: vX.Y.Z
 [preflight] Running pre-flight checks
-[kubeadm] WARNING: starting in 1.8, tokens expire after 24 hours by default (if you require a non-expiring token use --token-ttl 0)
-[certificates] Generated ca certificate and key.
-[certificates] Generated apiserver certificate and key.
-[certificates] apiserver serving cert is signed for DNS names [kubeadm-master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.138.0.4]
-[certificates] Generated apiserver-kubelet-client certificate and key.
-[certificates] Generated sa key and public key.
-[certificates] Generated front-proxy-ca certificate and key.
-[certificates] Generated front-proxy-client certificate and key.
-[certificates] Valid certificates and keys now exist in "/etc/kubernetes/pki"
-[kubeconfig] Wrote KubeConfig file to disk: "admin.conf"
-[kubeconfig] Wrote KubeConfig file to disk: "kubelet.conf"
-[kubeconfig] Wrote KubeConfig file to disk: "controller-manager.conf"
-[kubeconfig] Wrote KubeConfig file to disk: "scheduler.conf"
-[controlplane] Wrote Static Pod manifest for component kube-apiserver to "/etc/kubernetes/manifests/kube-apiserver.yaml"
-[controlplane] Wrote Static Pod manifest for component kube-controller-manager to "/etc/kubernetes/manifests/kube-controller-manager.yaml"
-[controlplane] Wrote Static Pod manifest for component kube-scheduler to "/etc/kubernetes/manifests/kube-scheduler.yaml"
-[etcd] Wrote Static Pod manifest for a local etcd instance to "/etc/kubernetes/manifests/etcd.yaml"
-[init] Waiting for the kubelet to boot up the control plane as Static Pods from directory "/etc/kubernetes/manifests"
-[init] This often takes around a minute; or longer if the control plane images have to be pulled.
-[apiclient] All control plane components are healthy after 39.511972 seconds
-[uploadconfig] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
-[markmaster] Will mark node master as master by adding a label and a taint
-[markmaster] Master master tainted and labelled with key/value: node-role.kubernetes.io/master=""
-[bootstraptoken] Using token: <token>
-[bootstraptoken] Configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
-[bootstraptoken] Configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
-[bootstraptoken] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
-[addons] Applied essential addon: kube-dns
-[addons] Applied essential addon: kube-proxy
+
+... (log output of initialization workflow) ...
 
 Your Kubernetes master has initialized successfully!
 
@@ -229,7 +144,7 @@ token can add authenticated nodes to your cluster. These tokens can be listed,
 created and deleted with the `kubeadm token` command. See the
 [reference guide](/docs/reference/setup-tools/kubeadm/kubeadm-token/) for more details.
 
-### Installing a pod network {#pod-network}
+### Installing a pod network add-on {#pod-network}
 
 You **MUST** install a pod network add-on so that your pods can communicate with
 each other.
@@ -390,15 +305,8 @@ The output should look something like:
 
 ```
 [preflight] Running pre-flight checks
-[discovery] Trying to connect to API Server "10.138.0.4:6443"
-[discovery] Created cluster-info discovery client, requesting info from "https://10.138.0.4:6443"
-[discovery] Requesting info from "https://10.138.0.4:6443" again to validate TLS against the pinned public key
-[discovery] Cluster info signature and contents are valid and TLS certificate validates against pinned roots, will use API Server "10.138.0.4:6443"
-[discovery] Successfully established connection with API Server "10.138.0.4:6443"
-[bootstrap] Detected server version: v1.8.0
-[bootstrap] The server supports the Certificates API (certificates.k8s.io/v1beta1)
-[csr] Created API client to obtain unique certificate for this node, generating keys and certificate signing request
-[csr] Received signed certificate from the API server, generating KubeConfig...
+
+... (log output of join workflow) ...
 
 Node join complete:
 * Certificate signing request sent to master and response
@@ -471,17 +379,9 @@ appropriate arguments.
 More options and information about the
 [`kubeadm reset command`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/).
 
-## Upgrading a kubeadm cluster {#upgrades}
+## Maintaining a cluster {#lifecycle}
 
-Instructions for upgrading kubeadm clusters are available for:
-
- * [1.6 to 1.7 upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/)
- * [1.7.x to 1.7.y  upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
- * [1.7 to 1.8 upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
- * [1.8.x to 1.8.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
- * [1.8 to 1.9 upgrades/downgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
- * [1.9.x to 1.9.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
- * [1.9.x to 1.9.y HA cluster upgrades](/docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-ha/)
+Instructions for maintaining kubeadm clusters (e.g. upgrades,downgrades, etc.) can be found [here.](/docs/tasks/administer-cluster/kubeadm)
 
 ## Explore other add-ons {#other-addons}
 
@@ -497,15 +397,14 @@ control of your Kubernetes cluster.
 
 ## Feedback {#feedback}
 
-* kubeadm support Slack Channel:
+* For bugs, please visit [kubeadm Github issue tracker](https://github.com/kubernetes/kubeadm/issues)
+* For support, please visit kubeadm Slack Channel:
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
 * General SIG Cluster Lifecycle Development Slack Channel:
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
 * SIG Cluster Lifecycle [SIG information](#TODO)
 * SIG Cluster Lifecycle Mailing List:
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
-* [kubeadm Github issue tracker](https://github.com/kubernetes/kubeadm/issues)
-
 
 ## Version skew policy {#version-skew-policy}
 
