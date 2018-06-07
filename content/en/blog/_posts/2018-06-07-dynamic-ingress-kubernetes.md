@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: Dynamic Ingress in Kubernetes
-date:  Friday, June 1, 2018
+date:  2018-06-07
 ---
 
 **Author**: Richard Li (Datawire)
