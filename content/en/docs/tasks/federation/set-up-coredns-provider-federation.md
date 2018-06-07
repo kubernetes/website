@@ -70,14 +70,14 @@ that CoreDNS is deployed as a Kubernetes application service.
  - `serviceType` specifies the type of Kubernetes service to be created
 for CoreDNS. You need to choose either "LoadBalancer" or "NodePort" to
 make the CoreDNS service accessible outside the Kubernetes cluster.
- - Disable `middleware.kubernetes`, which is enabled by default by
-setting `middleware.kubernetes.enabled` to false.
- - Enable `middleware.etcd` by setting `middleware.etcd.enabled` to
+ - Disable `plugins.kubernetes`, which is enabled by default by
+setting `plugins.kubernetes.enabled` to false.
+ - Enable `plugins.etcd` by setting `plugins.etcd.enabled` to
 true.
  - Configure the DNS zone (federation domain) for which CoreDNS is
-authoritative by setting `middleware.etcd.zones` as shown above.
+authoritative by setting `plugins.etcd.zones` as shown above.
  - Configure the etcd endpoint which was deployed earlier by setting
-`middleware.etcd.endpoint`
+`plugins.etcd.endpoint`
 
 Now deploy CoreDNS by running
 
@@ -105,8 +105,7 @@ coredns-provider.conf has below format:
  - `zones` is the federation domain for which CoreDNS is authoritative and is same as --dns-zone-name flag of `kubefed init`.
  - `coredns-endpoints` is the endpoint to access CoreDNS server. This is an optional parameter introduced from v1.7 onwards.
 
-*Note: middleware.etcd.zones in CoreDNS configuration and --dns-zone-name
-flag to kubefed init should match.*
+{{< note >}}**Note**: plugins.etcd.zones in CoreDNS configuration and --dns-zone-name flag to kubefed init should match.*{{< /note >}}
 
 
 ## Setup CoreDNS server in nameserver resolv.conf chain
