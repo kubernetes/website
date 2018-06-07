@@ -33,9 +33,9 @@ This page describes how to use Admission Webhooks and Initializers.
 
 Admission webhooks are HTTP callbacks that receive admission requests and do
 something with them. You can define two types of admission webhooks,
-[validating admission Webhook](/docs/admin/admission-controllers/#validatingadmissionwebhook-alpha-in-18-beta-in-19)
+[validating admission Webhook](/docs/admin/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)
 and
-[mutating admission webhook](/docs/admin/admission-controllers/#mutatingadmissionwebhook-beta-in-19).
+[mutating admission webhook](/docs/admin/admission-controllers/#mutatingadmissionwebhook-beta-in-1-9).
 With validating admission Webhooks, you may reject requests to enforce custom
 admission policies. With mutating admission Webhooks, you may change requests to
 enforce custom defaults.
@@ -54,7 +54,7 @@ In the following, we describe how to quickly experiment with admission webhooks.
 
 * Ensure that MutatingAdmissionWebhook and ValidatingAdmissionWebhook
   admission controllers are enabled.
-  [Here](/docs/admin/admission-controllers.md#is-there-a-recommended-set-of-admission-controllers-to-use)
+  [Here](/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)
   is a recommended set of admission controllers to enable in general.
 
 * Ensure that the admissionregistration.k8s.io/v1beta1 API is enabled.
