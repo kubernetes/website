@@ -168,6 +168,8 @@ in the section [Interlude: built-in node labels](#interlude-built-in-node-labels
 processing which can slow down scheduling in large clusters significantly. We do
 not recommend using them in clusters larger than several hundred nodes.
 
+**Note:** Pod anti-affinity requires nodes to be consistently labelled, i.e. every node in the cluster must have an appropriate label matching `topologyKey`. If some or all nodes are missing the speficied `topologyKey` label, it can lead to unintended behavior.
+
 As with node affinity, there are currently two types of pod affinity and anti-affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
 `preferredDuringSchedulingIgnoredDuringExecution` which denote "hard" vs. "soft" requirements.
 See the description in the node affinity section earlier.
