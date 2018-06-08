@@ -38,7 +38,7 @@ You can follow the steps below to configure a Redis cache using data stored in a
 1. Create a ConfigMap from the `docs/tutorials/configuration/configmap/redis/redis-config` file:
 
    ```shell
-   kubectl create configmap example-redis-config --from-file=https://k8s.io/docs/tutorials/configuration/configmap/redis/redis-config
+   kubectl create configmap example-redis-config --from-file=https://kubernetes.io/docs/tutorials/configuration/configmap/redis/redis-config
    kubectl get configmap example-redis-config -o yaml
    ```
 
