@@ -467,6 +467,7 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
         podSubnet: <podCIDR>
       apiServerCertSANs:
       - <virtual-ip>
+      - <private-ip>
       apiServerExtraArgs:
         apiserver-count: "3"
       EOF
