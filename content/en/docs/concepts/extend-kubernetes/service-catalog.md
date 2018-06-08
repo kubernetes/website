@@ -93,7 +93,7 @@ spec:
 
 The following is a sequence diagram illustrating the steps involved in listing managed services and Plans available from a service broker:
 
-![List Services](/images/docs/service-catalog-list.svg){:height="80%" width="80%"}
+![List Services](/images/docs/service-catalog-list.svg)
 
 1. Once the `ClusterServiceBroker` resource is added to Service Catalog, it triggers a call to the external service broker for a list of available services.
 1. The service broker returns a list of available managed services and a list of Service Plans, which are cached locally as `ClusterServiceClass` and `ClusterServicePlan` resources respectively.
@@ -142,7 +142,7 @@ spec:
 
 The following sequence diagram illustrates the steps involved in provisioning a new instance of a managed service:
 
-![Provision a Service](/images/docs/service-catalog-provision.svg){:height="80%" width="80%"}
+![Provision a Service](/images/docs/service-catalog-provision.svg)
 
 1. When the `ServiceInstance` resource is created, Service Catalog initiates a call to the external service broker to provision an instance of the service.
 1. The service broker creates a new instance of the managed service and returns an HTTP response.
@@ -171,7 +171,7 @@ spec:
 
 The following sequence diagram illustrates the steps involved in binding to a managed service instance:
 
-![Bind to a managed service](/images/docs/service-catalog-bind.svg){:height="80%" width="80%"}
+![Bind to a managed service](/images/docs/service-catalog-bind.svg)
 
 1. After the `ServiceBinding` is created, Service Catalog makes a call to the external service broker requesting the information necessary to bind with the service instance.
 1. The service broker enables the application permissions/roles for the appropriate service account.
@@ -229,6 +229,7 @@ The following example describes how to map secret values into application enviro
 * If you are familiar with {{< glossary_tooltip text="Helm Charts" term_id="helm-chart" >}}, [install Service Catalog using Helm](/docs/tasks/service-catalog/install-service-catalog-using-helm/) into your Kubernetes cluster. Alternatively, you can [install Service Catalog using the SC tool](/docs/tasks/service-catalog/install-service-catalog-using-sc/).
 * View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
 * Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
+* View [svc-cat.io](https://svc-cat.io/docs/).
 
 {{% /capture %}}
 
