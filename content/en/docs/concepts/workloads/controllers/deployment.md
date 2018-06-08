@@ -44,13 +44,13 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 
 In this example:
 
-* A Deployment named `nginx-deployment` is created, indicated by the `metadata: name` field.
+* A Deployment named `nginx-deployment` is created, indicated by the `.metadata.name` field.
 * The Deployment creates three replicated Pods, indicated by the `replicas` field.
 * The `selector` field defines how the Deployment finds which Pods to manage.
   In this case, we simply select on one label defined in the Pod template (`app: nginx`).
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.
-* The Pod template's specification, or `template: spec` field, indicates that
+* The Pod template's specification, or `.template.spec` field, indicates that
   the Pods run one container, `nginx`, which runs the `nginx`
   [Docker Hub](https://hub.docker.com/) image at version 1.7.9.
 * The Deployment opens port 80 for use by the Pods.
@@ -101,7 +101,7 @@ When you inspect the Deployments in your cluster, the following fields are displ
 
 Notice how the values in each field correspond to the values in the Deployment specification:
 
-* The number of desired replicas is 3 according to `spec: replicas` field.
+* The number of desired replicas is 3 according to `.spec.replicas` field.
 * The number of current replicas is 0 according to the `.status.replicas` field.
 * The number of up-to-date replicas is 0 according to the `.status.updatedReplicas` field.
 * The number of available replicas is 0 according to the `.status.availableReplicas` field.
