@@ -197,7 +197,7 @@ parameters:
 allowVolumeExpansion: true
 ```
 
-To request a larger volume for a PVC, edit the PVC's configuration and request a larger
+To request a larger volume for a PVC, edit the PVC object and specify a larger
 size. This triggers expansion of the volume that backs the underlying `PersistentVolume`. A
 new `PersistentVolume` is never created to satisfy the claim. Instead, an existing volume is resized.
 
