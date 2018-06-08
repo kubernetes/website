@@ -10,6 +10,14 @@ content_template: templates/user-journey-content
 ---
 
 {{% capture overview %}}
+With modern web services, users expect applications to be available 24/7, and developers expect to deploy new versions of those applications several times a day. Kubernetes helps package software to serve these goals:
+* Enables applications to be released and updated in an easy and fast way without downtime
+* Ensures that containerized applications run where and when you want
+* Helps the applications to find the resources and tools they need to work
+
+
+
+
 If you're a developer looking to run applications on Kubernetes, this page and its linked topics can help you get started with the fundamentals. Though this page primarily describes development workflows, {{< link text="the subsequent page in the series" url="/docs/home/?path=users&persona=app-developer&level=intermediate" >}} covers more advanced, production setups.
 
 {{< note  >}}
@@ -20,6 +28,14 @@ If you're a developer looking to run applications on Kubernetes, this page and i
 
 {{% capture body %}}
 ## Try it out
+Try our virtual terminal in your web browser to run Minikube. Minikube is a small-scale local deployment of Kubernetes that can run anywhere.
+* After you run these commands, you will learn to:
+* Create a cluster
+* Deploy a containerized application on a cluster
+* Expose the app
+* Scale the deployment
+* Update the containerized application with a new software version
+* Debug the containerized application
 
 <div id="terminal_simulator"
   data-embed="kt-app"
@@ -116,6 +132,10 @@ Cras eget orci sagittis, lacinia urna eleifend, sodales tortor. Praesent velit d
 
 {{< /tab >}}
 {{< /tabs >}}
+
+## Understanding Kubernetes basics
+
+
 
 ## Get started with a cluster
 
