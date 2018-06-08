@@ -7,7 +7,6 @@ reviewers:
 # auto-merge happen if a /lgtm exists, or vice versa, or they can do both
 # No need for approvers to also be listed as reviewers
 approvers:
-- heckj
 - bradamant3
 - bradtopol
 - steveperry-53
