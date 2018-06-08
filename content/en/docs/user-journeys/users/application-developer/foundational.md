@@ -13,9 +13,9 @@ content_template: templates/user-journey-content
 With modern web services, users expect applications to be available 24/7, and developers expect to deploy new versions of those applications several times a day. Kubernetes helps package software to serve these goals:
 
 ### Bullet lists
- - Enables applications to be released and updated in an easy and fast way without downtime
- * Ensures that containerized applications run where and when you want
- * Helps the applications to find the resources and tools they need to work
+  - Enables applications to be released and updated in an easy and fast way without downtime
+  * Ensures that containerized applications run where and when you want
+  * Helps the applications to find the resources and tools they need to work
 
 
 
