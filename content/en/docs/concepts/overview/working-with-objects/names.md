@@ -3,6 +3,7 @@ reviewers:
 - mikedanese
 - thockin
 title: Names
+weight: 20
 ---
 
 All objects in the Kubernetes REST API are unambiguously identified by a Name and a UID.

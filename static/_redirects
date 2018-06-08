@@ -152,6 +152,9 @@
 /docs/getting-started-guides/cloudstack/     /docs/setup/on-premises-vm/cloudstack/ 301
 /docs/getting-started-guides/dcos/     /docs/setup/on-premises-vm/dcos/ 301
 /docs/getting-started-guides/ovirt/     /docs/setup/on-premises-vm/ovirt/ 301
+/docs/getting-started-guides/coreos/     /docs/setup/custom-cloud/coreos/ 301
+/docs/getting-started-guides/kops/     /docs/setup/custom-cloud/kops/ 301
+/docs/getting-started-guides/kubespray/     /docs/setup/custom-cloud/kubespray/ 301
 /docs/getting-started-guides/coreos/azure/     /docs/getting-started-guides/coreos/ 301
 /docs/getting-started-guides/coreos/bare_metal_calico/     /docs/getting-started-guides/coreos/ 301
 /docs/getting-started-guides/docker-multinode/*     /docs/setup/independent/create-cluster-kubeadm/ 301
@@ -283,6 +286,7 @@
 /docs/tasks/web-ui-dashboard/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
 
 /docs/templatedemos/*     /docs/home/contribute/page-templates/ 301
+/docs/tools/     /docs/reference/tools/ 301
 /docs/tools/kompose/user-guide/     /docs/tasks/configure-pod-container/translate-compose-kubernetes/ 301
 /docs/tools/kompose/     /docs/tools/kompose/user-guide/ 301
 /docs/troubleshooting/     /docs/tasks/debug-application-cluster/troubleshooting/ 301
@@ -446,7 +450,8 @@
 /docs/user-guide/update-dem/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
 /docs/user-guide/update-demo/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
 /docs/user-guide/volumes/     /docs/concepts/storage/volumes/ 301
-
+/docs/user-guide/walkthrough/     /docs/tutorials/k8s101/ 301
+/docs/user-guide/walkthrough/k8s201/     /docs/tutorials/k8s201/ 301
 /docs/user-guide/working-with-resources/     /docs/concepts/overview/object-management-kubectl/overview/ 301
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301
