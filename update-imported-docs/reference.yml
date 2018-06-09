@@ -46,7 +46,7 @@ repos:
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_all.md
   - src: docs/admin/kubeadm_alpha_phase_certs_apiserver-etcd-client.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_apiserver-etcd-client.md
-- src: docs/admin/kubeadm_alpha_phase_certs_apiserver-kubelet-client.md
+  - src: docs/admin/kubeadm_alpha_phase_certs_apiserver-kubelet-client.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_apiserver-kubelet-client.md
   - src: docs/admin/kubeadm_alpha_phase_certs_apiserver.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_apiserver.md
@@ -94,7 +94,7 @@ repos:
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubeconfig.md
   - src: docs/admin/kubeadm_alpha_phase_kubeconfig_scheduler.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubeconfig_scheduler.md
-- src: docs/admin/kubeadm_alpha_phase_kubeconfig_user.md
+  - src: docs/admin/kubeadm_alpha_phase_kubeconfig_user.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubeconfig_user.md
   - src: docs/admin/kubeadm_alpha_phase_kubelet_config_download.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubelet_config_download.md
@@ -142,7 +142,7 @@ repos:
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config_print-default.md
   - src: docs/admin/kubeadm_config_upload_from-file.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config_upload_from-file.md
-- src: docs/admin/kubeadm_config_upload_from-flags.md
+  - src: docs/admin/kubeadm_config_upload_from-flags.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config_upload_from-flags.md
   - src: docs/admin/kubeadm_config_upload.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config_upload.md
