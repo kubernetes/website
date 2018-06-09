@@ -3,7 +3,6 @@ Upload configuration about the current state, so that 'kubeadm upgrade' can late
 
 ### Synopsis
 
-
 Upload configuration about the current state, so that 'kubeadm upgrade' can later know how to configure the upgraded cluster.
 
 ```
@@ -12,18 +11,17 @@ kubeadm config upload [flags]
 
 ### Options
 
-<table style="width: 100%;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
+```
+  -h, --help   help for upload
+```
 
-    <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">help for upload</td>
+### Options inherited from parent commands
+
+```
+      --kubeconfig string   The KubeConfig file to use when talking to the cluster. (default "/etc/kubernetes/admin.conf")
+```
+
+style="line-height: 130%">help for upload</td>
     </tr>
 
   </tbody>

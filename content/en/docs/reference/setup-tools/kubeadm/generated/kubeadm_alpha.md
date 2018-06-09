@@ -3,13 +3,15 @@ Experimental sub-commands not yet fully functional.
 
 ### Synopsis
 
-
 Experimental sub-commands not yet fully functional.
 
 ### Options
 
-<table style="width: 100%;">
-  <colgroup>
+```
+  -h, --help   help for alpha
+```
+
+up>
     <col span="1" style="width: 10px;" />
     <col span="1" />
   </colgroup>

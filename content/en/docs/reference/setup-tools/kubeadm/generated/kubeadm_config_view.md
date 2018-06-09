@@ -4,7 +4,6 @@ View the kubeadm configuration stored inside the cluster.
 ### Synopsis
 
 
-
 Using this command, you can view the ConfigMap in the cluster where the configuration for kubeadm is located.
 
 The configuration is located in the "kube-system" namespace in the "kubeadm-config" ConfigMap.
@@ -16,18 +15,17 @@ kubeadm config view [flags]
 
 ### Options
 
-<table style="width: 100%;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
+```
+  -h, --help   help for view
+```
 
-    <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">help for view</td>
+### Options inherited from parent commands
+
+```
+      --kubeconfig string   The KubeConfig file to use when talking to the cluster. (default "/etc/kubernetes/admin.conf")
+```
+
+d style="line-height: 130%">help for view</td>
     </tr>
 
   </tbody>

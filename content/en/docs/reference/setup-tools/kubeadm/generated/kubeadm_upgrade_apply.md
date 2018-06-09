@@ -3,7 +3,6 @@ Upgrade your Kubernetes cluster to the specified version.
 
 ### Synopsis
 
-
 Upgrade your Kubernetes cluster to the specified version.
 
 ```
@@ -12,88 +11,33 @@ kubeadm upgrade apply [version]
 
 ### Options
 
-<table style="width: 100%;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
-
-    <tr>
-      <td colspan="2">--dry-run</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">Do not change any state, just output what actions would be performed.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">Perform the upgrade of etcd.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">-f, --force</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">Force upgrading although some requirements might not be met. This also implies non-interactive mode.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">help for apply</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--image-pull-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 15m0s</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">The maximum amount of time to wait for the control plane pods to be downloaded.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">-y, --yes</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">Perform the upgrade and do not prompt for confirmation (non-interactive mode).</td>
-    </tr>
-
-  </tbody>
-</table>
-
-
+```
+      --dry-run                       Do not change any state, just output what actions would be performed.
+      --etcd-upgrade                  Perform the upgrade of etcd. (default true)
+  -f, --force                         Force upgrading although some requirements might not be met. This also implies non-interactive mode.
+  -h, --help                          help for apply
+      --image-pull-timeout duration   The maximum amount of time to wait for the control plane pods to be downloaded. (default 15m0s)
+  -y, --yes                           Perform the upgrade and do not prompt for confirmation (non-interactive mode).
+```
 
 ### Options inherited from parent commands
 
-<table style="width: 100%;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
+```
+      --allow-experimental-upgrades        Show unstable versions of Kubernetes as an upgrade alternative and allow upgrading to an alpha/beta/release candidate versions of Kubernetes.
+      --allow-release-candidate-upgrades   Show release candidate versions of Kubernetes as an upgrade alternative and allow upgrading to a release candidate versions of Kubernetes.
+      --config string                      Path to kubeadm config file. WARNING: Usage of a configuration file is experimental!
+      --feature-gates string               A set of key=value pairs that describe feature gates for various features.Options are:
+                                           Auditing=true|false (ALPHA - default=false)
+                                           CoreDNS=true|false (default=true)
+                                           DynamicKubeletConfig=true|false (ALPHA - default=false)
+                                           SelfHosting=true|false (ALPHA - default=false)
+                                           StoreCertsInSecrets=true|false (ALPHA - default=false)
+      --ignore-preflight-errors strings    A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
+      --kubeconfig string                  The KubeConfig file to use when talking to the cluster. (default "/etc/kubernetes/admin.conf")
+      --print-config                       Specifies whether the configuration file that will be used in the upgrade should be printed or not.
+```
 
-    <tr>
-      <td colspan="2">--allow-experimental-upgrades</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">Show unstable versions of Kubernetes as an upgrade alternative and allow upgrading to an alpha/beta/release candidate versions of Kubernetes.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--allow-release-candidate-upgrades</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">Show release candidate versions of Kubernetes as an upgrade alternative and allow upgrading to a release candidate versions of Kubernetes.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--config string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental!</td>
+d></td><td style="line-height: 130%">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental!</td>
     </tr>
 
     <tr>

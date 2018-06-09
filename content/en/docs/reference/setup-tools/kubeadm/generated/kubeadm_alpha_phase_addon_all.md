@@ -3,9 +3,7 @@ Installs all addons to a Kubernetes cluster
 
 ### Synopsis
 
-
-Installs the kube-dns and the kube-proxys addons components via the API server.
-Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed. 
+Installs the CoreDNS and the kube-proxys addons components via the API server. Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed. 
 
 Alpha Disclaimer: this command is currently alpha.
 
@@ -16,7 +14,7 @@ kubeadm alpha phase addon all [flags]
 ### Examples
 
 ```
-  # Installs the kube-dns and the kube-proxys addons components via the API server,
+  # Installs the CoreDNS and the kube-proxys addons components via the API server,
   # functionally equivalent to what installed by kubeadm init.
   
   kubeadm alpha phase selfhosting from-staticpods
@@ -24,57 +22,26 @@ kubeadm alpha phase addon all [flags]
 
 ### Options
 
-<table style="width: 100%;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
+```
+      --apiserver-advertise-address string   The IP address the API server is accessible on
+      --apiserver-bind-port int32            The port the API server is accessible on (default 6443)
+      --config string                        Path to a kubeadm config file. WARNING: Usage of a configuration file is experimental
+      --feature-gates string                 A set of key=value pairs that describe feature gates for various features.Options are:
+                                             Auditing=true|false (ALPHA - default=false)
+                                             CoreDNS=true|false (default=true)
+                                             DynamicKubeletConfig=true|false (ALPHA - default=false)
+                                             SelfHosting=true|false (ALPHA - default=false)
+                                             StoreCertsInSecrets=true|false (ALPHA - default=false)
+  -h, --help                                 help for all
+      --image-repository string              Choose a container registry to pull control plane images from (default "k8s.gcr.io")
+      --kubeconfig string                    The KubeConfig file to use when talking to the cluster (default "/etc/kubernetes/admin.conf")
+      --kubernetes-version string            Choose a specific Kubernetes version for the control plane (default "stable-1.10")
+      --pod-network-cidr string              The range of IP addresses used for the Pod network
+      --service-cidr string                  The range of IP address used for service VIPs (default "10.96.0.0/12")
+      --service-dns-domain string            Alternative domain for services (default "cluster.local")
+```
 
-    <tr>
-      <td colspan="2">--apiserver-advertise-address string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">The IP address or DNS name the API server is accessible on</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">The port the API server is accessible on</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--config string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">Path to a kubeadm config file. WARNING: Usage of a configuration file is experimental!</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--feature-gates string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">A set of key=value pairs that describe feature gates for various features.Options are:<br/>Auditing=true|false (ALPHA - default=false)<br/>CoreDNS=true|false (BETA - default=false)<br/>DynamicKubeletConfig=true|false (ALPHA - default=false)<br/>SelfHosting=true|false (ALPHA - default=false)<br/>StoreCertsInSecrets=true|false (ALPHA - default=false)</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">help for all</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">Choose a container registry to pull control plane images from</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%">The KubeConfig file to use when talking to the cluster</td>
