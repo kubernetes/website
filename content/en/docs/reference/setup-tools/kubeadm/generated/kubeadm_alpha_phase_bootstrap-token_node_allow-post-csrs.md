@@ -3,7 +3,6 @@ Configures RBAC to allow node bootstrap tokens to post CSRs in order for nodes t
 
 ### Synopsis
 
-
 Configures RBAC rules to allow node bootstrap tokens to post a certificate signing request, thus enabling nodes joining the cluster to request long term certificate credentials. 
 
 See online documentation about TLS bootstrapping for more details. 
@@ -16,18 +15,17 @@ kubeadm alpha phase bootstrap-token node allow-post-csrs [flags]
 
 ### Options
 
-<table style="width: 100%;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
+```
+  -h, --help   help for allow-post-csrs
+```
 
-    <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">help for allow-post-csrs</td>
+### Options inherited from parent commands
+
+```
+      --kubeconfig string   The KubeConfig file to use when talking to the cluster (default "/etc/kubernetes/admin.conf")
+```
+
+ine-height: 130%">help for allow-post-csrs</td>
     </tr>
 
   </tbody>

@@ -3,7 +3,6 @@ Generates an etcd peer certificate and key
 
 ### Synopsis
 
-
 Generates the etcd peer certificate and key and saves them into etcd/peer.crt and etcd/peer.key files. 
 
 The certificate includes default subject alternative names and additional SANs provided by the user; default SANs are: <node-name>, <apiserver-advertise-address>. 
@@ -18,17 +17,13 @@ kubeadm alpha phase certs etcd-peer [flags]
 
 ### Options
 
-<table style="width: 100%;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
+```
+      --cert-dir string   The path where to save the certificates (default "/etc/kubernetes/pki")
+      --config string     Path to kubeadm config file. WARNING: Usage of a configuration file is experimental
+  -h, --help              help for etcd-peer
+```
 
-    <tr>
-      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
-    </tr>
-    <tr>
+>
       <td></td><td style="line-height: 130%">The path where to save the certificates</td>
     </tr>
 

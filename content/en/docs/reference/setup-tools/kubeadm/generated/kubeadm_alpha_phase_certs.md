@@ -3,13 +3,15 @@ Generates certificates for a Kubernetes cluster
 
 ### Synopsis
 
-
 This command is not meant to be run on its own. See list of available subcommands.
 
 ### Options
 
-<table style="width: 100%;">
-  <colgroup>
+```
+  -h, --help   help for certs
+```
+
+up>
     <col span="1" style="width: 10px;" />
     <col span="1" />
   </colgroup>

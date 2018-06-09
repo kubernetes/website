@@ -3,7 +3,6 @@ Generates all kubeconfig files necessary to establish the control plane and the 
 
 ### Synopsis
 
-
 Generates all kubeconfig files necessary to establish the control plane and the admin kubeconfig file. 
 
 Alpha Disclaimer: this command is currently alpha.
@@ -25,32 +24,17 @@ kubeadm alpha phase kubeconfig all [flags]
 
 ### Options
 
-<table style="width: 100%;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
+```
+      --apiserver-advertise-address string   The IP address the API server is accessible on
+      --apiserver-bind-port int32            The port the API server is accessible on (default 6443)
+      --cert-dir string                      The path where certificates are stored (default "/etc/kubernetes/pki")
+      --config string                        Path to kubeadm config file. WARNING: Usage of a configuration file is experimental
+  -h, --help                                 help for all
+      --kubeconfig-dir string                The path where to save the kubeconfig file (default "/etc/kubernetes")
+      --node-name string                     The node name that should be used for the kubelet client certificate
+```
 
-    <tr>
-      <td colspan="2">--apiserver-advertise-address string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">The IP address the API server is accessible on</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">The port the API server is accessible on</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">The path where certificates are stored</td>
+">The path where certificates are stored</td>
     </tr>
 
     <tr>

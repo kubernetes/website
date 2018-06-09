@@ -3,7 +3,6 @@ Generates a private key for signing service account tokens along with its public
 
 ### Synopsis
 
-
 Generates the private key for signing service account tokens along with its public key, and saves them into sa.key and sa.pub files. 
 
 If both files already exist, kubeadm skips the generation step and existing files will be used. 
@@ -16,16 +15,12 @@ kubeadm alpha phase certs sa [flags]
 
 ### Options
 
-<table style="width: 100%;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
+```
+      --cert-dir string   The path where to save the certificates (default "/etc/kubernetes/pki")
+      --config string     Path to kubeadm config file. WARNING: Usage of a configuration file is experimental
+  -h, --help              help for sa
+```
 
-    <tr>
-      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
-    </tr>
     <tr>
       <td></td><td style="line-height: 130%">The path where to save the certificates</td>
     </tr>

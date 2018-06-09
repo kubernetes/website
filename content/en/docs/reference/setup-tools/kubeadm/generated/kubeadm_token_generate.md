@@ -4,7 +4,6 @@ Generate and print a bootstrap token, but do not create it on the server.
 ### Synopsis
 
 
-
 This command will print out a randomly-generated bootstrap token that can be used with
 the "init" and "join" commands.
 
@@ -22,29 +21,18 @@ kubeadm token generate [flags]
 
 ### Options
 
-<table style="width: 100%;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
-
-    <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%">help for generate</td>
-    </tr>
-
-  </tbody>
-</table>
-
-
+```
+  -h, --help   help for generate
+```
 
 ### Options inherited from parent commands
 
-<table style="width: 100%;">
-  <colgroup>
+```
+      --dry-run             Whether to enable dry-run mode or not
+      --kubeconfig string   The KubeConfig file to use when talking to the cluster. If the flag is not set a set of standard locations are searched for an existing KubeConfig file (default "/etc/kubernetes/admin.conf")
+```
+
+oup>
     <col span="1" style="width: 10px;" />
     <col span="1" />
   </colgroup>
