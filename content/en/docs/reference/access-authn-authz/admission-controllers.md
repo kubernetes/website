@@ -225,7 +225,7 @@ plugins:
 ...
 ```
 
-The ImagePolicyWebhook config file must reference a [kubeconfig](docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+The ImagePolicyWebhook config file must reference a [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
 
 The kubeconfig file's cluster field must point to the remote service, and the user field must contain the returned authorizer.
@@ -245,7 +245,7 @@ users:
     client-certificate: /path/to/cert.pem # cert for the webhook admission controller to use
     client-key: /path/to/key.pem          # key matching the cert
 ```
-For additional HTTP configuration, refer to the [kubeconfig](docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation.
+For additional HTTP configuration, refer to the [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation.
 
 #### Request Payloads
 
