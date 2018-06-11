@@ -532,6 +532,14 @@ secret "prod-db-secret" created
 $ kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
 secret "test-db-secret" created
 ```
+{{< note >}}
+**Note:** Special characters such as `$`, `\*`, and `!` require escaping.
+If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way: 
+
+    kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\*d\\$zDsb
+    
+You do not need to escape special characters in passwords from files (`--from-file`).
+{{< /note >}}
 
 Now make the pods:
 
