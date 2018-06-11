@@ -151,6 +151,9 @@ components. This may take several minutes.
 - You can't run `kubeadm init` twice without tearing down the cluster in between
 ([unless you're upgrading from v1.6 to v1.7](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/)),
 see [Tear Down](#tear-down).
+- If you join a node with a different architecture to your cluster, you should create a separate
+Deployment or DaemonSet for `kube-proxy` and `kube-dns` on the node. This is because the Docker images for these
+components do not currently support multi-architecture.
 
 The output should look like:
 
