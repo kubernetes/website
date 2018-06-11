@@ -86,6 +86,9 @@ kubeadm init <args>
 - For a complete list of configuration options, see [the configuration file documentation.](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
 - To customise control plane components, including optional IPv6 assignment to liveness probe for control plane components and etcd server, you provide extra arguments to each component. See  as documented [here](/docs/admin/kubeadm#custom-args).
 - To run `kubeadm init` again, you must first [tear down the cluster](#tear-down).
+- If you join a node with a different architecture to your cluster, you should create a separate
+Deployment or DaemonSet for `kube-proxy` and `kube-dns` on the node. This is because the Docker images for these
+components do not currently support multi-architecture.
 
 `kubeadm init` first runs a series of prechecks to ensure that the machine
 is ready to run Kubernetes. It exposes warnings and exits on errors. It

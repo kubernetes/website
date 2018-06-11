@@ -1,16 +1,19 @@
 ---
 title: Content Organization
 date: 2018-04-30
+content_template: templates/concept
 weight: 42
 ---
 
+{{< toc >}}
+
+{{% capture overview %}}
+
 This site uses Hugo. In Hugo, [content organization](https://gohugo.io/content-management/organization/) is a core concept.
 
-Also see:
+{{% /capture %}}
 
-* [Custom Hugo Shortcodes](/docs/home/contribute/includes)
-* [Style Guide](/docs/home/contribute/style-guide)
-
+{{% capture body %}}
 
 {{% note %}}
 **Hugo Tip:** Start Hugo with `hugo server --navigateToChanged` for content edit-sessions.
@@ -127,4 +130,13 @@ Some important notes to the files in the bundles:
 ## Styles
 
 The `SASS` source of the stylesheets for this site is stored below `src/sass` and can be built with `make sass` (note that Hugo will get `SASS` support soon, see https://github.com/gohugoio/hugo/issues/4243).
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+* [Custom Hugo Shortcodes](/docs/home/contribute/includes)
+* [Style Guide](/docs/home/contribute/style-guide)
+
+{{% /capture %}}
 

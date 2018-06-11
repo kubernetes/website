@@ -59,7 +59,7 @@ enter this command:
 
 1. In your browser's address bar, enter `localhost:1313`.
 
-## Viewing you changes in the Netlify preview
+## Viewing your changes in the Netlify preview
 
 When you submit a pull request, you can see a preview of your changes at
 [Netlify](https://www.netlify.com/). In your pull request, at the bottom,
