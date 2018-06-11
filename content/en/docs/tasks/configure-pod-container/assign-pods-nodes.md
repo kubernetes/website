@@ -38,7 +38,7 @@ Kubernetes cluster.
 
 1. Verify that your chosen node has a `disktype=ssd` label:
 
-       kubectl get nodes --show-labels
+       `kubectl get nodes --show-labels`
 
 
     The output is similar to this:
@@ -79,5 +79,3 @@ a `disktype=ssd` label.
 Learn more about
 [labels and selectors](/docs/concepts/overview/working-with-objects/labels/).
 {{% /capture %}}
-
-
