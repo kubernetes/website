@@ -4,17 +4,25 @@ reviewers:
 - freehan
 - thockin
 title: Network Plugins
+content_template: templates/concept
 weight: 10
 ---
 
 {{< toc >}}
 
-__Disclaimer__: Network plugins are in alpha. Its contents will change rapidly.
+{{% capture overview %}}
+
+{{< feature-state state="alpha" >}}
+{{< warning >}}Alpha features change rapidly. {{< /warning >}}
 
 Network plugins in Kubernetes come in a few flavors:
 
 * CNI plugins: adhere to the appc/CNI specification, designed for interoperability.
 * Kubenet plugin: implements basic `cbr0` using the `bridge` and `host-local` CNI plugins
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Installation
 
@@ -71,3 +79,9 @@ This option is provided to the network-plugin; currently **only kubenet supports
 * `--network-plugin=cni` specifies that we use the `cni` network plugin with actual CNI plugin binaries located in `--cni-bin-dir` (default `/opt/cni/bin`) and CNI plugin configuration located in `--cni-conf-dir` (default `/etc/cni/net.d`).
 * `--network-plugin=kubenet` specifies that we use the `kubenet` network plugin with CNI `bridge` and `host-local` plugins placed in `/opt/cni/bin` or `cni-bin-dir`.
 * `--network-plugin-mtu=9001` specifies the MTU to use, currently only used by the `kubenet` network plugin.
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+{{% /capture %}}

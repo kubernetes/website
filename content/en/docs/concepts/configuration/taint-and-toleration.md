@@ -4,9 +4,13 @@ reviewers:
 - kevin-wangzefeng
 - bsalamat
 title: Taints and Tolerations
+content_template: templates/concept
 weight: 40
 ---
 
+{{< toc >}}
+
+{{% capture overview %}}
 Node affinity, described [here](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),
 is a property of *pods* that *attracts* them to a set of nodes (either as a
 preference or a hard requirement). Taints are the opposite -- they allow a
@@ -18,7 +22,9 @@ marks that the node should not accept any pods that do not tolerate the taints.
 Tolerations are applied to pods, and allow (but do not require) the pods to schedule
 onto nodes with matching taints.
 
-{{< toc >}}
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Concepts
 
@@ -279,3 +285,9 @@ To make sure that turning on this feature doesn't break DaemonSets, starting in 
 
 The above settings ensure backward compatibility, but we understand they may not fit all user's needs, which is why
 cluster admin may choose to add arbitrary tolerations to DaemonSets.
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+{{% /capture %}}
