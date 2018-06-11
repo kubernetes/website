@@ -664,7 +664,7 @@ rules:
 
 ## client-go credential plugins
 
-{{< feature-state for_k8s_version="v1.10" state="alpha" >}}
+{% assign for_k8s_version="v1.11" %}{% include feature-state-beta.md %}
 
 `k8s.io/client-go` and tools using it such as `kubectl` and `kubelet` are able to execute an
 external command to receive user credentials.
@@ -674,8 +674,6 @@ supported by `k8s.io/client-go` (LDAP, Kerberos, OAuth2, SAML, etc.). The plugin
 protocol specific logic, then returns opaque credentials to use. Almost all credential plugin
 use cases require a server side component with support for the [webhook token authenticator](#webhook-token-authentication)
 to interpret the credential format produced by the client plugin.
-
-As of 1.10 only bearer tokens are supported. Support for client certs may be added in a future release.
 
 ### Example use case
 
@@ -707,11 +705,13 @@ users:
       # Command to execute. Required.
       command: "example-client-go-exec-plugin"
 
-      # API version to use when encoding and decoding the ExecCredentials
-      # resource. Required.
+      # API version to use when decoding the ExecCredentials resource. Required.
       #
-      # The API version returned by the plugin MUST match the version encoded.
-      apiVersion: "client.authentication.k8s.io/v1alpha1"
+      # The API version returned by the plugin MUST match the version listed here.
+      #
+      # Tools that support the alpha API should use an "env" field below to indicate
+      # which version the exec plugin is using.
+      apiVersion: "client.authentication.k8s.io/v1beta1"
 
       # Environment variables to set when executing the plugin. Optional.
       env:
@@ -745,57 +745,23 @@ the binary `/home/jane/bin/example-client-go-exec-plugin` is executed.
     exec:
       # Path relative to the directory of the kubeconfig
       command: "./bin/example-client-go-exec-plugin"
-      apiVersion: "client.authentication.k8s.io/v1alpha1"
+      apiVersion: "client.authentication.k8s.io/v1beta1"
 ```
 
 ### Input and output formats
 
-When executing the command, `k8s.io/client-go` sets the `KUBERNETES_EXEC_INFO` environment
-variable to a JSON serialized [`ExecCredential`](
-https://github.com/kubernetes/client-go/blob/master/pkg/apis/clientauthentication/v1alpha1/types.go)
-resource.
+The executed command is expected to print an `ExceCredential` object to `stdout`. `k8s.io/client-go`
+will then use the returned credentials in the `status` when authenticating against the Kubernetes API.
 
-```
-KUBERNETES_EXEC_INFO='{
-  "apiVersion": "client.authentication.k8s.io/v1alpha1",
-  "kind": "ExecCredential",
-  "spec": {
-    "interactive": true
-  }
-}'
-```
+When run from an interactive session `stdin` is exposed directly to the plugin. Plugins should use a
+[TTY check](https://godoc.org/golang.org/x/crypto/ssh/terminal#IsTerminal) to determine if it's
+appropriate to prompt a user interactively.
 
-When plugins are executed from an interactive session, `stdin` and `stderr` are directly
-exposed to the plugin so it can prompt the user for input for interactive logins.
-
-When responding to a 401 HTTP status code (indicating invalid credentials), this object will
-include metadata about the response.
+To use bearer token credentials, the plugin returns a token in the status of the `ExecCredential`.
 
 ```json
 {
-  "apiVersion": "client.authentication.k8s.io/v1alpha1",
-  "kind": "ExecCredential",
-  "spec": {
-    "response": {
-      "code": 401,
-      "header": {
-        "WWW-Authenticate": [
-          "Bearer realm=ldap.example.com"
-        ]
-      },
-    },
-    "interactive": true
-  }
-}
-```
-
-The executed command is expected to print an `ExceCredential` to `stdout`. `k8s.io/client-go`
-will then use the returned bearer token in the `status` when authenticating against the
-Kubernetes API.
-
-```json
-{
-  "apiVersion": "client.authentication.k8s.io/v1alpha1",
+  "apiVersion": "client.authentication.k8s.io/v1beta1",
   "kind": "ExecCredential",
   "status": {
     "token": "my-bearer-token"
@@ -803,17 +769,31 @@ Kubernetes API.
 }
 ```
 
-Optionally, this output can include the expiry of the token formatted as a RFC3339 timestamp.
-If an expiry is omitted, the bearer token is cached until the server responds with a 401 HTTP
-status code. Note that this caching is only for the duration of process and therefore the plugin 
-is triggered each time the tool using the plugin is invoked.
+This output can include the expiry of the token formatted as a RFC3339 timestamp. If an expiry is
+omitted, the bearer token is cached in-memory until the server responds with a 401 HTTP status code.
 
 ```json
 {
-  "apiVersion": "client.authentication.k8s.io/v1alpha1",
+  "apiVersion": "client.authentication.k8s.io/v1beta1",
   "kind": "ExecCredential",
   "status": {
     "token": "my-bearer-token",
+    "expirationTimestamp": "2018-03-05T17:30:20-08:00"
+  }
+}
+```
+
+Alternatively, a PEM encoded client key pair can be returned to use TLS client auth. The status can
+include an optional expiry. If the plugin returns a different key pair on a subsequent call,
+`k8s.io/client-go` will close existing connections with the server to force a new TLS handshake.
+
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1beta1",
+  "kind": "ExecCredential",
+  "status": {
+    "clientCertificateData": "-----BEGIN CERTIFICATE-----\nMIIBmDCCAT6gAwIBAgIUdJjFbDtfMV3dr9kz31A1tJ5NUucwCgYIKoZIzj0EAwIw\nEjEQMA4GA1UEAxMHZXRjZC1jYTAeFw0xODA2MDUyMjE4MDBaFw0yMzA2MDQyMjE4\nMDBaMA8xDTALBgNVBAMTBHJvb3QwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATL\nAiIj9Ys3llkqw9sxYrTkT/f9CovZLJedmy1UNJ3oWRWCPLaJfCqzUqbnmDHYNd+0\n9vqHEZXWvwo77CKn/R8xo3UwczAOBgNVHQ8BAf8EBAMCBaAwEwYDVR0lBAwwCgYI\nKwYBBQUHAwIwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUjhtqg/FpowLzZm39l7nz\nWVG8HmMwHwYDVR0jBBgwFoAUnVk+crP5CA5Az1VVCBNCDWEFp6IwCgYIKoZIzj0E\nAwIDSAAwRQIhAN8lfRdj63blobkj+NN1SddsSmo2/hSi7meWnnedvLMdAiBwe4dg\nDeDERq+IX7oq5TH5Q2J53r8LRvPZhapq3NzqJw==\n-----END CERTIFICATE-----\n",
+    "clientKeyData": "-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIBns6XkPfM8KA/9QfQ4WABPr91QN2i9nACmVx4MsH+a5oAoGCCqGSM49\nAwEHoUQDQgAEywIiI/WLN5ZZKsPbMWK05E/3/QqL2SyXnZstVDSd6FkVgjy2iXwq\ns1Km55gx2DXftPb6hxGV1r8KO+wip/0fMQ==\n-----END EC PRIVATE KEY-----\n",
     "expirationTimestamp": "2018-03-05T17:30:20-08:00"
   }
 }
