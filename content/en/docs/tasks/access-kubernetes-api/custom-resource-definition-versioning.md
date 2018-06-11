@@ -35,8 +35,8 @@ support multiple versions of Custom Resources that you have developed.
 
 {{< note >}}
 Earlier iterations included a `version` field instead of `versions`. The
-`version` field is deprecated and optional, but if it is not empty, it must be
-the first item in the `versions` field.
+`version` field is deprecated and optional, but if it is not empty, it must
+match the first item in the `versions` field.
 {{< /note >}}
 
 ## Specify multiple versions
@@ -84,29 +84,33 @@ You can save the CustomResourceDefinition in a YAML file, then use
 kubectl create -f my-versioned-crontab.yaml
 ```
 
-After creation, the API server starts to serve each enabled version at its
-resolved endpoint.. In the
-above example, the APIs are available at `/apis/example.com/v1beta1` and
-`/apis/example.com/v1`.
+After creation, the API server starts to serve each enabled version at an HTTP
+REST endpoint. In the above example, the APIs are available at
+`/apis/example.com/v1beta1` and `/apis/example.com/v1`.
 
 ### Version order
 
-The _order_ of the versions in the CustomResourceDefinition defines a priority
-for each version. The version that comes first in term of priority is used by
-kubectl as the default version to access objects. 
+The versions in a CustomResourceDefinition are automatically prioritized in the
+following way, regardless of the order in which they are defined. The version
+that comes first in term of priority is used by kubectl as the default version
+to access objects. 
 
 The version _name_ in the CustomResourceDefiniton version list is used to
 compute the order of versions, using the following algorithm to attempt to parse
-the versions by version, then stability level.
+the versions by version, then stability level. 
 
-- Versions starting with a `v` are sorted above those that are not. Other string
-  prefixes are sorted alphanumerically.
-- Within `v` versions:
-  - If a number comes next, the numbers are sorted from largest to smallest.
-  - If the strings `GA`, `beta`, `alpha` follow the number, they are sorted in
-    that order.
-      - If another number follows the `GA`, `beta`, or `alpha`, those numbers
-        are sorted from largest to smallest.
+Versions of the Kubernetes versioning scheme start with a `v` followed by a
+number, `vbeta` followed by a number, or `vbeta` followed by a number. The
+Kubernetes community calls this scheme "GA versions". Within GA versions, the
+following rules apply:
+  
+- `v` is sorted before `vbeta`, which is sorted before `valpha`.
+- Numbers are sorted largest to smallest.
+- If the strings `beta`, `alpha` follow the number, they sorted in
+  that order, after the equivalent string without the `beta` or `alpha` suffix.
+- If another number follows the `beta`, or `alpha`, those numbers
+  are sorted from largest to smallest.
+- Strings that don't fit the above format are sorted alphabetically.
 
 This might make sense if you look at the following sorted version list:
 
@@ -130,11 +134,13 @@ the version.
 
 ## Manage object versions
 
-The only conversion the API server performs on a CustomResourceDefinition is to
-fix the apiVersion of the object. When an object is requested, the version
-specified as the `storage` version at the time of creation is stored in etcd,
-and returned objects for the API use the version specified in the request.
-You can save the following YAML to `my-crontab-v1.yaml`:
+An object is stored in etcd with the storage version at the time of creation.
+When the object is requested, the API server returns it in the API version of
+the request. In the case of CREATE or UPDATE requests it persists the object
+with the current storage version, not the request version.
+
+To illustrate how this works, you can save the following YAML to
+`my-crontab-v1.yaml`:
 
 ```yaml
 apiVersion: "example.com/v1beta1"
@@ -152,10 +158,10 @@ You can create the `v1beta1` version using the following `kubectl` command.
 kubectl create -f my-crontab.yaml
 ```
 
-The object with the new version `example.com/v1beta1` is stored. However, the
-`v1` version is already stored, and comes first in the sort order. Therefore,
-when you access the object using a command that doesn't specify an API version,
-`v1` is still returned.
+The new object is stored as `example.com/v1beta1` in etcd because `v1beta1` is
+the current storage version. If you add a definition for `v1`, it will now be
+first in the sort order, and a newly-created object that doesn't specify an API
+version will be stored as `example.com/v1`.
 
 ```shell
 kubectl get my-new-cron-object -o yaml
@@ -179,7 +185,7 @@ spec:
   image: my-awesome-cron-image
 ```
 
-If you specify a version, the returned object uses it instead:
+If you specify a version, the object is stored at that version:
 
 ```shell
 kubectl get crontabs.v1beta1.stable.example.com my-new-cron-object
@@ -203,12 +209,12 @@ spec:
   image: my-awesome-cron-image
 ```
 
-### Store multiple versions
+### Storing multiple versions
 
 You can store different versions of Custom Resources simultaneously. When you
-change the storage version in the CustomResourceDefinition, the changes only
-affect new and updated objects. Your existing persisted data is not
-automatically upgraded.
+change the storage version in the CustomResourceDefinition, this only affects
+new and updated objects. Your existing persisted data is not automatically
+upgraded.
 
 The API server records each version which has ever been marked as the storage
 version in the status field `storedVersions`. Expect old versioned objects in etcd for all versions in `status.storedVersions`. Versions may have existed but never been designated as
