@@ -2,15 +2,22 @@
 reviewers:
 - mikedanese
 title: Secrets
+content_template: templates/concept
 weight: 50
 ---
+
+{{< toc >}}
+
+{{% capture overview %}}
 
 Objects of type `secret` are intended to hold sensitive information, such as
 passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
 is safer and more flexible than putting it verbatim in a `pod` definition or in
 a docker image. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
 
-{{< toc >}}
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Overview of Secrets
 
@@ -638,11 +645,10 @@ The `secret-volume` will contain a single file, called `.secret-file`, and
 the `dotfile-test-container` will have this file present at the path
 `/etc/secret-volume/.secret-file`.
 
-**NOTE**
-
-Files beginning with dot characters are hidden from the output of  `ls -l`;
+{{< note >}}
+**Note**: Files beginning with dot characters are hidden from the output of  `ls -l`;
 you must use `ls -la` to see them when listing directory contents.
-
+{{< /note >}}
 
 ### Use-case: Secret visible to one container in a pod
 
@@ -751,3 +757,7 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
 {{< note >}}
 **Note:** As of 1.7 [encryption of secret data at rest is supported](/docs/tasks/administer-cluster/encrypt-data/).
 {{< /note >}}
+
+{{% capture whatsnext %}}
+
+{{% /capture %}}

@@ -2,8 +2,13 @@
 reviewers:
 - bprashanth
 title: Services
+content_template: templates/concept
 weight: 10
 ---
+
+{{< toc >}}
+
+{{% capture overview %}}
 
 Kubernetes [`Pods`](/docs/concepts/workloads/pods/pod/) are mortal. They are born and when they die, they
 are not resurrected.  [`ReplicaSets`](/docs/concepts/workloads/controllers/replicaset/) in
@@ -33,7 +38,9 @@ that is updated whenever the set of `Pods` in a `Service` changes.  For
 non-native applications, Kubernetes offers a virtual-IP-based bridge to Services
 which redirects to the backend `Pods`.
 
-{{< toc >}}
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Defining a service
 
@@ -890,6 +897,11 @@ Service is a top-level resource in the Kubernetes REST API. More details about t
 API object can be found at:
 [Service API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core).
 
-## For More Information
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 Read [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/).
+
+{{% /capture %}}
+

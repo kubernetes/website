@@ -11,7 +11,7 @@ weight: 40
 {{% /capture %}}
 
 {{% capture body %}}
-__Terminology__
+## Terminology
 
 Throughout this doc you will see a few terms that are sometimes used interchangeably elsewhere, that might cause confusion. This section attempts to clarify them.
 
@@ -25,7 +25,7 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 
 Typically, services and pods have IPs only routable by the cluster network. All traffic that ends up at an edge router is either dropped or forwarded elsewhere. Conceptually, this might look like:
 
-```
+```none
     internet
         |
   ------------
@@ -172,7 +172,7 @@ The Ingress controller will provision an implementation specific loadbalancer th
 
 Name-based virtual hosts use multiple host names for the same IP address.
 
-```
+```none
 foo.bar.com --|                 |-> foo.bar.com s1:80
               | 178.91.123.132  |
 bar.foo.com --|                 |-> bar.foo.com s2:80
@@ -313,4 +313,7 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * Use a [Port Proxy](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 {{% /capture %}}
 
+{{% capture whatsnext %}}
+
+{{% /capture %}}
 
