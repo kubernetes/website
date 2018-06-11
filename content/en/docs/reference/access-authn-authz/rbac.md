@@ -538,6 +538,11 @@ It does not allow viewing secrets, since those are escalating.</td>
 <td>Allows access to the resources required by the kube-scheduler component.</td>
 </tr>
 <tr>
+<td><b>system:volume-scheduler</b></td>
+<td><b>system:kube-scheduler</b> user</td>
+<td>Allows access to the volume resources required by the kube-scheduler component.</td>
+</tr>
+<tr>
 <td><b>system:kube-controller-manager</b></td>
 <td><b>system:kube-controller-manager</b> user</td>
 <td>Allows access to the resources required by the kube-controller-manager component.
