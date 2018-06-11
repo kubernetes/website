@@ -80,7 +80,7 @@ in more detail in the [API Changes documentation](https://git.k8s.io/community/c
     multiple clusters which can be upgraded independently, you may be able to relax this restriction.
   - **Please do try our beta features and give feedback on them!  Once they exit beta, it may not be practical for us to make more changes.**
 - Stable level:
-  - The version name is `vX` where `X` is an integer.
+  - The version name is `vX` where `X` is an integer (e.g. `v1`).
   - Stable versions of features will appear in released software for many subsequent versions.
 
 ## API groups
