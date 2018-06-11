@@ -14,11 +14,11 @@ Because you can install kubeadm on any type of machine (e.g. laptop, server,
 Raspberry Pi, etc.), it's well suited for integration with provisioning systems 
 such as Terraform or Ansible.
 
-kubeadm is designed to be a simple way for new users to start trying
-Kubernetes out, possibly for the first time, a way for existing users to
-test their application on and stitch together a cluster easily, and also to be
-a building block in other ecosystem and/or installer tool with a larger
-scope.
+kubeadm's simplicity means it can serve a wide range of use cases:
+
+- New users can start with kubeadm to try Kubernetes out for the first time.
+- Users familiar with Kubernetes can spin up clusters easily with kubeadm and test their applications.
+- Larger projects can include kubeadm as a building block in a more complex system that can also include other installer tools.
 
 kubeadm's overall feature state is **Beta** and will be graduated to
 **General Availability (GA)** as soon as possible. 
@@ -27,12 +27,12 @@ kubeadm's overall feature state is **Beta** and will be graduated to
 
 {{% capture prerequisites %}}
 
-1. One or more machines running a deb/rpm-compatible OS, e.g. Ubuntu or CentOS
-1. 2 GB or more of RAM per machine (any less will leave little room for your
-   apps)
-1. 2 CPUs or more on the master
-1. Full network connectivity between all machines in the cluster (public or
-   private network is fine)
+- One or more machines running a deb/rpm-compatible OS, for example Ubuntu or CentOS
+- 2 GB or more of RAM per machine. Any less leaves little room for your
+   apps.
+- 2 CPUs or more on the master
+- Full network connectivity between all machines in the cluster. A public or
+   private network is fine.
  
 {{% /capture %}}
 
@@ -41,7 +41,7 @@ kubeadm's overall feature state is **Beta** and will be graduated to
 ## Objectives
 
 * Install a single master Kubernetes cluster using recommended best practices. 
-  * **Note:** If you want to set up a high available cluster, follow [this guide instead](https://kubernetes.io/docs/setup/independent/high-availability/).
+  * **Note:** To set up a cluster for high availability, see [this guide instead](https://kubernetes.io/docs/setup/independent/high-availability/).
 * Install a Pod network on the cluster so that your Pods can
   talk to each other
 
@@ -54,10 +54,9 @@ See [Installing kubeadm](/docs/setup/independent/install-kubeadm/).
 **Note:** If you already have kubeadm installed, run `apt-get update &&
 apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
-
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
-kubeadm to tell it what to do. This crashloop is expected and normal, please
-proceed with the next step and the kubelet will start running normally.
+kubeadm to tell it what to do. This crashloop is expected and normal. 
+After you initialize your master, the kubelet starts running normally.
 
 ### Initializing your master
 
@@ -65,16 +64,15 @@ The master is the machine where the control plane components run, including
 etcd (the cluster database) and the API server (which the kubectl CLI
 communicates with).
 
-1. Choose a pod network add-on and verify if it requires any arguments to 
-be passed to kubeadm initialization. Depending on what
-third-party provider you choose, you might have to set the `--pod-network-cidr` to
-something provider-specific. The tabs below will contain a notice about what flags
-on `kubeadm init` are required.
+1. Choose a pod network add-on, and verify whether it requires any arguments to 
+be passed to kubeadm initialization. Depending on which
+third-party provider you choose, you might need to set the `--pod-network-cidr` to
+a provider-specific value. See [Installing a pod network add-on](#pod-network).
 1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated 
-with the default gateway to advertise the master's IP. If you want to use a different 
-network interface, specify `--apiserver-advertise-address=<ip-address>` argument 
+with the default gateway to advertise the master's IP. To use a different 
+network interface, specify the `--apiserver-advertise-address=<ip-address>` argument 
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you 
-must specify an IPv6, e.g. `--apiserver-advertise-address=fd00::101`
+must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
 
 Now run:
 
@@ -84,16 +82,15 @@ kubeadm init <args>
 
 **Notes:**
 
-- For more information about `kubeadm init` arguments, see [kubeadm reference guide.](/docs/reference/setup-tools/kubeadm/kubeadm/) 
-- For a complete list of configuration options, see [configuration file documentation.](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
-- If you would like to customise control plane components including optional IPv6 assignment to liveness probe for control plane components and etcd server, you can do so by providing extra args to each one, as documented [here](/docs/admin/kubeadm#custom-args).
-- You can't run `kubeadm init` twice without [tearing down the cluster.](#tear-down).
+- For more information about `kubeadm init` arguments, see [the kubeadm reference guide.](/docs/reference/setup-tools/kubeadm/kubeadm/) 
+- For a complete list of configuration options, see [the configuration file documentation.](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
+- To customise control plane components, including optional IPv6 assignment to liveness probe for control plane components and etcd server, you provide extra arguments to each component. See  as documented [here](/docs/admin/kubeadm#custom-args).
+- To run `kubeadm init` again, you must first [tear down the cluster](#tear-down).
 
-`kubeadm init` will first run a series of prechecks to ensure that the machine
-is ready to run Kubernetes. It will expose warnings and exit on errors. It
-will then download and install the cluster control plane components. 
+`kubeadm init` first runs a series of prechecks to ensure that the machine
+is ready to run Kubernetes. It exposes warnings and exits on errors. It
+then downloads and installs the cluster control plane components. 
 This may take several minutes.
-
 
 The output should look like:
 
@@ -112,7 +109,7 @@ To start using your cluster, you need to run (as a regular user):
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 You should now deploy a pod network to the cluster.
-Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+Run "kubectl apply -f [podnetwork].yaml" with one of the addon options listed at:
   http://kubernetes.io/docs/admin/addons/
 
 You can now join any number of machines by running the following on each node
@@ -121,7 +118,8 @@ as root:
   kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
-To make kubectl work for your non-root user, you might want to run these commands (which is also a part of the `kubeadm init` output):
+To make kubectl work for your non-root user, you might want to run these commands, which are
+also part of the `kubeadm init` output:
 
 ```bash
 mkdir -p $HOME/.kube
@@ -136,13 +134,13 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
-will need this in a moment.
+need this command to [join nodes to your cluster](#join-nodes).
 
 The token is used for mutual authentication between the master and the joining
-nodes.  The token included here is secret, keep it safe as anyone with this
+nodes.  The token included here is secret. Keep it safe, because anyone with this
 token can add authenticated nodes to your cluster. These tokens can be listed,
-created and deleted with the `kubeadm token` command. See the
-[reference guide](/docs/reference/setup-tools/kubeadm/kubeadm-token/) for more details.
+created, and deleted with the `kubeadm token` command. See the
+[kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm-token/).
 
 ### Installing a pod network add-on {#pod-network}
 
@@ -150,15 +148,14 @@ You **MUST** install a pod network add-on so that your pods can communicate with
 each other.
 
 **The network must be deployed before any applications.  Also, kube-dns, an
-internal helper service, will not start up before a network is installed. kubeadm only
-supports Container Network Interface (CNI) based networks (and does not support kubenet).**
+internal helper service, will not start up before a network is installed. kubeadm
+supports only Container Network Interface (CNI) based networks. It does not support kubenet.**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
-support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in 1.9.
+support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in Kubernetes version 1.9.
 
-
-**Note:** kubeadm sets up a more secure cluster by default and enforces use of [RBAC](#TODO).
-Please make sure that the network manifest of choice supports RBAC.
+**Note:** kubeadm sets up a more secure cluster by default and enforces use of [RBAC].
+Make sure that your network manifest supports RBAC.
 
 You can install a pod network add-on with the following command:
 
@@ -285,7 +282,7 @@ This will remove the `node-role.kubernetes.io/master` taint from any nodes that
 have it, including the master node, meaning that the scheduler will then be able
 to schedule pods everywhere.
 
-### Joining your nodes
+### Joining your nodes {join-nodes}
 
 The nodes are where your workloads (containers and pods, etc) run. To add new nodes to your cluster do the following for each machine:
 
