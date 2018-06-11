@@ -809,7 +809,7 @@ certificates to send to the server.
 }
 ```
 
-Optionally, the response can include the expiry of the token formatted as a
+Optionally, the response can include the expiry of the credential formatted as a
 RFC3339 timestamp. Presence or absense of an expiry has the following impact:
 
 - If an expiry is included, the bearer token and TLS credentials are cached until
