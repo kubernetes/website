@@ -777,10 +777,10 @@ KUBERNETES_EXEC_INFO='{
 ```
 
 When plugins are executed from an interactive session, `stdin` and `stderr` are directly
-exposed to the plugin so it can prompt the user for input for interactive logins.
+exposed to the plugin so the user can provide input for interactive logins.
 
-When responding to a 401 HTTP status code (indicating invalid credentials), this object will
-include metadata about the response.
+When responding to a 401 HTTP status code, which indicates invalid credentials, this object
+includes metadata about the response.
 
 ```json
 {
@@ -800,24 +800,13 @@ include metadata about the response.
 }
 ```
 
-The executed command is expected to print an `ExecCredential` to `stdout`. `k8s.io/client-go`
-will then use the returned bearer token in the `status` when authenticating against the
-Kubernetes API.
-
-```json
-{
-  "apiVersion": "client.authentication.k8s.io/v1alpha1",
-  "kind": "ExecCredential",
-  "status": {
-    "token": "my-bearer-token"
-  }
-}
-```
-
-Optionally, this output can include the expiry of the token formatted as a RFC3339 timestamp.
-If an expiry is omitted, the bearer token is cached until the server responds with a 401 HTTP
-status code. Note that this caching is only for the duration of process and therefore the plugin 
-is triggered each time the tool using the plugin is invoked.
+After the plugin outputs an `ExecCredential` structure to `stdout`, the `k8s.io/client-go` library
+looks for a bearer token or client TLS key and certificate (or all three) in the
+`status` field and uses it to authenticate against the Kubernetes API. The library can
+use a bearer token on its own (`token`), a client TLS key and certificate
+(`clientKeyData` and `clientCertificateData`; both must be present), or a combination
+of both methods. `clientCertificateData` may contain additional intermediate
+certificates to send to the server.
 
 ```json
 {
@@ -825,6 +814,30 @@ is triggered each time the tool using the plugin is invoked.
   "kind": "ExecCredential",
   "status": {
     "token": "my-bearer-token",
+    "clientCertificateData": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+    "clientKeyData": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----"
+  }
+}
+```
+
+Optionally, the response can include the expiry of the credential formatted as a
+RFC3339 timestamp. Presence or absense of an expiry has the following impact:
+
+- If an expiry is included, the bearer token and TLS credentials are cached until
+  the expiry time is reached, or if the server responds with a 401 HTTP status code,
+  or when the process exits.
+- If an expiry is omitted, the bearer token and TLS credentials are cached until
+  the server responds with a 401 HTTP status code or until the process exits.
+
+
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1alpha1",
+  "kind": "ExecCredential",
+  "status": {
+    "token": "my-bearer-token",
+    "clientCertificateData": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+    "clientKeyData": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----",
     "expirationTimestamp": "2018-03-05T17:30:20-08:00"
   }
 }
