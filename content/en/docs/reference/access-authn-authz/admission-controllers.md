@@ -400,6 +400,7 @@ namespace.  In order to enforce integrity of that process, we strongly recommend
 This admission controller limits the `Node` and `Pod` objects a kubelet can modify. In order to be limited by this admission controller,
 kubelets must use credentials in the `system:nodes` group, with a username in the form `system:node:<nodeName>`.
 Such kubelets will only be allowed to modify their own `Node` API object, and only modify `Pod` API objects that are bound to their node.
+In Kubernetes 1.11+, kubelets are not allowed to update or remove taints from their `Node` API object.
 Future versions may add additional restrictions to ensure kubelets have the minimal set of permissions required to operate correctly.
 
 ### OwnerReferencesPermissionEnforcement {#ownerreferencespermissionenforcement}
