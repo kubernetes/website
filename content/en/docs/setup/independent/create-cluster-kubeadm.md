@@ -10,14 +10,14 @@ content_template: templates/task
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster 
 lifecycle functions, such as upgrades, downgrade, and managing [Bootstrap Tokens.](/docs/admin/bootstrap-tokens/) 
 
-Because you can install kubeadm on any type of machine (e.g. laptop, server, 
+Because you can install kubeadm on various types of machine (e.g. laptop, server, 
 Raspberry Pi, etc.), it's well suited for integration with provisioning systems 
 such as Terraform or Ansible.
 
 kubeadm's simplicity means it can serve a wide range of use cases:
 
 - New users can start with kubeadm to try Kubernetes out for the first time.
-- Users familiar with Kubernetes can spin up clusters easily with kubeadm and test their applications.
+- Users familiar with Kubernetes can spin up clusters with kubeadm and test their applications.
 - Larger projects can include kubeadm as a building block in a more complex system that can also include other installer tools.
 
 kubeadm's overall feature state is **Beta** and will be graduated to
@@ -31,7 +31,7 @@ kubeadm's overall feature state is **Beta** and will be graduated to
 - 2 GB or more of RAM per machine. Any less leaves little room for your
    apps.
 - 2 CPUs or more on the master
-- Full network connectivity between all machines in the cluster. A public or
+- Full network connectivity among all machines in the cluster. A public or
    private network is fine.
  
 {{% /capture %}}
@@ -84,7 +84,7 @@ kubeadm init <args>
 
 - For more information about `kubeadm init` arguments, see [the kubeadm reference guide.](/docs/reference/setup-tools/kubeadm/kubeadm/) 
 - For a complete list of configuration options, see [the configuration file documentation.](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
-- To customise control plane components, including optional IPv6 assignment to liveness probe for control plane components and etcd server, you provide extra arguments to each component. See  as documented [here](/docs/admin/kubeadm#custom-args).
+- To customize control plane components, including optional IPv6 assignment to liveness probe for control plane components and etcd server, provide extra arguments to each component. See  as documented [here](/docs/admin/kubeadm#custom-args).
 - To run `kubeadm init` again, you must first [tear down the cluster](#tear-down).
 - If you join a node with a different architecture to your cluster, you should create a separate
 Deployment or DaemonSet for `kube-proxy` and `kube-dns` on the node. This is because the Docker images for these
@@ -121,7 +121,7 @@ as root:
   kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
-To make kubectl work for your non-root user, you might want to run these commands, which are
+To make kubectl work for your non-root user, run these commands, which are
 also part of the `kubeadm init` output:
 
 ```bash
@@ -398,8 +398,8 @@ control of your Kubernetes cluster.
 
 ## Feedback {#feedback}
 
-* For bugs, please visit [kubeadm Github issue tracker](https://github.com/kubernetes/kubeadm/issues)
-* For support, please visit kubeadm Slack Channel:
+* For bugs, visit [kubeadm Github issue tracker](https://github.com/kubernetes/kubeadm/issues)
+* For support, visit kubeadm Slack Channel:
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
 * General SIG Cluster Lifecycle Development Slack Channel:
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
