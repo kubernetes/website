@@ -4,9 +4,13 @@ reviewers:
 - lavalamp
 - thockin
 title: Connecting Applications with Services
+content_template: templates/concept
+weight: 30
 ---
 
 {{< toc >}}
+
+{{% capture overview %}}
 
 ## The Kubernetes model for connecting containers
 
@@ -17,6 +21,10 @@ By default, Docker uses host-private networking, so containers can talk to other
 Coordinating ports across multiple developers is very difficult to do at scale and exposes users to cluster-level issues outside of their control. Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. We give every pod its own cluster-private-IP address so you do not need to explicitly create links between pods or mapping container ports to host ports. This means that containers within a Pod can all reach each other's ports on localhost, and all pods in a cluster can see each other without NAT. The rest of this document will elaborate on how you can run reliable services on such a networking model.
 
 This guide uses a simple nginx server to demonstrate proof of concept. The same principles are embodied in a more complete [Jenkins CI application](http://blog.kubernetes.io/2015/07/strong-simple-ssl-for-kubernetes.html).
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Exposing pods to the cluster
 
@@ -318,10 +326,15 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ...
 ```
 
-## Further reading
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 Kubernetes also supports Federated Services, which can span multiple
 clusters and cloud providers, to provide increased availability,
 better fault tolerance and greater scalability for your services. See
 the [Federated Services User Guide](/docs/concepts/cluster-administration/federation-service-discovery/)
 for further information.
+
+{{% /capture %}}
+

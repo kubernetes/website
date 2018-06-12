@@ -1,6 +1,7 @@
 ---
 title: Annotations
 content_template: templates/concept
+weight: 50
 ---
 
 {{% capture overview %}}

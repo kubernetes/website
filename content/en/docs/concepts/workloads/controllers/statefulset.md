@@ -8,6 +8,7 @@ reviewers:
 - smarterclayton
 title: StatefulSets
 content_template: templates/concept
+weight: 40
 ---
 
 {{% capture overview %}}

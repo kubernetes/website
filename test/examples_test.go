@@ -510,16 +510,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-slave-deployment":  {&extensions.Deployment{}},
 			"redis-slave-service":     {&api.Service{}},
 		},
-		"docs/user-guide/walkthrough": {
-			"deployment":                      {&extensions.Deployment{}},
-			"deployment-update":               {&extensions.Deployment{}},
-			"pod-nginx":                       {&api.Pod{}},
-			"pod-nginx-with-label":            {&api.Pod{}},
-			"pod-redis":                       {&api.Pod{}},
-			"pod-with-http-healthcheck":       {&api.Pod{}},
-			"pod-with-tcp-socket-healthcheck": {&api.Pod{}},
-			"service":                         {&api.Service{}},
-		},
 	}
 
 	// Note a key in the following map has to be complete relative path

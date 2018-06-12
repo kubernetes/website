@@ -1,13 +1,22 @@
 ---
 title: Localizing Kubernetes Documentation
+content_template: templates/concept
 approvers:
 - chenopis
 - zacharysarah
 ---
 
+{{% capture overview %}}
+
 We're happy to add localizations (l10n) of Kubernetes documentation to the website!
 
 Localizations must meet the following requirements for _workflow_ (how to localize) and _output_ (what to localize).
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Workflow  
 
@@ -72,12 +81,18 @@ Home | [All heading and subheading URLs](https://kubernetes.io/docs/home/)
 Setup | [All heading and subheading URLs](https://kubernetes.io/docs/setup/)
 Tutorials | [Kubernetes Basics](https://kubernetes.io/docs/tutorials/), [Hello Minikube](https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/)
 
-## Next steps
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 Once a l10n meets requirements for workflow and minimum output, SIG docs will:
-- Work with the localization team to implement language selection on the website
+
+- Work with the localization team to implement language selection on the website.
 - Publicize availability through [Cloud Native Computing Foundation](https://www.cncf.io/) (CNCF) channels.
 
 {{< note >}}
 **Note:** Implementation of language selection is pending Kubernetes' first completed localization project.
 {{< /note >}}
+
+
+{{% /capture %}}

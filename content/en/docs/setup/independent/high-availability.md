@@ -53,7 +53,7 @@ For **Option 2**: you can skip to the next step. Any reference to `etcd0`, `etcd
 
 ### Create etcd CA certs
 
-1. Install `cfssl` and `cfssljson`:
+1. Install `cfssl` and `cfssljson` on all etcd nodes:
 
      ```bash
      curl -o /usr/local/bin/cfssl https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
@@ -208,7 +208,7 @@ This results in the following files: `peer.pem`, `peer-key.pem`, `server.pem`, `
 
 ### {{< tabs name="etcd_mode" >}}
 {{% tab name="Choose one..." %}}
-Please select one of the tabs to see installation instructions for the respective way to run etcd.
+Please select one of the tabs to see installation instructions for the respective way to set up a virtual IP.
 {{% /tab %}}
 {{% tab name="systemd" %}}
 1. First, install etcd binaries:
@@ -278,7 +278,7 @@ Run the following to generate the manifest file:
         labels:
           component: etcd
           tier: control-plane
-        name: <podname>
+        name: <name>
         namespace: kube-system
       spec:
         containers:
@@ -339,7 +339,7 @@ Run the following to generate the manifest file:
       EOF
 
 Make sure you replace:
-* `<podname>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
+* `<name>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
 * `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the public IPv4s of the other machines that host etcd.
 {{% /tab %}}
 {{< /tabs >}}
@@ -347,7 +347,7 @@ Make sure you replace:
 
 ## {{< tabs name="lb_mode" >}}
 {{% tab name="Choose one..." %}}
-Please select one of the tabs to see installation instructions for the respective way to run etcd.
+Please select one of the tabs to see installation instructions for the respective way to set up a virtual IP.
 {{% /tab %}}
 {{% tab name="Cloud" %}}
 Some examples of cloud provider solutions are:
@@ -446,49 +446,51 @@ Only follow this step if your etcd is hosted on dedicated nodes (**Option 1**). 
 
 ## Run kubeadm init on master0 {#kubeadm-init-master0}
 
-1. In order for kubeadm to run, you first need to write a configuration file:
-     ```bash
-     cat >config.yaml <<EOF
-     apiVersion: kubeadm.k8s.io/v1alpha1
-     kind: MasterConfiguration
-     api:
-      advertiseAddress: <private-ip>
-     etcd:
-      endpoints:
-      - https://<etcd0-ip-address>:2379
-      - https://<etcd1-ip-address>:2379
-      - https://<etcd2-ip-address>:2379
-      caFile: /etc/kubernetes/pki/etcd/ca.pem
-      certFile: /etc/kubernetes/pki/etcd/client.pem
-      keyFile: /etc/kubernetes/pki/etcd/client-key.pem
-     networking:
-      podSubnet: <podCIDR>
-     apiServerCertSANs:
-     - <load-balancer-ip>
-     apiServerExtraArgs:
-      apiserver-count: "3"
-     EOF
-     ```
+1.  In order for kubeadm to run, you first need to write a configuration file:
 
-    Ensure that the following placeholders are replaced:
+<!-- Using indentation instead of code fencing because of https://github.com/russross/blackfriday/issues/239 -->
+      cat >config.yaml <<EOF
+      apiVersion: kubeadm.k8s.io/v1alpha1
+      kind: MasterConfiguration
+      api:
+        advertiseAddress: <virtual-ip>
+        controlPlaneEndpoint: <virtual-ip>
+      etcd:
+        endpoints:
+        - https://<etcd0-ip-address>:2379
+        - https://<etcd1-ip-address>:2379
+        - https://<etcd2-ip-address>:2379
+        caFile: /etc/kubernetes/pki/etcd/ca.pem
+        certFile: /etc/kubernetes/pki/etcd/client.pem
+        keyFile: /etc/kubernetes/pki/etcd/client-key.pem
+      networking:
+        podSubnet: <podCIDR>
+      apiServerCertSANs:
+      - <virtual-ip>
+      - <private-ip>
+      apiServerExtraArgs:
+        apiserver-count: "3"
+      EOF
 
-    - `<private-ip>` with the private IPv4 of the master server.
-    - `<etcd0-ip>`, `<etcd1-ip>` and `<etcd2-ip>` with the IP addresses of your three etcd nodes
-    - `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
-    - `<load-balancer-ip>` with the virtual IP set up in the load balancer. Please read [setting up a master load balancer](/docs/setup/independent/high-availability/#set-up-master-load-balancer) section of the docs for more information.
+Ensure that the following placeholders are replaced:
 
-    **Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`. For more information, see [the documentation](/docs/setup/build-high-available/#endpoint-reconciler).
+- `<private-ip>` with the private IPv4 of the master server.
+- `<etcd0-ip>`, `<etcd1-ip>` and `<etcd2-ip>` with the IP addresses of your three etcd nodes
+- `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
+- `<virtual-ip>` with the virtual IP. Please read [setting up a master load balancer](/docs/setup/independent/high-availability/#set-up-master-load-balancer) section of the docs for more information.
 
-1. When this is done, run kubeadm:
-     ```bash
-     kubeadm init --config=config.yaml
-     ```
+{{< note >}}**Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`. For more information, see [the documentation](/docs/admin/high-availability/#endpoint-reconciler).{{< /note >}}
+
+1.  When this is done, run kubeadm:
+      ```bash
+      kubeadm init --config=config.yaml
+      ```
 
 ## Run kubeadm init on master1 and master2
 
 Before running kubeadm on the other masters, you need to first copy the K8s CA cert from `master0`. To do this, you have two options:
 
-#### Option 1: Copy with scp
+### Option 1: Copy with scp
 
 1. Follow the steps in the [create ssh access](#create-ssh-access) section, but instead of adding to `etcd0`'s `authorized_keys` file, add them to `master0`.
 1. Once you've done this, run:
@@ -497,7 +499,7 @@ Before running kubeadm on the other masters, you need to first copy the K8s CA c
      rm apiserver.*
      ```
 
-#### Option 2: Copy paste
+### Option 2: Copy paste
 
 Copy the contents of `/etc/kubernetes/pki/ca.crt`, `/etc/kubernetes/pki/ca.key`, `/etc/kubernetes/pki/sa.key` and `/etc/kubernetes/pki/sa.pub` and create these files manually on `master1` and `master2`.
 
@@ -515,7 +517,7 @@ Follow the instructions [here](/docs/setup/independent/create-cluster-kubeadm/#p
 
 Next provision and set up the worker nodes. To do this, you will need to provision at least 3 Virtual Machines.
 
-1. To configure the worker nodes, [follow the same steps](/docs/setup/independent/create-cluster-kubeadm/#44-joining-your-nodes) as non-HA workloads.
+1. To configure the worker nodes, [follow the same steps](/docs/setup/independent/create-cluster-kubeadm/#joining-your-nodes) as non-HA workloads.
 
 ## Configure workers
 

@@ -1,6 +1,7 @@
 ---
 title: Imperative Management of Kubernetes Objects Using Configuration Files
 content_template: templates/concept
+weight: 30
 ---
 
 {{% capture overview %}}
