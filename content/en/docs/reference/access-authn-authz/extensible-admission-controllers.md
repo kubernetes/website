@@ -260,6 +260,8 @@ you need to:
   `--runtime-config=admissionregistration.k8s.io/v1alpha1`. Again, all replicas
   should have the same flag setting.
 
+*Initializers* is still in alpha version, for kubeadm users, who still want to use *Initializers*, they can use `apiServerExtraArgs` through kubeadm config file to enable it when booting up the cluster.
+
 ### Deploy an initializer controller
 
 You should deploy an initializer controller via the [deployment
