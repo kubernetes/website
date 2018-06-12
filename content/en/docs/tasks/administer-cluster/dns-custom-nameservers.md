@@ -8,13 +8,16 @@ content_template: templates/task
 
 {{% capture overview %}}
 This page explains how to configure your DNS Pod and customize the
-DNS resolution process.
+DNS resolution process. In Kubernetes version 1.11 and later, CoreDNS is installed
+by default. See [Configuring CoreDNS](#config-coredns) and 
+[Using CoreDNS for Service Discovery](/docs/tasks/administer-cluster/coredns/).
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* Kubernetes version 1.6 and above.
-* The cluster must be configured to use the `kube-dns` addon.
+* Kubernetes version 1.6 or later. To work with CoreDNS, version 1.9 or later.
+* The cluster must be configured to use the `kube-dns` add-on. Note that the add-on name
+is the same whether you run kube-dns or CoreDNS.
 {{% /capture %}}
 
 {{% capture steps %}}
@@ -186,7 +189,7 @@ data:
 
 {{% /capture %}}
 
-## Configuring CoreDNS
+## Configuring CoreDNS {config-coredns}
 
 You can configure [CoreDNS](https://coredns.io/) as a service discovery.
 
