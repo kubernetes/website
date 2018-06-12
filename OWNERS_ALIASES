@@ -91,7 +91,6 @@ aliases:
     - steveperry-53
     - zacharysarah
     - bradtopol
-    - heckj
   sig-federation: #Team: Federation; e.g. Federated Clusters
     - csbell
   sig-gcp: #Google Cloud Platform; GH: sig-gcp-pr-reviews
