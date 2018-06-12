@@ -29,17 +29,16 @@ monitoring statistics by default:
   [cAdvisor](https://github.com/google/cadvisor). `metrics-server` is a
   lightweight short-term in-memory store.
   
-
-- A **full monitoring pipeline** provides richer metrics and long-term
-  storage of data. Kubernetes does not provide a specific monitoring
-  solution, but exposes the relevant metrics via the API used by
-  `metrics-server` and also in Prometheus exposition format. You can collect
-  these metrics using a monitoring agent that is compatible with either of
-  these mechanisms. Kubernetes defines two different APIs for use by
-  monitoring agents: `custom.metrics.k8s.io` and `external.metrics.k8s.io`. 
-  These APIs provide richer metrics to system components such as the
-  Horizontal Pod Autoscaler. See [Full metrics pipeline](#full-metrics-pipelines)
-  for more information about some popular pipelines.
+- A **full monitoring pipeline**, such as Prometheus, gives you access to richer
+  metrics. In addition, Kubernetes can respond to these metrics by automatically
+  scaling or adapting the cluster based on its current state, using mechanisms
+  such as the Horizontal Pod Autoscaler. The monitoring pipeline fetches
+  metrics from the Kubelet, and then exposes them to Kubernetes via an adapter
+  by implementing either the `custom.metrics.k8s.io` or
+  `external.metrics.k8s.io` API. See
+  [Full metrics pipeline](#full-metrics-pipelines) for more information about
+  some popular pipelines that implement these APIs and enable these
+  capabilities.
 
 
 ### cAdvisor
@@ -73,9 +72,9 @@ data source for [Grafana](https://prometheus.io/docs/visualization/grafana/).
 ### Google Cloud Monitoring
 
 Google Cloud Monitoring is a hosted monitoring service you can use to
-visualize and alert on important metrics in your application. It uses
-Heapster to collect metrics from Kubernetes, and gives access to them
-through the [Cloud Monitoring Console](https://app.google.stackdriver.com/).
+visualize and alert on important metrics in your application. can collect
+metrics from Kubernetes, and you can access them
+using the [Cloud Monitoring Console](https://app.google.stackdriver.com/).
 You can create and customize dashboards to visualize the data gathered
 from your Kubernetes cluster.
 
