@@ -1018,6 +1018,43 @@ spec:
         claimName: my-lamp-site-data
 ```
 
+### Using subPath with expanded environment variables
+
+{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+
+
+`subPath` directory names can also be constructed from Downward API environment variables.
+Before you use this feature, you must enable the `VolumeSubpathEnvExpansion`feature gate.
+
+In this example, a Pod uses `subPath` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+spec:
+  containers:
+  - name: container1
+    env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    image: busybox
+    command: [ "sh", "-c", "while [ true ]; do echo 'Hello'; sleep 10; done | tee -a /logs/hello.txt" ]
+    volumeMounts:
+    - name: workdir1
+      mountPath: /logs
+      subPath: $(POD_NAME)
+  restartPolicy: Never
+  volumes:
+  - name: workdir1
+    hostPath: 
+      path: /var/log/pods
+```
+
 ## Resources
 
 The storage media (Disk, SSD, etc.) of an `emptyDir` volume is determined by the
