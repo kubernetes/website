@@ -192,7 +192,7 @@ Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create d
 
 2. Use the following syntax to apply a style:
     
-    ```md
+    ```
     {{</* note */>}}
     **Note:** The prefix you use is the same text you use in the tag.
     {{</* /note */>}}
