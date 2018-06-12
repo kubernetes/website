@@ -1,5 +1,5 @@
 ---
-title: "Kubeadm"
+title: "Administration with kubeadm"
 weight: 10
 ---
 
