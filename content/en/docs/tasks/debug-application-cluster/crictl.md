@@ -22,10 +22,7 @@ Kubernetes node. `crictl` and its source are hosted in the
 
 {{% capture prerequisites %}}
 
-In order to use `crictl`, you need access to a Linux system that is not a
-running Kubernetes cluster. 
-
-For `crictl` to be able to pull images, you need TODO THIS IS NOT CLEAR TO ME
+`crictl` requires a Linux operating system with a CRI runtime.
 
 {{% /capture %}}
 
@@ -71,10 +68,9 @@ debug: true
 The following examples show some `crictl` commands and and example output.
 
 {{< warning >}}
-Commands that create pod sandboxes and containers, or start containers, are
-only appropriate for debugging. On a Kubernetes cluster, the Kubelet will
-maintain the state of the pod as configured, and will stop and delete objects
-created by `crictl`.
+If you use `crictl` to create pod sandboxes or containers on a running
+Kubernetes cluster, the Kubelet will eventually delete them. `crictl` is not a
+general purpose workflow tool, but a tool that is useful for debugging.
 {{< /warning >}}
 
 ### List pods
@@ -210,7 +206,7 @@ crictl logs --tail=1 87d3992f84f74
 ### Run a pod sandbox
 
 Using `crictl` to run a pod sandbox is useful for debugging container runtimes.
-Don't do this on a Kubernetes node, because it will be stopped and
+On a running Kubernetes cluster, the sandbox will eventually be stopped and
 deleted by the Kubelet.
 
 1.  Create a JSON file like the following:
@@ -240,7 +236,7 @@ deleted by the Kubelet.
 ### Create a container
 
 Using `crictl` to create a container is useful for debugging container runtimes.
-Don't do this on a Kubernetes node, because it will be stopped and
+On a running Kubernetes cluster, the sandbox will eventually be stopped and
 deleted by the Kubelet.
 
 1.  Pull a busybox image
@@ -305,9 +301,6 @@ deleted by the Kubelet.
       ```
 
 ### Start a container
-
-Using `crictl` to start a container is useful for debugging container runtimes.
-Don't do this on a Kubernetes node, because it will be stopped by the Kubelet.
 
 To start a container, pass its ID to `crictl start`:
 
