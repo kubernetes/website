@@ -158,8 +158,8 @@ to schedule those pods onto the right nodes.
 
 ## PodSecurityPolicy
 
-To control which sysctls can be set in pods, specify either the
-`forbiddenSysctls` and `allowedUnsafeSysctls` fields in the PodSecurityPolicy.
+To control which sysctls can be set in pods, specify the
+`forbiddenSysctls` and/or `allowedUnsafeSysctls` fields in the PodSecurityPolicy.
 
 By default, all safe sysctls in the whitelist are allowed.
 
@@ -171,16 +171,18 @@ combination of safe and unsafe ones. To forbid setting any sysctls, use `*` on
 its own.
 
 If you specify any unsafe sysctl in the `allowedUnsafeSysctls` field and it is
-not present in the `forbiddenSysctls` field, that sysctl can be set in the
-PodSecurityPolicy. To allow all unsafe sysctls to be set (except for those explicitly forbidden by `forbiddenSysctls`), use `*` on its own.
+not present in the `forbiddenSysctls` field, that sysctl can be used in Pods under
+this PodSecurityPolicy. In order to allow all unsafe sysctls in the PodSecurityPolicy
+to be set (except for those explicitly forbidden by `forbiddenSysctls`),
+use `*` on its own.
 
-Be careful not to configure these two fields such that there is overlap.
+It's not allowed to configure these two fields such that there is overlap.
 
 {{< warning >}}
-**Warning**: If you use the `--allowed-unsafe-sysctls` flag when starting the
-pod and the value of the flag conflicts with the contents of the
-`allowedUnsafeSysctls` field in the PodSecurityPolicy, the pod will fail to
-start.
+**Warning**: If you whitelist unsafe sysctls via the `allowedUnsafeSysctls` field
+in a PodSecurityPolicy, any pod using such a sysctl will fail to start
+if the sysctl is not whitelisted via the `--allowed-unsafe-sysctls` kubelet
+flag as well on that node.
 {{< /warning >}}
 
 This example allows unsafe sysctls prefixed with `kernel.msg` to be set and
