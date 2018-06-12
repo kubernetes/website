@@ -8,7 +8,7 @@ content_template: templates/task
 {{% capture overview %}}
 
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster 
-lifecycle functions, such as upgrades, downgrade, and managing [Bootstrap Tokens.](/docs/admin/bootstrap-tokens/) 
+lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/admin/bootstrap-tokens/). 
 
 Because you can install kubeadm on various types of machine (e.g. laptop, server, 
 Raspberry Pi, etc.), it's well suited for integration with provisioning systems 
@@ -20,8 +20,7 @@ kubeadm's simplicity means it can serve a wide range of use cases:
 - Users familiar with Kubernetes can spin up clusters with kubeadm and test their applications.
 - Larger projects can include kubeadm as a building block in a more complex system that can also include other installer tools.
 
-kubeadm's overall feature state is **Beta** and will be graduated to
-**General Availability (GA)** as soon as possible. 
+kubeadm's overall feature state is **Beta**. 
 
 {{% /capture %}}
 
@@ -40,8 +39,7 @@ kubeadm's overall feature state is **Beta** and will be graduated to
 
 ## Objectives
 
-* Install a single master Kubernetes cluster using recommended best practices. 
-  * **Note:** To set up a cluster for high availability, see [this guide instead](https://kubernetes.io/docs/setup/independent/high-availability/).
+* Install a single master Kubernetes cluster or [high availability cluster](https://kubernetes.io/docs/setup/independent/high-availability/)
 * Install a Pod network on the cluster so that your Pods can
   talk to each other
 
@@ -49,14 +47,16 @@ kubeadm's overall feature state is **Beta** and will be graduated to
 
 ### Installing kubeadm on your hosts
 
-See [Installing kubeadm](/docs/setup/independent/install-kubeadm/).
+See ["Installing kubeadm"](/docs/setup/independent/install-kubeadm/).
 
-**Note:** If you already have kubeadm installed, run `apt-get update &&
+{{< note >}}
+**Note:** If you have already installed kubeadm, run `apt-get update &&
 apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
-The kubelet is now restarting every few seconds, as it waits in a crashloop for
+When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
 kubeadm to tell it what to do. This crashloop is expected and normal. 
-After you initialize your master, the kubelet starts running normally.
+After you initialize your master, the kubelet runs normally.
+{{< /note >}}
 
 ### Initializing your master
 
@@ -80,21 +80,23 @@ Now run:
 kubeadm init <args> 
 ```
 
-**Notes:**
+### More information
 
-- For more information about `kubeadm init` arguments, see [the kubeadm reference guide.](/docs/reference/setup-tools/kubeadm/kubeadm/) 
-- For a complete list of configuration options, see [the configuration file documentation.](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
-- To customize control plane components, including optional IPv6 assignment to liveness probe for control plane components and etcd server, provide extra arguments to each component. See  as documented [here](/docs/admin/kubeadm#custom-args).
-- To run `kubeadm init` again, you must first [tear down the cluster](#tear-down).
-- If you join a node with a different architecture to your cluster, you should create a separate
+For more information about `kubeadm init` arguments, see the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm/).
+
+For a complete list of configuration options, see the [configuration file documentation](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
+
+To customize control plane components, including optional IPv6 assignment to liveness probe for control plane components and etcd server, provide extra arguments to each component as documented in [custom arguments](/docs/admin/kubeadm#custom-args).
+
+To run `kubeadm init` again, you must first [tear down the cluster](#tear-down).
+
+If you join a node with a different architecture to your cluster, create a separate
 Deployment or DaemonSet for `kube-proxy` and `kube-dns` on the node. This is because the Docker images for these
 components do not currently support multi-architecture.
 
 `kubeadm init` first runs a series of prechecks to ensure that the machine
-is ready to run Kubernetes. It exposes warnings and exits on errors. It
-then downloads and installs the cluster control plane components. 
-This may take several minutes.
-
+is ready to run Kubernetes. These prechecks expose warnings and exit on errors. `kubeadm init`
+then downloads and installs the cluster control plane components. This may take several minutes. 
 The output should look like:
 
 ```
@@ -130,7 +132,7 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-Alternatively, if you are the `root` user, you could run this:
+Alternatively, if you are the `root` user, you can run:
 
 ```bash
 export KUBECONFIG=/etc/kubernetes/admin.conf
@@ -147,17 +149,23 @@ created, and deleted with the `kubeadm token` command. See the
 
 ### Installing a pod network add-on {#pod-network}
 
-You **MUST** install a pod network add-on so that your pods can communicate with
+{{< caution >}}
+**Caution:** This section contains important information about installation and deployment order. Read it carefully before proceeding.
+{{< /caution >}}
+
+You must install a pod network add-on so that your pods can communicate with
 each other.
 
-**The network must be deployed before any applications.  Also, kube-dns, an
-internal helper service, will not start up before a network is installed. kubeadm
-supports only Container Network Interface (CNI) based networks. It does not support kubenet.**
+The network must be deployed before any applications. An
+internal helper service, kube-dns, will not start up before a network is installed. kubeadm
+supports only Container Network Interface (CNI) based networks. It does not support kubenet.
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
-support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in Kubernetes version 1.9.
+support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. 
+- IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). 
+- [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in Kubernetes version 1.9.
 
-**Note:** kubeadm sets up a more secure cluster by default and enforces use of [RBAC].
+Note that kubeadm sets up a more secure cluster by default and enforces use of [RBAC].
 Make sure that your network manifest supports RBAC.
 
 You can install a pod network add-on with the following command:
@@ -166,45 +174,41 @@ You can install a pod network add-on with the following command:
 kubectl apply -f <add-on.yaml>
 ```
 
-**NOTE:** You can install **only one** pod network per cluster.
+You can install only one pod network per cluster.
 
 {{< tabs name="tabs-pod-install" >}}
 {{% tab name="Choose one..." %}}
 Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
 {{% /tab %}}
+
 {{% tab name="Calico" %}}
 For more information about using Calico, see [Quickstart for Calico on Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/), [Installing Calico for policy and networking](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico), and other related resources.
 
-**Note:**
-
- - In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`.
- - Calico works on `amd64` only.
+In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`. Note that Calico works on `amd64` only.
 
 ```shell
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
 ```
+
 {{% /tab %}}
 {{% tab name="Canal" %}}
 Canal uses Calico for policy and Flannel for networking. Refer to the Calico documentation for the [official getting started guide](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/flannel).
 
-**Note:**
-
- - For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
- - Canal works on `amd64` only.
+For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`. Note that Canal works on `amd64` only.
 
 ```shell
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/canal/rbac.yaml
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/canal/canal.yaml
 ```
+
 {{% /tab %}}
 {{% tab name="Flannel" %}}
-**Note:**
 
- - For `flannel` to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
- - `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on a platform other than
-`amd64` you have to manually download the manifest and replace `amd64` occurrences with your chosen platform.
- - Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
+For `flannel` to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`. Note that `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`. For it to work on a platform other than
+`amd64`, you must manually download the manifest and replace `amd64` occurrences with your chosen platform.
+
+Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
 please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
@@ -212,8 +216,10 @@ please see [here](https://kubernetes.io/docs/concepts/cluster-administration/net
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
 ```
 
- - For more information about `flannel`, please see [here](https://github.com/coreos/flannel).
+For more information about `flannel`, see [the CoreOS flannel repository on GitHub
+](https://github.com/coreos/flannel).
 {{% /tab %}}
+
 {{% tab name="Kube-router" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
@@ -225,6 +231,7 @@ Kube-router provides pod networking, network policy, and high-performing IP Virt
 
 For information on setting up Kubernetes cluster with Kube-router using kubeadm, please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md).
 {{% /tab %}}
+
 {{% tab name="Romana" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
@@ -232,12 +239,13 @@ please see [here](https://kubernetes.io/docs/concepts/cluster-administration/net
 
 The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
 
-**Note:** Romana works on `amd64` only.
+Romana works on `amd64` only.
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containerize/specs/romana-kubeadm.yml
 ```
 {{% /tab %}}
+
 {{% tab name="Weave Net" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
@@ -245,7 +253,7 @@ please see [here](https://kubernetes.io/docs/concepts/cluster-administration/net
 
 The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
 
-**Note:** Weave Net works on `amd64`, `arm`, `arm64` and `ppc64le` without any extra action required.
+Weave Net works on `amd64`, `arm`, `arm64` and `ppc64le` without any extra action required.
 Weave Net sets hairpin mode by default. This allows Pods to access themselves via their Service IP address
 if they don't know their PodIP.
 
@@ -255,10 +263,9 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 {{% /tab %}}
 {{< /tabs >}}
 
-
-Once a pod network has been installed, you can confirm that it is working by
+Once you install a pod network, you can confirm that it works by
 checking that the kube-dns pod is Running in the output of `kubectl get pods --all-namespaces`.
-And once the kube-dns pod is up and running, you can continue by joining your nodes.
+Once the kube-dns pod is up and running, you can continue by joining your nodes.
 
 If your network is not working or kube-dns is not in the Running state, check
 out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
@@ -330,17 +337,19 @@ scp root@<master ip>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ```
 
-**Note:**
- - The example above assumes SSH access is enabled for root. If that is not the
-   case, you can copy the `admin.conf` file to be accessible by some other user
-   and `scp` using that other user instead.
- - The `admin.conf` file gives the user _superuser_ privileges over the cluster.
-   This file should be used sparingly. For normal users, it's recommended to
-   generate an unique credential to which you whitelist privileges. You can do
-   this with the `kubeadm alpha phase kubeconfig user --client-name <CN>`
-   command. That command will print out a KubeConfig file to STDOUT which you
-   should save to a file and distribute to your user. After that, whitelist
-   privileges by using `kubectl create (cluster)rolebinding`.
+{{< note >}}
+**Note:** The example above assumes SSH access is enabled for root. If that is not the
+case, you can copy the `admin.conf` file to be accessible by some other user
+and `scp` using that other user instead.
+
+The `admin.conf` file gives the user _superuser_ privileges over the cluster.
+This file should be used sparingly. For normal users, it's recommended to
+generate an unique credential to which you whitelist privileges. You can do
+this with the `kubeadm alpha phase kubeconfig user --client-name <CN>`
+command. That command will print out a KubeConfig file to STDOUT which you
+should save to a file and distribute to your user. After that, whitelist
+privileges by using `kubectl create (cluster)rolebinding`.
+{{< /note >}}
 
 ### (Optional) Proxying API Server to localhost
 
