@@ -7,7 +7,7 @@ title: Controlling Access to the Kubernetes API
 weight: 5
 ---
 
-Users [access the API](docs/tasks/access-application-cluster/access-cluster/) using `kubectl`,
+Users [access the API](/docs/tasks/access-application-cluster/access-cluster/) using `kubectl`,
 client libraries, or by making REST requests.  Both human users and
 [Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/) can be
 authorized for API access.

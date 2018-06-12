@@ -4,7 +4,13 @@ reviewers:
 - kevin-wangzefeng
 - bsalamat
 title: Assigning Pods to Nodes
+content_template: templates/concept
+weight: 30
 ---
+
+{{< toc >}}
+
+{{% capture overview %}}
 
 You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/architecture/nodes/) or to prefer to
 run on particular nodes. There are several ways to do this, and they all use
@@ -18,7 +24,9 @@ services that communicate a lot into the same availability zone.
 You can find all the files for these examples [in our docs
 repo here](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/docs/concepts/configuration/).
 
-{{< toc >}}
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## nodeSelector
 
@@ -331,3 +339,9 @@ For more information on inter-pod affinity/anti-affinity, see the
 
 You may want to check [Taints](/docs/concepts/configuration/taint-and-toleration/)
 as well, which allow a *node* to *repel* a set of pods.
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+{{% /capture %}}

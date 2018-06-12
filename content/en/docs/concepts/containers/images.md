@@ -4,6 +4,7 @@ reviewers:
 - thockin
 title: Images
 content_template: templates/concept
+weight: 10
 ---
 
 {{% capture overview %}}
