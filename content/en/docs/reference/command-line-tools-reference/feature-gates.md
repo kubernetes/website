@@ -94,6 +94,7 @@ different Kubernetes components.
 | `TokenRequest` | `false` | Alpha | 1.10 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | |
+| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.11 | |
 
 ## Using a Feature
 
