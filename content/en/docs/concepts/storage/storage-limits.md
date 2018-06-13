@@ -4,61 +4,70 @@ reviewers:
 - saad-ali
 - thockin
 - msau42
-title: Node specific volume limits
+title: Node-specific Volume Limits
+content_template: templates/concept
 ---
 
-This document describes the concept of number of maximum volumes that can be attached
-to a particular node on various cloud providers.
+{{% capture overview %}}
 
-{{< toc >}}
+This page describes the maximum number of volumes that can be attached
+to a node for various cloud providers.
 
-## Introduction
+Cloud providers like Google, Amazon, and Microsoft typically have a limit on
+how many volumes can be attached to a node. It is important for Kubernetes to
+respect those limits. Otherwise, Pods scheduled on a node could get stuck
+waiting for volumes to attach.
 
-Pods that use attachable `PersistentVolume` from cloud providers like GCE, AWS and Azure
-typically have a limit of how many volumes can be attached to a node. It is important
-for Kubernetes to respect those limits while scheduling pods that use those volume types
-otherwise pods scheduled on a node can be stuck waiting for volumes to attach.
+{{% /capture %}}
 
-### Kubernetes built-in attachable limits for Azure, AWS and GCE
+{{% capture body %}}
 
-Kubernetes's default scheduler ships with predicates that limit following
-number of volumes attachable to a particular node:
+## Kubernetes default limits
 
-- **AWS Elastic Block Store**
+The Kubernetes scheduler has default limits on the number of volumes
+that can be attached to a node:
 
-  For AWS Elastic Block Store Kubernetes permits only 39 volumes to be attached to a node.
-- **GCE-PD**
+<table>
+  <tr><th>Cloud service</th><th>Maximum volumes per node</th></tr>
+  <tr><td><a href="https://aws.amazon.com/ebs/">Amazon Elastic Block Store (EBS)</a></td><td>39</td></tr>
+  <tr><td><a href="https://cloud.google.com/persistent-disk/">Google Persistent Disk</a></td><td>16</td></tr>
+  <tr><td><a href="https://azure.microsoft.com/en-us/services/storage/main-disks/">Microsoft Azure Disk Storage</a></td><td>16</td></tr>
+</table>
 
-  For GCE Persistent Disks Kubernetes permits only 16 volumes to be attached to a node.
-  
-- **Azure Disk**
+## Custom limits
 
-  For Azure Disks Kubernetes permits only 16 volumes to be attached to a node.
+You can change these limits by setting the value of the
+`KUBE_MAX_PD_VOLS` environment variable, and then starting the scheduler.
 
-Kubernetes admin can change these limits by starting scheduler with environment variable
-`KUBE_MAX_PD_VOLS` and setting a new value.
+Use caution if you set a limit that is higher than the default limit. Consult
+the cloud provider's documentation to make sure that nodes can actually support
+the limit you set.
 
-You must pay extra caution while setting a higher value than defaults and consult corresponding
-cloudprovider documentation to make sure the node can actually support those limits. Also these limits
-are global for entire cluster and hence will affect all nodes.
+The limit applies to the entire cluster, so it affects all nodes.
 
-### Dynamic volume limits based on node type
+## Dynamic volume limits
 
-Kubernetes 1.11 introduces dynamic volume limits based on node type. It is an Alpha feature and admin
-must enable feature flag `AttachVolumeLimit` to enable this feature.
+{{< feature-state state="alpha" >}}
 
-Once enabled Kubernetes will automatically determine instance type and support higher or lower
-number of attachable volumes depending on node type.
+Kubernetes 1.11 introduces dynamic volume limits based on node type. This
+is an alpha feature that supports these services:
 
-Currently this feature is only supported for following volume types:
+- Amazon EBS
+- Google Persistent Disk
 
-- AWS Elastic Block store
-- GCE Persistent Disks
+To enable dynamic volume limits, use the `AttachVolumeLimit` flag.
 
-When this feature is enabled - for *EBS* disks on M5/C5 instance types Kubernetes will permit only
-25 volumes to be attached to a node. For other instance types on EC2 the default will still be 39.
+When the dynamic volume limits feature is enabled, Kubernetes automatically
+determines the node type and supports the appropriate number of attachable
+volumes for the node. For example:
 
-On GCE this will permit upto 128 persistent disks to be attached to a node depending on node type. 
+* On
+<a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
+up to 128 volumes could be attached to a node, depending on the node type. 
 
+* For Amazon EBS disks on M5/C5 instance types, Kubernetes would permit only 25
+volumes to be attached to a node. For other instance types on
+<a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>,
+Kubernetes would permit 39 volumes to be attached.
 
-
+{{% /capture %}}
