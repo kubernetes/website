@@ -33,9 +33,9 @@ This page describes how to use Admission Webhooks and Initializers.
 
 Admission webhooks are HTTP callbacks that receive admission requests and do
 something with them. You can define two types of admission webhooks,
-[validating admission Webhook](/docs/admin/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)
+[validating admission Webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)
 and
-[mutating admission webhook](/docs/admin/admission-controllers/#mutatingadmissionwebhook-beta-in-1-9).
+[mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook-beta-in-1-9).
 With validating admission Webhooks, you may reject requests to enforce custom
 admission policies. With mutating admission Webhooks, you may change requests to
 enforce custom defaults.
@@ -220,9 +220,9 @@ and are not visible in the API unless specifically requested by using the query 
 ### When to use initializers?
 
 Initializers are useful for admins to force policies (e.g., the
-[AlwaysPullImages](/docs/admin/admission-controllers/#alwayspullimages)
+[AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
 admission controller), or to inject defaults (e.g., the
-[DefaultStorageClass](/docs/admin/admission-controllers/#defaultstorageclass)
+[DefaultStorageClass](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 admission controller), etc.
 
 **Note:** If your use case does not involve mutating objects, consider using
