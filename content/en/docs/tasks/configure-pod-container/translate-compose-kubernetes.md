@@ -124,7 +124,7 @@ $ curl http://123.45.67.89
 
 We have multiple ways to install Kompose. Our preferred method is downloading the binary from the latest GitHub release.
 
-#### GitHub release
+## GitHub release
 
 Kompose is released via GitHub on a three-week cycle, you can see all current releases on the [GitHub release page](https://github.com/kubernetes/kompose/releases).
 
@@ -144,7 +144,7 @@ sudo mv ./kompose /usr/local/bin/kompose
 
 Alternatively, you can download the [tarball](https://github.com/kubernetes/kompose/releases).
 
-#### Go
+## Go
 
 Installing using `go get` pulls from the master branch with the latest development changes.
 
@@ -152,7 +152,7 @@ Installing using `go get` pulls from the master branch with the latest developme
 go get -u github.com/kubernetes/kompose
 ```
 
-#### CentOS
+## CentOS
 
 Kompose is in [EPEL](https://fedoraproject.org/wiki/EPEL) CentOS repository.
 If you don't have [EPEL](https://fedoraproject.org/wiki/EPEL) repository already installed and enabled you can do it by running  `sudo yum install epel-release`
@@ -163,14 +163,14 @@ If you have [EPEL](https://fedoraproject.org/wiki/EPEL) enabled in your system, 
 sudo yum -y install kompose
 ```
 
-#### Fedora
+## Fedora
 Kompose is in Fedora 24, 25 and 26 repositories. You can install it just like any other package.
 
 ```bash
 sudo dnf -y install kompose
 ```
 
-#### macOS
+## macOS
 On macOS you can install latest release via [Homebrew](https://brew.sh):
 
 ```bash
@@ -317,9 +317,10 @@ po/frontend-2768218532-cs5t5       1/1           Running       0            4m
 po/redis-master-1432129712-63jn8   1/1           Running       0            4m
 po/redis-slave-2504961300-nve7b    1/1           Running       0            4m
 ```
-Note:
+**Note**:
+
 - You must have a running Kubernetes cluster with a pre-configured kubectl context.
-- Only deployments and services are generated and deployed to Kubernetes. If you need different kind of resources, use the 'kompose convert' and 'kubectl create -f' commands instead.
+- Only deployments and services are generated and deployed to Kubernetes. If you need different kind of resources, use the `kompose convert` and `kubectl create -f` commands instead.
 
 ### OpenShift
 ```sh
@@ -354,7 +355,8 @@ is/redis-master    172.30.12.200:5000/fff/redis-master
 is/redis-slave     172.30.12.200:5000/fff/redis-slave    v1  
 ```
 
-Note:
+**Note**:
+
 - You must have a running OpenShift cluster with a pre-configured `oc` context (`oc login`)
 
 ## `kompose down`
@@ -370,7 +372,9 @@ INFO Successfully deleted deployment: redis-slave
 INFO Successfully deleted service: frontend       
 INFO Successfully deleted deployment: frontend
 ```
-Note:
+
+**Note**:
+
 - You must have a running Kubernetes cluster with a pre-configured kubectl context.
 
 ## Build and Push Docker Images
@@ -480,7 +484,7 @@ The chart structure is aimed at providing a skeleton for building your Helm char
 
 `kompose` supports Kompose-specific labels within the `docker-compose.yml` file in order to explicitly define a service's behavior upon conversion.
 
-- kompose.service.type defines the type of service to be created.
+- `kompose.service.type` defines the type of service to be created.
 
 For example:
 
@@ -498,9 +502,9 @@ services:
       kompose.service.type: nodeport
 ```
 
-- kompose.service.expose defines if the service needs to be made accessible from outside the cluster or not. If the value is set to "true", the provider sets the endpoint automatically, and for any other value, the value is set as the hostname. If multiple ports are defined in a service, the first one is chosen to be the exposed.
-    - For the Kubernetes provider, an ingress resource is created and it is assumed that an ingress controller has already been configured.
-    - For the OpenShift provider, a route is created.
+- `kompose.service.expose` defines if the service needs to be made accessible from outside the cluster or not. If the value is set to "true", the provider sets the endpoint automatically, and for any other value, the value is set as the hostname. If multiple ports are defined in a service, the first one is chosen to be the exposed.
+  - For the Kubernetes provider, an ingress resource is created and it is assumed that an ingress controller has already been configured.
+  - For the OpenShift provider, a route is created.
 
 For example:
 
@@ -555,7 +559,7 @@ services:
     restart: "on-failure"
 ```
 
-#### Warning about Deployment Config's
+### Warning about Deployment Config's
 
 If the Docker Compose file has a volume specified for a service, the Deployment (Kubernetes) or DeploymentConfig (OpenShift) strategy is changed to "Recreate" instead of "RollingUpdate" (default). This is done to avoid multiple instances of a service from accessing a volume at the same time.
 
