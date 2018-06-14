@@ -116,9 +116,10 @@ installed, but you can adapt the tasks if you prefer to extract the
       ```
 3.  Run the following command to download and unpack the configuration from the
     `configz` endpoint. The command is long, so be careful when copying and
-    pasting. **If you use zsh**, replace the `${NODE_NAME}` in the URL with the
-    actual name of the node, because zsh automatically escapes opening curly
-    braces, which causes the command to fail.
+    pasting. **If you use zsh**, note that common zsh configurations add backslashes
+    to escape the opening and closing curly braces around the variable name in the URL.
+    For example: `${NODE_NAME}` will be rewritten as `$\{NODE_NAME\}` during the paste.
+    You must remove the backslashes before running the command, or the command will fail.
 
       ```bash
       NODE_NAME="the-name-of-the-node-you-are-reconfiguring"; curl -sSL "http://localhost:8001/api/v1/nodes/${NODE_NAME}/proxy/configz" | jq '.kubeletconfig|.kind="KubeletConfiguration"|.apiVersion="kubelet.config.k8s.io/v1beta1"' > kubelet_configz_${NODE_NAME}
