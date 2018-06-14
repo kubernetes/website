@@ -42,6 +42,11 @@ you run another networking provider, make sure to replace any default values as
 needed.
 {{< /note >}}
 
+{{< note >}}
+**Note**: All commands in this guide on any control plane or etcd node should be
+run as root.
+{{< /note >}}
+
 In both scenarios you will need this infrastructure:
 
 - Three machines that meet [kubeadm's minimum
@@ -52,10 +57,11 @@ In both scenarios you will need this infrastructure:
   the workers
 - Full network connectivity between all machines in the cluster (public or
   private network is fine)
+- sudo privileges on all machines
 
 In the external etcd scenario you will need this additional infrastructure:
 
-- Three additional machines [TODO: simple kubelet and kubeadm] for etcd members
+- Three additional machines for etcd members
 
 {{% /capture %}}
 
@@ -67,26 +73,20 @@ In the external etcd scenario you will need this additional infrastructure:
 
 ### Create SSH access between nodes
 
-#### SSH keypair
+{{< note >}}
+**Note**: This section assumes the device you're on can ssh to every node
+involved. If this is not the case, you may have to create keys and share them
+across nodes instead of using ssh-agent.
+{{< /note >}}
 
-Start by creating an SSH key pair on the node which has the files that will be
-copied to other nodes.
+#### ssh-agent setup
 
-```sh
-# The -N flag sets an empty passphrase
-ssh-keygen -N '' -f ~/.ssh/id_rsa
-```
+1. Start an ssh-agent session with `eval $(ssh-agent)`
+2. Add your ssh identity to the session `ssh-add ~/.ssh/path_to_private_key`
+3. When you ssh to any node make sure you add the `-A` flag like this `ssh -A 10.0.0.7`
+4. When using sudo, make sure to preserve the environment so the ssh forwarding works, `sudo -E -s`
 
-Then distribute the key created in the previous step.
-
-```sh
-HOSTS="10.0.0.8 10.0.0.9 10.0.0.10 10.0.0.11"
-for host in ${HOSTS}; do
-    ssh-copy-id -i ~/.ssh/id_rsa.pub $host;
-done
-```
-
-At the end of this step, try `ssh`ing between nodes to ensure success.
+At the end of this step, try `ssh`ing between nodes to ensure everything is working.
 
 ### Creating the apiserver load balancer
 
@@ -346,7 +346,7 @@ done
 ### Setting up an HA etcd cluster using kubeadm
 
 1. [Set up an HA etcd cluster using
-   kubeadm](/docs/tasks/administer-cluster/setup-etcd-with-kubeadm).
+   kubeadm](/docs/tasks/administer-cluster/setup-ha-etcd-with-kubeadm/).
 
 After this setup you should have these files on the first bootstrapped member.
 You will need to put these files on all of your control-plane nodes.
@@ -357,15 +357,13 @@ You will need to put these files on all of your control-plane nodes.
 
 1. Set the `USER` and `CONTROL_PLANE_HOSTS` to your specific values.
 
-```sh
-USER=ubuntu
-CONTROL_PLANE_HOSTS="10.0.0.7 10.0.0.8 10.0.0.9"
-for host in $CONTROL_PLANE_HOSTS; do
-    scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:
-    scp /etc/kubernetes/pki/apiserver-etcd-client.crt "${USER}"@$host:
-    scp /etc/kubernetes/pki/apiserver-etcd-client.key "${USER}"@$host:
-done
-```
+        USER=ubuntu
+        CONTROL_PLANE_HOSTS="10.0.0.7 10.0.0.8 10.0.0.9"
+        for host in $CONTROL_PLANE_HOSTS; do
+            scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:
+            scp /etc/kubernetes/pki/apiserver-etcd-client.crt "${USER}"@$host:
+            scp /etc/kubernetes/pki/apiserver-etcd-client.key "${USER}"@$host:
+        done
 
 ### Setting up the control plane
 
@@ -426,12 +424,12 @@ Here is an example, but your system may differ greatly. Replace
 USER=ubuntu # customizable
 CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
 for host in ${CONTROL_PLANE_IPS}; do
-    scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:
-    scp /etc/kubernetes/pki/ca.key "${USER}"@$host:
-    scp /etc/kubernetes/pki/sa.key "${USER}"@$host:
-    scp /etc/kubernetes/pki/sa.pub "${USER}"@$host:
-    scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
-    scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
+    scp /etc/kubernetes/pki/ca.crt "${USER}"@CONTROL_PLANE_IP:
+    scp /etc/kubernetes/pki/ca.key "${USER}"@CONTROL_PLANE_IP:
+    scp /etc/kubernetes/pki/sa.key "${USER}"@CONTROL_PLANE_IP:
+    scp /etc/kubernetes/pki/sa.pub "${USER}"@CONTROL_PLANE_IP:
+    scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@CONTROL_PLANE_IP:
+    scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@CONTROL_PLANE_IP:
 done
 ```
 
