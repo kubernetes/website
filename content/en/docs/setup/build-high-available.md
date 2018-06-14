@@ -1,5 +1,8 @@
 ---
 title: Building High-Availability Clusters
+reviewers:
+- davidopp
+- lavalamp
 ---
 
 ## Introduction
@@ -54,11 +57,11 @@ choices. For example, on systemd-based systems (e.g. RHEL, CentOS), you can run 
 
 If you are extending from a standard Kubernetes installation, the `kubelet` binary should already be present on your system.  You can run
 `which kubelet` to determine if the binary is in fact installed.  If it is not installed,
-you should install the [kubelet binary](https://storage.googleapis.com/kubernetes-release/release/v0.19.3/bin/linux/amd64/kubelet) and [default-kubelet](/docs/admin/high-availability/default-kubelet)
+you should install the [kubelet binary](https://storage.googleapis.com/kubernetes-release/release/v0.19.3/bin/linux/amd64/kubelet) and [default-kubelet](/docs/setup/default-kubelet)
 scripts.
 
-If you are using monit, you should also install the monit daemon (`apt-get install monit`) and the [monit-kubelet](/docs/admin/high-availability/monit-kubelet) and
-[monit-docker](/docs/admin/high-availability/monit-docker) configs.
+If you are using monit, you should also install the monit daemon (`apt-get install monit`) and the [monit-kubelet](/docs/setup/monit-kubelet) and
+[monit-docker](/docs/setup/monit-docker) configs.
 
 On systemd systems you `systemctl enable kubelet` and `systemctl enable docker`.
 
@@ -86,7 +89,7 @@ First, hit the etcd discovery service to create a new token:
 curl https://discovery.etcd.io/new?size=3
 ```
 
-On each node, copy the [etcd.yaml](/docs/admin/high-availability/etcd.yaml) file into `/etc/kubernetes/manifests/etcd.yaml`
+On each node, copy the [etcd.yaml](/docs/setup/etcd.yaml) file into `/etc/kubernetes/manifests/etcd.yaml`
 
 The kubelet on each node actively monitors the contents of that directory, and it will create an instance of the `etcd`
 server from the definition of the pod specified in `etcd.yaml`.
@@ -154,7 +157,7 @@ The easiest way to create this directory, may be to copy it from the master node
 
 ### Starting the API Server
 
-Once these files exist, copy the [kube-apiserver.yaml](/docs/admin/high-availability/kube-apiserver.yaml) into `/etc/kubernetes/manifests/` on each master node.
+Once these files exist, copy the [kube-apiserver.yaml](/docs/setup/kube-apiserver.yaml) into `/etc/kubernetes/manifests/` on each master node.
 
 The kubelet monitors this directory, and will automatically create an instance of the `kube-apiserver` container using the pod definition specified
 in the file.
@@ -247,7 +250,7 @@ touch /var/log/kube-scheduler.log
 touch /var/log/kube-controller-manager.log
 ```
 
-Next, set up the descriptions of the scheduler and controller manager pods on each node by copying [kube-scheduler.yaml](/docs/admin/high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](/docs/admin/high-availability/kube-controller-manager.yaml) into the `/etc/kubernetes/manifests/` directory.
+Next, set up the descriptions of the scheduler and controller manager pods on each node by copying [kube-scheduler.yaml](/docs/setup/kube-scheduler.yaml) and [kube-controller-manager.yaml](/docs/setup/kube-controller-manager.yaml) into the `/etc/kubernetes/manifests/` directory.
 
 ## Conclusion
 
