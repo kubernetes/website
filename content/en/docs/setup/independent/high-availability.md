@@ -4,40 +4,34 @@ reviewers:
 - timothysc
 - detiber
 - chuckha
-title: Creating HA clusters with kubeadm
+title: Creating Highly Available Clusters with kubeadm
 content_template: templates/task
 ---
 
-{{% capture steps %}}'
-{{% /capture %}}
-
 {{% capture overview %}}
 
-This guide shows you how to install and set up a highly available Kubernetes
-cluster using kubeadm. This guide requires a Kubernetes version 1.11 or higher.
+This page explains two different ways to set up a highly available Kubernetes
+cluster using kubeadm:
 
-This covers two different strategies of deployment, stacked masters as one
-method and external etcd as another.
+- With stacked masters. This approach requires less infrastructure. etcd members
+and control plane nodes are co-located.
+- With an external etcd cluster. This approach requires more infrastructure. The
+control plane nodes and etcd members are separated.
 
-The stacked masters method requires less infrastructure by co-locating etcd
-members and control plane nodes.
+Q: THE ORIGINAL SEEMS TO HAVE CLEARER INFORMATION ABOUT WHY YOU'D CHOOSE ONE OR
+THE OTHER. SHOULD WE ADD SOME OF IT BACK IN?
 
-The external etcd method requires more infrastructure but provides separation of
-the control plane nodes and etcd members.
+ Your clusters must run Kubernetes version 1.11 or later.
 
 {{% /capture %}}
 
-## Common
+NOTE: THE TEMPLATE LAYOUT OVERRIDES ANYTHING YOU TRY TO WRAP IT IN. THIS MEANS YOU
+DON'T GET WHAT YOU EXPECT IF YOU TRY TO WRAP THE PREREQUISITES IN ANYTHING. (TAKE 
+A LOOK AT THE NETLIFY PREVIEW)
 
 {{% capture prerequisites %}}
 
-{{< note >}}
-**Note**: The following examples run Calico as the Pod networking provider. If
-you run another networking provider, make sure to replace any default values as
-needed.
-{{< /note >}}
-
-In both scenarios you will need this infrastructure:
+For both methods:
 
 - Three machines that meet [kubeadm's minimum
   requirements](/docs/setup/independent/install-kubeadm/#before-you-begin) for
@@ -48,40 +42,50 @@ In both scenarios you will need this infrastructure:
 - Full network connectivity between all machines in the cluster (public or
   private network is fine)
 
-In the external etcd scenario you will need this additional infrastructure:
+For the external etcd cluster only:
 
 - Three additional machines [TODO: simple kubelet and kubeadm] for etcd members
 
+NOTE IS MOVED BC BETTER TO HIGHLIGHT ACTUAL PREREQUISITES FIRST
+{{< note >}}
+**Note**: The following examples run Calico as the Pod networking provider. If
+you run another networking provider, make sure to replace any default values as
+needed.
+{{< /note >}}
+
 {{% /capture %}}
 
-### Planning
+{{% capture steps %}}
+
+## First steps for both methods
 
 1. Find your pod CIDR. For details, see [the CNI network
    documentation](/docs/setup/independent/create-cluster-kubeadm/#pod-network).
-   This example uses Calico, so the pod CIDR is `192.168.0.0/16`.
+   The example uses Calico, so the pod CIDR is `192.168.0.0/16`.
 
-### Create SSH access between nodes
+1. Create an SSH key pair on the node which has the files that will be
+copied to other nodes:
+I STILL HAVE A Q HERE: HOW DO YOU KNOW WHICH NODE THIS IS? IS IT AN
+ARBITRARY NODE? IS IT THE FIRST NODE THAT YOU SPUN UP? IF THERE'S AN ORDER
+TO THINGS, HOW DO YOU GET THAT ORDER? (IOW, WHAT ELSE HAVE YOU DONE BEFORE THIS?
+IF THERE'S A POD TO GET THE CIDR FOR, OR IF THERE'S A NODE TO CREATE AN SSH KEY
+PAIR ON -- HOW DID THEY HAPPEN?)
 
-#### SSH keypair
+     ```sh
+     # The -N flag sets an empty passphrase
+     ssh-keygen -N '' -f ~/.ssh/id_rsa
+     ```
 
-Start by creating an SSH key pair on the node which has the files that will be
-copied to other nodes.
+1. Distribute the key that's returned:
 
-```sh
-# The -N flag sets an empty passphrase
-ssh-keygen -N '' -f ~/.ssh/id_rsa
-```
+     ```sh
+     HOSTS="10.0.0.8 10.0.0.9 10.0.0.10 10.0.0.11"
+     for host in ${HOSTS}; do
+         ssh-copy-id -i ~/.ssh/id_rsa.pub $host;
+     done
+     ```
 
-Then distribute the key created in the previous step.
-
-```sh
-HOSTS="10.0.0.8 10.0.0.9 10.0.0.10 10.0.0.11"
-for host in ${HOSTS}; do
-    ssh-copy-id -i ~/.ssh/id_rsa.pub $host;
-done
-```
-
-At the end of this step, try `ssh`ing between nodes to ensure success.
+1. SSH between nodes to check that the connection is working properly.
 
 ## Stacked control plane nodes
 
@@ -94,24 +98,24 @@ At the end of this step, try `ssh`ing between nodes to ensure success.
 1. [Set up an HA etcd cluster using
    kubeadm](/docs/tasks/administer-cluster/setup-etcd-with-kubeadm).
 
-After this setup you should have these files on the first bootstrapped member.
-You will need to put these files on all of your control-plane nodes.
+     After this setup you should have these files on the first bootstrapped member.
+     You will need to put these files on all of your control-plane nodes.
 
-- `/etc/kubernetes/pki/etcd/ca.crt`
-- `/etc/kubernetes/pki/apiserver-etcd-client.crt`
-- `/etc/kubernetes/pki/apiserver-etcd-client.key`
+     - `/etc/kubernetes/pki/etcd/ca.crt`
+     - `/etc/kubernetes/pki/apiserver-etcd-client.crt`
+     - `/etc/kubernetes/pki/apiserver-etcd-client.key`
 
 1. Set the `USER` and `CONTROL_PLANE_HOSTS` to your specific values.
 
-```
-USER=ubuntu
-CONTROL_PLANE_HOSTS="10.0.0.7 10.0.0.8 10.0.0.9"
-for host in $CONTROL_PLANE_HOSTS; do
-    scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host
-    scp /etc/kubernetes/pki/apiserver-etcd-client.crt "${USER}"@$host
-    scp /etc/kubernetes/pki/apiserver-etcd-client.key "${USER}"@$host
-done
-```
+     ```
+     USER=ubuntu
+     CONTROL_PLANE_HOSTS="10.0.0.7 10.0.0.8 10.0.0.9"
+     for host in $CONTROL_PLANE_HOSTS; do
+         scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host
+         scp /etc/kubernetes/pki/apiserver-etcd-client.crt "${USER}"@$host
+         scp /etc/kubernetes/pki/apiserver-etcd-client.key "${USER}"@$host
+     done
+     ```
 
 ### Setting up the control plane
 
@@ -240,3 +244,5 @@ in the master configuration file.
 
 Each worker can now join the cluster with the command returned from any of the
 `kubeadm init` commands.
+
+{{% /capture %}}
