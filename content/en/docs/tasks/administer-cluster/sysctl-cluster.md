@@ -91,10 +91,10 @@ Only _namespaced_ sysctls can be enabled this way.
 ## Setting Sysctls for a Pod
 
 A number of sysctls are _namespaced_ in today's Linux kernels. This means that
-they can be set independently for each pod on a node. Being namespaced is a
-requirement for sysctls to be accessible in a pod context within Kubernetes.
+they can be set independently for each pod on a node. Only namespaced sysctls
+are accessible in the pod security context within Kubernetes.
 
-The following sysctls are known to be _namespaced_:
+The following sysctls are _namespaced_:
 
 - `kernel.shm*`,
 - `kernel.msg*`,
@@ -103,15 +103,16 @@ The following sysctls are known to be _namespaced_:
 - `net.*`.
 
 Sysctls with no namespace are called _node-level_ sysctls. If you need to set
-them, you must manually configure them on the operating system of the underlying
-node or by using a DaemonSet with privileged containers.
+them, you must manually configure them on each node's operating system, or by
+using a DaemonSet with privileged containers.
 
-In general, use the pod security context on pods to configure sysctls.
-They apply to all containers in the same pod.
+For namespaced sysctls, use the pod securityContext to configure sysctls. They
+apply to all containers in the same pod.
 
-This example sets a safe sysctl `kernel.shm_rmid_forced` and two
-unsafe sysctls `net.ipv4.route.min_pmtu` and `kernel.msgmax` There is no
-distinction between _safe_ and _unsafe_ sysctls in the specification.
+This example uses the pod securityContext to set a safe sysctl
+`kernel.shm_rmid_forced` and two unsafe sysctls `net.ipv4.route.min_pmtu` and
+`kernel.msgmax` There is no distinction between _safe_ and _unsafe_ sysctls in
+the specification.
 
 {{< warning >}}
 Only modify sysctl parameters after you understand their effects, to avoid
@@ -176,7 +177,8 @@ this PodSecurityPolicy. In order to allow all unsafe sysctls in the PodSecurityP
 to be set (except for those explicitly forbidden by `forbiddenSysctls`),
 use `*` on its own.
 
-It's not allowed to configure these two fields such that there is overlap.
+Do not configure these two fields such that there is overlap, meaning that a
+given sysctl is both allowed and forbidden.
 
 {{< warning >}}
 **Warning**: If you whitelist unsafe sysctls via the `allowedUnsafeSysctls` field
