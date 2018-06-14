@@ -13,9 +13,9 @@ You can get an overview of PodPresets at
 
 {{< toc >}}
 
-## Create a Pod Preset
+# Create a Pod Preset
 
-### Simple Pod Spec Example
+## Simple Pod Spec Example
 
 This is a simple example to show how a Pod spec is modified by the Pod
 Preset.
@@ -64,7 +64,7 @@ To see above output, run the following command:
 $ kubectl get pod website -o yaml
 ```
 
-### Pod Spec with `ConfigMap` Example
+## Pod Spec with `ConfigMap` Example
 
 This is an example to show how a Pod spec is modified by the Pod Preset
 that defines a `ConfigMap` for Environment Variables.
@@ -85,7 +85,7 @@ that defines a `ConfigMap` for Environment Variables.
 
 {{< code file="podpreset-allow-db-merged.yaml" >}}
 
-### ReplicaSet with Pod Spec Example
+## ReplicaSet with Pod Spec Example
 
 The following example shows that only the pod spec is modified by the Pod
 Preset.
@@ -105,7 +105,7 @@ to validate that the PodPreset has been applied.
 
 {{< code file="podpreset-replicaset-merged.yaml" >}}
 
-### Multiple PodPreset Example
+## Multiple PodPreset Example
 
 This is an example to show how a Pod spec is modified by multiple Pod
 Injection Policies.
@@ -126,7 +126,7 @@ Injection Policies.
 
 {{< code file="podpreset-multi-merged.yaml" >}}
 
-### Conflict Example
+## Conflict Example
 
 This is an example to show how a Pod spec is not modified by the Pod Preset
 when there is a conflict.
@@ -153,7 +153,7 @@ Events:
   Tue, 07 Feb 2017 16:56:12 -0700   Tue, 07 Feb 2017 16:56:12 -0700 1   {podpreset.admission.kubernetes.io/podpreset-allow-database }    conflict  Conflict on pod preset. Duplicate mountPath /cache.
 ```
 
-## Deleting a Pod Preset
+# Deleting a Pod Preset
 
 Once you don't need a pod preset anymore, you can delete it with `kubectl`:
 
