@@ -29,6 +29,7 @@ following steps:
    own CA cert and/or key by dropping it in the cert directory configured via `--cert-dir`
    (`/etc/kubernetes/pki` by default) this step is skipped as described in the
    [Using custom certificates](#custom-certificates) document.
+   The APIServer certs will have additional SAN entries for any `--apiserver-cert-extra-sans` arguments, lowercased if necessary.
 
 1. Writes kubeconfig files in `/etc/kubernetes/`  for
    the kubelet, the controller-manager and the scheduler to use to connect to the
