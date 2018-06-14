@@ -38,15 +38,15 @@ username and password:
 {{< code file="secret.yaml" >}}
 
 1. Create the Secret
-
-       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret.yaml
-
-    {{< note >}}
-    **Note:** If you want to skip the Base64 encoding step, you can create a Secret
-    by using the `kubectl create secret` command:
-    {{< /note >}}
-
-       kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
+    ```shell
+    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret.yaml
+    ```
+{{< note >}}
+**Note:** If you want to skip the Base64 encoding step, you can create a Secret by using the `kubectl create secret` command:
+{{< /note >}}
+    ```shell
+    kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
+    ```
 
 1. View information about the Secret:
 
@@ -84,44 +84,52 @@ Here is a configuration file you can use to create a Pod:
 
 1. Create the Pod:
 
-       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-pod.yaml
+    ```shell
+    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-pod.yaml
+    ```
 
 1. Verify that your Pod is running:
 
-       kubectl get pod secret-test-pod
+    ```shell
+    kubectl get pod secret-test-pod
+    ```
 
     Output:
-
-        NAME              READY     STATUS    RESTARTS   AGE
-        secret-test-pod   1/1       Running   0          42m
-
+    ```shell
+    NAME              READY     STATUS    RESTARTS   AGE
+    secret-test-pod   1/1       Running   0          42m
+    ```
 
 1. Get a shell into the Container that is running in your Pod:
-
-       kubectl exec -it secret-test-pod -- /bin/bash
+    ```shell
+    kubectl exec -it secret-test-pod -- /bin/bash
+    ```
 
 1. The secret data is exposed to the Container through a Volume mounted under
 `/etc/secret-volume`. In your shell, go to the directory where the secret data
 is exposed:
-
-       root@secret-test-pod:/# cd /etc/secret-volume
+    ```shell
+    root@secret-test-pod:/# cd /etc/secret-volume
+    ```
 
 1. In your shell, list the files in the `/etc/secret-volume` directory:
-
-       root@secret-test-pod:/etc/secret-volume# ls
-
+    ```shell
+    root@secret-test-pod:/etc/secret-volume# ls
+    ```
     The output shows two files, one for each piece of secret data:
-
-        password username
+    ```shell
+    password username
+    ```
 
 1. In your shell, display the contents of the `username` and `password` files:
-
-       root@secret-test-pod:/etc/secret-volume# cat username; echo; cat password; echo
-
+    ```shell
+    root@secret-test-pod:/etc/secret-volume# cat username; echo; cat password; echo
+    ```
     The output is your username and password:
-
-        my-app
-        39528$vdg7Jb
+    ```shell
+    my-app
+    39528$vdg7Jb
+    ```
 
 ## Create a Pod that has access to the secret data through environment variables
 
@@ -130,33 +138,39 @@ Here is a configuration file you can use to create a Pod:
 {{< code file="secret-envars-pod.yaml" >}}
 
 1. Create the Pod:
-
-       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-envars-pod.yaml
+    ```shell
+    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-envars-pod.yaml
+    ```
 
 1. Verify that your Pod is running:
-
-       kubectl get pod secret-envars-test-pod
+    ```shell
+    kubectl get pod secret-envars-test-pod
+    ```
 
     Output:
-
-        NAME                     READY     STATUS    RESTARTS   AGE
-        secret-envars-test-pod   1/1       Running   0          4m
+    ```shell
+    NAME                     READY     STATUS    RESTARTS   AGE
+    secret-envars-test-pod   1/1       Running   0          4m
+    ```
 
 1. Get a shell into the Container that is running in your Pod:
-
-       kubectl exec -it secret-envars-test-pod -- /bin/bash
+    ```shell
+    kubectl exec -it secret-envars-test-pod -- /bin/bash
+    ```
 
 1. In your shell, display the environment variables:
-
-        root@secret-envars-test-pod:/# printenv
+    ```shell
+    root@secret-envars-test-pod:/# printenv
+    ```
 
     The output includes your username and password:
-
-        ...
-        SECRET_USERNAME=my-app
-        ...
-        SECRET_PASSWORD=39528$vdg7Jb
-
+    ```shell
+    ...
+    SECRET_USERNAME=my-app
+    ...
+    SECRET_PASSWORD=39528$vdg7Jb
+    ```
+    
 {{% /capture %}}
 
 {{% capture whatsnext %}}
