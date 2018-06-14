@@ -1,10 +1,14 @@
 
-Configures the node bootstrap process
+Interact with container images used by kubeadm.
 
 ### Synopsis
 
 
-This command is not meant to be run on its own. See list of available subcommands.
+Interact with container images used by kubeadm.
+
+```
+kubeadm config images [flags]
+```
 
 ### Options
 
@@ -19,7 +23,7 @@ This command is not meant to be run on its own. See list of available subcommand
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for node</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for images</td>
     </tr>
 
   </tbody>
@@ -40,7 +44,7 @@ This command is not meant to be run on its own. See list of available subcommand
       <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The KubeConfig file to use when talking to the cluster</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The KubeConfig file to use when talking to the cluster.</td>
     </tr>
 
   </tbody>
