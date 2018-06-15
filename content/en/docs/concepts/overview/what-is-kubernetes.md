@@ -4,6 +4,7 @@ reviewers:
 - mikedanese
 title: What is Kubernetes?
 content_template: templates/concept
+weight: 10
 ---
 
 {{% capture overview %}}

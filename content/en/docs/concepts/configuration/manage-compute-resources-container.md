@@ -1,6 +1,7 @@
 ---
 title: Managing Compute Resources for Containers
 content_template: templates/concept
+weight: 20
 ---
 
 {{% capture overview %}}
@@ -389,7 +390,7 @@ Node-level extended resources are tied to nodes.
 
 ##### Device plugin managed resources
 See [Device
-Plugin](https://kubernetes.io/docs/concepts/cluster-administration/device-plugins/)
+Plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 for how to advertise device plugin managed resources on each node.
 
 ##### Other resources

@@ -6,6 +6,7 @@ reviewers:
 - janetkuo
 - kow3ns
 title: DaemonSet
+weight: 50
 ---
 
 {{< toc >}}

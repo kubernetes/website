@@ -14,8 +14,17 @@
 {{ end }}{{ else }}<!-- no custom css detected -->{{ end }}
 {{ if .Params.description }}
 <meta name="description" content="{{ .Params.description }}" />
+<meta property="og:description" content="{{ .Params.description }}" />
 {{ else }}
 <meta name="description" content="{{ .Params.title }}" />
+<meta property="og:description" content="{{ .Params.title }}" />
+{{ end }}
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:title" content="{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}" />
+{{ if eq .Section "blog" }}
+{{ with findRE "<img.*?>" .Content 1 }}
+<meta property="og:image" content="{{ index . 0 | replaceRE ".*src=\"(.+?)\".*" "$1" }}" />
+{{ end }}
 {{ end }}
 <script
 src="https://code.jquery.com/jquery-3.2.1.min.js"

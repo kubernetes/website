@@ -3,13 +3,19 @@ reviewers:
 - rickypai
 - thockin
 title: Adding entries to Pod /etc/hosts with HostAliases
+content_template: templates/concept
+weight: 60
 ---
 
 {{< toc >}}
 
+{{% capture overview %}}
 Adding entries to a Pod's /etc/hosts file provides Pod-level override of hostname resolution when DNS and other options are not applicable. In 1.7, users can add these custom entries with the HostAliases field in PodSpec.
 
 Modification not using HostAliases is not suggested because the file is managed by Kubelet and can be overwritten on during Pod creation/restart.
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Default Hosts File Content
 
@@ -90,3 +96,9 @@ In 1.8, HostAlias is supported for all Pods regardless of network configuration.
 Kubelet [manages](https://github.com/kubernetes/kubernetes/issues/14633) the hosts file for each container of the Pod to prevent Docker from [modifying](https://github.com/moby/moby/issues/17190) the file after the containers have already been started.
 
 Because of the managed-nature of the file, any user-written content will be overwritten whenever the hosts file is remounted by Kubelet in the event of a container restart or a Pod reschedule. Thus, it is not suggested to modify the contents of the file.
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+{{% /capture %}}

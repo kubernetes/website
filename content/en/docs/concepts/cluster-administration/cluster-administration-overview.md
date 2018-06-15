@@ -4,6 +4,7 @@ reviewers:
 - lavalamp
 title: Cluster Administration Overview
 content_template: templates/concept
+weight: 10
 ---
 
 {{% capture overview %}}

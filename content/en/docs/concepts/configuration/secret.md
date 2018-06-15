@@ -2,14 +2,22 @@
 reviewers:
 - mikedanese
 title: Secrets
+content_template: templates/concept
+weight: 50
 ---
+
+{{< toc >}}
+
+{{% capture overview %}}
 
 Objects of type `secret` are intended to hold sensitive information, such as
 passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
 is safer and more flexible than putting it verbatim in a `pod` definition or in
 a docker image. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
 
-{{< toc >}}
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Overview of Secrets
 
@@ -173,8 +181,8 @@ systems on your behalf.
 To consume a Secret in a volume in a Pod:
 
 1. Create a secret or use an existing one.  Multiple pods can reference the same secret.
-1. Modify your Pod definition to add a volume under `spec.volumes[]`.  Name the volume anything, and have a `spec.volumes[].secret.secretName` field equal to the name of the secret object.
-1. Add a `spec.containers[].volumeMounts[]` to each container that needs the secret.  Specify `spec.containers[].volumeMounts[].readOnly = true` and `spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the secrets to appear.
+1. Modify your Pod definition to add a volume under `.spec.volumes[]`.  Name the volume anything, and have a `.spec.volumes[].secret.secretName` field equal to the name of the secret object.
+1. Add a `.spec.containers[].volumeMounts[]` to each container that needs the secret.  Specify `.spec.containers[].volumeMounts[].readOnly = true` and `.spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the secrets to appear.
 1. Modify your image and/or command line so that the program looks for files in that directory.  Each key in the secret `data` map becomes the filename under `mountPath`.
 
 This is an example of a pod that mounts a secret in a volume:
@@ -198,17 +206,17 @@ spec:
       secretName: mysecret
 ```
 
-Each secret you want to use needs to be referred to in `spec.volumes`.
+Each secret you want to use needs to be referred to in `.spec.volumes`.
 
 If there are multiple containers in the pod, then each container needs its
-own `volumeMounts` block, but only one `spec.volumes` is needed per secret.
+own `volumeMounts` block, but only one `.spec.volumes` is needed per secret.
 
 You can package many files into one secret, or use many secrets, whichever is convenient.
 
 **Projection of secret keys to specific paths**
 
 We can also control the paths within the volume where Secret keys are projected.
-You can use `spec.volumes[].secret.items` field to change target path of each key:
+You can use `.spec.volumes[].secret.items` field to change target path of each key:
 
 ```yaml
 apiVersion: v1
@@ -237,7 +245,7 @@ What will happen:
 * `username` secret is stored under `/etc/foo/my-group/my-username` file instead of `/etc/foo/username`.
 * `password` secret is not projected
 
-If `spec.volumes[].secret.items` is used, only keys specified in `items` are projected.
+If `.spec.volumes[].secret.items` is used, only keys specified in `items` are projected.
 To consume all keys from the secret, all of them must be listed in the `items` field.
 All listed keys must exist in the corresponding secret. Otherwise, the volume is not created.
 
@@ -524,6 +532,14 @@ secret "prod-db-secret" created
 $ kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
 secret "test-db-secret" created
 ```
+{{< note >}}
+**Note:** Special characters such as `$`, `\*`, and `!` require escaping.
+If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way: 
+
+    kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\*d\\$zDsb
+    
+You do not need to escape special characters in passwords from files (`--from-file`).
+{{< /note >}}
 
 Now make the pods:
 
@@ -637,11 +653,10 @@ The `secret-volume` will contain a single file, called `.secret-file`, and
 the `dotfile-test-container` will have this file present at the path
 `/etc/secret-volume/.secret-file`.
 
-**NOTE**
-
-Files beginning with dot characters are hidden from the output of  `ls -l`;
+{{< note >}}
+**Note**: Files beginning with dot characters are hidden from the output of  `ls -l`;
 you must use `ls -la` to see them when listing directory contents.
-
+{{< /note >}}
 
 ### Use-case: Secret visible to one container in a pod
 
@@ -750,3 +765,7 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
 {{< note >}}
 **Note:** As of 1.7 [encryption of secret data at rest is supported](/docs/tasks/administer-cluster/encrypt-data/).
 {{< /note >}}
+
+{{% capture whatsnext %}}
+
+{{% /capture %}}

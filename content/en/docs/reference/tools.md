@@ -6,31 +6,31 @@ title: Tools
 
 Kubernetes contains several built-in tools to help you work with the Kubernetes system
 
-#### Kubectl
+## Kubectl
 
 [`kubectl`](/docs/user-guide/kubectl/) is the command line tool for Kubernetes. It controls the Kubernetes cluster manager.
 
-#### Kubeadm 
+## Kubeadm 
 
 [`kubeadm`](/docs/setup/independent/install-kubeadm/) is the command line tool for easily provisioning a secure Kubernetes cluster on top of physical or cloud servers or virtual machines (currently in alpha).
 
-#### Kubefed
+## Kubefed
 
 [`kubefed`](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) is the command line tool
 to help you administrate your federated clusters.
 
-#### Minikube
+## Minikube
 
 [`minikube`](/docs/getting-started-guides/minikube/) is a tool that makes it
 easy to run a single-node Kubernetes cluster locally on your workstation for
 development and testing purposes.
 
-#### Dashboard 
+## Dashboard 
 
 [Dashboard](/docs/tasks/web-ui-dashboard/), the web-based user interface of Kubernetes, allows you to deploy containerized applications
 to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself. 
 
-#### Helm
+## Helm
 
 [Kubernetes Helm](https://github.com/kubernetes/helm) is a tool for managing packages of pre-configured
 Kubernetes resources, aka Kubernetes charts.
@@ -43,7 +43,7 @@ Use Helm to:
 * Intelligently manage your Kubernetes manifest files
 * Manage releases of Helm packages
 
-#### Kompose
+## Kompose
 
 [Kompose](https://github.com/kubernetes-incubator/kompose) is a tool to help Docker Compose users move to Kubernetes.
 

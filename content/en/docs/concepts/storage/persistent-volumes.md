@@ -5,6 +5,7 @@ reviewers:
 - thockin
 - msau42
 title: Persistent Volumes
+weight: 20
 ---
 
 This document describes the current state of `PersistentVolumes` in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
