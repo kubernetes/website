@@ -6,7 +6,7 @@ title: 静态Pods
 
 **如果你正在运行Kubernetes集群并且使用静态pods在每个节点上起一个pod，那么最好使用[DaemonSet](/cn/docs/concepts/workloads/controllers/daemonset/)!**
 
-*静态pods*直接由特定节点上的kubelet进程来管理，不通过主控节点上的API服务器。静态pod不关联任何replication controller，它由kubelet进程自己来监控，当pod崩溃时重启该pod。对于静态pod没有健康检查。静态pod始终绑定在某一个kubelet，并且始终运行在同一个节点上。
+*静态pods* 直接由特定节点上的kubelet进程来管理，不通过主控节点上的API服务器。静态pod不关联任何replication controller，它由kubelet进程自己来监控，当pod崩溃时重启该pod。对于静态pod没有健康检查。静态pod始终绑定在某一个kubelet，并且始终运行在同一个节点上。
 
 Kubelet自动为每一个静态pod在Kubernetes的API服务器上创建一个镜像Pod（Mirror Pod），因此可以在API服务器查询到该pod，但是不被API服务器控制（例如不能删除）。
 
