@@ -9,7 +9,7 @@ weight: 20
 
 {{% capture overview %}}
 This page shows how to install a
-[custom resource](/docs/concepts/api-extension/custom-resources/)
+[custom resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 into the Kubernetes API by creating a
 [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions).
 {{% /capture %}}
@@ -181,7 +181,7 @@ If you later recreate the same CustomResourceDefinition, it will start out empty
 
 ## Serving multiple versions of a CRD
 
-See [Custom resource definition versioning](custom-resource-definition-versioning.md)
+See [Custom resource definition versioning](custom-resource-definition-versioning)
 for more information about serving multiple versions of your
 CustomResourceDefinition and migrating your objects from one version to another.
 
@@ -566,7 +566,7 @@ crontabs/my-new-cron-object   3s
 {{% capture whatsnext %}}
 * Learn how to [Migrate a ThirdPartyResource to CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/).
 * See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions-k8s-io).
-* Serve [multiple versions](custom-resource-definitions-versioning.md) of a
+* Serve [multiple versions](custom-resource-definitions-versioning) of a
   CustomResourceDefinition
 {{% /capture %}}
 
