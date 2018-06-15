@@ -15,10 +15,8 @@ level of your CustomResourceDefinitions. It also describes how to upgrade an
 object from one version to another.
 
 {{< note >}}
-**Note**: It is not possible to specify different schemas for different versions
-of a CustomResourceDefinition in a backward-compatible way. You cannot remove
-fields, and if you add fields, you are responsible for ensuring that clients can
-tolerate missing fields.
+**Note**: All specified versions must use the same schema. The is no schema
+conversion between versions.
 {{< /note >}}
 
 {{% /capture %}}
@@ -37,10 +35,11 @@ tolerate missing fields.
 
 ## Overview
 
-Kubernetes standard API types include a versioning mechanism, so that developers
-can evolve APIs while maintaining backwards compatibility. In a similar way, the
-CustomResourceDefinition API supports a `versions` field that you can use to
-support multiple versions of Custom Resources that you have developed.
+The CustomResourceDefinition API supports a `versions` field that you can use to
+support multiple versions of custom resources that you have developed, and
+indicate the stability of a given custom resource. All versions must currently
+use the same schema, so if you need to add a field, you must add it to all
+versions.
 
 {{< note >}}
 Earlier iterations included a `version` field instead of `versions`. The
@@ -64,13 +63,13 @@ spec:
   group: example.com
   # list of versions supported by this CustomResourceDefinition
   versions:
-  - Name: v1beta1
+  - name: v1beta1
     # Each version can be enabled/disabled by Served flag.
-    Served: true
+    served: true
     # One and only one version must be marked as the storage version.
     storage: true
-  - Name: v1
-    Served: true
+  - name: v1
+    served: true
     storage: false
   # either Namespaced or Cluster
   scope: Namespaced
@@ -113,7 +112,7 @@ like `v2` or `v2beta1`. Versions are sorted using the following algorithm:
   
 - Entries that follow Kubernetes version patterns are sorted before those that
   do not.
-- For entries that follow Kubernetes version patterns, each numeric portions of
+- For entries that follow Kubernetes version patterns, the numeric portions of
   the version string is sorted largest to smallest.
 - If the strings `beta` or `alpha` follow the first numeric portion, they sorted
   in that order, after the equivalent string without the `beta` or `alpha`
@@ -121,7 +120,9 @@ like `v2` or `v2beta1`. Versions are sorted using the following algorithm:
 - If another number follows the `beta`, or `alpha`, those numbers are also
   sorted from largest to smallest.
 - Strings that don't fit the above format are sorted alphabetically and the
-  numeric portions are not treated specially.
+  numeric portions are not treated specially. Notice that in the example below,
+  `foo1` is sorted above `foo10`. This is different from the sorting of the
+  numeric portion of entries that do follow the Kubernetes version patterns.
 
 This might make sense if you look at the following sorted version list:
 
@@ -135,7 +136,7 @@ This might make sense if you look at the following sorted version list:
 - v12alpha1
 - v11alpha2
 - foo1
-- foo10.
+- foo10
 ```
 
 For the example in [Specify multiple versions](#specify-multiple-versions), the
@@ -148,8 +149,8 @@ the version.
 When an object is written, it is persisted at the version designated as the
 storage version at the time of the write. If the storage version changes,
 existing objects are never converted automatically. However, newly-created
-objects are created at the new storage version. It is possible for a version to
-have been written at a version that is no longer served.
+or updated objects are created at the new storage version. It is possible for an
+object to have been written at a version that is no longer served.
 
 When you read an object, you specify the version as part of the path. If you
 specify a version that is different from the object's persisted version,
@@ -157,9 +158,9 @@ Kubernetes returns the object to you at the version you requested, but does not
 modify the persisted object. You can request an object at any version that is
 currently served.
 
-If you update an existing object (which is actually a rewrite of the entire
-object), it is rewritten at the version that is currently the storage version.
-This is the only way that objects can change from one version to another.
+If you update an existing object, it is rewritten at the version that is
+currently the storage version. This is the only way that objects can change from
+one version to another.
 
 To illustrate this, consider the following hypothetical series of events:
 
@@ -168,12 +169,13 @@ To illustrate this, consider the following hypothetical series of events:
 2.  You add version `v1` to your CustomResourceDefinition and designate it as
     the storage version.
 3.  You read your object at version `v1beta`, then you read the object again at
-    version `v1`. The object itself does not change.
+    version `v1`. Both returned objects are identical except for the apiVersion
+    field.
 4.  You create a new object. It is persisted in storage at version `v1`. You now
     have two objects, one of which is at `v1beta`, and the other of which is at
     `v1`.
-5.  You update the first object. It is completely rewritten, and is now
-    persisted at version `v1` since that is now the storage version.
+5.  You update the first object. It is now persisted at version `v1` since that
+    is the current storage version.
 
 ### Previous storage versions
 
@@ -188,8 +190,8 @@ When deprecating versions and dropping support, devise a storage upgrade
 procedure. The following is an example procedure to upgrade from `v1beta1`
 to `v1`.
 
-1.  Set `v1` as the storage in the CustomResourceDefinition file and apply the
-    file using kubectl. The `storedVersions` is now `v1beta1, v1`.
+1.  Set `v1` as the storage in the CustomResourceDefinition file and apply it
+    using kubectl. The `storedVersions` is now `v1beta1, v1`.
 2.  Write an upgrade procedure to list all existing objects and write them with
     the same content. This forces the backend to write objects in the current
     storage version, which is `v1`.
