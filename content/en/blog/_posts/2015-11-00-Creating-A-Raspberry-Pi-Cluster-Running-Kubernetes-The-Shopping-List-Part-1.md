@@ -45,7 +45,7 @@ Note the GeauxRobot Stackable Case looks like an alternative for the ModMyPi Sta
 
 Building the Raspberry Pi cluster is pretty straight forward. Most of the work is putting the stackable casing together and mounting the Pi boards on the plexiglass panes. We mounted the network switch and USB Adapter using double side foam tape, which feels strong enough for most situations. Finally, we connected the USB and UTP cables. Next, we installed HypriotOS on every Pi. HypriotOS is a Raspbian based Linux OS for Raspberry Pi’s extended with Docker support. The Hypriot team has an excellent tutorial on [Getting started with Docker on your Raspberry Pi](http://blog.hypriot.com/getting-started-with-docker-on-your-arm-device/). Follow this tutorial to get Linux and Docker running on all Pi’s.  
 
-With that, you’re all set! Next up will be running Kubernetes on the Raspberry Pi cluster. We’ll be covering this the [next post](http://blog.kubernetes.io/2015/12/creating-raspberry-pi-cluster-running.html), so stay tuned!  
+With that, you’re all set! Next up will be running Kubernetes on the Raspberry Pi cluster. We’ll be covering this the [next post](https://kubernetes.io/blog/2015/12/creating-raspberry-pi-cluster-running), so stay tuned!  
 
 
 Arjen Wassink, Java Architect and Team Lead, Quintor  
