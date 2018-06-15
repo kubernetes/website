@@ -28,10 +28,11 @@ into the Kubernetes API by creating a
 ## Create a CustomResourceDefinition
 
 When you create a new CustomResourceDefinition (CRD), the Kubernetes API Server
-reacts by creating a new RESTful resource path, either namespaced or cluster-scoped,
-as specified in the CRD's `scope` field. As with existing built-in objects, deleting a
-namespace deletes all custom objects in that namespace.
-CustomResourceDefinitions themselves are non-namespaced and are available to all namespaces.
+creates a new RESTful resource path for each version you specify. The CRD can be
+either namespaced or cluster-scoped, as specified in the CRD's `scope` field. As
+with existing built-in objects, deleting a namespace deletes all custom objects
+in that namespace. CustomResourceDefinitions themselves are non-namespaced and
+are available to all namespaces.
 
 For example, if you save the following CustomResourceDefinition to `resourcedefinition.yaml`:
 
@@ -44,8 +45,13 @@ metadata:
 spec:
   # group name to use for REST API: /apis/<group>/<version>
   group: stable.example.com
-  # version name to use for REST API: /apis/<group>/<version>
-  version: v1
+  # list of versions supported by this CustomResourceDefinition
+  versions:
+    - name: v1
+      # Each version can be enabled/disabled by Served flag.
+      served: true
+      # One and only one version must be marked as the storage version.
+      storage: true
   # either Namespaced or Cluster
   scope: Namespaced
   names:
@@ -76,7 +82,7 @@ This endpoint URL can then be used to create and manage custom objects.
 The `kind` of these objects will be `CronTab` from the spec of the
 CustomResourceDefinition object you created above.
 
-Please note that it might take a few seconds for the endpoint to be created.
+It might take a few seconds for the endpoint to be created.
 You can watch the `Established` condition of your CustomResourceDefinition
 to be true or watch the discovery information of the API server for your
 resource to show up.
@@ -121,9 +127,8 @@ NAME                 AGE
 my-new-cron-object   6s
 ```
 
-Note that resource names are not case-sensitive when using kubectl,
-and you can use either the singular or plural forms defined in the CRD,
-as well as any short names.
+Resource names are not case-sensitive when using kubectl, and you can use either
+the singular or plural forms defined in the CRD, as well as any short names.
 
 You can also view the raw YAML data:
 
@@ -173,6 +178,12 @@ Error from server (NotFound): Unable to list "crontabs": the server could not fi
 ```
 
 If you later recreate the same CustomResourceDefinition, it will start out empty.
+
+## Serving multiple versions of a CRD
+
+See [Custom resource definition versioning](custom-resource-definition-versioning.md)
+for more information about serving multiple versions of your
+CustomResourceDefinition and migrating your objects from one version to another.
 
 {{% /capture %}}
 
@@ -246,6 +257,10 @@ metadata:
   name: crontabs.stable.example.com
 spec:
   group: stable.example.com
+  versions:
+    - name: v1
+      served: true
+      storage: true
   version: v1
   scope: Namespaced
   names:
@@ -397,7 +412,10 @@ metadata:
   name: crontabs.stable.example.com
 spec:
   group: stable.example.com
-  version: v1
+  versions:
+    - name: v1
+      served: true
+      storage: true
   scope: Namespaced
   names:
     plural: crontabs
@@ -488,7 +506,10 @@ metadata:
   name: crontabs.stable.example.com
 spec:
   group: stable.example.com
-  version: v1
+  versions:
+    - name: v1
+      served: true
+      storage: true
   scope: Namespaced
   names:
     plural: crontabs
@@ -545,6 +566,8 @@ crontabs/my-new-cron-object   3s
 {{% capture whatsnext %}}
 * Learn how to [Migrate a ThirdPartyResource to CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/).
 * See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions-k8s-io).
+* Serve [multiple versions](custom-resource-definitions-versioning.md) of a
+  CustomResourceDefinition
 {{% /capture %}}
 
 
