@@ -1,5 +1,5 @@
 ---
-title: Serve versioned CustomResourceDefinitions
+title: Versions of CustomResourceDefinitions
 reviewers:
 - mbohlool
 - sttts
