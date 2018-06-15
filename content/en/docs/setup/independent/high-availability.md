@@ -266,11 +266,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 
 {{% /tab %}}
 {{% tab name="Static Pods" %}}
-**Note**: This is only supported on nodes that have the all dependencies for the
-kubelet installed. If you are hosting etcd on the master nodes, this has already
-been set up. If you are hosting etcd on dedicated nodes, you should either use
-systemd or run the [installation guide](/docs/setup/independent/install-kubeadm/)
-on each dedicated etcd machine.
+**Note**: This is only supported on nodes that have the all dependencies for the kubelet installed. If you are hosting etcd on the master nodes, this has already been set up. If you are hosting etcd on dedicated nodes, you should either use systemd or run the [installation guide](/docs/setup/independent/install-kubeadm/) on each dedicated etcd machine.
 
 Run the following to generate the manifest file:
 
@@ -287,22 +283,22 @@ Run the following to generate the manifest file:
       spec:
         containers:
         - command:
-          - etcd --name <name>
-          - --data-dir /var/lib/etcd
-          - --listen-client-urls http://localhost:2379
-          - --advertise-client-urls http://localhost:2379
-          - --listen-peer-urls http://localhost:2380
-          - --initial-advertise-peer-urls http://localhost:2380
-          - --cert-file=/certs/server.pem
-          - --key-file=/certs/server-key.pem
-          - --client-cert-auth
-          - --trusted-ca-file=/certs/ca.pem
-          - --peer-cert-file=/certs/peer.pem
-          - --peer-key-file=/certs/peer-key.pem
-          - --peer-client-cert-auth
-          - --peer-trusted-ca-file=/certs/ca.pem
-          - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380
-          - --initial-cluster-token my-etcd-token
+          - etcd --name <name> 
+          - --data-dir /var/lib/etcd 
+          - --listen-client-urls http://localhost:2379 
+          - --advertise-client-urls http://localhost:2379 
+          - --listen-peer-urls http://localhost:2380 
+          - --initial-advertise-peer-urls http://localhost:2380 
+          - --cert-file=/certs/server.pem 
+          - --key-file=/certs/server-key.pem 
+          - --client-cert-auth 
+          - --trusted-ca-file=/certs/ca.pem 
+          - --peer-cert-file=/certs/peer.pem 
+          - --peer-key-file=/certs/peer-key.pem 
+          - --peer-client-cert-auth 
+          - --peer-trusted-ca-file=/certs/ca.pem 
+          - --initial-cluster etcd0=https://<etcd0-ip-address>:2380,etcd1=https://<etcd1-ip-address>:2380,etcd2=https://<etcd2-ip-address>:2380 
+          - --initial-cluster-token my-etcd-token 
           - --initial-cluster-state new
           image: k8s.gcr.io/etcd-amd64:3.1.10
           livenessProbe:
@@ -345,7 +341,6 @@ Run the following to generate the manifest file:
 Make sure you replace:
 * `<name>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
 * `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the public IPv4s of the other machines that host etcd.
-
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -486,7 +481,7 @@ Ensure that the following placeholders are replaced:
 
 {{< note >}}**Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`. For more information, see [the documentation](/docs/admin/high-availability/#endpoint-reconciler).{{< /note >}}
 
-When this is done, run kubeadm:
+1.  When this is done, run kubeadm:
       ```bash
       kubeadm init --config=config.yaml
       ```
