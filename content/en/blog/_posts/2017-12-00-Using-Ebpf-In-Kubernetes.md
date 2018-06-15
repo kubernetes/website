@@ -6,7 +6,7 @@ url: /blog/2017/12/Using-Ebpf-In-Kubernetes
 ---
 
 ## Introduction
-Kubernetes provides a high-level API and a set of components that hides almost all of the intricate and—to some of us—interesting details of what happens at the systems level. Application developers are not required to have knowledge of the machines' IP tables, cgroups, namespaces, seccomp, or, nowadays, even the [container runtime](http://blog.kubernetes.io/2016/12/container-runtime-interface-cri-in-kubernetes.html) that their application runs on top of. But underneath, Kubernetes and the technologies upon which it relies (for example, the container runtime) heavily leverage core Linux functionalities.  
+Kubernetes provides a high-level API and a set of components that hides almost all of the intricate and—to some of us—interesting details of what happens at the systems level. Application developers are not required to have knowledge of the machines' IP tables, cgroups, namespaces, seccomp, or, nowadays, even the [container runtime](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes) that their application runs on top of. But underneath, Kubernetes and the technologies upon which it relies (for example, the container runtime) heavily leverage core Linux functionalities.  
 
 This article focuses on a core Linux functionality increasingly used in networking, security and auditing, and tracing and monitoring tools. This functionality is called [extended Berkeley Packet Filter](http://man7.org/linux/man-pages/man2/bpf.2.html) (eBPF)  
 

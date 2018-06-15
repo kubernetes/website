@@ -12,11 +12,11 @@ With the help of our growing community of 1,400 plus contributors, we issued mor
 
 While many improvements have been contributed, we highlight key features in this series of in-depth&nbsp;posts listed below. [Follow along](https://twitter.com/kubernetesio) and see what’s new and improved with storage, security and more.  
 
-**Day 1:** [5 Days of Kubernetes 1.8](http://blog.kubernetes.io/2017/10/five-days-of-kubernetes-18.html)  
-**Day 2:** [kubeadm v1.8 Introduces Easy Upgrades for Kubernetes Clusters](http://blog.kubernetes.io/2017/10/kubeadm-v18-released.html)  
-**Day 3:** [Kuberentes v.1.8 Retrospective: It Takes a Village to Raise a Kubernetes](http://blog.kubernetes.io/2017/10/it-takes-village-to-raise-kubernetes.html)  
-**Day 4:** [Using RBAC, Generally Available in Kubernetes v1.8](http://blog.kubernetes.io/2017/10/using-rbac-generally-available-18.html)  
-**Day 5:** [Enforcing Network Policies in Kubernetes](http://blog.kubernetes.io/2017/10/enforcing-network-policies-in-kubernetes.html)  
+**Day 1:** [5 Days of Kubernetes 1.8](https://kubernetes.io/blog/2017/10/five-days-of-kubernetes-18)  
+**Day 2:** [kubeadm v1.8 Introduces Easy Upgrades for Kubernetes Clusters](https://kubernetes.io/blog/2017/10/kubeadm-v18-released)  
+**Day 3:** [Kuberentes v.1.8 Retrospective: It Takes a Village to Raise a Kubernetes](https://kubernetes.io/blog/2017/10/it-takes-village-to-raise-kubernetes)  
+**Day 4:** [Using RBAC, Generally Available in Kubernetes v1.8](https://kubernetes.io/blog/2017/10/using-rbac-generally-available-18)  
+**Day 5:** [Enforcing Network Policies in Kubernetes](https://kubernetes.io/blog/2017/10/enforcing-network-policies-in-kubernetes)  
 
 **Connect**  
 

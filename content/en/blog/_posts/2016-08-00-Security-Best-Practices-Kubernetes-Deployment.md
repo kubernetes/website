@@ -159,7 +159,7 @@ POST /apis/net.alpha.kubernetes.io/v1alpha1/namespaces/tenant-a/networkpolicys
 
 
 
-Read more about Network policies [here](http://blog.kubernetes.io/2016/04/Kubernetes-Network-Policy-APIs.html).
+Read more about Network policies [here](https://kubernetes.io/blog/2016/04/Kubernetes-Network-Policy-APIs).
 
 
 
