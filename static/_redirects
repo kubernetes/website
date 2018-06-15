@@ -508,3 +508,5 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/admin/authorization/rbac/     /docs/reference/access-authn-authz/rbac/ 301
 /docs/admin/authorization/webhook/     /docs/reference/access-authn-authz/webhook/ 301
 /docs/admin/authorization/     /docs/reference/access-authn-authz/authorization/ 301
+
+/docs/admin/high-availability/building/     /docs/setup/independent/high-availability/ 301
