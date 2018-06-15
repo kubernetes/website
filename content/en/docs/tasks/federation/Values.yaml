@@ -1,6 +1,6 @@
 isClusterService: false
 serviceType: "LoadBalancer"
-middleware:
+plugins:
   kubernetes:
     enabled: false
   etcd:
