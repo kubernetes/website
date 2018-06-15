@@ -1,23 +1,235 @@
 ---
-title: kubectl
+title: kubectl get
 notitle: true
 ---
-## kubectl
+## kubectl get
 
-kubectl controls the Kubernetes cluster manager
+Display one or many resources
 
 ### Synopsis
 
 
-kubectl controls the Kubernetes cluster manager. 
+Display one or many resources 
 
-Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
+Prints a table of the most important information about the specified resources. You can filter the list using a label selector and the --selector flag. If the desired resource type is namespaced you will only see results in your current namespace unless you pass --all-namespaces. 
+
+Uninitialized objects are not shown unless --include-uninitialized is passed. 
+
+By specifying the output as 'template' and providing a Go template as the value of the --template flag, you can filter the attributes of the fetched resources.
+
+Use "kubectl api-resources" for a complete list of supported resources.
 
 ```
-kubectl [flags]
+kubectl get [(-o|--output=)json|yaml|wide|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=...] (TYPE[.VERSION][.GROUP] [NAME | -l label] | TYPE[.VERSION][.GROUP]/NAME ...) [flags]
+```
+
+### Examples
+
+```
+  # List all pods in ps output format.
+  kubectl get pods
+  
+  # List all pods in ps output format with more information (such as node name).
+  kubectl get pods -o wide
+  
+  # List a single replication controller with specified NAME in ps output format.
+  kubectl get replicationcontroller web
+  
+  # List deployments in JSON output format, in the "v1" version of the "apps" API group:
+  kubectl get deployments.v1.apps -o json
+  
+  # List a single pod in JSON output format.
+  kubectl get -o json pod web-pod-13je7
+  
+  # List a pod identified by type and name specified in "pod.yaml" in JSON output format.
+  kubectl get -f pod.yaml -o json
+  
+  # Return only the phase value of the specified pod.
+  kubectl get -o template pod/web-pod-13je7 --template={{.status.phase}}
+  
+  # List all replication controllers and services together in ps output format.
+  kubectl get rc,services
+  
+  # List one or more resources by their type and names.
+  kubectl get rc/web service/frontend pods/web-pod-13je7
 ```
 
 ### Options
+
+<table style="width: 100%; table-layout: fixed;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--all-namespaces</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--chunk-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 500</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Return large lists in chunks rather than all at once. Pass 0 to disable. This flag is beta and may change in the future.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--export</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, use 'export' for the resources.  Exported resources are stripped of cluster-specific information.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--field-selector string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector key1=value1,key2=value2). The server only supports a limited number of field queries per type.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-f, --filename stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Filename, directory, or URL to files identifying the resource to get from a server.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for get</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--ignore-not-found</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If the requested object does not exist the command will return exit code 0.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--include-uninitialized</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, the kubectl command applies to uninitialized objects. If explicitly set to false, this flag overrides other flags that make the kubectl commands apply to uninitialized objects, e.g., "--all". Objects with empty metadata.initializers are regarded as initialized.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-L, --label-columns stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Accepts a comma separated list of labels that are going to be presented as columns. Names are case-sensitive. You can also use multiple flag options like -L label1 -L label2...</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--no-headers</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">When using the default or custom-column output format, don't print headers (default print headers).</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-o, --output string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Output format. One of: json|yaml|wide|name|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See custom columns [http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns], golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://kubernetes.io/docs/user-guide/jsonpath].</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--raw string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Raw URI to request from the server.  Uses the transport specified by the kubeconfig file.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-R, --recursive</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-l, --selector string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2)</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--server-print&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, have the server return the appropriate table output. Supports extension APIs and CRDs.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--show-kind</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If present, list the resource type for the requested object(s).</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--show-labels</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">When printing, show all labels as the last column (default hide labels column)</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--sort-by string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. '{.metadata.name}'). The field in the API resource specified by this JSONPath expression must be an integer or a string.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--template string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--use-openapi-print-columns</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, use x-kubernetes-print-column metadata (if present) from the OpenAPI schema for displaying a resource.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-w, --watch</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">After listing/getting the requested object, watch for changes. Uninitialized objects are excluded if no object name is provided.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--watch-only</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Watch for changes to the requested object(s), without listing/getting first.</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+### Options inherited from parent commands
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -237,13 +449,6 @@ kubectl [flags]
     </tr>
 
     <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for kubectl</td>
-    </tr>
-
-    <tr>
       <td colspan="2">--housekeeping-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10s</td>
     </tr>
     <tr>
@@ -431,45 +636,5 @@ kubectl [flags]
 
 
 ### SEE ALSO
-* [kubectl alpha](kubectl_alpha.md)	 - Commands for features in alpha
-* [kubectl annotate](kubectl_annotate.md)	 - Update the annotations on a resource
-* [kubectl api-resources](kubectl_api-resources.md)	 - Print the supported API resources on the server
-* [kubectl api-versions](kubectl_api-versions.md)	 - Print the supported API versions on the server, in the form of "group/version"
-* [kubectl apply](kubectl_apply.md)	 - Apply a configuration to a resource by filename or stdin
-* [kubectl attach](kubectl_attach.md)	 - Attach to a running container
-* [kubectl auth](kubectl_auth.md)	 - Inspect authorization
-* [kubectl autoscale](kubectl_autoscale.md)	 - Auto-scale a Deployment, ReplicaSet, or ReplicationController
-* [kubectl certificate](kubectl_certificate.md)	 - Modify certificate resources.
-* [kubectl cluster-info](kubectl_cluster-info.md)	 - Display cluster info
-* [kubectl completion](kubectl_completion.md)	 - Output shell completion code for the specified shell (bash or zsh)
-* [kubectl config](kubectl_config.md)	 - Modify kubeconfig files
-* [kubectl convert](kubectl_convert.md)	 - Convert config files between different API versions
-* [kubectl cordon](kubectl_cordon.md)	 - Mark node as unschedulable
-* [kubectl cp](kubectl_cp.md)	 - Copy files and directories to and from containers.
-* [kubectl create](kubectl_create.md)	 - Create a resource from a file or from stdin.
-* [kubectl delete](kubectl_delete.md)	 - Delete resources by filenames, stdin, resources and names, or by resources and label selector
-* [kubectl describe](kubectl_describe.md)	 - Show details of a specific resource or group of resources
-* [kubectl drain](kubectl_drain.md)	 - Drain node in preparation for maintenance
-* [kubectl edit](kubectl_edit.md)	 - Edit a resource on the server
-* [kubectl exec](kubectl_exec.md)	 - Execute a command in a container
-* [kubectl explain](kubectl_explain.md)	 - Documentation of resources
-* [kubectl expose](kubectl_expose.md)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes Service
-* [kubectl get](kubectl_get.md)	 - Display one or many resources
-* [kubectl label](kubectl_label.md)	 - Update the labels on a resource
-* [kubectl logs](kubectl_logs.md)	 - Print the logs for a container in a pod
-* [kubectl options](kubectl_options.md)	 - Print the list of flags inherited by all commands
-* [kubectl patch](kubectl_patch.md)	 - Update field(s) of a resource using strategic merge patch
-* [kubectl plugin](kubectl_plugin.md)	 - Runs a command-line plugin
-* [kubectl port-forward](kubectl_port-forward.md)	 - Forward one or more local ports to a pod
-* [kubectl proxy](kubectl_proxy.md)	 - Run a proxy to the Kubernetes API server
-* [kubectl replace](kubectl_replace.md)	 - Replace a resource by filename or stdin
-* [kubectl rollout](kubectl_rollout.md)	 - Manage the rollout of a resource
-* [kubectl run](kubectl_run.md)	 - Run a particular image on the cluster
-* [kubectl scale](kubectl_scale.md)	 - Set a new size for a Deployment, ReplicaSet, Replication Controller, or Job
-* [kubectl set](kubectl_set.md)	 - Set specific features on objects
-* [kubectl taint](kubectl_taint.md)	 - Update the taints on one or more nodes
-* [kubectl top](kubectl_top.md)	 - Display Resource (CPU/Memory/Storage) usage.
-* [kubectl uncordon](kubectl_uncordon.md)	 - Mark node as schedulable
-* [kubectl version](kubectl_version.md)	 - Print the client and server version information
-* [kubectl wait](kubectl_wait.md)	 - Wait for one condition on one or many resources
+* [kubectl](kubectl.md)	 - kubectl controls the Kubernetes cluster manager
 

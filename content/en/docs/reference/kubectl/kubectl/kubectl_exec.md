@@ -1,23 +1,91 @@
 ---
-title: kubectl
+title: kubectl exec
 notitle: true
 ---
-## kubectl
+## kubectl exec
 
-kubectl controls the Kubernetes cluster manager
+Execute a command in a container
 
 ### Synopsis
 
 
-kubectl controls the Kubernetes cluster manager. 
-
-Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
+Execute a command in a container.
 
 ```
-kubectl [flags]
+kubectl exec POD [-c CONTAINER] -- COMMAND [args...]
+```
+
+### Examples
+
+```
+  # Get output from running 'date' from pod 123456-7890, using the first container by default
+  kubectl exec 123456-7890 date
+  
+  # Get output from running 'date' in ruby-container from pod 123456-7890
+  kubectl exec 123456-7890 -c ruby-container date
+  
+  # Switch to raw terminal mode, sends stdin to 'bash' in ruby-container from pod 123456-7890
+  # and sends stdout/stderr from 'bash' back to the client
+  kubectl exec 123456-7890 -c ruby-container -i -t -- bash -il
+  
+  # List contents of /usr from the first container of pod 123456-7890 and sort by modification time.
+  # If the command you want to execute in the pod has any flags in common (e.g. -i),
+  # you must use two dashes (--) to separate your command's flags/arguments.
+  # Also note, do not surround your command and its flags/arguments with quotes
+  # unless that is how you would execute it normally (i.e., do ls -t /usr, not "ls -t /usr").
+  kubectl exec 123456-7890 -i -t -- ls -t /usr
 ```
 
 ### Options
+
+<table style="width: 100%; table-layout: fixed;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">-c, --container string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Container name. If omitted, the first container in the pod will be chosen</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for exec</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-p, --pod string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Pod name</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-i, --stdin</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Pass stdin to the container</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-t, --tty</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Stdin is a TTY</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+### Options inherited from parent commands
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -237,13 +305,6 @@ kubectl [flags]
     </tr>
 
     <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for kubectl</td>
-    </tr>
-
-    <tr>
       <td colspan="2">--housekeeping-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10s</td>
     </tr>
     <tr>
@@ -431,45 +492,5 @@ kubectl [flags]
 
 
 ### SEE ALSO
-* [kubectl alpha](kubectl_alpha.md)	 - Commands for features in alpha
-* [kubectl annotate](kubectl_annotate.md)	 - Update the annotations on a resource
-* [kubectl api-resources](kubectl_api-resources.md)	 - Print the supported API resources on the server
-* [kubectl api-versions](kubectl_api-versions.md)	 - Print the supported API versions on the server, in the form of "group/version"
-* [kubectl apply](kubectl_apply.md)	 - Apply a configuration to a resource by filename or stdin
-* [kubectl attach](kubectl_attach.md)	 - Attach to a running container
-* [kubectl auth](kubectl_auth.md)	 - Inspect authorization
-* [kubectl autoscale](kubectl_autoscale.md)	 - Auto-scale a Deployment, ReplicaSet, or ReplicationController
-* [kubectl certificate](kubectl_certificate.md)	 - Modify certificate resources.
-* [kubectl cluster-info](kubectl_cluster-info.md)	 - Display cluster info
-* [kubectl completion](kubectl_completion.md)	 - Output shell completion code for the specified shell (bash or zsh)
-* [kubectl config](kubectl_config.md)	 - Modify kubeconfig files
-* [kubectl convert](kubectl_convert.md)	 - Convert config files between different API versions
-* [kubectl cordon](kubectl_cordon.md)	 - Mark node as unschedulable
-* [kubectl cp](kubectl_cp.md)	 - Copy files and directories to and from containers.
-* [kubectl create](kubectl_create.md)	 - Create a resource from a file or from stdin.
-* [kubectl delete](kubectl_delete.md)	 - Delete resources by filenames, stdin, resources and names, or by resources and label selector
-* [kubectl describe](kubectl_describe.md)	 - Show details of a specific resource or group of resources
-* [kubectl drain](kubectl_drain.md)	 - Drain node in preparation for maintenance
-* [kubectl edit](kubectl_edit.md)	 - Edit a resource on the server
-* [kubectl exec](kubectl_exec.md)	 - Execute a command in a container
-* [kubectl explain](kubectl_explain.md)	 - Documentation of resources
-* [kubectl expose](kubectl_expose.md)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes Service
-* [kubectl get](kubectl_get.md)	 - Display one or many resources
-* [kubectl label](kubectl_label.md)	 - Update the labels on a resource
-* [kubectl logs](kubectl_logs.md)	 - Print the logs for a container in a pod
-* [kubectl options](kubectl_options.md)	 - Print the list of flags inherited by all commands
-* [kubectl patch](kubectl_patch.md)	 - Update field(s) of a resource using strategic merge patch
-* [kubectl plugin](kubectl_plugin.md)	 - Runs a command-line plugin
-* [kubectl port-forward](kubectl_port-forward.md)	 - Forward one or more local ports to a pod
-* [kubectl proxy](kubectl_proxy.md)	 - Run a proxy to the Kubernetes API server
-* [kubectl replace](kubectl_replace.md)	 - Replace a resource by filename or stdin
-* [kubectl rollout](kubectl_rollout.md)	 - Manage the rollout of a resource
-* [kubectl run](kubectl_run.md)	 - Run a particular image on the cluster
-* [kubectl scale](kubectl_scale.md)	 - Set a new size for a Deployment, ReplicaSet, Replication Controller, or Job
-* [kubectl set](kubectl_set.md)	 - Set specific features on objects
-* [kubectl taint](kubectl_taint.md)	 - Update the taints on one or more nodes
-* [kubectl top](kubectl_top.md)	 - Display Resource (CPU/Memory/Storage) usage.
-* [kubectl uncordon](kubectl_uncordon.md)	 - Mark node as schedulable
-* [kubectl version](kubectl_version.md)	 - Print the client and server version information
-* [kubectl wait](kubectl_wait.md)	 - Wait for one condition on one or many resources
+* [kubectl](kubectl.md)	 - kubectl controls the Kubernetes cluster manager
 

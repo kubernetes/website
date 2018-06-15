@@ -1,23 +1,150 @@
 ---
-title: kubectl
+title: kubectl proxy
 notitle: true
 ---
-## kubectl
+## kubectl proxy
 
-kubectl controls the Kubernetes cluster manager
+Run a proxy to the Kubernetes API server
 
 ### Synopsis
 
 
-kubectl controls the Kubernetes cluster manager. 
-
-Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
+Creates a proxy server or application-level gateway between localhost and the Kubernetes API Server. It also allows serving static content over specified HTTP path. All incoming data enters through one port and gets forwarded to the remote kubernetes API Server port, except for the path matching the static content path.
 
 ```
-kubectl [flags]
+kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix]
+```
+
+### Examples
+
+```
+  # To proxy all of the kubernetes api and nothing else, use:
+  
+  $ kubectl proxy --api-prefix=/
+  
+  # To proxy only part of the kubernetes api and also some static files:
+  
+  $ kubectl proxy --www=/my/files --www-prefix=/static/ --api-prefix=/api/
+  
+  # The above lets you 'curl localhost:8001/api/v1/pods'.
+  
+  # To proxy the entire kubernetes api at a different root, use:
+  
+  $ kubectl proxy --api-prefix=/custom/
+  
+  # The above lets you 'curl localhost:8001/custom/api/v1/pods'
+  
+  # Run a proxy to kubernetes apiserver on port 8011, serving static content from ./local/www/
+  kubectl proxy --port=8011 --www=./local/www/
+  
+  # Run a proxy to kubernetes apiserver on an arbitrary local port.
+  # The chosen port for the server will be output to stdout.
+  kubectl proxy --port=0
+  
+  # Run a proxy to kubernetes apiserver, changing the api prefix to k8s-api
+  # This makes e.g. the pods api available at localhost:8001/k8s-api/v1/pods/
+  kubectl proxy --api-prefix=/k8s-api
 ```
 
 ### Options
+
+<table style="width: 100%; table-layout: fixed;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--accept-hosts string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "^localhost$,^127\.0\.0\.1$,^\[::1\]$"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Regular expression for hosts that the proxy should accept.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--accept-paths string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "^.*"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Regular expression for paths that the proxy should accept.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--address string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "127.0.0.1"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address on which to serve on.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--api-prefix string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Prefix to serve the proxied API under.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--disable-filter</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, disable request filtering in the proxy. This is dangerous, and can leave you vulnerable to XSRF attacks, when used with an accessible port.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for proxy</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-p, --port int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 8001</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The port on which to run the proxy. Set to 0 to pick a random port.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--reject-methods string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "^$"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Regular expression for HTTP methods that the proxy should reject (example --reject-methods='POST,PUT,PATCH'). </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--reject-paths string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "^/api/.*/pods/.*/exec,<br />^/api/.*/pods/.*/attach"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Regular expression for paths that the proxy should reject. Paths specified here will be rejected even accepted by --accept-paths.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-u, --unix-socket string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Unix socket on which to run the proxy.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-w, --www string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Also serve static files from the given directory under the specified prefix.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-P, --www-prefix string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/static/"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Prefix to serve static files under, if static file directory is specified.</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+### Options inherited from parent commands
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -237,13 +364,6 @@ kubectl [flags]
     </tr>
 
     <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for kubectl</td>
-    </tr>
-
-    <tr>
       <td colspan="2">--housekeeping-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10s</td>
     </tr>
     <tr>
@@ -431,45 +551,5 @@ kubectl [flags]
 
 
 ### SEE ALSO
-* [kubectl alpha](kubectl_alpha.md)	 - Commands for features in alpha
-* [kubectl annotate](kubectl_annotate.md)	 - Update the annotations on a resource
-* [kubectl api-resources](kubectl_api-resources.md)	 - Print the supported API resources on the server
-* [kubectl api-versions](kubectl_api-versions.md)	 - Print the supported API versions on the server, in the form of "group/version"
-* [kubectl apply](kubectl_apply.md)	 - Apply a configuration to a resource by filename or stdin
-* [kubectl attach](kubectl_attach.md)	 - Attach to a running container
-* [kubectl auth](kubectl_auth.md)	 - Inspect authorization
-* [kubectl autoscale](kubectl_autoscale.md)	 - Auto-scale a Deployment, ReplicaSet, or ReplicationController
-* [kubectl certificate](kubectl_certificate.md)	 - Modify certificate resources.
-* [kubectl cluster-info](kubectl_cluster-info.md)	 - Display cluster info
-* [kubectl completion](kubectl_completion.md)	 - Output shell completion code for the specified shell (bash or zsh)
-* [kubectl config](kubectl_config.md)	 - Modify kubeconfig files
-* [kubectl convert](kubectl_convert.md)	 - Convert config files between different API versions
-* [kubectl cordon](kubectl_cordon.md)	 - Mark node as unschedulable
-* [kubectl cp](kubectl_cp.md)	 - Copy files and directories to and from containers.
-* [kubectl create](kubectl_create.md)	 - Create a resource from a file or from stdin.
-* [kubectl delete](kubectl_delete.md)	 - Delete resources by filenames, stdin, resources and names, or by resources and label selector
-* [kubectl describe](kubectl_describe.md)	 - Show details of a specific resource or group of resources
-* [kubectl drain](kubectl_drain.md)	 - Drain node in preparation for maintenance
-* [kubectl edit](kubectl_edit.md)	 - Edit a resource on the server
-* [kubectl exec](kubectl_exec.md)	 - Execute a command in a container
-* [kubectl explain](kubectl_explain.md)	 - Documentation of resources
-* [kubectl expose](kubectl_expose.md)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes Service
-* [kubectl get](kubectl_get.md)	 - Display one or many resources
-* [kubectl label](kubectl_label.md)	 - Update the labels on a resource
-* [kubectl logs](kubectl_logs.md)	 - Print the logs for a container in a pod
-* [kubectl options](kubectl_options.md)	 - Print the list of flags inherited by all commands
-* [kubectl patch](kubectl_patch.md)	 - Update field(s) of a resource using strategic merge patch
-* [kubectl plugin](kubectl_plugin.md)	 - Runs a command-line plugin
-* [kubectl port-forward](kubectl_port-forward.md)	 - Forward one or more local ports to a pod
-* [kubectl proxy](kubectl_proxy.md)	 - Run a proxy to the Kubernetes API server
-* [kubectl replace](kubectl_replace.md)	 - Replace a resource by filename or stdin
-* [kubectl rollout](kubectl_rollout.md)	 - Manage the rollout of a resource
-* [kubectl run](kubectl_run.md)	 - Run a particular image on the cluster
-* [kubectl scale](kubectl_scale.md)	 - Set a new size for a Deployment, ReplicaSet, Replication Controller, or Job
-* [kubectl set](kubectl_set.md)	 - Set specific features on objects
-* [kubectl taint](kubectl_taint.md)	 - Update the taints on one or more nodes
-* [kubectl top](kubectl_top.md)	 - Display Resource (CPU/Memory/Storage) usage.
-* [kubectl uncordon](kubectl_uncordon.md)	 - Mark node as schedulable
-* [kubectl version](kubectl_version.md)	 - Print the client and server version information
-* [kubectl wait](kubectl_wait.md)	 - Wait for one condition on one or many resources
+* [kubectl](kubectl.md)	 - kubectl controls the Kubernetes cluster manager
 

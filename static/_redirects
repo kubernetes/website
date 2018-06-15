@@ -190,15 +190,15 @@
 /docs/reference/generated/kube-proxy/     /docs/reference/command-line-tools-reference/kube-proxy/ 301
 /docs/reference/generated/kube-scheduler/     /docs/reference/command-line-tools-reference/kube-scheduler/ 301
 /docs/reference/generated/kubectl/kubectl-options/     /docs/reference/kubectl/kubectl/ 301
-/docs/reference/generated/kubectl/kubectl/     /docs/reference/generated/kubectl/kubectl-commands/ 301
-/docs/reference/generated/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
+# /docs/reference/generated/kubectl/kubectl/     /docs/reference/generated/kubectl/kubectl-commands/ 301
+# /docs/reference/generated/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/generated/kubefed/     /docs/reference/setup-tools/kubefed/kubefed/ 301
 /docs/reference/generated/kubefed_init/     /docs/reference/setup-tools/kubefed/kubefed-init/ 301
 /docs/reference/generated/kubefed_join/     /docs/reference/setup-tools/kubefed/kubefed-join/ 301
 /docs/reference/generated/kubefed_options/     /docs/reference/setup-tools/kubefed/kubefed-options/ 301
 /docs/reference/generated/kubefed_unjoin/     /docs/reference/setup-tools/kubefed/kubefed-unjoin/ 301
 /docs/reference/generated/kubefed_version/     /docs/reference/setup-tools/kubefed/kubefed-version/ 301
-/docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
+# /docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/workloads-18-19/     https://v1-9.docs.kubernetes.io/docs/reference/workloads-18-19/ 301
 
 /docs/reporting-security-issues/     /security/ 301
