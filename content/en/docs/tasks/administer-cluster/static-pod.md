@@ -8,7 +8,8 @@ title: Static Pods
 
 *Static pods* are managed directly by kubelet daemon on a specific node, without the API server observing it. It does not have an associated replication controller, and kubelet daemon itself watches it and restarts it when it crashes. There is no health check. Static pods are always bound to one kubelet daemon and always run on the same node with it.
 
-Kubelet automatically tries to create so-called *mirror pod* on the Kubernetes API server for each static pod, so the pods are visible there, but they cannot be controlled from the API server.
+Kubelet automatically tries to create a *mirror pod* on the Kubernetes API server for each static pod.
+This means that the pods are visible on the API server but cannot be controlled from there.
 
 ## Static pod creation
 
@@ -92,7 +93,9 @@ Labels from the static pod are propagated into the mirror-pod and can be used as
 Notice we cannot delete the pod with the API server (e.g. via [`kubectl`](/docs/user-guide/kubectl/) command), kubelet simply won't remove it.
 
 {{<note>}}
-**Note**: Make sure the kubelet have permission to create the mirror pod in the API server. If not, the creation request is rejected by the API server. See [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/).
+**Note**: Make sure the kubelet has permission to create the mirror pod in the API server.
+If not, the creation request is rejected by the API server. See 
+PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/).
 {{</note>}}
 
 ```shell
