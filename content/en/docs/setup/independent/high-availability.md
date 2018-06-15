@@ -131,7 +131,7 @@ will fail the health check until the kube-apiserver is running.
           local:
             extraArgs:
               listen-client-urls: "https://127.0.0.1:2379,https://CP0_IP:2379"
-              advertise-client-urls: "https://CP0_IP:2379""
+              advertise-client-urls: "https://CP0_IP:2379"
               listen-peer-urls: "https://CP0_IP:2380"
               initial-advertise-peer-urls: "https://CP0_IP:2380"
               initial-cluster: "CP0_HOSTNAME=https://CP0_IP:2380"
@@ -152,7 +152,7 @@ will fail the health check until the kube-apiserver is running.
     - `CP0_HOSTNAME`
     - `CP0_IP`
 
-1. Run `kubeadm init --config kubeadm-config.yaml`
+1. Run `sudo kubeadm init --config kubeadm-config.yaml`
 
 ### Copy secrets to other control plane nodes
 
@@ -165,6 +165,8 @@ control plane nodes. Specifically:
 - `/etc/kubernetes/pki/sa.pub`
 - `/etc/kubernetes/pki/front-proxy-ca.crt`
 - `/etc/kubernetes/pki/front-proxy-ca.key`
+- `/etc/kubernetes/pki/etcd/ca.crt`
+- `/etc/kubernetes/pki/etcd/ca.key`
 
 The admin kubeconfig will also be needed for bootstrapping the additional control plane nodes:
 
@@ -183,6 +185,8 @@ for host in ${CONTROL_PLANE_IPS}; do
     scp /etc/kubernetes/pki/sa.pub "${USER}"@$host:
     scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
     scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
+    scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:etcd-ca.crt
+    scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
     scp /etc/kubernetes/admin.conf "${USER}"@$host:
 done
 ```
@@ -208,10 +212,11 @@ done
           local:
             extraArgs:
               listen-client-urls: "https://127.0.0.1:2379,https://CP1_IP:2379"
-              advertise-client-urls: "https://CP1_IP:2379""
+              advertise-client-urls: "https://CP1_IP:2379"
               listen-peer-urls: "https://CP1_IP:2380"
               initial-advertise-peer-urls: "https://CP1_IP:2380"
               initial-cluster: "CP0_HOSTNAME=https://CP0_IP:2380,CP1_HOSTNAME=https://CP1_IP:2380"
+              initial-cluster-state: existing
             serverCertSANs:
               - CP1_HOSTNAME
               - CP1_IP
@@ -230,6 +235,20 @@ done
     - `CP0_IP`
     - `CP1_HOSTNAME`
     - `CP1_IP`
+
+1. Move the copied certificates to the proper locations
+
+  ```sh
+  sudo mkdir -p /etc/kubernetes/pki/etcd
+  sudo mv ca.crt /etc/kubernetes/pki/
+  sudo mv ca.key /etc/kubernetes/pki/
+  sudo mv sa.pub /etc/kubernetes/pki/
+  sudo mv sa.key /etc/kubernetes/pki/
+  sudo mv front-proxy-ca.crt /etc/kubernetes/pki/
+  sudo mv front-proxy-ca.key /etc/kubernetes/pki/
+  sudo mv etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
+  sudo mv etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
+  ```
 
 1. Run the kubeadm phase commands to bootstrap the kubelet
 
@@ -286,10 +305,11 @@ done
           local:
             extraArgs:
               listen-client-urls: "https://127.0.0.1:2379,https://CP2_IP:2379"
-              advertise-client-urls: "https://CP2_IP:2379""
+              advertise-client-urls: "https://CP2_IP:2379"
               listen-peer-urls: "https://CP2_IP:2380"
               initial-advertise-peer-urls: "https://CP2_IP:2380"
               initial-cluster: "CP0_HOSTNAME=https://CP0_IP:2380,CP1_HOSTNAME=https://CP1_IP:2380,CP2_HOSTNAME=https://CP2_IP:2380"
+              initial-cluster-state: existing
             serverCertSANs:
               - CP2_HOSTNAME
               - CP2_IP
