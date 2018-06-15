@@ -494,9 +494,10 @@ Before running kubeadm on the other masters, you need to first copy the K8s CA c
 
 1. Follow the steps in the [create ssh access](#create-ssh-access) section, but instead of adding to `etcd0`'s `authorized_keys` file, add them to `master0`.
 1. Once you've done this, run:
+
      ```bash
      scp root@<master0-ip-address>:/etc/kubernetes/pki/* /etc/kubernetes/pki
-     rm apiserver.*
+     rm /etc/kubernetes/pki/apiserver*
      ```
 
 ### Option 2: Copy paste
