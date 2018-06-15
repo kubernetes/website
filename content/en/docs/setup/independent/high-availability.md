@@ -4,26 +4,21 @@ reviewers:
 - timothysc
 - detiber
 - chuckha
-title: Creating HA clusters with kubeadm
+title: Creating Highly Available Clusters with kubeadm
 content_template: templates/task
 ---
 
-{{% capture steps %}}'
-{{% /capture %}}
-
 {{% capture overview %}}
 
-This guide shows you how to install and set up a highly available Kubernetes
-cluster using kubeadm. This guide requires a Kubernetes version 1.11 or higher.
+This page explains two different ways to set up a highly available Kubernetes
+cluster using kubeadm:
 
-This covers two different strategies of deployment, stacked masters as one
-method and external etcd as another.
+- With stacked masters. This approach requires less infrastructure. etcd members
+and control plane nodes are co-located.
+- With an external etcd cluster. This approach requires more infrastructure. The
+control plane nodes and etcd members are separated.
 
-The stacked masters method requires less infrastructure by co-locating etcd
-members and control plane nodes.
-
-The external etcd method requires more infrastructure but provides separation of
-the control plane nodes and etcd members.
+Your clusters must run Kubernetes version 1.11 or later.
 
 {{< note >}}
 **Note**: This guide does not cover cloud-provider installation. Therefore if
@@ -32,20 +27,9 @@ you are in a cloud environment your services of type LoadBalancer and Dynamic Pe
 
 {{% /capture %}}
 
-## Common
-
 {{% capture prerequisites %}}
 
-{{< note >}}
-**Note**: The following examples run Calico as the Pod networking provider. If
-you run another networking provider, make sure to replace any default values as
-needed.
-{{< /note >}}
-
-{{< note >}}
-**Note**: All commands in this guide on any control plane or etcd node should be
-run as root.
-{{< /note >}}
+For both methods:
 
 In both scenarios you will need this infrastructure:
 
@@ -57,38 +41,41 @@ In both scenarios you will need this infrastructure:
   the workers
 - Full network connectivity between all machines in the cluster (public or
   private network is fine)
+- SSH from one device to all nodes in the system
 - sudo privileges on all machines
 
-In the external etcd scenario you will need this additional infrastructure:
+For the external etcd cluster only:
 
 - Three additional machines for etcd members
 
+{{< note >}}
+**Note**: The following examples run Calico as the Pod networking provider. If
+you run another networking provider, make sure to replace any default values as
+needed.
+{{< /note >}}
+
 {{% /capture %}}
 
-### Planning
+{{% capture steps %}}
+
+## First steps for both methods
+
+{{< note >}}
+**Note**: All commands in this guide on any control plane or etcd node should be
+run as root.
+{{< /note >}}
 
 1. Find your pod CIDR. For details, see [the CNI network
    documentation](/docs/setup/independent/create-cluster-kubeadm/#pod-network).
-   This example uses Calico, so the pod CIDR is `192.168.0.0/16`.
-
-### Create SSH access between nodes
-
-{{< note >}}
-**Note**: This section assumes the device you're on can ssh to every node
-involved. If this is not the case, you may have to create keys and share them
-across nodes instead of using ssh-agent.
-{{< /note >}}
-
-#### ssh-agent setup
-
-1. Start an ssh-agent session with `eval $(ssh-agent)`
-2. Add your ssh identity to the session `ssh-add ~/.ssh/path_to_private_key`
-3. When you ssh to any node make sure you add the `-A` flag like this `ssh -A 10.0.0.7`
-4. When using sudo, make sure to preserve the environment so the ssh forwarding works, `sudo -E -s`
-
-At the end of this step, try `ssh`ing between nodes to ensure everything is working.
-
-### Creating the apiserver load balancer
+   The example uses Calico, so the pod CIDR is `192.168.0.0/16`.
+1. Enable ssh-agent on your main device that has access to all other nodes in
+   the system by running `eval $(ssh-agent)`.
+1. Add your ssh identity to the session `ssh-add ~/.ssh/path_to_private_key`.
+1. When you ssh to any node make sure you add the `-A` flag like this `ssh -A 10.0.0.7`
+1. When using sudo on any node make sure to preserve the environment so the ssh
+   forwarding works, `sudo -E -s`.
+1. SSH between nodes to check that the connection is working properly.
+1. Create an apiserver load balancer with a DNS resolvable name.
 
 {{< note >}}
 **Note**: There are many configurations for load balancers. We have picked one
@@ -145,7 +132,8 @@ will fail the health check until the kube-apiserver is running.
             # This CIDR is a calico default. Substitute or remove for your CNI provider.
             podSubnet: "192.168.0.0/16"
 
-1. Replace the following variables in the template that was just created with values for your specific situation:
+1. Replace the following variables in the template that was just created with
+   values for your specific situation:
 
     - `LOAD_BALANCER_DNS`
     - `LOAD_BALANCER_PORT`
@@ -156,8 +144,8 @@ will fail the health check until the kube-apiserver is running.
 
 ### Copy secrets to other control plane nodes
 
-Kubeadm created certificates during the init step that need to be shared on the other
-control plane nodes. Specifically:
+Kubeadm created certificates during the init step that need to be shared on the
+other control plane nodes. Specifically:
 
 - `/etc/kubernetes/pki/ca.crt`
 - `/etc/kubernetes/pki/ca.key`
@@ -168,7 +156,8 @@ control plane nodes. Specifically:
 - `/etc/kubernetes/pki/etcd/ca.crt`
 - `/etc/kubernetes/pki/etcd/ca.key`
 
-The admin kubeconfig will also be needed for bootstrapping the additional control plane nodes:
+The admin kubeconfig will also be needed for bootstrapping the additional
+control plane nodes:
 
 - `/etc/kubernetes/admin.conf`
 
@@ -197,9 +186,9 @@ done
 
     Save this template in a file called `kubeadm-config.yaml`.
 
-    {{< note >}}
-    **Note**: This template contains differences from the one used previously.
-    {{< /note >}}
+{{< note >}}
+**Note**: This template contains differences from the one used previously.
+{{< /note >}}
 
         apiVersion: kubeadm.k8s.io/v1alpha2
         kind: MasterConfiguration
@@ -227,7 +216,8 @@ done
             # This CIDR is a calico default. Substitute or remove for your CNI provider.
             podSubnet: "192.168.0.0/16"
 
-1. Replace the following variables in the template that was just created with values for your specific situation:
+1. Replace the following variables in the template that was just created with
+   values for your specific situation:
 
     - `LOAD_BALANCER_DNS`
     - `LOAD_BALANCER_PORT`
@@ -265,7 +255,9 @@ done
 1. Run the commands to add the node to the etcd cluster
 
   {{< note >}}
-  **Note**: This step will cause the etcd cluster to become unavailable for a brief period between adding the node to the running cluster config and the new node joining the etcd cluster.
+  **Note**: This step will cause the etcd cluster to become unavailable for a
+  brief period between adding the node to the running cluster config and the new
+  node joining the etcd cluster.
   {{< /note >}}
 
   ```sh
@@ -322,7 +314,8 @@ done
             # This CIDR is a calico default. Substitute or remove for your CNI provider.
             podSubnet: "192.168.0.0/16"
 
-1. Replace the following variables in the template that was just created with values for your specific situation:
+1. Replace the following variables in the template that was just created with
+   values for your specific situation:
 
     - `LOAD_BALANCER_DNS`
     - `LOAD_BALANCER_PORT`
@@ -381,27 +374,29 @@ done
 
 ## External etcd
 
-### Setting up an HA etcd cluster using kubeadm
+### Setting up a highly available etcd cluster using kubeadm
 
 1. [Set up an HA etcd cluster using
    kubeadm](/docs/tasks/administer-cluster/setup-ha-etcd-with-kubeadm/).
 
-After this setup you should have these files on the first bootstrapped member.
-You will need to put these files on all of your control-plane nodes.
+    After this setup you should have these files on the first bootstrapped
+    member. You will need to put these files on all of your control-plane nodes.
 
-- `/etc/kubernetes/pki/etcd/ca.crt`
-- `/etc/kubernetes/pki/apiserver-etcd-client.crt`
-- `/etc/kubernetes/pki/apiserver-etcd-client.key`
+    - `/etc/kubernetes/pki/etcd/ca.crt`
+    - `/etc/kubernetes/pki/apiserver-etcd-client.crt`
+    - `/etc/kubernetes/pki/apiserver-etcd-client.key`
 
 1. Set the `USER` and `CONTROL_PLANE_HOSTS` to your specific values.
 
-        USER=ubuntu
-        CONTROL_PLANE_HOSTS="10.0.0.7 10.0.0.8 10.0.0.9"
-        for host in $CONTROL_PLANE_HOSTS; do
-            scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:
-            scp /etc/kubernetes/pki/apiserver-etcd-client.crt "${USER}"@$host:
-            scp /etc/kubernetes/pki/apiserver-etcd-client.key "${USER}"@$host:
-        done
+     ```sh
+     USER=ubuntu
+     CONTROL_PLANE_HOSTS="10.0.0.7 10.0.0.8 10.0.0.9"
+     for host in $CONTROL_PLANE_HOSTS; do
+         scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:
+         scp /etc/kubernetes/pki/apiserver-etcd-client.crt "${USER}"@$host:
+         scp /etc/kubernetes/pki/apiserver-etcd-client.key "${USER}"@$host:
+     done
+    ```
 
 ### Setting up the control plane
 
@@ -458,18 +453,18 @@ control plane nodes. Specifically:
 Here is an example, but your system may differ greatly. Replace
 `CONTROL_PLANE_IP` with the IP addresses of the other control plane nodes.
 
-```sh
-USER=ubuntu # customizable
-CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
-for host in ${CONTROL_PLANE_IPS}; do
-    scp /etc/kubernetes/pki/ca.crt "${USER}"@CONTROL_PLANE_IP:
-    scp /etc/kubernetes/pki/ca.key "${USER}"@CONTROL_PLANE_IP:
-    scp /etc/kubernetes/pki/sa.key "${USER}"@CONTROL_PLANE_IP:
-    scp /etc/kubernetes/pki/sa.pub "${USER}"@CONTROL_PLANE_IP:
-    scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@CONTROL_PLANE_IP:
-    scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@CONTROL_PLANE_IP:
-done
-```
+     ```sh
+     USER=ubuntu # customizable
+     CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
+     for host in ${CONTROL_PLANE_IPS}; do
+         scp /etc/kubernetes/pki/ca.crt "${USER}"@CONTROL_PLANE_IP:
+         scp /etc/kubernetes/pki/ca.key "${USER}"@CONTROL_PLANE_IP:
+         scp /etc/kubernetes/pki/sa.key "${USER}"@CONTROL_PLANE_IP:
+         scp /etc/kubernetes/pki/sa.pub "${USER}"@CONTROL_PLANE_IP:
+         scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@CONTROL_PLANE_IP:
+         scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@CONTROL_PLANE_IP:
+     done
+     ```
 
 #### The other control plane nodes
 
@@ -503,3 +498,5 @@ in the master configuration file.
 
 Each worker can now join the cluster with the command returned from any of the
 `kubeadm init` commands.
+
+{{% /capture %}}
