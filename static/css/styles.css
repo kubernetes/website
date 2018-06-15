@@ -440,8 +440,9 @@ dd { margin-bottom: 16px; }
 
 #docsContent li { margin-bottom: 0.75em; font-size: 16px; line-height: 1.75em; }
 
-/* No bullets for checklists */
-#docsContent ul.task-list>li { list-style-type: none !important; }
+/* No bullets for checklists or 'UI Nav' components. */
+#docsContent ul.task-list>li,
+#docsContent ul.ui-tabs-nav>li.ui-tabs-tab { list-style-type: none !important; }
 
 #docsContent table { width: 100%; border: 1px solid #ccc; border-spacing: 0; margin-top: 30px; margin-bottom: 30px; }
 
