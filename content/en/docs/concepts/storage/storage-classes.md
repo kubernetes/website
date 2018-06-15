@@ -36,7 +36,7 @@ be updated once they are created.
 
 Administrators can specify a default `StorageClass` just for PVCs that don't
 request any particular class to bind to: see the
-[`PersistentVolumeClaim` section](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#class-1)
+[`PersistentVolumeClaim` section](/docs/concepts/storage/persistent-volumes/#class-1)
 for details.
 
 ```yaml

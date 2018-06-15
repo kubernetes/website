@@ -43,7 +43,7 @@ leads to an awkward construction.
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>The Pod has two Containers.</td><td>The pod has two containers.</td></tr>
+  <tr><td>The Pod has two containers.</td><td>The pod has two containers.</td></tr>
   <tr><td>The Deployment is responsible for ...</td><td>The Deployment object is responsible for ...</td></tr>
   <tr><td>A PodList is a list of Pods.</td><td>A Pod List is a list of pods.</td></tr>
   <tr><td>The two ContainerPorts ...</td><td>The two ContainerPort objects ...</td></tr>
@@ -192,7 +192,7 @@ Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create d
 
 2. Use the following syntax to apply a style:
     
-    ```md
+    ```
     {{</* note */>}}
     **Note:** The prefix you use is the same text you use in the tag.
     {{</* /note */>}}

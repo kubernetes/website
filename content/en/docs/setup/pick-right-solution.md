@@ -83,6 +83,7 @@ few commands. These solutions are actively developed and have active community s
 * [Kubermatic](https://cloud.kubermatic.io)
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [Oracle Container Engine for K8s](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
+* [Gardener](https://gardener.cloud/)
 
 # On-Premises turnkey cloud solutions
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
@@ -121,6 +122,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
 * [Kubespray](/docs/getting-started-guides/kubespray/)
 * [Rancher Kubernetes Engine (RKE)](https://github.com/rancher/rke)
+* [Gardener](https://gardener.cloud/)
 
 ## On-Premises VMs
 
@@ -190,6 +192,7 @@ oVirt                |              |        |             | [docs](/docs/gettin
 any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch/)                                |  Community ([@erictune](https://github.com/erictune))
 any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
 any                  | RKE          | multi-support    | flannel or canal         | [docs](https://rancher.com/docs/rancher/v2.x/en/quick-start-guide/)                                |  [Commercial](https://rancher.com/what-is-rancher/overview/) and [Community](https://github.com/rancher/rancher)
+any                  | [Gardener Cluster-Operator](https://kubernetes.io/blog/2018/05/17/gardener/) | multi-support | multi-support | [docs](https://gardener.cloud) | [Project/Community](https://github.com/gardener) and [Commercial]( https://cloudplatform.sap.com/)
 
 **Note**: The above table is ordered by version test/used in nodes, followed by support level.
 
