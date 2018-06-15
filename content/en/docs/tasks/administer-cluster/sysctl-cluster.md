@@ -92,9 +92,10 @@ Only _namespaced_ sysctls can be enabled this way.
 
 A number of sysctls are _namespaced_ in today's Linux kernels. This means that
 they can be set independently for each pod on a node. Only namespaced sysctls
-are accessible in the pod security context within Kubernetes.
+are configurable via the pod securityContext within Kubernetes.
 
-The following sysctls are _namespaced_:
+The following sysctls are known to be namespaced. This list could change
+in future versions of the Linux kernel.
 
 - `kernel.shm*`,
 - `kernel.msg*`,
@@ -106,8 +107,8 @@ Sysctls with no namespace are called _node-level_ sysctls. If you need to set
 them, you must manually configure them on each node's operating system, or by
 using a DaemonSet with privileged containers.
 
-For namespaced sysctls, use the pod securityContext to configure sysctls. They
-apply to all containers in the same pod.
+Use the pod securityContext to configure namespaced sysctls. The securityContext
+applies to all containers in the same pod.
 
 This example uses the pod securityContext to set a safe sysctl
 `kernel.shm_rmid_forced` and two unsafe sysctls `net.ipv4.route.min_pmtu` and
@@ -159,23 +160,25 @@ to schedule those pods onto the right nodes.
 
 ## PodSecurityPolicy
 
-To control which sysctls can be set in pods, specify the
-`forbiddenSysctls` and/or `allowedUnsafeSysctls` fields in the PodSecurityPolicy.
+You can further control which sysctls can be set in pods by specifying lists of
+sysctls or sysctl patterns in the `forbiddenSysctls` and/or
+`allowedUnsafeSysctls` fields of the PodSecurityPolicy. A sysctl pattern ends
+with a `*` character, such as `kernel.*`. A `*` character on its own matches
+all sysctls.
 
-By default, all safe sysctls in the whitelist are allowed.
+By default, all safe sysctls are allowed.
 
 Both `forbiddenSysctls` and `allowedUnsafeSysctls` are lists of plain sysctl names
 or sysctl patterns (which end with `*`). The string `*` matches all sysctls.
 
-The `forbiddenSysctls` field excludes specific sysctls, and can include a
-combination of safe and unsafe ones. To forbid setting any sysctls, use `*` on
-its own.
+The `forbiddenSysctls` field excludes specific sysctls. You can forbid a
+combination of safe and unsafe sysctls in the list. To forbid setting any
+sysctls, use `*` on its own.
 
 If you specify any unsafe sysctl in the `allowedUnsafeSysctls` field and it is
-not present in the `forbiddenSysctls` field, that sysctl can be used in Pods under
-this PodSecurityPolicy. In order to allow all unsafe sysctls in the PodSecurityPolicy
-to be set (except for those explicitly forbidden by `forbiddenSysctls`),
-use `*` on its own.
+not present in the `forbiddenSysctls` field, that sysctl can be used in Pods
+using this PodSecurityPolicy. To allow all unsafe sysctls in the
+PodSecurityPolicy to be set, use `*` on its own.
 
 Do not configure these two fields such that there is overlap, meaning that a
 given sysctl is both allowed and forbidden.
