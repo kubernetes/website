@@ -239,25 +239,27 @@ done
 1. Move the copied certificates to the proper locations
 
   ```sh
-  sudo mkdir -p /etc/kubernetes/pki/etcd
-  sudo mv ca.crt /etc/kubernetes/pki/
-  sudo mv ca.key /etc/kubernetes/pki/
-  sudo mv sa.pub /etc/kubernetes/pki/
-  sudo mv sa.key /etc/kubernetes/pki/
-  sudo mv front-proxy-ca.crt /etc/kubernetes/pki/
-  sudo mv front-proxy-ca.key /etc/kubernetes/pki/
-  sudo mv etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
-  sudo mv etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
+  USER=ubuntu # customizable
+  mkdir -p /etc/kubernetes/pki/etcd
+  mv /home/${USER}/ca.crt /etc/kubernetes/pki/
+  mv /home/${USER}/ca.key /etc/kubernetes/pki/
+  mv /home/${USER}/sa.pub /etc/kubernetes/pki/
+  mv /home/${USER}/sa.key /etc/kubernetes/pki/
+  mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
+  mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
+  mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
+  mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
+  mv /home/${USER}/admin.conf /etc/kubernetes/admin.conf
   ```
 
 1. Run the kubeadm phase commands to bootstrap the kubelet
 
   ```sh
-  sudo kubeadm alpha phase certs all --config kubeadm-config.yaml
-  sudo kubeadm alpha phase kubelet config write-to-disk --config kubeadm-config.yaml
-  sudo kubeadm alpha phase kubelet write-env-file --config kubeadm-config.yaml
-  sudo kubeadm alpha phase kubeconfig kubelet --config kubeadm-config.yaml
-  sudo systemctl start kubelet
+  kubeadm alpha phase certs all --config kubeadm-config.yaml
+  kubeadm alpha phase kubelet config write-to-disk --config kubeadm-config.yaml
+  kubeadm alpha phase kubelet write-env-file --config kubeadm-config.yaml
+  kubeadm alpha phase kubeconfig kubelet --config kubeadm-config.yaml
+  systemctl start kubelet
   ```
 
 1. Run the commands to add the node to the etcd cluster
@@ -272,16 +274,16 @@ done
   CP1_IP=10.0.0.8
   CP1_HOSTNAME=cp1
 
-  KUBECONFIG=~/admin.conf kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP1_HOSTNAME} https://${CP1_IP}:2380
-  sudo kubeadm alpha phase etcd local --config kubeadm-config.yaml
+  KUBECONFIG=/etc/kubernetes/admin.conf kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP1_HOSTNAME} https://${CP1_IP}:2380
+  kubeadm alpha phase etcd local --config kubeadm-config.yaml
   ```
 
 1. Deploy the control plane components and mark the node as a master
 
   ```sh
-  sudo kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
-  sudo kubeadm alpha phase controlplane all --config kubeadm-config.yaml
-  sudo kubeadm alpha phase mark-master --config kubeadm-config.yaml
+  kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
+  kubeadm alpha phase controlplane all --config kubeadm-config.yaml
+  kubeadm alpha phase mark-master --config kubeadm-config.yaml
   ```
 
 ### Add the third stacked control plane node
@@ -331,14 +333,30 @@ done
     - `CP2_HOSTNAME`
     - `CP2_IP`
 
+1. Move the copied certificates to the proper locations
+
+  ```sh
+  USER=ubuntu # customizable
+  mkdir -p /etc/kubernetes/pki/etcd
+  mv /home/${USER}/ca.crt /etc/kubernetes/pki/
+  mv /home/${USER}/ca.key /etc/kubernetes/pki/
+  mv /home/${USER}/sa.pub /etc/kubernetes/pki/
+  mv /home/${USER}/sa.key /etc/kubernetes/pki/
+  mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
+  mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
+  mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
+  mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
+  mv /home/${USER}/admin.conf /etc/kubernetes/admin.conf
+  ```
+
 1. Run the kubeadm phase commands to bootstrap the kubelet
 
   ```sh
-  sudo kubeadm alpha phase certs all --config kubeadm-config.yaml
-  sudo kubeadm alpha phase kubelet config write-to-disk --config kubeadm-config.yaml
-  sudo kubeadm alpha phase kubelet write-env-file --config kubeadm-config.yaml
-  sudo kubeadm alpha phase kubeconfig kubelet --config kubeadm-config.yaml
-  sudo systemctl start kubelet
+  kubeadm alpha phase certs all --config kubeadm-config.yaml
+  kubeadm alpha phase kubelet config write-to-disk --config kubeadm-config.yaml
+  kubeadm alpha phase kubelet write-env-file --config kubeadm-config.yaml
+  kubeadm alpha phase kubeconfig kubelet --config kubeadm-config.yaml
+  systemctl start kubelet
   ```
 
 1. Run the commands to add the node to the etcd cluster
@@ -349,16 +367,16 @@ done
   CP2_IP=10.0.0.9
   CP2_HOSTNAME=cp2
 
-  KUBECONFIG=~/admin.conf kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP2_HOSTNAME} https://${CP2_IP}:2380
-  sudo kubeadm alpha phase etcd local --config kubeadm-config.yaml
+  KUBECONFIG=/etc/kubernetes/admin.conf kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP2_HOSTNAME} https://${CP2_IP}:2380
+  kubeadm alpha phase etcd local --config kubeadm-config.yaml
   ```
 
 1. Deploy the control plane components and mark the node as a master
 
   ```sh
-  sudo kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
-  sudo kubeadm alpha phase controlplane all --config kubeadm-config.yaml
-  sudo kubeadm alpha phase mark-master --config kubeadm-config.yaml
+  kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
+  kubeadm alpha phase controlplane all --config kubeadm-config.yaml
+  kubeadm alpha phase mark-master --config kubeadm-config.yaml
   ```
 
 ## External etcd
