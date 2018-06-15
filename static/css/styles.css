@@ -427,7 +427,7 @@ dd { margin-bottom: 16px; }
 #docsContent .includecode pre { margin: 0 !important; }
 
 /* These are being clobbered by line 37 and it is affecting <ul> nested inside <ol> */
-#docsContent ul>li { list-style: disc !important; }
+#docsContent ul>li>ul { list-style: disc !important; }
 
 #docsContent ol>li { list-style: decimal !important; }
 
