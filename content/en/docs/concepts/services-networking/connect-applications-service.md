@@ -105,7 +105,7 @@ You should now be able to curl the nginx Service on `<CLUSTER-IP>:<PORT>` from a
 
 ## Accessing the Service
 
-Kubernetes supports 2 primary modes of finding a Service - environment variables and DNS. The former works out of the box while the latter requires the [kube-dns cluster addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/README.md).
+Kubernetes supports 2 primary modes of finding a Service - environment variables and DNS. The former works out of the box while the latter requires the [kube-dns cluster addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/README.md).
 
 ### Environment Variables
 
