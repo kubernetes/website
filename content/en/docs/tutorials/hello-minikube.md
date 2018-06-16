@@ -204,10 +204,12 @@ Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 
 Use the `kubectl run` command to create a Deployment that manages a Pod. The
-Pod runs a Container based on your `hello-node:v1` Docker image:
+Pod runs a Container based on your `hello-node:v1` Docker image. We set the 
+`--image-pull-policy=Never` flag to ensure that your local image is run rather
+than trying to pull a non-existent image from your docker registry:
 
 ```shell
-kubectl run hello-node --image=hello-node:v1 --port=8080
+kubectl run hello-node --image=hello-node:v1 --port=8080 --image-pull-policy=Never
 ```
 
 View the Deployment:
