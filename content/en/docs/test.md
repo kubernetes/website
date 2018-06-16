@@ -62,7 +62,7 @@ from Jekyll to Hugo, we broke some lists. To fix them, keep the following in
 mind:
 
 - Make sure you indent sub-list items **4 spaces** rather than the 2 that you
-  ma be yused to. Counter-intuitively, you need to indent block-level content
+  may be used to. Counter-intuitively, you need to indent block-level content
   within a list item an extra 4 spaces too.
 
 - To end a list and start another, you need a HTML comment block on a new line
@@ -92,9 +92,9 @@ mind:
       ```bash
       ls -l
       ```
-  
+
       - And a sub-list after some block-level content
-    
+
 - A bullet list item can contain a numbered list.
     1.  Numbered sub-list item 1
     2.  Numbered sub-list item 2
@@ -123,15 +123,49 @@ mind:
       ```bash
       $ ls -l
       ```
-      
+
     - And a sub-list after some block-level content. This is at the same
       "level" as the paragraph and code block above, despite being indented
       more.
 
+### Tab lists
+
+Tab lists can be used to conditionally display content, e.g., when multiple
+options must be documented that require distinct instructions or context.
+
+{{< tabs name="tab_lists_example" >}}
+{{% tab name="Choose one..." %}}
+Please select an option.
+{{% /tab %}}
+{{% tab name="Formatting tab lists" %}}
+
+Tabs may also nest formatting styles.
+
+1. Ordered
+1. (Or unordered)
+1. Lists
+
+```bash
+$ echo 'Tab lists may contain code blocks!'
+```
+
+{{% /tab %}}
+{{% tab name="Nested headers" %}}
+
+### Header within a tab list
+
+Nested header tags may also be included.
+
+{{< warning >}}
+**Note**: Headers within tab lists will not appear in the Table of Contents.
+{{< /warning >}}
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Checklists
 
-Checlists are technically bullet lists, but the bullets are suppressed by CSS.
+Checklists are technically bullet lists, but the bullets are suppressed by CSS.
 
 - [ ] This is a checklist item
 - [x] This is a selected checklist item
@@ -151,7 +185,6 @@ This is due to
 [blackfriday issue #239](https://github.com/russross/blackfriday/issues/239).
 {{< /warning >}}
 
-  
 ```
 this is a code block created by back-ticks
 ```
@@ -293,3 +326,4 @@ You can have multiple paragraphs and block-level elements inside an admonition.
 {{< warning >}}
 **Warning:** Warnings point out something that could cause harm if ignored.
 {{< /warning >}}
+
