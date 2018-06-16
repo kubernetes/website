@@ -199,7 +199,7 @@ character. The square brackets contain the image's alt text. Try to always use
 alt text so that people using screen readers can get some benefit from the
 image.
 
-![pencil icon](/static/images/pencil.png)
+`![pencil icon](/images/pencil.png)`
 
 To specify extended attributes, such as width, title, caption, etc, use the
 <a href="https://gohugo.io/content-management/shortcodes/#figure">figure shortcode</a>,
@@ -207,18 +207,17 @@ which is preferred to using a HTML `<img>` tag. Also, if you need the image to
 also be a hyperlink, use the `link` attribute, rather than wrapping the whole
 figure in Markdown link syntax as shown below.
 
-{{< figure src="/static/images/pencil.png" title="Pencil icon" caption="Image used to illustrate the figure shortcode" width="200px" >}}
+`{{</* figure src="/images/pencil.png" title="Pencil icon" caption="Image used to illustrate the figure shortcode" width="200px" */>}}`
 
 Even if you choose not to use the figure shortcode, an image can also be a link. This
 time the pencil icon links to the Kubernetes website. Outer square brackets enclose
 the entire image tag, and the link target is in the parentheses at the end.
 
-[![pencil icon](/static/images/pencil.png)](https://kubernetes.io)
+`[![pencil icon](/images/pencil.png)](https://kubernetes.io)`
 
 You can also use HTML for images, but it is not preferred.
 
-<img src="/static/images/pencil.png" alt="pencil icon" />
-
+`<img src="/images/pencil.png" alt="pencil icon" />`
 
 ## Tables
 
