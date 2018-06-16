@@ -15,12 +15,14 @@ Kubelets in a live Kubernetes cluster via first-class Kubernetes concepts.
 Specifically, this feature allows you to configure individual Nodes' Kubelets
 via ConfigMaps.
 
+{{< warning >}}
 **Warning:** All Kubelet configuration parameters may be changed dynamically,
 but not all parameters are safe to change dynamically. This feature is intended
 for system experts who have a strong understanding of how configuration changes
 will affect behavior. No documentation currently exists which plainly lists
 "safe to change" fields, but we plan to add it before this feature graduates
 from alpha.
+{{< /warning >}}
 {{% /capture %}}
 
 {{% capture prerequisites %}}
