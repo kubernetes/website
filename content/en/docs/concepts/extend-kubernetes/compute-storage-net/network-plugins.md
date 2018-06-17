@@ -45,7 +45,7 @@ If there are multiple CNI configuration files in the directory, the first one in
 
 In addition to the CNI plugin specified by the configuration file, Kubernetes requires the standard CNI [`lo`](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) plugin, at minimum version 0.2.0
 
-Limitation: Due to [#31307](https://github.com/kubernetes/kubernetes/issues/31307), `HostPort` won't work with CNI networking plugin at the moment. That means all `hostPort` attribute in pod would be simply ignored.
+Limitation: Due to [#31307](https://github.com/kubernetes/kubernetes/issues/31307), `HostPort` may not work with all the CNI networking plugins at the moment. That means all `hostPort` attribute in pod might be simply ignored. Please refer to [the HostPort section on the kubeadm troubleshooting guide](https://kubernetes.io/docs/setup/independent/troubleshooting-kubeadm/#hostport-services-do-not-work) for more information.
 
 ### kubenet
 
