@@ -20,7 +20,7 @@ cluster (for example, scheduling), and detecting and responding to cluster event
 Master components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all master components on
 the same machine, and do not run user containers on this machine. See
-[Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
+[Building High-Availability Clusters](/docs/admin/high-availability/building/) for an example multi-master-VM setup.
 
 ### kube-apiserver
 

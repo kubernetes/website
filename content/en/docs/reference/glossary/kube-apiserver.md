@@ -15,5 +15,5 @@ tags:
 
 <!--more--> 
 
-It is designed to scale horizontally -- that is, it scales by deploying more instances. See [Building High-Availability Clusters](/docs/admin/high-availability/).
+It is designed to scale horizontally -- that is, it scales by deploying more instances. See [Building High-Availability Clusters](/docs/admin/high-availability/building/).
 

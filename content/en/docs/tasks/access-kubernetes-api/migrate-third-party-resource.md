@@ -102,7 +102,7 @@ you **on a best-effort basis**.
 
     The API server attempts to prevent TPR data for the resource from changing while it
     copies objects to the CRD, but it can't guarantee consistency in all cases, such as with
-    [multiple masters](/docs/admin/high-availability/).
+    [multiple masters](/docs/admin/high-availability/building/).
     Stopping clients, such as TPR-based custom controllers, helps to avoid inconsistencies in
     the copied data.
 
