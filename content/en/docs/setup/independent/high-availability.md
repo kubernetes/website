@@ -477,9 +477,12 @@ Ensure that the following placeholders are replaced:
 - `<private-ip>` with the private IPv4 of the master server.
 - `<etcd0-ip>`, `<etcd1-ip>` and `<etcd2-ip>` with the IP addresses of your three etcd nodes
 - `<podCIDR>` with your Pod CIDR. Please read the [CNI network section](/docs/setup/independent/create-cluster-kubeadm/#pod-network) of the docs for more information. Some CNI providers do not require a value to be set.
-- `<virtual-ip>` with the virtual IP. Please read [setting up a master load balancer](/docs/setup/independent/high-availability/#set-up-master-load-balancer) section of the docs for more information.
+- `<virtual-ip>` with the virtual IP. Please read [setting up a master load balancer](/docs/setup/independent/high-availability/building/#set-up-master-load-balancer) section of the docs for more information.
 
-{{< note >}}**Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`. For more information, see [the documentation](/docs/admin/high-availability/#endpoint-reconciler).{{< /note >}}
+{{< note >}}
+**Note:** If you are using Kubernetes 1.9+, you can replace the `apiserver-count: 3` extra argument with `endpoint-reconciler-type: lease`.
+For more information, see [the documentation](/docs/admin/high-availability/building/#endpoint-reconciler).
+{{< /note >}}
 
 1.  When this is done, run kubeadm:
       ```bash

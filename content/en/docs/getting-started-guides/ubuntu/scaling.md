@@ -29,7 +29,7 @@ To scale a master node up, simply execute:
     juju add-unit kubernetes-master
 
 This will add another master node to the control plane.
-See the [building high-availability clusters](/docs/admin/high-availability)
+See the [building high-availability clusters](/docs/admin/high-availability/building)
 section of the documentation for more information.
 
 ## Kubernetes workers
