@@ -1,6 +1,7 @@
 ---
 title: Use an HTTP Proxy to Access the Kubernetes API
 content_template: templates/task
+weight: 40
 ---
 
 {{% capture overview %}}

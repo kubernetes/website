@@ -4,6 +4,7 @@ reviewers:
 - enisoc
 - deads2k
 content_template: templates/task
+weight: 50
 ---
 
 {{% capture overview %}}
@@ -71,7 +72,10 @@ you **on a best-effort basis**.
     spec:
       scope: Namespaced
       group: stable.example.com
-      version: v1
+      versions:
+        - name: v1
+          served: true
+          storage: true
       names:
         kind: CronTab
         plural: crontabs
@@ -163,7 +167,7 @@ you **on a best-effort basis**.
 
 {{% capture whatsnext %}}
 * Learn more about [custom resources](/docs/concepts/api-extension/custom-resources/).
-* Learn more about [using CustomResourceDefinitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
+* Learn more about [using CustomResourceDefinitions](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/).
 * See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions).
 {{% /capture %}}
 
