@@ -8,7 +8,11 @@ weight: 20
 ---
 
 {{% capture overview %}}
-This page explains [*custom resources*](/docs/concepts/api-extension/custom-resources/), which are extensions of the Kubernetes API. This page explains when to add a custom resource to your Kubernetes cluster and when to use a standalone service. It describes the two methods for adding custom resources and how to choose between them.
+
+This page explains *custom resources*, which are extensions of the Kubernetes
+API, including when to add a custom resource to your Kubernetes cluster and when
+to use a standalone service. It describes the two methods for adding custom
+resources and how to choose between them.
 
 {{% /capture %}}
 
@@ -103,20 +107,20 @@ Use a custom resource (CRD or Aggregated API) if most of the following apply:
 
 Kubernetes provides two ways to add custom resources to your cluster:
 
-- [Custom Resource Definitions](/docs/concepts/api-extension/custom-resources/) (CRDs) are easier to use: they do not require any programming in some cases.
+- CRDs are simple and do not always require programming.
 - [API Aggregation](/docs/concepts/api-extension/apiserver-aggregation/) requires programming, but allows more control over API behaviors like how data is stored and conversion between API versions.
 
 Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility are compromised.
 
 Aggregated APIs are subordinate APIServers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/api-extension/apiserver-aggregation/) (AA). To users, it simply appears that the Kubernetes API is extended.
 
-Custom Resource Definitions (CRDS) allow users to create new types of resources without adding another APIserver. You do not need to understand API Aggregation to use CRDs.
+CRDs allow users to create new types of resources without adding another APIserver. You do not need to understand API Aggregation to use CRDs.
 
-Regardless of whether they are installed via CRDs or AA, the new resources are called Custom Resources to distinguish them from built-in Kubernetes resources (like pods).
+Regardless of how they are installed, the new resources are referred to as Custom Resources to distinguish them from built-in Kubernetes resources (like pods).
 
 ## CustomResourceDefinitions
 
-The [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/) (CRD) API resource allows you to define custom resources. Defining a CRD object creates a new custom resource with a name and schema that you specify. The Kubernetes API serves and handles the storage of your custom resource.
+The [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/) API resource allows you to define custom resources. Defining a CRD object creates a new custom resource with a name and schema that you specify. The Kubernetes API serves and handles the storage of your custom resource.
 
 This frees you from writing your own API server to handle the custom resource,
 but the generic nature of the implementation means you have less flexibility than with
@@ -132,7 +136,7 @@ and setup a controller to handle events.
 
 ## API server aggregation
 
-Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also handle custom resources in a generic way through [CustomResourceDefinitions](#customresourcedefinitions).
+Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also handle custom resources in a generic way through [CRDs](#customresourcedefinitions).
 
 The [aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/) allows you to provide specialized
 implementations for your custom resources by writing and deploying your own standalone API server.
@@ -152,7 +156,7 @@ Typically, CRDs are a good fit if:
 
 CRDs are easier to create than Aggregated APIs.
 
-| Custom Resource Definitions | Aggregated API |
+| CRDs                        | Aggregated API |
 | --------------------------- | -------------- |
 | Do not require programming. Users can choose any language for a CRD controller. | Requires programming in Go and building binary and image. Users can choose any language for a CRD controller. |
 | No additional service to run; CRs are handled by API Server. | An additional service to create and that could fail. |
