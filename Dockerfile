@@ -14,7 +14,7 @@ RUN apk add --no-cache \
     openssh-client \
     rsync
 
-ARG HUGO_VERSION=
+ARG HUGO_VERSION
 
 RUN mkdir -p /usr/local/src && \
     cd /usr/local/src && \

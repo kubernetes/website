@@ -31,9 +31,3 @@ docker-image:
 
 docker-build:
 	$(DOCKER_RUN) $(DOCKER_IMAGE) hugo
-
-docker-serve:
-	$(DOCKER_RUN) -p 1313:1313 $(DOCKER_IMAGE) hugo server --watch --bind 0.0.0.0
-
-docker-serve-background:
-	$(DOCKER_RUN) -p 1313:1313 --detach $(DOCKER_IMAGE) hugo server --watch --bind 0.0.0.0
