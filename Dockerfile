@@ -1,4 +1,8 @@
-# Credit to Julien Guyomard (https://github.com/jguyomard)
+# Credit to Julien Guyomard (https://github.com/jguyomard). This Dockerfile
+# is essentially based on his Dockerfile at
+# https://github.com/jguyomard/docker-hugo/blob/master/Dockerfile. The only significant
+# change is that the Hugo version is now an overridable argument rather than a fixed
+# environment variable.
 
 FROM alpine:latest
 
