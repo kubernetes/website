@@ -161,7 +161,7 @@ Output format | Description
 In this example, the following command outputs the details for a single pod as a YAML formatted object:
 
 ```shell
-$ kubectl get pod web-pod-13je7 -o=yaml`
+$ kubectl get pod web-pod-13je7 -o=yaml
 ```
 
 Remember: See the [kubectl](/docs/user-guide/kubectl/) reference documentation for details about which output format is supported by each command.
