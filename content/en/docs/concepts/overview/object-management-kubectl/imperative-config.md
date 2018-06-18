@@ -110,7 +110,9 @@ several manual steps.
 
 ## Defining controller selectors and PodTemplate labels
 
-**Warning**: Updating selectors on controllers is strongly discouraged.
+{{< warning >}}
+**Warning:** Updating selectors on controllers is strongly discouraged.
+{{< /warning >}}
 
 The recommended approach is to define a single, immutable PodTemplate label
 used only by the controller selector with no other semantic meaning.
