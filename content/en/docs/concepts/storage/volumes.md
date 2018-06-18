@@ -1156,21 +1156,21 @@ persistent volume:
 
 {{< feature-state for_k8s_version="v1.11" state="alpha" >}}
 
-Starting with version 1.11, CSI introduced support for raw block volumes.  This work
-relies on the raw block volume feature that was introduced in previous versions of 
+Starting with version 1.11, CSI introduced support for raw block volumes, which
+relies on the raw block volume feature that was introduced in a previous version of 
 Kubernetes.  This feature will make it possible for vendors with external CSI drivers to 
-implement raw block volumes support in Kubernetes workload.
+implement raw block volumes support in Kubernetes workloads.
 
 CSI block volume support is feature-gated and turned off by default.  To run CSI with
-block volume support enabled, an administrator must enabled the feature for each
- Kubernetes component using the following:
+block volume support enabled, a cluster administrator must enable the feature for each
+Kubernetes component using the following feature gate flags:
 
 ```
 --feature-gates=BlockVolume=true,CSIBlockVolume=true
 ```
 
-Learn more about raw block volume support and see how to setup your PV/PVC 
-[here](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
+Learn how to 
+[setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
 ### FlexVolume
 
