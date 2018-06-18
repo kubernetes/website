@@ -1,3 +1,8 @@
+DOCKER       = docker
+HUGO_VERSION = 0.40.3
+DOCKER_IMAGE = kubernetes-hugo
+DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(PWD):/src
+
 .PHONY: all build sass build-preview help serve
 
 help: ## Show this help.
@@ -20,3 +25,12 @@ serve: ## Boot the development server.
 
 stage: ## This needs to be updated for Hugo
 	#docker run -ti --rm -v "${PWD}":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.1
+
+docker-image:
+	$(DOCKER) build . --tag $(DOCKER_IMAGE) --build-arg HUGO_VERSION=$(HUGO_VERSION)
+
+docker-build:
+	$(DOCKER_RUN) $(DOCKER_IMAGE) hugo
+
+docker-serve:
+	$(DOCKER_RUN) -p 1313:1313 $(DOCKER_IMAGE) hugo server --watch --bind 0.0.0.0
