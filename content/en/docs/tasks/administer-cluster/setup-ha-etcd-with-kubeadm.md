@@ -1,14 +1,14 @@
 ---
 reviewers:
-- chuckha
-title: Set up a High-Availability Etcd Cluster With Kubeadm
+- sig-cluster-lifecycle
+title: Set up a Highly Availabile etcd Cluster With kubeadm
 content_template: templates/task
 ---
 
 {{% capture overview %}}
 
 Kubeadm defaults to running a single member etcd cluster in a static pod managed
-by the kubelet on the control plane node. This is not a highly-available setup
+by the kubelet on the control plane node. This is not a highly available setup
 as the the etcd cluster contains only one member and cannot sustain any members
 becoming unavailable. This task walks through the process of creating a highly
 available etcd cluster of three members that can be used as an external etcd
@@ -30,174 +30,209 @@ when using kubeadm to set up a kubernetes cluster.
 
 {{% capture steps %}}
 
+## Setting up the cluster
+
 The general approach is to generate all certs on one node and only distribute
-the *necessary* files to the other nodes. Note that kubeadm contains all the necessary
-crytographic machinery to generate the certificates described below; no other cryptographic tooling 
-is required for this exercise.
+the *necessary* files to the other nodes. Note that kubeadm contains all the
+necessary crytographic machinery to generate the certificates described below;
+no other cryptographic tooling is required for this example.
 
-## Create configuration files for kubeadm
+1. Create configuration files for kubeadm.
 
-Using the template provided below, create one kubeadm configuration file for
-each host that will have an etcd member running on it. Update the value of
-`CURRENT_HOST` and `NAME` before running the `cat` command.
+    Generate one kubeadm configuration file for each host that will have an etcd
+    member running on it using the following script.
 
-```
-export HOST0=10.0.0.1 # Update HOST0, HOST1, and HOST2 with the IPs or resolvable names of your hosts
-export HOST1=10.0.0.2
-export HOST2=10.0.0.3
+    ```sh
+    # Update HOST0, HOST1, and HOST2 with the IPs or resolvable names of your hosts
+    export HOST0=10.0.0.6
+    export HOST1=10.0.0.7
+    export HOST2=10.0.0.8
 
-# Create temp directories to store files that will end up on other hosts.
-mkdir -p /tmp/${HOST0}/certs /tmp/${HOST1}/certs /tmp/${HOST2}/certs
+    # Create temp directories to store files that will end up on other hosts.
+    mkdir -p /tmp/${HOST0}/ /tmp/${HOST1}/ /tmp/${HOST2}/
 
-export CURRENT_HOST="${HOST0}" # Update on each ranging through HOST0, HOST1 and HOST2
-export NAME=infra0 # Update to use infra0 for HOST0, infra1 for HOST1 and infra2 for HOST2
+    ETCDHOSTS=(${HOST0} ${HOST1} ${HOST2})
+    NAMES=("infra0" "infra1" "infra2")
 
-cat << EOF > /tmp/${CURRENT_HOST}/kubeadmcfg.yaml
-apiVersion: "kubeadm.k8s.io/v1alpha1"
-kind: MasterConfiguration
-etcd:
-    serverCertSANs:
-    - "${CURRENT_HOST}"
-    peerCertSANs:
-    - "${CURRENT_HOST}"
-    extraArgs:
-        initial-cluster: infra0=https://${HOST0}:2380,infra1=https://${HOST1}:2380,infra2=https://${HOST2}:2380
-        initial-cluster-state: new
-        name: ${NAME}
-        listen-peer-urls: https://${CURRENT_HOST}:2380
-        listen-client-urls: https://${CURRENT_HOST}:2379
-        advertise-client-urls: https://${CURRENT_HOST}:2379
-        initial-advertise-peer-urls: https://${CURRENT_HOST}:2380
-EOF
-```
+    for i in "${!ETCDHOSTS[@]}"; do
+    HOST=${ETCDHOSTS[$i]}
+    NAME=${NAMES[$i]}
+    cat << EOF > /tmp/${HOST}/kubeadmcfg.yaml
+    apiVersion: "kubeadm.k8s.io/v1alpha2"
+    kind: MasterConfiguration
+    etcd:
+        localEtcd:
+            serverCertSANs:
+            - "${HOST}"
+            peerCertSANs:
+            - "${HOST}"
+            extraArgs:
+                initial-cluster: infra0=https://${ETCDHOST0}:2380,infra1=https://${ETCDHOST1}:2380,infra2=https://${ETCDHOST2:2380
+                initial-cluster-state: new
+                name: ${NAME}
+                listen-peer-urls: https://${HOST}:2380
+                listen-client-urls: https://${HOST}:2379
+                advertise-client-urls: https://${HOST}:2379
+                initial-advertise-peer-urls: https://${HOST}:2380
+    EOF
+    done
+    ```
 
-## Generate certificates needed for the etcd cluster
+1. Generate the certificate authority
 
-### Certificate Authority
+    If you already have a CA then the only action that is copying the CA's `crt` and
+    `key` file to `/etc/kubernetes/pki/etcd/ca.crt` and
+    `/etc/kubernetes/pki/etcd/ca.key`. After those files have been copied, please
+    skip this step.
 
-If you already have a CA then the only action that is copying the CA's `crt` and
-`key` file to `/etc/kubernetes/pki/etcd/ca.crt` and
-`/etc/kubernetes/pki/etcd/ca.key`. After those files have been copied, please
-skip to the Certificate Swizzling section below.
+    If you do not already have a CA then run this command on `$HOST0` (where you
+    generated the configuration files for kubeadm).
 
-If you do not already have a CA then run this command on `$HOST0` (where you
-generated the configuration files for kubeadm).
+    ```
+    kubeadm alpha phase certs etcd-ca
+    ```
 
-```
-kubeadm alpha phase certs etcd-ca
-```
+    This creates two files
 
-This creates two files
+    - `/etc/kubernetes/pki/etcd/ca.crt`
+    - `/etc/kubernetes/pki/etcd/ca.key`
 
-1. `/etc/kubernetes/pki/etcd/ca.crt`
-2. `/etc/kubernetes/pki/etcd/ca.key`
+1. Create certificates for each member
 
-### Create certificates for each member
+    ```sh
+    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    cp -R /etc/kubernetes/pki /tmp/${HOST2}/
+    # cleanup non-reusable certificates
+    find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-In this step we create all the certs for each host in our cluster.
+    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    cp -R /etc/kubernetes/pki /tmp/${HOST2}/
+    find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-```
-kubeadm alpha phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
-kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
-kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
-# Move the generated certs out of the generated directory
-find /etc/kubernetes/pki/etcd -not -name ca.crt -not -name ca.key -type f -exec mv {} /tmp/${HOST2}/certs \;
-cp /etc/kubernetes/pki/etcd/ca.crt /tmp/${HOST2}/certs
+    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    # No need to move the certs because they are for HOST0
 
-kubeadm alpha phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
-kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
-kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
-# Move the generated certs out of the generated directory
-find /etc/kubernetes/pki/etcd -not -name ca.crt -not -name ca.key -type f -exec mv {} /tmp/${HOST1}/certs \;
-cp /etc/kubernetes/pki/etcd/ca.crt /tmp/${HOST1}/certs
+    # clean up certs that should not be copied off this host
+    find /tmp/${HOST2} -name ca.key -type f -delete
+    find /tmp/${HOST1} -name ca.key -type f -delete
+    ```
 
-kubeadm alpha phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
-kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
-kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
-# No need to move the certs because they are for HOST0
-```
+1. Copy certificates and kubeadm configs
 
-### Copy certs and configs to other hosts
+    The certificates have been generated and now they must be moved to their
+    respective hosts.
 
-Copy the certs and configs in each tmp directory to the respective hosts and put
-the certs owned by root:root in `/etc/kubernetes/pki/etcd/`.
+     ```sh
+     USER=ubuntu
+     HOST=${HOST1}
+     scp -r /tmp/${HOST}/* ${USER}@${HOST}:
+     ssh ${USER}@${HOST}
+     USER@HOST $ sudo -Es
+     root@HOST $ chown -R root:root pki
+     root@HOST $ mv pki /etc/kubernetes/
+     ```
 
-The steps to get these files on `$HOST1` might look like this if you can ssh
-between hosts:
+1. Ensure all expected files exist
 
-```
-root@HOST0 $ scp -i /home/ubuntu/.ssh/id_rsa -r /tmp/${HOST1}/* ubuntu@${HOST1}:/home/ubuntu
-root@HOST0 $ ssh -i /home/ubuntu/.ssh/id_rsa ubuntu@${HOST1}
-ubuntu@HOST1 $ sudo -s
-root@HOST1 $ chown -R root:root certs
-root@HOST1 $ mv certs/* /etc/kubernetes/pki/etcd/
-# Repeat for HOST2
-```
+    The complete list of required files on `$HOST0` is:
 
-### List of all generated certs
+    ```
+    /tmp/${HOST0}
+    └── kubeadmcfg.yaml
+    ---
+    /etc/kubernetes/pki
+    ├── apiserver-etcd-client.crt
+    ├── apiserver-etcd-client.key
+    └── etcd
+        ├── ca.crt
+        ├── ca.key
+        ├── healthcheck-client.crt
+        ├── healthcheck-client.key
+        ├── peer.crt
+        ├── peer.key
+        ├── server.crt
+        └── server.key
+    ```
 
-This is a list of all the files you have generated and where on which host they
-should live.
+    On `$HOST1`:
 
-#### Host 0
+    ```
+    $HOME
+    └── kubeadmcfg.yaml
+    ---
+    /etc/kubernetes/pki
+    ├── apiserver-etcd-client.crt
+    ├── apiserver-etcd-client.key
+    └── etcd
+        ├── ca.crt
+        ├── healthcheck-client.crt
+        ├── healthcheck-client.key
+        ├── peer.crt
+        ├── peer.key
+        ├── server.crt
+        └── server.key
+    ```
 
-1. `/etc/kubernetes/pki/etcd/ca.crt`
-1. `/etc/kubernetes/pki/etcd/ca.key`
-1. `/etc/kubernetes/pki/etcd/server.crt`
-1. `/etc/kubernetes/pki/etcd/server.key`
-1. `/etc/kubernetes/pki/etcd/peer.crt`
-1. `/etc/kubernetes/pki/etcd/peer.key`
-1. `/etc/kubernetes/pki/etcd/healthcheck-client.crt`
-1. `/etc/kubernetes/pki/etcd/healthcheck-client.key`
-1. `/tmp/${HOST0}/kubeadmcfg.yaml`
+    On `$HOST2`
 
-#### Host 1
+    ```
+    $HOME
+    └── kubeadmcfg.yaml
+    ---
+    /etc/kubernetes/pki
+    ├── apiserver-etcd-client.crt
+    ├── apiserver-etcd-client.key
+    └── etcd
+        ├── ca.crt
+        ├── healthcheck-client.crt
+        ├── healthcheck-client.key
+        ├── peer.crt
+        ├── peer.key
+        ├── server.crt
+        └── server.key
+    ```
 
-1. `/etc/kubernetes/pki/etcd/ca.crt`
-1. `/etc/kubernetes/pki/etcd/server.crt`
-1. `/etc/kubernetes/pki/etcd/server.key`
-1. `/etc/kubernetes/pki/etcd/peer.crt`
-1. `/etc/kubernetes/pki/etcd/peer.key`
-1. `/etc/kubernetes/pki/etcd/healthcheck-client.crt`
-1. `/etc/kubernetes/pki/etcd/healthcheck-client.key`
-1. `/home/ubuntu/kubeadmcfg.yaml`
+1. Create the static pod manifests
 
-#### Host 2
+    Now that the certificates and configs are in place it's time to create the
+    manifests. On each host run the `kubeadm` command to generate a static manifest
+    for etcd.
 
-1. `/etc/kubernetes/pki/etcd/ca.crt`
-1. `/etc/kubernetes/pki/etcd/server.crt`
-1. `/etc/kubernetes/pki/etcd/server.key`
-1. `/etc/kubernetes/pki/etcd/peer.crt`
-1. `/etc/kubernetes/pki/etcd/peer.key`
-1. `/etc/kubernetes/pki/etcd/healthcheck-client.crt`
-1. `/etc/kubernetes/pki/etcd/healthcheck-client.key`
-1. `/home/ubuntu/kubeadmcfg.yaml`
+    ```sh
+    root@HOST0 $ kubeadm alpha phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    root@HOST1 $ kubeadm alpha phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
+    root@HOST2 $ kubeadm alpha phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
+    ```
 
-## Manifests
+1. Optional: Check the cluster health
 
-Now that the certs and configs are in place we can create the manifest. On each
-host run the `kubeadm` command to generate a static manifest for etcd.
-
-```
-root@HOST0 $ kubeadm alpha phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
-root@HOST1 $ kubeadm alpha phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
-root@HOST2 $ kubeadm alpha phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
-```
-
-## Optional: Check the cluster health
-
-```
-docker run --rm -it --net host -v /etc/kubernetes:/etc/kubernetes quay.io/coreos/etcd:v3.2.14 etcdctl --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --ca-file /etc/kubernetes/pki/etcd/ca.crt --endpoints https://${HOST0}:2379 cluster-health
-...
-cluster is healthy
-```
+    ```sh
+    docker run --rm -it \
+    --net host \
+    -v /etc/kubernetes:/etc/kubernetes quay.io/coreos/etcd:v3.2.18 etcdctl \
+    --cert-file /etc/kubernetes/pki/etcd/peer.crt \
+    --key-file /etc/kubernetes/pki/etcd/peer.key \
+    --ca-file /etc/kubernetes/pki/etcd/ca.crt \
+    --endpoints https://${HOST0}:2379 cluster-health
+    ...
+    cluster is healthy
+    ```
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-Once your have a working 3 member etcd cluster, you can continue [setting up an
-HA control plane using
+Once your have a working 3 member etcd cluster, you can continue setting up a
+highly available control plane using the [external etcd method with
 kubeadm](/docs/setup/independent/high-availability/).
 
 {{% /capture %}}
