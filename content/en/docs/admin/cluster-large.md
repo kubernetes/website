@@ -67,10 +67,9 @@ in your cluster. On other providers, you will need to configure it manually. For
 
 And the sizes we use on AWS are
 
-* 1-5 nodes: m3.medium
-* 6-10 nodes: m3.large
-* 11-100 nodes: m3.xlarge
-* 101-250 nodes: m3.2xlarge
+* 1-10 nodes: m4.large
+* 11-100 nodes: m4.xlarge
+* 101-250 nodes: m4.2xlarge
 * 251-500 nodes: c4.4xlarge
 * more than 500 nodes: c4.8xlarge
 
