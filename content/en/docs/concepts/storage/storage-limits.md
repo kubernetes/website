@@ -47,7 +47,7 @@ The limit applies to the entire cluster, so it affects all nodes.
 
 ## Dynamic volume limits
 
-{{< feature-state state="alpha" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.11" >}}
 
 Kubernetes 1.11 introduces dynamic volume limits based on node type. This
 is an alpha feature that supports these services:
