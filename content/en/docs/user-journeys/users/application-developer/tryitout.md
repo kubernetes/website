@@ -30,14 +30,24 @@ For the purposes of this tutorial, we have installed and preconfigured Minikube 
     minikube version
       ```
 
-{{< tabs name="test_drive_k8s" >}}
-{{% tab name="1. Deploy" %}}
 
-1. Start the Minikube cluster:
+
+2. Start the Minikube cluster:
 
     ```
     minikube start
     ```
+3. Verify that the command line interface, kubectl is installed:
+
+  ```
+  kubectl version
+  ```
+
+
+
+
+{{< tabs name="test_drive_k8s" >}}
+{{% tab name="2. Deploy" %}}
 
 1. Verify the deployment.
 
@@ -54,7 +64,7 @@ For the purposes of this tutorial, we have installed and preconfigured Minikube 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu nibh ultrices, fermentum dui a, rhoncus arcu. Aliquam sed ultricies est, quis rhoncus sapien. Aliquam at risus sed odio maximus rhoncus et et tellus. Vivamus euismod dui ac ligula iaculis, in facilisis nulla tincidunt. Ut consequat metus sed turpis tempus, vel fermentum mi lacinia. Vestibulum orci lacus, tincidunt sit amet aliquam at, venenatis vitae metus. Aenean molestie metus at dui mollis congue. Aliquam ac venenatis ante. Maecenas convallis viverra sapien ac imperdiet. Proin eget erat venenatis, mollis nunc at, facilisis metus.
 
 {{% /tab %}}
-{{< tab name="2. Scale" >}}
+{{< tab name="3. Scale" >}}
 
 1. Scale the app to 3 pods.
 
