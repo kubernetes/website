@@ -107,7 +107,7 @@ by parsing the _name_ field to determine the version number, the stability
 The algorithm used for sorting the versions is designed to sort versions in the
 same way that the Kubernetes project sorts Kubernetes versions. Versions start with a
 `v` followed by a number, an optional `beta` or `alpha` designation, and
-optional additional versioning information. Broadly, a version string might look
+optional additional numeric versioning information. Broadly, a version string might look
 like `v2` or `v2beta1`. Versions are sorted using the following algorithm:
   
 - Entries that follow Kubernetes version patterns are sorted before those that
@@ -149,14 +149,15 @@ the version.
 When an object is written, it is persisted at the version designated as the
 storage version at the time of the write. If the storage version changes,
 existing objects are never converted automatically. However, newly-created
-or updated objects are created at the new storage version. It is possible for an
+or updated objects are written at the new storage version. It is possible for an
 object to have been written at a version that is no longer served.
 
 When you read an object, you specify the version as part of the path. If you
 specify a version that is different from the object's persisted version,
-Kubernetes returns the object to you at the version you requested, but does not
-modify the persisted object. You can request an object at any version that is
-currently served.
+Kubernetes returns the object to you at the version you requested, but the
+persisted object is neither changed on disk, nor converted in any way
+(other than changing the `apiVersion` string) while serving the request.
+You can request an object at any version that is currently served.
 
 If you update an existing object, it is rewritten at the version that is
 currently the storage version. This is the only way that objects can change from
@@ -164,15 +165,15 @@ one version to another.
 
 To illustrate this, consider the following hypothetical series of events:
 
-1.  The storage version is `v1beta`. You create an object. It is persisted in
+1.  The storage version is `v1beta1`. You create an object. It is persisted in
     storage at version `v1beta1`
 2.  You add version `v1` to your CustomResourceDefinition and designate it as
     the storage version.
-3.  You read your object at version `v1beta`, then you read the object again at
+3.  You read your object at version `v1beta1`, then you read the object again at
     version `v1`. Both returned objects are identical except for the apiVersion
     field.
 4.  You create a new object. It is persisted in storage at version `v1`. You now
-    have two objects, one of which is at `v1beta`, and the other of which is at
+    have two objects, one of which is at `v1beta1`, and the other of which is at
     `v1`.
 5.  You update the first object. It is now persisted at version `v1` since that
     is the current storage version.
