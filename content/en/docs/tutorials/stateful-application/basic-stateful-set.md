@@ -283,7 +283,8 @@ web-0
 web-1
 ```
 
-Note, if you instead see 403 Forbidden responses for the above curl command,
+{{< note >}}
+**Note:** if you instead see 403 Forbidden responses for the above curl command,
 you will need to fix the permissions of the directory mounted by the `volumeMounts`
 (due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630)) with:
 
@@ -292,6 +293,7 @@ for i in 0 1; do kubectl exec web-$i -- chmod 755 /usr/share/nginx/html; done
 ```
 
 before retrying the curl command above.
+{{< /note >}}
 
 In one terminal, watch the StatefulSet's Pods.
 
