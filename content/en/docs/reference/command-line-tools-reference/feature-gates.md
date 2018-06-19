@@ -51,7 +51,8 @@ different Kubernetes components.
 | `DebugContainers` | `false` | Alpha | 1.10 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
-| `DynamicKubeletConfig` | `false` | Alpha | 1.4 | |
+| `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
+| `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
