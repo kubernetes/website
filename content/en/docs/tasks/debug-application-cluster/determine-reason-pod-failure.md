@@ -77,7 +77,7 @@ only the termination message:
 ## Customizing the termination message
 
 Kubernetes retrieves termination messages from the termination message file
-specified in the `terminationMessagePath` field of a Container, which as a default
+specified in the `terminationMessagePath` field of a Container, which has a default
 value of `/dev/termination-log`. By customizing this field, you can tell Kubernetes
 to use a different file. Kubernetes use the contents from the specified file to
 populate the Container's status message on both success and failure.
