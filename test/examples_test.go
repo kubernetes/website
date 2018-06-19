@@ -267,20 +267,6 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 func TestExampleObjectSchemas(t *testing.T) {
 	// Please help maintain the alphabeta order in the map
 	cases := map[string]map[string][]runtime.Object{
-		"docs/admin/multiple-schedulers": {
-			"my-scheduler": {&extensions.Deployment{}},
-			"pod1":         {&api.Pod{}},
-			"pod2":         {&api.Pod{}},
-			"pod3":         {&api.Pod{}},
-		},
-		"docs/admin/resourcequota": {
-			"best-effort":       {&api.ResourceQuota{}},
-			"compute-resources": {&api.ResourceQuota{}},
-			"limits":            {&api.LimitRange{}},
-			"namespace":         {&api.Namespace{}},
-			"not-best-effort":   {&api.ResourceQuota{}},
-			"object-counts":     {&api.ResourceQuota{}},
-		},
 		"docs/concepts/cluster-administration": {
 			"counter-pod":                             {&api.Pod{}},
 			"fluentd-sidecar-config":                  {&api.ConfigMap{}},
