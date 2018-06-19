@@ -81,7 +81,6 @@ different Kubernetes components.
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | |
 | `RunAsGroup` | `false` | Alpha | 1.10 | |
-| `ScheduleDaemonSetPods` | `false` | Alpha | 1.10 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | |
@@ -98,6 +97,7 @@ different Kubernetes components.
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | |
 | `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.11 | |
+| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | |
 
 ## Using a Feature
 

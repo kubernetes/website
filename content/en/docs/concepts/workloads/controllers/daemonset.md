@@ -103,7 +103,9 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 
 ## How Daemon Pods are Scheduled
 
-Normally, the machine that a Pod runs on is selected by the Kubernetes scheduler.  However, Pods
+### Scheduled by DaemonSet controller (default)
+
+Normally, the machine that a Pod runs on is selected by the Kubernetes scheduler. However, Pods
 created by the DaemonSet controller have the machine already selected (`.spec.nodeName` is specified
 when the Pod is created, so it is ignored by the scheduler).  Therefore:
 
@@ -112,29 +114,72 @@ when the Pod is created, so it is ignored by the scheduler).  Therefore:
  - The DaemonSet controller can make Pods even when the scheduler has not been started, which can help cluster
    bootstrap.
 
-Daemon Pods do respect [taints and tolerations](/docs/concepts/configuration/taint-and-toleration),
-but they are created with `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
- - `node.kubernetes.io/not-ready`
- - `node.alpha.kubernetes.io/unreachable`
+### Scheduled by default scheduler
 
-This ensures that when the `TaintBasedEvictions` alpha feature is enabled,
-they will not be evicted when there are node problems such as a network partition. (When the
-`TaintBasedEvictions` feature is not enabled, they are also not evicted in these scenarios, but
-due to hard-coded behavior of the NodeController rather than due to tolerations).
+{{< feature-state state="alpha" for-kubernetes-version="1.11" >}}
 
- They also tolerate following `NoSchedule` taints:
+A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
+node that a Pod runs on is selected by the Kubernetes scheduler. However,
+DaemonSet pods are created and scheduled by the DaemonSet controller instead.
+That introduces the following issues:
 
- - `node.kubernetes.io/memory-pressure`
- - `node.kubernetes.io/disk-pressure`
+ * Inconsistent Pod behavior: Normal Pods waiting to be scheduled are created
+   and in `Pending` state, but DaemonSet pods are not created in `Pending`
+   state. This is confusing to the user.
+ * [Pod preemption](/docs/concepts/configuration/pod-priority-preemption/)
+   is handled by default scheduler. When preemption is enabled, the DaemonSet controller
+   will make scheduling decisions without considering pod priority and preemption.
+ 
+`ScheduleDaemonSetPods` allows you to schedule DaemonSets using the default
+scheduler instead of the DaemonSet controller, by adding the `NodeAffinity` term
+to the DaemonSet pods, instead of the `.spec.nodeName` term. The default
+scheduler is then used to bind the pod to the target host. If node affinity of
+the DaemonSet pod already exists, it is replaced. The DaemonSet controller only
+performs these operations when creating or modifying DaemonSet pods, and no
+changes are made to the `spec.template` of the DaemonSet.
 
-When the support to critical pods is enabled and the pods in a DaemonSet are
-labeled as critical, the Daemon pods are created with an additional
-`NoSchedule` toleration for the `node.kubernetes.io/out-of-disk` taint.
+```yaml
+nodeAffinity:
+  requiredDuringSchedulingIgnoredDuringExecution:
+    nodeSelectorTerms:
+    - matchFields:
+      - key: metadata.name
+        operator: In
+        values:
+        - target-host-name
+```
 
-Note that all above `NoSchedule` taints above are created only in version 1.8 or later if the alpha feature `TaintNodesByCondition` is enabled.
+In addition, `node.kubernetes.io/unschedulable:NoSchedule` toleration is added
+automatically to DaemonSet Pods. The DaemonSet controller ignores
+`unschedulable` Nodes when scheduling DaemonSet Pods. You must enable
+`TaintModesByCondition` to ensure that the default scheduler behaves the same
+way and schedules DaemonSet pods on `unschedulable` nodes.
 
-Also note that the `node-role.kubernetes.io/master` `NoSchedule` toleration specified in the above example is needed on 1.6 or later to schedule on *master* nodes as this is not a default toleration.
+When this feature and `TaintNodesByCondition` are enabled together, if DaemonSet
+uses the host network, you must also add the
+`node.kubernetes.io/network-unavailable:NoSchedule toleration`.
+
+
+### Taints and Tolerations
+
+Although Daemon Pods respect
+[taints and tolerations](/docs/concepts/configuration/taint-and-toleration),
+the following tolerations are added to DamonSet Pods automatically according to
+the related features.
+
+| Toleration Key                           | Effect     | Alpha Features                                               | Version | Description                                                  |
+| ---------------------------------------- | ---------- | ------------------------------------------------------------ | ------- | ------------------------------------------------------------ |
+| `node.kubernetes.io/not-ready`           | NoExecute  | `TaintBasedEvictions`                                        | 1.8+    | when `TaintBasedEvictions`  is enabled,they will not be evicted when there are node problems such as a network partition. |
+| `node.kubernetes.io/unreachable`         | NoExecute  | `TaintBasedEvictions`                                        | 1.8+    | when `TaintBasedEvictions`  is enabled,they will not be evicted when there are node problems such as a network partition. |
+| `node.kubernetes.io/disk-pressure`       | NoSchedule | `TaintNodesByCondition`                                      | 1.8+    |                                                              |
+| `node.kubernetes.io/memory-pressure`     | NoSchedule | `TaintNodesByCondition`                                      | 1.8+    |                                                              |
+| `node.kubernetes.io/unschedulable`       | NoSchedule | `ScheduleDaemonSetPods`, `TaintNodesByCondition`             | 1.11+   | When ` ScheduleDaemonSetPods` is enabled, ` TaintNodesByCondition` is necessary to make sure DaemonSet pods tolerate unschedulable attributes by default scheduler. |
+| `node.kubernetes.io/network-unavailable` | NoSchedule | `ScheduleDaemonSetPods`, `TaintNodesByCondition`, hostnework | 1.11+   | When ` ScheduleDaemonSetPods` is enabled, ` TaintNodesByCondition` is necessary to make sure DaemonSet pods, who uses host network, tolerate network-unavailable attributes by default scheduler. |
+| `node.kubernetes.io/out-of-disk`         | NoSchedule | `ExperimentalCriticalPodAnnotation` (critical pod only), `TaintNodesByCondition` | 1.8+    |                                                              |
+
+
+
 
 ## Communicating with Daemon Pods
 
