@@ -10,6 +10,7 @@ content_template: templates/user-journey-content
 ---
 
 {{% capture overview %}}
+
 With modern web services, users expect applications to be available 24/7, and developers expect to deploy new versions of those applications several times a day. Kubernetes helps package software to serve these goals:
 
 
@@ -18,13 +19,6 @@ With modern web services, users expect applications to be available 24/7, and de
   * Helps the applications to find the resources and tools they need to work
 
 
-
-
-If you're a developer looking to run applications on Kubernetes, this page and its linked topics can help you get started with the fundamentals. Though this page primarily describes development workflows, {{< link text="the subsequent page in the series" url="/docs/home/?path=users&persona=app-developer&level=intermediate" >}} covers more advanced, production setups.
-
-{{< note  >}}
-**A quick note**<br>This app developer "user journey" is *not* a comprehensive overview of Kubernetes. It focuses more on *what* you develop, test, and deploy to Kubernetes, rather than *how* the underlying infrastructure works.<br><br>Though it's possible for a single person to manage both, in many organizations, it’s common to assign the latter to a dedicated {{< glossary_tooltip text="cluster operator" term_id="cluster-operator" >}}.
-{{< /note  >}}
 {{% /capture %}}
 
 
