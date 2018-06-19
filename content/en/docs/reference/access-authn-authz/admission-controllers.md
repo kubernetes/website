@@ -419,7 +419,9 @@ It helps ensure the Pods and the PersistentVolumes mounted are in the same
 region and/or zone.
 If the admission controller doesn't support automatic labelling your PersistentVolumes, you
 may need to add the labels manually to prevent pods from mounting volumes from
-a different zone. PersistentVolumeLabel is DEPRECATED and labeling persistent volumes has been taken over by [cloud controller manager](/docs/tasks/administer-cluster/running-cloud-controller/).
+a different zone. PersistentVolumeLabel is DEPRECATED and labeling persistent volumes has been taken over by
+[cloud controller manager](/docs/tasks/administer-cluster/running-cloud-controller/).
+Starting from 1.11, this admission controller is disabled by default.
 
 ### PodNodeSelector {#podnodeselector}
 
