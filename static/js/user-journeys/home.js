@@ -315,8 +315,6 @@ $( document ).ready(function() {
     // Set up UI
     buildCards();
     attachCardEvents();
-    // Set up and display user journey state
-    setupCardState();
   }
 
   // What actually executes on page load
