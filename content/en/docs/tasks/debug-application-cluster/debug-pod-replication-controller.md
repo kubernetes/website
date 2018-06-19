@@ -1,17 +1,33 @@
 ---
 reviewers:
 - bprashanth
-title: Debug Pods and Replication Controllers
+title: Debug Pods and ReplicationControllers
+content_template: templates/task
 ---
 
-{{< toc >}}
+{{% capture overview %}}
+This page shows how to debug Pods and ReplicationControllers.
+{{% /capture %}}
 
-## Debugging pods
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+* You should be familiar with the basics of
+  [Pods](/docs/concepts/workloads/pods/pod/) and [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/).
+
+{{% /capture %}}
+
+{{% capture steps %}}
+
+## Debugging Pods
 
 The first step in debugging a pod is taking a look at it. Check the current
 state of the pod and recent events with the following command:
 
-    $ kubectl describe pods ${POD_NAME}
+```shell
+kubectl describe pods ${POD_NAME}
+```
 
 Look at the state of the containers in the pod. Are they all `Running`?  Have
 there been recent restarts?
@@ -44,8 +60,10 @@ case you can try several things:
     command. Here are some example command lines that extract just the necessary
     information:
 
-      kubectl get nodes -o yaml | grep '\sname\|cpu\|memory'
-      kubectl get nodes -o json | jq '.items[] | {name: .metadata.name, cap: .status.capacity}'
+    ```shell
+    kubectl get nodes -o yaml | grep '\sname\|cpu\|memory'
+    kubectl get nodes -o json | jq '.items[] | {name: .metadata.name, cap: .status.capacity}'
+    ```
 
   The [resource quota](/docs/concepts/policy/resource-quotas/)
   feature can be configured to limit the total amount of
@@ -75,33 +93,42 @@ worker node, but it can't run on that machine. Again, the information from
 
 First, take a look at the logs of the current container:
 
-    $ kubectl logs ${POD_NAME} ${CONTAINER_NAME}
+```shell
+kubectl logs ${POD_NAME} ${CONTAINER_NAME}
+```
 
 If your container has previously crashed, you can access the previous
 container's crash log with:
 
-    $ kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
+```shell
+kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
+```
 
 Alternately, you can run commands inside that container with `exec`:
 
-    $ kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
+```shell
+kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
+```
 
 Note that `-c ${CONTAINER_NAME}` is optional and can be omitted for pods that
 only contain a single container.
 
 As an example, to look at the logs from a running Cassandra pod, you might run:
 
-    $ kubectl exec cassandra -- cat /var/log/cassandra/system.log
+```shell
+kubectl exec cassandra -- cat /var/log/cassandra/system.log
+```
 
 If none of these approaches work, you can find the host machine that the pod is
 running on and SSH into that host.
 
-## Debugging Replication Controllers
+## Debugging ReplicationControllers
 
-Replication controllers are fairly straightforward. They can either create pods
+ReplicationControllers are fairly straightforward. They can either create pods
 or they can't. If they can't create pods, then please refer to the
 [instructions above](#debugging_pods) to debug your pods.
 
 You can also use `kubectl describe rc ${CONTROLLER_NAME}` to inspect events
 related to the replication controller.
 
+{{% /capture %}}
