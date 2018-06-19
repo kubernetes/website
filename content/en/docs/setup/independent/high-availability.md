@@ -10,7 +10,9 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-This page explains two different approaches setting up a highly available Kubernetes
+{{</* feature-state for_k8s_version="v1.11" state="beta" */>}}
+
+This page explains two different approaches to setting up a highly available Kubernetes
 cluster using kubeadm:
 
 - With stacked masters. This approach requires less infrastructure. etcd members
@@ -22,8 +24,8 @@ Your clusters must run Kubernetes version 1.11 or later.
 
 {{< caution >}}
 **Caution**: This page does not address running your cluster on a cloud provider.
-In a cloud environment, neither approach documented here works with services of type 
-LoadBalancer, or with dynamic PersistentVolumes.
+In a cloud environment, neither approach documented here works with Service objects
+of type LoadBalancer, or with dynamic PersistentVolumes.
 {{< /caution >}}
 
 {{% /capture %}}
@@ -43,7 +45,7 @@ For both methods you need this infrastructure:
 - SSH access from one device to all nodes in the system
 - sudo privileges on all machines
 
-For the external etcd cluster only:
+For the external etcd cluster only, you also need:
 
 - Three additional machines for etcd members
 
@@ -83,7 +85,7 @@ run as root.
      ssh-add ~/.ssh/path_to_private_key
      ```
 
-1. SSH between nodes to check that the connection is working properly.
+1. SSH between nodes to check that the connection is working correctly.
 
 **Notes:**
 
@@ -118,7 +120,7 @@ different configuration.
 
     It is not recommended to use an IP address directly in a cloud environment.
 
-    The load balancer must be able to communicate with all control plane node
+    The load balancer must be able to communicate with all control plane nodes
     on the apiserver port. It must also allow incoming traffic on its
     listening port.
 
@@ -167,10 +169,10 @@ will fail the health check until the apiserver is running.
 
 1. Run `sudo kubeadm init --config kubeadm-config.yaml`
 
-### Copy certificates to other control plane nodes
+### Copy required files to other control plane nodes
 
-The following certificates were created when you ran `kubeadm init`. Copy these certificates
-to your other control plane nodes:
+The following certificates and other required files were created when you ran `kubeadm init`. 
+Copy these files to your other control plane nodes:
 
 - `/etc/kubernetes/pki/ca.crt`
 - `/etc/kubernetes/pki/ca.key`
@@ -238,8 +240,7 @@ done
             # This CIDR is a calico default. Substitute or remove for your CNI provider.
             podSubnet: "192.168.0.0/16"
 
-1. Replace the following variables in the template that was just created with
-   values for your specific situation:
+1. Replace the following variables in the template with the appropriate values for your cluster:
 
     - `LOAD_BALANCER_DNS`
     - `LOAD_BALANCER_PORT`
@@ -248,7 +249,7 @@ done
     - `CP1_HOSTNAME`
     - `CP1_IP`
 
-1. Move the copied certificates to the proper locations
+1. Move the copied files to the correct locations:
 
       ```sh
       USER=ubuntu # customizable
@@ -264,7 +265,7 @@ done
       mv /home/${USER}/admin.conf /etc/kubernetes/admin.conf
       ```
 
-1. Run the kubeadm phase commands to bootstrap the kubelet
+1. Run the kubeadm phase commands to bootstrap the kubelet:
 
       ```sh
       kubeadm alpha phase certs all --config kubeadm-config.yaml
@@ -330,8 +331,7 @@ done
             # This CIDR is a calico default. Substitute or remove for your CNI provider.
             podSubnet: "192.168.0.0/16"
 
-1. Replace the following variables in the template that was just created with
-   values for your specific situation:
+1. Replace the following variables in the template with the appropriate values for your cluster:
 
     - `LOAD_BALANCER_DNS`
     - `LOAD_BALANCER_PORT`
@@ -342,7 +342,7 @@ done
     - `CP2_HOSTNAME`
     - `CP2_IP`
 
-1. Move the copied certificates to the proper locations:
+1. Move the copied files to the correct locations:
 
       ```sh
       USER=ubuntu # customizable
@@ -368,7 +368,7 @@ done
       systemctl start kubelet
       ```
 
-1. Run the commands to add the node to the etcd cluster
+1. Run the commands to add the node to the etcd cluster:
 
       ```sh
       CP0_IP=10.0.0.7
@@ -380,7 +380,7 @@ done
       kubeadm alpha phase etcd local --config kubeadm-config.yaml
       ```
 
-1. Deploy the control plane components and mark the node as a master
+1. Deploy the control plane components and mark the node as a master:
 
       ```sh
       kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
@@ -395,10 +395,10 @@ done
 - Follow [these instructions](/docs/tasks/administer-cluster/setup-ha-etcd-with-kubeadm/) 
    to set up the etcd cluster.
 
-### Copy certificates to other control plane nodes
+### Copy required files to other control plane nodes
 
-The following certificates were created when you created the cluster. Copy these
-certificates to your other control plane nodes:
+The following certificates were created when you created the cluster. Copy them
+to your other control plane nodes:
 
     - `/etc/kubernetes/pki/etcd/ca.crt`
     - `/etc/kubernetes/pki/apiserver-etcd-client.crt`
@@ -451,10 +451,10 @@ for your environment.
 
 1. Run `kubeadm init --config kubeadm-config.yaml`
 
-### Copy certificates
+### Copy required files to the correct locations
 
-The following certificates were created when you ran `kubeadm init`. Copy these certificates
-to your other control plane nodes:
+The following certificates and other required files were created when you ran `kubeadm init`. 
+Copy these files to your other control plane nodes:
 
 - `/etc/kubernetes/pki/ca.crt`
 - `/etc/kubernetes/pki/ca.key`
@@ -463,8 +463,8 @@ to your other control plane nodes:
 - `/etc/kubernetes/pki/front-proxy-ca.crt`
 - `/etc/kubernetes/pki/front-proxy-ca.key`
 
-In the following example, replace
-`CONTROL_PLANE_IP` with the IP addresses of the other control plane nodes.
+In the following example, replace the list of 
+`CONTROL_PLANE_IP` values with the IP addresses of the other control plane nodes.
 
      ```sh
      USER=ubuntu # customizable
@@ -485,7 +485,7 @@ In the following example, replace
 
 ### Set up the other control plane nodes
 
-Verify the location of the certificates.
+Verify the location of the copied files.
 Your `/etc/kubernetes` directory should look like this:
 
 - `/etc/kubernetes/pki/apiserver-etcd-client.crt`
