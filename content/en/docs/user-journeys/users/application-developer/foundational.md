@@ -93,12 +93,26 @@ This is in an H6 section.
     ```
     kubectl get pods
     ```
+<<<<<<< HEAD
 
 
 
 
 <pre><code>kubectl get pods</code></pre>
 <ul><li>I am unordered list.</li></ul>
+=======
+**bold**
+_italic_
+    - ***bold italic***
+    - ~~strikethrough~~
+    - <u>underline</u>
+    - _<u>underline italic</u>_
+    - **<u>underline bold</u>**
+    - ***<u>underline bold italic</u>***
+    - `monospace text`
+    - **`monospace bold`**
+
+>>>>>>> no message
 
 
 
