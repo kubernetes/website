@@ -46,7 +46,7 @@ For the purposes of this tutorial, we have installed and preconfigured Minikube 
 
 
 
-{{< tabs name="test_drive_k8s" >}}
+{{% /tab %}}
 {{% tab name="2. Deploy" %}}
 
 1. Verify the deployment.
@@ -75,31 +75,17 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu nibh ultrice
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu nibh ultrices, fermentum dui a, rhoncus arcu.
 
 {{< /tab >}}
-{{< tab name="3. Expose" >}}
+{{< tab name="4. Expose" >}}
 
 1. Expose the app
 
     ```
     kubectl expose deployment app --port 80 --type=LoadBalancer
+    {{< /tab >}}
+    {{< tab name="4. Update" >}}
     ```
 
-### H3
 
-This is in an H3 section.
-
-
-#### H4
-
-This is in an H4 section.
-
-
-##### H5
-
-This is in an H5 section.
-
-###### H6
-
-This is in an H6 section.
 
 
 1. Create a new service
@@ -107,16 +93,7 @@ This is in an H6 section.
     ```
     kubectl get pods
     ```
-**bold**
-_italic_
-    - ***bold italic***
-    - ~~strikethrough~~
-    - <u>underline</u>
-    - _<u>underline italic</u>_
-    - **<u>underline bold</u>**
-    - ***<u>underline bold italic</u>***
-    - `monospace text`
-    - **`monospace bold`**
+
 
 
 
