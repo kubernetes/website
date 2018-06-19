@@ -107,7 +107,7 @@ Use a custom resource (CRD or Aggregated API) if most of the following apply:
 
 Kubernetes provides two ways to add custom resources to your cluster:
 
-- CRDs are simple and do not always require programming.
+- CRDs are simple and can be created without any programming.
 - [API Aggregation](/docs/concepts/api-extension/apiserver-aggregation/) requires programming, but allows more control over API behaviors like how data is stored and conversion between API versions.
 
 Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility are compromised.
