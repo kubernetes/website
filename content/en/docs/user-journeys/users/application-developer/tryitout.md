@@ -9,15 +9,12 @@ track: "USERS › APPLICATION DEVELOPER › FOUNDATIONAL"
 content_template: templates/user-journey-content
 ---
 {{% capture body %}}
-*//## Try it out
-Try our virtual terminal in your web browser to run Minikube. Minikube is a small-scale local deployment of Kubernetes that can run anywhere.
-* After you run these commands, you will learn to:
-* Create a cluster
-* Deploy a containerized application on a cluster
-* Expose the app
-* Scale the deployment
-* Update the containerized application with a new software version
-* Debug the containerized application
+## Learn to create a Containerized application
+
+Try our virtual terminal to create a containerized application with an existing image{popup} running on Minikube.
+Minikube is a lightweight Kubernetes implementation that creates a Virtual Machine on your local machine and deploys a simple cluster containing only one node.  
+For the purposes of this tutorial, we have installed and preconfigured Minikube on the virtual terminal.
+
 
 <div id="terminal_simulator"
   data-embed="kt-app"
@@ -25,12 +22,21 @@ Try our virtual terminal in your web browser to run Minikube. Minikube is a smal
 </div>
 
 {{< tabs name="test_drive_k8s" >}}
-{{% tab name="1. Deploy" %}}
+{{% tab name="1. Create a cluster" %}}
 
-1. Deploy a sample app.
+1. Verify that Minikube installed.
 
     ```
-    kubectl run kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1 --port=8080
+    minikube version
+      ```
+
+{{< tabs name="test_drive_k8s" >}}
+{{% tab name="1. Deploy" %}}
+
+1. Start the Minikube cluster:
+
+    ```
+    minikube start
     ```
 
 1. Verify the deployment.
