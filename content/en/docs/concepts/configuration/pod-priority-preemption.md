@@ -9,7 +9,7 @@ weight: 70
 
 {{% capture overview %}}
 
-{{< feature-state state="alpha" >}}
+{{< feature-state state="beta" >}}
 
 [Pods](/docs/user-guide/pods) in Kubernetes 1.8 and later can have priority. Priority
 indicates the importance of a Pod relative to other Pods. When a Pod cannot be scheduled,
@@ -17,14 +17,37 @@ the scheduler tries to preempt (evict) lower priority Pods to make scheduling of
 pending Pod possible. In Kubernetes 1.9 and later, Priority also affects scheduling
 order of Pods and out-of-resource eviction ordering on the Node.
 
+Pod priority and preemption are moved to beta since Kubernetes 1.11 and are enabled by default in
+this release and later.
+
+{{< note >}}
+**Note**: Pod priority and preemption were in alpha and not enabled by default in older versions of
+Kubernetes. To use these features in the older versions of Kubernetes, follow the instructions in the
+documentation for your Kubernetes version.
+{{< /note >}}
+
+| Kubernetes Version | Priority and Preemption State | Enabled by default |
+| -------- |:-----:|:----:|
+| 1.8      | alpha |   no |
+| 1.9      | alpha |   no |
+| 1.10     | alpha |   no |
+| 1.11     | beta  |  yes |
+
+{{< warning >}}
+**Warning**: In a cluster where not all users are trusted, a malicious
+user could create pods at the highest possible priorities, causing
+other pods to be evicted/not get scheduled. To resolve this issue,
+[ResourceQuota](https://kubernetes.io/docs/concepts/policy/resource-quotas/) is augmented to support
+Pod priority. An admin can create ResourceQuota for users at specific priority levels, preventing
+them from creating pods at high priorities. However, this feature is in alpha as of Kubernetes 1.11.
+{{< /warning >}}
+
 {{% /capture %}}
 
 {{% capture body %}}
 
 ## How to use priority and preemption
-To use priority and preemption in Kubernetes 1.8 and later, follow these steps:
-
-1. Enable the feature.
+To use priority and preemption in Kubernetes 1.11 and later, follow these steps:
 
 1. Add one or more PriorityClasses.
 
@@ -34,23 +57,7 @@ Of course you do not need to create the Pods directly; normally you would add
 
 The following sections provide more information about these steps.
 
-## Enabling priority and preemption
-
-Pod priority and preemption is disabled by default in Kubernetes 1.8.
-To enable the feature, set this command-line flag for the API server, scheduler and kubelet:
-
-```
---feature-gates=PodPriority=true
-```
-
-Also enable scheduling.k8s.io/v1alpha1 API and Priority [admission controller](/docs/admin/admission-controllers/) in API server:
-
-
-```
---runtime-config=scheduling.k8s.io/v1alpha1=true --enable-admission-plugins=Controller-Foo,Controller-Bar,...,Priority
-```
-
-After the feature is enabled, you can create [PriorityClasses](#priorityclass)
+You can create [PriorityClasses](#priorityclass)
 and create Pods with [`priorityClassName`](#pod-priority) set.
 
 If you try the feature and then decide to disable it, you must remove the PodPriority
@@ -61,9 +68,15 @@ cannot set `priorityClassName` in new Pods.
 
 ## How to disable preemption
 
+**Note**: In Kubernetes 1.11, critical pods (except DaemonSet pods, which are
+still scheduled by the DaemonSet controller) rely on scheduler preemption to be
+scheduled when a cluster is under resource pressure. For this reason, we do not
+recommend disabling this feature. If you still have to disable this feature,
+follow the instructions below.
+ 
 In Kubernetes 1.11 and later, preemption is controlled by a kube-scheduler flag `disablePreemption`, which is set to `false` by default.
 
-If you want to disable preemption, just set `disablePreemption` to true. This will keep pod priority enabled while preemption is disabled. Here is a sample configuration:
+If you have to disable preemption, just set `disablePreemption` to true. This will keep pod priority enabled while preemption is disabled. Here is a sample configuration:
 
 ```yaml
 apiVersion: componentconfig/v1alpha1
@@ -77,7 +90,7 @@ disablePreemption: true
 
 ```
 
-Please note: although preemption of scheduler is enabled by default, preemption will not happen if `PodPriority` feature is not available.
+Please note: although preemption of scheduler is enabled by default, preemption will not happen if `PodPriority` feature is disabled.
 
 ## PriorityClass
 
