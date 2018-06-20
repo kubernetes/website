@@ -1,7 +1,6 @@
 [build]
-# This default build command adds the robots noindex directive to the site headers
 publish = "public"
-command = "hugo && cp netlify_noindex_headers.txt public/_headers"
+command = "hugo"
 
 [context.production.environment]
 HUGO_BASEURL = "https://kubernetes.io/"
