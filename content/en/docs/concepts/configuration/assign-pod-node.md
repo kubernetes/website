@@ -22,7 +22,7 @@ that a pod ends up on a machine with an SSD attached to it, or to co-locate pods
 services that communicate a lot into the same availability zone.
 
 You can find all the files for these examples [in our docs
-repo here](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/docs/concepts/configuration/).
+repo here](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/content/en/docs/concepts/configuration/).
 
 {{% /capture %}}
 
