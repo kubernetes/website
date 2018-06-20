@@ -1,9 +1,6 @@
 ---
 reviewers:
-- luxas
-- timothysc
-- detiber
-- chuckha
+- sig-cluster-lifecycle
 title: Creating Highly Available Clusters with kubeadm
 content_template: templates/task
 ---
@@ -74,12 +71,12 @@ run as root.
 
 1. Enable ssh-agent on your main device that has access to all other nodes in
    the system:
-   
+
      ```
      eval $(ssh-agent)
      ```
 
-1. Add your SSH identity to the session: 
+1. Add your SSH identity to the session:
 
      ```
      ssh-add ~/.ssh/path_to_private_key
@@ -90,7 +87,7 @@ run as root.
 **Notes:**
 
 - When you SSH to any node, make sure to add the `-A` flag:
-     
+
   ```
   ssh -A 10.0.0.7
   ```
@@ -106,7 +103,7 @@ run as root.
 
 {{< note >}}
 **Note**: There are many configurations for load balancers. The following
-example is only one option. Your cluster requirements may need a 
+example is only one option. Your cluster requirements may need a
 different configuration.
 {{< /note >}}
 
@@ -115,7 +112,7 @@ different configuration.
     In a cloud environment you should place your control plane nodes behind a TCP
     forwarding load balancer. This load balancer distributes traffic to all
     healthy control plane nodes in its target list. The health check for
-    an apiserver is a TCP check on the port the kube-apiserver listens on 
+    an apiserver is a TCP check on the port the kube-apiserver listens on
     (default value `:6443`).
 
     It is not recommended to use an IP address directly in a cloud environment.
@@ -124,15 +121,26 @@ different configuration.
     on the apiserver port. It must also allow incoming traffic on its
     listening port.
 
-1. Add the control plane nodes to the load balancer, but be aware they
-will fail the health check until the apiserver is running.
+1. Add the first control plane nodes to the load balancer and test the
+   connection:
+
+    ```sh
+    nc -v LOAD_BALANCER_IP PORT
+    ```
+
+    A connection refused error is expected because the API server is not yet
+    running. A timeout is bad and means the load balancer cannot communicate
+    with the control plane node. Reconfigure the load balancer so that it can
+    communicate with the control plane node.
+
+1. Add the remaining control plane nodes to the load balancer target group.
 
 ## Stacked control plane nodes
 
 ### Bootstrap the first stacked control plane node
 
 1. Create a `kubeadm-config.yaml` template file:
-        
+
         apiVersion: kubeadm.k8s.io/v1alpha2
         kind: MasterConfiguration
         kubernetesVersion: v1.11.0
@@ -157,7 +165,7 @@ will fail the health check until the apiserver is running.
         networking:
             # This CIDR is a Calico default. Substitute or remove for your CNI provider.
             podSubnet: "192.168.0.0/16"
-        
+
 
 1.  Replace the following variables in the template with the appropriate
     values for your cluster:
@@ -171,7 +179,7 @@ will fail the health check until the apiserver is running.
 
 ### Copy required files to other control plane nodes
 
-The following certificates and other required files were created when you ran `kubeadm init`. 
+The following certificates and other required files were created when you ran `kubeadm init`.
 Copy these files to your other control plane nodes:
 
 - `/etc/kubernetes/pki/ca.crt`
@@ -392,7 +400,7 @@ done
 
 ### Set up the cluster
 
-- Follow [these instructions](/docs/tasks/administer-cluster/setup-ha-etcd-with-kubeadm/) 
+- Follow [these instructions](/docs/tasks/administer-cluster/setup-ha-etcd-with-kubeadm/)
    to set up the etcd cluster.
 
 ### Copy required files to other control plane nodes
@@ -453,7 +461,7 @@ for your environment.
 
 ### Copy required files to the correct locations
 
-The following certificates and other required files were created when you ran `kubeadm init`. 
+The following certificates and other required files were created when you ran `kubeadm init`.
 Copy these files to your other control plane nodes:
 
 - `/etc/kubernetes/pki/ca.crt`
@@ -463,7 +471,7 @@ Copy these files to your other control plane nodes:
 - `/etc/kubernetes/pki/front-proxy-ca.crt`
 - `/etc/kubernetes/pki/front-proxy-ca.key`
 
-In the following example, replace the list of 
+In the following example, replace the list of
 `CONTROL_PLANE_IP` values with the IP addresses of the other control plane nodes.
 
      ```sh
@@ -498,7 +506,7 @@ Your `/etc/kubernetes` directory should look like this:
 - `/etc/kubernetes/pki/sa.pub`
 - `/etc/kubernetes/pki/etcd/ca.crt`
 
-Run `kubeadm init --config kubeadm-config.yaml` on each control plane node, where 
+Run `kubeadm init --config kubeadm-config.yaml` on each control plane node, where
 `kubeadm-config.yaml` is the file you already created.
 
 ## Common tasks after bootstrapping control plane
