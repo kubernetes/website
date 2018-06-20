@@ -2,12 +2,11 @@
 reviewers:
 - janetkuo
 title: Perform Rolling Update Using a Replication Controller
+content_template: templates/concept
 weight: 80
 ---
 
-{{< toc >}}
-
-## Overview
+{{% capture overview %}}
 
 {{< note >}}
 **Note**: The preferred way to create a replicated application is to use a
@@ -40,6 +39,12 @@ Rolling updates are initiated with the `kubectl rolling-update` command:
 
     $ kubectl rolling-update NAME \
         ([NEW_NAME] --image=IMAGE | -f FILE)
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Passing a configuration file
 
@@ -261,3 +266,5 @@ To continue the update from where it failed, retry using the same command.
 
 To roll back to the original state before the attempted update, append the
 `--rollback=true` flag to the original command. This will revert all changes.
+
+{{% /capture %}}

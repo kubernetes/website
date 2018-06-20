@@ -2,12 +2,21 @@
 reviewers:
 - davidopp
 title: Troubleshoot Clusters
+content_template: templates/concept
 ---
+
+{{% capture overview %}}
 
 This doc is about cluster troubleshooting; we assume you have already ruled out your application as the root cause of the
 problem you are experiencing. See
 the [application troubleshooting guide](/docs/tasks/debug-application-cluster/debug-application) for tips on application debugging.
 You may also visit [troubleshooting document](/docs/troubleshooting/) for more information.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Listing your cluster
 
@@ -113,3 +122,5 @@ Mitigations:
 
 - Action: [Multiple independent clusters](/docs/concepts/cluster-administration/federation/) (and avoid making risky changes to all clusters at once)
   - Mitigates: Everything listed above.
+
+{{% /capture %}}

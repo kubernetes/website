@@ -20,6 +20,12 @@ Setting up an extension API server to work the aggregation layer allows the Kube
 
 {{% /capture %}}
 
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
 {{% capture steps %}}
 
 ## Setup an extension api-server to work with the aggregation layer
