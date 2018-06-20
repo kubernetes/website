@@ -31,13 +31,26 @@ date = ["date", ":filename", "publishDate", "lastmod"]
 
 # Be explicit about the output formats. We (currently) only want an RSS feed for the home page.
 [outputs]
-home = [ "HTML", "RSS"]
+home = [ "HTML", "RSS", "HEADERS" ]
 page = [ "HTML"]
 section = [ "HTML"]
+
+# Add a "text/netlify" media type for auto-generating the _headers file
+[mediaTypes]
+[mediaTypes."text/netlify"]
+suffix = ""
+delimiter = ""
 
 [outputFormats]
 [outputFormats.RSS]
 baseName = "feed"
+
+# _headers file output (uses the template at layouts/index.headers)
+[outputFormats.HEADERS]
+mediatype = "text/netlify"
+baseName = "_headers"
+isPlainText = true
+notAlternative = true
 
 [params]
 
@@ -55,6 +68,17 @@ deprecated = false
 currentUrl = "https://kubernetes.io/docs/home/"
 nextUrl = "http://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"
+
+[params.pushAssets]
+css = [
+  "callouts",
+  "styles",
+  "custom-jekyll/tags"
+]
+js = [
+  "custom-jekyll/tags",
+  "script"
+]
 
 [[params.versions]]
 fullversion = "v1.10.3"
@@ -91,7 +115,6 @@ githubbranch = "v1.6.8"
 docsbranch = "release-1.6"
 url = "https://v1-6.docs.kubernetes.io"
 
-
 # Language definitions.
 
 [languages]
@@ -107,5 +130,4 @@ description = "Production-Grade Container Orchestration"
 languageName ="Chinese"
 weight = 2
 contentDir = "content/cn"
-
 
