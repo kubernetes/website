@@ -53,35 +53,32 @@ For the purposes of this tutorial, we have installed and preconfigured Minikube 
     ```
 2. View the nodes in the cluster that can be used to host your application:
 
-```
-kubectl get nodes
-```
+  ```
+  kubectl get nodes
+  ```
 
 3. Run the app on Kubernetes to create a new deployment:
- Note:Provide the deployment name, app image location (include the full repository url for images hosted outside Docker hub) and --port parameter so that the app runs on a specific port.
-```
-kubectl run kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1 --port=8080
-```
+
+ Provide the deployment name, app image location (include the full repository url for images hosted outside Docker hub) and --port parameter so that the app runs on a specific port.
+    ```
+    kubectl run kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1 --port=8080
+    ```
 4. List your deployments :
+  ```
+  kubectl get deployments
+  ```
+5.  Open a second terminal window to run the proxy.[should we state why?]
 ```
-kubectl get deployments
-```
-5. Pods that are running inside Kubernetes are running on a private, isolated network. By default they are visible from other pods and services within the same kubernetes cluster, but not outside that network. When we use kubectl, we're interacting through an API endpoint to communicate with our application.
-
-We will cover other options on how to expose your application outside the kubernetes cluster in Module 4.
-
-The kubectl command can create a proxy that will forward communications into the cluster-wide, private network. The proxy can be terminated by pressing control-C and won't show any output while its running.
-
-We will open a second terminal window to run the proxy.
-
 kubectl proxy
+```
 
-We now have a connection between our host (the online terminal) and the Kubernetes cluster. The proxy enables direct access to the API from these terminals.
+A connection between the online terminal and the Kubernetes cluster is created. The proxy enables direct access to the API from these terminals.
 
-You can see all those APIs hosted through the proxy endpoint, now available at through http://localhost:8001. For example, we can query the version directly through the API using the curl command:
+6. View the version through the proxy endpoint available at http://localhost:8001.
 
-curl http://localhost:8001/version
-
+  ```
+  curl http://localhost:8001/version
+  ```  
 The API server will automatically create an endpoint for each pod, based on the pod name, that is also accessible through the proxy.
 
 First we need to get the Pod name, and we'll store in the environment variable POD_NAME:
@@ -98,14 +95,10 @@ The url is the route to the API of the Pod.
 Note: Check the top of the terminal. The proxy was run in a new tab (Terminal 2), and the recent commands were executed the original tab (Terminal 1). The proxy still runs in the second tab, and this allowed our curl command to work using localhost:8001.
 
 We see that there is 1 deployment running a single instance of your app. The instance is running inside a Docker container on your node.
-
-
-
     ```
     curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/proxy/
     ```
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu nibh ultrices, fermentum dui a, rhoncus arcu. Aliquam sed ultricies est, quis rhoncus sapien. Aliquam at risus sed odio maximus rhoncus et et tellus. Vivamus euismod dui ac ligula iaculis, in facilisis nulla tincidunt. Ut consequat metus sed turpis tempus, vel fermentum mi lacinia. Vestibulum orci lacus, tincidunt sit amet aliquam at, venenatis vitae metus. Aenean molestie metus at dui mollis congue. Aliquam ac venenatis ante. Maecenas convallis viverra sapien ac imperdiet. Proin eget erat venenatis, mollis nunc at, facilisis metus.
 
 {{% /tab %}}
 {{< tab name="3. Scale" >}}
