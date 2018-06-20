@@ -4,18 +4,23 @@ reviewers:
 - roberthbailey
 - liggitt
 title: Master-Node communication
+content_template: templates/concept
 weight: 20
 ---
 
-{{< toc >}}
-
-## Overview
+{{% capture overview %}}
 
 This document catalogs the communication paths between the master (really the
 apiserver) and the Kubernetes cluster. The intent is to allow users to
 customize their installation to harden the network configuration such that
 the cluster can be run on an untrusted network (or on fully public IPs on a
 cloud provider).
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Cluster -> Master
 
@@ -91,3 +96,4 @@ connection will be encrypted, it will not provide any guarantees of integrity.
 These connections **are not currently safe** to run over untrusted and/or
 public networks.
 
+{{% /capture %}}

@@ -5,12 +5,19 @@ reviewers:
 - thockin
 - msau42
 title: Persistent Volumes
+content_template: templates/concept
 weight: 20
 ---
 
+{{% capture overview %}}
+
 This document describes the current state of `PersistentVolumes` in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
 
+{{% /capture %}}
+
 {{< toc >}}
+
+{{% capture body %}}
 
 ## Introduction
 
@@ -608,3 +615,5 @@ and need persistent storage, we recommend that you use the following pattern:
   dynamic storage support (in which case the user should create a matching PV)
   or the cluster has no storage system (in which case the user cannot deploy
   config requiring PVCs).
+
+{{% /capture %}}
