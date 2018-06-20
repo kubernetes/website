@@ -498,6 +498,8 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #home #hero #vendorStrip { display: none; }
 
+#blog.flip-nav .logo { background-image: url(/images/nav_logo2.svg); }
+
 #oceanNodes { padding-top: 60px; padding-bottom: 60px; }
 
 #oceanNodes a { color: #3371e3; }
