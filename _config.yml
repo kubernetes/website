@@ -27,7 +27,7 @@ defaults:
         - fullversion: "v1.10.0"
           version: "v1.10"
           githubbranch: "v1.10.0"
-          docsbranch: "release-1.9"
+          docsbranch: "release-1.10"
           url: https://kubernetes.io
         - fullversion: "v1.9.0"
           version: "v1.9"
