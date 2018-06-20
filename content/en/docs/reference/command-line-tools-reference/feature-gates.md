@@ -38,7 +38,9 @@ different Kubernetes components.
 | `BlockVolume` | `false` | Alpha | 1.9 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
-| `CRIContainerLogRotation` | `false` | Alpha | 1.10 | |
+| `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
+| `CRIContainerLogRotation` | `true` | Beta| 1.11 | |
+| `CSIBlockVolume` | `false` | Alpha | 1.11 | 1.11 |
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
 | `CSIPersistentVolume` | `true` | Beta | 1.10 | |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
@@ -49,11 +51,13 @@ different Kubernetes components.
 | `DebugContainers` | `false` | Alpha | 1.10 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
-| `DynamicKubeletConfig` | `false` | Alpha | 1.4 | |
+| `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
+| `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
-| `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.8 |
+| `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
+| `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | |
@@ -77,19 +81,23 @@ different Kubernetes components.
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | |
 | `RunAsGroup` | `false` | Alpha | 1.10 | |
-| `ScheduleDaemonSetPods` | `false` | Alpha | 1.10 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
-| `StorageObjectInUseProtection` | `true` | Beta | 1.10 | |
+| `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
+| `StorageObjectInUseProtection` | `true` | GA | 1.11 | |
 | `StreamingProxyRedirects` | `true` | Beta | 1.5 | |
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
-| `SupportIPVSProxyMode` | `true` | Beta | 1.10 | |
+| `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
+| `SupportIPVSProxyMode` | `true` | GA | 1.11 | |
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | |
+| `Sysctls` | `true` | Beta | 1.11 | |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | |
 | `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
 | `TokenRequest` | `false` | Alpha | 1.10 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | |
+| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.11 | |
+| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | |
 
 ## Using a Feature
 
@@ -146,6 +154,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
    for more details.
 - `CPUManager`: Enable container level CPU affinity support, see [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 - `CRIContainerLogRotation`: Enable container log rotation for cri container runtime.
+- `CSIBlockVolume`: Enable external CSI volume drivers to support block storage. See the [`csi` raw block volume support](/docs/concepts/storage/volumes/#csi-raw-block-volume-support) documentation for more details.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
   compatible volume plugin.
@@ -211,6 +220,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `SupportIPVSProxyMode`: Enable providing in-cluster service load balancing using IPVS.
   See [service proxies](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies) for more details.
 - `SupportPodPidsLimit`: Enable the support to limiting PIDs in Pods.
+- `Sysctls`: Enable support for namespaced kernel parameters (sysctls) that can be set for each pod.
+  See [sysctls](/docs/tasks/administer-cluster/sysctl-cluster/) for more details.
 - `TaintBasedEvictions`: Enable evicting pods from nodes based on taints on nodes and tolerations on Pods.
   See [taints and tolerations](/docs/concepts/configuration/taint-and-toleration/) for more details.
 - `TaintNodesByCondition`: Enable automatic tainting nodes based on [node conditions](/docs/concepts/architecture/nodes/#condition).
@@ -219,4 +230,3 @@ Each feature gate is designed for enabling/disabling a specific feature:
   PersistentVolumeClaim (PVC) binding aware of scheduling decisions. It also
   enables the usage of [`local`](/docs/concepts/storage/volumes/#local) volume
   type when used together with the `PersistentLocalVolumes` feature gate.
-

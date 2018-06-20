@@ -6,7 +6,8 @@ reviewers:
 title: Developing Cloud Controller Manager
 ---
 
-**Cloud Controller Manager is an alpha feature in 1.8. In upcoming releases it will
+{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+In upcoming releases, Cloud Controller Manager will
 be the preferred way to integrate Kubernetes with any cloud. This will ensure cloud providers
 can develop their features independently from the core Kubernetes release cycles.**
 

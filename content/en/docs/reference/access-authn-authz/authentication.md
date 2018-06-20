@@ -664,7 +664,7 @@ rules:
 
 ## client-go credential plugins
 
-{{< feature-state for_k8s_version="v1.10" state="alpha" >}}
+{% assign for_k8s_version="v1.11" %}{% include feature-state-beta.md %}
 
 `k8s.io/client-go` and tools using it such as `kubectl` and `kubelet` are able to execute an
 external command to receive user credentials.
@@ -674,8 +674,6 @@ supported by `k8s.io/client-go` (LDAP, Kerberos, OAuth2, SAML, etc.). The plugin
 protocol specific logic, then returns opaque credentials to use. Almost all credential plugin
 use cases require a server side component with support for the [webhook token authenticator](#webhook-token-authentication)
 to interpret the credential format produced by the client plugin.
-
-As of 1.10 only bearer tokens are supported. Support for client certs may be added in a future release.
 
 ### Example use case
 
@@ -707,11 +705,13 @@ users:
       # Command to execute. Required.
       command: "example-client-go-exec-plugin"
 
-      # API version to use when encoding and decoding the ExecCredentials
-      # resource. Required.
+      # API version to use when decoding the ExecCredentials resource. Required.
       #
-      # The API version returned by the plugin MUST match the version encoded.
-      apiVersion: "client.authentication.k8s.io/v1alpha1"
+      # The API version returned by the plugin MUST match the version listed here.
+      #
+      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1alpha1),
+      # set an environment variable or pass an argument to the tool that indicates which version the exec plugin expects.
+      apiVersion: "client.authentication.k8s.io/v1beta1"
 
       # Environment variables to set when executing the plugin. Optional.
       env:
@@ -745,57 +745,23 @@ the binary `/home/jane/bin/example-client-go-exec-plugin` is executed.
     exec:
       # Path relative to the directory of the kubeconfig
       command: "./bin/example-client-go-exec-plugin"
-      apiVersion: "client.authentication.k8s.io/v1alpha1"
+      apiVersion: "client.authentication.k8s.io/v1beta1"
 ```
 
 ### Input and output formats
 
-When executing the command, `k8s.io/client-go` sets the `KUBERNETES_EXEC_INFO` environment
-variable to a JSON serialized [`ExecCredential`](
-https://github.com/kubernetes/client-go/blob/master/pkg/apis/clientauthentication/v1alpha1/types.go)
-resource.
+The executed command prints an `ExecCredential` object to `stdout`. `k8s.io/client-go`
+authenticates against the Kubernetes API using the returned credentials in the `status`.
 
-```
-KUBERNETES_EXEC_INFO='{
-  "apiVersion": "client.authentication.k8s.io/v1alpha1",
-  "kind": "ExecCredential",
-  "spec": {
-    "interactive": true
-  }
-}'
-```
+When run from an interactive session, `stdin` is exposed directly to the plugin. Plugins should use a
+[TTY check](https://godoc.org/golang.org/x/crypto/ssh/terminal#IsTerminal) to determine if it's
+appropriate to prompt a user interactively.
 
-When plugins are executed from an interactive session, `stdin` and `stderr` are directly
-exposed to the plugin so it can prompt the user for input for interactive logins.
-
-When responding to a 401 HTTP status code (indicating invalid credentials), this object will
-include metadata about the response.
+To use bearer token credentials, the plugin returns a token in the status of the `ExecCredential`.
 
 ```json
 {
-  "apiVersion": "client.authentication.k8s.io/v1alpha1",
-  "kind": "ExecCredential",
-  "spec": {
-    "response": {
-      "code": 401,
-      "header": {
-        "WWW-Authenticate": [
-          "Bearer realm=ldap.example.com"
-        ]
-      },
-    },
-    "interactive": true
-  }
-}
-```
-
-The executed command is expected to print an `ExecCredential` to `stdout`. `k8s.io/client-go`
-will then use the returned bearer token in the `status` when authenticating against the
-Kubernetes API.
-
-```json
-{
-  "apiVersion": "client.authentication.k8s.io/v1alpha1",
+  "apiVersion": "client.authentication.k8s.io/v1beta1",
   "kind": "ExecCredential",
   "status": {
     "token": "my-bearer-token"
@@ -803,14 +769,37 @@ Kubernetes API.
 }
 ```
 
-Optionally, this output can include the expiry of the token formatted as a RFC3339 timestamp.
-If an expiry is omitted, the bearer token is cached until the server responds with a 401 HTTP
-status code. Note that this caching is only for the duration of process and therefore the plugin 
-is triggered each time the tool using the plugin is invoked.
+Alternatively, a PEM-encoded client certificate and key can be returned to use TLS client auth.
+If the plugin returns a different certificate and key on a subsequent call, `k8s.io/client-go` 
+will close existing connections with the server to force a new TLS handshake.
+
+If specified, `clientKeyData` and `clientCertificateData` must both must be present.
+
+`clientCertificateData` may contain additional intermediate certificates to send to the server.
 
 ```json
 {
-  "apiVersion": "client.authentication.k8s.io/v1alpha1",
+  "apiVersion": "client.authentication.k8s.io/v1beta1",
+  "kind": "ExecCredential",
+  "status": {
+    "clientCertificateData": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+    "clientKeyData": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----"
+  }
+}
+```
+
+Optionally, the response can include the expiry of the credential formatted as a
+RFC3339 timestamp. Presence or absence of an expiry has the following impact:
+
+- If an expiry is included, the bearer token and TLS credentials are cached until
+  the expiry time is reached, or if the server responds with a 401 HTTP status code,
+  or when the process exits.
+- If an expiry is omitted, the bearer token and TLS credentials are cached until
+  the server responds with a 401 HTTP status code or until the process exits.
+
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1beta1",
   "kind": "ExecCredential",
   "status": {
     "token": "my-bearer-token",

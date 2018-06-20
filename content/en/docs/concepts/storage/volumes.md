@@ -1018,6 +1018,43 @@ spec:
         claimName: my-lamp-site-data
 ```
 
+### Using subPath with expanded environment variables
+
+{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+
+
+`subPath` directory names can also be constructed from Downward API environment variables.
+Before you use this feature, you must enable the `VolumeSubpathEnvExpansion`feature gate.
+
+In this example, a Pod uses `subPath` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+spec:
+  containers:
+  - name: container1
+    env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    image: busybox
+    command: [ "sh", "-c", "while [ true ]; do echo 'Hello'; sleep 10; done | tee -a /logs/hello.txt" ]
+    volumeMounts:
+    - name: workdir1
+      mountPath: /logs
+      subPath: $(POD_NAME)
+  restartPolicy: Never
+  volumes:
+  - name: workdir1
+    hostPath: 
+      path: /var/log/pods
+```
+
 ## Resources
 
 The storage media (Disk, SSD, etc.) of an `emptyDir` volume is determined by the
@@ -1115,6 +1152,26 @@ persistent volume:
   `NodePublishVolume` call. This field is optional, and  may be empty if no
   secret is required. If the secret object contains more than one secret, all
   secrets are passed.
+
+#### CSI raw block volume support
+
+{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+
+Starting with version 1.11, CSI introduced support for raw block volumes, which
+relies on the raw block volume feature that was introduced in a previous version of 
+Kubernetes.  This feature will make it possible for vendors with external CSI drivers to 
+implement raw block volumes support in Kubernetes workloads.
+
+CSI block volume support is feature-gated and turned off by default.  To run CSI with
+block volume support enabled, a cluster administrator must enable the feature for each
+Kubernetes component using the following feature gate flags:
+
+```
+--feature-gates=BlockVolume=true,CSIBlockVolume=true
+```
+
+Learn how to 
+[setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
 ### FlexVolume
 
