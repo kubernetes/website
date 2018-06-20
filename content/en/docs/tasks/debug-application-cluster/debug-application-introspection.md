@@ -11,7 +11,7 @@ your pods. But there are a number of ways to get even more information about you
 
 {{< toc >}}
 
-## Using `kubectl describe pod` to fetch details about pods
+# Using `kubectl describe pod` to fetch details about pods
 
 For this example we'll use a Deployment to create two pods, similar to the earlier example.
 
@@ -101,7 +101,7 @@ Currently the only Condition associated with a Pod is the binary Ready condition
 
 Lastly, you see a log of recent events related to your Pod. The system compresses multiple identical events by indicating the first and last time it was seen and the number of times it was seen. "From" indicates the component that is logging the event, "SubobjectPath" tells you which object (e.g. container within the pod) is being referred to, and "Reason" and "Message" tell you what happened.
 
-## Example: debugging Pending Pods
+# Example: debugging Pending Pods
 
 A common scenario that you can detect using events is when you've created a Pod that won't fit on any node. For example, the Pod might request more resources than are free on any node, or it might specify a label selector that doesn't match any nodes. Let's say we created the previous Deployment with 5 replicas (instead of 2) and requesting 600 millicores instead of 500, on a four-node cluster where each (virtual) machine has 1 CPU. In that case one of the Pods will not be able to schedule. (Note that because of the cluster addon pods such as fluentd, skydns, etc., that run on each node, if we requested 1000 millicores then none of the Pods would be able to schedule.)
 
@@ -172,7 +172,7 @@ To see events from all namespaces, you can use the `--all-namespaces` argument.
 
 In addition to `kubectl describe pod`, another way to get extra information about a pod (beyond what is provided by `kubectl get pod`) is to pass the `-o yaml` output format flag to `kubectl get pod`. This will give you, in YAML format, even more information than `kubectl describe pod`--essentially all of the information the system has about the Pod. Here you will see things like annotations (which are key-value metadata without the label restrictions, that is used internally by Kubernetes system components), restart policy, ports, and volumes.
 
-```yaml
+```shell
 $ kubectl get pod nginx-deployment-1006230814-6winp -o yaml
 apiVersion: v1
 kind: Pod
@@ -244,7 +244,7 @@ status:
   startTime: 2016-03-24T01:39:49Z
 ```
 
-## Example: debugging a down/unreachable node
+# Example: debugging a down/unreachable node
 
 Sometimes when debugging it can be useful to look at the status of a node -- for example, because you've noticed strange behavior of a Pod that's running on the node, or to find out why a Pod won't schedule onto the node. As with Pods, you can use `kubectl describe node` and `kubectl get node -o yaml` to retrieve detailed information about nodes. For example, here's what you'll see if a node is down (disconnected from the network, or kubelet dies and won't restart, etc.). Notice the events that show the node is NotReady, and also notice that the pods are no longer running (they are evicted after five minutes of NotReady status).
 
@@ -350,7 +350,7 @@ status:
     systemUUID: ABE5F6B4-D44B-108B-C46A-24CCE16C8B6E
 ```
 
-## What's next?
+# What's next?
 
 Learn about additional debugging tools, including:
 
