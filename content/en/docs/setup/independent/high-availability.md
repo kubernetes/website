@@ -195,7 +195,7 @@ Copy the admin kubeconfig to the other control plane nodes:
 - `/etc/kubernetes/admin.conf`
 
 In the following example, replace
-`CONTROL_PLANE_IP` with the IP addresses of the other control plane nodes.
+`CONTROL_PLANE_IPS` with the IP addresses of the other control plane nodes.
 
 ```sh
 USER=ubuntu # customizable
@@ -294,11 +294,9 @@ done
       kubeadm alpha phase etcd local --config kubeadm-config.yaml
       ```
 
-      {{< note >}}
-      **Note**: This command causes the etcd cluster to become unavailable for a
+      - This command causes the etcd cluster to become unavailable for a
       brief period, after the node is added to the running cluster, and before the
       new node is joined to the etcd cluster.
-      {{< /note >}}
 
 1.  Deploy the control plane components and mark the node as a master:
 
@@ -471,7 +469,7 @@ Copy these files to your other control plane nodes:
 - `/etc/kubernetes/pki/front-proxy-ca.key`
 
 In the following example, replace the list of
-`CONTROL_PLANE_IP` values with the IP addresses of the other control plane nodes.
+`CONTROL_PLANE_IPS` values with the IP addresses of the other control plane nodes.
 
 ```sh
 USER=ubuntu # customizable
