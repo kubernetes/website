@@ -1,0 +1,10 @@
+{{- $languages := .Site.Home.AllTranslations }}
+<ul>
+    {{- range $languages }}
+    <li>
+        <a href="{{ .Permalink }}">
+            {{ .Language.LanguageName }}
+        </a>
+    </li>
+    {{- end }}
+</ul>
