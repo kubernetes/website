@@ -3,7 +3,7 @@ reviewers:
 - chenopis
 layout: docsportal
 css: /css/style_user_journeys.css
-js: https://use.fontawesome.com/4bcc658a89.js, https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js, https://cloud.google.com/js/embed.min.js
+js: https://use.fontawesome.com/4bcc658a89.js, https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js, https://katacoda.com/embed.js
 title: Foundational
 track: "USERS › APPLICATION DEVELOPER › FOUNDATIONAL"
 content_template: templates/user-journey-content
@@ -15,11 +15,8 @@ Try our virtual terminal to create a containerized application with an existing 
 Minikube is a lightweight Kubernetes implementation that creates a Virtual Machine on your local machine and deploys a simple cluster containing only one node.  
 For the purposes of this tutorial, we have installed and preconfigured Minikube on the virtual terminal.
 
+<div id="my-panel" data-katacoda-env="bash" data-katacoda-ui="panel"></div>
 
-<div id="terminal_simulator"
-  data-embed="kt-app"
-  data-url="https://www.gstatic.com/cloud-site-ux/kubernetes-terminal.min.html">
-</div>
 
 {{< tabs name="test_drive_k8s" >}}
 {{% tab name="1. Create a cluster" %}}
@@ -31,26 +28,31 @@ For the purposes of this tutorial, we have installed and preconfigured Minikube 
       ```
 
 
-
 2. Start the Minikube cluster:
 
     ```
     minikube start
     ```
+
 3. Verify that the command line interface, kubectl is installed:
+
 
   ```
   kubectl version
   ```
+
 
 {{% /tab %}}
 {{% tab name="2. Deploy" %}}
 
 1. View the cluster details
 
+
     ```
     kubectl cluster-info
     ```
+
+
 2. View the nodes in the cluster that can be used to host your application:
 
   ```
