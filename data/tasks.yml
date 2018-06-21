@@ -135,7 +135,6 @@ toc:
     - docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-7.md
     - docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-8.md
     - docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-9.md
-    - docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-11.md
     - docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-ha.md
   - title: Manage Memory, CPU, and API Resources
     section:
