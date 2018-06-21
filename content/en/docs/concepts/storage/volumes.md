@@ -646,8 +646,15 @@ Currently, the following types of volume sources can be projected:
 - [`secret`](#secret)
 - [`downwardAPI`](#downwardapi)
 - [`configMap`](#configmap)
+- `serviceAccountToken`
 
-All sources are required to be in the same namespace as the Pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
+All sources are required to be in the same namespace as the Pod. For more details,
+see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
+
+The projection of service account tokens is a feature introduced in Kubernetes
+1.11. To enable this feature, you need to explicitly set the `TokenRequestProjection`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+True.
 
 #### Example Pod with a secret, a downward API, and a configmap.
 
@@ -729,6 +736,45 @@ parameters are nearly the same with two exceptions:
 * The `defaultMode` can only be specified at the projected level and not for each
   volume source. However, as illustrated above, you can explicitly set the `mode`
   for each individual projection.
+
+When the `TokenRequestProjection` feature is enabled, you can inject the token
+for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
+into a Pod at a specified path. Below is an example:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sa-token-test
+spec:
+  containers:
+  - name: container-test
+    image: busybox
+    volumeMounts:
+    - name: token-vol
+      mountPath: "/sevice-account"
+      readOnly: true
+  volumes:
+  - name: token-vol
+    projected:
+      sources:
+      - serviceAccountToken:
+          audience: api
+          expirationSeconds: 3600
+          path: token
+```
+
+The example Pod has a projected volume containing the injected service account
+token. This token can be used by Pod containers to access the Kubernetes API
+server, for example. The `audience` field contains the intended audience of the
+token. A recipient of the token must identify itself with an identifier specified
+in the audience of the token, and otherwise should reject the token. This field
+is optional and it defaults to the identifier of the API server.
+
+The `expirationSeconds` is the expected duration of validity of the service account
+token. It defaults to 1 hour and must be at least 10 minutes (600 seconds).
+The `path` field specifies a relative path to the mount point of the projected
+volume.
 
 {{< note >}}
 **Note:** A Container using a projected volume source as a [subPath](#using-subpath) volume mount will not
