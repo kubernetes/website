@@ -3,7 +3,7 @@ reviewers:
 - chenopis
 layout: docsportal
 css: /css/style_user_journeys.css
-js: https://use.fontawesome.com/4bcc658a89.js, https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js, https://katacoda.com/embed.js
+js: https://use.fontawesome.com/4bcc658a89.js, https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js
 title: Foundational
 track: "USERS › APPLICATION DEVELOPER › FOUNDATIONAL"
 content_template: templates/user-journey-content
@@ -17,6 +17,7 @@ For the purposes of this tutorial, we have installed and preconfigured Minikube 
 
 
 <div id="my-panel" data-katacoda-ondemand="true" data-katacoda-env="minikube" data-katacoda-command="minikube version" data-katacoda-ui="panel"></div>
+<script src="https://katacoda.com/embed.js"></script>
 <button onclick="window.katacoda.init(); this.disabled=true;">Launch Katacoda</button>
 
 
