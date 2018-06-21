@@ -55,7 +55,9 @@ is an alpha feature that supports these services:
 - Amazon EBS
 - Google Persistent Disk
 
-To enable dynamic volume limits, use the `AttachVolumeLimit` flag.
+To enable dynamic volume limits, set the `AttachVolumeLimit`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to True.
 
 When the dynamic volume limits feature is enabled, Kubernetes automatically
 determines the node type and supports the appropriate number of attachable

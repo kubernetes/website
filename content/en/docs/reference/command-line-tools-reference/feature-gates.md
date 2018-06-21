@@ -35,6 +35,7 @@ different Kubernetes components.
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
+| `AttachVolumeLimit` | `false` | Alpha | 1.11 | |
 | `BlockVolume` | `false` | Alpha | 1.9 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
@@ -151,6 +152,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
 - `AppArmor`: Enable AppArmor based mandatory access control on Linux nodes when using Docker.
    See [AppArmor Tutorial](/docs/tutorials/clusters/apparmor/) for more details.
+- `AttachVolumeLimit`: Enable volume plugins to report limits on number of volumes
+  that can be attached to a node.
+   See [dynamic volume limits](/docs/concepts/storage/storage-limits/#dynamic-volume-limits) for more details.
 - `BlockVolume`: Enable the definition and consumption of raw block devices in Pods.
    See [Raw Block Volume Support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
    for more details.
