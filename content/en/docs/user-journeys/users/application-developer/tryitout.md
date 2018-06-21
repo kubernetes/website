@@ -15,7 +15,8 @@ Try our virtual terminal to create a containerized application with an existing 
 Minikube is a lightweight Kubernetes implementation that creates a Virtual Machine on your local machine and deploys a simple cluster containing only one node.  
 For the purposes of this tutorial, we have installed and preconfigured Minikube on the virtual terminal.
 
-<div id="my-panel" data-katacoda-env="kubernetes" data-katacoda-ui="panel"></div>
+
+<div id="my-panel" data-katacoda-env="minikube" data-katacoda-command="minikube version" data-katacoda-ui="panel"></div>
 
 
 {{< tabs name="test_drive_k8s" >}}
