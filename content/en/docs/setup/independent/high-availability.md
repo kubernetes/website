@@ -244,14 +244,14 @@ Please select one of the tabs to see installation instructions for the respectiv
      LimitNOFILE=40000
      TimeoutStartSec=0
 
-     ExecStart=/usr/local/bin/etcd --name <name> --data-dir /var/lib/etcd --listen-client-urls http://localhost:2379 --advertise-client-urls http://localhost:2379 --listen-peer-urls http://localhost:2380 --initial-advertise-peer-urls http://localhost:2380 --cert-file=/etc/kubernetes/pki/etcd/server.pem --key-file=/etc/kubernetes/pki/etcd/server-key.pem --client-cert-auth --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem --peer-cert-file=/etc/kubernetes/pki/etcd/peer.pem --peer-key-file=/etc/kubernetes/pki/etcd/peer-key.pem --peer-client-cert-auth --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem --initial-cluster <etcd0>=https://<etcd0-ip-address>:2380,<etcd1>=https://<etcd1-ip-address>:2380,<etcd2>=https://<etcd2-ip-address>:2380 --initial-cluster-token my-etcd-token --initial-cluster-state new
+     ExecStart=/usr/local/bin/etcd --name <name> --data-dir /var/lib/etcd --listen-client-urls https://<etcd-listen-ip>:2379 --advertise-client-urls https://<etcd-listen-ip>:2379 --listen-peer-urls https://<etcd-listen-ip>:2380 --initial-advertise-peer-urls https://<etcd-listen-ip>:2380 --cert-file=/etc/kubernetes/pki/etcd/server.pem --key-file=/etc/kubernetes/pki/etcd/server-key.pem --client-cert-auth --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem --peer-cert-file=/etc/kubernetes/pki/etcd/peer.pem --peer-key-file=/etc/kubernetes/pki/etcd/peer-key.pem --peer-client-cert-auth --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.pem --initial-cluster <etcd0>=https://<etcd0-ip-address>:2380,<etcd1>=https://<etcd1-ip-address>:2380,<etcd2>=https://<etcd2-ip-address>:2380 --initial-cluster-token my-etcd-token --initial-cluster-state new
 
      [Install]
      WantedBy=multi-user.target
      EOF
      ```
 
-     Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses. Replace `<name>` with the name of this etcd member. Modify the values of `--listen-client-urls`, `--advertise-client-urls`, `--listen-peer-urls` and `--initial-advertise-peer-urls` if needed. Replace `<etcd0>`, `<etcd1>` and `<etcd2>` with real hostnames of each machine. These machines must be able to reach every other using DNS or make sure that records are added to `/etc/hosts`.
+     Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses. Replace `<name>` with the name of this etcd member. Replace `<etcd-listen-ip>` with the IPv4 address of this etcd node. Replace `<etcd0>`, `<etcd1>` and `<etcd2>` with real hostnames of each machine. These machines must be able to reach each other using DNS or make sure that records are added to `/etc/hosts`.
 
 1. Finally, launch etcd:
      ```bash
@@ -285,10 +285,10 @@ Run the following to generate the manifest file:
         - command:
           - etcd --name <name> 
           - --data-dir /var/lib/etcd 
-          - --listen-client-urls http://localhost:2379 
-          - --advertise-client-urls http://localhost:2379 
-          - --listen-peer-urls http://localhost:2380 
-          - --initial-advertise-peer-urls http://localhost:2380 
+          - --listen-client-urls https://<etcd-listen-ip>:2379 
+          - --advertise-client-urls https://<etcd-listen-ip>:2379 
+          - --listen-peer-urls https://<etcd-listen-ip>:2380 
+          - --initial-advertise-peer-urls https://<etcd-listen-ip>:2380 
           - --cert-file=/certs/server.pem 
           - --key-file=/certs/server-key.pem 
           - --client-cert-auth 
@@ -340,6 +340,7 @@ Run the following to generate the manifest file:
 
 Make sure you replace:
 * `<name>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
+* `<etcd-listen-ip>` with the public IPv4 of the node you're running on
 * `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the public IPv4s of the other machines that host etcd.
 {{% /tab %}}
 {{< /tabs >}}
