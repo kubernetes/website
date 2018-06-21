@@ -16,9 +16,9 @@ Minikube is a lightweight Kubernetes implementation that creates a Virtual Machi
 For the purposes of this tutorial, we have installed and preconfigured Minikube on the virtual terminal.
 
 
-<div id="my-panel" data-katacoda-ondemand="true" data-katacoda-env="minikube" data-katacoda-command="minikube version" data-katacoda-ui="panel"></div>
+<div id="my-panel" data-katacoda-ondemand="true" data-katacoda-env="minikube" data-katacoda-command="minikube version; minikube start" data-katacoda-ui="panel"></div>
 <script src="https://katacoda.com/embed.js"></script>
-<button onclick="window.katacoda.init(); this.disabled=true;">Launch Katacoda</button>
+<button class="g-btn dark-outline" onclick="window.katacoda.init(); this.disabled=true;">Launch Katacoda</button>
 
 
 {{< tabs name="test_drive_k8s" >}}
