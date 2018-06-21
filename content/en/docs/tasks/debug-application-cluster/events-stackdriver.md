@@ -35,9 +35,9 @@ of the potential inaccuracy.
 
 {{< toc >}}
 
-## Deployment
+# Deployment
 
-### Google Kubernetes Engine
+## Google Kubernetes Engine
 
 In Google Kubernetes Engine, if cloud logging is enabled, event exporter
 is deployed by default to the clusters with master running version 1.7 and
@@ -48,7 +48,7 @@ your events to be exported, make sure you have enough resources to facilitate
 the event exporter pod. This may vary depending on the workload, but on
 average, approximately 100Mb RAM and 100m CPU is needed.
 
-### Deploying to the Existing Cluster
+## Deploying to the Existing Cluster
 
 Deploy event exporter to your cluster using the following command:
 
@@ -65,7 +65,7 @@ requests. As mentioned earlier, 100Mb RAM and 100m CPU should be enough.
 
 {{< code file="event-exporter-deploy.yaml" >}}
 
-## User Guide
+# User Guide
 
 Events are exported to the `GKE Cluster` resource in Stackdriver Logging.
 You can find them by selecting an appropriate option from a drop-down menu

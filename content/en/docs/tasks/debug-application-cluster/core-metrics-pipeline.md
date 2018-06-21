@@ -10,7 +10,7 @@ are available in Kubernetes through the Metrics API. These metrics can be either
 by user, for example by using `kubectl top` command, or used by a controller in the cluster, e.g.
 Horizontal Pod Autoscaler, to make decisions.
 
-## The Metrics API
+# The Metrics API
 
 Through the Metrics API you can get the amount of resource currently used
 by a given node or a given pod. This API doesn't store the metric values,
@@ -27,7 +27,7 @@ repository. You can find more information about the API there.
 
 **Note:** The API requires metrics server to be deployed in the cluster. Otherwise it will be not available.
 
-## Metrics Server
+# Metrics Server
 
 [Metrics Server](https://github.com/kubernetes-incubator/metrics-server) is a cluster-wide aggregator of resource usage data.
 Starting from Kubernetes 1.8 it's deployed by default in clusters created by `kube-up.sh` script

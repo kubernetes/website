@@ -47,7 +47,7 @@ server because some context required for auditing is stored for each request.
 Additionally, memory consumption depends on the audit logging configuration.
 {{< /note >}}
 
-## Audit Policy
+# Audit Policy
 
 Audit policy defines rules about what events should be recorded and what data
 they should include. The audit policy object structure is defined in the
@@ -85,7 +85,7 @@ rules:
 The [audit profile used by GCE][gce-audit-profile] should be used as reference by
 admins constructing their own audit profiles.
 
-## Audit backends
+# Audit backends
 
 Audit backends persist audit events to an external storage.
 [Kube-apiserver][kube-apiserver] out of the box provides two backends:
@@ -115,7 +115,7 @@ request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`.
 ]
 ```
 
-### Log backend
+## Log backend
 
 Log backend writes audit events to a file in JSON format. You can configure
 log audit backend using the following [kube-apiserver][kube-apiserver] flags:
@@ -126,7 +126,7 @@ log audit backend using the following [kube-apiserver][kube-apiserver] flags:
 - `--audit-log-maxbackup` defines the maximum number of audit log files to retain
 - `--audit-log-maxsize` defines the maximum size in megabytes of the audit log file before it gets rotated
 
-### Webhook backend
+## Webhook backend
 
 Webhook backend sends audit events to a remote API, which is assumed to be the
 same API as [kube-apiserver][kube-apiserver] exposes. You can configure webhook
@@ -140,7 +140,7 @@ audit backend using the following kube-apiserver flags:
 The webhook config file uses the kubeconfig format to specify the remote address of
 the service and credentials used to connect to it.
 
-### Batching
+## Batching
 
 Both log and webhook backends support batching. Using webhook as an example, here's the list of
 available flags. To get the same flag for log backend, replace `webhook` with `log` in the flag
@@ -163,7 +163,7 @@ The following flags are used only in the `batch` mode.
 - `--audit-webhook-batch-throttle-burst` defines the maximum number of batches generated at the same
   moment if the allowed QPS was underutilized previously.
 
-#### Parameter tuning
+### Parameter tuning
 
 Parameters should be set to accommodate the load on the apiserver.
 
@@ -182,7 +182,7 @@ and in the logs to monitor the state of the auditing subsystem.
 - `apiserver_audit_error_total` metric contains the total number of events dropped due to an error
   during exporting.
 
-## Multi-cluster setup
+# Multi-cluster setup
 
 If you're extending the Kubernetes API with the [aggregation layer][kube-aggregator], you can also
 set up audit logging for the aggregated apiserver. To do this, pass the configuration options in the
@@ -190,9 +190,9 @@ same format as described above to the aggregated apiserver and set up the log in
 to pick up audit logs. Different apiservers can have different audit configurations and different
 audit policies.
 
-## Log Collector Examples
+# Log Collector Examples
 
-### Use fluentd to collect and distribute audit events from log file
+## Use fluentd to collect and distribute audit events from log file
 
 [Fluentd][fluentd] is an open source data collector for unified logging layer.
 In this example, we will use fluentd to split audit events by different namespaces.
@@ -262,7 +262,7 @@ In this example, we will use fluentd to split audit events by different namespac
 
 1. check audits for different namespaces in /var/log/audit-*.log
 
-### Use logstash to collect and distribute audit events from webhook backend
+## Use logstash to collect and distribute audit events from webhook backend
 
 [Logstash][logstash] is an open source, server-side data processing tool. In this example,
 we will use logstash to collect audit events from webhook backend, and save events of
@@ -339,7 +339,7 @@ Note that in addition to file output plugin, logstash has a variety of outputs t
 let users route data where they want. For example, users can emit audit events to elasticsearch
 plugin which supports full-text search and analytics.
 
-## Legacy Audit
+# Legacy Audit
 
 __Note:__ Legacy Audit is deprecated and is disabled by default since 1.8 and 
 will be removed in 1.12. To fallback to this legacy audit, disable the advanced
@@ -363,7 +363,7 @@ Example output for `admin` user listing pods in the `default` namespace:
 2017-03-21T03:57:09.108403639-04:00 AUDIT: id="c939d2a7-1c37-4ef1-b2f7-4ba9b1e43b53" response="200"
 ```
 
-### Configuration
+## Configuration
 
 [Kube-apiserver][kube-apiserver] provides the following options which are responsible
 for configuring where and how audit logs are handled:

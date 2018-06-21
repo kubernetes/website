@@ -6,7 +6,7 @@ title: Debug Pods and Replication Controllers
 
 {{< toc >}}
 
-## Debugging pods
+# Debugging pods
 
 The first step in debugging a pod is taking a look at it. Check the current
 state of the pod and recent events with the following command:
@@ -18,7 +18,7 @@ there been recent restarts?
 
 Continue debugging depending on the state of the pods.
 
-### My pod stays pending
+## My pod stays pending
 
 If a pod is stuck in `Pending` it means that it can not be scheduled onto a
 node. Generally this is because there are insufficient resources of one type or
@@ -26,7 +26,7 @@ another that prevent scheduling. Look at the output of the `kubectl describe
 ...` command above. There should be messages from the scheduler about why it
 can not schedule your pod. Reasons include:
 
-#### Insufficient resources
+### Insufficient resources
 
 You may have exhausted the supply of CPU or Memory in your cluster. In this
 case you can try several things:
@@ -52,14 +52,14 @@ case you can try several things:
   resources that can be consumed. If used in conjunction with namespaces, it can
   prevent one team from hogging all the resources.
 
-#### Using hostPort
+### Using hostPort
 
 When you bind a pod to a `hostPort` there are a limited number of places that
 the pod can be scheduled. In most cases, `hostPort` is unnecessary; try using a
 service object to expose your pod. If you do require `hostPort` then you can
 only schedule as many pods as there are nodes in your container cluster.
 
-### My pod stays waiting
+## My pod stays waiting
 
 If a pod is stuck in the `Waiting` state, then it has been scheduled to a
 worker node, but it can't run on that machine. Again, the information from
@@ -71,7 +71,7 @@ worker node, but it can't run on that machine. Again, the information from
 * Run a manual `docker pull <image>` on your machine to see if the image can be
   pulled.
 
-### My pod is crashing or otherwise unhealthy
+## My pod is crashing or otherwise unhealthy
 
 First, take a look at the logs of the current container:
 
@@ -96,7 +96,7 @@ As an example, to look at the logs from a running Cassandra pod, you might run:
 If none of these approaches work, you can find the host machine that the pod is
 running on and SSH into that host.
 
-## Debugging Replication Controllers
+# Debugging Replication Controllers
 
 Replication controllers are fairly straightforward. They can either create pods
 or they can't. If they can't create pods, then please refer to the
