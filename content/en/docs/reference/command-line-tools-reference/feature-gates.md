@@ -97,6 +97,7 @@ different Kubernetes components.
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | |
 | `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
 | `TokenRequest` | `false` | Alpha | 1.10 | |
+| `TokenRequestProjection` | `false` | Alpha | 1.11 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | |
 | `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.11 | |
@@ -237,6 +238,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   See [taints and tolerations](/docs/concepts/configuration/taint-and-toleration/) for more details.
 - `TaintNodesByCondition`: Enable automatic tainting nodes based on [node conditions](/docs/concepts/architecture/nodes/#condition).
 - `TokenRequest`: Enable the `TokenRequest` endpoint on service account resources.
+- `TokenRequestProjection`: Enable the injection of service account tokens into
+  a Pod through the [`projected` volume](/docs/concepts/storage/volumes/#projected).
 - `VolumeScheduling`: Enable volume topology aware scheduling and make the
   PersistentVolumeClaim (PVC) binding aware of scheduling decisions. It also
   enables the usage of [`local`](/docs/concepts/storage/volumes/#local) volume
