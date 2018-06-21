@@ -4,16 +4,20 @@ reviewers:
 - lavalamp
 - thockin
 title: Kubernetes Deprecation Policy
+content_template: templates/concept
 weight: 40
 ---
 
+{{% capture overview %}}
+This document details the deprecation policy for various facets of the system.
+{{% /capture %}}
+
+{{% capture body %}}
 Kubernetes is a large system with many components and many contributors.  As
 with any such software, the feature set naturally evolves over time, and
 sometimes a feature may need to be removed. This could include an API, a flag,
 or even an entire feature. To avoid breaking existing users, Kubernetes follows
 a deprecation policy for aspects of the system that are slated to be removed.
-
-This document details the deprecation policy for various facets of the system.
 
 ## Deprecating parts of the API
 
@@ -52,9 +56,11 @@ Once an API element has been added to an API group at a particular version, it
 can not be removed from that version or have its behavior significantly
 changed, regardless of track.
 
-Note: For historical reasons, there are 2 "monolithic" API groups - "core" (no
+{{< note >}}
+**Note:** For historical reasons, there are 2 "monolithic" API groups - "core" (no
 group name) and "extensions".  Resources will incrementally be moved from these
 legacy API groups into more domain-specific API groups.
+{{< /note >}}
 
 **Rule #2: API objects must be able to round-trip between API versions in a given
 release without information loss, with the exception of whole REST resources
@@ -83,11 +89,13 @@ no less than:**
 
 This covers the maximum supported version skew of 2 releases.
 
-NOTE: Until [#52185](https://github.com/kubernetes/kubernetes/issues/52185) is
+{{< note >}}
+**Note:** Until [#52185](https://github.com/kubernetes/kubernetes/issues/52185) is
 resolved, no API versions that have been persisted to storage may be removed. 
 Serving REST endpoints for those versions may be disabled (subject to the 
 deprecation timelines in this document), but the API server must remain capable 
 of decoding/converting previously persisted data from storage.
+{{< /note >}}
 
 **Rule #4b: The "preferred" API version and the "storage version" for a given
 group may not advance until after a release has been made that supports both the
@@ -367,3 +375,4 @@ leaders to find the best solutions for those specific cases, always bearing in
 mind that Kubernetes is committed to being a stable system that, as much as
 possible, never breaks users. Exceptions will always be announced in all
 relevant release notes.
+{{% /capture %}}
