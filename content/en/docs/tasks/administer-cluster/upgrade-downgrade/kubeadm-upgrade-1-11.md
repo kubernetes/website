@@ -238,15 +238,11 @@ For each host (referred to as `$HOST` below) in your cluster, upgrade `kubelet` 
 
     {{< tabs name="k8s_install" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    ```bash
     apt-get update
     apt-get upgrade -y kubelet kubeadm
-    ```
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    ```bash
     yum upgrade -y kubelet kubedam
-    ```
     {{% /tab %}}
     {{< /tabs >}}
 
