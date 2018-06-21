@@ -74,6 +74,7 @@ different Kubernetes components.
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | |
 | `PodPriority` | `false` | Alpha | 1.8 | |
+| `PodReadinessGates` | `false` | Alpha | 1.11 | |
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `ReadOnlyAPIDataVolumes` | `true` | Deprecated | 1.10 | |
@@ -195,6 +196,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their [priorities](/docs/concepts/configuration/pod-priority-preemption/).
+- `PodReadinessGates`: Enable the setting of `PodReadinessGate` field for extending
+  Pod readiness evaluation.
+  For more details, please see [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate).
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
   More details can be found [here](/docs/tasks/administer-cluster/pvc-protection/).
