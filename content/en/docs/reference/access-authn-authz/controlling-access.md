@@ -4,9 +4,15 @@ reviewers:
 - erictune
 - lavalamp
 title: Controlling Access to the Kubernetes API
+content_template: templates/concept
 weight: 5
 ---
 
+{{% capture overview %}}
+This page provides an overview of controlling access to the Kubernetes API.
+{{% /capture %}}
+
+{{% capture body %}}
 Users [access the API](/docs/tasks/access-application-cluster/access-cluster/) using `kubectl`,
 client libraries, or by making REST requests.  Both human users and
 [Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/) can be
@@ -52,7 +58,7 @@ is available to subsequent steps to use in their decisions.  Some authenticators
 also provide the group memberships of the user, while other authenticators
 do not.
 
-While Kubernetes uses "usernames" for access control decisions and in request logging,
+While Kubernetes uses `usernames` for access control decisions and in request logging,
 it does not have a `user` object nor does it store usernames or other information about
 users in its object store.
 
@@ -156,4 +162,4 @@ When the cluster is created by `kube-up.sh`, on Google Compute Engine (GCE),
 and on several other cloud providers, the API server serves on port 443.  On
 GCE, a firewall rule is configured on the project to allow external HTTPS
 access to the API. Other cluster setup methods vary.
-
+{{% /capture %}}

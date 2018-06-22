@@ -6,11 +6,15 @@ reviewers:
 - deads2k
 - liggitt
 title: Authenticating
+content_template: templates/concept
 weight: 10
 ---
 
-{{< toc >}}
+{{% capture overview %}}
+This page provides an overview of authenticating.
+{{% /capture %}}
 
+{{% capture body %}}
 ## Users in Kubernetes
 
 All Kubernetes clusters have two categories of users: service accounts managed
@@ -90,12 +94,15 @@ The API server reads bearer tokens from a file when given the `--token-auth-file
 changed without restarting API server.
 
 The token file is a csv file with a minimum of 3 columns: token, user name, user uid,
-followed by optional group names. Note, if you have more than one group the column must be
-double quoted e.g.
+followed by optional group names.
+
+{{< note >}}
+**Note:** If you have more than one group the column must be double quoted e.g.
 
 ```conf
 token,user,uid,"group1,group2,group3"
 ```
+{{< /note >}}
 
 #### Putting a Bearer Token in a Request
 
@@ -182,9 +189,11 @@ mounted into pods at well-known locations, and allow in-cluster processes to
 talk to the API server. Accounts may be explicitly associated with pods using the
 `serviceAccountName` field of a `PodSpec`.
 
-NOTE: `serviceAccountName` is usually omitted because this is done automatically.
+{{< note >}}
+**Note:** `serviceAccountName` is usually omitted because this is done automatically.
+{{< /note >}}
 
-```
+```yaml
 apiVersion: apps/v1 # this apiVersion is relevant as of Kubernetes 1.9
 kind: Deployment
 metadata:
@@ -236,7 +245,9 @@ metadata:
 type: kubernetes.io/service-account-token
 ```
 
-Note: values are base64 encoded because secrets are always base64 encoded.
+{{< note >}}
+**Note:** Values are base64 encoded because secrets are always base64 encoded.
+{{< /note >}}
 
 The signed JWT can be used as a bearer token to authenticate as the given service
 account. See [above](#putting-a-bearer-token-in-a-request) for how the token is included
@@ -393,8 +404,8 @@ Webhook authentication is a hook for verifying bearer tokens.
 * `--authentication-token-webhook-cache-ttl` how long to cache authentication decisions. Defaults to two minutes.
 
 The configuration file uses the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-file format. Within the file "users" refers to the API server webhook and
-"clusters" refers to the remote service. An example would be:
+file format. Within the file `users` refers to the API server webhook and
+`clusters` refers to the remote service. An example would be:
 
 ```yaml
 # clusters refers to the remote service.
@@ -506,7 +517,7 @@ For example, with this configuration:
 
 this request:
 
-```
+```http
 GET / HTTP/1.1
 X-Remote-User: fido
 X-Remote-Group: dogs
@@ -694,7 +705,7 @@ To authenticate against the API:
 
 ### Configuration
 
-Credential plugins are configured through [`kubectl` config files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+Credential plugins are configured through [kubectl config files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 as part of the user fields.
 
 ```yaml
@@ -818,3 +829,4 @@ is triggered each time the tool using the plugin is invoked.
   }
 }
 ```
+{{% /capture %}}
