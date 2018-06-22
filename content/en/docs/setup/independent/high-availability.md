@@ -251,7 +251,7 @@ Please select one of the tabs to see installation instructions for the respectiv
      EOF
      ```
 
-     Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses. Replace `<name>` with the name of this etcd member. Replace `<etcd-listen-ip>` with the IPv4 address of this etcd node. Replace `<etcd0>`, `<etcd1>` and `<etcd2>` with real hostnames of each machine. These machines must be able to reach each other using DNS or make sure that records are added to `/etc/hosts`.
+     Make sure you replace `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the appropriate IPv4 addresses. Replace `<name>` with the name of this etcd member. Replace `<etcd-listen-ip>` with the IPv4 address of this etcd node. Replace `<etcd0>`, `<etcd1>` and `<etcd2>` with real hostnames of each machine. These machines must be able to reach each other using DNS or by adding records to `/etc/hosts`.
 
 1. Finally, launch etcd:
      ```bash
@@ -339,9 +339,11 @@ Run the following to generate the manifest file:
       EOF
 
 Make sure you replace:
-* `<name>` with the name of the node you're running on (e.g. `etcd0`, `etcd1` or `etcd2`)
-* `<etcd-listen-ip>` with the public IPv4 of the node you're running on
+
+* `<name>` with the name of the node you're running on (for example, `etcd0`, `etcd1` or `etcd2`)
+* `<etcd-listen-ip>` with the public IPv4 address of the node you're running on
 * `<etcd0-ip-address>`, `<etcd1-ip-address>` and `<etcd2-ip-address>` with the public IPv4s of the other machines that host etcd.
+
 {{% /tab %}}
 {{< /tabs >}}
 
