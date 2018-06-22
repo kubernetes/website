@@ -403,7 +403,7 @@ As an example we outline a simple setup based on keepalived. Depending on enviro
      }
      ```
 
-    In the section `vrrp_instance VI_1`, change few lines depending on your setup:
+    In the section `vrrp_instance VI_1`, change the following lines depending on your setup:
 
     * `state` is either `MASTER` (on the first master nodes) or `BACKUP` (the other master nodes).
     * `interface` is the name of an existing public interface to bind the virtual IP to (usually the primary interface).
