@@ -4,12 +4,16 @@ reviewers:
 - deads2k
 - liggitt
 title: Using RBAC Authorization
+content_template: templates/concept
 weight: 70
 ---
 
-{{< toc >}}
+{{% capture overview %}}
+Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise.
+{{% /capture %}}
 
-Role-Based Access Control ("RBAC") uses the "rbac.authorization.k8s.io" API group 
+{{% capture body %}}
+`RBAC` uses the `rbac.authorization.k8s.io` API group
 to drive authorization decisions, allowing admins to dynamically configure policies
 through the Kubernetes API.
 
@@ -150,7 +154,7 @@ Most resources are represented by a string representation of their name, such as
 appears in the URL for the relevant API endpoint. However, some Kubernetes APIs involve a
 "subresource", such as the logs for a pod. The URL for the pods logs endpoint is:
 
-```
+```http
 GET /api/v1/namespaces/{namespace}/pods/{name}/log
 ```
 
@@ -332,7 +336,7 @@ Subjects can be groups, users or service accounts.
 Users are represented by strings.  These can be plain usernames, like
 "alice", email-style names, like "bob@example.com", or numeric IDs
 represented as a string.  It is up to the Kubernetes admin to configure
-the [authentication modules](/docs/admin/authentication/) to produce
+the [authentication modules](/docs/reference/access-authn-authz/authentication/) to produce
 usernames in the desired format.  The RBAC authorization system does
 not require any particular format.  However, the prefix `system:` is
 reserved for Kubernetes system use, and so the admin should ensure
@@ -721,11 +725,15 @@ Grants a `Role` or `ClusterRole` within a specific namespace. Examples:
 
 * Grant the `admin` `ClusterRole` to a user named "bob" in the namespace "acme":
 
-    `kubectl create rolebinding bob-admin-binding --clusterrole=admin --user=bob --namespace=acme`
+    ```
+    kubectl create rolebinding bob-admin-binding --clusterrole=admin --user=bob --namespace=acme
+    ```
 
 * Grant the `view` `ClusterRole` to a service account named "myapp" in the namespace "acme":
 
-    `kubectl create rolebinding myapp-view-binding --clusterrole=view --serviceaccount=acme:myapp --namespace=acme`
+    ```
+    kubectl create rolebinding myapp-view-binding --clusterrole=view --serviceaccount=acme:myapp --namespace=acme
+    ```
 
 ### `kubectl create clusterrolebinding`
 
@@ -733,22 +741,28 @@ Grants a `ClusterRole` across the entire cluster, including all namespaces. Exam
 
 * Grant the `cluster-admin` `ClusterRole` to a user named "root" across the entire cluster:
 
-    `kubectl create clusterrolebinding root-cluster-admin-binding --clusterrole=cluster-admin --user=root`
+    ```
+    kubectl create clusterrolebinding root-cluster-admin-binding --clusterrole=cluster-admin --user=root
+    ```
 
 * Grant the `system:node` `ClusterRole` to a user named "kubelet" across the entire cluster:
 
-    `kubectl create clusterrolebinding kubelet-node-binding --clusterrole=system:node --user=kubelet`
+    ```
+    kubectl create clusterrolebinding kubelet-node-binding --clusterrole=system:node --user=kubelet
+    ```
 
 * Grant the `view` `ClusterRole` to a service account named "myapp" in the namespace "acme" across the entire cluster:
 
-    `kubectl create clusterrolebinding myapp-view-binding --clusterrole=view --serviceaccount=acme:myapp`
+    ```
+    kubectl create clusterrolebinding myapp-view-binding --clusterrole=view --serviceaccount=acme:myapp
+    ```
 
 See the CLI help for detailed usage.
 
 ## Service Account Permissions
 
 Default RBAC policies grant scoped permissions to control-plane components, nodes,
-and controllers, but grant *no permissions* to service accounts outside the "kube-system" namespace
+and controllers, but grant *no permissions* to service accounts outside the `kube-system` namespace
 (beyond discovery permissions given to all authenticated users).
 
 This allows you to grant particular roles to particular service accounts as needed.
@@ -775,7 +789,7 @@ In order from most secure to least secure, the approaches are:
 
     If an application does not specify a `serviceAccountName`, it uses the "default" service account.
 
-    {{< note >}}**NOTE:** Permissions given to the "default" service
+    {{< note >}}**Note:** Permissions given to the "default" service
     account are available to any pod in the namespace that does not
     specify a `serviceAccountName`.{{< /note >}}
 
@@ -788,10 +802,10 @@ In order from most secure to least secure, the approaches are:
       --namespace=my-namespace
     ```
 
-    Many [add-ons](/docs/concepts/cluster-administration/addons/) currently run as the "default" service account in the "kube-system" namespace.
-    To allow those add-ons to run with super-user access, grant cluster-admin permissions to the "default" service account in the "kube-system" namespace.
+    Many [add-ons](/docs/concepts/cluster-administration/addons/) currently run as the "default" service account in the `kube-system` namespace.
+    To allow those add-ons to run with super-user access, grant cluster-admin permissions to the "default" service account in the `kube-system` namespace.
 
-    {{< note >}}**NOTE:** Enabling this means the "kube-system"
+    {{< note >}}**Note:** Enabling this means the `kube-system`
     namespace contains secrets that grant super-user access to the
     API.{{< /note >}}
 
@@ -831,7 +845,7 @@ In order from most secure to least secure, the approaches are:
 
     If you don't care about partitioning permissions at all, you can grant super-user access to all service accounts.
 
-    {{< warning >}}**WARNING:** This allows any user with read access
+    {{< warning >}}**Warning:** This allows any user with read access
     to secrets or the ability to create a pod to access super-user
     credentials.{{< /warning >}}
 
@@ -847,7 +861,7 @@ Prior to Kubernetes 1.6, many deployments used very permissive ABAC policies,
 including granting full API access to all service accounts.
 
 Default RBAC policies grant scoped permissions to control-plane components, nodes,
-and controllers, but grant *no permissions* to service accounts outside the "kube-system" namespace
+and controllers, but grant *no permissions* to service accounts outside the `kube-system` namespace
 (beyond discovery permissions given to all authenticated users).
 
 While far more secure, this can be disruptive to existing workloads expecting to automatically receive API permissions.
@@ -856,7 +870,7 @@ Here are two approaches for managing this transition:
 ### Parallel Authorizers
 
 Run both the RBAC and ABAC authorizers, and specify a policy file that contains
-[the legacy ABAC policy](/docs/admin/authorization/abac#policy-file-format):
+[the legacy ABAC policy](docs/reference/access-authn-authz/abac/#policy-file-format):
 
 ```
 --authorization-mode=RBAC,ABAC --authorization-policy-file=mypolicy.json
@@ -876,11 +890,10 @@ in the server logs, you can remove the ABAC authorizer.
 You can replicate a permissive policy using RBAC role bindings.
 
 {{< warning >}}
-**WARNING:** The following policy allows **ALL** service accounts to act as cluster administrators.
+**Warning:** The following policy allows **ALL** service accounts to act as cluster administrators.
 Any application running in a container receives service account credentials automatically,
 and could perform any action against the API, including viewing secrets and modifying permissions.
 This is not a recommended policy.
-{{< /warning >}}
 
 ```
 kubectl create clusterrolebinding permissive-binding \
@@ -889,3 +902,6 @@ kubectl create clusterrolebinding permissive-binding \
   --user=kubelet \
   --group=system:serviceaccounts
 ```
+{{< /warning >}}
+
+{{% /capture %}}
