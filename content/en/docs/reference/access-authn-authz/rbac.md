@@ -870,7 +870,7 @@ Here are two approaches for managing this transition:
 ### Parallel Authorizers
 
 Run both the RBAC and ABAC authorizers, and specify a policy file that contains
-[the legacy ABAC policy](docs/reference/access-authn-authz/abac/#policy-file-format):
+[the legacy ABAC policy](/docs/reference/access-authn-authz/abac/#policy-file-format):
 
 ```
 --authorization-mode=RBAC,ABAC --authorization-policy-file=mypolicy.json
