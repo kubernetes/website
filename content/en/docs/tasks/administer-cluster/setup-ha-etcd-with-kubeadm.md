@@ -67,7 +67,7 @@ no other cryptographic tooling is required for this example.
             peerCertSANs:
             - "${HOST}"
             extraArgs:
-                initial-cluster: infra0=https://${ETCDHOST0}:2380,infra1=https://${ETCDHOST1}:2380,infra2=https://${ETCDHOST2:2380
+                initial-cluster: infra0=https://${ETCDHOST0}:2380,infra1=https://${ETCDHOST1}:2380,infra2=https://${ETCDHOST2}:2380
                 initial-cluster-state: new
                 name: ${NAME}
                 listen-peer-urls: https://${HOST}:2380
