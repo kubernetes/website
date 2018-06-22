@@ -3,12 +3,11 @@ reviewers:
 - erictune
 - soltysh
 title: Jobs - Run to Completion
+content_template: templates/concept
 weight: 70
 ---
 
-{{< toc >}}
-
-## What is a Job?
+{{% capture overview %}}
 
 A _job_ creates one or more pods and ensures that a specified number of them successfully terminate.
 As pods successfully complete, the _job_ tracks the successful completions.  When a specified number
@@ -20,6 +19,12 @@ The Job object will start a new Pod if the first pod fails or is deleted (for ex
 due to a node hardware failure or a node reboot).
 
 A Job can also be used to run multiple pods in parallel.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Running an example Job
 
@@ -395,3 +400,5 @@ object, but complete control over what pods are created and how work is assigned
 ## Cron Jobs
 
 Support for creating Jobs at specified times/dates (i.e. cron) is available in Kubernetes [1.4](https://github.com/kubernetes/kubernetes/pull/11980). More information is available in the [cron job documents](/docs/concepts/workloads/controllers/cron-jobs/)
+
+{{% /capture %}}

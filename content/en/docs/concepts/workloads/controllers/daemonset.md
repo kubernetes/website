@@ -6,12 +6,11 @@ reviewers:
 - janetkuo
 - kow3ns
 title: DaemonSet
+content_template: templates/concept
 weight: 50
 ---
 
-{{< toc >}}
-
-## What is a DaemonSet?
+{{% capture overview %}}
 
 A _DaemonSet_ ensures that all (or some) Nodes run a copy of a Pod.  As nodes are added to the
 cluster, Pods are added to them.  As nodes are removed from the cluster, those Pods are garbage
@@ -27,6 +26,12 @@ Some typical uses of a DaemonSet are:
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
 different flags and/or different memory and cpu requests for different hardware types.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Writing a DaemonSet Spec
 
@@ -201,3 +206,5 @@ Use a Deployment for stateless services, like frontends, where scaling up and do
 number of replicas and rolling out updates are more important than controlling exactly which host
 the Pod runs on.  Use a DaemonSet when it is important that a copy of a Pod always run on
 all or certain hosts, and when it needs to start before other Pods.
+
+{{% /capture %}}

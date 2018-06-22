@@ -2,8 +2,11 @@
 reviewers:
 - piosz
 - x13n
+content_template: templates/concept
 title: Logging Using Elasticsearch and Kibana
 ---
+
+{{% capture overview %}}
 
 On the Google Compute Engine (GCE) platform, the default logging support targets
 [Stackdriver Logging](https://cloud.google.com/logging/), which is described in detail
@@ -15,6 +18,10 @@ them using [Kibana](https://www.elastic.co/products/kibana), as an alternative t
 Stackdriver Logging when running on GCE. Note that Elasticsearch and Kibana
 cannot be setup automatically in the Kubernetes cluster hosted on
 Google Kubernetes Engine, you have to deploy it manually.
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 To use Elasticsearch and Kibana for cluster logging, you should set the
 following environment variable as shown below when creating your cluster with
@@ -101,6 +108,11 @@ Here is a typical view of ingested logs from the Kibana viewer:
 
 ![Kibana logs](/images/docs/kibana-logs.png)
 
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
 Kibana opens up all sorts of powerful options for exploring your logs! For some
 ideas on how to dig into it, check out [Kibana's documentation](https://www.elastic.co/guide/en/kibana/current/discover.html).
 
+{{% /capture %}}

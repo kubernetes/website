@@ -2,13 +2,22 @@
 reviewers:
 - derekwaynecarr
 title: Resource Quotas
+content_template: templates/concept
 weight: 10
 ---
+
+{{% capture overview %}}
 
 When several users or teams share a cluster with a fixed number of nodes,
 there is a concern that one team could use more than its fair share of resources.
 
 Resource quotas are a tool for administrators to address this concern.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 A resource quota, defined by a `ResourceQuota` object, provides constraints that limit
 aggregate resource consumption per namespace.  It can limit the quantity of objects that can
@@ -307,6 +316,10 @@ restrictions around nodes: pods from several namespaces may run on the same node
 
 See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
 
-## Read More
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.
+
+{{% /capture %}}

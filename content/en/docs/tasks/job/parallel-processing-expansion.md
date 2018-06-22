@@ -1,15 +1,20 @@
 ---
 title: Parallel Processing using Expansions
+content_template: templates/concept
 weight: 20
 ---
 
-{{< toc >}}
-
-# Example: Multiple Job Objects from Template Expansion
+{{% capture overview %}}
 
 In this example, we will run multiple Kubernetes Jobs created from
 a common template.  You may want to be familiar with the basic,
 non-parallel, use of [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/) first.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Basic Template Expansion
 
@@ -189,3 +194,5 @@ If you have a large number of job objects, you may find that:
 
 In this case, you can consider one of the
 other [job patterns](/docs/concepts/jobs/run-to-completion-finite-workloads/#job-patterns).
+
+{{% /capture %}}

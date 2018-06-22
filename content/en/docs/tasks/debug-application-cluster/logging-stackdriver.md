@@ -3,15 +3,26 @@ reviewers:
 - piosz
 - x13n
 title: Logging Using Stackdriver
+content_template: templates/concept
 ---
+
+{{% capture overview %}}
 
 Before reading this page, it's highly recommended to familiarize yourself
 with the [overview of logging in Kubernetes](/docs/concepts/cluster-administration/logging).
 
+{{< note >}}
 **Note:** By default, Stackdriver logging collects only your container's standard output and
 standard error streams. To collect any logs your application writes to a file (for example),
 see the [sidecar approach](/docs/concepts/cluster-administration/logging#sidecar-container-with-a-logging-agent)
 in the Kubernetes logging overview.
+{{< /note >}}
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Deploying
 
@@ -213,7 +224,7 @@ command line interface from the [Google Cloud SDK](https://cloud.google.com/sdk/
 It uses Stackdriver Logging [filtering syntax](https://cloud.google.com/logging/docs/view/advanced_filters)
 to query specific logs. For example, you can run the following command:
 
-```shell
+```none
 $ gcloud beta logging read 'logName="projects/$YOUR_PROJECT_ID/logs/count"' --format json | jq '.[].textPayload'
 ...
 "2: Mon Jan  1 00:01:02 UTC 2001\n"
@@ -335,3 +346,5 @@ with minor changes:
 
 Then run `make build push` from this directory. After updating `DaemonSet` to pick up the
 new image, you can use the plugin you installed in the fluentd configuration.
+
+{{% /capture %}}

@@ -3,12 +3,11 @@ reviewers:
 - caesarxuchao
 - dchen1107
 title: Nodes
+content_template: templates/concept
 weight: 10
 ---
 
-{{< toc >}}
-
-## What is a node?
+{{% capture overview %}}
 
 A `node` is a worker machine in Kubernetes, previously known as a `minion`. A node
 may be a VM or physical machine, depending on the cluster. Each node has
@@ -16,6 +15,12 @@ the services necessary to run [pods](/docs/concepts/workloads/pods/pod/) and is 
 components. The services on a node include Docker, kubelet and kube-proxy. See
 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) section in the
 architecture design doc for more details.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Node Status
 
@@ -279,3 +284,5 @@ on each kubelet where you want to reserve resources.
 Node is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at:
 [Node API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
+
+{{% /capture %}}

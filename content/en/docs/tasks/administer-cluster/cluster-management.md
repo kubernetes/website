@@ -3,14 +3,21 @@ reviewers:
 - lavalamp
 - thockin
 title: Cluster Management
+content_template: templates/concept
 ---
 
-{{< toc >}}
+{{% capture overview %}}
 
 This document describes several topics related to the lifecycle of a cluster: creating a new cluster,
 upgrading your cluster's
 master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a
 running cluster.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Creating and configuring a Cluster
 
@@ -211,3 +218,5 @@ kubectl convert -f pod.yaml --output-version v1
 ```
 
 For more options, please refer to the usage of [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands/#convert) command.
+
+{{% /capture %}}

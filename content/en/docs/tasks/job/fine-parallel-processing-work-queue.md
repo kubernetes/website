@@ -1,15 +1,13 @@
 ---
 title: Fine Parallel Processing Using a Work Queue
+content_template: templates/task
 weight: 40
 ---
 
-{{< toc >}}
-
-# Example: Job with Work Queue with Multiple Work Items Per Pod
+{{% capture overview %}}
 
 In this example, we will run a Kubernetes Job with multiple parallel
-worker processes.  You may want to be familiar with the basic,
-non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) first.
+worker processes in a given pod.
 
 In this example, as each pod is created, it picks up one unit of work
 from a task queue, processes it, and repeats until the end of the queue is reached.
@@ -27,6 +25,24 @@ Here is an overview of the steps in this example:
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
   one task from the message queue, processes it, and repeats until the end of the queue is reached.
 
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
+
+Be familiar with the basic,
+non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Starting Redis
 
@@ -212,6 +228,10 @@ Working on lemon
 
 As you can see, one of our pods worked on several work units.
 
+{{% /capture %}}
+
+{{% capture discussion %}}
+
 ## Alternatives
 
 If running a queue service or modifying your containers to use a work queue is inconvenient, you may
@@ -221,3 +241,5 @@ If you have a continuous stream of background processing work to run, then
 consider running your background workers with a `replicationController` instead,
 and consider running a background processing library such as
 [https://github.com/resque/resque](https://github.com/resque/resque).
+
+{{% /capture %}}
