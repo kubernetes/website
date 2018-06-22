@@ -2,14 +2,21 @@
 reviewers:
 - janetkuo
 - thockin
+content_template: templates/concept
 title: Application Introspection and Debugging
 ---
+
+{{% capture overview %}}
 
 Once your application is running, you'll inevitably need to debug problems with it.
 Earlier we described how you can use `kubectl get pods` to retrieve simple status information about
 your pods. But there are a number of ways to get even more information about your application.
 
+{{% /capture %}}
+
 {{< toc >}}
+
+{{% capture body %}}
 
 ## Using `kubectl describe pod` to fetch details about pods
 
@@ -255,7 +262,9 @@ kubernetes-node-861h     NotReady      1h      v1.6.0+fff5156
 kubernetes-node-bols     Ready         1h      v1.6.0+fff5156
 kubernetes-node-st6x     Ready         1h      v1.6.0+fff5156
 kubernetes-node-unaj     Ready         1h      v1.6.0+fff5156
+```
 
+```shell
 $ kubectl describe node kubernetes-node-861h
 Name:			kubernetes-node-861h
 Role
@@ -307,8 +316,12 @@ Allocated resources:
   ------------  ----------      ---------------         -------------
   900m (60%)    2200m (146%)    1009286400 (66%)        5681286400 (375%)
 Events:         <none>
+```
 
+```shell
 $ kubectl get node kubernetes-node-861h -o yaml
+```
+```yaml
 apiVersion: v1
 kind: Node
 metadata:
@@ -350,7 +363,7 @@ status:
     systemUUID: ABE5F6B4-D44B-108B-C46A-24CCE16C8B6E
 ```
 
-## What's next?
+{{% capture whatsnext %}}
 
 Learn about additional debugging tools, including:
 
@@ -360,4 +373,4 @@ Learn about additional debugging tools, including:
 * [Connecting to containers via proxies](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
 * [Connecting to containers via port forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 
-
+{{% /capture %}}

@@ -4,14 +4,11 @@ reviewers:
 - jszczepkowski
 - directxman12
 title: Horizontal Pod Autoscaler
+content_template: templates/concept
 weight: 90
 ---
 
-{{< toc >}}
-
-This document describes the current state of the Horizontal Pod Autoscaler in Kubernetes.
-
-## What is the Horizontal Pod Autoscaler?
+{{% capture overview %}}
 
 The Horizontal Pod Autoscaler automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization (or, with
@@ -23,6 +20,12 @@ The Horizontal Pod Autoscaler is implemented as a Kubernetes API resource and a 
 The resource determines the behavior of the controller.
 The controller periodically adjusts the number of replicas in a replication controller or deployment
 to match the observed average CPU utilization to the target specified by user.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## How does the Horizontal Pod Autoscaler work?
 
@@ -180,8 +183,12 @@ custom metrics API and, optionally, external metrics API with the API aggregatio
 
      In Kubernetes 1.7, the standard aggregation layer that Kubernetes provides runs in-process with the kube-apiserver, so the target IP address can be found with `kubectl get pods --selector k8s-app=kube-apiserver --namespace kube-system -o jsonpath='{.items[0].status.podIP}'`.
 
-## Further reading
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 * Design documentation: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl autoscale command: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * Usage example of [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
+
+{{% /capture %}}

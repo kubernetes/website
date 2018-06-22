@@ -2,8 +2,11 @@
 reviewers:
 - bprashanth
 - quinton-hoole
+content_template: templates/task
 title: Cross-cluster Service Discovery using Federated Services
 ---
+
+{{% capture overview %}}
 
 {{< include "federation-current-state.md" >}}
 
@@ -12,24 +15,6 @@ a common Service across multiple Kubernetes clusters. This makes it
 easy to achieve cross-cluster service discovery and availability zone
 fault tolerance for your Kubernetes applications.
 
-
-{{< toc >}}
-
-## Prerequisites
-
-This guide assumes that you have a running Kubernetes Cluster
-Federation installation. If not, then head over to the
-[federation admin guide](/docs/admin/federation/) to learn how to
-bring up a cluster federation (or have your cluster administrator do
-this for you). Other tutorials, for example
-[this one](https://github.com/kelseyhightower/kubernetes-cluster-federation)
-by Kelsey Hightower, are also available to help you.
-
-You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/setup/) in
-general, and [Services](/docs/concepts/services-networking/service/) in particular.
-
-## Overview
 
 Federated Services are created in much that same way as traditional
 [Kubernetes Services](/docs/concepts/services-networking/service/) by making an API
@@ -51,6 +36,32 @@ Clients inside your federated Kubernetes clusters (i.e. Pods) will
 automatically find the local shard of the Federated Service in their
 cluster if it exists and is healthy, or the closest healthy shard in a
 different cluster if it does not.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
+
+## Prerequisites
+
+This guide assumes that you have a running Kubernetes Cluster
+Federation installation. If not, then head over to the
+[federation admin guide](/docs/admin/federation/) to learn how to
+bring up a cluster federation (or have your cluster administrator do
+this for you). Other tutorials, for example
+[this one](https://github.com/kelseyhightower/kubernetes-cluster-federation)
+by Kelsey Hightower, are also available to help you.
+
+You are also expected to have a basic
+[working knowledge of Kubernetes](/docs/setup/) in
+general, and [Services](/docs/concepts/services-networking/service/) in particular.
 
 ## Hybrid cloud capabilities
 
@@ -186,7 +197,7 @@ nameServers:
 - ns-cloud-a4.googledomains.com.
 ```
 
-``` shell
+```shell
 $ gcloud dns record-sets list --zone example-dot-com
 NAME                                                            TYPE      TTL     DATA
 example.com.                                                    NS        21600   ns-cloud-e1.googledomains.com., ns-cloud-e2.googledomains.com.
@@ -268,10 +279,10 @@ So, using our NGINX example service above, and the Federated Service
 DNS name form just described, let's consider an example: A Pod in a
 cluster in the `us-central1-f` availability zone needs to contact our
 NGINX service. Rather than use the service's traditional cluster-local
-DNS name (```"nginx.mynamespace"```, which is automatically expanded
-to ```"nginx.mynamespace.svc.cluster.local"```) it can now use the
+DNS name (`"nginx.mynamespace"`, which is automatically expanded
+to `"nginx.mynamespace.svc.cluster.local"`) it can now use the
 service's Federated DNS name, which is
-```"nginx.mynamespace.myfederation"```. This will be automatically
+`"nginx.mynamespace.myfederation"`. This will be automatically
 expanded and resolved to the closest healthy shard of my NGINX
 service, wherever in the world that may be. If a healthy shard exists
 in the local cluster, that service's cluster-local (typically
@@ -343,9 +354,13 @@ endpoint (see e.g. us-central1 above, which has three alternatives)
 many clients will fail over automatically to one of the alternative
 IP's in less time than that given appropriate configuration.
 
+{{% /capture %}}
+
+{{% capture discussion %}}
+
 ## Troubleshooting
 
-#### I cannot connect to my cluster federation API
+### I cannot connect to my cluster federation API
 Check that your
 
 1. Client (typically kubectl) is correctly configured (including API endpoints and login credentials).
@@ -354,16 +369,18 @@ Check that your
 See the [federation admin guide](/docs/admin/federation/) to learn
 how to bring up a cluster federation correctly (or have your cluster administrator do this for you), and how to correctly configure your client.
 
-#### I can create a federated service successfully against the cluster federation API, but no matching services are created in my underlying clusters
+### I can create a federated service successfully against the cluster federation API, but no matching services are created in my underlying clusters
 Check that:
 
 1. Your clusters are correctly registered in the Cluster Federation API (`kubectl describe clusters`).
-2. Your clusters are all 'Active'.  This means that the cluster Federation system was able to connect and authenticate against the clusters' endpoints.  If not, consult the logs of the federation-controller-manager pod to ascertain what the failure might be. 
-```kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -o name)```
+2. Your clusters are all 'Active'. This means that the cluster Federation system was able to connect and authenticate against the clusters' endpoints. If not, consult the logs of the federation-controller-manager pod to ascertain what the failure might be. 
+      ```
+      kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -o name)
+      ```
 3. That the login credentials provided to the Cluster Federation API for the clusters have the correct authorization and quota to create services in the relevant namespace in the clusters.  Again you should see associated error messages providing more detail in the above log file if this is not the case.
 4. Whether any other error is preventing the service creation operation from succeeding (look for `service-controller` errors in the output of `kubectl logs federation-controller-manager --namespace federation`).
 
-#### I can create a federated service successfully, but no matching DNS records are created in my DNS provider.
+### I can create a federated service successfully, but no matching DNS records are created in my DNS provider.
 Check that:
 
 1. Your federation name, DNS provider, DNS domain name are configured correctly.  Consult the [federation admin guide](/docs/admin/federation/) or  [tutorial](https://github.com/kelseyhightower/kubernetes-cluster-federation) to learn
@@ -371,15 +388,16 @@ how to configure your Cluster Federation system's DNS provider (or have your clu
 2. Confirm that the Cluster Federation's service-controller is successfully connecting to and authenticating against your selected DNS provider (look for `service-controller` errors or successes in the output of `kubectl logs federation-controller-manager --namespace federation`).
 3. Confirm that the Cluster Federation's service-controller is successfully creating DNS records in your DNS provider (or outputting errors in its logs explaining in more detail what's failing).
 
-#### Matching DNS records are created in my DNS provider, but clients are unable to resolve against those names
+### Matching DNS records are created in my DNS provider, but clients are unable to resolve against those names
 Check that:
 
 1. The DNS registrar that manages your federation DNS domain has been correctly configured to point to your configured DNS provider's nameservers.  See for example [Google Domains Documentation](https://support.google.com/domains/answer/3290309?hl=en&ref_topic=3251230) and [Google Cloud DNS Documentation](https://cloud.google.com/dns/update-name-servers), or equivalent guidance from your domain registrar and DNS provider.
 
-#### This troubleshooting guide did not help me solve my problem
+### This troubleshooting guide did not help me solve my problem
 
-1. Please use one of our  [support channels](/docs/tasks/debug-application-cluster/troubleshooting/) to seek assistance.
+1. Please use one of our [support channels](/docs/tasks/debug-application-cluster/troubleshooting/) to seek assistance.
 
 ## For more information
 
  * [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/multicluster/federation.md) details use cases that motivated this work.
+{{% /capture %}}

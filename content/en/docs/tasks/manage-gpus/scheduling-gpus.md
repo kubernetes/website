@@ -1,13 +1,22 @@
 ---
 reviewers:
 - vishh
+content_template: templates/concept
 title: Schedule GPUs
 ---
+
+{{% capture overview %}}
 
 Kubernetes includes **experimental** support for managing NVIDIA GPUs spread
 across nodes. The support for NVIDIA GPUs was added in v1.6 and has gone through
 multiple backwards incompatible iterations. This page describes how users can
 consume GPUs across different Kubernetes versions and the current limitations.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## v1.8 onwards
 
@@ -208,3 +217,5 @@ works on 1.8 and 1.9 as well. It will be deprecated in 1.10 and removed in
 - Support for hardware accelerators in Kubernetes is still in alpha.
 - Better APIs will be introduced to provision and consume accelerators in a scalable manner.
 - Kubernetes will automatically ensure that applications consuming GPUs get the best possible performance.
+
+{{% /capture %}}

@@ -3,15 +3,30 @@ reviewers:
 - bprashanth
 - davidopp
 title: Configure Your Cloud Provider's Firewalls
+content_template: templates/task
 weight: 90
 ---
+
+{{% capture prerequisites %}}
 
 Many cloud providers (e.g. Google Compute Engine) define firewalls that help prevent inadvertent
 exposure to the internet.  When exposing a service to the external world, you may need to open up
 one or more ports in these firewalls to serve traffic.  This document describes this process, as
 well as any provider specific details that may be necessary.
 
-### Restrict Access For LoadBalancer Service
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
+
+## Restrict Access For LoadBalancer Service
 
  When using a Service with `spec.type: LoadBalancer`, you can specify the IP ranges that are allowed to access the load balancer
  by using `spec.loadBalancerSourceRanges`. This field takes a list of IP CIDR ranges, which Kubernetes will use to configure firewall exceptions.
@@ -55,7 +70,7 @@ spec:
   - 130.211.204.2/32
 ```
 
-### Google Compute Engine
+## Google Compute Engine
 
 When using a Service with `spec.type: LoadBalancer`, the firewall will be
 opened automatically.  When using `spec.type: NodePort`, however, the firewall
@@ -69,11 +84,9 @@ You can add a firewall with the `gcloud` command line tool:
 gcloud compute firewall-rules create my-rule --allow=tcp:<port>
 ```
 
-**Note**
-There is one important security note when using firewalls on Google Compute Engine:
-
-as of Kubernetes v1.0.0, GCE firewalls are defined per-vm, rather than per-ip
-address.  This means that when you open a firewall for a service's ports,
+{{< note >}}
+**Note**: GCE firewalls are defined per-vm, rather than per-ip
+address. This means that when you open a firewall for a service's ports,
 anything that serves on that port on that VM's host IP address may potentially
 serve traffic.  Note that this is not a problem for other Kubernetes services,
 as they listen on IP addresses that are different than the host node's external
@@ -93,8 +106,6 @@ Consequently, please be careful when opening firewalls in Google Compute Engine
 or Google Kubernetes Engine.  You may accidentally be exposing other services to
 the wilds of the internet.
 
-This will be fixed in an upcoming release of Kubernetes.
+{{< /note >}}
 
-### Other cloud providers
-
-Coming soon.
+{{% /capture %}}
