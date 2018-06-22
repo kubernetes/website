@@ -224,7 +224,7 @@ and are not visible in the API unless specifically requested by using the query 
 Initializers are useful for admins to force policies (e.g., the
 [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
 admission controller), or to inject defaults (e.g., the
-[DefaultStorageClass](docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
+[DefaultStorageClass](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 admission controller), etc.
 
 {{< note >}}
