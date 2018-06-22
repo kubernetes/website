@@ -15,7 +15,7 @@ This guide is for upgrading `kubeadm` clusters from version 1.10.x to 1.11.x and
 
 Before proceeding:
 
-- You need to have a functional `kubeadm` Kubernetes cluster running version 1.10.0 or higher in order to use the process described here. Swap also needs to be disabled. This cluster should use a self-hosted etcd and static control plane pods.
+- You need to have a functional `kubeadm` Kubernetes cluster running version 1.10.0 or higher in order to use the process described here. Swap also needs to be disabled. This cluster should use a static control plane and etcd pods.
 - Make sure you read the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md) carefully.
 - Note that `kubeadm upgrade` will not touch any of your workloads, only Kubernetes-internal components. As a best-practice you should back up what's important to you. For example, any app-level state, such as a database an app might depend on (like MySQL or MongoDB) must be backed up beforehand.
 
@@ -26,7 +26,7 @@ Before proceeding:
 Also, note that only one minor version upgrade is supported. For example, you can only upgrade from 1.10 to 1.11, not from 1.9 to 1.11.
 
 {{< caution >}}
-**Caution:** The default DNS provider in 1.11 is [CoreDNS](https://coredns.io/) rather than [kube-dns](https://github.com/kubernetes/dns). 
+**Caution:** The default DNS provider in 1.11 is [CoreDNS](https://coredns.io/) rather than [kube-dns](https://github.com/kubernetes/dns).
 To keep `kube-dns`, pass `--feature-flags=CoreDNS=false` to `kubeadm upgrade apply`.
 {{< /caution >}}
 
@@ -38,7 +38,7 @@ To keep `kube-dns`, pass `--feature-flags=CoreDNS=false` to `kubeadm upgrade app
 
 Execute these commands on your master node (as root):
 
-1. 
+1.
 
     ```shell
     export VERSION=$(curl -sSL https://dl.k8s.io/release/stable.txt) # or manually specify a released Kubernetes version
@@ -48,14 +48,17 @@ Execute these commands on your master node (as root):
     ```
 
     {{< caution >}}
-    **Caution:** Upgrading the `kubeadm` package on your system prior to upgrading the control plane causes a failed upgrade. 
-    Even though `kubeadm` ships in the Kubernetes repositories, it's important to install `kubeadm` manually. The kubeadm 
-    team is working on fixing this limitation. 
+    **Caution:** Upgrading the `kubeadm` package on your system prior to upgrading the control plane causes a failed upgrade.
+    Even though `kubeadm` ships in the Kubernetes repositories, it's important to install `kubeadm` manually. The kubeadm
+    team is working on fixing this limitation.
     {{< /caution >}}
 
 
-    `kubeadm` is only needed on individual (non-master) nodes for joining the cluster.
-    It is not necessary to update kubeadm on nodes 
+{{< caution >}}
+**Caution:** Upgrading the `kubeadm` package on your system prior to upgrading the control plane causes a failed upgrade.
+Even though `kubeadm` ships in the Kubernetes repositories, it's important to install `kubeadm` manually. The kubeadm
+team is working on fixing this limitation.
+{{< /caution >}}
 
     Verify that this download of kubeadm works and has the expected version:
 
@@ -120,7 +123,7 @@ Execute these commands on your master node (as root):
 
     You should see output similar to this:
 
-    <!-- TODO: output from stable --> 
+    <!-- TODO: output from stable -->
 
     ```shell
     [preflight] Running pre-flight checks.
@@ -246,9 +249,13 @@ For each host (referred to as `$HOST` below) in your cluster, upgrade `kubelet` 
     {{% /tab %}}
     {{< /tabs >}}
 
-    Upgrading `kubeadm` is only required on the master node.
 
-3. Restart the kubectl process with 
+3. On all nodes but the master node, the kubelet config needs to be upgraded:
+    ```shell
+    sudo kubeadm upgrade node config --kubelet-version $(kubelet --version | cut -d ' ' -f 2)
+    ```
+
+4. Restart the kubectl process with
     ```shell
     sudo systemctl restart kubelet
     ```
@@ -259,13 +266,13 @@ For each host (referred to as `$HOST` below) in your cluster, upgrade `kubelet` 
     systemctl status kubelet
     ```
 
-4. Bring the host back online by marking it schedulable:
+5. Bring the host back online by marking it schedulable:
 
     ```shell
     kubectl uncordon $HOST
     ```
 
-5. After upgrading `kubelet` on each host in your cluster, verify that all nodes are available again by executing the following (from anywhere, for example, from outside the cluster):
+6. After upgrading `kubelet` on each host in your cluster, verify that all nodes are available again by executing the following (from anywhere, for example, from outside the cluster):
 
     ```shell
     kubectl get nodes
