@@ -2,12 +2,11 @@
 reviewers:
 - Random-Liu
 - dchen1107
+content_template: templates/task
 title: Monitor Node Health
 ---
 
-{{< toc >}}
-
-## Node Problem Detector
+{{% capture overview %}}
 
 *Node problem detector* is a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) monitoring the
 node health. It collects node problems from various daemons and reports them
@@ -23,6 +22,16 @@ introduced to deal with node problems.
 
 See more information
 [here](https://github.com/kubernetes/node-problem-detector).
+
+{{% /capture %}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Limitations
 
@@ -153,6 +162,10 @@ Kernel monitor uses [`Translator`](https://github.com/kubernetes/node-problem-de
 plugin to translate kernel log the internal data structure. It is easy to
 implement a new translator for a new log format.
 
+{{% /capture %}}
+
+{{% capture discussion %}}
+
 ## Caveats
 
 It is recommended to run the node problem detector in your cluster to monitor
@@ -163,3 +176,5 @@ resource overhead on each node. Usually this is fine, because:
 * Resource limit is set for node problem detector.
 * Even under high load, the resource usage is acceptable.
 (see [benchmark result](https://github.com/kubernetes/node-problem-detector/issues/2#issuecomment-220255629))
+
+{{% /capture %}}

@@ -3,8 +3,10 @@ reviewers:
 - derekwaynecarr
 - janetkuo
 title: Namespaces Walkthrough
+content_template: templates/task
 ---
 
+{{% capture overview %}}
 Kubernetes _namespaces_ help different projects, teams, or customers to share a Kubernetes cluster.
 
 It does this by providing the following:
@@ -16,14 +18,26 @@ Use of multiple namespaces is optional.
 
 This example demonstrates how to use Kubernetes namespaces to subdivide your cluster.
 
-### Step Zero: Prerequisites
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
+
+## Prerequisites
 
 This example assumes the following:
 
 1. You have an [existing Kubernetes cluster](/docs/setup/).
 2. You have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_.
 
-### Step One: Understand the default namespace
+## Understand the default namespace
 
 By default, a Kubernetes cluster will instantiate a default namespace when provisioning the cluster to hold the default set of Pods,
 Services, and Deployments used by the cluster.
@@ -36,7 +50,7 @@ NAME      STATUS    AGE
 default   Active    13m
 ```
 
-### Step Two: Create new namespaces
+## Create new namespaces
 
 For this exercise, we will create two additional Kubernetes namespaces to hold our content.
 
@@ -83,7 +97,7 @@ development   Active    29s       name=development
 production    Active    23s       name=production
 ```
 
-### Step Three: Create pods in each namespace
+## Create pods in each namespace
 
 A Kubernetes namespace provides the scope for Pods, Services, and Deployments in the cluster.
 
@@ -251,3 +265,5 @@ At this point, it should be clear that the resources users create in one namespa
 
 As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
 authorization rules for each namespace.
+
+{{% /capture %}}

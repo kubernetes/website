@@ -2,8 +2,11 @@
 reviewers:
 - chenopis
 title: The Kubernetes API
+content_template: templates/concept
 weight: 30
 ---
+
+{{% capture overview %}}
 
 Overall API conventions are described in the [API conventions doc](https://git.k8s.io/community/contributors/devel/api-conventions.md).
 
@@ -16,6 +19,12 @@ The Kubernetes API also serves as the foundation for the declarative configurati
 Kubernetes also stores its serialized state (currently in [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)) in terms of the API resources.
 
 Kubernetes itself is decomposed into multiple components, which interact through its API.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## API changes
 
@@ -121,3 +130,5 @@ DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets
 Other extensions resources can be enabled by setting `--runtime-config` on
 apiserver. `--runtime-config` accepts comma separated values. For example: to disable deployments and ingress, set
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`
+
+{{% /capture %}}
