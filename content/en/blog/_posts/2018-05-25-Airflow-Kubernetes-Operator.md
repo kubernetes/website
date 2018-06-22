@@ -182,7 +182,7 @@ To modify/add your own DAGs, you can use `kubectl cp` to upload local files into
 
 `kubectl cp <local file> <namespace>/<pod>:/root/airflow/dags -c scheduler`
 
-## Step 5: Enjoy!
+## Step 6: Enjoy!
 
 # So when will I be able to use this?
 
