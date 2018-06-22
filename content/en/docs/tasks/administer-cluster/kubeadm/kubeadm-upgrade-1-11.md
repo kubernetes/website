@@ -53,13 +53,6 @@ Execute these commands on your master node (as root):
     team is working on fixing this limitation.
     {{< /caution >}}
 
-
-{{< caution >}}
-**Caution:** Upgrading the `kubeadm` package on your system prior to upgrading the control plane causes a failed upgrade.
-Even though `kubeadm` ships in the Kubernetes repositories, it's important to install `kubeadm` manually. The kubeadm
-team is working on fixing this limitation.
-{{< /caution >}}
-
     Verify that this download of kubeadm works and has the expected version:
 
     ```shell
@@ -196,8 +189,6 @@ team is working on fixing this limitation.
 
     [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
     ```
-
-    To upgrade the cluster with CoreDNS as the default internal DNS, invoke `kubeadm upgrade apply` with the `--feature-gates=CoreDNS=true` flag.
 
 4. Manually upgrade your Software Defined Network (SDN).
 
