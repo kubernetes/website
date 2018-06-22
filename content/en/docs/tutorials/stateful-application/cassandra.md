@@ -19,14 +19,14 @@ The docker image above is based on [debian-base](https://github.com/kubernetes/k
 
 | ENV VAR       | DEFAULT VALUE  |
 | ------------- |:-------------: |
-| CASSANDRA_CLUSTER_NAME | 'Test Cluster'  |
-| CASSANDRA_NUM_TOKENS  | 32               |
-| CASSANDRA_RPC_ADDRESS | 0.0.0.0          |
+| `CASSANDRA_CLUSTER_NAME` | `'Test Cluster'`  |
+| `CASSANDRA_NUM_TOKENS`  | `32`               |
+| `CASSANDRA_RPC_ADDRESS` | `0.0.0.0`          |
 
 {{% /capture %}}
 
 {{% capture objectives %}}
-* Create and Validate a Cassandra headless [Services](/docs/concepts/services-networking/service/).
+* Create and validate a Cassandra headless [Service](/docs/concepts/services-networking/service/).
 * Use a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) to create a Cassandra ring.
 * Validate the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 * Modify the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
@@ -49,17 +49,18 @@ To complete this tutorial, you should already have a basic familiarity with [Pod
 ### Additional Minikube Setup Instructions
 
 {{< caution >}}
-**Caution:** [Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU which results in an insufficient resource errors during this tutorial. 
+**Caution:** [Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU. Running Minikube with the default resource configuration may result in insufficient resource errors during this tutorial. To avoid these errors, we recommend running Minikube with 5 GB of memory and 4 CPUs:
+
+```bash
+minikube start --memory 5120 --cpus=4
+```
 {{< /caution >}}
-
-To avoid these errors, run minikube with:
-
-    minikube start --memory 5120 --cpus=4
  
 {{% /capture %}}
 
 {{% capture lessoncontent %}}
 ## Creating a Cassandra Headless Service
+
 A Kubernetes [Service](/docs/concepts/services-networking/service/) describes a set of [Pods](/docs/concepts/workloads/pods/pod/) that perform the same task. 
 
 The following `Service` is used for DNS lookups between Cassandra Pods and clients within the Kubernetes Cluster.
@@ -67,7 +68,9 @@ The following `Service` is used for DNS lookups between Cassandra Pods and clien
 1. Launch a terminal window in the directory you downloaded the manifest files.
 2. Create a `Service` to track all Cassandra StatefulSet Nodes from the `cassandra-service.yaml` file:
 
-       kubectl create -f cassandra-service.yaml
+    ```bash
+    kubectl create -f cassandra-service.yaml
+    ```
 
 {{< code file="cassandra/cassandra-service.yaml" >}}
 
@@ -75,14 +78,18 @@ The following `Service` is used for DNS lookups between Cassandra Pods and clien
 
 Get the Cassandra `Service`.
 
-    kubectl get svc cassandra
+```bash
+kubectl get svc cassandra
+```
 
 The response should be
 
-    NAME        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-    cassandra   None         <none>        9042/TCP   45s
+```
+NAME        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+cassandra   None         <none>        9042/TCP   45s
+```
 
-If anything else returns, the service was not successfully created. Read [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for common issues.
+If anything else is returned, the Service was not successfully created. Read [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for common issues.
 
 ## Using a StatefulSet to Create a Cassandra Ring
 
@@ -95,7 +102,9 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 1. Update the StatefulSet if necessary.
 2. Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
 
-       kubectl create -f cassandra-statefulset.yaml
+    ```bash
+    kubectl create -f cassandra-statefulset.yaml
+    ```
 
 {{< code file="cassandra/cassandra-statefulset.yaml" >}}
 
@@ -103,57 +112,70 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 
 1. Get the Cassandra StatefulSet:
 
-       kubectl get statefulset cassandra
+    ```bash
+    kubectl get statefulset cassandra
+    ```
 
-   The response should be
+    The response should be:
 
-       NAME        DESIRED   CURRENT   AGE
-       cassandra   3         0         13s
+    ```
+    NAME        DESIRED   CURRENT   AGE
+    cassandra   3         0         13s
+    ```
 
    The StatefulSet resource deploys Pods sequentially.  
 
 2. Get the Pods to see the ordered creation status:
 
-       kubectl get pods -l="app=cassandra"
+    ```bash
+    kubectl get pods -l="app=cassandra"
+    ```
        
-   The response should be    
+    The response should be:
        
-       NAME          READY     STATUS              RESTARTS   AGE
-       cassandra-0   1/1       Running             0          1m
-       cassandra-1   0/1       ContainerCreating   0          8s
+    ```bash
+    NAME          READY     STATUS              RESTARTS   AGE
+    cassandra-0   1/1       Running             0          1m
+    cassandra-1   0/1       ContainerCreating   0          8s
+    ```
 
-   {{< note >}}
-   **Note:** It can take up to ten minutes for all three Pods to deploy. 
-   {{< /note >}}
+    Please note that it may take several minutes for all three Pods to deploy. Once they are deployed, the same command returns:
 
-    Once all Pods are deployed, the same command returns:
+    ```
+    NAME          READY     STATUS    RESTARTS   AGE
+    cassandra-0   1/1       Running   0          10m
+    cassandra-1   1/1       Running   0          9m
+    cassandra-2   1/1       Running   0          8m
+    ```
 
-       NAME          READY     STATUS    RESTARTS   AGE
-       cassandra-0   1/1       Running   0          10m
-       cassandra-1   1/1       Running   0          9m
-       cassandra-2   1/1       Running   0          8m
+3. Run the Cassandra [nodetool](https://wiki.apache.org/cassandra/NodeTool) to display the status of the ring.
 
-3. Run the Cassandra utility nodetool to display the status of the ring.
+    ```bash
+    kubectl exec -it cassandra-0 -- nodetool status
+    ```
 
-       kubectl exec cassandra-0 -- nodetool status
+    The response should look something like this:
 
-   The response is:
-
-       Datacenter: DC1-K8Demo
-       ======================
-       Status=Up/Down
-       |/ State=Normal/Leaving/Joining/Moving
-       --  Address     Load       Tokens       Owns (effective)  Host ID                               Rack
-       UN  172.17.0.5  83.57 KiB  32           74.0%             e2dd09e6-d9d3-477e-96c5-45094c08db0f  Rack1-K8Demo
-       UN  172.17.0.4  101.04 KiB  32           58.8%             f89d6835-3a42-4419-92b3-0e62cae1479c  Rack1-K8Demo
-       UN  172.17.0.6  84.74 KiB  32           67.1%             a6a1e8c2-3dc5-4417-b1a0-26507af2aaad  Rack1-K8Demo
+    ```
+    Datacenter: DC1-K8Demo
+    ======================
+    Status=Up/Down
+    |/ State=Normal/Leaving/Joining/Moving
+    --  Address     Load       Tokens       Owns (effective)  Host ID                               Rack
+    UN  172.17.0.5  83.57 KiB  32           74.0%             e2dd09e6-d9d3-477e-96c5-45094c08db0f  Rack1-K8Demo
+    UN  172.17.0.4  101.04 KiB  32           58.8%             f89d6835-3a42-4419-92b3-0e62cae1479c  Rack1-K8Demo
+    UN  172.17.0.6  84.74 KiB  32           67.1%             a6a1e8c2-3dc5-4417-b1a0-26507af2aaad  Rack1-K8Demo
+    ```
 
 ## Modifying the Cassandra StatefulSet
+
 Use `kubectl edit` to modify the size of a Cassandra StatefulSet. 
 
 1. Run the following command:
 
-       kubectl edit statefulset cassandra
+    ```bash
+    kubectl edit statefulset cassandra
+    ```
 
    This command opens an editor in your terminal. The line you need to change is the `replicas` field.
    
@@ -186,12 +208,16 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 
 3. Get the Cassandra StatefulSet to verify:
 
-       kubectl get statefulset cassandra
+    ```bash
+    kubectl get statefulset cassandra
+    ```
 
-   The response should be
+    The response should be
 
-       NAME        DESIRED   CURRENT   AGE
-       cassandra   4         4         36m
+    ```
+    NAME        DESIRED   CURRENT   AGE
+    cassandra   4         4         36m
+    ```
       
 {{% /capture %}}
 
@@ -199,20 +225,24 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 Deleting or scaling a StatefulSet down does not delete the volumes associated with the StatefulSet. This ensures safety first: your data is more valuable than an auto purge of all related StatefulSet resources. 
 
 {{< warning >}}
-**Warning:** Depending on the storage class and reclaim policy, deleting the Persistent Volume Claims may cause the associated volumes to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted.
+**Warning:** Depending on the storage class and reclaim policy, deleting the PersistentVolumeClaims may cause the associated volumes to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted.
 {{< /warning >}}
 
-1. Run the following commands to delete everything in a `StatefulSet`:
+1. Run the following commands (chained together into a single command) to delete everything in the Cassandra StatefulSet:
 
-       grace=$(kubectl get po cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
-         && kubectl delete statefulset -l app=cassandra \
-         && echo "Sleeping $grace" \
-         && sleep $grace \
-         && kubectl delete pvc -l app=cassandra
+    ```bash
+    grace=$(kubectl get po cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
+      && kubectl delete statefulset -l app=cassandra \
+      && echo "Sleeping $grace" \
+      && sleep $grace \
+      && kubectl delete pvc -l app=cassandra
+    ```
 
 2. Run the following command to delete the Cassandra `Service`.
 
-       kubectl delete service -l app=cassandra
+    ```bash
+    kubectl delete service -l app=cassandra
+    ```
 
 {{% /capture %}}
 
