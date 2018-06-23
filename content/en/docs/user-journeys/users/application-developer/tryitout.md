@@ -21,34 +21,17 @@ For the purposes of this tutorial, we have installed and preconfigured Minikube 
 <button style="color:#000000; border:2px solid #000000" onclick="window.katacoda.init(); this.disabled=true;">Launch Terminal</button>
 
 
-{{< tabs name="test_drive_k8s" >}}
-{{% tab name="1. Create a cluster" %}}
 
 
-
-1. Verify that Minikube installed.
-
-    ```
-    minikube version
-      ```
+The ```minikube start``` command starts the Minikube cluster and the ```minikube version``` verifies the version of Minikube installed.
 
 
-2. Start the Minikube cluster:
-
-    ```
-    minikube start
-    ```
-
-3. Verify that the command line interface, kubectl is installed:
+1. Verify that the command line interface, kubectl is installed:
 
 
   ```
   kubectl version
   ```
-
-
-{{% /tab %}}
-{{% tab name="2. Deploy" %}}
 
 1. View the cluster details
 
@@ -64,7 +47,30 @@ For the purposes of this tutorial, we have installed and preconfigured Minikube 
   kubectl get nodes
   ```
 
-3. Run the app on Kubernetes to create a new deployment:
+3. Launch a deployment called http which will start a container based on the Docker Image katacoda/docker-http-server:latest:
+
+```
+kubectl run http --image=katacoda/docker-http-server:latest --replicas=1
+```
+
+4. View the status of your deployment:
+```
+kubectl get deployments
+```
+
+5. To find out what Kubernetes created you can describe the deployment process.
+
+kubectl describe deployment http
+
+The description includes how many replicas are available, labels specified and the events associated with the deployment. These events will highlight any problems and errors that might have occurred.
+
+In the next step we'll expose the running service.
+
+
+
+
+
+Run the app on Kubernetes to create a new deployment:
 
  Provide the deployment name, app image location (include the full repository url for images hosted outside Docker hub) and --port parameter so that the app runs on a specific port.
     ```
@@ -74,7 +80,7 @@ For the purposes of this tutorial, we have installed and preconfigured Minikube 
   ```
   kubectl get deployments
   ```
-5.  Open a second terminal window to run the proxy.[should we state why?]
+5.  Open a second terminal window to run the proxy.
 ```
 kubectl proxy
 ```
@@ -88,12 +94,12 @@ A connection between the online terminal and the Kubernetes cluster is created. 
   ```  
 The API server will automatically create an endpoint for each pod, based on the pod name, that is also accessible through the proxy.
 
-First we need to get the Pod name, and we'll store in the environment variable POD_NAME:
+7. Get the Pod name and store it in the environment variable POD_NAME:
 
-export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
-echo Name of the Pod: $POD_NAME
+  ```export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+echo Name of the Pod: $POD_NAME  ```  
 
-Now we can make an HTTP request to the application running in that pod:
+8. Make an HTTP request to the application running in that pod:
 
 curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/proxy/
 
@@ -304,41 +310,7 @@ This process can be tedious and also inconvenient, especially if (2) happens in 
 
 There are two key parts of the control plane that facilitate this behavior: the *Kubernetes API server* and the *Controllers*.
 
-#### Kubernetes API server
 
-For Kubernetes to be useful, it needs to know *what* sort of cluster state you want it to maintain. Your YAML or JSON *configuration files* declare this desired state in terms of one or more API objects, such as {{< glossary_tooltip text="Deployments" term_id="deployment" >}}. To make updates to your cluster's state, you submit these files to the {{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}} server (`kube-apiserver`).
-
-Examples of state include but are not limited to the following:
-
-* The applications or other workloads to run
-* The container images for your applications and workloads
-* Allocation of network and disk resources
-
-Note that the API server is just the gateway, and that object data is actually stored in a highly available datastore called {{< link text="*etcd*" url="https://github.com/coreos/etcd" >}}. For most intents and purposes, though, you can focus on the API server. Most reads and writes to cluster state take place as API requests.
-
-You can read more about the Kubernetes API {{< link text="here" url="/docs/concepts/overview/working-with-objects/kubernetes-objects/" >}}.
-
-#### Controllers
-
-Once you’ve declared your desired state through the Kubernetes API, the *controllers* work to make the cluster’s current state match this desired state.
-
-The standard controller processes are {{< link text="`kube-controller-manager`" url="/docs/reference/generated/kube-controller-manager/" >}} and {{< link text="`cloud-controller-manager`" url="/docs/concepts/overview/components/#cloud-controller-manager" >}}, but you can also write your own controllers as well.
-
-All of these controllers implement a *control loop*. For simplicity, you can think of this as the following:
-
-{{< note >}}
-1. What is the current state of the cluster (X)?
-
-1. What is the desired state of the cluster (Y)?
-
-1. X == Y ?
-
-   * `true` - Do nothing.
-   * `false` - Perform tasks to get to Y, such as starting or restarting containers,
-   or scaling the number of replicas of a given application. Return to 1.
-{{< /note >}}
-
-By continuously looping, these controllers ensure the cluster can pick up new updates and avoid drifting from the desired state. These ideas are covered in more detail {{< link text="here" url="https://kubernetes.io/docs/concepts/" >}}.
 
 ## Additional resources
 
