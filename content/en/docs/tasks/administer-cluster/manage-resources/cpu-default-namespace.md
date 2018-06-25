@@ -145,7 +145,7 @@ resources:
 ## Motivation for default CPU limits and requests
 
 If your namespace has a
-[resource quota](),
+[resource quota](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/),
 it is helpful to have a default value in place for CPU limit.
 Here are two of the restrictions that a resource quota imposes on a namespace:
 
