@@ -36,6 +36,31 @@ Localizations must source from the English files for the [most recent major rele
 Source files reside in the `/docs/` directory.
 {{< /note >}}
 
+### Remove reviewers from files
+
+Localizations must remove any and all `approvers:` or `reviewers:` from the title block of files. This avoids bombarding reviewers with translation-related changes.
+
+For example, the front matter for ["What is a node?"](/concepts/architecture/nodes.md) contains the following title block:
+
+```
+---
+reviewers:
+- caesarxuchao
+- dchen1107
+title: Nodes
+weight: 10
+---
+```
+
+After removing `reviewers:` from the title block, the localized title block looks like:
+
+```
+---
+title: Nodes
+weight: 10
+---
+```
+
 ### Repository
 
 A l10n team will have a repository specifically dedicated to its work, for example: [kubernetes/kubernetes-docs-cn](https://github.com/kubernetes/kubernetes-docs-cn).
