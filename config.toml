@@ -31,13 +31,26 @@ date = ["date", ":filename", "publishDate", "lastmod"]
 
 # Be explicit about the output formats. We (currently) only want an RSS feed for the home page.
 [outputs]
-home = [ "HTML", "RSS"]
+home = [ "HTML", "RSS", "HEADERS" ]
 page = [ "HTML"]
 section = [ "HTML"]
+
+# Add a "text/netlify" media type for auto-generating the _headers file
+[mediaTypes]
+[mediaTypes."text/netlify"]
+suffix = ""
+delimiter = ""
 
 [outputFormats]
 [outputFormats.RSS]
 baseName = "feed"
+
+# _headers file output (uses the template at layouts/index.headers)
+[outputFormats.HEADERS]
+mediatype = "text/netlify"
+baseName = "_headers"
+isPlainText = true
+notAlternative = true
 
 [params]
 
