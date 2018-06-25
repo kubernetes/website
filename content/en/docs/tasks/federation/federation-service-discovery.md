@@ -268,12 +268,13 @@ With the introduction of Federated Services and Cross-Cluster Service
 Discovery, this concept is extended to cover Kubernetes services
 running in any other cluster across your Cluster Federation, globally.
 To take advantage of this extended range, you use a slightly different
-DNS name (of the form "<servicename>.<namespace>.<federationname>",
-e.g. myservice.mynamespace.myfederation) to resolve Federated
-Services. Using a different DNS name also avoids having your existing
-applications accidentally traversing cross-zone or cross-region
-networks and you incurring perhaps unwanted network charges or
-latency, without you explicitly opting in to this behavior.
+DNS name of the form ```"<servicename>.<namespace>.<federationname>"```
+to resolve Federated Services. For example, you might use
+`myservice.mynamespace.myfederation`. Using a different DNS name also
+avoids having your existing applications accidentally traversing
+cross-zone or cross-region networks and you incurring perhaps unwanted
+network charges or latency, without you explicitly opting in to this
+behavior.
 
 So, using our NGINX example service above, and the Federated Service
 DNS name form just described, let's consider an example: A Pod in a
