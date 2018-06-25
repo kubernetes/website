@@ -7,59 +7,45 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-This guide is for upgrading `kubeadm` clusters from version 1.10.x to 1.11.x and 1.11.x to 1.11.y where `y > x`.
+This page explains how to upgrade a Kubernetes cluster created with `kubeadm` from version 1.10.x to version 1.11.x, and from version 1.11.x to 1.11.y, where `y > x`.
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-Before proceeding:
-
-- You need to have a functional `kubeadm` Kubernetes cluster running version 1.10.0 or higher in order to use the process described here. Swap also needs to be disabled. This cluster should use a static control plane and etcd pods.
+- You need to have a `kubeadm` Kubernetes cluster running version 1.10.0 or later. Swap must be disabled. The cluster should use a static control plane and etcd pods.
 - Make sure you read the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md) carefully.
-- Note that `kubeadm upgrade` will not touch any of your workloads, only Kubernetes-internal components. As a best-practice you should back up what's important to you. For example, any app-level state, such as a database an app might depend on (like MySQL or MongoDB) must be backed up beforehand.
+- Make sure to back up any important components, such as app-level state stored in a database. `kubeadm upgrade` does not touch your workloads, only components internal to Kubernetes, but backups are always a best practice.
 
-{{< caution >}}
-**Caution:** All the containers will get restarted after the upgrade, due to container spec hash value being changed.
-{{< /caution >}}
+### Additional information
 
-Also, note that only one minor version upgrade is supported. For example, you can only upgrade from 1.10 to 1.11, not from 1.9 to 1.11.
-
-{{< caution >}}
-**Caution:** The default DNS provider in 1.11 is [CoreDNS](https://coredns.io/) rather than [kube-dns](https://github.com/kubernetes/dns).
+- All containers are restarted after upgrade, because the container spec hash value is changed.
+- You can upgrade only froom one minor version to the next minor version. That is, you cannot skip versions when you upgrade. For example, you can upgrade only from 1.10 to 1.11, not from 1.9 to 1.11.
+- The default DNS provider in version 1.11 is [CoreDNS](https://coredns.io/) rather than [kube-dns](https://github.com/kubernetes/dns).
 To keep `kube-dns`, pass `--feature-flags=CoreDNS=false` to `kubeadm upgrade apply`.
-{{< /caution >}}
 
 {{% /capture %}}
 
 {{% capture steps %}}
 
-## Upgrading your control plane
+## Upgrade the control plane
 
-Execute these commands on your master node (as root):
+1.  On your master node, run the following (as root:
 
-1.
+        export VERSION=$(curl -sSL https://dl.k8s.io/release/stable.txt) # or manually specify a released Kubernetes version
+        export ARCH=amd64 # or: arm, arm64, ppc64le, s390x
+        curl -sSL https://dl.k8s.io/release/${VERSION}/bin/linux/${ARCH}/kubeadm > /usr/bin/kubeadm
+        chmod a+rx /usr/bin/kubeadm
 
-    ```shell
-    export VERSION=$(curl -sSL https://dl.k8s.io/release/stable.txt) # or manually specify a released Kubernetes version
-    export ARCH=amd64 # or: arm, arm64, ppc64le, s390x
-    curl -sSL https://dl.k8s.io/release/${VERSION}/bin/linux/${ARCH}/kubeadm > /usr/bin/kubeadm
-    chmod a+rx /usr/bin/kubeadm
-    ```
+    Note that upgrading the `kubeadm` package on your system prior to upgrading the control plane causes a failed upgrade. Even though `kubeadm` ships in the Kubernetes repositories, it's important to install it manually. The kubeadm team is working on fixing this limitation.
 
-    {{< caution >}}
-    **Caution:** Upgrading the `kubeadm` package on your system prior to upgrading the control plane causes a failed upgrade.
-    Even though `kubeadm` ships in the Kubernetes repositories, it's important to install `kubeadm` manually. The kubeadm
-    team is working on fixing this limitation.
-    {{< /caution >}}
-
-    Verify that this download of kubeadm works and has the expected version:
+1.  Verify that the download works and has the expected version:
 
     ```shell
     kubeadm version
     ```
 
-2. On the master node, run the following:
+1.  On the master node, run:
 
     ```shell
     kubeadm upgrade plan
@@ -104,15 +90,15 @@ Execute these commands on your master node (as root):
     _____________________________________________________________________
     ```
 
-    The `kubeadm upgrade plan` checks that your cluster is upgradeable and fetches the versions available to upgrade to in an user-friendly way.
+    This command checks that your cluster can be upgraded, and fetches the versions you can upgrade to.
 
-3. Pick a version to upgrade to and run. For example:
+1.  Choose a version to upgrade to, and run the appropriate command. For example:
 
     ```shell
     kubeadm upgrade apply v1.11.0
     ```
 
-    If you  currently use `kube-dns` and wish to continue doing so, use `--feature-flags=CoreDNS=false`.
+    If you currently use `kube-dns` and wish to continue doing so, add `--feature-flags=CoreDNS=false`.
 
     You should see output similar to this:
 
@@ -190,24 +176,21 @@ Execute these commands on your master node (as root):
     [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
     ```
 
-4. Manually upgrade your Software Defined Network (SDN).
+1.  Manually upgrade your Software Defined Network (SDN).
 
-   Your Container Network Interface (CNI) provider may have its own upgrade instructions to follow.
-   Check the [addons](/docs/concepts/cluster-administration/addons/) page to
-   find your CNI provider and see if there are additional upgrade steps
-   necessary.
+    Your Container Network Interface (CNI) provider may have its own upgrade instructions to follow.
+    Check the [addons](/docs/concepts/cluster-administration/addons/) page to
+    find your CNI provider and see whther additional upgrade steps are required.
 
-## Upgrading your master and node packages
+## Upgrade master and node packages
 
-For each host (referred to as `$HOST` below) in your cluster, upgrade `kubelet` by executing the following commands:
-
-1. Prepare the host for maintenance, marking it unschedulable and evicting the workload:
+1.  Prepare each host for maintenance, marking it unschedulable and evicting the workload:
 
     ```shell
     kubectl drain $HOST --ignore-daemonsets
     ```
 
-    When running this command against the master host, `--ignore-daemonsets` is required:
+    On the master host, you must add `--ignore-daemonsets`:
 
     ```shell
     kubectl drain ip-172-31-85-18
@@ -226,9 +209,7 @@ For each host (referred to as `$HOST` below) in your cluster, upgrade `kubelet` 
     node "ip-172-31-85-18" drained
     ```
 
-2. Upgrade the Kubernetes package versions on the `$HOST` node by using a Linux distribution-specific package manager:
-
-    If the host is running a Debian-based distro such as Ubuntu, run:
+1.  Upgrade the Kubernetes package version on each `$HOST` node by running the Linux package manager for your distribution:
 
     {{< tabs name="k8s_install" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -240,45 +221,48 @@ For each host (referred to as `$HOST` below) in your cluster, upgrade `kubelet` 
     {{% /tab %}}
     {{< /tabs >}}
 
+## Upgrade kubelet on each node
 
-3. On all nodes but the master node, the kubelet config needs to be upgraded:
+1.  On each node except the master node, upgrade the kubelet config:
+
     ```shell
     sudo kubeadm upgrade node config --kubelet-version $(kubelet --version | cut -d ' ' -f 2)
     ```
 
-4. Restart the kubectl process with
+1.  Restart the kubectl process:
+
     ```shell
     sudo systemctl restart kubelet
     ```
 
-    Now the new version of the `kubelet` should be running on the host. Verify this using the following command on `$HOST`:
+1.  Verify that the new version of the `kubelet` is running on the host:
 
     ```shell
     systemctl status kubelet
     ```
 
-5. Bring the host back online by marking it schedulable:
+1.  Bring the host back online by marking it schedulable:
 
     ```shell
     kubectl uncordon $HOST
     ```
 
-6. After upgrading `kubelet` on each host in your cluster, verify that all nodes are available again by executing the following (from anywhere, for example, from outside the cluster):
+1.  After the kubelet is upgraded on all hosts, verify that all nodes are available again by running the following command from anywhere -- for example, from outside the cluster:
 
     ```shell
     kubectl get nodes
     ```
 
-    If the `STATUS` column of the above command shows `Ready` for all of your hosts and the version you expect, you are done.
+    The `STATUS` column should show `Ready` for all your hosts, and the version number should be updated.
 
 {{% /capture %}}
 
 ## Recovering from a failure state
 
-If `kubeadm upgrade` somehow fails and fails to roll back, for example due to an unexpected shutdown during execution,
-you can run `kubeadm upgrade` again as it is idempotent and should eventually make sure the actual state is the desired state you are declaring.
+If `kubeadm upgrade` fails and does not roll back, for example because of an unexpected shutdown during execution,
+you can run `kubeadm upgrade` again. This command is idempotent and eventually makes sure that the actual state is the desired state you declare.
 
-You can use `kubeadm upgrade` to change a running cluster with `x.x.x --> x.x.x` with `--force`, which can be used to recover from a bad state.
+To recover from a bad state, you can run `kubeadm upgrade` to change a running cluster from `x.x.x --> x.x.x` with `--force`.
 
 ## How it works
 
