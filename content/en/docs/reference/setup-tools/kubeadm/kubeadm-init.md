@@ -431,8 +431,8 @@ In order to set up a cluster where the master and worker nodes communicate with 
 
 ### Setting the node name
 
-By default, `kubeadm` will assign a node name based on a machine's host address. You can override this with `--node-name`.
-Doing this will pass the appropriate [`--hostname-override`](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#options) 
+By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the  `--node-name`flag.
+The flag passes the appropriate [`--hostname-override`](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#options) 
 to the kubelet.
 
 Be aware that overriding the hostname can [interfere with cloud providers](https://github.com/kubernetes/website/pull/8873).
