@@ -347,6 +347,7 @@ Make sure you replace:
 {{% /tab %}}
 {{< /tabs >}}
 
+## Set up master Load Balancer
 
 ## {{< tabs name="lb_mode" >}}
 {{% tab name="Choose one..." %}}
