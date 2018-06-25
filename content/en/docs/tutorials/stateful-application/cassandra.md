@@ -123,7 +123,7 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
     cassandra   3         0         13s
     ```
 
-   The StatefulSet resource deploys Pods sequentially.  
+    The StatefulSet resource deploys Pods sequentially.  
 
 2. Get the Pods to see the ordered creation status:
 
@@ -177,30 +177,32 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
     kubectl edit statefulset cassandra
     ```
 
-   This command opens an editor in your terminal. The line you need to change is the `replicas` field.
+    This command opens an editor in your terminal. The line you need to change is the `replicas` field.
    
-   {{< note >}}
-   **Note:** The following sample is an excerpt of the StatefulSet file.
-   {{< /note >}}
+    {{< note >}}
+    **Note:** The following sample is an excerpt of the StatefulSet file.
+    {{< /note >}}
 
-        # Please edit the object below. Lines beginning with a '#' will be ignored,
-        # and an empty file will abort the edit. If an error occurs while saving this file will be
-        # reopened with the relevant failures.
-        #
-        apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
-        kind: StatefulSet
-        metadata:
-         creationTimestamp: 2016-08-13T18:40:58Z
-         generation: 1
-         labels:
-           app: cassandra
-         name: cassandra
-         namespace: default
-         resourceVersion: "323"
-         selfLink: /apis/apps/v1/namespaces/default/statefulsets/cassandra
-         uid: 7a219483-6185-11e6-a910-42010a8a0fc0
-        spec:
-         replicas: 3
+    ```yaml
+    # Please edit the object below. Lines beginning with a '#' will be ignored,
+    # and an empty file will abort the edit. If an error occurs while saving this file will be
+    # reopened with the relevant failures.
+    #
+    apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+    kind: StatefulSet
+    metadata:
+      creationTimestamp: 2016-08-13T18:40:58Z
+      generation: 1
+      labels:
+      app: cassandra
+      name: cassandra
+      namespace: default
+      resourceVersion: "323"
+      selfLink: /apis/apps/v1/namespaces/default/statefulsets/cassandra
+      uid: 7a219483-6185-11e6-a910-42010a8a0fc0
+    spec:
+      replicas: 3
+    ```
 
 2. Change the number of replicas to 4, and then save the manifest. 
 
@@ -252,5 +254,4 @@ Deleting or scaling a StatefulSet down does not delete the volumes associated wi
 * See more custom [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
 
 {{% /capture %}}
-
 
