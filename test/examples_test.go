@@ -440,8 +440,10 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-pod":     {&api.Pod{}},
 			"redis-service": {&api.Service{}},
 		},
-		"docs/tasks/run-application": {
+		"artifacts/application": {
 			"deployment":            {&extensions.Deployment{}},
+		},
+		"docs/tasks/run-application": {
 			"deployment-patch-demo": {&extensions.Deployment{}},
 			"deployment-scale":      {&extensions.Deployment{}},
 			"deployment-update":     {&extensions.Deployment{}},
