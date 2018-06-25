@@ -114,7 +114,7 @@ for a secure solution.
         Namespace:    default
         StorageClass:
         Status:       Bound
-        Volume:       mysql-pv
+        Volume:       mysql-pv-volume
         Labels:       <none>
         Annotations:    pv.kubernetes.io/bind-completed=yes
                         pv.kubernetes.io/bound-by-controller=yes
