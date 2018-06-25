@@ -32,33 +32,89 @@ have a given `phase` value.
 
 Here are the possible values for `phase`:
 
-* Pending: The Pod has been accepted by the Kubernetes system, but one or more of
-  the Container images has not been created. This includes time before being
-  scheduled as well as time spent downloading images over the network,
-  which could take a while.
-
-* Running: The Pod has been bound to a node, and all of the Containers have been
-  created. At least one Container is still running, or is in the process of
-  starting or restarting.
-
-* Succeeded: All Containers in the Pod have terminated in success, and will not
-  be restarted.
-
-* Failed: All Containers in the Pod have terminated, and at least one Container
-  has terminated in failure. That is, the Container either exited with non-zero
-  status or was terminated by the system.
-
-* Unknown: For some reason the state of the Pod could not be obtained, typically
-  due to an error in communicating with the host of the Pod.
+Value | Description
+:-----|:-----------
+`Pending` | The Pod has been accepted by the Kubernetes system, but one or more of the Container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while.
+`Running` | The Pod has been bound to a node, and all of the Containers have been created. At least one Container is still running, or is in the process of starting or restarting.
+`Succeeded` | All Containers in the Pod have terminated in success, and will not be restarted.
+`Failed` | All Containers in the Pod have terminated, and at least one Container has terminated in failure. That is, the Container either exited with non-zero status or was terminated by the system.
+`Unknown` | For some reason the state of the Pod could not be obtained, typically due to an error in communicating with the host of the Pod.
 
 ## Pod conditions
 
 A Pod has a PodStatus, which has an array of
-[PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core). Each element
-of the PodCondition array has a `type` field and a `status` field. The `type`
-field is a string, with possible values PodScheduled, Ready, Initialized, and
-Unschedulable. The `status` field is a string, with possible values True, False,
-and Unknown.
+[PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
+through which the Pod has or has not passed. Each element of the PodCondition
+array has six possible fields:
+
+* The `lastProbeTime` field provides a timestamp for when the Pod condition
+  was last probed.
+
+* The `lastTransitionTime` field provides a timestamp for when the Pod
+  last transitioned from one status to another.
+
+* The `message` field is a human-readable message indicating details
+  about the transition.
+
+* The `reason` field is a unique, one-word, CamelCase reason for the
+  transition.
+
+* The `type` field is a string enum with the following possible values:
+
+    Condition | Description
+    :---------|:-----------
+    `Initialized` | The init containers in the Pod have started successfully
+    `PodScheduled` | The Pod has been scheduled
+    `Ready` | The Pod is able to service requests and should be added to the load balancing pools of any matching services
+    `ContainersReady` | All Containers in the Pod are currently ready
+    `Unschedulable` | The scheduler can't currently schedule the Pod, perhaps because not enough resources are available
+
+* The `status` field is a string with three possible values, `True`, `False`,
+  and `Unknown`, and indicates whether the corresponding condition indicated
+  by the `type` field has been reached. For example, if the `type` field is
+  `Initialized` and the corresponding `status` field is `True`, then the Pod
+  has indeed been initialized; if, however, the `status` field is `False` then
+  the Pod has *not* been initialized.
+
+### Pod conditions example
+
+Let's say that you have a Pod called `my-application` running in a Kubernetes
+cluster. This `kubectl` query would fetch the PodCondition information for
+the Pod:
+
+```shell
+kubectl get pod my-application -o json | jq .status.conditions
+```
+
+Now let's say that that query has yielded this JSON:
+
+```json
+[
+  {
+    "lastProbeTime": null,
+    "lastTransitionTime": "2018-06-22T18:28:32Z",
+    "status": "True",
+    "type": "Initialized"
+  },
+  {
+    "lastProbeTime": null,
+    "lastTransitionTime": "2018-06-22T18:29:04Z",
+    "status": "True",
+    "type": "Ready"
+  },
+  {
+    "lastProbeTime": null,
+    "lastTransitionTime": "2018-06-22T18:28:32Z",
+    "status": "True",
+    "type": "PodScheduled"
+  }
+]
+```
+
+We can see here that the `my-application` Pod has passed through three different
+Pod conditions: `Initialized`, `Ready`, and `PodScheduled`. If the `status` of
+`PodScheduled` were `False`, for example, then the Pod would have passed through
+only two conditions.
 
 ## Container probes
 
