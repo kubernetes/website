@@ -28,89 +28,108 @@ for database debugging.
 
 1. Create a Redis deployment:
 
-       kubectl create -f https://k8s.io/docs/tutorials/stateless-application/guestbook/redis-master-deployment.yaml
+    ```shell
+    $ kubectl create -f https://k8s.io/docs/tutorials/stateless-application/guestbook/redis-master-deployment.yaml
+    ```
 
     The output of a successful command verifies that the deployment was created:
+    
+    ```shell
+    deployment "redis-master" created
+    ```
 
-        deployment "redis-master" created
- 
     When the pod is ready, you can get:
-       
-       kubectl get pods
-
-        NAME                            READY     STATUS    RESTARTS   AGE
-        redis-master-765d459796-258hz   1/1       Running   0          50s
-
-       kubectl get deployment
-       
-        NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-        redis-master 1         1         1            1           55s
-
-       kubectl get rs
-        NAME                      DESIRED   CURRENT   READY     AGE
-        redis-master-765d459796   1         1         1         1m
-
+    
+    ```shell
+    $ kubectl get pods
+    NAME                            READY     STATUS    RESTARTS   AGE
+    redis-master-765d459796-258hz   1/1       Running   0          50s
+    $ kubectl get deployment
+    NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+    redis-master 1         1         1            1           55s
+    $ kubectl get rs
+    NAME                      DESIRED   CURRENT   READY     AGE
+    redis-master-765d459796   1         1         1         1m
+    ```
 
 2. Create a Redis service:
-
-       kubectl create -f https://k8s.io/docs/tutorials/stateless-application/guestbook/redis-master-service.yaml
-
+    
+    ```shell
+    $ kubectl create -f https://k8s.io/docs/tutorials/stateless-application/guestbook/redis-master-service.yaml
+    ```
     The output of a successful command verifies that the service was created:
-
-        service "redis-master" created
-
+    ```shell
+    service "redis-master" created
+    ```
     Check the service created:
 
-       kubectl get svc | grep redis
-
-        NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-        redis-master   ClusterIP   10.0.0.213   <none>        6379/TCP   27s
+    ```shell
+    $ kubectl get svc | grep redis
+    NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+    redis-master   ClusterIP   10.0.0.213   <none>        6379/TCP   27s
+    ```
 
 3. Verify that the Redis server is running in the pod and listening on port 6379:
 
-        
-       kubectl get pods redis-master-765d459796-258hz --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
-        
+    ```shell  
+    $ kubectl get pods redis-master-765d459796-258hz --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
+    ``` 
 
     The output displays the port:
 
-        6379
-
+    ```shell
+    6379
+    ```
 
 ## Forward a local port to a port on the pod
 
 1.  `kubectl port-forward` allows using resource name, such as a service name, to select a matching pod to port forward to since Kubernetes v1.10.
-
-        kubectl port-forward redis-master-765d459796-258hz 6379:6379 
-
+   
+    ```shell
+    $ kubectl port-forward redis-master-765d459796-258hz 6379:6379 
+    ```
     which is the same as
 
-        kubectl port-forward pods/redis-master-765d459796-258hz 6379:6379
+    ```shell
+    $ kubectl port-forward pods/redis-master-765d459796-258hz 6379:6379
+    ```
 
     or  
 
-        kubectl port-forward deployment/redis-master 6379:6379 
+    ```shell
+    $ kubectl port-forward deployment/redis-master 6379:6379 
+    ```
+
+    or
+    
+    ```shell
+    $ kubectl port-forward rs/redis-master 6379:6379 
+    ```
 
     or
 
-        kubectl port-forward rs/redis-master 6379:6379 
-
-    or
-
-        kubectl port-forward svc/redis-master 6379:6379
+    ```shell
+    $ kubectl port-forward svc/redis-master 6379:6379
+    ```
 
     Any of the above commands works. The output is similar to this:
-
-        I0710 14:43:38.274550    3655 portforward.go:225] Forwarding from 127.0.0.1:6379 -> 6379
-        I0710 14:43:38.274797    3655 portforward.go:225] Forwarding from [::1]:6379 -> 6379
+    
+    ```shell
+    I0710 14:43:38.274550    3655 portforward.go:225] Forwarding from 127.0.0.1:6379 -> 6379
+    I0710 14:43:38.274797    3655 portforward.go:225] Forwarding from [::1]:6379 -> 6379
+    ```
 
 2.  Start the Redis command line interface:
-
-        redis-cli
+    
+    ```shell
+    $ redis-cli
+    ```
 
 3.  At the Redis command line prompt, enter the `ping` command:
-
-        127.0.0.1:6379>ping
+    
+    ```shell
+    127.0.0.1:6379>ping
+    ```
 
     A successful ping request returns PONG.
 
