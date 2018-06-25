@@ -17,9 +17,9 @@ Apache Airflow is one realization of the DevOps philosophy of "Configuration As 
 
 ## Why Airflow on Kubernetes?
 
-Since its inception, Airflow's greatest strength has been its flexibility. Airflow offers a wide range of integrations for services ranging from Spark and HBase, to services on Google Cloud Platform (GCP) and Amazon Web Services (AWS) S3. Airflow also offers easy extensibility through its plug-in framework. However, one limitation of the project is that Airflow users are confined to the frameworks and clients that exist on the Airflow worker at the moment of execution. If a user wishes to use a different version of SciPy or test a new deep learning framework, they would need to either launch a new Airflow cluster or risk conflicting with the dependencies of other users' workflows. 
+Since its inception, Airflow's greatest strength has been its flexibility. Airflow offers a wide range of integrations for services ranging from Spark and HBase, to services on various cloud providers. Airflow also offers easy extensibility through its plug-in framework. However, one limitation of the project is that Airflow users are confined to the frameworks and clients that exist on the Airflow worker at the moment of execution. A single organization can have varied Airflow workflows ranging from data science pipelines to application deployments. This difference in use-case creates issues in dependency management as both teams might use vastly different libraries for their workflows.
 
-To address this issue, we've utilized Kubernetes to allow users to launch arbitrary Docker containers and configurations. Airflow users can now have full power over their run-time environments, resources, and secrets, basically turning Airflow into an "any job you want" scheduler.
+To address this issue, we've utilized Kubernetes to allow users to launch arbitrary Kubernetes pods and configurations. Airflow users can now have full power over their run-time environments, resources, and secrets, basically turning Airflow into an "any job you want" worflow orchestrator.
 
 
 ## The Kubernetes Operator
@@ -133,7 +133,7 @@ production_task = KubernetesPodOperator(namespace='default',
 
 # Launching a test deployment
 
-Since the Kubernetes Operator is not yet released, we haven't released an official helm chart or operator (however both are currently in progress). However, we are including instructions for a basic deployment below  and are actively looking for foolhardy beta testers to try this new feature. To try this system out please follow these steps:
+Since the Kubernetes Operator is not yet released, we haven't released an official [helm](https://helm.sh/) chart or operator (however both are currently in progress). However, we are including instructions for a basic deployment below  and are actively looking for foolhardy beta testers to try this new feature. To try this system out please follow these steps:
 
 ## Step 1: Set your kubeconfig to point to a kubernetes cluster
 
@@ -186,7 +186,7 @@ To modify/add your own DAGs, you can use `kubectl cp` to upload local files into
 
 # So when will I be able to use this?
 
- While this branch is still in the early stages, we hope to see it released for wide release in the next few months.
+ While this feature is still in the early stages, we hope to see it released for wide release in the next few months.
 
 # Get Involved
 
@@ -196,6 +196,6 @@ For those interested in joining these efforts, I'd recommend checkint out these 
 
  * Join the airflow-dev mailing list at dev@airflow.apache.org.
  * File an issue in [Apache Airflow JIRA](https://issues.apache.org/jira/projects/AIRFLOW/issues/)
- * Join our SIG-BIG-DATA meetings on Wednesdays at 10am PT.
+ * Join our SIG-BigData meetings on Wednesdays at 10am PT.
 
-I'd like to thank the Apache Spark and Kubernetes communities, particularly Grant Nicholas, Ben Goldberg, Anirudh Ramanathan, Fokko Dreisprong, and Bolke de Bruin, for your awesome help on these features as well as our future efforts.
+Special thanks to the Apache Airflow and Kubernetes communities, particularly Grant Nicholas, Ben Goldberg, Anirudh Ramanathan, Fokko Dreisprong, and Bolke de Bruin, for your awesome help on these features as well as our future efforts.
