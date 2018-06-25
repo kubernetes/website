@@ -9,61 +9,77 @@ weight: 70
 
 {{% capture overview %}}
 
-{{< feature-state state="alpha" >}}
+{{< feature-state for_k8s_version="1.8" state="alpha" >}}
+{{< feature-state for_k8s_version="1.11" state="beta" >}}
 
-[Pods](/docs/user-guide/pods) in Kubernetes 1.8 and later can have priority. Priority
-indicates the importance of a Pod relative to other Pods. When a Pod cannot be scheduled,
+[Pods](/docs/user-guide/pods) can have _priority_. Priority
+indicates the importance of a Pod relative to other Pods. If a Pod cannot be scheduled,
 the scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
-pending Pod possible. In Kubernetes 1.9 and later, Priority also affects scheduling
+pending Pod possible.
+
+In Kubernetes 1.9 and later, Priority also affects scheduling
 order of Pods and out-of-resource eviction ordering on the Node.
+
+Pod priority and preemption are moved to beta since Kubernetes 1.11 and are enabled by default in
+this release and later.
+
+In Kubernetes versions where Pod priority and preemption is still an alpha-level
+feature, you need to explicitly enable it. To use these features in the older versions of
+Kubernetes, follow the instructions in the documentation for your Kubernetes version, by
+going to the documentation archive version for your Kubernetes version.
+
+| Kubernetes Version | Priority and Preemption State | Enabled by default |
+| -------- |:-----:|:----:|
+| 1.8      | alpha |   no |
+| 1.9      | alpha |   no |
+| 1.10     | alpha |   no |
+| 1.11     | beta  |  yes |
+
+{{< warning >}}
+**Warning**: In a cluster where not all users are trusted, a malicious
+user could create pods at the highest possible priorities, causing
+other pods to be evicted/not get scheduled. To resolve this issue,
+[ResourceQuota](https://kubernetes.io/docs/concepts/policy/resource-quotas/) is augmented to support
+Pod priority. An admin can create ResourceQuota for users at specific priority levels, preventing
+them from creating pods at high priorities. However, this feature is in alpha as of Kubernetes 1.11.
+{{< /warning >}}
 
 {{% /capture %}}
 
 {{% capture body %}}
 
 ## How to use priority and preemption
-To use priority and preemption in Kubernetes 1.8 and later, follow these steps:
+To use priority and preemption in Kubernetes 1.11 and later, follow these steps:
 
-1. Enable the feature.
+1. Add one or more [PriorityClasses](#priorityclass).
 
-1. Add one or more PriorityClasses.
-
-1. Create Pods with `priorityClassName` set to one of the added PriorityClasses.
+1. Create Pods with[`priorityClassName`](#pod-priority) set to one of the added PriorityClasses.
 Of course you do not need to create the Pods directly; normally you would add 
 `priorityClassName` to the Pod template of a collection object like a Deployment.
 
-The following sections provide more information about these steps.
-
-## Enabling priority and preemption
-
-Pod priority and preemption is disabled by default in Kubernetes 1.8.
-To enable the feature, set this command-line flag for the API server, scheduler and kubelet:
-
-```
---feature-gates=PodPriority=true
-```
-
-Also enable scheduling.k8s.io/v1alpha1 API and Priority [admission controller](/docs/admin/admission-controllers/) in API server:
-
-
-```
---runtime-config=scheduling.k8s.io/v1alpha1=true --enable-admission-plugins=Controller-Foo,Controller-Bar,...,Priority
-```
-
-After the feature is enabled, you can create [PriorityClasses](#priorityclass)
-and create Pods with [`priorityClassName`](#pod-priority) set.
+Keep reading for more information about these steps.
 
 If you try the feature and then decide to disable it, you must remove the PodPriority
-command-line flag or set it to false, and then restart the API server and
+command-line flag or set it to `false`, and then restart the API server and
 scheduler. After the feature is disabled, the existing Pods keep their priority
-fields, but preemption is disabled, and priority fields are ignored, and you
-cannot set `priorityClassName` in new Pods.
+fields, but preemption is disabled, and priority fields are ignored. If the feature
+is disabled, you cannot set `priorityClassName` in new Pods.
 
 ## How to disable preemption
 
-In Kubernetes 1.11 and later, preemption is controlled by a kube-scheduler flag `disablePreemption`, which is set to `false` by default.
+{{< note >}}
+**Note**: In Kubernetes 1.11, critical pods (except DaemonSet pods, which are
+still scheduled by the DaemonSet controller) rely on scheduler preemption to be
+scheduled when a cluster is under resource pressure. For this reason, we do not
+recommend disabling this feature. If you still have to disable this feature,
+follow the instructions below.
+{{< /note >}}
 
-If you want to disable preemption, just set `disablePreemption` to true. This will keep pod priority enabled while preemption is disabled. Here is a sample configuration:
+In Kubernetes 1.11 and later, preemption is controlled by a kube-scheduler flag
+`disablePreemption`, which is set to `false` by default.
+
+To disable preemption, set `disablePreemption` to true. This keeps pod priority
+enabled but disables preemption. Here is a sample configuration:
 
 ```yaml
 apiVersion: componentconfig/v1alpha1
@@ -77,7 +93,8 @@ disablePreemption: true
 
 ```
 
-Please note: although preemption of scheduler is enabled by default, preemption will not happen if `PodPriority` feature is not available.
+Although preemption of the scheduler is enabled by default, it is disabled if `PodPriority`
+feature is disabled.
 
 ## PriorityClass
 
@@ -100,22 +117,17 @@ with `globalDefault` set, the priority of Pods with no `priorityClassName` is ze
 The `description` field is an arbitrary string. It is meant to tell users of
 the cluster when they should use this PriorityClass.
 
-{{< note >}}
-**Note 1**: If you upgrade your existing cluster and enable this feature, the priority
-of your existing Pods will be considered to be zero.
-{{< /note >}}
+### Notes about PodPriority and existing clusters
+- If you upgrade your existing cluster and enable this feature, the priority
+of your existing Pods is effectively zero.
 
-{{< note >}}
-**Note 2**: Addition of a PriorityClass with `globalDefault` set to true does not
+- Addition of a PriorityClass with `globalDefault` set to `true` does not
 change the priorities of existing Pods. The value of such a PriorityClass is used only
 for Pods created after the PriorityClass is added.
-{{< /note >}}
 
-{{< note >}}
-**Note 3**: If you delete a PriorityClass, existing Pods that use the name of the
-deleted priority class remain unchanged, but you are not able to create more Pods
+- If you delete a PriorityClass, existing Pods that use the name of the
+deleted PriorityClass remain unchanged, but you cannot create more Pods
 that use the name of the deleted PriorityClass.
-{{< /note >}}
 
 ### Example PriorityClass
 
