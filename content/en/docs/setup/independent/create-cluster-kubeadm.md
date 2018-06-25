@@ -165,7 +165,7 @@ support [Network Policy](/docs/concepts/services-networking/networkpolicies/). S
 - IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). 
 - [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in Kubernetes version 1.9.
 
-Note that kubeadm sets up a more secure cluster by default and enforces use of [RBAC].
+Note that kubeadm sets up a more secure cluster by default and enforces use of [RBAC](/docs/reference/access-authn-authz/rbac/).
 Make sure that your network manifest supports RBAC.
 
 You can install a pod network add-on with the following command:
@@ -292,7 +292,7 @@ This will remove the `node-role.kubernetes.io/master` taint from any nodes that
 have it, including the master node, meaning that the scheduler will then be able
 to schedule pods everywhere.
 
-### Joining your nodes {join-nodes}
+### Joining your nodes {#join-nodes}
 
 The nodes are where your workloads (containers and pods, etc) run. To add new nodes to your cluster do the following for each machine:
 
