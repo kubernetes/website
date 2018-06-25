@@ -29,5 +29,5 @@ docker-image:
 docker-build:
 	$(DOCKER_RUN) $(DOCKER_IMAGE) hugo
 
-stage:
+docker-serve:
 	$(DOCKER_RUN) -p 1313:1313 $(DOCKER_IMAGE) hugo server --watch --bind 0.0.0.0
