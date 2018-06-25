@@ -262,7 +262,7 @@ To keep `kube-dns`, pass `--feature-flags=CoreDNS=false` to `kubeadm upgrade app
 If `kubeadm upgrade` fails and does not roll back, for example because of an unexpected shutdown during execution,
 you can run `kubeadm upgrade` again. This command is idempotent and eventually makes sure that the actual state is the desired state you declare.
 
-To recover from a bad state, you can run `kubeadm upgrade` to change a running cluster from `x.x.x --> x.x.x` with `--force`.
+To recover from a bad state, you can also run `kubeadm upgrade --force` without changing the version that your cluster is running.
 
 ## How it works
 
