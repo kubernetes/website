@@ -22,9 +22,10 @@ when using kubeadm to set up a kubernetes cluster.
   document assumes these default ports. However, they are configurable through
   the kubeadm config file.
 * Each host must [have docker, kubelet, and kubeadm installed][toolbox].
-* Some infrastructure to copy files between hosts (e.g., ssh).
+* Some infrastructure to copy files between hosts. For example `ssh` and `scp`
+  can satisfy this requirement.
 
-[toolbox]: /docs/setup/independent/install-kubeadm/
+[toolbox]: /docs/tasks/tools/install-kubeadm/
 
 {{% /capture %}}
 
@@ -33,9 +34,32 @@ when using kubeadm to set up a kubernetes cluster.
 ## Setting up the cluster
 
 The general approach is to generate all certs on one node and only distribute
-the *necessary* files to the other nodes. Note that kubeadm contains all the
-necessary crytographic machinery to generate the certificates described below;
-no other cryptographic tooling is required for this example.
+the *necessary* files to the other nodes.
+
+{{< note >}}
+**Note:**  kubeadm contains all the necessary crytographic machinery to generate
+the certificates described below; no other cryptographic tooling is required for
+this example.
+{{< /note >}}
+
+
+1. Configure the kubelet to be a service manager for etcd.
+
+    Running etcd is simpler than running kubernetes so you must override the
+    kubeadm-provided kubelet unit file by creating a new one with a higher
+    precedence.
+
+    ```sh
+    cat << EOF > /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
+    [Service]
+    ExecStart=
+    ExecStart=/usr/bin/kubelet --pod-manifest-path=/etc/kubernetes/manifests --allow-privileged=true
+    Restart=always
+    EOF
+
+    systemctl daemon-reload
+    systemctl restart kubelet
+    ```
 
 1. Create configuration files for kubeadm.
 
