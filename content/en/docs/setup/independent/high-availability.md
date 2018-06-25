@@ -213,7 +213,8 @@ Please select one of the tabs to see installation instructions for the respectiv
 {{% tab name="systemd" %}}
 1. First, install etcd binaries:
      ```bash
-     ETCD_VERSION="v3.1.12" curl -sSL https://github.com/coreos/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz | tar -xzv --strip-components=1 -C /usr/local/bin/
+     export ETCD_VERSION="v3.1.12" 
+     curl -sSL https://github.com/coreos/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz | tar -xzv --strip-components=1 -C /usr/local/bin/
      ```
 
     It is worth noting that etcd v3.1.12 is the preferred version for Kubernetes v1.10. For other versions of Kubernetes please consult [the changelog](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md).
