@@ -158,6 +158,12 @@ Note: this file assumes that a user previous created 'l2bridge' host networks on
 
 #### For 3. Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay
 
+{{< note >}}
+**Note:** Fully automated setup via Ansible playbooks is [available](https://github.com/openvswitch/ovn-kubernetes/tree/master/contrib).
+{{< /note >}}
+
+For manual setup, continue the following steps.
+
 ##### Linux Host Setup
 
 Setting up the central node and the components needed is out of scope of this document. You can read [these instructions](https://github.com/openvswitch/ovn-kubernetes#k8s-master-node-initialization) for that.
@@ -551,3 +557,4 @@ Some of these limitations will be addressed by the community in future releases 
 
 - Support for Windows is in Beta as of v1.9 and your feedback is welcome. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
 - Troubleshooting and Common Problems: [Link](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/common-problems)
+
