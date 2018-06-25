@@ -429,6 +429,14 @@ In order to set up a cluster where the master and worker nodes communicate with 
 
 3. Finally, when you run `kubeadm join`, make sure you provide the private IP of the API server addressed as defined in step 1.
 
+### Setting the node name
+
+By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the  `--node-name`flag.
+The flag passes the appropriate [`--hostname-override`](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#options) 
+to the kubelet.
+
+Be aware that overriding the hostname can [interfere with cloud providers](https://github.com/kubernetes/website/pull/8873).
+
 ### Self-hosting the Kubernetes control plane {#self-hosting}
 
 As of 1.8, you can experimentally create a _self-hosted_ Kubernetes control
