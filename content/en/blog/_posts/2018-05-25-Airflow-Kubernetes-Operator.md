@@ -178,7 +178,7 @@ kubectl port-forward $WEB 8080:8080
 
 ## Step 5: Upload a test document
 
-To modify/add your own DAGs, you can use `kubectl cp` to upload local files into the DAG folder of the airflow scheduler. Airflow will then read the new DAG and automatically upload it to its system. The following command will upload any local file into the correct directory
+To modify/add your own DAGs, you can use `kubectl cp` to upload local files into the DAG folder of the Airflow scheduler. Airflow will then read the new DAG and automatically upload it to its system. The following command will upload any local file into the correct directory:
 
 `kubectl cp <local file> <namespace>/<pod>:/root/airflow/dags -c scheduler`
 
