@@ -24,7 +24,7 @@ You will use command line interface called kubectl to perform all these tasks. K
 
 
 
-####Deploy an application
+#### Deploy an application
 
 
 1. View the cluster details:
@@ -99,23 +99,7 @@ Execute the kubectl get services command again to view if the new service is add
 
 [Not sure if i need to add the information below at all for this tutorial.]
 
-4. View the label name of your pod:
 
-    ```
-    kubectl describe deployment
-    ```
-
-The deployment automatically creates a label for your pod.
-
-5. Use the label to query your list of Pods.  
-
-    ```
-    kubectl get pods -l run=kubernetes-bootcamp
-    ```
-
-where
-
-* -l is the label parameter, followed by the label values:
 
 
 #### Scale an application
@@ -158,8 +142,46 @@ where
 4. Verify if the number of Pods have changed:
 
   ```
-  kubectl get pods -o wide
+  kubectl get pods
   ```
+
+#### Update the version of the app
+
+
+  1. View the current image version of the app:
+
+      ```
+      kubectl describe pods
+      ```
+
+  2. Update the image of the application to version 2. Use the set image command, followed by the deployment name and the new image version:
+
+      ```
+      kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
+      ```
+      The command initiated a rolling update and informed the deployment to use a a different image.
+
+  3. View the status of the newly created pods and terminating pods:
+
+      ```
+      kubectl get pods
+      ```
+
+4. Verify that the app is running:
+  First, let’s check that the App is running. To find out the exposed IP and Port we can use describe service:
+
+  kubectl describe services/kubernetes-bootcamp
+
+
+  The update can be confirmed also by running a rollout status command:
+
+  kubectl rollout status deployments/kubernetes-bootcamp
+
+  To view the current image version of the app, run a describe command against the Pods:
+
+  kubectl describe pods
+
+  We run now version 2 of the app (look at the Image field)
 
 [[Stuff for the quiz:
 
@@ -188,46 +210,3 @@ To list your deployments use the get deployments command: kubectl get deployment
 To list the running Pods use the get pods command:
 
 kubectl get pods
-
-#### Update the version of the app
-
-
-1. View the current image version of the app:
-
-    ```
-    kubectl describe pods
-    ```
-
-2. To update the image of the application to version 2, use the set image command, followed by the deployment name and the new image version:
-
-kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
-
-The command notified the Deployment to use a different image for your app and initiated a rolling update. Check the status of the new Pods, and view the old one terminating with the get pods command:
-
-kubectl get pods
-
-Step 2: Verify an update
-First, let’s check that the App is running. To find out the exposed IP and Port we can use describe service:
-
-kubectl describe services/kubernetes-bootcamp
-
-Create an environment variable called NODE_PORT that has the value of the Node port assigned:
-
-export NODE_PORT=$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')
-echo NODE_PORT=$NODE_PORT
-
-Next, we’ll do a curl to the the exposed IP and port:
-
-curl $(minikube ip):$NODE_PORT
-
-We hit a different Pod with every request and we see that all Pods are running the latest version (v2).
-
-The update can be confirmed also by running a rollout status command:
-
-kubectl rollout status deployments/kubernetes-bootcamp
-
-To view the current image version of the app, run a describe command against the Pods:
-
-kubectl describe pods
-
-We run now version 2 of the app (look at the Image field)
