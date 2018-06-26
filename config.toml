@@ -55,6 +55,7 @@ deprecated = false
 currentUrl = "https://kubernetes.io/docs/home/"
 nextUrl = "http://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"
+githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
 [[params.versions]]
 fullversion = "v1.10.3"
