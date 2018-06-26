@@ -7,7 +7,7 @@ content_template: templates/task
 weight: 90
 ---
 
-{{% capture prerequisites %}}
+{{% capture overview %}}
 
 Many cloud providers (e.g. Google Compute Engine) define firewalls that help prevent inadvertent
 exposure to the internet.  When exposing a service to the external world, you may need to open up
