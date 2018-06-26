@@ -19,13 +19,12 @@ cluster if necessary.
 Every upgrade process might be a bit different, so we've documented each minor upgrade process individually.
 Please check these documents out for more detailed how-to-upgrade guidance:
 
- * [1.6 to 1.7 upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/)
- * [1.7.x to 1.7.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
- * [1.7 to 1.8 upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
- * [1.8.x to 1.8.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/)
- * [1.8.x to 1.9.x upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
- * [1.9.x to 1.9.y upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/)
- * [1.9.x to 1.9.y HA cluster upgrades](/docs/tasks/administer-cluster/kubeadm-upgrade-ha/)
+ * [1.7.x to 1.7.y upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-8/)
+ * [1.7 to 1.8 upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-8/)
+ * [1.8.x to 1.8.y upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-8/)
+ * [1.8.x to 1.9.x upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-9/)
+ * [1.9.x to 1.9.y upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-9/)
+ * [1.9.x to 1.9.y HA cluster upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha/)
 
 ## kubeadm upgrade plan {#cmd-upgrade-plan}
 {{< include "generated/kubeadm_upgrade_plan.md" >}}
