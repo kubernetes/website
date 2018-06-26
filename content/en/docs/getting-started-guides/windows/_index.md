@@ -51,7 +51,7 @@ There are several supported network configurations with Kubernetes v1.9 on Windo
 The selection of which network configuration and topology to deploy depends on the physical network topology and a user's ability to configure routes, performance concerns with encapsulation, and requirement to integrate with third-party network plugins.
 
 ### Future CNI Plugins
-An additional two CNI plugins [win-l2bridge (host-gateway) and win-overlay (vxlan)] are in [PR review](https://github.com/containernetworking/plugins/pull/85). These two CNI plugins, when ready, can either be used directly or with Flannel.
+An additional two CNI plugins [win-l2bridge (host-gateway) and win-overlay (vxlan)] are in [PR review](https://github.com/containernetworking/plugins/pull/85). These two CNI plugins, when ready, can either be used directly or with Flannel. In the meantime, binaries with the PR's have been published under the [Microsoft/SDN](https://github.com/Microsoft/SDN/tree/master/Kubernetes/flannel) repository. Step-by-step instructions of how to use the win-l2bridge plugin using Flannel can be found in the [Host-Gateway](#host-gateway-topology) section below.
 
 ### Linux
 The above networking approaches are already supported on Linux using a bridge interface, which essentially creates a private network local to the node. Similar to the Windows side, routes to all other pod CIDRs must be created in order to send packets via the "public" NIC.
@@ -67,6 +67,8 @@ The following example diagram illustrates the Windows Server networking setup fo
 
 #### Host-Gateway Topology
 This topology is similar to the Upstream L3 Routing topology with the only difference being that static IP routes are configured directly on each cluster node and not in the upstream ToR. Each node uses a local 'l2bridge' network with a pod CIDR assigned as before and has routing table entries for all other pod CIDR subnets assigned to the remote cluster nodes.
+
+**NEW:** Sample instructions that explain how to configure a mixed-OS Kubernetes cluster using Flannel can be found [here](https://1drv.ms/w/s!AgH65RVQdrbiglNr7P7P4VrO8Rxr). Note that these instructions use kubeadm for initialization and joining of Linux nodes.
 
 #### Using OVN with OVS
 The following diagram gives a general overview of the architecture and interaction between components:
@@ -543,9 +545,10 @@ Some of these limitations will be addressed by the community in future releases 
 - Windows container OS must match the Host OS. If it does not, the pod will get stuck in a crash loop.
 - Under the networking models of L3 or Host GW, Kubernetes Services are inaccessible to Windows nodes due to a Windows issue. This is not an issue if using OVN/OVS for networking.
 - Windows kubelet.exe may fail to start when running on Windows Server under VMware Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
-- Flannel and Weavenet are not yet supported
+- Flannel and Weavenet are not yet supported. See [Future CNI Plugins](#future-cni-plugins) for details.
 - Some .Net Core applications expect environment variables with a colon (`:`) in the name.  Kubernetes currently does not allow this.  Replace colon (`:`) with  double underscore (`__`) as documented [here](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration#configuration-by-environment).
-- As cgroups are not supported on windows, kubelet.exe should be started with the following additional arguments `--cgroups-per-qos=false --enforce-node-allocatable=""` [issue 61716](https://github.com/kubernetes/kubernetes/issues/61716)
+- As cgroups are not supported on windows, kubelet.exe should be started with the following additional arguments `--cgroups-per-qos=false --enforce-node-allocatable=""` [issue 61716](https://github.com/kubernetes/kubernetes/issues/61716).
+- In Kubernetes v1.11 and below, DNS servers are set through the CNI config file statically, but the DNS search suffix is not set per namespace.
 
 ## Next steps and resources
 
