@@ -59,7 +59,7 @@ Guide](http://kubernetes.io/docs/admin/).
 * **API Conventions** ([api-conventions.md](https://github.com/kubernetes/community/tree/master/contributors/devel/api-conventions.md)):
   Defining the verbs and resources used in the Kubernetes API.
 
-* **API Client Libraries** ([client-libraries](/docs/reference/client-libraries/)):
+* **API Client Libraries** ([client-libraries](/docs/reference/using-api/client-libraries/)):
   A list of existing client libraries, both supported and user-contributed.
 
 
