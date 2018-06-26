@@ -1,12 +1,16 @@
 ---
 title: Well-Known Labels, Annotations and Taints
+content_template: templates/concept
+weight: 10
 ---
 
-Kubernetes reserves all labels and annotations in the kubernetes.io namespace.  This document describes
-the well-known kubernetes.io labels and annotations.
-
+{{% capture overview %}}
+Kubernetes reserves all labels and annotations in the kubernetes.io namespace.
+  
 This document serves both as a reference to the values, and as a coordination point for assigning values.
+{{% /capture %}}
 
+{{% capture body %}}
 ## beta.kubernetes.io/arch
 
 Example: `beta.kubernetes.io/arch=amd64`
@@ -51,7 +55,7 @@ of requiring a `g2.2xlarge`)
 
 See [failure-domain.beta.kubernetes.io/zone](#failure-domainbetakubernetesiozone).
 
-## failure-domain.beta.kubernetes.io/zone
+## failure-domain.beta.kubernetes.io/zone {#failure-domainbetakubernetesiozone}
 
 Example:
 
@@ -89,8 +93,4 @@ If `PersistentVolumeLabel` does not support automatic labeling of your Persisten
 adding the labels manually (or adding support to `PersistentVolumeLabel`), if you want the scheduler to prevent
 pods from mounting volumes in a different zone.  If your infrastructure doesn't have this constraint, you don't
 need to add the zone labels to the volumes at all.
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/reference/labels-annotations-taints.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
+{{% /capture %}}
