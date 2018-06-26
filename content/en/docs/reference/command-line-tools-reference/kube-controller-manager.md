@@ -1,11 +1,14 @@
 ---
 title: kube-controller-manager
-notitle: true
-weight: 50
+content_template: templates/concept
+weight: 60
 ---
-## kube-controller-manager
+{{% capture overview %}}
+This page provides an overview of kube-controller-manager.
+{{% /capture %}}
 
-### Synopsis
+{{% capture body %}}
+## Overview
 
 The Kubernetes controller manager is a daemon that embeds
 the core control loops shipped with Kubernetes. In applications of robotics and
@@ -20,7 +23,7 @@ controller, and serviceaccounts controller.
 kube-controller-manager [flags]
 ```
 
-### Options
+## Options
 
 <table style="width: 100%;">
   <colgroup>
@@ -564,3 +567,4 @@ kube-controller-manager [flags]
     </tr>
   </tbody>
 </table>
+{{% /capture %}}

@@ -1,11 +1,14 @@
 ---
 title: kube-scheduler
-notitle: true
-weight: 70
+content_template: templates/concept
+weight: 80
 ---
-## kube-scheduler
+{{% capture overview %}}
+This page provides an overview of kube-scheduler.
+{{% /capture %}}
 
-### Synopsis
+{{% capture body %}}
+## Overview
 
 The Kubernetes scheduler is a policy-rich, topology-aware,
 workload-specific function that significantly impacts availability, performance,
@@ -19,7 +22,7 @@ through the API as necessary.
 kube-scheduler [flags]
 ```
 
-### Options
+## Options
 
 <table style="width: 100%;">
   <colgroup>
@@ -197,3 +200,4 @@ kube-scheduler [flags]
     </tr>
   </tbody>
 </table>
+{{% /capture %}}

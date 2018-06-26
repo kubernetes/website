@@ -1,11 +1,14 @@
 ---
 title: kube-proxy
-notitle: true
-weight: 60
+content_template: templates/concept
+weight: 70
 ---
-## kube-proxy
+{{% capture overview %}}
+This page provides an overview of kube-proxy.
+{{% /capture %}}
 
-### Synopsis
+{{% capture body %}}
+## Overview
 
 The Kubernetes network proxy runs on each node. This
 reflects services as defined in the Kubernetes API on each node and can do simple
@@ -19,7 +22,7 @@ with the apiserver API to configure the proxy.
 kube-proxy [flags]
 ```
 
-### Options
+## Options
 
 <table style="width: 100%;">
   <colgroup>
@@ -257,3 +260,4 @@ kube-proxy [flags]
     </tr>
   </tbody>
 </table>
+{{% /capture %}}

@@ -1,11 +1,14 @@
 ---
 title: kube-apiserver
-notitle: true
-weight: 40
+content_template: templates/concept
+weight: 50
 ---
-## kube-apiserver
+{{% capture overview %}}
+This page provides an overview of kube-apiserver.
+{{% /capture %}}
 
-### Synopsis
+{{% capture body %}}
+## Overview
 
 The Kubernetes API server validates and configures data
 for the api objects which include pods, services, replicationcontrollers, and
@@ -16,7 +19,7 @@ cluster's shared state through which all other components interact.
 kube-apiserver [flags]
 ```
 
-### Options
+## Options
 
 <table style="width: 100%;">
   <colgroup>
@@ -760,3 +763,4 @@ kube-apiserver [flags]
     </tr>
   </tbody>
 </table>
+{{% /capture %}}
