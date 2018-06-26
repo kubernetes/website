@@ -16,7 +16,6 @@ weight: 70
   * [1.8](https://v1-8.docs.kubernetes.io/docs/reference/)
   * [1.7](https://v1-7.docs.kubernetes.io/docs/reference/)
   * [1.6](https://v1-6.docs.kubernetes.io/docs/reference/)
-  * [1.5](https://v1-5.docs.kubernetes.io/docs/reference/)
 
 ## API Client Libraries
 
