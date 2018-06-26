@@ -86,7 +86,7 @@ the Pod:
 kubectl get pod my-application -o json | jq .status.conditions
 ```
 
-Now let's say that that query has yielded this JSON:
+If that query returned this example JSON:
 
 ```json
 [
