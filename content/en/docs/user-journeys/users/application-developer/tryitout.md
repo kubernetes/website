@@ -11,10 +11,11 @@ content_template: templates/user-journey-content
 {{% capture body %}}
 ## Learn to create a Containerized application
 
-Try our virtual terminal to create a containerized application with an existing image{popup} running on Minikube.
-Minikube is a lightweight Kubernetes implementation that creates a Virtual Machine on your local machine and deploys a simple cluster containing only one node.  
-For the purposes of this tutorial, we have installed and preconfigured Minikube on the virtual terminal.
+Click on the Launch Terminal button to open a Kubernetes Cluster environment running on Minikube.
 
+Minikube is a lightweight Kubernetes implementation that creates a Virtual Machine on your local machine and deploys a simple cluster containing only one node.  
+For the purposes of this tutorial, Minikube is installed and launched on the terminal by default. By completing this tutorial, you will learn to deploy, expose, scale and update an application.
+You will use command line interface called kubectl to perform all these tasks. Kubectl uses the Kubernetes API to interact with the cluster.
 
 <div id="my-panel" data-katacoda-ondemand="true" data-katacoda-env="minikube" data-katacoda-command="minikube version; minikube start" data-katacoda-ui="panel"></div>
 <script src="https://katacoda.com/embed.js"></script>
@@ -23,74 +24,210 @@ For the purposes of this tutorial, we have installed and preconfigured Minikube 
 
 
 
-The ```minikube start``` command starts the Minikube cluster and the ```minikube version``` verifies the version of Minikube installed.
+####Deploy an application
 
-  ```
-  kubectl version
-  ```
 
-1. View the cluster details
-
+1. View the cluster details:
 
     ```
     kubectl cluster-info
     ```
 
+2. View the nodes in the cluster:
 
-2. View the nodes in the cluster that can be used to host your application:
+    ```
+    kubectl get nodes
+    ```
+
+This command displays all the nodes in the cluster that can host your application. The ready status of the node indicates that it is ready to accept an application for deployment. If the status of the node is displayed as not ready, run the kubectl get nodes command again.
+
+
+3. Create a new deployment:
+
+    ```
+    kubectl run kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1 --port=8080
+    ```
+
+    where
+
+    * kubernetes-bootcamp is deployment names
+    * image=gcr.io/google-samples/kubernetes-bootcamp:v1 is app image location
+    * 8080 is the specified port information
+
+{{<note>}}Note: If app images are hosted outside Docker hub, then include the full URL for images.{{</note>}}
+
+Your application is deployed and scheduled to run on a node in the cluster. Additionally, the cluster is configured to reschedule the instance to another node in case of node failure.
+
+4. List your deployments:
+
+    ```
+    kubectl get deployments
+    ```
+
+You can view that your deployment is running inside a Docker container on a node.
+
+
+#### Expose an application
+
+
+1. Verify that your application is running by looking for existing Pods:
+
+    ```
+    kubectl get pods
+    ```
+
+2. List the current Services from your cluster:
+
+    ```
+    kubectl get services
+    ```
+
+A service called kubernetes is created by default when Minikube starts the cluster.
+
+3. Create a new service and expose it to the external traffic: [what does this external traffic mean?]
+
+    ```
+    kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
+    ```
+    where
+
+    * kubernetes-bootcamp is the name of the service
+    * 8080 is the specified NodePort information [What is the difference between port and nodeport. do I need to explain it here, since the number example commands are using is the same and it might cause confusion]
+
+
+Execute the kubectl get services command again to view if the new service is added to the list.
+
+[Not sure if i need to add the information below at all for this tutorial.]
+
+4. View the label name of your pod:
+
+    ```
+    kubectl describe deployment
+    ```
+
+The deployment automatically creates a label for your pod.
+
+5. Use the label to query your list of Pods.  
+
+    ```
+    kubectl get pods -l run=kubernetes-bootcamp
+    ```
+
+where
+
+* -l is the label parameter, followed by the label values:
+
+
+#### Scale an application
+
+1. List your deployments:
+
+    ```
+    kubectl get deployments
+    ```
+
+
+    This command displays the number of pods.
+
+    The DESIRED state is shows the configured number of replicas
+
+    The CURRENT state show how many replicas are running now
+
+    The UP-TO-DATE is the number of replicas that were updated to match the desired (configured) state
+
+    The AVAILABLE state shows how many replicas are actually AVAILABLE to the users
+
+2. Scale the deployment to 3 replicas:
+
+    ```
+    kubectl scale deployments/kubernetes-bootcamp --replicas=3
+    ```
+
+    where
+    * kubernetes-bootcamp is the name of the deployment
+    * 3 is the desired number of replicas or number of instances
+
+
+
+3. To list your Deployments once again, use get deployments:
+
+    ```
+    kubectl get deployments
+    ```
+
+4. Verify if the number of Pods have changed:
 
   ```
-  kubectl get nodes
+  kubectl get pods -o wide
   ```
 
-3. Launch a deployment called http which will start a container based on the Docker Image katacoda/docker-http-server:latest:
+[[Stuff for the quiz:
 
-```
-kubectl run http --image=katacoda/docker-http-server:latest --replicas=1
-```
+There are 4 Pods now, with different IP addresses. The change was registered in the Deployment events log. To check that, use the describe command:
 
-4. View the status of your deployment:
-```
+kubectl describe deployments/kubernetes-bootcamp
+
+You can also view in the output of this command that there are 4 replicas now.
+
+To scale down the Service to 2 replicas, run again the scale command:
+
+kubectl scale deployments/kubernetes-bootcamp --replicas=2
+
+List the Deployments to check if the change was applied with the get deployments command:
+
 kubectl get deployments
-```
 
-5. Determine the deployment created by viewing the description:
+The number of replicas decreased to 2. List the number of Pods, with get pods:
 
-```
-kubectl describe deployment http
-```
+kubectl get pods -o wide
 
-The description includes how many replicas are available, labels specified and the events associated with the deployment. These events highlight any problems and errors that might have occurred.
+This confirms that 2 Pods were terminated.]]
 
-6. Expose the deployment via kubectl expose command which allows you to define the different parameters of the service.
-For instance, expose the container port 80 on the host 8000 binding to the external-ip of the host.
+To list your deployments use the get deployments command: kubectl get deployments
 
-```
-kubectl expose deployment http --external-ip="172.17.0.51" --port=8000 --target-port=80
-```
+To list the running Pods use the get pods command:
+
+kubectl get pods
+
+#### Update the version of the app
 
 
-7. Ping the host to view the result from the HTTP service.
+1. View the current image version of the app:
 
-```
-curl http://172.17.0.51:8000
-```
+    ```
+    kubectl describe pods
+    ```
 
+2. To update the image of the application to version 2, use the set image command, followed by the deployment name and the new image version:
 
-8. Use kubectl scale to adjust to adjust the number of Pods running for a particular deployment or replication controller.
-Scaling the deployment requests Kubernetes to launch additional Pods. These Pods are automatically load balanced using the exposed Service.
+kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
 
-```
-kubectl scale --replicas=3 deployment http
-```
+The command notified the Deployment to use a different image for your app and initiated a rolling update. Check the status of the new Pods, and view the old one terminating with the get pods command:
 
+kubectl get pods
 
-Listing all the pods, you should see three running for the http deployment kubectl get pods
+Step 2: Verify an update
+First, let’s check that the App is running. To find out the exposed IP and Port we can use describe service:
 
-Once each Pod starts it will be added to the load balancer service. By describing the service you can view the endpoint and the associated Pods which are included.
+kubectl describe services/kubernetes-bootcamp
 
-kubectl describe svc http
+Create an environment variable called NODE_PORT that has the value of the Node port assigned:
 
-Making requests to the service will request in different nodes processing the request.
+export NODE_PORT=$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')
+echo NODE_PORT=$NODE_PORT
 
-curl http://172.17.0.51:8000
+Next, we’ll do a curl to the the exposed IP and port:
+
+curl $(minikube ip):$NODE_PORT
+
+We hit a different Pod with every request and we see that all Pods are running the latest version (v2).
+
+The update can be confirmed also by running a rollout status command:
+
+kubectl rollout status deployments/kubernetes-bootcamp
+
+To view the current image version of the app, run a describe command against the Pods:
+
+kubectl describe pods
+
+We run now version 2 of the app (look at the Image field)
