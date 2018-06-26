@@ -68,7 +68,7 @@ Integrations with other authentication protocols (LDAP, SAML, Kerberos, alternat
 can be accomplished using an [authenticating proxy](#authenticating-proxy) or the
 [authentication webhook](#webhook-token-authentication).
 
-### X509 Client Certs
+### X509 Client Certs {#x509-client-certs}
 
 Client certificate authentication is enabled by passing the `--client-ca-file=SOMEFILE`
 option to API server. The referenced file must contain one or more certificates authorities
@@ -88,7 +88,7 @@ This would create a CSR for the username "jbeda", belonging to two groups, "app1
 
 See [Managing Certificates](/docs/concepts/cluster-administration/certificates/) for how to generate a client cert.
 
-### Static Token File
+### Static Token File {#static-token-file}
 
 The API server reads bearer tokens from a file when given the `--token-auth-file=SOMEFILE` option on the command line.  Currently, tokens last indefinitely, and the token list cannot be
 changed without restarting API server.
