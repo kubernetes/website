@@ -10,6 +10,7 @@ Ever since we added the [Kubernetes Continuous Deploy](https://aka.ms/azjenkinsk
 ## Rolling Update
 
 Kubernetes supports the RollingUpdate strategy to replace old pods with new ones gradually, while continuing to serve clients without incurring downtime. To perform a RollingUpdate deployment:
+
 * Set `.spec.strategy.type` to `RollingUpdate` (the default value).
 * Set `.spec.strategy.rollingUpdate.maxUnavailable` and `.spec.strategy.rollingUpdate.maxSurge` to some reasonable value.
   * `maxUnavailable`: the maximum number of pods that can be unavailable during the update process. This can be an absolute number or percentage of the replicas count; the default is 25%.
