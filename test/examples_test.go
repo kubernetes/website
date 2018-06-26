@@ -440,13 +440,13 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-pod":     {&api.Pod{}},
 			"redis-service": {&api.Service{}},
 		},
-		"artifacts/application": {
+		"examples/application": {
 			"deployment":            {&extensions.Deployment{}},
+			"deployment-scale":      {&extensions.Deployment{}},
+			"deployment-update":     {&extensions.Deployment{}},
 		},
 		"docs/tasks/run-application": {
 			"deployment-patch-demo": {&extensions.Deployment{}},
-			"deployment-scale":      {&extensions.Deployment{}},
-			"deployment-update":     {&extensions.Deployment{}},
 			"hpa-php-apache":        {&autoscaling.HorizontalPodAutoscaler{}},
 			"mysql-configmap":       {&api.ConfigMap{}},
 			"mysql-deployment":      {&api.Service{}, &extensions.Deployment{}},
@@ -478,11 +478,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"local-volumes":        {&api.PersistentVolume{}, &api.PersistentVolume{}},
 			"mysql-deployment":     {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
 			"wordpress-deployment": {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
-		},
-		"docs/tutorials/stateless-application": {
-			"deployment":        {&extensions.Deployment{}},
-			"deployment-scale":  {&extensions.Deployment{}},
-			"deployment-update": {&extensions.Deployment{}},
 		},
 		"docs/tutorials/stateless-application/guestbook": {
 			"frontend-deployment":     {&extensions.Deployment{}},
