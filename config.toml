@@ -7,7 +7,9 @@ enableRobotsTXT = true
 
 disableKinds = ["taxonomy", "taxonomyTerm"]
 
-ignoreFiles = [ "^OWNERS$", "README.md", "^node_modules$" ]
+# ignoreFiles = [ "^OWNERS$", "README.md", "^node_modules$"
+# Ignore extra things in archives
+ignoreFiles = [ "^OWNERS$", "README.md", "^node_modules$", "content/en/blog", "content/en/case-studies", "content/en/community", "content/en/partners" ]
 
 contentDir = "content/en"
 
@@ -45,50 +47,50 @@ time_format_blog = "Monday, January 02, 2006"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.10"
+latest = "v1.11"
 
-fullversion = "v1.10.3"
+fullversion = "v1.10.5"
 version = "v1.10"
-githubbranch = "master"
-docsbranch = "master"
-deprecated = false
+githubbranch = "v1.10.5"
+docsbranch = "release-1.10"
+deprecated = true
 currentUrl = "https://kubernetes.io/docs/home/"
 nextUrl = "http://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
 [[params.versions]]
-fullversion = "v1.10.3"
+fullversion = "v1.10.5"
 version = "v1.10"
-githubbranch = "v1.10.3"
+githubbranch = "master"
 docsbranch = "release-1.10"
-url = "https://kubernetes.io"
+url = "https://v1-10.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.9.7"
+fullversion = "v1.9.8"
 version = "v1.9"
-githubbranch = "v1.9.7"
+githubbranch = "v1.9.8"
 docsbranch = "release-1.9"
 url = "https://v1-9.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.8.4"
+fullversion = "v1.8.14"
 version = "v1.8"
-githubbranch = "v1.8.4"
+githubbranch = "v1.8.14"
 docsbranch = "release-1.8"
 url = "https://v1-8.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.7.6"
+fullversion = "v1.7.16"
 version = "v1.7"
-githubbranch = "v1.7.6"
+githubbranch = "v1.7.16"
 docsbranch = "release-1.7"
 url = "https://v1-7.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.6.8"
+fullversion = "v1.6.13"
 version = "v1.6"
-githubbranch = "v1.6.8"
+githubbranch = "v1.6.13"
 docsbranch = "release-1.6"
 url = "https://v1-6.docs.kubernetes.io"
 
