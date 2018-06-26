@@ -410,7 +410,7 @@ services:
 
 Using `kompose up` with a `build` key:
 
-```sh
+```none
 $ kompose up
 INFO Build key detected. Attempting to build and push image 'docker.io/foo/bar' 
 INFO Building image 'docker.io/foo/bar' from directory 'build' 
