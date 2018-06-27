@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes 1.11: In-Cluster Load Balancing and CoreDNS Plugin Graduate to General Availability'
-date:  2018-06-26
+date:  2018-06-27
 ---
 
 **Author**: Kubernetes 1.11 [Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.11/release_team.md)
