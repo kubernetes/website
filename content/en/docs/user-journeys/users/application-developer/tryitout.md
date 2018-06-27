@@ -8,15 +8,16 @@ track: "USERS › FOUNDATIONAL"
 
 {{% capture overview %}}
 
-  This section helps you learn how to view, deploy, expose, scale, and update an application.
+This section helps you learn how to view, deploy, expose, scale, and update an application.
 
-  Time: 15 minutes
+Time: 15 minutes
 
 {{% /capture %}}
 
 {{< toc >}}
 
 {{% capture body %}}
+
 ## Kubernetes Basics
 
 Click the **Launch Terminal** button to open a Kubernetes Cluster environment running on Minikube. <!---
@@ -75,14 +76,14 @@ This tutorial uses command line interface called kubectl to perform the operatio
 
 #### Challenge
 
-  Give a name to the application located at [] and deploy it on port 8080. After you are done deploying it, list the deployment to verify that it was successfully deployed.
-  <details>
-  <summary>Click to view the answer</summary>
-  <p>
-  ```
-  kubectl run <kubernetes-bootcamp> <--image=gcr.io/google-samples/kubernetes-bootcamp:v1> --port=8080
-  ```
-  </p>
+Give a name to the application located at [] and deploy it on port 8080. After you are done deploying it, list the deployment to verify that it was successfully deployed.
+
+<details>
+<summary>Click to view the answer</summary>
+
+```
+kubectl run <kubernetes-bootcamp> <--image=gcr.io/google-samples/kubernetes-bootcamp:v1> --port=8080
+```
 
 </details>
 
@@ -125,7 +126,6 @@ Write the command to verify if the new service is added to the list. (Hint: list
   kubectl get services
   ```
   </p>
-
 </details>
 
 
@@ -166,62 +166,62 @@ Write the command to verify if the new service is added to the list. (Hint: list
 
 #### Challenge
 
-    Now write the command to scale down the application to 2 replicas:
+Now write the command to scale down the application to 2 replicas:
 
-    <details>
-    <summary>Click to view the answer</summary>
-    <p>
-    ```
-    kubectl scale deployments/kubernetes-bootcamp --replicas=2
-    ```
-    </p>
-    </details>
+<details>
+<summary>Click to view the answer</summary>
+<p>
+```
+kubectl scale deployments/kubernetes-bootcamp --replicas=2
+```
+</p>
+</details>
 
-    Write the command to list the deployments to verify if the application is scaled down to 2 replicas.
+Write the command to list the deployments to verify if the application is scaled down to 2 replicas.
 
-    <details>
-    <summary>Click to view the answer</summary>
-    <p>
+<details>
+<summary>Click to view the answer</summary>
+<p>
 
-    ```
-    kubectl get deployments
-    ```
-    </p>
-    </details>
+```
+kubectl get deployments
+```
+</p>
+</details>
 
 
 #### Update the version of the app
 
 
-  1. View the current image version of the app:
+1. View the current image version of the app:
 
-      ```
-      kubectl describe pods
-      ```
+    ```
+    kubectl describe pods
+    ```
 
-  2. Update the image of the application to version 2.
+2. Update the image of the application to version 2.
 
-      ```
-      kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
-      ```
-      where
-      * deployments is the type
-      * kubernetes-bootcamp is the deployment name
-      * kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2 is the new image version [Is this correct]
+    ```
+    kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
+    ```
+    where
+    * deployments is the type
+    * kubernetes-bootcamp is the deployment name
+    * kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2 is the new image version [Is this correct]
 
-      The command initiates a rolling update and informs the deployment to use a different image.
+    The command initiates a rolling update and informs the deployment to use a different image.
 
-  3. View the status of the newly created pods and terminating pods:
+3. View the status of the newly created pods and terminating pods:
 
-      ```
-      kubectl get pods
-      ```
+    ```
+    kubectl get pods
+    ```
 
 4. Verify that the application is updated:
 
-      ```
-      kubectl rollout status deployments/kubernetes-bootcamp
-      ```
+    ```
+    kubectl rollout status deployments/kubernetes-bootcamp
+    ```
 
 #### Challenge
 
