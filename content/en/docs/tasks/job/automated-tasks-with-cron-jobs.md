@@ -43,7 +43,7 @@ component.
 Cron jobs require a config file.
 This example cron job config `.spec` file prints the current time and a hello message every minute:
 
-{{< code file="cronjob.yaml" >}}
+{{< codenew file="application/job/cronjob.yaml" >}}
 
 Run the example cron job by downloading the example file and then running this command:
 
