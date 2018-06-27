@@ -445,6 +445,21 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"deployment-scale":      {&extensions.Deployment{}},
 			"deployment-update":     {&extensions.Deployment{}},
 		},
+		"examples/application/cassandra": {
+			"cassandra-service":     {&api.Service{}},
+			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
+		},
+		"examples/application/web": {
+			"web":			{&api.Service{}, &apps.StatefulSet{}},
+			"web-parallel":	{&api.Service{}, &apps.StatefulSet{}},
+		},
+		"examples/application/wordpress": {
+			"mysql-deployment":     {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
+			"wordpress-deployment": {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
+		},
+		"examples/application/zookeeper": {
+			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
+		},
 		"docs/tasks/run-application": {
 			"deployment-patch-demo": {&extensions.Deployment{}},
 			"hpa-php-apache":        {&autoscaling.HorizontalPodAutoscaler{}},
@@ -464,20 +479,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"docs/concepts/overview/object-management-kubectl": {
 			"simple_deployment": {&extensions.Deployment{}},
 			"update_deployment": {&extensions.Deployment{}},
-		},
-		"docs/tutorials/stateful-application": {
-			"web":       {&api.Service{}, &apps.StatefulSet{}},
-			"webp":      {&api.Service{}, &apps.StatefulSet{}},
-			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
-		},
-		"docs/tutorials/stateful-application/cassandra": {
-			"cassandra-service":     {&api.Service{}},
-			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
-		},
-		"docs/tutorials/stateful-application/mysql-wordpress-persistent-volume": {
-			"local-volumes":        {&api.PersistentVolume{}, &api.PersistentVolume{}},
-			"mysql-deployment":     {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
-			"wordpress-deployment": {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
 		},
 		"docs/tutorials/stateless-application/guestbook": {
 			"frontend-deployment":     {&extensions.Deployment{}},

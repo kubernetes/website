@@ -60,7 +60,7 @@ example presented in the
 It creates a [Headless Service](/docs/concepts/services-networking/service/#headless-services), 
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`. 
 
-{{< code file="web.yaml" >}}
+{{< codenew file="application/web/web.yaml" >}}
 
 Download the example above, and save it to a file named `web.yaml`
 
@@ -929,9 +929,9 @@ terminate all Pods in parallel, and not to wait for Pods to become Running
 and Ready or completely terminated prior to launching or terminating another 
 Pod.
 
-{{< code file="webp.yaml" >}}
+{{< codenew file="application/web/web-parallel.yaml" >}}
 
-Download the example above, and save it to a file named `webp.yaml`
+Download the example above, and save it to a file named `web-parallel.yaml`
 
 This manifest is identical to the one you downloaded above except that the `.spec.podManagementPolicy` 
 of the `web` StatefulSet is set to `Parallel`.
@@ -945,7 +945,7 @@ kubectl get po -l app=nginx -w
 In another terminal, create the StatefulSet and Service in the manifest.
 
 ```shell
-kubectl create -f webp.yaml 
+kubectl create -f web-parallel.yaml 
 service "nginx" created
 statefulset "web" created
 ```
