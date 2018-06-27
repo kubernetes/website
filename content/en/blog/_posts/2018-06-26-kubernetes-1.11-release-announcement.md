@@ -49,7 +49,9 @@ Each Special Interest Group (SIG) within the community continues to deliver the 
 
 ## Availability
 
-Kubernetes 1.11 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.11.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/). You can also install 1.11 using [Kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/).
+Kubernetes 1.11 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.11.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/). 
+
+You can also install 1.11 using Kubeadm. Version 1.11.0 will be available as Deb and RPM packages, installable using the [Kubeadm cluster installer](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) sometime on June 28th.
 
 ## 5 Day Features Blog Series
 
