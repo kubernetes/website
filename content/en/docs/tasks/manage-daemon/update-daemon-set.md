@@ -34,17 +34,6 @@ DaemonSet has two update strategy types:
   DaemonSet template, old DaemonSet pods will be killed, and new DaemonSet pods
   will be created automatically, in a controlled fashion. 
 
-## Caveat: Updating DaemonSet created from Kubernetes version 1.5 or before 
-
-If you try a rolling update on a DaemonSet that was created from Kubernetes
-version 1.5 or before, a rollout will be triggered when you *first* change the
-DaemonSet update strategy to `RollingUpdate`, no matter if DaemonSet template is
-modified or not. If the DaemonSet template is not changed, all existing DaemonSet
-pods will be restarted (deleted and created).
-
-Therefore, make sure you want to trigger a rollout before you first switch the
-strategy to `RollingUpdate`.
-
 ## Performing a Rolling Update
 
 To enable the rolling update feature of a DaemonSet, you must set its
