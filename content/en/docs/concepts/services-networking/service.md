@@ -246,7 +246,7 @@ if you have already set `service.spec.sessionAffinity` to "ClientIP"
 Many `Services` need to expose more than one port.  For this case, Kubernetes
 supports multiple port definitions on a `Service` object.  When using multiple
 ports you must give all of your ports names, so that endpoints can be
-disambiguated.  For example:
+disambiguated. For example:
 
 ```yaml
 kind: Service
@@ -266,6 +266,8 @@ spec:
     port: 443
     targetPort: 9377
 ```
+
+Note that the port names must only contain lowercase alphanumeric characters and `-`, and must begin & end with an alphanumeric character. `123-abc` and `web` are valid, but `123_abc` and `-web` are not valid names.
 
 ## Choosing your own IP address
 
