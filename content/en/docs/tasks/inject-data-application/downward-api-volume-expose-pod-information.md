@@ -33,8 +33,8 @@ Together, these two ways of exposing Pod and Container fields are called the
 
 ## Store Pod fields
 
-In this exercise, you create a Pod that has one Container.
-Here is the configuration file for the Pod:
+In this exercise, you create a Deployment that has one Container.
+Here is the configuration file for the Deployment:
 
 {{< code file="dapi-volume.yaml" >}}
 
@@ -53,7 +53,7 @@ field should be stored in a file named `annotations`.
 fields of the Container in the Pod.
 {{< /note >}}
 
-Create the Pod:
+Create the Deployment:
 
 ```shell
 kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-volume.yaml
