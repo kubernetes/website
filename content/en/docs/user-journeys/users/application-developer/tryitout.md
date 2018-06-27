@@ -163,7 +163,7 @@ Write the command to verify if the new service is added to the list. (Hint: list
 
 #### Challenge
 
-    * Now write the command to scale down the application to 2 replicas:
+    Now write the command to scale down the application to 2 replicas:
 
     <details>
     <summary>Click to view the answer</summary>
@@ -174,7 +174,7 @@ Write the command to verify if the new service is added to the list. (Hint: list
     </p>
     </details>
 
-    * Write the command to list the deployments to verify if the application is scaled down to 2 replicas.
+    Write the command to list the deployments to verify if the application is scaled down to 2 replicas.
 
     <details>
     <summary>Click to view the answer</summary>
@@ -222,12 +222,13 @@ Write the command to verify if the new service is added to the list. (Hint: list
 
 #### Challenge
 
-* Now write the command to view the current image version of the app:
+Now write the command to view the current image version of the app:
 
 
 <details>
   <summary>Click to view the answer</summary>
-  <p>```
+  <p>
+  ```
   kubectl describe pods
   ```
   </p>
