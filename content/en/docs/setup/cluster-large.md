@@ -75,9 +75,9 @@ And the sizes we use on AWS are
 * more than 500 nodes: c4.8xlarge
 
 {{< note >}}
-On Google Kubernetes Engine, the size of the master node is automatically adjusted on the basis of the size of your cluster. For more information, see [this blog post](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html).
+On Google Kubernetes Engine, the size of the master node adjusts automatically based on the size of your cluster. For more information, see [this blog post](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html).
 
-On AWS, these master node sizes are currently only set at cluster startup time and are not adjusted if you later scale your cluster up or down (e.g. manually removing or adding nodes, or using a cluster autoscaler).
+On AWS, master node sizes are currently set at cluster startup time and do not change, even if you later scale your cluster up or down by manually removing or adding nodes or using a cluster autoscaler.
 {{< /note >}}
 
 ### Addon Resources
