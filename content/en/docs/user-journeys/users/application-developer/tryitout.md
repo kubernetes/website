@@ -9,18 +9,18 @@ track: "USERS › APPLICATION DEVELOPER › FOUNDATIONAL"
 content_template: templates/user-journey-content
 ---
 {{% capture body %}}
-## Learn to create a Containerized application
+## Kubernetes Basics
 
 Click the Launch Terminal button to open a Kubernetes Cluster environment running on Minikube. <!---
 information about minikube on hover-
-Minikube is a lightweight Kubernetes implementation that creates a Virtual Machine on your local machine and deploys a simple cluster containing only one node.
---> For the purposes of this tutorial, Minikube is installed and launched on the terminal by default. By completing this tutorial, you will learn to deploy, expose, scale and update an application.
+Minikube is a lightweight Kubernetes implementation that deploys a simple cluster containing only one node.
+--> For the purposes of this tutorial, Minikube is installed and launched on the terminal by default. This tutorial helps you learn to deploy, expose, scale and update an application.
 
-You will use command line interface called kubectl to perform all these tasks. Kubectl uses the Kubernetes API to interact with the cluster.
+This tutorial uses command line interface called kubectl to perform the operations. Kubectl uses the Kubernetes API to interact with the cluster.
 
 <div id="my-panel" data-katacoda-ondemand="true" data-katacoda-env="minikube" data-katacoda-command="minikube version; minikube start" data-katacoda-ui="panel"></div>
 <script src="https://katacoda.com/embed.js"></script>
-<button style="color:#169bd7; border:2px solid #169bd7 onclick="window.katacoda.init(); this.disabled=true;">Launch Terminal</button>
+<button style="color:#169bd7; border:2px solid #169bd7" onclick="window.katacoda.init(); this.disabled=true;">Launch Terminal</button>
 
 
 #### Deploy an application
