@@ -2,12 +2,19 @@
 reviewers:
 - chenopis
 title: Try it out
+content_template: templates/concept
 track: "USERS › FOUNDATIONAL"
 ---
+
+{{% capture overview %}}
 
   This section helps you learn how to view, deploy, expose, scale, and update an application.
 
   Time: 15 minutes
+
+{{% /capture %}}
+
+{{< toc >}}
 
 {{% capture body %}}
 ## Kubernetes Basics
@@ -229,3 +236,11 @@ Now write the command to view the current image version of the app:
   ```
   </p>
   </details>
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+* Link to [next page](/docs/user-journeys/users/application-developer/concepts1/)
+
+{{% /capture %}}
