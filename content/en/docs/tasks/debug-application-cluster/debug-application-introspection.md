@@ -363,6 +363,8 @@ status:
     systemUUID: ABE5F6B4-D44B-108B-C46A-24CCE16C8B6E
 ```
 
+{{% /capture %}}
+
 {{% capture whatsnext %}}
 
 Learn about additional debugging tools, including:
@@ -372,5 +374,6 @@ Learn about additional debugging tools, including:
 * [Getting into containers via `exec`](/docs/tasks/debug-application-cluster/get-shell-running-container/)
 * [Connecting to containers via proxies](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
 * [Connecting to containers via port forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* [Inspect Kubernetes node with crictl](/docs/tasks/debug-application-cluster/crictl/)
 
 {{% /capture %}}
