@@ -12,7 +12,7 @@ Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to d
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-You must use a kubectl version that is the same, or greater, as the version of your cluster. If possible, use the latest released kubectl version to avoid any unforeseen issues.
+You must use a kubectl version that is the same, or later, as the version of your cluster. It is always recommended to use the latest version of kubectl to avoid any unforeseen issues.
 {{% /capture %}}
 
 
