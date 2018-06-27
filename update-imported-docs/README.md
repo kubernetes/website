@@ -24,7 +24,7 @@ Imported docs must follow these guidelines:
 From within this directory, run the following command:
 
 ```
-./update-imported-docs <config.yaml>
+./update-imported-docs-[linux|macos] <config.yaml>
 ```
 
 The output should look similar to the following:
