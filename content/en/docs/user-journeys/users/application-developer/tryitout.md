@@ -8,10 +8,15 @@ title: Foundational
 track: "USERS › APPLICATION DEVELOPER › FOUNDATIONAL"
 content_template: templates/user-journey-content
 ---
+
+This section helps you learn how to view, deploy, expose, scale, and update an application.
+
+Time: 10 minutes
+
 {{% capture body %}}
 ## Kubernetes Basics
 
-Click the Launch Terminal button to open a Kubernetes Cluster environment running on Minikube. <!---
+Click the **Launch Terminal** button to open a Kubernetes Cluster environment running on Minikube. <!---
 information about minikube on hover-
 Minikube is a lightweight Kubernetes implementation that deploys a simple cluster containing only one node.
 --> For the purposes of this tutorial, Minikube is installed and launched on the terminal by default. This tutorial helps you learn to deploy, expose, scale and update an application.
@@ -23,7 +28,7 @@ This tutorial uses command line interface called kubectl to perform the operatio
 <button style="color:#ffffff; background-color: #169bd7; border:2px solid #169bd7" onclick="window.katacoda.init(); this.disabled=true;">Launch Terminal</button>
 
 
-#### Deploy an application
+#### View a cluster
 
 
 1. View the cluster details:
@@ -38,31 +43,36 @@ This tutorial uses command line interface called kubectl to perform the operatio
     kubectl get nodes
     ```
 
-This command displays all the nodes in the cluster that can host your application. The ready status of the node indicates that it is ready to accept an application for deployment. If the status of the node is displayed as not ready, run the kubectl get nodes command again.
+This command displays all the nodes in the cluster that can host your application. The ready status of the node indicates that it is ready to accept an application for deployment. If the status of the node is displayed as not ready, run the ```kubectl get nodes``` command again.
 
+#### Deploy an application
 
-3. Create a new deployment:
+1. Create a new deployment:
 
     ```
     kubectl run kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1 --port=8080
     ```
 
     where
-    * kubernetes-bootcamp is deployment names
-    * image=gcr.io/google-samples/kubernetes-bootcamp:v1 is app image location
+    * kubernetes-bootcamp is the deployment name
+    * image=gcr.io/google-samples/kubernetes-bootcamp:v1 is the application image location
     * 8080 is the specified port information
 
 {{<note>}}Note: If app images are hosted outside Docker hub, then include the full URL for images.{{</note>}}
 
 Your application is deployed and scheduled to run on a node in the cluster. Additionally, the cluster is configured to reschedule the instance to another node in case of node failure.
 
-4. List your deployments:
+2. List your deployments:
 
     ```
     kubectl get deployments
     ```
 
 You can view that your deployment is running inside a Docker container on a node.
+
+##### Challenge
+
+Give a name to the application located at [] and deploy it on port 8080. After you are done deploying it
 
 
 #### Expose an application
