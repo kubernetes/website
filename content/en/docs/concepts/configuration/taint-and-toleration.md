@@ -204,23 +204,23 @@ running on the node as follows
  * pods that tolerate the taint with a specified `tolerationSeconds` remain
    bound for the specified amount of time
 
-In addition, Kubernetes 1.6 has alpha
-support for representing node problems. In other words, the node controller
-automatically taints a node when certain condition is true. The built-in taints
-currently include:
+In addition, Kubernetes 1.6 introduced alpha support for representing node
+problems. In other words, the node controller automatically taints a node when
+certain condition is true. The following taints are built in:
 
  * `node.kubernetes.io/not-ready`: Node is not ready. This corresponds to
    the NodeCondition `Ready` being "`False`".
- * `node.alpha.kubernetes.io/unreachable`: Node is unreachable from the node
+ * `node.kubernetes.io/unreachable`: Node is unreachable from the node
    controller. This corresponds to the NodeCondition `Ready` being "`Unknown`".
  * `node.kubernetes.io/out-of-disk`: Node becomes out of disk.
  * `node.kubernetes.io/memory-pressure`: Node has memory pressure.
  * `node.kubernetes.io/disk-pressure`: Node has disk pressure.
  * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
- * `node.cloudprovider.kubernetes.io/uninitialized`: When kubelet is started
-   with "external" cloud provider, it sets this taint on a node to mark it
-   as unusable. When a controller from the cloud-controller-manager initializes
-   this node, kubelet removes this taint.
+ * `node.kubernetes.io/unschedulable`: Node is unschedulable.
+ * `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
+    with "external" cloud provider, this taint is set on a node to mark it
+    as unusable. After a controller from the cloud-controller-manager initializes
+    this node, the kubelet removes this taint.
 
 When the `TaintBasedEvictions` alpha feature is enabled (you can do this by
 including `TaintBasedEvictions=true` in `--feature-gates` for Kubernetes controller manager,
@@ -277,17 +277,15 @@ Version 1.8 introduces an alpha feature that causes the node controller to creat
 Node conditions. When this feature is enabled (you can do this by including `TaintNodesByCondition=true` in the `--feature-gates` command line flag to the scheduler, such as
 `--feature-gates=FooBar=true,TaintNodesByCondition=true`), the scheduler does not check Node conditions; instead the scheduler checks taints. This assures that Node conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as Node conditions) by adding appropriate Pod tolerations.
 
-To make sure that turning on this feature doesn't break DaemonSets, starting in version 1.8, the  DaemonSet controller automatically adds the following `NoSchedule` tolerations to all daemons:
+Starting in Kubernetes 1.8, the DaemonSet controller automatically adds the
+following `NoSchedule` tolerations to all daemons, to prevent DaemonSets from
+breaking.
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
   * `node.kubernetes.io/out-of-disk` (*only for critical pods*)
+  * `node.kubernetes.io/unschedulable` (1.10 or later)
+  * `node.kubernetes.io/network-unavailable` (*host network only*)
 
-The above settings ensure backward compatibility, but we understand they may not fit all user's needs, which is why
-cluster admin may choose to add arbitrary tolerations to DaemonSets.
-
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-{{% /capture %}}
+Adding these tolerations ensures backward compatibility. You can also add
+arbitrary tolerations to DaemonSets.
