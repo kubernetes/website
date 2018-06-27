@@ -95,11 +95,15 @@ A service called kubernetes is created by default when Minikube starts the clust
     * 8080 is the specified NodePort information [What is the difference between port and nodeport. do I need to explain it here, since the number example commands are using is the same and it might cause confusion]
 
 
-Execute the kubectl get services command again to view if the new service is added to the list.
+#### Challenge
 
-[Not sure if i need to add the information below at all for this tutorial.]
+Write the command to verify if the new service is added to the list. (Hint: list the current services)
 
+Click to view the answer
 
+    ```
+    kubectl get services
+    ```
 
 
 #### Scale an application
@@ -110,8 +114,7 @@ Execute the kubectl get services command again to view if the new service is add
     kubectl get deployments
     ```
 
-
-    This command displays the number of pods.
+    (This command displays the number of pods
 
     The DESIRED state is shows the configured number of replicas
 
@@ -119,7 +122,7 @@ Execute the kubectl get services command again to view if the new service is add
 
     The UP-TO-DATE is the number of replicas that were updated to match the desired (configured) state
 
-    The AVAILABLE state shows how many replicas are actually AVAILABLE to the users
+    The AVAILABLE state shows how many replicas are actually AVAILABLE to the users)
 
 2. Scale the deployment to 3 replicas:
 
@@ -128,6 +131,7 @@ Execute the kubectl get services command again to view if the new service is add
     ```
 
     where
+    * deployments is the type
     * kubernetes-bootcamp is the name of the deployment
     * 3 is the desired number of replicas or number of instances
 
@@ -145,6 +149,24 @@ Execute the kubectl get services command again to view if the new service is add
   kubectl get pods
   ```
 
+#### Challenge
+
+  Now write the command to scale down the application to 2 replicas:
+
+  Click to view the correct answer
+
+    ```
+    kubectl scale deployments/kubernetes-bootcamp --replicas=2
+    ```
+
+  Write the command to list the deployments to verify if the application is scaled down to 2 replicas.
+
+  Click to view the correct answer
+
+    ```
+    kubectl get deployments
+    ```
+
 #### Update the version of the app
 
 
@@ -154,12 +176,16 @@ Execute the kubectl get services command again to view if the new service is add
       kubectl describe pods
       ```
 
-  2. Update the image of the application to version 2. Use the set image command, followed by the deployment name and the new image version:
-
+  2. Update the image of the application to version 2.
       ```
       kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
       ```
-      The command initiated a rolling update and informed the deployment to use a a different image.
+      where
+      * deployments is the type
+      * kubernetes-bootcamp is the deployment name
+      * kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2 is the new image version [Is this correct]
+
+      The command initiates a rolling update and informs the deployment to use a different image.
 
   3. View the status of the newly created pods and terminating pods:
 
@@ -167,46 +193,18 @@ Execute the kubectl get services command again to view if the new service is add
       kubectl get pods
       ```
 
-4. Verify that the app is running:
-  First, let’s check that the App is running. To find out the exposed IP and Port we can use describe service:
+4. Verify that the application is updated:
 
-  kubectl describe services/kubernetes-bootcamp
+      ```
+      kubectl rollout status deployments/kubernetes-bootcamp
+      ```
+
+#### Challenge
+
+Now write the command to view the current image version of the app:
 
 
-  The update can be confirmed also by running a rollout status command:
-
-  kubectl rollout status deployments/kubernetes-bootcamp
-
-  To view the current image version of the app, run a describe command against the Pods:
-
-  kubectl describe pods
-
-  We run now version 2 of the app (look at the Image field)
-
-[[Stuff for the quiz:
-
-There are 4 Pods now, with different IP addresses. The change was registered in the Deployment events log. To check that, use the describe command:
-
-kubectl describe deployments/kubernetes-bootcamp
-
-You can also view in the output of this command that there are 4 replicas now.
-
-To scale down the Service to 2 replicas, run again the scale command:
-
-kubectl scale deployments/kubernetes-bootcamp --replicas=2
-
-List the Deployments to check if the change was applied with the get deployments command:
-
-kubectl get deployments
-
-The number of replicas decreased to 2. List the number of Pods, with get pods:
-
-kubectl get pods -o wide
-
-This confirms that 2 Pods were terminated.]]
-
-To list your deployments use the get deployments command: kubectl get deployments
-
-To list the running Pods use the get pods command:
-
-kubectl get pods
+Click to view the correct answer
+    ```
+    kubectl describe pods
+    ```
