@@ -11,14 +11,16 @@ content_template: templates/user-journey-content
 {{% capture body %}}
 ## Learn to create a Containerized application
 
-Click the Launch Terminal button to open a Kubernetes Cluster environment running on Minikube.(information about minikube on hover)
-Minikube is a lightweight Kubernetes implementation that creates a Virtual Machine on your local machine and deploys a simple cluster containing only one node.  
-For the purposes of this tutorial, Minikube is installed and launched on the terminal by default. By completing this tutorial, you will learn to deploy, expose, scale and update an application.
+Click the Launch Terminal button to open a Kubernetes Cluster environment running on Minikube. <!---
+information about minikube on hover-
+Minikube is a lightweight Kubernetes implementation that creates a Virtual Machine on your local machine and deploys a simple cluster containing only one node.
+--> For the purposes of this tutorial, Minikube is installed and launched on the terminal by default. By completing this tutorial, you will learn to deploy, expose, scale and update an application.
+
 You will use command line interface called kubectl to perform all these tasks. Kubectl uses the Kubernetes API to interact with the cluster.
 
 <div id="my-panel" data-katacoda-ondemand="true" data-katacoda-env="minikube" data-katacoda-command="minikube version; minikube start" data-katacoda-ui="panel"></div>
 <script src="https://katacoda.com/embed.js"></script>
-<button style="color:#169bd7; border:2px solid #169bd7 font color:#ffffff onclick="window.katacoda.init(); this.disabled=true;">Launch Terminal</button>
+<button style="color:#169bd7; border:2px solid #169bd7 onclick="window.katacoda.init(); this.disabled=true;">Launch Terminal</button>
 
 
 #### Deploy an application
@@ -88,18 +90,22 @@ A service called kubernetes is created by default when Minikube starts the clust
     where
 
     * kubernetes-bootcamp is the name of the service
-    * 8080 is the specified NodePort information [What is the difference between port and nodeport. do I need to explain it here, since the number example commands are using is the same and it might cause confusion]
+    * 8080 is the specified NodePort information [What is the difference between port and nodeport. <!---do I need to explain it here, since the number example commands are using is the same and it might cause confusion]-->
 
 
 #### Challenge
 
 Write the command to verify if the new service is added to the list. (Hint: list the current services)
 
-Click to view the answer
+<details>
+  <summary>Click to view the answer</summary>
+  <p>
+  ```
+  kubectl get services
+  ```
+  </p>
 
-    ```
-    kubectl get services
-    ```
+</details>
 
 
 #### Scale an application
@@ -110,9 +116,9 @@ Click to view the answer
     kubectl get deployments
     ```
 
-    (This command displays the number of pods
+    The command displays the number of pods with current and desired state
 
-    The DESIRED state is shows the configured number of replicas
+    The DESIRED state show the configured number of replicas
 
     The CURRENT state show how many replicas are running now
 
