@@ -77,20 +77,20 @@ The output is similar to this:
 
     apiVersion: v1
     data:
-      .dockerconfigjson: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
+      .dockercfg: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
     kind: Secret
     metadata:
       ...
       name: regcred
       ...
-    type: kubernetes.io/dockerconfigjson
+    type: kubernetes.io/dockercfg
 
-The value of the `.dockerconfigjson` field is a base64 representation of your Docker credentials.
+The value of the `.dockercfg` field is a base64 representation of your Docker credentials.
 
-To understand what is in the `.dockerconfigjson` field, convert the secret data to a
+To understand what is in the `.dockercfg` field, convert the secret data to a
 readable format:
 
-    kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 -d
+    kubectl get secret regcred --output="jsonpath={.data.\.dockercfg}" | base64 -D
 
 The output is similar to this:
 
@@ -98,7 +98,7 @@ The output is similar to this:
 
 To understand what is in the `auth` field, convert the base64-encoded data to a readable format:
 
-    echo "c3R...zE2" | base64 -d
+    echo "c3R...zE2" | base64 -D
 
 The output, username and password concatenated with a `:`, is similar to this:
 
