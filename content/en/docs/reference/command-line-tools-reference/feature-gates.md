@@ -1,14 +1,15 @@
 ---
 title: Feature Gates
+content_template: templates/concept
 weight: 10
-notitle: true
 ---
 
-## Feature Gates
-
+{{% capture overview %}}
 This page contains an overview of the various feature gates an administrator
 can specify on different Kubernetes components.
+{{% /capture %}}
 
+{{% capture body %}}
 ## Overview
 
 Feature gates are a set of key=value pairs that describe alpha or experimental
@@ -174,8 +175,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
 - `HugePages`: Enable the allocation and consumption of pre-allocated [huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/).
 - `HyperVContainer`: Enable [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) for Windows containers.
-- `Intializers`: Enable the [dynamic admission control](/docs/admin/extensible-admission-controllers/)
-  as an extension to the built-in [admission controllers](/docs/admin/admission-controllers/).
+- `Intializers`: Enable the [dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  as an extension to the built-in [admission controllers](/docs/reference/access-authn-authz/admission-controllers/).
   When the `Initializers` admission controller is enabled, this feature is automatically enabled.
 - `KubeletConfigFile`: Enable loading kubelet configuration from a file specified using a config file.
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/) for more details.
@@ -219,4 +220,4 @@ Each feature gate is designed for enabling/disabling a specific feature:
   PersistentVolumeClaim (PVC) binding aware of scheduling decisions. It also
   enables the usage of [`local`](/docs/concepts/storage/volumes/#local) volume
   type when used together with the `PersistentLocalVolumes` feature gate.
-
+{{% /capture %}}

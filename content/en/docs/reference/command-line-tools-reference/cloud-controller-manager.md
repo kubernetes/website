@@ -1,12 +1,14 @@
 ---
 title: cloud-controller-manager
-notitle: true
+content_template: templates/concept
 weight: 90
 ---
+{{% capture overview %}}
+This page provides an overview of cloud-controller-manager.
+{{% /capture %}}
 
-## cloud-controller-manager
-
-### Synopsis
+{{% capture body %}}
+## Overview
 
 The Cloud controller manager is a daemon that embeds
 the cloud specific control loops shipped with Kubernetes.
@@ -15,7 +17,7 @@ the cloud specific control loops shipped with Kubernetes.
 cloud-controller-manager [flags]
 ```
 
-### Options
+## Options
 
 <table style="width: 100%;">
   <colgroup>
@@ -277,3 +279,4 @@ cloud-controller-manager [flags]
     </tr>
   </tbody>
 </table>
+{{% /capture %}}

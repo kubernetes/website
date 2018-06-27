@@ -1,19 +1,20 @@
 ---
 reviewers:
 - liggitt
-title: Kubelet authentication/authorization
+title: kubelet authentication/authorization
+content_template: templates/concept
+weight: 30
 ---
 
-{{< toc >}}
-
-## Overview
-
+{{% capture overview %}}
 A kubelet's HTTPS endpoint exposes APIs which give access to data of varying sensitivity,
 and allow you to perform operations with varying levels of power on the node and within containers.
-
+  
 This document describes how to authenticate and authorize access to the kubelet's HTTPS endpoint.
+{{% /capture %}}
 
-## Kubelet authentication
+{{% capture body %}}
+## kubelet authentication
 
 By default, requests to the kubelet's HTTPS endpoint that are not rejected by other configured
 authentication methods are treated as anonymous requests, and given a username of `system:anonymous`
@@ -27,7 +28,7 @@ To enable X509 client certificate authentication to the kubelet's HTTPS endpoint
 
 * start the kubelet with the `--client-ca-file` flag, providing a CA bundle to verify client certificates with
 * start the apiserver with `--kubelet-client-certificate` and `--kubelet-client-key` flags
-* see the [apiserver authentication documentation](/docs/admin/authentication/#x509-client-certs) for more details
+* see the [apiserver authentication documentation](/docs/reference/access-authn-authz/authentication/#x509-client-certs) for more details
 
 To enable API bearer tokens (including service account tokens) to be used to authenticate to the kubelet's HTTPS endpoint:
 
@@ -35,7 +36,7 @@ To enable API bearer tokens (including service account tokens) to be used to aut
 * start the kubelet with the `--authentication-token-webhook` and `--kubeconfig` flags
 * the kubelet calls the `TokenReview` API on the configured API server to determine user information from bearer tokens
 
-## Kubelet authorization
+## kubelet authorization
 
 Any request that is successfully authenticated (including an anonymous request) is then authorized. The default authorization mode is `AlwaysAllow`, which allows all requests.
 
@@ -51,7 +52,7 @@ To subdivide access to the kubelet API, delegate authorization to the API server
 * start the kubelet with the `--authorization-mode=Webhook` and the `--kubeconfig` flags
 * the kubelet calls the `SubjectAccessReview` API on the configured API server to determine whether each request is authorized
 
-The kubelet authorizes API requests using the same [request attributes](/docs/admin/authorization/#request-attributes) approach as the apiserver.
+The kubelet authorizes API requests using the same [request attributes](/docs/reference/access-authn-authz/authorization/#review-your-request-attributes) approach as the apiserver.
 
 The verb is determined from the incoming request's HTTP verb:
 
@@ -84,3 +85,4 @@ flags passed to the apiserver is authorized for the following attributes:
 * verb=\*, resource=nodes, subresource=log
 * verb=\*, resource=nodes, subresource=spec
 * verb=\*, resource=nodes, subresource=metrics
+{{% /capture %}}
