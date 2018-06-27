@@ -20,7 +20,7 @@ This tutorial uses command line interface called kubectl to perform the operatio
 
 <div id="my-panel" data-katacoda-ondemand="true" data-katacoda-env="minikube" data-katacoda-command="minikube version; minikube start" data-katacoda-ui="panel"></div>
 <script src="https://katacoda.com/embed.js"></script>
-<button style="color:#169bd7; border:2px solid #169bd7" onclick="window.katacoda.init(); this.disabled=true;">Launch Terminal</button>
+<button style="color:#169bd7; background-color: #4CAF50; border:2px solid #169bd7" onclick="window.katacoda.init(); this.disabled=true;">Launch Terminal</button>
 
 
 #### Deploy an application
