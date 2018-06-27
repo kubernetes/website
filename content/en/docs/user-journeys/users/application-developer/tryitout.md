@@ -9,9 +9,9 @@ track: "USERS › APPLICATION DEVELOPER › FOUNDATIONAL"
 content_template: templates/user-journey-content
 ---
 
-This section helps you learn how to view, deploy, expose, scale, and update an application.
+  This section helps you learn how to view, deploy, expose, scale, and update an application.
 
-Time: 10 minutes
+  Time: 15 minutes
 
 {{% capture body %}}
 ## Kubernetes Basics
@@ -28,7 +28,7 @@ This tutorial uses command line interface called kubectl to perform the operatio
 <button style="color:#ffffff; background-color: #169bd7; border:2px solid #169bd7" onclick="window.katacoda.init(); this.disabled=true;">Launch Terminal</button>
 
 
-#### View a cluster
+### View a cluster
 
 
 1. View the cluster details:
@@ -43,9 +43,9 @@ This tutorial uses command line interface called kubectl to perform the operatio
     kubectl get nodes
     ```
 
-This command displays all the nodes in the cluster that can host your application. The ready status of the node indicates that it is ready to accept an application for deployment. If the status of the node is displayed as not ready, run the ```kubectl get nodes``` command again.
+    This command displays all the nodes in the cluster that can host your application. The ready status of the node indicates that it is ready to accept an application for deployment. If the status of the node is displayed as not ready, run the ```kubectl get nodes``` command again.
 
-#### Deploy an application
+### Deploy an application
 
 1. Create a new deployment:
 
@@ -58,9 +58,9 @@ This command displays all the nodes in the cluster that can host your applicatio
     * image=gcr.io/google-samples/kubernetes-bootcamp:v1 is the application image location
     * 8080 is the specified port information
 
-{{<note>}}Note: If app images are hosted outside Docker hub, then include the full URL for images.{{</note>}}
+    {{<note>}}Note: If app images are hosted outside Docker hub, then include the full URL for images.{{</note>}}
 
-Your application is deployed and scheduled to run on a node in the cluster. Additionally, the cluster is configured to reschedule the instance to another node in case of node failure.
+    Your application is deployed and scheduled to run on a node in the cluster. Additionally, the cluster is configured to reschedule the instance to another node in case of node failure.
 
 2. List your deployments:
 
@@ -68,14 +68,22 @@ Your application is deployed and scheduled to run on a node in the cluster. Addi
     kubectl get deployments
     ```
 
-You can view that your deployment is running inside a Docker container on a node.
+    You can view that your deployment is running inside a Docker container on a node.
 
-##### Challenge
+#### Challenge
 
-Give a name to the application located at [] and deploy it on port 8080. After you are done deploying it
+  Give a name to the application located at [] and deploy it on port 8080. After you are done deploying it, list the deployment to verify that it was successfully deployed.
+  <details>
+  <summary>Click to view the answer</summary>
+  <p>
+  ```
+  kubectl run <kubernetes-bootcamp> <--image=gcr.io/google-samples/kubernetes-bootcamp:v1> --port=8080
+  ```
+  </p>
 
+</details>
 
-#### Expose an application
+### Expose an application
 
 
 1. Verify that your application is running by looking for existing Pods:
@@ -90,7 +98,7 @@ Give a name to the application located at [] and deploy it on port 8080. After y
     kubectl get services
     ```
 
-A service called kubernetes is created by default when Minikube starts the cluster.
+    A service called kubernetes is created by default when Minikube starts the cluster.
 
 3. Create a new service and expose it to the external traffic: [what does this external traffic mean?]
 
@@ -103,7 +111,7 @@ A service called kubernetes is created by default when Minikube starts the clust
     * 8080 is the specified NodePort information [What is the difference between port and nodeport. <!---do I need to explain it here, since the number example commands are using is the same and it might cause confusion]-->
 
 
-#### Challenge
+### Challenge
 
 Write the command to verify if the new service is added to the list. (Hint: list the current services)
 
@@ -126,15 +134,7 @@ Write the command to verify if the new service is added to the list. (Hint: list
     kubectl get deployments
     ```
 
-    The command displays the number of pods with current and desired state
-
-    The DESIRED state show the configured number of replicas
-
-    The CURRENT state show how many replicas are running now
-
-    The UP-TO-DATE is the number of replicas that were updated to match the desired (configured) state
-
-    The AVAILABLE state shows how many replicas are actually AVAILABLE to the users)
+    The command displays the number of pods with configured number of replicas (DESIRED state) and number of currently running replicas (CURRENT state). The UP-TO-DATE is the number of replicas that are updated to match the desired (configured) state. The AVAILABLE state shows the number of replicas are actually available to the users)
 
 2. Scale the deployment to 3 replicas:
 
@@ -157,27 +157,35 @@ Write the command to verify if the new service is added to the list. (Hint: list
 
 4. Verify if the number of Pods have changed:
 
-  ```
-  kubectl get pods
-  ```
+    ```
+    kubectl get pods
+    ```
 
 #### Challenge
 
-  Now write the command to scale down the application to 2 replicas:
+    * Now write the command to scale down the application to 2 replicas:
 
-  Click to view the correct answer
-
+    <details>
+    <summary>Click to view the answer</summary>
+    <p>
     ```
     kubectl scale deployments/kubernetes-bootcamp --replicas=2
     ```
+    </p>
+    </details>
 
-  Write the command to list the deployments to verify if the application is scaled down to 2 replicas.
+    * Write the command to list the deployments to verify if the application is scaled down to 2 replicas.
 
-  Click to view the correct answer
+    <details>
+    <summary>Click to view the answer</summary>
+    <p>
 
     ```
     kubectl get deployments
     ```
+    </p>
+    </details>
+
 
 #### Update the version of the app
 
@@ -189,6 +197,7 @@ Write the command to verify if the new service is added to the list. (Hint: list
       ```
 
   2. Update the image of the application to version 2.
+
       ```
       kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
       ```
@@ -213,10 +222,13 @@ Write the command to verify if the new service is added to the list. (Hint: list
 
 #### Challenge
 
-Now write the command to view the current image version of the app:
+* Now write the command to view the current image version of the app:
 
 
-Click to view the correct answer
-    ```
-    kubectl describe pods
-    ```
+<details>
+  <summary>Click to view the answer</summary>
+  <p>```
+  kubectl describe pods
+  ```
+  </p>
+  </details>
