@@ -250,9 +250,10 @@ TODO: Test and explain how to use additional non-K8s secrets with an existing se
 
 ## Service Account Volume Projection
 
-From v1.11, k8s supports a new way to project service account token into a Pod.
-Users can specify token request with audiences, expirationSeconds. Besides, the service account token would become invalid when the Pod is deleted.
-A Projected Volume named [ServiceAccountToken](/docs/concepts/storage/volumes/#projected) is designed to request and store the token.
+Kubernetes 1.11 and higher supports a new way to project a service account token into a Pod.
+You can specify a token request with audiences, expirationSeconds. The service account token
+becomes invalid when the Pod is deleted. A Projected Volume named
+[ServiceAccountToken](/docs/concepts/storage/volumes/#projected) requests and stores the token.
 
 {{% /capture %}}
 
