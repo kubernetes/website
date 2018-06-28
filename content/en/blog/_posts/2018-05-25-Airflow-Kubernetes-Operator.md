@@ -112,7 +112,7 @@ Use Travis or Jenkins to run unit and integration tests, bribe your favorite tea
 
 ### 2: CI/CD via Jenkins -> Docker Image
 
-There are a multitude on articles on [generating Docker files within a Jenkins build](https://getintodevops.com/blog/building-your-first-Docker-image-with-jenkins-2-guide-for-developers). It's a good rule of thumb that you should never use a user-generated Docker image in a production build. By reserving release tags to the Jenkins user, you can ensure that malicious or untested code will never be run by your production Airflow instances.
+[Generate your Docker images and bump release version within your Jenkins build](https://getintodevops.com/blog/building-your-first-Docker-image-with-jenkins-2-guide-for-developers). 
 
 ### 3: Airflow launches task 
 
