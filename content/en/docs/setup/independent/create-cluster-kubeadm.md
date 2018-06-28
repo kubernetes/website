@@ -120,6 +120,8 @@ with the default gateway to advertise the master's IP. To use a different
 network interface, specify the `--apiserver-advertise-address=<ip-address>` argument 
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you 
 must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
+1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify 
+connectivity to gcr.io registries.   
 
 Now run:
 
