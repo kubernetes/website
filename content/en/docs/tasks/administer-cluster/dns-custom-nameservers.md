@@ -54,7 +54,7 @@ lookups (PTR records).
 When running a Pod, kubelet prepends the cluster DNS server and searches
 paths to the node's DNS settings.  If the node is able to resolve DNS names
 specific to the larger environment, Pods should also be able to resolve.
-But see [Known issues](#known-issues).
+But see [Known issues](/docs/tasks/administer-cluster/dns-debugging-resolution/#known-issues).
 
 If you don't want this, or if you want a different DNS config for pods, you can
 use the kubelet's `--resolv-conf` flag.  Set this flag to "" to prevent Pods from
@@ -189,7 +189,7 @@ data:
 
 {{% /capture %}}
 
-## Configuring CoreDNS {config-coredns}
+## Configuring CoreDNS {#config-coredns}
 
 You can configure [CoreDNS](https://coredns.io/) as a service discovery.
 
@@ -200,12 +200,12 @@ It is currently a [GA feature](https://github.com/kubernetes/community/blob/mast
 ## CoreDNS ConfigMap options
 
 CoreDNS chains plugins and can be configured by maintaining a Corefile with the ConfigMap. CoreDNS supports all the functionalities and more that is provided by kube-dns.
-A ConfigMap created for kube-dns to support `StubDomains`and `upstreamnameserver` translates to the `proxy` plugin in CoreDNS.
+A ConfigMap created for kube-dns to support `StubDomains`and `upstreamNameservers` translates to the `proxy` plugin in CoreDNS.
 Similarly, the `Federation` plugin translates to the `federation` plugin in CoreDNS.
 
 ### Example
 
-This example ConfigMap for kube0dns specifies federations, stubdomains and upstreamnameservers:
+This example ConfigMap for kubedns specifies federations, stubdomains and upstreamnameservers:
 
 ```yaml
 apiVersion: v1
