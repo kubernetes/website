@@ -37,6 +37,13 @@
 					<a href="{{ printf "%s#%s" ("docs/editdocs" | relURL) .Path | safeURL }}" class="button issue">Edit this Page</a>
 					{{ end }}
 				</div>
+        {{ if not .Params.showcommit }}
+          {{ if $.GitInfo }}
+        <div id="lastedit">
+          {{ .GitInfo.AuthorDate.Format "Page last modified on January 02, 2006 at 3:04 PM PST" }} by <a href="https://github.com/kubernetes/website/commit/{{ .GitInfo.Hash }}/">{{ .GitInfo.Subject }}</a>
+        </div>
+          {{ end }}
+        {{ end }}
 			</div>
 		</section>
 		{{ partialCached "footer.html" . }}
