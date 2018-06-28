@@ -38,7 +38,7 @@ at least once.
 
 For every CronJob, the CronJob controller checks how many schedules it missed in the duration from its last scheduled time till now. If there are more than 100 missed schedules, then it doesn't start the job. This would mean that, for example, If `concurrencyPolicy` does not allow concurrency, a job will be counted as missed if it was attempted to be scheduled when there was a previously scheduled cronjob still running.
 
-It is important to note, that if the field `startingDeadlineSeconds` is set (not `nil`), it will count how many missed jobs occurred from the value of `startingDeadlineSeconds` till now. For example, if `startingDeadlineSeconds` is `10`, It will count how many missed jobs occurred in the last 10 seconds. 
+It is important to note, that if the field `startingDeadlineSeconds` is set (not `nil`), it will count how many missed jobs occurred from the value of `startingDeadlineSeconds` till now. For example, if `startingDeadlineSeconds` is `200`, It will count how many missed jobs occurred in the last 200 seconds. 
 
 For example, suppose a cron job is set to start at exactly `08:30:00` and its
 `startingDeadlineSeconds` is set to 10, if the CronJob controller happens to
