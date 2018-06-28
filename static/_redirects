@@ -224,6 +224,8 @@
 /docs/tasks/access-application-cluster/access-cluster.md     /docs/tasks/access-application-cluster/access-cluster/ 301
 /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
 /docs/tasks/access-kubernetes-api/access-kubernetes-api/http-proxy-access-api/     /docs/tasks/access-kubernetes-api/http-proxy-access-api/ 301
+/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/     /docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/ 301
+/docs/tasks/access-kubernetes-api/migrate-third-party-resource/    /docs/tasks/access-kubernetes-api/custom-resources/migrate-third-party-resource/ 301
 
 /docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/tasks/administer-cluster/assign-pods-nodes/     /docs/tasks/configure-pod-container/assign-pods-nodes/ 301

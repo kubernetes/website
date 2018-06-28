@@ -45,16 +45,24 @@ time_format_blog = "Monday, January 02, 2006"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.10"
+latest = "v1.11"
 
-fullversion = "v1.10.3"
-version = "v1.10"
+fullversion = "v1.11.0"
+version = "v1.11"
 githubbranch = "master"
 docsbranch = "master"
 deprecated = false
 currentUrl = "https://kubernetes.io/docs/home/"
 nextUrl = "http://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"
+githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
+
+[[params.versions]]
+fullversion = "v1.11.0"
+version = "v1.11"
+githubbranch = "v1.11.0"
+docsbranch = "release-1.11"
+url = "https://kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.10.3"
@@ -83,13 +91,6 @@ version = "v1.7"
 githubbranch = "v1.7.6"
 docsbranch = "release-1.7"
 url = "https://v1-7.docs.kubernetes.io"
-
-[[params.versions]]
-fullversion = "v1.6.8"
-version = "v1.6"
-githubbranch = "v1.6.8"
-docsbranch = "release-1.6"
-url = "https://v1-6.docs.kubernetes.io"
 
 
 # Language definitions.

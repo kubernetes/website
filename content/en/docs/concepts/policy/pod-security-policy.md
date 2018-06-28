@@ -421,7 +421,8 @@ minimum value of the first range as the default. Validates against all ranges.
 to be used by hostPath volumes. An empty list means there is no restriction on
 host paths used. This is defined as a list of objects with a single `pathPrefix`
 field, which allows hostPath volumes to mount a path that begins with an
-allowed prefix. For example:
+allowed prefix, and a `readOnly` field indicating it must be mounted read-only.
+For example:
 
 ```yaml
 allowedHostPaths:
@@ -429,11 +430,18 @@ allowedHostPaths:
   # disallows "/fool", "/etc/foo" etc.
   # "/foo/../" is never valid.
   - pathPrefix: "/foo"
+    readOnly: true # only allow read-only mounts
 ```
 
-_Note: There are many ways a container with unrestricted access to the host
+{{< warning >}}**Warning:** There are many ways a container with unrestricted access to the host 
 filesystem can escalate privileges, including reading data from other
-containers, and abusing the credentials of system services, such as Kubelet._
+containers, and abusing the credentials of system services, such as Kubelet.
+
+Writeable hostPath directory volumes allow containers to write 
+to the filesystem in ways that let them traverse the host filesystem outside the `pathPrefix`.
+`readOnly: true`, available in Kubernetes 1.11+, must be used on **all** `allowedHostPaths`
+to effectively limit access to the specified `pathPrefix`.
+{{< /warning >}}
 
 **ReadOnlyRootFilesystem** - Requires that containers must run with a read-only
 root filesystem (i.e. no writable layer).

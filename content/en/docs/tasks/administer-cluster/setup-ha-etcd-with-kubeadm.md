@@ -9,7 +9,7 @@ content_template: templates/task
 
 Kubeadm defaults to running a single member etcd cluster in a static pod managed
 by the kubelet on the control plane node. This is not a highly available setup
-as the the etcd cluster contains only one member and cannot sustain any members
+as the etcd cluster contains only one member and cannot sustain any members
 becoming unavailable. This task walks through the process of creating a highly
 available etcd cluster of three members that can be used as an external etcd
 when using kubeadm to set up a kubernetes cluster.
