@@ -36,10 +36,10 @@ If `startingDeadlineSeconds` is set to a large value or left unset (the default)
 and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
 at least once.
 
-Jobs may fail to run if the CronJob controller is not running or broken for a
-span of time from before the start time of the CronJob to start time plus
-`startingDeadlineSeconds`, or if the span covers multiple start times and
-`concurrencyPolicy` does not allow concurrency.
+For every CronJob, the CronJob controller checks how many schedules it missed in the duration from its last scheduled time till now. If there are more than 100 missed schedules, then it doesn't start the job. This would mean that, for example, If `concurrencyPolicy` does not allow concurrency, a job will be counted as missed if it was attempted to be scheduled when there was a previously scheduled cronjob still running.
+
+It is important to note, that if the field `startingDeadlineSeconds` is set (not `nil`), it will count how many missed jobs occurred from the value of `startingDeadlineSeconds` till now. For example, if `startingDeadlineSeconds` is `10`, It will count how many missed jobs occurred in the last 10 seconds. 
+
 For example, suppose a cron job is set to start at exactly `08:30:00` and its
 `startingDeadlineSeconds` is set to 10, if the CronJob controller happens to
 be down from `08:29:00` to `08:42:00`, the job will not start.
