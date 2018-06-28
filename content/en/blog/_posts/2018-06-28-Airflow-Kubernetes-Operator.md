@@ -1,7 +1,7 @@
 ---
 layout: blog
-title:  "Airflow on Kubernetes (Part 1): A Different Kind of Operator"
-date:   Thursday, July 28th 2018
+title:  'Airflow on Kubernetes (Part 1): A Different Kind of Operator'
+date:   2018-06-28
 ---
 
 ## Introduction
@@ -31,10 +31,10 @@ Airflow users are always looking for ways to make deployments and ETL pipelines 
  * **Increased flexibility for deployments:**  
 Airflow's plugin API has always offered a significant boon to engineers wishing to test new functionalities within their DAGs. On the downside, whenever a developer wanted to create a new operator, they had to develop an entirely new plugin. Now, any task that can be run within a Docker container is accessible through the exact same operator, with no extra Airflow code to maintain.
 
- * **Flexibility of configurations and dependencies:** 
+ * **Flexibility of configurations and dependencies:**
 For operators that are run within static Airflow workers, dependency management can become quite difficult. If a developer wants to run one task that requires [SciPy](https://www.scipy.org) and another that requires [NumPy](http://www.numpy.org), the developer would have to either maintain both dependencies within all Airflow workers or offload the task to an external machine (which can cause bugs if that external machine changes in an untracked manner). Custom Docker images allow users to ensure that the tasks environment, configuration, and dependencies are completely idempotent.  
 
- * **Usage of kubernetes secrets for added security:** 
+ * **Usage of kubernetes secrets for added security:**
 Handling sensitive data is a core responsibility of any DevOps engineer. At every opportunity, Airflow users want to isolate any API keys, database passwords, and login credentials on a strict need-to-know basis. With the Kubernetes operator, users can utilize the Kubernetes Vault technology to store all sensitive data. This means that the Airflow workers will never have access to this information, and can simply request that pods be built with only the secrets they need.
 
 
@@ -112,9 +112,9 @@ Use Travis or Jenkins to run unit and integration tests, bribe your favorite tea
 
 ### 2: CI/CD via Jenkins -> Docker Image
 
-[Generate your Docker images and bump release version within your Jenkins build](https://getintodevops.com/blog/building-your-first-Docker-image-with-jenkins-2-guide-for-developers). 
+[Generate your Docker images and bump release version within your Jenkins build](https://getintodevops.com/blog/building-your-first-Docker-image-with-jenkins-2-guide-for-developers).
 
-### 3: Airflow launches task 
+### 3: Airflow launches task
 
 Finally, update your DAGs to reflect the new release version and you should be ready to go!
 
@@ -141,7 +141,7 @@ Since the Kubernetes Operator is not yet released, we haven't released an offici
 
 Run `git clone https://github.com/apache/incubator-airflow.git` to clone the official Airflow repo.
 
-## Step 3: Run 
+## Step 3: Run
 
 To run this basic deployment, we are co-opting the integration testing script that we currently use for the Kubernetes Executor (which will be explained in the next article of this series). To launch this deployment, run these three commands:
 
@@ -167,7 +167,7 @@ Finally, we create a full airflow deployment on your cluster. This includes airf
 
 ## Step 4: Log into your webserver
 
-Now that your airflow instance is running let's take a look at the UI! The UI lives in port 8080 of the airflow pod, so simply run 
+Now that your airflow instance is running let's take a look at the UI! The UI lives in port 8080 of the airflow pod, so simply run
 
 ```
 WEB=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | grep "airflow" | head -1)
@@ -192,7 +192,7 @@ To modify/add your own DAGs, you can use `kubectl cp` to upload local files into
 
 This feature is just the beginning of multiple major efforts to improves Apache Airflow integration into Kubernetes. The Kubernetes Operator has been merged into the [1.10 release branch of Airflow](https://github.com/apache/incubator-airflow/tree/v1-10-test) (the executor in experimental mode), along with a fully k8s native scheduler called the Kubernetes Executor (article to come). These features are still in a stage where early adopters/contributers can have a huge influence on the future of these features.
 
-For those interested in joining these efforts, I'd recommend checkint out these steps: 
+For those interested in joining these efforts, I'd recommend checkint out these steps:
 
  * Join the airflow-dev mailing list at dev@airflow.apache.org.
  * File an issue in [Apache Airflow JIRA](https://issues.apache.org/jira/projects/AIRFLOW/issues/)
