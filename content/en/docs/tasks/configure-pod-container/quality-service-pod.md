@@ -1,6 +1,7 @@
 ---
 title: Configure Quality of Service for Pods
 content_template: templates/task
+weight: 30
 ---
 
 

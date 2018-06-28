@@ -62,15 +62,10 @@ aliases:
     - soltysh
     - sttts
   sig-cluster-lifecycle: #GH: sig-cluster-lifecycle-pr-reviews
-    - jbeda
     - timothysc
-    - lukemarsden
-    - pipejakob
-    - dmmcquay
-    - mattmoyer
     - luxas
     - roberthbailey
-    - medinatiger
+    - fabriziopandini 
   sig-cluster-ops:
     - zehicle
     - jdumars

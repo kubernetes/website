@@ -2,7 +2,13 @@
 reviewers:
 - bprashanth
 title: Services
+content_template: templates/concept
+weight: 10
 ---
+
+{{< toc >}}
+
+{{% capture overview %}}
 
 Kubernetes [`Pods`](/docs/concepts/workloads/pods/pod/) are mortal. They are born and when they die, they
 are not resurrected.  [`ReplicaSets`](/docs/concepts/workloads/controllers/replicaset/) in
@@ -32,7 +38,9 @@ that is updated whenever the set of `Pods` in a `Service` changes.  For
 non-native applications, Kubernetes offers a virtual-IP-based bridge to Services
 which redirects to the backend `Pods`.
 
-{{< toc >}}
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Defining a service
 
@@ -262,7 +270,7 @@ spec:
 ## Choosing your own IP address
 
 You can specify your own cluster IP address as part of a `Service` creation
-request.  To do this, set the `spec.clusterIP` field. For example, if you
+request.  To do this, set the `.spec.clusterIP` field. For example, if you
 already have an existing DNS entry that you wish to replace, or legacy systems
 that are configured for a specific IP address and difficult to re-configure.
 The IP address that a user chooses must be a valid IP address and within the
@@ -344,7 +352,7 @@ The Kubernetes DNS server is the only way to access services of type
 
 Sometimes you don't need or want load-balancing and a single service IP.  In
 this case, you can create "headless" services by specifying `"None"` for the
-cluster IP (`spec.clusterIP`).
+cluster IP (`.spec.clusterIP`).
 
 This option allows developers to reduce coupling to the Kubernetes system by
 allowing them freedom to do discovery their own way.  Applications can still use
@@ -400,10 +408,10 @@ The default is `ClusterIP`.
 
 ### Type NodePort
 
-If you set the `type` field to `"NodePort"`, the Kubernetes master will
-allocate a port from a flag-configured range (default: 30000-32767), and each
+If you set the `type` field to `NodePort`, the Kubernetes master will
+allocate a port from a range specified by `--service-node-port-range` flag (default: 30000-32767), and each
 Node will proxy that port (the same port number on every Node) into your `Service`.
-That port will be reported in your `Service`'s `spec.ports[*].nodePort` field.
+That port will be reported in your `Service`'s `.spec.ports[*].nodePort` field.
 
 If you want to specify particular IP(s) to proxy the port, you can set the `--nodeport-addresses` flag in kube-proxy to particular IP block(s) (which is supported since Kubernetes v1.10). A comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 1.2.3.4/32) is used to filter addresses local to this node. For example, if you start kube-proxy with flag `--nodeport-addresses=127.0.0.0/8`, kube-proxy will select only the loopback interface for NodePort Services. The `--nodeport-addresses` is defaulted to empty (`[]`), which means select all available interfaces and is in compliance with current NodePort behaviors.
 
@@ -417,15 +425,15 @@ configure environments that are not fully supported by Kubernetes, or
 even to just expose one or more nodes' IPs directly.
 
 Note that this Service will be visible as both `<NodeIP>:spec.ports[*].nodePort`
-and `spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
+and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
 
 ### Type LoadBalancer
 
 On cloud providers which support external load balancers, setting the `type`
-field to `"LoadBalancer"` will provision a load balancer for your `Service`.
+field to `LoadBalancer` will provision a load balancer for your `Service`.
 The actual creation of the load balancer happens asynchronously, and
 information about the provisioned balancer will be published in the `Service`'s
-`status.loadBalancer` field.  For example:
+`.status.loadBalancer` field.  For example:
 
 ```yaml
 kind: Service
@@ -468,7 +476,7 @@ In a split-horizon DNS environment you would need two services to be able to rou
 This can be achieved by adding the following annotations to the service based on cloud provider.
 
 {{< tabs name="service_tabs" >}}
-{{% tab name="Decfault" %}}
+{{% tab name="Default" %}}
 Select one of the tabs.
 {{% /tab %}}
 {{% tab name="GCP" %}}
@@ -703,15 +711,15 @@ with the value set to `nlb`.
 ```
 
 Unlike Classic Elastic Load Balancers, Network Load Balancers (NLBs) forward the
-client's IP through to the node. If a service's `spec.externalTrafficPolicy` is
+client's IP through to the node. If a service's `.spec.externalTrafficPolicy` is
 set to `Cluster`, the client's IP address will not be propagated to the end
 pods.
 
-By setting `spec.externalTrafficPolicy` to `Local`, client IP addresses will be
+By setting `.spec.externalTrafficPolicy` to `Local`, client IP addresses will be
 propagated to the end pods, but this could result in uneven distribution of
 traffic. Nodes without any pods for a particular LoadBalancer service will fail
 the NLB Target Group's health check on the auto-assigned
-`spec.healthCheckNodePort` and not receive any traffic.
+`.spec.healthCheckNodePort` and not receive any traffic.
 
 In order to achieve even traffic, either use a DaemonSet, or specify a
 [pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature)
@@ -725,11 +733,11 @@ groups are modified with the following IP rules:
 
 | Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
 |------|----------|---------|------------|---------------------|
-| Health Check | TCP | NodePort(s) (`spec.healthCheckNodePort` for `spec.externalTrafficPolicy = Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
-| Client Traffic | TCP | NodePort(s) | `spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
-| MTU Discovery | ICMP | 3,4 | `spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
+| Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+| Client Traffic | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
+| MTU Discovery | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 
-Be aware that if `spec.loadBalancerSourceRanges` is not set, Kubernetes will
+Be aware that if `.spec.loadBalancerSourceRanges` is not set, Kubernetes will
 allow traffic from `0.0.0.0/0` to the Node Security Group(s). If nodes have
 public IP addresses, be aware that non-NLB traffic can also reach all instances
 in those modified security groups.
@@ -889,6 +897,11 @@ Service is a top-level resource in the Kubernetes REST API. More details about t
 API object can be found at:
 [Service API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core).
 
-## For More Information
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 Read [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/).
+
+{{% /capture %}}
+

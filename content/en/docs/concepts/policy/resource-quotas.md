@@ -2,12 +2,22 @@
 reviewers:
 - derekwaynecarr
 title: Resource Quotas
+content_template: templates/concept
+weight: 10
 ---
+
+{{% capture overview %}}
 
 When several users or teams share a cluster with a fixed number of nodes,
 there is a concern that one team could use more than its fair share of resources.
 
 Resource quotas are a tool for administrators to address this concern.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 A resource quota, defined by a `ResourceQuota` object, provides constraints that limit
 aggregate resource consumption per namespace.  It can limit the quantity of objects that can
@@ -67,7 +77,7 @@ The following resource types are supported:
 ### Resource Quota For Extended Resources
 
 In addition to the resources mentioned above, in release 1.10, quota support for
-[extended resources](/docs/concepts/configuration/manage-compute-resources-container.md#extended-resources) is added.
+[extended resources](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources) is added.
 
 As overcommit is not allowed for extended resources, it makes no sense to specify both `requests`
 and `limits` for the same extended resource in a quota. So for extended resources, only quota items
@@ -142,7 +152,7 @@ The following types are supported:
 | ------------------------------- | ------------------------------------------------- |
 | `configmaps` | The total number of config maps that can exist in the namespace. |
 | `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
-| `pods` | The total number of pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `status.phase in (Failed, Succeeded)` is true.  |
+| `pods` | The total number of pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `.status.phase in (Failed, Succeeded)` is true.  |
 | `replicationcontrollers` | The total number of replication controllers that can exist in the namespace. |
 | `resourcequotas` | The total number of [resource quotas](/docs/admin/admission-controllers/#resourcequota) that can exist in the namespace. |
 | `services` | The total number of services that can exist in the namespace. |
@@ -165,8 +175,8 @@ Resources specified on the quota outside of the allowed set results in a validat
 
 | Scope | Description |
 | ----- | ----------- |
-| `Terminating` | Match pods where `spec.activeDeadlineSeconds >= 0` |
-| `NotTerminating` | Match pods where `spec.activeDeadlineSeconds is nil` |
+| `Terminating` | Match pods where `.spec.activeDeadlineSeconds >= 0` |
+| `NotTerminating` | Match pods where `.spec.activeDeadlineSeconds is nil` |
 | `BestEffort` | Match pods that have best effort quality of service. |
 | `NotBestEffort` | Match pods that do not have best effort quality of service. |
 
@@ -306,6 +316,10 @@ restrictions around nodes: pods from several namespaces may run on the same node
 
 See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
 
-## Read More
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.
+
+{{% /capture %}}

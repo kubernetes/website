@@ -1,6 +1,7 @@
 ---
 title: Assign Pods to Nodes
 content_template: templates/task
+weight: 120
 ---
 
 {{% capture overview %}}
@@ -20,7 +21,7 @@ Kubernetes cluster.
 
 1. List the nodes in your cluster:
 
-       kubectl get nodes
+        kubectl get nodes
 
     The output is similar to this:
 
@@ -31,7 +32,7 @@ Kubernetes cluster.
 
 1. Chose one of your nodes, and add a label to it:
 
-       kubectl label nodes <your-node-name> disktype=ssd
+        kubectl label nodes <your-node-name> disktype=ssd
 
     where `<your-node-name>` is the name of your chosen node.
 
@@ -61,11 +62,11 @@ a `disktype=ssd` label.
 1. Use the configuration file to create a pod that will get scheduled on your
    chosen node:
 
-       kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/pod.yaml
+        kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/pod.yaml
 
 1. Verify that the pod is running on your chosen node:
 
-       kubectl get pods --output=wide
+        kubectl get pods --output=wide
 
     The output is similar to this:
 

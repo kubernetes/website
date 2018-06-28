@@ -5,6 +5,7 @@ reviewers:
 - madhusudancs
 title: ReplicaSet
 content_template: templates/concept
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -112,7 +113,7 @@ labels and an appropriate restart policy.
 
 For labels, make sure to not overlap with other controllers. For more information, see [pod selector](#pod-selector).
 
-For [restart policy](/docs/concepts/workloads/pods/pod-lifecycle/), the only allowed value for `.spec.template.spec.restartPolicy` is `Always`, which is the default.
+For [restart policy](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy), the only allowed value for `.spec.template.spec.restartPolicy` is `Always`, which is the default.
 
 For local container restarts, ReplicaSet delegates to an agent on the node,
 for example the [Kubelet](/docs/admin/kubelet/) or Docker.

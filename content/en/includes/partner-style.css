@@ -34,24 +34,19 @@
     zoom:1; /* For IE 6/7 */
 }
 
-/*  GRID OF FOUR  */
-.span_4_of_4 {
-	width: 23%;
+/*  GRID OF THREE  */
+.span_3_of_3 {
+	width: 35%;
 	background-color: #f9f9f9;
 	padding: 20px;
 }
-.span_3_of_4 {
-	width: 23%;
+.span_2_of_3 {
+	width: 35%;
 	background-color: #f9f9f9;
 	padding: 20px;
 }
-.span_2_of_4 {
-	width: 23%;
-	background-color: #f9f9f9;
-	padding: 20px;
-}
-.span_1_of_4 {
-	width: 23%;
+.span_1_of_3 {
+	width: 35%;
 	background-color: #f9f9f9;
 	padding: 20px;
 }
@@ -59,12 +54,12 @@
 .col-container {
     display: table; /* Make the container element behave like a table */
     width: 100%; /* Set full-width to expand the whole page */
-		padding-bottom: 80px;
+		padding-bottom: 30px;
 }
 
 .col-nav {
     display: table-cell; /* Make elements inside the container behave like table cells */
-		width: 25%;
+		width: 18%;
 		background-color: #f9f9f9;
 		padding: 20px;
 		border: 5px solid white;
@@ -74,7 +69,7 @@
 
 @media only screen and (max-width: 480px) {
 	.col { margin: 1% 0 1% 0%;}
-	.span_4_of_4, .span_3_of_4, .span_2_of_4, .span_1_of_4 { width: 100%; }
+	.span_3_of_3, .span_2_of_3, .span_1_of_3 { width: 100%; }
 }
 
 @media only screen and (max-width: 650px) {
@@ -86,8 +81,17 @@
 
 .button{
   max-width: 100%;
-	line-height: 14px;
-	padding: 15px;
+	box-sizing: border-box;
+	font-family: "Roboto", sans-serif;
+	margin: 0;
+	display: inline-block;
+	border-radius: 6px;
+	padding: 0 20px;
+	line-height: 40px;
+	color: #ffffff;
+	font-size: 16px;
+	background-color: #3371e3;
+	text-decoration: none;
  }
 
 h5 {
@@ -101,7 +105,7 @@ h5 {
 	background-color: #f9f9f9;
 }
 
-#distContainer, #kcspContainer, #isvContainer, #servContainer {
+#ktpContainer, #distContainer, #kcspContainer, #isvContainer, #servContainer {
 	position: relative;
 	width: 100%;
 	display: flex;
@@ -118,6 +122,10 @@ h5 {
 }
 
 #distContainer {
+	margin-bottom: 80px;
+}
+
+#ktpContainer {
 	margin-bottom: 80px;
 }
 
@@ -158,7 +166,7 @@ h5 {
 }
 
 @media screen and (max-width: 568px) {
-	#distContainter, #kcspContainer, #isvContainer, #servContainer {
+	#ktpContainer, #distContainter, #kcspContainer, #isvContainer, #servContainer {
 		justify-content: center;
 	}
 
@@ -176,7 +184,7 @@ h5 {
 }
 
 @media screen and (max-width: 568px) {
-	#distContainer, #kcspContainer, #isvContainer, #servContainer {
+	#ktpContainer, #distContainer, #kcspContainer, #isvContainer, #servContainer {
 		justify-content: center;
 	}
 

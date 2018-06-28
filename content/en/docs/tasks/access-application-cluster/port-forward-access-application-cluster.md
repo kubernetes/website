@@ -1,6 +1,7 @@
 ---
 title: Use Port Forwarding to Access Applications in a Cluster
 content_template: templates/task
+weight: 40
 ---
 
 {{% capture overview %}}
@@ -46,6 +47,7 @@ for database debugging.
         redis-master 1         1         1            1           55s
 
        kubectl get rs
+       
         NAME                      DESIRED   CURRENT   READY     AGE
         redis-master-765d459796   1         1         1         1m
 

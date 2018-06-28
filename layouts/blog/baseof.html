@@ -12,11 +12,11 @@
 			<h1>Kubernetes Blog</h1>
 		</section>
 		<div class="container-fluid" style="padding-top: 2em">
-			<div class="row blog-content">
-				<div class="col-xs-10 col-sm-9 col-lg-9 text">
+			<div class="row">
+				<div class="col-xs-12 col-md-9 text blog-content">
 					{{ block "main" . }}{{ end }}
 				</div>
-				<div class="col-xs-1 col-sm-1 col-sm-3 col-lg-3 text">
+				<div class="col-xs-12 col-md-3 text">
 					<div class="widget-content">
 						{{ with .Site.Home.OutputFormats.Get "rss" -}}
 						<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ $.Site.Title }}">
@@ -26,6 +26,7 @@
 						<a class="widget-link" href="https://github.com/kubernetes/kubernetes"> <i class="fab fa-github-square fab-icon"></i> View on Github </a>
 						<a class="widget-link" href="http://slack.k8s.io"><i class="fab fa-slack fab-icon"> </i> #kubernetes-users </a>
 						<a class="widget-link" href="http://stackoverflow.com/questions/tagged/kubernetes"><i class="fab fa-stack-overflow fab-icon"></i> Stack Overflow</a>
+						<a class="widget-link" href="https://discuss.kubernetes.io"><i class="fab fa-discourse fab-icon"></i>Forum</a>
 						<a class="widget-link" href="http://get.k8s.io/"><i class="fab fa-stack-overflow fab-icon"></i> Download Kubernetes</a>
 					</div>
 					{{ partialCached "blog/archive.html" . }}

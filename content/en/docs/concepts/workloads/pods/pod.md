@@ -1,13 +1,20 @@
 ---
 reviewers:
 title: Pods
+content_template: templates/concept
+weight: 20
 ---
 
-{{< toc >}}
-
+{{% capture overview %}}
 
 _Pods_ are the smallest deployable units of computing that can be created and
 managed in Kubernetes.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## What is a Pod?
 
@@ -58,7 +65,7 @@ that means that it exists as long as that pod (with that UID) exists. If that
 pod is deleted for any reason, even if an identical replacement is created, the
 related thing (e.g. volume) is also destroyed and created anew.
 
-![pod diagram](/images/docs/pod.svg){: style="max-width: 50%" }
+{{< figure src="/images/docs/pod.svg" title="pod diagram" width="50%" >}}
 
 *A multi-container pod that contains a file puller and a
 web server that uses a persistent volume for shared storage between the containers.*
@@ -109,7 +116,7 @@ application, in general.
 
 For a longer explanation, see [The Distributed System ToolKit: Patterns for
 Composite
-Containers](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html).
+Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
 
 ## Alternatives considered
 
@@ -168,7 +175,7 @@ An example flow:
 1. (simultaneous with 3) When the Kubelet sees that a Pod has been marked as terminating because the time in 2 has been set, it begins the pod shutdown process.
     1. If the pod has defined a [preStop hook](/docs/concepts/containers/container-lifecycle-hooks/#hook-details), it is invoked inside of the pod. If the `preStop` hook is still running after the grace period expires, step 2 is then invoked with a small (2 second) extended grace period.
     1. The processes in the Pod are sent the TERM signal.
-1. (simultaneous with 3) Pod is removed from endpoints list for service, and are no longer considered part of the set of running pods for replication controllers. Pods that shutdown slowly can continue to serve traffic as load balancers (like the service proxy) remove them from their rotations.
+1. (simultaneous with 3) Pod is removed from endpoints list for service, and are no longer considered part of the set of running pods for replication controllers. Pods that shutdown slowly cannot continue to serve traffic as load balancers (like the service proxy) remove them from their rotations.
 1. When the grace period expires, any processes still running in the Pod are killed with SIGKILL.
 1. The Kubelet will finish deleting the Pod on the API server by setting grace period 0 (immediate deletion). The Pod disappears from the API and is no longer visible from the client.
 
@@ -198,3 +205,5 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 Pod is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at:
 [Pod API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
+
+{{% /capture %}}

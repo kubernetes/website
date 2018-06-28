@@ -1,8 +1,10 @@
 ---
 title: Concepts Underlying the Cloud Controller Manager
+content_template: templates/concept
+weight: 30
 ---
 
-## Cloud Controller Manager
+{{% capture overview %}}
 
 The cloud controller manager (CCM) concept (not to be confused with the binary) was originally created to allow cloud specific vendor code and the Kubernetes core to evolve independent of one another. The cloud controller manager runs alongside other master components such as the Kubernetes controller manager, the API server, and scheduler. It can also be started as a Kubernetes addon, in which case it runs on top of Kubernetes.
 
@@ -13,6 +15,12 @@ This document discusses the concepts behind the cloud controller manager and giv
 Here's the architecture of a Kubernetes cluster without the cloud controller manager:
 
 ![Pre CCM Kube Arch](/images/docs/pre-ccm-arch.png)
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Design
 
@@ -117,6 +125,7 @@ This section breaks down the access required on various API objects by the CCM t
 The Node controller only works with Node objects. It requires full access to get, list, create, update, patch, watch, and delete Node objects.
 
 v1/Node: 
+
 - Get
 - List
 - Create
@@ -130,6 +139,7 @@ v1/Node:
 The route controller listens to Node object creation and configures routes appropriately. It requires get access to Node objects. 
 
 v1/Node: 
+
 - Get
 
 ### Service controller
@@ -141,6 +151,7 @@ To access Services, it requires list, and watch access. To update Services, it r
 To set up endpoints for the Services, it requires access to create, list, get, watch, and update.
 
 v1/Service:
+
 - List
 - Get
 - Watch
@@ -152,6 +163,7 @@ v1/Service:
 The PersistentVolumeLabels controller listens on PersistentVolume (PV) create events and then updates them. This controller requires access to get and update PVs.
 
 v1/PersistentVolume:
+
 - Get
 - List
 - Watch
@@ -162,11 +174,13 @@ v1/PersistentVolume:
 The implementation of the core of CCM requires access to create events, and to ensure secure operation, it requires access to create ServiceAccounts.
 
 v1/Event:
+
 - Create
 - Patch
 - Update
 
 v1/ServiceAccount:
+
 - Create
 
 The RBAC ClusterRole for the CCM looks like this:
@@ -238,7 +252,7 @@ rules:
 The following cloud providers have implemented CCMs: 
 
 * Digital Ocean
-* Oracle
+* [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
 * Azure
 * GCE
 * AWS
@@ -247,3 +261,5 @@ The following cloud providers have implemented CCMs:
 
 Complete instructions for configuring and running the CCM are provided
 [here](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
+
+{{% /capture %}}

@@ -426,15 +426,23 @@ dd { margin-bottom: 16px; }
 
 #docsContent .includecode pre { margin: 0 !important; }
 
-#docsContent ul li { list-style: disc; }
+/* These are being clobbered by line 37 and it is affecting <ul> nested inside <ol> */
+#docsContent ul>li { list-style: disc !important; }
 
-#docsContent ol li { list-style: decimal; }
+#docsContent ol>li { list-style: decimal !important; }
 
 #docsContent ul, #docsContent ol { margin: 20px 0; padding-left: 30px; font-weight: 300; }
+
+/* A little extra margin and visual separation for consecutive top-level lists */
+#docsContent>ul, #docsContent>ol { margin-bottom: 40px !important; border-bottom: 1px solid #eee !important; }
 
 #docsContent ul ul, #docsContent ol ol, #docsContent ul ol, #docsContent ol ul { margin: 0.75em 0; }
 
 #docsContent li { margin-bottom: 0.75em; font-size: 16px; line-height: 1.75em; }
+
+/* No bullets for checklists or 'UI Nav' components. */
+#docsContent ul.task-list>li,
+#docsContent ul.ui-tabs-nav>li.ui-tabs-tab { list-style-type: none !important; }
 
 #docsContent table { width: 100%; border: 1px solid #ccc; border-spacing: 0; margin-top: 30px; margin-bottom: 30px; }
 
@@ -490,6 +498,8 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #home #hero #vendorStrip { display: none; }
 
+#blog.flip-nav .logo { background-image: url(/images/nav_logo2.svg); }
+
 #oceanNodes { padding-top: 60px; padding-bottom: 60px; }
 
 #oceanNodes a { color: #3371e3; }
@@ -508,7 +518,7 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #video { height: 200px; }
 
-#video { width: 100%; position: relative; background-image: url(/images/kub_video_banner_box.jpg); background-position: center center; background-size: cover; }
+#video { width: 100%; position: relative; background-image: url(/images/kub_video_banner_homepage.jpg); background-position: center center; background-size: cover; }
 
 #video > .light-text { display: none; position: absolute; top: 50%; left: 75%; width: 525px; padding-right: 80px; transform: translate(-50%, -50%); color: white; }
 
@@ -859,7 +869,7 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
   #oceanNodes main:nth-child(1) h3, #oceanNodes main:nth-child(1) p { text-align: left; }
   #oceanNodes main:nth-child(1) .image-wrapper { position: absolute; max-width: 48%; transform: translateY(-50%); }
   #oceanNodes main:nth-child(1) .image-wrapper img { max-width: 425px; }
-  #video { height: 550px; position: relative; background-image: url(../images/kub_video_banner_box.jpg); background-position: center center; background-size: cover; }
+  #video { height: 550px; position: relative; background-image: url(../images/kub_video_banner_homepage.jpg); background-position: center center; background-size: cover; }
   #talkToUs h4 br { display: block; }
   #talkToUs #bigSocial div { width: calc(25% - 18px); }
   #talkToUs #bigSocial div + div { margin-left: 20px; }

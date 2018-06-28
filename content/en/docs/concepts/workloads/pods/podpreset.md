@@ -3,6 +3,7 @@ reviewers:
 - jessfraz
 title: Pod Preset
 content_template: templates/concept
+weight: 50
 ---
 
 {{% capture overview %}}
@@ -44,14 +45,14 @@ When a pod creation request occurs, the system does the following:
    modified by a `PodPreset`. The annotation is of the form
    `podpreset.admission.kubernetes.io/podpreset-<pod-preset name>: "<resource version>"`.
 
-Each Pod can be matched zero or more Pod Presets; and each `PodPreset` can be
+Each Pod can be matched by zero or more Pod Presets; and each `PodPreset` can be
 applied to zero or more pods. When a `PodPreset` is applied to one or more
 Pods, Kubernetes modifies the Pod Spec. For changes to `Env`, `EnvFrom`, and
 `VolumeMounts`, Kubernetes modifies the container spec for all containers in
 the Pod; for changes to `Volume`, Kubernetes modifies the Pod Spec.
 
 {{< note >}}
-**Note:** A Pod Preset is capable of modifying the `spec.containers` field in a
+**Note:** A Pod Preset is capable of modifying the `.spec.containers` field in a
 Pod spec when appropriate. *No* resource definition from the Pod Preset will be 
 applied to the `initContainers` field.
 {{< /note >}}

@@ -4,7 +4,7 @@ date: 2017-10-26
 slug: it-takes-village-to-raise-kubernetes
 url: /blog/2017/10/It-Takes-Village-To-Raise-Kubernetes
 ---
-**_Editor’s note: this post is part of a [series of in-depth articles](http://blog.kubernetes.io/2017/10/five-days-of-kubernetes-18.html) on what's new in Kubernetes 1.8, written by Jaice Singer DuMars from Microsoft._**
+**_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/10/five-days-of-kubernetes-18) on what's new in Kubernetes 1.8, written by Jaice Singer DuMars from Microsoft._**
 
 
 Each time we release a new version of Kubernetes, it’s enthralling to see how the community responds to all of the hard work that went into it. Blogs on new or enhanced capabilities crop up all over the web like wildflowers in the spring. Talks, videos, webinars, and demos are not far behind. As soon as the community seems to take this all in, we turn around and add more to the mix. It’s a thrilling time to be a part of this project, and even more so, the movement. It’s not just software anymore.  

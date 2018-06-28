@@ -4,6 +4,7 @@ reviewers:
 - lavalamp
 title: Cluster Administration Overview
 content_template: templates/concept
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -66,7 +67,7 @@ If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](
 
 ## Optional Cluster Services
 
-* [DNS Integration with SkyDNS](/docs/concepts/services-networking/dns-pod-service/) describes how to resolve a DNS name directly to a Kubernetes service.
+* [DNS Integration](/docs/concepts/services-networking/dns-pod-service/) describes how to resolve a DNS name directly to a Kubernetes service.
 
 * [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/) explains how logging in Kubernetes works and how to implement it.
 

@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 - luxas
 - jbeda
@@ -16,6 +16,11 @@ You can execute `kubeadm config view` to view the ConfigMap. If you initialized 
 kubeadm v1.7.x or lower, you must use `kubeadm config upload` to create the ConfigMap before you
 may use `kubeadm upgrade`.
 
+In Kubernetes v1.11.0, some new commands were added. You can use `kubeadm config print-default`
+to print the default configuration and `kubeadm config migrate` to convert your old configuration
+files to a newer version. `kubeadm config images list` and `kubeadm config images pull` can be used
+to list and pull the images that kubeadm requires.
+
 {{% /capture %}}
 
 {{% capture body %}}
@@ -27,8 +32,21 @@ may use `kubeadm upgrade`.
 
 ## kubeadm config view {#cmd-config-view}
 {{< include "generated/kubeadm_config_view.md" >}}
+
+## kubeadm config print-default {#cmd-config-print-default}
+{{< include "generated/kubeadm_config_print-default.md" >}}
+
+## kubeadm config migrate {#cmd-config-migrate}
+{{< include "generated/kubeadm_config_migrate.md" >}}
+
+## kubeadm config images list {#cmd-config-images-list}
+{{< include "generated/kubeadm_config_images_list.md" >}}
+
+## kubeadm config images pull {#cmd-config-images-pull}
+{{< include "generated/kubeadm_config_images_pull.md" >}}
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [kubeadm upgrade](kubeadm-upgrade.md) to upgrade a Kubernetes cluster to a newer version
+* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 {{% /capture %}}

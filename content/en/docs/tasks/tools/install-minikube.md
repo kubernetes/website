@@ -1,6 +1,7 @@
 ---
 title: Install Minikube
 content_template: templates/task
+weight: 20
 ---
 
 {{% capture overview %}}
@@ -31,7 +32,7 @@ If you do not already have a hypervisor installed, install one now.
 [KVM](http://www.linux-kvm.org/).
 
   {{< note >}}
-   **Note:** Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM.  Docker is required to use this driver but a hypervisor is not required.
+   **Note:** Minikube also supports a `-\-vm-driver=none` option that runs the Kubernetes components on the host and not in a VM.  Docker is required to use this driver but a hypervisor is not required.
   {{< /note >}}
 
 * For Windows, install

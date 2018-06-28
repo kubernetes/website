@@ -3,6 +3,7 @@ reviewers:
 - erictune
 title: Pod Overview
 content_template: templates/concept
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -27,8 +28,8 @@ Pods in a Kubernetes cluster can be used in two main ways:
 
 The [Kubernetes Blog](http://blog.kubernetes.io) has some additional information on Pod use cases. For more information, see:
 
-* [The Distributed System Toolkit: Patterns for Composite Containers](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html)
-* [Container Design Patterns](http://blog.kubernetes.io/2016/06/container-design-patterns.html)
+* [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
+* [Container Design Patterns](https://kubernetes.io/blog/2016/06/container-design-patterns)
 
 Each Pod is meant to run a single instance of a given application. If you want to scale your application horizontally (e.g., run multiple instances), you should use multiple Pods, one for each instance. In Kubernetes, this is generally referred to as _replication_. Replicated Pods are usually created and managed as a group by an abstraction called a Controller. See [Pods and Controllers](#pods-and-controllers) for more information.
 
@@ -38,7 +39,7 @@ Pods are designed to support multiple cooperating processes (as containers) that
 
 Note that grouping multiple co-located and co-managed containers in a single Pod is a relatively advanced use case. You should use this pattern only in specific instances in which your containers are tightly coupled. For example, you might have a container that acts as a web server for files in a shared volume, and a separate "sidecar" container that updates those files from a remote source, as in the following diagram:
 
-![pod diagram](/images/docs/pod.svg){: style="max-width: 50%" }
+{{< figure src="/images/docs/pod.svg" title="pod diagram" width="50%" >}}
 
 Pods provide two kinds of shared resources for their constituent containers: *networking* and *storage*.
 

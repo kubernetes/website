@@ -1,12 +1,20 @@
 ---
 title: Accessing Clusters
+weight: 20
+content_template: templates/concept
 ---
+
+{{% capture overview %}}
+
+This topic discusses multiple ways to interact with clusters.
+
+{{% /capture %}}
 
 {{< toc >}}
 
-## Accessing the cluster API
+{{% capture body %}}
 
-### Accessing for the first time with kubectl
+## Accessing for the first time with kubectl
 
 When accessing the Kubernetes API for the first time, we suggest using the
 Kubernetes CLI, `kubectl`.
@@ -25,7 +33,7 @@ $ kubectl config view
 Many of the [examples](/docs/user-guide/kubectl-cheatsheet) provide an introduction to using
 kubectl and complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl-overview).
 
-### Directly accessing the REST API
+## Directly accessing the REST API
 
 Kubectl handles locating and authenticating to the apiserver.
 If you want to directly access the REST API with an http client like
@@ -42,7 +50,7 @@ curl or wget, or a browser, there are several ways to locate and authenticate:
     - Works with some types of client code that are confused by using a proxy.
     - Need to import a root cert into your browser to protect against MITM.
 
-#### Using kubectl proxy
+### Using kubectl proxy
 
 The following command runs kubectl in a mode where it acts as a reverse proxy.  It handles
 locating the apiserver and authenticating.
@@ -66,27 +74,12 @@ $ curl http://localhost:8080/api/
 }
 ```
 
-#### Without kubectl proxy (before v1.3.x)
 
-It is possible to avoid using kubectl proxy by passing an authentication token
-directly to the apiserver, like this:
-
-```shell
-$ APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
-$ TOKEN=$(kubectl config view | grep token | cut -f 2 -d ":" | tr -d " ")
-$ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
-{
-  "versions": [
-    "v1"
-  ]
-}
-```
-
-#### Without kubectl proxy (post v1.3.x)
+### Without kubectl proxy
 
 In Kubernetes version 1.3 or later, `kubectl config view` no longer displays the token. Use `kubectl describe secret...` to get the token for the default service account, like this:
 
-``` shell
+```shell
 $ APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
 $ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d '\t')
 $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
@@ -117,12 +110,12 @@ for this.  [Configuring Access to the API](/docs/admin/accessing-the-api)
 describes how a cluster admin can configure this.  Such approaches may conflict
 with future high-availability support.
 
-### Programmatic access to the API
+## Programmatic access to the API
 
 Kubernetes officially supports [Go](#go-client) and [Python](#python-client)
 client libraries.
 
-#### Go client
+### Go client
 
 * To get the library, run the following command: `go get k8s.io/client-go/<version number>/kubernetes`. See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) to see which versions are supported.
 * Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct.
@@ -132,19 +125,19 @@ as the kubectl CLI does to locate and authenticate to the apiserver. See this [e
 
 If the application is deployed as a Pod in the cluster, please refer to the [next section](#accessing-the-api-from-a-pod).
 
-#### Python client
+### Python client
 
 To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes`. See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
 as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-client/python/tree/master/examples/example1.py).
 
-#### Other languages
+### Other languages
 
-There are [client libraries](/docs/reference/client-libraries/) for accessing the API from other languages.
+There are [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages.
 See documentation for other libraries for how they authenticate.
 
-### Accessing the API from a Pod
+## Accessing the API from a Pod
 
 When accessing the API from a pod, locating and authenticating
 to the apiserver are somewhat different.
@@ -274,7 +267,7 @@ The supported formats for the name segment of the URL are:
   }
 ```
 
-#### Using web browsers to access services running on the cluster
+### Using web browsers to access services running on the cluster
 
 You may be able to put an apiserver proxy url into the address bar of a browser. However:
 
@@ -333,3 +326,5 @@ There are several different proxies you may encounter when using Kubernetes:
 
 Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin
 will typically ensure that the latter types are setup correctly.
+
+{{% /capture %}}

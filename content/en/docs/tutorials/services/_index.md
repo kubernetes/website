@@ -1,5 +1,5 @@
 ---
 title: "Services"
-weight: 110
+weight: 70
 ---
 

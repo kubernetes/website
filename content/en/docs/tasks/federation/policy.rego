@@ -1,5 +1,5 @@
 # OPA supports a high-level declarative language named Rego for authoring and
-# enforcing policies. For more infomration on Rego, visit
+# enforcing policies. For more information on Rego, visit
 # http://openpolicyagent.org.
 
 # Rego policies are namespaced by the "package" directive.
@@ -15,7 +15,7 @@ import data.kubernetes.clusters
 # rule.
 #
 # The SchedulingPolicy Admission Controller running inside the Federation API
-# server will merge these annotatiosn into incoming Federated resources. By
+# server will merge these annotations into incoming Federated resources. By
 # setting replica-set-preferences, we can control the placement of Federated
 # ReplicaSets.
 #

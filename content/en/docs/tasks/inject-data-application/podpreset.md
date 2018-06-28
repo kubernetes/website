@@ -2,15 +2,30 @@
 reviewers:
 - jessfraz
 title: Inject Information into Pods Using a PodPreset
+content_template: templates/task
+weight: 60
 ---
+
+{{% capture overview %}}
 
 You can use a `podpreset` object to inject information like secrets, volume
 mounts, and environment variables etc into pods at creation time.
 This task shows some examples on using the `PodPreset` resource.
-You can get an overview of PodPresets at
-[Understanding Pod Presets](/docs/concepts/workloads/pods/podpreset/).
+
+{{% /capture %}}
 
 {{< toc >}}
+
+{{% capture prerequisites %}}
+
+Get an overview of PodPresets at
+[Understanding Pod Presets](/docs/concepts/workloads/pods/podpreset/).
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Create a Pod Preset
 
@@ -161,3 +176,4 @@ $ kubectl delete podpreset allow-database
 podpreset "allow-database" deleted
 ```
 
+{{% /capture %}}

@@ -5,9 +5,11 @@ reviewers:
 - justinsb
 - directxman12
 title: Horizontal Pod Autoscaler Walkthrough
+content_template: templates/task
+weight: 100
 ---
 
-{{< toc >}}
+{{% capture overview %}}
 
 Horizontal Pod Autoscaler automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization
@@ -15,13 +17,18 @@ in a replication controller, deployment or replica set based on observed CPU uti
 
 This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.  For more information on how Horizontal Pod Autoscaler behaves, see the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
-## Prerequisites
+{{% /capture %}}
+
+{{< toc >}}
+
+
+{{% capture prerequisites %}}
 
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
-[Heapster](https://github.com/kubernetes/heapster) monitoring needs to be deployed in the cluster
-as Horizontal Pod Autoscaler uses it to collect metrics
+[metrics-server](https://github.com/kubernetes/heapster) monitoring needs to be deployed in the cluster
+to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics
 (if you followed [getting started on GCE guide](/docs/getting-started-guides/gce.md),
-heapster monitoring will be turned-on by default).
+metrics-server monitoring will be turned-on by default).
 
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
 and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
@@ -30,7 +37,11 @@ not related to any Kubernetes object you must have a Kubernetes cluster at versi
 you must be able to communicate with the API server that provides the external metrics API.
 See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
 
-## Step One: Run & expose php-apache server
+{{% /capture %}}
+
+{{% capture steps %}}
+
+## Run & expose php-apache server
 
 To demonstrate Horizontal Pod Autoscaler we will use a custom docker image based on the php-apache image.
 The Dockerfile has the following content:
@@ -61,7 +72,7 @@ service "php-apache" created
 deployment "php-apache" created
 ```
 
-## Step Two: Create Horizontal Pod Autoscaler
+## Create Horizontal Pod Autoscaler
 
 Now that the server is running, we will create the autoscaler using
 [kubectl autoscale](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_autoscale.md).
@@ -89,7 +100,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 Please note that the current CPU consumption is 0% as we are not sending any requests to the server
 (the ``CURRENT`` column shows the average across all the pods controlled by the corresponding deployment).
 
-## Step Three: Increase load
+## Increase load
 
 Now, we will see how the autoscaler reacts to increased load.
 We will start a container, and send an infinite loop of queries to the php-apache service (please run it in a different terminal):
@@ -124,7 +135,7 @@ php-apache   7         7         7            7           19m
 Since the amount of load is not controlled in any way it may happen that the final number of replicas will
 differ from this example.
 
-## Step Four: Stop load
+## Stop load
 
 We will finish our example by stopping the user load.
 
@@ -145,7 +156,13 @@ php-apache   1         1         1            1           27m
 
 Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas back down to 1.
 
+{{< note >}}
 **Note** autoscaling the replicas may take a few minutes.
+{{< /note >}}
+
+{{% /capture %}}
+
+{{% capture discussion %}}
 
 ## Autoscaling on multiple metrics and custom metrics
 
@@ -195,7 +212,7 @@ Notice that the `targetCPUUtilizationPercentage` field has been replaced with an
 The CPU utilization metric is a *resource metric*, since it is represented as a percentage of a resource
 specified on pod containers.  Notice that you can specify other resource metrics besides CPU.  By default,
 the only other supported resource metric is memory.  These resources do not change names from cluster
-to cluster, and should always be available, as long as Heapster is deployed.
+to cluster, and should always be available, as long as the `metrics.k8s.io` API is available.
 
 You can also specify resource metrics in terms of direct values, instead of as percentages of the
 requested value.  To do so, use the `targetAverageValue` field instead of the `targetAverageUtilization`
@@ -376,3 +393,5 @@ We will create the autoscaler by executing the following command:
 $ kubectl create -f https://k8s.io/docs/tasks/run-application/hpa-php-apache.yaml
 horizontalpodautoscaler "php-apache" created
 ```
+
+{{% /capture %}}

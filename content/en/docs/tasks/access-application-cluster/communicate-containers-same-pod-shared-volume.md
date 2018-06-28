@@ -1,6 +1,7 @@
 ---
 title: Communicate Between Containers in the Same Pod Using a Shared Volume
 content_template: templates/task
+weight: 110
 ---
 
 {{% capture overview %}}
@@ -132,7 +133,7 @@ the shared Volume is lost.
 {{% capture whatsnext %}}
 
 * Learn more about
-[patterns for composite containers](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html).
+[patterns for composite containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
 
 * Learn about
 [composite containers for modular architecture](http://www.slideshare.net/Docker/slideshare-burns).

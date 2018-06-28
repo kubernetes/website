@@ -1,6 +1,7 @@
 ---
 title: Configure Access to Multiple Clusters
 content_template: templates/task
+weight: 30
 ---
 
 
@@ -22,6 +23,14 @@ It does not mean that there is a file named `kubeconfig`.
 {{% capture prerequisites %}}
 
 You need to have the [`kubectl`](/docs/tasks/tools/install-kubectl/) command-line tool installed.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 {{% /capture %}}
 

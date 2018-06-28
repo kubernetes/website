@@ -1,6 +1,7 @@
 ---
 title: List All Container Images Running in a Cluster
 content_template: templates/task
+weight: 100
 ---
 
 {{% capture overview %}}
@@ -61,9 +62,11 @@ The jsonpath is interpreted as follows:
 - `.containers[*]`: for each container
 - `.image`: get the image
 
+{{< note >}}
 **Note:** When fetching a single Pod by name, e.g. `kubectl get pod nginx`,
 the `.items[*]` portion of the path should be omitted because a single
 Pod is returned instead of a list of items.
+{{< /note >}}
 
 ## List Containers by Pod
 

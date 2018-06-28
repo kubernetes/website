@@ -4,17 +4,22 @@ reviewers:
 - thockin
 - wlan0
 title: Kubernetes Cloud Controller Manager
+content_template: templates/concept
 ---
 
-{{< feature-state state="alpha" >}}
+{{% capture overview %}}
 
-{{< toc >}}
-
-## Cloud Controller Manager
+{{< feature-state state="beta" >}}
 
 Kubernetes v1.6 introduced a new binary called `cloud-controller-manager`. `cloud-controller-manager` is a daemon that embeds cloud-specific control loops. These cloud-specific control loops were originally in the `kube-controller-manager`. Since cloud providers develop and release at a different pace compared to the Kubernetes project, abstracting the provider-specific code to the `cloud-controller-manager` binary allows cloud vendors to evolve independently from the core Kubernetes code.
 
 The `cloud-controller-manager` can be linked to any cloud provider that satisfies [cloudprovider.Interface](https://git.k8s.io/kubernetes/pkg/cloudprovider/cloud.go). For backwards compatibility, the [cloud-controller-manager](https://github.com/kubernetes/kubernetes/tree/master/cmd/cloud-controller-manager) provided in the core Kubernetes project uses the same cloud libraries as `kube-controller-manager`. Cloud providers already supported in Kubernetes core are expected to use the in-tree cloud-controller-manager to transition out of Kubernetes core. In future Kubernetes releases, all cloud controller managers will be developed outside of the core Kubernetes project managed by sig leads or cloud vendors.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Administration
 
@@ -32,7 +37,8 @@ Successfully running cloud-controller-manager requires some changes to your clus
 
 * `kube-apiserver` and `kube-controller-manager` MUST NOT specify the `--cloud-provider` flag. This ensures that it does not run any cloud specific loops that would be run by cloud controller manager. In the future, this flag will be deprecated and removed.
 * `kubelet` must run with `--cloud-provider=external`. This is to ensure that the kubelet is aware that it must be initialized by the cloud controller manager before it is scheduled any work.
-* `kube-apiserver` SHOULD NOT run the `PersistentVolumeLabel` admission controller since the cloud controller manager takes over labeling persistent volumes. To prevent the PersistentVolumeLabel admission plugin from running in `kube-apiserver`, include the `PersistentVolumeLabel` as a listed value in the `--disable-admission-plugins` flag.
+* `kube-apiserver` SHOULD NOT run the `PersistentVolumeLabel` admission controller
+  since the cloud controller manager takes over labeling persistent volumes.
 * For the `cloud-controller-manager` to label persistent volumes, initializers will need to be enabled and an InitializerConifguration needs to be added to the system.  Follow [these instructions](/docs/admin/extensible-admission-controllers.md#enable-initializers-alpha-feature) to enable initializers.  Use the following YAML to create the InitializerConfiguration:
 
 {{< code file="persistent-volume-label-initializer-config.yaml" >}}
@@ -48,7 +54,7 @@ As of v1.8, cloud controller manager can implement:
 * node controller - responsible for updating kubernetes nodes using cloud APIs and deleting kubernetes nodes that were deleted on your cloud.
 * service controller - responsible for loadbalancers on your cloud against services of type LoadBalancer.
 * route controller - responsible for setting up network routes on your cloud
-* [PersistentVolumeLabel Admission Controller](/docs/admin/admission-controllers#persistentvolumelabel) - responsible for labeling persistent volumes on your cloud - ensure that the persistent volume label admission plugin is not enabled on your kube-apiserver.
+* persistent valume labels controller - responsible for setting the zone and region labels on PersistentVolumes created in GCP and AWS clouds.
 * any other features you would like to implement if you are running an out-of-tree provider.
 
 
@@ -91,3 +97,5 @@ As this initiative evolves, changes will be made to address these issues in upco
 ## Developing your own Cloud Controller Manager
 
 To build and develop your own cloud controller manager, read the [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager.md) doc.
+
+{{% /capture %}}

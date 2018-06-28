@@ -1,6 +1,7 @@
 ---
 title: Managing Compute Resources for Containers
 content_template: templates/concept
+weight: 20
 ---
 
 {{% capture overview %}}
@@ -143,9 +144,7 @@ When using Docker:
   multiplied by 100. The resulting value is the total amount of CPU time that a container can use
   every 100ms. A container cannot use more than its share of CPU time during this interval.
 
-  {{< note >}}
-  **Note**: The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.
-  {{< /note >}}
+  {{< note >}}**Note**: The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.{{ {{</ note >}}}
 
 - The `spec.containers[].resources.limits.memory` is converted to an integer, and
   used as the value of the
@@ -208,12 +207,10 @@ $ kubectl describe nodes e2e-test-minion-group-4lw4
 Name:            e2e-test-minion-group-4lw4
 [ ... lines removed for clarity ...]
 Capacity:
- alpha.kubernetes.io/nvidia-gpu:    0
  cpu:                               2
  memory:                            7679792Ki
  pods:                              110
 Allocatable:
- alpha.kubernetes.io/nvidia-gpu:    0
  cpu:                               1800m
  memory:                            7474992Ki
  pods:                              110
@@ -299,10 +296,10 @@ Container in the Pod was terminated and restarted five times.
 You can call `kubectl get pod` with the `-o go-template=...` option to fetch the status
 of previously terminated Containers:
 
-```shell
+```shell{% raw %}
 [13:59:01] $ kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
 Container Name: simmemleak
-LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]
+LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]{% endraw %}
 ```
 
 You can see that the Container was terminated because of `reason:OOM Killed`,
@@ -389,7 +386,7 @@ Node-level extended resources are tied to nodes.
 
 ##### Device plugin managed resources
 See [Device
-Plugin](https://kubernetes.io/docs/concepts/cluster-administration/device-plugins/)
+Plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 for how to advertise device plugin managed resources on each node.
 
 ##### Other resources
@@ -450,7 +447,7 @@ extender.
     {
       "urlPrefix":"<extender-endpoint>",
       "bindVerb": "bind",
-      "ManagedResources": [
+      "managedResources": [
         {
           "name": "example.com/foo",
           "ignoredByScheduler": true
@@ -545,5 +542,3 @@ consistency across providers and platforms.
 * [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core)
 
 {{% /capture %}}
-
-

@@ -3,6 +3,7 @@ title: Running automated tasks with cron jobs
 reviewers:
 - chenopis
 content_template: templates/task
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -92,7 +93,7 @@ Note that the job name and pod name are different.
 
 ```shell
 # Replace "hello-4111706356" with the job name in your system
-$ pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
+$ pods=$(kubectl get pods --show-all --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
 
 $ echo $pods
 hello-4111706356-o9qcm

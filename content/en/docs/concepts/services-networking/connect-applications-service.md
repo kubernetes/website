@@ -4,9 +4,13 @@ reviewers:
 - lavalamp
 - thockin
 title: Connecting Applications with Services
+content_template: templates/concept
+weight: 30
 ---
 
 {{< toc >}}
+
+{{% capture overview %}}
 
 ## The Kubernetes model for connecting containers
 
@@ -16,7 +20,11 @@ By default, Docker uses host-private networking, so containers can talk to other
 
 Coordinating ports across multiple developers is very difficult to do at scale and exposes users to cluster-level issues outside of their control. Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. We give every pod its own cluster-private-IP address so you do not need to explicitly create links between pods or mapping container ports to host ports. This means that containers within a Pod can all reach each other's ports on localhost, and all pods in a cluster can see each other without NAT. The rest of this document will elaborate on how you can run reliable services on such a networking model.
 
-This guide uses a simple nginx server to demonstrate proof of concept. The same principles are embodied in a more complete [Jenkins CI application](http://blog.kubernetes.io/2015/07/strong-simple-ssl-for-kubernetes.html).
+This guide uses a simple nginx server to demonstrate proof of concept. The same principles are embodied in a more complete [Jenkins CI application](https://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes).
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Exposing pods to the cluster
 
@@ -97,7 +105,7 @@ You should now be able to curl the nginx Service on `<CLUSTER-IP>:<PORT>` from a
 
 ## Accessing the Service
 
-Kubernetes supports 2 primary modes of finding a Service - environment variables and DNS. The former works out of the box while the latter requires the [kube-dns cluster addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/README.md).
+Kubernetes supports 2 primary modes of finding a Service - environment variables and DNS. The former works out of the box while the latter requires the [kube-dns cluster addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/README.md).
 
 ### Environment Variables
 
@@ -134,7 +142,7 @@ KUBERNETES_SERVICE_PORT_HTTPS=443
 
 ### DNS
 
-Kubernetes offers a DNS cluster addon Service that uses skydns to automatically assign dns names to other Services. You can check if it's running on your cluster:
+Kubernetes offers a DNS cluster addon Service that automatically assigns dns names to other Services. You can check if it's running on your cluster:
 
 ```shell
 $ kubectl get services kube-dns --namespace=kube-system
@@ -318,10 +326,15 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ...
 ```
 
-## Further reading
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 Kubernetes also supports Federated Services, which can span multiple
 clusters and cloud providers, to provide increased availability,
 better fault tolerance and greater scalability for your services. See
 the [Federated Services User Guide](/docs/concepts/cluster-administration/federation-service-discovery/)
 for further information.
+
+{{% /capture %}}
+

@@ -5,13 +5,21 @@ reviewers:
 - thockin
 - msau42
 title: Storage Classes
+content_template: templates/concept
+weight: 30
 ---
+
+{{% capture overview %}}
 
 This document describes the concept of `StorageClass` in Kubernetes. Familiarity
 with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 
+{{% /capture %}}
+
 {{< toc >}}
+
+{{% capture body %}}
 
 ## Introduction
 
@@ -35,7 +43,7 @@ be updated once they are created.
 
 Administrators can specify a default `StorageClass` just for PVCs that don't
 request any particular class to bind to: see the
-[`PersistentVolumeClaim` section](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#class-1)
+[`PersistentVolumeClaim` section](/docs/concepts/storage/persistent-volumes/#class-1)
 for details.
 
 ```yaml
@@ -69,7 +77,6 @@ for provisioning PVs. This field must be specified.
 | GCEPersistentDisk    | &#x2713;            | [GCE](#gce)                          |
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
-| PhotonPersistentDisk | &#x2713;            | -                                    |
 | Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
 | NFS                  | -                   | -                                    |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
@@ -168,6 +175,7 @@ provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-standard
   zones: us-central1-a, us-central1-b
+  replication-type: none
 ```
 
 * `type`: `pd-standard` or `pd-ssd`. Default: `pd-standard`
@@ -178,6 +186,18 @@ parameters:
   is specified, volumes are generally round-robin-ed across all active zones
   where Kubernetes cluster has a node. `zone` and `zones` parameters must not
   be used at the same time.
+* `replication-type`: `none` or `regional-pd`. Default: `none`.
+
+If `replication-type` is set to `none`, a regular (zonal) PD will be provisioned.
+
+If `replication-type` is set to `regional-pd`, a
+[Regional Persistent Disk](https://cloud.google.com/compute/docs/disks/#repds)
+will be provisioned. In this case, users must use `zones` instead of `zone` to
+specify the desired replication zones. If exactly two zones are specified, the
+Regional PD will be provisioned in those zones. If more than two zones are
+specified, Kubernetes will arbitrarily choose among the specified zones. If the
+`zones` parameter is omitted, Kubernetes will arbitrarily choose among zones
+managed by the cluster.
 
 ### Glusterfs
 
@@ -657,3 +677,5 @@ specified by the `WaitForFirstConsumer` volume binding mode.
 Delaying volume binding allows the scheduler to consider all of a pod's
 scheduling constraints when choosing an appropriate PersistentVolume for a
 PersistentVolumeClaim.
+
+{{% /capture %}}

@@ -4,33 +4,38 @@ reviewers:
 - filipg
 - piosz
 title: Guaranteed Scheduling For Critical Add-On Pods
+content_template: templates/concept
 ---
 
-{{< toc >}}
-
-## Overview
+{{% capture overview %}}
 
 In addition to Kubernetes core components like api-server, scheduler, controller-manager running on a master machine
 there are a number of add-ons which, for various reasons, must run on a regular cluster node (rather than the Kubernetes master).
-Some of these add-ons are critical to a fully functional cluster, such as Heapster, DNS, and UI.
+Some of these add-ons are critical to a fully functional cluster, such as metrics-server, DNS, and UI.
 A cluster may stop working properly if a critical add-on is evicted (either manually or as a side effect of another operation like upgrade)
 and becomes pending (for example when the cluster is highly utilized and either there are other pending pods that schedule into the space
 vacated by the evicted critical add-on pod or the amount of resources available on the node changed for some other reason).
 
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
+
 ## Rescheduler: guaranteed scheduling of critical add-ons
-**Rescheduler is deprecated as of Kubernetes 1.10 and will be removed in version 1.11 in
+**Rescheduler is deprecated as of Kubernetes 1.10 and will be removed in version 1.12 in
 accordance with the [deprecation policy](/docs/reference/deprecation-policy) for beta features.**
 
 **To avoid eviction of critical pods, you must
 [enable priorities in scheduler](/docs/concepts/configuration/pod-priority-preemption/)
 before upgrading to Kubernetes 1.10 or higher.**
 
-Rescheduler ensures that critical add-ons are always scheduled
+Rescheduler ensures that critical pods created by DaemonSet controller are always scheduled
 (assuming the cluster has enough resources to run the critical add-on pods in the absence of regular pods).
 If the scheduler determines that no node has enough free resources to run the critical add-on pod
 given the pods that are already running in the cluster
 (indicated by critical add-on pod's pod condition PodScheduled set to false, the reason set to Unschedulable)
-the rescheduler tries to free up space for the add-on by evicting some pods; then the scheduler will schedule the add-on pod.
+the rescheduler tries to free up space for the DaemonSet critical pod by evicting some pods; then the scheduler will schedule the add-on pod.
 
 To avoid situation when another pod is scheduled into the space prepared for the critical add-on,
 the chosen node gets a temporary taint "CriticalAddonsOnly" before the eviction(s)
@@ -55,8 +60,12 @@ To be considered critical, the pod has to run in the `kube-system` namespace (co
 
 The first one marks a pod a critical. The second one is required by Rescheduler algorithm.
 
+A pod could also be considered critical, if its priority is greater than or equal to system-critical-priority.
+
 ### Marking pod as critical when priorites are enabled.
 
 To be considered critical, the pod has to run in the `kube-system` namespace (configurable via flag) and
 
 * Have the priorityClass set as "system-cluster-critical" or "system-node-critical", the latter being the highest for entire cluster and `scheduler.alpha.kubernetes.io/critical-pod` annotation set to empty string(This will be deprecated too).
+
+{{% /capture %}}

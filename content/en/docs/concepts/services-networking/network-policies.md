@@ -4,14 +4,20 @@ reviewers:
 - caseydavenport
 - danwinship
 title: Network Policies
+content_template: templates/concept
+weight: 50
 ---
 
 {{< toc >}}
 
+{{% capture overview %}}
 A network policy is a specification of how groups of pods are allowed to communicate with each other and other network endpoints.
 
 `NetworkPolicy` resources use labels to select pods and define rules which specify what traffic is allowed to the selected pods.
 
+{{% /capture %}}
+
+{{% capture body %}}
 ## Prerequisites
 
 Network policies are implemented by the network plugin, so you must be using a networking solution which supports `NetworkPolicy` - simply creating the resource without a controller to implement it will have no effect.
@@ -183,8 +189,13 @@ spec:
 
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed ingress or egress traffic.
 
-## What's next?
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 - See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
   walkthrough for further examples.
 - See more [Recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for common scenarios enabled by the NetworkPolicy resource.
+
+{{% /capture %}}
+

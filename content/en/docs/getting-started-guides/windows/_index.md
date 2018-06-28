@@ -6,7 +6,14 @@ toc_hide: true
 **Note:** These instructions were recently updated based on Windows Server platform enhancements and the Kubernetes v1.9 release
 {{< /note >}}
 
-Kubernetes version 1.5 introduced Alpha support for Windows Server Containers based on the Windows Server 2016 operating system. With the release of Windows Server version 1709 and using Kubernetes v1.9 users are able to deploy a Kubernetes cluster either on-premises or in a private/public cloud using a number of different network topologies and CNI plugins. Some key feature improvements for Windows Server Containers on Kubernetes include:
+Kubernetes version 1.5 introduced Alpha support for Windows Server
+Containers based on the Windows Server 2016 operating system. With the
+release of Windows Server version 1709 and using Kubernetes v1.9 users
+are able to deploy a Kubernetes cluster either on-premises or in a
+private/public cloud using a number of different network topologies
+and CNI plugins. Some key feature improvements for Windows Server
+Containers on Kubernetes include:
+
 - Improved support for pods! Shared network namespace (compartment) with multiple Windows Server containers (shared kernel)
 - Reduced network complexity by using a single network endpoint per pod
 - Kernel-Based load-balancing using the Virtual Filtering Platform (VFP) Hyper-v Switch Extension (analogous to Linux iptables)
@@ -151,6 +158,12 @@ Note: this file assumes that a user previous created 'l2bridge' host networks on
 
 #### For 3. Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay
 
+{{< note >}}
+**Note:** Fully automated setup via Ansible playbooks is [available](https://github.com/openvswitch/ovn-kubernetes/tree/master/contrib).
+{{< /note >}}
+
+For manual setup, continue the following steps.
+
 ##### Linux Host Setup
 
 Setting up the central node and the components needed is out of scope of this document. You can read [these instructions](https://github.com/openvswitch/ovn-kubernetes#k8s-master-node-initialization) for that.
@@ -239,7 +252,7 @@ The kubeadm binary can be found at [Kubernetes Releases](https://github.com/kube
 
 `kubeadm.exe join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
 
-See [joining-your-nodes](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#44-joining-your-nodes) for more details.
+See [joining-your-nodes](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#joining-your-nodes) for more details.
 
 ## Supported Features
 
@@ -489,8 +502,44 @@ spec:
         - containerPort: 80
 ```
 
+### Kubelet and kube-proxy can now run as Windows services
+
+Starting with kubernetes v1.11, kubelet and kube-proxy can run as Windows services.
+
+This means that you can now register them as Windows services via `sc` command. More details about how to create Windows services with `sc` can be found [here](https://support.microsoft.com/en-us/help/251192/how-to-create-a-windows-service-by-using-sc-exe).
+
+**Examples:**
+
+To create the service:
+```
+PS > sc.exe create <component_name> binPath= "<path_to_binary> --service <other_args>"
+CMD > sc create <component_name> binPath= "<path_to_binary> --service <other_args>"
+```
+Please note that if the arguments contain spaces, it must be escaped. Example:
+```
+PS > sc.exe create kubelet binPath= "C:\kubelet.exe --service --hostname-override 'minion' <other_args>"
+CMD > sc create kubelet binPath= "C:\kubelet.exe --service --hostname-override 'minion' <other_args>"
+```
+To start the service:
+```
+PS > Start-Service kubelet; Start-Service kube-proxy
+CMD > net start kubelet && net start kube-proxy
+```
+To stop the service:
+```
+PS > Stop-Service kubelet (-Force); Stop-Service kube-proxy (-Force)
+CMD > net stop kubelet && net stop kube-proxy
+```
+To query the service:
+```
+PS > Get-Service kubelet; Get-Service kube-proxy;
+CMD > sc.exe queryex kubelet && sc qc kubelet && sc.exe queryex kube-proxy && sc.exe qc kube-proxy
+```
+
 ## Known Limitations for Windows Server Containers with v1.9
-Some of these limitations will be addressed by the community in future releases of Kubernetes
+
+Some of these limitations will be addressed by the community in future releases of Kubernetes:
+
 - Shared network namespace (compartment) with multiple Windows Server containers (shared kernel) per pod is only supported on Windows Server 1709 or later
 - Using Secrets and ConfigMaps as volume mounts is not supported
 - Mount propagation is not supported on Windows
@@ -503,7 +552,9 @@ Some of these limitations will be addressed by the community in future releases 
 - Flannel and Weavenet are not yet supported
 - Some .Net Core applications expect environment variables with a colon (`:`) in the name.  Kubernetes currently does not allow this.  Replace colon (`:`) with  double underscore (`__`) as documented [here](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration#configuration-by-environment).
 - As cgroups are not supported on windows, kubelet.exe should be started with the following additional arguments `--cgroups-per-qos=false --enforce-node-allocatable=""` [issue 61716](https://github.com/kubernetes/kubernetes/issues/61716)
+
 ## Next steps and resources
 
 - Support for Windows is in Beta as of v1.9 and your feedback is welcome. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
 - Troubleshooting and Common Problems: [Link](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/common-problems)
+

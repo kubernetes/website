@@ -3,10 +3,11 @@ reviewers:
 - soltysh
 - sttts
 - ericchiang
+content_template: templates/concept
 title: Auditing
 ---
 
-{{< toc >}}
+{{% capture overview %}}
 
 {{< feature-state state="beta" >}}
 
@@ -22,6 +23,12 @@ answer the following questions:
  - where was it observed?
  - from where was it initiated?
  - to where was it going?
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 [Kube-apiserver][kube-apiserver] performs auditing. Each request on each stage
 of its execution generates an event, which is then pre-processed according to
@@ -97,6 +104,7 @@ In both cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
 [`v1beta1`][auditing-api].
 
+{{< note >}}
 **Note:** In case of patches, request body is a JSON array with patch operations, not a JSON object
 with an appropriate Kubernetes API object. For example, the following request body is a valid patch
 request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`.
@@ -114,6 +122,7 @@ request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`.
   }
 ]
 ```
+{{< /note >}}
 
 ### Log backend
 
@@ -200,7 +209,7 @@ In this example, we will use fluentd to split audit events by different namespac
 1. install [fluentd, fluent-plugin-forest and fluent-plugin-rewrite-tag-filter][fluentd_install_doc] in the kube-apiserver node
 1. create a config file for fluentd
 
-   ```shell
+   ```none
    $ cat <<EOF > /etc/fluentd/config
    # fluentd conf runs in the same host with kube-apiserver
    <source>
@@ -260,7 +269,7 @@ In this example, we will use fluentd to split audit events by different namespac
    --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-log-path=/var/log/kube-audit --audit-log-format=json
    ```
 
-1. check audits for different namespaces in /var/log/audit-*.log
+1. check audits for different namespaces in `/var/log/audit-*.log`
 
 ### Use logstash to collect and distribute audit events from webhook backend
 
@@ -271,7 +280,7 @@ different users into different files.
 1. install [logstash][logstash_install_doc]
 1. create config file for logstash
 
-   ```shell
+   ```none
    $ cat <<EOF > /etc/logstash/config
    input{
        http{
@@ -308,7 +317,7 @@ different users into different files.
 
 1. create a [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) for kube-apiserver webhook audit backend
 
-   ```shell
+   ```none
    $ cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
    apiVersion: v1
    clusters:
@@ -333,7 +342,7 @@ different users into different files.
    --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-webhook-config-file=/etc/kubernetes/audit-webhook-kubeconfig
    ```
 
-1. check audits in logstash node's directories /var/log/kube-audit-*/audit
+1. check audits in logstash node's directories `/var/log/kube-audit-*/audit`
 
 Note that in addition to file output plugin, logstash has a variety of outputs that
 let users route data where they want. For example, users can emit audit events to elasticsearch
@@ -392,3 +401,5 @@ and `audit-log-maxage` options.
 [logstash]: https://www.elastic.co/products/logstash
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 [kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation
+
+{{% /capture %}}

@@ -8,6 +8,7 @@ reviewers:
 - smarterclayton
 title: StatefulSets
 content_template: templates/concept
+weight: 40
 ---
 
 {{% capture overview %}}
@@ -108,7 +109,7 @@ spec:
 ```
 
 ## Pod Selector
-You must set the `spec.selector` field of a StatefulSet to match the labels of its `.spec.template.metadata.labels`. Prior to Kubernetes 1.8, the `spec.selector` field was defaulted when omitted. In 1.8 and later versions, failing to specify a matching Pod Selector will result in a validation error during StatefulSet creation.
+You must set the `.spec.selector` field of a StatefulSet to match the labels of its `.spec.template.metadata.labels`. Prior to Kubernetes 1.8, the `.spec.selector` field was defaulted when omitted. In 1.8 and later versions, failing to specify a matching Pod Selector will result in a validation error during StatefulSet creation.
 
 ## Pod Identity
 StatefulSet Pods have a unique identity that is comprised of an ordinal, a
@@ -217,7 +218,7 @@ create new Pods that reflect modifications made to a StatefulSet's `.spec.templa
 ### Rolling Updates
 
 The `RollingUpdate` update strategy implements automated, rolling update for the Pods in a
-StatefulSet. It is the default strategy when `spec.updateStrategy` is left unspecified. When a StatefulSet's `.spec.updateStrategy.type` is set to `RollingUpdate`, the
+StatefulSet. It is the default strategy when `.spec.updateStrategy` is left unspecified. When a StatefulSet's `.spec.updateStrategy.type` is set to `RollingUpdate`, the
 StatefulSet controller will delete and recreate each Pod in the StatefulSet. It will proceed
 in the same order as Pod termination (from the largest ordinal to the smallest), updating
 each Pod one at a time. It will wait until an updated Pod is Running and Ready prior to

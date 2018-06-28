@@ -1,14 +1,22 @@
 ---
 title: Installing Addons
+content_template: templates/concept
 ---
 
-## Overview
+{{% capture overview %}}
+
 
 Add-ons extend the functionality of Kubernetes.
 
 This page lists some of the available add-ons and links to their respective installation instructions.
 
 Add-ons in each section are sorted alphabetically - the ordering does not imply any preferential status.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Networking and Network Policy
 
@@ -40,3 +48,5 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 There are several other add-ons documented in the deprecated [cluster/addons](https://git.k8s.io/kubernetes/cluster/addons) directory.
 
 Well-maintained ones should be linked to here. PRs welcome!
+
+{{% /capture %}}

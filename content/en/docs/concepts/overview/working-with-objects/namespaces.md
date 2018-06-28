@@ -4,10 +4,20 @@ reviewers:
 - mikedanese
 - thockin
 title: Namespaces
+content_template: templates/concept
+weight: 30
 ---
+
+{{% capture overview %}}
 
 Kubernetes supports multiple virtual clusters backed by the same physical cluster.
 These virtual clusters are called namespaces.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## When to Use Multiple Namespaces
 
@@ -87,3 +97,5 @@ Most Kubernetes resources (e.g. pods, services, replication controllers, and oth
 in some namespaces.  However namespace resources are not themselves in a namespace.
 And low-level resources, such as [nodes](/docs/admin/node) and
 persistentVolumes, are not in any namespace.
+
+{{% /capture %}}

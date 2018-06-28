@@ -28,7 +28,7 @@ a Kubernetes cluster from scratch.
 
 * [Minikube](/docs/getting-started-guides/minikube/) is the recommended method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
-* [Kubeadm-dind](https://github.com/Mirantis/kubeadm-dind-cluster) is a multi-node (while minikube is single-node) Kubernetes cluster which only requires a docker daemon. It uses docker-in-docker technique to spawn the Kubernetes cluster.
+* [Kubeadm-dind](https://github.com/kubernetes-sigs/kubeadm-dind-cluster) is a multi-node (while minikube is single-node) Kubernetes cluster which only requires a docker daemon. It uses docker-in-docker technique to spawn the Kubernetes cluster.
 
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
 
@@ -64,6 +64,8 @@ a Kubernetes cluster from scratch.
 
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service) provides enterprise-grade Kubernetes for both on-premises and public clouds.  PKS enables on-demand provisioning of Kubernetes clusters, multi-tenancy and fully automated day-2 operations.
 
+* [Oracle Container Engine for Kubernetes](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengoverview.htm) is a fully-managed, scalable, and highly available service that you can use to deploy your containerized applications to the cloud.
+
 # Turnkey Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
@@ -79,6 +81,9 @@ few commands. These solutions are actively developed and have active community s
 * [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
 * [Madcore.Ai](https://madcore.ai/)
 * [Kubermatic](https://cloud.kubermatic.io)
+* [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
+* [Oracle Container Engine for K8s](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
+* [Gardener](https://gardener.cloud/)
 
 # On-Premises turnkey cloud solutions
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
@@ -88,6 +93,7 @@ few commands.
 * [Kubermatic](https://www.loodse.com)
 * [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
 * [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
+* [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 
 # Custom Solutions
 
@@ -115,6 +121,8 @@ These solutions are combinations of cloud providers and operating systems not co
 * [CoreOS on AWS or GCE](/docs/getting-started-guides/coreos/)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
 * [Kubespray](/docs/getting-started-guides/kubespray/)
+* [Rancher Kubernetes Engine (RKE)](https://github.com/rancher/rke)
+* [Gardener](https://gardener.cloud/)
 
 ## On-Premises VMs
 
@@ -183,6 +191,8 @@ Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/gettin
 oVirt                |              |        |             | [docs](/docs/getting-started-guides/ovirt/)                                  |  Community ([@simon3z](https://github.com/simon3z))
 any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch/)                                |  Community ([@erictune](https://github.com/erictune))
 any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
+any                  | RKE          | multi-support    | flannel or canal         | [docs](https://rancher.com/docs/rancher/v2.x/en/quick-start-guide/)                                |  [Commercial](https://rancher.com/what-is-rancher/overview/) and [Community](https://github.com/rancher/rancher)
+any                  | [Gardener Cluster-Operator](https://kubernetes.io/blog/2018/05/17/gardener/) | multi-support | multi-support | [docs](https://gardener.cloud) | [Project/Community](https://github.com/gardener) and [Commercial]( https://cloudplatform.sap.com/)
 
 **Note**: The above table is ordered by version test/used in nodes, followed by support level.
 

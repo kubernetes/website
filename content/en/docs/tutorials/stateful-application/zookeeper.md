@@ -9,6 +9,7 @@ reviewers:
 - smarterclayton
 title: Running ZooKeeper, A Distributed System Coordinator
 content_template: templates/tutorial
+weight: 40
 ---
 
 {{% capture overview %}}
@@ -549,7 +550,7 @@ You can view application logs written to standard out or standard error using `k
 Kubernetes supports more powerful, but more complex, logging integrations
 with [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/)
 and [Elasticsearch and Kibana](/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/).
-For cluster level log shipping and aggregation, consider deploying a [sidecar](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html)
+For cluster level log shipping and aggregation, consider deploying a [sidecar](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
 container to rotate and ship your logs.
 
 ### Configuring a Non-Privileged User
