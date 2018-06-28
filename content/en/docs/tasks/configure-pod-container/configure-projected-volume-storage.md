@@ -8,7 +8,7 @@ weight: 70
 ---
 
 {{% capture overview %}}
-This page shows how to use a [`projected`](/docs/concepts/storage/volumes/#projected) volume to mount several existing volume sources into the same directory. Currently, `secret`, `configMap`, and `downwardAPI` volumes can be projected.
+This page shows how to use a [`projected`](/docs/concepts/storage/volumes/#projected) volume to mount several existing volume sources into the same directory. Currently, `secret`, `configMap`, `downwardAPI` and `serviceAccountToken` volumes can be projected. Notice that `serviceAccountToken` is not a volume type itself.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
