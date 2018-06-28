@@ -67,36 +67,36 @@ mount each volume.
 
 Kubernetes supports several types of Volumes:
 
-   * `awsElasticBlockStore`
-   * `azureDisk`
-   * `azureFile`
-   * `cephfs`
-   * `configMap`
-   * `csi`
-   * `downwardAPI`
-   * `emptyDir`
-   * `fc` (fibre channel)
-   * `flocker`
-   * `gcePersistentDisk`
-   * `gitRepo`
-   * `glusterfs`
-   * `hostPath`
-   * `iscsi`
-   * `local`
-   * `nfs`
-   * `persistentVolumeClaim`
-   * `projected`
-   * `portworxVolume`
-   * `quobyte`
-   * `rbd`
-   * `scaleIO`
-   * `secret`
-   * `storageos`
-   * `vsphereVolume`
+   * [awsElasticBlockStore](#awselasticblockstore)
+   * [azureDisk](#azuredisk)
+   * [azureFile](#azurefile)
+   * [cephfs](#cephfs)
+   * [configMap](#configmap)
+   * [csi](#csi)
+   * [downwardAPI](#downwardapi)
+   * [emptyDir](#emptydir)
+   * [fc (fibre channel)](#fc)
+   * [flocker](#flocker)
+   * [gcePersistentDisk](#gcepersistentdisk)
+   * [gitRepo (deprecated)](#gitrepo)
+   * [glusterfs](#glusterfs)
+   * [hostPath](#hostpath)
+   * [iscsi](#iscsi)
+   * [local](#local)
+   * [nfs](#nfs)
+   * [persistentVolumeClaim](#persistentvolumeclaim)
+   * [projected](#projected)
+   * [portworxVolume](#portworxvolume)
+   * [quobyte](#quobyte)
+   * [rbd](#rbd)
+   * [scaleIO](#scaleio)
+   * [secret](#secret)
+   * [storageos](#storageos)
+   * [vsphereVolume](#vspherevolume)
 
 We welcome additional contributions.
 
-### awsElasticBlockStore
+### awsElasticBlockStore {#awselasticblockstore}
 
 An `awsElasticBlockStore` volume mounts an Amazon Web Services (AWS) [EBS
 Volume](http://aws.amazon.com/ebs/) into your Pod.  Unlike
@@ -148,20 +148,20 @@ spec:
       fsType: ext4
 ```
 
-### azureDisk
+### azureDisk {#azuredisk}
 
 A `azureDisk` is used to mount a Microsoft Azure [Data Disk](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) into a Pod.
 
 More details can be found [here](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md).
 
-### azureFile
+### azureFile {#azurefile}
 
 A `azureFile` is used to mount a Microsoft Azure File Volume (SMB 2.1 and 3.0)
 into a Pod.
 
 More details can be found [here](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md).
 
-### cephfs
+### cephfs {#cephfs}
 
 A `cephfs` volume allows an existing CephFS volume to be
 mounted into your Pod. Unlike `emptyDir`, which is erased when a Pod is
@@ -176,7 +176,7 @@ writers simultaneously.
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/cephfs/) for more details.
 
-### configMap
+### configMap {#configmap}
 
 The [`configMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/) resource
 provides a way to inject configuration data into Pods.
@@ -224,7 +224,7 @@ keyed with `log_level`.
 receive ConfigMap updates.
 {{< /note >}}
 
-### downwardAPI
+### downwardAPI {#downwardapi}
 
 A `downwardAPI` volume is used to make downward API data available to applications.
 It mounts a directory and writes the requested data in plain text files.
@@ -236,7 +236,7 @@ receive Downward API updates.
 
 See the [`downwardAPI` volume example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)  for more details.
 
-### emptyDir
+### emptyDir {#emptydir}
 
 An `emptyDir` volume is first created when a Pod is assigned to a Node, and
 exists as long as that Pod is running on that node.  As the name says, it is
@@ -283,7 +283,7 @@ spec:
     emptyDir: {}
 ```
 
-### fc (fibre channel)
+### fc (fibre channel) {#fc}
 
 An `fc` volume allows an existing fibre channel volume to be mounted in a Pod.
 You can specify single or multiple target World Wide Names using the parameter
@@ -296,7 +296,7 @@ targetWWNs expect that those WWNs are from multi-path connections.
 
 See the [FC example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel) for more details.
 
-### flocker
+### flocker {#flocker}
 
 [Flocker](https://github.com/ClusterHQ/flocker) is an open-source clustered Container data volume manager. It provides management
 and orchestration of data volumes backed by a variety of storage backends.
@@ -313,7 +313,7 @@ can be "handed off" between Pods as required.
 
 See the [Flocker example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker) for more details.
 
-### gcePersistentDisk
+### gcePersistentDisk {#gcepersistentdisk}
 
 A `gcePersistentDisk` volume mounts a Google Compute Engine (GCE) [Persistent
 Disk](http://cloud.google.com/compute/docs/disks) into your Pod.  Unlike
@@ -401,7 +401,11 @@ spec:
     fsType: ext4
 ```
 
-### gitRepo
+### gitRepo (deprecated) {#gitrepo}
+
+{{< warning >}}
+**Warning:** The gitRepo volume type is deprecated. To provision a container with a git repo, mount an [EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the [EmptyDir](#emptydir) into the Pod's container.
+{{< /warning >}}
 
 A `gitRepo` volume is an example of what can be done as a volume plugin.  It
 mounts an empty directory and clones a git repository into it for your Pod to
@@ -429,7 +433,7 @@ spec:
       revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
 ```
 
-### glusterfs
+### glusterfs {#glusterfs}
 
 A `glusterfs` volume allows a [Glusterfs](http://www.gluster.org) (an open
 source networked filesystem) volume to be mounted into your Pod.  Unlike
@@ -445,7 +449,7 @@ simultaneously.
 
 See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/glusterfs) for more details.
 
-### hostPath
+### hostPath {#hostpath}
 
 A `hostPath` volume mounts a file or directory from the host node's filesystem
 into your Pod. This is not something that most Pods will need, but it offers a
@@ -509,7 +513,7 @@ spec:
       type: Directory
 ```
 
-### iscsi
+### iscsi {#iscsi}
 
 An `iscsi` volume allows an existing iSCSI (SCSI over IP) volume to be mounted
 into your Pod.  Unlike `emptyDir`, which is erased when a Pod is removed, the
@@ -529,7 +533,7 @@ simultaneous writers allowed.
 
 See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/iscsi) for more details.
 
-### local
+### local {#local}
 
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
@@ -612,7 +616,7 @@ user if the external static provisioner is not used to manage the volume
 lifecycle.
 {{< /note >}}
 
-### nfs
+### nfs {#nfs}
 
 An `nfs` volume allows an existing NFS (Network File System) share to be
 mounted into your Pod. Unlike `emptyDir`, which is erased when a Pod is
@@ -627,7 +631,7 @@ writers simultaneously.
 
 See the [NFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/nfs) for more details.
 
-### persistentVolumeClaim
+### persistentVolumeClaim {#persistentVolumeClaim}
 
 A `persistentVolumeClaim` volume is used to mount a
 [PersistentVolume](/docs/concepts/storage/persistent-volumes/) into a Pod.  PersistentVolumes are a
@@ -637,7 +641,7 @@ iSCSI volume) without knowing the details of the particular cloud environment.
 See the [PersistentVolumes example](/docs/concepts/storage/persistent-volumes/) for more
 details.
 
-### projected
+### projected {#projected}
 
 A `projected` volume maps several existing volume sources into the same directory.
 
@@ -781,7 +785,7 @@ volume.
 receive updates for those volume sources.
 {{< /note >}}
 
-### portworxVolume
+### portworxVolume {#portworxvolume}
 
 A `portworxVolume` is an elastic block storage layer that runs hyperconverged with
 Kubernetes. Portworx fingerprints storage in a server, tiers based on capabilities,
@@ -819,7 +823,7 @@ before using it in the Pod.
 
 More details and examples can be found [here](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/portworx/README.md).
 
-### quobyte
+### quobyte {#quobyte}
 
 A `quobyte` volume allows an existing [Quobyte](http://www.quobyte.com) volume to
 be mounted into your Pod.
@@ -831,7 +835,7 @@ created before you can use it.
 
 See the [Quobyte example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/quobyte) for more details.
 
-### rbd
+### rbd {#rbd}
 
 An `rbd` volume allows a [Rados Block
 Device](http://ceph.com/docs/master/rbd/rbd/) volume to be mounted into your
@@ -852,7 +856,7 @@ simultaneous writers allowed.
 
 See the [RBD example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/rbd) for more details.
 
-### scaleIO
+### scaleIO {#scaleio}
 
 ScaleIO is a software-based storage platform that can use existing hardware to
 create clusters of scalable shared block networked storage. The `scaleIO` volume
@@ -894,7 +898,7 @@ spec:
 
 For further detail, please the see the [ScaleIO examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio).
 
-### secret
+### secret {#secret}
 
 A `secret` volume is used to pass sensitive information, such as passwords, to
 Pods.  You can store secrets in the Kubernetes API and mount them as files for
@@ -913,7 +917,7 @@ receive Secret updates.
 
 Secrets are described in more detail [here](/docs/user-guide/secrets).
 
-### storageOS
+### storageOS {#storageos}
 
 A `storageos` volume allows an existing [StorageOS](https://www.storageos.com)
 volume to be mounted into your Pod.
@@ -966,7 +970,7 @@ spec:
 For more information including Dynamic Provisioning and Persistent Volume Claims, please see the
 [StorageOS examples](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos).
 
-### vsphereVolume
+### vsphereVolume {#vsphereVolume}
 
 {{< note >}}
 **Prerequisite:** Kubernetes with vSphere Cloud Provider configured. For cloudprovider
