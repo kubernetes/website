@@ -1,6 +1,6 @@
 ---
 layout: blog
-title:  Airflow on Kubernetes (Part 1): A Different Kind of Operator 
+title:  Airflow on Kubernetes (Part 1)\: A Different Kind of Operator 
 date:   Friday, May 25th 2018
 ---
 
