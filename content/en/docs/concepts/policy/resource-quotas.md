@@ -161,8 +161,8 @@ The following types are supported:
 | `secrets` | The total number of secrets that can exist in the namespace. |
 
 For example, `pods` quota counts and enforces a maximum on the number of `pods`
-created in a single namespace that are not terminal. You might want to set a `pods` 
-quota on a namespace to avoid the case where a user creates many small pods and 
+created in a single namespace that are not terminal. You might want to set a `pods`
+quota on a namespace to avoid the case where a user creates many small pods and
 exhausts the cluster's supply of Pod IPs.
 
 ## Quota Scopes
@@ -202,7 +202,7 @@ field in the quota spec.
 
 A quota is matched and consumed only if `scopeSelector` in the quota spec selects the pod.
 
-{{< note > }}
+{{< note >}}
 **Note:** You need to enable the feature gate `ResourceQuotaScopeSelectors`before using resource quotas
 per PriorityClass.
 {{< /note >}}
