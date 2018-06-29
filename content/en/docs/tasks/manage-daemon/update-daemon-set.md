@@ -39,8 +39,8 @@ DaemonSet has two update strategy types:
 To enable the rolling update feature of a DaemonSet, you must set its
 `.spec.updateStrategy.type` to `RollingUpdate`.
 
-You may want to set [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#max-unavailable) (default
-to 1) and [`.spec.minReadySeconds`](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (default to 0) as well.
+You may want to set [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/concepts/workloads/controllers/deployment/#max-unavailable) (default
+to 1) and [`.spec.minReadySeconds`](/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (default to 0) as well.
 
 
 ### Step 1: Checking DaemonSet `RollingUpdate` update strategy
