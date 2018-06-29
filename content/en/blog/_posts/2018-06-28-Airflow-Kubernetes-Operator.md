@@ -4,9 +4,11 @@ title:  'Airflow on Kubernetes (Part 1): A Different Kind of Operator'
 date:   2018-06-28
 ---
 
+**Author**: Daniel Imberman (Bloomberg LP)
+
 ## Introduction
 
-Today, we are excited to announce the Kubernetes Airflow Operator; a mechanism for [Apache Airflow](https://airflow.apache.org/), a popular workflow orchestration framework to natively launch arbitrary Kubernetes Pods using the Kubernetes API.
+As part of Bloomberg's [continued commitment to developing the Kubernetes ecosystem](https://www.techatbloomberg.com/blog/bloomberg-awarded-first-cncf-end-user-award-contributions-kubernetes/), we are excited to announce the Kubernetes Airflow Operator; a mechanism for [Apache Airflow](https://airflow.apache.org/), a popular workflow orchestration framework to natively launch arbitrary Kubernetes Pods using the Kubernetes API.
 
 ## What Is Airflow?
 
@@ -19,7 +21,7 @@ Apache Airflow is one realization of the DevOps philosophy of "Configuration As 
 
 Since its inception, Airflow's greatest strength has been its flexibility. Airflow offers a wide range of integrations for services ranging from Spark and HBase, to services on various cloud providers. Airflow also offers easy extensibility through its plug-in framework. However, one limitation of the project is that Airflow users are confined to the frameworks and clients that exist on the Airflow worker at the moment of execution. A single organization can have varied Airflow workflows ranging from data science pipelines to application deployments. This difference in use-case creates issues in dependency management as both teams might use vastly different libraries for their workflows.
 
-To address this issue, we've utilized Kubernetes to allow users to launch arbitrary Kubernetes pods and configurations. Airflow users can now have full power over their run-time environments, resources, and secrets, basically turning Airflow into an "any job you want" worflow orchestrator.
+To address this issue, we've utilized Kubernetes to allow users to launch arbitrary Kubernetes pods and configurations. Airflow users can now have full power over their run-time environments, resources, and secrets, basically turning Airflow into an "any job you want" workflow orchestrator.
 
 
 ## The Kubernetes Operator
@@ -159,22 +161,22 @@ The Kubernetes Executor is another Airflow feature that allows for dynamic alloc
 
 ### ./scripts/ci/kubernetes/Docker/build.sh
 
-This script will tar the airflow master source code build a Docker container based on the airflow distribution
+This script will tar the Airflow master source code build a Docker container based on the Airflow distribution
 
 ### ./scripts/ci/kubernetes/kube/deploy.sh
 
-Finally, we create a full airflow deployment on your cluster. This includes airflow configs, a postgres backend, the webserver + scheduler, and all necessary services between. One thing to note is that the role binding supplied is a cluster-admin, so if you do not have that level of permission on the cluster, you can modify this at scripts/ci/kubernetes/kube/airflow.yaml
+Finally, we create a full Airflow deployment on your cluster. This includes Airflow configs, a postgres backend, the webserver + scheduler, and all necessary services between. One thing to note is that the role binding supplied is a cluster-admin, so if you do not have that level of permission on the cluster, you can modify this at scripts/ci/kubernetes/kube/airflow.yaml
 
 ## Step 4: Log into your webserver
 
-Now that your airflow instance is running let's take a look at the UI! The UI lives in port 8080 of the airflow pod, so simply run
+Now that your Airflow instance is running let's take a look at the UI! The UI lives in port 8080 of the Airflow pod, so simply run
 
 ```
 WEB=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | grep "airflow" | head -1)
 kubectl port-forward $WEB 8080:8080
  ```
 
- Now the airflow UI will exist on http://localhost:8080. To log in simply enter `airflow`/`airflow` and you should have full access to the airflow web UI.
+ Now the Airflow UI will exist on http://localhost:8080. To log in simply enter `airflow`/`airflow` and you should have full access to the Airflow web UI.
 
 ## Step 5: Upload a test document
 
@@ -196,6 +198,7 @@ For those interested in joining these efforts, I'd recommend checkint out these 
 
  * Join the airflow-dev mailing list at dev@airflow.apache.org.
  * File an issue in [Apache Airflow JIRA](https://issues.apache.org/jira/projects/AIRFLOW/issues/)
- * Join our SIG-BigData meetings on Wednesdays at 10am PT.
+ * Join our SIG-BigData meetings on Wednesdays at 10am PST.
+ * Reach us on slack at #sig-big-data on kubernetes.slack.com
 
 Special thanks to the Apache Airflow and Kubernetes communities, particularly Grant Nicholas, Ben Goldberg, Anirudh Ramanathan, Fokko Dreisprong, and Bolke de Bruin, for your awesome help on these features as well as our future efforts.
