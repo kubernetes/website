@@ -325,7 +325,7 @@ kubectl get cm fluentd-gcp-config --namespace kube-system -o yaml > fluentd-gcp-
 ```
 
 Then in the value for the key `containers.input.conf` insert a new filter right after
-the `source` section. **Note:** order is important.
+the `source` section. **Note:** Order is important.
 
 Updating `ConfigMap` in the apiserver is more complicated than updating `DaemonSet`. It's better
 to consider `ConfigMap` to be immutable. Then, in order to update the configuration, you should
