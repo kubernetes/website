@@ -869,7 +869,7 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
   #oceanNodes main:nth-child(1) h3, #oceanNodes main:nth-child(1) p { text-align: left; }
   #oceanNodes main:nth-child(1) .image-wrapper { position: absolute; max-width: 48%; transform: translateY(-50%); }
   #oceanNodes main:nth-child(1) .image-wrapper img { max-width: 425px; }
-  #video { height: 550px; position: relative; background-image: url(../images/kub_video_banner_homepage.jpg); background-position: center center; background-size: cover; }
+  #video { height: 750px; position: relative; background-image: url(../images/kub_video_banner_homepage.jpg); background-position: center center; background-size: cover; }
   #talkToUs h4 br { display: block; }
   #talkToUs #bigSocial div { width: calc(25% - 18px); }
   #talkToUs #bigSocial div + div { margin-left: 20px; }
