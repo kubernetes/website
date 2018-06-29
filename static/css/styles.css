@@ -856,15 +856,14 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
   #docs .flyout-button { display: none; }
   #docs .logo { position: relative; float: left; display: block; width: 180px; height: 88px; top: 0; left: 0; transform: none; background-image: url(../images/nav_logo.svg); }
   #docs.flip-nav .logo, #docs.open-nav .logo { background-image: url(../images/nav_logo2.svg); }
-  #docs #lastedit {
-    padding: 10px 0;
-    text-align: center;
+  div#pre-footer div#lastedit.lastedit {
+    padding: 0 0 10px 20px;
     color: #bbb;
-    font-size: 90%;
+    font-size: 13px;
   }
-  #docs #lastedit a {
-    color: #3371e3 !important;
-    text-decoration: none underline;
+  div#pre-footer div#lastedit.lastedit a {
+    color: #3371e3;
+    text-decoration: underline;
   }
   #encyclopedia { padding: 50px 50px 100px 100px; clear: both; }
   #docsToc { position: relative; float: left; padding: 0 20px; left: 0; width: 350px; z-index: auto; }
