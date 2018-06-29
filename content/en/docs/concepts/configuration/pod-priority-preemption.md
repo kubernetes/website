@@ -132,7 +132,7 @@ that use the name of the deleted PriorityClass.
 ### Example PriorityClass
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha1
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PriorityClass
 metadata:
   name: high-priority
