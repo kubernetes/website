@@ -754,13 +754,13 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #home #caseStudiesWrapper div { position: relative; display: inline-block; vertical-align: top; width: 100%; min-height: 230px; padding: 125px 10px 15px; margin-bottom: 30px; background-position: top center; background-repeat: no-repeat; }
 
-#home #caseStudiesWrapper div:nth-child(1) { background-image: url(/images/community_logos/pearson_logo.png); }
+#home #caseStudiesWrapper div:nth-child(1) { background-image: url(/images/community_logos/northwestern-mutual.png); }
 
-#home #caseStudiesWrapper div:nth-child(2) { background-image: url(/images/community_logos/box_logo.png); }
+#home #caseStudiesWrapper div:nth-child(2) { background-image: url(/images/community_logos/openai.png); }
 
-#home #caseStudiesWrapper div:nth-child(3) { background-image: url(/images/community_logos/ebay_logo.png); }
+#home #caseStudiesWrapper div:nth-child(3) { background-image: url(/images/community_logos/nyt.png); }
 
-#home #caseStudiesWrapper div:nth-child(4) { background-image: url(/images/community_logos/wikimedia_foundation_logo.png); }
+#home #caseStudiesWrapper div:nth-child(4) { background-image: url(/images/community_logos/nordstrom.png); }
 
 #home #caseStudiesWrapper p { font-size: 20px; }
 
