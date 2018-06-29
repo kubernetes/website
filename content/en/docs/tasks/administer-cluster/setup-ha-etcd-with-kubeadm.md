@@ -67,7 +67,7 @@ no other cryptographic tooling is required for this example.
             peerCertSANs:
             - "${HOST}"
             extraArgs:
-                initial-cluster: infra0=https://${ETCDHOST0}:2380,infra1=https://${ETCDHOST1}:2380,infra2=https://${ETCDHOST2}:2380
+                initial-cluster: infra0=https://${ETCDHOST[0]}:2380,infra1=https://${ETCDHOST[1]}:2380,infra2=https://${ETCDHOST[2]}:2380
                 initial-cluster-state: new
                 name: ${NAME}
                 listen-peer-urls: https://${HOST}:2380
@@ -112,7 +112,7 @@ no other cryptographic tooling is required for this example.
     kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
     kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
     kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    cp -R /etc/kubernetes/pki /tmp/${HOST2}/
+    cp -R /etc/kubernetes/pki /tmp/${HOST1}/
     find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
     kubeadm alpha phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
