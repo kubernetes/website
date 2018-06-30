@@ -82,7 +82,7 @@ When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file, returning the contents in the response.
 
-**Note:** currently, if some external system has performed the rotation,
+**Note:** Currently, if some external system has performed the rotation,
 only the contents of the latest log file will be available through
 `kubectl logs`. E.g. if there's a 10MB file, `logrotate` performs
 the rotation and there are two files, one 10MB in size and one empty,

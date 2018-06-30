@@ -452,7 +452,7 @@ flag to `kubeadm init`.
 {{< /caution >}}
 
 {{< warning >}}
-**Warning:** see self-hosted caveats and limitations.
+**Warning:** See self-hosted caveats and limitations.
 {{< /warning >}}
 
 #### Caveats

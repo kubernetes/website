@@ -246,7 +246,7 @@ or different paths in each Container.  When a Pod is removed from a node for
 any reason, the data in the `emptyDir` is deleted forever.
 
 {{< note >}}
-**Note:** a Container crashing does *NOT* remove a Pod from a node, so the data in an `emptyDir` volume is safe across Container crashes.
+**Note:** A Container crashing does *NOT* remove a Pod from a node, so the data in an `emptyDir` volume is safe across Container crashes.
 {{< /note >}}
 
 Some uses for an `emptyDir` are:
