@@ -114,7 +114,7 @@ Use Travis or Jenkins to run unit and integration tests, bribe your favorite tea
 
 ### 2: CI/CD via Jenkins -> Docker Image
 
-[Generate your Docker images and bump release version within your Jenkins build](https://getintodevops.com/blog/building-your-first-Docker-image-with-jenkins-2-guide-for-developers).
+[Generate your Docker images and bump release version within your Jenkins build](https://getintodevops.com/blog/building-your-first-docker-image-with-jenkins-2-guide-for-developers).
 
 ### 3: Airflow launches task
 
