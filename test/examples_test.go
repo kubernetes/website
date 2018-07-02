@@ -280,19 +280,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-deployment": {&extensions.Deployment{}},
 			"nginx-svc":        {&api.Service{}},
 		},
-		"docs/concepts/configuration": {
-			"commands": {&api.Pod{}},
-			"pod":      {&api.Pod{}},
-			"pod-with-node-affinity": {&api.Pod{}},
-			"pod-with-pod-affinity":  {&api.Pod{}},
-		},
 		"docs/concepts/overview/working-with-objects": {
 			"nginx-deployment": {&extensions.Deployment{}},
-		},
-		"docs/concepts/policy": {
-			"privileged-psp": {&extensions.PodSecurityPolicy{}},
-			"restricted-psp": {&extensions.PodSecurityPolicy{}},
-			"example-psp":    {&extensions.PodSecurityPolicy{}},
 		},
 		"docs/concepts/services-networking": {
 			"curlpod":          {&extensions.Deployment{}},
@@ -302,16 +291,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-secure-app": {&api.Service{}, &extensions.Deployment{}},
 			"nginx-svc":        {&api.Service{}},
 			"run-my-nginx":     {&extensions.Deployment{}},
-		},
-		"docs/concepts/workloads/controllers": {
-			"cronjob":          {&batch.CronJob{}},
-			"daemonset":        {&extensions.DaemonSet{}},
-			"frontend":         {&extensions.ReplicaSet{}},
-			"hpa-rs":           {&autoscaling.HorizontalPodAutoscaler{}},
-			"job":              {&batch.Job{}},
-			"my-repset":        {&extensions.ReplicaSet{}},
-			"nginx-deployment": {&extensions.Deployment{}},
-			"replication":      {&api.ReplicationController{}},
 		},
 		"docs/tasks/access-application-cluster": {
 			"frontend":          {&api.Service{}, &extensions.Deployment{}},
@@ -374,7 +353,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"memory-request-limit-3":  {&api.Pod{}},
 			"oir-pod":                 {&api.Pod{}},
 			"oir-pod-2":               {&api.Pod{}},
-			"pod":                     {&api.Pod{}},
 			"pod-redis":               {&api.Pod{}},
 			"private-reg-pod":         {&api.Pod{}},
 			"projected-volume":        {&api.Pod{}},
@@ -444,6 +422,26 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"deployment":            {&extensions.Deployment{}},
 			"deployment-scale":      {&extensions.Deployment{}},
 			"deployment-update":     {&extensions.Deployment{}},
+		},
+		"examples/controllers": {
+			"daemonset":        {&extensions.DaemonSet{}},
+			"frontend":         {&extensions.ReplicaSet{}},
+			"hpa-rs":           {&autoscaling.HorizontalPodAutoscaler{}},
+			"job":              {&batch.Job{}},
+			"replicaset":       {&extensions.ReplicaSet{}},
+			"replication":      {&api.ReplicationController{}},
+			"nginx-deployment": {&extensions.Deployment{}},
+		},
+		"examples/pods": {
+			"commands":			      {&api.Pod{}},
+			"pod-nginx":              {&api.Pod{}},
+			"pod-with-node-affinity": {&api.Pod{}},
+			"pod-with-pod-affinity":  {&api.Pod{}},
+		},
+		"examples/policy": {
+			"privileged-psp": {&extensions.PodSecurityPolicy{}},
+			"restricted-psp": {&extensions.PodSecurityPolicy{}},
+			"example-psp":    {&extensions.PodSecurityPolicy{}},
 		},
 		"docs/tasks/run-application": {
 			"deployment-patch-demo": {&extensions.Deployment{}},
