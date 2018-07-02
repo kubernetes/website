@@ -463,6 +463,18 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-with-request":    {&extensions.Deployment{}},
 			"shell-demo":            {&api.Pod{}},
 		},
+		"examples/application/guestbook": {
+			"frontend-deployment":     {&extensions.Deployment{}},
+			"frontend-service":        {&api.Service{}},
+			"redis-master-deployment": {&extensions.Deployment{}},
+			"redis-master-service":    {&api.Service{}},
+			"redis-slave-deployment":  {&extensions.Deployment{}},
+			"redis-slave-service":     {&api.Service{}},
+		},
+		"docs/tasks/run-application": {
+			"deployment-patch-demo": {&extensions.Deployment{}},
+			"hpa-php-apache":        {&autoscaling.HorizontalPodAutoscaler{}},
+		},
 		"examples/debug": {
 			"counter-pod":                     {&api.Pod{}},
 			"event-exporter":                  {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
@@ -506,14 +518,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"local-volumes":        {&api.PersistentVolume{}, &api.PersistentVolume{}},
 			"mysql-deployment":     {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
 			"wordpress-deployment": {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
-		},
-		"docs/tutorials/stateless-application/guestbook": {
-			"frontend-deployment":     {&extensions.Deployment{}},
-			"frontend-service":        {&api.Service{}},
-			"redis-master-deployment": {&extensions.Deployment{}},
-			"redis-master-service":    {&api.Service{}},
-			"redis-slave-deployment":  {&extensions.Deployment{}},
-			"redis-slave-service":     {&api.Service{}},
 		},
 	}
 
