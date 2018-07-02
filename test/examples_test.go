@@ -443,14 +443,14 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"secret-envars-pod":           {&api.Pod{}},
 			"secret-pod":                  {&api.Pod{}},
 		},
-		"docs/tasks/job": {
-			"cronjob": {&batch.CronJob{}},
-			"job":     {&batch.Job{}},
+		"examples/application/job": {
+			"job-tmpl":     {&batch.Job{}},
+			"cronjob":     {&batch.CronJob{}},
 		},
-		"docs/tasks/job/coarse-parallel-processing-work-queue": {
-			"job": {&batch.Job{}},
+		"examples/application/job/rabbitmq": {
+			"job":   {&batch.Job{}},
 		},
-		"docs/tasks/job/fine-parallel-processing-work-queue": {
+		"examples/application/job/redis": {
 			"job":           {&batch.Job{}},
 			"redis-pod":     {&api.Pod{}},
 			"redis-service": {&api.Service{}},
