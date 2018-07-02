@@ -675,7 +675,7 @@ rules:
 
 ## client-go credential plugins
 
-{% assign for_k8s_version="v1.11" %}{% include feature-state-beta.md %}
+{{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
 `k8s.io/client-go` and tools using it such as `kubectl` and `kubelet` are able to execute an
 external command to receive user credentials.

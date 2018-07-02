@@ -36,9 +36,9 @@ A [PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV) is a piece
 
 Download the following configuration files:
 
-1. [mysql-deployment.yaml](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/mysql-deployment.yaml)
+1. [mysql-deployment.yaml](/examples/application/wordpress/mysql-deployment.yaml)
 
-1. [wordpress-deployment.yaml](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/wordpress-deployment.yaml)
+1. [wordpress-deployment.yaml](/examples/application/wordpress/wordpress-deployment.yaml)
 
 {{% /capture %}}
 
@@ -96,12 +96,12 @@ A [Secret](/docs/concepts/configuration/secret/) is an object that stores a piec
 
 The following manifest describes a single-instance MySQL Deployment. The MySQL container mounts the PersistentVolume at /var/lib/mysql. The `MYSQL_ROOT_PASSWORD` environment variable sets the database password from the Secret. 
 
-{{< code file="mysql-wordpress-persistent-volume/mysql-deployment.yaml" >}}
+{{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
 
 1. Deploy MySQL from the `mysql-deployment.yaml` file:
 
       ```shell
-      kubectl create -f mysql-deployment.yaml
+      kubectl create -f https://k8s.io/examples/application/wordpress/mysql-deployment.yaml
       ```
 
 2. Verify that a PersistentVolume got dynamically provisioned. Note that it can
@@ -137,12 +137,12 @@ The following manifest describes a single-instance MySQL Deployment. The MySQL c
 
 The following manifest describes a single-instance WordPress Deployment and Service. It uses many of the same features like a PVC for persistent storage and a Secret for the password. But it also uses a different setting: `type: LoadBalancer`. This setting exposes WordPress to traffic from outside of the cluster.
 
-{{< code file="mysql-wordpress-persistent-volume/wordpress-deployment.yaml" >}}
+{{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
 
 1. Create a WordPress Service and Deployment from the `wordpress-deployment.yaml` file:
 
       ```shell
-      kubectl create -f wordpress-deployment.yaml
+      kubectl create -f https://k8s.io/examples/wordpress/wordpress-deployment.yaml
       ```
 
 2. Verify that a PersistentVolume got dynamically provisioned:
@@ -230,5 +230,4 @@ The following manifest describes a single-instance WordPress Deployment and Serv
 * Learn how to [Get a Shell to a Container](/docs/tasks/debug-application-cluster/get-shell-running-container/)
 
 {{% /capture %}}
-
 

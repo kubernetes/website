@@ -385,12 +385,12 @@ HorizontalPodAutoscaler.
 Instead of using `kubectl autoscale` command to create a HorizontalPodAutoscaler imperatively we
 can use the following file to create it declaratively:
 
-{{< code file="hpa-php-apache.yaml" >}}
+{{< codenew file="application/hpa/php-apache.yaml" >}}
 
 We will create the autoscaler by executing the following command:
 
 ```shell
-$ kubectl create -f https://k8s.io/docs/tasks/run-application/hpa-php-apache.yaml
+$ kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
 horizontalpodautoscaler "php-apache" created
 ```
 
