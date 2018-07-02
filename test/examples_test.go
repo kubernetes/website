@@ -520,27 +520,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"simple_deployment": {&extensions.Deployment{}},
 			"update_deployment": {&extensions.Deployment{}},
 		},
-		"docs/tutorials/stateless-application/guestbook": {
-			"frontend-deployment":     {&extensions.Deployment{}},
-			"frontend-service":        {&api.Service{}},
-			"redis-master-deployment": {&extensions.Deployment{}},
-			"redis-master-service":    {&api.Service{}},
-			"redis-slave-deployment":  {&extensions.Deployment{}},
-			"redis-slave-service":     {&api.Service{}},
-		"docs/tutorials/stateful-application": {
-			"web":       {&api.Service{}, &apps.StatefulSet{}},
-			"webp":      {&api.Service{}, &apps.StatefulSet{}},
-			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
-		},
-		"docs/tutorials/stateful-application/cassandra": {
-			"cassandra-service":     {&api.Service{}},
-			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
-		},
-		"docs/tutorials/stateful-application/mysql-wordpress-persistent-volume": {
-			"local-volumes":        {&api.PersistentVolume{}, &api.PersistentVolume{}},
-			"mysql-deployment":     {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
-			"wordpress-deployment": {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
-		},
 	}
 
 	// Note a key in the following map has to be complete relative path
