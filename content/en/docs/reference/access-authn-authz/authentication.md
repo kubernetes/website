@@ -342,7 +342,7 @@ Setup instructions for specific systems:
 
 The first option is to use the kubectl `oidc` authenticator, which sets the `id_token` as a bearer token for all requests and refreshes the token once it expires. After you've logged into your provider, use kubectl to add your `id_token`, `refresh_token`, `client_id`, and `client_secret` to configure the plugin.
 
-Providers that don't return an `id_token` as part of their refresh token response (e.g. [Okta](https://developer.okta.com/docs/api/resources/oidc.html#response-parameters-4)) aren't supported by this plugin and should use "Option 2" below.
+Providers that don't return an `id_token` as part of their refresh token response aren't supported by this plugin and should use "Option 2" below.
 
 ```bash
 kubectl config set-credentials USER_NAME \
