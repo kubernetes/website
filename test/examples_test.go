@@ -442,17 +442,19 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"examples/application": {
 			"deployment":            {&extensions.Deployment{}},
+			"deployment-patch":      {&extensions.Deployment{}},
 			"deployment-scale":      {&extensions.Deployment{}},
 			"deployment-update":     {&extensions.Deployment{}},
 		},
-		"docs/tasks/run-application": {
-			"deployment-patch-demo": {&extensions.Deployment{}},
-			"hpa-php-apache":        {&autoscaling.HorizontalPodAutoscaler{}},
+		"examples/application/mysql": {
 			"mysql-configmap":       {&api.ConfigMap{}},
 			"mysql-deployment":      {&api.Service{}, &extensions.Deployment{}},
 			"mysql-pv":      {&api.PersistentVolume{}, &api.PersistentVolumeClaim{}},
 			"mysql-services":        {&api.Service{}, &api.Service{}},
 			"mysql-statefulset":     {&apps.StatefulSet{}},
+		},
+		"examples/application/hpa": {
+			"php-apache": {&autoscaling.HorizontalPodAutoscaler{}},
 		},
 		"docs/tutorials/clusters": {
 			"hello-apparmor-pod": {&api.Pod{}},
