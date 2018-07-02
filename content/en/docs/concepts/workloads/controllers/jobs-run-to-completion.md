@@ -128,7 +128,7 @@ There are three main types of jobs:
 1. Parallel Jobs with a *fixed completion count*:
   - specify a non-zero positive value for `.spec.completions`.
   - the job is complete when there is one successful pod for each value in the range 1 to `.spec.completions`.
-  - **not implemented yet:** each pod passed a different index in the range 1 to `.spec.completions`.
+  - **not implemented yet:** Each pod passed a different index in the range 1 to `.spec.completions`.
 1. Parallel Jobs with a *work queue*:
   - do not specify `.spec.completions`, default to `.spec.parallelism`.
   - the pods must coordinate with themselves or an external service to determine what each should work on.

@@ -161,8 +161,8 @@ The following types are supported:
 | `secrets` | The total number of secrets that can exist in the namespace. |
 
 For example, `pods` quota counts and enforces a maximum on the number of `pods`
-created in a single namespace that are not terminal. You might want to set a `pods` 
-quota on a namespace to avoid the case where a user creates many small pods and 
+created in a single namespace that are not terminal. You might want to set a `pods`
+quota on a namespace to avoid the case where a user creates many small pods and
 exhausts the cluster's supply of Pod IPs.
 
 ## Quota Scopes
@@ -191,6 +191,188 @@ The `Terminating`, `NotTerminating`, and `NotBestEffort` scopes restrict a quota
 * `pods`
 * `requests.cpu`
 * `requests.memory`
+
+### Resource Quota Per PriorityClass
+
+{{< feature-state for_k8s_version="1.11" state="beta" >}}
+
+Pods can be created at a specific [priority](/docs/concepts/configuration/pod-priority-preemption/#pod-priority).
+You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`
+field in the quota spec.
+
+A quota is matched and consumed only if `scopeSelector` in the quota spec selects the pod.
+
+{{< note >}}
+**Note:** You need to enable the feature gate `ResourceQuotaScopeSelectors`before using resource quotas
+per PriorityClass.
+{{< /note >}}
+
+This example creates a quota object and matches it with pods at specific priorities. The example
+works as follows:
+
+- Pods in the cluster have one of the three priority classes, "low", "medium", "high".
+- One quota object is created for each priority.
+
+1.  Save the following YAML to a file `quota.yml`.
+
+      ```yaml
+      apiVersion: v1
+      kind: List
+      items:
+      - apiVersion: v1
+        kind: ResourceQuota
+        metadata:
+          name: pods-high
+        spec:
+          hard:
+            cpu: "1000"
+            memory: 200Gi
+            pods: "10"
+          scopeSelector:
+            matchExpressions:
+            - operator : In
+              scopeName: PriorityClass
+              values: ["high"]
+      - apiVersion: v1
+        kind: ResourceQuota
+        metadata:
+          name: pods-medium
+        spec:
+          hard:
+            cpu: "10"
+            memory: 20Gi
+            pods: "10"
+          scopeSelector:
+            matchExpressions:
+            - operator : In
+              scopeName: PriorityClass
+              values: ["medium"]
+      - apiVersion: v1
+        kind: ResourceQuota
+        metadata:
+          name: pods-low
+        spec:
+          hard:
+            cpu: "5"
+            memory: 10Gi
+            pods: "10"
+          scopeSelector:
+            matchExpressions:
+            - operator : In
+              scopeName: PriorityClass
+              values: ["low"]
+      ```
+
+2.  Apply it using `kubectl create`.
+
+      ```shell
+      kubectl create -f ./quota.yml`
+
+      resourcequota/pods-high created
+      resourcequota/pods-medium created
+      resourcequota/pods-low created
+      ```
+
+3.  Verify that `Used` quota is `0` using `kubectl describe quota`.
+
+      ```shell
+      kubectl describe quota
+
+      Name:       pods-high
+      Namespace:  default
+      Resource    Used  Hard
+      --------    ----  ----
+      cpu         0     1k
+      memory      0     200Gi
+      pods        0     10
+
+
+      Name:       pods-low
+      Namespace:  default
+      Resource    Used  Hard
+      --------    ----  ----
+      cpu         0     5
+      memory      0     10Gi
+      pods        0     10
+
+
+      Name:       pods-medium
+      Namespace:  default
+      Resource    Used  Hard
+      --------    ----  ----
+      cpu         0     10
+      memory      0     20Gi
+      pods        0     10
+      ```
+4.  Create a pod with priority "high". Save the following YAML to a
+    file `high-priority-pod.yml`.
+
+      ```yaml
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: high-priority
+      spec:
+        containers:
+        - name: high-priority
+          image: ubuntu
+          command: ["/bin/sh"]
+          args: ["-c", "while true; do echo hello; sleep 10;done"]
+          resources:
+            requests:
+              memory: "10Gi"
+              cpu: "500m"
+            limits:
+              memory: "10Gi"
+              cpu: "500m"
+        priorityClassName: high
+      ```
+
+      Apply it with `kubectl create`.
+
+      ```shell
+      kubectl create -f ./high-priority-pod.yml
+      ```
+
+5.  Verify that "Used" stats for "high" priority quota, `pods-high`, has changed and that
+    the other two quotas are unchanged.
+
+      ```shell
+      kubectl describe quota
+
+      Name:       pods-high
+      Namespace:  default
+      Resource    Used  Hard
+      --------    ----  ----
+      cpu         500m  1k
+      memory      10Gi  200Gi
+      pods        1     10
+
+
+      Name:       pods-low
+      Namespace:  default
+      Resource    Used  Hard
+      --------    ----  ----
+      cpu         0     5
+      memory      0     10Gi
+      pods        0     10
+
+
+      Name:       pods-medium
+      Namespace:  default
+      Resource    Used  Hard
+      --------    ----  ----
+      cpu         0     10
+      memory      0     20Gi
+      pods        0     10
+      ```
+
+`scopeSelector` supports the following values in the `operator` field:
+
+* `In`
+* `NotIn`
+* `Exist`
+* `DoesNotExist`
 
 ## Requests vs Limits
 
@@ -311,6 +493,45 @@ hard limits of each namespace according to other signals.
 
 Note that resource quota divides up aggregate cluster resources, but it creates no
 restrictions around nodes: pods from several namespaces may run on the same node.
+
+## Limit Priority Class consumption by default
+
+It may be desired that pods at a particular priority, eg. "cluster-services", should be allowed in a namespace, if and only if, a matching quota object exists.
+
+With this mechanism, operators will be able to restrict usage of certain high priority classes to a limited number of namespaces and not every namespaces will be able to consume these priority classes by default.
+
+To enforce this, kube-apiserver flag `--admission-control-config-file` should be used to pass path to the following configuration file:
+
+```shell
+$ cat admission_config_file.yml
+apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
+plugins:
+- name: "ResourceQuota"
+  configuration:
+    apiVersion: resourcequota.admission.k8s.io/v1alpha1
+    kind: Configuration
+    limitedResources:
+    - resource: pods
+    matchScopes:
+    - operator : In
+      scopeName: PriorityClass
+      values: ["cluster-services"]
+```
+
+Now, "cluster-services" pods will be allowed in only those namespaces where a quota object with a matching `scopeSelector` is present.
+For example:
+```shell
+    scopeSelector:
+      matchExpressions:
+      - operator : In
+        scopeName: PriorityClass
+        values: ["cluster-services"]
+```
+
+**NOTE:** `scopeSelector` is an alpha field and feature gate `ResourceQuotaScopeSelectors` must be enabled before using it.
+
+See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and [Quota supoport for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md) for more information.
 
 ## Example
 

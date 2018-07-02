@@ -24,7 +24,6 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"regexp"
 	"strings"
 	"testing"
 
@@ -33,6 +32,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/validation/field"
 	"k8s.io/apimachinery/pkg/util/yaml"
 	utilfeature "k8s.io/apiserver/pkg/util/feature"
+	"k8s.io/kubernetes/pkg/api/legacyscheme"
 	"k8s.io/kubernetes/pkg/api/testapi"
 	"k8s.io/kubernetes/pkg/apis/admissionregistration"
 	ar_validation "k8s.io/kubernetes/pkg/apis/admissionregistration/validation"
@@ -58,6 +58,33 @@ import (
 	"k8s.io/kubernetes/pkg/registry/batch/job"
 	schedulerapilatest "k8s.io/kubernetes/pkg/scheduler/api/latest"
 )
+
+func getCodecForObject(obj runtime.Object) (runtime.Codec, error) {
+	kinds, _, err := legacyscheme.Scheme.ObjectKinds(obj)
+	if err != nil {
+		return nil, fmt.Errorf("unexpected encoding error: %v", err)
+	}
+	kind := kinds[0]
+
+	for _, group := range testapi.Groups {
+		if group.GroupVersion().Group != kind.Group {
+			continue
+		}
+
+		if legacyscheme.Scheme.Recognizes(kind) {
+			return group.Codec(), nil
+		}
+	}
+	// Codec used for unversioned types
+	if legacyscheme.Scheme.Recognizes(kind) {
+		serializer, ok := runtime.SerializerInfoForMediaType(legacyscheme.Codecs.SupportedMediaTypes(), runtime.ContentTypeJSON)
+		if !ok {
+			return nil, fmt.Errorf("no serializer registered for json")
+		}
+		return serializer.Serializer, nil
+	}
+	return nil, fmt.Errorf("unexpected kind: %v", kind)
+}
 
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	// Enable CustomPodDNS for testing
@@ -173,8 +200,8 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = ext_validation.ValidateIngress(t)
-	case *extensions.PodSecurityPolicy:
-		errors = ext_validation.ValidatePodSecurityPolicy(t)
+	case *policy.PodSecurityPolicy:
+		errors = policy_validation.ValidatePodSecurityPolicy(t)
 	case *extensions.ReplicaSet:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -268,7 +295,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 	// Please help maintain the alphabeta order in the map
 	cases := map[string]map[string][]runtime.Object{
 		"docs/concepts/cluster-administration": {
-			"counter-pod":                             {&api.Pod{}},
 			"fluentd-sidecar-config":                  {&api.ConfigMap{}},
 			"nginx-app":                               {&api.Service{}, &extensions.Deployment{}},
 			"nginx-deployment":                        {&extensions.Deployment{}},
@@ -290,9 +316,9 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-deployment": {&extensions.Deployment{}},
 		},
 		"docs/concepts/policy": {
-			"privileged-psp": {&extensions.PodSecurityPolicy{}},
-			"restricted-psp": {&extensions.PodSecurityPolicy{}},
-			"example-psp":    {&extensions.PodSecurityPolicy{}},
+			"privileged-psp": {&policy.PodSecurityPolicy{}},
+			"restricted-psp": {&policy.PodSecurityPolicy{}},
+			"example-psp":    {&policy.PodSecurityPolicy{}},
 		},
 		"docs/concepts/services-networking": {
 			"curlpod":          {&extensions.Deployment{}},
@@ -309,8 +335,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"frontend":         {&extensions.ReplicaSet{}},
 			"hpa-rs":           {&autoscaling.HorizontalPodAutoscaler{}},
 			"job":              {&batch.Job{}},
-			"my-repset":        {&extensions.ReplicaSet{}},
 			"nginx-deployment": {&extensions.Deployment{}},
+			"my-repset":        {&extensions.ReplicaSet{}},
 			"replication":      {&api.ReplicationController{}},
 		},
 		"docs/tasks/access-application-cluster": {
@@ -393,17 +419,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"task-pv-volume":          {&api.PersistentVolume{}},
 			"tcp-liveness-readiness":  {&api.Pod{}},
 		},
-		"docs/tasks/debug-application-cluster": {
-			"counter-pod":                     {&api.Pod{}},
-			"event-exporter-deploy":           {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
-			"fluentd-gcp-configmap":           {&api.ConfigMap{}},
-			"fluentd-gcp-ds":                  {&extensions.DaemonSet{}},
-			"nginx-dep":                       {&extensions.Deployment{}},
-			"node-problem-detector":           {&extensions.DaemonSet{}},
-			"node-problem-detector-configmap": {&extensions.DaemonSet{}},
-			"shell-demo":                      {&api.Pod{}},
-			"termination":                     {&api.Pod{}},
-		},
 		// TODO: decide whether federation examples should be added
 		"docs/tasks/inject-data-application": {
 			"commands":                    {&api.Pod{}},
@@ -442,8 +457,19 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"examples/application": {
 			"deployment":            {&extensions.Deployment{}},
+			"deployment-patch":      {&extensions.Deployment{}},
 			"deployment-scale":      {&extensions.Deployment{}},
 			"deployment-update":     {&extensions.Deployment{}},
+			"nginx-with-request":    {&extensions.Deployment{}},
+			"shell-demo":            {&api.Pod{}},
+		},
+		"examples/application/guestbook": {
+			"frontend-deployment":     {&extensions.Deployment{}},
+			"frontend-service":        {&api.Service{}},
+			"redis-master-deployment": {&extensions.Deployment{}},
+			"redis-master-service":    {&api.Service{}},
+			"redis-slave-deployment":  {&extensions.Deployment{}},
+			"redis-slave-service":     {&api.Service{}},
 		},
 		"examples/application/cassandra": {
 			"cassandra-service":     {&api.Service{}},
@@ -463,11 +489,25 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"docs/tasks/run-application": {
 			"deployment-patch-demo": {&extensions.Deployment{}},
 			"hpa-php-apache":        {&autoscaling.HorizontalPodAutoscaler{}},
+		},
+		"examples/debug": {
+			"counter-pod":                     {&api.Pod{}},
+			"event-exporter":                  {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
+			"fluentd-gcp-configmap":           {&api.ConfigMap{}},
+			"fluentd-gcp-ds":                  {&extensions.DaemonSet{}},
+			"node-problem-detector":           {&extensions.DaemonSet{}},
+			"node-problem-detector-configmap": {&extensions.DaemonSet{}},
+			"termination":                     {&api.Pod{}},
+		},
+		"examples/application/mysql": {
 			"mysql-configmap":       {&api.ConfigMap{}},
 			"mysql-deployment":      {&api.Service{}, &extensions.Deployment{}},
 			"mysql-pv":      {&api.PersistentVolume{}, &api.PersistentVolumeClaim{}},
 			"mysql-services":        {&api.Service{}, &api.Service{}},
 			"mysql-statefulset":     {&apps.StatefulSet{}},
+		},
+		"examples/application/hpa": {
+			"php-apache": {&autoscaling.HorizontalPodAutoscaler{}},
 		},
 		"docs/tutorials/clusters": {
 			"hello-apparmor-pod": {&api.Pod{}},
@@ -487,12 +527,25 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-master-service":    {&api.Service{}},
 			"redis-slave-deployment":  {&extensions.Deployment{}},
 			"redis-slave-service":     {&api.Service{}},
+		"docs/tutorials/stateful-application": {
+			"web":       {&api.Service{}, &apps.StatefulSet{}},
+			"webp":      {&api.Service{}, &apps.StatefulSet{}},
+			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
+		},
+		"docs/tutorials/stateful-application/cassandra": {
+			"cassandra-service":     {&api.Service{}},
+			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
+		},
+		"docs/tutorials/stateful-application/mysql-wordpress-persistent-volume": {
+			"local-volumes":        {&api.PersistentVolume{}, &api.PersistentVolume{}},
+			"mysql-deployment":     {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
+			"wordpress-deployment": {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
 		},
 	}
 
 	// Note a key in the following map has to be complete relative path
 	filesIgnore := map[string]map[string]bool{
-		"../content/en/docs/tasks/debug-application-cluster": {
+		"../content/en/examples/audit": {
 			"audit-policy": true,
 		},
 	}
@@ -540,7 +593,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 					// &schedulerapi.Policy, and remove this
 					// special case
 				} else {
-					codec, err := testapi.GetCodecForObject(expectedType)
+					codec, err := getCodecForObject(expectedType)
 					if err != nil {
 						t.Errorf("Could not get codec for %s: %s", expectedType, err)
 					}
@@ -559,95 +612,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 		}
 		if tested != numExpected {
 			t.Errorf("Directory %v: Expected %d examples, Got %d", path, len(expected), tested)
-		}
-	}
-}
-
-// This regex is tricky, but it works.  For future me, here is the decode:
-//
-// Flags: (?ms) = multiline match, allow . to match \n
-// 1) Look for a line that starts with ``` (a markdown code block)
-// 2) (?: ... ) = non-capturing group
-// 3) (P<name>) = capture group as "name"
-// 4) Look for #1 followed by either:
-// 4a)    "yaml" followed by any word-characters followed by a newline (e.g. ```yamlfoo\n)
-// 4b)    "any word-characters followed by a newline (e.g. ```json\n)
-// 5) Look for either:
-// 5a)    #4a followed by one or more characters (non-greedy)
-// 5b)    #4b followed by { followed by one or more characters (non-greedy) followed by }
-// 6) Look for #5 followed by a newline followed by ``` (end of the code block)
-//
-// This could probably be simplified, but is already too delicate.  Before any
-// real changes, we should have a test case that just tests this regex.
-var sampleRegexp = regexp.MustCompile("(?ms)^```(?:(?P<type>yaml)\\w*\\n(?P<content>.+?)|\\w*\\n(?P<content>\\{.+?\\}))\\n^```")
-var subsetRegexp = regexp.MustCompile("(?ms)\\.{3}")
-
-// Validates examples embedded in Markdown files.
-func TestReadme(t *testing.T) {
-	// BlockVolume required for local volume example
-	utilfeature.DefaultFeatureGate.Set("BlockVolume=true")
-
-	paths := []struct {
-		file         string
-		expectedType []runtime.Object // List of all valid types for the whole doc
-	}{
-		{"../content/en/docs/concepts/storage/volumes.md", []runtime.Object{
-			&api.Pod{},
-			&api.PersistentVolume{},
-		}},
-	}
-
-	for _, path := range paths {
-		data, err := ioutil.ReadFile(path.file)
-		if err != nil {
-			t.Errorf("Unable to read file %s: %v", path, err)
-			continue
-		}
-
-		matches := sampleRegexp.FindAllStringSubmatch(string(data), -1)
-		if matches == nil {
-			continue
-		}
-		for _, match := range matches {
-			var content, subtype string
-			for i, name := range sampleRegexp.SubexpNames() {
-				if name == "type" {
-					subtype = match[i]
-				}
-				if name == "content" && match[i] != "" {
-					content = match[i]
-				}
-			}
-			if subtype == "yaml" && subsetRegexp.FindString(content) != "" {
-				t.Logf("skipping (%s): \n%s", subtype, content)
-				continue
-			}
-
-			json, err := yaml.ToJSON([]byte(content))
-			if err != nil {
-				t.Errorf("%s could not be converted to JSON: %v\n%s", path, err, string(content))
-			}
-
-			var expectedType runtime.Object
-			for _, expectedType = range path.expectedType {
-				err = runtime.DecodeInto(testapi.Default.Codec(), json, expectedType)
-				if err == nil {
-					break
-				}
-			}
-			if err != nil {
-				t.Errorf("%s did not decode correctly: %v\n%s", path, err, string(content))
-				continue
-			}
-
-			if errors := validateObject(expectedType); len(errors) > 0 {
-				t.Errorf("%s did not validate correctly: %v", path, errors)
-			}
-			_, err = runtime.Encode(testapi.Default.Codec(), expectedType)
-			if err != nil {
-				t.Errorf("Could not encode object: %v", err)
-				continue
-			}
 		}
 	}
 }

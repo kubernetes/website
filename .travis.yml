@@ -1,6 +1,6 @@
 language: go
 go:
-  - 1.9.3
+  - 1.10.2
 
 # Don't want default ./... here:
 install:
@@ -10,7 +10,7 @@ install:
 # Fetch dependencies for us to run the tests in test/examples_test.go
 - go get -t -v k8s.io/website/test
 # Make sure we are testing against the correct branch
-- pushd $GOPATH/src/k8s.io/kubernetes && git checkout release-1.10 && popd
+- pushd $GOPATH/src/k8s.io/kubernetes && git checkout release-1.11 && popd
 
 # Simplified deduplication of dependencies.
 - cp -L -R $GOPATH/src/k8s.io/kubernetes/vendor/ $GOPATH/src/
