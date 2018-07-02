@@ -268,7 +268,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 	// Please help maintain the alphabeta order in the map
 	cases := map[string]map[string][]runtime.Object{
 		"docs/concepts/cluster-administration": {
-			"counter-pod":                             {&api.Pod{}},
 			"fluentd-sidecar-config":                  {&api.ConfigMap{}},
 			"nginx-app":                               {&api.Service{}, &extensions.Deployment{}},
 			"nginx-deployment":                        {&extensions.Deployment{}},
@@ -393,17 +392,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"task-pv-volume":          {&api.PersistentVolume{}},
 			"tcp-liveness-readiness":  {&api.Pod{}},
 		},
-		"docs/tasks/debug-application-cluster": {
-			"counter-pod":                     {&api.Pod{}},
-			"event-exporter-deploy":           {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
-			"fluentd-gcp-configmap":           {&api.ConfigMap{}},
-			"fluentd-gcp-ds":                  {&extensions.DaemonSet{}},
-			"nginx-dep":                       {&extensions.Deployment{}},
-			"node-problem-detector":           {&extensions.DaemonSet{}},
-			"node-problem-detector-configmap": {&extensions.DaemonSet{}},
-			"shell-demo":                      {&api.Pod{}},
-			"termination":                     {&api.Pod{}},
-		},
 		// TODO: decide whether federation examples should be added
 		"docs/tasks/inject-data-application": {
 			"commands":                    {&api.Pod{}},
@@ -445,6 +433,17 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"deployment-patch":      {&extensions.Deployment{}},
 			"deployment-scale":      {&extensions.Deployment{}},
 			"deployment-update":     {&extensions.Deployment{}},
+			"nginx-with-request":    {&extensions.Deployment{}},
+			"shell-demo":            {&api.Pod{}},
+		},
+		"examples/debug": {
+			"counter-pod":                     {&api.Pod{}},
+			"event-exporter":                  {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
+			"fluentd-gcp-configmap":           {&api.ConfigMap{}},
+			"fluentd-gcp-ds":                  {&extensions.DaemonSet{}},
+			"node-problem-detector":           {&extensions.DaemonSet{}},
+			"node-problem-detector-configmap": {&extensions.DaemonSet{}},
+			"termination":                     {&api.Pod{}},
 		},
 		"examples/application/mysql": {
 			"mysql-configmap":       {&api.ConfigMap{}},
@@ -493,7 +492,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 
 	// Note a key in the following map has to be complete relative path
 	filesIgnore := map[string]map[string]bool{
-		"../content/en/docs/tasks/debug-application-cluster": {
+		"../content/en/examples/audit": {
 			"audit-policy": true,
 		},
 	}
