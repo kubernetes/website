@@ -26,12 +26,12 @@ in this task demonstrate a strategic merge patch and a JSON merge patch.
 Here's the configuration file for a Deployment that has two replicas. Each replica
 is a Pod that has one container:
 
-{{< code file="deployment-patch-demo.yaml" >}}
+{{< codenew file="application/deployment-patch.yaml" >}}
 
 Create the Deployment:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/run-application/deployment-patch-demo.yaml
+kubectl create -f https://k8s.io/examples/application/deployment-patch.yaml
 ```
 
 View the Pods associated with your Deployment:
