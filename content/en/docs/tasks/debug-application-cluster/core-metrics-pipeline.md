@@ -34,7 +34,9 @@ The API is no different from any other API:
 The API is defined in [k8s.io/metrics](https://github.com/kubernetes/metrics/blob/master/pkg/apis/metrics/v1beta1/types.go)
 repository. You can find more information about the API there.
 
+{{< note >}}
 **Note:** The API requires metrics server to be deployed in the cluster. Otherwise it will be not available.
+{{< /note >}}
 
 ## Metrics Server
 
