@@ -78,14 +78,13 @@ Pods use claims as volumes. The cluster inspects the claim to find the bound vol
 Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a `persistentVolumeClaim` in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
 
 ### Storage Object in Use Protection
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
 The purpose of the Storage Object in Use Protection feature is to ensure that Persistent Volume Claims (PVCs) in active use by a pod and Persistent Volume (PVs) that are bound to PVCs are not removed from the system as this may result in data loss.
 
 {{< note >}}
 **Note:** PVC is in active use by a pod when the pod status is `Pending` and the pod is assigned to a node or the pod status is `Running`.
 {{< /note >}}
 
-When the [Storage Object in Use Protection beta feature](/docs/tasks/administer-cluster/storage-object-in-use-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods, and also if admin deletes a PV that is bound to a PVC, the PV is not removed immediately. PV removal is postponed until the PV is not bound to a PVC any more.
+When the [Storage Object in Use Protection feature](/docs/tasks/administer-cluster/storage-object-in-use-protection/) is enabled, if a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods, and also if admin deletes a PV that is bound to a PVC, the PV is not removed immediately. PV removal is postponed until the PV is not bound to a PVC any more.
 
 You can see that a PVC is protected when the PVC's status is `Terminating` and the `Finalizers` list includes `kubernetes.io/pvc-protection`:
 
@@ -176,20 +175,21 @@ However, the particular path specified in the custom recycler pod template in th
 
 ### Expanding Persistent Volumes Claims
 
-Kubernetes 1.8 added Alpha support for expanding persistent volumes. In v1.9, the following volume types support expanding Persistent volume claims:
+{{< feature-state for_k8s_version="v1.8" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+Support for expanding PersistentVolumeClaims (PVCs) is now enabled by default. You can expand
+the following types of volumes:
 
 * gcePersistentDisk
 * awsElasticBlockStore
 * Cinder
 * glusterfs
 * rbd
+* Azure File
+* Azure Disk
+* Portworx
 
-Administrator can allow expanding persistent volume claims by setting `ExpandPersistentVolumes` feature gate to true. Administrator
-should also enable [`PersistentVolumeClaimResize` admission plugin](/docs/admin/admission-controllers/#persistentvolumeclaimresize)
-to perform additional validations of volumes that can be resized.
-
-Once `PersistentVolumeClaimResize` admission plug-in has been turned on, resizing will only be allowed for storage classes
-whose `allowVolumeExpansion` field is set to true.
+You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
 ``` yaml
 kind: StorageClass
@@ -205,17 +205,33 @@ parameters:
 allowVolumeExpansion: true
 ```
 
-Once both feature gate and the aforementioned admission plug-in are turned on, a user can request larger volume for their `PersistentVolumeClaim`
-by simply editing the claim and requesting a larger size.  This in turn will trigger expansion of the volume that is backing the underlying `PersistentVolume`.
+To request a larger volume for a PVC, edit the PVC object and specify a larger
+size. This triggers expansion of the volume that backs the underlying `PersistentVolume`. A
+new `PersistentVolume` is never created to satisfy the claim. Instead, an existing volume is resized.
 
-Under no circumstances will a new `PersistentVolume` be created to satisfy the claim. Kubernetes will instead attempt to resize the existing volume.
+#### Resizing a volume containing a file system
 
-For expanding volumes containing a file system, file system resizing is only performed when a new Pod is started using the `PersistentVolumeClaim` in
-ReadWrite mode. In other words, if a volume being expanded is used in a pod or deployment, you will need to delete and recreate the pod for file system
-resizing to take place. Also, file system resizing is only supported for following file system types:
+You can only resize volumes containing a file system if the file system is XFS, Ext3, or Ext4.
 
-* XFS
-* Ext3, Ext4
+When a volume contains a file system, the file system is only resized when a new Pod is started using
+the `PersistentVolumeClaim` in ReadWrite mode. Therefore, if a pod or deployment is using a volume and
+you want to expand it, you need to delete or recreate the pod after the volume has been exxpanded by the cloud provider in the controller-manager. You can check the status of resize operation by running the `kubectl describe pvc` command:
+
+```
+kubectl describe pvc <pvc_name>
+```
+
+If the `PersistentVolumeClaim` has the status `FileSystemResizePending`, it is safe to recreate the pod using the PersistentVolumeClaim.
+
+#### Resizing an in-use PersistentVolumeClaim
+
+{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+
+Expanding in-use PVCs is an alpha feature. To use it, enable the `ExpandInUsePersistentVolumes` feature gate.
+In this case, you don't need to delete and recreate a Pod or deployment that is using an existing PVC.
+Any in-use PVC automatically becomes available to its Pod as soon as its file system has been expanded.
+This feature has no effect on PVCs that are not in use by a Pod or deployment. You must create a Pod which
+uses the PVC before the expansion can complete.
 
 {{< note >}}
 **Note:** Expanding EBS volumes is a time consuming operation. Also, there is a per-volume quota of one modification every 6 hours.
@@ -230,7 +246,7 @@ resizing to take place. Also, file system resizing is only supported for followi
 * AWSElasticBlockStore
 * AzureFile
 * AzureDisk
-* FC (Fibre Channel)**
+* FC (Fibre Channel)
 * FlexVolume
 * Flocker
 * NFS
@@ -245,8 +261,6 @@ resizing to take place. Also, file system resizing is only supported for followi
 * Portworx Volumes
 * ScaleIO Volumes
 * StorageOS
-
-Raw Block Support exists for these plugins only.
 
 ## Persistent Volumes
 
@@ -281,11 +295,14 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 
 ### Volume Mode
 
-Prior to v1.9, the default behavior for all volume plugins was to create a filesystem on the persistent volume. With v1.9, the user can specify a `volumeMode` which will now support raw block devices in addition to file systems. Valid values for `volumeMode` are "Filesystem" or "Block". If left unspecified, `volumeMode` defaults to "Filesystem" internally. This is an optional API parameter. 
+{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
 
-{{< note >}}
-**Note:** This feature is alpha in v1.9 and may change in the future. 
-{{< /note >}}
+To enable this feature, enable the `BlockVolume` feature gate on the apiserver, controller-manager and the kubelet.
+
+Prior to Kubernetes 1.9, all volume plugins created a filesystem on the persistent volume.
+Now, you can set the value of `volumeMode` to `raw` to use a raw block device, or `filesystem`
+to use a filesystem. `filesystem` is the default if the value is omitted. This is an optional API
+parameter.
 
 ### Access Modes
 
@@ -508,7 +525,26 @@ spec:
 
 ## Raw Block Volume Support
 
-Static provisioning support for Raw Block Volumes is included as an alpha feature for v1.9. With this change are some new API fields that need to be used to facilitate this functionality. Kubernetes v1.10 supports only Fibre Channel and Local Volume plugins for this feature.
+{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
+
+To enable support for raw block volumes, enable the `BlockVolume` feature gate on the
+apiserver, controller-manager and the kubelet.
+
+The following volume plugins support raw block volumes, including dynamic provisioning where
+applicable.
+
+* AWSElasticBlockStore
+* AzureDisk
+* FC (Fibre Channel)
+* GCEPersistentDisk
+* iSCSI
+* Local volume
+* RBD (Ceph Block Device)
+
+{{< note >}}
+**Note**: Only FC and iSCSI volumes supported raw block volumes in Kubernetes 1.9.
+Support for the additional plugins was added in 1.10.
+{{< /note >}}
 
 ### Persistent Volumes using a Raw Block Volume
 ```yaml

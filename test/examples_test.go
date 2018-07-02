@@ -447,6 +447,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"docs/tasks/run-application": {
 			"deployment-patch-demo": {&extensions.Deployment{}},
 			"hpa-php-apache":        {&autoscaling.HorizontalPodAutoscaler{}},
+		},
 		"examples/debug": {
 			"counter-pod":                     {&api.Pod{}},
 			"event-exporter":                  {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},

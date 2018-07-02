@@ -96,7 +96,7 @@ than Google Kubernetes Engine. Proceed at your own risk.
 1. Deploy a `ConfigMap` with the logging agent configuration by running the following command:
 
     ```
-    kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-configmap.yaml
+    kubectl create -f https://k8s.io/examples/debug/fluentd-gcp-configmap.yaml
     ```
 
     The command creates the `ConfigMap` in the `default` namespace. You can download the file
@@ -105,7 +105,7 @@ than Google Kubernetes Engine. Proceed at your own risk.
 1. Deploy the logging agent `DaemonSet` by running the following command:
 
     ```
-    kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-ds.yaml
+    kubectl create -f https://k8s.io/examples/debug/fluentd-gcp-ds.yaml
     ```
 
     You can download and edit this file before using it as well.
@@ -129,16 +129,16 @@ default       fluentd-gcp-v2.0   3         3         3         beta.kubernetes.i
 ```
 
 To understand how logging with Stackdriver works, consider the following
-synthetic log generator pod specification [counter-pod.yaml](/docs/tasks/debug-application-cluster/counter-pod.yaml):
+synthetic log generator pod specification [counter-pod.yaml](/examples/debug/counter-pod.yaml):
 
-{{< code file="counter-pod.yaml" >}}
+{{< codenew file="debug/counter-pod.yaml" >}}
 
 This pod specification has one container that runs a bash script
 that writes out the value of a counter and the date once per
 second, and runs indefinitely. Let's create this pod in the default namespace.
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/counter-pod.yaml
+kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
 ```
 
 You can observe the running pod:
@@ -175,7 +175,7 @@ pod "counter" deleted
 and then recreating it:
 
 ```shell
-$ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/counter-pod.yaml
+$ kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
 pod "counter" created
 ```
 
@@ -325,7 +325,7 @@ kubectl get cm fluentd-gcp-config --namespace kube-system -o yaml > fluentd-gcp-
 ```
 
 Then in the value for the key `containers.input.conf` insert a new filter right after
-the `source` section. **Note:** order is important.
+the `source` section. **Note:** Order is important.
 
 Updating `ConfigMap` in the apiserver is more complicated than updating `DaemonSet`. It's better
 to consider `ConfigMap` to be immutable. Then, in order to update the configuration, you should

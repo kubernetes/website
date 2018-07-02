@@ -39,7 +39,7 @@ Example usage:
 
 ### Options
 
-<table style="width: 100%;">
+<table style="width: 100%; table-layout: fixed;">
   <colgroup>
     <col span="1" style="width: 10px;" />
     <col span="1" />
@@ -50,7 +50,7 @@ Example usage:
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">help for kubeadm</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for kubeadm</td>
     </tr>
 
   </tbody>
