@@ -23,11 +23,16 @@ defaults:
       githubbranch: "master"
       docsbranch: "master"
       versions:
+      - fullversion: "v1.10.0"
+          version: "v1.10"
+          githubbranch: "v1.10.0"
+          docsbranch: "release-1.10"
+          url: https://kubernetes.io/
         - fullversion: "v1.9.0"
           version: "v1.9"
           githubbranch: "v1.9.0"
           docsbranch: "release-1.9"
-          url: https://kubernetes.io/docs/home/
+          url: https://v1-9.kubernetes.io/docs/home/
         - fullversion: "v1.8.4"
           version: "v1.8"
           githubbranch: "v1.8.4"
