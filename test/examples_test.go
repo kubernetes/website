@@ -443,11 +443,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"secret-envars-pod":           {&api.Pod{}},
 			"secret-pod":                  {&api.Pod{}},
 		},
-		"examples/application": {
-			"deployment":            {&extensions.Deployment{}},
-			"deployment-scale":      {&extensions.Deployment{}},
-			"deployment-update":     {&extensions.Deployment{}},
-		},
 		"examples/application/job": {
 			"job-tmpl":     {&batch.Job{}},
 			"cronjob":     {&batch.CronJob{}},
