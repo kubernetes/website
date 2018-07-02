@@ -495,9 +495,9 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pod-with-pod-affinity":  {&api.Pod{}},
 		},
 		"examples/policy": {
-			"privileged-psp": {&extensions.PodSecurityPolicy{}},
-			"restricted-psp": {&extensions.PodSecurityPolicy{}},
-			"example-psp":    {&extensions.PodSecurityPolicy{}},
+			"privileged-psp": {&policy.PodSecurityPolicy{}},
+			"restricted-psp": {&policy.PodSecurityPolicy{}},
+			"example-psp":    {&policy.PodSecurityPolicy{}},
 		},
 		"docs/tasks/run-application": {
 			"deployment-patch-demo": {&extensions.Deployment{}},
