@@ -19,6 +19,9 @@ pygmentsUseClasses = false
 # See https://help.farbox.com/pygments.html
 pygmentsStyle = "emacs"
 
+# Enable Git variables like commit, lastmod
+enableGitInfo = true
+
 [blackfriday]
 hrefTargetBlank = true
 fractions = false
@@ -27,7 +30,7 @@ fractions = false
 date = ["date", ":filename", "publishDate", "lastmod"]
 
 [permalinks]
-  blog = "/:section/:year/:month/:day/:slug/"
+blog = "/:section/:year/:month/:day/:slug/"
 
 # Be explicit about the output formats. We (currently) only want an RSS feed for the home page.
 [outputs]
