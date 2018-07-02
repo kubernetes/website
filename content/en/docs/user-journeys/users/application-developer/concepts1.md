@@ -15,7 +15,7 @@ content_template: templates/user-journey-content
 {{% capture overview %}}
 
 
-## Basic Concepts
+## Basic Concepts 1
 
 ### Image
 
@@ -26,7 +26,7 @@ For better understanding, you can think of an image as a class in a programming 
 
 A _container_ is an active instantiation of an image.
 
-Containers sit on a physical or a virtual host machine and run on the operating system of the host. This makes containers lightweight and portable: only megabytes in size. Hence, containers help ensure that applications deploy quickly.
+Containers sit on a physical or a virtual host machine and run on the operating system of the host. This makes containers lightweight and portable: only megabytes in size. Hence, the containers help ensure that applications deploy quickly.
 
 Example:
 
