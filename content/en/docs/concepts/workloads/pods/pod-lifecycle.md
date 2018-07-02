@@ -56,6 +56,12 @@ array has six possible fields:
 * The `message` field is a human-readable message indicating details
   about the transition.
 
+* The `reason` field is a unique, one-word, CamelCase reason for the condition's last transition
+
+* The `status` field provides the status of the condition. Can be True, False, Unknown
+
+* The `type` field provides the type of the condition
+
 A Pod has a PodStatus, which has an array of
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core). Each element
 of the PodCondition array has a `type` field and a `status` field. The `type`
