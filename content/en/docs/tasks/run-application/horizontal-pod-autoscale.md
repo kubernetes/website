@@ -60,19 +60,16 @@ or the custom metrics API (for all other metrics).
 * For object metrics, a single metric is fetched (which describes the object
   in question), and compared to the target value, to produce a ratio as above.
 
-The HorizontalPodAutoscaler controller can fetch metrics in two different ways: direct Heapster
-access, and REST client access.
+The HorizontalPodAutoscaler normally fetches metrics a series of aggregated APIs (`metrics.k8s.io`,\
+`custom.metrics.k8s.io`, and `external.metrics.k8s.io`).  It can also fetch metrics directly
+from Heapster.  Fetching metrics from Heapster is deprecated as of Kubernetes 1.11.
 
-When using direct Heapster access, the HorizontalPodAutoscaler queries Heapster directly
-through the API server's service proxy subresource.  Heapster needs to be deployed on the
-cluster and running in the kube-system namespace.
+See [Support for metrics APIs](#support-for-metrics-apis) for more details.
 
-See [Support for custom metrics](#support-for-custom-metrics) for more details on REST client access.
-
-The autoscaler accesses corresponding replication controller, deployment or replica set by scale sub-resource.
-Scale is an interface that allows you to dynamically set the number of replicas and examine each of their current states.
-More details on scale sub-resource can be found [here](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#scale-subresource).
-
+The autoscaler accesses corresponding scalable controllers (such as replication controllers, deployments, and replica sets)
+by using the scale sub-resource. Scale is an interface that allows you to dynamically set the number of replicas and examine
+each of their current states. More details on scale sub-resource can be found
+[here](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#scale-subresource).
 
 ## API Object
 
@@ -158,30 +155,27 @@ Kubernetes 1.6 adds support for making use of custom metrics in the Horizontal P
 You can add custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2beta1` API.
 Kubernetes then queries the new custom metrics API to fetch the values of the appropriate custom metrics.
 
-### Requirements
+See [Support for metrics APIs](#support-for-metrics-APIs) for the requirements.
 
-To use custom metrics with your Horizontal Pod Autoscaler, you must set the necessary configurations when deploying your cluster:
+## Support for metrics APIs
 
-* [Enable the API aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) if you have not already done so.
+By default, the HorizontalPodAutoscaler controller retrieves metrics from a series of APIs.  In order for it to access these
+APIs, cluster administrators must ensure that:
 
-* Register your resource metrics API, your
-custom metrics API and, optionally, external metrics API with the API aggregation layer. All of these API servers must be running *on* your cluster.
+* The [API aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) is enabled.
 
-  * *Resource Metrics API*: You can use Heapster's implementation of the resource metrics API, by running Heapster with its `--api-server` flag set to true.
+* The corresponding APIs are registered:
 
-  * *Custom Metrics API*: This must be provided by a separate component. To get started with boilerplate code, see the [kubernetes-incubator/custom-metrics-apiserver](https://github.com/kubernetes-incubator/custom-metrics-apiserver) and the [k8s.io/metrics](https://github.com/kubernetes/metrics) repositories.
+   * For resource metrics, this is the `metrics.k8s.io` API, generally provided by [metrics-server](https://github.com/kubernetes-incubator/metrics-server).
+     It can be launched as a cluster addon.
 
-  * *External Metrics API*: Starting from Kubernetes 1.10 you can use this API if you need to autoscale on metrics not related to any Kubernetes object. Similarly to *Custom Metrics API* this must be provided by a separate component.
+   * For custom metrics, this is the `custom.metrics.k8s.io` API.  It's provided by "adapter" API servers provided by metrics solution vendors.
+     Check with your metrics pipeline, or the [list of known solutions](https://github.com/kubernetes/metrics/blob/master/IMPLEMENTATIONS.md#custom-metrics-api).
+     If you would like to write your own, check out the [boilerplate](https://github.com/kubernetes-incubator/custom-metrics-apiserver) to get started.
 
-* Set the appropriate flags for kube-controller-manager:
+   * For external metrics, this is the `external.metrics.k8s.io` API.  It may be provided by the custom metrics adapters provided above.
 
-  * `--horizontal-pod-autoscaler-use-rest-clients` should be true.
-
-  * `--kubeconfig <path-to-kubeconfig>` OR `--master <ip-address-of-apiserver>`
-
-     Note that either the `--master` or `--kubeconfig` flag can be used; `--master` will override `--kubeconfig` if both are specified. These flags specify the location of the API aggregation layer, allowing the controller manager to communicate to the API server.
-
-     In Kubernetes 1.7, the standard aggregation layer that Kubernetes provides runs in-process with the kube-apiserver, so the target IP address can be found with `kubectl get pods --selector k8s-app=kube-apiserver --namespace kube-system -o jsonpath='{.items[0].status.podIP}'`.
+* The `--horizontal-pod-autoscaler-use-rest-clients` is `true` or unset.  Setting this to false switches to Heapster-based autoscaling, which is deprecated.
 
 {{% /capture %}}
 

@@ -28,7 +28,7 @@ The cluster that `kubeadm init` and `kubeadm join` set up should be:
    - using secure communication between the control plane components
    - using secure communication between the API server and the kubelets
    - lock-down the kubelet API
-   - locking down access to the API for system components like the kube-proxy and kube-dns
+   - locking down access to the API for system components like the kube-proxy and CoreDNS
    - locking down what a Bootstrap Token can access
    - etc.
  - **Easy to use**: The user should not have to run anything more than a couple of commands:
@@ -451,16 +451,20 @@ A ServiceAccount for `kube-proxy` is created in the `kube-system` namespace; the
 
 #### DNS
 
-A ServiceAccount for `kube-dns` is created in the `kube-system` namespace.
+Note that:
 
-Deploy the kube-dns Deployment and Service:
+- The CoreDNS service is named `kube-dns`. This is done to prevent any interruption
+in service when the user is switching the cluster DNS from kube-dns to CoreDNS or vice-versa
+- In Kubernetes version 1.11 and later, CoreDNS is the default DNS server and you must
+invoke kubeadm with `--feature-gates=CoreDNS=false` to install kube-dns instead
+- In Kubernetes version 1.10 and earlier, you must enable CoreDNS with `--feature-gates=CoreDNS=true`
 
-- It's the upstream kube-dns deployment relatively unmodified
+A ServiceAccount for CoreDNS/kube-dns is created in the `kube-system` namespace.
+
+Deploy the `kube-dns` Deployment and Service:
+
+- It's the upstream CoreDNS deployment relatively unmodified
 - The `kube-dns` ServiceAccount is bound to the privileges in the `system:kube-dns` ClusterRole
-
-Please note that:
-
-1. If kubeadm is invoked with `--feature-gates=CoreDNS`,  CoreDNS is installed instead of `kube-dns`
 
 ### (Optional and alpha in v1.9) self-hosting
 

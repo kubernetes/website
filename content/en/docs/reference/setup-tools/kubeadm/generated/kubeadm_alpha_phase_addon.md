@@ -8,7 +8,7 @@ This command is not meant to be run on its own. See list of available subcommand
 
 ### Options
 
-<table style="width: 100%;">
+<table style="width: 100%; table-layout: fixed;">
   <colgroup>
     <col span="1" style="width: 10px;" />
     <col span="1" />
@@ -19,7 +19,7 @@ This command is not meant to be run on its own. See list of available subcommand
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">help for addon</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for addon</td>
     </tr>
 
   </tbody>

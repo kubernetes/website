@@ -52,7 +52,7 @@ If the `nslookup` command fails, check the following:
 ### Check the local DNS configuration first
 
 Take a look inside the resolv.conf file.
-(See [Inheriting DNS from the node](#inheriting-dns-from-the-node) and
+(See [Inheriting DNS from the node](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node) and
 [Known issues](#known-issues) below for more information)
 
 ```shell
