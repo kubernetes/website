@@ -856,6 +856,13 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
   #docs .flyout-button { display: none; }
   #docs .logo { position: relative; float: left; display: block; width: 180px; height: 88px; top: 0; left: 0; transform: none; background-image: url(../images/nav_logo.svg); }
   #docs.flip-nav .logo, #docs.open-nav .logo { background-image: url(../images/nav_logo2.svg); }
+  div#pre-footer {
+    background-color: #fff;
+    text-align: center;
+  }
+  div#pre-footer .issue-button-container {
+    padding-bottom: 10px;
+  }
   div#pre-footer div#lastedit.lastedit {
     padding: 0 0 10px 20px;
     color: #bbb;
