@@ -71,7 +71,7 @@ In this exercise, you create a Pod that has one Container. The Container has a C
 request of 0.5 cpu and a CPU limit of 1 cpu. Here's the configuration file
 for the Pod:
 
-{{< code file="cpu-request-limit.yaml" >}}
+{{< codenew file="pods/resource/cpu-request-limit.yaml" >}}
 
 In the configuration file, the `args` section provides arguments for the Container when it starts.
 The `-cpus "2"` argument tells the Container to attempt to use 2 cpus.
@@ -79,7 +79,7 @@ The `-cpus "2"` argument tells the Container to attempt to use 2 cpus.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/cpu-request-limit.yaml --namespace=cpu-example
+kubectl create -f https://k8s.io/examples/pods/resource/cpu-request-limit.yaml --namespace=cpu-example
 ```
 
 Verify that the Pod's Container is running:
@@ -167,12 +167,12 @@ the capacity of any Node in your cluster. Here is the configuration file for a P
 that has one Container. The Container requests 100 cpu, which is likely to exceed the
 capacity of any Node in your cluster.
 
-{{< code file="cpu-request-limit-2.yaml" >}}
+{{< codenew file="pods/resource/cpu-request-limit-2.yaml" >}}
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/cpu-request-limit-2.yaml --namespace=cpu-example
+kubectl create -f https://k8s.io/examples/pods/resource/cpu-request-limit-2.yaml --namespace=cpu-example
 ```
 
 View the Pod's status:
