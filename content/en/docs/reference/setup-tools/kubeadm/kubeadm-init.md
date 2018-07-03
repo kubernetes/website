@@ -68,7 +68,7 @@ following steps:
 
 1. Makes all the necessary configurations for allowing node joining with the
    [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) and
-   [TLS Bootstrap](/docs/admin/kubelet-tls-bootstrapping/)
+   [TLS Bootstrap](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
    mechanism:
 
    - Write a ConfigMap for making available all the information required
