@@ -67,7 +67,7 @@ Monitoring are two of the most popular.
 
 ### Prometheus
 
-[Prometheus](https://prometheus.io) natively monitors Prometheus.
+[Prometheus](https://prometheus.io) can natively monitor kubernetes, nodes, and prometheus itself.
 The [Prometheus Operator](https://coreos.com/operators/prometheus/docs/latest/)
 simplifies Prometheus setup on Kubernetes, and allows you to serve the
 custom metrics API using the
