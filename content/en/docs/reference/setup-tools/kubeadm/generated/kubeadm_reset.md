@@ -34,7 +34,7 @@ kubeadm reset [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--force</td>
+      <td colspan="2">-f, --force</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Reset the node without prompting for confirmation.</td>

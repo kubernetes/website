@@ -20,27 +20,6 @@ kubeadm upgrade plan [version] [flags]
   <tbody>
 
     <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for plan</td>
-    </tr>
-
-  </tbody>
-</table>
-
-
-
-### Options inherited from parent commands
-
-<table style="width: 100%; table-layout: fixed;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
-
-    <tr>
       <td colspan="2">--allow-experimental-upgrades</td>
     </tr>
     <tr>
@@ -66,6 +45,13 @@ kubeadm upgrade plan [version] [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features.Options are:<br/>Auditing=true|false (ALPHA - default=false)<br/>CoreDNS=true|false (default=true)<br/>DynamicKubeletConfig=true|false (ALPHA - default=false)<br/>SelfHosting=true|false (ALPHA - default=false)<br/>StoreCertsInSecrets=true|false (ALPHA - default=false)</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for plan</td>
     </tr>
 
     <tr>
