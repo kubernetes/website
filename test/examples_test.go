@@ -402,6 +402,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"secret":                      {&api.Secret{}},
 			"secret-envars-pod":           {&api.Pod{}},
 			"secret-pod":                  {&api.Pod{}},
+		},
 		"examples/application/job": {
 			"job-tmpl": {&batch.Job{}},
 			"cronjob":  {&batch.CronJob{}},
@@ -454,20 +455,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"replication":      {&api.ReplicationController{}},
 			"nginx-deployment": {&extensions.Deployment{}},
 		},
-		"examples/podpreset": {
-			"allow-db":          {&settings.PodPreset{}},
-			"allow-db-merged":   {&api.Pod{}},
-			"configmap":         {&api.ConfigMap{}},
-			"conflict-pod":      {&api.Pod{}},
-			"conflict-preset":   {&settings.PodPreset{}},
-			"merged":            {&api.Pod{}},
-			"multi-merged":      {&api.Pod{}},
-			"pod":               {&api.Pod{}},
-			"preset":            {&settings.PodPreset{}},
-			"proxy":             {&settings.PodPreset{}},
-			"replicaset-merged": {&api.Pod{}},
-			"replicaset":        {&extensions.ReplicaSet{}},
-		},
 		"examples/pods": {
 			"commands":                {&api.Pod{}},
 			"init-containers":         {&api.Pod{}},
@@ -511,16 +498,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pv-volume": {&api.PersistentVolume{}},
 			"redis":     {&api.Pod{}},
 		},
-		"examples/pods/inject": {
-			"dapi-envars-container":       {&api.Pod{}},
-			"dapi-envars-pod":             {&api.Pod{}},
-			"dapi-volume":                 {&api.Pod{}},
-			"dapi-volume-resources":       {&api.Pod{}},
-			"envars":                      {&api.Pod{}},
-			"secret":                      {&api.Secret{}},
-			"secret-envars-pod":           {&api.Pod{}},
-			"secret-pod":                  {&api.Pod{}},
-		},
 		"examples/policy": {
 			"privileged-psp": {&policy.PodSecurityPolicy{}},
 			"restricted-psp": {&policy.PodSecurityPolicy{}},
@@ -560,7 +537,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"simple_deployment": {&extensions.Deployment{}},
 			"update_deployment": {&extensions.Deployment{}},
 		},
-	},
+	}
+
 	// Note a key in the following map has to be complete relative path
 	filesIgnore := map[string]map[string]bool{
 		"../content/en/examples/audit": {
