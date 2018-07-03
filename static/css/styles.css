@@ -567,6 +567,12 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #features .feature-box > div { width: 100%; margin-bottom: 40px; }
 
+#cncf { padding-top: 40px; padding-bottom: 120px; background-color: #f7f7f7; background-image: url(https://www.cncf.io/wp-content/uploads/2017/10/cncf-logo.png); background-position: center 60px; background-repeat: no-repeat; background-size: 300px; }
+
+#cncf p { font-size: 15px; }
+
+#cncf a { color: #3371E3; }
+
 #community.open-nav .logo, #community.flip-nav .logo, .gridPage.open-nav .logo, .gridPage.flip-nav .logo { background-image: url(/images/nav_logo2.svg); }
 
 #community #hero, .gridPage #hero { padding-bottom: 20px; }
@@ -887,6 +893,9 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
   #oceanNodes main:nth-child(1) .image-wrapper { position: absolute; max-width: 48%; transform: translateY(-50%); }
   #oceanNodes main:nth-child(1) .image-wrapper img { max-width: 425px; }
   #video { height: 550px; position: relative; background-image: url(../images/kub_video_banner_homepage.jpg); background-position: center center; background-size: cover; }
+  #cncf { padding-top: 40px; padding-bottom: 160px; background-color: #f7f7f7; background-image: url(https://www.cncf.io/wp-content/uploads/2017/10/cncf-logo.png); background-position: center 60px; background-repeat: no-repeat; background-size: auto; }
+  #cncf p { font-size: 20px; }
+  #cncf a { color: #3371E3; }
   #talkToUs h4 br { display: block; }
   #talkToUs #bigSocial div { width: calc(25% - 18px); }
   #talkToUs #bigSocial div + div { margin-left: 20px; }
@@ -918,6 +927,7 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
   #community #hero h1, .gridPage #hero h1 { padding: 20px 100px; }
   #community #tryKubernetes, .gridPage #tryKubernetes { width: auto; background-color: #3371e3; padding: 0 20px; }
   #bigSocial div { width: calc(25% - 18px); }
+  #home #cncf div { width: 24%; min-height: 260px; }
   #home #caseStudiesWrapper div { width: 24%; min-height: 260px; } }
 
 @media screen and (min-width: 1300px) { #vendorStrip { padding-right: 100px; } }
