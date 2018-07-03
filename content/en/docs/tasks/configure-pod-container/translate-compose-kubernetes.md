@@ -439,7 +439,7 @@ $ kompose up --provider openshift --build build-config
 
 ## Alternative Conversions
 
-The default `kompose` transformation will generate Kubernetes [Deployments](http://kubernetes.io/docs/user-guide/deployments/) and [Services](http://kubernetes.io/docs/concepts/services-networking/service/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](http://kubernetes.io/docs/user-guide/replication-controller/) objects, [Daemon Sets](http://kubernetes.io/docs/admin/daemons/), or [Helm](https://github.com/helm/helm) charts.
+The default `kompose` transformation will generate Kubernetes [Deployments](/docs/user-guide/deployments/) and [Services](/docs/concepts/services-networking/service/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](/docs/user-guide/replication-controller/) objects, [Daemon Sets](/docs/admin/daemons/), or [Helm](https://github.com/helm/helm) charts.
 
 ```sh
 $ kompose convert -j
