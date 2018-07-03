@@ -35,12 +35,12 @@ kubectl create namespace default-cpu-example
 Here's the configuration file for a LimitRange object. The configuration specifies
 a default CPU request and a default CPU limit.
 
-{{< code file="cpu-defaults.yaml" >}}
+{{< codenew file="admin/resource/cpu-defaults.yaml" >}}
 
 Create the LimitRange in the default-cpu-example namespace:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-defaults.yaml --namespace=default-cpu-example
+kubectl create -f https://k8s.io/examples/admin/resource/cpu-defaults.yaml --namespace=default-cpu-example
 ```
 
 Now if a Container is created in the default-cpu-example namespace, and the
@@ -51,12 +51,12 @@ CPU limit of 1.
 Here's the configuration file for a Pod that has one Container. The Container
 does not specify a CPU request and limit.
 
-{{< code file="cpu-defaults-pod.yaml" >}}
+{{< codenew file="admin/resource/cpu-defaults-pod.yaml" >}}
 
 Create the Pod.
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-defaults-pod.yaml --namespace=default-cpu-example
+kubectl create -f https://k8s.io/examples/admin/resource/cpu-defaults-pod.yaml --namespace=default-cpu-example
 ```
 
 View the Pod's specification:
@@ -85,13 +85,13 @@ containers:
 Here's the configuration file for a Pod that has one Container. The Container
 specifies a CPU limit, but not a request:
 
-{{< code file="cpu-defaults-pod-2.yaml" >}}
+{{< codenew file="admin/resource/cpu-defaults-pod-2.yaml" >}}
 
 Create the Pod:
 
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-defaults-pod-2.yaml --namespace=default-cpu-example
+kubectl create -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml --namespace=default-cpu-example
 ```
 
 View the Pod specification:
@@ -116,12 +116,12 @@ resources:
 Here's the configuration file for a Pod that has one Container. The Container
 specifies a CPU request, but not a limit:
 
-{{< code file="cpu-defaults-pod-3.yaml" >}}
+{{< codenew file="admin/resource/cpu-defaults-pod-3.yaml" >}}
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-defaults-pod-3.yaml --namespace=default-cpu-example
+kubectl create -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-3.yaml --namespace=default-cpu-example
 ```
 
 View the Pod specification:
