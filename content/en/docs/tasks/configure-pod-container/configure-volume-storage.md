@@ -33,11 +33,11 @@ Volume of type
 that lasts for the life of the Pod, even if the Container terminates and
 restarts. Here is the configuration file for the Pod:
 
-{{< code file="pod-redis.yaml" >}}
+{{< codenew file="pods/storage/redis.yaml" >}}
 
 1. Create the Pod:
 
-       kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/pod-redis.yaml
+       kubectl create -f https://k8s.io/examples/pods/storage/redis.yaml
 
 1. Verify that the Pod's Container is running, and then watch for changes to
 the Pod:
