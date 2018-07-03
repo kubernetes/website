@@ -560,8 +560,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"simple_deployment": {&extensions.Deployment{}},
 			"update_deployment": {&extensions.Deployment{}},
 		},
-	}
-
+	},
 	// Note a key in the following map has to be complete relative path
 	filesIgnore := map[string]map[string]bool{
 		"../content/en/examples/audit": {
