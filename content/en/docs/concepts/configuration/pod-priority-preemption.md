@@ -111,9 +111,9 @@ object for each such mapping that they want.
 PriorityClass also has two optional fields: `globalDefault` and `description`.
 The `globalDefault` field indicates that the value of this PriorityClass should
 be used for Pods without a `priorityClassName`. Only one PriorityClass with
-`globalDefault` set to true should exist in the system. If there are more than one
-PriorityClasses with `globalDefault` set to true, the value of the smallest
-of such PriorityClasses is used as the default priority. If there is no PriorityClass
+`globalDefault` set to true should exist in the system. If there is more than one
+PriorityClass with `globalDefault` set to true, the value of the smallest
+of those PriorityClasses is used as the default priority. If there is no PriorityClass
 with `globalDefault` set, the priority of Pods with no `priorityClassName` is zero.
 
 The `description` field is an arbitrary string. It is meant to tell users of
@@ -123,13 +123,13 @@ Kubernetes comes with two predefined PriorityClasses: `system-node-critical`, an
 `system-cluster-critical`. The former has the highest priority and is used for critical
 system Pods that must run on all or most of the nodes and should never
 be preempted. The latter is used for system critical Pods that must always
-run in a cluster, but they can be terminated from one node and started on a
+run in a cluster, but they can be terminated on one node and started on a
 different node.
 
 {{< note >}}
 **Note**: You should never use these PriorityClasses that are dedicated to
 system components for non-system Pods. Otherwise, Pods with such high priorities
-may preempt system critical components causing disruption of cluster services.  
+might preempt system critical components, causing disruption of cluster services.  
 {{< /note >}}
 
 ### Notes about PodPriority and existing clusters
