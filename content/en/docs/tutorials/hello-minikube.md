@@ -82,7 +82,7 @@ Use Homebrew to download the `kubectl` command-line tool, which you can
 use to interact with Kubernetes clusters:
 
 ```shell
-brew install kubectl
+brew install kubernetes-cli
 ```
 
 Determine whether you can access sites like [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/) directly without a proxy, by opening a new terminal and using
@@ -183,8 +183,10 @@ sure you are using the Minikube Docker daemon:
 eval $(minikube docker-env)
 ```
 
+{{< note >}}
 **Note:** Later, when you no longer wish to use the Minikube host, you can undo
 this change by running `eval $(minikube docker-env -u)`.
+{{< /note >}}
 
 Build your Docker image, using the Minikube Docker daemon (mind the trailing dot):
 

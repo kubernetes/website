@@ -607,7 +607,8 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:node-bootstrapper</b></td>
 <td>None</td>
-<td>Allows access to the resources required to perform <a href="/docs/admin/kubelet-tls-bootstrapping/">Kubelet TLS bootstrapping</a>.</td>
+<td>Allows access to the resources required to perform
+<a href="/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/">Kubelet TLS bootstrapping</a>.</td>
 </tr>
 <tr>
 <td><b>system:node-problem-detector</b></td>

@@ -144,7 +144,7 @@ When using Docker:
   multiplied by 100. The resulting value is the total amount of CPU time that a container can use
   every 100ms. A container cannot use more than its share of CPU time during this interval.
 
-  {{< note >}}**Note**: The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.{{ {{</ note >}}}
+  {{< note >}}**Note**: The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.{{</ note >}}
 
 - The `spec.containers[].resources.limits.memory` is converted to an integer, and
   used as the value of the

@@ -19,6 +19,9 @@ pygmentsUseClasses = false
 # See https://help.farbox.com/pygments.html
 pygmentsStyle = "emacs"
 
+# Enable Git variables like commit, lastmod
+enableGitInfo = true
+
 [blackfriday]
 hrefTargetBlank = true
 fractions = false
@@ -27,7 +30,7 @@ fractions = false
 date = ["date", ":filename", "publishDate", "lastmod"]
 
 [permalinks]
-  blog = "/:section/:year/:month/:day/:slug/"
+blog = "/:section/:year/:month/:day/:slug/"
 
 # Be explicit about the output formats. We (currently) only want an RSS feed for the home page.
 [outputs]
@@ -69,7 +72,7 @@ fullversion = "v1.10.3"
 version = "v1.10"
 githubbranch = "v1.10.3"
 docsbranch = "release-1.10"
-url = "https://kubernetes.io"
+url = "https://v1-10.docs.kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.9.7"

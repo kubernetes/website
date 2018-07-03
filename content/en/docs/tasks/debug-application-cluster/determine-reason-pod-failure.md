@@ -34,11 +34,11 @@ In this exercise, you create a Pod that runs one container.
 The configuration file specifies a command that runs when
 the container starts.
 
-{{< code file="termination.yaml" >}}
+{{< codenew file="debug/termination.yaml" >}}
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/termination.yaml
+        kubectl create -f https://k8s.io/examples/debug/termination.yaml
 
     In the YAML file, in the `cmd` and `args` fields, you can see that the
     container sleeps for 10 seconds and then writes "Sleep expired" to
