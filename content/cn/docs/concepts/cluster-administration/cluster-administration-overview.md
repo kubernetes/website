@@ -49,7 +49,7 @@ content_template: templates/concept
 * [Kubernetes 容器环境](/docs/concepts/containers/container-environment-variables/) 描述了 Kubernetes 节点上由 Kubelet 管理的容器的环境。
 
 
-* [控制到 Kubernetes API 的访问](/docs/admin/accessing-the-api) 描述了如何为用户和 service accounts 建立权限许可.
+* [控制到 Kubernetes API 的访问](/docs/reference/access-authn-authz/controlling-access) 描述了如何为用户和 service accounts 建立权限许可.
 
 
 *  [用户认证](/docs/admin/authentication) 阐述了 Kubernetes 中的认证功能，包括许多认证选项。

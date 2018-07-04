@@ -48,7 +48,7 @@ If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](
 
 * [Kubernetes Container Environment](/docs/concepts/containers/container-environment-variables/) describes the environment for Kubelet managed containers on a Kubernetes node.
 
-* [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api/) describes how to set up permissions for users and service accounts.
+* [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) describes how to set up permissions for users and service accounts.
 
 * [Authenticating](/docs/admin/authentication/) explains authentication in Kubernetes, including the various authentication options.
 
