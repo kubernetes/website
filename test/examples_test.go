@@ -309,11 +309,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"docs/concepts/overview/working-with-objects": {
 			"nginx-deployment": {&extensions.Deployment{}},
 		},
-		"docs/concepts/policy": {
-			"privileged-psp": {&policy.PodSecurityPolicy{}},
-			"restricted-psp": {&policy.PodSecurityPolicy{}},
-			"example-psp":    {&policy.PodSecurityPolicy{}},
-		},
 		"docs/concepts/services-networking": {
 			"curlpod":          {&extensions.Deployment{}},
 			"custom-dns":       {&api.Pod{}},
@@ -323,58 +318,27 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-svc":        {&api.Service{}},
 			"run-my-nginx":     {&extensions.Deployment{}},
 		},
-		"docs/concepts/workloads/controllers": {
-			"cronjob":          {&batch.CronJob{}},
-			"daemonset":        {&extensions.DaemonSet{}},
-			"frontend":         {&extensions.ReplicaSet{}},
-			"hpa-rs":           {&autoscaling.HorizontalPodAutoscaler{}},
-			"job":              {&batch.Job{}},
-			"nginx-deployment": {&extensions.Deployment{}},
-			"my-repset":        {&extensions.ReplicaSet{}},
-			"replication":      {&api.ReplicationController{}},
+		"docs/tutorials/clusters": {
+			"hello-apparmor-pod": {&api.Pod{}},
 		},
-		"docs/tasks/access-application-cluster": {
-			"frontend":          {&api.Service{}, &extensions.Deployment{}},
-			"hello-service":     {&api.Service{}},
-			"hello":             {&extensions.Deployment{}},
-			"redis-master":      {&api.Pod{}},
-			"two-container-pod": {&api.Pod{}},
+		"docs/tutorials/configuration/configmap/redis": {
+			"redis-pod": {&api.Pod{}},
 		},
-		"docs/tasks/administer-cluster": {
-			"busybox": {&api.Pod{}},
-			"cloud-controller-manager-daemonset-example": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.DaemonSet{}},
-			"dns-horizontal-autoscaler":                  {&extensions.Deployment{}},
-			"my-scheduler":                               {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
-			"namespace-dev":                              {&api.Namespace{}},
-			"namespace-prod":                             {&api.Namespace{}},
-			"persistent-volume-label-initializer-config": {&admissionregistration.InitializerConfiguration{}},
-			"pod1":                 {&api.Pod{}},
-			"pod2":                 {&api.Pod{}},
-			"pod3":                 {&api.Pod{}},
+		"docs/concepts/overview/object-management-kubectl": {
+			"simple_deployment": {&extensions.Deployment{}},
+			"update_deployment": {&extensions.Deployment{}},
 		},
-		// TODO: decide whether federation examples should be added
-		"docs/tasks/inject-data-application": {
-			"commands":                    {&api.Pod{}},
-			"dapi-envars-container":       {&api.Pod{}},
-			"dapi-envars-pod":             {&api.Pod{}},
-			"dapi-volume":                 {&api.Pod{}},
-			"dapi-volume-resources":       {&api.Pod{}},
-			"envars":                      {&api.Pod{}},
-			"podpreset-allow-db":          {&settings.PodPreset{}},
-			"podpreset-allow-db-merged":   {&api.Pod{}},
-			"podpreset-configmap":         {&api.ConfigMap{}},
-			"podpreset-conflict-pod":      {&api.Pod{}},
-			"podpreset-conflict-preset":   {&settings.PodPreset{}},
-			"podpreset-merged":            {&api.Pod{}},
-			"podpreset-multi-merged":      {&api.Pod{}},
-			"podpreset-pod":               {&api.Pod{}},
-			"podpreset-preset":            {&settings.PodPreset{}},
-			"podpreset-proxy":             {&settings.PodPreset{}},
-			"podpreset-replicaset-merged": {&api.Pod{}},
-			"podpreset-replicaset":        {&extensions.ReplicaSet{}},
-			"secret":                      {&api.Secret{}},
-			"secret-envars-pod":           {&api.Pod{}},
-			"secret-pod":                  {&api.Pod{}},
+		"examples/admin": {
+			"namespace-dev":  {&api.Namespace{}},
+			"namespace-prod": {&api.Namespace{}},
+		},
+		"examples/admin/cloud": {
+			"ccm-example":            {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.DaemonSet{}},
+			"pvl-initializer-config": {&admissionregistration.InitializerConfiguration{}},
+		},
+		"examples/admin/dns": {
+			"busybox":                   {&api.Pod{}},
+			"dns-horizontal-autoscaler": {&extensions.Deployment{}},
 		},
 		"examples/admin/resource": {
 			"cpu-constraints":                            {&api.LimitRange{}},
@@ -404,17 +368,11 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"quota-pod":            {&api.ResourceQuota{}},
 			"quota-pod-deployment": {&extensions.Deployment{}},
 		},
-		"examples/application/job": {
-			"job-tmpl": {&batch.Job{}},
-			"cronjob":  {&batch.CronJob{}},
-		},
-		"examples/application/job/rabbitmq": {
-			"job": {&batch.Job{}},
-		},
-		"examples/application/job/redis": {
-			"job":           {&batch.Job{}},
-			"redis-pod":     {&api.Pod{}},
-			"redis-service": {&api.Service{}},
+		"examples/admin/sched": {
+			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
+			"pod1":         {&api.Pod{}},
+			"pod2":         {&api.Pod{}},
+			"pod3":         {&api.Pod{}},
 		},
 		"examples/application": {
 			"deployment":         {&extensions.Deployment{}},
@@ -424,6 +382,10 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-with-request": {&extensions.Deployment{}},
 			"shell-demo":         {&api.Pod{}},
 		},
+		"examples/application/cassandra": {
+			"cassandra-service":     {&api.Service{}},
+			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
+		},
 		"examples/application/guestbook": {
 			"frontend-deployment":     {&extensions.Deployment{}},
 			"frontend-service":        {&api.Service{}},
@@ -432,9 +394,27 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-slave-deployment":  {&extensions.Deployment{}},
 			"redis-slave-service":     {&api.Service{}},
 		},
-		"examples/application/cassandra": {
-			"cassandra-service":     {&api.Service{}},
-			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
+		"examples/application/hpa": {
+			"php-apache":        {&autoscaling.HorizontalPodAutoscaler{}},
+		},
+		"examples/application/job": {
+			"cronjob":  {&batch.CronJob{}},
+			"job-tmpl": {&batch.Job{}},
+		},
+		"examples/application/job/rabbitmq": {
+			"job": {&batch.Job{}},
+		},
+		"examples/application/job/redis": {
+			"job":           {&batch.Job{}},
+			"redis-pod":     {&api.Pod{}},
+			"redis-service": {&api.Service{}},
+		},
+		"examples/application/mysql": {
+			"mysql-configmap":   {&api.ConfigMap{}},
+			"mysql-deployment":  {&api.Service{}, &extensions.Deployment{}},
+			"mysql-pv":          {&api.PersistentVolume{}, &api.PersistentVolumeClaim{}},
+			"mysql-services":    {&api.Service{}, &api.Service{}},
+			"mysql-statefulset": {&apps.StatefulSet{}},
 		},
 		"examples/application/web": {
 			"web":          {&api.Service{}, &apps.StatefulSet{}},
@@ -456,6 +436,29 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"replication":      {&api.ReplicationController{}},
 			"nginx-deployment": {&extensions.Deployment{}},
 		},
+		"examples/debug": {
+			"counter-pod":                     {&api.Pod{}},
+			"event-exporter":                  {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
+			"fluentd-gcp-configmap":           {&api.ConfigMap{}},
+			"fluentd-gcp-ds":                  {&extensions.DaemonSet{}},
+			"node-problem-detector":           {&extensions.DaemonSet{}},
+			"node-problem-detector-configmap": {&extensions.DaemonSet{}},
+			"termination":                     {&api.Pod{}},
+		},
+		"examples/podpreset": {
+			"allow-db":          {&settings.PodPreset{}},
+			"allow-db-merged":   {&api.Pod{}},
+			"configmap":         {&api.ConfigMap{}},
+			"conflict-pod":      {&api.Pod{}},
+			"conflict-preset":   {&settings.PodPreset{}},
+			"merged":            {&api.Pod{}},
+			"multi-merged":      {&api.Pod{}},
+			"pod":               {&api.Pod{}},
+			"preset":            {&settings.PodPreset{}},
+			"proxy":             {&settings.PodPreset{}},
+			"replicaset-merged": {&api.Pod{}},
+			"replicaset":        {&extensions.ReplicaSet{}},
+		},
 		"examples/pods": {
 			"commands":                {&api.Pod{}},
 			"init-containers":         {&api.Pod{}},
@@ -465,6 +468,17 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pod-with-pod-affinity":   {&api.Pod{}},
 			"private-reg-pod":         {&api.Pod{}},
 			"share-process-namespace": {&api.Pod{}},
+			"two-container-pod":      {&api.Pod{}},
+		},
+		"examples/pods/inject": {
+			"dapi-envars-container":       {&api.Pod{}},
+			"dapi-envars-pod":             {&api.Pod{}},
+			"dapi-volume":                 {&api.Pod{}},
+			"dapi-volume-resources":       {&api.Pod{}},
+			"envars":                      {&api.Pod{}},
+			"secret":                      {&api.Secret{}},
+			"secret-envars-pod":           {&api.Pod{}},
+			"secret-pod":                  {&api.Pod{}},
 		},
 		"examples/pods/probe": {
 			"exec-liveness":          {&api.Pod{}},
@@ -480,11 +494,11 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"examples/pods/resource": {
 			"cpu-request-limit":       {&api.Pod{}},
 			"cpu-request-limit-2":     {&api.Pod{}},
+			"extended-resource-pod":   {&api.Pod{}},
+			"extended-resource-pod-2": {&api.Pod{}},
 			"memory-request-limit":    {&api.Pod{}},
 			"memory-request-limit-2":  {&api.Pod{}},
 			"memory-request-limit-3":  {&api.Pod{}},
-			"extended-resource-pod":   {&api.Pod{}},
-			"extended-resource-pod-2": {&api.Pod{}},
 		},
 		"examples/pods/security": {
 			"security-context":   {&api.Pod{}},
@@ -504,39 +518,10 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"restricted-psp": {&policy.PodSecurityPolicy{}},
 			"example-psp":    {&policy.PodSecurityPolicy{}},
 		},
-		"docs/tasks/run-application": {
-			"deployment-patch-demo": {&extensions.Deployment{}},
-			"hpa-php-apache":        {&autoscaling.HorizontalPodAutoscaler{}},
-		},
-		"examples/debug": {
-			"counter-pod":                     {&api.Pod{}},
-			"event-exporter":                  {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
-			"fluentd-gcp-configmap":           {&api.ConfigMap{}},
-			"fluentd-gcp-ds":                  {&extensions.DaemonSet{}},
-			"node-problem-detector":           {&extensions.DaemonSet{}},
-			"node-problem-detector-configmap": {&extensions.DaemonSet{}},
-			"termination":                     {&api.Pod{}},
-		},
-		"examples/application/mysql": {
-			"mysql-configmap":   {&api.ConfigMap{}},
-			"mysql-deployment":  {&api.Service{}, &extensions.Deployment{}},
-			"mysql-pv":          {&api.PersistentVolume{}, &api.PersistentVolumeClaim{}},
-			"mysql-services":    {&api.Service{}, &api.Service{}},
-			"mysql-statefulset": {&apps.StatefulSet{}},
-		},
-		"examples/application/hpa": {
-			"php-apache": {&autoscaling.HorizontalPodAutoscaler{}},
-		},
-		"docs/tutorials/clusters": {
-			"hello-apparmor-pod": {&api.Pod{}},
-			"my-scheduler":       {&extensions.Deployment{}},
-		},
-		"docs/tutorials/configuration/configmap/redis": {
-			"redis-pod": {&api.Pod{}},
-		},
-		"docs/concepts/overview/object-management-kubectl": {
-			"simple_deployment": {&extensions.Deployment{}},
-			"update_deployment": {&extensions.Deployment{}},
+		"examples/service/access": {
+			"frontend":      {&api.Service{}, &extensions.Deployment{}},
+			"hello-service": {&api.Service{}},
+			"hello":         {&extensions.Deployment{}},
 		},
 	}
 
