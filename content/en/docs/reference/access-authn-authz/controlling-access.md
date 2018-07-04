@@ -124,7 +124,7 @@ rejects, then the request is immediately rejected.
 In addition to rejecting objects, admission controllers can also set complex defaults for
 fields.
 
-The available Admission Control Modules are described [here](/docs/admin/admission-controllers/).
+The available Admission Control Modules are described [here](/docs/reference/access-authn-authz/controlling-access/).
 
 Once a request passes all admission controllers, it is validated using the validation routines
 for the corresponding API object, and then written to the object store (shown as step **4**).

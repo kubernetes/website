@@ -160,7 +160,7 @@ pods that shouldn't be running. A few of the use cases are
 a particular set of users, you can add a taint to those nodes (say,
 `kubectl taint nodes nodename dedicated=groupName:NoSchedule`) and then add a corresponding
 toleration to their pods (this would be done most easily by writing a custom
-[admission controller](/docs/admin/admission-controllers/)).
+[admission controller](/docs/reference/access-authn-authz/controlling-access/)).
 The pods with the tolerations will then be allowed to use the tainted (dedicated) nodes as
 well as any other nodes in the cluster. If you want to dedicate the nodes to them *and*
 ensure they *only* use the dedicated nodes, then you should additionally add a label similar
@@ -176,7 +176,7 @@ hardware (e.g. `kubectl taint nodes nodename special=true:NoSchedule` or
 `kubectl taint nodes nodename special=true:PreferNoSchedule`) and adding a corresponding
 toleration to pods that use the special hardware. As in the dedicated nodes use case,
 it is probably easiest to apply the tolerations using a custom
-[admission controller](/docs/admin/admission-controllers/)).
+[admission controller](/docs/reference/access-authn-authz/controlling-access/).
 For example, it is recommended to use [Extended
 Resources](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
 to represent the special hardware, taint your special hardware nodes with the

@@ -184,7 +184,7 @@ If unspecified, the API server's TLS private key will be used.
 
 Service accounts are usually created automatically by the API server and
 associated with pods running in the cluster through the `ServiceAccount`
-[Admission Controller](/docs/admin/admission-controllers/). Bearer tokens are
+[Admission Controller](/docs/reference/access-authn-authz/controlling-access/). Bearer tokens are
 mounted into pods at well-known locations, and allow in-cluster processes to
 talk to the API server. Accounts may be explicitly associated with pods using the
 `serviceAccountName` field of a `PodSpec`.

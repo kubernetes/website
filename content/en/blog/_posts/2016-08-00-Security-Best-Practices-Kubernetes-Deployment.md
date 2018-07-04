@@ -205,7 +205,7 @@ Reference [here](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_pod
 
 
 
-In case you are running containers with elevated privileges (--privileged) you should consider using the “DenyEscalatingExec” admission control. This control denies exec and attach commands to pods that run with escalated privileges that allow host access. This includes pods that run as privileged, have access to the host IPC namespace, and have access to the host PID namespace. For more details on admission controls, see the Kubernetes [documentation](http://kubernetes.io/docs/admin/admission-controllers/).
+In case you are running containers with elevated privileges (--privileged) you should consider using the “DenyEscalatingExec” admission control. This control denies exec and attach commands to pods that run with escalated privileges that allow host access. This includes pods that run as privileged, have access to the host IPC namespace, and have access to the host PID namespace. For more details on admission controls, see the Kubernetes [documentation](http://kubernetes.io/docs/reference/access-authn-authz/controlling-access/).
 
 
 

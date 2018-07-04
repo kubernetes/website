@@ -32,7 +32,7 @@ Kubernetes 区分用户账户和服务账户的概念主要基于以下原因：
 
 ### 服务账户准入控制器
 
-对pod的改动通过一个被称为[Admission Controller](/docs/admin/admission-controllers)的插件来实现。它是apiserver的一部分。
+对pod的改动通过一个被称为[Admission Controller](/docs/reference/access-authn-authz/controlling-access)的插件来实现。它是apiserver的一部分。
 当pod被创建或更新时，它会同步地修改pod。 当该插件处于激活状态(在大多数发行版中都是默认的)，当pod被创建或更新时它会进行以下动作：
 
   1. 如果该pod没有 `ServiceAccount` 设置，将其 `ServiceAccount` 设为 `default`。
