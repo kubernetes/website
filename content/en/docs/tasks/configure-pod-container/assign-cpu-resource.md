@@ -108,7 +108,7 @@ resources:
 Use `kubectl top` to fetch the metrics for the pod:
 
 ```shell
-kubectl top pod memory-demo
+kubectl top pod cpu-demo --namespace=cpu-example
 ```
 
 The output shows that the Pod is using 974 millicpu, which is just a bit less than
@@ -116,7 +116,7 @@ the limit of 1 cpu specified in the Pod's configuration file.
 
 ```
 NAME                        CPU(cores)   MEMORY(bytes)
-memory-demo                 794m         <something>
+cpu-demo                    974m         <something>
 ```
 
 Recall that by setting `-cpu "2"`, you configured the Container to attempt to use 2 cpus.
