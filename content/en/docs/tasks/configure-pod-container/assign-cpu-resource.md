@@ -116,7 +116,7 @@ the limit of 1 cpu specified in the Pod's configuration file.
 
 ```
 NAME                        CPU(cores)   MEMORY(bytes)
-cpu-demo                    794m         <something>
+cpu-demo                    974m         <something>
 ```
 
 Recall that by setting `-cpu "2"`, you configured the Container to attempt to use 2 cpus.
