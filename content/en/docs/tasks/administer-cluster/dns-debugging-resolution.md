@@ -22,12 +22,12 @@ This page provides hints on diagnosing DNS problems.
 
 Create a file named busybox.yaml with the following contents:
 
-{{< code file="busybox.yaml" >}}
+{{< codenew file="admin/dns/busybox.yaml" >}}
 
 Then create a pod using this file and verify its status:
 
 ```shell
-$ kubectl create -f busybox.yaml
+$ kubectl create -f https://k8s.io/examples/admin/dns/busybox.yaml
 pod "busybox" created
 
 $ kubectl get pods busybox
