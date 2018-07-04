@@ -468,6 +468,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pod-with-pod-affinity":   {&api.Pod{}},
 			"private-reg-pod":         {&api.Pod{}},
 			"share-process-namespace": {&api.Pod{}},
+			"simple-pod":              {&api.Pod{}},
 			"two-container-pod":      {&api.Pod{}},
 		},
 		"examples/pods/inject": {
@@ -483,6 +484,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"examples/pods/probe": {
 			"exec-liveness":          {&api.Pod{}},
 			"http-liveness":          {&api.Pod{}},
+			"pod-with-http-healthcheck": {&api.Pod{}},
+			"pod-with-tcp-socket-healthcheck": {&api.Pod{}},
 			"tcp-liveness-readiness": {&api.Pod{}},
 		},
 		"examples/pods/qos": {
@@ -518,10 +521,23 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"restricted-psp": {&policy.PodSecurityPolicy{}},
 			"example-psp":    {&policy.PodSecurityPolicy{}},
 		},
+		"examples/service": {
+			"nginx-service": {&api.Service{}},
+		},
 		"examples/service/access": {
 			"frontend":      {&api.Service{}, &extensions.Deployment{}},
 			"hello-service": {&api.Service{}},
 			"hello":         {&extensions.Deployment{}},
+		},
+		"examples/windows": {
+			"configmap-pod": {&api.ConfigMap{}, &api.Pod{}},
+			"daemonset": {&extensions.DaemonSet{}},
+			"deploy-hyperv": {&extensions.Deployment{}},
+			"deploy-resource": {&extensions.Deployment{}},
+			"emptydir-pod": {&api.Pod{}},
+			"hostpath-volume-pod": {&api.Pod{}},
+			"secret-pod": {&api.Secret{}, &api.Pod{}},
+			"simple-pod": {&api.Pod{}},
 		},
 	}
 
