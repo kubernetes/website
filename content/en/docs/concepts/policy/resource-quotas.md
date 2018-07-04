@@ -154,7 +154,7 @@ The following types are supported:
 | `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 | `pods` | The total number of pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `.status.phase in (Failed, Succeeded)` is true.  |
 | `replicationcontrollers` | The total number of replication controllers that can exist in the namespace. |
-| `resourcequotas` | The total number of [resource quotas](/docs/admin/admission-controllers/#resourcequota) that can exist in the namespace. |
+| `resourcequotas` | The total number of [resource quotas](/docs/reference/access-authn-authz/admission-controllers/#resourcequota) that can exist in the namespace. |
 | `services` | The total number of services that can exist in the namespace. |
 | `services.loadbalancers` | The total number of services of type load balancer that can exist in the namespace. |
 | `services.nodeports` | The total number of services of type node port that can exist in the namespace. |

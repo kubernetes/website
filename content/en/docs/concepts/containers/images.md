@@ -27,7 +27,7 @@ you can do one of the following:
 
 - set the `imagePullPolicy` of the container to `Always`;
 - use `:latest` as the tag for the image to use;
-- enable the [AlwaysPullImages](/docs/admin/admission-controllers/#alwayspullimages) admission controller.
+- enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
 
 If you did not specify tag of your image, it will be assumed as `:latest`, with
 pull image policy of `Always` correspondingly.
@@ -315,10 +315,10 @@ common use cases and suggested solutions.
      - It will work better with cluster autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 1. Cluster with a proprietary images, a few of which require stricter access control.
-   - Ensure [AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods potentially have access to all images.
+   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods potentially have access to all images.
    - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
 1. A multi-tenant cluster where each tenant needs own private registry.
-   - Ensure [AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods of all tenants potentially have access to all images.
+   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods of all tenants potentially have access to all images.
    - Run a private registry with authorization required.
    - Generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
    - The tenant adds that secret to imagePullSecrets of each namespace.

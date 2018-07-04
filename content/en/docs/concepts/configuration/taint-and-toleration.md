@@ -181,7 +181,7 @@ For example, it is recommended to use [Extended
 Resources](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
 to represent the special hardware, taint your special hardware nodes with the
 extended resource name and run the
-[ExtendedResourceToleration](/docs/admin/admission-controllers/#extendedresourcetoleration)
+[ExtendedResourceToleration](/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)
 admission controller. Now, because the nodes are tainted, no pods without the
 toleration will schedule on them. But when you submit a pod that requests the
 extended resource, the `ExtendedResourceToleration` admission controller will

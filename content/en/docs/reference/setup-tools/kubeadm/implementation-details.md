@@ -239,17 +239,17 @@ Other API server flags that are set unconditionally are:
  - `--allow-privileged` to `true` (required e.g. by kube proxy)
  - `--requestheader-client-ca-file` to `front-proxy-ca.crt`
  - `--enable-admission-plugins` to:
-    - [`Initializers`](/docs/admin/admission-controllers/#initializers-alpha) to enable [Dynamic Admission Control](/docs/admin/extensible-admission-controllers/).
-    - [`NamespaceLifecycle`](/docs/admin/admission-controllers/#namespacelifecycle) e.g. to avoid deletion of
+    - [`Initializers`](/docs/reference/access-authn-authz/admission-controllers/#initializers-alpha) to enable [Dynamic Admission Control](/docs/admin/extensible-admission-controllers/).
+    - [`NamespaceLifecycle`](/docs/reference/access-authn-authz/admission-controllers/#namespacelifecycle) e.g. to avoid deletion of
       system reserved namespaces
-    - [`LimitRanger`](/docs/admin/admission-controllers/#limitranger) and [`ResourceQuota`](/docs/admin/admission-controllers/#resourcequota) to enforce limits on namespaces
-    - [`ServiceAccount`](/docs/admin/admission-controllers/#serviceaccount) to enforce service account automation
-    - [`PersistentVolumeLabel`](/docs/admin/admission-controllers/#persistentvolumelabel) attaches region or zone labels to
+    - [`LimitRanger`](/docs/reference/access-authn-authz/admission-controllers/#limitranger) and [`ResourceQuota`](/docs/reference/access-authn-authz/admission-controllers/#resourcequota) to enforce limits on namespaces
+    - [`ServiceAccount`](/docs/reference/access-authn-authz/admission-controllers/#serviceaccount) to enforce service account automation
+    - [`PersistentVolumeLabel`](/docs/reference/access-authn-authz/admission-controllers/#persistentvolumelabel) attaches region or zone labels to
       PersistentVolumes as defined by the cloud provider (This admission controller is deprecated and will be removed in a future version.
       It is not deployed by kubeadm by default with v1.9 onwards when not explicitly opting into using `gce` or `aws` as cloud providers)
-    - [`DefaultStorageClass`](/docs/admin/admission-controllers/#defaultstorageclass) to enforce default storage class on `PersistentVolumeClaim` objects
-    - [`DefaultTolerationSeconds`](/docs/admin/admission-controllers/#defaulttolerationseconds)
-    - [`NodeRestriction`](/docs/admin/admission-controllers/#noderestriction) to limit what a kubelet can modify
+    - [`DefaultStorageClass`](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass) to enforce default storage class on `PersistentVolumeClaim` objects
+    - [`DefaultTolerationSeconds`](/docs/reference/access-authn-authz/admission-controllers/#defaulttolerationseconds)
+    - [`NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) to limit what a kubelet can modify
       (e.g. only pods on this node)
  - `--kubelet-preferred-address-types` to `InternalIP,ExternalIP,Hostname;` this makes `kubectl logs` and other API server-kubelet
    communication work in environments where the hostnames of the nodes aren't resolvable
