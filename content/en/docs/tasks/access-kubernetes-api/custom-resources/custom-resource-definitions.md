@@ -181,7 +181,7 @@ If you later recreate the same CustomResourceDefinition, it will start out empty
 
 ## Serving multiple versions of a CRD
 
-See [Custom resource definition versioning](custom-resource-definition-versioning)
+See [Custom resource definition versioning](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning)
 for more information about serving multiple versions of your
 CustomResourceDefinition and migrating your objects from one version to another.
 
