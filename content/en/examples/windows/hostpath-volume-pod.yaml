@@ -4,15 +4,15 @@ metadata:
   name: hostpath-volume-pod
 spec:
   containers:
-  - name: hostpath-redis
-    image: redis:3.0-nanoserver
+  - name: my-hostpath-volume-pod
+    image: microsoft/windowsservercore:1709
     volumeMounts:
-    - name: blah
+    - name: foo
       mountPath: "C:\\etc\\foo"
       readOnly: true
   nodeSelector:
     beta.kubernetes.io/os: windows
   volumes:
-  - name: blah
+  - name: foo
     hostPath:
-      path: "C:\\etc\\foo"
+     path: "C:\\etc\\foo"
