@@ -149,7 +149,7 @@ subjectaccessreview "" created
 {{% capture whatsnext %}}
 
 * 要学习有关身份验证的更多信息，请参阅**身份验证**[控制访问 Kubernetes API](docs/admin/access-the-api/)。
-* 要了解有关入学管理的更多信息，请参阅[使用 Admission 控制器](docs/reference/access-authn-authz/controlling-access/)。
+* 要了解有关入学管理的更多信息，请参阅[使用 Admission 控制器](/docs/reference/access-authn-authz/controlling-access/)。
 *
 {{% /capture %}}
 
