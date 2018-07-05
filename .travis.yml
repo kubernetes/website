@@ -12,6 +12,8 @@ install:
 - go get -t -v k8s.io/kubernetes.github.io/test
 
 # Simplified deduplication of dependencies.
+- cd $GOPATH/src/k8s.io/kubernetes/
+- git checkout release-1.7
 - cp -L -R $GOPATH/src/k8s.io/kubernetes/vendor/ $GOPATH/src/
 - rm -r $GOPATH/src/k8s.io/kubernetes/vendor/
 
