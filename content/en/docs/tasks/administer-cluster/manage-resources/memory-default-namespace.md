@@ -37,12 +37,12 @@ kubectl create namespace default-mem-example
 Here's the configuration file for a LimitRange object. The configuration specifies
 a default memory request and a default memory limit.
 
-{{< code file="memory-defaults.yaml" >}}
+{{< codenew file="admin/resource/memory-defaults.yaml" >}}
 
 Create the LimitRange in the default-mem-example namespace:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-defaults.yaml --namespace=default-mem-example
+kubectl create -f https://k8s.io/examples/admin/resource/memory-defaults.yaml --namespace=default-mem-example
 ```
 
 Now if a Container is created in the default-mem-example namespace, and the
@@ -53,12 +53,12 @@ memory limit of 512 MiB.
 Here's the configuration file for a Pod that has one Container. The Container
 does not specify a memory request and limit.
 
-{{< code file="memory-defaults-pod.yaml" >}}
+{{< codenew file="admin/resource/memory-defaults-pod.yaml" >}}
 
 Create the Pod.
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-defaults-pod.yaml --namespace=default-mem-example
+kubectl create -f https://k8s.io/examples/admin/resource/memory-defaults-pod.yaml --namespace=default-mem-example
 ```
 
 View detailed information about the Pod:
@@ -93,13 +93,13 @@ kubectl delete pod default-mem-demo --namespace=default-mem-example
 Here's the configuration file for a Pod that has one Container. The Container
 specifies a memory limit, but not a request:
 
-{{< code file="memory-defaults-pod-2.yaml" >}}
+{{< codenew file="admin/resource/memory-defaults-pod-2.yaml" >}}
 
 Create the Pod:
 
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-defaults-pod-2.yaml --namespace=default-mem-example
+kubectl create -f https://k8s.io/examples/admin/resource/memory-defaults-pod-2.yaml --namespace=default-mem-example
 ```
 
 View detailed information about the Pod:
@@ -124,12 +124,12 @@ resources:
 Here's the configuration file for a Pod that has one Container. The Container
 specifies a memory request, but not a limit:
 
-{{< code file="memory-defaults-pod-3.yaml" >}}
+{{< codenew file="admin/resource/memory-defaults-pod-3.yaml" >}}
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-defaults-pod-3.yaml --namespace=default-mem-example
+kubectl create -f https://k8s.io/examples/admin/resource/memory-defaults-pod-3.yaml --namespace=default-mem-example
 ```
 
 View the Pod's specification:

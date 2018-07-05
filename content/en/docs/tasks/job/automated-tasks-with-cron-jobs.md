@@ -43,7 +43,7 @@ component.
 Cron jobs require a config file.
 This example cron job config `.spec` file prints the current time and a hello message every minute:
 
-{{< code file="cronjob.yaml" >}}
+{{< codenew file="application/job/cronjob.yaml" >}}
 
 Run the example cron job by downloading the example file and then running this command:
 
@@ -93,7 +93,7 @@ Note that the job name and pod name are different.
 
 ```shell
 # Replace "hello-4111706356" with the job name in your system
-$ pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
+$ pods=$(kubectl get pods --show-all --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
 
 $ echo $pods
 hello-4111706356-o9qcm

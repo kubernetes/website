@@ -32,33 +32,46 @@ have a given `phase` value.
 
 Here are the possible values for `phase`:
 
-* Pending: The Pod has been accepted by the Kubernetes system, but one or more of
-  the Container images has not been created. This includes time before being
-  scheduled as well as time spent downloading images over the network,
-  which could take a while.
-
-* Running: The Pod has been bound to a node, and all of the Containers have been
-  created. At least one Container is still running, or is in the process of
-  starting or restarting.
-
-* Succeeded: All Containers in the Pod have terminated in success, and will not
-  be restarted.
-
-* Failed: All Containers in the Pod have terminated, and at least one Container
-  has terminated in failure. That is, the Container either exited with non-zero
-  status or was terminated by the system.
-
-* Unknown: For some reason the state of the Pod could not be obtained, typically
-  due to an error in communicating with the host of the Pod.
+Value | Description
+:-----|:-----------
+`Pending` | The Pod has been accepted by the Kubernetes system, but one or more of the Container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while.
+`Running` | The Pod has been bound to a node, and all of the Containers have been created. At least one Container is still running, or is in the process of starting or restarting.
+`Succeeded` | All Containers in the Pod have terminated in success, and will not be restarted.
+`Failed` | All Containers in the Pod have terminated, and at least one Container has terminated in failure. That is, the Container either exited with non-zero status or was terminated by the system.
+`Unknown` | For some reason the state of the Pod could not be obtained, typically due to an error in communicating with the host of the Pod.
 
 ## Pod conditions
 
 A Pod has a PodStatus, which has an array of
+[PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
+through which the Pod has or has not passed. Each element of the PodCondition
+array has six possible fields:
+
+* The `lastProbeTime` field provides a timestamp for when the Pod condition
+  was last probed.
+
+* The `lastTransitionTime` field provides a timestamp for when the Pod
+  last transitioned from one status to another.
+
+* The `message` field is a human-readable message indicating details
+  about the transition.
+
+A Pod has a PodStatus, which has an array of
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core). Each element
 of the PodCondition array has a `type` field and a `status` field. The `type`
-field is a string, with possible values PodScheduled, Ready, Initialized, and
-Unschedulable. The `status` field is a string, with possible values True, False,
-and Unknown.
+field is a string with the following possible values:
+
+* `PodScheduled`: the Pod has been scheduled to a node;
+* `Ready`: the Pod is able to serve requests and should be added to the load
+  balancing pools of all matching Services;
+* `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers)
+  have started successfully;
+* `Unschedulable`: the scheduler cannot schedule the Pod right now, for example
+  due to lacking of resources or other constraints;
+* `ContainersReady`: all containers in the Pod are ready.
+
+The `status` field is a string, with possible values "`True`", "`False`", and
+"`Unknown`".
 
 ## Container probes
 
@@ -130,7 +143,8 @@ puts itself into an unready state regardless of whether the readiness probe exis
 The Pod remains in the unready state while it waits for the Containers in the Pod
 to stop.
 
-For more information about how to set up a liveness or readiness probe, see [Configure Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+For more information about how to set up a liveness or readiness probe, see
+[Configure Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
 ## Pod and Container status
 
@@ -140,6 +154,58 @@ and
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
 Note that the information reported as Pod status depends on the current
 [ContainerState](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
+
+## Pod readiness gate
+
+{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+
+In order to add extensibility to Pod readiness by enabling the injection of
+extra feedbacks or signals into `PodStatus`, Kubernetes 1.11 introduced a
+feature named [Pod ready++](https://github.com/kubernetes/community/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md).
+You can use the new field `ReadinessGate` in the `PodSpec` to specify additional
+conditions to be evaluated for Pod readiness. If Kubernetes cannot find such a
+condition in the `status.conditions` field of a Pod, the status of the condition 
+is default to "`False`". Below is an example:
+
+```yaml
+Kind: Pod
+...
+spec:
+  readinessGates:
+    - conditionType: "www.example.com/feature-1"
+status:
+  conditions:
+    - type: Ready  # this is a builtin PodCondition
+      status: "True"
+      lastProbeTime: null
+      lastTransitionTime: 2018-01-01T00:00:00Z
+    - type: "www.example.com/feature-1"   # an extra PodCondition
+      status: "False"
+      lastProbeTIme: null
+      lastTransitionTime: 2018-01-01T00:00:00Z
+  containerStatuses:
+    - containerID: docker://abcd...
+      ready: true
+...
+```
+
+The new Pod conditions must comply with Kubernetes [label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
+Since the `kubectl patch` command still doesn't support patching object status,
+the new Pod conditions have to be injected through the `PATCH` action using
+one of the [KubeClient libraries](/docs/reference/using-api/client-librarie/).
+
+With the introduction of new Pod conditions, a Pod is evaluated to be ready **only**
+when both the following statements are true:
+
+* All containers in the Pod are ready.
+* All conditions specified in `ReadinessGates` are "`True`".
+
+To facilitate this change to Pod readiness evaluation, a new Pod condition
+`ContainersReady` is introduced to capture the old Pod `Ready` condition.
+
+As an alpha feature, the "Pod Ready++" feature has to be explicitly enabled by
+setting the `PodReadinessGates` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to True.
 
 ## Restart policy
 
@@ -152,7 +218,6 @@ back-off delay (10s, 20s, 40s ...) capped at five minutes, and is reset after te
 minutes of successful execution. As discussed in the
 [Pods document](/docs/user-guide/pods/#durability-of-pods-or-lack-thereof),
 once bound to a node, a Pod will never be rebound to another node.
-
 
 
 ## Pod lifetime

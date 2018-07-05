@@ -29,6 +29,7 @@ following steps:
    own CA cert and/or key by dropping it in the cert directory configured via `--cert-dir`
    (`/etc/kubernetes/pki` by default) this step is skipped as described in the
    [Using custom certificates](#custom-certificates) document.
+   The APIServer certs will have additional SAN entries for any `--apiserver-cert-extra-sans` arguments, lowercased if necessary.
 
 1. Writes kubeconfig files in `/etc/kubernetes/`  for
    the kubelet, the controller-manager and the scheduler to use to connect to the
@@ -67,7 +68,7 @@ following steps:
 
 1. Makes all the necessary configurations for allowing node joining with the
    [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) and
-   [TLS Bootstrap](/docs/admin/kubelet-tls-bootstrapping/)
+   [TLS Bootstrap](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
    mechanism:
 
    - Write a ConfigMap for making available all the information required
@@ -79,13 +80,14 @@ following steps:
 
    See [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) for additional info.
 
-1. Installs the internal DNS server (kube-dns) and the kube-proxy addon components via the API server. If kubeadm is invoked with `--feature-gates=CoreDNS=true`, then [CoreDNS](https://coredns.io/) will be installed as the default internal DNS server instead of kube-dns.  
+1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
+   In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
+   To install kube-dns instead of CoreDNS, kubeadm must be invoked with `--feature-gates=CoreDNS=false`.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 
 1. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
    (`--feature-gates=SelfHosting=true`), the static Pod based control plane is
    transformed into a [self-hosted control plane](#self-hosting).
-
 
 ### Using kubeadm init with a configuration file {#config-file}
 
@@ -96,81 +98,160 @@ still considered alpha and may change in future versions.
 
 It's possible to configure `kubeadm init` with a configuration file instead of command
 line flags, and some more advanced features may only be available as
-configuration file options.  This file is passed in the `--config` option.
+configuration file options. This file is passed in the `--config` option.
+
+In Kubernetes 1.11 and later, the default configuration can be printed out using the
+[kubeadm config print-default](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+
+For more details on each field in the configuration you can navigate to our
+[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#MasterConfiguration)
+
+Example of the kubeadm MasterConfiguration version `v1alpha2`:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1alpha1
+apiVersion: kubeadm.k8s.io/v1alpha2
 kind: MasterConfiguration
+kubernetesVersion: v1.11.0
 api:
-  advertiseAddress: <address|string>
-  controlPlaneEndpoint: <string>
-  bindPort: <int>
+  advertiseAddress: 192.168.0.102
+  bindPort: 6443
+  controlPlaneEndpoint: ""
+auditPolicy:
+  logDir: /var/log/kubernetes/audit
+  logMaxAge: 2
+  path: ""
+bootstrapTokens:
+- groups:
+  - system:bootstrappers:kubeadm:default-node-token
+  token: abcdef.0123456789abcdef
+  ttl: 24h0m0s
+  usages:
+  - signing
+  - authentication
+certificatesDir: /etc/kubernetes/pki
+clusterName: kubernetes
 etcd:
-  endpoints:
-  - <endpoint1|string>
-  - <endpoint2|string>
-  caFile: <path|string>
-  certFile: <path|string>
-  keyFile: <path|string>
-  dataDir: <path|string>
-  extraArgs:
-    <argument>: <value|string>
-    <argument>: <value|string>
-  image: <string>
-  serverCertSANs:
-  - <name1|string>
-  - <name2|string>
-  peerCertSANs:
-  - <name1|string>
-  - <name2|string>
+  local:
+    dataDir: /var/lib/etcd
+    image: ""
+imageRepository: k8s.gcr.io
 kubeProxy:
   config:
-    mode: <value|string>
-    bindAddress: <address|string>
-    clusterCIDR: <cidr>
+    bindAddress: 0.0.0.0
+    clientConnection:
+      acceptContentTypes: ""
+      burst: 10
+      contentType: application/vnd.kubernetes.protobuf
+      kubeconfig: /var/lib/kube-proxy/kubeconfig.conf
+      qps: 5
+    clusterCIDR: ""
+    configSyncPeriod: 15m0s
+    conntrack:
+      max: null
+      maxPerCore: 32768
+      min: 131072
+      tcpCloseWaitTimeout: 1h0m0s
+      tcpEstablishedTimeout: 24h0m0s
+    enableProfiling: false
+    healthzBindAddress: 0.0.0.0:10256
+    hostnameOverride: ""
+    iptables:
+      masqueradeAll: false
+      masqueradeBit: 14
+      minSyncPeriod: 0s
+      syncPeriod: 30s
+    ipvs:
+      ExcludeCIDRs: null
+      minSyncPeriod: 0s
+      scheduler: ""
+      syncPeriod: 30s
+    metricsBindAddress: 127.0.0.1:10249
+    mode: ""
+    nodePortAddresses: null
+    oomScoreAdj: -999
+    portRange: ""
+    resourceContainer: /kube-proxy
+    udpIdleTimeout: 250ms
+kubeletConfiguration:
+  baseConfig:
+    address: 0.0.0.0
+    authentication:
+      anonymous:
+        enabled: false
+      webhook:
+        cacheTTL: 2m0s
+        enabled: true
+      x509:
+        clientCAFile: /etc/kubernetes/pki/ca.crt
+    authorization:
+      mode: Webhook
+      webhook:
+        cacheAuthorizedTTL: 5m0s
+        cacheUnauthorizedTTL: 30s
+    cgroupDriver: cgroupfs
+    cgroupsPerQOS: true
+    clusterDNS:
+    - 10.96.0.10
+    clusterDomain: cluster.local
+    containerLogMaxFiles: 5
+    containerLogMaxSize: 10Mi
+    contentType: application/vnd.kubernetes.protobuf
+    cpuCFSQuota: true
+    cpuManagerPolicy: none
+    cpuManagerReconcilePeriod: 10s
+    enableControllerAttachDetach: true
+    enableDebuggingHandlers: true
+    enforceNodeAllocatable:
+    - pods
+    eventBurst: 10
+    eventRecordQPS: 5
+    evictionHard:
+      imagefs.available: 15%
+      memory.available: 100Mi
+      nodefs.available: 10%
+      nodefs.inodesFree: 5%
+    evictionPressureTransitionPeriod: 5m0s
+    failSwapOn: true
+    fileCheckFrequency: 20s
+    hairpinMode: promiscuous-bridge
+    healthzBindAddress: 127.0.0.1
+    healthzPort: 10248
+    httpCheckFrequency: 20s
+    imageGCHighThresholdPercent: 85
+    imageGCLowThresholdPercent: 80
+    imageMinimumGCAge: 2m0s
+    iptablesDropBit: 15
+    iptablesMasqueradeBit: 14
+    kubeAPIBurst: 10
+    kubeAPIQPS: 5
+    makeIPTablesUtilChains: true
+    maxOpenFiles: 1000000
+    maxPods: 110
+    nodeStatusUpdateFrequency: 10s
+    oomScoreAdj: -999
+    podPidsLimit: -1
+    port: 10250
+    registryBurst: 10
+    registryPullQPS: 5
+    resolvConf: /etc/resolv.conf
+    rotateCertificates: true
+    runtimeRequestTimeout: 2m0s
+    serializeImagePulls: true
+    staticPodPath: /etc/kubernetes/manifests
+    streamingConnectionIdleTimeout: 4h0m0s
+    syncFrequency: 1m0s
+    volumeStatsAggPeriod: 1m0s
 networking:
-  dnsDomain: <string>
-  serviceSubnet: <cidr>
-  podSubnet: <cidr>
-kubernetesVersion: <string>
-cloudProvider: <string>
-nodeName: <string>
-authorizationModes:
-- <authorizationMode1|string>
-- <authorizationMode2|string>
-token: <string>
-tokenTTL: <time duration>
-selfHosted: <bool>
-apiServerExtraArgs:
-  <argument>: <value|string>
-  <argument>: <value|string>
-controllerManagerExtraArgs:
-  <argument>: <value|string>
-  <argument>: <value|string>
-schedulerExtraArgs:
-  <argument>: <value|string>
-  <argument>: <value|string>
-apiServerExtraVolumes:
-- name: <value|string>
-  hostPath: <value|string>
-  mountPath: <value|string>
-controllerManagerExtraVolumes:
-- name: <value|string>
-  hostPath: <value|string>
-  mountPath: <value|string>
-schedulerExtraVolumes:
-- name: <value|string>
-  hostPath: <value|string>
-  mountPath: <value|string>
-apiServerCertSANs:
-- <name1|string>
-- <name2|string>
-certificatesDir: <string>
-imageRepository: <string>
-unifiedControlPlaneImage: <string>
-featureGates:
-  <feature>: <bool>
-  <feature>: <bool>
+  dnsDomain: cluster.local
+  podSubnet: ""
+  serviceSubnet: 10.96.0.0/12
+nodeRegistration:
+  criSocket: /var/run/dockershim.sock
+  name: your-host-name
+  taints:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+unifiedControlPlaneImage: ""
 ```
 
 ### Adding kube-proxy parameters {#kube-proxy}
@@ -188,7 +269,7 @@ For example, to add additional feature-gate arguments to the API server, your [c
 will need to look like this:
 
 ```
-apiVersion: kubeadm.k8s.io/v1alpha1
+apiVersion: kubeadm.k8s.io/v1alpha2
 kind: MasterConfiguration
 apiServerExtraArgs:
   feature-gates: APIResponseCompression=true
@@ -348,6 +429,14 @@ In order to set up a cluster where the master and worker nodes communicate with 
 
 3. Finally, when you run `kubeadm join`, make sure you provide the private IP of the API server addressed as defined in step 1.
 
+### Setting the node name
+
+By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the  `--node-name`flag.
+The flag passes the appropriate [`--hostname-override`](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#options) 
+to the kubelet.
+
+Be aware that overriding the hostname can [interfere with cloud providers](https://github.com/kubernetes/website/pull/8873).
+
 ### Self-hosting the Kubernetes control plane {#self-hosting}
 
 As of 1.8, you can experimentally create a _self-hosted_ Kubernetes control
@@ -363,7 +452,7 @@ flag to `kubeadm init`.
 {{< /caution >}}
 
 {{< warning >}}
-**Warning:** see self-hosted caveats and limitations.
+**Warning:** See self-hosted caveats and limitations.
 {{< /warning >}}
 
 #### Caveats
@@ -432,7 +521,14 @@ Here `v1.8.x` means the "latest patch release of the v1.8 branch".
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
-If using `--feature-gates=CoreDNS=true` image `coredns/coredns:1.0.2` is required (instead of the three `k8s-dns-*` images).
+If you run Kubernetes version 1.10 or earlier, and if you set `--feature-gates=CoreDNS=true`,
+you must also use the image `coredns/coredns:1.0.2`, instead of the three `k8s-dns-*` images.
+
+In Kubernetes 1.11 and later, you can list and pull the images using the `kubeadm config images` sub-command:
+```
+kubeadm config images list
+kubeadm config images pull
+```
 
 ### Automating kubeadm
 

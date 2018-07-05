@@ -1,13 +1,19 @@
 ---
 title: Federated Events
+content_template: templates/concept
 ---
+
+{{% capture overview %}}
 
 {{< include "federation-current-state.md" >}}
 
 This guide explains how to use events in federation control plane to help in debugging.
 
+{{% /capture %}}
 
 {{< toc >}}
+
+{{% capture body %}}
 
 ## Prerequisites
 
@@ -23,7 +29,7 @@ You are also expected to have a basic
 [working knowledge of Kubernetes](/docs/setup/) in
 general.
 
-## Overview
+## View federation events
 
 Events in federation control plane (referred to as "federation events" in
 this guide) are very similar to the traditional Kubernetes
@@ -39,3 +45,5 @@ kubectl --context=federation-cluster get events
 ```
 
 The standard kubectl get, update, delete commands will all work.
+
+{{% /capture %}}
