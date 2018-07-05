@@ -75,10 +75,8 @@ load-balanced access to an application running in a cluster.
    external IP address remains in the pending state.
    {{< /note >}}
 
-       ```
        NAME              CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
        example-service   10.0.0.160   <pending>     8080/TCP   40s
-       ```
 
 1. Use your Service object to access the Hello World application:
 
@@ -104,9 +102,7 @@ load-balanced access to an application running in a cluster.
    value for your service. Then enter this command to access the Hello World
    application:
 
-       ```
        curl <minikube-node-ip-address>:<service-node-port>
-       ```
 
    where `<minikube-node-ip-address>` us the IP address of your Minikube node,
    and `<service-node-port>` is the NodePort value for your service.
