@@ -95,7 +95,7 @@ You can follow the steps below to configure a Redis cache using data stored in a
 1. Create the pod:
 
    ```shell
-   kubectl create -f https://k8s.io/tutorials/configuration/configmap/redis/redis-pod.yaml
+   kubectl create -f https://k8s.io/docs/tutorials/configuration/configmap/redis/redis-pod.yaml
    ```
 
    In the example, the config volume is mounted at `/redis-master`.

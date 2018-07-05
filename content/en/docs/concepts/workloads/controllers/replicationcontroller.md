@@ -44,12 +44,12 @@ service, such as web servers.
 
 This example ReplicationController config runs three copies of the nginx web server.
 
-{{< code file="replication.yaml" >}}
+{{< codenew file="controllers/replication.yaml" >}}
 
 Run the example job by downloading the example file and then running this command:
 
 ```shell
-$ kubectl create -f ./replication.yaml
+$ kubectl create -f https://k8s.io/examples/controllers/replication.yaml
 replicationcontroller "nginx" created
 ```
 

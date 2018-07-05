@@ -476,6 +476,7 @@ dd { margin-bottom: 16px; }
 
 #docsContent #TableOfContents ul, #docsContent #TableOfContents li { list-style: disk; }
 
+
 .fixed footer { position: fixed; bottom: 0; }
 
 #miceType { clear: both; font-size: 11px; line-height: 18px; color: #aaa; }
@@ -497,6 +498,8 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 #home #hero main { padding: 0 10px; margin-bottom: 30px; }
 
 #home #hero #vendorStrip { display: none; }
+
+#blog.flip-nav .logo { background-image: url(/images/nav_logo2.svg); }
 
 #oceanNodes { padding-top: 60px; padding-bottom: 60px; }
 
@@ -752,13 +755,13 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #home #caseStudiesWrapper div { position: relative; display: inline-block; vertical-align: top; width: 100%; min-height: 230px; padding: 125px 10px 15px; margin-bottom: 30px; background-position: top center; background-repeat: no-repeat; }
 
-#home #caseStudiesWrapper div:nth-child(1) { background-image: url(/images/community_logos/pearson_logo.png); }
+#home #caseStudiesWrapper div:nth-child(1) { background-image: url(/images/community_logos/northwestern-mutual.png); }
 
-#home #caseStudiesWrapper div:nth-child(2) { background-image: url(/images/community_logos/box_logo.png); }
+#home #caseStudiesWrapper div:nth-child(2) { background-image: url(/images/community_logos/openai.png); }
 
-#home #caseStudiesWrapper div:nth-child(3) { background-image: url(/images/community_logos/ebay_logo.png); }
+#home #caseStudiesWrapper div:nth-child(3) { background-image: url(/images/community_logos/nyt.png); }
 
-#home #caseStudiesWrapper div:nth-child(4) { background-image: url(/images/community_logos/wikimedia_foundation_logo.png); }
+#home #caseStudiesWrapper div:nth-child(4) { background-image: url(/images/community_logos/nordstrom.png); }
 
 #home #caseStudiesWrapper p { font-size: 20px; }
 
@@ -853,6 +856,22 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
   #docs .flyout-button { display: none; }
   #docs .logo { position: relative; float: left; display: block; width: 180px; height: 88px; top: 0; left: 0; transform: none; background-image: url(../images/nav_logo.svg); }
   #docs.flip-nav .logo, #docs.open-nav .logo { background-image: url(../images/nav_logo2.svg); }
+  div#pre-footer {
+    background-color: #fff;
+    text-align: center;
+  }
+  div#pre-footer .issue-button-container {
+    padding-bottom: 10px;
+  }
+  div#pre-footer div#lastedit.lastedit {
+    padding: 0 0 10px 20px;
+    color: #bbb;
+    font-size: 13px;
+  }
+  div#pre-footer div#lastedit.lastedit a {
+    color: #3371e3;
+    text-decoration: underline;
+  }
   #encyclopedia { padding: 50px 50px 100px 100px; clear: both; }
   #docsToc { position: relative; float: left; padding: 0 20px; left: 0; width: 350px; z-index: auto; }
   #docsToc .push-menu-close-button { display: none; }

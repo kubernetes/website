@@ -118,12 +118,14 @@ Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/
 You can install all the available addons with the `all` subcommand, or
 install them selectively.
 
-Please note that if kubeadm is invoked with `--feature-gates=CoreDNS=true`,  [CoreDNS](https://coredns.io/) is installed instead of `kube-dns`.
+{{< note >}}
+**Note:** If `kubeadm` is invoked with `--feature-gates=CoreDNS=false`, kube-dns is installed.
+{{< /note >}}
 
 {{< tabs name="tab-addon" >}}
 {{< tab name="all" include="generated/kubeadm_alpha_phase_addon_all.md" />}}
 {{< tab name="kube-proxy" include="generated/kubeadm_alpha_phase_addon_kube-proxy.md" />}}
-{{< tab name="kube-dns" include="generated/kubeadm_alpha_phase_addon_kube-dns.md" />}}
+{{< tab name="coredns" include="generated/kubeadm_alpha_phase_addon_coredns.md" />}}
 {{< /tabs >}}
 
 

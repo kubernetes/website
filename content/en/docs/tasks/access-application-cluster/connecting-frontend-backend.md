@@ -43,12 +43,12 @@ frontend and backend are connected using a Kubernetes Service object.
 The backend is a simple hello greeter microservice. Here is the configuration
 file for the backend Deployment:
 
-{{< code file="hello.yaml" >}}
+{{< codenew file="service/access/hello.yaml" >}}
 
 Create the backend Deployment:
 
 ```
-kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/hello.yaml
+kubectl create -f https://k8s.io/examples/service/access/hello.yaml
 ```
 
 View information about the backend Deployment:
@@ -103,7 +103,7 @@ selector labels to find the Pods that it routes traffic to.
 
 First, explore the Service configuration file:
 
-{{< code file="hello-service.yaml" >}}
+{{< codenew file="service/access/hello-service.yaml" >}}
 
 In the configuration file, you can see that the Service routes traffic to Pods
 that have the labels `app: hello` and `tier: backend`.
@@ -111,7 +111,7 @@ that have the labels `app: hello` and `tier: backend`.
 Create the `hello` Service:
 
 ```
-kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/hello-service.yaml
+kubectl create -f https://k8s.io/examples/service/access/hello-service.yaml
 ```
 
 At this point, you have a backend Deployment running, and you have a
@@ -127,18 +127,18 @@ of the `name` field in the preceding Service configuration file.
 The Pods in the frontend Deployment run an nginx image that is configured
 to find the hello backend Service. Here is the nginx configuration file:
 
-{{< code file="frontend/frontend.conf" >}}
+{{< codenew file="service/access/frontend.conf" >}}
 
 Similar to the backend, the frontend has a Deployment and a Service. The
 configuration for the Service has `type: LoadBalancer`, which means that
 the Service uses the default load balancer of your cloud provider.
 
-{{< code file="frontend.yaml" >}}
+{{< codenew file="service/access/frontend.yaml" >}}
 
 Create the frontend Deployment and Service:
 
 ```
-kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/frontend.yaml
+kubectl create -f https://k8s.io/examples/service/access/frontend.yaml
 ```
 
 The output verifies that both resources were created:
@@ -149,7 +149,7 @@ service "frontend" created
 ```
 
 **Note**: The nginx configuration is baked into the
-[container image](/docs/tasks/access-application-cluster/frontend/Dockerfile).
+[container image](/examples/service/access/Dockerfile).
 A better way to do this would be to use a
 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/), so
 that you can change the configuration more easily.

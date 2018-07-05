@@ -39,7 +39,7 @@ The version is set at the API level rather than at the resource or field level t
 The JSON and Protobuf serialization schemas follow the same guidelines for schema changes. The following descriptions cover both formats.
 
 {{< note >}}
-**Note:** the API versioning and software versioning are indirectly related.  The [API and release
+**Note:** The API versioning and software versioning are indirectly related.  The [API and release
 versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) describes the relationship between API versioning and software versioning.
 {{< /note >}}
 

@@ -3,13 +3,20 @@ reviewers:
 - mikedanese
 - thockin
 title: Troubleshoot Applications
+content_template: templates/concept
 ---
+
+{{% capture overview %}}
 
 This guide is to help users debug applications that are deployed into Kubernetes and not behaving correctly.
 This is *not* a guide for people who want to debug their cluster.  For that you should check out
 [this guide](/docs/admin/cluster-troubleshooting).
 
+{{% /capture %}}
+
 {{< toc >}}
+
+{{% capture body %}}
 
 ## Diagnosing the problem
 
@@ -183,8 +190,12 @@ check:
    * Can you connect to your pods directly?  Get the IP address for the Pod, and try to connect directly to that IP.
    * Is your application serving on the port that you configured?  Kubernetes doesn't do port remapping, so if your application serves on 8080, the `containerPort` field needs to be 8080.
 
-#### More information
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 If none of the above solves your problem, follow the instructions in [Debugging Service document](/docs/user-guide/debugging-services) to make sure that your `Service` is running, has `Endpoints`, and your `Pods` are actually serving; you have DNS working, iptables rules installed, and kube-proxy does not seem to be misbehaving.
 
 You may also visit [troubleshooting document](/docs/troubleshooting/) for more information.
+
+{{% /capture %}}

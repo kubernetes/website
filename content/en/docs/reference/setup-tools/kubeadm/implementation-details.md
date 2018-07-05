@@ -8,6 +8,9 @@ content_template: templates/concept
 weight: 100
 ---
 {{% capture overview %}}
+
+{{< feature-state for_k8s_version="v1.10" state="stable" >}}
+
 `kubeadm init` and `kubeadm join` together provides a nice user experience for creating a best-practice but bare Kubernetes cluster from scratch.
 However, it might not be obvious _how_ kubeadm does that.
 
@@ -25,7 +28,7 @@ The cluster that `kubeadm init` and `kubeadm join` set up should be:
    - using secure communication between the control plane components
    - using secure communication between the API server and the kubelets
    - lock-down the kubelet API
-   - locking down access to the API for system components like the kube-proxy and kube-dns
+   - locking down access to the API for system components like the kube-proxy and CoreDNS
    - locking down what a Bootstrap Token can access
    - etc.
  - **Easy to use**: The user should not have to run anything more than a couple of commands:
@@ -231,7 +234,8 @@ The static Pod manifest for the API server is affected by following parameters p
 Other API server flags that are set unconditionally are:
 
  - `--insecure-port=0` to avoid insecure connections to the api server
- - `--enable-bootstrap-token-auth=true` to enable the `BootstrapTokenAuthenticator` authentication module. see [TLS Bootstrapping](/docs/admin/kubelet-tls-bootstrapping.md) for more details
+ - `--enable-bootstrap-token-auth=true` to enable the `BootstrapTokenAuthenticator` authentication module.
+   See [TLS Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for more details
  - `--allow-privileged` to `true` (required e.g. by kube proxy)
  - `--requestheader-client-ca-file` to `front-proxy-ca.crt`
  - `--enable-admission-plugins` to:
@@ -279,7 +283,7 @@ The static Pod manifest for the API server is affected by following parameters p
 Other flags that are set unconditionally are:
 
  - `--controllers` enabling all the default controllers plus `BootstrapSigner` and `TokenCleaner` controllers for TLS bootstrap.
-    see [TLS Bootstrapping](/docs/admin/kubelet-tls-bootstrapping.md) for more details
+   See [TLS Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for more details
  - `--use-service-account-credentials` to `true`
  - Flags for using certificates generated in previous steps:
     - `--root-ca-file` to `ca.crt`
@@ -448,16 +452,20 @@ A ServiceAccount for `kube-proxy` is created in the `kube-system` namespace; the
 
 #### DNS
 
-A ServiceAccount for `kube-dns` is created in the `kube-system` namespace.
+Note that:
 
-Deploy the kube-dns Deployment and Service:
+- The CoreDNS service is named `kube-dns`. This is done to prevent any interruption
+in service when the user is switching the cluster DNS from kube-dns to CoreDNS or vice-versa
+- In Kubernetes version 1.11 and later, CoreDNS is the default DNS server and you must
+invoke kubeadm with `--feature-gates=CoreDNS=false` to install kube-dns instead
+- In Kubernetes version 1.10 and earlier, you must enable CoreDNS with `--feature-gates=CoreDNS=true`
 
-- It's the upstream kube-dns deployment relatively unmodified
+A ServiceAccount for CoreDNS/kube-dns is created in the `kube-system` namespace.
+
+Deploy the `kube-dns` Deployment and Service:
+
+- It's the upstream CoreDNS deployment relatively unmodified
 - The `kube-dns` ServiceAccount is bound to the privileges in the `system:kube-dns` ClusterRole
-
-Please note that:
-
-1. If kubeadm is invoked with `--feature-gates=CoreDNS`,  CoreDNS is installed instead of `kube-dns`
 
 ### (Optional and alpha in v1.9) self-hosting
 

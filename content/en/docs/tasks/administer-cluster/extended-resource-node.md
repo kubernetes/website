@@ -83,7 +83,6 @@ The output shows that the Node has a capacity of 4 dongles:
 
 ```
 "capacity": {
-  "alpha.kubernetes.io/nvidia-gpu": "0",
   "cpu": "2",
   "memory": "2049008Ki",
   "example.com/dongle": "4",
@@ -99,7 +98,6 @@ Once again, the output shows the dongle resource:
 
 ```yaml
 Capacity:
- alpha.kubernetes.io/nvidia-gpu:  0
  cpu:  2
  memory:  2049008Ki
  example.com/dongle:  4
@@ -205,6 +203,3 @@ kubectl describe node <your-node-name> | grep dongle
 
 
 {{% /capture %}}
-
-
-

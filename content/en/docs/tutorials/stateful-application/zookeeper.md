@@ -76,14 +76,14 @@ a [Service](/docs/concepts/services-networking/service/),
 a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget),
 and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 
-{{< code file="zookeeper.yaml" >}}
+{{< codenew file="application/zookeeper/zookeeper.yaml" >}}
 
 Open a terminal, and use the
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) command to create the
 manifest.
 
 ```shell
-kubectl apply -f https://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
+kubectl apply -f https://k8s.io/examples/application/zookeeper/zookeeper.yaml
 ```
 
 This creates the `zk-hs` Headless Service, the `zk-cs` Service,
@@ -343,7 +343,7 @@ zk-0      0/1       Terminating   0         11m
 Reapply the manifest in `zookeeper.yaml`.
 
 ```shell
-kubectl apply -f https://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
+kubectl apply -f https://k8s.io/examples/application/zookeeper/zookeeper.yaml
 ```
 
 This creates the `zk` StatefulSet object, but the other API objects in the manifest are not modified because they already exist.
@@ -792,14 +792,14 @@ For a ZooKeeper server, liveness implies readiness.  Therefore, the readiness
 probe from the `zookeeper.yaml` manifest is identical to the liveness probe.
 
 ```yaml
- readinessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - "zookeeper-ready 2181"
-          initialDelaySeconds: 15
-          timeoutSeconds: 5
+  readinessProbe:
+    exec:
+      command:
+      - sh
+      - -c
+      - "zookeeper-ready 2181"
+    initialDelaySeconds: 15
+    timeoutSeconds: 5
 ```
 
 Even though the liveness and readiness probes are identical, it is important
@@ -1065,7 +1065,11 @@ Attempt to drain the node on which `zk-2` is scheduled.
 
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+```
 
+The output:
+
+```
 node "kubernetes-minion-group-i4c4" already cordoned
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
 pod "heapster-v1.2.0-2604621511-wht1r" deleted
@@ -1079,7 +1083,9 @@ Uncordon the second node to allow `zk-2` to be rescheduled.
 
 ```shell
 kubectl uncordon kubernetes-minion-group-ixsl
+```
 
+```
 node "kubernetes-minion-group-ixsl" uncordoned
 ```
 
@@ -1089,10 +1095,11 @@ You can use `kubectl drain` in conjunction with `PodDisruptionBudgets` to ensure
 
 {{% capture cleanup %}}
 
--   Use `kubectl uncordon` to uncordon all the nodes in your cluster.
--   You will need to delete the persistent storage media for the PersistentVolumes
-    used in this tutorial. Follow the necessary steps, based on your environment,
-    storage configuration, and provisioning method, to ensure that all storage is
-    reclaimed.
-    {{% /capture %}}
+- Use `kubectl uncordon` to uncordon all the nodes in your cluster.
+- You will need to delete the persistent storage media for the PersistentVolumes
+  used in this tutorial. Follow the necessary steps, based on your environment,
+  storage configuration, and provisioning method, to ensure that all storage is
+  reclaimed.
+
+{{% /capture %}}
     
