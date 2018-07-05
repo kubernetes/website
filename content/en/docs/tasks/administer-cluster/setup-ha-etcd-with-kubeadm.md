@@ -9,7 +9,7 @@ content_template: templates/task
 
 Kubeadm defaults to running a single member etcd cluster in a static pod managed
 by the kubelet on the control plane node. This is not a highly available setup
-as the the etcd cluster contains only one member and cannot sustain any members
+as the etcd cluster contains only one member and cannot sustain any members
 becoming unavailable. This task walks through the process of creating a highly
 available etcd cluster of three members that can be used as an external etcd
 when using kubeadm to set up a kubernetes cluster.
@@ -22,9 +22,10 @@ when using kubeadm to set up a kubernetes cluster.
   document assumes these default ports. However, they are configurable through
   the kubeadm config file.
 * Each host must [have docker, kubelet, and kubeadm installed][toolbox].
-* Some infrastructure to copy files between hosts (e.g., ssh).
+* Some infrastructure to copy files between hosts. For example `ssh` and `scp`
+  can satisfy this requirement.
 
-[toolbox]: /docs/setup/independent/install-kubeadm/
+[toolbox]: /docs/tasks/tools/install-kubeadm/
 
 {{% /capture %}}
 
@@ -33,9 +34,32 @@ when using kubeadm to set up a kubernetes cluster.
 ## Setting up the cluster
 
 The general approach is to generate all certs on one node and only distribute
-the *necessary* files to the other nodes. Note that kubeadm contains all the
-necessary crytographic machinery to generate the certificates described below;
-no other cryptographic tooling is required for this example.
+the *necessary* files to the other nodes.
+
+{{< note >}}
+**Note:**  kubeadm contains all the necessary crytographic machinery to generate
+the certificates described below; no other cryptographic tooling is required for
+this example.
+{{< /note >}}
+
+
+1. Configure the kubelet to be a service manager for etcd.
+
+    Running etcd is simpler than running kubernetes so you must override the
+    kubeadm-provided kubelet unit file by creating a new one with a higher
+    precedence.
+
+    ```sh
+    cat << EOF > /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
+    [Service]
+    ExecStart=
+    ExecStart=/usr/bin/kubelet --pod-manifest-path=/etc/kubernetes/manifests --allow-privileged=true
+    Restart=always
+    EOF
+
+    systemctl daemon-reload
+    systemctl restart kubelet
+    ```
 
 1. Create configuration files for kubeadm.
 
@@ -67,7 +91,7 @@ no other cryptographic tooling is required for this example.
             peerCertSANs:
             - "${HOST}"
             extraArgs:
-                initial-cluster: infra0=https://${ETCDHOST0}:2380,infra1=https://${ETCDHOST1}:2380,infra2=https://${ETCDHOST2:2380
+                initial-cluster: infra0=https://${ETCDHOSTS[0]}:2380,infra1=https://${ETCDHOSTS[1]}:2380,infra2=https://${ETCDHOSTS[2]}:2380
                 initial-cluster-state: new
                 name: ${NAME}
                 listen-peer-urls: https://${HOST}:2380
@@ -112,7 +136,7 @@ no other cryptographic tooling is required for this example.
     kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
     kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
     kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    cp -R /etc/kubernetes/pki /tmp/${HOST2}/
+    cp -R /etc/kubernetes/pki /tmp/${HOST1}/
     find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
     kubeadm alpha phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml

@@ -246,7 +246,7 @@ or different paths in each Container.  When a Pod is removed from a node for
 any reason, the data in the `emptyDir` is deleted forever.
 
 {{< note >}}
-**Note:** a Container crashing does *NOT* remove a Pod from a node, so the data in an `emptyDir` volume is safe across Container crashes.
+**Note:** A Container crashing does *NOT* remove a Pod from a node, so the data in an `emptyDir` volume is safe across Container crashes.
 {{< /note >}}
 
 Some uses for an `emptyDir` are:
@@ -646,8 +646,15 @@ Currently, the following types of volume sources can be projected:
 - [`secret`](#secret)
 - [`downwardAPI`](#downwardapi)
 - [`configMap`](#configmap)
+- `serviceAccountToken`
 
-All sources are required to be in the same namespace as the Pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
+All sources are required to be in the same namespace as the Pod. For more details,
+see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
+
+The projection of service account tokens is a feature introduced in Kubernetes
+1.11. To enable this feature, you need to explicitly set the `TokenRequestProjection`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+True.
 
 #### Example Pod with a secret, a downward API, and a configmap.
 
@@ -729,6 +736,45 @@ parameters are nearly the same with two exceptions:
 * The `defaultMode` can only be specified at the projected level and not for each
   volume source. However, as illustrated above, you can explicitly set the `mode`
   for each individual projection.
+
+When the `TokenRequestProjection` feature is enabled, you can inject the token
+for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
+into a Pod at a specified path. Below is an example:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sa-token-test
+spec:
+  containers:
+  - name: container-test
+    image: busybox
+    volumeMounts:
+    - name: token-vol
+      mountPath: "/sevice-account"
+      readOnly: true
+  volumes:
+  - name: token-vol
+    projected:
+      sources:
+      - serviceAccountToken:
+          audience: api
+          expirationSeconds: 3600
+          path: token
+```
+
+The example Pod has a projected volume containing the injected service account
+token. This token can be used by Pod containers to access the Kubernetes API
+server, for example. The `audience` field contains the intended audience of the
+token. A recipient of the token must identify itself with an identifier specified
+in the audience of the token, and otherwise should reject the token. This field
+is optional and it defaults to the identifier of the API server.
+
+The `expirationSeconds` is the expected duration of validity of the service account
+token. It defaults to 1 hour and must be at least 10 minutes (600 seconds).
+The `path` field specifies a relative path to the mount point of the projected
+volume.
 
 {{< note >}}
 **Note:** A Container using a projected volume source as a [subPath](#using-subpath) volume mount will not
@@ -1018,6 +1064,43 @@ spec:
         claimName: my-lamp-site-data
 ```
 
+### Using subPath with expanded environment variables
+
+{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+
+
+`subPath` directory names can also be constructed from Downward API environment variables.
+Before you use this feature, you must enable the `VolumeSubpathEnvExpansion`feature gate.
+
+In this example, a Pod uses `subPath` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+spec:
+  containers:
+  - name: container1
+    env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    image: busybox
+    command: [ "sh", "-c", "while [ true ]; do echo 'Hello'; sleep 10; done | tee -a /logs/hello.txt" ]
+    volumeMounts:
+    - name: workdir1
+      mountPath: /logs
+      subPath: $(POD_NAME)
+  restartPolicy: Never
+  volumes:
+  - name: workdir1
+    hostPath: 
+      path: /var/log/pods
+```
+
 ## Resources
 
 The storage media (Disk, SSD, etc.) of an `emptyDir` volume is determined by the
@@ -1115,6 +1198,26 @@ persistent volume:
   `NodePublishVolume` call. This field is optional, and  may be empty if no
   secret is required. If the secret object contains more than one secret, all
   secrets are passed.
+
+#### CSI raw block volume support
+
+{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+
+Starting with version 1.11, CSI introduced support for raw block volumes, which
+relies on the raw block volume feature that was introduced in a previous version of 
+Kubernetes.  This feature will make it possible for vendors with external CSI drivers to 
+implement raw block volumes support in Kubernetes workloads.
+
+CSI block volume support is feature-gated and turned off by default.  To run CSI with
+block volume support enabled, a cluster administrator must enable the feature for each
+Kubernetes component using the following feature gate flags:
+
+```
+--feature-gates=BlockVolume=true,CSIBlockVolume=true
+```
+
+Learn how to 
+[setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
 ### FlexVolume
 

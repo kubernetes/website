@@ -7,15 +7,19 @@ weight: 30
 ---
 
 {{% capture overview %}}
-This tutorial shows you how to develop a native cloud [Cassandra](http://cassandra.apache.org/) deployment on Kubernetes. In this instance, a custom Cassandra `SeedProvider` enables Cassandra to discover new Cassandra nodes as they join the cluster.
+This tutorial shows you how to develop a native cloud [Cassandra](http://cassandra.apache.org/) deployment on Kubernetes. In this example, a custom Cassandra `SeedProvider` enables Cassandra to discover new Cassandra nodes as they join the cluster.
 
-Deploying stateful distributed applications, like Cassandra, within a clustered environment can be challenging. StatefulSets greatly simplify this process. Please read about [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)  for more information about the features used in this tutorial.
+It can be challenging to deploy stateful distributed applications like Cassandra within a clustered environment. StatefulSets greatly simplify this process. Please read about [StatefulSets](/docs/concepts/workloads/controllers/statefulset/) for more information about the features used in this tutorial.
 
-**Cassandra Docker**
+**Cassandra on Docker**
 
 The Pods use the [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
 image from Google's [container registry](https://cloud.google.com/container-registry/docs/).
-The docker image above is based on [debian-base](https://github.com/kubernetes/kubernetes/tree/master/build/debian-base) and includes OpenJDK 8. This image includes a standard Cassandra installation from the Apache Debian repo.  By using environment variables you can change values that are inserted into `cassandra.yaml`.
+The Docker image above is based on [debian-base](https://github.com/kubernetes/kubernetes/tree/master/build/debian-base)
+and includes OpenJDK 8.
+
+This image includes a standard Cassandra installation from the Apache Debian repo.
+By using environment variables you can change values that are inserted into `cassandra.yaml`.
 
 | ENV VAR       | DEFAULT VALUE  |
 | ------------- |:-------------: |
@@ -38,7 +42,8 @@ To complete this tutorial, you should already have a basic familiarity with [Pod
 
 * [Install and Configure](/docs/tasks/tools/install-kubectl/) the `kubectl` command line
 
-* Download [cassandra-service.yaml](/docs/tutorials/stateful-application/cassandra/cassandra-service.yaml) and [cassandra-statefulset.yaml](/docs/tutorials/stateful-application/cassandra/cassandra-statefulset.yaml)
+* Download [cassandra-service.yaml](/examples/application/cassandra/cassandra-service.yaml)
+  and [cassandra-statefulset.yaml](/examples/application/cassandra/cassandra-statefulset.yaml)
 
 * Have a supported Kubernetes Cluster running
 
@@ -65,14 +70,14 @@ A Kubernetes [Service](/docs/concepts/services-networking/service/) describes a 
 
 The following `Service` is used for DNS lookups between Cassandra Pods and clients within the Kubernetes Cluster.
 
+{{< codenew file="application/cassandra/cassandra-service.yaml" >}}
+
 1. Launch a terminal window in the directory you downloaded the manifest files.
-2. Create a `Service` to track all Cassandra StatefulSet Nodes from the `cassandra-service.yaml` file:
+1. Create a `Service` to track all Cassandra StatefulSet Nodes from the `cassandra-service.yaml` file:
 
     ```bash
-    kubectl create -f cassandra-service.yaml
+    kubectl create -f https://k8s.io/examples/application/cassandra/cassandra-service.yaml
     ```
-
-{{< code file="cassandra/cassandra-service.yaml" >}}
 
 ### Validating (optional)
 
@@ -99,14 +104,14 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 **Note:** This example uses the default provisioner for Minikube. Please update the following StatefulSet for the cloud you are working with.
 {{< /note >}}
 
+{{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
+
 1. Update the StatefulSet if necessary.
-2. Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
+1. Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
 
     ```bash
-    kubectl create -f cassandra-statefulset.yaml
+    kubectl create -f https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
     ```
-
-{{< code file="cassandra/cassandra-statefulset.yaml" >}}
 
 ## Validating The Cassandra StatefulSet
 
@@ -125,7 +130,7 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 
     The StatefulSet resource deploys Pods sequentially.  
 
-2. Get the Pods to see the ordered creation status:
+1. Get the Pods to see the ordered creation status:
 
     ```bash
     kubectl get pods -l="app=cassandra"
@@ -204,7 +209,7 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 
    The StatefulSet now contains 4 Pods.
 
-3. Get the Cassandra StatefulSet to verify:
+1. Get the Cassandra StatefulSet to verify:
 
     ```bash
     kubectl get statefulset cassandra
@@ -236,7 +241,7 @@ Deleting or scaling a StatefulSet down does not delete the volumes associated wi
       && kubectl delete pvc -l app=cassandra
     ```
 
-2. Run the following command to delete the Cassandra `Service`.
+1. Run the following command to delete the Cassandra `Service`.
 
     ```bash
     kubectl delete service -l app=cassandra
@@ -245,6 +250,7 @@ Deleting or scaling a StatefulSet down does not delete the volumes associated wi
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+
 * Learn how to [Scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
 * Learn more about the [KubernetesSeedProvider](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
 * See more custom [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)

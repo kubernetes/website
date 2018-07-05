@@ -743,9 +743,6 @@ spec:
       app: nginx
   minReadySeconds: 5
   replicas: 1 # defaulted by apiserver
-  selector:
-    matchLabels:
-      app: nginx
   strategy:
     rollingUpdate: # defaulted by apiserver - derived from strategy.type
       maxSurge: 1
