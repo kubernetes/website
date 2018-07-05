@@ -45,7 +45,7 @@ Authorization: Bearer 07401b.f395accd246ae52d
 ## 启动引导令牌的密文格式
 
 每个合法的令牌背后对应着 `kube-system` 命名空间中的某个 Secret 对象。
-你可以从 [这里](https://git.k8s.io/community/contributors/design-proposals/bootstrap-discovery.md) 找到完整设计文档。
+你可以从 [这里](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md) 找到完整设计文档。
 
 这是 secret 看起来的样子。注意，`base64(string)` 表示应该通过 base64 对值进行编码。
 这里使用的是未解码的版本以便于阅读。
