@@ -9,13 +9,11 @@ install:
 - mv $TRAVIS_BUILD_DIR $HOME/gopath/src/k8s.io/website
 
 # (1) Fetch dependencies for us to run the tests in test/examples_test.go
-- pushd $GOPATH/src/k8s.io/website && git checkout -t origin/release-1.7 && popd
-- go get -t -v k8s.io/website/test
-
-# Simplified deduplication of dependencies.
+- pushd $GOPATH/src/k8s.io && git clone https://github.com/kubernetes/kubernetes && popd
 - pushd $GOPATH/src/k8s.io/kubernetes && git checkout release-1.7 && popd
 - cp -L -R $GOPATH/src/k8s.io/kubernetes/vendor/ $GOPATH/src/
 - rm -r $GOPATH/src/k8s.io/kubernetes/vendor/
+- go get -t -v k8s.io/website/test
 
 script:
 - go test -v k8s.io/website/test
