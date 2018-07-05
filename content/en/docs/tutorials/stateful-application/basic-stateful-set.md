@@ -453,7 +453,7 @@ images, resource requests and/or limits, labels, and annotations of the Pods in 
 StatefulSet. There are two valid update strategies, `RollingUpdate` and 
 `OnDelete`.
 
-`OnDelete` update strategy is the default for StatefulSets.
+`RollingUpdate` update strategy is the default for StatefulSets.
 
 ### Rolling Update
 
