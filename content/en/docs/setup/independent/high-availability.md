@@ -201,15 +201,15 @@ In the following example, replace
 USER=ubuntu # customizable
 CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
 for host in ${CONTROL_PLANE_IPS}; do
-    scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:
-    scp /etc/kubernetes/pki/ca.key "${USER}"@$host:
-    scp /etc/kubernetes/pki/sa.key "${USER}"@$host:
-    scp /etc/kubernetes/pki/sa.pub "${USER}"@$host:
-    scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
-    scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
-    scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:etcd-ca.crt
-    scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
-    scp /etc/kubernetes/admin.conf "${USER}"@$host:
+    scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:/etc/kubernetes/pki/ca.crt
+    scp /etc/kubernetes/pki/ca.key "${USER}"@$host:/etc/kubernetes/pki/ca.key
+    scp /etc/kubernetes/pki/sa.key "${USER}"@$host:/etc/kubernetes/pki/sa.key
+    scp /etc/kubernetes/pki/sa.pub "${USER}"@$host:/etc/kubernetes/pki/sa.pub
+    scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:/etc/kubernetes/pki/front-proxy-ca.crt
+    scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:/etc/kubernetes/pki/front-proxy-ca.key
+    scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:/etc/kubernetes/pki/etcd-ca.crt
+    scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:/etc/kubernetes/pki/etcd-ca.key
+    scp /etc/kubernetes/admin.conf "${USER}"@$host:/etc/kubernetes/admin.conf
 done
 ```
 
@@ -416,9 +416,9 @@ for your environment.
 USER=ubuntu
 CONTROL_PLANE_HOSTS="10.0.0.7 10.0.0.8 10.0.0.9"
 for host in $CONTROL_PLANE_HOSTS; do
-    scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:
-    scp /etc/kubernetes/pki/apiserver-etcd-client.crt "${USER}"@$host:
-    scp /etc/kubernetes/pki/apiserver-etcd-client.key "${USER}"@$host:
+    scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:/etc/kubernetes/pki/etcd/ca.crt
+    scp /etc/kubernetes/pki/apiserver-etcd-client.crt "${USER}"@$host:/etc/kubernetes/pki/apiserver-etcd-client.crt
+    scp /etc/kubernetes/pki/apiserver-etcd-client.key "${USER}"@$host:/etc/kubernetes/pki/apiserver-etcd-client.key
 done
 ```
 
@@ -475,12 +475,12 @@ In the following example, replace the list of
 USER=ubuntu # customizable
 CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
 for host in ${CONTROL_PLANE_IPS}; do
-    scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:
-    scp /etc/kubernetes/pki/ca.key "${USER}"@$host:
-    scp /etc/kubernetes/pki/sa.key "${USER}"@$host:
-    scp /etc/kubernetes/pki/sa.pub "${USER}"@$host:
-    scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
-    scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
+    scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:/etc/kubernetes/pki/ca.crt
+    scp /etc/kubernetes/pki/ca.key "${USER}"@$host:/etc/kubernetes/pki/ca.key
+    scp /etc/kubernetes/pki/sa.key "${USER}"@$host:/etc/kubernetes/pki/sa.key 
+    scp /etc/kubernetes/pki/sa.pub "${USER}"@$host:/etc/kubernetes/pki/sa.pub
+    scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:/etc/kubernetes/pki/front-proxy-ca.crt
+    scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:/etc/kubernetes/pki/front-proxy-ca.key
 done
 ```
 
