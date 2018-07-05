@@ -21,6 +21,14 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 {{% /capture %}}
 
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
 {{% capture steps %}}
 
 ## Configuration and determining whether encryption at rest is already enabled

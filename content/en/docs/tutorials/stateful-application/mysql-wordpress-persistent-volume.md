@@ -36,9 +36,9 @@ A [PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV) is a piece
 
 Download the following configuration files:
 
-1. [mysql-deployment.yaml](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/mysql-deployment.yaml)
+1. [mysql-deployment.yaml](/examples/application/wordpress/mysql-deployment.yaml)
 
-1. [wordpress-deployment.yaml](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/wordpress-deployment.yaml)
+1. [wordpress-deployment.yaml](/examples/application/wordpress/wordpress-deployment.yaml)
 
 {{% /capture %}}
 
@@ -71,13 +71,13 @@ A [Secret](/docs/concepts/configuration/secret/) is an object that stores a piec
 1. Create the Secret object from the following command. You will need to replace
    `YOUR_PASSWORD` with the password you want to use.
 
-      ```
+      ```shell
       kubectl create secret generic mysql-pass --from-literal=password=YOUR_PASSWORD
       ```
        
 2. Verify that the Secret exists by running the following command:
 
-      ```
+      ```shell
       kubectl get secrets
       ```
 
@@ -96,18 +96,18 @@ A [Secret](/docs/concepts/configuration/secret/) is an object that stores a piec
 
 The following manifest describes a single-instance MySQL Deployment. The MySQL container mounts the PersistentVolume at /var/lib/mysql. The `MYSQL_ROOT_PASSWORD` environment variable sets the database password from the Secret. 
 
-{{< code file="mysql-wordpress-persistent-volume/mysql-deployment.yaml" >}}
+{{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
 
 1. Deploy MySQL from the `mysql-deployment.yaml` file:
 
-      ```
-      kubectl create -f mysql-deployment.yaml
+      ```shell
+      kubectl create -f https://k8s.io/examples/application/wordpress/mysql-deployment.yaml
       ```
 
 2. Verify that a PersistentVolume got dynamically provisioned. Note that it can
    It can take up to a few minutes for the PVs to be provisioned and bound.
 
-      ```
+      ```shell
       kubectl get pvc
       ```
 
@@ -120,11 +120,11 @@ The following manifest describes a single-instance MySQL Deployment. The MySQL c
 
 3. Verify that the Pod is running by running the following command:
 
-      ```
+      ```shell
       kubectl get pods
       ```
 
-      **Note:** It can take up to a few minutes for the Pod's Status to be `RUNNING`.
+      {{< note >}}**Note:** It can take up to a few minutes for the Pod's Status to be `RUNNING`.{{< /note >}}
 
       The response should be like this:
 
@@ -137,21 +137,21 @@ The following manifest describes a single-instance MySQL Deployment. The MySQL c
 
 The following manifest describes a single-instance WordPress Deployment and Service. It uses many of the same features like a PVC for persistent storage and a Secret for the password. But it also uses a different setting: `type: LoadBalancer`. This setting exposes WordPress to traffic from outside of the cluster.
 
-{{< code file="mysql-wordpress-persistent-volume/wordpress-deployment.yaml" >}}
+{{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
 
 1. Create a WordPress Service and Deployment from the `wordpress-deployment.yaml` file:
 
-      ```
-      kubectl create -f wordpress-deployment.yaml
+      ```shell
+      kubectl create -f https://k8s.io/examples/wordpress/wordpress-deployment.yaml
       ```
 
 2. Verify that a PersistentVolume got dynamically provisioned:
 
-      ``` 
+      ```shell
       kubectl get pvc
       ```
 
-      **Note:** It can take up to a few minutes for the PVs to be provisioned and bound.
+      {{< note >}}**Note:** It can take up to a few minutes for the PVs to be provisioned and bound.{{< /note >}}
 
       The response should be like this:
 
@@ -162,7 +162,7 @@ The following manifest describes a single-instance WordPress Deployment and Serv
 
 3. Verify that the Service is running by running the following command:
 
-      ```
+      ```shell
       kubectl get services wordpress
       ```
 
@@ -173,15 +173,11 @@ The following manifest describes a single-instance WordPress Deployment and Serv
       wordpress   10.0.0.89    <pending>     80:32406/TCP   4m
       ```
 
-      **Note:** Minikube can only expose Services through `NodePort`.
-
-      ```
-      The EXTERNAL-IP is always <pending>.
-      ```
+      {{< note >}}**Note:** Minikube can only expose Services through `NodePort`. The EXTERNAL-IP is always pending.{{< /note >}}
 
 4. Run the following command to get the IP Address for the WordPress Service:
 
-      ```
+      ```shell
       minikube service wordpress --url
       ```
 
@@ -207,20 +203,20 @@ The following manifest describes a single-instance WordPress Deployment and Serv
 
 1. Run the following command to delete your Secret:
 
-      ```
+      ```shell
       kubectl delete secret mysql-pass
       ```
 
 2. Run the following commands to delete all Deployments and Services:
 
-      ```
+      ```shell
       kubectl delete deployment -l app=wordpress
       kubectl delete service -l app=wordpress
       ```
 
 3. Run the following commands to delete the PersistentVolumeClaims.  The dynamically provisioned PersistentVolumes will be automatically deleted.
 
-      ```
+      ```shell
       kubectl delete pvc -l app=wordpress
       ```
 
@@ -234,5 +230,4 @@ The following manifest describes a single-instance WordPress Deployment and Serv
 * Learn how to [Get a Shell to a Container](/docs/tasks/debug-application-cluster/get-shell-running-container/)
 
 {{% /capture %}}
-
 

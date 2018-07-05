@@ -82,7 +82,7 @@ Use Homebrew to download the `kubectl` command-line tool, which you can
 use to interact with Kubernetes clusters:
 
 ```shell
-brew install kubectl
+brew install kubernetes-cli
 ```
 
 Determine whether you can access sites like [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/) directly without a proxy, by opening a new terminal and using
@@ -148,7 +148,7 @@ minikube dashboard
 The next step is to write the application. Save this code in a folder named `hellonode`
 with the filename `server.js`:
 
-{{< code language="js" file="server.js" >}}
+{{< codenew language="js" file="minikube/server.js" >}}
 
 Run your application:
 
@@ -168,7 +168,7 @@ Create a file, also in the `hellonode` folder, named `Dockerfile`. A Dockerfile 
 the image that you want to build. You can build a Docker container image by extending an
 existing image. The image in this tutorial extends an existing Node.js image.
 
-{{< code language="conf" file="Dockerfile" >}}
+{{< codenew language="conf" file="minikube/Dockerfile" >}}
 
 This recipe for the Docker image starts from the official Node.js LTS image
 found in the Docker registry, exposes port 8080, copies your `server.js` file
@@ -183,8 +183,10 @@ sure you are using the Minikube Docker daemon:
 eval $(minikube docker-env)
 ```
 
+{{< note >}}
 **Note:** Later, when you no longer wish to use the Minikube host, you can undo
 this change by running `eval $(minikube docker-env -u)`.
+{{< /note >}}
 
 Build your Docker image, using the Minikube Docker daemon (mind the trailing dot):
 
@@ -204,10 +206,12 @@ Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 
 Use the `kubectl run` command to create a Deployment that manages a Pod. The
-Pod runs a Container based on your `hello-node:v1` Docker image:
+Pod runs a Container based on your `hello-node:v1` Docker image. Set the 
+`--image-pull-policy` flag to `Never` to always use the local image, rather than
+pulling it from your Docker registry (since you haven't pushed it there):
 
 ```shell
-kubectl run hello-node --image=hello-node:v1 --port=8080
+kubectl run hello-node --image=hello-node:v1 --port=8080 --image-pull-policy=Never
 ```
 
 View the Deployment:

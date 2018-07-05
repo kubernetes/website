@@ -40,8 +40,8 @@ SIG meetings provide focused opportunities for users, maintainers, and specialis
 
 ## Join the party!
 
-You may already be using solutions that are successfully managed and scaled on Kubernetes. For example, GitHub.com, which hosts Kubernetes’ upstream source code, [now runs on Kubernetes](https://githubengineering.com/kubernetes-at-github/) https://githubengineering.com/kubernetes-at-github/) as well!
+You may already be using solutions that are successfully managed and scaled on Kubernetes. For example, GitHub.com, which hosts Kubernetes’ upstream source code, [now runs on Kubernetes](https://githubengineering.com/kubernetes-at-github/) as well!
 
 Check out the [Kubernetes Contributors’ guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) for more information on how to get started as a contributor.
 
-You can also join the [weekly Kubernetes Community meeting](https://github.com/kubernetes/community/tree/master/communication#weekly-meeting)and consider [joining a SIG or two](https://github.com/kubernetes/community/blob/master/sig-list.md#master-sig-list).
+You can also join the [weekly Kubernetes Community meeting](https://github.com/kubernetes/community/tree/master/communication#weekly-meeting) and consider [joining a SIG or two](https://github.com/kubernetes/community/blob/master/sig-list.md#master-sig-list).

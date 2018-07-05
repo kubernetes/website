@@ -3,8 +3,10 @@ reviewers:
 - derekwaynecarr
 - janetkuo
 title: Namespaces Walkthrough
+content_template: templates/task
 ---
 
+{{% capture overview %}}
 Kubernetes _namespaces_ help different projects, teams, or customers to share a Kubernetes cluster.
 
 It does this by providing the following:
@@ -16,14 +18,26 @@ Use of multiple namespaces is optional.
 
 This example demonstrates how to use Kubernetes namespaces to subdivide your cluster.
 
-### Step Zero: Prerequisites
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
+
+## Prerequisites
 
 This example assumes the following:
 
 1. You have an [existing Kubernetes cluster](/docs/setup/).
 2. You have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_.
 
-### Step One: Understand the default namespace
+## Understand the default namespace
 
 By default, a Kubernetes cluster will instantiate a default namespace when provisioning the cluster to hold the default set of Pods,
 Services, and Deployments used by the cluster.
@@ -36,7 +50,7 @@ NAME      STATUS    AGE
 default   Active    13m
 ```
 
-### Step Two: Create new namespaces
+## Create new namespaces
 
 For this exercise, we will create two additional Kubernetes namespaces to hold our content.
 
@@ -53,24 +67,24 @@ One pattern this organization could follow is to partition the Kubernetes cluste
 
 Let's create two new namespaces to hold our work.
 
-Use the file [`namespace-dev.json`](/docs/tasks/administer-cluster/namespace-dev.json) which describes a development namespace:
+Use the file [`namespace-dev.json`](/examples/admin/namespace-dev.json) which describes a development namespace:
 
-{{< code language="json" file="namespace-dev.json" >}}
+{{< codenew language="json" file="admin/namespace-dev.json" >}}
 
 Create the development namespace using kubectl.
 
 ```shell
-$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/namespace-dev.json
+$ kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
 ```
 
-Save the following contents into file [`namespace-prod.json`](/docs/tasks/administer-cluster/namespace-prod.json) which describes a production namespace:
+Save the following contents into file [`namespace-prod.json`](/examples/admin/namespace-prod.json) which describes a production namespace:
 
-{{< code language="json" file="namespace-prod.json" >}}
+{{< codenew language="json" file="admin/namespace-prod.json" >}}
 
 And then let's create the production namespace using kubectl.
 
 ```shell
-$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/namespace-prod.json
+$ kubectl create -f https://k8s.io/examples/admin/namespace-prod.json
 ```
 
 To be sure things are right, let's list all of the namespaces in our cluster.
@@ -83,7 +97,7 @@ development   Active    29s       name=development
 production    Active    23s       name=production
 ```
 
-### Step Three: Create pods in each namespace
+## Create pods in each namespace
 
 A Kubernetes namespace provides the scope for Pods, Services, and Deployments in the cluster.
 
@@ -251,3 +265,5 @@ At this point, it should be clear that the resources users create in one namespa
 
 As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
 authorization rules for each namespace.
+
+{{% /capture %}}
