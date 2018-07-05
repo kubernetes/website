@@ -7,6 +7,7 @@ install:
 - export PATH=$GOPATH/bin:$PATH
 - mkdir -p $HOME/gopath/src/k8s.io
 - mv $TRAVIS_BUILD_DIR $HOME/gopath/src/k8s.io/website
+- cd $HOME/gopath/src/k8s.io/website
 
 # (1) Fetch dependencies for us to run the tests in test/examples_test.go
 - pushd $GOPATH/src/k8s.io && git clone https://github.com/kubernetes/kubernetes && popd
