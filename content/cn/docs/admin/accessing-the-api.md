@@ -21,7 +21,7 @@ API服务器会提供一份证书。 该证书一般是自签名的， 所以用
 
 一旦 TLS 连接建立，HTTP请求就进入到了认证的步骤。即图中的步骤 **1** 。
 集群创建脚本或集群管理员会为API服务器配置一个或多个认证模块。
-更具体的认证相关的描述详见 [这里](/docs/admin/authentication/)。
+更具体的认证相关的描述详见 [这里](/docs/reference/access-authn-authz/authentication/)。
 
 认证步骤的输入是整个HTTP请求，但这里通常只是检查请求头和/或客户端证书。
 
