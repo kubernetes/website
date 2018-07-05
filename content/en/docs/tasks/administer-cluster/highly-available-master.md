@@ -2,12 +2,27 @@
 reviewers:
 - jszczepkowski
 title: Set up High-Availability Kubernetes Masters
+content_template: templates/task
 ---
+
+{{% capture overview %}}
+
+{{< feature-state for_k8s_version="1.5" state="alpha" >}}
+
+You can replicate Kubernetes masters in `kube-up` or `kube-down` scripts for Google Compute Engine.
+This document describes how to use kube-up/down scripts to manage highly available (HA) masters and how HA masters are implemented for use with GCE.
+
+{{% /capture %}}
 
 {{< toc >}}
 
-Kubernetes version 1.5 adds alpha support for replicating Kubernetes masters in `kube-up` or `kube-down` scripts for Google Compute Engine.
-This document describes how to use kube-up/down scripts to manage highly available (HA) masters and how HA masters are implemented for use with GCE.
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Starting an HA-compatible cluster
 
@@ -93,7 +108,7 @@ $ KUBE_GCE_ZONE=replica-zone KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-
 
 * Try to place master replicas in different zones. During a zone failure, all masters placed inside the zone will fail.
 To survive zone failure, also place nodes in multiple zones
-(see [multiple-zones](/docs/admin/multiple-zones/) for details).
+(see [multiple-zones](/docs/setup/multiple-zones/) for details).
 
 * Do not use a cluster with two master replicas. Consensus on a two-replica cluster requires both replicas running when changing persistent state.
 As a result, both replicas are needed and a failure of any replica turns cluster into majority failure state.
@@ -103,6 +118,10 @@ A two-replica cluster is thus inferior, in terms of HA, to a single replica clus
 If the cluster is large, it may take a long time to duplicate its state.
 This operation may be sped up by migrating etcd data directory, as described [here](https://coreos.com/etcd/docs/latest/admin_guide.html#member-migration)
 (we are considering adding support for etcd data dir migration in future).
+
+{{% /capture %}}
+
+{{% capture discussion %}}
 
 ## Implementation notes
 
@@ -154,3 +173,5 @@ To make such deployment secure, communication between etcd instances is authoriz
 ## Additional reading
 
 [Automated HA master deployment - design doc](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/ha_master.md)
+
+{{% /capture %}}

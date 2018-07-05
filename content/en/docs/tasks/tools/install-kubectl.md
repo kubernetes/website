@@ -61,7 +61,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 1. If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install with:
 
-        brew install kubectl
+        brew install kubernetes-cli
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 

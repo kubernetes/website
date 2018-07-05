@@ -38,12 +38,12 @@ kubectl create namespace quota-object-example
 
 Here is the configuration file for a ResourceQuota object:
 
-{{< code file="quota-objects.yaml" >}}
+{{< codenew file="admin/resource/quota-objects.yaml" >}}
 
 Create the ResourceQuota:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-objects.yaml --namespace=quota-object-example
+kubectl create -f https://k8s.io/examples/admin/resource/quota-objects.yaml --namespace=quota-object-example
 ```
 
 View detailed information about the ResourceQuota:
@@ -72,12 +72,12 @@ status:
 
 Here is the configuration file for a PersistentVolumeClaim object:
 
-{{< code file="quota-objects-pvc.yaml" >}}
+{{< codenew file="admin/resource/quota-objects-pvc.yaml" >}}
 
 Create the PersistentVolumeClaim:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-objects-pvc.yaml --namespace=quota-object-example
+kubectl create -f https://k8s.io/examples/admin/resource/quota-objects-pvc.yaml --namespace=quota-object-example
 ```
 
 Verify that the PersistentVolumeClaim was created:
@@ -97,12 +97,12 @@ pvc-quota-demo   Pending
 
 Here is the configuration file for a second PersistentVolumeClaim:
 
-{{< code file="quota-objects-pvc-2.yaml" >}}
+{{< codenew file="admin/resource/quota-objects-pvc-2.yaml" >}}
 
 Attempt to create the second PersistentVolumeClaim:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-objects-pvc-2.yaml --namespace=quota-object-example
+kubectl create -f https://k8s.io/examples/admin/resource/quota-objects-pvc-2.yaml --namespace=quota-object-example
 ```
 
 The output shows that the second PersistentVolumeClaim was not created,

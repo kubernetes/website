@@ -3,14 +3,21 @@ reviewers:
 - piosz
 - x13n
 title: Logging Architecture
+content_template: templates/concept
 weight: 60
 ---
+
+{{% capture overview %}}
 
 Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
 
 However, the native functionality provided by a container engine or runtime is usually not enough for a complete logging solution. For example, if a container crashes, a pod is evicted, or a node dies, you'll usually still want to access your application's logs. As such, logs should have a separate storage and lifecycle independent of nodes, pods, or containers. This concept is called _cluster-level-logging_. Cluster-level logging requires a separate backend to store, analyze, and query logs. Kubernetes provides no native storage solution for log data, but you can integrate many existing logging solutions into your Kubernetes cluster.
 
+{{% /capture %}}
+
 {{< toc >}}
+
+{{% capture body %}}
 
 Cluster-level logging architectures are described in assumption that
 a logging backend is present inside or outside of your cluster. If you're
@@ -21,15 +28,15 @@ the description of how logs are stored and handled on the node to be useful.
 
 In this section, you can see an example of basic logging in Kubernetes that
 outputs data to the standard output stream. This demonstration uses
-a [pod specification](/docs/concepts/cluster-administration/counter-pod.yaml) with
+a [pod specification](/examples/debug/counter-pod.yaml) with
 a container that writes some text to standard output once per second.
 
-{{< code file="counter-pod.yaml" >}}
+{{< codenew file="debug/counter-pod.yaml" >}}
 
 To run this pod, use the following command:
 
 ```shell
-$ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/counter-pod.yaml
+$ kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
 pod "counter" created
 ```
 
@@ -75,7 +82,7 @@ When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file, returning the contents in the response.
 
-**Note:** currently, if some external system has performed the rotation,
+**Note:** Currently, if some external system has performed the rotation,
 only the contents of the latest log file will be available through
 `kubectl logs`. E.g. if there's a 10MB file, `logrotate` performs
 the rotation and there are two files, one 10MB in size and one empty,
@@ -243,3 +250,5 @@ container.
 You can implement cluster-level logging by exposing or pushing logs directly from
 every application; however, the implementation for such a logging mechanism
 is outside the scope of Kubernetes.
+
+{{% /capture %}}

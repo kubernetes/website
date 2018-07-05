@@ -6,14 +6,12 @@ reviewers:
 - caesarxuchao
 - deads2k
 title: Dynamic Admission Control
+content_template: templates/concept
 weight: 40
 ---
 
-{{< toc >}}
-
-## Overview
-
-The [admission controllers documentation](/docs/admin/admission-controllers/)
+{{% capture overview %}}
+The [admission controllers documentation](/docs/reference/access-authn-authz/admission-controllers/)
 introduces how to use standard, plugin-style admission controllers. However,
 plugin admission controllers are not flexible enough for all use cases, due to
 the following:
@@ -26,16 +24,18 @@ address these limitations. They allow admission controllers to be developed
 out-of-tree and configured at runtime.
 
 This page describes how to use Admission Webhooks and Initializers.
+{{% /capture %}}
 
+{{% capture body %}}
 ## Admission Webhooks
 
 ### What are admission webhooks?
 
 Admission webhooks are HTTP callbacks that receive admission requests and do
 something with them. You can define two types of admission webhooks,
-[validating admission Webhook](/docs/admin/admission-controllers/#validatingadmissionwebhook-alpha-in-18-beta-in-19)
+[validating admission Webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)
 and
-[mutating admission webhook](/docs/admin/admission-controllers/#mutatingadmissionwebhook-beta-in-19).
+[mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook-beta-in-1-9).
 With validating admission Webhooks, you may reject requests to enforce custom
 admission policies. With mutating admission Webhooks, you may change requests to
 enforce custom defaults.
@@ -44,7 +44,7 @@ enforce custom defaults.
 
 Admission webhooks are essentially part of the cluster control-plane. You should
 write and deploy them with great caution. Please read the [user
-guides](https://github.com/kubernetes/website/pull/6836/files)(WIP) for
+guides](/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server) for
 instructions if you intend to write/deploy production-grade admission webhooks.
 In the following, we describe how to quickly experiment with admission webhooks.
 
@@ -54,7 +54,7 @@ In the following, we describe how to quickly experiment with admission webhooks.
 
 * Ensure that MutatingAdmissionWebhook and ValidatingAdmissionWebhook
   admission controllers are enabled.
-  [Here](/docs/admin/admission-controllers.md#is-there-a-recommended-set-of-admission-controllers-to-use)
+  [Here](/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)
   is a recommended set of admission controllers to enable in general.
 
 * Ensure that the admissionregistration.k8s.io/v1beta1 API is enabled.
@@ -119,8 +119,10 @@ webhooks:
     caBundle: <pem encoded ca cert that signs the server cert used by the webhook>
 ```
 
-*Note*: When using `clientConfig.service`, the server cert must be valid for
+{{< note >}}
+**Note:** When using `clientConfig.service`, the server cert must be valid for
 `<svc_name>.<svc_namespace>.svc`.
+{{< /note >}}
 
 When an apiserver receives a request that matches one of the `rules`, the
 apiserver sends an `admissionReview` request to webhook as specified in the
@@ -130,7 +132,7 @@ After you create the webhook configuration, the system will take a few seconds
 to honor the new configuration.
 
 {{< note >}}
-**Note** When the webhook plugin is deployed into the Kubernetes cluster as a
+**Note:** When the webhook plugin is deployed into the Kubernetes cluster as a
 service, it has to expose its service on the 443 port. The communication
 between the API server and the webhook service may fail if a different port
 is used.
@@ -220,13 +222,15 @@ and are not visible in the API unless specifically requested by using the query 
 ### When to use initializers?
 
 Initializers are useful for admins to force policies (e.g., the
-[AlwaysPullImages](/docs/admin/admission-controllers/#alwayspullimages)
+[AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
 admission controller), or to inject defaults (e.g., the
-[DefaultStorageClass](/docs/admin/admission-controllers/#defaultstorageclass)
+[DefaultStorageClass](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 admission controller), etc.
 
+{{< note >}}
 **Note:** If your use case does not involve mutating objects, consider using
 external admission webhooks, as they have better performance.
+{{< /note >}}
 
 ### How are initializers triggered?
 
@@ -304,3 +308,4 @@ the pods will be stuck in an uninitialized state.
 
 Make sure that all expansions of the `<apiGroup, apiVersions, resources>` tuple
 in a `rule` are valid. If they are not, separate them in different `rules`.
+{{% /capture %}}

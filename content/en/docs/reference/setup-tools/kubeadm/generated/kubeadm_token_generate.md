@@ -22,7 +22,7 @@ kubeadm token generate [flags]
 
 ### Options
 
-<table style="width: 100%;">
+<table style="width: 100%; table-layout: fixed;">
   <colgroup>
     <col span="1" style="width: 10px;" />
     <col span="1" />
@@ -33,7 +33,7 @@ kubeadm token generate [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">help for generate</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for generate</td>
     </tr>
 
   </tbody>
@@ -43,7 +43,7 @@ kubeadm token generate [flags]
 
 ### Options inherited from parent commands
 
-<table style="width: 100%;">
+<table style="width: 100%; table-layout: fixed;">
   <colgroup>
     <col span="1" style="width: 10px;" />
     <col span="1" />
@@ -54,14 +54,14 @@ kubeadm token generate [flags]
       <td colspan="2">--dry-run</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">Whether to enable dry-run mode or not</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Whether to enable dry-run mode or not</td>
     </tr>
 
     <tr>
       <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">The KubeConfig file to use when talking to the cluster</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The KubeConfig file to use when talking to the cluster. If the flag is not set a set of standard locations are searched for an existing KubeConfig file</td>
     </tr>
 
   </tbody>
