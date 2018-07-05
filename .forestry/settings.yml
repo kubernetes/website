@@ -1,0 +1,36 @@
+---
+new_page_extension: md
+auto_deploy: false
+admin_path: 
+webhook_url: 
+sections:
+- path: content/en
+  label: Pages
+  create: all
+- path: content/en/docs
+  label: Docs
+  create: all
+- path: content/en/case-studies
+  label: Case studies
+  create: all
+- path: content/en/blog
+  label: Blog
+  create: all
+- path: content/en/examples
+  label: Examples
+  create: all
+- path: content/en/partners
+  label: Partners
+  create: all
+- path: content/en/community
+  label: Community
+  create: all
+- path: content/en/includes
+  label: Includes
+  create: all
+upload_dir: static/uploads
+public_path: "/uploads"
+front_matter_path: ''
+use_front_matter_path: false
+file_template: ":filename:"
+version: 0.40.3
