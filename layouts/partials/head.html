@@ -1,9 +1,16 @@
+{{- $cssOpts := (dict "targetPath" "css/styles.css") }}
+{{- $styles := resources.Get "sass/styles.sass" | toCSS $cssOpts | minify | fingerprint }}
+{{- $caseStudyStyles := resources.Get "sass/case_study_styles.sass" | toCSS $cssOpts | minify | fingerprint }}
 <meta charset="utf-8">
 <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/png" href="{{ "images/favicon.png" | relURL }}">
-<link rel="stylesheet" type="text/css" href="/css/base_fonts.css">
-{{ if .Params.case_study_styles }}<link rel="stylesheet" type="text/css" href="{{ "css/case_study_styles.css" | relURL }}"><!-- custom case_study_styles on -->{{ else }}<link rel="stylesheet" type="text/css" href="{{ "css/styles.css" | relURL }}"><!-- default styles.css on -->{{ end }}
+<link rel="stylesheet" type="text/css" href="/css/base_fonts.css" integrity="{{ $styles.Data.Integrity }}">
+{{- if .Params.case_study_styles }}
+<link rel="stylesheet" type="text/css" href="{{ $caseStudyStyles.permalink }}" integrity="{{ $caseStudyStyles.Data.Integrity }}"><!-- custom case_study_styles on -->
+{{- else }}
+<link rel="stylesheet" type="text/css" href="{{ $styles.Permalink }}"><!-- default styles.css on -->
+{{- end }}
 <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 <link rel="stylesheet" type="text/css" href="{{ "css/callouts.css" | relURL }}">
