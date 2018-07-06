@@ -149,7 +149,7 @@ bootstrapping.  The user names and group can be used (and are used by `kubeadm`)
 to craft the appropriate authorization policies to support bootstrapping a
 cluster.
 
-Please see [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for in depth
+Please see [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) for in depth
 documentation on the Bootstrap Token authenticator and controllers along with
 how to manage these tokens with `kubeadm`.
 

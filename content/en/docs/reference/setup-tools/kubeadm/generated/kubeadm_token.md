@@ -20,7 +20,7 @@ What is a bootstrap token more exactly?
  - The name of the Secret must be named "bootstrap-token-(token-id)".
 
 You can read more about bootstrap tokens here:
-  https://kubernetes.io/docs/admin/bootstrap-tokens/
+  https://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/
 
 
 ```
