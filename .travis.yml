@@ -10,12 +10,11 @@ install:
 - cd $HOME/gopath/src/k8s.io/website
 
 # (1) Fetch dependencies for us to run the tests in test/examples_test.go
-- go get -t -v k8s.io/website/test
 - pushd $GOPATH/src/k8s.io && git clone https://github.com/kubernetes/kubernetes && popd
 - pushd $GOPATH/src/k8s.io/kubernetes && git checkout release-1.8 && popd
 - cp -L -R $GOPATH/src/k8s.io/kubernetes/vendor/ $GOPATH/src/
 - rm -r $GOPATH/src/k8s.io/kubernetes/vendor/
-
+- go get -t -v k8s.io/website/test
 script:
 - go test -v k8s.io/website/test
 - ./verify-docs-format.sh
