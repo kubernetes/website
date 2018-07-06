@@ -25,7 +25,7 @@ Before proceeding:
 - Note that `kubeadm upgrade` will not touch any of your workloads, only Kubernetes-internal components. As a best-practice you should back up what's important to you. For example, any app-level state, such as a database an app might depend on (like MySQL or MongoDB) must be backed up beforehand.
 
 {{< caution >}}
-**Caution:** All the containers will get restarted after the upgrade, due to container spec hash value gets changed.
+All the containers will get restarted after the upgrade, due to container spec hash value gets changed.
 {{< /caution >}}
 
 Also, note that only one minor version upgrade is supported. For example, you can only upgrade from 1.8 to 1.9, not from 1.7 to 1.9.
@@ -48,7 +48,7 @@ chmod a+rx /usr/bin/kubeadm
 ```
 
 {{< caution >}}
-**Caution:** Upgrading the `kubeadm` package on your system prior to upgrading the control plane causes a failed upgrade. 
+Upgrading the `kubeadm` package on your system prior to upgrading the control plane causes a failed upgrade. 
 Even though `kubeadm` ships in the Kubernetes repositories, it's important to install `kubeadm` manually. The kubeadm 
 team is working on fixing this limitation. 
 {{< /caution >}}

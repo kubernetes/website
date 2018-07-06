@@ -43,8 +43,11 @@ loop     loop
 rootfs   rootfs    
 tmpfs    tmpfs
 ```
-> **Note**: This listing is for the Amazon Web Services public cloud.
-> Different clouds may have different pool names.
+
+{{< note >}}
+This listing is for the Amazon Web Services public cloud. Different clouds may have
+different pool names.
+{{< /note >}}
 
 Add a storage pool to the ceph-osd charm by NAME,SIZE,COUNT:
 

@@ -295,7 +295,9 @@ INFO OpenShift file "foo-imagestream.yaml" created
 INFO OpenShift file "foo-buildconfig.yaml" created 
 ```
 
-**Note**: If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this Openshift issue: https://github.com/openshift/origin/issues/4518 .
+{{< note >}}
+If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this Openshift issue: https://github.com/openshift/origin/issues/4518 .
+{{< /note >}}
 
 ## `kompose up`
 
@@ -545,7 +547,9 @@ The currently supported options are:
 | kompose.service.type | nodeport / clusterip / loadbalancer |
 | kompose.service.expose| true / hostname |
 
-**Note**: `kompose.service.type` label should be defined with `ports` only, otherwise `kompose` will fail.
+{{< note >}}
+The `kompose.service.type` label should be defined with `ports` only, otherwise `kompose` will fail.
+{{< /note >}}
 
 ## Restart
 
@@ -558,7 +562,9 @@ If you want to create normal pods without controllers you can use `restart` cons
 | `on-failure`               | Pod               | `OnFailure`         |
 | `no`                       | Pod               | `Never`             |
 
-**Note**: controller object could be `deployment` or `replicationcontroller`, etc.
+{{< note >}}
+The controller object could be `deployment` or `replicationcontroller`, etc.
+{{< /note >}}
 
 For e.g. `pival` service will become pod down here. This container calculated value of `pi`.
 

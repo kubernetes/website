@@ -1276,7 +1276,7 @@ Its values are:
    [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
 
 {{< caution >}}
-**Caution:** `Bidirectional` mount propagation can be dangerous. It can damage
+`Bidirectional` mount propagation can be dangerous. It can damage
 the host operating system and therefore it is allowed only in privileged
 Containers. Familiarity with Linux kernel behavior is strongly recommended.
 In addition, any volume mounts created by Containers in Pods must be destroyed

@@ -542,7 +542,7 @@ applicable.
 * RBD (Ceph Block Device)
 
 {{< note >}}
-**Note**: Only FC and iSCSI volumes supported raw block volumes in Kubernetes 1.9.
+Only FC and iSCSI volumes supported raw block volumes in Kubernetes 1.9.
 Support for the additional plugins was added in 1.10.
 {{< /note >}}
 

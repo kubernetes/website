@@ -186,6 +186,7 @@ A list of Kubernetes-specific terms and words to be used consistently across the
 </table>
 
 ## Shortcodes
+
 Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create different rhetorical appeal levels. Our documentation supports three different shortcodes in this category: **Note:** {{</* note */>}}, **Caution:** {{</* caution */>}}, and **Warning:** {{</* warning */>}}.
 
 1. Surround the text with an opening and closing shortcode.
@@ -220,7 +221,7 @@ For example:
 The output is:
 
 {{< note >}}
-**Note:** You can _still_ use Markdown inside these callouts.
+You can _still_ use Markdown inside these callouts.
 {{< /note >}}
 
 ### Caution
@@ -231,7 +232,7 @@ For example:
 
 ```
 {{</* caution */>}}
-**Caution:** The callout style only applies to the line directly above the tag.
+The callout style only applies to the line directly above the tag.
 {{</* /caution */>}}
 ```
 

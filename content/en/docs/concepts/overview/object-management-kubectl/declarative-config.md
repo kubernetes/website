@@ -391,10 +391,9 @@ kubectl get -f <filename|url> -o yaml
 ## How apply calculates differences and merges changes
 
 {{< caution >}}
-**Caution:** A *patch* is an update operation that is scoped to specific
-fields of an object instead of the entire object.
-This enables updating only a specific set of fields on an object without
-reading the object first.
+A *patch* is an update operation that is scoped to specific fields of an object
+instead of the entire object. This enables updating only a specific set of fields
+on an object without reading the object first.
 {{< /caution >}}
 
 When `kubectl apply` updates the live configuration for an object,

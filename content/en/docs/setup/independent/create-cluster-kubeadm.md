@@ -226,7 +226,7 @@ created, and deleted with the `kubeadm token` command. See the
 ### Installing a pod network add-on {#pod-network}
 
 {{< caution >}}
-**Caution:** This section contains important information about installation and deployment order. Read it carefully before proceeding.
+This section contains important information about installation and deployment order. Read it carefully before proceeding.
 {{< /caution >}}
 
 You must install a pod network add-on so that your pods can communicate with

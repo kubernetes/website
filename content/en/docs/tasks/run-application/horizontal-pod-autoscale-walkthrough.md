@@ -131,9 +131,11 @@ NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 php-apache   7         7         7            7           19m
 ```
 
-**Note** Sometimes it may take a few minutes to stabilize the number of replicas.
-Since the amount of load is not controlled in any way it may happen that the final number of replicas will
-differ from this example.
+{{< note >}}
+It may take a few minutes to stabilize the number of replicas. Since the amount
+of load is not controlled in any way it may happen that the final number of replicas
+will differ from this example.
+{{< /note >}}
 
 ## Stop load
 
@@ -157,7 +159,7 @@ php-apache   1         1         1            1           27m
 Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas back down to 1.
 
 {{< note >}}
-**Note** autoscaling the replicas may take a few minutes.
+Autoscaling the replicas may take a few minutes.
 {{< /note >}}
 
 {{% /capture %}}

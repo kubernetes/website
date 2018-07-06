@@ -66,11 +66,11 @@ kube-apiserver --enable-admission-plugins=NamespaceLifecyle,LimitRanger ...
 ```
 
 {{< note >}}
-**Note**: Depending on the way your Kubernetes cluster is deployed and how the
-API server is started, you may need to apply the settings in different ways.
-For example, you may have to modify the systemd unit file if the API server is
-deployed as a systemd service, you may modify the manifest file for the API
-server if Kubernetes is deployed in a self-hosted way.
+Depending on the way your Kubernetes cluster is deployed and how the API server is
+started, you may need to apply the settings in different ways. For example, you may
+have to modify the systemd unit file if the API server is deployed as a systemd
+service, you may modify the manifest file for the API server if Kubernetes is deployed
+in a self-hosted way.
 {{< /note >}}
 
 ## How do I turn off an admission controller?

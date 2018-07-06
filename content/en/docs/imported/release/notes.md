@@ -54,7 +54,7 @@ filename | sha256 hash
 ## Urgent Upgrade Notes
 
 {{< caution >}}
-**Caution**: You **MUST** do this before you upgrade!
+You **MUST** do this before you upgrade!
 {{< /caution >}}
 
 Before upgrading to Kubernetes 1.11, you must keep the following in mind:

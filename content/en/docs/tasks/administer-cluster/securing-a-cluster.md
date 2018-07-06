@@ -165,10 +165,12 @@ credentials from the API servers to their etcd server, such as mutual auth via T
 and it is often recommended to isolate the etcd servers behind a firewall that only the API servers
 may access. 
 
-**CAUTION:** Allowing other components within the cluster to access the master etcd instance with
+{{< caution >}}
+Allowing other components within the cluster to access the master etcd instance with
 read or write access to the full keyspace is equivalent to granting cluster-admin access. Using
 separate etcd instances for non-master components or using etcd ACLs to restrict read and write
 access to a subset of the keyspace is strongly recommended.
+{{< /caution >}}
 
 ### Enable audit logging
 

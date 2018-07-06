@@ -654,7 +654,7 @@ the `dotfile-test-container` will have this file present at the path
 `/etc/secret-volume/.secret-file`.
 
 {{< note >}}
-**Note**: Files beginning with dot characters are hidden from the output of  `ls -l`;
+Files beginning with dot characters are hidden from the output of  `ls -l`;
 you must use `ls -la` to see them when listing directory contents.
 {{< /note >}}
 

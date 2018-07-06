@@ -92,8 +92,7 @@ following steps:
 ### Using kubeadm init with a configuration file {#config-file}
 
 {{< caution >}}
-**Caution:** The config file is
-still considered alpha and may change in future versions.
+The config file is still considered alpha and may change in future versions.
 {{< /caution >}}
 
 It's possible to configure `kubeadm init` with a configuration file instead of command
@@ -446,9 +445,8 @@ configured via the Kubernetes API instead of [static pods](/docs/tasks/administe
 configured in the kubelet via static files.
 
 {{< caution >}}
-**Caution:** Self-hosting is alpha, but is expected to become the default in
-a future version. To create a self-hosted cluster, pass the `--feature-gates=SelfHosting=true`
-flag to `kubeadm init`.
+Self-hosting is alpha, but is expected to become the default in a future version. To create a
+self-hosted cluster, pass the `--feature-gates=SelfHosting=true` flag to `kubeadm init`.
 {{< /caution >}}
 
 {{< warning >}}

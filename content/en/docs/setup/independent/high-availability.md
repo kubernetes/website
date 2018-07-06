@@ -21,9 +21,9 @@ with upgrading your clusters, for example. We encourage you to try either approa
 and provide feedback.
 
 {{< caution >}}
-**Caution**: This page does not address running your cluster on a cloud provider.
-In a cloud environment, neither approach documented here works with Service objects
-of type LoadBalancer, or with dynamic PersistentVolumes.
+This page does not address running your cluster on a cloud provider. In a cloud
+environment, neither approach documented here works with Service objects of type
+LoadBalancer, or with dynamic PersistentVolumes.
 {{< /caution >}}
 
 {{% /capture %}}
@@ -48,9 +48,8 @@ For the external etcd cluster only, you also need:
 - Three additional machines for etcd members
 
 {{< note >}}
-**Note**: The following examples run Calico as the Pod networking provider. If
-you run another networking provider, make sure to replace any default values as
-needed.
+The following examples run Calico as the Pod networking provider. If you run another
+networking provider, make sure to replace any default values as needed.
 {{< /note >}}
 
 {{% /capture %}}
@@ -60,8 +59,7 @@ needed.
 ## First steps for both methods
 
 {{< note >}}
-**Note**: All commands in this guide on any control plane or etcd node should be
-run as root.
+All commands in this guide on any control plane or etcd node should be run as root.
 {{< /note >}}
 
 - Find your pod CIDR. For details, see [the CNI network
@@ -101,9 +99,8 @@ run as root.
 ### Create load balancer for kube-apiserver
 
 {{< note >}}
-**Note**: There are many configurations for load balancers. The following
-example is only one option. Your cluster requirements may need a
-different configuration.
+There are many configurations for load balancers. The following example is only one
+option. Your cluster requirements may need a different configuration.
 {{< /note >}}
 
 1.  Create a kube-apiserver load balancer with a name that resolves to DNS.
@@ -214,7 +211,7 @@ done
 ```
 
 {{< note >}}
-**Note**: Remember that your config may differ from this example.
+Remember that your config may differ from this example.
 {{< /note >}}
 
 ### Add the second stacked control plane node
@@ -485,7 +482,7 @@ done
 ```
 
 {{< note >}}
-**Note**: Remember that your config may differ from this example.
+Remember that your config may differ from this example.
 {{< /note >}}
 
 ### Set up the other control plane nodes

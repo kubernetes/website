@@ -194,7 +194,9 @@ any                  | any          | any    | any         | [docs](http://docs.
 any                  | RKE          | multi-support    | flannel or canal         | [docs](https://rancher.com/docs/rancher/v2.x/en/quick-start-guide/)                                |  [Commercial](https://rancher.com/what-is-rancher/overview/) and [Community](https://github.com/rancher/rancher)
 any                  | [Gardener Cluster-Operator](https://kubernetes.io/blog/2018/05/17/gardener/) | multi-support | multi-support | [docs](https://gardener.cloud) | [Project/Community](https://github.com/gardener) and [Commercial]( https://cloudplatform.sap.com/)
 
-**Note**: The above table is ordered by version test/used in nodes, followed by support level.
+{{< note >}}
+The above table is ordered by version test/used in nodes, followed by support level.
+{{< /note >}}
 
 ## Definition of columns
 

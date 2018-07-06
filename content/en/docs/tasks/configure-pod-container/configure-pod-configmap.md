@@ -516,7 +516,7 @@ special.type
 ```
 
 {{< caution >}}
-**Caution:** If there are some files in the `/etc/config/` directory, they will be deleted.
+If there are some files in the `/etc/config/` directory, they will be deleted.
 {{< /caution >}}
 
 ### Add ConfigMap data to a specific path in the Volume

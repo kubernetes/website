@@ -216,10 +216,12 @@ If the node-level logging agent is not flexible enough for your situation, you
 can create a sidecar container with a separate logging agent that you have
 configured specifically to run with your application.
 
-**Note**: Using a logging agent in a sidecar container can lead
+{{< note >}}
+Using a logging agent in a sidecar container can lead
 to significant resource consumption. Moreover, you won't be able to access
 those logs using `kubectl logs` command, because they are not controlled
 by the kubelet.
+{{< /note >}}
 
 As an example, you could use [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/),
 which uses fluentd as a logging agent. Here are two configuration files that
@@ -228,9 +230,11 @@ a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to c
 
 {{< code file="fluentd-sidecar-config.yaml" >}}
 
-**Note**: The configuration of fluentd is beyond the scope of this article. For
+{{< note >}}
+The configuration of fluentd is beyond the scope of this article. For
 information about configuring fluentd, see the
 [official fluentd documentation](http://docs.fluentd.org/).
+{{< /note >}}
 
 The second file describes a pod that has a sidecar container running fluentd.
 The pod mounts a volume where fluentd can pick up its configuration data.

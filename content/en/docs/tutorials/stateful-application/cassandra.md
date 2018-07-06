@@ -47,13 +47,13 @@ To complete this tutorial, you should already have a basic familiarity with [Pod
 * Have a supported Kubernetes Cluster running
 
 {{< note >}}
-**Note:** Please read the [getting started guides](/docs/setup/pick-right-solution/) if you do not already have a cluster.
+Please read the [getting started guides](/docs/setup/pick-right-solution/) if you do not already have a cluster.
 {{< /note >}}
 
 ### Additional Minikube Setup Instructions
 
 {{< caution >}}
-**Caution:** [Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU which results in an insufficient resource errors during this tutorial. 
+*[Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU which results in an insufficient resource errors during this tutorial. 
 {{< /caution >}}
 
 To avoid these errors, run minikube with:

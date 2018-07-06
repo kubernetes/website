@@ -49,8 +49,8 @@ Each request can be recorded with an associated "stage". The known stages are:
 - `Panic` - Events generated when a panic occurred.
 
 {{< note >}}
-**Note** The audit logging feature increases the memory consumption of the API
-server because some context required for auditing is stored for each request.
+The audit logging feature increases the memory consumption of the API server
+because some context required for auditing is stored for each request.
 Additionally, memory consumption depends on the audit logging configuration.
 {{< /note >}}
 

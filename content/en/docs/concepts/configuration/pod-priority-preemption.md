@@ -68,7 +68,7 @@ is disabled, you cannot set `priorityClassName` in new Pods.
 ## How to disable preemption
 
 {{< note >}}
-**Note**: In Kubernetes 1.11, critical pods (except DaemonSet pods, which are
+In Kubernetes 1.11, critical pods (except DaemonSet pods, which are
 still scheduled by the DaemonSet controller) rely on scheduler preemption to be
 scheduled when a cluster is under resource pressure. For this reason, we do not
 recommend disabling this feature. If you still have to disable this feature,

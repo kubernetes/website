@@ -101,7 +101,7 @@ For example, consider key pairs `k8sclient.key` and `k8sclient.cert` that are tr
 Once etcd is configured correctly, only clients with valid certificates can access it. To give Kubernetes API server the access, configure it with the flags `--etcd-certfile=k8sclient.cert`,`--etcd-keyfile=k8sclient.key` and `--etcd-cafile=ca.cert`.
 
 {{< note >}}
-**Note**: etcd authentication is not currently supported by Kubernetes. For more information, see the related issue [Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398).
+etcd authentication is not currently supported by Kubernetes. For more information, see the related issue [Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398).
 {{< /note >}}
 
 ## Replacing a failed etcd member
@@ -260,7 +260,7 @@ but the rollback tool has these limitations:
 * Rollback doesn’t preserve resource versions of objects stored in etcd.
 
 {{< warning >}}
-**Warning**: If the data is not kept in `application/json` format (see [Upgrade
+If the data is not kept in `application/json` format (see [Upgrade
 Procedure](#upgrade-procedure)), you will lose the option to roll back to etcd
 2.2.
 {{< /warning >}}
@@ -272,7 +272,7 @@ resource versions. Since both the kubelet and kube-proxy use the watch API, a
 rollback might require restarting all Kubernetes components on all nodes.
 
 {{< note >}}
-**Note**: At the time of writing, both Kubelet and KubeProxy are using “resource
+At the time of writing, both Kubelet and KubeProxy are using “resource
 version” only for watching (i.e. are not using resource versions for anything
 else). And both are using reflector and/or informer frameworks for watching
 (i.e. they don’t send watch requests themselves). Both those frameworks if they

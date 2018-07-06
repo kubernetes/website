@@ -98,7 +98,7 @@ or more comments in the Kubernetes source code.
 ### Making changes to comments in the source code
 
 {{< note >}}
-**Note**: The following steps are an example, not a general procedure. Details 
+The following steps are an example, not a general procedure. Details 
 will be different in your situation.
 {{< /note >}}
 
@@ -184,7 +184,7 @@ to monitor your pull request until it has been merged.
 is an example of a pull request that fixes a typo in the Kubernetes source code.
 
 {{< note >}}
-**Note**: It can be tricky to determine the correct source file to be changed. In the
+It can be tricky to determine the correct source file to be changed. In the
 preceding example, the authoritative source file is under the `staging` directory
 in the `kubernetes/kubernetes` repository. But in your situation,the `staging` directory
 might not be the place to find the authoritative source. For guidance, check the

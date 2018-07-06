@@ -124,7 +124,7 @@ subsets:
 ```
 
 {{< note >}}
-**NOTE** The endpoint IPs may not be loopback (127.0.0.0/8), link-local
+The endpoint IPs may not be loopback (127.0.0.0/8), link-local
 (169.254.0.0/16), or link-local multicast (224.0.0.0/24). They cannot be the
 cluster IPs of other Kubernetes services either because the `kube-proxy`
 component doesn't support virtual IPs as destination yet.

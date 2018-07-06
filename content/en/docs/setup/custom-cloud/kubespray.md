@@ -95,7 +95,7 @@ Check out planned work on Kubespray's [roadmap](https://github.com/kubernetes-in
 You can reset your nodes and wipe out all components installed with Kubespray via the [reset playbook](https://github.com/kubernetes-incubator/kubespray/blob/master/reset.yml).
 
 {{< caution >}}
-**Caution:** When running the reset playbook, be sure not to accidentally target your production cluster!
+When running the reset playbook, be sure not to accidentally target your production cluster!
 {{< /caution >}}
 
 ## Feedback

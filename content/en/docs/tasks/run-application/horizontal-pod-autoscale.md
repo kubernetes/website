@@ -130,11 +130,11 @@ the global HPA settings exposed as flags for the `kube-controller-manager` compo
   The default value is 3 minutes (`3m0s`).
 
 {{< note >}}
-**Note**: When tuning these parameter values, a cluster operator should be aware of
-the possible consequences. If the delay (cooldown) value is set too long, there
-could be complaints that the Horizontal Pod Autoscaler is not responsive to workload
-changes. However, if the delay value is set too short, the scale of the replicas set
-may keep thrashing as usual.
+When tuning these parameter values, a cluster operator should be aware of the possible
+consequences. If the delay (cooldown) value is set too long, there could be complaints
+that the Horizontal Pod Autoscaler is not responsive to workload changes. However, if
+the delay value is set too short, the scale of the replicas set may keep thrashing as
+usual.
 {{< /note >}}
 
 ## Support for multiple metrics
@@ -146,10 +146,12 @@ proposed scales will be used as the new scale.
 
 ## Support for custom metrics
 
-**Note**: Kubernetes 1.2 added alpha support for scaling based on application-specific metrics using special annotations.
+{{< note >}}
+Kubernetes 1.2 added alpha support for scaling based on application-specific metrics using special annotations.
 Support for these annotations was removed in Kubernetes 1.6 in favor of the new autoscaling API.  While the old method for collecting
 custom metrics is still available, these metrics will not be available for use by the Horizontal Pod Autoscaler, and the former
 annotations for specifying which custom metrics to scale on are no longer honored by the Horizontal Pod Autoscaler controller.
+{{< /note >}}
 
 Kubernetes 1.6 adds support for making use of custom metrics in the Horizontal Pod Autoscaler.
 You can add custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2beta1` API.
